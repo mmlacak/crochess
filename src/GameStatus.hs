@@ -37,6 +37,9 @@ nextGameStatus LightOnMove = DarkOnMove
 nextGameStatus DarkOnMove = LightOnMove
 nextGameStatus gs = gs
 
+reverseOnMove :: GameStatus -> GameStatus
+reverseOnMove = nextGameStatus
+
 gameStatusString :: GameStatus -> String
 gameStatusString gs =  D.findByKey gs dict_
     where dict_ = [ ( None, "None" ),

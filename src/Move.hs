@@ -14,10 +14,12 @@ data SideEffectType = NoSideEffect
                     | Conversion
                     | Capture
                     | EnPassant
-                    | Teleportation
+                    | TeleportationOwn
+                    | TeleportationOpponent
                     | KingSidedCastling
                     | QueenSidedCastling
-                    | Summoning
+                    | SummoningOwn
+                    | SummoningOpponent
     deriving (Show, Read, Eq, Bounded, Ord, Enum)
 
 data ConditionType  = NoCondition

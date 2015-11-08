@@ -11,6 +11,7 @@ import qualified Text.Parsec.String as TPS
 import Text.Parsec ( (<|>), (<?>) )
 
 import qualified Common as C
+import qualified PieceType as PT
 import qualified BoardType as BT
 import qualified Board as B
 import qualified Position as Pos
@@ -31,6 +32,9 @@ move = do
 plies :: TP.Parsec String (C.LazyBox R.Rules) [M.Ply]
 plies = TP.sepBy1 ply (TPC.char '~')
 
+
+-- Ply
+
 ply :: TP.Parsec String (C.LazyBox R.Rules) M.Ply
 ply = do
     TP.optional (TPC.char '[')
@@ -39,6 +43,7 @@ ply = do
                           (TP.try plyShortAlgDisambiguingCol) <|> 
                           (TP.try plyShortAlgDisambiguingRow) <|> 
                           plyShortAlg
+    se <- (TP.try sideEffect)
     TP.optional (TPC.char ']')
 
     lb <- TP.getState
@@ -47,7 +52,7 @@ ply = do
     let ply_ = M.Ply { M.piece=piece_,
                        M.start=startPos,
                        M.end=endPos,
-                       M.sideEffect=M.dummySideEffect } -- TODO :: handle sideEffect
+                       M.sideEffect=se }
     return ply_
 
 plyShortAlg :: TP.Parsec String (C.LazyBox R.Rules) (Pos.Position, Pos.Position)
@@ -105,6 +110,9 @@ parseMove s r = move_
           move_ = case m_ of Right move -> move
                              Left errorMsg -> M.dummyMove
 
+
+-- Condition
+
 condition :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
 condition = do
     cond <- (TP.try condDoubleCheck) <|> 
@@ -115,22 +123,180 @@ condition = do
 
 condCheck :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
 condCheck = do
-    dc <- (TPC.char '+')
+    _dc <- (TPC.char '+')
     return M.Check
 
 condDoubleCheck :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
 condDoubleCheck = do
-    dc <- (TPC.char '+')
-    dc2 <- (TPC.char '+')
+    _dc <- (TPC.char '+')
+    _dc2 <- (TPC.char '+')
     return M.DoubleCheck
 
 condCheckMate :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
 condCheckMate = do
-    dc <- (TPC.char '#')
+    _dc <- (TPC.char '#')
     return M.CheckMate
 
 condNoCondition :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
 condNoCondition = return M.NoCondition
+
+
+-- Side effect
+
+sideEffect :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+sideEffect = do
+    se_ <- (TP.try sePromotion) <|> 
+           (TP.try seConversion) <|> 
+           (TP.try seCapture) <|> 
+           (TP.try seEnPassant) <|> 
+           (TP.try seTeleportationOwn) <|> 
+           (TP.try seTeleportationOpponent) <|> 
+           (TP.try seKingSidedCastling) <|> 
+           (TP.try seQueenSidedCastling) <|> 
+           (TP.try seSummoningOwn) <|> 
+           (TP.try seSummoningOpponent) <|> 
+           seNoSideEffect
+    return se_
+
+seNoSideEffect :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seNoSideEffect = return M.dummySideEffect
+
+sePromotion :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+sePromotion = do
+    _se <- (TPC.char '=')
+    piece <- TP.option ' ' TPC.upper
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.pieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let se_ = M.SideEffect { M.seType=M.Promotion,
+                             M.sePiece=piece_,
+                             M.sePosition=Pos.dummyPosition }
+    return se_
+
+seConversion :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seConversion = do
+    _se <- (TPC.char '%')
+    piece <- TP.option ' ' TPC.upper
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.pieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let se_ = M.SideEffect { M.seType=M.Conversion,
+                             M.sePiece=piece_,
+                             M.sePosition=Pos.dummyPosition }
+    return se_
+
+seCapture :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seCapture = do
+    _se <- (TPC.char '%')
+    piece <- TP.option ' ' TPC.upper
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.opponentPieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let se_ = M.SideEffect { M.seType=M.Capture,
+                             M.sePiece=piece_,
+                             M.sePosition=Pos.dummyPosition }
+    return se_
+
+seEnPassant :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seEnPassant = do
+    _se <- (TPC.char ':')
+    piece <- TP.option ' ' TPC.upper
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.opponentPieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let se_ = M.SideEffect { M.seType=M.EnPassant,
+                             M.sePiece=piece_,
+                             M.sePosition=Pos.dummyPosition }
+    return se_
+
+seTeleportationOwn :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seTeleportationOwn = do
+    _se <- (TPC.char '*')
+    piece <- TP.option ' ' TPC.upper
+    endCol <- TPC.lower
+    endRow <- TP.many1 TPC.digit
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.pieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let pos_ = position endCol endRow lb
+    let se_ = M.SideEffect { M.seType=M.TeleportationOwn,
+                             M.sePiece=piece_,
+                             M.sePosition=pos_ }
+    return se_
+
+seTeleportationOpponent :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seTeleportationOpponent = do
+    _se <- (TPC.char '/')
+    piece <- TP.option ' ' TPC.upper
+    endCol <- TPC.lower
+    endRow <- TP.many1 TPC.digit
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.opponentPieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let pos_ = position endCol endRow lb
+    let se_ = M.SideEffect { M.seType=M.TeleportationOpponent,
+                             M.sePiece=piece_,
+                             M.sePosition=pos_ }
+    return se_
+
+seKingSidedCastling :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seKingSidedCastling = do
+    _se <- (TPC.char '$')
+    piece <- TP.option 'R' (TPC.char 'R')
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.pieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let se_ = M.SideEffect { M.seType=M.KingSidedCastling,
+                             M.sePiece=piece_,
+                             M.sePosition=Pos.dummyPosition }
+    return se_
+
+seQueenSidedCastling :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seQueenSidedCastling = do
+    _se <- (TPC.char '&')
+    piece <- TP.option 'R' (TPC.char 'R')
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.pieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let se_ = M.SideEffect { M.seType=M.QueenSidedCastling,
+                             M.sePiece=piece_,
+                             M.sePosition=Pos.dummyPosition }
+    return se_
+
+seSummoningOwn :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seSummoningOwn = do
+    _se <- (TPC.char '<')
+    piece <- TP.option ' ' TPC.upper
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.pieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let se_ = M.SideEffect { M.seType=M.SummoningOwn,
+                             M.sePiece=piece_,
+                             M.sePosition=Pos.dummyPosition }
+    return se_
+
+seSummoningOpponent :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
+seSummoningOpponent = do
+    _se <- (TPC.char '>')
+    piece <- TP.option ' ' TPC.upper
+
+    lb <- TP.getState
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
+    let piece_ = PP.opponentPieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    let se_ = M.SideEffect { M.seType=M.SummoningOpponent,
+                             M.sePiece=piece_,
+                             M.sePosition=Pos.dummyPosition }
+    return se_
+
 
 -- parseMove :: String -> Either TP.ParseError M.Move
 -- parseMove s = TP.parse move "fail" s

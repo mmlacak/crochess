@@ -173,3 +173,7 @@ pieceByConsoleChar c gameStatus | D.isKeyInDict c dict_ = D.findByKey c dict_
                                      GS.DarkOnMove  -> dark_
                                      _              -> []
 
+opponentPieceByConsoleChar :: Char -> GS.GameStatus -> PT.PieceType
+opponentPieceByConsoleChar c gs = pieceByConsoleChar c $ GS.reverseOnMove gs
+
+
