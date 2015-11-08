@@ -1,6 +1,6 @@
 
 -- Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com
--- All rights reserved. See accompanying LICENSE.txt for details.
+-- See accompanying LICENSE.txt for details.
 
 module ParseMove
 where
@@ -24,8 +24,9 @@ import qualified Rules as R
 move :: TP.Parsec String (C.LazyBox R.Rules) M.Move
 move = do
     pls <- plies
+    cond <- condition 
     return M.Move { M.plies=pls,
-                    M.condition=M.NoCondition } -- TODO :: handle condition
+                    M.condition=cond }
 
 plies :: TP.Parsec String (C.LazyBox R.Rules) [M.Ply]
 plies = TP.sepBy1 ply (TPC.char '~')
@@ -103,6 +104,33 @@ parseMove s r = move_
           lb_ = C.LazyBox r
           move_ = case m_ of Right move -> move
                              Left errorMsg -> M.dummyMove
+
+condition :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
+condition = do
+    cond <- (TP.try condDoubleCheck) <|> 
+            (TP.try condCheckMate) <|> 
+            (TP.try condCheck) <|> 
+            condNoCondition
+    return cond
+
+condCheck :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
+condCheck = do
+    dc <- (TPC.char '+')
+    return M.Check
+
+condDoubleCheck :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
+condDoubleCheck = do
+    dc <- (TPC.char '+')
+    dc2 <- (TPC.char '+')
+    return M.DoubleCheck
+
+condCheckMate :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
+condCheckMate = do
+    dc <- (TPC.char '#')
+    return M.CheckMate
+
+condNoCondition :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
+condNoCondition = return M.NoCondition
 
 -- parseMove :: String -> Either TP.ParseError M.Move
 -- parseMove s = TP.parse move "fail" s
