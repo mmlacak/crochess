@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+# Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com
+# All rights reserved. See accompanying LICENSE.txt for details.
+
+
+cd src
+
+# rm -rf *.hi
+# rm -rf *.o
+# rm -rf crochess2
+
+ghc -O3 -threaded Main.hs -o crochess2
+
+ls -Fal --color=auto
+
+cd ..
+
