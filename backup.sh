@@ -5,13 +5,13 @@
 
 
 cd ..
-rm -rf crochess2.zip
+rm -rf crochess.zip
 
 echo
-zip -rTv9 crochess2.zip crochess2/src -xcrochess2/src/\*.o -xcrochess2/src/\*.hi -xcrochess2/src/crochess\*
+zip -rTv9 crochess.zip crochess/src -xcrochess/src/\*.o -xcrochess/src/\*.hi -xcrochess/src/crochess\*
 echo
 
 ls -Fal --color=auto 
 echo
-cd crochess2
+cd crochess
 

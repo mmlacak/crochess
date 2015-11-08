@@ -8,9 +8,9 @@ cd src
 
 # rm -rf *.hi
 # rm -rf *.o
-# rm -rf crochess2
+# rm -rf crochess*
 
-ghc -O3 -threaded Main.hs -o crochess2
+ghc -O3 -threaded Main.hs -o crochess
 
 ls -Fal --color=auto
 
