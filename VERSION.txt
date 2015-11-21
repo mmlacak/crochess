@@ -1,0 +1,16 @@
+Croatian chess - console application
+Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com
+See accompanying LICENSE.txt for details.
+
+2015-11-21: ver. 0.0.0.0
+Initial public hosting, more for backup than for public useage. 
+
+Beyond very basic infrastructure not much has been done. I plan to start writing 
+3rd edition of book, and then continue writing app and book in paralel, so the 2 
+are in sync.
+
+As for book, I'm leaving ODT and LibreOffice behind, and starting anew with (La)TEH. 
+Another new is usage of SVG for graphics. This will also require Python script for 
+generating SVGs and maybe another one for converting SVGs into format recognized by 
+(La)TEH, most likely PNG.
+
