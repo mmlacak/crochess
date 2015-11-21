@@ -9,8 +9,8 @@ Beyond very basic infrastructure not much has been done. I plan to start writing
 3rd edition of book, and then continue writing app and book in paralel, so the 2 
 are in sync.
 
-As for book, I'm leaving ODT and LibreOffice behind, and starting anew with (La)TEH. 
+As for book, I'm leaving ODT and LibreOffice behind, and starting anew with LaTeX. 
 Another new is usage of SVG for graphics. This will also require Python script for 
 generating SVGs and maybe another one for converting SVGs into format recognized by 
-(La)TEH, most likely PNG.
+LaTeX, most likely PNG.
 
