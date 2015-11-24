@@ -1,6 +1,6 @@
 
 -- Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com
--- See accompanying LICENSE.txt for details.
+-- Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 module Main
 where
@@ -38,7 +38,7 @@ loop game = do
     else if cmd_ `elem` ["h", "help"] then do
         putStrLn  " Croatian chess - console application \n\
                   \ Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com. \n\
-                  \ All rights reserved. See accompanying LICENSE.txt for details. \n\
+                  \ Licensed under 3-clause (modified) BSD license. Use a(bout) command for details. \n\
                   \ \n\
                   \ Based on book 'Croatian chess and other variants' \n\
                   \ by Mario Mlačak, ISBN 978-953-55929-2-1 \n\
@@ -46,6 +46,7 @@ loop game = do
                   \ Commands: \n\
                   \ h, help       - prints this screen \n\
                   \ a, about      - prints about info \n\
+                  \ v, version    - prints version(s) info \n\
                   \ q, quit       - quits program \n\
                   \ d, display    - display current positions \n\
                   \ * i, info     - display list of all moves played, time \n\
@@ -92,7 +93,7 @@ loop game = do
     else if cmd_ `elem` ["a", "about"] then do
         putStrLn  " Croatian chess - console application \n\
                   \ Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com. \n\
-                  \ All rights reserved. See accompanying LICENSE.txt for details. \n\
+                  \ All rights reserved. \n\
                   \ \n\
                   \ Redistribution and use in source and binary forms, with or without \n\
                   \ modification, are permitted provided that the following conditions \n\
@@ -120,6 +121,14 @@ loop game = do
                   \ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT \n\
                   \ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE \n\
                   \ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. \n"
+        loop game
+    else if cmd_ `elem` ["v", "version"] then do
+        putStrLn  " Croatian chess - console application \n\
+                  \ Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com. \n\
+                  \ Licensed under 3-clause (modified) BSD license. Use a(bout) command for details. \n\
+                  \ \n\
+                  \ 2015-11-21: ver. 0.0.0.0 \n\
+                  \ Initial public hosting, more for backup than for public useage. \n"
         loop game
     else if cmd_ `elem` ["d", "display"] then do
         putStrLn $ CO.gameString game
