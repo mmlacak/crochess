@@ -189,7 +189,7 @@ seConversion = do
 
 seCapture :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
 seCapture = do
-    _se <- (TPC.char '%')
+    _se <- (TPC.char '/')
     piece <- TP.option ' ' TPC.upper
 
     lb <- TP.getState

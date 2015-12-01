@@ -8,7 +8,8 @@ cd ..
 rm -rf crochess.zip
 
 echo
-zip -rTv9 crochess.zip crochess/src crochess/*.txt crochess/*.sh -xcrochess/src/\*.o -xcrochess/src/\*.hi -xcrochess/src/crochess\*
+# zip -rTv9 crochess.zip crochess/src crochess/*.txt crochess/*.sh -xcrochess/src/\*.o -xcrochess/src/\*.hi -xcrochess/src/crochess\*
+zip -rTv9 crochess.zip crochess/src/*.hs crochess/*.txt crochess/*.sh
 echo
 
 ls -Fal --color=auto 
