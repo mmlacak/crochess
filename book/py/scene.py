@@ -12,41 +12,61 @@ class Scene(object):
     def __init__(self, board=None):
         self.board = board
 
-    def intro_wave(self, bt):
-        self.board = Board(bt, 4, 4)
+#     def intro_wave(self, bt):
+#         self.board = Board(bt, 4, 4)
+#         self.board.clear()
+#
+#         self.board.set_pieces([(1, 1, PieceType(PieceType.Wave)),
+#                                (2, 1, PieceType(PieceType.Wave)),
+#                                (1, 2, PieceType(-PieceType.Wave)),
+#                                (2, 2, PieceType(-PieceType.Wave))])
+
+#     def intro_shaman(self, bt):
+#         self.board = Board(bt, 4, 4)
+#         self.board.clear()
+#
+#         self.board.set_pieces([(1, 1, PieceType(PieceType.Shaman)),
+#                                (2, 1, PieceType(PieceType.Shaman)),
+#                                (1, 2, PieceType(-PieceType.Shaman)),
+#                                (2, 2, PieceType(-PieceType.Shaman))])
+
+#     def intro_monolith(self, bt):
+#         self.board = Board(bt, 4, 4)
+#         self.board.clear()
+#
+#         self.board.set_pieces([(1, 1, PieceType(PieceType.Monolith)),
+#                                (2, 1, PieceType(PieceType.Monolith)),
+#                                (1, 2, PieceType(-PieceType.Monolith)),
+#                                (2, 2, PieceType(-PieceType.Monolith))])
+
+#     def intro_starchild(self, bt):
+#         self.board = Board(bt, 4, 4)
+#         self.board.clear()
+#
+#         self.board.set_pieces([(1, 1, PieceType(PieceType.Starchild)),
+#                                (2, 1, PieceType(PieceType.Starchild)),
+#                                (1, 2, PieceType(-PieceType.Starchild)),
+#                                (2, 2, PieceType(-PieceType.Starchild))])
+
+    def intro_piece(self, bt, piece_type=None):
+        # self.board = Board(bt, 4, 4)
+        self.board = Board(bt, 2, 2)
         self.board.clear()
 
-        self.board.set_pieces([(1, 1, PieceType(PieceType.Wave)),
-                               (2, 1, PieceType(PieceType.Wave)),
-                               (1, 2, PieceType(-PieceType.Wave)),
-                               (2, 2, PieceType(-PieceType.Wave))])
+        piece_type = piece_type or bt.get_newly_introduced_piece()
+        if piece_type is None:
+            return None
 
-    def intro_shaman(self, bt):
-        self.board = Board(bt, 4, 4)
-        self.board.clear()
+        # self.board.set_pieces([(1, 1, PieceType(piece_type)),
+        #                        (2, 1, PieceType(piece_type)),
+        #                        (1, 2, PieceType(-piece_type)),
+        #                        (2, 2, PieceType(-piece_type))])
+        self.board.set_pieces([(0, 0, PieceType(piece_type)),
+                               (1, 0, PieceType(piece_type)),
+                               (0, 1, PieceType(-piece_type)),
+                               (1, 1, PieceType(-piece_type))])
 
-        self.board.set_pieces([(1, 1, PieceType(PieceType.Shaman)),
-                               (2, 1, PieceType(PieceType.Shaman)),
-                               (1, 2, PieceType(-PieceType.Shaman)),
-                               (2, 2, PieceType(-PieceType.Shaman))])
-
-    def intro_monolith(self, bt):
-        self.board = Board(bt, 4, 4)
-        self.board.clear()
-
-        self.board.set_pieces([(1, 1, PieceType(PieceType.Monolith)),
-                               (2, 1, PieceType(PieceType.Monolith)),
-                               (1, 2, PieceType(-PieceType.Monolith)),
-                               (2, 2, PieceType(-PieceType.Monolith))])
-
-    def intro_starchild(self, bt):
-        self.board = Board(bt, 4, 4)
-        self.board.clear()
-
-        self.board.set_pieces([(1, 1, PieceType(PieceType.Starchild)),
-                               (2, 1, PieceType(PieceType.Starchild)),
-                               (1, 2, PieceType(-PieceType.Starchild)),
-                               (2, 2, PieceType(-PieceType.Starchild))])
+        return piece_type
 
     def move_shaman(self, bt):
         self.board = Board(bt, 11, 11)

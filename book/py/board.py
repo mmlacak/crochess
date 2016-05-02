@@ -97,6 +97,51 @@ class BoardType(int):
                  BoardType.OddOne: 25,
                  BoardType.One: 26 }[self]
 
+    def get_newly_introduced_piece(self):
+        return { BoardType.none: None,
+                 BoardType.OddClassical: None,
+                 BoardType.Classical: None,
+                 BoardType.OddCroatianTies: PieceType.Pegasus,
+                 BoardType.CroatianTies: PieceType.Pegasus,
+                 BoardType.OddMayanAscendancy: PieceType.Pyramid,
+                 BoardType.MayanAscendancy: PieceType.Pyramid,
+                 BoardType.OddAgeOfAquarius: PieceType.Unicorn,
+                 BoardType.AgeOfAquarius: PieceType.Unicorn,
+                 BoardType.OddMirandasVeil: PieceType.Wave,
+                 BoardType.MirandasVeil: PieceType.Wave,
+                 BoardType.OddNineteen: PieceType.Star,
+                 BoardType.Nineteen: PieceType.Star,
+                 BoardType.OddHemerasDawn: PieceType.Centaur,
+                 BoardType.HemerasDawn: PieceType.Centaur,
+                 BoardType.OddTamoanchanRevisited: PieceType.Serpent,
+                 BoardType.TamoanchanRevisited: PieceType.Serpent,
+                 BoardType.OddConquestOfTlalocan: PieceType.Shaman,
+                 BoardType.ConquestOfTlalocan: PieceType.Shaman,
+                 BoardType.OddDiscovery: PieceType.Monolith,
+                 BoardType.Discovery: PieceType.Monolith,
+                 BoardType.OddOne: PieceType.Starchild,
+                 BoardType.One: PieceType.Starchild }[self]
+
+    def get_newly_introducing_board_types(self, piece_type):
+        return { PieceType.none: None,
+                 PieceType.Pawn: None,
+                 PieceType.Bishop: None,
+                 PieceType.Knight: None,
+                 PieceType.Rook: None,
+                 PieceType.Queen: None,
+                 PieceType.King: None,
+                 PieceType.Pegasus: [BoardType.OddCroatianTies, BoardType.CroatianTies],
+                 PieceType.Pyramid: [BoardType.OddMayanAscendancy, BoardType.MayanAscendancy],
+                 PieceType.Unicorn: [BoardType.OddAgeOfAquarius, BoardType.AgeOfAquarius],
+                 PieceType.Wave: [BoardType.OddMirandasVeil, BoardType.MirandasVeil],
+                 PieceType.Star: [BoardType.OddNineteen, BoardType.Nineteen],
+                 PieceType.Centaur: [BoardType.OddHemerasDawn, BoardType.HemerasDawn],
+                 PieceType.Serpent: [BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited],
+                 PieceType.Shaman: [BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan],
+                 PieceType.Monolith: [BoardType.OddDiscovery, BoardType.Discovery],
+                 PieceType.Starchild: [BoardType.OddOne, BoardType.One] }[piece_type.get_enumerated()]
+
+
 class Board(object):
     def __init__(self, type, width=None, height=None):
         self.type = type

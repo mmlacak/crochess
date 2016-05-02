@@ -24,9 +24,9 @@ import debug_
 class GfxRender(object):
 
     DEFAULT_BOARD_RENDERING_SIZE = 6000
-    DEFAULT_PIECE_2_x_2_RENDERING_SIZE = 2000
+    DEFAULT_PIECE_2x2_RENDERING_SIZE = 2000
     DEFAULT_BOARD_LINE_WIDTH = 7
-    DEFAULT_PATH = '../gfx/'
+    DEFAULT_PATH = '../tmp/' # '../gfx/'
     DEFAULT_FILE_EXT = '.png'
     DEFAULT_FILE_TYPE = 'png'
 
@@ -39,6 +39,21 @@ class GfxRender(object):
             file_path = self.get_board_file_path()
             print file_path
             self.save_board_image(file_path)
+        print "Finished."
+
+    def render_all_newly_introduced_pieces(self):
+        print
+        for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
+            # Upper limit is not included in loop.
+            # Step is 2 because there is no need to generate odd variants.
+            pt = self.init_intro_piece_scene(bt)
+            if pt is not None:
+                file_path = self.get_piece_file_path(pt)
+                print file_path
+                self.save_board_image(file_path, \
+                                      is_game_or_scene=False, \
+                                      size_x=GfxRender.DEFAULT_PIECE_2x2_RENDERING_SIZE, \
+                                      size_y=GfxRender.DEFAULT_PIECE_2x2_RENDERING_SIZE)
         print "Finished."
 
     def init_game(self, board_type_value=BoardType.One, board_type_value_2=BoardType.One):
@@ -57,12 +72,27 @@ class GfxRender(object):
         sanitize = name.replace('\'', '_').replace(' ', '_').lower()
         return '%s%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
 
+    def get_piece_file_path(self, piece_type, path_prefix=None, file_ext=None):
+        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
+        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+
+        pt = PieceType(piece_type)
+        index = int(pt)
+        name = pt.get_name()
+        sanitize = name.replace('\'', '_').replace(' ', '_').lower()
+        return '%s%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
+
+    def init_intro_piece_scene(self, board_type_value=BoardType.One, piece_type=None):
+        bt = BoardType(board_type_value)
+        self.scene = Scene(None)
+        return self.scene.intro_piece(bt, piece_type=piece_type)
+
     def init_scene(self, board_type_value=BoardType.One):
         bt = BoardType(board_type_value) # BoardType.ConquestOfTlalocan)
         self.scene = Scene(None)
         self.scene.move_shaman_2(bt)
 
-    def save_board_image(self, file_path, size_x=None, size_y=None, line_width=None, file_type=None):
+    def save_board_image(self, file_path, is_game_or_scene=True, size_x=None, size_y=None, line_width=None, file_type=None):
         size_x = size_x or GfxRender.DEFAULT_BOARD_RENDERING_SIZE
         size_y = size_y or GfxRender.DEFAULT_BOARD_RENDERING_SIZE
         line_width = line_width or GfxRender.DEFAULT_BOARD_LINE_WIDTH
@@ -76,9 +106,14 @@ class GfxRender(object):
         gc.set_line_attributes(line_width, gtk.gdk.LINE_SOLID, gtk.gdk.CAP_ROUND, gtk.gdk.JOIN_ROUND)
         cm = gc.get_colormap()
 
-        painter = BoardPainter(drawable, self.game.rules.board)
-        pc = PainterContext(gc, self.game.rules.board, False) # True # False
-        pc.cc = pc.get_color_context(self.game.rules.board.type)
+        # painter = BoardPainter(drawable, self.game.rules.board)
+        # pc = PainterContext(gc, self.game.rules.board, False) # True # False
+        # pc.cc = pc.get_color_context(self.game.rules.board.type)
+
+        board = self.game.rules.board if is_game_or_scene else self.scene.board
+        painter = BoardPainter(drawable, board)
+        pc = PainterContext(gc, board, False) # True # False
+        pc.cc = pc.get_color_context(board.type)
 
         painter.clear_area()
         painter.draw_board(pc)
