@@ -8,8 +8,9 @@ rm -rf src/*.hi
 rm -rf src/*.o
 rm -rf src/crochess*
 
+rm -rf book/py/*.pyc
+rm -rf book/py/*.pyo
+
 # ghc -O3 -threaded Main.hs -o crochess
 
 ls -Fal --color=auto src/
-
-
