@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
@@ -15,4 +15,3 @@ ghc -O3 -threaded Main.hs -o crochess
 ls -Fal --color=auto
 
 cd ..
-

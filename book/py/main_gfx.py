@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2010, .. 2016 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 import pygtk
@@ -41,7 +41,8 @@ class CroChess(object):
 
         render = GfxRender()
         # render.render_all_boards()
-        render.render_all_newly_introduced_pieces()
+        # render.render_all_newly_introduced_pieces()
+        render.render_all_example_scenes()
 
     def delete_event(self, widget, event, data=None):
         gtk.main_quit()

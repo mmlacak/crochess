@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2010, .. 2016 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 import pygtk
@@ -24,6 +24,7 @@ import debug_
 class GfxRender(object):
 
     DEFAULT_BOARD_RENDERING_SIZE = 6000
+    DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 10000
     DEFAULT_PIECE_2x2_RENDERING_SIZE = 2000
     DEFAULT_BOARD_LINE_WIDTH = 7
     DEFAULT_PATH = '../tmp/' # '../gfx/'
@@ -56,6 +57,20 @@ class GfxRender(object):
                                       size_y=GfxRender.DEFAULT_PIECE_2x2_RENDERING_SIZE)
         print "Finished."
 
+    def render_all_example_scenes(self):
+        print
+        self.scene = Scene(None)
+        for index, func in enumerate(self.scene.get_example_scene_functions()):
+            name = func()
+            file_path = self.get_scene_file_path(index+1, name)
+            print file_path
+            size_x, size_y = self.get_scene_image_size()
+            self.save_board_image(file_path, \
+                                  is_game_or_scene=False, \
+                                  size_x=size_x, \
+                                  size_y=size_y)
+        print "Finished."
+
     def init_game(self, board_type_value=BoardType.One, board_type_value_2=BoardType.One):
         bt = BoardType(board_type_value)
         self.game = Game(Rules(Board(bt)))
@@ -81,6 +96,28 @@ class GfxRender(object):
         name = pt.get_name()
         sanitize = name.replace('\'', '_').replace(' ', '_').lower()
         return '%s%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
+
+    def get_scene_file_path(self, index, file_name, path_prefix=None, file_ext=None):
+        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
+        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+
+        return '%s%02d_%s%s' % (path_prefix, index, file_name, file_ext)
+
+    def get_scene_image_size(self):
+        board = self.scene.board
+        width = board.get_width()
+        height = board.get_height()
+
+        horizontal_dpi = GfxRender.DEFAULT_BOARD_RENDERING_SIZE // width
+        vertical_pixel_size = height * horizontal_dpi
+
+        if vertical_pixel_size < GfxRender.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE:
+            return (GfxRender.DEFAULT_BOARD_RENDERING_SIZE, vertical_pixel_size)
+        else:
+            vertical_dpi = GfxRender.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE // height
+            horizontal_pixel_size = width * vertical_dpi
+
+            return (horizontal_pixel_size, GfxRender.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE)
 
     def init_intro_piece_scene(self, board_type_value=BoardType.One, piece_type=None):
         bt = BoardType(board_type_value)
