@@ -4,15 +4,18 @@
 # Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+
 from piece import PieceType
 from board import BoardType
 from board import Board
+
 
 class Scene(object):
     def __init__(self, board=None):
         self.board = board
 
     def intro_piece(self, bt, piece_type=None):
+        bt = BoardType(bt)
         self.board = Board(bt, 2, 2)
         self.board.clear()
 
@@ -26,6 +29,27 @@ class Scene(object):
                                (1, 1, PieceType(-piece_type))])
 
         return piece_type
+
+    def intro_en_passant(self, bt):
+        bt = BoardType(bt)
+
+# TODO :: intro_en_passant
+
+        return bt
+
+    def intro_castling(self, bt):
+        bt = BoardType(bt)
+        self.board = Board(bt, bt.get_size(), 1)
+        self.board.clear()
+
+        pos_king_h = bt.get_size() // 2
+        offset = 1 if bt.does_contain(PieceType.Star) else 0
+
+        self.board.set_pieces([(pos_king_h, 0, PieceType(PieceType.King)),
+                               (offset, 0, PieceType(PieceType.Rook)),
+                               (bt.get_size() - 1 - offset, 0, PieceType(PieceType.Rook))])
+
+        return bt
 
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)

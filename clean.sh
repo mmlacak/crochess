@@ -4,12 +4,17 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-rm -rf src/*.hi
-rm -rf src/*.o
-rm -rf src/crochess*
+rm -rfv src/*.hi
+rm -rfv src/*.o
+rm -rfv src/crochess*
 
-rm -rf book/py/*.pyc
-rm -rf book/py/*.pyo
+rm -rfv book/py/*.pyc
+rm -rfv book/py/*.pyo
+
+rm -rfv book/tmp/boards/*.png
+rm -rfv book/tmp/castlings/*.png
+rm -rfv book/tmp/examples/*.png
+rm -rfv book/tmp/pieces/*.png
 
 # ghc -O3 -threaded Main.hs -o crochess
 

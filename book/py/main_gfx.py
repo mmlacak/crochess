@@ -40,9 +40,10 @@ class CroChess(object):
         self.off_screen = None
 
         render = GfxRender()
-        # render.render_all_boards()
-        # render.render_all_newly_introduced_pieces()
+        render.render_all_boards()
+        render.render_all_newly_introduced_pieces()
         render.render_all_example_scenes()
+        render.render_all_castling_scenes()
 
     def delete_event(self, widget, event, data=None):
         gtk.main_quit()

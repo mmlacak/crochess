@@ -47,6 +47,15 @@ class BoardType(int):
     def is_valid(self):
         return BoardType._is_valid(self)
 
+    @staticmethod
+    def foreach(start=None, end=None, step=1):
+        start = start or BoardType.none
+        end = end or BoardType.One
+
+        for bt in xrange(start, end+1, step):
+            # Added +1 because upper limit is not included in loop.
+            yield BoardType(bt)
+
     def get_name(self):
         return { BoardType.none: 'none',
                  BoardType.OddClassical: 'Odd Classical',
@@ -123,6 +132,7 @@ class BoardType(int):
                  BoardType.One: PieceType.Starchild }[self]
 
     def get_newly_introducing_board_types(self, piece_type):
+        pt = PieceType(piece_type)
         return { PieceType.none: None,
                  PieceType.Pawn: None,
                  PieceType.Bishop: None,
@@ -139,7 +149,19 @@ class BoardType(int):
                  PieceType.Serpent: [BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited],
                  PieceType.Shaman: [BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan],
                  PieceType.Monolith: [BoardType.OddDiscovery, BoardType.Discovery],
-                 PieceType.Starchild: [BoardType.OddOne, BoardType.One] }[piece_type.get_enumerated()]
+                 PieceType.Starchild: [BoardType.OddOne, BoardType.One] }[pt.get_enumerated()]
+
+    def get_all_board_types_that_contain(self, piece_type):
+        start = self.get_newly_introducing_board_types(piece_type)
+        start = start[0] if start is not None else BoardType.OddClassical
+
+        lst = [ BoardType(bt) for bt in BoardType.foreach(start) ]
+        return lst
+
+    def does_contain(self, piece_type):
+        start = PieceType.Pawn
+        end = self.get_newly_introduced_piece() or PieceType.King
+        return piece_type in PieceType.foreach(start, end)
 
 
 class Board(object):

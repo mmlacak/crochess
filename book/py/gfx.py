@@ -33,8 +33,9 @@ class GfxRender(object):
 
     def render_all_boards(self):
         print
+        print "Rendering all boards."
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
-            # Upper limit is not included in loop.
+            # Added +1 because upper limit is not included in loop.
             # Step is 2 because there is no need to generate odd variants.
             self.init_game(bt, bt)
             file_path = self.get_board_file_path()
@@ -44,8 +45,9 @@ class GfxRender(object):
 
     def render_all_newly_introduced_pieces(self):
         print
+        print "Rendering all pieces."
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
-            # Upper limit is not included in loop.
+            # Added +1 because upper limit is not included in loop.
             # Step is 2 because there is no need to generate odd variants.
             pt = self.init_intro_piece_scene(bt)
             if pt is not None:
@@ -59,6 +61,7 @@ class GfxRender(object):
 
     def render_all_example_scenes(self):
         print
+        print "Rendering all examples."
         self.scene = Scene(None)
         for index, func in enumerate(self.scene.get_example_scene_functions()):
             name = func()
@@ -69,6 +72,23 @@ class GfxRender(object):
                                   is_game_or_scene=False, \
                                   size_x=size_x, \
                                   size_y=size_y)
+        print "Finished."
+
+    def render_all_castling_scenes(self):
+        print
+        print "Rendering all castlings."
+        for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
+            # Added +1 because upper limit is not included in loop.
+            # Step is 2 because there is no need to generate odd variants.
+            bt_real = self.init_intro_castling_scene(bt)
+            if bt_real is not None:
+                file_path = self.get_castling_file_path(bt_real)
+                print file_path
+                size_x, size_y = self.get_scene_image_size()
+                self.save_board_image(file_path, \
+                                      is_game_or_scene=False, \
+                                      size_x=size_x, \
+                                      size_y=size_y)
         print "Finished."
 
     def init_game(self, board_type_value=BoardType.One, board_type_value_2=BoardType.One):
@@ -85,7 +105,7 @@ class GfxRender(object):
         index = int(bt)
         name = bt.get_name()
         sanitize = name.replace('\'', '_').replace(' ', '_').lower()
-        return '%s%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
+        return '%s/boards/%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
 
     def get_piece_file_path(self, piece_type, path_prefix=None, file_ext=None):
         path_prefix = path_prefix or GfxRender.DEFAULT_PATH
@@ -95,13 +115,22 @@ class GfxRender(object):
         index = int(pt)
         name = pt.get_name()
         sanitize = name.replace('\'', '_').replace(' ', '_').lower()
-        return '%s%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
+        return '%s/pieces/%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
 
     def get_scene_file_path(self, index, file_name, path_prefix=None, file_ext=None):
         path_prefix = path_prefix or GfxRender.DEFAULT_PATH
         file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
 
-        return '%s%02d_%s%s' % (path_prefix, index, file_name, file_ext)
+        return '%s/examples/%02d_%s%s' % (path_prefix, index, file_name, file_ext)
+
+    def get_castling_file_path(self, board_type, path_prefix=None, file_ext=None):
+        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
+        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+
+        index = int(board_type)
+        name = board_type.get_name()
+        sanitize = name.replace('\'', '_').replace(' ', '_').lower()
+        return '%s/castlings/%02d_%s_castling%s' % (path_prefix, index, sanitize, file_ext)
 
     def get_scene_image_size(self):
         board = self.scene.board
@@ -123,6 +152,11 @@ class GfxRender(object):
         bt = BoardType(board_type_value)
         self.scene = Scene(None)
         return self.scene.intro_piece(bt, piece_type=piece_type)
+
+    def init_intro_castling_scene(self, board_type_value=BoardType.One):
+        bt = BoardType(board_type_value)
+        self.scene = Scene(None)
+        return self.scene.intro_castling(bt)
 
     def init_scene(self, board_type_value=BoardType.One):
         bt = BoardType(board_type_value) # BoardType.ConquestOfTlalocan)
