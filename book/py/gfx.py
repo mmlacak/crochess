@@ -91,6 +91,23 @@ class GfxRender(object):
                                       size_y=size_y)
         print "Finished."
 
+    def render_all_en_passant_scenes(self):
+        print
+        print "Rendering all en passant."
+        for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
+            # Added +1 because upper limit is not included in loop.
+            # Step is 2 because there is no need to generate odd variants.
+            bt_real = self.init_intro_ne_passant_scene(bt)
+            if bt_real is not None:
+                file_path = self.get_en_passant_file_path(bt_real)
+                print file_path
+                size_x, size_y = self.get_scene_image_size(horizontal_rendering_size=GfxRender.DEFAULT_PIECE_2x2_RENDERING_SIZE)
+                self.save_board_image(file_path, \
+                                      is_game_or_scene=False, \
+                                      size_x=size_x, \
+                                      size_y=size_y)
+        print "Finished."
+
     def init_game(self, board_type_value=BoardType.One, board_type_value_2=BoardType.One):
         bt = BoardType(board_type_value)
         self.game = Game(Rules(Board(bt)))
@@ -132,16 +149,28 @@ class GfxRender(object):
         sanitize = name.replace('\'', '_').replace(' ', '_').lower()
         return '%s/castlings/%02d_%s_castling%s' % (path_prefix, index, sanitize, file_ext)
 
-    def get_scene_image_size(self):
+    def get_en_passant_file_path(self, board_type, path_prefix=None, file_ext=None):
+        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
+        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+
+        index = int(board_type)
+        name = board_type.get_name()
+        sanitize = name.replace('\'', '_').replace(' ', '_').lower()
+        return '%s/en_passants/%02d_%s_en_passant%s' % (path_prefix, index, sanitize, file_ext)
+
+    def get_scene_image_size(self, horizontal_rendering_size=None, vertical_rendering_size=None):
+        horizontal_rendering_size = horizontal_rendering_size or GfxRender.DEFAULT_BOARD_RENDERING_SIZE
+        vertical_rendering_size = vertical_rendering_size or GfxRender.DEFAULT_BOARD_RENDERING_SIZE
+
         board = self.scene.board
         width = board.get_width()
         height = board.get_height()
 
-        horizontal_dpi = GfxRender.DEFAULT_BOARD_RENDERING_SIZE // width
+        horizontal_dpi = horizontal_rendering_size // width
         vertical_pixel_size = height * horizontal_dpi
 
         if vertical_pixel_size < GfxRender.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE:
-            return (GfxRender.DEFAULT_BOARD_RENDERING_SIZE, vertical_pixel_size)
+            return (horizontal_rendering_size, vertical_pixel_size)
         else:
             vertical_dpi = GfxRender.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE // height
             horizontal_pixel_size = width * vertical_dpi
@@ -157,6 +186,11 @@ class GfxRender(object):
         bt = BoardType(board_type_value)
         self.scene = Scene(None)
         return self.scene.intro_castling(bt)
+
+    def init_intro_ne_passant_scene(self, board_type_value=BoardType.One):
+        bt = BoardType(board_type_value)
+        self.scene = Scene(None)
+        return self.scene.intro_en_passant(bt)
 
     def init_scene(self, board_type_value=BoardType.One):
         bt = BoardType(board_type_value) # BoardType.ConquestOfTlalocan)

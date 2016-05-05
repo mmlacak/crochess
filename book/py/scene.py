@@ -30,13 +30,6 @@ class Scene(object):
 
         return piece_type
 
-    def intro_en_passant(self, bt):
-        bt = BoardType(bt)
-
-# TODO :: intro_en_passant
-
-        return bt
-
     def intro_castling(self, bt):
         bt = BoardType(bt)
         self.board = Board(bt, bt.get_size(), 1)
@@ -48,6 +41,21 @@ class Scene(object):
         self.board.set_pieces([(pos_king_h, 0, PieceType(PieceType.King)),
                                (offset, 0, PieceType(PieceType.Rook)),
                                (bt.get_size() - 1 - offset, 0, PieceType(PieceType.Rook))])
+
+        return bt
+
+    def intro_en_passant(self, bt):
+        bt = BoardType(bt)
+        size = (bt.get_size() + 1) // 2
+        self.board = Board(bt, 3, size)
+        self.board.clear()
+
+        self.board.set_piece(1, 0, PieceType(PieceType.Knight))
+        self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
+
+        for i in xrange(3, size):
+            loc = 0 if i % 2 == 0 else 2
+            self.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
 
         return bt
 

@@ -11,11 +11,10 @@ rm -rfv src/crochess*
 rm -rfv book/py/*.pyc
 rm -rfv book/py/*.pyo
 
-rm -rfv book/tmp/boards/*.png
-rm -rfv book/tmp/castlings/*.png
-rm -rfv book/tmp/examples/*.png
-rm -rfv book/tmp/pieces/*.png
+rm -rfv book/tmp/*.png
+rm -rfv book/tmp/*/*.png
 
 # ghc -O3 -threaded Main.hs -o crochess
 
 ls -Fal --color=auto src/
+
