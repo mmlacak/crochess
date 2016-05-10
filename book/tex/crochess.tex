@@ -1,0 +1,98 @@
+%!TEX TS-program = pdflatex
+\documentclass[b5paper,12pt,draft]{book}
+
+\usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+
+\usepackage{charter}
+\renewcommand{\rmdefault}{bch}
+
+\usepackage{helvet}
+\renewcommand{\sfdefault}{phv}
+
+\usepackage[top=1.5cm, bottom=1.5cm, left=2.0cm, right=1.5cm]{geometry}
+\setlength{\marginparwidth}{0.0pt}
+\setlength{\footskip}{20.0pt}
+
+% \usepackage{showframe} % DEBUG
+
+\usepackage[final]{graphicx}
+
+\usepackage{hyperref}
+\hypersetup{final=true, colorlinks=true}
+% \urlstyle{same}
+
+\pagestyle {plain}
+
+
+\begin{document}
+
+% Title page
+\begin{titlepage}
+\vspace*{\stretch{2}}
+% \vspace{0.2\textheight}
+\begin{center}
+% \vspace*{\stretch{1}}
+\textbf{\huge{Croatian chess}} \\
+        \large{and other variants} \\ [2.0cm]
+% \vspace{4em}
+% \vspace*{0.1\textheight}
+\includegraphics[width=\textwidth, keepaspectratio=true]{../gfx/crochess.jpg} \\ [2.0cm]
+% \vspace{4em}
+% \vspace*{0.1\textheight}
+\textbf{\large{Mario Mlačak}} \\ [2.0cm]
+% \vfill
+% \vspace{\stretch{1}}
+\end{center}
+\vspace{\stretch{1}}
+% \vspace{\fill}
+% \vfill
+\end{titlepage}
+
+% \title{\textbf{\huge{Croatian chess}} \\
+%                \Large{and other variants} \\
+%                \hfill }
+% \begin{center}
+% \includegraphics[width=\textwidth, keepaspectratio=true]{../gfx/crochess.jpg}
+% \end{center}
+% \author{\hfill \\
+%         \Large{\textbf{Mario Mlačak}}}
+% \date{} % Make sure date is not printed on title page by \maketitle.
+% \maketitle
+% \vfill
+
+% Dedication page
+\thanks {Dedicated to Miranda.}
+\clearpage
+
+% \\
+%     \hfill \\
+%     \small{3rd edition} \\
+%     \hfill
+
+%     \href{mailto:mmlacak@gmail.com}{mmlacak@gmail.com} \\
+%     \hfill}
+% \date{\small{\today}}
+
+% Chapter 1
+\chapter{Introduction}
+This chapter's content...
+
+\section{Structure}
+This section's content...
+
+% Empty
+\vfill
+
+% List of figures
+\listoffigures
+
+% List of tables
+\listoftables
+
+% Table of contents
+\tableofcontents
+
+\clearpage
+
+\end{document}

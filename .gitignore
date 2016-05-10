@@ -15,6 +15,13 @@ cabal.sandbox.config
 *.aux
 *.hp
 *.pyc
-crochess*
+crochess
 tmp/
 temp/
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+book/tex/crochess.pdf
