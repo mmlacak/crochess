@@ -1,5 +1,5 @@
 %!TEX TS-program = pdflatex
-\documentclass[b5paper,12pt,draft]{book}
+\documentclass[a5paper,12pt,draft]{book}
 
 \usepackage[utf8]{inputenc}
 % \usepackage[T1]{fontenc}
@@ -12,7 +12,7 @@
 
 % \renewcommand{\familydefault}{\sfdefault} % \rmdefault
 
-\usepackage[top=1.5cm, bottom=1.5cm, left=2.0cm, right=1.5cm]{geometry}
+\usepackage[top=20.0mm, bottom=20.0mm, left=25.0mm, right=20.0mm]{geometry}
 \setlength{\marginparwidth}{0.0pt}
 \setlength{\footskip}{20.0pt}
 
@@ -25,6 +25,8 @@
 % \urlstyle{same}
 
 \pagestyle {plain}
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{1.0em}
 
 
 % Book
@@ -124,23 +126,88 @@
 \clearpage
 
 % Introduction page
-\section{Introduction}
-\small{This chapter's content... \\
-abcdefghijklmnopqrstuvwxyz \\
-ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
-0123456789}
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 
-\tiny{This chapter's content... \\
-abcdefghijklmnopqrstuvwxyz \\
-ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
-0123456789}
+\emph{Life's too short for chess. \\
+... Henry James}
+\vspace*{1.0em}
 
-\normalsize{This chapter's content... \\
-abcdefghijklmnopqrstuvwxyz \\
-ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
-0123456789}
+I was in my aunt's house, on the border of a small village.
+Through window walled garden and small brook was visible just
+behind the house. And hills in the distance. Early afternoon Sun
+was casting its orange rays into warm room. It was cold outside.
 
-\section{Structure}
+My cousin approached me with some nifty gizmo. He was a
+few years older then me and was already going to school. \\
+"Here, look at what I got." \\
+"What's that?" \\
+"Chess set. Wanna try? Lemme show you." \\
+"Sure."
+
+It was small plasticky, fiddly thing designed to fit into winter's
+coat pocket, to be used on the go. Folding board was also used to
+hold all pieces in it. Each piece was as small as humanely usable.
+Each field had a hole in the middle. Bellow each piece there was
+small rod fitting into those holes. It was colored all in red and ivory.
+
+Short lesson revealed it's not that difficult to grasp what's going
+on. Within minutes I picked it up. First match was, predictably, a
+complete disaster. On the second go my cousin forgot about a piece,
+and I grabbed his Queen gleefully. He surrendered.
+
+After he left me with a new widget, I was intrigued. I wasn't
+about playing the game, though. I was more into redesign it. Could it
+be made better, more challenging, or just different? \\
+'Why not make Knight jump longer, say 3 by 1 fields?' \\
+'Hmmmm...' \\
+'Nah, that would make jump too long for such a small board.'
+
+Outside, the Sun was shining red.
+\clearpage
+
+% Prerequisites page
+\chapter*{Prerequisites}
+\addcontentsline{toc}{chapter}{Prerequisites}
+
+\hspace{1.5em} This document describes new variants of chess, new pieces
+and rules. In this document I'll describe only even variants, since
+generating odd ones from there is an exercise in simplicity. Please,
+see 'Even variant', 'Odd variant' in the Definitions bellow.
+
+\textbf{\huge{TODO :: FIX ME !!!}} % TODO :: FIX ME !!!
+
+In this document I'm assuming you have the complete prior
+knowledge of classical chess pieces and rules. If not, please visit
+Wikipedia entry on this subject at: \\
+\href{http://en.wikipedia.org/wiki/Chess\_rules}{http://en.wikipedia.org/wiki/Chess\_rules}.
+\clearpage
+
+% Classical Game page
+\chapter*{Classical Game}
+\addcontentsline{toc}{chapter}{Classical Game}
+
+\emph{A great war leaves the country with three armies - an army of
+cripples, an army of mourners, and an army of thieves. \\
+... German proverb}
+\vspace*{1.0em}
+
+About classical chess is written really everything already, and I
+have nothing to add. Except for illustration of initial setup, so that
+you can accustom yourself with rendition of pieces used in this text.
+
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/boards/02_classical.png}
+
+Note that in Odd Classical Game, since it's played on 7 x 7
+board, there is no en-passant move. This is so because of very
+small board there is no room for a Pawn to perform 2-field initial
+move without, at the same time, preventing opponent to do the same
+at the same file.
+
+\clearpage
+
+\section*{Structure}
+\addcontentsline{toc}{section}{Title of the section}
 \small{This section's content... \\
 abcdefghijklmnopqrstuvwxyz \\
 ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
