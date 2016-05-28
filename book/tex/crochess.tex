@@ -19,6 +19,7 @@
 % \usepackage{showframe} % DEBUG
 
 \usepackage[final]{graphicx}
+% \usepackage{wrapfig}
 
 \usepackage{hyperref}
 \hypersetup{final=true, colorlinks=true}
@@ -45,17 +46,20 @@
 \end{center}
 \vspace{\stretch{1}}
 \end{titlepage}
+% --- Title page ------------------------------------------------------
 
 % Empty page
 \thispagestyle{empty}
 \vspace*{0.1\textheight}
 \clearpage
+% --- Empty page ------------------------------------------------------
 
 % Dedication page
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
 \hfill{Dedicated to Miranda.}
 \clearpage
+% --- Dedication page -------------------------------------------------
 
 % Publisher page
 \thispagestyle{empty}
@@ -66,7 +70,7 @@
     and other variants \\ [2.0em]
 
     \emph{Copyright} \\
-    \copyright \hspace{0.2ex} 2009 -- 2016 Mario Mlačak \\
+    Copyright \copyright \hspace{0.2ex} 2009 -- 2016 Mario Mlačak \\
     \href{mailto:mmlacak@gmail.com}{mmlacak@gmail.com} \\ [2.0em]
 
     \emph{Legal} \\
@@ -83,6 +87,7 @@
     \vspace{0.1\textheight}
 \end{center}
 \clearpage
+% --- Publisher page --------------------------------------------------
 
 % Inner title page
 \thispagestyle{empty}
@@ -97,41 +102,45 @@
     \small{\today} % \\ [2.0cm]
 \end{center}
 \clearpage
+% --- Inner title page ------------------------------------------------
 
 % Empty page
 \thispagestyle{empty}
 \vspace*{0.1\textheight}
 \clearpage
+% --- Empty page ------------------------------------------------------
 
 % Gratitude page
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
-\hfill{My most sincere gratitude to:}
-\vspace*{1.0em}
+\begin{flushright}
+My most sincere gratitude to:
 
-\hfill{Valentina Štefanić} \\
-\hspace*{\fill}{Kristina Mlačak} \\
-\hspace*{\fill}{Slavko Štefanić}
-\vspace*{1.0em}
+Valentina Štefanić \\
+Kristina Mlačak \\
+Slavko Štefanić
 
-\hfill{and many, many others.}
-\vspace*{1.0em}
+and many, many others.
 
-\hfill{Thank you all.}
+Thank you all.
+\end{flushright}
 \clearpage
+% --- Gratitude page --------------------------------------------------
 
 % Empty page
 \thispagestyle{empty}
 \vspace*{0.1\textheight}
 \clearpage
+% --- Empty page ------------------------------------------------------
 
 % Introduction page
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
+\begin{flushright}
 \emph{Life's too short for chess. \\
-... Henry James}
-\vspace*{1.0em}
+\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Henry James Byron}
+\end{flushright}
 
 I was in my aunt's house, on the border of a small village.
 Through window walled garden and small brook was visible just
@@ -165,6 +174,7 @@ be made better, more challenging, or just different? \\
 
 Outside, the Sun was shining red.
 \clearpage
+% --- Introduction page -----------------------------------------------
 
 % Prerequisites page
 \chapter*{Prerequisites}
@@ -182,21 +192,23 @@ knowledge of classical chess pieces and rules. If not, please visit
 Wikipedia entry on this subject at: \\
 \href{http://en.wikipedia.org/wiki/Chess\_rules}{http://en.wikipedia.org/wiki/Chess\_rules}.
 \clearpage
+% --- Prerequisites page ----------------------------------------------
 
 % Classical Game page
 \chapter*{Classical Game}
 \addcontentsline{toc}{chapter}{Classical Game}
 
-\emph{A great war leaves the country with three armies - an army of
-cripples, an army of mourners, and an army of thieves. \\
-... German proverb}
-\vspace*{1.0em}
+\begin{flushright}
+\emph{
+A great war leaves the country with three \\
+armies - an army of cripples, an army of \\
+mourners, and an army of thieves. \\
+\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} German proverb}
+\end{flushright}
 
 About classical chess is written really everything already, and I
 have nothing to add. Except for illustration of initial setup, so that
 you can accustom yourself with rendition of pieces used in this text.
-
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/boards/02_classical.png}
 
 Note that in Odd Classical Game, since it's played on 7 x 7
 board, there is no en-passant move. This is so because of very
@@ -204,7 +216,15 @@ small board there is no room for a Pawn to perform 2-field initial
 move without, at the same time, preventing opponent to do the same
 at the same file.
 
+\noindent
+\begin{figure}[t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/boards/02_classical.png}
+\caption{Classical board}
+% \centering
+\end{figure}
+
 \clearpage
+% --- Classical Game page ---------------------------------------------
 
 \section*{Structure}
 \addcontentsline{toc}{section}{Title of the section}
@@ -226,21 +246,26 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
 % Empty, enumerated page
 \vspace*{0.1\textheight}
 \clearpage
+% --- Empty page ------------------------------------------------------
 
 % List of figures
 \listoffigures
+% --- List of figures -------------------------------------------------
 
 % List of tables
 \listoftables
+% --- List of tables --------------------------------------------------
 
 % Table of contents
 \tableofcontents
 \clearpage
+% --- Table of contents -----------------------------------------------
 
 % % Empty page
 % \thispagestyle{empty}
 % \vspace*{0.1\textheight}
 % \clearpage
+% --- Empty page ------------------------------------------------------
 
 % Challenge, end cover page
 \thispagestyle{empty}
@@ -259,5 +284,6 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
 \vfill
 \hspace*{\fill}{\LaTeXe}
 \clearpage
+% --- Challenge, end cover page ---------------------------------------
 
 \end{document}
