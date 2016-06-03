@@ -19,7 +19,7 @@
 % \usepackage{showframe} % DEBUG
 
 \usepackage[final]{graphicx}
-% \usepackage{wrapfig}
+\usepackage{wrapfig}
 
 \usepackage{hyperref}
 \hypersetup{final=true, colorlinks=true}
@@ -138,8 +138,9 @@ Thank you all.
 \addcontentsline{toc}{chapter}{Introduction}
 
 \begin{flushright}
+\parbox{0.6\textwidth}{
 \emph{Life's too short for chess. \\
-\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Henry James Byron}
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Henry James Byron} } }
 \end{flushright}
 
 I was in my aunt's house, on the border of a small village.
@@ -180,7 +181,13 @@ Outside, the Sun was shining red.
 \chapter*{Prerequisites}
 \addcontentsline{toc}{chapter}{Prerequisites}
 
-\hspace{1.5em} This document describes new variants of chess, new pieces
+\begin{flushright}
+\parbox{0.7\textwidth}{
+\emph{It does not matter how slowly you go as long as you do not stop. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Confucius} } }
+\end{flushright}
+
+This document describes new variants of chess, new pieces
 and rules. In this document I'll describe only even variants, since
 generating odd ones from there is an exercise in simplicity. Please,
 see 'Even variant', 'Odd variant' in the Definitions bellow.
@@ -199,11 +206,12 @@ Wikipedia entry on this subject at: \\
 \addcontentsline{toc}{chapter}{Classical Game}
 
 \begin{flushright}
+\parbox{0.8\textwidth}{
 \emph{
-A great war leaves the country with three \\
-armies - an army of cripples, an army of \\
+A great war leaves the country with three
+armies - an army of cripples, an army of
 mourners, and an army of thieves. \\
-\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} German proverb}
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} German proverb} } }
 \end{flushright}
 
 About classical chess is written really everything already, and I
@@ -220,11 +228,65 @@ at the same file.
 \begin{figure}[t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/boards/02_classical.png}
 \caption{Classical board}
+\label{fig:classical_chess}
 % \centering
 \end{figure}
 
 \clearpage
 % --- Classical Game page ---------------------------------------------
+
+% Croatian Ties page
+\chapter*{Croatian Ties}
+\addcontentsline{toc}{chapter}{Croatian Ties}
+
+\begin{flushright}
+\parbox{0.7\textwidth}{
+\emph{Secrecy is the first essential in affairs of the State. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} De Richelieu} } }
+\end{flushright}
+
+Croatian Ties is chess variant which is played on 10 x 10
+board, with silver and red fields and dark silver and dark red pieces.
+In algebraic notation, vertical files are enumerated from 'a' to 'j', and
+horizontal ranks are enumerated from '1' to '10'. A new piece is
+introduced, Pegasus.
+
+\clearpage
+
+\section*{Pegasus}
+\addcontentsline{toc}{section}{Pegasus}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/07_pegasus.png}
+\caption{Pegasus}
+\label{fig:pegasus}
+% % \centering
+\end{wrapfigure}
+
+Pegasus, the Winged Horse, moves similarly to Knight, only it can
+continue its jumpy movement until another piece is encountered, or it
+runs out of board. Note that once in movement, Pegasus can not change
+its heading. In other words, Pegasus is bound by both First obstacle rule
+and Continuation of direction rule.
+
+Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
+
+In the example below we have Pegasus with all destination fields of valid
+moves marked with green squares. Illegal moves are denoted with black squares.
+Numbers in upper right corner of field enumerates direction of movement.
+
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/boards/04_croatian_ties.png}
+\caption{Croatian Ties board}
+\label{fig:croatian_ties}
+% \centering
+\end{figure}
+
+\clearpage
+% --- Croatian Ties page ---------------------------------------------
 
 \section*{Structure}
 \addcontentsline{toc}{section}{Title of the section}
