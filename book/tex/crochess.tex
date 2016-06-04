@@ -1,5 +1,5 @@
 %!TEX TS-program = pdflatex
-\documentclass[a5paper,12pt,draft]{book}
+\documentclass[a5paper,12pt,draft]{book} % draft = DEBUG
 
 \usepackage[utf8]{inputenc}
 % \usepackage[T1]{fontenc}
@@ -12,7 +12,8 @@
 
 % \renewcommand{\familydefault}{\sfdefault} % \rmdefault
 
-\usepackage[top=20.0mm, bottom=20.0mm, left=25.0mm, right=20.0mm]{geometry}
+% left = inner, right = outer
+\usepackage[top=15.0mm, bottom=20.0mm, left=15.0mm, right=20.0mm]{geometry}
 \setlength{\marginparwidth}{0.0pt}
 \setlength{\footskip}{20.0pt}
 
@@ -28,12 +29,13 @@
 \pagestyle {plain}
 \setlength{\parindent}{1.5em}
 \setlength{\parskip}{1.0em}
+\emergencystretch=1.5em % 1.5em = half of what \sloppy would use
 
 
-% Book
+% Book ----------------------------------------------------------------
 \begin{document}
 
-% Title page
+% Title page ----------------------------------------------------------
 \begin{titlepage}
 \vspace*{\stretch{2}}
 \begin{center}
@@ -46,22 +48,22 @@
 \end{center}
 \vspace{\stretch{1}}
 \end{titlepage}
-% --- Title page ------------------------------------------------------
+% ---------------------------------------------------------- Title page
 
-% Empty page
+% Empty page ----------------------------------------------------------
 \thispagestyle{empty}
 \vspace*{0.1\textheight}
 \clearpage
-% --- Empty page ------------------------------------------------------
+% ---------------------------------------------------------- Empty page
 
-% Dedication page
+% Dedication page -----------------------------------------------------
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
 \hfill{Dedicated to Miranda.}
 \clearpage
-% --- Dedication page -------------------------------------------------
+% ----------------------------------------------------- Dedication page
 
-% Publisher page
+% Publisher page ------------------------------------------------------
 \thispagestyle{empty}
 \vspace*{0.1\textheight}
 \begin{center}
@@ -87,9 +89,9 @@
     \vspace{0.1\textheight}
 \end{center}
 \clearpage
-% --- Publisher page --------------------------------------------------
+% ------------------------------------------------------ Publisher page
 
-% Inner title page
+% Inner title page ----------------------------------------------------
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
 \begin{center}
@@ -102,15 +104,15 @@
     \small{\today} % \\ [2.0cm]
 \end{center}
 \clearpage
-% --- Inner title page ------------------------------------------------
+% ---------------------------------------------------- Inner title page
 
-% Empty page
+% Empty page ----------------------------------------------------------
 \thispagestyle{empty}
 \vspace*{0.1\textheight}
 \clearpage
-% --- Empty page ------------------------------------------------------
+% ---------------------------------------------------------- Empty page
 
-% Gratitude page
+% Gratitude page ------------------------------------------------------
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
 \begin{flushright}
@@ -125,15 +127,15 @@ and many, many others.
 Thank you all.
 \end{flushright}
 \clearpage
-% --- Gratitude page --------------------------------------------------
+% ------------------------------------------------------ Gratitude page
 
-% Empty page
+% Empty page ----------------------------------------------------------
 \thispagestyle{empty}
 \vspace*{0.1\textheight}
 \clearpage
-% --- Empty page ------------------------------------------------------
+% ---------------------------------------------------------- Empty page
 
-% Introduction page
+% Introduction chapter ------------------------------------------------
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
@@ -175,9 +177,9 @@ be made better, more challenging, or just different? \\
 
 Outside, the Sun was shining red.
 \clearpage
-% --- Introduction page -----------------------------------------------
+% ------------------------------------------------ Introduction chapter
 
-% Prerequisites page
+% Prerequisites chapter -----------------------------------------------
 \chapter*{Prerequisites}
 \addcontentsline{toc}{chapter}{Prerequisites}
 
@@ -199,9 +201,9 @@ knowledge of classical chess pieces and rules. If not, please visit
 Wikipedia entry on this subject at: \\
 \href{http://en.wikipedia.org/wiki/Chess\_rules}{http://en.wikipedia.org/wiki/Chess\_rules}.
 \clearpage
-% --- Prerequisites page ----------------------------------------------
+% ----------------------------------------------- Prerequisites chapter
 
-% Classical Game page
+% Classical Game chapter ----------------------------------------------
 \chapter*{Classical Game}
 \addcontentsline{toc}{chapter}{Classical Game}
 
@@ -233,9 +235,9 @@ at the same file.
 \end{figure}
 
 \clearpage
-% --- Classical Game page ---------------------------------------------
+% ---------------------------------------------- Classical Game chapter
 
-% Croatian Ties page
+% Croatian Ties chapter -----------------------------------------------
 \chapter*{Croatian Ties}
 \addcontentsline{toc}{chapter}{Croatian Ties}
 
@@ -286,7 +288,288 @@ Numbers in upper right corner of field enumerates direction of movement.
 \end{figure}
 
 \clearpage
-% --- Croatian Ties page ---------------------------------------------
+% ----------------------------------------------- Croatian Ties chapter
+
+% Mayan Ascendancy chapter --------------------------------------------
+\chapter*{Mayan Ascendancy}
+\addcontentsline{toc}{chapter}{Mayan Ascendancy}
+
+\begin{flushright}
+\parbox{0.8\textwidth}{
+\emph{The world has achieved brilliance without wisdom, power without
+conscience. Our is a world of nuclear giants and ethical infants. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Omar Nelson Bradley} } }
+\end{flushright}
+
+\section*{Pyramid}
+\addcontentsline{toc}{section}{Pyramid}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/08_pyramid.png}
+\caption{Pyramid}
+\label{fig:pyramid}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% -------------------------------------------- Mayan Ascendancy chapter
+
+% Age of Aquarius chapter ---------------------------------------------
+\chapter*{Age of Aquarius}
+\addcontentsline{toc}{chapter}{Age of Aquarius}
+
+\begin{flushright}
+\parbox{0.8\textwidth}{
+\emph{The greatest difficulty with the world is not its ability to produce, but the unwillingness to share. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Roy L. Smith} } }
+\end{flushright}
+
+\section*{Unicorn}
+\addcontentsline{toc}{section}{Unicorn}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/09_unicorn.png}
+\caption{Unicorn}
+\label{fig:unicorn}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% --------------------------------------------- Age of Aquarius chapter
+
+% Miranda's veil chapter ----------------------------------------------
+\chapter*{Miranda's veil}
+\addcontentsline{toc}{chapter}{Miranda's veil}
+
+\begin{flushright}
+\parbox{0.8\textwidth}{
+\emph{Under all that we think, lives all we believe, like the ultimate veil of our spirits. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Antonio Machado} } }
+\end{flushright}
+
+\section*{Wave}
+\addcontentsline{toc}{section}{Wave}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/10_wave.png}
+\caption{Wave}
+\label{fig:wave}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% ---------------------------------------------- Miranda's veil chapter
+
+% Nineteen chapter ----------------------------------------------------
+\chapter*{Nineteen}
+\addcontentsline{toc}{chapter}{Nineteen}
+
+\begin{flushright}
+\parbox{0.8\textwidth}{
+\emph{The truth is at the beginning of anything and its end are alike touching. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Yoshida Kenko} } }
+\end{flushright}
+
+\section*{Star}
+\addcontentsline{toc}{section}{Star}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/11_star.png}
+\caption{Star}
+\label{fig:star}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% ---------------------------------------------------- Nineteen chapter
+
+% Hemera's Dawn chapter -----------------------------------------------
+\chapter*{Hemera's Dawn}
+\addcontentsline{toc}{chapter}{Hemera's Dawn}
+
+\begin{flushright}
+\parbox{0.8\textwidth}{
+\emph{Then assuredly the world was made, not in time, but simultaneously with time. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} St. Augustine} } }
+\end{flushright}
+
+\section*{Centaur}
+\addcontentsline{toc}{section}{Centaur}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/12_centaur.png}
+\caption{Centaur}
+\label{fig:centaur}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% ----------------------------------------------- Hemera's Dawn chapter
+
+% Tamoanchan Revisited chapter ----------------------------------------
+\chapter*{Tamoanchan Revisited}
+\addcontentsline{toc}{chapter}{Tamoanchan Revisited}
+
+\begin{flushright}
+\parbox{0.6\textwidth}{
+\emph{I dream, therefore I exist. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} August Strindberg} } }
+\end{flushright}
+
+\section*{Serpent}
+\addcontentsline{toc}{section}{Serpent}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/13_serpent.png}
+\caption{Serpent}
+\label{fig:serpent}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% ---------------------------------------- Tamoanchan Revisited chapter
+
+% Conquest of Tlalocan chapter ----------------------------------------
+\chapter*{Conquest of Tlalocan}
+\addcontentsline{toc}{chapter}{Conquest of Tlalocan}
+
+\begin{flushright}
+\parbox{0.8\textwidth}{
+\emph{The human mind is inspired enough when it comes to inventing
+horrors; it is when it tries to invent a Heaven that it shows itself
+cloddish. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Evelyn Waugh} } }
+\end{flushright}
+
+\section*{Shaman}
+\addcontentsline{toc}{section}{Shaman}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/14_shaman.png}
+\caption{Shaman}
+\label{fig:shaman}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% ---------------------------------------- Conquest of Tlalocan chapter
+
+% Discovery chapter ---------------------------------------------------
+\chapter*{Discovery}
+\addcontentsline{toc}{chapter}{Discovery}
+
+\begin{flushright}
+\parbox{0.8\textwidth}{
+\emph{I don’t believe in God but I’m very interested in her. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Arthur C. Clarke} } }
+\end{flushright}
+
+\section*{Monolith}
+\addcontentsline{toc}{section}{Monolith}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/15_monolith.png}
+\caption{Monolith}
+\label{fig:monolith}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% --------------------------------------------------- Discovery chapter
+
+% One chapter ---------------------------------------------------------
+\chapter*{One}
+\addcontentsline{toc}{chapter}{One}
+
+\begin{flushright}
+\parbox{0.8\textwidth}{
+\emph{God is not external to anyone, but is present with all things, though
+they are ignorant that he is so. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Plotinus} } }
+\end{flushright}
+
+\section*{Starchild}
+\addcontentsline{toc}{section}{Starchild}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/16_starchild.png}
+\caption{Starchild}
+\label{fig:starchild}
+% % \centering
+\end{wrapfigure}
+
+\clearpage
+% --------------------------------------------------------- One chapter
+
+% Test chapter --------------------------------------------------------
+\chapter*{Test chapter}
+\addcontentsline{toc}{chapter}{Test chapter}
+
+\begin{flushright}
+\parbox{0.6\textwidth}{
+\emph{To trust is ok, but check regardless. \\
+\hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Test author} } }
+\end{flushright}
+
+\section*{Test section}
+\addcontentsline{toc}{section}{Test section}
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+
+Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
 
 \section*{Structure}
 \addcontentsline{toc}{section}{Title of the section}
@@ -305,31 +588,34 @@ abcdefghijklmnopqrstuvwxyz \\
 ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
 0123456789}
 
-% Empty, enumerated page
+\clearpage
+% ---------------------------------------------------------- Test chapter
+
+% Empty, enumerated page ----------------------------------------------
 \vspace*{0.1\textheight}
 \clearpage
-% --- Empty page ------------------------------------------------------
+% ---------------------------------------------- Empty, enumerated page
 
-% List of figures
+% List of figures -----------------------------------------------------
 \listoffigures
-% --- List of figures -------------------------------------------------
+% ----------------------------------------------------- List of figures
 
-% List of tables
+% List of tables ------------------------------------------------------
 \listoftables
-% --- List of tables --------------------------------------------------
+% ------------------------------------------------------ List of tables
 
-% Table of contents
+% Table of contents ---------------------------------------------------
 \tableofcontents
 \clearpage
-% --- Table of contents -----------------------------------------------
+% --------------------------------------------------- Table of contents
 
-% % Empty page
-% \thispagestyle{empty}
-% \vspace*{0.1\textheight}
-% \clearpage
-% --- Empty page ------------------------------------------------------
+% Empty page ----------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+\clearpage
+% ---------------------------------------------------------- Empty page
 
-% Challenge, end cover page
+% Challenge, end cover page ---------------------------------------------
 \thispagestyle{empty}
 \begin{quotation}
     \it
@@ -346,6 +632,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
 \vfill
 \hspace*{\fill}{\LaTeXe}
 \clearpage
-% --- Challenge, end cover page ---------------------------------------
+% ------------------------------------------- Challenge, end cover page
 
 \end{document}
+% ---------------------------------------------------------------- Book
