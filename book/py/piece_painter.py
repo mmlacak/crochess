@@ -199,6 +199,11 @@ class PiecePainter(Painter):
               PieceType.Starchild: self.draw_starchild }[piece.get_enumerated()]
         f(pc, piece)
 
+    def draw_chip(self, pc, piece):
+        chip = [(0.1, 0.93), (0.9, 0.93), (0.9, 0.97), (0.1, 0.97)]
+        chip = [ self.calc_point(pc.rect, *t) for t in chip ]
+        self.draw_polygon_with_background(pc.get_gc_piece(piece), chip)
+
     def draw_spark(self, pc, piece):
         spark = [(0.5, 0.42), (0.65, 0.35), (0.58, 0.5), (0.65, 0.65), (0.5, 0.58), (0.35, 0.65), \
                  (0.42, 0.5), (0.35, 0.35)]
