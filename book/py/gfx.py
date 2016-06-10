@@ -97,7 +97,7 @@ class GfxRender(object):
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
             # Added +1 because upper limit is not included in loop.
             # Step is 2 because there is no need to generate odd variants.
-            bt_real = self.init_intro_ne_passant_scene(bt)
+            bt_real = self.init_intro_en_passant_scene(bt)
             if bt_real is not None:
                 file_path = self.get_en_passant_file_path(bt_real)
                 print file_path
@@ -187,7 +187,7 @@ class GfxRender(object):
         self.scene = Scene(None)
         return self.scene.intro_castling(bt)
 
-    def init_intro_ne_passant_scene(self, board_type_value=BoardType.One):
+    def init_intro_en_passant_scene(self, board_type_value=BoardType.One):
         bt = BoardType(board_type_value)
         self.scene = Scene(None)
         return self.scene.intro_en_passant(bt)
@@ -216,12 +216,14 @@ class GfxRender(object):
         # pc.cc = pc.get_color_context(self.game.rules.board.type)
 
         board = self.game.rules.board if is_game_or_scene else self.scene.board
+        arrows = [] if is_game_or_scene else self.scene.arrows
         painter = BoardPainter(drawable, board)
         pc = PainterContext(gc, board, False) # True # False
         pc.cc = pc.get_color_context(board.type)
 
         painter.clear_area()
         painter.draw_board(pc)
+        painter.draw_all_arrows(arrows, pc)
 
         pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, *drawable.get_size())
         pixbuf.get_from_drawable(drawable, drawable.get_colormap(), 0, 0, 0, 0, *drawable.get_size())

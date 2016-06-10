@@ -19,6 +19,8 @@ from painter_context import ColorContext
 from painter_context import PainterContext
 from piece_painter import PiecePainter
 
+import pixel_math as pm
+
 import debug_
 
 class BoardPainter(PiecePainter):
@@ -145,3 +147,25 @@ class BoardPainter(PiecePainter):
         #     self.draw_border(pc, False)
         self.draw_all_fields(pc)
         self.draw_all_pieces(pc)
+
+    def draw_arrow(self, start, end, pc):
+        width = self.field_width_pix / 7.0
+        distance = width / 2.0
+        length = pm.calc_line_length(start, end)
+
+        start_lst = pm.calc_distant_points_on_inverse_line(start, end, distance)
+
+        ratio = abs((length - width) / width) # Shouldn't be negative, i.e. outside line segment.
+        mid_point = pm.calc_division_point(start, end, ratio)
+
+        mid_lst = pm.calc_distant_points_on_inverse_line(mid_point, start, distance)
+        mid_lst_2 = pm.calc_distant_points_on_inverse_line(mid_point, start, 2.0 * distance)
+
+        arrow_lst = [ end, mid_lst_2[0], mid_lst[0], start_lst[0], start_lst[1], mid_lst[1], mid_lst_2[1] ]
+        arrow_lst_2 = [ (int(tpl[0]), int(tpl[1])) for tpl in arrow_lst ]
+        self.draw_polygon_with_background(pc.get_gc_monolith(), arrow_lst_2)
+
+    def draw_all_arrows(self, arrows, pc):
+        for arrow in arrows:
+            start, end = arrow
+            self.draw_arrow(start, end, pc )

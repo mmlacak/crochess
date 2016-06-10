@@ -74,6 +74,22 @@ def calc_distant_points_on_inverse_line(point, other, distance):
 
         return [(x_2, y_2), (x_3, y_3)]
 
+def calc_division_point(start, end, ratio):
+    x0, y0 = start
+    x1, y1 = end
+
+    x = (x0 + ratio * x1) / (1.0 + ratio)
+    y = (y0 + ratio * y1) / (1.0 + ratio)
+
+    return (x, y)
+
+def calc_line_length(point, other):
+    x0, y0 = point
+    x1, y1 = other
+
+    sqr_dist = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)
+    return math.sqrt(sqr_dist)
+
 if __name__ == '__main__':
     print
     print q_same_rounded_floats(3.0, 3.0)
@@ -95,4 +111,9 @@ if __name__ == '__main__':
     start2 = (3.0, 2.0)
     end2 = (7.0, 2.0)
     print start2, end2, calc_distant_points_on_inverse_line(start2, end2, 1.608)
+    print
+
+    start3 = (2.0, 1.0)
+    end3 = (5.0, 7.0)
+    print start3, end3, calc_division_point(start3, end3, 3.5)
     print

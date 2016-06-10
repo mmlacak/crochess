@@ -13,11 +13,16 @@ from board import Board
 class Scene(object):
     def __init__(self, board=None):
         self.board = board
+        self.arrows = [] # :: [((x0, y0), (x1, y1)), ...] # list of start-end point pairs
+
+    def delete_all_arrows(self):
+        self.arrows = [] # :: [((x0, y0), (x1, y1)), ...] # list of start-end point pairs
 
     def intro_piece(self, bt, piece_type=None):
         bt = BoardType(bt)
         self.board = Board(bt, 2, 2)
         self.board.clear()
+        self.delete_all_arrows()
 
         piece_type = piece_type or bt.get_newly_introduced_piece()
         if piece_type is None:
@@ -34,6 +39,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, bt.get_size(), 1)
         self.board.clear()
+        self.delete_all_arrows()
 
         pos_king_h = bt.get_size() // 2
         offset = 1 if bt.does_contain(PieceType.Star) else 0
@@ -49,6 +55,7 @@ class Scene(object):
         size = (bt.get_size() + 1) // 2
         self.board = Board(bt, 3, size)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_piece(1, 0, PieceType(PieceType.Knight))
         self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
@@ -59,10 +66,23 @@ class Scene(object):
 
         return bt
 
+    def move_pegasus(self, bt=BoardType.CroatianTies):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_arrows()
+
+        self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+
+        self.arrows.append( ((600.0, 500.0), (4300.0, 2400.0)), )
+
+        return "move_pegasus"
+
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
         self.board = Board(bt, 11, 11)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_piece(5, 5, PieceType(-PieceType.Shaman))
 
@@ -72,6 +92,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 15, 15)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_piece(7, 7, PieceType(PieceType.Shaman))
 
@@ -81,6 +102,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_piece(4, 4, PieceType(PieceType.Monolith))
 
@@ -90,6 +112,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_piece(4, 4, PieceType(PieceType.Monolith))
         self.board.set_piece(3, 4, PieceType(PieceType.Pawn))
@@ -101,6 +124,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_piece(4, 4, PieceType(PieceType.Starchild))
 
@@ -110,6 +134,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_piece(4, 4, PieceType(PieceType.Starchild))
         self.board.set_piece(3, 4, PieceType(PieceType.Pawn))
@@ -121,6 +146,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 6, 6)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_pieces([(0, 0, PieceType(PieceType.Wave)),
                                (0, 2, PieceType(PieceType.King)),
@@ -138,6 +164,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 16, 5)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_pieces([(0, 0, PieceType(PieceType.Wave)),
                                (3, 3, PieceType(PieceType.Queen)),
@@ -153,6 +180,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 8, 8)
         self.board.clear()
+        self.delete_all_arrows()
 
         self.board.set_pieces([(0, 0, PieceType(-PieceType.Star)),
                                (1, 2, PieceType(PieceType.Monolith)),
@@ -163,7 +191,8 @@ class Scene(object):
         return "set_star_journey"
 
     def get_example_scene_functions(self):
-        return [ self.move_shaman, \
+        return [ self.move_pegasus, \
+                 self.move_shaman, \
                  self.move_shaman_2, \
                  self.move_monolith, \
                  self.move_monolith_2, \
