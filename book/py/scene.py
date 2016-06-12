@@ -8,6 +8,7 @@
 from piece import PieceType
 from board import BoardType
 from board import Board
+from mark import Arrow
 
 
 class Scene(object):
@@ -74,7 +75,7 @@ class Scene(object):
 
         self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
 
-        self.arrows.append( ((600.0, 500.0), (4300.0, 2400.0)), )
+        self.arrows.append( Arrow(600.0, 500.0, 4300.0, 2400.0, fg_color="#44FF44", bg_color="#440044"), )
 
         return "move_pegasus"
 
@@ -191,7 +192,7 @@ class Scene(object):
         return "set_star_journey"
 
     def get_example_scene_functions(self):
-        return [ self.move_pegasus, \
+        """return [ self.move_pegasus, \
                  self.move_shaman, \
                  self.move_shaman_2, \
                  self.move_monolith, \
@@ -200,4 +201,5 @@ class Scene(object):
                  self.move_starchild_2, \
                  self.set_mirandas_veil_1, \
                  self.set_example_1, \
-                 self.set_star_journey ]
+                 self.set_star_journey ] """
+        return [ self.move_pegasus ]

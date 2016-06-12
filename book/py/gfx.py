@@ -13,6 +13,7 @@ from painter_context import PainterContext
 # from painter import Painter
 from piece_painter import PiecePainter
 from board_painter import BoardPainter
+from mark_painter import MarkPainter
 from board import BoardType
 from board import Board
 from rules import Rules
@@ -217,7 +218,8 @@ class GfxRender(object):
 
         board = self.game.rules.board if is_game_or_scene else self.scene.board
         arrows = [] if is_game_or_scene else self.scene.arrows
-        painter = BoardPainter(drawable, board)
+        # painter = BoardPainter(drawable, board)
+        painter = MarkPainter(drawable, board, arrows)
         pc = PainterContext(gc, board, False) # True # False
         pc.cc = pc.get_color_context(board.type)
 
