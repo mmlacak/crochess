@@ -6,7 +6,7 @@
 
 
 import pixel_math as pm
-# import mark
+import mark
 import board_painter as bp
 
 
@@ -18,10 +18,10 @@ class MarkPainter(bp.BoardPainter):
 
     def calc_arrow(self, arrow, inv_width_ratio=None, pointy_bit_ratio=None):
         # inv_width_ratio - compared to field size
-        inv_width_ratio = inv_width_ratio or 12.0
+        inv_width_ratio = inv_width_ratio or arrow.inv_width_ratio or mark.DEFAULT_INVERSE_ARROW_WIDTH_RATIO
 
         # pointy_bit_ratio - compared to arrow width
-        pointy_bit_ratio = pointy_bit_ratio or 1.5
+        pointy_bit_ratio = pointy_bit_ratio or arrow.pointy_bit_ratio or mark.DEFAULT_POINTY_ARROW_BIT_RATIO
 
         width = self.field_width_pix / inv_width_ratio
         distance = width / 2.0
@@ -29,7 +29,7 @@ class MarkPainter(bp.BoardPainter):
 
         start_lst = pm.calc_distant_points_on_inverse_line(arrow.start, arrow.end, distance)
 
-        arrow_size = pointy_bit_ratio * width
+        arrow_size = self.board_width_pix / pointy_bit_ratio # pointy_bit_ratio * width
         line_division_ratio = abs((length - arrow_size) / arrow_size) # Shouldn't be negative, i.e. outside line segment.
         mid_point = pm.calc_division_point(arrow.start, arrow.end, line_division_ratio)
 
@@ -47,8 +47,8 @@ class MarkPainter(bp.BoardPainter):
                    pointy_bit_ratio=None):
         points_pix = self.calc_arrow(arrow, inv_width_ratio=inv_width_ratio, pointy_bit_ratio=pointy_bit_ratio)
 
-        fg_color = fg_color or arrow.fg_color
-        bg_color = bg_color or arrow.bg_color
+        fg_color = fg_color or arrow.fg_color or mark.DEFAULT_FOREGROUND_COLOR
+        bg_color = bg_color or arrow.bg_color or mark.DEFAULT_BACKGROUND_COLOR
         gc = pc.get_gc_colors(fg_color, bg_color)
         self.draw_polygon_with_background(gc, points_pix)
 

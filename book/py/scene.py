@@ -79,6 +79,18 @@ class Scene(object):
 
         return "move_pegasus"
 
+    def move_pegasus_2(self, bt=BoardType.One):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_arrows()
+
+        self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+
+        self.arrows.append( Arrow(600.0, 500.0, 4300.0, 2400.0, fg_color="#44FF44", bg_color="#440044"), )
+
+        return "move_pegasus_2"
+
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
         self.board = Board(bt, 11, 11)
@@ -193,6 +205,7 @@ class Scene(object):
 
     def get_example_scene_functions(self):
         """return [ self.move_pegasus, \
+                 self.move_pegasus_2, \
                  self.move_shaman, \
                  self.move_shaman_2, \
                  self.move_monolith, \
@@ -202,4 +215,5 @@ class Scene(object):
                  self.set_mirandas_veil_1, \
                  self.set_example_1, \
                  self.set_star_journey ] """
-        return [ self.move_pegasus ]
+        return [ self.move_pegasus, \
+                 self.move_pegasus_2 ]
