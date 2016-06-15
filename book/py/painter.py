@@ -11,9 +11,14 @@ import gtk
 import debug_
 
 class Painter(object):
+
     def __init__(self, drawable):
         # self.colormap = gtk.gdk.Colormap(gtk.gdk.visual_get_system(), True)
         self.drawable = drawable
+
+    @staticmethod
+    def round_float_to_int(pos):
+        return int(round(pos))
 
     def clear_area(self, color="#FFFFFF"):
         gc = self.drawable.new_gc()

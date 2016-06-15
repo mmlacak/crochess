@@ -75,7 +75,9 @@ class Scene(object):
 
         self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
 
-        self.arrows.append( Arrow(600.0, 500.0, 4300.0, 2400.0, fg_color="#44FF44", bg_color="#440044"), )
+        self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
+
+        self.arrows.append( Arrow(6.3, 5.1, 4.3, 2.7, fg_color="#202020", bg_color="#7F00FF"), )
 
         return "move_pegasus"
 
@@ -87,7 +89,9 @@ class Scene(object):
 
         self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
 
-        self.arrows.append( Arrow(600.0, 500.0, 4300.0, 2400.0, fg_color="#44FF44", bg_color="#440044"), )
+        self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
+
+        self.arrows.append( Arrow(6.3, 5.1, 14.3, 22.7, fg_color="#202020", bg_color="#7F00FF"), )
 
         return "move_pegasus_2"
 

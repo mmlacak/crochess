@@ -6,23 +6,6 @@
 
 import pixel_math as pm
 
-class CoordinateType(int):
-    Pixel = 1
-    FieldIndex = 2
-
-    def __new__(cls, value):
-        if CoordinateType._is_valid(value):
-            return super(CoordinateType, cls).__new__(cls, value)
-        else:
-            raise ValueError("No such a coordinate type, received '%s'." % (str(value), ))
-
-    @staticmethod
-    def _is_valid(coord_type):
-        return CoordinateType.Pixel <= coord_type <= CoordinateType.FieldIndex
-
-    def is_valid(self):
-        return CoordinateType._is_valid(self)
-
 class Arrow(object):
 
     DEFAULT_FOREGROUND_COLOR = "#FFFFFF"
@@ -31,7 +14,6 @@ class Arrow(object):
     DEFAULT_POINTY_ARROW_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
 
     def __init__(self, start_x, start_y, end_x, end_y, \
-                 coord_type=CoordinateType.FieldIndex, \
                  fg_color=None, \
                  bg_color=None, \
                  inv_width_ratio=None, \
@@ -43,8 +25,6 @@ class Arrow(object):
         # self.end_x = end_x
         # self.end_y = end_y
         self.end = (end_x, end_y)
-
-        self.coord_type = coord_type
 
         self.fg_color = fg_color or Arrow.DEFAULT_FOREGROUND_COLOR
         self.bg_color = bg_color or Arrow.DEFAULT_BACKGROUND_COLOR

@@ -95,10 +95,10 @@ class BoardPainter(PiecePainter):
 
     def get_field_position(self, x_pix, y_pix):
         i = (x_pix - self.board_left_pix) / self.field_size_pix
-        i = int(round(i))
+        i = self.round_float_to_int(i)
         j = (y_pix - self.board_top_pix) / self.field_size_pix
         j_reverse = self.board.get_height() - j - 1
-        j_reverse = int(round(j_reverse))
+        j_reverse = self.round_float_to_int(j_reverse)
         return FieldPosition(i, j_reverse)
 
     def is_field_light_or_dark(self, i, j):
@@ -148,24 +148,18 @@ class BoardPainter(PiecePainter):
         self.draw_all_fields(pc)
         self.draw_all_pieces(pc)
 
-#     def draw_arrow(self, start, end, pc):
-#         width = self.field_width_pix / 7.0
-#         distance = width / 2.0
-#         length = pm.calc_line_length(start, end)
-#
-#         start_lst = pm.calc_distant_points_on_inverse_line(start, end, distance)
-#
-#         ratio = abs((length - width) / width) # Shouldn't be negative, i.e. outside line segment.
-#         mid_point = pm.calc_division_point(start, end, ratio)
-#
-#         mid_lst = pm.calc_distant_points_on_inverse_line(mid_point, start, distance)
-#         mid_lst_2 = pm.calc_distant_points_on_inverse_line(mid_point, start, 2.0 * distance)
-#
-#         arrow_lst = [ end, mid_lst_2[0], mid_lst[0], start_lst[0], start_lst[1], mid_lst[1], mid_lst_2[1] ]
-#         arrow_lst_2 = [ (int(tpl[0]), int(tpl[1])) for tpl in arrow_lst ]
-#         self.draw_polygon_with_background(pc.get_gc_monolith(), arrow_lst_2)
-#
-#     def draw_all_arrows(self, arrows, pc):
-#         for arrow in arrows:
-#             start, end = arrow
-#             self.draw_arrow(start, end, pc )
+    def convert_float_width_to_pixel(self, x):
+        if isinstance(x, float):
+            return x * self.field_width_pix
+        return x
+
+    def convert_float_height_to_pixel(self, y):
+        if isinstance(y, float):
+            y_reverse = self.board.get_height() - y # - 1.0
+            return y_reverse * self.field_height_pix
+        return y
+
+    def convert_float_coords_to_pixel(self, x, y):
+        x_pix = self.convert_float_width_to_pixel(x)
+        y_pix = self.convert_float_height_to_pixel(y)
+        return (x_pix, y_pix)
