@@ -95,10 +95,10 @@ class BoardPainter(PiecePainter):
 
     def get_field_position(self, x_pix, y_pix):
         i = (x_pix - self.board_left_pix) / self.field_size_pix
-        i = self.round_float_to_int(i)
+        i = pm.round_float_to_int(i)
         j = (y_pix - self.board_top_pix) / self.field_size_pix
         j_reverse = self.board.get_height() - j - 1
-        j_reverse = self.round_float_to_int(j_reverse)
+        j_reverse = pm.round_float_to_int(j_reverse)
         return FieldPosition(i, j_reverse)
 
     def is_field_light_or_dark(self, i, j):

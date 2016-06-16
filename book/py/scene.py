@@ -8,22 +8,30 @@
 from piece import PieceType
 from board import BoardType
 from board import Board
-from mark import Arrow
+from mark import Arrow, Text
 
 
 class Scene(object):
     def __init__(self, board=None):
         self.board = board
-        self.arrows = [] # :: [((x0, y0), (x1, y1)), ...] # list of start-end point pairs
+        self.arrows = [] # :: [ mark.Arrow, ... ]
+        self.texts = [] # :: [ mark.Text, ... ]
 
     def delete_all_arrows(self):
-        self.arrows = [] # :: [((x0, y0), (x1, y1)), ...] # list of start-end point pairs
+        self.arrows = [] # :: [ mark.Arrow, ... ]
+
+    def delete_all_texts(self):
+        self.texts = [] # :: [ mark.Text, ... ]
+
+    def delete_all_marks(self):
+        self.delete_all_arrows()
+        self.delete_all_texts()
 
     def intro_piece(self, bt, piece_type=None):
         bt = BoardType(bt)
         self.board = Board(bt, 2, 2)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         piece_type = piece_type or bt.get_newly_introduced_piece()
         if piece_type is None:
@@ -40,7 +48,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, bt.get_size(), 1)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         pos_king_h = bt.get_size() // 2
         offset = 1 if bt.does_contain(PieceType.Star) else 0
@@ -56,7 +64,7 @@ class Scene(object):
         size = (bt.get_size() + 1) // 2
         self.board = Board(bt, 3, size)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(1, 0, PieceType(PieceType.Knight))
         self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
@@ -71,13 +79,15 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
 
         self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
-
         self.arrows.append( Arrow(6.3, 5.1, 4.3, 2.7, fg_color="#202020", bg_color="#7F00FF"), )
+
+        self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#00FFFF", bg_color="#000000") )
+        self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#00FFFF", bg_color="#000000") )
 
         return "move_pegasus"
 
@@ -85,13 +95,15 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
 
         self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
-
         self.arrows.append( Arrow(6.3, 5.1, 14.3, 22.7, fg_color="#202020", bg_color="#7F00FF"), )
+
+        self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#FFFF00", bg_color="#000000") )
+        self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#FFFF00", bg_color="#000000") )
 
         return "move_pegasus_2"
 
@@ -99,7 +111,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 11, 11)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(5, 5, PieceType(-PieceType.Shaman))
 
@@ -109,7 +121,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 15, 15)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(7, 7, PieceType(PieceType.Shaman))
 
@@ -119,7 +131,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(4, 4, PieceType(PieceType.Monolith))
 
@@ -129,7 +141,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(4, 4, PieceType(PieceType.Monolith))
         self.board.set_piece(3, 4, PieceType(PieceType.Pawn))
@@ -141,7 +153,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(4, 4, PieceType(PieceType.Starchild))
 
@@ -151,7 +163,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_piece(4, 4, PieceType(PieceType.Starchild))
         self.board.set_piece(3, 4, PieceType(PieceType.Pawn))
@@ -163,7 +175,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 6, 6)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_pieces([(0, 0, PieceType(PieceType.Wave)),
                                (0, 2, PieceType(PieceType.King)),
@@ -181,7 +193,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 16, 5)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_pieces([(0, 0, PieceType(PieceType.Wave)),
                                (3, 3, PieceType(PieceType.Queen)),
@@ -197,7 +209,7 @@ class Scene(object):
         bt = BoardType(bt)
         self.board = Board(bt, 8, 8)
         self.board.clear()
-        self.delete_all_arrows()
+        self.delete_all_marks()
 
         self.board.set_pieces([(0, 0, PieceType(-PieceType.Star)),
                                (1, 2, PieceType(PieceType.Monolith)),

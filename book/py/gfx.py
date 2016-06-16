@@ -218,14 +218,16 @@ class GfxRender(object):
 
         board = self.game.rules.board if is_game_or_scene else self.scene.board
         arrows = [] if is_game_or_scene else self.scene.arrows
+        texts = [] if is_game_or_scene else self.scene.texts
         # painter = BoardPainter(drawable, board)
-        painter = MarkPainter(drawable, board, arrows)
+        painter = MarkPainter(drawable, board)
         pc = PainterContext(gc, board, False) # True # False
         pc.cc = pc.get_color_context(board.type)
 
         painter.clear_area()
         painter.draw_board(pc)
         painter.draw_all_arrows(arrows, pc)
+        painter.draw_all_texts(texts, pc)
 
         pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, *drawable.get_size())
         pixbuf.get_from_drawable(drawable, drawable.get_colormap(), 0, 0, 0, 0, *drawable.get_size())

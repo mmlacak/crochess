@@ -10,6 +10,14 @@ import math
     point :: (float, float) # (x, y)
 """
 
+def round_float_to_int(pos):
+    return int(round(pos))
+
+def round_floats_to_int(itr):
+    lst = [ int(round(itm)) for itm in itr ]
+    cls = type(itr)
+    return cls(lst)
+
 def floatify_iterable(itr):
     lst = [ float(itm) for itm in itr ]
     cls = type(itr)

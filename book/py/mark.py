@@ -36,3 +36,23 @@ class Arrow(object):
         # self.start_x, self.end_x = self.end_x, self.start_x
         # self.start_y, self.end_y = self.end_y, self.start_y
         self.start, self.end = self.end, self.start
+
+class Text(object):
+
+    DEFAULT_FOREGROUND_COLOR = "#FFFFFF"
+    DEFAULT_BACKGROUND_COLOR = "#000000"
+    DEFAULT_FONT = "normal 10"
+
+    def __init__(self, text, pos_x, pos_y, font=None, \
+                 fg_color=None, \
+                 bg_color=None):
+        self.text = text
+
+        # self.pos_x = pos_x
+        # self.pos_y = pos_y
+        self.pos = (pos_x, pos_x)
+
+        self.font = font or Text.DEFAULT_FONT
+
+        self.fg_color = fg_color or Text.DEFAULT_FOREGROUND_COLOR
+        self.bg_color = bg_color or Text.DEFAULT_BACKGROUND_COLOR

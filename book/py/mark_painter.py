@@ -4,6 +4,8 @@
 # Copyright (c) 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+import gtk.gdk
+import pango
 
 import pixel_math as pm
 import mark
@@ -11,10 +13,8 @@ import board_painter as bp
 
 
 class MarkPainter(bp.BoardPainter):
-    def __init__(self, drawable, board, arrows):
+    def __init__(self, drawable, board):
         super(MarkPainter, self).__init__(drawable, board)
-
-        self.arrows = arrows
 
     def calc_arrow(self, arrow, inv_width_ratio=None, pointy_bit_ratio=None):
         arrow.start_pix = self.convert_float_coords_to_pixel( *arrow.start )
@@ -48,11 +48,14 @@ class MarkPainter(bp.BoardPainter):
                    bg_color=None, \
                    inv_width_ratio=None, \
                    pointy_bit_ratio=None):
+        # arrow :: mark.Arrow
+
         points_pix = self.calc_arrow(arrow, inv_width_ratio=inv_width_ratio, pointy_bit_ratio=pointy_bit_ratio)
 
         fg_color = fg_color or arrow.fg_color or mark.Arrow.DEFAULT_FOREGROUND_COLOR
         bg_color = bg_color or arrow.bg_color or mark.Arrow.DEFAULT_BACKGROUND_COLOR
         gc = pc.get_gc_colors(fg_color, bg_color)
+
         self.draw_polygon_with_background(gc, points_pix)
 
     def draw_all_arrows(self, arrows, pc, \
@@ -64,3 +67,33 @@ class MarkPainter(bp.BoardPainter):
             self.draw_arrow(arrow, pc, fg_color=fg_color, bg_color=bg_color, \
                             inv_width_ratio=inv_width_ratio, \
                             pointy_bit_ratio=pointy_bit_ratio)
+
+    def draw_text(self, text, pc, font=None, \
+                  fg_color=None, \
+                  bg_color=None):
+        # text :: mark.Text
+
+        text.pos_pix = self.convert_float_coords_to_pixel( *text.pos )
+        x, y = text.pos_pix
+
+        font = font or text.font or mark.Text.DEFAULT_FONT
+
+        fg_color = fg_color or text.fg_color or mark.Arrow.DEFAULT_FOREGROUND_COLOR
+        bg_color = bg_color or text.bg_color or mark.Arrow.DEFAULT_BACKGROUND_COLOR
+        gc = pc.get_gc_colors(fg_color, bg_color)
+
+        screen = gtk.gdk.screen_get_default()
+        pango_ctx = gtk.gdk.pango_context_get_for_screen(screen)
+
+        layout = pango.Layout(pango_ctx)
+        layout.set_text(text.text)
+
+        font_desc = pango.FontDescription(text.font)
+        layout.set_font_description(font_desc)
+
+        x, y = pm.round_floats_to_int((x, y))
+        self.drawable.draw_layout(gc, x, y, layout)
+
+    def draw_all_texts(self, texts, pc):
+        for text in texts:
+            self.draw_text(text, pc)
