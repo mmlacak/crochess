@@ -14,6 +14,8 @@ from painter import Painter
 
 import debug_
 
+PIECE_WITH_CHIP_TRANSLATION = 0.11
+
 class PiecePainter(Painter):
     def __init__(self, drawable):
         super(PiecePainter, self).__init__(drawable)
@@ -35,16 +37,22 @@ class PiecePainter(Painter):
         bishop2 = [ self.calc_point(pc.rect, *t) for t in bishop2 ]
         self.draw_polygon_with_background(pc.get_gc_piece_opposite_color(piece), bishop2)
 
-    def draw_knight(self, pc, piece):
+    def draw_knight(self, pc, piece, right_facing=False):
         knight = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
                   (0.46, 0.55), (0.26, 0.593), (0.22, 0.485)]
+        if right_facing:
+            knight = self.flip_horizontally(knight)
         knight = [ self.calc_point(pc.rect, *t) for t in knight ]
         self.draw_polygon_with_background(pc.get_gc_piece(piece), knight)
 
-    def draw_rook(self, pc, piece):
+    def draw_rook(self, pc, piece, with_chip=False):
+        self.draw_chip(pc, piece)
+
         rook = [(0.27, 0.3), (0.37, 0.3), (0.37, 0.42), (0.43, 0.42), (0.43, 0.3), (0.57, 0.3), \
                 (0.57, 0.42), (0.63, 0.42), (0.63, 0.3), (0.73, 0.3), (0.76, 0.5), (0.67, 0.54), \
                 (0.72, 0.9), (0.28, 0.9), (0.33, 0.54), (0.24, 0.5)]
+        if with_chip:
+            rook = self.translate(rook, trans_y=PIECE_WITH_CHIP_TRANSLATION)
         rook = [ self.calc_point(pc.rect, *t) for t in rook ]
         self.draw_polygon_with_background(pc.get_gc_piece(piece), rook)
 
@@ -61,10 +69,11 @@ class PiecePainter(Painter):
         self.draw_polygon_with_background(pc.get_gc_piece(piece), king)
 
     def draw_pegasus(self, pc, piece):
-        pegasus = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
-                   (0.46, 0.55), (0.26, 0.593), (0.22, 0.485)]
-        pegasus = [ self.calc_point(pc.rect, *t) for t in pegasus ]
-        self.draw_polygon_with_background(pc.get_gc_piece(piece), pegasus)
+        # pegasus = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
+        #            (0.46, 0.55), (0.26, 0.593), (0.22, 0.485)]
+        # pegasus = [ self.calc_point(pc.rect, *t) for t in pegasus ]
+        # self.draw_polygon_with_background(pc.get_gc_piece(piece), pegasus)
+        self.draw_knight(pc, piece)
 
         # pegasus2[0] = (0.45, 0.89), pegasus2[11] = (0.5, 0.89)
         pegasus2 = [(0.45, 0.87), (0.6, 0.45), (0.93, 0.35), (0.93, 0.44), (0.75, 0.49), (0.84, 0.47), \
@@ -83,10 +92,12 @@ class PiecePainter(Painter):
         # Variant faced left, as used by other knights and derivates.
         # unicorn = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
         #            (0.46, 0.55), (0.26, 0.593), (0.22, 0.485)]
-        unicorn = [(0.5, 0.3), (0.285, 0.39), (0.195, 0.6), (0.26, 0.9), (0.74, 0.9), (0.515, 0.625), \
-                   (0.54, 0.55), (0.74, 0.593), (0.78, 0.485)]
-        unicorn = [ self.calc_point(pc.rect, *t) for t in unicorn ]
-        self.draw_polygon_with_background(pc.get_gc_piece(piece), unicorn)
+
+        # unicorn = [(0.5, 0.3), (0.285, 0.39), (0.195, 0.6), (0.26, 0.9), (0.74, 0.9), (0.515, 0.625), \
+        #            (0.54, 0.55), (0.74, 0.593), (0.78, 0.485)]
+        # unicorn = [ self.calc_point(pc.rect, *t) for t in unicorn ]
+        # self.draw_polygon_with_background(pc.get_gc_piece(piece), unicorn)
+        self.draw_knight(pc, piece, right_facing=True)
 
         # Variant faced left, as used by other knights and derivates.
         # unicorn2 = [(0.5, 0.3), (0.49, 0.36), (0.409, 0.361), (0.325, 0.1373)]
@@ -200,9 +211,17 @@ class PiecePainter(Painter):
         f(pc, piece)
 
     def draw_chip(self, pc, piece):
-        chip = [(0.1, 0.93), (0.9, 0.93), (0.9, 0.97), (0.1, 0.97)]
+        # chip = [(0.3, 0.93), (0.7, 0.93), (0.7, 0.97), (0.3, 0.97)]
+        # chip = [(0.15, 0.87), (0.85, 0.87), (0.85, 0.93), (0.15, 0.93)]
+        chip = [(0.15, 0.8), (0.85, 0.8), (0.85, 0.93), (0.15, 0.93)]
         chip = [ self.calc_point(pc.rect, *t) for t in chip ]
-        self.draw_polygon_with_background(pc.get_gc_piece(piece), chip)
+        # self.draw_polygon_with_background(pc.get_gc_piece(piece), chip)
+        self.draw_polygon_with_background(pc.get_gc_piece_opposite_color(piece), chip)
+
+    def draw_piece_with_chip(self, pc, piece):
+        if piece != PieceType.none:
+            self.draw_chip(pc, piece)
+        self.draw_piece(pc, piece)
 
     def draw_spark(self, pc, piece):
         spark = [(0.5, 0.42), (0.65, 0.35), (0.58, 0.5), (0.65, 0.65), (0.5, 0.58), (0.35, 0.65), \

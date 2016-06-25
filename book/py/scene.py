@@ -86,8 +86,9 @@ class Scene(object):
         self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
         self.arrows.append( Arrow(6.3, 5.1, 4.3, 2.7, fg_color="#202020", bg_color="#7F00FF"), )
 
-        self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#00FFFF", bg_color="#000000") )
-        self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#00FFFF", bg_color="#000000") )
+        self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#003080", bg_color="#000000") )
+        self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#008030", bg_color="#000000") )
+        self.texts.append( Text("here! 0123456798", 3.1, 2.78, "DejaVu Sans Mono 96", fg_color="#300080", bg_color="#000000") )
 
         return "move_pegasus"
 
@@ -104,6 +105,7 @@ class Scene(object):
 
         self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#FFFF00", bg_color="#000000") )
         self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#FFFF00", bg_color="#000000") )
+        self.texts.append( Text("here! 0123456798", 3.1, 2.78, "DejaVu Sans Mono 96", fg_color="#300080", bg_color="#000000") )
 
         return "move_pegasus_2"
 

@@ -66,3 +66,6 @@ class Painter(object):
 
     def rotate_anticlockwise(self, points_pct):
         return [ (1.0 - p[1], p[0]) for p in points_pct ]
+
+    def translate(self, points_pct, trans_x=0.0, trans_y=0.0):
+        return [ (p[0] + trans_x, p[1] + trans_y) for p in points_pct ]
