@@ -78,8 +78,8 @@ class MarkPainter(bp.BoardPainter):
 
         font = font or text.font or mark.Text.DEFAULT_FONT
 
-        fg_color = fg_color or text.fg_color or mark.Arrow.DEFAULT_FOREGROUND_COLOR
-        bg_color = bg_color or text.bg_color or mark.Arrow.DEFAULT_BACKGROUND_COLOR
+        fg_color = fg_color or text.fg_color or mark.Text.DEFAULT_FOREGROUND_COLOR
+        bg_color = bg_color or text.bg_color or mark.Text.DEFAULT_BACKGROUND_COLOR
         gc = pc.get_gc_colors(fg_color, bg_color)
 
         screen = gtk.gdk.screen_get_default()
@@ -97,3 +97,49 @@ class MarkPainter(bp.BoardPainter):
     def draw_all_texts(self, texts, pc):
         for text in texts:
             self.draw_text(text, pc)
+
+    def calc_field_marker(self, field_marker, inv_width_ratio=None):
+        # inv_width_ratio - compared to field size
+        inv_width_ratio = inv_width_ratio or field_marker.inv_width_ratio or mark.FieldMarker.DEFAULT_INVERSE_WIDTH_RATIO
+
+        width_ratio = 1.0 / inv_width_ratio
+        width_pix = self.convert_float_width_to_pixel(width_ratio)
+
+        start_dp = self.get_field_start_pix(*field_marker.field)
+
+        x_pix, y_pix = start_dp.x_pix, start_dp.y_pix
+        upper_left_triangle = pm.round_coords_to_pix([ (x_pix, y_pix), (x_pix + width_pix, y_pix), (x_pix, y_pix + width_pix) ])
+
+        x_pix, y_pix = x_pix + self.field_width_pix, y_pix
+        upper_right_triangle = pm.round_coords_to_pix([ (x_pix, y_pix), (x_pix - width_pix, y_pix), (x_pix, y_pix + width_pix) ])
+
+        x_pix, y_pix = x_pix, y_pix + self.field_height_pix
+        lower_right_triangle = pm.round_coords_to_pix([ (x_pix, y_pix), (x_pix - width_pix, y_pix), (x_pix, y_pix - width_pix) ])
+
+        x_pix, y_pix = x_pix - self.field_width_pix, y_pix
+        lower_left_triangle = pm.round_coords_to_pix([ (x_pix, y_pix), (x_pix + width_pix, y_pix), (x_pix, y_pix - width_pix) ])
+
+        field_markers_pix = [ upper_left_triangle, upper_right_triangle, lower_right_triangle, lower_left_triangle ]
+
+        return field_markers_pix
+
+    def draw_field_marker(self, field_marker, pc, \
+                          fg_color=None, \
+                          bg_color=None, \
+                          inv_width_ratio=None):
+        # field_marker :: mark.FieldMarker
+
+        markers_pix = self.calc_field_marker(field_marker, inv_width_ratio=inv_width_ratio)
+
+        fg_color = fg_color or field_marker.fg_color or mark.FieldMarker.DEFAULT_FOREGROUND_COLOR
+        bg_color = bg_color or field_marker.bg_color or mark.FieldMarker.DEFAULT_BACKGROUND_COLOR
+        gc = pc.get_gc_colors(fg_color, bg_color)
+
+        for points_pix in markers_pix:
+            # self.draw_polygon_with_background(gc, points_pix)
+            # self.draw_polygon(gc, points_pix)
+            self.draw_polygon_background(gc, points_pix)
+
+    def draw_all_field_markers(self, field_markers, pc):
+        for field_marker in field_markers:
+            self.draw_field_marker(field_marker, pc)

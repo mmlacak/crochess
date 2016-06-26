@@ -69,10 +69,6 @@ class PiecePainter(Painter):
         self.draw_polygon_with_background(pc.get_gc_piece(piece), king)
 
     def draw_pegasus(self, pc, piece):
-        # pegasus = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
-        #            (0.46, 0.55), (0.26, 0.593), (0.22, 0.485)]
-        # pegasus = [ self.calc_point(pc.rect, *t) for t in pegasus ]
-        # self.draw_polygon_with_background(pc.get_gc_piece(piece), pegasus)
         self.draw_knight(pc, piece)
 
         # pegasus2[0] = (0.45, 0.89), pegasus2[11] = (0.5, 0.89)
@@ -89,14 +85,6 @@ class PiecePainter(Painter):
         self.draw_polygon_with_background(pc.get_gc_piece(piece), pyramid)
 
     def draw_unicorn(self, pc, piece):
-        # Variant faced left, as used by other knights and derivates.
-        # unicorn = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
-        #            (0.46, 0.55), (0.26, 0.593), (0.22, 0.485)]
-
-        # unicorn = [(0.5, 0.3), (0.285, 0.39), (0.195, 0.6), (0.26, 0.9), (0.74, 0.9), (0.515, 0.625), \
-        #            (0.54, 0.55), (0.74, 0.593), (0.78, 0.485)]
-        # unicorn = [ self.calc_point(pc.rect, *t) for t in unicorn ]
-        # self.draw_polygon_with_background(pc.get_gc_piece(piece), unicorn)
         self.draw_knight(pc, piece, right_facing=True)
 
         # Variant faced left, as used by other knights and derivates.
@@ -190,6 +178,11 @@ class PiecePainter(Painter):
         starchild2 = [ self.calc_point(pc.rect, *t) for t in starchild2 ]
         self.draw_polygon_with_background(pc.get_gc_piece(piece), starchild2)
 
+    def draw_chip(self, pc, piece):
+        chip = [(0.15, 0.8), (0.85, 0.8), (0.85, 0.93), (0.15, 0.93)]
+        chip = [ self.calc_point(pc.rect, *t) for t in chip ]
+        self.draw_polygon_with_background(pc.get_gc_piece_opposite_color(piece), chip)
+
     def draw_piece(self, pc, piece):
         f = { PieceType.none: self.draw_none,
               PieceType.Pawn: self.draw_pawn,
@@ -210,18 +203,12 @@ class PiecePainter(Painter):
               PieceType.Starchild: self.draw_starchild }[piece.get_enumerated()]
         f(pc, piece)
 
-    def draw_chip(self, pc, piece):
-        # chip = [(0.3, 0.93), (0.7, 0.93), (0.7, 0.97), (0.3, 0.97)]
-        # chip = [(0.15, 0.87), (0.85, 0.87), (0.85, 0.93), (0.15, 0.93)]
-        chip = [(0.15, 0.8), (0.85, 0.8), (0.85, 0.93), (0.15, 0.93)]
-        chip = [ self.calc_point(pc.rect, *t) for t in chip ]
-        # self.draw_polygon_with_background(pc.get_gc_piece(piece), chip)
-        self.draw_polygon_with_background(pc.get_gc_piece_opposite_color(piece), chip)
-
     def draw_piece_with_chip(self, pc, piece):
         if piece != PieceType.none:
             self.draw_chip(pc, piece)
         self.draw_piece(pc, piece)
+
+    # ~
 
     def draw_spark(self, pc, piece):
         spark = [(0.5, 0.42), (0.65, 0.35), (0.58, 0.5), (0.65, 0.65), (0.5, 0.58), (0.35, 0.65), \

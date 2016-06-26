@@ -18,6 +18,11 @@ def round_floats_to_int(itr):
     cls = type(itr)
     return cls(lst)
 
+def round_coords_to_pix(coords):
+    lst = [ round_floats_to_int(coord) for coord in coords ]
+    cls = type(coords)
+    return cls(lst)
+
 def floatify_iterable(itr):
     lst = [ float(itm) for itm in itr ]
     cls = type(itr)

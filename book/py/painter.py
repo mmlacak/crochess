@@ -29,6 +29,16 @@ class Painter(object):
         gc.foreground = fg
         self.drawable.draw_polygon(gc, False, points)
 
+    def draw_polygon(self, gc, points, filled=True):
+        self.drawable.draw_polygon(gc, filled, points)
+
+    def draw_polygon_background(self, gc, points, filled=True):
+        # Monkeying around limitation of polygon fill being always done with foreground color.
+        fg = gc.foreground
+        gc.foreground = gc.background
+        self.drawable.draw_polygon(gc, filled, points)
+        gc.foreground = fg
+
     def draw_arc_with_background(self, gc, x, y, width, height, angle1=0, angle2=64*360):
         # Monkeying around limitation of arc fill being always done with foreground color.
         fg = gc.foreground

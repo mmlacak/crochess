@@ -8,7 +8,7 @@
 from piece import PieceType
 from board import BoardType
 from board import Board
-from mark import Arrow, Text
+from mark import Arrow, Text, FieldMarker
 
 
 class Scene(object):
@@ -16,6 +16,7 @@ class Scene(object):
         self.board = board
         self.arrows = [] # :: [ mark.Arrow, ... ]
         self.texts = [] # :: [ mark.Text, ... ]
+        self.field_markers = [] # :: [ mark.FieldMarker, ... ]
 
     def delete_all_arrows(self):
         self.arrows = [] # :: [ mark.Arrow, ... ]
@@ -23,9 +24,13 @@ class Scene(object):
     def delete_all_texts(self):
         self.texts = [] # :: [ mark.Text, ... ]
 
+    def delete_all_field_markers(self):
+        self.field_markers = [] # :: [ mark.FieldMarker, ... ]
+
     def delete_all_marks(self):
         self.delete_all_arrows()
         self.delete_all_texts()
+        self.delete_all_field_markers()
 
     def intro_piece(self, bt, piece_type=None):
         bt = BoardType(bt)
@@ -90,6 +95,10 @@ class Scene(object):
         self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#008030", bg_color="#000000") )
         self.texts.append( Text("here! 0123456798", 3.1, 2.78, "DejaVu Sans Mono 96", fg_color="#300080", bg_color="#000000") )
 
+        self.field_markers.append( FieldMarker(3, 1, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=5.0) )
+        self.field_markers.append( FieldMarker(5, 7, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=7.0) )
+        self.field_markers.append( FieldMarker(7, 0, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=10.0) )
+
         return "move_pegasus"
 
     def move_pegasus_2(self, bt=BoardType.One):
@@ -106,6 +115,10 @@ class Scene(object):
         self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#FFFF00", bg_color="#000000") )
         self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#FFFF00", bg_color="#000000") )
         self.texts.append( Text("here! 0123456798", 3.1, 2.78, "DejaVu Sans Mono 96", fg_color="#300080", bg_color="#000000") )
+
+        self.field_markers.append( FieldMarker(3, 1, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=5.0) )
+        self.field_markers.append( FieldMarker(5, 7, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=7.0) )
+        self.field_markers.append( FieldMarker(7, 0, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=10.0) )
 
         return "move_pegasus_2"
 

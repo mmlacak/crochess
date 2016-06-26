@@ -56,3 +56,22 @@ class Text(object):
 
         self.fg_color = fg_color or Text.DEFAULT_FOREGROUND_COLOR
         self.bg_color = bg_color or Text.DEFAULT_BACKGROUND_COLOR
+
+class FieldMarker(object):
+
+    DEFAULT_FOREGROUND_COLOR = "#FFFFFF"
+    DEFAULT_BACKGROUND_COLOR = "#000000"
+    DEFAULT_INVERSE_WIDTH_RATIO = 5.0 # Compared to field size.
+
+    def __init__(self, field_i, field_j, \
+                 fg_color=None, \
+                 bg_color=None, \
+                 inv_width_ratio=None):
+        # self.field_i = field_i
+        # self.field_j = field_j
+        self.field = (field_i, field_j)
+
+        self.fg_color = fg_color or FieldMarker.DEFAULT_FOREGROUND_COLOR
+        self.bg_color = bg_color or FieldMarker.DEFAULT_BACKGROUND_COLOR
+
+        self.inv_width_ratio = inv_width_ratio or FieldMarker.DEFAULT_INVERSE_WIDTH_RATIO
