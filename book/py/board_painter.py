@@ -24,11 +24,6 @@ import pixel_math as pm
 import debug_
 
 class BoardPainter(PiecePainter):
-    BorderWidth_pix = 0 # 3
-    BorderHeight_pix = 0 # 3
-    BorderTop_pix = 0 # 1
-    BorderLeft_pix = 0 # 1
-    BorderThickness_pix = 0 # 1
 
     def __init__(self, drawable, board):
         super(BoardPainter, self).__init__(drawable)
@@ -41,38 +36,16 @@ class BoardPainter(PiecePainter):
         if self.board.is_square():
             w_pix, h_pix = self.get_square_size()
         else:
-            # w_pix, h_pix = self.drawable.get_size()
             w_pix, h_pix = self.get_aspect_ratio_size()
 
-        # is_by_the_book = self.board.is_by_the_book()
-        # if is_by_the_book:
-        #     w_pix = w_pix - 2 * BoardPainter.BorderWidth_pix
         self.field_width_pix = int(math.floor(w_pix / self.board.get_width()))
-        # if is_by_the_book:
-        #     h_pix = h_pix - 2 * BoardPainter.BorderHeight_pix
         self.field_height_pix = int(math.floor(h_pix / self.board.get_height()))
 
         self.board_width_pix = self.field_width_pix * self.board.get_width()
         self.board_height_pix = self.field_height_pix * self.board.get_height()
-        # if is_by_the_book:
-        #     self.board_top_pix = BoardPainter.BorderHeight_pix
-        #     self.board_left_pix = BoardPainter.BorderWidth_pix
-        # else:
-        #     self.board_top_pix = 0
-        #     self.board_left_pix = 0
         self.board_top_pix = 0
         self.board_left_pix = 0
 
-        # if is_by_the_book:
-        #     self.border_top_pix = BoardPainter.BorderTop_pix
-        #     self.border_left_pix = BoardPainter.BorderLeft_pix
-        #     self.border_width_pix = self.board_width_pix + 2 * (BoardPainter.BorderWidth_pix - BoardPainter.BorderThickness_pix) - 1
-        #     self.border_height_pix = self.board_height_pix + 2 * (BoardPainter.BorderHeight_pix - BoardPainter.BorderThickness_pix) - 1
-        # else:
-        #     self.border_top_pix = 0
-        #     self.border_left_pix = 0
-        #     self.border_width_pix = self.board_width_pix
-        #     self.border_height_pix = self.board_height_pix
         self.border_top_pix = 0
         self.border_left_pix = 0
         self.border_width_pix = self.board_width_pix
@@ -137,14 +110,23 @@ class BoardPainter(PiecePainter):
         p = self.board[j][i]
         self.draw_piece(pc, p)
 
+        # for testing, delete afterwards
+        #
+        # self.draw_piece_with_chip(pc, p)
+        # # self.draw_piece(pc, p)
+        #
+        # if p != PieceType.none:
+        #     from mark import FieldMarker
+        #     self.draw_field_marker( FieldMarker(i, j, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=5.0), pc )
+        #
+        # for testing, delete afterwards
+
     def draw_all_pieces(self, pc):
         for i in xrange(self.board.get_width()):
             for j in xrange(self.board.get_height()):
                 self.draw_piece_at_field(i, j, pc)
 
     def draw_board(self, pc):
-        # if self.board.is_by_the_book():
-        #     self.draw_border(pc, False)
         self.draw_all_fields(pc)
         self.draw_all_pieces(pc)
 
