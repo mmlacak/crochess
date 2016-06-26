@@ -46,13 +46,14 @@ class PiecePainter(Painter):
         self.draw_polygon_with_background(pc.get_gc_piece(piece), knight)
 
     def draw_rook(self, pc, piece, with_chip=False):
-        self.draw_chip(pc, piece)
+        if with_chip:
+            self.draw_chip(pc, piece)
 
         rook = [(0.27, 0.3), (0.37, 0.3), (0.37, 0.42), (0.43, 0.42), (0.43, 0.3), (0.57, 0.3), \
                 (0.57, 0.42), (0.63, 0.42), (0.63, 0.3), (0.73, 0.3), (0.76, 0.5), (0.67, 0.54), \
                 (0.72, 0.9), (0.28, 0.9), (0.33, 0.54), (0.24, 0.5)]
-        if with_chip:
-            rook = self.translate(rook, trans_y=PIECE_WITH_CHIP_TRANSLATION)
+        # if with_chip:
+        #     rook = self.translate(rook, trans_y=PIECE_WITH_CHIP_TRANSLATION)
         rook = [ self.calc_point(pc.rect, *t) for t in rook ]
         self.draw_polygon_with_background(pc.get_gc_piece(piece), rook)
 

@@ -110,17 +110,6 @@ class BoardPainter(PiecePainter):
         p = self.board[j][i]
         self.draw_piece(pc, p)
 
-        # for testing, delete afterwards
-        #
-        # self.draw_piece_with_chip(pc, p)
-        # # self.draw_piece(pc, p)
-        #
-        # if p != PieceType.none:
-        #     from mark import FieldMarker
-        #     self.draw_field_marker( FieldMarker(i, j, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=5.0), pc )
-        #
-        # for testing, delete afterwards
-
     def draw_all_pieces(self, pc):
         for i in xrange(self.board.get_width()):
             for j in xrange(self.board.get_height()):

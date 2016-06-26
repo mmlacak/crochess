@@ -108,16 +108,16 @@ class MarkPainter(bp.BoardPainter):
         start_dp = self.get_field_start_pix(*field_marker.field)
 
         x_pix, y_pix = start_dp.x_pix, start_dp.y_pix
-        upper_left_triangle = pm.round_coords_to_pix([ (x_pix, y_pix), (x_pix + width_pix, y_pix), (x_pix, y_pix + width_pix) ])
+        upper_left_triangle = pm.round_coords_to_int([ (x_pix, y_pix), (x_pix + width_pix, y_pix), (x_pix, y_pix + width_pix) ])
 
         x_pix, y_pix = x_pix + self.field_width_pix, y_pix
-        upper_right_triangle = pm.round_coords_to_pix([ (x_pix, y_pix), (x_pix - width_pix, y_pix), (x_pix, y_pix + width_pix) ])
+        upper_right_triangle = pm.round_coords_to_int([ (x_pix, y_pix), (x_pix - width_pix, y_pix), (x_pix, y_pix + width_pix) ])
 
         x_pix, y_pix = x_pix, y_pix + self.field_height_pix
-        lower_right_triangle = pm.round_coords_to_pix([ (x_pix, y_pix), (x_pix - width_pix, y_pix), (x_pix, y_pix - width_pix) ])
+        lower_right_triangle = pm.round_coords_to_int([ (x_pix, y_pix), (x_pix - width_pix, y_pix), (x_pix, y_pix - width_pix) ])
 
         x_pix, y_pix = x_pix - self.field_width_pix, y_pix
-        lower_left_triangle = pm.round_coords_to_pix([ (x_pix, y_pix), (x_pix + width_pix, y_pix), (x_pix, y_pix - width_pix) ])
+        lower_left_triangle = pm.round_coords_to_int([ (x_pix, y_pix), (x_pix + width_pix, y_pix), (x_pix, y_pix - width_pix) ])
 
         field_markers_pix = [ upper_left_triangle, upper_right_triangle, lower_right_triangle, lower_left_triangle ]
 
@@ -136,9 +136,11 @@ class MarkPainter(bp.BoardPainter):
         gc = pc.get_gc_colors(fg_color, bg_color)
 
         for points_pix in markers_pix:
+# TODO :: rename this mess !!!
             # self.draw_polygon_with_background(gc, points_pix)
             # self.draw_polygon(gc, points_pix)
             self.draw_polygon_background(gc, points_pix)
+# TODO :: rename this mess !!!
 
     def draw_all_field_markers(self, field_markers, pc):
         for field_marker in field_markers:

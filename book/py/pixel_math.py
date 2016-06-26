@@ -18,7 +18,7 @@ def round_floats_to_int(itr):
     cls = type(itr)
     return cls(lst)
 
-def round_coords_to_pix(coords):
+def round_coords_to_int(coords):
     lst = [ round_floats_to_int(coord) for coord in coords ]
     cls = type(coords)
     return cls(lst)

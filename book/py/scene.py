@@ -235,6 +235,7 @@ class Scene(object):
         return "set_star_journey"
 
     def get_example_scene_functions(self):
+# TODO :: REVERT !!!
         """return [ self.move_pegasus, \
                  self.move_pegasus_2, \
                  self.move_shaman, \
@@ -248,3 +249,4 @@ class Scene(object):
                  self.set_star_journey ] """
         return [ self.move_pegasus, \
                  self.move_pegasus_2 ]
+# TODO :: REVERT !!!

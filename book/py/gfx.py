@@ -220,7 +220,6 @@ class GfxRender(object):
         arrows = [] if is_game_or_scene else self.scene.arrows
         texts = [] if is_game_or_scene else self.scene.texts
         field_markers = [] if is_game_or_scene else self.scene.field_markers
-        # painter = BoardPainter(drawable, board)
         painter = MarkPainter(drawable, board)
         pc = PainterContext(gc, board, False) # True # False
         pc.cc = pc.get_color_context(board.type)
