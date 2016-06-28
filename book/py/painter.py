@@ -21,7 +21,7 @@ class Painter(object):
         gc.foreground = gc.get_colormap().alloc_color(color)
         self.drawable.draw_rectangle(gc, True, 0, 0, *self.drawable.get_size())
 
-    def draw_polygon_with_background(self, gc, points):
+    def draw_polygon_background_outline(self, gc, points):
         # Monkeying around limitation of polygon fill being always done with foreground color.
         fg = gc.foreground
         gc.foreground = gc.background

@@ -56,7 +56,7 @@ class MarkPainter(bp.BoardPainter):
         bg_color = bg_color or arrow.bg_color or mark.Arrow.DEFAULT_BACKGROUND_COLOR
         gc = pc.get_gc_colors(fg_color, bg_color)
 
-        self.draw_polygon_with_background(gc, points_pix)
+        self.draw_polygon_background_outline(gc, points_pix)
 
     def draw_all_arrows(self, arrows, pc, \
                         fg_color=None, \
@@ -136,11 +136,9 @@ class MarkPainter(bp.BoardPainter):
         gc = pc.get_gc_colors(fg_color, bg_color)
 
         for points_pix in markers_pix:
-# TODO :: rename this mess !!!
-            # self.draw_polygon_with_background(gc, points_pix)
+            # self.draw_polygon_background_outline(gc, points_pix)
             # self.draw_polygon(gc, points_pix)
             self.draw_polygon_background(gc, points_pix)
-# TODO :: rename this mess !!!
 
     def draw_all_field_markers(self, field_markers, pc):
         for field_marker in field_markers:

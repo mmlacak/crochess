@@ -87,40 +87,95 @@ class Scene(object):
         self.delete_all_marks()
 
         self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+        self.board.set_piece(1, 3, PieceType(PieceType.Pawn))
+        self.board.set_piece(6, 3, PieceType(-PieceType.Pawn))
 
-        self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
-        self.arrows.append( Arrow(6.3, 5.1, 4.3, 2.7, fg_color="#202020", bg_color="#7F00FF"), )
+        fg_ok = "#303030"
+        bg_ok = "#00FF00"
+        fg_not = "#303030"
+        bg_not = "#808080"
 
-        self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#003080", bg_color="#000000") )
-        self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#008030", bg_color="#000000") )
-        self.texts.append( Text("here! 0123456798", 3.1, 2.78, "DejaVu Sans Mono 96", fg_color="#300080", bg_color="#000000") )
+        text_x = 0.8
+        text_y = 0.9
+        text_x_rev = 0.1
+        text_y_rev = 0.1
+        font = "sans bold 144"
+        fg_text = "#0000FF"
+        bg_text = "#303030"
 
-        self.field_markers.append( FieldMarker(3, 1, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=5.0) )
-        self.field_markers.append( FieldMarker(5, 7, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=7.0) )
-        self.field_markers.append( FieldMarker(7, 0, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=10.0) )
+        # direction 1, i.e. <2, 1>
+        start_x_1 = 0.9
+        start_y_1 = 0.7
+        end_x_1 = 0.1
+        end_y_1 = 0.3
+
+        self.arrows.append( Arrow(2.0 + start_x_1, 1.0 + start_y_1, 4.0 + end_x_1, 2.0 + end_y_1, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( Arrow(4.0 + start_x_1, 2.0 + start_y_1, 6.0 + end_x_1, 3.0 + end_y_1, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( Arrow(6.0 + start_x_1, 3.0 + start_y_1, 8.0 + end_x_1, 4.0 + end_y_1, fg_color=fg_not, bg_color=bg_not), )
+
+        self.texts.append( Text("1", 4.0 + text_x_rev, 2.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("1", 6.0 + text_x_rev, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("1", 8.0 + text_x_rev, 4.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 2, i.e. <1, 2>
+        start_x_2 = 0.7
+        start_y_2 = 0.9
+        end_x_2 = 0.3
+        end_y_2 = 0.1
+
+        self.arrows.append( Arrow(2.0 + start_x_2, 1.0 + start_y_2, 3.0 + end_x_2, 3.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( Arrow(3.0 + start_x_2, 3.0 + start_y_2, 4.0 + end_x_2, 5.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( Arrow(4.0 + start_x_2, 5.0 + start_y_2, 5.0 + end_x_2, 7.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( Arrow(5.0 + start_x_2, 7.0 + start_y_2, 6.0 + end_x_2, 9.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+
+        self.texts.append( Text("2", 3.0 + text_x_rev, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("2", 4.0 + text_x_rev, 5.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("2", 5.0 + text_x_rev, 7.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("2", 6.0 + text_x_rev, 9.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 3, i.e. <-1, 2>
+        start_x_3 = 0.3
+        start_y_3 = 0.9
+        end_x_3 = 0.7
+        end_y_3 = 0.1
+
+        self.arrows.append( Arrow(2.0 + start_x_3, 1.0 + start_y_3, 1.0 + end_x_3, 3.0 + end_y_3, fg_color=fg_not, bg_color=bg_not), )
+        self.arrows.append( Arrow(1.0 + start_x_3, 3.0 + start_y_3, 0.0 + end_x_3, 5.0 + end_y_3, fg_color=fg_not, bg_color=bg_not), )
+
+        self.texts.append( Text("3", 1.0 + text_x, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("3", 0.0 + text_x, 5.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 4, i.e. <-2, 1>
+        start_x_4 = 0.1
+        start_y_4 = 0.7
+        end_x_4 = 0.9
+        end_y_4 = 0.3
+
+        self.arrows.append( Arrow(2.0 + start_x_4, 1.0 + start_y_4, 0.0 + end_x_4, 2.0 + end_y_4, fg_color=fg_ok, bg_color=bg_ok), )
+
+        self.texts.append( Text("4", 0.0 + text_x, 2.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 5, i.e. <-2, -1>
+        start_x_5 = 0.1
+        start_y_5 = 0.3
+        end_x_5 = 0.9
+        end_y_5 = 0.7
+
+        self.arrows.append( Arrow(2.0 + start_x_5, 1.0 + start_y_5, 0.0 + end_x_5, 0.0 + end_y_5, fg_color=fg_ok, bg_color=bg_ok), )
+
+        self.texts.append( Text("5", 0.0 + text_x_rev, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 6, i.e. <2, -1>
+        start_x_6 = 0.9
+        start_y_6 = 0.3
+        end_x_6 = 0.1
+        end_y_6 = 0.7
+
+        self.arrows.append( Arrow(2.0 + start_x_6, 1.0 + start_y_6, 4.0 + end_x_6, 0.0 + end_y_6, fg_color=fg_ok, bg_color=bg_ok), )
+
+        self.texts.append( Text("6", 4.0 + text_x, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
 
         return "move_pegasus"
-
-    def move_pegasus_2(self, bt=BoardType.One):
-        bt = BoardType(bt)
-        self.board = Board(bt)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
-
-        self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
-        self.arrows.append( Arrow(6.3, 5.1, 14.3, 22.7, fg_color="#202020", bg_color="#7F00FF"), )
-
-        self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#FFFF00", bg_color="#000000") )
-        self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#FFFF00", bg_color="#000000") )
-        self.texts.append( Text("here! 0123456798", 3.1, 2.78, "DejaVu Sans Mono 96", fg_color="#300080", bg_color="#000000") )
-
-        self.field_markers.append( FieldMarker(3, 1, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=5.0) )
-        self.field_markers.append( FieldMarker(5, 7, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=7.0) )
-        self.field_markers.append( FieldMarker(7, 0, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=10.0) )
-
-        return "move_pegasus_2"
 
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
@@ -247,6 +302,53 @@ class Scene(object):
                  self.set_mirandas_veil_1, \
                  self.set_example_1, \
                  self.set_star_journey ] """
-        return [ self.move_pegasus, \
-                 self.move_pegasus_2 ]
+
+        """return [ self.test_move_pegasus, \
+                 self.test_move_pegasus_2 ] """
+
+        return [ self.move_pegasus ]
 # TODO :: REVERT !!!
+
+    # ~
+
+    def test_move_pegasus(self, bt=BoardType.CroatianTies):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+
+        self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
+        self.arrows.append( Arrow(6.3, 5.1, 4.3, 2.7, fg_color="#202020", bg_color="#7F00FF"), )
+
+        self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#003080", bg_color="#000000") )
+        self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#008030", bg_color="#000000") )
+        self.texts.append( Text("here! 0123456798", 3.1, 2.78, "DejaVu Sans Mono 96", fg_color="#300080", bg_color="#000000") )
+
+        self.field_markers.append( FieldMarker(3, 1, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=5.0) )
+        self.field_markers.append( FieldMarker(5, 7, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=7.0) )
+        self.field_markers.append( FieldMarker(7, 0, fg_color="#7F00FF", bg_color="#5F00AF", inv_width_ratio=10.0) )
+
+        return "test_move_pegasus"
+
+    def test_move_pegasus_2(self, bt=BoardType.One):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+
+        self.arrows.append( Arrow(600, 500, 4300, 2700, fg_color="#44FF44", bg_color="#440044"), )
+        self.arrows.append( Arrow(6.3, 5.1, 14.3, 22.7, fg_color="#202020", bg_color="#7F00FF"), )
+
+        self.texts.append( Text("howdy!", 999, 333, "sans bold 144", fg_color="#FFFF00", bg_color="#000000") )
+        self.texts.append( Text("hola!", 7.1, 3.33, "serif italic 277", fg_color="#FFFF00", bg_color="#000000") )
+        self.texts.append( Text("here! 0123456798", 3.1, 2.78, "DejaVu Sans Mono 96", fg_color="#300080", bg_color="#000000") )
+
+        self.field_markers.append( FieldMarker(3, 1, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=5.0) )
+        self.field_markers.append( FieldMarker(5, 7, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=7.0) )
+        self.field_markers.append( FieldMarker(7, 0, fg_color="#FFFF00", bg_color="#FF7F7F", inv_width_ratio=10.0) )
+
+        return "test_move_pegasus_2"

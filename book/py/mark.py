@@ -39,9 +39,9 @@ class Arrow(object):
 
 class Text(object):
 
-    DEFAULT_FOREGROUND_COLOR = "#FFFFFF"
-    DEFAULT_BACKGROUND_COLOR = "#000000"
-    DEFAULT_FONT = "normal 10"
+    DEFAULT_FOREGROUND_COLOR = "#000000" # "#FFFFFF"
+    DEFAULT_BACKGROUND_COLOR = "#FFFFFF" # "#000000"
+    DEFAULT_FONT = "sans bold 96"
 
     def __init__(self, text, pos_x, pos_y, font=None, \
                  fg_color=None, \
@@ -50,7 +50,7 @@ class Text(object):
 
         # self.pos_x = pos_x
         # self.pos_y = pos_y
-        self.pos = (pos_x, pos_x)
+        self.pos = (pos_x, pos_y)
 
         self.font = font or Text.DEFAULT_FONT
 
