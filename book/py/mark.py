@@ -41,7 +41,7 @@ class Text(object):
 
     DEFAULT_FOREGROUND_COLOR = "#000000" # "#FFFFFF"
     DEFAULT_BACKGROUND_COLOR = "#FFFFFF" # "#000000"
-    DEFAULT_FONT = "sans bold 96"
+    DEFAULT_FONT = "sans bold 144"
 
     def __init__(self, text, pos_x, pos_y, font=None, \
                  fg_color=None, \

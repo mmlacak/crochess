@@ -95,11 +95,11 @@ class Scene(object):
         fg_not = "#303030"
         bg_not = "#808080"
 
-        text_x = 0.8
-        text_y = 0.9
-        text_x_rev = 0.1
-        text_y_rev = 0.1
-        font = "sans bold 144"
+        text_x = 0.75
+        text_y = 1.0
+        text_x_rev = 0.05
+        text_y_rev = 0.05
+        font = "sans bold 192"
         fg_text = "#0000FF"
         bg_text = "#303030"
 
