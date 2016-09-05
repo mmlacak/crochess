@@ -23,7 +23,7 @@ import qualified Board as B
 import qualified Move as M
 import qualified Rules as R
 import qualified Game as G
-import qualified ParseMove as PM
+-- import qualified ParseMove as PM
 
 
 loop :: G.Game -> IO ()
@@ -171,6 +171,7 @@ loop game = do
 
 --         loop game
     else if cmd_ `elem` ["y", "yyy"] then do
+{-
         let _move = CS.filterAllSeparators params_ -- "[Nb3-d2]~We7~Qn3-c3~Md7"
         print ""
         print _move
@@ -186,7 +187,7 @@ loop game = do
 
 --         let _pr = PM.parseMove _move
 --         let ml_ = case _pr of Right m -> m
---                               Left err -> M.dummyMove 
+--                               Left err -> M.dummyMove
 
 --         do { if ml_ == M.dummyMove then do { print $ show _pr;
 --                                              loop game }
@@ -210,8 +211,9 @@ loop game = do
         let game_ = game { G.rules=(r_ { R.board=b_ }) }
         putStrLn $ CO.gameString game_
         loop game_
+-}
 
---       loop game
+        loop game
     else if cmd_ `elem` ["z", "zzz"] then do
         let l = BIL.lightCastlingFiguresInitialPositions BT.One
         print ""
@@ -256,4 +258,3 @@ main = do
     let game_ = G.initializeGame BT.One -- BT.Classical  -- BT.One -- CroatianTies
     putStrLn $ CO.gameString game_
     loop game_
-
