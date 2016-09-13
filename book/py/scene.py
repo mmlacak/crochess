@@ -80,7 +80,166 @@ class Scene(object):
 
         return bt
 
-    def move_pegasus(self, bt=BoardType.CroatianTies):
+    def move_pegasus_initial(self, bt=BoardType.CroatianTies):
+        bt = BoardType(bt)
+        self.board = Board(bt, 5, 5)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(2, 2, PieceType(PieceType.Pegasus))
+
+        fg_ok = "#303030"
+        bg_ok = "#00FF00"
+        fg_not = "#303030"
+        bg_not = "#808080"
+
+        text_x = 0.75
+        text_y = 1.0
+        text_x_rev = 0.05
+        text_y_rev = 0.05
+        font = "sans bold 384"
+        fg_text = "#0000FF"
+        bg_text = "#303030"
+
+        # direction 1, i.e. <2, 1>
+        start_x_1 = 0.9
+        start_y_1 = 0.7
+        end_x_1 = 0.1
+        end_y_1 = 0.3
+
+        self.arrows.append( Arrow(2.0 + start_x_1, 2.0 + start_y_1, 4.0 + end_x_1, 3.0 + end_y_1, fg_color=fg_ok, bg_color=bg_ok), )
+        self.texts.append( Text("1", 4.0 + text_x_rev, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 2, i.e. <1, 2>
+        start_x_2 = 0.7
+        start_y_2 = 0.9
+        end_x_2 = 0.3
+        end_y_2 = 0.1
+
+        self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 3.0 + end_x_2, 4.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.texts.append( Text("2", 3.0 + text_x_rev, 4.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 3, i.e. <-1, 2>
+        start_x_3 = 0.3
+        start_y_3 = 0.9
+        end_x_3 = 0.7
+        end_y_3 = 0.1
+
+        self.arrows.append( Arrow(2.0 + start_x_3, 2.0 + start_y_3, 1.0 + end_x_3, 4.0 + end_y_3, fg_color=fg_not, bg_color=bg_ok), )
+        self.texts.append( Text("3", 1.0 + text_x, 4.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 4, i.e. <-2, 1>
+        start_x_4 = 0.1
+        start_y_4 = 0.7
+        end_x_4 = 0.9
+        end_y_4 = 0.3
+
+        self.arrows.append( Arrow(2.0 + start_x_4, 2.0 + start_y_4, 0.0 + end_x_4, 3.0 + end_y_4, fg_color=fg_ok, bg_color=bg_ok), )
+        self.texts.append( Text("4", 0.0 + text_x, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 5, i.e. <-2, -1>
+        start_x_5 = 0.1
+        start_y_5 = 0.3
+        end_x_5 = 0.9
+        end_y_5 = 0.7
+
+        self.arrows.append( Arrow(2.0 + start_x_5, 2.0 + start_y_5, 0.0 + end_x_5, 1.0 + end_y_5, fg_color=fg_ok, bg_color=bg_ok), )
+        self.texts.append( Text("5", 0.0 + text_x_rev, 1.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 6, i.e. <-1, -2>
+        start_x_2 = 0.3
+        start_y_2 = 0.1
+        end_x_2 = 0.7
+        end_y_2 = 0.9
+
+        self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 1.0 + end_x_2, 0.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.texts.append( Text("6", 1.0 + text_x_rev, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 7, i.e. <1, -2>
+        start_x_2 = 0.7
+        start_y_2 = 0.1
+        end_x_2 = 0.3
+        end_y_2 = 0.9
+
+        self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 3.0 + end_x_2, 0.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.texts.append( Text("7", 3.0 + text_x, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 8, i.e. <2, -1>
+        start_x_6 = 0.9
+        start_y_6 = 0.3
+        end_x_6 = 0.1
+        end_y_6 = 0.7
+
+        self.arrows.append( Arrow(2.0 + start_x_6, 2.0 + start_y_6, 4.0 + end_x_6, 1.0 + end_y_6, fg_color=fg_ok, bg_color=bg_ok), )
+        self.texts.append( Text("8", 4.0 + text_x, 1.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        return "move_pegasus_initial"
+
+    def move_pegasus_direction(self, bt=BoardType.CroatianTies):
+        bt = BoardType(bt)
+        self.board = Board(bt, 10, 10)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+
+        fg_ok = "#303030"
+        bg_ok = "#00FF00"
+        fg_not = "#303030"
+        bg_not = "#808080"
+
+        text_x = 0.75
+        text_y = 1.0
+        text_x_rev = 0.05
+        text_y_rev = 0.05
+        font = "sans bold 384"
+        fg_text = "#0000FF"
+        bg_text = "#303030"
+        fg_text_not = "#303030"
+        bg_text_not = "#808080"
+
+        # main direction, i.e. <1, 2>
+        start_x_2 = 0.7
+        start_y_2 = 0.9
+        end_x_2 = 0.3
+        end_y_2 = 0.1
+
+        self.arrows.append( Arrow(2.0 + start_x_2, 1.0 + start_y_2, 3.0 + end_x_2, 3.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( Arrow(3.0 + start_x_2, 3.0 + start_y_2, 4.0 + end_x_2, 5.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( Arrow(4.0 + start_x_2, 5.0 + start_y_2, 5.0 + end_x_2, 7.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( Arrow(5.0 + start_x_2, 7.0 + start_y_2, 6.0 + end_x_2, 9.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+
+        self.texts.append( Text("1", 3.0 + text_x_rev, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("2", 4.0 + text_x_rev, 5.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("3", 5.0 + text_x_rev, 7.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( Text("4", 6.0 + text_x_rev, 9.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+
+        # direction 5, i.e. <2, 1>
+        start_x_1 = 0.9
+        start_y_1 = 0.7
+        end_x_1 = 0.1
+        end_y_1 = 0.3
+
+        self.arrows.append( Arrow(4.0 + start_x_1, 5.0 + start_y_1, 6.0 + end_x_1, 6.0 + end_y_1, fg_color=fg_not, bg_color=bg_not), )
+        self.texts.append( Text("5", 6.0 + text_x_rev, 6.0 + text_y, font=font, fg_color=fg_text_not, bg_color=bg_text_not) )
+
+        # direction 6, i.e. <-1, 2>
+        start_x_1 = 0.9
+        start_y_1 = 0.7
+        end_x_1 = 0.1
+        end_y_1 = 0.3
+
+        self.arrows.append( Arrow(4.0 + start_x_1, 5.0 + start_y_1, 6.0 + end_x_1, 6.0 + end_y_1, fg_color=fg_not, bg_color=bg_not), )
+        self.texts.append( Text("5", 6.0 + text_x_rev, 6.0 + text_y, font=font, fg_color=fg_text_not, bg_color=bg_text_not) )
+
+
+# TODO :: FINISH
+
+        return "move_pegasus_direction"
+
+
+# TODO :: FIX ME !!!
+    def move_pegasus_9(self, bt=BoardType.CroatianTies):
         bt = BoardType(bt)
         self.board = Board(bt)
         self.board.clear()
@@ -175,7 +334,9 @@ class Scene(object):
 
         self.texts.append( Text("6", 4.0 + text_x, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
 
-        return "move_pegasus"
+        return "move_pegasus_9"
+# TODO :: FIX ME !!!
+
 
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
@@ -306,7 +467,9 @@ class Scene(object):
         """return [ self.test_move_pegasus, \
                  self.test_move_pegasus_2 ] """
 
-        return [ self.move_pegasus ]
+        return [ self.move_pegasus_initial, \
+                 self.move_pegasus_direction, \
+                 self.move_pegasus_9 ]
 # TODO :: REVERT !!!
 
     # ~
