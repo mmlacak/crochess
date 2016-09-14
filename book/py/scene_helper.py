@@ -29,7 +29,6 @@ def get_pegasus_field_offsets(start_i, start_j, end_i, end_j):
     off_i = get_pegasus_coord_offsets(start_i, end_i)
     off_j = get_pegasus_coord_offsets(start_j, end_j)
 
-    # offsets = (off_i[0], off_i[1], off_j[0], off_j[1])
     offsets = (off_i[0], off_j[0], off_i[1], off_j[1])
     return offsets
 
@@ -97,7 +96,6 @@ class Corner(int):
 
 def get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05):
     def get_text_position(pos_i, pos_j, corner):
-        # assert isinstance(corner, Corner), "Type of corner placement argument is '%s', expected Corner." % ( type(corner) )
         crnr = Corner(corner)
         x = left if crnr.is_left() else right
         y = top if crnr.is_upper() else bottom
