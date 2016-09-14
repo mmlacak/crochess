@@ -10,6 +10,8 @@ from board import BoardType
 from board import Board
 from mark import Arrow, Text, FieldMarker
 
+import scene_helper as SH
+
 
 class Scene(object):
     def __init__(self, board=None):
@@ -183,54 +185,100 @@ class Scene(object):
 
         self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
 
-        fg_ok = "#303030"
-        bg_ok = "#00FF00"
-        fg_not = "#303030"
-        bg_not = "#808080"
+        # fg_ok = "#303030"
+        # bg_ok = "#00FF00"
+        # fg_not = "#303030"
+        # bg_not = "#808080"
+        get_arrow_colors = SH.get_func_get_colors("#303030", "#00FF00", "#303030", "#808080")
 
-        text_x = 0.75
-        text_y = 1.0
-        text_x_rev = 0.05
-        text_y_rev = 0.05
-        font = "sans bold 384"
-        fg_text = "#0000FF"
-        bg_text = "#303030"
-        fg_text_not = "#303030"
-        bg_text_not = "#808080"
+        # text_x = 0.75
+        # text_y = 1.0
+        # text_x_rev = 0.05
+        # text_y_rev = 0.05
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_position_2 = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.5, bottom=0.05)
+
+        # font = "sans bold 192"
+        # fg_text = "#0000FF"
+        # bg_text = "#303030"
+        # fg_text_not = "#303030"
+        # bg_text_not = "#808080"
+        get_text_colors = SH.get_func_get_colors("#0000FF", "#303030", "#303030", "#808080", font="sans bold 192")
 
         # main direction, i.e. <1, 2>
-        start_x_2 = 0.7
-        start_y_2 = 0.9
-        end_x_2 = 0.3
-        end_y_2 = 0.1
 
-        self.arrows.append( Arrow(2.0 + start_x_2, 1.0 + start_y_2, 3.0 + end_x_2, 3.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
-        self.arrows.append( Arrow(3.0 + start_x_2, 3.0 + start_y_2, 4.0 + end_x_2, 5.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
-        self.arrows.append( Arrow(4.0 + start_x_2, 5.0 + start_y_2, 5.0 + end_x_2, 7.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
-        self.arrows.append( Arrow(5.0 + start_x_2, 7.0 + start_y_2, 6.0 + end_x_2, 9.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        # start_x_2 = 0.7
+        # start_y_2 = 0.9
+        # end_x_2 = 0.3
+        # end_y_2 = 0.1
 
-        self.texts.append( Text("1", 3.0 + text_x_rev, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
-        self.texts.append( Text("2", 4.0 + text_x_rev, 5.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
-        self.texts.append( Text("3", 5.0 + text_x_rev, 7.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
-        self.texts.append( Text("4", 6.0 + text_x_rev, 9.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # self.arrows.append( Arrow(2.0 + start_x_2, 1.0 + start_y_2, 3.0 + end_x_2, 3.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        # self.arrows.append( Arrow(3.0 + start_x_2, 3.0 + start_y_2, 4.0 + end_x_2, 5.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        # self.arrows.append( Arrow(4.0 + start_x_2, 5.0 + start_y_2, 5.0 + end_x_2, 7.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        # self.arrows.append( Arrow(5.0 + start_x_2, 7.0 + start_y_2, 6.0 + end_x_2, 9.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 1, 3, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow_pegasus(3, 3, 4, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 5, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow_pegasus(5, 7, 6, 9, **get_arrow_colors(True)) )
 
-        # direction 5, i.e. <2, 1>
-        start_x_1 = 0.9
-        start_y_1 = 0.7
-        end_x_1 = 0.1
-        end_y_1 = 0.3
+        # self.texts.append( Text("1", 3.0 + text_x_rev, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # self.texts.append( Text("2", 4.0 + text_x_rev, 5.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # self.texts.append( Text("3", 5.0 + text_x_rev, 7.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # self.texts.append( Text("4", 6.0 + text_x_rev, 9.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(4, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(5, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(6, 9, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
-        self.arrows.append( Arrow(4.0 + start_x_1, 5.0 + start_y_1, 6.0 + end_x_1, 6.0 + end_y_1, fg_color=fg_not, bg_color=bg_not), )
-        self.texts.append( Text("5", 6.0 + text_x_rev, 6.0 + text_y, font=font, fg_color=fg_text_not, bg_color=bg_text_not) )
+        # direction 2a, i.e. <2, 1>
 
-        # direction 6, i.e. <-1, 2>
-        start_x_1 = 0.9
-        start_y_1 = 0.7
-        end_x_1 = 0.1
-        end_y_1 = 0.3
+        # start_x_1 = 0.9
+        # start_y_1 = 0.7
+        # end_x_1 = 0.1
+        # end_y_1 = 0.3
 
-        self.arrows.append( Arrow(4.0 + start_x_1, 5.0 + start_y_1, 6.0 + end_x_1, 6.0 + end_y_1, fg_color=fg_not, bg_color=bg_not), )
-        self.texts.append( Text("5", 6.0 + text_x_rev, 6.0 + text_y, font=font, fg_color=fg_text_not, bg_color=bg_text_not) )
+        # self.arrows.append( Arrow(4.0 + start_x_1, 5.0 + start_y_1, 6.0 + end_x_1, 6.0 + end_y_1, fg_color=fg_not, bg_color=bg_not), )
+        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 6, 6, **get_arrow_colors(False)) )
+
+        # self.texts.append( Text("5", 6.0 + text_x_rev, 6.0 + text_y, font=font, fg_color=fg_text_not, bg_color=bg_text_not) )
+        self.texts.append( SH.get_new_text("2a", *get_text_position_2(6, 6, SH.Corner.UpperRight), **get_text_colors(False)) )
+
+        # direction 2b, i.e. <2, -1>
+
+        # start_x_1 = 0.9
+        # start_y_1 = 0.7
+        # end_x_1 = 0.1
+        # end_y_1 = 0.3
+
+        # self.arrows.append( Arrow(4.0 + start_x_1, 5.0 + start_y_1, 6.0 + end_x_1, 6.0 + end_y_1, fg_color=fg_not, bg_color=bg_not), )
+        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 6, 4, **get_arrow_colors(False)) )
+
+        # self.texts.append( Text("5", 6.0 + text_x_rev, 6.0 + text_y, font=font, fg_color=fg_text_not, bg_color=bg_text_not) )
+        self.texts.append( SH.get_new_text("2b", *get_text_position_2(6, 4, SH.Corner.UpperRight), **get_text_colors(False)) )
+
+        # direction 2c, i.e. <1, -2>
+
+        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 5, 3, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("2c", *get_text_position_2(5, 3, SH.Corner.UpperRight), **get_text_colors(False)) )
+
+        # direction 2d, i.e. <-2, -1>
+
+        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 2, 4, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("2d", *get_text_position(2, 4, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        # direction 2e, i.e. <-2, 1>
+
+        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 2, 6, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("2e", *get_text_position(2, 6, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        # direction 2f, i.e. <-1, 2>
+
+        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 3, 7, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("2f", *get_text_position_2(3, 7, SH.Corner.UpperRight), **get_text_colors(False)) )
 
 
 # TODO :: FINISH
@@ -467,9 +515,11 @@ class Scene(object):
         """return [ self.test_move_pegasus, \
                  self.test_move_pegasus_2 ] """
 
-        return [ self.move_pegasus_initial, \
+        """return [ self.move_pegasus_initial, \
                  self.move_pegasus_direction, \
-                 self.move_pegasus_9 ]
+                 self.move_pegasus_9 ] """
+
+        return [ self.move_pegasus_direction ]
 # TODO :: REVERT !!!
 
     # ~
