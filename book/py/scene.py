@@ -90,90 +90,126 @@ class Scene(object):
 
         self.board.set_piece(2, 2, PieceType(PieceType.Pegasus))
 
-        fg_ok = "#303030"
-        bg_ok = "#00FF00"
-        fg_not = "#303030"
-        bg_not = "#808080"
+        # fg_ok = "#303030"
+        # bg_ok = "#00FF00"
+        # fg_not = "#303030"
+        # bg_not = "#808080"
+        get_arrow_colors = SH.get_func_get_colors("#303030", "#00FF00", "#303030", "#808080")
 
-        text_x = 0.75
-        text_y = 1.0
-        text_x_rev = 0.05
-        text_y_rev = 0.05
-        font = "sans bold 384"
-        fg_text = "#0000FF"
-        bg_text = "#303030"
+        # text_x = 0.75
+        # text_y = 1.0
+        # text_x_rev = 0.05
+        # text_y_rev = 0.05
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+
+        # font = "sans bold 384"
+        # fg_text = "#0000FF"
+        # bg_text = "#303030"
+        get_text_colors = SH.get_func_get_colors("#0000FF", "#303030", "#303030", "#808080", font="sans bold 384")
 
         # direction 1, i.e. <2, 1>
-        start_x_1 = 0.9
-        start_y_1 = 0.7
-        end_x_1 = 0.1
-        end_y_1 = 0.3
 
-        self.arrows.append( Arrow(2.0 + start_x_1, 2.0 + start_y_1, 4.0 + end_x_1, 3.0 + end_y_1, fg_color=fg_ok, bg_color=bg_ok), )
-        self.texts.append( Text("1", 4.0 + text_x_rev, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # start_x_1 = 0.9
+        # start_y_1 = 0.7
+        # end_x_1 = 0.1
+        # end_y_1 = 0.3
+
+        # self.arrows.append( Arrow(2.0 + start_x_1, 2.0 + start_y_1, 4.0 + end_x_1, 3.0 + end_y_1, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 4, 3, **get_arrow_colors(True)) )
+
+        # self.texts.append( Text("1", 4.0 + text_x_rev, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 2, i.e. <1, 2>
-        start_x_2 = 0.7
-        start_y_2 = 0.9
-        end_x_2 = 0.3
-        end_y_2 = 0.1
 
-        self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 3.0 + end_x_2, 4.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
-        self.texts.append( Text("2", 3.0 + text_x_rev, 4.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # start_x_2 = 0.7
+        # start_y_2 = 0.9
+        # end_x_2 = 0.3
+        # end_y_2 = 0.1
+
+        # self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 3.0 + end_x_2, 4.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 3, 4, **get_arrow_colors(True)) )
+
+        # self.texts.append( Text("2", 3.0 + text_x_rev, 4.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 3, i.e. <-1, 2>
-        start_x_3 = 0.3
-        start_y_3 = 0.9
-        end_x_3 = 0.7
-        end_y_3 = 0.1
 
-        self.arrows.append( Arrow(2.0 + start_x_3, 2.0 + start_y_3, 1.0 + end_x_3, 4.0 + end_y_3, fg_color=fg_not, bg_color=bg_ok), )
-        self.texts.append( Text("3", 1.0 + text_x, 4.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # start_x_3 = 0.3
+        # start_y_3 = 0.9
+        # end_x_3 = 0.7
+        # end_y_3 = 0.1
+
+        # self.arrows.append( Arrow(2.0 + start_x_3, 2.0 + start_y_3, 1.0 + end_x_3, 4.0 + end_y_3, fg_color=fg_not, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 1, 4, **get_arrow_colors(True)) )
+
+        # self.texts.append( Text("3", 1.0 + text_x, 4.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(1, 4, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         # direction 4, i.e. <-2, 1>
-        start_x_4 = 0.1
-        start_y_4 = 0.7
-        end_x_4 = 0.9
-        end_y_4 = 0.3
 
-        self.arrows.append( Arrow(2.0 + start_x_4, 2.0 + start_y_4, 0.0 + end_x_4, 3.0 + end_y_4, fg_color=fg_ok, bg_color=bg_ok), )
-        self.texts.append( Text("4", 0.0 + text_x, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # start_x_4 = 0.1
+        # start_y_4 = 0.7
+        # end_x_4 = 0.9
+        # end_y_4 = 0.3
+
+        # self.arrows.append( Arrow(2.0 + start_x_4, 2.0 + start_y_4, 0.0 + end_x_4, 3.0 + end_y_4, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 0, 3, **get_arrow_colors(True)) )
+
+        # self.texts.append( Text("4", 0.0 + text_x, 3.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(0, 3, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         # direction 5, i.e. <-2, -1>
-        start_x_5 = 0.1
-        start_y_5 = 0.3
-        end_x_5 = 0.9
-        end_y_5 = 0.7
 
-        self.arrows.append( Arrow(2.0 + start_x_5, 2.0 + start_y_5, 0.0 + end_x_5, 1.0 + end_y_5, fg_color=fg_ok, bg_color=bg_ok), )
-        self.texts.append( Text("5", 0.0 + text_x_rev, 1.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # start_x_5 = 0.1
+        # start_y_5 = 0.3
+        # end_x_5 = 0.9
+        # end_y_5 = 0.7
+
+        # self.arrows.append( Arrow(2.0 + start_x_5, 2.0 + start_y_5, 0.0 + end_x_5, 1.0 + end_y_5, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 0, 1, **get_arrow_colors(True)) )
+
+        # self.texts.append( Text("5", 0.0 + text_x_rev, 1.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("5", *get_text_position(0, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 6, i.e. <-1, -2>
-        start_x_2 = 0.3
-        start_y_2 = 0.1
-        end_x_2 = 0.7
-        end_y_2 = 0.9
 
-        self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 1.0 + end_x_2, 0.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
-        self.texts.append( Text("6", 1.0 + text_x_rev, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # start_x_2 = 0.3
+        # start_y_2 = 0.1
+        # end_x_2 = 0.7
+        # end_y_2 = 0.9
+
+        # self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 1.0 + end_x_2, 0.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 1, 0, **get_arrow_colors(True)) )
+
+        # self.texts.append( Text("6", 1.0 + text_x_rev, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("6", *get_text_position(1, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 7, i.e. <1, -2>
-        start_x_2 = 0.7
-        start_y_2 = 0.1
-        end_x_2 = 0.3
-        end_y_2 = 0.9
 
-        self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 3.0 + end_x_2, 0.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
-        self.texts.append( Text("7", 3.0 + text_x, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # start_x_2 = 0.7
+        # start_y_2 = 0.1
+        # end_x_2 = 0.3
+        # end_y_2 = 0.9
+
+        # self.arrows.append( Arrow(2.0 + start_x_2, 2.0 + start_y_2, 3.0 + end_x_2, 0.0 + end_y_2, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 3, 0, **get_arrow_colors(True)) )
+
+        # self.texts.append( Text("7", 3.0 + text_x, 0.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("7", *get_text_position(3, 0, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         # direction 8, i.e. <2, -1>
-        start_x_6 = 0.9
-        start_y_6 = 0.3
-        end_x_6 = 0.1
-        end_y_6 = 0.7
 
-        self.arrows.append( Arrow(2.0 + start_x_6, 2.0 + start_y_6, 4.0 + end_x_6, 1.0 + end_y_6, fg_color=fg_ok, bg_color=bg_ok), )
-        self.texts.append( Text("8", 4.0 + text_x, 1.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        # start_x_6 = 0.9
+        # start_y_6 = 0.3
+        # end_x_6 = 0.1
+        # end_y_6 = 0.7
+
+        # self.arrows.append( Arrow(2.0 + start_x_6, 2.0 + start_y_6, 4.0 + end_x_6, 1.0 + end_y_6, fg_color=fg_ok, bg_color=bg_ok), )
+        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 4, 1, **get_arrow_colors(True)) )
+
+        # self.texts.append( Text("8", 4.0 + text_x, 1.0 + text_y, font=font, fg_color=fg_text, bg_color=bg_text) )
+        self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         return "move_pegasus_initial"
 
@@ -474,7 +510,7 @@ class Scene(object):
                  self.move_pegasus_direction, \
                  self.move_pegasus_9 ] """
 
-        return [ self.move_pegasus_direction ]
+        return [ self.move_pegasus_initial ]
 # TODO :: REVERT !!!
 
     # ~
