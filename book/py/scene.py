@@ -106,49 +106,49 @@ class Scene(object):
 
         # direction 1, i.e. <2, 1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 4, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 2, 4, 3, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("1", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 2, i.e. <1, 2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 3, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 2, 3, 4, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("2", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 3, i.e. <-1, 2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 1, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 2, 1, 4, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("3", *get_text_position(1, 4, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         # direction 4, i.e. <-2, 1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 0, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 2, 0, 3, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("4", *get_text_position(0, 3, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         # direction 5, i.e. <-2, -1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 0, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 2, 0, 1, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("5", *get_text_position(0, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 6, i.e. <-1, -2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 1, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 2, 1, 0, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("6", *get_text_position(1, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 7, i.e. <1, -2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 3, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 2, 3, 0, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("7", *get_text_position(3, 0, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         # direction 8, i.e. <2, -1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 2, 4, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 2, 4, 1, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperRight), **get_text_colors(True)) )
 
@@ -169,10 +169,10 @@ class Scene(object):
 
         # main direction, i.e. <1, 2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 1, 3, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(3, 3, 4, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 5, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(5, 7, 6, 9, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 3, 4, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 5, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 7, 6, 9, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("1", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(4, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
@@ -181,37 +181,37 @@ class Scene(object):
 
         # direction 2a, i.e. <2, 1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 6, 6, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 6, 6, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("2a", *get_text_position_2(6, 6, SH.Corner.UpperRight), **get_text_colors(False)) )
 
         # direction 2b, i.e. <2, -1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 6, 4, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 6, 4, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("2b", *get_text_position_2(6, 4, SH.Corner.UpperRight), **get_text_colors(False)) )
 
         # direction 2c, i.e. <1, -2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 5, 3, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 5, 3, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("2c", *get_text_position_2(5, 3, SH.Corner.UpperRight), **get_text_colors(False)) )
 
         # direction 2d, i.e. <-2, -1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 2, 4, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 2, 4, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("2d", *get_text_position(2, 4, SH.Corner.UpperLeft), **get_text_colors(False)) )
 
         # direction 2e, i.e. <-2, 1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 2, 6, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 2, 6, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("2e", *get_text_position(2, 6, SH.Corner.UpperLeft), **get_text_colors(False)) )
 
         # direction 2f, i.e. <-1, 2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 3, 7, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 3, 7, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("2f", *get_text_position_2(3, 7, SH.Corner.UpperRight), **get_text_colors(False)) )
 
@@ -233,9 +233,9 @@ class Scene(object):
 
         # direction 1, i.e. <2, 1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 1, 4, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 2, 6, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(6, 3, 8, 4, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 4, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 2, 6, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 3, 8, 4, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("1", *get_text_position(4, 2, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("1", *get_text_position(6, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
@@ -243,10 +243,10 @@ class Scene(object):
 
         # direction 2, i.e. <1, 2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 1, 3, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(3, 3, 4, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 5, 7, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(5, 7, 6, 9, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 3, 4, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 5, 7, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(5, 7, 6, 9, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("2", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(4, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
@@ -255,27 +255,27 @@ class Scene(object):
 
         # direction 3, i.e. <-1, 2>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 1, 1, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow_pegasus(1, 3, 0, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 1, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 3, 0, 5, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("3", *get_text_position(1, 3, SH.Corner.UpperRight), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("3", *get_text_position(0, 5, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         # direction 4, i.e. <-2, 1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 1, 0, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 0, 2, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("4", *get_text_position(0, 2, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         # direction 5, i.e. <-2, -1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 1, 0, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 0, 0, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("5", *get_text_position(0, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 6, i.e. <2, -1>
 
-        self.arrows.append( SH.get_new_arrow_pegasus(2, 1, 4, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 4, 0, **get_arrow_colors(True)) )
 
         self.texts.append( SH.get_new_text("6", *get_text_position(4, 0, SH.Corner.UpperRight), **get_text_colors(True)) )
 
