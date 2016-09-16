@@ -90,6 +90,16 @@ class Scene(object):
 
         self.board.set_piece(2, 2, PieceType(PieceType.Pegasus))
 
+        self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
+        self.board.set_piece(1, 2, PieceType(PieceType.Pawn))
+        self.board.set_piece(1, 3, PieceType(PieceType.Pawn))
+        self.board.set_piece(2, 3, PieceType(PieceType.Pawn))
+
+        self.board.set_piece(3, 3, PieceType(PieceType.Pawn))
+        self.board.set_piece(3, 2, PieceType(PieceType.Pawn))
+        self.board.set_piece(3, 1, PieceType(PieceType.Pawn))
+        self.board.set_piece(2, 1, PieceType(PieceType.Pawn))
+
         get_arrow_colors = SH.get_func_get_colors("#303030", "#00FF00", "#303030", "#808080")
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
         get_text_colors = SH.get_func_get_colors("#0000FF", "#303030", "#303030", "#808080", font="sans bold 384")
@@ -207,9 +217,7 @@ class Scene(object):
 
         return "move_pegasus_direction"
 
-
-# TODO :: FIX ME !!!
-    def move_pegasus_9(self, bt=BoardType.CroatianTies):
+    def move_pegasus(self, bt=BoardType.CroatianTies):
         bt = BoardType(bt)
         self.board = Board(bt)
         self.board.clear()
@@ -239,7 +247,6 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow_pegasus(3, 3, 4, 5, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow_pegasus(4, 5, 5, 7, **get_arrow_colors(False)) )
         self.arrows.append( SH.get_new_arrow_pegasus(5, 7, 6, 9, **get_arrow_colors(False)) )
-
 
         self.texts.append( SH.get_new_text("2", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(4, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
@@ -272,9 +279,7 @@ class Scene(object):
 
         self.texts.append( SH.get_new_text("6", *get_text_position(4, 0, SH.Corner.UpperRight), **get_text_colors(True)) )
 
-        return "move_pegasus_9"
-# TODO :: FIX ME !!!
-
+        return "move_pegasus"
 
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
@@ -390,8 +395,9 @@ class Scene(object):
 
     def get_example_scene_functions(self):
 # TODO :: REVERT !!!
-        """return [ self.move_pegasus, \
-                 self.move_pegasus_2, \
+        """return [ self.move_pegasus_initial, \
+                 self.move_pegasus_direction, \
+                 self.move_pegasus, \
                  self.move_shaman, \
                  self.move_shaman_2, \
                  self.move_monolith, \
@@ -405,11 +411,11 @@ class Scene(object):
         """return [ self.test_move_pegasus, \
                  self.test_move_pegasus_2 ] """
 
-        """return [ self.move_pegasus_initial, \
+        return [ self.move_pegasus_initial, \
                  self.move_pegasus_direction, \
-                 self.move_pegasus_9 ] """
+                 self.move_pegasus ]
 
-        return [ self.move_pegasus_9 ]
+        # return [ self.move_pegasus_initial ]
 # TODO :: REVERT !!!
 
     # ~

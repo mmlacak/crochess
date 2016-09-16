@@ -4,11 +4,61 @@
 # Copyright (c) 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+# import math
 
 from piece import PieceType
 from board import BoardType
 from board import Board
 from mark import Arrow, Text, FieldMarker
+
+import pixel_math as pm
+
+
+def get_coord_offset(coord, offset=0.5):
+    return coord + offset if isinstance(coord, int) else float(coord)
+
+def get_arrow_coordinates(start_i, start_j, end_i, end_j):
+    diff_i = end_i - start_i
+    diff_j = end_j - start_j
+
+    start_x_off = start_x = get_coord_offset(start_i) # start_i + 0.5 if isinstance(start_i, int) else float(start_i)
+    start_y_off = start_y = get_coord_offset(start_j) # start_j + 0.5 if isinstance(start_j, int) else float(start_j)
+    end_x_off = end_x = get_coord_offset(end_i) # end_i + 0.5 if isinstance(end_i, int) else float(end_i)
+    end_y_off = end_y = get_coord_offset(end_j) # end_j + 0.5 if isinstance(end_j, int) else float(end_j)
+
+    offset_x = 0.9 if diff_i > 0.0 else 0.1
+    offset_y = 0.9 if diff_j > 0.0 else 0.1
+
+    if pm.q_same_rounded_floats(end_x, start_x):
+        start_y_off = get_coord_offset(start_j, offset=offset_y) # start_j + offset_y if isinstance(start_j, int) else float(start_j)
+        end_y_off = get_coord_offset(end_j, offset=(1.0 - offset_y)) # end_j + 1.0 - offset_y if isinstance(end_j, int) else float(end_j)
+    elif pm.q_same_rounded_floats(end_y, start_y):
+        start_x_off = get_coord_offset(start_i, offset=offset_x) # start_i + offset_x if isinstance(start_i, int) else float(start_i)
+        end_x_off = get_coord_offset(end_i, offset=(1.0 - offset_x)) # end_i + 1.0 - offset_x if isinstance(end_i, int) else float(end_i)
+    else:
+        a, b = pm.calc_straight_line((start_x, start_y), (end_x, end_y))
+
+        is_x_crossed = bool( abs(diff_i) > abs(diff_j) )
+
+        if is_x_crossed:
+            start_x_off = get_coord_offset(start_i, offset=offset_x) # start_i + offset_x if isinstance(start_i, int) else float(start_i)
+            end_x_off = get_coord_offset(end_i, offset=(1.0 - offset_x)) # end_i + 1.0 - offset_x if isinstance(end_i, int) else float(end_i)
+
+            start_y_off = a * start_x_off + b
+            end_y_off = a * end_x_off + b
+        else:
+            start_y_off = get_coord_offset(start_j, offset=offset_y) # start_j + offset_y if isinstance(start_j, int) else float(start_j)
+            end_y_off = get_coord_offset(end_j, offset=(1.0 - offset_y)) # end_j + 1.0 - offset_y if isinstance(end_j, int) else float(end_j)
+
+            start_x_off = (start_y_off - b) / a
+            end_x_off = (end_y_off - b) / a
+
+    return [start_x_off, start_y_off, end_x_off, end_y_off]
+
+def get_new_arrow(start_i, start_j, end_i, end_j, fg_color=None, bg_color=None):
+    coords = get_arrow_coordinates(start_i, start_j, end_i, end_j)
+
+    return Arrow(coords[0], coords[1], coords[2], coords[3], fg_color=fg_color, bg_color=bg_color)
 
 
 def get_pegasus_coord_offsets(start_coord, end_coord):
@@ -33,9 +83,10 @@ def get_pegasus_field_offsets(start_i, start_j, end_i, end_j):
     return offsets
 
 def get_new_arrow_pegasus(start_i, start_j, end_i, end_j, fg_color=None, bg_color=None):
-    offsets = get_pegasus_field_offsets(start_i, start_j, end_i, end_j)
+#     offsets = get_pegasus_field_offsets(start_i, start_j, end_i, end_j)
 
-    return Arrow(start_i + offsets[0], start_j + offsets[1], end_i + offsets[2], end_j + offsets[3], fg_color=fg_color, bg_color=bg_color)
+#     return Arrow(start_i + offsets[0], start_j + offsets[1], end_i + offsets[2], end_j + offsets[3], fg_color=fg_color, bg_color=bg_color)
+    return get_new_arrow(start_i, start_j, end_i, end_j, fg_color=fg_color, bg_color=bg_color)
 
 
 def get_func_get_colors(fg_ok, bg_ok, fg_not_ok, bg_not_ok, font=None):
