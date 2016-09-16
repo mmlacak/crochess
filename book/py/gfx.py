@@ -61,10 +61,7 @@ class GfxRender(object):
         print "Finished."
 
     def render_all_example_scenes(self):
-        print
-        print "Rendering all examples."
-        self.scene = Scene(None)
-        for index, func in enumerate(self.scene.get_example_scene_functions()):
+        def render_example_scene(index, func):
             name = func()
             file_path = self.get_scene_file_path(index+1, name)
             print file_path
@@ -73,6 +70,21 @@ class GfxRender(object):
                                   is_game_or_scene=False, \
                                   size_x=size_x, \
                                   size_y=size_y)
+
+        print
+        print "Rendering all examples."
+        self.scene = Scene(None)
+        indexes = self.scene.get_example_scene_function_indexes()
+
+        if indexes is None:
+            for index, func in enumerate(self.scene.get_example_scene_functions()):
+                render_example_scene(index, func)
+        else:
+            functions = self.scene.get_example_scene_functions()
+            for index in indexes:
+                func = functions[index]
+                render_example_scene(index, func)
+
         print "Finished."
 
     def render_all_castling_scenes(self):

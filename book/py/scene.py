@@ -394,8 +394,7 @@ class Scene(object):
         return "set_star_journey"
 
     def get_example_scene_functions(self):
-# TODO :: REVERT !!!
-        """return [ self.move_pegasus_initial, \
+        return [ self.move_pegasus_initial, \
                  self.move_pegasus_direction, \
                  self.move_pegasus, \
                  self.move_shaman, \
@@ -406,17 +405,10 @@ class Scene(object):
                  self.move_starchild_2, \
                  self.set_mirandas_veil_1, \
                  self.set_example_1, \
-                 self.set_star_journey ] """
+                 self.set_star_journey ]
 
-        """return [ self.test_move_pegasus, \
-                 self.test_move_pegasus_2 ] """
-
-        return [ self.move_pegasus_initial, \
-                 self.move_pegasus_direction, \
-                 self.move_pegasus ]
-
-        # return [ self.move_pegasus_initial ]
-# TODO :: REVERT !!!
+    def get_example_scene_function_indexes(self):
+        return [0, 1, 2] # None
 
     # ~
 
