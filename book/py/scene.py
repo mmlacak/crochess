@@ -34,6 +34,9 @@ class Scene(object):
         self.delete_all_texts()
         self.delete_all_field_markers()
 
+    def format_return_values(self, filename, size_x=None, size_y=None):
+        return filename, size_x, size_y
+
     def intro_piece(self, bt, piece_type=None):
         bt = BoardType(bt)
         self.board = Board(bt, 2, 2)
@@ -102,7 +105,8 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors("#303030", "#00FF00", "#303030", "#808080")
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors("#0000FF", "#303030", "#303030", "#808080", font="sans bold 384")
+#         get_text_colors = SH.get_func_get_colors("#0000FF", "#303030", "#303030", "#808080", font="sans bold 384")
+        get_text_colors = SH.get_func_get_colors("#0000FF", "#303030", "#303030", "#808080", font="sans bold 192")
 
         # direction 1, i.e. <2, 1>
 
@@ -152,7 +156,7 @@ class Scene(object):
 
         self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperRight), **get_text_colors(True)) )
 
-        return "move_pegasus_initial"
+        return self.format_return_values("move_pegasus_initial", size_x=4000, size_y=4000)
 
     def move_pegasus_direction(self, bt=BoardType.CroatianTies):
         bt = BoardType(bt)
@@ -215,7 +219,7 @@ class Scene(object):
 
         self.texts.append( SH.get_new_text("2f", *get_text_position_2(3, 7, SH.Corner.UpperRight), **get_text_colors(False)) )
 
-        return "move_pegasus_direction"
+        return self.format_return_values("move_pegasus_direction")
 
     def move_pegasus(self, bt=BoardType.CroatianTies):
         bt = BoardType(bt)
@@ -279,7 +283,7 @@ class Scene(object):
 
         self.texts.append( SH.get_new_text("6", *get_text_position(4, 0, SH.Corner.UpperRight), **get_text_colors(True)) )
 
-        return "move_pegasus"
+        return self.format_return_values("move_pegasus")
 
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
@@ -289,7 +293,7 @@ class Scene(object):
 
         self.board.set_piece(5, 5, PieceType(-PieceType.Shaman))
 
-        return "move_shaman"
+        return self.format_return_values("move_shaman")
 
     def move_shaman_2(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
@@ -299,7 +303,7 @@ class Scene(object):
 
         self.board.set_piece(7, 7, PieceType(PieceType.Shaman))
 
-        return "move_shaman_2"
+        return self.format_return_values("move_shaman_2")
 
     def move_monolith(self, bt=BoardType.Discovery):
         bt = BoardType(bt)
@@ -309,7 +313,7 @@ class Scene(object):
 
         self.board.set_piece(4, 4, PieceType(PieceType.Monolith))
 
-        return "move_monolith"
+        return self.format_return_values("move_monolith")
 
     def move_monolith_2(self, bt=BoardType.Discovery):
         bt = BoardType(bt)
@@ -321,7 +325,7 @@ class Scene(object):
         self.board.set_piece(3, 4, PieceType(PieceType.Pawn))
         self.board.set_piece(5, 5, PieceType(-PieceType.Rook))
 
-        return "move_monolith_2"
+        return self.format_return_values("move_monolith_2")
 
     def move_starchild(self, bt=BoardType.One):
         bt = BoardType(bt)
@@ -331,7 +335,7 @@ class Scene(object):
 
         self.board.set_piece(4, 4, PieceType(PieceType.Starchild))
 
-        return "move_starchild"
+        return self.format_return_values("move_starchild")
 
     def move_starchild_2(self, bt=BoardType.One):
         bt = BoardType(bt)
@@ -343,7 +347,7 @@ class Scene(object):
         self.board.set_piece(3, 4, PieceType(PieceType.Pawn))
         self.board.set_piece(5, 5, PieceType(-PieceType.Rook))
 
-        return "move_starchild_2"
+        return self.format_return_values("move_starchild_2")
 
     def set_mirandas_veil_1(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
@@ -361,7 +365,7 @@ class Scene(object):
                                (0, 4, PieceType(-PieceType.Wave)),
                                (4, 0, PieceType(-PieceType.Wave))])
 
-        return "set_mirandas_veil_1"
+        return self.format_return_values("set_mirandas_veil_1")
 
     def set_example_1(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
@@ -377,7 +381,7 @@ class Scene(object):
                                (15, 0, PieceType(-PieceType.Queen)),
                                (9, 0, PieceType(-PieceType.King))])
 
-        return "set_example_1"
+        return self.format_return_values("set_example_1")
 
     def set_star_journey(self, bt=BoardType.One):
         bt = BoardType(bt)
@@ -391,7 +395,7 @@ class Scene(object):
                                (6, 4, PieceType(PieceType.Monolith)),
                                (3, 5, PieceType(PieceType.Starchild))])
 
-        return "set_star_journey"
+        return self.format_return_values("set_star_journey")
 
     def get_example_scene_functions(self):
         return [ self.move_pegasus_initial, \
@@ -408,7 +412,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [0, 1, 2] # None
+        return [0, ] # None
 
     # ~
 

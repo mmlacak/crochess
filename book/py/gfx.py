@@ -62,10 +62,11 @@ class GfxRender(object):
 
     def render_all_example_scenes(self):
         def render_example_scene(index, func):
-            name = func()
+            name, size_x, size_y = func()
             file_path = self.get_scene_file_path(index+1, name)
             print file_path
-            size_x, size_y = self.get_scene_image_size()
+            if size_x is None or size_y is None:
+                size_x, size_y = self.get_scene_image_size()
             self.save_board_image(file_path, \
                                   is_game_or_scene=False, \
                                   size_x=size_x, \
