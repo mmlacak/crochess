@@ -1,4 +1,9 @@
 %!TEX TS-program = pdflatex
+
+% Copyright (c) 2015, 2016 Mario Mlačak, mmlacak@gmail.com
+% Licensed and published as Public Domain work.
+% https://en.wikipedia.org/wiki/Public_domain
+
 \documentclass[a5paper,12pt,draft]{book} % draft = DEBUG
 
 \usepackage[utf8]{inputenc}
@@ -25,7 +30,11 @@
 \usepackage{wrapfig}
 
 \usepackage{hyperref}
-\hypersetup{final=true, colorlinks=true}
+\hypersetup{final=true, unicode=true, colorlinks=true}
+\hypersetup{pdftitle={Croatian chess and other variants},
+            pdfauthor={Mario Mlačak},
+            pdfsubject={Chess variants},
+            pdfkeywords={chess, variants}}
 % \urlstyle{same}
 
 \pagestyle {plain}
@@ -271,22 +280,38 @@ in movement, Pegasus can not change its' heading.
 
 Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
 
-\subsection*{Movement}
-\addcontentsline{toc}{subsection}{Movement}
+% \noindent
+% \subsection*{Movement}
+% \addcontentsline{toc}{subsection}{Movement}
 
+% \subsection*{Example}
+% \addcontentsline{toc}{subsection}{Example}
 
-
-\subsection*{Example}
-\addcontentsline{toc}{subsection}{Example}
+\noindent
+\begin{wrapfigure}{l}{0.6\textwidth}
+\includegraphics[width=0.6\textwidth, keepaspectratio=true]{../gfx/examples/01_move_pegasus_initial.png}
+\caption{Pegasus initial step}
+\label{fig:pegasus_initial_step}
+% % \centering
+\end{wrapfigure}
 
 In the example below we have Pegasus with all valid jumps marked with
 green arrows. Illegal jumps are denoted with grey arrows. Numbers in
 corner of each accessible field enumerates direction of movement.
 
 \noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/01_move_pegasus.png}
+\begin{figure}[t]
+% \begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/02_move_pegasus_direction.png}
+\caption{Pegasus move direction}
+\label{fig:pegasus_move_direction}
+% \centering
+\end{figure}
+
+\noindent
+\begin{figure}[t]
+% \begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/03_move_pegasus.png}
 \caption{Pegasus moves}
 \label{fig:pegasus_moves}
 % \centering
