@@ -283,30 +283,39 @@ Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
 \vspace{1\baselineskip}
 
 \noindent
-\begin{wrapfigure}{l}{0.5\textwidth}
+\begin{wrapfigure}[12]{l}{0.5\textwidth}
 \includegraphics[width=0.5\textwidth, keepaspectratio=true]{../gfx/examples/01_move_pegasus_initial.png}
 \caption{Pegasus initial step}
 \label{fig:pegasus_initial_step}
 % % \centering
 \end{wrapfigure}
 \indent
-In the example on the left we have Pegasus with all valid initial jump directions
+In the example on the left we have Pegasus with all valid initial move directions
 marked with green arrows. Numbers in corner of each accessible field enumerates
-all initial directions of movement. Pegasus movement, the same as Knight, is not
-hampered by surrounding pieces, it can "jump" over them.
+all initial directions of movement. Pegasus' movement is not hampered by surrounding
+pieces (in this case own Pawns), it can "jump" over them, just as Knight would.
+
+\clearpage
 
 \noindent
-\begin{figure}[t]
-% \begin{figure}[h]
+% \begin{figure}[t]
+\begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/02_move_pegasus_direction.png}
 \caption{Pegasus move direction}
 \label{fig:pegasus_move_direction}
 % \centering
 \end{figure}
+\indent
+Once direction is chosen Pegasus can continue its' movement performing one jump
+after another in order, from nearest field to farthest. Here, this is denoted
+with green arrows, and accessible fields marked 1 to 4, in that order. Again,
+once direction is chosen it can't be changed anymore. For instance, after
+reaching field 2, it's not allowed to change direction to 2f (or any other
+greyed-out arrow).
 
 \noindent
-\begin{figure}[t]
-% \begin{figure}[h]
+% \begin{figure}[t]
+\begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/03_move_pegasus.png}
 \caption{Pegasus moves}
 \label{fig:pegasus_moves}
