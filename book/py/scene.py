@@ -228,8 +228,15 @@ class Scene(object):
         self.delete_all_marks()
 
         self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+
         self.board.set_piece(5, 7, PieceType(PieceType.Pawn))
         self.board.set_piece(6, 3, PieceType(-PieceType.Pawn))
+
+        self.board.set_piece(3, 4, PieceType(-PieceType.Rook))
+        self.board.set_piece(4, 4, PieceType(-PieceType.Rook))
+
+        self.board.set_piece(5, 2, PieceType(PieceType.Rook))
+        self.board.set_piece(5, 3, PieceType(PieceType.Rook))
 
         get_arrow_colors = SH.get_func_get_colors("#303030", "#00FF00", "#303030", "#808080")
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
@@ -412,7 +419,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [0, ] # None
+        return [2, ] # None
 
     # ~
 

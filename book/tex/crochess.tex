@@ -283,7 +283,7 @@ Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
 \vspace{1\baselineskip}
 
 \noindent
-\begin{wrapfigure}[12]{l}{0.5\textwidth}
+\begin{wrapfigure}[11]{l}{0.5\textwidth}
 \includegraphics[width=0.5\textwidth, keepaspectratio=true]{../gfx/examples/01_move_pegasus_initial.png}
 \caption{Pegasus initial step}
 \label{fig:pegasus_initial_step}
@@ -291,9 +291,9 @@ Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
 \end{wrapfigure}
 \indent
 In the example on the left we have Pegasus with all valid initial move directions
-marked with green arrows. Numbers in corner of each accessible field enumerates
-all initial directions of movement. Pegasus' movement is not hampered by surrounding
-pieces (in this case own Pawns), it can "jump" over them, just as Knight would.
+marked with green arrows. Number in corner of field marks it as accessible.
+Pegasus' movement is not hampered by surrounding pieces (in this case own Pawns),
+it can "jump" over them just as Knight would.
 
 \clearpage
 
@@ -307,11 +307,13 @@ pieces (in this case own Pawns), it can "jump" over them, just as Knight would.
 \end{figure}
 \indent
 Once direction is chosen Pegasus can continue its' movement performing one jump
-after another in order, from nearest field to farthest. Here, this is denoted
-with green arrows, and accessible fields marked 1 to 4, in that order. Again,
-once direction is chosen it can't be changed anymore. For instance, after
-reaching field 2, it's not allowed to change direction to 2f (or any other
-greyed-out arrow).
+after another in order from nearest field to furthest. Here, this is denoted
+with green arrows, accessible fields marked 1 to 4, in order of accessibility
+from nearest to furthest. Again, once direction is chosen it can't be changed
+anymore. For instance, after reaching field 2 it's not allowed to change
+direction to 2f (or any other greyed-out arrow).
+
+\clearpage
 
 \noindent
 % \begin{figure}[t]
@@ -321,6 +323,12 @@ greyed-out arrow).
 \label{fig:pegasus_moves}
 % \centering
 \end{figure}
+\indent
+Move along arrow is called step. Field at which arrow points to is called step field.
+Pegasus can "jump" over pieces on non-step fields, Rooks in example above. Own piece
+on step field stops Pegasus at preceding step field. Opponent's piece on step field
+can be captured, just as with any other piece that would finish the move, meaning
+Pegasus would have to stop at captured step field.
 
 \clearpage
 
