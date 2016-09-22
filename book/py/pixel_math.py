@@ -64,13 +64,13 @@ def calc_distant_points_on_inverse_line(point, other, distance):
     x1, y1 = floatify_iterable(other)
 
     if q_same_rounded_floats(x1, x0):
-        y0_up = y0 + distance
-        y0_down = y0 - distance
-        return [(x0, y0_down), (x0, y0_up)]
-    elif q_same_rounded_floats(y1, y0):
         x0_left = x0 - distance
         x0_right = x0 + distance
         return [(x0_left, y0), (x0_right, y0)]
+    elif q_same_rounded_floats(y1, y0):
+        y0_up = y0 - distance
+        y0_down = y0 + distance
+        return [(x0, y0_down), (x0, y0_up)]
     else:
         straight_line = calc_straight_line(point, other)
         inverse_line = calc_inverse_line(straight_line, point)
