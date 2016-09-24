@@ -13,7 +13,7 @@ rm -rfv *.out
 rm -rfv *.pdf
 rm -rfv *.toc
 
-pdflatex crochess.tex
+pdflatex -draftmode crochess.tex
 
 pdflatex crochess.tex
 

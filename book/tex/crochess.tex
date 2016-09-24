@@ -291,7 +291,7 @@ Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
 \end{wrapfigure}
 \indent
 In the example on the left we have Pegasus with all valid initial move directions
-marked with green arrows. Number in corner of field marks it as accessible.
+marked with green arrows. Each accessible field has number in its' corner.
 Pegasus' movement is not hampered by surrounding pieces (in this case own Pawns),
 it can "jump" over them just as Knight would.
 
@@ -307,8 +307,8 @@ it can "jump" over them just as Knight would.
 \end{figure}
 \indent
 Once direction is chosen Pegasus can continue its' movement performing one jump
-after another in order from nearest field to furthest. Here, this is denoted
-with green arrows, accessible fields marked 1 to 4, in order of accessibility
+after another in order from nearest field to furthest. Here, this is marked
+with green arrows. Accessible fields are marked 1 to 4, in order of accessibility,
 from nearest to furthest. Again, once direction is chosen it can't be changed
 anymore. For instance, after reaching field 2 it's not allowed to change
 direction to 2f (or any other greyed-out arrow).
@@ -325,10 +325,11 @@ direction to 2f (or any other greyed-out arrow).
 \end{figure}
 \indent
 Move along arrow is called step. Field at which arrow points to is called step field.
-Pegasus can "jump" over pieces on non-step fields, Rooks in example above. Own piece
-on step field stops Pegasus at preceding step field. Opponent's piece on step field
-can be captured, just as with any other piece that would finish the move, meaning
-Pegasus would have to stop at captured step field.
+Pegasus can "jump" over pieces on non-step fields, Rooks in example above. Numbers
+here enumerate directions of movement. Own piece on step field stops Pegasus at
+preceding step field, see direction 2. Opponent's piece on step field can be captured,
+just as with any other piece that would finish the move, meaning Pegasus would have to
+stop at captured step field.
 
 \clearpage
 
@@ -336,7 +337,6 @@ Pegasus would have to stop at captured step field.
 \addcontentsline{toc}{section}{En passant}
 
 \noindent
-% [10]
 \begin{wrapfigure}{l}{0.4\textwidth}
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/en_passants/04_croatian_ties_en_passant.png}
 \caption{En passant}
@@ -344,15 +344,30 @@ Pegasus would have to stop at captured step field.
 % % \centering
 \end{wrapfigure}
 \indent
-bla
+If Pawn hasn't moved yet, it can move up to 3 fields forward. As expected, all passed-by
+opponent's Pawns also gain en passant opportunity.
 
+In example on left, if light Pawn's
+initial move was 3 fields long, ending in field marked 2, both dark Pawns would have en
+passant opportunity. Naturaly, if initial move was only 2 fields long, ending in field
+marked 1, only dark Pawn on the right would gain en passant opportunity.
 
 \clearpage
 
 \section*{Castling}
 \addcontentsline{toc}{section}{Castling}
 
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/castlings/04_croatian_ties_castling.png}
+\caption{Castling}
+\label{fig:cc_castling}
+% \centering
+\end{figure}
 
+\indent
+bla
 
 \clearpage
 
@@ -767,10 +782,36 @@ or more conveniently, as seen in this image:
 \clearpage
 % --------------------------------------------------------- One chapter
 
-% Well defined game chapter -------------------------------------------
-\chapter*{Well defined game}
-\addcontentsline{toc}{chapter}{Well defined game}
+% Remarks chapter -----------------------------------------------------
+\chapter*{Remarks}
+\addcontentsline{toc}{chapter}{Remarks}
 
+\section*{Odd variants}
+\addcontentsline{toc}{section}{Odd variants}
+
+% \hspace*{\fill}
+\indent
+Odd variants ... fghsj jfkdsghfjsd hjfdhgjksdfgh jfkdsghjkfdsgh gjkfsdhgjgj
+hgfdsghjf jfdgsghjfdg jfgdhgj jfdgh jfdghk gjskdfghk jgshjkhgfjk jhgjfskhgk
+hfhsgdfjk jfdghjkfdsh jfdghkjfg jhgfdjkgf djk fjdgk gj j fjkfghdjfdhsgjk
+hfgdjskg jfdsghjkfsdhgjksdfhg jkfdgs jfdgh jfdg jfg jksfdhjkgfshdj jfdskg
+fjksd h fgjdskrzuifjdks xcvsddhf reosfjdksfjfkdsg hkjerhjk rhetretwk t.
+
+\section*{Boards halved}
+\addcontentsline{toc}{section}{Boards halved}
+
+% \hspace*{\fill}
+\indent
+Boards halved ... fghsj jfkdsghfjsd hjfdhgjksdfgh jfkdsghjkfdsgh gjkfsdhgjgj
+hgfdsghjf jfdgsghjfdg jfgdhgj jfdgh jfdghk gjskdfghk jgshjkhgfjk jhgjfskhgk
+hfhsgdfjk jfdghjkfdsh jfdghkjfg jhgfdjkgf djk fjdgk gj j fjkfghdjfdhsgjk
+hfgdjskg jfdsghjkfsdhgjksdfhg jkfdgs jfdgh jfdg jfg jksfdhjkgfshdj jfdskg
+fjksd h fgjdskrzuifjdks xcvsddhf reosfjdksfjfkdsg hkjerhjk rhetretwk t.
+
+\section*{Well defined game}
+\addcontentsline{toc}{section}{Well defined game}
+
+% \indent
 \hspace*{\fill}Well defined game is such where all information pertainable to a game
 is plainly visible on a board. Chess in its' origin is very close to
 that goal, with the only exception being castling.
@@ -778,7 +819,7 @@ that goal, with the only exception being castling.
 Chips (coins) ...
 
 \clearpage
-% ------------------------------------------- Well defined game chapter
+% ----------------------------------------------------- Remarks chapter
 
 % Test chapter --------------------------------------------------------
 \chapter*{Test chapter}
