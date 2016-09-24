@@ -205,7 +205,8 @@ class Board(object):
         return self._height
 
     def set_piece(self, i, j, piece):
-        self[j][i] = piece
+        p = PieceType(piece)
+        self[j][i] = p
 
     def set_pieces(self, l):
         for t in l:
@@ -223,7 +224,8 @@ class Board(object):
         return self._board[index]
 
     def __setitem__(self, index, piece):
-        self._board[index] = piece
+        p = PieceType(piece)
+        self._board[index] = p
 
     def __delitem__(self, index):
         self._board[index] = PieceType(PieceType.none)
@@ -235,8 +237,9 @@ class Board(object):
         raise NotImplementedError("Can't reverse board. All pieces would fall off.")
 
     def __contains__(self, piece):
+        pt = PieceType(piece)
         for l in self._board:
             for p in l:
-                if p == piece:
+                if p == pt:
                     return p
         return None

@@ -4,6 +4,7 @@
 # Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+import math
 
 from piece import PieceType
 from board import BoardType
@@ -112,10 +113,27 @@ class Scene(object):
 
         pos_king_h = bt.get_size() // 2
         offset = 1 if bt.does_contain(PieceType.Star) else 0
+        pos_rook_r = bt.get_size() - 1 - offset
 
-        self.board.set_pieces([(pos_king_h, 0, PieceType(PieceType.King)),
-                               (offset, 0, PieceType(PieceType.Rook)),
-                               (bt.get_size() - 1 - offset, 0, PieceType(PieceType.Rook))])
+        self.board.set_piece(pos_king_h, 0, PieceType.King)
+        self.board.set_piece(offset, 0, PieceType.Rook)
+        self.board.set_piece(pos_rook_r, 0, PieceType.Rook)
+
+        if bt.does_contain(PieceType.Star):
+            self.board.set_piece(0, 0, PieceType.Star)
+            self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
+
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        # font = "sans bold %d" % SH.get_log_font_size(bt.get_size())
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+
+        diff = pos_rook_r - pos_king_h
+        for i in xrange(2, diff):
+            pos_l = pos_king_h - i
+            pos_r = pos_king_h + i
+
+            self.texts.append( SH.get_new_text(str(i-1), *get_text_position(pos_l, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
+            self.texts.append( SH.get_new_text(str(i-1), *get_text_position(pos_r, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         return bt
 

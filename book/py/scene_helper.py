@@ -4,6 +4,7 @@
 # Copyright (c) 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+import math
 
 from piece import PieceType
 from board import BoardType
@@ -84,6 +85,20 @@ def get_func_get_colors(fg_ok, bg_ok, fg_not_ok, bg_not_ok, font=None):
             dct.update( { 'font': font } )
         return dct
     return get_colors
+
+
+def get_nominal_font_size(board_size):
+    return int(1920 // board_size)
+
+def get_log_font_size(board_size):
+    factor = math.log(10.0, 2.0)
+    div = math.log(board_size, 2.0)
+    return int(factor * 192 / div)
+
+def get_sqrt_font_size(board_size):
+    factor = math.sqrt(10.0)
+    div = math.sqrt(board_size)
+    return int(factor * 192 / div)
 
 
 class Corner(int):
