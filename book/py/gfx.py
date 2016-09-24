@@ -105,6 +105,38 @@ class GfxRender(object):
                                       size_y=size_y)
         print "Finished."
 
+        print
+        print "Rendering all long left castlings."
+        for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
+            # Added +1 because upper limit is not included in loop.
+            # Step is 2 because there is no need to generate odd variants.
+            bt_real = self.init_castling_long_left_scene(bt)
+            if bt_real is not None:
+                file_path = self.get_castling_file_path(bt_real, subfolder_name='long_left')
+                print file_path
+                size_x, size_y = self.get_scene_image_size()
+                self.save_board_image(file_path, \
+                                      is_game_or_scene=False, \
+                                      size_x=size_x, \
+                                      size_y=size_y)
+        print "Finished."
+
+        print
+        print "Rendering all short right castlings."
+        for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
+            # Added +1 because upper limit is not included in loop.
+            # Step is 2 because there is no need to generate odd variants.
+            bt_real = self.init_castling_short_right_scene(bt)
+            if bt_real is not None:
+                file_path = self.get_castling_file_path(bt_real, subfolder_name='short_right')
+                print file_path
+                size_x, size_y = self.get_scene_image_size()
+                self.save_board_image(file_path, \
+                                      is_game_or_scene=False, \
+                                      size_x=size_x, \
+                                      size_y=size_y)
+        print "Finished."
+
     def render_all_en_passant_scenes(self):
         print
         print "Rendering all en passant."
@@ -154,14 +186,18 @@ class GfxRender(object):
 
         return '%s/examples/%02d_%s%s' % (path_prefix, index, file_name, file_ext)
 
-    def get_castling_file_path(self, board_type, path_prefix=None, file_ext=None):
+    def get_castling_file_path(self, board_type, path_prefix=None, file_ext=None, subfolder_name=None):
         path_prefix = path_prefix or GfxRender.DEFAULT_PATH
         file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
 
         index = int(board_type)
         name = board_type.get_name()
         sanitize = name.replace('\'', '_').replace(' ', '_').lower()
-        return '%s/castlings/%02d_%s_castling%s' % (path_prefix, index, sanitize, file_ext)
+
+        if subfolder_name is None:
+            return '%s/castlings/%02d_%s_castling%s' % (path_prefix, index, sanitize, file_ext)
+        else:
+            return '%s/castlings/%s/%02d_%s_castling_%s%s' % (path_prefix, subfolder_name, index, sanitize, subfolder_name, file_ext)
 
     def get_en_passant_file_path(self, board_type, path_prefix=None, file_ext=None):
         path_prefix = path_prefix or GfxRender.DEFAULT_PATH
@@ -200,6 +236,16 @@ class GfxRender(object):
         bt = BoardType(board_type_value)
         self.scene = Scene(None)
         return self.scene.intro_castling(bt)
+
+    def init_castling_long_left_scene(self, board_type_value=BoardType.One):
+        bt = BoardType(board_type_value)
+        self.scene = Scene(None)
+        return self.scene.castling_long_left(bt)
+
+    def init_castling_short_right_scene(self, board_type_value=BoardType.One):
+        bt = BoardType(board_type_value)
+        self.scene = Scene(None)
+        return self.scene.castling_short_right(bt)
 
     def init_intro_en_passant_scene(self, board_type_value=BoardType.One):
         bt = BoardType(board_type_value)

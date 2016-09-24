@@ -137,6 +137,63 @@ class Scene(object):
 
         return bt
 
+    def castling_long_left(self, bt):
+        bt = BoardType(bt)
+        self.board = Board(bt, bt.get_size(), 1)
+        self.board.clear()
+        self.delete_all_marks()
+
+        pos_king_init = bt.get_size() // 2
+        offset = 1 if bt.does_contain(PieceType.Star) else 0
+        pos_rook_r = bt.get_size() - 1 - offset
+        # diff = pos_rook_r - pos_king_init
+        pos_king_h = offset + 2
+
+        self.board.set_piece(pos_king_h, 0, PieceType.King)
+        self.board.set_piece(pos_king_h + 1, 0, PieceType.Rook)
+        self.board.set_piece(pos_rook_r, 0, PieceType.Rook)
+
+        if bt.does_contain(PieceType.Star):
+            self.board.set_piece(0, 0, PieceType.Star)
+            self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
+
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        # font = "sans bold %d" % SH.get_log_font_size(bt.get_size())
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+
+        self.texts.append( SH.get_new_text("K", *get_text_position(pos_king_init, 0, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        return bt
+
+    def castling_short_right(self, bt):
+        bt = BoardType(bt)
+        self.board = Board(bt, bt.get_size(), 1)
+        self.board.clear()
+        self.delete_all_marks()
+
+        pos_king_init = bt.get_size() // 2
+        offset = 1 if bt.does_contain(PieceType.Star) else 0
+        # pos_init_rook_r = bt.get_size() - 1 - offset
+        # diff = pos_rook_r - pos_king_init
+        pos_king_h = pos_king_init + 2
+        pos_rook_r = pos_king_h - 1
+
+        self.board.set_piece(pos_king_h, 0, PieceType.King)
+        self.board.set_piece(offset, 0, PieceType.Rook)
+        self.board.set_piece(pos_rook_r, 0, PieceType.Rook)
+
+        if bt.does_contain(PieceType.Star):
+            self.board.set_piece(0, 0, PieceType.Star)
+            self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
+
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        # font = "sans bold %d" % SH.get_log_font_size(bt.get_size())
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+
+        self.texts.append( SH.get_new_text("K", *get_text_position(pos_king_init, 0, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        return bt
+
     def get_en_passant_font_size(self, bt, vertical_board_size):
         return { BoardType.none: 0,
                  BoardType.OddClassical: 192,

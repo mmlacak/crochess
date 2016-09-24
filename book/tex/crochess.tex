@@ -209,8 +209,8 @@ see 'Even variant', 'Odd variant' in the Definitions bellow.
 
 In this document I'm assuming you have the complete prior
 knowledge of classical chess pieces and rules. If not, please visit
-Wikipedia entry on this subject at: \\
-\href{http://en.wikipedia.org/wiki/Chess\_rules}{http://en.wikipedia.org/wiki/Chess\_rules}.
+Wikipedia entry on this subject at \\
+\href{https://en.wikipedia.org/wiki/Rules\_of\_chess}{https://en.wikipedia.org/wiki/Rules\_of\_chess}.
 \clearpage
 % ----------------------------------------------- Prerequisites chapter
 
@@ -360,8 +360,11 @@ marked 1, only dark Pawn on the right would gain en passant opportunity.
 \indent
 Castling is essentially the same as it is in Classical Chess, only real difference is that
 King can move either 2 or 3 fields across. All other constraints from Classical Chess still
-applies. King must not be under attack, nor any field over which it would travel, nor King
-could end up move under check. Also, King and Rook must not move prior to castling.
+applies, described in detail here \\
+\href{https://en.wikipedia.org/wiki/Castling}{https://en.wikipedia.org/wiki/Castling}.
+% King must not be under attack, nor any field over which it would travel, nor King
+% could end up under check. Also, King and Rook must not move prior to castling, and both must
+% be at  .
 
 \noindent
 \begin{figure}[!h]
@@ -373,7 +376,31 @@ could end up move under check. Also, King and Rook must not move prior to castli
 \end{figure}
 
 \indent
-bla
+In example above, all valid King's castling fields are numbered. Regardless if King performs
+long or short castling move, Rook would always end up on field next to King, on opposite side
+of it, i.e. closer to center.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/castlings/long_left/04_croatian_ties_castling_long_left.png}
+\caption{Castling long left}
+\label{fig:cc_castling_long_left}
+% \centering
+\end{figure}
+
+\indent
+In this example King was castling long to the left. Initial King's position is marked with "K".
+After castling is finished, left Rook ends up at field immediately on the right to the King.
+
+% \noindent
+% \begin{figure}[!h]
+% % \begin{figure}[!t]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/castlings/short_right/04_croatian_ties_castling_short_right.png}
+% \caption{Castling short right}
+% \label{fig:cc_castling_short_right}
+% % \centering
+% \end{figure}
 
 \clearpage
 
@@ -796,7 +823,7 @@ or more conveniently, as seen in this image:
 \addcontentsline{toc}{section}{Odd variants}
 
 % \hspace*{\fill}
-\indent
+% \indent
 Odd variants ... fghsj jfkdsghfjsd hjfdhgjksdfgh jfkdsghjkfdsgh gjkfsdhgjgj
 hgfdsghjf jfdgsghjfdg jfgdhgj jfdgh jfdghk gjskdfghk jgshjkhgfjk jhgjfskhgk
 hfhsgdfjk jfdghjkfdsh jfdghkjfg jhgfdjkgf djk fjdgk gj j fjkfghdjfdhsgjk
@@ -807,7 +834,7 @@ fjksd h fgjdskrzuifjdks xcvsddhf reosfjdksfjfkdsg hkjerhjk rhetretwk t.
 \addcontentsline{toc}{section}{Boards halved}
 
 % \hspace*{\fill}
-\indent
+% \indent
 Boards halved ... fghsj jfkdsghfjsd hjfdhgjksdfgh jfkdsghjkfdsgh gjkfsdhgjgj
 hgfdsghjf jfdgsghjfdg jfgdhgj jfdgh jfdghk gjskdfghk jgshjkhgfjk jhgjfskhgk
 hfhsgdfjk jfdghjkfdsh jfdghkjfg jhgfdjkgf djk fjdgk gj j fjkfghdjfdhsgjk
@@ -818,7 +845,8 @@ fjksd h fgjdskrzuifjdks xcvsddhf reosfjdksfjfkdsg hkjerhjk rhetretwk t.
 \addcontentsline{toc}{section}{Well defined game}
 
 % \indent
-\hspace*{\fill}Well defined game is such where all information pertainable to a game
+% \hspace*{\fill}
+Well defined game is such where all information pertainable to a game
 is plainly visible on a board. Chess in its' origin is very close to
 that goal, with the only exception being castling.
 
@@ -900,7 +928,7 @@ Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
 
 \section*{Structure}
 \addcontentsline{toc}{section}{Title of the section}
-\indent
+% \indent
 \small{This section's content... \\
 abcdefghijklmnopqrstuvwxyz \\
 ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
