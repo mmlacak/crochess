@@ -5,9 +5,16 @@
 
 cd book/tex
 
+rm -rfv *.aux
+rm -rfv *.lof
+rm -rfv *.log
+rm -rfv *.lot
+rm -rfv *.out
 rm -rfv *.pdf
+rm -rfv *.toc
 
-# pdflatex ignores -output-directory option
+pdflatex -draftmode crochess.tex
+
 pdflatex crochess.tex
 
 cd ../..
