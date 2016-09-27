@@ -283,7 +283,7 @@ Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
 \vspace{1\baselineskip}
 
 \noindent
-\begin{wrapfigure}[11]{l}{0.5\textwidth}
+\begin{wrapfigure}[13]{l}{0.5\textwidth}
 \includegraphics[width=0.5\textwidth, keepaspectratio=true]{../gfx/examples/01_move_pegasus_initial.png}
 \caption{Pegasus initial step}
 \label{fig:pegasus_initial_step}
@@ -291,9 +291,10 @@ Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
 \end{wrapfigure}
 \indent
 In the example on the left we have Pegasus with all valid initial move directions
-marked with green arrows. Each accessible field has number in its' corner.
-Pegasus' movement is not hampered by surrounding pieces (in this case own Pawns),
-it can "jump" over them just as Knight would.
+marked with green arrows. These all are the same as valid moves for Knight. Each
+accessible field has number in its' corner. Pegasus' movement is not hampered by
+surrounding pieces (in this case own Pawns), it can "jump" over them just as Knight
+would.
 
 \clearpage
 
@@ -327,9 +328,9 @@ direction to 2f (or any other greyed-out arrow).
 Move along arrow is called step. Field at which arrow points to is called step field.
 Pegasus can "jump" over pieces on non-step fields, Rooks in example above. Numbers
 here enumerate directions of movement. Own piece on step field stops Pegasus at
-preceding step field, see direction 2. Opponent's piece on step field can be captured,
-just as with any other piece that would finish the move, meaning Pegasus would have to
-stop at captured step field.
+preceding step field, see direction 2. Opponent's piece on step field can be captured.
+Just as with any other piece that would finish the move, meaning Pegasus would have to
+stop at captured step field, see direction 1.
 
 \clearpage
 
@@ -434,12 +435,82 @@ enumerated from '1' to '12'. A new piece is introduced, Pyramid.
 \addcontentsline{toc}{section}{Pyramid}
 
 \noindent
-\begin{wrapfigure}{l}{0.4\textwidth}
+\begin{wrapfigure}[12]{l}{0.4\textwidth}
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/08_pyramid.png}
 \caption{Pyramid}
 \label{fig:pyramid}
 % % \centering
 \end{wrapfigure}
+\indent
+Pyramid is passive piece, meaning it can't move on its' own, it has to be
+activated first. This is done by capturing field as which Pyramid stands
+with own other piece, for instance Bishop, and then Pyramid can move further.
+
+Once activated Pyramid moves similar to Rook, only real difference is that
+it can move for only so many fields as piece activating Pyramid has moved.
+
+Pyramid can't check opponent's King, and consequently can't contribute to
+checkmate.
+
+In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
+
+Pyramid can promote own Pawns, but only on opponent's side of the board.
+Promotion is done by activating Pyramid which then captures field at which
+Pawn stands, both Pyramid and Pawn now leaves board as if they were captured,
+and desired piece, for instance Queen, is placed on Pawn's field.
+
+Both Pyramid and Pawn in question has to reside on opponent's side of the
+board before promotion can take place. Piece which activates Pyramid need
+not to be on opponent's side of the board.
+
+This can be seen in next example.
+
+\clearpage
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/04_move_pyramid_promo_init.png}
+\caption{Promotion start}
+\label{fig:ma_promo_init}
+% \centering
+\end{figure}
+
+\clearpage
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/05_move_pyramid_promo_activate.png}
+\caption{Promotion, Pyramid activated}
+\label{fig:ma_promo_activate}
+% \centering
+\end{figure}
+
+\clearpage
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/06_move_pyramid_promo_end.png}
+\caption{Promotion end}
+\label{fig:ma_promo_end}
+% \centering
+\end{figure}
+
+\clearpage
+
+Pyramid can convert opponent's pieces, except King, but only on own side of
+the board. Conversion is done by activating Pyramid which then captures
+field at which opponent's piece stands, now both Pyramid and opponent's piece
+leave the board as if they were captured, and the same type of piece as
+captured one, now in own color is placed on the field.
+
+Both Pyramid and opponent's piece has to reside on own side of the board
+before conversion can take place. Piece which activates Pyramid need not
+to be on own side of the board.
+
+% TODO :: example
 
 \clearpage
 

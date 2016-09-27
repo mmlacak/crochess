@@ -450,6 +450,94 @@ class Scene(object):
 
         return self.format_return_values("move_pegasus")
 
+    def move_pyramid_promo_init(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+
+        self.board.set_piece(3, 7, PieceType(PieceType.Pyramid))
+        self.board.set_piece(6, 7, PieceType(PieceType.Pawn))
+        self.board.set_piece(9, 4, PieceType(PieceType.Pegasus))
+
+        self.arrows.append( SH.get_new_arrow(9, 4, 7, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 5, 5, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 6, 3, 7, **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(7, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(5, 6, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(3, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        return self.format_return_values("move_pyramid_promo_init")
+
+    def move_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(3, 7, PieceType(PieceType.Pegasus))
+        self.board.set_piece(6, 7, PieceType(PieceType.Pawn))
+
+        # get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt)) # ("#303030", "#00FF00", "#303030", "#FF0000")
+        get_arrow_colors = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        # get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192") # ("#FF00FF", "#303030", "#303030", "#808080")
+        get_text_colors = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font="sans bold 192")
+
+        # direction <1, 0>
+        self.arrows.append( SH.get_new_arrow(3, 7, 4, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 7, 5, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 7, 6, 7, **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(4, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(5, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(6, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        # direction <0, 1>
+        self.arrows.append( SH.get_new_arrow(3, 7, 3, 8, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 8, 3, 9, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 9, 3, 10, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(3, 8, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 9, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(3, 10, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        # direction <-1, 0>
+        self.arrows.append( SH.get_new_arrow(3, 7, 2, 7, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(2, 7, 1, 7, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(1, 7, 0, 7, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(2, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(1, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(0, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        # direction <0, -1>
+        self.arrows.append( SH.get_new_arrow(3, 7, 3, 6, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 6, 3, 5, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 5, 3, 4, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(3, 6, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        return self.format_return_values("move_pyramid_promo_activate")
+
+    def move_pyramid_promo_end(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(3, 7, PieceType(PieceType.Pegasus))
+        self.board.set_piece(6, 7, PieceType(PieceType.Queen))
+
+        return self.format_return_values("move_pyramid_promo_end")
+
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
         self.board = Board(bt, 11, 11)
@@ -566,6 +654,9 @@ class Scene(object):
         return [ self.move_pegasus_initial, \
                  self.move_pegasus_direction, \
                  self.move_pegasus, \
+                 self.move_pyramid_promo_init, \
+                 self.move_pyramid_promo_activate, \
+                 self.move_pyramid_promo_end, \
                  self.move_shaman, \
                  self.move_shaman_2, \
                  self.move_monolith, \
@@ -577,7 +668,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [0, 1, 2, ] # None
+        return [3, 4, 5,  ] # None
 
     # ~
 
