@@ -444,26 +444,33 @@ enumerated from '1' to '12'. A new piece is introduced, Pyramid.
 \indent
 Pyramid is passive piece, meaning it can't move on its' own, it has to be
 activated first. This is done by capturing field as which Pyramid stands
-with own other piece, for instance Bishop, and then Pyramid can move further.
+with your own other piece, for instance Bishop, and then Pyramid can move
+further.
 
 Once activated Pyramid moves similar to Rook, only real difference is that
-it can move for only so many fields as piece activating Pyramid has moved.
+it can move for only so many fields as piece activating it has moved.
 
 Pyramid can't check opponent's King, and consequently can't contribute to
 checkmate.
 
 In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 
+\subsection*{Promotion}
+\addcontentsline{toc}{subsection}{Promotion}
+
+\indent
 Pyramid can promote own Pawns, but only on opponent's side of the board.
 Promotion is done by activating Pyramid which then captures field at which
-Pawn stands, both Pyramid and Pawn now leaves board as if they were captured,
+Pawn stands, both Pyramid and Pawn then leaves board as if they were captured,
 and desired piece, for instance Queen, is placed on Pawn's field.
 
 Both Pyramid and Pawn in question has to reside on opponent's side of the
 board before promotion can take place. Piece which activates Pyramid need
 not to be on opponent's side of the board.
 
-This can be seen in next example.
+Piece which Pawn can be promoted to is from the set of all starting pieces,
+except King. This promoting-to piece is not limited to pieces already being
+captured.
 
 \clearpage
 
@@ -476,6 +483,9 @@ This can be seen in next example.
 % \centering
 \end{figure}
 
+Here, note only step fields are counted as traveled over by Pegasus. After
+activation Pyramid would be limited to move at most 3 fields across.
+
 \clearpage
 
 \noindent
@@ -486,6 +496,10 @@ This can be seen in next example.
 \label{fig:ma_promo_activate}
 % \centering
 \end{figure}
+
+Above, Pegasus captured field at which Pyramid was situated, arrows now show
+all possible moves by Pyramid. Only full move to the right leads to promotion,
+shown in red.
 
 \clearpage
 
@@ -498,8 +512,15 @@ This can be seen in next example.
 % \centering
 \end{figure}
 
+Now that Pyramid reached Pawn, both are removed from the board and piece of
+choice, in this instance Queen, is placed at captured field.
+
 \clearpage
 
+\subsection*{Conversion}
+\addcontentsline{toc}{subsection}{Conversion}
+
+\indent
 Pyramid can convert opponent's pieces, except King, but only on own side of
 the board. Conversion is done by activating Pyramid which then captures
 field at which opponent's piece stands, now both Pyramid and opponent's piece
@@ -1092,11 +1113,11 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
 \clearpage
 % --------------------------------------------------- Table of contents
 
-% % Empty page --------------------------------------------------------
-% \thispagestyle{empty}
-% \vspace*{0.1\textheight}
-% \clearpage
-% % -------------------------------------------------------- Empty page
+% Empty page --------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+\clearpage
+% -------------------------------------------------------- Empty page
 
 % Challenge, end cover page -------------------------------------------
 \thispagestyle{empty}
