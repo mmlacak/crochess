@@ -460,9 +460,10 @@ In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 
 \indent
 Pyramid can promote own Pawns, but only on opponent's side of the board.
-Promotion is done by activating Pyramid which then captures field at which
-Pawn stands, both Pyramid and Pawn then leaves board as if they were captured,
-and desired piece, for instance Queen, is placed on Pawn's field.
+Promotion is done by activating Pyramid which then marks Pawn for promotion
+by touching either Pawn or field at which it stands. Pyramid then leaves
+board as if it was captured, and Pawn is replaced by desired piece, for
+instance Queen.
 
 Both Pyramid and Pawn in question has to reside on opponent's side of the
 board before promotion can take place. Piece which activates Pyramid need
@@ -512,8 +513,8 @@ shown in red.
 % \centering
 \end{figure}
 
-Now that Pyramid reached Pawn, both are removed from the board and piece of
-choice, in this instance Queen, is placed at captured field.
+Now that Pyramid reached Pawn, it is removed from the board and piece of choice,
+in this instance Queen, replaces Pawn.
 
 \clearpage
 
@@ -522,14 +523,15 @@ choice, in this instance Queen, is placed at captured field.
 
 \indent
 Pyramid can convert opponent's pieces, except King, but only on own side of
-the board. Conversion is done by activating Pyramid which then captures
-field at which opponent's piece stands, now both Pyramid and opponent's piece
-leave the board as if they were captured, and the same type of piece as
-captured one, now in own color is placed on the field.
+the board. Conversion is done by activating Pyramid which then marks opponent's
+piece for conversion by touching either piece or field at which it stands. Now
+Pyramid leaves the board as if it was captured, and opponent's piece is replaced
+by own piece of the same type.
 
 Both Pyramid and opponent's piece has to reside on own side of the board
 before conversion can take place. Piece which activates Pyramid need not
-to be on own side of the board.
+to be on own side of the board. As with promotion, conversion is not limited
+to pieces which has been captured.
 
 % TODO :: example
 
