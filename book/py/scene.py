@@ -41,12 +41,12 @@ class Scene(object):
                  BoardType.Classical:               ("#303030", "#00FF00", "#303030", "#FF0000"),
                  BoardType.OddCroatianTies:         ("#303030", "#00FF00", "#303030", "#808080"),
                  BoardType.CroatianTies:            ("#303030", "#00FF00", "#303030", "#808080"),
-                 BoardType.OddMayanAscendancy:      ("#303030", "#00FF00", "#303030", "#FF0000"),
-                 BoardType.MayanAscendancy:         ("#303030", "#00FF00", "#303030", "#FF0000"),
+                 BoardType.OddMayanAscendancy:      ("#303030", "#00FF00", "#101010", "#303030"), # ("#303030", "#00FF00", "#303030", "#FF0000"), # "#101010", "#303030"
+                 BoardType.MayanAscendancy:         ("#303030", "#00FF00", "#101010", "#303030"), # ("#303030", "#00FF00", "#303030", "#FF0000"), # "#101010", "#303030"
                  BoardType.OddAgeOfAquarius:        ("#303030", "#0000FF", "#303030", "#FF0000"),
                  BoardType.AgeOfAquarius:           ("#303030", "#0000FF", "#303030", "#FF0000"),
-                 BoardType.OddMirandasVeil:         ("#303030", "#00FF00", "#303030", "#808080"), # ("#303030", "#00FF00", "#303030", "#FF0000"), # "#101010", "#303030"
-                 BoardType.MirandasVeil:            ("#303030", "#00FF00", "#303030", "#808080"), # ("#303030", "#00FF00", "#303030", "#FF0000"), # "#101010", "#303030"
+                 BoardType.OddMirandasVeil:         ("#303030", "#00FF00", "#303030", "#FF0000"),
+                 BoardType.MirandasVeil:            ("#303030", "#00FF00", "#303030", "#FF0000"),
                  BoardType.OddNineteen:             ("#303030", "#00FF00", "#303030", "#FF0000"),
                  BoardType.Nineteen:                ("#303030", "#00FF00", "#303030", "#FF0000"),
                  BoardType.OddHemerasDawn:          ("#303030", "#00FF00", "#303030", "#FF0000"),
@@ -66,8 +66,8 @@ class Scene(object):
                  BoardType.Classical:               ("#0080FF", "#303030", "#101010", "#808080"),
                  BoardType.OddCroatianTies:         ("#0000FF", "#303030", "#303030", "#808080"),
                  BoardType.CroatianTies:            ("#0000FF", "#303030", "#303030", "#808080"),
-                 BoardType.OddMayanAscendancy:      ("#FF00FF", "#303030", "#303030", "#808080"),
-                 BoardType.MayanAscendancy:         ("#FF00FF", "#303030", "#303030", "#808080"),
+                 BoardType.OddMayanAscendancy:      ("#FF00FF", "#303030", "#303030", "#808080"), # ("#006000", "#303030", "#303030", "#808080"), # "#101010", "#303030"
+                 BoardType.MayanAscendancy:         ("#FF00FF", "#303030", "#303030", "#808080"), # ("#006000", "#303030", "#303030", "#808080"), # "#101010", "#303030"
                  BoardType.OddAgeOfAquarius:        ("#0000FF", "#303030", "#303030", "#808080"),
                  BoardType.AgeOfAquarius:           ("#0000FF", "#303030", "#303030", "#808080"),
                  BoardType.OddMirandasVeil:         ("#FF00FF", "#303030", "#808080", "#303030"),
@@ -462,15 +462,17 @@ class Scene(object):
 
         self.board.set_piece(3, 7, PieceType(PieceType.Pyramid))
         self.board.set_piece(6, 7, PieceType(PieceType.Pawn))
-        self.board.set_piece(9, 4, PieceType(PieceType.Pegasus))
+        self.board.set_piece(11, 3, PieceType(PieceType.Pegasus))
 
+        self.arrows.append( SH.get_new_arrow(11, 3, 9, 4, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(9, 4, 7, 5, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(7, 5, 5, 6, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 6, 3, 7, **get_arrow_colors(True)) )
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(7, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(5, 6, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(3, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(9, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(7, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(5, 6, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(3, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         return self.format_return_values("move_pyramid_promo_init")
 
@@ -483,47 +485,53 @@ class Scene(object):
         self.board.set_piece(3, 7, PieceType(PieceType.Pegasus))
         self.board.set_piece(6, 7, PieceType(PieceType.Pawn))
 
-        # get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt)) # ("#303030", "#00FF00", "#303030", "#FF0000")
-        get_arrow_colors = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        # get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192") # ("#FF00FF", "#303030", "#303030", "#808080")
-        get_text_colors = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font="sans bold 192")
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font="sans bold 192")
 
         # direction <1, 0>
         self.arrows.append( SH.get_new_arrow(3, 7, 4, 7, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(4, 7, 5, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 7, 6, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 7, 6, 7, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 7, 7, 7, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("1", *get_text_position(4, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(5, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(6, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(6, 7, SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(7, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
 
         # direction <0, 1>
-        self.arrows.append( SH.get_new_arrow(3, 7, 3, 8, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(3, 8, 3, 9, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(3, 9, 3, 10, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 7, 3, 8, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 8, 3, 9, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 9, 3, 10, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 10, 3, 11, **get_arrow_colors(True)) )
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(3, 8, SH.Corner.UpperLeft), **get_text_colors(False)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(3, 9, SH.Corner.UpperLeft), **get_text_colors(False)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(3, 10, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(3, 8, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 9, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(3, 10, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(3, 11, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction <-1, 0>
-        self.arrows.append( SH.get_new_arrow(3, 7, 2, 7, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(2, 7, 1, 7, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(1, 7, 0, 7, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 7, 2, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 7, 1, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 7, 0, 7, **get_arrow_colors(True)) )
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(2, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(1, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(0, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(2, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(1, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(0, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction <0, -1>
-        self.arrows.append( SH.get_new_arrow(3, 7, 3, 6, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(3, 6, 3, 5, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(3, 5, 3, 4, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 7, 3, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 6, 3, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 5, 3, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 4, 3, 3, **get_arrow_colors(True)) )
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(3, 6, SH.Corner.UpperLeft), **get_text_colors(False)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, SH.Corner.UpperLeft), **get_text_colors(False)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(3, 6, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         return self.format_return_values("move_pyramid_promo_activate")
 
@@ -570,12 +578,6 @@ class Scene(object):
         self.board.clear()
         self.delete_all_marks()
 
-#         # get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt)) # ("#303030", "#00FF00", "#303030", "#FF0000")
-#         get_arrow_colors = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-#         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-#         # get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192") # ("#FF00FF", "#303030", "#303030", "#808080")
-#         get_text_colors = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font="sans bold 192")
-
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
@@ -586,13 +588,13 @@ class Scene(object):
         self.board.set_piece(6, 1, PieceType(-PieceType.Rook))
 
         # direction <1, 0>
-        self.arrows.append( SH.get_new_arrow(3, 1, 4, 1, **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 1, 5, 1, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 1, 4, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 1, 5, 1, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 1, 6, 1, **get_arrow_colors_alt(True)) )
         self.arrows.append( SH.get_new_arrow(6, 1, 7, 1, **get_arrow_colors(False)) )
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(5, 1, SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(5, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("3", *get_text_position(6, 1, SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
         self.texts.append( SH.get_new_text("4", *get_text_position(7, 1, SH.Corner.UpperLeft), **get_text_colors(False)) )
 
@@ -767,7 +769,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [7,  ] # None
+        return [3, 4, 5, 6, 7, 8,  ] # None
 
     # ~
 
