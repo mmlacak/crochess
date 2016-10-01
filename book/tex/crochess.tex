@@ -443,7 +443,7 @@ enumerated from '1' to '12'. A new piece is introduced, Pyramid.
 \end{wrapfigure}
 \indent
 Pyramid is passive piece, meaning it can't move on its' own, it has to be
-activated first. This is done by capturing field at which Pyramid stands
+activated first. This is done by capturing a field at which Pyramid stands
 with your own other piece, for instance Bishop, and then Pyramid can move
 further.
 
@@ -558,7 +558,7 @@ could move after activating it.
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/08_move_pyramid_conversion_activated.png}
-\caption{Conversion, Pyramid activated start}
+\caption{Conversion, Pyramid activated}
 \label{fig:ma_conversion_activated}
 % \centering
 \end{figure}
@@ -580,6 +580,64 @@ shown in red. Again, just as Rook, Pyramid can't advance past opponent's Rook.
 
 Now that Pyramid has reached opponent's Rook, it is removed from the board and
 own Rook replaces opponent's Rook.
+
+\clearpage
+
+\section*{En passant}
+\addcontentsline{toc}{section}{En passant}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/en_passants/06_mayan_ascendancy_en_passant.png}
+\caption{En passant}
+\label{fig:ma_en_passant}
+% % \centering
+\end{wrapfigure}
+\indent
+If Pawn hasn't moved yet, it can move up to 4 fields forward. As expected, all passed-by
+opponent's Pawns also gain en passant opportunity.
+
+In example on left, if light Pawn's
+initial move was 4 fields long, ending in field marked 3, all dark Pawns would have en
+passant opportunity. Naturaly, if initial move was only 2 fields long, ending in field
+marked 1, only first dark Pawn on the right would gain en passant opportunity.
+
+\clearpage
+
+\section*{Castling}
+\addcontentsline{toc}{section}{Castling}
+
+\indent
+Castling is essentially the same as it is in Classical Chess, only real difference is that
+King can move 2, 3 or 4 fields across. All other constraints from Classical Chess still
+applies.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/castlings/06_mayan_ascendancy_castling.png}
+\caption{Castling}
+\label{fig:ma_castling}
+% \centering
+\end{figure}
+
+\indent
+In example above, all valid King's castling moves are numbered. Regardless if King performs
+long or short castling move, Rook would always end up on field next to King, on opposite side
+of it, i.e. closer to center.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/castlings/long_left/06_mayan_ascendancy_castling_long_left.png}
+\caption{Castling long left}
+\label{fig:ma_castling_long_left}
+% \centering
+\end{figure}
+
+\indent
+In this example King was castling long to the left. Initial King's position is marked with "K".
+After castling is finished, left Rook ends up at field immediately on the right to the King.
 
 \clearpage
 
