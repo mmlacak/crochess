@@ -558,16 +558,28 @@ class Scene(object):
 
         self.board.set_piece(3, 1, PieceType(PieceType.Pyramid))
         self.board.set_piece(6, 1, PieceType(-PieceType.Rook))
-        self.board.set_piece(7, 9, PieceType(PieceType.Pegasus))
+#         self.board.set_piece(7, 9, PieceType(PieceType.Pegasus))
+#
+#         self.arrows.append( SH.get_new_arrow(7, 9, 6, 7, **get_arrow_colors(True)) )
+#         self.arrows.append( SH.get_new_arrow(6, 7, 5, 5, **get_arrow_colors(True)) )
+#         self.arrows.append( SH.get_new_arrow(5, 5, 4, 3, **get_arrow_colors(True)) )
+#         self.arrows.append( SH.get_new_arrow(4, 3, 3, 1, **get_arrow_colors(True)) )
+#
+#         self.texts.append( SH.get_new_text("1", *get_text_position(6, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#         self.texts.append( SH.get_new_text("2", *get_text_position(5, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#         self.texts.append( SH.get_new_text("3", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#         self.texts.append( SH.get_new_text("4", *get_text_position(3, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
-        self.arrows.append( SH.get_new_arrow(7, 9, 6, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 7, 5, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 5, 4, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 3, 3, 1, **get_arrow_colors(True)) )
+        self.board.set_piece(7, 5, PieceType(PieceType.Bishop))
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(6, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(5, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 2, 3, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 3, 4, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 4, 5, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 5, 6, 4, **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(6, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(5, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(4, 2, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("4", *get_text_position(3, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         return self.format_return_values("move_pyramid_conversion_init")
@@ -584,7 +596,8 @@ class Scene(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font="sans bold 192")
 
-        self.board.set_piece(3, 1, PieceType(PieceType.Pegasus))
+#         self.board.set_piece(3, 1, PieceType(PieceType.Pegasus))
+        self.board.set_piece(3, 1, PieceType(PieceType.Bishop))
         self.board.set_piece(6, 1, PieceType(-PieceType.Rook))
 
         # direction <1, 0>
@@ -631,7 +644,8 @@ class Scene(object):
         self.board.clear()
         self.delete_all_marks()
 
-        self.board.set_piece(3, 1, PieceType(PieceType.Pegasus))
+#         self.board.set_piece(3, 1, PieceType(PieceType.Pegasus))
+        self.board.set_piece(3, 1, PieceType(PieceType.Bishop))
         self.board.set_piece(6, 1, PieceType(PieceType.Rook))
 
         return self.format_return_values("move_pyramid_conversion_end")
@@ -769,7 +783,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [3, 4, 5, 6, 7, 8,  ] # None
+        return [6, 7, 8,  ] # None
 
     # ~
 
