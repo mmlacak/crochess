@@ -157,3 +157,7 @@ def get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05):
 
 def get_new_text(text, pos_x, pos_y, font=None, fg_color=None, bg_color=None):
     return Text(text, pos_x, pos_y, font=font, fg_color=fg_color, bg_color=bg_color)
+
+
+def get_new_field_marker(pos_i, pos_j, fg_color=None, bg_color=None):
+    return FieldMarker(pos_i, pos_j, fg_color=fg_color, bg_color=bg_color)
