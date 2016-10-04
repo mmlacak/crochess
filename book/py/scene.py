@@ -11,6 +11,7 @@ from board import BoardType
 from board import Board
 from mark import Arrow, Text, FieldMarker
 
+import move_gen as MG
 import scene_helper as SH
 
 
@@ -272,130 +273,66 @@ class Scene(object):
 
         return bt
 
-    #~def move_pegasus_initial(self, bt=BoardType.CroatianTies):
-        #~bt = BoardType(bt)
-        #~self.board = Board(bt, 5, 5)
-        #~self.board.clear()
-        #~self.delete_all_marks()
-
-        #~self.board.set_piece(2, 2, PieceType(PieceType.Pegasus))
-
-        #~self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
-        #~self.board.set_piece(1, 2, PieceType(PieceType.Pawn))
-        #~self.board.set_piece(1, 3, PieceType(PieceType.Pawn))
-        #~self.board.set_piece(2, 3, PieceType(PieceType.Pawn))
-
-        #~self.board.set_piece(3, 3, PieceType(PieceType.Pawn))
-        #~self.board.set_piece(3, 2, PieceType(PieceType.Pawn))
-        #~self.board.set_piece(3, 1, PieceType(PieceType.Pawn))
-        #~self.board.set_piece(2, 1, PieceType(PieceType.Pawn))
-
-        #~get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        #~get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        #~get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
-
-        #~# direction 1, i.e. <2, 1>
-
-        #~self.arrows.append( SH.get_new_arrow(2, 2, 4, 3, **get_arrow_colors(True)) )
-
-        #~self.texts.append( SH.get_new_text("1", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        #~# direction 2, i.e. <1, 2>
-
-        #~self.arrows.append( SH.get_new_arrow(2, 2, 3, 4, **get_arrow_colors(True)) )
-
-        #~self.texts.append( SH.get_new_text("2", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        #~# direction 3, i.e. <-1, 2>
-
-        #~self.arrows.append( SH.get_new_arrow(2, 2, 1, 4, **get_arrow_colors(True)) )
-
-        #~self.texts.append( SH.get_new_text("3", *get_text_position(1, 4, SH.Corner.UpperRight), **get_text_colors(True)) )
-
-        #~# direction 4, i.e. <-2, 1>
-
-        #~self.arrows.append( SH.get_new_arrow(2, 2, 0, 3, **get_arrow_colors(True)) )
-
-        #~self.texts.append( SH.get_new_text("4", *get_text_position(0, 3, SH.Corner.UpperRight), **get_text_colors(True)) )
-
-        #~# direction 5, i.e. <-2, -1>
-
-        #~self.arrows.append( SH.get_new_arrow(2, 2, 0, 1, **get_arrow_colors(True)) )
-
-        #~self.texts.append( SH.get_new_text("5", *get_text_position(0, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        #~# direction 6, i.e. <-1, -2>
-
-        #~self.arrows.append( SH.get_new_arrow(2, 2, 1, 0, **get_arrow_colors(True)) )
-
-        #~self.texts.append( SH.get_new_text("6", *get_text_position(1, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        #~# direction 7, i.e. <1, -2>
-
-        #~self.arrows.append( SH.get_new_arrow(2, 2, 3, 0, **get_arrow_colors(True)) )
-
-        #~self.texts.append( SH.get_new_text("7", *get_text_position(3, 0, SH.Corner.UpperRight), **get_text_colors(True)) )
-
-        #~# direction 8, i.e. <2, -1>
-
-        #~self.arrows.append( SH.get_new_arrow(2, 2, 4, 1, **get_arrow_colors(True)) )
-
-        #~self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperRight), **get_text_colors(True)) )
-
-        #~return self.format_return_values("move_pegasus_initial", size_x=4000, size_y=4000)
-
     def move_pegasus_initial(self, bt=BoardType.CroatianTies):
         bt = BoardType(bt)
         self.board = Board(bt, 5, 5)
         self.board.clear()
         self.delete_all_marks()
 
-        self.board.set_piece(2, 2, PieceType(PieceType.Pegasus))
+#         self.board.set_piece(2, 2, PieceType(PieceType.Pegasus))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.05)
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
-        # direction 1, i.e. <2, 1>
+#         # direction 1, i.e. <2, 1>
+#         self.field_markers.append( SH.get_new_field_marker(4, 3, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("1", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 2, i.e. <1, 2>
+#         self.field_markers.append( SH.get_new_field_marker(3, 4, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("2", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 3, i.e. <-1, 2>
+#         self.field_markers.append( SH.get_new_field_marker(1, 4, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("3", *get_text_position(1, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 4, i.e. <-2, 1>
+#         self.field_markers.append( SH.get_new_field_marker(0, 3, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("4", *get_text_position(0, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 5, i.e. <-2, -1>
+#         self.field_markers.append( SH.get_new_field_marker(0, 1, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("5", *get_text_position(0, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 6, i.e. <-1, -2>
+#         self.field_markers.append( SH.get_new_field_marker(1, 0, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("6", *get_text_position(1, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 7, i.e. <1, -2>
+#         self.field_markers.append( SH.get_new_field_marker(3, 0, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("7", *get_text_position(3, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 8, i.e. <2, -1>
+#         self.field_markers.append( SH.get_new_field_marker(4, 1, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
-        self.field_markers.append( SH.get_new_field_marker(4, 3, **get_field_marker_colors(True)) )
-        self.texts.append( SH.get_new_text("1", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        start = (2, 2)
+        self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
 
-        # direction 2, i.e. <1, 2>
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.05)
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
-        self.field_markers.append( SH.get_new_field_marker(3, 4, **get_field_marker_colors(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        gen_abs_pos = MG.get_gen_abs_pos(MG.gen_knight_rel_moves, start=start, pos_limits=((0, 4), (0, 4)))
 
-        # direction 3, i.e. <-1, 2>
-
-        self.field_markers.append( SH.get_new_field_marker(1, 4, **get_field_marker_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(1, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        # direction 4, i.e. <-2, 1>
-
-        self.field_markers.append( SH.get_new_field_marker(0, 3, **get_field_marker_colors(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(0, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        # direction 5, i.e. <-2, -1>
-
-        self.field_markers.append( SH.get_new_field_marker(0, 1, **get_field_marker_colors(True)) )
-        self.texts.append( SH.get_new_text("5", *get_text_position(0, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        # direction 6, i.e. <-1, -2>
-
-        self.field_markers.append( SH.get_new_field_marker(1, 0, **get_field_marker_colors(True)) )
-        self.texts.append( SH.get_new_text("6", *get_text_position(1, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        # direction 7, i.e. <1, -2>
-
-        self.field_markers.append( SH.get_new_field_marker(3, 0, **get_field_marker_colors(True)) )
-        self.texts.append( SH.get_new_text("7", *get_text_position(3, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
-        # direction 8, i.e. <2, -1>
-
-        self.field_markers.append( SH.get_new_field_marker(4, 1, **get_field_marker_colors(True)) )
-        self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        i = 1
+        for pos in gen_abs_pos():
+            self.field_markers.append( SH.get_new_field_marker(*pos, **get_field_marker_colors(True)) )
+            self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+            i += 1
 
         return self.format_return_values("move_pegasus_initial", size_x=4000, size_y=4000)
 
@@ -719,6 +656,93 @@ class Scene(object):
 
         return self.format_return_values("move_pyramid_conversion_end")
 
+    def move_unicorn_same_color(self, bt=BoardType.AgeOfAquarius):
+        bt = BoardType(bt)
+        self.board = Board(bt, 5, 6)
+        self.board.clear()
+        self.delete_all_marks()
+
+#         self.board.set_piece(2, 2, PieceType(-PieceType.Unicorn))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.05)
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+
+#         # direction 1, i.e. <2, 1>
+#         self.field_markers.append( SH.get_new_field_marker(4, 3, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("1", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 2, i.e. <1, 2>
+#         self.field_markers.append( SH.get_new_field_marker(3, 4, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("2", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 3, i.e. <-1, 2>
+#         self.field_markers.append( SH.get_new_field_marker(1, 4, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("3", *get_text_position(1, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 4, i.e. <-2, 1>
+#         self.field_markers.append( SH.get_new_field_marker(0, 3, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("4", *get_text_position(0, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 5, i.e. <-2, -1>
+#         self.field_markers.append( SH.get_new_field_marker(0, 1, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("5", *get_text_position(0, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 6, i.e. <-1, -2>
+#         self.field_markers.append( SH.get_new_field_marker(1, 0, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("6", *get_text_position(1, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 7, i.e. <1, -2>
+#         self.field_markers.append( SH.get_new_field_marker(3, 0, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("7", *get_text_position(3, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
+#
+#         # direction 8, i.e. <2, -1>
+#         self.field_markers.append( SH.get_new_field_marker(4, 1, **get_field_marker_colors(True)) )
+#         self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        start = (2, 2)
+        self.board.set_piece(*start, piece=PieceType(-PieceType.Unicorn))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.15, top=1.0, right=0.75, bottom=0.05)
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+
+        gen_abs_pos = MG.get_gen_abs_pos(MG.gen_knight_rel_moves, start=start, pos_limits=((0, 4), (0, 4)))
+
+        i = 1
+        for pos in gen_abs_pos():
+            self.field_markers.append( SH.get_new_field_marker(*pos, **get_field_marker_colors(True)) )
+            self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+            i += 1
+
+        return self.format_return_values("move_unicorn_same_color", size_x=4000, size_y=4000)
+
+    def move_unicorn_opposite_color(self, bt=BoardType.AgeOfAquarius):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        start = (7, 6)
+        self.board.set_piece(*start, piece=PieceType(-PieceType.Unicorn))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.15, top=1.0, right=0.75, bottom=0.05)
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+
+        gen_abs_pos = MG.get_gen_abs_pos(MG.gen_unicorn_rel_long_moves, start=start, pos_limits=((3, 11), (2, 10)))
+
+        i = 1
+        for pos in gen_abs_pos():
+            self.field_markers.append( SH.get_new_field_marker(*pos, **get_field_marker_colors(True)) )
+            self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+            i += 1
+
+        return self.format_return_values("move_unicorn_opposite_color")
+
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
         self.board = Board(bt, 11, 11)
@@ -841,6 +865,8 @@ class Scene(object):
                  self.move_pyramid_conversion_init, \
                  self.move_pyramid_conversion_activated, \
                  self.move_pyramid_conversion_end, \
+                 self.move_unicorn_same_color, \
+                 self.move_unicorn_opposite_color, \
                  self.move_shaman, \
                  self.move_shaman_2, \
                  self.move_monolith, \
@@ -852,7 +878,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [0,  ] # None
+        return [0, 9, 10, ] # None
 
     # ~
 
