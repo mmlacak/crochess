@@ -690,7 +690,95 @@ piece is introduced, Unicorn.
 \end{wrapfigure}
 \indent
 Unicorn is a piece similar to Knight, only it can jump longer on
-opposite color fields.
+opposite color fields. Just as Knight, Unicorn is not obstructed
+by any piece in its' surroundings.
+
+\vspace{8\baselineskip}
+
+\noindent
+\begin{wrapfigure}{l}{0.5\textwidth}
+\includegraphics[width=0.5\textwidth, keepaspectratio=true]{../gfx/examples/10_move_unicorn_same_color.png}
+\caption{Unicorn short jump}
+\label{fig:unicorn_short}
+% % \centering
+\end{wrapfigure}
+\indent
+On fields with the same color as Unicorn, it can move the same way
+Knight does.
+
+\clearpage
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/11_move_unicorn_opposite_color.png}
+\caption{Unicorn long jump}
+\label{fig:unicorn_long}
+% \centering
+\end{figure}
+
+\indent
+On fields in opposite color to Unicorn's, Unicorn can jump much longer.
+Again, just as Knight, Unicorn is not hampered by surrouding pieces.
+Only own pieces on marked (i.e. step) fields can prevent Unicorn to move.
+
+\clearpage
+
+\section*{En passant}
+\addcontentsline{toc}{section}{En passant}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/en_passants/08_age_of_aquarius_en_passant.png}
+\caption{En passant}
+\label{fig:aoa_en_passant}
+% % \centering
+\end{wrapfigure}
+\indent
+If Pawn hasn't moved yet, it can move up to 5 fields forward. As expected, all passed-by
+opponent's Pawns also gain en passant opportunity.
+
+In example on left, if light Pawn's
+initial move was 5 fields long, ending in field marked 4, all dark Pawns would have en
+passant opportunity. Naturaly, if initial move was only 2 fields long, ending in field
+marked 1, only first dark Pawn on the right would gain en passant opportunity.
+
+\clearpage
+
+\section*{Castling}
+\addcontentsline{toc}{section}{Castling}
+
+\indent
+Castling is essentially the same as it is in Classical Chess, only real difference is that
+King can move 2, 3, 4 or 5 fields across. All other constraints from Classical Chess still
+applies.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/castlings/08_age_of_aquarius_castling.png}
+\caption{Castling}
+\label{fig:aoa_castling}
+% \centering
+\end{figure}
+
+\indent
+In example above, all valid King's castling moves are numbered. Regardless if King performs
+long or short castling move, Rook would always end up on field next to King, on opposite side
+of it, i.e. closer to center.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/castlings/long_left/08_age_of_aquarius_castling_long_left.png}
+\caption{Castling long left}
+\label{fig:aoa_castling_long_left}
+% \centering
+\end{figure}
+
+\indent
+In this example King was castling long to the left. Initial King's position is marked with "K".
+After castling is finished, left Rook ends up at field immediately on the right to the King.
 
 \clearpage
 
