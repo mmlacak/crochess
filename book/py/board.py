@@ -164,8 +164,14 @@ class BoardType(int):
         return piece_type in PieceType.foreach(start, end)
 
 
+class BoardHints(object):
+    def __init__(self, is_universal=False, reverse_field_colors=False):
+        self.is_universal = is_universal
+        self.reverse_field_colors = reverse_field_colors
+
+
 class Board(object):
-    def __init__(self, type, width=None, height=None):
+    def __init__(self, type, width=None, height=None, hints=None):
         self.type = type
 
         if width is None:
@@ -177,6 +183,8 @@ class Board(object):
         self._height = height
 
         self._board = [ [ PieceType(PieceType.none) for i in xrange(self._width) ] for j in xrange(self._height) ]
+
+        self.hints = hints or BoardHints()
 
     def _is_file(self, i):
         return 0 <= i < self._width

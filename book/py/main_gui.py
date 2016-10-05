@@ -71,8 +71,7 @@ class CroChess(object):
         cm = gc.get_colormap()
 
         painter = BoardPainter(drawable, self.game.rules.board)
-        pc = PainterContext(gc, self.game.rules.board, False) # True # False
-        pc.cc = pc.get_color_context(self.game.rules.board.type)
+        pc = PainterContext(gc, self.game.rules.board)
 
         painter.clear_area()
         painter.draw_board(pc)
@@ -87,8 +86,7 @@ class CroChess(object):
         cm = gc.get_colormap()
 
         painter = BoardPainter(drawable, self.scene.board)
-        pc = PainterContext(gc, self.game.rules.board, False) # True # False
-        pc.cc = pc.get_color_context(self.scene.board.type)
+        pc = PainterContext(gc, self.game.rules.board)
 
         painter.clear_area()
         painter.draw_board(pc)

@@ -8,7 +8,7 @@ import math
 
 from piece import PieceType
 from board import BoardType
-from board import Board
+from board import Board, BoardHints
 from mark import Arrow, Text, FieldMarker
 
 import move_gen as MG
@@ -279,44 +279,10 @@ class Scene(object):
         self.board.clear()
         self.delete_all_marks()
 
-#         self.board.set_piece(2, 2, PieceType(PieceType.Pegasus))
-
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.05)
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
-
-#         # direction 1, i.e. <2, 1>
-#         self.field_markers.append( SH.get_new_field_marker(4, 3, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("1", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 2, i.e. <1, 2>
-#         self.field_markers.append( SH.get_new_field_marker(3, 4, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("2", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 3, i.e. <-1, 2>
-#         self.field_markers.append( SH.get_new_field_marker(1, 4, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("3", *get_text_position(1, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 4, i.e. <-2, 1>
-#         self.field_markers.append( SH.get_new_field_marker(0, 3, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("4", *get_text_position(0, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 5, i.e. <-2, -1>
-#         self.field_markers.append( SH.get_new_field_marker(0, 1, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("5", *get_text_position(0, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 6, i.e. <-1, -2>
-#         self.field_markers.append( SH.get_new_field_marker(1, 0, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("6", *get_text_position(1, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 7, i.e. <1, -2>
-#         self.field_markers.append( SH.get_new_field_marker(3, 0, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("7", *get_text_position(3, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 8, i.e. <2, -1>
-#         self.field_markers.append( SH.get_new_field_marker(4, 1, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
@@ -658,48 +624,14 @@ class Scene(object):
 
     def move_unicorn_same_color(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
-        self.board = Board(bt, 5, 6)
+        self.board = Board(bt, 5, 5, BoardHints(reverse_field_colors=True))
         self.board.clear()
         self.delete_all_marks()
-
-#         self.board.set_piece(2, 2, PieceType(-PieceType.Unicorn))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.05)
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
-
-#         # direction 1, i.e. <2, 1>
-#         self.field_markers.append( SH.get_new_field_marker(4, 3, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("1", *get_text_position(4, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 2, i.e. <1, 2>
-#         self.field_markers.append( SH.get_new_field_marker(3, 4, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("2", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 3, i.e. <-1, 2>
-#         self.field_markers.append( SH.get_new_field_marker(1, 4, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("3", *get_text_position(1, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 4, i.e. <-2, 1>
-#         self.field_markers.append( SH.get_new_field_marker(0, 3, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("4", *get_text_position(0, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 5, i.e. <-2, -1>
-#         self.field_markers.append( SH.get_new_field_marker(0, 1, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("5", *get_text_position(0, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 6, i.e. <-1, -2>
-#         self.field_markers.append( SH.get_new_field_marker(1, 0, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("6", *get_text_position(1, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 7, i.e. <1, -2>
-#         self.field_markers.append( SH.get_new_field_marker(3, 0, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("7", *get_text_position(3, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
-#
-#         # direction 8, i.e. <2, -1>
-#         self.field_markers.append( SH.get_new_field_marker(4, 1, **get_field_marker_colors(True)) )
-#         self.texts.append( SH.get_new_text("8", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType(-PieceType.Unicorn))
@@ -878,7 +810,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [0, 9, 10, ] # None
+        return [9, ] # None
 
     # ~
 

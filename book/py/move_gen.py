@@ -66,8 +66,6 @@ def get_gen_abs_pos(gen_rel, start=(0, 0), pos_limits=((0, 26), (0, 26))):
         for rel in gen_rel():
             gen_moves = get_gen_moves(rel, pos=start)
 
-#             import pdb; pdb.set_trace()
-
             for pos in gen_moves():
                 if is_pos_within(pos, pos_limits=pos_limits):
                     yield pos

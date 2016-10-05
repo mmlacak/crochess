@@ -75,10 +75,12 @@ class BoardPainter(PiecePainter):
         return FieldPosition(i, j_reverse)
 
     def is_field_light_or_dark(self, i, j):
-        if len(self.board) % 2 == 0:
-            is_light_or_dark = bool((i + j) % 2 != 0)
+        b = self.board.get_width() % 2
+        if ((not self.board.hints.reverse_field_colors) and (b == 0)) or \
+            (self.board.hints.reverse_field_colors and (b != 0)):
+                is_light_or_dark = bool((i + j) % 2 != 0)
         else:
-            is_light_or_dark = bool((i + j) % 2 == 0)
+                is_light_or_dark = bool((i + j) % 2 == 0)
         return is_light_or_dark
 
     def get_gc_field_color(self, i, j, pc):
@@ -107,7 +109,7 @@ class BoardPainter(PiecePainter):
     def draw_piece_at_field(self, i, j, pc):
         dp = self.get_field_start_pix(i, j)
         pc.set_rect(dp.x_pix, dp.y_pix, self.field_width_pix, self.field_height_pix)
-        p = self.board[j][i]
+        p = self.board.get_piece(i, j)
         self.draw_piece(pc, p)
 
     def draw_all_pieces(self, pc):

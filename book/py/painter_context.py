@@ -56,12 +56,11 @@ class ColorContext(object):
             return self.pair_piece_dark
 
 class PainterContext(object):
-    def __init__(self, gc, board, is_universal=False, rect=None, cc=None):
+    def __init__(self, gc, board, rect=None, cc=None):
         self.gc = gc
         self.board = board
-        self.is_universal = is_universal
         self.rect = rect
-        self.cc = cc
+        self.cc = cc or self.get_color_context(board.type)
 
     def set_rect(self, left, top, width, height):
         self.rect = DrawableRectangle(left, top, width, height)
@@ -82,7 +81,7 @@ class PainterContext(object):
 
     def get_gc_piece(self, piece):
         cm = self.gc.get_colormap()
-        if self.is_universal:
+        if self.board.hints.is_universal:
             bt = self.get_intro_board_type(self.board.type.is_even_or_odd(), piece)
             if piece.is_light_or_dark():
                 self.gc.foreground = cm.alloc_color(self.get_piece_foreground_color_light(bt))
@@ -101,7 +100,7 @@ class PainterContext(object):
 
     def get_gc_piece_opposite_color(self, piece):
         cm = self.gc.get_colormap()
-        if self.is_universal:
+        if self.board.hints.is_universal:
             bt = self.get_intro_board_type(self.board.type.is_even_or_odd(), piece)
             if not piece.is_light_or_dark():
                 self.gc.foreground = cm.alloc_color(self.get_piece_foreground_color_light(bt))
@@ -120,7 +119,7 @@ class PainterContext(object):
 
     def get_gc_monolith(self):
         cm = self.gc.get_colormap()
-        if self.is_universal:
+        if self.board.hints.is_universal:
             bt = self.get_intro_board_type(self.board.type.is_even_or_odd(), PieceType(PieceType.Monolith))
             self.gc.foreground = cm.alloc_color(self.get_monolith_foreground_color(bt))
             self.gc.background = cm.alloc_color(self.get_monolith_background_color(bt))
@@ -131,7 +130,7 @@ class PainterContext(object):
 
     def get_gc_field(self, i, j, is_light_or_dark):
         cm = self.gc.get_colormap()
-        if self.is_universal:
+        if self.board.hints.is_universal:
             bt = self.get_original_board_type(i, j)
             if is_light_or_dark:
                 self.gc.foreground = cm.alloc_color(self.get_field_color_light(bt))
@@ -206,7 +205,7 @@ class PainterContext(object):
         return bt
 
     def get_original_board_type(self, i, j):
-        if self.is_universal:
+        if self.board.hints.is_universal:
             if self.board.is_by_the_book():
                 off_bt = BoardType.Classical if self.board.type.is_even_or_odd() else BoardType.OddClassical
                 off_w = (self.board.get_width() - BoardType(off_bt).get_size()) / 2

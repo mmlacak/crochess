@@ -272,16 +272,14 @@ class GfxRender(object):
         cm = gc.get_colormap()
 
         # painter = BoardPainter(drawable, self.game.rules.board)
-        # pc = PainterContext(gc, self.game.rules.board, False) # True # False
-        # pc.cc = pc.get_color_context(self.game.rules.board.type)
+        # pc = PainterContext(gc, self.game.rules.board)
 
         board = self.game.rules.board if is_game_or_scene else self.scene.board
         arrows = [] if is_game_or_scene else self.scene.arrows
         texts = [] if is_game_or_scene else self.scene.texts
         field_markers = [] if is_game_or_scene else self.scene.field_markers
         painter = MarkPainter(drawable, board)
-        pc = PainterContext(gc, board, False) # True # False
-        pc.cc = pc.get_color_context(board.type)
+        pc = PainterContext(gc, board)
 
         painter.clear_area()
         painter.draw_board(pc)
