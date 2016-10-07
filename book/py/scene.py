@@ -793,12 +793,14 @@ class Scene(object):
                  self.move_pegasus, \
                  self.move_pyramid_promo_init, \
                  self.move_pyramid_promo_activate, \
+                 \
                  self.move_pyramid_promo_end, \
                  self.move_pyramid_conversion_init, \
                  self.move_pyramid_conversion_activated, \
                  self.move_pyramid_conversion_end, \
                  self.move_unicorn_same_color, \
                  self.move_unicorn_opposite_color, \
+                 \
                  self.move_shaman, \
                  self.move_shaman_2, \
                  self.move_monolith, \
