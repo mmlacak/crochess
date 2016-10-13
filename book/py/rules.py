@@ -220,8 +220,8 @@ class Rules(object):
         h_dark = size - 1 # self.board.get_height() - 1
         h_0 = offset_height + 0
         h_1 = offset_height + h_dark
-        self.board.set_pieces([(offset_width + 0, h_0, PieceType(-PieceType.Star)),
-                               (offset_width + 0, h_1, PieceType(PieceType.Star)),
+        self.board.set_pieces([(offset_width + 0, h_0, PieceType(PieceType.Star)),
+                               (offset_width + 0, h_1, PieceType(-PieceType.Star)),
                                (offset_width + 1, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 1, h_1, PieceType(-PieceType.Rook)),
                                (offset_width + 2, h_0, PieceType(PieceType.Pegasus)),
@@ -259,8 +259,8 @@ class Rules(object):
                                (offset_width + 14 + offset, h_1, PieceType(-PieceType.Pegasus)),
                                (offset_width + 15 + offset, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 15 + offset, h_1, PieceType(-PieceType.Rook)),
-                               (offset_width + 16 + offset, h_0, PieceType(PieceType.Star)),
-                               (offset_width + 16 + offset, h_1, PieceType(-PieceType.Star))])
+                               (offset_width + 16 + offset, h_0, PieceType(-PieceType.Star)),
+                               (offset_width + 16 + offset, h_1, PieceType(PieceType.Star))])
 
     def init_hemeras_dawn(self, offset_width, offset_height, size):
         self.board.clear()
@@ -269,8 +269,8 @@ class Rules(object):
         h_dark = size - 1 # self.board.get_height() - 1
         h_0 = offset_height + 0
         h_1 = offset_height + h_dark
-        self.board.set_pieces([(offset_width + 0, h_0, PieceType(-PieceType.Star)),
-                               (offset_width + 0, h_1, PieceType(PieceType.Star)),
+        self.board.set_pieces([(offset_width + 0, h_0, PieceType(PieceType.Star)),
+                               (offset_width + 0, h_1, PieceType(-PieceType.Star)),
                                (offset_width + 1, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 1, h_1, PieceType(-PieceType.Rook)),
                                (offset_width + 2, h_0, PieceType(PieceType.Pegasus)),
@@ -312,8 +312,8 @@ class Rules(object):
                                (offset_width + 16 + offset, h_1, PieceType(-PieceType.Pegasus)),
                                (offset_width + 17 + offset, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 17 + offset, h_1, PieceType(-PieceType.Rook)),
-                               (offset_width + 18 + offset, h_0, PieceType(PieceType.Star)),
-                               (offset_width + 18 + offset, h_1, PieceType(-PieceType.Star))])
+                               (offset_width + 18 + offset, h_0, PieceType(-PieceType.Star)),
+                               (offset_width + 18 + offset, h_1, PieceType(PieceType.Star))])
 
     def init_tamoanchan_revisited(self, offset_width, offset_height, size):
         self.board.clear()
@@ -322,8 +322,8 @@ class Rules(object):
         h_dark = size - 1 # self.board.get_height() - 1
         h_0 = offset_height + 0
         h_1 = offset_height + h_dark
-        self.board.set_pieces([(offset_width + 0, h_0, PieceType(-PieceType.Star)),
-                               (offset_width + 0, h_1, PieceType(PieceType.Star)),
+        self.board.set_pieces([(offset_width + 0, h_0, PieceType(PieceType.Star)),
+                               (offset_width + 0, h_1, PieceType(-PieceType.Star)),
                                (offset_width + 1, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 1, h_1, PieceType(-PieceType.Rook)),
                                (offset_width + 2, h_0, PieceType(PieceType.Pegasus)),
@@ -369,8 +369,8 @@ class Rules(object):
                                (offset_width + 18 + offset, h_1, PieceType(-PieceType.Pegasus)),
                                (offset_width + 19 + offset, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 19 + offset, h_1, PieceType(-PieceType.Rook)),
-                               (offset_width + 20 + offset, h_0, PieceType(PieceType.Star)),
-                               (offset_width + 20 + offset, h_1, PieceType(-PieceType.Star))])
+                               (offset_width + 20 + offset, h_0, PieceType(-PieceType.Star)),
+                               (offset_width + 20 + offset, h_1, PieceType(PieceType.Star))])
 
     def init_conquest_of_tlalocan(self, offset_width, offset_height, size):
         self.board.clear()
@@ -379,8 +379,8 @@ class Rules(object):
         h_dark = size - 1 # self.board.get_height() - 1
         h_0 = offset_height + 0
         h_1 = offset_height + h_dark
-        self.board.set_pieces([(offset_width + 0, h_0, PieceType(-PieceType.Star)),
-                               (offset_width + 0, h_1, PieceType(PieceType.Star)),
+        self.board.set_pieces([(offset_width + 0, h_0, PieceType(PieceType.Star)),
+                               (offset_width + 0, h_1, PieceType(-PieceType.Star)),
                                (offset_width + 1, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 1, h_1, PieceType(-PieceType.Rook)),
                                (offset_width + 2, h_0, PieceType(PieceType.Pegasus)),
@@ -430,8 +430,8 @@ class Rules(object):
                                (offset_width + 20 + offset, h_1, PieceType(-PieceType.Pegasus)),
                                (offset_width + 21 + offset, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 21 + offset, h_1, PieceType(-PieceType.Rook)),
-                               (offset_width + 22 + offset, h_0, PieceType(PieceType.Star)),
-                               (offset_width + 22 + offset, h_1, PieceType(-PieceType.Star))])
+                               (offset_width + 22 + offset, h_0, PieceType(-PieceType.Star)),
+                               (offset_width + 22 + offset, h_1, PieceType(PieceType.Star))])
 
     def _calc_monolith_init_pos(self, pt, offset_width, offset_height):
         w = self.board.get_width()
@@ -457,8 +457,8 @@ class Rules(object):
         h_dark = size - 1 # self.board.get_height() - 1
         h_0 = offset_height + 0
         h_1 = offset_height + h_dark
-        self.board.set_pieces([(offset_width + 0, h_0, PieceType(-PieceType.Star)),
-                               (offset_width + 0, h_1, PieceType(PieceType.Star)),
+        self.board.set_pieces([(offset_width + 0, h_0, PieceType(PieceType.Star)),
+                               (offset_width + 0, h_1, PieceType(-PieceType.Star)),
                                (offset_width + 1, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 1, h_1, PieceType(-PieceType.Rook)),
                                (offset_width + 2, h_0, PieceType(PieceType.Pegasus)),
@@ -508,8 +508,8 @@ class Rules(object):
                                (offset_width + 20 + offset, h_1, PieceType(-PieceType.Pegasus)),
                                (offset_width + 21 + offset, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 21 + offset, h_1, PieceType(-PieceType.Rook)),
-                               (offset_width + 22 + offset, h_0, PieceType(PieceType.Star)),
-                               (offset_width + 22 + offset, h_1, PieceType(-PieceType.Star))])
+                               (offset_width + 22 + offset, h_0, PieceType(-PieceType.Star)),
+                               (offset_width + 22 + offset, h_1, PieceType(PieceType.Star))])
 
         self._init_monolith(PieceType.Monolith, offset_width, offset_height)
         self._init_monolith(-PieceType.Monolith, offset_width, offset_height)
@@ -521,8 +521,8 @@ class Rules(object):
         h_dark = size - 1 # self.board.get_height() - 1
         h_0 = offset_height + 0
         h_1 = offset_height + h_dark
-        self.board.set_pieces([(offset_width + 0, h_0, PieceType(-PieceType.Star)),
-                               (offset_width + 0, h_1, PieceType(PieceType.Star)),
+        self.board.set_pieces([(offset_width + 0, h_0, PieceType(PieceType.Star)),
+                               (offset_width + 0, h_1, PieceType(-PieceType.Star)),
                                (offset_width + 1, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 1, h_1, PieceType(-PieceType.Rook)),
                                (offset_width + 2, h_0, PieceType(PieceType.Pegasus)),
@@ -576,8 +576,8 @@ class Rules(object):
                                (offset_width + 22 + offset, h_1, PieceType(-PieceType.Pegasus)),
                                (offset_width + 23 + offset, h_0, PieceType(PieceType.Rook)),
                                (offset_width + 23 + offset, h_1, PieceType(-PieceType.Rook)),
-                               (offset_width + 24 + offset, h_0, PieceType(PieceType.Star)),
-                               (offset_width + 24 + offset, h_1, PieceType(-PieceType.Star))])
+                               (offset_width + 24 + offset, h_0, PieceType(-PieceType.Star)),
+                               (offset_width + 24 + offset, h_1, PieceType(PieceType.Star))])
 
         self._init_monolith(PieceType.Monolith, offset_width, offset_height)
         self._init_monolith(-PieceType.Monolith, offset_width, offset_height)
