@@ -242,8 +242,8 @@ class PainterContext(object):
               BoardType.MayanAscendancy: "#FFFF00",
               BoardType.OddAgeOfAquarius: "#FFFFDF",
               BoardType.AgeOfAquarius: "#FFFFDF",
-              BoardType.OddMirandasVeil: "#FFFFFF", # "#FFFFDF",
-              BoardType.MirandasVeil: "#FFFFFF", # "#FFFFDF",
+              BoardType.OddMirandasVeil: "#FFFFFF",
+              BoardType.MirandasVeil: "#FFFFFF",
               BoardType.OddNineteen: "#DFDF7F",
               BoardType.Nineteen: "#DFDF7F",
               BoardType.OddHemerasDawn: "#501008",
@@ -268,8 +268,8 @@ class PainterContext(object):
               BoardType.MayanAscendancy: "#007FCF",
               BoardType.OddAgeOfAquarius: "#3FBF3F",
               BoardType.AgeOfAquarius: "#3FBF3F",
-              BoardType.OddMirandasVeil: "#500070", # "#300050",
-              BoardType.MirandasVeil: "#500070", # "#300050",
+              BoardType.OddMirandasVeil: "#500070",
+              BoardType.MirandasVeil: "#500070",
               BoardType.OddNineteen: "#FFFFFF",
               BoardType.Nineteen: "#FFFFFF",
               BoardType.OddHemerasDawn: "#909090",
@@ -294,8 +294,8 @@ class PainterContext(object):
               BoardType.MayanAscendancy: "#8F8F00",
               BoardType.OddAgeOfAquarius: "#B0B080",
               BoardType.AgeOfAquarius: "#B0B080",
-              BoardType.OddMirandasVeil: "#FF90FF",
-              BoardType.MirandasVeil: "#FF90FF",
+              BoardType.OddMirandasVeil: "#FF80FF", # "#FF60FF", # "#FF90FF",
+              BoardType.MirandasVeil: "#FF80FF", # "#FF60FF", # "#FF90FF",
               BoardType.OddNineteen: "#A0A050",
               BoardType.Nineteen: "#A0A050",
               BoardType.OddHemerasDawn: "#FF0000",
@@ -306,8 +306,9 @@ class PainterContext(object):
               BoardType.ConquestOfTlalocan: "#10F030",
               BoardType.OddDiscovery: "#808080",
               BoardType.Discovery: "#808080",
-              BoardType.OddOne: "#FF60FF",
-              BoardType.One: "#FF60FF" }[board_type]
+              BoardType.OddOne: "#CC10EE", # "#DD10FF", # "#FF60FF", # "#FF90FF",
+              BoardType.One: "#CC10EE", # "#DD10FF", # "#FF60FF", # "#FF90FF",
+            }[board_type]
         return c
 
     def get_piece_background_color_dark(self, board_type):
@@ -320,8 +321,8 @@ class PainterContext(object):
               BoardType.MayanAscendancy: "#002F5F",
               BoardType.OddAgeOfAquarius: "#1F5F1F",
               BoardType.AgeOfAquarius: "#1F5F1F",
-              BoardType.OddMirandasVeil: "#200030", # "#7F307F",
-              BoardType.MirandasVeil: "#200030", # "#7F307F",
+              BoardType.OddMirandasVeil: "#300050", # "#200030",
+              BoardType.MirandasVeil: "#300050", # "#200030",
               BoardType.OddNineteen: "#424242",
               BoardType.Nineteen: "#424242",
               BoardType.OddHemerasDawn: "#303030",
@@ -332,8 +333,9 @@ class PainterContext(object):
               BoardType.ConquestOfTlalocan: "#800000",
               BoardType.OddDiscovery: "#003737",
               BoardType.Discovery: "#003737",
-              BoardType.OddOne: "#300050",
-              BoardType.One: "#300050" }[board_type]
+              BoardType.OddOne: "#FF30FF", # "#FF00FF", # "#300050",
+              BoardType.One: "#FF30FF", # "#FF00FF", # "#300050",
+            }[board_type]
         return c
 
     def get_piece_foreground_color_light(self, board_type):
@@ -358,8 +360,9 @@ class PainterContext(object):
               BoardType.ConquestOfTlalocan: "#000000",
               BoardType.OddDiscovery: "#000000",
               BoardType.Discovery: "#000000",
-              BoardType.OddOne: "#000000",
-              BoardType.One: "#000000" }[board_type]
+              BoardType.OddOne: "#FFFFFF", # "#000000",
+              BoardType.One: "#FFFFFF", # "#000000"
+            }[board_type]
         return c
 
     def get_piece_foreground_color_dark(self, board_type):
