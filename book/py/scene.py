@@ -26,8 +26,8 @@ class Scene(object):
                           BoardType.MayanAscendancy:         ("#303030", "#00FF00", "#101010", "#303030"),
                           BoardType.OddAgeOfAquarius:        ("#303030", "#0000FF", "#303030", "#FF0000"),
                           BoardType.AgeOfAquarius:           ("#303030", "#0000FF", "#303030", "#FF0000"),
-                          BoardType.OddMirandasVeil:         ("#303030", "#00FF00", "#303030", "#FF0000"),
-                          BoardType.MirandasVeil:            ("#303030", "#00FF00", "#303030", "#FF0000"),
+                          BoardType.OddMirandasVeil:         ("#303030", "#00FF00", "#303030", "#808080"), # ("#303030", "#00FF00", "#303030", "#FF0000"),
+                          BoardType.MirandasVeil:            ("#303030", "#00FF00", "#303030", "#808080"), # ("#303030", "#00FF00", "#303030", "#FF0000"),
                           BoardType.OddNineteen:             ("#303030", "#00FF00", "#303030", "#FF0000"),
                           BoardType.Nineteen:                ("#303030", "#00FF00", "#303030", "#FF0000"),
                           BoardType.OddHemerasDawn:          ("#303030", "#00FF00", "#303030", "#FF0000"),
@@ -38,32 +38,40 @@ class Scene(object):
                           BoardType.ConquestOfTlalocan:      ("#303030", "#00FF00", "#303030", "#808080"),
                           BoardType.OddDiscovery:            ("#303030", "#00FF00", "#303030", "#FF0000"),
                           BoardType.Discovery:               ("#303030", "#00FF00", "#303030", "#FF0000"),
-                          BoardType.OddOne:                  ("#303030", "#00FF00", "#303030", "#FF0000"),
-                          BoardType.One:                     ("#303030", "#00FF00", "#303030", "#FF0000") }
+                          BoardType.OddOne:                  ("#303030", "#00FF00", "#303030", "#808080"), # ("#303030", "#00FF00", "#303030", "#FF0000"),
+                          BoardType.One:                     ("#303030", "#00FF00", "#303030", "#808080"), # ("#303030", "#00FF00", "#303030", "#FF0000"),
+                        }
 
-    TEXT_COLORS_DICT = { BoardType.none:                    ("#FF00FF", "#303030", "#303030", "#808080"),
-                         BoardType.OddClassical:            ("#0080FF", "#303030", "#101010", "#808080"),
-                         BoardType.Classical:               ("#0080FF", "#303030", "#101010", "#808080"),
-                         BoardType.OddCroatianTies:         ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.CroatianTies:            ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.OddMayanAscendancy:      ("#FF00FF", "#303030", "#303030", "#808080"),
-                         BoardType.MayanAscendancy:         ("#FF00FF", "#303030", "#303030", "#808080"),
-                         BoardType.OddAgeOfAquarius:        ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.AgeOfAquarius:           ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.OddMirandasVeil:         ("#FF00FF", "#303030", "#808080", "#303030"),
-                         BoardType.MirandasVeil:            ("#FF00FF", "#303030", "#808080", "#303030"),
-                         BoardType.OddNineteen:             ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.Nineteen:                ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.OddHemerasDawn:          ("#0000FF", "#303030", "#505050", "#808080"),
-                         BoardType.HemerasDawn:             ("#0000FF", "#303030", "#505050", "#808080"),
-                         BoardType.OddTamoanchanRevisited:  ("#FF00FF", "#303030", "#808080", "#303030"),
-                         BoardType.TamoanchanRevisited:     ("#FF00FF", "#303030", "#808080", "#303030"),
-                         BoardType.OddConquestOfTlalocan:   ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.ConquestOfTlalocan:      ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.OddDiscovery:            ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.Discovery:               ("#0000FF", "#303030", "#303030", "#808080"),
-                         BoardType.OddOne:                  ("#FF00FF", "#303030", "#808080", "#303030"),
-                         BoardType.One:                     ("#FF00FF", "#303030", "#808080", "#303030") }
+    ARROW_ACTION_COLORS = ("#303030", "#FF0000", "#303030", "#FF0000")
+
+    TEXT_COLORS_DICT =  { BoardType.none:                    ("#FF00FF", "#303030", "#303030", "#808080"),
+                          BoardType.OddClassical:            ("#0080FF", "#303030", "#101010", "#808080"),
+                          BoardType.Classical:               ("#0080FF", "#303030", "#101010", "#808080"),
+                          BoardType.OddCroatianTies:         ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.CroatianTies:            ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.OddMayanAscendancy:      ("#FF00FF", "#303030", "#303030", "#808080"),
+                          BoardType.MayanAscendancy:         ("#FF00FF", "#303030", "#303030", "#808080"),
+                          BoardType.OddAgeOfAquarius:        ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.AgeOfAquarius:           ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.OddMirandasVeil:         ("#00D000", "#303030", "#808080", "#303030"), # ("#FF00FF", "#303030", "#808080", "#303030"),
+                          BoardType.MirandasVeil:            ("#00D000", "#303030", "#808080", "#303030"), # ("#FF00FF", "#303030", "#808080", "#303030"),
+                          BoardType.OddNineteen:             ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.Nineteen:                ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.OddHemerasDawn:          ("#0000FF", "#303030", "#505050", "#808080"),
+                          BoardType.HemerasDawn:             ("#0000FF", "#303030", "#505050", "#808080"),
+                          BoardType.OddTamoanchanRevisited:  ("#FF00FF", "#303030", "#808080", "#303030"),
+                          BoardType.TamoanchanRevisited:     ("#FF00FF", "#303030", "#808080", "#303030"),
+                          BoardType.OddConquestOfTlalocan:   ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.ConquestOfTlalocan:      ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.OddDiscovery:            ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.Discovery:               ("#0000FF", "#303030", "#303030", "#808080"),
+                          BoardType.OddOne:                  ("#00D000", "#303030", "#808080", "#303030"), # ("#FF00FF", "#303030", "#808080", "#303030"),
+                          BoardType.One:                     ("#00D000", "#303030", "#808080", "#303030"), # ("#FF00FF", "#303030", "#808080", "#303030"),
+                        }
+
+    TEXT_ACTION_COLORS = ("#FF0000", "#303030", "#FF0000", "#303030")
+
+    FIELD_MARKER_COLORS_DICT = None
 
     @staticmethod
     def switch_active_inactive_colors(colors_dict):
@@ -80,8 +88,6 @@ class Scene(object):
             fg_a, bg_a, fg_i, bg_i = v
             d[k] = (bg_a, fg_a, bg_i, fg_i)
         return d
-
-    FIELD_MARKER_COLORS_DICT = None
 
     def __init__(self, board=None):
         self.board = board
@@ -108,8 +114,14 @@ class Scene(object):
     def get_arrow_colors(self, bt):
         return Scene.ARROW_COLORS_DICT[bt]
 
+    def get_arrow_action_colors(self, bt):
+        return Scene.ARROW_ACTION_COLORS
+
     def get_text_colors(self, bt):
         return Scene.TEXT_COLORS_DICT[bt]
+
+    def get_text_action_colors(self, bt):
+        return Scene.TEXT_ACTION_COLORS
 
     def get_field_marker_colors(self, bt):
         return Scene.FIELD_MARKER_COLORS_DICT[bt]
@@ -279,11 +291,6 @@ class Scene(object):
         self.board.clear()
         self.delete_all_marks()
 
-        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
-        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
-
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
 
@@ -292,7 +299,7 @@ class Scene(object):
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
-        gen_abs_pos = MG.get_gen_abs_pos(MG.gen_knight_rel_moves, start=start, pos_limits=((0, 4), (0, 4)))
+        gen_abs_pos = MG.get_gen_abs_pos(MG.gen_knight_rel_moves, start=start, pos_limits=self.board.get_position_limits())
 
         i = 1
         for pos in gen_abs_pos():
@@ -628,11 +635,6 @@ class Scene(object):
         self.board.clear()
         self.delete_all_marks()
 
-        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
-        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
-
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType(-PieceType.Unicorn))
 
@@ -641,7 +643,7 @@ class Scene(object):
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
-        gen_abs_pos = MG.get_gen_abs_pos(MG.gen_knight_rel_moves, start=start, pos_limits=((0, 4), (0, 4)))
+        gen_abs_pos = MG.get_gen_abs_pos(MG.gen_knight_rel_moves, start=start, pos_limits=self.board.get_position_limits())
 
         i = 1
         for pos in gen_abs_pos():
@@ -674,6 +676,51 @@ class Scene(object):
             i += 1
 
         return self.format_return_values("move_unicorn_opposite_color")
+
+    def move_wave_init(self, bt=BoardType.MirandasVeil):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        start_wave = (3, 4)
+        self.board.set_piece(*start_wave, piece=PieceType(PieceType.Wave))
+
+        start_pegasus = (13, 9)
+        self.board.set_piece(*start_pegasus, piece=PieceType(PieceType.Pegasus))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+        # get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+
+        get_arrow_action_colors = SH.get_func_get_colors(*self.get_arrow_action_colors(bt))
+        get_text_action_colors = SH.get_func_get_colors(*self.get_text_action_colors(bt), font="sans bold 192")
+
+        gen_rel = MG.get_gen_move((-2, -1))
+        gen_abs_pos = MG.get_gen_abs_pos(gen_rel, start=start_pegasus, pos_limits=self.board.get_position_limits())
+
+        i = 1
+        start_arrow = start_pegasus
+        steps_to_wave = 5
+        for pos in gen_abs_pos():
+            arrow = (start_arrow[0], start_arrow[1], pos[0], pos[1])
+            before_wave = bool(i < (steps_to_wave+1))
+
+            if i <> steps_to_wave:
+                self.arrows.append( SH.get_new_arrow(*arrow, **get_arrow_colors(before_wave)) )
+                self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(before_wave)) )
+                # self.field_markers.append( SH.get_new_field_marker(*pos, **get_field_marker_colors(before_wave)) )
+            else:
+                self.arrows.append( SH.get_new_arrow(*arrow, **get_arrow_action_colors(before_wave)) )
+                self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_action_colors(before_wave)) )
+                # self.field_markers.append( SH.get_new_field_marker(*pos, **get_field_marker_colors(before_wave)) )
+
+            i += 1
+            start_arrow = pos
+
+        return self.format_return_values("move_wave_init")
+
 
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
@@ -799,7 +846,9 @@ class Scene(object):
                  self.move_pyramid_conversion_activated, \
                  self.move_pyramid_conversion_end, \
                  self.move_unicorn_same_color, \
+                 \
                  self.move_unicorn_opposite_color, \
+                 self.move_wave_init, \
                  \
                  self.move_shaman, \
                  self.move_shaman_2, \
@@ -812,7 +861,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [9, ] # None
+        return [11, ] # None
 
     # ~
 

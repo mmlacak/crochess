@@ -163,6 +163,10 @@ class BoardType(int):
         end = self.get_newly_introduced_piece() or PieceType.King
         return piece_type in PieceType.foreach(start, end)
 
+    def get_position_limits(self):
+        limit = self.get_size() - 1
+        return ((0, limit), (0, limit))
+
 
 class BoardHints(object):
     def __init__(self, is_universal=False, reverse_field_colors=False):
@@ -222,6 +226,11 @@ class Board(object):
 
     def get_piece(self, i, j):
         return self[j][i]
+
+    def get_position_limits(self):
+        h = self._height - 1
+        w = self._width - 1
+        return ((0, h), (0, w))
 
     # Pretending to be a list.
 

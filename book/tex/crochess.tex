@@ -828,7 +828,7 @@ piece is introduced, Wave.
 \addcontentsline{toc}{section}{Wave}
 
 \noindent
-\begin{wrapfigure}[13]{l}{0.4\textwidth}
+\begin{wrapfigure}[12]{l}{0.4\textwidth}
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{../gfx/pieces/10_wave.png}
 \caption{Wave}
 \label{fig:wave}
@@ -838,14 +838,14 @@ piece is introduced, Wave.
 Wave is passive piece, it has to be activated before it can move.
 Activation is done in the same way as with Pyramid. Own piece
 has to capture field at which Wave is located before Wave can
-move further.
+move.
 
 After activation Wave moves as the piece that just activated it.
 Wave is not blocked by any piece, it can continue its' movement
 freely, as if there are no pieces on board at all.
 
-Wave cannot check opponent's King, and hence can't participate
-in a checkmate. Wave also cannot capture any piece.
+Wave cannot capture any piece. Consequenly, Wave cannot check
+opponent's King, and hence can't participate in a checkmate.
 
 Wave can activate any own piece, except King. Wave can also
 activate opponent's Wave.
@@ -856,7 +856,27 @@ In algebraic notation, symbol for Wave is 'W'.
 \addcontentsline{toc}{subsection}{Activation}
 
 \indent
+For the next few examples I'll use the same setup, shown on next
+page, with Pegasus making 4-step move before activating Wave.
 
+\clearpage
+
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{../gfx/examples/12_move_wave_init.png}
+\caption{Wave activation}
+\label{fig:wave_activation}
+% \centering
+\end{figure}
+
+\indent
+Count of step fields active piece travelled before activating
+passive piece is called momentum.
+# Momentum is also
+
+
+\clearpage
 
 \subsection*{Cascading}
 \addcontentsline{toc}{subsection}{Cascading}

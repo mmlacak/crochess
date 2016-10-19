@@ -18,13 +18,15 @@ def get_coord_offset(coord, offset=0.5):
     return float(coord + offset) if isinstance(coord, int) else float(coord)
 
 def get_arrow_coordinates(start_i, start_j, end_i, end_j):
+    starts_are_ints = bool(isinstance(start_i, int) and isinstance(start_j, int))
     starts_are_floats = bool(isinstance(start_i, float) and isinstance(start_j, float))
+    ends_are_ints = bool(isinstance(end_i, int) and isinstance(end_j, int))
     ends_are_floats = bool((isinstance(end_i, float) and isinstance(end_j, float)))
 
-    assert (isinstance(start_i, int) and isinstance(start_j, int)) or starts_are_floats, \
+    assert starts_are_ints or starts_are_floats, \
            "Unexpected types for starting i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type(start_i), type(start_j))
 
-    assert (isinstance(end_i, int) and isinstance(end_j, int)) or ends_are_floats, \
+    assert ends_are_ints or ends_are_floats, \
            "Unexpected types for ending i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type(end_i), type(end_j))
 
     diff_i = end_i - start_i
