@@ -4,6 +4,8 @@
 # Copyright (c) 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+import inspect as I
+
 
 def add_coords(pos, rel, factor=1):
     return (pos[0] + factor * rel[0], pos[1] + factor * rel[1])
@@ -77,7 +79,8 @@ def get_gen_moves(rel, pos=(0, 0)):
 
 def get_gen_abs_pos(gen_rel, start=(0, 0), pos_limits=((0, 25), (0, 25))):
     def gen_abs_pos():
-        for rel in gen_rel():
+        # print "gen_rel:", type(gen_rel)
+        for rel in gen_rel if I.isgenerator(gen_rel) else gen_rel():
             gen_moves = get_gen_moves(rel, pos=start)
 
             for pos in gen_moves():

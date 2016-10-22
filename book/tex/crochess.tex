@@ -533,7 +533,8 @@ to pieces which has been captured.
 
 Note that Pyramid might just as well capture opponent's piece. Differences are
 who leaves chess board, and what remains on captured field. Capture itself with
-Pyramid is in no way different than that with Rook.
+Pyramid is in no way different than that with Rook, provided that Pyramid can
+reach opponent's piece, i.e. that it get enough momentum from activating piece.
 
 \clearpage
 
@@ -547,7 +548,7 @@ Pyramid is in no way different than that with Rook.
 \end{figure}
 
 For classic pieces, step fields are just fields which piece traveled over,
-in case of Bishop that is above 4 fields. Again, that is momentum Pyramid
+in case of Bishop above that is 4 fields. Again, that is momentum Pyramid
 will receive with activation and limits how far it could move afterwards.
 
 \clearpage
@@ -577,7 +578,8 @@ shown in red. Again, just as Rook, Pyramid can't advance past opponent's Rook.
 \end{figure}
 
 Now that Pyramid has reached opponent's Rook, it is removed from the board and
-own Rook replaces opponent's Rook.
+own Rook replaces opponent's Rook. Capturing opponent's Rook would simply leave
+Pyramid in place of it.
 
 \clearpage
 
@@ -856,10 +858,9 @@ is momentum Wave will be receiving with activation.
 % \centering
 \end{figure}
 
-Count of step fields active piece travelled before activating
-passive piece is called momentum.
-% Momentum is also
-
+As before, activation of Wave is done by full move to left by Pegasus,
+shown in red. Note that Pegasus, just as any other piece, cannot move
+past Wave, except another Wave, own or opponent's, shown in grey.
 
 \clearpage
 

@@ -721,6 +721,43 @@ class Scene(object):
 
         return self.format_return_values("move_wave_init")
 
+    def move_wave_activated(self, bt=BoardType.MirandasVeil):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        start_pegasus = (13, 9)
+        pos_pegasus = (3, 4)
+        self.board.set_piece(*pos_pegasus, piece=PieceType(PieceType.Pegasus))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font="sans bold 192")
+        # get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+
+        # get_arrow_action_colors = SH.get_func_get_colors(*self.get_arrow_action_colors(bt))
+        get_text_action_colors = SH.get_func_get_colors(*self.get_text_action_colors(bt), font="sans bold 192")
+
+        gen_rel = MG.gen_knight_rel_moves() # MG.get_gen_move((-2, -1))
+        gen_abs_pos = MG.get_gen_abs_pos(gen_rel, start=pos_pegasus, pos_limits=self.board.get_position_limits())
+
+        i = 1
+        start_arrow = pos_pegasus
+        for pos in gen_abs_pos():
+            arrow = (start_arrow[0], start_arrow[1], pos[0], pos[1])
+
+            self.arrows.append( SH.get_new_arrow(*arrow, **get_arrow_colors(True)) )
+            if pos != start_pegasus:
+                self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+            else:
+                self.texts.append( SH.get_new_text('G', *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_action_colors(True)) )
+            # self.field_markers.append( SH.get_new_field_marker(*pos, **get_field_marker_colors(True)) )
+
+            i += 1
+            start_arrow = pos
+
+        return self.format_return_values("move_wave_activated")
 
     def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
         bt = BoardType(bt)
@@ -849,6 +886,7 @@ class Scene(object):
                  \
                  self.move_unicorn_opposite_color, \
                  self.move_wave_init, \
+                 self.move_wave_activated, \
                  \
                  self.move_shaman, \
                  self.move_shaman_2, \
@@ -861,7 +899,7 @@ class Scene(object):
                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [11, ] # None
+        return [12, ] # None
 
     # ~
 
