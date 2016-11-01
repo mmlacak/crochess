@@ -16,7 +16,6 @@ cabal.sandbox.config
 *.hp
 *.pyc
 crochess
-draft/
 tmp/
 temp/
 *.aux
