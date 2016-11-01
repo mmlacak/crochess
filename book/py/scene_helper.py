@@ -97,23 +97,45 @@ def get_func_get_colors(fg_ok, bg_ok, fg_not_ok, bg_not_ok, font=None):
     return get_colors
 
 
-def get_nominal_font_size(board_size):
-    board_size_factor = DEFAULT_BOARD_SIZE / float(board_size)
-    return int(board_size_factor * DEFAULT_FONT_SIZE_FACTOR * DEFAULT_FONT_SIZE)
+def get_func_get_nominal_font_size(default_board_size=DEFAULT_BOARD_SIZE, \
+                                   font_size_factor=DEFAULT_FONT_SIZE_FACTOR, \
+                                   font_size=DEFAULT_FONT_SIZE):
+    def get_nominal_font_size(board_size):
+        board_size_factor = default_board_size / float(board_size)
+        return int(board_size_factor * font_size_factor * font_size)
+    return get_nominal_font_size
 
-def get_log_font_size(board_size):
-    numerator = math.log(float(DEFAULT_BOARD_SIZE), 2.0)
-    denominator = math.log(board_size, 2.0)
-    return int(numerator * DEFAULT_FONT_SIZE_FACTOR * DEFAULT_FONT_SIZE / denominator)
+def get_func_get_log_font_size(default_board_size=DEFAULT_BOARD_SIZE, \
+                               font_size_factor=DEFAULT_FONT_SIZE_FACTOR, \
+                               font_size=DEFAULT_FONT_SIZE):
+    def get_log_font_size(board_size):
+        numerator = math.log(float(default_board_size), 2.0)
+        denominator = math.log(board_size, 2.0)
+        return int(numerator * font_size_factor * font_size / denominator)
+    return get_log_font_size
 
-def get_sqrt_font_size(board_size):
-    numerator = math.sqrt(float(DEFAULT_BOARD_SIZE))
-    denominator = math.sqrt(board_size)
-    return int(numerator * DEFAULT_FONT_SIZE_FACTOR * DEFAULT_FONT_SIZE / denominator)
+def get_func_get_sqrt_font_size(default_board_size=DEFAULT_BOARD_SIZE, \
+                                font_size_factor=DEFAULT_FONT_SIZE_FACTOR, \
+                                font_size=DEFAULT_FONT_SIZE):
+    def get_sqrt_font_size(board_size):
+        numerator = math.sqrt(float(default_board_size))
+        denominator = math.sqrt(board_size)
+        return int(numerator * font_size_factor * font_size / denominator)
+    return get_sqrt_font_size
 
-def get_font_definition(board_size):
-    size = get_log_font_size(board_size)
-    return "%s %d" % (DEFAULT_FONT_NAME, size)
+def get_func_get_font_definition(default_board_size=DEFAULT_BOARD_SIZE, \
+                                 font_size_factor=DEFAULT_FONT_SIZE_FACTOR, \
+                                 font_size=DEFAULT_FONT_SIZE):
+
+    get_log_font_size = get_func_get_log_font_size(default_board_size=DEFAULT_BOARD_SIZE, \
+                                                   font_size_factor=DEFAULT_FONT_SIZE_FACTOR, \
+                                                   font_size=DEFAULT_FONT_SIZE)
+
+    def get_font_definition(board_size):
+        size = get_log_font_size(board_size)
+        return "%s %d" % (DEFAULT_FONT_NAME, size)
+
+    return get_font_definition
 
 
 class Corner(int):

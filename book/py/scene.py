@@ -177,8 +177,8 @@ class Scene(object):
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        # font = "sans bold %d" % SH.get_log_font_size(bt.get_size())
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         diff = pos_rook_r - pos_king_h
         for i in xrange(2, diff):
@@ -211,8 +211,8 @@ class Scene(object):
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        # font = "sans bold %d" % SH.get_log_font_size(bt.get_size())
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         self.texts.append( SH.get_new_text("K", *get_text_position(pos_king_init, 0, SH.Corner.UpperLeft), **get_text_colors(False)) )
 
@@ -240,8 +240,8 @@ class Scene(object):
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        # font = "sans bold %d" % SH.get_log_font_size(bt.get_size())
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         self.texts.append( SH.get_new_text("K", *get_text_position(pos_king_init, 0, SH.Corner.UpperLeft), **get_text_colors(False)) )
 
@@ -281,8 +281,8 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.5, bottom=0.05)
-        # font = "sans bold %d" % self.get_en_passant_font_size(bt, size)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # font)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(1, 0, PieceType(PieceType.Knight))
         self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
@@ -308,7 +308,8 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
         gen_abs_pos = MG.get_gen_abs_pos(MG.gen_knight_rel_moves, start=start, pos_limits=self.board.get_position_limits())
@@ -319,7 +320,7 @@ class Scene(object):
             self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
             i += 1
 
-        return self.format_return_values("move_pegasus_initial", size_x=0.5, size_y=0.5) # size_x=4000, size_y=4000)
+        return self.format_return_values("move_pegasus_initial", size_x=0.5, size_y=0.5)
 
     def move_pegasus_direction(self, bt=BoardType.CroatianTies):
         bt = BoardType(bt)
@@ -332,7 +333,8 @@ class Scene(object):
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
         get_text_position_2 = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.5, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         # main direction, i.e. <1, 2>
 
@@ -403,7 +405,8 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         # direction 1, i.e. <2, 1>
 
@@ -463,7 +466,8 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(3, 7, PieceType(PieceType.Pyramid))
         self.board.set_piece(6, 7, PieceType(PieceType.Pawn))
@@ -474,10 +478,10 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow(7, 5, 5, 6, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 6, 3, 7, **get_arrow_colors(True)) )
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(9, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(7, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(5, 6, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(3, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(9, 4, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(7, 5, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(5, 6, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(3, 7, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         return self.format_return_values("move_pyramid_promo_init")
 
@@ -492,9 +496,10 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
 
         # direction <1, 0>
         self.arrows.append( SH.get_new_arrow(3, 7, 4, 7, **get_arrow_colors(True)) )
@@ -559,7 +564,8 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(3, 1, PieceType(PieceType.Pyramid))
         self.board.set_piece(6, 1, PieceType(-PieceType.Rook))
@@ -585,9 +591,10 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(3, 1, PieceType(PieceType.Bishop))
         self.board.set_piece(6, 1, PieceType(-PieceType.Rook))
@@ -652,7 +659,8 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.15, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
         gen_abs_pos = MG.get_gen_abs_pos(MG.gen_knight_rel_moves, start=start, pos_limits=self.board.get_position_limits())
@@ -663,7 +671,7 @@ class Scene(object):
             self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
             i += 1
 
-        return self.format_return_values("move_unicorn_same_color", size_x=0.5, size_y=0.5) # size_x=4000, size_y=4000)
+        return self.format_return_values("move_unicorn_same_color", size_x=0.5, size_y=0.5)
 
     def move_unicorn_opposite_color(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
@@ -676,7 +684,8 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.15, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
         gen_abs_pos = MG.get_gen_abs_pos(MG.gen_unicorn_rel_long_moves, start=start, pos_limits=((3, 11), (2, 10)))
@@ -703,11 +712,12 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         # get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
         get_arrow_action_colors = SH.get_func_get_colors(*self.get_arrow_action_colors(bt))
-        get_text_action_colors = SH.get_func_get_colors(*self.get_text_action_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_text_action_colors = SH.get_func_get_colors(*self.get_text_action_colors(bt), font=get_font_definition(bt.get_size()))
 
         gen_rel = MG.get_gen_move((-2, -1))
         gen_abs_pos = MG.get_gen_abs_pos(gen_rel, start=start_pegasus, pos_limits=self.board.get_position_limits())
@@ -745,11 +755,12 @@ class Scene(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         # get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
         # get_arrow_action_colors = SH.get_func_get_colors(*self.get_arrow_action_colors(bt))
-        get_text_action_colors = SH.get_func_get_colors(*self.get_text_action_colors(bt), font=SH.get_font_definition(bt.get_size())) # "sans bold 192")
+        get_text_action_colors = SH.get_func_get_colors(*self.get_text_action_colors(bt), font=get_font_definition(bt.get_size()))
 
         gen_rel = MG.gen_knight_rel_moves() # MG.get_gen_move((-2, -1))
         gen_abs_pos = MG.get_gen_abs_pos(gen_rel, start=pos_pegasus, pos_limits=self.board.get_position_limits())
@@ -913,7 +924,7 @@ class Scene(object):
 #                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return None # [0, 9, ] # [12, ] # None
+        return None # [3, ] # [12, ] # None
 
     # ~
 
