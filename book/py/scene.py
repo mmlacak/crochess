@@ -11,6 +11,7 @@ from board import BoardType
 from board import Board, BoardHints
 from mark import Arrow, Text, FieldMarker
 
+import gfx_def as GD
 import move_gen as MG
 import scene_helper as SH
 
@@ -127,7 +128,18 @@ class Scene(object):
         return Scene.FIELD_MARKER_COLORS_DICT[bt]
 
     def format_return_values(self, filename, size_x=None, size_y=None):
-        return filename, size_x, size_y
+        # size_x, size_y :: int | float | None
+
+        width = size_x
+        height = size_y
+
+        if isinstance(size_x, float):
+            width = int( size_x * GD.DEFAULT_BOARD_RENDERING_SIZE )
+
+        if isinstance(size_y, float):
+            height = int( size_y * GD.DEFAULT_BOARD_RENDERING_SIZE )
+
+        return filename, width, height
 
     def intro_piece(self, bt, piece_type=None):
         bt = BoardType(bt)
@@ -307,7 +319,7 @@ class Scene(object):
             self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
             i += 1
 
-        return self.format_return_values("move_pegasus_initial", size_x=4000, size_y=4000)
+        return self.format_return_values("move_pegasus_initial", size_x=0.5, size_y=0.5) # size_x=4000, size_y=4000)
 
     def move_pegasus_direction(self, bt=BoardType.CroatianTies):
         bt = BoardType(bt)
@@ -651,7 +663,7 @@ class Scene(object):
             self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
             i += 1
 
-        return self.format_return_values("move_unicorn_same_color", size_x=4000, size_y=4000)
+        return self.format_return_values("move_unicorn_same_color", size_x=0.5, size_y=0.5) # size_x=4000, size_y=4000)
 
     def move_unicorn_opposite_color(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
@@ -887,19 +899,21 @@ class Scene(object):
                  self.move_unicorn_opposite_color, \
                  self.move_wave_init, \
                  self.move_wave_activated, \
-                 \
-                 self.move_shaman, \
-                 self.move_shaman_2, \
-                 self.move_monolith, \
-                 self.move_monolith_2, \
-                 self.move_starchild, \
-                 self.move_starchild_2, \
-                 self.set_mirandas_veil_1, \
-                 self.set_example_1, \
-                 self.set_star_journey ]
+               ]
+
+#                  \
+#                  self.move_shaman, \
+#                  self.move_shaman_2, \
+#                  self.move_monolith, \
+#                  self.move_monolith_2, \
+#                  self.move_starchild, \
+#                  self.move_starchild_2, \
+#                  self.set_mirandas_veil_1, \
+#                  self.set_example_1, \
+#                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [12, ] # None
+        return [0, 9, ] # [12, ] # None
 
     # ~
 

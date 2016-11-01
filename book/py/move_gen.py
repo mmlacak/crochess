@@ -79,7 +79,6 @@ def get_gen_moves(rel, pos=(0, 0)):
 
 def get_gen_abs_pos(gen_rel, start=(0, 0), pos_limits=((0, 25), (0, 25))):
     def gen_abs_pos():
-        # print "gen_rel:", type(gen_rel)
         for rel in gen_rel if I.isgenerator(gen_rel) else gen_rel():
             gen_moves = get_gen_moves(rel, pos=start)
 

@@ -8,6 +8,8 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
+import gfx_def as GD
+
 from piece import PieceType
 from painter_context import PainterContext
 # from painter import Painter
@@ -24,13 +26,13 @@ import debug_
 
 class GfxRender(object):
 
-    DEFAULT_BOARD_RENDERING_SIZE = 2000 # 8000
-    DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 3000 # 12000 # 50% added to rendering size
-    DEFAULT_PIECE_2x2_RENDERING_SIZE = 800 # 3200 # 40% of rendering size
-    DEFAULT_BOARD_LINE_WIDTH = 4 # 11 # >= 1 + (6 * rendering size / 5) // 1000
-    DEFAULT_PATH = '../tmp/' # '../gfx/'
-    DEFAULT_FILE_EXT = '.png'
-    DEFAULT_FILE_TYPE = 'png'
+#     DEFAULT_BOARD_RENDERING_SIZE = 2000 # 8000
+#     DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 3000 # 12000 # 50% added to rendering size
+#     DEFAULT_PIECE_2x2_RENDERING_SIZE = 800 # 3200 # 40% of rendering size
+#     DEFAULT_BOARD_LINE_WIDTH = 4 # 11 # >= 1 + (6 * rendering size / 5) // 1000
+#     DEFAULT_PATH = '../tmp/' # '../gfx/'
+#     DEFAULT_FILE_EXT = '.png'
+#     DEFAULT_FILE_TYPE = 'png'
 
     def render_all_boards(self):
         print
@@ -56,8 +58,8 @@ class GfxRender(object):
                 print file_path
                 self.save_board_image(file_path, \
                                       is_game_or_scene=False, \
-                                      size_x=GfxRender.DEFAULT_PIECE_2x2_RENDERING_SIZE, \
-                                      size_y=GfxRender.DEFAULT_PIECE_2x2_RENDERING_SIZE)
+                                      size_x=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE, \
+                                      size_y=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
         print "Finished."
 
     def render_all_example_scenes(self):
@@ -147,7 +149,7 @@ class GfxRender(object):
             if bt_real is not None:
                 file_path = self.get_en_passant_file_path(bt_real)
                 print file_path
-                size_x, size_y = self.get_scene_image_size(horizontal_rendering_size=GfxRender.DEFAULT_PIECE_2x2_RENDERING_SIZE)
+                size_x, size_y = self.get_scene_image_size(horizontal_rendering_size=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
                 self.save_board_image(file_path, \
                                       is_game_or_scene=False, \
                                       size_x=size_x, \
@@ -161,8 +163,8 @@ class GfxRender(object):
         self.game.rules.init_board(bt_2)
 
     def get_board_file_path(self, path_prefix=None, file_ext=None):
-        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
-        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+        path_prefix = path_prefix or GD.DEFAULT_PATH
+        file_ext = file_ext or GD.DEFAULT_FILE_EXT
 
         bt = self.game.rules.board.type
         index = int(bt)
@@ -171,8 +173,8 @@ class GfxRender(object):
         return '%s/boards/%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
 
     def get_piece_file_path(self, piece_type, path_prefix=None, file_ext=None):
-        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
-        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+        path_prefix = path_prefix or GD.DEFAULT_PATH
+        file_ext = file_ext or GD.DEFAULT_FILE_EXT
 
         pt = PieceType(piece_type)
         index = int(pt)
@@ -181,14 +183,14 @@ class GfxRender(object):
         return '%s/pieces/%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
 
     def get_scene_file_path(self, index, file_name, path_prefix=None, file_ext=None):
-        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
-        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+        path_prefix = path_prefix or GD.DEFAULT_PATH
+        file_ext = file_ext or GD.DEFAULT_FILE_EXT
 
         return '%s/examples/%02d_%s%s' % (path_prefix, index, file_name, file_ext)
 
     def get_castling_file_path(self, board_type, path_prefix=None, file_ext=None, subfolder_name=None):
-        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
-        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+        path_prefix = path_prefix or GD.DEFAULT_PATH
+        file_ext = file_ext or GD.DEFAULT_FILE_EXT
 
         index = int(board_type)
         name = board_type.get_name()
@@ -200,8 +202,8 @@ class GfxRender(object):
             return '%s/castlings/%s/%02d_%s_castling_%s%s' % (path_prefix, subfolder_name, index, sanitize, subfolder_name, file_ext)
 
     def get_en_passant_file_path(self, board_type, path_prefix=None, file_ext=None):
-        path_prefix = path_prefix or GfxRender.DEFAULT_PATH
-        file_ext = file_ext or GfxRender.DEFAULT_FILE_EXT
+        path_prefix = path_prefix or GD.DEFAULT_PATH
+        file_ext = file_ext or GD.DEFAULT_FILE_EXT
 
         index = int(board_type)
         name = board_type.get_name()
@@ -209,8 +211,8 @@ class GfxRender(object):
         return '%s/en_passants/%02d_%s_en_passant%s' % (path_prefix, index, sanitize, file_ext)
 
     def get_scene_image_size(self, horizontal_rendering_size=None, vertical_rendering_size=None):
-        horizontal_rendering_size = horizontal_rendering_size or GfxRender.DEFAULT_BOARD_RENDERING_SIZE
-        vertical_rendering_size = vertical_rendering_size or GfxRender.DEFAULT_BOARD_RENDERING_SIZE
+        horizontal_rendering_size = horizontal_rendering_size or GD.DEFAULT_BOARD_RENDERING_SIZE
+        vertical_rendering_size = vertical_rendering_size or GD.DEFAULT_BOARD_RENDERING_SIZE
 
         board = self.scene.board
         width = board.get_width()
@@ -219,13 +221,13 @@ class GfxRender(object):
         horizontal_dpi = horizontal_rendering_size // width
         vertical_pixel_size = height * horizontal_dpi
 
-        if vertical_pixel_size < GfxRender.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE:
+        if vertical_pixel_size < GD.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE:
             return (horizontal_rendering_size, vertical_pixel_size)
         else:
-            vertical_dpi = GfxRender.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE // height
+            vertical_dpi = GD.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE // height
             horizontal_pixel_size = width * vertical_dpi
 
-            return (horizontal_pixel_size, GfxRender.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE)
+            return (horizontal_pixel_size, GD.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE)
 
     def init_intro_piece_scene(self, board_type_value=BoardType.One, piece_type=None):
         bt = BoardType(board_type_value)
@@ -258,10 +260,10 @@ class GfxRender(object):
         self.scene.move_shaman_2(bt)
 
     def save_board_image(self, file_path, is_game_or_scene=True, size_x=None, size_y=None, line_width=None, file_type=None):
-        size_x = size_x or GfxRender.DEFAULT_BOARD_RENDERING_SIZE
-        size_y = size_y or GfxRender.DEFAULT_BOARD_RENDERING_SIZE
-        line_width = line_width or GfxRender.DEFAULT_BOARD_LINE_WIDTH
-        file_type = file_type or GfxRender.DEFAULT_FILE_TYPE
+        size_x = size_x or GD.DEFAULT_BOARD_RENDERING_SIZE
+        size_y = size_y or GD.DEFAULT_BOARD_RENDERING_SIZE
+        line_width = line_width or GD.DEFAULT_BOARD_LINE_WIDTH
+        file_type = file_type or GD.DEFAULT_FILE_TYPE
 
         default = gtk.gdk.screen_get_default()
         root = default.get_root_window()
