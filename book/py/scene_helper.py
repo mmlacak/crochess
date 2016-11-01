@@ -125,15 +125,16 @@ def get_func_get_sqrt_font_size(default_board_size=DEFAULT_BOARD_SIZE, \
 
 def get_func_get_font_definition(default_board_size=DEFAULT_BOARD_SIZE, \
                                  font_size_factor=DEFAULT_FONT_SIZE_FACTOR, \
-                                 font_size=DEFAULT_FONT_SIZE):
+                                 font_size=DEFAULT_FONT_SIZE, \
+                                 font_name=DEFAULT_FONT_NAME):
 
-    get_log_font_size = get_func_get_log_font_size(default_board_size=DEFAULT_BOARD_SIZE, \
-                                                   font_size_factor=DEFAULT_FONT_SIZE_FACTOR, \
-                                                   font_size=DEFAULT_FONT_SIZE)
+    get_font_size = get_func_get_log_font_size(default_board_size=DEFAULT_BOARD_SIZE, \
+                                               font_size_factor=DEFAULT_FONT_SIZE_FACTOR, \
+                                               font_size=DEFAULT_FONT_SIZE)
 
     def get_font_definition(board_size):
-        size = get_log_font_size(board_size)
-        return "%s %d" % (DEFAULT_FONT_NAME, size)
+        size = get_font_size(board_size)
+        return "%s %d" % (font_name, size)
 
     return get_font_definition
 
