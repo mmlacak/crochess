@@ -16,6 +16,7 @@ cabal.sandbox.config
 *.hp
 *.pyc
 crochess
+draft/
 tmp/
 temp/
 *.aux
@@ -25,3 +26,4 @@ temp/
 *.out
 *.toc
 book/tex/crochess.pdf
+
