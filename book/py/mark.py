@@ -41,7 +41,22 @@ class Text(object):
 
     DEFAULT_FOREGROUND_COLOR = "#000000" # "#FFFFFF"
     DEFAULT_BACKGROUND_COLOR = "#FFFFFF" # "#000000"
-    DEFAULT_FONT = "sans bold 144"
+    DEFAULT_FONT = "sans bold"
+    DEFAULT_FONT_SIZE = 192
+
+    @staticmethod
+    def get_font(font=None):
+        if font is None:
+            return "%s %d" % (Text.DEFAULT_FONT, Text.DEFAULT_FONT_SIZE)
+        else:
+            return font
+
+    @staticmethod
+    def get_font_definition(font_name=None, font_size=None):
+        name = font_name or Text.DEFAULT_FONT
+        size = font_size or Text.DEFAULT_FONT_SIZE
+
+        return "%s %d" % (name, size)
 
     def __init__(self, text, pos_x, pos_y, font=None, \
                  fg_color=None, \
@@ -52,7 +67,7 @@ class Text(object):
         # self.pos_y = pos_y
         self.pos = (pos_x, pos_y)
 
-        self.font = font or Text.DEFAULT_FONT
+        self.font = Text.get_font(font) # font or "%s %d" % (Text.DEFAULT_FONT, Text.DEFAULT_FONT_SIZE)
 
         self.fg_color = fg_color or Text.DEFAULT_FOREGROUND_COLOR
         self.bg_color = bg_color or Text.DEFAULT_BACKGROUND_COLOR

@@ -10,11 +10,11 @@ import debug_
 
 def main():
     render = GfxRender()
-    # render.render_all_boards()
-    # render.render_all_newly_introduced_pieces()
+    render.render_all_boards()
+    render.render_all_newly_introduced_pieces()
     render.render_all_example_scenes()
-    # render.render_all_castling_scenes()
-    # render.render_all_en_passant_scenes()
+    render.render_all_castling_scenes()
+    render.render_all_en_passant_scenes()
 
     print
     print "Finished all renderings."

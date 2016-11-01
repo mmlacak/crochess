@@ -11,7 +11,15 @@ from board import BoardType
 from board import Board
 from mark import Arrow, Text, FieldMarker
 
+import gfx_def as GD
 import pixel_math as pm
+
+
+DEFAULT_FONT_NAME = "sans bold"
+DEFAULT_FONT_SIZE = 192
+DEFAULT_BOARD_SIZE = 10
+DEFAULT_RENDERING_SIZE_PIXEL = 8000
+DEFAULT_FONT_SIZE_FACTOR = GD.DEFAULT_BOARD_RENDERING_SIZE / float(DEFAULT_RENDERING_SIZE_PIXEL) # :: float
 
 
 def get_coord_offset(coord, offset=0.5):
@@ -90,17 +98,22 @@ def get_func_get_colors(fg_ok, bg_ok, fg_not_ok, bg_not_ok, font=None):
 
 
 def get_nominal_font_size(board_size):
-    return int(1920 // board_size)
+    board_size_factor = DEFAULT_BOARD_SIZE / float(board_size)
+    return int(board_size_factor * DEFAULT_FONT_SIZE_FACTOR * DEFAULT_FONT_SIZE)
 
 def get_log_font_size(board_size):
-    factor = math.log(10.0, 2.0)
-    div = math.log(board_size, 2.0)
-    return int(factor * 192 / div)
+    numerator = math.log(float(DEFAULT_BOARD_SIZE), 2.0)
+    denominator = math.log(board_size, 2.0)
+    return int(numerator * DEFAULT_FONT_SIZE_FACTOR * DEFAULT_FONT_SIZE / denominator)
 
 def get_sqrt_font_size(board_size):
-    factor = math.sqrt(10.0)
-    div = math.sqrt(board_size)
-    return int(factor * 192 / div)
+    numerator = math.sqrt(float(DEFAULT_BOARD_SIZE))
+    denominator = math.sqrt(board_size)
+    return int(numerator * DEFAULT_FONT_SIZE_FACTOR * DEFAULT_FONT_SIZE / denominator)
+
+def get_font_definition(board_size):
+    size = get_log_font_size(board_size)
+    return "%s %d" % (DEFAULT_FONT_NAME, size)
 
 
 class Corner(int):
