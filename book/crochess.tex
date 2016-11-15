@@ -1,0 +1,255 @@
+%!TEX TS-program = pdflatex
+
+% Copyright (c) 2015, 2016 Mario Mlačak, mmlacak@gmail.com
+% Licensed and published as Public Domain work.
+% https://en.wikipedia.org/wiki/Public_domain
+
+\documentclass[a5paper,12pt,draft]{book} % draft = DEBUG
+
+\usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+
+\usepackage{charter}
+\renewcommand{\rmdefault}{bch}
+
+\usepackage{helvet}
+\renewcommand{\sfdefault}{phv}
+
+\renewcommand{\ttdefault}{pcr}
+
+% \renewcommand{\familydefault}{\sfdefault} % \rmdefault
+
+% left = inner, right = outer
+\usepackage[top=15.0mm, bottom=20.0mm, left=15.0mm, right=20.0mm]{geometry}
+\setlength{\marginparwidth}{0.0pt}
+\setlength{\footskip}{20.0pt}
+
+% \usepackage{showframe} % DEBUG
+
+\usepackage[final]{graphicx} % demo = DEBUG
+\graphicspath{ {./draft/} }
+% \graphicspath{ {./gfx/} }
+\usepackage{wrapfig}
+
+\usepackage{hyperref}
+\hypersetup{final=true, unicode=true, colorlinks=true}
+\hypersetup{pdftitle={Croatian chess and other variants},
+            pdfauthor={Mario Mlačak},
+            pdfsubject={Chess variants},
+            pdfkeywords={chess, variants}}
+% \urlstyle{same}
+
+\pagestyle {plain}
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{1.0em}
+\emergencystretch=1.5em % 1.5em = half of what \sloppy would use
+
+
+% Book ----------------------------------------------------------------
+\begin{document}
+
+% Title page ----------------------------------------------------------
+\begin{titlepage}
+\vspace*{\stretch{2}}
+\begin{center}
+    \textbf{\huge{Croatian chess}} \\
+    \large{and other variants} \\ [2.0cm]
+
+    \includegraphics[width=0.9\textwidth, keepaspectratio=true]{crochess.jpg} \\ [2.0cm]
+
+    \textbf{\large{Mario Mlačak}} \\ [2.0cm]
+\end{center}
+\vspace{\stretch{1}}
+\end{titlepage}
+% ---------------------------------------------------------- Title page
+
+% Empty page ----------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+\clearpage
+% ---------------------------------------------------------- Empty page
+
+% Dedication page -----------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+\hfill{Dedicated to Miranda.}
+\clearpage
+% ----------------------------------------------------- Dedication page
+
+% Publisher page ------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+\begin{center}
+    \emph{Mario Mlačak} \\
+    \textbf{Croatian chess} \\
+    and other variants \\ [2.0em]
+
+    \emph{Copyright} \\
+    Copyright \copyright \hspace{0.2ex} 2009 -- 2016 Mario Mlačak \\
+    \href{mailto:mmlacak@gmail.com}{mmlacak@gmail.com} \\ [2.0em]
+
+    \emph{Legal} \\
+    This book is published as Public Domain work. \\
+    \href{https://en.wikipedia.org/wiki/Public\_domain}{https://en.wikipedia.org/wiki/Public\_domain} \\ [2.0em]
+
+    \emph{Third, revised edition} \\
+    \today \\
+    Zagreb
+
+    \vfill
+
+    \LaTeXe
+    \vspace{0.1\textheight}
+\end{center}
+\clearpage
+% ------------------------------------------------------ Publisher page
+
+% Inner title page ----------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+\begin{center}
+    \textbf{\Large{Croatian chess}} \\ [1.0em]
+    \large{and other variants} \\ [1.0em]
+    \small{3rd, revised edition} \\ [2.0cm]
+    \vspace*{0.2\textheight}
+
+    \textbf{\large{Mario Mlačak}} \\ [1.0em]
+    \small{\today} % \\ [2.0cm]
+\end{center}
+\clearpage
+% ---------------------------------------------------- Inner title page
+
+% Empty page ----------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+\clearpage
+% ---------------------------------------------------------- Empty page
+
+% Gratitude page ------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+\begin{flushright}
+My most sincere gratitude to:
+
+Valentina Štefanić \\
+Kristina Mlačak \\
+Slavko Štefanić
+
+and many, many others.
+
+Thank you all.
+\end{flushright}
+\clearpage
+% ------------------------------------------------------ Gratitude page
+
+% Empty page ----------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+\clearpage
+% ---------------------------------------------------------- Empty page
+
+% Introduction chapter ------------------------------------------------
+\input{tex/ch_01_intro.tex}
+% ------------------------------------------------ Introduction chapter
+
+% Prerequisites chapter -----------------------------------------------
+\input{tex/ch_02_prereq.tex}
+% ----------------------------------------------- Prerequisites chapter
+
+% Classical Game chapter ----------------------------------------------
+\input{tex/ch_03_classical.tex}
+% ---------------------------------------------- Classical Game chapter
+
+% Croatian Ties chapter -----------------------------------------------
+\input{tex/ch_04_croatian.tex}
+% ----------------------------------------------- Croatian Ties chapter
+
+% Mayan Ascendancy chapter --------------------------------------------
+\input{tex/ch_05_mayan.tex}
+% -------------------------------------------- Mayan Ascendancy chapter
+
+% Age of Aquarius chapter ---------------------------------------------
+\input{tex/ch_06_aquarius.tex}
+% --------------------------------------------- Age of Aquarius chapter
+
+% Miranda's veil chapter ----------------------------------------------
+\input{tex/ch_07_miranda.tex}
+% ---------------------------------------------- Miranda's veil chapter
+
+% Nineteen chapter ----------------------------------------------------
+\input{tex/ch_08_nineteen.tex}
+% ---------------------------------------------------- Nineteen chapter
+
+% Hemera's Dawn chapter -----------------------------------------------
+\input{tex/ch_09_hemera.tex}
+% ----------------------------------------------- Hemera's Dawn chapter
+
+% Tamoanchan Revisited chapter ----------------------------------------
+\input{tex/ch_10_tamoanchan.tex}
+% ---------------------------------------- Tamoanchan Revisited chapter
+
+% Conquest of Tlalocan chapter ----------------------------------------
+\input{tex/ch_11_tlalocan.tex}
+% ---------------------------------------- Conquest of Tlalocan chapter
+
+% Discovery chapter ---------------------------------------------------
+\input{tex/ch_12_discovery.tex}
+% --------------------------------------------------- Discovery chapter
+
+% One chapter ---------------------------------------------------------
+\input{tex/ch_13_one.tex}
+% --------------------------------------------------------- One chapter
+
+% Remarks chapter -----------------------------------------------------
+\input{tex/ch_14_remarks.tex}
+% ----------------------------------------------------- Remarks chapter
+
+% Test chapter --------------------------------------------------------
+\input{tex/ch_15_test.tex}
+% -------------------------------------------------------- Test chapter
+
+% Empty, enumerated page ----------------------------------------------
+\vspace*{0.1\textheight}
+\clearpage
+% ---------------------------------------------- Empty, enumerated page
+
+% List of figures -----------------------------------------------------
+\listoffigures
+% ----------------------------------------------------- List of figures
+
+% List of tables ------------------------------------------------------
+\listoftables
+% ------------------------------------------------------ List of tables
+
+% Table of contents ---------------------------------------------------
+\tableofcontents
+\clearpage
+% --------------------------------------------------- Table of contents
+
+% Empty page --------------------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+\clearpage
+% -------------------------------------------------------- Empty page
+
+% Challenge, end cover page -------------------------------------------
+\thispagestyle{empty}
+\begin{quotation}
+    \it
+    No FPS and racing sim [is a real challenge]. That is for
+    dummies. This will make players of the game into new
+    super-geniuses. Challenge to the max[imum] ... how much
+    combinations there are in that [last variant] with
+    teleportation, unicorn, pyramid, winged horse [Pegasus]
+    and wave. How much more challenging it is compared to
+    classic [chess]. Just Croatian [Ties] doubled number of
+    possible combinations ...
+\end{quotation}
+\hspace*{\fill}{\textbf{Slavko Štefanić} [via e-mail]}
+\vfill
+\hspace*{\fill}{\LaTeXe}
+\clearpage
+% ------------------------------------------- Challenge, end cover page
+
+\end{document}
+% ---------------------------------------------------------------- Book

@@ -3,7 +3,7 @@
 # Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
-cd book/tex
+cd book
 
 rm -rfv *.aux
 rm -rfv *.lof
@@ -17,6 +17,6 @@ pdflatex -draftmode crochess.tex
 
 pdflatex crochess.tex
 
-cd ../..
+cd ..
 echo
-ls -Fal book/tex/*.pdf
+ls -Fal book/*.pdf
