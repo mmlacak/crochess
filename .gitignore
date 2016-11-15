@@ -24,5 +24,4 @@ temp/
 *.lot
 *.out
 *.toc
-*.pdf
-
+book/*.pdf
