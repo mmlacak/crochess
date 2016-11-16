@@ -30,11 +30,11 @@ enumerated from '1' to '12'. A new piece is introduced, Pyramid.
 \end{wrapfigure}
 Pyramid is passive piece, meaning it can't move on its' own, it has to be
 activated first. This is done by capturing a field at which Pyramid stands
-with your own other piece, for instance Bishop, and then Pyramid can move
-further.
+with own other piece and then Pyramid can move further.
 
 Once activated Pyramid moves similar to Rook, only real difference is that
-it can move for only so many fields as piece activating it has moved.
+it can move for only so many fields as piece activating it has moved, i.e.
+for as much as momentum received.
 
 Pyramid can't check opponent's King, and consequently can't contribute to
 checkmate.
@@ -44,14 +44,12 @@ In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 \subsection*{Momentum}
 \addcontentsline{toc}{subsection}{Momentum}
 
-% TODO
-
 Momentum is count of fields traveled over by piece. Only step-fields are
 counted towards momentum. When activated Pyramid receives momentum activating
 piece is carrying. Momentum is spent by Pyramid when moving, one for each field
-travelled. So Pyramid can't move for more fields than it received momentum.
+travelled. So Pyramid can't move for more fields than received momentum.
 Momentum can't be saved for later, it is wasted when Pyramid moves for less
-fields then momentum received.
+fields than momentum received.
 
 \clearpage
 
@@ -82,6 +80,8 @@ captured.
 \label{fig:ma_promo_init}
 % \centering
 \end{figure}
+
+% TODO
 
 Here, note only step fields are counted as traveled over by Pegasus. This
 count is called momentum. After activation Pyramid would be limited to move
