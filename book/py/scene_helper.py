@@ -15,6 +15,8 @@ import gfx_def as GD
 import pixel_math as pm
 
 
+# Default font size @ board size = 10 & rendering size = 8000 pixels.
+# It's used to stretch font size, depending on gfx_def, board size, ...
 DEFAULT_FONT_NAME = "sans bold"
 DEFAULT_FONT_SIZE = 192
 DEFAULT_BOARD_SIZE = 10

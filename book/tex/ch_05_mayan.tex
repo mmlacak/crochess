@@ -34,7 +34,7 @@ with own other piece and then Pyramid can move further.
 
 Once activated Pyramid moves similar to Rook, only real difference is that
 it can move for only so many fields as piece activating it has moved, i.e.
-for as much as momentum received.
+for at most as momentum received.
 
 Pyramid can't check opponent's King, and consequently can't contribute to
 checkmate.
@@ -44,7 +44,7 @@ In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 \subsection*{Momentum}
 \addcontentsline{toc}{subsection}{Momentum}
 
-Momentum is count of fields traveled over by piece. Only step-fields are
+Momentum is count of fields traveled over by piece. Only step fields are
 counted towards momentum. When activated Pyramid receives momentum activating
 piece is carrying. Momentum is spent by Pyramid when moving, one for each field
 travelled. So Pyramid can't move for more fields than received momentum.
@@ -73,8 +73,8 @@ captured.
 \clearpage
 
 \noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
+% \begin{figure}[!h]
+\begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/04_move_pyramid_promo_init.png}
 \caption{Promotion start}
 \label{fig:ma_promo_init}
@@ -83,16 +83,15 @@ captured.
 
 % TODO
 
-Here, note only step fields are counted as traveled over by Pegasus. This
-count is called momentum. After activation Pyramid would be limited to move
-at most 4 fields across, i.e. at most the momentum it received from activating
-piece.
+Here, Pegasus is accumulating momentum while travelling over step fields. After
+activation Pyramid would be limited to move at most 4 fields across, i.e. at most
+the momentum it received from Pegasus.
 
 \clearpage
 
 \noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
+% \begin{figure}[!h]
+\begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/05_move_pyramid_promo_activate.png}
 \caption{Promotion, Pyramid activated}
 \label{fig:ma_promo_activate}
@@ -106,8 +105,8 @@ shown in red. Just as Rook, Pyramid can't advance past Pawn.
 \clearpage
 
 \noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
+% \begin{figure}[!h]
+\begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/06_move_pyramid_promo_end.png}
 \caption{Promotion end}
 \label{fig:ma_promo_end}
