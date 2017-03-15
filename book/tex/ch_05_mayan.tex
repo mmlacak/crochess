@@ -37,7 +37,7 @@ it can move for only so many fields as piece activating it has moved, i.e.
 for at most as momentum received.
 
 Pyramid can't check opponent's King, and consequently can't contribute to
-checkmate.
+checkmate. Pyramid can capture all the other opponent's pieces.
 
 In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 
@@ -181,6 +181,34 @@ shown in red. Again, just as Rook, Pyramid can't advance past opponent's Rook.
 Now that Pyramid has reached opponent's Rook, it is removed from the board and
 own Rook replaces opponent's Rook. Capturing opponent's Rook would simply leave
 Pyramid in place of it.
+
+\clearpage
+
+\subsection*{Against King}
+\addcontentsline{toc}{subsection}{Against King}
+
+Pyramid can't check opponent's King, meaning that King is not under attack
+even if Pyramid would capture any other piece on the same field.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_move_pyramid_vs_king.png}
+\caption{Pyramid vs. King}
+\label{fig:pyramid_vs_king}
+% \centering
+\end{figure}
+Bellow, King is not under attack from Pyramid.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/15_move_pyramid_vs_bishop.png}
+\caption{Pyramid vs. Bishop}
+\label{fig:pyramid_vs_bishop}
+% \centering
+\end{figure}
+Bishop, for example, can be captured without any hindrance.
 
 \clearpage
 
