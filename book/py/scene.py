@@ -487,40 +487,40 @@ class Scene(object):
 
     def move_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
-        self.board = Board(bt, 5, 2)
+        self.board = Board(bt, 12, 2)
         self.board.clear()
         self.delete_all_marks()
 
-        self.board.set_piece(3, 0, PieceType(-PieceType.King))
+        self.board.set_piece(4, 0, PieceType(-PieceType.King))
 
-        self.board.set_piece(2, 0, PieceType(PieceType.Pyramid))
-        self.board.set_piece(1, 1, PieceType(PieceType.Queen))
+        self.board.set_piece(3, 0, PieceType(PieceType.Pyramid))
+        self.board.set_piece(2, 1, PieceType(PieceType.Queen))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
 
-        self.arrows.append( SH.get_new_arrow(1, 1, 2, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 0, 3, 0, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors(False)) )
 
-        return self.format_return_values("move_pyramid_vs_king", size_x=(5.0/12.0), size_y=(2.0/12.0))
+        return self.format_return_values("move_pyramid_vs_king", size_x=1.0, size_y=(2.0/12.0))
 
     def move_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
-        self.board = Board(bt, 5, 2)
+        self.board = Board(bt, 12, 2)
         self.board.clear()
         self.delete_all_marks()
 
-        self.board.set_piece(3, 0, PieceType(-PieceType.Bishop))
+        self.board.set_piece(4, 0, PieceType(-PieceType.Bishop))
 
-        self.board.set_piece(2, 0, PieceType(PieceType.Pyramid))
-        self.board.set_piece(1, 1, PieceType(PieceType.Queen))
+        self.board.set_piece(3, 0, PieceType(PieceType.Pyramid))
+        self.board.set_piece(2, 1, PieceType(PieceType.Queen))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
 
-        self.arrows.append( SH.get_new_arrow(1, 1, 2, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 0, 3, 0, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors_alt(True)) )
 
-        return self.format_return_values("move_pyramid_vs_bishop", size_x=(5.0/12.0), size_y=(2.0/12.0))
+        return self.format_return_values("move_pyramid_vs_bishop", size_x=1.0, size_y=(2.0/12.0))
 
     def move_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
