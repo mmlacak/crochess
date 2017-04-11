@@ -487,7 +487,7 @@ class Scene(object):
 
     def move_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
-        self.board = Board(bt, 12, 2)
+        self.board = Board(bt, 12, 3)
         self.board.clear()
         self.delete_all_marks()
 
@@ -501,11 +501,11 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors(False)) )
 
-        return self.format_return_values("move_pyramid_vs_king", size_x=1.0, size_y=(2.0/12.0))
+        return self.format_return_values("move_pyramid_vs_king", size_x=1.0, size_y=(3.0/12.0))
 
     def move_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
-        self.board = Board(bt, 12, 2)
+        self.board = Board(bt, 12, 3)
         self.board.clear()
         self.delete_all_marks()
 
@@ -520,7 +520,7 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors_alt(True)) )
 
-        return self.format_return_values("move_pyramid_vs_bishop", size_x=1.0, size_y=(2.0/12.0))
+        return self.format_return_values("move_pyramid_vs_bishop", size_x=1.0, size_y=(3.0/12.0))
 
     def move_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
@@ -684,6 +684,43 @@ class Scene(object):
         self.board.set_piece(6, 1, PieceType(PieceType.Rook))
 
         return self.format_return_values("move_pyramid_conversion_end")
+
+    def move_pyramid_cascading_ok(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 5, 7)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(1, 1, PieceType(PieceType.Pyramid))
+        self.board.set_piece(3, 1, PieceType(PieceType.Pyramid))
+        self.board.set_piece(1, 5, PieceType(PieceType.Rook))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+
+#         self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
+#         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors(False)) )
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+
+        self.arrows.append( SH.get_new_arrow(1, 5, 1, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 4, 1, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 3, 1, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 2, 1, 1, **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(1, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(1, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(1, 2, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(1, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        self.arrows.append( SH.get_new_arrow(1, 1, 2, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 1, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 1, 4, 1, **get_arrow_colors_alt(False)) )
+
+        return self.format_return_values("move_pyramid_cascading_ok", size_x=(5.0/12.0), size_y=(7.0/12.0))
 
     def move_unicorn_same_color(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
@@ -950,7 +987,7 @@ class Scene(object):
                  self.move_pyramid_vs_king, \
                  self.move_pyramid_vs_bishop, \
                  \
-                 \
+                 self.move_pyramid_cascading_ok, \
                ]
 
 #                  \
@@ -965,7 +1002,7 @@ class Scene(object):
 #                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [13, 14, ] # None # [3, ] # None
+        return [15, ] # None # [3, ] # None
 
     # ~
 
