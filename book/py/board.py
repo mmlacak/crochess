@@ -175,8 +175,8 @@ class BoardHints(object):
 
 
 class Board(object):
-    def __init__(self, type, width=None, height=None, hints=None):
-        self.type = type
+    def __init__(self, board_type, width=None, height=None, hints=None):
+        self.type = board_type
 
         if width is None:
             width = self.type.get_size()

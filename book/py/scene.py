@@ -133,11 +133,21 @@ class Scene(object):
         width = size_x
         height = size_y
 
-        if isinstance(size_x, float):
-            width = int( size_x * GD.DEFAULT_BOARD_RENDERING_SIZE )
+        b = self.board
 
-        if isinstance(size_y, float):
-            height = int( size_y * GD.DEFAULT_BOARD_RENDERING_SIZE )
+        if width is None:
+            if b.get_width() != b.type.get_size():
+                width = float(b.get_width()) / float(b.type.get_size())
+
+        if height is None:
+            if b.get_height() != b.type.get_size():
+                height = float(b.get_height()) / float(b.type.get_size())
+
+        if isinstance(width, float):
+            width = int( width * GD.DEFAULT_BOARD_RENDERING_SIZE )
+
+        if isinstance(height, float):
+            height = int( height * GD.DEFAULT_BOARD_RENDERING_SIZE )
 
         return filename, width, height
 
@@ -720,7 +730,7 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 1, **get_arrow_colors_alt(True)) )
         self.arrows.append( SH.get_new_arrow(3, 1, 4, 1, **get_arrow_colors_alt(False)) )
 
-        return self.format_return_values("move_pyramid_cascading_ok", size_x=(5.0/12.0), size_y=(7.0/12.0))
+        return self.format_return_values("move_pyramid_cascading_ok")
 
     def move_unicorn_same_color(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
