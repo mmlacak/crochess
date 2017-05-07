@@ -142,7 +142,7 @@ def get_func_get_font_definition(default_board_size=DEFAULT_BOARD_SIZE, \
 
 
 class Corner(int):
-    # none = 0
+    Position = 0
     UpperLeft = 1
     UpperRight = 2
     LowerLeft = 3
@@ -156,8 +156,7 @@ class Corner(int):
 
     @staticmethod
     def foreach(start=None, end=None, step=1):
-        # start = start or Corner.none
-        start = start or Corner.UpperLeft
+        start = start or Corner.Position
         end = end or Corner.LowerRight
 
         for cp in xrange(start, end+1, step):
@@ -166,14 +165,13 @@ class Corner(int):
 
     @staticmethod
     def _is_valid(corner):
-        # return (Corner.none) <= corner <= Corner.LowerRight
-        return (Corner.UpperLeft) <= corner <= Corner.LowerRight
+        return (Corner.Position) <= corner <= Corner.LowerRight
 
     def is_valid(self):
         return Corner._is_valid(self)
 
-    # def is_none(self):
-    #     return self == Corner.none
+    def is_position(self):
+        return self == Corner.Position
 
     def is_left(self):
         return self in [Corner.LowerLeft, Corner.UpperLeft]
@@ -190,9 +188,15 @@ class Corner(int):
 def get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05):
     def get_text_position(pos_i, pos_j, corner):
         crnr = Corner(corner)
+
+        if crnr.is_position():
+            return (float(pos_i), float(pos_j))
+
         x = left if crnr.is_left() else right
         y = top if crnr.is_upper() else bottom
-        return (pos_i + x, pos_j + y)
+
+        return (float(pos_i + x), float(pos_j + y))
+
     return get_text_position
 
 def get_new_text(text, pos_x, pos_y, font=None, fg_color=None, bg_color=None):

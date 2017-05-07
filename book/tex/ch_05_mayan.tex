@@ -140,8 +140,8 @@ reach opponent's piece, i.e. that it get enough momentum from activating piece.
 \clearpage % ..........................................................
 
 \noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
+% \begin{figure}[!h]
+\begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/07_move_pyramid_conversion_init.png}
 \caption{Conversion start}
 \label{fig:ma_conversion_init}
@@ -155,8 +155,8 @@ will receive with activation and limits how far it could move afterwards.
 \clearpage % ..........................................................
 
 \noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
+% \begin{figure}[!h]
+\begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_move_pyramid_conversion_activated.png}
 \caption{Conversion, Pyramid activated}
 \label{fig:ma_conversion_activated}
@@ -170,8 +170,8 @@ shown in red. Again, just as Rook, Pyramid can't advance past opponent's Rook.
 \clearpage % ..........................................................
 
 \noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
+% \begin{figure}[!h]
+\begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/09_move_pyramid_conversion_end.png}
 \caption{Conversion end}
 \label{fig:ma_conversion_end}
@@ -188,12 +188,14 @@ Pyramid in place of it.
 \addcontentsline{toc}{subsection}{Cascading}
 
 \noindent
-\begin{wrapfigure}{l}{0.4\textwidth}
-\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/16_move_pyramid_cascading_ok.png}
-\caption{Valid cascading}
-\label{fig:pyramid_valid_cascading}
-% % \centering
-\end{wrapfigure}
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_move_pyramid_cascading_init.png}
+\caption{Cascading start}
+\label{fig:ma_cascading_init}
+% \centering
+\end{figure}
+
 Once activated, Pyramid can also activate another Pyramid. To do so, activated Pyramid has to
 have at least 1 remaining momentum to transfer it to another Pyramid. If all momentum received
 was spent moving, Pyramid cannot activate another Pyramid.

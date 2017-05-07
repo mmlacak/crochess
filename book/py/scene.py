@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2017 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 import math
@@ -330,7 +330,8 @@ class Scene(object):
             self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
             i += 1
 
-        return self.format_return_values("move_pegasus_initial", size_x=0.5, size_y=0.5)
+#         return self.format_return_values("move_pegasus_initial", size_x=0.5, size_y=0.5) # TODO :: delete after test
+        return self.format_return_values("move_pegasus_initial")
 
     def move_pegasus_direction(self, bt=BoardType.CroatianTies):
         bt = BoardType(bt)
@@ -511,7 +512,8 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors(False)) )
 
-        return self.format_return_values("move_pyramid_vs_king", size_x=1.0, size_y=(3.0/12.0))
+#         return self.format_return_values("move_pyramid_vs_king", size_x=1.0, size_y=(3.0/12.0)) # TODO :: delete after test
+        return self.format_return_values("move_pyramid_vs_king")
 
     def move_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
@@ -530,7 +532,8 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors_alt(True)) )
 
-        return self.format_return_values("move_pyramid_vs_bishop", size_x=1.0, size_y=(3.0/12.0))
+#         return self.format_return_values("move_pyramid_vs_bishop", size_x=1.0, size_y=(3.0/12.0)) # TODO :: delete after test
+        return self.format_return_values("move_pyramid_vs_bishop")
 
     def move_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
@@ -695,20 +698,15 @@ class Scene(object):
 
         return self.format_return_values("move_pyramid_conversion_end")
 
-    def move_pyramid_cascading_ok(self, bt=BoardType.MayanAscendancy):
+    def move_pyramid_cascading_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
-        self.board = Board(bt, 5, 7)
+        self.board = Board(bt, 12, 3)
         self.board.clear()
         self.delete_all_marks()
 
-        self.board.set_piece(1, 1, PieceType(PieceType.Pyramid))
-        self.board.set_piece(3, 1, PieceType(PieceType.Pyramid))
-        self.board.set_piece(1, 5, PieceType(PieceType.Rook))
-
-        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-
-#         self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
-#         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors(False)) )
+        self.board.set_piece(1, 1, PieceType(PieceType.Rook))
+        self.board.set_piece(5, 1, PieceType(PieceType.Pyramid))
+        self.board.set_piece(7, 1, PieceType(PieceType.Pyramid))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
@@ -716,21 +714,20 @@ class Scene(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
-        self.arrows.append( SH.get_new_arrow(1, 5, 1, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(1, 4, 1, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(1, 3, 1, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(1, 2, 1, 1, **get_arrow_colors(True)) )
-
-        self.texts.append( SH.get_new_text("1", *get_text_position(1, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(1, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(1, 2, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(1, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
-
         self.arrows.append( SH.get_new_arrow(1, 1, 2, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 1, 3, 1, **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 1, 4, 1, **get_arrow_colors_alt(False)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 1, 4, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 1, 5, 1, **get_arrow_colors(True)) )
 
-        return self.format_return_values("move_pyramid_cascading_ok")
+        self.texts.append( SH.get_new_text("1", *get_text_position(2, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(5, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(5.4, 1.45, SH.Corner.Position), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(7.4, 1.45, SH.Corner.Position), **get_text_colors(True)) )
+
+        return self.format_return_values("move_pyramid_cascading_init")
 
     def move_unicorn_same_color(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
@@ -755,7 +752,8 @@ class Scene(object):
             self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
             i += 1
 
-        return self.format_return_values("move_unicorn_same_color", size_x=0.5, size_y=0.5)
+#         return self.format_return_values("move_unicorn_same_color", size_x=0.5, size_y=0.5) # TODO : delete after test
+        return self.format_return_values("move_unicorn_same_color")
 
     def move_unicorn_opposite_color(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
@@ -997,7 +995,7 @@ class Scene(object):
                  self.move_pyramid_vs_king, \
                  self.move_pyramid_vs_bishop, \
                  \
-                 self.move_pyramid_cascading_ok, \
+                 self.move_pyramid_cascading_init, \
                ]
 
 #                  \
