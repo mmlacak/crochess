@@ -713,21 +713,72 @@ class Scene(object):
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
 
         self.arrows.append( SH.get_new_arrow(1, 1, 2, 1, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 1, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(3, 1, 4, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 1, 5, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 1, 5, 1, **get_arrow_colors_alt(True)) )
 
         self.texts.append( SH.get_new_text("1", *get_text_position(2, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(3, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("3", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(5, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(5, 1, SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(5.4, 1.45, SH.Corner.Position), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(7.4, 1.45, SH.Corner.Position), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(5.4, 1.45, SH.Corner.Position), **get_text_colors_alt(False)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(7.4, 1.45, SH.Corner.Position), **get_text_colors_alt(False)) )
 
         return self.format_return_values("move_pyramid_cascading_init")
+
+    def move_pyramid_cascading_activated_1(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 12, 3)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(5, 1, PieceType(PieceType.Rook))
+        self.board.set_piece(7, 1, PieceType(PieceType.Pyramid))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
+
+        self.arrows.append( SH.get_new_arrow(5, 1, 4, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 1, 3, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 1, 2, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 1, 1, 1, **get_arrow_colors(True)) )
+
+        self.arrows.append( SH.get_new_arrow(5, 1, 5, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 2, 5, 3, **get_arrow_colors(True)) )
+
+        self.arrows.append( SH.get_new_arrow(5, 1, 5, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 0, 5, -1, **get_arrow_colors(True)) )
+
+        self.arrows.append( SH.get_new_arrow(5, 1, 6, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 1, 7, 1, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 1, 8, 1, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(8, 1, 9, 1, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(4, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(2, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(1, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(5, 2, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(5, 0, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(6, 1, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(7, 1, SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(8, 1, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(9, 1, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        self.texts.append( SH.get_new_text("2", *get_text_position(7.4, 1.45, SH.Corner.Position), **get_text_colors_alt(False)) )
+
+        return self.format_return_values("move_pyramid_cascading_activated_1")
 
     def move_unicorn_same_color(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
@@ -996,6 +1047,7 @@ class Scene(object):
                  self.move_pyramid_vs_bishop, \
                  \
                  self.move_pyramid_cascading_init, \
+                 self.move_pyramid_cascading_activated_1, \
                ]
 
 #                  \
@@ -1010,7 +1062,7 @@ class Scene(object):
 #                  self.set_star_journey ]
 
     def get_example_scene_function_indexes(self):
-        return [15, ] # None # [3, ] # None
+        return [15, 16, ] # None # [3, ] # None
 
     # ~
 

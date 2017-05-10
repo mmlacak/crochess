@@ -53,6 +53,21 @@ moves for less than received momentum.
 
 \clearpage % ..........................................................
 
+\subsection*{Activation}
+\addcontentsline{toc}{subsection}{Activation}
+
+% TODO
+
+\textbf{\huge{TODO : finish this}}
+
+* activated by any own piece
+* activating piece captures field at which Pyramid stands
+* moves as Rook
+* restricted by momentum
+
+
+\clearpage % ..........................................................
+
 \subsection*{Promotion}
 \addcontentsline{toc}{subsection}{Promotion}
 
@@ -193,6 +208,19 @@ Pyramid in place of it.
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_move_pyramid_cascading_init.png}
 \caption{Cascading start}
 \label{fig:ma_cascading_init}
+% \centering
+\end{figure}
+
+Once activated, Pyramid can also activate another Pyramid. To do so, activated Pyramid has to
+have at least 1 remaining momentum to transfer it to another Pyramid. If all momentum received
+was spent moving, Pyramid cannot activate another Pyramid.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/17_move_pyramid_cascading_activated_1.png}
+\caption{Cascading, 1st Pyramid activated}
+\label{fig:ma_cascading_1}
 % \centering
 \end{figure}
 
