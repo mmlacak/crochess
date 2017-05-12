@@ -330,7 +330,6 @@ class Scene(object):
             self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
             i += 1
 
-#         return self.format_return_values("move_pegasus_initial", size_x=0.5, size_y=0.5) # TODO :: delete after test
         return self.format_return_values("move_pegasus_initial")
 
     def move_pegasus_direction(self, bt=BoardType.CroatianTies):
@@ -512,7 +511,6 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors(False)) )
 
-#         return self.format_return_values("move_pyramid_vs_king", size_x=1.0, size_y=(3.0/12.0)) # TODO :: delete after test
         return self.format_return_values("move_pyramid_vs_king")
 
     def move_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
@@ -532,7 +530,6 @@ class Scene(object):
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors_alt(True)) )
 
-#         return self.format_return_values("move_pyramid_vs_bishop", size_x=1.0, size_y=(3.0/12.0)) # TODO :: delete after test
         return self.format_return_values("move_pyramid_vs_bishop")
 
     def move_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
@@ -803,7 +800,6 @@ class Scene(object):
             self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
             i += 1
 
-#         return self.format_return_values("move_unicorn_same_color", size_x=0.5, size_y=0.5) # TODO : delete after test
         return self.format_return_values("move_unicorn_same_color")
 
     def move_unicorn_opposite_color(self, bt=BoardType.AgeOfAquarius):
