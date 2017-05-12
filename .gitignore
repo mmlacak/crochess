@@ -25,3 +25,4 @@ temp/
 *.out
 *.toc
 book/*.pdf
+gfx/*.png

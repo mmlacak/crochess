@@ -19,6 +19,6 @@ DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 3000 # 50% added to rendering size
 DEFAULT_PIECE_2x2_RENDERING_SIZE = 800 # 40% of rendering size
 DEFAULT_BOARD_LINE_WIDTH = 4 # >= 1 + (6 * rendering size / 5) // 1000
 
-DEFAULT_PATH = '../tmp/' # '../gfx/'
+DEFAULT_PATH = '../gfx/' # '../tmp/'
 DEFAULT_FILE_EXT = '.png'
 DEFAULT_FILE_TYPE = 'png'
