@@ -26,3 +26,8 @@ temp/
 *.toc
 book/*.pdf
 gfx/*.png
+book/gfx/boards/
+book/gfx/castlings/
+book/gfx/en_passants/
+book/gfx/examples/
+book/gfx/pieces/
