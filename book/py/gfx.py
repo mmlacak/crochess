@@ -54,7 +54,7 @@ class GfxRender(object):
                                       size_y=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
         print "Finished."
 
-    def render_all_example_scenes(self):
+    def render_all_example_scenes(self, do_all_scenes=False):
         def render_example_scene(index, func):
             name, size_x, size_y = func()
             file_path = self.get_scene_file_path(index+1, name)
@@ -69,7 +69,7 @@ class GfxRender(object):
         print
         print "Rendering all examples."
         self.scene = Scene(None)
-        indexes = self.scene.get_example_scene_function_indexes()
+        indexes = None if do_all_scenes else self.scene.get_example_scene_function_indexes()
 
         if indexes is None:
             for index, func in enumerate(self.scene.get_example_scene_functions()):
