@@ -8,7 +8,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
-import gfx_def as GD
+from gfx_def import GD
 
 from piece import PieceType
 from painter_context import PainterContext

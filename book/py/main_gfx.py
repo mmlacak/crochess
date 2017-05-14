@@ -6,8 +6,12 @@
 
 import argparse
 
+from gfx_def import GfxDef, GD
+
 import fs
-from gfx import GfxRender
+# NOTE: Do not import gfx here, since it would cascade into
+#       using GD constants before object has been instantiated.
+# from gfx import GfxRender
 
 import debug_
 
@@ -22,7 +26,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     size.add_argument('-d', '--draft', action='store_true', default=False, help='render in draft size')
 
     collections = parser.add_argument_group(title='collections', description='Define which collections will be rendered. Provide at least one of the options bellow.')
-                # parser.add_mutually_exclusive_group(required=True)
+    #             parser.add_mutually_exclusive_group(required=True)
     collections.add_argument('-a', '--all', action='store_true', default=False, help='render all collections')
     collections.add_argument('-b', '--boards', action='store_true', default=False, help='render initial position boards')
     collections.add_argument('-p', '--pieces', action='store_true', default=False, help='render newly introduced pieces')
@@ -32,14 +36,12 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     collections.add_argument('-e', '--en_passant', action='store_true', default=False, help='render en passant examples')
 
     args = parser.parse_args() # :: argparse.Namespace
-#     print
-#     print "args:", args
-#     print
-#     print "vars:", vars(args)
-#     print
 
     fs.create_subfolders('../gfx')
 
+    GfxDef.instantiate(is_final_or_draft=args.final)
+
+    from gfx import GfxRender
     render = GfxRender()
 
     if args.all or args.boards:

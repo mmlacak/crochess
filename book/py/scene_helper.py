@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2016 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2016, 2017 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 import math
@@ -11,7 +11,7 @@ from board import BoardType
 from board import Board
 from mark import Arrow, Text, FieldMarker
 
-import gfx_def as GD
+from gfx_def import GD
 import pixel_math as pm
 
 
