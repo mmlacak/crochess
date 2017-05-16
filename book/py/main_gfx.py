@@ -9,6 +9,7 @@ import argparse
 from gfx_def import GfxDef, GD
 
 import fs
+
 # NOTE: Do not import gfx here, since it would cascade into
 #       using GD constants before object has been instantiated.
 # from gfx import GfxRender
@@ -26,7 +27,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     size.add_argument('-d', '--draft', action='store_true', default=False, help='render in draft size')
 
     collections = parser.add_argument_group(title='collections', description='Define which collections will be rendered. Provide at least one of the options bellow.')
-    #             parser.add_mutually_exclusive_group(required=True)
+                # parser.add_mutually_exclusive_group(required=True)
     collections.add_argument('-a', '--all', action='store_true', default=False, help='render all collections')
     collections.add_argument('-b', '--boards', action='store_true', default=False, help='render initial position boards')
     collections.add_argument('-p', '--pieces', action='store_true', default=False, help='render newly introduced pieces')
@@ -51,7 +52,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
         render.render_all_newly_introduced_pieces()
 
     if args.all or args.scenes or args.recent_scenes:
-        render.render_all_example_scenes(do_all_scenes=args.scenes)
+        render.render_all_example_scenes(do_all_scenes=(args.all or args.scenes))
 
     if args.all or args.castlings:
         render.render_all_castling_scenes()
