@@ -98,3 +98,8 @@ class SceneWaveMixin(object):
             start_arrow = pos
 
         return self.format_return_values("move_wave_activated")
+
+    def get_example_mixin_methods(self):
+        return [ self.move_wave_init, \
+                 self.move_wave_activated, \
+               ]

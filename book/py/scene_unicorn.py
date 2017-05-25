@@ -64,3 +64,8 @@ class SceneUnicornMixin(object):
             i += 1
 
         return self.format_return_values("move_unicorn_opposite_color")
+
+    def get_example_mixin_methods(self):
+        return [ self.move_unicorn_same_color, \
+                 self.move_unicorn_opposite_color, \
+               ]

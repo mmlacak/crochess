@@ -75,13 +75,13 @@ class GfxRender(object):
         print
         print "Rendering all examples."
         self.scene = Scene(None)
-        indexes = None if do_all_scenes else self.scene.get_example_scene_function_indexes()
+        indexes = None if do_all_scenes else self.scene.get_example_scene_method_indexes()
 
         if indexes is None:
-            for index, func in enumerate(self.scene.get_example_scene_functions()):
+            for index, func in enumerate(self.scene.get_example_scene_methods()):
                 render_example_scene(index, func)
         else:
-            functions = self.scene.get_example_scene_functions()
+            functions = self.scene.get_example_scene_methods()
             for index in indexes:
                 func = functions[index]
                 render_example_scene(index, func)

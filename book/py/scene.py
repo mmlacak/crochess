@@ -435,28 +435,15 @@ class Scene(ScenePegasusMixin, \
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    def get_example_scene_functions(self):
-        return [ self.move_pegasus_initial, \
-                 self.move_pegasus_direction, \
-                 self.move_pegasus, \
-                 self.move_pyramid_promo_init, \
-                 self.move_pyramid_promo_activate, \
-                 \
-                 self.move_pyramid_promo_end, \
-                 self.move_pyramid_conversion_init, \
-                 self.move_pyramid_conversion_activated, \
-                 self.move_pyramid_conversion_end, \
-                 self.move_unicorn_same_color, \
-                 \
-                 self.move_unicorn_opposite_color, \
-                 self.move_wave_init, \
-                 self.move_wave_activated, \
-                 self.move_pyramid_vs_king, \
-                 self.move_pyramid_vs_bishop, \
-                 \
-                 self.move_pyramid_cascading_init, \
-                 self.move_pyramid_cascading_activated_1, \
-               ]
+    def get_example_scene_methods(self):
+        funcs = []
+
+        funcs.extend( ScenePegasusMixin.get_example_mixin_methods(self) )
+        funcs.extend( ScenePyramidMixin.get_example_mixin_methods(self) )
+        funcs.extend( SceneUnicornMixin.get_example_mixin_methods(self) )
+        funcs.extend( SceneWaveMixin.get_example_mixin_methods(self) )
+
+        return funcs
 
 #                  \
 #                  self.move_shaman, \
@@ -469,8 +456,8 @@ class Scene(ScenePegasusMixin, \
 #                  self.set_example_1, \
 #                  self.set_star_journey ]
 
-    def get_example_scene_function_indexes(self):
-        return [15, 16, ] # None # [3, ] # None
+    def get_example_scene_method_indexes(self):
+        return [11, 12, ] # None # [3, ] # None
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

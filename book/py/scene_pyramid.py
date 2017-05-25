@@ -323,3 +323,15 @@ class ScenePyramidMixin(object):
         self.texts.append( SH.get_new_text("2", *get_text_position(7.4, 1.45, SH.Corner.Position), **get_text_colors_alt(False)) )
 
         return self.format_return_values("move_pyramid_cascading_activated_1")
+
+    def get_example_mixin_methods(self):
+        return [ self.move_pyramid_promo_init, \
+                 self.move_pyramid_vs_king, \
+                 self.move_pyramid_vs_bishop, \
+                 self.move_pyramid_promo_activate, \
+                 self.move_pyramid_promo_end, \
+                 self.move_pyramid_conversion_init, \
+                 self.move_pyramid_conversion_activated, \
+                 self.move_pyramid_conversion_end, \
+                 self.move_pyramid_cascading_init, \
+                 self.move_pyramid_cascading_activated_1 ]
