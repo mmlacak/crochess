@@ -149,7 +149,7 @@ class Scene(object):
         if isinstance(height, float):
             height = int( height * GD.DEFAULT_BOARD_RENDERING_SIZE )
 
-        return filename, width, height
+        return filename, width, height, b.type
 
     def intro_piece(self, bt, piece_type=None):
         bt = BoardType(bt)
