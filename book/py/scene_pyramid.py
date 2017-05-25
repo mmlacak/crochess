@@ -42,43 +42,6 @@ class ScenePyramidMixin(object):
 
         return self.format_return_values("move_pyramid_promo_init")
 
-    def move_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
-        bt = BoardType(bt)
-        self.board = Board(bt, 12, 3)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(4, 0, PieceType(-PieceType.King))
-
-        self.board.set_piece(3, 0, PieceType(PieceType.Pyramid))
-        self.board.set_piece(2, 1, PieceType(PieceType.Queen))
-
-        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-
-        self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors(False)) )
-
-        return self.format_return_values("move_pyramid_vs_king")
-
-    def move_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
-        bt = BoardType(bt)
-        self.board = Board(bt, 12, 3)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(4, 0, PieceType(-PieceType.Bishop))
-
-        self.board.set_piece(3, 0, PieceType(PieceType.Pyramid))
-        self.board.set_piece(2, 1, PieceType(PieceType.Queen))
-
-        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-
-        self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors_alt(True)) )
-
-        return self.format_return_values("move_pyramid_vs_bishop")
-
     def move_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
         self.board = Board(bt)
@@ -324,14 +287,52 @@ class ScenePyramidMixin(object):
 
         return self.format_return_values("move_pyramid_cascading_activated_1")
 
+    def move_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 12, 3)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(4, 0, PieceType(-PieceType.King))
+
+        self.board.set_piece(3, 0, PieceType(PieceType.Pyramid))
+        self.board.set_piece(2, 1, PieceType(PieceType.Queen))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors(False)) )
+
+        return self.format_return_values("move_pyramid_vs_king")
+
+    def move_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 12, 3)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(4, 0, PieceType(-PieceType.Bishop))
+
+        self.board.set_piece(3, 0, PieceType(PieceType.Pyramid))
+        self.board.set_piece(2, 1, PieceType(PieceType.Queen))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors_alt(True)) )
+
+        return self.format_return_values("move_pyramid_vs_bishop")
+
     def get_example_mixin_methods(self):
         return [ self.move_pyramid_promo_init, \
-                 self.move_pyramid_vs_king, \
-                 self.move_pyramid_vs_bishop, \
                  self.move_pyramid_promo_activate, \
                  self.move_pyramid_promo_end, \
                  self.move_pyramid_conversion_init, \
                  self.move_pyramid_conversion_activated, \
                  self.move_pyramid_conversion_end, \
                  self.move_pyramid_cascading_init, \
-                 self.move_pyramid_cascading_activated_1 ]
+                 self.move_pyramid_cascading_activated_1, \
+                 self.move_pyramid_vs_king, \
+                 self.move_pyramid_vs_bishop, \
+               ]

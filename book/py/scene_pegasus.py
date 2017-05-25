@@ -176,12 +176,6 @@ class ScenePegasusMixin(object):
 
         return self.format_return_values("move_pegasus")
 
-#     @classmethod
-#     def get_example_mixin_methods(cls):
-#         return [ cls.move_pegasus_initial, \
-#                  cls.move_pegasus_direction, \
-#                  cls.move_pegasus ]
-
     def get_example_mixin_methods(self):
         return [ self.move_pegasus_initial, \
                  self.move_pegasus_direction, \
