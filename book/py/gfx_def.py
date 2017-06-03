@@ -5,6 +5,38 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
+class RenderingSize(int):
+    none = 0
+    Info = 1
+    Draft = 2
+    Final = 3
+
+    def __new__(cls, value):
+        if RenderingSize._is_valid(value):
+            return super(RenderingSize, cls).__new__(cls, value)
+        else:
+            raise ValueError("No such a rendering type, received '%s'." % (str(value), ))
+
+    @staticmethod
+    def foreach(start=None, end=None, step=1):
+        start = start or RenderingSize.none
+        end = end or RenderingSize.Final
+
+        for rt in xrange(start, end+1, step):
+            # Added +1 because upper limit is not included in loop.
+            yield RenderingSize(rt)
+
+    @staticmethod
+    def _is_valid(rendering_size):
+        return RenderingSize.none <= rendering_size <= RenderingSize.Final
+
+    def is_valid(self):
+        return RenderingSize._is_valid(self)
+
+    def do_render(self):
+        return self in [RenderingSize.Draft, RenderingSize.Final]
+
+
 # Final version graphics size.
 #
 # DEFAULT_BOARD_RENDERING_SIZE = 8000
@@ -28,34 +60,38 @@ GD = None
 
 
 class GfxDef(object):
-    DEFAULT_BOARD_RENDERING_SIZE = None
-    DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = None
-    DEFAULT_PIECE_2x2_RENDERING_SIZE = None
-    DEFAULT_BOARD_LINE_WIDTH = None
+    # Default is draft quality.
+    #
+    # These "constants" should have valid values. Otherwise importing scene helper crashes.
+    #
+    DEFAULT_BOARD_RENDERING_SIZE = 2000
+    DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 3000 # 50% added to rendering size
+    DEFAULT_PIECE_2x2_RENDERING_SIZE = 800 # 40% of rendering size
+    DEFAULT_BOARD_LINE_WIDTH = 4 # >= 1 + (6 * rendering size / 5) // 1000
 
     DEFAULT_PATH = '../gfx/' # '../tmp/'
     DEFAULT_FILE_EXT = '.png'
     DEFAULT_FILE_TYPE = 'png'
 
-    def __init__(self, is_final_or_draft=False):
-        # default is draft
+    def __init__(self, rendering_size=RenderingSize.Draft):
+        self.rendering_size = RenderingSize(rendering_size)
 
-        if is_final_or_draft:
+        if self.rendering_size == RenderingSize.Final:
             GfxDef.DEFAULT_BOARD_RENDERING_SIZE = 8000
             GfxDef.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 12000 # 50% added to rendering size
             GfxDef.DEFAULT_PIECE_2x2_RENDERING_SIZE = 3200 # 40% of rendering size
             GfxDef.DEFAULT_BOARD_LINE_WIDTH = 11 # >= 1 + (6 * rendering size / 5) // 1000
-        else:
-            GfxDef.DEFAULT_BOARD_RENDERING_SIZE = 2000
-            GfxDef.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 3000 # 50% added to rendering size
-            GfxDef.DEFAULT_PIECE_2x2_RENDERING_SIZE = 800 # 40% of rendering size
-            GfxDef.DEFAULT_BOARD_LINE_WIDTH = 4 # >= 1 + (6 * rendering size / 5) // 1000
+        # elif self.rendering_size == RenderingSize.Draft:
+        #     GfxDef.DEFAULT_BOARD_RENDERING_SIZE = 2000
+        #     GfxDef.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 3000 # 50% added to rendering size
+        #     GfxDef.DEFAULT_PIECE_2x2_RENDERING_SIZE = 800 # 40% of rendering size
+        #     GfxDef.DEFAULT_BOARD_LINE_WIDTH = 4 # >= 1 + (6 * rendering size / 5) // 1000
 
     @staticmethod
-    def instantiate(is_final_or_draft=False):
+    def instantiate(rendering_size=RenderingSize.Draft):
         global GD
 
         if GD is None:
-            GD = GfxDef(is_final_or_draft=is_final_or_draft)
+            GD = GfxDef(rendering_size=rendering_size)
 
         return GD

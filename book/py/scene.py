@@ -435,7 +435,7 @@ class Scene(ScenePegasusMixin, \
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    def get_example_scene_methods(self):
+    def get_all_example_scene_methods(self):
         funcs = []
 
         funcs.extend( ScenePegasusMixin.get_example_mixin_methods(self) )
@@ -456,29 +456,9 @@ class Scene(ScenePegasusMixin, \
 
         return funcs
 
-    def get_example_scene_method_indexes(self):
-        # ../gfx//examples/04_move_pegasus_initial.png
-        # ../gfx//examples/04_move_pegasus_direction.png
-        # ../gfx//examples/04_move_pegasus.png
-        # ../gfx//examples/06_move_pyramid_promo_init.png
-        # ../gfx//examples/06_move_pyramid_promo_activate.png
-
-        # ../gfx//examples/06_move_pyramid_promo_end.png
-        # ../gfx//examples/06_move_pyramid_conversion_init.png
-        # ../gfx//examples/06_move_pyramid_conversion_activated.png
-        # ../gfx//examples/06_move_pyramid_conversion_end.png
-        # ../gfx//examples/06_move_pyramid_cascading_init.png
-
-        # ../gfx//examples/06_move_pyramid_cascading_activated_1.png
-        # ../gfx//examples/06_move_pyramid_vs_king.png
-        # ../gfx//examples/06_move_pyramid_vs_bishop.png
-        # ../gfx//examples/08_move_unicorn_same_color.png
-        # ../gfx//examples/08_move_unicorn_opposite_color.png
-
-        # ../gfx//examples/10_move_wave_init.png
-        # ../gfx//examples/10_move_wave_activated.png
-
-        return [9, 10, ] # None # [3, ] # None
+    def get_recent_example_scene_methods(self):
+        return [self.move_pyramid_cascading_init, \
+                self.move_pyramid_cascading_activated_1]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

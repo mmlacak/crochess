@@ -28,7 +28,7 @@ class GfxRender(object):
 
     def render_all_boards(self):
         print
-        print "Rendering all boards."
+        print "Rendering all boards." if GD.rendering_size.do_render() else "Info all boards."
 
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
             # Added +1 because upper limit is not included in loop.
@@ -36,13 +36,16 @@ class GfxRender(object):
             self.init_game(bt, bt)
             file_path = self.get_board_file_path()
             print file_path
-            self.save_board_image(file_path)
+
+            if GD.rendering_size.do_render():
+                self.save_board_image(file_path)
 
         print "Finished."
 
     def render_all_newly_introduced_pieces(self):
         print
-        print "Rendering all pieces."
+        print "Rendering all pieces." if GD.rendering_size.do_render() else "Info all pieces."
+
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
             # Added +1 because upper limit is not included in loop.
             # Step is 2 because there is no need to generate odd variants.
@@ -52,45 +55,44 @@ class GfxRender(object):
                 file_path = self.get_piece_file_path(pt)
                 print file_path
 
-                self.save_board_image(file_path, \
-                                      is_game_or_scene=False, \
-                                      size_x=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE, \
-                                      size_y=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
+                if GD.rendering_size.do_render():
+                    self.save_board_image(file_path, \
+                                          is_game_or_scene=False, \
+                                          size_x=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE, \
+                                          size_y=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
         print "Finished."
 
     def render_all_example_scenes(self, do_all_scenes=False):
-        def render_example_scene(index, func):
+        def render_example_scene(func):
             name, size_x, size_y, board_size = func()
             file_path = self.get_scene_file_path(board_size, name)
             print file_path
 
-            if size_x is None or size_y is None:
-                size_x, size_y = self.get_scene_image_size()
+            if GD.rendering_size.do_render():
+                if size_x is None or size_y is None:
+                    size_x, size_y = self.get_scene_image_size()
 
-            self.save_board_image(file_path, \
-                                  is_game_or_scene=False, \
-                                  size_x=size_x, \
-                                  size_y=size_y)
+                self.save_board_image(file_path, \
+                                      is_game_or_scene=False, \
+                                      size_x=size_x, \
+                                      size_y=size_y)
 
         print
-        print "Rendering all examples."
+        print "Rendering all examples." if GD.rendering_size.do_render() else "Info all examples."
         self.scene = Scene(None)
-        indexes = None if do_all_scenes else self.scene.get_example_scene_method_indexes()
 
-        if indexes is None:
-            for index, func in enumerate(self.scene.get_example_scene_methods()):
-                render_example_scene(index, func)
-        else:
-            functions = self.scene.get_example_scene_methods()
-            for index in indexes:
-                func = functions[index]
-                render_example_scene(index, func)
+        scene_funcs = self.scene.get_all_example_scene_methods() \
+                      if do_all_scenes \
+                      else self.scene.get_recent_example_scene_methods()
+
+        for func in scene_funcs:
+            render_example_scene(func)
 
         print "Finished."
 
     def render_all_castling_scenes(self):
         print
-        print "Rendering all castlings."
+        print "Rendering all castlings." if GD.rendering_size.do_render() else "Info all castlings."
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
             # Added +1 because upper limit is not included in loop.
             # Step is 2 because there is no need to generate odd variants.
@@ -99,16 +101,18 @@ class GfxRender(object):
             if bt_real is not None:
                 file_path = self.get_castling_file_path(bt_real)
                 print file_path
-                size_x, size_y = self.get_scene_image_size()
 
-                self.save_board_image(file_path, \
-                                      is_game_or_scene=False, \
-                                      size_x=size_x, \
-                                      size_y=size_y)
+                if GD.rendering_size.do_render():
+                    size_x, size_y = self.get_scene_image_size()
+
+                    self.save_board_image(file_path, \
+                                          is_game_or_scene=False, \
+                                          size_x=size_x, \
+                                          size_y=size_y)
         print "Finished."
 
         print
-        print "Rendering all long left castlings."
+        print "Rendering all long left castlings." if GD.rendering_size.do_render() else "Info all long left castlings."
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
             # Added +1 because upper limit is not included in loop.
             # Step is 2 because there is no need to generate odd variants.
@@ -117,16 +121,18 @@ class GfxRender(object):
             if bt_real is not None:
                 file_path = self.get_castling_file_path(bt_real, subfolder_name='long_left')
                 print file_path
-                size_x, size_y = self.get_scene_image_size()
 
-                self.save_board_image(file_path, \
-                                      is_game_or_scene=False, \
-                                      size_x=size_x, \
-                                      size_y=size_y)
+                if GD.rendering_size.do_render():
+                    size_x, size_y = self.get_scene_image_size()
+
+                    self.save_board_image(file_path, \
+                                          is_game_or_scene=False, \
+                                          size_x=size_x, \
+                                          size_y=size_y)
         print "Finished."
 
         print
-        print "Rendering all short right castlings."
+        print "Rendering all short right castlings." if GD.rendering_size.do_render() else "Info all short right castlings."
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
             # Added +1 because upper limit is not included in loop.
             # Step is 2 because there is no need to generate odd variants.
@@ -135,17 +141,20 @@ class GfxRender(object):
             if bt_real is not None:
                 file_path = self.get_castling_file_path(bt_real, subfolder_name='short_right')
                 print file_path
-                size_x, size_y = self.get_scene_image_size()
 
-                self.save_board_image(file_path, \
-                                      is_game_or_scene=False, \
-                                      size_x=size_x, \
-                                      size_y=size_y)
+                if GD.rendering_size.do_render():
+                    size_x, size_y = self.get_scene_image_size()
+
+                    self.save_board_image(file_path, \
+                                          is_game_or_scene=False, \
+                                          size_x=size_x, \
+                                          size_y=size_y)
         print "Finished."
 
     def render_all_en_passant_scenes(self):
         print
-        print "Rendering all en passant."
+        print "Rendering all en passant." if GD.rendering_size.do_render() else "Info all en passant."
+
         for bt in xrange(BoardType.Classical, BoardType.One+1, 2):
             # Added +1 because upper limit is not included in loop.
             # Step is 2 because there is no need to generate odd variants.
@@ -154,12 +163,14 @@ class GfxRender(object):
             if bt_real is not None:
                 file_path = self.get_en_passant_file_path(bt_real)
                 print file_path
-                size_x, size_y = self.get_scene_image_size(horizontal_rendering_size=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
 
-                self.save_board_image(file_path, \
-                                      is_game_or_scene=False, \
-                                      size_x=size_x, \
-                                      size_y=size_y)
+                if GD.rendering_size.do_render():
+                    size_x, size_y = self.get_scene_image_size(horizontal_rendering_size=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
+
+                    self.save_board_image(file_path, \
+                                          is_game_or_scene=False, \
+                                          size_x=size_x, \
+                                          size_y=size_y)
         print "Finished."
 
     def init_game(self, board_type_value=BoardType.One, board_type_value_2=BoardType.One):

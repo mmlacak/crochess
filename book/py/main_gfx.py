@@ -6,7 +6,7 @@
 
 import argparse
 
-from gfx_def import GfxDef, GD
+from gfx_def import RenderingSize, GfxDef, GD
 
 import fs
 
@@ -25,6 +25,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     size = parser.add_mutually_exclusive_group(required=True)
     size.add_argument('-f', '--final', action='store_true', default=False, help='render in final size (huge!)')
     size.add_argument('-d', '--draft', action='store_true', default=False, help='render in draft size')
+    size.add_argument('-i', '--info', action='store_true', default=False, help='render nothing, just print info')
 
     collections = parser.add_argument_group(title='collections', description='Define which collections will be rendered. Provide at least one of the options bellow.')
                 # parser.add_mutually_exclusive_group(required=True)
@@ -40,7 +41,21 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     fs.create_subfolders('../gfx')
 
-    GfxDef.instantiate(is_final_or_draft=args.final)
+    rendering_size = RenderingSize.none
+    if args.final:
+        rendering_size = RenderingSize.Final
+    elif args.draft:
+        rendering_size = RenderingSize.Draft
+    elif args.info:
+        rendering_size = RenderingSize.Info
+
+    if rendering_size == RenderingSize.none:
+        print
+        print "Rendering nothing, no info requested."
+        print
+        return
+
+    GfxDef.instantiate(rendering_size=rendering_size)
 
     from gfx import GfxRender
     render = GfxRender()
