@@ -44,9 +44,9 @@ In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 \subsection*{Momentum}
 \addcontentsline{toc}{subsection}{Momentum}
 
-Momentum is count of step fields traveled over by piece. Pyramid receives
+Momentum is count of step-fields traveled over by piece. Pyramid receives
 momentum from piece which activates it. Momentum is spent by Pyramid when
-moving, one for each step field travelled. So Pyramid can't move for more
+moving, one for each step-field travelled. So Pyramid can't move for more
 fields than received momentum, i.e. for more than activating piece has
 travelled. Momentum can't be saved for later, it is wasted when Pyramid
 moves for less than received momentum.
@@ -64,7 +64,9 @@ moves for less than received momentum.
 * activating piece captures field at which Pyramid stands
 * moves as Rook
 * restricted by momentum
+* activating with Pawn
 
+% If opponent's piece could be captured there, then step-field is also called capture-field.
 
 \clearpage % ..........................................................
 
@@ -98,7 +100,7 @@ captured.
 
 % TODO
 
-Here, Pegasus is accumulating momentum while travelling over step fields. After
+Here, Pegasus is accumulating momentum while travelling over step-fields. After
 activation Pyramid would be limited to move at most 4 fields across, i.e. at most
 the momentum it received from Pegasus.
 
@@ -163,7 +165,7 @@ reach opponent's piece, i.e. that it get enough momentum from activating piece.
 % \centering
 \end{figure}
 
-For classic pieces, step fields are just fields which piece traveled over,
+For classic pieces, step-fields are just fields which piece traveled over,
 in case of Bishop above that is 4 fields. Again, that is momentum Pyramid
 will receive with activation and limits how far it could move afterwards.
 
