@@ -457,8 +457,11 @@ class Scene(ScenePegasusMixin, \
         return funcs
 
     def get_recent_example_scene_methods(self):
-        return [self.move_pyramid_cascading_init, \
-                self.move_pyramid_cascading_activated_1]
+        return  [
+                self.move_pyramid_activation_init, \
+                self.move_pyramid_cascading_init, \
+                self.move_pyramid_cascading_activated_1, \
+                ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

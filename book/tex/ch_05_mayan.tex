@@ -56,15 +56,35 @@ moves for less than received momentum.
 \subsection*{Activation}
 \addcontentsline{toc}{subsection}{Activation}
 
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/06_move_pyramid_activation_init.png}
+\caption{Pyramid activation}
+\label{fig:ma_activation_init}
+% \centering
+\end{figure}
+
+Here Pegasus is about to capture field on which Pyramid stands. Note, only
+step-fields are counted towards momentum. After activation Pyramid would be
+limited to move at most 4 fields across, i.e. at most the momentum it received
+from Pegasus.
+
+\clearpage % ..........................................................
+
 % TODO
+
+\clearpage % ..........................................................
 
 \textbf{\huge{TODO : finish this}}
 
-* activated by any own piece
-* activating piece captures field at which Pyramid stands
-* moves as Rook
-* restricted by momentum
-* activating with Pawn
+\begin{itemize}
+\item activated by any own piece
+\item activating piece captures field at which Pyramid stands
+\item moves as Rook
+\item by momentum
+\item activating with Pawn
+\end{itemize}
 
 % If opponent's piece could be captured there, then step-field is also called capture-field.
 
@@ -97,8 +117,6 @@ captured.
 \label{fig:ma_promo_init}
 % \centering
 \end{figure}
-
-% TODO
 
 Here, Pegasus is accumulating momentum while travelling over step-fields. After
 activation Pyramid would be limited to move at most 4 fields across, i.e. at most

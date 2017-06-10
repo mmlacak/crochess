@@ -15,6 +15,33 @@ import scene_helper as SH
 
 class ScenePyramidMixin(object):
 
+    def move_pyramid_activation_init(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+
+        self.board.set_piece(3, 7, PieceType(PieceType.Pyramid))
+        self.board.set_piece(6, 7, PieceType(PieceType.Pawn))
+        self.board.set_piece(11, 3, PieceType(PieceType.Pegasus))
+
+        self.arrows.append( SH.get_new_arrow(11, 3, 9, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(9, 4, 7, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 5, 5, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 6, 3, 7, **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(9, 4, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(7, 5, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(5, 6, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(3, 7, SH.Corner.UpperRight), **get_text_colors(True)) )
+
+        return self.format_return_values("move_pyramid_activation_init")
+
     def move_pyramid_promo_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
         self.board = Board(bt)
@@ -325,14 +352,16 @@ class ScenePyramidMixin(object):
         return self.format_return_values("move_pyramid_vs_bishop")
 
     def get_example_mixin_methods(self):
-        return [ self.move_pyramid_promo_init, \
-                 self.move_pyramid_promo_activate, \
-                 self.move_pyramid_promo_end, \
-                 self.move_pyramid_conversion_init, \
-                 self.move_pyramid_conversion_activated, \
-                 self.move_pyramid_conversion_end, \
-                 self.move_pyramid_cascading_init, \
-                 self.move_pyramid_cascading_activated_1, \
-                 self.move_pyramid_vs_king, \
-                 self.move_pyramid_vs_bishop, \
-               ]
+        return  [ \
+                self.move_pyramid_activation_init, \
+                self.move_pyramid_promo_init, \
+                self.move_pyramid_promo_activate, \
+                self.move_pyramid_promo_end, \
+                self.move_pyramid_conversion_init, \
+                self.move_pyramid_conversion_activated, \
+                self.move_pyramid_conversion_end, \
+                self.move_pyramid_cascading_init, \
+                self.move_pyramid_cascading_activated_1, \
+                self.move_pyramid_vs_king, \
+                self.move_pyramid_vs_bishop, \
+                ]
