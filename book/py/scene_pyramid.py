@@ -27,8 +27,9 @@ class ScenePyramidMixin(object):
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(3, 7, PieceType(PieceType.Pyramid))
-        self.board.set_piece(6, 7, PieceType(PieceType.Pawn))
+        self.board.set_piece(6, 7, PieceType(PieceType.Bishop))
         self.board.set_piece(11, 3, PieceType(PieceType.Pegasus))
+        self.board.set_piece(3, 9, PieceType(-PieceType.Knight))
 
         self.arrows.append( SH.get_new_arrow(11, 3, 9, 4, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(9, 4, 7, 5, **get_arrow_colors(True)) )
@@ -41,6 +42,67 @@ class ScenePyramidMixin(object):
         self.texts.append( SH.get_new_text("4", *get_text_position(3, 7, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         return self.format_return_values("move_pyramid_activation_init")
+
+    def move_pyramid_activated(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+
+        self.board.set_piece(3, 7, PieceType(PieceType.Pegasus))
+        self.board.set_piece(6, 7, PieceType(PieceType.Bishop))
+        self.board.set_piece(3, 9, PieceType(-PieceType.Knight))
+
+        # direction <1, 0>
+        self.arrows.append( SH.get_new_arrow(3, 7, 4, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 7, 5, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 7, 6, 7, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(6, 7, 7, 7, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(4, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(5, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(6, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(7, 7, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        # direction <0, 1>
+        self.arrows.append( SH.get_new_arrow(3, 7, 3, 8, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 8, 3, 9, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 9, 3, 10, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 10, 3, 11, **get_arrow_colors(False)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(3, 8, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 9, SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(3, 10, SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(3, 11, SH.Corner.UpperLeft), **get_text_colors(False)) )
+
+        # direction <-1, 0>
+        self.arrows.append( SH.get_new_arrow(3, 7, 2, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 7, 1, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 7, 0, 7, **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(2, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(1, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(0, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        # direction <0, -1>
+        self.arrows.append( SH.get_new_arrow(3, 7, 3, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 6, 3, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 5, 3, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 4, 3, 3, **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(3, 6, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(3, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        return self.format_return_values("move_pyramid_activated")
 
     def move_pyramid_promo_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
@@ -354,6 +416,7 @@ class ScenePyramidMixin(object):
     def get_example_mixin_methods(self):
         return  [ \
                 self.move_pyramid_activation_init, \
+                self.move_pyramid_activated, \
                 self.move_pyramid_promo_init, \
                 self.move_pyramid_promo_activate, \
                 self.move_pyramid_promo_end, \
