@@ -425,11 +425,11 @@ class Scene(ScenePegasusMixin, \
         self.board.clear()
         self.delete_all_marks()
 
-        self.board.set_pieces([(0, 0, PieceType(-PieceType.Star)),
-                               (1, 2, PieceType(PieceType.Monolith)),
-                               (5, 3, PieceType(PieceType.Knight)),
-                               (6, 4, PieceType(PieceType.Monolith)),
-                               (3, 5, PieceType(PieceType.Starchild))])
+        self.board.set_pieces( [ (0, 0, PieceType(-PieceType.Star)),
+                                 (1, 2, PieceType(PieceType.Monolith)),
+                                 (5, 3, PieceType(PieceType.Knight)),
+                                 (6, 4, PieceType(PieceType.Monolith)),
+                                 (3, 5, PieceType(PieceType.Starchild)) ] )
 
         return self.format_return_values("set_star_journey")
 
@@ -458,9 +458,10 @@ class Scene(ScenePegasusMixin, \
 
     def get_recent_example_scene_methods(self):
         return  [
-                self.move_pyramid_activation_init, \
-                self.move_pyramid_activated, \
-                self.move_pyramid_activation_end, \
+                self.move_pyramid_cascading_init, \
+                self.move_pyramid_cascading_activated_1, \
+                self.move_pyramid_cascading_activated_2, \
+                self.move_pyramid_cascading_end, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
