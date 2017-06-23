@@ -460,6 +460,7 @@ class Scene(ScenePegasusMixin, \
         return  [
                 self.move_pyramid_activation_init, \
                 self.move_pyramid_activated, \
+                self.move_pyramid_activation_end, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

@@ -104,6 +104,18 @@ class ScenePyramidMixin(object):
 
         return self.format_return_values("move_pyramid_activated")
 
+    def move_pyramid_activation_end(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(3, 7, PieceType(PieceType.Pegasus))
+        self.board.set_piece(6, 7, PieceType(PieceType.Bishop))
+        self.board.set_piece(3, 9, PieceType(PieceType.Pyramid))
+
+        return self.format_return_values("move_pyramid_activation_end")
+
     def move_pyramid_promo_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
         self.board = Board(bt)
@@ -417,6 +429,7 @@ class ScenePyramidMixin(object):
         return  [ \
                 self.move_pyramid_activation_init, \
                 self.move_pyramid_activated, \
+                self.move_pyramid_activation_end, \
                 self.move_pyramid_promo_init, \
                 self.move_pyramid_promo_activate, \
                 self.move_pyramid_promo_end, \
