@@ -37,14 +37,15 @@ it can move for only so many fields as piece activating it has moved, i.e.
 for at most as momentum received.
 
 Pyramid can't check opponent's King, and consequently can't contribute to
-checkmate. Pyramid can capture all the other opponent's pieces.
+checkmate. Pyramid can capture all the other opponent's pieces after it has
+been activated.
 
 In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 
 \subsection*{Momentum}
 \addcontentsline{toc}{subsection}{Momentum}
 
-Momentum is count of step-fields traveled over by piece. Pyramid receives
+Momentum is count of step-fields traveled over by a piece. Pyramid receives
 momentum from piece which activates it. Momentum is spent by Pyramid when
 moving, one for each step-field travelled. So Pyramid can't move for more
 fields than received momentum, i.e. for more than activating piece has
@@ -317,7 +318,7 @@ Above, King is not under attack from Pyramid.
 % \centering
 \end{figure}
 
-Bishop in King's place, however, could be captured without any hindrance.
+Bishop in the same place, however, could be captured without any hindrance.
 
 \clearpage % ..........................................................
 
@@ -378,10 +379,8 @@ After castling is finished, left Rook ends up at field immediately on the right 
 \section*{Initial setup}
 \addcontentsline{toc}{section}{Initial setup}
 
-Initial setup for Light player is (mirrored for Dark one):
-\texttt{PPPPPPPPPPPP \\
-        RGANBQKBNAGR}, \\
-or more conveniently, as seen in this image:
+Compared to initial setup of Croatian Ties, Pyramid is inserted between Pegasus and Knight
+symmetrically, on both sides of chess board. This can be seen in the image below:
 
 \noindent
 % \begin{figure}[t]
