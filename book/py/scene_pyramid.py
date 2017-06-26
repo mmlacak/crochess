@@ -524,20 +524,3 @@ class ScenePyramidMixin(object):
         self.arrows.append( SH.get_new_arrow(3, 0, 4, 0, **get_arrow_colors_alt(True)) )
 
         return self.format_return_values("move_pyramid_vs_bishop")
-
-    def get_example_mixin_methods(self):
-        return  [ \
-                self.move_pyramid_activation_init, \
-                self.move_pyramid_activated, \
-                self.move_pyramid_activation_end, \
-                self.move_pyramid_promo_init, \
-                self.move_pyramid_promo_activate, \
-                self.move_pyramid_promo_end, \
-                self.move_pyramid_conversion_init, \
-                self.move_pyramid_conversion_activated, \
-                self.move_pyramid_conversion_end, \
-                self.move_pyramid_cascading_init, \
-                self.move_pyramid_cascading_activated_1, \
-                self.move_pyramid_vs_king, \
-                self.move_pyramid_vs_bishop, \
-                ]

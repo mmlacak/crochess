@@ -175,8 +175,3 @@ class ScenePegasusMixin(object):
         self.texts.append( SH.get_new_text("6", *get_text_position(4, 0, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         return self.format_return_values("move_pegasus")
-
-    def get_example_mixin_methods(self):
-        return [ self.move_pegasus_initial, \
-                 self.move_pegasus_direction, \
-                 self.move_pegasus ]

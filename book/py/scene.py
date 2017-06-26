@@ -321,70 +321,6 @@ class Scene(ScenePegasusMixin, \
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    def move_shaman(self, bt=BoardType.ConquestOfTlalocan):
-        bt = BoardType(bt)
-        self.board = Board(bt, 11, 11)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(5, 5, PieceType(-PieceType.Shaman))
-
-        return self.format_return_values("move_shaman")
-
-    def move_shaman_2(self, bt=BoardType.ConquestOfTlalocan):
-        bt = BoardType(bt)
-        self.board = Board(bt, 15, 15)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(7, 7, PieceType(PieceType.Shaman))
-
-        return self.format_return_values("move_shaman_2")
-
-    def move_monolith(self, bt=BoardType.Discovery):
-        bt = BoardType(bt)
-        self.board = Board(bt, 9, 9)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(4, 4, PieceType(PieceType.Monolith))
-
-        return self.format_return_values("move_monolith")
-
-    def move_monolith_2(self, bt=BoardType.Discovery):
-        bt = BoardType(bt)
-        self.board = Board(bt, 9, 9)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(4, 4, PieceType(PieceType.Monolith))
-        self.board.set_piece(3, 4, PieceType(PieceType.Pawn))
-        self.board.set_piece(5, 5, PieceType(-PieceType.Rook))
-
-        return self.format_return_values("move_monolith_2")
-
-    def move_starchild(self, bt=BoardType.One):
-        bt = BoardType(bt)
-        self.board = Board(bt, 9, 9)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(4, 4, PieceType(PieceType.Starchild))
-
-        return self.format_return_values("move_starchild")
-
-    def move_starchild_2(self, bt=BoardType.One):
-        bt = BoardType(bt)
-        self.board = Board(bt, 9, 9)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_piece(4, 4, PieceType(PieceType.Starchild))
-        self.board.set_piece(3, 4, PieceType(PieceType.Pawn))
-        self.board.set_piece(5, 5, PieceType(-PieceType.Rook))
-
-        return self.format_return_values("move_starchild_2")
-
     def set_mirandas_veil_1(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
         self.board = Board(bt, 6, 6)
@@ -403,45 +339,14 @@ class Scene(ScenePegasusMixin, \
 
         return self.format_return_values("set_mirandas_veil_1")
 
-    def set_example_1(self, bt=BoardType.MirandasVeil):
-        bt = BoardType(bt)
-        self.board = Board(bt, 16, 5)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_pieces([(0, 0, PieceType(PieceType.Wave)),
-                               (3, 3, PieceType(PieceType.Queen)),
-                               (12, 0, PieceType(PieceType.Bishop)),
-                               (14, 1, PieceType(PieceType.King)),
-                               (15, 2, PieceType(-PieceType.Rook)),
-                               (15, 0, PieceType(-PieceType.Queen)),
-                               (9, 0, PieceType(-PieceType.King))])
-
-        return self.format_return_values("set_example_1")
-
-    def set_star_journey(self, bt=BoardType.One):
-        bt = BoardType(bt)
-        self.board = Board(bt, 8, 8)
-        self.board.clear()
-        self.delete_all_marks()
-
-        self.board.set_pieces( [ (0, 0, PieceType(-PieceType.Star)),
-                                 (1, 2, PieceType(PieceType.Monolith)),
-                                 (5, 3, PieceType(PieceType.Knight)),
-                                 (6, 4, PieceType(PieceType.Monolith)),
-                                 (3, 5, PieceType(PieceType.Starchild)) ] )
-
-        return self.format_return_values("set_star_journey")
-
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     def get_all_example_scene_methods(self):
         funcs = []
 
-        funcs.extend( ScenePegasusMixin.get_example_mixin_methods(self) )
-        funcs.extend( ScenePyramidMixin.get_example_mixin_methods(self) )
-        funcs.extend( SceneUnicornMixin.get_example_mixin_methods(self) )
-        funcs.extend( SceneWaveMixin.get_example_mixin_methods(self) )
+        names = [ n for n in dir(self) if n.startswith('move_') ]
+        fncs = [ getattr(self, a) for a in names ]
+        funcs.extend( fncs )
 
 #                  \
 #                  self.move_shaman, \
