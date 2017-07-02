@@ -379,11 +379,11 @@ class ScenePyramidMixin(object):
         self.arrows.append( SH.get_new_arrow(7, 4, 6, 5, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(6, 5, 5, 6, **get_arrow_colors_alt(True)) )
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(9, 2, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(8, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(7, 4, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(6, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("5", *get_text_position(5, 6, SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(9, 2, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(8, 3, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(7, 4, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(6, 5, SH.Corner.UpperRight), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("5", *get_text_position(5, 6, SH.Corner.UpperRight), **get_text_colors_alt(True)) )
 
         self.texts.append( SH.get_new_text("1", *get_text_position(5.4, 6.45, SH.Corner.Position), **get_text_colors_alt(False)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(8.4, 6.45, SH.Corner.Position), **get_text_colors_alt(False)) )
