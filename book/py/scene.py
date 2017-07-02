@@ -344,28 +344,18 @@ class Scene(ScenePegasusMixin, \
     def get_all_example_scene_methods(self):
         funcs = []
 
-        names = [ n for n in dir(self) if n.startswith('move_') ]
+        names = [ n for n in dir(self) if n.startswith('move_') ] # or n.startswith('scene_')
         fncs = [ getattr(self, a) for a in names ]
         funcs.extend( fncs )
-
-#                  \
-#                  self.move_shaman, \
-#                  self.move_shaman_2, \
-#                  self.move_monolith, \
-#                  self.move_monolith_2, \
-#                  self.move_starchild, \
-#                  self.move_starchild_2, \
-#                  self.set_mirandas_veil_1, \
-#                  self.set_example_1, \
-#                  self.set_star_journey ]
 
         return funcs
 
     def get_recent_example_scene_methods(self):
         return  [
-                self.move_pyramid_activation_init, \
-                self.move_pyramid_promo_init, \
-                self.move_pyramid_conversion_init, \
+                # self.move_pyramid_activation_init, \
+                # self.move_pyramid_promo_init, \
+                # self.move_pyramid_conversion_init, \
+                self.move_pyramid_activation_by_pawn, \
 #                 self.move_pyramid_cascading_init, \
 #                 self.move_pyramid_cascading_activated_1, \
 #                 self.move_pyramid_cascading_activated_2, \
