@@ -10,11 +10,10 @@
 \end{flushright}
 
 \noindent
-Miranda's veil is chess variant which is played on 16 x 16 board,
-with light yellow and dark violet fields and light pink and dark
-gray-violet pieces. In algebraic notation, columns are enumerated
-from 'a' to 'p', and rows are enumerated from '1' to '16'. A new
-piece is introduced, Wave.
+Miranda's veil is chess variant which is played on 16 x 16 board, with
+white and dark violet fields and light magenta and indigo pieces. In
+algebraic notation, columns are enumerated from 'a' to 'p', and rows
+are enumerated from '1' to '16'. A new piece is introduced, Wave.
 
 \clearpage % ..........................................................
 
@@ -33,27 +32,25 @@ Activation is done in the same way as with Pyramid. Own piece
 has to capture field at which Wave is located before Wave can
 move.
 
-After activation Wave moves like Queen. Pawn can activate Wave
-not just at its' capture-fields, but also on its' step-fields.
-Wave is not blocked by any piece, it can continue its' movement
-freely, as if there are no pieces on board at all.
+After activation Wave moves like piece that just activated it, with
+additional provision that Wave can move over multiple step-fields even
+if activating piece can move for only one. Pawn can activate Wave not
+just at its' capture-fields, but also on its' step-fields. Wave is not
+blocked by any piece, it can continue its' movement freely, as if there
+are no pieces on board at all.
 
-Wave cannot capture any piece. Consequenly, Wave cannot check
-opponent's King, and hence can't participate in a checkmate.
+Wave cannot capture any piece. Consequenly, Wave cannot check opponent's
+King, and hence can't participate in a checkmate.
 
-Wave can activate any own piece, except King. Wave can also
-activate opponent's Wave.
+Wave can activate any own piece, except King. Wave can also activate
+opponent's Wave.
 
 In algebraic notation, symbol for Wave is 'W'.
 
+\clearpage % ..........................................................
+
 \subsection*{Activation}
 \addcontentsline{toc}{subsection}{Activation}
-
-For the next few examples I'll use the same setup, shown on next
-page, with Pegasus making 5-step move before activating Wave. That
-is momentum Wave will be receiving with activation.
-
-\clearpage % ..........................................................
 
 \noindent
 % \begin{figure}[t]
@@ -80,6 +77,25 @@ activated by said Wave (or lost if no piece is activated).
 
 \subsection*{Cascading}
 \addcontentsline{toc}{subsection}{Cascading}
+
+\clearpage % ..........................................................
+
+\subsection*{Activation by Pawn}
+\addcontentsline{toc}{subsection}{Activation by Pawn}
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_move_wave_activation_by_pawn.png}
+\caption{Wave activation by Pawns}
+\label{fig:mw_activation_by_pawns}
+% \centering
+\end{figure}
+
+Pawns can activate Waves on own capture-field giving it 1 momentum (1).
+Pawns can also activate Waves on step-fields, giving it count of traveled-over
+step-fields as momentum. For Pawn 2 that would be 1 momentum, while for Pawn 3
+that would be 3.
 
 \clearpage % ..........................................................
 

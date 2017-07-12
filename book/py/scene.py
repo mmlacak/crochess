@@ -356,7 +356,8 @@ class Scene(ScenePegasusMixin, \
                 # self.move_pyramid_promo_init, \
                 # self.move_pyramid_conversion_init, \
                 # self.move_pyramid_activation_by_pawn, \
-                self.move_pyramid_cascading_init, \
+                # self.move_pyramid_cascading_init, \
+                self.move_wave_activation_by_pawn, \
 #                 self.move_pyramid_cascading_activated_1, \
 #                 self.move_pyramid_cascading_activated_2, \
 #                 self.move_pyramid_cascading_end, \
