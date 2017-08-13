@@ -14,8 +14,11 @@ echo
 # Renders all images at final size (large!), slow rendering.
 # python main_gfx.py -f -a
 
+# Renders all images at normal size.
+python main_gfx.py -n -a
+
 # Renders all images at draft size.
-python main_gfx.py -d -a
+# python main_gfx.py -d -a
 
 echo
 
