@@ -34,8 +34,11 @@ move.
 
 After activation Wave moves like piece that just activated it.
 Additionally, Wave can move over multiple step-fields, in the same
-fashion, even if activating piece can move for only one. Pawn can
-activate Wave not just at its' capture-fields but also on its'
+fashion, even if activating piece can move for only one.
+
+\textbf{\huge{TODO :: link to "activated by/moves as" table}} % TODO :: FIX ME !!!
+
+Pawn can activate Wave not just at its' capture-fields but also on its'
 step-fields. Wave is not blocked by any piece, it can continue its'
 movement freely as if there are no pieces on board at all.
 
@@ -61,17 +64,28 @@ In algebraic notation symbol for Wave is 'W'.
 % \centering
 \end{figure}
 
-As before, activation of Wave is done by full move to left by Pegasus,
-shown in red. Note that Pegasus, just as any other piece, cannot move
-past Wave, except another Wave, own or opponent's, shown in grey.
+Above, Knight is about to activate Wave. After activation, Wave could
+continue movement the same way Knight moves over multiple step-fields,
+thus moving as if activated by Pegasus. Wave does not spend received
+momentum while moving, and would transfer it entirely to piece
+activated by Wave.
 
 \clearpage % ..........................................................
 
-Unlike any
-other piece, Wave does not spend received momentum moving, it can
-move past momentum limit, in this case for more than just 5 fields.
-Momentum carried by Wave is in entirety transferred to piece
-activated by said Wave (or lost if no piece is activated).
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_move_wave_activated.png}
+\caption{Wave activated}
+\label{fig:wave_activated}
+% \centering
+\end{figure}
+
+Once activated, Wave can move unhindered by surrounding pieces (green arrows),
+even if they occupy step-fields in-between. Wave can also activate (red arrows)
+pieces obscured by others, for instance light Pyramid which would otherwise
+be out of reach for regular piece, e.g. Pegasus. Note, Wave cannot activate
+Kings and opponent's pieces (grey arrows), except dark Wave.
 
 \clearpage % ..........................................................
 

@@ -28,10 +28,23 @@ class SceneWaveMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
 
-        self.board.set_piece(3, 4, piece=PieceType(PieceType.Wave))
-        self.board.set_piece(5, 5, piece=PieceType(PieceType.Knight))
+        self.board.set_piece(1, 1, piece=PieceType(PieceType.Wave))
+        self.board.set_piece(0, 3, piece=PieceType(PieceType.Knight))
 
+        self.arrows.append( SH.get_new_arrow(0, 3, 1, 1, **get_arrow_colors_alt(True)) )
 
+        # direction <1, 2>
+        self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(4, 7, piece=PieceType(-PieceType.Pyramid))
+        self.board.set_piece(5, 9, piece=PieceType(-PieceType.Queen))
+        self.board.set_piece(7, 13, piece=PieceType(PieceType.Bishop))
+
+        # direction <2, 1>
+        self.board.set_piece(3, 2, piece=PieceType(PieceType.King))
+        self.board.set_piece(5, 3, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(7, 4, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(9, 5, piece=PieceType(-PieceType.King))
+        self.board.set_piece(13, 7, piece=PieceType(-PieceType.Wave))
 
         return self.format_return_values("move_wave_init")
 
@@ -41,36 +54,46 @@ class SceneWaveMixin(object):
         self.board.clear()
         self.delete_all_marks()
 
-        start_pegasus = (13, 9)
-        pos_pegasus = (3, 4)
-        self.board.set_piece(*pos_pegasus, piece=PieceType(PieceType.Pegasus))
-
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
-        # get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
 
-        # get_arrow_action_colors = SH.get_func_get_colors(*self.get_arrow_action_colors(bt))
-        get_text_action_colors = SH.get_func_get_colors(*self.get_text_action_colors(bt), font=get_font_definition(bt.get_size()))
+        self.board.set_piece(1, 1, piece=PieceType(PieceType.Knight))
 
-        gen_rel = MG.gen_knight_rel_moves() # MG.get_gen_move((-2, -1))
-        gen_abs_pos = MG.get_gen_abs_pos(gen_rel, start=pos_pegasus, pos_limits=self.board.get_position_limits())
+        self.arrows.append( SH.get_new_arrow(1, 1, 0, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 1, 3, 0, **get_arrow_colors(True)) )
 
-        i = 1
-        start_arrow = pos_pegasus
-        for pos in gen_abs_pos():
-            arrow = (start_arrow[0], start_arrow[1], pos[0], pos[1])
+        # direction <1, 2>
+        self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(4, 7, piece=PieceType(-PieceType.Pyramid))
+        self.board.set_piece(5, 9, piece=PieceType(-PieceType.Queen))
+        self.board.set_piece(7, 13, piece=PieceType(PieceType.Bishop))
 
-            self.arrows.append( SH.get_new_arrow(*arrow, **get_arrow_colors(True)) )
-            if pos != start_pegasus:
-                self.texts.append( SH.get_new_text(str(i), *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
-            else:
-                self.texts.append( SH.get_new_text('G', *get_text_position(*pos, corner=SH.Corner.UpperLeft), **get_text_action_colors(True)) )
-            # self.field_markers.append( SH.get_new_field_marker(*pos, **get_field_marker_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 1, 2, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 3, 3, 5, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 5, 4, 7, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(4, 7, 5, 9, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(5, 9, 6, 11, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 11, 7, 13, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 13, 8, 15, **get_arrow_colors(True)) )
 
-            i += 1
-            start_arrow = pos
+        # direction <2, 1>
+        self.board.set_piece(3, 2, piece=PieceType(PieceType.King))
+        self.board.set_piece(5, 3, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(7, 4, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(9, 5, piece=PieceType(-PieceType.King))
+        self.board.set_piece(13, 7, piece=PieceType(-PieceType.Wave))
+
+        self.arrows.append( SH.get_new_arrow(1, 1, 3, 2, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 2, 5, 3, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 3, 7, 4, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 4, 9, 5, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(9, 5, 11, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(11, 6, 13, 7, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(13, 7, 15, 8, **get_arrow_colors(True)) )
 
         return self.format_return_values("move_wave_activated")
 

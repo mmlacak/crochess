@@ -24,7 +24,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     size = parser.add_mutually_exclusive_group(required=True)
     size.add_argument('-f', '--final', action='store_true', default=False, help='render in final size, cca. 2400 dpi (slow!)')
-    size.add_argument('-g', '--good', action='store_true', default=False, help='render in normal size, cca. 1200 dpi')
+    size.add_argument('-g', '--good', action='store_true', default=False, help='render in good size, cca. 1200 dpi')
     size.add_argument('-n', '--normal', action='store_true', default=False, help='render in normal size, cca. 600 dpi')
     size.add_argument('-d', '--draft', action='store_true', default=False, help='render in draft size, cca. 300 dpi')
     size.add_argument('-i', '--info', action='store_true', default=False, help='render nothing, just print info')
