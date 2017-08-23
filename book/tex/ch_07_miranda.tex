@@ -46,7 +46,9 @@ Wave cannot capture any piece. Consequenly, Wave cannot check opponent's
 King, and hence can't participate in a checkmate.
 
 Wave can activate any own piece, except King. Wave can also activate
-opponent's Wave.
+opponent's Wave. All activated pieces moves just like they normally would,
+but they are restricted by momentum received. Activated Wave moves like
+activating Wave, and without momentum restriction.
 
 In algebraic notation symbol for Wave is 'W'.
 
@@ -67,7 +69,7 @@ In algebraic notation symbol for Wave is 'W'.
 Above, Knight is about to activate Wave. After activation, Wave could
 continue movement the same way Knight moves over multiple step-fields,
 thus moving as if activated by Pegasus. Wave does not spend received
-momentum while moving, and would transfer it entirely to piece
+momentum while moving, and would transfer it entirely to any piece
 activated by Wave.
 
 \clearpage % ..........................................................
@@ -82,10 +84,25 @@ activated by Wave.
 \end{figure}
 
 Once activated, Wave can move unhindered by surrounding pieces (green arrows),
-even if they occupy step-fields in-between. Wave can also activate (red arrows)
-pieces obscured by others, for instance light Pyramid which would otherwise
-be out of reach for regular piece, e.g. Pegasus. Note, Wave cannot activate
-Kings and opponent's pieces (grey arrows), except dark Wave.
+even if they occupy step-fields. Wave can also activate pieces (red arrows)
+obscured by others, for instance light Pyramid which would otherwise be out of
+reach for regular piece, e.g. Pegasus. Note, Wave cannot activate Kings nor
+opponent's pieces (grey arrows), except dark Wave.
+
+\clearpage % ..........................................................
+
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_move_wave_finished.png}
+\caption{Wave finished}
+\label{fig:wave_finished}
+% \centering
+\end{figure}
+
+Activated Bishop now continues the move according to own rules of movement,
+i.e. diagonally. Note that it's restricted by momentum received, and thus
+can move for only one field.
 
 \clearpage % ..........................................................
 

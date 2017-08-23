@@ -97,6 +97,41 @@ class SceneWaveMixin(object):
 
         return self.format_return_values("move_wave_activated")
 
+    def move_wave_finished(self, bt=BoardType.MirandasVeil):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+
+        self.board.set_piece(1, 1, piece=PieceType(PieceType.Knight))
+
+        # direction <1, 2>
+        self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(4, 7, piece=PieceType(-PieceType.Pyramid))
+        self.board.set_piece(5, 9, piece=PieceType(-PieceType.Queen))
+        self.board.set_piece(7, 13, piece=PieceType(PieceType.Wave))
+
+        self.arrows.append( SH.get_new_arrow(7, 13, 6, 12, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 13, 6, 14, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 13, 8, 12, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 13, 8, 14, **get_arrow_colors(True)) )
+
+        # direction <2, 1>
+        self.board.set_piece(3, 2, piece=PieceType(PieceType.King))
+        self.board.set_piece(5, 3, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(7, 4, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(9, 5, piece=PieceType(-PieceType.King))
+        self.board.set_piece(13, 7, piece=PieceType(-PieceType.Wave))
+
+        return self.format_return_values("move_wave_finished")
+
     def move_wave_activation_by_pawn(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
         self.board = Board(bt)
