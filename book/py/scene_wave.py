@@ -25,8 +25,8 @@ class SceneWaveMixin(object):
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
-        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#00C0C0", "#808080", font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(1, 1, piece=PieceType(PieceType.Wave))
         self.board.set_piece(0, 3, piece=PieceType(PieceType.Knight))
@@ -58,8 +58,8 @@ class SceneWaveMixin(object):
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
-        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#00C0C0", "#808080", font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(1, 1, piece=PieceType(PieceType.Knight))
 
@@ -107,8 +107,8 @@ class SceneWaveMixin(object):
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
-        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#00C0C0", "#808080", font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(1, 1, piece=PieceType(PieceType.Knight))
 
@@ -131,6 +131,33 @@ class SceneWaveMixin(object):
         self.board.set_piece(13, 7, piece=PieceType(-PieceType.Wave))
 
         return self.format_return_values("move_wave_finished")
+
+    def move_wave_cascading_init(self, bt=BoardType.MirandasVeil):
+        bt = BoardType(bt)
+        self.board = Board(bt, 7, 7)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#00C0C0", "#808080", font=get_font_definition(bt.get_size()))
+
+        self.board.set_piece(5, 3, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(5, 1, piece=PieceType(PieceType.Wave))
+        self.board.set_piece(3, 1, piece=PieceType(PieceType.Wave))
+        self.board.set_piece(3, 3, piece=PieceType(PieceType.Rook))
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(5, 1, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 1, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+
+        # direction <0, -1>
+        self.arrows.append( SH.get_new_arrow(5, 3, 5, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 2, 5, 1, **get_arrow_colors_alt(True)) )
+
+        return self.format_return_values("move_wave_cascading_init")
 
     def move_wave_activation_by_pawn(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
