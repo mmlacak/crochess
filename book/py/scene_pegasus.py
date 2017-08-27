@@ -50,7 +50,7 @@ class ScenePegasusMixin(object):
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
-        get_text_position_2 = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.5, bottom=0.05)
+        get_text_position_2 = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.45, bottom=0.05)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 

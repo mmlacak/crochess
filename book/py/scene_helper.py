@@ -15,12 +15,12 @@ from gfx_def import GD
 import pixel_math as pm
 
 
-# Default font size @ board size = 10 & rendering size = 8000 pixels.
+# Default font size @ board size = 10 & rendering size = 7200 pixels.
 # It's used to stretch font size, depending on gfx_def, board size, ...
 DEFAULT_FONT_NAME = "sans bold"
 DEFAULT_FONT_SIZE = 192
 DEFAULT_BOARD_SIZE = 10
-DEFAULT_RENDERING_SIZE_PIXEL = 8000
+DEFAULT_RENDERING_SIZE_PIXEL = 7200 # 8000
 DEFAULT_FONT_SIZE_FACTOR = GD.DEFAULT_BOARD_RENDERING_SIZE / float(DEFAULT_RENDERING_SIZE_PIXEL) # :: float
 
 
@@ -185,7 +185,7 @@ class Corner(int):
     def is_lower(self):
         return self in [Corner.LowerLeft, Corner.LowerRight]
 
-def get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05):
+def get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.05):
     def get_text_position(pos_i, pos_j, corner):
         crnr = Corner(corner)
 
