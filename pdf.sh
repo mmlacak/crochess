@@ -12,10 +12,18 @@ rm -rfv *.lot
 rm -rfv *.out
 rm -rfv *.pdf
 rm -rfv *.toc
+echo
 
 pdflatex -draftmode crochess.tex
+echo
+echo
+
+pdflatex -draftmode crochess.tex
+echo
+echo
 
 pdflatex crochess.tex
+echo
 
 cd ..
 echo
