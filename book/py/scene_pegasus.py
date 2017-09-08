@@ -175,3 +175,31 @@ class ScenePegasusMixin(object):
         self.texts.append( SH.get_new_text("6", *get_text_position(4, 0, SH.Corner.UpperRight), **get_text_colors(True)) )
 
         return self.format_return_values("move_pegasus")
+
+    def move_pegasus_step_ply(self, bt=BoardType.CroatianTies):
+        bt = BoardType(bt)
+        self.board = Board(bt, 10, 10)
+        self.board.clear()
+        self.delete_all_marks()
+
+        self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_position_2 = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.45, bottom=0.05)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+
+        # main direction, i.e. <1, 2>
+
+        self.arrows.append( SH.get_new_arrow(2, 1, 3, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 3, 4, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 5, 5, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 7, 6, 9, **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(4, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(5, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(6, 9, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        return self.format_return_values("move_pegasus_step_ply")

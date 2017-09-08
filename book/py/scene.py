@@ -355,6 +355,7 @@ class Scene(ScenePegasusMixin, \
                 # self.move_wave_init, \
                 # self.move_wave_activated, \
                 # self.move_wave_finished, \
+                # self.move_pegasus_step_ply, \
                 self.move_wave_cascading_init, \
                 self.move_wave_cascading_queen, \
                 self.move_wave_cascading_wave_1, \
