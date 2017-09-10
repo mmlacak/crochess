@@ -34,7 +34,7 @@ in movement, Pegasus can not change its' heading.
 
 Pegasus symbol in algebraic notation is 'G', to avoid confusion with Pawn.
 
-\vspace{2\baselineskip}
+\vspace{2.0\baselineskip}
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 
@@ -53,13 +53,14 @@ Knight would.
 \clearpage % ..........................................................
 
 \noindent
-% \begin{figure}[t]
-\begin{figure}[!t]
+\begin{figure}[!h]
+% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/04_move_pegasus_direction.png}
 \caption{Pegasus move direction}
 \label{fig:04_move_pegasus_direction}
 % \centering
 \end{figure}
+
 Once direction is chosen Pegasus can continue its' movement performing one jump
 after another in order from nearest field to furthest. Here, this is marked
 with green arrows. Accessible fields are marked 1 to 4, in order of accessibility,
@@ -70,13 +71,14 @@ any other greyed-out arrow).
 \clearpage % ..........................................................
 
 \noindent
-% \begin{figure}[t]
-\begin{figure}[!t]
+\begin{figure}[!h]
+% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/04_move_pegasus.png}
 \caption{Pegasus moves}
 \label{fig:04_move_pegasus}
 % \centering
 \end{figure}
+
 Pegasus can "jump" over pieces on non-step-fields, Rooks in example above. Numbers
 here enumerate directions of movement. Own piece on step-field stops Pegasus at
 preceding step field, see direction 2. Opponent's piece on step-field can be captured.
@@ -85,20 +87,23 @@ stop at captured step-field, see direction 1.
 
 \clearpage % ..........................................................
 
-\subsection*{Step-fields, ply}
-\addcontentsline{toc}{subsection}{Step-field, ply}
+\section*{New terms}
+\addcontentsline{toc}{section}{New terms}
 
 \noindent
 % \begin{figure}[t]
 \begin{figure}[!h]
+\vspace{-1.0\baselineskip}
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/04_move_pegasus_step_ply.png}
-\caption{Step-fields, ply}
+\caption{Step-fields, capture-fields, ply}
 \label{fig:04_move_pegasus_step_ply}
 % \centering
 \end{figure}
 
-Move along arrow is called step. Field at which arrow points to is called step-field.
-Ply is completed movement of a piece, form its' starting position to its' destination field.
+Above, field 3 is chosen as destination for Pegasus' movement. Move along arrow is a step.
+Field at which arrow points to is a step-field. Here, each step-field is also capture-field,
+Pegasus would be able to capture opponent's piece on it. Completed movement of Pegasus,
+from its' starting position to its' destination field 3 is a ply.
 
 \clearpage % ..........................................................
 

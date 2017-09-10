@@ -190,16 +190,38 @@ class ScenePegasusMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
+        # direction 1, i.e. <2, 1>
+
+        self.arrows.append( SH.get_new_arrow(2, 1, 4, 2, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(4, 2, 6, 3, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(6, 3, 8, 4, **get_arrow_colors(False)) )
+
         # main direction, i.e. <1, 2>
 
         self.arrows.append( SH.get_new_arrow(2, 1, 3, 3, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(3, 3, 4, 5, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(4, 5, 5, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 7, 6, 9, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 7, 6, 9, **get_arrow_colors(False)) )
 
         self.texts.append( SH.get_new_text("1", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(4, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("3", *get_text_position(5, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(6, 9, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        # direction 3, i.e. <-1, 2>
+
+        self.arrows.append( SH.get_new_arrow(2, 1, 1, 3, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(1, 3, 0, 5, **get_arrow_colors(False)) )
+
+        # direction 4, i.e. <-2, 1>
+
+        self.arrows.append( SH.get_new_arrow(2, 1, 0, 2, **get_arrow_colors(False)) )
+
+        # direction 5, i.e. <-2, -1>
+
+        self.arrows.append( SH.get_new_arrow(2, 1, 0, 0, **get_arrow_colors(False)) )
+
+        # direction 6, i.e. <2, -1>
+
+        self.arrows.append( SH.get_new_arrow(2, 1, 4, 0, **get_arrow_colors(False)) )
 
         return self.format_return_values("move_pegasus_step_ply")
