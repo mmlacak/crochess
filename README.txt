@@ -8,5 +8,5 @@ chess and growing ever more complex with each new variant.
 
 
 Blog:
-<a href="https://croatian-chess.blogspot.com/">https://croatian-chess.blogspot.com/</a>
+https://croatian-chess.blogspot.com
 
