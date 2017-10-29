@@ -362,6 +362,9 @@ class Scene(ScenePegasusMixin, \
                 self.move_wave_cascading_rook_b, \
                 self.move_wave_cascading_wave_1_b, \
                 self.move_wave_cascading_queen, \
+                self.move_wave_cascading_wave_2_b, \
+                self.move_wave_cascading_wave_1_c, \
+                self.move_wave_cascading_end, \
 #                 self.move_wave_activation_by_pawn, \
                 ]
 
