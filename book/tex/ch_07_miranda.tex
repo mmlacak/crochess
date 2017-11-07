@@ -111,8 +111,8 @@ can move for only one field.
 
 \clearpage % ..........................................................
 
-\subsection*{Cascading}
-\addcontentsline{toc}{subsection}{Cascading}
+\subsection*{Cascading Waves}
+\addcontentsline{toc}{subsection}{Cascading Waves}
 
 % \noindent
 % % \begin{figure}[t]
@@ -124,15 +124,19 @@ can move for only one field.
 % \end{figure}
 
 \noindent
-\begin{wrapfigure}[3]{l}{0.5625\textwidth}
+\begin{wrapfigure}[13]{l}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_rook.png}
 \caption{Rook starting cascade}
 \label{fig:10_move_wave_cascading_rook}
 % % \centering
 \end{wrapfigure}
+Cascading Waves refers to a move in which two or more Waves have been displaced.
+For example, Wave can activate another Wave. Wave can also activate active
+piece (or Pyramid), which can then activate another Wave.
+
 On the left, Rook is about to activate Wave 1, giving it momentum of 4.
 
-\vspace*{0.35\textheight}
+\vspace*{0.05\textheight}
 \noindent
 \begin{wrapfigure}[9]{r}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_wave_1.png}
@@ -147,42 +151,45 @@ further than just 4 fields away. Wave 1 can also activate Wave 2.
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}[10]{l}{0.5625\textwidth}
+\begin{wrapfigure}[11]{l}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_wave_2.png}
 \caption{Wave 2 cascading}
 \label{fig:10_move_wave_cascading_wave_2}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Activated Wave 2 inherits its' movement rules from activating piece (in this
+case Wave 1), and so can too move as Rook would. It's not obstructed with any
+piece in its' way, nor it's limited by received momentum. Wave 2 can also
+activate either Queen or Rook.
 
-\vspace*{0.15\textheight}
+\vspace*{0.125\textheight}
 \noindent
-\begin{wrapfigure}[10]{r}{0.5625\textwidth}
+\begin{wrapfigure}[9]{r}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_rook_b.png}
 \caption{Rook, 2nd cascading}
 \label{fig:10_move_wave_cascading_rook_b}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Rook is now activated, but it is limited by momentum received, i.e. it can
+move at most 4 fields away. Also, Rook is obstructed by surrounding pieces,
+i.e. it can't move past Wave 1, just as it normaly wouldn't.
 
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}[10]{l}{0.5625\textwidth}
+\begin{wrapfigure}[14]{l}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_wave_1_b.png}
 \caption{Wave 1, 2nd cascading}
 \label{fig:10_move_wave_cascading_wave_1_b}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Activated Wave 1 received the remainder of momentum from Rook, i.e. 2.
+Wave 1 also received rules of movement from Rook, meaning that it would
+(continue to) move as Rook. Again, Wave 1 is not limited by received
+momentum, it can move further than just 2 fields away. Wave 1 can also
+activate either Queen or Wave 2.
 
-\vspace*{0.15\textheight}
+\vspace*{0.05\textheight}
 \noindent
 \begin{wrapfigure}[10]{r}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_queen.png}
@@ -190,48 +197,58 @@ Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
 \label{fig:10_move_wave_cascading_queen}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Activated Queen received momentum of 2, it can move at most 2 fields away.
+Queen can also activate Wave 2, giving it momentum of 0.
 
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}[10]{l}{0.5625\textwidth}
+\begin{wrapfigure}[13]{l}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_wave_2_b.png}
 \caption{Wave 2, 2nd cascading}
 \label{fig:10_move_wave_cascading_wave_2_b}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Activated Wave 2 received rules of movement from Queen, and 0 momentum.
+Wave 2 now moves as Queen, but it's not limited by momentum, and it can
+move past neighboring pieces, Wave 2 can move to any available field.
+Note, since Wave 2 has no momentum it can't activate Rook, only Wave 1.
 
-\vspace*{0.15\textheight}
+\vspace*{0.075\textheight}
 \noindent
-\begin{wrapfigure}[10]{r}{0.5625\textwidth}
+\begin{wrapfigure}[13]{r}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_wave_1_c.png}
 \caption{Wave 1, 3rd cascading}
 \label{fig:10_move_wave_cascading_wave_1_c}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Activated Wave 1 inherits rules of movement from activating piece (Wave 2),
+meaning Wave 1 too now moves as Queen would. Wave 1 also isn't limited by
+received 0 momentum, nor it's obstructed by surrounding pieces. Due to no
+momentum, Wave 1 can't activate neither Queen nor Rook.
 
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}[10]{l}{0.5625\textwidth}
+\begin{wrapfigure}[14]{l}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_cascading_end.png}
 \caption{Wave 1, end cascading}
 \label{fig:10_move_wave_cascading_end}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Wave 1 end this rather long cascade by settling past Rook.
 
+In cascade, Wave inherts rules of movement from activating piece. All other
+pieces moves according to their own rules.
+
+\textbf{\huge{TODO :: link to "activated by/moves as" table}} % TODO :: FIX ME !!!
+
+During cascade, after each ply (movement of a piece) activation takes place
+according to current positioning of pieces on the board, just as it would
+at the beginning of cascade.
+
+This makes it possible to activate piece, in the same cascade in which it
+started the whole cascade, Rook in this example.
 
 \clearpage % ..........................................................
 

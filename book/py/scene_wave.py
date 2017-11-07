@@ -853,7 +853,6 @@ class SceneWaveMixin(object):
 
     # --- cascading opponent ------------------------------------------------------------------------------------------------------
 
-
     def move_wave_activation_by_pawn(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
         self.board = Board(bt)
