@@ -36,6 +36,7 @@ DEFAULT_KNIGHT_REL_MOVES = [ (2, 1), \
                              (1, -2), \
                              (2, -1) ]
 
+# 2
 def gen_knight_rel_moves(moves=DEFAULT_KNIGHT_REL_MOVES):
     return gen_relative_moves(moves)
 
@@ -59,6 +60,7 @@ DEFAULT_UNICORN_REL_LONG_MOVES = [ (4, 1), \
                                    (3, -2), \
                                    (4, -1) ]
 
+# 1
 def gen_unicorn_rel_long_moves(moves=DEFAULT_UNICORN_REL_LONG_MOVES):
     return gen_relative_moves(moves)
 
@@ -77,6 +79,7 @@ def get_gen_moves(rel, pos=(0, 0)):
 
     return gen_moves
 
+# 3
 def get_gen_abs_pos(gen_rel, start=(0, 0), pos_limits=((0, 25), (0, 25))):
     def gen_abs_pos():
         for rel in gen_rel if I.isgenerator(gen_rel) else gen_rel():

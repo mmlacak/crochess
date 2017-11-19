@@ -352,19 +352,18 @@ class Scene(ScenePegasusMixin, \
 
     def get_recent_example_scene_methods(self):
         return  [
-                # self.move_wave_init, \
-                # self.move_wave_activated, \
-                # self.move_wave_finished, \
-                # self.move_pegasus_step_ply, \
-                self.move_wave_cascading_rook, \
-                self.move_wave_cascading_wave_1, \
-                self.move_wave_cascading_wave_2, \
-                self.move_wave_cascading_rook_b, \
-                self.move_wave_cascading_wave_1_b, \
-                self.move_wave_cascading_queen, \
-                self.move_wave_cascading_wave_2_b, \
-                self.move_wave_cascading_wave_1_c, \
-                self.move_wave_cascading_end, \
+                # self.move_wave_cascading_rook, \
+                # self.move_wave_cascading_wave_1, \
+                # self.move_wave_cascading_wave_2, \
+                # self.move_wave_cascading_rook_b, \
+                # self.move_wave_cascading_wave_1_b, \
+                # self.move_wave_cascading_queen, \
+                # self.move_wave_cascading_wave_2_b, \
+                # self.move_wave_cascading_wave_1_c, \
+                # self.move_wave_cascading_end, \
+                self.move_wave_opponent_light_queen, \
+                self.move_wave_opponent_light_wave, \
+                self.move_wave_opponent_dark_wave, \
 #                 self.move_wave_activation_by_pawn, \
                 ]
 

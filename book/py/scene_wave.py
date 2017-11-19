@@ -588,7 +588,7 @@ class SceneWaveMixin(object):
 
     # --- cascading opponent ------------------------------------------------------------------------------------------------------
 
-    def move_wave_opponent_rook(self, bt=BoardType.MirandasVeil):
+    def move_wave_opponent_light_queen(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
@@ -601,22 +601,19 @@ class SceneWaveMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
         get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
 
-        self.board.set_piece(5, 6, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(5, 6, piece=PieceType(PieceType.Queen))
         self.board.set_piece(5, 3, piece=PieceType(PieceType.Wave))
-        self.board.set_piece(3, 3, piece=PieceType(PieceType.Wave))
-        self.board.set_piece(3, 5, piece=PieceType(PieceType.Queen))
-
-        self.texts.append( SH.get_new_text("1", *get_text_position(5, 3, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+        self.board.set_piece(3, 3, piece=PieceType(-PieceType.Wave))
+        self.board.set_piece(3, 5, piece=PieceType(-PieceType.Queen))
 
         # direction <0, -1>
         self.arrows.append( SH.get_new_arrow(5, 6, 5, 5, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 5, 5, 4, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 4, 5, 3, **get_arrow_colors_alt(True)) )
 
-        return self.format_return_values("move_wave_opponent_rook")
+        return self.format_return_values("move_wave_opponent_light_queen")
 
-    def move_wave_opponent_wave_1(self, bt=BoardType.MirandasVeil):
+    def move_wave_opponent_light_wave(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
@@ -629,11 +626,9 @@ class SceneWaveMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
         get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
 
-        self.board.set_piece(5, 3, piece=PieceType(PieceType.Rook))
-        self.board.set_piece(3, 3, piece=PieceType(PieceType.Wave))
-        self.board.set_piece(3, 5, piece=PieceType(PieceType.Queen))
-
-        self.texts.append( SH.get_new_text("2", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+        self.board.set_piece(3, 5, piece=PieceType(-PieceType.Queen))
+        self.board.set_piece(3, 3, piece=PieceType(-PieceType.Wave))
+        self.board.set_piece(5, 3, piece=PieceType(PieceType.Queen))
 
         # direction <1, 0>
         self.arrows.append( SH.get_new_arrow(5, 3, 6, 3, **get_arrow_colors(True)) )
@@ -663,9 +658,35 @@ class SceneWaveMixin(object):
         self.arrows.append( SH.get_new_arrow(5, 1, 5, 0, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 0, 5, -1, **get_arrow_colors(True)) )
 
-        return self.format_return_values("move_wave_opponent_wave_1")
+        # direction <1, 1>
+        self.arrows.append( SH.get_new_arrow(5, 3, 6, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 4, 7, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 5, 8, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(8, 6, 9, 7, **get_arrow_colors(True)) )
 
-    def move_wave_opponent_wave_2(self, bt=BoardType.MirandasVeil):
+        # direction <1, -1>
+        self.arrows.append( SH.get_new_arrow(5, 3, 6, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 2, 7, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 1, 8, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(8, 0, 9, -1, **get_arrow_colors(True)) )
+
+        # direction <-1, 1>
+        self.arrows.append( SH.get_new_arrow(5, 3, 4, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 4, 3, 5, **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(3, 5, 2, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 6, 1, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 7, 0, 8, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(0, 8, -1, 9, **get_arrow_colors(True)) )
+
+        # direction <-1, -1>
+        self.arrows.append( SH.get_new_arrow(5, 3, 4, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 2, 3, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 1, 2, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 0, 1, -1, **get_arrow_colors(True)) )
+
+        return self.format_return_values("move_wave_opponent_light_wave")
+
+    def move_wave_opponent_dark_wave(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
         self.board = Board(bt, 9, 9)
         self.board.clear()
@@ -678,178 +699,68 @@ class SceneWaveMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
         get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
 
-        self.board.set_piece(5, 3, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(3, 5, piece=PieceType(-PieceType.Queen))
         self.board.set_piece(3, 3, piece=PieceType(PieceType.Wave))
-        self.board.set_piece(3, 5, piece=PieceType(PieceType.Queen))
-
-        self.texts.append( SH.get_new_text("1", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+        self.board.set_piece(5, 3, piece=PieceType(PieceType.Queen))
 
         # direction <1, 0>
         self.arrows.append( SH.get_new_arrow(3, 3, 4, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 3, 5, 3, **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 3, 5, 3, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 3, 6, 3, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(6, 3, 7, 3, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(7, 3, 8, 3, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(8, 3, 9, 3, **get_arrow_colors(True)) )
 
         # direction <-1, 0>
+        self.arrows.append( SH.get_new_arrow(5, 3, 4, 3, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 3, 3, 3, **get_arrow_colors_alt(True)) )
         self.arrows.append( SH.get_new_arrow(3, 3, 2, 3, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(2, 3, 1, 3, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(1, 3, 0, 3, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(0, 3, -1, 3, **get_arrow_colors(True)) )
-
-        # direction <0, 1>
-        self.arrows.append( SH.get_new_arrow(3, 3, 3, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 4, 3, 5, **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 5, 3, 6, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 6, 3, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 7, 3, 8, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 8, 3, 9, **get_arrow_colors(True)) )
-
-        # direction <0, -1>
-        self.arrows.append( SH.get_new_arrow(3, 3, 3, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 2, 3, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 1, 3, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 0, 3, -1, **get_arrow_colors(True)) )
-
-        return self.format_return_values("move_wave_opponent_wave_2")
-
-    def move_wave_opponent_rook_b(self, bt=BoardType.MirandasVeil):
-        bt = BoardType(bt)
-        self.board = Board(bt, 9, 9)
-        self.board.clear()
-        self.delete_all_marks()
-
-        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
-        get_font_definition = SH.get_func_get_font_definition()
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
-        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
-        get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
-
-        self.board.set_piece(5, 3, piece=PieceType(PieceType.Wave))
-        self.board.set_piece(3, 3, piece=PieceType(PieceType.Wave))
-        self.board.set_piece(3, 5, piece=PieceType(PieceType.Queen))
-
-        self.texts.append( SH.get_new_text("1", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(5, 3, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
-
-        # direction <1, 0>
-        self.arrows.append( SH.get_new_arrow(5, 3, 6, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 3, 7, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(7, 3, 8, 3, **get_arrow_colors(True)) )
-
-        # direction <-1, 0>
-        self.arrows.append( SH.get_new_arrow(5, 3, 4, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 3, 3, 3, **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 3, 2, 3, **get_arrow_colors(False)) )
 
         # direction <0, 1>
         self.arrows.append( SH.get_new_arrow(5, 3, 5, 4, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 4, 5, 5, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 5, 5, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 6, 5, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 7, 5, 8, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 8, 5, 9, **get_arrow_colors(True)) )
 
         # direction <0, -1>
         self.arrows.append( SH.get_new_arrow(5, 3, 5, 2, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 2, 5, 1, **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(5, 1, 5, 0, **get_arrow_colors(True)) )
-
-        return self.format_return_values("move_wave_opponent_rook_b")
-
-    def move_wave_opponent_wave_1_b(self, bt=BoardType.MirandasVeil):
-        bt = BoardType(bt)
-        self.board = Board(bt, 9, 9)
-        self.board.clear()
-        self.delete_all_marks()
-
-        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
-        get_font_definition = SH.get_func_get_font_definition()
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
-        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
-        get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
-
-        self.board.set_piece(3, 5, piece=PieceType(PieceType.Queen))
-        self.board.set_piece(3, 3, piece=PieceType(PieceType.Rook))
-        self.board.set_piece(5, 3, piece=PieceType(PieceType.Wave))
-
-        self.texts.append( SH.get_new_text("2", *get_text_position(5, 3, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
-
-        # direction <1, 0>
-        self.arrows.append( SH.get_new_arrow(3, 3, 4, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 3, 5, 3, **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 3, 6, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 3, 7, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(7, 3, 8, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(8, 3, 9, 3, **get_arrow_colors(True)) )
-
-        # direction <-1, 0>
-        self.arrows.append( SH.get_new_arrow(3, 3, 2, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 3, 1, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(1, 3, 0, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(0, 3, -1, 3, **get_arrow_colors(True)) )
-
-        # direction <0, 1>
-        self.arrows.append( SH.get_new_arrow(3, 3, 3, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 4, 3, 5, **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 5, 3, 6, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 6, 3, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 7, 3, 8, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 8, 3, 9, **get_arrow_colors(True)) )
-
-        # direction <0, -1>
-        self.arrows.append( SH.get_new_arrow(3, 3, 3, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 2, 3, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 1, 3, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 0, 3, -1, **get_arrow_colors(True)) )
-
-        return self.format_return_values("move_wave_opponent_wave_1_b")
-
-    def move_wave_opponent_queen(self, bt=BoardType.MirandasVeil):
-        bt = BoardType(bt)
-        self.board = Board(bt, 9, 9)
-        self.board.clear()
-        self.delete_all_marks()
-
-        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
-        get_font_definition = SH.get_func_get_font_definition()
-        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
-        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
-        get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
-
-        self.board.set_piece(3, 5, piece=PieceType(PieceType.Wave))
-        self.board.set_piece(3, 3, piece=PieceType(PieceType.Rook))
-        self.board.set_piece(5, 3, piece=PieceType(PieceType.Wave))
-
-        self.texts.append( SH.get_new_text("1", *get_text_position(3, 5, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(5, 3, SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
-
-        # direction <1, 0>
-        self.arrows.append( SH.get_new_arrow(3, 5, 4, 5, **get_arrow_colors(True)) )
-
-        # direction <-1, 0>
-        self.arrows.append( SH.get_new_arrow(3, 5, 2, 5, **get_arrow_colors(True)) )
-
-        # direction <0, 1>
-        self.arrows.append( SH.get_new_arrow(3, 5, 3, 6, **get_arrow_colors(True)) )
-
-        # direction <0, -1>
-        self.arrows.append( SH.get_new_arrow(3, 5, 3, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 0, 5, -1, **get_arrow_colors(True)) )
 
         # direction <1, 1>
-        self.arrows.append( SH.get_new_arrow(3, 5, 4, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 3, 6, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 4, 7, 5, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 5, 8, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(8, 6, 9, 7, **get_arrow_colors(True)) )
 
         # direction <1, -1>
-        self.arrows.append( SH.get_new_arrow(3, 5, 4, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 3, 6, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(6, 2, 7, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(7, 1, 8, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(8, 0, 9, -1, **get_arrow_colors(True)) )
 
         # direction <-1, 1>
+        self.arrows.append( SH.get_new_arrow(5, 3, 4, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 4, 3, 5, **get_arrow_colors(False)) )
         self.arrows.append( SH.get_new_arrow(3, 5, 2, 6, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 6, 1, 7, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(1, 7, 0, 8, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(0, 8, -1, 9, **get_arrow_colors(True)) )
 
         # direction <-1, -1>
-        self.arrows.append( SH.get_new_arrow(3, 5, 2, 4, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(5, 3, 4, 2, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(4, 2, 3, 1, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(3, 1, 2, 0, **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(2, 0, 1, -1, **get_arrow_colors(True)) )
 
-        return self.format_return_values("move_wave_opponent_queen")
+        return self.format_return_values("move_wave_opponent_dark_wave")
+
 
     # --- cascading opponent ------------------------------------------------------------------------------------------------------
 
