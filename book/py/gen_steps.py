@@ -43,13 +43,13 @@ DEFAULT_UNICORN_REL_LONG_MOVES = [ ( 4,  1),    \
 def add(pos1, pos2):
     return ( pos1[0] + pos2[0], pos1[1] + pos2[1] )
 
-def gen_call(gen):
+def call_gen(gen):
     g = gen()
 
-    def func_call():
+    def call_func():
         return g.next()
 
-    return func_call
+    return call_func
 
 def get_gen_steps(start=(0, 0), rel=(1, 1)):
     def gen_steps():
@@ -60,6 +60,16 @@ def get_gen_steps(start=(0, 0), rel=(1, 1)):
 
     return gen_steps
 
+def get_gen_steps_prev(start=(0, 0), rel=(1, 1)):
+    def gen_steps():
+        prev = current = start
+        while True:
+            current = add(current, rel)
+            yield prev + current # (i, j) + (k, l) --> (i, j, k, l)
+            prev = current
+
+    return gen_steps
+
 def get_func_is_valid(pos_bounds=((0, 25), (0, 25))):
     def is_valid(pos=(-1, -1)):
         return (pos_bounds[0][0] <= pos[0] <= pos_bounds[0][1]) and \
@@ -67,12 +77,13 @@ def get_func_is_valid(pos_bounds=((0, 25), (0, 25))):
 
     return is_valid
 
-def get_func_multi_steps(start=(0, 0), rel_lst=[], pos_bounds=((0, 25), (0, 25))):
+def get_func_multi_steps(start=(0, 0), rel_lst=[], pos_bounds=((0, 25), (0, 25)), gen_steps=None):
     is_valid = get_func_is_valid(pos_bounds=pos_bounds)
+    gen = get_gen_steps if gen_steps is None else gen_steps
 
     def gen_multi_steps():
         for rel in rel_lst:
-            gs = get_gen_steps(start=start, rel=rel)
+            gs = gen(start=start, rel=rel)
             for pos in gs():
                 if is_valid(pos):
                     yield pos
@@ -84,7 +95,7 @@ def get_func_multi_steps(start=(0, 0), rel_lst=[], pos_bounds=((0, 25), (0, 25))
 
 if __name__ == '__main__':
     g = get_gen_steps( start=(3, 1), rel=(1, 5) )
-    f = gen_call(g)
+    f = call_gen(g)
 
     print
     print g
@@ -103,6 +114,26 @@ if __name__ == '__main__':
     print
 
 
+    gp = get_gen_steps_prev( start=(3, 1), rel=(1, 5) )
+    fp = call_gen(gp)
+
+    print
+    print gp
+    print gp()
+    print
+    print fp
+    print
+    print fp()
+    print fp()
+    print fp()
+    print fp()
+    print fp()
+    print fp()
+    print fp()
+    print fp()
+    print
+
+
     gms = get_func_multi_steps(start=(2, 3), rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((-5, 7), (-3, 9)))
 
     print
@@ -111,6 +142,19 @@ if __name__ == '__main__':
     print
 
     for p in gms():
+        print p
+
+    print
+
+
+    gmps = get_func_multi_steps(start=(2, 3), rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((-5, 7), (-3, 9)), gen_steps=get_gen_steps_prev)
+
+    print
+    print gmps
+    print gmps()
+    print
+
+    for p in gmps():
         print p
 
     print
