@@ -9,7 +9,7 @@ from board import BoardType
 from board import Board, BoardHints
 from mark import Arrow, Text, FieldMarker
 
-# import gen_steps as GS
+import gen_steps as GS
 import scene_helper as SH
 
 
@@ -601,15 +601,17 @@ class SceneWaveMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
         get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
 
-        self.board.set_piece(5, 6, piece=PieceType(PieceType.Queen))
+        start = (5, 6)
+        self.board.set_piece(*start, piece=PieceType(PieceType.Queen))
         self.board.set_piece(5, 3, piece=PieceType(PieceType.Wave))
         self.board.set_piece(3, 3, piece=PieceType(-PieceType.Wave))
         self.board.set_piece(3, 5, piece=PieceType(-PieceType.Queen))
 
         # direction <0, -1>
-        self.arrows.append( SH.get_new_arrow(5, 6, 5, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 5, 5, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 4, 5, 3, **get_arrow_colors_alt(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
 
         return self.format_return_values("move_wave_opponent_light_queen")
 
@@ -626,63 +628,72 @@ class SceneWaveMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
         get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
 
+        start = (5, 3)
         self.board.set_piece(3, 5, piece=PieceType(-PieceType.Queen))
         self.board.set_piece(3, 3, piece=PieceType(-PieceType.Wave))
-        self.board.set_piece(5, 3, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(*start, piece=PieceType(PieceType.Queen))
 
         # direction <1, 0>
-        self.arrows.append( SH.get_new_arrow(5, 3, 6, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 3, 7, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(7, 3, 8, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(8, 3, 9, 3, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, 0)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <-1, 0>
-        self.arrows.append( SH.get_new_arrow(5, 3, 4, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 3, 3, 3, **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 3, 2, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 3, 1, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(1, 3, 0, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(0, 3, -1, 3, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <0, 1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 5, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 4, 5, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 5, 5, 6, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 6, 5, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 7, 5, 8, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 8, 5, 9, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(0, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <0, -1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 5, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 2, 5, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 1, 5, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 0, 5, -1, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <1, 1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 6, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 4, 7, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(7, 5, 8, 6, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(8, 6, 9, 7, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <1, -1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 6, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 2, 7, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(7, 1, 8, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(8, 0, 9, -1, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <-1, 1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 4, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 4, 3, 5, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(3, 5, 2, 6, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 6, 1, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(1, 7, 0, 8, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(0, 8, -1, 9, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <-1, -1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 4, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 2, 3, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 1, 2, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 0, 1, -1, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         return self.format_return_values("move_wave_opponent_light_wave")
 
@@ -699,65 +710,72 @@ class SceneWaveMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
         get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
 
+        start = (3, 3)
         self.board.set_piece(3, 5, piece=PieceType(-PieceType.Queen))
-        self.board.set_piece(3, 3, piece=PieceType(PieceType.Wave))
+        self.board.set_piece(*start, piece=PieceType(PieceType.Wave))
         self.board.set_piece(5, 3, piece=PieceType(PieceType.Queen))
 
         # direction <1, 0>
-        self.arrows.append( SH.get_new_arrow(3, 3, 4, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 3, 5, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 3, 6, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 3, 7, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(7, 3, 8, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(8, 3, 9, 3, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, 0)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <-1, 0>
-        self.arrows.append( SH.get_new_arrow(5, 3, 4, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 3, 3, 3, **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 3, 2, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 3, 1, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(1, 3, 0, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(0, 3, -1, 3, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <0, 1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 5, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 4, 5, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 5, 5, 6, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 6, 5, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 7, 5, 8, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 8, 5, 9, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(0, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <0, -1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 5, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 2, 5, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 1, 5, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 0, 5, -1, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <1, 1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 6, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 4, 7, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(7, 5, 8, 6, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(8, 6, 9, 7, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <1, -1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 6, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(6, 2, 7, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(7, 1, 8, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(8, 0, 9, -1, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <-1, 1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 4, 4, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 4, 3, 5, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(3, 5, 2, 6, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 6, 1, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(1, 7, 0, 8, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(0, 8, -1, 9, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         # direction <-1, -1>
-        self.arrows.append( SH.get_new_arrow(5, 3, 4, 2, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 2, 3, 1, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 1, 2, 0, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(2, 0, 1, -1, **get_arrow_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         return self.format_return_values("move_wave_opponent_dark_wave")
 
