@@ -12,7 +12,7 @@ from board import Board, BoardHints
 from mark import Arrow, Text, FieldMarker
 
 from gfx_def import GD
-import move_gen as MG
+# import gen_steps as GS
 import scene_helper as SH
 
 from scene_pegasus import ScenePegasusMixin

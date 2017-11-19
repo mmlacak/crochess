@@ -9,7 +9,7 @@ from board import BoardType
 from board import Board, BoardHints
 from mark import Arrow, Text, FieldMarker
 
-import move_gen as MG
+# import gen_steps as GS
 import scene_helper as SH
 
 
