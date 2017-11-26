@@ -30,7 +30,7 @@ class SceneUnicornMixin(object):
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
-        gen_abs_pos = GS.get_func_multi_steps(start=start, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=self.board.get_position_limits())
+        gen_abs_pos = GS.get_gen_multi_steps(start=start, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=self.board.get_position_limits())
 
         i = 1
         for pos in gen_abs_pos():
@@ -55,7 +55,7 @@ class SceneUnicornMixin(object):
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
 
-        gen_abs_pos = GS.get_func_multi_steps(start=start, rel_lst=GS.DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((3, 11), (2, 10)))
+        gen_abs_pos = GS.get_gen_multi_steps(start=start, rel_lst=GS.DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((3, 2), (11, 10)))
 
         i = 1
         for pos in gen_abs_pos():

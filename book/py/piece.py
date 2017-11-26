@@ -57,6 +57,11 @@ class PieceType(int):
                  PieceType.Monolith: 'M',
                  PieceType.Starchild: 'I' }[self.get_enumerated()]
 
+    def get_label(self):
+        sym = self.get_symbol()
+        lbl = sym if self.is_light() else sym.lower()
+        return lbl
+
     def get_name(self):
         return { PieceType.none: 'none',
                  PieceType.Pawn: 'Pawn',

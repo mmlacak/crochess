@@ -165,7 +165,7 @@ class BoardType(int):
 
     def get_position_limits(self):
         limit = self.get_size() - 1
-        return ((0, limit), (0, limit))
+        return ((0, 0), (limit, limit))
 
 
 class BoardHints(object):
@@ -230,7 +230,7 @@ class Board(object):
     def get_position_limits(self):
         h = self._height - 1
         w = self._width - 1
-        return ((0, h), (0, w))
+        return ((0, 0), (w, h))
 
     # Pretending to be a list.
 
@@ -260,3 +260,28 @@ class Board(object):
                 if p == pt:
                     return p
         return None
+
+    def __str__(self):
+        s = "-" * self._width + "\n"
+        for j in xrange(self._height):
+            for i in xrange(self._width):
+                p = self.get_piece(i, j)
+                s += "%c" % p.get_label()
+            s += "\n"
+        s += "-" * self._width + "\n"
+        return s
+
+
+if __name__ == '__main__':
+    b = Board(BoardType.Classical, width=3, height=2)
+
+#     b.set_piece(PieceType.Bishop, 2, 1)
+    b.set_piece(PieceType.Pawn, 1, 0)
+    b.set_piece(PieceType.Knight, 0, 1)
+    # b.set_piece(-PieceType.Pawn, 0, 1)
+
+    print
+    print b.get_position_limits()
+    print
+    print str(b)
+    print
