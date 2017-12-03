@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2017 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 from piece import PieceType
@@ -218,48 +218,19 @@ class Board(object):
 
     def set_piece(self, i, j, piece):
         p = PieceType(piece)
-        self[j][i] = p
+        self._board[j][i] = p
 
     def set_pieces(self, l):
         for t in l:
             self.set_piece(*t)
 
     def get_piece(self, i, j):
-        return self[j][i]
+        return self._board[j][i]
 
     def get_position_limits(self):
         h = self._height - 1
         w = self._width - 1
         return ((0, 0), (w, h))
-
-    # Pretending to be a list.
-
-    def __len__(self):
-        return self._width * self._height
-
-    def __getitem__(self, index):
-        return self._board[index]
-
-    def __setitem__(self, index, piece):
-        p = PieceType(piece)
-        self._board[index] = p
-
-    def __delitem__(self, index):
-        self._board[index] = PieceType(PieceType.none)
-
-    def __iter__(self):
-        return iter(self._board)
-
-    def __reversed__(self):
-        raise NotImplementedError("Can't reverse board. All pieces would fall off.")
-
-    def __contains__(self, piece):
-        pt = PieceType(piece)
-        for l in self._board:
-            for p in l:
-                if p == pt:
-                    return p
-        return None
 
     def __str__(self):
         s = "-" * self._width + "\n"
@@ -275,10 +246,16 @@ class Board(object):
 if __name__ == '__main__':
     b = Board(BoardType.Classical, width=3, height=2)
 
-#     b.set_piece(PieceType.Bishop, 2, 1)
-    b.set_piece(PieceType.Pawn, 1, 0)
-    b.set_piece(PieceType.Knight, 0, 1)
-    # b.set_piece(-PieceType.Pawn, 0, 1)
+    print
+    print b.get_position_limits()
+    print
+    print str(b)
+    print
+
+    b.set_piece(2, 1, PieceType.Bishop)
+    b.set_piece(1, 0, PieceType.Pawn)
+    b.set_piece(0, 1, PieceType.Knight)
+    b.set_piece(1, 1, -PieceType.Pawn)
 
     print
     print b.get_position_limits()
