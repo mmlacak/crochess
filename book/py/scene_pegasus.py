@@ -179,7 +179,8 @@ class ScenePegasusMixin(object):
         self.board.clear()
         self.delete_all_marks()
 
-        self.board.set_piece(2, 1, PieceType(PieceType.Pegasus))
+        start = (2, 1)
+        self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
         get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
@@ -188,37 +189,35 @@ class ScenePegasusMixin(object):
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
         # direction 1, i.e. <2, 1>
-
-        self.arrows.append( SH.get_new_arrow(2, 1, 4, 2, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(4, 2, 6, 3, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(6, 3, 8, 4, **get_arrow_colors(False)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(2, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
 
         # main direction, i.e. <1, 2>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, 2)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
 
-        self.arrows.append( SH.get_new_arrow(2, 1, 3, 3, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(3, 3, 4, 5, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(4, 5, 5, 7, **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(5, 7, 6, 9, **get_arrow_colors(False)) )
-
-        self.texts.append( SH.get_new_text("1", *get_text_position(3, 3, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("2", *get_text_position(4, 5, SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(5, 7, SH.Corner.UpperLeft), **get_text_colors(True)) )
+        coords = GS.call_gen( GS.get_gen_steps(start=start, rel=(1, 2)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         # direction 3, i.e. <-1, 2>
-
-        self.arrows.append( SH.get_new_arrow(2, 1, 1, 3, **get_arrow_colors(False)) )
-        self.arrows.append( SH.get_new_arrow(1, 3, 0, 5, **get_arrow_colors(False)) )
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 2)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
 
         # direction 4, i.e. <-2, 1>
-
         self.arrows.append( SH.get_new_arrow(2, 1, 0, 2, **get_arrow_colors(False)) )
 
         # direction 5, i.e. <-2, -1>
-
         self.arrows.append( SH.get_new_arrow(2, 1, 0, 0, **get_arrow_colors(False)) )
 
         # direction 6, i.e. <2, -1>
-
         self.arrows.append( SH.get_new_arrow(2, 1, 4, 0, **get_arrow_colors(False)) )
 
         return self.format_return_values("move_pegasus_step_ply")
