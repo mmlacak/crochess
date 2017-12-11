@@ -364,6 +364,8 @@ class Scene(ScenePegasusMixin, \
                 self.move_wave_opponent_light_queen, \
                 self.move_wave_opponent_light_wave, \
                 self.move_wave_opponent_dark_wave, \
+                self.move_wave_opponent_dark_queen, \
+                self.move_wave_opponent_end, \
 #                 self.move_wave_activation_by_pawn, \
                 ]
 

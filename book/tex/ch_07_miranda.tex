@@ -251,47 +251,70 @@ it all, Rook in this example.
 \label{fig:10_move_wave_opponent_light_queen}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Cascading opponent refers to a move in which opponent's Wave has been displaced,
+potentially other opponent's pieces.
 
-\vspace*{0.175\textheight}
+On the left, light Queen is about to activate light Wave, giving it momentum of 3.
+
+\vspace*{0.155\textheight}
 \noindent
-\begin{wrapfigure}[10]{r}{0.5625\textwidth}
+\begin{wrapfigure}[5]{r}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_opponent_light_wave.png}
 \caption{Light Wave}
 \label{fig:10_move_wave_opponent_light_wave}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Activated light Wave can activate dark Wave, but can't interact with dark Queen in
+any meaningful way.
 
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}[10]{l}{0.5625\textwidth}
+\begin{wrapfigure}[5]{l}{0.5625\textwidth}
 \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_opponent_dark_wave.png}
 \caption{Dark Wave}
 \label{fig:10_move_wave_opponent_dark_wave}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Activated dark Wave now can activate dark Queen, but cannot interact with light Queen
+in any way.
 
-\vspace*{0.175\textheight}
+\vspace*{0.315\textheight}
 \noindent
-\begin{wrapfigure}[10]{r}{0.5625\textwidth}
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_opponent_dark_wave.png}
+\begin{wrapfigure}[13]{r}{0.5625\textwidth}
+\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_opponent_dark_queen.png}
 \caption{Dark Queen}
 \label{fig:10_move_wave_opponent_dark_queen}
 % % \centering
 \end{wrapfigure}
-Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
-Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin.
+Activated dark Queen is limited to momentum transferred to it, i.e. 3. Dark Queen
+cannot activate light Wave. Just as it could in ordinary, non-cascading move dark
+Queen can capture either light Wave or light Queen. Also, dark Queen is obstructed
+by pieces present on board.
 
+\clearpage % ..........................................................
+
+\noindent
+\begin{wrapfigure}[4]{l}{0.5625\textwidth}
+\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_move_wave_opponent_end.png}
+\caption{Cascading opponent end}
+\label{fig:10_move_wave_opponent_end}
+% % \centering
+\end{wrapfigure}
+This example of cascading opponent ends with dark Queen capturing light Queen.
+
+\vspace*{0.355\textheight}
+In summary, during cascade opponent's pieces retain all of their normal behavior,
+most notably capturing their opponent's (in cascade, that means your own!) pieces.
+
+This behavior retention include checking and checkmating their opponent's (again,
+your own) King, en-passant, promotion of their own pieces (if their Pyramid has
+been activated), etc. This list includes all other movements, features described
+later in this book.
+
+Plies which cannot be performed by opponent's pieces during cascade are those
+involving opponent King, including castling, as that would require activation of
+opponent King, which is not allowed.
 
 \clearpage % ..........................................................
 
