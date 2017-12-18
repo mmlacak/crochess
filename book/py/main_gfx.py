@@ -34,8 +34,8 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     collections.add_argument('-a', '--all', action='store_true', default=False, help='render all collections')
     collections.add_argument('-b', '--boards', action='store_true', default=False, help='render initial position boards')
     collections.add_argument('-p', '--pieces', action='store_true', default=False, help='render newly introduced pieces')
-    collections.add_argument('-r', '--recent_scenes', action='store_true', default=False, help='render recent scenes, move examples')
-    collections.add_argument('-s', '--scenes', action='store_true', default=False, help='render all scenes, move examples')
+    collections.add_argument('-r', '--recent_examples', action='store_true', default=False, help='render recent scenes, move examples')
+    collections.add_argument('-x', '--examples', action='store_true', default=False, help='render all scenes, move examples')
     collections.add_argument('-c', '--castlings', action='store_true', default=False, help='render castling examples')
     collections.add_argument('-e', '--en_passant', action='store_true', default=False, help='render en passant examples')
 
@@ -72,8 +72,8 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     if args.all or args.pieces:
         render.render_all_newly_introduced_pieces()
 
-    if args.all or args.scenes or args.recent_scenes:
-        render.render_all_example_scenes(do_all_scenes=(args.all or args.scenes))
+    if args.all or args.examples or args.recent_examples:
+        render.render_all_examples(do_all_examples=(args.all or args.examples))
 
     if args.all or args.castlings:
         render.render_all_castling_scenes()
