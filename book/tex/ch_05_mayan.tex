@@ -36,12 +36,6 @@ Once activated Pyramid moves similar to Rook, only real difference is that
 it can move for only so many fields as piece activating it has moved, i.e.
 for at most as momentum received.
 
-Pyramid can't check opponent's King, and consequently can't contribute to
-checkmate. Pyramid can capture all the other opponent's pieces after it has
-been activated.
-
-In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
-
 \subsection*{Momentum}
 \addcontentsline{toc}{subsection}{Momentum}
 
@@ -51,6 +45,26 @@ moving, one for each step-field travelled. So Pyramid can't move for more
 fields than received momentum, i.e. for more than activating piece has
 travelled. Momentum can't be saved for later, it is wasted when Pyramid
 moves for less than received momentum.
+
+\clearpage % ..........................................................
+
+\subsection*{Pyramid (cont.)}
+\addcontentsline{toc}{subsection}{Pyramid (cont.)}
+
+Pyramid can't check opponent's King, and consequently can't contribute to
+checkmate. Pyramid can capture all the other opponent's pieces after it has
+been activated, even if it has no remaining momentum, i.e. can't move any
+further.
+
+Pyramid can also promote own Pawns on opponen't side of the board. It can
+also convert any opponet's piece, except King, on own side of the board.
+To do either of these things, Pyramid does not have to have any remaining
+momentum, it's enough if piece in question is within reach.
+
+Pyramid can also activate other Pyramid, and transfer remaining momentum to it.
+There has to be remaining momentum, it must not be 0 for activation to be permitted.
+
+In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 
 \clearpage % ..........................................................
 
@@ -228,6 +242,18 @@ shown in red. Again, just as Rook, Pyramid can't advance past opponent's Rook.
 Now that Pyramid has reached opponent's Rook, it is removed from the board and
 own Rook replaces opponent's Rook. Capturing opponent's Rook would simply leave
 Pyramid in place of it.
+
+\clearpage % ..........................................................
+
+\subsubsection*{Converting opponent's Rook}
+\addcontentsline{toc}{subsubsection}{Converting opponent's Rook}
+
+Converting opponent's Rook in own Rook initial position ... regarding castling.
+
+\subsubsection*{Converting opponent's Pawn}
+\addcontentsline{toc}{subsubsection}{Converting opponent's Pawn}
+
+Converting opponent's Pawn in own Pawn initial position ... regarding en-passant, promotion.
 
 \clearpage % ..........................................................
 
