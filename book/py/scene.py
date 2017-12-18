@@ -198,7 +198,7 @@ class Scene(ScenePegasusMixin, \
             self.board.set_piece(0, 0, PieceType.Star)
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
@@ -232,7 +232,7 @@ class Scene(ScenePegasusMixin, \
             self.board.set_piece(0, 0, PieceType.Star)
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
@@ -261,7 +261,7 @@ class Scene(ScenePegasusMixin, \
             self.board.set_piece(0, 0, PieceType.Star)
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
@@ -302,7 +302,7 @@ class Scene(ScenePegasusMixin, \
         self.delete_all_marks()
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.5, bottom=0.05)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.5, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
@@ -341,7 +341,7 @@ class Scene(ScenePegasusMixin, \
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-    def get_all_example_scene_methods(self):
+    def get_all_example_methods(self):
         funcs = []
 
         names = [ n for n in dir(self) if n.startswith('move_') ] # or n.startswith('scene_')
@@ -350,23 +350,16 @@ class Scene(ScenePegasusMixin, \
 
         return funcs
 
-    def get_recent_example_scene_methods(self):
+    def get_recent_example_methods(self):
         return  [
-                # self.move_wave_cascading_rook, \
-                # self.move_wave_cascading_wave_1, \
-                # self.move_wave_cascading_wave_2, \
-                # self.move_wave_cascading_rook_b, \
-                # self.move_wave_cascading_wave_1_b, \
-                # self.move_wave_cascading_queen, \
-                # self.move_wave_cascading_wave_2_b, \
-                # self.move_wave_cascading_wave_1_c, \
-                # self.move_wave_cascading_end, \
-                self.move_wave_opponent_light_queen, \
-                self.move_wave_opponent_light_wave, \
-                self.move_wave_opponent_dark_wave, \
-                self.move_wave_opponent_dark_queen, \
-                self.move_wave_opponent_end, \
-#                 self.move_wave_activation_by_pawn, \
+                # self.move_wave_opponent_light_queen, \
+                # self.move_wave_opponent_light_wave, \
+                # self.move_wave_opponent_dark_wave, \
+                # self.move_wave_opponent_dark_queen, \
+                # self.move_wave_opponent_end, \
+                self.move_pyramid_promo_init, \
+                self.move_pyramid_promo_activate, \
+                self.move_pyramid_promo_end, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

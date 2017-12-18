@@ -22,7 +22,7 @@ class SceneWaveMixin(object):
         self.delete_all_marks()
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
@@ -55,7 +55,7 @@ class SceneWaveMixin(object):
         self.delete_all_marks()
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
@@ -107,7 +107,7 @@ class SceneWaveMixin(object):
         self.delete_all_marks()
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.05)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
@@ -928,7 +928,7 @@ class SceneWaveMixin(object):
         self.delete_all_marks()
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.65, bottom=0.05)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.65, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
