@@ -15,6 +15,8 @@ cabal.sandbox.config
 *.aux
 *.hp
 *.pyc
+*.zip
+*.diff
 crochess
 tmp/
 temp/
@@ -31,3 +33,4 @@ book/gfx/castlings/
 book/gfx/en_passants/
 book/gfx/examples/
 book/gfx/pieces/
+
