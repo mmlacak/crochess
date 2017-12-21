@@ -324,10 +324,13 @@ class ScenePyramidMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
-        start = (7, 5)
-        self.board.set_piece(3, 1, piece=PieceType(PieceType.Pyramid))
-        self.board.set_piece(6, 1, piece=PieceType(-PieceType.Rook))
+        start = (7, 8)
+        self.board.set_piece(3, 4, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(7, 4, piece=PieceType(-PieceType.Rook))
+        self.board.set_piece(3, 7, piece=PieceType(-PieceType.Bishop))
         self.board.set_piece(*start, piece=PieceType(PieceType.Bishop))
+        self.board.set_piece(0, 0, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(11, 0, piece=PieceType(PieceType.Rook))
 
         # direction <-1, -1>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, -1)) )
@@ -357,35 +360,38 @@ class ScenePyramidMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
-        start = (3, 1)
+        start = (3, 4)
         self.board.set_piece(*start, piece=PieceType(PieceType.Bishop))
-        self.board.set_piece(6, 1, piece=PieceType(-PieceType.Rook))
+        self.board.set_piece(7, 4, piece=PieceType(-PieceType.Rook))
+        self.board.set_piece(3, 7, piece=PieceType(-PieceType.Bishop))
+        self.board.set_piece(0, 0, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(11, 0, piece=PieceType(PieceType.Rook))
 
         # direction <1, 0>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, 0)) )
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
-        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
 
         coords = GS.call_gen( GS.get_gen_steps(start=start, rel=(1, 0)) )
         self.texts.append( SH.get_new_text("1", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
 
         # direction <0, 1>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(0, 1)) )
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
 
         coords = GS.call_gen( GS.get_gen_steps(start=start, rel=(0, 1)) )
         self.texts.append( SH.get_new_text("1", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(False)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(False)) )
 
         # direction <-1, 0>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 0)) )
@@ -401,9 +407,15 @@ class ScenePyramidMixin(object):
         # direction <0, -1>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(0, -1)) )
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
 
         coords = GS.call_gen( GS.get_gen_steps(start=start, rel=(0, -1)) )
         self.texts.append( SH.get_new_text("1", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         return self.format_return_values("move_pyramid_conversion_activated")
 
@@ -413,8 +425,11 @@ class ScenePyramidMixin(object):
         self.board.clear()
         self.delete_all_marks()
 
-        self.board.set_piece(3, 1, piece=PieceType(PieceType.Bishop))
-        self.board.set_piece(6, 1, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(3, 4, piece=PieceType(PieceType.Bishop))
+        self.board.set_piece(7, 4, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(3, 7, piece=PieceType(-PieceType.Bishop))
+        self.board.set_piece(0, 0, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(11, 0, piece=PieceType(PieceType.Rook))
 
         return self.format_return_values("move_pyramid_conversion_end")
 
