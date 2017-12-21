@@ -26,7 +26,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         start = (11, 3)
         self.board.set_piece(3, 7, piece=PieceType(PieceType.Pyramid))
@@ -61,7 +61,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         start = (3, 7)
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
@@ -145,7 +145,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(4, 2, piece=PieceType(PieceType.Pawn))
         self.board.set_piece(3, 3, piece=PieceType(PieceType.Pyramid))
@@ -191,7 +191,6 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        # get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         start = (11, 3)
@@ -200,8 +199,8 @@ class ScenePyramidMixin(object):
         self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(7, 7, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) ) # UpperRight
-        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) ) # UpperRight
+        self.texts.append( SH.get_new_text("1", *get_text_position(7, 7, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
 
         # direction <-2, 1>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-2, 1)) )
@@ -229,7 +228,6 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        # get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         start = (3, 7)
@@ -237,8 +235,8 @@ class ScenePyramidMixin(object):
         self.board.set_piece(7, 7, piece=PieceType(PieceType.Pawn))
         self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
 
-        self.texts.append( SH.get_new_text("1", *get_text_position(7, 7, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) ) # UpperRight
-        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) ) # UpperRight
+        self.texts.append( SH.get_new_text("1", *get_text_position(7, 7, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
 
         # direction <1, 0>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, 0)) )
@@ -303,15 +301,13 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        # get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         self.board.set_piece(3, 7, piece=PieceType(PieceType.Pegasus))
         self.board.set_piece(7, 7, piece=PieceType(PieceType.Queen))
         self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
 
-        # self.texts.append( SH.get_new_text("1", *get_text_position(7, 7, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) ) # UpperRight
-        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) ) # UpperRight
+        self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
 
         return self.format_return_values("move_pyramid_promo_end")
 
@@ -326,7 +322,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         start = (7, 5)
         self.board.set_piece(3, 1, piece=PieceType(PieceType.Pyramid))
@@ -359,7 +355,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
-        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#303030", "#808080", font=get_font_definition(bt.get_size()))
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         start = (3, 1)
         self.board.set_piece(*start, piece=PieceType(PieceType.Bishop))
@@ -448,6 +444,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
+        # get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         # direction <-1, 1>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 1)) )
@@ -494,6 +491,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
+        # get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         # direction <-1, 0>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 0)) )
@@ -583,6 +581,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
+        # get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         # direction <-1, 0>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-1, 0)) )
@@ -651,6 +650,7 @@ class ScenePyramidMixin(object):
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
+        # get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
 
         self.texts.append( SH.get_new_text("1", *get_text_position(*GS.add(pyramid_1, offset), corner=SH.Corner.Position), **get_text_colors_alt(False)) )
         self.texts.append( SH.get_new_text("3", *get_text_position(*GS.add(pyramid_2, offset), corner=SH.Corner.Position), **get_text_colors_alt(False)) )
