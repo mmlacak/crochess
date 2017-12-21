@@ -352,14 +352,12 @@ class Scene(ScenePegasusMixin, \
 
     def get_recent_example_methods(self):
         return  [
-                # self.move_wave_opponent_light_queen, \
-                # self.move_wave_opponent_light_wave, \
-                # self.move_wave_opponent_dark_wave, \
-                # self.move_wave_opponent_dark_queen, \
-                # self.move_wave_opponent_end, \
-                self.move_pyramid_promo_init, \
-                self.move_pyramid_promo_activate, \
-                self.move_pyramid_promo_end, \
+                self.move_pyramid_activation_init, \
+                self.move_pyramid_activated, \
+                self.move_pyramid_activation_end, \
+                # self.move_pyramid_promo_init, \
+                # self.move_pyramid_promo_activate, \
+                # self.move_pyramid_promo_end, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

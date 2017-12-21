@@ -33,6 +33,7 @@ class ScenePyramidMixin(object):
         self.board.set_piece(6, 7, piece=PieceType(PieceType.Bishop))
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
         self.board.set_piece(3, 9, piece=PieceType(-PieceType.Knight))
+        self.board.set_piece(3, 3, piece=PieceType(-PieceType.Bishop))
 
         # direction <-2, 1>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(-2, 1)) )
@@ -66,6 +67,7 @@ class ScenePyramidMixin(object):
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
         self.board.set_piece(6, 7, piece=PieceType(PieceType.Bishop))
         self.board.set_piece(3, 9, piece=PieceType(-PieceType.Knight))
+        self.board.set_piece(3, 3, piece=PieceType(-PieceType.Bishop))
 
         # direction <1, 0>
         coords = GS.call_gen( GS.get_gen_steps_prev(start=start, rel=(1, 0)) )
@@ -109,13 +111,13 @@ class ScenePyramidMixin(object):
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
         self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
-        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
 
         coords = GS.call_gen( GS.get_gen_steps(start=start, rel=(0, -1)) )
         self.texts.append( SH.get_new_text("1", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
         self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
-        self.texts.append( SH.get_new_text("4", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("4", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
 
         return self.format_return_values("move_pyramid_activated")
 
@@ -128,6 +130,7 @@ class ScenePyramidMixin(object):
         self.board.set_piece(3, 7, PieceType(PieceType.Pegasus))
         self.board.set_piece(6, 7, PieceType(PieceType.Bishop))
         self.board.set_piece(3, 9, PieceType(PieceType.Pyramid))
+        self.board.set_piece(3, 3, piece=PieceType(-PieceType.Bishop))
 
         return self.format_return_values("move_pyramid_activation_end")
 
