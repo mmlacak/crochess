@@ -198,6 +198,7 @@ class ScenePyramidMixin(object):
         self.board.set_piece(7, 7, piece=PieceType(PieceType.Pawn))
         self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
+        self.board.set_piece(5, 0, piece=PieceType(PieceType.Queen))
 
         self.texts.append( SH.get_new_text("1", *get_text_position(7, 7, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
@@ -234,6 +235,7 @@ class ScenePyramidMixin(object):
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
         self.board.set_piece(7, 7, piece=PieceType(PieceType.Pawn))
         self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(5, 0, piece=PieceType(PieceType.Queen))
 
         self.texts.append( SH.get_new_text("1", *get_text_position(7, 7, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
         self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
@@ -306,6 +308,7 @@ class ScenePyramidMixin(object):
         self.board.set_piece(3, 7, piece=PieceType(PieceType.Pegasus))
         self.board.set_piece(7, 7, piece=PieceType(PieceType.Queen))
         self.board.set_piece(3, 5, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(5, 0, piece=PieceType(PieceType.Queen))
 
         self.texts.append( SH.get_new_text("2", *get_text_position(3, 5, corner=SH.Corner.LowerRight), **get_text_colors_alt(False)) )
 
