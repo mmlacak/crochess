@@ -86,29 +86,13 @@ Initial setups ...
 %
 % Activating passive piece with Pawn ... capture-fields vs. step-fields.
 
-\section*{Converting opponent's Rook}
-\addcontentsline{toc}{section}{Converting opponent's Rook}
-\label{sec:Appendix/Converting opponent's Rook}
-
-Converting opponent's Rook in own Rook initial position ... regarding castling.
-
-\section*{Converting opponent's Pawn}
-\addcontentsline{toc}{section}{Converting opponent's Pawn}
-\label{sec:Appendix/Converting opponent's Pawn}
-
-Converting opponent's Pawn in own Pawn initial position ... regarding en-passant, promotion.
-
-\section*{Activating Pawn, en passant}
-\addcontentsline{toc}{section}{Activating Pawn, en passant}
-\label{sec:Appendix/Activating Pawn, en passant}
-
-Activating Pawn in its' initial position ... en passant.
-
 \section*{Movement of Wave}
 \addcontentsline{toc}{section}{Movement of Wave}
 \label{sec:Appendix/Movement of Wave}
 
 Movement of Wave ... as multi-step piece activating it  ...
+
+% TODO :: table <activated-by> : <moves-like>
 
 \section*{Monolith initial positions}
 \addcontentsline{toc}{section}{Monolith initial positions}
@@ -127,11 +111,30 @@ Royal powers ...
 
 % https://en.wikipedia.org/wiki/Glossary_of_chess#Royal_powers
 
-\section*{Promote-to figures}
-\addcontentsline{toc}{section}{Promote-to figures}
-\label{sec:Appendix/Promote-to figures}
+\section*{Promotions}
+\addcontentsline{toc}{section}{Promotions}
+\label{sec:Appendix/Promotions}
 
 Pawn can be promoted to any piece except Pawn, King, Star or Monolith.
+Pawn can only be promoted to a piece of the same color.
+
+Promotions are forced, i.e. Pawn has to be promoted immediately, in the following
+variants: Classical Chess, Croatian Ties, Mayan Ascendancy and Conquest of Tlalocan.
+Forced promotion means that Pawn has to be promoted in the same move in which it
+reached opposite end of chessboard. If it was promoted by Pyramid, it has to be
+promoted in the very same ply in which it was reached by that Pyramid.
+
+Promotions are not forced in all the other variants. Additionaly, Pawn can be promoted
+at some point later in game. Promotion in that case is whole move, i.e. move in which
+only promotion is made. During that time (between been tagged for promotion and actual
+promotion itself), Pawn must not move, i.e. it has to be actually promoted in the same
+field it was tagged for promotion. If tagged Pawn moves before it gets promoted, it
+looses its' tag, i.e. can no longer be promoted.
+
+Pawn can be promoted to Queen if and only if existing Queen has been captured, in the
+following variants: Nineteen, Tamoanchan Revisited and One. In these variants only one
+Queen is ever allowed to be present on chessboard. In all the other variants, each side
+can have multiple Queens present on chessboard at the same time.
 
 \clearpage % ..........................................................
 % ---------------------------------------------------- Appendix chapter
