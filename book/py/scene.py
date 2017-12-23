@@ -58,8 +58,8 @@ class Scene(ScenePegasusMixin, \
                           BoardType.Classical:               ("#0080FF", "#303030", "#101010", "#808080"),
                           BoardType.OddCroatianTies:         ("#0000FF", "#303030", "#303030", "#808080"),
                           BoardType.CroatianTies:            ("#0000FF", "#303030", "#303030", "#808080"),
-                          BoardType.OddMayanAscendancy:      ("#FF00FF", "#303030", "#303030", "#808080"),
-                          BoardType.MayanAscendancy:         ("#FF00FF", "#303030", "#303030", "#808080"),
+                          BoardType.OddMayanAscendancy:      ("#FF00FF", "#303030", "#7F007F", "#7F007F"), # ("#FF00FF", "#303030", "#303030", "#808080"),
+                          BoardType.MayanAscendancy:         ("#FF00FF", "#303030", "#7F007F", "#7F007F"), # ("#FF00FF", "#303030", "#303030", "#808080"),
                           BoardType.OddAgeOfAquarius:        ("#0000FF", "#303030", "#303030", "#808080"),
                           BoardType.AgeOfAquarius:           ("#0000FF", "#303030", "#303030", "#808080"),
                           BoardType.OddMirandasVeil:         ("#00D000", "#303030", "#808080", "#303030"), # ("#FF00FF", "#303030", "#808080", "#303030"),
@@ -355,9 +355,14 @@ class Scene(ScenePegasusMixin, \
                 # self.move_pyramid_conversion_init, \
                 # self.move_pyramid_conversion_activated, \
                 # self.move_pyramid_conversion_end, \
-                self.move_pyramid_promo_init, \
-                self.move_pyramid_promo_activate, \
-                self.move_pyramid_promo_end, \
+                # \
+                # self.move_pyramid_promo_init, \
+                # self.move_pyramid_promo_activate, \
+                # self.move_pyramid_promo_end, \
+                # \
+                self.move_pyramid_conversion_rook_init, \
+                self.move_pyramid_conversion_rook_end, \
+                self.move_pyramid_conversion_rook_castling, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

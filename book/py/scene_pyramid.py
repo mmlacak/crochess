@@ -436,6 +436,85 @@ class ScenePyramidMixin(object):
 
         return self.format_return_values("move_pyramid_conversion_end")
 
+    def move_pyramid_conversion_rook_init(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 12, 2)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
+
+        startQ = (4, 1)
+        startA = (1, 1)
+        self.board.set_piece(0, 0, piece=PieceType(-PieceType.Rook))
+        self.board.set_piece(*startA, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(*startQ, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(6, 0, piece=PieceType(PieceType.King))
+
+        # direction <-1, 0>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startQ, rel=(-1, 0)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        # direction <-1, -1>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startA, rel=(-1, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        return self.format_return_values("move_pyramid_conversion_rook_init")
+
+    def move_pyramid_conversion_rook_end(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 12, 2)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
+
+        self.board.set_piece(0, 0, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(1, 1, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(6, 0, piece=PieceType(PieceType.King))
+
+        # direction <-1, 0>
+        start = (5, 0)
+        coords = GS.call_gen( GS.get_gen_steps(start=start, rel=(-1, 0)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        return self.format_return_values("move_pyramid_conversion_rook_end")
+
+    def move_pyramid_conversion_rook_castling(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 12, 2)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
+
+        self.board.set_piece(4, 0, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(1, 1, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(3, 0, piece=PieceType(PieceType.King))
+
+        self.texts.append( SH.get_new_text("K", *get_text_position(6, 0, corner=SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+
+        return self.format_return_values("move_pyramid_conversion_rook_castling")
+
     def move_pyramid_cascading_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
         self.board = Board(bt)
