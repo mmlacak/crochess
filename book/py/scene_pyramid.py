@@ -134,6 +134,8 @@ class ScenePyramidMixin(object):
 
         return self.format_return_values("move_pyramid_activation_end")
 
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     def move_pyramid_activation_by_pawn(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
         self.board = Board(bt)
@@ -179,6 +181,8 @@ class ScenePyramidMixin(object):
         self.texts.append( SH.get_new_text("3", *get_text_position(*start, corner=SH.Corner.UpperRight), **get_text_colors_alt(False)) )
 
         return self.format_return_values("move_pyramid_activation_by_pawn")
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     def move_pyramid_promo_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
@@ -314,6 +318,8 @@ class ScenePyramidMixin(object):
 
         return self.format_return_values("move_pyramid_promo_end")
 
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     def move_pyramid_conversion_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
         self.board = Board(bt)
@@ -436,6 +442,8 @@ class ScenePyramidMixin(object):
 
         return self.format_return_values("move_pyramid_conversion_end")
 
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     def move_pyramid_conversion_rook_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
         self.board = Board(bt, 12, 2)
@@ -514,6 +522,73 @@ class ScenePyramidMixin(object):
         self.texts.append( SH.get_new_text("K", *get_text_position(6, 0, corner=SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
 
         return self.format_return_values("move_pyramid_conversion_rook_castling")
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    def move_pyramid_conversion_pawn_init(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 3, 6)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
+
+        startR = (0, 4)
+        startP = (0, 1)
+        self.board.set_piece(*startR, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(*startP, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(1, 1, piece=PieceType(-PieceType.Pawn))
+        self.board.set_piece(1, 0, piece=PieceType(PieceType.King))
+        self.board.set_piece(2, 3, piece=PieceType(-PieceType.Pawn))
+
+        # direction <0, -1>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startR, rel=(0, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        # direction <1, 0>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startP, rel=(1, 0)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        return self.format_return_values("move_pyramid_conversion_pawn_init")
+
+    def move_pyramid_conversion_pawn_end(self, bt=BoardType.MayanAscendancy):
+        bt = BoardType(bt)
+        self.board = Board(bt, 3, 6)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#303030")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#7F007F", "#7F007F", font=get_font_definition(bt.get_size()))
+
+        self.board.set_piece(0, 1, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(1, 1, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(1, 0, piece=PieceType(PieceType.King))
+        self.board.set_piece(2, 3, piece=PieceType(-PieceType.Pawn))
+
+        # direction <0, 1>
+        start = (1, 2)
+        coords = GS.call_gen( GS.get_gen_steps(start=start, rel=(0, 1)) )
+        self.texts.append( SH.get_new_text("1", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+        self.texts.append( SH.get_new_text("3", *get_text_position(*coords(), corner=SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        # direction <-1, -1>
+        self.arrows.append( SH.get_new_arrow(2, 3, 1, 2, **get_arrow_colors(True)) )
+
+        return self.format_return_values("move_pyramid_conversion_pawn_end")
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     def move_pyramid_cascading_init(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
@@ -754,6 +829,8 @@ class ScenePyramidMixin(object):
         self.texts.append( SH.get_new_text("2", *get_text_position(*GS.add(pyramid_3, offset), corner=SH.Corner.Position), **get_text_colors_alt(False)) )
 
         return self.format_return_values("move_pyramid_cascading_end")
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     def move_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
         bt = BoardType(bt)
