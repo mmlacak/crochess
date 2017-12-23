@@ -302,7 +302,7 @@ class Scene(ScenePegasusMixin, \
         self.delete_all_marks()
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.5, bottom=0.45)
+        get_text_position = SH.get_func_get_text_position(left=0.09, top=1.0, right=0.5, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
@@ -315,7 +315,7 @@ class Scene(ScenePegasusMixin, \
 
             self.arrows.append( SH.get_new_arrow(loc, i, 1, i-1, **get_arrow_colors(True)) )
 
-            self.texts.append( SH.get_new_text(str(i-2), *get_text_position(1, i, SH.Corner.UpperRight), **get_text_colors(True)) )
+            self.texts.append( SH.get_new_text(str(i-2), *get_text_position(1, i, SH.Corner.UpperLeft), **get_text_colors(True)) )
 
         return bt
 
@@ -360,9 +360,12 @@ class Scene(ScenePegasusMixin, \
                 # self.move_pyramid_promo_activate, \
                 # self.move_pyramid_promo_end, \
                 # \
-                self.move_pyramid_conversion_rook_init, \
-                self.move_pyramid_conversion_rook_end, \
-                self.move_pyramid_conversion_rook_castling, \
+                # self.move_pyramid_conversion_rook_init, \
+                # self.move_pyramid_conversion_rook_end, \
+                # self.move_pyramid_conversion_rook_castling, \
+                # \,
+                self.move_pyramid_conversion_pawn_init, \
+                self.move_pyramid_conversion_pawn_end, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

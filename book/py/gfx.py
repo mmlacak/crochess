@@ -165,7 +165,9 @@ class GfxRender(object):
                 print file_path
 
                 if GD.rendering_size.do_render():
-                    size_x, size_y = self.get_scene_image_size(horizontal_rendering_size=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
+                    # size_x, size_y = self.get_scene_image_size(horizontal_rendering_size=GD.DEFAULT_PIECE_2x2_RENDERING_SIZE)
+                    hrs = int( GD.DEFAULT_BOARD_RENDERING_SIZE * 3.0 / bt_real.get_size() )
+                    size_x, size_y = self.get_scene_image_size(horizontal_rendering_size=hrs)
 
                     self.save_board_image(file_path, \
                                           is_game_or_scene=False, \
