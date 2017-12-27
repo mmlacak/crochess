@@ -364,8 +364,11 @@ class Scene(ScenePegasusMixin, \
                 # self.move_pyramid_conversion_rook_end, \
                 # self.move_pyramid_conversion_rook_castling, \
                 # \,
-                self.move_pyramid_conversion_pawn_init, \
-                self.move_pyramid_conversion_pawn_end, \
+                # self.move_pyramid_conversion_pawn_init, \
+                # self.move_pyramid_conversion_pawn_end, \
+                # \,
+                self.move_wave_activating_pawn_init, \
+                self.move_wave_activating_pawn_end, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

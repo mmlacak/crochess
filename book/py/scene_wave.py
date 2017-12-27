@@ -921,6 +921,84 @@ class SceneWaveMixin(object):
 
     # --- cascading opponent ------------------------------------------------------------------------------------------------------
 
+    # --- activating pawn ---------------------------------------------------------------------------------------------------------
+
+    def move_wave_activating_pawn_init(self, bt=BoardType.MirandasVeil):
+        bt = BoardType(bt)
+        self.board = Board(bt, 5, 8)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.65, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
+
+        startW = (4, 1)
+        startR = (4, 5)
+        startP = (2, 1)
+
+        self.board.set_piece(1, 2, piece=PieceType(-PieceType.Knight))
+        self.board.set_piece(*startP, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(*startW, piece=PieceType(PieceType.Wave))
+        self.board.set_piece(*startR, piece=PieceType(PieceType.Rook))
+
+        # Rook, direction <0, -1>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startR, rel=(0, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        # Wave, direction <-1, 0>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startW, rel=(-1, 0)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        return self.format_return_values("move_wave_activating_pawn_init")
+
+    def move_wave_activating_pawn_end(self, bt=BoardType.MirandasVeil):
+        bt = BoardType(bt)
+        self.board = Board(bt, 5, 8)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.65, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
+
+        startP = (2, 1)
+
+        self.board.set_piece(1, 2, piece=PieceType(-PieceType.Knight))
+        self.board.set_piece(*startP, piece=PieceType(PieceType.Wave))
+        self.board.set_piece(4, 1, piece=PieceType(PieceType.Rook))
+
+        # Pawn, direction <-1, 1>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startP, rel=(-1, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        # Pawn, direction <1, 1>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startP, rel=(1, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+
+        # Pawn, direction <0, 1>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startP, rel=(0, 1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(False)) )
+
+        return self.format_return_values("move_wave_activating_pawn_end")
+
+    # --- activating pawn ---------------------------------------------------------------------------------------------------------
+
     def move_wave_activation_by_pawn(self, bt=BoardType.MirandasVeil):
         bt = BoardType(bt)
         self.board = Board(bt)
@@ -934,14 +1012,14 @@ class SceneWaveMixin(object):
         get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
         get_text_colors_alt = SH.get_func_get_colors("#00C0C0", "#808080", "#006060", "#808080", font=get_font_definition(bt.get_size()))
 
-        self.board.set_piece(4, 2, PieceType(PieceType.Pawn))
-        self.board.set_piece(3, 3, PieceType(PieceType.Wave))
+        self.board.set_piece(4, 2, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(3, 3, piece=PieceType(PieceType.Wave))
 
-        self.board.set_piece(5, 11, PieceType(PieceType.Pawn))
-        self.board.set_piece(5, 12, PieceType(PieceType.Wave))
+        self.board.set_piece(5, 11, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(5, 12, piece=PieceType(PieceType.Wave))
 
-        self.board.set_piece(8, 1, PieceType(PieceType.Pawn))
-        self.board.set_piece(8, 4, PieceType(PieceType.Wave))
+        self.board.set_piece(8, 1, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(8, 4, piece=PieceType(PieceType.Wave))
 
         # capture-fields
         self.arrows.append( SH.get_new_arrow(4, 2, 3, 3, **get_arrow_colors_alt(True)) )
