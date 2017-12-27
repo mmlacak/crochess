@@ -25,7 +25,7 @@ class ScenePegasusMixin(object):
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.75, bottom=0.45)
+        get_text_position = SH.get_func_get_text_position(left=0.20, top=1.0, right=0.65, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
         get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
@@ -50,7 +50,7 @@ class ScenePegasusMixin(object):
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.65, bottom=0.45)
         get_text_position_2 = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.45, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
@@ -119,7 +119,7 @@ class ScenePegasusMixin(object):
         self.board.set_piece(5, 3, piece=PieceType(PieceType.Rook))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.65, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
 
@@ -183,7 +183,7 @@ class ScenePegasusMixin(object):
         self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
 
         get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
-        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.75, bottom=0.45)
+        get_text_position = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.65, bottom=0.45)
         get_text_position_2 = SH.get_func_get_text_position(left=0.05, top=1.0, right=0.45, bottom=0.45)
         get_font_definition = SH.get_func_get_font_definition()
         get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
