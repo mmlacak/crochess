@@ -97,7 +97,7 @@ from Pegasus.
 \end{figure}
 
 Above, arrows show all possible moves by Pyramid. Just like Rook, Pyramid has to
-stop before own Bishop. Pyramid can capture opponent's Rook, but can't move any
+stop before own Bishop. Pyramid can capture opponent's Knight, but can't move any
 further after capture. Pyramid can also capture opponent's Bishop, despite being
 barely reachable.
 
@@ -200,8 +200,9 @@ to pieces which has been captured.
 
 Note that Pyramid might just as well capture opponent's piece. Differences are
 who leaves chessboard, and what remains on captured field. Capture itself with
-Pyramid is in no way different than that with Rook, provided that Pyramid can
-reach opponent's piece, i.e. that it get enough momentum from activating piece.
+Pyramid is in no way different than that with Rook. In either case, converting
+or capturing, it is enough if Pyramid can reach opponent's piece, i.e. has
+enough momentum from activating piece.
 
 \clearpage % ..........................................................
 
@@ -266,7 +267,8 @@ place of it.
 % \centering
 \end{figure}
 
-Converting opponent's Rook in an initial position of own Rook grants them ability to castle.
+Converting opponent's Rook in an initial position of own Rook grants them ability
+to castle.
 
 \noindent
 \begin{figure}[!h]
@@ -277,8 +279,8 @@ Converting opponent's Rook in an initial position of own Rook grants them abilit
 % \centering
 \end{figure}
 
-To actually perform castling, in the next move or at some point later, all the other
-requirements for castling has to be satisfied.
+King can now castle to any numbered field. Rook would be moved onto the inner field,
+next to the King.
 
 \noindent
 \begin{figure}[!h]
@@ -288,6 +290,9 @@ requirements for castling has to be satisfied.
 \label{fig:06_move_pyramid_conversion_rook_castling}
 % \centering
 \end{figure}
+
+To actually perform castling, in the next move or at some point later, all the other
+requirements for castling has to be satisfied.
 
 \clearpage % ..........................................................
 
@@ -424,9 +429,9 @@ Bishop in the same place, however, could be captured without any hindrance.
 \end{figure}
 
 Capture-fields are all fields where a piece can capture opponents' piece.
-Usually these are the same as step-fields, except for Pawn. Pawns can activate
-Pyramid on own capture-field giving it 1 momentum (1). Pawns can't activate
-Pyramids on step-fields, and are blocked from moving further (2, 3).
+Usually these are the same as step-fields, except for Pawn. Pawn (1) can
+activate Pyramid on own capture-field giving it 1 momentum. Pawns (2, 3)
+can't activate Pyramids on step-fields, and are blocked from moving further.
 
 \clearpage % ..........................................................
 
