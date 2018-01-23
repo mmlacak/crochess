@@ -282,6 +282,8 @@ class PainterContext(object):
               BoardType.Discovery: "#B0B0B0",
               BoardType.OddOne: "#42005C",
               BoardType.One: "#42005C" }[board_type]
+              # BoardType.OddOne: "#300070",
+              # BoardType.One: "#300070" }[board_type]
         return c
 
     def get_piece_background_color_light(self, board_type):
