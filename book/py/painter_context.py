@@ -280,8 +280,8 @@ class PainterContext(object):
               BoardType.ConquestOfTlalocan: "#FF0000",
               BoardType.OddDiscovery: "#B0B0B0",
               BoardType.Discovery: "#B0B0B0",
-              BoardType.OddOne: "#42005C",
-              BoardType.One: "#42005C" }[board_type]
+              BoardType.OddOne: "#480064",
+              BoardType.One: "#480064" }[board_type]
               # BoardType.OddOne: "#300070",
               # BoardType.One: "#300070" }[board_type]
         return c
