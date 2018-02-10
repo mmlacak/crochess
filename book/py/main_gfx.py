@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2010 - 2017 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2018 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 import argparse
@@ -19,7 +19,7 @@ import debug_
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, \
                                      description='Generates images used in book.', \
-                                     epilog='''Copyright (c) 2010 - 2017 Mario Mlačak, mmlacak@gmail.com
+                                     epilog='''Copyright (c) 2010 - 2018 Mario Mlačak, mmlacak@gmail.com
 Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     size = parser.add_mutually_exclusive_group(required=True)
