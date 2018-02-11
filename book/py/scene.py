@@ -352,23 +352,14 @@ class Scene(ScenePegasusMixin, \
 
     def get_recent_example_methods(self):
         return  [
-                # self.move_pyramid_conversion_init, \
-                # self.move_pyramid_conversion_activated, \
-                # self.move_pyramid_conversion_end, \
-                # \
-                # self.move_pyramid_promo_init, \
-                # self.move_pyramid_promo_activate, \
-                # self.move_pyramid_promo_end, \
-                # \
-                # self.move_pyramid_conversion_rook_init, \
-                # self.move_pyramid_conversion_rook_end, \
-                # self.move_pyramid_conversion_rook_castling, \
+                # self.move_wave_activating_pawn_init, \
+                # self.move_wave_activating_pawn_end, \
                 # \,
-                # self.move_pyramid_conversion_pawn_init, \
-                # self.move_pyramid_conversion_pawn_end, \
-                # \,
-                self.move_wave_activating_pawn_init, \
-                self.move_wave_activating_pawn_end, \
+                self.move_unicorn_promo_init, \
+                self.move_unicorn_pawn_2_tagged, \
+                self.move_unicorn_pawn_1_to_promo, \
+                self.move_unicorn_pawn_1_tagged, \
+                self.move_unicorn_pawn_2_attacked, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
