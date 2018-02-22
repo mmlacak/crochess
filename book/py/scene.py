@@ -360,6 +360,9 @@ class Scene(ScenePegasusMixin, \
                 self.move_unicorn_pawn_1_to_promo, \
                 self.move_unicorn_pawn_1_tagged, \
                 self.move_unicorn_pawn_2_attacked, \
+                self.move_unicorn_pawn_2_moved, \
+                self.move_unicorn_pawn_2_and_bishop_attacked, \
+                self.move_unicorn_pawn_1_promoted, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
