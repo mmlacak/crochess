@@ -355,14 +355,18 @@ class Scene(ScenePegasusMixin, \
                 # self.move_wave_activating_pawn_init, \
                 # self.move_wave_activating_pawn_end, \
                 # \,
-                self.move_unicorn_promo_init, \
-                self.move_unicorn_pawn_2_tagged, \
-                self.move_unicorn_pawn_1_to_promo, \
-                self.move_unicorn_pawn_1_tagged, \
-                self.move_unicorn_pawn_2_attacked, \
-                self.move_unicorn_pawn_2_moved, \
-                self.move_unicorn_pawn_2_and_bishop_attacked, \
-                self.move_unicorn_pawn_1_promoted, \
+                # self.move_unicorn_promo_init, \
+                # self.move_unicorn_pawn_2_tagged, \
+                # self.move_unicorn_pawn_1_to_promo, \
+                # self.move_unicorn_pawn_1_tagged, \
+                # self.move_unicorn_pawn_2_attacked, \
+                # self.move_unicorn_pawn_2_moved, \
+                # self.move_unicorn_pawn_2_and_bishop_attacked, \
+                # self.move_unicorn_pawn_1_promoted, \
+                # \,
+                self.move_unicorn_tagged_pawn_conv_init, \
+                self.move_unicorn_tagged_pawn_conv_tag, \
+                self.move_unicorn_tagged_pawn_conv_ed, \
                 ]
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

@@ -65,6 +65,8 @@ class SceneUnicornMixin(object):
 
         return self.format_return_values("move_unicorn_opposite_color")
 
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
     def move_unicorn_promo_init(self, bt=BoardType.AgeOfAquarius):
         bt = BoardType(bt)
         self.board = Board(bt)
@@ -364,3 +366,115 @@ class SceneUnicornMixin(object):
         self.texts.append( SH.get_new_text("P", *get_text_position(4, 10, corner=SH.Corner.UpperLeft), **get_text_colors_alt(True)) )
 
         return self.format_return_values("move_unicorn_pawn_1_promoted")
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+    def move_unicorn_tagged_pawn_conv_init(self, bt=BoardType.AgeOfAquarius):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.15, top=1.0, right=0.75, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
+
+        startP = (3, 1)
+        startPd = (8, 1)
+        startA = (11, 0)
+        startB = (7, 4)
+
+        self.board.set_piece(*startP, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(*startPd, piece=PieceType(-PieceType.Pawn))
+        self.board.set_piece(*startA, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(*startB, piece=PieceType(PieceType.Bishop))
+
+        # direction <0, -1>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startPd, rel=(0, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(*startP, corner=SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+
+        return self.format_return_values("move_unicorn_tagged_pawn_conv_init")
+
+    def move_unicorn_tagged_pawn_conv_tag(self, bt=BoardType.AgeOfAquarius):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.15, top=1.0, right=0.75, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
+
+        startP = (3, 1)
+        startPd = (8, 0)
+        startA = (11, 0)
+        startB = (7, 4)
+
+        self.board.set_piece(*startP, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(*startPd, piece=PieceType(-PieceType.Pawn))
+        self.board.set_piece(*startA, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(*startB, piece=PieceType(PieceType.Bishop))
+
+        # direction <1, -1>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startB, rel=(1, -1)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        # direction <-1, 0>
+        coords = GS.call_gen( GS.get_gen_steps_prev(start=startA, rel=(-1, 0)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors(True)) )
+        self.arrows.append( SH.get_new_arrow(*coords(), **get_arrow_colors_alt(True)) )
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(*startP, corner=SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+
+        self.field_markers.append( SH.get_new_field_marker(*startPd, **get_field_marker_colors(True)) )
+
+        return self.format_return_values("move_unicorn_tagged_pawn_conv_tag")
+
+    def move_unicorn_tagged_pawn_conv_ed(self, bt=BoardType.AgeOfAquarius):
+        bt = BoardType(bt)
+        self.board = Board(bt)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.15, top=1.0, right=0.75, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+        get_field_marker_colors = SH.get_func_get_colors(*self.get_field_marker_colors(bt))
+        get_arrow_colors_alt = SH.get_func_get_colors("#303030", "#FF0000", "#101010", "#00C0C0")
+        get_text_colors_alt = SH.get_func_get_colors("#FF0000", "#303030", "#101010", "#303030", font=get_font_definition(bt.get_size()))
+
+        startP = (3, 1)
+        startPc = (8, 0)
+        startB = (11, 0)
+
+        self.board.set_piece(*startP, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(*startPc, piece=PieceType(PieceType.Pawn))
+        self.board.set_piece(*startB, piece=PieceType(PieceType.Bishop))
+
+        self.texts.append( SH.get_new_text("1", *get_text_position(*startP, corner=SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+        self.texts.append( SH.get_new_text("2", *get_text_position(*startPc, corner=SH.Corner.UpperLeft), **get_text_colors_alt(False)) )
+
+        size = (bt.get_size() + 1) // 2
+
+        for i in xrange(3, size):
+            self.texts.append( SH.get_new_text(str(i-2), *get_text_position(3, i, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        for i in xrange(2, size):
+            self.texts.append( SH.get_new_text(str(i-1), *get_text_position(8, i, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        return self.format_return_values("move_unicorn_tagged_pawn_conv_ed")
