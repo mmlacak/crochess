@@ -38,6 +38,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     collections.add_argument('-x', '--examples', action='store_true', default=False, help='render all scenes, move examples')
     collections.add_argument('-c', '--castlings', action='store_true', default=False, help='render castling examples')
     collections.add_argument('-e', '--en_passant', action='store_true', default=False, help='render en passant examples')
+    collections.add_argument('-u', '--rush', action='store_true', default=False, help='render rush examples')
 
     args = parser.parse_args() # :: argparse.Namespace
 
@@ -80,6 +81,9 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     if args.all or args.en_passant:
         render.render_all_en_passant_scenes()
+
+    if args.all or args.rush:
+        render.render_all_rush_scenes()
 
     print
     print "Finished all renderings."

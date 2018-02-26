@@ -14,7 +14,8 @@ SUBFOLDERS =  [ 'boards', \
                 'castlings/short_right', \
                 'en_passants', \
                 'examples', \
-                'pieces' ]
+                'pieces', \
+                'rush' ]
 
 
 def find_subfolder(path=None):

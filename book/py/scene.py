@@ -319,6 +319,28 @@ class Scene(ScenePegasusMixin, \
 
         return bt
 
+    def intro_rush(self, bt):
+        bt = BoardType(bt)
+        size = (bt.get_size() + 1) // 2
+        self.board = Board(bt, 3, size)
+        self.board.clear()
+        self.delete_all_marks()
+
+        get_arrow_colors = SH.get_func_get_colors(*self.get_arrow_colors(bt))
+        get_text_position = SH.get_func_get_text_position(left=0.09, top=1.0, right=0.5, bottom=0.45)
+        get_font_definition = SH.get_func_get_font_definition()
+        get_text_colors = SH.get_func_get_colors(*self.get_text_colors(bt), font=get_font_definition(bt.get_size()))
+
+        self.board.set_piece(1, 0, PieceType(PieceType.Knight))
+        self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
+
+        for i in xrange(2, size):
+            self.arrows.append( SH.get_new_arrow(1, i-1, 1, i, **get_arrow_colors(True)) )
+            if i > 2:
+                self.texts.append( SH.get_new_text(str(i-2), *get_text_position(1, i, SH.Corner.UpperLeft), **get_text_colors(True)) )
+
+        return bt
+
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
     def set_mirandas_veil_1(self, bt=BoardType.MirandasVeil):
