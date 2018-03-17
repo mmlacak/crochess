@@ -29,14 +29,14 @@ class PieceType(int):
         else:
             raise ValueError("No such a piece type, received '%s'." % (str(value), ))
 
-    @staticmethod
-    def foreach(start=None, end=None, step=1):
-        start = start or PieceType.none
-        end = end or PieceType.Starchild
+#    @staticmethod
+#    def foreach(start=None, end=None, step=1):
+#        start = start or PieceType.none
+#        end = end or PieceType.Starchild
 
-        for pt in xrange(start, end+1, step):
-            # Added +1 because upper limit is not included in loop.
-            yield PieceType(pt)
+#        for pt in xrange(start, end+1, step):
+#            # Added +1 because upper limit is not included in loop.
+#            yield PieceType(pt)
 
     def get_symbol(self):
         return { PieceType.none: '.',
@@ -86,9 +86,6 @@ class PieceType(int):
 
     def is_dark(self):
         return self < PieceType.none
-
-    def is_light_or_dark(self):
-        return self > PieceType.none
 
     def get_enumerated(self):
         return PieceType(abs(self))
