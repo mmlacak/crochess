@@ -39,7 +39,7 @@ class PieceType(int):
             yield PieceType(pt)
 
     def get_symbol(self):
-        return { PieceType.none: ' ',
+        return { PieceType.none: '.',
                  PieceType.Pawn: 'P',
                  PieceType.Bishop: 'B',
                  PieceType.Knight: 'N',
@@ -59,7 +59,7 @@ class PieceType(int):
 
     def get_label(self):
         sym = self.get_symbol()
-        lbl = sym if self.is_light() else sym.lower()
+        lbl = sym.upper() if self.is_light() else sym.lower()
         return lbl
 
     def get_name(self):
@@ -102,3 +102,6 @@ class PieceType(int):
 
     def is_valid(self):
         return PieceType._is_valid(self)
+
+    def __str__(self):
+        return self.get_label()

@@ -4,7 +4,10 @@
 # Copyright (c) 2010 - 2018 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
-from piece import PieceType
+import math
+
+from piece import PieceType as PT
+
 
 class BoardType(int):
     none = 0
@@ -110,48 +113,48 @@ class BoardType(int):
         return { BoardType.none: None,
                  BoardType.OddClassical: None,
                  BoardType.Classical: None,
-                 BoardType.OddCroatianTies: PieceType.Pegasus,
-                 BoardType.CroatianTies: PieceType.Pegasus,
-                 BoardType.OddMayanAscendancy: PieceType.Pyramid,
-                 BoardType.MayanAscendancy: PieceType.Pyramid,
-                 BoardType.OddAgeOfAquarius: PieceType.Unicorn,
-                 BoardType.AgeOfAquarius: PieceType.Unicorn,
-                 BoardType.OddMirandasVeil: PieceType.Wave,
-                 BoardType.MirandasVeil: PieceType.Wave,
-                 BoardType.OddNineteen: PieceType.Star,
-                 BoardType.Nineteen: PieceType.Star,
-                 BoardType.OddHemerasDawn: PieceType.Centaur,
-                 BoardType.HemerasDawn: PieceType.Centaur,
-                 BoardType.OddTamoanchanRevisited: PieceType.Serpent,
-                 BoardType.TamoanchanRevisited: PieceType.Serpent,
-                 BoardType.OddConquestOfTlalocan: PieceType.Shaman,
-                 BoardType.ConquestOfTlalocan: PieceType.Shaman,
-                 BoardType.OddDiscovery: PieceType.Monolith,
-                 BoardType.Discovery: PieceType.Monolith,
-                 BoardType.OddOne: PieceType.Starchild,
-                 BoardType.One: PieceType.Starchild }[self]
+                 BoardType.OddCroatianTies: PT.Pegasus,
+                 BoardType.CroatianTies: PT.Pegasus,
+                 BoardType.OddMayanAscendancy: PT.Pyramid,
+                 BoardType.MayanAscendancy: PT.Pyramid,
+                 BoardType.OddAgeOfAquarius: PT.Unicorn,
+                 BoardType.AgeOfAquarius: PT.Unicorn,
+                 BoardType.OddMirandasVeil: PT.Wave,
+                 BoardType.MirandasVeil: PT.Wave,
+                 BoardType.OddNineteen: PT.Star,
+                 BoardType.Nineteen: PT.Star,
+                 BoardType.OddHemerasDawn: PT.Centaur,
+                 BoardType.HemerasDawn: PT.Centaur,
+                 BoardType.OddTamoanchanRevisited: PT.Serpent,
+                 BoardType.TamoanchanRevisited: PT.Serpent,
+                 BoardType.OddConquestOfTlalocan: PT.Shaman,
+                 BoardType.ConquestOfTlalocan: PT.Shaman,
+                 BoardType.OddDiscovery: PT.Monolith,
+                 BoardType.Discovery: PT.Monolith,
+                 BoardType.OddOne: PT.Starchild,
+                 BoardType.One: PT.Starchild }[self]
 
     def get_newly_introducing_board_types(self, piece_type):
-        pt = PieceType(piece_type)
-        return { PieceType.none: None,
-                 PieceType.Pawn: None,
-                 PieceType.Bishop: None,
-                 PieceType.Knight: None,
-                 PieceType.Rook: None,
-                 PieceType.Queen: None,
-                 PieceType.King: None,
-                 PieceType.Pegasus: [BoardType.OddCroatianTies, BoardType.CroatianTies],
-                 PieceType.Pyramid: [BoardType.OddMayanAscendancy, BoardType.MayanAscendancy],
-                 PieceType.Unicorn: [BoardType.OddAgeOfAquarius, BoardType.AgeOfAquarius],
-                 PieceType.Wave: [BoardType.OddMirandasVeil, BoardType.MirandasVeil],
-                 PieceType.Star: [BoardType.OddNineteen, BoardType.Nineteen],
-                 PieceType.Centaur: [BoardType.OddHemerasDawn, BoardType.HemerasDawn],
-                 PieceType.Serpent: [BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited],
-                 PieceType.Shaman: [BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan],
-                 PieceType.Monolith: [BoardType.OddDiscovery, BoardType.Discovery],
-                 PieceType.Starchild: [BoardType.OddOne, BoardType.One] }[pt.get_enumerated()]
+        pt = PT(piece_type)
+        return { PT.none: None,
+                 PT.Pawn: None,
+                 PT.Bishop: None,
+                 PT.Knight: None,
+                 PT.Rook: None,
+                 PT.Queen: None,
+                 PT.King: None,
+                 PT.Pegasus: [BoardType.OddCroatianTies, BoardType.CroatianTies],
+                 PT.Pyramid: [BoardType.OddMayanAscendancy, BoardType.MayanAscendancy],
+                 PT.Unicorn: [BoardType.OddAgeOfAquarius, BoardType.AgeOfAquarius],
+                 PT.Wave: [BoardType.OddMirandasVeil, BoardType.MirandasVeil],
+                 PT.Star: [BoardType.OddNineteen, BoardType.Nineteen],
+                 PT.Centaur: [BoardType.OddHemerasDawn, BoardType.HemerasDawn],
+                 PT.Serpent: [BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited],
+                 PT.Shaman: [BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan],
+                 PT.Monolith: [BoardType.OddDiscovery, BoardType.Discovery],
+                 PT.Starchild: [BoardType.OddOne, BoardType.One] }[pt.get_enumerated()]
 
-    def get_all_board_types_that_contain(self, piece_type):
+    def get_all_that_contain(self, piece_type):
         start = self.get_newly_introducing_board_types(piece_type)
         start = start[0] if start is not None else BoardType.OddClassical
 
@@ -159,9 +162,9 @@ class BoardType(int):
         return lst
 
     def does_contain(self, piece_type):
-        start = PieceType.Pawn
-        end = self.get_newly_introduced_piece() or PieceType.King
-        return piece_type in PieceType.foreach(start, end)
+        start = PT.Pawn
+        end = self.get_newly_introduced_piece() or PT.King
+        return piece_type in PT.foreach(start, end)
 
     def get_position_limits(self):
         limit = self.get_size() - 1
@@ -169,24 +172,27 @@ class BoardType(int):
 
 
 class BoardHints(object):
-    def __init__(self, is_universal=False, reverse_field_colors=False):
-        self.is_universal = is_universal
+#     def __init__(self, is_universal=False, reverse_field_colors=False):
+    def __init__(self, reverse_field_colors=False):
+#         self.is_universal = is_universal
         self.reverse_field_colors = reverse_field_colors
+
+
+def get_opposites(pieces):
+    return [ PT(p).get_opposite() for p in pieces ]
+
+def remove_pieces(pieces, to_remove=(PT.Queen, -PT.Queen)):
+    return [ p for p in pieces if p not in to_remove ]
 
 
 class Board(object):
     def __init__(self, board_type, width=None, height=None, hints=None):
-        self.type = board_type
+        self.type = BoardType(board_type)
 
-        if width is None:
-            width = self.type.get_size()
-        self._width = width
+        self._width = width or self.type.get_size()
+        self._height = height or self.type.get_size()
 
-        if height is None:
-            height = self.type.get_size()
-        self._height = height
-
-        self._board = [ [ PieceType(PieceType.none) for i in xrange(self._width) ] for j in xrange(self._height) ]
+        self._board = [ [ PT(PT.none) for i in xrange(self._width) ] for j in xrange(self._height) ]
 
         self.hints = hints or BoardHints()
 
@@ -208,7 +214,7 @@ class Board(object):
     def clear(self):
         for j in xrange(self._height):
             for i in xrange(self._width):
-                self.set_piece(i, j, PieceType(PieceType.none))
+                self.set_piece(i, j, PT(PT.none))
 
     def get_width(self):
         return self._width
@@ -217,12 +223,16 @@ class Board(object):
         return self._height
 
     def set_piece(self, i, j, piece):
-        p = PieceType(piece)
-        self._board[j][i] = p
+        self._board[j][i] = PT(piece)
 
-    def set_pieces(self, l):
-        for t in l:
-            self.set_piece(*t)
+    def set_pieces(self, lst):
+        # lst :: [ ( i, j, piece ), ... ]
+        for tpl in lst:
+            self.set_piece(*tpl)
+
+    def set_row(self, j, pieces):
+        for i, p in enumerate(pieces):
+            self.set_piece(i, j, p)
 
     def get_piece(self, i, j):
         return self._board[j][i]
@@ -232,18 +242,335 @@ class Board(object):
         w = self._width - 1
         return ((0, 0), (w, h))
 
+    def setup_none(self):
+        pass
+
+    def _setup_pawns(self):
+        if not self.is_by_the_book():
+            return
+
+        light = [ PT.Pawn for i in xrange(self.get_width()) ]
+        self.set_row(1, light)
+
+        dark = get_opposites(light)
+        self.set_row(self.get_height() - 2, dark)
+
+    def _setup_board(self, light_pieces):
+        if not self.is_by_the_book():
+            return
+
+        self.clear()
+        self._setup_pawns()
+
+        if not self.type.is_even_or_odd():
+            light_pieces = remove_pieces(light_pieces)
+        self.set_row(0, light_pieces)
+
+        dark = get_opposites(light_pieces)
+        self.set_row(self.get_height() - 1, dark)
+
+    def setup_classic(self):
+        light = [ PT.Rook, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Rook ]
+
+        self._setup_board(light)
+
+    def setup_croatian_ties(self):
+        light = [ PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Pegasus, \
+                  PT.Rook ]
+
+        self._setup_board(light)
+
+    def setup_mayan_ascendancy(self):
+        light = [ PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook ]
+
+        self._setup_board(light)
+
+    def setup_age_of_aquarius(self):
+        light = [ PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Unicorn, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Unicorn, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook ]
+
+        self._setup_board(light)
+
+    def setup_mirandas_veil(self):
+        light = [ PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Unicorn, \
+                  PT.Wave, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Wave, \
+                  PT.Unicorn, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook ]
+
+        self._setup_board(light)
+
+    def setup_nineteen(self):
+        light = [ PT.Star, \
+                  PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Unicorn, \
+                  PT.Wave, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Wave, \
+                  PT.Unicorn, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook, \
+                  PT.Star ]
+
+        self._setup_board(light)
+
+    def setup_hemeras_dawn(self):
+        light = [ PT.Star, \
+                  PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Unicorn, \
+                  PT.Wave, \
+                  PT.Centaur, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Centaur, \
+                  PT.Wave, \
+                  PT.Unicorn, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook, \
+                  PT.Star ]
+
+        self._setup_board(light)
+
+    def setup_tamoanchan_revisited(self):
+        light = [ PT.Star, \
+                  PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Unicorn, \
+                  PT.Wave, \
+                  PT.Centaur, \
+                  PT.Serpent, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Serpent, \
+                  PT.Centaur, \
+                  PT.Wave, \
+                  PT.Unicorn, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook, \
+                  PT.Star ]
+
+        self._setup_board(light)
+
+    def setup_conquest_of_tlalocan(self):
+        light = [ PT.Star, \
+                  PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Shaman, \
+                  PT.Unicorn, \
+                  PT.Wave, \
+                  PT.Centaur, \
+                  PT.Serpent, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Serpent, \
+                  PT.Centaur, \
+                  PT.Wave, \
+                  PT.Unicorn, \
+                  PT.Shaman, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook, \
+                  PT.Star ]
+
+        self._setup_board(light)
+
+
+    def _calc_monolith_init_pos(self, pt):
+        pt = PT(pt)
+
+        w = self.get_width()
+        dx = int(math.floor(w / 11.0))
+
+        h = self.get_height()
+        dy = int(math.ceil(7.0 * h / 22.0))
+
+        if pt.is_light_or_dark():
+            return (dx - 1, dy - 1)
+        else:
+            return (w - dx, h - dy)
+
+    def _setup_monolith(self, pt):
+        pt = PT(pt)
+        i, j = self._calc_monolith_init_pos(pt)
+        self.set_piece(i, j, pt)
+
+    def setup_discovery(self):
+        light = [ PT.Star, \
+                  PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Shaman, \
+                  PT.Unicorn, \
+                  PT.Wave, \
+                  PT.Centaur, \
+                  PT.Serpent, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Serpent, \
+                  PT.Centaur, \
+                  PT.Wave, \
+                  PT.Unicorn, \
+                  PT.Shaman, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook, \
+                  PT.Star ]
+
+        self._setup_board(light)
+
+        self._setup_monolith(PT.Monolith)
+        self._setup_monolith(-PT.Monolith)
+
+    def setup_one(self):
+        light = [ PT.Star, \
+                  PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Shaman, \
+                  PT.Starchild, \
+                  PT.Unicorn, \
+                  PT.Wave, \
+                  PT.Centaur, \
+                  PT.Serpent, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Serpent, \
+                  PT.Centaur, \
+                  PT.Wave, \
+                  PT.Unicorn, \
+                  PT.Starchild, \
+                  PT.Shaman, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook, \
+                  PT.Star ]
+
+        self._setup_board(light)
+
+        self._setup_monolith(PT.Monolith)
+        self._setup_monolith(-PT.Monolith)
+
+    def setup(self):
+        f = { BoardType.none: self.setup_none,
+              BoardType.OddClassical: self.setup_classic,
+              BoardType.Classical: self.setup_classic,
+              BoardType.OddCroatianTies: self.setup_croatian_ties,
+              BoardType.CroatianTies: self.setup_croatian_ties,
+              BoardType.OddMayanAscendancy: self.setup_mayan_ascendancy,
+              BoardType.MayanAscendancy: self.setup_mayan_ascendancy,
+              BoardType.OddAgeOfAquarius: self.setup_age_of_aquarius,
+              BoardType.AgeOfAquarius: self.setup_age_of_aquarius,
+              BoardType.OddMirandasVeil: self.setup_mirandas_veil,
+              BoardType.MirandasVeil: self.setup_mirandas_veil,
+              BoardType.OddNineteen: self.setup_nineteen,
+              BoardType.Nineteen: self.setup_nineteen,
+              BoardType.OddHemerasDawn: self.setup_hemeras_dawn,
+              BoardType.HemerasDawn: self.setup_hemeras_dawn,
+              BoardType.OddTamoanchanRevisited: self.setup_tamoanchan_revisited,
+              BoardType.TamoanchanRevisited: self.setup_tamoanchan_revisited,
+              BoardType.OddConquestOfTlalocan: self.setup_conquest_of_tlalocan,
+              BoardType.ConquestOfTlalocan: self.setup_conquest_of_tlalocan,
+              BoardType.OddDiscovery: self.setup_discovery,
+              BoardType.Discovery: self.setup_discovery,
+              BoardType.OddOne: self.setup_one,
+              BoardType.One: self.setup_one }[self.type]
+        f()
+
+
     def __str__(self):
-        s = "-" * self._width + "\n"
-        for j in xrange(self._height):
+        s = ""
+        for j in xrange(self._height-1, -1, -1):
             for i in xrange(self._width):
                 p = self.get_piece(i, j)
                 s += "%c" % p.get_label()
             s += "\n"
-        s += "-" * self._width + "\n"
         return s
 
 
-if __name__ == '__main__':
+def test_1():
     b = Board(BoardType.Classical, width=3, height=2)
 
     print
@@ -252,13 +579,28 @@ if __name__ == '__main__':
     print str(b)
     print
 
-    b.set_piece(2, 1, PieceType.Bishop)
-    b.set_piece(1, 0, PieceType.Pawn)
-    b.set_piece(0, 1, PieceType.Knight)
-    b.set_piece(1, 1, -PieceType.Pawn)
+    b.set_piece(2, 1, PT.Bishop)
+    b.set_piece(1, 0, PT.Pawn)
+    b.set_piece(0, 1, PT.Knight)
+    b.set_piece(1, 1, -PT.Pawn)
 
     print
     print b.get_position_limits()
     print
     print str(b)
     print
+
+def test_2():
+    b = Board(BoardType.One)
+    b.setup()
+
+    print
+    print b.get_position_limits()
+    print
+    print str(b)
+    print
+
+if __name__ == '__main__':
+    # test_1()
+
+    test_2()
