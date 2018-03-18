@@ -1,14 +1,21 @@
 #! /usr/bin/env bash
 
-# Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2018 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-rm -rfv ../crochess.zip
+# Fiddling with current dir, because zip stores relative path into archive,
+# which is fine, but includes "../", which I don't want.
+
+cd .. # out of crochess folder
+
+rm -rfv crochess.zip
 
 echo
-zip -RTv9 ../crochess.zip *.hs *.txt *.sh *.py *.tex
+zip -rTv9 crochess.zip crochess -x *.* *. -i \*.hs \*.txt \*.sh \*.py \*.tex -x \*.diff.\*
 echo
 
-ls -Fal --color=auto ../*.zip
+ls -Fal --color=auto *.zip
 echo
+
+cd crochess # back into crochess folder
