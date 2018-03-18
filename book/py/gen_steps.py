@@ -4,7 +4,7 @@
 # Copyright (c) 2016 - 2018 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
-import inspect as I
+# import inspect as I
 
 
 DEFAULT_KNIGHT_REL_MOVES = [ ( 2,  1),  \

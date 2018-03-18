@@ -4,7 +4,7 @@
 # Copyright (c) 2016 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
-import pixel_math as pm
+# import pixel_math as pm
 
 class Arrow(object):
 
