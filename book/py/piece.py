@@ -29,14 +29,25 @@ class PieceType(int):
         else:
             raise ValueError("No such a piece type, received '%s'." % (str(value), ))
 
-#    @staticmethod
-#    def foreach(start=None, end=None, step=1):
-#        start = start or PieceType.none
-#        end = end or PieceType.Starchild
-
-#        for pt in xrange(start, end+1, step):
-#            # Added +1 because upper limit is not included in loop.
-#            yield PieceType(pt)
+    def __iter__(self):
+        for pt in [ PieceType.none, \
+                    PieceType.Pawn, \
+                    PieceType.Bishop, \
+                    PieceType.Knight, \
+                    PieceType.Rook, \
+                    PieceType.Queen, \
+                    PieceType.King, \
+                    PieceType.Pegasus, \
+                    PieceType.Pyramid, \
+                    PieceType.Unicorn, \
+                    PieceType.Wave, \
+                    PieceType.Star, \
+                    PieceType.Centaur, \
+                    PieceType.Serpent, \
+                    PieceType.Shaman, \
+                    PieceType.Monolith, \
+                    PieceType.Starchild ]:
+            yield PieceType(pt)
 
     def get_symbol(self):
         return { PieceType.none: '.',

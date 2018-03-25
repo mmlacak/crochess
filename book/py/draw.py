@@ -121,7 +121,7 @@ class Draw(object):
 #        self.gc.foreground = fg
 #        self.drawable.draw_arc(self.gc, False, x, y, width, height, angle1, angle2)
 
-    def draw_arc(self, x, y, width, height, angle1=0, angle2=64*360, fg=None, bg=None):
+    def draw_arc(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360):
         self.alloc_color(fg=fg, bg=bg)
         self.drawable.draw_arc(self.gc, True, x, y, width, height, angle1, angle2)
         self.drawable.draw_arc(self.gc, False, x, y, width, height, angle1, angle2)

@@ -40,6 +40,32 @@ class BoardType(int):
         else:
             raise ValueError("No such a board type, received '%s'." % (str(value), ))
 
+    def __iter__(self):
+        for bt in [ BoardType.none, \
+                    BoardType.OddClassical, \
+                    BoardType.Classical, \
+                    BoardType.OddCroatianTies, \
+                    BoardType.CroatianTies, \
+                    BoardType.OddMayanAscendancy, \
+                    BoardType.MayanAscendancy, \
+                    BoardType.OddAgeOfAquarius, \
+                    BoardType.AgeOfAquarius, \
+                    BoardType.OddMirandasVeil, \
+                    BoardType.MirandasVeil, \
+                    BoardType.OddNineteen, \
+                    BoardType.Nineteen, \
+                    BoardType.OddHemerasDawn, \
+                    BoardType.HemerasDawn, \
+                    BoardType.OddTamoanchanRevisited, \
+                    BoardType.TamoanchanRevisited, \
+                    BoardType.OddConquestOfTlalocan, \
+                    BoardType.ConquestOfTlalocan, \
+                    BoardType.OddDiscovery, \
+                    BoardType.Discovery, \
+                    BoardType.OddOne, \
+                    BoardType.One ]:
+            yield BoardType(bt)
+
     def is_even_or_odd(self):
         return (self % 2) == 0
 
@@ -49,15 +75,6 @@ class BoardType(int):
 
     def is_valid(self):
         return BoardType._is_valid(self)
-
-#    @staticmethod
-#    def foreach(start=None, end=None, step=1):
-#        start = start or BoardType.none
-#        end = end or BoardType.One
-
-#        for bt in xrange(start, end+1, step):
-#            # Added +1 because upper limit is not included in loop.
-#            yield BoardType(bt)
 
     def get_name(self):
         return { BoardType.none: 'none',

@@ -15,6 +15,9 @@ class Map(dict):
     def __delattr__(self, name):
         del self[name]
 
+    def as_tuple(self):
+        return tuple(self.itervalues())
+
 
 if __name__ == '__main__':
     print
