@@ -18,6 +18,10 @@ class Map(dict):
     def as_tuple(self):
         return tuple(self.itervalues())
 
+    @staticmethod
+    def from_tuple(tpl):
+        raise NotImplementedError("from_tuple")
+
 
 if __name__ == '__main__':
     print

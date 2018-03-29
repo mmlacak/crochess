@@ -20,6 +20,10 @@ class ColorsPair(Map)
     def as_tuple(self):
         return (self.fg, self.bg)
 
+    @staticmethod
+    def from_tuple(tpl):
+        return ColorsPair(fg=tpl[0], bg=tpl[1])
+
 
 class ColorsShade(Map):
     def __init__(self, light=None, dark=None):
@@ -30,7 +34,12 @@ class ColorsShade(Map):
         self.dark = dark
 
     def as_tuple(self):
-        return (self.light, self.dark)
+        return self.light.as_tuple() + self.dark.as_tuple()
+
+    @staticmethod
+    def from_tuple(tpl):
+        return ColorsShade( light=ColorsPair.from_tuple( (tpl[0], tpl[1]) ), \
+                            dark=ColorsPair.from_tuple( (tpl[2], tpl[3]) ) )
 
 
 class ColorsMark(Map):
@@ -46,7 +55,14 @@ class ColorsMark(Map):
         self.forbidden = forbidden
 
     def as_tuple(self):
-        return (self.legal, self.ilegal, self.action, self.forbidden)
+        return self.legal.as_tuple() + self.ilegal.as_tuple() + self.action.as_tuple() + self.forbidden.as_tuple()
+
+    @staticmethod
+    def from_tuple(tpl):
+        return ColorsMark( legal=ColorsPair.from_tuple( (tpl[0], tpl[1]) ), \
+                           ilegal=ColorsPair.from_tuple( (tpl[2], tpl[3]) ), \
+                           action=ColorsPair.from_tuple( (tpl[4], tpl[5]) ), \
+                           forbidden=ColorsPair.from_tuple( (tpl[6], tpl[7]) ) )
 
 
 class ColorsItem(Map):
@@ -64,8 +80,105 @@ class ColorsItem(Map):
         self.marker = marker
 
     def as_tuple(self):
-        return (self.piece, self.field, self.arrow, self.text, self.marker)
+        return self.piece.as_tuple() + self.field.as_tuple() + self.arrow.as_tuple() + self.text.as_tuple() + self.marker.as_tuple()
+
+    @staticmethod
+    def from_tuple(tpl):
+        return ColorsItem( piece=ColorsShade.from_tuple( (tpl[0], tpl[1], tpl[2], tpl[3]) ), \
+                           field=ColorsShade.from_tuple( (tpl[4], tpl[5], tpl[6], tpl[7]) ), \
+                           arrow=ColorsMark.from_tuple( (tpl[8], tpl[9], tpl[10], tpl[11], tpl[12], tpl[13], tpl[14], tpl[15]) ), \
+                           text=ColorsMark.from_tuple( (tpl[16], tpl[17], tpl[18], tpl[19], tpl[20], tpl[21], tpl[22], tpl[23]) ), \
+                           marker=ColorsMark.from_tuple( (tpl[24], tpl[25], tpl[26], tpl[27], tpl[28], tpl[29], tpl[30], tpl[31]) ) )
 
 
 class Colors(Map):
-    pass
+    def __init__(self):
+        CP = ColorsPair # (<fg>, <bg>)
+        CS = ColorsShade # (<light fg>, <light bg>, <dark fg>, <dark bg>)
+        CM = ColorsMark # (<legal fg>, <legal bg>, <ilegal fg>, <ilegal bg>, <action fg>, <action bg>, <forbidden fg>, <forbidden bg>)
+        CI = ColorsItem # ...
+
+        self[ BoardType.none ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                     field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                     arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                     text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                     marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+
+        self[ BoardType.Classical ] = CI( piece=CS.from_tuple(  ('#000000', '#B0B0B0', '#FFFFFF', '#202020') ), \
+                                          field=CS.from_tuple(  ('#EFEFEF', '#EFEFEF', '#606060', '#606060') ), \
+                                          arrow=CM.from_tuple(  ('#303030', '#00FF00', '#303030', '#FF0000', '#303030', '#FF0000', '#303030', '#FF0000') ), \
+                                          text=CM.from_tuple(   ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ), \
+                                          marker=CM.from_tuple( ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ) )
+        self[ BoardType.OddClassical ] = self[ BoardType.Classical ]
+
+        self[ BoardType.CroatianTies ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                             field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                             arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                             text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                             marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddCroatianTies ] = self[ BoardType.CroatianTies ]
+
+        self[ BoardType.MayanAscendancy ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                                field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                                arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddMayanAscendancy ] = self[ BoardType.MayanAscendancy ]
+
+        self[ BoardType.AgeOfAquarius ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                              field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                              arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                              text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                              marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddAgeOfAquarius ] = self[ BoardType.AgeOfAquarius ]
+
+        self[ BoardType.MirandasVeil ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                             field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                             arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                             text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                             marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddMirandasVeil ] = self[ BoardType.MirandasVeil ]
+
+        self[ BoardType.Nineteen ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                         field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                         arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                         text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                         marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddNineteen ] = self[ BoardType.Nineteen ]
+
+        self[ BoardType.HemerasDawn ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                            field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                            arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                            text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                            marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddHemerasDawn ] = self[ BoardType.HemerasDawn ]
+
+        self[ BoardType.TamoanchanRevisited ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                                    field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                                    arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                    text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                    marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddTamoanchanRevisited ] = self[ BoardType.TamoanchanRevisited ]
+
+        self[ BoardType.ConquestOfTlalocan ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                                   field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                                   arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                   text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                   marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddConquestOfTlalocan ] = self[ BoardType.ConquestOfTlalocan ]
+
+        self[ BoardType.Discovery ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                          field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                          arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                          text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                          marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddDiscovery ] = self[ BoardType.Discovery ]
+
+        self[ BoardType.One ] = CI( piece=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                    field=CS.from_tuple(  ('#', '#', '#', '#') ), \
+                                    arrow=CM.from_tuple(  ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                    text=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                    marker=CM.from_tuple( ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.OddOne ] = self[ BoardType.One ]
+
+Colors = Colors()

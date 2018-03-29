@@ -69,6 +69,16 @@ class BoardType(int):
     def is_even_or_odd(self):
         return (self % 2) == 0
 
+#    def get_even(self):
+#        if self == BoardType.none:
+#            return self
+#        return self if is_even_or_odd(self) else BoardType(self + 1)
+
+#    def get_odd(self):
+#        if self == BoardType.none:
+#            return self
+#        return BoardType(self - 1) if is_even_or_odd(self) else self
+
     @staticmethod
     def _is_valid(board_type):
         return BoardType.none <= board_type <= BoardType.One
