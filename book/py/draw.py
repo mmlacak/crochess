@@ -8,46 +8,34 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
-from gfx_def import GD
+
+# DEFAULT_PATH = '../gfx/' # '../tmp/'
+DEFAULT_FILE_EXT = '.png'
+DEFAULT_FILE_TYPE = 'png'
 
 
-def get_new_drawable(size_x=None, size_y=None):
-    size_x = size_x or GD.DEFAULT_BOARD_RENDERING_SIZE
-    size_y = size_y or GD.DEFAULT_BOARD_RENDERING_SIZE
-
+def get_new_drawable(size_x, size_y):
     default = gtk.gdk.screen_get_default()
     root = default.get_root_window()
     drawable = gtk.gdk.Pixmap(root, size_x, size_y)
-
     return drawable
 
-def get_new_gfx_ctx(line_width=None, drawable=None):
-    line_width = line_width or GD.DEFAULT_BOARD_LINE_WIDTH
-
-    if drawable is None:
-        default = gtk.gdk.screen_get_default()
-        drawable = default.get_root_window()
+def get_new_gc(drawable, line_width):
     gc = drawable.new_gc()
-
     gc.set_line_attributes(line_width, gtk.gdk.LINE_SOLID, gtk.gdk.CAP_ROUND, gtk.gdk.JOIN_ROUND)
-
     return gc
 
-def save_image(drawable, file_path, file_type=None):
-    file_type = file_type or GD.DEFAULT_FILE_TYPE
-
-    pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, *drawable.get_size())
-    pixbuf.get_from_drawable(drawable, drawable.get_colormap(), 0, 0, 0, 0, *drawable.get_size())
-    pixbuf.save(file_path, file_type)
-
-def alloc_color(gc, fg=None, bg=None):
+def set_new_colors(gc, fg=None, bg=None):
     if fg is not None:
         gc.foreground = gc.get_colormap().alloc_color(fg)
 
     if bg is not None:
         gc.background = gc.get_colormap().alloc_color(bg)
 
-    return gc
+def save_image(drawable, file_path, file_type=DEFAULT_FILE_TYPE):
+    pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, *drawable.get_size())
+    pixbuf.get_from_drawable(drawable, drawable.get_colormap(), 0, 0, 0, 0, *drawable.get_size())
+    pixbuf.save(file_path, file_type)
 
 
 class DrawableRectangle(object):
@@ -70,28 +58,28 @@ class DrawableRectangle(object):
 
 
 class Draw(object):
-    def __init__(self, size_x=None, size_y=None, line_width=None):
-        self.drawable = get_new_drawable(size_x=size_x, size_y=size_y)
-        self.gc = self.alloc_gc(line_width=line_width, drawable=self.drawable)
+    def __init__(self, size_x, size_y, line_width):
+        self.init(size_x, size_y, line_width)
 
-    def save(file_path, file_type=None):
+    def init(self, size_x, size_y, line_width):
+        self.drawable = get_new_drawable(size_x, size_y)
+        self.gc = get_new_gc(self.drawable, line_width)
+
+    def set_new_colors(self, fg=None, bg=None):
+        set_new_colors(self.gc, fg=fg, bg=bg)
+
+    def save_image(file_path, file_type=DEFAULT_FILE_TYPE):
         save_image(self.drawable, file_path, file_type=file_type)
-
-    def alloc_gc(self, line_width=None):
-        return get_new_gfx_ctx(line_width=line_width, drawable=self.drawable)
-
-    def alloc_color(self, fg=None, bg=None):
-        return alloc_color(self.gc, fg=fg, bg=bg)
 
     def clear_area(self, color="#FFFFFF"):
 #         gc = self.drawable.new_gc()
 #         gc.foreground = gc.get_colormap().alloc_color(color)
 #         self.gc.foreground = color
-        self.alloc_color(fg=color)
+        self.set_new_colors(fg=color)
         self.drawable.draw_rectangle(self.gc, True, 0, 0, *self.drawable.get_size())
 
     def draw_polygon(self, points, fg=None, bg=None, filled=True):
-        self.alloc_color(fg=fg, bg=bg)
+        self.set_new_colors(fg=fg, bg=bg)
         self.drawable.draw_polygon(self.gc, filled, points)
 
 #    def draw_polygon_background_outline(self, points):
@@ -122,7 +110,7 @@ class Draw(object):
 #        self.drawable.draw_arc(self.gc, False, x, y, width, height, angle1, angle2)
 
     def draw_arc(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360):
-        self.alloc_color(fg=fg, bg=bg)
+        self.set_new_colors(fg=fg, bg=bg)
         self.drawable.draw_arc(self.gc, True, x, y, width, height, angle1, angle2)
         self.drawable.draw_arc(self.gc, False, x, y, width, height, angle1, angle2)
 

@@ -19,14 +19,14 @@ class RenderingSize(int):
         else:
             raise ValueError("No such a rendering type, received '%s'." % (str(value), ))
 
-#    @staticmethod
-#    def foreach(start=None, end=None, step=1):
-#        start = start or RenderingSize.none
-#        end = end or RenderingSize.Final
-
-#        for rt in xrange(start, end+1, step):
-#            # Added +1 because upper limit is not included in loop.
-#            yield RenderingSize(rt)
+    def __iter__(self):
+        for rs in [ RenderingSize.none, \
+                    RenderingSize.Info, \
+                    RenderingSize.Draft, \
+                    RenderingSize.Normal, \
+                    RenderingSize.Good, \
+                    RenderingSize.Final ]:
+            yield RenderingSize(rs)
 
     @staticmethod
     def _is_valid(rendering_size):
@@ -58,8 +58,8 @@ class GfxDef(object):
     DEFAULT_BOARD_LINE_WIDTH = 4 # >= 1 + (6 * rendering size / 5) // 1000
 
     DEFAULT_PATH = '../gfx/' # '../tmp/'
-    DEFAULT_FILE_EXT = '.png'
-    DEFAULT_FILE_TYPE = 'png'
+#    DEFAULT_FILE_EXT = '.png'
+#    DEFAULT_FILE_TYPE = 'png'
 
     def __init__(self, rendering_size=RenderingSize.Normal):
         self.rendering_size = RenderingSize(rendering_size)
