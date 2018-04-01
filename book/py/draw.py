@@ -32,6 +32,8 @@ def set_new_colors(gc, fg=None, bg=None):
     if bg is not None:
         gc.background = gc.get_colormap().alloc_color(bg)
 
+    return gc
+
 def save_image(drawable, file_path, file_type=DEFAULT_FILE_TYPE):
     pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, *drawable.get_size())
     pixbuf.get_from_drawable(drawable, drawable.get_colormap(), 0, 0, 0, 0, *drawable.get_size())
@@ -65,21 +67,22 @@ class Draw(object):
         self.drawable = get_new_drawable(size_x, size_y)
         self.gc = get_new_gc(self.drawable, line_width)
 
-    def set_new_colors(self, fg=None, bg=None):
-        set_new_colors(self.gc, fg=fg, bg=bg)
+    def set_gc_colors(self, fg=None, bg=None, gc=None):
+        self.gc = set_new_colors(gc or self.gc, fg=fg, bg=bg)
+        return self.gc
 
     def save_image(file_path, file_type=DEFAULT_FILE_TYPE):
         save_image(self.drawable, file_path, file_type=file_type)
 
-    def clear_area(self, color="#FFFFFF"):
+    def clear_area(self, color="#FFFFFF", gc=None):
 #         gc = self.drawable.new_gc()
 #         gc.foreground = gc.get_colormap().alloc_color(color)
 #         self.gc.foreground = color
-        self.set_new_colors(fg=color)
+        self.set_gc_colors(fg=color, gc=gc)
         self.drawable.draw_rectangle(self.gc, True, 0, 0, *self.drawable.get_size())
 
-    def draw_polygon(self, points, fg=None, bg=None, filled=True):
-        self.set_new_colors(fg=fg, bg=bg)
+    def draw_polygon(self, points, fg=None, bg=None, filled=True, gc=None):
+        self.set_gc_colors(fg=fg, bg=bg, gc=gc)
         self.drawable.draw_polygon(self.gc, filled, points)
 
 #    def draw_polygon_background_outline(self, points):
@@ -90,9 +93,9 @@ class Draw(object):
 #        self.gc.foreground = fg
 #        self.drawable.draw_polygon(self.gc, False, points)
 
-    def draw_polygon_outline(self, points, fg=None, bg=None):
-        draw_polygon(self, points, fg=fg, bg=bg, filled=True)
-        draw_polygon(self, points, fg=fg, bg=bg, filled=False)
+    def draw_polygon_outline(self, points, fg=None, bg=None, gc=None):
+        self.draw_polygon(self, points, fg=fg, bg=bg, filled=True, gc=gc)
+        self.draw_polygon(self, points, fg=fg, bg=bg, filled=False, gc=gc)
 
 #    def draw_polygon_background(self, points, filled=True):
 #        # Monkeying around limitation of polygon fill being always done with foreground color.
@@ -109,11 +112,26 @@ class Draw(object):
 #        self.gc.foreground = fg
 #        self.drawable.draw_arc(self.gc, False, x, y, width, height, angle1, angle2)
 
-    def draw_arc(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360):
-        self.set_new_colors(fg=fg, bg=bg)
+    def draw_arc(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
+        self.set_gc_colors(fg=fg, bg=bg, gc=gc)
         self.drawable.draw_arc(self.gc, True, x, y, width, height, angle1, angle2)
         self.drawable.draw_arc(self.gc, False, x, y, width, height, angle1, angle2)
 
 #    def get_square_size(self):
 #        m = min(self.drawable.get_size())
 #        return (m, m)
+
+    def flip_horizontally(self, points_pct):
+        return [ (1.0 - p[0], p[1]) for p in points_pct ]
+
+    def flip_vertically(self, points_pct):
+        return [ (p[0], 1.0 - p[1]) for p in points_pct ]
+
+    def rotate_clockwise(self, points_pct):
+        return [ (p[1], 1.0 - p[0]) for p in points_pct ]
+
+    def rotate_anticlockwise(self, points_pct):
+        return [ (1.0 - p[1], p[0]) for p in points_pct ]
+
+    def translate(self, points_pct, trans_x=0.0, trans_y=0.0):
+        return [ (p[0] + trans_x, p[1] + trans_y) for p in points_pct ]

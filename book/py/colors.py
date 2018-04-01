@@ -11,8 +11,8 @@ from maps import Map
 
 class ColorsPair(Map)
     def __init__(self, fg=None, bg=None):
-        assert isinstance(fg, str)
-        assert isinstance(bg, str)
+        assert isinstance(fg, (str, None))
+        assert isinstance(bg, (str, None))
 
         self.fg = fg
         self.bg = bg
@@ -40,6 +40,35 @@ class ColorsShade(Map):
     def from_tuple(tpl):
         return ColorsShade( light=ColorsPair.from_tuple( (tpl[0], tpl[1]) ), \
                             dark=ColorsPair.from_tuple( (tpl[2], tpl[3]) ) )
+
+    def convert_to_piece(self, is_piece_light):
+        tpl = self.light.as_tuple() + self.dark.as_tuple() \
+              if is_piece_light else \
+              self.dark.as_tuple() + self.light.as_tuple()
+        return ColorsPiece.from_tuple( tpl )
+
+
+class ColorsPiece(Map):
+    def __init__(self, own=None, opposite=None):
+        assert isinstance(own, ColorsPair)
+        assert isinstance(opposite, ColorsPair)
+
+        self.own = own
+        self.opposite = opposite
+
+    def as_tuple(self):
+        return self.own.as_tuple() + self.opposite.as_tuple()
+
+    @staticmethod
+    def from_tuple(tpl):
+        return ColorsPiece( own=ColorsPair.from_tuple( (tpl[0], tpl[1]) ), \
+                            opposite=ColorsPair.from_tuple( (tpl[2], tpl[3]) ) )
+
+    def convert_to_shade(self, is_piece_light):
+        tpl = self.own.as_tuple() + self.opposite.as_tuple() \
+              if is_piece_light else \
+              self.opposite.as_tuple() + self.own.as_tuple()
+        return ColorsShade.from_tuple( tpl )
 
 
 class ColorsMark(Map):
