@@ -78,29 +78,28 @@ class Draw(object):
         self.set_gc_colors(fg=color, gc=gc)
         self.drawable.draw_rectangle(self.gc, True, 0, 0, *self.drawable.get_size())
 
+    def draw_lines(self, points, fg=None, bg=None, gc=None):
+        self.set_gc_colors(fg=fg, bg=bg, gc=gc)
+        self.drawable.draw_lines(self.gc, points)
+
+    def draw_outlined_lines(self, points, outline=None, gc=None):
+        self.draw_lines(points, fg=outline, bg=outline, gc=gc)
+
     def draw_polygon(self, points, filled=True, fg=None, bg=None, gc=None):
         self.set_gc_colors(fg=fg, bg=bg, gc=gc)
         self.drawable.draw_polygon(self.gc, filled, points)
 
-    def draw_polygon_outline_bg(self, points, fg=None, bg=None, gc=None):
-        self.draw_polygon(points, filled=True, fg=fg, bg=bg, gc=gc) # interior
-        self.draw_polygon(points, filled=False, fg=bg, bg=fg, gc=gc) # outline
-
-    def draw_polygon_outline_fg(self, points, fg=None, bg=None, gc=None):
-        self.draw_polygon(points, filled=True, fg=bg, bg=fg, gc=gc) # interior
-        self.draw_polygon(points, filled=False, fg=fg, bg=bg, gc=gc) # outline
+    def draw_outlined_polygon(self, points, interior=None, outline=None, gc=None):
+        self.draw_polygon(points, filled=True, fg=interior, gc=gc)
+        self.draw_polygon(points, filled=False, fg=outline, gc=gc)
 
     def draw_arc(self, x, y, width, height, filled, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
         self.set_gc_colors(fg=fg, bg=bg, gc=gc)
         self.drawable.draw_arc(self.gc, filled, x, y, width, height, angle1, angle2)
 
-    def draw_arc_outline_bg(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
-        self.draw_arc(x, y, width, height, True, fg=fg, bg=bg, angle1=angle1, angle2=angle2, gc=gc) # interior
-        self.draw_arc(x, y, width, height, False, fg=bg, bg=fg, angle1=angle1, angle2=angle2, gc=gc) # outline
-
-    def draw_arc_outline_fg(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
-        self.draw_arc(x, y, width, height, True, fg=bg, bg=fg, angle1=angle1, angle2=angle2, gc=gc) # interior
-        self.draw_arc(x, y, width, height, False, fg=fg, bg=bg, angle1=angle1, angle2=angle2, gc=gc) # outline
+    def draw_outlined_arc(self, x, y, width, height, interior=None, outline=None, angle1=0, angle2=64*360, gc=None):
+        self.draw_arc(x, y, width, height, True, fg=interior, angle1=angle1, angle2=angle2, gc=gc)
+        self.draw_arc(x, y, width, height, False, fg=outline, angle1=angle1, angle2=angle2, gc=gc)
 
 #    def get_square_size(self):
 #        m = min(self.drawable.get_size())
@@ -118,8 +117,8 @@ class Draw(object):
     def rotate_anticlockwise(self, points_pct):
         return [ (1.0 - p[1], p[0]) for p in points_pct ]
 
-    def translate(self, points_pct, trans_x=0.0, trans_y=0.0):
-        return [ (p[0] + trans_x, p[1] + trans_y) for p in points_pct ]
+    def translate(self, points_pix, off_x_pix=0, off_y_pix=0):
+        return [ (p[0] + off_x_pix, p[1] + off_y_pix) for p in points_pix ]
 
 
 def test_1():
@@ -129,8 +128,8 @@ def test_1():
     d.draw_polygon([ (10, 10), (100, 100), (10, 100) ], filled=True, fg='#FF0000', bg='#00FF00')
     d.draw_polygon([ (200, 10), (300, 100), (200, 100) ], filled=False, fg='#FF0000', bg='#00FF00')
 
-    d.draw_polygon_outline_bg([ (10, 200), (100, 300), (10, 300) ], fg='#00FF00', bg='#0000FF')
-    d.draw_polygon_outline_fg([ (200, 200), (300, 300), (200, 300) ], fg='#00FF00', bg='#0000FF')
+    d.draw_outlined_polygon([ (10, 200), (100, 300), (10, 300) ], interior='#00FF00', outline='#0000FF')
+    d.draw_outlined_polygon([ (200, 200), (300, 300), (200, 300) ], interior='#0000FF', outline='#00FF00')
 
     d.save_image('test_1.IGNORE.png')
 
@@ -141,8 +140,8 @@ def test_2():
     d.draw_arc(10, 10, 100, 100, True, fg='#FF0000', bg='#00FF00')
     d.draw_arc(200, 10, 100, 100, False, fg='#FF0000', bg='#00FF00')
 
-    d.draw_arc_outline_bg(10, 200, 100, 100, fg='#00FF00', bg='#0000FF')
-    d.draw_arc_outline_fg(200, 200, 100, 100, fg='#00FF00', bg='#0000FF')
+    d.draw_outlined_arc(10, 200, 100, 100, interior='#00FF00', outline='#0000FF')
+    d.draw_outlined_arc(200, 200, 100, 100, interior='#0000FF', outline='#00FF00')
 
     d.save_image('test_2.IGNORE.png')
 
