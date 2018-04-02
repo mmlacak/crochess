@@ -71,51 +71,36 @@ class Draw(object):
         self.gc = set_new_colors(gc or self.gc, fg=fg, bg=bg)
         return self.gc
 
-    def save_image(file_path, file_type=DEFAULT_FILE_TYPE):
+    def save_image(self, file_path, file_type=DEFAULT_FILE_TYPE):
         save_image(self.drawable, file_path, file_type=file_type)
 
     def clear_area(self, color="#FFFFFF", gc=None):
-#         gc = self.drawable.new_gc()
-#         gc.foreground = gc.get_colormap().alloc_color(color)
-#         self.gc.foreground = color
         self.set_gc_colors(fg=color, gc=gc)
         self.drawable.draw_rectangle(self.gc, True, 0, 0, *self.drawable.get_size())
 
-    def draw_polygon(self, points, fg=None, bg=None, filled=True, gc=None):
+    def draw_polygon(self, points, filled=True, fg=None, bg=None, gc=None):
         self.set_gc_colors(fg=fg, bg=bg, gc=gc)
         self.drawable.draw_polygon(self.gc, filled, points)
 
-#    def draw_polygon_background_outline(self, points):
-#        # Monkeying around limitation of polygon fill being always done with foreground color.
-#        fg = self.gc.foreground
-#        self.gc.foreground = self.gc.background
-#        self.drawable.draw_polygon(self.gc, True, points)
-#        self.gc.foreground = fg
-#        self.drawable.draw_polygon(self.gc, False, points)
+    def draw_polygon_outline_bg(self, points, fg=None, bg=None, gc=None):
+        self.draw_polygon(points, filled=True, fg=fg, bg=bg, gc=gc) # interior
+        self.draw_polygon(points, filled=False, fg=bg, bg=fg, gc=gc) # outline
 
-    def draw_polygon_outline(self, points, fg=None, bg=None, gc=None):
-        self.draw_polygon(self, points, fg=fg, bg=bg, filled=True, gc=gc)
-        self.draw_polygon(self, points, fg=fg, bg=bg, filled=False, gc=gc)
+    def draw_polygon_outline_fg(self, points, fg=None, bg=None, gc=None):
+        self.draw_polygon(points, filled=True, fg=bg, bg=fg, gc=gc) # interior
+        self.draw_polygon(points, filled=False, fg=fg, bg=bg, gc=gc) # outline
 
-#    def draw_polygon_background(self, points, filled=True):
-#        # Monkeying around limitation of polygon fill being always done with foreground color.
-#        fg = self.gc.foreground
-#        self.gc.foreground = self.gc.background
-#        self.drawable.draw_polygon(self.gc, filled, points)
-#        self.gc.foreground = fg
-
-#    def draw_arc_with_background(self, x, y, width, height, angle1=0, angle2=64*360):
-#        # Monkeying around limitation of arc fill being always done with foreground color.
-#        fg = self.gc.foreground
-#        self.gc.foreground = self.gc.background
-#        self.drawable.draw_arc(self.gc, True, x, y, width, height, angle1, angle2)
-#        self.gc.foreground = fg
-#        self.drawable.draw_arc(self.gc, False, x, y, width, height, angle1, angle2)
-
-    def draw_arc(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
+    def draw_arc(self, x, y, width, height, filled, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
         self.set_gc_colors(fg=fg, bg=bg, gc=gc)
-        self.drawable.draw_arc(self.gc, True, x, y, width, height, angle1, angle2)
-        self.drawable.draw_arc(self.gc, False, x, y, width, height, angle1, angle2)
+        self.drawable.draw_arc(self.gc, filled, x, y, width, height, angle1, angle2)
+
+    def draw_arc_outline_bg(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
+        self.draw_arc(x, y, width, height, True, fg=fg, bg=bg, angle1=angle1, angle2=angle2, gc=gc) # interior
+        self.draw_arc(x, y, width, height, False, fg=bg, bg=fg, angle1=angle1, angle2=angle2, gc=gc) # outline
+
+    def draw_arc_outline_fg(self, x, y, width, height, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
+        self.draw_arc(x, y, width, height, True, fg=bg, bg=fg, angle1=angle1, angle2=angle2, gc=gc) # interior
+        self.draw_arc(x, y, width, height, False, fg=fg, bg=bg, angle1=angle1, angle2=angle2, gc=gc) # outline
 
 #    def get_square_size(self):
 #        m = min(self.drawable.get_size())
@@ -135,3 +120,32 @@ class Draw(object):
 
     def translate(self, points_pct, trans_x=0.0, trans_y=0.0):
         return [ (p[0] + trans_x, p[1] + trans_y) for p in points_pct ]
+
+
+def test_1():
+    d = Draw(600, 400, 5)
+    d.clear_area()
+
+    d.draw_polygon([ (10, 10), (100, 100), (10, 100) ], filled=True, fg='#FF0000', bg='#00FF00')
+    d.draw_polygon([ (200, 10), (300, 100), (200, 100) ], filled=False, fg='#FF0000', bg='#00FF00')
+
+    d.draw_polygon_outline_bg([ (10, 200), (100, 300), (10, 300) ], fg='#00FF00', bg='#0000FF')
+    d.draw_polygon_outline_fg([ (200, 200), (300, 300), (200, 300) ], fg='#00FF00', bg='#0000FF')
+
+    d.save_image('test_1.IGNORE.png')
+
+def test_2():
+    d = Draw(600, 400, 5)
+    d.clear_area()
+
+    d.draw_arc(10, 10, 100, 100, True, fg='#FF0000', bg='#00FF00')
+    d.draw_arc(200, 10, 100, 100, False, fg='#FF0000', bg='#00FF00')
+
+    d.draw_arc_outline_bg(10, 200, 100, 100, fg='#00FF00', bg='#0000FF')
+    d.draw_arc_outline_fg(200, 200, 100, 100, fg='#00FF00', bg='#0000FF')
+
+    d.save_image('test_2.IGNORE.png')
+
+if __name__ == '__main__':
+    test_1()
+    test_2()
