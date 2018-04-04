@@ -28,11 +28,14 @@ class DrawPiece(Draw):
         else:
             self.draw_outlined_polygon(points_pix, gc=gc)
 
-    def draw_polylines(self, points_pct, rect, cpair=None, gc=None):
+    def draw_polylines(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
         assert isinstance(rect, DrawableRectangle)
         assert isinstance(cpair, (ColorsPair, None))
 
-        points_pix = [ rect.calc_point(*t) for t in points_pct ]
+        def _scale(x_pct, y_pct):
+            return DrawableRectangle.scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
+
+        points_pix = [ rect.calc_point( *_scale( *t ) ) for t in points_pct ]
 
         if cpair is not None:
             self.draw_outlined_lines(points_pix, outline=cpair.outline, gc=gc)
@@ -127,9 +130,6 @@ class DrawPiece(Draw):
         self.draw_piece(star, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.own, gc=gc)
 
     def draw_centaur(self, rect, cpiece=None, gc=None):
-        # horseshoe = [(0.5, 0.3), (0.7, 0.4), (0.8, 0.6), (0.7, 0.9), (0.6, 0.8), (0.65, 0.6), \
-        #              (0.6, 0.5), (0.5, 0.45), (0.4, 0.5), (0.35, 0.6), (0.4, 0.8), (0.3, 0.9), \
-        #              (0.2, 0.6), (0.3, 0.4)]
         horseshoe = [(0.5, 0.3), (0.7, 0.4), (0.8, 0.6), (0.7, 0.9), (0.58, 0.83), (0.65, 0.6), (0.6, 0.5), \
                      (0.5, 0.45), (0.4, 0.5), (0.35, 0.6), (0.42, 0.83), (0.3, 0.9), (0.2, 0.6), (0.3, 0.4)]
         self.draw_piece(horseshoe, rect, cpair=cpiece.own, gc=gc)
@@ -138,15 +138,6 @@ class DrawPiece(Draw):
         self.draw_piece(hat, rect, cpair=cpiece.opposite, gc=gc)
 
     def draw_serpent(self, rect, cpiece=None, gc=None):
-        # serpent = [# right skin
-        #            (0.45, 0.2), (0.5, 0.15), (0.7, 0.15), (0.8, 0.25), (0.8, 0.35), (0.7, 0.45), \
-        #            (0.5, 0.45), (0.5, 0.55), (0.7, 0.55), (0.8, 0.65), (0.8, 0.75), (0.7, 0.85), \
-        #            # head
-        #            (0.4, 0.85), (0.375, 0.875), (0.175, 0.875), (0.1, 0.85), (0.1, 0.81), \
-        #            (0.2, 0.81), (0.1, 0.8), (0.1, 0.75), (0.25, 0.69), (0.35, 0.69), (0.4, 0.75), \
-        #            # left skin
-        #            (0.7, 0.75), (0.7, 0.65), (0.5, 0.65), (0.4, 0.55), (0.4, 0.45), (0.5, 0.35), \
-        #            (0.7, 0.35), (0.7, 0.25), (0.5, 0.25)]
         serpent = [# right skin
                    (0.45, 0.2), (0.5, 0.15), (0.7, 0.15), (0.8, 0.25), (0.8, 0.35), (0.7, 0.45), \
                    (0.5, 0.45), (0.5, 0.55), (0.7, 0.55), (0.8, 0.65), (0.8, 0.75), (0.7, 0.85), \
