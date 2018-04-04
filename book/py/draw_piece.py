@@ -165,44 +165,64 @@ class DrawPiece(Draw):
         string2 = [(0.3, 0.5), (0.4, 0.3), (0.5, 0.5), (0.6, 0.3), (0.7, 0.5)]
         self.draw_polylines(string2, rect, cpair=cpiece.own, gc=gc)
 
-    def draw_monolith(self, rect, cpiece=None, gc=None):
+    def draw_monolith(self, rect, cpair=None, gc=None):
         monolith = [(0.32, 0.095), (0.68, 0.095), (0.68, 0.905), (0.32, 0.905)]
-        self.draw_piece(monolith, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece(monolith, rect, cpair=cpair, gc=gc)
 
-#    def draw_starchild(self, pc, piece, field_bg="#FFBFFF", field_fg=None):
-#        x1, y1 = self.calc_point(pc.rect, 0.149999, 0.149999)
-#        w1, h1 = self.calc_size(pc.rect, 0.700001, 0.700001)
-#        self.draw_arc_with_background(pc.get_gc_piece(piece), x1, y1, w1, h1)
+    def draw_starchild(self, rect, cpiece=None, caura=None, gc=None):
+        x1, y1 = rect.calc_point(0.149999, 0.149999)
+        w1, h1 = rect.calc_size(0.700001, 0.700001)
+        self.draw_outlined_arc(x1, y1, w1, h1, interior=cpiece.own.interior, outline=cpiece.own.outline, gc=gc)
 
-#        x2, y2 = self.calc_point(pc.rect, 0.200001, 0.200001)
-#        w2, h2 = self.calc_size(pc.rect, 0.600001, 0.600001)
-#        if field_fg is None:
-#            field_fg = pc.get_gc_piece(piece).foreground
-#        self.draw_arc_with_background(pc.get_gc_colors(field_fg, field_bg), x2, y2, w2, h2)
+        x2, y2 = rect.calc_point(0.200001, 0.200001)
+        w2, h2 = rect.calc_size(0.600001, 0.600001)
+        self.draw_outlined_arc(x2, y2, w2, h2, interior=caura.interior, outline=cpiece.own.outline, gc=gc)
 
-#        starchild = [(0.5, 0.44), (0.61, 0.39), (0.56, 0.5), (0.61, 0.61), (0.5, 0.56), (0.39, 0.61), \
-#                     (0.44, 0.5), (0.39, 0.39)]
-#        starchild = [ self.calc_point(pc.rect, *t) for t in starchild ]
-#        self.draw_polygon_background_outline(pc.get_gc_piece_opposite_color(piece), starchild)
+        hands = [(0.5, 0.44), (0.61, 0.39), (0.56, 0.5), (0.61, 0.61), (0.5, 0.56), (0.39, 0.61), \
+                 (0.44, 0.5), (0.39, 0.39)]
+        self.draw_piece(hands, rect, cpair=cpiece.opposite, gc=gc)
 
-#        starchild2 = [(0.5, 0.3), (0.54, 0.46), (0.7, 0.5), (0.54, 0.54), (0.5, 0.7), (0.46, 0.54), \
-#                      (0.3, 0.5), (0.46, 0.46)]
-#        starchild2 = [ self.calc_point(pc.rect, *t) for t in starchild2 ]
-#        self.draw_polygon_background_outline(pc.get_gc_piece(piece), starchild2)
+        starchild = [(0.5, 0.3), (0.54, 0.46), (0.7, 0.5), (0.54, 0.54), (0.5, 0.7), (0.46, 0.54), \
+                     (0.3, 0.5), (0.46, 0.46)]
+        self.draw_piece(starchild, rect, cpair=cpiece.own, gc=gc)
 
 
-def test_piece(func_name):
-    d = DrawPiece(600, 400, 5)
-    d.clear_area(color='#D0D0D0')
+def test_piece(func_name, size=300):
+    line_width = 1 + (6 * (2*size) / 5) // 1000 # >= 1 + (6 * rendering size / 5) // 1000
+    d = DrawPiece(2*size, 2*size, line_width)
+    d.clear_area(color='#EFEFEF')
+
+    d.draw_rectangle(size, 0, size, size, fg='#606060')
+    d.draw_rectangle(0, size, size, size, fg='#606060')
+
     func = getattr(d, func_name)
 
-    r = DrawableRectangle(0, 0, 300, 300)
-    cp = ColorsPiece.from_tuple( ('#B0B0B0', '#000000', '#202020', '#FFFFFF') )
-    func(r, cpiece=cp)
+    cdark = ColorsPiece.from_tuple( ('#202020', '#FFFFFF', '#B0B0B0', '#000000') ) # dark
+    clight = ColorsPiece.from_tuple( ('#B0B0B0', '#000000', '#202020', '#FFFFFF') ) # light
+    cmonolith = ColorsPair.from_tuple( ('#000000', '#FFFFFF') )
+    caura = ColorsPair.from_tuple( ('#FFBFFF', '#FFBFFF') )
 
-    r2 = DrawableRectangle(300, 0, 300, 300)
-    cp2 = ColorsPiece.from_tuple( ('#202020', '#FFFFFF', '#B0B0B0', '#000000') )
-    func(r2, cpiece=cp2)
+    def _call(rect, cpiece):
+        # In all those clauses func is not ..., it is just func == ... (!?)
+        if func == d.draw_monolith:
+            func(rect, cpair=cmonolith)
+        elif func == d.draw_starchild:
+            func(rect, cpiece=cpiece, caura=caura)
+        else:
+            func(rect, cpiece=cpiece)
+
+    r_tl = DrawableRectangle(0, 0, size, size)
+    r_tr = DrawableRectangle(size, 0, size, size)
+    r_bl = DrawableRectangle(0, size, size, size)
+    r_br = DrawableRectangle(size, size, size, size)
+
+    # dark
+    _call(r_tl, cpiece=cdark)
+    _call(r_tr, cpiece=cdark)
+
+    # light
+    _call(r_bl, cpiece=clight)
+    _call(r_br, cpiece=clight)
 
     file_path = 'temp/%s.IGNORE.png' % func_name
     d.save_image(file_path)
@@ -223,3 +243,4 @@ if __name__ == '__main__':
     test_piece('draw_serpent')
     test_piece('draw_shaman')
     test_piece('draw_monolith')
+    test_piece('draw_starchild')

@@ -85,6 +85,10 @@ class Draw(object):
     def draw_outlined_lines(self, points, outline=None, gc=None):
         self.draw_lines(points, fg=outline, bg=outline, gc=gc)
 
+    def draw_rectangle(self, x, y, width, height, filled=True, fg=None, bg=None, gc=None):
+        self.set_gc_colors(fg=fg, bg=bg, gc=gc)
+        self.drawable.draw_rectangle(self.gc, filled, x, y, width, height)
+
     def draw_polygon(self, points, filled=True, fg=None, bg=None, gc=None):
         self.set_gc_colors(fg=fg, bg=bg, gc=gc)
         self.drawable.draw_polygon(self.gc, filled, points)
@@ -93,7 +97,7 @@ class Draw(object):
         self.draw_polygon(points, filled=True, fg=interior, gc=gc)
         self.draw_polygon(points, filled=False, fg=outline, gc=gc)
 
-    def draw_arc(self, x, y, width, height, filled, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
+    def draw_arc(self, x, y, width, height, filled=True, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
         self.set_gc_colors(fg=fg, bg=bg, gc=gc)
         self.drawable.draw_arc(self.gc, filled, x, y, width, height, angle1, angle2)
 
@@ -131,7 +135,7 @@ def test_1():
     d.draw_outlined_polygon([ (10, 200), (100, 300), (10, 300) ], interior='#00FF00', outline='#0000FF')
     d.draw_outlined_polygon([ (200, 200), (300, 300), (200, 300) ], interior='#0000FF', outline='#00FF00')
 
-    d.save_image('test_1.IGNORE.png')
+    d.save_image('temp/draw_1.IGNORE.png')
 
 def test_2():
     d = Draw(600, 400, 5)
@@ -143,7 +147,7 @@ def test_2():
     d.draw_outlined_arc(10, 200, 100, 100, interior='#00FF00', outline='#0000FF')
     d.draw_outlined_arc(200, 200, 100, 100, interior='#0000FF', outline='#00FF00')
 
-    d.save_image('test_2.IGNORE.png')
+    d.save_image('temp/draw_2.IGNORE.png')
 
 if __name__ == '__main__':
     test_1()
