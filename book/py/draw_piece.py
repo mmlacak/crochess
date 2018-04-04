@@ -14,11 +14,14 @@ PIECE_WITH_CHIP_TRANSLATION = 0.11
 
 class DrawPiece(Draw):
 
-    def draw_piece(self, points_pct, rect, cpair=None, gc=None):
+    def draw_piece(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
         assert isinstance(rect, DrawableRectangle)
         assert isinstance(cpair, (ColorsPair, None))
 
-        points_pix = [ rect.calc_point(*t) for t in points_pct ]
+        def _scale(x_pct, y_pct):
+            return DrawableRectangle.scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
+
+        points_pix = [ rect.calc_point( *_scale( *t ) ) for t in points_pct ]
 
         if cpair is not None:
             self.draw_outlined_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
@@ -114,14 +117,14 @@ class DrawPiece(Draw):
                 (0.25, 0.8), (0.15, 0.7), (0.15, 0.4)]
         self.draw_piece(wave, rect, cpair=cpiece.own, gc=gc)
 
-    def draw_star(self, rect, cpiece=None, gc=None):
+    def draw_star(self, rect, cpiece=None, scale=1.0, gc=None):
         hands = [(0.5, 0.4), (0.7, 0.3), (0.6, 0.5), (0.7, 0.7), (0.5, 0.6), (0.3, 0.7), (0.4, 0.5), \
                  (0.3, 0.3)]
-        self.draw_piece(hands, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece(hands, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.opposite, gc=gc)
 
         star = [(0.5, 0.2), (0.57, 0.43), (0.8, 0.5), (0.57, 0.57), (0.5, 0.8), (0.43, 0.57), \
                 (0.2, 0.5), (0.43, 0.43)]
-        self.draw_piece(star, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece(star, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.own, gc=gc)
 
     def draw_centaur(self, rect, cpiece=None, gc=None):
         # horseshoe = [(0.5, 0.3), (0.7, 0.4), (0.8, 0.6), (0.7, 0.9), (0.6, 0.8), (0.65, 0.6), \
@@ -178,13 +181,7 @@ class DrawPiece(Draw):
         w2, h2 = rect.calc_size(0.600001, 0.600001)
         self.draw_outlined_arc(x2, y2, w2, h2, interior=caura.interior, outline=cpiece.own.outline, gc=gc)
 
-        hands = [(0.5, 0.44), (0.61, 0.39), (0.56, 0.5), (0.61, 0.61), (0.5, 0.56), (0.39, 0.61), \
-                 (0.44, 0.5), (0.39, 0.39)]
-        self.draw_piece(hands, rect, cpair=cpiece.opposite, gc=gc)
-
-        starchild = [(0.5, 0.3), (0.54, 0.46), (0.7, 0.5), (0.54, 0.54), (0.5, 0.7), (0.46, 0.54), \
-                     (0.3, 0.5), (0.46, 0.46)]
-        self.draw_piece(starchild, rect, cpair=cpiece.own, gc=gc)
+        self.draw_star(rect, cpiece=cpiece, scale=0.667, gc=gc)
 
 
 def test_piece(func_name, size=300):

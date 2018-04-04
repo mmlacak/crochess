@@ -47,6 +47,17 @@ class DrawableRectangle(object):
         self.width_pix = width_pix
         self.height_pix = height_pix
 
+    @staticmethod
+    def scale(x_pct, y_pct, scale=1.0, center_x=0.5, center_y=0.5):
+        if scale == 1.0:
+            # 1.0 == 1.0 + 1e-16 --> True
+            return (x_pct, y_pct)
+        else:
+            # 1.0 == 1.0 + 1e-15 --> False
+            x = scale * (x_pct - center_x) + center_x
+            y = scale * (y_pct - center_y) + center_y
+            return (x, y)
+
     def calc_point(self, x_pct, y_pct):
         x_pix = self.left_pix + x_pct * self.width_pix
         # y = self.top + (1.0 - y_pct) * self.height
@@ -56,7 +67,7 @@ class DrawableRectangle(object):
     def calc_size(self, width_pct, height_pct):
         width_pix  = width_pct * self.width_pix
         height_pix  = height_pct * self.height_pix
-        return (int(width_pix ), int(height_pix ))
+        return (int(width_pix), int(height_pix))
 
 
 class Draw(object):
