@@ -66,7 +66,7 @@ class PieceType(int):
                  PieceType.Serpent: 'S',
                  PieceType.Shaman: 'H',
                  PieceType.Monolith: 'M',
-                 PieceType.Starchild: 'I' }[self.get_enumerated()]
+                 PieceType.Starchild: 'I' }[ self.get_enumerated() ]
 
     def get_label(self):
         sym = self.get_symbol()
@@ -90,7 +90,7 @@ class PieceType(int):
                  PieceType.Serpent: 'Serpent',
                  PieceType.Shaman: 'Shaman',
                  PieceType.Monolith: 'Monolith',
-                 PieceType.Starchild: 'Starchild' }[self.get_enumerated()]
+                 PieceType.Starchild: 'Starchild' }[ self.get_enumerated() ]
 
     def is_light(self):
         return self > PieceType.none

@@ -5,7 +5,8 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from colors import ColorsPair, ColorsShade, ColorsPiece
+from piece import PieceType
+from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsItem
 from draw import DrawableRectangle, Draw
 
 
@@ -14,7 +15,7 @@ PIECE_WITH_CHIP_TRANSLATION = 0.11
 
 class DrawPiece(Draw):
 
-    def draw_piece(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
+    def draw_piece_polygon(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
         assert isinstance(rect, DrawableRectangle)
         assert isinstance(cpair, (ColorsPair, None))
 
@@ -49,11 +50,11 @@ class DrawPiece(Draw):
         assert isinstance(cpiece, ColorsPiece)
 
         pawn = [(0.5, 0.5), (0.6, 0.6), (0.3, 0.9), (0.7, 0.9), (0.4, 0.6)]
-        self.draw_piece(pawn, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(pawn, rect, cpair=cpiece.own, gc=gc)
 
     def draw_bishop(self, rect, cpiece=None, gc=None):
         bishop = [(0.5, 0.6), (0.45, 0.65), (0.7, 0.9), (0.3, 0.9), (0.55, 0.65)]
-        self.draw_piece(bishop, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(bishop, rect, cpair=cpiece.own, gc=gc)
 
         # hat = [(0.5, 0.4), (0.6, 0.5), (0.5, 0.6), (0.4, 0.5)]
         hat = [(0.5, 0.4), \
@@ -62,7 +63,7 @@ class DrawPiece(Draw):
                (0.53, 0.43), (0.47, 0.49), (0.49, 0.51), (0.55, 0.45), \
                \
                (0.6, 0.5), (0.5, 0.6), (0.4, 0.5)]
-        self.draw_piece(hat, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(hat, rect, cpair=cpiece.opposite, gc=gc)
 
     def draw_knight(self, rect, cpiece=None, gc=None, left_facing=True):
         knight = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
@@ -71,36 +72,36 @@ class DrawPiece(Draw):
         if not left_facing:
             knight = self.flip_horizontally(knight)
 
-        self.draw_piece(knight, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(knight, rect, cpair=cpiece.own, gc=gc)
 
     def draw_rook(self, rect, cpiece=None, gc=None):
         rook = [(0.27, 0.3), (0.37, 0.3), (0.37, 0.42), (0.43, 0.42), (0.43, 0.3), (0.57, 0.3), \
                 (0.57, 0.42), (0.63, 0.42), (0.63, 0.3), (0.73, 0.3), (0.76, 0.5), (0.67, 0.54), \
                 (0.72, 0.9), (0.28, 0.9), (0.33, 0.54), (0.24, 0.5)]
-        self.draw_piece(rook, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(rook, rect, cpair=cpiece.own, gc=gc)
 
     def draw_queen(self, rect, cpiece=None, gc=None):
         queen = [(0.2, 0.3), (0.35, 0.65), (0.35, 0.25), (0.45, 0.6), (0.5, 0.2), (0.55, 0.6), \
                  (0.65, 0.25), (0.65, 0.65), (0.8, 0.3), (0.7, 0.9), (0.3, 0.9)]
-        self.draw_piece(queen, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(queen, rect, cpair=cpiece.own, gc=gc)
 
     def draw_king(self, rect, cpiece=None, gc=None):
         king = [(0.2, 0.4), (0.3, 0.7), (0.4, 0.4), (0.5, 0.7), (0.6, 0.4), (0.7, 0.7), (0.8, 0.4), \
                 (0.8, 0.9), (0.2, 0.9)]
-        self.draw_piece(king, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(king, rect, cpair=cpiece.own, gc=gc)
 
     def draw_pegasus(self, rect, cpiece=None, gc=None):
         self.draw_knight(rect, cpiece=cpiece, gc=gc)
 
         wing = [(0.45, 0.87), (0.6, 0.45), (0.93, 0.35), (0.93, 0.44), (0.75, 0.49), (0.84, 0.47), \
                 (0.84, 0.56), (0.66, 0.60), (0.75, 0.58), (0.75, 0.67), (0.57, 0.72), (0.5, 0.87)]
-        self.draw_piece(wing, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(wing, rect, cpair=cpiece.opposite, gc=gc)
 
     def draw_pyramid(self, rect, cpiece=None, gc=None):
         pyramid = [(0.1, 0.9), (0.15, 0.79), (0.2, 0.79), (0.25, 0.7), (0.3, 0.7), (0.35, 0.6), \
                    (0.42, 0.6), (0.42, 0.5), (0.58, 0.5), (0.58, 0.6), (0.65, 0.6), (0.7, 0.7), \
                    (0.75, 0.7), (0.8, 0.79), (0.85, 0.79), (0.9, 0.9)]
-        self.draw_piece(pyramid, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(pyramid, rect, cpair=cpiece.own, gc=gc)
 
     def draw_unicorn(self, rect, cpiece=None, gc=None):
         self.draw_knight(rect, cpiece=cpiece, gc=gc, left_facing=False)
@@ -108,7 +109,7 @@ class DrawPiece(Draw):
         # Variant faced left, as used by other knights and derivates.
         # horn = [(0.5, 0.3), (0.49, 0.36), (0.409, 0.361), (0.325, 0.1373)]
         horn = [(0.5, 0.3), (0.51, 0.36), (0.591, 0.361), (0.675, 0.1373)]
-        self.draw_piece(horn, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(horn, rect, cpair=cpiece.opposite, gc=gc)
 
     def draw_wave(self, rect, cpiece=None, gc=None):
         wave = [(0.2, 0.35), (0.25, 0.4), (0.25, 0.68), (0.3, 0.68), (0.3, 0.4), (0.4, 0.3), \
@@ -118,24 +119,24 @@ class DrawPiece(Draw):
                 (0.8, 0.75), (0.75, 0.7), (0.75, 0.42), (0.7, 0.42), (0.7, 0.7), (0.6, 0.8), \
                 (0.55, 0.8), (0.45, 0.7), (0.45, 0.42), (0.4, 0.42), (0.4, 0.7), (0.3, 0.8), \
                 (0.25, 0.8), (0.15, 0.7), (0.15, 0.4)]
-        self.draw_piece(wave, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(wave, rect, cpair=cpiece.own, gc=gc)
 
     def draw_star(self, rect, cpiece=None, scale=1.0, gc=None):
         hands = [(0.5, 0.4), (0.7, 0.3), (0.6, 0.5), (0.7, 0.7), (0.5, 0.6), (0.3, 0.7), (0.4, 0.5), \
                  (0.3, 0.3)]
-        self.draw_piece(hands, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(hands, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.opposite, gc=gc)
 
         star = [(0.5, 0.2), (0.57, 0.43), (0.8, 0.5), (0.57, 0.57), (0.5, 0.8), (0.43, 0.57), \
                 (0.2, 0.5), (0.43, 0.43)]
-        self.draw_piece(star, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(star, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.own, gc=gc)
 
     def draw_centaur(self, rect, cpiece=None, gc=None):
         horseshoe = [(0.5, 0.3), (0.7, 0.4), (0.8, 0.6), (0.7, 0.9), (0.58, 0.83), (0.65, 0.6), (0.6, 0.5), \
                      (0.5, 0.45), (0.4, 0.5), (0.35, 0.6), (0.42, 0.83), (0.3, 0.9), (0.2, 0.6), (0.3, 0.4)]
-        self.draw_piece(horseshoe, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(horseshoe, rect, cpair=cpiece.own, gc=gc)
 
         hat = [(0.7, 0.4), (0.65, 0.25), (0.8, 0.2), (0.85, 0.35)]
-        self.draw_piece(hat, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(hat, rect, cpair=cpiece.opposite, gc=gc)
 
     def draw_serpent(self, rect, cpiece=None, gc=None):
         serpent = [# right skin
@@ -147,11 +148,11 @@ class DrawPiece(Draw):
                    # left skin
                    (0.7, 0.75), (0.7, 0.65), (0.5, 0.65), (0.4, 0.55), (0.4, 0.45), (0.5, 0.35), \
                    (0.7, 0.35), (0.7, 0.25), (0.5, 0.25)]
-        self.draw_piece(serpent, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(serpent, rect, cpair=cpiece.own, gc=gc)
 
     def draw_shaman(self, rect, cpiece=None, gc=None):
         drum = [(0.3, 0.3), (0.7, 0.3), (0.7, 0.5), (0.6, 0.9), (0.4, 0.9), (0.3, 0.5)]
-        self.draw_piece(drum, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(drum, rect, cpair=cpiece.own, gc=gc)
 
         string = [(0.3, 0.3), (0.4, 0.5), (0.5, 0.3), (0.6, 0.5), (0.7, 0.3)]
         self.draw_polylines(string, rect, cpair=cpiece.own, gc=gc)
@@ -161,7 +162,7 @@ class DrawPiece(Draw):
 
     def draw_monolith(self, rect, cpair=None, gc=None):
         monolith = [(0.32, 0.095), (0.68, 0.095), (0.68, 0.905), (0.32, 0.905)]
-        self.draw_piece(monolith, rect, cpair=cpair, gc=gc)
+        self.draw_piece_polygon(monolith, rect, cpair=cpair, gc=gc)
 
     def draw_starchild(self, rect, cpiece=None, caura=None, gc=None):
         x1, y1 = rect.calc_point(0.149999, 0.149999)
@@ -173,6 +174,38 @@ class DrawPiece(Draw):
         self.draw_outlined_arc(x2, y2, w2, h2, interior=caura.interior, outline=cpiece.own.outline, gc=gc)
 
         self.draw_star(rect, cpiece=cpiece, scale=0.667, gc=gc)
+
+    def draw_piece(self, piece_type, rect, colors_item, gc=None):
+        pt = PieceType(piece_type)
+        assert isinstance(rect, DrawableRectangle)
+        assert isinstance(colors_item, ColorsItem)
+
+        _draw = { PieceType.none: self.draw_none,
+                  PieceType.Pawn: self.draw_pawn,
+                  PieceType.Bishop: self.draw_bishop,
+                  PieceType.Knight: self.draw_knight,
+                  PieceType.Rook: self.draw_rook,
+                  PieceType.Queen: self.draw_queen,
+                  PieceType.King: self.draw_king,
+                  PieceType.Pegasus: self.draw_pegasus,
+                  PieceType.Pyramid: self.draw_pyramid,
+                  PieceType.Unicorn: self.draw_unicorn,
+                  PieceType.Wave: self.draw_wave,
+                  PieceType.Star: self.draw_star,
+                  PieceType.Centaur: self.draw_centaur,
+                  PieceType.Serpent: self.draw_serpent,
+                  PieceType.Shaman: self.draw_shaman,
+                  PieceType.Monolith: self.draw_monolith,
+                  PieceType.Starchild: self.draw_starchild }[ pt.get_enumerated() ]
+
+        if _draw == self.draw_star:
+            _draw(rect, cpiece=colors_item.star.to_piece( pt.is_light() ), gc=gc)
+        elif _draw == self.draw_monolith:
+            _draw(rect, cpair=colors_item.monolith, gc=gc)
+        elif _draw == self.draw_starchild:
+            _draw(rect, cpiece=colors_item.piece.to_piece( pt.is_light() ), caura=colors_item.aura, gc=gc)
+        else:
+            _draw(rect, cpiece=colors_item.piece.to_piece( pt.is_light() ), gc=gc)
 
 
 def test_piece(func_name, size=300):
