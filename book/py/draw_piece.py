@@ -5,9 +5,11 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
+from types import NoneType
+
 from piece import PieceType
 from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsItem
-from draw import DrawableRectangle, Draw
+from draw import get_new_drawable, get_new_gc, DrawableRectangle, Draw
 
 
 PIECE_WITH_CHIP_TRANSLATION = 0.11
@@ -17,7 +19,7 @@ class DrawPiece(Draw):
 
     def draw_piece_polygon(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
         assert isinstance(rect, DrawableRectangle)
-        assert isinstance(cpair, (ColorsPair, None))
+        assert isinstance(cpair, (ColorsPair, NoneType))
 
         def _scale(x_pct, y_pct):
             return DrawableRectangle.scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
@@ -31,7 +33,7 @@ class DrawPiece(Draw):
 
     def draw_polylines(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
         assert isinstance(rect, DrawableRectangle)
-        assert isinstance(cpair, (ColorsPair, None))
+        assert isinstance(cpair, (ColorsPair, NoneType))
 
         def _scale(x_pct, y_pct):
             return DrawableRectangle.scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
@@ -39,9 +41,9 @@ class DrawPiece(Draw):
         points_pix = [ rect.calc_point( *_scale( *t ) ) for t in points_pct ]
 
         if cpair is not None:
-            self.draw_outlined_lines(points_pix, outline=cpair.outline, gc=gc)
+            self.draw_outlines(points_pix, outline=cpair.outline, gc=gc)
         else:
-            self.draw_outlined_lines(points_pix, gc=gc)
+            self.draw_outlines(points_pix, gc=gc)
 
     def draw_none(self, rect, cpiece=None, gc=None):
         pass
@@ -210,7 +212,11 @@ class DrawPiece(Draw):
 
 def test_piece(func_name, size=300):
     line_width = 1 + (6 * (2*size) / 5) // 1000 # >= 1 + (6 * rendering size / 5) // 1000
-    d = DrawPiece(2*size, 2*size, line_width)
+
+    drw = get_new_drawable(2*size, 2*size)
+    gc = get_new_gc(drw, line_width)
+
+    d = DrawPiece(drw, gc)
     d.clear_area(color='#EFEFEF')
 
     d.draw_rectangle(size, 0, size, size, fg='#606060')
@@ -224,7 +230,7 @@ def test_piece(func_name, size=300):
     caura = ColorsPair.from_tuple( ('#FFBFFF', '#FFBFFF') )
 
     def _call(rect, cpiece):
-        # In all those clauses func is not ..., it is just func == ... (!?)
+        # func is not d.draw_*, it is just func == d.draw_* (!?)
         if func == d.draw_monolith:
             func(rect, cpair=cmonolith)
         elif func == d.draw_starchild:

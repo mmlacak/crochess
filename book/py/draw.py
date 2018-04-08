@@ -41,11 +41,18 @@ def save_image(drawable, file_path, file_type=DEFAULT_FILE_TYPE):
 
 
 class DrawableRectangle(object):
-    def __init__(self, left_pix, top_pix, width_pix, height_pix):
-        self.left_pix = left_pix
-        self.top_pix = top_pix
+    def __init__(self, x_pix, y_pix, width_pix, height_pix):
+        self.x_pix = x_pix
+        self.y_pix = y_pix
         self.width_pix = width_pix
         self.height_pix = height_pix
+
+    def as_tuple(self):
+        return (self.x_pix, self.y_pix, self.width_pix, self.height_pix)
+
+    @staticmethod
+    def from_tuple(tpl):
+        return DrawableRectangle(x_pix=tpl[0], y_pix=tpl[1], width_pix=tpl[2], height_pix=tpl[3])
 
     @staticmethod
     def scale(x_pct, y_pct, scale=1.0, center_x=0.5, center_y=0.5):
@@ -59,9 +66,9 @@ class DrawableRectangle(object):
             return (x, y)
 
     def calc_point(self, x_pct, y_pct):
-        x_pix = self.left_pix + x_pct * self.width_pix
+        x_pix = self.x_pix + x_pct * self.width_pix
         # y = self.top + (1.0 - y_pct) * self.height
-        y_pix = self.top_pix + y_pct * self.height_pix
+        y_pix = self.y_pix + y_pct * self.height_pix
         return (int(x_pix), int(y_pix))
 
     def calc_size(self, width_pct, height_pct):
@@ -71,12 +78,12 @@ class DrawableRectangle(object):
 
 
 class Draw(object):
-    def __init__(self, size_x, size_y, line_width):
-        self.init(size_x, size_y, line_width)
+    def __init__(self, drawable, gc):
+        assert isinstance(drawable, gtk.gdk.Drawable)
+        assert isinstance(gc, gtk.gdk.GC)
 
-    def init(self, size_x, size_y, line_width):
-        self.drawable = get_new_drawable(size_x, size_y)
-        self.gc = get_new_gc(self.drawable, line_width)
+        self.drawable = drawable
+        self.gc = gc
 
     def set_gc_colors(self, fg=None, bg=None, gc=None):
         self.gc = set_new_colors(gc or self.gc, fg=fg, bg=bg)
@@ -93,7 +100,7 @@ class Draw(object):
         self.set_gc_colors(fg=fg, bg=bg, gc=gc)
         self.drawable.draw_lines(self.gc, points)
 
-    def draw_outlined_lines(self, points, outline=None, gc=None):
+    def draw_outlines(self, points, outline=None, gc=None):
         self.draw_lines(points, fg=outline, bg=outline, gc=gc)
 
     def draw_rectangle(self, x, y, width, height, filled=True, fg=None, bg=None, gc=None):
@@ -137,7 +144,10 @@ class Draw(object):
 
 
 def test_1():
-    d = Draw(600, 400, 5)
+    drw = get_new_drawable(600, 400)
+    gc = get_new_gc(drw, 5)
+
+    d = Draw(drw, gc)
     d.clear_area()
 
     d.draw_polygon([ (10, 10), (100, 100), (10, 100) ], filled=True, fg='#FF0000', bg='#00FF00')
@@ -149,7 +159,10 @@ def test_1():
     d.save_image('temp/draw_1.IGNORE.png')
 
 def test_2():
-    d = Draw(600, 400, 5)
+    drw = get_new_drawable(600, 400)
+    gc = get_new_gc(drw, 5)
+
+    d = Draw(drw, gc)
     d.clear_area()
 
     d.draw_arc(10, 10, 100, 100, True, fg='#FF0000', bg='#00FF00')

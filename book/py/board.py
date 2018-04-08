@@ -198,13 +198,6 @@ class BoardType(int):
         return ((0, 0), (limit, limit))
 
 
-class BoardHints(object):
-#     def __init__(self, is_universal=False, reverse_field_colors=False):
-    def __init__(self, reverse_field_colors=False):
-#         self.is_universal = is_universal
-        self.reverse_field_colors = reverse_field_colors
-
-
 def get_opposites(pieces):
     return [ PT(p).get_opposite() for p in pieces ]
 
@@ -213,15 +206,13 @@ def remove_pieces(pieces, to_remove=(PT.Queen, -PT.Queen)):
 
 
 class Board(object):
-    def __init__(self, board_type, width=None, height=None, hints=None):
+    def __init__(self, board_type, width=None, height=None):
         self.type = BoardType(board_type)
 
         self._width = width or self.type.get_size()
         self._height = height or self.type.get_size()
 
         self._board = [ [ PT(PT.none) for i in xrange(self.get_width()) ] for j in xrange(self.get_height()) ]
-
-        self.hints = hints or BoardHints()
 
     def _is_file(self, i):
         return 0 <= i < self.get_width()
@@ -234,6 +225,16 @@ class Board(object):
 
     def is_by_the_book(self):
         return (self.get_height() == self.type.get_size()) and (self.get_width() == self.type.get_size())
+
+    def is_light(self, i, j):
+        b = self.get_width() % 2
+
+        if (b == 0):
+            is_light = bool((i + j) % 2 != 0)
+        else:
+            is_light = bool((i + j) % 2 == 0)
+
+        return is_light
 
     def clear(self):
         for j in xrange(self.get_height()):
