@@ -95,10 +95,10 @@ class DrawBoard(Draw):
 # TODO :: field coordinates
 
 
-def test_1(board_desc=None, name=''):
+def test_1(board_desc=None, width=None, height=None, name=''):
     drw = get_new_drawable(1200, 1200)
     gc = get_new_gc(drw, 11)
-    b = Board(BoardType.CroatianTies)
+    b = Board(BoardType.CroatianTies, width=width, height=height)
     b.setup()
 
     d = DrawBoard(drw, gc, b, board_desc=board_desc)
@@ -116,3 +116,19 @@ if __name__ == '__main__':
     test_1(board_desc=BoardDesc(reverse_field_colors=True), name='_reverse')
     test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
     test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=90, margin_bottom_pix=40), name='_margin_2')
+
+    width = 3
+    height = 7
+
+    test_1(width=width, height=height)
+    test_1(board_desc=BoardDesc(reverse_field_colors=True), width=width, height=height, name='_vert_reverse')
+    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), width=width, height=height, name='_vert_margin')
+    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=90, margin_bottom_pix=40), width=width, height=height, name='_vert_margin_2')
+
+    width = 7
+    height = 3
+
+    test_1(width=width, height=height)
+    test_1(board_desc=BoardDesc(reverse_field_colors=True), width=width, height=height, name='_hor_reverse')
+    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), width=width, height=height, name='_hor_margin')
+    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=90, margin_bottom_pix=40), width=width, height=height, name='_hor_margin_2')
