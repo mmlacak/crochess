@@ -15,7 +15,7 @@ from board import BoardType, Board
 from mark import MarkType, Arrow, Text, FieldMarker
 from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsMark, ColorsItem
 from draw import get_new_drawable, get_new_gc, DrawableRectangle, Draw
-from draw_board import DrawBoard
+from draw_board import BoardDesc, DrawBoard
 
 
 def get_mark_color_pair(cmark=None, mark_type=None):
@@ -134,3 +134,5 @@ def test_1(board_desc=None, name=''):
 
 if __name__ == '__main__':
     test_1()
+    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=130, margin_bottom_pix=40), name='_margin')
+    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=240), name='_margin_2')

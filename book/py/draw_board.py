@@ -114,13 +114,13 @@ class DrawBoard(Draw):
 
     def convert_field_width_to_pixel(self, x):
         if isinstance(x, float):
-            return x * self.field_width_pix
+            return self.board_left_pix + x * self.field_width_pix
         return x
 
     def convert_field_height_to_pixel(self, y):
         if isinstance(y, float):
             y_reverse = self.board.get_height() - y # - 1.0
-            return y_reverse * self.field_height_pix
+            return self.board_top_pix + y_reverse * self.field_height_pix
         return y
 
     def convert_field_coords_to_pixel(self, x, y):
