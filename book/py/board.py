@@ -247,6 +247,9 @@ class Board(object):
     def get_height(self):
         return self._height
 
+    def get_piece(self, i, j):
+        return self._board[j][i]
+
     def set_piece(self, i, j, piece):
         self._board[j][i] = PT(piece)
 
@@ -258,9 +261,6 @@ class Board(object):
     def set_row(self, j, pieces):
         for i, p in enumerate(pieces):
             self.set_piece(i, j, p)
-
-    def get_piece(self, i, j):
-        return self._board[j][i]
 
     def get_position_limits(self):
         h = self.get_height() - 1
@@ -592,6 +592,7 @@ class Board(object):
     def __str__(self):
         s = ""
         for j in xrange(self.get_height()-1, -1, -1):
+            # s += "%-2d " % (j + 1)
             for i in xrange(self.get_width()):
                 p = self.get_piece(i, j)
                 s += "%c" % p.get_label()
@@ -620,7 +621,7 @@ def test_1():
     print
 
 def test_2():
-    b = Board(BoardType.One)
+    b = Board(BoardType.CroatianTies) # One)
     b.setup()
 
     print

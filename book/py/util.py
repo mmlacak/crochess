@@ -5,10 +5,10 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-def xor(a, b, fail=None):
+def xor(a, b, default=None):
     if a and not b:
         return a
     elif b and not a:
         return b
     else:
-        return fail
+        return default

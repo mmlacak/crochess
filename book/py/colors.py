@@ -151,7 +151,7 @@ class Colors(dict):
                                      text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
                                      marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
 
-        self[ BoardType.Classical ] = CI( piece=CS.from_tuple(    ('#000000', '#B0B0B0', '#FFFFFF', '#202020') ), \
+        self[ BoardType.Classical ] = CI( piece=CS.from_tuple(    ('#FFFFFF', '#202020', '#000000', '#B0B0B0') ), \
                                           star=CS.from_tuple(     ('#', '#', '#', '#') ), \
                                           monolith=CP.from_tuple( ('#', '#') ), \
                                           aura=CP.from_tuple(     ('#', '#') ), \
