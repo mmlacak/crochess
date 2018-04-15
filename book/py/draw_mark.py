@@ -123,11 +123,11 @@ def test_1(board_desc=None, name=''):
              Arrow(4.3, 5.4, 6.7, 0.9, mark_type=MarkType(MarkType.Forbidden)), ]
     d.draw_all_arrows(arws, cmark=Colors[BoardType.Classical].arrow)
 
-#    arws2 = [ Arrow(0, 2, 0, 4, mark_type=MarkType(MarkType.Legal)), \
-#              Arrow(3, 2, 4, 2, mark_type=MarkType(MarkType.Ilegal)), \
-#              Arrow(6, 5, 8, 6, mark_type=MarkType(MarkType.Action)), \
-#              Arrow(8, 3, 7, 1, mark_type=MarkType(MarkType.Forbidden)), ]
-#    d.draw_all_arrows(arws2, cmark=Colors[BoardType.Classical].arrow)
+    arws2 = [ Arrow(100, 200, 100, 400, mark_type=MarkType(MarkType.Legal)), \
+              Arrow(300, 900, 400, 900, mark_type=MarkType(MarkType.Ilegal)), \
+              Arrow(600, 500, 800, 600, mark_type=MarkType(MarkType.Action)), \
+              Arrow(800, 300, 700, 100, mark_type=MarkType(MarkType.Forbidden)), ]
+    d.draw_all_arrows(arws2, cmark=Colors[BoardType.Classical].arrow)
 
     file_path = 'temp/arrows%s.IGNORE.png' % name
     d.save_image(file_path)
