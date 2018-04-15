@@ -156,7 +156,7 @@ class Colors(dict):
                                           monolith=CP.from_tuple( ('#', '#') ), \
                                           aura=CP.from_tuple(     ('#', '#') ), \
                                           field=CS.from_tuple(    ('#EFEFEF', '#EFEFEF', '#606060', '#606060') ), \
-                                          arrow=CM.from_tuple(    ('#303030', '#00FF00', '#303030', '#FF0000', '#303030', '#FF0000', '#303030', '#FF0000') ), \
+                                          arrow=CM.from_tuple(    ('#00FF00', '#303030', '#0000FF', '#303030', '#FF0000', '#303030', '#101010', '#303030') ), \
                                           text=CM.from_tuple(     ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ), \
                                           marker=CM.from_tuple(   ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ) )
         self[ BoardType.OddClassical ] = self[ BoardType.Classical ]

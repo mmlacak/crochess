@@ -33,7 +33,7 @@ class BoardDesc(object):
 
 class DrawBoard(Draw):
 
-    def __init__(self, drawable, gc, board, board_desc=None, draw_piece=None):
+    def __init__(self, drawable, gc, board, board_desc=None):
         super(DrawBoard, self).__init__(drawable, gc)
 
         assert isinstance(board, Board)
@@ -43,7 +43,7 @@ class DrawBoard(Draw):
 
         self.calc_board_geometry()
 
-        self.draw_piece = draw_piece or DrawPiece(drawable, gc)
+        self.draw_piece = DrawPiece(self.drawable, self.gc)
 
     def calc_board_geometry(self):
         w_pix, h_pix = self.get_field_size_pix()
@@ -111,6 +111,22 @@ class DrawBoard(Draw):
         self.draw_all_pieces(colors_item, gc=gc)
 
 # TODO :: field coordinates (converting pixel coords into field coords)
+
+    def convert_field_width_to_pixel(self, x):
+        if isinstance(x, float):
+            return x * self.field_width_pix
+        return x
+
+    def convert_field_height_to_pixel(self, y):
+        if isinstance(y, float):
+            y_reverse = self.board.get_height() - y # - 1.0
+            return y_reverse * self.field_height_pix
+        return y
+
+    def convert_field_coords_to_pixel(self, x, y):
+        x_pix = self.convert_field_width_to_pixel(x)
+        y_pix = self.convert_field_height_to_pixel(y)
+        return (x_pix, y_pix)
 
 
 def test_1(board_desc=None, width=None, height=None, name=''):

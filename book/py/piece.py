@@ -108,8 +108,5 @@ class PieceType(int):
     def _is_valid(piece_type):
         return (-PieceType.Starchild) <= piece_type <= PieceType.Starchild
 
-    def is_valid(self):
-        return PieceType._is_valid(self)
-
     def __str__(self):
         return self.get_label()

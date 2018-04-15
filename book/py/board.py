@@ -83,9 +83,6 @@ class BoardType(int):
     def _is_valid(board_type):
         return BoardType.none <= board_type <= BoardType.One
 
-    def is_valid(self):
-        return BoardType._is_valid(self)
-
     def get_name(self):
         return { BoardType.none: 'none',
                  BoardType.OddClassical: 'Odd Classical',
@@ -592,7 +589,6 @@ class Board(object):
     def __str__(self):
         s = ""
         for j in xrange(self.get_height()-1, -1, -1):
-            # s += "%-2d " % (j + 1)
             for i in xrange(self.get_width()):
                 p = self.get_piece(i, j)
                 s += "%c" % p.get_label()

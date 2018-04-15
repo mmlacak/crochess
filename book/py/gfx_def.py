@@ -32,9 +32,6 @@ class RenderingSize(int):
     def _is_valid(rendering_size):
         return RenderingSize.none <= rendering_size <= RenderingSize.Final
 
-    def is_valid(self):
-        return RenderingSize._is_valid(self)
-
 #     def do_render(self):
     def need_rendering(self):
         return RenderingSize.Draft <= self <= RenderingSize.Final
