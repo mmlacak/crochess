@@ -21,11 +21,15 @@ def get_new_drawable(size_x, size_y):
     return drawable
 
 def get_new_gc(drawable, line_width):
+    assert isinstance(drawable, gtk.gdk.Drawable)
+
     gc = drawable.new_gc()
     gc.set_line_attributes(line_width, gtk.gdk.LINE_SOLID, gtk.gdk.CAP_ROUND, gtk.gdk.JOIN_ROUND)
     return gc
 
 def set_new_colors(gc, fg=None, bg=None):
+    assert isinstance(gc, gtk.gdk.GC)
+
     if fg is not None:
         gc.foreground = gc.get_colormap().alloc_color(fg)
 

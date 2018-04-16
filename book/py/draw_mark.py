@@ -14,7 +14,7 @@ import pixel_math as pm
 from board import BoardType, Board
 from mark import MarkType, Arrow, Text, FieldMarker
 from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsMark, ColorsItem
-from draw import get_new_drawable, get_new_gc, DrawableRectangle, Draw
+from draw import get_new_drawable, get_new_gc, set_new_colors, DrawableRectangle, Draw
 from draw_board import BoardDesc, DrawBoard
 
 
@@ -42,10 +42,15 @@ class DrawMark(Draw):
     DEFAULT_INVERSE_ARROW_WIDTH_RATIO = 12.0 # Compared to field size.
     DEFAULT_POINTY_ARROW_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
 
+    DEFAULT_FONT = "sans bold"
+    DEFAULT_FONT_SIZE = 192
+
     def __init__(self, drawable, gc, board, board_desc=None):
         super(DrawMark, self).__init__(drawable, gc)
 
         self.draw_board = DrawBoard(self.drawable, self.gc, board, board_desc=board_desc)
+
+    # arrows
 
     def calc_arrow(self, arrow, inv_width_ratio=None, pointy_bit_ratio=None):
         arrow.start_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.start )
@@ -104,6 +109,49 @@ class DrawMark(Draw):
                             inv_width_ratio=inv_width_ratio, \
                             pointy_bit_ratio=pointy_bit_ratio)
 
+    # text
+
+    @staticmethod
+    def get_font(font=None):
+        if font is None:
+            return "%s %d" % (DrawMark.DEFAULT_FONT, DrawMark.DEFAULT_FONT_SIZE)
+        else:
+            return font
+
+    def draw_text(self, text, cpair=None, gc=None, font=None):
+        assert isinstance(text, Text)
+        # assert isinstance(cpair, (ColorsPair, NoneType))
+        # assert isinstance(gc, (gtk.gdk.GC, NoneType))
+        # assert isinstance(font, (str, NoneType))
+
+        x, y = text.pos_pix = self.draw_board.convert_field_coords_to_pixel( *text.pos )
+#         x, y = text.pos_pix
+
+        font = DrawMark.get_font(font)
+        gc = set_new_colors(gc or self.gc, fg=cpair.interior, bg=cpair.outline)
+
+        screen = gtk.gdk.screen_get_default()
+        pango_ctx = gtk.gdk.pango_context_get_for_screen(screen)
+
+        layout = pango.Layout(pango_ctx)
+        layout.set_text(text.text)
+
+        font_desc = pango.FontDescription(font)
+        layout.set_font_description(font_desc)
+
+        x, y = pm.round_floats_to_int((x, y))
+        self.drawable.draw_layout(gc, x, y, layout)
+
+    def draw_all_texts(self, texts, cmark=None, gc=None, font=None):
+        assert isinstance(cmark, (ColorsMark, NoneType))
+
+        for text in texts:
+            # assert isinstance(text, Text)
+
+            cpair = get_mark_color_pair(cmark=cmark, mark_type=text.mark_type)
+
+            self.draw_text(text, cpair=cpair, gc=gc, font=font)
+
 
 def test_1(board_desc=None, name=''):
     drw = get_new_drawable(1200, 1200)
@@ -118,21 +166,52 @@ def test_1(board_desc=None, name=''):
     d.draw_board.draw_board( Colors[BoardType.Classical] )
 
     arws = [ Arrow(1.7, 2.3, 3.4, 5.1, mark_type=MarkType(MarkType.Legal)), \
-             Arrow(6.7, 4.3, 9.7, 4.3, mark_type=MarkType(MarkType.Ilegal)), \
-             Arrow(2.7, 6.3, 2.7, 9.3, mark_type=MarkType(MarkType.Action)), \
-             Arrow(4.3, 5.4, 6.7, 0.9, mark_type=MarkType(MarkType.Forbidden)), ]
+             Arrow(6.7, 4.3, 9.7, 4.3, mark_type=MarkType(MarkType.Legal)), \
+             Arrow(2.7, 6.3, 2.7, 9.3, mark_type=MarkType(MarkType.Legal)), \
+             Arrow(4.3, 5.4, 6.7, 0.9, mark_type=MarkType(MarkType.Legal)), ]
     d.draw_all_arrows(arws, cmark=Colors[BoardType.Classical].arrow)
 
-    arws2 = [ Arrow(100, 200, 100, 400, mark_type=MarkType(MarkType.Legal)), \
-              Arrow(300, 900, 400, 900, mark_type=MarkType(MarkType.Ilegal)), \
+    arws2 = [ Arrow(100, 200, 100, 400, mark_type=MarkType(MarkType.Action)), \
+              Arrow(300, 900, 400, 900, mark_type=MarkType(MarkType.Action)), \
               Arrow(600, 500, 800, 600, mark_type=MarkType(MarkType.Action)), \
-              Arrow(800, 300, 700, 100, mark_type=MarkType(MarkType.Forbidden)), ]
+              Arrow(800, 300, 700, 100, mark_type=MarkType(MarkType.Action)), ]
     d.draw_all_arrows(arws2, cmark=Colors[BoardType.Classical].arrow)
 
     file_path = 'temp/arrows%s.IGNORE.png' % name
     d.save_image(file_path)
 
+def test_2(board_desc=None, name=''):
+    drw = get_new_drawable(1200, 1200)
+    gc = get_new_gc(drw, 3)
+    b = Board(BoardType.CroatianTies)
+    b.setup()
+
+    d = DrawMark(drw, gc, b, board_desc=board_desc)
+    d.draw_board.clear_area()
+
+    from colors import Colors
+    d.draw_board.draw_board( Colors[BoardType.Classical] )
+
+    txts = [ Text("l1", 1.7, 2.3, mark_type=MarkType(MarkType.Legal)), \
+             Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Ilegal)), \
+             Text("a1", 2.7, 6.3, mark_type=MarkType(MarkType.Action)), \
+             Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Forbidden)),  ]
+    d.draw_all_texts(txts, cmark=Colors[BoardType.Classical].text, font="sans bold 16")
+
+    txts2 = [ Text("l2", 100, 200, mark_type=MarkType(MarkType.Legal)), \
+              Text("i2", 300, 900, mark_type=MarkType(MarkType.Ilegal)), \
+              Text("a2", 600, 500, mark_type=MarkType(MarkType.Action)), \
+              Text("f2", 800, 300, mark_type=MarkType(MarkType.Forbidden)), ]
+    d.draw_all_texts(txts2, cmark=Colors[BoardType.Classical].text, font="sans bold 16")
+
+    file_path = 'temp/texts%s.IGNORE.png' % name
+    d.save_image(file_path)
+
 if __name__ == '__main__':
-    test_1()
-    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=130, margin_bottom_pix=40), name='_margin')
-    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=240), name='_margin_2')
+    # test_1()
+    # test_1(board_desc=BoardDesc(margin_top_pix=210, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
+    # test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=120, margin_right_pix=30, margin_bottom_pix=40), name='_margin_2')
+
+    test_2()
+    test_2(board_desc=BoardDesc(margin_top_pix=210, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
+    test_2(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=120, margin_right_pix=30, margin_bottom_pix=40), name='_margin_2')
