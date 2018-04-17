@@ -189,8 +189,6 @@ class DrawMark(Draw):
 
         markers_pix = self.calc_field_marker(field_marker, inv_width_ratio=inv_width_ratio)
 
-        func = self.draw_outlined_polygon if draw_outlined else self.draw_outlined_polygon
-
         for points_pix in markers_pix:
             if cpair is not None:
                 if draw_outlined:
@@ -201,7 +199,7 @@ class DrawMark(Draw):
                 if draw_outlined:
                     self.draw_outlined_polygon(points_pix, gc=gc)
                 else:
-                    self.draw_polygon(points_pix, fg=cpair.interior, bg=cpair.outline, gc=gc)
+                    self.draw_polygon(points_pix, gc=gc)
 
     def draw_all_field_markers(self, field_markers, cmark=None, gc=None, draw_outlined=False, inv_width_ratio=None):
         assert isinstance(cmark, (ColorsMark, NoneType))
