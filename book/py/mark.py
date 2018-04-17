@@ -71,8 +71,8 @@ class Text(object):
 class FieldMarker(object):
 
     def __init__(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
-        assert isinstance(field_x, int)
-        assert isinstance(field_x, int)
+        assert isinstance(field_i, int)
+        assert isinstance(field_j, int)
         assert isinstance(mark_type, MarkType)
 
         self.field = (field_i, field_j)
