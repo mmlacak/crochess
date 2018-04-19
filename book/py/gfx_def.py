@@ -5,6 +5,11 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
+DEFAULT_PATH = '../gfx/' # '../tmp/'
+# DEFAULT_FILE_EXT = '.png'
+# DEFAULT_FILE_TYPE = 'png'
+
+
 class RenderingSize(int):
     none = 0
     Info = 1
@@ -32,58 +37,80 @@ class RenderingSize(int):
     def _is_valid(rendering_size):
         return RenderingSize.none <= rendering_size <= RenderingSize.Final
 
-#     def do_render(self):
     def need_rendering(self):
         return RenderingSize.Draft <= self <= RenderingSize.Final
+
+
+class GfxDefSizes(object):
+    def __init__( self, \
+                  board_rendering_size, \
+                  board_max_vertical_rendering_size, \
+                  piece_2_by_2_rendering_size, \
+                  board_line_width ):
+        assert isinstance(board_rendering_size, int)
+        assert isinstance(board_max_vertical_rendering_size, int)
+        assert isinstance(piece_2_by_2_rendering_size, int)
+        assert isinstance(board_line_width, int)
+
+        self.board_rendering_size = board_rendering_size
+        self.board_max_vertical_rendering_size = board_max_vertical_rendering_size
+        self.piece_2_by_2_rendering_size = piece_2_by_2_rendering_size
+        self.board_line_width = board_line_width
+
+    def as_tuple(self):
+        return ( self.board_rendering_size, \
+                 self.board_max_vertical_rendering_size, \
+                 self.piece_2_by_2_rendering_size, \
+                 self.board_line_width )
+
+    @staticmethod
+    def from_tuple(tpl):
+        return GfxDefSizes( board_rendering_size=tpl[0], \
+                            board_max_vertical_rendering_size=tpl[1], \
+                            piece_2_by_2_rendering_size=tpl[2], \
+                            board_line_width=tpl[3] )
 
 
 GD = None
 
 
 class GfxDef(object):
-    # Default is draft quality.
-    #
-    # These "constants" should have valid values. Otherwise importing scene helper crashes.
-    #
-    # All rendering is done for A5 format book, with
-    # borders: top=15.0mm, bottom=20.0mm, left=15.0mm, right=20.0mm.
-    # This yields approx. 10 cm horizontal text size, i.e. approx. 4 inches.
-    #
-    DEFAULT_BOARD_RENDERING_SIZE = 2400 # cca. 600 dpi
-    DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 3600 # 50% added to rendering size
-    DEFAULT_PIECE_2x2_RENDERING_SIZE = 960 # 40% of rendering size
-    DEFAULT_BOARD_LINE_WIDTH = 4 # >= 1 + (6 * rendering size / 5) // 1000
 
-    DEFAULT_PATH = '../gfx/' # '../tmp/'
-#    DEFAULT_FILE_EXT = '.png'
-#    DEFAULT_FILE_TYPE = 'png'
-
-    def __init__(self, rendering_size=RenderingSize.Normal):
+    def __init__(self, rendering_size):
         self.rendering_size = RenderingSize(rendering_size)
 
-        if self.rendering_size == RenderingSize.Final:
-            GfxDef.DEFAULT_BOARD_RENDERING_SIZE = 9600 # cca. 2400 dpi
-            GfxDef.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 14400 # 50% added to rendering size
-            GfxDef.DEFAULT_PIECE_2x2_RENDERING_SIZE = 3840 # 40% of rendering size
-            GfxDef.DEFAULT_BOARD_LINE_WIDTH = 13 # >= 1 + (6 * rendering size / 5) // 1000
-        elif self.rendering_size == RenderingSize.Good:
-            GfxDef.DEFAULT_BOARD_RENDERING_SIZE = 4800 # cca. 1200 dpi
-            GfxDef.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 7200 # 50% added to rendering size
-            GfxDef.DEFAULT_PIECE_2x2_RENDERING_SIZE = 1920 # 40% of rendering size
-            GfxDef.DEFAULT_BOARD_LINE_WIDTH = 7 # >= 1 + (6 * rendering size / 5) // 1000
-        elif self.rendering_size == RenderingSize.Normal:
-            GfxDef.DEFAULT_BOARD_RENDERING_SIZE = 2400 # cca. 600 dpi
-            GfxDef.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 3600 # 50% added to rendering size
-            GfxDef.DEFAULT_PIECE_2x2_RENDERING_SIZE = 960 # 40% of rendering size
-            GfxDef.DEFAULT_BOARD_LINE_WIDTH = 4 # >= 1 + (6 * rendering size / 5) // 1000
-        elif self.rendering_size == RenderingSize.Draft:
-            GfxDef.DEFAULT_BOARD_RENDERING_SIZE = 1200 # cca. 300 dpi
-            GfxDef.DEFAULT_MAX_BOARD_VERTICAL_RENDERING_SIZE = 1800 # 50% added to rendering size
-            GfxDef.DEFAULT_PIECE_2x2_RENDERING_SIZE = 480 # 40% of rendering size
-            GfxDef.DEFAULT_BOARD_LINE_WIDTH = 2 # >= 1 + (6 * rendering size / 5) // 1000
+    @property
+    def defaults(self):
+
+        # All rendering is done for A5 format book, with
+        # borders: top=15.0mm, bottom=20.0mm, left=15.0mm, right=20.0mm.
+        # This yields approx. 10 cm horizontal text size, i.e. approx. 4 inches,
+        # and approx. 15 cm vertical size, i.e. approx. 6 inches.
+
+        # board_rendering_size == 9600 --> cca. 2400 dpi
+        # board_rendering_size == 4800 --> cca. 1200 dpi
+        # board_rendering_size == 2400 --> cca.  600 dpi
+        # board_rendering_size == 1200 --> cca.  300 dpi
+
+        # board_max_vertical_rendering_size == 50% added to rendering size
+
+        # piece_2_by_2_rendering_size == 40% of rendering size
+
+        # board_line_width >= 1 + (6 * rendering size / 5) // 1000
+
+        GDS = GfxDefSizes.from_tuple
+
+        dct = { RenderingSize.Final : GDS( (9600, 14400, 3840, 13) ), \
+                RenderingSize.Good : GDS( (4800, 7200, 1920, 7) ), \
+                RenderingSize.Normal : GDS( (2400, 3600, 960, 4) ), \
+                RenderingSize.Draft : GDS( (1200, 1800, 480, 2) ), \
+                RenderingSize.Info : None, \
+                RenderingSize.none : None }
+
+        return dct[ self.rendering_size ]
 
     @staticmethod
-    def instantiate(rendering_size=RenderingSize.Normal):
+    def instantiate(rendering_size):
         global GD
 
         GD = GfxDef(rendering_size=rendering_size)
