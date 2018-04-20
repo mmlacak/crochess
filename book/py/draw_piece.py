@@ -224,10 +224,10 @@ def test_piece(func_name, size=300):
 
     func = getattr(d, func_name)
 
-    cdark = ColorsPiece.from_tuple( ('#202020', '#FFFFFF', '#B0B0B0', '#000000') ) # dark
-    clight = ColorsPiece.from_tuple( ('#B0B0B0', '#000000', '#202020', '#FFFFFF') ) # light
-    cmonolith = ColorsPair.from_tuple( ('#000000', '#FFFFFF') )
-    caura = ColorsPair.from_tuple( ('#FFBFFF', '#FFBFFF') )
+    cdark = ColorsPiece.from_tuple( ('#202020', '#FFFFFF', '#B0B0B0', '#000000' ) ) # dark
+    clight = ColorsPiece.from_tuple( ('#B0B0B0', '#000000', '#202020', '#FFFFFF' ) ) # light
+    cmonolith = ColorsPair.from_tuple( ('#000000', '#FFFFFF' ) )
+    caura = ColorsPair.from_tuple( ('#FFBFFF', '#FFBFFF' ) )
 
     def _call(rect, cpiece):
         # func is not d.draw_*, it is just func == d.draw_* (!?)

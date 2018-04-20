@@ -15,12 +15,12 @@ class Map(dict):
     def __delattr__(self, name):
         del self[name]
 
-    def as_tuple(self):
-        return tuple(self.itervalues())
+#    def as_tuple(self):
+#        return tuple(self.itervalues())
 
-    @staticmethod
-    def from_tuple(tpl):
-        raise NotImplementedError("from_tuple")
+#    @staticmethod
+#    def from_tuple(tpl):
+#        raise NotImplementedError("from_tuple")
 
 
 if __name__ == '__main__':

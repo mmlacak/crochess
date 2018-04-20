@@ -21,7 +21,7 @@ class ColorsPair(object):
 
     @staticmethod
     def from_tuple(tpl):
-        return ColorsPair(interior=tpl[0], outline=tpl[1])
+        return ColorsPair( *tpl[ 0 : 2 ] )
 
 
 class ColorsShade(object):
@@ -37,8 +37,8 @@ class ColorsShade(object):
 
     @staticmethod
     def from_tuple(tpl):
-        return ColorsShade( light=ColorsPair.from_tuple( (tpl[0], tpl[1]) ), \
-                            dark=ColorsPair.from_tuple( (tpl[2], tpl[3]) ) )
+        return ColorsShade( light=ColorsPair( *tpl[ 0 : 2 ] ), \
+                            dark=ColorsPair( *tpl[ 2 : 4 ] ) )
 
     def to_piece(self, is_piece_light):
         tpl = self.light.as_tuple() + self.dark.as_tuple() \
@@ -60,8 +60,8 @@ class ColorsPiece(object):
 
     @staticmethod
     def from_tuple(tpl):
-        return ColorsPiece( own=ColorsPair.from_tuple( (tpl[0], tpl[1]) ), \
-                            opposite=ColorsPair.from_tuple( (tpl[2], tpl[3]) ) )
+        return ColorsPiece( own=ColorsPair( *tpl[ 0 : 2 ] ), \
+                            opposite=ColorsPair( *tpl[ 2 : 4 ] ) )
 
     def to_shade(self, is_piece_light):
         tpl = self.own.as_tuple() + self.opposite.as_tuple() \
@@ -87,10 +87,10 @@ class ColorsMark(object):
 
     @staticmethod
     def from_tuple(tpl):
-        return ColorsMark( legal=ColorsPair.from_tuple( (tpl[0], tpl[1]) ), \
-                           ilegal=ColorsPair.from_tuple( (tpl[2], tpl[3]) ), \
-                           action=ColorsPair.from_tuple( (tpl[4], tpl[5]) ), \
-                           forbidden=ColorsPair.from_tuple( (tpl[6], tpl[7]) ) )
+        return ColorsMark( legal=ColorsPair( *tpl[ 0 : 2 ] ), \
+                           ilegal=ColorsPair( *tpl[ 2 : 4 ] ), \
+                           action=ColorsPair( *tpl[ 4 : 6 ] ), \
+                           forbidden=ColorsPair( *tpl[ 6 : 8 ] ) )
 
 
 class ColorsItem(object):
@@ -125,140 +125,140 @@ class ColorsItem(object):
 
     @staticmethod
     def from_tuple(tpl):
-        return  ColorsItem( piece=ColorsShade.from_tuple( (tpl[0], tpl[1], tpl[2], tpl[3]) ), \
-                            star=ColorsShade.from_tuple( (tpl[4], tpl[5], tpl[6], tpl[7]) ), \
-                            monolith=ColorsPair.from_tuple( (tpl[8], tpl[9]) ), \
-                            aura=ColorsPair.from_tuple( (tpl[10], tpl[11]) ), \
-                            field=ColorsShade.from_tuple( (tpl[12], tpl[13], tpl[14], tpl[15]) ), \
-                            arrow=ColorsMark.from_tuple( (tpl[16], tpl[17], tpl[18], tpl[19], tpl[20], tpl[21], tpl[22], tpl[23]) ), \
-                            text=ColorsMark.from_tuple( (tpl[24], tpl[25], tpl[26], tpl[27], tpl[28], tpl[29], tpl[30], tpl[31]) ), \
-                            marker=ColorsMark.from_tuple( (tpl[32], tpl[33], tpl[34], tpl[35], tpl[36], tpl[37], tpl[38], tpl[39]) ) )
+        return  ColorsItem( piece=ColorsShade( *tpl[ 0 : 4 ] ), \
+                            star=ColorsShade( *tpl[ 4 : 8 ] ), \
+                            monolith=ColorsPair( *tpl[ 8 : 10 ] ), \
+                            aura=ColorsPair(  *tpl[ 10 : 12 ] ), \
+                            field=ColorsShade( *tpl[ 12 : 16 ] ), \
+                            arrow=ColorsMark( *tpl[ 16 : 24 ] ), \
+                            text=ColorsMark( *tpl[ 24 : 32 ] ), \
+                            marker=ColorsMark( *tpl[ 32 : 40 ] ) )
 
 
 class Colors(dict):
     def __init__(self):
-        CP = ColorsPair # (<interior>, <outline>)
-        CS = ColorsShade # (<light interior>, <light outline>, <dark interior>, <dark outline>)
-        CM = ColorsMark # (<legal interior>, <legal outline>, <ilegal interior>, <ilegal outline>, <action interior>, <action outline>, <forbidden interior>, <forbidden outline>)
+        CP = ColorsPair.from_tuple # (<interior>, <outline>)
+        CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)
+        CM = ColorsMark.from_tuple # (<legal interior>, <legal outline>, <ilegal interior>, <ilegal outline>, <action interior>, <action outline>, <forbidden interior>, <forbidden outline>)
         CI = ColorsItem # ...
 
-        self[ BoardType.none ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                     star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                     monolith=CP.from_tuple( ('#', '#') ), \
-                                     aura=CP.from_tuple(     ('#', '#') ), \
-                                     field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                     arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                     text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                     marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.none ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                     star=CS(     ('#', '#', '#', '#') ), \
+                                     monolith=CP( ('#', '#') ), \
+                                     aura=CP(     ('#', '#') ), \
+                                     field=CS(    ('#', '#', '#', '#') ), \
+                                     arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                     text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                     marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
 
-        self[ BoardType.Classical ] = CI( piece=CS.from_tuple(    ('#FFFFFF', '#202020', '#000000', '#B0B0B0') ), \
-                                          star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                          monolith=CP.from_tuple( ('#', '#') ), \
-                                          aura=CP.from_tuple(     ('#', '#') ), \
-                                          field=CS.from_tuple(    ('#EFEFEF', '#EFEFEF', '#606060', '#606060') ), \
-                                          arrow=CM.from_tuple(    ('#00FF00', '#303030', '#0000FF', '#303030', '#FF0000', '#303030', '#101010', '#303030') ), \
-                                          text=CM.from_tuple(     ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ), \
-                                          marker=CM.from_tuple(   ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ) )
+        self[ BoardType.Classical ] = CI( piece=CS(    ('#FFFFFF', '#202020', '#000000', '#B0B0B0') ), \
+                                          star=CS(     ('#', '#', '#', '#') ), \
+                                          monolith=CP( ('#', '#') ), \
+                                          aura=CP(     ('#', '#') ), \
+                                          field=CS(    ('#EFEFEF', '#EFEFEF', '#606060', '#606060') ), \
+                                          arrow=CM(    ('#00FF00', '#303030', '#0000FF', '#303030', '#FF0000', '#303030', '#101010', '#303030') ), \
+                                          text=CM(     ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ), \
+                                          marker=CM(   ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ) )
         self[ BoardType.OddClassical ] = self[ BoardType.Classical ]
 
-        self[ BoardType.CroatianTies ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                             star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                             monolith=CP.from_tuple( ('#', '#') ), \
-                                             aura=CP.from_tuple(     ('#', '#') ), \
-                                             field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                             arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                             text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                             marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.CroatianTies ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                             star=CS(     ('#', '#', '#', '#') ), \
+                                             monolith=CP( ('#', '#') ), \
+                                             aura=CP(     ('#', '#') ), \
+                                             field=CS(    ('#', '#', '#', '#') ), \
+                                             arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                             text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                             marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddCroatianTies ] = self[ BoardType.CroatianTies ]
 
-        self[ BoardType.MayanAscendancy ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                                star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                                monolith=CP.from_tuple( ('#', '#') ), \
-                                                aura=CP.from_tuple(     ('#', '#') ), \
-                                                field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                                arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                                text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                                marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.MayanAscendancy ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                                star=CS(     ('#', '#', '#', '#') ), \
+                                                monolith=CP( ('#', '#') ), \
+                                                aura=CP(     ('#', '#') ), \
+                                                field=CS(    ('#', '#', '#', '#') ), \
+                                                arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddMayanAscendancy ] = self[ BoardType.MayanAscendancy ]
 
-        self[ BoardType.AgeOfAquarius ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                              star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                              monolith=CP.from_tuple( ('#', '#') ), \
-                                              aura=CP.from_tuple(     ('#', '#') ), \
-                                              field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                              arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                              text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                              marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.AgeOfAquarius ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                              star=CS(     ('#', '#', '#', '#') ), \
+                                              monolith=CP( ('#', '#') ), \
+                                              aura=CP(     ('#', '#') ), \
+                                              field=CS(    ('#', '#', '#', '#') ), \
+                                              arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                              text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                              marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddAgeOfAquarius ] = self[ BoardType.AgeOfAquarius ]
 
-        self[ BoardType.MirandasVeil ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                             star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                             monolith=CP.from_tuple( ('#', '#') ), \
-                                             aura=CP.from_tuple(     ('#', '#') ), \
-                                             field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                             arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                             text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                             marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.MirandasVeil ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                             star=CS(     ('#', '#', '#', '#') ), \
+                                             monolith=CP( ('#', '#') ), \
+                                             aura=CP(     ('#', '#') ), \
+                                             field=CS(    ('#', '#', '#', '#') ), \
+                                             arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                             text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                             marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddMirandasVeil ] = self[ BoardType.MirandasVeil ]
 
-        self[ BoardType.Nineteen ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                         star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                         monolith=CP.from_tuple( ('#', '#') ), \
-                                         aura=CP.from_tuple(     ('#', '#') ), \
-                                         field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                         arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                         text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                         marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.Nineteen ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                         star=CS(     ('#', '#', '#', '#') ), \
+                                         monolith=CP( ('#', '#') ), \
+                                         aura=CP(     ('#', '#') ), \
+                                         field=CS(    ('#', '#', '#', '#') ), \
+                                         arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                         text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                         marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddNineteen ] = self[ BoardType.Nineteen ]
 
-        self[ BoardType.HemerasDawn ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                            star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                            monolith=CP.from_tuple( ('#', '#') ), \
-                                            aura=CP.from_tuple(     ('#', '#') ), \
-                                            field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                            arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                            text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                            marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.HemerasDawn ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                            star=CS(     ('#', '#', '#', '#') ), \
+                                            monolith=CP( ('#', '#') ), \
+                                            aura=CP(     ('#', '#') ), \
+                                            field=CS(    ('#', '#', '#', '#') ), \
+                                            arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                            text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                            marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddHemerasDawn ] = self[ BoardType.HemerasDawn ]
 
-        self[ BoardType.TamoanchanRevisited ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                                    star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                                    monolith=CP.from_tuple( ('#', '#') ), \
-                                                    aura=CP.from_tuple(     ('#', '#') ), \
-                                                    field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                                    arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                                    text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                                    marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.TamoanchanRevisited ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                                    star=CS(     ('#', '#', '#', '#') ), \
+                                                    monolith=CP( ('#', '#') ), \
+                                                    aura=CP(     ('#', '#') ), \
+                                                    field=CS(    ('#', '#', '#', '#') ), \
+                                                    arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                    text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                    marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddTamoanchanRevisited ] = self[ BoardType.TamoanchanRevisited ]
 
-        self[ BoardType.ConquestOfTlalocan ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                                   star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                                   monolith=CP.from_tuple( ('#', '#') ), \
-                                                   aura=CP.from_tuple(     ('#', '#') ), \
-                                                   field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                                   arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                                   text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                                   marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.ConquestOfTlalocan ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                                   star=CS(     ('#', '#', '#', '#') ), \
+                                                   monolith=CP( ('#', '#') ), \
+                                                   aura=CP(     ('#', '#') ), \
+                                                   field=CS(    ('#', '#', '#', '#') ), \
+                                                   arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                   text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                                   marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddConquestOfTlalocan ] = self[ BoardType.ConquestOfTlalocan ]
 
-        self[ BoardType.Discovery ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                          star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                          monolith=CP.from_tuple( ('#', '#') ), \
-                                          aura=CP.from_tuple(     ('#', '#') ), \
-                                          field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                          arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                          text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                          marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.Discovery ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                          star=CS(     ('#', '#', '#', '#') ), \
+                                          monolith=CP( ('#', '#') ), \
+                                          aura=CP(     ('#', '#') ), \
+                                          field=CS(    ('#', '#', '#', '#') ), \
+                                          arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                          text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                          marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddDiscovery ] = self[ BoardType.Discovery ]
 
-        self[ BoardType.One ] = CI( piece=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                    star=CS.from_tuple(     ('#', '#', '#', '#') ), \
-                                    monolith=CP.from_tuple( ('#', '#') ), \
-                                    aura=CP.from_tuple(     ('#', '#') ), \
-                                    field=CS.from_tuple(    ('#', '#', '#', '#') ), \
-                                    arrow=CM.from_tuple(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                    text=CM.from_tuple(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
-                                    marker=CM.from_tuple(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
+        self[ BoardType.One ] = CI( piece=CS(    ('#', '#', '#', '#') ), \
+                                    star=CS(     ('#', '#', '#', '#') ), \
+                                    monolith=CP( ('#', '#') ), \
+                                    aura=CP(     ('#', '#') ), \
+                                    field=CS(    ('#', '#', '#', '#') ), \
+                                    arrow=CM(    ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                    text=CM(     ('#', '#', '#', '#', '#', '#', '#', '#') ), \
+                                    marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
         self[ BoardType.OddOne ] = self[ BoardType.One ]
 
 Colors = Colors()

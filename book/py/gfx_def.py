@@ -70,10 +70,7 @@ class GfxDefSizes(object):
 
     @staticmethod
     def from_tuple(tpl):
-        return GfxDefSizes( board_rendering_size=tpl[0], \
-                            board_max_vertical_rendering_size=tpl[1], \
-                            piece_2_by_2_rendering_size=tpl[2], \
-                            board_line_width=tpl[3] )
+        return GfxDefSizes( *tpl[ 0 : 4 ] )
 
 
 GD = None
@@ -103,12 +100,12 @@ class GfxDef(object):
 
         # board_line_width >= 1 + (6 * rendering size / 5) // 1000
 
-        GDS = GfxDefSizes.from_tuple
+        GDS = GfxDefSizes
 
-        dct = { RenderingSize.Final : GDS( (9600, 14400, 3840, 13) ), \
-                RenderingSize.Good : GDS( (4800, 7200, 1920, 7) ), \
-                RenderingSize.Normal : GDS( (2400, 3600, 960, 4) ), \
-                RenderingSize.Draft : GDS( (1200, 1800, 480, 2) ), \
+        dct = { RenderingSize.Final : GDS( 9600, 14400, 3840, 13 ), \
+                RenderingSize.Good : GDS( 4800, 7200, 1920, 7 ), \
+                RenderingSize.Normal : GDS( 2400, 3600, 960, 4 ), \
+                RenderingSize.Draft : GDS( 1200, 1800, 480, 2 ), \
                 RenderingSize.Info : None, \
                 RenderingSize.none : None }
 

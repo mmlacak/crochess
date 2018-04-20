@@ -294,13 +294,13 @@ def test_3(board_desc=None, name=''):
     d.save_image(file_path)
 
 if __name__ == '__main__':
-    # test_1()
-    # test_1(board_desc=BoardDesc(margin_top_pix=210, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
-    # test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=120, margin_right_pix=30, margin_bottom_pix=40), name='_margin_2')
+    test_1()
+    test_1(board_desc=BoardDesc(margin_top_pix=210, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
+    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=120, margin_right_pix=30, margin_bottom_pix=40), name='_margin_2')
 
-    # test_2()
-    # test_2(board_desc=BoardDesc(margin_top_pix=210, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
-    # test_2(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=120, margin_right_pix=30, margin_bottom_pix=40), name='_margin_2')
+    test_2()
+    test_2(board_desc=BoardDesc(margin_top_pix=210, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
+    test_2(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=120, margin_right_pix=30, margin_bottom_pix=40), name='_margin_2')
 
     test_3()
     test_3(board_desc=BoardDesc(margin_top_pix=210, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')

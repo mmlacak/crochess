@@ -56,7 +56,7 @@ class DrawableRectangle(object):
 
     @staticmethod
     def from_tuple(tpl):
-        return DrawableRectangle(x_pix=tpl[0], y_pix=tpl[1], width_pix=tpl[2], height_pix=tpl[3])
+        return DrawableRectangle( *tpl[ 0 : 4 ] )
 
     @staticmethod
     def scale(x_pct, y_pct, scale=1.0, center_x=0.5, center_y=0.5):

@@ -16,6 +16,10 @@ class Font(object):
     def as_tuple(self):
         return (self.name, self.size)
 
+    @staticmethod
+    def from_tuple(tpl):
+        return ColorsPair( *tpl[ 0 : 2 ] )
+
     def get_font(self):
         return "%s %d" % (self.name, self.size)
 
