@@ -72,6 +72,7 @@ class ColorsPiece(object):
 
 class ColorsMark(object):
     def __init__(self, legal, ilegal, action, forbidden):
+
         assert isinstance(legal, ColorsPair)
         assert isinstance(ilegal, ColorsPair)
         assert isinstance(action, ColorsPair)
@@ -83,7 +84,10 @@ class ColorsMark(object):
         self.forbidden = forbidden
 
     def as_tuple(self):
-        return self.legal.as_tuple() + self.ilegal.as_tuple() + self.action.as_tuple() + self.forbidden.as_tuple()
+        return self.legal.as_tuple() + \
+               self.ilegal.as_tuple() + \
+               self.action.as_tuple() + \
+               self.forbidden.as_tuple()
 
     @staticmethod
     def from_tuple(tpl):
@@ -152,9 +156,9 @@ class Colors(dict):
                                      marker=CM(   ('#', '#', '#', '#', '#', '#', '#', '#') ) )
 
         self[ BoardType.Classical ] = CI( piece=CS(    ('#FFFFFF', '#202020', '#000000', '#B0B0B0') ), \
-                                          star=CS(     ('#', '#', '#', '#') ), \
-                                          monolith=CP( ('#', '#') ), \
-                                          aura=CP(     ('#', '#') ), \
+                                          star=CS(     ('#FFFFFF', '#202020', '#000000', '#B0B0B0') ), \
+                                          monolith=CP( ('#000000', '#FFFFFF') ), \
+                                          aura=CP(     ('#EFEFEF', '#303030') ), \
                                           field=CS(    ('#EFEFEF', '#EFEFEF', '#606060', '#606060') ), \
                                           arrow=CM(    ('#00FF00', '#303030', '#0000FF', '#303030', '#FF0000', '#303030', '#101010', '#303030') ), \
                                           text=CM(     ('#0080FF', '#303030', '#101010', '#808080', '#FF0000', '#303030', '#FF0000', '#303030') ), \

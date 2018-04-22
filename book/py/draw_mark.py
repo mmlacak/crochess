@@ -212,10 +212,13 @@ class DrawMark(Draw):
             self.draw_field_marker(field_marker, cpair=cpair, gc=gc, draw_outlined=draw_outlined, inv_width_ratio=inv_width_ratio)
 
 
+TEST_BOARD_SIZE_PIX = 2400 # 9600 # 1200
+TEST_LINE_WIDTH = 3 # 11 # 3
+
 def test_1(board_desc=None, name=''):
-    drw = get_new_drawable(1200, 1200)
-    gc = get_new_gc(drw, 3)
-    b = Board(BoardType.CroatianTies)
+    drw = get_new_drawable(TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX)
+    gc = get_new_gc(drw, TEST_LINE_WIDTH)
+    b = Board(BoardType.One) # CroatianTies)
     b.setup()
 
     d = DrawMark(drw, gc, b, board_desc=board_desc)
@@ -240,9 +243,9 @@ def test_1(board_desc=None, name=''):
     d.save_image(file_path)
 
 def test_2(board_desc=None, name=''):
-    drw = get_new_drawable(1200, 1200)
-    gc = get_new_gc(drw, 3)
-    b = Board(BoardType.CroatianTies)
+    drw = get_new_drawable(TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX)
+    gc = get_new_gc(drw, TEST_LINE_WIDTH)
+    b = Board(BoardType.One) # CroatianTies)
     b.setup()
 
     d = DrawMark(drw, gc, b, board_desc=board_desc)
@@ -267,9 +270,9 @@ def test_2(board_desc=None, name=''):
     d.save_image(file_path)
 
 def test_3(board_desc=None, name=''):
-    drw = get_new_drawable(1200, 1200)
-    gc = get_new_gc(drw, 3)
-    b = Board(BoardType.CroatianTies)
+    drw = get_new_drawable(TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX)
+    gc = get_new_gc(drw, TEST_LINE_WIDTH)
+    b = Board(BoardType.One) # CroatianTies)
     b.setup()
 
     d = DrawMark(drw, gc, b, board_desc=board_desc)
@@ -288,7 +291,7 @@ def test_3(board_desc=None, name=''):
              FieldMarker(7, 5, mark_type=MarkType(MarkType.Ilegal)), \
              FieldMarker(3, 7, mark_type=MarkType(MarkType.Action)), \
              FieldMarker(5, 4, mark_type=MarkType(MarkType.Forbidden)),  ]
-    d.draw_all_field_markers(fms2, cmark=Colors[BoardType.Classical].marker, draw_outlined=True, inv_width_ratio=3.5)
+    d.draw_all_field_markers(fms2, cmark=Colors[BoardType.Classical].marker, draw_outlined=True, inv_width_ratio=7.0)
 
     file_path = 'temp/markers%s.IGNORE.png' % name
     d.save_image(file_path)
