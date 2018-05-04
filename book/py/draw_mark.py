@@ -13,6 +13,8 @@ import pango
 import pixel_math as pm
 from board import BoardType, Board
 from mark import MarkType, Arrow, Text, FieldMarker
+import def_gfx as dg
+
 from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsMark, ColorsItem
 from draw import get_new_drawable, get_new_gc, set_new_colors, DrawableRectangle, Draw
 from draw_board import BoardDesc, DrawBoard
@@ -39,30 +41,36 @@ def get_mark_color_pair(cmark=None, mark_type=None):
 
 class DrawMark(Draw):
 
-    DEFAULT_ARROW_INVERSE_WIDTH_RATIO = 12.0 # Compared to field size.
-    DEFAULT_ARROW_POINTY_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
+#    DEFAULT_ARROW_INVERSE_WIDTH_RATIO = 12.0 # Compared to field size.
+#    DEFAULT_ARROW_POINTY_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
 
-    DEFAULT_FONT = "sans bold"
-    DEFAULT_FONT_SIZE = 192
+#    DEFAULT_FONT = "sans bold"
+#    DEFAULT_FONT_SIZE = 192
 
-    DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO = 5.0 # Compared to field size.
+#    DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO = 5.0 # Compared to field size.
 
     def __init__(self, drawable, gc, board, board_desc=None):
         super(DrawMark, self).__init__(drawable, gc)
 
         self.draw_board = DrawBoard(self.drawable, self.gc, board, board_desc=board_desc)
 
+    #
     # arrows
 
-    def calc_arrow(self, arrow, inv_width_ratio=None, pointy_bit_ratio=None):
+    def calc_arrow(self, arrow, adef=None):
+        assert isinstance(arrow, Arrow)
+        assert isinstance(adef, (dg.ArrowDef, NoneType))
+
+        adef = adef or dg.GfxDef[ self.draw_board.board.type ].arrow_def
+
         arrow.start_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.start )
         arrow.end_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.end )
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = inv_width_ratio or DrawMark.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
+        inv_width_ratio = adef.inv_width_ratio or dg.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
 
         # pointy_bit_ratio - compared to arrow width
-        pointy_bit_ratio = pointy_bit_ratio or DrawMark.DEFAULT_ARROW_POINTY_BIT_RATIO
+        pointy_bit_ratio = adef.pointy_bit_ratio or dg.DEFAULT_ARROW_POINTY_BIT_RATIO
 
         width = self.draw_board.field_width_pix / inv_width_ratio
         distance = width / 2.0
@@ -81,54 +89,45 @@ class DrawMark(Draw):
         arrow_lst_2 = [ (int(tpl[0]), int(tpl[1])) for tpl in arrow_lst ]
         return arrow_lst_2
 
-    def draw_arrow(self, arrow, cpair=None, gc=None, \
-                   inv_width_ratio=None, \
-                   pointy_bit_ratio=None):
-        assert isinstance(arrow, Arrow)
+    def draw_arrow(self, arrow, adef=None, cpair=None, gc=None):
+        # assert isinstance(arrow, Arrow)
+        # assert isinstance(adef, (ArrowDef, NoneType))
         # assert isinstance(cpair, (ColorsPair, NoneType))
         # assert isinstance(gc, (gtk.gdk.GC, NoneType))
-        assert isinstance(inv_width_ratio, (float, NoneType))
-        assert isinstance(pointy_bit_ratio, (float, NoneType))
 
-        points_pix = self.calc_arrow(arrow, inv_width_ratio=inv_width_ratio, pointy_bit_ratio=pointy_bit_ratio)
+        points_pix = self.calc_arrow(arrow, adef=adef)
 
         if cpair is not None:
             self.draw_outlined_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
         else:
             self.draw_outlined_polygon(points_pix, gc=gc)
 
-    def draw_all_arrows(self, arrows, cmark=None, gc=None, \
-                        inv_width_ratio=None, \
-                        pointy_bit_ratio=None):
-        assert isinstance(cmark, (ColorsMark, NoneType))
+    def draw_all_arrows(self, arrows, adef=None, cmark=None, gc=None):
+        # assert isinstance(adef, (ArrowDef, NoneType))
+        # assert isinstance(cmark, (ColorsMark, NoneType))
+        # assert isinstance(gc, (gtk.gdk.GC, NoneType))
 
         for arrow in arrows:
             # assert isinstance(arrow, Arrow)
 
             cpair = get_mark_color_pair(cmark=cmark, mark_type=arrow.mark_type)
 
-            self.draw_arrow(arrow, cpair=cpair, gc=gc, \
-                            inv_width_ratio=inv_width_ratio, \
-                            pointy_bit_ratio=pointy_bit_ratio)
+            self.draw_arrow(arrow, adef=adef, cpair=cpair, gc=gc)
 
+    #
     # text
 
-    @staticmethod
-    def get_font(font=None):
-        if font is None:
-            return "%s %d" % (DrawMark.DEFAULT_FONT, DrawMark.DEFAULT_FONT_SIZE)
-        else:
-            return font
-
-    def draw_text(self, text, cpair=None, gc=None, font=None):
+    def draw_text(self, text, fdef=None, cpair=None, gc=None):
         assert isinstance(text, Text)
+        assert isinstance(fdef, (dg.FontDef, NoneType))
         # assert isinstance(cpair, (ColorsPair, NoneType))
         # assert isinstance(gc, (gtk.gdk.GC, NoneType))
-        # assert isinstance(font, (str, NoneType))
+
+        fdef = fdef or dg.GfxDef[ self.draw_board.board.type ].font_def
 
         x, y = text.pos_pix = self.draw_board.convert_field_coords_to_pixel( *text.pos )
 
-        font = DrawMark.get_font(font)
+        font = fdef.get_font()
         gc = set_new_colors(gc or self.gc, fg=cpair.interior, bg=cpair.outline)
 
         screen = gtk.gdk.screen_get_default()
@@ -143,7 +142,7 @@ class DrawMark(Draw):
         x, y = pm.round_floats_to_int((x, y))
         self.drawable.draw_layout(gc, x, y, layout)
 
-    def draw_all_texts(self, texts, cmark=None, gc=None, font=None):
+    def draw_all_texts(self, texts, fdef=None, cmark=None, gc=None):
         assert isinstance(cmark, (ColorsMark, NoneType))
 
         for text in texts:
@@ -151,16 +150,19 @@ class DrawMark(Draw):
 
             cpair = get_mark_color_pair(cmark=cmark, mark_type=text.mark_type)
 
-            self.draw_text(text, cpair=cpair, gc=gc, font=font)
+            self.draw_text(text, fdef=fdef, cpair=cpair, gc=gc)
 
+    #
     # field marker
 
-    def calc_field_marker(self, field_marker, inv_width_ratio=None):
+    def calc_field_marker(self, field_marker, fmdef=None):
         assert isinstance(field_marker, FieldMarker)
-        # assert isinstance(inv_width_ratio, (float, NoneType))
+        assert isinstance(fmdef, (dg.FieldMarkerDef, NoneType))
+
+        fmdef = fmdef or dg.GfxDef[ self.draw_board.board.type ].field_mark_def
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = inv_width_ratio or DrawMark.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
+        inv_width_ratio = fmdef.inv_width_ratio or dg.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
 
         width_ratio = 1.0 / inv_width_ratio
         width_pix = self.draw_board.convert_field_width_to_pixel(width_ratio)
@@ -181,13 +183,13 @@ class DrawMark(Draw):
 
         return field_markers_pix
 
-    def draw_field_marker(self, field_marker, cpair=None, gc=None, draw_outlined=False, inv_width_ratio=None):
+    def draw_field_marker(self, field_marker, fmdef=None, cpair=None, gc=None, draw_outlined=False):
         assert isinstance(field_marker, FieldMarker)
+        # assert isinstance(fmdef, (dg.FieldMarkerDef, NoneType))
         # assert isinstance(cpair, (ColorsPair, NoneType))
         # assert isinstance(gc, (gtk.gdk.GC, NoneType))
-        # assert isinstance(inv_width_ratio, (float, NoneType))
 
-        markers_pix = self.calc_field_marker(field_marker, inv_width_ratio=inv_width_ratio)
+        markers_pix = self.calc_field_marker(field_marker, fmdef=fmdef)
 
         for points_pix in markers_pix:
             if cpair is not None:
@@ -201,7 +203,7 @@ class DrawMark(Draw):
                 else:
                     self.draw_polygon(points_pix, gc=gc)
 
-    def draw_all_field_markers(self, field_markers, cmark=None, gc=None, draw_outlined=False, inv_width_ratio=None):
+    def draw_all_field_markers(self, field_markers, fmdef=None, cmark=None, gc=None, draw_outlined=False):
         assert isinstance(cmark, (ColorsMark, NoneType))
 
         for field_marker in field_markers:
@@ -209,7 +211,7 @@ class DrawMark(Draw):
 
             cpair = get_mark_color_pair(cmark=cmark, mark_type=field_marker.mark_type)
 
-            self.draw_field_marker(field_marker, cpair=cpair, gc=gc, draw_outlined=draw_outlined, inv_width_ratio=inv_width_ratio)
+            self.draw_field_marker(field_marker, fmdef=fmdef, cpair=cpair, gc=gc, draw_outlined=draw_outlined)
 
 
 TEST_BOARD_SIZE_PIX = 2400 # 9600 # 1200
@@ -254,17 +256,19 @@ def test_2(board_desc=None, name=''):
     from colors import Colors
     d.draw_board.draw_board( Colors[BoardType.Classical] )
 
+    fdef = dg.FontDef('sans bold', 16)
     txts = [ Text("l1", 1.7, 2.3, mark_type=MarkType(MarkType.Legal)), \
              Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Ilegal)), \
              Text("a1", 2.7, 6.3, mark_type=MarkType(MarkType.Action)), \
              Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Forbidden)),  ]
-    d.draw_all_texts(txts, cmark=Colors[BoardType.Classical].text, font="sans bold 16")
+    d.draw_all_texts(txts, fdef=fdef, cmark=Colors[BoardType.Classical].text)
 
+    fdef2 = dg.FontDef('sans', 36)
     txts2 = [ Text("l2", 100, 200, mark_type=MarkType(MarkType.Legal)), \
               Text("i2", 300, 900, mark_type=MarkType(MarkType.Ilegal)), \
               Text("a2", 600, 500, mark_type=MarkType(MarkType.Action)), \
               Text("f2", 800, 300, mark_type=MarkType(MarkType.Forbidden)), ]
-    d.draw_all_texts(txts2, cmark=Colors[BoardType.Classical].text, font="sans bold 16")
+    d.draw_all_texts(txts2, fdef=fdef2, cmark=Colors[BoardType.Classical].text)
 
     file_path = 'temp/texts%s.IGNORE.png' % name
     d.save_image(file_path)
@@ -287,11 +291,12 @@ def test_3(board_desc=None, name=''):
             FieldMarker(4, 5, mark_type=MarkType(MarkType.Forbidden)),  ]
     d.draw_all_field_markers(fms, cmark=Colors[BoardType.Classical].marker)
 
+    fmdef = dg.FieldMarkerDef(7.0)
     fms2 = [ FieldMarker(2, 1, mark_type=MarkType(MarkType.Legal)), \
              FieldMarker(7, 5, mark_type=MarkType(MarkType.Ilegal)), \
              FieldMarker(3, 7, mark_type=MarkType(MarkType.Action)), \
              FieldMarker(5, 4, mark_type=MarkType(MarkType.Forbidden)),  ]
-    d.draw_all_field_markers(fms2, cmark=Colors[BoardType.Classical].marker, draw_outlined=True, inv_width_ratio=7.0)
+    d.draw_all_field_markers(fms2, fmdef=fmdef, cmark=Colors[BoardType.Classical].marker, draw_outlined=True)
 
     file_path = 'temp/markers%s.IGNORE.png' % name
     d.save_image(file_path)

@@ -1,13 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2016 - 2018 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2018 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
+
+
+from board import BoardType
 
 
 DEFAULT_PATH = '../gfx/' # '../tmp/'
 # DEFAULT_FILE_EXT = '.png'
 # DEFAULT_FILE_TYPE = 'png'
+
+DEFAULT_ARROW_INVERSE_WIDTH_RATIO = 12.0 # Compared to field size.
+DEFAULT_ARROW_POINTY_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
+
+DEFAULT_FONT = "sans bold"
+DEFAULT_FONT_SIZE = 192
+
+DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO = 5.0 # Compared to field size.
 
 
 class FontDef(object):
@@ -85,9 +96,9 @@ class GfxDef(dict):
 
     def __init__(self):
         FD = FontDef # (<name>, <size>)
-        AD = ArrowDef
-        FMD = FieldMarkerDef
-        GDI = GfxDefItem
+        AD = ArrowDef # (<inv_width_ratio>, <pointy_bit_ratio>)
+        FMD = FieldMarkerDef # (<inv_width_ratio>, )
+        GDI = GfxDefItem # (<font_def>, <arrow_def>, <field_mark_def>)
 
         self[ BoardType.none ] = GDI( font_def=FD('sans bold', 192), \
                                       arrow_def=AD(12.0, 1.5), \
