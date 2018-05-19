@@ -13,7 +13,7 @@ import pango
 import pixel_math as pm
 from board import BoardType, Board
 from mark import MarkType, Arrow, Text, FieldMarker
-import def_gfx as dg
+import def_mark as dm
 
 from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsMark, ColorsItem
 from draw import get_new_drawable, get_new_gc, set_new_colors, DrawableRectangle, Draw
@@ -41,14 +41,6 @@ def get_mark_color_pair(cmark=None, mark_type=None):
 
 class DrawMark(Draw):
 
-#    DEFAULT_ARROW_INVERSE_WIDTH_RATIO = 12.0 # Compared to field size.
-#    DEFAULT_ARROW_POINTY_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
-
-#    DEFAULT_FONT = "sans bold"
-#    DEFAULT_FONT_SIZE = 192
-
-#    DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO = 5.0 # Compared to field size.
-
     def __init__(self, drawable, gc, board, board_desc=None):
         super(DrawMark, self).__init__(drawable, gc)
 
@@ -59,18 +51,18 @@ class DrawMark(Draw):
 
     def calc_arrow(self, arrow, adef=None):
         assert isinstance(arrow, Arrow)
-        assert isinstance(adef, (dg.ArrowDef, NoneType))
+        assert isinstance(adef, (dm.ArrowDef, NoneType))
 
-        adef = adef or dg.GfxDef[ self.draw_board.board.type ].arrow_def
+        adef = adef or dm.MarkDef[ self.draw_board.board.type ].arrow_def
 
         arrow.start_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.start )
         arrow.end_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.end )
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = adef.inv_width_ratio or dg.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
+        inv_width_ratio = adef.inv_width_ratio or dm.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
 
         # pointy_bit_ratio - compared to arrow width
-        pointy_bit_ratio = adef.pointy_bit_ratio or dg.DEFAULT_ARROW_POINTY_BIT_RATIO
+        pointy_bit_ratio = adef.pointy_bit_ratio or dm.DEFAULT_ARROW_POINTY_BIT_RATIO
 
         width = self.draw_board.field_width_pix / inv_width_ratio
         distance = width / 2.0
@@ -92,7 +84,7 @@ class DrawMark(Draw):
     def draw_arrow(self, arrow, adef=None, cpair=None, gc=None):
         # assert isinstance(arrow, Arrow)
         # assert isinstance(adef, (ArrowDef, NoneType))
-        # assert isinstance(cpair, (ColorsPair, NoneType))
+        assert isinstance(cpair, (ColorsPair, NoneType))
         # assert isinstance(gc, (gtk.gdk.GC, NoneType))
 
         points_pix = self.calc_arrow(arrow, adef=adef)
@@ -119,11 +111,11 @@ class DrawMark(Draw):
 
     def draw_text(self, text, fdef=None, cpair=None, gc=None):
         assert isinstance(text, Text)
-        assert isinstance(fdef, (dg.FontDef, NoneType))
+        assert isinstance(fdef, (dm.FontDef, NoneType))
         # assert isinstance(cpair, (ColorsPair, NoneType))
         # assert isinstance(gc, (gtk.gdk.GC, NoneType))
 
-        fdef = fdef or dg.GfxDef[ self.draw_board.board.type ].font_def
+        fdef = fdef or dm.MarkDef[ self.draw_board.board.type ].font_def
 
         x, y = text.pos_pix = self.draw_board.convert_field_coords_to_pixel( *text.pos )
 
@@ -157,12 +149,12 @@ class DrawMark(Draw):
 
     def calc_field_marker(self, field_marker, fmdef=None):
         assert isinstance(field_marker, FieldMarker)
-        assert isinstance(fmdef, (dg.FieldMarkerDef, NoneType))
+        assert isinstance(fmdef, (dm.FieldMarkerDef, NoneType))
 
-        fmdef = fmdef or dg.GfxDef[ self.draw_board.board.type ].field_mark_def
+        fmdef = fmdef or dm.MarkDef[ self.draw_board.board.type ].field_mark_def
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = fmdef.inv_width_ratio or dg.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
+        inv_width_ratio = fmdef.inv_width_ratio or dm.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
 
         width_ratio = 1.0 / inv_width_ratio
         width_pix = self.draw_board.convert_field_width_to_pixel(width_ratio)
@@ -184,9 +176,9 @@ class DrawMark(Draw):
         return field_markers_pix
 
     def draw_field_marker(self, field_marker, fmdef=None, cpair=None, gc=None, draw_outlined=False):
-        assert isinstance(field_marker, FieldMarker)
-        # assert isinstance(fmdef, (dg.FieldMarkerDef, NoneType))
-        # assert isinstance(cpair, (ColorsPair, NoneType))
+        # assert isinstance(field_marker, FieldMarker)
+        # assert isinstance(fmdef, (dm.FieldMarkerDef, NoneType))
+        assert isinstance(cpair, (ColorsPair, NoneType))
         # assert isinstance(gc, (gtk.gdk.GC, NoneType))
 
         markers_pix = self.calc_field_marker(field_marker, fmdef=fmdef)
@@ -256,14 +248,14 @@ def test_2(board_desc=None, name=''):
     from colors import Colors
     d.draw_board.draw_board( Colors[BoardType.Classical] )
 
-    fdef = dg.FontDef('sans bold', 16)
+    fdef = dm.FontDef('sans bold', 16)
     txts = [ Text("l1", 1.7, 2.3, mark_type=MarkType(MarkType.Legal)), \
              Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Ilegal)), \
              Text("a1", 2.7, 6.3, mark_type=MarkType(MarkType.Action)), \
              Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Forbidden)),  ]
     d.draw_all_texts(txts, fdef=fdef, cmark=Colors[BoardType.Classical].text)
 
-    fdef2 = dg.FontDef('sans', 36)
+    fdef2 = dm.FontDef('sans', 36)
     txts2 = [ Text("l2", 100, 200, mark_type=MarkType(MarkType.Legal)), \
               Text("i2", 300, 900, mark_type=MarkType(MarkType.Ilegal)), \
               Text("a2", 600, 500, mark_type=MarkType(MarkType.Action)), \
@@ -291,7 +283,7 @@ def test_3(board_desc=None, name=''):
             FieldMarker(4, 5, mark_type=MarkType(MarkType.Forbidden)),  ]
     d.draw_all_field_markers(fms, cmark=Colors[BoardType.Classical].marker)
 
-    fmdef = dg.FieldMarkerDef(7.0)
+    fmdef = dm.FieldMarkerDef(7.0)
     fms2 = [ FieldMarker(2, 1, mark_type=MarkType(MarkType.Legal)), \
              FieldMarker(7, 5, mark_type=MarkType(MarkType.Ilegal)), \
              FieldMarker(3, 7, mark_type=MarkType(MarkType.Action)), \

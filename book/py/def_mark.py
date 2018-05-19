@@ -70,7 +70,7 @@ class FieldMarkerDef(object):
         return ArrowDef( *tpl[ 0 : 1 ] )
 
 
-class GfxDefItem(object):
+class MarkDefItem(object):
     def __init__(self, font_def, arrow_def, field_mark_def):
         assert isinstance(font_def, FontDef)
         assert isinstance(arrow_def, ArrowDef)
@@ -87,18 +87,18 @@ class GfxDefItem(object):
 
     @staticmethod
     def from_tuple(tpl):
-        return GfxDefItem( font_def=FontDef( *tpl[ 0 : 2 ] ), \
-                           arrow_def=ArrowDef( *tpl[ 2 : 4 ] ), \
-                           field_mark_def=FieldMarkerDef( *tpl[ 4 : 5 ] ) )
+        return MarkDefItem( font_def=FontDef( *tpl[ 0 : 2 ] ), \
+                            arrow_def=ArrowDef( *tpl[ 2 : 4 ] ), \
+                            field_mark_def=FieldMarkerDef( *tpl[ 4 : 5 ] ) )
 
 
-class GfxDef(dict):
+class MarkDef(dict):
 
     def __init__(self):
         FD = FontDef # (<name>, <size>)
         AD = ArrowDef # (<inv_width_ratio>, <pointy_bit_ratio>)
         FMD = FieldMarkerDef # (<inv_width_ratio>, )
-        GDI = GfxDefItem # (<font_def>, <arrow_def>, <field_mark_def>)
+        GDI = MarkDefItem # (<font_def>, <arrow_def>, <field_mark_def>)
 
         self[ BoardType.none ] = GDI( font_def=FD('sans bold', 192), \
                                       arrow_def=AD(12.0, 1.5), \
@@ -181,4 +181,4 @@ class GfxDef(dict):
                                         arrow_def=AD(12.0, 1.5), \
                                         field_mark_def=FMD(5.0) )
 
-GfxDef = GfxDef()
+MarkDef = MarkDef()

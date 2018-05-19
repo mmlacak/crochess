@@ -133,62 +133,60 @@ class BoardType(int):
                  BoardType.OddOne: 25,
                  BoardType.One: 26 }[self]
 
-#    def get_newly_introduced_piece(self):
-#        return { BoardType.none: None,
-#                 BoardType.OddClassical: None,
-#                 BoardType.Classical: None,
-#                 BoardType.OddCroatianTies: PT.Pegasus,
-#                 BoardType.CroatianTies: PT.Pegasus,
-#                 BoardType.OddMayanAscendancy: PT.Pyramid,
-#                 BoardType.MayanAscendancy: PT.Pyramid,
-#                 BoardType.OddAgeOfAquarius: PT.Unicorn,
-#                 BoardType.AgeOfAquarius: PT.Unicorn,
-#                 BoardType.OddMirandasVeil: PT.Wave,
-#                 BoardType.MirandasVeil: PT.Wave,
-#                 BoardType.OddNineteen: PT.Star,
-#                 BoardType.Nineteen: PT.Star,
-#                 BoardType.OddHemerasDawn: PT.Centaur,
-#                 BoardType.HemerasDawn: PT.Centaur,
-#                 BoardType.OddTamoanchanRevisited: PT.Serpent,
-#                 BoardType.TamoanchanRevisited: PT.Serpent,
-#                 BoardType.OddConquestOfTlalocan: PT.Shaman,
-#                 BoardType.ConquestOfTlalocan: PT.Shaman,
-#                 BoardType.OddDiscovery: PT.Monolith,
-#                 BoardType.Discovery: PT.Monolith,
-#                 BoardType.OddOne: PT.Starchild,
-#                 BoardType.One: PT.Starchild }[self]
+    def get_newly_introduced_piece(self):
+        return PT( { BoardType.none: None,
+                     BoardType.OddClassical: None,
+                     BoardType.Classical: None,
+                     BoardType.OddCroatianTies: PT.Pegasus,
+                     BoardType.CroatianTies: PT.Pegasus,
+                     BoardType.OddMayanAscendancy: PT.Pyramid,
+                     BoardType.MayanAscendancy: PT.Pyramid,
+                     BoardType.OddAgeOfAquarius: PT.Unicorn,
+                     BoardType.AgeOfAquarius: PT.Unicorn,
+                     BoardType.OddMirandasVeil: PT.Wave,
+                     BoardType.MirandasVeil: PT.Wave,
+                     BoardType.OddNineteen: PT.Star,
+                     BoardType.Nineteen: PT.Star,
+                     BoardType.OddHemerasDawn: PT.Centaur,
+                     BoardType.HemerasDawn: PT.Centaur,
+                     BoardType.OddTamoanchanRevisited: PT.Serpent,
+                     BoardType.TamoanchanRevisited: PT.Serpent,
+                     BoardType.OddConquestOfTlalocan: PT.Shaman,
+                     BoardType.ConquestOfTlalocan: PT.Shaman,
+                     BoardType.OddDiscovery: PT.Monolith,
+                     BoardType.Discovery: PT.Monolith,
+                     BoardType.OddOne: PT.Starchild,
+                     BoardType.One: PT.Starchild }[ self ] )
 
-#    def get_newly_introducing_board_types(self, piece_type):
-#        pt = PT(piece_type)
-#        return { PT.none: None,
-#                 PT.Pawn: None,
-#                 PT.Bishop: None,
-#                 PT.Knight: None,
-#                 PT.Rook: None,
-#                 PT.Queen: None,
-#                 PT.King: None,
-#                 PT.Pegasus: [BoardType.OddCroatianTies, BoardType.CroatianTies],
-#                 PT.Pyramid: [BoardType.OddMayanAscendancy, BoardType.MayanAscendancy],
-#                 PT.Unicorn: [BoardType.OddAgeOfAquarius, BoardType.AgeOfAquarius],
-#                 PT.Wave: [BoardType.OddMirandasVeil, BoardType.MirandasVeil],
-#                 PT.Star: [BoardType.OddNineteen, BoardType.Nineteen],
-#                 PT.Centaur: [BoardType.OddHemerasDawn, BoardType.HemerasDawn],
-#                 PT.Serpent: [BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited],
-#                 PT.Shaman: [BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan],
-#                 PT.Monolith: [BoardType.OddDiscovery, BoardType.Discovery],
-#                 PT.Starchild: [BoardType.OddOne, BoardType.One] }[pt.get_enumerated()]
+    def get_newly_introducing_board_types(self, piece_type):
+        pt = PT(piece_type)
+        return { PT.none: None,
+                 PT.Pawn: None,
+                 PT.Bishop: None,
+                 PT.Knight: None,
+                 PT.Rook: None,
+                 PT.Queen: None,
+                 PT.King: None,
+                 PT.Pegasus: [ BoardType.OddCroatianTies, BoardType.CroatianTies ],
+                 PT.Pyramid: [ BoardType.OddMayanAscendancy, BoardType.MayanAscendancy ],
+                 PT.Unicorn: [ BoardType.OddAgeOfAquarius, BoardType.AgeOfAquarius ],
+                 PT.Wave: [ BoardType.OddMirandasVeil, BoardType.MirandasVeil ],
+                 PT.Star: [ BoardType.OddNineteen, BoardType.Nineteen ],
+                 PT.Centaur: [ BoardType.OddHemerasDawn, BoardType.HemerasDawn ],
+                 PT.Serpent: [ BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited ],
+                 PT.Shaman: [ BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan ],
+                 PT.Monolith: [ BoardType.OddDiscovery, BoardType.Discovery ],
+                 PT.Starchild: [ BoardType.OddOne, BoardType.One ] }[ pt.get_enumerated() ]
 
-#    def get_all_that_contain(self, piece_type):
-#        start = self.get_newly_introducing_board_types(piece_type)
-#        start = start[0] if start is not None else BoardType.OddClassical
+    def get_all_that_contain(self, piece_type):
+        start = self.get_newly_introducing_board_types(piece_type)
+        start = start[0] if start is not None else BoardType.OddClassical
+        return [ BoardType(bt) for bt in xrange(start, BoardType.One+1) ]
 
-#        lst = [ BoardType(bt) for bt in BoardType.foreach(start) ]
-#        return lst
-
-#    def does_contain(self, piece_type):
-#        start = PT.Pawn
-#        end = self.get_newly_introduced_piece() or PT.King
-#        return piece_type in PT.foreach(start, end)
+    def does_contain(self, piece_type):
+        start = PT.Pawn
+        end = self.get_newly_introduced_piece() or PT.King
+        return piece_type in xrange(start, end+1)
 
     def get_position_limits(self):
         limit = self.get_size() - 1

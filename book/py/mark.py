@@ -44,6 +44,9 @@ class Arrow(object):
         assert isinstance(start_pointer, bool)
         assert isinstance(end_pointer, bool)
 
+        assert type(start_x) is type(start_y)
+        assert type(end_x) is type(end_y)
+
         self.start = (start_x, start_y)
         self.end = (end_x, end_y)
         self.mark_type = mark_type
@@ -60,8 +63,10 @@ class Text(object):
     def __init__(self, text, pos_x, pos_y, mark_type=MarkType(MarkType.Legal)):
         assert isinstance(text, str)
         assert isinstance(pos_x, (int, float))
-        assert isinstance(pos_x, (int, float))
+        assert isinstance(pos_y, (int, float))
         assert isinstance(mark_type, MarkType)
+
+        assert type(pos_x) is type(pos_y)
 
         self.text = text
         self.pos = (pos_x, pos_y)
