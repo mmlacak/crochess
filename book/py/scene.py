@@ -16,7 +16,7 @@ from mark import MarkType, Arrow, Text, FieldMarker
 def get_coord_offset(coord, offset=0.5):
     return float(coord + offset) if isinstance(coord, int) else float(coord)
 
-def get_arrow_coordinates(start_i, start_j, end_i, end_j):
+def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     starts_are_ints = bool(isinstance(start_i, int) and isinstance(start_j, int))
     starts_are_floats = bool(isinstance(start_i, float) and isinstance(start_j, float))
     ends_are_ints = bool(isinstance(end_i, int) and isinstance(end_j, int))
@@ -175,14 +175,17 @@ class Scene(object):
     def append_arrow(self, start_i, start_j, end_i, end_j, \
                      mark_type=MarkType(MarkType.Legal), \
                      start_pointer=False, \
-                     end_pointer=True):
+                     end_pointer=True, \
+                     do_recalc_arrow_ends=True):
         # assert isinstance(start_i, (int, float))
         # assert isinstance(start_j, (int, float))
         # assert isinstance(end_i, (int, float))
         # assert isinstance(end_j, (int, float))
         # assert isinstance(mark_type, MarkType)
 
-        start_x, start_y, end_x, end_y = get_arrow_coordinates(start_i, start_j, end_i, end_j)
+        start_x, start_y, end_x, end_y = recalc_arrow_ends(start_i, start_j, end_i, end_j) \
+                                         if do_recalc_arrow_ends \
+                                         else (start_i, start_j, end_i, end_j)
 
         arw_mark = Arrow(start_x, start_y, end_x, end_y, mark_type=mark_type, \
                          start_pointer=start_pointer, \
