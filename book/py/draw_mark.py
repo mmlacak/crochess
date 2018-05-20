@@ -216,7 +216,7 @@ def test_1(board_desc=None, name=''):
     b.setup()
 
     d = DrawMark(drw, gc, b, board_desc=board_desc)
-    d.draw_board.clear_area()
+    d.clear_area()
 
     from colors import Colors
     d.draw_board.draw_board( Colors[BoardType.Classical] )
@@ -243,7 +243,7 @@ def test_2(board_desc=None, name=''):
     b.setup()
 
     d = DrawMark(drw, gc, b, board_desc=board_desc)
-    d.draw_board.clear_area()
+    d.clear_area()
 
     from colors import Colors
     d.draw_board.draw_board( Colors[BoardType.Classical] )
@@ -272,7 +272,7 @@ def test_3(board_desc=None, name=''):
     b.setup()
 
     d = DrawMark(drw, gc, b, board_desc=board_desc)
-    d.draw_board.clear_area()
+    d.clear_area()
 
     from colors import Colors
     d.draw_board.draw_board( Colors[BoardType.Classical] )

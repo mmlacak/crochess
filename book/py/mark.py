@@ -64,13 +64,15 @@ class Text(object):
         assert isinstance(text, str)
         assert isinstance(pos_x, (int, float))
         assert isinstance(pos_y, (int, float))
-        assert isinstance(mark_type, MarkType)
+        # assert isinstance(mark_type, MarkType)
 
         assert type(pos_x) is type(pos_y)
 
+        mt = MarkType(mark_type)
+
         self.text = text
         self.pos = (pos_x, pos_y)
-        self.mark_type = mark_type
+        self.mark_type = mt
 
 
 class FieldMarker(object):

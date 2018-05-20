@@ -46,6 +46,11 @@ def save_image(drawable, file_path, file_type=DEFAULT_FILE_TYPE):
 
 class DrawableRectangle(object):
     def __init__(self, x_pix, y_pix, width_pix, height_pix):
+        assert isinstance(x_pix, int)
+        assert isinstance(y_pix, int)
+        assert isinstance(width_pix, int)
+        assert isinstance(height_pix, int)
+
         self.x_pix = x_pix
         self.y_pix = y_pix
         self.width_pix = width_pix

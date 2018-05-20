@@ -56,14 +56,17 @@ class DrawBoard(Draw):
     def __init__(self, drawable, gc, board, board_desc=None):
         super(DrawBoard, self).__init__(drawable, gc)
 
+        self.draw_piece = DrawPiece(self.drawable, self.gc)
+
+        self.init_board(board, board_desc=board_desc)
+
+    def init_board(self, board, board_desc=None):
         assert isinstance(board, Board)
         self.board = board
 
         self.board_desc = board_desc or BoardDesc()
 
         self.calc_board_geometry()
-
-        self.draw_piece = DrawPiece(self.drawable, self.gc)
 
     def calc_board_geometry(self):
         w_pix, h_pix = self.get_field_size_pix()
@@ -127,6 +130,8 @@ class DrawBoard(Draw):
                 self.draw_piece_at_field(i, j, colors_item, gc=gc)
 
     def draw_board(self, colors_item, gc=None):
+        assert isinstance(colors_item, ColorsItem)
+
         self.draw_all_fields(colors_item.field, gc=gc)
         self.draw_all_pieces(colors_item, gc=gc)
 

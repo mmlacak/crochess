@@ -66,18 +66,21 @@ class BoardType(int):
                     BoardType.One ]:
             yield BoardType(bt)
 
-    def is_even_or_odd(self):
+    def is_even(self):
         return (self % 2) == 0
 
-#    def get_even(self):
-#        if self == BoardType.none:
-#            return self
-#        return self if is_even_or_odd(self) else BoardType(self + 1)
+    def is_odd(self):
+        return (self % 2) != 0
 
-#    def get_odd(self):
-#        if self == BoardType.none:
-#            return self
-#        return BoardType(self - 1) if is_even_or_odd(self) else self
+    def get_even(self):
+        if self == BoardType.none:
+            return self
+        return self if is_even(self) else BoardType(self + 1)
+
+    def get_odd(self):
+        if self == BoardType.none:
+            return self
+        return BoardType(self - 1) if is_even(self) else self
 
     @staticmethod
     def _is_valid(board_type):
@@ -134,29 +137,30 @@ class BoardType(int):
                  BoardType.One: 26 }[self]
 
     def get_newly_introduced_piece(self):
-        return PT( { BoardType.none: None,
-                     BoardType.OddClassical: None,
-                     BoardType.Classical: None,
-                     BoardType.OddCroatianTies: PT.Pegasus,
-                     BoardType.CroatianTies: PT.Pegasus,
-                     BoardType.OddMayanAscendancy: PT.Pyramid,
-                     BoardType.MayanAscendancy: PT.Pyramid,
-                     BoardType.OddAgeOfAquarius: PT.Unicorn,
-                     BoardType.AgeOfAquarius: PT.Unicorn,
-                     BoardType.OddMirandasVeil: PT.Wave,
-                     BoardType.MirandasVeil: PT.Wave,
-                     BoardType.OddNineteen: PT.Star,
-                     BoardType.Nineteen: PT.Star,
-                     BoardType.OddHemerasDawn: PT.Centaur,
-                     BoardType.HemerasDawn: PT.Centaur,
-                     BoardType.OddTamoanchanRevisited: PT.Serpent,
-                     BoardType.TamoanchanRevisited: PT.Serpent,
-                     BoardType.OddConquestOfTlalocan: PT.Shaman,
-                     BoardType.ConquestOfTlalocan: PT.Shaman,
-                     BoardType.OddDiscovery: PT.Monolith,
-                     BoardType.Discovery: PT.Monolith,
-                     BoardType.OddOne: PT.Starchild,
-                     BoardType.One: PT.Starchild }[ self ] )
+        pt = { BoardType.none: None,
+               BoardType.OddClassical: None,
+               BoardType.Classical: None,
+               BoardType.OddCroatianTies: PT.Pegasus,
+               BoardType.CroatianTies: PT.Pegasus,
+               BoardType.OddMayanAscendancy: PT.Pyramid,
+               BoardType.MayanAscendancy: PT.Pyramid,
+               BoardType.OddAgeOfAquarius: PT.Unicorn,
+               BoardType.AgeOfAquarius: PT.Unicorn,
+               BoardType.OddMirandasVeil: PT.Wave,
+               BoardType.MirandasVeil: PT.Wave,
+               BoardType.OddNineteen: PT.Star,
+               BoardType.Nineteen: PT.Star,
+               BoardType.OddHemerasDawn: PT.Centaur,
+               BoardType.HemerasDawn: PT.Centaur,
+               BoardType.OddTamoanchanRevisited: PT.Serpent,
+               BoardType.TamoanchanRevisited: PT.Serpent,
+               BoardType.OddConquestOfTlalocan: PT.Shaman,
+               BoardType.ConquestOfTlalocan: PT.Shaman,
+               BoardType.OddDiscovery: PT.Monolith,
+               BoardType.Discovery: PT.Monolith,
+               BoardType.OddOne: PT.Starchild,
+               BoardType.One: PT.Starchild }[ self ]
+        return PT(pt) if pt is not None else None
 
     def get_newly_introducing_board_types(self, piece_type):
         pt = PT(piece_type)
@@ -282,7 +286,7 @@ class Board(object):
         self.clear()
         self._setup_pawns()
 
-        if not self.type.is_even_or_odd():
+        if not self.type.is_even():
             light_pieces = remove_pieces(light_pieces)
         self.set_row(0, light_pieces)
 
@@ -624,7 +628,15 @@ def test_2():
     print str(b)
     print
 
+def test_3():
+    print
+
+    for bt in iter(BoardType(0)):
+        print bt.get_name()
+
+    print
+
 if __name__ == '__main__':
     # test_1()
-
-    test_2()
+    # test_2()
+    test_3()

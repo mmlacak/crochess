@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2018 Mario Mlačak, mmlacak@gmail.com
+# Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
+
+
+from types import NoneType
+
+from colors import ColorsItem # ColorsPair, ColorsShade, ColorsPiece, ColorsItem
+from def_mark import MarkDefItem
+# from draw import get_new_drawable, get_new_gc, set_new_colors, DrawableRectangle, Draw
+from draw import Draw
+from draw_mark import DrawMark
+from scene import Scene
+
+
+class DrawScene(Draw):
+
+    def __init__(self, drawable, gc, scene, board_desc=None):
+        super(DrawScene, self).__init__(drawable, gc)
+
+        self.init_scene(scene, board_desc=board_desc)
+
+    def init_scene(self, scene, board_desc=None):
+        assert isinstance(scene, Scene)
+
+        self.scene = scene
+
+        self.draw_mark = DrawMark(self.drawable, self.gc, self.scene.board, board_desc=board_desc)
+
+    def draw_scene(self, colors_item, mark_def_item=None, gc=None):
+        assert isinstance(colors_item, ColorsItem)
+        assert isinstance(mark_def_item, (MarkDefItem, NoneType))
+
+        self.draw_mark.draw_board.draw_board(colors_item, gc=gc)
+
+        cmark = colors_item.marker
+
+        fmdef = mark_def_item.field_mark_def if isinstance(mark_def_item, MarkDefItem) else None
+        self.draw_mark.draw_all_field_markers(self.scene.field_markers, fmdef=fmdef, cmark=cmark, gc=gc) # , draw_outlined=False)
+
+        adef = mark_def_item.arrow_def if isinstance(mark_def_item, MarkDefItem) else None
+        self.draw_mark.draw_all_arrows(self.scene.arrows, adef=adef, cmark=cmark, gc=gc)
+
+        fdef = mark_def_item.font_def if isinstance(mark_def_item, MarkDefItem) else None
+        self.draw_mark.draw_all_texts(self.scene.texts, fdef=fdef, cmark=cmark, gc=gc)
+
+
+TEST_BOARD_SIZE_PIX = 1200 # 9600 # 2400
+TEST_LINE_WIDTH = 3 # 11 # 3
+
+def test_scene(func_name, board_desc=None, name='', include_odd_variants=False):
+    drw = get_new_drawable(TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX)
+    gc = get_new_gc(drw, TEST_LINE_WIDTH)
+
+    sc = SceneCommon()
+    func = getattr(sc, func_name)
+
+    for bt in iter(BoardType(0)):
+        if bt == BoardType.none:
+            continue
+
+        if not include_odd_variants and bt.is_odd():
+            continue
+
+        func(bt)
+
+        d = DrawScene(drw, gc, sc, board_desc=board_desc)
+        d.clear_area()
+
+        d.draw_scene( Colors[BoardType.Classical] )
+
+        fn = func_name[ 6 : ] if func_name.startswith('intro_') else func_name
+        btn = bt.get_name()
+        file_path = 'temp/%s.%s.%s.IGNORE.png' % (fn, btn, name)
+        d.save_image(file_path)
+
+if __name__ == '__main__':
+    from draw import get_new_drawable, get_new_gc
+    from board import BoardType
+    from colors import Colors
+    from scene_common import SceneCommon
+
+    test_scene('intro_piece')
+    test_scene('intro_castling')
+    test_scene('castling_long_left')
+    test_scene('castling_short_right')
+    test_scene('intro_en_passant')
+    test_scene('intro_rush')
