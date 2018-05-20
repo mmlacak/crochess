@@ -47,13 +47,10 @@ class DrawScene(Draw):
         self.draw_mark.draw_all_texts(self.scene.texts, fdef=fdef, cmark=cmark, gc=gc)
 
 
-TEST_BOARD_SIZE_PIX = 1200 # 9600 # 2400
-TEST_LINE_WIDTH = 3 # 11 # 3
+TEST_FIELD_SIZE_PIX = 200 # 100 # 400
+TEST_LINE_WIDTH = 5 # 3 # 11
 
 def test_scene(func_name, board_desc=None, name='', include_odd_variants=False):
-    drw = get_new_drawable(TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX)
-    gc = get_new_gc(drw, TEST_LINE_WIDTH)
-
     sc = SceneCommon()
     func = getattr(sc, func_name)
 
@@ -65,6 +62,11 @@ def test_scene(func_name, board_desc=None, name='', include_odd_variants=False):
             continue
 
         func(bt)
+
+        w = int(TEST_FIELD_SIZE_PIX * sc.board.get_width())
+        h = int(TEST_FIELD_SIZE_PIX * sc.board.get_height())
+        drw = get_new_drawable(w, h)
+        gc = get_new_gc(drw, TEST_LINE_WIDTH)
 
         d = DrawScene(drw, gc, sc, board_desc=board_desc)
         d.clear_area()
