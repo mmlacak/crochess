@@ -78,16 +78,6 @@ class DrawPiece(Draw):
         self.draw_piece_polygon(knight, rect, cpair=cpiece.own, gc=gc)
 
     def draw_rook(self, rect, cpiece=None, gc=None):
-#        rook = [ (0.27, 0.3), (0.37, 0.3), # left merlon \
-#                 (0.37, 0.42), (0.43, 0.42), # left embrasure \
-#                 (0.43, 0.3), (0.57, 0.3), # center merlon \
-#                 (0.57, 0.42), (0.63, 0.42), # right embrasure \
-#                 (0.63, 0.3), (0.73, 0.3), # right merlon \
-#                 (0.76, 0.5), (0.67, 0.54), # right corbin \
-#                 (0.72, 0.9), (0.28, 0.9), # floor \
-#                 (0.33, 0.54), (0.24, 0.5) # left corbin \
-#               ]
-
         rook = [ (0.27, 0.3), (0.37, 0.3), # left merlon \
                  (0.37, 0.42), (0.43, 0.42), # left embrasure \
                  (0.43, 0.3), (0.57, 0.3), # center merlon \

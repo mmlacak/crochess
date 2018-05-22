@@ -58,10 +58,10 @@ class DrawMark(Draw):
         arrow.end_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.end )
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = adef.inv_width_ratio or dm.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
+        inv_width_ratio = adef.inv_width_ratio if adef is not None else dm.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
 
         # pointy_bit_ratio - compared to arrow width
-        pointy_bit_ratio = adef.pointy_bit_ratio or dm.DEFAULT_ARROW_POINTY_BIT_RATIO
+        pointy_bit_ratio = adef.pointy_bit_ratio if adef is not None else dm.DEFAULT_ARROW_POINTY_BIT_RATIO
 
         width = self.draw_board.field_width_pix / inv_width_ratio
         distance = width / 2.0
@@ -118,7 +118,7 @@ class DrawMark(Draw):
 
         x, y = text.pos_pix = self.draw_board.convert_field_coords_to_pixel( *text.pos )
 
-        font = fdef.get_font()
+        font = fdef.get_font(self.draw_board.field_height_pix)
         gc = set_new_colors(gc or self.gc, fg=cpair.interior, bg=cpair.outline)
 
         screen = gtk.gdk.screen_get_default()
@@ -153,7 +153,7 @@ class DrawMark(Draw):
         fmdef = fmdef or dm.MarkDef[ self.draw_board.board.type ].field_mark_def
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = fmdef.inv_width_ratio or dm.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
+        inv_width_ratio = fmdef.inv_width_ratio if fmdef is not None else dm.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
 
         width_ratio = 1.0 / inv_width_ratio
         width_pix = self.draw_board.convert_field_width_to_pixel(width_ratio)
@@ -247,18 +247,22 @@ def test_2(board_desc=None, name=''):
     from colors import Colors
     d.draw_board.draw_board( Colors[BoardType.Classical] )
 
-    fdef = dm.FontDef('sans bold', 16)
+    fdef = dm.FontDef('sans bold', 3.5)
     txts = [ Text("l1", 1.7, 2.3, mark_type=MarkType(MarkType.Legal)), \
              Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Ilegal)), \
              Text("a1", 2.7, 6.3, mark_type=MarkType(MarkType.Action)), \
-             Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Forbidden)),  ]
+             Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Forbidden)), \
+             Text("WW", 5.3, 5.4, mark_type=MarkType(MarkType.Forbidden)), \
+             Text("MM", 4.3, 6.4, mark_type=MarkType(MarkType.Forbidden)), ]
     d.draw_all_texts(txts, fdef=fdef, cmark=Colors[BoardType.Classical].text)
 
-    fdef2 = dm.FontDef('sans', 36)
+    fdef2 = dm.FontDef('sans bold', 4.5)
     txts2 = [ Text("l2", 100, 200, mark_type=MarkType(MarkType.Legal)), \
               Text("i2", 300, 900, mark_type=MarkType(MarkType.Ilegal)), \
               Text("a2", 600, 500, mark_type=MarkType(MarkType.Action)), \
-              Text("f2", 800, 300, mark_type=MarkType(MarkType.Forbidden)), ]
+              Text("f2", 800, 300, mark_type=MarkType(MarkType.Forbidden)), \
+              Text("WW", 300, 300, mark_type=MarkType(MarkType.Forbidden)),\
+              Text("MM", 200, 500, mark_type=MarkType(MarkType.Forbidden)), ]
     d.draw_all_texts(txts2, fdef=fdef2, cmark=Colors[BoardType.Classical].text)
 
     file_path = 'temp/texts%s.IGNORE.png' % name
