@@ -11,13 +11,12 @@ import gtk.gdk
 import pango
 
 import pixel_math as pm
-from board import BoardType, Board
 from mark import MarkType, Arrow, Text, FieldMarker
 import def_mark as dm
 
-from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsMark, ColorsItem
-from draw import get_new_drawable, get_new_gc, set_new_colors, DrawableRectangle, Draw
-from draw_board import BoardDesc, DrawBoard
+from colors import ColorsPair, ColorsMark
+from draw import set_new_colors, Draw
+from draw_board import DrawBoard
 
 
 def get_mark_color_pair(cmark=None, mark_type=None):
@@ -294,6 +293,10 @@ def test_3(board_desc=None, name=''):
     d.save_image(file_path)
 
 if __name__ == '__main__':
+    from board import BoardType, Board
+    from draw import get_new_drawable, get_new_gc
+    from draw_board import BoardDesc
+
     test_1()
     test_1(board_desc=BoardDesc(margin_top_pix=210, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
     test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=120, margin_right_pix=30, margin_bottom_pix=40), name='_margin_2')

@@ -19,49 +19,49 @@ def get_coord_offset(coord, offset=0.5):
 def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     starts_are_ints = bool(isinstance(start_i, int) and isinstance(start_j, int))
     starts_are_floats = bool(isinstance(start_i, float) and isinstance(start_j, float))
-    ends_are_ints = bool(isinstance(end_i, int) and isinstance(end_j, int))
-    ends_are_floats = bool((isinstance(end_i, float) and isinstance(end_j, float)))
-
     assert starts_are_ints or starts_are_floats, \
            "Unexpected types for starting i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type(start_i), type(start_j))
 
+    ends_are_ints = bool(isinstance(end_i, int) and isinstance(end_j, int))
+    ends_are_floats = bool((isinstance(end_i, float) and isinstance(end_j, float)))
     assert ends_are_ints or ends_are_floats, \
            "Unexpected types for ending i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type(end_i), type(end_j))
 
-    diff_i = end_i - start_i
-    diff_j = end_j - start_j
+    if starts_are_ints or ends_are_ints:
+        diff_i = end_i - start_i
+        diff_j = end_j - start_j
 
-    start_x_off = start_x = get_coord_offset(start_i)
-    start_y_off = start_y = get_coord_offset(start_j)
-    end_x_off = end_x = get_coord_offset(end_i)
-    end_y_off = end_y = get_coord_offset(end_j)
+        start_x_off = start_x = get_coord_offset(start_i)
+        start_y_off = start_y = get_coord_offset(start_j)
+        end_x_off = end_x = get_coord_offset(end_i)
+        end_y_off = end_y = get_coord_offset(end_j)
 
-    offset_x = 0.9 if diff_i > 0.0 else 0.1
-    offset_y = 0.9 if diff_j > 0.0 else 0.1
+        offset_x = 0.9 if diff_i > 0.0 else 0.1
+        offset_y = 0.9 if diff_j > 0.0 else 0.1
 
-    if pm.q_same_rounded_floats(end_x, start_x):
-        start_y_off = get_coord_offset(start_j, offset=offset_y)
-        end_y_off = get_coord_offset(end_j, offset=(1.0 - offset_y))
-    elif pm.q_same_rounded_floats(end_y, start_y):
-        start_x_off = get_coord_offset(start_i, offset=offset_x)
-        end_x_off = get_coord_offset(end_i, offset=(1.0 - offset_x))
-    else:
-        a, b = pm.calc_straight_line((start_x, start_y), (end_x, end_y))
-
-        is_x_crossed = bool( abs(diff_i) > abs(diff_j) )
-
-        if is_x_crossed:
-            start_x_off = get_coord_offset(start_i, offset=offset_x)
-            end_x_off = get_coord_offset(end_i, offset=(1.0 - offset_x))
-
-            start_y_off = a * start_x_off + b
-            end_y_off = a * end_x_off + b
-        else:
+        if pm.q_same_rounded_floats(end_x, start_x):
             start_y_off = get_coord_offset(start_j, offset=offset_y)
             end_y_off = get_coord_offset(end_j, offset=(1.0 - offset_y))
+        elif pm.q_same_rounded_floats(end_y, start_y):
+            start_x_off = get_coord_offset(start_i, offset=offset_x)
+            end_x_off = get_coord_offset(end_i, offset=(1.0 - offset_x))
+        else:
+            a, b = pm.calc_straight_line((start_x, start_y), (end_x, end_y))
 
-            start_x_off = (start_y_off - b) / a
-            end_x_off = (end_y_off - b) / a
+            is_x_crossed = bool( abs(diff_i) > abs(diff_j) )
+
+            if is_x_crossed:
+                start_x_off = get_coord_offset(start_i, offset=offset_x)
+                end_x_off = get_coord_offset(end_i, offset=(1.0 - offset_x))
+
+                start_y_off = a * start_x_off + b
+                end_y_off = a * end_x_off + b
+            else:
+                start_y_off = get_coord_offset(start_j, offset=offset_y)
+                end_y_off = get_coord_offset(end_j, offset=(1.0 - offset_y))
+
+                start_x_off = (start_y_off - b) / a
+                end_x_off = (end_y_off - b) / a
 
     if starts_are_floats:
         start_x_off = start_i

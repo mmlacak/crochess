@@ -8,10 +8,10 @@
 from types import NoneType
 
 from util import xor
-from board import BoardType, Board
-from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsItem
-from draw import get_new_drawable, get_new_gc, DrawableRectangle, Draw
-from draw_piece import DrawableRectangle, DrawPiece
+from board import Board
+from colors import ColorsShade, ColorsItem
+from draw import  DrawableRectangle, Draw
+from draw_piece import DrawPiece
 
 
 class BoardDesc(object):
@@ -135,8 +135,6 @@ class DrawBoard(Draw):
         self.draw_all_fields(colors_item.field, gc=gc)
         self.draw_all_pieces(colors_item, gc=gc)
 
-# TODO :: field coordinates (converting pixel coords into field coords)
-
     def convert_field_width_to_pixel(self, x):
         if isinstance(x, float):
             return x * self.field_width_pix
@@ -196,6 +194,9 @@ def test_2(board_desc=None, name=''):
     d.save_image(file_path)
 
 if __name__ == '__main__':
+    from board import BoardType
+    from draw import get_new_drawable, get_new_gc
+
     test_1()
     test_1(board_desc=BoardDesc(reverse_field_colors=True), name='_reverse')
     test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')

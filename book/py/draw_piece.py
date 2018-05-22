@@ -8,8 +8,9 @@
 from types import NoneType
 
 from piece import PieceType
-from colors import ColorsPair, ColorsShade, ColorsPiece, ColorsItem
-from draw import get_new_drawable, get_new_gc, DrawableRectangle, Draw
+from colors import ColorsPair, ColorsPiece, ColorsItem
+# from draw import get_new_drawable, get_new_gc, DrawableRectangle, Draw
+from draw import  DrawableRectangle, Draw
 
 
 PIECE_WITH_CHIP_TRANSLATION = 0.11
@@ -77,9 +78,25 @@ class DrawPiece(Draw):
         self.draw_piece_polygon(knight, rect, cpair=cpiece.own, gc=gc)
 
     def draw_rook(self, rect, cpiece=None, gc=None):
-        rook = [(0.27, 0.3), (0.37, 0.3), (0.37, 0.42), (0.43, 0.42), (0.43, 0.3), (0.57, 0.3), \
-                (0.57, 0.42), (0.63, 0.42), (0.63, 0.3), (0.73, 0.3), (0.76, 0.5), (0.67, 0.54), \
-                (0.72, 0.9), (0.28, 0.9), (0.33, 0.54), (0.24, 0.5)]
+#        rook = [ (0.27, 0.3), (0.37, 0.3), # left merlon \
+#                 (0.37, 0.42), (0.43, 0.42), # left embrasure \
+#                 (0.43, 0.3), (0.57, 0.3), # center merlon \
+#                 (0.57, 0.42), (0.63, 0.42), # right embrasure \
+#                 (0.63, 0.3), (0.73, 0.3), # right merlon \
+#                 (0.76, 0.5), (0.67, 0.54), # right corbin \
+#                 (0.72, 0.9), (0.28, 0.9), # floor \
+#                 (0.33, 0.54), (0.24, 0.5) # left corbin \
+#               ]
+
+        rook = [ (0.27, 0.3), (0.37, 0.3), # left merlon \
+                 (0.37, 0.42), (0.43, 0.42), # left embrasure \
+                 (0.43, 0.3), (0.57, 0.3), # center merlon \
+                 (0.57, 0.42), (0.63, 0.42), # right embrasure \
+                 (0.63, 0.3), (0.73, 0.3), # right merlon \
+                 (0.75, 0.5), (0.68, 0.54), # right corbin \
+                 (0.71, 0.9), (0.29, 0.9), # floor \
+                 (0.32, 0.54), (0.25, 0.5) # left corbin \
+               ]
         self.draw_piece_polygon(rook, rect, cpair=cpiece.own, gc=gc)
 
     def draw_queen(self, rect, cpiece=None, gc=None):
@@ -211,7 +228,7 @@ class DrawPiece(Draw):
 
 
 def test_piece(func_name, size=300):
-    line_width = 1 + (6 * (2*size) / 5) // 1000 # >= 1 + (6 * rendering size / 5) // 1000
+    line_width = 1 + size // 100 # 1 + (6 * (2*size) / 5) // 1000 # >= 1 + (6 * rendering size / 5) // 1000
 
     drw = get_new_drawable(2*size, 2*size)
     gc = get_new_gc(drw, line_width)
@@ -255,6 +272,8 @@ def test_piece(func_name, size=300):
     d.save_image(file_path)
 
 if __name__ == '__main__':
+    from draw import get_new_drawable, get_new_gc
+
     test_piece('draw_pawn')
     test_piece('draw_bishop')
     test_piece('draw_knight')

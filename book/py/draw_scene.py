@@ -7,9 +7,8 @@
 
 from types import NoneType
 
-from colors import ColorsItem # ColorsPair, ColorsShade, ColorsPiece, ColorsItem
+from colors import ColorsItem
 from def_mark import MarkDefItem
-# from draw import get_new_drawable, get_new_gc, set_new_colors, DrawableRectangle, Draw
 from draw import Draw
 from draw_mark import DrawMark
 from scene import Scene
