@@ -32,7 +32,7 @@ class RenderingSizeEnum(int):
     def _is_valid(rendering_size):
         return RenderingSizeEnum.none <= rendering_size <= RenderingSizeEnum.Final
 
-    def need_rendering(self):
+    def needs_rendering(self):
         return RenderingSizeEnum.Draft <= self <= RenderingSizeEnum.Final
 
 
@@ -70,7 +70,7 @@ class RenderingSize(dict):
         # All rendering is done for A5 format book, with
         # borders: top=15.0mm, bottom=20.0mm, left=15.0mm, right=20.0mm.
         # This yields approx. 10 cm horizontal text size, i.e. approx. 4 inches,
-        # and approx. 15 cm vertical size, i.e. approx. 6 inches.
+        # and approx. 15 cm vertical text size, i.e. approx. 6 inches.
 
         # board_width_pix == 9600 --> cca. 2400 dpi
         # board_width_pix == 4800 --> cca. 1200 dpi
@@ -94,3 +94,9 @@ class RenderingSize(dict):
         self[ RSE.none ] = None
 
 RenderingSize = RenderingSize()
+
+
+def get_rendering_size_item(rs_enum):
+    assert isinstance(rs_enum, RenderingSizeEnum)
+
+    return RenderingSize[rs_enum]

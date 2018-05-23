@@ -68,7 +68,6 @@ def test_scene(func_name, board_desc=None, name='', include_odd_variants=False):
         gc = get_new_gc(drw, TEST_LINE_WIDTH)
 
         d = DrawScene(drw, gc, sc, board_desc=board_desc)
-        d.clear_area()
 
         d.draw_scene( Colors[BoardType.Classical] )
 

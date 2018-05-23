@@ -111,6 +111,31 @@ class BoardType(int):
                  BoardType.OddOne: 'Odd One',
                  BoardType.One: 'One' }[self]
 
+    def get_symbol(self):
+        return { BoardType.none: '',
+                 BoardType.OddClassical: 'OC',
+                 BoardType.Classical: 'C',
+                 BoardType.OddCroatianTies: 'OCT',
+                 BoardType.CroatianTies: 'CT',
+                 BoardType.OddMayanAscendancy: 'OMA',
+                 BoardType.MayanAscendancy: 'MA',
+                 BoardType.OddAgeOfAquarius: 'OAOA',
+                 BoardType.AgeOfAquarius: 'AOA',
+                 BoardType.OddMirandasVeil: 'OMV',
+                 BoardType.MirandasVeil: 'MV',
+                 BoardType.OddNineteen: 'ON',
+                 BoardType.Nineteen: 'N',
+                 BoardType.OddHemerasDawn: 'OHD',
+                 BoardType.HemerasDawn: 'HD',
+                 BoardType.OddTamoanchanRevisited: 'OTR',
+                 BoardType.TamoanchanRevisited: 'TR',
+                 BoardType.OddConquestOfTlalocan: 'OCOT',
+                 BoardType.ConquestOfTlalocan: 'COT',
+                 BoardType.OddDiscovery: 'OD',
+                 BoardType.Discovery: 'D',
+                 BoardType.OddOne: 'OO',
+                 BoardType.One: 'O' }[self]
+
     def get_size(self):
         return { BoardType.none: 0,
                  BoardType.OddClassical: 7,

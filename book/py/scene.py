@@ -131,9 +131,15 @@ def get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45):
 
 class Scene(object):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, board=None, *args, **kwargs):
+        assert isinstance(board, (Board, NoneType))
+
         super(Scene, self).__init__(*args, **kwargs)
+
         self.reset()
+
+        # Set external board ... just don't call reset() nor init_scene().
+        self.board = board
 
     def reset(self):
         self.board = None

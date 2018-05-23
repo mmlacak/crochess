@@ -9,7 +9,6 @@ pygtk.require('2.0')
 import gtk
 
 
-# DEFAULT_PATH = '../gfx/' # '../tmp/'
 DEFAULT_FILE_EXT = '.png'
 DEFAULT_FILE_TYPE = 'png'
 
@@ -87,12 +86,14 @@ class DrawableRectangle(object):
 
 
 class Draw(object):
-    def __init__(self, drawable, gc):
+    def __init__(self, drawable, gc, color="#FFFFFF"):
         assert isinstance(drawable, gtk.gdk.Drawable)
         assert isinstance(gc, gtk.gdk.GC)
 
         self.drawable = drawable
         self.gc = gc
+
+        self.clear_area(color=color, gc=self.gc)
 
     def set_gc_colors(self, fg=None, bg=None, gc=None):
         self.gc = set_new_colors(gc or self.gc, fg=fg, bg=bg)
@@ -157,7 +158,6 @@ def test_1():
     gc = get_new_gc(drw, 5)
 
     d = Draw(drw, gc)
-    d.clear_area()
 
     d.draw_polygon([ (10, 10), (100, 100), (10, 100) ], filled=True, fg='#FF0000', bg='#00FF00')
     d.draw_polygon([ (200, 10), (300, 100), (200, 100) ], filled=False, fg='#FF0000', bg='#00FF00')
@@ -172,7 +172,6 @@ def test_2():
     gc = get_new_gc(drw, 5)
 
     d = Draw(drw, gc)
-    d.clear_area()
 
     d.draw_arc(10, 10, 100, 100, True, fg='#FF0000', bg='#00FF00')
     d.draw_arc(200, 10, 100, 100, False, fg='#FF0000', bg='#00FF00')

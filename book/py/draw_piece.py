@@ -78,15 +78,28 @@ class DrawPiece(Draw):
         self.draw_piece_polygon(knight, rect, cpair=cpiece.own, gc=gc)
 
     def draw_rook(self, rect, cpiece=None, gc=None):
+# old
+#        rook = [ (0.27, 0.3), (0.37, 0.3), # left merlon \
+#                 (0.37, 0.42), (0.43, 0.42), # left embrasure \
+#                 (0.43, 0.3), (0.57, 0.3), # center merlon \
+#                 (0.57, 0.42), (0.63, 0.42), # right embrasure \
+#                 (0.63, 0.3), (0.73, 0.3), # right merlon \
+#                 (0.76, 0.5), (0.67, 0.54), # right corbin \
+#                 (0.72, 0.9), (0.28, 0.9), # floor \
+#                 (0.33, 0.54), (0.24, 0.5) # left corbin \
+#               ]
+
+# just floor
         rook = [ (0.27, 0.3), (0.37, 0.3), # left merlon \
                  (0.37, 0.42), (0.43, 0.42), # left embrasure \
                  (0.43, 0.3), (0.57, 0.3), # center merlon \
                  (0.57, 0.42), (0.63, 0.42), # right embrasure \
                  (0.63, 0.3), (0.73, 0.3), # right merlon \
-                 (0.75, 0.5), (0.68, 0.54), # right corbin \
+                 (0.76, 0.5), (0.67, 0.54), # right corbin \
                  (0.71, 0.9), (0.29, 0.9), # floor \
-                 (0.32, 0.54), (0.25, 0.5) # left corbin \
+                 (0.33, 0.54), (0.24, 0.5) # left corbin \
                ]
+
         self.draw_piece_polygon(rook, rect, cpair=cpiece.own, gc=gc)
 
     def draw_queen(self, rect, cpiece=None, gc=None):
@@ -223,8 +236,7 @@ def test_piece(func_name, size=300):
     drw = get_new_drawable(2*size, 2*size)
     gc = get_new_gc(drw, line_width)
 
-    d = DrawPiece(drw, gc)
-    d.clear_area(color='#EFEFEF')
+    d = DrawPiece(drw, gc, color='#EFEFEF')
 
     d.draw_rectangle(size, 0, size, size, fg='#606060')
     d.draw_rectangle(0, size, size, size, fg='#606060')

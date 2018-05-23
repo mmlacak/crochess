@@ -8,10 +8,6 @@
 from board import BoardType
 
 
-DEFAULT_PATH = '../gfx/' # '../tmp/'
-# DEFAULT_FILE_EXT = '.png'
-# DEFAULT_FILE_TYPE = 'png'
-
 DEFAULT_ARROW_INVERSE_WIDTH_RATIO = 12.0 # Compared to field size.
 DEFAULT_ARROW_POINTY_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
 

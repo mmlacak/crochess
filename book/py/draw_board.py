@@ -170,7 +170,6 @@ def test_1(board_desc=None, width=None, height=None, name=''):
     b.setup()
 
     d = DrawBoard(drw, gc, b, board_desc=board_desc)
-    d.clear_area()
 
     cs = ColorsShade.from_tuple( ('#B0B0B0', '#B0B0B0', '#404040', '#404040' ) )
     d.draw_all_fields(cshade=cs)
@@ -185,7 +184,6 @@ def test_2(board_desc=None, name=''):
     b.setup()
 
     d = DrawBoard(drw, gc, b, board_desc=board_desc)
-    d.clear_area()
 
     from colors import Colors
     d.draw_board( Colors[BoardType.Classical] )
