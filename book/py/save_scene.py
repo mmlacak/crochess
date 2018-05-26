@@ -8,8 +8,10 @@
 DEFAULT_PATH = '../gfx/' # '../tmp/'
 
 from colors import Colors
+from piece import PieceType
 from board import BoardType, Board
 from scene import Scene
+from scene_common import SceneCommon
 from draw import DEFAULT_FILE_EXT, DEFAULT_FILE_TYPE, get_new_drawable, get_new_gc
 from draw_scene import DrawScene
 from def_mark import MarkDef
@@ -49,7 +51,7 @@ class SaveScene(object):
         draw_scene.save_image(file_path, file_type=file_type)
 
     #
-    # board
+    # boards
 
     def get_board_file_path(self, board_type, path_prefix=None, file_ext=None):
         bt = BoardType(board_type)
@@ -79,10 +81,60 @@ class SaveScene(object):
 
         print "Finished."
 
+    #
+    # pieces
 
-def test_board():
+    def get_piece_file_path(self, piece_type, board_type=None, path_prefix=None, pieces_folder='pieces', file_ext=None):
+        path_prefix = path_prefix or DEFAULT_PATH
+        file_ext = file_ext or DEFAULT_FILE_EXT
+
+        bt = BoardType(board_type) if board_type is not None else None
+        pt = PieceType(piece_type)
+        index = int(pt) if bt is None else int(bt)
+        name = pt.get_name() if bt is None else bt.get_name()
+        sanitize = name.replace('\'', '_').replace(' ', '_').lower()
+        return '%s/%s/%02d_%s%s' % (path_prefix, pieces_folder, index, sanitize, file_ext)
+
+    def render_all_pieces(self, piece_type=None, path_prefix=None):
+        print
+        print "Rendering all pieces." if self.rendering_size.needs_rendering() else "Info all pieces."
+
+        is_rendering_one_piece = piece_type is not None
+
+        for bt in BoardType.iter():
+            pt = piece_type or bt.get_newly_introduced_piece()
+
+            if pt is not None:
+                pf = 'pieces'
+                if is_rendering_one_piece:
+                    pf += '/' + PieceType(piece_type).get_name().lower()
+
+                _bt = bt if is_rendering_one_piece else None
+                file_path = self.get_piece_file_path(pt, board_type=_bt, pieces_folder=pf, path_prefix=path_prefix)
+                print file_path
+
+                if self.rendering_size.needs_rendering():
+                    scene = SceneCommon()
+                    scene.intro_piece(bt, piece_type=pt)
+
+                    self.save_scene(scene, file_path, \
+                                    size_x=self.rendering_size_item.piece_2_by_2_pix, \
+                                    size_y=self.rendering_size_item.piece_2_by_2_pix)
+
+        print "Finished."
+
+
+def test_boards():
     ss = SaveScene(RenderingSizeEnum.Draft)
     ss.render_all_boards(path_prefix='temp/')
 
+def test_pieces():
+    ss = SaveScene(RenderingSizeEnum.Draft)
+    ss.render_all_pieces(path_prefix='temp/')
+    ss.render_all_pieces(piece_type=PieceType.Star, path_prefix='temp/')
+
+
 if __name__ == '__main__':
-    test_board()
+    # test_boards()
+    test_pieces()
+
