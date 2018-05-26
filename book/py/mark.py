@@ -10,7 +10,7 @@ class MarkType(int):
     Legal = 1
     Ilegal = 2
     Action = 3
-    Forbidden = 4
+    Blocked = 4
 
     def __new__(cls, value):
         if MarkType._is_valid(value):
@@ -20,14 +20,14 @@ class MarkType(int):
 
     @staticmethod
     def _is_valid(mark_type):
-        return MarkType.none <= mark_type <= MarkType.Forbidden
+        return MarkType.none <= mark_type <= MarkType.Blocked
 
     @staticmethod
     def iter(include_none=False):
         lst =  [ MarkType.Legal, \
                  MarkType.Ilegal, \
                  MarkType.Action, \
-                 MarkType.Forbidden ]
+                 MarkType.Blocked ]
 
         if include_none:
             lst.insert(0, MarkType.none)

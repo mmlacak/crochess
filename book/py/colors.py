@@ -71,30 +71,30 @@ class ColorsPiece(object):
 
 
 class ColorsMark(object):
-    def __init__(self, legal, ilegal, action, forbidden):
+    def __init__(self, legal, ilegal, action, blocked):
 
         assert isinstance(legal, ColorsPair)
         assert isinstance(ilegal, ColorsPair)
         assert isinstance(action, ColorsPair)
-        assert isinstance(forbidden, ColorsPair)
+        assert isinstance(blocked, ColorsPair)
 
         self.legal = legal
         self.ilegal = ilegal
         self.action = action
-        self.forbidden = forbidden
+        self.blocked = blocked
 
     def as_tuple(self):
         return self.legal.as_tuple() + \
                self.ilegal.as_tuple() + \
                self.action.as_tuple() + \
-               self.forbidden.as_tuple()
+               self.blocked.as_tuple()
 
     @staticmethod
     def from_tuple(tpl):
         return ColorsMark( legal=ColorsPair( *tpl[ 0 : 2 ] ), \
                            ilegal=ColorsPair( *tpl[ 2 : 4 ] ), \
                            action=ColorsPair( *tpl[ 4 : 6 ] ), \
-                           forbidden=ColorsPair( *tpl[ 6 : 8 ] ) )
+                           blocked=ColorsPair( *tpl[ 6 : 8 ] ) )
 
 
 class ColorsItem(object):
@@ -143,7 +143,7 @@ class Colors(dict):
     def __init__(self):
         CP = ColorsPair.from_tuple # (<interior>, <outline>)
         CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)
-        CM = ColorsMark.from_tuple # (<legal interior>, <legal outline>, <ilegal interior>, <ilegal outline>, <action interior>, <action outline>, <forbidden interior>, <forbidden outline>)
+        CM = ColorsMark.from_tuple # (<legal interior>, <legal outline>, <ilegal interior>, <ilegal outline>, <action interior>, <action outline>, <blocked interior>, <blocked outline>)
         CI = ColorsItem # ...
 
         self[ BoardType.none ] = CI( piece=CS(    ('#FFFFFF', '#000000', '#000000', '#FFFFFF') ), \
@@ -216,7 +216,7 @@ class Colors(dict):
         self[ BoardType.OddNineteen ] = self[ BoardType.Nineteen ]
 
         self[ BoardType.HemerasDawn ] = CI( piece=CS(    ('#FF0000', '#000000', '#303030', '#FFFFFF') ), \
-                                            star=CS(     ('#FF0000', '#000000', '#303030', '#FFFFFF') ), \
+                                            star=CS(     ('#2020FF', '#000000', '#FFFFFF', '#000000') ), \
                                             monolith=CP( ('#000000', '#FFFFFF') ), \
                                             aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                             field=CS(    ('#501008', '#501008', '#909090', '#909090') ), \
@@ -226,7 +226,7 @@ class Colors(dict):
         self[ BoardType.OddHemerasDawn ] = self[ BoardType.HemerasDawn ]
 
         self[ BoardType.TamoanchanRevisited ] = CI( piece=CS(    ('#10F030', '#000000', '#200070', '#FFFFFF') ), \
-                                                    star=CS(     ('#10F030', '#000000', '#200070', '#FFFFFF') ), \
+                                                    star=CS(     ('#FFFF00', '#000000', '#FF2020', '#000000') ), \
                                                     monolith=CP( ('#000000', '#FFFFFF') ), \
                                                     aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                                     field=CS(    ('#10F0E0', '#10F0E0', '#0030B0', '#0030B0') ), \
@@ -236,7 +236,8 @@ class Colors(dict):
         self[ BoardType.OddTamoanchanRevisited ] = self[ BoardType.TamoanchanRevisited ]
 
         self[ BoardType.ConquestOfTlalocan ] = CI( piece=CS(    ('#10F030', '#000000', '#800000', '#FFFFFF') ), \
-                                                   star=CS(     ('#10F030', '#000000', '#800000', '#FFFFFF') ), \
+#                                                    star=CS(     ('#2020FF', '#000000', '#FF2020', '#000000') ), \
+                                                   star=CS(     ('#2020FF', '#FFFFFF', '#FF2020', '#FFFFFF') ), \
                                                    monolith=CP( ('#000000', '#FFFFFF') ), \
                                                    aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                                    field=CS(    ('#10F0E0', '#10F0E0', '#FF0000', '#FF0000') ), \
@@ -246,7 +247,7 @@ class Colors(dict):
         self[ BoardType.OddConquestOfTlalocan ] = self[ BoardType.ConquestOfTlalocan ]
 
         self[ BoardType.Discovery ] = CI( piece=CS(    ('#808080', '#000000', '#003737', '#FFFFFF') ), \
-                                          star=CS(     ('#808080', '#000000', '#003737', '#FFFFFF') ), \
+                                          star=CS(     ('#FF8000', '#000000', '#7000B0', '#FFFFFF') ), \
                                           monolith=CP( ('#000000', '#FFFFFF') ), \
                                           aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                           field=CS(    ('#FFFFDF', '#FFFFDF', '#B0B0B0', '#B0B0B0') ), \

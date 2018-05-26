@@ -33,7 +33,7 @@ def get_mark_color_pair(cmark=None, mark_type=None):
              MarkType.Legal : cmark.legal, \
              MarkType.Ilegal : cmark.ilegal, \
              MarkType.Action : cmark.action, \
-             MarkType.Forbidden : cmark.forbidden }
+             MarkType.Blocked : cmark.blocked }
 
     return _map[ mark_type ]
 
@@ -249,18 +249,18 @@ def test_2(board_desc=None, name=''):
     txts = [ Text("l1", 1.7, 2.3, mark_type=MarkType(MarkType.Legal)), \
              Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Ilegal)), \
              Text("a1", 2.7, 6.3, mark_type=MarkType(MarkType.Action)), \
-             Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Forbidden)), \
-             Text("WW", 5.3, 5.4, mark_type=MarkType(MarkType.Forbidden)), \
-             Text("MM", 4.3, 6.4, mark_type=MarkType(MarkType.Forbidden)), ]
+             Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Blocked)), \
+             Text("WW", 5.3, 5.4, mark_type=MarkType(MarkType.Blocked)), \
+             Text("MM", 4.3, 6.4, mark_type=MarkType(MarkType.Blocked)), ]
     d.draw_all_texts(txts, fdef=fdef, cmark=Colors[BoardType.Classical].text)
 
     fdef2 = dm.FontDef('sans bold', 4.5)
     txts2 = [ Text("l2", 100, 200, mark_type=MarkType(MarkType.Legal)), \
               Text("i2", 300, 900, mark_type=MarkType(MarkType.Ilegal)), \
               Text("a2", 600, 500, mark_type=MarkType(MarkType.Action)), \
-              Text("f2", 800, 300, mark_type=MarkType(MarkType.Forbidden)), \
-              Text("WW", 300, 300, mark_type=MarkType(MarkType.Forbidden)),\
-              Text("MM", 200, 500, mark_type=MarkType(MarkType.Forbidden)), ]
+              Text("f2", 800, 300, mark_type=MarkType(MarkType.Blocked)), \
+              Text("WW", 300, 300, mark_type=MarkType(MarkType.Blocked)),\
+              Text("MM", 200, 500, mark_type=MarkType(MarkType.Blocked)), ]
     d.draw_all_texts(txts2, fdef=fdef2, cmark=Colors[BoardType.Classical].text)
 
     file_path = 'temp/texts%s.IGNORE.png' % name
@@ -280,14 +280,14 @@ def test_3(board_desc=None, name=''):
     fms = [ FieldMarker(1, 2, mark_type=MarkType(MarkType.Legal)), \
             FieldMarker(6, 4, mark_type=MarkType(MarkType.Ilegal)), \
             FieldMarker(2, 6, mark_type=MarkType(MarkType.Action)), \
-            FieldMarker(4, 5, mark_type=MarkType(MarkType.Forbidden)),  ]
+            FieldMarker(4, 5, mark_type=MarkType(MarkType.Blocked)),  ]
     d.draw_all_field_markers(fms, cmark=Colors[BoardType.Classical].marker)
 
     fmdef = dm.FieldMarkerDef(7.0)
     fms2 = [ FieldMarker(2, 1, mark_type=MarkType(MarkType.Legal)), \
              FieldMarker(7, 5, mark_type=MarkType(MarkType.Ilegal)), \
              FieldMarker(3, 7, mark_type=MarkType(MarkType.Action)), \
-             FieldMarker(5, 4, mark_type=MarkType(MarkType.Forbidden)),  ]
+             FieldMarker(5, 4, mark_type=MarkType(MarkType.Blocked)),  ]
     d.draw_all_field_markers(fms2, fmdef=fmdef, cmark=Colors[BoardType.Classical].marker, draw_outlined=True)
 
     file_path = 'temp/markers%s.IGNORE.png' % name

@@ -71,7 +71,7 @@ class SceneCommon(Scene):
             self.board.set_piece(0, 0, PieceType.Star)
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
-        self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Forbidden)
+        self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
 
         return bt
 
@@ -94,7 +94,7 @@ class SceneCommon(Scene):
             self.board.set_piece(0, 0, PieceType.Star)
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
-        self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Forbidden)
+        self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
 
         return bt
 

@@ -434,7 +434,7 @@ class Board(object):
                   PT.Pyramid, \
                   PT.Pegasus, \
                   PT.Rook, \
-                  PT.Star ]
+                  -PT.Star ]
 
         self._setup_board(light)
 
@@ -458,7 +458,7 @@ class Board(object):
                   PT.Pyramid, \
                   PT.Pegasus, \
                   PT.Rook, \
-                  PT.Star ]
+                  -PT.Star ]
 
         self._setup_board(light)
 
@@ -484,7 +484,7 @@ class Board(object):
                   PT.Pyramid, \
                   PT.Pegasus, \
                   PT.Rook, \
-                  PT.Star ]
+                  -PT.Star ]
 
         self._setup_board(light)
 
@@ -512,7 +512,7 @@ class Board(object):
                   PT.Pyramid, \
                   PT.Pegasus, \
                   PT.Rook, \
-                  PT.Star ]
+                  -PT.Star ]
 
         self._setup_board(light)
 
@@ -560,7 +560,7 @@ class Board(object):
                   PT.Pyramid, \
                   PT.Pegasus, \
                   PT.Rook, \
-                  PT.Star ]
+                  -PT.Star ]
 
         self._setup_board(light)
 
@@ -593,7 +593,7 @@ class Board(object):
                   PT.Pyramid, \
                   PT.Pegasus, \
                   PT.Rook, \
-                  PT.Star ]
+                  -PT.Star ]
 
         self._setup_board(light)
 
