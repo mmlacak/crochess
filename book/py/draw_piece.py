@@ -236,7 +236,7 @@ def test_piece(func_name, size=300):
     drw = get_new_drawable(2*size, 2*size)
     gc = get_new_gc(drw, line_width)
 
-    d = DrawPiece(drw, gc, color='#EFEFEF')
+    d = DrawPiece(drw, gc, bg_color='#EFEFEF')
 
     d.draw_rectangle(size, 0, size, size, fg='#606060')
     d.draw_rectangle(0, size, size, size, fg='#606060')

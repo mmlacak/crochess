@@ -40,31 +40,50 @@ class BoardType(int):
         else:
             raise ValueError("No such a board type, received '%s'." % (str(value), ))
 
-    def __iter__(self):
-        for bt in [ BoardType.none, \
-                    BoardType.OddClassical, \
-                    BoardType.Classical, \
-                    BoardType.OddCroatianTies, \
+    @staticmethod
+    def _is_valid(board_type):
+        return BoardType.none <= board_type <= BoardType.One
+
+    @staticmethod
+    def iter(include_none=False, include_even=True, include_odd=False):
+        l_even =  [ BoardType.Classical, \
                     BoardType.CroatianTies, \
-                    BoardType.OddMayanAscendancy, \
                     BoardType.MayanAscendancy, \
-                    BoardType.OddAgeOfAquarius, \
                     BoardType.AgeOfAquarius, \
-                    BoardType.OddMirandasVeil, \
                     BoardType.MirandasVeil, \
-                    BoardType.OddNineteen, \
                     BoardType.Nineteen, \
-                    BoardType.OddHemerasDawn, \
                     BoardType.HemerasDawn, \
-                    BoardType.OddTamoanchanRevisited, \
                     BoardType.TamoanchanRevisited, \
-                    BoardType.OddConquestOfTlalocan, \
                     BoardType.ConquestOfTlalocan, \
-                    BoardType.OddDiscovery, \
                     BoardType.Discovery, \
-                    BoardType.OddOne, \
-                    BoardType.One ]:
-            yield BoardType(bt)
+                    BoardType.One ]
+
+        l_odd =   [ BoardType.OddClassical, \
+                    BoardType.OddCroatianTies, \
+                    BoardType.OddMayanAscendancy, \
+                    BoardType.OddAgeOfAquarius, \
+                    BoardType.OddMirandasVeil, \
+                    BoardType.OddNineteen, \
+                    BoardType.OddHemerasDawn, \
+                    BoardType.OddTamoanchanRevisited, \
+                    BoardType.OddConquestOfTlalocan, \
+                    BoardType.OddDiscovery, \
+                    BoardType.OddOne ]
+
+        lst = []
+
+        if include_odd:
+            lst.extend(l_odd)
+
+        if include_even:
+            lst.extend(l_even)
+
+        if include_none:
+            lst.insert(0, BoardType.none)
+
+        lst.sort()
+        return [ BoardType(bt) for bt in lst ]
+
 
     def is_even(self):
         return (self % 2) == 0
@@ -81,10 +100,6 @@ class BoardType(int):
         if self == BoardType.none:
             return self
         return BoardType(self - 1) if is_even(self) else self
-
-    @staticmethod
-    def _is_valid(board_type):
-        return BoardType.none <= board_type <= BoardType.One
 
     def get_name(self):
         return { BoardType.none: 'none',
@@ -656,7 +671,7 @@ def test_2():
 def test_3():
     print
 
-    for bt in iter(BoardType(0)):
+    for bt in BoardType.iter(include_none=True, include_even=True, include_odd=True):
         print bt.get_name()
 
     print

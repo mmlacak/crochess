@@ -49,17 +49,11 @@ class DrawScene(Draw):
 TEST_FIELD_SIZE_PIX = 200 # 100 # 400
 TEST_LINE_WIDTH = 5 # 3 # 11
 
-def test_scene(func_name, board_desc=None, name='', include_odd_variants=False):
+def test_scene(func_name, board_desc=None, name='', include_odd=False):
     sc = SceneCommon()
     func = getattr(sc, func_name)
 
-    for bt in iter(BoardType(0)):
-        if bt == BoardType.none:
-            continue
-
-        if not include_odd_variants and bt.is_odd():
-            continue
-
+    for bt in BoardType.iter(include_none=False, include_even=True, include_odd=include_odd):
         func(bt)
 
         w = int(TEST_FIELD_SIZE_PIX * sc.board.get_width())

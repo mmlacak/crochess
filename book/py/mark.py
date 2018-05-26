@@ -18,17 +18,22 @@ class MarkType(int):
         else:
             raise ValueError("No such a mark type, received '%s'." % (str(value), ))
 
-    def __iter__(self):
-        for mt in [ MarkType.none, \
-                    MarkType.Legal, \
-                    MarkType.Ilegal, \
-                    MarkType.Action, \
-                    MarkType.Forbidden ]:
-            yield MarkType(mt)
-
     @staticmethod
     def _is_valid(mark_type):
         return MarkType.none <= mark_type <= MarkType.Forbidden
+
+    @staticmethod
+    def iter(include_none=False):
+        lst =  [ MarkType.Legal, \
+                 MarkType.Ilegal, \
+                 MarkType.Action, \
+                 MarkType.Forbidden ]
+
+        if include_none:
+            lst.insert(0, MarkType.none)
+
+        lst.sort()
+        return [ MarkType(mt) for mt in lst ]
 
 
 class Arrow(object):

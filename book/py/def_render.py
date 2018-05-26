@@ -19,21 +19,28 @@ class RenderingSizeEnum(int):
         else:
             raise ValueError("No such a rendering type, received '%s'." % (str(value), ))
 
-    def __iter__(self):
-        for rs in [ RenderingSizeEnum.none, \
-                    RenderingSizeEnum.Info, \
-                    RenderingSizeEnum.Draft, \
-                    RenderingSizeEnum.Normal, \
-                    RenderingSizeEnum.Good, \
-                    RenderingSizeEnum.Final ]:
-            yield RenderingSizeEnum(rs)
-
     @staticmethod
     def _is_valid(rendering_size):
         return RenderingSizeEnum.none <= rendering_size <= RenderingSizeEnum.Final
 
     def needs_rendering(self):
         return RenderingSizeEnum.Draft <= self <= RenderingSizeEnum.Final
+
+    @staticmethod
+    def iter(include_none=False, include_info=True):
+        lst = [ RenderingSizeEnum.Draft, \
+                RenderingSizeEnum.Normal, \
+                RenderingSizeEnum.Good, \
+                RenderingSizeEnum.Final ]
+
+        if include_info:
+            lst.insert(0, RenderingSizeEnum.Info)
+
+        if include_none:
+            lst.insert(0, RenderingSizeEnum.none)
+
+        lst.sort()
+        return [ RenderingSizeEnum(rs) for rs in lst ]
 
 
 class RenderingSizeItem(object):

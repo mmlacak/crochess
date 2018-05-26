@@ -86,14 +86,14 @@ class DrawableRectangle(object):
 
 
 class Draw(object):
-    def __init__(self, drawable, gc, color="#FFFFFF"):
+    def __init__(self, drawable, gc, bg_color="#FFFFFF"):
         assert isinstance(drawable, gtk.gdk.Drawable)
         assert isinstance(gc, gtk.gdk.GC)
 
         self.drawable = drawable
         self.gc = gc
 
-        self.clear_area(color=color, gc=self.gc)
+        self.clear_area(color=bg_color, gc=self.gc)
 
     def set_gc_colors(self, fg=None, bg=None, gc=None):
         self.gc = set_new_colors(gc or self.gc, fg=fg, bg=bg)

@@ -29,25 +29,34 @@ class PieceType(int):
         else:
             raise ValueError("No such a piece type, received '%s'." % (str(value), ))
 
-    def __iter__(self):
-        for pt in [ PieceType.none, \
-                    PieceType.Pawn, \
-                    PieceType.Bishop, \
-                    PieceType.Knight, \
-                    PieceType.Rook, \
-                    PieceType.Queen, \
-                    PieceType.King, \
-                    PieceType.Pegasus, \
-                    PieceType.Pyramid, \
-                    PieceType.Unicorn, \
-                    PieceType.Wave, \
-                    PieceType.Star, \
-                    PieceType.Centaur, \
-                    PieceType.Serpent, \
-                    PieceType.Shaman, \
-                    PieceType.Monolith, \
-                    PieceType.Starchild ]:
-            yield PieceType(pt)
+    @staticmethod
+    def iter(include_none=False, include_dark_pieces=False):
+        lst = [ PieceType.Pawn, \
+                PieceType.Bishop, \
+                PieceType.Knight, \
+                PieceType.Rook, \
+                PieceType.Queen, \
+                PieceType.King, \
+                PieceType.Pegasus, \
+                PieceType.Pyramid, \
+                PieceType.Unicorn, \
+                PieceType.Wave, \
+                PieceType.Star, \
+                PieceType.Centaur, \
+                PieceType.Serpent, \
+                PieceType.Shaman, \
+                PieceType.Monolith, \
+                PieceType.Starchild ]
+
+        if include_dark_pieces:
+            l = [ -pt for pt in lst ]
+            lst.extend(l)
+
+        if include_none:
+            lst.insert(0, PieceType.none)
+
+        lst.sort()
+        return [ PieceType(pt) for pt in lst ]
 
     def get_symbol(self):
         return { PieceType.none: '.',

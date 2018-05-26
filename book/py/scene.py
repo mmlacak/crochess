@@ -87,14 +87,6 @@ class Corner(int):
         else:
             raise ValueError("No such a corner, received '%s'." % (str(value), ))
 
-    def __iter__(self):
-        for cr in [ Corner.Position, \
-                    Corner.UpperLeft, \
-                    Corner.UpperRight, \
-                    Corner.LowerLeft, \
-                    Corner.LowerRight ]:
-            yield Corner(cr)
-
     @staticmethod
     def _is_valid(corner):
         return (Corner.Position) <= corner <= Corner.LowerRight
@@ -113,6 +105,17 @@ class Corner(int):
 
     def is_lower(self):
         return self in [Corner.LowerLeft, Corner.LowerRight]
+
+    @staticmethod
+    def iter(self):
+        lst = [ Corner.Position, \
+                Corner.UpperLeft, \
+                Corner.UpperRight, \
+                Corner.LowerLeft, \
+                Corner.LowerRight ]
+
+        return [ Corner(c) for c in lst ]
+
 
 def get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45):
     def get_text_position(pos_i, pos_j, corner):
