@@ -66,9 +66,12 @@ class SaveScene(object):
         print
         print "Rendering all boards." if self.rendering_size.needs_rendering() else "Info all boards."
 
-#         for bt in [ BoardType.Classical, ]: # TODO :: DEBUG
-        for bt in filter(lambda _bt: s = _bt.get_size(), s > 0 and s % 2 == 0, \
-                         iter(BoardType(0))):
+        def _filter(bt):
+            # bt = BoardType(bt) # bt :: BoardType, already
+            s = bt.get_size()
+            return (s > 0) and (s % 2 == 0)
+
+        for bt in filter(_filter, iter(BoardType(0))):
             file_path = self.get_board_file_path(bt, path_prefix=path_prefix)
             print file_path
 
