@@ -182,6 +182,37 @@ class SaveScene(object):
 
         print "Finished."
 
+    #
+    # rush
+
+    def get_rush_file_path(self, board_type, path_prefix=None, file_ext=None):
+        path_prefix = path_prefix or DEFAULT_PATH
+        file_ext = file_ext or DEFAULT_FILE_EXT
+
+        index = int(board_type)
+        name = board_type.get_name()
+        sanitized = sanitize(name)
+        return '%s/rush/%02d_%s_rush%s' % (path_prefix, index, sanitized, file_ext)
+
+    def render_all_rush_scenes(self, path_prefix=None):
+        print
+        print "Rendering all rush." if self.rendering_size.needs_rendering() else "Info all rush."
+
+        for bt in BoardType.iter():
+            file_path = self.get_rush_file_path(bt, path_prefix=path_prefix)
+            print file_path
+
+            if self.rendering_size.needs_rendering():
+                scene = SceneCommon()
+                scene.intro_rush(bt)
+
+                hrs = int( self.rendering_size_item.board_width_pix * 3.0 / bt.get_size() )
+                size_x, size_y = self.recalc_image_size(scene.board, size_x=hrs)
+
+                self.save_scene(scene, file_path, size_x=size_x, size_y=size_y)
+
+        print "Finished."
+
 
 def test_boards():
     ss = SaveScene(RenderingSizeEnum.Draft)
@@ -196,9 +227,14 @@ def test_en_passant():
     ss = SaveScene(RenderingSizeEnum.Draft)
     ss.render_all_en_passant_scenes(path_prefix='temp/')
 
+def test_rush():
+    ss = SaveScene(RenderingSizeEnum.Draft)
+    ss.render_all_rush_scenes(path_prefix='temp/')
+
 
 if __name__ == '__main__':
     # test_boards()
     # test_pieces()
-    test_en_passant()
+    # test_en_passant()
+    test_rush()
 
