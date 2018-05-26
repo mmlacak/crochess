@@ -18,6 +18,11 @@ from def_mark import MarkDef
 from def_render import RenderingSizeEnum, get_rendering_size_item
 
 
+def sanitize(name):
+    assert isinstance(name, str)
+    return name.replace('\'', '_').replace(' ', '_').lower()
+
+
 class SaveScene(object):
 
     def __init__(self, rendering_size):
@@ -33,6 +38,26 @@ class SaveScene(object):
         gc = get_new_gc(drawable, line_width)
 
         return drawable, gc
+
+    def recalc_image_size(self, board, size_x=None, size_y=None):
+        assert isinstance(board, Board)
+
+        size_x = size_x or self.rendering_size_item.board_width_pix
+        size_y = size_y or self.rendering_size_item.board_width_pix
+
+        board_width = board.get_width()
+        board_height = board.get_height()
+
+        horizontal_dpf = size_x // board_width # dots-per-field
+        vertical_pixel_size = board_height * horizontal_dpf
+
+        if vertical_pixel_size < self.rendering_size_item.board_max_height_pix:
+            return (size_x, vertical_pixel_size)
+        else:
+            vertical_dpf = self.rendering_size_item.board_max_height_pix // board_height
+            horizontal_pixel_size = board_width * vertical_dpf
+
+            return (horizontal_pixel_size, self.rendering_size_item.board_max_height_pix)
 
     def save_scene(self, scene, file_path, board_desc=None, size_x=None, size_y=None, line_width=None, file_type=None):
         assert isinstance(scene, Scene)
@@ -61,8 +86,8 @@ class SaveScene(object):
 
         index = int(bt)
         name = bt.get_name()
-        sanitize = name.replace('\'', '_').replace(' ', '_').lower()
-        return '%s/boards/%02d_%s%s' % (path_prefix, index, sanitize, file_ext)
+        sanitized = sanitize(name)
+        return '%s/boards/%02d_%s%s' % (path_prefix, index, sanitized, file_ext)
 
     def render_all_boards(self, path_prefix=None):
         print
@@ -88,12 +113,14 @@ class SaveScene(object):
         path_prefix = path_prefix or DEFAULT_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
-        bt = BoardType(board_type) if board_type is not None else None
+        is_rendering_one_piece = board_type is not None
+
+        bt = BoardType(board_type) if is_rendering_one_piece else None
         pt = PieceType(piece_type)
-        index = int(pt) if bt is None else int(bt)
-        name = pt.get_name() if bt is None else bt.get_name()
-        sanitize = name.replace('\'', '_').replace(' ', '_').lower()
-        return '%s/%s/%02d_%s%s' % (path_prefix, pieces_folder, index, sanitize, file_ext)
+        index = int(pt) if not is_rendering_one_piece else int(bt)
+        name = pt.get_name() if not is_rendering_one_piece else bt.get_name()
+        sanitized = sanitize(name)
+        return '%s/%s/%02d_%s%s' % (path_prefix, pieces_folder, index, sanitized, file_ext)
 
     def render_all_pieces(self, piece_type=None, path_prefix=None):
         print
@@ -107,7 +134,8 @@ class SaveScene(object):
             if pt is not None:
                 pf = 'pieces'
                 if is_rendering_one_piece:
-                    pf += '/' + PieceType(piece_type).get_name().lower()
+                    piece_name = PieceType(piece_type).get_name()
+                    pf += '/' + sanitize(piece_name)
 
                 _bt = bt if is_rendering_one_piece else None
                 file_path = self.get_piece_file_path(pt, board_type=_bt, pieces_folder=pf, path_prefix=path_prefix)
@@ -123,6 +151,37 @@ class SaveScene(object):
 
         print "Finished."
 
+    #
+    # en passant
+
+    def get_en_passant_file_path(self, board_type, path_prefix=None, file_ext=None):
+        path_prefix = path_prefix or DEFAULT_PATH
+        file_ext = file_ext or DEFAULT_FILE_EXT
+
+        index = int(board_type)
+        name = board_type.get_name()
+        sanitized = sanitize(name)
+        return '%s/en_passants/%02d_%s_en_passant%s' % (path_prefix, index, sanitized, file_ext)
+
+    def render_all_en_passant_scenes(self, path_prefix=None):
+        print
+        print "Rendering all en passant." if self.rendering_size.needs_rendering() else "Info all en passant."
+
+        for bt in BoardType.iter():
+            file_path = self.get_en_passant_file_path(bt, path_prefix=path_prefix)
+            print file_path
+
+            if self.rendering_size.needs_rendering():
+                scene = SceneCommon()
+                scene.intro_en_passant(bt)
+
+                hrs = int( self.rendering_size_item.board_width_pix * 3.0 / bt.get_size() )
+                size_x, size_y = self.recalc_image_size(scene.board, size_x=hrs)
+
+                self.save_scene(scene, file_path, size_x=size_x, size_y=size_y)
+
+        print "Finished."
+
 
 def test_boards():
     ss = SaveScene(RenderingSizeEnum.Draft)
@@ -133,8 +192,13 @@ def test_pieces():
     ss.render_all_pieces(path_prefix='temp/')
     ss.render_all_pieces(piece_type=PieceType.Star, path_prefix='temp/')
 
+def test_en_passant():
+    ss = SaveScene(RenderingSizeEnum.Draft)
+    ss.render_all_en_passant_scenes(path_prefix='temp/')
+
 
 if __name__ == '__main__':
     # test_boards()
-    test_pieces()
+    # test_pieces()
+    test_en_passant()
 

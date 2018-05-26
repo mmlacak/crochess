@@ -15,6 +15,7 @@ SUBFOLDERS =  [ 'boards', \
                 'en_passants', \
                 'examples', \
                 'pieces', \
+                'pieces/star', \
                 'rush' ]
 
 
