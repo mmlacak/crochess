@@ -16,38 +16,38 @@ from draw_piece import DrawPiece
 
 class BoardDesc(object):
     def __init__(self, \
-                 margin_top_pix=0, \
-                 margin_left_pix=0, \
-                 margin_right_pix=0, \
-                 margin_bottom_pix=0, \
+                 border_left_pix=0, \
+                 border_top_pix=0, \
+                 border_right_pix=0, \
+                 border_bottom_pix=0, \
                  reverse_field_colors=False):
 
-        assert isinstance(margin_top_pix, int)
-        assert isinstance(margin_left_pix, int)
-        assert isinstance(margin_right_pix, int)
-        assert isinstance(margin_bottom_pix, int)
+        assert isinstance(border_left_pix, int)
+        assert isinstance(border_top_pix, int)
+        assert isinstance(border_right_pix, int)
+        assert isinstance(border_bottom_pix, int)
         assert isinstance(reverse_field_colors, bool)
 
-        self.margin_top_pix = margin_top_pix
-        self.margin_left_pix = margin_left_pix
-        self.margin_right_pix = margin_right_pix
-        self.margin_bottom_pix = margin_bottom_pix
+        self.border_left_pix = border_left_pix
+        self.border_top_pix = border_top_pix
+        self.border_right_pix = border_right_pix
+        self.border_bottom_pix = border_bottom_pix
 
         self.reverse_field_colors = reverse_field_colors
 
     def as_tuple(self):
-        return ( self.margin_top_pix, \
-                 self.margin_left_pix, \
-                 self.margin_right_pix, \
-                 self.margin_bottom_pix, \
+        return ( self.border_left_pix, \
+                 self.border_top_pix, \
+                 self.border_right_pix, \
+                 self.border_bottom_pix, \
                  self.reverse_field_colors )
 
     @staticmethod
     def from_tuple(tpl):
-        return BoardDesc( margin_top_pix=tpl[0], \
-                          margin_left_pix=tpl[1], \
-                          margin_right_pix=tpl[2], \
-                          margin_bottom_pix=tpl[3], \
+        return BoardDesc( border_left_pix=tpl[0], \
+                          border_top_pix=tpl[1], \
+                          border_right_pix=tpl[2], \
+                          border_bottom_pix=tpl[3], \
                           reverse_field_colors=tpl[4] )
 
 
@@ -76,13 +76,13 @@ class DrawBoard(Draw):
 
         self.board_width_pix = self.field_width_pix * self.board.get_width()
         self.board_height_pix = self.field_height_pix * self.board.get_height()
-        self.board_top_pix = self.board_desc.margin_top_pix
-        self.board_left_pix = self.board_desc.margin_left_pix
+        self.board_top_pix = self.board_desc.border_top_pix
+        self.board_left_pix = self.board_desc.border_left_pix
 
     def get_field_size_pix(self):
         w, h = self.drawable.get_size()
-        w = w - self.board_desc.margin_left_pix - self.board_desc.margin_right_pix
-        h = h - self.board_desc.margin_top_pix - self.board_desc.margin_bottom_pix
+        w = w - self.board_desc.border_left_pix - self.board_desc.border_right_pix
+        h = h - self.board_desc.border_top_pix - self.board_desc.border_bottom_pix
 
         i = self.board.get_width()
         j = self.board.get_height()
@@ -197,23 +197,23 @@ if __name__ == '__main__':
 
     test_1()
     test_1(board_desc=BoardDesc(reverse_field_colors=True), name='_reverse')
-    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), name='_margin')
-    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=90, margin_bottom_pix=40), name='_margin_2')
+    test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), name='_border')
+    test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=90, border_bottom_pix=40), name='_border_2')
 
     width = 3
     height = 7
 
     test_1(width=width, height=height)
     test_1(board_desc=BoardDesc(reverse_field_colors=True), width=width, height=height, name='_vert_reverse')
-    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), width=width, height=height, name='_vert_margin')
-    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=90, margin_bottom_pix=40), width=width, height=height, name='_vert_margin_2')
+    test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), width=width, height=height, name='_vert_border')
+    test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=90, border_bottom_pix=40), width=width, height=height, name='_vert_border_2')
 
     width = 7
     height = 3
 
     test_1(width=width, height=height)
     test_1(board_desc=BoardDesc(reverse_field_colors=True), width=width, height=height, name='_hor_reverse')
-    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=30, margin_bottom_pix=40), width=width, height=height, name='_hor_margin')
-    test_1(board_desc=BoardDesc(margin_top_pix=10, margin_left_pix=20, margin_right_pix=90, margin_bottom_pix=40), width=width, height=height, name='_hor_margin_2')
+    test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), width=width, height=height, name='_hor_border')
+    test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=90, border_bottom_pix=40), width=width, height=height, name='_hor_border_2')
 
     test_2()
