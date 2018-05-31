@@ -27,74 +27,47 @@ class SceneCommon(Scene):
 
         return piece_type or pt
 
-    def intro_castling(self, bt):
-        bt = BoardType(bt)
-        self.init_scene(bt, width=bt.get_size(), height=1)
+    def intro_castling(self, bt, move_king=0):
+        assert isinstance(move_king, int)
 
-        pos_king_h = bt.get_size() // 2
+        bt = BoardType(bt)
+
         offset = 1 if bt.does_contain(PieceType.Star) else 0
-        pos_rook_r = bt.get_size() - 1 - offset
-
-        self.board.set_piece(pos_king_h, 0, PieceType.King)
-        self.board.set_piece(offset, 0, PieceType.Rook)
-        self.board.set_piece(pos_rook_r, 0, PieceType.Rook)
-
-        if bt.does_contain(PieceType.Star):
-            self.board.set_piece(0, 0, PieceType.Star)
-            self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
-
-        diff = pos_rook_r - pos_king_h
-        for i in xrange(2, diff):
-            pos_l = pos_king_h - i
-            pos_r = pos_king_h + i
-
-            self.append_text(str(i-1), pos_l, 0, corner=Corner.UpperLeft)
-            self.append_text(str(i-1), pos_r, 0, corner=Corner.UpperLeft)
-
-        return bt
-
-    def castling_long_left(self, bt):
-        bt = BoardType(bt)
-        self.init_scene(bt, width=bt.get_size(), height=1)
 
         pos_king_init = bt.get_size() // 2
-        offset = 1 if bt.does_contain(PieceType.Star) else 0
-        pos_rook_r = bt.get_size() - 1 - offset
-        # diff = pos_rook_r - pos_king_init
-        pos_king_h = offset + 2
+        pos_rook_l_init = offset
+        pos_rook_r_init = bt.get_size() - 1 - offset
 
-        self.board.set_piece(pos_king_h, 0, PieceType.King)
-        self.board.set_piece(pos_king_h + 1, 0, PieceType.Rook)
-        self.board.set_piece(pos_rook_r, 0, PieceType.Rook)
+        diff = pos_rook_r_init - pos_king_init
+        assert (-diff < move_king <= -2) or (move_king == 0) or (2 <= move_king < diff)
 
-        if bt.does_contain(PieceType.Star):
-            self.board.set_piece(0, 0, PieceType.Star)
-            self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
-
-        self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
-
-        return bt
-
-    def castling_short_right(self, bt):
-        bt = BoardType(bt)
         self.init_scene(bt, width=bt.get_size(), height=1)
 
-        pos_king_init = bt.get_size() // 2
-        offset = 1 if bt.does_contain(PieceType.Star) else 0
-        # pos_init_rook_r = bt.get_size() - 1 - offset
-        # diff = pos_rook_r - pos_king_init
-        pos_king_h = pos_king_init + 2
-        pos_rook_r = pos_king_h - 1
+        king_moved = (move_king != 0)
+        king_moved_left = (move_king < 0)
+        king_moved_right = (move_king > 0)
 
-        self.board.set_piece(pos_king_h, 0, PieceType.King)
-        self.board.set_piece(offset, 0, PieceType.Rook)
+        pos_king = pos_king_init + move_king
+        pos_rook_l = pos_king + 1 if king_moved_left else pos_rook_l_init
+        pos_rook_r = pos_king - 1 if king_moved_right else pos_rook_r_init
+
+        self.board.set_piece(pos_king, 0, PieceType.King)
+        self.board.set_piece(pos_rook_l, 0, PieceType.Rook)
         self.board.set_piece(pos_rook_r, 0, PieceType.Rook)
 
         if bt.does_contain(PieceType.Star):
             self.board.set_piece(0, 0, PieceType.Star)
             self.board.set_piece(bt.get_size() - 1, 0, -PieceType.Star)
 
-        self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+        if king_moved:
+            self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+        else:
+            for i in xrange(2, diff):
+                pos_l = pos_king_init - i
+                pos_r = pos_king_init + i
+
+                self.append_text(str(i-1), pos_l, 0, corner=Corner.UpperLeft)
+                self.append_text(str(i-1), pos_r, 0, corner=Corner.UpperLeft)
 
         return bt
 

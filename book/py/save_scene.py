@@ -249,7 +249,7 @@ class SaveScene(object):
 
     def render_all_castling_init_scenes(self, path_prefix=None):
         print
-        print "Rendering all init castlings." if self.rendering_size.needs_rendering() else "Info all init castlings."
+        print "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings."
 
         for bt in BoardType.iter():
             file_path = self.get_castling_file_path(bt, path_prefix=path_prefix)
@@ -287,8 +287,8 @@ def test_castling_init():
 
 
 if __name__ == '__main__':
-    test_boards()
-    test_pieces()
-    test_en_passant()
-    test_rush()
+    # test_boards()
+    # test_pieces()
+    # test_en_passant()
+    # test_rush()
     test_castling_init()
