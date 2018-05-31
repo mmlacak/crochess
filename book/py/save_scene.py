@@ -63,6 +63,8 @@ class SaveScene(object):
         height_pix = board_height * minimal_dpf + board_desc.border_top_pix + board_desc.border_bottom_pix
         width_pix = board_width * minimal_dpf + board_desc.border_left_pix + board_desc.border_right_pix
 
+        width_pix, height_pix = self.normalize(width_pix, height_pix)
+
         return (width_pix, height_pix)
 
     def init_drawable_gc(self, size_x=None, size_y=None, line_width=None, board=None, board_desc=None):
