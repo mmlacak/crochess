@@ -88,8 +88,18 @@ class Corner(int):
             raise ValueError("No such a corner, received '%s'." % (str(value), ))
 
     @staticmethod
+    def iter(do_construct=True):
+        lst = [ Corner.Position, \
+                Corner.UpperLeft, \
+                Corner.UpperRight, \
+                Corner.LowerLeft, \
+                Corner.LowerRight ]
+
+        return [ Corner(c) if do_construct else c for c in lst ]
+
+    @staticmethod
     def _is_valid(corner):
-        return (Corner.Position) <= corner <= Corner.LowerRight
+        return corner in Corner.iter(do_construct=False)
 
     def is_position(self):
         return self == Corner.Position
@@ -105,16 +115,6 @@ class Corner(int):
 
     def is_lower(self):
         return self in [Corner.LowerLeft, Corner.LowerRight]
-
-    @staticmethod
-    def iter(self):
-        lst = [ Corner.Position, \
-                Corner.UpperLeft, \
-                Corner.UpperRight, \
-                Corner.LowerLeft, \
-                Corner.LowerRight ]
-
-        return [ Corner(c) for c in lst ]
 
 
 def get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45):

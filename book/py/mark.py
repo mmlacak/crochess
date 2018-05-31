@@ -19,11 +19,7 @@ class MarkType(int):
             raise ValueError("No such a mark type, received '%s'." % (str(value), ))
 
     @staticmethod
-    def _is_valid(mark_type):
-        return MarkType.none <= mark_type <= MarkType.Blocked
-
-    @staticmethod
-    def iter(include_none=False):
+    def iter(include_none=False, do_construct=True):
         lst =  [ MarkType.Legal, \
                  MarkType.Ilegal, \
                  MarkType.Action, \
@@ -33,7 +29,11 @@ class MarkType(int):
             lst.insert(0, MarkType.none)
 
         lst.sort()
-        return [ MarkType(mt) for mt in lst ]
+        return [ MarkType(mt) if do_construct else mt for mt in lst ]
+
+    @staticmethod
+    def _is_valid(mark_type):
+        return mark_type in MarkType.iter(include_none=True, do_construct=False)
 
 
 class Arrow(object):

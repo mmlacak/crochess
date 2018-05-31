@@ -30,33 +30,42 @@ class PieceType(int):
             raise ValueError("No such a piece type, received '%s'." % (str(value), ))
 
     @staticmethod
-    def iter(include_none=False, include_dark_pieces=False):
-        lst = [ PieceType.Pawn, \
-                PieceType.Bishop, \
-                PieceType.Knight, \
-                PieceType.Rook, \
-                PieceType.Queen, \
-                PieceType.King, \
-                PieceType.Pegasus, \
-                PieceType.Pyramid, \
-                PieceType.Unicorn, \
-                PieceType.Wave, \
-                PieceType.Star, \
-                PieceType.Centaur, \
-                PieceType.Serpent, \
-                PieceType.Shaman, \
-                PieceType.Monolith, \
-                PieceType.Starchild ]
+    def iter(include_none=False, include_light_pieces=True, include_dark_pieces=False, do_construct=True):
+        lst = []
+
+        p_lst = [ PieceType.Pawn, \
+                  PieceType.Bishop, \
+                  PieceType.Knight, \
+                  PieceType.Rook, \
+                  PieceType.Queen, \
+                  PieceType.King, \
+                  PieceType.Pegasus, \
+                  PieceType.Pyramid, \
+                  PieceType.Unicorn, \
+                  PieceType.Wave, \
+                  PieceType.Star, \
+                  PieceType.Centaur, \
+                  PieceType.Serpent, \
+                  PieceType.Shaman, \
+                  PieceType.Monolith, \
+                  PieceType.Starchild ]
+
+        if include_light_pieces:
+            lst.extend(p_lst)
 
         if include_dark_pieces:
-            l = [ -pt for pt in lst ]
+            l = [ -pt for pt in p_lst ]
             lst.extend(l)
 
         if include_none:
             lst.insert(0, PieceType.none)
 
         lst.sort()
-        return [ PieceType(pt) for pt in lst ]
+        return [ PieceType(pt) if do_construct else pt for pt in lst ]
+
+    @staticmethod
+    def _is_valid(piece_type):
+        return piece_type in PieceType.iter(include_none=True, include_dark_pieces=True, do_construct=False)
 
     def get_symbol(self):
         return { PieceType.none: '.',
@@ -112,10 +121,6 @@ class PieceType(int):
 
     def get_opposite(self):
         return PieceType(-self)
-
-    @staticmethod
-    def _is_valid(piece_type):
-        return (-PieceType.Starchild) <= piece_type <= PieceType.Starchild
 
     def __str__(self):
         return self.get_label()

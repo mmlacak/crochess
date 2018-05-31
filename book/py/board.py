@@ -41,11 +41,7 @@ class BoardType(int):
             raise ValueError("No such a board type, received '%s'." % (str(value), ))
 
     @staticmethod
-    def _is_valid(board_type):
-        return BoardType.none <= board_type <= BoardType.One
-
-    @staticmethod
-    def iter(include_none=False, include_even=True, include_odd=False):
+    def iter(include_none=False, include_even=True, include_odd=False, do_construct=True):
         l_even =  [ BoardType.Classical, \
                     BoardType.CroatianTies, \
                     BoardType.MayanAscendancy, \
@@ -82,7 +78,11 @@ class BoardType(int):
             lst.insert(0, BoardType.none)
 
         lst.sort()
-        return [ BoardType(bt) for bt in lst ]
+        return [ BoardType(bt) if do_construct else bt for bt in lst ]
+
+    @staticmethod
+    def _is_valid(board_type):
+        return board_type in BoardType.iter(include_none=True, include_even=True, include_odd=True, do_construct=False)
 
 
     def is_even(self):
