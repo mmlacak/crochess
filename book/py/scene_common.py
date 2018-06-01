@@ -62,15 +62,17 @@ class SceneCommon(Scene):
 
         if king_moved:
             self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
-        else:
-            for i in xrange(diff_min, diff_max+1):
-                # diff_max + 1, because upper boundary is not included
 
-                pos_l = pos_king_init - i
-                pos_r = pos_king_init + i
+        mt = MarkType.Blocked if king_moved else MarkType.Legal
 
-                self.append_text(str(i-1), pos_l, 0, corner=Corner.UpperLeft)
-                self.append_text(str(i-1), pos_r, 0, corner=Corner.UpperLeft)
+        for i in xrange(diff_min, diff_max+1):
+            # diff_max + 1, because upper boundary is not included
+
+            pos_l = pos_king_init - i
+            pos_r = pos_king_init + i
+
+            self.append_text(str(i-1), pos_l, 0, corner=Corner.UpperLeft, mark_type=mt)
+            self.append_text(str(i-1), pos_r, 0, corner=Corner.UpperLeft, mark_type=mt)
 
         return bt
 
