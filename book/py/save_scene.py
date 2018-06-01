@@ -234,32 +234,58 @@ class SaveScene(object):
     #
     # castling
 
-    def get_castling_file_path(self, board_type, path_prefix=None, file_ext=None, subfolder_name=None):
+    def get_castling_file_path(self, board_type, path_prefix=None, file_ext=None, move_king=0):
+        bt = BoardType(board_type)
+        assert isinstance(move_king, int)
+
         path_prefix = path_prefix or DEFAULT_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
+
+        mk_str = ""
+        if move_king < 0:
+            mk_str = "left"
+        elif move_king > 0:
+            mk_str = "right"
+
+        if move_king != 0:
+            mk_str += "_%02d" % abs(move_king)
 
         index = int(board_type)
         name = board_type.get_name()
         sanitized = sanitize(name)
 
-        if subfolder_name is None:
+        if move_king == 0:
             return '%s/castlings/%02d_%s_castling%s' % (path_prefix, index, sanitized, file_ext)
         else:
-            return '%s/castlings/%s/%02d_%s_castling_%s%s' % (path_prefix, subfolder_name, index, sanitized, subfolder_name, file_ext)
+            return '%s/castlings/%02d_%s_castling_%s%s' % (path_prefix, index, sanitized, mk_str, file_ext)
 
-    def render_all_castling_init_scenes(self, path_prefix=None):
+    def render_all_castling_scenes(self, move_king=None, path_prefix=None):
         print
         print "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings."
 
         for bt in BoardType.iter():
-            file_path = self.get_castling_file_path(bt, path_prefix=path_prefix)
-            print file_path
+            king_moves = []
 
-            if self.rendering_size.needs_rendering():
-                scene = SceneCommon()
-                scene.intro_castling(bt)
+            if isinstance(move_king, int):
+                king_moves = [move_king]
+            else:
+                diff_min, diff_max = Board.get_castling_limits(bt)
 
-                self.save_scene(scene, file_path)
+                king_moves = list(xrange(diff_min, diff_max+1))
+                king_moves.append(0)
+                king_moves.extend( list(xrange(-diff_min, -diff_max-1, -1)) )
+
+                king_moves.sort()
+
+            for mk in king_moves:
+                file_path = self.get_castling_file_path(bt, path_prefix=path_prefix, move_king=mk)
+                print file_path
+
+                if self.rendering_size.needs_rendering():
+                    scene = SceneCommon()
+                    scene.intro_castling(bt, move_king=mk)
+
+                    self.save_scene(scene, file_path)
 
         print "Finished."
 
@@ -283,7 +309,7 @@ def test_rush():
 
 def test_castling_init():
     ss = SaveScene(RenderingSizeEnum.Draft)
-    ss.render_all_castling_init_scenes(path_prefix='temp/')
+    ss.render_all_castling_scenes(path_prefix='temp/')
 
 
 if __name__ == '__main__':

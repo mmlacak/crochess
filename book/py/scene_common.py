@@ -5,8 +5,9 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
+from util import in_range
 from piece import PieceType
-from board import BoardType
+from board import BoardType, Board
 from mark import MarkType
 from scene import Corner, Scene
 
@@ -38,8 +39,8 @@ class SceneCommon(Scene):
         pos_rook_l_init = offset
         pos_rook_r_init = bt.get_size() - 1 - offset
 
-        diff = pos_rook_r_init - pos_king_init
-        assert (-diff < move_king <= -2) or (move_king == 0) or (2 <= move_king < diff)
+        diff_min, diff_max = Board.get_castling_limits(bt)
+        assert (move_king == 0) or in_range(abs(move_king), diff_min, diff_max)
 
         self.init_scene(bt, width=bt.get_size(), height=1)
 
@@ -62,7 +63,9 @@ class SceneCommon(Scene):
         if king_moved:
             self.append_text("K", pos_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
         else:
-            for i in xrange(2, diff):
+            for i in xrange(diff_min, diff_max+1):
+                # diff_max + 1, because upper boundary is not included
+
                 pos_l = pos_king_init - i
                 pos_r = pos_king_init + i
 

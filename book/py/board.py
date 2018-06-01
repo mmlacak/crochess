@@ -6,6 +6,7 @@
 
 import math
 
+from util import just_count
 from piece import PieceType as PT
 
 
@@ -246,6 +247,12 @@ def remove_pieces(pieces, to_remove=(PT.Queen, -PT.Queen)):
 def filter_setup(pieces, to_remain=(PT.King, PT.Rook, PT.Star, -PT.Star)):
     return [ PT(p) if p in to_remain else PT(PT.none) for p in pieces ]
 
+def get_indexes(pieces, piece=PT.King):
+    if piece not in pieces:
+        return None
+
+    return [ i for i, p in enumerate(pieces) if p == piece ]
+
 
 class Board(object):
     def __init__(self, board_type, width=None, height=None):
@@ -308,6 +315,23 @@ class Board(object):
         h = self.get_height() - 1
         w = self.get_width() - 1
         return ((0, 0), (w, h))
+
+    @staticmethod
+    def get_castling_limits(board_type):
+        bt = BoardType(board_type)
+
+        if bt == BoardType.none:
+            return (0, 0)
+
+        light_pieces = Board.get_light_row(bt)
+
+        pos_king = just_count(get_indexes(light_pieces, piece=PT.King))
+        pos_rook_l, pos_rook_r = just_count(get_indexes(light_pieces, piece=PT.Rook), count=2)
+
+        diff_l, diff_r = abs(pos_king - pos_rook_l), abs(pos_rook_r - pos_king)
+        diff = min(diff_l, diff_r) - 1
+
+        return (2, diff)
 
     # -----------------------------------------------------------------
     # Defining initial position
@@ -571,7 +595,12 @@ class Board(object):
               BoardType.OddOne: Board.get_one_row,
               BoardType.One: Board.get_one_row }[ bt ]
 
-        return f()
+        light_pieces = f()
+
+        if not bt.is_even():
+            light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
+
+        return light_pieces
 
     # -----------------------------------------------------------------
     # Setting up initial positions
@@ -594,7 +623,7 @@ class Board(object):
         self._setup_pawns()
 
         if not self.type.is_even():
-            light_pieces = remove_pieces(light_pieces)
+            light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
         self.set_row(0, light_pieces)
 
         dark = get_opposites(light_pieces)
@@ -739,6 +768,8 @@ def test_2():
     print
     print b.get_position_limits()
     print
+    print b.get_castling_limits()
+    print
     print str(b)
     print
 
@@ -750,7 +781,19 @@ def test_3():
 
     print
 
+def test_4():
+    print
+
+    for bt in BoardType.iter(include_none=True, include_even=True, include_odd=True):
+        b = Board(bt)
+        b.setup()
+
+        print bt.get_name(), b.get_position_limits(), Board.get_castling_limits(bt)
+
+    print
+
 if __name__ == '__main__':
     # test_1()
     # test_2()
-    test_3()
+    # test_3()
+    test_4()
