@@ -15,7 +15,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_ma_pyramid_activation_end', \
+                    'scn_ma_pyramid_activation_by_pawn', \
                 ]
 
     def _get_all_scene_method_names(self):

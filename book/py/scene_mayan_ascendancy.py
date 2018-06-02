@@ -111,3 +111,42 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(3, 3, -PieceType.Bishop)
 
         return 'scn_ma_pyramid_activation_end'
+
+    #
+    # Pawn activating Pyramid
+
+    def scn_ma_pyramid_activation_by_pawn(self, bt=BoardType.MayanAscendancy):
+        self.init_scene(bt)
+
+        self.board.set_piece(4, 2, piece=PieceType.Pawn)
+        self.board.set_piece(3, 3, piece=PieceType.Pyramid)
+
+        self.board.set_piece(5, 6, piece=PieceType.Pawn)
+        self.board.set_piece(5, 7, piece=PieceType.Pyramid)
+
+        start = (8, 1)
+        self.board.set_piece(*start, piece=PieceType.Pawn)
+        self.board.set_piece(8, 4, piece=PieceType.Pyramid)
+
+        # capture-fields
+        self.append_arrow(4, 2, 3, 3, mark_type=MarkType.Action )
+        self.append_arrow(4, 2, 5, 3)
+
+        self.append_text("1", 4, 2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        # step-fields 1
+        self.append_arrow(5, 6, 5, 7, mark_type=MarkType.Blocked )
+
+        self.append_text("2", 5, 6, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        # step-fields 2
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        self.append_text("3", *start, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return 'scn_ma_pyramid_activation_by_pawn'
