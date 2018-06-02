@@ -258,3 +258,31 @@ class SceneMayanAscendancyMixin(Scene):
 
         return 'scn_ma_pyramid_promo_end'
 
+    #
+    # Conversion
+
+    def scn_ma_pyramid_conversion_init(self, bt=BoardType.MayanAscendancy):
+        self.init_scene(bt)
+
+        start = (7, 8)
+        self.board.set_piece(3, 4, piece=PieceType.Pyramid)
+        self.board.set_piece(7, 4, piece=-PieceType.Rook)
+        self.board.set_piece(3, 7, piece=-PieceType.Bishop)
+        self.board.set_piece(*start, piece=PieceType.Bishop)
+        self.board.set_piece(0, 0, piece=PieceType.Rook)
+        self.board.set_piece(11, 0, piece=PieceType.Rook)
+
+        # direction <-1, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(-1, -1)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+        self.append_text("3", *coords())
+        self.append_text("4", *coords(), mark_type=MarkType.Action )
+
+        return 'scn_ma_pyramid_conversion_init'
