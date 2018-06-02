@@ -182,3 +182,67 @@ class SceneMayanAscendancyMixin(Scene):
 
         return 'scn_ma_pyramid_promo_init'
 
+    def scn_ma_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
+        self.init_scene(bt)
+
+        start = (3, 7)
+        self.board.set_piece(*start, piece=PieceType.Pegasus)
+        self.board.set_piece(7, 7, piece=PieceType.Pawn)
+        self.board.set_piece(3, 5, piece=PieceType.Pawn)
+        self.board.set_piece(5, 0, piece=PieceType.Queen)
+
+        self.append_text("1", 7, 7, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        self.append_text("2", 3, 5, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(1, 0)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+        self.append_text("3", *coords())
+        self.append_text("4", *coords(), mark_type=MarkType.Action)
+
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(0, 1)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+        self.append_text("3", *coords())
+        self.append_text("4", *coords())
+
+        # direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+        self.append_text("3", *coords())
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(0, -1)) )
+        self.append_text("1", *coords() )
+        self.append_text("2", *coords(), mark_type=MarkType.Blocked)
+        self.append_text("3", *coords(), mark_type=MarkType.Blocked)
+        self.append_text("4", *coords(), mark_type=MarkType.Blocked)
+
+        return 'scn_ma_pyramid_promo_activate'
+

@@ -155,7 +155,7 @@ class Scene(object):
     def append_text(self, txt, pos_i, pos_j, \
                     corner=Corner(Corner.UpperLeft), \
                     mark_type=MarkType(MarkType.Legal), \
-                    rect=(0.05, 1.0, 0.7, 0.45)):
+                    rect=(0.05, 1.0, 0.7, 0.35)):
         # assert isinstance(txt, str)
         assert isinstance(pos_i, (int, float))
         assert isinstance(pos_j, (int, float))
