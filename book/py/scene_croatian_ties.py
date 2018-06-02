@@ -76,3 +76,43 @@ class SceneCroatianTiesMixin(Scene):
         self.append_text("2f", 3, 7, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
 
         return 'scn_ct_pegasus_direction'
+
+    def scn_ct_pegasus_step_ply(self, bt=BoardType.CroatianTies):
+        self.init_scene(bt)
+
+        start = (2, 1)
+        self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
+
+        # direction 1, i.e. <2, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(2, 1)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # main direction, i.e. <1, 2>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 2)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(1, 2)) )
+        self.append_text("1", *coords(), corner=Corner.UpperLeft)
+        self.append_text("2", *coords(), corner=Corner.UpperLeft)
+        self.append_text("3", *coords(), corner=Corner.UpperLeft)
+
+        # direction 3, i.e. <-1, 2>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 2)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # direction 4, i.e. <-2, 1>
+        self.append_arrow(2, 1, 0, 2, mark_type=MarkType.Blocked )
+
+        # direction 5, i.e. <-2, -1>
+        self.append_arrow(2, 1, 0, 0, mark_type=MarkType.Blocked )
+
+        # direction 6, i.e. <2, -1>
+        self.append_arrow(2, 1, 4, 0, mark_type=MarkType.Blocked )
+
+        return 'scn_ct_pegasus_step_ply'
