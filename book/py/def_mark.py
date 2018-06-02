@@ -95,7 +95,7 @@ class MarkDefItem(object):
 class MarkDef(dict):
 
     def __init__(self):
-        FD = FontDef # (<name>, <size>)
+        FD = FontDef # (<name>, <inv_size_ratio>)
         AD = ArrowDef # (<inv_width_ratio>, <pointy_bit_ratio>)
         FMD = FieldMarkerDef # (<inv_width_ratio>, )
         MDI = MarkDefItem # (<font_def>, <arrow_def>, <field_mark_def>)

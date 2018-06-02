@@ -293,24 +293,28 @@ class SaveScene(object):
     #
     # scene
 
-    def get_scene_file_path(self, index, file_name, path_prefix=None, file_ext=None):
+    def get_scene_file_path(self, index, file_name, path_prefix=None, file_ext=None, subfolder_name=None):
         path_prefix = path_prefix or DEFAULT_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
-        return '%s/examples/%02d_%s%s' % (path_prefix, index, file_name, file_ext)
+        if subfolder_name is None:
+            return '%s/examples/%02d_%s%s' % (path_prefix, index, file_name, file_ext)
+        else:
+            return '%s/examples/%s/%02d_%s%s' % (path_prefix, subfolder_name, index, file_name, file_ext)
 
     def render_examples(self, do_all_examples=False, path_prefix=None):
         def _render_examples(scene, func):
             name = func()
-            file_path = self.get_scene_file_path(scene.board.type, name, path_prefix=path_prefix)
+            sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
+            file_path = self.get_scene_file_path(scene.board.type, name, path_prefix=path_prefix, subfolder_name=sf_name)
             print file_path
 
             if self.rendering_size.needs_rendering():
                 self.save_scene(scene, file_path)
 
-        _all_str = " all" if do_all_examples else ""
+        _str = "all" if do_all_examples else "recent"
         print
-        print "Rendering%s examples." % _all_str if self.rendering_size.needs_rendering() else "Info%s examples." % _all_str
+        print "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str
         scene = SceneMix()
 
         scene_funcs = scene.get_all_scene_methods() \

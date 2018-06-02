@@ -10,10 +10,32 @@ import os.path
 
 SUBFOLDERS =  [ 'boards', \
                 'castlings', \
-                'castlings/long_left', \
-                'castlings/short_right', \
                 'en_passants', \
+                \
                 'examples', \
+                'examples/01_oc', \
+                'examples/02_c', \
+                'examples/03_oct', \
+                'examples/04_ct', \
+                'examples/05_oma', \
+                'examples/06_ma', \
+                'examples/07_oaoa', \
+                'examples/08_aoa', \
+                'examples/09_omv', \
+                'examples/10_mv', \
+                'examples/11_on', \
+                'examples/12_n', \
+                'examples/13_ohd', \
+                'examples/14_hd', \
+                'examples/15_otr', \
+                'examples/16_tr', \
+                'examples/17_ocot', \
+                'examples/18_cot', \
+                'examples/19_od', \
+                'examples/20_d', \
+                'examples/21_oo', \
+                'examples/22_o', \
+                \
                 'pieces', \
                 'pieces/star', \
                 'rush' ]

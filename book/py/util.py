@@ -35,7 +35,7 @@ def just_count(itr, default=UNDEFINED, default_few=UNDEFINED, default_many=UNDEF
         if many is not UNDEFINED:
             return many
         else:
-            raise ValueError("Can't extract value(s), list contains too many values, expected %d." % count)
+            raise ValueError("Can't extract value(s), list contains too many values, expected %d, got %d." % (count, _l))
 
     if count == 1 and unpack_one:
         return lst[ 0 ]
