@@ -7,9 +7,11 @@
 
 # from scene import Scene
 from scene_croatian_ties import SceneCroatianTiesMixin
+from scene_mayan_ascendancy import SceneMayanAscendancyMixin
 
 
-class SceneMix(SceneCroatianTiesMixin):
+class SceneMix(SceneCroatianTiesMixin, \
+               SceneMayanAscendancyMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
