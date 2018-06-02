@@ -246,3 +246,15 @@ class SceneMayanAscendancyMixin(Scene):
 
         return 'scn_ma_pyramid_promo_activate'
 
+    def scn_ma_pyramid_promo_end(self, bt=BoardType.MayanAscendancy):
+        self.init_scene(bt)
+
+        self.board.set_piece(3, 7, piece=PieceType.Pegasus)
+        self.board.set_piece(7, 7, piece=PieceType.Queen)
+        self.board.set_piece(3, 5, piece=PieceType.Pawn)
+        self.board.set_piece(5, 0, piece=PieceType.Queen)
+
+        self.append_text("2", 3, 5, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+
+        return 'scn_ma_pyramid_promo_end'
+
