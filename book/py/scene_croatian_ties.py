@@ -20,7 +20,7 @@ class SceneCroatianTiesMixin(Scene):
         self.init_scene(bt, width=5, height=5)
 
         start = (2, 2)
-        self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
+        self.board.set_piece(*start, piece=PieceType.Pegasus)
 
         gen_abs_pos = get_gen_multi_steps(start=start, rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=self.board.get_position_limits())
 
@@ -36,7 +36,7 @@ class SceneCroatianTiesMixin(Scene):
         self.init_scene(bt)
 
         start = (2, 1)
-        self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
+        self.board.set_piece(*start, piece=PieceType.Pegasus)
 
         # main direction, i.e. <1, 2>
         coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 2)) )
@@ -46,10 +46,10 @@ class SceneCroatianTiesMixin(Scene):
         self.append_arrow( *coords() )
 
         coords = call_gen( get_gen_steps(start=start, rel=(1, 2)) )
-        self.append_text("1", *coords(), corner=Corner.UpperLeft)
-        self.append_text("2", *coords(), corner=Corner.UpperLeft)
-        self.append_text("3", *coords(), corner=Corner.UpperLeft)
-        self.append_text("4", *coords(), corner=Corner.UpperLeft)
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+        self.append_text("3", *coords())
+        self.append_text("4", *coords())
 
         # direction 2a, i.e. <2, 1>
         self.append_arrow(4, 5, 6, 6, mark_type=MarkType.Blocked)
@@ -81,7 +81,7 @@ class SceneCroatianTiesMixin(Scene):
         self.init_scene(bt)
 
         start = (2, 1)
-        self.board.set_piece(*start, piece=PieceType(PieceType.Pegasus))
+        self.board.set_piece(*start, piece=PieceType.Pegasus)
 
         # direction 1, i.e. <2, 1>
         coords = call_gen( get_gen_steps_prev(start=start, rel=(2, 1)) )
@@ -97,9 +97,9 @@ class SceneCroatianTiesMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         coords = call_gen( get_gen_steps(start=start, rel=(1, 2)) )
-        self.append_text("1", *coords(), corner=Corner.UpperLeft)
-        self.append_text("2", *coords(), corner=Corner.UpperLeft)
-        self.append_text("3", *coords(), corner=Corner.UpperLeft)
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+        self.append_text("3", *coords())
 
         # direction 3, i.e. <-1, 2>
         coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 2)) )
@@ -116,3 +116,65 @@ class SceneCroatianTiesMixin(Scene):
         self.append_arrow(2, 1, 4, 0, mark_type=MarkType.Blocked )
 
         return 'scn_ct_pegasus_step_ply'
+
+    def scn_ct_pegasus(self, bt=BoardType.CroatianTies):
+        self.init_scene(bt)
+
+        start = (2, 1)
+        self.board.set_piece(*start, piece=PieceType.Pegasus)
+
+        self.board.set_piece(5, 7, piece=PieceType.Pawn)
+        self.board.set_piece(6, 3, piece=-PieceType.Pawn)
+
+        self.board.set_piece(3, 4, piece=-PieceType.Rook)
+        self.board.set_piece(4, 4, piece=-PieceType.Rook)
+
+        self.board.set_piece(5, 2, piece=PieceType.Rook)
+        self.board.set_piece(5, 3, piece=PieceType.Rook)
+
+        # direction 1, i.e. <2, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(2, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(2, 1)) )
+        self.append_text("1", *coords())
+        self.append_text("1", *coords())
+        self.append_text("1", *coords(), mark_type=MarkType.Blocked)
+
+        # direction 2, i.e. <1, 2>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 2)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(1, 2)) )
+        self.append_text("2", *coords())
+        self.append_text("2", *coords())
+        self.append_text("2", *coords(), mark_type=MarkType.Blocked)
+        self.append_text("2", *coords(), mark_type=MarkType.Blocked)
+
+        # direction 3, i.e. <-1, 2>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 2)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(-1, 2)) )
+        self.append_text("3", *coords(), corner=Corner.UpperRight)
+        self.append_text("3", *coords(), corner=Corner.UpperRight)
+
+        # direction 4, i.e. <-2, 1>
+        self.append_arrow(2, 1, 0, 2)
+        self.append_text("4", 0, 2, corner=Corner.UpperRight)
+
+        # direction 5, i.e. <-2, -1>
+        self.append_arrow(2, 1, 0, 0)
+        self.append_text("5", 0, 0)
+
+        # direction 6, i.e. <2, -1>
+        self.append_arrow(2, 1, 4, 0)
+        self.append_text("6", 4, 0, corner=Corner.UpperRight)
+
+        return 'scn_ct_pegasus'
