@@ -9,7 +9,31 @@ import os.path
 
 
 SUBFOLDERS =  [ 'boards', \
+                \
                 'castlings', \
+                'castlings/01_oc', \
+                'castlings/02_c', \
+                'castlings/03_oct', \
+                'castlings/04_ct', \
+                'castlings/05_oma', \
+                'castlings/06_ma', \
+                'castlings/07_oaoa', \
+                'castlings/08_aoa', \
+                'castlings/09_omv', \
+                'castlings/10_mv', \
+                'castlings/11_on', \
+                'castlings/12_n', \
+                'castlings/13_ohd', \
+                'castlings/14_hd', \
+                'castlings/15_otr', \
+                'castlings/16_tr', \
+                'castlings/17_ocot', \
+                'castlings/18_cot', \
+                'castlings/19_od', \
+                'castlings/20_d', \
+                'castlings/21_oo', \
+                'castlings/22_o', \
+                \
                 'en_passants', \
                 \
                 'examples', \

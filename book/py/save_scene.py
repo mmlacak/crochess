@@ -251,14 +251,14 @@ class SaveScene(object):
         if move_king != 0:
             mk_str += "_%02d" % abs(move_king)
 
-        index = int(board_type)
-        name = board_type.get_name()
+        name = bt.get_name()
+        sf_name = "%02d_%s" % (bt, bt.get_symbol().lower())
         sanitized = sanitize(name)
 
         if move_king == 0:
-            return '%s/castlings/%02d_%s_castling%s' % (path_prefix, index, sanitized, file_ext)
+            return '%s/castlings/%s/%s_castling%s' % (path_prefix, sf_name, sanitized, file_ext)
         else:
-            return '%s/castlings/%02d_%s_castling_%s%s' % (path_prefix, index, sanitized, mk_str, file_ext)
+            return '%s/castlings/%s/%s_castling_%s%s' % (path_prefix, sf_name, sanitized, mk_str, file_ext)
 
     def render_all_castling_scenes(self, move_king=None, path_prefix=None):
         print
