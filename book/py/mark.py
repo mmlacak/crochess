@@ -88,6 +88,7 @@ class FieldMarker(object):
         assert isinstance(field_i, int)
         assert isinstance(field_j, int)
         # assert isinstance(mark_type, MarkType)
+
         mt = MarkType(mark_type)
 
         self.field = (field_i, field_j)
