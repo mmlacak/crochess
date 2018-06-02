@@ -49,12 +49,12 @@ class DrawScene(Draw):
 TEST_FIELD_SIZE_PIX = 200 # 100 # 400
 TEST_LINE_WIDTH = 5 # 3 # 11
 
-def test_scene(func_name, board_desc=None, name='', include_odd=False):
+def test_scene(func_name, board_desc=None, name='', include_odd=False, *args, **kwargs):
     sc = SceneCommon()
     func = getattr(sc, func_name)
 
     for bt in BoardType.iter(include_none=False, include_even=True, include_odd=include_odd):
-        func(bt)
+        func(bt, *args, **kwargs)
 
         w = int(TEST_FIELD_SIZE_PIX * sc.board.get_width())
         h = int(TEST_FIELD_SIZE_PIX * sc.board.get_height())
@@ -78,7 +78,7 @@ if __name__ == '__main__':
 
     test_scene('intro_piece')
     test_scene('intro_castling')
-    test_scene('castling_long_left')
-    test_scene('castling_short_right')
+    test_scene('intro_castling', move_king=-2)
+    test_scene('intro_castling', move_king=2)
     test_scene('intro_en_passant')
     test_scene('intro_rush')

@@ -139,23 +139,18 @@ class Scene(object):
 
         super(Scene, self).__init__(*args, **kwargs)
 
-        self.reset()
+        self.reset(board=board)
 
-        # Set external board ... just don't call reset() nor init_scene().
+    def reset(self, board=None):
         self.board = board
-
-    def reset(self):
-        self.board = None
         self.arrows = [] # :: [ mark.Arrow, ... ]
         self.texts = [] # :: [ mark.Text, ... ]
         self.field_markers = [] # :: [ mark.FieldMarker, ... ]
 
     def init_scene(self, board_type, width=None, height=None):
-        self.reset()
-
         bt = BoardType(board_type)
-        self.board = Board(bt, width=width, height=height)
-        # self.board.clear()
+        b = Board(bt, width=width, height=height)
+        self.reset(board=b)
 
     def append_text(self, txt, pos_i, pos_j, \
                     corner=Corner(Corner.UpperLeft), \
@@ -211,26 +206,3 @@ class Scene(object):
 
         return fld_mark
 
-    def format_return_values(self, filename, size_x=None, size_y=None):
-        # size_x, size_y :: int | float | None
-
-        width = size_x
-        height = size_y
-
-        b = self.board
-
-        if width is None:
-            if b.get_width() != b.type.get_size():
-                width = float(b.get_width()) / float(b.type.get_size())
-
-        if height is None:
-            if b.get_height() != b.type.get_size():
-                height = float(b.get_height()) / float(b.type.get_size())
-
-        if isinstance(width, float):
-            width = int( width * GD.DEFAULT_BOARD_RENDERING_SIZE )
-
-        if isinstance(height, float):
-            height = int( height * GD.DEFAULT_BOARD_RENDERING_SIZE )
-
-        return filename, width, height, b.type

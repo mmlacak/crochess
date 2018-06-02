@@ -12,6 +12,7 @@ from piece import PieceType
 from board import BoardType, Board
 from scene import Scene
 from scene_common import SceneCommon
+from scene_mix import SceneMix
 
 from draw import DEFAULT_FILE_EXT, DEFAULT_FILE_TYPE, get_new_drawable, get_new_gc
 from draw_board import BoardDesc
@@ -289,6 +290,38 @@ class SaveScene(object):
 
         print "Finished."
 
+    #
+    # scene
+
+    def get_scene_file_path(self, index, file_name, path_prefix=None, file_ext=None):
+        path_prefix = path_prefix or DEFAULT_PATH
+        file_ext = file_ext or DEFAULT_FILE_EXT
+
+        return '%s/examples/%02d_%s%s' % (path_prefix, index, file_name, file_ext)
+
+    def render_examples(self, do_all_examples=False, path_prefix=None):
+        def _render_examples(scene, func):
+            name = func()
+            file_path = self.get_scene_file_path(scene.board.type, name, path_prefix=path_prefix)
+            print file_path
+
+            if self.rendering_size.needs_rendering():
+                self.save_scene(scene, file_path)
+
+        _all_str = " all" if do_all_examples else ""
+        print
+        print "Rendering%s examples." % _all_str if self.rendering_size.needs_rendering() else "Info%s examples." % _all_str
+        scene = SceneMix()
+
+        scene_funcs = scene.get_all_scene_methods() \
+                      if do_all_examples \
+                      else scene.get_recent_scene_methods()
+
+        for func in scene_funcs:
+            _render_examples(scene, func)
+
+        print "Finished."
+
 
 def test_boards():
     ss = SaveScene(RenderingSizeEnum.Draft)
@@ -311,10 +344,15 @@ def test_castling_init():
     ss = SaveScene(RenderingSizeEnum.Draft)
     ss.render_all_castling_scenes(path_prefix='temp/')
 
+def test_scene_examples():
+    ss = SaveScene(RenderingSizeEnum.Draft)
+    ss.render_examples(do_all_examples=False, path_prefix='temp/')
+
 
 if __name__ == '__main__':
     # test_boards()
     # test_pieces()
     # test_en_passant()
     # test_rush()
-    test_castling_init()
+    # test_castling_init()
+    test_scene_examples()

@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2018 Mario Mlačak, mmlacak@gmail.com
+# Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
+
+
+# from scene import Scene
+from scene_croatian_ties import SceneCroatianTiesMixin
+
+
+class SceneMix(SceneCroatianTiesMixin):
+
+    def _get_recent_scene_method_names(self):
+        return  [
+                    'scn_ct_pegasus_initial', \
+                ]
+
+    def _get_all_scene_method_names(self):
+        return [ n for n in dir(self) if n.startswith('scn_') ] # or n.startswith('move_')
+
+    def _get_attributes(self, names):
+        return [ getattr(self, a) for a in names ]
+
+    def get_recent_scene_methods(self):
+        return self._get_attributes( self._get_recent_scene_method_names() )
+
+    def get_all_scene_methods(self):
+        return self._get_attributes( self._get_all_scene_method_names() )
