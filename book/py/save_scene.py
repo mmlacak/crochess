@@ -350,7 +350,7 @@ def test_castling_init():
 
 def test_scene_examples():
     ss = SaveScene(RenderingSizeEnum.Draft)
-    ss.render_examples(do_all_examples=True, path_prefix='temp/')
+    ss.render_examples(do_all_examples=False, path_prefix='temp/')
 
 
 if __name__ == '__main__':

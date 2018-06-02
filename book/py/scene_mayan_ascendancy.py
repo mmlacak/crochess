@@ -101,3 +101,13 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("4", *coords(), mark_type=MarkType.Action)
 
         return 'scn_ma_pyramid_activated'
+
+    def scn_ma_pyramid_activation_end(self, bt=BoardType.MayanAscendancy):
+        self.init_scene(bt)
+
+        self.board.set_piece(3, 7, PieceType.Pegasus)
+        self.board.set_piece(6, 7, PieceType.Bishop)
+        self.board.set_piece(3, 9, PieceType.Pyramid)
+        self.board.set_piece(3, 3, -PieceType.Bishop)
+
+        return 'scn_ma_pyramid_activation_end'
