@@ -673,7 +673,31 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("2", *coords())
 
         # pyramids
-        self.append_text("1", *add(start, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
-        self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        self.append_text("1", *add(start, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
 
         return 'scn_ma_18_cascading_pyramid_2_activated'
+
+    def scn_ma_19_cascading_end(self, bt=BoardType.MayanAscendancy):
+        # move_pyramid_cascading_end
+
+        self.init_scene(bt)
+
+        self.board.set_piece(5, 6, piece=PieceType.Queen)
+
+        pyramid_1 = (8, 6)
+        self.board.set_piece(*pyramid_1, piece=PieceType.Pyramid)
+
+        pyramid_2 = (5, 1)
+        self.board.set_piece(*pyramid_2, piece=PieceType.Pyramid)
+
+        pyramid_3 = (8, 8)
+        self.board.set_piece(*pyramid_3, piece=PieceType.Pyramid)
+
+        offset = (0.4, 0.4)
+
+        self.append_text("1", *add(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("3", *add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("2", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+
+        return 'scn_ma_19_cascading_end'
