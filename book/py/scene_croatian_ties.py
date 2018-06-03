@@ -17,6 +17,8 @@ from scene import Corner, Scene
 class SceneCroatianTiesMixin(Scene):
 
     def scn_ct_01_pegasus_initial(self, bt=BoardType.CroatianTies):
+        # move_pegasus_initial
+
         self.init_scene(bt, width=5, height=5)
 
         start = (2, 2)
@@ -33,6 +35,8 @@ class SceneCroatianTiesMixin(Scene):
         return 'scn_ct_01_pegasus_initial'
 
     def scn_ct_02_pegasus_direction(self, bt=BoardType.CroatianTies):
+        # move_pegasus_direction
+
         self.init_scene(bt)
 
         start = (2, 1)
@@ -77,7 +81,9 @@ class SceneCroatianTiesMixin(Scene):
 
         return 'scn_ct_02_pegasus_direction'
 
-    def scn_ct_03_pegasus_step_ply(self, bt=BoardType.CroatianTies):
+    def scn_ct_03_define_step_ply(self, bt=BoardType.CroatianTies):
+        # move_pegasus_step_ply
+
         self.init_scene(bt)
 
         start = (2, 1)
@@ -115,9 +121,11 @@ class SceneCroatianTiesMixin(Scene):
         # direction 6, i.e. <2, -1>
         self.append_arrow(2, 1, 4, 0, mark_type=MarkType.Blocked )
 
-        return 'scn_ct_03_pegasus_step_ply'
+        return 'scn_ct_03_define_step_ply'
 
-    def scn_ct_04_pegasus(self, bt=BoardType.CroatianTies):
+    def scn_ct_04_pegasus_movement(self, bt=BoardType.CroatianTies):
+        # move_pegasus
+
         self.init_scene(bt)
 
         start = (2, 1)
@@ -177,4 +185,4 @@ class SceneCroatianTiesMixin(Scene):
         self.append_arrow(2, 1, 4, 0)
         self.append_text("6", 4, 0, corner=Corner.UpperRight)
 
-        return 'scn_ct_04_pegasus'
+        return 'scn_ct_04_pegasus_movement'
