@@ -30,7 +30,7 @@ class SceneCroatianTiesMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
-        return "scn_ct_pegasus_initial"
+        return 'scn_ct_pegasus_initial'
 
     def scn_ct_pegasus_direction(self, bt=BoardType.CroatianTies):
         self.init_scene(bt)

@@ -348,3 +348,14 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("4", *coords())
 
         return 'scn_ma_pyramid_conversion_activated'
+
+    def scn_ma_pyramid_conversion_end(self, bt=BoardType.MayanAscendancy):
+        self.init_scene(bt)
+
+        self.board.set_piece(3, 4, piece=PieceType.Bishop)
+        self.board.set_piece(7, 4, piece=PieceType.Rook)
+        self.board.set_piece(3, 7, piece=-PieceType.Bishop)
+        self.board.set_piece(0, 0, piece=PieceType.Rook)
+        self.board.set_piece(11, 0, piece=PieceType.Rook)
+
+        return 'scn_ma_pyramid_conversion_end'
