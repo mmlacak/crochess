@@ -545,13 +545,13 @@ class SceneMayanAscendancyMixin(Scene):
         self.init_scene(bt)
 
         start = (5, 6)
-        self.board.set_piece(*start, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(*start, piece=PieceType.Queen)
 
         pyramid_2 = (8, 6)
-        self.board.set_piece(*pyramid_2, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(*pyramid_2, piece=PieceType.Pyramid)
 
         pyramid_3 = (5, 1)
-        self.board.set_piece(*pyramid_3, piece=PieceType(PieceType.Pyramid))
+        self.board.set_piece(*pyramid_3, piece=PieceType.Pyramid)
 
         offset = (0.4, 0.4)
 
@@ -620,3 +620,60 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
 
         return 'scn_ma_17_cascading_pyramid_1_activated'
+
+    def scn_ma_18_cascading_pyramid_2_activated(self, bt=BoardType.MayanAscendancy):
+        # move_pyramid_cascading_activated_2
+
+        self.init_scene(bt)
+
+        self.board.set_piece(5, 6, piece=PieceType.Queen)
+
+        start = (8, 6)
+        self.board.set_piece(*start, piece=PieceType.Pyramid)
+
+        pyramid_3 = (5, 1)
+        self.board.set_piece(*pyramid_3, piece=PieceType.Pyramid)
+
+        offset = (0.4, 0.4)
+
+        # direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(1, 0)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(0, -1)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        coords = call_gen( get_gen_steps(start=start, rel=(0, 1)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+
+        # pyramids
+        self.append_text("1", *add(start, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+
+        return 'scn_ma_18_cascading_pyramid_2_activated'
