@@ -16,7 +16,7 @@ from scene import Corner, Scene
 
 class SceneMayanAscendancyMixin(Scene):
 
-    def scn_ma_pyramid_activation_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_01_pyramid_activation_init(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         start = (11, 3)
@@ -39,9 +39,9 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("3", *coords(), corner=Corner.UpperRight)
         self.append_text("4", *coords(), corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        return 'scn_ma_pyramid_activation_init'
+        return 'scn_ma_01_pyramid_activation_init'
 
-    def scn_ma_pyramid_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_02_pyramid_activated(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         start = (3, 7)
@@ -100,9 +100,9 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("3", *coords())
         self.append_text("4", *coords(), mark_type=MarkType.Action)
 
-        return 'scn_ma_pyramid_activated'
+        return 'scn_ma_02_pyramid_activated'
 
-    def scn_ma_pyramid_activation_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_03_pyramid_activation_end(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         self.board.set_piece(3, 7, PieceType.Pegasus)
@@ -110,12 +110,12 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(3, 9, PieceType.Pyramid)
         self.board.set_piece(3, 3, -PieceType.Bishop)
 
-        return 'scn_ma_pyramid_activation_end'
+        return 'scn_ma_03_pyramid_activation_end'
 
     #
     # Pawn activating Pyramid
 
-    def scn_ma_pyramid_activation_by_pawn(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_04_pyramid_activation_by_pawn(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         self.board.set_piece(4, 2, piece=PieceType.Pawn)
@@ -149,12 +149,12 @@ class SceneMayanAscendancyMixin(Scene):
 
         self.append_text("3", *start, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 
-        return 'scn_ma_pyramid_activation_by_pawn'
+        return 'scn_ma_04_pyramid_activation_by_pawn'
 
     #
     # Promotion
 
-    def scn_ma_pyramid_promo_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_05_pyramid_promo_init(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         start = (11, 3)
@@ -180,9 +180,9 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("3", *coords(), corner=Corner.UpperRight)
         self.append_text("4", *coords(), corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        return 'scn_ma_pyramid_promo_init'
+        return 'scn_ma_05_pyramid_promo_init'
 
-    def scn_ma_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_06_pyramid_promo_activate(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         start = (3, 7)
@@ -244,9 +244,9 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("3", *coords(), mark_type=MarkType.Blocked)
         self.append_text("4", *coords(), mark_type=MarkType.Blocked)
 
-        return 'scn_ma_pyramid_promo_activate'
+        return 'scn_ma_06_pyramid_promo_activate'
 
-    def scn_ma_pyramid_promo_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_07_pyramid_promo_end(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         self.board.set_piece(3, 7, piece=PieceType.Pegasus)
@@ -256,12 +256,12 @@ class SceneMayanAscendancyMixin(Scene):
 
         self.append_text("2", 3, 5, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
-        return 'scn_ma_pyramid_promo_end'
+        return 'scn_ma_07_pyramid_promo_end'
 
     #
     # Conversion
 
-    def scn_ma_pyramid_conversion_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_08_pyramid_conversion_init(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         start = (7, 8)
@@ -285,9 +285,9 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("3", *coords())
         self.append_text("4", *coords(), mark_type=MarkType.Action )
 
-        return 'scn_ma_pyramid_conversion_init'
+        return 'scn_ma_08_pyramid_conversion_init'
 
-    def scn_ma_pyramid_conversion_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_09_pyramid_conversion_activated(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         start = (3, 4)
@@ -347,9 +347,9 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("3", *coords())
         self.append_text("4", *coords())
 
-        return 'scn_ma_pyramid_conversion_activated'
+        return 'scn_ma_09_pyramid_conversion_activated'
 
-    def scn_ma_pyramid_conversion_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_10_pyramid_conversion_end(self, bt=BoardType.MayanAscendancy):
         self.init_scene(bt)
 
         self.board.set_piece(3, 4, piece=PieceType.Bishop)
@@ -358,4 +358,4 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(0, 0, piece=PieceType.Rook)
         self.board.set_piece(11, 0, piece=PieceType.Rook)
 
-        return 'scn_ma_pyramid_conversion_end'
+        return 'scn_ma_10_pyramid_conversion_end'
