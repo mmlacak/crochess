@@ -434,6 +434,43 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(1, 1, piece=PieceType.Queen)
         self.board.set_piece(3, 0, piece=PieceType.King)
 
+        # direction <-1, 0>
+        start = (5, 0)
+        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        self.append_text("1", *coords(), mark_type=MarkType.Blocked)
+        self.append_text("2", *coords(), mark_type=MarkType.Blocked)
+        self.append_text("3", *coords(), mark_type=MarkType.Blocked)
+
         self.append_text("K", 6, 0, mark_type=MarkType.Blocked)
 
         return 'scn_ma_13_convert_rook_castling'
+
+    #
+    # Converting Pawn with rush ability
+
+    def scn_ma_14_convert_pawn_rush_init(self, bt=BoardType.MayanAscendancy):
+        # move_pyramid_conversion_pawn_init
+
+        self.init_scene(bt, width=3, height=6)
+
+        startR = (0, 4)
+        startP = (0, 1)
+        self.board.set_piece(*startR, piece=PieceType.Rook)
+        self.board.set_piece(*startP, piece=PieceType.Pyramid)
+        self.board.set_piece(1, 1, piece=-PieceType.Pawn)
+        self.board.set_piece(1, 0, piece=PieceType.King)
+        self.board.set_piece(2, 3, piece=-PieceType.Pawn)
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startR, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startP, rel=(1, 0)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        return 'scn_ma_14_convert_pawn_rush_init'
+
+
