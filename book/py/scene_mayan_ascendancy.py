@@ -386,7 +386,7 @@ class SceneMayanAscendancyMixin(Scene):
     def scn_ma_11_convert_rook_castling_init(self, bt=BoardType.MayanAscendancy):
         # move_pyramid_conversion_rook_init
 
-        self.init_scene(bt)
+        self.init_scene(bt, width=12, height=2)
 
         startQ = (4, 1)
         startA = (1, 1)
@@ -406,3 +406,21 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         return 'scn_ma_11_convert_rook_castling_init'
+
+    def scn_ma_12_convert_rook_end(self, bt=BoardType.MayanAscendancy):
+        # move_pyramid_conversion_rook_end
+
+        self.init_scene(bt, width=12, height=2)
+
+        self.board.set_piece(0, 0, piece=PieceType(PieceType.Rook))
+        self.board.set_piece(1, 1, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(6, 0, piece=PieceType(PieceType.King))
+
+        # direction <-1, 0>
+        start = (5, 0)
+        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        self.append_text("1", *coords())
+        self.append_text("2", *coords())
+        self.append_text("3", *coords())
+
+        return 'scn_ma_12_convert_rook_end'
