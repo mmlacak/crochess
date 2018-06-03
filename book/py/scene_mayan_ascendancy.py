@@ -688,16 +688,47 @@ class SceneMayanAscendancyMixin(Scene):
         pyramid_1 = (8, 6)
         self.board.set_piece(*pyramid_1, piece=PieceType.Pyramid)
 
-        pyramid_2 = (5, 1)
+        pyramid_2 = (8, 8)
         self.board.set_piece(*pyramid_2, piece=PieceType.Pyramid)
 
-        pyramid_3 = (8, 8)
+        pyramid_3 = (5, 1)
         self.board.set_piece(*pyramid_3, piece=PieceType.Pyramid)
 
         offset = (0.4, 0.4)
 
         self.append_text("1", *add(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
-        self.append_text("3", *add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
-        self.append_text("2", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("2", *add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
 
         return 'scn_ma_19_cascading_end'
+
+    #
+    # Pyramid against royal powers (King free from actions, effects of passive pieces)
+
+    def scn_ma_20_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
+        # move_pyramid_vs_king
+
+        self.init_scene(bt, width=12, height=3)
+
+        self.board.set_piece(4, 0, -PieceType.King)
+        self.board.set_piece(3, 0, PieceType.Pyramid)
+        self.board.set_piece(2, 1, PieceType.Queen)
+
+        self.append_arrow(2, 1, 3, 0)
+        self.append_arrow(3, 0, 4, 0, mark_type=MarkType.Ilegal )
+
+        return 'scn_ma_20_pyramid_vs_king'
+
+    def scn_ma_21_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
+        # move_pyramid_vs_bishop
+
+        self.init_scene(bt, width=12, height=3)
+
+        self.board.set_piece(4, 0, -PieceType.Bishop)
+        self.board.set_piece(3, 0, PieceType.Pyramid)
+        self.board.set_piece(2, 1, PieceType.Queen)
+
+        self.append_arrow(2, 1, 3, 0)
+        self.append_arrow(3, 0, 4, 0, mark_type=MarkType.Action)
+
+        return 'scn_ma_21_pyramid_vs_bishop'
