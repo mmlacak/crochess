@@ -8,14 +8,16 @@
 # from scene import Scene
 from scene_croatian_ties import SceneCroatianTiesMixin
 from scene_mayan_ascendancy import SceneMayanAscendancyMixin
+from scene_age_of_ascendancy import SceneAgeOfAquariusMixin
 
 
 class SceneMix(SceneCroatianTiesMixin, \
-               SceneMayanAscendancyMixin):
+               SceneMayanAscendancyMixin, \
+               SceneAgeOfAquariusMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_ma_21_pyramid_vs_bishop', \
+                    'scn_aoa_01_unicorn_same_color', \
                 ]
 
     def _get_all_scene_method_names(self):
