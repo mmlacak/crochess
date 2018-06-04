@@ -261,3 +261,25 @@ class SceneAgeOfAquariusMixin(Scene):
 
         return 'scn_aoa_09_delayed_promo_split_attack'
 
+    def scn_aoa_10_delayed_promo_pawn_1_promoted(self, bt=BoardType.AgeOfAquarius):
+        # move_unicorn_pawn_1_promoted
+
+        self.init_scene(bt)
+
+        startU = (5, 9)
+        startQ = (8, 13)
+        startP2 = (4, 11)
+        startP3 = (4, 6)
+
+        self.board.set_piece(*startQ, piece=PieceType.Queen)
+        self.board.set_piece(*startP2, piece=PieceType.Pawn)
+        self.board.set_piece(*startP3, piece=PieceType.Pawn)
+        self.board.set_piece(7, 10, piece=PieceType.Bishop)
+        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
+
+        self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("P", 4, 10, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        return 'scn_aoa_10_delayed_promo_pawn_1_promoted'
+
