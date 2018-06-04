@@ -308,3 +308,37 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("1", *startP, mark_type=MarkType.Blocked )
 
         return 'scn_aoa_11_tagged_pawn_conv_init'
+
+    def scn_aoa_12_tagged_pawn_conv_pawn_tagged(self, bt=BoardType.AgeOfAquarius):
+        # move_unicorn_tagged_pawn_conv_tag
+
+        self.init_scene(bt)
+
+        startP = (3, 1)
+        startPd = (8, 0)
+        startA = (11, 0)
+        startB = (7, 4)
+
+        self.board.set_piece(*startP, piece=PieceType.Pawn)
+        self.board.set_piece(*startPd, piece=-PieceType.Pawn)
+        self.board.set_piece(*startA, piece=PieceType.Pyramid)
+        self.board.set_piece(*startB, piece=PieceType.Bishop)
+
+        # direction <1, -1>
+        coords = call_gen( get_gen_steps_prev(start=startB, rel=(1, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startA, rel=(-1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        self.append_text("1", *startP, mark_type=MarkType.Blocked)
+
+        self.append_field_marker( *startPd, mark_type=MarkType.Action )
+
+        return 'scn_aoa_12_tagged_pawn_conv_pawn_tagged'
