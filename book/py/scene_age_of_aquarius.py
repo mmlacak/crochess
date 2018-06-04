@@ -283,3 +283,28 @@ class SceneAgeOfAquariusMixin(Scene):
 
         return 'scn_aoa_10_delayed_promo_pawn_1_promoted'
 
+    #
+    # Converting tagged Pawn
+
+    def scn_aoa_11_tagged_pawn_conv_init(self, bt=BoardType.AgeOfAquarius):
+        # move_unicorn_tagged_pawn_conv_init
+
+        self.init_scene(bt)
+
+        startP = (3, 1)
+        startPd = (8, 1)
+        startA = (11, 0)
+        startB = (7, 4)
+
+        self.board.set_piece(*startP, piece=PieceType.Pawn)
+        self.board.set_piece(*startPd, piece=-PieceType.Pawn)
+        self.board.set_piece(*startA, piece=PieceType.Pyramid)
+        self.board.set_piece(*startB, piece=PieceType.Bishop)
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startPd, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+
+        self.append_text("1", *startP, mark_type=MarkType.Blocked )
+
+        return 'scn_aoa_11_tagged_pawn_conv_init'
