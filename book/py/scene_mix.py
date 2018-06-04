@@ -8,7 +8,7 @@
 # from scene import Scene
 from scene_croatian_ties import SceneCroatianTiesMixin
 from scene_mayan_ascendancy import SceneMayanAscendancyMixin
-from scene_age_of_ascendancy import SceneAgeOfAquariusMixin
+from scene_age_of_aquarius import SceneAgeOfAquariusMixin
 
 
 class SceneMix(SceneCroatianTiesMixin, \
@@ -18,6 +18,7 @@ class SceneMix(SceneCroatianTiesMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     'scn_aoa_03_delayed_promo_init', \
+                    'scn_aoa_04_delayed_promo_pawn_2_tagged', \
                 ]
 
     def _get_all_scene_method_names(self):
