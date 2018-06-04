@@ -17,7 +17,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_aoa_02_unicorn_opposite_color', \
+                    'scn_aoa_03_delayed_promo_init', \
                 ]
 
     def _get_all_scene_method_names(self):
