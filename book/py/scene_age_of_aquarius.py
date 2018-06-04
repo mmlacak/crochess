@@ -178,3 +178,32 @@ class SceneAgeOfAquariusMixin(Scene):
 
         return 'scn_aoa_06_delayed_promo_pawn_1_tagged'
 
+    def scn_aoa_07_delayed_promo_pawn_2_attacked(self, bt=BoardType.AgeOfAquarius):
+        # move_unicorn_pawn_2_attacked
+
+        self.init_scene(bt)
+
+        startU = (2, 7)
+        startP1 = (8, 13)
+        startP2 = (4, 10)
+        startP3 = (4, 6)
+
+        self.board.set_piece(*startP1, piece=PieceType.Pawn)
+        self.board.set_piece(*startP2, piece=PieceType.Pawn)
+        self.board.set_piece(*startP3, piece=PieceType.Pawn)
+        self.board.set_piece(7, 10, piece=PieceType.Bishop)
+        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
+
+        self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.append_field_marker( *startP1, mark_type=MarkType.Action )
+        self.append_field_marker( *startP2, mark_type=MarkType.Action )
+
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+
+        return 'scn_aoa_07_delayed_promo_pawn_2_attacked'
+
