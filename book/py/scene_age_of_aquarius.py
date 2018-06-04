@@ -309,7 +309,7 @@ class SceneAgeOfAquariusMixin(Scene):
 
         return 'scn_aoa_11_tagged_pawn_conv_init'
 
-    def scn_aoa_12_tagged_pawn_conv_pawn_tagged(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_12_tagged_pawn_conv_tagged(self, bt=BoardType.AgeOfAquarius):
         # move_unicorn_tagged_pawn_conv_tag
 
         self.init_scene(bt)
@@ -341,4 +341,31 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.append_field_marker( *startPd, mark_type=MarkType.Action )
 
-        return 'scn_aoa_12_tagged_pawn_conv_pawn_tagged'
+        return 'scn_aoa_12_tagged_pawn_conv_tagged'
+
+    def scn_aoa_13_tagged_pawn_converted(self, bt=BoardType.AgeOfAquarius):
+        # move_unicorn_tagged_pawn_conv_ed
+
+        bt = BoardType(bt)
+        self.init_scene(bt)
+
+        startP = (3, 1)
+        startPc = (8, 0)
+        startB = (11, 0)
+
+        self.board.set_piece(*startP, piece=PieceType.Pawn)
+        self.board.set_piece(*startPc, piece=PieceType.Pawn)
+        self.board.set_piece(*startB, piece=PieceType.Bishop)
+
+        self.append_text("1", *startP, mark_type=MarkType.Blocked)
+        self.append_text("2", *startPc, mark_type=MarkType.Blocked)
+
+        size = (bt.get_size() + 1) // 2
+
+        for i in xrange(3, size):
+            self.append_text(str(i-2), 3, i)
+
+        for i in xrange(2, size):
+            self.append_text(str(i-1), 8, i)
+
+        return 'scn_aoa_13_tagged_pawn_converted'
