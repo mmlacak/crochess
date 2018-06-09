@@ -111,3 +111,29 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(13, 7, piece=-PieceType.Wave)
 
         return 'scn_mv_03_move_wave_finished'
+
+    #
+    # cascading
+
+    def scn_mv_04_cascading_rook(self, bt=BoardType.MirandasVeil):
+        # move_wave_cascading_rook
+
+        self.init_scene(bt)
+
+        start = (5, 7)
+        self.board.set_piece(*start, piece=PieceType.Rook)
+        self.board.set_piece(5, 3, piece=PieceType.Wave)
+        self.board.set_piece(3, 3, piece=PieceType.Wave)
+        self.board.set_piece(3, 5, piece=PieceType.Queen)
+
+        self.append_text("1", 5, 3, mark_type=MarkType.Blocked)
+        self.append_text("2", 3, 3, mark_type=MarkType.Blocked)
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        return 'scn_mv_04_cascading_rook'
