@@ -449,3 +449,97 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         return 'scn_mv_10_cascading_wave_2_3rd_time'
+
+    def scn_mv_11_cascading_wave_1_3rd_time(self, bt=BoardType.MirandasVeil):
+        # move_wave_cascading_wave_1_c
+
+        self.init_scene(bt, width=9, height=9)
+
+        start = (3, 5)
+        self.board.set_piece(*start, piece=PieceType.Wave)
+        self.board.set_piece(3, 3, piece=PieceType.Rook)
+        self.board.set_piece(5, 3, piece=PieceType.Queen)
+
+        self.append_text("2", 3, 5, mark_type=MarkType.Blocked )
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <1, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <1, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <-1, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <-1, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        return 'scn_mv_11_cascading_wave_1_3rd_time'
+
+    def scn_mv_12_cascading_end(self, bt=BoardType.MirandasVeil):
+        # move_wave_cascading_end
+
+        self.init_scene(bt, width=9, height=9)
+
+        self.board.set_piece(3, 5, piece=PieceType.Wave)
+        self.board.set_piece(3, 3, piece=PieceType.Rook)
+        self.board.set_piece(3, 1, piece=PieceType.Wave)
+        self.board.set_piece(5, 3, piece=PieceType.Queen)
+
+        self.append_text("1", 3, 1, mark_type=MarkType.Blocked)
+        self.append_text("2", 3, 5, mark_type=MarkType.Blocked)
+
+        return 'scn_mv_12_cascading_end'
+
+    #
+    # cascading opponent
