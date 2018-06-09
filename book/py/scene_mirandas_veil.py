@@ -84,3 +84,30 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         return 'scn_mv_02_move_wave_activated'
+
+    def scn_mv_03_move_wave_finished(self, bt=BoardType.MirandasVeil):
+        # move_wave_finished
+
+        self.init_scene(bt)
+
+        self.board.set_piece(1, 1, piece=PieceType.Knight)
+
+        # direction <1, 2>
+        self.board.set_piece(3, 5, piece=PieceType.Pawn)
+        self.board.set_piece(4, 7, piece=-PieceType.Pyramid)
+        self.board.set_piece(5, 9, piece=-PieceType.Queen)
+        self.board.set_piece(7, 13, piece=PieceType.Wave)
+
+        self.append_arrow(7, 13, 6, 12)
+        self.append_arrow(7, 13, 6, 14)
+        self.append_arrow(7, 13, 8, 12)
+        self.append_arrow(7, 13, 8, 14)
+
+        # direction <2, 1>
+        self.board.set_piece(3, 2, piece=PieceType.King)
+        self.board.set_piece(5, 3, piece=PieceType.Rook)
+        self.board.set_piece(7, 4, piece=PieceType.Pyramid)
+        self.board.set_piece(9, 5, piece=-PieceType.King)
+        self.board.set_piece(13, 7, piece=-PieceType.Wave)
+
+        return 'scn_mv_03_move_wave_finished'
