@@ -19,8 +19,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_04_cascading_rook', \
-                    'scn_mv_05_cascading_wave_1', \
+                    'scn_mv_06_cascading_wave_2', \
                 ]
 
     def _get_all_scene_method_names(self):
