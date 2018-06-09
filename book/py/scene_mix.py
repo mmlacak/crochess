@@ -19,7 +19,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_01_move_wave_init', \
+                    'scn_mv_02_move_wave_activated', \
                 ]
 
     def _get_all_scene_method_names(self):
