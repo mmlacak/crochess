@@ -137,3 +137,49 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         return 'scn_mv_04_cascading_rook'
+
+    def scn_mv_05_cascading_wave_1(self, bt=BoardType.MirandasVeil):
+        # move_wave_cascading_wave_1
+
+        self.init_scene(bt)
+
+        start = (5, 3)
+        self.board.set_piece(*start, piece=PieceType.Rook)
+        self.board.set_piece(3, 3, piece=PieceType.Wave)
+        self.board.set_piece(3, 5, piece=PieceType.Queen)
+
+        self.append_text("2", 3, 3, mark_type=MarkType.Blocked)
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        return 'scn_mv_05_cascading_wave_1'
