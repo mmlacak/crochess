@@ -28,8 +28,8 @@ class SceneCroatianTiesMixin(Scene):
 
         i = 1
         for pos in gen_abs_pos():
-            self.append_field_marker(*pos, mark_type=MarkType.Action)
-            self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+            self.append_field_marker(*pos)
+            self.append_text(str(i), *pos, corner=Corner.UpperLeft, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
         return 'scn_ct_01_pegasus_initial'

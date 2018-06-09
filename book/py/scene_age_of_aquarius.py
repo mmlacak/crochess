@@ -29,7 +29,7 @@ class SceneAgeOfAquariusMixin(Scene):
         i = 1
         for pos in gen_abs_pos():
             self.append_field_marker(*pos)
-            self.append_text(str(i), *pos)
+            self.append_text(str(i), *pos, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
         return 'scn_aoa_01_unicorn_same_color'
@@ -47,7 +47,7 @@ class SceneAgeOfAquariusMixin(Scene):
         i = 1
         for pos in gen_abs_pos():
             self.append_field_marker(*pos)
-            self.append_text(str(i), *pos)
+            self.append_text(str(i), *pos, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
         return 'scn_aoa_02_unicorn_opposite_color'
@@ -73,9 +73,9 @@ class SceneAgeOfAquariusMixin(Scene):
         self.board.set_piece(*startB, piece=PieceType.Bishop)
         self.board.set_piece(4, 1, piece=-PieceType.Unicorn)
 
-        self.append_text("1", *startP1, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("2", *startP2, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("3", *startP3, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <-1, 1>
         coords = call_gen( get_gen_steps_prev(start=startB, rel=(-1, 1)) )
