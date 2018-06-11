@@ -770,3 +770,19 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         return 'scn_mv_16_casc_oppo_dark_queen'
+
+    def scn_mv_17_casc_oppo_end(self, bt=BoardType.MirandasVeil):
+        # move_wave_opponent_end
+
+        self.init_scene(bt, width=9, height=9)
+
+        start = (3, 5)
+        self.board.set_piece(3, 5, piece=-PieceType.Wave)
+        self.board.set_piece(3, 3, piece=PieceType.Wave)
+        self.board.set_piece(5, 3, piece=-PieceType.Queen)
+
+        return 'scn_mv_17_casc_oppo_end'
+
+    #
+    # activating pawn
+
