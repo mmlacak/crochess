@@ -784,5 +784,33 @@ class SceneMirandasVeilMixin(Scene):
         return 'scn_mv_17_casc_oppo_end'
 
     #
-    # activating pawn
+    # activating pawn, with rushing ability
+
+    def scn_mv_18_activating_rush_pawn_init(self, bt=BoardType.MirandasVeil):
+        # move_wave_activating_pawn_init
+
+        self.init_scene(bt, width=5, height=8)
+
+        startW = (4, 1)
+        startR = (4, 5)
+        startP = (2, 1)
+
+        self.board.set_piece(1, 2, piece=-PieceType.Knight)
+        self.board.set_piece(*startP, piece=PieceType.Pawn)
+        self.board.set_piece(*startW, piece=PieceType.Wave)
+        self.board.set_piece(*startR, piece=PieceType.Rook)
+
+        # Rook, direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startR, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Wave, direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startW, rel=(-1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        return 'scn_mv_18_activating_rush_pawn_init'
 
