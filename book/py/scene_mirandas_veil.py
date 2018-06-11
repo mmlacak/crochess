@@ -543,3 +543,22 @@ class SceneMirandasVeilMixin(Scene):
 
     #
     # cascading opponent
+
+    def scn_mv_13_casc_oppo_light_queen(self, bt=BoardType.MirandasVeil):
+        # move_wave_opponent_light_queen
+
+        self.init_scene(bt, width=9, height=9)
+
+        start = (5, 6)
+        self.board.set_piece(*start, piece=PieceType.Queen)
+        self.board.set_piece(5, 3, piece=PieceType.Wave)
+        self.board.set_piece(3, 3, piece=-PieceType.Wave)
+        self.board.set_piece(3, 5, piece=-PieceType.Queen)
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        return 'scn_mv_13_casc_oppo_light_queen'
