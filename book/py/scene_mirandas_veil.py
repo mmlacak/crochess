@@ -814,3 +814,72 @@ class SceneMirandasVeilMixin(Scene):
 
         return 'scn_mv_18_activating_rush_pawn_init'
 
+    def scn_mv_19_activating_rush_pawn_end(self, bt=BoardType.MirandasVeil):
+        # move_wave_activating_pawn_end
+
+        self.init_scene(bt, width=5, height=8)
+
+        startP = (2, 1)
+
+        self.board.set_piece(1, 2, piece=-PieceType.Knight)
+        self.board.set_piece(*startP, piece=PieceType.Wave)
+        self.board.set_piece(4, 1, piece=PieceType.Rook)
+
+        # Pawn, direction <-1, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP, rel=(-1, 1)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Pawn, direction <1, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP, rel=(1, 1)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # Pawn, direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        return 'scn_mv_19_activating_rush_pawn_end'
+
+    #
+    # activating by pawn
+
+    def scn_mv_20_wave_activation_by_pawn(self, bt=BoardType.MirandasVeil):
+        # move_wave_activation_by_pawn
+
+        self.init_scene(bt)
+
+        self.board.set_piece(4, 2, piece=PieceType.Pawn)
+        self.board.set_piece(3, 3, piece=PieceType.Wave)
+
+        self.board.set_piece(5, 11, piece=PieceType.Pawn)
+        self.board.set_piece(5, 12, piece=PieceType.Wave)
+
+        self.board.set_piece(8, 1, piece=PieceType.Pawn)
+        self.board.set_piece(8, 4, piece=PieceType.Wave)
+
+        # capture-fields
+        self.append_arrow(4, 2, 3, 3, mark_type=MarkType.Action)
+        self.append_arrow(4, 2, 5, 3, mark_type=MarkType.Blocked)
+
+        self.append_text("1", 4, 2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        # step-fields 1
+        self.append_arrow(5, 11, 5, 12, mark_type=MarkType.Action)
+
+        self.append_text("2", 5, 11, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        # step-fields 2
+        self.append_arrow(8, 1, 8, 2)
+        self.append_arrow(8, 2, 8, 3)
+        self.append_arrow(8, 3, 8, 4, mark_type=MarkType.Action)
+        self.append_arrow(8, 4, 8, 5, mark_type=MarkType.Blocked)
+        self.append_arrow(8, 5, 8, 6, mark_type=MarkType.Blocked)
+        self.append_arrow(8, 6, 8, 7, mark_type=MarkType.Blocked)
+
+        self.append_text("3", 8, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        return 'scn_mv_20_wave_activation_by_pawn'
