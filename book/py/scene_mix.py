@@ -19,7 +19,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_13_casc_oppo_light_queen', \
+                    'scn_mv_14_casc_oppo_light_wave', \
                 ]
 
     def _get_all_scene_method_names(self):

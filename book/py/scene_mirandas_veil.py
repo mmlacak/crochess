@@ -562,3 +562,77 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         return 'scn_mv_13_casc_oppo_light_queen'
+
+    def scn_mv_14_casc_oppo_light_wave(self, bt=BoardType.MirandasVeil):
+        # move_wave_opponent_light_wave
+
+        self.init_scene(bt, width=9, height=9)
+
+        start = (5, 3)
+        self.board.set_piece(3, 5, piece=-PieceType.Queen)
+        self.board.set_piece(3, 3, piece=-PieceType.Wave)
+        self.board.set_piece(*start, piece=PieceType.Queen)
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <1, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <1, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <-1, 1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        # direction <-1, -1>
+        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        return 'scn_mv_14_casc_oppo_light_wave'
