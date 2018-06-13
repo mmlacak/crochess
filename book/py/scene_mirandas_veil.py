@@ -374,7 +374,7 @@ class SceneMirandasVeilMixin(Scene):
 
         return 'scn_mv_09_cascading_queen'
 
-    def scn_mv_10_cascading_wave_2_3rd_time(self, bt=BoardType.MirandasVeil):
+    def scn_mv_10_cascading_wave_2_2nd_time(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_wave_2_b
 
         self.init_scene(bt, width=9, height=9)
@@ -448,7 +448,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        return 'scn_mv_10_cascading_wave_2_3rd_time'
+        return 'scn_mv_10_cascading_wave_2_2nd_time'
 
     def scn_mv_11_cascading_wave_1_3rd_time(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_wave_1_c
