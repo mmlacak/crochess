@@ -90,7 +90,7 @@ class SceneCommon(Scene):
             self.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
 
             self.append_arrow(loc, i, 1, i-1)
-            self.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=(0.09, 1.0, 0.5, 0.45))
+            self.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=(0.15, 1.0, 0.5, 0.45))
 
         return bt
 
@@ -107,6 +107,6 @@ class SceneCommon(Scene):
             self.append_arrow(1, i-1, 1, i)
 
             if i > 2:
-                self.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=(0.09, 1.0, 0.5, 0.45))
+                self.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=(0.15, 1.0, 0.5, 0.45))
 
         return bt

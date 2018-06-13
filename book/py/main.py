@@ -71,7 +71,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
         render.render_all_pieces(piece_type=PieceType.Bishop)
         render.render_all_pieces(piece_type=PieceType.Star)
 
-    if args.all or args.examples or args.recent_examples:
+    if args.all or args.examples or args.recent:
         render.render_examples(do_all_examples=(args.all or args.examples))
 
     if args.all or args.castlings:
