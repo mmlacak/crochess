@@ -61,7 +61,9 @@ SUBFOLDERS =  [ 'boards', \
                 'examples/22_o', \
                 \
                 'pieces', \
+                'pieces/bishop', \
                 'pieces/star', \
+                \
                 'rush' ]
 
 

@@ -148,10 +148,12 @@ class SaveScene(object):
         return '%s/%s/%02d_%s%s' % (path_prefix, pieces_folder, index, sanitized, file_ext)
 
     def render_all_pieces(self, piece_type=None, path_prefix=None):
-        print
-        print "Rendering all pieces." if self.rendering_size.needs_rendering() else "Info all pieces."
-
         is_rendering_one_piece = piece_type is not None
+
+        piece_str = "all" if not is_rendering_one_piece else PieceType(piece_type).get_name()
+
+        print
+        print "Rendering %s pieces." % piece_str if self.rendering_size.needs_rendering() else "Info %s pieces." % piece_str
 
         for bt in BoardType.iter():
             pt = piece_type or bt.get_newly_introduced_piece()
@@ -350,13 +352,13 @@ def test_castling_init():
 
 def test_scene_examples():
     ss = SaveScene(RenderingSizeEnum.Draft)
-    ss.render_examples(do_all_examples=False, path_prefix='temp/')
+    ss.render_examples(do_all_examples=True, path_prefix='temp/')
 
 
 if __name__ == '__main__':
-    # test_boards()
-    # test_pieces()
-    # test_en_passant()
-    # test_rush()
-    # test_castling_init()
+    test_boards()
+    test_pieces()
+    test_en_passant()
+    test_rush()
+    test_castling_init()
     test_scene_examples()
