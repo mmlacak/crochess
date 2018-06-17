@@ -9,16 +9,16 @@ cd book/py
 
 echo
 
-# To see all options, run "python main_gfx.py -h".
+# To see all options, run "python main.py -h".
 
 # Renders all images at final size (large!), slow rendering.
-# python main_gfx.py -f -a
+# python main.py -f -a
 
 # Renders all images at normal size.
-python main_gfx.py -n -a
+python main.py -n -a
 
 # Renders all images at draft size.
-# python main_gfx.py -d -a
+# python main.py -d -a
 
 echo
 
