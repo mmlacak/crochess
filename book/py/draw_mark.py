@@ -19,15 +19,19 @@ from draw import set_new_colors, Draw
 from draw_board import DrawBoard
 
 
-def get_mark_color_pair(cmark=None, mark_type=None):
+def get_mark_color_pair(cmark=None, mark_type=None, is_light=None):
     if cmark is None:
         return None
 
     if mark_type is None:
         return None
 
+    if is_light is None:
+        return None
+
     assert isinstance(cmark, ColorsMark)
     assert isinstance(mark_type, MarkType)
+    assert isinstance(is_light, bool)
 
     _map = { MarkType.none : None, \
              MarkType.Legal : cmark.legal, \
@@ -35,7 +39,10 @@ def get_mark_color_pair(cmark=None, mark_type=None):
              MarkType.Action : cmark.action, \
              MarkType.Blocked : cmark.blocked }
 
-    return _map[ mark_type ]
+    cshade = _map[ mark_type ]
+    cpair = cshade.light if is_light else cshade.dark
+
+    return cpair
 
 
 class DrawMark(Draw):
@@ -101,7 +108,7 @@ class DrawMark(Draw):
         for arrow in arrows:
             # assert isinstance(arrow, Arrow)
 
-            cpair = get_mark_color_pair(cmark=cmark, mark_type=arrow.mark_type)
+            cpair = get_mark_color_pair(cmark=cmark, mark_type=arrow.mark_type, is_light=True)
 
             self.draw_arrow(arrow, adef=adef, cpair=cpair, gc=gc)
 
@@ -111,7 +118,7 @@ class DrawMark(Draw):
     def draw_text(self, text, fdef=None, cpair=None, gc=None):
         assert isinstance(text, Text)
         assert isinstance(fdef, (dm.FontDef, NoneType))
-        # assert isinstance(cpair, (ColorsPair, NoneType))
+        assert isinstance(cpair, (ColorsPair, NoneType))
         # assert isinstance(gc, (gtk.gdk.GC, NoneType))
 
         fdef = fdef or dm.MarkDef[ self.draw_board.board.type ].font_def
@@ -119,7 +126,10 @@ class DrawMark(Draw):
         x, y = text.pos_pix = self.draw_board.convert_field_coords_to_pixel( *text.pos )
 
         font = fdef.get_font(self.draw_board.field_height_pix)
-        gc = set_new_colors(gc or self.gc, fg=cpair.interior, bg=cpair.outline)
+        if cpair is not None:
+            gc = set_new_colors(gc or self.gc, fg=cpair.interior, bg=cpair.outline)
+        else:
+            gc = set_new_colors(gc or self.gc)
 
         screen = gtk.gdk.screen_get_default()
         pango_ctx = gtk.gdk.pango_context_get_for_screen(screen)
@@ -139,7 +149,9 @@ class DrawMark(Draw):
         for text in texts:
             # assert isinstance(text, Text)
 
-            cpair = get_mark_color_pair(cmark=cmark, mark_type=text.mark_type)
+            is_light = self.draw_board.board.is_light( int( text.pos[ 0 ] ), int( text.pos[ 1 ] ) )
+
+            cpair = get_mark_color_pair(cmark=cmark, mark_type=text.mark_type, is_light=is_light)
 
             self.draw_text(text, fdef=fdef, cpair=cpair, gc=gc)
 
@@ -200,7 +212,9 @@ class DrawMark(Draw):
         for field_marker in field_markers:
             # assert isinstance(field_marker, FieldMarker)
 
-            cpair = get_mark_color_pair(cmark=cmark, mark_type=field_marker.mark_type)
+            is_light = self.draw_board.board.is_light( *field_marker.field )
+
+            cpair = get_mark_color_pair(cmark=cmark, mark_type=field_marker.mark_type, is_light=is_light)
 
             self.draw_field_marker(field_marker, fmdef=fmdef, cpair=cpair, gc=gc, draw_outlined=draw_outlined)
 
