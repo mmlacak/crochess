@@ -34,16 +34,14 @@ class DrawScene(Draw):
 
         self.draw_mark.draw_board.draw_board(colors_item, gc=gc)
 
-        cmark = colors_item.marker
-
         fmdef = mark_def_item.field_mark_def if isinstance(mark_def_item, MarkDefItem) else None
-        self.draw_mark.draw_all_field_markers(self.scene.field_markers, fmdef=fmdef, cmark=cmark, gc=gc) # , draw_outlined=False)
+        self.draw_mark.draw_all_field_markers(self.scene.field_markers, fmdef=fmdef, cmark=colors_item.marker, gc=gc) # , draw_outlined=False)
 
         adef = mark_def_item.arrow_def if isinstance(mark_def_item, MarkDefItem) else None
-        self.draw_mark.draw_all_arrows(self.scene.arrows, adef=adef, cmark=cmark, gc=gc)
+        self.draw_mark.draw_all_arrows(self.scene.arrows, adef=adef, cmark=colors_item.arrow, gc=gc)
 
         fdef = mark_def_item.font_def if isinstance(mark_def_item, MarkDefItem) else None
-        self.draw_mark.draw_all_texts(self.scene.texts, fdef=fdef, cmark=cmark, gc=gc)
+        self.draw_mark.draw_all_texts(self.scene.texts, fdef=fdef, cmark=colors_item.text, gc=gc)
 
 
 TEST_FIELD_SIZE_PIX = 200 # 100 # 400

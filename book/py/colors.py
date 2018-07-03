@@ -23,6 +23,9 @@ class ColorsPair(object):
     def from_tuple(tpl):
         return ColorsPair( *tpl[ 0 : 2 ] )
 
+    def __str__(self):
+        return "<ColorsPair %s %s>" % self.as_tuple()
+
 
 class ColorsShade(object):
     def __init__(self, light, dark):
@@ -46,6 +49,9 @@ class ColorsShade(object):
               self.dark.as_tuple() + self.light.as_tuple()
         return ColorsPiece.from_tuple( tpl )
 
+    def __str__(self):
+        return "<ColorsShade %s %s %s %s>" % self.as_tuple()
+
 
 class ColorsPiece(object):
     def __init__(self, own, opposite):
@@ -68,6 +74,9 @@ class ColorsPiece(object):
               if is_piece_light else \
               self.opposite.as_tuple() + self.own.as_tuple()
         return ColorsShade.from_tuple( tpl )
+
+    def __str__(self):
+        return "<ColorsPiece %s %s %s %s>" % self.as_tuple()
 
 
 class ColorsMark(object):
@@ -96,6 +105,39 @@ class ColorsMark(object):
                            action=ColorsShade.from_tuple( tpl[ 8 : 12 ] ), \
                            blocked=ColorsShade.from_tuple( tpl[ 12 : 16 ] ) )
 
+    def __str__(self):
+        return "<ColorsMark %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s>" % self.as_tuple()
+
+
+class ColorsMarkSimple(object):
+    def __init__(self, legal, ilegal, action, blocked):
+
+        assert isinstance(legal, ColorsPair)
+        assert isinstance(ilegal, ColorsPair)
+        assert isinstance(action, ColorsPair)
+        assert isinstance(blocked, ColorsPair)
+
+        self.legal = legal
+        self.ilegal = ilegal
+        self.action = action
+        self.blocked = blocked
+
+    def as_tuple(self):
+        return self.legal.as_tuple() + \
+               self.ilegal.as_tuple() + \
+               self.action.as_tuple() + \
+               self.blocked.as_tuple()
+
+    @staticmethod
+    def from_tuple(tpl):
+        return ColorsMarkSimple( legal=ColorsPair.from_tuple( tpl[ 0 : 2 ] ), \
+                                 ilegal=ColorsPair.from_tuple( tpl[ 2 : 4 ] ), \
+                                 action=ColorsPair.from_tuple( tpl[ 4 : 6 ] ), \
+                                 blocked=ColorsPair.from_tuple( tpl[ 6 : 8 ] ) )
+
+    def __str__(self):
+        return "<ColorsMarkSimple %s %s %s %s %s %s %s %s>" % self.as_tuple()
+
 
 class ColorsItem(object):
     def __init__(self, piece, star, monolith, aura, field, arrow, text, marker):
@@ -104,7 +146,7 @@ class ColorsItem(object):
         assert isinstance(monolith, ColorsPair)
         assert isinstance(aura, ColorsPair)
         assert isinstance(field, ColorsShade)
-        assert isinstance(arrow, ColorsMark)
+        assert isinstance(arrow, ColorsMarkSimple)
         assert isinstance(text, ColorsMark)
         assert isinstance(marker, ColorsMark)
 
@@ -134,9 +176,12 @@ class ColorsItem(object):
                             monolith=ColorsPair.from_tuple( tpl[ 8 : 10 ] ), \
                             aura=ColorsPair.from_tuple( tpl[ 10 : 12 ] ), \
                             field=ColorsShade.from_tuple( tpl[ 12 : 16 ] ), \
-                            arrow=ColorsMark.from_tuple( tpl[ 16 : 32 ] ), \
-                            text=ColorsMark.from_tuple( tpl[ 32 : 48 ] ), \
-                            marker=ColorsMark.from_tuple( tpl[ 48 : 64 ] ) )
+                            arrow=ColorsMarkSimple.from_tuple( tpl[ 16 : 24 ] ), \
+                            text=ColorsMark.from_tuple( tpl[ 24 : 40 ] ), \
+                            marker=ColorsMark.from_tuple( tpl[ 40 : 56 ] ) )
+
+    def __str__(self):
+        return "<ColorsItem %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s>" % self.as_tuple()
 
 
 class Colors(dict):
@@ -147,6 +192,7 @@ class Colors(dict):
                                    #   <ilegal light interior>, <ilegal light outline>, <ilegal dark interior>, <ilegal dark outline>, \
                                    #   <action light interior>, <action light outline>, <action dark interior>, <action dark outline>, \
                                    #   <blocked light interior>, <blocked light outline>, <blocked dark interior>, <blocked dark outline> )
+        CMS = ColorsMarkSimple.from_tuple # ( <legal interior>, <legal outline>, <ilegal interior>, <ilegal outline>, <action interior>, <action outline>, <blocked interior>, <blocked outline> )
         CI = ColorsItem # ...
 
 
@@ -155,7 +201,7 @@ class Colors(dict):
                                      monolith=CP( ('#000000', '#FFFFFF') ), \
                                      aura=CP(     ('#FFFFFF', '#FFFFFF') ), \
                                      field=CS(    ('#FFFFFF', '#FFFFFF', '#000000', '#000000') ), \
-                                     arrow=CM(    ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                     arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
                                      text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                      marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
 
@@ -164,7 +210,7 @@ class Colors(dict):
                                           monolith=CP( ('#000000', '#FFFFFF') ), \
                                           aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                           field=CS(    ('#EFEFEF', '#EFEFEF', '#606060', '#606060') ), \
-                                          arrow=CM(    ('#00C000', '#000000', '#00C000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                          arrow=CMS(   ('#00C000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
                                           text=CM(     ('#00C000', '#000000', '#00C000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                           marker=CM(   ('#00C000', '#000000', '#00C000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddClassical ] = self[ BoardType.Classical ]
@@ -174,9 +220,9 @@ class Colors(dict):
                                              monolith=CP( ('#000000', '#FFFFFF') ), \
                                              aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                              field=CS(    ('#EFEFEF', '#EFEFEF', '#FF0000', '#FF0000') ), \
-                                             arrow=CM(    ('#009000', '#000000', '#009000', '#000000', '#900000', '#000000', '#900000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
-                                             text=CM(     ('#00FF00', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#900000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
-                                             marker=CM(   ('#00FF00', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#900000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
+                                             arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
+                                             text=CM(     ('#00B000', '#000000', '#00FF00', '#000000', '#B00000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                             marker=CM(   ('#00B000', '#000000', '#00FF00', '#000000', '#B00000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddCroatianTies ] = self[ BoardType.CroatianTies ]
 
         self[ BoardType.MayanAscendancy ] = CI( piece=CS(    ('#8F8F00', '#000000', '#002F5F', '#FFFFFF') ), \
@@ -184,7 +230,7 @@ class Colors(dict):
                                                 monolith=CP( ('#000000', '#FFFFFF') ), \
                                                 aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                                 field=CS(    ('#FFFF00', '#FFFF00', '#007FCF', '#007FCF') ), \
-                                                arrow=CM(    ('#006000', '#000000', '#006000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000C0', '#000000', '#0000C0', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                                arrow=CMS(   ('#006000', '#000000', '#FF0000', '#000000', '#0000C0', '#000000', '#303030', '#000000') ), \
                                                 text=CM(     ('#006000', '#000000', '#006000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000C0', '#000000', '#0000C0', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                                 marker=CM(   ('#006000', '#000000', '#006000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000C0', '#000000', '#0000C0', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddMayanAscendancy ] = self[ BoardType.MayanAscendancy ]
@@ -194,7 +240,7 @@ class Colors(dict):
                                               monolith=CP( ('#000000', '#FFFFFF') ), \
                                               aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                               field=CS(    ('#FFFFDF', '#FFFFDF', '#3FBF3F', '#3FBF3F') ), \
-                                              arrow=CM(    ('#006000', '#000000', '#006000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                              arrow=CMS(   ('#006000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
                                               text=CM(     ('#006000', '#000000', '#006000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                               marker=CM(   ('#006000', '#000000', '#006000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddAgeOfAquarius ] = self[ BoardType.AgeOfAquarius ]
@@ -204,7 +250,7 @@ class Colors(dict):
                                              monolith=CP( ('#000000', '#FFFFFF') ), \
                                              aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                              field=CS(    ('#FFFFFF', '#FFFFFF', '#500070', '#500070') ), \
-                                             arrow=CM(    ('#009000', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#3030FF', '#000000', '#3030FF', '#000000', '#909090', '#000000', '#909090', '#000000') ), \
+                                             arrow=CMS(   ('#009000', '#000000', '#FF0000', '#000000', '#3030FF', '#000000', '#909090', '#000000') ), \
                                              text=CM(     ('#009000', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#3030FF', '#000000', '#3030FF', '#000000', '#909090', '#000000', '#909090', '#000000') ), \
                                              marker=CM(   ('#009000', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#3030FF', '#000000', '#3030FF', '#000000', '#909090', '#000000', '#909090', '#000000') ) )
         self[ BoardType.OddMirandasVeil ] = self[ BoardType.MirandasVeil ]
@@ -214,7 +260,7 @@ class Colors(dict):
                                          monolith=CP( ('#000000', '#FFFFFF') ), \
                                          aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                          field=CS(    ('#DFDF7F', '#DFDF7F', '#FFFFFF', '#FFFFFF') ), \
-                                         arrow=CM(    ('#009000', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                         arrow=CMS(   ('#009000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
                                          text=CM(     ('#009000', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                          marker=CM(   ('#009000', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddNineteen ] = self[ BoardType.Nineteen ]
@@ -224,7 +270,7 @@ class Colors(dict):
                                             monolith=CP( ('#000000', '#FFFFFF') ), \
                                             aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                             field=CS(    ('#501008', '#501008', '#909090', '#909090') ), \
-                                            arrow=CM(    ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#FFFFFF', '#000000', '#FFFFFF', '#000000') ), \
+                                            arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#FFFFFF', '#000000') ), \
                                             text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#FFFFFF', '#000000', '#FFFFFF', '#000000') ), \
                                             marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#FFFFFF', '#000000', '#FFFFFF', '#000000') ) ) # C0C0C0
         self[ BoardType.OddHemerasDawn ] = self[ BoardType.HemerasDawn ]
@@ -234,7 +280,7 @@ class Colors(dict):
                                                     monolith=CP( ('#000000', '#FFFFFF') ), \
                                                     aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                                     field=CS(    ('#10F0E0', '#10F0E0', '#0030B0', '#0030B0') ), \
-                                                    arrow=CM(    ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                                    arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
                                                     text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                                     marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddTamoanchanRevisited ] = self[ BoardType.TamoanchanRevisited ]
@@ -245,7 +291,7 @@ class Colors(dict):
                                                    monolith=CP( ('#000000', '#FFFFFF') ), \
                                                    aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                                    field=CS(    ('#10F0E0', '#10F0E0', '#FF0000', '#FF0000') ), \
-                                                   arrow=CM(    ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                                   arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
                                                    text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                                    marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddConquestOfTlalocan ] = self[ BoardType.ConquestOfTlalocan ]
@@ -255,7 +301,7 @@ class Colors(dict):
                                           monolith=CP( ('#000000', '#FFFFFF') ), \
                                           aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                           field=CS(    ('#FFFFDF', '#FFFFDF', '#B0B0B0', '#B0B0B0') ), \
-                                          arrow=CM(    ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                          arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
                                           text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                           marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddDiscovery ] = self[ BoardType.Discovery ]
@@ -265,7 +311,7 @@ class Colors(dict):
                                     monolith=CP( ('#000000', '#FFFFFF') ), \
                                     aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                     field=CS(    ('#FFFFFF', '#FFFFFF', '#480064', '#480064') ), \
-                                    arrow=CM(    ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
+                                    arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#303030', '#000000') ), \
                                     text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ), \
                                     marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#303030', '#000000', '#303030', '#000000') ) )
         self[ BoardType.OddOne ] = self[ BoardType.One ]

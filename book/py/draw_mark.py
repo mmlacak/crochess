@@ -14,7 +14,7 @@ import pixel_math as pm
 from mark import MarkType, Arrow, Text, FieldMarker
 import def_mark as dm
 
-from colors import ColorsPair, ColorsMark
+from colors import ColorsPair, ColorsShade, ColorsMark, ColorsMarkSimple
 from draw import set_new_colors, Draw
 from draw_board import DrawBoard
 
@@ -26,12 +26,12 @@ def get_mark_color_pair(cmark=None, mark_type=None, is_light=None):
     if mark_type is None:
         return None
 
-    if is_light is None:
+    if is_light is None and isinstance(cmark, ColorsMark):
         return None
 
-    assert isinstance(cmark, ColorsMark)
+    assert isinstance(cmark, (ColorsMark, ColorsMarkSimple))
     assert isinstance(mark_type, MarkType)
-    assert isinstance(is_light, bool)
+    assert isinstance(is_light, (bool, NoneType))
 
     _map = { MarkType.none : None, \
              MarkType.Legal : cmark.legal, \
@@ -39,8 +39,10 @@ def get_mark_color_pair(cmark=None, mark_type=None, is_light=None):
              MarkType.Action : cmark.action, \
              MarkType.Blocked : cmark.blocked }
 
-    cshade = _map[ mark_type ]
-    cpair = cshade.light if is_light else cshade.dark
+    cpair = cshade = _map[ mark_type ]
+
+    if isinstance(cshade, ColorsShade):
+        cpair = cshade.light if is_light else cshade.dark
 
     return cpair
 
@@ -102,13 +104,13 @@ class DrawMark(Draw):
 
     def draw_all_arrows(self, arrows, adef=None, cmark=None, gc=None):
         # assert isinstance(adef, (ArrowDef, NoneType))
-        # assert isinstance(cmark, (ColorsMark, NoneType))
+        # assert isinstance(cmark, (ColorsMarkSimple, NoneType))
         # assert isinstance(gc, (gtk.gdk.GC, NoneType))
 
         for arrow in arrows:
             # assert isinstance(arrow, Arrow)
 
-            cpair = get_mark_color_pair(cmark=cmark, mark_type=arrow.mark_type, is_light=True)
+            cpair = get_mark_color_pair(cmark=cmark, mark_type=arrow.mark_type)
 
             self.draw_arrow(arrow, adef=adef, cpair=cpair, gc=gc)
 
@@ -149,7 +151,15 @@ class DrawMark(Draw):
         for text in texts:
             # assert isinstance(text, Text)
 
-            is_light = self.draw_board.board.is_light( int( text.pos[ 0 ] ), int( text.pos[ 1 ] ) )
+            x = int( text.pos[ 0 ] )
+            y = int( text.pos[ 1 ] )
+
+            # Top border is + 1.0 to field y coord --> int() yields coord of first field to the north,
+            # i.e. wrong one, because it's exactly of the opposite color.
+            x = x if float(x) < float(text.pos[ 0 ]) else x - 1
+            y = y if float(y) < float(text.pos[ 1 ]) else y - 1
+
+            is_light = self.draw_board.is_light( x, y )
 
             cpair = get_mark_color_pair(cmark=cmark, mark_type=text.mark_type, is_light=is_light)
 
@@ -212,7 +222,7 @@ class DrawMark(Draw):
         for field_marker in field_markers:
             # assert isinstance(field_marker, FieldMarker)
 
-            is_light = self.draw_board.board.is_light( *field_marker.field )
+            is_light = self.draw_board.is_light( *field_marker.field )
 
             cpair = get_mark_color_pair(cmark=cmark, mark_type=field_marker.mark_type, is_light=is_light)
 

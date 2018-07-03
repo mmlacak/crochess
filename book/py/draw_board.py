@@ -99,16 +99,16 @@ class DrawBoard(Draw):
         top_pix = self.board_top_pix + j_reverse * self.field_height_pix
         return (left_pix, top_pix)
 
+    def is_light(self, i, j):
+        return xor( self.board.is_light(i, j), self.board_desc.reverse_field_colors, default=False )
+
     def draw_field(self, i, j, cshade=None, gc=None):
         assert isinstance(cshade, (ColorsShade, NoneType))
 
         x_pix, y_pix = self.get_field_start_pix(i, j)
 
         if cshade is not None:
-            color = cshade.light \
-                    if xor( self.board.is_light(i, j), self.board_desc.reverse_field_colors, default=False ) \
-                    else cshade.dark
-
+            color = cshade.light if self.is_light(i, j) else cshade.dark
             self.draw_rectangle(x_pix, y_pix, self.field_width_pix, self.field_height_pix, filled=True, fg=color.interior, bg=color.outline, gc=gc)
         else:
             self.draw_rectangle(x_pix, y_pix, self.field_width_pix, self.field_height_pix, filled=True, gc=gc)
