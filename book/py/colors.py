@@ -24,7 +24,8 @@ class ColorsPair(object):
         return ColorsPair( *tpl[ 0 : 2 ] )
 
     def __str__(self):
-        return "<ColorsPair %s %s>" % self.as_tuple()
+        fmt = "<ColorsPair" + " %s" * 2 + ">"
+        return fmt % self.as_tuple()
 
 
 class ColorsShade(object):
@@ -50,7 +51,8 @@ class ColorsShade(object):
         return ColorsPiece.from_tuple( tpl )
 
     def __str__(self):
-        return "<ColorsShade %s %s %s %s>" % self.as_tuple()
+        fmt = "<ColorsShade" + " %s" * 4 + ">"
+        return fmt % self.as_tuple()
 
 
 class ColorsPiece(object):
@@ -76,7 +78,8 @@ class ColorsPiece(object):
         return ColorsShade.from_tuple( tpl )
 
     def __str__(self):
-        return "<ColorsPiece %s %s %s %s>" % self.as_tuple()
+        fmt = "<ColorsPiece" + " %s" * 4 + ">"
+        return fmt % self.as_tuple()
 
 
 class ColorsMark(object):
@@ -106,7 +109,8 @@ class ColorsMark(object):
                            blocked=ColorsShade.from_tuple( tpl[ 12 : 16 ] ) )
 
     def __str__(self):
-        return "<ColorsMark %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s>" % self.as_tuple()
+        fmt = "<ColorsMark" + " %s" * 16 + ">"
+        return fmt % self.as_tuple()
 
 
 class ColorsMarkSimple(object):
@@ -136,7 +140,8 @@ class ColorsMarkSimple(object):
                                  blocked=ColorsPair.from_tuple( tpl[ 6 : 8 ] ) )
 
     def __str__(self):
-        return "<ColorsMarkSimple %s %s %s %s %s %s %s %s>" % self.as_tuple()
+        fmt = "<ColorsMarkSimple" + " %s" * 8 + ">"
+        return fmt % self.as_tuple()
 
 
 class ColorsItem(object):
@@ -181,7 +186,8 @@ class ColorsItem(object):
                             marker=ColorsMark.from_tuple( tpl[ 40 : 56 ] ) )
 
     def __str__(self):
-        return "<ColorsItem %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s>" % self.as_tuple()
+        fmt = "<ColorsItem" + " %s" * 56 + ">"
+        return fmt % self.as_tuple()
 
 
 class Colors(dict):
@@ -317,3 +323,20 @@ class Colors(dict):
         self[ BoardType.OddOne ] = self[ BoardType.One ]
 
 Colors = Colors()
+
+
+def test_1():
+    clr = Colors[ BoardType.Classical ]
+
+    print
+    print clr
+    print
+    print clr.piece
+    print clr.monolith
+    print clr.arrow
+    print clr.text
+    print
+
+
+if __name__ == '__main__':
+    test_1()
