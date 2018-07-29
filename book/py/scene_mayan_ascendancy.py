@@ -174,8 +174,8 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(*start, piece=PieceType.Pegasus)
         self.board.set_piece(5, 0, piece=PieceType.Queen)
 
-        self.append_text("1", 7, 7, mark_type=MarkType.Blocked)
-        self.append_text("2", 3, 5, mark_type=MarkType.Blocked)
+        self.append_text("1", 7, 7, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        self.append_text("2", 3, 5, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         # direction <-2, 1>
         coords = call_gen( get_gen_steps_prev(start=start, rel=(-2, 1)) )
