@@ -505,6 +505,7 @@ class SceneMayanAscendancyMixin(Scene):
 
         start = (10, 1)
         self.board.set_piece(*start, piece=PieceType.Queen)
+        self.board.set_piece(2, 6, piece=PieceType.Bishop)
 
         pyramid_1 = (5, 6)
         self.board.set_piece(*pyramid_1, piece=PieceType.Pyramid)
@@ -546,6 +547,7 @@ class SceneMayanAscendancyMixin(Scene):
 
         start = (5, 6)
         self.board.set_piece(*start, piece=PieceType.Queen)
+        self.board.set_piece(2, 6, piece=PieceType.Bishop)
 
         pyramid_2 = (8, 6)
         self.board.set_piece(*pyramid_2, piece=PieceType.Pyramid)
@@ -559,16 +561,16 @@ class SceneMayanAscendancyMixin(Scene):
         coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
-        self.append_text("3", *coords())
-        self.append_text("4", *coords())
-        self.append_text("5", *coords())
+        self.append_text("3", *coords(), mark_type=MarkType.Blocked)
+        self.append_text("4", *coords(), mark_type=MarkType.Blocked)
+        self.append_text("5", *coords(), mark_type=MarkType.Blocked)
 
         # direction <0, 1>
         coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
@@ -627,6 +629,7 @@ class SceneMayanAscendancyMixin(Scene):
         self.init_scene(bt)
 
         self.board.set_piece(5, 6, piece=PieceType.Queen)
+        self.board.set_piece(2, 6, piece=PieceType.Bishop)
 
         start = (8, 6)
         self.board.set_piece(*start, piece=PieceType.Pyramid)
@@ -684,6 +687,7 @@ class SceneMayanAscendancyMixin(Scene):
         self.init_scene(bt)
 
         self.board.set_piece(5, 6, piece=PieceType.Queen)
+        self.board.set_piece(2, 6, piece=PieceType.Bishop)
 
         pyramid_1 = (8, 6)
         self.board.set_piece(*pyramid_1, piece=PieceType.Pyramid)

@@ -63,8 +63,9 @@ To do either of these things, Pyramid does not have to have any remaining
 momentum, it's enough if piece in question is within reach.
 
 Pyramid can also activate other Pyramid, and transfer remaining momentum to it.
-There has to be remaining momentum, it must be greater than 0 for activation
-to be permitted.
+There has to be remaining momentum, it must be greater than 0 for cascading
+to be permitted. Pyramid cannot activate any other piece, neither own nor
+opponent's.
 
 In algebraic notation symbol for Pyramid is 'A', to avoid confusion with Pawn.
 
@@ -222,9 +223,9 @@ enough momentum from activating piece.
 % \centering
 \end{figure}
 
-For classic pieces, step-fields are just fields which piece traveled over,
-in case of Bishop above that is 4 fields. Again, that is momentum Pyramid
-will receive with activation and limits how far it could move afterwards.
+In example above, Bishop is travelling over 4 step-fields to reach for Pyramid,
+and so that is momentum Pyramid will receive when activated by the Bishop.
+This is also limit how far Pyramid could move after being activated.
 
 \clearpage % ..........................................................
 
@@ -345,8 +346,8 @@ light Pawn be rushed to any numbered field.
 
 Once activated, Pyramid can also activate another Pyramid. To do so, activated
 Pyramid has to have at least 1 remaining momentum to transfer it to another
-Pyramid. If all momentum received was spent moving, Pyramid cannot activate
-another Pyramid.
+Pyramid. If all momentum received was spent moving, Pyramid cannot cascade, i.e.
+activate another Pyramid.
 
 \clearpage % ..........................................................
 
@@ -361,7 +362,8 @@ another Pyramid.
 
 Pyramid 1 has been activated by Queen and received momentum of 5, arrows now show
 its' all possible moves. Note, Pyramid 3 can't be activated, it's on the very end
-of fields reachable by Pyramid 1.
+of fields reachable by Pyramid 1. Note also that Pyramid 1 can't activate, nor move
+past light Bishop on the left.
 
 \clearpage % ..........................................................
 
