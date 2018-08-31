@@ -67,10 +67,10 @@ class DrawMark(Draw):
         arrow.end_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.end )
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = adef.inv_width_ratio if adef is not None else dm.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
+        inv_width_ratio = adef.inv_width_ratio # if adef is not None else dm.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
 
         # pointy_bit_ratio - compared to arrow width
-        pointy_bit_ratio = adef.pointy_bit_ratio if adef is not None else dm.DEFAULT_ARROW_POINTY_BIT_RATIO
+        pointy_bit_ratio = adef.pointy_bit_ratio # if adef is not None else dm.DEFAULT_ARROW_POINTY_BIT_RATIO
 
         width = self.draw_board.field_width_pix / inv_width_ratio
         distance = width / 2.0

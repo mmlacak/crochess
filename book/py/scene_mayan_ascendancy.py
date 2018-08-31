@@ -138,7 +138,7 @@ class SceneMayanAscendancyMixin(Scene):
 
         # capture-fields
         self.append_arrow(4, 2, 3, 3, mark_type=MarkType.Action)
-        self.append_arrow(4, 2, 5, 3)
+        self.append_arrow(4, 2, 5, 3, mark_type=MarkType.Blocked)
 
         self.append_text("1", 4, 2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 

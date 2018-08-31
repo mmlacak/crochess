@@ -63,12 +63,17 @@ def get_gen_steps(start=(0, 0), rel=(1, 1)):
 
     return gen_steps
 
-def get_gen_steps_prev(start=(0, 0), rel=(1, 1)):
+def get_gen_steps_prev(start=None, rel=(1, 1), end=None):
     def gen_steps():
-        prev = current = start
+        prev = current = start or end
+        reverse = start is None
+        _rel = tuple( (-i) for i in rel ) if reverse else rel
         while True:
-            current = add(current, rel)
-            yield prev + current # (i, j) + (k, l) --> (i, j, k, l)
+            current = add(current, _rel)
+            if not reverse:
+                yield prev + current # (i, j) + (k, l) --> (i, j, k, l)
+            else:
+                yield current + prev # (k, l) + (i, j)  --> (k, l, i, j)
             prev = current
 
     return gen_steps

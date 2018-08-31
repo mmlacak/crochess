@@ -72,15 +72,15 @@ Opponent's pieces on step-fields would, naturally, be captured.
 
 In all variants prior to this one promotion was forced, Pawn had to be
 promoted immediately upon reaching opposite end of chessboard (or when
-reached by own Pyramid on opponent's side of board). Promotion is described
-in details here: \\
+reached by own Pyramid on opponent's side of board). Promotion otherwise
+is identical to one in Classical Chess, which is described in details here: \\
 \href{https://en.wikipedia.org/wiki/Promotion\_(chess)}{https://en.wikipedia.org/wiki/Promotion\_(chess)}.
 
 In this variant promotion is not forced, Pawn does not have to be promoted
-immediately, or at all. Moreover, Pawn can be actually promoted later in game,
-if it hasn't moved between being tagged for promotion and actual promotion
-itself. Delayed promotion is a complete move, it can contain only promotion
-of one Pawn and nothing else.
+immediately. Moreover, Pawn can be actually promoted later in game, if it
+hasn't moved between being tagged for promotion and actual promotion itself.
+Delayed promotion is a complete move, it can contain only promotion of one
+Pawn and nothing else.
 
 \clearpage % ..........................................................
 
@@ -93,8 +93,9 @@ of one Pawn and nothing else.
 % \centering
 \end{figure}
 
-With light player's turn, next move is to promote Pawn 2 using Pyramid
-activated by Bishop.
+Here, light player is about to tag Pawn 2 for promotion, using Pyramid
+activated by Bishop. Note, Pawn 3 is not yet eligible for promotion, as it's
+still on own side of chessboard.
 
 \clearpage % ..........................................................
 
@@ -107,20 +108,30 @@ activated by Bishop.
 % \centering
 \end{figure}
 
-Pawn 2 is now tagged for promotion but not yet promoted, dark Unicorn approaches.
+To speed things up, next images show dark player's response (grey arrow),
+and light player's plan for next move (green arrow). Each depicted position
+is after dark player's move, but before light player's move.
+
+Here, dark Unicorn is attacking tagged Pawn 2. Pawn 2 is to move next.
 
 \clearpage % ..........................................................
 
 \noindent
 % \begin{figure}[t]
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_05_delayed_promo_pawn_1_to_promo.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_05_delayed_promo_pawn_2_moved.png}
 \caption{Pawn 1 about to get promotion}
-\label{fig:scn_aoa_05_delayed_promo_pawn_1_to_promo}
+\label{fig:scn_aoa_05_delayed_promo_pawn_2_moved}
 % \centering
 \end{figure}
 
-Dark Unicorn closed in, light Pawn 1 about to move to get promotion.
+Dark Unicorn closed in, attacking both Pawn 2 and Bishop. Since Pawn 2 moved
+away from field P at which it was tagged for promotion, that opportunity has
+been lost, and can't be recovered. Label P on a field just marks where Pawn 2
+was tagged for promotion. Field P isn't special in any way, it won't make e.g.
+Pawn 3 tagged for promotion when reached.
+
+Light Pawn 1 is about to go next.
 
 \clearpage % ..........................................................
 
@@ -133,61 +144,28 @@ Dark Unicorn closed in, light Pawn 1 about to move to get promotion.
 % \centering
 \end{figure}
 
-Pawn 1 is now tagged for promotion, dark Unicorn to again close in.
+Light Pawn 1 is now tagged for promotion, and is to be promoted later.
+Dark Unicorn closed in again, capturing light Bishop.
+
+Light Pawn 2 is about to go next.
 
 \clearpage % ..........................................................
 
 \noindent
 % \begin{figure}[t]
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_07_delayed_promo_pawn_2_attacked.png}
-\caption{Pawn 2 under attack}
-\label{fig:scn_aoa_07_delayed_promo_pawn_2_attacked}
-% \centering
-\end{figure}
-
-Pawn 2 is now under attack, and has to move.
-
-\clearpage % ..........................................................
-
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_08_delayed_promo_pawn_2_moved.png}
-\caption{Pawn 2 moved}
-\label{fig:scn_aoa_08_delayed_promo_pawn_2_moved}
-% \centering
-\end{figure}
-
-Pawn 2 moved, and with it lost it's promotion opportunity.
-
-\clearpage % ..........................................................
-
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_09_delayed_promo_split_attack.png}
-\caption{Pawn 2 and Bishop attacked}
-\label{fig:scn_aoa_09_delayed_promo_split_attack}
-% \centering
-\end{figure}
-
-Pawn 2 and Bishop attacked ...
-
-\clearpage % ..........................................................
-
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_10_delayed_promo_pawn_1_promoted.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_07_delayed_promo_pawn_1_promoted.png}
 \caption{Pawn 1 promoted}
-\label{fig:scn_aoa_10_delayed_promo_pawn_1_promoted}
+\label{fig:scn_aoa_07_delayed_promo_pawn_1_promoted}
 % \centering
 \end{figure}
 
-Pawn 1 promoted ...
+Dark Unicorn captures light Pawn 2.
+
+Light Pawn 1 is promoted to Queen.
 
 \clearpage % ..........................................................
+% Converting tagged Pawn ----------------------------------------------
 
 \subsection*{Converting tagged Pawn}
 \addcontentsline{toc}{subsection}{Converting tagged Pawn}
@@ -242,17 +220,10 @@ As with ordinary rush, it can only be performed from Pawn's initial position.
 
 Generaly, all Pawns (own or converted) can be rushed up to the (and including)
 furthest own row of chessboard, i.e. after rush they still have to reside on
-own side of the board. Pawns can only be rushed from Pawn and figure rows.
+own side of the board. Pawns can only be rushed from
+\hyperref[sec:Terms/Pawn row]{Pawn} and \hyperref[sec:Terms/Figure row]{figure} rows.
 
-\clearpage % ..........................................................
-
-\subsection*{Activating tagged Pawn}
-\addcontentsline{toc}{subsection}{Activating tagged Pawn}
-
-Activating own Pawns tagged for promotion ...
-
-Activating opponent's Pawns tagged for promotion ...
-
+% ---------------------------------------------- Converting tagged Pawn
 % *********************************************************** Promotion
 \clearpage % ..........................................................
 

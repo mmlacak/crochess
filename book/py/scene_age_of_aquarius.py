@@ -62,7 +62,7 @@ class SceneAgeOfAquariusMixin(Scene):
 
         startB = (12, 5)
         startA = (7, 10)
-        startP1 = (8, 12)
+        startP1 = (11, 12)
         startP2 = (4, 10)
         startP3 = (4, 6)
 
@@ -71,7 +71,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.board.set_piece(*startP3, piece=PieceType.Pawn)
         self.board.set_piece(*startA, piece=PieceType.Pyramid)
         self.board.set_piece(*startB, piece=PieceType.Bishop)
-        self.board.set_piece(4, 1, piece=-PieceType.Unicorn)
+        self.board.set_piece(4, 4, piece=-PieceType.Unicorn)
 
         self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
@@ -98,8 +98,8 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.init_scene(bt)
 
-        startU = (4, 1)
-        startP1 = (8, 12)
+        endU = (3, 6)
+        startP1 = (11, 12)
         startP2 = (4, 10)
         startP3 = (4, 6)
 
@@ -107,113 +107,32 @@ class SceneAgeOfAquariusMixin(Scene):
         self.board.set_piece(*startP2, piece=PieceType.Pawn)
         self.board.set_piece(*startP3, piece=PieceType.Pawn)
         self.board.set_piece(7, 10, piece=PieceType.Bishop)
-        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
+        self.board.set_piece(*endU, piece=-PieceType.Unicorn)
 
         self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
-        self.append_field_marker( *startP2, mark_type=MarkType.Action )
-
-        # direction <-1, 4>
-        coords = call_gen( get_gen_steps_prev(start=startU, rel=(-1, 4)) )
-        self.append_arrow( *coords() )
-
-        return 'scn_aoa_04_delayed_promo_pawn_2_tagged'
-
-    def scn_aoa_05_delayed_promo_pawn_1_to_promo(self, bt=BoardType.AgeOfAquarius):
-        # move_unicorn_pawn_1_to_promo
-
-        self.init_scene(bt)
-
-        startU = (3, 5)
-        startP1 = (8, 12)
-        startP2 = (4, 10)
-        startP3 = (4, 6)
-
-        self.board.set_piece(*startP1, piece=PieceType.Pawn)
-        self.board.set_piece(*startP2, piece=PieceType.Pawn)
-        self.board.set_piece(*startP3, piece=PieceType.Pawn)
-        self.board.set_piece(7, 10, piece=PieceType.Bishop)
-        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
-
-        self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-
-        self.append_field_marker( *startP2, mark_type=MarkType.Action )
-
-        # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(0, 1)) )
-        self.append_arrow( *coords() )
-
-        return 'scn_aoa_05_delayed_promo_pawn_1_to_promo'
-
-    def scn_aoa_06_delayed_promo_pawn_1_tagged(self, bt=BoardType.AgeOfAquarius):
-        # move_unicorn_pawn_1_tagged
-
-        self.init_scene(bt)
-
-        startU = (3, 5)
-        startP1 = (8, 13)
-        startP2 = (4, 10)
-        startP3 = (4, 6)
-
-        self.board.set_piece(*startP1, piece=PieceType.Pawn)
-        self.board.set_piece(*startP2, piece=PieceType.Pawn)
-        self.board.set_piece(*startP3, piece=PieceType.Pawn)
-        self.board.set_piece(7, 10, piece=PieceType.Bishop)
-        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
-
-        self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-
-        self.append_field_marker( *startP1, mark_type=MarkType.Action )
-        self.append_field_marker( *startP2, mark_type=MarkType.Action )
+        self.append_field_marker( *startP2, mark_type=MarkType.Legal ) # Action
 
         # direction <-1, 2>
-        coords = call_gen( get_gen_steps_prev(start=startU, rel=(-1, 2)) )
-        self.append_arrow( *coords() )
-
-        return 'scn_aoa_06_delayed_promo_pawn_1_tagged'
-
-    def scn_aoa_07_delayed_promo_pawn_2_attacked(self, bt=BoardType.AgeOfAquarius):
-        # move_unicorn_pawn_2_attacked
-
-        self.init_scene(bt)
-
-        startU = (2, 7)
-        startP1 = (8, 13)
-        startP2 = (4, 10)
-        startP3 = (4, 6)
-
-        self.board.set_piece(*startP1, piece=PieceType.Pawn)
-        self.board.set_piece(*startP2, piece=PieceType.Pawn)
-        self.board.set_piece(*startP3, piece=PieceType.Pawn)
-        self.board.set_piece(7, 10, piece=PieceType.Bishop)
-        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
-
-        self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-
-        self.append_field_marker( *startP1, mark_type=MarkType.Action )
-        self.append_field_marker( *startP2, mark_type=MarkType.Action )
+        coords = call_gen( get_gen_steps_prev(end=endU, rel=(-1, 2)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # direction <0, 1>
         coords = call_gen( get_gen_steps_prev(start=startP2, rel=(0, 1)) )
         self.append_arrow( *coords() )
 
-        return 'scn_aoa_07_delayed_promo_pawn_2_attacked'
+        return 'scn_aoa_04_delayed_promo_pawn_2_tagged'
 
-    def scn_aoa_08_delayed_promo_pawn_2_moved(self, bt=BoardType.AgeOfAquarius):
-        # move_unicorn_pawn_2_moved
+    def scn_aoa_05_delayed_promo_pawn_2_moved(self, bt=BoardType.AgeOfAquarius):
+        # scn_aoa_05_delayed_promo_pawn_1_to_promo
+        # move_unicorn_pawn_1_to_promo
 
         self.init_scene(bt)
 
-        startU = (2, 7)
-        startP1 = (8, 13)
+        endU = (5, 9)
+        startP1 = (11, 12)
         startP2 = (4, 11)
         startP3 = (4, 6)
 
@@ -221,67 +140,78 @@ class SceneAgeOfAquariusMixin(Scene):
         self.board.set_piece(*startP2, piece=PieceType.Pawn)
         self.board.set_piece(*startP3, piece=PieceType.Pawn)
         self.board.set_piece(7, 10, piece=PieceType.Bishop)
-        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
+        self.board.set_piece(*endU, piece=-PieceType.Unicorn)
 
         self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("P", 4, 10, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("P", 4, 10, mark_type=MarkType.Ilegal, rect=(0.15, 1.0, 0.7, 0.45))
 
-        self.append_field_marker( *startP1, mark_type=MarkType.Action )
+        # direction <2, 3>
+        coords = call_gen( get_gen_steps_prev(end=endU, rel=(2, 3)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        # direction <3, 2>
-        coords = call_gen( get_gen_steps_prev(start=startU, rel=(3, 2)) )
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(0, 1)) )
         self.append_arrow( *coords() )
 
-        return 'scn_aoa_08_delayed_promo_pawn_2_moved'
+        return 'scn_aoa_05_delayed_promo_pawn_2_moved'
 
-    def scn_aoa_09_delayed_promo_split_attack(self, bt=BoardType.AgeOfAquarius):
-        # move_unicorn_pawn_2_and_bishop_attacked
+    def scn_aoa_06_delayed_promo_pawn_1_tagged(self, bt=BoardType.AgeOfAquarius):
+        # scn_aoa_06_delayed_promo_pawn_1_tagged
+        # move_unicorn_pawn_1_tagged
 
         self.init_scene(bt)
 
-        startU = (5, 9)
-        startP1 = (8, 13)
+        endU = (7, 10)
+        startP1 = (11, 13)
         startP2 = (4, 11)
         startP3 = (4, 6)
 
         self.board.set_piece(*startP1, piece=PieceType.Pawn)
         self.board.set_piece(*startP2, piece=PieceType.Pawn)
         self.board.set_piece(*startP3, piece=PieceType.Pawn)
-        self.board.set_piece(7, 10, piece=PieceType.Bishop)
-        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
+        self.board.set_piece(*endU, piece=-PieceType.Unicorn)
 
         self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("P", 4, 10, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("P", 4, 10, mark_type=MarkType.Ilegal, rect=(0.15, 1.0, 0.7, 0.45))
 
-        self.append_field_marker( *startP1, mark_type=MarkType.Action )
+        # direction <2, 1>
+        coords = call_gen( get_gen_steps_prev(end=endU, rel=(2, 1)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        return 'scn_aoa_09_delayed_promo_split_attack'
+        # direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(0, 1)) )
+        self.append_arrow( *coords() )
 
-    def scn_aoa_10_delayed_promo_pawn_1_promoted(self, bt=BoardType.AgeOfAquarius):
-        # move_unicorn_pawn_1_promoted
+        self.append_field_marker( *startP1, mark_type=MarkType.Legal )
+
+        return 'scn_aoa_06_delayed_promo_pawn_1_tagged'
+
+    def scn_aoa_07_delayed_promo_pawn_1_promoted(self, bt=BoardType.AgeOfAquarius):
+        # scn_aoa_07_delayed_promo_pawn_2_attacked
+        # move_unicorn_pawn_2_attacked
 
         self.init_scene(bt)
 
-        startU = (5, 9)
-        startQ = (8, 13)
-        startP2 = (4, 11)
+        endU = (4, 12)
+        startQ = (11, 13)
         startP3 = (4, 6)
 
         self.board.set_piece(*startQ, piece=PieceType.Queen)
-        self.board.set_piece(*startP2, piece=PieceType.Pawn)
         self.board.set_piece(*startP3, piece=PieceType.Pawn)
-        self.board.set_piece(7, 10, piece=PieceType.Bishop)
-        self.board.set_piece(*startU, piece=-PieceType.Unicorn)
+        self.board.set_piece(*endU, piece=-PieceType.Unicorn)
 
-        self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("P", 4, 10, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("P", 4, 10, mark_type=MarkType.Ilegal, rect=(0.15, 1.0, 0.7, 0.45))
 
-        return 'scn_aoa_10_delayed_promo_pawn_1_promoted'
+        # direction <3, 2>
+        coords = call_gen( get_gen_steps_prev(end=endU, rel=(-3, 2)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        return 'scn_aoa_07_delayed_promo_pawn_1_promoted'
 
     #
     # Converting tagged Pawn

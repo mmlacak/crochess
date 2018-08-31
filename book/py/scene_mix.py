@@ -19,7 +19,11 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_20_wave_activation_by_pawn', \
+                    'scn_aoa_03_delayed_promo_init', \
+                    'scn_aoa_04_delayed_promo_pawn_2_tagged', \
+                    'scn_aoa_05_delayed_promo_pawn_2_moved', \
+                    'scn_aoa_06_delayed_promo_pawn_1_tagged', \
+                    'scn_aoa_07_delayed_promo_pawn_1_promoted', \
                 ]
 
     def _get_all_scene_method_names(self):
