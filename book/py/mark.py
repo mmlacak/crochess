@@ -8,7 +8,7 @@
 class MarkType(int):
     none = 0
     Legal = 1
-    Ilegal = 2
+    Illegal = 2
     Action = 3
     Blocked = 4
 
@@ -21,7 +21,7 @@ class MarkType(int):
     @staticmethod
     def iter(include_none=False, do_construct=True):
         lst =  [ MarkType.Legal, \
-                 MarkType.Ilegal, \
+                 MarkType.Illegal, \
                  MarkType.Action, \
                  MarkType.Blocked ]
 

@@ -39,6 +39,24 @@ DEFAULT_UNICORN_REL_LONG_MOVES = [ ( 4,  1),    \
                                    ( 3, -2),    \
                                    ( 4, -1)     ]
 
+DEFAULT_NEIGHBOURING_REL_MOVES = [ ( 1,  0), \
+                                   ( 0,  1), \
+                                   (-1,  0), \
+                                   ( 0, -1) ]
+
+DEFAULT_KING_REL_MOVES = [ ( 1,  0), \
+                           ( 1,  1), \
+
+                           ( 0,  1), \
+                           (-1,  1), \
+
+                           (-1,  0), \
+                           (-1, -1), \
+
+                           ( 0, -1), \
+                           ( 1, -1) ]
+
+
 
 def add(pos1, pos2):
     return ( pos1[0] + pos2[0], pos1[1] + pos2[1] )

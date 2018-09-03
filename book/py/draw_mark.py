@@ -35,7 +35,7 @@ def get_mark_color_pair(cmark=None, mark_type=None, is_light=None):
 
     _map = { MarkType.none : None, \
              MarkType.Legal : cmark.legal, \
-             MarkType.Ilegal : cmark.ilegal, \
+             MarkType.Illegal : cmark.illegal, \
              MarkType.Action : cmark.action, \
              MarkType.Blocked : cmark.blocked }
 
@@ -271,7 +271,7 @@ def test_2(board_desc=None, name=''):
 
     fdef = dm.FontDef('sans bold', 3.5)
     txts = [ Text("l1", 1.7, 2.3, mark_type=MarkType(MarkType.Legal)), \
-             Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Ilegal)), \
+             Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Illegal)), \
              Text("a1", 2.7, 6.3, mark_type=MarkType(MarkType.Action)), \
              Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Blocked)), \
              Text("WW", 5.3, 5.4, mark_type=MarkType(MarkType.Blocked)), \
@@ -280,7 +280,7 @@ def test_2(board_desc=None, name=''):
 
     fdef2 = dm.FontDef('sans bold', 4.5)
     txts2 = [ Text("l2", 100, 200, mark_type=MarkType(MarkType.Legal)), \
-              Text("i2", 300, 900, mark_type=MarkType(MarkType.Ilegal)), \
+              Text("i2", 300, 900, mark_type=MarkType(MarkType.Illegal)), \
               Text("a2", 600, 500, mark_type=MarkType(MarkType.Action)), \
               Text("f2", 800, 300, mark_type=MarkType(MarkType.Blocked)), \
               Text("WW", 300, 300, mark_type=MarkType(MarkType.Blocked)),\
@@ -302,14 +302,14 @@ def test_3(board_desc=None, name=''):
     d.draw_board.draw_board( Colors[BoardType.Classical] )
 
     fms = [ FieldMarker(1, 2, mark_type=MarkType(MarkType.Legal)), \
-            FieldMarker(6, 4, mark_type=MarkType(MarkType.Ilegal)), \
+            FieldMarker(6, 4, mark_type=MarkType(MarkType.Illegal)), \
             FieldMarker(2, 6, mark_type=MarkType(MarkType.Action)), \
             FieldMarker(4, 5, mark_type=MarkType(MarkType.Blocked)),  ]
     d.draw_all_field_markers(fms, cmark=Colors[BoardType.Classical].marker)
 
     fmdef = dm.FieldMarkerDef(7.0)
     fms2 = [ FieldMarker(2, 1, mark_type=MarkType(MarkType.Legal)), \
-             FieldMarker(7, 5, mark_type=MarkType(MarkType.Ilegal)), \
+             FieldMarker(7, 5, mark_type=MarkType(MarkType.Illegal)), \
              FieldMarker(3, 7, mark_type=MarkType(MarkType.Action)), \
              FieldMarker(5, 4, mark_type=MarkType(MarkType.Blocked)),  ]
     d.draw_all_field_markers(fms2, fmdef=fmdef, cmark=Colors[BoardType.Classical].marker, draw_outlined=True)

@@ -145,7 +145,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("P", 4, 10, mark_type=MarkType.Ilegal, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("P", 4, 10, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <2, 3>
         coords = call_gen( get_gen_steps_prev(end=endU, rel=(2, 3)) )
@@ -176,7 +176,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("1", *startP1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("2", *startP2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("P", 4, 10, mark_type=MarkType.Ilegal, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("P", 4, 10, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <2, 1>
         coords = call_gen( get_gen_steps_prev(end=endU, rel=(2, 1)) )
@@ -205,7 +205,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.board.set_piece(*endU, piece=-PieceType.Unicorn)
 
         self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("P", 4, 10, mark_type=MarkType.Ilegal, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("P", 4, 10, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <3, 2>
         coords = call_gen( get_gen_steps_prev(end=endU, rel=(-3, 2)) )

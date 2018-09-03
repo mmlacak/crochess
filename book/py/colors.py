@@ -83,28 +83,28 @@ class ColorsPiece(object):
 
 
 class ColorsMark(object):
-    def __init__(self, legal, ilegal, action, blocked):
+    def __init__(self, legal, illegal, action, blocked):
 
         assert isinstance(legal, ColorsShade)
-        assert isinstance(ilegal, ColorsShade)
+        assert isinstance(illegal, ColorsShade)
         assert isinstance(action, ColorsShade)
         assert isinstance(blocked, ColorsShade)
 
         self.legal = legal
-        self.ilegal = ilegal
+        self.illegal = illegal
         self.action = action
         self.blocked = blocked
 
     def as_tuple(self):
         return self.legal.as_tuple() + \
-               self.ilegal.as_tuple() + \
+               self.illegal.as_tuple() + \
                self.action.as_tuple() + \
                self.blocked.as_tuple()
 
     @staticmethod
     def from_tuple(tpl):
         return ColorsMark( legal=ColorsShade.from_tuple( tpl[ 0 : 4 ] ), \
-                           ilegal=ColorsShade.from_tuple( tpl[ 4 : 8 ] ), \
+                           illegal=ColorsShade.from_tuple( tpl[ 4 : 8 ] ), \
                            action=ColorsShade.from_tuple( tpl[ 8 : 12 ] ), \
                            blocked=ColorsShade.from_tuple( tpl[ 12 : 16 ] ) )
 
@@ -114,28 +114,28 @@ class ColorsMark(object):
 
 
 class ColorsMarkSimple(object):
-    def __init__(self, legal, ilegal, action, blocked):
+    def __init__(self, legal, illegal, action, blocked):
 
         assert isinstance(legal, ColorsPair)
-        assert isinstance(ilegal, ColorsPair)
+        assert isinstance(illegal, ColorsPair)
         assert isinstance(action, ColorsPair)
         assert isinstance(blocked, ColorsPair)
 
         self.legal = legal
-        self.ilegal = ilegal
+        self.illegal = illegal
         self.action = action
         self.blocked = blocked
 
     def as_tuple(self):
         return self.legal.as_tuple() + \
-               self.ilegal.as_tuple() + \
+               self.illegal.as_tuple() + \
                self.action.as_tuple() + \
                self.blocked.as_tuple()
 
     @staticmethod
     def from_tuple(tpl):
         return ColorsMarkSimple( legal=ColorsPair.from_tuple( tpl[ 0 : 2 ] ), \
-                                 ilegal=ColorsPair.from_tuple( tpl[ 2 : 4 ] ), \
+                                 illegal=ColorsPair.from_tuple( tpl[ 2 : 4 ] ), \
                                  action=ColorsPair.from_tuple( tpl[ 4 : 6 ] ), \
                                  blocked=ColorsPair.from_tuple( tpl[ 6 : 8 ] ) )
 
@@ -195,10 +195,10 @@ class Colors(dict):
         CP = ColorsPair.from_tuple # (<interior>, <outline>)
         CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)
         CM = ColorsMark.from_tuple # ( <legal light interior>, <legal light outline>, <legal dark interior>, <legal dark outline>, \
-                                   #   <ilegal light interior>, <ilegal light outline>, <ilegal dark interior>, <ilegal dark outline>, \
+                                   #   <illegal light interior>, <illegal light outline>, <illegal dark interior>, <illegal dark outline>, \
                                    #   <action light interior>, <action light outline>, <action dark interior>, <action dark outline>, \
                                    #   <blocked light interior>, <blocked light outline>, <blocked dark interior>, <blocked dark outline> )
-        CMS = ColorsMarkSimple.from_tuple # ( <legal interior>, <legal outline>, <ilegal interior>, <ilegal outline>, <action interior>, <action outline>, <blocked interior>, <blocked outline> )
+        CMS = ColorsMarkSimple.from_tuple # ( <legal interior>, <legal outline>, <illegal interior>, <illegal outline>, <action interior>, <action outline>, <blocked interior>, <blocked outline> )
         CI = ColorsItem # ...
 
 

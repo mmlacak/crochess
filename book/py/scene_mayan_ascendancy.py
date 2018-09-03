@@ -719,7 +719,7 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(2, 1, PieceType.Queen)
 
         self.append_arrow(2, 1, 3, 0)
-        self.append_arrow(3, 0, 4, 0, mark_type=MarkType.Ilegal )
+        self.append_arrow(3, 0, 4, 0, mark_type=MarkType.Illegal )
 
         return 'scn_ma_20_pyramid_vs_king'
 

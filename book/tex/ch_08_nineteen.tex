@@ -1,5 +1,5 @@
 
-% Nineteen chapter ----------------------------------------------------
+% Nineteen chapter ====================================================
 \chapter*{Nineteen}
 \addcontentsline{toc}{chapter}{Nineteen}
 
@@ -12,35 +12,129 @@
 \noindent
 Nineteen is chess variant which is played on 18 x 18 board, with
 light gold-yellow and white fields and gold-yellow and dark gray
-pieces. Star colors are the same as for ordinary pieces, i.e.
-gold-yellow and dark gray. In algebraic notation, columns are
-enumerated from 'a' to 'r', and rows are enumerated from '1' to '18'.
-A new piece is introduced, Star.
-
-\textbf{\huge{TODO :: Star colors !!!}} % TODO :: FIX ME !!!
+pieces.In algebraic notation, columns are enumerated from 'a' to 'r',
+and rows are enumerated from '1' to '18'. A new piece is introduced,
+Star. Star colors are the same as for ordinary pieces, i.e. gold-yellow
+and dark gray.
 
 \clearpage % ..........................................................
+% Star ****************************************************************
 
 \section*{Star}
 \addcontentsline{toc}{section}{Star}
 
 \noindent
-\begin{wrapfigure}{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/11_star.png}
 \caption{Star}
 \label{fig:11_star}
 \end{wrapfigure}
+Star is a dormant piece, it does not belong to any player, and can't be moved by either.
 
-Pawn cannot be promoted to Star.
-Star cannot be converted, nor activated.
+Stars are positioned in very corners of chessboard, light Stars in lower left and upper right
+corners, dark Stars in lower right and upper left corners.
+
+Star is a teleporting piece. Teleportation is initiated by any piece diving into a Star, by
+touching a Star or field at which it stands (as if trying to capture Star). Piece in question
+then reappears on any non-occupied portal-field near Star in opposite color. Teleportation is
+not limited by matching colors of a piece and a Star, any piece can use any Star to start
+teleporting.
+
+Player initiating teleportation can choose which opposite color Star will be destination, and
+at which empty portal-field piece will reappear. If there is no empty portal-field near both
+opposite color Stars, piece is removed from chessboard as if it has been captured.
+
+Kings cannot be teleported, it's illegal for a King to dive into a Star.
+
+Pawns cannot be promoted to a Star.
+
+\clearpage % ..........................................................
+
+\subsection*{Portal-fields}
+\addcontentsline{toc}{subsection}{Portal-fields}
+
+\noindent
+\begin{wrapfigure}{l}{0.5\textwidth}
+\centering
+\includegraphics[width=0.388888888889\textwidth, keepaspectratio=true]{examples/12_n/scn_n_01_portal_fields.png}
+\caption{Portal-fields}
+\label{fig:scn_n_01_portal_fields}
+\end{wrapfigure}
+Portal-fields are all fields immediately surrounding a particular field horizontally,
+vertically and diagonally. They are the same as step-fields of a King.
+
+Since all Stars are positioned in corners of chessboard, there are always 3
+portal-fields around each one.
+
+% **************************************************************** Star
+\clearpage % ..........................................................
+
+\section*{Promotion}
+\addcontentsline{toc}{section}{Promotion}
+
+Promotion is non enforced, delayed variety, i.e. it's the same as in
+\hyperref[sec:Age of Aquarius/Promotion]{previous chess variant}, Age of Aquarius.
+
+Again, Pawns cannot be promoted to a Star.
+
+Additionaly, promotion in this variant is monogamous.
+Only one Queen in the same color can be present on chessboard at any given time.
+
+\clearpage % ..........................................................
+
+\section*{En passant}
+\addcontentsline{toc}{section}{En passant}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.1875\textwidth, keepaspectratio=true]{en_passants/12_nineteen_en_passant.png}
+\caption{En passant}
+\label{fig:12_nineteen_en_passant}
+\end{wrapfigure}
+Rush and en passant are identical to those in Classic Chess, only difference
+is that Pawn can now move longer on initial turn, up to 7 fields in this
+variant.
+
+\clearpage % ..........................................................
+
+\section*{Castling}
+\addcontentsline{toc}{section}{Castling}
+
+Castling is the same as in Classical Chess, only difference is that King can move between 2 and 6 fields across.
+All other constraints from Classical Chess still applies.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/12_n/nineteen_castling.png}
+\caption{Castling}
+\label{fig:nineteen_castling}
+% \centering
+\end{figure}
+
+In example above, all valid King's castling moves are numbered.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/12_n/nineteen_castling_left_05.png}
+\caption{Castling long left}
+\label{fig:nineteen_castling_left_05}
+% \centering
+\end{figure}
+
+In this example King was castling long to the left. Initial King's position is marked with "K".
+After castling is finished, left Rook ends up at field immediately right to the King.
 
 \clearpage % ..........................................................
 
 \section*{Initial setup}
 \addcontentsline{toc}{section}{Initial setup}
 
-Initial setup can be seen in image below:
+Stars are positioned in very corners of chessboard, light Stars in lower left and upper right
+corners, dark Stars in lower right and upper left corners. Initial setup can be seen in image below:
 
 \noindent
 % \begin{figure}[t]
@@ -52,4 +146,4 @@ Initial setup can be seen in image below:
 \end{figure}
 
 \clearpage % ..........................................................
-% ---------------------------------------------------- Nineteen chapter
+% ==================================================== Nineteen chapter

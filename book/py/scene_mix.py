@@ -10,20 +10,18 @@ from scene_croatian_ties import SceneCroatianTiesMixin
 from scene_mayan_ascendancy import SceneMayanAscendancyMixin
 from scene_age_of_aquarius import SceneAgeOfAquariusMixin
 from scene_mirandas_veil import SceneMirandasVeilMixin
+from scene_nineteen import SceneNineteenMixin
 
 
 class SceneMix(SceneCroatianTiesMixin, \
                SceneMayanAscendancyMixin, \
                SceneAgeOfAquariusMixin, \
-               SceneMirandasVeilMixin):
+               SceneMirandasVeilMixin, \
+               SceneNineteenMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_aoa_03_delayed_promo_init', \
-                    'scn_aoa_04_delayed_promo_pawn_2_tagged', \
-                    'scn_aoa_05_delayed_promo_pawn_2_moved', \
-                    'scn_aoa_06_delayed_promo_pawn_1_tagged', \
-                    'scn_aoa_07_delayed_promo_pawn_1_promoted', \
+                    'scn_n_01_portal_fields', \
                 ]
 
     def _get_all_scene_method_names(self):
