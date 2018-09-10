@@ -789,58 +789,138 @@ class SceneMirandasVeilMixin(Scene):
     def scn_mv_18_activating_rush_pawn_init(self, bt=BoardType.MirandasVeil):
         # move_wave_activating_pawn_init
 
-        self.init_scene(bt, width=5, height=8)
+        self.init_scene(bt) # , width=5, height=8)
 
-        startW = (4, 1)
-        startR = (4, 5)
-        startP = (2, 1)
+        #
+        # 1 - momentum smaller than rush
+
+        startW1 = (4, 1)
+        startR1 = (4, 5)
+        startP1 = (2, 1)
 
         self.board.set_piece(1, 2, piece=-PieceType.Knight)
-        self.board.set_piece(*startP, piece=PieceType.Pawn)
-        self.board.set_piece(*startW, piece=PieceType.Wave)
-        self.board.set_piece(*startR, piece=PieceType.Rook)
+        self.board.set_piece(*startP1, piece=PieceType.Pawn)
+        self.board.set_piece(*startW1, piece=PieceType.Wave)
+        self.board.set_piece(*startR1, piece=PieceType.Rook)
 
         # Rook, direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startR, rel=(0, -1)) )
+        coords = call_gen( get_gen_steps_prev(start=startR1, rel=(0, -1)) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # Wave, direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startW, rel=(-1, 0)) )
+        coords = call_gen( get_gen_steps_prev(start=startW1, rel=(-1, 0)) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        self.append_text("1", *startP1, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        #
+        # 2 - momentum larger than rush
+
+        startW2 = (14, 1)
+        startR2 = (14, 14)
+        startP2 = (12, 1)
+
+        self.board.set_piece(11, 2, piece=-PieceType.Rook)
+        self.board.set_piece(*startP2, piece=PieceType.Pawn)
+        self.board.set_piece(*startW2, piece=PieceType.Wave)
+        self.board.set_piece(*startR2, piece=PieceType.Rook)
+
+        # Rook, direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startR2, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Wave, direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startW2, rel=(-1, 0)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        self.append_text("2", *startP2, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
         return 'scn_mv_18_activating_rush_pawn_init'
 
     def scn_mv_19_activating_rush_pawn_end(self, bt=BoardType.MirandasVeil):
         # move_wave_activating_pawn_end
 
-        self.init_scene(bt, width=5, height=8)
+        self.init_scene(bt) # , width=5, height=8)
 
-        startP = (2, 1)
+        #
+        # 1 - momentum smaller than rush
+
+        startP1 = (2, 1)
 
         self.board.set_piece(1, 2, piece=-PieceType.Knight)
-        self.board.set_piece(*startP, piece=PieceType.Wave)
+        self.board.set_piece(*startP1, piece=PieceType.Wave)
         self.board.set_piece(4, 1, piece=PieceType.Rook)
 
         # Pawn, direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP, rel=(-1, 1)) )
+        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(-1, 1)) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # Pawn, direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP, rel=(1, 1)) )
+        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(1, 1)) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # Pawn, direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP, rel=(0, 1)) )
+        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(0, 1)) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        self.append_text("1", *startP1, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        #
+        # 2 - momentum larger than rush
+
+        startP2 = (12, 1)
+
+        self.board.set_piece(11, 2, piece=-PieceType.Rook)
+        self.board.set_piece(*startP2, piece=PieceType.Wave)
+        self.board.set_piece(14, 1, piece=PieceType.Rook)
+
+        # Pawn, direction <-1, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(-1, 1)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Pawn, direction <1, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(1, 1)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # Pawn, direction <0, 1>
+        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(0, 1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        self.append_text("2", *startP2, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
         return 'scn_mv_19_activating_rush_pawn_end'
 
