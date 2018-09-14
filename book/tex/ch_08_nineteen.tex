@@ -37,9 +37,9 @@ corners, dark Stars in lower right and upper left corners.
 
 Star is a teleporting piece. Teleportation is initiated by any piece diving into a Star, by
 touching a Star or field at which it stands (as if trying to capture Star). Piece in question
-then reappears on any non-occupied portal-field near Star in opposite color. Teleportation is
-not limited by matching colors of a piece and a Star, any piece can use any Star to start
-teleporting.
+then reappears on any non-occupied portal-field near Star in opposite color. Any momentum
+carried is lost. Teleportation is not limited by matching colors of a piece and a Star, any
+piece can use any Star to start teleporting.
 
 Player initiating teleportation can choose which opposite color Star will be destination, and
 at which empty portal-field piece will reappear. If there is no empty portal-field near both
@@ -63,11 +63,74 @@ In algebraic notation symbol for Star is 'T'.
 \caption{Portal-fields}
 \label{fig:scn_n_01_portal_fields}
 \end{wrapfigure}
-Portal-fields are all fields immediately surrounding a particular field horizontally,
-vertically and diagonally. They are the same as step-fields of a King.
+Portal-fields are all fields immediately surrounding a particular field
+horizontally, vertically and diagonally. They are the same as step-fields
+of a King.
 
-Since all Stars are positioned in corners of chessboard, there are always 3
-portal-fields around each one.
+Since all Stars are pinned into the corners of a chessboard, there are always
+exactly 3 portal-fields around each one.
+
+\subsection*{Teleporting}
+\addcontentsline{toc}{subsection}{Teleporting}
+
+All emerging pieces end their teleportation ply on the choosen empty
+portal-field. All of momentum carried into teleportation is lost, it cannot
+be used neither in the same teleporting move, nor at some point later.
+Since this effectively prevents any cascading, teleportation always ends
+complete player's move.
+
+\clearpage % ..........................................................
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_02_teleport_init.png}
+\caption{Teleportation start}
+\label{fig:scn_n_02_teleport_init}
+% \centering
+\end{figure}
+
+Here, light player is about to dive Wave into upper left dark Star. The only
+other option is to dive light Bishop into lower right dark Star, as it is
+illegal for King to teleport.
+
+In any case, teleported piece would have to emerge near either light Star.
+The only empty portal-field is numbered, so it would have to be upper right
+light Star, on field 1.
+
+\clearpage % ..........................................................
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_03_teleport_dark.png}
+\caption{Teleporting dark}
+\label{fig:scn_n_03_teleport_dark}
+% \centering
+\end{figure}
+
+After emerging, light Wave lost all of it's momentum, so it's illegal to
+e.g. activate light Pyramid after teleportation.
+
+Dark player could dive Rook into dark Star. Since all portal-fields of both
+light Stars are now occupied, that would remove dark Rook from chessboard as
+if it has been captured.
+
+Only other option is to dive dark Unicorn into light Star.
+
+\clearpage % ..........................................................
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_04_teleport_end.png}
+\caption{Teleporting end}
+\label{fig:scn_n_04_teleport_end}
+% \centering
+\end{figure}
+
+With both dark Stars having all of their portal-fields empty, dark Unicorn could
+land on any previously numbered portal-fields.
 
 % **************************************************************** Star
 \clearpage % ..........................................................

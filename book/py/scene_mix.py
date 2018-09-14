@@ -21,8 +21,10 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_18_activating_rush_pawn_init', \
-                    'scn_mv_19_activating_rush_pawn_end', \
+                    'scn_n_01_portal_fields', \
+                    'scn_n_02_teleport_init', \
+                    'scn_n_03_teleport_dark', \
+                    'scn_n_04_teleport_end', \
                 ]
 
     def _get_all_scene_method_names(self):
