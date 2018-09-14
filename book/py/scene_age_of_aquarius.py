@@ -42,12 +42,24 @@ class SceneAgeOfAquariusMixin(Scene):
         start = (6, 6)
         self.board.set_piece(*start, piece=PieceType.Unicorn)
 
+        # Unicorn, long jump
+
         gen_abs_pos = get_gen_multi_steps(start=start, rel_lst=DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((2, 2), (10, 10)))
 
         i = 1
         for pos in gen_abs_pos():
             self.append_field_marker(*pos)
             self.append_text(str(i), *pos, rect=(0.15, 1.0, 0.7, 0.45))
+            i += 1
+
+        # Knight, short jump
+
+        gen_abs_pos_2 = get_gen_multi_steps(start=start, rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((4, 4), (8, 8)))
+
+        i = 1
+        for pos in gen_abs_pos_2():
+            # self.append_field_marker(*pos)
+            self.append_text(str(i), *pos, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
         return 'scn_aoa_02_unicorn_opposite_color'

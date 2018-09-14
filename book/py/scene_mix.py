@@ -21,6 +21,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
+                    'scn_aoa_02_unicorn_opposite_color', \
                     'scn_n_01_portal_fields', \
                     'scn_n_02_teleport_init', \
                     'scn_n_03_teleport_dark', \
