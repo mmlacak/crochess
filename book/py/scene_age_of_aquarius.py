@@ -233,21 +233,98 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.init_scene(bt)
 
-        startP = (3, 1)
-        startPd = (8, 1)
-        startA = (11, 0)
-        startB = (7, 4)
+        #
+        # 1, conversion in Pawn row
 
-        self.board.set_piece(*startP, piece=PieceType.Pawn)
-        self.board.set_piece(*startPd, piece=-PieceType.Pawn)
-        self.board.set_piece(*startA, piece=PieceType.Pyramid)
-        self.board.set_piece(*startB, piece=PieceType.Bishop)
+        startR1 = (0, 7)
+        startA1 = (0, 1)
+        startPd1 = (1, 1)
+        startAd1 = (2, 1)
+        startRd1 = (2, 11)
+
+        self.board.set_piece(*startR1, piece=PieceType.Rook)
+        self.board.set_piece(*startA1, piece=PieceType.Pyramid)
+        self.board.set_piece(*startPd1, piece=-PieceType.Pawn)
+        self.board.set_piece(*startAd1, piece=-PieceType.Pyramid)
+        self.board.set_piece(*startRd1, piece=-PieceType.Rook)
+
+        self.append_text("1", *startPd1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startPd, rel=(0, -1)) )
+        coords = call_gen( get_gen_steps_prev(start=startRd1, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startAd1, rel=(-1, 0)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        #
+        # 2, conversion outside piece rows
+
+        startR2 = (5, 7)
+        startA2 = (5, 2)
+        startPd2 = (6, 2)
+        startAd2 = (7, 2)
+        startRd2 = (7, 11)
+
+        self.board.set_piece(*startR2, piece=PieceType.Rook)
+        self.board.set_piece(*startA2, piece=PieceType.Pyramid)
+        self.board.set_piece(*startPd2, piece=-PieceType.Pawn)
+        self.board.set_piece(*startAd2, piece=-PieceType.Pyramid)
+        self.board.set_piece(*startRd2, piece=-PieceType.Rook)
+
+        self.append_text("2", *startPd2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startRd2, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <-1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startAd2, rel=(-1, 0)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        #
+        # 3, conversion in figure row
+
+        startR3 = (10, 7)
+        startA3 = (10, 0)
+        startPd3 = (11, 1)
+
+        self.board.set_piece(*startR3, piece=PieceType.Rook)
+        self.board.set_piece(*startA3, piece=PieceType.Pyramid)
+        self.board.set_piece(*startPd3, piece=-PieceType.Pawn)
+
+        self.append_text("3", *startPd3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startPd3, rel=(0, -1)) )
         self.append_arrow( *coords() )
 
-        self.append_text("1", *startP, mark_type=MarkType.Blocked )
+        #
+        # 4, normal rush
+
+        startP = (13, 1)
+
+        self.board.set_piece(*startP, piece=PieceType.Pawn)
+
+        self.append_text("4", *startP, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_aoa_11_tagged_pawn_conv_init'
 
@@ -256,58 +333,182 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.init_scene(bt)
 
-        startP = (3, 1)
-        startPd = (8, 0)
-        startA = (11, 0)
-        startB = (7, 4)
+        #
+        # 1, conversion in Pawn row
+
+        startR1 = (0, 7)
+        startA1 = (0, 1)
+        startPd1 = (1, 1)
+        startRd1 = (2, 1)
+
+        self.board.set_piece(*startR1, piece=PieceType.Rook)
+        self.board.set_piece(*startA1, piece=PieceType.Pyramid)
+        self.board.set_piece(*startPd1, piece=-PieceType.Pawn)
+        self.board.set_piece(*startRd1, piece=-PieceType.Rook)
+
+        self.append_text("1", *startPd1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_field_marker(*startPd1, mark_type=MarkType.Action)
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startR1, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startA1, rel=(1, 0)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        #
+        # 2, conversion outside piece rows
+
+        startR2 = (5, 7)
+        startA2 = (5, 2)
+        startPd2 = (6, 2)
+        startRd2 = (7, 2)
+
+        self.board.set_piece(*startR2, piece=PieceType.Rook)
+        self.board.set_piece(*startA2, piece=PieceType.Pyramid)
+        self.board.set_piece(*startPd2, piece=-PieceType.Pawn)
+        self.board.set_piece(*startRd2, piece=-PieceType.Rook)
+
+        self.append_text("2", *startPd2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_field_marker(*startPd2, mark_type=MarkType.Action)
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startR2, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startA2, rel=(1, 0)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        #
+        # 3, conversion in figure row
+
+        startR3 = (10, 7)
+        startA3 = (10, 0)
+        startPd3 = (11, 0)
+
+        self.board.set_piece(*startR3, piece=PieceType.Rook)
+        self.board.set_piece(*startA3, piece=PieceType.Pyramid)
+        self.board.set_piece(*startPd3, piece=-PieceType.Pawn)
+
+        self.append_text("3", *startPd3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_field_marker(*startPd3, mark_type=MarkType.Action)
+
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startR3, rel=(0, -1)) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <1, 0>
+        coords = call_gen( get_gen_steps_prev(start=startA3, rel=(1, 0)) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        #
+        # 4, normal rush
+
+        startP = (13, 1)
 
         self.board.set_piece(*startP, piece=PieceType.Pawn)
-        self.board.set_piece(*startPd, piece=-PieceType.Pawn)
-        self.board.set_piece(*startA, piece=PieceType.Pyramid)
-        self.board.set_piece(*startB, piece=PieceType.Bishop)
 
-        # direction <1, -1>
-        coords = call_gen( get_gen_steps_prev(start=startB, rel=(1, -1)) )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startA, rel=(-1, 0)) )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        self.append_text("1", *startP, mark_type=MarkType.Blocked)
-
-        self.append_field_marker( *startPd, mark_type=MarkType.Action )
+        self.append_text("4", *startP, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_aoa_12_tagged_pawn_conv_tagged'
 
     def scn_aoa_13_tagged_pawn_converted(self, bt=BoardType.AgeOfAquarius):
         # move_unicorn_tagged_pawn_conv_ed
 
-        bt = BoardType(bt)
         self.init_scene(bt)
 
-        startP = (3, 1)
-        startPc = (8, 0)
-        startB = (11, 0)
-
-        self.board.set_piece(*startP, piece=PieceType.Pawn)
-        self.board.set_piece(*startPc, piece=PieceType.Pawn)
-        self.board.set_piece(*startB, piece=PieceType.Bishop)
-
-        self.append_text("1", *startP, mark_type=MarkType.Blocked)
-        self.append_text("2", *startPc, mark_type=MarkType.Blocked)
-
+        bt = BoardType(bt)
         size = (bt.get_size() + 1) // 2
 
+        #
+        # 1, conversion in Pawn row
+
+        startR1 = (0, 1)
+        startP1c = (1, 1)
+        startRd1 = (2, 1)
+
+        self.board.set_piece(*startR1, piece=PieceType.Rook)
+        self.board.set_piece(*startP1c, piece=PieceType.Pawn)
+        self.board.set_piece(*startRd1, piece=-PieceType.Rook)
+
+        self.append_text("1", *startP1c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
         for i in xrange(3, size):
-            self.append_text(str(i-2), 3, i)
+            self.append_text(str(i-2), 1, i)
+
+        #
+        # 2, conversion outside piece rows
+
+        startR2 = (5, 2)
+        startP2c = (6, 2)
+        startRd2 = (7, 2)
+
+        self.board.set_piece(*startR2, piece=PieceType.Rook)
+        self.board.set_piece(*startP2c, piece=PieceType.Pawn)
+        self.board.set_piece(*startRd2, piece=-PieceType.Rook)
+
+        self.append_text("2", *startP2c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
+        for i in xrange(4, size):
+            self.append_text(str(i-2), 6, i, mark_type=MarkType.Illegal)
+
+        #
+        # 3, conversion in figure row
+
+        startR3 = (10, 0)
+        startP3c = (11, 0)
+
+        self.board.set_piece(*startR3, piece=PieceType.Rook)
+        self.board.set_piece(*startP3c, piece=PieceType.Pawn)
+
+        self.append_text("3", *startP3c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         for i in xrange(2, size):
-            self.append_text(str(i-1), 8, i)
+            self.append_text(str(i-1), 11, i)
+
+        #
+        # 4, normal rush
+
+        startP = (13, 1)
+
+        self.board.set_piece(*startP, piece=PieceType.Pawn)
+
+        self.append_text("4", *startP, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
+        for i in xrange(3, size):
+            self.append_text(str(i-2), 13, i)
 
         return 'scn_aoa_13_tagged_pawn_converted'
+
+    def scn_aoa_14_pawn_figure_piece_rush_rows(self, bt=BoardType.AgeOfAquarius):
+
+        self.init_scene(bt)
+
+        for i in xrange(0, 14):
+            self.append_field_marker(i, 13, mark_type=MarkType.Blocked)
+            self.append_field_marker(i, 12, mark_type=MarkType.Illegal)
+
+            self.append_field_marker(i, 1, mark_type=MarkType.Action)
+            self.append_field_marker(i, 0, mark_type=MarkType.Legal)
+
+        for i in xrange(0, 14):
+            self.append_text(str(i + 1), 0, i, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
+        return 'scn_aoa_14_pawn_figure_piece_rush_rows'

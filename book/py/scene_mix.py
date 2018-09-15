@@ -21,11 +21,10 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_aoa_02_unicorn_opposite_color', \
-                    'scn_n_01_portal_fields', \
-                    'scn_n_02_teleport_init', \
-                    'scn_n_03_teleport_dark', \
-                    'scn_n_04_teleport_end', \
+                    'scn_aoa_11_tagged_pawn_conv_init', \
+                    'scn_aoa_12_tagged_pawn_conv_tagged', \
+                    'scn_aoa_13_tagged_pawn_converted', \
+                    'scn_aoa_14_pawn_figure_piece_rush_rows', \
                 ]
 
     def _get_all_scene_method_names(self):

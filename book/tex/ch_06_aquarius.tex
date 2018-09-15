@@ -173,20 +173,21 @@ Light Pawn 1 is promoted to Queen.
 \subsection*{Converting tagged Pawn}
 \addcontentsline{toc}{subsection}{Converting tagged Pawn}
 
-Converting opponent's Pawns tagged for promotion in own first row grants them
-ability to be rushed, and subjects them to opponent's en passant move.
+Converting opponent's Pawns tagged for promotion in own Pawn or figure row
+grants them ability to be rushed, and subjects them to opponent's en passant
+move.
 
 \noindent
 % \begin{figure}[t]
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_11_tagged_pawn_conv_init.png}
-\caption{Opponent's Pawn to be tagged}
+\caption{Dark Pawns to be tagged}
 \label{fig:scn_aoa_11_tagged_pawn_conv_init}
 % \centering
 \end{figure}
 
-Here, dark Pawn is about to be promoted/tagged for promotion, as it approaches
-it's last row.
+This example contains 3 situations, which would be driven in paralel, to speed
+things up a bit.
 
 \clearpage % ..........................................................
 
@@ -194,18 +195,16 @@ it's last row.
 % \begin{figure}[t]
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_12_tagged_pawn_conv_tagged.png}
-\caption{Opponent's Pawn tagged for promotion}
+\caption{Dark Pawns to be converted}
 \label{fig:scn_aoa_12_tagged_pawn_conv_tagged}
 % \centering
 \end{figure}
 
-Now that dark Pawn is tagged for promotion, it get's converted by Pyramid,
-which was activated by Bishop.
+Now, all dark Pawns tagged for promotion are getting converted.
 
 Normally, Pawn gets promoted right away, because it saves move and makes better
-figure available immediately. In this case, however, it would allow opponent
-(light player) to convert e.g., Queen. By just tagging a Pawn, it makes it a
-latent threat, without overwhelming gains.
+figure available immediately. That might allow opponent to convert e.g., Queen.
+By just tagging a Pawn, it makes it a latent threat, without overwhelming gains.
 
 \clearpage % ..........................................................
 
@@ -218,13 +217,48 @@ latent threat, without overwhelming gains.
 % \centering
 \end{figure}
 
-Converted Pawn now can be rushed, up to the row reachable by ordinary Pawn 1.
-As with ordinary rush, it can only be performed from Pawn's initial position.
+Converted Pawns 1 and 3 can now be rushed, up to (and including) the row
+reachable by ordinary Pawn 4. Note, Pawn 2 can't be rushed as it has been
+convered outside of piece rows.
+
+As with ordinary rush, rushing converted Pawns can only be performed as Pawn's
+initial move. For instance, if Pawn 3 first moves to Pawn row, it looses it's
+ability to rush.
 
 Generaly, all Pawns (own or converted) can be rushed up to the (and including)
 furthest own row of chessboard, i.e. after rush they still have to reside on
-own side of the board. Pawns can only be rushed from
-\hyperref[sec:Terms/Pawn row]{Pawn} and \hyperref[sec:Terms/Figure row]{figure} rows.
+own side of the board. Pawns can only be rushed from Pawn and figure rows.
+
+\subsection*{Figure, Pawn, piece and rush rows}
+\addcontentsline{toc}{subsection}{Figure, Pawn, piece and rush rows}
+
+Figure, Pawn and piece rows refer to rows with corresponding content on initial
+setup of chessboard.
+
+Figure row is row that contains figures on initial setup of chessboard.
+For light player that is first row, for dark player it is last row.
+
+Pawn row is row that contains Pawns on initial setup of chessboard.
+For light player that is second row, for dark player second to last row.
+
+Piece row is either Pawn row or figure row.
+
+Rush row is any row from which Pawn can be rushed, they are the same as
+piece rows.
+
+\clearpage % ..........................................................
+
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_14_pawn_figure_piece_rush_rows.png}
+\caption{Pawn and figure rows}
+\label{fig:scn_aoa_14_pawn_figure_piece_rush_rows}
+% \centering
+\end{figure}
+
+Here, rows are marked green (light figure row), blue (light Pawn row),
+red (dark Pawn row) and grey (dark figure row).
 
 % ---------------------------------------------- Converting tagged Pawn
 % *********************************************************** Promotion
