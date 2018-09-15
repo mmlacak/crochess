@@ -11,20 +11,20 @@ from scene_mayan_ascendancy import SceneMayanAscendancyMixin
 from scene_age_of_aquarius import SceneAgeOfAquariusMixin
 from scene_mirandas_veil import SceneMirandasVeilMixin
 from scene_nineteen import SceneNineteenMixin
+from scene_hemeras_dawn import SceneHemerasDawnMixin
 
 
 class SceneMix(SceneCroatianTiesMixin, \
                SceneMayanAscendancyMixin, \
                SceneAgeOfAquariusMixin, \
                SceneMirandasVeilMixin, \
-               SceneNineteenMixin):
+               SceneNineteenMixin, \
+               SceneHemerasDawnMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_aoa_11_tagged_pawn_conv_init', \
-                    'scn_aoa_12_tagged_pawn_conv_tagged', \
-                    'scn_aoa_13_tagged_pawn_converted', \
-                    'scn_aoa_14_pawn_figure_piece_rush_rows', \
+                    'scn_hd_01_centaur_same_color', \
+                    'scn_hd_02_centaur_opposite_color', \
                 ]
 
     def _get_all_scene_method_names(self):

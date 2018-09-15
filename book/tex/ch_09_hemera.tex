@@ -1,5 +1,5 @@
 
-% Hemera's Dawn chapter -----------------------------------------------
+% Hemera's Dawn chapter ===============================================
 \chapter*{Hemera's Dawn}
 \addcontentsline{toc}{chapter}{Hemera's Dawn}
 
@@ -16,20 +16,123 @@ Star colors are bright blue and white. In algebraic notation, columns
 are enumerated from 'a' to 't', and rows are enumerated from '1' to '20'.
 A new piece is introduced, Centaur.
 
-\textbf{\huge{TODO :: Star colors !!!}} % TODO :: FIX ME !!!
-
 \clearpage % ..........................................................
+% Centaur *************************************************************
 
 \section*{Centaur}
 \addcontentsline{toc}{section}{Centaur}
 
 \noindent
-\begin{wrapfigure}{l}{0.4\textwidth}
+\begin{wrapfigure}[15]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/12_centaur.png}
 \caption{Centaur}
 \label{fig:12_centaur}
 \end{wrapfigure}
+Centaur ...
+
+\vspace*{0.3\textheight}
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/star/14_hemera_s_dawn.png}
+\caption{Star}
+\label{fig:14_hemera_s_dawn}
+\end{wrapfigure}
+Star ...
+
+\clearpage % ..........................................................
+
+\vspace{7\baselineskip}
+\subsection*{Movement}
+\addcontentsline{toc}{subsection}{Movement}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_01_centaur_same_color.png}
+\caption{Centaur short jump}
+\label{fig:scn_hd_01_centaur_same_color}
+\end{wrapfigure}
+On fields with the same color as Centaur, it can move exactly the
+same way Knight does.
+
+\clearpage % ..........................................................
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_02_centaur_opposite_color.png}
+\caption{Centaur long jump}
+\label{fig:scn_hd_02_centaur_opposite_color}
+% \centering
+\end{figure}
+
+On fields in opposite color to Centaur's, Centaur can jump much longer.
+Again, just as Knight, Centaur is not hampered by surrouding pieces.
+Only own pieces on marked (i.e. step) fields can prevent Centaur to move,
+opponent's pieces would be captured.
+
+For comparison, Knight's step-fields are also numbered (grey).
+
+% ************************************************************* Centaur
+\clearpage % ..........................................................
+
+\section*{Promotion}
+\addcontentsline{toc}{section}{Promotion}
+
+Promotion is non enforced, delayed variety, i.e. it's the same as in
+\hyperref[sec:Age of Aquarius/Promotion]{previous chess variant}, Age of Aquarius.
+
+Promotion in this variant is polygamous, more than one Queen in the same color
+can be present on chessboard at any given time.
+
+\clearpage % ..........................................................
+
+\section*{En passant}
+\addcontentsline{toc}{section}{En passant}
+
+\noindent
+\begin{wrapfigure}{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.15\textwidth, keepaspectratio=true]{en_passants/14_hemera_s_dawn_en_passant.png}
+\caption{En passant}
+\label{fig:14_hemera_s_dawn_en_passant}
+\end{wrapfigure}
+Rush and en passant are identical to those in Classic Chess, only difference
+is that Pawn can now move longer on initial turn, up to 8 fields in this
+variant.
+
+\clearpage % ..........................................................
+
+\section*{Castling}
+\addcontentsline{toc}{section}{Castling}
+
+Castling is the same as in Classical Chess, only difference is that King can move between 2 and 7 fields across.
+All other constraints from Classical Chess still applies.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/14_hd/hemera_s_dawn_castling.png}
+\caption{Castling}
+\label{fig:hemera_s_dawn_castling}
+% \centering
+\end{figure}
+
+In example above, all valid King's castling moves are numbered.
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/14_hd/hemera_s_dawn_castling_right_03.png}
+\caption{Castling short right}
+\label{fig:hemera_s_dawn_castling_right_03}
+% \centering
+\end{figure}
+
+In this example King was castling short to the right. Initial King's position is marked with "K".
+After castling is finished, right Rook ends up at field immediately left to the King.
 
 \clearpage % ..........................................................
 
@@ -48,4 +151,4 @@ Initial setup can be seen in image below:
 \end{figure}
 
 \clearpage % ..........................................................
-% ----------------------------------------------- Hemera's Dawn chapter
+% =============================================== Hemera's Dawn chapter
