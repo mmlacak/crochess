@@ -389,7 +389,7 @@ class SceneMayanAscendancyMixin(Scene):
         self.init_scene(bt, width=12, height=2)
 
         startQ = (4, 1)
-        startA = (1, 1)
+        startA = (0, 1)
         self.board.set_piece(0, 0, piece=-PieceType.Rook)
         self.board.set_piece(*startA, piece=PieceType.Pyramid)
         self.board.set_piece(*startQ, piece=PieceType.Queen)
@@ -399,10 +399,11 @@ class SceneMayanAscendancyMixin(Scene):
         coords = call_gen( get_gen_steps_prev(start=startQ, rel=(-1, 0)) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        # direction <-1, -1>
-        coords = call_gen( get_gen_steps_prev(start=startA, rel=(-1, -1)) )
+        # direction <0, -1>
+        coords = call_gen( get_gen_steps_prev(start=startA, rel=(0, -1)) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         return 'scn_ma_11_convert_rook_castling_init'
@@ -413,7 +414,7 @@ class SceneMayanAscendancyMixin(Scene):
         self.init_scene(bt, width=12, height=2)
 
         self.board.set_piece(0, 0, piece=PieceType(PieceType.Rook))
-        self.board.set_piece(1, 1, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(0, 1, piece=PieceType(PieceType.Queen))
         self.board.set_piece(6, 0, piece=PieceType(PieceType.King))
 
         # direction <-1, 0>
@@ -431,7 +432,7 @@ class SceneMayanAscendancyMixin(Scene):
         self.init_scene(bt, width=12, height=2)
 
         self.board.set_piece(4, 0, piece=PieceType.Rook)
-        self.board.set_piece(1, 1, piece=PieceType.Queen)
+        self.board.set_piece(0, 1, piece=PieceType.Queen)
         self.board.set_piece(3, 0, piece=PieceType.King)
 
         # direction <-1, 0>
