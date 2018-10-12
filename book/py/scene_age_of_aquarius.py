@@ -451,7 +451,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("1", *startP1c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         for i in xrange(3, size):
-            self.append_text(str(i-2), 1, i)
+            self.append_text(str(i-2), 1, i, corner=Corner.UpperRight)
 
         #
         # 2, conversion outside piece rows
@@ -467,7 +467,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("2", *startP2c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         for i in xrange(4, size):
-            self.append_text(str(i-2), 6, i, mark_type=MarkType.Illegal)
+            self.append_text(str(i-3), 6, i, corner=Corner.UpperRight, mark_type=MarkType.Illegal)
 
         #
         # 3, conversion in figure row
@@ -481,7 +481,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("3", *startP3c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         for i in xrange(2, size):
-            self.append_text(str(i-1), 11, i)
+            self.append_text(str(i-1), 11, i, corner=Corner.UpperRight)
 
         #
         # 4, normal rush
@@ -493,7 +493,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("4", *startP, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         for i in xrange(3, size):
-            self.append_text(str(i-2), 13, i)
+            self.append_text(str(i-2), 13, i, corner=Corner.UpperRight)
 
         return 'scn_aoa_13_tagged_pawn_converted'
 
