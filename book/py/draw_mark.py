@@ -254,16 +254,16 @@ def test_1(board_desc=None, name=''):
     from colors import Colors
     d.draw_board.draw_board( Colors[BoardType.Classical] )
 
-    arws = [ Arrow(1.7, 2.3, 3.4, 5.1, mark_type=MarkType(MarkType.Legal)), \
+    arws = [ Arrow(1.7, 2.3, 3.4, 5.1, mark_type=MarkType(MarkType.Legal), start_pointer=True, end_pointer=True), \
              Arrow(6.7, 4.3, 9.7, 4.3, mark_type=MarkType(MarkType.Legal)), \
              Arrow(2.7, 6.3, 2.7, 9.3, mark_type=MarkType(MarkType.Legal)), \
-             Arrow(4.3, 5.4, 6.7, 0.9, mark_type=MarkType(MarkType.Legal)), ]
+             Arrow(4.3, 5.4, 6.7, 0.9, mark_type=MarkType(MarkType.Legal), start_pointer=False, end_pointer=False), ]
     d.draw_all_arrows(arws, cmark=Colors[BoardType.Classical].arrow)
 
     arws2 = [ Arrow(100, 200, 100, 400, mark_type=MarkType(MarkType.Action)), \
               Arrow(300, 900, 400, 900, mark_type=MarkType(MarkType.Action)), \
-              Arrow(600, 500, 800, 600, mark_type=MarkType(MarkType.Action)), \
-              Arrow(800, 300, 700, 100, mark_type=MarkType(MarkType.Action)), ]
+              Arrow(600, 500, 800, 600, mark_type=MarkType(MarkType.Action), start_pointer=True, end_pointer=True), \
+              Arrow(800, 300, 700, 100, mark_type=MarkType(MarkType.Action), start_pointer=False, end_pointer=False), ]
     d.draw_all_arrows(arws2, cmark=Colors[BoardType.Classical].arrow)
 
     file_path = 'temp/arrows%s.IGNORE.png' % name
