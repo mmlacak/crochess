@@ -76,18 +76,29 @@ class DrawMark(Draw):
         distance = width / 2.0
         length = pm.calc_line_length(arrow.start_pix, arrow.end_pix)
 
-        start_lst = pm.calc_distant_points_on_inverse_line(arrow.start_pix, arrow.end_pix, distance)
-
         arrow_size = pointy_bit_ratio * width # self.board_width_pix / pointy_bit_ratio
         line_division_ratio = abs((length - arrow_size) / arrow_size) # Shouldn't be negative, i.e. outside line segment.
-        mid_point = pm.calc_division_point(arrow.start_pix, arrow.end_pix, line_division_ratio)
 
-        mid_lst = pm.calc_distant_points_on_inverse_line(mid_point, arrow.start_pix, distance)
-        mid_lst_2 = pm.calc_distant_points_on_inverse_line(mid_point, arrow.start_pix, arrow_size)
+        def _calc_end(do_start):
+            if do_start:
+                _point_pix, _other_pix, _pointer = arrow.start_pix, arrow.end_pix, arrow.start_pointer
+            else:
+                _point_pix, _other_pix, _pointer = arrow.end_pix, arrow.start_pix, arrow.end_pointer
 
-        arrow_lst = [ arrow.end_pix, mid_lst_2[0], mid_lst[0], start_lst[1], start_lst[0], mid_lst[1], mid_lst_2[1] ]
-        arrow_lst_2 = [ (int(tpl[0]), int(tpl[1])) for tpl in arrow_lst ]
-        return arrow_lst_2
+            if _pointer:
+                _mid_point = pm.calc_division_point(_other_pix, _point_pix, line_division_ratio)
+                _inner = pm.calc_distant_points_on_inverse_line(_mid_point, _point_pix, distance)
+                _outer = pm.calc_distant_points_on_inverse_line(_mid_point, _point_pix, arrow_size)
+                _lst = [ _inner[1], _outer[1], _point_pix, _outer[0], _inner[0] ]
+            else:
+                _lst = pm.calc_distant_points_on_inverse_line(_point_pix, _other_pix, distance)
+
+            _lst_out = [ (int(tpl[0]), int(tpl[1])) for tpl in _lst ]
+            return _lst_out
+
+        start_lst = _calc_end(True)
+        end_lst =  _calc_end(False)
+        return start_lst + end_lst
 
     def draw_arrow(self, arrow, adef=None, cpair=None, gc=None):
         # assert isinstance(arrow, Arrow)

@@ -60,7 +60,7 @@ def calc_inverse_line(straight_line, point):
     return (a_inv, b_inv)
 
 def calc_distant_points_on_inverse_line(point, other, distance):
-    # Returns points in positive, i.e. anti-clocwise order.
+    # Returns points in positive, i.e. anti-clockwise order.
 
     assert distance > 0.0
 
