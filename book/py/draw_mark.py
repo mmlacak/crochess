@@ -61,16 +61,16 @@ class DrawMark(Draw):
         assert isinstance(arrow, Arrow)
         assert isinstance(adef, (dm.ArrowDef, NoneType))
 
-        adef = adef or dm.MarkDef[ self.draw_board.board.type ].arrow_def
+        _adef = adef or dm.MarkDef[ self.draw_board.board.type ].arrow_def
 
         arrow.start_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.start )
         arrow.end_pix = self.draw_board.convert_field_coords_to_pixel( *arrow.end )
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = adef.inv_width_ratio # if adef is not None else dm.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
+        inv_width_ratio = _adef.inv_width_ratio # if _adef is not None else dm.DEFAULT_ARROW_INVERSE_WIDTH_RATIO
 
         # pointy_bit_ratio - compared to arrow width
-        pointy_bit_ratio = adef.pointy_bit_ratio # if adef is not None else dm.DEFAULT_ARROW_POINTY_BIT_RATIO
+        pointy_bit_ratio = _adef.pointy_bit_ratio # if _adef is not None else dm.DEFAULT_ARROW_POINTY_BIT_RATIO
 
         width = self.draw_board.field_width_pix / inv_width_ratio
         distance = width / 2.0
@@ -85,7 +85,7 @@ class DrawMark(Draw):
         mid_lst = pm.calc_distant_points_on_inverse_line(mid_point, arrow.start_pix, distance)
         mid_lst_2 = pm.calc_distant_points_on_inverse_line(mid_point, arrow.start_pix, arrow_size)
 
-        arrow_lst = [ arrow.end_pix, mid_lst_2[0], mid_lst[0], start_lst[0], start_lst[1], mid_lst[1], mid_lst_2[1] ]
+        arrow_lst = [ arrow.end_pix, mid_lst_2[0], mid_lst[0], start_lst[1], start_lst[0], mid_lst[1], mid_lst_2[1] ]
         arrow_lst_2 = [ (int(tpl[0]), int(tpl[1])) for tpl in arrow_lst ]
         return arrow_lst_2
 
