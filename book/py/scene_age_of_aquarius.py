@@ -501,12 +501,11 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.init_scene(bt)
 
-        for i in xrange(0, 14):
-            self.append_field_marker(i, 13, mark_type=MarkType.Blocked)
-            self.append_field_marker(i, 12, mark_type=MarkType.Illegal)
+        self.append_arrow(0.7, 13.5, 13.3, 13.5, mark_type=MarkType.Blocked, start_pointer=True, end_pointer=True)
+        self.append_arrow(0.7, 12.5, 13.3, 12.5, mark_type=MarkType.Illegal, start_pointer=True, end_pointer=True)
 
-            self.append_field_marker(i, 1, mark_type=MarkType.Action)
-            self.append_field_marker(i, 0, mark_type=MarkType.Legal)
+        self.append_arrow(0.7, 1.5, 13.3, 1.5, mark_type=MarkType.Action, start_pointer=True, end_pointer=True)
+        self.append_arrow(0.7, 0.5, 13.3, 0.5, mark_type=MarkType.Legal, start_pointer=True, end_pointer=True)
 
         for i in xrange(0, 14):
             self.append_text(str(i + 1), 0, i, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
