@@ -23,15 +23,22 @@ from '1' to '20'. A new piece is introduced, Centaur.
 \addcontentsline{toc}{section}{Centaur}
 
 \noindent
-\begin{wrapfigure}[15]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/12_centaur.png}
 \caption{Centaur}
 \label{fig:12_centaur}
 \end{wrapfigure}
-Centaur ...
+Centaur is similar to Unicorn, only it can continue its' jumpy movement
+in two chosen directions until another piece is encountered, or it runs
+out of a chessboard.
 
-\vspace*{0.3\textheight}
+Note that Centaur cannot change its’ heading after first two jumps, i.e.
+once long and short jump directions are chosen.
+
+In algebraic notation symbol for Centaur is ’C’.
+
+% \vspace*{0.05\textheight}
 \noindent
 \begin{wrapfigure}{l}{0.4\textwidth}
 \centering
@@ -39,11 +46,12 @@ Centaur ...
 \caption{Star}
 \label{fig:star/14_hemera_s_dawn}
 \end{wrapfigure}
-Star ...
+Star colors in this variant are different to colors of light and dark pieces.
 
 \clearpage % ..........................................................
+% Movement ------------------------------------------------------------
 
-\vspace{7\baselineskip}
+% \vspace{7\baselineskip}
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 
@@ -68,13 +76,34 @@ same way Knight does.
 % \centering
 \end{figure}
 
-On fields in opposite color to Centaur's, Centaur can jump much longer.
-Again, just as Knight, Centaur is not hampered by surrouding pieces.
-Only own pieces on marked (i.e. step) fields can prevent Centaur to move,
-opponent's pieces would be captured.
+On fields in opposite color, Centaur can jump much longer, exactly the
+same way Unicorn does. Again, just as Knight (and Unicorn), Centaur is
+not hampered by surrouding pieces. Only own pieces on marked (i.e. step)
+fields can prevent Centaur to move, opponent's pieces could be captured.
 
 For comparison, Knight's step-fields are also numbered (grey).
 
+\clearpage % ..........................................................
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_03_centaur_multi_step.png}
+\caption{Centaur multi-step move}
+\label{fig:scn_hd_03_centaur_multi_step}
+% \centering
+\end{figure}
+
+On first two jumps, Centaur can choose freely any direction (blue). After
+two directions are chosen, Centaur for the rest of a move has to follow
+them (green), e.g. after reaching field 6, it cannot move to any 7a to 7g
+fields (grey).
+
+Here, step-fields are numbered 1 to 11, they are also capture-fields,
+Centaur could capture dark Bishop if in place of the light one. Pieces on
+all other fields are ignored (Pawns).
+
+% ------------------------------------------------------------ Movement
 % ************************************************************* Centaur
 \clearpage % ..........................................................
 

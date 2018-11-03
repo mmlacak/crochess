@@ -62,3 +62,93 @@ class SceneHemerasDawnMixin(Scene):
             i += 1
 
         return 'scn_hd_02_centaur_opposite_color'
+
+    def scn_hd_03_centaur_multi_step(self, bt=BoardType.HemerasDawn):
+
+        self.init_scene(bt)
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start = (3, 2)
+        self.board.set_piece(*start, piece=PieceType.Centaur)
+        self.board.set_piece(7, 7, piece=PieceType.Pawn)
+        self.board.set_piece(7, 8, piece=PieceType.Pawn)
+        self.board.set_piece(18, 17, piece=PieceType.Bishop)
+
+        #
+        # choose directions
+
+        # short
+        self.append_arrow( 3, 2, 2, 4, mark_type=MarkType.Action )
+        self.append_text("1", 2, 4, mark_type=MarkType.Action, rect=rect)
+
+        # long
+        self.append_arrow( 2, 4, 6, 5, mark_type=MarkType.Action )
+        self.append_text("2", 6, 5, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
+
+        #
+        # follow directions
+
+        # short
+        self.append_arrow( 6, 5, 5, 7 )
+        self.append_text("3", 5, 7, rect=rect)
+
+        # long
+        self.append_arrow( 5, 7, 9, 8 )
+        self.append_text("4", 9, 8, corner=Corner.UpperRight, rect=rect)
+
+        # short
+        self.append_arrow( 9, 8, 8, 10 )
+        self.append_text("5", 8, 10, rect=rect)
+
+        # long
+        self.append_arrow( 8, 10, 12, 11 )
+        self.append_text("6", 12, 11, corner=Corner.UpperRight, rect=rect)
+
+        # short
+        self.append_arrow( 12, 11, 11, 13 )
+        self.append_text("7", 11, 13, rect=rect)
+
+        # long
+        self.append_arrow( 11, 13, 15, 14 )
+        self.append_text("8", 15, 14, corner=Corner.UpperRight, rect=rect)
+
+        # short
+        self.append_arrow( 15, 14, 14, 16 )
+        self.append_text("9", 14, 16, rect=rect)
+
+        # long
+        self.append_arrow( 14, 16, 18, 17, mark_type=MarkType.Illegal )
+        self.append_text("10", 18, 17, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
+
+        # short
+        self.append_arrow( 18, 17, 17, 19, mark_type=MarkType.Blocked )
+        self.append_text("11", 17, 19, mark_type=MarkType.Blocked, rect=rect)
+
+
+        #
+        # forbidden directions change
+
+        self.append_arrow( 12, 11, 14, 12, mark_type=MarkType.Blocked )
+        self.append_text("7a", 14, 12, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( 12, 11, 13, 13, mark_type=MarkType.Blocked )
+        self.append_text("7b", 13, 13, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+
+        # (-1, 2) is ok, i.e. 12, 11 --> 11, 13
+
+        self.append_arrow( 12, 11, 10, 12, mark_type=MarkType.Blocked )
+        self.append_text("7c", 10, 12, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( 12, 11, 10, 10, mark_type=MarkType.Blocked )
+        self.append_text("7d", 10, 10, corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( 12, 11, 11, 9, mark_type=MarkType.Blocked )
+        self.append_text("7e", 11, 9, corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( 12, 11, 13, 9, mark_type=MarkType.Blocked )
+        self.append_text("7f", 13, 9, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( 12, 11, 14, 10, mark_type=MarkType.Blocked )
+        self.append_text("7g", 14, 10, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+
+        return 'scn_hd_03_centaur_multi_step'

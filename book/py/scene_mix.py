@@ -23,8 +23,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_aoa_13_tagged_pawn_converted', \
-                    'scn_aoa_14_pawn_figure_piece_rush_rows', \
+                    'scn_hd_03_centaur_multi_step', \
                 ]
 
     def _get_all_scene_method_names(self):
