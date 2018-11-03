@@ -281,11 +281,11 @@ class Colors(dict):
                                             marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#FFFFFF', '#000000', '#FFFFFF', '#000000') ) ) # BFBFBF
         self[ BoardType.OddHemerasDawn ] = self[ BoardType.HemerasDawn ]
 
-        self[ BoardType.TamoanchanRevisited ] = CI( piece=CS(    ('#10F030', '#000000', '#200070', '#FFFFFF') ), \
+        self[ BoardType.TamoanchanRevisited ] = CI( piece=CS(    ('#BBBBBB', '#000000', '#666666', '#FFFFFF') ), \
                                                     star=CS(     ('#FFFF00', '#000000', '#FF2020', '#000000') ), \
                                                     monolith=CP( ('#000000', '#FFFFFF') ), \
                                                     aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
-                                                    field=CS(    ('#10F0E0', '#10F0E0', '#0030AF', '#0030AF') ), \
+                                                    field=CS(    ('#FFFFFF', '#FFFFFF', '#00CCFF', '#00CCFF') ), \
                                                     arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#333333', '#000000') ), \
                                                     text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ), \
                                                     marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ) )
