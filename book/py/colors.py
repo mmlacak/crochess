@@ -271,7 +271,7 @@ class Colors(dict):
                                          marker=CM(   ('#009000', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ) )
         self[ BoardType.OddNineteen ] = self[ BoardType.Nineteen ]
 
-        self[ BoardType.HemerasDawn ] = CI( piece=CS(    ('#FF0000', '#000000', '#333333', '#FFFFFF') ), \
+        self[ BoardType.HemerasDawn ] = CI( piece=CS(    ('#FF0000', '#000000', '#CCFF00', '#000000') ), \
                                             star=CS(     ('#2020FF', '#000000', '#FFFFFF', '#000000') ), \
                                             monolith=CP( ('#000000', '#FFFFFF') ), \
                                             aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
