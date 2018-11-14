@@ -122,6 +122,38 @@ Finished move with completely exhausted movement limit.
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
 
+\subsection*{Revisiting fields, loops}
+\addcontentsline{toc}{subsection}{Revisiting fields, loops}
+
+\noindent
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_07_serpent_loop_1.png}
+\caption{Activating Pyramid}
+\label{fig:scn_tr_07_serpent_loop_1}
+\end{wrapfigure}
+Starting with the same scene, only with added Pyramid, Serpent can
+activate said Pyramid with momentum of 4.
+
+There is nothing preventing Serpent to revisit already traversed fields,
+and build up more momentum.
+
+\vspace*{0.07\textheight}
+\noindent
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_serpent_loop_end.png}
+\caption{Building momentum}
+\label{fig:scn_tr_08_serpent_loop_end}
+\end{wrapfigure}
+All revisited fields counts towards momentum each time they are traveled
+over.
+
+Here, fields are enumerated in visiting order, revisited fields are marked
+blue. So, Serpent can now activate Pyramid with momentum of 8.
+
+\clearpage % ..........................................................
+
 \subsection*{Alternative movement}
 \addcontentsline{toc}{subsection}{Alternative movement}
 

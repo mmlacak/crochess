@@ -31,6 +31,8 @@ class SceneMix(SceneCroatianTiesMixin, \
                     'scn_tr_04_serpent_3', \
                     'scn_tr_05_serpent_end', \
                     'scn_tr_06_serpent_neighbors', \
+                    'scn_tr_07_serpent_loop_1', \
+                    'scn_tr_08_serpent_loop_end', \
                 ]
 
     def _get_all_scene_method_names(self):

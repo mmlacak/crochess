@@ -156,3 +156,60 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.append_field_marker(2, 1)
 
         return 'scn_tr_06_serpent_neighbors'
+
+    def scn_tr_07_serpent_loop_1(self, bt=BoardType.TamoanchanRevisited):
+
+        self.init_scene(bt, width=8, height=8)
+
+        start = (2, 2)
+        self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+
+        self.append_text('1', 3, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+
+        self.append_text('2', 2, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
+
+        self.board.set_piece(2, 6, piece=PieceType.Pyramid)
+        self.board.set_piece(3, 5, piece=PieceType.Serpent)
+
+        self.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Action )
+        self.append_arrow( 3, 5, 4, 4 )
+
+        return 'scn_tr_07_serpent_loop_1'
+
+    def scn_tr_08_serpent_loop_end(self, bt=BoardType.TamoanchanRevisited):
+
+        self.init_scene(bt, width=8, height=8)
+
+        start = (2, 2)
+        self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+
+        self.append_text('1', 3, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        # self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+
+        self.append_text('2', 2, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        # self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
+
+        self.append_text('3', 3, 5, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 3, 5, 4, 4, mark_type=MarkType.Blocked )
+
+        self.append_text('4', 4, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 4, 4, 3, 3, mark_type=MarkType.Action )
+
+        self.append_text('5', 3, 3, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Action )
+
+        self.append_text('6', 2, 4, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Action )
+
+        self.append_text('7', 3, 5, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Blocked )
+
+        self.append_text('8', 2, 6, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.board.set_piece(2, 6, piece=PieceType.Serpent)
+
+        return 'scn_tr_08_serpent_loop_end'
