@@ -12,6 +12,7 @@ from scene_age_of_aquarius import SceneAgeOfAquariusMixin
 from scene_mirandas_veil import SceneMirandasVeilMixin
 from scene_nineteen import SceneNineteenMixin
 from scene_hemeras_dawn import SceneHemerasDawnMixin
+from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
 
 
 class SceneMix(SceneCroatianTiesMixin, \
@@ -19,11 +20,17 @@ class SceneMix(SceneCroatianTiesMixin, \
                SceneAgeOfAquariusMixin, \
                SceneMirandasVeilMixin, \
                SceneNineteenMixin, \
-               SceneHemerasDawnMixin):
+               SceneHemerasDawnMixin, \
+               SceneTamoanchanRevisitedMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_hd_03_centaur_multi_step', \
+                    'scn_tr_01_serpent_diagonals', \
+                    'scn_tr_02_serpent_1', \
+                    'scn_tr_03_serpent_2', \
+                    'scn_tr_04_serpent_3', \
+                    'scn_tr_05_serpent_end', \
+                    'scn_tr_06_serpent_neighbors', \
                 ]
 
     def _get_all_scene_method_names(self):

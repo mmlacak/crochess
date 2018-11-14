@@ -23,7 +23,7 @@ A new piece is introduced, Serpent.
 \addcontentsline{toc}{section}{Serpent}
 
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/13_serpent.png}
 \caption{Serpent}
@@ -32,8 +32,16 @@ A new piece is introduced, Serpent.
 Serpent moves diagonaly one field at the time, after which it alternates
 diagonal.
 
-Serpent can also move one field vertically or horizontaly if it's unoccupied.
-This move is complete move of a player, and cannot contain anything else.
+All step-fields are also capture-fields, Serpent would be able to activate
+not just Wave, but also Pyramid on any of them.
+
+Serpent can move no longer than for one third of board size, rounded up to
+first whole number. In this variant, that means Serpent can move for 8
+fields, or less.
+
+Alternatively, Serpent can also move one field vertically or horizontally
+if it's unoccupied. This move is complete move of a player, and cannot
+contain anything else.
 
 In algebraic notation symbol for Serpent is ’S’.
 
@@ -45,7 +53,87 @@ In algebraic notation symbol for Serpent is ’S’.
 \caption{Star}
 \label{fig:star/16_tamoanchan_revisited}
 \end{wrapfigure}
-Star colors in this variant are presented to the left.
+Star colors in this variant are presented on the left.
+
+\clearpage % ..........................................................
+% Movement ------------------------------------------------------------
+
+\subsection*{Movement}
+\addcontentsline{toc}{subsection}{Movement}
+
+\noindent
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_01_serpent_diagonals.png}
+\caption{Diagonals}
+\label{fig:scn_tr_01_serpent_diagonals}
+\end{wrapfigure}
+In this example available fields on diagonals A and B are shown in green
+and blue.
+
+On the Serpent's first step 4 fields are accessible. On all subsequent
+steps, due to alternating diagonals, only 2 fields are available.
+
+\vspace*{0.07\textheight}
+\noindent
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_02_serpent_1.png}
+\caption{Step 1}
+\label{fig:scn_tr_02_serpent_1}
+\end{wrapfigure}
+Starting position is marked by S.
+
+First step was taken on diagonal B, so next step has to be on diagonal A.
+
+\vspace*{0.15\textheight}
+\noindent
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_03_serpent_2.png}
+\caption{Step 2}
+\label{fig:scn_tr_03_serpent_2}
+\end{wrapfigure}
+Field numbers counts steps to them, and also gathered momentum.
+
+Alternating diagonals require change in direction, again.
+
+\clearpage % ..........................................................
+
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_04_serpent_3.png}
+\caption{Step 3}
+\label{fig:scn_tr_04_serpent_3}
+\end{wrapfigure}
+... and again.
+
+\vspace*{0.27\textheight}
+\noindent
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_05_serpent_end.png}
+\caption{End step}
+\label{fig:scn_tr_05_serpent_end}
+\end{wrapfigure}
+Finished move with completely exhausted movement limit.
+
+% ------------------------------------------------------------ Movement
+\clearpage % ..........................................................
+
+\subsection*{Alternative movement}
+\addcontentsline{toc}{subsection}{Alternative movement}
+
+\noindent
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_06_serpent_neighbors.png}
+\caption{Alternative movement}
+\label{fig:scn_tr_06_serpent_neighbors}
+\end{wrapfigure}
+Serpent's alternative movement is a way to change color of fields
+traversed, provided that there is no obstacle in the way.
 
 % ************************************************************* Serpent
 \clearpage % ..........................................................
@@ -67,7 +155,7 @@ can be present on chessboard at any given time.
 \noindent
 \begin{wrapfigure}{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.15\textwidth, keepaspectratio=true]{en_passants/16_tamoanchan_revisited_en_passant.png}
+\includegraphics[width=0.136363636364\textwidth, keepaspectratio=true]{en_passants/16_tamoanchan_revisited_en_passant.png}
 \caption{En passant}
 \label{fig:16_tamoanchan_revisited_en_passant}
 \end{wrapfigure}
