@@ -140,13 +140,13 @@ class SceneConquestOfTlalocanMixin(Scene):
         start_lH = (4, 4)
         self.board.set_piece(*start_lH, piece=PieceType.Shaman)
 
-        pos_P1 = (3, 2)
-        self.board.set_piece(*pos_P1, piece=PieceType.Pyramid)
+        pos_A1 = (3, 2)
+        self.board.set_piece(*pos_A1, piece=PieceType.Pyramid)
         self.board.set_piece(7, 6, piece=PieceType.Pyramid)
         self.board.set_piece(6, 3, piece=PieceType.Wave)
         self.board.set_piece(1, 6, piece=PieceType.Wave)
 
-        self.append_text("1", *pos_P1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("1", *pos_A1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("2", 7, 6, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("1", 6, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text("2", 1, 6, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
@@ -167,8 +167,8 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         i = 1
         for pos in gen_abs_pos_2():
-            if pos == pos_P1:
-                self.append_field_marker(*pos_P1, mark_type=MarkType.Illegal)
+            if pos == pos_A1:
+                self.append_field_marker(*pos, mark_type=MarkType.Illegal)
             else:
                 self.append_field_marker(*pos, mark_type=MarkType.Legal)
                 # self.append_text(str(i), *pos, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
