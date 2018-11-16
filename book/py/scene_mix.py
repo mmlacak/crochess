@@ -13,6 +13,7 @@ from scene_mirandas_veil import SceneMirandasVeilMixin
 from scene_nineteen import SceneNineteenMixin
 from scene_hemeras_dawn import SceneHemerasDawnMixin
 from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
+from scene_conquest_of_tlalocan import SceneConquestOfTlalocanMixin
 
 
 class SceneMix(SceneCroatianTiesMixin, \
@@ -21,18 +22,13 @@ class SceneMix(SceneCroatianTiesMixin, \
                SceneMirandasVeilMixin, \
                SceneNineteenMixin, \
                SceneHemerasDawnMixin, \
-               SceneTamoanchanRevisitedMixin):
+               SceneTamoanchanRevisitedMixin, \
+               SceneConquestOfTlalocanMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_tr_01_serpent_diagonals', \
-                    'scn_tr_02_serpent_1', \
-                    'scn_tr_03_serpent_2', \
-                    'scn_tr_04_serpent_3', \
-                    'scn_tr_05_serpent_end', \
-                    'scn_tr_06_serpent_neighbors', \
-                    'scn_tr_07_serpent_loop_1', \
-                    'scn_tr_08_serpent_loop_end', \
+                    'scn_cot_01_shaman_movement', \
+                    'scn_cot_02_activating_passives', \
                 ]
 
     def _get_all_scene_method_names(self):
