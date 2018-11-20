@@ -33,8 +33,11 @@ Centaur is similar to Unicorn, only it can continue its' jumpy movement
 in two chosen directions until another piece is encountered, or it runs
 out of a chessboard.
 
-Note that Centaur cannot change its’ heading after first two jumps, i.e.
-once long and short jump directions are chosen.
+The two directions are chosen freely on first and second jump. Once both
+long and short jump directions are determined, Centaur has to follow them
+in all subsequent steps, until move is done.
+
+Note, for Centaur move to be legal, all steps must end up on the chessboard.
 
 In algebraic notation symbol for Centaur is ’C’.
 
@@ -102,6 +105,13 @@ fields (grey).
 Here, step-fields are numbered 1 to 11, they are also capture-fields,
 Centaur could capture dark Bishop if in place of the light one. Pieces on
 all other fields are ignored (Pawns).
+
+\clearpage % ..........................................................
+
+\subsubsection*{Out of board step}
+\addcontentsline{toc}{subsubsection}{Out of board step}
+
+...
 
 % ------------------------------------------------------------ Movement
 % ************************************************************* Centaur
