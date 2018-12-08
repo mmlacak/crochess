@@ -25,6 +25,11 @@ class BoardDesc(object):
         assert isinstance(off_board_right, int)
         assert isinstance(off_board_bottom, int)
 
+        assert off_board_left >= 0
+        assert off_board_top >= 0
+        assert off_board_right >= 0
+        assert off_board_bottom >= 0
+
         assert isinstance(reverse_off_board_field_colors, bool)
 
         # TODO :: allow floats, as size relative to field
@@ -32,6 +37,11 @@ class BoardDesc(object):
         assert isinstance(border_top_pix, int)
         assert isinstance(border_right_pix, int)
         assert isinstance(border_bottom_pix, int)
+
+        assert border_left_pix >= 0
+        assert border_top_pix >= 0
+        assert border_right_pix >= 0
+        assert border_bottom_pix >= 0
 
         self.reverse_field_colors = reverse_field_colors
 

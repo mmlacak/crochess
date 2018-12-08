@@ -30,26 +30,42 @@ class DrawBoard(Draw):
 
         self.board_desc = board_desc or BoardDesc()
 
-        self.calc_board_geometry()
+        self.store_board_geometry()
 
-    def calc_board_geometry(self):
+    def calc_total_field_counts(self):
+        w = self.board_desc.off_board_left + self.board.get_width() + self.board_desc.off_board_right
+        h = self.board_desc.off_board_top + self.board.get_height() + self.board_desc.off_board_bottom
+        return (w, h)
+
+    def calc_fields_canvas_size(self):
+        w, h = self.drawable.get_size()
+        w2 = w - self.board_desc.border_left_pix - self.board_desc.border_right_pix
+        h2 = h - self.board_desc.border_top_pix - self.board_desc.border_bottom_pix
+        return (w2, h2)
+
+    def store_board_geometry(self):
+        w, h = self.calc_total_field_counts()
+        self.field_count_hor = w
+        self.field_count_vert = h
+
+        w_pix, h_pix = self.calc_fields_canvas_size()
+        self.fields_canvas_left_pix = self.board_desc.border_left_pix
+        self.fields_canvas_top_pix = self.board_desc.border_top_pix
+        self.fields_canvas_width_pix = w_pix
+        self.fields_canvas_height_pix = h_pix
+
         w_pix, h_pix = self.get_field_size_pix()
-
         self.field_width_pix = w_pix
         self.field_height_pix = h_pix
 
+        self.board_left_pix = self.fields_canvas_left_pix + self.board_desc.off_board_left * self.field_width_pix
+        self.board_top_pix = self.fields_canvas_top_pix + self.board_desc.off_board_top * self.field_height_pix
         self.board_width_pix = self.field_width_pix * self.board.get_width()
         self.board_height_pix = self.field_height_pix * self.board.get_height()
-        self.board_top_pix = self.board_desc.border_top_pix
-        self.board_left_pix = self.board_desc.border_left_pix
 
     def get_field_size_pix(self):
-        w, h = self.drawable.get_size()
-        w = w - self.board_desc.border_left_pix - self.board_desc.border_right_pix
-        h = h - self.board_desc.border_top_pix - self.board_desc.border_bottom_pix
-
-        i = self.board.get_width()
-        j = self.board.get_height()
+        w, h = self.calc_fields_canvas_size()
+        i, j = self.calc_total_field_counts()
 
         x = w / i
         y = h / j
