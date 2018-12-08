@@ -8,47 +8,11 @@
 from types import NoneType
 
 from util import xor
+from board_desc import BoardDesc
 from board import Board
 from colors import ColorsShade, ColorsItem
 from draw import  DrawableRectangle, Draw
 from draw_piece import DrawPiece
-
-
-class BoardDesc(object):
-    def __init__(self, \
-                 border_left_pix=0, \
-                 border_top_pix=0, \
-                 border_right_pix=0, \
-                 border_bottom_pix=0, \
-                 reverse_field_colors=False):
-
-        assert isinstance(border_left_pix, int)
-        assert isinstance(border_top_pix, int)
-        assert isinstance(border_right_pix, int)
-        assert isinstance(border_bottom_pix, int)
-        assert isinstance(reverse_field_colors, bool)
-
-        self.border_left_pix = border_left_pix
-        self.border_top_pix = border_top_pix
-        self.border_right_pix = border_right_pix
-        self.border_bottom_pix = border_bottom_pix
-
-        self.reverse_field_colors = reverse_field_colors
-
-    def as_tuple(self):
-        return ( self.border_left_pix, \
-                 self.border_top_pix, \
-                 self.border_right_pix, \
-                 self.border_bottom_pix, \
-                 self.reverse_field_colors )
-
-    @staticmethod
-    def from_tuple(tpl):
-        return BoardDesc( border_left_pix=tpl[0], \
-                          border_top_pix=tpl[1], \
-                          border_right_pix=tpl[2], \
-                          border_bottom_pix=tpl[3], \
-                          reverse_field_colors=tpl[4] )
 
 
 class DrawBoard(Draw):

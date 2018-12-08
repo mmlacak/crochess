@@ -330,8 +330,8 @@ def test_3(board_desc=None, name=''):
 
 if __name__ == '__main__':
     from board import BoardType, Board
+    from board_desc import BoardDesc
     from draw import get_new_drawable, get_new_gc
-    from draw_board import BoardDesc
 
     test_1()
     test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=210, border_right_pix=30, border_bottom_pix=40), name='_border')
