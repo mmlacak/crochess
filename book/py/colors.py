@@ -206,7 +206,8 @@ class Colors(dict):
                                      star=CS(     ('#FFFFFF', '#000000', '#000000', '#FFFFFF') ), \
                                      monolith=CP( ('#000000', '#FFFFFF') ), \
                                      aura=CP(     ('#FFFFFF', '#FFFFFF') ), \
-                                     field=CS(    ('#FFFFFF', '#FFFFFF', '#000000', '#000000') ), \
+                                     # field=CS(    ('#FFFFFF', '#FFFFFF', '#EEEEEE', '#EEEEEE') ), \
+                                     field=CS(    ('#EEEEEE', '#EEEEEE', '#DDDDDD', '#DDDDDD') ), \
                                      arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#333333', '#000000') ), \
                                      text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', \
                                                    '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ), \

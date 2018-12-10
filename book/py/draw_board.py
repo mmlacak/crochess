@@ -10,7 +10,7 @@ from types import NoneType
 from util import xor
 from board_desc import BoardDesc
 from board import Board
-from colors import ColorsShade, ColorsItem
+from colors import ColorsShade, ColorsItem, Colors
 from draw import  DrawableRectangle, Draw
 from draw_piece import DrawPiece
 
@@ -37,6 +37,13 @@ class DrawBoard(Draw):
         h = self.board_desc.off_board_top + self.board.get_height() + self.board_desc.off_board_bottom
         return (w, h)
 
+    def calc_total_field_geometry(self):
+        left = -self.board_desc.off_board_left
+        top = self.board.get_height() - 1 + self.board_desc.off_board_top
+        right = self.board.get_width() - 1 + self.board_desc.off_board_right
+        bottom = -self.board_desc.off_board_bottom
+        return (left, top, right, bottom)
+
     def calc_fields_canvas_size(self):
         w, h = self.drawable.get_size()
         w2 = w - self.board_desc.border_left_pix - self.board_desc.border_right_pix
@@ -47,6 +54,12 @@ class DrawBoard(Draw):
         w, h = self.calc_total_field_counts()
         self.field_count_hor = w
         self.field_count_vert = h
+
+        left, top, right, bottom = self.calc_total_field_geometry()
+        self.fields_left = left
+        self.fields_top = top
+        self.fields_right = right
+        self.fields_bottom = bottom
 
         w_pix, h_pix = self.calc_fields_canvas_size()
         self.fields_canvas_left_pix = self.board_desc.border_left_pix
@@ -80,22 +93,25 @@ class DrawBoard(Draw):
         return (left_pix, top_pix)
 
     def is_light(self, i, j):
-        return xor( self.board.is_light(i, j), self.board_desc.reverse_field_colors, default=False )
+        rev = self.board_desc.reverse_field_colors if self.board.is_on_board(i, j) else self.board_desc.reverse_off_board_field_colors
+        return xor( self.board.is_light(i, j), rev, default=False )
 
     def draw_field(self, i, j, cshade=None, gc=None):
         assert isinstance(cshade, (ColorsShade, NoneType))
 
         x_pix, y_pix = self.get_field_start_pix(i, j)
 
-        if cshade is not None:
-            color = cshade.light if self.is_light(i, j) else cshade.dark
+        cs = cshade if self.board.is_on_board(i, j) else Colors[ BoardType.none ].field
+
+        if cs is not None:
+            color = cs.light if self.is_light(i, j) else cs.dark
             self.draw_rectangle(x_pix, y_pix, self.field_width_pix, self.field_height_pix, filled=True, fg=color.interior, bg=color.outline, gc=gc)
         else:
             self.draw_rectangle(x_pix, y_pix, self.field_width_pix, self.field_height_pix, filled=True, gc=gc)
 
     def draw_all_fields(self, cshade=None, gc=None):
-        for j in xrange(self.board.get_height()):
-            for i in xrange(self.board.get_width()):
+        for j in xrange(self.fields_bottom, self.fields_top+1):
+            for i in xrange(self.fields_left, self.fields_right+1):
                 self.draw_field(i, j, cshade=cshade, gc=gc)
 
     def draw_piece_at_field(self, i, j, colors_item, gc=None):
@@ -197,3 +213,6 @@ if __name__ == '__main__':
     test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=90, border_bottom_pix=40), width=width, height=height, name='_hor_border_2')
 
     test_2()
+
+    test_1(board_desc=BoardDesc(off_board_left=3, off_board_top=2), name='_off_board')
+    test_1(board_desc=BoardDesc(off_board_right=2, off_board_bottom=3, reverse_off_board_field_colors=True), name='_off_board_2')
