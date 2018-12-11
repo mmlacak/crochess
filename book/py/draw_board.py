@@ -9,7 +9,7 @@ from types import NoneType
 
 from util import xor
 from board_desc import BoardDesc
-from board import Board
+from board import BoardType, Board
 from colors import ColorsShade, ColorsItem, Colors
 from draw import  DrawableRectangle, Draw
 from draw_piece import DrawPiece
@@ -188,7 +188,6 @@ def test_2(board_desc=None, name=''):
     d.save_image(file_path)
 
 if __name__ == '__main__':
-    from board import BoardType
     from draw import get_new_drawable, get_new_gc
 
     test_1()

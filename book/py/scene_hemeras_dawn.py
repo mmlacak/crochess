@@ -11,6 +11,7 @@ import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
+from board_desc import BoardDesc
 from mark import MarkType
 from scene import Corner, Scene
 
@@ -152,3 +153,11 @@ class SceneHemerasDawnMixin(Scene):
         self.append_text("7g", 14, 10, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
 
         return 'scn_hd_03_centaur_multi_step'
+
+
+    def scn_hd_04_centaur_off_board(self, bt=BoardType.HemerasDawn):
+
+        bd = BoardDesc(off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=16, height=19, board_desc=bd)
+
+        return 'scn_hd_04_centaur_off_board'

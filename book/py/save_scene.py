@@ -7,6 +7,8 @@
 
 DEFAULT_PATH = '../gfx/' # '../tmp/'
 
+from types import NoneType
+
 from colors import Colors
 from piece import PieceType
 from board import BoardType, Board
@@ -50,6 +52,8 @@ class SaveScene(object):
         assert isinstance(board, Board)
 
         board_desc = board_desc or BoardDesc()
+        assert isinstance(board_desc, (BoardDesc, NoneType))
+
         size_x, size_y = self.normalize(size_x, size_y)
 
         board_width = board.get_width()
@@ -84,13 +88,13 @@ class SaveScene(object):
 
         return drawable, gc
 
-    def save_scene(self, scene, file_path, board_desc=None, size_x=None, size_y=None, line_width=None, file_type=None):
+    def save_scene(self, scene, file_path, size_x=None, size_y=None, line_width=None, file_type=None):
         assert isinstance(scene, Scene)
         assert isinstance(file_path, str)
 
-        drawable, gc = self.init_drawable_gc(size_x=size_x, size_y=size_y, line_width=line_width, board=scene.board, board_desc=board_desc)
+        drawable, gc = self.init_drawable_gc(size_x=size_x, size_y=size_y, line_width=line_width, board=scene.board, board_desc=scene.board_desc)
 
-        draw_scene = DrawScene(drawable, gc, scene, board_desc=board_desc)
+        draw_scene = DrawScene(drawable, gc, scene, board_desc=scene.board_desc)
 
         colors_item = Colors[ scene.board.type ]
         mark_def_item = MarkDef[ scene.board.type ]

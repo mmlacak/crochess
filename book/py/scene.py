@@ -10,6 +10,7 @@ from types import NoneType
 import pixel_math as pm
 from coords import Pos, RectPos
 from board import BoardType, Board
+from board_desc import BoardDesc
 from mark import MarkType, Arrow, Text, FieldMarker
 
 
@@ -134,23 +135,29 @@ def get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45):
 
 class Scene(object):
 
-    def __init__(self, board=None, *args, **kwargs):
-        assert isinstance(board, (Board, NoneType))
-
+    def __init__(self, board=None, board_desc=None, *args, **kwargs):
         super(Scene, self).__init__(*args, **kwargs)
+        self.reset(board=board, board_desc=board_desc)
 
-        self.reset(board=board)
+    def reset(self, board=None, board_desc=None):
+        assert isinstance(board, (Board, NoneType))
+        assert isinstance(board_desc, (BoardDesc, NoneType))
 
-    def reset(self, board=None):
         self.board = board
+        self.board_desc = board_desc
+
         self.arrows = [] # :: [ mark.Arrow, ... ]
         self.texts = [] # :: [ mark.Text, ... ]
         self.field_markers = [] # :: [ mark.FieldMarker, ... ]
 
-    def init_scene(self, board_type, width=None, height=None):
+    def init_scene(self, board_type, width=None, height=None, board_desc=None):
+        self.reset()
+
         bt = BoardType(board_type)
-        b = Board(bt, width=width, height=height)
-        self.reset(board=b)
+        board = Board(bt, width=width, height=height)
+
+        self.board = board
+        self.board_desc = board_desc or BoardDesc()
 
     def append_text(self, txt, pos_i, pos_j, \
                     corner=Corner(Corner.UpperLeft), \
