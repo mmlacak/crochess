@@ -160,4 +160,34 @@ class SceneHemerasDawnMixin(Scene):
         bd = BoardDesc(off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
         self.init_scene(bt, width=16, height=19, board_desc=bd)
 
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start = (13, 1)
+        self.board.set_piece(*start, piece=-PieceType.Centaur)
+
+        #
+        # short --> (-2, 1) direction
+        # long --> (3, 2) direction
+
+        self.append_arrow( 13, 1, 11, 2 ) # short
+        self.append_arrow( 11, 2, 14, 4 ) # long
+
+        self.append_arrow( 14, 4, 12, 5 ) # short
+        self.append_arrow( 12, 5, 15, 7 ) # long
+
+        self.append_arrow( 15, 7, 13, 8 ) # short
+        self.append_arrow( 13, 8, 16, 10, mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( 16, 10, 14, 11, mark_type=MarkType.Illegal ) # short
+        self.append_arrow( 14, 11, 17, 13, mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( 17, 13, 15, 14, mark_type=MarkType.Illegal ) # short
+        self.append_arrow( 15, 14, 18, 16, mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( 18, 16, 16, 17, mark_type=MarkType.Illegal ) # short
+        self.append_arrow( 16, 17, 19, 19, mark_type=MarkType.Illegal ) # long
+
+        self.append_text("1", 14, 11, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+        self.append_text("2", 15, 14, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+
         return 'scn_hd_04_centaur_off_board'

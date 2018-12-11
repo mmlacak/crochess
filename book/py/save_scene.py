@@ -56,8 +56,8 @@ class SaveScene(object):
 
         size_x, size_y = self.normalize(size_x, size_y)
 
-        board_width = board.get_width()
-        board_height = board.get_height()
+        board_width = board_desc.off_board_left + board.get_width() + board_desc.off_board_right
+        board_height = board_desc.off_board_top + board.get_height() + board_desc.off_board_bottom
 
         # dots-per-field
         nominal_dpf = self.calc_nominal_dpf(board.type)

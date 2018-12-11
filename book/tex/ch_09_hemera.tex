@@ -81,7 +81,7 @@ same way Knight does.
 
 On fields in opposite color, Centaur can jump much longer, exactly the
 same way Unicorn does. Again, just as Knight (and Unicorn), Centaur is
-not hampered by surrouding pieces. Only own pieces on marked (i.e. step)
+not hampered by surrounding pieces. Only own pieces on marked (i.e. step)
 fields can prevent Centaur to move, opponent's pieces could be captured.
 
 For comparison, Knight's step-fields are also numbered (grey).
@@ -111,7 +111,21 @@ all other fields are ignored (Pawns).
 \subsubsection*{Out of board step}
 \addcontentsline{toc}{subsubsection}{Out of board step}
 
-...
+\vspace{-0.05\textwidth}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_04_centaur_off_board.png}
+\caption{Centaur off-board steps}
+\label{fig:scn_hd_04_centaur_off_board}
+% \centering
+\end{figure}
+
+Here, light grey fields surrounding chessboard are virtual fields made as an
+extension of the grid imposed by said chessboard. It's illegal to step outside
+chessboard, and all subsequent steps are also illegal. That means, Centaur
+cannot reach fields 1 and 2 from starting position with selected directions,
+even though it would end movement on the chessboard.
 
 % ------------------------------------------------------------ Movement
 % ************************************************************* Centaur
