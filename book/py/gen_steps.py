@@ -42,7 +42,7 @@ DEFAULT_UNICORN_REL_LONG_MOVES = [ ( 4,  1),    \
 DEFAULT_NEIGHBOURING_REL_MOVES = [ ( 1,  0), \
                                    ( 0,  1), \
                                    (-1,  0), \
-                                   ( 0, -1) ]
+                                   ( 0, -1)  ]
 
 DEFAULT_KING_REL_MOVES = [ ( 1,  0), \
                            ( 1,  1), \
@@ -54,187 +54,169 @@ DEFAULT_KING_REL_MOVES = [ ( 1,  0), \
                            (-1, -1), \
 
                            ( 0, -1), \
-                           ( 1, -1) ]
+                           ( 1, -1)  ]
 
 
-
-def add(pos1, pos2):
-    return ( pos1[0] + pos2[0], pos1[1] + pos2[1] )
+def add(step, rel):
+    if step is None or rel is None:
+        return None
+    return ( step[0] + rel[0], step[1] + rel[1] )
 
 def subtract_steps(steps_lst, subtract_lst=[]):
     return list( set(steps_lst) - set(subtract_lst) )
 
-def call_gen(gen):
+def gen_next(gen, default=None):
     g = gen()
 
-    def call_func():
-        return g.next()
+    def _gen_next():
+        return next(g, default) # return g.next()
 
-    return call_func
+    return _gen_next
 
-def get_gen_steps(start=(0, 0), rel=(1, 1)):
-    def gen_steps():
-        current = start
-        while True:
-            current = add(current, rel)
-            yield current
+def gen_rels(rels, count=None, default=None):
 
-    return gen_steps
+    def _gen_rels():
+        index = 0
 
-def get_gen_steps_prev(start=None, rel=(1, 1), end=None):
-    def gen_steps():
-        prev = current = start or end
-        reverse = start is None
-        _rel = tuple( (-i) for i in rel ) if reverse else rel
-        while True:
-            current = add(current, _rel)
-            if not reverse:
-                yield prev + current # (i, j) + (k, l) --> (i, j, k, l)
+        while count is None or index < count:
+            if callable(rels):
+                # rels == generator.next()
+                yield rels()
             else:
-                yield current + prev # (k, l) + (i, j)  --> (k, l, i, j)
-            prev = current
+                # rels == [ (i, j), ... ]
+                for rel in rels:
+                    yield rel
+            index += 1
 
-    return gen_steps
+    return gen_next(_gen_rels, default=default)
 
-def get_func_is_valid(pos_bounds=((0, 0), (25, 25))):
-    def is_valid(pos=(-1, -1)):
-        # pos can also be (i, j, k, l), in that case only destination is checked, i.e. (k, l)
-        l = len(pos) - 2
-        return (pos_bounds[0][0] <= pos[0 + l] <= pos_bounds[1][0]) and \
-               (pos_bounds[0][1] <= pos[1 + l] <= pos_bounds[1][1])
+def gen_steps(start, rels, count=None, default=None):
 
-    return is_valid
+    def _gen_steps():
+        _current = start
+        _rels = rels if callable(rels) else gen_rels(rels, default=default)
 
-def get_gen_multi_steps(start=(0, 0), rel_lst=[], pos_bounds=((0, 0), (25, 25)), gen_steps=None):
-    is_valid = get_func_is_valid(pos_bounds=pos_bounds)
-    gen = get_gen_steps if gen_steps is None else gen_steps
+        index = 0
+        while count is None or index < count:
+            _rel = _rels()
+            _next = add(_current, _rel)
 
-    def gen_multi_steps():
-        for rel in rel_lst:
-            gs = gen(start=start, rel=rel)
-            for pos in gs():
-                if is_valid(pos):
-                    yield pos
-                else:
+            yield _next
+
+            _current = _next
+            index += 1
+
+    return gen_next(_gen_steps, default=default)
+
+def gen_multi_steps(start, multi_rels, count=None, default=None):
+    # multi_rels == [ ( [ (i, j), ... ], count ), ... ]
+
+    def _gen_multi_steps():
+        for rels, _count in multi_rels:
+            _rels = gen_steps(start, rels, count=_count, default=default)
+
+            while True:
+                _rel = _rels()
+
+                if _rel is None:
                     break
 
-    return gen_multi_steps
+                yield _rel
+
+    return gen_next(_gen_multi_steps, default=default)
+
 
 
 def test_1():
-    g = get_gen_steps( start=(3, 1), rel=(1, 5) )
-    f = call_gen(g)
+    # rels = [(3, 1), ]
+    # rels = DEFAULT_KNIGHT_REL_MOVES
+    rels = DEFAULT_UNICORN_REL_LONG_MOVES
+    # rels = [(-2, 1), (3, 2)]
+    ln = len(rels)
+
+    g = gen_rels(rels, count=2, default='pero')
 
     print
+    print "-" * 42
     print g
-    print g()
-    print
-    print f
-    print
-    print f()
-    print f()
-    print f()
-    print f()
-    print f()
-    print f()
-    print f()
-    print f()
+    # print
+    for i in xrange(60):
+        if i % ln == 0:
+            print
+        print i, g()
+    print "-" * 42
     print
 
 def test_2():
-    gp = get_gen_steps_prev( start=(3, 1), rel=(1, 5) )
-    fp = call_gen(gp)
+    rels = [(-2, 1), (3, 2)]
+    ln = len(rels)
+
+    # g = gen_rels(rels, count=5)
+
+    f = gen_rels(rels, count=3)
+    g = gen_rels(f)
 
     print
-    print gp
-    print gp()
-    print
-    print fp
-    print
-    print fp()
-    print fp()
-    print fp()
-    print fp()
-    print fp()
-    print fp()
-    print fp()
-    print fp()
+    print "-" * 42
+    print g
+    # print
+    for i in xrange(60):
+        if i % ln == 0:
+            print
+        print i, g()
+    print "-" * 42
     print
 
 def test_3():
-    gms = get_gen_multi_steps(start=(2, 3), rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((-5, -3), (7, 9)))
+    rels = [(-2, 1), (3, 2)]
+    ln = len(rels)
+    start = (7, 4)
+
+    g = gen_steps(start, rels)
+
+    # f = gen_rels(rels)
+    # g = gen_steps(start, f)
 
     print
-    print gms
-    print gms()
-    print
-
-    for p in gms():
-        print p
-
+    print "-" * 42
+    print g
+    print start
+    for i in xrange(60):
+        if i % ln == 0:
+            print
+        print i, g()
+    print "-" * 42
     print
 
 def test_4():
-    gmps = get_gen_multi_steps(start=(2, 3), rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((-5, -3), (7, 9)), gen_steps=get_gen_steps_prev)
+    start = (4, 7)
+    rel1 = [(2, 1), (3, 2)]
+    rel2 = [(-2, -1), (-3, -2), (-1, -1)]
+    ln = len(rel1) + len(rel2)
+    multi_rels = [(rel1, 7), (rel2, 11)]
+
+    g = gen_multi_steps(start, multi_rels)
+
+    # e = gen_rels(rel1)
+    # f = gen_rels(rel2)
+    # mr = [(e, 5), (f, 9)]
+    #
+    # g = gen_multi_steps(start, mr)
 
     print
-    print gmps
-    print gmps()
-    print
-
-    for p in gmps():
-        print p
-
-    print
-
-def test_5():
-    pos = (4, 5)
-    rel_lst = subtract_steps(DEFAULT_KNIGHT_REL_MOVES, [(1, 2), (-1, -2)])
-    pos_bounds = (add(pos, (-2, -2)), add(pos, (2, 2)))
-
-    print
-    print "rel_lst:", rel_lst
-    print "pos_bounds:", pos_bounds
-    print
-
-    coords = get_gen_multi_steps(start=pos, rel_lst=rel_lst, pos_bounds=pos_bounds, gen_steps=get_gen_steps_prev)
-
-    print
-    print "coords"
-    for c in coords():
-        print c
-    print
-
-    dest = get_gen_multi_steps(start=pos, rel_lst=rel_lst, pos_bounds=pos_bounds)
-
-    print
-    print "dest"
-    for d in dest():
-        print d
-    print
-
-def test_6():
-    start = (2, 2)
-    pos_bounds=((0, 0), (4, 4))
-
-    gen_abs_pos = get_gen_multi_steps(start=start, rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=pos_bounds)
-
-    print
-    print "get_position_limits:", pos_bounds
-    for pos in gen_abs_pos():
-        print "pos", pos
+    print "-" * 42
+    print g
+    print start
+    for i in xrange(60):
+        if i % ln == 0:
+            print
+        print i, g()
+    print "-" * 42
     print
 
 
 if __name__ == '__main__':
     # test_1()
-
     # test_2()
-
     # test_3()
-
-    # test_4()
-
-    test_5()
-
-    test_6()
+    test_4()
