@@ -6,6 +6,8 @@
 
 # import inspect as I
 
+from util import xor
+
 
 DEFAULT_KNIGHT_REL_MOVES = [ ( 2,  1),  \
                              ( 1,  2),  \
@@ -62,8 +64,13 @@ def add(step, rel):
         return None
     return ( step[0] + rel[0], step[1] + rel[1] )
 
-def subtract_steps(steps_lst, subtract_lst=[]):
-    return list( set(steps_lst) - set(subtract_lst) )
+def subtract(coords, to_remove=[]):
+    return list( set(coords) - set(to_remove) )
+
+def negate(coords):
+    t = type(coords)
+    c = [ (-x) for x in coords ]
+    return t(c)
 
 def gen_next(gen, default=None):
     g = gen()
@@ -80,40 +87,58 @@ def gen_rels(rels, count=None, default=None):
 
         while count is None or index < count:
             if callable(rels):
-                # rels == generator.next()
+                # rels :: generator.next()
                 yield rels()
             else:
-                # rels == [ (i, j), ... ]
+                # rels :: [ (i, j), ... ]
                 for rel in rels:
                     yield rel
             index += 1
 
     return gen_next(_gen_rels, default=default)
 
-def gen_steps(start, rels, count=None, default=None):
+def gen_steps(rels, start=None, end=None, include_prev=False, count=None, default=None):
+
+    assert xor(start is not None, end is not None)
 
     def _gen_steps():
-        _current = start
+        _reverse = start is None
+        _current = start or end
         _rels = rels if callable(rels) else gen_rels(rels, default=default)
 
         index = 0
         while count is None or index < count:
             _rel = _rels()
-            _next = add(_current, _rel)
+            if _reverse:
+                _rel = negate(_rel)
+            _prev = _next = add(_current, _rel)
 
-            yield _next
+            if include_prev:
+                if not _reverse:
+                    yield _current + _next # (i, j) + (k, l) --> (i, j, k, l)
+                else:
+                    yield _prev + _current # (k, l) + (i, j) --> (k, l, i, j)
+            else:
+                yield _next
 
             _current = _next
             index += 1
 
     return gen_next(_gen_steps, default=default)
 
-def gen_multi_steps(start, multi_rels, count=None, default=None):
-    # multi_rels == [ ( [ (i, j), ... ], count ), ... ]
+def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, default=None):
+    # start :: (i, j)
+    # end :: (i, j)
+    #
+    # multi_rels :: [ ( rels, count ), ... ]
+    #
+    # rels :: generator.next()
+    # ... or ...
+    # rels :: [ (i, j), ... ]
 
     def _gen_multi_steps():
         for rels, _count in multi_rels:
-            _rels = gen_steps(start, rels, count=_count, default=default)
+            _rels = gen_steps(rels, start=start, end=end, include_prev=include_prev, count=_count, default=default)
 
             while True:
                 _rel = _rels()
@@ -126,6 +151,8 @@ def gen_multi_steps(start, multi_rels, count=None, default=None):
     return gen_next(_gen_multi_steps, default=default)
 
 
+#
+# tests
 
 def test_1():
     # rels = [(3, 1), ]
@@ -172,10 +199,12 @@ def test_3():
     ln = len(rels)
     start = (7, 4)
 
-    g = gen_steps(start, rels)
+    # g = gen_steps(rels, start=start)
+    g = gen_steps(rels, start=start, include_prev=True)
+    # g = gen_steps(rels, end=start, include_prev=True)
 
     # f = gen_rels(rels)
-    # g = gen_steps(start, f)
+    # g = gen_steps(f, start=start)
 
     print
     print "-" * 42
@@ -195,13 +224,15 @@ def test_4():
     ln = len(rel1) + len(rel2)
     multi_rels = [(rel1, 7), (rel2, 11)]
 
-    g = gen_multi_steps(start, multi_rels)
+    # g = gen_multi_steps(multi_rels, start=start)
+    # g = gen_multi_steps(multi_rels, start=start, include_prev=True)
+    g = gen_multi_steps(multi_rels, end=start, include_prev=True)
 
     # e = gen_rels(rel1)
     # f = gen_rels(rel2)
     # mr = [(e, 5), (f, 9)]
     #
-    # g = gen_multi_steps(start, mr)
+    # g = gen_multi_steps(mr, start=start)
 
     print
     print "-" * 42
