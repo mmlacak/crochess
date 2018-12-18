@@ -64,7 +64,7 @@ def add(step, rel):
         return None
     return ( step[0] + rel[0], step[1] + rel[1] )
 
-def subtract(coords, to_remove=[]):
+def remove(coords, to_remove=[]):
     return list( set(coords) - set(to_remove) )
 
 def negate(coords):
@@ -79,6 +79,82 @@ def gen_next(gen, default=None):
         return next(g, default) # return g.next()
 
     return _gen_next
+
+#def check_valid(valid=None):
+#    # valid :: bounds | func | count
+#    #
+#    # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
+#    #
+#    # func :: index --> pos --> bool
+#    #         index :: int
+#    #         pos :: (i ,j)
+#    #
+#    # count :: int
+
+#    def _check_valid(index, pos):
+#        if valid is None:
+#            return True
+
+#        if pos is not None:
+#            if isinstance(valid, tuple):
+#                l = len(pos) - 2
+#                i = pos[0 + l]
+#                j = pos[1 + l]
+
+#                i_min, j_min = valid[0]
+#                i_max, j_max = valid[1]
+
+#                if (i < i_min) or (i_max < i) or (j < j_min) or (j_max < j):
+#                    return False
+#            elif callable(valid):
+#                if not valid(index, pos):
+#                    return False
+
+#        if isinstance(valid, int):
+#            if index >= valid:
+#                return False
+
+#        return True
+
+#    return _check_valid
+
+def check_valid(count=None, bounds=None, func=None):
+    # count :: int
+    #
+    # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
+    #
+    # func :: index --> pos --> bool
+    #         index :: int
+    #         pos :: (i ,j)
+
+    def _check_valid(index, pos):
+        # index :: int
+        #
+        # pos :: (int, int) # (i, j)
+
+        if count is not None:
+            if index < 0 or index >= count:
+                return False
+
+        if pos is not None:
+            if bounds is not None:
+                l = len(pos) - 2
+                i = pos[0 + l]
+                j = pos[1 + l]
+
+                i_min, j_min = bounds[0]
+                i_max, j_max = bounds[1]
+
+                if (i < i_min) or (i_max < i) or (j < j_min) or (j_max < j):
+                    return False
+
+        if func is not None:
+            if not func(index, pos):
+                return False
+
+        return True
+
+    return _check_valid
 
 def gen_rels(rels, count=None, default=None):
 
