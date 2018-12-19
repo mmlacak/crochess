@@ -6,7 +6,8 @@
 
 
 from util import in_range
-from gen_steps import DEFAULT_KNIGHT_REL_MOVES, call_gen, get_gen_steps, get_gen_steps_prev, get_gen_multi_steps
+# from gen_steps import DEFAULT_KNIGHT_REL_MOVES, , gen_steps, gen_steps, get_gen_multi_steps
+import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
@@ -24,7 +25,9 @@ class SceneCroatianTiesMixin(Scene):
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType.Pegasus)
 
-        gen_abs_pos = get_gen_multi_steps(start=start, rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=self.board.get_position_limits())
+# TODO :: FIX ME !!!
+#         gen_abs_pos = get_gen_multi_steps(start=start, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=self.board.get_position_limits())
+        gen_abs_pos = GS.gen_multi_steps( [ ( GS.DEFAULT_KNIGHT_REL_MOVES, self.board.get_position_limits(), None ), ], start=start)
 
         i = 1
         for pos in gen_abs_pos():
@@ -43,13 +46,13 @@ class SceneCroatianTiesMixin(Scene):
         self.board.set_piece(*start, piece=PieceType.Pegasus)
 
         # main direction, i.e. <1, 2>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 2), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
@@ -90,25 +93,25 @@ class SceneCroatianTiesMixin(Scene):
         self.board.set_piece(*start, piece=PieceType.Pegasus)
 
         # direction 1, i.e. <2, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(2, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # main direction, i.e. <1, 2>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 2), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
 
         # direction 3, i.e. <-1, 2>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 2), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
@@ -141,35 +144,35 @@ class SceneCroatianTiesMixin(Scene):
         self.board.set_piece(5, 3, piece=PieceType.Rook)
 
         # direction 1, i.e. <2, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(2, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(2, 1), ]) )
         self.append_text("1", *coords())
         self.append_text("1", *coords())
         self.append_text("1", *coords(), mark_type=MarkType.Blocked)
 
         # direction 2, i.e. <1, 2>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 2), ]) )
         self.append_text("2", *coords())
         self.append_text("2", *coords())
         self.append_text("2", *coords(), mark_type=MarkType.Blocked)
         self.append_text("2", *coords(), mark_type=MarkType.Blocked)
 
         # direction 3, i.e. <-1, 2>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 2), ]) )
         self.append_text("3", *coords(), corner=Corner.UpperRight)
         self.append_text("3", *coords(), corner=Corner.UpperRight)
 

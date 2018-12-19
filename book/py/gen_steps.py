@@ -110,16 +110,17 @@ def check_valid(bounds=None, func=None):
     return _check_valid
 
 def gen_rels(rels, inf_seq=True, default=None):
-    # rels :: generator.next()
+    # rels :: generator
     #      ||  [ (i, j), ... ]
     #
     # inf_seq :: bool
 
     def _gen_rels():
         if callable(rels):
-            # rels :: generator.next()
+            # rels :: generator
+            _rels = gen_next(rels, default=default)
             while True:
-                yield rels()
+                yield _rels()
         else:
             _repeat = True
             # rels :: [ (i, j), ... ]
@@ -128,9 +129,12 @@ def gen_rels(rels, inf_seq=True, default=None):
                     yield rel
                 _repeat = inf_seq
 
-    return gen_next(_gen_rels, default=default)
+    return _gen_rels
 
 def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, default=None):
+    # rels :: generator
+    #      ||  [ (i, j), ... ]
+    #
     # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
     #
     # func_valid :: pos --> bool
@@ -141,7 +145,10 @@ def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_
     def _gen_steps():
         _reverse = start is None
         _current = start or end
+
         _rels = rels if callable(rels) else gen_rels(rels, default=default)
+        _rels = gen_next(_rels, default=default)
+
         _valid = check_valid(bounds=bounds, func=func_valid)
 
         while True:
@@ -163,7 +170,7 @@ def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_
 
             _current = _next
 
-    return gen_next(_gen_steps, default=default)
+    return _gen_steps
 
 def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, default=None):
     # start :: (i, j)
@@ -171,9 +178,8 @@ def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, defaul
     #
     # multi_rels :: [ ( rels, bounds, func_valid ), ... ]
     #
-    # rels :: generator.next()
-    # ... or ...
-    # rels :: [ (i, j), ... ]
+    # rels :: generator
+    #      || [ (i, j), ... ]
     #
     # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
     #
@@ -182,17 +188,18 @@ def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, defaul
 
     def _gen_multi_steps():
         for rels, _bounds, _func_valid in multi_rels:
-            _rels = gen_steps(rels, start=start, end=end, include_prev=include_prev, bounds=_bounds, func_valid=_func_valid, default=default)
+            _steps = gen_steps(rels, start=start, end=end, include_prev=include_prev, bounds=_bounds, func_valid=_func_valid)
+            _steps = gen_next(_steps, default=default)
 
             while True:
-                _rel = _rels()
+                _step = _steps()
 
-                if _rel is None:
+                if _step is None:
                     break
 
-                yield _rel
+                yield _step
 
-    return gen_next(_gen_multi_steps, default=default)
+    return _gen_multi_steps
 
 
 #
@@ -207,6 +214,8 @@ def test_1():
 
     f = gen_rels(rels, inf_seq=False, default='pero')
     g = gen_rels(f)
+
+    g = gen_next(g)
 
     print
     print "-" * 42
@@ -231,6 +240,8 @@ def test_2():
 
     # f = gen_rels(rels)
     # g = gen_steps(f, start=start, bounds=bounds)
+
+    g = gen_next(g)
 
     print
     print "-" * 42
@@ -266,6 +277,8 @@ def test_3():
     #
     # g = gen_multi_steps(mr, start=start)
 
+    g = gen_next(g)
+
     print
     print "-" * 42
     print g
@@ -277,8 +290,28 @@ def test_3():
     print "-" * 42
     print
 
+def test_4():
+    start = (2, 2)
+    bounds = ((0, 0), (4, 4))
+    ln = len(DEFAULT_KNIGHT_REL_MOVES)
+
+    multi_rels = [ (DEFAULT_KNIGHT_REL_MOVES, bounds, None), ]
+
+    g = gen_multi_steps(multi_rels, start=start)
+
+    print
+    print "-" * 42
+    print g
+    print start
+    for i, pos in enumerate( g() ):
+        if i % ln == 0:
+            print
+        print i, pos
+    print "-" * 42
+    print
 
 if __name__ == '__main__':
     # test_1()
     # test_2()
-    test_3()
+    # test_3()
+    test_4()
