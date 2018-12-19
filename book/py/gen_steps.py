@@ -76,65 +76,18 @@ def gen_next(gen, default=None):
     g = gen()
 
     def _gen_next():
-        return next(g, default) # return g.next()
+        return next(g, default) # g.next() raises StopIteration
 
     return _gen_next
 
-#def check_valid(valid=None):
-#    # valid :: bounds | func | count
-#    #
-#    # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
-#    #
-#    # func :: index --> pos --> bool
-#    #         index :: int
-#    #         pos :: (i ,j)
-#    #
-#    # count :: int
-
-#    def _check_valid(index, pos):
-#        if valid is None:
-#            return True
-
-#        if pos is not None:
-#            if isinstance(valid, tuple):
-#                l = len(pos) - 2
-#                i = pos[0 + l]
-#                j = pos[1 + l]
-
-#                i_min, j_min = valid[0]
-#                i_max, j_max = valid[1]
-
-#                if (i < i_min) or (i_max < i) or (j < j_min) or (j_max < j):
-#                    return False
-#            elif callable(valid):
-#                if not valid(index, pos):
-#                    return False
-
-#        if isinstance(valid, int):
-#            if index >= valid:
-#                return False
-
-#        return True
-
-#    return _check_valid
-
-def check_valid(count=None, bounds=None, func=None):
-    # count :: int
-    #
+def check_valid(bounds=None, func=None):
     # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
     #
-    # func :: index --> pos --> bool
-    #         index :: int
+    # func :: pos --> bool
     #         pos :: (i ,j)
 
-    def _check_valid(index, pos):
-        # index :: int
-        #
+    def _check_valid(pos):
         # pos :: (int, int) # (i, j)
-
-        if count is not None:
-            if index < 0 or index >= count:
-                return False
 
         if pos is not None:
             if bounds is not None:
@@ -149,31 +102,39 @@ def check_valid(count=None, bounds=None, func=None):
                     return False
 
         if func is not None:
-            if not func(index, pos):
+            if not func(pos):
                 return False
 
         return True
 
     return _check_valid
 
-def gen_rels(rels, count=None, default=None):
+def gen_rels(rels, inf_seq=True, default=None):
+    # rels :: generator.next()
+    #      ||  [ (i, j), ... ]
+    #
+    # inf_seq :: bool
 
     def _gen_rels():
-        index = 0
-
-        while count is None or index < count:
-            if callable(rels):
-                # rels :: generator.next()
+        if callable(rels):
+            # rels :: generator.next()
+            while True:
                 yield rels()
-            else:
-                # rels :: [ (i, j), ... ]
+        else:
+            _repeat = True
+            # rels :: [ (i, j), ... ]
+            while _repeat:
                 for rel in rels:
                     yield rel
-            index += 1
+                _repeat = inf_seq
 
     return gen_next(_gen_rels, default=default)
 
-def gen_steps(rels, start=None, end=None, include_prev=False, count=None, default=None):
+def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, default=None):
+    # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
+    #
+    # func_valid :: pos --> bool
+    #               pos :: (i ,j)
 
     assert xor(start is not None, end is not None)
 
@@ -181,13 +142,16 @@ def gen_steps(rels, start=None, end=None, include_prev=False, count=None, defaul
         _reverse = start is None
         _current = start or end
         _rels = rels if callable(rels) else gen_rels(rels, default=default)
+        _valid = check_valid(bounds=bounds, func=func_valid)
 
-        index = 0
-        while count is None or index < count:
+        while True:
             _rel = _rels()
             if _reverse:
                 _rel = negate(_rel)
             _prev = _next = add(_current, _rel)
+
+            if not _valid(_next):
+                break
 
             if include_prev:
                 if not _reverse:
@@ -198,7 +162,6 @@ def gen_steps(rels, start=None, end=None, include_prev=False, count=None, defaul
                 yield _next
 
             _current = _next
-            index += 1
 
     return gen_next(_gen_steps, default=default)
 
@@ -206,15 +169,20 @@ def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, defaul
     # start :: (i, j)
     # end :: (i, j)
     #
-    # multi_rels :: [ ( rels, count ), ... ]
+    # multi_rels :: [ ( rels, bounds, func_valid ), ... ]
     #
     # rels :: generator.next()
     # ... or ...
     # rels :: [ (i, j), ... ]
+    #
+    # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
+    #
+    # func_valid :: pos --> bool
+    #               pos :: (i ,j)
 
     def _gen_multi_steps():
-        for rels, _count in multi_rels:
-            _rels = gen_steps(rels, start=start, end=end, include_prev=include_prev, count=_count, default=default)
+        for rels, _bounds, _func_valid in multi_rels:
+            _rels = gen_steps(rels, start=start, end=end, include_prev=include_prev, bounds=_bounds, func_valid=_func_valid, default=default)
 
             while True:
                 _rel = _rels()
@@ -237,7 +205,8 @@ def test_1():
     # rels = [(-2, 1), (3, 2)]
     ln = len(rels)
 
-    g = gen_rels(rels, count=2, default='pero')
+    f = gen_rels(rels, inf_seq=False, default='pero')
+    g = gen_rels(f)
 
     print
     print "-" * 42
@@ -253,34 +222,15 @@ def test_1():
 def test_2():
     rels = [(-2, 1), (3, 2)]
     ln = len(rels)
-
-    # g = gen_rels(rels, count=5)
-
-    f = gen_rels(rels, count=3)
-    g = gen_rels(f)
-
-    print
-    print "-" * 42
-    print g
-    # print
-    for i in xrange(60):
-        if i % ln == 0:
-            print
-        print i, g()
-    print "-" * 42
-    print
-
-def test_3():
-    rels = [(-2, 1), (3, 2)]
-    ln = len(rels)
     start = (7, 4)
+    bounds = ((0, 0), (20, 20))
 
-    # g = gen_steps(rels, start=start)
-    g = gen_steps(rels, start=start, include_prev=True)
-    # g = gen_steps(rels, end=start, include_prev=True)
+    # g = gen_steps(rels, start=start, bounds=bounds)
+    g = gen_steps(rels, start=start, include_prev=True, bounds=bounds)
+    # g = gen_steps(rels, end=start, include_prev=True, bounds=bounds)
 
     # f = gen_rels(rels)
-    # g = gen_steps(f, start=start)
+    # g = gen_steps(f, start=start, bounds=bounds)
 
     print
     print "-" * 42
@@ -293,16 +243,22 @@ def test_3():
     print "-" * 42
     print
 
-def test_4():
+def test_3():
     start = (4, 7)
+
     rel1 = [(2, 1), (3, 2)]
-    rel2 = [(-2, -1), (-3, -2), (-1, -1)]
+    # rel2 = [(-2, -1), (-3, -2), (-1, -1)]
+    rel2 = [(2, 1), (3, 2), (-1, -1)]
     ln = len(rel1) + len(rel2)
-    multi_rels = [(rel1, 7), (rel2, 11)]
+
+    bounds = ((0, 0), (25, 25))
+
+    multi_rels = [(rel1, None, None), (rel2, None, None)]
+    multi_rels_2 = [(rel1, bounds, None), (rel2, bounds, None)]
 
     # g = gen_multi_steps(multi_rels, start=start)
-    # g = gen_multi_steps(multi_rels, start=start, include_prev=True)
-    g = gen_multi_steps(multi_rels, end=start, include_prev=True)
+    g = gen_multi_steps(multi_rels_2, start=start, include_prev=True)
+    # g = gen_multi_steps(multi_rels, end=start, include_prev=True)
 
     # e = gen_rels(rel1)
     # f = gen_rels(rel2)
@@ -325,5 +281,4 @@ def test_4():
 if __name__ == '__main__':
     # test_1()
     # test_2()
-    # test_3()
-    test_4()
+    test_3()
