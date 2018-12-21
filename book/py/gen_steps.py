@@ -66,6 +66,12 @@ DEFAULT_KING_REL_MOVES = [ ( 1,  0), \
                            ( 1, -1)  ]
 DEFAULT_KING_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_KING_REL_MOVES)
 
+DEFAULT_BISHOP_REL_MOVES = [ ( 1,  1), \
+                             (-1,  1), \
+                             (-1, -1), \
+                             ( 1, -1)  ]
+DEFAULT_BISHOP_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_BISHOP_REL_MOVES)
+
 
 def add(step, rel):
     if step is None or rel is None:

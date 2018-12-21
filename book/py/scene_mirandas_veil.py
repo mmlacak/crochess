@@ -6,7 +6,7 @@
 
 
 from util import in_range
-from gen_steps import DEFAULT_KNIGHT_REL_MOVES, DEFAULT_UNICORN_REL_LONG_MOVES, add, call_gen, get_gen_steps, get_gen_steps_prev, get_gen_multi_steps
+import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
@@ -58,7 +58,7 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(5, 9, piece=-PieceType.Queen)
         self.board.set_piece(7, 13, piece=PieceType.Bishop)
 
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Illegal )
@@ -74,7 +74,7 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(9, 5, piece=-PieceType.King)
         self.board.set_piece(13, 7, piece=-PieceType.Wave)
 
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(2, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Illegal )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
@@ -93,15 +93,16 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(1, 1, piece=PieceType.Knight)
 
         # direction <1, 2>
+        start = (7, 13)
         self.board.set_piece(3, 5, piece=PieceType.Pawn)
         self.board.set_piece(4, 7, piece=-PieceType.Pyramid)
         self.board.set_piece(5, 9, piece=-PieceType.Queen)
-        self.board.set_piece(7, 13, piece=PieceType.Wave)
+        self.board.set_piece(*start, piece=PieceType.Wave)
 
-        self.append_arrow(7, 13, 6, 12)
-        self.append_arrow(7, 13, 6, 14)
-        self.append_arrow(7, 13, 8, 12)
-        self.append_arrow(7, 13, 8, 14)
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_BISHOP_MULTI_REL_MOVES, start=start, include_prev=True, bounds=((6, 12), (8, 14)))
+
+        for pos in gen_abs_pos():
+            self.append_arrow(*pos)
 
         # direction <2, 1>
         self.board.set_piece(3, 2, piece=PieceType.King)
@@ -130,7 +131,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("2", 3, 3, mark_type=MarkType.Blocked)
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -151,14 +152,14 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("2", 3, 3, mark_type=MarkType.Blocked)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
@@ -167,7 +168,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -176,7 +177,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -197,7 +198,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("1", 3, 3, mark_type=MarkType.Blocked)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
@@ -206,14 +207,14 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
@@ -222,7 +223,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -244,28 +245,28 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("2", 5, 3, mark_type=MarkType.Blocked)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -286,7 +287,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("2", 5, 3, mark_type=MarkType.Blocked)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
@@ -295,14 +296,14 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
@@ -311,7 +312,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -333,42 +334,42 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("2", 5, 3, mark_type=MarkType.Blocked )
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
@@ -387,14 +388,14 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("1", 3, 5, mark_type=MarkType.Blocked)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords() )
@@ -403,7 +404,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -412,28 +413,28 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
@@ -442,7 +443,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <-1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -463,7 +464,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("2", 3, 5, mark_type=MarkType.Blocked )
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -472,21 +473,21 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords() )
@@ -495,14 +496,14 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords() )
@@ -511,14 +512,14 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -556,7 +557,7 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(3, 5, piece=-PieceType.Queen)
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
@@ -574,14 +575,14 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(*start, piece=PieceType.Queen)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
@@ -590,7 +591,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -599,28 +600,28 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords() )
@@ -629,7 +630,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <-1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -648,7 +649,7 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(5, 3, piece=PieceType.Queen)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords() )
@@ -657,14 +658,14 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
@@ -673,14 +674,14 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -689,21 +690,21 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
 
         # direction <1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -722,49 +723,49 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(5, 3, piece=PieceType.Queen)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
         # direction <-1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -804,14 +805,14 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(*startR1, piece=PieceType.Rook)
 
         # Rook, direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startR1, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startR1, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # Wave, direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startW1, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startW1, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
@@ -830,7 +831,7 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(*startR2, piece=PieceType.Rook)
 
         # Rook, direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startR2, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startR2, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -846,7 +847,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # Wave, direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startW2, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startW2, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
@@ -869,15 +870,15 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(4, 1, piece=PieceType.Rook)
 
         # Pawn, direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # Pawn, direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # Pawn, direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -897,15 +898,15 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(14, 1, piece=PieceType.Rook)
 
         # Pawn, direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # Pawn, direction <1, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # Pawn, direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -938,7 +939,8 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(5, 11, piece=PieceType.Pawn)
         self.board.set_piece(5, 12, piece=PieceType.Wave)
 
-        self.board.set_piece(8, 1, piece=PieceType.Pawn)
+        start = (8, 1)
+        self.board.set_piece(*start, piece=PieceType.Pawn)
         self.board.set_piece(8, 4, piece=PieceType.Wave)
 
         # capture-fields
@@ -953,12 +955,13 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("2", 5, 11, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
         # step-fields 2
-        self.append_arrow(8, 1, 8, 2)
-        self.append_arrow(8, 2, 8, 3)
-        self.append_arrow(8, 3, 8, 4, mark_type=MarkType.Action)
-        self.append_arrow(8, 4, 8, 5, mark_type=MarkType.Blocked)
-        self.append_arrow(8, 5, 8, 6, mark_type=MarkType.Blocked)
-        self.append_arrow(8, 6, 8, 7, mark_type=MarkType.Blocked)
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action)
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked)
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked)
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked)
 
         self.append_text("3", 8, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 

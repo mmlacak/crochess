@@ -9,7 +9,7 @@
 from scene_croatian_ties import SceneCroatianTiesMixin
 from scene_mayan_ascendancy import SceneMayanAscendancyMixin
 from scene_age_of_aquarius import SceneAgeOfAquariusMixin
-#from scene_mirandas_veil import SceneMirandasVeilMixin
+from scene_mirandas_veil import SceneMirandasVeilMixin
 #from scene_nineteen import SceneNineteenMixin
 #from scene_hemeras_dawn import SceneHemerasDawnMixin
 #from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
@@ -27,11 +27,13 @@ from scene_age_of_aquarius import SceneAgeOfAquariusMixin
 
 class SceneMix(SceneCroatianTiesMixin, \
                SceneMayanAscendancyMixin, \
-               SceneAgeOfAquariusMixin):
+               SceneAgeOfAquariusMixin, \
+               SceneMirandasVeilMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_hd_04_centaur_off_board', \
+                    'scn_mv_03_move_wave_finished', \
+                    'scn_mv_20_wave_activation_by_pawn', \
                 ]
 
     def _get_all_scene_method_names(self):
