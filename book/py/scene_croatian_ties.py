@@ -25,9 +25,7 @@ class SceneCroatianTiesMixin(Scene):
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType.Pegasus)
 
-# TODO :: FIX ME !!!
-#         gen_abs_pos = get_gen_multi_steps(start=start, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=self.board.get_position_limits())
-        gen_abs_pos = GS.gen_multi_steps( [ ( GS.DEFAULT_KNIGHT_REL_MOVES, self.board.get_position_limits(), None ), ], start=start)
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=self.board.get_position_limits())
 
         i = 1
         for pos in gen_abs_pos():

@@ -9,6 +9,10 @@
 from util import xor
 
 
+def convert_single_step_into_multi_rels(rels):
+    return [ [ tpl ] for tpl in rels ]
+
+
 DEFAULT_KNIGHT_REL_MOVES = [ ( 2,  1),  \
                              ( 1,  2),  \
                                         \
@@ -20,6 +24,7 @@ DEFAULT_KNIGHT_REL_MOVES = [ ( 2,  1),  \
                                         \
                              ( 1, -2),  \
                              ( 2, -1)   ]
+DEFAULT_KNIGHT_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_KNIGHT_REL_MOVES)
 
 DEFAULT_UNICORN_REL_LONG_MOVES = [ ( 4,  1),    \
                                    ( 3,  2),    \
@@ -40,11 +45,13 @@ DEFAULT_UNICORN_REL_LONG_MOVES = [ ( 4,  1),    \
                                    ( 2, -3),    \
                                    ( 3, -2),    \
                                    ( 4, -1)     ]
+DEFAULT_UNICORN_MULTI_REL_LONG_MOVES = convert_single_step_into_multi_rels(DEFAULT_UNICORN_REL_LONG_MOVES)
 
 DEFAULT_NEIGHBOURING_REL_MOVES = [ ( 1,  0), \
                                    ( 0,  1), \
                                    (-1,  0), \
                                    ( 0, -1)  ]
+DEFAULT_NEIGHBOURING_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_NEIGHBOURING_REL_MOVES)
 
 DEFAULT_KING_REL_MOVES = [ ( 1,  0), \
                            ( 1,  1), \
@@ -57,6 +64,7 @@ DEFAULT_KING_REL_MOVES = [ ( 1,  0), \
 
                            ( 0, -1), \
                            ( 1, -1)  ]
+DEFAULT_KING_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_KING_REL_MOVES)
 
 
 def add(step, rel):
@@ -89,17 +97,19 @@ def check_valid(bounds=None, func=None):
     def _check_valid(pos):
         # pos :: (int, int) # (i, j)
 
-        if pos is not None:
-            if bounds is not None:
-                l = len(pos) - 2
-                i = pos[0 + l]
-                j = pos[1 + l]
+        if pos is None:
+            return None
 
-                i_min, j_min = bounds[0]
-                i_max, j_max = bounds[1]
+        if bounds is not None:
+            l = len(pos) - 2
+            i = pos[0 + l]
+            j = pos[1 + l]
 
-                if (i < i_min) or (i_max < i) or (j < j_min) or (j_max < j):
-                    return False
+            i_min, j_min = bounds[0]
+            i_max, j_max = bounds[1]
+
+            if (i < i_min) or (i_max < i) or (j < j_min) or (j_max < j):
+                return False
 
         if func is not None:
             if not func(pos):
@@ -205,7 +215,7 @@ def test_1(as_next=True):
     # rels = [(-2, 1), (3, 2)]
     ln = len(rels)
 
-    g = gen_rels(rels, inf_seq=False)
+    g = gen_rels(rels, inf_seq=True)
     g = gen_rels(g)
 
     if as_next:
@@ -280,6 +290,8 @@ def test_3(as_next=True):
     rel1 = [(-2, -1), (3, 2)]
     # rel2 = [(-2, -1), (-3, -2), (-1, -1)]
     rel2 = [(2, 1), (1, 2), (-1, 2)]
+    # rel1 = [(2, 1), ]
+    # rel2 = [(3, 2), (-1, 4), ]
     ln = len(rel1) + len(rel2)
 
     multi_rels = [ rel1, rel2 ]
@@ -318,27 +330,42 @@ def test_3(as_next=True):
         print "-" * 42
         print
 
-def test_4():
+def test_4(as_next=False):
     start = (2, 2)
     bounds = ((0, 0), (4, 4))
     ln = len(DEFAULT_KNIGHT_REL_MOVES)
 
-    multi_rels = [ DEFAULT_KNIGHT_REL_MOVES, ]
+    multi_rels = [ [t] for t in DEFAULT_KNIGHT_REL_MOVES ]
 
-    g = gen_multi_steps(multi_rels, start=start, bounds=bounds)
+    g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=bounds)
+    # g = gen_rels(g)
 
-    g = gen_rels(g)
+    if as_next:
+        g = gen_next(g)
 
-    print
-    print "-" * 42
-    print g
-    print start
-    for i, pos in enumerate( g() ):
-        if i % ln == 0:
-            print
-        print i, pos
-    print "-" * 42
-    print
+        print
+        print "-" * 42
+        print g
+        print start
+        for i in xrange(60):
+            if i % ln == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        print
+        print "-" * 42
+        print g
+        print start
+        for i, t in enumerate(g()):
+            if i % ln == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
 
 if __name__ == '__main__':
     # test_1(as_next=True)
@@ -350,4 +377,5 @@ if __name__ == '__main__':
     # test_3(as_next=True)
     # test_3(as_next=False)
 
-    test_4()
+    test_4(as_next=True)
+    test_4(as_next=False)
