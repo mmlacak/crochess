@@ -6,7 +6,6 @@
 
 
 from util import in_range
-# from gen_steps import DEFAULT_KNIGHT_REL_MOVES, , gen_steps, gen_steps, get_gen_multi_steps
 import gen_steps as GS
 
 from piece import PieceType

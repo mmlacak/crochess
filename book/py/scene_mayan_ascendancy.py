@@ -6,7 +6,7 @@
 
 
 from util import in_range
-from gen_steps import DEFAULT_KNIGHT_REL_MOVES, add, call_gen, get_gen_steps, get_gen_steps_prev, get_gen_multi_steps
+import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
@@ -29,13 +29,13 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(3, 3, piece=-PieceType.Bishop)
 
         # direction <-2, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), ]) )
         self.append_text("1", *coords(), corner=Corner.UpperRight)
         self.append_text("2", *coords(), corner=Corner.UpperRight)
         self.append_text("3", *coords(), corner=Corner.UpperRight)
@@ -55,50 +55,50 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(3, 3, piece=-PieceType.Bishop)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords(), mark_type=MarkType.Blocked)
         self.append_text("4", *coords(), mark_type=MarkType.Blocked)
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords(), mark_type=MarkType.Action)
         self.append_text("3", *coords(), mark_type=MarkType.Blocked)
         self.append_text("4", *coords(), mark_type=MarkType.Blocked)
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
@@ -149,7 +149,7 @@ class SceneMayanAscendancyMixin(Scene):
 
         # step-fields 2
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
@@ -178,13 +178,13 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("2", 3, 5, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         # direction <-2, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), ]) )
         self.append_text("1", *coords(), corner=Corner.UpperRight)
         self.append_text("2", *coords(), corner=Corner.UpperRight)
         self.append_text("3", *coords(), corner=Corner.UpperRight)
@@ -207,50 +207,50 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("2", 3, 5, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
         self.append_text("4", *coords(), mark_type=MarkType.Action)
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
         self.append_text("4", *coords())
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ]) )
         self.append_text("1", *coords() )
         self.append_text("2", *coords(), mark_type=MarkType.Blocked)
         self.append_text("3", *coords(), mark_type=MarkType.Blocked)
@@ -289,13 +289,13 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(11, 0, piece=PieceType.Rook)
 
         # direction <-1, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, -1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
@@ -316,50 +316,50 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(11, 0, piece=PieceType.Rook)
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
         self.append_text("4", *coords(), mark_type=MarkType.Action )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords(), mark_type=MarkType.Blocked )
         self.append_text("4", *coords(), mark_type=MarkType.Blocked )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
@@ -396,14 +396,14 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(6, 0, piece=PieceType.King)
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startQ, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startQ, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startA, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startA, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         return 'scn_ma_11_convert_rook_castling_init'
@@ -419,7 +419,7 @@ class SceneMayanAscendancyMixin(Scene):
 
         # direction <-1, 0>
         start = (5, 0)
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
@@ -437,7 +437,7 @@ class SceneMayanAscendancyMixin(Scene):
 
         # direction <-1, 0>
         start = (5, 0)
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ]) )
         self.append_text("1", *coords(), mark_type=MarkType.Blocked)
         self.append_text("2", *coords(), mark_type=MarkType.Blocked)
         self.append_text("3", *coords(), mark_type=MarkType.Blocked)
@@ -463,13 +463,13 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(2, 3, piece=-PieceType.Pawn)
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startR, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startR, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startP, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         return 'scn_ma_14_convert_pawn_rush_init'
@@ -486,7 +486,7 @@ class SceneMayanAscendancyMixin(Scene):
 
         # direction <0, 1>
         start = (1, 2)
-        coords = call_gen( get_gen_steps(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
@@ -520,14 +520,14 @@ class SceneMayanAscendancyMixin(Scene):
         offset = (0.4, 0.4)
 
         # direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ]) )
         self.append_text("1", *coords(), corner=Corner.UpperRight)
         self.append_text("2", *coords(), corner=Corner.UpperRight)
         self.append_text("3", *coords(), corner=Corner.UpperRight)
@@ -535,9 +535,9 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("5", *coords(), corner=Corner.UpperRight, mark_type=MarkType.Action )
 
         # pyramids
-        self.append_text("1", *add(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
-        self.append_text("2", *add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
-        self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        self.append_text("1", *GS.add(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        self.append_text("2", *GS.add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        self.append_text("3", *GS.add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
 
         return 'scn_ma_16_cascading_init'
 
@@ -559,14 +559,14 @@ class SceneMayanAscendancyMixin(Scene):
         offset = (0.4, 0.4)
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords(), mark_type=MarkType.Blocked)
@@ -574,14 +574,14 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("5", *coords(), mark_type=MarkType.Blocked)
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
@@ -589,14 +589,14 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("5", *coords())
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
@@ -604,14 +604,14 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("5", *coords(), mark_type=MarkType.Blocked )
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords(), mark_type=MarkType.Action )
@@ -619,8 +619,8 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("5", *coords(), mark_type=MarkType.Blocked )
 
         # pyramids
-        self.append_text("2", *add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
-        self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        self.append_text("2", *GS.add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        self.append_text("3", *GS.add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
 
         return 'scn_ma_17_cascading_pyramid_1_activated'
 
@@ -641,44 +641,44 @@ class SceneMayanAscendancyMixin(Scene):
         offset = (0.4, 0.4)
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, -1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
 
-        coords = call_gen( get_gen_steps(start=start, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(0, 1), ]) )
         self.append_text("1", *coords())
         self.append_text("2", *coords())
 
         # pyramids
-        self.append_text("1", *add(start, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
-        self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("1", *GS.add(start, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("3", *GS.add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
 
         return 'scn_ma_18_cascading_pyramid_2_activated'
 
@@ -701,9 +701,9 @@ class SceneMayanAscendancyMixin(Scene):
 
         offset = (0.4, 0.4)
 
-        self.append_text("1", *add(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
-        self.append_text("2", *add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
-        self.append_text("3", *add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("1", *GS.add(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("2", *GS.add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        self.append_text("3", *GS.add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
 
         return 'scn_ma_19_cascading_end'
 
