@@ -6,7 +6,7 @@
 
 
 from util import in_range
-from gen_steps import DEFAULT_KNIGHT_REL_MOVES, DEFAULT_UNICORN_REL_LONG_MOVES, add, call_gen, get_gen_steps, get_gen_steps_prev, get_gen_multi_steps
+import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
@@ -24,7 +24,7 @@ class SceneAgeOfAquariusMixin(Scene):
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType.Unicorn)
 
-        gen_abs_pos = get_gen_multi_steps(start=start, rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=self.board.get_position_limits())
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=self.board.get_position_limits())
 
         i = 1
         for pos in gen_abs_pos():
@@ -44,7 +44,7 @@ class SceneAgeOfAquariusMixin(Scene):
 
         # Unicorn, long jump
 
-        gen_abs_pos = get_gen_multi_steps(start=start, rel_lst=DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((2, 2), (10, 10)))
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start, bounds=((2, 2), (10, 10)))
 
         i = 1
         for pos in gen_abs_pos():
@@ -54,7 +54,7 @@ class SceneAgeOfAquariusMixin(Scene):
 
         # Knight, short jump
 
-        gen_abs_pos_2 = get_gen_multi_steps(start=start, rel_lst=DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((4, 4), (8, 8)))
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=((4, 4), (8, 8)))
 
         i = 1
         for pos in gen_abs_pos_2():
@@ -90,7 +90,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("3", *startP3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <-1, 1>
-        coords = call_gen( get_gen_steps_prev(start=startB, rel=(-1, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startB, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -98,7 +98,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startA, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startA, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
@@ -128,11 +128,11 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_field_marker( *startP2, mark_type=MarkType.Legal ) # Action
 
         # direction <-1, 2>
-        coords = call_gen( get_gen_steps_prev(end=endU, rel=(-1, 2)) )
+        coords = GS.gen_next( GS.gen_steps(end=endU, rels=[(-1, 2), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
 
         return 'scn_aoa_04_delayed_promo_pawn_2_tagged'
@@ -160,11 +160,11 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("P", 4, 10, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <2, 3>
-        coords = call_gen( get_gen_steps_prev(end=endU, rel=(2, 3)) )
+        coords = GS.gen_next( GS.gen_steps(end=endU, rels=[(2, 3), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP1, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
 
         return 'scn_aoa_05_delayed_promo_pawn_2_moved'
@@ -191,11 +191,11 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("P", 4, 10, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <2, 1>
-        coords = call_gen( get_gen_steps_prev(end=endU, rel=(2, 1)) )
+        coords = GS.gen_next( GS.gen_steps(end=endU, rels=[(2, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # direction <0, 1>
-        coords = call_gen( get_gen_steps_prev(start=startP2, rel=(0, 1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
 
         self.append_field_marker( *startP1, mark_type=MarkType.Legal )
@@ -220,7 +220,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("P", 4, 10, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <3, 2>
-        coords = call_gen( get_gen_steps_prev(end=endU, rel=(-3, 2)) )
+        coords = GS.gen_next( GS.gen_steps(end=endU, rels=[(-3, 2), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         return 'scn_aoa_07_delayed_promo_pawn_1_promoted'
@@ -251,7 +251,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("1", *startPd1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startRd1, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startRd1, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -264,7 +264,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startAd1, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startAd1, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         #
@@ -285,7 +285,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("2", *startPd2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startRd2, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startRd2, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -297,7 +297,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <-1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startAd2, rel=(-1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startAd2, rels=[(-1, 0), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         #
@@ -314,7 +314,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_text("3", *startPd3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startPd3, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startPd3, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
 
         #
@@ -350,7 +350,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_field_marker(*startPd1, mark_type=MarkType.Action)
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startR1, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startR1, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -359,7 +359,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startA1, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startA1, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         #
@@ -379,7 +379,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_field_marker(*startPd2, mark_type=MarkType.Action)
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startR2, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startR2, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -387,7 +387,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startA2, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startA2, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         #
@@ -405,7 +405,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_field_marker(*startPd3, mark_type=MarkType.Action)
 
         # direction <0, -1>
-        coords = call_gen( get_gen_steps_prev(start=startR3, rel=(0, -1)) )
+        coords = GS.gen_next( GS.gen_steps(start=startR3, rels=[(0, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -415,7 +415,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # direction <1, 0>
-        coords = call_gen( get_gen_steps_prev(start=startA3, rel=(1, 0)) )
+        coords = GS.gen_next( GS.gen_steps(start=startA3, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         #
