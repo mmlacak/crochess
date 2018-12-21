@@ -109,7 +109,7 @@ def check_valid(bounds=None, func=None):
 
     return _check_valid
 
-def gen_rels(rels, inf_seq=True, default=None):
+def gen_rels(rels, inf_seq=True):
     # rels :: generator
     #      ||  [ (i, j), ... ]
     #
@@ -118,9 +118,8 @@ def gen_rels(rels, inf_seq=True, default=None):
     def _gen_rels():
         if callable(rels):
             # rels :: generator
-            _rels = gen_next(rels, default=default)
-            while True:
-                yield _rels()
+            for _rel in rels():
+                yield _rel
         else:
             _repeat = True
             # rels :: [ (i, j), ... ]
@@ -131,7 +130,7 @@ def gen_rels(rels, inf_seq=True, default=None):
 
     return _gen_rels
 
-def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, default=None):
+def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None):
     # rels :: generator
     #      ||  [ (i, j), ... ]
     #
@@ -146,13 +145,10 @@ def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_
         _reverse = start is None
         _current = start or end
 
-        _rels = rels if callable(rels) else gen_rels(rels, default=default)
-        _rels = gen_next(_rels, default=default)
-
+        _rels = rels if callable(rels) else gen_rels(rels)
         _valid = check_valid(bounds=bounds, func=func_valid)
 
-        while True:
-            _rel = _rels()
+        for _rel in _rels():
             if _reverse:
                 _rel = negate(_rel)
             _prev = _next = add(_current, _rel)
@@ -172,14 +168,14 @@ def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_
 
     return _gen_steps
 
-def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, default=None):
-    # start :: (i, j)
-    # end :: (i, j)
-    #
-    # multi_rels :: [ ( rels, bounds, func_valid ), ... ]
+def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None):
+    # multi_rels :: [ rels, ... ]
     #
     # rels :: generator
     #      || [ (i, j), ... ]
+    #
+    # start :: (i, j)
+    # end :: (i, j)
     #
     # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
     #
@@ -187,13 +183,10 @@ def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, defaul
     #               pos :: (i ,j)
 
     def _gen_multi_steps():
-        for rels, _bounds, _func_valid in multi_rels:
-            _steps = gen_steps(rels, start=start, end=end, include_prev=include_prev, bounds=_bounds, func_valid=_func_valid)
-            _steps = gen_next(_steps, default=default)
+        for rels in multi_rels:
+            _steps = gen_steps(rels, start=start, end=end, include_prev=include_prev, bounds=bounds, func_valid=func_valid)
 
-            while True:
-                _step = _steps()
-
+            for _step in _steps():
                 if _step is None:
                     break
 
@@ -205,99 +198,136 @@ def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, defaul
 #
 # tests
 
-def test_1():
+def test_1(as_next=True):
     # rels = [(3, 1), ]
-    # rels = DEFAULT_KNIGHT_REL_MOVES
-    rels = DEFAULT_UNICORN_REL_LONG_MOVES
+    rels = DEFAULT_KNIGHT_REL_MOVES
+    # rels = DEFAULT_UNICORN_REL_LONG_MOVES
     # rels = [(-2, 1), (3, 2)]
     ln = len(rels)
 
-    f = gen_rels(rels, inf_seq=False, default='pero')
-    g = gen_rels(f)
+    g = gen_rels(rels, inf_seq=False)
+    g = gen_rels(g)
 
-    g = gen_next(g)
+    if as_next:
+        g = gen_next(g, default='pero')
 
-    print
-    print "-" * 42
-    print g
-    # print
-    for i in xrange(60):
-        if i % ln == 0:
-            print
-        print i, g()
-    print "-" * 42
-    print
+        print
+        print "-" * 42
+        print g
+        # print
+        for i in xrange(60):
+            if i % ln == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        print
+        print "-" * 42
+        print g
+        # print
+        for i, t in enumerate(g()):
+            if i % ln == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
 
-def test_2():
+def test_2(as_next=True):
     rels = [(-2, 1), (3, 2)]
     ln = len(rels)
-    start = (7, 4)
+    start = (7, 9)
     bounds = ((0, 0), (20, 20))
 
     # g = gen_steps(rels, start=start, bounds=bounds)
     g = gen_steps(rels, start=start, include_prev=True, bounds=bounds)
     # g = gen_steps(rels, end=start, include_prev=True, bounds=bounds)
 
-    # f = gen_rels(rels)
-    # g = gen_steps(f, start=start, bounds=bounds)
+    g = gen_rels(g)
 
-    g = gen_next(g)
+    if as_next:
+        g = gen_next(g)
 
-    print
-    print "-" * 42
-    print g
-    print start
-    for i in xrange(60):
-        if i % ln == 0:
-            print
-        print i, g()
-    print "-" * 42
-    print
+        print
+        print "-" * 42
+        print g
+        print start
+        for i in xrange(60):
+            if i % ln == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        print
+        print "-" * 42
+        print g
+        # print
+        for i, t in enumerate(g()):
+            if i % ln == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
 
-def test_3():
-    start = (4, 7)
+def test_3(as_next=True):
+    start = (7, 9)
 
-    rel1 = [(2, 1), (3, 2)]
+    rel1 = [(-2, -1), (3, 2)]
     # rel2 = [(-2, -1), (-3, -2), (-1, -1)]
-    rel2 = [(2, 1), (3, 2), (-1, -1)]
+    rel2 = [(2, 1), (1, 2), (-1, 2)]
     ln = len(rel1) + len(rel2)
 
+    multi_rels = [ rel1, rel2 ]
     bounds = ((0, 0), (25, 25))
 
-    multi_rels = [(rel1, None, None), (rel2, None, None)]
-    multi_rels_2 = [(rel1, bounds, None), (rel2, bounds, None)]
-
     # g = gen_multi_steps(multi_rels, start=start)
-    g = gen_multi_steps(multi_rels_2, start=start, include_prev=True)
+    g = gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=bounds)
     # g = gen_multi_steps(multi_rels, end=start, include_prev=True)
 
-    # e = gen_rels(rel1)
-    # f = gen_rels(rel2)
-    # mr = [(e, 5), (f, 9)]
-    #
-    # g = gen_multi_steps(mr, start=start)
+    # g = gen_rels(g)
 
-    g = gen_next(g)
+    if as_next:
+        g = gen_next(g)
 
-    print
-    print "-" * 42
-    print g
-    print start
-    for i in xrange(60):
-        if i % ln == 0:
-            print
-        print i, g()
-    print "-" * 42
-    print
+        print
+        print "-" * 42
+        print g
+        print start
+        for i in xrange(60):
+            if i % ln == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        print
+        print "-" * 42
+        print g
+        # print
+        for i, t in enumerate(g()):
+            if i % ln == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
 
 def test_4():
     start = (2, 2)
     bounds = ((0, 0), (4, 4))
     ln = len(DEFAULT_KNIGHT_REL_MOVES)
 
-    multi_rels = [ (DEFAULT_KNIGHT_REL_MOVES, bounds, None), ]
+    multi_rels = [ DEFAULT_KNIGHT_REL_MOVES, ]
 
-    g = gen_multi_steps(multi_rels, start=start)
+    g = gen_multi_steps(multi_rels, start=start, bounds=bounds)
+
+    g = gen_rels(g)
 
     print
     print "-" * 42
@@ -311,7 +341,13 @@ def test_4():
     print
 
 if __name__ == '__main__':
-    # test_1()
-    # test_2()
-    # test_3()
+    # test_1(as_next=True)
+    # test_1(as_next=False)
+
+    # test_2(as_next=True)
+    # test_2(as_next=False)
+
+    # test_3(as_next=True)
+    # test_3(as_next=False)
+
     test_4()
