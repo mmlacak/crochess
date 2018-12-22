@@ -6,7 +6,6 @@
 
 
 from util import in_range
-# from gen_steps import DEFAULT_KNIGHT_REL_MOVES, DEFAULT_UNICORN_REL_LONG_MOVES, DEFAULT_NEIGHBOURING_REL_MOVES, DEFAULT_KING_REL_MOVES, add, call_gen, get_gen_steps, get_gen_steps_prev, get_gen_multi_steps
 import gen_steps as GS
 
 from piece import PieceType
@@ -25,7 +24,7 @@ class SceneHemerasDawnMixin(Scene):
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType.Centaur)
 
-        gen_abs_pos = GS.get_gen_multi_steps(start=start, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=self.board.get_position_limits())
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=self.board.get_position_limits())
 
         i = 1
         for pos in gen_abs_pos():
@@ -44,7 +43,7 @@ class SceneHemerasDawnMixin(Scene):
 
         # Centaur, long jump
 
-        gen_abs_pos = GS.get_gen_multi_steps(start=start, rel_lst=GS.DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((2, 2), (10, 10)))
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start, include_prev=False, bounds=((2, 2), (10, 10)))
 
         i = 1
         for pos in gen_abs_pos():
@@ -54,7 +53,7 @@ class SceneHemerasDawnMixin(Scene):
 
         # Knight, short jump
 
-        gen_abs_pos_2 = GS.get_gen_multi_steps(start=start, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((4, 4), (8, 8)))
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=((4, 4), (8, 8)))
 
         i = 1
         for pos in gen_abs_pos_2():
@@ -75,82 +74,96 @@ class SceneHemerasDawnMixin(Scene):
         self.board.set_piece(7, 8, piece=PieceType.Pawn)
         self.board.set_piece(18, 17, piece=PieceType.Bishop)
 
+
+        #
+        # short --> (-1, 2) direction
+        # long --> (4, 1) direction
+
+        rels = [(-1, 2), (4, 1), ]
+        arr = GS.gen_next( GS.gen_steps(start=start, rels=rels, include_prev=True) )
+        txt = GS.gen_next( GS.gen_steps(start=start, rels=rels, include_prev=False) )
+
         #
         # choose directions
 
         # short
-        self.append_arrow( 3, 2, 2, 4, mark_type=MarkType.Action )
-        self.append_text("1", 2, 4, mark_type=MarkType.Action, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Action )
+        self.append_text("1", *txt(), mark_type=MarkType.Action, rect=rect)
 
         # long
-        self.append_arrow( 2, 4, 6, 5, mark_type=MarkType.Action )
-        self.append_text("2", 6, 5, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Action )
+        self.append_text("2", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
 
         #
         # follow directions
 
         # short
-        self.append_arrow( 6, 5, 5, 7 )
-        self.append_text("3", 5, 7, rect=rect)
+        self.append_arrow( *arr() )
+        self.append_text("3", *txt(), rect=rect)
 
         # long
-        self.append_arrow( 5, 7, 9, 8 )
-        self.append_text("4", 9, 8, corner=Corner.UpperRight, rect=rect)
+        self.append_arrow( *arr() )
+        self.append_text("4", *txt(), corner=Corner.UpperRight, rect=rect)
 
         # short
-        self.append_arrow( 9, 8, 8, 10 )
-        self.append_text("5", 8, 10, rect=rect)
+        self.append_arrow( *arr() )
+        self.append_text("5", *txt(), rect=rect)
 
         # long
-        self.append_arrow( 8, 10, 12, 11 )
-        self.append_text("6", 12, 11, corner=Corner.UpperRight, rect=rect)
+        self.append_arrow( *arr() )
+        self.append_text("6", *txt(), corner=Corner.UpperRight, rect=rect)
 
         # short
-        self.append_arrow( 12, 11, 11, 13 )
-        self.append_text("7", 11, 13, rect=rect)
+        self.append_arrow( *arr() )
+        self.append_text("7", *txt(), rect=rect)
 
         # long
-        self.append_arrow( 11, 13, 15, 14 )
-        self.append_text("8", 15, 14, corner=Corner.UpperRight, rect=rect)
+        self.append_arrow( *arr() )
+        self.append_text("8", *txt(), corner=Corner.UpperRight, rect=rect)
 
         # short
-        self.append_arrow( 15, 14, 14, 16 )
-        self.append_text("9", 14, 16, rect=rect)
+        self.append_arrow( *arr() )
+        self.append_text("9", *txt(), rect=rect)
 
         # long
-        self.append_arrow( 14, 16, 18, 17, mark_type=MarkType.Illegal )
-        self.append_text("10", 18, 17, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("10", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
 
         # short
-        self.append_arrow( 18, 17, 17, 19, mark_type=MarkType.Blocked )
-        self.append_text("11", 17, 19, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("11", *txt(), mark_type=MarkType.Blocked, rect=rect)
 
 
         #
         # forbidden directions change
 
-        self.append_arrow( 12, 11, 14, 12, mark_type=MarkType.Blocked )
-        self.append_text("7a", 14, 12, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        # (-1, 2) is ok, i.e. direction "7", here: 12, 11 --> 11, 13
+        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=((-1, 2), ) ) )
+        startK = (12, 11)
 
-        self.append_arrow( 12, 11, 13, 13, mark_type=MarkType.Blocked )
-        self.append_text("7b", 13, 13, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=True, seq_count=1) )
+        txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=False, seq_count=1) )
 
-        # (-1, 2) is ok, i.e. 12, 11 --> 11, 13
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("7a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
 
-        self.append_arrow( 12, 11, 10, 12, mark_type=MarkType.Blocked )
-        self.append_text("7c", 10, 12, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("7b", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
 
-        self.append_arrow( 12, 11, 10, 10, mark_type=MarkType.Blocked )
-        self.append_text("7d", 10, 10, corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("7c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=rect)
 
-        self.append_arrow( 12, 11, 11, 9, mark_type=MarkType.Blocked )
-        self.append_text("7e", 11, 9, corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("7d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
 
-        self.append_arrow( 12, 11, 13, 9, mark_type=MarkType.Blocked )
-        self.append_text("7f", 13, 9, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("7e", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
 
-        self.append_arrow( 12, 11, 14, 10, mark_type=MarkType.Blocked )
-        self.append_text("7g", 14, 10, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("7f", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("7g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
 
         return 'scn_hd_03_centaur_multi_step'
 
@@ -165,27 +178,31 @@ class SceneHemerasDawnMixin(Scene):
         start = (13, 2)
         self.board.set_piece(*start, piece=-PieceType.Centaur)
 
+
         #
         # short --> (-2, 1) direction
         # long --> (3, 2) direction
 
-        self.append_arrow( 13, 2, 11, 3 ) # short
-        self.append_arrow( 11, 3, 14, 5 ) # long
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
 
-        self.append_arrow( 14, 5, 12, 6 ) # short
-        self.append_arrow( 12, 6, 15, 8 ) # long
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords() ) # long
 
-        self.append_arrow( 15, 8, 13, 9 ) # short
-        self.append_arrow( 13, 9, 16, 11, mark_type=MarkType.Illegal ) # long
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords() ) # long
 
-        self.append_arrow( 16, 11, 14, 12, mark_type=MarkType.Illegal ) # short
-        self.append_arrow( 14, 12, 17, 14, mark_type=MarkType.Illegal ) # long
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( 17, 14, 15, 15, mark_type=MarkType.Illegal ) # short
-        self.append_arrow( 15, 15, 18, 17, mark_type=MarkType.Illegal ) # long
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( 18, 17, 16, 18, mark_type=MarkType.Illegal ) # short
-        self.append_arrow( 16, 18, 19, 20, mark_type=MarkType.Illegal ) # long
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
 
         self.append_text("1", 14, 12, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
         self.append_text("2", 15, 15, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)

@@ -79,7 +79,7 @@ def add(step, rel):
     return ( step[0] + rel[0], step[1] + rel[1] )
 
 def remove(coords, to_remove=[]):
-    return list( set(coords) - set(to_remove) )
+    return [ pos for pos in coords if pos not in to_remove ] # preserves order
 
 def negate(coords):
     t = type(coords)
