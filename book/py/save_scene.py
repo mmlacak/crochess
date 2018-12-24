@@ -96,7 +96,7 @@ class SaveScene(object):
 
         draw_scene = DrawScene(drawable, gc, scene, board_desc=scene.board_desc)
 
-        colors_item = Colors[ scene.board.type ]
+        colors_item = Colors.fetch_colors(scene.board.type)
         mark_def_item = MarkDef[ scene.board.type ]
 
         draw_scene.draw_scene(colors_item, mark_def_item=mark_def_item, gc=gc)

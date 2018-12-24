@@ -191,7 +191,11 @@ class ColorsItem(object):
 
 
 class Colors(dict):
-    def __init__(self):
+    def __init__(self, cot_in_bw=False, all_in_bw=False):
+        self.cot_in_bw = cot_in_bw
+        self.all_in_bw = all_in_bw
+
+
         CP = ColorsPair.from_tuple # (<interior>, <outline>)
         CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)
         CM = ColorsMark.from_tuple # ( <legal light interior>, <legal light outline>, <legal dark interior>, <legal dark outline>, \
@@ -346,7 +350,16 @@ class Colors(dict):
                                                   '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ) )
         self[ BoardType.OddOne ] = self[ BoardType.One ]
 
-Colors = Colors()
+    def fetch_colors(self, bt):
+        if self.all_in_bw:
+            return self[ BoardType.Classical ]
+
+        if bt in [ BoardType.ConquestOfTlalocan, BoardType.OddConquestOfTlalocan ] and self.cot_in_bw:
+            return self[ BoardType.Classical ]
+
+        return self[ bt ]
+
+Colors = Colors(cot_in_bw=False, all_in_bw=False)
 
 
 def test_1():
