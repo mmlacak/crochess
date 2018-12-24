@@ -28,7 +28,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # light Shaman, long jump
 
-        gen_abs_pos = GS.get_gen_multi_steps(start=start_lH, rel_lst=GS.DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((2, 2), (10, 10)))
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start_lH, include_prev=False, bounds=((2, 2), (10, 10)))
 
         i = 1
         for pos in gen_abs_pos():
@@ -38,7 +38,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # light Shaman, short jump
 
-        gen_abs_pos_2 = GS.get_gen_multi_steps(start=start_lH, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((4, 4), (8, 8)))
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_lH, include_prev=False, bounds=((4, 4), (8, 8)))
 
         i = 1
         for pos in gen_abs_pos_2():
@@ -54,7 +54,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # dark Shaman, long jump
 
-        gen_abs_pos_3 = GS.get_gen_multi_steps(start=start_dH, rel_lst=GS.DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((13, 13), (21, 21)))
+        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start_dH, include_prev=False, bounds=((13, 13), (21, 21)))
 
         i = 1
         for pos in gen_abs_pos_3():
@@ -64,7 +64,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # dark Shaman, short jump
 
-        gen_abs_pos_4 = GS.get_gen_multi_steps(start=start_dH, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((15, 15), (19, 19)))
+        gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_dH, include_prev=False, bounds=((15, 15), (19, 19)))
 
         i = 1
         for pos in gen_abs_pos_4():
@@ -83,7 +83,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # light Shaman 2, long jump
 
-        gen_abs_pos_5 = GS.get_gen_multi_steps(start=start_lH2, rel_lst=GS.DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((13, 2), (21, 10)))
+        gen_abs_pos_5 = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start_lH2, include_prev=False, bounds=((13, 2), (21, 10)))
 
         i = 1
         for pos in gen_abs_pos_5():
@@ -93,7 +93,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # light Shaman 2, short jump
 
-        gen_abs_pos_6 = GS.get_gen_multi_steps(start=start_lH2, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((15, 4), (19, 8)))
+        gen_abs_pos_6 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_lH2, include_prev=False, bounds=((15, 4), (19, 8)))
 
         i = 1
         for pos in gen_abs_pos_6():
@@ -109,7 +109,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # dark Shaman 2, long jump
 
-        gen_abs_pos_7 = GS.get_gen_multi_steps(start=start_dH2, rel_lst=GS.DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((2, 13), (10, 21)))
+        gen_abs_pos_7 = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start_dH2, include_prev=False, bounds=((2, 13), (10, 21)))
 
         i = 1
         for pos in gen_abs_pos_7():
@@ -119,7 +119,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # dark Shaman 2, short jump
 
-        gen_abs_pos_8 = GS.get_gen_multi_steps(start=start_dH2, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((4, 15), (8, 19)))
+        gen_abs_pos_8 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_dH2, include_prev=False, bounds=((4, 15), (8, 19)))
 
         i = 1
         for pos in gen_abs_pos_8():
@@ -152,7 +152,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # light Shaman, long jump
 
-        gen_abs_pos = GS.get_gen_multi_steps(start=start_lH, rel_lst=GS.DEFAULT_UNICORN_REL_LONG_MOVES, pos_bounds=((0, 0), (8, 8)))
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start_lH, include_prev=False, bounds=((0, 0), (8, 8)))
 
         i = 1
         for pos in gen_abs_pos():
@@ -162,7 +162,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # light Shaman, short jump
 
-        gen_abs_pos_2 = GS.get_gen_multi_steps(start=start_lH, rel_lst=GS.DEFAULT_KNIGHT_REL_MOVES, pos_bounds=((2, 2), (6, 6)))
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_lH, include_prev=False, bounds=((2, 2), (6, 6)))
 
         i = 1
         for pos in gen_abs_pos_2():

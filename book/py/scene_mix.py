@@ -13,17 +13,8 @@ from scene_mirandas_veil import SceneMirandasVeilMixin
 from scene_nineteen import SceneNineteenMixin
 from scene_hemeras_dawn import SceneHemerasDawnMixin
 from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
-#from scene_conquest_of_tlalocan import SceneConquestOfTlalocanMixin
+from scene_conquest_of_tlalocan import SceneConquestOfTlalocanMixin
 
-
-#class SceneMix(SceneCroatianTiesMixin, \
-#               SceneMayanAscendancyMixin, \
-#               SceneAgeOfAquariusMixin, \
-#               SceneMirandasVeilMixin, \
-#               SceneNineteenMixin, \
-#               SceneHemerasDawnMixin, \
-#               SceneTamoanchanRevisitedMixin, \
-#               SceneConquestOfTlalocanMixin):
 
 class SceneMix(SceneCroatianTiesMixin, \
                SceneMayanAscendancyMixin, \
@@ -31,7 +22,8 @@ class SceneMix(SceneCroatianTiesMixin, \
                SceneMirandasVeilMixin, \
                SceneNineteenMixin, \
                SceneHemerasDawnMixin, \
-               SceneTamoanchanRevisitedMixin):
+               SceneTamoanchanRevisitedMixin, \
+               SceneConquestOfTlalocanMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
