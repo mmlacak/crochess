@@ -357,7 +357,7 @@ class Colors(dict):
         if self.all_in_bw:
             return self[ BoardType.Classical ]
 
-        if bt in [ BoardType.ConquestOfTlalocan, BoardType.OddConquestOfTlalocan ] and self.cot_in_bw:
+        if self.cot_in_bw and bt.is_variants(BoardType.ConquestOfTlalocan):
             return self[ BoardType.Classical ]
 
         return self[ bt ]

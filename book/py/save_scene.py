@@ -316,7 +316,7 @@ class SaveScene(object):
             print file_path
 
             if self.rendering_size.needs_rendering():
-                enforce_bw = enforce_cot_in_bw and ( scene.board.type in [ BoardType.ConquestOfTlalocan, BoardType.OddConquestOfTlalocan ] )
+                enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
                 self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
         _str = "all" if do_all_examples else "recent"

@@ -95,12 +95,22 @@ class BoardType(int):
     def get_even(self):
         if self == BoardType.none:
             return self
-        return self if is_even(self) else BoardType(self + 1)
+        return self if self.is_even() else BoardType(self + 1)
 
     def get_odd(self):
         if self == BoardType.none:
             return self
-        return BoardType(self - 1) if is_even(self) else self
+        return BoardType(self - 1) if self.is_even() else self
+
+    def get_pair(self):
+        if self == BoardType.none:
+            return [ self ]
+        return [ self.get_odd(), self.get_even() ]
+
+    def is_variants(self, bt):
+        bt = BoardType(bt)
+        return self in bt.get_pair()
+
 
     def get_name(self):
         return { BoardType.none: 'none',
