@@ -346,7 +346,8 @@ def test_4(as_next=False):
     multi_rels = [ [t] for t in DEFAULT_KNIGHT_REL_MOVES ]
 
     # g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=bounds)
-    g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, count=2)
+    # g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=True, count=3)
+    g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, end=start, include_prev=True, count=3)
     # g = gen_rels(g)
 
     if as_next:
@@ -377,14 +378,14 @@ def test_4(as_next=False):
         print
 
 if __name__ == '__main__':
-    test_1(as_next=True)
-    test_1(as_next=False)
+    # test_1(as_next=True)
+    # test_1(as_next=False)
 
-    test_2(as_next=True)
-    test_2(as_next=False)
+    # test_2(as_next=True)
+    # test_2(as_next=False)
 
-    test_3(as_next=True)
-    test_3(as_next=False)
+    # test_3(as_next=True)
+    # test_3(as_next=False)
 
     test_4(as_next=True)
     test_4(as_next=False)
