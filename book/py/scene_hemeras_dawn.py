@@ -141,8 +141,8 @@ class SceneHemerasDawnMixin(Scene):
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=((-1, 2), ) ) )
         startK = (12, 11)
 
-        arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=True, seq_count=1) )
-        txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=False, seq_count=1) )
+        arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=True, count=1) )
+        txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=False, count=1) )
 
         self.append_arrow( *arr(), mark_type=MarkType.Blocked )
         self.append_text("7a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)

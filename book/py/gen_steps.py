@@ -125,28 +125,28 @@ def check_valid(bounds=None, func=None):
 
     return _check_valid
 
-def gen_rels(rels, seq_count=None):
+def gen_rels(rels, count=None):
     # rels :: generator
     #      || [ (i, j), ... ]
     #
     # inf_seq :: bool
 
     def _gen_rels():
-        if callable(rels):
-            # rels :: generator
-            for _rel in rels():
-                yield _rel
-        else:
-            # rels :: [ (i, j), ... ]
-            i = 0
-            while seq_count is None or i < seq_count:
+        i = 0
+        while count is None or i < count:
+            if callable(rels):
+                # rels :: generator
+                for _rel in rels():
+                    yield _rel
+            else:
+                # rels :: [ (i, j), ... ]
                 for rel in rels:
                     yield rel
-                i += 1
+            i += 1
 
     return _gen_rels
 
-def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, seq_count=None):
+def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, count=None):
     # rels :: generator
     #      ||  [ (i, j), ... ]
     #
@@ -161,7 +161,7 @@ def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_
         _reverse = start is None
         _current = start or end
 
-        _rels = rels if callable(rels) else gen_rels(rels, seq_count=seq_count)
+        _rels = rels if callable(rels) else gen_rels(rels, count=count)
         _valid = check_valid(bounds=bounds, func=func_valid)
 
         for _rel in _rels():
@@ -184,7 +184,7 @@ def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_
 
     return _gen_steps
 
-def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, seq_count=None):
+def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, count=None):
     # multi_rels :: [ rels, ... ]
     #
     # rels :: generator
@@ -200,7 +200,7 @@ def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, bounds
 
     def _gen_multi_steps():
         for rels in multi_rels:
-            _steps = gen_steps(rels, start=start, end=end, include_prev=include_prev, bounds=bounds, func_valid=func_valid, seq_count=seq_count)
+            _steps = gen_steps(rels, start=start, end=end, include_prev=include_prev, bounds=bounds, func_valid=func_valid, count=count)
 
             for _step in _steps():
                 if _step is None:
@@ -221,7 +221,7 @@ def test_1(as_next=True):
     # rels = [(-2, 1), (3, 2)]
     ln = len(rels)
 
-    g = gen_rels(rels, seq_count=3)
+    g = gen_rels(rels, count=3)
     g = gen_rels(g)
 
     if as_next:
@@ -258,7 +258,8 @@ def test_2(as_next=True):
     bounds = ((0, 0), (20, 20))
 
     # g = gen_steps(rels, start=start, bounds=bounds)
-    g = gen_steps(rels, start=start, include_prev=True, bounds=bounds)
+    # g = gen_steps(rels, start=start, include_prev=True, bounds=bounds)
+    g = gen_steps(rels, start=start, include_prev=True, count=2)
     # g = gen_steps(rels, end=start, include_prev=True, bounds=bounds)
 
     g = gen_rels(g)
@@ -304,7 +305,8 @@ def test_3(as_next=True):
     bounds = ((0, 0), (25, 25))
 
     # g = gen_multi_steps(multi_rels, start=start)
-    g = gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=bounds)
+    # g = gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=bounds)
+    g = gen_multi_steps(multi_rels, start=start, include_prev=True, count=2)
     # g = gen_multi_steps(multi_rels, end=start, include_prev=True)
 
     # g = gen_rels(g)
@@ -343,8 +345,8 @@ def test_4(as_next=False):
 
     multi_rels = [ [t] for t in DEFAULT_KNIGHT_REL_MOVES ]
 
-    g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=bounds)
-    # g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, seq_count=2)
+    # g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=bounds)
+    g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, count=2)
     # g = gen_rels(g)
 
     if as_next:
@@ -375,14 +377,14 @@ def test_4(as_next=False):
         print
 
 if __name__ == '__main__':
-    # test_1(as_next=True)
-    # test_1(as_next=False)
+    test_1(as_next=True)
+    test_1(as_next=False)
 
-    # test_2(as_next=True)
-    # test_2(as_next=False)
+    test_2(as_next=True)
+    test_2(as_next=False)
 
-    # test_3(as_next=True)
-    # test_3(as_next=False)
+    test_3(as_next=True)
+    test_3(as_next=False)
 
     test_4(as_next=True)
     test_4(as_next=False)
