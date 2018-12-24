@@ -72,7 +72,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
         render.render_all_pieces(piece_type=PieceType.Star)
 
     if args.all or args.examples or args.recent:
-        render.render_examples(do_all_examples=(args.all or args.examples))
+        render.render_examples(do_all_examples=(args.all or args.examples), enforce_cot_in_bw=True)
 
     if args.all or args.castlings:
         render.render_all_castling_scenes()

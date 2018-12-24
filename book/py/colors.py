@@ -192,7 +192,7 @@ class ColorsItem(object):
 
 class Colors(dict):
     def __init__(self, cot_in_bw=False, all_in_bw=False):
-        self.cot_in_bw = cot_in_bw
+        self.cot_in_bw = cot_in_bw # Conquest of Tlalocan
         self.all_in_bw = all_in_bw
 
 
@@ -350,7 +350,10 @@ class Colors(dict):
                                                   '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ) )
         self[ BoardType.OddOne ] = self[ BoardType.One ]
 
-    def fetch_colors(self, bt):
+    def fetch_colors(self, bt, enforce_bw=False):
+        if enforce_bw:
+            return self[ BoardType.Classical ]
+
         if self.all_in_bw:
             return self[ BoardType.Classical ]
 

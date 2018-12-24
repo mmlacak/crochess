@@ -88,7 +88,7 @@ class SaveScene(object):
 
         return drawable, gc
 
-    def save_scene(self, scene, file_path, size_x=None, size_y=None, line_width=None, file_type=None):
+    def save_scene(self, scene, file_path, size_x=None, size_y=None, line_width=None, file_type=None, enforce_bw=False):
         assert isinstance(scene, Scene)
         assert isinstance(file_path, str)
 
@@ -96,7 +96,7 @@ class SaveScene(object):
 
         draw_scene = DrawScene(drawable, gc, scene, board_desc=scene.board_desc)
 
-        colors_item = Colors.fetch_colors(scene.board.type)
+        colors_item = Colors.fetch_colors(scene.board.type, enforce_bw=enforce_bw)
         mark_def_item = MarkDef[ scene.board.type ]
 
         draw_scene.draw_scene(colors_item, mark_def_item=mark_def_item, gc=gc)
@@ -308,7 +308,7 @@ class SaveScene(object):
         else:
             return '%s/examples/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
 
-    def render_examples(self, do_all_examples=False, path_prefix=None):
+    def render_examples(self, do_all_examples=False, path_prefix=None, enforce_cot_in_bw=False):
         def _render_examples(scene, func):
             name = func()
             sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
@@ -316,7 +316,8 @@ class SaveScene(object):
             print file_path
 
             if self.rendering_size.needs_rendering():
-                self.save_scene(scene, file_path)
+                enforce_bw = enforce_cot_in_bw and ( scene.board.type in [ BoardType.ConquestOfTlalocan, BoardType.OddConquestOfTlalocan ] )
+                self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
         _str = "all" if do_all_examples else "recent"
         print
