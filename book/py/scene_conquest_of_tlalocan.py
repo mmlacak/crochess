@@ -353,14 +353,12 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.board.set_piece(*coords(), piece=PieceType.Shaman) # (15, 12)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
 
-        # self.append_text("1", 7, 10, mark_type=MarkType.Action) # , corner=Corner.UpperRight
-
         start_W = (15, 12)
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-4, -1), (4, 1), (2, 3)] ) )
         gen_pos = GS.gen_multi_steps(multi_rels, start=start_W, include_prev=True, bounds=self.board.get_position_limits())
 
         for pos in gen_pos():
-            self.append_arrow( *pos ) # , mark_type=MarkType.Illegal )
+            self.append_arrow( *pos )
 
         coords = GS.gen_next( GS.gen_steps([(-4, -1), ], start=start_W, include_prev=True, bounds=self.board.get_position_limits()) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
