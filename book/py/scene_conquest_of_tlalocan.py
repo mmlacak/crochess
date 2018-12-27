@@ -218,9 +218,107 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # (2, 1) change dir -------------------------------------------------------------------------------------------------------
 
-        gen_pos_3 = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=(17, 16), include_prev=True, count=1)
+        gen_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=(17, 16), include_prev=True, count=1)
 
-        for pos in gen_pos_3():
+        for pos in gen_pos():
             self.append_arrow( *pos, mark_type=MarkType.Illegal )
 
         return 'scn_cot_02_shaman_step_ply'
+
+    def scn_cot_03_shaman_capture_ply(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (3, 9)
+        self.board.set_piece(*start, piece=PieceType.Shaman)
+
+        start_W1 = (2, 5)
+        self.board.set_piece(*start_W1, piece=PieceType.Wave)
+        self.append_text("1", *start_W1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+
+        start_A1 = (4, 5)
+        self.board.set_piece(*start_A1, piece=PieceType.Pyramid)
+        self.append_text("1", *start_A1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+
+        start_W2 = (7, 3)
+        self.board.set_piece(*start_W2, piece=PieceType.Wave)
+        self.append_text("2", *start_W2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+
+        start_A2 = (9, 5)
+        self.board.set_piece(*start_A2, piece=PieceType.Pyramid)
+        self.append_text("2", *start_A2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+
+        # (4, 1) -----------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=False, count=4) )
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Wave)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+
+        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # (-1, -4) ----------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(-1, -4), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # (1, -4) -----------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(1, -4), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # (3, 2) ------------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=False, bounds=self.board.get_position_limits()) )
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+
+        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        self.board.set_piece(*GS.add(start, (13, 13)), piece=-PieceType.Knight)
+
+        # (3, 2) change direction -------------------------------------------------------------------------------------------------
+
+        gen_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=GS.add(start, (9, 6)), include_prev=True, count=1)
+
+        for pos in gen_pos():
+            self.append_arrow( *pos, mark_type=MarkType.Illegal )
+
+        # (3, 2) change direction -------------------------------------------------------------------------------------------------
+
+        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-3, -2), (3, 2)] ) )
+        gen_pos = GS.gen_multi_steps(multi_rels, start=GS.add(start, (15, 10)), include_prev=True, count=1)
+
+        for pos in gen_pos():
+            self.append_arrow( *pos, mark_type=MarkType.Illegal )
+
+        # empty -------------------------------------------------------------------------------------------------------------------
+
+        self.board.set_piece(*GS.add(start, (8, -2)), piece=-PieceType.Pawn)
+        self.board.set_piece(*GS.add(start, (12, -3)), piece=-PieceType.Pawn)
+
+        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-1, -4), (1, -4), (3, 2), (4, 1), ] ) )
+        gen_pos = GS.gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=self.board.get_position_limits())
+
+        for pos in gen_pos():
+            self.append_arrow( *pos, mark_type=MarkType.Blocked )
+
+        return 'scn_cot_03_shaman_capture_ply'
