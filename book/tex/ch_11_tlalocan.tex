@@ -68,7 +68,7 @@ Star colors in this variant are presented on the left.
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_01_shaman_movement.png}
-\caption{Shaman movement}
+\caption{Shaman's movement}
 \label{fig:scn_cot_01_shaman_movement}
 % \centering
 \end{figure}
@@ -84,7 +84,7 @@ stands.
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_02_shaman_step_ply.png}
-\caption{Shaman step-ply}
+\caption{Shaman's step-ply}
 \label{fig:scn_cot_02_shaman_step_ply}
 % \centering
 \end{figure}
@@ -103,22 +103,33 @@ on capture-field.
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_03_shaman_capture_ply.png}
-\caption{Shaman capture-ply}
+\caption{Shaman's capture-ply}
 \label{fig:scn_cot_03_shaman_capture_ply}
 % \centering
 \end{figure}
 
-...
+After initial capture Shaman can continue capturing opponent's pieces in
+the same direction. Again, once started capturing, Shaman cannot change
+it's heading, neither in other step- nor capture-direction. Shaman can
+also activate Pyramid or Wave on capture-field, thus ending it's ply.
 
-
-
-% :: TODO ::
 \clearpage % ..........................................................
-% \vspace*{0.25\textheight}
-\huge{TODO :: step-ply, capture-ply}
-\normalsize{ -move ? }
-% :: TODO ::
 
+\subsubsection*{Activating Wave}
+\addcontentsline{toc}{subsubsection}{Activating Wave}
+
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_04_wave_activated.png}
+\caption{Shaman activated Wave}
+\label{fig:scn_cot_04_wave_activated}
+% \centering
+\end{figure}
+
+If activated on Shaman's capture-field, Wave can choose freely any Shaman's
+initial capture-field as a direction, and then continue it's movement in
+chosen direction, possibly ending it by activating other pieces.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................

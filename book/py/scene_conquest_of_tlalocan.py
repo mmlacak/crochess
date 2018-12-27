@@ -322,3 +322,75 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_arrow( *pos, mark_type=MarkType.Blocked )
 
         return 'scn_cot_03_shaman_capture_ply'
+
+    def scn_cot_04_wave_activated(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (3, 9)
+
+        start_W1 = (2, 5)
+        self.board.set_piece(*start_W1, piece=PieceType.Wave)
+        self.append_text("1", *start_W1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+
+        start_A1 = (4, 5)
+        self.board.set_piece(*start_A1, piece=PieceType.Pyramid)
+        self.append_text("1", *start_A1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+
+        start_W2 = (7, 3)
+        self.board.set_piece(*start_W2, piece=PieceType.Wave)
+        self.append_text("2", *start_W2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+
+        start_A2 = (9, 5)
+        self.board.set_piece(*start_A2, piece=PieceType.Pyramid)
+        self.append_text("2", *start_A2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+
+        # (4, 1) -----------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=False, count=4) )
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn) # (4, 10)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=PieceType.Shaman) # (15, 12)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+
+        # self.append_text("1", 7, 10, mark_type=MarkType.Action) # , corner=Corner.UpperRight
+
+        start_W = (15, 12)
+        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-4, -1), (4, 1), (2, 3)] ) )
+        gen_pos = GS.gen_multi_steps(multi_rels, start=start_W, include_prev=True, bounds=self.board.get_position_limits())
+
+        for pos in gen_pos():
+            self.append_arrow( *pos ) # , mark_type=MarkType.Illegal )
+
+        coords = GS.gen_next( GS.gen_steps([(-4, -1), ], start=start_W, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords() )
+
+        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start_W, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords() )
+
+        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start_W, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # (3, 2) ------------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=False, bounds=self.board.get_position_limits()) )
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+        self.board.set_piece(*coords(), piece=-PieceType.Pawn)
+
+        self.board.set_piece(*GS.add(start, (13, 13)), piece=-PieceType.Knight)
+
+        # empty -------------------------------------------------------------------------------------------------------------------
+
+        self.board.set_piece(*GS.add(start, (8, -2)), piece=-PieceType.Pawn)
+        self.board.set_piece(*GS.add(start, (12, -3)), piece=-PieceType.Pawn)
+
+        return 'scn_cot_04_wave_activated'
