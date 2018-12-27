@@ -37,9 +37,9 @@ where one figure provides step-fields, and the other capture-fields.
 For light Shaman, step-fields are provided by the Knight, while capture-fields
 are provided by long-range Unicorn. For dark Shaman, it's the opposite.
 
-Shaman can continue it's jumpy movement in chosen direction, over step-fields
-if they're empty, and over capture-fields as long as it's capturing opponent's
-pieces.
+Shaman can continue it's jumpy movement in chosen direction; over step-fields
+if they're empty, over capture-fields as long as it's capturing opponent's
+pieces. Shaman can't change direction once started moving.
 
 Shaman can activate both Wave and Pyramid on its' capture-fields, while only
 Wave can be activated on step-fields.
@@ -58,15 +58,6 @@ Shaman symbol in algebraic notation is 'H', to avoid confusion with Serpent.
 
 Star colors in this variant are presented on the left.
 
-
-% :: TODO ::
-\clearpage % ..........................................................
-% \vspace*{0.25\textheight}
-\huge{TODO :: step-ply, capture-ply}
-\normalsize{ -move ? }
-% :: TODO ::
-
-
 \clearpage % ..........................................................
 % Movement ------------------------------------------------------------
 
@@ -82,30 +73,33 @@ Star colors in this variant are presented on the left.
 % \centering
 \end{figure}
 
+For this variant examples are rendered in B\&W to improve legibility.
 Here, step-fields are marked green, while capture-fields are marked blue.
 Note, movement of Shaman does not depend on color of field on which it
 stands.
 
 \clearpage % ..........................................................
 
-\subsubsection*{Activating Pyramid, Wave}
-\addcontentsline{toc}{subsubsection}{Activating Pyramid, Wave}
-
-% \vspace*{0.05\textheight}
 \noindent
-\begin{wrapfigure}{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_02_activating_passives.png}
-\caption{Activating Pyramid, Wave}
-\label{fig:scn_cot_02_activating_passives}
-\end{wrapfigure}
-Here, Pyramids can be activated only on capture-fields (blue), while Waves
-can also be activated on step-fields (green).
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_02_shaman_step_ply.png}
+\caption{Shaman step-ply}
+\label{fig:scn_cot_02_shaman_step_ply}
+% \centering
+\end{figure}
 
-Since Pyramid 1 is standing on a step-field, it is the only one which can't
-be activated (red).
+...
 
-In any case, momentum of 1 would be transferred to activated piece.
+
+
+% :: TODO ::
+\clearpage % ..........................................................
+% \vspace*{0.25\textheight}
+\huge{TODO :: step-ply, capture-ply}
+\normalsize{ -move ? }
+% :: TODO ::
+
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................

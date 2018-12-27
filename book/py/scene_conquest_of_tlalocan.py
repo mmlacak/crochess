@@ -129,48 +129,98 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_01_shaman_movement'
 
-    def scn_cot_02_activating_passives(self, bt=BoardType.ConquestOfTlalocan):
 
-        self.init_scene(bt, width=9, height=9)
+    def scn_cot_02_shaman_step_ply(self, bt=BoardType.ConquestOfTlalocan):
 
-        #
-        # light Shaman
+        self.init_scene(bt)
 
-        start_lH = (4, 4)
-        self.board.set_piece(*start_lH, piece=PieceType.Shaman)
+        start = (3, 9)
+        self.board.set_piece(*start, piece=PieceType.Shaman)
+        self.board.set_piece(9, 6, piece=PieceType.Pyramid)
+        self.board.set_piece(5, 5, piece=PieceType.Wave)
+        self.board.set_piece(7, 17, piece=-PieceType.Bishop)
+        self.board.set_piece(15, 19, piece=-PieceType.Knight)
 
-        pos_A1 = (3, 2)
-        self.board.set_piece(*pos_A1, piece=PieceType.Pyramid)
-        self.board.set_piece(7, 6, piece=PieceType.Pyramid)
-        self.board.set_piece(6, 3, piece=PieceType.Wave)
-        self.board.set_piece(1, 6, piece=PieceType.Wave)
+        # (2, 1) ------------------------------------------------------------------------------------------------------------------
 
-        self.append_text("1", *pos_A1, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("2", 7, 6, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("1", 6, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text("2", 1, 6, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        gen_pos = GS.gen_steps([(2, 1), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
 
-        # light Shaman, long jump
+        for pos in gen_pos():
+            self.append_arrow( *pos )
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start_lH, include_prev=False, bounds=((0, 0), (8, 8)))
+        # (-1, 2) ------------------------------------------------------------------------------------------------------------------
 
-        i = 1
-        for pos in gen_abs_pos():
-            self.append_field_marker(*pos, mark_type=MarkType.Action)
-            # self.append_text(str(i), *pos, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+        gen_pos = GS.gen_steps([(-1, 2), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
 
-        # light Shaman, short jump
+        for pos in gen_pos():
+            self.append_arrow( *pos )
 
-        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_lH, include_prev=False, bounds=((2, 2), (6, 6)))
+        # (-2, 1) ------------------------------------------------------------------------------------------------------------------
 
-        i = 1
-        for pos in gen_abs_pos_2():
-            if pos == pos_A1:
-                self.append_field_marker(*pos, mark_type=MarkType.Illegal)
-            else:
-                self.append_field_marker(*pos, mark_type=MarkType.Legal)
-                # self.append_text(str(i), *pos, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+        gen_pos = GS.gen_steps([(-2, 1), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
 
-        return 'scn_cot_02_activating_passives'
+        for pos in gen_pos():
+            self.append_arrow( *pos )
+
+        # (-2, -1) ------------------------------------------------------------------------------------------------------------------
+
+        gen_pos = GS.gen_steps([(-2, -1), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
+
+        for pos in gen_pos():
+            self.append_arrow( *pos )
+
+        # (-1, -2) ------------------------------------------------------------------------------------------------------------------
+
+        gen_pos = GS.gen_steps([(-1, -2), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
+
+        for pos in gen_pos():
+            self.append_arrow( *pos )
+
+        # (1, 2) ------------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # (2, -1) -----------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(2, -1), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # (1, -2) -----------------------------------------------------------------------------------------------------------------
+
+        coords = GS.gen_next( GS.gen_steps([(1, -2), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # (2, 1) change dir -------------------------------------------------------------------------------------------------------
+
+        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, [(-2, -1), (2, 1)] ) )
+        gen_pos = GS.gen_multi_steps(multi_rels, start=(9, 12), include_prev=True, count=1)
+
+        for pos in gen_pos():
+            self.append_arrow( *pos, mark_type=MarkType.Illegal )
+
+        # (2, 1) change dir -------------------------------------------------------------------------------------------------------
+
+        gen_pos_3 = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=(17, 16), include_prev=True, count=1)
+
+        for pos in gen_pos_3():
+            self.append_arrow( *pos, mark_type=MarkType.Illegal )
+
+        return 'scn_cot_02_shaman_step_ply'

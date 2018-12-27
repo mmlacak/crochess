@@ -4,7 +4,6 @@
 # Copyright (c) 2016 - 2018 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
-# import inspect as I
 
 from util import xor
 
@@ -90,7 +89,7 @@ def gen_next(gen, default=None):
     g = gen()
 
     def _gen_next():
-        return next(g, default) # g.next() raises StopIteration
+        return next(g, default) # g.next() just raises StopIteration
 
     return _gen_next
 
