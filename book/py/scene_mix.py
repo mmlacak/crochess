@@ -29,7 +29,7 @@ class SceneMix(SceneCroatianTiesMixin, \
         return  [
                     # 'scn_cot_01_shaman_movement', \
                     # 'scn_cot_02_shaman_step_ply', \
-                    # 'scn_cot_03_shaman_capture_ply', \
+                    'scn_cot_03_shaman_capture_ply', \
                     'scn_cot_04_wave_activated', \
                 ]
 
