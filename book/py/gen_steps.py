@@ -72,6 +72,66 @@ DEFAULT_BISHOP_REL_MOVES = [ ( 1,  1), \
 DEFAULT_BISHOP_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_BISHOP_REL_MOVES)
 
 
+# left turning --> spiraling right
+LIGHT_SHAMAN_REL_MOVES = [ ( 2,  1), \
+                           (-2, -1), ]
+LIGHT_SHAMAN_MULTI_REL_MOVES = convert_single_step_into_multi_rels(LIGHT_SHAMAN_REL_MOVES)
+
+LIGHT_SHAMAN_REL_LEGS_LEFT =  [ (-1,  0), \
+                                (-1, -1), \
+
+                                ( 0, -1), \
+                                ( 1, -1), \
+
+                                ( 1,  0), \
+                                ( 1,  1), \
+
+                                ( 0,  1), \
+                                (-1,  1), ]
+
+LIGHT_SHAMAN_REL_LEGS_RIGHT = [ ( 1,  0), \
+                                ( 1,  1), \
+
+                                ( 0,  1), \
+                                (-1,  1), \
+
+                                (-1,  0), \
+                                (-1, -1), \
+
+                                ( 0, -1), \
+                                ( 1, -1)  ]
+
+
+# right turning --> spiraling left
+DARK_SHAMAN_REL_MOVES = [ ( 1,  2), \
+                          (-1, -2), ]
+DARK_SHAMAN_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DARK_SHAMAN_REL_MOVES)
+
+DARK_SHAMAN_REL_LEGS_UP = [ ( 0,  1), \
+                            ( 1,  1), \
+
+                            ( 1,  0), \
+                            ( 1, -1), \
+
+                            ( 0, -1), \
+                            (-1, -1), \
+
+                            (-1,  0), \
+                            (-1,  1), ]
+
+DARK_SHAMAN_REL_LEGS_DOWN = [ ( 0, -1), \
+                              (-1, -1), \
+
+                              (-1,  0), \
+                              (-1,  1), \
+
+                              ( 0,  1), \
+                              ( 1,  1), \
+
+                              ( 1,  0), \
+                              ( 1, -1), ]
+
+
 def add(step, rel):
     if step is None or rel is None:
         return None
@@ -83,6 +143,21 @@ def remove(coords, to_remove=[]):
 def negate(coords):
     t = type(coords)
     c = [ (-x) for x in coords ]
+    return t(c)
+
+def add_to_all(coords, offset=0.5):
+    t = type(coords)
+    c = [ x + offset for x in coords ]
+    return t(c)
+
+def multiply_all(coords, factor=1):
+    t = type(coords)
+    c = [ factor * x for x in coords ]
+    return t(c)
+
+def linear_all(coords, factor=1.0, offset=0.5):
+    t = type(coords)
+    c = [ factor * x + offset for x in coords ]
     return t(c)
 
 def gen_next(gen, default=None):
@@ -208,6 +283,67 @@ def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, bounds
                 yield _step
 
     return _gen_multi_steps
+
+#
+# shaman generators
+
+def gen_shaman_rel_legs(rel, count=None):
+    # generate legs of relative steps
+
+    start_horizontal = rel in LIGHT_SHAMAN_REL_MOVES
+    start_vertical = rel in DARK_SHAMAN_REL_MOVES
+
+    assert xor(start_horizontal, start_vertical)
+
+    legs = None
+
+    if start_horizontal:
+        if rel[0] > 0:
+            legs = LIGHT_SHAMAN_REL_LEGS_RIGHT
+        else:
+            legs = LIGHT_SHAMAN_REL_LEGS_LEFT
+    else: # start_vertical
+        if rel[1] > 0:
+            legs = DARK_SHAMAN_REL_LEGS_UP
+        else:
+            legs = DARK_SHAMAN_REL_LEGS_DOWN
+
+    def _gen_legs():
+        length = 1
+        i = 0
+        loop = True
+
+        while loop:
+            # legs :: [ (i, j), ... ]
+            for leg in legs:
+                yield multiply_all(leg, factor=length)
+
+                i += 1
+                if count is not None and count <= i:
+                    loop = False
+                    break
+
+                if i % 2 == 0:
+                    length += 1
+
+    return _gen_legs
+
+def gen_shaman_rels(rel, count=None):
+
+    g = gen_next( gen_shaman_rel_legs(rel, count=count) )
+
+    def _gen_shaman_rels():
+        while True:
+            rel_1 = g()
+            rel_2 = g()
+            rel_new = add(rel_1, rel_2)
+
+            if rel_new is None:
+                break
+
+            yield rel_new
+
+    return _gen_shaman_rels
 
 
 #
@@ -376,6 +512,73 @@ def test_4(as_next=False):
         print "-" * 42
         print
 
+def test_5(as_next=True):
+    rel = (2, 1)
+    ln = 2
+
+    g = gen_shaman_rel_legs(rel, count=21)
+
+    if as_next:
+        g = gen_next(g, default='pero')
+
+        print
+        print "-" * 42
+        print g
+        # print
+        for i in xrange(60):
+            if i % ln == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        print
+        print "-" * 42
+        print g
+        # print
+        for i, t in enumerate(g()):
+            if i % ln == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
+
+def test_6(as_next=True):
+    rel = (2, 1)
+    ln = 2
+
+    g = gen_shaman_rels(rel, count=21)
+
+    if as_next:
+        g = gen_next(g, default='pero')
+
+        print
+        print "-" * 42
+        print g
+        # print
+        for i in xrange(60):
+            if i % ln == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        print
+        print "-" * 42
+        print g
+        # print
+        for i, t in enumerate(g()):
+            if i % ln == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
+
+
 if __name__ == '__main__':
     # test_1(as_next=True)
     # test_1(as_next=False)
@@ -386,5 +589,11 @@ if __name__ == '__main__':
     # test_3(as_next=True)
     # test_3(as_next=False)
 
-    test_4(as_next=True)
-    test_4(as_next=False)
+    # test_4(as_next=True)
+    # test_4(as_next=False)
+
+    # test_5(as_next=True)
+    # test_5(as_next=False)
+
+    test_6(as_next=True)
+    test_6(as_next=False)
