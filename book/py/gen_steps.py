@@ -330,10 +330,11 @@ def gen_shaman_rel_legs(rel, count=None):
 
 def gen_shaman_rels(rel, count=None):
 
-    g = gen_next( gen_shaman_rel_legs(rel, count=count) )
+    g = gen_next( gen_shaman_rel_legs(rel, count=None) )
 
     def _gen_shaman_rels():
-        while True:
+        i = 0
+        while count is None or i < count:
             rel_1 = g()
             rel_2 = g()
             rel_new = add(rel_1, rel_2)
@@ -342,6 +343,7 @@ def gen_shaman_rels(rel, count=None):
                 break
 
             yield rel_new
+            i += 1
 
     return _gen_shaman_rels
 
@@ -547,7 +549,7 @@ def test_5(as_next=True):
 
 def test_6(as_next=True):
     rel = (2, 1)
-    ln = 2
+    ln = 8
 
     g = gen_shaman_rels(rel, count=21)
 
@@ -558,6 +560,90 @@ def test_6(as_next=True):
         print "-" * 42
         print g
         # print
+        for i in xrange(60):
+            if i % ln == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        print
+        print "-" * 42
+        print g
+        # print
+        for i, t in enumerate(g()):
+            if i % ln == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
+
+def test_7(as_next=True):
+    rel = (2, 1)
+    ln = 8
+
+    start = (7, 9)
+    bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+    f = gen_shaman_rels(rel)
+
+    # g = gen_steps(f, start=start, bounds=bounds)
+    g = gen_steps(f, start=start, include_prev=True, bounds=bounds)
+    # g = gen_steps(f, end=start, include_prev=True, bounds=bounds)
+
+    if as_next:
+        g = gen_next(g)
+
+        print
+        print "-" * 42
+        print g
+        # print
+        for i in xrange(60):
+            if i % ln == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        print
+        print "-" * 42
+        print g
+        # print
+        for i, t in enumerate(g()):
+            if i % ln == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
+
+def test_8(as_next=True):
+    start = (7, 9)
+    ln = 8
+
+    rel1 = gen_shaman_rels(LIGHT_SHAMAN_REL_MOVES[0])
+    rel2 = gen_shaman_rels(LIGHT_SHAMAN_REL_MOVES[1])
+
+    multi_rels = [ rel1, rel2 ]
+    bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+    # g = gen_multi_steps(multi_rels, start=start)
+    g = gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=bounds)
+    # g = gen_multi_steps(multi_rels, start=start, include_prev=True, count=3)
+    # g = gen_multi_steps(multi_rels, end=start, include_prev=True, bounds=bounds)
+
+    # g = gen_rels(g)
+
+    if as_next:
+        g = gen_next(g)
+
+        print
+        print "-" * 42
+        print g
+        print start
         for i in xrange(60):
             if i % ln == 0:
                 print
@@ -595,5 +681,11 @@ if __name__ == '__main__':
     # test_5(as_next=True)
     # test_5(as_next=False)
 
-    test_6(as_next=True)
-    test_6(as_next=False)
+    # test_6(as_next=True)
+    # test_6(as_next=False)
+
+    # test_7(as_next=True)
+    # test_7(as_next=False)
+
+    test_8(as_next=True)
+    test_8(as_next=False)
