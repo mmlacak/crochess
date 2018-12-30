@@ -10,6 +10,7 @@ import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
+from board_desc import BoardDesc
 from mark import MarkType
 from scene import Corner, Scene
 
@@ -409,3 +410,86 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.board.set_piece(*GS.add(start, (12, -3)), piece=-PieceType.Pawn)
 
         return 'scn_cot_04_wave_activated'
+
+    def scn_cot_05_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt, width=9, height=12)
+
+        self.append_arrow( *GS.add_to_all((6, 6, 7, 6)), mark_type=MarkType.Legal ) # right
+        self.append_arrow( *GS.add_to_all((7, 6, 8, 7)), mark_type=MarkType.Legal ) # right-up
+
+        self.append_arrow( *GS.add_to_all((8, 7, 8, 8)), mark_type=MarkType.Action ) # up
+        self.append_arrow( *GS.add_to_all((8, 8, 7, 9)), mark_type=MarkType.Action ) # left-up
+
+        self.append_arrow( *GS.add_to_all((7, 9, 6, 9)), mark_type=MarkType.Blocked ) # left
+        self.append_arrow( *GS.add_to_all((6, 9, 5, 8)), mark_type=MarkType.Blocked ) # left-down
+
+        self.append_arrow( *GS.add_to_all((5, 8, 5, 7)), mark_type=MarkType.Illegal ) # down
+        self.append_arrow( *GS.add_to_all((5, 7, 6, 6)), mark_type=MarkType.Illegal ) # right-down
+
+        return 'scn_cot_05_stop_sign_pattern'
+
+    def scn_cot_06_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt, width=9, height=12)
+
+        self.append_arrow( *GS.add_to_all((6, 6, 7, 6)), mark_type=MarkType.Legal ) # right
+        self.append_arrow( *GS.add_to_all((7, 6, 8, 7)), mark_type=MarkType.Legal ) # right-up
+
+        self.append_arrow( *GS.add_to_all((8, 7, 8, 9)), mark_type=MarkType.Action ) # 2 up
+        self.append_arrow( *GS.add_to_all((8, 9, 6, 11)), mark_type=MarkType.Action ) # 2 left-up
+
+        self.append_arrow( *GS.add_to_all((6, 11, 3, 11)), mark_type=MarkType.Blocked ) # 3 left
+        self.append_arrow( *GS.add_to_all((3, 11, 0, 8)), mark_type=MarkType.Blocked ) # 3 left-down
+
+        self.append_arrow( *GS.add_to_all((0, 8, 0, 4)), mark_type=MarkType.Illegal ) # 4 down
+        self.append_arrow( *GS.add_to_all((0, 4, 4, 0)), mark_type=MarkType.Illegal ) # 4 right-down
+
+        return 'scn_cot_06_stop_sign_pattern_unwind'
+
+    def scn_cot_07_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_left=3, off_board_bottom=1, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=21, height=23, board_desc=bd)
+
+
+        self.append_arrow( *GS.add_to_all((11, 11, 12, 11)), mark_type=MarkType.Legal ) # right
+        self.append_arrow( *GS.add_to_all((12, 11, 13, 12)), mark_type=MarkType.Legal ) # right-up
+
+        self.append_arrow( *GS.add_to_all((13, 12, 13, 14)), mark_type=MarkType.Action ) # 2 up
+        self.append_arrow( *GS.add_to_all((13, 14, 11, 16)), mark_type=MarkType.Action ) # 2 left-up
+
+        self.append_arrow( *GS.add_to_all((11, 16, 8, 16)), mark_type=MarkType.Blocked ) # 3 left
+        self.append_arrow( *GS.add_to_all((8, 16, 5, 13)), mark_type=MarkType.Blocked ) # 3 left-down
+
+        self.append_arrow( *GS.add_to_all((5, 13, 5, 9)), mark_type=MarkType.Illegal ) # 4 down
+        self.append_arrow( *GS.add_to_all((5, 9, 9, 5)), mark_type=MarkType.Illegal ) # 4 right-down
+
+
+        self.append_arrow( *GS.add_to_all((9, 5, 14, 5)), mark_type=MarkType.Legal ) # 5 right
+        self.append_arrow( *GS.add_to_all((14, 5, 19, 10)), mark_type=MarkType.Legal ) # 5 right-up
+
+        self.append_arrow( *GS.add_to_all((19, 10, 19, 16)), mark_type=MarkType.Action ) # 6 up
+        self.append_arrow( *GS.add_to_all((19, 16, 13, 22)), mark_type=MarkType.Action ) # 6 left-up
+
+        self.append_arrow( *GS.add_to_all((13, 22, 6, 22)), mark_type=MarkType.Blocked ) # 7 left
+        self.append_arrow( *GS.add_to_all((6, 22, -1, 15)), mark_type=MarkType.Blocked ) # 7 left-down
+
+        self.append_arrow( *GS.add_to_all((-1, 15, -1, 7)), mark_type=MarkType.Illegal ) # 8 down
+        self.append_arrow( *GS.add_to_all((-1, 7, 7, -1)), mark_type=MarkType.Illegal ) # 8 right-down
+
+
+        self.append_arrow( *GS.add_to_all((7, -1, 16, -1)), mark_type=MarkType.Legal ) # 9 right
+        self.append_arrow( *GS.add_to_all((16, -1, 25, 8)), mark_type=MarkType.Legal ) # 9 right-up
+
+        self.append_arrow( *GS.add_to_all((25, 8, 25, 18)), mark_type=MarkType.Action ) # 10 up
+        self.append_arrow( *GS.add_to_all((25, 18, 15, 28)), mark_type=MarkType.Action ) # 10 left-up
+
+        self.append_arrow( *GS.add_to_all((15, 28, 4, 28)), mark_type=MarkType.Blocked ) # 11 left
+        self.append_arrow( *GS.add_to_all((4, 28, -7, 17)), mark_type=MarkType.Blocked ) # 11 left-down
+
+        self.append_arrow( *GS.add_to_all((-7, 17, -7, 5)), mark_type=MarkType.Illegal ) # 12 down
+        self.append_arrow( *GS.add_to_all((-7, 5, 5, -7)), mark_type=MarkType.Illegal ) # 12 right-down
+
+
+        return 'scn_cot_07_stop_sign_pattern_full'
