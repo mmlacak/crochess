@@ -308,17 +308,21 @@ class SaveScene(object):
         else:
             return '%s/examples/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
 
+    def render_example(self, scene, func, path_prefix=None, enforce_cot_in_bw=False):
+        assert isinstance(scene, Scene)
+        assert callable(func)
+        assert isinstance(enforce_cot_in_bw, bool)
+
+        name = func()
+        sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
+        file_path = self.get_scene_file_path(name, path_prefix=path_prefix, subfolder_name=sf_name)
+        print file_path
+
+        if self.rendering_size.needs_rendering():
+            enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
+            self.save_scene(scene, file_path, enforce_bw=enforce_bw)
+
     def render_examples(self, do_all_examples=False, path_prefix=None, enforce_cot_in_bw=False):
-        def _render_examples(scene, func):
-            name = func()
-            sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
-            file_path = self.get_scene_file_path(name, path_prefix=path_prefix, subfolder_name=sf_name)
-            print file_path
-
-            if self.rendering_size.needs_rendering():
-                enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
-                self.save_scene(scene, file_path, enforce_bw=enforce_bw)
-
         _str = "all" if do_all_examples else "recent"
         print
         print "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str
@@ -329,7 +333,7 @@ class SaveScene(object):
                       else scene.get_recent_scene_methods()
 
         for func in scene_funcs:
-            _render_examples(scene, func)
+            self.render_example(scene, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
 
         print "Finished."
 
