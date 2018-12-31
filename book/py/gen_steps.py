@@ -351,6 +351,36 @@ def gen_shaman_rels(rel, count=None):
 #
 # tests
 
+def test_print(gen, length=8, as_next=True):
+    if as_next:
+        g = gen_next(gen) # , default='pero'
+
+        print
+        print "-" * 42
+        print g
+        # print
+        for i in xrange(60):
+            if i % length == 0:
+                print
+            print i, g()
+        print "-" * 42
+        print
+    else:
+        g = gen
+
+        print
+        print "-" * 42
+        print g
+        # print
+        for i, t in enumerate(g()):
+            if i % length == 0:
+                print
+            print i, t
+            if i > 60:
+                break
+        print "-" * 42
+        print
+
 def test_1(as_next=True):
     # rels = [(3, 1), ]
     rels = DEFAULT_KNIGHT_REL_MOVES
@@ -361,32 +391,7 @@ def test_1(as_next=True):
     g = gen_rels(rels, count=3)
     g = gen_rels(g)
 
-    if as_next:
-        g = gen_next(g, default='pero')
-
-        print
-        print "-" * 42
-        print g
-        # print
-        for i in xrange(60):
-            if i % ln == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
-    else:
-        print
-        print "-" * 42
-        print g
-        # print
-        for i, t in enumerate(g()):
-            if i % ln == 0:
-                print
-            print i, t
-            if i > 60:
-                break
-        print "-" * 42
-        print
+    test_print(g, length=ln, as_next=as_next)
 
 def test_2(as_next=True):
     rels = [(-2, 1), (3, 2)]
@@ -401,32 +406,7 @@ def test_2(as_next=True):
 
     g = gen_rels(g)
 
-    if as_next:
-        g = gen_next(g)
-
-        print
-        print "-" * 42
-        print g
-        print start
-        for i in xrange(60):
-            if i % ln == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
-    else:
-        print
-        print "-" * 42
-        print g
-        # print
-        for i, t in enumerate(g()):
-            if i % ln == 0:
-                print
-            print i, t
-            if i > 60:
-                break
-        print "-" * 42
-        print
+    test_print(g, length=ln, as_next=as_next)
 
 def test_3(as_next=True):
     start = (7, 9)
@@ -448,32 +428,7 @@ def test_3(as_next=True):
 
     # g = gen_rels(g)
 
-    if as_next:
-        g = gen_next(g)
-
-        print
-        print "-" * 42
-        print g
-        print start
-        for i in xrange(60):
-            if i % ln == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
-    else:
-        print
-        print "-" * 42
-        print g
-        # print
-        for i, t in enumerate(g()):
-            if i % ln == 0:
-                print
-            print i, t
-            if i > 60:
-                break
-        print "-" * 42
-        print
+    test_print(g, length=ln, as_next=as_next)
 
 def test_4(as_next=False):
     start = (2, 2)
@@ -487,32 +442,7 @@ def test_4(as_next=False):
     g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, end=start, include_prev=True, count=3)
     # g = gen_rels(g)
 
-    if as_next:
-        g = gen_next(g)
-
-        print
-        print "-" * 42
-        print g
-        print start
-        for i in xrange(60):
-            if i % ln == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
-    else:
-        print
-        print "-" * 42
-        print g
-        print start
-        for i, t in enumerate(g()):
-            if i % ln == 0:
-                print
-            print i, t
-            if i > 60:
-                break
-        print "-" * 42
-        print
+    test_print(g, length=ln, as_next=as_next)
 
 def test_5(as_next=True):
     rel = (2, 1)
@@ -520,32 +450,7 @@ def test_5(as_next=True):
 
     g = gen_shaman_rel_legs(rel, count=21)
 
-    if as_next:
-        g = gen_next(g, default='pero')
-
-        print
-        print "-" * 42
-        print g
-        # print
-        for i in xrange(60):
-            if i % ln == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
-    else:
-        print
-        print "-" * 42
-        print g
-        # print
-        for i, t in enumerate(g()):
-            if i % ln == 0:
-                print
-            print i, t
-            if i > 60:
-                break
-        print "-" * 42
-        print
+    test_print(g, length=ln, as_next=as_next)
 
 def test_6(as_next=True):
     rel = (2, 1)
@@ -553,32 +458,7 @@ def test_6(as_next=True):
 
     g = gen_shaman_rels(rel, count=21)
 
-    if as_next:
-        g = gen_next(g, default='pero')
-
-        print
-        print "-" * 42
-        print g
-        # print
-        for i in xrange(60):
-            if i % ln == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
-    else:
-        print
-        print "-" * 42
-        print g
-        # print
-        for i, t in enumerate(g()):
-            if i % ln == 0:
-                print
-            print i, t
-            if i > 60:
-                break
-        print "-" * 42
-        print
+    test_print(g, length=ln, as_next=as_next)
 
 def test_7(as_next=True):
     rel = (2, 1)
@@ -593,32 +473,7 @@ def test_7(as_next=True):
     g = gen_steps(f, start=start, include_prev=True, bounds=bounds)
     # g = gen_steps(f, end=start, include_prev=True, bounds=bounds)
 
-    if as_next:
-        g = gen_next(g)
-
-        print
-        print "-" * 42
-        print g
-        # print
-        for i in xrange(60):
-            if i % ln == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
-    else:
-        print
-        print "-" * 42
-        print g
-        # print
-        for i, t in enumerate(g()):
-            if i % ln == 0:
-                print
-            print i, t
-            if i > 60:
-                break
-        print "-" * 42
-        print
+    test_print(g, length=ln, as_next=as_next)
 
 def test_8(as_next=True):
     start = (7, 9)
@@ -637,32 +492,7 @@ def test_8(as_next=True):
 
     # g = gen_rels(g)
 
-    if as_next:
-        g = gen_next(g)
-
-        print
-        print "-" * 42
-        print g
-        print start
-        for i in xrange(60):
-            if i % ln == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
-    else:
-        print
-        print "-" * 42
-        print g
-        # print
-        for i, t in enumerate(g()):
-            if i % ln == 0:
-                print
-            print i, t
-            if i > 60:
-                break
-        print "-" * 42
-        print
+    test_print(g, length=ln, as_next=as_next)
 
 
 if __name__ == '__main__':
