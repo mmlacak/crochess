@@ -415,16 +415,16 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.init_scene(bt, width=9, height=12)
 
-        self.append_arrow( *GS.add_to_all((6, 6, 7, 6)), mark_type=MarkType.Legal ) # right
+        self.append_arrow( *GS.add_to_all((6, 6, 7, 6)), mark_type=MarkType.Legal, end_pointer=False ) # right
         self.append_arrow( *GS.add_to_all((7, 6, 8, 7)), mark_type=MarkType.Legal ) # right-up
 
-        self.append_arrow( *GS.add_to_all((8, 7, 8, 8)), mark_type=MarkType.Action ) # up
+        self.append_arrow( *GS.add_to_all((8, 7, 8, 8)), mark_type=MarkType.Action, end_pointer=False ) # up
         self.append_arrow( *GS.add_to_all((8, 8, 7, 9)), mark_type=MarkType.Action ) # left-up
 
-        self.append_arrow( *GS.add_to_all((7, 9, 6, 9)), mark_type=MarkType.Blocked ) # left
+        self.append_arrow( *GS.add_to_all((7, 9, 6, 9)), mark_type=MarkType.Blocked, end_pointer=False ) # left
         self.append_arrow( *GS.add_to_all((6, 9, 5, 8)), mark_type=MarkType.Blocked ) # left-down
 
-        self.append_arrow( *GS.add_to_all((5, 8, 5, 7)), mark_type=MarkType.Illegal ) # down
+        self.append_arrow( *GS.add_to_all((5, 8, 5, 7)), mark_type=MarkType.Illegal, end_pointer=False ) # down
         self.append_arrow( *GS.add_to_all((5, 7, 6, 6)), mark_type=MarkType.Illegal ) # right-down
 
         return 'scn_cot_05_stop_sign_pattern'
@@ -439,16 +439,16 @@ class SceneConquestOfTlalocanMixin(Scene):
         rels = GS.gen_shaman_rel_legs(rel, count=8)
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=self.board.get_position_limits()) )
 
-        self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right
+        self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal, end_pointer=False ) # right
         self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right-up
 
-        self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # up
+        self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action, end_pointer=False ) # up
         self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # left-up
 
-        self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left
+        self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked, end_pointer=False ) # left
         self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left-down
 
-        self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # down
+        self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal, end_pointer=False ) # down
         self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # right-down
 
         return 'scn_cot_06_stop_sign_pattern_unwind'
@@ -469,16 +469,16 @@ class SceneConquestOfTlalocanMixin(Scene):
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
         for i in xrange(3):
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal, end_pointer=False ) # right
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right-up
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # up
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action, end_pointer=False ) # up
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # left-up
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked, end_pointer=False ) # left
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left-down
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # down
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal, end_pointer=False ) # down
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # right-down
 
 
@@ -487,16 +487,16 @@ class SceneConquestOfTlalocanMixin(Scene):
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
         for i in xrange(3):
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal, end_pointer=False ) # right
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right-up
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # up
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action, end_pointer=False ) # up
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # left-up
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked, end_pointer=False ) # left
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left-down
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # down
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal, end_pointer=False ) # down
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # right-down
 
         return 'scn_cot_07_stop_sign_pattern_full'
@@ -520,16 +520,16 @@ class SceneConquestOfTlalocanMixin(Scene):
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
         for i in xrange(9):
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal, end_pointer=False ) # right
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right-up
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # up
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action, end_pointer=False ) # up
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # left-up
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked, end_pointer=False ) # left
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left-down
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # down
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal, end_pointer=False ) # down
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # right-down
 
 
@@ -540,16 +540,16 @@ class SceneConquestOfTlalocanMixin(Scene):
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
         for i in xrange(9):
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal, end_pointer=False ) # right
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right-up
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # up
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action, end_pointer=False ) # up
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Action ) # left-up
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked, end_pointer=False ) # left
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Blocked ) # left-down
 
-            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # down
+            self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal, end_pointer=False ) # down
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Illegal ) # right-down
 
 
