@@ -519,7 +519,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rels = GS.gen_shaman_rel_legs(rel)
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
-        for i in xrange(9):
+        for i in xrange(11):
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal, end_pointer=False ) # right
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right-up
 
@@ -539,7 +539,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rels = GS.gen_shaman_rel_legs(rel)
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
-        for i in xrange(9):
+        for i in xrange(11):
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal, end_pointer=False ) # right
             self.append_arrow( *GS.add_to_all( coords() ), mark_type=MarkType.Legal ) # right-up
 
