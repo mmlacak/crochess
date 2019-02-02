@@ -145,17 +145,17 @@ def negate(coords):
     c = [ (-x) for x in coords ]
     return t(c)
 
-def add_to_all(coords, offset=0.5):
+def add_to_all(coords, offset):
     t = type(coords)
     c = [ x + offset for x in coords ]
     return t(c)
 
-def multiply_all(coords, factor=1):
+def multiply_all(coords, factor):
     t = type(coords)
     c = [ factor * x for x in coords ]
     return t(c)
 
-def linear_all(coords, factor=1.0, offset=0.5):
+def linear_all(coords, factor, offset):
     t = type(coords)
     c = [ factor * x + offset for x in coords ]
     return t(c)
@@ -316,7 +316,7 @@ def gen_shaman_rel_legs(rel, count=None):
         while loop:
             # legs :: [ (i, j), ... ]
             for leg in legs:
-                yield multiply_all(leg, factor=length)
+                yield multiply_all(leg, length)
 
                 i += 1
                 if count is not None and count <= i:
