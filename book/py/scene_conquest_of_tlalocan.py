@@ -604,14 +604,23 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.init_scene(bt, width=9, height=12)
 
+        start = (6, 6)
+        self.append_text("S", *start, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+
         self.append_arrow( *GS.add_to_all( (6, 6, 7, 6), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
         self.append_arrow( *GS.add_to_all( (7, 6, 8, 7), 0.5 ), mark_type=MarkType.Legal ) # right-up
+
+        self.append_text("1", 8, 7, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.6, 0.45))
 
         self.append_arrow( *GS.add_to_all( (8, 7, 8, 8), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # up
         self.append_arrow( *GS.add_to_all( (8, 8, 7, 9), 0.5 ), mark_type=MarkType.Action ) # left-up
 
+        self.append_text("2", 7, 9, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.6, 0.45))
+
         self.append_arrow( *GS.add_to_all( (7, 9, 6, 9), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
         self.append_arrow( *GS.add_to_all( (6, 9, 5, 8), 0.5 ), mark_type=MarkType.Blocked ) # left-down
+
+        self.append_text("3", 5, 8, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
 
         self.append_arrow( *GS.add_to_all( (5, 8, 5, 7), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
         self.append_arrow( *GS.add_to_all( (5, 7, 6, 6), 0.5 ), mark_type=MarkType.Illegal ) # right-down
@@ -650,7 +659,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         start = (6, 6)
         rel = (2, 1)
 
-        self.append_text("S", *start, corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_text("S", *start, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
 
         aba = self.append_broken_arrow(start, rel, count=8)
 
