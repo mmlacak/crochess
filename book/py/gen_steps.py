@@ -103,6 +103,16 @@ LIGHT_SHAMAN_REL_LEGS_RIGHT = [ ( 1,  0), \
                                 ( 0, -1), \
                                 ( 1, -1)  ]
 
+LIGHT_SHAMAN_CORNER_LEFT =    [ Corner.UpperLeft,  \
+                                Corner.LowerLeft,  \
+                                Corner.LowerRight, \
+                                Corner.UpperRight  ]
+
+LIGHT_SHAMAN_CORNER_RIGHT =   [ Corner.LowerRight, \
+                                Corner.UpperRight, \
+                                Corner.UpperLeft , \
+                                Corner.LowerLeft   ]
+
 
 # right turning --> spiraling left
 DARK_SHAMAN_REL_MOVES = [ ( 1,  2), \
@@ -132,6 +142,16 @@ DARK_SHAMAN_REL_LEGS_DOWN = [ ( 0, -1), \
 
                               ( 1,  0), \
                               ( 1, -1), ]
+
+DARK_SHAMAN_CORNER_UP =   [ Corner.UpperLeft,  \
+                            Corner.UpperRight, \
+                            Corner.LowerRight, \
+                            Corner.LowerLeft   ]
+
+DARK_SHAMAN_CORNER_DOWN = [ Corner.LowerRight, \
+                            Corner.LowerLeft,  \
+                            Corner.UpperLeft , \
+                            Corner.UpperRight  ]
 
 
 def separate_poss(coords):
@@ -360,6 +380,28 @@ def gen_shaman_rels(rel, count=None):
             i += 1
 
     return _gen_shaman_rels
+
+def gen_shaman_corners(rel, count=None):
+
+    start_horizontal = rel in LIGHT_SHAMAN_REL_MOVES
+    start_vertical = rel in DARK_SHAMAN_REL_MOVES
+
+    assert xor(start_horizontal, start_vertical)
+
+    corners = None
+
+    if start_horizontal:
+        if rel[0] > 0:
+            corners = LIGHT_SHAMAN_CORNER_RIGHT
+        else:
+            corners = LIGHT_SHAMAN_CORNER_LEFT
+    else: # start_vertical
+        if rel[1] > 0:
+            corners = DARK_SHAMAN_CORNER_UP
+        else:
+            corners = DARK_SHAMAN_CORNER_DOWN
+
+    return gen_items(corners, count=count)
 
 
 #
