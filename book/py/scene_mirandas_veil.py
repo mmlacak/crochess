@@ -11,7 +11,8 @@ import gen_steps as GS
 from piece import PieceType
 from board import BoardType, Board
 from mark import MarkType
-from scene import Corner, Scene
+from corner import Corner
+from scene import Scene
 
 
 class SceneMirandasVeilMixin(Scene):

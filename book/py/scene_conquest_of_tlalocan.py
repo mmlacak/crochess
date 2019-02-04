@@ -12,7 +12,8 @@ from piece import PieceType
 from board import BoardType, Board
 from board_desc import BoardDesc
 from mark import MarkType
-from scene import Corner, Scene
+from corner import Corner
+from scene import Scene
 
 
 class SceneConquestOfTlalocanMixin(Scene):
@@ -617,6 +618,28 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_07_stop_sign_pattern'
 
+    def append_broken_arrow(self, start, rel, count=None):
+
+        rels = GS.gen_shaman_rel_legs(rel, count=count)
+        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+
+        def _append_broken_arrow(mark_type=MarkType.Legal, full_length=False):
+            x0, y0, x1, y1 = leg_1 = coords()
+            x2, y2, x3, y3 = leg_2 = coords()
+
+            assert x1 == x2
+            assert y1 == y2
+
+            if full_length:
+                self.append_arrow( *GS.add_to_all( leg_1, 0.5 ), mark_type=mark_type, end_pointer=False ) # start
+                self.append_arrow( *GS.add_to_all( leg_2, 0.5 ), mark_type=mark_type ) # end, diagonal
+            else:
+                self.append_arrow( x0, y0, x1+0.5, y1+0.5, mark_type=mark_type, end_pointer=False ) # start
+                self.append_arrow( x2+0.5, y2+0.5, x3, y3, mark_type=mark_type ) # end, diagonal
+
+        return _append_broken_arrow
+
+
     def scn_cot_08_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
@@ -624,20 +647,30 @@ class SceneConquestOfTlalocanMixin(Scene):
         start = (6, 6)
         rel = (2, 1)
 
-        rels = GS.gen_shaman_rel_legs(rel, count=8)
-        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        # rels = GS.gen_shaman_rel_legs(rel, count=8)
+        # coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=self.board.get_position_limits()) )
 
-        self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
-        self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # right-up
+        # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
+        # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # right-up
 
-        self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # up
-        self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # left-up
+        # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # up
+        # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # left-up
 
-        self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
-        self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # left-down
+        # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
+        # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # left-down
 
-        self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
-        self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # right-down
+        # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
+        # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # right-down
+
+        aba = self.append_broken_arrow(start, rel, count=8)
+
+        aba(mark_type=MarkType.Legal)
+
+        aba(mark_type=MarkType.Action)
+
+        aba(mark_type=MarkType.Blocked)
+
+        aba(mark_type=MarkType.Illegal)
 
         return 'scn_cot_08_stop_sign_pattern_unwind'
 

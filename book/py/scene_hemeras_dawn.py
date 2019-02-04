@@ -12,7 +12,8 @@ from piece import PieceType
 from board import BoardType, Board
 from board_desc import BoardDesc
 from mark import MarkType
-from scene import Corner, Scene
+from corner import Corner
+from scene import Scene
 
 
 class SceneHemerasDawnMixin(Scene):

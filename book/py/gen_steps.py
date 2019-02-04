@@ -7,6 +7,8 @@
 
 from util import xor
 
+from corner import Corner
+
 
 def convert_single_step_into_multi_rels(rels):
     return [ [ tpl ] for tpl in rels ]
@@ -132,6 +134,16 @@ DARK_SHAMAN_REL_LEGS_DOWN = [ ( 0, -1), \
                               ( 1, -1), ]
 
 
+def separate_poss(coords):
+    x0, y0, x1, y1 = coords
+    return (x0, y0), (x1, y1)
+
+def combine_poss(start, end):
+    x0, y0 = start
+    x1, y1 = end
+    return (x0, y0, x1, y1)
+
+
 def add(step, rel):
     if step is None or rel is None:
         return None
@@ -159,6 +171,7 @@ def linear_all(coords, factor, offset):
     t = type(coords)
     c = [ factor * x + offset for x in coords ]
     return t(c)
+
 
 def gen_next(gen, default=None):
     g = gen()
@@ -199,26 +212,27 @@ def check_valid(bounds=None, func=None):
 
     return _check_valid
 
-def gen_rels(rels, count=None):
-    # rels :: generator
-    #      || [ (i, j), ... ]
+def gen_items(items, count=None):
+    # items :: generator
+    #       || [ a, b, c, ... ] # e.g. [ (i, j), ... ]
     #
-    # inf_seq :: bool
+    # count :: int
+    #       || None
 
-    def _gen_rels():
+    def _gen_items():
         i = 0
         while count is None or i < count:
-            if callable(rels):
-                # rels :: generator
-                for _rel in rels():
-                    yield _rel
+            if callable(items):
+                # items :: generator
+                for _item in items():
+                    yield _item
             else:
-                # rels :: [ (i, j), ... ]
-                for rel in rels:
-                    yield rel
+                # items :: [ a, b, c, ... ] # e.g. [ (i, j), ... ]
+                for item in items:
+                    yield item
             i += 1
 
-    return _gen_rels
+    return _gen_items
 
 def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, count=None):
     # rels :: generator
@@ -235,7 +249,7 @@ def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_
         _reverse = start is None
         _current = start or end
 
-        _rels = rels if callable(rels) else gen_rels(rels, count=count)
+        _rels = rels if callable(rels) else gen_items(rels, count=count)
         _valid = check_valid(bounds=bounds, func=func_valid)
 
         for _rel in _rels():
@@ -388,8 +402,8 @@ def test_1(as_next=True):
     # rels = [(-2, 1), (3, 2)]
     ln = len(rels)
 
-    g = gen_rels(rels, count=3)
-    g = gen_rels(g)
+    g = gen_items(rels, count=3)
+    g = gen_items(g)
 
     test_print(g, length=ln, as_next=as_next)
 
@@ -404,7 +418,7 @@ def test_2(as_next=True):
     g = gen_steps(rels, start=start, include_prev=True, count=2)
     # g = gen_steps(rels, end=start, include_prev=True, bounds=bounds)
 
-    g = gen_rels(g)
+    g = gen_items(g)
 
     test_print(g, length=ln, as_next=as_next)
 
@@ -426,7 +440,7 @@ def test_3(as_next=True):
     g = gen_multi_steps(multi_rels, start=start, include_prev=True, count=2)
     # g = gen_multi_steps(multi_rels, end=start, include_prev=True)
 
-    # g = gen_rels(g)
+    # g = gen_items(g)
 
     test_print(g, length=ln, as_next=as_next)
 
@@ -440,7 +454,7 @@ def test_4(as_next=False):
     # g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=bounds)
     # g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=True, count=3)
     g = gen_multi_steps(DEFAULT_KNIGHT_MULTI_REL_MOVES, end=start, include_prev=True, count=3)
-    # g = gen_rels(g)
+    # g = gen_items(g)
 
     test_print(g, length=ln, as_next=as_next)
 
@@ -490,14 +504,14 @@ def test_8(as_next=True):
     # g = gen_multi_steps(multi_rels, start=start, include_prev=True, count=3)
     # g = gen_multi_steps(multi_rels, end=start, include_prev=True, bounds=bounds)
 
-    # g = gen_rels(g)
+    # g = gen_items(g)
 
     test_print(g, length=ln, as_next=as_next)
 
 
 if __name__ == '__main__':
-    # test_1(as_next=True)
-    # test_1(as_next=False)
+    test_1(as_next=True)
+    test_1(as_next=False)
 
     # test_2(as_next=True)
     # test_2(as_next=False)
@@ -517,5 +531,5 @@ if __name__ == '__main__':
     # test_7(as_next=True)
     # test_7(as_next=False)
 
-    test_8(as_next=True)
-    test_8(as_next=False)
+    # test_8(as_next=True)
+    # test_8(as_next=False)
