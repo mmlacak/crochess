@@ -35,7 +35,7 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_cot_06_wave_activated', \
                     'scn_cot_07_stop_sign_pattern', \
                     'scn_cot_08_stop_sign_pattern_unwind', \
-                    # 'scn_cot_09_stop_sign_pattern_full', \
+                    'scn_cot_09_stop_sign_pattern_full', \
                 ]
 
     def _get_all_scene_method_names(self):
