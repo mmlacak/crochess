@@ -627,11 +627,22 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_07_stop_sign_pattern'
 
-    def append_broken_arrow(self, start, rel, bounds=None, count=None):
+    def append_broken_arrow(self, start, rel, outward_arrows=True, bounds=None, count=None):
 
         rels = GS.gen_shaman_rel_legs(rel) # , count=count)
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=bounds) )
         corners = GS.gen_next( GS.gen_shaman_corners(rel) )
+
+        if outward_arrows:
+            sp1 = False
+            ep1 = False
+            sp2 = False
+            ep2 = True
+        else:
+            sp1 = True
+            ep1 = False
+            sp2 = False
+            ep2 = False
 
         def _append_broken_arrow(text=None, mark_type=MarkType.Legal, full_length=False):
             x0, y0, x1, y1 = leg_1 = coords()
@@ -641,11 +652,11 @@ class SceneConquestOfTlalocanMixin(Scene):
             assert y1 == y2
 
             if full_length:
-                self.append_arrow( *GS.add_to_all( leg_1, 0.5 ), mark_type=mark_type, end_pointer=False ) # start
-                self.append_arrow( *GS.add_to_all( leg_2, 0.5 ), mark_type=mark_type ) # end, diagonal
+                self.append_arrow( *GS.add_to_all( leg_1, 0.5 ), mark_type=mark_type, start_pointer=sp1, end_pointer=ep1 ) # start
+                self.append_arrow( *GS.add_to_all( leg_2, 0.5 ), mark_type=mark_type, start_pointer=sp2, end_pointer=ep2 ) # end, diagonal
             else:
-                self.append_arrow( x0, y0, x1+0.5, y1+0.5, mark_type=mark_type, end_pointer=False ) # start
-                self.append_arrow( x2+0.5, y2+0.5, x3, y3, mark_type=mark_type ) # end, diagonal
+                self.append_arrow( x0, y0, x1+0.5, y1+0.5, mark_type=mark_type, start_pointer=sp1, end_pointer=ep1 ) # start
+                self.append_arrow( x2+0.5, y2+0.5, x3, y3, mark_type=mark_type, start_pointer=sp2, end_pointer=ep2 ) # end, diagonal
 
             if text is not None:
                 self.append_text(text, x3, y3, corner=corners(), mark_type=mark_type, rect=(0.05, 1.0, 0.6, 0.45))
@@ -732,6 +743,33 @@ class SceneConquestOfTlalocanMixin(Scene):
             aba(str(i + 1), mark_type=MarkType.Action)
 
         return 'scn_cot_10_light_shaman_trance_journey'
+
+    def scn_cot_11_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (5, 11)
+        self.board.set_piece(*start, piece=-PieceType.Shaman)
+
+        #
+        # up arm
+
+        rel = (1, 2)
+        aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Legal)
+
+        #
+        # down arm
+
+        rel = (-1, -2)
+        aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Action)
+
+        return 'scn_cot_11_dark_shaman_trance_journey'
 
 
     #
