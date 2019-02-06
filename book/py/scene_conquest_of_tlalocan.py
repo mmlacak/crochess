@@ -630,7 +630,7 @@ class SceneConquestOfTlalocanMixin(Scene):
     def append_broken_arrow(self, start, rel, bounds=None, count=None):
 
         rels = GS.gen_shaman_rel_legs(rel) # , count=count)
-        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=bounds) ) # self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=bounds) )
         corners = GS.gen_next( GS.gen_shaman_corners(rel) )
 
         def _append_broken_arrow(text=None, mark_type=MarkType.Legal, full_length=False):
@@ -661,7 +661,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.append_text("S", *start, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
 
-        aba = self.append_broken_arrow(start, rel, count=8)
+        aba = self.append_broken_arrow(start, rel, bounds=self.board.get_position_limits(), count=8)
 
         aba("1", mark_type=MarkType.Legal)
         aba("2", mark_type=MarkType.Action)
@@ -674,65 +674,64 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.init_scene(bt)
 
-        start = (5, 11) # (11, 11)
-        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+        start = (5, 11)
+        # self.board.set_piece(*start, piece=PieceType.Shaman)
 
         self.append_field_marker(*start, mark_type=MarkType.Illegal) # , mark_type=MarkType.Blocked
         self.append_text("S", *start, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45)) # , mark_type=MarkType.Blocked
 
+        #
+        # right arm
 
         rel = (2, 1)
         aba = self.append_broken_arrow(start, rel, count=24)
 
-        # rels = GS.gen_shaman_rel_legs(rel)
-        # coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
-
-        # for i in xrange(3):
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # right-up
-
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # up
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # left-up
-
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # left-down
-
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # right-down
-
-        for i in xrange(3):
+        for i in xrange(4):
             aba(str(4 * i + 1), mark_type=MarkType.Legal)
             aba(str(4 * i + 2), mark_type=MarkType.Action)
             aba(str(4 * i + 3), mark_type=MarkType.Blocked)
             aba(str(4 * i + 4), mark_type=MarkType.Illegal)
 
+        #
+        # left arm
 
         rel = (-2, -1)
         aba = self.append_broken_arrow(start, rel, count=24)
 
-        # rels = GS.gen_shaman_rel_legs(rel)
-        # coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
-
-        # for i in xrange(3):
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # right-up
-
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # up
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # left-up
-
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # left-down
-
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
-            # self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # right-down
-
-        for i in xrange(3):
+        for i in xrange(4):
             aba(str(4 * i + 1), mark_type=MarkType.Legal)
             aba(str(4 * i + 2), mark_type=MarkType.Action)
             aba(str(4 * i + 3), mark_type=MarkType.Blocked)
             aba(str(4 * i + 4), mark_type=MarkType.Illegal)
 
         return 'scn_cot_09_stop_sign_pattern_full'
+
+    def scn_cot_10_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (5, 11)
+        self.board.set_piece(*start, piece=PieceType.Shaman)
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(start, rel, count=24)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Legal)
+
+        #
+        # left arm
+
+        rel = (-2, -1)
+        aba = self.append_broken_arrow(start, rel, count=24)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Action)
+
+        return 'scn_cot_10_light_shaman_trance_journey'
 
 
     #
