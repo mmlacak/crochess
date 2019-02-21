@@ -275,6 +275,18 @@ def test_piece(func_name, size=300):
 
 
 def test_piece_contour(func_name, size=1000):
+
+    import pygtk
+    pygtk.require('2.0')
+    import gtk
+    from draw import DEFAULT_FILE_TYPE
+
+    def _save_image(drawable, file_path, file_type=DEFAULT_FILE_TYPE):
+        pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, *drawable.get_size())
+        pixbuf.get_from_drawable(drawable, drawable.get_colormap(), 0, 0, 0, 0, *drawable.get_size())
+        pixbuf = pixbuf.add_alpha(True, 255, 255, 255) # add_alpha() returns *new* pixbuf
+        pixbuf.save(file_path, file_type)
+
     line_width = 1 + size // 100 # 1 + (6 * (2*size) / 5) // 1000 # >= 1 + (6 * rendering size / 5) // 1000
 
     drw = get_new_drawable(size, size)
@@ -307,7 +319,8 @@ def test_piece_contour(func_name, size=1000):
     # _call(rect, cpiece=clight)
 
     file_path = 'temp/%s.CONTOUR.IGNORE.png' % func_name
-    d.save_image(file_path)
+    # d.save_image(file_path)
+    _save_image(d.drawable, file_path)
 
 
 if __name__ == '__main__':
