@@ -273,22 +273,76 @@ def test_piece(func_name, size=300):
     file_path = 'temp/%s.IGNORE.png' % func_name
     d.save_image(file_path)
 
+
+def test_piece_contour(func_name, size=1000):
+    line_width = 1 + size // 100 # 1 + (6 * (2*size) / 5) // 1000 # >= 1 + (6 * rendering size / 5) // 1000
+
+    drw = get_new_drawable(size, size)
+    gc = get_new_gc(drw, line_width)
+
+    d = DrawPiece(drw, gc, bg_color='#FFFFFF')
+
+    func = getattr(d, func_name)
+
+    cdark = ColorsPiece.from_tuple( ('#000000', '#CCCCCC', '#CCCCCC', '#000000' ) ) # dark
+    clight = ColorsPiece.from_tuple( ('#CCCCCC', '#000000', '#000000', '#CCCCCC' ) ) # light
+    cmonolith = ColorsPair.from_tuple( ('#000000', '#CCCCCC' ) )
+    caura = ColorsPair.from_tuple( ('#FFFFFF', '#CCCCCC' ) )
+
+    def _call(rect, cpiece):
+        # func is not d.draw_*, it is just func == d.draw_* (!?)
+        if func == d.draw_monolith:
+            func(rect, cpair=cmonolith)
+        elif func == d.draw_starchild:
+            func(rect, cpiece=cpiece, caura=caura)
+        else:
+            func(rect, cpiece=cpiece)
+
+    rect = DrawableRectangle(0, 0, size, size)
+
+    # dark
+    _call(rect, cpiece=cdark)
+
+    # light
+    # _call(rect, cpiece=clight)
+
+    file_path = 'temp/%s.CONTOUR.IGNORE.png' % func_name
+    d.save_image(file_path)
+
+
 if __name__ == '__main__':
     from draw import get_new_drawable, get_new_gc
 
-    test_piece('draw_pawn')
-    test_piece('draw_bishop')
-    test_piece('draw_knight')
-    test_piece('draw_rook')
-    test_piece('draw_king')
-    test_piece('draw_queen')
-    test_piece('draw_pegasus')
-    test_piece('draw_pyramid')
-    test_piece('draw_unicorn')
-    test_piece('draw_wave')
-    test_piece('draw_star')
-    test_piece('draw_centaur')
-    test_piece('draw_serpent')
-    test_piece('draw_shaman')
-    test_piece('draw_monolith')
-    test_piece('draw_starchild')
+    # test_piece('draw_pawn')
+    # test_piece('draw_bishop')
+    # test_piece('draw_knight')
+    # test_piece('draw_rook')
+    # test_piece('draw_king')
+    # test_piece('draw_queen')
+    # test_piece('draw_pegasus')
+    # test_piece('draw_pyramid')
+    # test_piece('draw_unicorn')
+    # test_piece('draw_wave')
+    # test_piece('draw_star')
+    # test_piece('draw_centaur')
+    # test_piece('draw_serpent')
+    # test_piece('draw_shaman')
+    # test_piece('draw_monolith')
+    # test_piece('draw_starchild')
+
+    test_piece_contour('draw_pawn')
+    test_piece_contour('draw_bishop')
+    test_piece_contour('draw_knight')
+    test_piece_contour('draw_rook')
+    test_piece_contour('draw_king')
+    test_piece_contour('draw_queen')
+    test_piece_contour('draw_pegasus')
+    test_piece_contour('draw_pyramid')
+    test_piece_contour('draw_unicorn')
+    test_piece_contour('draw_wave')
+    test_piece_contour('draw_star')
+    test_piece_contour('draw_centaur')
+    test_piece_contour('draw_serpent')
+    test_piece_contour('draw_shaman')
+    test_piece_contour('draw_monolith')
+    test_piece_contour('draw_starchild')
