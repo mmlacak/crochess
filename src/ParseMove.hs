@@ -25,7 +25,7 @@ import qualified Rules as R
 move :: TP.Parsec String (C.LazyBox R.Rules) M.Move
 move = do
     pls <- plies
-    cond <- condition 
+    cond <- condition
     return M.Move { M.plies=pls,
                     M.condition=cond }
 
@@ -39,16 +39,22 @@ ply :: TP.Parsec String (C.LazyBox R.Rules) M.Ply
 ply = do
     TP.optional (TPC.char '[')
     piece <- TP.option 'P' TPC.upper
-    (startPos, endPos) <- (TP.try plyLongAlg) <|> 
-                          (TP.try plyShortAlgDisambiguingCol) <|> 
-                          (TP.try plyShortAlgDisambiguingRow) <|> 
+    (startPos, endPos) <- (TP.try plyLongAlg) <|>
+                          (TP.try plyShortAlgDisambiguingCol) <|>
+                          (TP.try plyShortAlgDisambiguingRow) <|>
                           plyShortAlg
     se <- (TP.try sideEffect)
     TP.optional (TPC.char ']')
 
     lb <- TP.getState
-    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb
-    let piece_ = PP.pieceByConsoleChar piece gameStatus_ -- $ GS.isLightOnMove gameStatus_
+    -- let rules_ = C.unwrapLazyBox lb
+    let gameStatus_ = R.gameStatus $ C.unwrapLazyBox lb -- rules_
+    -- let board_ = R.board rules_ -- $ C.unwrapLazyBox lb
+    -- let new_gs_ = GS.nextGameStatus gameStatus_
+    -- let new_rules_ = rules_ { R.gameStatus = new_gs_ }
+    -- TP.putState $ C.LazyBox new_rules_
+
+    let piece_ = PP.pieceByConsoleChar piece gameStatus_ -- PP.pieceByConsoleSymbol piece
     let ply_ = M.Ply { M.piece=piece_,
                        M.start=startPos,
                        M.end=endPos,
@@ -93,7 +99,7 @@ plyLongAlg = do
     return ((position startCol startRow lb), (position endCol endRow lb))
 
 columnIndex :: Char -> C.LazyBox R.Rules -> Pos.ColumnIndex
-columnIndex col (C.LazyBox r) = PPos.columnIndexInt col bt 
+columnIndex col (C.LazyBox r) = PPos.columnIndexInt col bt
     where b = R.board r
           bt = B.boardType b
 
@@ -115,9 +121,9 @@ parseMove s r = move_
 
 condition :: TP.Parsec String (C.LazyBox R.Rules) M.ConditionType
 condition = do
-    cond <- (TP.try condDoubleCheck) <|> 
-            (TP.try condCheckMate) <|> 
-            (TP.try condCheck) <|> 
+    cond <- (TP.try condDoubleCheck) <|>
+            (TP.try condCheckMate) <|>
+            (TP.try condCheck) <|>
             condNoCondition
     return cond
 
@@ -145,16 +151,16 @@ condNoCondition = return M.NoCondition
 
 sideEffect :: TP.Parsec String (C.LazyBox R.Rules) M.SideEffect
 sideEffect = do
-    se_ <- (TP.try sePromotion) <|> 
-           (TP.try seConversion) <|> 
-           (TP.try seCapture) <|> 
-           (TP.try seEnPassant) <|> 
-           (TP.try seTeleportationOwn) <|> 
-           (TP.try seTeleportationOpponent) <|> 
-           (TP.try seKingSidedCastling) <|> 
-           (TP.try seQueenSidedCastling) <|> 
-           (TP.try seSummoningOwn) <|> 
-           (TP.try seSummoningOpponent) <|> 
+    se_ <- (TP.try sePromotion) <|>
+           (TP.try seConversion) <|>
+           (TP.try seCapture) <|>
+           (TP.try seEnPassant) <|>
+           (TP.try seTeleportationOwn) <|>
+           (TP.try seTeleportationOpponent) <|>
+           (TP.try seKingSidedCastling) <|>
+           (TP.try seQueenSidedCastling) <|>
+           (TP.try seSummoningOwn) <|>
+           (TP.try seSummoningOpponent) <|>
            seNoSideEffect
     return se_
 

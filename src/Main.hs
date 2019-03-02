@@ -21,6 +21,7 @@ import qualified PieceType as PT
 import qualified BoardType as BT
 import qualified Board as B
 import qualified Move as M
+import qualified GameStatus as GS
 import qualified Rules as R
 import qualified Game as G
 import qualified ParseMove as PM
@@ -263,7 +264,7 @@ loop game = do
         -- print ""
 
         let b_ = B.setPiecesOnBoard (R.board r_) pposs_
-        let game_ = game { G.rules=(r_ { R.board=b_ }) }
+        let game_ = game { G.rules=(r_ { R.board=b_, R.gameStatus=GS.nextGameStatus $ R.gameStatus r_ }) }
         putStrLn $ CO.gameString game_
         loop game_
     else if cmd_ `elem` ["i", "info"] then do
@@ -295,6 +296,6 @@ main = do
     SIO.hSetEncoding SIO.stdout SIO.utf8
     putStrLn "Tip: enter 'h' or 'help' for help info."
     putStrLn "     enter 'a' or 'about' for about info, licensing."
-    let game_ = G.initializeGame BT.One -- BT.Classical  -- BT.One -- CroatianTies
+    let game_ = G.initializeGame BT.CroatianTies -- BT.Classical  -- BT.One
     putStrLn $ CO.gameString game_
     loop game_

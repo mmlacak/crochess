@@ -88,41 +88,44 @@ pieceByConsoleSymbol sym | D.isKeyInDict sym dict_ = D.findByKey sym dict_
                     ( 'I', PT.LightStarchild )
                   ]
 
+-- consolePieceChar :: PT.PieceType -> PT.PieceTypeChar
+-- consolePieceChar pt = D.findByKey pt dict_
+    -- where dict_ = [ ( PT.None,              ' ' ),
+                    -- ( PT.Monolith,          'M' ),
+                    -- ( PT.DarkPawn,          'P' ),
+                    -- ( PT.LightPawn,         'P' ),
+                    -- ( PT.DarkBishop,        'B' ),
+                    -- ( PT.LightBishop,       'B' ),
+                    -- ( PT.DarkKnight,        'N' ),
+                    -- ( PT.LightKnight,       'N' ),
+                    -- ( PT.DarkRook,          'R' ),
+                    -- ( PT.LightRook,         'R' ),
+                    -- ( PT.DarkQueen,         'Q' ),
+                    -- ( PT.LightQueen,        'Q' ),
+                    -- ( PT.DarkKing,          'K' ),
+                    -- ( PT.LightKing,         'K' ),
+                    -- ( PT.DarkPegasus,       'G' ),
+                    -- ( PT.LightPegasus,      'G' ),
+                    -- ( PT.DarkPyramid,       'A' ),
+                    -- ( PT.LightPyramid,      'A' ),
+                    -- ( PT.DarkUnicorn,       'U' ),
+                    -- ( PT.LightUnicorn,      'U' ),
+                    -- ( PT.DarkWave,          'W' ),
+                    -- ( PT.LightWave,         'W' ),
+                    -- ( PT.DarkStar,          'T' ),
+                    -- ( PT.LightStar,         'T' ),
+                    -- ( PT.DarkCentaur,       'C' ),
+                    -- ( PT.LightCentaur,      'C' ),
+                    -- ( PT.DarkSerpent,       'S' ),
+                    -- ( PT.LightSerpent,      'S' ),
+                    -- ( PT.DarkShaman,        'H' ),
+                    -- ( PT.LightShaman,       'H' ),
+                    -- ( PT.DarkStarchild,     'I' ),
+                    -- ( PT.LightStarchild,    'I' )
+                  -- ]
+
 consolePieceChar :: PT.PieceType -> PT.PieceTypeChar
-consolePieceChar pt = D.findByKey pt dict_
-    where dict_ = [ ( PT.None,              ' ' ),
-                    ( PT.Monolith,          'M' ),
-                    ( PT.DarkPawn,          'P' ),
-                    ( PT.LightPawn,         'P' ),
-                    ( PT.DarkBishop,        'B' ),
-                    ( PT.LightBishop,       'B' ),
-                    ( PT.DarkKnight,        'N' ),
-                    ( PT.LightKnight,       'N' ),
-                    ( PT.DarkRook,          'R' ),
-                    ( PT.LightRook,         'R' ),
-                    ( PT.DarkQueen,         'Q' ),
-                    ( PT.LightQueen,        'Q' ),
-                    ( PT.DarkKing,          'K' ),
-                    ( PT.LightKing,         'K' ),
-                    ( PT.DarkPegasus,       'G' ),
-                    ( PT.LightPegasus,      'G' ),
-                    ( PT.DarkPyramid,       'A' ),
-                    ( PT.LightPyramid,      'A' ),
-                    ( PT.DarkUnicorn,       'U' ),
-                    ( PT.LightUnicorn,      'U' ),
-                    ( PT.DarkWave,          'W' ),
-                    ( PT.LightWave,         'W' ),
-                    ( PT.DarkStar,          'T' ),
-                    ( PT.LightStar,         'T' ),
-                    ( PT.DarkCentaur,       'C' ),
-                    ( PT.LightCentaur,      'C' ),
-                    ( PT.DarkSerpent,       'S' ),
-                    ( PT.LightSerpent,      'S' ),
-                    ( PT.DarkShaman,        'H' ),
-                    ( PT.LightShaman,       'H' ),
-                    ( PT.DarkStarchild,     'I' ),
-                    ( PT.LightStarchild,    'I' )
-                  ]
+consolePieceChar pt = DC.toUpper $ consolePieceSymbol pt
 
 isConsolePieceChar :: Char -> Bool
 isConsolePieceChar c = c `elem` "MPBKRQKGAUWTCSHI"
