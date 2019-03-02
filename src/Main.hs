@@ -1,5 +1,5 @@
 
--- Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com
+-- Copyright (c) 2014, 2015, 2019 Mario Mlačak, mmlacak@gmail.com
 -- Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 module Main
@@ -23,7 +23,7 @@ import qualified Board as B
 import qualified Move as M
 import qualified Rules as R
 import qualified Game as G
--- import qualified ParseMove as PM
+import qualified ParseMove as PM
 
 
 loop :: G.Game -> IO ()
@@ -37,7 +37,7 @@ loop game = do
     if cmd_ `elem` ["q", "quit"] then return ()
     else if cmd_ `elem` ["h", "help"] then do
         putStrLn  " Croatian chess - console application \n\
-                  \ Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com. \n\
+                  \ Copyright (c) 2014, 2015, 2019 Mario Mlačak, mmlacak@gmail.com. \n\
                   \ Licensed under 3-clause (modified) BSD license. Use a(bout) command for details. \n\
                   \ \n\
                   \ Based on book 'Croatian chess and other variants' \n\
@@ -92,7 +92,7 @@ loop game = do
         loop game
     else if cmd_ `elem` ["a", "about"] then do
         putStrLn  " Croatian chess - console application \n\
-                  \ Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com. \n\
+                  \ Copyright (c) 2014, 2015, 2019 Mario Mlačak, mmlacak@gmail.com. \n\
                   \ All rights reserved. \n\
                   \ \n\
                   \ Redistribution and use in source and binary forms, with or without \n\
@@ -140,6 +140,18 @@ loop game = do
         let game_ = G.initializeGame bt2_
         putStrLn $ CO.gameString game_
         loop game_
+    else if cmd_ `elem` ["w", "www"] then do
+        let l = BIL.lightCastlingFiguresInitialPositions BT.One
+        print ""
+        print $ l
+        print ""
+
+        let d = BID.darkCastlingFiguresInitialPositions BT.One
+        print ""
+        print $ d
+        print ""
+
+        loop game
     else if cmd_ `elem` ["x", "xxx"] then do
 --         let ml_ = [ (PT.LightKnight, (1, 3), (3, 4))
 --                     (PT.DarkSerpent, (3, 4), (7, 8)),
@@ -215,17 +227,45 @@ loop game = do
 
         loop game
     else if cmd_ `elem` ["z", "zzz"] then do
-        let l = BIL.lightCastlingFiguresInitialPositions BT.One
-        print ""
-        print $ l
-        print ""
+        let _move = CS.filterAllSeparators params_ -- "[Nb3-d2]~We7~Qn3-c3~Md7"
+        -- print ""
+        -- print _move
+        -- print ""
 
-        let d = BID.darkCastlingFiguresInitialPositions BT.One
-        print ""
-        print $ d
-        print ""
+-- TODO :: handle errors (!?)
 
-        loop game
+-- main    = do{ result <- parseFromFile numbers "digits.txt"
+--             ; case result of
+--                 Left err  -> print err
+--                 Right xs  -> print (sum xs)
+--             }
+
+--         let _pr = PM.parseMove _move
+--         let ml_ = case _pr of Right m -> m
+--                               Left err -> M.dummyMove
+
+--         do { if ml_ == M.dummyMove then do { print $ show _pr;
+--                                              loop game }
+--                                    else do { return () } }
+
+        let r_ = G.rules game
+        let ml_ = PM.parseMove _move r_
+        -- print $ ml_
+
+        -- print ""
+        -- print $ reverse $ M.plies ml_
+        -- print ""
+        -- print $ M.fetchReversedPiecePositions $ reverse $ M.plies ml_
+
+        let pposs_ = M.fetchAllPiecePositions ml_
+        -- print ""
+        -- print pposs_
+        -- print ""
+
+        let b_ = B.setPiecesOnBoard (R.board r_) pposs_
+        let game_ = game { G.rules=(r_ { R.board=b_ }) }
+        putStrLn $ CO.gameString game_
+        loop game_
     else if cmd_ `elem` ["i", "info"] then do
         putStrLn "Not implemented yet."
         loop game
