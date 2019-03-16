@@ -602,48 +602,44 @@ class SceneConquestOfTlalocanMixin(Scene):
 
     def scn_cot_07_trance_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        self.init_scene(bt)
+        self.init_scene(bt, width=8, height=8)
 
-        start_R = (1, 22)
+        start_R = (1, 3)
         self.board.set_piece(*start_R, piece=PieceType.Rook)
 
         start_W1 = (1, 1)
         self.board.set_piece(*start_W1, piece=PieceType.Wave)
 
-        start_H1 = (3, 1)
+        start_H1 = (4, 1)
         self.board.set_piece(*start_H1, piece=PieceType.Shaman)
 
-        start_W2 = (5, 5)
+        start_W2 = (2, 5)
         self.board.set_piece(*start_W2, piece=PieceType.Wave)
 
-        start_w3 = (3, 9)
+        start_w3 = (6, 3)
         self.board.set_piece(*start_w3, piece=-PieceType.Wave)
 
-        start_h2 = (7, 7)
+        start_h2 = (5, 5)
         self.board.set_piece(*start_h2, piece=-PieceType.Shaman)
 
-        last = 20
-        coords = GS.gen_steps(start=start_R, rels=[(0, -1), ], include_prev=True, count=last+1)
-        for i, c in enumerate(coords()):
-            if i != last:
-                self.append_arrow( *c )
-            else:
-                self.append_arrow( *c, mark_type=MarkType.Action )
+        coords = GS.gen_next( GS.gen_steps(start=start_R, rels=[(0, -1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         coords = GS.gen_next( GS.gen_steps(start=start_W1, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        coords = GS.gen_next( GS.gen_steps(start=start_H1, rels=[(1, 2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_W2, rels=[(-1, 2), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_H1, rels=[(-1, 2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_w3, rels=[(2, -1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_W2, rels=[(2, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        coords = GS.gen_next( GS.gen_steps(start=start_w3, rels=[(-1, 2), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         return 'scn_cot_07_trance_init'
