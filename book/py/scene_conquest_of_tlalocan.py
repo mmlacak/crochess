@@ -758,7 +758,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
         for i in xrange(16):
-            aba(str(i + 1), mark_type=MarkType.Legal)
+            aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
         # down arm
@@ -767,7 +767,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
         for i in xrange(16):
-            aba(str(i + 1), mark_type=MarkType.Action)
+            aba(str(12 - i), mark_type=MarkType.Action)
 
         return 'scn_cot_11_dark_shaman_trance_journey'
 
