@@ -125,7 +125,7 @@ loop game = do
         loop game
     else if cmd_ `elem` ["v", "version"] then do
         putStrLn  " Croatian chess - console application \n\
-                  \ Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com. \n\
+                  \ Copyright (c) 2014, 2015, 2019 Mario Mlačak, mmlacak@gmail.com. \n\
                   \ Licensed under 3-clause (modified) BSD license. Use a(bout) command for details. \n\
                   \ \n\
                   \ 2015-11-21: ver. 0.0.0.0 \n\

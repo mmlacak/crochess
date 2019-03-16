@@ -600,7 +600,55 @@ class SceneConquestOfTlalocanMixin(Scene):
     #
     # trance-journey
 
-    def scn_cot_07_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_07_trance_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start_R = (1, 22)
+        self.board.set_piece(*start_R, piece=PieceType.Rook)
+
+        start_W1 = (1, 1)
+        self.board.set_piece(*start_W1, piece=PieceType.Wave)
+
+        start_H1 = (3, 1)
+        self.board.set_piece(*start_H1, piece=PieceType.Shaman)
+
+        start_W2 = (5, 5)
+        self.board.set_piece(*start_W2, piece=PieceType.Wave)
+
+        start_w3 = (3, 9)
+        self.board.set_piece(*start_w3, piece=-PieceType.Wave)
+
+        start_h2 = (7, 7)
+        self.board.set_piece(*start_h2, piece=-PieceType.Shaman)
+
+        last = 20
+        coords = GS.gen_steps(start=start_R, rels=[(0, -1), ], include_prev=True, count=last+1)
+        for i, c in enumerate(coords()):
+            if i != last:
+                self.append_arrow( *c )
+            else:
+                self.append_arrow( *c, mark_type=MarkType.Action )
+
+        coords = GS.gen_next( GS.gen_steps(start=start_W1, rels=[(1, 0), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        coords = GS.gen_next( GS.gen_steps(start=start_H1, rels=[(1, 2), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        coords = GS.gen_next( GS.gen_steps(start=start_W2, rels=[(-1, 2), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        coords = GS.gen_next( GS.gen_steps(start=start_w3, rels=[(2, -1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        return 'scn_cot_07_trance_init'
+
+    def scn_cot_08_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
 
@@ -625,7 +673,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_arrow( *GS.add_to_all( (5, 8, 5, 7), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
         self.append_arrow( *GS.add_to_all( (5, 7, 6, 6), 0.5 ), mark_type=MarkType.Illegal ) # right-down
 
-        return 'scn_cot_07_stop_sign_pattern'
+        return 'scn_cot_08_stop_sign_pattern'
 
     def append_broken_arrow(self, start, rel, outward_arrows=True, bounds=None, count=None):
 
@@ -663,7 +711,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return _append_broken_arrow
 
-    def scn_cot_08_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_09_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
 
@@ -679,9 +727,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         aba("3", mark_type=MarkType.Blocked)
         aba("4", mark_type=MarkType.Illegal)
 
-        return 'scn_cot_08_stop_sign_pattern_unwind'
+        return 'scn_cot_09_stop_sign_pattern_unwind'
 
-    def scn_cot_09_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_10_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -715,9 +763,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             aba(str(4 * i + 3), mark_type=MarkType.Blocked)
             aba(str(4 * i + 4), mark_type=MarkType.Illegal)
 
-        return 'scn_cot_09_stop_sign_pattern_full'
+        return 'scn_cot_10_stop_sign_pattern_full'
 
-    def scn_cot_10_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_11_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -742,9 +790,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(16):
             aba(str(i + 1), mark_type=MarkType.Action)
 
-        return 'scn_cot_10_light_shaman_trance_journey'
+        return 'scn_cot_11_light_shaman_trance_journey'
 
-    def scn_cot_11_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_12_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -769,7 +817,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(16):
             aba(str(12 - i), mark_type=MarkType.Action)
 
-        return 'scn_cot_11_dark_shaman_trance_journey'
+        return 'scn_cot_12_dark_shaman_trance_journey'
 
 
     #

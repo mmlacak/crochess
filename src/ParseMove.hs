@@ -1,5 +1,5 @@
 
--- Copyright (c) 2014, 2015 Mario Mlačak, mmlacak@gmail.com
+-- Copyright (c) 2014, 2015, 2019 Mario Mlačak, mmlacak@gmail.com
 -- Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 module ParseMove
