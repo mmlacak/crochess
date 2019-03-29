@@ -934,7 +934,7 @@ class SceneMirandasVeilMixin(Scene):
 
         self.init_scene(bt)
 
-
+        #
         # step-fields 1, Pawn 1
         start_P1 = (2, 2)
         self.board.set_piece(*start_P1, piece=PieceType.Pawn)
@@ -950,7 +950,7 @@ class SceneMirandasVeilMixin(Scene):
 
         self.append_text("1", *start_P1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
-
+        #
         # capture-fields, Pawn 2
         start_P2 = (5, 6)
         self.board.set_piece(*start_P2, piece=PieceType.Pawn)
@@ -968,7 +968,7 @@ class SceneMirandasVeilMixin(Scene):
 
         self.append_text("2", *start_P2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
-
+        #
         # step-fields 2, Pawn 3
         start_P3 = (13, 1)
         self.board.set_piece(*start_P3, piece=PieceType.Pawn)
@@ -989,14 +989,13 @@ class SceneMirandasVeilMixin(Scene):
 
         self.append_text("3", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
-
         return 'scn_mv_20_wave_activation_by_pawn'
 
     def scn_mv_21_wave_activated_by_pawn(self, bt=BoardType.MirandasVeil):
 
         self.init_scene(bt)
 
-
+        #
         # step-fields 1, Pawn 1
         start_P1 = (2, 3)
         self.board.set_piece(*start_P1, piece=PieceType.Pawn)
@@ -1025,7 +1024,7 @@ class SceneMirandasVeilMixin(Scene):
 
         self.append_text("1", *start_P1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
-
+        #
         # capture-fields, Pawn 2
         start_P2 = (4, 7)
         self.board.set_piece(*start_P2, piece=PieceType.Pawn)
@@ -1046,7 +1045,7 @@ class SceneMirandasVeilMixin(Scene):
 
         self.append_text("2", *start_P2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
-
+        #
         # step-fields 2, Pawn 3
         start_P3 = (13, 4)
         self.board.set_piece(*start_P3, piece=PieceType.Pawn)
@@ -1073,6 +1072,5 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow(13, 10, 14, 11, mark_type=MarkType.Illegal)
 
         self.append_text("3", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
-
 
         return 'scn_mv_21_wave_activated_by_pawn'
