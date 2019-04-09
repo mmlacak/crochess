@@ -644,7 +644,56 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_07_trance_init'
 
-    def scn_cot_08_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_08_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt, width=9, height=12)
+
+        self.append_text("S", 6, 6, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+
+        # left
+        self.board.set_piece(5, 9, piece=PieceType.Knight)
+
+        self.append_arrow( 5, 9, 4+0.5, 9+0.5, mark_type=MarkType.Blocked, start_pointer=False, end_pointer=False ) # left
+        self.append_arrow( *GS.add_to_all( (4, 9, 3, 8), 0.5 ), mark_type=MarkType.Blocked, start_pointer=False, end_pointer=True ) # left down
+        self.append_arrow( *GS.add_to_all( (4, 9, 3, 10), 0.5 ), mark_type=MarkType.Blocked, start_pointer=False, end_pointer=True ) # left up
+
+        self.append_text("L", 3, 8, corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_text("R", 3, 10, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
+
+        # down
+        self.board.set_piece(2, 7, piece=-PieceType.Knight)
+
+        self.append_arrow( 2, 7, 2+0.5, 6+0.5, mark_type=MarkType.Illegal, start_pointer=False, end_pointer=False ) # down
+        self.append_arrow( *GS.add_to_all( (2, 6, 1, 5), 0.5 ), mark_type=MarkType.Illegal, start_pointer=False, end_pointer=True ) # down left
+        self.append_arrow( *GS.add_to_all( (2, 6, 3, 5), 0.5 ), mark_type=MarkType.Illegal, start_pointer=False, end_pointer=True ) # down right
+
+        self.append_text("L", 3, 5, corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_text("R", 1, 5, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+
+        # right
+        self.board.set_piece(4, 4, piece=PieceType.Knight)
+
+        self.append_arrow( 4, 4, 5+0.5, 4+0.5, mark_type=MarkType.Legal, start_pointer=False, end_pointer=False ) # right
+        self.append_arrow( *GS.add_to_all( (5, 4, 6, 3), 0.5 ), mark_type=MarkType.Legal, start_pointer=False, end_pointer=True ) # right down
+        self.append_arrow( *GS.add_to_all( (5, 4, 6, 5), 0.5 ), mark_type=MarkType.Legal, start_pointer=False, end_pointer=True ) # right up
+
+        self.append_text("L", 6, 5, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_text("R", 6, 3, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.6, 0.45))
+
+        # up
+        self.board.set_piece(7, 6, piece=-PieceType.Knight)
+
+        self.append_arrow( 7, 6, 7+0.5, 7+0.5, mark_type=MarkType.Action, start_pointer=False, end_pointer=False ) # up
+        self.append_arrow( *GS.add_to_all( (7, 7, 6, 8), 0.5 ), mark_type=MarkType.Action, start_pointer=False, end_pointer=True ) # up left
+        self.append_arrow( *GS.add_to_all( (7, 7, 8, 8), 0.5 ), mark_type=MarkType.Action, start_pointer=False, end_pointer=True ) # up right
+
+        self.append_text("L", 6, 8, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_text("R", 8, 8, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.6, 0.45))
+
+        return 'scn_cot_08_knight_directions'
+
+
+    def scn_cot_09_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
 
@@ -669,7 +718,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_arrow( *GS.add_to_all( (5, 8, 5, 7), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
         self.append_arrow( *GS.add_to_all( (5, 7, 6, 6), 0.5 ), mark_type=MarkType.Illegal ) # right-down
 
-        return 'scn_cot_08_stop_sign_pattern'
+        return 'scn_cot_09_stop_sign_pattern'
 
     def append_broken_arrow(self, start, rel, outward_arrows=True, bounds=None, count=None):
 
@@ -707,7 +756,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return _append_broken_arrow
 
-    def scn_cot_09_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_10_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
 
@@ -723,9 +772,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         aba("3", mark_type=MarkType.Blocked)
         aba("4", mark_type=MarkType.Illegal)
 
-        return 'scn_cot_09_stop_sign_pattern_unwind'
+        return 'scn_cot_10_stop_sign_pattern_unwind'
 
-    def scn_cot_10_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_11_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -759,9 +808,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             aba(str(4 * i + 3), mark_type=MarkType.Blocked)
             aba(str(4 * i + 4), mark_type=MarkType.Illegal)
 
-        return 'scn_cot_10_stop_sign_pattern_full'
+        return 'scn_cot_11_stop_sign_pattern_full'
 
-    def scn_cot_11_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_12_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -786,9 +835,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(16):
             aba(str(i + 1), mark_type=MarkType.Action)
 
-        return 'scn_cot_11_light_shaman_trance_journey'
+        return 'scn_cot_12_light_shaman_trance_journey'
 
-    def scn_cot_12_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_13_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -813,7 +862,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(16):
             aba(str(12 - i), mark_type=MarkType.Action)
 
-        return 'scn_cot_12_dark_shaman_trance_journey'
+        return 'scn_cot_13_dark_shaman_trance_journey'
 
 
     #
@@ -878,7 +927,7 @@ def test_big_pattern():
 
     scene = SceneMix()
     ss = SaveScene(RenderingSizeEnum.Final)
-    ss.render_example(scene, scene.test_cot_09_stop_sign_pattern_full, path_prefix='temp/')
+    ss.render_example(scene, scene.test_cot_09_stop_sign_pattern_full, path_prefix='temp/') # , enforce_cot_in_bw=True)
 
 
 if __name__ == '__main__':
