@@ -15,5 +15,5 @@
 * [ ] B-1 | Movement
   - [ ] B-1.1 | write dark Shaman step-ply text
   - [ ] B-1.2 | write dark Shaman capture-ply text
-  - [ ] B-1.3 | fix dark Shaman step-ply example
-  - [ ] B-1.4 | fix dark Shaman capture-ply example
+  - [x] B-1.3 | fix dark Shaman step-ply example
+  - [x] B-1.4 | fix dark Shaman capture-ply example

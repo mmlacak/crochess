@@ -396,14 +396,14 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # (3, 2) change direction -------------------------------------------------------------------------------------------------
 
+        self.board.set_piece(*GS.add(start, (8, 8)), piece=PieceType.Knight)
+
         gen_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=GS.add(start, (9, 6)), include_prev=True, count=1)
 
         for pos in gen_pos():
             self.append_arrow( *pos, mark_type=MarkType.Illegal )
 
         # (3, 2) change direction -------------------------------------------------------------------------------------------------
-
-        self.board.set_piece(*GS.add(start, (13, 13)), piece=PieceType.Knight)
 
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-3, -2), (3, 2)] ) )
         gen_pos = GS.gen_multi_steps(multi_rels, start=GS.add(start, (15, 10)), include_prev=True, count=1)
@@ -443,7 +443,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        self.board.set_piece(*GS.add(start, (12, 10)), piece=PieceType.Knight)
+        self.board.set_piece(*GS.add(start, (5, 5)), piece=PieceType.Knight)
 
         # (-2, 1) ------------------------------------------------------------------------------------------------------------------
 
