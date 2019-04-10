@@ -45,7 +45,7 @@ git clone https://github.com/mmlacak/crochess.git
 
 Other possibility is to just download zip file instead.
 
-## Compiling the book
+### Compiling the book
 
 Open terminal in folder where you cloned repository, and type:
 
@@ -63,7 +63,7 @@ Next, compile PDF file:
 
 If everything goes well, the new book will be created under `book` folder.
 
-## Compiling the application
+### Compiling the application
 
 In the same terminal, and in the same folder, type in:
 
