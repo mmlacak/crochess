@@ -31,9 +31,10 @@ To compile book itself into PDF, you'll need:
 Alternatively, you can just install all of LaTeX,
 but it'll take 2+ Gb on HDD.
 
-To compile application, install:
-- GHC 7.6+
-- parsec with its' dependencies
+To compile application, you'll need C compiler:
+- gcc (7.4.0 works fine)
+- clang (6.0.0 works fine, too)
+- or any other adhering to C99 standard
 
 ### Installing
 
@@ -71,7 +72,7 @@ In the same terminal, and in the same folder, type in:
 ./compile.sh
 ```
 
-This will compile Haskell code into `crochess` executable in `src` folder.
+This will compile C code into `crochess` executable in `bin` folder.
 
 ## Deployment
 
@@ -101,10 +102,10 @@ see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-* Linus
-* Guido
-* Simon
-* Sean
+* Dennis
+* Ken
+* Alessandro
+* Tomasso
 * and many, many others
 
 Thank you all!
