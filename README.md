@@ -74,6 +74,8 @@ In the same terminal, and in the same folder, type in:
 
 This will compile C code into `crochess` executable in `bin` folder.
 
+One day, that is, when that [functionality is provided](https://croatian-chess.blogspot.com/2019/06/goodbye-haskell-hello-c.html).
+
 ## Deployment
 
 Now that you have PDF book and/or executable, just copy them over to
