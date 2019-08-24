@@ -23,7 +23,9 @@ $COMPILER -Wall -pedantic -O3 -c src/utils.c -Iinc -o obj/utils.o
 echo
 $COMPILER -Wall -pedantic -O3 -c src/lst_node.c -Iinc -o obj/lst_node.o
 echo
-ar src lib/libcommon.a obj/utils.o obj/lst_node.o
+$COMPILER -Wall -pedantic -O3 -c src/map_node.c -Iinc -o obj/map_node.o
+echo
+ar src lib/libcommon.a obj/utils.o obj/lst_node.o obj/map_node.o
 # ar src lib/libcommon.a obj/utils.o
 echo
 
