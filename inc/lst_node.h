@@ -31,9 +31,9 @@ lst_node * lst_prepend_list( lst_node * p_list, lst_node * p_other );
 lst_node * lst_append_list( lst_node * p_list, lst_node * p_other );
 lst_node * lst_insert_list( lst_node * p_list, size_t index, lst_node * p_other );
 
-lst_node * lst_delete_first_node( lst_node * p_list, void ** pp_data );
-lst_node * lst_delete_last_node( lst_node * p_list, void ** pp_data );
-lst_node * lst_delete_node( lst_node * p_list, size_t index, void ** pp_data );
+lst_node * lst_delete_first_node( lst_node * p_list, void ** pp_old_data );
+lst_node * lst_delete_last_node( lst_node * p_list, void ** pp_old_data );
+lst_node * lst_delete_node( lst_node * p_list, size_t index, void ** pp_old_data );
 
 bool lst_free_data( void ** pp_data, f_lst_free_data_t f_lst_free_data );
 lst_node * lst_free_first_node( lst_node * p_list, f_lst_free_data_t f_lst_free_data );

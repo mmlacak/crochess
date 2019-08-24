@@ -107,19 +107,19 @@ lst_node * lst_insert_list( lst_node * p_list, size_t index, lst_node * p_other 
     return p_list;
 }
 
-lst_node * lst_delete_first_node( lst_node * p_list, void ** pp_data )
+lst_node * lst_delete_first_node( lst_node * p_list, void ** pp_old_data )
 {
     if ( !p_list ) return NULL;
 
-    // if ( pp_data ) *pp_data = NULL; // no *return* before setting it to a proper value
+    // if ( pp_old_data ) *pp_old_data = NULL; // no *return* before setting it to a proper value
 
     lst_node * p = p_list;
 
-    if ( pp_data )
-        *pp_data = p->p_data;
+    if ( pp_old_data )
+        *pp_old_data = p->p_data; // transfer ownership
     else
         if ( p->p_data ) return p_list;
-    // p->p_data = NULL; // will be free'd next anyway
+    // p->p_data = NULL; // p will be free'd next anyway
 
     lst_node * p_next = p->p_next;
 
@@ -128,11 +128,11 @@ lst_node * lst_delete_first_node( lst_node * p_list, void ** pp_data )
     return p_next;
 }
 
-lst_node * lst_delete_last_node( lst_node * p_list, void ** pp_data )
+lst_node * lst_delete_last_node( lst_node * p_list, void ** pp_old_data )
 {
     if ( !p_list ) return NULL;
 
-    // if ( pp_data ) *pp_data = NULL; // no *return* before setting it to a proper value
+    // if ( pp_old_data ) *pp_old_data = NULL; // no *return* before setting it to a proper value
 
     lst_node * p_prev = NULL;
     lst_node * p = p_list;
@@ -143,11 +143,11 @@ lst_node * lst_delete_last_node( lst_node * p_list, void ** pp_data )
         p = p->p_next;
     }
 
-    if ( pp_data )
-        *pp_data = p->p_data;
+    if ( pp_old_data )
+        *pp_old_data = p->p_data; // transfer ownership
     else
         if ( p->p_data ) return p_list;
-    // p->p_data = NULL; // will be free'd next anyway
+    // p->p_data = NULL; // p will be free'd next anyway
 
     if ( p_prev ) p_prev->p_next = NULL;
 
@@ -156,13 +156,13 @@ lst_node * lst_delete_last_node( lst_node * p_list, void ** pp_data )
     return p_list;
 }
 
-lst_node * lst_delete_node( lst_node * p_list, size_t index, void ** pp_data )
+lst_node * lst_delete_node( lst_node * p_list, size_t index, void ** pp_old_data )
 {
     if ( !p_list ) return NULL;
 
-    if ( index == 0 ) return lst_delete_first_node( p_list, pp_data );
+    if ( index == 0 ) return lst_delete_first_node( p_list, pp_old_data );
 
-    if ( pp_data ) *pp_data = NULL;
+    if ( pp_old_data ) *pp_old_data = NULL;
 
     lst_node * p_prev = NULL;
     lst_node * p = p_list;
@@ -178,14 +178,14 @@ lst_node * lst_delete_node( lst_node * p_list, size_t index, void ** pp_data )
             return p_list;
     }
 
-    if ( pp_data )
-        *pp_data = p->p_data;
+    if ( pp_old_data )
+        *pp_old_data = p->p_data; // transfer ownership
     else
         if ( p->p_data ) return p_list;
-    // p->p_data = NULL; // will be free'd next anyway
+    // p->p_data = NULL; // p will be free'd next anyway
 
     p_prev->p_next = p->p_next; // p_prev != NULL <== index > 0 && length > index
-    // p->p_next = NULL; // will be free'd next anyway
+    // p->p_next = NULL; // p will be free'd next anyway
     free( (void *)p );
 
     return p_list;
