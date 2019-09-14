@@ -216,15 +216,16 @@ on starting field of another, with red arrow ending at field S.
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}{l}{0.4\textwidth} % [11]
+\begin{wrapfigure}[4]{l}{0.4\textwidth} % [11]
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_09_stop_sign_pattern.png}
 \caption{Stop sign pattern}
 \label{fig:scn_cot_09_stop_sign_pattern}
 \end{wrapfigure}
-...
+Result is a stop sign pattern. It can be navigated by Knight in 4 left-only steps (moves),
+starting from field S.
 
-\vspace*{0.35\textheight}
+\vspace*{0.30\textheight}
 \noindent
 \begin{wrapfigure}{l}{0.4\textwidth} % [11]
 \centering
@@ -232,7 +233,17 @@ on starting field of another, with red arrow ending at field S.
 \caption{Stop sign pattern unwinded}
 \label{fig:scn_cot_10_stop_sign_pattern_unwind}
 \end{wrapfigure}
-...
+To untangle this pattern, after each step both legs (horizontal or vertical, and diagonal)
+gets longer by 1.
+
+So, starting step has right, up-right legs both with length of 1 (green). Next step
+has up, up-left legs both with length of 2 (blue). Third step has legs with length
+of 3 (dark grey). Forth step has both lengths of 4 (red).
+
+Complementary to pattern starting with right horizontal leg (in example to the left),
+there is also symetrical pattern starting with left horizontal leg.
+
+Both patterns combined are shown in the next example.
 
 \clearpage % ..........................................................
 
