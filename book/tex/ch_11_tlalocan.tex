@@ -216,16 +216,22 @@ on starting field of another, with red arrow ending at field S.
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}[4]{l}{0.4\textwidth} % [11]
+\begin{wrapfigure}[12]{l}{0.4\textwidth} % [11]
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_09_stop_sign_pattern.png}
 \caption{Stop sign pattern}
 \label{fig:scn_cot_09_stop_sign_pattern}
 \end{wrapfigure}
-Result is a stop sign pattern. It can be navigated by Knight in 4 left-only steps (moves),
+Result is a stop sign pattern. It can be traversed by Knight in 4 left-only steps (moves),
 starting from field S.
 
-\vspace*{0.30\textheight}
+Each step starts with horizontal or vertical leg, and finishes with diagonal leg. Legs are
+referred to by relative position of its' end point.
+
+So, starting step (green) has right and up-right legs, while last step (red) has down and
+down-right legs.
+
+\vspace*{0.05\textheight}
 \noindent
 \begin{wrapfigure}{l}{0.4\textwidth} % [11]
 \centering
@@ -236,14 +242,12 @@ starting from field S.
 To untangle this pattern, after each step both legs (horizontal or vertical, and diagonal)
 gets longer by 1.
 
-So, starting step has right, up-right legs both with length of 1 (green). Next step
-has up, up-left legs both with length of 2 (blue). Third step has legs with length
-of 3 (dark grey). Forth step has both lengths of 4 (red).
+So, starting step (green) has both legs with length of 1. Next step (blue) has up and up-left
+legs both with length of 2, third step (dark grey) has legs' lengths of 3, and so on. Pattern
+never ends.
 
-Complementary to pattern starting with right horizontal leg (in example to the left),
-there is also symetrical pattern starting with left horizontal leg.
-
-Both patterns combined are shown in the next example.
+Complementary to pattern starting with right leg (in the example to the left), there is also
+symetrical pattern starting with left leg, i.e. rotated by 180$^{\circ}$. % degrees.
 
 \clearpage % ..........................................................
 
@@ -256,7 +260,7 @@ Both patterns combined are shown in the next example.
 % \centering
 \end{figure}
 
-...
+Combining left and right hand pattern ...
 
 \clearpage % ..........................................................
 
