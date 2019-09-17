@@ -837,7 +837,35 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_12_light_shaman_trance_journey'
 
-    def scn_cot_13_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_13_light_shaman_trance_journey_offset(self, bt=BoardType.ConquestOfTlalocan):
+
+        bd = BoardDesc(reverse_field_colors=False, off_board_left=4, off_board_bottom=1, reverse_off_board_field_colors=False)
+        self.init_scene(bt, width=20, height=23, board_desc=bd)
+
+        start = (5, 11)
+        self.board.set_piece(*start, piece=PieceType.Shaman)
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(start, rel, count=24)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Legal)
+
+        #
+        # left arm
+
+        rel = (-2, -1)
+        aba = self.append_broken_arrow(start, rel, count=24)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Action)
+
+        return 'scn_cot_13_light_shaman_trance_journey_offset'
+
+    def scn_cot_14_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -862,7 +890,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(16):
             aba(str(12 - i), mark_type=MarkType.Action)
 
-        return 'scn_cot_13_dark_shaman_trance_journey'
+        return 'scn_cot_14_dark_shaman_trance_journey'
 
 
     #

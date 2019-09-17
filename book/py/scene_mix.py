@@ -34,12 +34,13 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_cot_05_dark_shaman_capture_ply', \
                     # 'scn_cot_06_wave_activated', \
                     # 'scn_cot_07_trance_init', \
-                    'scn_cot_08_knight_directions', \
+                    # 'scn_cot_08_knight_directions', \
                     # 'scn_cot_09_stop_sign_pattern', \
                     # 'scn_cot_10_stop_sign_pattern_unwind', \
                     # 'scn_cot_11_stop_sign_pattern_full', \
                     # 'scn_cot_12_light_shaman_trance_journey', \
-                    # 'scn_cot_13_dark_shaman_trance_journey', \
+                    'scn_cot_13_light_shaman_trance_journey_offset', \
+                    'scn_cot_14_dark_shaman_trance_journey', \
                 ]
 
     def _get_all_scene_method_names(self):
