@@ -892,6 +892,23 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_14_dark_shaman_trance_journey'
 
+    def scn_cot_15_displacement_fields(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt, width=5, height=5)
+
+        start = (2, 2)
+        self.board.set_piece(*start, piece=PieceType.Shaman)
+
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start, include_prev=False, bounds=((1, 1), (3, 3)))
+
+        i = 1
+        for pos in gen_abs_pos_2():
+            # self.append_field_marker(*pos, mark_type=MarkType.Blocked)
+            self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+            i += 1
+
+        return 'scn_cot_15_displacement_fields'
+
 
     #
     # test methods
