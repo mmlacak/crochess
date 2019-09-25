@@ -604,17 +604,11 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.init_scene(bt, width=9, height=12)
 
-        start_R = (4, 10)
-        self.board.set_piece(*start_R, piece=PieceType.Rook)
-
-        start_W1 = (1, 10)
-        self.board.set_piece(*start_W1, piece=PieceType.Wave)
-
-        start_H1 = (1, 3)
+        start_H1 = (4, 9)
         self.board.set_piece(*start_H1, piece=PieceType.Shaman)
         self.append_text("1", *start_H1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 
-        start_W2 = (2, 1)
+        start_W2 = (2, 5)
         self.board.set_piece(*start_W2, piece=PieceType.Wave)
 
         start_H2 = (6, 3)
@@ -631,24 +625,11 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.board.set_piece(*start_h1, piece=-PieceType.Shaman)
         self.append_text("3", *start_h1, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        coords = GS.gen_next( GS.gen_steps(start=start_R, rels=[(-1, 0), ], include_prev=True) )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        coords = GS.gen_next( GS.gen_steps(start=start_W1, rels=[(0, -1), ], include_prev=True) )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
+        coords = GS.gen_next( GS.gen_steps(start=start_H1, rels=[(-1, -2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_H1, rels=[(1, -2), ], include_prev=True) )
-        self.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        coords = GS.gen_next( GS.gen_steps(start=start_W2, rels=[(2, 1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_W2, rels=[(2, -1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
