@@ -600,49 +600,69 @@ class SceneConquestOfTlalocanMixin(Scene):
     #
     # trance-journey
 
-    def scn_cot_07_trance_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_07_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        self.init_scene(bt, width=8, height=8)
+        self.init_scene(bt, width=9, height=12)
 
-        start_R = (1, 3)
+        start_R = (4, 10)
         self.board.set_piece(*start_R, piece=PieceType.Rook)
 
-        start_W1 = (1, 1)
+        start_W1 = (1, 10)
         self.board.set_piece(*start_W1, piece=PieceType.Wave)
 
-        start_H1 = (4, 1)
+        start_H1 = (1, 3)
         self.board.set_piece(*start_H1, piece=PieceType.Shaman)
+        self.append_text("1", *start_H1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 
-        start_W2 = (2, 5)
+        start_W2 = (2, 1)
         self.board.set_piece(*start_W2, piece=PieceType.Wave)
 
-        start_w3 = (6, 3)
-        self.board.set_piece(*start_w3, piece=-PieceType.Wave)
+        start_H2 = (6, 3)
+        self.board.set_piece(*start_H2, piece=PieceType.Shaman)
+        self.append_text("2", *start_H2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 
-        start_h2 = (5, 5)
-        self.board.set_piece(*start_h2, piece=-PieceType.Shaman)
+        start_W3 = (4, 7)
+        self.board.set_piece(*start_W3, piece=PieceType.Wave)
 
-        coords = GS.gen_next( GS.gen_steps(start=start_R, rels=[(0, -1), ], include_prev=True) )
+        start_w1 = (6, 6)
+        self.board.set_piece(*start_w1, piece=-PieceType.Wave)
+
+        start_h1 = (7, 8)
+        self.board.set_piece(*start_h1, piece=-PieceType.Shaman)
+        self.append_text("3", *start_h1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+
+        coords = GS.gen_next( GS.gen_steps(start=start_R, rels=[(-1, 0), ], include_prev=True) )
+        self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_W1, rels=[(1, 0), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_W1, rels=[(0, -1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_H1, rels=[(-1, 2), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_H1, rels=[(1, -2), ], include_prev=True) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        coords = GS.gen_next( GS.gen_steps(start=start_W2, rels=[(2, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_W2, rels=[(2, -1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_H2, rels=[(-1, 2), ], include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_w3, rels=[(-1, 2), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_W3, rels=[(2, -1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        return 'scn_cot_07_trance_init'
+        coords = GS.gen_next( GS.gen_steps(start=start_w1, rels=[(1, 2), ], include_prev=True) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        return 'scn_cot_07_trance_journey_init'
 
     def scn_cot_08_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
 
