@@ -974,6 +974,59 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_16_light_shaman_interaction_start'
 
+    def scn_cot_17_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (4, 12)
+        self.board.set_piece(*start, piece=PieceType.Wave)
+
+        startT = (0, 0)
+        self.board.set_piece(*startT, piece=PieceType.Star)
+        self.board.set_piece(0, 23, piece=-PieceType.Star)
+        self.board.set_piece(23, 0, piece=-PieceType.Star)
+        self.board.set_piece(23, 23, piece=PieceType.Star)
+
+        startK = (2, 6)
+        self.board.set_piece(*startK, piece=PieceType.King)
+        self.board.set_piece(3, 18, piece=-PieceType.Knight)
+        self.board.set_piece(13, 10, piece=-PieceType.Pawn)
+        self.board.set_piece(18, 9, piece=PieceType.Knight)
+
+        self.board.set_piece(6, 7, piece=PieceType.Pawn)
+        self.board.set_piece(7, 7, piece=PieceType.Pawn)
+        self.board.set_piece(8, 7, piece=PieceType.Pawn)
+        self.board.set_piece(9, 7, piece=PieceType.Pawn)
+        self.board.set_piece(10, 7, piece=PieceType.Pawn)
+
+        startH = (3, 10)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("S", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        startH1 = (12, 11)
+        self.board.set_piece(*startH1, piece=PieceType.Shaman)
+        self.append_text("T", *startH1, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(start, rel, count=24)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Blocked)
+
+        #
+        # left arm
+
+        # rel = (-2, -1)
+        # aba = self.append_broken_arrow(start, rel, count=24)
+
+        # for i in xrange(16):
+            # aba(str(i + 1), mark_type=MarkType.Action)
+
+        return 'scn_cot_17_light_shaman_interaction_end'
+
 
     #
     # test methods
