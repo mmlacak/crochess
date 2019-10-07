@@ -840,7 +840,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
     def scn_cot_13_light_shaman_trance_journey_offset(self, bt=BoardType.ConquestOfTlalocan):
 
-        bd = BoardDesc(reverse_field_colors=False, off_board_left=7, off_board_bottom=1, reverse_off_board_field_colors=False)
+        bd = BoardDesc(reverse_field_colors=True, off_board_left=7, off_board_bottom=1, reverse_off_board_field_colors=True)
         self.init_scene(bt, width=17, height=23, board_desc=bd)
 
         start = (5, 11)
@@ -909,6 +909,70 @@ class SceneConquestOfTlalocanMixin(Scene):
             i += 1
 
         return 'scn_cot_15_displacement_fields'
+
+    def scn_cot_16_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (4, 12)
+        self.board.set_piece(*start, piece=PieceType.Shaman)
+        self.append_text("T", *start, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        startT = (0, 0)
+        self.board.set_piece(*startT, piece=PieceType.Star)
+        self.board.set_piece(0, 23, piece=-PieceType.Star)
+        self.board.set_piece(23, 0, piece=-PieceType.Star)
+        self.board.set_piece(23, 23, piece=PieceType.Star)
+
+        startK = (2, 6)
+        self.board.set_piece(*startK, piece=PieceType.King)
+        self.board.set_piece(4, 17, piece=-PieceType.Knight)
+        self.board.set_piece(12, 11, piece=-PieceType.Pawn)
+        self.board.set_piece(18, 9, piece=PieceType.Knight)
+
+        self.board.set_piece(6, 7, piece=PieceType.Pawn)
+        self.board.set_piece(7, 7, piece=PieceType.Pawn)
+        self.board.set_piece(8, 7, piece=PieceType.Pawn)
+        self.board.set_piece(9, 7, piece=PieceType.Pawn)
+        self.board.set_piece(10, 7, piece=PieceType.Pawn)
+
+        startW = (3, 10)
+        self.board.set_piece(*startW, piece=PieceType.Wave)
+
+        startH = (5, 9)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("S", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        # Shaman, direction <-2, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startH, rels=[(-2, 1), ], include_prev=True) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Wave, direction <1, 2>
+        coords = GS.gen_next( GS.gen_steps(start=startW, rels=[(1, 2), ], include_prev=True) )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(start, rel, count=24)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Legal)
+
+        #
+        # left arm
+
+        # rel = (-2, -1)
+        # aba = self.append_broken_arrow(start, rel, count=24)
+
+        # for i in xrange(16):
+            # aba(str(i + 1), mark_type=MarkType.Action)
+
+        self.append_arrow( *((-1, 1) + startT), mark_type=MarkType.Illegal )
+        self.append_arrow( *((-1, 9) + startK), mark_type=MarkType.Illegal )
+
+        return 'scn_cot_16_light_shaman_interaction_start'
 
 
     #
