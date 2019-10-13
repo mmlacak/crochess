@@ -154,6 +154,24 @@ DARK_SHAMAN_CORNER_DOWN = [ Corner.LowerRight, \
                             Corner.UpperRight  ]
 
 
+DEFAULT_DISPLACEMENT_REL_MOVES =  [ ( 3,  1),  \
+                                    ( 2,  2),  \
+                                    ( 1,  3),  \
+                                               \
+                                    (-1,  3),  \
+                                    (-2,  2),  \
+                                    (-3,  1),  \
+                                               \
+                                    (-3, -1),  \
+                                    (-2, -2),  \
+                                    (-1, -3),  \
+                                               \
+                                    ( 1, -3),  \
+                                    ( 2, -2),  \
+                                    ( 3, -1)   ]
+DEFAULT_DISPLACEMENT_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_DISPLACEMENT_REL_MOVES)
+
+
 def separate_poss(coords):
     x0, y0, x1, y1 = coords
     return (x0, y0), (x1, y1)
