@@ -980,6 +980,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_arrow( *((-1, 1) + startT), mark_type=MarkType.Illegal )
         self.append_arrow( *((-1, 9) + startK), mark_type=MarkType.Illegal )
 
+        self.append_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+
         return 'scn_cot_16_light_shaman_interaction_start'
 
     def scn_cot_17_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
