@@ -10,6 +10,9 @@ import math
     point :: (float, float) # (x, y)
 """
 
+def is_any(itr, type_=float):
+    return any( [ isinstance(x, type_) for x in itr ] )
+
 def round_float_to_int(pos):
     return int(round(pos))
 
@@ -33,8 +36,8 @@ def calc_rounded_str_value(num, digits=6):
     return str(n)
 
 def q_same_rounded_floats(num0, num1, digits=6):
-    n0 = calc_rounded_str_value(num0, digits)
-    n1 = calc_rounded_str_value(num1, digits)
+    n0 = calc_rounded_str_value(num0, digits=digits)
+    n1 = calc_rounded_str_value(num1, digits=digits)
     return n0 == n1
 
 def calc_straight_line(start, end):
@@ -135,6 +138,7 @@ if __name__ == '__main__':
     print q_same_rounded_floats(3.0, -3.0)
     print q_same_rounded_floats(3.14, math.pi)
     print q_same_rounded_floats(3.1415926535, math.pi)
+    print q_same_rounded_floats(3.1415, math.pi, digits=3)
     print
 
     start0 = (3, 2)

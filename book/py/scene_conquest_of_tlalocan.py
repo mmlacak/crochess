@@ -977,11 +977,13 @@ class SceneConquestOfTlalocanMixin(Scene):
         # for i in xrange(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
 
-        self.append_arrow( *((-1, 1) + startT), mark_type=MarkType.Illegal )
-        self.append_arrow( *((-1, 9) + startK), mark_type=MarkType.Illegal )
+        # self.append_arrow( *((-1, 1) + startT), mark_type=MarkType.Illegal )
+        # self.append_arrow( *((-1, 9) + startK), mark_type=MarkType.Illegal )
+        self.replace_arrow( *((-7.5, 8.5) + startT), mark_type=MarkType.Illegal )
+        self.replace_arrow( *((-1.5, 10.5) + startK), mark_type=MarkType.Illegal )
 
-        self.append_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
-        self.append_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+        self.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+        self.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
 
         return 'scn_cot_16_light_shaman_interaction_start'
 

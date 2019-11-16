@@ -102,10 +102,10 @@ class Scene(object):
         self.board = board
         self.board_desc = board_desc or BoardDesc()
 
-    def append_text(self, txt, pos_i, pos_j, \
-                    corner=Corner(Corner.UpperLeft), \
-                    mark_type=MarkType(MarkType.Legal), \
-                    rect=(0.05, 1.0, 0.7, 0.35)):
+    def new_text(self, txt, pos_i, pos_j, \
+                 corner=Corner(Corner.UpperLeft), \
+                 mark_type=MarkType(MarkType.Legal), \
+                 rect=(0.05, 1.0, 0.7, 0.35)):
         # assert isinstance(txt, str)
         assert isinstance(pos_i, (int, float))
         assert isinstance(pos_j, (int, float))
@@ -122,15 +122,37 @@ class Scene(object):
         pos_x, pos_y = get_text_position(pos_i, pos_j, crnr)
 
         txt_mark = Text(txt, pos_x, pos_y, mark_type=mark_type)
+
+        return txt_mark
+
+    def append_text(self, txt, pos_i, pos_j, \
+                    corner=Corner(Corner.UpperLeft), \
+                    mark_type=MarkType(MarkType.Legal), \
+                    rect=(0.05, 1.0, 0.7, 0.35)):
+
+        txt_mark = self.new_text(txt, pos_i, pos_j, corner=corner, mark_type=mark_type, rect=rect)
         self.texts.append(txt_mark)
 
         return txt_mark
 
-    def append_arrow(self, start_i, start_j, end_i, end_j, \
+    def replace_text(self, txt, pos_i, pos_j, \
+                     corner=Corner(Corner.UpperLeft), \
                      mark_type=MarkType(MarkType.Legal), \
-                     start_pointer=False, \
-                     end_pointer=True, \
-                     do_recalc_arrow_ends=True):
+                     rect=(0.05, 1.0, 0.7, 0.35)):
+
+        txt_mark = self.new_text(txt, pos_i, pos_j, corner=corner, mark_type=mark_type, rect=rect)
+
+        for i, tm in enumerate( self.texts ):
+            if tm.same_position( txt_mark ):
+                self.texts[ i ] = txt_mark
+
+        return txt_mark
+
+    def new_arrow(self, start_i, start_j, end_i, end_j, \
+                  mark_type=MarkType(MarkType.Legal), \
+                  start_pointer=False, \
+                  end_pointer=True, \
+                  do_recalc_arrow_ends=True):
         # assert isinstance(start_i, (int, float))
         # assert isinstance(start_j, (int, float))
         # assert isinstance(end_i, (int, float))
@@ -144,15 +166,61 @@ class Scene(object):
         arw_mark = Arrow(start_x, start_y, end_x, end_y, mark_type=mark_type, \
                          start_pointer=start_pointer, \
                          end_pointer=end_pointer)
+
+        return arw_mark
+
+    def append_arrow(self, start_i, start_j, end_i, end_j, \
+                     mark_type=MarkType(MarkType.Legal), \
+                     start_pointer=False, \
+                     end_pointer=True, \
+                     do_recalc_arrow_ends=True):
+
+        arw_mark = self.new_arrow(start_i, start_j, end_i, end_j, mark_type=mark_type, \
+                                  start_pointer=start_pointer, \
+                                  end_pointer=end_pointer)
+
         self.arrows.append(arw_mark)
 
         return arw_mark
 
-    def append_field_marker(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
+    def replace_arrow(self, start_i, start_j, end_i, end_j, \
+                      mark_type=MarkType(MarkType.Legal), \
+                      start_pointer=False, \
+                      end_pointer=True, \
+                      do_recalc_arrow_ends=True):
+
+        arw_mark = self.new_arrow(start_i, start_j, end_i, end_j, mark_type=mark_type, \
+                                  start_pointer=start_pointer, \
+                                  end_pointer=end_pointer)
+
+        for i, am in enumerate( self.arrows ):
+            if am.same_position( arw_mark ):
+                self.arrows[ i ] = arw_mark
+
+        return arw_mark
+
+    def new_field_marker(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
         # assert isinstance(mark_type, MarkType)
 
         fld_mark = FieldMarker(field_i, field_j, mark_type=mark_type)
+
+        return fld_mark
+
+    def append_field_marker(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
+        # assert isinstance(mark_type, MarkType)
+
+        fld_mark = self.new_field_marker(field_i, field_j, mark_type=mark_type)
+
         self.field_markers.append(fld_mark)
 
         return fld_mark
 
+    def replace_field_marker(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
+
+        fld_mark = self.new_field_marker(field_i, field_j, mark_type=mark_type)
+
+        for i, fm in enumerate( self.field_markers ):
+            if fm.same_position( fld_mark ):
+                self.field_markers[ i ] = fld_mark
+
+        return fld_mark

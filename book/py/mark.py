@@ -4,6 +4,8 @@
 # Copyright (c) 2016 - 2019 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+from pixel_math import is_any, q_same_rounded_floats
+
 
 class MarkType(int):
     none = 0
@@ -64,6 +66,27 @@ class Arrow(object):
         self.start, self.end = self.end, self.start
         self.start_pointer, self.end_pointer = self.end_pointer, self.start_pointer
 
+    def same_position(self, other, digits=6):
+        assert isinstance(other, Arrow)
+
+        if is_any( other.start + other.end + self.start + self.end, type_=float ):
+            o_x1, o_y1 = other.start
+            o_x2, o_y2 = other.end
+            s_x1, s_y1 = self.start
+            s_x2, s_y2 = self.end
+
+            return ( q_same_rounded_floats(o_x1, s_x1, digits=digits) and \
+                     q_same_rounded_floats(o_y1, s_y1, digits=digits) and \
+                     q_same_rounded_floats(o_x2, s_x2, digits=digits) and \
+                     q_same_rounded_floats(o_y2, s_y2, digits=digits) ) or \
+                   ( q_same_rounded_floats(o_x1, s_x2, digits=digits) and \
+                     q_same_rounded_floats(o_y1, s_y2, digits=digits) and \
+                     q_same_rounded_floats(o_x2, s_x1, digits=digits) and \
+                     q_same_rounded_floats(o_y2, s_y1, digits=digits) )
+        else:
+            return (other.start == self.start and other.end == self.end) or \
+                   (other.start == self.end and other.end == self.start)
+
 
 class Text(object):
 
@@ -81,6 +104,11 @@ class Text(object):
         self.pos = (pos_x, pos_y)
         self.mark_type = mt
 
+    def same_position(self, other):
+        assert isinstance(other, Text)
+
+        return other.pos == self.pos
+
 
 class FieldMarker(object):
 
@@ -93,3 +121,8 @@ class FieldMarker(object):
 
         self.field = (field_i, field_j)
         self.mark_type = mt
+
+    def same_position(self, other):
+        assert isinstance(other, FieldMarker)
+
+        return other.field == self.field
