@@ -934,9 +934,9 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         startK = (2, 6)
         self.board.set_piece(*startK, piece=PieceType.King)
-        self.board.set_piece(4, 17, piece=-PieceType.Knight)
+        self.board.set_piece(4, 17, piece=PieceType.Knight)
         self.board.set_piece(12, 11, piece=-PieceType.Pawn)
-        self.board.set_piece(18, 9, piece=PieceType.Knight)
+        self.board.set_piece(18, 9, piece=-PieceType.Knight)
 
         self.board.set_piece(6, 7, piece=PieceType.Pawn)
         self.board.set_piece(7, 7, piece=PieceType.Pawn)
@@ -1002,9 +1002,9 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         startK = (2, 6)
         self.board.set_piece(*startK, piece=PieceType.King)
-        self.board.set_piece(3, 18, piece=-PieceType.Knight)
-        self.board.set_piece(13, 10, piece=-PieceType.Pawn)
-        self.board.set_piece(18, 9, piece=PieceType.Knight)
+        self.board.set_piece(7, 16, piece=PieceType.Knight)
+        self.board.set_piece(9, 12, piece=-PieceType.Pawn)
+        self.board.set_piece(18, 9, piece=-PieceType.Knight)
 
         self.board.set_piece(6, 7, piece=PieceType.Pawn)
         self.board.set_piece(7, 7, piece=PieceType.Pawn)
