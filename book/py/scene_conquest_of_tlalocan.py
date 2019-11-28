@@ -721,7 +721,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_09_stop_sign_pattern'
 
-    def append_broken_arrow(self, start, rel, outward_arrows=True, bounds=None, count=None):
+    def append_broken_arrow(self, start, rel, outward_arrows=True, bounds=None, count=None, rect=(0.05, 1.0, 0.6, 0.45)):
 
         rels = GS.gen_shaman_rel_legs(rel) # , count=count)
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=bounds) )
@@ -753,7 +753,7 @@ class SceneConquestOfTlalocanMixin(Scene):
                 self.append_arrow( x2+0.5, y2+0.5, x3, y3, mark_type=mark_type, start_pointer=sp2, end_pointer=ep2 ) # end, diagonal
 
             if text is not None:
-                self.append_text(text, x3, y3, corner=corners(), mark_type=mark_type, rect=(0.05, 1.0, 0.6, 0.45))
+                self.append_text(text, x3, y3, corner=corners(), mark_type=mark_type, rect=rect)
 
         return _append_broken_arrow
 
@@ -963,7 +963,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(start, rel, count=24)
+        aba = self.append_broken_arrow(start, rel, count=24, rect=(0.05, 1.0, 0.8, 0.3))
 
         for i in xrange(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
@@ -982,8 +982,8 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.replace_arrow( *((-7.5, 8.5) + startT), mark_type=MarkType.Illegal )
         self.replace_arrow( *((-1.5, 10.5) + startK), mark_type=MarkType.Illegal )
 
-        self.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
-        self.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
+        self.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.8, 0.3))
+        self.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.8, 0.3))
 
         return 'scn_cot_16_light_shaman_interaction_start'
 
@@ -1024,7 +1024,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(start, rel, count=24)
+        aba = self.append_broken_arrow(start, rel, count=24, rect=(0.05, 1.0, 0.8, 0.3))
 
         for i in xrange(16):
             aba(str(i + 1), mark_type=MarkType.Blocked)
