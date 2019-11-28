@@ -963,7 +963,8 @@ class SceneConquestOfTlalocanMixin(Scene):
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(start, rel, count=24, rect=(0.05, 1.0, 0.8, 0.3))
+        rect = (0.05, 1.0, 0.8, 0.3)
+        aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
         for i in xrange(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
@@ -982,8 +983,8 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.replace_arrow( *((-7.5, 8.5) + startT), mark_type=MarkType.Illegal )
         self.replace_arrow( *((-1.5, 10.5) + startK), mark_type=MarkType.Illegal )
 
-        self.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.8, 0.3))
-        self.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.8, 0.3))
+        self.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
+        self.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
 
         return 'scn_cot_16_light_shaman_interaction_start'
 
