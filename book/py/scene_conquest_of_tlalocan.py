@@ -1012,7 +1012,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.board.set_piece(*startH, piece=PieceType.Shaman)
         self.append_text("S", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
-        startH1 = (12, 11)
+        startH1 = (6, 23)
         self.board.set_piece(*startH1, piece=PieceType.Shaman)
         self.append_text("T", *startH1, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
@@ -1104,6 +1104,65 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
 
         return 'scn_cot_18_dark_light_shaman_interaction_start'
+
+    def scn_cot_19_dark_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (4, 12)
+
+        startH0 = (6, 23)
+        self.board.set_piece(*startH0, piece=PieceType.Shaman)
+        self.append_text("T", *startH0, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        startT = (0, 0)
+        self.board.set_piece(*startT, piece=PieceType.Star)
+        self.board.set_piece(0, 23, piece=-PieceType.Star)
+        self.board.set_piece(23, 0, piece=-PieceType.Star)
+        self.board.set_piece(23, 23, piece=PieceType.Star)
+
+        startK = (2, 6)
+        self.board.set_piece(*startK, piece=PieceType.King)
+        # self.board.set_piece(4, 17, piece=PieceType.Knight)
+        # self.board.set_piece(12, 11, piece=-PieceType.Pawn)
+        self.board.set_piece(18, 9, piece=-PieceType.Knight)
+
+        self.board.set_piece(6, 7, piece=PieceType.Pawn)
+        self.board.set_piece(7, 7, piece=PieceType.Pawn)
+        self.board.set_piece(8, 7, piece=PieceType.Pawn)
+        self.board.set_piece(9, 7, piece=PieceType.Pawn)
+        self.board.set_piece(10, 7, piece=PieceType.Pawn)
+
+        startH = (5, 11)
+        self.board.set_piece(*startH, piece=-PieceType.Shaman)
+        self.append_text("S", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        startW1 = (3, 8)
+        self.board.set_piece(*startW1, piece=-PieceType.Wave)
+
+        startW2 = (4, 12)
+        self.board.set_piece(*startW2, piece=PieceType.Wave)
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        rect = (0.05, 1.0, 0.8, 0.3)
+        aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Blocked)
+
+        #
+        # left arm
+
+        # rel = (-2, -1)
+        # aba = self.append_broken_arrow(start, rel, count=24)
+
+        # for i in xrange(16):
+            # aba(str(i + 1), mark_type=MarkType.Action)
+
+        return 'scn_cot_19_dark_light_shaman_interaction_end'
 
 
     #
