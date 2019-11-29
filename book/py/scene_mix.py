@@ -41,11 +41,12 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_cot_12_light_shaman_trance_journey', \
                     # 'scn_cot_13_light_shaman_trance_journey_offset', \
                     # 'scn_cot_14_dark_shaman_trance_journey', \
-                    'scn_cot_15_displacement_fields', \
-                    'scn_cot_16_light_light_shaman_interaction_start', \
-                    'scn_cot_17_light_light_shaman_interaction_end', \
-                    'scn_cot_18_dark_light_shaman_interaction_start', \
-                    'scn_cot_19_dark_light_shaman_interaction_end', \
+                    # 'scn_cot_15_displacement_fields', \
+                    # 'scn_cot_16_light_light_shaman_interaction_start', \
+                    # 'scn_cot_17_light_light_shaman_interaction_end', \
+                    # 'scn_cot_18_dark_light_shaman_interaction_start', \
+                    # 'scn_cot_19_dark_light_shaman_interaction_end', \
+                    'scn_cot_20_dark_dark_shaman_interaction_start', \
                 ]
 
     def _get_all_scene_method_names(self):

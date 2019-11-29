@@ -177,7 +177,8 @@ class Scene(object):
 
         arw_mark = self.new_arrow(start_i, start_j, end_i, end_j, mark_type=mark_type, \
                                   start_pointer=start_pointer, \
-                                  end_pointer=end_pointer)
+                                  end_pointer=end_pointer, \
+                                  do_recalc_arrow_ends=do_recalc_arrow_ends)
 
         self.arrows.append(arw_mark)
 
@@ -191,7 +192,8 @@ class Scene(object):
 
         arw_mark = self.new_arrow(start_i, start_j, end_i, end_j, mark_type=mark_type, \
                                   start_pointer=start_pointer, \
-                                  end_pointer=end_pointer)
+                                  end_pointer=end_pointer, \
+                                  do_recalc_arrow_ends=do_recalc_arrow_ends)
 
         for i, am in enumerate( self.arrows ):
             if am.same_position( arw_mark ):
