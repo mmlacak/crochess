@@ -1488,6 +1488,67 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_24_light_dark_shaman_interaction_start'
 
+    def scn_cot_25_light_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (4, 11)
+
+        startH0 = (2, 17)
+        self.board.set_piece(*startH0, piece=-PieceType.Shaman)
+        self.append_text("T", *startH0, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(0, 23, piece=-PieceType.Star)
+        self.board.set_piece(23, 0, piece=-PieceType.Star)
+        self.board.set_piece(23, 23, piece=PieceType.Star)
+
+        self.board.set_piece(5, 3, piece=PieceType.King)
+        self.board.set_piece(3, 9, piece=-PieceType.Knight)
+        self.board.set_piece(15, 18, piece=-PieceType.Pawn)
+        self.board.set_piece(13, 12, piece=PieceType.Knight)
+
+        self.board.set_piece(15, 13, piece=-PieceType.Bishop)
+        self.board.set_piece(9, 11, piece=PieceType.Bishop)
+        self.board.set_piece(6, 5, piece=PieceType.Rook)
+        self.board.set_piece(3, 19, piece=-PieceType.Rook)
+
+        self.board.set_piece(4, 17, piece=PieceType.Pawn)
+        self.board.set_piece(5, 17, piece=PieceType.Pawn)
+        self.board.set_piece(6, 17, piece=PieceType.Pawn)
+        self.board.set_piece(7, 17, piece=PieceType.Pawn)
+        self.board.set_piece(8, 17, piece=PieceType.Pawn)
+
+        startW2 = start
+        self.board.set_piece(*startW2, piece=-PieceType.Wave)
+
+        startW1 = (2, 12)
+        self.board.set_piece(*startW1, piece=PieceType.Wave)
+
+        startH = (3, 14)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("S", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        #
+        # up arm
+
+        # rel = (1, 2)
+        # aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
+
+        # for i in xrange(16):
+            # aba(str(10 - i), mark_type=MarkType.Legal)
+
+        #
+        # down arm
+
+        rect = (0.05, 1.0, 0.6, 0.45)
+        rel = (-1, -2)
+        aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
+
+        for i in xrange(16):
+            aba(str(12 - i), mark_type=MarkType.Blocked)
+
+        return 'scn_cot_25_light_dark_shaman_interaction_end'
 
 
     #
