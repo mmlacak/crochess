@@ -897,7 +897,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.init_scene(bt)
 
-        start = (12, 12)
+        start = (12, 11)
         self.board.set_piece(*start, piece=PieceType.Shaman)
 
         gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
