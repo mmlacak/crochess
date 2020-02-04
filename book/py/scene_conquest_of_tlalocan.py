@@ -895,12 +895,12 @@ class SceneConquestOfTlalocanMixin(Scene):
 
     def scn_cot_15_displacement_fields(self, bt=BoardType.ConquestOfTlalocan):
 
-        self.init_scene(bt, width=9, height=9)
+        self.init_scene(bt)
 
-        start = (4, 4)
+        start = (12, 12)
         self.board.set_piece(*start, piece=PieceType.Shaman)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=((1, 1), (7, 7)))
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         i = 1
         for pos in gen_abs_pos():
@@ -908,7 +908,7 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
-        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=((2, 2), (6, 6)))
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         i = 1
         for pos in gen_abs_pos_2():
