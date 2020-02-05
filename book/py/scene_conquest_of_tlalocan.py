@@ -1523,8 +1523,8 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.board.set_piece(5, 3, piece=PieceType.King)
         self.board.set_piece(3, 9, piece=-PieceType.Knight)
-        self.board.set_piece(15, 18, piece=-PieceType.Pawn)
-        self.board.set_piece(13, 12, piece=PieceType.Knight)
+        self.board.set_piece(13, 14, piece=-PieceType.Pawn)
+        self.board.set_piece(12, 11, piece=PieceType.Knight)
 
         self.board.set_piece(15, 13, piece=-PieceType.Bishop)
         self.board.set_piece(9, 11, piece=PieceType.Bishop)
@@ -1565,6 +1565,24 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         for i in xrange(16):
             aba(str(12 - i), mark_type=MarkType.Blocked)
+
+        # down arm Knight's displacement fields
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=(10, 13), include_prev=False, count=1)
+
+        # i = 1
+        for pos in gen_abs_pos():
+            self.append_field_marker(*pos, mark_type=MarkType.Action)
+            # self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+            # i += 1
+
+        # down arm Pawn's displacement fields
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=(16, 15), include_prev=False, count=1)
+
+        i = 1
+        for pos in gen_abs_pos():
+            # self.append_field_marker(*pos, mark_type=MarkType.Legal)
+            self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.10, 1.0, 0.5, 0.45))
+            i += 1
 
         return 'scn_cot_25_light_dark_shaman_interaction_end'
 
