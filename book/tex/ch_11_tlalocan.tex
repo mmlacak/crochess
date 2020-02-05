@@ -367,15 +367,15 @@ is sacrificed (i.e. removed from chessboard as if captured by the opponent).
 Displacement-fields are all marked fields (blue). For comparison, Knight's
 step-fields are also enumerated (grey).
 
-Displacement itself is a movement of an piece (here, Rook) from Shaman's step-field
-directly to any enumerated field, regardless of how displaced piece moves otherwise.
+Displacement is a movement of a piece (here, Rook) from Shaman's step-field directly
+onto any enumerated field, regardless of how displaced piece moves otherwise.
 
-%\clearpage % ..........................................................
+Piece is displaced immediately after step in which entranced Shaman reaches that piece,
+but before Shaman continues its' trance-journey. Thus, displacement of pieces follows
+order of trance-journey steps.
 
-%\subsubsection*{Displacement}
-%\addcontentsline{toc}{subsubsection}{Displacement}
-
-%...
+Multiple pieces, if not too far away, can share displacement fields. So, an piece
+displaced earlier can block one later on from being displaced onto specific field.
 
 \clearpage % ..........................................................
 
@@ -391,10 +391,11 @@ directly to any enumerated field, regardless of how displaced piece moves otherw
 % \centering
 \end{figure}
 
-...
-
-% Note, it's illegal for entranced Shaman to interact with King or Star.
-% Also, all pieces not on step-fields of entranced Shaman are not affected.
+Light Shaman is about to do trance-journey along right-hand pattern.
+While it's illegal for entranced Shaman to displace King or a Star,
+Shaman can continue its' trance-journey past them. Pieces not on a
+step-fields (light Pawns) of entranced Shaman can't be displaced
+either.
 
 \clearpage % ..........................................................
 
@@ -407,7 +408,11 @@ directly to any enumerated field, regardless of how displaced piece moves otherw
 % \centering
 \end{figure}
 
-...
+Here, displacement-fields of light Knight are marked (blue), while for dark Pawn they
+are enumerated (green). Each diplacement immediately follows Shaman step which initiate
+it. So, displacements are performed in the same order in which steps are performed. Light
+Knight is displaced from field 2 early into trance-journey onto shared displacement-field
+15. This prevents dark Pawn to be displaced from field 5 onto the same field.
 
 \clearpage % ..........................................................
 
