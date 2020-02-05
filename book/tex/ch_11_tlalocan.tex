@@ -196,7 +196,7 @@ dark Shaman 3), while the one immediately preceding it is called entrancing
 Shaman (here, the light Shaman 2).
 
 Whether entrancing Shaman started a cascade or was activated is not relevant,
-mere existance of preceding Shaman in a cascade is enough to grant trance-journey
+mere existance of two Shamans in a cascade is enough to grant trance-journey
 option.
 
 Trance-journey can be undertaken even if entranced Shaman received no momentum.
@@ -342,8 +342,13 @@ If entrancing Shaman is dark, all pieces, own or opponent's, found on affected
 step-fields are captured.
 
 Pieces on step-fields not reached by entranced Shaman are not affected. In all
-cases, Kings and Stars on a step-fields are ignored, they cannot be moved or
-captured.
+cases, Kings and Stars on a step-fields are ignored, they cannot be displaced
+nor captured. Entranced Shaman can continue its' trance-journey past Kings and Stars.
+
+As a special case, if both Shamans are dark, entranced Shaman can undertake double
+trance-journey, traveling full lenghts on both up- and down-hand patterns, capturing
+all pieces on all step-fields (except Kings and Stars), after which entranced Shaman
+is sacrificed (i.e. removed from chessboard as if catured by the opponent).
 
 \clearpage % ..........................................................
 
@@ -377,6 +382,9 @@ step-fields are also enumerated (grey).
 \end{figure}
 
 ...
+
+% Note, it's illegal for entranced Shaman to interact with King or Star.
+% Also, all pieces not on step-fields of entranced Shaman are not affected.
 
 \clearpage % ..........................................................
 
