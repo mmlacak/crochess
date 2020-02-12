@@ -879,7 +879,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (1, 2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        for i in xrange(16):
+        for i in xrange(10):
             aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -888,7 +888,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        for i in xrange(16):
+        for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Action)
 
         return 'scn_cot_14_dark_shaman_trance_journey'
@@ -1240,7 +1240,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
 
         self.replace_arrow( *(startP + (8.5, 23.5)), mark_type=MarkType.Illegal, end_pointer=False )
@@ -1305,7 +1305,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
 
         return 'scn_cot_21_dark_dark_shaman_interaction_end'
@@ -1358,7 +1358,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (1, 2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        for i in xrange(16):
+        for i in xrange(10):
             aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -1368,7 +1368,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
 
         self.replace_arrow( *(startP + (8.5, 23.5)), mark_type=MarkType.Illegal, end_pointer=False )
@@ -1416,7 +1416,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (1, 2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        for i in xrange(16):
+        for i in xrange(10):
             aba(str(10 - i), mark_type=MarkType.Blocked)
 
         #
@@ -1426,7 +1426,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
 
         return 'scn_cot_23_dark_dark_shaman_double_interaction_end'
@@ -1483,7 +1483,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (1, 2)
         # aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        # for i in xrange(16):
+        # for i in xrange(10):
             # aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -1493,7 +1493,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
 
         self.replace_arrow( *(startP + (8.5, 23.5)), mark_type=MarkType.Illegal, end_pointer=False )
@@ -1553,7 +1553,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (1, 2)
         # aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        # for i in xrange(16):
+        # for i in xrange(10):
             # aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -1563,7 +1563,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
 
         # down arm Knight's displacement fields
