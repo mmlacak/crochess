@@ -332,7 +332,8 @@ trance-journey on a starting field.
 
 Again, entranced Shaman is the one undertaking trance-journey, entrancing Shaman
 is the one preceding entranced Shaman in a cascade. Interaction with other pieces
-found on a step-fields depends on a color of entrancing Shaman.
+found on a step-fields depends on a color of entrancing Shaman, i.e. if Shaman is
+light- or dark-entranced.
 
 If entrancing Shaman is light, pieces found on affected step-fields can be moved
 (but don't have to) to an empty displacement-field. If there is no empty
@@ -395,11 +396,10 @@ field.
 % \centering
 \end{figure}
 
-Light Shaman is about to do trance-journey along right-hand pattern.
-While it's illegal for entranced Shaman to displace King or a Star,
-Shaman can continue its' trance-journey past them. Pieces not on a
-step-fields of an entranced Shaman (here, light Pawns) can't be
-displaced either.
+Light Shaman is about to do trance-journey along right-hand pattern. While it's illegal
+for entranced Shaman to displace King or a Star, Shaman can continue its' trance-journey
+past them. Pieces not on a step-fields of an entranced Shaman (here, light Pawns) can't
+be displaced either.
 
 \clearpage % ..........................................................
 
@@ -429,11 +429,10 @@ Knight is displaced from field 2 early into trance-journey onto shared displacem
 % \centering
 \end{figure}
 
-Light Shaman is about to be entranced by dark one and so will capture pieces on a
-trance-journey along right-hand pattern. While it's illegal for entranced Shaman to
-capture King or a Star, Shaman can continue its' trance-journey past them. Pieces
-not on a capture-fields of an entranced Shaman (here, light Pawns) can't be captured
-either.
+Light Shaman is about to be dark-entranced (i.e. by dark Shaman) and so will capture pieces
+on a trance-journey along right-hand pattern. While it's illegal for entranced Shaman to
+capture King or a Star, Shaman can continue its' trance-journey past them. Pieces not on a
+capture-fields of an entranced Shaman (here, light Pawns) can't be captured either.
 
 \clearpage % ..........................................................
 
@@ -464,7 +463,11 @@ Note, entranced Shaman settled on a field 6, and so dark Knight (on field 9) is 
 % \centering
 \end{figure}
 
-...
+Dark-entranced Shaman is about to start capturing pieces along down-hand pattern inwards,
+i.e. from field 1 in upper right corner of chessboard towards its' starting position.
+
+King and Star can't be captured since it's illegal, but pieces past them (here, light Knight on field 9) can be captured.
+Other pieces not on a capture-fields of an entranced Shaman (light Pawns) can't be captured either.
 
 \clearpage % ..........................................................
 
@@ -477,7 +480,12 @@ Note, entranced Shaman settled on a field 6, and so dark Knight (on field 9) is 
 % \centering
 \end{figure}
 
-...
+All pieces on capture-fields up-to and including destination field of dark-entranced Shaman must be captured.
+This is in contrast to light-entranced Shaman, player can choose which pieces on step-fields are displaced,
+and which are not.
+
+Dark-entranced Shaman settled on a field 10, and so piece closer to starting position (here, dark Knight on field 12)
+is not captured.
 
 \clearpage % ..........................................................
 
