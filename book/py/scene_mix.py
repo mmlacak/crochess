@@ -54,6 +54,7 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_cot_25_light_dark_shaman_interaction_end', \
                     'scn_cot_26_backward_interaction_start', \
                     'scn_cot_27_forward_interaction_start', \
+                    'scn_cot_28_forward_interaction_end', \
                 ]
 
     def _get_all_scene_method_names(self):
