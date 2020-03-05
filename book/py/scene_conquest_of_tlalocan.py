@@ -1586,6 +1586,60 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_25_light_dark_shaman_interaction_end'
 
+    def scn_cot_26_backward_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (15, 12)
+        self.board.set_piece(*start, piece=PieceType.Shaman)
+        self.append_text("T", *start, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        startW = (14, 10)
+        self.board.set_piece(*startW, piece=PieceType.Wave)
+
+        startH = (16, 9)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("S", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.append_arrow( *(startH + startW), mark_type=MarkType.Action )
+        self.append_arrow( *(startW + start), mark_type=MarkType.Action )
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        rect = (0.05, 1.0, 0.8, 0.3)
+        aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
+
+        for i in xrange(16):
+            aba(str(i + 1), mark_type=MarkType.Legal)
+
+        #
+        # backward displacement
+
+        startB = (15, 17)
+        self.board.set_piece(*startB, piece=-PieceType.Bishop)
+
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=startB, include_prev=False, count=1)
+
+        i = 1
+        for pos in gen_abs_pos():
+            self.append_field_marker(*pos, mark_type=MarkType.Action)
+            self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+            i += 1
+
+        #
+        # left arm
+
+        # rel = (-2, -1)
+        # aba = self.append_broken_arrow(start, rel, count=24)
+
+        # for i in xrange(16):
+            # aba(str(i + 1), mark_type=MarkType.Action)
+
+        return 'scn_cot_26_backward_interaction_start'
+
+
 
     #
     # test methods
