@@ -1628,18 +1628,43 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
-        #
-        # left arm
-
-        # rel = (-2, -1)
-        # aba = self.append_broken_arrow(start, rel, count=24)
-
-        # for i in xrange(16):
-            # aba(str(i + 1), mark_type=MarkType.Action)
-
         return 'scn_cot_26_backward_interaction_start'
 
-    def scn_cot_27_forward_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_27_backward_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        startH2 = (15, 17)
+        self.board.set_piece(*startH2, piece=PieceType.Shaman)
+        self.append_text("T", *startH2, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        start = (15, 12)
+        self.board.set_piece(*start, piece=PieceType.Wave)
+
+        startH = (14, 10)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("S", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        rect = (0.05, 1.0, 0.8, 0.3)
+        aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
+
+        for i in xrange(16):
+            mark_type = MarkType.Blocked if i < 2 else MarkType.Legal
+            aba(str(i + 1), mark_type=mark_type)
+
+        #
+        # backward displacement
+
+        startB = (17, 13)
+        self.board.set_piece(*startB, piece=-PieceType.Bishop)
+
+        return 'scn_cot_27_backward_interaction_end'
+
+    def scn_cot_28_forward_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1681,18 +1706,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
-        #
-        # left arm
+        return 'scn_cot_28_forward_interaction_start'
 
-        # rel = (-2, -1)
-        # aba = self.append_broken_arrow(start, rel, count=24)
-
-        # for i in xrange(16):
-            # aba(str(i + 1), mark_type=MarkType.Action)
-
-        return 'scn_cot_27_forward_interaction_start'
-
-    def scn_cot_28_forward_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_29_forward_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1731,19 +1747,10 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
-        #
-        # left arm
-
-        # rel = (-2, -1)
-        # aba = self.append_broken_arrow(start, rel, count=24)
-
-        # for i in xrange(16):
-            # aba(str(i + 1), mark_type=MarkType.Action)
-
         self.replace_arrow( *(startW + (16.5, 12.5)), mark_type=MarkType.Blocked, end_pointer=False )
         self.replace_arrow( *((16.5, 12.5) + start), mark_type=MarkType.Blocked )
 
-        return 'scn_cot_28_forward_interaction_end'
+        return 'scn_cot_29_forward_interaction_end'
 
 
     #
