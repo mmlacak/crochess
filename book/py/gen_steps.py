@@ -162,11 +162,10 @@ DEFAULT_DISPLACEMENT_REL_MOVES =  [ (  3,   1),  \
                                     (  3,   3),  \
                                     (  2,   4),  \
                                                  \
+                                    (  6,   2),  \
                                     (  5,   3),  \
                                     (  4,   4),  \
                                     (  3,   5),  \
-                                                 \
-                                    (  6,   2),  \
                                     (  2,   6),  \
                                                  \
                                                  \
@@ -178,12 +177,11 @@ DEFAULT_DISPLACEMENT_REL_MOVES =  [ (  3,   1),  \
                                     ( -3,   3),  \
                                     ( -4,   2),  \
                                                  \
+                                    ( -2,   6),  \
                                     ( -3,   5),  \
                                     ( -4,   4),  \
                                     ( -5,   3),  \
-                                                 \
                                     ( -6,   2),  \
-                                    ( -2,   6),  \
                                                  \
                                                  \
                                     ( -3,  -1),  \
@@ -194,11 +192,10 @@ DEFAULT_DISPLACEMENT_REL_MOVES =  [ (  3,   1),  \
                                     ( -3,  -3),  \
                                     ( -2,  -4),  \
                                                  \
+                                    ( -6,  -2),  \
                                     ( -5,  -3),  \
                                     ( -4,  -4),  \
                                     ( -3,  -5),  \
-                                                 \
-                                    ( -6,  -2),  \
                                     ( -2,  -6),  \
                                                  \
                                                  \
@@ -210,12 +207,11 @@ DEFAULT_DISPLACEMENT_REL_MOVES =  [ (  3,   1),  \
                                     (  3,  -3),  \
                                     (  4,  -2),  \
                                                  \
+                                    (  2,  -6),  \
                                     (  3,  -5),  \
                                     (  4,  -4),  \
                                     (  5,  -3),  \
-                                                 \
-                                    (  6,  -2),  \
-                                    (  2,  -6)   ]
+                                    (  6,  -2)   ]
 DEFAULT_DISPLACEMENT_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_DISPLACEMENT_REL_MOVES)
 
 

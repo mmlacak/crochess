@@ -374,6 +374,10 @@ step-fields are also enumerated (grey).
 Displacement is a movement of a piece (here, Rook) from Shaman's step-field directly
 onto any enumerated field, regardless of how displaced piece moves otherwise.
 
+Displacement can be performed regardless of any other surrouding pieces, it is enough
+if destination field is empty. Destination field must exists on chessboard, i.e. it's
+not possible to displace piece onto a virtual field outside of a board.
+
 Piece is displaced immediately after step in which entranced Shaman reaches that piece,
 but before Shaman continues its' trance-journey. Thus, displacement of pieces follows
 order of trance-journey steps.
