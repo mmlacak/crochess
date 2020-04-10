@@ -374,9 +374,10 @@ step-fields are also enumerated (grey).
 Displacement is a movement of a piece (here, Rook) from Shaman's step-field directly
 onto any enumerated field, regardless of how displaced piece moves otherwise.
 
-Displacement can be performed regardless of any other surrouding pieces, it is enough
-if destination field is empty. Destination field must exists on chessboard, i.e. it's
-not possible to displace piece onto a virtual field outside of a board.
+Displacement can be performed regardless of any pieces surrounding starting or
+destination fields, it is enough if destination field is empty. Destination field
+must exists on chessboard, i.e. it's not possible to displace piece onto a virtual
+field outside of a board.
 
 Piece is displaced immediately after step in which entranced Shaman reaches that piece,
 but before Shaman continues its' trance-journey. Thus, displacement of pieces follows
@@ -574,10 +575,10 @@ Dark Pawn is displaced from field 5 early into trance-journey onto shared displa
 % \centering
 \end{figure}
 
-It's possible to displace piece between 2 step-fields closest to Shaman's starting position.
-In example above, dark Bishop could be displaced from field 2 back onto field 1 (i.e.
-displacement field 31). Such a displacement (when piece is displaced onto field already
-travelled over by entranced Shaman) is called backward displacement.
+It's possible to displace piece between 2 step-fields of an entranced Shaman. In the example
+above, dark Bishop could be displaced from field 2 back onto field 1 (i.e. displacement
+field 37). Such a displacement (when piece is displaced onto field already travelled over
+by entranced Shaman) is called backward displacement.
 
 \clearpage % ..........................................................
 
@@ -590,8 +591,8 @@ travelled over by entranced Shaman) is called backward displacement.
 % \centering
 \end{figure}
 
-Entranced Shaman can only continue to move forward (green), and so backward displaced piece
-(here, dark Bishop) is out of reach (grey).
+Entranced Shaman can only continue to move forward (green), backward displaced piece
+(here, dark Bishop) is on a travelled-over path (grey), and thus out of reach.
 
 \clearpage % ..........................................................
 
