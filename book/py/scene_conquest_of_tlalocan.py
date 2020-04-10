@@ -1672,7 +1672,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.board.set_piece(*start, piece=PieceType.Shaman)
         self.append_text("T", *start, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
-        startW = (17, 11)
+        startW = (14, 10)
         self.board.set_piece(*startW, piece=PieceType.Wave)
 
         startH = (16, 9)
@@ -1695,15 +1695,15 @@ class SceneConquestOfTlalocanMixin(Scene):
         #
         # forward displacement
 
-        startB = (17, 13)
-        self.board.set_piece(*startB, piece=-PieceType.Bishop)
+        startR = (9, 14)
+        self.board.set_piece(*startR, piece=-PieceType.Rook)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=startB, include_prev=False, count=1)
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=startR, include_prev=False, count=1)
 
         i = 1
         for pos in gen_abs_pos():
             self.append_field_marker(*pos, mark_type=MarkType.Action)
-            self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+            self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
         return 'scn_cot_28_forward_interaction_start'
