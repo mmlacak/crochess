@@ -1586,7 +1586,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_25_light_dark_shaman_interaction_end'
 
-    def scn_cot_26_backward_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_26_backward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1628,9 +1628,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
-        return 'scn_cot_26_backward_interaction_start'
+        return 'scn_cot_26_backward_displacement_start'
 
-    def scn_cot_27_backward_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_27_backward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1662,9 +1662,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         startB = (17, 13)
         self.board.set_piece(*startB, piece=-PieceType.Bishop)
 
-        return 'scn_cot_27_backward_interaction_end'
+        return 'scn_cot_27_backward_displacement_end'
 
-    def scn_cot_28_forward_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_28_forward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1706,9 +1706,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
-        return 'scn_cot_28_forward_interaction_start'
+        return 'scn_cot_28_forward_displacement_start'
 
-    def scn_cot_29_forward_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_29_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
         bd = BoardDesc(reverse_field_colors=False, off_board_left=5, off_board_top=1, reverse_off_board_field_colors=False)
         self.init_scene(bt, width=19, height=23, board_desc=bd)
@@ -1751,7 +1751,7 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=mark_type, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
-        return 'scn_cot_29_forward_interaction_end'
+        return 'scn_cot_29_forward_displacement_end'
 
 
     #
