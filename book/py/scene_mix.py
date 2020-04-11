@@ -52,10 +52,11 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_cot_23_dark_dark_shaman_double_interaction_end', \
                     # 'scn_cot_24_light_dark_shaman_interaction_start', \
                     # 'scn_cot_25_light_dark_shaman_interaction_end', \
-                    'scn_cot_26_backward_displacement_start', \
-                    'scn_cot_27_backward_displacement_end', \
-                    'scn_cot_28_forward_displacement_start', \
-                    'scn_cot_29_forward_displacement_end', \
+                    # 'scn_cot_26_backward_displacement_start', \
+                    # 'scn_cot_27_backward_displacement_end', \
+                    # 'scn_cot_28_forward_displacement_start', \
+                    'scn_cot_29_forward_displacement_step_2', \
+                    'scn_cot_30_forward_displacement_end', \
                 ]
 
     def _get_all_scene_method_names(self):

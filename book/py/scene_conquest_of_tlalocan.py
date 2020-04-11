@@ -1668,14 +1668,14 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.init_scene(bt)
 
-        start = (15, 12)
+        start = (20, 7)
         self.board.set_piece(*start, piece=PieceType.Shaman)
         self.append_text("T", *start, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
-        startW = (14, 10)
+        startW = (19, 5)
         self.board.set_piece(*startW, piece=PieceType.Wave)
 
-        startH = (16, 9)
+        startH = (21, 4)
         self.board.set_piece(*startH, piece=PieceType.Shaman)
         self.append_text("S", *startH, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
@@ -1695,7 +1695,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         #
         # forward displacement
 
-        startR = (9, 14)
+        startR = (14, 9)
         self.board.set_piece(*startR, piece=-PieceType.Rook)
 
         gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=startR, include_prev=False, count=1)
@@ -1708,7 +1708,49 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_28_forward_displacement_start'
 
-    def scn_cot_29_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_29_forward_displacement_step_2(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        start = (14, 9)
+        self.board.set_piece(*start, piece=PieceType.Shaman)
+        self.append_text("T", *start, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        startW = (20, 7)
+        self.board.set_piece(*startW, piece=PieceType.Wave)
+
+        startH = (19, 5)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("S", *startH, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        rect = (0.05, 1.0, 0.8, 0.3)
+        aba = self.append_broken_arrow(startW, rel, count=24, rect=rect)
+
+        for i in xrange(16):
+            mark_type = MarkType.Blocked if i < 3 else MarkType.Legal
+            aba(str(i + 1), mark_type=mark_type)
+
+        #
+        # forward displacement
+
+        startR = (8, 11)
+        self.board.set_piece(*startR, piece=-PieceType.Rook)
+
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=startR, include_prev=False, count=1)
+
+        i = 1
+        for pos in gen_abs_pos():
+            self.append_field_marker(*pos, mark_type=MarkType.Action)
+            self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
+            i += 1
+
+        return 'scn_cot_29_forward_displacement_step_2'
+
+    def scn_cot_30_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
         bd = BoardDesc(reverse_field_colors=False, off_board_left=5, off_board_top=1, reverse_off_board_field_colors=False)
         self.init_scene(bt, width=19, height=23, board_desc=bd)
@@ -1751,7 +1793,7 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=mark_type, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
-        return 'scn_cot_29_forward_displacement_end'
+        return 'scn_cot_30_forward_displacement_end'
 
 
     #
