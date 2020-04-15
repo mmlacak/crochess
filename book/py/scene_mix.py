@@ -55,8 +55,11 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_cot_26_backward_displacement_start', \
                     # 'scn_cot_27_backward_displacement_end', \
                     # 'scn_cot_28_forward_displacement_start', \
-                    'scn_cot_29_forward_displacement_step_2', \
-                    'scn_cot_30_forward_displacement_end', \
+                    # 'scn_cot_29_forward_displacement_step_2', \
+                    # 'scn_cot_30_forward_displacement_end', \
+                    'scn_cot_31_push_pull_entrancement_start', \
+                    'scn_cot_32_push_pull_entrancement_2', \
+                    'scn_cot_33_push_pull_entrancement_end', \
                 ]
 
     def _get_all_scene_method_names(self):

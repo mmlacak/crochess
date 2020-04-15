@@ -1795,6 +1795,93 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return 'scn_cot_30_forward_displacement_end'
 
+    def scn_cot_31_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
+
+        bd = BoardDesc(reverse_field_colors=True, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=5, height=8, board_desc=bd)
+
+        startW1 = (3, 5)
+        self.board.set_piece(*startW1, piece=PieceType.Wave)
+        self.append_text("1", *startW1, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        startW2 = (1, 6)
+        self.board.set_piece(*startW2, piece=PieceType.Wave)
+        self.append_text("2", *startW2, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        startH = (1, 1)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        self.append_arrow( *(startW1 + startW2), mark_type=MarkType.Legal )
+
+        coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=startH, include_prev=True, bounds=self.board.get_position_limits()) )
+        for i in xrange(2):
+            self.append_arrow( *coords(), mark_type=MarkType.Legal )
+
+        return 'scn_cot_31_push_pull_entrancement_start'
+
+    def scn_cot_32_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
+
+        bd = BoardDesc(reverse_field_colors=True, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=5, height=8, board_desc=bd)
+
+        startW1 = (1, 6)
+        self.board.set_piece(*startW1, piece=PieceType.Wave)
+        self.append_text("1", *startW1, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        # startW2 = (1, 6)
+        # self.board.set_piece(*startW2, piece=PieceType.Wave)
+        # self.append_text("2", *startW2, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        startH = (3, 5)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        # self.append_arrow( *(startW1 + startW2), mark_type=MarkType.Legal )
+        self.append_arrow( *(startW1 + startH), mark_type=MarkType.Action )
+
+        # coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=startH, include_prev=True, bounds=self.board.get_position_limits()) )
+        # for i in xrange(2):
+            # self.append_arrow( *coords(), mark_type=MarkType.Legal )
+
+        return 'scn_cot_32_push_pull_entrancement_2'
+
+    def scn_cot_33_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+
+        startW1 = (1, 6)
+        self.board.set_piece(*startW1, piece=PieceType.Wave)
+        self.append_text("1", *startW1, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        startW2 = (3, 5)
+        self.board.set_piece(*startW2, piece=PieceType.Wave)
+        self.append_text("2", *startW2, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        startH = (5, 16)
+        self.board.set_piece(*startH, piece=PieceType.Shaman)
+        self.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
+
+        # self.append_arrow( *(startW1 + startW2), mark_type=MarkType.Legal )
+        # self.append_arrow( *(startW1 + startH), mark_type=MarkType.Action )
+
+        # coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=startH, include_prev=True, bounds=self.board.get_position_limits()) )
+        # for i in xrange(2):
+            # self.append_arrow( *coords(), mark_type=MarkType.Legal )
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        rect = (0.05, 1.0, 0.8, 0.3)
+        aba = self.append_broken_arrow(startW2, rel, count=24, rect=rect)
+
+        for i in xrange(16):
+            mark_type = MarkType.Blocked if i < 6 else MarkType.Legal
+            aba(str(i + 1), mark_type=mark_type)
+
+        return 'scn_cot_33_push_pull_entrancement_end'
+
 
     #
     # test methods
