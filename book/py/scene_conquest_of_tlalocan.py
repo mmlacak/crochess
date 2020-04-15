@@ -1829,20 +1829,11 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.board.set_piece(*startW1, piece=PieceType.Wave)
         self.append_text("1", *startW1, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
 
-        # startW2 = (1, 6)
-        # self.board.set_piece(*startW2, piece=PieceType.Wave)
-        # self.append_text("2", *startW2, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
-
         startH = (3, 5)
         self.board.set_piece(*startH, piece=PieceType.Shaman)
         self.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
 
-        # self.append_arrow( *(startW1 + startW2), mark_type=MarkType.Legal )
         self.append_arrow( *(startW1 + startH), mark_type=MarkType.Action )
-
-        # coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=startH, include_prev=True, bounds=self.board.get_position_limits()) )
-        # for i in xrange(2):
-            # self.append_arrow( *coords(), mark_type=MarkType.Legal )
 
         return 'scn_cot_32_push_pull_entrancement_2'
 
@@ -1861,13 +1852,6 @@ class SceneConquestOfTlalocanMixin(Scene):
         startH = (5, 16)
         self.board.set_piece(*startH, piece=PieceType.Shaman)
         self.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.7, 0.45))
-
-        # self.append_arrow( *(startW1 + startW2), mark_type=MarkType.Legal )
-        # self.append_arrow( *(startW1 + startH), mark_type=MarkType.Action )
-
-        # coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=startH, include_prev=True, bounds=self.board.get_position_limits()) )
-        # for i in xrange(2):
-            # self.append_arrow( *coords(), mark_type=MarkType.Legal )
 
         #
         # right arm
