@@ -18,8 +18,8 @@ To make images used in the book, install these:
 - pygtk 2+, but not 3+
 - Python 2.7+, but not 3+
 
-To compile book itself into PDF, you'll need:
-- minimal LaTeX installation, with following packages:
+To compile book itself into PDF, you'll need minimal LaTeX
+installation, with following packages:
   - inputenc
   - charter
   - helvet
@@ -27,9 +27,7 @@ To compile book itself into PDF, you'll need:
   - graphicx
   - wrapfig
   - hyperref
-
-Alternatively, you can just install all of LaTeX,
-but it'll take 2+ Gb on HDD.
+  - enumitem
 
 To compile application, you'll need C compiler:
 - gcc (7.4.0 works fine)
