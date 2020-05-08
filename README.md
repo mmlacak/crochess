@@ -27,7 +27,6 @@ installation, with following packages:
   - graphicx
   - wrapfig
   - hyperref
-  - enumitem
 
 To compile application, you'll need C compiler:
 - gcc (7.4.0 works fine)
