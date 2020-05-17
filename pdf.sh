@@ -1,7 +1,9 @@
 #! /usr/bin/env bash
 
-# Copyright (c) 2010 - 2016 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
+
+python2 book/py/book_log.py
 
 cd book
 
@@ -14,15 +16,15 @@ rm -rfv *.pdf
 rm -rfv *.toc
 echo
 
-pdflatex -draftmode crochess.tex
+pdflatex -halt-on-error -draftmode -jobname crochess crochess.tex
 echo
 echo
 
-pdflatex -draftmode crochess.tex
+pdflatex -halt-on-error -draftmode -jobname crochess crochess.tex
 echo
 echo
 
-pdflatex crochess.tex
+pdflatex -halt-on-error -jobname crochess crochess.tex
 echo
 
 cd ..
