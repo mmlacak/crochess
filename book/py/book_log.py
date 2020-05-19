@@ -81,10 +81,10 @@ def change_line_if_marked(line, id_, long_, short, now_long, now_short):
         new = '    %% %s \\\\ %% last-commit-date-time-place-marker\n' % long_
     elif 'new-commit-date-time-place-marker' in line:
         new = '    %s \\\\ [2.0em] %% new-commit-date-time-place-marker\n' % now_long
-    elif 'commit-date-place-marker' in line:
-        new = '    %s \\\\ %% commit-date-place-marker\n' % now_short # short
-    elif 'commit-date-small-place-marker' in line:
-        new = '    \small{%s} \\\\ [0.5em] %% commit-date-small-place-marker\n' % now_short # short
+    elif 'new-commit-date-place-marker' in line:
+        new = '    %s \\\\ %% new-commit-date-place-marker\n' % now_short # short
+    elif 'new-commit-date-small-place-marker' in line:
+        new = '    \small{%s} \\\\ [0.5em] %% new-commit-date-small-place-marker\n' % now_short # short
     return new
 
 def replace_log_entries(root_path=None):
