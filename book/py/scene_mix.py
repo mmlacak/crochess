@@ -27,39 +27,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_cot_01_shaman_movement', \
-                    # 'scn_cot_02_light_shaman_step_ply', \
-                    # 'scn_cot_03_light_shaman_capture_ply', \
-                    # 'scn_cot_04_dark_shaman_step_ply', \
-                    # 'scn_cot_05_dark_shaman_capture_ply', \
-                    # 'scn_cot_06_wave_activated', \
-                    # 'scn_cot_07_trance_journey_init', \
-                    # 'scn_cot_08_knight_directions', \
-                    # 'scn_cot_09_stop_sign_pattern', \
-                    # 'scn_cot_10_stop_sign_pattern_unwind', \
-                    # 'scn_cot_11_stop_sign_pattern_full', \
-                    # 'scn_cot_12_light_shaman_trance_journey', \
-                    # 'scn_cot_13_light_shaman_trance_journey_offset', \
-                    # 'scn_cot_14_dark_shaman_trance_journey', \
-                    # 'scn_cot_15_displacement_fields', \
-                    # 'scn_cot_16_light_light_shaman_interaction_start', \
-                    # 'scn_cot_17_light_light_shaman_interaction_end', \
-                    # 'scn_cot_18_dark_light_shaman_interaction_start', \
-                    # 'scn_cot_19_dark_light_shaman_interaction_end', \
-                    # 'scn_cot_20_dark_dark_shaman_interaction_start', \
-                    # 'scn_cot_21_dark_dark_shaman_interaction_end', \
-                    # 'scn_cot_22_dark_dark_shaman_double_interaction_start', \
-                    # 'scn_cot_23_dark_dark_shaman_double_interaction_end', \
-                    # 'scn_cot_24_light_dark_shaman_interaction_start', \
-                    # 'scn_cot_25_light_dark_shaman_interaction_end', \
-                    # 'scn_cot_26_backward_displacement_start', \
-                    # 'scn_cot_27_backward_displacement_end', \
-                    # 'scn_cot_28_forward_displacement_start', \
-                    # 'scn_cot_29_forward_displacement_step_2', \
-                    # 'scn_cot_30_forward_displacement_end', \
-                    'scn_cot_31_push_pull_entrancement_start', \
-                    'scn_cot_32_push_pull_entrancement_2', \
-                    'scn_cot_33_push_pull_entrancement_end', \
+                    'scn_ct_04_pegasus_movement', \
                 ]
 
     def _get_all_scene_method_names(self):

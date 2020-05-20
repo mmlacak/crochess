@@ -144,12 +144,12 @@ class SceneCroatianTiesMixin(Scene):
         # direction 1, i.e. <2, 1>
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(2, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(2, 1), ]) )
         self.append_text("1", *coords())
-        self.append_text("1", *coords())
+        self.append_text("1", *coords(), mark_type=MarkType.Action )
         self.append_text("1", *coords(), mark_type=MarkType.Blocked)
 
         # direction 2, i.e. <1, 2>
