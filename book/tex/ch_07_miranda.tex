@@ -24,6 +24,7 @@ are enumerated from '1' to '16'. A new piece is introduced, Wave.
 \section*{Wave}
 \addcontentsline{toc}{section}{Wave}
 
+% \vspace*{-2.0ex} % Wonders of LaTeX formatting.
 \noindent
 \begin{wrapfigure}[12]{l}{0.4\textwidth}
 \centering
@@ -40,18 +41,18 @@ use received momentum for moving, and isn't limited by it.
 Wave can move freely even if it has no momentum. Wave is not blocked by any piece,
 it can continue its' movement freely as if there are no pieces on board at all.
 
-After activation Wave moves like piece that just activated it. Additionally,
-Wave can move over multiple step-fields, in the same fashion, even if
-activating piece can move for only one. For details see
-\hyperref[sec:Definitions/Movement of Wave]{'Movement of Wave'} in Definitions.
+After activation Wave moves like activating piece, over piece's step- or capture-
+fields, depending where it was activated. Wave can move over multiple fields, in 
+the same way and initially chosen direction, even if activating piece can move 
+for only one. For details see 
+\hyperref[sec:Definitions/Movement of Wave]{'Movement of Wave'}.
 
-Wave cannot capture any piece. Consequenly, Wave cannot check opponent's
-King, and hence cannot participate in a checkmate.
+Wave cannot capture any piece. Thus, Wave cannot check nor checkmate opponent's
+King.
 
 Wave can activate any own piece, except King, if it has momentum. Wave can
 also activate other Wave, own or opponent's, even if it has no momentum. In
-all cases, Wave transfers all received momentum to activated piece, which 
-(if not Wave itself) is then limited by received momentum.
+all cases, Wave transfers all received momentum to activated piece.
 
 In algebraic notation symbol for Wave is 'W'.
 
@@ -61,6 +62,7 @@ In algebraic notation symbol for Wave is 'W'.
 \subsection*{Activation}
 \addcontentsline{toc}{subsection}{Activation}
 
+\vspace*{-2.0ex}
 \noindent
 % \begin{figure}[t]
 \begin{figure}[h]
@@ -70,11 +72,10 @@ In algebraic notation symbol for Wave is 'W'.
 % \centering
 \end{figure}
 
-Above, Knight is about to activate Wave. After activation, Wave could
-continue movement the same way Knight moves over multiple step-fields,
-thus moving as if activated by Pegasus. Wave does not spend received
-momentum while moving, and would transfer it entirely to any piece it
-activates.
+Above, after activation Wave could move the same way Knight does, over multiple 
+step-fields. Once Wave starts moving in a chosen direction, it cannot be changed.
+So, in this case Wave would move as Pegasus does. Wave does not spend received
+momentum while moving, and would transfer it entirely to any piece it activates.
 
 \clearpage % ..........................................................
 
@@ -87,12 +88,10 @@ activates.
 % \centering
 \end{figure}
 
-Once activated, Wave can move unhindered by surrounding pieces (green arrows),
-even if they occupy step-fields between starting and destination field. Wave
+Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
 can also activate pieces (blue arrows) obscured by others, for instance light
-Pyramid which would otherwise be out of reach for regular piece, e.g. Pegasus.
-Note, Wave cannot activate Kings nor opponent's pieces (red arrows), except
-dark Wave.
+Pyramid which is out of reach for regular Pegasus. Wave cannot activate Kings nor 
+opponent's pieces (red arrows), except dark Wave.
 
 \clearpage % ..........................................................
 
