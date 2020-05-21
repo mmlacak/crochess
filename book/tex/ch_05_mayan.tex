@@ -36,7 +36,7 @@ Pyramid is passive piece, meaning it can't move on its' own, it has to be
 activated first. This is done by capturing a field at which Pyramid stands
 with own other piece and then move Pyramid further.
 
-Once activated Pyramid moves similar to Rook, only real difference is that
+Once activated, Pyramid moves similar to Rook, only real difference is that
 it can move for only so many fields as piece activating it has moved, i.e.
 for at most as momentum received.
 
@@ -64,8 +64,10 @@ checkmate. Pyramid can capture all the other opponent's pieces after it has
 been activated, even if it has no remaining momentum, i.e. can't move any
 further.
 
-Pyramid can also promote own Pawns on opponen't side of the board. It can
-also convert any opponent's piece, except King, on own side of the board.
+Pyramid can also promote own Pawns on 
+\hyperref[sec:Definitions/Sides of chessboard]{opponent's side of the board}
+It can also convert any opponent's piece, except King, on 
+\hyperref[sec:Definitions/Sides of chessboard]{own side of the board}.
 To do either of these things, Pyramid does not have to have any remaining
 momentum, it's enough if piece in question is within reach.
 
@@ -136,8 +138,8 @@ player's complete move.
 Pyramid can promote own Pawns, but only on opponent's side of the board.
 Promotion is done by activating Pyramid which then marks Pawn for promotion
 by touching either Pawn or field at which it stands. Pyramid then leaves
-board as if it was captured, and Pawn is replaced by desired piece, for
-instance Queen.
+board as if captured by the opponent, and Pawn is replaced by desired piece, 
+for instance Queen.
 
 Both Pyramid and Pawn in question has to reside on opponent's side of the
 board before promotion can take place. Piece which activates Pyramid need
@@ -205,19 +207,18 @@ own Queen is still present on chessboard.
 Pyramid can convert opponent's pieces, except King, but only on own side of
 the board. Conversion is done by activating Pyramid which then marks opponent's
 piece for conversion by touching either piece or field at which it stands. Now
-Pyramid leaves the board as if it was captured, and opponent's piece is replaced
-by own piece of the same type.
+Pyramid leaves the board as if captured by the opponent, and opponent's piece 
+is replaced by own piece of the same type.
 
-Both Pyramid and opponent's piece has to reside on own side of the board
-before conversion can take place. Piece which activates Pyramid need not
-to be on own side of the board. As with promotion, conversion is not limited
-to pieces which has been captured.
+Both Pyramid and opponent's piece has to reside on own side of the board before 
+conversion can take place. Piece which activates Pyramid need not to be on own 
+side of the board. Conversion is not limited to pieces which has been captured.
 
 Note that Pyramid might just as well capture opponent's piece. Differences are
-who leaves chessboard, and what remains on captured field. Capture itself with
+what leaves chessboard, and what remains on captured field. Capture itself with
 Pyramid is in no way different than that with Rook. In either case, converting
 or capturing, it is enough if Pyramid can reach opponent's piece, i.e. has
-enough momentum from activating piece.
+enough momentum.
 
 \clearpage % ..........................................................
 
@@ -245,11 +246,11 @@ This is also limit how far Pyramid could move after being activated.
 % \centering
 \end{figure}
 
-Above, Bishop captured field at which Pyramid was situated, arrows now show
-all possible moves by Pyramid. Pyramid can't convert opponent's Bishop, as it
-is still located on own side of chessboard. Again, just like Rook, Pyramid
-can't advance past opponent's Bishop. Only full movement to the right leads
-to conversion of opponent's Rook, shown in blue.
+Above, Bishop captured field at which Pyramid was situated, arrows now show all 
+possible moves by Pyramid. Pyramid can't convert opponent's Bishop, as it is still 
+located on opponent's side of chessboard. Pyramid could capture opponent's Bishop. 
+Again, just like Rook, Pyramid can't advance past opponent's Bishop. Only full 
+movement to the right leads to conversion of opponent's Rook, shown in blue. 
 
 \clearpage % ..........................................................
 
@@ -294,8 +295,8 @@ to castle.
 % \centering
 \end{figure}
 
-King can now castle to any numbered field. Rook would be moved onto the inner field,
-next to the King.
+Moving Bishop out of the way, King can now castle to any numbered field. Rook would be 
+moved next to the King, onto the inner field, i.e. closer to King's initial position. 
 
 \noindent
 \begin{figure}[!h]
@@ -306,8 +307,8 @@ next to the King.
 % \centering
 \end{figure}
 
-To actually perform castling, in the next move or at some point later, all the other
-requirements for castling has to be satisfied as well.
+To actually perform castling, all the other requirements for castling has to be satisfied 
+as well.
 
 \clearpage % ..........................................................
 
@@ -397,7 +398,8 @@ arrows now show all possible moves by Pyramid 2.
 % \centering
 \end{figure}
 
-Pyramid 2 has finished its' movement, and so it ends light player's complete move.
+Pyramid 2 has finished its' movement, and so it ends light player's complete move,
+which consisted of 3 plies, i.e. 3 pieces has been moved.
 
 % ----------------------------------------------------------- Cascading
 \clearpage % ..........................................................
@@ -405,8 +407,8 @@ Pyramid 2 has finished its' movement, and so it ends light player's complete mov
 \subsection*{Against King}
 \addcontentsline{toc}{subsection}{Against King}
 
-Pyramid can't check opponent's King, meaning that King is not under attack
-even if Pyramid could capture any other piece on the same field.
+Pyramid can't check opponent's King, meaning that King is not under check even if 
+Pyramid could capture any other piece on the same field.
 
 \noindent
 \begin{figure}[!h]
@@ -417,7 +419,7 @@ even if Pyramid could capture any other piece on the same field.
 % \centering
 \end{figure}
 
-Above, King is not under attack from Pyramid.
+Above, King does not have to move/defend, as it is not under check from Pyramid.
 
 \noindent
 \begin{figure}[!h]
@@ -482,7 +484,8 @@ All other constraints from Classical Chess still applies.
 % \centering
 \end{figure}
 
-In example above, all valid King's castling moves are numbered.
+In example above, all valid King's castling moves are numbered. After any castling, Rook 
+ends on a field next to King closer to center, i.e. closer to King's initial position.
 
 \noindent
 \begin{figure}[!h]

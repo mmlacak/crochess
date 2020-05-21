@@ -394,6 +394,7 @@ class SceneMayanAscendancyMixin(Scene):
         self.board.set_piece(0, 0, piece=-PieceType.Rook)
         self.board.set_piece(*startA, piece=PieceType.Pyramid)
         self.board.set_piece(*startQ, piece=PieceType.Queen)
+        self.board.set_piece(5, 0, piece=PieceType.Bishop)
         self.board.set_piece(6, 0, piece=PieceType.King)
 
         # direction <-1, 0>
@@ -416,6 +417,7 @@ class SceneMayanAscendancyMixin(Scene):
 
         self.board.set_piece(0, 0, piece=PieceType(PieceType.Rook))
         self.board.set_piece(0, 1, piece=PieceType(PieceType.Queen))
+        self.board.set_piece(6, 1, piece=PieceType.Bishop)
         self.board.set_piece(6, 0, piece=PieceType(PieceType.King))
 
         # direction <-1, 0>
@@ -424,6 +426,9 @@ class SceneMayanAscendancyMixin(Scene):
         self.append_text("1", *coords())
         self.append_text("2", *coords())
         self.append_text("3", *coords())
+
+        # direction <1,1>
+        self.append_arrow( 5, 0, 6, 1, mark_type=MarkType.Blocked )
 
         return 'scn_ma_12_convert_rook_castling_end'
 
