@@ -624,7 +624,7 @@ class SceneMirandasVeilMixin(Scene):
         # direction <-1, 1>
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -652,7 +652,7 @@ class SceneMirandasVeilMixin(Scene):
         # direction <1, 0>
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(1, 0), ], include_prev=True) )
         self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )

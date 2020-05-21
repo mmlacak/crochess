@@ -43,15 +43,15 @@ it can continue its' movement freely as if there are no pieces on board at all.
 After activation Wave moves like piece that just activated it. Additionally,
 Wave can move over multiple step-fields, in the same fashion, even if
 activating piece can move for only one. For details see
-\hyperref[sec:Appendix/Movement of Wave]{'Movement of Wave'} in Appendix.
+\hyperref[sec:Definitions/Movement of Wave]{'Movement of Wave'} in Definitions.
 
 Wave cannot capture any piece. Consequenly, Wave cannot check opponent's
 King, and hence cannot participate in a checkmate.
 
 Wave can activate any own piece, except King, if it has momentum. Wave can
 also activate other Wave, own or opponent's, even if it has no momentum. In
-all cases, Wave transfers all received momentum to activated piece, which is
-then limited by received momentum.
+all cases, Wave transfers all received momentum to activated piece, which 
+(if not Wave itself) is then limited by received momentum.
 
 In algebraic notation symbol for Wave is 'W'.
 
@@ -234,8 +234,8 @@ other pieces on board.
 Wave inherts rules of movement from activating piece, but can make multiple
 steps, even if activating piece can make only one. All other pieces moves
 according to their own rules, and are restricted by momentum received. For
-details see \hyperref[sec:Appendix/Movement of Wave]{'Movement of Wave'} in
-Appendix.
+details see \hyperref[sec:Definitions/Movement of Wave]{'Movement of Wave'} in
+Definitions.
 
 During cascade, after each ply (movement of a piece) activation takes place
 according to current positions of pieces on the board, just as it would at the
@@ -276,7 +276,7 @@ On the left, light Queen is about to activate light Wave, giving it momentum of 
 \label{fig:scn_mv_14_casc_oppo_light_wave}
 \end{wrapfigure}
 Activated light Wave can activate dark Wave, but can't interact with dark Queen in
-any meaningful way.
+any way.
 
 \clearpage % ..........................................................
 
@@ -359,15 +359,18 @@ up to (and including) 6 fields.
 % \centering
 \end{figure}
 
-Pawn 1 received 4 momentum, and so the furthest 2 fields are out of reach for it.
-Pawn 2 had 13 momentum, but could use only 6 for rush, since this is the longest
-rush move available in this variant.
+Pawn 1 received 4 momentum, and so when rushing it the furthest 2 fields are out 
+of reach. Pawn 2 had 13 momentum, but could use only 6 for rush, since this is the 
+longest rush movement available in this variant.
 
 % ----------------------------------------------------- Activating Pawn
 \clearpage % ..........................................................
 
 \subsection*{Activation by Pawn}
 \addcontentsline{toc}{subsection}{Activation by Pawn}
+
+\huge{TODO :: FIX ME !!!} 
+\normalsize{}
 
 \noindent
 \begin{figure}[!h]

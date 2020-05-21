@@ -27,8 +27,10 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_ma_11_convert_rook_castling_init', \
-                    'scn_ma_12_convert_rook_castling_end', \
+                    # 'scn_ma_11_convert_rook_castling_init', \
+                    # 'scn_ma_12_convert_rook_castling_end', \
+                    'scn_mv_14_casc_oppo_light_wave', \
+                    'scn_mv_15_casc_oppo_dark_wave', \
                 ]
 
     def _get_all_scene_method_names(self):
