@@ -133,6 +133,11 @@ class SceneMirandasVeilMixin(Scene):
         for pos in gen_abs_pos():
             self.append_arrow(*pos)
 
+        gen_pos = GS.gen_multi_steps(GS.convert_single_step_into_multi_rels([(1, 2), ]), end=start, include_prev=True, count=6)
+
+        for pos in gen_pos():
+            self.append_arrow( *pos, mark_type=MarkType.Blocked )
+
         # direction <2, 1>
         self.board.set_piece(3, 2, piece=PieceType.King)
         self.board.set_piece(5, 3, piece=PieceType.Rook)
