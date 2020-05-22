@@ -68,6 +68,25 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
 
+        middle_1 = (6, 11)
+        multi_steps = GS.convert_single_step_into_multi_rels( GS.remove(GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=[(1, 2), (-1, -2)]) )
+        gen_pos = GS.gen_multi_steps(multi_steps, start=middle_1, include_prev=True, bounds=((4, 9), (8, 13)))
+
+        for pos in gen_pos():
+            self.append_arrow( *pos, mark_type=MarkType.Blocked )
+
+        self.append_text("5", *middle_1, rect=(0.2, 0.8, 0.7, 0.45), mark_type=MarkType.Blocked)
+
+        multi_steps = GS.convert_single_step_into_multi_rels( GS.remove(GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=[(1, 2), (-1, -2)]) )
+        gen_pos = GS.gen_next( GS.gen_multi_steps(multi_steps, start=middle_1, include_prev=False, bounds=((4, 9), (8, 13))) )
+
+        self.append_text("5a", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked) 
+        self.append_text("5b", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked) 
+        self.append_text("5c", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked) 
+        self.append_text("5d", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked) 
+        self.append_text("5e", *gen_pos(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.35))
+        self.append_text("5f", *gen_pos(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.35))
+
         # direction <2, 1>
         self.board.set_piece(3, 2, piece=PieceType.King)
         self.board.set_piece(5, 3, piece=PieceType.Rook)
@@ -83,6 +102,15 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords() )
+
+        # middle_2 = (11, 6)
+        # multi_steps = GS.convert_single_step_into_multi_rels( GS.remove(GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=[(2, 1), (-2, -1)]) )
+        # gen_pos = GS.gen_multi_steps(multi_steps, start=middle_2, include_prev=True, bounds=((9, 4), (13, 8)))
+
+        # for pos in gen_pos():
+        #     self.append_arrow( *pos, mark_type=MarkType.Blocked )
+
+        # self.append_text("2", *middle_2, rect=(0.2, 0.8, 0.7, 0.45), mark_type=MarkType.Blocked)
 
         return 'scn_mv_02_move_wave_activated'
 
