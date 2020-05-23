@@ -80,10 +80,10 @@ class SceneMirandasVeilMixin(Scene):
         multi_steps = GS.convert_single_step_into_multi_rels( GS.remove(GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=[(1, 2), (-1, -2)]) )
         gen_pos = GS.gen_next( GS.gen_multi_steps(multi_steps, start=middle_1, include_prev=False, bounds=((4, 9), (8, 13))) )
 
-        self.append_text("5a", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked) 
-        self.append_text("5b", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked) 
-        self.append_text("5c", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked) 
-        self.append_text("5d", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked) 
+        self.append_text("5a", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+        self.append_text("5b", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+        self.append_text("5c", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+        self.append_text("5d", *gen_pos(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
         self.append_text("5e", *gen_pos(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.35))
         self.append_text("5f", *gen_pos(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.35))
 
@@ -962,7 +962,7 @@ class SceneMirandasVeilMixin(Scene):
     #
     # activating by pawn
 
-    def scn_mv_20_wave_activation_by_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_20_wave_activation_by_step_pawn(self, bt=BoardType.MirandasVeil):
         # move_wave_activation_by_pawn
 
         self.init_scene(bt)
@@ -973,15 +973,112 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(*start_P1, piece=PieceType.Pawn)
         self.board.set_piece(2, 3, piece=PieceType.Wave)
 
-        self.board.set_piece(1, 4, piece=-PieceType.Pawn)
+        start_P3 = (1, 5)
+        start_P4 = (1, 9)
         self.board.set_piece(2, 7, piece=-PieceType.Pawn)
-        self.board.set_piece(1, 9, piece=-PieceType.Pawn)
         self.board.set_piece(2, 11, piece=PieceType.Pawn)
+        self.board.set_piece(*start_P3, piece=-PieceType.Pawn)
+        self.board.set_piece(*start_P4, piece=PieceType.Pawn)
 
         coords = GS.gen_next( GS.gen_steps(start=start_P1, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action)
 
         self.append_text("1", *start_P1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+        self.append_text("2", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+        self.append_text("3", *start_P4, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        #
+        # step-fields 2, Pawn 2
+        start_P2 = (13, 1)
+        self.board.set_piece(*start_P2, piece=PieceType.Pawn)
+        self.board.set_piece(13, 4, piece=PieceType.Wave)
+
+        self.board.set_piece(13, 9, piece=-PieceType.Pawn)
+        self.board.set_piece(13, 13, piece=PieceType.Pawn)
+
+        coords = GS.gen_next( GS.gen_steps(start=start_P2, rels=[(0, 1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        self.append_text("2", *start_P2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        return 'scn_mv_20_wave_activation_by_step_pawn'
+
+    def scn_mv_21_wave_activated_by_step_pawn(self, bt=BoardType.MirandasVeil):
+
+        self.init_scene(bt)
+
+        #
+        # step-fields 1, Pawn 1
+        start_P1 = (2, 3)
+        self.board.set_piece(*start_P1, piece=PieceType.Pawn)
+
+        start_P3 = (1, 5)
+        start_P4 = (1, 9)
+        self.board.set_piece(2, 7, piece=-PieceType.Pawn)
+        self.board.set_piece(2, 11, piece=PieceType.Pawn)
+        self.board.set_piece(*start_P3, piece=-PieceType.Pawn)
+        self.board.set_piece(*start_P4, piece=PieceType.Pawn)
+
+        coords = GS.gen_next( GS.gen_steps(start=start_P1, rels=[(0, 1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        self.append_arrow(2, 4, 1, 5, mark_type=MarkType.Illegal)
+        self.append_arrow(2, 4, 3, 5, mark_type=MarkType.Illegal)
+        self.append_arrow(2, 8, 1, 9, mark_type=MarkType.Illegal)
+        self.append_arrow(2, 8, 3, 9, mark_type=MarkType.Illegal)
+
+        self.append_text("A", 2, 4, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.65, 0.35))
+        self.append_text("B", 2, 8, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.65, 0.35))
+
+        self.append_text("1", *start_P1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+        self.append_text("2", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+        self.append_text("3", *start_P4, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        #
+        # step-fields 2, Pawn 2
+        start_P2 = (13, 4)
+        self.board.set_piece(*start_P2, piece=PieceType.Pawn)
+
+        self.board.set_piece(13, 9, piece=-PieceType.Pawn)
+        self.board.set_piece(13, 13, piece=PieceType.Pawn)
+
+        coords = GS.gen_next( GS.gen_steps(start=start_P2, rels=[(0, 1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+
+        self.append_text("2", *start_P2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+
+        return 'scn_mv_21_wave_activated_by_step_pawn'
+
+    def scn_mv_22_wave_activation_by_capture_pawn(self, bt=BoardType.MirandasVeil):
+        # move_wave_activation_by_pawn
+
+        self.init_scene(bt)
 
         #
         # capture-fields, Pawn 2
@@ -1001,61 +1098,11 @@ class SceneMirandasVeilMixin(Scene):
 
         self.append_text("2", *start_P2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
-        #
-        # step-fields 2, Pawn 3
-        start_P3 = (13, 1)
-        self.board.set_piece(*start_P3, piece=PieceType.Pawn)
-        self.board.set_piece(13, 4, piece=PieceType.Wave)
+        return 'scn_mv_22_wave_activation_by_capture_pawn'
 
-        self.board.set_piece(14, 5, piece=-PieceType.Pawn)
-        self.board.set_piece(13, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(14, 11, piece=-PieceType.Pawn)
-        self.board.set_piece(13, 13, piece=PieceType.Pawn)
-
-        coords = GS.gen_next( GS.gen_steps(start=start_P3, rels=[(0, 1), ], include_prev=True) )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Action )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
-
-        self.append_text("3", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
-
-        return 'scn_mv_20_wave_activation_by_pawn'
-
-    def scn_mv_21_wave_activated_by_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_23_wave_activated_by_capture_pawn(self, bt=BoardType.MirandasVeil):
 
         self.init_scene(bt)
-
-        #
-        # step-fields 1, Pawn 1
-        start_P1 = (2, 3)
-        self.board.set_piece(*start_P1, piece=PieceType.Pawn)
-
-        self.board.set_piece(1, 4, piece=-PieceType.Pawn)
-        self.board.set_piece(2, 7, piece=-PieceType.Pawn)
-        self.board.set_piece(1, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(2, 11, piece=PieceType.Pawn)
-
-        coords = GS.gen_next( GS.gen_steps(start=start_P1, rels=[(0, 1), ], include_prev=True) )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Action )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-
-        self.append_arrow(2, 3, 1, 4, mark_type=MarkType.Illegal)
-        self.append_arrow(2, 8, 1, 9, mark_type=MarkType.Illegal)
-
-        self.append_text("1", *start_P1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
         #
         # capture-fields, Pawn 2
@@ -1078,32 +1125,4 @@ class SceneMirandasVeilMixin(Scene):
 
         self.append_text("2", *start_P2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
-        #
-        # step-fields 2, Pawn 3
-        start_P3 = (13, 4)
-        self.board.set_piece(*start_P3, piece=PieceType.Pawn)
-
-        self.board.set_piece(14, 5, piece=-PieceType.Pawn)
-        self.board.set_piece(13, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(14, 11, piece=-PieceType.Pawn)
-        self.board.set_piece(13, 13, piece=PieceType.Pawn)
-
-        coords = GS.gen_next( GS.gen_steps(start=start_P3, rels=[(0, 1), ], include_prev=True) )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Action )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-
-        self.append_arrow(13, 4, 14, 5, mark_type=MarkType.Illegal)
-        self.append_arrow(13, 10, 14, 11, mark_type=MarkType.Illegal)
-
-        self.append_text("3", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
-
-        return 'scn_mv_21_wave_activated_by_pawn'
+        return 'scn_mv_23_wave_activated_by_capture_pawn'
