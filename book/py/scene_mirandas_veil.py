@@ -1042,9 +1042,6 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow(2, 8, 1, 9, mark_type=MarkType.Illegal)
         self.append_arrow(2, 8, 3, 9, mark_type=MarkType.Illegal)
 
-        # self.append_text("A", 2, 4, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.65, 0.35))
-        # self.append_text("B", 2, 8, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.65, 0.35))
-
         self.append_text("1", *start_P1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
         self.append_text("3", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
@@ -1107,7 +1104,6 @@ class SceneMirandasVeilMixin(Scene):
         # capture-fields
         start_W = (4, 7)
         self.board.set_piece(*start_W, piece=PieceType.Pawn)
-        # self.board.set_piece(*start_W, piece=PieceType.Wave)
 
         self.board.set_piece(1, 10, piece=PieceType.Bishop)
         self.board.set_piece(3, 8, piece=-PieceType.Rook)
@@ -1137,3 +1133,76 @@ class SceneMirandasVeilMixin(Scene):
             self.append_arrow(*step, mark_type=MarkType.Illegal)
 
         return 'scn_mv_23_wave_activated_by_capture_pawn'
+
+    def scn_mv_24_wave_activation_by_unicorn(self, bt=BoardType.MirandasVeil):
+
+        self.init_scene(bt)
+
+        start_U = (1, 1)
+        start_W = (4, 3)
+        self.board.set_piece(*start_U, piece=PieceType.Unicorn)
+        self.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        self.append_arrow( *(start_U + start_W), mark_type=MarkType.Action )
+
+        return 'scn_mv_24_wave_activation_by_unicorn'
+
+    def scn_mv_25_wave_activated_by_unicorn(self, bt=BoardType.MirandasVeil):
+
+        self.init_scene(bt)
+        rect = (0.05, 0.9, 0.6, 0.45)
+
+        start_W = start_U = (4, 3)
+        self.board.set_piece(*start_U, piece=PieceType.Unicorn)
+
+        coords = GS.gen_multi_steps( [ [(-2, 1), (3, 2)], ], start=start_W, include_prev=True, bounds=self.board.get_position_limits() )
+        for i, step in enumerate( coords() ):
+            if i == 0:
+                self.append_arrow( *step, mark_type=MarkType.Action )
+            else:
+                self.append_arrow( *step, mark_type=MarkType.Legal )
+
+        #
+        # alternate 2nd directions 
+
+        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=((-2, 1), ) ) )
+        txt = GS.gen_multi_steps(multi_rels, start=start_W, include_prev=False, count=1)
+
+        for i, mark in enumerate( txt() ):
+            self.append_field_marker(*mark, mark_type=MarkType.Action)
+            self.append_text(chr(ord('A') + i), *mark, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect) 
+
+        #
+        # forbidden directions change
+
+        # # (2, -1) is ok, i.e. direction "5", here: 6, 9 --> 4, 10
+        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=((2, -1), ) ) )
+        start_X = (4, 10)
+
+        self.append_text("5", *start_X, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect) 
+
+        arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=start_X, include_prev=True, count=1) )
+        txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=start_X, include_prev=False, count=1) )
+
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("5a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("5b", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("5c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("5d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("5e", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("5f", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("5g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+
+        return 'scn_mv_25_wave_activated_by_unicorn'
