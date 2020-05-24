@@ -1081,22 +1081,23 @@ class SceneMirandasVeilMixin(Scene):
         self.init_scene(bt)
 
         #
-        # capture-fields, Pawn 2
-        start_P2 = (5, 6)
-        self.board.set_piece(*start_P2, piece=PieceType.Pawn)
+        # capture-fields
+        start_P = (5, 6)
+        self.board.set_piece(*start_P, piece=PieceType.Pawn)
         self.board.set_piece(4, 7, piece=PieceType.Wave)
 
-        self.board.set_piece(5, 8, piece=-PieceType.Pawn)
-        self.board.set_piece(8, 11, piece=-PieceType.Pawn)
-        self.board.set_piece(10, 13, piece=PieceType.Pawn)
+        self.board.set_piece(1, 10, piece=PieceType.Bishop)
+        self.board.set_piece(3, 8, piece=-PieceType.Rook)
 
-        coords = GS.gen_next( GS.gen_steps(start=start_P2, rels=[(-1, 1), ], include_prev=True) )
+        self.board.set_piece(6, 12, piece=PieceType.Pegasus)
+        self.board.set_piece(8, 11, piece=-PieceType.Pyramid)
+        self.board.set_piece(10, 13, piece=PieceType.Knight)
+
+        coords = GS.gen_next( GS.gen_steps(start=start_P, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_P2, rels=[(1, 1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_P, rels=[(1, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
-
-        self.append_text("2", *start_P2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
         return 'scn_mv_22_wave_activation_by_capture_pawn'
 
@@ -1105,24 +1106,36 @@ class SceneMirandasVeilMixin(Scene):
         self.init_scene(bt)
 
         #
-        # capture-fields, Pawn 2
-        start_P2 = (4, 7)
-        self.board.set_piece(*start_P2, piece=PieceType.Pawn)
+        # capture-fields
+        start_W = (4, 7)
+        self.board.set_piece(*start_W, piece=PieceType.Pawn)
+        # self.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        self.board.set_piece(5, 8, piece=-PieceType.Pawn)
-        self.board.set_piece(8, 11, piece=-PieceType.Pawn)
-        self.board.set_piece(10, 13, piece=PieceType.Pawn)
+        self.board.set_piece(1, 10, piece=PieceType.Bishop)
+        self.board.set_piece(3, 8, piece=-PieceType.Rook)
 
-        coords = GS.gen_next( GS.gen_steps(start=start_P2, rels=[(1, 1), ], include_prev=True) )
+        self.board.set_piece(6, 12, piece=PieceType.Pegasus)
+        self.board.set_piece(8, 11, piece=-PieceType.Pyramid)
+        self.board.set_piece(10, 13, piece=PieceType.Knight)
+
+        coords = GS.gen_next( GS.gen_steps(start=start_W, rels=[(-1, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Legal )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
-        self.append_arrow( *coords() )
-        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Legal )
 
-        self.append_text("2", *start_P2, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+        coords = GS.gen_next( GS.gen_steps(start=start_W, rels=[(1, 1), ], include_prev=True) )
+        self.append_arrow( *coords(), mark_type=MarkType.Legal )
+        self.append_arrow( *coords(), mark_type=MarkType.Legal )
+        self.append_arrow( *coords(), mark_type=MarkType.Legal )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Legal )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+        self.append_arrow( *coords(), mark_type=MarkType.Legal )
+        self.append_arrow( *coords(), mark_type=MarkType.Legal )
+
+        coords = GS.gen_steps(start=(6, 9), rels=[(0, 1), ], include_prev=True, count=6)
+        for step in coords():
+            self.append_arrow(*step, mark_type=MarkType.Illegal)
 
         return 'scn_mv_23_wave_activated_by_capture_pawn'
