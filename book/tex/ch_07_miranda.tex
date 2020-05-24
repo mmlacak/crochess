@@ -372,6 +372,7 @@ longest rush movement available in this variant.
 \subsection*{Activation by Pawn}
 \addcontentsline{toc}{subsection}{Activation by Pawn}
 
+\vspace*{-1.0ex} % Does space after title depends on size of paragraph that follows? 
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -381,10 +382,10 @@ longest rush movement available in this variant.
 % \centering
 \end{figure}
 
-Pawns can activate Waves on own capture-field giving it 1 momentum (Pawn 2).
-Pawns can also activate Waves on step-fields, giving it count of traveled-to
-step-fields as momentum. For Pawn 1 that would be 1 momentum, while for Pawn 3
-that would be 3.
+Pawn can activate Wave on its' step-fields. Ordinary step would give 1 momentum to 
+Wave (Pawn 1), while rushed Pawn would give count of travelled-over step-fields as 
+momentum, in this case 3 (Pawn 2). Note, rushed Pawn has to capture field at which 
+Wave is located, and is blocked from rushing any further.
 
 \clearpage % ..........................................................
 
@@ -397,10 +398,11 @@ that would be 3.
 % \centering
 \end{figure}
 
-In all cases, Wave moves the same as activating piece was moving in the moment of
-activation. Wave can also move over multiple fields, even if activating piece could
-move for just one. So, when activated on capture-field (Pawn 2), Wave could continue
-movement over Pawn's capture-fields until it runs out of board.
+In all cases, Wave activated on Pawn's step-fields can move only forward, until the end 
+of the board. Either Wave could also activate light Knight or light Bishop, transferring 
+to them received momentum (1 and 3, respectively). Wave cannot change its' direction to 
+Pawn's capture-fields, even if pieces are present on them. So, Wave cannot activate neither 
+opponent's piece (dark Wave), nor own (Pawn 3).
 
 \clearpage % ..........................................................
 

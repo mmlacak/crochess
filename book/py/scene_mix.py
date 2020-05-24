@@ -31,8 +31,8 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_mv_03_move_wave_finished', \
                     # 'scn_mv_14_casc_oppo_light_wave', \
                     # 'scn_mv_15_casc_oppo_dark_wave', \
-                    # 'scn_mv_20_wave_activation_by_step_pawn', \
-                    # 'scn_mv_21_wave_activated_by_step_pawn', \
+                    'scn_mv_20_wave_activation_by_step_pawn', \
+                    'scn_mv_21_wave_activated_by_step_pawn', \
                     'scn_mv_22_wave_activation_by_capture_pawn', \
                     'scn_mv_23_wave_activated_by_capture_pawn', \
                 ]

@@ -973,19 +973,18 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(*start_P1, piece=PieceType.Pawn)
         self.board.set_piece(2, 3, piece=PieceType.Wave)
 
-        start_P3 = (1, 5)
-        start_P4 = (1, 9)
+        start_W = (1, 5)
+        start_P3 = (1, 9)
         self.board.set_piece(2, 7, piece=-PieceType.Pawn)
-        self.board.set_piece(2, 11, piece=PieceType.Pawn)
-        self.board.set_piece(*start_P3, piece=-PieceType.Pawn)
-        self.board.set_piece(*start_P4, piece=PieceType.Pawn)
+        self.board.set_piece(2, 11, piece=PieceType.Knight)
+        self.board.set_piece(*start_W, piece=-PieceType.Wave)
+        self.board.set_piece(*start_P3, piece=PieceType.Pawn)
 
         coords = GS.gen_next( GS.gen_steps(start=start_P1, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action)
 
         self.append_text("1", *start_P1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
-        self.append_text("2", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
-        self.append_text("3", *start_P4, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+        self.append_text("3", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
         #
         # step-fields 2, Pawn 2
@@ -994,7 +993,7 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(13, 4, piece=PieceType.Wave)
 
         self.board.set_piece(13, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(13, 13, piece=PieceType.Pawn)
+        self.board.set_piece(13, 13, piece=PieceType.Bishop)
 
         coords = GS.gen_next( GS.gen_steps(start=start_P2, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
@@ -1017,12 +1016,12 @@ class SceneMirandasVeilMixin(Scene):
         start_P1 = (2, 3)
         self.board.set_piece(*start_P1, piece=PieceType.Pawn)
 
-        start_P3 = (1, 5)
-        start_P4 = (1, 9)
+        start_W = (1, 5)
+        start_P3 = (1, 9)
         self.board.set_piece(2, 7, piece=-PieceType.Pawn)
-        self.board.set_piece(2, 11, piece=PieceType.Pawn)
-        self.board.set_piece(*start_P3, piece=-PieceType.Pawn)
-        self.board.set_piece(*start_P4, piece=PieceType.Pawn)
+        self.board.set_piece(2, 11, piece=PieceType.Knight)
+        self.board.set_piece(*start_W, piece=-PieceType.Wave)
+        self.board.set_piece(*start_P3, piece=PieceType.Pawn)
 
         coords = GS.gen_next( GS.gen_steps(start=start_P1, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
@@ -1043,12 +1042,11 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow(2, 8, 1, 9, mark_type=MarkType.Illegal)
         self.append_arrow(2, 8, 3, 9, mark_type=MarkType.Illegal)
 
-        self.append_text("A", 2, 4, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.65, 0.35))
-        self.append_text("B", 2, 8, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.65, 0.35))
+        # self.append_text("A", 2, 4, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.65, 0.35))
+        # self.append_text("B", 2, 8, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.05, 1.0, 0.65, 0.35))
 
         self.append_text("1", *start_P1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
-        self.append_text("2", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
-        self.append_text("3", *start_P4, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
+        self.append_text("3", *start_P3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.65, 0.35))
 
         #
         # step-fields 2, Pawn 2
@@ -1056,7 +1054,7 @@ class SceneMirandasVeilMixin(Scene):
         self.board.set_piece(*start_P2, piece=PieceType.Pawn)
 
         self.board.set_piece(13, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(13, 13, piece=PieceType.Pawn)
+        self.board.set_piece(13, 13, piece=PieceType.Bishop)
 
         coords = GS.gen_next( GS.gen_steps(start=start_P2, rels=[(0, 1), ], include_prev=True) )
         self.append_arrow( *coords() )
