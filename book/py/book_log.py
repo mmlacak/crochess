@@ -73,6 +73,7 @@ def get_log_entry(root_path=None, git_log_paths=None):
     matches = None
     results = None
     counter = None
+    branch = git_log_paths[ -1 ]
 
     try:
         with open(log_path, 'r') as log:
@@ -98,7 +99,7 @@ def get_log_entry(root_path=None, git_log_paths=None):
         now_long = time.strftime('%Y-%m-%d %H:%M:%S UTC', now) # e.g. '2020-05-17 02:11:11 UTC'
         now_short = time.strftime('%Y-%m-%d', now) # e.g. '2020-05-17'
 
-        results = results + (long_, short_, now_long, now_short, counter) 
+        results = results + (long_, short_, now_long, now_short, counter, branch) 
 
     return results
 
@@ -107,14 +108,14 @@ def get_full_tex_path(root_path=None, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX
     path = os.path.join(path, tex_dir, tex_name)
     return path
 
-def change_line_if_marked(line, id_, long_, short, now_long, now_short, counter):
+def change_line_if_marked(line, id_, long_, short, now_long, now_short, counter, branch):
     new = line
     if 'last-commit-id-place-marker' in line:
         new = '    %% %s \\\\ %% last-commit-id-place-marker\n' % id_
     elif 'last-commit-date-time-place-marker' in line:
         new = '    %% %s \\\\ %% last-commit-date-time-place-marker\n' % long_
     elif 'new-commit-count-date-time-place-marker' in line:
-        new = '    %i || %s \\\\ [2.0em] %% new-commit-count-date-time-place-marker\n' % (counter+1, now_long)
+        new = '    %i @ %s \\& %s \\\\ [2.0em] %% new-commit-count-date-time-place-marker\n' % (counter+1, now_long, branch)
     elif 'new-commit-date-place-marker' in line:
         new = '    %s \\\\ %% new-commit-date-place-marker\n' % now_short 
     elif 'new-commit-date-small-place-marker' in line:
@@ -130,7 +131,7 @@ def replace_log_entries(root_path=None):
     if log_results is None:
         return
 
-    parent, id_, commiter, time_, msg, long_, short, now_long, now_short, counter = log_results
+    parent, id_, commiter, time_, msg, long_, short, now_long, now_short, counter, branch = log_results
     orig_path = get_full_tex_path(root_path=root_path)
     ignore_path = get_full_tex_path(root_path=root_path, tex_name=BOOK_IGNORE_TEX_FILE_NAME)
 
@@ -142,7 +143,7 @@ def replace_log_entries(root_path=None):
     with open(ignore_path, 'r') as old:
         with open(orig_path, 'w') as orig:
             for line in old:
-                new = change_line_if_marked(line, id_, long_, short, now_long, now_short, counter)
+                new = change_line_if_marked(line, id_, long_, short, now_long, now_short, counter, branch)
                 orig.write(new)
 
 
