@@ -29,10 +29,11 @@ class SceneMix(SceneCroatianTiesMixin, \
         return  [
                     # 'scn_mv_20_wave_activation_by_step_pawn', \
                     # 'scn_mv_21_wave_activated_by_step_pawn', \
-                    'scn_mv_22_wave_activation_by_capture_pawn', \
+                    # 'scn_mv_22_wave_activation_by_capture_pawn', \
                     # 'scn_mv_23_wave_activated_by_capture_pawn', \
-                    'scn_mv_24_wave_activation_by_unicorn', \
-                    'scn_mv_25_wave_activated_by_unicorn', \
+                    # 'scn_mv_24_wave_activation_by_unicorn', \
+                    # 'scn_mv_25_wave_activated_by_unicorn', \
+                    'scn_mv_26_wave_off_board', \
                 ]
 
     def _get_all_scene_method_names(self):

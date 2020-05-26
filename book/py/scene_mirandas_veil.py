@@ -10,6 +10,7 @@ import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
+from board_desc import BoardDesc
 from mark import MarkType
 from corner import Corner
 from scene import Scene
@@ -1196,3 +1197,50 @@ class SceneMirandasVeilMixin(Scene):
         self.append_text("5g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
 
         return 'scn_mv_25_wave_activated_by_unicorn'
+
+    def scn_mv_26_wave_off_board(self, bt=BoardType.MirandasVeil):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=16, height=19, board_desc=bd)
+
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start = (13, 2)
+        self.board.set_piece(*start, piece=-PieceType.Wave)
+
+        start_U = (9, 1)
+        self.board.set_piece(*start_U, piece=-PieceType.Unicorn)
+
+        #
+        # Wave activation
+        self.append_arrow( *(start_U + start), mark_type=MarkType.Action ) # short
+
+        #
+        # short --> (-2, 1) direction
+        # long --> (3, 2) direction
+
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords() ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords() ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+
+        self.append_text("1", 14, 12, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+        self.append_text("2", 15, 15, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+
+        return 'scn_mv_26_wave_off_board'
