@@ -1092,7 +1092,7 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
         coords = GS.gen_next( GS.gen_steps(start=start_P, rels=[(1, 1), ], include_prev=True) )
-        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal )
 
         return 'scn_mv_22_wave_activation_by_capture_pawn'
 
@@ -1138,7 +1138,7 @@ class SceneMirandasVeilMixin(Scene):
 
         self.init_scene(bt)
 
-        start_U = (1, 1)
+        start_U = (2, 6)
         start_W = (4, 3)
         self.board.set_piece(*start_U, piece=PieceType.Unicorn)
         self.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -1157,20 +1157,10 @@ class SceneMirandasVeilMixin(Scene):
 
         coords = GS.gen_multi_steps( [ [(-2, 1), (3, 2)], ], start=start_W, include_prev=True, bounds=self.board.get_position_limits() )
         for i, step in enumerate( coords() ):
-            if i == 0:
+            if i in [0, 1]:
                 self.append_arrow( *step, mark_type=MarkType.Action )
             else:
                 self.append_arrow( *step, mark_type=MarkType.Legal )
-
-        #
-        # alternate 2nd directions 
-
-        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=((-2, 1), ) ) )
-        txt = GS.gen_multi_steps(multi_rels, start=start_W, include_prev=False, count=1)
-
-        for i, mark in enumerate( txt() ):
-            self.append_field_marker(*mark, mark_type=MarkType.Action)
-            self.append_text(chr(ord('A') + i), *mark, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect) 
 
         #
         # forbidden directions change

@@ -4,13 +4,16 @@
 # Copyright (c) 2020 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+# TODO
+# git rev-list --count HEAD
+
 import os
 import os.path
 import re
 import time
 
-
 GIT_FOLDER = '.git'
+GIT_REF_FILE_NAME = 'HEAD'
 GIT_LOG_FOLDER = 'logs'
 GIT_LOG_FILE_NAME = 'HEAD'
 
