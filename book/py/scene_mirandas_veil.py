@@ -1170,7 +1170,7 @@ class SceneMirandasVeilMixin(Scene):
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=((2, -1), ) ) )
         start_X = (4, 10)
 
-        self.append_text("5", *start_X, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect) 
+        self.append_text("5", *start_X, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
 
         arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=start_X, include_prev=True, count=1) )
         txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=start_X, include_prev=False, count=1) )
@@ -1201,14 +1201,14 @@ class SceneMirandasVeilMixin(Scene):
     def scn_mv_26_wave_off_board(self, bt=BoardType.MirandasVeil):
 
         bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
-        self.init_scene(bt, width=16, height=19, board_desc=bd)
+        self.init_scene(bt, width=12, height=15, board_desc=bd)
 
         rect = (0.05, 1.0, 0.6, 0.45)
 
-        start = (13, 2)
+        start = (10, 1)
         self.board.set_piece(*start, piece=-PieceType.Wave)
 
-        start_U = (9, 1)
+        start_U = (6, 0)
         self.board.set_piece(*start_U, piece=-PieceType.Unicorn)
 
         #
@@ -1221,8 +1221,8 @@ class SceneMirandasVeilMixin(Scene):
 
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords() ) # long
+#         self.append_arrow( *coords() ) # short
+#         self.append_arrow( *coords() ) # long
 
         self.append_arrow( *coords() ) # short
         self.append_arrow( *coords() ) # long
@@ -1230,17 +1230,16 @@ class SceneMirandasVeilMixin(Scene):
         self.append_arrow( *coords() ) # short
         self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords() ) # short
         self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
         self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
         self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
-
-
-        self.append_text("1", 14, 12, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
-        self.append_text("2", 15, 15, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+        self.append_text("1", 10, 8, corner=Corner.UpperLeft, rect=rect)
+        self.append_text("2", 11, 11, corner=Corner.UpperLeft, rect=rect)
 
         return 'scn_mv_26_wave_off_board'

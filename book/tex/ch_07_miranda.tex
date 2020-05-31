@@ -465,6 +465,10 @@ Pegasus.
 
 \clearpage % ..........................................................
 
+\subsection*{Out of board steps}
+\addcontentsline{toc}{subsection}{Out of board steps}
+
+\vspace*{-1.0ex} % Does space after title depends on size of paragraph that follows?
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -475,10 +479,10 @@ Pegasus.
 \end{figure}
 
 Here, light grey fields are virtual fields extending existing chessboard.
-It's illegal to step outside chessboard, and all subsequent steps are also
-illegal. That means, Wave activated by Unicorn cannot reach fields 1 and 2
-from starting position with selected directions, even though it would end
-movement on the chessboard.
+For Wave, it's legal to step outside of a board, and all subsequent steps
+are also legal, as long as its' ply ends on a board. So, Wave activated by
+Unicorn can reach fields 1 and 2, even though it stepped outside of the
+board. It is illegal for any piece to end its' ply outside of a board.
 
 % **************************************************************** Wave
 \clearpage % ..........................................................
