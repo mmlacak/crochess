@@ -24,7 +24,7 @@ are enumerated from '1' to '16'. A new piece is introduced, Wave.
 \section*{Wave}
 \addcontentsline{toc}{section}{Wave}
 
-% \vspace*{-2.0ex} % Wonders of LaTeX formatting.
+\vspace*{-1.0ex}
 \noindent
 \begin{wrapfigure}[12]{l}{0.4\textwidth}
 \centering
@@ -36,15 +36,15 @@ Wave is passive piece, it has to be activated before it can move. Activation
 is done in the same way as with Pyramid. Own piece has to capture field at
 which Wave is located before Wave can move.
 
-Wave can be activated even if activating piece has no momentum. Wave does not
-use received momentum for moving, and isn't limited by it.
-Wave can move freely even if it has no momentum. Wave is not blocked by any piece,
-it can continue its' movement freely as if there are no pieces on board at all.
+Wave can be activated even if activating piece has no momentum. Wave does not use
+received momentum for moving, and isn't limited by it. Wave can move even if it
+has no momentum. Wave can move as if there are no pieces on a chessboard at all.
 
 After activation Wave moves like activating piece, over piece's step- or capture-
 fields, depending where it was activated. Wave can make multiple steps, in the
 same way activating piece does, even if activating piece can make only one. Note,
-Wave can choose direction on the first step, which cannot be changed later. For
+Wave can choose direction on the first step, which cannot be changed later. Wave
+can step outside of a chessboard, and only has to end its' ply on a board. For
 details see \hyperref[sec:Definitions/Movement of Wave]{'Movement of Wave'}.
 
 Wave cannot capture any piece. Thus, Wave cannot check nor checkmate opponent's
@@ -482,7 +482,8 @@ Here, light grey fields are virtual fields extending existing chessboard.
 For Wave, it's legal to step outside of a board, and all subsequent steps
 are also legal, as long as its' ply ends on a board. So, Wave activated by
 Unicorn can reach fields 1 and 2, even though it stepped outside of the
-board. It is illegal for any piece to end its' ply outside of a board.
+board. It is illegal for any piece, including Wave, to end its' ply outside
+of a board.
 
 % **************************************************************** Wave
 \clearpage % ..........................................................
