@@ -372,7 +372,7 @@ longest rush movement available in this variant.
 \subsection*{Activation by Pawn}
 \addcontentsline{toc}{subsection}{Activation by Pawn}
 
-\vspace*{-1.0ex} % Does space after title depends on size of paragraph that follows? 
+\vspace*{-1.0ex} % Does space after title depends on size of paragraph that follows?
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -382,9 +382,9 @@ longest rush movement available in this variant.
 % \centering
 \end{figure}
 
-Pawn can activate Wave on its' step-fields. Ordinary step would give 1 momentum to 
-Wave (Pawn 1), while rushed Pawn would give count of travelled-over step-fields as 
-momentum, in this case 3 (Pawn 2). Note, rushed Pawn has to capture field at which 
+Pawn can activate Wave on its' step-fields. Ordinary step would give 1 momentum to
+Wave (Pawn 1), while rushed Pawn would give count of travelled-over step-fields as
+momentum, in this case 3 (Pawn 2). Note, rushed Pawn has to capture field at which
 Wave is located, and is blocked from rushing any further.
 
 \clearpage % ..........................................................
@@ -398,10 +398,10 @@ Wave is located, and is blocked from rushing any further.
 % \centering
 \end{figure}
 
-In all cases, Wave activated on Pawn's step-fields can move only forward, until the end 
-of the board. Either Wave could also activate light Knight or light Bishop, transferring 
-to them received momentum (1 and 3, respectively). Wave cannot change its' direction to 
-Pawn's capture-fields, even if pieces are present on them. So, Wave cannot activate neither 
+In all cases, Wave activated on Pawn's step-fields can move only forward, until the end
+of the board. Either Wave could also activate light Knight or light Bishop, transferring
+to them received momentum (1 and 3, respectively). Wave cannot change its' direction to
+Pawn's capture-fields, even if pieces are present on them. So, Wave cannot activate neither
 opponent's piece (dark Wave), nor own (Pawn 3).
 
 \clearpage % ..........................................................
@@ -428,10 +428,10 @@ Wave can be activated by Pawn on its' capture-field, receiving 1 momentum.
 % \centering
 \end{figure}
 
-Activated Wave can move forward diagonally, either to the left or to the right, until the 
-end of the board, regardless if capture-fields are empty, or if own or opponent's pieces are 
-present. Wave could also activate either light Bishop or light Knight, giving it received 1 
-momentum. Wave cannot change direction to Pawn's step-fields, and so can't activate light 
+Activated Wave can move forward diagonally, either to the left or to the right, until the
+end of the board, regardless if capture-fields are empty, or if own or opponent's pieces are
+present. Wave could also activate either light Bishop or light Knight, giving it received 1
+momentum. Wave cannot change direction to Pawn's step-fields, and so can't activate light
 Pegasus.
 
 \clearpage % ..........................................................
@@ -474,7 +474,11 @@ Pegasus.
 % \centering
 \end{figure}
 
-... Unicorn ...
+Here, light grey fields are virtual fields extending existing chessboard.
+It's illegal to step outside chessboard, and all subsequent steps are also
+illegal. That means, Wave activated by Unicorn cannot reach fields 1 and 2
+from starting position with selected directions, even though it would end
+movement on the chessboard.
 
 % **************************************************************** Wave
 \clearpage % ..........................................................

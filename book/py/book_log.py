@@ -114,8 +114,8 @@ def change_line_if_marked(line, id_, long_, short, now_long, now_short, counter,
         new = '    %% %s \\\\ %% last-commit-id-place-marker\n' % id_
     elif 'last-commit-date-time-place-marker' in line:
         new = '    %% %s \\\\ %% last-commit-date-time-place-marker\n' % long_
-    elif 'new-commit-count-date-time-place-marker' in line:
-        new = '    %i @ %s \\& %s \\\\ [2.0em] %% new-commit-count-date-time-place-marker\n' % (counter+1, now_long, branch)
+    elif 'new-commit-count-date-time-branch-place-marker' in line:
+        new = '    %i \\textperiodcentered \\textperiodcentered \\textperiodcentered ~%s \\textperiodcentered \\textperiodcentered \\textperiodcentered ~%s \\\\ [2.0em] %% new-commit-count-date-time-branch-place-marker\n' % (counter+1, now_long, branch)
     elif 'new-commit-date-place-marker' in line:
         new = '    %s \\\\ %% new-commit-date-place-marker\n' % now_short 
     elif 'new-commit-date-small-place-marker' in line:
