@@ -43,9 +43,10 @@ has no momentum. Wave can move past ("through") any piece, as if it isn't there.
 After activation Wave moves like activating piece, over piece's step- or capture-
 fields, depending where it was activated. Wave can make multiple steps, in the
 same way activating piece does, even if activating piece can make only one. Note,
-Wave can choose direction on the first step(s), which cannot be changed later.
-Wave can step outside of a chessboard, and only has to end its' ply on a board.
-For details see \hyperref[sec:Definitions/Movement of Wave]{'Movement of Wave'}.
+Wave can choose direction on the first 1 or 2 step(s), which cannot be changed
+later. Wave can step outside of a chessboard, and only has to end its' ply on a
+board. For details see
+\hyperref[sec:Definitions/Movement of Wave]{'Movement of Wave'}.
 
 Wave cannot capture any piece. Thus, Wave cannot check nor checkmate opponent's
 King.
@@ -449,7 +450,11 @@ Pegasus.
 % \centering
 \end{figure}
 
-... Unicorn ...
+While Unicorn moves 1 step at a time, its' movement
+\hyperref[sec:Age of Aquarius/Unicorn/Movement]{depends on a color of a starting field}.
+For Wave to make multiple steps as Unicorn would, that means it too has to have different
+steps for differently colored fields. So, Wave has to choose 2 different steps at the
+beginning of its' movement.
 
 \clearpage % ..........................................................
 
@@ -462,7 +467,9 @@ Pegasus.
 % \centering
 \end{figure}
 
-... Unicorn ...
+Once initial 2 steps are chosen (blue), Wave has to follow them for the remainder
+of a ply (green). So, Wave cannot change its' direction in the middle of a movement.
+E.g. upon reaching field 5 it can't change its' direction to 5b, or any other red step.
 
 \clearpage % ..........................................................
 

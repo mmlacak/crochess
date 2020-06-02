@@ -57,28 +57,28 @@ class SceneCroatianTiesMixin(Scene):
         self.append_text("4", *coords())
 
         # direction 2a, i.e. <2, 1>
-        self.append_arrow(4, 5, 6, 6, mark_type=MarkType.Blocked)
-        self.append_text("2a", 6, 6, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_arrow(4, 5, 6, 6, mark_type=MarkType.Illegal)
+        self.append_text("2a", 6, 6, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
 
         # direction 2b, i.e. <2, -1>
-        self.append_arrow(4, 5, 6, 4, mark_type=MarkType.Blocked)
-        self.append_text("2b", 6, 4, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_arrow(4, 5, 6, 4, mark_type=MarkType.Illegal)
+        self.append_text("2b", 6, 4, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
 
         # direction 2c, i.e. <1, -2>
-        self.append_arrow(4, 5, 5, 3, mark_type=MarkType.Blocked)
-        self.append_text("2c", 5, 3, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_arrow(4, 5, 5, 3, mark_type=MarkType.Illegal)
+        self.append_text("2c", 5, 3, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
 
         # direction 2d, i.e. <-2, -1>
-        self.append_arrow(4, 5, 2, 4, mark_type=MarkType.Blocked)
-        self.append_text("2d", 2, 4, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+        self.append_arrow(4, 5, 2, 4, mark_type=MarkType.Illegal)
+        self.append_text("2d", 2, 4, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
 
         # direction 2e, i.e. <-2, 1>
-        self.append_arrow(4, 5, 2, 6, mark_type=MarkType.Blocked)
-        self.append_text("2e", 2, 6, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+        self.append_arrow(4, 5, 2, 6, mark_type=MarkType.Illegal)
+        self.append_text("2e", 2, 6, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
 
         # direction 2f, i.e. <-1, 2>
-        self.append_arrow(4, 5, 3, 7, mark_type=MarkType.Blocked)
-        self.append_text("2f", 3, 7, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.05, 1.0, 0.6, 0.45))
+        self.append_arrow(4, 5, 3, 7, mark_type=MarkType.Illegal)
+        self.append_text("2f", 3, 7, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
 
         return 'scn_ct_02_pegasus_direction'
 

@@ -1175,26 +1175,26 @@ class SceneMirandasVeilMixin(Scene):
         arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=start_X, include_prev=True, count=1) )
         txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=start_X, include_prev=False, count=1) )
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("5a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("5a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("5b", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("5b", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("5c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("5c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("5d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("5d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("5e", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("5e", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("5f", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("5f", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("5g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("5g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
 
         return 'scn_mv_25_wave_activated_by_unicorn'
 
