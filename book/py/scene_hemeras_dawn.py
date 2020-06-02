@@ -20,9 +20,9 @@ class SceneHemerasDawnMixin(Scene):
 
     def scn_hd_01_centaur_same_color(self, bt=BoardType.HemerasDawn):
 
-        self.init_scene(bt, width=5, height=5)
+        self.init_scene(bt, width=7, height=7)
 
-        start = (2, 2)
+        start = (3, 3)
         self.board.set_piece(*start, piece=PieceType.Centaur)
 
         gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=self.board.get_position_limits())
