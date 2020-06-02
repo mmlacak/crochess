@@ -27,14 +27,8 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_ct_02_pegasus_direction', \
-                    # 'scn_mv_20_wave_activation_by_step_pawn', \
-                    # 'scn_mv_21_wave_activated_by_step_pawn', \
-                    # 'scn_mv_22_wave_activation_by_capture_pawn', \
-                    # 'scn_mv_23_wave_activated_by_capture_pawn', \
-                    # 'scn_mv_24_wave_activation_by_unicorn', \
-                    # 'scn_mv_25_wave_activated_by_unicorn', \
-                    'scn_hd_01_centaur_same_color', \
+                    # 'scn_hd_01_centaur_same_color', \
+                    'scn_hd_03_centaur_multi_step', \
                 ]
 
     def _get_all_scene_method_names(self):

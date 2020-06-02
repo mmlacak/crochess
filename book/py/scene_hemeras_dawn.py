@@ -73,8 +73,9 @@ class SceneHemerasDawnMixin(Scene):
         self.board.set_piece(*start, piece=PieceType.Centaur)
         self.board.set_piece(7, 7, piece=PieceType.Pawn)
         self.board.set_piece(7, 8, piece=PieceType.Pawn)
-        self.board.set_piece(18, 17, piece=PieceType.Bishop)
-
+        self.board.set_piece(8, 9, piece=-PieceType.Pawn)
+        self.board.set_piece(9, 9, piece=-PieceType.Pawn)
+        self.board.set_piece(14, 16, piece=-PieceType.Bishop)
 
         #
         # short --> (-1, 2) direction
@@ -123,17 +124,16 @@ class SceneHemerasDawnMixin(Scene):
         self.append_text("8", *txt(), corner=Corner.UpperRight, rect=rect)
 
         # short
-        self.append_arrow( *arr() )
-        self.append_text("9", *txt(), rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Action )
+        self.append_text("9", *txt(), mark_type=MarkType.Action, rect=rect)
 
         # long
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("10", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        self.append_text("10", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
 
         # short
         self.append_arrow( *arr(), mark_type=MarkType.Blocked )
         self.append_text("11", *txt(), mark_type=MarkType.Blocked, rect=rect)
-
 
         #
         # forbidden directions change
@@ -145,26 +145,26 @@ class SceneHemerasDawnMixin(Scene):
         arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=True, count=1) )
         txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=False, count=1) )
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("7a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("7a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("7b", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("7b", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("7c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("7c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("7d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("7d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("7e", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("7e", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("7f", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("7f", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("7g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        self.append_text("7g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
 
         return 'scn_hd_03_centaur_multi_step'
 
