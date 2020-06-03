@@ -110,8 +110,8 @@ Centaur could capture dark Bishop, but is prevented from moving any further
 
 \clearpage % ..........................................................
 
-\subsubsection*{Out of board step}
-\addcontentsline{toc}{subsubsection}{Out of board step}
+\subsubsection*{Out of board steps}
+\addcontentsline{toc}{subsubsection}{Out of board steps}
 
 \vspace{-0.05\textwidth}
 \noindent
@@ -134,6 +134,29 @@ chessboard.
 
 \subsection*{Activating Wave}
 \addcontentsline{toc}{subsection}{Activating Wave}
+
+\vspace{-1.0\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_05_wave_activation_by_centaur.png}
+\caption{Wave activation by Centaur}
+\label{fig:scn_hd_05_wave_activation_by_centaur}
+% \centering
+\end{figure}
+
+Wave activated by Centaur moves \hyperref[fig:scn_hd_03_centaur_multi_step]{the same way},
+i.e. on first two jumps, Wave has to choose long and short step (blue). After two directions
+are chosen, Wave for the rest of a ply has to follow them (green), and cannot change mid-ply
+(red).
+
+Light Wave could also activate dark Wave on a step-field, pieces on all other fields are
+ignored (Pawns).
+
+\clearpage % ..........................................................
+
+\subsubsection*{Out of board steps}
+\addcontentsline{toc}{subsubsection}{Out of board steps}
 
 \huge{TODO :: FIX ME !!!}
 \normalsize{}
