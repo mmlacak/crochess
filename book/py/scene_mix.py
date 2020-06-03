@@ -28,7 +28,8 @@ class SceneMix(SceneCroatianTiesMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_hd_01_centaur_same_color', \
-                    'scn_hd_03_centaur_multi_step', \
+                    # 'scn_hd_03_centaur_multi_step', \
+                    'scn_hd_05_wave_activation_by_centaur', \
                 ]
 
     def _get_all_scene_method_names(self):
