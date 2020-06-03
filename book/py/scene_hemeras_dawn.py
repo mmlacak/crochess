@@ -320,3 +320,51 @@ class SceneHemerasDawnMixin(Scene):
         self.append_text("7g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
 
         return 'scn_hd_05_wave_activation_by_centaur'
+
+
+    def scn_hd_06_wave_activated_by_centaur_off_board(self, bt=BoardType.HemerasDawn):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=16, height=19, board_desc=bd)
+
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start = (13, 2)
+        start_C = (9, 1)
+        self.board.set_piece(*start, piece=-PieceType.Wave)
+        self.board.set_piece(*start_C, piece=-PieceType.Centaur)
+
+        #
+        # Wave activation by Centaur
+        self.append_arrow( *(start_C + start), mark_type=MarkType.Action )
+
+
+        #
+        # short --> (-2, 1) direction
+        # long --> (3, 2) direction
+
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords() ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords() ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords(), mark_type=MarkType.Legal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords(), mark_type=MarkType.Legal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+
+        self.append_text("1", 14, 12, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("2", 15, 15, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=rect)
+
+        return 'scn_hd_06_wave_activated_by_centaur_off_board'
