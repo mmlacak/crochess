@@ -10,6 +10,7 @@ import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
+from board_desc import BoardDesc
 from mark import MarkType
 from corner import Corner
 from scene import Scene
@@ -213,3 +214,26 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.board.set_piece(2, 6, piece=PieceType.Serpent)
 
         return 'scn_tr_08_serpent_loop_end'
+
+    def scn_tr_09_serpent_out_of_board(self, bt=BoardType.TamoanchanRevisited):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=18, height=21, board_desc=bd)
+
+        start = (15, 3)
+        self.board.set_piece(*start, piece=PieceType.Serpent)
+
+        self.append_arrow( 15, 3, 16, 4 )
+        self.append_arrow( 16, 4, 17, 3 )
+
+        self.append_arrow( 17, 3, 18, 4, mark_type=MarkType.Illegal )
+
+        self.append_arrow( 18, 4, 17, 5, mark_type=MarkType.Illegal )
+        self.append_text('1', 17, 5, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.append_arrow( 17, 5, 18, 6, mark_type=MarkType.Illegal )
+
+        self.append_arrow( 18, 6, 17, 7, mark_type=MarkType.Illegal )
+        self.append_text('2', 17, 7, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        return 'scn_tr_09_serpent_out_of_board'
