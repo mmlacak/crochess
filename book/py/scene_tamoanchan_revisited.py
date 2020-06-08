@@ -277,3 +277,18 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.append_text('B', 3, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_tr_11_serpent_activated_wave'
+
+    def scn_tr_12_serpent_activated_wave_ply(self, bt=BoardType.TamoanchanRevisited):
+
+        self.init_scene(bt)
+
+        start = (4, 4)
+        self.board.set_piece(*start, piece=PieceType.Serpent)
+
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (1, -1), ], include_prev=True, count=9)
+
+        for index, coord in enumerate( coords() ):
+            mark_type = MarkType.Action if index % 2 == 0 else MarkType.Legal
+            self.append_arrow( *coord, mark_type=mark_type )
+
+        return 'scn_tr_12_serpent_activated_wave_ply'
