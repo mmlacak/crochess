@@ -292,3 +292,32 @@ class SceneTamoanchanRevisitedMixin(Scene):
             self.append_arrow( *coord, mark_type=mark_type )
 
         return 'scn_tr_12_serpent_activated_wave_ply'
+
+    def scn_tr_13_wave_out_of_board(self, bt=BoardType.TamoanchanRevisited):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=18, height=21, board_desc=bd)
+
+        self.board.set_piece(12, 4, piece=PieceType.Serpent)
+
+        self.append_arrow( 12, 4, 13, 3, mark_type=MarkType.Action )
+        self.append_arrow( 13, 3, 14, 4, mark_type=MarkType.Action )
+        self.append_arrow( 14, 4, 15, 3, mark_type=MarkType.Action )
+
+        start = (15, 3)
+        self.board.set_piece(*start, piece=PieceType.Wave)
+
+        self.append_arrow( 15, 3, 16, 4 )
+        self.append_arrow( 16, 4, 17, 3 )
+
+        self.append_arrow( 17, 3, 18, 4, mark_type=MarkType.Illegal )
+
+        self.append_arrow( 18, 4, 17, 5, mark_type=MarkType.Legal )
+        self.append_text('1', 17, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.append_arrow( 17, 5, 18, 6, mark_type=MarkType.Illegal )
+
+        self.append_arrow( 18, 6, 17, 7, mark_type=MarkType.Legal )
+        self.append_text('2', 17, 7, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        return 'scn_tr_13_wave_out_of_board'
