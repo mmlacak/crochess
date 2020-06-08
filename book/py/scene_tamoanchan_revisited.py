@@ -292,7 +292,8 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Action if index % 2 == 0 else MarkType.Legal
-            self.append_arrow( *coord, mark_type=mark_type )
+            if index < 17:
+                self.append_arrow( *coord, mark_type=mark_type )
 
         self.append_text('A', 5, 5, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text('B', 6, 4, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
