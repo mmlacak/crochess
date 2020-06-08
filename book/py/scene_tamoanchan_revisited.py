@@ -237,3 +237,43 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.append_text('2', 17, 7, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_tr_09_serpent_out_of_board'
+
+    def scn_tr_10_serpent_activating_wave(self, bt=BoardType.TamoanchanRevisited):
+
+        self.init_scene(bt, width=8, height=8)
+
+        self.board.set_piece(1, 3, piece=PieceType.Serpent)
+        self.board.set_piece(4, 4, piece=PieceType.Wave)
+
+        self.append_arrow( 1, 3, 2, 4, mark_type=MarkType.Action )
+        self.append_arrow( 2, 4, 3, 3, mark_type=MarkType.Action )
+        self.append_arrow( 3, 3, 4, 4, mark_type=MarkType.Action )
+
+        return 'scn_tr_10_serpent_activating_wave'
+
+    def scn_tr_11_serpent_activated_wave(self, bt=BoardType.TamoanchanRevisited):
+
+        self.init_scene(bt, width=8, height=8)
+
+        start = (4, 4)
+        self.board.set_piece(*start, piece=PieceType.Serpent)
+
+        #
+        # right diagonal == <1, 1> || <-1, -1>
+
+        self.append_arrow( *(start + (5, 5)), mark_type=MarkType.Action )
+        self.append_arrow( *(start + (3, 3)), mark_type=MarkType.Action )
+
+        self.append_text('A', 5, 5, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text('A', 3, 3, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        #
+        # left diagonal == <1, -1> || <-1, 1>
+
+        self.append_arrow( *(start + (5, 3)), mark_type=MarkType.Legal )
+        self.append_arrow( *(start + (3, 5)), mark_type=MarkType.Legal )
+
+        self.append_text('B', 5, 3, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text('B', 3, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        return 'scn_tr_11_serpent_activated_wave'

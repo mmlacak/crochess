@@ -32,6 +32,8 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_hd_05_wave_activation_by_centaur', \
                     # 'scn_hd_06_wave_activated_by_centaur_off_board', \
                     'scn_tr_09_serpent_out_of_board', \
+                    'scn_tr_10_serpent_activating_wave', \
+                    'scn_tr_11_serpent_activated_wave', \
                 ]
 
     def _get_all_scene_method_names(self):
