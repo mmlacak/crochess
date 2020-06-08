@@ -236,6 +236,9 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.append_arrow( 18, 6, 17, 7, mark_type=MarkType.Illegal )
         self.append_text('2', 17, 7, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
+        self.append_arrow( 17, 7, 18, 8, mark_type=MarkType.Illegal )
+        self.append_arrow( 18, 8, 19, 7, mark_type=MarkType.Illegal )
+
         return 'scn_tr_09_serpent_out_of_board'
 
     def scn_tr_10_serpent_activating_wave(self, bt=BoardType.TamoanchanRevisited):
@@ -291,6 +294,9 @@ class SceneTamoanchanRevisitedMixin(Scene):
             mark_type = MarkType.Action if index % 2 == 0 else MarkType.Legal
             self.append_arrow( *coord, mark_type=mark_type )
 
+        self.append_text('A', 5, 5, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text('B', 6, 4, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
         return 'scn_tr_12_serpent_activated_wave_ply'
 
     def scn_tr_13_wave_out_of_board(self, bt=BoardType.TamoanchanRevisited):
@@ -319,5 +325,8 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         self.append_arrow( 18, 6, 17, 7, mark_type=MarkType.Legal )
         self.append_text('2', 17, 7, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.append_arrow( 17, 7, 18, 8, mark_type=MarkType.Illegal )
+        self.append_arrow( 18, 8, 19, 7, mark_type=MarkType.Illegal )
 
         return 'scn_tr_13_wave_out_of_board'

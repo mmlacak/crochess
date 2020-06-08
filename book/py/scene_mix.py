@@ -27,7 +27,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_tr_09_serpent_out_of_board', \
+                    'scn_tr_09_serpent_out_of_board', \
                     # 'scn_tr_10_serpent_activating_wave', \
                     # 'scn_tr_11_serpent_activated_wave', \
                     'scn_tr_12_serpent_activated_wave_ply', \
