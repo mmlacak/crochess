@@ -236,8 +236,11 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.append_arrow( 18, 6, 17, 7, mark_type=MarkType.Illegal )
         self.append_text('2', 17, 7, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
-        self.append_arrow( 17, 7, 18, 8, mark_type=MarkType.Illegal )
-        self.append_arrow( 18, 8, 19, 7, mark_type=MarkType.Illegal )
+        self.append_arrow( 17, 7, 16, 6, mark_type=MarkType.Illegal )
+        self.append_text('3', 16, 6, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.append_arrow( 16, 6, 15, 7, mark_type=MarkType.Illegal )
+        self.append_text('4', 15, 7, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_tr_09_serpent_out_of_board'
 
