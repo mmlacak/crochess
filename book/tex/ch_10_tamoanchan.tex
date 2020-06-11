@@ -160,14 +160,17 @@ blue. So, Serpent can now activate Pyramid with momentum of 8.
 \addcontentsline{toc}{subsubsection}{Alternative movement}
 
 \noindent
-\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_06_serpent_neighbors.png}
 \caption{Alternative movement}
 \label{fig:scn_tr_06_serpent_neighbors}
 \end{wrapfigure}
-Serpent's alternative move (one field horizontally or vertically) is a way to
-change color of accessible fields, provided that destination field is empty.
+Serpent's alternative move is a way to change color of accessible fields,
+provided that destination field is empty.
+
+Color-changing fields are all immediately neighboring starting location,
+horizontally or vertically.
 
 \clearpage % ..........................................................
 
@@ -198,30 +201,31 @@ steps are also illegal. That means, Serpent cannot reach fields 1 through
 
 % \vspace*{-1.0\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[3]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_serpent_activating_wave.png}
-\caption{Activating Wave}
+\caption{Activating}
 \label{fig:scn_tr_10_serpent_activating_wave}
 \end{wrapfigure}
-...
+Sepent can activate Wave on its' step-fields only, it cannot activate Wave
+on \hyperref[fig:scn_tr_06_serpent_neighbors]{color-changing fields}.
 
 \vspace*{7.0\baselineskip}
 \noindent
 \begin{wrapfigure}[1]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_11_serpent_activated_wave.png}
-\caption{Wave activated}
+\caption{Activated}
 \label{fig:scn_tr_11_serpent_activated_wave}
 \end{wrapfigure}
 ...
 
-\vspace*{7.0\baselineskip}
+\vspace*{8.0\baselineskip}
 \noindent
 \begin{wrapfigure}[1]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_12_serpent_activated_wave_step_1.png}
-\caption{Wave first step}
+\caption{First step}
 \label{fig:scn_tr_12_serpent_activated_wave_step_1}
 \end{wrapfigure}
 ...
