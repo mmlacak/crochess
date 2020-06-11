@@ -351,11 +351,27 @@ class SceneTamoanchanRevisitedMixin(Scene):
         start = (17, 3)
         self.board.set_piece(*start, piece=PieceType.Wave)
 
+        #
+        # arrows
+
         coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=9)
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
             self.append_arrow( *coord, mark_type=mark_type )
+
+        #
+        # enumeration text
+
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=False, count=9)
+
+        for index, coord in enumerate( coords() ):
+            if (index % 2 != 0) and (index < 17):
+                i = int( (index + 1) // 2 )
+                self.append_text(str(i), *coord, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        #
+        # diagonals, from activation example
 
         self.append_text('A', 18, 4, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text('B', 17, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))

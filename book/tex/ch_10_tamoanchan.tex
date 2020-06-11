@@ -160,7 +160,7 @@ blue. So, Serpent can now activate Pyramid with momentum of 8.
 \addcontentsline{toc}{subsubsection}{Alternative movement}
 
 \noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_06_serpent_neighbors.png}
 \caption{Alternative movement}
@@ -169,8 +169,8 @@ blue. So, Serpent can now activate Pyramid with momentum of 8.
 Serpent's alternative move is a way to change color of accessible fields,
 provided that destination field is empty.
 
-Color-changing fields are all immediately neighboring starting location,
-either horizontally or vertically, but not diagonaly.
+Color-changing fields are all fields immediately neighboring starting
+location, either horizontally or vertically, but not diagonaly.
 
 \clearpage % ..........................................................
 
@@ -259,7 +259,11 @@ end of the chessboard.
 % \centering
 \end{figure}
 
-... Out-of-board steps ...
+Again, light grey fields are virtual fields extending existing chessboard.
+Wave activated by Serpent can step outside of a board, as long as its' ply
+ends on a board. Here, all enumerated step-fields 1 through 8 are reachable
+by Wave, even though it stepped outside of the board. It is illegal for any
+piece, including Wave, to end its' ply outside of a board.
 
 % ----------------------------------------------------- Activating Wave
 % ************************************************************* Serpent
