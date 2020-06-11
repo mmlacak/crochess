@@ -248,9 +248,11 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         self.init_scene(bt, width=8, height=8)
 
-        self.board.set_piece(1, 3, piece=PieceType.Serpent)
+        self.board.set_piece(1, 1, piece=PieceType.Serpent)
         self.board.set_piece(4, 4, piece=PieceType.Wave)
 
+        self.append_arrow( 1, 1, 2, 2, mark_type=MarkType.Action )
+        self.append_arrow( 2, 2, 1, 3, mark_type=MarkType.Action )
         self.append_arrow( 1, 3, 2, 4, mark_type=MarkType.Action )
         self.append_arrow( 2, 4, 3, 3, mark_type=MarkType.Action )
         self.append_arrow( 3, 3, 4, 4, mark_type=MarkType.Action )
