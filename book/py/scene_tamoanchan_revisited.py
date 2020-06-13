@@ -134,6 +134,8 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.append_text('7', 5, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_arrow( 5, 3, 6, 2, mark_type=MarkType.Blocked )
 
+        self.append_text('8', 6, 2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
         self.board.set_piece(6, 2, piece=PieceType.Serpent)
 
         return 'scn_tr_05_serpent_end'
@@ -334,6 +336,19 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         self.append_text('B', 5, 3, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text('A', 6, 4, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        #
+        # illegal direction change
+
+        step_6 = (10, 4)
+        self.append_text('6', *step_6, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
+        step_7 = (11, 3)
+        self.append_text('B', *step_7, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        step_7i = (9, 5)
+        self.append_arrow( *(step_6 + step_7i), mark_type=MarkType.Illegal )
+        self.append_text('B', *step_7i, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_tr_13_serpent_activated_wave_ply'
 

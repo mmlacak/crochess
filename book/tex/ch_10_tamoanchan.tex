@@ -39,8 +39,8 @@ All step-fields are also capture-fields, Serpent would be able to activate
 not just Wave, but also Pyramid on any of them.
 
 Serpent can move no longer than for one third of board size, rounded up to
-first whole number. In this variant, that means Serpent can move for 8
-fields, or less.
+first whole number. In this variant that means Serpent can move for up to
+8 fields, inclusively.
 
 Alternatively, Serpent can also move one field vertically or horizontally
 if it's unoccupied. This movement is a complete move of a player, and cannot
@@ -65,54 +65,58 @@ Star colors in this variant are presented on the left.
 \addcontentsline{toc}{subsection}{Movement}
 
 \noindent
-\begin{wrapfigure}[7]{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_01_serpent_diagonals.png}
 \caption{Diagonals}
 \label{fig:scn_tr_01_serpent_diagonals}
 \end{wrapfigure}
-In this example available fields on diagonals A and B are shown in green
-and blue.
+On its' first step Serpent can choose among any of the 4 diagonal fields,
+i.e. either A or B diagonal.
 
-On the Serpent's first step 4 fields are accessible. On all subsequent
-steps, due to alternating diagonals, only 2 fields are available.
+On all subsequent steps Serpent has to alternate between diagonals, that is,
+choose between 2 fields on a different diagonal, independently of any previous choice.
 
-\vspace*{0.07\textheight}
+\vspace*{0.04\textheight}
 \noindent
-\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_02_serpent_1.png}
 \caption{Step 1}
 \label{fig:scn_tr_02_serpent_1}
 \end{wrapfigure}
-Starting position is marked by S.
+Starting position is marked S.
 
-First step was taken on diagonal B, so next step has to be on diagonal A.
+First step was taken onto upper-right field on diagonal B.
+Next step has to be onto either field on diagonal A.
 
-\vspace*{0.15\textheight}
+\vspace*{0.125\textheight}
 \noindent
-\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_03_serpent_2.png}
 \caption{Step 2}
 \label{fig:scn_tr_03_serpent_2}
 \end{wrapfigure}
-Field numbers counts steps to them, and also gathered momentum.
+Step taken by Serpent was onto upper-left field on A diagonal.
 
-Alternating diagonals require change in direction, again.
+Next step has to be on diagonal B, chosen freely between the 2 fields,
+regardless of choice made for the first step.
 
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[6]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_04_serpent_3.png}
 \caption{Step 3}
 \label{fig:scn_tr_04_serpent_3}
 \end{wrapfigure}
-... and again.
+Last step was on B diagonal, next step has to alternate again, onto A diagonal.
 
-\vspace*{0.27\textheight}
+Field numbers counts steps to them, and also gathered momentum.
+
+\vspace*{0.10\textheight}
 \noindent
 \begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
@@ -241,8 +245,13 @@ After first step, Wave must choose next step from the other diagonal.
 % \centering
 \end{figure}
 
-Once the two diagonals are chosen, Wave can repeat them alternately to the
-end of the chessboard.
+Once the two directions are chosen, Wave has to alternate between them.
+So, Wave cannot change given directions, even if it's on a proper diagonal.
+E.g. upon reaching field 6, it's illegal for Wave to choose different
+direction on B diagonal.
+
+Unlike Serpent, Wave is not limited by number of steps. So, Wave can repeat
+alternating between 2 chosen directions to the end of the chessboard.
 
 \clearpage % ..........................................................
 
