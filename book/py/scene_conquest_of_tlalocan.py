@@ -853,7 +853,8 @@ class SceneConquestOfTlalocanMixin(Scene):
         aba = self.append_broken_arrow(start, rel, count=24)
 
         for i in xrange(16):
-            aba(str(i + 1), mark_type=MarkType.Legal)
+            mark_type = MarkType.Legal if i < 5 else MarkType.Blocked
+            aba(str(i + 1), mark_type=mark_type)
 
         #
         # left arm
@@ -862,7 +863,8 @@ class SceneConquestOfTlalocanMixin(Scene):
         # aba = self.append_broken_arrow(start, rel, count=24)
 
         # for i in xrange(16):
-            # aba(str(i + 1), mark_type=MarkType.Action)
+            # mark_type = MarkType.Legal if i < 5 else MarkType.Blocked
+            # aba(str(i + 1), mark_type=mark_type)
 
         return 'scn_cot_13_light_shaman_trance_journey_offset'
 
@@ -1581,7 +1583,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         i = 1
         for pos in gen_abs_pos():
             # self.append_field_marker(*pos, mark_type=MarkType.Legal)
-            self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.10, 1.0, 0.5, 0.45))
+            self.append_text(str(i), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=(0.10, 1.0, 0.5, 0.45))
             i += 1
 
         return 'scn_cot_25_light_dark_shaman_interaction_end'
@@ -1608,7 +1610,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # right arm
 
         rel = (2, 1)
-        rect = (0.05, 1.0, 0.8, 0.3)
+        rect = (0.10, 0.9, 0.6, 0.45)
         aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
         for i in xrange(16):
@@ -1670,14 +1672,14 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         start = (20, 7)
         self.board.set_piece(*start, piece=PieceType.Shaman)
-        self.append_text("T", *start, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("T", *start, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
         startW = (19, 5)
         self.board.set_piece(*startW, piece=PieceType.Wave)
 
         startH = (21, 4)
         self.board.set_piece(*startH, piece=PieceType.Shaman)
-        self.append_text("S", *startH, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("S", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
         self.append_arrow( *(startH + startW), mark_type=MarkType.Action )
         self.append_arrow( *(startW + start), mark_type=MarkType.Action )
@@ -1686,7 +1688,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # right arm
 
         rel = (2, 1)
-        rect = (0.05, 1.0, 0.8, 0.3)
+        rect = (0.10, 0.9, 0.6, 0.45)
         aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
         for i in xrange(16):
@@ -1703,7 +1705,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         i = 1
         for pos in gen_abs_pos():
             self.append_field_marker(*pos, mark_type=MarkType.Action)
-            self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
+            self.append_text(str(i), *pos, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
         return 'scn_cot_28_forward_displacement_start'
@@ -1714,20 +1716,20 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         start = (14, 9)
         self.board.set_piece(*start, piece=PieceType.Shaman)
-        self.append_text("T", *start, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("T", *start, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
         startW = (20, 7)
         self.board.set_piece(*startW, piece=PieceType.Wave)
 
         startH = (19, 5)
         self.board.set_piece(*startH, piece=PieceType.Shaman)
-        self.append_text("S", *startH, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("S", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
         #
         # right arm
 
         rel = (2, 1)
-        rect = (0.05, 1.0, 0.8, 0.3)
+        rect = (0.10, 0.9, 0.6, 0.45)
         aba = self.append_broken_arrow(startW, rel, count=24, rect=rect)
 
         for i in xrange(16):
@@ -1745,7 +1747,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         i = 1
         for pos in gen_abs_pos():
             self.append_field_marker(*pos, mark_type=MarkType.Action)
-            self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
+            self.append_text(str(i), *pos, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
         return 'scn_cot_29_forward_displacement_step_2'
@@ -1757,20 +1759,20 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         start = (8, 10)
         self.board.set_piece(*start, piece=PieceType.Shaman)
-        self.append_text("T", *start, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text("T", *start, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
         startW = (20, 6)
         # self.board.set_piece(*startW, piece=PieceType.Wave)
 
         startH = (19, 4)
         # self.board.set_piece(*startH, piece=PieceType.Shaman)
-        # self.append_text("S", *startH, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        # self.append_text("S", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
         #
         # right arm
 
         rel = (2, 1)
-        rect = (0.05, 1.0, 0.8, 0.3)
+        rect = (0.10, 0.9, 0.6, 0.45)
         aba = self.append_broken_arrow(startW, rel, count=24, rect=rect)
 
         for i in xrange(16):
@@ -1790,7 +1792,7 @@ class SceneConquestOfTlalocanMixin(Scene):
             x, y = pos
             mark_type = MarkType.Action if x >= 0 else MarkType.Illegal
             self.append_field_marker(*pos, mark_type=mark_type)
-            self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=mark_type, rect=(0.15, 1.0, 0.5, 0.45))
+            self.append_text(str(i), *pos, corner=Corner.LowerRight, mark_type=mark_type, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
         return 'scn_cot_30_forward_displacement_end'
@@ -1857,7 +1859,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # right arm
 
         rel = (2, 1)
-        rect = (0.05, 1.0, 0.8, 0.3)
+        rect = (0.05, 1.0, 0.6, 0.3)
         aba = self.append_broken_arrow(startW2, rel, count=24, rect=rect)
 
         for i in xrange(16):
@@ -1934,4 +1936,3 @@ def test_big_pattern():
 
 if __name__ == '__main__':
     test_big_pattern()
-

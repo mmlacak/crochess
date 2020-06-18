@@ -99,7 +99,7 @@ opponent's pieces on step-fields, nor activate Pyramid. Wave on step-field
 can be activated, and would continue to move as Shaman (and Pegasus)
 would. Again, once direction is chosen, it cannot be changed, neither
 in other step- nor capture-direction, even if opponent's piece is present
-on capture-field.
+on a capture-field.
 
 \clearpage % ..........................................................
 
@@ -117,7 +117,8 @@ can continue its' movement as long as it's keep capturing opponent's pieces
 in the same direction. Empty capture-fields cannot be oversteped, any piece
 at a distance is out of reach. Again, once started capturing, Shaman cannot
 change it's heading, neither in other step- nor capture-direction. Shaman
-can also activate Pyramid or Wave on capture-field, thus ending it's ply.
+can also activate Pyramid or Wave on a capture-field, even on a first step,
+thus ending it's ply.
 
 \clearpage % ..........................................................
 
@@ -132,10 +133,10 @@ can also activate Pyramid or Wave on capture-field, thus ending it's ply.
 
 Dark Shaman's step-ply is the same as light Shaman's, except it steps like a
 long-jump Unicorn, in chosen direction. Shaman can't capture opponent's pieces
-on step-fields, nor activate Pyramid. Wave on step-field can be activated, and
-would continue to move as dark Shaman would. Again, once direction is chosen,
-it cannot be changed, neither in other step- nor capture-direction, even if
-opponent's piece is present on capture-field.
+on step-fields, nor activate Pyramid. Wave on a step-field can be activated,
+and would continue to move as dark Shaman would. Again, once direction is
+chosen, it cannot be changed, neither in other step- nor capture-direction,
+even if opponent's piece is present on a capture-field.
 
 \clearpage % ..........................................................
 
@@ -152,8 +153,8 @@ Dark Shaman's capture-ply is the same as light Shaman's, except it captures like
 Pegasus, in chosen direction. Capture-ply can be initiated with immediate capture,
 after which Shaman can continue capturing opponent's pieces, in the same direction,
 if there is no empty capture-field in-between. While capturing, Shaman cannot change
-it's heading to any other direction. Shaman can also activate Pyramid or Wave on
-capture-field, thus ending it's ply.
+it's heading to any other direction. Shaman can also activate Pyramid or Wave on a
+capture-field, even on it's first step, thus ending it's ply.
 
 \clearpage % ..........................................................
 
@@ -182,7 +183,7 @@ Wave would move too as long-range Unicorn, in this case with momentum of 3.
 \addcontentsline{toc}{subsection}{Trance-journey}
 
 \noindent
-\begin{wrapfigure}[13]{l}{0.4\textwidth} % [11]
+\begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_07_trance_journey_init.png}
 \caption{Start}
@@ -202,13 +203,12 @@ option.
 Trance-journey can be undertaken even if entranced Shaman received no momentum.
 Length of trance-journey is not limited by received momentum.
 
-Trance-journey can only be started from the field at which second Shaman in a
-cascade has been activated. If second Shaman moves out of the field after
-activation, trance-journey option is no longer valid.
+Trance-journey is optional, second Shaman in a cascade could also perform normal
+step- or capture-ply. In such a case, second Shaman would be limited by received
+momentum, and trance-journey option would no longer be valid.
 
-Note, trance-journey can be undertaken, but is not obligatory. Light Shaman 2
-could also undertake trance-journey, in which case entrancing Shaman would be
-light Shaman 1.
+Here, light Shaman 2 could also undertake trance-journey, in which case entrancing
+Shaman would be light Shaman 1.
 Had it received any momentum, dark Shaman 3 could also move just as
 \hyperref[fig:scn_cot_04_dark_shaman_step_ply]{a long-jump Unicorn}.
 
@@ -219,7 +219,7 @@ Had it received any momentum, dark Shaman 3 could also move just as
 \addcontentsline{toc}{subsubsection}{Movement}
 
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth} % [11]
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_08_knight_directions.png}
 \caption{Knight directions}
@@ -235,7 +235,7 @@ Knight ends up on starting field of another, with red arrow ending at field S.
 
 \vspace*{0.10\textheight}
 \noindent
-\begin{wrapfigure}[12]{l}{0.4\textwidth} % [11]
+\begin{wrapfigure}[12]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_09_stop_sign_pattern.png}
 \caption{Stop sign pattern}
@@ -336,8 +336,7 @@ trance-journey on a starting field.
 
 Again, entranced Shaman is the one undertaking trance-journey, entrancing Shaman
 is the one preceding entranced Shaman in a cascade. Interaction with other pieces
-found on a step-fields depends on a color of entrancing Shaman, i.e. if Shaman is
-light- or dark-entranced.
+found on a step-fields depends on a color of entrancing Shaman.
 
 If entrancing Shaman is light, pieces found on affected step-fields can be moved
 (but don't have to) to an empty displacement-field. If there is no empty
@@ -351,7 +350,7 @@ cases, Kings and Stars on a step-fields are ignored, they cannot be displaced
 nor captured. Entranced Shaman can continue its' trance-journey past Kings and Stars.
 
 In all cases, entranced Shaman cannot activate neither Pyramid nor Wave.
-Just like any other piece when reached upon, they has to be displaced or captured.
+Just like any other piece when reached upon, they can be displaced or has to captured.
 
 As a special case, if both Shamans are dark, entranced Shaman can undertake double
 trance-journey, traveling full lenghts on both up- and down-hand patterns, capturing
@@ -422,7 +421,7 @@ be displaced either.
 \end{figure}
 
 Here, displacement-fields of light Knight are marked (blue), while for dark Pawn they
-are enumerated (green). Each diplacement immediately follows Shaman step which initiate
+are enumerated (green). Each diplacement immediately follows Shaman's step which initiate
 it. So, displacements are performed in the same order in which steps are performed. Light
 Knight is displaced from field 2 early into trance-journey onto shared displacement-field
 15. This prevents dark Pawn to be displaced from field 5 onto the same field.
@@ -475,9 +474,9 @@ Note, entranced Shaman settled on a field 6, and so dark Knight (on field 9) is 
 Dark-entranced Shaman is about to start capturing pieces along down-hand pattern inwards,
 i.e. from field 1 in upper right corner of chessboard towards its' starting position.
 
-King and Star can't be captured, but pieces past them (here, light Knight on field 9, dark Knight
-on field 12) can be captured. Other pieces not on a capture-fields of an entranced Shaman (light
-Pawns) can't be captured either.
+King and Star can't be captured, but pieces past them can (here, light Knight on field 9,
+dark Knight on field 12). Other pieces not on a capture-fields of an entranced Shaman can't
+be captured either (light Pawns).
 
 \clearpage % ..........................................................
 
@@ -527,7 +526,7 @@ them can. Pieces not on a capture-fields (here, light Pawns) can't be captured e
 
 All pieces (except Kings and Stars) on capture-fields in both up- and down-hand trance-journey
 patterns have been captured, entranced Shaman is now removed from chessboard as if itself
-captured by opponent.
+captured by the opponent.
 
 \clearpage % ..........................................................
 
@@ -562,7 +561,7 @@ Here, displacement-fields of light Knight are marked (blue), while for dark Pawn
 enumerated (green). \hyperref[fig:scn_cot_17_light_light_shaman_interaction_end]{Again}, displacements follow order of entranced Shaman's steps.
 
 Dark Pawn is displaced from field 5 early into trance-journey onto shared displacement-field
-19. This prevents light Knight to be displaced from field 9 onto the same field.
+23. This prevents light Knight to be displaced from field 9 onto the same field.
 
 \clearpage % ..........................................................
 
