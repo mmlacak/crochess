@@ -177,7 +177,11 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.board.set_piece(2, 6, piece=PieceType.Pyramid)
         self.board.set_piece(3, 5, piece=PieceType.Serpent)
 
+        self.append_text('3', 3, 5, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Action )
+
+        self.append_text('4', 2, 6, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
         self.append_arrow( 3, 5, 4, 4 )
 
         return 'scn_tr_07_serpent_loop_1'
