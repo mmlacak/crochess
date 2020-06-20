@@ -279,11 +279,11 @@ class Colors(dict):
                                                            '#3030FF', '#000000', '#3030FF', '#000000', '#606060', '#000000', '#C0C0C0', '#000000') ) )
         self[ BoardType.OddMirandasVeil ] = self[ BoardType.MirandasVeil ]
 
-        self[ BoardType.Nineteen ] = CI( piece=CS(    ('#A0A050', '#000000', '#424242', '#FFFFFF') ), \
-                                         star=CS(     ('#A0A050', '#000000', '#424242', '#FFFFFF') ), \
+        self[ BoardType.Nineteen ] = CI( piece=CS(    ('#A0975F', '#000000', '#424242', '#FFFFFF') ), # #a0955d \
+                                         star=CS(     ('#A0975F', '#000000', '#424242', '#FFFFFF') ), \
                                          monolith=CP( ('#000000', '#FFFFFF') ), \
                                          aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
-                                         field=CS(    ('#DFDF7F', '#DFDF7F', '#FFFFFF', '#FFFFFF') ), \
+                                         field=CS(    ('#F7E790', '#F7E790', '#FFFFFF', '#FFFFFF') ), # #fae991 \
                                          arrow=CMS(   ('#009000', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#333333', '#000000') ), \
                                          text=CM(     ('#009000', '#000000', '#009000', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', \
                                                        '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ), \
