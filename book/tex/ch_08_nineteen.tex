@@ -32,24 +32,21 @@ Star.
 \caption{Star}
 \label{fig:11_star}
 \end{wrapfigure}
-Star is a dormant piece, it does not belong to any player, and can't be moved, activated,
-captured or converted by either.
+Star does not belong to any player, and can't be moved, activated, captured or converted by
+either. Stars are positioned in very corners of chessboard, light Stars in lower left and
+upper right corners, dark Stars in lower right and upper left corners.
 
-Stars are positioned in very corners of chessboard, light Stars in lower left and upper right
-corners, dark Stars in lower right and upper left corners.
+Star is a teleporting piece. Teleportation is initiated by touching a Star or field at
+which it stands (as if trying to capture a Star). Piece in question then reappears on any
+non-occupied portal-field near Star in opposite color. Any momentum carried is lost.
+Teleportation is not limited by matching colors of a piece and a Star, any piece can use
+any Star to start teleporting.
 
-Star is a teleporting piece. Teleportation is initiated by any piece diving into a Star, by
-touching a Star or field at which it stands (as if trying to capture Star). Piece in question
-then reappears on any non-occupied portal-field near Star in opposite color. Any momentum
-carried is lost. Teleportation is not limited by matching colors of a piece and a Star, any
-piece can use any Star to start teleporting.
+Player initiating teleportation can choose which opposite color Star will be destination,
+and at which empty portal-field piece will reappear. If there is no empty portal-field near
+both Stars of opposite color, piece is removed from chessboard as if it has been captured.
 
-Player initiating teleportation can choose which opposite color Star will be destination, and
-at which empty portal-field piece will reappear. If there is no empty portal-field near both
-opposite color Stars, piece is removed from chessboard as if it has been captured.
-
-Kings cannot be teleported, it's illegal for a King to dive into a Star.
-
+Kings cannot be teleported, it's illegal for a King to dive into a Star. \\
 Pawns cannot be promoted to a Star.
 
 In algebraic notation symbol for Star is 'T'.

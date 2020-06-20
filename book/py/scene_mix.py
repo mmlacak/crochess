@@ -27,13 +27,13 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_cot_13_light_shaman_trance_journey_offset', \
-                    # 'scn_cot_25_light_dark_shaman_interaction_end', \
-                    # 'scn_cot_26_backward_displacement_start', \
-                    # 'scn_cot_28_forward_displacement_start', \
+                    'scn_n_01_portal_fields', \
+                    'scn_n_02_teleport_init', \
+                    'scn_n_03_teleport_dark', \
+                    'scn_n_04_teleport_end', \
                     # 'scn_cot_29_forward_displacement_step_2', \
                     # 'scn_cot_30_forward_displacement_end', \
-                    'scn_cot_33_push_pull_entrancement_end', \
+                    # 'scn_cot_33_push_pull_entrancement_end', \
                 ]
 
     def _get_all_scene_method_names(self):
