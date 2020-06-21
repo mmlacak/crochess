@@ -9,7 +9,7 @@
 
 python2 book/py/book_log.py
 
-git commit "${*}"
+git commit "$*"
 
 echo
 
