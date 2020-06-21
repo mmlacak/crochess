@@ -14,7 +14,7 @@ import subprocess
 CMD_ARGS_GIT_COMMIT_COUNT = ['git', 'rev-list', '--count', 'HEAD'] # 'git rev-list --count HEAD', shell=True
 CMD_ARGS_GIT_CURRENT_BRANCH = ['git', 'rev-parse', '--abbrev-ref', 'HEAD'] # 'git rev-parse --abbrev-ref HEAD', shell=True
 CMD_ARGS_GIT_LAST_COMMIT_ID = ['git', 'log', '--format="%H"', '-n', '1'] # 'git log --format="%H" -n 1', shell=True
-CMD_ARGS_GIT_LAST_COMMIT_DATE_TIME = ['git', 'log', '-1', '--format=%ci'] # 'git log -1 --format=%ci', shell=True
+CMD_ARGS_GIT_LAST_COMMIT_DATE_TIME = ['git', 'log', '-1', '--format=%ct'] # 'git log -1 --format=%ci', shell=True
 
 BOOK_TEX_FOLDER = 'book'
 BOOK_TEX_FILE_NAME = 'crochess.tex'
@@ -43,7 +43,9 @@ def get_last_commit_id():
 
 def get_last_commit_date_time():
     date_time_str = run_process(CMD_ARGS_GIT_LAST_COMMIT_DATE_TIME)
-    return date_time_str.strip()
+    date_time = time.gmtime( int( date_time_str.strip() ) )
+    date_time_str = time.strftime('%Y-%m-%d %H:%M:%S UTC', date_time) # e.g. '2020-05-17 02:11:11 UTC'
+    return date_time_str
 
 def get_project_path(root_path=None):
     path = root_path
@@ -68,11 +70,13 @@ def get_full_tex_path(root_path=None, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX
 def change_line_if_marked(line, id_, last_commit_date_time, now_long, now_short, counter, branch):
     new = line
     if 'new-commit-count-date-time-branch-place-marker' in line:
-        new = '    %i \\textperiodcentered \\textperiodcentered \\textperiodcentered ~%s \\textperiodcentered \\textperiodcentered \\textperiodcentered ~%s \\\\ %% new-commit-count-date-time-branch-place-marker\n' % (counter+1, now_long, branch)
-    elif 'last-commit-id-place-marker' in line:
-        new = '    %s \\\\ [2.0em] %% last-commit-id-place-marker\n' % id_
-    elif 'last-commit-date-time-place-marker' in line:
-        new = '    %% %s \\\\ %% last-commit-date-time-place-marker\n' % last_commit_date_time
+        new = '    %i \\textperiodcentered \\textperiodcentered \\textperiodcentered ~%s \\textperiodcentered \\textperiodcentered \\textperiodcentered ~%s \\\\ [2.0em] %% new-commit-count-date-time-branch-place-marker\n' % (counter+1, now_long, branch)
+#     elif 'last-commit-id-place-marker' in line:
+#         new = '    %% last: %s \\\\ [2.0em] %% last-commit-id-place-marker\n' % id_
+    elif 'last-commit-pdfinfo-place-marker' in line:
+        new = '            pdfkeywords={chess, variants, %s, %s}, %% last-commit-pdfinfo-place-marker\n' % (id_, last_commit_date_time)
+#     elif 'last-commit-date-time-place-marker' in line:
+#         new = '    %% %s \\\\ %% last-commit-date-time-place-marker\n' % last_commit_date_time
     elif 'new-commit-date-place-marker' in line:
         new = '    %s \\\\ %% new-commit-date-place-marker\n' % now_short
     elif 'new-commit-date-small-place-marker' in line:
