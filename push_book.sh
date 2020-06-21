@@ -3,6 +3,13 @@
 # Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+# Do escape double quotes (") and apostrophes (') around commit message,
+# but not file paths:
+#
+# $ ./push_book.sh -m \"Comment workaround for terminal argument parsing.\" -- "push_book.sh"
+
+# If not using -a option, check if files are added to stage, not just modified!
+
 python2 book/py/book_log.py
 
 git commit "${*}"
