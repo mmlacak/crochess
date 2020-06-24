@@ -19,46 +19,74 @@ class SceneNineteenMixin(Scene):
 
     def scn_n_01_portal_fields(self, bt=BoardType.Nineteen):
 
-        self.init_scene(bt, width=7, height=7)
+#         self.init_scene(bt, width=7, height=7)
+        self.init_scene(bt)
 
-        startT1 = (2, 4)
-        startT2 = (6, 2)
-        startT3 = (0, 0)
+        startT1 = (0, 0)
+        startT2 = (17, 17)
+        startT3 = (17, 0)
+        startT4 = (0, 17)
 
         self.board.set_piece(*startT1, piece=PieceType.Star)
-        self.board.set_piece(*startT2, piece=-PieceType.Star)
+        self.board.set_piece(*startT2, piece=PieceType.Star)
         self.board.set_piece(*startT3, piece=-PieceType.Star)
+        self.board.set_piece(*startT4, piece=-PieceType.Star)
 
-        self.append_text("1", *startT1, mark_type=MarkType.Illegal)
-        self.append_text("2", *startT2, mark_type=MarkType.Illegal)
-        self.append_text("3", *startT3, mark_type=MarkType.Action)
+#         self.append_text("1", *startT1, mark_type=MarkType.Illegal)
+#         self.append_text("2", *startT2, mark_type=MarkType.Illegal)
+#         self.append_text("3", *startT3, mark_type=MarkType.Action)
 
+        #
+        # King
+        start_K = (8, 8)
+        self.board.set_piece(*start_K, piece=PieceType.King)
+
+        gen_abs_pos_K = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_K, include_prev=False, count=1) # , bounds=((1, 3), (3, 5)))
+
+        i = 1
+        for pos in gen_abs_pos_K():
+            self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+            i += 1
+
+        #
         # Star 1
-        gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT1, include_prev=False, bounds=((1, 3), (3, 5)))
+        gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT1, include_prev=False, count=1) # , bounds=((1, 3), (3, 5)))
 
         i = 1
         for pos in gen_abs_pos_1():
-            # self.append_field_marker(*pos, mark_type=MarkType.Blocked)
-            self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+            if self.board.is_on_board(*pos):
+                self.append_text(str(i), *pos, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+                i += 1
 
+        #
         # Star 2
-        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT2, include_prev=False, bounds=((5, 1), (6, 3)))
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT2, include_prev=False, count=1) # , bounds=((1, 3), (3, 5)))
 
         i = 1
         for pos in gen_abs_pos_2():
-            # self.append_field_marker(*pos, mark_type=MarkType.Blocked)
-            self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+            if self.board.is_on_board(*pos):
+                self.append_text(str(i), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+                i += 1
 
+        #
         # Star 3
-        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT3, include_prev=False, bounds=((0, 0), (1, 1)))
+        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT3, include_prev=False, count=1) # , bounds=((5, 1), (6, 3)))
 
         i = 1
         for pos in gen_abs_pos_3():
-            # self.append_field_marker(*pos, mark_type=MarkType.Blocked)
-            self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+            if self.board.is_on_board(*pos):
+                self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+                i += 1
+
+        #
+        # Star 4
+        gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT4, include_prev=False, count=1) # , bounds=((0, 0), (1, 1)))
+
+        i = 1
+        for pos in gen_abs_pos_4():
+            if self.board.is_on_board(*pos):
+                self.append_text(str(i), *pos, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+                i += 1
 
         return 'scn_n_01_portal_fields'
 
