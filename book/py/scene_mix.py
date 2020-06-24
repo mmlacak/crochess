@@ -27,10 +27,10 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_01_portal_fields', \
+                    # 'scn_n_01_portal_fields', \
                     'scn_n_02_teleport_init', \
-                    'scn_n_03_teleport_dark', \
-                    'scn_n_04_teleport_end', \
+                    # 'scn_n_03_teleport_dark', \
+                    # 'scn_n_04_teleport_end', \
                     # 'scn_cot_29_forward_displacement_step_2', \
                     # 'scn_cot_30_forward_displacement_end', \
                     # 'scn_cot_33_push_pull_entrancement_end', \
