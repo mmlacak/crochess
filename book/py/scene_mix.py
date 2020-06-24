@@ -31,6 +31,7 @@ class SceneMix(SceneCroatianTiesMixin, \
                     'scn_n_02_teleport_init', \
                     'scn_n_03_teleport_move_2', \
                     'scn_n_04_teleport_move_3', \
+                    'scn_n_05_teleport_end', \
                     # 'scn_cot_29_forward_displacement_step_2', \
                     # 'scn_cot_30_forward_displacement_end', \
                     # 'scn_cot_33_push_pull_entrancement_end', \
