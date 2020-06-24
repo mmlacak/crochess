@@ -175,9 +175,12 @@ class SceneNineteenMixin(Scene):
 
         return 'scn_n_03_teleport_move_2'
 
-    def scn_n_04_teleport_end(self, bt=BoardType.Nineteen):
+    def scn_n_04_teleport_move_3(self, bt=BoardType.Nineteen):
 
         self.init_scene(bt)
+
+        startW = (6, 14)
+        startG = (8, 10)
 
         # fixed set
         self.board.set_piece(0, 0, piece=PieceType.Star)
@@ -188,17 +191,30 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(0, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
-        self.board.set_piece(1, 0, piece=PieceType.King)
+        self.board.set_piece(1, 0, piece=PieceType.Rook)
+
+        self.board.set_piece(15, 1, piece=PieceType.Pawn)
+        self.board.set_piece(16, 1, piece=PieceType.Pawn)
+        self.board.set_piece(17, 1, piece=PieceType.Pawn)
 
         self.board.set_piece(17, 16, piece=-PieceType.Pawn)
         self.board.set_piece(16, 16, piece=-PieceType.Pawn)
         self.board.set_piece(15, 15, piece=-PieceType.Pawn)
 
-        # movers
-        self.board.set_piece(17, 1, piece=-PieceType.Unicorn)
-        self.board.set_piece(3, 14, piece=PieceType.Bishop)
-        self.board.set_piece(16, 17, piece=PieceType.Wave)
-        self.board.set_piece(0, 12, piece=-PieceType.Rook)
-        self.board.set_piece(12, 13, piece=PieceType.Pyramid)
+        self.board.set_piece(16, 17, piece=PieceType.Bishop)
+        self.board.set_piece(*startW, piece=PieceType.Wave)
+        self.board.set_piece(*startG, piece=PieceType.Pegasus)
+        self.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
-        return 'scn_n_04_teleport_end'
+        # Pegasus, direction <-1, 2>
+        coords = GS.gen_next( GS.gen_steps(start=startG, rels=[(-1, 2), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Wave, direction <-2, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        return 'scn_n_04_teleport_move_3'
