@@ -29,7 +29,7 @@ class SceneMix(SceneCroatianTiesMixin, \
         return  [
                     # 'scn_n_01_portal_fields', \
                     'scn_n_02_teleport_init', \
-                    # 'scn_n_03_teleport_dark', \
+                    'scn_n_03_teleport_move_2', \
                     # 'scn_n_04_teleport_end', \
                     # 'scn_cot_29_forward_displacement_step_2', \
                     # 'scn_cot_30_forward_displacement_end', \
