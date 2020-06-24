@@ -25,6 +25,7 @@ Star.
 \section*{Star}
 \addcontentsline{toc}{section}{Star}
 
+% \vspace*{-1.3\baselineskip}
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
@@ -33,22 +34,25 @@ Star.
 \label{fig:11_star}
 \end{wrapfigure}
 Star does not belong to any player, and can't be moved, activated, captured or converted by
-either. Stars are positioned in very corners of chessboard, light Stars in lower left and
-upper right corners, dark Stars in lower right and upper left corners.
+either. Light Stars are positioned in lower left and upper right corners, dark Stars in lower
+right and upper left corners.
 
-Star is a teleporting piece. Teleportation is initiated by touching a Star or field at
-which it stands (as if trying to capture a Star). Piece in question then reappears on any
-non-occupied portal-field near Star in opposite color. Any momentum carried is lost.
-Teleportation is not limited by matching colors of a piece and a Star, any piece can use
+Star is a teleporting piece. Teleportation is initiated by touching a Star or field at which
+it stands with a piece (as if trying to capture a Star). Piece in question, if it's not Wave,
+then reappears on any empty portal-field near Star in opposite color. Any momentum carried is
+lost. Teleportation is not limited by matching colors of a piece and a Star, any piece can use
 any Star to start teleporting.
 
 Player initiating teleportation can choose which opposite color Star will be destination,
 and at which empty portal-field piece will reappear. If there is no empty portal-field near
 both Stars of opposite color, piece is removed from chessboard as if it has been captured.
 
-Kings cannot be teleported, it's illegal for a King to dive into a Star. \\
-Pawns cannot be promoted to a Star.
+If teleported piece is Wave, it continues movement as if activated on a field occupied by
+other Star in the same color. Wave retains all of momentum carried into teleportation.
+The way and direction of movement of Wave is the same as before teleportation.
 
+Kings cannot be teleported.
+Pawns cannot be promoted to a Star.
 In algebraic notation symbol for Star is 'T'.
 
 \clearpage % ..........................................................
@@ -144,7 +148,7 @@ Teleporting Wave ... does preserve momentum, others do not.
 
 Activating Wave ...
 
-Activated Wave ...
+Activated \& teleported Wave ... by Unicorn on board edge ... continuity of alterations between step directions
 
 % **************************************************************** Star
 \clearpage % ..........................................................
