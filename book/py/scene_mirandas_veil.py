@@ -1221,9 +1221,6 @@ class SceneMirandasVeilMixin(Scene):
 
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
 
-#         self.append_arrow( *coords() ) # short
-#         self.append_arrow( *coords() ) # long
-
         self.append_arrow( *coords() ) # short
         self.append_arrow( *coords() ) # long
 

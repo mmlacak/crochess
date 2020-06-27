@@ -297,9 +297,40 @@ class SceneNineteenMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
         self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+#         self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
         self.append_text("1", 12, 13, corner=Corner.UpperLeft, rect=rect)
         self.append_text("2", *start_T, corner=Corner.UpperLeft, rect=rect)
 
         return 'scn_n_06_teleport_wave_init'
+
+    def scn_n_07_teleport_wave_end(self, bt=BoardType.Nineteen):
+
+        bd = BoardDesc(reverse_field_colors=False, off_board_bottom=1, off_board_left=4, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=14, height=17, board_desc=bd)
+
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start_T = (0, 0)
+        self.board.set_piece(*start_T, piece=PieceType.Star)
+
+        self.board.set_piece(4, 5, piece=PieceType.Pyramid)
+        self.board.set_piece(4, 12, piece=-PieceType.Pawn)
+
+        start = start_T
+
+        #
+        # long --> (3, 2) direction
+        # short --> (-2, 1) direction
+
+        gen_coords = GS.gen_steps(start=start, rels=[(3, 2), (-2, 1), ], include_prev=True, bounds=((0, 0), (19, 19))) # self.board.get_position_limits())
+
+        for index, coords in enumerate( gen_coords() ):
+            mark_type = MarkType.Legal
+            if index == 2:
+                mark_type = MarkType.Action
+            elif index == 7:
+                mark_type = MarkType.Blocked
+            self.append_arrow( *coords, mark_type=mark_type )
+
+        return 'scn_n_07_teleport_wave_end'
