@@ -334,3 +334,29 @@ class SceneNineteenMixin(Scene):
             self.append_arrow( *coords, mark_type=mark_type )
 
         return 'scn_n_07_teleport_wave_end'
+
+    def scn_n_08_teleport_bishop(self, bt=BoardType.Nineteen):
+
+        self.init_scene(bt)
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        startB = (3, 14)
+
+        # fixed set
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(17, 17, piece=PieceType.Star)
+        self.board.set_piece(17, 0, piece=-PieceType.Star)
+        self.board.set_piece(0, 17, piece=-PieceType.Star)
+
+        self.board.set_piece(*startB, piece=PieceType.Bishop)
+
+        # Bishop, direction <-1, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startB, rels=[(-1, 1), ], include_prev=True) )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        self.append_text("1", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+
+        return 'scn_n_08_teleport_bishop'
