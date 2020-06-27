@@ -10,6 +10,7 @@ import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
+from board_desc import BoardDesc
 from mark import MarkType
 from corner import Corner
 from scene import Scene
@@ -103,7 +104,8 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 0, piece=-PieceType.Star)
         self.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        self.board.set_piece(0, 1, piece=PieceType.Pawn)
+        self.board.set_piece(0, 1, piece=PieceType.Wave)
+        self.board.set_piece(0, 2, piece=PieceType.Pawn)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 0, piece=PieceType.Rook)
@@ -146,7 +148,8 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 0, piece=-PieceType.Star)
         self.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        self.board.set_piece(0, 1, piece=PieceType.Pawn)
+        self.board.set_piece(0, 1, piece=PieceType.Wave)
+        self.board.set_piece(0, 2, piece=PieceType.Pawn)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 0, piece=PieceType.Rook)
@@ -188,7 +191,8 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 0, piece=-PieceType.Star)
         self.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        self.board.set_piece(0, 1, piece=PieceType.Pawn)
+        self.board.set_piece(0, 1, piece=PieceType.Wave)
+        self.board.set_piece(0, 2, piece=PieceType.Pawn)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 0, piece=PieceType.Rook)
@@ -232,7 +236,8 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 0, piece=-PieceType.Star)
         self.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        self.board.set_piece(0, 1, piece=PieceType.Pawn)
+        self.board.set_piece(0, 1, piece=PieceType.Wave)
+        self.board.set_piece(0, 2, piece=PieceType.Pawn)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 0, piece=PieceType.Rook)
@@ -255,3 +260,46 @@ class SceneNineteenMixin(Scene):
             self.append_arrow( *coords, mark_type=mark_type )
 
         return 'scn_n_05_teleport_end'
+
+    def scn_n_06_teleport_wave_init(self, bt=BoardType.Nineteen):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=False)
+        self.init_scene(bt, width=14, height=17, board_desc=bd)
+
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start_T = (13, 16)
+        self.board.set_piece(*start_T, piece=PieceType.Star)
+
+        start = (12, 6)
+        self.board.set_piece(*start, piece=PieceType.Wave)
+
+        start_U = (8, 5)
+        self.board.set_piece(*start_U, piece=PieceType.Unicorn)
+
+        #
+        # Wave activation
+        self.append_arrow( *(start_U + start), mark_type=MarkType.Action ) # short
+
+        #
+        # short --> (-2, 1) direction
+        # long --> (3, 2) direction
+
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords() ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_text("1", 12, 13, corner=Corner.UpperLeft, rect=rect)
+        self.append_text("2", *start_T, corner=Corner.UpperLeft, rect=rect)
+
+        return 'scn_n_06_teleport_wave_init'
