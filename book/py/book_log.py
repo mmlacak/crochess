@@ -31,18 +31,21 @@ def run_process(cmd_args_list):
 
 def get_commit_count():
     count_str = run_process(CMD_ARGS_GIT_COMMIT_COUNT)
-    return int(count_str.strip())
+    return int(count_str.strip()) if count_str is not None else None
 
 def get_current_branch():
     branch_str = run_process(CMD_ARGS_GIT_CURRENT_BRANCH)
-    return branch_str.strip()
+    return branch_str.strip() if branch_str is not None else None
 
 def get_last_commit_id():
     id_str = run_process(CMD_ARGS_GIT_LAST_COMMIT_ID)
-    return id_str.strip(' \"\n')
+    return id_str.strip(' \"\n') if id_str is not None else None
 
 def get_last_commit_date_time():
     date_time_str = run_process(CMD_ARGS_GIT_LAST_COMMIT_DATE_TIME)
+    if date_time_str is None:
+        return None
+
     date_time = time.gmtime( int( date_time_str.strip() ) )
     date_time_str = time.strftime('%Y-%m-%d %H:%M:%S UTC', date_time) # e.g. '2020-05-17 02:11:11 UTC'
     return date_time_str
@@ -83,12 +86,30 @@ def change_line_if_marked(line, id_, last_commit_date_time, now_long, now_short,
         new = '    \small{%s} \\\\ [0.5em] %% new-commit-date-small-place-marker\n' % now_short
     return new
 
+def _print_not_git_repo():
+    print "Probably not a git repo, not updating book version info."
+
 def replace_log_entries(root_path=None):
     id_ = get_last_commit_id()
+    if id_ is None:
+        _print_not_git_repo()
+        return
+
     date_time_ = get_last_commit_date_time()
+    if date_time_ is None:
+        _print_not_git_repo()
+        return
 
     counter = get_commit_count()
+    if counter is None:
+        _print_not_git_repo()
+        return
+
     branch = get_current_branch()
+    if branch is None:
+        _print_not_git_repo()
+        return
+
     now_long, now_short = get_current_times()
 
     orig_path = get_full_tex_path(root_path=root_path)
