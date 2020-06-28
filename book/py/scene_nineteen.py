@@ -104,8 +104,7 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 0, piece=-PieceType.Star)
         self.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        self.board.set_piece(0, 1, piece=PieceType.Wave)
-        self.board.set_piece(0, 2, piece=PieceType.Pawn)
+        self.board.set_piece(0, 1, piece=-PieceType.Wave)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 0, piece=PieceType.Rook)
@@ -148,8 +147,7 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 0, piece=-PieceType.Star)
         self.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        self.board.set_piece(0, 1, piece=PieceType.Wave)
-        self.board.set_piece(0, 2, piece=PieceType.Pawn)
+        self.board.set_piece(0, 1, piece=-PieceType.Wave)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 0, piece=PieceType.Rook)
@@ -176,6 +174,8 @@ class SceneNineteenMixin(Scene):
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
+        self.append_text("1", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+
         return 'scn_n_03_teleport_move_2'
 
     def scn_n_04_teleport_move_3(self, bt=BoardType.Nineteen):
@@ -191,8 +191,7 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 0, piece=-PieceType.Star)
         self.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        self.board.set_piece(0, 1, piece=PieceType.Wave)
-        self.board.set_piece(0, 2, piece=PieceType.Pawn)
+        self.board.set_piece(0, 1, piece=-PieceType.Wave)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 0, piece=PieceType.Rook)
@@ -236,8 +235,7 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 0, piece=-PieceType.Star)
         self.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        self.board.set_piece(0, 1, piece=PieceType.Wave)
-        self.board.set_piece(0, 2, piece=PieceType.Pawn)
+        self.board.set_piece(0, 1, piece=-PieceType.Wave)
         self.board.set_piece(1, 1, piece=PieceType.Pawn)
         self.board.set_piece(2, 1, piece=PieceType.Pawn)
         self.board.set_piece(1, 0, piece=PieceType.Rook)
