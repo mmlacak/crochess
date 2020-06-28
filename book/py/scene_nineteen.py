@@ -117,6 +117,10 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(16, 16, piece=-PieceType.Pawn)
         self.board.set_piece(15, 15, piece=-PieceType.Pawn)
 
+        self.board.set_piece(3, 16, piece=-PieceType.Pawn)
+        self.board.set_piece(4, 15, piece=-PieceType.Pawn)
+        self.board.set_piece(5, 6, piece=-PieceType.Pawn)
+
         self.board.set_piece(*startB, piece=PieceType.Bishop)
         self.board.set_piece(*startW, piece=PieceType.Wave)
         self.board.set_piece(*startG, piece=PieceType.Pegasus)
@@ -159,6 +163,10 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(17, 16, piece=-PieceType.Pawn)
         self.board.set_piece(16, 16, piece=-PieceType.Pawn)
         self.board.set_piece(15, 15, piece=-PieceType.Pawn)
+
+        self.board.set_piece(3, 16, piece=-PieceType.Pawn)
+        self.board.set_piece(4, 15, piece=-PieceType.Pawn)
+        self.board.set_piece(5, 6, piece=-PieceType.Pawn)
 
         self.board.set_piece(16, 17, piece=PieceType.Bishop)
         self.board.set_piece(*startW, piece=PieceType.Wave)
@@ -204,6 +212,10 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(16, 16, piece=-PieceType.Pawn)
         self.board.set_piece(15, 15, piece=-PieceType.Pawn)
 
+        self.board.set_piece(3, 16, piece=-PieceType.Pawn)
+        self.board.set_piece(4, 15, piece=-PieceType.Pawn)
+        self.board.set_piece(5, 6, piece=-PieceType.Pawn)
+
         self.board.set_piece(16, 17, piece=PieceType.Bishop)
         self.board.set_piece(*startW, piece=PieceType.Wave)
         self.board.set_piece(*startG, piece=PieceType.Pegasus)
@@ -216,7 +228,7 @@ class SceneNineteenMixin(Scene):
 
         # Wave, direction <-2, 1>
         coords = GS.gen_next( GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True) )
-        self.append_arrow( *coords() )
+        self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
@@ -248,18 +260,67 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(16, 16, piece=-PieceType.Pawn)
         self.board.set_piece(15, 15, piece=-PieceType.Pawn)
 
+        self.board.set_piece(3, 16, piece=-PieceType.Pawn)
+        self.board.set_piece(4, 15, piece=-PieceType.Pawn)
+        self.board.set_piece(5, 6, piece=-PieceType.Pawn)
+
         self.board.set_piece(16, 17, piece=PieceType.Bishop)
         self.board.set_piece(*startG, piece=PieceType.Pegasus)
         self.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
         gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True, bounds=self.board.get_position_limits())
         for index, coords in enumerate( gen_coords() ):
-            mark_type = MarkType.Action if index in [0, 2] else MarkType.Legal
+            mark_type = MarkType.Legal
+            if index in [0, 2]:
+                mark_type = MarkType.Action
+            elif index == 5:
+                mark_type = MarkType.Blocked
             self.append_arrow( *coords, mark_type=mark_type )
 
         return 'scn_n_05_teleport_end'
 
-    def scn_n_06_teleport_wave_init(self, bt=BoardType.Nineteen):
+    def scn_n_06_teleport_wave_blocked(self, bt=BoardType.Nineteen):
+
+        self.init_scene(bt)
+
+        startW = (17, 0)
+        startG = (6, 14)
+
+        # fixed set
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(17, 17, piece=PieceType.Star)
+        self.board.set_piece(17, 0, piece=-PieceType.Star)
+        self.board.set_piece(0, 17, piece=-PieceType.Star)
+
+        self.board.set_piece(0, 1, piece=-PieceType.Wave)
+        self.board.set_piece(1, 1, piece=PieceType.Pawn)
+        self.board.set_piece(2, 1, piece=PieceType.Pawn)
+        self.board.set_piece(1, 0, piece=PieceType.Rook)
+
+        self.board.set_piece(16, 1, piece=PieceType.Pawn)
+        self.board.set_piece(17, 1, piece=PieceType.Pawn)
+
+        self.board.set_piece(17, 16, piece=-PieceType.Pawn)
+        self.board.set_piece(16, 16, piece=-PieceType.Pawn)
+        self.board.set_piece(15, 15, piece=-PieceType.Pawn)
+
+        self.board.set_piece(3, 16, piece=-PieceType.Pawn)
+        self.board.set_piece(4, 15, piece=-PieceType.Pawn)
+
+        self.board.set_piece(16, 17, piece=PieceType.Bishop)
+        self.board.set_piece(*startG, piece=PieceType.Pegasus)
+
+        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=False, bounds=self.board.get_position_limits())
+        for index, coords in enumerate( gen_coords() ):
+            self.board.set_piece(*coords, piece=-PieceType.Pawn)
+
+        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True, bounds=self.board.get_position_limits())
+        for index, coords in enumerate( gen_coords() ):
+            self.append_arrow( *coords, mark_type=MarkType.Blocked )
+
+        return 'scn_n_06_teleport_wave_blocked'
+
+    def scn_n_07_teleport_wave_init(self, bt=BoardType.Nineteen):
 
         bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=False)
         self.init_scene(bt, width=14, height=17, board_desc=bd)
@@ -300,9 +361,9 @@ class SceneNineteenMixin(Scene):
         self.append_text("1", 12, 13, corner=Corner.UpperLeft, rect=rect)
         self.append_text("2", *start_T, corner=Corner.UpperLeft, rect=rect)
 
-        return 'scn_n_06_teleport_wave_init'
+        return 'scn_n_07_teleport_wave_init'
 
-    def scn_n_07_teleport_wave_end(self, bt=BoardType.Nineteen):
+    def scn_n_08_teleport_wave_end(self, bt=BoardType.Nineteen):
 
         bd = BoardDesc(reverse_field_colors=False, off_board_bottom=1, off_board_left=4, reverse_off_board_field_colors=True)
         self.init_scene(bt, width=14, height=17, board_desc=bd)
@@ -331,9 +392,9 @@ class SceneNineteenMixin(Scene):
                 mark_type = MarkType.Blocked
             self.append_arrow( *coords, mark_type=mark_type )
 
-        return 'scn_n_07_teleport_wave_end'
+        return 'scn_n_08_teleport_wave_end'
 
-    def scn_n_08_teleport_bishop(self, bt=BoardType.Nineteen):
+    def scn_n_09_teleport_bishop(self, bt=BoardType.Nineteen):
 
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
@@ -357,4 +418,4 @@ class SceneNineteenMixin(Scene):
         self.append_text("1", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
         self.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
 
-        return 'scn_n_08_teleport_bishop'
+        return 'scn_n_09_teleport_bishop'
