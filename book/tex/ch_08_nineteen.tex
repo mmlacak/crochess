@@ -47,9 +47,9 @@ Player initiating teleportation can choose which opposite color Star will be des
 and at which empty portal-field piece will reappear. If there is no empty portal-field near
 both Stars of opposite color, piece is removed from chessboard as if it has been captured.
 
-If teleported piece is Wave, it continues movement as if activated on a field occupied by
-other Star in the same color. Wave retains all of momentum carried into teleportation.
-The way and direction of movement of Wave is the same as before teleportation.
+If teleported piece is Wave, it continues movement from a field occupied by the other Star in
+the same color. Wave retains all of momentum carried into teleportation. The way and direction
+of movement of Wave is the same as before teleportation.
 
 Kings cannot be teleported.
 Pawns cannot be promoted to a Star.
@@ -105,11 +105,11 @@ Here, portal-field are all blocked, except field 1.
 % \centering
 \end{figure}
 
-For teleporting dark Rook all destination portal-field around both light Stars
-are blocked. While dark Wave could be activated by dark Rook in a normal,
+While dark Wave (on field 1) could be activated by dark Rook in a normal,
 non-teleporting ply, it cannot be activated by teleported dark Rook, because
-dark Rook will have no momentum after teleportation. Thus, dark Rook will be
-sacrified.
+dark Rook will have no momentum after teleportation. So, for teleporting dark
+Rook all portal-fields around both light Stars are blocked, and so it will be
+removed from chessboard.
 
 \clearpage % ..........................................................
 
@@ -122,7 +122,8 @@ sacrified.
 % \centering
 \end{figure}
 
-...
+Wave can reach a Star and start teleporting even if activating piece (here,
+Pegasus) would be blocked.
 
 \clearpage % ..........................................................
 
@@ -135,9 +136,11 @@ sacrified.
 % \centering
 \end{figure}
 
-...
-
-% \label{fig:scn_mv_18_activating_rush_pawn_init}
+Teleported Wave emerges from the other Star in the same color as the starting one.
+Wave has to continue movement in the same direction as it did before teleportation,
+direction cannot be changed. Wave also retains momentum it had before teleportation,
+so here it can activate Pyramid, or
+\hyperref[fig:scn_mv_18_activating_rush_pawn_init]{rush light Pawn for 2 fields}.
 
 \clearpage % ..........................................................
 
@@ -150,7 +153,9 @@ sacrified.
 % \centering
 \end{figure}
 
-...
+If teleported Wave has all of its' step-fields blocked (here, by dark Pawns), it is
+removed from chessboard, just like any other
+\hyperref[fig:scn_n_03_teleport_move_2]{teleported piece which had all portal-fields blocked}.
 
 \clearpage % ..........................................................
 
