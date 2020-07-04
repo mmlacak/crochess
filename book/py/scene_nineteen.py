@@ -487,7 +487,6 @@ class SceneNineteenMixin(Scene):
 
         return 'scn_n_11_teleport_pawns_init'
 
-
     def scn_n_12_teleport_pawns_step_1(self, bt=BoardType.Nineteen):
 
         self.init_scene(bt)
@@ -520,7 +519,33 @@ class SceneNineteenMixin(Scene):
 
         return 'scn_n_12_teleport_pawns_step_1'
 
-    def scn_n_15_teleport_bishop(self, bt=BoardType.Nineteen):
+    def scn_n_13_teleport_pawns_end(self, bt=BoardType.Nineteen):
+
+        self.init_scene(bt)
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start_P1 = (16, 16)
+        start_P2 = (1, 0)
+        start_T = (0, 17)
+
+        # fixed set
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(17, 17, piece=PieceType.Star)
+        self.board.set_piece(17, 0, piece=-PieceType.Star)
+        self.board.set_piece(*start_T, piece=-PieceType.Star)
+
+        self.board.set_piece(*start_P1, piece=PieceType.Pawn)
+        self.board.set_piece(*start_P2, piece=PieceType.Pawn)
+
+        gen_coords = GS.gen_steps(start=start_P2, rels=[(0, 1), ], include_prev=True, count=8)
+        for coords in gen_coords():
+            self.append_arrow( *coords, mark_type=MarkType.Legal )
+
+        self.append_field_marker(*start_P1, mark_type=MarkType.Action)
+
+        return 'scn_n_13_teleport_pawns_end'
+
+    def scn_n_14_teleport_bishop(self, bt=BoardType.Nineteen):
 
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
@@ -544,4 +569,4 @@ class SceneNineteenMixin(Scene):
         self.append_text("1", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
         self.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
 
-        return 'scn_n_15_teleport_bishop'
+        return 'scn_n_14_teleport_bishop'
