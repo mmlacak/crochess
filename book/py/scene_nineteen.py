@@ -356,7 +356,6 @@ class SceneNineteenMixin(Scene):
         self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
         self.append_arrow( *coords() ) # short
-#         self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
         self.append_text("1", 12, 13, corner=Corner.UpperLeft, rect=rect)
         self.append_text("2", *start_T, corner=Corner.UpperLeft, rect=rect)
@@ -394,7 +393,38 @@ class SceneNineteenMixin(Scene):
 
         return 'scn_n_08_teleport_wave_end'
 
-    def scn_n_09_teleport_bishop(self, bt=BoardType.Nineteen):
+    def scn_n_09_teleport_wave_2_init(self, bt=BoardType.Nineteen):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=False)
+        self.init_scene(bt, width=14, height=17, board_desc=bd)
+
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start_T = (13, 16)
+        self.board.set_piece(*start_T, piece=PieceType.Star)
+
+        start = (10, 7)
+        self.board.set_piece(*start, piece=-PieceType.Wave)
+
+        start_U = (6, 6)
+        self.board.set_piece(*start_U, piece=-PieceType.Unicorn)
+
+        #
+        # Wave activation
+        self.append_arrow( *(start_U + start), mark_type=MarkType.Action ) # short
+
+        #
+        # short --> (-2, 1) direction
+        # long --> (3, 2) direction
+
+        gen_coords = GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True, count=3) # bounds=self.board.get_position_limits())
+
+        for coords in gen_coords():
+            self.append_arrow( *coords )
+
+        return 'scn_n_09_teleport_wave_2_init'
+
+    def scn_n_11_teleport_bishop(self, bt=BoardType.Nineteen):
 
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
@@ -418,4 +448,4 @@ class SceneNineteenMixin(Scene):
         self.append_text("1", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
         self.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
 
-        return 'scn_n_09_teleport_bishop'
+        return 'scn_n_11_teleport_bishop'
