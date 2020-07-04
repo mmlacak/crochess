@@ -457,7 +457,37 @@ class SceneNineteenMixin(Scene):
 
         return 'scn_n_10_teleport_wave_2_end'
 
-    def scn_n_11_teleport_bishop(self, bt=BoardType.Nineteen):
+    def scn_n_11_teleport_pawns_init(self, bt=BoardType.Nineteen):
+
+        self.init_scene(bt)
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start_P1 = (0, 16)
+        start_P2 = (1, 16)
+        start_T = (0, 17)
+
+        # fixed set
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(17, 17, piece=PieceType.Star)
+        self.board.set_piece(17, 0, piece=-PieceType.Star)
+        self.board.set_piece(*start_T, piece=-PieceType.Star)
+
+        self.board.set_piece(*start_P1, piece=PieceType.Pawn)
+        self.board.set_piece(*start_P2, piece=PieceType.Pawn)
+
+        self.append_arrow( *(start_P1 + start_T), mark_type=MarkType.Action )
+
+        self.append_text("1", 16, 17, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
+        self.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("3", 17, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+
+        self.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+
+        return 'scn_n_11_teleport_pawns_init'
+
+    def scn_n_15_teleport_bishop(self, bt=BoardType.Nineteen):
 
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
@@ -481,4 +511,4 @@ class SceneNineteenMixin(Scene):
         self.append_text("1", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
         self.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
 
-        return 'scn_n_11_teleport_bishop'
+        return 'scn_n_15_teleport_bishop'
