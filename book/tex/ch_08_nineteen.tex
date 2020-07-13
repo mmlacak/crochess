@@ -38,10 +38,10 @@ either. Light Stars are positioned in lower left and upper right corners, dark S
 right and upper left corners.
 
 Star is a teleporting piece. Teleportation is initiated by touching a field (or a Star) at
-which it stands with a piece, as if the field is empty. Piece in question, if it's not Wave,
-then reappears on any empty portal-field near Star in opposite color. Any momentum carried is
-lost. Teleportation is not limited by matching colors of a piece and a Star, any piece can use
-any Star to start teleporting.
+which it stands with a piece, using either normal or capturing step. Piece in question, if it's
+not Wave, then reappears on any empty portal-field near Star in opposite color. Any momentum
+carried is lost. Teleportation is not limited by matching colors of a piece and a Star, any
+piece can use any Star to start teleporting.
 
 Player initiating teleportation can choose which opposite color Star will be destination,
 and at which empty portal-field piece will reappear. If there is no empty portal-field near
@@ -241,6 +241,7 @@ even though it stepped outside of a board.
 \subsubsection*{Teleporting Pawn}
 \addcontentsline{toc}{subsubsection}{Teleporting Pawn}
 
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -250,10 +251,13 @@ even though it stepped outside of a board.
 % \centering
 \end{figure}
 
-\huge{TODO}
-\normalsize{}
-
-Teleporting Pawn ... from step-, capture-fields ... promotion, delayed promotion \& tagging for it.
+All pieces can access a Star from own step- or capture-field. So, light Pawn in
+the same column as dark Star (here, a) can step into it, and teleport away. If
+destination Star is on opponent's side of a board, teleported Pawn is tagged for
+promotion (green, blue fields). If destination portal-field is on opponent's
+\hyperref[sec:Age of Aquarius/Promotion/Figure, Pawn, piece and rush rows]{figure row}
+(blue), player can choose between promoting Pawn outright, or keeping it tagged
+for promotion.
 
 \clearpage % ..........................................................
 
@@ -266,7 +270,10 @@ Teleporting Pawn ... from step-, capture-fields ... promotion, delayed promotion
 % \centering
 \end{figure}
 
-...
+\huge{TODO}
+\normalsize{}
+
+Teleporting Pawn ... from step-, capture-fields ... promotion, delayed promotion \& tagging for it.
 
 \clearpage % ..........................................................
 

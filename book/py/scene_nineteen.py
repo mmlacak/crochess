@@ -461,6 +461,7 @@ class SceneNineteenMixin(Scene):
 
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
+        rect_col = (0.05, 1.0, 0.8, 0.35)
 
         start_P1 = (0, 16)
         start_P2 = (1, 16)
@@ -485,12 +486,15 @@ class SceneNineteenMixin(Scene):
         self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
         self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
 
+        self.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect_col)
+
         return 'scn_n_11_teleport_pawns_init'
 
     def scn_n_12_teleport_pawns_step_1(self, bt=BoardType.Nineteen):
 
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
+        rect_col = (0.05, 1.0, 0.8, 0.35)
 
         start_P1 = (16, 16)
         start_P2 = (1, 16)
@@ -517,12 +521,15 @@ class SceneNineteenMixin(Scene):
 
         self.append_field_marker(*start_P1, mark_type=MarkType.Action)
 
+        self.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect_col)
+
         return 'scn_n_12_teleport_pawns_step_1'
 
     def scn_n_13_teleport_pawns_end(self, bt=BoardType.Nineteen):
 
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
+        rect_col = (0.05, 1.0, 0.8, 0.35)
 
         start_P1 = (16, 16)
         start_P2 = (1, 0)
@@ -542,6 +549,8 @@ class SceneNineteenMixin(Scene):
             self.append_arrow( *coords, mark_type=MarkType.Legal )
 
         self.append_field_marker(*start_P1, mark_type=MarkType.Action)
+
+        self.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect_col)
 
         return 'scn_n_13_teleport_pawns_end'
 
