@@ -176,11 +176,6 @@ provided that destination field is empty, or occupied by a Star.
 Color-changing fields are all fields immediately neighboring starting
 location, either horizontally or vertically, but not diagonaly.
 
-\huge{TODO}
-\normalsize{}
-
-Teleporting Serpent ... on color-changing fields
-
 \clearpage % ..........................................................
 
 \subsubsection*{Out-of-board steps}
@@ -206,10 +201,27 @@ steps are also illegal. That means, Serpent cannot reach fields 1 through
 \subsubsection*{Teleporting Serpent}
 \addcontentsline{toc}{subsubsection}{Teleporting Serpent}
 
+\vspace*{-1.0\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_teleport_serpent_1.png}
+\caption{Teleporting Serpent}
+\label{fig:scn_tr_10_teleport_serpent_1}
+% \centering
+\end{figure}
+
 \huge{TODO}
 \normalsize{}
 
 Teleporting Serpent ... changing color of accessible fields.
+
+\clearpage % ..........................................................
+
+\huge{TODO}
+\normalsize{}
+
+Teleporting Serpent ... on color-changing fields
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
@@ -222,9 +234,9 @@ Teleporting Serpent ... changing color of accessible fields.
 \noindent
 \begin{wrapfigure}[3]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_serpent_activating_wave.png}
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_12_serpent_activating_wave.png}
 \caption{Activating}
-\label{fig:scn_tr_10_serpent_activating_wave}
+\label{fig:scn_tr_12_serpent_activating_wave}
 \end{wrapfigure}
 Serpent can activate Wave on its' step-fields only, it cannot activate Wave
 on \hyperref[fig:scn_tr_06_serpent_neighbors]{color-changing fields}.
@@ -233,9 +245,9 @@ on \hyperref[fig:scn_tr_06_serpent_neighbors]{color-changing fields}.
 \noindent
 \begin{wrapfigure}[2]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_11_serpent_activated_wave.png}
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_13_serpent_activated_wave.png}
 \caption{Activated}
-\label{fig:scn_tr_11_serpent_activated_wave}
+\label{fig:scn_tr_13_serpent_activated_wave}
 \end{wrapfigure}
 Activated Wave can freely choose any diagonal field for its' first step.
 
@@ -243,9 +255,9 @@ Activated Wave can freely choose any diagonal field for its' first step.
 \noindent
 \begin{wrapfigure}[2]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_12_serpent_activated_wave_step_1.png}
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_14_serpent_activated_wave_step_1.png}
 \caption{First step}
-\label{fig:scn_tr_12_serpent_activated_wave_step_1}
+\label{fig:scn_tr_14_serpent_activated_wave_step_1}
 \end{wrapfigure}
 After first step, Wave must choose next step from the other diagonal.
 
@@ -254,9 +266,9 @@ After first step, Wave must choose next step from the other diagonal.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_13_serpent_activated_wave_ply.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_15_serpent_activated_wave_ply.png}
 \caption{Activated Wave ply}
-\label{fig:scn_tr_13_serpent_activated_wave_ply}
+\label{fig:scn_tr_15_serpent_activated_wave_ply}
 % \centering
 \end{figure}
 
@@ -277,9 +289,9 @@ alternating between 2 chosen directions to the end of the chessboard.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_14_wave_out_of_board.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_16_wave_out_of_board.png}
 \caption{Wave out-of-board steps}
-\label{fig:scn_tr_14_wave_out_of_board}
+\label{fig:scn_tr_16_wave_out_of_board}
 % \centering
 \end{figure}
 
