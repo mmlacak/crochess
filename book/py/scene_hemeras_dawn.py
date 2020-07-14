@@ -368,3 +368,49 @@ class SceneHemerasDawnMixin(Scene):
         self.append_text("2", 15, 15, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=rect)
 
         return 'scn_hd_06_wave_activated_by_centaur_off_board'
+
+
+    def scn_hd_07_wave_teleport(self, bt=BoardType.HemerasDawn):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=16, height=19, board_desc=bd)
+
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start_T = (15, 18)
+        self.board.set_piece(*start_T, piece=PieceType.Star)
+
+        start = (14, 8)
+        self.board.set_piece(*start, piece=PieceType.Wave)
+
+        start_C = (5, 5)
+        self.board.set_piece(*start_C, piece=PieceType.Centaur)
+
+        #
+        # Wave activation
+        gen_coords = GS.gen_steps(start=start_C, rels=[(1, -2), (2, 3), ], include_prev=True, count=3)
+
+        for coords in gen_coords():
+            self.append_arrow( *coords )
+
+        #
+        # short --> (-2, 1) direction
+        # long --> (3, 2) direction
+
+        coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords() ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords() ) # short
+        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+
+        self.append_arrow( *coords(), mark_type=MarkType.Action ) # short
+
+        self.append_text("1", 14, 15, corner=Corner.UpperLeft, rect=rect)
+        self.append_text("2", *start_T, corner=Corner.UpperLeft, rect=rect)
+
+        return 'scn_hd_07_wave_teleport'

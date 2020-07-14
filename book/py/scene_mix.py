@@ -37,10 +37,11 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_n_08_teleport_wave_end', \
                     # 'scn_n_09_teleport_wave_2_init', \
                     # 'scn_n_10_teleport_wave_2_end', \
-                    'scn_n_11_teleport_pawns_init', \
-                    'scn_n_12_teleport_pawns_step_1', \
-                    'scn_n_13_teleport_pawns_end', \
-                    'scn_n_14_teleport_bishop', \
+                    # 'scn_n_11_teleport_pawns_init', \
+                    # 'scn_n_12_teleport_pawns_step_1', \
+                    # 'scn_n_13_teleport_pawns_end', \
+                    # 'scn_n_14_teleport_bishop', \
+                    'scn_hd_07_wave_teleport', \
                 ]
 
     def _get_all_scene_method_names(self):
