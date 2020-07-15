@@ -483,7 +483,12 @@ class SceneTamoanchanRevisitedMixin(Scene):
         coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=8)
 
         for index, coord in enumerate( coords() ):
-            mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
+            # mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
+            mark_type = MarkType.Legal
+            if index == 15:
+                mark_type = MarkType.Action
+            elif (index % 2 == 0) or (index >= 17):
+                mark_type = MarkType.Illegal
             self.append_arrow( *coord, mark_type=mark_type )
 
         #
@@ -491,6 +496,8 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         self.append_text('A', 18, 5, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text('B', 17, 6, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        self.append_text('B', 17, 20, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_tr_17_off_board_teleport_wave'
 
@@ -527,9 +534,9 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         self.append_text('B', 0, 10, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
 
-        self.append_text('1', 1, 9, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text('1', 1, 9, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_arrow( 1, 9, 2, 8, mark_type=MarkType.Illegal )
-        self.append_text('B', 2, 8, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text('B', 2, 8, corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_tr_18_teleported_wave_on_board'
 
@@ -555,8 +562,8 @@ class SceneTamoanchanRevisitedMixin(Scene):
         coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=8)
 
         for index, coord in enumerate( coords() ):
-            # mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
-            self.append_arrow( *coord, mark_type=MarkType.Legal )
+            mark_type = MarkType.Action if index == 14 else MarkType.Legal
+            self.append_arrow( *coord, mark_type=mark_type )
 
         #
         # diagonals
@@ -564,4 +571,40 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.append_text('A', 17, 6, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_text('B', 16, 7, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
 
+        self.append_text('A', 17, 20, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+
         return 'scn_tr_19_on_board_teleport_wave'
+
+    def scn_tr_20_teleported_wave_off_board(self, bt=BoardType.TamoanchanRevisited):
+
+        bd = BoardDesc(reverse_field_colors=False, off_board_bottom=1, off_board_left=4, reverse_off_board_field_colors=False)
+        self.init_scene(bt, width=18, height=21, board_desc=bd)
+
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+
+        self.board.set_piece(0, 6, piece=-PieceType.Pyramid)
+        self.board.set_piece(0, 16, piece=PieceType.Pawn)
+
+        start = (0, 0)
+
+        #
+        # arrows
+
+        coords = GS.gen_steps(start=start, rels=[(-1, 1), (1, 1), ], include_prev=True, count=11)
+
+        for index, coord in enumerate( coords() ):
+            if index == 5:
+                mark_type = MarkType.Blocked
+            elif index == 15:
+                mark_type = MarkType.Action
+            else:
+                mark_type = MarkType.Illegal if (index % 2 == 0) else MarkType.Legal
+            self.append_arrow( *coord, mark_type=mark_type )
+
+        #
+        # diagonals
+
+        self.append_text('B', -1, 1, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text('A', 0, 2, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+
+        return 'scn_tr_20_teleported_wave_off_board'
