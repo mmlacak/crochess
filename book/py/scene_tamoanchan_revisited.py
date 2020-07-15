@@ -462,7 +462,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         return 'scn_tr_16_wave_out_of_board'
 
-    def scn_tr_17_teleport_wave_init(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_17_off_board_teleport_wave(self, bt=BoardType.TamoanchanRevisited):
 
         bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
         self.init_scene(bt, width=18, height=21, board_desc=bd)
@@ -486,4 +486,32 @@ class SceneTamoanchanRevisitedMixin(Scene):
             mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
             self.append_arrow( *coord, mark_type=mark_type )
 
-        return 'scn_tr_17_teleport_wave_init'
+        return 'scn_tr_17_off_board_teleport_wave'
+
+    def scn_tr_18_teleported_wave_on_board(self, bt=BoardType.TamoanchanRevisited):
+
+        bd = BoardDesc(reverse_field_colors=False, off_board_bottom=1, off_board_left=4, reverse_off_board_field_colors=False)
+        self.init_scene(bt, width=18, height=21, board_desc=bd)
+
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+
+        self.board.set_piece(0, 6, piece=-PieceType.Pyramid)
+        self.board.set_piece(1, 15, piece=PieceType.Pawn)
+
+        start = (0, 0)
+        # self.board.set_piece(*start, piece=PieceType.Wave)
+
+        #
+        # arrows
+
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=11)
+
+        for index, coord in enumerate( coords() ):
+            mark_type = MarkType.Legal
+            if index == 5:
+                mark_type = MarkType.Blocked
+            elif index == 14:
+                mark_type = MarkType.Action
+            self.append_arrow( *coord, mark_type=mark_type )
+
+        return 'scn_tr_18_teleported_wave_on_board'
