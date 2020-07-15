@@ -34,8 +34,9 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_tr_14_serpent_activated_wave_step_1', \
                     # 'scn_tr_15_serpent_activated_wave_ply', \
                     # 'scn_tr_16_wave_out_of_board', \
-                    'scn_tr_17_off_board_teleport_wave', \
-                    'scn_tr_18_teleported_wave_on_board', \
+                    # 'scn_tr_17_off_board_teleport_wave', \
+                    # 'scn_tr_18_teleported_wave_on_board', \
+                    'scn_tr_19_on_board_teleport_wave', \
                 ]
 
     def _get_all_scene_method_names(self):

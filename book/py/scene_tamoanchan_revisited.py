@@ -499,7 +499,6 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.board.set_piece(1, 15, piece=PieceType.Pawn)
 
         start = (0, 0)
-        # self.board.set_piece(*start, piece=PieceType.Wave)
 
         #
         # arrows
@@ -515,3 +514,30 @@ class SceneTamoanchanRevisitedMixin(Scene):
             self.append_arrow( *coord, mark_type=mark_type )
 
         return 'scn_tr_18_teleported_wave_on_board'
+
+    def scn_tr_19_on_board_teleport_wave(self, bt=BoardType.TamoanchanRevisited):
+
+        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
+        self.init_scene(bt, width=18, height=21, board_desc=bd)
+
+        self.board.set_piece(17, 20, piece=PieceType.Star)
+        self.board.set_piece(13, 6, piece=PieceType.Serpent)
+
+        self.append_arrow( 13, 6, 14, 5, mark_type=MarkType.Action )
+        self.append_arrow( 14, 5, 15, 6, mark_type=MarkType.Action )
+        self.append_arrow( 15, 6, 16, 5, mark_type=MarkType.Action )
+
+        start = (16, 5)
+        self.board.set_piece(*start, piece=PieceType.Wave)
+
+        #
+        # arrows
+
+# TODO :: BUG :: generator overflows by 1, count is half it should be (actually, 15)
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=8)
+
+        for index, coord in enumerate( coords() ):
+            # mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
+            self.append_arrow( *coord, mark_type=MarkType.Legal )
+
+        return 'scn_tr_19_on_board_teleport_wave'
