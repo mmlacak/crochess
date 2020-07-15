@@ -27,13 +27,14 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_tr_10_teleport_serpent_1', \
-                    'scn_tr_11_teleport_serpent_2', \
+                    # 'scn_tr_10_teleport_serpent_1', \
+                    # 'scn_tr_11_teleport_serpent_2', \
                     # 'scn_tr_12_serpent_activating_wave', \
                     # 'scn_tr_13_serpent_activated_wave', \
                     # 'scn_tr_14_serpent_activated_wave_step_1', \
                     # 'scn_tr_15_serpent_activated_wave_ply', \
                     # 'scn_tr_16_wave_out_of_board', \
+                    'scn_tr_17_teleport_wave_init', \
                 ]
 
     def _get_all_scene_method_names(self):
