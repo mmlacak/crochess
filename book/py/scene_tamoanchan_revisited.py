@@ -282,9 +282,38 @@ class SceneTamoanchanRevisitedMixin(Scene):
         self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
         self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
 
-        # self.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked, rect=rect_col)
-
         return 'scn_tr_10_teleport_serpent_1'
+
+    def scn_tr_11_teleport_serpent_2(self, bt=BoardType.TamoanchanRevisited):
+
+        self.init_scene(bt)
+        rect = (0.05, 1.0, 0.6, 0.45)
+        rect_col = (0.05, 1.0, 0.8, 0.35)
+
+        start_S = (0, 20)
+        start_T = (0, 21)
+
+        # fixed set
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(21, 21, piece=PieceType.Star)
+        self.board.set_piece(21, 0, piece=-PieceType.Star)
+        self.board.set_piece(*start_T, piece=-PieceType.Star)
+
+        self.board.set_piece(*start_S, piece=PieceType.Serpent)
+
+        self.append_arrow( *(start_S + start_T), mark_type=MarkType.Action )
+        self.append_arrow( *(start_S + (1, 20)), mark_type=MarkType.Legal )
+        self.append_arrow( *(start_S + (0, 19)), mark_type=MarkType.Legal )
+
+        self.append_text("1", 20, 21, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
+        self.append_text("2", 20, 20, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("3", 21, 20, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
+
+        self.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
+        self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
+
+        return 'scn_tr_11_teleport_serpent_2'
 
     def scn_tr_12_serpent_activating_wave(self, bt=BoardType.TamoanchanRevisited):
 
