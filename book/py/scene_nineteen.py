@@ -381,7 +381,7 @@ class SceneNineteenMixin(Scene):
         # long --> (3, 2) direction
         # short --> (-2, 1) direction
 
-        gen_coords = GS.gen_steps(start=start, rels=[(3, 2), (-2, 1), ], include_prev=True, bounds=((0, 0), (19, 19))) # self.board.get_position_limits())
+        gen_coords = GS.gen_steps(start=start, rels=[(3, 2), (-2, 1), ], include_prev=True, bounds=((0, 0), (19, 19)))
 
         for index, coords in enumerate( gen_coords() ):
             mark_type = MarkType.Legal
@@ -417,7 +417,7 @@ class SceneNineteenMixin(Scene):
         # short --> (-2, 1) direction
         # long --> (3, 2) direction
 
-        gen_coords = GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True, count=6) # bounds=self.board.get_position_limits())
+        gen_coords = GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True, count=6)
 
         for coords in gen_coords():
             self.append_arrow( *coords )
@@ -443,7 +443,7 @@ class SceneNineteenMixin(Scene):
         # long --> (3, 2) direction
         # short --> (-2, 1) direction
 
-        gen_coords = GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True, bounds=((-4, -1), (15, 17))) # self.board.get_position_limits())
+        gen_coords = GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True, bounds=((-4, -1), (15, 17)))
 
         for index, coords in enumerate( gen_coords() ):
             mark_type = MarkType.Legal

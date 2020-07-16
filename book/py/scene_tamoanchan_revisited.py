@@ -558,7 +558,6 @@ class SceneTamoanchanRevisitedMixin(Scene):
         #
         # arrows
 
-# TODO :: BUG :: generator overflows by 1, count is half it should be (actually, 15)
         coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=15)
 
         for index, coord in enumerate( coords() ):
