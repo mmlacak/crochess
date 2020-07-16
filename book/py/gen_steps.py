@@ -302,16 +302,12 @@ def gen_items(items, count=None):
 
     def _gen_items():
         i = 0
+        _items = items() if callable(items) else items
         while count is None or i < count:
-            if callable(items):
-                # items :: generator
-                for _item in items():
-                    yield _item
-            else:
-                # items :: [ a, b, c, ... ] # e.g. [ (i, j), ... ]
-                for item in items:
+            for item in _items:
+                if count is None or i < count:
                     yield item
-            i += 1
+                    i += 1
 
     return _gen_items
 

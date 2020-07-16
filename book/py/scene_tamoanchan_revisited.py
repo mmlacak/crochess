@@ -396,7 +396,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
         start = (4, 4)
         self.board.set_piece(*start, piece=PieceType.Serpent)
 
-        coords = GS.gen_steps(start=start, rels=[(1, -1), (1, 1), ], include_prev=True, count=9)
+        coords = GS.gen_steps(start=start, rels=[(1, -1), (1, 1), ], include_prev=True, count=18)
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Legal if index % 2 == 0 else MarkType.Action
@@ -438,7 +438,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
         #
         # arrows
 
-        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=9)
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=18)
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
@@ -447,7 +447,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
         #
         # enumeration text
 
-        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=False, count=9)
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=False, count=18)
 
         for index, coord in enumerate( coords() ):
             if (index % 2 != 0) and (index < 17):
@@ -480,7 +480,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
         #
         # arrows
 
-        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=8)
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=16)
 
         for index, coord in enumerate( coords() ):
             # mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
@@ -516,7 +516,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
         #
         # arrows
 
-        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=11)
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=21)
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Legal
@@ -559,7 +559,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
         # arrows
 
 # TODO :: BUG :: generator overflows by 1, count is half it should be (actually, 15)
-        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=8)
+        coords = GS.gen_steps(start=start, rels=[(1, 1), (-1, 1), ], include_prev=True, count=15)
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Action if index == 14 else MarkType.Legal
@@ -590,7 +590,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
         #
         # arrows
 
-        coords = GS.gen_steps(start=start, rels=[(-1, 1), (1, 1), ], include_prev=True, count=11)
+        coords = GS.gen_steps(start=start, rels=[(-1, 1), (1, 1), ], include_prev=True, count=21)
 
         for index, coord in enumerate( coords() ):
             if index == 5:

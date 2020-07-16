@@ -32,12 +32,24 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_tr_12_serpent_activating_wave', \
                     # 'scn_tr_13_serpent_activated_wave', \
                     # 'scn_tr_14_serpent_activated_wave_step_1', \
+
                     # 'scn_tr_15_serpent_activated_wave_ply', \
                     # 'scn_tr_16_wave_out_of_board', \
-                    'scn_tr_17_off_board_teleport_wave', \
-                    'scn_tr_18_teleported_wave_on_board', \
-                    'scn_tr_19_on_board_teleport_wave', \
-                    'scn_tr_20_teleported_wave_off_board', \
+                    # 'scn_tr_17_off_board_teleport_wave', \
+                    # 'scn_tr_18_teleported_wave_on_board', \
+                    # 'scn_tr_19_on_board_teleport_wave', \
+                    # 'scn_tr_20_teleported_wave_off_board', \
+                    # 'scn_n_09_teleport_wave_2_init', \
+                    # 'scn_hd_07_wave_teleport', \
+
+                    # 'scn_cot_03_light_shaman_capture_ply', \
+                    # 'scn_cot_06_wave_activated', \
+                    # 'scn_cot_10_stop_sign_pattern_unwind', \
+
+                    # 'scn_hd_03_centaur_multi_step', \
+
+                    'scn_mv_03_move_wave_finished', \
+                    'scn_mv_25_wave_activated_by_unicorn', \
                 ]
 
     def _get_all_scene_method_names(self):

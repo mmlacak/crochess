@@ -254,14 +254,14 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # (4, 1) -----------------------------------------------------------------------------------------------------------------
 
-        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=False, count=5) )
+        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=False) )
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=PieceType.Wave)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=PieceType.Pawn)
 
-        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
@@ -270,19 +270,19 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # (-1, -4) ----------------------------------------------------------------------------------------------------------------
 
-        coords = GS.gen_next( GS.gen_steps([(-1, -4), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(-1, -4), ], start=start, include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # (1, -4) -----------------------------------------------------------------------------------------------------------------
 
-        coords = GS.gen_next( GS.gen_steps([(1, -4), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(1, -4), ], start=start, include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # (3, 2) ------------------------------------------------------------------------------------------------------------------
 
-        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=False, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=False) )
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
@@ -290,7 +290,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
 
-        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
@@ -317,13 +317,13 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # (2, 3) ------------------------------------------------------------------------------------------------------------------
 
-        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start, include_prev=False, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start, include_prev=False) )
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         coords() # leave empty
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
 
-        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start, include_prev=True, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start, include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
@@ -547,7 +547,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # (4, 1) -----------------------------------------------------------------------------------------------------------------
 
-        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=False, count=5) )
+        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=False) )
         self.append_text("1", *coords(), mark_type=MarkType.Blocked) # (4, 10), captured Pawn
         self.append_text("2", *coords(), mark_type=MarkType.Blocked) # captured Pawn
         self.board.set_piece(*coords(), piece=PieceType.Shaman) # (15, 12)
@@ -561,18 +561,18 @@ class SceneConquestOfTlalocanMixin(Scene):
         for pos in gen_pos():
             self.append_arrow( *pos )
 
-        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start_W, include_prev=True, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start_W, include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start_W, include_prev=True, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start_W, include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # (3, 2) ------------------------------------------------------------------------------------------------------------------
 
-        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=False, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=False) )
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
@@ -584,7 +584,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # (2, 3) ------------------------------------------------------------------------------------------------------------------
 
-        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start, include_prev=False, bounds=self.board.get_position_limits()) )
+        coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start, include_prev=False) )
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pawn)
         coords() # leave empty

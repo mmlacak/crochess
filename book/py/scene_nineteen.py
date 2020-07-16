@@ -417,7 +417,7 @@ class SceneNineteenMixin(Scene):
         # short --> (-2, 1) direction
         # long --> (3, 2) direction
 
-        gen_coords = GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True, count=3) # bounds=self.board.get_position_limits())
+        gen_coords = GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True, count=6) # bounds=self.board.get_position_limits())
 
         for coords in gen_coords():
             self.append_arrow( *coords )

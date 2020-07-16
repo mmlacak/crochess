@@ -388,7 +388,7 @@ class SceneHemerasDawnMixin(Scene):
 
         #
         # Wave activation
-        gen_coords = GS.gen_steps(start=start_C, rels=[(1, -2), (2, 3), ], include_prev=True, count=3)
+        gen_coords = GS.gen_steps(start=start_C, rels=[(1, -2), (2, 3), ], include_prev=True, count=6)
 
         for coords in gen_coords():
             self.append_arrow( *coords )
