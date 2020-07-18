@@ -27,10 +27,10 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_cot_02_light_shaman_step_ply', \
-                    # 'scn_cot_04_dark_shaman_step_ply', \
+                    'scn_cot_07_teleport_shaman_step_fields', \
+                    'scn_cot_08_teleport_shaman_capture_fields', \
                     # 'scn_cot_05_dark_shaman_capture_ply', \
-                    'scn_tr_20_teleported_wave_off_board', \
+                    # 'scn_tr_20_teleported_wave_off_board', \
                 ]
 
     def _get_all_scene_method_names(self):

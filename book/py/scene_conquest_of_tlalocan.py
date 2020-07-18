@@ -598,9 +598,80 @@ class SceneConquestOfTlalocanMixin(Scene):
         return 'scn_cot_06_wave_activated'
 
     #
+    # teleporting Shaman
+
+    def scn_cot_07_teleport_shaman_step_fields(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start_H = (6, 20)
+        start_T = (0, 23)
+
+        # fixed set
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(23, 23, piece=PieceType.Star)
+        self.board.set_piece(23, 0, piece=-PieceType.Star)
+        self.board.set_piece(*start_T, piece=-PieceType.Star)
+
+        self.board.set_piece(*start_H, piece=PieceType.Shaman)
+
+        coords = GS.gen_steps(start=start_H, rels=[(-2, 1), ], include_prev=True, count=3)
+
+        for index, coord in enumerate( coords() ):
+            mark_type = MarkType.Action if index == 2 else MarkType.Legal
+            self.append_arrow( *coord, mark_type=mark_type )
+
+        # portal-fields
+        self.append_text("1", 22, 23, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("2", 22, 22, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("3", 23, 22, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+
+        self.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+
+        return 'scn_cot_07_teleport_shaman_step_fields'
+
+    def scn_cot_08_teleport_shaman_capture_fields(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        start_H = (9, 17)
+        start_T = (0, 23)
+
+        # fixed set
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(23, 23, piece=PieceType.Star)
+        self.board.set_piece(23, 0, piece=-PieceType.Star)
+        self.board.set_piece(*start_T, piece=-PieceType.Star)
+
+        self.board.set_piece(3, 21, piece=-PieceType.Bishop)
+        self.board.set_piece(6, 19, piece=-PieceType.Knight)
+        self.board.set_piece(*start_H, piece=PieceType.Shaman)
+
+        coords = GS.gen_steps(start=start_H, rels=[(-3, 2), ], include_prev=True, count=3)
+
+        for index, coord in enumerate( coords() ):
+            mark_type = MarkType.Action if index == 2 else MarkType.Legal
+            self.append_arrow( *coord, mark_type=mark_type )
+
+        # portal-fields
+        self.append_text("1", 22, 23, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("2", 22, 22, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("3", 23, 22, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+
+        self.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+
+        return 'scn_cot_08_teleport_shaman_capture_fields'
+
+    #
     # trance-journey
 
-    def scn_cot_07_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_09_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
 
@@ -643,9 +714,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         coords = GS.gen_next( GS.gen_steps(start=start_w1, rels=[(1, 2), ], include_prev=True) )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        return 'scn_cot_07_trance_journey_init'
+        return 'scn_cot_09_trance_journey_init'
 
-    def scn_cot_08_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_10_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
 
@@ -691,10 +762,10 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_text("L", 6, 8, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.6, 0.45))
         self.append_text("R", 8, 8, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.05, 1.0, 0.6, 0.45))
 
-        return 'scn_cot_08_knight_directions'
+        return 'scn_cot_10_knight_directions'
 
 
-    def scn_cot_09_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_11_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
 
@@ -719,7 +790,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_arrow( *GS.add_to_all( (5, 8, 5, 7), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
         self.append_arrow( *GS.add_to_all( (5, 7, 6, 6), 0.5 ), mark_type=MarkType.Illegal ) # right-down
 
-        return 'scn_cot_09_stop_sign_pattern'
+        return 'scn_cot_11_stop_sign_pattern'
 
     def append_broken_arrow(self, start, rel, outward_arrows=True, bounds=None, count=None, rect=(0.05, 1.0, 0.6, 0.45)):
 
@@ -757,7 +828,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         return _append_broken_arrow
 
-    def scn_cot_10_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_12_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt, width=9, height=12)
 
@@ -773,9 +844,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         aba("3", mark_type=MarkType.Blocked)
         aba("4", mark_type=MarkType.Illegal)
 
-        return 'scn_cot_10_stop_sign_pattern_unwind'
+        return 'scn_cot_12_stop_sign_pattern_unwind'
 
-    def scn_cot_11_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_13_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -809,9 +880,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             aba(str(4 * i + 3), mark_type=MarkType.Blocked)
             aba(str(4 * i + 4), mark_type=MarkType.Illegal)
 
-        return 'scn_cot_11_stop_sign_pattern_full'
+        return 'scn_cot_13_stop_sign_pattern_full'
 
-    def scn_cot_12_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_14_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -836,9 +907,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(16):
             aba(str(i + 1), mark_type=MarkType.Action)
 
-        return 'scn_cot_12_light_shaman_trance_journey'
+        return 'scn_cot_14_light_shaman_trance_journey'
 
-    def scn_cot_13_light_shaman_trance_journey_offset(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_15_light_shaman_trance_journey_offset(self, bt=BoardType.ConquestOfTlalocan):
 
         bd = BoardDesc(reverse_field_colors=True, off_board_left=7, off_board_bottom=1, reverse_off_board_field_colors=True)
         self.init_scene(bt, width=17, height=23, board_desc=bd)
@@ -866,9 +937,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             # mark_type = MarkType.Legal if i < 5 else MarkType.Blocked
             # aba(str(i + 1), mark_type=mark_type)
 
-        return 'scn_cot_13_light_shaman_trance_journey_offset'
+        return 'scn_cot_15_light_shaman_trance_journey_offset'
 
-    def scn_cot_14_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_16_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -893,9 +964,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Action)
 
-        return 'scn_cot_14_dark_shaman_trance_journey'
+        return 'scn_cot_16_dark_shaman_trance_journey'
 
-    def scn_cot_15_displacement_fields(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_17_displacement_fields(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -918,9 +989,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
-        return 'scn_cot_15_displacement_fields'
+        return 'scn_cot_17_displacement_fields'
 
-    def scn_cot_16_light_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_18_light_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -983,9 +1054,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
         self.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
 
-        return 'scn_cot_16_light_light_shaman_interaction_start'
+        return 'scn_cot_18_light_light_shaman_interaction_start'
 
-    def scn_cot_17_light_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_19_light_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1054,9 +1125,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         # for i in xrange(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
 
-        return 'scn_cot_17_light_light_shaman_interaction_end'
+        return 'scn_cot_19_light_light_shaman_interaction_end'
 
-    def scn_cot_18_dark_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_20_dark_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1123,9 +1194,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
         self.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
 
-        return 'scn_cot_18_dark_light_shaman_interaction_start'
+        return 'scn_cot_20_dark_light_shaman_interaction_start'
 
-    def scn_cot_19_dark_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_21_dark_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1182,9 +1253,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         # for i in xrange(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
 
-        return 'scn_cot_19_dark_light_shaman_interaction_end'
+        return 'scn_cot_21_dark_light_shaman_interaction_end'
 
-    def scn_cot_20_dark_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_22_dark_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1253,9 +1324,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.replace_text("6", *startT, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
         self.replace_text("8", *startK, corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
 
-        return 'scn_cot_20_dark_dark_shaman_interaction_start'
+        return 'scn_cot_22_dark_dark_shaman_interaction_start'
 
-    def scn_cot_21_dark_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_23_dark_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1310,9 +1381,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
 
-        return 'scn_cot_21_dark_dark_shaman_interaction_end'
+        return 'scn_cot_23_dark_dark_shaman_interaction_end'
 
-    def scn_cot_22_dark_dark_shaman_double_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_24_dark_dark_shaman_double_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1381,9 +1452,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.replace_text("6", *startT, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
         self.replace_text("8", *startK, corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
 
-        return 'scn_cot_22_dark_dark_shaman_double_interaction_start'
+        return 'scn_cot_24_dark_dark_shaman_double_interaction_start'
 
-    def scn_cot_23_dark_dark_shaman_double_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_25_dark_dark_shaman_double_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1431,9 +1502,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
 
-        return 'scn_cot_23_dark_dark_shaman_double_interaction_end'
+        return 'scn_cot_25_dark_dark_shaman_double_interaction_end'
 
-    def scn_cot_24_light_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_26_light_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1506,9 +1577,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.replace_text("6", *startT, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
         self.replace_text("8", *startK, corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
 
-        return 'scn_cot_24_light_dark_shaman_interaction_start'
+        return 'scn_cot_26_light_dark_shaman_interaction_start'
 
-    def scn_cot_25_light_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_27_light_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1586,9 +1657,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=(0.10, 1.0, 0.5, 0.45))
             i += 1
 
-        return 'scn_cot_25_light_dark_shaman_interaction_end'
+        return 'scn_cot_27_light_dark_shaman_interaction_end'
 
-    def scn_cot_26_backward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_28_backward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1630,9 +1701,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
             i += 1
 
-        return 'scn_cot_26_backward_displacement_start'
+        return 'scn_cot_28_backward_displacement_start'
 
-    def scn_cot_27_backward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_29_backward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1664,9 +1735,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         startB = (17, 13)
         self.board.set_piece(*startB, piece=-PieceType.Bishop)
 
-        return 'scn_cot_27_backward_displacement_end'
+        return 'scn_cot_29_backward_displacement_end'
 
-    def scn_cot_28_forward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_30_forward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1708,9 +1779,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
-        return 'scn_cot_28_forward_displacement_start'
+        return 'scn_cot_30_forward_displacement_start'
 
-    def scn_cot_29_forward_displacement_step_2(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_31_forward_displacement_step_2(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1750,9 +1821,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.LowerRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
-        return 'scn_cot_29_forward_displacement_step_2'
+        return 'scn_cot_31_forward_displacement_step_2'
 
-    def scn_cot_30_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_32_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
         bd = BoardDesc(reverse_field_colors=False, off_board_left=5, off_board_top=1, reverse_off_board_field_colors=False)
         self.init_scene(bt, width=19, height=23, board_desc=bd)
@@ -1795,9 +1866,9 @@ class SceneConquestOfTlalocanMixin(Scene):
             self.append_text(str(i), *pos, corner=Corner.LowerRight, mark_type=mark_type, rect=(0.15, 1.0, 0.5, 0.45))
             i += 1
 
-        return 'scn_cot_30_forward_displacement_end'
+        return 'scn_cot_32_forward_displacement_end'
 
-    def scn_cot_31_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_33_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
 
         bd = BoardDesc(reverse_field_colors=True, reverse_off_board_field_colors=True)
         self.init_scene(bt, width=5, height=8, board_desc=bd)
@@ -1820,9 +1891,9 @@ class SceneConquestOfTlalocanMixin(Scene):
         for i in xrange(2):
             self.append_arrow( *coords(), mark_type=MarkType.Legal )
 
-        return 'scn_cot_31_push_pull_entrancement_start'
+        return 'scn_cot_33_push_pull_entrancement_start'
 
-    def scn_cot_32_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_34_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
 
         bd = BoardDesc(reverse_field_colors=True, reverse_off_board_field_colors=True)
         self.init_scene(bt, width=5, height=8, board_desc=bd)
@@ -1837,9 +1908,9 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.append_arrow( *(startW1 + startH), mark_type=MarkType.Action )
 
-        return 'scn_cot_32_push_pull_entrancement_2'
+        return 'scn_cot_34_push_pull_entrancement_2'
 
-    def scn_cot_33_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_35_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
 
@@ -1866,7 +1937,7 @@ class SceneConquestOfTlalocanMixin(Scene):
             mark_type = MarkType.Blocked if i < 6 else MarkType.Legal
             aba(str(i + 1), mark_type=mark_type)
 
-        return 'scn_cot_33_push_pull_entrancement_end'
+        return 'scn_cot_35_push_pull_entrancement_end'
 
 
     #
