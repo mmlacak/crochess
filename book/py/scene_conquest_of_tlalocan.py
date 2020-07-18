@@ -600,61 +600,45 @@ class SceneConquestOfTlalocanMixin(Scene):
     #
     # teleporting Shaman
 
-    def scn_cot_07_teleport_shaman_step_fields(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_07_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
 
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
 
-        start_H = (6, 20)
+        start_H_A = (9, 17)
         start_T = (0, 23)
+
+        start_T2 = (23, 0)
+        start_H_B= (22, 3)
+        start_H_C = (15, 4)
 
         # fixed set
         self.board.set_piece(0, 0, piece=PieceType.Star)
         self.board.set_piece(23, 23, piece=PieceType.Star)
-        self.board.set_piece(23, 0, piece=-PieceType.Star)
-        self.board.set_piece(*start_T, piece=-PieceType.Star)
-
-        self.board.set_piece(*start_H, piece=PieceType.Shaman)
-
-        coords = GS.gen_steps(start=start_H, rels=[(-2, 1), ], include_prev=True, count=3)
-
-        for index, coord in enumerate( coords() ):
-            mark_type = MarkType.Action if index == 2 else MarkType.Legal
-            self.append_arrow( *coord, mark_type=mark_type )
-
-        # portal-fields
-        self.append_text("1", 22, 23, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("2", 22, 22, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("3", 23, 22, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
-
-        self.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
-
-        return 'scn_cot_07_teleport_shaman_step_fields'
-
-    def scn_cot_08_teleport_shaman_capture_fields(self, bt=BoardType.ConquestOfTlalocan):
-
-        self.init_scene(bt)
-        rect = (0.05, 1.0, 0.6, 0.45)
-
-        start_H = (9, 17)
-        start_T = (0, 23)
-
-        # fixed set
-        self.board.set_piece(0, 0, piece=PieceType.Star)
-        self.board.set_piece(23, 23, piece=PieceType.Star)
-        self.board.set_piece(23, 0, piece=-PieceType.Star)
+        self.board.set_piece(*start_T2, piece=-PieceType.Star)
         self.board.set_piece(*start_T, piece=-PieceType.Star)
 
         self.board.set_piece(3, 21, piece=-PieceType.Bishop)
         self.board.set_piece(6, 19, piece=-PieceType.Knight)
-        self.board.set_piece(*start_H, piece=PieceType.Shaman)
+        self.board.set_piece(*start_H_A, piece=PieceType.Shaman)
+        self.board.set_piece(*start_H_B, piece=PieceType.Shaman)
+        self.board.set_piece(*start_H_C, piece=PieceType.Shaman)
 
-        coords = GS.gen_steps(start=start_H, rels=[(-3, 2), ], include_prev=True, count=3)
+        # Shaman A
+        coords = GS.gen_steps(start=start_H_A, rels=[(-3, 2), ], include_prev=True, count=3)
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Action if index == 2 else MarkType.Legal
+            self.append_arrow( *coord, mark_type=mark_type )
+
+        # Shaman B
+        self.append_arrow( *(start_H_B + start_T2), mark_type=MarkType.Action )
+
+        # Shaman C
+        coords = GS.gen_steps(start=start_H_C, rels=[(2, -1), ], include_prev=True, count=4)
+
+        for index, coord in enumerate( coords() ):
+            mark_type = MarkType.Action if index == 3 else MarkType.Legal
             self.append_arrow( *coord, mark_type=mark_type )
 
         # portal-fields
@@ -666,7 +650,19 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
         self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
 
-        return 'scn_cot_08_teleport_shaman_capture_fields'
+        # Shamans
+        self.append_text("A", *start_H_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_text("B", *start_H_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_text("C", *start_H_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+
+        return 'scn_cot_07_teleport_shaman_all'
+
+    def scn_cot_08_teleport_pawn_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        self.init_scene(bt)
+        rect = (0.05, 1.0, 0.6, 0.45)
+
+        return 'scn_cot_08_teleport_pawn_init'
 
     #
     # trance-journey
