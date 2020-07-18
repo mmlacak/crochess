@@ -534,7 +534,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         self.append_text('B', 0, 10, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
 
-        self.append_text('1', 1, 9, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        self.append_text('9', 1, 9, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
         self.append_arrow( 1, 9, 2, 8, mark_type=MarkType.Illegal )
         self.append_text('B', 2, 8, corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
 
@@ -599,6 +599,21 @@ class SceneTamoanchanRevisitedMixin(Scene):
             else:
                 mark_type = MarkType.Illegal if (index % 2 == 0) else MarkType.Legal
             self.append_arrow( *coord, mark_type=mark_type )
+
+        #
+        # enumeration text
+
+        coords = GS.gen_steps(start=start, rels=[(-1, 1), (1, 1), ], include_prev=False, count=20)
+
+        for index, coord in enumerate( coords() ):
+            if (index % 2 != 0): # (index < 17):
+                i = int( (index + 1) // 2 )
+                mark_type = MarkType.Legal
+                if index == 5:
+                    mark_type = MarkType.Blocked
+                elif index == 15:
+                    mark_type = MarkType.Action
+                self.append_text(str(i), *coord, corner=Corner.UpperLeft, mark_type=mark_type, rect=(0.15, 1.0, 0.7, 0.45))
 
         #
         # diagonals
