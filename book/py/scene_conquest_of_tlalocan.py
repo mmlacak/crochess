@@ -662,6 +662,32 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.init_scene(bt)
         rect = (0.05, 1.0, 0.6, 0.45)
 
+        start_T = (0, 23)
+        start_P = (1, 22)
+        start_P_B = (0, 22)
+
+        # fixed set
+        self.board.set_piece(0, 0, piece=PieceType.Star)
+        self.board.set_piece(23, 23, piece=PieceType.Star)
+        self.board.set_piece(23, 0, piece=-PieceType.Star)
+        self.board.set_piece(*start_T, piece=-PieceType.Star)
+
+        # Pawns
+        self.board.set_piece(*start_P, piece=PieceType.Pawn)
+        self.board.set_piece(*start_P_B, piece=PieceType.Pawn)
+
+        # self.append_arrow( *(start_P + start_T), mark_type=MarkType.Action )
+        self.append_arrow( *(start_P_B + start_T), mark_type=MarkType.Action )
+
+        # portal-fields
+        self.append_text("1", 22, 23, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
+        self.append_text("2", 22, 22, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("3", 23, 22, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+
+        self.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+
         return 'scn_cot_08_teleport_pawn_init'
 
     #
