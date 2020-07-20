@@ -28,7 +28,7 @@ class SceneMix(SceneCroatianTiesMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_cot_07_teleport_shaman_all', \
-                    'scn_cot_08_teleport_pawn_init', \
+                    'scn_mv_25_wave_activated_by_unicorn', \
                     # 'scn_cot_05_dark_shaman_capture_ply', \
                     # 'scn_tr_20_teleported_wave_off_board', \
                 ]

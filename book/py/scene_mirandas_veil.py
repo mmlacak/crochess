@@ -1166,11 +1166,12 @@ class SceneMirandasVeilMixin(Scene):
         #
         # forbidden directions change
 
-        # # (2, -1) is ok, i.e. direction "5", here: 6, 9 --> 4, 10
-        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=((2, -1), ) ) )
-        start_X = (4, 10)
+        # # (-2, 1) is ok, i.e. direction "5", here: 6, 9 --> 4, 10
+        rel = (-2, 1)
+        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=(rel, ) ) )
+        start_X = (6, 9)
 
-        self.append_text("5", *start_X, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+        self.append_text("4", *start_X, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
 
         arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=start_X, include_prev=True, count=1) )
         txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=start_X, include_prev=False, count=1) )
@@ -1183,6 +1184,8 @@ class SceneMirandasVeilMixin(Scene):
 
         self.append_arrow( *arr(), mark_type=MarkType.Illegal )
         self.append_text("5c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+
+        self.append_text("5", *GS.add(start_X, rel), corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=rect)
 
         self.append_arrow( *arr(), mark_type=MarkType.Illegal )
         self.append_text("5d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
