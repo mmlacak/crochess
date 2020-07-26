@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# Copyright (c) 2010 - 2019 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 
@@ -14,4 +14,3 @@ rm -rfv book/gfx/en_passants
 rm -rfv book/gfx/examples
 rm -rfv book/gfx/pieces
 rm -rfv book/gfx/rush
-

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2016, 2020 Mario Mlačak, mmlacak@gmail.com
@@ -39,6 +39,16 @@ def q_same_rounded_floats(num0, num1, digits=6):
     n0 = calc_rounded_str_value(num0, digits=digits)
     n1 = calc_rounded_str_value(num1, digits=digits)
     return n0 == n1
+
+def translate_scale(x_pct, y_pct, scale=1.0, center_x=0.5, center_y=0.5):
+    if scale == 1.0:
+        # 1.0 == 1.0 + 1e-16 --> True
+        return (x_pct, y_pct)
+    else:
+        # 1.0 == 1.0 + 1e-15 --> False
+        x = scale * (x_pct - center_x) + center_x
+        y = scale * (y_pct - center_y) + center_y
+        return (x, y)
 
 def calc_straight_line(start, end):
     x0, y0 = floatify_iterable(start)
@@ -126,6 +136,39 @@ def calc_line_length(point, other):
 
     sqr_dist = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)
     return math.sqrt(sqr_dist)
+
+
+class RectanglePix(object):
+    def __init__(self, x_pix, y_pix, width_pix, height_pix):
+        assert isinstance(x_pix, int)
+        assert isinstance(y_pix, int)
+        assert isinstance(width_pix, int)
+        assert isinstance(height_pix, int)
+
+        self.x_pix = x_pix
+        self.y_pix = y_pix
+        self.width_pix = width_pix
+        self.height_pix = height_pix
+
+    def as_tuple(self):
+        return (self.x_pix, self.y_pix, self.width_pix, self.height_pix)
+
+    @staticmethod
+    def from_tuple(tpl):
+        return RectanglePix( *tpl[ 0 : 4 ] )
+
+    def calc_point(self, x_pct, y_pct):
+        x_pix = self.x_pix + x_pct * self.width_pix
+        # y = self.top + (1.0 - y_pct) * self.height
+        y_pix = self.y_pix + y_pct * self.height_pix
+        return (int(x_pix), int(y_pix))
+
+    def calc_size(self, width_pct, height_pct):
+        width_pix  = width_pct * self.width_pix
+        height_pix  = height_pct * self.height_pix
+        return (int(width_pix), int(height_pix))
+
+
 
 if __name__ == '__main__':
     print

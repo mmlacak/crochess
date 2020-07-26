@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2018 - 2020 Mario Mlačak, mmlacak@gmail.com
@@ -52,4 +52,3 @@ def test_colors():
 
 if __name__ == '__main__':
     test_colors()
-

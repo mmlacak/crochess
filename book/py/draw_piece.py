@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2018 - 2020 Mario Mlačak, mmlacak@gmail.com
@@ -9,8 +9,8 @@ from types import NoneType
 
 from piece import PieceType
 from colors import ColorsPair, ColorsPiece, ColorsItem
-# from draw import get_new_drawable, get_new_gc, DrawableRectangle, Draw
-from draw import  DrawableRectangle, Draw
+from draw import Draw
+from pixel_math import translate_scale, RectanglePix
 
 
 PIECE_WITH_CHIP_TRANSLATION = 0.11
@@ -19,32 +19,32 @@ PIECE_WITH_CHIP_TRANSLATION = 0.11
 class DrawPiece(Draw):
 
     def draw_piece_polygon(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
-        assert isinstance(rect, DrawableRectangle)
+        assert isinstance(rect, RectanglePix)
         assert isinstance(cpair, (ColorsPair, NoneType))
 
         def _scale(x_pct, y_pct):
-            return DrawableRectangle.scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
+            return translate_scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
 
         points_pix = [ rect.calc_point( *_scale( *t ) ) for t in points_pct ]
 
         if cpair is not None:
-            self.draw_outlined_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
+            self.draw_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
         else:
-            self.draw_outlined_polygon(points_pix, gc=gc)
+            self.draw_polygon(points_pix, gc=gc)
 
     def draw_polylines(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
-        assert isinstance(rect, DrawableRectangle)
+        assert isinstance(rect, RectanglePix)
         assert isinstance(cpair, (ColorsPair, NoneType))
 
         def _scale(x_pct, y_pct):
-            return DrawableRectangle.scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
+            return translate_scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
 
         points_pix = [ rect.calc_point( *_scale( *t ) ) for t in points_pct ]
 
         if cpair is not None:
-            self.draw_outlines(points_pix, outline=cpair.outline, gc=gc)
+            self.draw_lines(points_pix, outline=cpair.outline, gc=gc)
         else:
-            self.draw_outlines(points_pix, gc=gc)
+            self.draw_lines(points_pix, gc=gc)
 
     def draw_none(self, rect, cpiece=None, gc=None):
         pass
@@ -189,17 +189,17 @@ class DrawPiece(Draw):
     def draw_starchild(self, rect, cpiece=None, caura=None, gc=None):
         x1, y1 = rect.calc_point(0.149999, 0.149999)
         w1, h1 = rect.calc_size(0.700001, 0.700001)
-        self.draw_outlined_arc(x1, y1, w1, h1, interior=cpiece.own.interior, outline=cpiece.own.outline, gc=gc)
+        self.draw_ellipse(x1, y1, w1, h1, interior=cpiece.own.interior, outline=cpiece.own.outline, gc=gc)
 
         x2, y2 = rect.calc_point(0.200001, 0.200001)
         w2, h2 = rect.calc_size(0.600001, 0.600001)
-        self.draw_outlined_arc(x2, y2, w2, h2, interior=caura.interior, outline=cpiece.own.outline, gc=gc)
+        self.draw_ellipse(x2, y2, w2, h2, interior=caura.interior, outline=cpiece.own.outline, gc=gc)
 
         self.draw_star(rect, cpiece=cpiece, scale=0.667, gc=gc)
 
     def draw_piece(self, piece_type, rect, colors_item, gc=None):
         pt = PieceType(piece_type)
-        assert isinstance(rect, DrawableRectangle)
+        assert isinstance(rect, RectanglePix)
         assert isinstance(colors_item, ColorsItem)
 
         _draw = { PieceType.none: self.draw_none,
@@ -257,10 +257,10 @@ def test_piece(func_name, size=300):
         else:
             func(rect, cpiece=cpiece)
 
-    r_tl = DrawableRectangle(0, 0, size, size)
-    r_tr = DrawableRectangle(size, 0, size, size)
-    r_bl = DrawableRectangle(0, size, size, size)
-    r_br = DrawableRectangle(size, size, size, size)
+    r_tl = RectanglePix(0, 0, size, size)
+    r_tr = RectanglePix(size, 0, size, size)
+    r_bl = RectanglePix(0, size, size, size)
+    r_br = RectanglePix(size, size, size, size)
 
     # dark
     _call(r_tl, cpiece=cdark)
@@ -310,7 +310,7 @@ def test_piece_contour(func_name, size=1000):
         else:
             func(rect, cpiece=cpiece)
 
-    rect = DrawableRectangle(0, 0, size, size)
+    rect = RectanglePix(0, 0, size, size)
 
     # dark
     _call(rect, cpiece=cdark)

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2018 - 2020 Mario Mlačak, mmlacak@gmail.com
@@ -11,7 +11,8 @@ from util import xor
 from board_desc import BoardDesc
 from board import BoardType, Board
 from colors import ColorsShade, ColorsItem, Colors
-from draw import  DrawableRectangle, Draw
+from pixel_math import RectanglePix
+from draw import Draw
 from draw_piece import DrawPiece
 
 
@@ -117,7 +118,7 @@ class DrawBoard(Draw):
     def draw_piece_at_field(self, i, j, colors_item, gc=None):
         x_pix, y_pix = self.get_field_start_pix(i, j)
         p = self.board.get_piece(i, j)
-        dr = DrawableRectangle(x_pix, y_pix, self.field_width_pix, self.field_height_pix)
+        dr = RectanglePix(x_pix, y_pix, self.field_width_pix, self.field_height_pix)
         self.draw_piece.draw_piece(p, dr, colors_item, gc=gc)
 
     def draw_all_pieces(self, colors_item, gc=None):
