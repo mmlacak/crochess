@@ -50,6 +50,9 @@ def translate_scale(x_pct, y_pct, scale=1.0, center_x=0.5, center_y=0.5):
         y = scale * (y_pct - center_y) + center_y
         return (x, y)
 
+def calc_default_line_width(size_pix):
+    return math.ceil( 1 + ( 6 * size_pix / 5000 ) )
+
 def calc_straight_line(start, end):
     x0, y0 = floatify_iterable(start)
     x1, y1 = floatify_iterable(end)
@@ -171,50 +174,50 @@ class RectanglePix(object):
 
 
 if __name__ == '__main__':
-    print
-    print floatify_iterable( (1, 2, 3) )
-    print floatify_iterable( [1, 2, 3] )
-    print
+    print()
+    print( floatify_iterable( (1, 2, 3) ) )
+    print( floatify_iterable( [1, 2, 3] ) )
+    print()
 
-    print
-    print q_same_rounded_floats(3.0, 3.0)
-    print q_same_rounded_floats(3.0, -3.0)
-    print q_same_rounded_floats(3.14, math.pi)
-    print q_same_rounded_floats(3.1415926535, math.pi)
-    print q_same_rounded_floats(3.1415, math.pi, digits=3)
-    print
+    print()
+    print( q_same_rounded_floats(3.0, 3.0) )
+    print( q_same_rounded_floats(3.0, -3.0) )
+    print( q_same_rounded_floats(3.14, math.pi) )
+    print( q_same_rounded_floats(3.1415926535, math.pi) )
+    print( q_same_rounded_floats(3.1415, math.pi, digits=3) )
+    print()
 
     start0 = (3, 2)
     end0 = (7, 5)
     dist0 = 2.0
-    print start0, end0, dist0, calc_distant_points_on_inverse_line(start0, end0, dist0)
-    print end0, start0, dist0, calc_distant_points_on_inverse_line(end0, start0, dist0)
-    print
+    print( start0, end0, dist0, calc_distant_points_on_inverse_line(start0, end0, dist0) )
+    print( end0, start0, dist0, calc_distant_points_on_inverse_line(end0, start0, dist0) )
+    print()
 
     # start0 = (3, 2)
     # end0 = (7, 5)
     dist0 = 5.0
-    print start0, end0, dist0, calc_distant_points_on_inverse_line(start0, end0, dist0)
-    print end0, start0, dist0, calc_distant_points_on_inverse_line(end0, start0, dist0)
-    print
+    print( start0, end0, dist0, calc_distant_points_on_inverse_line(start0, end0, dist0) )
+    print( end0, start0, dist0, calc_distant_points_on_inverse_line(end0, start0, dist0) )
+    print()
 
     start1 = (3.0, 2.0)
     end1 = (3.0, 5.0)
     dist1 = 1.42
-    print start1, end1, dist1, calc_distant_points_on_inverse_line(start1, end1, dist1)
-    print end1, start1, dist1, calc_distant_points_on_inverse_line(end1, start1, dist1)
-    print
+    print( start1, end1, dist1, calc_distant_points_on_inverse_line(start1, end1, dist1) )
+    print( end1, start1, dist1, calc_distant_points_on_inverse_line(end1, start1, dist1) )
+    print()
 
     start2 = (3.0, 2.0)
     end2 = (7.0, 2.0)
     dist2 = 1.608
-    print start2, end2, dist2, calc_distant_points_on_inverse_line(start2, end2, dist2)
-    print end2, start2, dist2, calc_distant_points_on_inverse_line(end2, start2, dist2)
-    print
+    print( start2, end2, dist2, calc_distant_points_on_inverse_line(start2, end2, dist2) )
+    print( end2, start2, dist2, calc_distant_points_on_inverse_line(end2, start2, dist2) )
+    print()
 
     start3 = (2, 1)
     end3 = (5, 7)
     dist3 = 3.5
-    print start3, end3, dist3, calc_division_point(start3, end3, dist3)
-    print end3, start3, dist3, calc_division_point(end3, start3, dist3)
-    print
+    print( start3, end3, dist3, calc_division_point(start3, end3, dist3) )
+    print( end3, start3, dist3, calc_division_point(end3, start3, dist3) )
+    print()

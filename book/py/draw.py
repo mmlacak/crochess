@@ -5,6 +5,7 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 from PIL import Image, ImageDraw, ImageFont
+from pixel_math import calc_default_line_width
 
 
 DEFAULT_COLOR_SPACE = 'RGB'
@@ -31,6 +32,9 @@ class Draw(object):
         self.image = Image.new(color_space, (width_pix, height_pix), color=bg_color)
         self.draw = ImageDraw.Draw(self.image)
 
+        size = max(width_pix, height_pix)
+        self.default_line_width = calc_default_line_width( size )
+
     def save_image(self, file_path, file_type=DEFAULT_FILE_TYPE):
         self.image.save(file_path, file_type)
 
@@ -40,11 +44,12 @@ class Draw(object):
     def draw_lines(self, points, color="#000000", width=1, joint='curve'):
         self.draw.line(points, fill=color, width=width, joint=joint)
 
-    def draw_rectangle(self, x, y, width, height, interior=None, outline=None, line_width=1):
+    def draw_rectangle(self, x, y, width, height, interior=None, outline=None, line_width=None):
         points = [ (x, y), (x+width, y+height) ]
-        self.draw.rectangle(points, fill=interior, outline=outline, width=line_width)
+        lw = line_width or self.default_line_width
+        self.draw.rectangle(points, fill=interior, outline=outline, width=lw)
 
-    def draw_polygon(self, points, interior=None, outline=None, width=1, joint='curve'):
+    def draw_polygon(self, points, interior=None, outline=None, line_width=None, joint='curve'):
         self.draw.polygon(points, fill=interior, outline=outline)
 
         back2back = tupletize(points)
@@ -53,11 +58,13 @@ class Draw(object):
         if last != first:
             back2back += [ first, ] # Adds line from end point back to starting point.
 
-        self.draw.line(back2back, fill=outline, width=width, joint=joint)
+        lw = line_width or self.default_line_width
+        self.draw.line(back2back, fill=outline, width=lw, joint=joint)
 
-    def draw_ellipse(self, x, y, width, height, interior=None, outline=None, line_width=1):
+    def draw_ellipse(self, x, y, width, height, interior=None, outline=None, line_width=None):
         points = [ (x, y), (x+width, y+height) ]
-        self.draw.ellipse(points, fill=interior, outline=outline, width=line_width)
+        lw = line_width or self.default_line_width
+        self.draw.ellipse(points, fill=interior, outline=outline, width=lw)
 
     def flip_horizontally(self, points_pct):
         return [ (1.0 - p[0], p[1]) for p in points_pct ]
@@ -81,8 +88,8 @@ def test_1():
     d.draw_polygon([ (10, 10), (100, 100), (10, 100) ], interior='#FF0000') # , outline='#00FF00')
     d.draw_polygon([ (200, 10), (300, 100), (200, 100) ], interior='#FF0000') # , outline='#00FF00')
 
-    d.draw_polygon([ (10, 200), (100, 300), (10, 300) ], interior='#00FF00', outline='#0000FF', width=7)
-    d.draw_polygon([ (200, 200), (300, 300), (200, 300) ], interior='#0000FF', outline='#00FF00', width=7)
+    d.draw_polygon([ (10, 200), (100, 300), (10, 300) ], interior='#00FF00', outline='#0000FF', line_width=None)
+    d.draw_polygon([ (200, 200), (300, 300), (200, 300) ], interior='#0000FF', outline='#00FF00', line_width=None)
 
     d.save_image('temp/draw_1.IGNORE.png')
 
@@ -92,8 +99,8 @@ def test_2():
     d.draw_ellipse(10, 10, 100, 100, interior='#FF0000') # , outline='#00FF00')
     d.draw_ellipse(200, 10, 100, 100, interior='#FF0000') # , outline='#00FF00')
 
-    d.draw_ellipse(10, 200, 100, 100, interior='#00FF00', outline='#0000FF', line_width=7)
-    d.draw_ellipse(200, 200, 100, 100, interior='#0000FF', outline='#00FF00', line_width=7)
+    d.draw_ellipse(10, 200, 100, 100, interior='#00FF00', outline='#0000FF', line_width=3)
+    d.draw_ellipse(200, 200, 100, 100, interior='#0000FF', outline='#00FF00', line_width=3)
 
     d.save_image('temp/draw_2.IGNORE.png')
 
