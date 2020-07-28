@@ -7,8 +7,6 @@
 
 DEFAULT_PATH = '../gfx/' # '../tmp/'
 
-from types import NoneType
-
 from colors import Colors
 from piece import PieceType
 from board import BoardType, Board
@@ -16,7 +14,7 @@ from scene import Scene
 from scene_common import SceneCommon
 from scene_mix import SceneMix
 
-from draw import DEFAULT_FILE_EXT, DEFAULT_FILE_TYPE, get_new_drawable, get_new_gc
+from draw import DEFAULT_FILE_EXT, DEFAULT_FILE_TYPE
 from draw_board import BoardDesc
 from draw_scene import DrawScene
 from def_mark import MarkDef
@@ -52,7 +50,7 @@ class SaveScene:
         assert isinstance(board, Board)
 
         board_desc = board_desc or BoardDesc()
-        assert isinstance(board_desc, (BoardDesc, NoneType))
+        assert isinstance(board_desc, BoardDesc)
 
         size_x, size_y = self.normalize(size_x, size_y)
 
@@ -119,12 +117,12 @@ class SaveScene:
         return '%s/boards/%02d_%s%s' % (path_prefix, index, sanitized, file_ext)
 
     def render_all_boards(self, path_prefix=None):
-        print
-        print "Rendering all boards." if self.rendering_size.needs_rendering() else "Info all boards."
+        print()
+        print( "Rendering all boards." if self.rendering_size.needs_rendering() else "Info all boards." )
 
         for bt in BoardType.iter():
             file_path = self.get_board_file_path(bt, path_prefix=path_prefix)
-            print file_path
+            print( file_path )
 
             if self.rendering_size.needs_rendering():
                 board = Board(bt)
@@ -133,7 +131,7 @@ class SaveScene:
 
                 self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # pieces
@@ -156,8 +154,8 @@ class SaveScene:
 
         piece_str = "all" if not is_rendering_one_piece else PieceType(piece_type).get_name()
 
-        print
-        print "Rendering %s pieces." % piece_str if self.rendering_size.needs_rendering() else "Info %s pieces." % piece_str
+        print()
+        print( "Rendering %s pieces." % piece_str if self.rendering_size.needs_rendering() else "Info %s pieces." % piece_str )
 
         for bt in BoardType.iter():
             pt = piece_type or bt.get_newly_introduced_piece()
@@ -170,7 +168,7 @@ class SaveScene:
 
                 _bt = bt if is_rendering_one_piece else None
                 file_path = self.get_piece_file_path(pt, board_type=_bt, pieces_folder=pf, path_prefix=path_prefix)
-                print file_path
+                print( file_path )
 
                 if self.rendering_size.needs_rendering():
                     scene = SceneCommon()
@@ -180,7 +178,7 @@ class SaveScene:
                                     size_x=self.rendering_size_item.piece_2_by_2_pix, \
                                     size_y=self.rendering_size_item.piece_2_by_2_pix)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # en passant
@@ -195,12 +193,12 @@ class SaveScene:
         return '%s/en_passants/%02d_%s_en_passant%s' % (path_prefix, index, sanitized, file_ext)
 
     def render_all_en_passant_scenes(self, path_prefix=None):
-        print
-        print "Rendering all en passant." if self.rendering_size.needs_rendering() else "Info all en passant."
+        print()
+        print( "Rendering all en passant." if self.rendering_size.needs_rendering() else "Info all en passant." )
 
         for bt in BoardType.iter():
             file_path = self.get_en_passant_file_path(bt, path_prefix=path_prefix)
-            print file_path
+            print( file_path )
 
             if self.rendering_size.needs_rendering():
                 scene = SceneCommon()
@@ -208,7 +206,7 @@ class SaveScene:
 
                 self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # rush
@@ -223,12 +221,12 @@ class SaveScene:
         return '%s/rush/%02d_%s_rush%s' % (path_prefix, index, sanitized, file_ext)
 
     def render_all_rush_scenes(self, path_prefix=None):
-        print
-        print "Rendering all rush." if self.rendering_size.needs_rendering() else "Info all rush."
+        print()
+        print( "Rendering all rush." if self.rendering_size.needs_rendering() else "Info all rush." )
 
         for bt in BoardType.iter():
             file_path = self.get_rush_file_path(bt, path_prefix=path_prefix)
-            print file_path
+            print( file_path )
 
             if self.rendering_size.needs_rendering():
                 scene = SceneCommon()
@@ -236,7 +234,7 @@ class SaveScene:
 
                 self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # castling
@@ -267,8 +265,8 @@ class SaveScene:
             return '%s/castlings/%s/%s_castling_%s%s' % (path_prefix, sf_name, sanitized, mk_str, file_ext)
 
     def render_all_castling_scenes(self, move_king=None, path_prefix=None):
-        print
-        print "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings."
+        print()
+        print( "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings." )
 
         for bt in BoardType.iter():
             king_moves = []
@@ -278,15 +276,15 @@ class SaveScene:
             else:
                 diff_min, diff_max = Board.get_castling_limits(bt)
 
-                king_moves = list(xrange(diff_min, diff_max+1))
+                king_moves = list(range(diff_min, diff_max+1))
                 king_moves.append(0)
-                king_moves.extend( list(xrange(-diff_min, -diff_max-1, -1)) )
+                king_moves.extend( list(range(-diff_min, -diff_max-1, -1)) )
 
                 king_moves.sort()
 
             for mk in king_moves:
                 file_path = self.get_castling_file_path(bt, path_prefix=path_prefix, move_king=mk)
-                print file_path
+                print( file_path )
 
                 if self.rendering_size.needs_rendering():
                     scene = SceneCommon()
@@ -294,7 +292,7 @@ class SaveScene:
 
                     self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # scene
@@ -316,7 +314,7 @@ class SaveScene:
         name = func()
         sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
         file_path = self.get_scene_file_path(name, path_prefix=path_prefix, subfolder_name=sf_name)
-        print file_path
+        print( file_path )
 
         if self.rendering_size.needs_rendering():
             enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
@@ -324,8 +322,8 @@ class SaveScene:
 
     def render_examples(self, do_all_examples=False, path_prefix=None, enforce_cot_in_bw=False):
         _str = "all" if do_all_examples else "recent"
-        print
-        print "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str
+        print()
+        print( "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str )
         scene = SceneMix()
 
         scene_funcs = scene.get_all_scene_methods() \
@@ -335,7 +333,7 @@ class SaveScene:
         for func in scene_funcs:
             self.render_example(scene, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
 
-        print "Finished."
+        print( "Finished." )
 
 
 def test_boards():

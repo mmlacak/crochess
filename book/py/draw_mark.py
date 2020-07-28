@@ -5,7 +5,6 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from types import NoneType
 
 import gtk.gdk
 import pango
@@ -31,7 +30,7 @@ def get_mark_color_pair(cmark=None, mark_type=None, is_light=None):
 
     assert isinstance(cmark, (ColorsMark, ColorsMarkSimple))
     assert isinstance(mark_type, MarkType)
-    assert isinstance(is_light, (bool, NoneType))
+    assert isinstance(is_light, (bool, type(None)))
 
     _map = { MarkType.none : None, \
              MarkType.Legal : cmark.legal, \
@@ -59,7 +58,7 @@ class DrawMark(Draw):
 
     def calc_arrow(self, arrow, adef=None):
         assert isinstance(arrow, Arrow)
-        assert isinstance(adef, (dm.ArrowDef, NoneType))
+        assert isinstance(adef, (dm.ArrowDef, type(None)))
 
         _adef = adef or dm.MarkDef[ self.draw_board.board.type ].arrow_def
 
@@ -102,9 +101,9 @@ class DrawMark(Draw):
 
     def draw_arrow(self, arrow, adef=None, cpair=None, gc=None):
         # assert isinstance(arrow, Arrow)
-        # assert isinstance(adef, (ArrowDef, NoneType))
-        assert isinstance(cpair, (ColorsPair, NoneType))
-        # assert isinstance(gc, (gtk.gdk.GC, NoneType))
+        # assert isinstance(adef, (ArrowDef, type(None)))
+        assert isinstance(cpair, (ColorsPair, type(None)))
+        # assert isinstance(gc, (gtk.gdk.GC, type(None)))
 
         points_pix = self.calc_arrow(arrow, adef=adef)
 
@@ -114,9 +113,9 @@ class DrawMark(Draw):
             self.draw_polygon(points_pix, gc=gc)
 
     def draw_all_arrows(self, arrows, adef=None, cmark=None, gc=None):
-        # assert isinstance(adef, (ArrowDef, NoneType))
-        # assert isinstance(cmark, (ColorsMarkSimple, NoneType))
-        # assert isinstance(gc, (gtk.gdk.GC, NoneType))
+        # assert isinstance(adef, (ArrowDef, type(None)))
+        # assert isinstance(cmark, (ColorsMarkSimple, type(None)))
+        # assert isinstance(gc, (gtk.gdk.GC, type(None)))
 
         for arrow in arrows:
             # assert isinstance(arrow, Arrow)
@@ -130,9 +129,9 @@ class DrawMark(Draw):
 
     def draw_text(self, text, fdef=None, cpair=None, gc=None):
         assert isinstance(text, Text)
-        assert isinstance(fdef, (dm.FontDef, NoneType))
-        assert isinstance(cpair, (ColorsPair, NoneType))
-        # assert isinstance(gc, (gtk.gdk.GC, NoneType))
+        assert isinstance(fdef, (dm.FontDef, type(None)))
+        assert isinstance(cpair, (ColorsPair, type(None)))
+        # assert isinstance(gc, (gtk.gdk.GC, type(None)))
 
         fdef = fdef or dm.MarkDef[ self.draw_board.board.type ].font_def
 
@@ -157,7 +156,7 @@ class DrawMark(Draw):
         self.drawable.draw_layout(gc, x, y, layout)
 
     def draw_all_texts(self, texts, fdef=None, cmark=None, gc=None):
-        assert isinstance(cmark, (ColorsMark, NoneType))
+        assert isinstance(cmark, (ColorsMark, type(None)))
 
         for text in texts:
             # assert isinstance(text, Text)
@@ -181,7 +180,7 @@ class DrawMark(Draw):
 
     def calc_field_marker(self, field_marker, fmdef=None):
         assert isinstance(field_marker, FieldMarker)
-        assert isinstance(fmdef, (dm.FieldMarkerDef, NoneType))
+        assert isinstance(fmdef, (dm.FieldMarkerDef, type(None)))
 
         fmdef = fmdef or dm.MarkDef[ self.draw_board.board.type ].field_mark_def
 
@@ -209,9 +208,9 @@ class DrawMark(Draw):
 
     def draw_field_marker(self, field_marker, fmdef=None, cpair=None, gc=None, draw_outlined=False):
         # assert isinstance(field_marker, FieldMarker)
-        # assert isinstance(fmdef, (dm.FieldMarkerDef, NoneType))
-        assert isinstance(cpair, (ColorsPair, NoneType))
-        # assert isinstance(gc, (gtk.gdk.GC, NoneType))
+        # assert isinstance(fmdef, (dm.FieldMarkerDef, type(None)))
+        assert isinstance(cpair, (ColorsPair, type(None)))
+        # assert isinstance(gc, (gtk.gdk.GC, type(None)))
 
         markers_pix = self.calc_field_marker(field_marker, fmdef=fmdef)
 
@@ -228,7 +227,7 @@ class DrawMark(Draw):
                     self.draw_polygon(points_pix, gc=gc) # *NOT* outlined
 
     def draw_all_field_markers(self, field_markers, fmdef=None, cmark=None, gc=None, draw_outlined=False):
-        assert isinstance(cmark, (ColorsMark, NoneType))
+        assert isinstance(cmark, (ColorsMark, type(None)))
 
         for field_marker in field_markers:
             # assert isinstance(field_marker, FieldMarker)

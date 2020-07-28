@@ -468,31 +468,31 @@ def test_print(gen, length=8, as_next=True):
     if as_next:
         g = gen_next(gen) # , default='pero'
 
-        print
-        print "-" * 42
-        print g
+        print()
+        print( "-" * 42 )
+        print( g )
         # print
-        for i in xrange(60):
+        for i in range(60):
             if i % length == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
+                print()
+            print( i, g() )
+        print( "-" * 42 )
+        print()
     else:
         g = gen
 
-        print
-        print "-" * 42
-        print g
+        print()
+        print( "-" * 42 )
+        print( g )
         # print
         for i, t in enumerate(g()):
             if i % length == 0:
-                print
-            print i, t
+                print()
+            print( i, t )
             if i > 60:
                 break
-        print "-" * 42
-        print
+        print( "-" * 42 )
+        print()
 
 def test_1(as_next=True):
     # rels = [(3, 1), ]
@@ -502,7 +502,7 @@ def test_1(as_next=True):
     ln = len(rels)
 
     g = gen_items(rels, count=3)
-    g = gen_items(g)
+    g = gen_items(g, count=7) # no count --> infinite loop
 
     test_print(g, length=ln, as_next=as_next)
 
@@ -517,7 +517,7 @@ def test_2(as_next=True):
     g = gen_steps(rels, start=start, include_prev=True, count=2)
     # g = gen_steps(rels, end=start, include_prev=True, bounds=bounds)
 
-    g = gen_items(g)
+    g = gen_items(g, count=7) # no count --> infinite loop
 
     test_print(g, length=ln, as_next=as_next)
 

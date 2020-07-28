@@ -52,9 +52,9 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
         rendering_size = RenderingSizeEnum.Info
 
     if rendering_size == RenderingSizeEnum.none:
-        print
-        print "Rendering nothing, no info requested."
-        print
+        print()
+        print( "Rendering nothing, no info requested." )
+        print()
         return
 
     rendering_size = RenderingSizeEnum(rendering_size)
@@ -83,9 +83,9 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     if args.all or args.rush:
         render.render_all_rush_scenes()
 
-    print
-    print "Finished all renderings."
-    print
+    print()
+    print( "Finished all renderings." )
+    print()
 
 
 if __name__ == "__main__":

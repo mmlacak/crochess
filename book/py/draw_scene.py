@@ -5,7 +5,6 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from types import NoneType
 
 from colors import ColorsItem
 from def_mark import MarkDefItem
@@ -30,7 +29,7 @@ class DrawScene(Draw):
 
     def draw_scene(self, colors_item, mark_def_item=None, gc=None):
         assert isinstance(colors_item, ColorsItem)
-        assert isinstance(mark_def_item, (MarkDefItem, NoneType))
+        assert isinstance(mark_def_item, (MarkDefItem, type(None)))
 
         self.draw_mark.draw_board.draw_board(colors_item, gc=gc)
 

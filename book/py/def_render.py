@@ -88,7 +88,7 @@ class RenderingSize(dict):
 
         # piece_2_by_2_pix == 40% of rendering size
 
-        # line_width_pix >= 1 + (6 * rendering size / 5) // 1000
+        # line_width_pix >= 1 + (6 * rendering size / 5) / 1000
 
         RSE = RenderingSizeEnum
         RSI = RenderingSizeItem

@@ -5,6 +5,8 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 from PIL import Image, ImageDraw, ImageFont
+
+from util import UNDEFINED
 from pixel_math import calc_default_line_width
 
 
@@ -20,12 +22,6 @@ def tupletize(points):
         return points
     lst_tpl = list( zip( l[ 0 : : 2 ], l[ 1 : : 2 ] ) ) # [ 1, 2, 3, 4, ... ] --> [ (1, 2), (3, 4), ... ]
     return lst_tpl
-
-
-class MissingArg:
-    pass
-
-DEFAULT_MISSING_ARG = MissingArg()
 
 
 class Draw:
@@ -51,12 +47,12 @@ class Draw:
         lw = width or self.default_line_width
         self.draw.line(points, fill=color, width=lw, joint=joint)
 
-    def draw_rectangle(self, x, y, width, height, interior=None, outline=None, line_width=DEFAULT_MISSING_ARG):
+    def draw_rectangle(self, x, y, width, height, interior=None, outline=None, line_width=UNDEFINED):
         points = [ (x, y), (x+width, y+height) ]
-        lw = line_width if line_width is not DEFAULT_MISSING_ARG else self.default_line_width
+        lw = line_width if line_width is not UNDEFINED else self.default_line_width
         self.draw.rectangle(points, fill=interior, outline=outline, width=lw)
 
-    def draw_polygon(self, points, interior=None, outline=None, line_width=DEFAULT_MISSING_ARG, joint='curve'):
+    def draw_polygon(self, points, interior=None, outline=None, line_width=UNDEFINED, joint='curve'):
         self.draw.polygon(points, fill=interior, outline=outline)
 
         back2back = tupletize(points)
@@ -65,7 +61,7 @@ class Draw:
         if last != first:
             back2back += [ first, ] # Adds line from end point back to starting point.
 
-        lw = line_width if line_width is not DEFAULT_MISSING_ARG else self.default_line_width
+        lw = line_width if line_width is not UNDEFINED else self.default_line_width
         if outline is not None and lw is not None:
             self.draw.line(back2back, fill=outline, width=lw, joint=joint)
 

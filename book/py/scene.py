@@ -5,8 +5,6 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from types import NoneType
-
 import pixel_math as pm
 from coords import Pos, RectPos
 from corner import Corner, get_func_get_text_position
@@ -62,8 +60,8 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
                 start_y_off = get_coord_offset(start_j, offset=offset_y)
                 end_y_off = get_coord_offset(end_j, offset=(1.0 - offset_y))
 
-                start_x_off = (start_y_off - b) / a
-                end_x_off = (end_y_off - b) / a
+                start_x_off = (start_y_off - b) // a
+                end_x_off = (end_y_off - b) // a
 
     if starts_are_floats:
         start_x_off = start_i
@@ -83,8 +81,8 @@ class Scene:
         self.reset(board=board, board_desc=board_desc)
 
     def reset(self, board=None, board_desc=None):
-        assert isinstance(board, (Board, NoneType))
-        assert isinstance(board_desc, (BoardDesc, NoneType))
+        assert isinstance(board, (Board, type(None)))
+        assert isinstance(board_desc, (BoardDesc, type(None)))
 
         self.board = board
         self.board_desc = board_desc

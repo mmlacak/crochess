@@ -124,3 +124,11 @@ class PieceType(int):
 
     def __str__(self):
         return self.get_label()
+
+
+def test_1():
+    for pt in PieceType.iter(include_dark_pieces=True):
+        print( pt, pt.get_label(), pt.get_name() )
+
+if __name__ == '__main__':
+    test_1()

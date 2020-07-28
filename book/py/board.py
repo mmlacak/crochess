@@ -236,12 +236,12 @@ class BoardType(int):
     def get_all_that_contain(self, piece_type):
         start = self.get_newly_introducing_board_types(piece_type)
         start = start[0] if start is not None else BoardType.OddClassical
-        return [ BoardType(bt) for bt in xrange(start, BoardType.One+1) ]
+        return [ BoardType(bt) for bt in range(start, BoardType.One+1) ]
 
     def does_contain(self, piece_type):
         start = PT.Pawn
         end = self.get_newly_introduced_piece() or PT.King
-        return piece_type in xrange(start, end+1)
+        return piece_type in range(start, end+1)
 
     def get_position_limits(self):
         limit = self.get_size() - 1
@@ -271,7 +271,7 @@ class Board:
         self._width = width or self.type.get_size()
         self._height = height or self.type.get_size()
 
-        self._board = [ [ PT(PT.none) for i in xrange(self.get_width()) ] for j in xrange(self.get_height()) ]
+        self._board = [ [ PT(PT.none) for i in range(self.get_width()) ] for j in range(self.get_height()) ]
 
     def _is_file(self, i):
         return 0 <= i < self.get_width()
@@ -296,8 +296,8 @@ class Board:
         return is_light
 
     def clear(self):
-        for j in xrange(self.get_height()):
-            for i in xrange(self.get_width()):
+        for j in range(self.get_height()):
+            for i in range(self.get_width()):
                 self.set_piece(i, j, PT(PT.none))
 
     def get_width(self):
@@ -619,7 +619,7 @@ class Board:
         if not self.is_by_the_book():
             return
 
-        light = [ PT.Pawn for i in xrange(self.get_width()) ]
+        light = [ PT.Pawn for i in range(self.get_width()) ]
         self.set_row(1, light)
 
         dark = get_opposites(light)
@@ -743,8 +743,8 @@ class Board:
 
     def __str__(self):
         s = ""
-        for j in xrange(self.get_height()-1, -1, -1):
-            for i in xrange(self.get_width()):
+        for j in range(self.get_height()-1, -1, -1):
+            for i in range(self.get_width()):
                 p = self.get_piece(i, j)
                 s += "%c" % p.get_label()
             s += "\n"
@@ -772,13 +772,14 @@ def test_1():
     print()
 
 def test_2():
-    b = Board(BoardType.CroatianTies) # One)
+    bt = BoardType.CroatianTies # One
+    b = Board(bt)
     b.setup()
 
     print()
     print( b.get_position_limits() )
     print()
-    print( b.get_castling_limits() )
+    print( b.get_castling_limits(bt) )
     print()
     print( str(b) )
     print()
@@ -803,7 +804,7 @@ def test_4():
     print()
 
 if __name__ == '__main__':
-    # test_1()
-    # test_2()
-    # test_3()
+    test_1()
+    test_2()
+    test_3()
     test_4()

@@ -5,31 +5,28 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from types import NoneType
-
-from util import xor
+from util import xor, UNDEFINED
 from board_desc import BoardDesc
 from board import BoardType, Board
 from colors import ColorsShade, ColorsItem, Colors
 from pixel_math import RectanglePix
-from draw import Draw
+from draw import DEFAULT_COLOR_SPACE
 from draw_piece import DrawPiece
 
 
-class DrawBoard(Draw):
+class DrawBoard(DrawPiece):
 
-    def __init__(self, drawable, gc, board, board_desc=None):
-        super(DrawBoard, self).__init__(drawable, gc)
-
-        self.draw_piece = DrawPiece(self.drawable, self.gc)
-
+    def __init__(self, width_pix, height_pix, board, board_desc=None, bg_color="#FFFFFF", color_space=DEFAULT_COLOR_SPACE):
+        super(DrawBoard, self).__init__(width_pix, height_pix, bg_color=bg_color, color_space=color_space)
         self.init_board(board, board_desc=board_desc)
 
     def init_board(self, board, board_desc=None):
         assert isinstance(board, Board)
-        self.board = board
 
+        self.board = board
         self.board_desc = board_desc or BoardDesc()
+
+        assert isinstance(self.board_desc, BoardDesc)
 
         self.store_board_geometry()
 
@@ -46,7 +43,7 @@ class DrawBoard(Draw):
         return (left, top, right, bottom)
 
     def calc_fields_canvas_size(self):
-        w, h = self.drawable.get_size()
+        w, h = self.image.size
         w2 = w - self.board_desc.border_left_pix - self.board_desc.border_right_pix
         h2 = h - self.board_desc.border_top_pix - self.board_desc.border_bottom_pix
         return (w2, h2)
@@ -81,8 +78,8 @@ class DrawBoard(Draw):
         w, h = self.calc_fields_canvas_size()
         i, j = self.calc_total_field_counts()
 
-        x = w / i
-        y = h / j
+        x = w // i
+        y = h // j
 
         m = min(x, y)
         return (m, m)
@@ -97,40 +94,38 @@ class DrawBoard(Draw):
         rev = self.board_desc.reverse_field_colors if self.board.is_on_board(i, j) else self.board_desc.reverse_off_board_field_colors
         return xor( self.board.is_light(i, j), rev, default=False )
 
-    def draw_field(self, i, j, cshade=None, gc=None):
-        assert isinstance(cshade, (ColorsShade, NoneType))
+    def draw_field(self, i, j, cshade=None, line_width=UNDEFINED):
+        assert isinstance(cshade, (ColorsShade, type(None)))
 
         x_pix, y_pix = self.get_field_start_pix(i, j)
 
         cs = cshade if self.board.is_on_board(i, j) else Colors[ BoardType.none ].field
+        assert isinstance(cs, ColorsShade)
 
-        if cs is not None:
-            color = cs.light if self.is_light(i, j) else cs.dark
-            self.draw_rectangle(x_pix, y_pix, self.field_width_pix, self.field_height_pix, filled=True, fg=color.interior, bg=color.outline, gc=gc)
-        else:
-            self.draw_rectangle(x_pix, y_pix, self.field_width_pix, self.field_height_pix, filled=True, gc=gc)
+        color = cs.light if self.is_light(i, j) else cs.dark
+        self.draw_rectangle(x_pix, y_pix, self.field_width_pix, self.field_height_pix, interior=color.interior, outline=None, line_width=None)
 
-    def draw_all_fields(self, cshade=None, gc=None):
-        for j in xrange(self.fields_bottom, self.fields_top+1):
-            for i in xrange(self.fields_left, self.fields_right+1):
-                self.draw_field(i, j, cshade=cshade, gc=gc)
+    def draw_all_fields(self, cshade=None, line_width=UNDEFINED):
+        for j in range(self.fields_bottom, self.fields_top+1):
+            for i in range(self.fields_left, self.fields_right+1):
+                self.draw_field(i, j, cshade=cshade)
 
-    def draw_piece_at_field(self, i, j, colors_item, gc=None):
+    def draw_piece_at_field(self, i, j, colors_item, line_width=UNDEFINED):
         x_pix, y_pix = self.get_field_start_pix(i, j)
         p = self.board.get_piece(i, j)
         dr = RectanglePix(x_pix, y_pix, self.field_width_pix, self.field_height_pix)
-        self.draw_piece.draw_piece(p, dr, colors_item, gc=gc)
+        self.draw_piece(p, dr, colors_item, line_width=line_width)
 
-    def draw_all_pieces(self, colors_item, gc=None):
-        for j in xrange(self.board.get_height()):
-            for i in xrange(self.board.get_width()):
-                self.draw_piece_at_field(i, j, colors_item, gc=gc)
+    def draw_all_pieces(self, colors_item, line_width=UNDEFINED):
+        for j in range(self.board.get_height()):
+            for i in range(self.board.get_width()):
+                self.draw_piece_at_field(i, j, colors_item, line_width=line_width)
 
-    def draw_board(self, colors_item, gc=None):
+    def draw_board(self, colors_item, line_width=UNDEFINED):
         assert isinstance(colors_item, ColorsItem)
 
-        self.draw_all_fields(colors_item.field, gc=gc)
-        self.draw_all_pieces(colors_item, gc=gc)
+        self.draw_all_fields(colors_item.field, line_width=line_width)
+        self.draw_all_pieces(colors_item, line_width=line_width)
 
     def convert_field_width_to_pixel(self, x):
         if isinstance(x, float):
@@ -161,36 +156,32 @@ class DrawBoard(Draw):
 
 
 def test_1(board_desc=None, width=None, height=None, name=''):
-    drw = get_new_drawable(1200, 1200)
-    gc = get_new_gc(drw, 11)
     b = Board(BoardType.CroatianTies, width=width, height=height)
     b.setup()
 
-    d = DrawBoard(drw, gc, b, board_desc=board_desc)
+    d = DrawBoard(1200, 1200, b, board_desc=board_desc)
 
     cs = ColorsShade.from_tuple( ('#B0B0B0', '#B0B0B0', '#404040', '#404040' ) )
-    d.draw_all_fields(cshade=cs)
+    line_width = 11
+    d.draw_all_fields(cshade=cs, line_width=line_width)
 
     file_path = 'temp/board%s.IGNORE.png' % name
     d.save_image(file_path)
 
 def test_2(board_desc=None, name=''):
-    drw = get_new_drawable(1200, 1200)
-    gc = get_new_gc(drw, 3)
     b = Board(BoardType.CroatianTies)
     b.setup()
 
-    d = DrawBoard(drw, gc, b, board_desc=board_desc)
+    d = DrawBoard(1200, 1200, b, board_desc=board_desc)
 
     from colors import Colors
-    d.draw_board( Colors[BoardType.Classical] )
+    line_width = 3
+    d.draw_board( Colors[BoardType.Classical], line_width=line_width )
 
     file_path = 'temp/setup%s.IGNORE.png' % name
     d.save_image(file_path)
 
 if __name__ == '__main__':
-    from draw import get_new_drawable, get_new_gc
-
     test_1()
     test_1(board_desc=BoardDesc(reverse_field_colors=True), name='_reverse')
     test_1(board_desc=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), name='_border')
