@@ -18,7 +18,7 @@ DEFAULT_FONT_SIZE_INVERSE_RATIO = 5.0 # Compared to field size.
 DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO = 5.0 # Compared to field size.
 
 
-class FontDef(object):
+class FontDef:
     def __init__(self, name, inv_size_ratio):
         assert isinstance(name, str)
         assert isinstance(inv_size_ratio, float)
@@ -40,7 +40,7 @@ class FontDef(object):
         return "%s %d" % (self.name, size)
 
 
-class ArrowDef(object):
+class ArrowDef:
     def __init__(self, inv_width_ratio, pointy_bit_ratio):
         assert isinstance(inv_width_ratio, float)
         assert isinstance(pointy_bit_ratio, float)
@@ -56,7 +56,7 @@ class ArrowDef(object):
         return ArrowDef( *tpl[ 0 : 2 ] )
 
 
-class FieldMarkerDef(object):
+class FieldMarkerDef:
     def __init__(self, inv_width_ratio):
         assert isinstance(inv_width_ratio, float)
 
@@ -70,7 +70,7 @@ class FieldMarkerDef(object):
         return ArrowDef( *tpl[ 0 : 1 ] )
 
 
-class MarkDefItem(object):
+class MarkDefItem:
     def __init__(self, font_def, arrow_def, field_mark_def):
         assert isinstance(font_def, FontDef)
         assert isinstance(arrow_def, ArrowDef)

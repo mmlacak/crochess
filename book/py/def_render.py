@@ -43,7 +43,7 @@ class RenderingSizeEnum(int):
         return self in RenderingSizeEnum.iter(include_none=False, include_info=False)
 
 
-class RenderingSizeItem(object):
+class RenderingSizeItem:
     def __init__( self, \
                   board_width_pix, \
                   board_max_height_pix, \

@@ -5,7 +5,7 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-class UNDEFINED(object):
+class UNDEFINED:
     def __nonzero__(self):
         return False
 

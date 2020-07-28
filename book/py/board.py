@@ -264,7 +264,7 @@ def get_indexes(pieces, piece=PT.King):
     return [ i for i, p in enumerate(pieces) if p == piece ]
 
 
-class Board(object):
+class Board:
     def __init__(self, board_type, width=None, height=None):
         self.type = BoardType(board_type)
 
@@ -754,53 +754,53 @@ class Board(object):
 def test_1():
     b = Board(BoardType.Classical, width=3, height=2)
 
-    print
-    print b.get_position_limits()
-    print
-    print str(b)
-    print
+    print()
+    print( b.get_position_limits() )
+    print()
+    print( str(b) )
+    print()
 
     b.set_piece(2, 1, PT.Bishop)
     b.set_piece(1, 0, PT.Pawn)
     b.set_piece(0, 1, PT.Knight)
     b.set_piece(1, 1, -PT.Pawn)
 
-    print
-    print b.get_position_limits()
-    print
-    print str(b)
-    print
+    print()
+    print( b.get_position_limits() )
+    print()
+    print( str(b) )
+    print()
 
 def test_2():
     b = Board(BoardType.CroatianTies) # One)
     b.setup()
 
-    print
-    print b.get_position_limits()
-    print
-    print b.get_castling_limits()
-    print
-    print str(b)
-    print
+    print()
+    print( b.get_position_limits() )
+    print()
+    print( b.get_castling_limits() )
+    print()
+    print( str(b) )
+    print()
 
 def test_3():
-    print
+    print()
 
     for bt in BoardType.iter(include_none=True, include_even=True, include_odd=True):
-        print bt.get_name()
+        print( bt.get_name() )
 
-    print
+    print()
 
 def test_4():
-    print
+    print()
 
     for bt in BoardType.iter(include_none=True, include_even=True, include_odd=True):
         b = Board(bt)
         b.setup()
 
-        print bt.get_name(), b.get_position_limits(), Board.get_castling_limits(bt)
+        print( bt.get_name(), b.get_position_limits(), Board.get_castling_limits(bt) )
 
-    print
+    print()
 
 if __name__ == '__main__':
     # test_1()

@@ -5,11 +5,9 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from types import NoneType
-
 from piece import PieceType
 from colors import ColorsPair, ColorsPiece, ColorsItem
-from draw import Draw
+from draw import Draw, DEFAULT_MISSING_ARG
 from pixel_math import translate_scale, RectanglePix
 
 
@@ -18,46 +16,40 @@ PIECE_WITH_CHIP_TRANSLATION = 0.11
 
 class DrawPiece(Draw):
 
-    def draw_piece_polygon(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
+    def draw_piece_polygon(self, points_pct, rect, cpair, line_width=DEFAULT_MISSING_ARG, scale=1.0, center_x=0.5, center_y=0.5):
         assert isinstance(rect, RectanglePix)
-        assert isinstance(cpair, (ColorsPair, NoneType))
+        assert isinstance(cpair, ColorsPair)
 
         def _scale(x_pct, y_pct):
             return translate_scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
 
         points_pix = [ rect.calc_point( *_scale( *t ) ) for t in points_pct ]
+        self.draw_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, line_width=line_width)
 
-        if cpair is not None:
-            self.draw_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
-        else:
-            self.draw_polygon(points_pix, gc=gc)
-
-    def draw_polylines(self, points_pct, rect, cpair=None, scale=1.0, center_x=0.5, center_y=0.5, gc=None):
+    def draw_polylines(self, points_pct, rect, cpair, width=1, scale=1.0, center_x=0.5, center_y=0.5):
         assert isinstance(rect, RectanglePix)
-        assert isinstance(cpair, (ColorsPair, NoneType))
+        assert isinstance(cpair, ColorsPair)
 
         def _scale(x_pct, y_pct):
             return translate_scale( x_pct, y_pct, scale=scale, center_x=center_x, center_y=center_y )
 
         points_pix = [ rect.calc_point( *_scale( *t ) ) for t in points_pct ]
+        self.draw_lines(points_pix, color=cpair.outline, width=width)
 
-        if cpair is not None:
-            self.draw_lines(points_pix, outline=cpair.outline, gc=gc)
-        else:
-            self.draw_lines(points_pix, gc=gc)
-
-    def draw_none(self, rect, cpiece=None, gc=None):
+    def draw_none(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
         pass
 
-    def draw_pawn(self, rect, cpiece=None, gc=None):
+    def draw_pawn(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
         assert isinstance(cpiece, ColorsPiece)
 
         pawn = [(0.5, 0.5), (0.6, 0.6), (0.3, 0.9), (0.7, 0.9), (0.4, 0.6)]
-        self.draw_piece_polygon(pawn, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(pawn, rect, cpair=cpiece.own, line_width=line_width)
 
-    def draw_bishop(self, rect, cpiece=None, gc=None):
+    def draw_bishop(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
         bishop = [(0.5, 0.6), (0.45, 0.65), (0.7, 0.9), (0.3, 0.9), (0.55, 0.65)]
-        self.draw_piece_polygon(bishop, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(bishop, rect, cpair=cpiece.own, line_width=line_width)
 
         # hat = [(0.5, 0.4), (0.6, 0.5), (0.5, 0.6), (0.4, 0.5)]
         hat = [(0.5, 0.4), \
@@ -66,18 +58,22 @@ class DrawPiece(Draw):
                (0.53, 0.43), (0.47, 0.49), (0.49, 0.51), (0.55, 0.45), \
                \
                (0.6, 0.5), (0.5, 0.6), (0.4, 0.5)]
-        self.draw_piece_polygon(hat, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(hat, rect, cpair=cpiece.opposite, line_width=line_width)
 
-    def draw_knight(self, rect, cpiece=None, gc=None, left_facing=True):
+    def draw_knight(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG, left_facing=True):
+        assert isinstance(cpiece, ColorsPiece)
+
         knight = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
                   (0.46, 0.55), (0.26, 0.593), (0.22, 0.485)]
 
         if not left_facing:
             knight = self.flip_horizontally(knight)
 
-        self.draw_piece_polygon(knight, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(knight, rect, cpair=cpiece.own, line_width=line_width)
 
-    def draw_rook(self, rect, cpiece=None, gc=None):
+    def draw_rook(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
 # old
 #        rook = [ (0.27, 0.3), (0.37, 0.3), # left merlon \
 #                 (0.37, 0.42), (0.43, 0.42), # left embrasure \
@@ -100,40 +96,52 @@ class DrawPiece(Draw):
                  (0.33, 0.54), (0.24, 0.5) # left corbin \
                ]
 
-        self.draw_piece_polygon(rook, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(rook, rect, cpair=cpiece.own, line_width=line_width)
 
-    def draw_queen(self, rect, cpiece=None, gc=None):
+    def draw_queen(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
         queen = [(0.2, 0.3), (0.35, 0.65), (0.35, 0.25), (0.45, 0.6), (0.5, 0.2), (0.55, 0.6), \
                  (0.65, 0.25), (0.65, 0.65), (0.8, 0.3), (0.7, 0.9), (0.3, 0.9)]
-        self.draw_piece_polygon(queen, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(queen, rect, cpair=cpiece.own, line_width=line_width)
 
-    def draw_king(self, rect, cpiece=None, gc=None):
+    def draw_king(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
         king = [(0.2, 0.4), (0.3, 0.7), (0.4, 0.4), (0.5, 0.7), (0.6, 0.4), (0.7, 0.7), (0.8, 0.4), \
                 (0.8, 0.9), (0.2, 0.9)]
-        self.draw_piece_polygon(king, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(king, rect, cpair=cpiece.own, line_width=line_width)
 
-    def draw_pegasus(self, rect, cpiece=None, gc=None):
-        self.draw_knight(rect, cpiece=cpiece, gc=gc)
+    def draw_pegasus(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
+        self.draw_knight(rect, cpiece=cpiece, line_width=line_width)
 
         wing = [(0.45, 0.87), (0.6, 0.45), (0.93, 0.35), (0.93, 0.44), (0.75, 0.49), (0.84, 0.47), \
                 (0.84, 0.56), (0.66, 0.60), (0.75, 0.58), (0.75, 0.67), (0.57, 0.72), (0.5, 0.87)]
-        self.draw_piece_polygon(wing, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(wing, rect, cpair=cpiece.opposite, line_width=line_width)
 
-    def draw_pyramid(self, rect, cpiece=None, gc=None):
+    def draw_pyramid(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
         pyramid = [(0.1, 0.9), (0.15, 0.79), (0.2, 0.79), (0.25, 0.7), (0.3, 0.7), (0.35, 0.6), \
                    (0.42, 0.6), (0.42, 0.5), (0.58, 0.5), (0.58, 0.6), (0.65, 0.6), (0.7, 0.7), \
                    (0.75, 0.7), (0.8, 0.79), (0.85, 0.79), (0.9, 0.9)]
-        self.draw_piece_polygon(pyramid, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(pyramid, rect, cpair=cpiece.own, line_width=line_width)
 
-    def draw_unicorn(self, rect, cpiece=None, gc=None):
-        self.draw_knight(rect, cpiece=cpiece, gc=gc, left_facing=False)
+    def draw_unicorn(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
+        self.draw_knight(rect, cpiece=cpiece, line_width=line_width, left_facing=False)
 
         # Variant faced left, as used by other knights and derivates.
         # horn = [(0.5, 0.3), (0.49, 0.36), (0.409, 0.361), (0.325, 0.1373)]
         horn = [(0.5, 0.3), (0.51, 0.36), (0.591, 0.361), (0.675, 0.1373)]
-        self.draw_piece_polygon(horn, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(horn, rect, cpair=cpiece.opposite, line_width=line_width)
 
-    def draw_wave(self, rect, cpiece=None, gc=None):
+    def draw_wave(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
         wave = [(0.2, 0.35), (0.25, 0.4), (0.25, 0.68), (0.3, 0.68), (0.3, 0.4), (0.4, 0.3), \
                 (0.45, 0.3), (0.55, 0.4), (0.55, 0.68), (0.6, 0.68), (0.6, 0.4), (0.7, 0.3), \
                 (0.75, 0.3), (0.85, 0.4), (0.85, 0.7), \
@@ -141,26 +149,32 @@ class DrawPiece(Draw):
                 (0.8, 0.75), (0.75, 0.7), (0.75, 0.42), (0.7, 0.42), (0.7, 0.7), (0.6, 0.8), \
                 (0.55, 0.8), (0.45, 0.7), (0.45, 0.42), (0.4, 0.42), (0.4, 0.7), (0.3, 0.8), \
                 (0.25, 0.8), (0.15, 0.7), (0.15, 0.4)]
-        self.draw_piece_polygon(wave, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(wave, rect, cpair=cpiece.own, line_width=line_width)
 
-    def draw_star(self, rect, cpiece=None, scale=1.0, gc=None):
+    def draw_star(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG, scale=1.0):
+        assert isinstance(cpiece, ColorsPiece)
+
         hands = [(0.5, 0.4), (0.7, 0.3), (0.6, 0.5), (0.7, 0.7), (0.5, 0.6), (0.3, 0.7), (0.4, 0.5), \
                  (0.3, 0.3)]
-        self.draw_piece_polygon(hands, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(hands, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.opposite, line_width=line_width)
 
         star = [(0.5, 0.2), (0.57, 0.43), (0.8, 0.5), (0.57, 0.57), (0.5, 0.8), (0.43, 0.57), \
                 (0.2, 0.5), (0.43, 0.43)]
-        self.draw_piece_polygon(star, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(star, rect, scale=scale, center_x=0.5, center_y=0.5, cpair=cpiece.own, line_width=line_width)
 
-    def draw_centaur(self, rect, cpiece=None, gc=None):
+    def draw_centaur(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
         horseshoe = [(0.5, 0.3), (0.7, 0.4), (0.8, 0.6), (0.7, 0.9), (0.58, 0.83), (0.65, 0.6), (0.6, 0.5), \
                      (0.5, 0.45), (0.4, 0.5), (0.35, 0.6), (0.42, 0.83), (0.3, 0.9), (0.2, 0.6), (0.3, 0.4)]
-        self.draw_piece_polygon(horseshoe, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(horseshoe, rect, cpair=cpiece.own, line_width=line_width)
 
         hat = [(0.7, 0.4), (0.65, 0.25), (0.8, 0.2), (0.85, 0.35)]
-        self.draw_piece_polygon(hat, rect, cpair=cpiece.opposite, gc=gc)
+        self.draw_piece_polygon(hat, rect, cpair=cpiece.opposite, line_width=line_width)
 
-    def draw_serpent(self, rect, cpiece=None, gc=None):
+    def draw_serpent(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
         serpent = [# right skin
                    (0.45, 0.2), (0.5, 0.15), (0.7, 0.15), (0.8, 0.25), (0.8, 0.35), (0.7, 0.45), \
                    (0.5, 0.45), (0.5, 0.55), (0.7, 0.55), (0.8, 0.65), (0.8, 0.75), (0.7, 0.85), \
@@ -170,34 +184,41 @@ class DrawPiece(Draw):
                    # left skin
                    (0.7, 0.75), (0.7, 0.65), (0.5, 0.65), (0.4, 0.55), (0.4, 0.45), (0.5, 0.35), \
                    (0.7, 0.35), (0.7, 0.25), (0.5, 0.25)]
-        self.draw_piece_polygon(serpent, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(serpent, rect, cpair=cpiece.own, line_width=line_width)
 
-    def draw_shaman(self, rect, cpiece=None, gc=None):
+    def draw_shaman(self, rect, cpiece, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+
         drum = [(0.3, 0.3), (0.7, 0.3), (0.7, 0.5), (0.6, 0.9), (0.4, 0.9), (0.3, 0.5)]
-        self.draw_piece_polygon(drum, rect, cpair=cpiece.own, gc=gc)
+        self.draw_piece_polygon(drum, rect, cpair=cpiece.own, line_width=line_width)
 
         string = [(0.3, 0.3), (0.4, 0.5), (0.5, 0.3), (0.6, 0.5), (0.7, 0.3)]
-        self.draw_polylines(string, rect, cpair=cpiece.own, gc=gc)
+        self.draw_polylines(string, rect, cpair=cpiece.own, width=line_width)
 
         string2 = [(0.3, 0.5), (0.4, 0.3), (0.5, 0.5), (0.6, 0.3), (0.7, 0.5)]
-        self.draw_polylines(string2, rect, cpair=cpiece.own, gc=gc)
+        self.draw_polylines(string2, rect, cpair=cpiece.own, width=line_width)
 
-    def draw_monolith(self, rect, cpair=None, gc=None):
+    def draw_monolith(self, rect, cpair, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpair, ColorsPair)
+
         monolith = [(0.32, 0.095), (0.68, 0.095), (0.68, 0.905), (0.32, 0.905)]
-        self.draw_piece_polygon(monolith, rect, cpair=cpair, gc=gc)
+        self.draw_piece_polygon(monolith, rect, cpair=cpair, line_width=line_width)
 
-    def draw_starchild(self, rect, cpiece=None, caura=None, gc=None):
+    def draw_starchild(self, rect, cpiece, caura, line_width=DEFAULT_MISSING_ARG):
+        assert isinstance(cpiece, ColorsPiece)
+        assert isinstance(caura, ColorsPair)
+
         x1, y1 = rect.calc_point(0.149999, 0.149999)
         w1, h1 = rect.calc_size(0.700001, 0.700001)
-        self.draw_ellipse(x1, y1, w1, h1, interior=cpiece.own.interior, outline=cpiece.own.outline, gc=gc)
+        self.draw_ellipse(x1, y1, w1, h1, interior=cpiece.own.interior, outline=cpiece.own.outline, line_width=line_width)
 
         x2, y2 = rect.calc_point(0.200001, 0.200001)
         w2, h2 = rect.calc_size(0.600001, 0.600001)
-        self.draw_ellipse(x2, y2, w2, h2, interior=caura.interior, outline=cpiece.own.outline, gc=gc)
+        self.draw_ellipse(x2, y2, w2, h2, interior=caura.interior, outline=cpiece.own.outline, line_width=line_width)
 
-        self.draw_star(rect, cpiece=cpiece, scale=0.667, gc=gc)
+        self.draw_star(rect, cpiece=cpiece, line_width=line_width, scale=0.667)
 
-    def draw_piece(self, piece_type, rect, colors_item, gc=None):
+    def draw_piece(self, piece_type, rect, colors_item, line_width=DEFAULT_MISSING_ARG):
         pt = PieceType(piece_type)
         assert isinstance(rect, RectanglePix)
         assert isinstance(colors_item, ColorsItem)
@@ -221,25 +242,22 @@ class DrawPiece(Draw):
                   PieceType.Starchild: self.draw_starchild }[ pt.get_enumerated() ]
 
         if _draw == self.draw_star:
-            _draw(rect, cpiece=colors_item.star.to_piece( pt.is_light() ), gc=gc)
+            _draw(rect, cpiece=colors_item.star.to_piece( pt.is_light() ), line_width=line_width)
         elif _draw == self.draw_monolith:
-            _draw(rect, cpair=colors_item.monolith, gc=gc)
+            _draw(rect, cpair=colors_item.monolith, line_width=line_width)
         elif _draw == self.draw_starchild:
-            _draw(rect, cpiece=colors_item.piece.to_piece( pt.is_light() ), caura=colors_item.aura, gc=gc)
+            _draw(rect, cpiece=colors_item.piece.to_piece( pt.is_light() ), caura=colors_item.aura, line_width=line_width)
         else:
-            _draw(rect, cpiece=colors_item.piece.to_piece( pt.is_light() ), gc=gc)
+            _draw(rect, cpiece=colors_item.piece.to_piece( pt.is_light() ), line_width=line_width)
 
 
 def test_piece(func_name, size=300):
     line_width = 1 + size // 100 # 1 + (6 * (2*size) / 5) // 1000 # >= 1 + (6 * rendering size / 5) // 1000
 
-    drw = get_new_drawable(2*size, 2*size)
-    gc = get_new_gc(drw, line_width)
+    d = DrawPiece(2*size, 2*size, bg_color='#EFEFEF')
 
-    d = DrawPiece(drw, gc, bg_color='#EFEFEF')
-
-    d.draw_rectangle(size, 0, size, size, fg='#606060')
-    d.draw_rectangle(0, size, size, size, fg='#606060')
+    d.draw_rectangle(size, 0, size, size, interior='#606060')
+    d.draw_rectangle(0, size, size, size, interior='#606060')
 
     func = getattr(d, func_name)
 
@@ -251,11 +269,11 @@ def test_piece(func_name, size=300):
     def _call(rect, cpiece):
         # func is not d.draw_*, it is just func == d.draw_* (!?)
         if func == d.draw_monolith:
-            func(rect, cpair=cmonolith)
+            func(rect, cpair=cmonolith, line_width=line_width)
         elif func == d.draw_starchild:
-            func(rect, cpiece=cpiece, caura=caura)
+            func(rect, cpiece=cpiece, caura=caura, line_width=line_width)
         else:
-            func(rect, cpiece=cpiece)
+            func(rect, cpiece=cpiece, line_width=line_width)
 
     r_tl = RectanglePix(0, 0, size, size)
     r_tr = RectanglePix(size, 0, size, size)
@@ -275,24 +293,9 @@ def test_piece(func_name, size=300):
 
 
 def test_piece_contour(func_name, size=1000):
-
-    import pygtk
-    pygtk.require('2.0')
-    import gtk
-    from draw import DEFAULT_FILE_TYPE
-
-    def _save_image(drawable, file_path, file_type=DEFAULT_FILE_TYPE):
-        pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, *drawable.get_size())
-        pixbuf.get_from_drawable(drawable, drawable.get_colormap(), 0, 0, 0, 0, *drawable.get_size())
-        pixbuf = pixbuf.add_alpha(True, 255, 255, 255) # add_alpha() returns *new* pixbuf
-        pixbuf.save(file_path, file_type)
-
     line_width = 1 + size // 100 # 1 + (6 * (2*size) / 5) // 1000 # >= 1 + (6 * rendering size / 5) // 1000
 
-    drw = get_new_drawable(size, size)
-    gc = get_new_gc(drw, line_width)
-
-    d = DrawPiece(drw, gc, bg_color='#FFFFFF')
+    d = DrawPiece(size, size, bg_color='#FFFFFF')
 
     func = getattr(d, func_name)
 
@@ -304,11 +307,11 @@ def test_piece_contour(func_name, size=1000):
     def _call(rect, cpiece):
         # func is not d.draw_*, it is just func == d.draw_* (!?)
         if func == d.draw_monolith:
-            func(rect, cpair=cmonolith)
+            func(rect, cpair=cmonolith, line_width=line_width)
         elif func == d.draw_starchild:
-            func(rect, cpiece=cpiece, caura=caura)
+            func(rect, cpiece=cpiece, caura=caura, line_width=line_width)
         else:
-            func(rect, cpiece=cpiece)
+            func(rect, cpiece=cpiece, line_width=line_width)
 
     rect = RectanglePix(0, 0, size, size)
 
@@ -319,43 +322,40 @@ def test_piece_contour(func_name, size=1000):
     # _call(rect, cpiece=clight)
 
     file_path = 'temp/%s.CONTOUR.IGNORE.png' % func_name
-    # d.save_image(file_path)
-    _save_image(d.drawable, file_path)
+    d.save_image(file_path)
 
 
 if __name__ == '__main__':
-    from draw import get_new_drawable, get_new_gc
+    test_piece('draw_pawn')
+    test_piece('draw_bishop')
+    test_piece('draw_knight')
+    test_piece('draw_rook')
+    test_piece('draw_king')
+    test_piece('draw_queen')
+    test_piece('draw_pegasus')
+    test_piece('draw_pyramid')
+    test_piece('draw_unicorn')
+    test_piece('draw_wave')
+    test_piece('draw_star')
+    test_piece('draw_centaur')
+    test_piece('draw_serpent')
+    test_piece('draw_shaman')
+    test_piece('draw_monolith')
+    test_piece('draw_starchild')
 
-    # test_piece('draw_pawn')
-    # test_piece('draw_bishop')
-    # test_piece('draw_knight')
-    # test_piece('draw_rook')
-    # test_piece('draw_king')
-    # test_piece('draw_queen')
-    # test_piece('draw_pegasus')
-    # test_piece('draw_pyramid')
-    # test_piece('draw_unicorn')
-    # test_piece('draw_wave')
-    # test_piece('draw_star')
-    # test_piece('draw_centaur')
-    # test_piece('draw_serpent')
-    # test_piece('draw_shaman')
-    # test_piece('draw_monolith')
-    # test_piece('draw_starchild')
-
-    test_piece_contour('draw_pawn')
-    test_piece_contour('draw_bishop')
-    test_piece_contour('draw_knight')
-    test_piece_contour('draw_rook')
-    test_piece_contour('draw_king')
-    test_piece_contour('draw_queen')
-    test_piece_contour('draw_pegasus')
-    test_piece_contour('draw_pyramid')
-    test_piece_contour('draw_unicorn')
-    test_piece_contour('draw_wave')
-    test_piece_contour('draw_star')
-    test_piece_contour('draw_centaur')
-    test_piece_contour('draw_serpent')
-    test_piece_contour('draw_shaman')
-    test_piece_contour('draw_monolith')
-    test_piece_contour('draw_starchild')
+    # test_piece_contour('draw_pawn')
+    # test_piece_contour('draw_bishop')
+    # test_piece_contour('draw_knight')
+    # test_piece_contour('draw_rook')
+    # test_piece_contour('draw_king')
+    # test_piece_contour('draw_queen')
+    # test_piece_contour('draw_pegasus')
+    # test_piece_contour('draw_pyramid')
+    # test_piece_contour('draw_unicorn')
+    # test_piece_contour('draw_wave')
+    # test_piece_contour('draw_star')
+    # test_piece_contour('draw_centaur')
+    # test_piece_contour('draw_serpent')
+    # test_piece_contour('draw_shaman')
+    # test_piece_contour('draw_monolith')
+    # test_piece_contour('draw_starchild')

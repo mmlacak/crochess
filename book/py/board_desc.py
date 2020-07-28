@@ -5,7 +5,7 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-class BoardDesc(object):
+class BoardDesc:
     def __init__(self, \
                  reverse_field_colors=False, \
                  off_board_left=0, \

@@ -28,7 +28,7 @@ def sanitize(name):
     return name.replace('\'', '_').replace(' ', '_').lower()
 
 
-class SaveScene(object):
+class SaveScene:
 
     def __init__(self, rendering_size):
         self.rendering_size = RenderingSizeEnum(rendering_size)

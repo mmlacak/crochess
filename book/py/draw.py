@@ -22,7 +22,13 @@ def tupletize(points):
     return lst_tpl
 
 
-class Draw(object):
+class MissingArg:
+    pass
+
+DEFAULT_MISSING_ARG = MissingArg()
+
+
+class Draw:
     def __init__(self, width_pix, height_pix, bg_color="#FFFFFF", color_space=DEFAULT_COLOR_SPACE):
         assert isinstance(width_pix, int)
         assert isinstance(height_pix, int)
@@ -39,17 +45,18 @@ class Draw(object):
         self.image.save(file_path, file_type)
 
     def clear_area(self, color="#FFFFFF"):
-        self.draw_rectangle(0, 0, self.image.width, self.image.height, fill=color)
+        self.draw_rectangle(0, 0, self.image.width, self.image.height, interior=color, outline=None, line_width=None)
 
     def draw_lines(self, points, color="#000000", width=1, joint='curve'):
-        self.draw.line(points, fill=color, width=width, joint=joint)
+        lw = width or self.default_line_width
+        self.draw.line(points, fill=color, width=lw, joint=joint)
 
-    def draw_rectangle(self, x, y, width, height, interior=None, outline=None, line_width=None):
+    def draw_rectangle(self, x, y, width, height, interior=None, outline=None, line_width=DEFAULT_MISSING_ARG):
         points = [ (x, y), (x+width, y+height) ]
-        lw = line_width or self.default_line_width
+        lw = line_width if line_width is not DEFAULT_MISSING_ARG else self.default_line_width
         self.draw.rectangle(points, fill=interior, outline=outline, width=lw)
 
-    def draw_polygon(self, points, interior=None, outline=None, line_width=None, joint='curve'):
+    def draw_polygon(self, points, interior=None, outline=None, line_width=DEFAULT_MISSING_ARG, joint='curve'):
         self.draw.polygon(points, fill=interior, outline=outline)
 
         back2back = tupletize(points)
@@ -58,8 +65,9 @@ class Draw(object):
         if last != first:
             back2back += [ first, ] # Adds line from end point back to starting point.
 
-        lw = line_width or self.default_line_width
-        self.draw.line(back2back, fill=outline, width=lw, joint=joint)
+        lw = line_width if line_width is not DEFAULT_MISSING_ARG else self.default_line_width
+        if outline is not None and lw is not None:
+            self.draw.line(back2back, fill=outline, width=lw, joint=joint)
 
     def draw_ellipse(self, x, y, width, height, interior=None, outline=None, line_width=None):
         points = [ (x, y), (x+width, y+height) ]
@@ -85,10 +93,12 @@ class Draw(object):
 def test_1():
     d = Draw(600, 400)
 
-    d.draw_polygon([ (10, 10), (100, 100), (10, 100) ], interior='#FF0000') # , outline='#00FF00')
-    d.draw_polygon([ (200, 10), (300, 100), (200, 100) ], interior='#FF0000') # , outline='#00FF00')
+    d.clear_area(color="#ABCDEF")
 
-    d.draw_polygon([ (10, 200), (100, 300), (10, 300) ], interior='#00FF00', outline='#0000FF', line_width=None)
+    d.draw_polygon([ (10, 10), (100, 100), (10, 100) ], interior='#FF0000', outline=None, line_width=None) # outline='#00FF00'
+    d.draw_polygon([ (200, 10), (300, 100), (200, 100) ], interior='#FF0000', outline='#00FF00')
+
+    d.draw_polygon([ (10, 200), (100, 300), (10, 300) ], interior='#00FF00', outline=None, line_width=7) # outline='#0000FF'
     d.draw_polygon([ (200, 200), (300, 300), (200, 300) ], interior='#0000FF', outline='#00FF00', line_width=None)
 
     d.save_image('temp/draw_1.IGNORE.png')
@@ -96,11 +106,13 @@ def test_1():
 def test_2():
     d = Draw(600, 400)
 
-    d.draw_ellipse(10, 10, 100, 100, interior='#FF0000') # , outline='#00FF00')
-    d.draw_ellipse(200, 10, 100, 100, interior='#FF0000') # , outline='#00FF00')
+    d.clear_area(color="#DEADFB")
 
-    d.draw_ellipse(10, 200, 100, 100, interior='#00FF00', outline='#0000FF', line_width=3)
-    d.draw_ellipse(200, 200, 100, 100, interior='#0000FF', outline='#00FF00', line_width=3)
+    d.draw_ellipse(10, 10, 100, 100, interior='#FF0000', outline=None, line_width=None) # , outline='#00FF00')
+    d.draw_ellipse(200, 10, 100, 100, interior='#FF0000', outline='#00FF00')
+
+    d.draw_ellipse(10, 200, 100, 100, interior='#00FF00', outline=None, line_width=7) # outline='#0000FF'
+    d.draw_ellipse(200, 200, 100, 100, interior='#0000FF', outline='#00FF00', line_width=7)
 
     d.save_image('temp/draw_2.IGNORE.png')
 

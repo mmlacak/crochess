@@ -5,7 +5,7 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-class Pos(object):
+class Pos:
 
     def __init__(self, x, y):
         assert isinstance(x, (int, float))
@@ -24,7 +24,7 @@ class Pos(object):
         return RectPos( *tpl[ 0 : 2 ] )
 
 
-class RectPos(object):
+class RectPos:
 
     def __init__(self, left, top, right, bottom):
         assert isinstance(left, (int, float))

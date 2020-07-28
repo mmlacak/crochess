@@ -8,7 +8,7 @@
 from board import BoardType
 
 
-class ColorsPair(object):
+class ColorsPair:
     def __init__(self, interior, outline):
         assert isinstance(interior, str)
         assert isinstance(outline, str)
@@ -28,7 +28,7 @@ class ColorsPair(object):
         return fmt % self.as_tuple()
 
 
-class ColorsShade(object):
+class ColorsShade:
     def __init__(self, light, dark):
         assert isinstance(light, ColorsPair)
         assert isinstance(dark, ColorsPair)
@@ -55,7 +55,7 @@ class ColorsShade(object):
         return fmt % self.as_tuple()
 
 
-class ColorsPiece(object):
+class ColorsPiece:
     def __init__(self, own, opposite):
         assert isinstance(own, ColorsPair)
         assert isinstance(opposite, ColorsPair)
@@ -82,7 +82,7 @@ class ColorsPiece(object):
         return fmt % self.as_tuple()
 
 
-class ColorsMark(object):
+class ColorsMark:
     def __init__(self, legal, illegal, action, blocked):
 
         assert isinstance(legal, ColorsShade)
@@ -113,7 +113,7 @@ class ColorsMark(object):
         return fmt % self.as_tuple()
 
 
-class ColorsMarkSimple(object):
+class ColorsMarkSimple:
     def __init__(self, legal, illegal, action, blocked):
 
         assert isinstance(legal, ColorsPair)
@@ -144,7 +144,7 @@ class ColorsMarkSimple(object):
         return fmt % self.as_tuple()
 
 
-class ColorsItem(object):
+class ColorsItem:
     def __init__(self, piece, star, monolith, aura, field, arrow, text, marker):
         assert isinstance(piece, ColorsShade)
         assert isinstance(star, ColorsShade)
@@ -369,14 +369,14 @@ Colors = Colors(cot_in_bw=False, all_in_bw=False)
 def test_1():
     clr = Colors[ BoardType.Classical ]
 
-    print
-    print clr
-    print
-    print clr.piece
-    print clr.monolith
-    print clr.arrow
-    print clr.text
-    print
+    print()
+    print( clr )
+    print()
+    print( clr.piece )
+    print( clr.monolith )
+    print( clr.arrow )
+    print( clr.text )
+    print()
 
 
 if __name__ == '__main__':

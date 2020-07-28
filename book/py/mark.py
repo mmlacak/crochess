@@ -38,7 +38,7 @@ class MarkType(int):
         return mark_type in MarkType.iter(include_none=True, do_construct=False)
 
 
-class Arrow(object):
+class Arrow:
 
     def __init__(self, start_x, start_y, end_x, end_y, mark_type=MarkType(MarkType.Legal), \
                  start_pointer=False, \
@@ -88,7 +88,7 @@ class Arrow(object):
                    (other.start == self.end and other.end == self.start)
 
 
-class Text(object):
+class Text:
 
     def __init__(self, text, pos_x, pos_y, mark_type=MarkType(MarkType.Legal)):
         assert isinstance(text, str)
@@ -110,7 +110,7 @@ class Text(object):
         return other.pos == self.pos
 
 
-class FieldMarker(object):
+class FieldMarker:
 
     def __init__(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
         assert isinstance(field_i, int)

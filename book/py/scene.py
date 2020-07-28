@@ -76,7 +76,7 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     return [start_x_off, start_y_off, end_x_off, end_y_off]
 
 
-class Scene(object):
+class Scene:
 
     def __init__(self, board=None, board_desc=None, *args, **kwargs):
         super(Scene, self).__init__(*args, **kwargs)

@@ -141,7 +141,7 @@ def calc_line_length(point, other):
     return math.sqrt(sqr_dist)
 
 
-class RectanglePix(object):
+class RectanglePix:
     def __init__(self, x_pix, y_pix, width_pix, height_pix):
         assert isinstance(x_pix, int)
         assert isinstance(y_pix, int)
