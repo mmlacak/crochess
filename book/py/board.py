@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
@@ -236,12 +236,12 @@ class BoardType(int):
     def get_all_that_contain(self, piece_type):
         start = self.get_newly_introducing_board_types(piece_type)
         start = start[0] if start is not None else BoardType.OddClassical
-        return [ BoardType(bt) for bt in xrange(start, BoardType.One+1) ]
+        return [ BoardType(bt) for bt in range(start, BoardType.One+1) ]
 
     def does_contain(self, piece_type):
         start = PT.Pawn
         end = self.get_newly_introduced_piece() or PT.King
-        return piece_type in xrange(start, end+1)
+        return piece_type in range(start, end+1)
 
     def get_position_limits(self):
         limit = self.get_size() - 1
@@ -264,14 +264,14 @@ def get_indexes(pieces, piece=PT.King):
     return [ i for i, p in enumerate(pieces) if p == piece ]
 
 
-class Board(object):
+class Board:
     def __init__(self, board_type, width=None, height=None):
         self.type = BoardType(board_type)
 
         self._width = width or self.type.get_size()
         self._height = height or self.type.get_size()
 
-        self._board = [ [ PT(PT.none) for i in xrange(self.get_width()) ] for j in xrange(self.get_height()) ]
+        self._board = [ [ PT(PT.none) for i in range(self.get_width()) ] for j in range(self.get_height()) ]
 
     def _is_file(self, i):
         return 0 <= i < self.get_width()
@@ -296,8 +296,8 @@ class Board(object):
         return is_light
 
     def clear(self):
-        for j in xrange(self.get_height()):
-            for i in xrange(self.get_width()):
+        for j in range(self.get_height()):
+            for i in range(self.get_width()):
                 self.set_piece(i, j, PT(PT.none))
 
     def get_width(self):
@@ -619,7 +619,7 @@ class Board(object):
         if not self.is_by_the_book():
             return
 
-        light = [ PT.Pawn for i in xrange(self.get_width()) ]
+        light = [ PT.Pawn for i in range(self.get_width()) ]
         self.set_row(1, light)
 
         dark = get_opposites(light)
@@ -743,8 +743,8 @@ class Board(object):
 
     def __str__(self):
         s = ""
-        for j in xrange(self.get_height()-1, -1, -1):
-            for i in xrange(self.get_width()):
+        for j in range(self.get_height()-1, -1, -1):
+            for i in range(self.get_width()):
                 p = self.get_piece(i, j)
                 s += "%c" % p.get_label()
             s += "\n"
@@ -754,56 +754,57 @@ class Board(object):
 def test_1():
     b = Board(BoardType.Classical, width=3, height=2)
 
-    print
-    print b.get_position_limits()
-    print
-    print str(b)
-    print
+    print()
+    print( b.get_position_limits() )
+    print()
+    print( str(b) )
+    print()
 
     b.set_piece(2, 1, PT.Bishop)
     b.set_piece(1, 0, PT.Pawn)
     b.set_piece(0, 1, PT.Knight)
     b.set_piece(1, 1, -PT.Pawn)
 
-    print
-    print b.get_position_limits()
-    print
-    print str(b)
-    print
+    print()
+    print( b.get_position_limits() )
+    print()
+    print( str(b) )
+    print()
 
 def test_2():
-    b = Board(BoardType.CroatianTies) # One)
+    bt = BoardType.CroatianTies # One
+    b = Board(bt)
     b.setup()
 
-    print
-    print b.get_position_limits()
-    print
-    print b.get_castling_limits()
-    print
-    print str(b)
-    print
+    print()
+    print( b.get_position_limits() )
+    print()
+    print( b.get_castling_limits(bt) )
+    print()
+    print( str(b) )
+    print()
 
 def test_3():
-    print
+    print()
 
     for bt in BoardType.iter(include_none=True, include_even=True, include_odd=True):
-        print bt.get_name()
+        print( bt.get_name() )
 
-    print
+    print()
 
 def test_4():
-    print
+    print()
 
     for bt in BoardType.iter(include_none=True, include_even=True, include_odd=True):
         b = Board(bt)
         b.setup()
 
-        print bt.get_name(), b.get_position_limits(), Board.get_castling_limits(bt)
+        print( bt.get_name(), b.get_position_limits(), Board.get_castling_limits(bt) )
 
-    print
+    print()
 
 if __name__ == '__main__':
-    # test_1()
-    # test_2()
-    # test_3()
+    test_1()
+    test_2()
+    test_3()
     test_4()
