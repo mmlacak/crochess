@@ -1,141 +1,120 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2016 - 2020 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
-import pygtk
-pygtk.require('2.0')
-import gtk
+from math import pi
+import cairo
+
+from util import convert_to_tuple
 
 
 DEFAULT_FILE_EXT = '.png'
-DEFAULT_FILE_TYPE = 'png'
 
 
-def get_new_drawable(size_x, size_y):
-    default = gtk.gdk.screen_get_default()
-    root = default.get_root_window()
-    drawable = gtk.gdk.Pixmap(root, size_x, size_y)
-    return drawable
-
-def get_new_gc(drawable, line_width):
-    assert isinstance(drawable, gtk.gdk.Drawable)
-
-    gc = drawable.new_gc()
-    gc.set_line_attributes(line_width, gtk.gdk.LINE_SOLID, gtk.gdk.CAP_ROUND, gtk.gdk.JOIN_ROUND)
-    return gc
-
-def set_new_colors(gc, fg=None, bg=None):
-    assert isinstance(gc, gtk.gdk.GC)
-
-    if fg is not None:
-        gc.foreground = gc.get_colormap().alloc_color(fg)
-
-    if bg is not None:
-        gc.background = gc.get_colormap().alloc_color(bg)
-
-    return gc
-
-def save_image(drawable, file_path, file_type=DEFAULT_FILE_TYPE):
-    pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, *drawable.get_size())
-    pixbuf.get_from_drawable(drawable, drawable.get_colormap(), 0, 0, 0, 0, *drawable.get_size())
-    pixbuf.save(file_path, file_type)
-
-
-class DrawableRectangle(object):
-    def __init__(self, x_pix, y_pix, width_pix, height_pix):
-        assert isinstance(x_pix, int)
-        assert isinstance(y_pix, int)
+class Draw:
+    def __init__(self, width_pix, height_pix, field_size_in_pix, line_width=0.04, color_str="#FFFFFF", color_space=cairo.Format.RGB24):
         assert isinstance(width_pix, int)
         assert isinstance(height_pix, int)
+        assert isinstance(field_size_in_pix, (int, float))
+        assert isinstance(color_space, cairo.Format)
 
-        self.x_pix = x_pix
-        self.y_pix = y_pix
+        # Device coords.
         self.width_pix = width_pix
         self.height_pix = height_pix
+        self.field_size_in_pix = field_size_in_pix
 
-    def as_tuple(self):
-        return (self.x_pix, self.y_pix, self.width_pix, self.height_pix)
+        self.surface = cairo.ImageSurface(color_space, width_pix, height_pix)
+        self.surface.set_device_scale(field_size_in_pix, field_size_in_pix) # Device coords are scaled against field size (in pixels, can be float).
 
-    @staticmethod
-    def from_tuple(tpl):
-        return DrawableRectangle( *tpl[ 0 : 4 ] )
+        # User coords.
+        self.width = self.width_pix / self.field_size_in_pix
+        self.height = self.height_pix / self.field_size_in_pix
 
-    @staticmethod
-    def scale(x_pct, y_pct, scale=1.0, center_x=0.5, center_y=0.5):
-        if scale == 1.0:
-            # 1.0 == 1.0 + 1e-16 --> True
-            return (x_pct, y_pct)
-        else:
-            # 1.0 == 1.0 + 1e-15 --> False
-            x = scale * (x_pct - center_x) + center_x
-            y = scale * (y_pct - center_y) + center_y
-            return (x, y)
+        self.context = cairo.Context(self.surface)
+        self.context.scale(1.0, 1.0) # User coords are in chessboard fields, which are always squares of size 1.0.
 
-    def calc_point(self, x_pct, y_pct):
-        x_pix = self.x_pix + x_pct * self.width_pix
-        # y = self.top + (1.0 - y_pct) * self.height
-        y_pix = self.y_pix + y_pct * self.height_pix
-        return (int(x_pix), int(y_pix))
+        self.set_line(width=line_width, join=cairo.LineJoin.ROUND, cap=cairo.LineCap.ROUND)
 
-    def calc_size(self, width_pct, height_pct):
-        width_pix  = width_pct * self.width_pix
-        height_pix  = height_pct * self.height_pix
-        return (int(width_pix), int(height_pix))
+        self.clear_image(color_str=color_str)
 
+    def set_line(self, width=0.04, join=cairo.LineJoin.ROUND, cap=cairo.LineCap.ROUND):
+        self.context.set_line_join(join)
+        self.context.set_line_cap(cap)
+        self.context.set_line_width(width)
 
-class Draw(object):
-    def __init__(self, drawable, gc, bg_color="#FFFFFF"):
-        assert isinstance(drawable, gtk.gdk.Drawable)
-        assert isinstance(gc, gtk.gdk.GC)
+    def save_image(self, file_path):
+        self.surface.write_to_png(file_path)
 
-        self.drawable = drawable
-        self.gc = gc
+    def clear_image(self, color_str="#FFFFFF"):
+        self.draw_rectangle(0.0, 0.0, self.width, self.height, interior_str=color_str)
 
-        self.clear_area(color=bg_color, gc=self.gc)
+    def draw_last_path(self, interior_str=None, outline_str=None, line_width=None):
 
-    def set_gc_colors(self, fg=None, bg=None, gc=None):
-        self.gc = set_new_colors(gc or self.gc, fg=fg, bg=bg)
-        return self.gc
+        if interior_str:
+            interior = convert_to_tuple(interior_str)
+            self.context.set_source_rgb(*interior)
 
-    def save_image(self, file_path, file_type=DEFAULT_FILE_TYPE):
-        save_image(self.drawable, file_path, file_type=file_type)
+            if outline_str:
+                self.context.fill_preserve()
+            else:
+                self.context.fill()
 
-    def clear_area(self, color="#FFFFFF", gc=None):
-        self.set_gc_colors(fg=color, gc=gc)
-        self.drawable.draw_rectangle(self.gc, True, 0, 0, *self.drawable.get_size())
+        if outline_str:
+            outline = convert_to_tuple(outline_str)
+            self.context.set_source_rgb(*outline)
 
-    def draw_lines(self, points, fg=None, bg=None, gc=None):
-        self.set_gc_colors(fg=fg, bg=bg, gc=gc)
-        self.drawable.draw_lines(self.gc, points)
+            if line_width is not None:
+                self.context.set_line_width(line_width)
 
-    def draw_outlines(self, points, outline=None, gc=None):
-        self.draw_lines(points, fg=outline, bg=outline, gc=gc)
+            self.context.stroke()
 
-    def draw_rectangle(self, x, y, width, height, filled=True, fg=None, bg=None, gc=None):
-        self.set_gc_colors(fg=fg, bg=bg, gc=gc)
-        self.drawable.draw_rectangle(self.gc, filled, x, y, width, height)
+    def draw_rectangle(self, x, y, width, height, interior_str=None, outline_str=None, line_width=None):
+        self.context.rectangle(0.0, 0.0, self.width, self.height)
+        self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def draw_polygon(self, points, filled=True, fg=None, bg=None, gc=None):
-        self.set_gc_colors(fg=fg, bg=bg, gc=gc)
-        self.drawable.draw_polygon(self.gc, filled, points)
+    def draw_lines(self, points, line_width=None, color_str=None):
+        x0, y0 = points[ 0 ]
+        self.context.move_to(x0, y0)
 
-    def draw_outlined_polygon(self, points, interior=None, outline=None, gc=None):
-        self.draw_polygon(points, filled=True, fg=interior, gc=gc)
-        self.draw_polygon(points, filled=False, fg=outline, gc=gc)
+        for _x, _y in points[ 1 : ]:
+            self.context.line_to(_x, _y)
 
-    def draw_arc(self, x, y, width, height, filled=True, fg=None, bg=None, angle1=0, angle2=64*360, gc=None):
-        self.set_gc_colors(fg=fg, bg=bg, gc=gc)
-        self.drawable.draw_arc(self.gc, filled, x, y, width, height, angle1, angle2)
+        self.draw_last_path(line_width=line_width, interior_str=None, outline_str=color_str)
 
-    def draw_outlined_arc(self, x, y, width, height, interior=None, outline=None, angle1=0, angle2=64*360, gc=None):
-        self.draw_arc(x, y, width, height, True, fg=interior, angle1=angle1, angle2=angle2, gc=gc)
-        self.draw_arc(x, y, width, height, False, fg=outline, angle1=angle1, angle2=angle2, gc=gc)
+    def draw_lines_pos(self, x, y, points, line_width=None, color_str=None):
+        x0, y0 = points[ 0 ]
+        self.context.move_to(x+x0, y+y0)
 
-#    def get_square_size(self):
-#        m = min(self.drawable.get_size())
-#        return (m, m)
+        for _x, _y in points[ 1 : ]:
+            self.context.line_to(x+_x, y+_y)
+
+        self.draw_last_path(line_width=line_width, interior_str=None, outline_str=color_str)
+
+    def draw_polygon(self, points, interior_str=None, outline_str=None, line_width=None):
+        x0, y0 = points[ 0 ]
+        self.context.move_to(x0, y0)
+
+        for _x, _y in points[ 1 : ]:
+            self.context.line_to(_x, _y)
+        self.context.close_path()
+
+        self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
+
+    def draw_polygon_pos(self, x, y, points, interior_str=None, outline_str=None, line_width=None):
+        x0, y0 = points[ 0 ]
+        self.context.move_to(x+x0, y+y0)
+
+        for _x, _y in points[ 1 : ]:
+            self.context.line_to(x+_x, y+_y)
+        self.context.close_path()
+
+        self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
+
+    def draw_arc(self, x, y, radius, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=None):
+        self.context.arc(x, y, radius, angle1, angle2)
+        self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
     def flip_horizontally(self, points_pct):
         return [ (1.0 - p[0], p[1]) for p in points_pct ]
@@ -154,30 +133,34 @@ class Draw(object):
 
 
 def test_1():
-    drw = get_new_drawable(600, 400)
-    gc = get_new_gc(drw, 5)
+    d = Draw(600, 400, 100)
 
-    d = Draw(drw, gc)
+    d.draw_polygon([ (0.1, 0.1), (0.9, 0.9), (0.1, 0.9) ], interior_str='#FF0000', outline_str='#00FF00')
+    d.draw_polygon([ (1.1, 0.1), (1.9, 0.9), (1.1, 0.9) ], interior_str='#FF0000')
+    d.draw_polygon([ (2.1, 0.1), (2.9, 0.9), (2.1, 0.9) ], outline_str='#00FF00')
 
-    d.draw_polygon([ (10, 10), (100, 100), (10, 100) ], filled=True, fg='#FF0000', bg='#00FF00')
-    d.draw_polygon([ (200, 10), (300, 100), (200, 100) ], filled=False, fg='#FF0000', bg='#00FF00')
-
-    d.draw_outlined_polygon([ (10, 200), (100, 300), (10, 300) ], interior='#00FF00', outline='#0000FF')
-    d.draw_outlined_polygon([ (200, 200), (300, 300), (200, 300) ], interior='#0000FF', outline='#00FF00')
+    points = [ (0.1, 0.1), (0.9, 0.9), (0.1, 0.9) ]
+    d.draw_polygon_pos(0.0, 1.0, points, interior_str='#00FF00', outline_str='#0000FF')
+    d.draw_polygon_pos(1.0, 1.0, points, interior_str='#00FF00')
+    d.draw_polygon_pos(2.0, 1.0, points, outline_str='#0000FF')
 
     d.save_image('temp/draw_1.IGNORE.png')
 
 def test_2():
-    drw = get_new_drawable(600, 400)
-    gc = get_new_gc(drw, 5)
+    d = Draw(600, 400, 100)
 
-    d = Draw(drw, gc)
+    d.draw_arc(0.5, 0.5, 0.4, interior_str='#FF0000', outline_str='#00FF00')
+    d.draw_arc(1.5, 0.5, 0.4, interior_str='#FF0000')
+    d.draw_arc(2.5, 0.5, 0.4, outline_str='#00FF00')
 
-    d.draw_arc(10, 10, 100, 100, True, fg='#FF0000', bg='#00FF00')
-    d.draw_arc(200, 10, 100, 100, False, fg='#FF0000', bg='#00FF00')
+    d.draw_lines([ (0.1, 1.1), (0.9, 1.9), (0.1, 1.9) ], color_str='#FF0000')
+    d.draw_lines([ (1.1, 1.1), (1.9, 1.9), (1.1, 1.9) ], color_str='#00FF00')
+    d.draw_lines([ (2.1, 1.1), (2.9, 1.9), (2.1, 1.9) ], color_str='#0000FF')
 
-    d.draw_outlined_arc(10, 200, 100, 100, interior='#00FF00', outline='#0000FF')
-    d.draw_outlined_arc(200, 200, 100, 100, interior='#0000FF', outline='#00FF00')
+    points = [ (0.1, 0.1), (0.9, 0.9), (0.1, 0.9) ]
+    d.draw_lines_pos(0.0, 2.0, points, color_str='#0000FF')
+    d.draw_lines_pos(1.0, 2.0, points, color_str='#00FF00')
+    d.draw_lines_pos(2.0, 2.0, points, color_str='#FF0000')
 
     d.save_image('temp/draw_2.IGNORE.png')
 
