@@ -51,7 +51,7 @@ class Draw:
     def clear_image(self, color_str="#FFFFFF"):
         self.draw_rectangle(0.0, 0.0, self.width, self.height, interior_str=color_str)
 
-    def draw_last_path(self, interior_str=None, outline_str=None, line_width=None):
+    def draw_last_path(self, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
 
         if interior_str:
             interior = convert_to_tuple(interior_str)
@@ -71,11 +71,11 @@ class Draw:
 
             self.context.stroke()
 
-    def draw_rectangle(self, x, y, width, height, interior_str=None, outline_str=None, line_width=None):
+    def draw_rectangle(self, x, y, width, height, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
         self.context.rectangle(x, y, width, height)
         self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def draw_lines(self, points, x=0.0, y=0.0, line_width=None, color_str=None):
+    def draw_lines(self, points, x=0.0, y=0.0, line_width=DEFAULT_LINE_WIDTH, color_str=None):
         x0, y0 = points[ 0 ]
         self.context.move_to(x+x0, y+y0)
 
@@ -84,7 +84,7 @@ class Draw:
 
         self.draw_last_path(line_width=line_width, interior_str=None, outline_str=color_str)
 
-    def draw_polygon(self, points, x=0.0, y=0.0, interior_str=None, outline_str=None, line_width=None):
+    def draw_polygon(self, points, x=0.0, y=0.0, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
         x0, y0 = points[ 0 ]
         self.context.move_to(x+x0, y+y0)
 
@@ -94,11 +94,11 @@ class Draw:
 
         self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def draw_arc(self, x, y, radius, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=None):
+    def draw_arc(self, x, y, radius, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
         self.context.arc(x, y, radius, angle1, angle2)
         self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def draw_arc_pos(self, x, y, radius, rel_x=0.5, rel_y=0.5, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=None):
+    def draw_arc_pos(self, x, y, radius, rel_x=0.5, rel_y=0.5, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
         self.draw_arc(x+rel_x, y+rel_y, radius, angle1=angle1, angle2=angle2, interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
     def flip_horizontally(self, points_pct):

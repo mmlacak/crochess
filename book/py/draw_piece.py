@@ -8,7 +8,7 @@
 from pixel_math import scale_translate, Rectangle
 from piece import PieceType
 from colors import ColorsPair, ColorsPiece, ColorsItem
-from draw import Draw
+from draw import Draw, DEFAULT_LINE_WIDTH
 
 
 PIECE_WITH_CHIP_TRANSLATION = 0.11
@@ -21,14 +21,16 @@ class DrawPiece(Draw):
         assert isinstance(cpair, ColorsPair)
 
         _points = [ rect.calc_point( *t, scale=scale ) for t in points ]
-        self.draw_polygon(_points, interior_str=cpair.interior, outline_str=cpair.outline)
+        lw = rect.scale_length(DEFAULT_LINE_WIDTH)
+        self.draw_polygon(_points, interior_str=cpair.interior, outline_str=cpair.outline, line_width=lw)
 
     def draw_piece_lines(self, points, rect, cpair=None, scale=1.0):
         assert isinstance(rect, Rectangle)
         assert isinstance(cpair, ColorsPair)
 
         _points = [ rect.calc_point( *t, scale=scale ) for t in points ]
-        self.draw_lines(_points, color_str=cpair.outline)
+        lw = rect.scale_length(DEFAULT_LINE_WIDTH)
+        self.draw_lines(_points, color_str=cpair.outline, line_width=lw)
 
     def draw_none(self, rect, cpiece=None):
         pass
@@ -160,12 +162,13 @@ class DrawPiece(Draw):
 
     def draw_starchild(self, rect, cpiece=None, caura=None):
         x, y = rect.calc_point(0.5, 0.5)
+        lw = rect.scale_length(DEFAULT_LINE_WIDTH)
 
         r1 = rect.scale_length(0.350001)
-        self.draw_arc(x, y, r1, interior_str=cpiece.own.interior, outline_str=cpiece.own.outline)
+        self.draw_arc(x, y, r1, interior_str=cpiece.own.interior, outline_str=cpiece.own.outline, line_width=lw)
 
         r2 = rect.scale_length(0.300001)
-        self.draw_arc(x, y, r2, interior_str=caura.interior, outline_str=cpiece.own.outline)
+        self.draw_arc(x, y, r2, interior_str=caura.interior, outline_str=cpiece.own.outline, line_width=lw)
 
         self.draw_star(rect, cpiece=cpiece, scale=0.667)
 
@@ -202,7 +205,7 @@ class DrawPiece(Draw):
             _draw(rect, cpiece=colors_item.piece.to_piece( pt.is_light() ))
 
 
-def test_piece(func_name, size=700):
+def test_piece(func_name, size=800):
 
     d = DrawPiece(size, size, size / 2, color_str='#EFEFEF')
 
@@ -242,7 +245,7 @@ def test_piece(func_name, size=700):
     d.save_image(file_path)
 
 
-def test_piece_contour(func_name, size=1000):
+def test_piece_contour(func_name, size=1200):
 
     d = DrawPiece(size, size, size / 2, color_str='#EFEFEF')
 
@@ -266,6 +269,7 @@ def test_piece_contour(func_name, size=1000):
             func(rect, cpiece=cpiece)
 
     rect = Rectangle(0.2, 0.2, 1.6, 1.6)
+    d.draw_rectangle(*rect.as_tuple(), outline_str='#FF0000', line_width=0.001)
 
     # dark
     _call(rect, cpiece=cdark)
@@ -279,22 +283,22 @@ def test_piece_contour(func_name, size=1000):
 
 if __name__ == '__main__':
 
-    # test_piece('draw_pawn')
-    # test_piece('draw_bishop')
-    # test_piece('draw_knight')
-    # test_piece('draw_rook')
-    # test_piece('draw_king')
-    # test_piece('draw_queen')
-    # test_piece('draw_pegasus')
-    # test_piece('draw_pyramid')
-    # test_piece('draw_unicorn')
-    # test_piece('draw_wave')
-    # test_piece('draw_star')
-    # test_piece('draw_centaur')
-    # test_piece('draw_serpent')
-    # test_piece('draw_shaman')
-    # test_piece('draw_monolith')
-    # test_piece('draw_starchild')
+    test_piece('draw_pawn')
+    test_piece('draw_bishop')
+    test_piece('draw_knight')
+    test_piece('draw_rook')
+    test_piece('draw_king')
+    test_piece('draw_queen')
+    test_piece('draw_pegasus')
+    test_piece('draw_pyramid')
+    test_piece('draw_unicorn')
+    test_piece('draw_wave')
+    test_piece('draw_star')
+    test_piece('draw_centaur')
+    test_piece('draw_serpent')
+    test_piece('draw_shaman')
+    test_piece('draw_monolith')
+    test_piece('draw_starchild')
 
     test_piece_contour('draw_pawn')
     test_piece_contour('draw_bishop')
