@@ -10,28 +10,28 @@ import cairo
 from util import convert_to_tuple
 
 
-DEFAULT_LINE_WIDTH = 0.04
+DEFAULT_LINE_WIDTH = 0.023
 DEFAULT_FILE_EXT = '.png'
 
 
 class Draw:
-    def __init__(self, width_pix, height_pix, user_unit_in_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", color_space=cairo.Format.RGB24):
+    def __init__(self, width_pix, height_pix, field_size_in_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", color_space=cairo.Format.RGB24):
         assert isinstance(width_pix, int)
         assert isinstance(height_pix, int)
-        assert isinstance(user_unit_in_pix, (int, float)) # Factor from user unit (field size) to device units (pixels), can be float.
+        assert isinstance(field_size_in_pix, float) # Scaling factor of device units (pixels), from user coords (== field size).
         assert isinstance(color_space, cairo.Format)
 
         # Device coords.
         self.width_pix = width_pix
         self.height_pix = height_pix
-        self.user_unit_in_pix = user_unit_in_pix
+        self.field_size_in_pix = field_size_in_pix
 
         self.surface = cairo.ImageSurface(color_space, width_pix, height_pix)
-        self.surface.set_device_scale(user_unit_in_pix, user_unit_in_pix) # Device coords are scaled against user units == field size (in pixels, can be float).
+        self.surface.set_device_scale(field_size_in_pix, field_size_in_pix) # Device coords (pixels) are scaled against user units == field size.
 
         # User coords.
-        self.width = self.width_pix / self.user_unit_in_pix
-        self.height = self.height_pix / self.user_unit_in_pix
+        self.width = self.width_pix / self.field_size_in_pix
+        self.height = self.height_pix / self.field_size_in_pix
 
         self.context = cairo.Context(self.surface)
         self.context.scale(1.0, 1.0) # User coords are in chessboard fields, which are always squares of size 1.0.
@@ -72,7 +72,7 @@ class Draw:
             self.context.stroke()
 
     def draw_rectangle(self, x, y, width, height, interior_str=None, outline_str=None, line_width=None):
-        self.context.rectangle(0.0, 0.0, self.width, self.height)
+        self.context.rectangle(x, y, width, height)
         self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
     def draw_lines(self, points, x=0.0, y=0.0, line_width=None, color_str=None):
@@ -118,7 +118,7 @@ class Draw:
 
 
 def test_1():
-    d = Draw(600, 400, 100)
+    d = Draw(600, 400, 100.0)
 
     d.draw_polygon([ (0.1, 0.1), (0.9, 0.9), (0.1, 0.9) ], interior_str='#FF0000', outline_str='#00FF00')
     d.draw_polygon([ (1.1, 0.1), (1.9, 0.9), (1.1, 0.9) ], interior_str='#FF0000')
@@ -129,10 +129,14 @@ def test_1():
     d.draw_polygon(points, x=1.0, y=1.0, interior_str='#00FF00')
     d.draw_polygon(points, x=2.0, y=1.0, outline_str='#0000FF')
 
+    d.draw_rectangle( 0.1, 2.0, 0.8, 0.8, interior_str='#00FF00', outline_str='#FF0000' )
+    d.draw_rectangle( 1.1, 2.0, 0.8, 0.8, interior_str='#00FF00' )
+    d.draw_rectangle( 2.1, 2.0, 0.8, 0.8, outline_str='#FF0000' )
+
     d.save_image('temp/draw_1.IGNORE.png')
 
 def test_2():
-    d = Draw(600, 400, 100)
+    d = Draw(600, 400, 100.0)
 
     d.draw_arc(0.5, 0.5, 0.4, interior_str='#FF0000', outline_str='#00FF00')
     d.draw_arc(1.5, 0.5, 0.4, interior_str='#FF0000')

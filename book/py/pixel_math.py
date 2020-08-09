@@ -142,7 +142,7 @@ def calc_line_length(point, other):
 
 
 class Rectangle:
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width=1.0, height=1.0):
         assert isinstance(x, float)
         assert isinstance(y, float)
         assert isinstance(width, float)
@@ -160,16 +160,22 @@ class Rectangle:
     def from_tuple(tpl):
         return Rectangle( *tpl[ 0 : 4 ] )
 
-    def calc_point(self, x, y):
-        _x = self.x + x * self.width
-        # _y = self.top + (1.0 - y_pct) * self.height
-        _y = self.y + y * self.height
-        return (_x, _y)
+    def calc_point(self, x, y, scale=1.0, center_x=0.5, center_y=0.5, trans_x=0.0, trans_y=0.0):
+        _x = x
+        _y = y
 
-    # def calc_size(self, width_pct, height_pct):
-    #     width_pix  = width_pct * self.width_pix
-    #     height_pix  = height_pct * self.height_pix
-    #     return (int(width_pix), int(height_pix))
+        if scale != 1.0:
+            _x = scale * ( _x - center_x ) + center_x
+            _y = scale * ( _y - center_y ) + center_y
+
+        _x = self.x + _x * self.width
+        # _y = self.top + (1.0 - y_pct) * self.height
+        _y = self.y + _y * self.height
+        return (_x+trans_x, _y+trans_y)
+
+    def scale_length(self, length):
+        unit = min(self.width, self.height)
+        return unit * length
 
 
 if __name__ == '__main__':
