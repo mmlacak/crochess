@@ -10,7 +10,7 @@ import cairo
 from util import convert_to_tuple
 
 
-DEFAULT_LINE_WIDTH = 0.023
+DEFAULT_LINE_WIDTH = 0.019
 DEFAULT_FILE_EXT = '.png'
 
 

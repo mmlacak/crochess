@@ -265,11 +265,8 @@ def get_indexes(pieces, piece=PT.King):
 
 
 class Board:
-    def __init__(self, board_type, width=None, height=None):
+    def __init__(self, board_type):
         self.type = BoardType(board_type)
-
-        self._width = width or self.type.get_size()
-        self._height = height or self.type.get_size()
 
         self._board = [ [ PT(PT.none) for i in range(self.get_width()) ] for j in range(self.get_height()) ]
 
@@ -281,9 +278,6 @@ class Board:
 
     def is_on_board(self, i, j):
         return self._is_file(i) and self._is_rank(j)
-
-    def is_by_the_book(self):
-        return (self.get_height() == self.type.get_size()) and (self.get_width() == self.type.get_size())
 
     def is_light(self, i, j):
         b = self.get_width() % 2
@@ -301,10 +295,10 @@ class Board:
                 self.set_piece(i, j, PT(PT.none))
 
     def get_width(self):
-        return self._width
+        return self.type.get_size()
 
     def get_height(self):
-        return self._height
+        return self.type.get_size()
 
     def get_piece(self, i, j):
         return self._board[j][i]
@@ -347,11 +341,11 @@ class Board:
     # Defining initial position
 
     @staticmethod
-    def get_none_row():
+    def _get_none_row():
         return []
 
     @staticmethod
-    def get_classic_row():
+    def _get_classic_row():
         return  [ PT.Rook, \
                   PT.Knight, \
                   PT.Bishop, \
@@ -362,7 +356,7 @@ class Board:
                   PT.Rook ]
 
     @staticmethod
-    def get_croatian_ties_row():
+    def _get_croatian_ties_row():
         return  [ PT.Rook, \
                   PT.Pegasus, \
                   PT.Knight, \
@@ -375,7 +369,7 @@ class Board:
                   PT.Rook ]
 
     @staticmethod
-    def get_mayan_ascendancy_row():
+    def _get_mayan_ascendancy_row():
         return  [ PT.Rook, \
                   PT.Pegasus, \
                   PT.Pyramid, \
@@ -390,7 +384,7 @@ class Board:
                   PT.Rook ]
 
     @staticmethod
-    def get_age_of_aquarius_row():
+    def _get_age_of_aquarius_row():
         return  [ PT.Rook, \
                   PT.Pegasus, \
                   PT.Pyramid, \
@@ -407,7 +401,7 @@ class Board:
                   PT.Rook ]
 
     @staticmethod
-    def get_mirandas_veil_row():
+    def _get_mirandas_veil_row():
         return  [ PT.Rook, \
                   PT.Pegasus, \
                   PT.Pyramid, \
@@ -426,7 +420,7 @@ class Board:
                   PT.Rook ]
 
     @staticmethod
-    def get_nineteen_row():
+    def _get_nineteen_row():
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -447,7 +441,7 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def get_hemeras_dawn_row():
+    def _get_hemeras_dawn_row():
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -470,7 +464,7 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def get_tamoanchan_revisited_row():
+    def _get_tamoanchan_revisited_row():
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -495,34 +489,7 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def get_conquest_of_tlalocan_row():
-        return  [ PT.Star, \
-                  PT.Rook, \
-                  PT.Pegasus, \
-                  PT.Pyramid, \
-                  PT.Shaman, \
-                  PT.Unicorn, \
-                  PT.Wave, \
-                  PT.Centaur, \
-                  PT.Serpent, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Serpent, \
-                  PT.Centaur, \
-                  PT.Wave, \
-                  PT.Unicorn, \
-                  PT.Shaman, \
-                  PT.Pyramid, \
-                  PT.Pegasus, \
-                  PT.Rook, \
-                  -PT.Star ]
-
-    @staticmethod
-    def get_discovery_row():
+    def _get_conquest_of_tlalocan_row():
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -549,7 +516,34 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def get_one_row():
+    def _get_discovery_row():
+        return  [ PT.Star, \
+                  PT.Rook, \
+                  PT.Pegasus, \
+                  PT.Pyramid, \
+                  PT.Shaman, \
+                  PT.Unicorn, \
+                  PT.Wave, \
+                  PT.Centaur, \
+                  PT.Serpent, \
+                  PT.Knight, \
+                  PT.Bishop, \
+                  PT.Queen, \
+                  PT.King, \
+                  PT.Bishop, \
+                  PT.Knight, \
+                  PT.Serpent, \
+                  PT.Centaur, \
+                  PT.Wave, \
+                  PT.Unicorn, \
+                  PT.Shaman, \
+                  PT.Pyramid, \
+                  PT.Pegasus, \
+                  PT.Rook, \
+                  -PT.Star ]
+
+    @staticmethod
+    def _get_one_row():
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -581,29 +575,29 @@ class Board:
     def get_light_row(board_type):
         bt = BoardType(board_type)
 
-        f = { BoardType.none: Board.get_none_row,
-              BoardType.OddClassical: Board.get_classic_row,
-              BoardType.Classical: Board.get_classic_row,
-              BoardType.OddCroatianTies: Board.get_croatian_ties_row,
-              BoardType.CroatianTies: Board.get_croatian_ties_row,
-              BoardType.OddMayanAscendancy: Board.get_mayan_ascendancy_row,
-              BoardType.MayanAscendancy: Board.get_mayan_ascendancy_row,
-              BoardType.OddAgeOfAquarius: Board.get_age_of_aquarius_row,
-              BoardType.AgeOfAquarius: Board.get_age_of_aquarius_row,
-              BoardType.OddMirandasVeil: Board.get_mirandas_veil_row,
-              BoardType.MirandasVeil: Board.get_mirandas_veil_row,
-              BoardType.OddNineteen: Board.get_nineteen_row,
-              BoardType.Nineteen: Board.get_nineteen_row,
-              BoardType.OddHemerasDawn: Board.get_hemeras_dawn_row,
-              BoardType.HemerasDawn: Board.get_hemeras_dawn_row,
-              BoardType.OddTamoanchanRevisited: Board.get_tamoanchan_revisited_row,
-              BoardType.TamoanchanRevisited: Board.get_tamoanchan_revisited_row,
-              BoardType.OddConquestOfTlalocan: Board.get_conquest_of_tlalocan_row,
-              BoardType.ConquestOfTlalocan: Board.get_conquest_of_tlalocan_row,
-              BoardType.OddDiscovery: Board.get_discovery_row,
-              BoardType.Discovery: Board.get_discovery_row,
-              BoardType.OddOne: Board.get_one_row,
-              BoardType.One: Board.get_one_row }[ bt ]
+        f = { BoardType.none: Board._get_none_row,
+              BoardType.OddClassical: Board._get_classic_row,
+              BoardType.Classical: Board._get_classic_row,
+              BoardType.OddCroatianTies: Board._get_croatian_ties_row,
+              BoardType.CroatianTies: Board._get_croatian_ties_row,
+              BoardType.OddMayanAscendancy: Board._get_mayan_ascendancy_row,
+              BoardType.MayanAscendancy: Board._get_mayan_ascendancy_row,
+              BoardType.OddAgeOfAquarius: Board._get_age_of_aquarius_row,
+              BoardType.AgeOfAquarius: Board._get_age_of_aquarius_row,
+              BoardType.OddMirandasVeil: Board._get_mirandas_veil_row,
+              BoardType.MirandasVeil: Board._get_mirandas_veil_row,
+              BoardType.OddNineteen: Board._get_nineteen_row,
+              BoardType.Nineteen: Board._get_nineteen_row,
+              BoardType.OddHemerasDawn: Board._get_hemeras_dawn_row,
+              BoardType.HemerasDawn: Board._get_hemeras_dawn_row,
+              BoardType.OddTamoanchanRevisited: Board._get_tamoanchan_revisited_row,
+              BoardType.TamoanchanRevisited: Board._get_tamoanchan_revisited_row,
+              BoardType.OddConquestOfTlalocan: Board._get_conquest_of_tlalocan_row,
+              BoardType.ConquestOfTlalocan: Board._get_conquest_of_tlalocan_row,
+              BoardType.OddDiscovery: Board._get_discovery_row,
+              BoardType.Discovery: Board._get_discovery_row,
+              BoardType.OddOne: Board._get_one_row,
+              BoardType.One: Board._get_one_row }[ bt ]
 
         light_pieces = f()
 
@@ -616,9 +610,6 @@ class Board:
     # Setting up initial positions
 
     def _setup_pawns(self):
-        if not self.is_by_the_book():
-            return
-
         light = [ PT.Pawn for i in range(self.get_width()) ]
         self.set_row(1, light)
 
@@ -626,9 +617,6 @@ class Board:
         self.set_row(self.get_height() - 2, dark)
 
     def _setup_board(self, light_pieces):
-        if not self.is_by_the_book():
-            return
-
         self.clear()
         self._setup_pawns()
 
@@ -639,43 +627,43 @@ class Board:
         dark = get_opposites(light_pieces)
         self.set_row(self.get_height() - 1, dark)
 
-    def setup_none(self):
+    def _setup_none(self):
         pass
 
-    def setup_classic(self):
-        light = Board.get_classic_row()
+    def _setup_classic(self):
+        light = Board._get_classic_row()
         self._setup_board(light)
 
-    def setup_croatian_ties(self):
-        light = Board.get_croatian_ties_row()
+    def _setup_croatian_ties(self):
+        light = Board._get_croatian_ties_row()
         self._setup_board(light)
 
-    def setup_mayan_ascendancy(self):
-        light = Board.get_mayan_ascendancy_row()
+    def _setup_mayan_ascendancy(self):
+        light = Board._get_mayan_ascendancy_row()
         self._setup_board(light)
 
-    def setup_age_of_aquarius(self):
-        light = Board.get_age_of_aquarius_row()
+    def _setup_age_of_aquarius(self):
+        light = Board._get_age_of_aquarius_row()
         self._setup_board(light)
 
-    def setup_mirandas_veil(self):
-        light = Board.get_mirandas_veil_row()
+    def _setup_mirandas_veil(self):
+        light = Board._get_mirandas_veil_row()
         self._setup_board(light)
 
-    def setup_nineteen(self):
-        light = Board.get_nineteen_row()
+    def _setup_nineteen(self):
+        light = Board._get_nineteen_row()
         self._setup_board(light)
 
-    def setup_hemeras_dawn(self):
-        light = Board.get_hemeras_dawn_row()
+    def _setup_hemeras_dawn(self):
+        light = Board._get_hemeras_dawn_row()
         self._setup_board(light)
 
-    def setup_tamoanchan_revisited(self):
-        light = Board.get_tamoanchan_revisited_row()
+    def _setup_tamoanchan_revisited(self):
+        light = Board._get_tamoanchan_revisited_row()
         self._setup_board(light)
 
-    def setup_conquest_of_tlalocan(self):
-        light = Board.get_conquest_of_tlalocan_row()
+    def _setup_conquest_of_tlalocan(self):
+        light = Board._get_conquest_of_tlalocan_row()
         self._setup_board(light)
 
 
@@ -698,44 +686,44 @@ class Board:
         i, j = self._calc_monolith_init_pos(pt)
         self.set_piece(i, j, pt)
 
-    def setup_discovery(self):
-        light = Board.get_discovery_row()
+    def _setup_discovery(self):
+        light = Board._get_discovery_row()
         self._setup_board(light)
 
         self._setup_monolith(PT.Monolith)
         self._setup_monolith(-PT.Monolith)
 
-    def setup_one(self):
-        light = Board.get_one_row()
+    def _setup_one(self):
+        light = Board._get_one_row()
         self._setup_board(light)
 
         self._setup_monolith(PT.Monolith)
         self._setup_monolith(-PT.Monolith)
 
     def setup(self):
-        f = { BoardType.none: self.setup_none,
-              BoardType.OddClassical: self.setup_classic,
-              BoardType.Classical: self.setup_classic,
-              BoardType.OddCroatianTies: self.setup_croatian_ties,
-              BoardType.CroatianTies: self.setup_croatian_ties,
-              BoardType.OddMayanAscendancy: self.setup_mayan_ascendancy,
-              BoardType.MayanAscendancy: self.setup_mayan_ascendancy,
-              BoardType.OddAgeOfAquarius: self.setup_age_of_aquarius,
-              BoardType.AgeOfAquarius: self.setup_age_of_aquarius,
-              BoardType.OddMirandasVeil: self.setup_mirandas_veil,
-              BoardType.MirandasVeil: self.setup_mirandas_veil,
-              BoardType.OddNineteen: self.setup_nineteen,
-              BoardType.Nineteen: self.setup_nineteen,
-              BoardType.OddHemerasDawn: self.setup_hemeras_dawn,
-              BoardType.HemerasDawn: self.setup_hemeras_dawn,
-              BoardType.OddTamoanchanRevisited: self.setup_tamoanchan_revisited,
-              BoardType.TamoanchanRevisited: self.setup_tamoanchan_revisited,
-              BoardType.OddConquestOfTlalocan: self.setup_conquest_of_tlalocan,
-              BoardType.ConquestOfTlalocan: self.setup_conquest_of_tlalocan,
-              BoardType.OddDiscovery: self.setup_discovery,
-              BoardType.Discovery: self.setup_discovery,
-              BoardType.OddOne: self.setup_one,
-              BoardType.One: self.setup_one }[ self.type ]
+        f = { BoardType.none: self._setup_none,
+              BoardType.OddClassical: self._setup_classic,
+              BoardType.Classical: self._setup_classic,
+              BoardType.OddCroatianTies: self._setup_croatian_ties,
+              BoardType.CroatianTies: self._setup_croatian_ties,
+              BoardType.OddMayanAscendancy: self._setup_mayan_ascendancy,
+              BoardType.MayanAscendancy: self._setup_mayan_ascendancy,
+              BoardType.OddAgeOfAquarius: self._setup_age_of_aquarius,
+              BoardType.AgeOfAquarius: self._setup_age_of_aquarius,
+              BoardType.OddMirandasVeil: self._setup_mirandas_veil,
+              BoardType.MirandasVeil: self._setup_mirandas_veil,
+              BoardType.OddNineteen: self._setup_nineteen,
+              BoardType.Nineteen: self._setup_nineteen,
+              BoardType.OddHemerasDawn: self._setup_hemeras_dawn,
+              BoardType.HemerasDawn: self._setup_hemeras_dawn,
+              BoardType.OddTamoanchanRevisited: self._setup_tamoanchan_revisited,
+              BoardType.TamoanchanRevisited: self._setup_tamoanchan_revisited,
+              BoardType.OddConquestOfTlalocan: self._setup_conquest_of_tlalocan,
+              BoardType.ConquestOfTlalocan: self._setup_conquest_of_tlalocan,
+              BoardType.OddDiscovery: self._setup_discovery,
+              BoardType.Discovery: self._setup_discovery,
+              BoardType.OddOne: self._setup_one,
+              BoardType.One: self._setup_one }[ self.type ]
 
         f()
 
@@ -752,7 +740,7 @@ class Board:
 
 
 def test_1():
-    b = Board(BoardType.Classical, width=3, height=2)
+    b = Board(BoardType.Classical)
 
     print()
     print( b.get_position_limits() )
