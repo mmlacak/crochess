@@ -10,6 +10,7 @@ import math
     point :: (float, float) # (x, y)
 """
 
+
 def is_any(itr, type_=float):
     return any( [ isinstance(x, type_) for x in itr ] )
 
@@ -41,21 +42,15 @@ def q_same_rounded_floats(num0, num1, digits=6):
     return n0 == n1
 
 
-# TODO :: cairo coords are all float!
-def translate_scale(x_pct, y_pct, scale=1.0, center_x=0.5, center_y=0.5):
+def scale_translate(x, y, scale=1.0, center_x=0.5, center_y=0.5, trans_x=0.0, trans_y=0.0):
     if scale == 1.0:
         # 1.0 == 1.0 + 1e-16 --> True
-        return (x_pct, y_pct)
+        return (x+trans_x, y+trans_y)
     else:
         # 1.0 == 1.0 + 1e-15 --> False
-        x = scale * (x_pct - center_x) + center_x
-        y = scale * (y_pct - center_y) + center_y
-        return (x, y)
-
-# TODO :: cairo coords are all float!
-def calc_default_line_width(size_pix):
-    # return math.ceil( 1 + ( 6 * size_pix / 5000 ) )
-    return 0.04
+        _x = scale * (x - center_x) + center_x
+        _y = scale * (y - center_y) + center_y
+        return (_x+trans_x, _y+trans_y)
 
 
 def calc_straight_line(start, end):
@@ -146,36 +141,35 @@ def calc_line_length(point, other):
     return math.sqrt(sqr_dist)
 
 
-# TODO :: cairo coords are all float!
-class RectanglePix:
-    def __init__(self, x_pix, y_pix, width_pix, height_pix):
-        assert isinstance(x_pix, int)
-        assert isinstance(y_pix, int)
-        assert isinstance(width_pix, int)
-        assert isinstance(height_pix, int)
+class Rectangle:
+    def __init__(self, x, y, width, height):
+        assert isinstance(x, float)
+        assert isinstance(y, float)
+        assert isinstance(width, float)
+        assert isinstance(height, float)
 
-        self.x_pix = x_pix
-        self.y_pix = y_pix
-        self.width_pix = width_pix
-        self.height_pix = height_pix
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
 
     def as_tuple(self):
-        return (self.x_pix, self.y_pix, self.width_pix, self.height_pix)
+        return (self.x, self.y, self.width, self.height)
 
     @staticmethod
     def from_tuple(tpl):
-        return RectanglePix( *tpl[ 0 : 4 ] )
+        return Rectangle( *tpl[ 0 : 4 ] )
 
-    def calc_point(self, x_pct, y_pct):
-        x_pix = self.x_pix + x_pct * self.width_pix
-        # y = self.top + (1.0 - y_pct) * self.height
-        y_pix = self.y_pix + y_pct * self.height_pix
-        return (int(x_pix), int(y_pix))
+    def calc_point(self, x, y):
+        _x = self.x + x * self.width
+        # _y = self.top + (1.0 - y_pct) * self.height
+        _y = self.y + y * self.height
+        return (_x, _y)
 
-    def calc_size(self, width_pct, height_pct):
-        width_pix  = width_pct * self.width_pix
-        height_pix  = height_pct * self.height_pix
-        return (int(width_pix), int(height_pix))
+    # def calc_size(self, width_pct, height_pct):
+    #     width_pix  = width_pct * self.width_pix
+    #     height_pix  = height_pct * self.height_pix
+    #     return (int(width_pix), int(height_pix))
 
 
 if __name__ == '__main__':
