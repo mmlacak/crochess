@@ -28,30 +28,27 @@ class Border:
 
 
 class BoardView:
-    def __init__(self, board_or_type, left=0.0, top=0.0, width=None, height=None, reverse_off_board_field_colors=False, border=None):
-        assert isinstance(board_or_type, (Board, BoardType))
-
-        assert isinstance(left, float)
-        assert isinstance(top, float)
+    def __init__(self, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, border=None, board_type=None):
+        assert isinstance(x, float)
+        assert isinstance(y, float)
         assert isinstance(width, (float, type(None)))
         assert isinstance(height, (float, type(None)))
 
         assert isinstance(reverse_off_board_field_colors, bool)
         assert isinstance(border, (Border, type(None)))
+        assert isinstance(board_type, (BoardType, type(None)))
 
-        self.board = board_or_type if isinstance(board_or_type, Board) else Board(board_or_type)
-
-        self.left = left
-        self.top = top
-        self.width = width or self.board.get_width()
-        self.height = height or self.board.get_height()
+        self.x = x
+        self.y = y
+        self.width = width or board_type.get_size() if board_type is not None else 1.0
+        self.height = height or board_type.get_size() if board_type is not None else 1.0
 
         self.reverse_off_board_field_colors = reverse_off_board_field_colors
         self.border = border or Border()
 
     def as_tuple(self):
-        return (self.board, self.left, self.top, self.width, self.height, self.reverse_off_board_field_colors, self.border)
+        return (self.x, self.y, self.width, self.height, self.reverse_off_board_field_colors, self.border)
 
     @staticmethod
     def from_tuple(tpl):
-        return Border( *tpl[ 0 : 7 ] )
+        return Border( *tpl[ 0 : 6 ] )

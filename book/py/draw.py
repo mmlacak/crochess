@@ -15,6 +15,7 @@ DEFAULT_FILE_EXT = '.png'
 
 
 class Draw:
+
     def __init__(self, width_pix, height_pix, field_size_in_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", color_space=cairo.Format.RGB24):
         assert isinstance(width_pix, int)
         assert isinstance(height_pix, int)
