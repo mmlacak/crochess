@@ -41,6 +41,13 @@ def q_same_rounded_floats(num0, num1, digits=6):
     n1 = calc_rounded_str_value(num1, digits=digits)
     return n0 == n1
 
+def assert_floor(ij):
+    # assert isinstance(ij, (int, float)) # Not neccessary, floor() will raise exception.
+    return math.floor(ij)
+
+def assert_floor_2(i, j):
+    return ( assert_floor(i), assert_floor(j) )
+
 
 def scale_translate(x, y, scale=1.0, center_x=0.5, center_y=0.5, trans_x=0.0, trans_y=0.0):
     if scale == 1.0:

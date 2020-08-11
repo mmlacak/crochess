@@ -7,6 +7,7 @@
 import math
 
 from util import just_count
+from pixel_math import assert_floor, assert_floor_2
 from piece import PieceType as PT
 
 
@@ -271,21 +272,25 @@ class Board:
         self._board = [ [ PT(PT.none) for i in range(self.get_width()) ] for j in range(self.get_height()) ]
 
     def _is_file(self, i):
-        return 0 <= i < self.get_width()
+        _i = assert_floor(i)
+        return 0 <= _i < self.get_width()
 
     def _is_rank(self, j):
-        return 0 <= j < self.get_height()
+        _j = assert_floor(j)
+        return 0 <= _j < self.get_height()
 
     def is_on_board(self, i, j):
         return self._is_file(i) and self._is_rank(j)
 
     def is_light(self, i, j):
+        _i, _j = assert_floor_2(i, j)
+
         b = self.get_width() % 2
 
         if (b == 0):
-            is_light = bool((i + j) % 2 != 0)
+            is_light = bool((_i + _j) % 2 != 0)
         else:
-            is_light = bool((i + j) % 2 == 0)
+            is_light = bool((_i + _j) % 2 == 0)
 
         return is_light
 
@@ -301,10 +306,12 @@ class Board:
         return self.type.get_size()
 
     def get_piece(self, i, j):
-        return self._board[j][i]
+        _i, _j = assert_floor_2(i, j)
+        return self._board[ _j ][ _i ]
 
     def set_piece(self, i, j, piece):
-        self._board[j][i] = PT(piece)
+        _i, _j = assert_floor_2(i, j)
+        self._board[ _j ][ _i ] = PT(piece)
 
     def set_pieces(self, lst):
         # lst :: [ ( i, j, piece ), ... ]
@@ -312,6 +319,8 @@ class Board:
             self.set_piece(*tpl)
 
     def set_row(self, j, pieces):
+        _j = assert_floor(j)
+
         for i, p in enumerate(pieces):
             self.set_piece(i, j, p)
 
@@ -674,7 +683,7 @@ class Board:
         dx = int(math.floor(w / 11.0))
 
         h = self.get_height()
-        dy = int(math.ceil(7.0 * h / 22.0))
+        dy = int(math.floor(7.0 * h / 22.0))
 
         if pt.is_light():
             return (dx - 1, dy - 1)

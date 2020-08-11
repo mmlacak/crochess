@@ -40,8 +40,8 @@ class BoardView:
 
         self.x = x
         self.y = y
-        self.width = width or board_type.get_size() if board_type is not None else 1.0
-        self.height = height or board_type.get_size() if board_type is not None else 1.0
+        self.width = width if width is not None else ( board_type.get_size() if board_type is not None else 1.0 )
+        self.height = height if height is not None else ( board_type.get_size() if board_type is not None else 1.0 )
 
         self.reverse_off_board_field_colors = reverse_off_board_field_colors
         self.border = border or Border()

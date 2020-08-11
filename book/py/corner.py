@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2019 - 2020 Mario Mlačak, mmlacak@gmail.com
@@ -61,5 +61,3 @@ def get_func_get_text_position(left=0.05, top=1.0, right=0.7, bottom=0.45):
         return (float(pos_i + x), float(pos_j + y))
 
     return get_text_position
-
-

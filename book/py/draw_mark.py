@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2018 - 2020 Mario Mlačak, mmlacak@gmail.com
@@ -109,9 +109,9 @@ class DrawMark(Draw):
         points_pix = self.calc_arrow(arrow, adef=adef)
 
         if cpair is not None:
-            self.draw_outlined_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
+            self.draw_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
         else:
-            self.draw_outlined_polygon(points_pix, gc=gc)
+            self.draw_polygon(points_pix, gc=gc)
 
     def draw_all_arrows(self, arrows, adef=None, cmark=None, gc=None):
         # assert isinstance(adef, (ArrowDef, NoneType))
@@ -218,12 +218,12 @@ class DrawMark(Draw):
         for points_pix in markers_pix:
             if cpair is not None:
                 if draw_outlined:
-                    self.draw_outlined_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
+                    self.draw_polygon(points_pix, interior=cpair.interior, outline=cpair.outline, gc=gc)
                 else:
                     self.draw_polygon(points_pix, fg=cpair.interior, bg=cpair.outline, gc=gc)
             else:
                 if draw_outlined:
-                    self.draw_outlined_polygon(points_pix, gc=gc)
+                    self.draw_polygon(points_pix, gc=gc)
                 else:
                     self.draw_polygon(points_pix, gc=gc)
 
