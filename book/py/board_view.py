@@ -41,18 +41,19 @@ class BoardView:
 
         assert isinstance(reverse_off_board_field_colors, bool)
         assert isinstance(margin, (Margin, type(None)))
-        assert isinstance(board_type, (BoardType, type(None)))
 
         self.x = x
         self.y = y
-        self.width = width if width is not None else ( board_type.get_size() if board_type is not None else 1.0 )
-        self.height = height if height is not None else ( board_type.get_size() if board_type is not None else 1.0 )
+
+        bt = BoardType(board_type) if board_type is not None else None
+        self.width = width if width is not None else ( bt.get_size() if bt is not None else 1.0 )
+        self.height = height if height is not None else ( bt.get_size() if bt is not None else 1.0 )
 
         assert self.width > 0.0
         assert self.height > 0.0
 
         self.reverse_off_board_field_colors = reverse_off_board_field_colors
-        self.margin = margin or Margin()
+        self.margin = margin if margin is not None else Margin()
 
     def as_tuple(self):
         return (self.x, self.y, self.width, self.height, self.reverse_off_board_field_colors, self.margin)

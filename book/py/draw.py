@@ -46,6 +46,13 @@ class Draw:
         self.context.set_line_cap(cap)
         self.context.set_line_width(width)
 
+    def set_clip(self, x, y, width, height):
+        self.context.rectangle(x, y, width, height)
+        self.context.clip()
+
+    def reset_clip(self):
+        self.context.reset_clip()
+
     def save_image(self, file_path):
         self.surface.write_to_png(file_path)
 

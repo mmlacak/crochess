@@ -8,7 +8,7 @@ import math
 
 from util import xor
 from pixel_math import Rectangle, assert_floor, assert_floor_2
-from board_view import BoardView
+from board_view import Margin, BoardView
 from board import BoardType, Board
 from colors import ColorsShade, ColorsItem, Colors
 from draw import DEFAULT_LINE_WIDTH # Draw
@@ -63,12 +63,8 @@ class DrawBoard(DrawPiece):
 
     def get_field_start(self, i, j):
         _i, _j = assert_floor_2(i, j)
-
         left = self.board_view.margin.left + _i - self.board_view.x
-
-        j_reverse = self.board.get_height() - 1.0 - _j + self.board_view.y
-        top = self.board_view.margin.top + j_reverse
-
+        top = self.board_view.margin.top + self.board_view.height - 1.0 - _j + self.board_view.y
         return (left, top)
 
     def is_light(self, i, j):
@@ -106,20 +102,26 @@ class DrawBoard(DrawPiece):
         self.draw_piece(p, dr, colors_item)
 
     def draw_all_pieces(self, colors_item):
-        # for j in range(self.board.get_height()):
-        #     for i in range(self.board.get_width()):
-        #         self.draw_piece_at_field(i, j, colors_item)
         x, y, w, h = self.calc_view_fields_range()
 
         for j in range(y, y + h + 1):
             for i in range(x, x + w + 1):
                 self.draw_piece_at_field(i, j, colors_item)
 
+    def clip_board(self):
+        x = self.board_view.margin.left # self.board_view.margin.left + _i - self.board_view.x
+        y = self.board_view.margin.top # self.board_view.margin.top + self.board_view.height - 1.0 - _j + self.board_view.y
+        w = self.board_view.width
+        h = self.board_view.height
+        self.set_clip(x, y, w, h)
+
     def draw_board(self, colors_item):
         assert isinstance(colors_item, ColorsItem)
 
+        self.clip_board()
         self.draw_all_fields(colors_item.field)
         self.draw_all_pieces(colors_item)
+        self.reset_clip()
 
     # def convert_field_width_to_pixel(self, x):
     #     if isinstance(x, float):
@@ -149,8 +151,8 @@ class DrawBoard(DrawPiece):
     #     return (x_pix, y_pix)
 
 
-def test_1(board_view=None, name=''):
-    bt = BoardType(BoardType.CroatianTies)
+def test_1(board_type=BoardType.CroatianTies, board_view=None, name=''):
+    bt = BoardType(board_type)
     bv = board_view or BoardView(board_type=bt)
 
     b = Board(bt)
@@ -161,53 +163,34 @@ def test_1(board_view=None, name=''):
     from colors import Colors
 
     ci = Colors[ bt ]
-    cs = ci.field
-
-    d.draw_all_fields(cshade=cs)
-    d.draw_all_pieces(colors_item=ci)
+    d.draw_board(colors_item=ci)
 
     file_path = 'temp/board%s.IGNORE.png' % name
     d.save_image(file_path)
 
-def test_2(board_view=None, name=''):
-    drw = get_new_drawable(1200, 1200)
-    gc = get_new_gc(drw, 3)
-    b = Board(BoardType.CroatianTies)
-    b.setup()
+def test_2():
+    for bt in BoardType.iter():
+        name = ".%s" % bt.get_symbol().lower()
 
-    d = DrawBoard(drw, gc, b, board_view=board_view)
+        test_1(board_type=bt, name=name)
+        test_1(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name=name + '_margin')
 
-    from colors import Colors
-    d.draw_board( Colors[BoardType.Classical] )
+        test_1(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name=name + '_clipped_2')
+        test_1(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name=name + '_margin_2')
 
-    file_path = 'temp/setup%s.IGNORE.png' % name
-    d.save_image(file_path)
+        test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name=name + '_clipped_3')
+        test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name=name + '_margin_3')
 
 if __name__ == '__main__':
 
-    test_1()
-    test_1(board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped')
-    test_1(board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_2')
-    # test_1(board_view=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), name='_border')
-    # test_1(board_view=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=90, border_bottom_pix=40), name='_border_2')
+    # bt = BoardType.One # BoardType.CroatianTies
+    # test_1(board_type=bt)
+    # test_1(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
 
-    # width = 3
-    # height = 7
+    # test_1(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
+    # test_1(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
 
-    # test_1(width=width, height=height)
-    # test_1(board_view=BoardDesc(reverse_field_colors=True), width=width, height=height, name='_vert_reverse')
-    # test_1(board_view=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), width=width, height=height, name='_vert_border')
-    # test_1(board_view=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=90, border_bottom_pix=40), width=width, height=height, name='_vert_border_2')
+    # test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
+    # test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
 
-    # width = 7
-    # height = 3
-
-    # test_1(width=width, height=height)
-    # test_1(board_view=BoardDesc(reverse_field_colors=True), width=width, height=height, name='_hor_reverse')
-    # test_1(board_view=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), width=width, height=height, name='_hor_border')
-    # test_1(board_view=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=90, border_bottom_pix=40), width=width, height=height, name='_hor_border_2')
-
-    # test_2()
-
-    # test_1(board_view=BoardDesc(off_board_left=3, off_board_top=2), name='_off_board')
-    # test_1(board_view=BoardDesc(off_board_right=2, off_board_bottom=3, reverse_off_board_field_colors=True), name='_off_board_2')
+    test_2()
