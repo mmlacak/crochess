@@ -84,9 +84,18 @@ class DrawBoard(DrawPiece):
         color = cs.light if self.is_light(i, j) else cs.dark
         self.draw_rectangle(x, y, 1.0, 1.0, interior_str=color.interior)
 
+    def calc_view_fields_range(self):
+        x = math.floor(self.board_view.x)
+        y = math.floor(self.board_view.y)
+        w = math.ceil(self.board_view.width)
+        h = math.ceil(self.board_view.height)
+        return (x, y, w, h)
+
     def draw_all_fields(self, cshade=None):
-        for j in range(self.board.get_height()):
-            for i in range(self.board.get_width()):
+        x, y, w, h = self.calc_view_fields_range()
+
+        for j in range(y, y + h + 1):
+            for i in range(x, x + w + 1):
                 self.draw_field(i, j, cshade=cshade)
 
     def draw_piece_at_field(self, i, j, colors_item):
@@ -97,8 +106,13 @@ class DrawBoard(DrawPiece):
         self.draw_piece(p, dr, colors_item)
 
     def draw_all_pieces(self, colors_item):
-        for j in range(self.board.get_height()):
-            for i in range(self.board.get_width()):
+        # for j in range(self.board.get_height()):
+        #     for i in range(self.board.get_width()):
+        #         self.draw_piece_at_field(i, j, colors_item)
+        x, y, w, h = self.calc_view_fields_range()
+
+        for j in range(y, y + h + 1):
+            for i in range(x, x + w + 1):
                 self.draw_piece_at_field(i, j, colors_item)
 
     def draw_board(self, colors_item):

@@ -307,7 +307,7 @@ class Board:
 
     def get_piece(self, i, j):
         _i, _j = assert_floor_2(i, j)
-        return self._board[ _j ][ _i ]
+        return self._board[ _j ][ _i ] if self.is_on_board(_i, _j) else PT.none # TODO :: having pieces outside of a board ?!?!?!
 
     def set_piece(self, i, j, piece):
         _i, _j = assert_floor_2(i, j)
