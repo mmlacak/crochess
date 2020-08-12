@@ -165,7 +165,7 @@ class DrawMark(Draw):
             x = int( text.pos[ 0 ] )
             y = int( text.pos[ 1 ] )
 
-            # Top border is + 1.0 to field y coord --> int() yields coord of first field to the north,
+            # Top margin is + 1.0 to field y coord --> int() yields coord of first field to the north,
             # i.e. wrong one, because it's exactly of the opposite color.
             x = x if float(x) < float(text.pos[ 0 ]) else x - 1
             y = y if float(y) < float(text.pos[ 1 ]) else y - 1

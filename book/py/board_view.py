@@ -7,7 +7,7 @@
 from board import BoardType, Board
 
 
-class Border:
+class Margin:
     def __init__(self, left=0.0, top=0.0, right=0.0, bottom=0.0):
         assert isinstance(left, float)
         assert isinstance(top, float)
@@ -29,18 +29,18 @@ class Border:
 
     @staticmethod
     def from_tuple(tpl):
-        return Border( *tpl[ 0 : 4 ] )
+        return Margin( *tpl[ 0 : 4 ] )
 
 
 class BoardView:
-    def __init__(self, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, border=None, board_type=None):
+    def __init__(self, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_type=None):
         assert isinstance(x, float)
         assert isinstance(y, float)
         assert isinstance(width, (float, type(None)))
         assert isinstance(height, (float, type(None)))
 
         assert isinstance(reverse_off_board_field_colors, bool)
-        assert isinstance(border, (Border, type(None)))
+        assert isinstance(margin, (Margin, type(None)))
         assert isinstance(board_type, (BoardType, type(None)))
 
         self.x = x
@@ -52,11 +52,11 @@ class BoardView:
         assert self.height > 0.0
 
         self.reverse_off_board_field_colors = reverse_off_board_field_colors
-        self.border = border or Border()
+        self.margin = margin or Margin()
 
     def as_tuple(self):
-        return (self.x, self.y, self.width, self.height, self.reverse_off_board_field_colors, self.border)
+        return (self.x, self.y, self.width, self.height, self.reverse_off_board_field_colors, self.margin)
 
     @staticmethod
     def from_tuple(tpl):
-        return Border( *tpl[ 0 : 6 ] )
+        return Margin( *tpl[ 0 : 6 ] )

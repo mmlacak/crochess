@@ -4,6 +4,8 @@
 # Copyright (c) 2018 - 2020 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
+import math
+
 from util import xor
 from pixel_math import Rectangle, assert_floor, assert_floor_2
 from board_view import BoardView
@@ -15,15 +17,15 @@ from draw_piece import DrawPiece
 
 class DrawBoard(DrawPiece):
 
-    def __init__(self, board_or_type, width_pix, height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", board_view=None):
+    def __init__(self, board_or_type, max_width_pix, max_height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", board_view=None):
         assert isinstance(board_or_type, (Board, BoardType))
         assert isinstance(board_view, (BoardView, type(None)))
 
         self.board = board_or_type if isinstance(board_or_type, Board) else Board(board_or_type)
         self.board_view = board_view or BoardView(board_type=self.board.type)
 
-        field_size_in_pix = self.get_field_size_pix(width_pix, height_pix)
-# TODO :: recalculate canvas size in pixels
+        field_size_in_pix = self.get_field_size_pix(max_width_pix, max_height_pix)
+        width_pix, height_pix = self.calc_total_size_pix(max_width_pix, max_height_pix, field_size_in_pix)
         super(DrawBoard, self).__init__(width_pix, height_pix, field_size_in_pix, line_width=line_width, color_str=color_str)
 
     def calc_view_field_counts(self):
@@ -31,14 +33,25 @@ class DrawBoard(DrawPiece):
         h = self.board_view.height
         return (w, h)
 
-    def calc_view_canvas_size_ratios(self):
-        w = self.board_view.width / (self.board_view.border.left + self.board_view.width + self.board_view.border.right)
-        h = self.board_view.height / (self.board_view.border.top + self.board_view.height + self.board_view.border.bottom)
+    def calc_total_field_counts(self):
+        w = self.board_view.margin.left + self.board_view.width + self.board_view.margin.right
+        h = self.board_view.margin.top + self.board_view.height + self.board_view.margin.bottom
         return (w, h)
+
+    def calc_view_canvas_size_ratios(self):
+        wf, hf = self.calc_view_field_counts()
+        wt, ht = self.calc_total_field_counts()
+        return (wf / wt, hf / ht)
 
     def calc_view_canvas_size_pix(self, width_pix, height_pix):
         w, h = self.calc_view_canvas_size_ratios()
         return ( w * width_pix, h * height_pix )
+
+    def calc_total_size_pix(self, width_pix, height_pix, field_size_in_pix):
+        w, h = self.calc_total_field_counts()
+        w2 = min( w * field_size_in_pix, width_pix )
+        h2 = min( h * field_size_in_pix, height_pix )
+        return ( math.floor(w2), math.floor(h2) )
 
     def get_field_size_pix(self, width_pix, height_pix):
         w, h = self.calc_view_canvas_size_pix(width_pix, height_pix)
@@ -51,10 +64,10 @@ class DrawBoard(DrawPiece):
     def get_field_start(self, i, j):
         _i, _j = assert_floor_2(i, j)
 
-        left = self.board_view.border.left + _i - self.board_view.x
+        left = self.board_view.margin.left + _i - self.board_view.x
 
         j_reverse = self.board.get_height() - 1.0 - _j + self.board_view.y
-        top = self.board_view.border.top + j_reverse
+        top = self.board_view.margin.top + j_reverse
 
         return (left, top)
 
