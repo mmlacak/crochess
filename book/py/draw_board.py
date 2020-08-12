@@ -23,11 +23,12 @@ class DrawBoard(DrawPiece):
         self.board_view = board_view or BoardView(board_type=self.board.type)
 
         field_size_in_pix = self.get_field_size_pix(width_pix, height_pix)
+# TODO :: recalculate canvas size in pixels
         super(DrawBoard, self).__init__(width_pix, height_pix, field_size_in_pix, line_width=line_width, color_str=color_str)
 
     def calc_view_field_counts(self):
-        w = self.board_view.width - self.board_view.x
-        h = self.board_view.height - self.board_view.y
+        w = self.board_view.width
+        h = self.board_view.height
         return (w, h)
 
     def calc_view_canvas_size_ratios(self):
@@ -49,9 +50,12 @@ class DrawBoard(DrawPiece):
 
     def get_field_start(self, i, j):
         _i, _j = assert_floor_2(i, j)
-        left = self.board_view.border.left + _i # * self.field_size_in_pix
-        j_reverse = self.board.get_height() - _j - 1
-        top = self.board_view.border.top + j_reverse # * self.field_size_in_pix
+
+        left = self.board_view.border.left + _i - self.board_view.x
+
+        j_reverse = self.board.get_height() - 1.0 - _j + self.board_view.y
+        top = self.board_view.border.top + j_reverse
+
         return (left, top)
 
     def is_light(self, i, j):
@@ -155,7 +159,8 @@ def test_2(board_view=None, name=''):
 if __name__ == '__main__':
 
     test_1()
-    # test_1(board_view=BoardView(x=1.0, y=0.0, width=3.0, height=9.0), name='_clipped')
+    test_1(board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped')
+    test_1(board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_2')
     # test_1(board_view=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), name='_border')
     # test_1(board_view=BoardDesc(border_left_pix=20, border_top_pix=10, border_right_pix=90, border_bottom_pix=40), name='_border_2')
 

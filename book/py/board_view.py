@@ -14,6 +14,11 @@ class Border:
         assert isinstance(right, float)
         assert isinstance(bottom, float)
 
+        assert left >= 0.0
+        assert top >= 0.0
+        assert right >= 0.0
+        assert bottom >= 0.0
+
         self.left = left
         self.top = top
         self.right = right
@@ -42,6 +47,9 @@ class BoardView:
         self.y = y
         self.width = width if width is not None else ( board_type.get_size() if board_type is not None else 1.0 )
         self.height = height if height is not None else ( board_type.get_size() if board_type is not None else 1.0 )
+
+        assert self.width > 0.0
+        assert self.height > 0.0
 
         self.reverse_off_board_field_colors = reverse_off_board_field_colors
         self.border = border or Border()
