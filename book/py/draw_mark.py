@@ -10,9 +10,9 @@ from mark import MarkType, Arrow, Text, FieldMarker
 import def_mark as dm
 
 from colors import ColorsPair, ColorsShade, ColorsMark, ColorsMarkSimple
-# from draw import set_new_colors, Draw
 from board import BoardType, Board
 from board_view import Margin, BoardView
+from draw import Draw
 from draw_board import DrawBoard
 
 
@@ -89,10 +89,10 @@ class DrawMark(DrawBoard):
         end_lst =  _calc_end(False)
         return start_lst + end_lst
 
-    def draw_arrow(self, arrow, adef=None, cpair=None):
+    def draw_arrow(self, arrow, cpair, adef=None):
         # assert isinstance(arrow, Arrow)
-        # assert isinstance(adef, (ArrowDef, type(None)))
         assert isinstance(cpair, ColorsPair)
+        # assert isinstance(adef, (ArrowDef, type(None)))
 
         points = self.calc_arrow(arrow, adef=adef)
         self.draw_polygon(points, interior_str=cpair.interior, outline_str=cpair.outline)
@@ -104,59 +104,33 @@ class DrawMark(DrawBoard):
         self.clip_board()
         for arrow in arrows:
             cpair = get_mark_color_pair(cmark=cmark, mark_type=arrow.mark_type)
-            self.draw_arrow(arrow, adef=adef, cpair=cpair)
+            self.draw_arrow(arrow, cpair, adef=adef)
         self.reset_clip()
 
     #
     # text
 
-    def draw_text(self, text, fdef=None, cpair=None):
+    def draw_text(self, text, cpair, fdef=None):
         assert isinstance(text, Text)
+        assert isinstance(cpair, ColorsPair)
         assert isinstance(fdef, (dm.FontDef, type(None)))
-        assert isinstance(cpair, (ColorsPair, type(None)))
-        # assert isinstance(gc, (gtk.gdk.GC, type(None)))
 
-        fdef = fdef or dm.MarkDef[ self.board.type ].font_def
+        x, y = self.convert_field_to_user_coords( *text.pos )
 
-        x, y = text.pos_pix = self.convert_field_coords_to_pixel( *text.pos )
+        _fdef = fdef or dm.MarkDef[ self.board.type ].font_def
+        size = 1.0 / _fdef.inv_size_ratio
 
-        font = fdef.get_font(self.field_height_pix)
-        if cpair is not None:
-            gc = set_new_colors(gc or self.gc, fg=cpair.interior, bg=cpair.outline)
-        else:
-            gc = set_new_colors(gc or self.gc)
-
-        screen = gtk.gdk.screen_get_default()
-        pango_ctx = gtk.gdk.pango_context_get_for_screen(screen)
-
-        layout = pango.Layout(pango_ctx)
-        layout.set_text(text.text)
-
-        font_desc = pango.FontDescription(font)
-        layout.set_font_description(font_desc)
-
-        x, y = pm.round_floats_to_int((x, y))
-        self.drawable.draw_layout(gc, x, y, layout)
+        Draw.draw_text(self, x, y, text.text, font_family=_fdef.name, size=size, interior_str=cpair.interior, outline_str=cpair.outline)
 
     def draw_all_texts(self, texts, fdef=None, cmark=None):
         assert isinstance(cmark, (ColorsMark, type(None)))
 
+        self.clip_board()
         for text in texts:
-            # assert isinstance(text, Text)
-
-            x = int( text.pos[ 0 ] )
-            y = int( text.pos[ 1 ] )
-
-            # Top margin is + 1.0 to field y coord --> int() yields coord of first field to the north,
-            # i.e. wrong one, because it's exactly of the opposite color.
-            x = x if float(x) < float(text.pos[ 0 ]) else x - 1
-            y = y if float(y) < float(text.pos[ 1 ]) else y - 1
-
-            is_light = self.is_light( x, y )
-
+            is_light = self.is_light( *text.pos )
             cpair = get_mark_color_pair(cmark=cmark, mark_type=text.mark_type, is_light=is_light)
-
-            self.draw_text(text, fdef=fdef, cpair=cpair)
+            self.draw_text(text, cpair, fdef=fdef)
+        self.reset_clip()
 
     #
     # field marker
@@ -238,47 +212,48 @@ def test_1(board_type=BoardType.CroatianTies, board_view=None, name=''):
              Arrow(6.7, 4.3, 9.7, 4.3, mark_type=MarkType(MarkType.Legal)), \
              Arrow(2.7, 6.3, 2.7, 9.3, mark_type=MarkType(MarkType.Legal)), \
              Arrow(4.3, 5.4, 6.7, 0.9, mark_type=MarkType(MarkType.Legal), start_pointer=False, end_pointer=False), ]
-    # d.draw_all_arrows(arws, cmark=Colors[BoardType.Classical].arrow)
     d.draw_all_arrows(arws, cmark=ci.arrow)
 
     arws2 = [ Arrow(1, 2, 1, 4, mark_type=MarkType(MarkType.Action)), \
               Arrow(3, 9, 4, 9, mark_type=MarkType(MarkType.Action)), \
               Arrow(6, 5, 8, 6, mark_type=MarkType(MarkType.Action), start_pointer=True, end_pointer=True), \
               Arrow(8, 3, 7, 1, mark_type=MarkType(MarkType.Action), start_pointer=False, end_pointer=False), ]
-    # d.draw_all_arrows(arws2, cmark=Colors[BoardType.Classical].arrow)
     d.draw_all_arrows(arws2, cmark=ci.arrow)
 
     file_path = 'temp/arrows%s.IGNORE.png' % name
     d.save_image(file_path)
 
-def test_2(board_desc=None, name=''):
-    drw = get_new_drawable(TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX)
-    gc = get_new_gc(drw, TEST_LINE_WIDTH)
-    b = Board(BoardType.One) # CroatianTies)
+def test_2(board_type=BoardType.CroatianTies, board_view=None, name=''):
+    bt = BoardType(board_type)
+    bv = board_view or BoardView(board_type=bt)
+
+    b = Board(bt)
     b.setup()
 
-    d = DrawMark(drw, gc, b, board_desc=board_desc)
+    d = DrawMark(b, TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX, board_view=bv)
 
     from colors import Colors
-    d.draw_board.draw_board( Colors[BoardType.Classical] )
+
+    ci = Colors[ bt ]
+    d.draw_board(colors_item=ci)
 
     fdef = dm.FontDef('sans bold', 3.5)
     txts = [ Text("l1", 1.7, 2.3, mark_type=MarkType(MarkType.Legal)), \
              Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Illegal)), \
              Text("a1", 2.7, 6.3, mark_type=MarkType(MarkType.Action)), \
-             Text("f1", 4.3, 5.4, mark_type=MarkType(MarkType.Blocked)), \
+             Text("f1", 2.3, 2.4, mark_type=MarkType(MarkType.Blocked)), \
              Text("WW", 5.3, 5.4, mark_type=MarkType(MarkType.Blocked)), \
              Text("MM", 4.3, 6.4, mark_type=MarkType(MarkType.Blocked)), ]
-    d.draw_all_texts(txts, fdef=fdef, cmark=Colors[BoardType.Classical].text)
+    d.draw_all_texts(txts, fdef=fdef, cmark=ci.text)
 
     fdef2 = dm.FontDef('sans bold', 4.5)
-    txts2 = [ Text("l2", 100, 200, mark_type=MarkType(MarkType.Legal)), \
-              Text("i2", 300, 900, mark_type=MarkType(MarkType.Illegal)), \
-              Text("a2", 600, 500, mark_type=MarkType(MarkType.Action)), \
-              Text("f2", 800, 300, mark_type=MarkType(MarkType.Blocked)), \
-              Text("WW", 300, 300, mark_type=MarkType(MarkType.Blocked)),\
-              Text("MM", 200, 500, mark_type=MarkType(MarkType.Blocked)), ]
-    d.draw_all_texts(txts2, fdef=fdef2, cmark=Colors[BoardType.Classical].text)
+    txts2 = [ Text("l2", 1, 2, mark_type=MarkType(MarkType.Legal)), \
+              Text("i2", 3, 9, mark_type=MarkType(MarkType.Illegal)), \
+              Text("a2", 6, 5, mark_type=MarkType(MarkType.Action)), \
+              Text("f2", 8, 3, mark_type=MarkType(MarkType.Blocked)), \
+              Text("WW", 3, 3, mark_type=MarkType(MarkType.Blocked)),\
+              Text("MM", 2, 5, mark_type=MarkType(MarkType.Blocked)), ]
+    d.draw_all_texts(txts2, fdef=fdef2, cmark=ci.text)
 
     file_path = 'temp/texts%s.IGNORE.png' % name
     d.save_image(file_path)
@@ -312,19 +287,27 @@ def test_3(board_desc=None, name=''):
 
 if __name__ == '__main__':
 
-    bt = BoardType.CroatianTies # BoardType.One
-    test_1(board_type=bt)
-    test_1(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
+    bt = BoardType.One # BoardType.CroatianTies
 
-    test_1(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
-    test_1(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
+    # test_1(board_type=bt)
+    # test_1(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
 
-    test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
-    test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
+    # test_1(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
+    # test_1(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
 
-    # test_2()
-    # test_2(board_desc=BoardDesc(border_left_pix=20, border_top_pix=210, border_right_pix=30, border_bottom_pix=40), name='_border')
-    # test_2(board_desc=BoardDesc(border_left_pix=120, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), name='_border_2')
+    # test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
+    # test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
+
+
+    test_2(board_type=bt)
+    test_2(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
+
+    test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
+    test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
+
+    test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
+    test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
+
 
     # test_3()
     # test_3(board_desc=BoardDesc(border_left_pix=20, border_top_pix=210, border_right_pix=30, border_bottom_pix=40), name='_border')

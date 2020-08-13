@@ -109,6 +109,15 @@ class Draw:
     def draw_arc_pos(self, x, y, radius, rel_x=0.5, rel_y=0.5, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
         self.draw_arc(x+rel_x, y+rel_y, radius, angle1=angle1, angle2=angle2, interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
+    def draw_text(self, x, y, text, font_family="sans", slant=cairo.FontSlant.NORMAL, weight=cairo.FontWeight.BOLD, size=0.2, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
+        self.context.select_font_face(font_family, slant, weight)
+        self.context.set_font_size(size)
+
+        self.context.move_to(x, y)
+        self.context.text_path(text)
+
+        self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
+
     def flip_horizontally(self, points_pct):
         return [ (1.0 - p[0], p[1]) for p in points_pct ]
 
@@ -165,6 +174,16 @@ def test_2():
 
     d.save_image('temp/draw_2.IGNORE.png')
 
+def test_3():
+    d = Draw(600, 400, 100.0)
+
+    d.draw_text(0.3, 0.4, "Hello,", interior_str='#0000FF', outline_str='#00FF00')
+    d.draw_text(1.3, 0.4, "world,", interior_str='#0000FF')
+    d.draw_text(2.3, 0.4, "and you!", outline_str='#00FF00')
+
+    d.save_image('temp/draw_3.IGNORE.png')
+
 if __name__ == '__main__':
-    test_1()
-    test_2()
+    # test_1()
+    # test_2()
+    test_3()

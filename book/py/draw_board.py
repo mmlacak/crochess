@@ -63,9 +63,7 @@ class DrawBoard(DrawPiece):
 
     def get_field_start(self, i, j):
         _i, _j = assert_floor_2(i, j)
-        left = self.board_view.margin.left + _i - self.board_view.x
-        top = self.board_view.margin.top + self.board_view.height - 1.0 - _j + self.board_view.y
-        return (left, top)
+        return self.convert_field_to_user_coords(_i, _j + 1.0)
 
     def is_light(self, i, j):
         _i, _j = assert_floor_2(i, j)
