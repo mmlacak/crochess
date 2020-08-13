@@ -139,56 +139,48 @@ class DrawMark(DrawBoard):
         assert isinstance(field_marker, FieldMarker)
         assert isinstance(fmdef, (dm.FieldMarkerDef, type(None)))
 
-        fmdef = fmdef or dm.MarkDef[ self.board.type ].field_mark_def
+        _fmdef = fmdef or dm.MarkDef[ self.board.type ].field_mark_def
 
         # inv_width_ratio - compared to field size
-        inv_width_ratio = fmdef.inv_width_ratio if fmdef is not None else dm.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
+        inv_width_ratio = _fmdef.inv_width_ratio # if _fmdef is not None else dm.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
 
-        width_ratio = 1.0 / inv_width_ratio
-        width_pix = self.convert_field_width_to_pixel(width_ratio)
+        width = 1.0 / inv_width_ratio
 
-        x_pix, y_pix = self.get_field_start_pix(*field_marker.field)
-        upper_left_triangle = pm.round_coords_to_int([ (x_pix, y_pix), (x_pix + width_pix, y_pix), (x_pix, y_pix + width_pix) ])
+        i, j = self.get_field_start( *field_marker.field )
+        upper_left_triangle = [ (i, j), (i + width, j), (i, j + width) ]
 
-        x_pix, y_pix = x_pix + self.field_width_pix, y_pix
-        upper_right_triangle = pm.round_coords_to_int([ (x_pix, y_pix), (x_pix - width_pix, y_pix), (x_pix, y_pix + width_pix) ])
+        x, y = i + 1.0, j
+        upper_right_triangle = [ (x, y), (x - width, y), (x, y + width) ]
 
-        x_pix, y_pix = x_pix, y_pix + self.field_height_pix
-        lower_right_triangle = pm.round_coords_to_int([ (x_pix, y_pix), (x_pix - width_pix, y_pix), (x_pix, y_pix - width_pix) ])
+        x, y = i + 1.0, j + 1.0
+        lower_right_triangle = [ (x, y), (x - width, y), (x, y - width) ]
 
-        x_pix, y_pix = x_pix - self.field_width_pix, y_pix
-        lower_left_triangle = pm.round_coords_to_int([ (x_pix, y_pix), (x_pix + width_pix, y_pix), (x_pix, y_pix - width_pix) ])
+        x, y = i, j + 1.0
+        lower_left_triangle = [ (x, y), (x + width, y), (x, y - width) ]
 
-        field_markers_pix = [ upper_left_triangle, upper_right_triangle, lower_right_triangle, lower_left_triangle ]
+        return [ upper_left_triangle, upper_right_triangle, lower_right_triangle, lower_left_triangle ]
 
-        return field_markers_pix
-
-    def draw_field_marker(self, field_marker, fmdef=None, cpair=None, draw_outlined=False):
+    def draw_field_marker(self, field_marker, cpair, fmdef=None):
         # assert isinstance(field_marker, FieldMarker)
+        assert isinstance(cpair, ColorsPair)
         # assert isinstance(fmdef, (dm.FieldMarkerDef, type(None)))
-        assert isinstance(cpair, (ColorsPair, type(None)))
         # assert isinstance(gc, (gtk.gdk.GC, type(None)))
 
-        markers_pix = self.calc_field_marker(field_marker, fmdef=fmdef)
+        markers = self.calc_field_marker(field_marker, fmdef=fmdef)
 
-        for points_pix in markers_pix:
-            if cpair is not None:
-                if draw_outlined:
-                    self.draw_polygon(points_pix, interior=cpair.interior, outline=cpair.outline)
-                else:
-                    self.draw_polygon(points_pix, fg=cpair.interior, bg=cpair.outline)
+        for points in markers:
+            self.draw_polygon(points, interior_str=cpair.interior) # outline_str=cpair.outline
 
-    def draw_all_field_markers(self, field_markers, fmdef=None, cmark=None, draw_outlined=False):
+    def draw_all_field_markers(self, field_markers, fmdef=None, cmark=None):
         assert isinstance(cmark, (ColorsMark, type(None)))
 
+        self.clip_board()
         for field_marker in field_markers:
             # assert isinstance(field_marker, FieldMarker)
-
             is_light = self.is_light( *field_marker.field )
-
             cpair = get_mark_color_pair(cmark=cmark, mark_type=field_marker.mark_type, is_light=is_light)
-
-            self.draw_field_marker(field_marker, fmdef=fmdef, cpair=cpair, draw_outlined=draw_outlined)
+            self.draw_field_marker(field_marker, cpair, fmdef=fmdef)
+        self.reset_clip()
 
 
 TEST_BOARD_SIZE_PIX = 1200 # 2400 # 9600
@@ -258,36 +250,39 @@ def test_2(board_type=BoardType.CroatianTies, board_view=None, name=''):
     file_path = 'temp/texts%s.IGNORE.png' % name
     d.save_image(file_path)
 
-def test_3(board_desc=None, name=''):
-    drw = get_new_drawable(TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX)
-    gc = get_new_gc(drw, TEST_LINE_WIDTH)
-    b = Board(BoardType.One) # CroatianTies)
+def test_3(board_type=BoardType.CroatianTies, board_view=None, name=''):
+    bt = BoardType(board_type)
+    bv = board_view or BoardView(board_type=bt)
+
+    b = Board(bt)
     b.setup()
 
-    d = DrawMark(drw, gc, b, board_desc=board_desc)
+    d = DrawMark(b, TEST_BOARD_SIZE_PIX, TEST_BOARD_SIZE_PIX, board_view=bv)
 
     from colors import Colors
-    d.draw_board.draw_board( Colors[BoardType.Classical] )
+
+    ci = Colors[ bt ]
+    d.draw_board(colors_item=ci)
 
     fms = [ FieldMarker(1, 2, mark_type=MarkType(MarkType.Legal)), \
             FieldMarker(6, 4, mark_type=MarkType(MarkType.Illegal)), \
             FieldMarker(2, 6, mark_type=MarkType(MarkType.Action)), \
             FieldMarker(4, 5, mark_type=MarkType(MarkType.Blocked)),  ]
-    d.draw_all_field_markers(fms, cmark=Colors[BoardType.Classical].marker)
+    d.draw_all_field_markers(fms, cmark=ci.marker)
 
     fmdef = dm.FieldMarkerDef(7.0)
     fms2 = [ FieldMarker(2, 1, mark_type=MarkType(MarkType.Legal)), \
              FieldMarker(7, 5, mark_type=MarkType(MarkType.Illegal)), \
              FieldMarker(3, 7, mark_type=MarkType(MarkType.Action)), \
              FieldMarker(5, 4, mark_type=MarkType(MarkType.Blocked)),  ]
-    d.draw_all_field_markers(fms2, fmdef=fmdef, cmark=Colors[BoardType.Classical].marker, draw_outlined=True)
+    d.draw_all_field_markers(fms2, fmdef=fmdef, cmark=ci.marker)
 
     file_path = 'temp/markers%s.IGNORE.png' % name
     d.save_image(file_path)
 
 if __name__ == '__main__':
 
-    bt = BoardType.One # BoardType.CroatianTies
+    bt = BoardType.CroatianTies # BoardType.CroatianTies
 
     # test_1(board_type=bt)
     # test_1(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
@@ -299,16 +294,21 @@ if __name__ == '__main__':
     # test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
 
 
-    test_2(board_type=bt)
-    test_2(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
+    # test_2(board_type=bt)
+    # test_2(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
 
-    test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
-    test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
+    # test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
+    # test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
 
-    test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
-    test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
+    # test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
+    # test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
 
 
-    # test_3()
-    # test_3(board_desc=BoardDesc(border_left_pix=20, border_top_pix=210, border_right_pix=30, border_bottom_pix=40), name='_border')
-    # test_3(board_desc=BoardDesc(border_left_pix=120, border_top_pix=10, border_right_pix=30, border_bottom_pix=40), name='_border_2')
+    test_3(board_type=bt)
+    test_3(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
+
+    test_3(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
+    test_3(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
+
+    test_3(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
+    test_3(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
