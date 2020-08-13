@@ -11,7 +11,7 @@ from pixel_math import Rectangle, assert_floor, assert_floor_2
 from board_view import Margin, BoardView
 from board import BoardType, Board
 from colors import ColorsShade, ColorsItem, Colors
-from draw import DEFAULT_LINE_WIDTH # Draw
+from draw import DEFAULT_LINE_WIDTH
 from draw_piece import DrawPiece
 
 
@@ -95,7 +95,6 @@ class DrawBoard(DrawPiece):
                 self.draw_field(i, j, cshade=cshade)
 
     def draw_piece_at_field(self, i, j, colors_item):
-        # _i, _j = assert_floor_2(i, j)
         x, y = self.get_field_start(i, j)
         p = self.board.get_piece(i, j)
         dr = Rectangle(x, y, 1.0, 1.0)
@@ -109,8 +108,8 @@ class DrawBoard(DrawPiece):
                 self.draw_piece_at_field(i, j, colors_item)
 
     def clip_board(self):
-        x = self.board_view.margin.left # self.board_view.margin.left + _i - self.board_view.x
-        y = self.board_view.margin.top # self.board_view.margin.top + self.board_view.height - 1.0 - _j + self.board_view.y
+        x = self.board_view.margin.left
+        y = self.board_view.margin.top
         w = self.board_view.width
         h = self.board_view.height
         self.set_clip(x, y, w, h)
@@ -149,6 +148,11 @@ class DrawBoard(DrawPiece):
     #     x_pix = self.convert_field_x_to_pixel(x)
     #     y_pix = self.convert_field_y_to_pixel(y)
     #     return (x_pix, y_pix)
+
+    def convert_field_to_user_coords(self, x, y):
+        _x = self.board_view.margin.left + x - self.board_view.x
+        _y = self.board_view.margin.top + self.board_view.height - y + self.board_view.y
+        return (_x, _y)
 
 
 def test_1(board_type=BoardType.CroatianTies, board_view=None, name=''):

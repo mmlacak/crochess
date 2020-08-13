@@ -107,78 +107,56 @@ class MarkDef(dict):
         self[ BoardType.Classical ] = MDI( font_def=FD('sans bold', 5.0), \
                                            arrow_def=AD(12.0, 1.5), \
                                            field_mark_def=FMD(5.0) )
-        self[ BoardType.OddClassical ] = MDI( font_def=FD('sans bold', 5.0), \
-                                              arrow_def=AD(12.0, 1.5), \
-                                              field_mark_def=FMD(5.0) )
+        self[ BoardType.OddClassical ] = self[ BoardType.Classical ]
 
         self[ BoardType.CroatianTies ] = MDI( font_def=FD('sans bold', 5.0), \
                                               arrow_def=AD(12.0, 1.5), \
                                               field_mark_def=FMD(5.0) )
-        self[ BoardType.OddCroatianTies ] = MDI( font_def=FD('sans bold', 5.0), \
-                                                 arrow_def=AD(12.0, 1.5), \
-                                                 field_mark_def=FMD(5.0) )
+        self[ BoardType.OddCroatianTies ] = self[ BoardType.CroatianTies ]
 
         self[ BoardType.MayanAscendancy ] = MDI( font_def=FD('sans bold', 5.0), \
                                                  arrow_def=AD(12.0, 1.5), \
                                                  field_mark_def=FMD(5.0) )
-        self[ BoardType.OddMayanAscendancy ] = MDI( font_def=FD('sans bold', 5.0), \
-                                                    arrow_def=AD(12.0, 1.5), \
-                                                    field_mark_def=FMD(5.0) )
+        self[ BoardType.OddMayanAscendancy ] = self[ BoardType.MayanAscendancy ]
 
         self[ BoardType.AgeOfAquarius ] = MDI( font_def=FD('sans bold', 5.0), \
                                                arrow_def=AD(12.0, 1.5), \
                                                field_mark_def=FMD(5.0) )
-        self[ BoardType.OddAgeOfAquarius ] = MDI( font_def=FD('sans bold', 5.0), \
-                                                  arrow_def=AD(12.0, 1.5), \
-                                                  field_mark_def=FMD(5.0) )
+        self[ BoardType.OddAgeOfAquarius ] = self[ BoardType.AgeOfAquarius ]
 
         self[ BoardType.MirandasVeil ] = MDI( font_def=FD('sans bold', 5.0), \
                                               arrow_def=AD(12.0, 1.5), \
                                               field_mark_def=FMD(5.0) )
-        self[ BoardType.OddMirandasVeil ] = MDI( font_def=FD('sans bold', 5.0), \
-                                                 arrow_def=AD(12.0, 1.5), \
-                                                 field_mark_def=FMD(5.0) )
+        self[ BoardType.OddMirandasVeil ] = self[ BoardType.MirandasVeil ]
 
         self[ BoardType.Nineteen ] = MDI( font_def=FD('sans bold', 5.0), \
                                           arrow_def=AD(12.0, 1.5), \
                                           field_mark_def=FMD(5.0) )
-        self[ BoardType.OddNineteen ] = MDI( font_def=FD('sans bold', 5.0), \
-                                             arrow_def=AD(12.0, 1.5), \
-                                             field_mark_def=FMD(5.0) )
+        self[ BoardType.OddNineteen ] = self[ BoardType.Nineteen ]
 
         self[ BoardType.HemerasDawn ] = MDI( font_def=FD('sans bold', 5.0), \
                                              arrow_def=AD(12.0, 1.5), \
                                              field_mark_def=FMD(5.0) )
-        self[ BoardType.OddHemerasDawn ] = MDI( font_def=FD('sans bold', 5.0), \
-                                                arrow_def=AD(12.0, 1.5), \
-                                                field_mark_def=FMD(5.0) )
+        self[ BoardType.OddHemerasDawn ] = self[ BoardType.HemerasDawn ]
 
         self[ BoardType.TamoanchanRevisited ] = MDI( font_def=FD('sans bold', 5.0), \
                                                      arrow_def=AD(12.0, 1.5), \
                                                      field_mark_def=FMD(5.0) )
-        self[ BoardType.OddTamoanchanRevisited ] = MDI( font_def=FD('sans bold', 5.0), \
-                                                        arrow_def=AD(12.0, 1.5), \
-                                                        field_mark_def=FMD(5.0) )
+        self[ BoardType.OddTamoanchanRevisited ] = self[ BoardType.TamoanchanRevisited ]
 
         self[ BoardType.ConquestOfTlalocan ] = MDI( font_def=FD('sans bold', 5.0), \
                                                     arrow_def=AD(12.0, 1.5), \
                                                     field_mark_def=FMD(5.0) )
-        self[ BoardType.OddConquestOfTlalocan ] = MDI( font_def=FD('sans bold', 5.0), \
-                                                       arrow_def=AD(12.0, 1.5), \
-                                                       field_mark_def=FMD(5.0) )
+        self[ BoardType.OddConquestOfTlalocan ] = self[ BoardType.ConquestOfTlalocan ]
 
         self[ BoardType.Discovery ] = MDI( font_def=FD('sans bold', 5.0), \
                                            arrow_def=AD(12.0, 1.5), \
                                            field_mark_def=FMD(5.0) )
-        self[ BoardType.OddDiscovery ] = MDI( font_def=FD('sans bold', 5.0), \
-                                              arrow_def=AD(12.0, 1.5), \
-                                              field_mark_def=FMD(5.0) )
+        self[ BoardType.OddDiscovery ] = self[ BoardType.Discovery ]
 
         self[ BoardType.One ] = MDI( font_def=FD('sans bold', 5.0), \
                                      arrow_def=AD(12.0, 1.5), \
                                      field_mark_def=FMD(5.0) )
-        self[ BoardType.OddOne ] = MDI( font_def=FD('sans bold', 5.0), \
-                                        arrow_def=AD(12.0, 1.5), \
-                                        field_mark_def=FMD(5.0) )
+        self[ BoardType.OddOne ] = self[ BoardType.One ]
 
 MarkDef = MarkDef()
