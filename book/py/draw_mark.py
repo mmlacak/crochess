@@ -294,21 +294,21 @@ if __name__ == '__main__':
     # test_1(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
 
 
-    # test_2(board_type=bt)
-    # test_2(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
+    test_2(board_type=bt)
+    test_2(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
 
-    # test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
-    # test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
+    test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
+    test_2(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
 
-    # test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
-    # test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
+    test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
+    test_2(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
 
 
-    test_3(board_type=bt)
-    test_3(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
+    # test_3(board_type=bt)
+    # test_3(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin')
 
-    test_3(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
-    test_3(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
+    # test_3(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0), name='_clipped_2')
+    # test_3(board_type=bt, board_view=BoardView(x=1.7, y=0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_2')
 
-    test_3(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
-    test_3(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')
+    # test_3(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0), name='_clipped_3')
+    # test_3(board_type=bt, board_view=BoardView(x=-0.7, y=-0.3, width=3.6, height=10.0, margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name='_margin_3')

@@ -66,7 +66,7 @@ class SceneCommon(Scene):
 
         mt = MarkType.Blocked if king_moved else MarkType.Legal
 
-        for i in xrange(diff_min, diff_max+1):
+        for i in range(diff_min, diff_max+1):
             # diff_max + 1, because upper boundary is not included
 
             pos_l = pos_king_init - i
@@ -79,6 +79,7 @@ class SceneCommon(Scene):
 
     def intro_en_passant(self, bt):
         bt = BoardType(bt)
+        rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
         self.init_scene(bt, width=3, height=size)
@@ -86,17 +87,18 @@ class SceneCommon(Scene):
         self.board.set_piece(1, 0, PieceType(PieceType.Knight))
         self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
 
-        for i in xrange(3, size):
+        for i in range(3, size):
             loc = 0 if i % 2 == 0 else 2
             self.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
 
             self.append_arrow(loc, i, 1, i-1)
-            self.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=(0.15, 1.0, 0.5, 0.45))
+            self.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=rect)
 
         return bt
 
     def intro_rush(self, bt):
         bt = BoardType(bt)
+        rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
         self.init_scene(bt, width=3, height=size)
@@ -104,10 +106,10 @@ class SceneCommon(Scene):
         self.board.set_piece(1, 0, PieceType(PieceType.Knight))
         self.board.set_piece(1, 1, PieceType(PieceType.Pawn))
 
-        for i in xrange(2, size):
+        for i in range(2, size):
             self.append_arrow(1, i-1, 1, i)
 
             if i > 2:
-                self.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=(0.15, 1.0, 0.5, 0.45))
+                self.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=rect)
 
         return bt

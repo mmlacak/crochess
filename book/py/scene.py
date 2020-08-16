@@ -5,13 +5,12 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from types import NoneType
-
+from util import xor
 import pixel_math as pm
 from coords import Pos, RectPos
 from corner import Corner, get_func_get_text_position
 from board import BoardType, Board
-from board_desc import BoardDesc
+from board_view import BoardView
 from mark import MarkType, Arrow, Text, FieldMarker
 
 
@@ -21,12 +20,12 @@ def get_coord_offset(coord, offset=0.5):
 def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     starts_are_ints = bool(isinstance(start_i, int) and isinstance(start_j, int))
     starts_are_floats = bool(isinstance(start_i, float) and isinstance(start_j, float))
-    assert starts_are_ints or starts_are_floats, \
+    assert xor(starts_are_ints, starts_are_floats, default=False), \
            "Unexpected types for starting i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type(start_i), type(start_j))
 
     ends_are_ints = bool(isinstance(end_i, int) and isinstance(end_j, int))
     ends_are_floats = bool((isinstance(end_i, float) and isinstance(end_j, float)))
-    assert ends_are_ints or ends_are_floats, \
+    assert xor(ends_are_ints, ends_are_floats, default=False), \
            "Unexpected types for ending i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type(end_i), type(end_j))
 
     if starts_are_ints or ends_are_ints:
@@ -76,36 +75,49 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     return [start_x_off, start_y_off, end_x_off, end_y_off]
 
 
-class Scene(object):
+class Scene: # TODO :: inherit Board
 
-    def __init__(self, board=None, board_desc=None, *args, **kwargs):
+# TODO :: inherit Board --> simplify
+    def __init__(self, board=None, board_view=None, *args, **kwargs):
         super(Scene, self).__init__(*args, **kwargs)
-        self.reset(board=board, board_desc=board_desc)
+        self.reset(board=board, board_view=board_view)
 
-    def reset(self, board=None, board_desc=None):
-        assert isinstance(board, (Board, NoneType))
-        assert isinstance(board_desc, (BoardDesc, NoneType))
+    def reset(self, board=None, board_view=None):
+        assert isinstance(board, (Board, type(None)))
+        assert isinstance(board_view, (BoardView, type(None)))
 
         self.board = board
-        self.board_desc = board_desc
+        self.board_view = board_view
 
         self.arrows = [] # :: [ mark.Arrow, ... ]
         self.texts = [] # :: [ mark.Text, ... ]
         self.field_markers = [] # :: [ mark.FieldMarker, ... ]
 
-    def init_scene(self, board_type, width=None, height=None, board_desc=None):
+    def init_scene(self, board_type, width=None, height=None, board_view=None):
         self.reset()
 
         bt = BoardType(board_type)
-        board = Board(bt, width=width, height=height)
+        self.board = Board(bt)
 
-        self.board = board
-        self.board_desc = board_desc or BoardDesc()
+        w = float(width) if width is not None else None
+        h = float(height) if height is not None else None
+        self.board_view = board_view or BoardView(x=0.0, y=0.0, width=w, height=h, board_type=bt)
+
+    def update(self, board=None, board_view=None):
+        assert isinstance(board, (Board, type(None)))
+        assert isinstance(board_view, (BoardView, type(None)))
+
+        if board is not None and board is not self.board:
+            self.board = board
+
+        if board_view is not None and board_view is not self.board_view:
+            self.board_view = board_view
+# TODO :: inherit Board --> simplify
 
     def new_text(self, txt, pos_i, pos_j, \
                  corner=Corner(Corner.UpperLeft), \
                  mark_type=MarkType(MarkType.Legal), \
-                 rect=(0.05, 1.0, 0.7, 0.35)):
+                 rect=(0.05, 0.75, 0.7, 0.05)):
         # assert isinstance(txt, str)
         assert isinstance(pos_i, (int, float))
         assert isinstance(pos_j, (int, float))
@@ -118,8 +130,10 @@ class Scene(object):
         crnr = Corner(corner)
         left, top, right, bottom = rect.as_tuple() if isinstance(rect, RectPos) else rect
 
+# TODO :: move text pos calc to draw_scene, use text size for re-calc from int pos
         get_text_position = get_func_get_text_position(left=left, top=top, right=right, bottom=bottom)
         pos_x, pos_y = get_text_position(pos_i, pos_j, crnr)
+# TODO :: move text pos calc to draw_scene, use text size for re-calc from int pos
 
         txt_mark = Text(txt, pos_x, pos_y, mark_type=mark_type)
 
@@ -128,7 +142,7 @@ class Scene(object):
     def append_text(self, txt, pos_i, pos_j, \
                     corner=Corner(Corner.UpperLeft), \
                     mark_type=MarkType(MarkType.Legal), \
-                    rect=(0.05, 1.0, 0.7, 0.35)):
+                    rect=(0.05, 0.75, 0.7, 0.05)):
 
         txt_mark = self.new_text(txt, pos_i, pos_j, corner=corner, mark_type=mark_type, rect=rect)
         self.texts.append(txt_mark)
@@ -138,7 +152,7 @@ class Scene(object):
     def replace_text(self, txt, pos_i, pos_j, \
                      corner=Corner(Corner.UpperLeft), \
                      mark_type=MarkType(MarkType.Legal), \
-                     rect=(0.05, 1.0, 0.7, 0.35)):
+                     rect=(0.05, 0.75, 0.7, 0.05)):
 
         txt_mark = self.new_text(txt, pos_i, pos_j, corner=corner, mark_type=mark_type, rect=rect)
 

@@ -75,24 +75,24 @@ def find_subfolder(path=None):
 def mkdirs(folder_name):
     path = os.path.normpath(os.path.abspath(folder_name))
     if not os.path.isdir(path):
-        print folder_name
+        print(folder_name)
         os.makedirs(path)
 
 def create_subfolders(path=None):
     print
     old = os.getcwd()
-    print "Old:", old
+    print("Old:", old)
     try:
         root = find_subfolder(path=path)
-        print "Root:", root
+        print("Root:", root)
         os.chdir(root)
 
         print
-        print "Subfolders:"
+        print("Subfolders:")
         for folder_name in SUBFOLDERS:
             mkdirs(folder_name)
     finally:
-        print "Restoring:", old
+        print("Restoring:", old)
         os.chdir(old)
 
     print
