@@ -75,44 +75,25 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     return [start_x_off, start_y_off, end_x_off, end_y_off]
 
 
-class Scene: # TODO :: inherit Board
+class Scene:
 
-# TODO :: inherit Board --> simplify
-    def __init__(self, board=None, board_view=None, *args, **kwargs):
+    def __init__(self, file_name, board_type, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_view=None, *args, **kwargs):
+        assert isinstance(file_name, str)
+
         super(Scene, self).__init__(*args, **kwargs)
-        self.reset(board=board, board_view=board_view)
 
-    def reset(self, board=None, board_view=None):
-        assert isinstance(board, (Board, type(None)))
-        assert isinstance(board_view, (BoardView, type(None)))
-
-        self.board = board
-        self.board_view = board_view
-
-        self.arrows = [] # :: [ mark.Arrow, ... ]
-        self.texts = [] # :: [ mark.Text, ... ]
-        self.field_markers = [] # :: [ mark.FieldMarker, ... ]
-
-    def init_scene(self, board_type, width=None, height=None, board_view=None):
-        self.reset()
+        self.file_name = file_name
 
         bt = BoardType(board_type)
         self.board = Board(bt)
 
         w = float(width) if width is not None else None
         h = float(height) if height is not None else None
-        self.board_view = board_view or BoardView(x=0.0, y=0.0, width=w, height=h, board_type=bt)
+        self.board_view = board_view or BoardView(x=float(x), y=float(y), width=w, height=h, reverse_off_board_field_colors=reverse_off_board_field_colors, margin=margin, board_type=bt)
 
-    def update(self, board=None, board_view=None):
-        assert isinstance(board, (Board, type(None)))
-        assert isinstance(board_view, (BoardView, type(None)))
-
-        if board is not None and board is not self.board:
-            self.board = board
-
-        if board_view is not None and board_view is not self.board_view:
-            self.board_view = board_view
-# TODO :: inherit Board --> simplify
+        self.arrows = [] # :: [ mark.Arrow, ... ]
+        self.texts = [] # :: [ mark.Text, ... ]
+        self.field_markers = [] # :: [ mark.FieldMarker, ... ]
 
     def new_text(self, txt, pos_i, pos_j, \
                  corner=Corner(Corner.UpperLeft), \
