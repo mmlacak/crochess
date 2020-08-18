@@ -8,7 +8,7 @@
 # from scene import Scene
 from scene_croatian_ties import SceneCroatianTiesMixin
 from scene_mayan_ascendancy import SceneMayanAscendancyMixin
-# from scene_age_of_aquarius import SceneAgeOfAquariusMixin
+from scene_age_of_aquarius import SceneAgeOfAquariusMixin
 # from scene_mirandas_veil import SceneMirandasVeilMixin
 # from scene_nineteen import SceneNineteenMixin
 # from scene_hemeras_dawn import SceneHemerasDawnMixin
@@ -26,31 +26,22 @@ from scene_mayan_ascendancy import SceneMayanAscendancyMixin
 #                SceneConquestOfTlalocanMixin):
 
 class SceneMix(SceneCroatianTiesMixin, \
-               SceneMayanAscendancyMixin):
+               SceneMayanAscendancyMixin, \
+               SceneAgeOfAquariusMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_ma_01_pyramid_activation_init', \
-                    # 'scn_ma_02_pyramid_activated', \
-                    # 'scn_ma_03_pyramid_activation_end', \
-                    # 'scn_ma_04_pyramid_activation_by_pawn', \
-                    # 'scn_ma_05_promo_init', \
-                    # 'scn_ma_06_promo_pyramid_activated', \
-                    # 'scn_ma_07_promo_end', \
-                    # 'scn_ma_08_conversion_init', \
-                    # 'scn_ma_09_conversion_pyramid_activated', \
-                    # 'scn_ma_10_conversion_end', \
-                    # 'scn_ma_11_convert_rook_castling_init', \
-                    # 'scn_ma_12_convert_rook_castling_end', \
-                    # 'scn_ma_13_convert_rook_castling', \
-                    # 'scn_ma_14_convert_pawn_rush_init', \
-                    # 'scn_ma_15_convert_pawn_rush_end', \
-                    # 'scn_ma_16_cascading_init', \
-                    # 'scn_ma_17_cascading_pyramid_1_activated', \
-                    # 'scn_ma_18_cascading_pyramid_2_activated', \
-                    # 'scn_ma_19_cascading_end', \
-                    'scn_ma_20_pyramid_vs_king', \
-                    'scn_ma_21_pyramid_vs_bishop', \
+                    'scn_aoa_01_unicorn_same_color', \
+                    'scn_aoa_02_unicorn_opposite_color', \
+                    'scn_aoa_03_delayed_promo_init', \
+                    'scn_aoa_04_delayed_promo_pawn_2_tagged', \
+                    'scn_aoa_05_delayed_promo_pawn_2_moved', \
+                    'scn_aoa_06_delayed_promo_pawn_1_tagged', \
+                    'scn_aoa_07_delayed_promo_pawn_1_promoted', \
+                    'scn_aoa_11_tagged_pawn_conv_init', \
+                    'scn_aoa_12_tagged_pawn_conv_tagged', \
+                    'scn_aoa_13_tagged_pawn_converted', \
+                    'scn_aoa_14_pawn_figure_piece_rush_rows', \
                 ]
 
     def _get_all_scene_method_names(self):
