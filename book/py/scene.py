@@ -21,12 +21,12 @@ from mark import MarkType, Arrow, Text, FieldMarker
 DEFAULT_CORNER_MARGINS = RectPos( 0.0 + 2 * DEFAULT_FONT_SPACER, \
                                   1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
                                   1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
-                                  0.0 + 2 * DEFAULT_FONT_SPACER ) # left, top, right, bottom
+                                  0.0 + 5 * DEFAULT_FONT_SPACER ) # left, top, right, bottom
 
 DEFAULT_CORNER_MARGINS_WITH_FIELD_MARKER = RectPos( 0.0 + 2 * DEFAULT_FONT_SPACER + DEFAULT_FIELD_MARKER_SIZE, \
                                                     1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
                                                     1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE - DEFAULT_FIELD_MARKER_SIZE, \
-                                                    0.0 + 2 * DEFAULT_FONT_SPACER ) # left, top, right, bottom
+                                                    0.0 + 5 * DEFAULT_FONT_SPACER ) # left, top, right, bottom
 
 
 def get_coord_offset(coord, offset=0.5):
