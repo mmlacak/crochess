@@ -67,7 +67,7 @@ class SaveScene:
         return '%s/boards/%02d_%s%s' % (path_prefix, index, sanitized, file_ext)
 
     def render_all_boards(self, path_prefix=None):
-        print
+        print()
         print( "Rendering all boards." if self.rendering_size.needs_rendering() else "Info all boards." )
 
         sc = SceneCommon()
@@ -103,7 +103,7 @@ class SaveScene:
 
         piece_str = "all" if not is_rendering_one_piece else PieceType(piece_type).get_name()
 
-        print
+        print()
         print( "Rendering %s pieces." % piece_str if self.rendering_size.needs_rendering() else "Info %s pieces." % piece_str )
 
         sc = SceneCommon()
@@ -143,7 +143,7 @@ class SaveScene:
         return '%s/en_passants/%02d_%s_en_passant%s' % (path_prefix, index, sanitized, file_ext)
 
     def render_all_en_passant_scenes(self, path_prefix=None):
-        print
+        print()
         print( "Rendering all en passant." if self.rendering_size.needs_rendering() else "Info all en passant." )
 
         sc = SceneCommon()
@@ -171,7 +171,7 @@ class SaveScene:
         return '%s/rush/%02d_%s_rush%s' % (path_prefix, index, sanitized, file_ext)
 
     def render_all_rush_scenes(self, path_prefix=None):
-        print
+        print()
         print( "Rendering all rush." if self.rendering_size.needs_rendering() else "Info all rush." )
 
         sc = SceneCommon()
@@ -215,7 +215,7 @@ class SaveScene:
             return '%s/castlings/%s/%s_castling_%s%s' % (path_prefix, sf_name, sanitized, mk_str, file_ext)
 
     def render_all_castling_scenes(self, move_king=None, path_prefix=None):
-        print
+        print()
         print( "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings." )
 
         sc = SceneCommon()
@@ -228,9 +228,9 @@ class SaveScene:
             else:
                 diff_min, diff_max = Board.get_castling_limits(bt)
 
-                king_moves = list(xrange(diff_min, diff_max+1))
+                king_moves = list(range(diff_min, diff_max+1))
                 king_moves.append(0)
-                king_moves.extend( list(xrange(-diff_min, -diff_max-1, -1)) )
+                king_moves.extend( list(range(-diff_min, -diff_max-1, -1)) )
 
                 king_moves.sort()
 
@@ -272,7 +272,7 @@ class SaveScene:
 
     def render_examples(self, do_all_examples=False, path_prefix=None, enforce_cot_in_bw=False):
         _str = "all" if do_all_examples else "recent"
-        print
+        print()
         print( "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str )
         scene = SceneMix()
 

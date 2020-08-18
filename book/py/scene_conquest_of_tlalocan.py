@@ -433,12 +433,12 @@ class SceneConquestOfTlalocanMixin(Scene):
         # (2, 1) ------------------------------------------------------------------------------------------------------------------
 
         coords = GS.gen_next( GS.gen_steps([(2, 1), ], start=start, include_prev=False) )
-        for i in xrange( 8 ):
+        for i in range( 8 ):
             self.board.set_piece(*coords(), piece=PieceType.Pawn)
         self.board.set_piece(*coords(), piece=-PieceType.Pyramid)
 
         coords = GS.gen_next( GS.gen_steps([(2, 1), ], start=start, include_prev=True) )
-        for i in xrange( 8 ):
+        for i in range( 8 ):
             self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
         self.append_arrow( *coords(), mark_type=MarkType.Blocked )
@@ -468,7 +468,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=start, include_prev=True) )
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
-        for i in xrange(5):
+        for i in range(5):
             self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # (2, -1) -----------------------------------------------------------------------------------------------------------------
@@ -485,7 +485,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_arrow( *coords() )
         self.append_arrow( *coords() )
         self.append_arrow( *coords(), mark_type=MarkType.Action )
-        for i in xrange(6):
+        for i in range(6):
             self.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
         # (1, -2) -----------------------------------------------------------------------------------------------------------------
@@ -884,7 +884,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (2, 1)
         aba = self.append_broken_arrow(start, rel, count=24)
 
-        for i in xrange(4):
+        for i in range(4):
             aba(str(4 * i + 1), mark_type=MarkType.Legal)
             aba(str(4 * i + 2), mark_type=MarkType.Action)
             aba(str(4 * i + 3), mark_type=MarkType.Blocked)
@@ -896,7 +896,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-2, -1)
         aba = self.append_broken_arrow(start, rel, count=24)
 
-        for i in xrange(4):
+        for i in range(4):
             aba(str(4 * i + 1), mark_type=MarkType.Legal)
             aba(str(4 * i + 2), mark_type=MarkType.Action)
             aba(str(4 * i + 3), mark_type=MarkType.Blocked)
@@ -917,7 +917,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (2, 1)
         aba = self.append_broken_arrow(start, rel, count=24)
 
-        for i in xrange(16):
+        for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
 
         #
@@ -926,7 +926,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-2, -1)
         aba = self.append_broken_arrow(start, rel, count=24)
 
-        for i in xrange(16):
+        for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Action)
 
         return 'scn_cot_14_light_shaman_trance_journey'
@@ -945,7 +945,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (2, 1)
         aba = self.append_broken_arrow(start, rel, count=24)
 
-        for i in xrange(16):
+        for i in range(16):
             mark_type = MarkType.Legal if i < 5 else MarkType.Blocked
             aba(str(i + 1), mark_type=mark_type)
 
@@ -955,7 +955,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (-2, -1)
         # aba = self.append_broken_arrow(start, rel, count=24)
 
-        # for i in xrange(16):
+        # for i in range(16):
             # mark_type = MarkType.Legal if i < 5 else MarkType.Blocked
             # aba(str(i + 1), mark_type=mark_type)
 
@@ -974,7 +974,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (1, 2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        for i in xrange(10):
+        for i in range(10):
             aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -983,7 +983,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        for i in xrange(12):
+        for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Action)
 
         return 'scn_cot_16_dark_shaman_trance_journey'
@@ -1056,7 +1056,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.05, 1.0, 0.8, 0.3)
         aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
 
         #
@@ -1065,7 +1065,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (-2, -1)
         # aba = self.append_broken_arrow(start, rel, count=24)
 
-        # for i in xrange(16):
+        # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
 
         # self.append_arrow( *((-1, 1) + startT), mark_type=MarkType.Illegal )
@@ -1117,7 +1117,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (2, 1)
         aba = self.append_broken_arrow(start, rel, count=24, rect=(0.05, 1.0, 0.8, 0.3))
 
-        for i in xrange(16):
+        for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Blocked)
 
         # right arm Knight's displacement fields
@@ -1144,7 +1144,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (-2, -1)
         # aba = self.append_broken_arrow(start, rel, count=24)
 
-        # for i in xrange(16):
+        # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
 
         return 'scn_cot_19_light_light_shaman_interaction_end'
@@ -1196,7 +1196,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.05, 1.0, 0.8, 0.3)
         aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
 
         #
@@ -1205,7 +1205,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (-2, -1)
         # aba = self.append_broken_arrow(start, rel, count=24)
 
-        # for i in xrange(16):
+        # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
 
         # self.append_arrow( *((-1, 1) + startT), mark_type=MarkType.Illegal )
@@ -1263,7 +1263,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.05, 1.0, 0.8, 0.3)
         aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Blocked)
 
         #
@@ -1272,7 +1272,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (-2, -1)
         # aba = self.append_broken_arrow(start, rel, count=24)
 
-        # for i in xrange(16):
+        # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
 
         return 'scn_cot_21_dark_light_shaman_interaction_end'
@@ -1325,7 +1325,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (1, 2)
         # aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        # for i in xrange(16):
+        # for i in range(16):
             # aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -1335,7 +1335,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(12):
+        for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
 
         self.replace_arrow( *(startP + (8.5, 23.5)), mark_type=MarkType.Illegal, end_pointer=False )
@@ -1390,7 +1390,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (1, 2)
         # aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        # for i in xrange(16):
+        # for i in range(16):
             # aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -1400,7 +1400,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(12):
+        for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
 
         return 'scn_cot_23_dark_dark_shaman_interaction_end'
@@ -1453,7 +1453,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (1, 2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        for i in xrange(10):
+        for i in range(10):
             aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -1463,7 +1463,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(12):
+        for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
 
         self.replace_arrow( *(startP + (8.5, 23.5)), mark_type=MarkType.Illegal, end_pointer=False )
@@ -1511,7 +1511,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (1, 2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        for i in xrange(10):
+        for i in range(10):
             aba(str(10 - i), mark_type=MarkType.Blocked)
 
         #
@@ -1521,7 +1521,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(12):
+        for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
 
         return 'scn_cot_25_dark_dark_shaman_double_interaction_end'
@@ -1578,7 +1578,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (1, 2)
         # aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        # for i in xrange(10):
+        # for i in range(10):
             # aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -1588,7 +1588,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(12):
+        for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
 
         self.replace_arrow( *(startP + (8.5, 23.5)), mark_type=MarkType.Illegal, end_pointer=False )
@@ -1648,7 +1648,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # rel = (1, 2)
         # aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24)
 
-        # for i in xrange(10):
+        # for i in range(10):
             # aba(str(10 - i), mark_type=MarkType.Legal)
 
         #
@@ -1658,7 +1658,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rel = (-1, -2)
         aba = self.append_broken_arrow(start, rel, outward_arrows=False, count=24, rect=rect)
 
-        for i in xrange(12):
+        for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
 
         # down arm Knight's displacement fields
@@ -1706,7 +1706,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.10, 0.9, 0.6, 0.45)
         aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
 
         #
@@ -1747,7 +1747,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.05, 1.0, 0.8, 0.3)
         aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             mark_type = MarkType.Blocked if i < 2 else MarkType.Legal
             aba(str(i + 1), mark_type=mark_type)
 
@@ -1784,7 +1784,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.10, 0.9, 0.6, 0.45)
         aba = self.append_broken_arrow(start, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
 
         #
@@ -1825,7 +1825,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.10, 0.9, 0.6, 0.45)
         aba = self.append_broken_arrow(startW, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             mark_type = MarkType.Blocked if i < 3 else MarkType.Legal
             aba(str(i + 1), mark_type=mark_type)
 
@@ -1868,7 +1868,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.10, 0.9, 0.6, 0.45)
         aba = self.append_broken_arrow(startW, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             mark_type = MarkType.Blocked if i < 7 else MarkType.Legal
             aba(str(i + 1), mark_type=mark_type)
 
@@ -1910,7 +1910,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.append_arrow( *(startW1 + startW2), mark_type=MarkType.Legal )
 
         coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=startH, include_prev=True) )
-        for i in xrange(2):
+        for i in range(2):
             self.append_arrow( *coords(), mark_type=MarkType.Legal )
 
         return 'scn_cot_33_push_pull_entrancement_start'
@@ -1955,7 +1955,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rect = (0.05, 1.0, 0.6, 0.3)
         aba = self.append_broken_arrow(startW2, rel, count=24, rect=rect)
 
-        for i in xrange(16):
+        for i in range(16):
             mark_type = MarkType.Blocked if i < 6 else MarkType.Legal
             aba(str(i + 1), mark_type=mark_type)
 
@@ -1979,7 +1979,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rels = GS.gen_shaman_rel_legs(rel)
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
-        for i in xrange(11):
+        for i in range(11):
             self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
             self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # right-up
 
@@ -1999,7 +1999,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         rels = GS.gen_shaman_rel_legs(rel)
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
-        for i in xrange(11):
+        for i in range(11):
             self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
             self.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # right-up
 

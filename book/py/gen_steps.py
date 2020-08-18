@@ -302,12 +302,21 @@ def gen_items(items, count=None):
 
     def _gen_items():
         i = 0
-        _items = items() if callable(items) else items
         while count is None or i < count:
-            for item in _items:
-                if count is None or i < count:
-                    yield item
-                    i += 1
+            if callable(items):
+                for item in items():
+                    if count is None or i < count:
+                        yield item
+                        i += 1
+                    else: # TODO :: TEST !!!!!!!!!!!!!!!
+                        return
+            else:
+                for item in items:
+                    if count is None or i < count:
+                        yield item
+                        i += 1
+                    else: # TODO :: TEST !!!!!!!!!!!!!!!
+                        return
 
     return _gen_items
 
@@ -468,31 +477,31 @@ def test_print(gen, length=8, as_next=True):
     if as_next:
         g = gen_next(gen) # , default='pero'
 
-        print
-        print "-" * 42
-        print g
-        # print
-        for i in xrange(60):
+        print()
+        print( "-" * 42 )
+        print( g )
+        # print()
+        for i in range(61):
             if i % length == 0:
-                print
-            print i, g()
-        print "-" * 42
-        print
+                print()
+            print( i, g() )
+        print( "-" * 42 )
+        print()
     else:
         g = gen
 
-        print
-        print "-" * 42
-        print g
-        # print
+        print()
+        print( "-" * 42 )
+        print( g )
+        # print()
         for i, t in enumerate(g()):
             if i % length == 0:
-                print
-            print i, t
-            if i > 60:
+                print()
+            print( i, t )
+            if i > 59:
                 break
-        print "-" * 42
-        print
+        print( "-" * 42 )
+        print()
 
 def test_1(as_next=True):
     # rels = [(3, 1), ]
@@ -603,7 +612,7 @@ def test_8(as_next=True):
     # g = gen_multi_steps(multi_rels, start=start, include_prev=True, count=3)
     # g = gen_multi_steps(multi_rels, end=start, include_prev=True, bounds=bounds)
 
-    # g = gen_items(g)
+    g = gen_items(g)
 
     test_print(g, length=ln, as_next=as_next)
 
@@ -612,23 +621,23 @@ if __name__ == '__main__':
     test_1(as_next=True)
     test_1(as_next=False)
 
-    # test_2(as_next=True)
-    # test_2(as_next=False)
+    test_2(as_next=True)
+    test_2(as_next=False)
 
-    # test_3(as_next=True)
-    # test_3(as_next=False)
+    test_3(as_next=True)
+    test_3(as_next=False)
 
-    # test_4(as_next=True)
-    # test_4(as_next=False)
+    test_4(as_next=True)
+    test_4(as_next=False)
 
-    # test_5(as_next=True)
-    # test_5(as_next=False)
+    test_5(as_next=True)
+    test_5(as_next=False)
 
-    # test_6(as_next=True)
-    # test_6(as_next=False)
+    test_6(as_next=True)
+    test_6(as_next=False)
 
-    # test_7(as_next=True)
-    # test_7(as_next=False)
+    test_7(as_next=True)
+    test_7(as_next=False)
 
-    # test_8(as_next=True)
-    # test_8(as_next=False)
+    test_8(as_next=True)
+    test_8(as_next=False)

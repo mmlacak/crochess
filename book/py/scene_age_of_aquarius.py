@@ -451,7 +451,7 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.append_text("1", *startP1c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
-        for i in xrange(3, size):
+        for i in range(3, size):
             self.append_text(str(i-2), 1, i, corner=Corner.UpperRight)
 
         #
@@ -467,7 +467,7 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.append_text("2", *startP2c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
-        for i in xrange(4, size):
+        for i in range(4, size):
             self.append_text(str(i-3), 6, i, corner=Corner.UpperRight, mark_type=MarkType.Illegal)
 
         #
@@ -481,7 +481,7 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.append_text("3", *startP3c, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
-        for i in xrange(2, size):
+        for i in range(2, size):
             self.append_text(str(i-1), 11, i, corner=Corner.UpperRight)
 
         #
@@ -493,7 +493,7 @@ class SceneAgeOfAquariusMixin(Scene):
 
         self.append_text("4", *startP, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
-        for i in xrange(3, size):
+        for i in range(3, size):
             self.append_text(str(i-2), 13, i, corner=Corner.UpperRight)
 
         return 'scn_aoa_13_tagged_pawn_converted'
@@ -508,7 +508,7 @@ class SceneAgeOfAquariusMixin(Scene):
         self.append_arrow(0.7, 1.5, 13.3, 1.5, mark_type=MarkType.Action, start_pointer=True, end_pointer=True)
         self.append_arrow(0.7, 0.5, 13.3, 0.5, mark_type=MarkType.Legal, start_pointer=True, end_pointer=True)
 
-        for i in xrange(0, 14):
+        for i in range(0, 14):
             self.append_text(str(i + 1), 0, i, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
 
         return 'scn_aoa_14_pawn_figure_piece_rush_rows'

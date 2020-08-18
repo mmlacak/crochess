@@ -87,7 +87,7 @@ def change_line_if_marked(line, id_, last_commit_date_time, now_long, now_short,
     return new
 
 def _print_not_git_repo():
-    print "Probably not a git repo, not updating book version info."
+    print( "Probably not a git repo, not updating book version info." )
 
 def replace_log_entries(root_path=None):
     id_ = get_last_commit_id()
