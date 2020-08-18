@@ -29,7 +29,7 @@ class SceneCommon:
 
         return scene
 
-    def intro_board(self, bt, piece_type=None):
+    def intro_board(self, bt):
         bt = BoardType(bt)
         scene = Scene('intro_board', bt)
 

@@ -7,6 +7,7 @@
 
 import argparse
 
+from consts import DEFAULT_IMAGE_FOLDER_REL_PATH
 import fs
 from piece import PieceType
 from def_render import RenderingSizeEnum
@@ -53,13 +54,13 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     if rendering_size == RenderingSizeEnum.none:
         print
-        print "Rendering nothing, no info requested."
+        print( "Rendering nothing, no info requested." )
         print
         return
 
     rendering_size = RenderingSizeEnum(rendering_size)
     if rendering_size.needs_rendering():
-        fs.create_subfolders('../gfx')
+        fs.create_subfolders(DEFAULT_IMAGE_FOLDER_REL_PATH)
 
     render = SaveScene(rendering_size)
 
@@ -84,7 +85,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
         render.render_all_rush_scenes()
 
     print
-    print "Finished all renderings."
+    print( "Finished all renderings." )
     print
 
 

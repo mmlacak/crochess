@@ -47,27 +47,23 @@ class RenderingSizeItem(object):
     def __init__( self, \
                   board_width_pix, \
                   board_max_height_pix, \
-                  piece_2_by_2_pix, \
-                  line_width_pix ):
+                  piece_2_by_2_pix ):
         assert isinstance(board_width_pix, int)
         assert isinstance(board_max_height_pix, int)
         assert isinstance(piece_2_by_2_pix, int)
-        assert isinstance(line_width_pix, int)
 
         self.board_width_pix = board_width_pix
         self.board_max_height_pix = board_max_height_pix
         self.piece_2_by_2_pix = piece_2_by_2_pix
-        self.line_width_pix = line_width_pix
 
     def as_tuple(self):
         return ( self.board_width_pix, \
                  self.board_max_height_pix, \
-                 self.piece_2_by_2_pix, \
-                 self.line_width_pix )
+                 self.piece_2_by_2_pix )
 
     @staticmethod
     def from_tuple(tpl):
-        return RenderingSizeItem( *tpl[ 0 : 4 ] )
+        return RenderingSizeItem( *tpl[ 0 : 3 ] )
 
 
 class RenderingSize(dict):
@@ -93,10 +89,10 @@ class RenderingSize(dict):
         RSE = RenderingSizeEnum
         RSI = RenderingSizeItem
 
-        self[ RSE.Final ] = RSI( 9600, 14400, 3840, 13 )
-        self[ RSE.Good ] = RSI( 4800, 7200, 1920, 7 )
-        self[ RSE.Normal ] = RSI( 2400, 3600, 960, 4 )
-        self[ RSE.Draft ] = RSI( 1200, 1800, 480, 2 )
+        self[ RSE.Final ] = RSI( 9600, 14400, 3840 )
+        self[ RSE.Good ] = RSI( 4800, 7200, 1920 )
+        self[ RSE.Normal ] = RSI( 2400, 3600, 960 )
+        self[ RSE.Draft ] = RSI( 1200, 1800, 480 )
         self[ RSE.Info ] = None
         self[ RSE.none ] = None
 

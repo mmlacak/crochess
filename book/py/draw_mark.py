@@ -194,7 +194,6 @@ class DrawMark(DrawBoard):
 
 
 TEST_BOARD_SIZE_PIX = 1200 # 2400 # 9600
-TEST_LINE_WIDTH = 3 # 11 # 3
 
 def test_1(board_type=BoardType.CroatianTies, board_view=None, name=''):
     bt = BoardType(board_type)

@@ -5,17 +5,17 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from consts import DEFAULT_IMAGE_FOLDER_REL_PATH
+from consts import  DEFAULT_LINE_WIDTH, \
+                    DEFAULT_IMAGE_FOLDER_REL_PATH, \
+                    DEFAULT_FILE_EXT
 
 from colors import Colors
 from piece import PieceType
 from board import BoardType, Board
 from scene import Scene
 from scene_common import SceneCommon
-from scene_mix import SceneMix
+# from scene_mix import SceneMix
 
-from draw import DEFAULT_FILE_EXT, DEFAULT_FILE_TYPE, get_new_drawable, get_new_gc
-from draw_board import BoardDesc
 from draw_scene import DrawScene
 from def_mark import MarkDef
 from def_render import RenderingSizeEnum, get_rendering_size_item
@@ -26,81 +26,31 @@ def sanitize(name):
     return name.replace('\'', '_').replace(' ', '_').lower()
 
 
-class SaveScene(object):
+class SaveScene:
 
     def __init__(self, rendering_size):
         self.rendering_size = RenderingSizeEnum(rendering_size)
         self.rendering_size_item = get_rendering_size_item(self.rendering_size)
 
-    def normalize(self, size_x, size_y):
-        size_x = size_x or self.rendering_size_item.board_width_pix
-        size_y = size_y or self.rendering_size_item.board_width_pix
+    def get_default_size_pix(self, max_width_pix=None, max_height_pix=None):
+        w = max_width_pix if max_width_pix is not None else self.rendering_size_item.board_width_pix
+        h = max_height_pix if max_height_pix is not None else self.rendering_size_item.board_max_height_pix
+        return (w, h)
 
-        size_x = size_x if size_x < self.rendering_size_item.board_width_pix else self.rendering_size_item.board_width_pix
-        size_y = size_y if size_y < self.rendering_size_item.board_max_height_pix else self.rendering_size_item.board_max_height_pix
-
-        return (size_x, size_y)
-
-    def calc_nominal_dpf(self, board_type):
-        # dpf == dots-per-field
-        bt = BoardType(board_type)
-        return self.rendering_size_item.board_width_pix // bt.get_size()
-
-    def recalc_image_size(self, board, board_desc=None, size_x=None, size_y=None):
-        assert isinstance(board, Board)
-
-        board_desc = board_desc or BoardDesc()
-        assert isinstance(board_desc, (BoardDesc, type(None)))
-
-        size_x, size_y = self.normalize(size_x, size_y)
-
-        board_width = board_desc.off_board_left + board.get_width() + board_desc.off_board_right
-        board_height = board_desc.off_board_top + board.get_height() + board_desc.off_board_bottom
-
-        # dots-per-field
-        nominal_dpf = self.calc_nominal_dpf(board.type)
-        horizontal_dpf = ( size_x - board_desc.border_left_pix - board_desc.border_right_pix ) // board_width
-        vertical_dpf = ( size_y - board_desc.border_top_pix - board_desc.border_bottom_pix ) // board_height
-        minimal_dpf = min(nominal_dpf, horizontal_dpf, vertical_dpf)
-
-        height_pix = board_height * minimal_dpf + board_desc.border_top_pix + board_desc.border_bottom_pix
-        width_pix = board_width * minimal_dpf + board_desc.border_left_pix + board_desc.border_right_pix
-
-        width_pix, height_pix = self.normalize(width_pix, height_pix)
-
-        return (width_pix, height_pix)
-
-    def init_drawable_gc(self, size_x=None, size_y=None, line_width=None, board=None, board_desc=None):
-        # Flag is used to trigger recalculation of sizes, because board will always be valid
-        # if this method is called from save_scene(), which enforces scene to be valid, and hence board, too.
-        sizes_not_specified = (size_x is None) and (size_y is None)
-
-        size_x, size_y = self.normalize(size_x, size_y)
-        line_width = line_width or self.rendering_size_item.line_width_pix
-
-        if sizes_not_specified and isinstance(board, Board):
-            size_x, size_y = self.recalc_image_size(board, board_desc=board_desc, size_x=size_x, size_y=size_y)
-
-        drawable = get_new_drawable(size_x, size_y)
-        gc = get_new_gc(drawable, line_width)
-
-        return drawable, gc
-
-    def save_scene(self, scene, file_path, size_x=None, size_y=None, line_width=None, file_type=None, enforce_bw=False):
+    def save_scene(self, scene, file_path, max_width_pix=None, max_height_pix=None, line_width=DEFAULT_LINE_WIDTH, enforce_bw=False):
         assert isinstance(scene, Scene)
         assert isinstance(file_path, str)
 
-        drawable, gc = self.init_drawable_gc(size_x=size_x, size_y=size_y, line_width=line_width, board=scene.board, board_desc=scene.board_desc)
-
-        draw_scene = DrawScene(drawable, gc, scene, board_desc=scene.board_desc)
+        w_pix, h_pix = self.get_default_size_pix(max_width_pix=max_width_pix, max_height_pix=max_height_pix)
 
         colors_item = Colors.fetch_colors(scene.board.type, enforce_bw=enforce_bw)
         mark_def_item = MarkDef[ scene.board.type ]
 
-        draw_scene.draw_scene(colors_item, mark_def_item=mark_def_item, gc=gc)
+        ds = DrawScene(scene, w_pix, h_pix, line_width=line_width, color_str=colors_item.field.light)
 
-        file_type = file_type or DEFAULT_FILE_TYPE
-        draw_scene.save_image(file_path, file_type=file_type)
+        ds.draw_scene(colors_item, mark_def_item=mark_def_item)
+
+        ds.save_image(file_path)
 
     #
     # boards
@@ -118,20 +68,19 @@ class SaveScene(object):
 
     def render_all_boards(self, path_prefix=None):
         print
-        print "Rendering all boards." if self.rendering_size.needs_rendering() else "Info all boards."
+        print( "Rendering all boards." if self.rendering_size.needs_rendering() else "Info all boards." )
+
+        sc = SceneCommon()
 
         for bt in BoardType.iter():
             file_path = self.get_board_file_path(bt, path_prefix=path_prefix)
-            print file_path
+            print( file_path )
 
             if self.rendering_size.needs_rendering():
-                board = Board(bt)
-                board.setup()
-                scene = Scene(board=board)
-
+                scene = sc.intro_board(bt)
                 self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # pieces
@@ -155,7 +104,9 @@ class SaveScene(object):
         piece_str = "all" if not is_rendering_one_piece else PieceType(piece_type).get_name()
 
         print
-        print "Rendering %s pieces." % piece_str if self.rendering_size.needs_rendering() else "Info %s pieces." % piece_str
+        print( "Rendering %s pieces." % piece_str if self.rendering_size.needs_rendering() else "Info %s pieces." % piece_str )
+
+        sc = SceneCommon()
 
         for bt in BoardType.iter():
             pt = piece_type or bt.get_newly_introduced_piece()
@@ -168,17 +119,16 @@ class SaveScene(object):
 
                 _bt = bt if is_rendering_one_piece else None
                 file_path = self.get_piece_file_path(pt, board_type=_bt, pieces_folder=pf, path_prefix=path_prefix)
-                print file_path
+                print( file_path )
 
                 if self.rendering_size.needs_rendering():
-                    scene = SceneCommon()
-                    scene.intro_piece(bt, piece_type=pt)
+                    scene = sc.intro_piece(bt, piece_type=pt)
 
                     self.save_scene(scene, file_path, \
-                                    size_x=self.rendering_size_item.piece_2_by_2_pix, \
-                                    size_y=self.rendering_size_item.piece_2_by_2_pix)
+                                    max_width_pix=self.rendering_size_item.piece_2_by_2_pix, \
+                                    max_height_pix=self.rendering_size_item.piece_2_by_2_pix)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # en passant
@@ -194,19 +144,19 @@ class SaveScene(object):
 
     def render_all_en_passant_scenes(self, path_prefix=None):
         print
-        print "Rendering all en passant." if self.rendering_size.needs_rendering() else "Info all en passant."
+        print( "Rendering all en passant." if self.rendering_size.needs_rendering() else "Info all en passant." )
+
+        sc = SceneCommon()
 
         for bt in BoardType.iter():
             file_path = self.get_en_passant_file_path(bt, path_prefix=path_prefix)
-            print file_path
+            print( file_path )
 
             if self.rendering_size.needs_rendering():
-                scene = SceneCommon()
-                scene.intro_en_passant(bt)
-
+                scene = sc.intro_en_passant(bt)
                 self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # rush
@@ -222,19 +172,19 @@ class SaveScene(object):
 
     def render_all_rush_scenes(self, path_prefix=None):
         print
-        print "Rendering all rush." if self.rendering_size.needs_rendering() else "Info all rush."
+        print( "Rendering all rush." if self.rendering_size.needs_rendering() else "Info all rush." )
+
+        sc = SceneCommon()
 
         for bt in BoardType.iter():
             file_path = self.get_rush_file_path(bt, path_prefix=path_prefix)
-            print file_path
+            print( file_path )
 
             if self.rendering_size.needs_rendering():
-                scene = SceneCommon()
-                scene.intro_rush(bt)
-
+                scene = sc.intro_rush(bt)
                 self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # castling
@@ -266,7 +216,9 @@ class SaveScene(object):
 
     def render_all_castling_scenes(self, move_king=None, path_prefix=None):
         print
-        print "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings."
+        print( "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings." )
+
+        sc = SceneCommon()
 
         for bt in BoardType.iter():
             king_moves = []
@@ -284,15 +236,13 @@ class SaveScene(object):
 
             for mk in king_moves:
                 file_path = self.get_castling_file_path(bt, path_prefix=path_prefix, move_king=mk)
-                print file_path
+                print( file_path )
 
                 if self.rendering_size.needs_rendering():
-                    scene = SceneCommon()
-                    scene.intro_castling(bt, move_king=mk)
-
+                    scene = sc.intro_castling(bt, move_king=mk)
                     self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
     #
     # scene
@@ -314,7 +264,7 @@ class SaveScene(object):
         name = func()
         sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
         file_path = self.get_scene_file_path(name, path_prefix=path_prefix, subfolder_name=sf_name)
-        print file_path
+        print( file_path )
 
         if self.rendering_size.needs_rendering():
             enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
@@ -323,7 +273,7 @@ class SaveScene(object):
     def render_examples(self, do_all_examples=False, path_prefix=None, enforce_cot_in_bw=False):
         _str = "all" if do_all_examples else "recent"
         print
-        print "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str
+        print( "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str )
         scene = SceneMix()
 
         scene_funcs = scene.get_all_scene_methods() \
@@ -333,7 +283,7 @@ class SaveScene(object):
         for func in scene_funcs:
             self.render_example(scene, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
 
-        print "Finished."
+        print( "Finished." )
 
 
 def test_boards():
@@ -344,6 +294,7 @@ def test_pieces():
     ss = SaveScene(RenderingSizeEnum.Draft)
     ss.render_all_pieces(path_prefix='temp/')
     ss.render_all_pieces(piece_type=PieceType.Star, path_prefix='temp/')
+    ss.render_all_pieces(piece_type=PieceType.Bishop, path_prefix='temp/')
 
 def test_en_passant():
     ss = SaveScene(RenderingSizeEnum.Draft)
@@ -355,7 +306,9 @@ def test_rush():
 
 def test_castling_init():
     ss = SaveScene(RenderingSizeEnum.Draft)
-    ss.render_all_castling_scenes(path_prefix='temp/')
+    ss.render_all_castling_scenes(path_prefix='temp/', move_king=0)
+    ss.render_all_castling_scenes(path_prefix='temp/', move_king=-2)
+    ss.render_all_castling_scenes(path_prefix='temp/', move_king=2)
 
 def test_scene_examples():
     ss = SaveScene(RenderingSizeEnum.Draft)
@@ -368,4 +321,4 @@ if __name__ == '__main__':
     test_en_passant()
     test_rush()
     test_castling_init()
-    test_scene_examples()
+    # test_scene_examples()
