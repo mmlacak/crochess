@@ -5,9 +5,7 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-DEFAULT_PATH = '../gfx/' # '../tmp/'
-
-from types import NoneType
+from consts import DEFAULT_IMAGE_FOLDER_REL_PATH
 
 from colors import Colors
 from piece import PieceType
@@ -52,7 +50,7 @@ class SaveScene(object):
         assert isinstance(board, Board)
 
         board_desc = board_desc or BoardDesc()
-        assert isinstance(board_desc, (BoardDesc, NoneType))
+        assert isinstance(board_desc, (BoardDesc, type(None)))
 
         size_x, size_y = self.normalize(size_x, size_y)
 
@@ -110,7 +108,7 @@ class SaveScene(object):
     def get_board_file_path(self, board_type, path_prefix=None, file_ext=None):
         bt = BoardType(board_type)
 
-        path_prefix = path_prefix or DEFAULT_PATH
+        path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
         index = int(bt)
@@ -139,7 +137,7 @@ class SaveScene(object):
     # pieces
 
     def get_piece_file_path(self, piece_type, board_type=None, path_prefix=None, pieces_folder='pieces', file_ext=None):
-        path_prefix = path_prefix or DEFAULT_PATH
+        path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
         is_rendering_one_piece = board_type is not None
@@ -186,7 +184,7 @@ class SaveScene(object):
     # en passant
 
     def get_en_passant_file_path(self, board_type, path_prefix=None, file_ext=None):
-        path_prefix = path_prefix or DEFAULT_PATH
+        path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
         index = int(board_type)
@@ -214,7 +212,7 @@ class SaveScene(object):
     # rush
 
     def get_rush_file_path(self, board_type, path_prefix=None, file_ext=None):
-        path_prefix = path_prefix or DEFAULT_PATH
+        path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
         index = int(board_type)
@@ -245,7 +243,7 @@ class SaveScene(object):
         bt = BoardType(board_type)
         assert isinstance(move_king, int)
 
-        path_prefix = path_prefix or DEFAULT_PATH
+        path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
         mk_str = ""
@@ -300,7 +298,7 @@ class SaveScene(object):
     # scene
 
     def get_scene_file_path(self, file_name, path_prefix=None, file_ext=None, subfolder_name=None):
-        path_prefix = path_prefix or DEFAULT_PATH
+        path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
         if subfolder_name is None:

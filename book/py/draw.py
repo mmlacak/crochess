@@ -7,12 +7,12 @@
 from math import pi
 import cairo
 
+from consts import DEFAULT_LINE_WIDTH, \
+    DEFAULT_FILE_EXT, \
+    DEFAULT_FONT_NAME, \
+    DEFAULT_FONT_SIZE
+
 from util import convert_to_tuple
-from def_mark import DEFAULT_FONT, DEFAULT_FONT_SIZE
-
-
-DEFAULT_LINE_WIDTH = 0.019
-DEFAULT_FILE_EXT = '.png'
 
 
 class Draw:
@@ -111,7 +111,7 @@ class Draw:
         self.draw_arc(x+rel_x, y+rel_y, radius, angle1=angle1, angle2=angle2, interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
     def draw_text(self, x, y, text, \
-                  font_family=DEFAULT_FONT, \
+                  font_family=DEFAULT_FONT_NAME, \
                   slant=cairo.FontSlant.NORMAL, \
                   weight=cairo.FontWeight.BOLD, \
                   size=DEFAULT_FONT_SIZE, \

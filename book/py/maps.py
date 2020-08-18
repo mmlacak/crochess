@@ -27,18 +27,18 @@ if __name__ == '__main__':
     print
     # m = Map({'foo' : 11, 'bar' : 42, 'baz' : 77})
     m = Map(foo=11, bar=42, baz=77)
-    print m
+    print( m )
 
     print
     m.new = 33
-    print m
+    print( m )
 
     print
     m.foo = 99
-    print m
+    print( m )
 
     print
     del m.bar
-    print m
+    print( m )
 
     print

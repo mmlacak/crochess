@@ -5,13 +5,12 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
+from consts import DEFAULT_LINE_WIDTH
+
 from pixel_math import scale_translate, Rectangle
 from piece import PieceType
 from colors import ColorsPair, ColorsPiece, ColorsItem
-from draw import Draw, DEFAULT_LINE_WIDTH
-
-
-PIECE_WITH_CHIP_TRANSLATION = 0.11
+from draw import Draw
 
 
 class DrawPiece(Draw):

@@ -5,17 +5,14 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
+from consts import DEFAULT_ARROW_INVERSE_WIDTH_RATIO, \
+    DEFAULT_ARROW_POINTY_BIT_RATIO, \
+    DEFAULT_FONT_NAME, \
+    DEFAULT_FONT_SIZE_INVERSE_RATIO, \
+    DEFAULT_FONT_SIZE, \
+    DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
+
 from board import BoardType
-
-
-DEFAULT_ARROW_INVERSE_WIDTH_RATIO = 12.0 # Compared to field size.
-DEFAULT_ARROW_POINTY_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
-
-DEFAULT_FONT = 'sans' # "sans bold"
-DEFAULT_FONT_SIZE_INVERSE_RATIO = 5.0 # Compared to field size.
-DEFAULT_FONT_SIZE = 1.0 / DEFAULT_FONT_SIZE_INVERSE_RATIO
-
-DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO = 5.0 # Compared to field size.
 
 
 class FontDef(object):

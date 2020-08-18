@@ -5,10 +5,11 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
+from consts import DEFAULT_LINE_WIDTH
+
 from board import Board
 from colors import ColorsItem
 from def_mark import MarkDefItem
-from draw import DEFAULT_LINE_WIDTH
 from board_view import BoardView
 from draw_mark import DrawMark
 from scene import Scene

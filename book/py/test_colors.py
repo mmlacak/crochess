@@ -16,11 +16,11 @@ class TestColors(SaveScene):
 
     def save_colors(self, path_prefix=None):
         print
-        print "Test colors on all boards."
+        print( "Test colors on all boards." )
 
         for bt in BoardType.iter():
             file_path = self.get_board_file_path(bt, path_prefix=path_prefix)
-            print file_path
+            print( file_path )
 
             if self.rendering_size.needs_rendering():
                 board = Board(bt)
@@ -43,7 +43,7 @@ class TestColors(SaveScene):
 
                 self.save_scene(scene, file_path)
 
-        print "Finished."
+        print( "Finished." )
 
 
 def test_colors():

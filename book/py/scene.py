@@ -5,17 +5,17 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
+from consts import DEFAULT_FONT_SIZE, DEFAULT_FONT_SPACER
+
 from util import xor
 import pixel_math as pm
 from coords import Pos, RectPos
 from corner import Corner
 from board import BoardType, Board
 from board_view import BoardView
-from def_mark import DEFAULT_FONT_SIZE
 from mark import MarkType, Arrow, Text, FieldMarker
 
 
-DEFAULT_FONT_SPACER = 0.005
 DEFAULT_CORNER_MARGINS = RectPos( 0.0 + 2 * DEFAULT_FONT_SPACER, \
                                   1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
                                   1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
