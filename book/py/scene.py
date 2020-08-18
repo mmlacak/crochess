@@ -8,10 +8,18 @@
 from util import xor
 import pixel_math as pm
 from coords import Pos, RectPos
-from corner import Corner, get_func_get_text_position
+from corner import Corner # , get_func_get_text_position
 from board import BoardType, Board
 from board_view import BoardView
+from def_mark import DEFAULT_FONT_SIZE
 from mark import MarkType, Arrow, Text, FieldMarker
+
+
+DEFAULT_FONT_SPACER = 0.005
+DEFAULT_CORNER_MARGINS = RectPos( 0.0 + 2 * DEFAULT_FONT_SPACER, \
+                                  1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
+                                  1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
+                                  0.0 + 2 * DEFAULT_FONT_SPACER ) # left, top, right, bottom
 
 
 def get_coord_offset(coord, offset=0.5):
@@ -75,6 +83,26 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     return [start_x_off, start_y_off, end_x_off, end_y_off]
 
 
+
+def get_func_get_text_position(left=DEFAULT_CORNER_MARGINS.left, \
+                               top=DEFAULT_CORNER_MARGINS.top, \
+                               right=DEFAULT_CORNER_MARGINS.right, \
+                               bottom=DEFAULT_CORNER_MARGINS.bottom):
+
+    def get_text_position(pos_i, pos_j, corner):
+        crnr = Corner(corner)
+
+        if crnr.is_position():
+            return (float(pos_i), float(pos_j))
+
+        x = left if crnr.is_left() else right
+        y = top if crnr.is_upper() else bottom
+
+        return (float(pos_i + x), float(pos_j + y))
+
+    return get_text_position
+
+
 class Scene:
 
     def __init__(self, file_name, board_type, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_view=None, *args, **kwargs):
@@ -98,7 +126,7 @@ class Scene:
     def new_text(self, txt, pos_i, pos_j, \
                  corner=Corner(Corner.UpperLeft), \
                  mark_type=MarkType(MarkType.Legal), \
-                 rect=(0.05, 0.75, 0.7, 0.05)):
+                 rect=DEFAULT_CORNER_MARGINS):
         # assert isinstance(txt, str)
         assert isinstance(pos_i, (int, float))
         assert isinstance(pos_j, (int, float))
@@ -111,10 +139,8 @@ class Scene:
         crnr = Corner(corner)
         left, top, right, bottom = rect.as_tuple() if isinstance(rect, RectPos) else rect
 
-# TODO :: move text pos calc to draw_scene, use text size for re-calc from int pos
         get_text_position = get_func_get_text_position(left=left, top=top, right=right, bottom=bottom)
         pos_x, pos_y = get_text_position(pos_i, pos_j, crnr)
-# TODO :: move text pos calc to draw_scene, use text size for re-calc from int pos
 
         txt_mark = Text(txt, pos_x, pos_y, mark_type=mark_type)
 
@@ -123,7 +149,7 @@ class Scene:
     def append_text(self, txt, pos_i, pos_j, \
                     corner=Corner(Corner.UpperLeft), \
                     mark_type=MarkType(MarkType.Legal), \
-                    rect=(0.05, 0.75, 0.7, 0.05)):
+                    rect=DEFAULT_CORNER_MARGINS):
 
         txt_mark = self.new_text(txt, pos_i, pos_j, corner=corner, mark_type=mark_type, rect=rect)
         self.texts.append(txt_mark)
@@ -133,7 +159,7 @@ class Scene:
     def replace_text(self, txt, pos_i, pos_j, \
                      corner=Corner(Corner.UpperLeft), \
                      mark_type=MarkType(MarkType.Legal), \
-                     rect=(0.05, 0.75, 0.7, 0.05)):
+                     rect=DEFAULT_CORNER_MARGINS):
 
         txt_mark = self.new_text(txt, pos_i, pos_j, corner=corner, mark_type=mark_type, rect=rect)
 

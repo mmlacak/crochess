@@ -120,33 +120,6 @@ class DrawBoard(DrawPiece):
         self.draw_all_pieces(colors_item)
         self.reset_clip()
 
-    # def convert_field_width_to_pixel(self, x):
-    #     if isinstance(x, float):
-    #         return x * self.field_size_in_pix
-    #     return x
-
-    # def convert_field_height_to_pixel(self, y):
-    #     if isinstance(y, float):
-    #         y_reverse = self.board.get_height() - y # - 1.0
-    #         return y_reverse * self.field_size_in_pix
-    #     return y
-
-    # def convert_field_x_to_pixel(self, x):
-    #     if isinstance(x, float):
-    #         return self.board_left_pix + x * self.field_size_in_pix
-    #     return x
-
-    # def convert_field_y_to_pixel(self, y):
-    #     if isinstance(y, float):
-    #         y_reverse = self.board.get_height() - y # - 1.0
-    #         return self.board_top_pix + y_reverse * self.field_size_in_pix
-    #     return y
-
-    # def convert_field_coords_to_pixel(self, x, y):
-    #     x_pix = self.convert_field_x_to_pixel(x)
-    #     y_pix = self.convert_field_y_to_pixel(y)
-    #     return (x_pix, y_pix)
-
     def convert_field_to_user_coords(self, x, y):
         _x = self.board_view.margin.left + x - self.board_view.x
         _y = self.board_view.margin.top + self.board_view.height - y + self.board_view.y

@@ -8,6 +8,7 @@ from math import pi
 import cairo
 
 from util import convert_to_tuple
+from def_mark import DEFAULT_FONT, DEFAULT_FONT_SIZE
 
 
 DEFAULT_LINE_WIDTH = 0.019
@@ -109,7 +110,14 @@ class Draw:
     def draw_arc_pos(self, x, y, radius, rel_x=0.5, rel_y=0.5, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
         self.draw_arc(x+rel_x, y+rel_y, radius, angle1=angle1, angle2=angle2, interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def draw_text(self, x, y, text, font_family="sans", slant=cairo.FontSlant.NORMAL, weight=cairo.FontWeight.BOLD, size=0.2, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
+    def draw_text(self, x, y, text, \
+                  font_family=DEFAULT_FONT, \
+                  slant=cairo.FontSlant.NORMAL, \
+                  weight=cairo.FontWeight.BOLD, \
+                  size=DEFAULT_FONT_SIZE, \
+                  interior_str=None, \
+                  outline_str=None, \
+                  line_width=DEFAULT_LINE_WIDTH):
         self.context.select_font_face(font_family, slant, weight)
         self.context.set_font_size(size)
 

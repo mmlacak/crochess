@@ -12,8 +12,8 @@ DEFAULT_ARROW_INVERSE_WIDTH_RATIO = 12.0 # Compared to field size.
 DEFAULT_ARROW_POINTY_BIT_RATIO = 1.5 # Compared to arrow width. # 80.0
 
 DEFAULT_FONT = 'sans' # "sans bold"
-# DEFAULT_FONT_SIZE = 0.2
 DEFAULT_FONT_SIZE_INVERSE_RATIO = 5.0 # Compared to field size.
+DEFAULT_FONT_SIZE = 1.0 / DEFAULT_FONT_SIZE_INVERSE_RATIO
 
 DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO = 5.0 # Compared to field size.
 
@@ -32,12 +32,6 @@ class FontDef(object):
     @staticmethod
     def from_tuple(tpl):
         return FontDef( *tpl[ 0 : 2 ] )
-
-    # def get_font(self, field_size_pix):
-    #     assert isinstance(field_size_pix, int)
-
-    #     size = int( field_size_pix / self.inv_size_ratio )
-    #     return "%s %d" % (self.name, size)
 
 
 class ArrowDef(object):

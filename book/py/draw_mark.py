@@ -110,15 +110,25 @@ class DrawMark(DrawBoard):
     #
     # text
 
+    def get_font_def(self, fdef=None):
+        assert isinstance(fdef, (dm.FontDef, type(None)))
+
+        _fdef = fdef or dm.MarkDef[ self.board.type ].font_def
+        return _fdef
+
+    def get_font_size(self, fdef=None):
+        _fdef = self.get_font_def(fdef=fdef)
+        size = 1.0 / _fdef.inv_size_ratio
+        return size
+
     def draw_text(self, text, cpair, fdef=None):
         assert isinstance(text, Text)
         assert isinstance(cpair, ColorsPair)
-        assert isinstance(fdef, (dm.FontDef, type(None)))
 
         x, y = self.convert_field_to_user_coords( *text.pos )
 
-        _fdef = fdef or dm.MarkDef[ self.board.type ].font_def
-        size = 1.0 / _fdef.inv_size_ratio
+        _fdef = self.get_font_def(fdef=fdef)
+        size = self.get_font_size(fdef=fdef)
 
         Draw.draw_text(self, x, y, text.text, font_family=_fdef.name, size=size, interior_str=cpair.interior, outline_str=cpair.outline)
 
@@ -229,7 +239,7 @@ def test_2(board_type=BoardType.CroatianTies, board_view=None, name=''):
     ci = Colors[ bt ]
     d.draw_board(colors_item=ci)
 
-    fdef = dm.FontDef('sans bold', 1.0) # 3.5)
+    fdef = dm.FontDef('sans bold', 2.0) # 3.5)
     txts = [ Text("l1", 1.7, 2.3, mark_type=MarkType(MarkType.Legal)), \
              Text("i1", 6.7, 4.3, mark_type=MarkType(MarkType.Illegal)), \
              Text("a1", 2.7, 6.3, mark_type=MarkType(MarkType.Action)), \
@@ -238,7 +248,7 @@ def test_2(board_type=BoardType.CroatianTies, board_view=None, name=''):
              Text("MM", 4.3, 6.4, mark_type=MarkType(MarkType.Blocked)), ]
     d.draw_all_texts(txts, fdef=fdef, cmark=ci.text)
 
-    fdef2 = dm.FontDef('sans bold', 2.0) # # 4.5)
+    fdef2 = dm.FontDef('sans bold', 1.0) # # 4.5)
     txts2 = [ Text("l2", 1, 2, mark_type=MarkType(MarkType.Legal)), \
               Text("i2", 3, 9, mark_type=MarkType(MarkType.Illegal)), \
               Text("a2", 6, 5, mark_type=MarkType(MarkType.Action)), \

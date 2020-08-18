@@ -46,20 +46,3 @@ class Corner(int):
 
     def is_lower(self):
         return self in [Corner.LowerLeft, Corner.LowerRight]
-
-
-# TODO :: DELETE !!!
-def get_func_get_text_position(left=0.05, top=0.65, right=0.7, bottom=0.05):
-    def get_text_position(pos_i, pos_j, corner):
-        crnr = Corner(corner)
-
-        if crnr.is_position():
-            return (float(pos_i), float(pos_j))
-
-        x = left if crnr.is_left() else right
-        y = top if crnr.is_upper() else bottom
-
-        return (float(pos_i + x), float(pos_j + y))
-
-    return get_text_position
-# TODO :: DELETE !!!
