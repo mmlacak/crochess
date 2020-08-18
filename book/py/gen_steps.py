@@ -308,14 +308,14 @@ def gen_items(items, count=None):
                     if count is None or i < count:
                         yield item
                         i += 1
-                    else: # TODO :: TEST !!!!!!!!!!!!!!!
+                    else:
                         return
             else:
                 for item in items:
                     if count is None or i < count:
                         yield item
                         i += 1
-                    else: # TODO :: TEST !!!!!!!!!!!!!!!
+                    else:
                         return
 
     return _gen_items

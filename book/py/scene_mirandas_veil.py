@@ -1156,7 +1156,7 @@ class SceneMirandasVeilMixin(Scene):
         start_W = start_U = (4, 3)
         self.board.set_piece(*start_U, piece=PieceType.Unicorn)
 
-        coords = GS.gen_multi_steps( [ [(-2, 1), (3, 2)], ], start=start_W, include_prev=True, bounds=self.board.get_position_limits() )
+        coords = GS.gen_multi_steps( [ [(-2, 1), (3, 2)], ], start=start_W, include_prev=True, bounds=self.board_view.get_position_limits() )
         for i, step in enumerate( coords() ):
             if i in [0, 1]:
                 self.append_arrow( *step, mark_type=MarkType.Action )

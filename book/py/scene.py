@@ -5,7 +5,9 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
-from consts import DEFAULT_FONT_SIZE, DEFAULT_FONT_SPACER
+from consts import  DEFAULT_FONT_SIZE, \
+                    DEFAULT_FONT_SPACER, \
+                    DEFAULT_FIELD_MARKER_SIZE
 
 from util import xor
 import pixel_math as pm
@@ -20,6 +22,11 @@ DEFAULT_CORNER_MARGINS = RectPos( 0.0 + 2 * DEFAULT_FONT_SPACER, \
                                   1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
                                   1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
                                   0.0 + 2 * DEFAULT_FONT_SPACER ) # left, top, right, bottom
+
+DEFAULT_CORNER_MARGINS_WITH_FIELD_MARKER = RectPos( 0.0 + 2 * DEFAULT_FONT_SPACER + DEFAULT_FIELD_MARKER_SIZE, \
+                                                    1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE, \
+                                                    1.0 - DEFAULT_FONT_SPACER - DEFAULT_FONT_SIZE - DEFAULT_FIELD_MARKER_SIZE, \
+                                                    0.0 + 2 * DEFAULT_FONT_SPACER ) # left, top, right, bottom
 
 
 def get_coord_offset(coord, offset=0.5):
@@ -83,14 +90,11 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     return [start_x_off, start_y_off, end_x_off, end_y_off]
 
 
-def get_func_get_text_position(left=DEFAULT_CORNER_MARGINS.left, \
-                               top=DEFAULT_CORNER_MARGINS.top, \
-                               right=DEFAULT_CORNER_MARGINS.right, \
-                               bottom=DEFAULT_CORNER_MARGINS.bottom):
-    assert isinstance(left, float)
-    assert isinstance(top, float)
-    assert isinstance(right, float)
-    assert isinstance(bottom, float)
+def get_func_get_text_position(left=None, top=None, right=None, bottom=None):
+    assert isinstance(left, (float, type(None)))
+    assert isinstance(top, (float, type(None)))
+    assert isinstance(right, (float, type(None)))
+    assert isinstance(bottom, (float, type(None)))
 
     def get_text_position(pos_i, pos_j, corner):
         assert isinstance(pos_i, (int, float))
@@ -101,8 +105,15 @@ def get_func_get_text_position(left=DEFAULT_CORNER_MARGINS.left, \
         if crnr.is_position():
             return (float(pos_i), float(pos_j))
 
-        x = left if crnr.is_left() else right
-        y = top if crnr.is_upper() else bottom
+        _default = DEFAULT_CORNER_MARGINS_WITH_FIELD_MARKER if crnr.is_with_field_marker() else DEFAULT_CORNER_MARGINS
+
+        _left = left if left is not None else _default.left
+        _top = top if top is not None else _default.top
+        _right = right if right is not None else _default.right
+        _bottom = bottom if bottom is not None else _default.bottom
+
+        x = _left if crnr.is_left() else _right
+        y = _top if crnr.is_upper() else _bottom
 
         return (float(pos_i + x), float(pos_j + y))
 
@@ -132,18 +143,20 @@ class Scene:
     def new_text(self, txt, pos_i, pos_j, \
                  corner=Corner(Corner.UpperLeft), \
                  mark_type=MarkType(MarkType.Legal), \
-                 rect=DEFAULT_CORNER_MARGINS):
+                 rect=None):
         # assert isinstance(txt, str)
         assert isinstance(pos_i, (int, float))
         assert isinstance(pos_j, (int, float))
         # assert isinstance(corner, (Corner, int))
         # assert isinstance(mark_type, MarkType)
-        assert isinstance(rect, (tuple, RectPos))
+        assert isinstance(rect, (tuple, RectPos, type(None)))
 
         assert type(pos_i) is type(pos_j)
 
         crnr = Corner(corner)
-        left, top, right, bottom = rect.as_tuple() if isinstance(rect, RectPos) else rect
+        _default = DEFAULT_CORNER_MARGINS_WITH_FIELD_MARKER if crnr.is_with_field_marker() else DEFAULT_CORNER_MARGINS
+        _rect = rect if rect is not None else _default
+        left, top, right, bottom = _rect.as_tuple() if isinstance(_rect, RectPos) else _rect
 
         get_text_position = get_func_get_text_position(left=left, top=top, right=right, bottom=bottom)
         pos_x, pos_y = get_text_position(pos_i, pos_j, crnr)
@@ -155,7 +168,7 @@ class Scene:
     def append_text(self, txt, pos_i, pos_j, \
                     corner=Corner(Corner.UpperLeft), \
                     mark_type=MarkType(MarkType.Legal), \
-                    rect=DEFAULT_CORNER_MARGINS):
+                    rect=None):
 
         txt_mark = self.new_text(txt, pos_i, pos_j, corner=corner, mark_type=mark_type, rect=rect)
         self.texts.append(txt_mark)
@@ -165,7 +178,7 @@ class Scene:
     def replace_text(self, txt, pos_i, pos_j, \
                      corner=Corner(Corner.UpperLeft), \
                      mark_type=MarkType(MarkType.Legal), \
-                     rect=DEFAULT_CORNER_MARGINS):
+                     rect=None):
 
         txt_mark = self.new_text(txt, pos_i, pos_j, corner=corner, mark_type=mark_type, rect=rect)
 

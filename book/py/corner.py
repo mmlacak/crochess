@@ -7,10 +7,16 @@
 
 class Corner(int):
     Position = 0
+
     UpperLeft = 1
     UpperRight = 2
     LowerLeft = 3
     LowerRight = 4
+
+    UpperLeftFieldMarker = 5
+    UpperRightFieldMarker = 6
+    LowerLeftFieldMarker = 7
+    LowerRightFieldMarker = 8
 
     def __new__(cls, value):
         if Corner._is_valid(value):
@@ -24,7 +30,11 @@ class Corner(int):
                 Corner.UpperLeft, \
                 Corner.UpperRight, \
                 Corner.LowerLeft, \
-                Corner.LowerRight ]
+                Corner.LowerRight, \
+                Corner.UpperLeftFieldMarker, \
+                Corner.UpperRightFieldMarker, \
+                Corner.LowerLeftFieldMarker, \
+                Corner.LowerRightFieldMarker ]
 
         return [ Corner(c) if do_construct else c for c in lst ]
 
@@ -35,14 +45,17 @@ class Corner(int):
     def is_position(self):
         return self == Corner.Position
 
+    def is_with_field_marker(self):
+        return self in [Corner.UpperLeftFieldMarker, Corner.UpperRightFieldMarker, Corner.LowerLeftFieldMarker, Corner.LowerRightFieldMarker]
+
     def is_left(self):
-        return self in [Corner.LowerLeft, Corner.UpperLeft]
+        return self in [Corner.LowerLeft, Corner.UpperLeft, Corner.LowerLeftFieldMarker, Corner.UpperLeftFieldMarker]
 
     def is_right(self):
-        return self in [Corner.LowerRight, Corner.UpperRight]
+        return self in [Corner.LowerRight, Corner.UpperRight, Corner.LowerRightFieldMarker, Corner.UpperRightFieldMarker]
 
     def is_upper(self):
-        return self in [Corner.UpperLeft, Corner.UpperRight]
+        return self in [Corner.UpperLeft, Corner.UpperRight, Corner.UpperLeftFieldMarker, Corner.UpperRightFieldMarker]
 
     def is_lower(self):
-        return self in [Corner.LowerLeft, Corner.LowerRight]
+        return self in [Corner.LowerLeft, Corner.LowerRight, Corner.LowerLeftFieldMarker, Corner.LowerRightFieldMarker]

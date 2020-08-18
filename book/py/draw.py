@@ -10,7 +10,8 @@ import cairo
 from consts import DEFAULT_LINE_WIDTH, \
     DEFAULT_FILE_EXT, \
     DEFAULT_FONT_NAME, \
-    DEFAULT_FONT_SIZE
+    DEFAULT_FONT_SIZE, \
+    DEFAULT_TEXT_OUTLINE_WIDTH
 
 from util import convert_to_tuple
 
@@ -117,7 +118,7 @@ class Draw:
                   size=DEFAULT_FONT_SIZE, \
                   interior_str=None, \
                   outline_str=None, \
-                  line_width=DEFAULT_LINE_WIDTH):
+                  line_width=DEFAULT_TEXT_OUTLINE_WIDTH):
         self.context.select_font_face(font_family, slant, weight)
         self.context.set_font_size(size)
 

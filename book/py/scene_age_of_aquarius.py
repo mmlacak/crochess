@@ -25,7 +25,7 @@ class SceneAgeOfAquariusMixin(Scene):
         start = (2, 2)
         self.board.set_piece(*start, piece=PieceType.Unicorn)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=self.board.get_position_limits())
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=self.board_view.get_position_limits())
 
         i = 1
         for pos in gen_abs_pos():

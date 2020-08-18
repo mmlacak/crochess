@@ -9,12 +9,13 @@ from consts import  DEFAULT_LINE_WIDTH, \
                     DEFAULT_IMAGE_FOLDER_REL_PATH, \
                     DEFAULT_FILE_EXT
 
+from pixel_math import assert_floor_2
 from colors import Colors
 from piece import PieceType
 from board import BoardType, Board
 from scene import Scene
 from scene_common import SceneCommon
-# from scene_mix import SceneMix
+from scene_mix import SceneMix
 
 from draw_scene import DrawScene
 from def_mark import MarkDef
@@ -32,16 +33,25 @@ class SaveScene:
         self.rendering_size = RenderingSizeEnum(rendering_size)
         self.rendering_size_item = get_rendering_size_item(self.rendering_size)
 
-    def get_default_size_pix(self, max_width_pix=None, max_height_pix=None):
-        w = max_width_pix if max_width_pix is not None else self.rendering_size_item.board_width_pix
-        h = max_height_pix if max_height_pix is not None else self.rendering_size_item.board_max_height_pix
-        return (w, h)
+    def get_default_size_pix(self, scene, max_width_pix=None, max_height_pix=None):
+        assert isinstance(scene, Scene)
+
+        w_pix = max_width_pix if max_width_pix is not None else self.rendering_size_item.board_width_pix
+        h_pix = max_height_pix if max_height_pix is not None else self.rendering_size_item.board_max_height_pix
+
+        assert isinstance(w_pix, int) and w_pix > 0
+        assert isinstance(h_pix, int) and h_pix > 0
+
+        w = w_pix * scene.board_view.width / scene.board.get_width()
+        h = h_pix * scene.board_view.height / scene.board.get_height()
+
+        return assert_floor_2(w, h)
 
     def save_scene(self, scene, file_path, max_width_pix=None, max_height_pix=None, line_width=DEFAULT_LINE_WIDTH, enforce_bw=False):
         assert isinstance(scene, Scene)
         assert isinstance(file_path, str)
 
-        w_pix, h_pix = self.get_default_size_pix(max_width_pix=max_width_pix, max_height_pix=max_height_pix)
+        w_pix, h_pix = self.get_default_size_pix(scene, max_width_pix=max_width_pix, max_height_pix=max_height_pix)
 
         colors_item = Colors.fetch_colors(scene.board.type, enforce_bw=enforce_bw)
         mark_def_item = MarkDef[ scene.board.type ]
@@ -257,13 +267,13 @@ class SaveScene:
             return '%s/examples/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
 
     def render_example(self, scene, func, path_prefix=None, enforce_cot_in_bw=False):
-        assert isinstance(scene, Scene)
+        assert isinstance(scene, SceneMix)
         assert callable(func)
         assert isinstance(enforce_cot_in_bw, bool)
 
-        name = func()
+        scene = func()
         sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
-        file_path = self.get_scene_file_path(name, path_prefix=path_prefix, subfolder_name=sf_name)
+        file_path = self.get_scene_file_path(scene.file_name, path_prefix=path_prefix, subfolder_name=sf_name)
         print( file_path )
 
         if self.rendering_size.needs_rendering():
@@ -274,14 +284,14 @@ class SaveScene:
         _str = "all" if do_all_examples else "recent"
         print()
         print( "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str )
-        scene = SceneMix()
+        sm = SceneMix()
 
-        scene_funcs = scene.get_all_scene_methods() \
+        scene_funcs = sm.get_all_scene_methods() \
                       if do_all_examples \
-                      else scene.get_recent_scene_methods()
+                      else sm.get_recent_scene_methods()
 
         for func in scene_funcs:
-            self.render_example(scene, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
+            self.render_example(sm, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
 
         print( "Finished." )
 
@@ -312,13 +322,14 @@ def test_castling_init():
 
 def test_scene_examples():
     ss = SaveScene(RenderingSizeEnum.Draft)
-    ss.render_examples(do_all_examples=True, path_prefix='temp/')
+    # ss.render_examples(do_all_examples=True, path_prefix='temp/') # TODO :: DEBUG :: UNCOMMENT !!!
+    ss.render_examples(do_all_examples=False, path_prefix='temp/') # TODO :: DEBUG :: DELETE !!!
 
 
 if __name__ == '__main__':
-    test_boards()
-    test_pieces()
-    test_en_passant()
-    test_rush()
-    test_castling_init()
-    # test_scene_examples()
+    # test_boards()
+    # test_pieces()
+    # test_en_passant()
+    # test_rush()
+    # test_castling_init()
+    test_scene_examples()

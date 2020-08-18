@@ -147,35 +147,35 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         # (2, 1) ------------------------------------------------------------------------------------------------------------------
 
-        gen_pos = GS.gen_steps([(2, 1), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_steps([(2, 1), ], start=start, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos )
 
         # (-1, 2) ------------------------------------------------------------------------------------------------------------------
 
-        gen_pos = GS.gen_steps([(-1, 2), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_steps([(-1, 2), ], start=start, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos )
 
         # (-2, 1) ------------------------------------------------------------------------------------------------------------------
 
-        gen_pos = GS.gen_steps([(-2, 1), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_steps([(-2, 1), ], start=start, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos )
 
         # (-2, -1) ------------------------------------------------------------------------------------------------------------------
 
-        gen_pos = GS.gen_steps([(-2, -1), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_steps([(-2, -1), ], start=start, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos )
 
         # (-1, -2) ------------------------------------------------------------------------------------------------------------------
 
-        gen_pos = GS.gen_steps([(-1, -2), ], start=start, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_steps([(-1, -2), ], start=start, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos )
@@ -335,7 +335,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         self.board.set_piece(*GS.add(start, (12, -3)), piece=-PieceType.Pawn)
 
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-1, -4), (1, -4), (3, 2), (4, 1), (2, 3), ] ) )
-        gen_pos = GS.gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos, mark_type=MarkType.Blocked )
@@ -414,7 +414,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # empty -------------------------------------------------------------------------------------------------------------------
 
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(1, 4), (2, 3), (2, -3), (3, -2)] ) )
-        gen_pos = GS.gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos )
@@ -513,7 +513,7 @@ class SceneConquestOfTlalocanMixin(Scene):
         # empty -------------------------------------------------------------------------------------------------------------------
 
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, [(-2, 1), (-2, -1), (2, 1), (1, 2), (2, -1)] ) )
-        gen_pos = GS.gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos, mark_type=MarkType.Blocked )
@@ -556,7 +556,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         start_W = (15, 12)
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(4, 1), (2, 3)] ) ) # (-4, -1),
-        gen_pos = GS.gen_multi_steps(multi_rels, start=start_W, include_prev=True, bounds=self.board.get_position_limits())
+        gen_pos = GS.gen_multi_steps(multi_rels, start=start_W, include_prev=True, bounds=self.board_view.get_position_limits())
 
         for pos in gen_pos():
             self.append_arrow( *pos )
@@ -859,7 +859,7 @@ class SceneConquestOfTlalocanMixin(Scene):
 
         self.append_text("S", *start, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.05, 1.0, 0.6, 0.45))
 
-        aba = self.append_broken_arrow(start, rel, bounds=self.board.get_position_limits(), count=8)
+        aba = self.append_broken_arrow(start, rel, bounds=self.board_view.get_position_limits(), count=8)
 
         aba("1", mark_type=MarkType.Legal)
         aba("2", mark_type=MarkType.Action)

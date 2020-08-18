@@ -15,25 +15,23 @@ from corner import Corner
 from scene import Scene
 
 
-class SceneCroatianTiesMixin(Scene):
+class SceneCroatianTiesMixin:
 
     def scn_ct_01_pegasus_initial(self, bt=BoardType.CroatianTies):
         # move_pegasus_initial
 
-        self.init_scene(bt, width=5, height=5)
+        scene = Scene('scn_ct_01_pegasus_initial', bt, x=1.0, y=0.0, width=5, height=5)
 
-        start = (2, 2)
-        self.board.set_piece(*start, piece=PieceType.Pegasus)
+        start = (3, 2)
+        scene.board.set_piece(*start, piece=PieceType.Pegasus)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=self.board.get_position_limits())
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=scene.board_view.get_position_limits())
 
-        i = 1
-        for pos in gen_abs_pos():
-            self.append_field_marker(*pos)
-            self.append_text(str(i), *pos, corner=Corner.UpperLeft, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_field_marker(*pos)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker)
 
-        return 'scn_ct_01_pegasus_initial'
+        return scene
 
     def scn_ct_02_pegasus_direction(self, bt=BoardType.CroatianTies):
         # move_pegasus_direction

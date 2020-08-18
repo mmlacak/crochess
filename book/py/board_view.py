@@ -55,6 +55,9 @@ class BoardView:
         self.reverse_off_board_field_colors = reverse_off_board_field_colors
         self.margin = margin if margin is not None else Margin()
 
+    def get_position_limits(self):
+        return ((self.x, self.y), (self.x + self.width, self.y + self.height))
+
     def as_tuple(self):
         return (self.x, self.y, self.width, self.height, self.reverse_off_board_field_colors, self.margin)
 

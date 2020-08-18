@@ -268,7 +268,7 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(*startG, piece=PieceType.Pegasus)
         self.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
-        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True, bounds=self.board.get_position_limits())
+        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True, bounds=self.board_view.get_position_limits())
         for index, coords in enumerate( gen_coords() ):
             mark_type = MarkType.Legal
             if index in [0, 2]:
@@ -310,11 +310,11 @@ class SceneNineteenMixin(Scene):
         self.board.set_piece(16, 17, piece=PieceType.Bishop)
         self.board.set_piece(*startG, piece=PieceType.Pegasus)
 
-        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=False, bounds=self.board.get_position_limits())
+        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=False, bounds=self.board_view.get_position_limits())
         for index, coords in enumerate( gen_coords() ):
             self.board.set_piece(*coords, piece=-PieceType.Pawn)
 
-        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True, bounds=self.board.get_position_limits())
+        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True, bounds=self.board_view.get_position_limits())
         for index, coords in enumerate( gen_coords() ):
             self.append_arrow( *coords, mark_type=MarkType.Blocked )
 
