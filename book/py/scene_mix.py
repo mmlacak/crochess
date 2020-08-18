@@ -29,7 +29,8 @@ class SceneMix(SceneCroatianTiesMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_ct_01_pegasus_initial', \
+                    # 'scn_ct_01_pegasus_initial', \
+                    'scn_ct_02_pegasus_direction', \
                 ]
 
     def _get_all_scene_method_names(self):
