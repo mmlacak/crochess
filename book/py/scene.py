@@ -8,7 +8,7 @@
 from util import xor
 import pixel_math as pm
 from coords import Pos, RectPos
-from corner import Corner # , get_func_get_text_position
+from corner import Corner
 from board import BoardType, Board
 from board_view import BoardView
 from def_mark import DEFAULT_FONT_SIZE
@@ -83,13 +83,19 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     return [start_x_off, start_y_off, end_x_off, end_y_off]
 
 
-
 def get_func_get_text_position(left=DEFAULT_CORNER_MARGINS.left, \
                                top=DEFAULT_CORNER_MARGINS.top, \
                                right=DEFAULT_CORNER_MARGINS.right, \
                                bottom=DEFAULT_CORNER_MARGINS.bottom):
+    assert isinstance(left, float)
+    assert isinstance(top, float)
+    assert isinstance(right, float)
+    assert isinstance(bottom, float)
 
     def get_text_position(pos_i, pos_j, corner):
+        assert isinstance(pos_i, (int, float))
+        assert isinstance(pos_j, (int, float))
+
         crnr = Corner(corner)
 
         if crnr.is_position():

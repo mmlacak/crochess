@@ -41,6 +41,7 @@ class DrawScene(DrawMark):
         self.draw_all_texts(self.scene.texts, fdef=fdef, cmark=colors_item.text)
 
 
+TEST_BOARD_SIZE_PIX = 1200
 TEST_FIELD_SIZE_PIX = 200 # 100 # 400
 
 def test_scene(func_name, board_desc=None, name='', include_odd=False, *args, **kwargs):
@@ -50,10 +51,16 @@ def test_scene(func_name, board_desc=None, name='', include_odd=False, *args, **
     for bt in BoardType.iter(include_none=False, include_even=True, include_odd=include_odd):
         scene = func(bt, *args, **kwargs)
 
-        w = scene.board_view.width * TEST_FIELD_SIZE_PIX
-        h = scene.board_view.height * TEST_FIELD_SIZE_PIX
+        if func_name == 'intro_board':
+            w = TEST_BOARD_SIZE_PIX
+            h = TEST_BOARD_SIZE_PIX
+            fs_px = w / scene.board_view.width
+        else:
+            w = scene.board_view.width * TEST_FIELD_SIZE_PIX
+            h = scene.board_view.height * TEST_FIELD_SIZE_PIX
+            fs_px = TEST_FIELD_SIZE_PIX
 
-        ds = DrawScene(scene, w, h, TEST_FIELD_SIZE_PIX)
+        ds = DrawScene(scene, w, h, fs_px)
 
         ci = Colors[ bt ]
         ds.draw_scene(ci)
@@ -74,3 +81,4 @@ if __name__ == '__main__':
     test_scene('intro_castling', move_king=2, name='2')
     test_scene('intro_en_passant')
     test_scene('intro_rush')
+    test_scene('intro_board')

@@ -29,6 +29,14 @@ class SceneCommon:
 
         return scene
 
+    def intro_board(self, bt, piece_type=None):
+        bt = BoardType(bt)
+        scene = Scene('intro_board', bt)
+
+        scene.board.setup()
+
+        return scene
+
     def intro_castling(self, bt, move_king=0):
         assert isinstance(move_king, int)
 
