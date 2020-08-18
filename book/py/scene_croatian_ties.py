@@ -84,7 +84,7 @@ class SceneCroatianTiesMixin:
     def scn_ct_03_define_step_ply(self, bt=BoardType.CroatianTies):
         # move_pegasus_step_ply
 
-        scene.init_scene(bt)
+        scene = Scene('scn_ct_03_define_step_ply', bt)
 
         start = (2, 1)
         scene.board.set_piece(*start, piece=PieceType.Pegasus)
@@ -121,12 +121,12 @@ class SceneCroatianTiesMixin:
         # direction 6, i.e. <2, -1>
         scene.append_arrow(2, 1, 4, 0, mark_type=MarkType.Blocked )
 
-        return 'scn_ct_03_define_step_ply'
+        return scene
 
     def scn_ct_04_pegasus_movement(self, bt=BoardType.CroatianTies):
         # move_pegasus
 
-        scene.init_scene(bt)
+        scene = Scene('scn_ct_04_pegasus_movement', bt)
 
         start = (2, 1)
         scene.board.set_piece(*start, piece=PieceType.Pegasus)
@@ -185,4 +185,4 @@ class SceneCroatianTiesMixin:
         scene.append_arrow(2, 1, 4, 0)
         scene.append_text("6", 4, 0, corner=Corner.UpperRight)
 
-        return 'scn_ct_04_pegasus_movement'
+        return scene
