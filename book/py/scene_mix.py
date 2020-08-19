@@ -12,7 +12,7 @@ from scene_age_of_aquarius import SceneAgeOfAquariusMixin
 from scene_mirandas_veil import SceneMirandasVeilMixin
 from scene_nineteen import SceneNineteenMixin
 from scene_hemeras_dawn import SceneHemerasDawnMixin
-# from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
+from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
 # from scene_conquest_of_tlalocan import SceneConquestOfTlalocanMixin
 
 
@@ -30,17 +30,34 @@ class SceneMix(SceneCroatianTiesMixin, \
                SceneAgeOfAquariusMixin, \
                SceneMirandasVeilMixin, \
                SceneNineteenMixin, \
-               SceneHemerasDawnMixin):
+               SceneHemerasDawnMixin, \
+               SceneTamoanchanRevisitedMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_hd_01_centaur_same_color', \
-                    'scn_hd_02_centaur_opposite_color', \
-                    'scn_hd_03_centaur_multi_step', \
-                    'scn_hd_04_centaur_off_board', \
-                    'scn_hd_05_wave_activation_by_centaur', \
-                    'scn_hd_06_wave_activated_by_centaur_off_board', \
-                    'scn_hd_07_wave_teleport', \
+                    'scn_tr_01_serpent_diagonals', \
+                    'scn_tr_02_serpent_1', \
+                    'scn_tr_03_serpent_2', \
+                    'scn_tr_04_serpent_3', \
+                    'scn_tr_05_serpent_end', \
+
+                    'scn_tr_06_serpent_neighbors', \
+                    'scn_tr_07_serpent_loop_1', \
+                    'scn_tr_08_serpent_loop_end', \
+                    'scn_tr_09_serpent_out_of_board', \
+                    'scn_tr_10_teleport_serpent_1', \
+
+                    'scn_tr_11_teleport_serpent_2', \
+                    'scn_tr_12_serpent_activating_wave', \
+                    'scn_tr_13_serpent_activated_wave', \
+                    'scn_tr_14_serpent_activated_wave_step_1', \
+                    'scn_tr_15_serpent_activated_wave_ply', \
+
+                    'scn_tr_16_wave_out_of_board', \
+                    'scn_tr_17_off_board_teleport_wave', \
+                    'scn_tr_18_teleported_wave_on_board', \
+                    'scn_tr_19_on_board_teleport_wave', \
+                    'scn_tr_20_teleported_wave_off_board', \
                 ]
 
     def _get_all_scene_method_names(self):

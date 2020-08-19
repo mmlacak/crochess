@@ -10,430 +10,424 @@ import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
-from board_desc import BoardDesc
+from board_view import BoardView
 from mark import MarkType
 from corner import Corner
 from scene import Scene
 
 
-class SceneTamoanchanRevisitedMixin(Scene):
+class SceneTamoanchanRevisitedMixin:
 
     def scn_tr_01_serpent_diagonals(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_01_serpent_diagonals', bt, width=8, height=8)
 
         start = (2, 2)
-        # self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        # scene.append_text('S', *start, mark_type=MarkType.Blocked)
 
-        self.board.set_piece(*start, piece=PieceType.Serpent)
+        scene.board.set_piece(*start, piece=PieceType.Serpent)
 
-        self.append_arrow( 2, 2, 1, 3 )
-        self.append_text('A', 1, 3, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 2, 2, 1, 3 )
+        scene.append_text('A', 1, 3, corner=Corner.UpperLeftFieldMarker)
 
-        self.append_arrow( 2, 2, 3, 1 )
-        self.append_text('A', 3, 1, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 2, 2, 3, 1 )
+        scene.append_text('A', 3, 1, corner=Corner.LowerRightFieldMarker)
 
-        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Action )
-        self.append_text('B', 3, 3, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Action )
+        scene.append_text('B', 3, 3, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        self.append_arrow( 2, 2, 1, 1, mark_type=MarkType.Action )
-        self.append_text('B', 1, 1, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 2, 2, 1, 1, mark_type=MarkType.Action )
+        scene.append_text('B', 1, 1, mark_type=MarkType.Action, corner=Corner.LowerLeftFieldMarker)
 
-        return 'scn_tr_01_serpent_diagonals'
+        return scene
 
     def scn_tr_02_serpent_1(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_02_serpent_1', bt, width=8, height=8)
 
         start = (2, 2)
-        self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('S', *start, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
 
-        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
 
-        self.board.set_piece(3, 3, piece=PieceType.Serpent)
+        scene.board.set_piece(3, 3, piece=PieceType.Serpent)
 
-        self.append_arrow( 3, 3, 2, 4 )
-        self.append_text('A', 2, 4, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 3, 3, 2, 4 )
+        scene.append_text('A', 2, 4, corner=Corner.UpperLeftFieldMarker)
 
-        self.append_arrow( 3, 3, 4, 2 )
-        self.append_text('A', 4, 2, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 3, 3, 4, 2 )
+        scene.append_text('A', 4, 2, corner=Corner.UpperLeftFieldMarker)
 
-        return 'scn_tr_02_serpent_1'
+        return scene
 
     def scn_tr_03_serpent_2(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_03_serpent_2', bt, width=8, height=8)
 
         start = (2, 2)
-        self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+        scene.append_text('S', *start, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
 
-        self.append_text('1', 3, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+        scene.append_text('1', 3, 3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
 
-        self.board.set_piece(2, 4, piece=PieceType.Serpent)
+        scene.board.set_piece(2, 4, piece=PieceType.Serpent)
 
-        self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Action )
-        self.append_text('B', 3, 5, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Action )
+        scene.append_text('B', 3, 5, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
 
-        self.append_arrow( 2, 4, 1, 3, mark_type=MarkType.Action )
-        self.append_text('B', 1, 3, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 2, 4, 1, 3, mark_type=MarkType.Action )
+        scene.append_text('B', 1, 3, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
 
-        return 'scn_tr_03_serpent_2'
+        return scene
 
     def scn_tr_04_serpent_3(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_04_serpent_3', bt, width=8, height=8)
 
         start = (2, 2)
-        self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+        scene.append_text('S', *start, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
 
-        self.append_text('1', 3, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+        scene.append_text('1', 3, 3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
 
-        self.append_text('2', 2, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
+        scene.append_text('2', 2, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
 
-        self.board.set_piece(3, 5, piece=PieceType.Serpent)
+        scene.board.set_piece(3, 5, piece=PieceType.Serpent)
 
-        self.append_arrow( 3, 5, 2, 6 )
-        self.append_text('A', 2, 6, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 3, 5, 2, 6 )
+        scene.append_text('A', 2, 6, corner=Corner.UpperLeftFieldMarker)
 
-        self.append_arrow( 3, 5, 4, 4 )
-        self.append_text('A', 4, 4, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 3, 5, 4, 4 )
+        scene.append_text('A', 4, 4, corner=Corner.UpperLeftFieldMarker)
 
-        return 'scn_tr_04_serpent_3'
+        return scene
 
     def scn_tr_05_serpent_end(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_05_serpent_end', bt, width=8, height=8)
 
         start = (2, 2)
-        self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+        scene.append_text('S', *start, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
 
-        self.append_text('1', 3, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+        scene.append_text('1', 3, 3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
 
-        self.append_text('2', 2, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
+        scene.append_text('2', 2, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
 
-        self.append_text('3', 3, 5, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 5, 4, 4, mark_type=MarkType.Blocked )
+        scene.append_text('3', 3, 5, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 3, 5, 4, 4, mark_type=MarkType.Blocked )
 
-        self.append_text('4', 4, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 4, 4, 5, 5, mark_type=MarkType.Blocked )
+        scene.append_text('4', 4, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 4, 4, 5, 5, mark_type=MarkType.Blocked )
 
-        self.append_text('5', 5, 5, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 5, 5, 6, 4, mark_type=MarkType.Blocked )
+        scene.append_text('5', 5, 5, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 5, 5, 6, 4, mark_type=MarkType.Blocked )
 
-        self.append_text('6', 6, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 6, 4, 5, 3, mark_type=MarkType.Blocked )
+        scene.append_text('6', 6, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 6, 4, 5, 3, mark_type=MarkType.Blocked )
 
-        self.append_text('7', 5, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 5, 3, 6, 2, mark_type=MarkType.Blocked )
+        scene.append_text('7', 5, 3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 5, 3, 6, 2, mark_type=MarkType.Blocked )
 
-        self.append_text('8', 6, 2, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('8', 6, 2, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
 
-        self.board.set_piece(6, 2, piece=PieceType.Serpent)
+        scene.board.set_piece(6, 2, piece=PieceType.Serpent)
 
-        return 'scn_tr_05_serpent_end'
+        return scene
 
     def scn_tr_06_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_06_serpent_neighbors', bt, width=8, height=8)
 
         start = (2, 2)
-        self.board.set_piece(*start, piece=PieceType.Serpent)
-        self.board.set_piece(1, 2, piece=PieceType.Wave)
+        scene.board.set_piece(*start, piece=PieceType.Serpent)
+        scene.board.set_piece(1, 2, piece=PieceType.Wave)
 
-        self.append_arrow( 2, 2, 3, 2 )
-        self.append_arrow( 2, 2, 2, 3 )
-        self.append_arrow( 2, 2, 1, 2, mark_type=MarkType.Blocked )
-        self.append_arrow( 2, 2, 2, 1 )
+        scene.append_arrow( 2, 2, 3, 2 )
+        scene.append_arrow( 2, 2, 2, 3 )
+        scene.append_arrow( 2, 2, 1, 2, mark_type=MarkType.Blocked )
+        scene.append_arrow( 2, 2, 2, 1 )
 
-        self.append_field_marker(3, 2)
-        self.append_field_marker(2, 3)
-        self.append_field_marker(1, 2, mark_type=MarkType.Blocked)
-        self.append_field_marker(2, 1)
+        scene.append_field_marker(3, 2)
+        scene.append_field_marker(2, 3)
+        scene.append_field_marker(1, 2, mark_type=MarkType.Blocked)
+        scene.append_field_marker(2, 1)
 
-        return 'scn_tr_06_serpent_neighbors'
+        return scene
 
     def scn_tr_07_serpent_loop_1(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_07_serpent_loop_1', bt, width=8, height=8)
 
         start = (2, 2)
-        self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+        scene.append_text('S', *start, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
 
-        self.append_text('1', 3, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+        scene.append_text('1', 3, 3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
 
-        self.append_text('2', 2, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
+        scene.append_text('2', 2, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
 
-        self.board.set_piece(2, 6, piece=PieceType.Pyramid)
-        self.board.set_piece(3, 5, piece=PieceType.Serpent)
+        scene.board.set_piece(2, 6, piece=PieceType.Pyramid)
+        scene.board.set_piece(3, 5, piece=PieceType.Serpent)
 
-        self.append_text('3', 3, 5, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Action )
+        scene.append_text('3', 3, 5, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Action )
 
-        self.append_text('4', 2, 6, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('4', 2, 6, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
 
-        self.append_arrow( 3, 5, 4, 4 )
+        scene.append_arrow( 3, 5, 4, 4 )
 
-        return 'scn_tr_07_serpent_loop_1'
+        return scene
 
     def scn_tr_08_serpent_loop_end(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_08_serpent_loop_end', bt, width=8, height=8)
 
         start = (2, 2)
-        self.append_text('S', *start, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+        scene.append_text('S', *start, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
 
-        self.append_text('1', 3, 3, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        # self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+        scene.append_text('1', 3, 3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        # scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
 
-        self.append_text('2', 2, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        # self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
+        scene.append_text('2', 2, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        # scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
 
-        self.append_text('3', 3, 5, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 5, 4, 4, mark_type=MarkType.Blocked )
+        scene.append_text('3', 3, 5, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 3, 5, 4, 4, mark_type=MarkType.Blocked )
 
-        self.append_text('4', 4, 4, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 4, 4, 3, 3, mark_type=MarkType.Action )
+        scene.append_text('4', 4, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        scene.append_arrow( 4, 4, 3, 3, mark_type=MarkType.Action )
 
-        self.append_text('5', 3, 3, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Action )
+        scene.append_text('5', 3, 3, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
+        scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Action )
 
-        self.append_text('6', 2, 4, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Action )
+        scene.append_text('6', 2, 4, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
+        scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Action )
 
-        self.append_text('7', 3, 5, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Blocked )
+        scene.append_text('7', 3, 5, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
+        scene.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Blocked )
 
-        self.append_text('8', 2, 6, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('8', 2, 6, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
 
-        self.board.set_piece(2, 6, piece=PieceType.Serpent)
+        scene.board.set_piece(2, 6, piece=PieceType.Serpent)
 
-        return 'scn_tr_08_serpent_loop_end'
+        return scene
 
     def scn_tr_09_serpent_out_of_board(self, bt=BoardType.TamoanchanRevisited):
 
-        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
-        self.init_scene(bt, width=18, height=21, board_desc=bd)
+        scene = Scene('scn_tr_09_serpent_out_of_board', bt, x=4, y=1)
 
-        start = (15, 3)
-        self.board.set_piece(*start, piece=PieceType.Serpent)
+        start = (19, 4)
+        scene.board.set_piece(*start, piece=PieceType.Serpent)
 
-        self.append_arrow( 15, 3, 16, 4 )
-        self.append_arrow( 16, 4, 17, 3 )
+        scene.append_arrow( 19, 4, 20, 5 )
+        scene.append_arrow( 20, 5, 21, 4 )
 
-        self.append_arrow( 17, 3, 18, 4, mark_type=MarkType.Illegal )
+        scene.append_arrow( 21, 4, 22, 5, mark_type=MarkType.Illegal )
 
-        self.append_arrow( 18, 4, 17, 5, mark_type=MarkType.Illegal )
-        self.append_text('1', 17, 5, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 22, 5, 21, 6, mark_type=MarkType.Illegal )
+        scene.append_text('1', 21, 6, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
 
-        self.append_arrow( 17, 5, 18, 6, mark_type=MarkType.Illegal )
+        scene.append_arrow( 21, 6, 22, 7, mark_type=MarkType.Illegal )
 
-        self.append_arrow( 18, 6, 17, 7, mark_type=MarkType.Illegal )
-        self.append_text('2', 17, 7, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 22, 7, 21, 8, mark_type=MarkType.Illegal )
+        scene.append_text('2', 21, 8, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
 
-        self.append_arrow( 17, 7, 16, 6, mark_type=MarkType.Illegal )
-        self.append_text('3', 16, 6, corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 21, 8, 20, 7, mark_type=MarkType.Illegal )
+        scene.append_text('3', 20, 7, mark_type=MarkType.Illegal, corner=Corner.LowerLeftFieldMarker)
 
-        self.append_arrow( 16, 6, 15, 7, mark_type=MarkType.Illegal )
-        self.append_text('4', 15, 7, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( 20, 7, 19, 8, mark_type=MarkType.Illegal )
+        scene.append_text('4', 19, 8, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
 
-        return 'scn_tr_09_serpent_out_of_board'
+        return scene
 
     def scn_tr_10_teleport_serpent_1(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt)
-        rect = (0.05, 1.0, 0.6, 0.45)
-        rect_col = (0.05, 1.0, 0.8, 0.35)
+        scene = Scene('scn_tr_10_teleport_serpent_1', bt)
 
         start_S = (4, 19)
         start_T = (0, 21)
 
         # fixed set
-        self.board.set_piece(0, 0, piece=PieceType.Star)
-        self.board.set_piece(21, 21, piece=PieceType.Star)
-        self.board.set_piece(21, 0, piece=-PieceType.Star)
-        self.board.set_piece(*start_T, piece=-PieceType.Star)
+        scene.board.set_piece(0, 0, piece=PieceType.Star)
+        scene.board.set_piece(21, 21, piece=PieceType.Star)
+        scene.board.set_piece(21, 0, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T, piece=-PieceType.Star)
 
-        self.board.set_piece(*start_S, piece=PieceType.Serpent)
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
 
-        self.append_arrow( *(start_S + (3, 18)), mark_type=MarkType.Legal )
-        self.append_arrow( 3, 18, 2, 19, mark_type=MarkType.Legal )
-        self.append_arrow( 2, 19, 1, 18, mark_type=MarkType.Legal )
-        self.append_arrow( 1, 18, 0, 19, mark_type=MarkType.Legal )
-        self.append_arrow( 0, 19, 1, 20, mark_type=MarkType.Legal )
-        self.append_arrow( 1, 20, *start_T, mark_type=MarkType.Action )
+        scene.append_arrow( *(start_S + (3, 18)), mark_type=MarkType.Legal )
+        scene.append_arrow( 3, 18, 2, 19, mark_type=MarkType.Legal )
+        scene.append_arrow( 2, 19, 1, 18, mark_type=MarkType.Legal )
+        scene.append_arrow( 1, 18, 0, 19, mark_type=MarkType.Legal )
+        scene.append_arrow( 0, 19, 1, 20, mark_type=MarkType.Legal )
+        scene.append_arrow( 1, 20, *start_T, mark_type=MarkType.Action )
 
-        self.append_text("1", 20, 21, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("2", 20, 20, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
-        self.append_text("3", 21, 20, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
+        scene.append_text("1", 20, 21, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
+        scene.append_text("2", 20, 20, corner=Corner.LowerLeft, mark_type=MarkType.Action)
+        scene.append_text("3", 21, 20, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
 
-        self.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
-        self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
+        scene.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+        scene.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Legal)
 
-        return 'scn_tr_10_teleport_serpent_1'
+        return scene
 
     def scn_tr_11_teleport_serpent_2(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt)
-        rect = (0.05, 1.0, 0.6, 0.45)
-        rect_col = (0.05, 1.0, 0.8, 0.35)
+        scene = Scene('scn_tr_11_teleport_serpent_2', bt)
 
         start_S = (0, 20)
         start_T = (0, 21)
 
         # fixed set
-        self.board.set_piece(0, 0, piece=PieceType.Star)
-        self.board.set_piece(21, 21, piece=PieceType.Star)
-        self.board.set_piece(21, 0, piece=-PieceType.Star)
-        self.board.set_piece(*start_T, piece=-PieceType.Star)
+        scene.board.set_piece(0, 0, piece=PieceType.Star)
+        scene.board.set_piece(21, 21, piece=PieceType.Star)
+        scene.board.set_piece(21, 0, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T, piece=-PieceType.Star)
 
-        self.board.set_piece(*start_S, piece=PieceType.Serpent)
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
 
-        self.append_arrow( *(start_S + start_T), mark_type=MarkType.Action )
-        self.append_arrow( *(start_S + (1, 20)), mark_type=MarkType.Legal )
-        self.append_arrow( *(start_S + (0, 19)), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_S + start_T), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_S + (1, 20)), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_S + (0, 19)), mark_type=MarkType.Legal )
 
-        self.append_text("1", 20, 21, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
-        self.append_text("2", 20, 20, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("3", 21, 20, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
+        scene.append_text("1", 20, 21, corner=Corner.LowerLeft, mark_type=MarkType.Action)
+        scene.append_text("2", 20, 20, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
+        scene.append_text("3", 21, 20, corner=Corner.LowerLeft, mark_type=MarkType.Action)
 
-        self.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
-        self.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
+        scene.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+        scene.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        return 'scn_tr_11_teleport_serpent_2'
+        return scene
 
     def scn_tr_12_serpent_activating_wave(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_12_serpent_activating_wave', bt, width=8, height=8)
 
-        self.board.set_piece(1, 1, piece=PieceType.Serpent)
-        self.board.set_piece(4, 4, piece=PieceType.Wave)
+        scene.board.set_piece(1, 1, piece=PieceType.Serpent)
+        scene.board.set_piece(4, 4, piece=PieceType.Wave)
 
-        self.append_arrow( 1, 1, 2, 2, mark_type=MarkType.Action )
-        self.append_arrow( 2, 2, 1, 3, mark_type=MarkType.Action )
-        self.append_arrow( 1, 3, 2, 4, mark_type=MarkType.Action )
-        self.append_arrow( 2, 4, 3, 3, mark_type=MarkType.Action )
-        self.append_arrow( 3, 3, 4, 4, mark_type=MarkType.Action )
+        scene.append_arrow( 1, 1, 2, 2, mark_type=MarkType.Action )
+        scene.append_arrow( 2, 2, 1, 3, mark_type=MarkType.Action )
+        scene.append_arrow( 1, 3, 2, 4, mark_type=MarkType.Action )
+        scene.append_arrow( 2, 4, 3, 3, mark_type=MarkType.Action )
+        scene.append_arrow( 3, 3, 4, 4, mark_type=MarkType.Action )
 
-        return 'scn_tr_12_serpent_activating_wave'
+        return scene
 
     def scn_tr_13_serpent_activated_wave(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_13_serpent_activated_wave', bt, width=8, height=8)
 
         start = (4, 4)
-        self.board.set_piece(*start, piece=PieceType.Serpent)
+        scene.board.set_piece(*start, piece=PieceType.Serpent)
 
         #
         # right diagonal == <1, 1> || <-1, -1>
 
-        self.append_arrow( *(start + (5, 5)), mark_type=MarkType.Action )
-        self.append_arrow( *(start + (3, 3)), mark_type=MarkType.Action )
+        scene.append_arrow( *(start + (5, 5)), mark_type=MarkType.Action )
+        scene.append_arrow( *(start + (3, 3)), mark_type=MarkType.Action )
 
-        self.append_text('A', 5, 5, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('A', 3, 3, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('A', 5, 5, mark_type=MarkType.Action, corner=Corner.UpperRight)
+        scene.append_text('A', 3, 3, mark_type=MarkType.Action, corner=Corner.LowerLeft)
 
         #
         # left diagonal == <1, -1> || <-1, 1>
 
-        self.append_arrow( *(start + (5, 3)), mark_type=MarkType.Legal )
-        self.append_arrow( *(start + (3, 5)), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start + (5, 3)), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start + (3, 5)), mark_type=MarkType.Legal )
 
-        self.append_text('B', 5, 3, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('B', 3, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('B', 5, 3, mark_type=MarkType.Legal, corner=Corner.LowerRight)
+        scene.append_text('B', 3, 5, mark_type=MarkType.Legal, corner=Corner.UpperLeft)
 
-        return 'scn_tr_13_serpent_activated_wave'
+        return scene
 
     def scn_tr_14_serpent_activated_wave_step_1(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt, width=8, height=8)
+        scene = Scene('scn_tr_14_serpent_activated_wave_step_1', bt, width=8, height=8)
 
         start_S = (4, 4)
-        self.board.set_piece(*start_S, piece=PieceType.Serpent)
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
 
         start = (5, 3)
-        self.board.set_piece(*start, piece=PieceType.Wave)
+        scene.board.set_piece(*start, piece=PieceType.Wave)
 
-        self.append_arrow( *(start_S + start), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(start_S + start), mark_type=MarkType.Blocked )
 
         #
         # right diagonal == <1, 1> || <-1, -1>
 
-        self.append_arrow( *(start + (6, 4)), mark_type=MarkType.Action )
-        self.append_arrow( *(start + (4, 2)), mark_type=MarkType.Action )
+        scene.append_arrow( *(start + (6, 4)), mark_type=MarkType.Action )
+        scene.append_arrow( *(start + (4, 2)), mark_type=MarkType.Action )
 
-        self.append_text('A', 6, 4, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('A', 4, 2, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('A', 6, 4, mark_type=MarkType.Action, corner=Corner.UpperRight)
+        scene.append_text('A', 4, 2, mark_type=MarkType.Action, corner=Corner.LowerLeft)
 
         #
         # left diagonal == <1, -1> || <-1, 1>
 
-        # self.append_arrow( *(start + (5, 3)), mark_type=MarkType.Legal )
-        # self.append_arrow( *(start + (3, 5)), mark_type=MarkType.Legal )
+        # scene.append_arrow( *(start + (5, 3)), mark_type=MarkType.Legal )
+        # scene.append_arrow( *(start + (3, 5)), mark_type=MarkType.Legal )
 
-        # self.append_text('B', 5, 3, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
-        # self.append_text('B', 3, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        # scene.append_text('B', 5, 3, mark_type=MarkType.Legal, corner=Corner.LowerRight)
+        # scene.append_text('B', 3, 5, mark_type=MarkType.Legal, corner=Corner.UpperLeft)
 
-        return 'scn_tr_14_serpent_activated_wave_step_1'
+        return scene
 
     def scn_tr_15_serpent_activated_wave_ply(self, bt=BoardType.TamoanchanRevisited):
 
-        self.init_scene(bt)
+        scene = Scene('scn_tr_15_serpent_activated_wave_ply', bt)
 
         start = (4, 4)
-        self.board.set_piece(*start, piece=PieceType.Serpent)
+        scene.board.set_piece(*start, piece=PieceType.Serpent)
 
         coords = GS.gen_steps(start=start, rels=[(1, -1), (1, 1), ], include_prev=True, count=18)
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Legal if index % 2 == 0 else MarkType.Action
             if index < 17:
-                self.append_arrow( *coord, mark_type=mark_type )
+                scene.append_arrow( *coord, mark_type=mark_type )
 
-        self.append_text('B', 5, 3, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('A', 6, 4, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('B', 5, 3, corner=Corner.LowerRight, mark_type=MarkType.Legal)
+        scene.append_text('A', 6, 4, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
         #
         # illegal direction change
 
         step_6 = (10, 4)
-        self.append_text('6', *step_6, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('6', *step_6, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
         step_7 = (11, 3)
-        self.append_text('B', *step_7, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('B', *step_7, corner=Corner.LowerRight, mark_type=MarkType.Legal)
 
         step_7i = (9, 5)
-        self.append_arrow( *(step_6 + step_7i), mark_type=MarkType.Illegal )
-        self.append_text('B', *step_7i, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_arrow( *(step_6 + step_7i), mark_type=MarkType.Illegal )
+        scene.append_text('B', *step_7i, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
 
-        return 'scn_tr_15_serpent_activated_wave_ply'
+        return scene
 
     def scn_tr_16_wave_out_of_board(self, bt=BoardType.TamoanchanRevisited):
 
-        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
-        self.init_scene(bt, width=18, height=21, board_desc=bd)
+        scene = Scene('scn_tr_16_wave_out_of_board', bt, x=4, y=1)
 
-        self.board.set_piece(14, 4, piece=PieceType.Serpent)
+        scene.board.set_piece(18, 5, piece=PieceType.Serpent)
 
-        self.append_arrow( 14, 4, 15, 3, mark_type=MarkType.Action )
-        self.append_arrow( 15, 3, 16, 4, mark_type=MarkType.Action )
-        self.append_arrow( 16, 4, 17, 3, mark_type=MarkType.Action )
+        scene.append_arrow( 18, 5, 19, 4, mark_type=MarkType.Action )
+        scene.append_arrow( 19, 4, 20, 5, mark_type=MarkType.Action )
+        scene.append_arrow( 20, 5, 21, 4, mark_type=MarkType.Action )
 
-        start = (17, 3)
-        self.board.set_piece(*start, piece=PieceType.Wave)
+        start = (21, 4)
+        scene.board.set_piece(*start, piece=PieceType.Wave)
 
         #
         # arrows
@@ -442,7 +436,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Illegal if (index % 2 == 0) or (index >= 17) else MarkType.Legal
-            self.append_arrow( *coord, mark_type=mark_type )
+            scene.append_arrow( *coord, mark_type=mark_type )
 
         #
         # enumeration text
@@ -452,30 +446,29 @@ class SceneTamoanchanRevisitedMixin(Scene):
         for index, coord in enumerate( coords() ):
             if (index % 2 != 0) and (index < 17):
                 i = int( (index + 1) // 2 )
-                self.append_text(str(i), *coord, corner=Corner.LowerLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+                scene.append_text(str(i), *coord, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
 
         #
         # diagonals, from activation example
 
-        self.append_text('A', 18, 4, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('B', 17, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('A', 22, 5, corner=Corner.UpperRight, mark_type=MarkType.Illegal)
+        scene.append_text('B', 21, 6, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
 
-        return 'scn_tr_16_wave_out_of_board'
+        return scene
 
     def scn_tr_17_off_board_teleport_wave(self, bt=BoardType.TamoanchanRevisited):
 
-        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
-        self.init_scene(bt, width=18, height=21, board_desc=bd)
+        scene = Scene('scn_tr_17_off_board_teleport_wave', bt, x=4, y=1)
 
-        self.board.set_piece(17, 20, piece=PieceType.Star)
-        self.board.set_piece(14, 5, piece=PieceType.Serpent)
+        scene.board.set_piece(21, 21, piece=PieceType.Star)
+        scene.board.set_piece(18, 6, piece=PieceType.Serpent)
 
-        self.append_arrow( 14, 5, 15, 4, mark_type=MarkType.Action )
-        self.append_arrow( 15, 4, 16, 5, mark_type=MarkType.Action )
-        self.append_arrow( 16, 5, 17, 4, mark_type=MarkType.Action )
+        scene.append_arrow( 18, 6, 19, 5, mark_type=MarkType.Action )
+        scene.append_arrow( 19, 5, 20, 6, mark_type=MarkType.Action )
+        scene.append_arrow( 20, 6, 21, 5, mark_type=MarkType.Action )
 
-        start = (17, 4)
-        self.board.set_piece(*start, piece=PieceType.Wave)
+        start = (21, 5)
+        scene.board.set_piece(*start, piece=PieceType.Wave)
 
         #
         # arrows
@@ -489,27 +482,26 @@ class SceneTamoanchanRevisitedMixin(Scene):
                 mark_type = MarkType.Action
             elif (index % 2 == 0) or (index >= 17):
                 mark_type = MarkType.Illegal
-            self.append_arrow( *coord, mark_type=mark_type )
+            scene.append_arrow( *coord, mark_type=mark_type )
 
         #
         # diagonals
 
-        self.append_text('A', 18, 5, corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('B', 17, 6, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('A', 22, 6, corner=Corner.UpperRight, mark_type=MarkType.Illegal)
+        scene.append_text('B', 21, 7, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
 
-        self.append_text('B', 17, 20, corner=Corner.UpperLeft, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('B', 21, 21, corner=Corner.UpperLeft, mark_type=MarkType.Action)
 
-        return 'scn_tr_17_off_board_teleport_wave'
+        return scene
 
     def scn_tr_18_teleported_wave_on_board(self, bt=BoardType.TamoanchanRevisited):
 
-        bd = BoardDesc(reverse_field_colors=False, off_board_bottom=1, off_board_left=4, reverse_off_board_field_colors=False)
-        self.init_scene(bt, width=18, height=21, board_desc=bd)
+        scene = Scene('scn_tr_18_teleported_wave_on_board', bt, x=-4, y=-1)
 
-        self.board.set_piece(0, 0, piece=PieceType.Star)
+        scene.board.set_piece(0, 0, piece=PieceType.Star)
 
-        self.board.set_piece(0, 6, piece=-PieceType.Pyramid)
-        self.board.set_piece(1, 15, piece=PieceType.Pawn)
+        scene.board.set_piece(0, 6, piece=-PieceType.Pyramid)
+        scene.board.set_piece(1, 15, piece=PieceType.Pawn)
 
         start = (0, 0)
 
@@ -524,36 +516,35 @@ class SceneTamoanchanRevisitedMixin(Scene):
                 mark_type = MarkType.Blocked
             elif index == 14:
                 mark_type = MarkType.Action
-            self.append_arrow( *coord, mark_type=mark_type )
+            scene.append_arrow( *coord, mark_type=mark_type )
 
         #
         # diagonals
 
-        self.append_text('A', 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('B', 0, 2, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('A', 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text('B', 0, 2, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
 
-        self.append_text('B', 0, 10, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('B', 0, 10, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
 
-        self.append_text('9', 1, 9, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_arrow( 1, 9, 2, 8, mark_type=MarkType.Illegal )
-        self.append_text('B', 2, 8, corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('9', 1, 9, corner=Corner.UpperRight, mark_type=MarkType.Action)
+        scene.append_arrow( 1, 9, 2, 8, mark_type=MarkType.Illegal )
+        scene.append_text('B', 2, 8, corner=Corner.LowerRight, mark_type=MarkType.Illegal)
 
-        return 'scn_tr_18_teleported_wave_on_board'
+        return scene
 
     def scn_tr_19_on_board_teleport_wave(self, bt=BoardType.TamoanchanRevisited):
 
-        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
-        self.init_scene(bt, width=18, height=21, board_desc=bd)
+        scene = Scene('scn_tr_19_on_board_teleport_wave', bt, x=4, y=1)
 
-        self.board.set_piece(17, 20, piece=PieceType.Star)
-        self.board.set_piece(13, 6, piece=PieceType.Serpent)
+        scene.board.set_piece(21, 21, piece=PieceType.Star)
+        scene.board.set_piece(17, 7, piece=PieceType.Serpent)
 
-        self.append_arrow( 13, 6, 14, 5, mark_type=MarkType.Action )
-        self.append_arrow( 14, 5, 15, 6, mark_type=MarkType.Action )
-        self.append_arrow( 15, 6, 16, 5, mark_type=MarkType.Action )
+        scene.append_arrow( 17, 7, 18, 6, mark_type=MarkType.Action )
+        scene.append_arrow( 18, 6, 19, 7, mark_type=MarkType.Action )
+        scene.append_arrow( 19, 7, 20, 6, mark_type=MarkType.Action )
 
-        start = (16, 5)
-        self.board.set_piece(*start, piece=PieceType.Wave)
+        start = (20, 6)
+        scene.board.set_piece(*start, piece=PieceType.Wave)
 
         #
         # arrows
@@ -562,27 +553,26 @@ class SceneTamoanchanRevisitedMixin(Scene):
 
         for index, coord in enumerate( coords() ):
             mark_type = MarkType.Action if index == 14 else MarkType.Legal
-            self.append_arrow( *coord, mark_type=mark_type )
+            scene.append_arrow( *coord, mark_type=mark_type )
 
         #
         # diagonals
 
-        self.append_text('A', 17, 6, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('B', 16, 7, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('A', 21, 7, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text('B', 20, 8, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
 
-        self.append_text('A', 17, 20, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('A', 21, 21, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        return 'scn_tr_19_on_board_teleport_wave'
+        return scene
 
     def scn_tr_20_teleported_wave_off_board(self, bt=BoardType.TamoanchanRevisited):
 
-        bd = BoardDesc(reverse_field_colors=False, off_board_bottom=1, off_board_left=4, reverse_off_board_field_colors=False)
-        self.init_scene(bt, width=18, height=21, board_desc=bd)
+        scene = Scene('scn_tr_20_teleported_wave_off_board', bt, x=-4, y=-1)
 
-        self.board.set_piece(0, 0, piece=PieceType.Star)
+        scene.board.set_piece(0, 0, piece=PieceType.Star)
 
-        self.board.set_piece(0, 6, piece=-PieceType.Pyramid)
-        self.board.set_piece(0, 16, piece=PieceType.Pawn)
+        scene.board.set_piece(0, 6, piece=-PieceType.Pyramid)
+        scene.board.set_piece(0, 16, piece=PieceType.Pawn)
 
         start = (0, 0)
 
@@ -598,7 +588,7 @@ class SceneTamoanchanRevisitedMixin(Scene):
                 mark_type = MarkType.Action
             else:
                 mark_type = MarkType.Illegal if (index % 2 == 0) else MarkType.Legal
-            self.append_arrow( *coord, mark_type=mark_type )
+            scene.append_arrow( *coord, mark_type=mark_type )
 
         #
         # enumeration text
@@ -613,12 +603,12 @@ class SceneTamoanchanRevisitedMixin(Scene):
                     mark_type = MarkType.Blocked
                 elif index == 15:
                     mark_type = MarkType.Action
-                self.append_text(str(i), *coord, corner=Corner.UpperLeft, mark_type=mark_type, rect=(0.15, 1.0, 0.7, 0.45))
+                scene.append_text(str(i), *coord, mark_type=mark_type, corner=Corner.UpperLeftFieldMarker)
 
         #
         # diagonals
 
-        self.append_text('B', -1, 1, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=(0.15, 1.0, 0.7, 0.45))
-        self.append_text('A', 0, 2, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=(0.15, 1.0, 0.7, 0.45))
+        scene.append_text('B', -1, 1, mark_type=MarkType.Illegal, corner=Corner.UpperLeft)
+        scene.append_text('A', 0, 2, mark_type=MarkType.Legal, corner=Corner.UpperRight)
 
-        return 'scn_tr_20_teleported_wave_off_board'
+        return scene
