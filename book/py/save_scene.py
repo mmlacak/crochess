@@ -47,11 +47,11 @@ class SaveScene:
 
         return assert_floor_2(w, h)
 
-    def save_scene(self, scene, file_path, max_width_pix=None, max_height_pix=None, line_width=DEFAULT_LINE_WIDTH, enforce_bw=False):
+    def save_scene(self, scene, file_path, max_width_pix=None, max_height_pix=None, line_width=DEFAULT_LINE_WIDTH, enforce_size=False, enforce_bw=False):
         assert isinstance(scene, Scene)
         assert isinstance(file_path, str)
 
-        w_pix, h_pix = self.get_default_size_pix(scene, max_width_pix=max_width_pix, max_height_pix=max_height_pix)
+        w_pix, h_pix = (max_width_pix, max_height_pix) if enforce_size else self.get_default_size_pix(scene, max_width_pix=max_width_pix, max_height_pix=max_height_pix)
 
         colors_item = Colors.fetch_colors(scene.board.type, enforce_bw=enforce_bw)
         mark_def_item = MarkDef[ scene.board.type ]
@@ -136,7 +136,8 @@ class SaveScene:
 
                     self.save_scene(scene, file_path, \
                                     max_width_pix=self.rendering_size_item.piece_2_by_2_pix, \
-                                    max_height_pix=self.rendering_size_item.piece_2_by_2_pix)
+                                    max_height_pix=self.rendering_size_item.piece_2_by_2_pix, \
+                                    enforce_size=True)
 
         print( "Finished." )
 

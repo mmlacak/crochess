@@ -9,16 +9,16 @@ cd book/py
 
 echo
 
-# To see all options, run "python2 main.py -h".
+# To see all options, run "python3 main.py -h".
 
 # Renders all images at final size (large!), slow rendering.
-# python2 main.py -f -a
+# python3 main.py -f -a
 
 # Renders all images at normal size.
-python2 main.py -n -a
+python3 main.py -n -a
 
 # Renders all images at draft size.
-# python2 main.py -d -a
+# python3 main.py -d -a
 
 echo
 

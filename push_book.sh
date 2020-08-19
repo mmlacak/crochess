@@ -7,7 +7,7 @@
 #
 # $ ./push_book.sh "New commit message."
 
-python2 book/py/book_log.py
+python3 book/py/book_log.py
 
 git commit -am "$*"
 
