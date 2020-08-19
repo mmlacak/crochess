@@ -10,72 +10,65 @@ import gen_steps as GS
 
 from piece import PieceType
 from board import BoardType, Board
-from board_desc import BoardDesc
+from board_view import BoardView
 from mark import MarkType
 from corner import Corner
 from scene import Scene
 
 
-class SceneHemerasDawnMixin(Scene):
+class SceneHemerasDawnMixin:
 
     def scn_hd_01_centaur_same_color(self, bt=BoardType.HemerasDawn):
 
-        self.init_scene(bt, width=7, height=7)
+        scene = Scene('scn_hd_01_centaur_same_color', bt, width=7, height=7)
 
         start = (3, 3)
-        self.board.set_piece(*start, piece=PieceType.Centaur)
+        scene.board.set_piece(*start, piece=PieceType.Centaur)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=self.board_view.get_position_limits())
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=scene.board_view.get_position_limits())
 
-        i = 1
-        for pos in gen_abs_pos():
-            self.append_field_marker(*pos)
-            self.append_text(str(i), *pos, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_field_marker(*pos)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker)
 
-        return 'scn_hd_01_centaur_same_color'
+        return scene
 
     def scn_hd_02_centaur_opposite_color(self, bt=BoardType.HemerasDawn):
 
-        self.init_scene(bt)
+        scene = Scene('scn_hd_02_centaur_opposite_color', bt)
 
         start = (6, 6)
-        self.board.set_piece(*start, piece=PieceType.Centaur)
+        scene.board.set_piece(*start, piece=PieceType.Centaur)
 
         # Centaur, long jump
 
         gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start, include_prev=False, bounds=((2, 2), (10, 10)))
 
-        i = 1
-        for pos in gen_abs_pos():
-            self.append_field_marker(*pos)
-            self.append_text(str(i), *pos, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_field_marker(*pos)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker)
 
         # Knight, short jump
 
         gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=((4, 4), (8, 8)))
 
-        i = 1
-        for pos in gen_abs_pos_2():
-            # self.append_field_marker(*pos)
-            self.append_text(str(i), *pos, mark_type=MarkType.Blocked, rect=(0.15, 1.0, 0.7, 0.45))
-            i += 1
+        for i, pos in enumerate( gen_abs_pos_2() ):
+            # scene.append_field_marker(*pos)
+            scene.append_text(str(i+1), *pos, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker)
 
-        return 'scn_hd_02_centaur_opposite_color'
+        return scene
 
     def scn_hd_03_centaur_multi_step(self, bt=BoardType.HemerasDawn):
 
-        self.init_scene(bt)
-        rect = (0.05, 1.0, 0.6, 0.45)
+        scene = Scene('scn_hd_03_centaur_multi_step', bt)
 
         start = (3, 2)
-        self.board.set_piece(*start, piece=PieceType.Centaur)
-        self.board.set_piece(7, 7, piece=PieceType.Pawn)
-        self.board.set_piece(7, 8, piece=PieceType.Pawn)
-        self.board.set_piece(8, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(9, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(14, 16, piece=-PieceType.Bishop)
+        scene.board.set_piece(*start, piece=PieceType.Centaur)
+        scene.board.set_piece(7, 7, piece=PieceType.Pawn)
+        scene.board.set_piece(7, 8, piece=PieceType.Pawn)
+        scene.board.set_piece(8, 9, piece=-PieceType.Pawn)
+        scene.board.set_piece(9, 9, piece=-PieceType.Pawn)
+        scene.board.set_piece(14, 16, piece=-PieceType.Bishop)
 
         #
         # short --> (-1, 2) direction
@@ -89,51 +82,51 @@ class SceneHemerasDawnMixin(Scene):
         # choose directions
 
         # short
-        self.append_arrow( *arr(), mark_type=MarkType.Action )
-        self.append_text("1", *txt(), mark_type=MarkType.Action, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Action )
+        scene.append_text("1", *txt(), mark_type=MarkType.Action)
 
         # long
-        self.append_arrow( *arr(), mark_type=MarkType.Action )
-        self.append_text("2", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Action )
+        scene.append_text("2", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Action)
 
         #
         # follow directions
 
         # short
-        self.append_arrow( *arr() )
-        self.append_text("3", *txt(), rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("3", *txt())
 
         # long
-        self.append_arrow( *arr() )
-        self.append_text("4", *txt(), corner=Corner.UpperRight, rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("4", *txt(), corner=Corner.UpperRight)
 
         # short
-        self.append_arrow( *arr() )
-        self.append_text("5", *txt(), rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("5", *txt())
 
         # long
-        self.append_arrow( *arr() )
-        self.append_text("6", *txt(), corner=Corner.UpperRight, rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("6", *txt(), corner=Corner.UpperRight)
 
         # short
-        self.append_arrow( *arr() )
-        self.append_text("7", *txt(), rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("7", *txt())
 
         # long
-        self.append_arrow( *arr() )
-        self.append_text("8", *txt(), corner=Corner.UpperRight, rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("8", *txt(), corner=Corner.UpperRight)
 
         # short
-        self.append_arrow( *arr(), mark_type=MarkType.Action )
-        self.append_text("9", *txt(), mark_type=MarkType.Action, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Action )
+        scene.append_text("9", *txt(), mark_type=MarkType.Action)
 
         # long
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("10", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Blocked, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        scene.append_text("10", *txt(), mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker)
 
         # short
-        self.append_arrow( *arr(), mark_type=MarkType.Blocked )
-        self.append_text("11", *txt(), mark_type=MarkType.Blocked, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Blocked )
+        scene.append_text("11", *txt(), mark_type=MarkType.Blocked)
 
         #
         # forbidden directions change
@@ -145,39 +138,36 @@ class SceneHemerasDawnMixin(Scene):
         arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=True, count=1) )
         txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=False, count=1) )
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7a", *txt(), mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7b", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7b", *txt(), mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7c", *txt(), mark_type=MarkType.Illegal, corner=Corner.UpperLeft)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7d", *txt(), mark_type=MarkType.Illegal, corner=Corner.LowerLeft)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7e", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7e", *txt(), mark_type=MarkType.Illegal, corner=Corner.LowerLeft)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7f", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7f", *txt(), mark_type=MarkType.Illegal, corner=Corner.LowerRightFieldMarker)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7g", *txt(), mark_type=MarkType.Illegal, corner=Corner.LowerRightFieldMarker)
 
-        return 'scn_hd_03_centaur_multi_step'
+        return scene
 
 
     def scn_hd_04_centaur_off_board(self, bt=BoardType.HemerasDawn):
 
-        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
-        self.init_scene(bt, width=16, height=19, board_desc=bd)
+        scene = Scene('scn_hd_04_centaur_off_board', bt, x=4, y=1)
 
-        rect = (0.05, 1.0, 0.6, 0.45)
-
-        start = (13, 2)
-        self.board.set_piece(*start, piece=-PieceType.Centaur)
+        start = (17, 3)
+        scene.board.set_piece(*start, piece=-PieceType.Centaur)
 
 
         #
@@ -186,49 +176,48 @@ class SceneHemerasDawnMixin(Scene):
 
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords() ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords() ) # long
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords() ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords() ) # long
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
 
-        self.append_text("1", 14, 12, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
-        self.append_text("2", 15, 15, corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_text("1", 18, 13, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
+        scene.append_text("2", 19, 16, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
 
-        return 'scn_hd_04_centaur_off_board'
+        return scene
 
 
     def scn_hd_05_wave_activation_by_centaur(self, bt=BoardType.HemerasDawn):
 
-        self.init_scene(bt)
-        rect = (0.05, 1.0, 0.6, 0.45)
+        scene = Scene('scn_hd_05_wave_activation_by_centaur', bt)
 
         start = (3, 2)
         start_C = (7, 1)
-        self.board.set_piece(*start, piece=PieceType.Wave)
-        self.board.set_piece(*start_C, piece=PieceType.Centaur)
-        self.board.set_piece(7, 7, piece=PieceType.Pawn)
-        self.board.set_piece(7, 8, piece=PieceType.Pawn)
-        self.board.set_piece(8, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(9, 9, piece=-PieceType.Pawn)
-        self.board.set_piece(14, 16, piece=-PieceType.Wave)
+        scene.board.set_piece(*start, piece=PieceType.Wave)
+        scene.board.set_piece(*start_C, piece=PieceType.Centaur)
+        scene.board.set_piece(7, 7, piece=PieceType.Pawn)
+        scene.board.set_piece(7, 8, piece=PieceType.Pawn)
+        scene.board.set_piece(8, 9, piece=-PieceType.Pawn)
+        scene.board.set_piece(9, 9, piece=-PieceType.Pawn)
+        scene.board.set_piece(14, 16, piece=-PieceType.Wave)
 
         #
         # Wave activation by Centaur
-        self.append_arrow( *(start_C + start), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_C + start), mark_type=MarkType.Legal )
 
         #
         # short --> (-1, 2) direction
@@ -242,51 +231,51 @@ class SceneHemerasDawnMixin(Scene):
         # choose directions
 
         # short
-        self.append_arrow( *arr(), mark_type=MarkType.Action )
-        self.append_text("1", *txt(), mark_type=MarkType.Action, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Action )
+        scene.append_text("1", *txt(), mark_type=MarkType.Action)
 
         # long
-        self.append_arrow( *arr(), mark_type=MarkType.Action )
-        self.append_text("2", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Action )
+        scene.append_text("2", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Action)
 
         #
         # follow directions
 
         # short
-        self.append_arrow( *arr() )
-        self.append_text("3", *txt(), rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("3", *txt())
 
         # long
-        self.append_arrow( *arr() )
-        self.append_text("4", *txt(), corner=Corner.UpperRight, rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("4", *txt(), corner=Corner.UpperRight)
 
         # short
-        self.append_arrow( *arr() )
-        self.append_text("5", *txt(), rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("5", *txt())
 
         # long
-        self.append_arrow( *arr() )
-        self.append_text("6", *txt(), corner=Corner.UpperRight, rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("6", *txt(), corner=Corner.UpperRight)
 
         # short
-        self.append_arrow( *arr() )
-        self.append_text("7", *txt(), rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("7", *txt())
 
         # long
-        self.append_arrow( *arr() )
-        self.append_text("8", *txt(), corner=Corner.UpperRight, rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("8", *txt(), corner=Corner.UpperRight)
 
         # short
-        self.append_arrow( *arr(), mark_type=MarkType.Action )
-        self.append_text("9", *txt(), mark_type=MarkType.Action, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Action )
+        scene.append_text("9", *txt(), mark_type=MarkType.Action)
 
         # long
-        self.append_arrow( *arr() )
-        self.append_text("10", *txt(), corner=Corner.UpperRight, rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("10", *txt(), corner=Corner.UpperRightFieldMarker)
 
         # short
-        self.append_arrow( *arr() )
-        self.append_text("11", *txt(), rect=rect)
+        scene.append_arrow( *arr() )
+        scene.append_text("11", *txt())
 
         #
         # forbidden directions change
@@ -298,45 +287,42 @@ class SceneHemerasDawnMixin(Scene):
         arr = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=True, count=1) )
         txt = GS.gen_next( GS.gen_multi_steps(multi_rels, start=startK, include_prev=False, count=1) )
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7a", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7a", *txt(), mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7b", *txt(), corner=Corner.UpperRight, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7b", *txt(), mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7c", *txt(), corner=Corner.UpperLeft, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7c", *txt(), mark_type=MarkType.Illegal, corner=Corner.UpperLeft)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7d", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7d", *txt(), mark_type=MarkType.Illegal, corner=Corner.LowerLeft)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7e", *txt(), corner=Corner.LowerLeft, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7e", *txt(), mark_type=MarkType.Illegal, corner=Corner.LowerLeft)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7f", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7f", *txt(), mark_type=MarkType.Illegal, corner=Corner.LowerRightFieldMarker)
 
-        self.append_arrow( *arr(), mark_type=MarkType.Illegal )
-        self.append_text("7g", *txt(), corner=Corner.LowerRight, mark_type=MarkType.Illegal, rect=rect)
+        scene.append_arrow( *arr(), mark_type=MarkType.Illegal )
+        scene.append_text("7g", *txt(), mark_type=MarkType.Illegal, corner=Corner.LowerRightFieldMarker)
 
-        return 'scn_hd_05_wave_activation_by_centaur'
+        return scene
 
 
     def scn_hd_06_wave_activated_by_centaur_off_board(self, bt=BoardType.HemerasDawn):
 
-        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
-        self.init_scene(bt, width=16, height=19, board_desc=bd)
+        scene = Scene('scn_hd_06_wave_activated_by_centaur_off_board', bt, x=4, y=1)
 
-        rect = (0.05, 1.0, 0.6, 0.45)
-
-        start = (13, 2)
-        start_C = (9, 1)
-        self.board.set_piece(*start, piece=-PieceType.Wave)
-        self.board.set_piece(*start_C, piece=-PieceType.Centaur)
+        start = (17, 3)
+        start_C = (13, 2)
+        scene.board.set_piece(*start, piece=-PieceType.Wave)
+        scene.board.set_piece(*start_C, piece=-PieceType.Centaur)
 
         #
         # Wave activation by Centaur
-        self.append_arrow( *(start_C + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_C + start), mark_type=MarkType.Action )
 
 
         #
@@ -345,53 +331,50 @@ class SceneHemerasDawnMixin(Scene):
 
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords() ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords() ) # long
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords() ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords() ) # long
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Legal ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords(), mark_type=MarkType.Legal ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Legal ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords(), mark_type=MarkType.Legal ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
 
-        self.append_text("1", 14, 12, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=rect)
-        self.append_text("2", 15, 15, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=rect)
+        scene.append_text("1", 18, 13, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
+        scene.append_text("2", 19, 16, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
 
-        return 'scn_hd_06_wave_activated_by_centaur_off_board'
+        return scene
 
 
     def scn_hd_07_wave_teleport(self, bt=BoardType.HemerasDawn):
 
-        bd = BoardDesc(reverse_field_colors=True, off_board_top=1, off_board_right=4, reverse_off_board_field_colors=True)
-        self.init_scene(bt, width=16, height=19, board_desc=bd)
+        scene = Scene('scn_hd_07_wave_teleport', bt, x=4, y=1)
 
-        rect = (0.05, 1.0, 0.6, 0.45)
+        start_T = (19, 19)
+        scene.board.set_piece(*start_T, piece=PieceType.Star)
 
-        start_T = (15, 18)
-        self.board.set_piece(*start_T, piece=PieceType.Star)
+        start = (18, 9)
+        scene.board.set_piece(*start, piece=PieceType.Wave)
 
-        start = (14, 8)
-        self.board.set_piece(*start, piece=PieceType.Wave)
-
-        start_C = (5, 5)
-        self.board.set_piece(*start_C, piece=PieceType.Centaur)
+        start_C = (9, 6)
+        scene.board.set_piece(*start_C, piece=PieceType.Centaur)
 
         #
         # Wave activation
         gen_coords = GS.gen_steps(start=start_C, rels=[(1, -2), (2, 3), ], include_prev=True, count=6)
 
         for coords in gen_coords():
-            self.append_arrow( *coords )
+            scene.append_arrow( *coords )
 
         #
         # short --> (-2, 1) direction
@@ -399,18 +382,18 @@ class SceneHemerasDawnMixin(Scene):
 
         coords = GS.gen_next( GS.gen_steps(start=start, rels=[(-2, 1), (3, 2), ], include_prev=True) )
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords() ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords() ) # long
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords() ) # short
-        self.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
+        scene.append_arrow( *coords() ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal ) # long
 
-        self.append_arrow( *coords(), mark_type=MarkType.Action ) # short
+        scene.append_arrow( *coords(), mark_type=MarkType.Action ) # short
 
-        self.append_text("1", 14, 15, corner=Corner.UpperLeft, rect=rect)
-        self.append_text("2", *start_T, corner=Corner.UpperLeft, rect=rect)
+        scene.append_text("1", 18, 16, corner=Corner.UpperLeft)
+        scene.append_text("2", *start_T, corner=Corner.UpperLeft)
 
-        return 'scn_hd_07_wave_teleport'
+        return scene

@@ -11,7 +11,7 @@ from scene_mayan_ascendancy import SceneMayanAscendancyMixin
 from scene_age_of_aquarius import SceneAgeOfAquariusMixin
 from scene_mirandas_veil import SceneMirandasVeilMixin
 from scene_nineteen import SceneNineteenMixin
-# from scene_hemeras_dawn import SceneHemerasDawnMixin
+from scene_hemeras_dawn import SceneHemerasDawnMixin
 # from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
 # from scene_conquest_of_tlalocan import SceneConquestOfTlalocanMixin
 
@@ -29,26 +29,18 @@ class SceneMix(SceneCroatianTiesMixin, \
                SceneMayanAscendancyMixin, \
                SceneAgeOfAquariusMixin, \
                SceneMirandasVeilMixin, \
-               SceneNineteenMixin):
+               SceneNineteenMixin, \
+               SceneHemerasDawnMixin):
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_01_portal_fields', \
-                    'scn_n_02_teleport_init', \
-                    'scn_n_03_teleport_move_2', \
-                    'scn_n_04_teleport_move_3', \
-                    'scn_n_05_teleport_end', \
-
-                    'scn_n_06_teleport_wave_blocked', \
-                    'scn_n_07_teleport_wave_init', \
-                    'scn_n_08_teleport_wave_end', \
-                    'scn_n_09_teleport_wave_2_init', \
-                    'scn_n_10_teleport_wave_2_end', \
-
-                    'scn_n_11_teleport_pawns_init', \
-                    'scn_n_12_teleport_pawns_step_1', \
-                    'scn_n_13_teleport_pawns_end', \
-                    'scn_n_14_teleport_bishop', \
+                    'scn_hd_01_centaur_same_color', \
+                    'scn_hd_02_centaur_opposite_color', \
+                    'scn_hd_03_centaur_multi_step', \
+                    'scn_hd_04_centaur_off_board', \
+                    'scn_hd_05_wave_activation_by_centaur', \
+                    'scn_hd_06_wave_activated_by_centaur_off_board', \
+                    'scn_hd_07_wave_teleport', \
                 ]
 
     def _get_all_scene_method_names(self):
