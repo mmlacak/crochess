@@ -312,7 +312,7 @@ class SceneNineteenMixin:
 
     def scn_n_07_teleport_wave_init(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_07_teleport_wave_init', bt, x=4, y=1)
+        scene = Scene('scn_n_07_teleport_wave_init', bt, x=4, y=1, reverse_off_board_field_colors=True)
 
         start_T = (17, 17) # (13, 16)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -352,7 +352,7 @@ class SceneNineteenMixin:
 
     def scn_n_08_teleport_wave_end(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_08_teleport_wave_end', bt, x=-4, y=-1)
+        scene = Scene('scn_n_08_teleport_wave_end', bt, x=-4, y=-1, reverse_off_board_field_colors=True)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -380,7 +380,7 @@ class SceneNineteenMixin:
 
     def scn_n_09_teleport_wave_2_init(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_09_teleport_wave_2_init', bt, x=4, y=1)
+        scene = Scene('scn_n_09_teleport_wave_2_init', bt, x=4, y=1, reverse_off_board_field_colors=True)
 
         start_T = (17, 17) # (13, 16)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -408,7 +408,7 @@ class SceneNineteenMixin:
 
     def scn_n_10_teleport_wave_2_end(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_10_teleport_wave_2_end', bt, x=-4, y=-1)
+        scene = Scene('scn_n_10_teleport_wave_2_end', bt, x=-4, y=-1, reverse_off_board_field_colors=True)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
