@@ -322,8 +322,8 @@ def test_castling_init():
 
 def test_scene_examples():
     ss = SaveScene(RenderingSizeEnum.Draft)
-    # ss.render_examples(do_all_examples=True, path_prefix='temp/') # TODO :: DEBUG :: UNCOMMENT !!!
-    ss.render_examples(do_all_examples=False, path_prefix='temp/') # TODO :: DEBUG :: DELETE !!!
+    # ss.render_examples(do_all_examples=True, path_prefix='temp/', enforce_cot_in_bw=True) # TODO :: DEBUG :: UNCOMMENT !!!
+    ss.render_examples(do_all_examples=False, path_prefix='temp/', enforce_cot_in_bw=True) # TODO :: DEBUG :: DELETE !!!
 
 
 if __name__ == '__main__':

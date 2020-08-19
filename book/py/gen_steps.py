@@ -113,6 +113,16 @@ LIGHT_SHAMAN_CORNER_RIGHT =   [ Corner.LowerRight, \
                                 Corner.UpperLeft , \
                                 Corner.LowerLeft   ]
 
+LIGHT_SHAMAN_CORNER_LEFT_FIELD_MARKER =   [ Corner.UpperLeftFieldMarker,  \
+                                            Corner.LowerLeftFieldMarker,  \
+                                            Corner.LowerRightFieldMarker, \
+                                            Corner.UpperRightFieldMarker  ]
+
+LIGHT_SHAMAN_CORNER_RIGHT_FIELD_MARKER =  [ Corner.LowerRightFieldMarker, \
+                                            Corner.UpperRightFieldMarker, \
+                                            Corner.UpperLeftFieldMarker,  \
+                                            Corner.LowerLeftFieldMarker   ]
+
 
 # right turning --> spiraling left
 DARK_SHAMAN_REL_MOVES = [ ( 1,  2), \
@@ -152,6 +162,16 @@ DARK_SHAMAN_CORNER_DOWN = [ Corner.LowerRight, \
                             Corner.LowerLeft,  \
                             Corner.UpperLeft , \
                             Corner.UpperRight  ]
+
+DARK_SHAMAN_CORNER_UP_FIELD_MARKER =  [ Corner.UpperLeftFieldMarker,  \
+                                        Corner.UpperRightFieldMarker, \
+                                        Corner.LowerRightFieldMarker, \
+                                        Corner.LowerLeftFieldMarker   ]
+
+DARK_SHAMAN_CORNER_DOWN_FIELD_MARKER =    [ Corner.LowerRightFieldMarker, \
+                                            Corner.LowerLeftFieldMarker,  \
+                                            Corner.UpperLeftFieldMarker,  \
+                                            Corner.UpperRightFieldMarker  ]
 
 
 DEFAULT_DISPLACEMENT_REL_MOVES =  [ (  3,   1),  \
@@ -447,7 +467,7 @@ def gen_shaman_rels(rel, count=None):
 
     return _gen_shaman_rels
 
-def gen_shaman_corners(rel, count=None):
+def gen_shaman_corners(rel, count=None, is_with_field_marker=True):
 
     start_horizontal = rel in LIGHT_SHAMAN_REL_MOVES
     start_vertical = rel in DARK_SHAMAN_REL_MOVES
@@ -458,14 +478,14 @@ def gen_shaman_corners(rel, count=None):
 
     if start_horizontal:
         if rel[0] > 0:
-            corners = LIGHT_SHAMAN_CORNER_RIGHT
+            corners = LIGHT_SHAMAN_CORNER_RIGHT_FIELD_MARKER if is_with_field_marker else LIGHT_SHAMAN_CORNER_RIGHT
         else:
-            corners = LIGHT_SHAMAN_CORNER_LEFT
+            corners = LIGHT_SHAMAN_CORNER_LEFT_FIELD_MARKER if is_with_field_marker else LIGHT_SHAMAN_CORNER_LEFT
     else: # start_vertical
         if rel[1] > 0:
-            corners = DARK_SHAMAN_CORNER_UP
+            corners = DARK_SHAMAN_CORNER_UP_FIELD_MARKER if is_with_field_marker else DARK_SHAMAN_CORNER_UP
         else:
-            corners = DARK_SHAMAN_CORNER_DOWN
+            corners = DARK_SHAMAN_CORNER_DOWN_FIELD_MARKER if is_with_field_marker else DARK_SHAMAN_CORNER_DOWN
 
     return gen_items(corners, count=count)
 
