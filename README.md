@@ -14,9 +14,12 @@ project on a live system.
 ### Prerequisites
 
 To make images used in the book, install these:
-- GTK+ 2+, but not 3+
-- pygtk 2+, but not 3+
-- Python 2.7+, but not 3+
+- Python 3 (3.8.5)
+- pycairo (1.18.2)
+- GTK+ cairo (1.16.0)
+
+Versions in brackets are those I'm using. Older versions
+should also work since nothing too fancy was used.
 
 To compile book itself into PDF, you'll need minimal LaTeX
 installation, with following packages:
@@ -28,11 +31,6 @@ installation, with following packages:
   - wrapfig
   - hyperref
 
-To compile application, you'll need C compiler:
-- gcc (7.4.0 works fine)
-- clang (6.0.0 works fine, too)
-- or any other adhering to C99 standard
-
 ### Installing
 
 First, clone repository with:
@@ -41,11 +39,11 @@ First, clone repository with:
 git clone https://github.com/mmlacak/crochess.git
 ```
 
-Other possibility is to just download zip file instead.
+Or, you could just unpack downloaded zip file into a folder.
 
 ### Compiling the book
 
-Open terminal in folder where you cloned repository, and type:
+Open terminal in folder where you've cloned repository, and type:
 
 ```
 ./gfx.sh
@@ -61,22 +59,9 @@ Next, compile PDF file:
 
 If everything goes well, the new book will be created under `book` folder.
 
-### Compiling the application
-
-In the same terminal, and in the same folder, type in:
-
-```
-./compile.sh
-```
-
-This will compile C code into `crochess` executable in `bin` folder.
-
-One day, that is, when that [functionality is provided](https://croatian-chess.blogspot.com/2019/06/goodbye-haskell-hello-c.html).
-
 ## Deployment
 
-Now that you have PDF book and/or executable, just copy them over to
-other PC into folder of your chosing.
+Now that you have PDF book, just copy it over to other PC, tablet, phone, ...
 
 ## Contributing
 
