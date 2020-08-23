@@ -4,12 +4,23 @@ Croatian Chess is a collection of various chess variants,
 starting as a simple and natural enhancement to classical
 chess and growing ever more complex with each new variant.
 
-## Getting Started
+## Version
 
-These instructions will get you a copy of the project up and
-running on your local machine for development and testing
-purposes. See deployment for notes on how to deploy the
-project on a live system.
+**Book version** can be seen in a colophon (4th page), under
+*Source* section. The most recent book version is:
+
+705 ··· 2020-08-23 04:34:49 UTC ··· master
+
+First number is last commit to book sources, basically the
+larger the number, the newer the book you have.
+
+Next is date and time of that commit, converted to UTC for
+easier comparison.
+
+Lastly is branch name from which book is compiled; default
+is master.
+
+## Getting Started
 
 ### Prerequisites
 
@@ -66,10 +77,6 @@ Now that you have PDF book, just copy it over to other PC, tablet, phone, ...
 ## Contributing
 
 Please contact me via email.
-
-## Versioning
-
-Too deep in pre-alpha stage to do any.
 
 ## Authors
 

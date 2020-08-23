@@ -20,6 +20,9 @@ BOOK_TEX_FOLDER = 'book'
 BOOK_TEX_FILE_NAME = 'crochess.tex'
 BOOK_IGNORE_TEX_FILE_NAME = 'crochess.IGNORE.tex'
 
+README_FILE_NAME = 'README.md'
+README_IGNORE_FILE_NAME = 'README.IGNORE.md'
+
 
 def run_process(cmd_args_list):
     output_str = None
@@ -27,7 +30,7 @@ def run_process(cmd_args_list):
         output_str = subprocess.check_output(cmd_args_list)
     except subprocess.CalledProcessError:
         pass
-    return output_str
+    return str(output_str, encoding='utf-8', errors='replace')
 
 def get_commit_count():
     count_str = run_process(CMD_ARGS_GIT_COMMIT_COUNT)
@@ -39,7 +42,7 @@ def get_current_branch():
 
 def get_last_commit_id():
     id_str = run_process(CMD_ARGS_GIT_LAST_COMMIT_ID)
-    return id_str.strip(' \"\n') if id_str is not None else None
+    return id_str.strip(' bn\\\"\'\n') if id_str is not None else None
 
 def get_last_commit_date_time():
     date_time_str = run_process(CMD_ARGS_GIT_LAST_COMMIT_DATE_TIME)
@@ -70,7 +73,12 @@ def get_full_tex_path(root_path=None, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX
     path = os.path.join(path, tex_dir, tex_name)
     return path
 
-def change_line_if_marked(line, id_, last_commit_date_time, now_long, now_short, counter, branch):
+def get_full_readme_path(root_path=None, readme_name=README_FILE_NAME):
+    path = get_project_path(root_path=root_path)
+    path = os.path.join(path, readme_name)
+    return path
+
+def change_log_line_if_marked(line, id_, last_commit_date_time, now_long, now_short, counter, branch):
     new = line
     if 'new-commit-count-date-time-branch-place-marker' in line:
         new = '    %i \\textperiodcentered \\textperiodcentered \\textperiodcentered ~%s \\textperiodcentered \\textperiodcentered \\textperiodcentered ~%s \\\\ [2.0em] %% new-commit-count-date-time-branch-place-marker\n' % (counter+1, now_long, branch)
@@ -86,34 +94,29 @@ def change_line_if_marked(line, id_, last_commit_date_time, now_long, now_short,
         new = '    \small{%s} \\\\ [0.5em] %% new-commit-date-small-place-marker\n' % now_short
     return new
 
-def _print_not_git_repo():
-    print( "Probably not a git repo, not updating book version info." )
+def change_readme_line_if_marked(line, id_, last_commit_date_time, now_long, now_short, counter, branch):
+    new = line
+    if line.count('···') == 2 and line.count('UTC') == 1 and line.count('-') == 2 and line.count(':') == 2:
+        new = '%i ··· %s ··· %s\n' % (counter+1, now_long, branch)
+    return new
 
-def replace_log_entries(root_path=None):
-    id_ = get_last_commit_id()
-    if id_ is None:
-        _print_not_git_repo()
-        return
+def _raise_not_git_repo():
+    raise RuntimeError( "Probably not a git repo, not updating book version info." )
 
-    date_time_ = get_last_commit_date_time()
-    if date_time_ is None:
-        _print_not_git_repo()
-        return
+def get_commit_info():
+    id_ = get_last_commit_id() or _raise_not_git_repo()
 
-    counter = get_commit_count()
-    if counter is None:
-        _print_not_git_repo()
-        return
+    date_time_ = get_last_commit_date_time() or _raise_not_git_repo()
 
-    branch = get_current_branch()
-    if branch is None:
-        _print_not_git_repo()
-        return
+    counter = get_commit_count() or _raise_not_git_repo()
 
-    now_long, now_short = get_current_times()
+    branch = get_current_branch() or _raise_not_git_repo()
 
-    orig_path = get_full_tex_path(root_path=root_path)
-    ignore_path = get_full_tex_path(root_path=root_path, tex_name=BOOK_IGNORE_TEX_FILE_NAME)
+    return (id_, date_time_, counter, branch)
+
+def replace_entries(now_long, now_short, orig_path, ignore_path, func_change_line_if, root_path=None):
+
+    id_, date_time_, counter, branch = get_commit_info()
 
     if os.path.exists(ignore_path):
         os.remove(ignore_path)
@@ -123,10 +126,29 @@ def replace_log_entries(root_path=None):
     with open(ignore_path, 'r') as old:
         with open(orig_path, 'w') as orig:
             for line in old:
-                new = change_line_if_marked(line, id_, date_time_, now_long, now_short, counter, branch)
+                new = func_change_line_if(line, id_, date_time_, now_long, now_short, counter, branch)
                 orig.write(new)
+
+def replace_log_entries(now_long, now_short, root_path=None):
+
+    orig_path = get_full_tex_path(root_path=root_path)
+    ignore_path = get_full_tex_path(root_path=root_path, tex_name=BOOK_IGNORE_TEX_FILE_NAME)
+
+    replace_entries(now_long, now_short, orig_path, ignore_path, change_log_line_if_marked, root_path=root_path)
+
+def replace_readme_entries(now_long, now_short, root_path=None):
+
+    orig_path = get_full_readme_path(root_path=root_path)
+    ignore_path = get_full_readme_path(root_path=root_path, readme_name=README_IGNORE_FILE_NAME)
+
+    replace_entries(now_long, now_short, orig_path, ignore_path, change_readme_line_if_marked, root_path=root_path)
 
 
 if __name__ == '__main__':
     # Should be run from project root folder.
-    replace_log_entries()
+
+    now_long, now_short = get_current_times()
+
+    replace_log_entries(now_long, now_short)
+
+    replace_readme_entries(now_long, now_short)
