@@ -18,9 +18,25 @@ from scene import Scene
 
 class SceneDiscoveryMixin:
 
-    def scn_d_01_monolith_diagonals(self, bt=BoardType.Discovery):
+    def scn_d_01_knight_steps(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_01_monolith_diagonals', bt, width=7, height=7)
+        scene = Scene('scn_d_01_knight_steps', bt, width=7, height=7)
+
+        start_N = (3, 3)
+        scene.board.set_piece(*start_N, piece=-PieceType.Knight)
+
+        scene.append_arrow( 3, 3, 3+0.5, 4+0.5, mark_type=MarkType.Blocked, start_pointer=False, end_pointer=False ) # up
+        scene.append_arrow( *GS.add_to_all( (3, 4, 2, 5), 0.5 ), mark_type=MarkType.Legal, start_pointer=False, end_pointer=True ) # up left
+        scene.append_arrow( *GS.add_to_all( (3, 4, 4, 5), 0.5 ), mark_type=MarkType.Action, start_pointer=False, end_pointer=True ) # up right
+
+        scene.append_text("L", 2, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
+        scene.append_text("R", 4, 5, corner=Corner.UpperRight, mark_type=MarkType.Action)
+
+        return scene
+
+    def scn_d_02_monolith_steps(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_02_monolith_steps', bt, width=7, height=7)
 
         start_M = (3, 3)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -45,9 +61,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_02_monolith_step_2(self, bt=BoardType.Discovery):
+    def scn_d_03_monolith_step_2(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_02_monolith_step_2', bt)
+        scene = Scene('scn_d_03_monolith_step_2', bt)
 
         start = (3, 3)
         start_M = (4, 5) # rel == (1, 2) --> right step
