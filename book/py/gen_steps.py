@@ -14,6 +14,23 @@ def convert_single_step_into_multi_rels(rels):
     return [ [ tpl ] for tpl in rels ]
 
 
+DEFAULT_KNIGHT_REL_LEFT_MOVES = [   ( 2,  1),  \
+                                    (-1,  2),  \
+                                    (-2, -1),  \
+                                    ( 1, -2)   ]
+DEFAULT_KNIGHT_MULTI_REL_LEFT_MOVES = convert_single_step_into_multi_rels(DEFAULT_KNIGHT_REL_LEFT_MOVES)
+
+DEFAULT_KNIGHT_REL_RIGHT_MOVES = [  ( 1,  2),  \
+                                    (-2,  1),  \
+                                    (-1, -2),  \
+                                    ( 2, -1)   ]
+DEFAULT_KNIGHT_MULTI_REL_RIGHT_MOVES = convert_single_step_into_multi_rels(DEFAULT_KNIGHT_REL_RIGHT_MOVES)
+
+# Don't, it messes up proper anti-clockwise order of steps.
+# Sorting it out would be just nightmare.
+#
+# DEFAULT_KNIGHT_REL_MOVES =  DEFAULT_KNIGHT_REL_LEFT_MOVES + \
+#                             DEFAULT_KNIGHT_REL_RIGHT_MOVES
 DEFAULT_KNIGHT_REL_MOVES = [ ( 2,  1),  \
                              ( 1,  2),  \
                                         \
