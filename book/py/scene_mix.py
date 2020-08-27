@@ -29,7 +29,8 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_d_01_monolith_diagonals', \
+                    # 'scn_d_01_monolith_diagonals', \
+                    'scn_d_02_monolith_step_2', \
                 ]
 
     def _get_all_scene_method_names(self):
