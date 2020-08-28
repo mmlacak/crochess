@@ -61,9 +61,24 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_03_monolith_step_2(self, bt=BoardType.Discovery):
+    def scn_d_03_monolith_step_1(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_03_monolith_step_2', bt)
+        scene = Scene('scn_d_03_monolith_step_1', bt, width=7, height=7)
+
+        start_M = (3, 3)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        end = (4, 5)
+        scene.append_text("R", *end, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+
+        step = start_M + end
+        scene.append_arrow( *step, mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_d_04_monolith_step_2(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_04_monolith_step_2', bt)
 
         start = (3, 3)
         start_M = (4, 5) # rel == (1, 2) --> right step
@@ -84,9 +99,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_04_monolith_step_3(self, bt=BoardType.Discovery):
+    def scn_d_05_monolith_step_3(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_04_monolith_step_3', bt)
+        scene = Scene('scn_d_05_monolith_step_3', bt)
 
         start = (3, 3)
         start_2 = (4, 5) # rel == (1, 2) --> right step

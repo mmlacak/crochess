@@ -40,13 +40,17 @@ any Star or the other Monolith as a destination.
 Monolith cannot be captured, converted, nor activated.
 Pawn cannot be promoted to Monolith.
 
+Monolith cannot capture piece, and thus cannot check, nor checkmate.
+
 [?] Syzygy ... [?]
 
 [?] Hybrid ... Wave activates Monolith, others are teleported by Monolith [?]
 
 In algebraic notation, symbol for Monolith is 'M'.
 
-\vspace*{0.05\textheight}
+\clearpage % ..........................................................
+
+% \vspace*{0.05\textheight}
 \noindent
 \begin{wrapfigure}[2]{l}{0.4\textwidth}
 \centering
@@ -56,9 +60,7 @@ In algebraic notation, symbol for Monolith is 'M'.
 \end{wrapfigure}
 Piece colors in this variant are presented on the left.
 
-\clearpage % ..........................................................
-
-% \vspace*{0.25\textheight}
+\vspace*{0.25\textheight}
 \noindent
 \begin{wrapfigure}[2]{l}{0.4\textwidth}
 \centering
@@ -71,41 +73,55 @@ Star colors in this variant are presented on the left.
 \clearpage % ..........................................................
 % Movement ------------------------------------------------------------
 
-% \vspace*{0.2\textheight}
-
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 
-% \vspace*{0.05\textheight}
 \noindent
-\begin{wrapfigure}{l}{0.35\textwidth} % [11]
+\begin{wrapfigure}[4]{l}{0.35\textwidth}
 \centering
 \includegraphics[width=0.291666667\textwidth, keepaspectratio=true]{examples/20_d/scn_d_01_knight_steps.png}
 \caption{Knight steps}
 \label{fig:scn_d_01_knight_steps}
 \end{wrapfigure}
-...
+Like in a \hyperref[fig:scn_cot_10_knight_directions]{Conquest of Tlalocan variant},
+looking from Knight's position forward, one direction
+would be to the left, and the other to the right.
 
 \vspace*{0.2\textheight}
-
-% \vspace*{0.05\textheight}
 \noindent
-\begin{wrapfigure}{l}{0.35\textwidth} % [11]
+\begin{wrapfigure}[12]{l}{0.35\textwidth}
 \centering
 \includegraphics[width=0.291666667\textwidth, keepaspectratio=true]{examples/20_d/scn_d_02_monolith_steps.png}
 \caption{Monolith steps}
 \label{fig:scn_d_02_monolith_steps}
 \end{wrapfigure}
-...
+Here, all left (green) and right (blue) steps of Monolith are marked.
+
+Monolith can freely choose any step-field as its' first step. On all subsequent
+steps, Monolith has to alternate between left and right steps. Every step can be
+chosen independently of any previous choice.
+
+Just like Knight, Monolith is not obstructed by any piece on unmarked (i.e. non-step)
+field. In this variant, Monolith is limited to 3 steps in its' ply.
+
+% % \vspace*{0.15\textheight}
+% \noindent
+% \begin{wrapfigure}[1]{l}{0.35\textwidth}
+% \centering
+% \includegraphics[width=0.291666667\textwidth, keepaspectratio=true]{examples/20_d/scn_d_03_monolith_step_1.png}
+% \caption{Monolith step 1}
+% \label{fig:scn_d_03_monolith_step_1}
+% \end{wrapfigure}
+% ...
 
 \clearpage % ..........................................................
 
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_03_monolith_step_2.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_04_monolith_step_2.png}
 \caption{Monolith step 2}
-\label{fig:scn_d_03_monolith_step_2}
+\label{fig:scn_d_04_monolith_step_2}
 % \centering
 \end{figure}
 
@@ -116,9 +132,9 @@ Star colors in this variant are presented on the left.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_04_monolith_step_3.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_05_monolith_step_3.png}
 \caption{Monolith step 3}
-\label{fig:scn_d_04_monolith_step_3}
+\label{fig:scn_d_05_monolith_step_3}
 % \centering
 \end{figure}
 
