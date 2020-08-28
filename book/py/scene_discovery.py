@@ -44,7 +44,7 @@ class SceneDiscoveryMixin:
         #
         # left steps
 
-        coords = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=False, count=1)
+        coords = GS.gen_multi_steps(GS.DEFAULT_MONOLITH_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=False, count=1)
 
         for index, pos in enumerate( coords() ):
             scene.append_field_marker(*pos, mark_type=MarkType.Legal)
@@ -53,7 +53,7 @@ class SceneDiscoveryMixin:
         #
         # right steps
 
-        coords = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_RIGHT_MOVES, start=start_M, include_prev=False, count=1)
+        coords = GS.gen_multi_steps(GS.DEFAULT_MONOLITH_MULTI_REL_RIGHT_MOVES, start=start_M, include_prev=False, count=1)
 
         for index, pos in enumerate( coords() ):
             scene.append_field_marker(*pos, mark_type=MarkType.Action)
@@ -75,7 +75,7 @@ class SceneDiscoveryMixin:
         #
         # left steps
 
-        coords = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=True, count=1)
+        coords = GS.gen_multi_steps(GS.DEFAULT_MONOLITH_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=True, count=1)
 
         for index, pos in enumerate( coords() ):
             scene.append_field_marker(*pos[ 2 : ], mark_type=MarkType.Legal)
@@ -100,7 +100,7 @@ class SceneDiscoveryMixin:
         #
         # left steps
 
-        coords = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_RIGHT_MOVES, start=start_M, include_prev=True, count=1)
+        coords = GS.gen_multi_steps(GS.DEFAULT_MONOLITH_MULTI_REL_RIGHT_MOVES, start=start_M, include_prev=True, count=1)
 
         for index, pos in enumerate( coords() ):
             scene.append_field_marker(*pos[ 2 : ], mark_type=MarkType.Action)
