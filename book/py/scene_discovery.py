@@ -42,7 +42,7 @@ class SceneDiscoveryMixin:
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
         #
-        # left diagonals
+        # left steps
 
         coords = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=False, count=1)
 
@@ -51,7 +51,7 @@ class SceneDiscoveryMixin:
             scene.append_text("L", *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal)
 
         #
-        # right diagonals
+        # right steps
 
         coords = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_RIGHT_MOVES, start=start_M, include_prev=False, count=1)
 
@@ -73,7 +73,7 @@ class SceneDiscoveryMixin:
         scene.append_arrow( *(start + start_M), mark_type=MarkType.Blocked )
 
         #
-        # left diagonals
+        # left steps
 
         coords = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=True, count=1)
 
@@ -81,5 +81,30 @@ class SceneDiscoveryMixin:
             scene.append_field_marker(*pos[ 2 : ], mark_type=MarkType.Legal)
             # scene.append_text("L", *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal)
             scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_d_04_monolith_step_3(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_04_monolith_step_3', bt)
+
+        start = (3, 3)
+        start_2 = (4, 5) # rel == (1, 2) --> right step
+        start_M = (6, 6) # rel == (2, 1) --> left step
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        scene.append_text("S", *start, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+        scene.append_arrow( *(start + start_2), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(start_2 + start_M), mark_type=MarkType.Blocked )
+
+        #
+        # left steps
+
+        coords = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_RIGHT_MOVES, start=start_M, include_prev=True, count=1)
+
+        for index, pos in enumerate( coords() ):
+            scene.append_field_marker(*pos[ 2 : ], mark_type=MarkType.Action)
+            # scene.append_text("L", *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal)
+            scene.append_arrow( *pos, mark_type=MarkType.Action )
 
         return scene

@@ -32,6 +32,7 @@ class SceneMix(SceneCroatianTiesMixin, \
                     'scn_d_01_knight_steps', \
                     'scn_d_02_monolith_steps', \
                     'scn_d_03_monolith_step_2', \
+                    'scn_d_04_monolith_step_3', \
                 ]
 
     def _get_all_scene_method_names(self):
