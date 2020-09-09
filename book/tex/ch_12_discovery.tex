@@ -41,11 +41,15 @@ Monolith cannot be captured, converted, nor activated.
 Pawn cannot be promoted to Monolith.
 
 Monolith cannot capture piece, and thus cannot check, nor checkmate opponent's
-King.
+King. Monolith cannot activate Wave, nor any other piece.
+
+Monolith moves similar to Knight, but can perform 3 steps in a single ply,
+by alternating between left and right steps. All step-fields in a ply must
+be empty.
+
+Alternative move for Monolith is a syzygy.
 
 [?] Syzygy ... [?]
-
-[?] Hybrid ... Wave activates Monolith, others are teleported by Monolith [?]
 
 In algebraic notation, symbol for Monolith is 'M'.
 
@@ -90,7 +94,7 @@ would be to the left, and the other to the right.
 
 \vspace*{0.2\textheight}
 \noindent
-\begin{wrapfigure}[12]{l}{0.35\textwidth}
+\begin{wrapfigure}[10]{l}{0.35\textwidth}
 \centering
 \includegraphics[width=0.291666667\textwidth, keepaspectratio=true]{examples/20_d/scn_d_02_monolith_steps.png}
 \caption{Monolith steps}
@@ -103,7 +107,8 @@ steps, Monolith has to alternate between left and right steps. Every step can be
 chosen independently of any previous choice.
 
 Just like Knight, Monolith is not obstructed by any piece on unmarked (i.e. non-step)
-field. In this variant, Monolith is limited to 3 steps in its' ply.
+field. In this variant, Monolith is limited to 3 steps in its' ply. All step-fields
+in a ply must be empty.
 
 \clearpage % ..........................................................
 
