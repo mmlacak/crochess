@@ -1,5 +1,5 @@
 
-% Copyright (c) 2015 - 2019 Mario Mlačak, mmlacak@gmail.com
+% Copyright (c) 2015 - 2020 Mario Mlačak, mmlacak@gmail.com
 % Licensed and published as Public Domain work.
 
 % Discovery chapter ===================================================
@@ -25,20 +25,29 @@ enumerated from '1' to '24'. A new piece is introduced, Monolith.
 \section*{Monolith}
 \addcontentsline{toc}{section}{Monolith}
 
+\vspace*{-1.1\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/15_monolith.png}
 \caption{Monolith}
 \label{fig:15_monolith}
 \end{wrapfigure}
 Monolith does not belong to any player, but can be moved by both of them.
-
-Monolith is a teleportation device, much like moveable Star. Player can use
-any Star or the other Monolith as a destination.
-
 Monolith cannot be captured, converted, nor activated.
 Pawn cannot be promoted to Monolith.
+
+Monolith is a teleportation device, much like moveable Star. Piece can
+initiate teleportation either by touching a Monolith or a field at which
+it stands.
+
+Piece, if not Wave, then reappears on a chosen empty portal-field around
+any Star or the other Monolith. Wave teleported from a Monolith can emerge
+only from the other Monolith. Kings cannot be teleported.
+
+Piece teleported from a Star, if not Wave, can reappear on a chosen empty
+portal-field around the 2 Stars in opposite color, or around any Monolith.
+Wave teleported from a Star can only emerge from the Star in the same color.
 
 Monolith cannot capture piece, and thus cannot check, nor checkmate opponent's
 King. Monolith cannot activate Wave, nor any other piece.
@@ -49,11 +58,9 @@ be empty.
 
 Alternative move for Monolith is a syzygy.
 
-[?] Syzygy ... [?]
-
 In algebraic notation, symbol for Monolith is 'M'.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
 % \vspace*{0.05\textheight}
 \noindent
@@ -145,6 +152,14 @@ right steps.
 ...
 
 % ------------------------------------------------------------ Movement
+\clearpage % ..........................................................
+% Syzygy --------------------------------------------------------------
+
+\subsection*{Syzygy}
+\addcontentsline{toc}{subsection}{Syzygy}
+...
+
+% -------------------------------------------------------------- Syzygy
 % ************************************************************ Monolith
 \clearpage % ..........................................................
 
