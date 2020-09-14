@@ -88,6 +88,7 @@ Star colors in this variant are presented on the left.
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 
+\vspace*{-0.3\baselineskip}
 \noindent
 \begin{wrapfigure}[4]{l}{0.35\textwidth}
 \centering
@@ -99,9 +100,10 @@ Like in a \hyperref[fig:scn_cot_10_knight_directions]{Conquest of Tlalocan varia
 looking from Knight's position forward, one direction
 would be to the left, and the other to the right.
 
-\vspace*{0.2\textheight}
+% \vspace*{0.2\textheight}
+\vspace*{6.1\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.35\textwidth}
+\begin{wrapfigure}[9]{l}{0.35\textwidth}
 \centering
 \includegraphics[width=0.291666667\textwidth, keepaspectratio=true]{examples/20_d/scn_d_02_monolith_steps.png}
 \caption{Monolith steps}
@@ -109,13 +111,22 @@ would be to the left, and the other to the right.
 \end{wrapfigure}
 Here, all left (green) and right (blue) steps of Monolith are marked.
 
-Monolith can freely choose any step-field as its' first step. On all subsequent
-steps, Monolith has to alternate between left and right steps. Every step can be
-chosen independently of any previous choice.
+Monolith can freely choose any step-field as its' first step destination. On all
+subsequent steps, Monolith has to alternate between left and right steps. Every
+step direction can be chosen independently of any previous choice.
 
-Just like Knight, Monolith is not obstructed by any piece on unmarked (i.e. non-step)
-field. In this variant, Monolith is limited to 3 steps in its' ply. All step-fields
-in a ply must be empty.
+% \vspace*{6.1\baselineskip}
+\noindent
+\begin{wrapfigure}[9]{l}{0.35\textwidth}
+\centering
+\includegraphics[width=0.291666667\textwidth, keepaspectratio=true]{examples/20_d/scn_d_03_monolith_step_1.png}
+\caption{Monolith first step}
+\label{fig:scn_d_03_monolith_step_1}
+\end{wrapfigure}
+Like Knight, Monolith is not obstructed by any piece on unmarked (i.e. non-step)
+field. Monolith cannot interact with other pieces on its' own. So, Monolith is
+blocked by any piece, except Star or other Monolith, on its' step-field. In this
+variant, Monolith is limited to 3 steps in its' ply.
 
 \clearpage % ..........................................................
 

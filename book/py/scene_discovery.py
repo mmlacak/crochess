@@ -84,8 +84,13 @@ class SceneDiscoveryMixin:
         start_M = (4, 5) # rel == (1, 2) --> right step
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
-        scene.append_text("S", *start, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
-        scene.append_arrow( *(start + start_M), mark_type=MarkType.Blocked )
+        start_W = (3, 7)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        scene.board.set_piece(6, 7, piece=PieceType.Pawn)
+        scene.board.set_piece(7, 7, piece=PieceType.Pawn)
+
+        scene.append_text("S", *start, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+        scene.append_arrow( *(start + start_M), mark_type=MarkType.Action )
 
         #
         # left steps
@@ -93,9 +98,10 @@ class SceneDiscoveryMixin:
         coords = GS.gen_multi_steps(GS.DEFAULT_MONOLITH_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=True, count=1)
 
         for index, pos in enumerate( coords() ):
-            scene.append_field_marker(*pos[ 2 : ], mark_type=MarkType.Legal)
-            # scene.append_text("L", *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal)
-            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+            mark_type = MarkType.Blocked if index == 1 else MarkType.Legal
+            scene.append_field_marker(*pos[ 2 : ], mark_type=mark_type)
+            # scene.append_text("L", *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
+            scene.append_arrow( *pos, mark_type=mark_type )
 
         return scene
 
@@ -108,9 +114,14 @@ class SceneDiscoveryMixin:
         start_M = (6, 6) # rel == (2, 1) --> left step
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
-        scene.append_text("S", *start, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
-        scene.append_arrow( *(start + start_2), mark_type=MarkType.Blocked )
-        scene.append_arrow( *(start_2 + start_M), mark_type=MarkType.Blocked )
+        start_W = (3, 7)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        scene.board.set_piece(6, 7, piece=PieceType.Pawn)
+        scene.board.set_piece(7, 7, piece=PieceType.Pawn)
+
+        scene.append_text("S", *start, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+        scene.append_arrow( *(start + start_2), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_2 + start_M), mark_type=MarkType.Legal )
 
         #
         # left steps

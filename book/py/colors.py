@@ -327,7 +327,7 @@ class Colors(dict):
                                                                  '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ) )
         self[ BoardType.OddConquestOfTlalocan ] = self[ BoardType.ConquestOfTlalocan ]
 
-        self[ BoardType.Discovery ] = CI( piece=CS(    ('#7F7F7F', '#000000', '#003737', '#FFFFFF') ), \
+        self[ BoardType.Discovery ] = CI( piece=CS(    ('#6F6F6F', '#000000', '#003737', '#FFFFFF') ), \
                                           star=CS(     ('#FF7F00', '#000000', '#7000AF', '#FFFFFF') ), \
                                           monolith=CP( ('#000000', '#FFFFFF') ), \
                                           aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
