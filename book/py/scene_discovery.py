@@ -86,6 +86,7 @@ class SceneDiscoveryMixin:
 
         start_W = (3, 7)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        scene.board.set_piece(5, 8, piece=PieceType.Bishop)
         scene.board.set_piece(6, 7, piece=PieceType.Pawn)
         scene.board.set_piece(7, 7, piece=PieceType.Pawn)
 
@@ -116,6 +117,7 @@ class SceneDiscoveryMixin:
 
         start_W = (3, 7)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        scene.board.set_piece(5, 8, piece=PieceType.Bishop)
         scene.board.set_piece(6, 7, piece=PieceType.Pawn)
         scene.board.set_piece(7, 7, piece=PieceType.Pawn)
 
