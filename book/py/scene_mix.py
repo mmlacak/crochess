@@ -34,9 +34,10 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_d_03_monolith_step_1', \
                     # 'scn_d_04_monolith_step_2', \
                     # 'scn_d_05_monolith_step_3', \
-                    'scn_d_06_teleport_via_monolith', \
-                    'scn_d_07_teleport_via_star', \
-                    'scn_d_08_teleport_wave', \
+                    # 'scn_d_06_teleport_via_monolith', \
+                    # 'scn_d_07_teleport_via_star', \
+                    # 'scn_d_08_teleport_wave_via_star', \
+                    'scn_d_09_teleport_wave_via_monolith', \
                 ]
 
     def _get_all_scene_method_names(self):
