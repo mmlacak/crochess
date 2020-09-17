@@ -523,3 +523,68 @@ class SceneDiscoveryMixin:
         scene.append_text("B", *start_M2, corner=Corner.UpperRight, mark_type=MarkType.Legal)
 
         return scene
+
+    def scn_d_12_teleporting_monolith_via_star(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_12_teleporting_monolith_via_star', bt)
+
+        startT1 = (0, 0)
+        startT2 = (23, 23)
+        startT3 = (23, 0)
+        startT4 = (0, 23)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        start_M1 = (1, 6)
+        start_M2 = (22, 17)
+
+        scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
+        scene.board.set_piece(*start_M2, piece=PieceType.Monolith)
+
+        scene.board.set_piece(0, 7, piece=PieceType.Wave)
+        scene.board.set_piece(2, 7, piece=PieceType.King)
+
+        #
+        # Monolith 2
+        rels = [(1, 2), (-1, 2), (1, 2), ]
+        gen_abs_pos_G = GS.gen_steps(rels, start=start_M2, include_prev=True, count=len(rels))
+
+        for i, pos in enumerate( gen_abs_pos_G() ):
+            mark_type = MarkType.Action if i == 2 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Monolith 1
+        start_M1 = (1, 6)
+        scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
+
+        gen_abs_pos_K = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_M1, include_prev=False, count=1)
+
+        for i, pos in enumerate( gen_abs_pos_K() ):
+            if i not in [1, 3]:
+                scene.append_text(str(i+1), *pos, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+
+        #
+        # Star 3
+        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT3, include_prev=False, count=1)
+
+        j = 0
+        for i, pos in enumerate( gen_abs_pos_3() ):
+            if scene.board.is_on_board(*pos):
+                j += 1
+                scene.append_text(str(j), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
+
+        #
+        # Star 4
+        gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT4, include_prev=False, count=1)
+
+        j = 0
+        for i, pos in enumerate( gen_abs_pos_4() ):
+            if scene.board.is_on_board(*pos):
+                j += 1
+                scene.append_text(str(j), *pos, corner=Corner.LowerRight, mark_type=MarkType.Legal)
+
+        return scene
