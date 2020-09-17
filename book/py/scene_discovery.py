@@ -137,9 +137,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_06_teleport_1(self, bt=BoardType.Discovery):
+    def scn_d_06_teleport_via_monolith(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_06_teleport_1', bt)
+        scene = Scene('scn_d_06_teleport_via_monolith', bt)
 
         startT1 = (0, 0)
         startT2 = (23, 23)
@@ -227,9 +227,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_07_teleport_2(self, bt=BoardType.Discovery):
+    def scn_d_07_teleport_via_star(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_07_teleport_2', bt)
+        scene = Scene('scn_d_07_teleport_via_star', bt)
 
         startT1 = (0, 0)
         startT2 = (23, 23)
@@ -262,8 +262,8 @@ class SceneDiscoveryMixin:
         gen_abs_pos_K = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_M1, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_K() ):
-            mark_type = MarkType.Blocked if i in [1, 3] else MarkType.Legal
-            scene.append_text(str(i+1), *pos, corner=Corner.UpperRight, mark_type=mark_type)
+            if i not in [1, 3]:
+                scene.append_text(str(i+1), *pos, corner=Corner.UpperRight, mark_type=MarkType.Legal)
 
         #
         # Monolith 2
@@ -295,24 +295,58 @@ class SceneDiscoveryMixin:
                 j += 1
                 scene.append_text(str(j), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
 
+        return scene
+
+    def scn_d_08_teleport_wave(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_08_teleport_wave', bt)
+
+        startT1 = (0, 0)
+        startT2 = (23, 23)
+        startT3 = (23, 0)
+        startT4 = (0, 23)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        scene.board.set_piece(1, 6, piece=PieceType.Monolith)
+        scene.board.set_piece(22, 17, piece=PieceType.Monolith)
+
+        scene.board.set_piece(17, 3, piece=PieceType.Bishop)
+
         #
-        # Star 3
-        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT3, include_prev=False, count=1)
+        # Wave
+        start_W = (6, 20)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        # j = 0
-        # for i, pos in enumerate( gen_abs_pos_3() ):
-        #     if scene.board.is_on_board(*pos):
-        #         j += 1
-        #         scene.append_text(str(j), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
+        gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=3)
+
+        for i, pos in enumerate( gen_abs_pos_W() ):
+            mark_type = MarkType.Action if i == 2 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
 
         #
-        # Star 4
-        gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT4, include_prev=False, count=1)
+        # Pegasus
+        start_G = (4, 16)
+        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
 
-        # j = 0
-        # for i, pos in enumerate( gen_abs_pos_4() ):
-        #     if scene.board.is_on_board(*pos):
-        #         j += 1
-        #         scene.append_text(str(j), *pos, corner=Corner.LowerRight, mark_type=MarkType.Legal)
+        gen_abs_pos_G = GS.gen_steps([(1, 2), ], start=start_G, include_prev=True, count=2)
+
+        for i, pos in enumerate( gen_abs_pos_G() ):
+            mark_type = MarkType.Action if i == 1 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Wave, teleported
+        gen_abs_pos_Wt = GS.gen_steps([(-2, 1), ], start=startT3, include_prev=True, bounds=scene.board.get_position_limits()) # , count=3)
+
+        for i, pos in enumerate( gen_abs_pos_Wt() ):
+            mark_type = MarkType.Action if i == 2 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        scene.append_text("A", *startT4, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("B", *startT3, corner=Corner.UpperRight, mark_type=MarkType.Legal)
 
         return scene
