@@ -40,8 +40,9 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_d_09_teleport_wave_via_monolith', \
                     # 'scn_d_10_teleported_wave_blocked', \
                     # 'scn_d_11_wave_teleported_off_board', \
-                    # 'scn_d_12_teleporting_monolith_via_star', \
-                    'scn_d_13_teleporting_monolith_via_monolith', \
+                    'scn_d_12_wave_teleport_on_and_off_board', \
+                    # 'scn_d_13_teleporting_monolith_via_star', \
+                    # 'scn_d_14_teleporting_monolith_via_monolith', \
                 ]
 
     def _get_all_scene_method_names(self):
