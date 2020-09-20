@@ -591,9 +591,76 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_13_teleporting_monolith_via_star(self, bt=BoardType.Discovery):
+    def scn_d_13_teleporting_wave_cascade(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_13_teleporting_monolith_via_star', bt)
+        scene = Scene('scn_d_13_teleporting_wave_cascade', bt)
+
+        startT1 = (0, 0)
+        startT2 = (23, 23)
+        startT3 = (23, 0)
+        startT4 = (0, 23)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        start_M1 = (1, 4)
+        start_M2 = (12, 17)
+
+        scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
+        scene.board.set_piece(*start_M2, piece=PieceType.Monolith)
+
+        scene.board.set_piece(17, 3, piece=PieceType.Bishop)
+
+        #
+        # Wave
+        start_W = (7, 1)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=3)
+
+        for i, pos in enumerate( gen_abs_pos_W() ):
+            mark_type = MarkType.Action if i == 2 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Pegasus
+        start_G = (9, 5)
+        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+
+        gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
+
+        for i, pos in enumerate( gen_abs_pos_G() ):
+            mark_type = MarkType.Action if i == 1 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Wave, teleported
+        gen_abs_pos_Wt = GS.gen_steps([(-2, 1), ], start=start_M2, include_prev=True, count=6) # bounds=scene.board.get_position_limits())
+
+        for i, pos in enumerate( gen_abs_pos_Wt() ):
+            mark_type = MarkType.Action if i == 5 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Wave, teleported
+        gen_abs_pos_Wt = GS.gen_steps([(-2, 1), ], start=startT3, include_prev=True, bounds=scene.board.get_position_limits()) # , count=3)
+
+        for i, pos in enumerate( gen_abs_pos_Wt() ):
+            mark_type = MarkType.Action if i == 2 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        scene.append_text("A", *start_M1, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("B", *start_M2, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("C", *startT4, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("D", *startT3, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+
+        return scene
+
+    def scn_d_14_teleporting_monolith_via_star(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_14_teleporting_monolith_via_star', bt)
 
         startT1 = (0, 0)
         startT2 = (23, 23)
@@ -656,9 +723,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_14_teleporting_monolith_via_monolith(self, bt=BoardType.Discovery):
+    def scn_d_15_teleporting_monolith_via_monolith(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_14_teleporting_monolith_via_monolith', bt)
+        scene = Scene('scn_d_15_teleporting_monolith_via_monolith', bt)
 
         startT1 = (0, 0)
         startT2 = (23, 23)
