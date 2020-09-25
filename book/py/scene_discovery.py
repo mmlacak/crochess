@@ -796,3 +796,70 @@ class SceneDiscoveryMixin:
                 scene.append_text(str(j), *pos, corner=Corner.LowerRight, mark_type=MarkType.Legal)
 
         return scene
+
+    def scn_d_16_monolith_shaman_interaction(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_16_monolith_shaman_interaction', bt)
+
+        start = (4, 12)
+        scene.board.set_piece(*start, piece=PieceType.Shaman)
+        scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
+
+        startT = (0, 0)
+        scene.board.set_piece(*startT, piece=PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        startK = (2, 6)
+        scene.board.set_piece(*startK, piece=PieceType.King)
+        # scene.board.set_piece(4, 17, piece=PieceType.Knight)
+        # scene.board.set_piece(12, 11, piece=-PieceType.Pawn)
+        scene.board.set_piece(6, 23, piece=PieceType.Monolith)
+        scene.board.set_piece(18, 9, piece=-PieceType.Knight)
+
+        # scene.board.set_piece(6, 7, piece=PieceType.Pawn)
+        # scene.board.set_piece(7, 7, piece=PieceType.Pawn)
+        # scene.board.set_piece(8, 7, piece=PieceType.Pawn)
+        # scene.board.set_piece(9, 7, piece=PieceType.Pawn)
+        # scene.board.set_piece(10, 7, piece=PieceType.Pawn)
+
+        startW = (3, 10)
+        scene.board.set_piece(*startW, piece=PieceType.Wave)
+
+        startH = (5, 9)
+        scene.board.set_piece(*startH, piece=PieceType.Shaman)
+        scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
+
+        scene.append_arrow( *(startH + startW), mark_type=MarkType.Action )
+        scene.append_arrow( *(startW + start), mark_type=MarkType.Action )
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(scene, start, rel, count=24)
+
+        for i in range(16):
+            mark_type = MarkType.Illegal if i in [3, 5, 7] else MarkType.Legal
+            # aba(str(i + 1), mark_type=mark_type)
+            aba(None, mark_type=mark_type)
+
+        #
+        # left arm
+
+        # rel = (-2, -1)
+        # aba = self.append_broken_arrow(scene, start, rel, count=24)
+
+        # for i in range(16):
+            # aba(str(i + 1), mark_type=MarkType.Action)
+
+        # # scene.append_arrow( *((-1, 1) + startT), mark_type=MarkType.Illegal )
+        # # scene.append_arrow( *((-1, 9) + startK), mark_type=MarkType.Illegal )
+        # scene.replace_arrow( *((-7.5, 8.5) + startT), mark_type=MarkType.Illegal )
+        # scene.replace_arrow( *((-1.5, 10.5) + startK), mark_type=MarkType.Illegal )
+
+        # scene.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
+        # scene.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
+
+        return scene
