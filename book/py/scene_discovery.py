@@ -813,16 +813,8 @@ class SceneDiscoveryMixin:
 
         startK = (2, 6)
         scene.board.set_piece(*startK, piece=PieceType.King)
-        # scene.board.set_piece(4, 17, piece=PieceType.Knight)
-        # scene.board.set_piece(12, 11, piece=-PieceType.Pawn)
         scene.board.set_piece(6, 23, piece=PieceType.Monolith)
         scene.board.set_piece(18, 9, piece=-PieceType.Knight)
-
-        # scene.board.set_piece(6, 7, piece=PieceType.Pawn)
-        # scene.board.set_piece(7, 7, piece=PieceType.Pawn)
-        # scene.board.set_piece(8, 7, piece=PieceType.Pawn)
-        # scene.board.set_piece(9, 7, piece=PieceType.Pawn)
-        # scene.board.set_piece(10, 7, piece=PieceType.Pawn)
 
         startW = (3, 10)
         scene.board.set_piece(*startW, piece=PieceType.Wave)
@@ -853,13 +845,5 @@ class SceneDiscoveryMixin:
 
         # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
-
-        # # scene.append_arrow( *((-1, 1) + startT), mark_type=MarkType.Illegal )
-        # # scene.append_arrow( *((-1, 9) + startK), mark_type=MarkType.Illegal )
-        # scene.replace_arrow( *((-7.5, 8.5) + startT), mark_type=MarkType.Illegal )
-        # scene.replace_arrow( *((-1.5, 10.5) + startK), mark_type=MarkType.Illegal )
-
-        # scene.replace_text("4", *startK, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
-        # scene.replace_text("9", *startT, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
 
         return scene
