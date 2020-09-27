@@ -847,3 +847,84 @@ class SceneDiscoveryMixin:
             # aba(str(i + 1), mark_type=MarkType.Action)
 
         return scene
+
+    def scn_d_17_syzygy_2_stars_init(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_17_syzygy_2_stars_init', bt)
+
+        scene.board.set_piece(0, 0, piece=PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        scene.board.set_piece(22, 1, piece=PieceType.Pawn)
+        scene.board.set_piece(20, 3, piece=PieceType.King)
+        scene.board.set_piece(19, 14, piece=PieceType.Knight)
+        scene.board.set_piece(16, 7, piece=PieceType.Bishop)
+        scene.board.set_piece(15, 8, piece=PieceType.Wave)
+
+        scene.board.set_piece(1, 22, piece=-PieceType.Pawn)
+        scene.board.set_piece(3, 20, piece=-PieceType.King)
+        scene.board.set_piece(4, 11, piece=-PieceType.Queen)
+        scene.board.set_piece(7, 16, piece=-PieceType.Rook)
+
+        start_M = (13, 13)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        scene.board.set_piece(1, 6, piece=PieceType.Monolith)
+
+        end_M = (12, 11)
+        scene.append_arrow( *(start_M + end_M), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_d_18_syzygy_2_stars_steps(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_18_syzygy_2_stars_steps', bt)
+
+        start_T = (23, 0)
+        scene.board.set_piece(0, 0, piece=PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        scene.board.set_piece(22, 1, piece=PieceType.Pawn)
+        scene.board.set_piece(20, 3, piece=PieceType.King)
+        scene.board.set_piece(19, 14, piece=PieceType.Knight)
+        scene.board.set_piece(16, 7, piece=PieceType.Bishop)
+        scene.board.set_piece(15, 8, piece=PieceType.Wave)
+
+        scene.board.set_piece(1, 22, piece=-PieceType.Pawn)
+        scene.board.set_piece(3, 20, piece=-PieceType.King)
+        scene.board.set_piece(4, 11, piece=-PieceType.Queen)
+        scene.board.set_piece(7, 16, piece=-PieceType.Rook)
+
+        start_M = (12, 11)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        scene.board.set_piece(1, 6, piece=PieceType.Monolith)
+
+        #
+        # diagonal arrows
+        gen_abs_pos = GS.gen_steps([(-1, 1)], start=start_T, include_prev=True, bounds=scene.board.get_position_limits())
+
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal, start_pointer=False, end_pointer=False )
+
+        #
+        # field markers
+        gen_abs_pos_1 = GS.gen_steps([(-1, 1)], start=start_T, include_prev=False, bounds=scene.board.get_position_limits())
+
+        for i, pos in enumerate( gen_abs_pos_1() ):
+            mark_type = None
+            if i in [0, 15, 21]:
+                mark_type = MarkType.Blocked
+            elif i in [2, 10, 19, 22]:
+                mark_type = MarkType.Illegal
+            elif i in [6, 7]:
+                mark_type = MarkType.Legal
+
+            if mark_type is not None:
+                scene.append_field_marker( *pos, mark_type=mark_type)
+
+        scene.append_field_marker( *start_T, mark_type=MarkType.Illegal )
+
+        return scene
