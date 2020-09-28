@@ -799,7 +799,7 @@ class SceneDiscoveryMixin:
 
     def scn_d_16_monolith_shaman_interaction(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_16_monolith_shaman_interaction', bt)
+        scene = Scene('scn_d_16_monolith_shaman_interaction', bt, x=-4, y=0)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -813,7 +813,7 @@ class SceneDiscoveryMixin:
 
         startK = (2, 6)
         scene.board.set_piece(*startK, piece=PieceType.King)
-        scene.board.set_piece(6, 23, piece=PieceType.Monolith)
+        scene.board.set_piece(4, 17, piece=PieceType.Monolith)
         scene.board.set_piece(18, 9, piece=-PieceType.Knight)
 
         startW = (3, 10)
@@ -833,7 +833,7 @@ class SceneDiscoveryMixin:
         aba = self.append_broken_arrow(scene, start, rel, count=24)
 
         for i in range(16):
-            mark_type = MarkType.Illegal if i in [3, 5, 7] else MarkType.Legal
+            mark_type = MarkType.Illegal if i in [1, 3, 7] else MarkType.Legal
             # aba(str(i + 1), mark_type=mark_type)
             aba(None, mark_type=mark_type)
 
