@@ -25,7 +25,7 @@ enumerated from '1' to '24'. A new piece is introduced, Monolith.
 \section*{Monolith}
 \addcontentsline{toc}{section}{Monolith}
 
-\vspace*{-1.1\baselineskip}
+% \vspace*{-1.1\baselineskip}
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
@@ -43,24 +43,23 @@ it stands.
 
 Piece, if not Wave, then reappears on a chosen empty portal-field around
 any Star or the other Monolith. Wave teleported from a Monolith can emerge
-only from the other Monolith. Kings cannot be teleported.
+only from the other Monolith. Kings, Monoliths cannot be teleported.
 
 Piece teleported from a Star, if not Wave, can reappear on a chosen empty
 portal-field around the 2 Stars in opposite color, or around any Monolith.
-Wave teleported from a Star can only emerge from the Star in the same color.
+Wave teleported from a Star can only emerge from the other Star in the same
+color.
 
-Monolith cannot capture piece, and thus cannot check, nor checkmate opponent's
-King. Monolith cannot activate Wave, nor any other piece.
-
-Monolith moves similar to Knight, but can perform 3 steps in a single ply,
-by alternating between left and right steps. All step-fields in a ply must
-be empty.
+Monolith cannot interact with (capture, activate, ...) any piece on its' own;
+all step-fields in its' ply must be empty. Monolith moves similar to Knight,
+but can perform 3 steps in a single ply, by alternating between left and right
+steps.
 
 Alternative move for Monolith is syzygy.
 
 In algebraic notation, symbol for Monolith is 'M'.
 
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
 
 % \vspace*{0.05\textheight}
 \noindent
@@ -124,9 +123,9 @@ step direction can be chosen independently of any previous choice.
 \label{fig:scn_d_03_monolith_step_1}
 \end{wrapfigure}
 Like Knight, Monolith is not obstructed by any piece on unmarked (i.e. non-step)
-field. Monolith cannot interact with other pieces on its' own. So, Monolith is
-blocked by any piece, except Star or other Monolith, on its' step-field. In this
-variant, Monolith is limited to 3 steps in its' ply.
+field. Monolith cannot interact with any other piece on its' own. So, Monolith is
+blocked by any piece on its' step-field. In this variant, Monolith is limited
+to 3 steps in its' ply.
 
 \clearpage % ..........................................................
 
@@ -140,7 +139,7 @@ variant, Monolith is limited to 3 steps in its' ply.
 \end{figure}
 
 Starting field is marked S. Right step was chosen as a first one, so next step
-has to be to the left. Here, Monolith is obstructed by Wave on a step-field.
+has to be to the left. Here, Monolith is obstructed by light Wave on a step-field.
 This is so regardless if player moving Monolith is light or dark.
 
 \clearpage % ..........................................................
@@ -156,8 +155,8 @@ This is so regardless if player moving Monolith is light or dark.
 
 Previous step was a left one, so next step needs to be one of 4 marked right
 steps. This is also last step in a Monolith's ply, since it's third. Monolith
-is not obstructed by Pawns on a non-step fields; nor by Bishop on a step-field
-in alternate direction (here, left).
+is not obstructed by Pawns on a non-step fields; nor by Bishop on a left
+step-field.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
@@ -178,7 +177,7 @@ in alternate direction (here, left).
 
 Teleportation using Monoliths is similar to one using Stars in \hyperref[fig:scn_n_02_teleport_init]{previous variant, Nineteen}.
 Pieces, if not Waves, teleporting from Monolith can reappear near any Star or the other Monolith.
-All momentum carried is lost. Again, Kings cannot teleport.
+All momentum carried is lost. Again, Kings and Monoliths cannot be teleported.
 Here, all empty portal-fields where Bishop can be teleported to are enumerated.
 
 \clearpage % ..........................................................
@@ -246,7 +245,7 @@ Here, light Wave could activate own Bishop after teleporting with 2 momentum.
 \end{figure}
 
 In case where all step-fields of a teleported Wave are blocked, it's removed from
-chessboard as if captured by the opponent, described in
+chessboard as if captured by the opponent, like in
 \hyperref[fig:scn_n_06_teleport_wave_blocked]{previous variant, Nineteen}.
 
 The same applies to all other (non-Wave) pieces. If all portal-fields where
@@ -277,10 +276,11 @@ chessboard as if captured by the opponent.
 % \centering
 \end{figure}
 
-Before and after teleportation, Wave can step outside of a board.
-This is legal as long as Wave ends its' ply on a chessboard.
-
-Here, light Wave could activate own Bishop after teleportation with 3 momentum.
+Before and after teleportation, Wave can step outside of a board, as long as its' ply ends
+on a board. Like in \hyperref[fig:scn_n_08_teleport_wave_end]{previous variant, Nineteen},
+Wave has to continue alternating steps after teleportation; if teleported off with up-right
+step, Wave has to emerge from the other Monolith with up-left step. Here, light Wave could
+also activate own Bishop after teleportation with 3 momentum, or have a teleportation cascade.
 
 \clearpage % ..........................................................
 
@@ -297,44 +297,13 @@ Here, light Wave could activate own Bishop after teleportation with 3 momentum.
 % \centering
 \end{figure}
 
-Teleportation cascade refers to Wave being teleported at least twice in the same ply,
+Teleportation cascade refers to Wave being teleported at least twice in the same ply;
 other pieces can't cascade. Unlike in a previous variants, thanks to Monolith,
 teleportation cascade is now useful in granting access to otherwise unreachable places.
-Here, light Wave can activate own Bishop only after second teleportation.
+Here, light Wave can activate own Bishop only after second teleportation
+(A $\rightarrow$ B, then C $\rightarrow$ D).
 
 % .................................................... Teleporting Wave
-\clearpage % ..........................................................
-
-\subsubsection*{Monolith}
-\addcontentsline{toc}{subsubsection}{Monolith}
-
-\vspace*{-0.9\baselineskip} % just to have it aligned with previous example
-\noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_14_teleporting_monolith_via_star.png}
-\caption{Teleporting Monolith via Star}
-\label{fig:scn_d_14_teleporting_monolith_via_star}
-% \centering
-\end{figure}
-
-Monolith can also be teleported. If teleported from a Star, Monolith can reappear
-on an empty portal-field near Stars in opposite color, or near the other Monolith.
-
-\clearpage % ..........................................................
-
-\noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_15_teleporting_monolith_via_monolith.png}
-\caption{Teleporting Monolith via Monolith}
-\label{fig:scn_d_15_teleporting_monolith_via_monolith}
-% \centering
-\end{figure}
-
-Monolith teleported from the other Monolith can reappear on an empty portal-field
-near any Star.
-
 \clearpage % ..........................................................
 
 \subsubsection*{Trance-journey interaction}
@@ -344,9 +313,9 @@ near any Star.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_16_monolith_shaman_interaction.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_14_monolith_shaman_interaction.png}
 \caption{Trance-journey interaction}
-\label{fig:scn_d_16_monolith_shaman_interaction}
+\label{fig:scn_d_14_monolith_shaman_interaction}
 % \centering
 \end{figure}
 
@@ -366,9 +335,9 @@ can reach after passing all non-interacting pieces.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_17_syzygy_2_stars_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_15_syzygy_2_stars_init.png}
 \caption{2-Stars syzygy init}
-\label{fig:scn_d_17_syzygy_2_stars_init}
+\label{fig:scn_d_15_syzygy_2_stars_init}
 % \centering
 \end{figure}
 
@@ -382,16 +351,16 @@ Opponent figures, Kings, Stars, Monoliths cannot be demoted.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_18_syzygy_2_stars_steps.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_16_syzygy_2_stars_steps.png}
 \caption{2-Stars syzygy steps}
-\label{fig:scn_d_18_syzygy_2_stars_steps}
+\label{fig:scn_d_16_syzygy_2_stars_steps}
 % \centering
 \end{figure}
 
 If Monolith was moved into syzygy by light player, light Wave or Bishop could be demoted; if moved by dark player
-only dark Rook could be demoted. Again, demoting to Pawn can only be done after Monolith stepped into alignment;
-once in it, no additional figures can be demoted on subsequent turns. To demote one of other aligned figures, the
-same Monolith has to step outside of alignment and then back in, or the other Monolith has to step-in.
+only dark Rook could be demoted. Demoting to Pawn can only be done after Monolith stepped into alignment; once in
+it, no additional figures can be demoted on subsequent turns. To demote one of the other aligned figures, the same
+Monolith has to step outside of alignment and then back in, or the other Monolith has to step-in.
 
 \clearpage % ..........................................................
 
@@ -399,16 +368,16 @@ same Monolith has to step outside of alignment and then back in, or the other Mo
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_19_syzygy_2_monoliths_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_17_syzygy_2_monoliths_init.png}
 \caption{2-Monoliths syzygy init}
-\label{fig:scn_d_19_syzygy_2_monoliths_init}
+\label{fig:scn_d_17_syzygy_2_monoliths_init}
 % \centering
 \end{figure}
 
 For a Star and 2 Monoliths to be in syzygy there has to be a step which, when applied repeatedly (from a Star)
 connects fields at which those celestial bodies are located. Connecting step doesn't have to correspond to the
 movement of any piece, it's enough if it connects celestial bodies. Shortest such a step is called syzygy-step,
-fields which are connected by syzygy-steps are called syzygy-fields. All own figures (except King) on
+fields which are connected by syzygy-steps are called syzygy-fields. All own figures (except King) on a
 syzygy-fields are then eligible to be demoted to Pawn.
 
 \clearpage % ..........................................................
@@ -416,16 +385,16 @@ syzygy-fields are then eligible to be demoted to Pawn.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_20_syzygy_2_monoliths_steps.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_18_syzygy_2_monoliths_steps.png}
 \caption{2-Monoliths syzygy steps}
-\label{fig:scn_d_20_syzygy_2_monoliths_steps}
+\label{fig:scn_d_18_syzygy_2_monoliths_steps}
 % \centering
 \end{figure}
 
-Here, there is a connecting step between fields 1-3 and 3-5. There is a shorter step connecting fields 1-2, 2-3,
-etc.; this is actual syzygy-step, because it is the shortest one. Light Knight does lay on a syzygy-field, and so
-is eligible to demotion, if Monolith was moved by light player. Again, only one figure can be demoted to Pawn per
-syzygy; to demote another figure one of Monoliths has to step out of alignment and then back in.
+Here, there is a connecting step between fields 1-3 and 3-5. There is an equivalent, shorter step connecting fields
+1-2, 2-3, etc.; this is actual syzygy-step, because it is the shortest one possible. Light Knight does lay on a
+syzygy-field, and so is eligible to demotion, if Monolith was moved by light player. Again, only one figure can be
+demoted to Pawn per syzygy; to demote another figure one of Monoliths has to step out of alignment and then back in.
 
 % -------------------------------------------------------------- Syzygy
 % ************************************************************ Monolith

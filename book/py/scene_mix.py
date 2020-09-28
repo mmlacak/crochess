@@ -40,15 +40,13 @@ class SceneMix(SceneCroatianTiesMixin, \
                     # 'scn_d_09_teleport_wave_via_monolith', \
                     # 'scn_d_10_teleported_wave_blocked', \
                     # 'scn_d_11_wave_teleported_off_board', \
-                    # 'scn_d_12_wave_teleport_on_and_off_board', \
+                    'scn_d_12_wave_teleport_on_and_off_board', \
                     # 'scn_d_13_teleporting_wave_cascade', \
-                    # 'scn_d_14_teleporting_monolith_via_star', \
-                    # 'scn_d_15_teleporting_monolith_via_monolith', \
-                    'scn_d_16_monolith_shaman_interaction', \
-                    # 'scn_d_17_syzygy_2_stars_init', \
-                    # 'scn_d_18_syzygy_2_stars_steps', \
-                    # 'scn_d_19_syzygy_2_monoliths_init', \
-                    # 'scn_d_20_syzygy_2_monoliths_steps', \
+                    # 'scn_d_14_monolith_shaman_interaction', \
+                    # 'scn_d_15_syzygy_2_stars_init', \
+                    # 'scn_d_16_syzygy_2_stars_steps', \
+                    # 'scn_d_17_syzygy_2_monoliths_init', \
+                    # 'scn_d_18_syzygy_2_monoliths_steps', \
                 ]
 
     def _get_all_scene_method_names(self):
