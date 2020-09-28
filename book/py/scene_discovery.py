@@ -915,16 +915,88 @@ class SceneDiscoveryMixin:
 
         for i, pos in enumerate( gen_abs_pos_1() ):
             mark_type = None
-            if i in [0, 15, 21]:
+            if i in [0, 21]:
                 mark_type = MarkType.Blocked
             elif i in [2, 10, 19, 22]:
                 mark_type = MarkType.Illegal
-            elif i in [6, 7]:
+            elif i in [15, ]:
                 mark_type = MarkType.Legal
+            elif i in [6, 7]:
+                mark_type = MarkType.Action
 
             if mark_type is not None:
-                scene.append_field_marker( *pos, mark_type=mark_type)
+                scene.append_field_marker( *pos, mark_type=mark_type )
 
+        scene.append_field_marker( *start_T, mark_type=MarkType.Illegal )
+
+        return scene
+
+    def scn_d_19_syzygy_2_monoliths_init(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_19_syzygy_2_monoliths_init', bt)
+
+        scene.board.set_piece(0, 0, piece=PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        scene.board.set_piece(16, 9, piece=PieceType.Bishop)
+        scene.board.set_piece(7, 16, piece=-PieceType.Rook)
+
+        scene.board.set_piece(21, 7, piece=PieceType.Knight)
+
+        start_M = (13, 6)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        scene.board.set_piece(6, 2, piece=PieceType.Monolith)
+
+        end_M = (12, 4)
+        scene.append_arrow( *(start_M + end_M), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_d_20_syzygy_2_monoliths_steps(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_20_syzygy_2_monoliths_steps', bt)
+
+        start_T = (0, 0)
+        scene.board.set_piece(*start_T, piece=PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        scene.board.set_piece(16, 9, piece=PieceType.Bishop)
+        scene.board.set_piece(7, 16, piece=-PieceType.Rook)
+
+        scene.board.set_piece(21, 7, piece=PieceType.Knight)
+
+        start_M = (12, 4)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        scene.board.set_piece(6, 2, piece=PieceType.Monolith)
+
+        #
+        # diagonal arrows
+        gen_abs_pos = GS.gen_steps([(3, 1)], start=start_T, include_prev=True, bounds=scene.board.get_position_limits())
+
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal, start_pointer=False, end_pointer=False )
+
+        #
+        # texts, field markers
+        gen_abs_pos_1 = GS.gen_steps([(3, 1)], start=start_T, include_prev=False, bounds=scene.board.get_position_limits())
+
+        for i, pos in enumerate( gen_abs_pos_1() ):
+            scene.append_text(str(i+2), *pos, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+
+            mark_type = None
+            if i in [1, 3, ]:
+                mark_type = MarkType.Illegal
+            elif i in [6, ]:
+                mark_type = MarkType.Action
+
+            if mark_type is not None:
+                scene.append_field_marker( *pos, mark_type=mark_type )
+
+        scene.append_text("1", *start_T, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
         scene.append_field_marker( *start_T, mark_type=MarkType.Illegal )
 
         return scene
