@@ -390,11 +390,12 @@ Opponent figures, Kings, Stars, Monoliths cannot be demoted.
 
 If Monolith was moved into syzygy by light player, light Wave or Bishop could be demoted; if moved by dark player
 only dark Rook could be demoted. Again, demoting to Pawn can only be done after Monolith stepped into alignment;
-once in it, no additional figures can be demoted on subsequent turns. To demote other aligned figures, the same
-Monolith has to step outside of alignment and then back in, or the other Monolith has to step-in.
+once in it, no additional figures can be demoted on subsequent turns. To demote one of other aligned figures, the
+same Monolith has to step outside of alignment and then back in, or the other Monolith has to step-in.
 
 \clearpage % ..........................................................
 
+% \vspace*{-1.2\baselineskip}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -404,7 +405,11 @@ Monolith has to step outside of alignment and then back in, or the other Monolit
 % \centering
 \end{figure}
 
-...
+For a Star and 2 Monoliths to be in syzygy there has to be a step which, when applied repeatedly (from a Star)
+connects fields at which those celestial bodies are located. Connecting step doesn't have to correspond to the
+movement of any piece, it's enough if it connects celestial bodies. Shortest such a step is called syzygy-step,
+fields which are connected by syzygy-steps are called syzygy-fields. All own figures (except King) on
+syzygy-fields are then eligible to be demoted to Pawn.
 
 \clearpage % ..........................................................
 
@@ -417,7 +422,10 @@ Monolith has to step outside of alignment and then back in, or the other Monolit
 % \centering
 \end{figure}
 
-...
+Here, there is a connecting step between fields 1-3 and 3-5. There is a shorter step connecting fields 1-2, 2-3,
+etc.; this is actual syzygy-step, because it is the shortest one. Light Knight does lay on a syzygy-field, and so
+is eligible to demotion, if Monolith was moved by light player. Again, only one figure can be demoted to Pawn per
+syzygy; to demote another figure one of Monoliths has to step out of alignment and then back in.
 
 % -------------------------------------------------------------- Syzygy
 % ************************************************************ Monolith
