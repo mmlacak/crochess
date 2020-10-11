@@ -339,8 +339,9 @@ class Colors(dict):
                                                         '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ) )
         self[ BoardType.OddDiscovery ] = self[ BoardType.Discovery ]
 
-        self[ BoardType.One ] = CI( piece=CS(    ('#CC10EE', '#FFFFFF', '#FF30FF', '#FFFFFF') ), \
-                                    star=CS(     ('#CC10EE', '#FFFFFF', '#FF30FF', '#FFFFFF') ), \
+        # Previously, light piece: CC10EE; dark piece: FF30FF.
+        self[ BoardType.One ] = CI( piece=CS(    ('#DD20EE', '#FFFFFF', '#FF47FF', '#FFFFFF') ), \
+                                    star=CS(     ('#DD20EE', '#FFFFFF', '#FF47FF', '#FFFFFF') ), \
                                     monolith=CP( ('#000000', '#FFFFFF') ), \
                                     aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                     field=CS(    ('#FFFFFF', '#FFFFFF', '#480064', '#480064') ), \
