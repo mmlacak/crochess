@@ -857,3 +857,29 @@ class SceneDiscoveryMixin:
         scene.append_field_marker( *start_T, mark_type=MarkType.Illegal )
 
         return scene
+
+    def scn_d_19_syzygy_in_oppo_figure_row(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_19_syzygy_in_oppo_figure_row', bt)
+
+        start_T = (0, 0)
+        scene.board.set_piece(*start_T, piece=PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        # start_R = (7, 23)
+        # scene.board.set_piece( *start_R, piece=-PieceType.Rook )
+
+        end_M = (12, 23)
+        scene.board.set_piece(*end_M, piece=PieceType.Monolith)
+
+        start_M = (11, 21)
+        scene.append_arrow( *(start_M + end_M), mark_type=MarkType.Blocked )
+
+        start_P = (16, 23)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Action )
+
+        return scene

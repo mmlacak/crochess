@@ -344,7 +344,7 @@ can reach after passing all non-interacting pieces.
 Syzygy is alignment in one straight line of at least 3 celestial bodies, Stars and Monoliths. It's initiated by
 Monolith stepping onto horizontal, vertical or diagonal line between 2 Stars. One own figure can then be (but
 don't have to be) demoted to Pawn. Demoting to Pawn can be done even if no own Pawn has been captured yet.
-Opponent figures, Kings, Stars, Monoliths cannot be demoted.
+Opponent pieces, Kings, Stars, Monoliths cannot be demoted.
 
 \clearpage % ..........................................................
 
@@ -357,10 +357,10 @@ Opponent figures, Kings, Stars, Monoliths cannot be demoted.
 % \centering
 \end{figure}
 
-If Monolith was moved into syzygy by light player, light Wave or Bishop could be demoted; if moved by dark player
-only dark Rook could be demoted. Demoting to Pawn can only be done after Monolith stepped into alignment; once in
-it, no additional figures can be demoted on subsequent turns. To demote one of the other aligned figures, the same
-Monolith has to step outside of alignment and then back in, or the other Monolith has to step-in.
+If Monolith was moved into syzygy by light player, light Wave or Bishop could be demoted (blue); if moved by dark
+player only dark Rook could be demoted (green). Demoting to Pawn can only be done after Monolith stepped into
+alignment; once in it, no additional figures can be demoted on subsequent turns. To demote one of the other aligned
+figures, the same Monolith has to step outside of alignment and then back in, or the other Monolith has to step-in.
 
 \clearpage % ..........................................................
 
@@ -395,6 +395,23 @@ Here, there is a connecting step between fields 1-3 and 3-5. There is an equival
 1-2, 2-3, etc.; this is actual syzygy-step, because it is the shortest one possible. Light Knight does lay on a
 syzygy-field, and so is eligible to demotion, if Monolith was moved by light player. Again, only one figure can be
 demoted to Pawn per syzygy; to demote another figure one of Monoliths has to step out of alignment and then back in.
+
+\clearpage % ..........................................................
+
+\subsubsection*{In opponent's figure row}
+\addcontentsline{toc}{subsubsection}{In opponent's figure row}
+
+\vspace*{-1.2\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_19_syzygy_in_oppo_figure_row.png}
+\caption{Syzygy ends with Pawn tagged for promotion}
+\label{fig:scn_d_19_syzygy_in_oppo_figure_row}
+% \centering
+\end{figure}
+
+...
 
 % -------------------------------------------------------------- Syzygy
 % ************************************************************ Monolith
