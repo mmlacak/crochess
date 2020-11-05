@@ -86,12 +86,13 @@ class DrawBoard(DrawPiece):
         h = math.ceil(self.board_view.height)
         return (x, y, w, h)
 
-    def draw_all_fields(self, cshade=None):
+    def draw_all_fields(self, cshade=None, skip_if_rendering_board=None):
         x, y, w, h = self.calc_view_fields_range()
 
         for j in range(y, y + h + 1):
             for i in range(x, x + w + 1):
-                self.draw_field(i, j, cshade=cshade)
+                if not skip_if_rendering_board or (i, j) not in skip_if_rendering_board:
+                    self.draw_field(i, j, cshade=cshade)
 
     def draw_piece_at_field(self, i, j, colors_item):
         x, y = self.get_field_start(i, j)
@@ -99,12 +100,13 @@ class DrawBoard(DrawPiece):
         dr = Rectangle(x, y, 1.0, 1.0)
         self.draw_piece(p, dr, colors_item)
 
-    def draw_all_pieces(self, colors_item):
+    def draw_all_pieces(self, colors_item, skip_if_rendering_board=None):
         x, y, w, h = self.calc_view_fields_range()
 
         for j in range(y, y + h + 1):
             for i in range(x, x + w + 1):
-                self.draw_piece_at_field(i, j, colors_item)
+                if not skip_if_rendering_board or (i, j) not in skip_if_rendering_board:
+                    self.draw_piece_at_field(i, j, colors_item)
 
     def clip_board(self):
         x = self.board_view.margin.left
@@ -113,12 +115,14 @@ class DrawBoard(DrawPiece):
         h = self.board_view.height
         self.set_clip(x, y, w, h)
 
-    def draw_board(self, colors_item):
+    def draw_board(self, colors_item, skip_if_rendering_board=None):
         assert isinstance(colors_item, ColorsItem)
 
+        sirb = skip_if_rendering_board or self.board_view.skip_if_rendering_board
+
         self.clip_board()
-        self.draw_all_fields(colors_item.field)
-        self.draw_all_pieces(colors_item)
+        self.draw_all_fields(colors_item.field, skip_if_rendering_board=sirb)
+        self.draw_all_pieces(colors_item, skip_if_rendering_board=sirb)
         self.reset_clip()
 
     def convert_field_to_user_coords(self, x, y):

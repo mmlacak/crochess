@@ -29,7 +29,9 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_ct_05_def_odd_variant_1', \
+                    'scn_ct_05_def_odd_variants_start_even', \
+                    'scn_ct_06_def_odd_variants_remove_queens_empty_row', \
+                    'scn_oct_07_def_odd_variants_clamp_all_together', \
                 ]
 
     def _get_all_scene_method_names(self):

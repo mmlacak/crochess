@@ -122,7 +122,7 @@ def get_func_get_text_position(left=None, top=None, right=None, bottom=None):
 
 class Scene:
 
-    def __init__(self, file_name, board_type, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_view=None, *args, **kwargs):
+    def __init__(self, file_name, board_type, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, skip_if_rendering_board=None, board_view=None, *args, **kwargs):
         assert isinstance(file_name, str)
 
         super(Scene, self).__init__(*args, **kwargs)
@@ -134,7 +134,7 @@ class Scene:
 
         w = float(width) if width is not None else None
         h = float(height) if height is not None else None
-        self.board_view = board_view or BoardView(x=float(x), y=float(y), width=w, height=h, reverse_off_board_field_colors=reverse_off_board_field_colors, margin=margin, board_type=bt)
+        self.board_view = board_view or BoardView(x=float(x), y=float(y), width=w, height=h, reverse_off_board_field_colors=reverse_off_board_field_colors, margin=margin, board_type=bt, skip_if_rendering_board=skip_if_rendering_board)
 
         self.arrows = [] # :: [ mark.Arrow, ... ]
         self.texts = [] # :: [ mark.Text, ... ]

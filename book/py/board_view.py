@@ -33,7 +33,7 @@ class Margin:
 
 
 class BoardView:
-    def __init__(self, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_type=None):
+    def __init__(self, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_type=None, skip_if_rendering_board=None):
         assert isinstance(x, float)
         assert isinstance(y, float)
         assert isinstance(width, (float, type(None)))
@@ -41,6 +41,7 @@ class BoardView:
 
         assert isinstance(reverse_off_board_field_colors, bool)
         assert isinstance(margin, (Margin, type(None)))
+        assert isinstance(skip_if_rendering_board, (list, type(None)))
 
         self.x = x
         self.y = y
@@ -54,6 +55,7 @@ class BoardView:
 
         self.reverse_off_board_field_colors = reverse_off_board_field_colors
         self.margin = margin if margin is not None else Margin()
+        self.skip_if_rendering_board = skip_if_rendering_board
 
     def get_position_limits(self):
         return ((self.x, self.y), (self.x + self.width, self.y + self.height))

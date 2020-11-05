@@ -352,7 +352,7 @@ def gen_items(items, count=None):
 
     return _gen_items
 
-def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, count=None):
+def gen_steps(rels, start=None, end=None, include_prev=False, include_first=False, bounds=None, func_valid=None, count=None):
     # rels :: generator
     #      ||  [ (i, j), ... ]
     #
@@ -366,6 +366,9 @@ def gen_steps(rels, start=None, end=None, include_prev=False, bounds=None, func_
     def _gen_steps():
         _reverse = start is None
         _current = start or end
+
+        if include_first:
+            yield _current
 
         _rels = rels if callable(rels) else gen_items(rels, count=count)
         _valid = check_valid(bounds=bounds, func=func_valid)
