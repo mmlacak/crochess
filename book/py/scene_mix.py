@@ -29,25 +29,7 @@ class SceneMix(SceneCroatianTiesMixin, \
 
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_d_01_knight_steps', \
-                    # 'scn_d_02_monolith_steps', \
-                    # 'scn_d_03_monolith_step_1', \
-                    # 'scn_d_04_monolith_step_2', \
-                    # 'scn_d_05_monolith_step_3', \
-                    # 'scn_d_06_teleport_via_monolith', \
-                    # 'scn_d_07_teleport_via_star', \
-                    # 'scn_d_08_teleport_wave_via_star', \
-                    # 'scn_d_09_teleport_wave_via_monolith', \
-                    # 'scn_d_10_teleported_wave_blocked', \
-                    # 'scn_d_11_wave_teleported_off_board', \
-                    # 'scn_d_12_wave_teleport_on_and_off_board', \
-                    # 'scn_d_13_teleporting_wave_cascade', \
-                    # 'scn_d_14_monolith_shaman_interaction', \
-                    # 'scn_d_15_syzygy_2_stars_init', \
-                    # 'scn_d_16_syzygy_2_stars_steps', \
-                    # 'scn_d_17_syzygy_2_monoliths_init', \
-                    # 'scn_d_18_syzygy_2_monoliths_steps', \
-                    'scn_d_19_syzygy_in_oppo_figure_row', \
+                    'scn_ct_05_def_odd_variant_1', \
                 ]
 
     def _get_all_scene_method_names(self):

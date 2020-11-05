@@ -186,3 +186,13 @@ class SceneCroatianTiesMixin:
         scene.append_text("6", 4, 0, corner=Corner.UpperRight)
 
         return scene
+
+    def scn_ct_05_def_odd_variant_1(self, bt=BoardType.CroatianTies):
+        scene = Scene('scn_ct_05_def_odd_variant_1', bt)
+
+        scene.board.setup()
+
+        scene.append_arrow(4.5, 0.7, 4.5, 9.3, mark_type=MarkType.Action, start_pointer=True, end_pointer=True)
+        scene.append_arrow(0.7, 4.5, 9.3, 4.5, mark_type=MarkType.Legal, start_pointer=True, end_pointer=True)
+
+        return scene

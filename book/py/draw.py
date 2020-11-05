@@ -13,12 +13,12 @@ from consts import DEFAULT_LINE_WIDTH, \
     DEFAULT_FONT_SIZE, \
     DEFAULT_TEXT_OUTLINE_WIDTH
 
-from util import convert_to_tuple
+from util import convert_to_rgb
 
 
 class Draw:
 
-    def __init__(self, width_pix, height_pix, field_size_in_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", color_space=cairo.Format.RGB24):
+    def __init__(self, width_pix, height_pix, field_size_in_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", color_space=cairo.Format.RGB24): # ARGB32
         assert isinstance(width_pix, int)
         assert isinstance(height_pix, int)
         assert isinstance(field_size_in_pix, float) # Scaling factor of device units (pixels), from user coords (== field size).
@@ -64,7 +64,7 @@ class Draw:
     def draw_last_path(self, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
 
         if interior_str:
-            interior = convert_to_tuple(interior_str)
+            interior = convert_to_rgb(interior_str)
             self.context.set_source_rgb(*interior)
 
             if outline_str:
@@ -73,7 +73,7 @@ class Draw:
                 self.context.fill()
 
         if outline_str:
-            outline = convert_to_tuple(outline_str)
+            outline = convert_to_rgb(outline_str)
             self.context.set_source_rgb(*outline)
 
             if line_width is not None:

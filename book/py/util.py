@@ -74,7 +74,7 @@ def in_range(v, min_v, max_v, include_min=True, include_max=True):
     return True
 
 
-def convert_to_tuple(color_str):
+def convert_to_rgb(color_str):
     assert isinstance(color_str, str)
     assert len(color_str) == 7
     assert color_str[0] == '#'
@@ -83,13 +83,23 @@ def convert_to_tuple(color_str):
     r, g, b = int(r_str, base=16), int(g_str, base=16), int(b_str, base=16)
     return ( r / 255.0, g / 255.0, b / 255.0 )
 
+def convert_to_rgba(color_str, default_a_str="FF"):
+    assert isinstance(color_str, str)
+    assert len(color_str) in [7, 9]
+    assert color_str[0] == '#'
+
+    r_str, g_str, b_str, a_str = color_str[1:3], color_str[3:5], color_str[5:7], color_str[7:9] if len(color_str) == 9 else default_a_str
+    r, g, b, a = int(r_str, base=16), int(g_str, base=16), int(b_str, base=16), int(a_str, base=16)
+    return ( r / 255.0, g / 255.0, b / 255.0, a / 255.0 )
+
 
 def test_1():
 
     def print_color_and_tuple(color_str):
-        print
+        print()
         print( color_str )
-        print( convert_to_tuple( color_str ) )
+        print( convert_to_rgb( color_str ) )
+        print( convert_to_rgba( color_str ) )
 
     print_color_and_tuple( "#123456" )
     print_color_and_tuple( '#4080C0' )
@@ -98,8 +108,25 @@ def test_1():
     print_color_and_tuple( "#AABBCC" )
     print_color_and_tuple( '#DDEEFF' )
 
-    print
+    print()
+
+def test_2():
+
+    def print_color_and_tuple(color_str, default_a_str="FF"):
+        print()
+        print( color_str )
+        print( convert_to_rgba( color_str, default_a_str=default_a_str ) )
+
+    print_color_and_tuple( "#12345678" )
+    print_color_and_tuple( '#4080C0' )
+    print_color_and_tuple( '#3F7FBFFF' )
+
+    print_color_and_tuple( "#AABBCCDD" )
+    print_color_and_tuple( '#DDEEFF00' )
+
+    print()
 
 
 if __name__ == '__main__':
-    test_1()
+    # test_1()
+    test_2()
