@@ -187,32 +187,3 @@ class SceneCroatianTiesMixin:
         scene.append_text("6", 4, 0, corner=Corner.UpperRight)
 
         return scene
-
-    def scn_ct_05_def_odd_variants_start_even(self, bt=BoardType.CroatianTies):
-        scene = Scene('scn_ct_05_def_odd_variants_start_even', bt)
-
-        scene.board.setup()
-
-        scene.append_arrow(4.5, 0.7, 4.5, 9.3, mark_type=MarkType.Action, start_pointer=True, end_pointer=True)
-        scene.append_arrow(0.7, 4.5, 9.3, 4.5, mark_type=MarkType.Legal, start_pointer=True, end_pointer=True)
-
-        return scene
-
-    def scn_ct_06_def_odd_variants_remove_queens_empty_row(self, bt=BoardType.CroatianTies):
-
-        bt = BoardType(bt)
-        sirb = list( GS.gen_steps(start=(4, 0), rels=[(0, 1), ], include_prev=False, include_first=True, bounds=bt.get_position_limits())() ) \
-             + list( GS.gen_steps(start=(0, 4), rels=[(1, 0), ], include_prev=False, include_first=True, bounds=bt.get_position_limits())() )
-
-        scene = Scene('scn_ct_06_def_odd_variants_remove_queens_empty_row', bt, skip_if_rendering_board=sirb)
-
-        scene.board.setup()
-
-        return scene
-
-    def scn_oct_07_def_odd_variants_clamp_all_together(self, bt=BoardType.OddCroatianTies):
-        scene = Scene('scn_oct_07_def_odd_variants_clamp_all_together', bt)
-
-        scene.board.setup()
-
-        return scene

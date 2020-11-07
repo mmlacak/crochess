@@ -82,7 +82,7 @@ class SaveScene:
 
         sc = SceneCommon()
 
-        for bt in BoardType.iter():
+        for bt in BoardType.iter(include_odd=True):
             file_path = self.get_board_file_path(bt, path_prefix=path_prefix)
             print( file_path )
 

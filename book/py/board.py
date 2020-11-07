@@ -631,6 +631,14 @@ class Board:
 
         if not self.type.is_even():
             light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
+
+            idx_K = len(light_pieces) // 2 # King is now in the middle of the row.
+
+            # Swap left (Queen) side all neighboring pairs of figures, until reaching Rook, e.g. Knight and Bishop, etc.
+            for i, j in zip( range(idx_K-1, 0, -2), range(idx_K-2, 0, -2) ):
+                if j > 0 and light_pieces[ j ] != PT.Rook:
+                    light_pieces[ i ], light_pieces[ j ] = light_pieces[ j ], light_pieces[ i ]
+
         self.set_row(0, light_pieces)
 
         dark = get_opposites(light_pieces)

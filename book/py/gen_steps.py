@@ -367,7 +367,7 @@ def gen_steps(rels, start=None, end=None, include_prev=False, include_first=Fals
         _reverse = start is None
         _current = start or end
 
-        if include_first:
+        if include_first and not include_prev:
             yield _current
 
         _rels = rels if callable(rels) else gen_items(rels, count=count)
@@ -393,7 +393,7 @@ def gen_steps(rels, start=None, end=None, include_prev=False, include_first=Fals
 
     return _gen_steps
 
-def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, bounds=None, func_valid=None, count=None):
+def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, include_first=False, bounds=None, func_valid=None, count=None):
     # multi_rels :: [ rels, ... ]
     #
     # rels :: generator
@@ -409,7 +409,7 @@ def gen_multi_steps(multi_rels, start=None, end=None, include_prev=False, bounds
 
     def _gen_multi_steps():
         for rels in multi_rels:
-            _steps = gen_steps(rels, start=start, end=end, include_prev=include_prev, bounds=bounds, func_valid=func_valid, count=count)
+            _steps = gen_steps(rels, start=start, end=end, include_prev=include_prev, include_first=include_first, bounds=bounds, func_valid=func_valid, count=count)
 
             for _step in _steps():
                 if _step is None:
