@@ -37,6 +37,8 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     collections.add_argument('-c', '--castlings', action='store_true', default=False, help='render castling examples')
     collections.add_argument('-e', '--en_passant', action='store_true', default=False, help='render en passant examples')
     collections.add_argument('-u', '--rush', action='store_true', default=False, help='render rush examples')
+    collections.add_argument('-I', '--isa', action='store_true', default=False, help='render all of initial setup analysis')
+    collections.add_argument('-R', '--recent_isa', action='store_true', default=False, help='render recent initial setup analysis')
 
     args = parser.parse_args() # :: argparse.Namespace
 
@@ -83,6 +85,9 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     if args.all or args.rush:
         render.render_all_rush_scenes()
+
+    if args.isa or args.recent_isa: # Intentionally skipped on args.all.
+        render.render_ISAs(do_all_examples=args.isa, enforce_cot_in_bw=True)
 
     print
     print( "Finished all renderings." )

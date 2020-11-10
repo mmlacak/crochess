@@ -16,6 +16,7 @@ from board import BoardType, Board
 from scene import Scene
 from scene_common import SceneCommon
 from scene_mix import SceneMix
+from scene_isa import SceneIsa
 
 from draw_scene import DrawScene
 from def_mark import MarkDef
@@ -293,6 +294,47 @@ class SaveScene:
 
         for func in scene_funcs:
             self.render_example(sm, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
+
+        print( "Finished." )
+
+    #
+    # initial setup analysis
+
+    def get_isa_file_path(self, file_name, path_prefix=None, file_ext=None, subfolder_name=None):
+        path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
+        file_ext = file_ext or DEFAULT_FILE_EXT
+
+        if subfolder_name is None:
+            return '%s/isa/%s%s' % (path_prefix, file_name, file_ext)
+        else:
+            return '%s/isa/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
+
+    def render_isa(self, scene, func, path_prefix=None, enforce_cot_in_bw=False):
+        assert isinstance(scene, SceneIsa)
+        assert callable(func)
+        assert isinstance(enforce_cot_in_bw, bool)
+
+        scene = func()
+        sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
+        file_path = self.get_isa_file_path(scene.file_name, path_prefix=path_prefix, subfolder_name=sf_name)
+        print( file_path )
+
+        if self.rendering_size.needs_rendering():
+            enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
+            self.save_scene(scene, file_path, enforce_bw=enforce_bw)
+
+    def render_ISAs(self, do_all_examples=False, path_prefix=None, enforce_cot_in_bw=False):
+        _str = "all" if do_all_examples else "recent"
+        print()
+        print( "Rendering %s ISAs." % _str if self.rendering_size.needs_rendering() else "Info %s ISAs." % _str )
+        si = SceneIsa()
+
+        scene_funcs = si.get_all_scene_methods() \
+                      if do_all_examples \
+                      else si.get_recent_scene_methods()
+
+        for func in scene_funcs:
+            self.render_isa(si, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
 
         print( "Finished." )
 

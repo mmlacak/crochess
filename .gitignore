@@ -19,6 +19,7 @@ book/gfx/en_passants/
 book/gfx/examples/
 book/gfx/pieces/
 book/gfx/rush/
+book/gfx/isa/
 *IGNORE*
 obj/
 lib/

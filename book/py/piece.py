@@ -123,6 +123,12 @@ class PieceType(int):
     def get_opposite(self):
         return PieceType(-self)
 
+    def get_light(self):
+        return self if self.is_light() else self.get_opposite()
+
+    def get_dark(self):
+        return self if self.is_dark() else self.get_opposite()
+
     def __str__(self):
         return self.get_label()
 
@@ -131,7 +137,7 @@ def test_1():
     print()
 
     for pt in PieceType.iter(include_none=True, include_light_pieces=True, include_dark_pieces=True):
-        print( pt.get_label(), pt.get_name(), pt.get_symbol(), pt.is_light(), pt.is_dark(), pt.get_opposite() )
+        print( pt.get_label(), pt.get_name(), pt.get_symbol(), pt.is_light(), pt.is_dark(), pt.get_opposite(), pt.get_light(), pt.get_dark() )
 
     print()
 
