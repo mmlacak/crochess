@@ -11,27 +11,16 @@ from board import BoardType, Board
 from mark import MarkType
 from corner import Corner
 from scene import Scene
+from scene_mixin import SceneMixin
 
 
-class SceneIsa:
+class SceneIsa(SceneMixin):
 
+    # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_one', \
+                    'isa_one', \
                 ]
-
-    def _get_all_scene_method_names(self):
-        return [ n for n in dir(self) if n.startswith('scn_') ] # or n.startswith('move_')
-
-    def _get_attributes(self, names):
-        return [ getattr(self, a) for a in names ]
-
-    def get_recent_scene_methods(self):
-        return self._get_attributes( self._get_recent_scene_method_names() )
-
-    def get_all_scene_methods(self):
-        return self._get_attributes( self._get_all_scene_method_names() )
-
 
     def setup_board(self, bt, name):
         bt = BoardType(bt)
@@ -56,10 +45,14 @@ class SceneIsa:
 
         return None, None, None
 
-    def scn_one(self, bt=BoardType.One):
-        scene = self.setup_board(bt, 'one')
+    def isa_one(self, bt=BoardType.One):
+        scene = self.setup_board(bt, 'isa_one')
 
         pos_C = self.find_piece(scene, PieceType.Centaur, search_light=True, search_queen_side=True)
         print(pos_C)
 
-        return scene
+        yield scene
+
+        yield scene
+
+        yield scene

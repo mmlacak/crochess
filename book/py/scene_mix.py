@@ -6,6 +6,7 @@
 
 
 # from scene import Scene
+from scene_mixin import SceneMixin
 from scene_croatian_ties import SceneCroatianTiesMixin
 from scene_mayan_ascendancy import SceneMayanAscendancyMixin
 from scene_age_of_aquarius import SceneAgeOfAquariusMixin
@@ -17,7 +18,8 @@ from scene_conquest_of_tlalocan import SceneConquestOfTlalocanMixin
 from scene_discovery import SceneDiscoveryMixin
 
 
-class SceneMix(SceneCroatianTiesMixin, \
+class SceneMix(SceneMixin, \
+               SceneCroatianTiesMixin, \
                SceneMayanAscendancyMixin, \
                SceneAgeOfAquariusMixin, \
                SceneMirandasVeilMixin, \
@@ -27,21 +29,10 @@ class SceneMix(SceneCroatianTiesMixin, \
                SceneConquestOfTlalocanMixin, \
                SceneDiscoveryMixin):
 
+    # overrides
     def _get_recent_scene_method_names(self):
         return  [
                     'scn_ma_22_def_odd_variants_start_even', \
                     'scn_ma_23_def_odd_variants_remove_queens_empty_row', \
                     # 'scn_oma_24_def_odd_variants_clamp_all_together', \
                 ]
-
-    def _get_all_scene_method_names(self):
-        return [ n for n in dir(self) if n.startswith('scn_') ] # or n.startswith('move_')
-
-    def _get_attributes(self, names):
-        return [ getattr(self, a) for a in names ]
-
-    def get_recent_scene_methods(self):
-        return self._get_attributes( self._get_recent_scene_method_names() )
-
-    def get_all_scene_methods(self):
-        return self._get_attributes( self._get_all_scene_method_names() )
