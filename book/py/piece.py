@@ -129,6 +129,14 @@ class PieceType(int):
     def get_dark(self):
         return self if self.is_dark() else self.get_opposite()
 
+    def is_friend(self, other):
+        o = PieceType(other)
+        return (self.is_light() and o.is_light()) or (self.is_dark() and o.is_dark())
+
+    def is_foe(self, other):
+        o = PieceType(other)
+        return (self.is_light() and o.is_dark()) or (self.is_dark() and o.is_light())
+
     def __str__(self):
         return self.get_label()
 
