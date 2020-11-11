@@ -119,8 +119,15 @@ class SceneIsa(SceneMixin):
                         scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
                     for i, r in enumerate( rel_capture ):
-                        c = GS.add(r, current)
-                        scene.append_field_marker(*c, mark_type=MarkType.Action)
+                        c = current
+                        while scene.board.is_on_board(*c):
+                            n = GS.add(r, c)
+                            if self.check_field(scene, pt, *n) is False:
+                                scene.append_arrow( *(c + n), mark_type=MarkType.Action )
+                            else:
+                                scene.append_field_marker(*n, mark_type=MarkType.Action)
+                                break
+                            c = n
 
                     break
                 else:
@@ -128,13 +135,22 @@ class SceneIsa(SceneMixin):
                     if  scene.board.is_on_board(*next_):
                         scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
                     elif (pt.is_dark() and current[1] < 5) or (pt.is_light() and current[1] > scene.board.get_height() - 5):
+                        # close to opponent's initial positions
                         for i, r in enumerate( rel_capture ):
-                            c = GS.add(r, previous)
-                            scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                            n = GS.add(r, previous)
+                            if scene.board.is_on_board(*n):
+                                scene.append_text(str(i+1), *n, mark_type=MarkType.Legal)
 
                         for i, r in enumerate( rel_capture ):
-                            c = GS.add(r, current)
-                            scene.append_field_marker(*c, mark_type=MarkType.Action)
+                            c = current
+                            while scene.board.is_on_board(*c):
+                                n = GS.add(r, c)
+                                if self.check_field(scene, pt, *n) is False:
+                                    scene.append_arrow( *(c + n), mark_type=MarkType.Action )
+                                else:
+                                    scene.append_field_marker(*n, mark_type=MarkType.Action)
+                                    break
+                                c = n
 
                 previous = current
                 current = next_
