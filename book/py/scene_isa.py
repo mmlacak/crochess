@@ -157,12 +157,62 @@ class SceneIsa(SceneMixin):
 
         return scene
 
+    def check_centaur_field(self, scene, piece_type, i, j):
+        pt = PieceType(piece_type)
+        return (pt.is_light() and scene.board.is_light(i, j)) or (pt.is_dark() and scene.board.is_dark(i, j))
+
+    def check_centaur_rel_move(self, rel):
+        if rel in GS.DEFAULT_UNICORN_REL_LONG_MOVES:
+            return True
+        elif rel in GS.DEFAULT_KNIGHT_REL_MOVES:
+            return False
+        else:
+            return None
+
     def traverse_centaur_dir(self, scene, piece_type, i, j):
         assert piece_type in [-PieceType.Centaur, PieceType.Centaur]
 
         pt = PieceType(piece_type)
         start = (i, j)
+        rel_moves = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_field(scene, pt, i, j) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
+        rel_second = GS.DEFAULT_UNICORN_REL_LONG_MOVES if self.check_centaur_field(scene, pt, i, j) else GS.DEFAULT_KNIGHT_REL_MOVES
 
+        for rel_1 in rel_moves:
+            for rel_2 in rel_second:
+                gen_func = GS.gen_items([rel_1, rel_2, ])
+                current = start
+
+                for rel in gen_func():
+                    next_ = GS.add(rel, current)
+                    rel_capture = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
+
+                    if scene.board.is_on_board(*next_):
+                        check = self.check_field(scene, pt, *next_)
+
+                        if check is True:
+                            # own piece encountered
+                            break
+                        elif check is False:
+                            # opponent's piece encountered
+                            for i, r in enumerate( rel_capture ):
+                                c = GS.add(r, current)
+                                scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+
+                            scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
+
+                            for i, r in enumerate( rel_capture ):
+                                c = GS.add(r, next_)
+                                scene.append_field_marker(*c, mark_type=MarkType.Action)
+
+                            break
+                        else:
+                            # empty field
+                            if  scene.board.is_on_board(*next_):
+                                scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
+                    else:
+                        break
+
+                    current = next_
 
         return scene
 
@@ -182,7 +232,7 @@ class SceneIsa(SceneMixin):
 
     def isa_one(self):
         for index, bt in enumerate( BoardType.iter(include_odd=True) ):
-            for pt in [PieceType.Pegasus, PieceType.Shaman, ]:
+            for pt in [PieceType.Pegasus, PieceType.Shaman, PieceType.Centaur, ]:
                 for sl in [True, False]:
                     for sqs in [True, False]:
                         scene = self.setup_board(bt, 'isa')
@@ -192,6 +242,6 @@ class SceneIsa(SceneMixin):
                             print(pos_G)
 
                             scene.file_name = 'isa_%s_%02d_%s' % (bt.get_symbol().lower(), index, PieceType(pos_G[0]).get_label())
-                            self.get_traverse_func(pt)(scene, *pos_G)
+                            self.get_traverse_func(pos_G[0])(scene, *pos_G)
 
                             yield scene

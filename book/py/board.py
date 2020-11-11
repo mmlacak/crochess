@@ -294,6 +294,9 @@ class Board:
 
         return is_light
 
+    def is_dark(self, i, j):
+        return not self.is_light(i, j)
+
     def clear(self):
         for j in range(self.get_height()):
             for i in range(self.get_width()):
