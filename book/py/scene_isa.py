@@ -104,7 +104,7 @@ class SceneIsa(SceneMixin):
         rel_capture = GS.DEFAULT_UNICORN_REL_LONG_MOVES if pt.is_light() else GS.DEFAULT_KNIGHT_REL_MOVES
 
         for index, rel in enumerate( rel_moves ):
-            current = start
+            previous = current = start
             while scene.board.is_on_board(*current):
                 next_ = GS.add(rel, current)
 
@@ -115,13 +115,11 @@ class SceneIsa(SceneMixin):
                 elif check is False:
                     # opponent's piece encountered
                     for i, r in enumerate( rel_capture ):
-                        c = GS.add(r, current)
+                        c = GS.add(r, previous)
                         scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
-                    scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
-
                     for i, r in enumerate( rel_capture ):
-                        c = GS.add(r, next_)
+                        c = GS.add(r, current)
                         scene.append_field_marker(*c, mark_type=MarkType.Action)
 
                     break
@@ -129,7 +127,16 @@ class SceneIsa(SceneMixin):
                     # empty field
                     if  scene.board.is_on_board(*next_):
                         scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
+                    elif (pt.is_dark() and current[1] < 5) or (pt.is_light() and current[1] > scene.board.get_height() - 5):
+                        for i, r in enumerate( rel_capture ):
+                            c = GS.add(r, previous)
+                            scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
+                        for i, r in enumerate( rel_capture ):
+                            c = GS.add(r, current)
+                            scene.append_field_marker(*c, mark_type=MarkType.Action)
+
+                previous = current
                 current = next_
 
         return scene
@@ -159,7 +166,7 @@ class SceneIsa(SceneMixin):
 
     def isa_one(self):
         for index, bt in enumerate( BoardType.iter(include_odd=True) ):
-            for pt in [PieceType.Pegasus, PieceType.Shaman, ]: # PieceType.iter():
+            for pt in [PieceType.Pegasus, PieceType.Shaman, ]:
                 for sl in [True, False]:
                     for sqs in [True, False]:
                         scene = self.setup_board(bt, 'isa')
@@ -169,7 +176,6 @@ class SceneIsa(SceneMixin):
                             print(pos_G)
 
                             scene.file_name = 'isa_%s_%02d_%s' % (bt.get_symbol().lower(), index, PieceType(pos_G[0]).get_label())
-                            # self.traverse_pegasus_dir(scene, *pos_G)
                             self.get_traverse_func(pt)(scene, *pos_G)
 
                             yield scene
