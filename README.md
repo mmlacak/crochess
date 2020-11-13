@@ -1,4 +1,4 @@
-![Patreon](https://img.shields.io/badge/Patreon-Thank%20you%20for%20your%20donations!-orange?link=https://www.patreon.com/mmlacak&link=https://www.patreon.com/mmlacak&style=plastic&logo=https://simpleicons.org/icons/patreon.svg)
+![Patreon](https://img.shields.io/badge/Patreon-Thank%20you%20for%20your%20donations!-orange?link=https://www.patreon.com/mmlacak&link=https://www.patreon.com/mmlacak&style=plastic&logo=patreon)
 
 ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess)
