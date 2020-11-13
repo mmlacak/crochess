@@ -1,3 +1,10 @@
+![Patreon](https://img.shields.io/badge/Patreon-Thank%20you%20for%20your%20donations!-orange?link=https://www.patreon.com/mmlacak&link=https://www.patreon.com/mmlacak&style=plastic&logo=https://simpleicons.org/icons/patreon.svg)
+
+![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess)
+![GitHub](https://img.shields.io/github/license/mmlacak/crochess)
+
+
 # Croatian chess - console application
 
 Croatian Chess is a collection of various chess variants,
@@ -13,10 +20,8 @@ chess and growing ever more complex with each new variant.
 
 First number is last commit to book sources, basically the
 larger the number, the newer the book you have.
-
 Next is date and time of that commit, converted to UTC for
 easier comparison.
-
 Lastly is branch name from which book is compiled; default
 is master.
 
