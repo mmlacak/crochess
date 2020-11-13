@@ -39,7 +39,6 @@ class SceneIsa(SceneMixin):
         j = pos_0[1] if search_light else pos_max[1]
 
         pt = PieceType(piece_type)
-        pt = pt.get_light() if search_light else pt.get_dark()
 
         for i in range(i_start, i_end, i_diff):
             if scene.board.get_piece(i, j) == pt:
@@ -93,7 +92,7 @@ class SceneIsa(SceneMixin):
 
                 current = next_
 
-        return scene
+        yield scene
 
     def traverse_shaman_dir(self, scene, piece_type, i, j):
         assert piece_type in [-PieceType.Shaman, PieceType.Shaman]
@@ -155,7 +154,7 @@ class SceneIsa(SceneMixin):
                 previous = current
                 current = next_
 
-        return scene
+        yield scene
 
     def check_centaur_field(self, scene, piece_type, i, j):
         pt = PieceType(piece_type)
@@ -172,6 +171,8 @@ class SceneIsa(SceneMixin):
     def traverse_centaur_dir(self, scene, piece_type, i, j):
         assert piece_type in [-PieceType.Centaur, PieceType.Centaur]
 
+        bt = scene.board.type
+        fn = scene.file_name
         pt = PieceType(piece_type)
         start = (i, j)
         rel_moves = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_field(scene, pt, i, j) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
@@ -181,40 +182,47 @@ class SceneIsa(SceneMixin):
             for rel_2 in rel_second:
                 gen_func = GS.gen_items([rel_1, rel_2, ])
                 current = start
+                new_scene = self.setup_board(bt, fn)
+                scene_has_content = False
 
                 for rel in gen_func():
                     next_ = GS.add(rel, current)
                     rel_capture = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
 
-                    if scene.board.is_on_board(*next_):
-                        check = self.check_field(scene, pt, *next_)
+                    if new_scene.board.is_on_board(*next_):
+                        check = self.check_field(new_scene, pt, *next_)
 
                         if check is True:
                             # own piece encountered
+                            scene_has_content = False
                             break
                         elif check is False:
                             # opponent's piece encountered
                             for i, r in enumerate( rel_capture ):
                                 c = GS.add(r, current)
-                                scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                                new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
-                            scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
+                            new_scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
 
                             for i, r in enumerate( rel_capture ):
                                 c = GS.add(r, next_)
-                                scene.append_field_marker(*c, mark_type=MarkType.Action)
+                                new_scene.append_field_marker(*c, mark_type=MarkType.Action)
 
+                            scene_has_content = True
                             break
                         else:
                             # empty field
-                            if  scene.board.is_on_board(*next_):
-                                scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
+                            if  new_scene.board.is_on_board(*next_):
+                                new_scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
+                                scene_has_content = True
                     else:
+                        scene_has_content = False
                         break
 
                     current = next_
 
-        return scene
+                if scene_has_content:
+                    yield new_scene
 
     def get_traverse_func(self, piece_type):
         dct =   {
@@ -241,7 +249,6 @@ class SceneIsa(SceneMixin):
                         if pos_G != (None, None, None):
                             print(pos_G)
 
-                            scene.file_name = 'isa_%s_%02d_%s' % (bt.get_symbol().lower(), index, PieceType(pos_G[0]).get_label())
-                            self.get_traverse_func(pos_G[0])(scene, *pos_G)
-
-                            yield scene
+                            for idx, new_scene in enumerate( self.get_traverse_func(pos_G[0])(scene, *pos_G) ):
+                                new_scene.file_name = '%s_%02d_%s_%02d' % (bt.get_symbol().lower(), index, PieceType(pos_G[0]).get_label(), idx)
+                                yield new_scene
