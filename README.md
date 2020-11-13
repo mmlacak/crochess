@@ -1,5 +1,4 @@
 ![Patreon](https://img.shields.io/badge/Patreon-Thank%20you%20for%20your%20donations!-orange?link=https://www.patreon.com/mmlacak&link=https://www.patreon.com/mmlacak&style=plastic&logo=patreon)
-
 ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess)
 ![GitHub](https://img.shields.io/github/license/mmlacak/crochess)
@@ -19,9 +18,9 @@ chess and growing ever more complex with each new variant.
 753 ··· 2020-11-10 04:32:45 UTC ··· master
 
 First number is last commit to book sources, basically the
-larger the number, the newer the book you have.
+larger the number, the newer the book you have.\
 Next is date and time of that commit, converted to UTC for
-easier comparison.
+easier comparison.\
 Lastly is branch name from which book is compiled; default
 is master.
 
