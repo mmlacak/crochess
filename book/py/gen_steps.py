@@ -262,6 +262,11 @@ def add(step, rel):
         return None
     return ( step[0] + rel[0], step[1] + rel[1] )
 
+def sub(step, rel):
+    if step is None or rel is None:
+        return None
+    return ( step[0] - rel[0], step[1] - rel[1] )
+
 def remove(coords, to_remove=[]):
     return [ pos for pos in coords if pos not in to_remove ] # preserves order
 

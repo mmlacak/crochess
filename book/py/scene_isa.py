@@ -185,8 +185,10 @@ class SceneIsa(SceneMixin):
                 new_scene = self.setup_board(bt, fn)
                 scene_has_content = False
 
+                rel_previous = None
                 for rel in gen_func():
                     next_ = GS.add(rel, current)
+                    rel_current = GS.DEFAULT_UNICORN_REL_LONG_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_KNIGHT_REL_MOVES
                     rel_capture = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
 
                     if new_scene.board.is_on_board(*next_):
@@ -198,7 +200,7 @@ class SceneIsa(SceneMixin):
                             break
                         elif check is False:
                             # opponent's piece encountered
-                            for i, r in enumerate( rel_capture ):
+                            for i, r in enumerate( rel_current ):
                                 c = GS.add(r, current)
                                 new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
@@ -215,10 +217,16 @@ class SceneIsa(SceneMixin):
                             new_scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
                             scene_has_content = True
                     else:
-                        diff = 2 + 2 if self.check_centaur_rel_move(rel) else 4 + 1 # 2 default ranks (figures + Pawns) + max vertical step + 1 for strict check
+                        diff = 2 + 4 if self.check_centaur_rel_move(rel) else 2 + 1 # 2 default ranks (figures + Pawns) + max vertical step + 1 for strict check
                         if (pt.is_dark() and current[1] < diff) or (pt.is_light() and current[1] > scene.board.get_height() - diff):
                             # close to opponent's initial positions
-                            for i, r in enumerate( rel_capture ):
+                            if rel_previous is not None:
+                                prev = GS.sub(current, rel_previous)
+                                for i, r in enumerate( rel_capture ):
+                                    c = GS.add(r, prev)
+                                    new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+
+                            for i, r in enumerate( rel_current ):
                                 c = GS.add(r, current)
                                 new_scene.append_field_marker(*c, mark_type=MarkType.Action)
                             scene_has_content = True
@@ -226,6 +234,7 @@ class SceneIsa(SceneMixin):
                             scene_has_content = False
                         break
 
+                    rel_previous = rel
                     current = next_
 
                 if scene_has_content:
@@ -247,6 +256,7 @@ class SceneIsa(SceneMixin):
 
     def isa_one(self):
         for index, bt in enumerate( BoardType.iter(include_odd=True) ):
+#             for pt in [PieceType.Centaur, ]:
             for pt in [PieceType.Pegasus, PieceType.Shaman, PieceType.Centaur, ]:
                 for sl in [True, False]:
                     for sqs in [True, False]:
