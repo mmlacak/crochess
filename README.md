@@ -3,6 +3,8 @@
 
 ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mmlacak/crochess)
+![GitHub last commit](https://img.shields.io/github/last-commit/mmlacak/crochess)
 ![GitHub](https://img.shields.io/github/license/mmlacak/crochess)
 
 
