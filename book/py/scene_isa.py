@@ -212,11 +212,18 @@ class SceneIsa(SceneMixin):
                             break
                         else:
                             # empty field
-                            if  new_scene.board.is_on_board(*next_):
-                                new_scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
-                                scene_has_content = True
+                            new_scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
+                            scene_has_content = True
                     else:
-                        scene_has_content = False
+                        diff = 2 + 2 if self.check_centaur_rel_move(rel) else 4 + 1 # 2 default ranks (figures + Pawns) + max vertical step + 1 for strict check
+                        if (pt.is_dark() and current[1] < diff) or (pt.is_light() and current[1] > scene.board.get_height() - diff):
+                            # close to opponent's initial positions
+                            for i, r in enumerate( rel_capture ):
+                                c = GS.add(r, current)
+                                new_scene.append_field_marker(*c, mark_type=MarkType.Action)
+                            scene_has_content = True
+                        else:
+                            scene_has_content = False
                         break
 
                     current = next_
