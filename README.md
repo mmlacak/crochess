@@ -1,4 +1,6 @@
-<span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
+<!-- span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Thank you for your donations!" /></a></span-->
+
+<span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you_for_your_donation-red.svg?logo=patreon" alt="Thank you for your donations!" /></a></span>
 
 ![Patreon](https://img.shields.io/badge/Patreon-Thank%20you%20for%20your%20donations!-orange?link=https://www.patreon.com/mmlacak&link=https://www.patreon.com/mmlacak&style=plastic&logo=patreon)
 ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess)
