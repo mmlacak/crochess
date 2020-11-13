@@ -1,4 +1,5 @@
-<span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you_for_your_donations!-red.svg?logo=patreon" alt="Thank you for your donations!" /></a></span>
+<span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you_for_your_donations!-F96854.svg?logo=patreon" alt="Thank you for your donations!" /></a></span>
+<span class="badge-blogger"><a href="https://croatian-chess.blogspot.com/" title="Croatian chess blog"><img src="https://img.shields.io/badge/Blogger-Croatian_chess_blog-FF5722.svg?logo=blogger" alt="Croatian chess blog" /></a></span>
 
 ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess)
