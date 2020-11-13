@@ -1,3 +1,5 @@
+<span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
+
 ![Patreon](https://img.shields.io/badge/Patreon-Thank%20you%20for%20your%20donations!-orange?link=https://www.patreon.com/mmlacak&link=https://www.patreon.com/mmlacak&style=plastic&logo=patreon)
 ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess)
