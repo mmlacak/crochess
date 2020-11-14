@@ -57,6 +57,15 @@ class SceneIsa(SceneMixin):
         else:
             return None # empty field
 
+    def check_if_opponents_king(self, scene, piece_type, i, j):
+        pt = PieceType(piece_type)
+        other = scene.board.get_piece(i, j)
+
+        if pt.is_foe(other) and other in [PieceType.King, -PieceType.King]:
+            return True
+        else:
+            return False
+
     def traverse_pegasus_dir(self, scene, piece_type, i, j):
         assert piece_type in [-PieceType.Pegasus, PieceType.Pegasus]
 
@@ -76,13 +85,23 @@ class SceneIsa(SceneMixin):
                     # opponent's piece encountered
                     for i, r in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
                         c = GS.add(r, current)
-                        scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                        if self.check_if_opponents_king(scene, pt, *c):
+                            scene.append_text(str(i+1), *c, mark_type=MarkType.Illegal)
+                            scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                        else:
+                            scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
-                    scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
+                    if self.check_if_opponents_king(scene, pt, *next_):
+                        scene.append_arrow( *(current + next_), mark_type=MarkType.Illegal )
+                    else:
+                        scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
 
                     for i, r in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
                         c = GS.add(r, next_)
-                        scene.append_field_marker(*c, mark_type=MarkType.Action)
+                        if self.check_if_opponents_king(scene, pt, *c):
+                            scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                        else:
+                            scene.append_field_marker(*c, mark_type=MarkType.Action)
 
                     break
                 else:
@@ -115,14 +134,21 @@ class SceneIsa(SceneMixin):
                     # opponent's piece encountered
                     for i, r in enumerate( rel_capture ):
                         c = GS.add(r, previous)
-                        scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                        if self.check_if_opponents_king(scene, pt, *c):
+                            scene.append_text(str(i+1), *c, mark_type=MarkType.Illegal)
+                            scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                        else:
+                            scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
                     for i, r in enumerate( rel_capture ):
                         c = current
                         while scene.board.is_on_board(*c):
                             n = GS.add(r, c)
                             if self.check_field(scene, pt, *n) is False:
-                                scene.append_arrow( *(c + n), mark_type=MarkType.Action )
+                                if self.check_if_opponents_king(scene, pt, *n):
+                                    scene.append_arrow( *(c + n), mark_type=MarkType.Illegal )
+                                else:
+                                    scene.append_arrow( *(c + n), mark_type=MarkType.Action )
                             else:
                                 scene.append_field_marker(*n, mark_type=MarkType.Action)
                                 break
@@ -138,14 +164,20 @@ class SceneIsa(SceneMixin):
                         for i, r in enumerate( rel_capture ):
                             n = GS.add(r, previous)
                             if scene.board.is_on_board(*n):
-                                scene.append_text(str(i+1), *n, mark_type=MarkType.Legal)
+                                if self.check_if_opponents_king(scene, pt, *n):
+                                    scene.append_text(str(i+1), *n, mark_type=MarkType.Illegal)
+                                else:
+                                    scene.append_text(str(i+1), *n, mark_type=MarkType.Legal)
 
                         for i, r in enumerate( rel_capture ):
                             c = current
                             while scene.board.is_on_board(*c):
                                 n = GS.add(r, c)
                                 if self.check_field(scene, pt, *n) is False:
-                                    scene.append_arrow( *(c + n), mark_type=MarkType.Action )
+                                    if self.check_if_opponents_king(scene, pt, *n):
+                                        scene.append_arrow( *(c + n), mark_type=MarkType.Illegal )
+                                    else:
+                                        scene.append_arrow( *(c + n), mark_type=MarkType.Action )
                                 else:
                                     scene.append_field_marker(*n, mark_type=MarkType.Action)
                                     break
@@ -202,13 +234,23 @@ class SceneIsa(SceneMixin):
                             # opponent's piece encountered
                             for i, r in enumerate( rel_current ):
                                 c = GS.add(r, current)
-                                new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                                if self.check_if_opponents_king(scene, pt, *c):
+                                    new_scene.append_text(str(i+1), *c, mark_type=MarkType.Illegal)
+                                    new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                                else:
+                                    new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
-                            new_scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
+                            if self.check_if_opponents_king(scene, pt, *next_):
+                                new_scene.append_arrow( *(current + next_), mark_type=MarkType.Illegal )
+                            else:
+                                new_scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
 
                             for i, r in enumerate( rel_capture ):
                                 c = GS.add(r, next_)
-                                new_scene.append_field_marker(*c, mark_type=MarkType.Action)
+                                if self.check_if_opponents_king(scene, pt, *c):
+                                    new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                                else:
+                                    new_scene.append_field_marker(*c, mark_type=MarkType.Action)
 
                             scene_has_content = True
                             break
@@ -224,11 +266,18 @@ class SceneIsa(SceneMixin):
                                 prev = GS.sub(current, rel_previous)
                                 for i, r in enumerate( rel_capture ):
                                     c = GS.add(r, prev)
-                                    new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                                    if self.check_if_opponents_king(scene, pt, *c):
+                                        new_scene.append_text(str(i+1), *c, mark_type=MarkType.Illegal)
+                                        new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                                    else:
+                                        new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
 
                             for i, r in enumerate( rel_current ):
                                 c = GS.add(r, current)
-                                new_scene.append_field_marker(*c, mark_type=MarkType.Action)
+                                if self.check_if_opponents_king(scene, pt, *c):
+                                    new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                                else:
+                                    new_scene.append_field_marker(*c, mark_type=MarkType.Action)
                             scene_has_content = True
                         else:
                             scene_has_content = False
