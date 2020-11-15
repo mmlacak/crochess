@@ -309,7 +309,6 @@ class SceneIsa(SceneMixin):
     def isa_one(self, board_types=None):
         bts = board_types if board_types is not None else BoardType.get_all()
         for index, bt in enumerate( bts ):
-#             for pt in [PieceType.Centaur, ]:
             for pt in [PieceType.Pegasus, PieceType.Shaman, PieceType.Centaur, ]:
                 for sl in [True, False]:
                     for sqs in [True, False]:

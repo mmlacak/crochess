@@ -401,67 +401,135 @@ class Board:
     # Defining initial position
 
     @staticmethod
-    def _get_none_row():
+    def _get_none_row(is_even=True):
         return []
 
     @staticmethod
-    def _get_classic_row():
-        return  [ PT.Rook, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Rook ]
+    def _get_classic_row(is_even=True):
+        if is_even:
+            lst =   [ \
+                        PT.Rook, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Queen, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Rook, \
+                    ]
+        else:
+            lst =   [ \
+                        PT.Rook, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Rook, \
+                    ]
+        return lst
 
     @staticmethod
-    def _get_croatian_ties_row():
-        return  [ PT.Rook, \
-                  PT.Pegasus, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Pegasus, \
-                  PT.Rook ]
+    def _get_croatian_ties_row(is_even=True):
+        if is_even:
+            lst =   [ \
+                        PT.Rook, \
+                        PT.Pegasus, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Queen, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Pegasus, \
+                        PT.Rook, \
+                    ]
+        else:
+            lst =   [ \
+                        PT.Rook, \
+                        PT.Pegasus, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Pegasus, \
+                        PT.Rook, \
+                    ]
+        return lst
 
     @staticmethod
-    def _get_mayan_ascendancy_row():
-        return  [ PT.Rook, \
-                  PT.Pegasus, \
-                  PT.Pyramid, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Pyramid, \
-                  PT.Pegasus, \
-                  PT.Rook ]
+    def _get_mayan_ascendancy_row(is_even=True):
+        if is_even:
+            lst =   [ \
+                        PT.Rook, \
+                        PT.Pegasus, \
+                        PT.Pyramid, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Queen, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Pyramid, \
+                        PT.Pegasus, \
+                        PT.Rook, \
+                    ]
+        else:
+            lst =   [ \
+                        PT.Rook, \
+                        PT.Pyramid, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Pegasus, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Pegasus, \
+                        PT.Pyramid, \
+                        PT.Knight, \
+                        PT.Rook, \
+                    ]
+        return lst
 
     @staticmethod
-    def _get_age_of_aquarius_row():
-        return  [ PT.Rook, \
-                  PT.Pegasus, \
-                  PT.Pyramid, \
-                  PT.Unicorn, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Unicorn, \
-                  PT.Pyramid, \
-                  PT.Pegasus, \
-                  PT.Rook ]
+    def _get_age_of_aquarius_row(is_even=True):
+        if is_even:
+            lst =   [ \
+                        PT.Rook, \
+                        PT.Pegasus, \
+                        PT.Pyramid, \
+                        PT.Unicorn, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Queen, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Unicorn, \
+                        PT.Pyramid, \
+                        PT.Pegasus, \
+                        PT.Rook, \
+                    ]
+        else:
+            lst =   [ \
+                        PT.Rook, \
+                        PT.Pegasus, \
+                        PT.Pyramid, \
+                        PT.Unicorn, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Unicorn, \
+                        PT.Pyramid, \
+                        PT.Pegasus, \
+                        PT.Rook, \
+                    ]
+        return lst
 
     @staticmethod
-    def _get_mirandas_veil_row():
+    def _get_mirandas_veil_row(is_even=True):
         return  [ PT.Rook, \
                   PT.Pegasus, \
                   PT.Pyramid, \
@@ -480,7 +548,7 @@ class Board:
                   PT.Rook ]
 
     @staticmethod
-    def _get_nineteen_row():
+    def _get_nineteen_row(is_even=True):
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -501,7 +569,7 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def _get_hemeras_dawn_row():
+    def _get_hemeras_dawn_row(is_even=True):
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -524,7 +592,7 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def _get_tamoanchan_revisited_row():
+    def _get_tamoanchan_revisited_row(is_even=True):
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -549,7 +617,7 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def _get_conquest_of_tlalocan_row():
+    def _get_conquest_of_tlalocan_row(is_even=True):
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -576,7 +644,7 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def _get_discovery_row():
+    def _get_discovery_row(is_even=True):
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -603,7 +671,7 @@ class Board:
                   -PT.Star ]
 
     @staticmethod
-    def _get_one_row():
+    def _get_one_row(is_even=True):
         return  [ PT.Star, \
                   PT.Rook, \
                   PT.Pegasus, \
@@ -659,10 +727,10 @@ class Board:
               BoardType.OddOne: Board._get_one_row,
               BoardType.One: Board._get_one_row }[ bt ]
 
-        light_pieces = f()
+        light_pieces = f(is_even=bt.is_even())
 
-        if not bt.is_even():
-            light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
+        # if bt.is_odd():
+        #     light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
 
         return light_pieces
 
@@ -680,15 +748,15 @@ class Board:
         self.clear()
         self._setup_pawns()
 
-        if not self.type.is_even():
-            light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
+        # if not self.type.is_even():
+        #     light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
 
-            idx_K = len(light_pieces) // 2 # King is now in the middle of the row.
+        #     idx_K = len(light_pieces) // 2 # King is now in the middle of the row.
 
-            # Swap left (Queen) side all neighboring pairs of figures, until reaching Rook, e.g. Knight and Bishop, etc.
-            for i, j in zip( range(idx_K-1, 0, -2), range(idx_K-2, 0, -2) ):
-                if j > 0 and light_pieces[ j ] != PT.Rook:
-                    light_pieces[ i ], light_pieces[ j ] = light_pieces[ j ], light_pieces[ i ]
+        #     # Swap left (Queen) side all neighboring pairs of figures, until reaching Rook, e.g. Knight and Bishop, etc.
+        #     for i, j in zip( range(idx_K-1, 0, -2), range(idx_K-2, 0, -2) ):
+        #         if j > 0 and light_pieces[ j ] != PT.Rook:
+        #             light_pieces[ i ], light_pieces[ j ] = light_pieces[ j ], light_pieces[ i ]
 
         self.set_row(0, light_pieces)
 
@@ -699,39 +767,39 @@ class Board:
         pass
 
     def _setup_classic(self):
-        light = Board._get_classic_row()
+        light = Board._get_classic_row(is_even=self.type.is_even())
         self._setup_board(light)
 
     def _setup_croatian_ties(self):
-        light = Board._get_croatian_ties_row()
+        light = Board._get_croatian_ties_row(is_even=self.type.is_even())
         self._setup_board(light)
 
     def _setup_mayan_ascendancy(self):
-        light = Board._get_mayan_ascendancy_row()
+        light = Board._get_mayan_ascendancy_row(is_even=self.type.is_even())
         self._setup_board(light)
 
     def _setup_age_of_aquarius(self):
-        light = Board._get_age_of_aquarius_row()
+        light = Board._get_age_of_aquarius_row(is_even=self.type.is_even())
         self._setup_board(light)
 
     def _setup_mirandas_veil(self):
-        light = Board._get_mirandas_veil_row()
+        light = Board._get_mirandas_veil_row(is_even=self.type.is_even())
         self._setup_board(light)
 
     def _setup_nineteen(self):
-        light = Board._get_nineteen_row()
+        light = Board._get_nineteen_row(is_even=self.type.is_even())
         self._setup_board(light)
 
     def _setup_hemeras_dawn(self):
-        light = Board._get_hemeras_dawn_row()
+        light = Board._get_hemeras_dawn_row(is_even=self.type.is_even())
         self._setup_board(light)
 
     def _setup_tamoanchan_revisited(self):
-        light = Board._get_tamoanchan_revisited_row()
+        light = Board._get_tamoanchan_revisited_row(is_even=self.type.is_even())
         self._setup_board(light)
 
     def _setup_conquest_of_tlalocan(self):
-        light = Board._get_conquest_of_tlalocan_row()
+        light = Board._get_conquest_of_tlalocan_row(is_even=self.type.is_even())
         self._setup_board(light)
 
 
@@ -755,14 +823,14 @@ class Board:
         self.set_piece(i, j, pt)
 
     def _setup_discovery(self):
-        light = Board._get_discovery_row()
+        light = Board._get_discovery_row(is_even=self.type.is_even())
         self._setup_board(light)
 
         self._setup_monolith(PT.Monolith)
         self._setup_monolith(-PT.Monolith)
 
     def _setup_one(self):
-        light = Board._get_one_row()
+        light = Board._get_one_row(is_even=self.type.is_even())
         self._setup_board(light)
 
         self._setup_monolith(PT.Monolith)
