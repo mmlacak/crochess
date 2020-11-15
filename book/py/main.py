@@ -68,14 +68,11 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     collections.add_argument('-b', '--boards', action='store_true', default=False, help='render initial position boards')
     collections.add_argument('-p', '--pieces', action='store_true', default=False, help='render newly introduced pieces')
     collections.add_argument('-r', '--recent', action='store_true', default=False, help='render recent scenes, move examples')
-    collections.add_argument('-x', '--examples', action='store_true', default=False, help='render all scenes, move examples')
+    collections.add_argument('-x', '--examples', action='extend', choices=get_board_type_choices(), nargs='+', help='render scenes, move examples') # Doesn't work with nargs='*': const=['all', ] :/
     collections.add_argument('-c', '--castlings', action='store_true', default=False, help='render castling examples')
     collections.add_argument('-e', '--en_passant', action='store_true', default=False, help='render en passant examples')
     collections.add_argument('-u', '--rush', action='store_true', default=False, help='render rush examples')
-    # collections.add_argument('-I', '--isa', action='store_true', default=False, help='render all of initial setup analysis')
-    # collections.add_argument('-I', '--isa', action='extend', choices=['all', 'even', 'odd', 'oc', 'c', 'oct', 'ct', 'oma', 'ma', 'oaoa', 'aoa', 'omv', 'mv', 'on', 'n', 'ohd', 'hd', 'otr', 'tr', 'ocot', 'cot', 'od', 'd', 'oo', 'o'], nargs='*', help='render selected examples of initial setup analysis') # default=['all', ],
-    collections.add_argument('-I', '--isa', action='extend', choices=get_board_type_choices(), nargs='*', help='render selected examples of initial setup analysis') # default=['all', ],
-    collections.add_argument('-R', '--recent_isa', action='store_true', default=False, help='render recent initial setup analysis')
+    collections.add_argument('-I', '--isa', action='extend', choices=get_board_type_choices(), nargs='+', help='render examples of initial setup analysis') # Doesn't work with nargs='*': const=['all', ] :/
 
     args = parser.parse_args() # :: argparse.Namespace
 
@@ -112,7 +109,8 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
         render.render_all_pieces(piece_type=PieceType.Star)
 
     if args.all or args.examples or args.recent:
-        render.render_examples(do_all_examples=(args.all or args.examples), enforce_cot_in_bw=True)
+        bts = BoardType.get_all() if args.all else get_board_types(args.examples)
+        render.render_examples(do_all_examples=(args.all or (not args.recent)), board_types=bts, enforce_cot_in_bw=True)
 
     if args.all or args.castlings:
         render.render_all_castling_scenes()
@@ -123,7 +121,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     if args.all or args.rush:
         render.render_all_rush_scenes()
 
-    if args.isa or args.recent_isa: # Intentionally skipped on args.all.
+    if args.isa: # Intentionally skipped on args.all.
         bts = get_board_types(args.isa)
         render.render_ISAs(do_all_examples=(not args.isa), board_types=bts, enforce_cot_in_bw=True)
 
