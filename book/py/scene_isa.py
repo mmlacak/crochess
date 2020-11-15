@@ -83,20 +83,20 @@ class SceneIsa(SceneMixin):
                     break
                 elif check is False:
                     # opponent's piece encountered
-                    for i, r in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+                    for _i, r in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
                         c = GS.add(r, current)
                         if self.check_if_opponents_king(scene, pt, *c):
-                            scene.append_text(str(i+1), *c, mark_type=MarkType.Illegal)
+                            scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                             scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                         else:
-                            scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                            scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
 
                     if self.check_if_opponents_king(scene, pt, *next_):
                         scene.append_arrow( *(current + next_), mark_type=MarkType.Illegal )
                     else:
                         scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
 
-                    for i, r in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+                    for _i, r in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
                         c = GS.add(r, next_)
                         if self.check_if_opponents_king(scene, pt, *c):
                             scene.append_field_marker(*c, mark_type=MarkType.Illegal)
@@ -111,6 +111,7 @@ class SceneIsa(SceneMixin):
 
                 current = next_
 
+        scene.file_name = "%s_%02d" % (pt.get_label(), i)
         yield scene
 
     def traverse_shaman_dir(self, scene, piece_type, i, j):
@@ -132,15 +133,15 @@ class SceneIsa(SceneMixin):
                     break
                 elif check is False:
                     # opponent's piece encountered
-                    for i, r in enumerate( rel_capture ):
+                    for _i, r in enumerate( rel_capture ):
                         c = GS.add(r, previous)
                         if self.check_if_opponents_king(scene, pt, *c):
-                            scene.append_text(str(i+1), *c, mark_type=MarkType.Illegal)
+                            scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                             scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                         else:
-                            scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                            scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
 
-                    for i, r in enumerate( rel_capture ):
+                    for _i, r in enumerate( rel_capture ):
                         c = current
                         while scene.board.is_on_board(*c):
                             n = GS.add(r, c)
@@ -161,15 +162,15 @@ class SceneIsa(SceneMixin):
                         scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
                     elif (pt.is_dark() and current[1] < 5) or (pt.is_light() and current[1] > scene.board.get_height() - 5):
                         # close to opponent's initial positions
-                        for i, r in enumerate( rel_capture ):
+                        for _i, r in enumerate( rel_capture ):
                             n = GS.add(r, previous)
                             if scene.board.is_on_board(*n):
                                 if self.check_if_opponents_king(scene, pt, *n):
-                                    scene.append_text(str(i+1), *n, mark_type=MarkType.Illegal)
+                                    scene.append_text(str(_i+1), *n, mark_type=MarkType.Illegal)
                                 else:
-                                    scene.append_text(str(i+1), *n, mark_type=MarkType.Legal)
+                                    scene.append_text(str(_i+1), *n, mark_type=MarkType.Legal)
 
-                        for i, r in enumerate( rel_capture ):
+                        for _i, r in enumerate( rel_capture ):
                             c = current
                             while scene.board.is_on_board(*c):
                                 n = GS.add(r, c)
@@ -186,6 +187,7 @@ class SceneIsa(SceneMixin):
                 previous = current
                 current = next_
 
+        scene.file_name = "%s_%02d" % (pt.get_label(), i)
         yield scene
 
     def check_centaur_field(self, scene, piece_type, i, j):
@@ -232,20 +234,20 @@ class SceneIsa(SceneMixin):
                             break
                         elif check is False:
                             # opponent's piece encountered
-                            for i, r in enumerate( rel_current ):
+                            for _i, r in enumerate( rel_current ):
                                 c = GS.add(r, current)
                                 if self.check_if_opponents_king(scene, pt, *c):
-                                    new_scene.append_text(str(i+1), *c, mark_type=MarkType.Illegal)
+                                    new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                                     new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                                 else:
-                                    new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                                    new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
 
                             if self.check_if_opponents_king(scene, pt, *next_):
                                 new_scene.append_arrow( *(current + next_), mark_type=MarkType.Illegal )
                             else:
                                 new_scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
 
-                            for i, r in enumerate( rel_capture ):
+                            for _i, r in enumerate( rel_capture ):
                                 c = GS.add(r, next_)
                                 if self.check_if_opponents_king(scene, pt, *c):
                                     new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
@@ -264,15 +266,15 @@ class SceneIsa(SceneMixin):
                             # close to opponent's initial positions
                             if rel_previous is not None:
                                 prev = GS.sub(current, rel_previous)
-                                for i, r in enumerate( rel_capture ):
+                                for _i, r in enumerate( rel_capture ):
                                     c = GS.add(r, prev)
                                     if self.check_if_opponents_king(scene, pt, *c):
-                                        new_scene.append_text(str(i+1), *c, mark_type=MarkType.Illegal)
+                                        new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                                         new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                                     else:
-                                        new_scene.append_text(str(i+1), *c, mark_type=MarkType.Legal)
+                                        new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
 
-                            for i, r in enumerate( rel_current ):
+                            for _i, r in enumerate( rel_current ):
                                 c = GS.add(r, current)
                                 if self.check_if_opponents_king(scene, pt, *c):
                                     new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
@@ -287,6 +289,7 @@ class SceneIsa(SceneMixin):
                     current = next_
 
                 if scene_has_content:
+                    new_scene.file_name = "%s_%02d_%02d_%02d_%02d_%02d" % (pt.get_label(), i, rel_1[0], rel_1[1], rel_2[0], rel_2[1])
                     yield new_scene
 
     def get_traverse_func(self, piece_type):
@@ -317,5 +320,5 @@ class SceneIsa(SceneMixin):
                             print(pos_G)
 
                             for idx, new_scene in enumerate( self.get_traverse_func(pos_G[0])(scene, *pos_G) ):
-                                new_scene.file_name = '%s_%02d_%s_%02d' % (bt.get_label(), index, PieceType(pos_G[0]).get_label(), idx)
+                                new_scene.file_name = '%s_%s' % (bt.get_label(), new_scene.file_name)
                                 yield new_scene

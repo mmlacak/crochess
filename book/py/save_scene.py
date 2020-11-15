@@ -308,9 +308,9 @@ class SaveScene:
         file_ext = file_ext or DEFAULT_FILE_EXT
 
         if subfolder_name is None:
-            return '%s/isa/isa_%03d_%s%s' % (path_prefix, index, file_name, file_ext)
+            return '%s/isa/isa_%s%s' % (path_prefix, file_name, file_ext)
         else:
-            return '%s/isa/%s/isa_%03d_%s%s' % (path_prefix, subfolder_name, index, file_name, file_ext)
+            return '%s/isa/%s/isa_%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
 
     def render_isa(self, scene, func, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
         assert isinstance(scene, SceneIsa)
