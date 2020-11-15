@@ -218,7 +218,7 @@ class SaveScene:
             mk_str += "_%02d" % abs(move_king)
 
         name = bt.get_name()
-        sf_name = "%02d_%s" % (bt, bt.get_symbol().lower())
+        sf_name = "%02d_%s" % (bt, bt.get_label())
         sanitized = sanitize(name)
 
         if move_king == 0:
@@ -274,7 +274,7 @@ class SaveScene:
         assert isinstance(enforce_cot_in_bw, bool)
 
         scene = func()
-        sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
+        sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_label())
         file_path = self.get_scene_file_path(scene.file_name, path_prefix=path_prefix, subfolder_name=sf_name)
         print( file_path )
 
@@ -309,13 +309,13 @@ class SaveScene:
         else:
             return '%s/isa/%s/isa_%03d_%s%s' % (path_prefix, subfolder_name, index, file_name, file_ext)
 
-    def render_isa(self, scene, func, path_prefix=None, enforce_cot_in_bw=False):
+    def render_isa(self, scene, func, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
         assert isinstance(scene, SceneIsa)
         assert callable(func)
         assert isinstance(enforce_cot_in_bw, bool)
 
-        for index, scene in enumerate( func() ):
-            sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_symbol().lower())
+        for index, scene in enumerate( func(board_types=board_types) ):
+            sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_label())
             file_path = self.get_isa_file_path(scene.file_name, index, path_prefix=path_prefix, subfolder_name=sf_name)
             print( file_path )
 
@@ -323,7 +323,7 @@ class SaveScene:
                 enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
                 self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
-    def render_ISAs(self, do_all_examples=False, path_prefix=None, enforce_cot_in_bw=False):
+    def render_ISAs(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
         _str = "all" if do_all_examples else "recent"
         print()
         print( "Rendering %s ISAs." % _str if self.rendering_size.needs_rendering() else "Info %s ISAs." % _str )
@@ -334,7 +334,7 @@ class SaveScene:
                       else si.get_recent_scene_methods()
 
         for func in scene_funcs:
-            self.render_isa(si, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
+            self.render_isa(si, func, board_types=board_types, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
 
         print( "Finished." )
 

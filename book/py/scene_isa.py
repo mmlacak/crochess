@@ -303,8 +303,9 @@ class SceneIsa(SceneMixin):
         else:
             return None
 
-    def isa_one(self):
-        for index, bt in enumerate( BoardType.iter(include_odd=True) ):
+    def isa_one(self, board_types=None):
+        bts = board_types if board_types is not None else BoardType.iter(include_odd=True)
+        for index, bt in enumerate( bts ):
 #             for pt in [PieceType.Centaur, ]:
             for pt in [PieceType.Pegasus, PieceType.Shaman, PieceType.Centaur, ]:
                 for sl in [True, False]:
@@ -316,5 +317,5 @@ class SceneIsa(SceneMixin):
                             print(pos_G)
 
                             for idx, new_scene in enumerate( self.get_traverse_func(pos_G[0])(scene, *pos_G) ):
-                                new_scene.file_name = '%s_%02d_%s_%02d' % (bt.get_symbol().lower(), index, PieceType(pos_G[0]).get_label(), idx)
+                                new_scene.file_name = '%s_%02d_%s_%02d' % (bt.get_label(), index, PieceType(pos_G[0]).get_label(), idx)
                                 yield new_scene

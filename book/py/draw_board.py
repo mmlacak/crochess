@@ -150,7 +150,7 @@ def test_1(board_type=BoardType.CroatianTies, board_view=None, name=''):
 
 def test_2():
     for bt in BoardType.iter():
-        name = ".%s" % bt.get_symbol().lower()
+        name = ".%s" % bt.get_label()
 
         test_1(board_type=bt, name=name)
         test_1(board_type=bt, board_view=BoardView(margin=Margin(left=0.3, top=0.4, right=0.6, bottom=0.7)), name=name + '_margin')

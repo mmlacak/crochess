@@ -13,6 +13,41 @@ from piece import PieceType
 from def_render import RenderingSizeEnum
 from save_scene import SaveScene
 
+from board import BoardType
+
+
+def get_board_type_choices():
+    bts = BoardType.get_all(include_none=False)
+    lbls = [ bt.get_label() for bt in bts ]
+    lbls.extend( ['all', 'even', 'odd'] )
+    return lbls
+
+def get_board_types(labels):
+    bts = []
+
+    if 'all' in labels:
+        bts.extend( BoardType.get_all(include_none=False) )
+
+    if 'even' in labels:
+        bts.extend( BoardType.get_even() )
+
+    if 'odd' in labels:
+        bts.extend( BoardType.get_odd() )
+
+    if not labels:
+        bts.extend( BoardType.get_all(include_none=False) )
+    else:
+        btx = [ BoardType.get(lbl) for lbl in labels if lbl not in ['all', 'even', 'odd'] ]
+        bts.extend( btx )
+
+    bts = [ bt for bt in bts if bt != BoardType.none ]
+    bts = sorted( list( set( bts ) ) )
+    return bts
+
+def get_board_labels(labels):
+    bts = get_board_types(labels) # So that it's properly sorted.
+    lbls = [ bt.get_label() for bt in bts ]
+    return lbls
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, \
@@ -29,7 +64,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     collections = parser.add_argument_group(title='collections', description='Define which collections will be rendered. Provide at least one of the options bellow.')
                 # parser.add_mutually_exclusive_group(required=True)
-    collections.add_argument('-a', '--all', action='store_true', default=False, help='render all collections')
+    collections.add_argument('-a', '--all', action='store_true', default=False, help='render all collections, except ISA')
     collections.add_argument('-b', '--boards', action='store_true', default=False, help='render initial position boards')
     collections.add_argument('-p', '--pieces', action='store_true', default=False, help='render newly introduced pieces')
     collections.add_argument('-r', '--recent', action='store_true', default=False, help='render recent scenes, move examples')
@@ -37,7 +72,9 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     collections.add_argument('-c', '--castlings', action='store_true', default=False, help='render castling examples')
     collections.add_argument('-e', '--en_passant', action='store_true', default=False, help='render en passant examples')
     collections.add_argument('-u', '--rush', action='store_true', default=False, help='render rush examples')
-    collections.add_argument('-I', '--isa', action='store_true', default=False, help='render all of initial setup analysis')
+    # collections.add_argument('-I', '--isa', action='store_true', default=False, help='render all of initial setup analysis')
+    # collections.add_argument('-I', '--isa', action='extend', choices=['all', 'even', 'odd', 'oc', 'c', 'oct', 'ct', 'oma', 'ma', 'oaoa', 'aoa', 'omv', 'mv', 'on', 'n', 'ohd', 'hd', 'otr', 'tr', 'ocot', 'cot', 'od', 'd', 'oo', 'o'], nargs='*', help='render selected examples of initial setup analysis') # default=['all', ],
+    collections.add_argument('-I', '--isa', action='extend', choices=get_board_type_choices(), nargs='*', help='render selected examples of initial setup analysis') # default=['all', ],
     collections.add_argument('-R', '--recent_isa', action='store_true', default=False, help='render recent initial setup analysis')
 
     args = parser.parse_args() # :: argparse.Namespace
@@ -87,7 +124,8 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
         render.render_all_rush_scenes()
 
     if args.isa or args.recent_isa: # Intentionally skipped on args.all.
-        render.render_ISAs(do_all_examples=args.isa, enforce_cot_in_bw=True)
+        bts = get_board_types(args.isa)
+        render.render_ISAs(do_all_examples=(not args.isa), board_types=bts, enforce_cot_in_bw=True)
 
     print
     print( "Finished all renderings." )

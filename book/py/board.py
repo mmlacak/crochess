@@ -163,6 +163,54 @@ class BoardType(int):
                  BoardType.OddOne: 'OO',
                  BoardType.One: 'O' }[self]
 
+    def get_label(self):
+        return self.get_symbol().lower()
+
+    @staticmethod
+    def get(label, case_insensitive=True):
+        dct  = { # '':     BoardType.none,
+                 'OC':   BoardType.OddClassical,
+                 'C':    BoardType.Classical,
+                 'OCT':  BoardType.OddCroatianTies,
+                 'CT':   BoardType.CroatianTies,
+                 'OMA':  BoardType.OddMayanAscendancy,
+                 'MA':   BoardType.MayanAscendancy,
+                 'OAOA': BoardType.OddAgeOfAquarius,
+                 'AOA':  BoardType.AgeOfAquarius,
+                 'OMV':  BoardType.OddMirandasVeil,
+                 'MV':   BoardType.MirandasVeil,
+                 'ON':   BoardType.OddNineteen,
+                 'N':    BoardType.Nineteen,
+                 'OHD':  BoardType.OddHemerasDawn,
+                 'HD':   BoardType.HemerasDawn,
+                 'OTR':  BoardType.OddTamoanchanRevisited,
+                 'TR':   BoardType.TamoanchanRevisited,
+                 'OCOT': BoardType.OddConquestOfTlalocan,
+                 'COT':  BoardType.ConquestOfTlalocan,
+                 'OD':   BoardType.OddDiscovery,
+                 'D':    BoardType.Discovery,
+                 'OO':   BoardType.OddOne,
+                 'O':    BoardType.One }
+
+        lbl = label.upper() if case_insensitive else label
+
+        if lbl in dct:
+            return BoardType( dct[ lbl ] )
+        else:
+            return BoardType( BoardType.none )
+
+    @staticmethod
+    def get_even(do_construct=True):
+        return list( BoardType.iter(include_none=False, include_even=True, include_odd=False, do_construct=do_construct) )
+
+    @staticmethod
+    def get_odd(do_construct=True):
+        return list( BoardType.iter(include_none=False, include_even=False, include_odd=True, do_construct=do_construct) )
+
+    @staticmethod
+    def get_all(do_construct=True, include_none=False):
+        return list( BoardType.iter(include_none=include_none, include_even=True, include_odd=True, do_construct=do_construct) )
+
     def get_size(self):
         return { BoardType.none: 0,
                  BoardType.OddClassical: 7,
