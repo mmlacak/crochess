@@ -52,7 +52,40 @@ def get_board_labels(labels):
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, \
                                      description='Generates images used in the book.', \
-                                     epilog='''Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
+                                     epilog='''
+Arguments -x and -I expect at least one of the following options:
+
+all  - all variants will be rendered
+even - even variants
+odd  - odd variants
+
+oc   - Odd Classical chess
+c    - Classical chess
+oct  - Odd Croatian Ties
+ct   - Croatian Ties
+oma  - Odd Mayan Ascendancy
+ma   - Mayan Ascendancy
+oaoa - Odd Age Of Aquarius
+aoa  - Age Of Aquarius
+omv  - Odd Mirandas Veil
+mv   - Mirandas Veil
+on   - Odd Nineteen
+n    - Nineteen
+ohd  - Odd Hemeras Dawn
+hd   - Hemeras Dawn
+otr  - Odd Tamoanchan Revisited
+tr   - Tamoanchan Revisited
+ocot - Odd Conquest Of Tlalocan
+cot  - Conquest Of Tlalocan
+od   - Odd Discovery
+d    - Discovery
+oo   - Odd One
+o    - One
+
+Any combination will work, multiple options separate by space, like so:
+$ python3 main.py -d -x even oct oma
+
+Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
 Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     size = parser.add_mutually_exclusive_group(required=True)
