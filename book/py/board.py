@@ -478,15 +478,15 @@ class Board:
         else:
             lst =   [ \
                         PT.Rook, \
-                        PT.Pyramid, \
-                        PT.Knight, \
-                        PT.Bishop, \
                         PT.Pegasus, \
+                        PT.Pyramid, \
+                        PT.Bishop, \
+                        PT.Knight, \
                         PT.King, \
                         PT.Bishop, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
                         PT.Knight, \
+                        PT.Pyramid, \
+                        PT.Pegasus, \
                         PT.Rook, \
                     ]
         return lst

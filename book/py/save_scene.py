@@ -303,14 +303,15 @@ class SaveScene:
     #
     # initial setup analysis
 
-    def get_isa_file_path(self, file_name, index, path_prefix=None, file_ext=None, subfolder_name=None):
+    def get_isa_file_path(self, file_name, board_type, path_prefix=None, file_ext=None, subfolder_name=None):
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
+        bt = BoardType(board_type)
 
         if subfolder_name is None:
-            return '%s/isa/isa_%s%s' % (path_prefix, file_name, file_ext)
+            return '%s/isa/isa_%02d_%s%s' % (path_prefix, bt, file_name, file_ext)
         else:
-            return '%s/isa/%s/isa_%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
+            return '%s/isa/%s/isa_%02d_%s%s' % (path_prefix, subfolder_name, bt, file_name, file_ext)
 
     def render_isa(self, scene, func, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
         assert isinstance(scene, SceneIsa)
@@ -318,8 +319,9 @@ class SaveScene:
         assert isinstance(enforce_cot_in_bw, bool)
 
         for index, scene in enumerate( func(board_types=board_types) ):
+            board_type = scene.board.type
             sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_label())
-            file_path = self.get_isa_file_path(scene.file_name, index, path_prefix=path_prefix, subfolder_name=sf_name)
+            file_path = self.get_isa_file_path(scene.file_name, board_type, path_prefix=path_prefix, subfolder_name=sf_name)
             print( file_path )
 
             if self.rendering_size.needs_rendering():
