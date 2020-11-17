@@ -571,24 +571,48 @@ class Board:
 
     @staticmethod
     def _get_nineteen_row(is_even=True):
-        return  [ PT.Star, \
-                  PT.Rook, \
-                  PT.Pegasus, \
-                  PT.Pyramid, \
-                  PT.Unicorn, \
-                  PT.Wave, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Wave, \
-                  PT.Unicorn, \
-                  PT.Pyramid, \
-                  PT.Pegasus, \
-                  PT.Rook, \
-                  -PT.Star ]
+        if is_even:
+            lst =   [
+                        PT.Star, \
+                        PT.Rook, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Wave, \
+                        PT.Pegasus, \
+                        PT.Unicorn, \
+                        PT.Pyramid, \
+                        PT.Queen, \
+                        PT.King, \
+                        PT.Pyramid, \
+                        PT.Unicorn, \
+                        PT.Pegasus, \
+                        PT.Wave, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Rook, \
+                        -PT.Star
+                    ]
+        else:
+            lst =   [
+                        PT.Star, \
+                        PT.Rook, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Wave, \
+                        PT.Unicorn, \
+                        PT.Pegasus, \
+                        PT.Pyramid, \
+                        PT.King, \
+                        PT.Pyramid, \
+                        PT.Unicorn, \
+                        PT.Pegasus, \
+                        PT.Wave, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Rook, \
+                        -PT.Star
+                    ]
+        return lst
 
     @staticmethod
     def _get_hemeras_dawn_row(is_even=True):
