@@ -530,22 +530,44 @@ class Board:
 
     @staticmethod
     def _get_mirandas_veil_row(is_even=True):
-        return  [ PT.Rook, \
-                  PT.Pegasus, \
-                  PT.Pyramid, \
-                  PT.Unicorn, \
-                  PT.Wave, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Wave, \
-                  PT.Unicorn, \
-                  PT.Pyramid, \
-                  PT.Pegasus, \
-                  PT.Rook ]
+        if is_even:
+            lst =   [
+                        PT.Rook, \
+                        PT.Pegasus, \
+                        PT.Pyramid, \
+                        PT.Unicorn, \
+                        PT.Wave, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Queen, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Wave, \
+                        PT.Unicorn, \
+                        PT.Pyramid, \
+                        PT.Pegasus, \
+                        PT.Rook
+                    ]
+        else:
+            lst =   [
+                        PT.Rook, \
+                        PT.Pegasus, \
+                        PT.Pyramid, \
+                        PT.Unicorn, \
+                        PT.Wave, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.King, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Wave, \
+                        PT.Unicorn, \
+                        PT.Pyramid, \
+                        PT.Pegasus, \
+                        PT.Rook
+                    ]
+        return lst
 
     @staticmethod
     def _get_nineteen_row(is_even=True):
