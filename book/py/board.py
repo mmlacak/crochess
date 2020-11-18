@@ -616,44 +616,46 @@ class Board:
 
     @staticmethod
     def _get_hemeras_dawn_row(is_even=True):
-        # return  [ PT.Star, \
-        #           PT.Rook, \
-        #           PT.Pegasus, \
-        #           PT.Pyramid, \
-        #           PT.Unicorn, \
-        #           PT.Wave, \
-        #           PT.Centaur, \
-        #           PT.Knight, \
-        #           PT.Bishop, \
-        #           PT.Queen, \
-        #           PT.King, \
-        #           PT.Bishop, \
-        #           PT.Knight, \
-        #           PT.Centaur, \
-        #           PT.Wave, \
-        #           PT.Unicorn, \
-        #           PT.Pyramid, \
-        #           PT.Pegasus, \
-        #           PT.Rook, \
-        #           -PT.Star ]
         if is_even:
+            # lst =   [
+            #             PT.Star, \
+            #             PT.Rook, \
+            #             PT.Knight, \
+            #             PT.Bishop, \
+            #             PT.Centaur, \
+            #             PT.Wave, \
+            #             PT.Pegasus, \
+            #             PT.Unicorn, \
+            #             PT.Pyramid, \
+            #             PT.Queen, \
+            #             PT.King, \
+            #             PT.Pyramid, \
+            #             PT.Unicorn, \
+            #             PT.Pegasus, \
+            #             PT.Wave, \
+            #             PT.Centaur, \
+            #             PT.Bishop, \
+            #             PT.Knight, \
+            #             PT.Rook, \
+            #             -PT.Star
+            #         ]
             lst =   [
                         PT.Star, \
                         PT.Rook, \
                         PT.Knight, \
                         PT.Bishop, \
-                        PT.Unicorn, \
+                        PT.Centaur, \
                         PT.Wave, \
                         PT.Pegasus, \
-                        PT.Centaur, \
+                        PT.Unicorn, \
                         PT.Pyramid, \
                         PT.Queen, \
                         PT.King, \
                         PT.Pyramid, \
-                        PT.Centaur, \
+                        PT.Unicorn, \
                         PT.Pegasus, \
                         PT.Wave, \
-                        PT.Unicorn, \
+                        PT.Centaur, \
                         PT.Bishop, \
                         PT.Knight, \
                         PT.Rook, \
@@ -663,19 +665,19 @@ class Board:
             lst =   [
                         PT.Star, \
                         PT.Rook, \
-                        PT.Bishop, \
                         PT.Knight, \
-                        PT.Unicorn, \
+                        PT.Bishop, \
+                        PT.Centaur, \
                         PT.Wave, \
                         PT.Pegasus, \
-                        PT.Centaur, \
+                        PT.Unicorn, \
                         PT.Pyramid, \
                         PT.King, \
                         PT.Pyramid, \
-                        PT.Centaur, \
+                        PT.Unicorn, \
                         PT.Pegasus, \
                         PT.Wave, \
-                        PT.Unicorn, \
+                        PT.Centaur, \
                         PT.Bishop, \
                         PT.Knight, \
                         PT.Rook, \
