@@ -373,7 +373,7 @@ class SceneIsa(SceneMixin):
                         rel_previous = rel
                         current = next_
 
-            new_scene.file_name = "pat_%s_%02d" % (pt.get_label(), i)
+            new_scene.file_name = "pat_%s_%02d_%02d" % (pt.get_label(), i, j)
             yield new_scene
 
     def get_traverse_func(self, piece_type):
@@ -403,7 +403,7 @@ class SceneIsa(SceneMixin):
     def isa_one(self, board_types=None):
         bts = board_types if board_types is not None else BoardType.get_all()
         for index, bt in enumerate( bts ):
-            for pt in [PieceType.Pegasus, PieceType.Shaman, PieceType.Centaur, ]:
+            for pt in [PieceType.Pegasus, PieceType.Shaman, ]: # PieceType.Centaur,
                 for sl in [True, False]:
                     for sqs in [True, False]:
                         scene = self.setup_board(bt, 'isa')
@@ -418,6 +418,7 @@ class SceneIsa(SceneMixin):
                                     new_scene.file_name = '%s_%s' % (bt.get_label(), new_scene.file_name)
                                     yield new_scene
 
+            for pt in [ PieceType.Centaur, -PieceType.Centaur, ]:
                 func = self.get_pattern_func(pt)
                 if func is not None:
                     for idx, new_scene in enumerate( func(scene, pt) ):
