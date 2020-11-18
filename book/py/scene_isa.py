@@ -292,6 +292,89 @@ class SceneIsa(SceneMixin):
                     new_scene.file_name = "%s_%02d_%02d_%02d_%02d_%02d" % (pt.get_label(), i, rel_1[0], rel_1[1], rel_2[0], rel_2[1])
                     yield new_scene
 
+    def pattern_centaur_dir(self, scene, piece_type, i, j):
+        assert piece_type in [-PieceType.Centaur, PieceType.Centaur]
+
+        bt = scene.board.type
+        fn = scene.file_name
+        pt = PieceType(piece_type)
+        start = (i, j)
+        rel_moves = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_field(scene, pt, i, j) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
+        rel_second = GS.DEFAULT_UNICORN_REL_LONG_MOVES if self.check_centaur_field(scene, pt, i, j) else GS.DEFAULT_KNIGHT_REL_MOVES
+
+        for rel_1 in rel_moves:
+            for rel_2 in rel_second:
+                gen_func = GS.gen_items([rel_1, rel_2, ])
+                current = start
+                scene_has_content = False
+
+                rel_previous = None
+                for rel in gen_func():
+                    next_ = GS.add(rel, current)
+                    rel_current = GS.DEFAULT_UNICORN_REL_LONG_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_KNIGHT_REL_MOVES
+                    rel_capture = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
+
+                    if scene.board.is_on_board(*next_):
+                        check = self.check_field(scene, pt, *next_)
+
+                        if check is True:
+                            # own piece encountered
+                            scene_has_content = False
+                            break
+                        elif check is False:
+                            # opponent's piece encountered
+                            for _i, r in enumerate( rel_current ):
+                                c = GS.add(r, current)
+                                if self.check_if_opponents_king(scene, pt, *c):
+                                    scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
+                                    scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                                elif self.check_field(scene, pt, *c) is False:
+                                    scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
+
+                            for _i, r in enumerate( rel_capture ):
+                                c = GS.add(r, next_)
+                                if self.check_if_opponents_king(scene, pt, *c):
+                                    scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                                elif self.check_field(scene, pt, *c) is False:
+                                    scene.append_field_marker(*c, mark_type=MarkType.Action)
+
+                            scene_has_content = True
+                            break
+                        else:
+                            # empty field
+                            scene_has_content = False
+                    else:
+                        diff = 2 + 4 if self.check_centaur_rel_move(rel) else 2 + 1 # 2 default ranks (figures + Pawns) + max vertical step + 1 for strict check
+                        if (pt.is_dark() and current[1] < diff) or (pt.is_light() and current[1] > scene.board.get_height() - diff):
+                            # close to opponent's initial positions
+                            if rel_previous is not None:
+                                prev = GS.sub(current, rel_previous)
+                                for _i, r in enumerate( rel_capture ):
+                                    c = GS.add(r, prev)
+                                    if self.check_if_opponents_king(scene, pt, *c):
+                                        scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
+                                        scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                                    elif self.check_field(scene, pt, *c) is False:
+                                        scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
+
+                            for _i, r in enumerate( rel_current ):
+                                c = GS.add(r, current)
+                                if self.check_if_opponents_king(scene, pt, *c):
+                                    scene.append_field_marker(*c, mark_type=MarkType.Illegal)
+                                elif self.check_field(scene, pt, *c) is False:
+                                    scene.append_field_marker(*c, mark_type=MarkType.Action)
+                            scene_has_content = True
+                        else:
+                            scene_has_content = False
+                        break
+
+                    rel_previous = rel
+                    current = next_
+
+        # if scene_has_content:
+        scene.file_name = "pat_%s_%02d" % (pt.get_label(), i)
+        yield scene
+
     def get_traverse_func(self, piece_type):
         dct =   {
                     PieceType.Pegasus: self.traverse_pegasus_dir, \
@@ -300,6 +383,16 @@ class SceneIsa(SceneMixin):
                     -PieceType.Shaman: self.traverse_shaman_dir, \
                     PieceType.Centaur: self.traverse_centaur_dir, \
                     -PieceType.Centaur: self.traverse_centaur_dir, \
+                }
+        if piece_type in dct:
+            return dct[ piece_type ]
+        else:
+            return None
+
+    def get_pattern_func(self, piece_type):
+        dct =   {
+                    PieceType.Centaur: self.pattern_centaur_dir, \
+                    -PieceType.Centaur: self.pattern_centaur_dir, \
                 }
         if piece_type in dct:
             return dct[ piece_type ]
@@ -318,6 +411,14 @@ class SceneIsa(SceneMixin):
                         if pos_G != (None, None, None):
                             print(pos_G)
 
-                            for idx, new_scene in enumerate( self.get_traverse_func(pos_G[0])(scene, *pos_G) ):
-                                new_scene.file_name = '%s_%s' % (bt.get_label(), new_scene.file_name)
-                                yield new_scene
+                            func = self.get_traverse_func(pos_G[0])
+                            if func is not None:
+                                for idx, new_scene in enumerate( func(scene, *pos_G) ):
+                                    new_scene.file_name = '%s_%s' % (bt.get_label(), new_scene.file_name)
+                                    yield new_scene
+
+                            func = self.get_pattern_func(pos_G[0])
+                            if func is not None:
+                                for idx, new_scene in enumerate( func(scene, *pos_G) ):
+                                    new_scene.file_name = '%s_%s' % (bt.get_label(), new_scene.file_name)
+                                    yield new_scene
