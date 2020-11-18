@@ -617,28 +617,6 @@ class Board:
     @staticmethod
     def _get_hemeras_dawn_row(is_even=True):
         if is_even:
-            # lst =   [
-            #             PT.Star, \
-            #             PT.Rook, \
-            #             PT.Knight, \
-            #             PT.Bishop, \
-            #             PT.Centaur, \
-            #             PT.Wave, \
-            #             PT.Pegasus, \
-            #             PT.Unicorn, \
-            #             PT.Pyramid, \
-            #             PT.Queen, \
-            #             PT.King, \
-            #             PT.Pyramid, \
-            #             PT.Unicorn, \
-            #             PT.Pegasus, \
-            #             PT.Wave, \
-            #             PT.Centaur, \
-            #             PT.Bishop, \
-            #             PT.Knight, \
-            #             PT.Rook, \
-            #             -PT.Star
-            #         ]
             lst =   [
                         PT.Star, \
                         PT.Rook, \
@@ -665,13 +643,13 @@ class Board:
             lst =   [
                         PT.Star, \
                         PT.Rook, \
-                        PT.Knight, \
                         PT.Bishop, \
-                        PT.Centaur, \
+                        PT.Knight, \
                         PT.Wave, \
+                        PT.Centaur, \
+                        PT.Pyramid, \
                         PT.Pegasus, \
                         PT.Unicorn, \
-                        PT.Pyramid, \
                         PT.King, \
                         PT.Pyramid, \
                         PT.Unicorn, \
