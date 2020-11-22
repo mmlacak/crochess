@@ -665,28 +665,56 @@ class Board:
 
     @staticmethod
     def _get_tamoanchan_revisited_row(is_even=True):
-        return  [ PT.Star, \
-                  PT.Rook, \
-                  PT.Pegasus, \
-                  PT.Pyramid, \
-                  PT.Unicorn, \
-                  PT.Wave, \
-                  PT.Centaur, \
-                  PT.Serpent, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Serpent, \
-                  PT.Centaur, \
-                  PT.Wave, \
-                  PT.Unicorn, \
-                  PT.Pyramid, \
-                  PT.Pegasus, \
-                  PT.Rook, \
-                  -PT.Star ]
+        if is_even:
+            lst =   [
+                        PT.Star, \
+                        PT.Rook, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Serpent, \
+                        PT.Wave, \
+                        PT.Unicorn, \
+                        PT.Pegasus, \
+                        PT.Centaur, \
+                        PT.Pyramid, \
+                        PT.Queen, \
+                        PT.King, \
+                        PT.Pyramid, \
+                        PT.Centaur, \
+                        PT.Pegasus, \
+                        PT.Unicorn, \
+                        PT.Wave, \
+                        PT.Serpent, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Rook, \
+                        -PT.Star
+                    ]
+        else:
+            lst =   [
+                        PT.Star, \
+                        PT.Rook, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Wave, \
+                        PT.Serpent, \
+                        PT.Pegasus, \
+                        PT.Unicorn, \
+                        PT.Pyramid, \
+                        PT.Centaur, \
+                        PT.King, \
+                        PT.Pyramid, \
+                        PT.Centaur, \
+                        PT.Pegasus, \
+                        PT.Unicorn, \
+                        PT.Wave, \
+                        PT.Serpent, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Rook, \
+                        -PT.Star
+                    ]
+        return lst
 
     @staticmethod
     def _get_conquest_of_tlalocan_row(is_even=True):
