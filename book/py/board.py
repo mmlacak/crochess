@@ -921,39 +921,57 @@ class Board:
 
         light_pieces = f(is_even=bt.is_even())
 
-        # if bt.is_odd():
-        #     light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
-
         return light_pieces
 
     # -----------------------------------------------------------------
     # Setting up initial positions
 
-    def _setup_pawns(self):
-        light = [ PT.Pawn for i in range(self.get_width()) ]
-        self.set_row(1, light)
+    def _setup_pawn_rows(self, is_light):
+        assert isinstance(is_light, bool)
 
-        dark = get_opposites(light)
-        self.set_row(self.get_height() - 2, dark)
+        pt = PT.Pawn if is_light else -PT.Pawn
+        row = 1 if is_light else self.get_height() - 2
+        lst = [ pt for i in range(self.get_width()) ]
+        self.set_row(row, lst)
+
+        if self.type >= BoardType.OddNineteen:
+            row_2 = 2 if is_light else self.get_height() - 3
+            self.set_row(row_2, lst)
+
+    def _setup_pawns(self):
+        self._setup_pawn_rows(True)
+        self._setup_pawn_rows(False)
+
+    def _setup_umbrella_pawns(self, is_light):
+        assert isinstance(is_light, bool)
+
+        if self.type >= BoardType.OddHemerasDawn:
+            pt = PT.Pawn if is_light else -PT.Pawn
+            figure_row = 0 if is_light else self.get_height() - 1
+            figures = [ PT.Centaur, PT.Shaman ] if is_light else [ -PT.Centaur, -PT.Shaman ]
+            row_3 = 3 if is_light else self.get_height() - 4
+            row_4 = 4 if is_light else self.get_height() - 5
+
+            for i in range(self.get_width()):
+                p = self.get_piece(i, figure_row)
+                if p in figures:
+                    self.set_pieces( [ (i-2, row_3, pt), (i+2, row_3, pt), (i-1, row_4, pt), (i+1, row_4, pt) ] )
+
+    def _setup_all_umbrella_pawns(self):
+        self._setup_umbrella_pawns(True)
+        self._setup_umbrella_pawns(False)
 
     def _setup_board(self, light_pieces):
         self.clear()
         self._setup_pawns()
 
-        # if not self.type.is_even():
-        #     light_pieces = remove_pieces(light_pieces, to_remove=(PT.Queen, -PT.Queen))
-
-        #     idx_K = len(light_pieces) // 2 # King is now in the middle of the row.
-
-        #     # Swap left (Queen) side all neighboring pairs of figures, until reaching Rook, e.g. Knight and Bishop, etc.
-        #     for i, j in zip( range(idx_K-1, 0, -2), range(idx_K-2, 0, -2) ):
-        #         if j > 0 and light_pieces[ j ] != PT.Rook:
-        #             light_pieces[ i ], light_pieces[ j ] = light_pieces[ j ], light_pieces[ i ]
-
         self.set_row(0, light_pieces)
 
         dark = get_opposites(light_pieces)
         self.set_row(self.get_height() - 1, dark)
+
+        # This *must* be last item!
+        self._setup_all_umbrella_pawns()
 
     def _setup_none(self):
         pass

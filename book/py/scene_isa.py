@@ -400,10 +400,14 @@ class SceneIsa(SceneMixin):
         else:
             return None
 
-    def isa_one(self, do_all_examples=False, board_types=None):
+    def isa_one(self, do_centaur=False, do_patterns=False, board_types=None):
         bts = board_types if board_types is not None else BoardType.get_all_list()
+        pieces = [PieceType.Pegasus, PieceType.Shaman, -PieceType.Shaman, ]
+        if do_centaur:
+            pieces.extend( [ PieceType.Centaur, -PieceType.Centaur, ] )
+
         for index, bt in enumerate( bts ):
-            for pt in [PieceType.Pegasus, PieceType.Shaman, -PieceType.Shaman, ]:
+            for pt in pieces:
                 for sl in [True, False]:
                     for sqs in [True, False]:
                         scene = self.setup_board(bt, 'isa')
@@ -418,7 +422,7 @@ class SceneIsa(SceneMixin):
                                     new_scene.file_name = '%s_%s' % (bt.get_label(), new_scene.file_name)
                                     yield new_scene
 
-            if do_all_examples:
+            if do_patterns:
                 for pt in [ PieceType.Centaur, -PieceType.Centaur, ]:
                     func = self.get_pattern_func(pt)
                     if func is not None:
