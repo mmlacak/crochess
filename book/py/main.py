@@ -105,7 +105,8 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     collections.add_argument('-c', '--castlings', action='store_true', default=False, help='render castling examples')
     collections.add_argument('-e', '--en_passant', action='store_true', default=False, help='render en passant examples')
     collections.add_argument('-u', '--rush', action='store_true', default=False, help='render rush examples')
-    collections.add_argument('-I', '--isa', action='extend', choices=get_board_type_choices(), nargs='+', help='render examples of initial setup analysis') # Doesn't work with nargs='*': const=['all', ] :/
+    collections.add_argument('-I', '--isa', action='extend', choices=get_board_type_choices(), nargs='+', help='render all examples of initial setup analysis') # Doesn't work with nargs='*': const=['all', ] :/
+    collections.add_argument('-A', '--all_isa', action='store_true', default=False, help='do render Centaur ISA examples')
 
     args = parser.parse_args() # :: argparse.Namespace
 
@@ -156,7 +157,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
 
     if args.isa: # Intentionally skipped on args.all.
         bts = get_board_types(args.isa)
-        render.render_ISAs(do_all_examples=(not args.isa), board_types=bts, enforce_cot_in_bw=True)
+        render.render_ISAs(do_all_examples=args.all_isa, board_types=bts, enforce_cot_in_bw=True)
 
     print
     print( "Finished all renderings." )

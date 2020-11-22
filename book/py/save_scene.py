@@ -313,12 +313,12 @@ class SaveScene:
         else:
             return '%s/isa/%s/isa_%02d_%s%s' % (path_prefix, subfolder_name, bt, file_name, file_ext)
 
-    def render_isa(self, scene, func, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
+    def render_isa(self, scene, func, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
         assert isinstance(scene, SceneIsa)
         assert callable(func)
         assert isinstance(enforce_cot_in_bw, bool)
 
-        for index, scene in enumerate( func(board_types=board_types) ):
+        for index, scene in enumerate( func(do_all_examples=do_all_examples, board_types=board_types) ):
             board_type = scene.board.type
             sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_label())
             file_path = self.get_isa_file_path(scene.file_name, board_type, path_prefix=path_prefix, subfolder_name=sf_name)
@@ -329,19 +329,20 @@ class SaveScene:
                 self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
     def render_ISAs(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
-        _str = "all" if do_all_examples else "recent"
+        _str = "all" if do_all_examples else "reduced"
         print()
         print( "Rendering %s ISAs." % _str if self.rendering_size.needs_rendering() else "Info %s ISAs." % _str )
         si = SceneIsa()
 
-        scene_funcs = si.get_all_scene_methods(prefix='isa_') \
-                      if do_all_examples \
-                      else si.get_recent_scene_methods()
+        # scene_funcs = si.get_all_scene_methods(prefix='isa_') \
+        #               if do_all_examples \
+        #               else si.get_recent_scene_methods()
+        scene_funcs = si.get_all_scene_methods(prefix='isa_')
 
         bts = board_types if board_types is not None else BoardType.get_all()
 
         for func in scene_funcs:
-            self.render_isa(si, func, board_types=bts, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
+            self.render_isa(si, func, do_all_examples=do_all_examples, board_types=bts, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
 
         print( "Finished." )
 
