@@ -268,7 +268,7 @@ class SaveScene:
         else:
             return '%s/examples/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
 
-    def render_example(self, scene, func, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
+    def render_example(self, scene, func, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
         assert isinstance(scene, SceneMix)
         assert callable(func)
         assert isinstance(enforce_cot_in_bw, bool)
@@ -283,7 +283,7 @@ class SaveScene:
                 enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
                 self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
-    def render_examples(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
+    def render_examples(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
         _str = "all" if do_all_examples else "recent"
         print()
         print( "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str )
@@ -293,7 +293,7 @@ class SaveScene:
                       if do_all_examples \
                       else sm.get_recent_scene_methods()
 
-        bts = board_types if board_types is not None else BoardType.get_all()
+        bts = board_types if board_types is not None else BoardType.get_all_list()
 
         for func in scene_funcs:
             self.render_example(sm, func, board_types=bts, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
@@ -313,7 +313,7 @@ class SaveScene:
         else:
             return '%s/isa/%s/isa_%02d_%s%s' % (path_prefix, subfolder_name, bt, file_name, file_ext)
 
-    def render_isa(self, scene, func, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
+    def render_isa(self, scene, func, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
         assert isinstance(scene, SceneIsa)
         assert callable(func)
         assert isinstance(enforce_cot_in_bw, bool)
@@ -328,8 +328,8 @@ class SaveScene:
                 enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
                 self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
-    def render_ISAs(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=False):
-        _str = "all" if do_all_examples else "reduced"
+    def render_ISAs(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
+        _str = "all" if do_all_examples else "default"
         print()
         print( "Rendering %s ISAs." % _str if self.rendering_size.needs_rendering() else "Info %s ISAs." % _str )
         si = SceneIsa()
@@ -339,7 +339,7 @@ class SaveScene:
         #               else si.get_recent_scene_methods()
         scene_funcs = si.get_all_scene_methods(prefix='isa_')
 
-        bts = board_types if board_types is not None else BoardType.get_all()
+        bts = board_types if board_types is not None else BoardType.get_all_list()
 
         for func in scene_funcs:
             self.render_isa(si, func, do_all_examples=do_all_examples, board_types=bts, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)

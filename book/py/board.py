@@ -200,15 +200,15 @@ class BoardType(int):
             return BoardType( BoardType.none )
 
     @staticmethod
-    def get_even(do_construct=True):
+    def get_even_list(do_construct=True):
         return list( BoardType.iter(include_none=False, include_even=True, include_odd=False, do_construct=do_construct) )
 
     @staticmethod
-    def get_odd(do_construct=True):
+    def get_odd_list(do_construct=True):
         return list( BoardType.iter(include_none=False, include_even=False, include_odd=True, do_construct=do_construct) )
 
     @staticmethod
-    def get_all(do_construct=True, include_none=False):
+    def get_all_list(do_construct=True, include_none=False):
         return list( BoardType.iter(include_none=include_none, include_even=True, include_odd=True, do_construct=do_construct) )
 
     def get_size(self):

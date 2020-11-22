@@ -17,7 +17,7 @@ from board import BoardType
 
 
 def get_board_type_choices():
-    bts = BoardType.get_all(include_none=False)
+    bts = BoardType.get_all_list(include_none=False)
     lbls = [ bt.get_label() for bt in bts ]
     lbls.extend( ['all', 'even', 'odd'] )
     return lbls
@@ -26,16 +26,16 @@ def get_board_types(labels):
     bts = []
 
     if 'all' in labels:
-        bts.extend( BoardType.get_all(include_none=False) )
+        bts.extend( BoardType.get_all_list(include_none=False) )
 
     if 'even' in labels:
-        bts.extend( BoardType.get_even() )
+        bts.extend( BoardType.get_even_list() )
 
     if 'odd' in labels:
-        bts.extend( BoardType.get_odd() )
+        bts.extend( BoardType.get_odd_list() )
 
     if not labels:
-        bts.extend( BoardType.get_all(include_none=False) )
+        bts.extend( BoardType.get_all_list(include_none=False) )
     else:
         btx = [ BoardType.get(lbl) for lbl in labels if lbl not in ['all', 'even', 'odd'] ]
         bts.extend( btx )
@@ -143,7 +143,7 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
         render.render_all_pieces(piece_type=PieceType.Star)
 
     if args.all or args.examples or args.recent:
-        bts = BoardType.get_all() if args.all else get_board_types(args.examples)
+        bts = BoardType.get_all_list() if args.all else get_board_types(args.examples)
         render.render_examples(do_all_examples=(args.all or (not args.recent)), board_types=bts, enforce_cot_in_bw=True)
 
     if args.all or args.castlings:
