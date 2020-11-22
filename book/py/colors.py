@@ -341,7 +341,7 @@ class Colors(dict):
 
         # Previously, light piece: CC10EE; dark piece: FF30FF.
         self[ BoardType.One ] = CI( piece=CS(    ('#DD20EE', '#FFFFFF', '#FF47FF', '#FFFFFF') ), \
-                                    star=CS(     ('#DD20EE', '#FFFFFF', '#FF47FF', '#FFFFFF') ), \
+                                    star=CS(     ('#FF47FF', '#FFFFFF', '#DD20EE', '#FFFFFF') ), \
                                     monolith=CP( ('#000000', '#FFFFFF') ), \
                                     aura=CP(     ('#FFBFFF', '#FFFFFF') ), \
                                     field=CS(    ('#FFFFFF', '#FFFFFF', '#480064', '#480064') ), \

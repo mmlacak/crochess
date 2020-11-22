@@ -832,32 +832,64 @@ class Board:
 
     @staticmethod
     def _get_one_row(is_even=True):
-        return  [ PT.Star, \
-                  PT.Rook, \
-                  PT.Pegasus, \
-                  PT.Pyramid, \
-                  PT.Shaman, \
-                  PT.Starchild, \
-                  PT.Unicorn, \
-                  PT.Wave, \
-                  PT.Centaur, \
-                  PT.Serpent, \
-                  PT.Knight, \
-                  PT.Bishop, \
-                  PT.Queen, \
-                  PT.King, \
-                  PT.Bishop, \
-                  PT.Knight, \
-                  PT.Serpent, \
-                  PT.Centaur, \
-                  PT.Wave, \
-                  PT.Unicorn, \
-                  PT.Starchild, \
-                  PT.Shaman, \
-                  PT.Pyramid, \
-                  PT.Pegasus, \
-                  PT.Rook, \
-                  -PT.Star ]
+        if is_even:
+            lst =   [
+                        PT.Star, \
+                        PT.Rook, \
+                        PT.Knight, \
+                        PT.Bishop, \
+                        PT.Serpent, \
+                        PT.Starchild, \
+                        PT.Centaur, \
+                        PT.Unicorn, \
+                        PT.Pegasus, \
+                        PT.Wave, \
+                        PT.Pyramid, \
+                        PT.Shaman, \
+                        PT.Queen, \
+                        PT.King, \
+                        PT.Shaman, \
+                        PT.Pyramid, \
+                        PT.Wave, \
+                        PT.Pegasus, \
+                        PT.Unicorn, \
+                        PT.Centaur, \
+                        PT.Starchild, \
+                        PT.Serpent, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Rook, \
+                        -PT.Star
+                    ]
+        else:
+            lst =   [
+                        PT.Star, \
+                        PT.Rook, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Starchild, \
+                        PT.Centaur, \
+                        PT.Wave, \
+                        PT.Pegasus, \
+                        PT.Unicorn, \
+                        PT.Serpent, \
+                        PT.Shaman, \
+                        PT.Pyramid, \
+                        PT.King, \
+                        PT.Shaman, \
+                        PT.Pyramid, \
+                        PT.Wave, \
+                        PT.Pegasus, \
+                        PT.Unicorn, \
+                        PT.Centaur, \
+                        PT.Starchild, \
+                        PT.Serpent, \
+                        PT.Bishop, \
+                        PT.Knight, \
+                        PT.Rook, \
+                        -PT.Star
+                    ]
+        return lst
 
     @staticmethod
     def get_light_row(board_type):
