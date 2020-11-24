@@ -97,9 +97,11 @@ class SceneCommon:
             scene.board.set_piece(1, 0, PieceType(PieceType.Rook))
             scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
             scene.board.set_piece(1, 2, PieceType(PieceType.Pawn))
+            scene.append_text("A", 1, 2, corner=Corner.UpperLeft, rect=rect)
 
             scene.board.set_piece(5, 0, PieceType(PieceType.Pegasus))
             scene.board.set_piece(5, 1, PieceType(PieceType.Pawn))
+            scene.append_text("B", 5, 1, corner=Corner.UpperLeft, rect=rect)
 
             for i in range(4, size):
                 loc = 0 if i % 2 == 0 else 2
