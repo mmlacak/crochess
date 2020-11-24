@@ -223,77 +223,42 @@ class SceneAgeOfAquariusMixin:
     #
     # Converting tagged Pawn
 
-    def scn_aoa_11_tagged_pawn_conv_init(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_11_opponents_pawn_conv_init(self, bt=BoardType.AgeOfAquarius):
         # move_unicorn_tagged_pawn_conv_init
 
-        scene = Scene('scn_aoa_11_tagged_pawn_conv_init', bt)
+        scene = Scene('scn_aoa_11_opponents_pawn_conv_init', bt)
 
         #
         # 1, conversion in Pawn row
 
         startR1 = (0, 7)
         startA1 = (0, 1)
-        startPd1 = (1, 1)
-        startAd1 = (2, 1)
-        startRd1 = (2, 11)
+        startPd1 = (1, 2)
+        endPd1 = (1, 1)
 
         scene.board.set_piece(*startR1, piece=PieceType.Rook)
         scene.board.set_piece(*startA1, piece=PieceType.Pyramid)
         scene.board.set_piece(*startPd1, piece=-PieceType.Pawn)
-        scene.board.set_piece(*startAd1, piece=-PieceType.Pyramid)
-        scene.board.set_piece(*startRd1, piece=-PieceType.Rook)
 
         scene.append_text("1", *startPd1, mark_type=MarkType.Blocked)
 
-        # direction <0, -1>
-        coords = GS.gen_next( GS.gen_steps(start=startRd1, rels=[(0, -1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        # direction <-1, 0>
-        coords = GS.gen_next( GS.gen_steps(start=startAd1, rels=[(-1, 0), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        scene.append_arrow( *(startPd1 + endPd1) )
 
         #
         # 2, conversion outside piece rows
 
         startR2 = (5, 7)
         startA2 = (5, 2)
-        startPd2 = (6, 2)
-        startAd2 = (7, 2)
-        startRd2 = (7, 11)
+        startPd2 = (6, 3)
+        endPd2 = (6, 2)
 
         scene.board.set_piece(*startR2, piece=PieceType.Rook)
         scene.board.set_piece(*startA2, piece=PieceType.Pyramid)
         scene.board.set_piece(*startPd2, piece=-PieceType.Pawn)
-        scene.board.set_piece(*startAd2, piece=-PieceType.Pyramid)
-        scene.board.set_piece(*startRd2, piece=-PieceType.Rook)
 
         scene.append_text("2", *startPd2, mark_type=MarkType.Blocked)
 
-        # direction <0, -1>
-        coords = GS.gen_next( GS.gen_steps(start=startRd2, rels=[(0, -1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        # direction <-1, 0>
-        coords = GS.gen_next( GS.gen_steps(start=startAd2, rels=[(-1, 0), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        scene.append_arrow( *(startPd2 + endPd2) )
 
         #
         # 3, conversion in figure row
@@ -301,6 +266,7 @@ class SceneAgeOfAquariusMixin:
         startR3 = (10, 7)
         startA3 = (10, 0)
         startPd3 = (11, 1)
+        endPd3 = (11, 0)
 
         scene.board.set_piece(*startR3, piece=PieceType.Rook)
         scene.board.set_piece(*startA3, piece=PieceType.Pyramid)
@@ -308,9 +274,7 @@ class SceneAgeOfAquariusMixin:
 
         scene.append_text("3", *startPd3, mark_type=MarkType.Blocked)
 
-        # direction <0, -1>
-        coords = GS.gen_next( GS.gen_steps(start=startPd3, rels=[(0, -1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
+        scene.append_arrow( *(startPd3 + endPd3) )
 
         #
         # 4, normal rush
@@ -323,10 +287,10 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_12_tagged_pawn_conv_tagged(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_12_opponents_pawn_conv_tagged(self, bt=BoardType.AgeOfAquarius):
         # move_unicorn_tagged_pawn_conv_tag
 
-        scene = Scene('scn_aoa_12_tagged_pawn_conv_tagged', bt)
+        scene = Scene('scn_aoa_12_opponents_pawn_conv_tagged', bt)
 
         #
         # 1, conversion in Pawn row
@@ -334,15 +298,12 @@ class SceneAgeOfAquariusMixin:
         startR1 = (0, 7)
         startA1 = (0, 1)
         startPd1 = (1, 1)
-        startRd1 = (2, 1)
 
         scene.board.set_piece(*startR1, piece=PieceType.Rook)
         scene.board.set_piece(*startA1, piece=PieceType.Pyramid)
         scene.board.set_piece(*startPd1, piece=-PieceType.Pawn)
-        scene.board.set_piece(*startRd1, piece=-PieceType.Rook)
 
         scene.append_text("1", *startPd1, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_field_marker(*startPd1, mark_type=MarkType.Action)
 
         # direction <0, -1>
         coords = GS.gen_next( GS.gen_steps(start=startR1, rels=[(0, -1), ], include_prev=True) )
@@ -368,10 +329,8 @@ class SceneAgeOfAquariusMixin:
         scene.board.set_piece(*startR2, piece=PieceType.Rook)
         scene.board.set_piece(*startA2, piece=PieceType.Pyramid)
         scene.board.set_piece(*startPd2, piece=-PieceType.Pawn)
-        scene.board.set_piece(*startRd2, piece=-PieceType.Rook)
 
         scene.append_text("2", *startPd2, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_field_marker(*startPd2, mark_type=MarkType.Action)
 
         # direction <0, -1>
         coords = GS.gen_next( GS.gen_steps(start=startR2, rels=[(0, -1), ], include_prev=True) )
@@ -424,10 +383,10 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_13_tagged_pawn_converted(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_13_opponents_pawn_converted(self, bt=BoardType.AgeOfAquarius):
         # move_unicorn_tagged_pawn_conv_ed
 
-        scene = Scene('scn_aoa_13_tagged_pawn_converted', bt)
+        scene = Scene('scn_aoa_13_opponents_pawn_converted', bt)
 
         bt = BoardType(bt)
         size = (bt.get_size() + 1) // 2
@@ -437,11 +396,9 @@ class SceneAgeOfAquariusMixin:
 
         startR1 = (0, 1)
         startP1c = (1, 1)
-        startRd1 = (2, 1)
 
         scene.board.set_piece(*startR1, piece=PieceType.Rook)
         scene.board.set_piece(*startP1c, piece=PieceType.Pawn)
-        scene.board.set_piece(*startRd1, piece=-PieceType.Rook)
 
         scene.append_text("1", *startP1c, mark_type=MarkType.Blocked)
 
@@ -453,11 +410,9 @@ class SceneAgeOfAquariusMixin:
 
         startR2 = (5, 2)
         startP2c = (6, 2)
-        startRd2 = (7, 2)
 
         scene.board.set_piece(*startR2, piece=PieceType.Rook)
         scene.board.set_piece(*startP2c, piece=PieceType.Pawn)
-        scene.board.set_piece(*startRd2, piece=-PieceType.Rook)
 
         scene.append_text("2", *startP2c, mark_type=MarkType.Blocked)
 

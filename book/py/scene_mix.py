@@ -32,6 +32,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_15_pawn_ranks', \
-                    # 'scn_oma_24_def_odd_variants_clamp_all_together', \
+                    'scn_aoa_11_opponents_pawn_conv_init', \
+                    'scn_aoa_12_opponents_pawn_conv_tagged', \
+                    'scn_aoa_13_opponents_pawn_converted', \
                 ]
