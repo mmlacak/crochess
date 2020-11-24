@@ -87,13 +87,13 @@ class SceneCommon:
 
     def intro_en_passant(self, bt):
         bt = BoardType(bt)
-        width = 7 if bt >= BoardType.Nineteen else 3
+        width = 7 if bt >= BoardType.OddNineteen else 3
         rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
         scene = Scene('intro_en_passant', bt, width=width, height=size)
 
-        if bt >= BoardType.Nineteen:
+        if bt >= BoardType.OddNineteen:
             scene.board.set_piece(1, 0, PieceType(PieceType.Rook))
             scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
             scene.board.set_piece(1, 2, PieceType(PieceType.Pawn))

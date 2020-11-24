@@ -23,6 +23,9 @@ def get_board_type_choices():
     return lbls
 
 def get_board_types(labels):
+    if labels is None:
+        return None
+
     bts = []
 
     if 'all' in labels:
@@ -45,6 +48,9 @@ def get_board_types(labels):
     return bts
 
 def get_board_labels(labels):
+    if labels is None:
+        return None
+
     bts = get_board_types(labels) # So that it's properly sorted.
     lbls = [ bt.get_label() for bt in bts ]
     return lbls

@@ -32,7 +32,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_ma_22_def_odd_variants_start_even', \
-                    'scn_ma_23_def_odd_variants_remove_queens_empty_row', \
+                    'scn_n_15_pawn_ranks', \
                     # 'scn_oma_24_def_odd_variants_clamp_all_together', \
                 ]

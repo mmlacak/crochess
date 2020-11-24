@@ -551,3 +551,18 @@ class SceneNineteenMixin:
         scene.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
 
         return scene
+
+    def scn_n_15_pawn_ranks(self, bt=BoardType.Nineteen):
+
+        scene = Scene('scn_n_15_pawn_ranks', bt)
+
+        scene.append_arrow(0.7, 16.5, 17.3, 16.5, mark_type=MarkType.Blocked, start_pointer=True, end_pointer=True)
+        scene.append_arrow(0.7, 15.5, 17.3, 15.5, mark_type=MarkType.Illegal, start_pointer=True, end_pointer=True)
+
+        scene.append_arrow(0.7, 2.5, 17.3, 2.5, mark_type=MarkType.Action, start_pointer=True, end_pointer=True)
+        scene.append_arrow(0.7, 1.5, 17.3, 1.5, mark_type=MarkType.Legal, start_pointer=True, end_pointer=True)
+
+        for i in range(0, 19):
+            scene.append_text(str(i + 1), 0, i, mark_type=MarkType.Blocked)
+
+        return scene
