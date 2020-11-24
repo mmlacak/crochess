@@ -313,7 +313,6 @@ class SaveScene:
         else:
             return '%s/isa/%s/isa_%02d_%s%s' % (path_prefix, subfolder_name, bt, file_name, file_ext)
 
-    # def render_isa(self, scene, func, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
     def render_isa(self, scene, func, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
         assert isinstance(scene, SceneIsa)
         assert callable(func)
@@ -329,7 +328,6 @@ class SaveScene:
                 enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
                 self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
-    # def render_ISAs(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
     def render_ISAs(self, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
         # _str = "all" if do_all_examples else "default"
         print()

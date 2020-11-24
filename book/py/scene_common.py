@@ -87,20 +87,43 @@ class SceneCommon:
 
     def intro_en_passant(self, bt):
         bt = BoardType(bt)
+        width = 7 if bt >= BoardType.Nineteen else 3
         rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
-        scene = Scene('intro_en_passant', bt, width=3, height=size)
+        scene = Scene('intro_en_passant', bt, width=width, height=size)
 
-        scene.board.set_piece(1, 0, PieceType(PieceType.Knight))
-        scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
+        if bt >= BoardType.Nineteen:
+            scene.board.set_piece(1, 0, PieceType(PieceType.Rook))
+            scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
+            scene.board.set_piece(1, 2, PieceType(PieceType.Pawn))
 
-        for i in range(3, size):
-            loc = 0 if i % 2 == 0 else 2
-            scene.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
+            scene.board.set_piece(5, 0, PieceType(PieceType.Pegasus))
+            scene.board.set_piece(5, 1, PieceType(PieceType.Pawn))
 
-            scene.append_arrow(loc, i, 1, i-1)
-            scene.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=rect)
+            for i in range(4, size):
+                loc = 0 if i % 2 == 0 else 2
+                scene.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
+
+                scene.append_arrow(loc, i, 1, i-1)
+                scene.append_text(str(i-3), 1, i, corner=Corner.UpperLeft, rect=rect)
+
+            for i in range(3, size):
+                loc = 4 if i % 2 == 0 else 6
+                scene.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
+
+                scene.append_arrow(loc, i, 5, i-1)
+                scene.append_text(str(i-2), 5, i, corner=Corner.UpperLeft, rect=rect)
+        else:
+            scene.board.set_piece(1, 0, PieceType(PieceType.Knight))
+            scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
+
+            for i in range(3, size):
+                loc = 0 if i % 2 == 0 else 2
+                scene.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
+
+                scene.append_arrow(loc, i, 1, i-1)
+                scene.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=rect)
 
         return scene
 
