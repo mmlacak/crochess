@@ -87,11 +87,12 @@ class SceneCommon:
 
     def intro_en_passant(self, bt):
         bt = BoardType(bt)
-        width = 7 if bt >= BoardType.OddNineteen else 3
+        width = None if bt >= BoardType.OddHemerasDawn else 7 if bt >= BoardType.OddNineteen else 3
         rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
-        scene = Scene('intro_en_passant', bt, width=width, height=size)
+        height = None if bt >= BoardType.OddHemerasDawn else size
+        scene = Scene('intro_en_passant', bt, width=width, height=height)
 
         if bt >= BoardType.OddNineteen:
             scene.board.set_piece(1, 0, PieceType(PieceType.Rook))
@@ -116,6 +117,27 @@ class SceneCommon:
 
                 scene.append_arrow(loc, i, 5, i-1)
                 scene.append_text(str(i-2), 5, i, corner=Corner.UpperLeft, rect=rect)
+
+            if bt >= BoardType.OddHemerasDawn:
+                scene.board.set_piece(15, 0, PieceType(PieceType.Centaur))
+                scene.board.set_piece(14, 4, PieceType(PieceType.Pawn))
+                scene.board.set_piece(17, 3, PieceType(PieceType.Pawn))
+                scene.append_text("C", 14, 4, corner=Corner.UpperLeft, rect=rect)
+                scene.append_text("D", 17, 3, corner=Corner.UpperLeft, rect=rect)
+
+                for i in range(6, size):
+                    loc = 13 if i % 2 == 0 else 15
+                    scene.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
+
+                    scene.append_arrow(loc, i, 14, i-1)
+                    scene.append_text(str(i-5), 14, i, corner=Corner.UpperLeft, rect=rect)
+
+                for i in range(5, size):
+                    loc = 16 if i % 2 == 0 else 18
+                    scene.board.set_piece(loc, i, PieceType(-PieceType.Pawn))
+
+                    scene.append_arrow(loc, i, 17, i-1)
+                    scene.append_text(str(i-4), 17, i, corner=Corner.UpperLeft, rect=rect)
         else:
             scene.board.set_piece(1, 0, PieceType(PieceType.Knight))
             scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
