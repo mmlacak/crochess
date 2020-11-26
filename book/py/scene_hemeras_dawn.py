@@ -397,3 +397,38 @@ class SceneHemerasDawnMixin:
         scene.append_text("2", *start_T, corner=Corner.UpperLeft)
 
         return scene
+
+
+    def scn_hd_08_umbrella_pawns(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene('scn_hd_08_umbrella_pawns', bt)
+
+        scene.board.set_piece(4, 0, piece=PieceType.Centaur)
+
+        scene.board.set_piece(2, 3, piece=PieceType.Pawn)
+        scene.board.set_piece(3, 4, piece=PieceType.Pawn)
+        scene.board.set_piece(5, 4, piece=PieceType.Pawn)
+        scene.board.set_piece(6, 3, piece=PieceType.Pawn)
+
+        scene.board.set_piece(15, 0, piece=PieceType.Centaur)
+
+        scene.board.set_piece(13, 3, piece=PieceType.Pawn)
+        scene.board.set_piece(14, 4, piece=PieceType.Pawn)
+        scene.board.set_piece(16, 4, piece=PieceType.Pawn)
+        scene.board.set_piece(17, 3, piece=PieceType.Pawn)
+
+        scene.board.set_piece(4, 19, piece=-PieceType.Centaur)
+
+        scene.board.set_piece(2, 16, piece=-PieceType.Pawn)
+        scene.board.set_piece(3, 15, piece=-PieceType.Pawn)
+        scene.board.set_piece(5, 15, piece=-PieceType.Pawn)
+        scene.board.set_piece(6, 16, piece=-PieceType.Pawn)
+
+        scene.board.set_piece(15, 19, piece=-PieceType.Centaur)
+
+        scene.board.set_piece(13, 16, piece=-PieceType.Pawn)
+        scene.board.set_piece(14, 15, piece=-PieceType.Pawn)
+        scene.board.set_piece(16, 15, piece=-PieceType.Pawn)
+        scene.board.set_piece(17, 16, piece=-PieceType.Pawn)
+
+        return scene
