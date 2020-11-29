@@ -743,25 +743,3 @@ class SceneMayanAscendancyMixin:
         scene.append_arrow(3, 0, 4, 0, mark_type=MarkType.Action)
 
         return scene
-
-    def scn_ma_22_def_odd_variants_start_even(self, bt=BoardType.MayanAscendancy):
-        scene = Scene('scn_ma_22_def_odd_variants_start_even', bt)
-
-        scene.board.setup()
-
-        scene.append_arrow(5.5, 0.7, 5.5, 11.3, mark_type=MarkType.Illegal, start_pointer=True, end_pointer=True)
-        scene.append_arrow(0.7, 5.5, 11.3, 5.5, mark_type=MarkType.Blocked, start_pointer=True, end_pointer=True)
-
-        return scene
-
-    def scn_ma_23_def_odd_variants_remove_queens_empty_row(self, bt=BoardType.MayanAscendancy):
-
-        bt = BoardType(bt)
-        sirb = list( GS.gen_steps(start=(5, 0), rels=[(0, 1), ], include_prev=False, include_first=True, bounds=bt.get_position_limits())() ) \
-             + list( GS.gen_steps(start=(0, 5), rels=[(1, 0), ], include_prev=False, include_first=True, bounds=bt.get_position_limits())() )
-
-        scene = Scene('scn_ma_23_def_odd_variants_remove_queens_empty_row', bt, skip_if_rendering_board=sirb)
-
-        scene.board.setup()
-
-        return scene

@@ -83,7 +83,7 @@ class SaveScene:
 
         sc = SceneCommon()
 
-        for bt in BoardType.iter(include_odd=True):
+        for bt in BoardType.iter():
             file_path = self.get_board_file_path(bt, path_prefix=path_prefix)
             print( file_path )
 
@@ -374,8 +374,7 @@ def test_castling_init():
 
 def test_scene_examples():
     ss = SaveScene(RenderingSizeEnum.Draft)
-    # ss.render_examples(do_all_examples=True, path_prefix='temp/', enforce_cot_in_bw=True) # TODO :: DEBUG :: UNCOMMENT !!!
-    ss.render_examples(do_all_examples=False, path_prefix='temp/', enforce_cot_in_bw=True) # TODO :: DEBUG :: DELETE !!!
+    ss.render_examples(do_all_examples=True, path_prefix='temp/', enforce_cot_in_bw=True)
 
 
 if __name__ == '__main__':
