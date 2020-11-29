@@ -185,98 +185,98 @@ Light Pawn 1 is promoted to Queen.
 \clearpage % ..........................................................
 % Converting opponent's Pawn ------------------------------------------
 
-\huge{}
-TODO :: remove rushing of converted Pawn\
-DONT :: remove definition of piece, figure, Pawn, rush rows
-\normalsize{}
+% \huge{}
+% TODO :: remove rushing of converted Pawn\
+% DONT :: remove definition of piece, figure, Pawn, rush rows
+% \normalsize{}
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\subsection*{Converting opponent's Pawn}
-\addcontentsline{toc}{subsection}{Converting opponent's Pawn}
+% \subsection*{Converting opponent's Pawn}
+% \addcontentsline{toc}{subsection}{Converting opponent's Pawn}
 
-\vspace*{-1.1\baselineskip}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_11_opponents_pawn_conv_init.png}
-\caption{Dark Pawns approaching}
-\label{fig:scn_aoa_11_opponents_pawn_conv_init}
-% \centering
-\end{figure}
+% \vspace*{-1.1\baselineskip}
+% \noindent
+% % \begin{figure}[t]
+% \begin{figure}[h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_11_opponents_pawn_conv_init.png}
+% \caption{Dark Pawns approaching}
+% \label{fig:scn_aoa_11_opponents_pawn_conv_init}
+% % \centering
+% \end{figure}
 
-Converting any opponent's Pawns (regardless if tagged for promotion, or not) in own Pawn or
-figure row grants them ability to be rushed, and subjects them to opponent's en passant move.
+% Converting any opponent's Pawns (regardless if tagged for promotion, or not) in own Pawn or
+% figure row grants them ability to be rushed, and subjects them to opponent's en passant move.
 
-This example contains 3 situations, which would be driven in paralel, to speed
-things up a bit.
+% This example contains 3 situations, which would be driven in paralel, to speed
+% things up a bit.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_12_opponents_pawn_conv_tagged.png}
-\caption{Dark Pawns to be converted}
-\label{fig:scn_aoa_12_opponents_pawn_conv_tagged}
-% \centering
-\end{figure}
+% \noindent
+% % \begin{figure}[t]
+% \begin{figure}[h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_12_opponents_pawn_conv_tagged.png}
+% \caption{Dark Pawns to be converted}
+% \label{fig:scn_aoa_12_opponents_pawn_conv_tagged}
+% % \centering
+% \end{figure}
 
-Note, dark Pawn in light figure row is just tagged for promotion.
+% Note, dark Pawn in light figure row is just tagged for promotion.
 
-Normally, Pawn gets promoted right away, because it saves move and makes better
-figure available immediately. That might allow opponent to convert e.g. a Queen.
-By just tagging a Pawn, it makes a latent threat, without overwhelming gains.
+% Normally, Pawn gets promoted right away, because it saves move and makes better
+% figure available immediately. That might allow opponent to convert e.g. a Queen.
+% By just tagging a Pawn, it makes a latent threat, without overwhelming gains.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_13_opponents_pawn_converted.png}
-\caption{Rushing converted Pawn}
-\label{fig:scn_aoa_13_opponents_pawn_converted}
-% \centering
-\end{figure}
+% \noindent
+% % \begin{figure}[t]
+% \begin{figure}[h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_13_opponents_pawn_converted.png}
+% \caption{Rushing converted Pawn}
+% \label{fig:scn_aoa_13_opponents_pawn_converted}
+% % \centering
+% \end{figure}
 
-Converted Pawns 1 and 3 can now be rushed, up to (and including) the row
-reachable by ordinary Pawn 4. Note, Pawn 2 can't be rushed as it has been
-convered outside of piece rows.
+% Converted Pawns 1 and 3 can now be rushed, up to (and including) the row
+% reachable by ordinary Pawn 4. Note, Pawn 2 can't be rushed as it has been
+% convered outside of piece rows.
 
-As with ordinary rush, rushing converted Pawns can only be performed as Pawn's
-initial move. For instance, if Pawn 3 first moves to Pawn row (i.e. 1 field
-forward), it loses opportunity to rush.
+% As with ordinary rush, rushing converted Pawns can only be performed as Pawn's
+% initial move. For instance, if Pawn 3 first moves to Pawn row (i.e. 1 field
+% forward), it loses opportunity to rush.
 
-Generaly, all Pawns (own or converted) can be rushed up to the (and including)
-furthest own row of chessboard, i.e. after rush they still have to reside on
-\hyperref[sec:Definitions/Sides of a chessboard]{own side of the board}.
-Pawns can only be rushed from Pawn and figure rows.
+% Generaly, all Pawns (own or converted) can be rushed up to the (and including)
+% furthest own row of chessboard, i.e. after rush they still have to reside on
+% \hyperref[sec:Definitions/Sides of a chessboard]{own side of the board}.
+% Pawns can only be rushed from Pawn and figure rows.
 
-\subsection*{Figure, Pawn, piece and rush rows}
-\addcontentsline{toc}{subsection}{Figure, Pawn, piece and rush rows}
-\label{sec:Age of Aquarius/Promotion/Figure, Pawn, piece and rush rows}
+% \subsection*{Figure, Pawn, piece and rush rows}
+% \addcontentsline{toc}{subsection}{Figure, Pawn, piece and rush rows}
+% \label{sec:Age of Aquarius/Promotion/Figure, Pawn, piece and rush rows}
 
-Figure, Pawn and piece rows refer to rows with corresponding content on initial
-setup of chessboard.
+% Figure, Pawn and piece rows refer to rows with corresponding content on initial
+% setup of chessboard.
 
-Piece row is either Pawn row or figure row.
+% Piece row is either Pawn row or figure row.
 
-Rush row is any row from which Pawn can be rushed. Rush rows are the same as
-piece rows.
+% Rush row is any row from which Pawn can be rushed. Rush rows are the same as
+% piece rows.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_14_pawn_figure_piece_rush_rows.png}
-\caption{Pawn and figure rows}
-\label{fig:scn_aoa_14_pawn_figure_piece_rush_rows}
-% \centering
-\end{figure}
+% \noindent
+% % \begin{figure}[t]
+% \begin{figure}[h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/08_aoa/scn_aoa_14_pawn_figure_piece_rush_rows.png}
+% \caption{Pawn and figure rows}
+% \label{fig:scn_aoa_14_pawn_figure_piece_rush_rows}
+% % \centering
+% \end{figure}
 
-So, Pawn rows are marked blue and red. Figure rows are marked green and grey.
-Piece rows are all marked rows, and are the same as rush rows.
+% So, Pawn rows are marked blue and red. Figure rows are marked green and grey.
+% Piece rows are all marked rows, and are the same as rush rows.
 
 % ------------------------------------------ Converting opponent's Pawn
 % *********************************************************** Promotion
@@ -295,6 +295,9 @@ Piece rows are all marked rows, and are the same as rush rows.
 Rush and en passant are identical to those in Classic Chess, only difference
 is that Pawn can now move longer on initial turn, up to 5 fields in this
 variant.
+
+Converted opponent's Pawns cannot be rushed, even if converted on an initial positions
+of own Pawns.
 
 \clearpage % ..........................................................
 
@@ -326,6 +329,9 @@ In example above, all valid King's castling moves are numbered.
 
 In this example King was castling long to the left. Initial King's position is marked with "K".
 After castling is finished, left Rook ends up on the field immediately right to the King.
+
+Converted opponent's Rooks cannot be castled, even if converted on an initial positions
+of own Rooks.
 
 \clearpage % ..........................................................
 
