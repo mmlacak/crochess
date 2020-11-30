@@ -19,7 +19,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under
 *Source* section. The most recent book version is:
 
-809 ··· 2020-11-30 10:21:42 UTC ··· master
+810 ··· 2020-11-30 10:58:23 UTC ··· master
 
 First number is last commit to book sources, basically the
 larger the number, the newer the book you have.\

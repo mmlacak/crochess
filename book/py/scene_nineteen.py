@@ -505,7 +505,7 @@ class SceneNineteenMixin:
         scene = Scene('scn_n_13_teleport_pawns_end', bt)
 
         start_P1 = (16, 16)
-        start_P2 = (1, 0)
+        start_P2 = (1, 1)
         start_T = (0, 17)
 
         # fixed set
@@ -517,9 +517,7 @@ class SceneNineteenMixin:
         scene.board.set_piece(*start_P1, piece=PieceType.Pawn)
         scene.board.set_piece(*start_P2, piece=PieceType.Pawn)
 
-        gen_coords = GS.gen_steps(start=start_P2, rels=[(0, 1), ], include_prev=True, count=8)
-        for coords in gen_coords():
-            scene.append_arrow( *coords, mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_P2 + (1, 2)), mark_type=MarkType.Legal )
 
         scene.append_field_marker(*start_P1, mark_type=MarkType.Action)
 
