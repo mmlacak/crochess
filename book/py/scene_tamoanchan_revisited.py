@@ -617,15 +617,15 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_21_pawn_sacrifice_init', bt)
 
-        start_S = (12, 14)
-        start_A = (7, 15)
-        start_P = (7, 11)
+        start_S = (17, 13)
+        start_A = (12, 14)
+        start_P = (12, 10)
 
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
         scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
         scene.board.set_piece(*start_P, piece=PieceType.Pawn)
 
-        adder = GS.adder(start_S, include_prev=False)
+        adder = GS.adder(start_A, include_prev=False)
         adder(1, 1) # empty field
         scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
         scene.board.set_piece(*adder(1, 1), piece=-PieceType.Bishop)
@@ -646,5 +646,43 @@ class SceneTamoanchanRevisitedMixin:
         for index, coord in enumerate( coords2() ):
             mark_type = MarkType.Action if index == 3 else MarkType.Legal
             scene.append_arrow( *coord, mark_type=mark_type )
+
+        return scene
+
+    def scn_tr_22_pawn_sacrifice_end(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_22_pawn_sacrifice_end', bt)
+
+        start_S = (12, 14)
+        start_A = (12, 10)
+
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
+
+        scene.append_field_marker( *start_S, mark_type=MarkType.Illegal )
+
+        adder = GS.adder(start_S, include_prev=False)
+        adder(1, 1) # empty field
+        scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
+        scene.board.set_piece(*adder(1, 1), piece=-PieceType.Bishop)
+        scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
+
+        for i in range(8, 22):
+            if i > 8:
+                scene.board.set_piece(i, 20, piece=-PieceType.Pawn)
+            if i not in [10, 12]:
+                scene.board.set_piece(i, 19, piece=-PieceType.Pawn)
+
+        adder_2 = GS.adder(start_S, include_prev=True)
+        scene.append_arrow( *adder_2(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_2(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_2(1, -1, do_advance=False), mark_type=MarkType.Illegal )
+
+        scene.append_arrow( *adder_2(-1, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_2(1, -1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
 
         return scene

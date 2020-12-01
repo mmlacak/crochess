@@ -271,15 +271,17 @@ def adder(step, include_prev=False):
     _current = step
     _next = step
 
-    def _adder(rel_i, rel_j):
+    def _adder(rel_i, rel_j, do_advance=True):
         nonlocal _current, _next
         _current = _next
-        _next = add(_current, (rel_i, rel_j))
+        _n = add(_current, (rel_i, rel_j))
+        if do_advance:
+            _next = _n
 
         if include_prev:
-            return _current + _next # (i, j) + (k, l) --> (i, j, k, l)
+            return _current + _n # (i, j) + (k, l) --> (i, j, k, l)
         else:
-            return _next
+            return _n
     return _adder
 
 
