@@ -32,7 +32,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_13_teleport_pawns_end', \
+                    'scn_tr_21_pawn_sacrifice_init', \
                     # 'scn_aoa_12_opponents_pawn_conv_tagged', \
                     # 'scn_aoa_13_opponents_pawn_converted', \
                 ]

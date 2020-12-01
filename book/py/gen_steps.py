@@ -267,6 +267,22 @@ def sub(step, rel):
         return None
     return ( step[0] - rel[0], step[1] - rel[1] )
 
+def adder(step, include_prev=False):
+    _current = step
+    _next = step
+
+    def _adder(rel_i, rel_j):
+        nonlocal _current, _next
+        _current = _next
+        _next = add(_current, (rel_i, rel_j))
+
+        if include_prev:
+            return _current + _next # (i, j) + (k, l) --> (i, j, k, l)
+        else:
+            return _next
+    return _adder
+
+
 def remove(coords, to_remove=[]):
     return [ pos for pos in coords if pos not in to_remove ] # preserves order
 

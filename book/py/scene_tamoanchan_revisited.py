@@ -612,3 +612,39 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_text('A', 0, 2, mark_type=MarkType.Legal, corner=Corner.UpperRight)
 
         return scene
+
+    def scn_tr_21_pawn_sacrifice_init(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_21_pawn_sacrifice_init', bt)
+
+        start_S = (12, 14)
+        start_A = (7, 15)
+        start_P = (7, 11)
+
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
+        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
+
+        adder = GS.adder(start_S, include_prev=False)
+        adder(1, 1) # empty field
+        scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
+        scene.board.set_piece(*adder(1, 1), piece=-PieceType.Bishop)
+        scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
+
+        for i in range(8, 22):
+            if i > 8:
+                scene.board.set_piece(i, 20, piece=-PieceType.Pawn)
+            if i not in [10, 12]:
+                scene.board.set_piece(i, 19, piece=-PieceType.Pawn)
+
+        coords = GS.gen_steps(start=start_S, rels=[(-1, 1), (-1, -1), ], include_prev=True, count=5)
+        for index, coord in enumerate( coords() ):
+            mark_type = MarkType.Action if index == 4 else MarkType.Legal
+            scene.append_arrow( *coord, mark_type=mark_type )
+
+        coords2 = GS.gen_steps(start=start_A, rels=[(0, -1), ], include_prev=True, count=4)
+        for index, coord in enumerate( coords2() ):
+            mark_type = MarkType.Action if index == 3 else MarkType.Legal
+            scene.append_arrow( *coord, mark_type=mark_type )
+
+        return scene
