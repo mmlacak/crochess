@@ -241,7 +241,7 @@ compared to previous example.
 \subsubsection*{Pawn-sacrifice move}
 \addcontentsline{toc}{subsubsection}{Pawn-sacrifice move}
 
-\vspace*{-1.1\baselineskip}
+\vspace*{-1.3\baselineskip}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -251,8 +251,12 @@ compared to previous example.
 % \centering
 \end{figure}
 
-\huge{TODO :: Sacrificing Pawns}
-\normalsize{}
+Pawn-sacrifice move is initiated by Serpent activating Pyramid, which then
+captures field at which own Pawn is located. Pawn is then sacrified (removed
+from chessboard as if captured by opponent), and Serpent gets Pawn-sacrifice
+tag and can, in the same move, start a new ply, as if starting a new move
+altogether. Any of pieces involved can be on any side of chessboard, own or
+opponent's.
 
 \clearpage % ..........................................................
 
@@ -266,8 +270,11 @@ compared to previous example.
 % \centering
 \end{figure}
 
-\huge{TODO :: Sacrificing Pawns}
-\normalsize{}
+In a new ply, Serpent can capture all opponent's Pawns in it's path, or move over
+empty fields. Serpent can't capture any other opponent's piece (here, dark Bishop).
+Pawn-sacrifice tag lasts until normal limit of Serpent's ply is reached (in this
+variant, 8 fields inclusively), or by any action other then capturing Pawns and
+traversing empty fields, e.g. teleporting, activating Wave, ...
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
