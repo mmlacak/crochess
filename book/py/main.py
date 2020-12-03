@@ -116,6 +116,9 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     collections.add_argument('-C', '--isa_centaur', action='store_true', default=False, help='do render Centaur ISA examples')
     collections.add_argument('-P', '--isa_patterns', action='store_true', default=False, help='do render ISA patterns (currently only Centaur)')
 
+    collections.add_argument('-T', '--tests', action='store_true', default=False, help='render all tests')
+    collections.add_argument('-t', '--recent_tests', action='store_true', default=False, help='render recent tests')
+
     args = parser.parse_args() # :: argparse.Namespace
 
     rendering_size = RenderingSizeEnum.none
@@ -166,6 +169,9 @@ Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
     if args.isa: # Intentionally skipped on args.all.
         bts = get_board_types(args.isa)
         render.render_ISAs(do_centaur=args.isa_centaur, do_patterns=args.isa_patterns, board_types=bts, enforce_cot_in_bw=True)
+
+    if args.tests or args.recent_tests:
+        render.render_tests(do_all_tests=args.tests)
 
     print
     print( "Finished all renderings." )

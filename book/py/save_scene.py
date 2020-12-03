@@ -17,6 +17,7 @@ from scene import Scene
 from scene_common import SceneCommon
 from scene_mix import SceneMix
 from scene_isa import SceneIsa
+from scene_test import SceneTest
 
 from draw_scene import DrawScene
 from def_mark import MarkDef
@@ -344,6 +345,48 @@ class SaveScene:
 
         for func in scene_funcs:
             self.render_isa(si, func, do_centaur=do_centaur, do_patterns=do_patterns, board_types=bts, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
+
+        print( "Finished." )
+
+    #
+    # tests
+
+    def get_test_file_path(self, file_name, path_prefix=None, file_ext=None, subfolder_name=None): # board_type
+        path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
+        file_ext = file_ext or DEFAULT_FILE_EXT
+        # bt = BoardType(board_type)
+
+        if subfolder_name is None:
+            return '%s/test/%s%s' % (path_prefix, file_name, file_ext)
+        else:
+            return '%s/test/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
+
+    def render_test(self, scene, func, path_prefix=None, enforce_cot_in_bw=True):
+        assert isinstance(scene, SceneTest)
+        assert callable(func)
+        assert isinstance(enforce_cot_in_bw, bool)
+
+        scene = func()
+        # sf_name = "%02d_%s" % (scene.board.type, scene.board.type.get_label())
+        file_path = self.get_test_file_path(scene.file_name, path_prefix=path_prefix, subfolder_name=None) # subfolder_name=sf_name
+        print( file_path )
+
+        if self.rendering_size.needs_rendering():
+            enforce_bw = True # enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
+            self.save_scene(scene, file_path, enforce_bw=enforce_bw)
+
+    def render_tests(self, do_all_tests=True, path_prefix=None, enforce_cot_in_bw=True):
+        _str = "all" if do_all_tests else "recent"
+        print()
+        print( "Rendering %s tests." % _str if self.rendering_size.needs_rendering() else "Info %s tests." % _str )
+        st = SceneTest()
+
+        scene_funcs = st.get_all_scene_methods(prefix='test_') \
+                      if do_all_tests \
+                      else st.get_recent_scene_methods()
+
+        for func in scene_funcs:
+            self.render_test(st, func, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
 
         print( "Finished." )
 

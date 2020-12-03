@@ -90,6 +90,8 @@ SUBFOLDERS =    [   \
                     'isa/20_d', \
                     'isa/21_oo', \
                     'isa/22_o', \
+                    \
+                    'test', \
                 ]
 
 

@@ -20,6 +20,7 @@ book/gfx/examples/
 book/gfx/pieces/
 book/gfx/rush/
 book/gfx/isa/
+book/gfx/test/
 *IGNORE*
 obj/
 lib/

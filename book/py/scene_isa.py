@@ -24,7 +24,7 @@ class SceneIsa(SceneMixin):
                     'isa_one', \
                 ]
 
-    def setup_board(self, bt, name):
+    def setup_scene(self, bt, name):
         bt = BoardType(bt)
         scene = Scene(name, bt)
 
@@ -216,7 +216,7 @@ class SceneIsa(SceneMixin):
             for rel_2 in rel_second:
                 gen_func = GS.gen_items([rel_1, rel_2, ])
                 current = start
-                new_scene = self.setup_board(bt, fn)
+                new_scene = self.setup_scene(bt, fn)
                 scene_has_content = False
 
                 rel_previous = None
@@ -301,7 +301,7 @@ class SceneIsa(SceneMixin):
         j = 0 if pt.is_light() else scene.board.get_height() - 1
 
         for i in range(scene.board.get_width()):
-            new_scene = self.setup_board(bt, fn)
+            new_scene = self.setup_scene(bt, fn)
             start = (i, j)
             rel_moves = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_field(new_scene, pt, i, j) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
             rel_second = GS.DEFAULT_UNICORN_REL_LONG_MOVES if self.check_centaur_field(new_scene, pt, i, j) else GS.DEFAULT_KNIGHT_REL_MOVES
@@ -410,7 +410,7 @@ class SceneIsa(SceneMixin):
             for pt in pieces:
                 for sl in [True, False]:
                     for sqs in [True, False]:
-                        scene = self.setup_board(bt, 'isa')
+                        scene = self.setup_scene(bt, 'isa')
 
                         pos_G = self.find_piece(scene, pt, search_light=sl, search_queen_side=sqs)
                         if pos_G != (None, None, None):
