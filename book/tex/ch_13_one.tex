@@ -37,9 +37,10 @@ Starchild.
 Starchild is supporting piece, it cannot capture any piece, cannot check or checkmate
 opponent's King.
 
-Starchild cannot be converted, but can be activated. Starchild can activate any own
-piece, except King, and can activate opponent's Starchilds. Starchild can also activate
-and move Stars, but not Monoliths.
+Starchild cannot be converted, but can be activated. If activated, it does not spend
+momentum while moving. Starchild can activate any own piece, except King, and can
+activate opponent's Starchilds. Starchild can also activate and move Stars, but not
+Monoliths.
 
 Starchild can take any piece, except Kings, Stars and Monoliths, for a non-interactive,
 viewing-only trance-journey.
@@ -53,8 +54,9 @@ viewing-only trance-journey.
 \caption{Star}
 \label{fig:star/22_one}
 \end{wrapfigure}
-Starchild can't teleport. Starchild can move from starting to destination field in an
-instant, without interacting with any intermediate step-fields and pieces on them.
+Starchild can't teleport. Starchild moves from starting to empty destination field in
+an instant, without ever stepping on any intermediate fields and without interacting
+with any pieces on them.
 
 Starchild can ressurect any captured piece.
 
@@ -63,16 +65,48 @@ In algebraic notation, symbol for Starchild is 'I'.
 Star colors in this variant are presented above, on the left.
 
 \clearpage % ..........................................................
+% Movement ------------------------------------------------------------
 
-% [?] Starchild does accumulate momentum, but does not spend it while moving. [?]
+\subsection*{Movement}
+\addcontentsline{toc}{subsection}{Movement}
 
-% [*] Syzygy (+?) ... [*]
+\vspace*{-1.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_01_starchild_movement.png}
+\caption{Starchild movement}
+\label{fig:scn_o_01_starchild_movement}
+% \centering
+\end{figure}
+
+Starchild can move to any empty field in opposite color to the one it's located on.
+Starchild is not hampered by any piece between starting and destination field.
+
+Here, light Starchild in the middle is positioned at dark field, and so can access
+any empty light field on chessboard, in a single move.
+
+\clearpage % ..........................................................
+
+\noindent
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_starchild_activating_fields.png}
+\caption{Activating fields}
+\label{fig:scn_o_02_starchild_activating_fields}
+\end{wrapfigure}
+...
+
+\clearpage % ..........................................................
+
+[*] Syzygy (+?) ... --\textgreater ressurection [*]
 
 [*] TODO :: Star moved \textgreater\textgreater Wave cannot pass through ... teleportation is mandatory (not optional!) [*]
 
 [*] moved Star ---\textgreater Wave \textgreater\textgreater if no board field beyond other Star \textgreater\textgreater sacrified [*]
 see \hyperref[fig:scn_d_11_wave_teleported_off_board]{see "Wave teleported off-board"}
 
+% ------------------------------------------------------------ Movement
 % *********************************************************** Starchild
 \clearpage % ..........................................................
 

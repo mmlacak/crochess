@@ -16,6 +16,7 @@ from scene_hemeras_dawn import SceneHemerasDawnMixin
 from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
 from scene_conquest_of_tlalocan import SceneConquestOfTlalocanMixin
 from scene_discovery import SceneDiscoveryMixin
+from scene_one import SceneOneMixin
 
 
 class SceneMix(SceneMixin, \
@@ -27,12 +28,13 @@ class SceneMix(SceneMixin, \
                SceneHemerasDawnMixin, \
                SceneTamoanchanRevisitedMixin, \
                SceneConquestOfTlalocanMixin, \
-               SceneDiscoveryMixin):
+               SceneDiscoveryMixin, \
+               SceneOneMixin):
 
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_tr_21_pawn_sacrifice_init', \
-                    'scn_tr_22_pawn_sacrifice_end', \
+                    'scn_o_01_starchild_movement', \
+                    'scn_o_02_starchild_activating_fields', \
                     # 'scn_aoa_13_opponents_pawn_converted', \
                 ]
