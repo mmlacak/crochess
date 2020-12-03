@@ -45,7 +45,6 @@ Monoliths.
 Starchild can take any piece, except Kings, Stars and Monoliths, for a non-interactive,
 viewing-only trance-journey.
 
-% \vspace*{0.30\textheight}
 % \vspace*{0.15\textheight}
 \noindent
 \begin{wrapfigure}[10]{l}{0.4\textwidth}
@@ -88,14 +87,23 @@ any empty light field on chessboard, in a single move.
 
 \clearpage % ..........................................................
 
+\subsection*{Activating piece}
+\addcontentsline{toc}{subsection}{Activating piece}
+
+% \vspace*{-1.1\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_starchild_activating_fields.png}
 \caption{Activating fields}
 \label{fig:scn_o_02_starchild_activating_fields}
 \end{wrapfigure}
-...
+Fields at which Starchild can activate a piece are all fields immediately surrounding
+it horizontally, vertically and diagonally. They are the same as step-fields of a King.
+Any piece activated by Starchild receives 1 momentum.
+
+Here, opponent's Bishop and own King can't be activated, so only own Pegasus can be
+activated with 1 momentum.
 
 \clearpage % ..........................................................
 
