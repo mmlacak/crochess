@@ -90,20 +90,48 @@ any empty light field on chessboard, in a single move.
 \subsection*{Activating piece}
 \addcontentsline{toc}{subsection}{Activating piece}
 
-% \vspace*{-1.1\baselineskip}
+% \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_starchild_activating_fields.png}
-\caption{Activating fields}
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_starchild_activating_fields.png}
+\caption{Activating piece}
 \label{fig:scn_o_02_starchild_activating_fields}
 \end{wrapfigure}
 Fields at which Starchild can activate a piece are all fields immediately surrounding
 it horizontally, vertically and diagonally. They are the same as step-fields of a King.
 Any piece activated by Starchild receives 1 momentum.
 
-Here, opponent's Bishop and own King can't be activated, so only own Pegasus can be
-activated with 1 momentum.
+Here, Starchild’s activation fields are enumerated. Opponent's Bishop and own King can't
+be activated, so only own Pegasus can be, with 1 momentum.
+
+% \vspace*{-1.1\baselineskip}
+\subsection*{Moving a Star}
+\addcontentsline{toc}{subsection}{Moving a Star}
+
+% \vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_03_starchild_moving_star_init.png}
+\caption{Moving into a Star}
+\label{fig:scn_o_03_starchild_moving_star_init}
+\end{wrapfigure}
+Starchild's activation fields are enumerated. Starchild can move a Star by activating it,
+the same way as any other piece, i.e. by capturing field at which Star is located.
+
+% \vspace*{2.9\baselineskip}
+\vspace*{2.1\baselineskip}
+\noindent
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_04_starchild_moving_star_end.png}
+\caption{Moving a Star}
+\label{fig:scn_o_04_starchild_moving_star_end}
+\end{wrapfigure}
+Once activated, Star can move to any empty field immediately next to activating Starchild.
+Those fields are the same as Starchild's activation fields, and are enumerated in example
+on the left.
 
 \clearpage % ..........................................................
 

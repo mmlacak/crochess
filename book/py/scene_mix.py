@@ -36,5 +36,6 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_o_01_starchild_movement', \
                     'scn_o_02_starchild_activating_fields', \
-                    # 'scn_aoa_13_opponents_pawn_converted', \
+                    'scn_o_03_starchild_moving_star_init', \
+                    'scn_o_04_starchild_moving_star_end', \
                 ]
