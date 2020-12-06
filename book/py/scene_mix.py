@@ -35,9 +35,10 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_o_01_starchild_movement', \
-                    'scn_o_02_starchild_activating_fields', \
-                    'scn_o_03_starchild_moving_star_init', \
-                    'scn_o_04_starchild_moving_star_end', \
-                    'scn_o_05_starchild_not_moving_monolith_init', \
-                    'scn_o_06_starchild_not_moving_monolith_end', \
+                    # 'scn_o_02_starchild_activating_fields', \
+                    # 'scn_o_03_starchild_moving_star_init', \
+                    # 'scn_o_04_starchild_moving_star_end', \
+                    # 'scn_o_05_starchild_not_moving_monolith_init', \
+                    # 'scn_o_06_starchild_not_moving_monolith_end', \
+                    'scn_o_07_trance_journey_init', \
                 ]
