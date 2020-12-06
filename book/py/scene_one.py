@@ -183,9 +183,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_08_trance_journey_init(self, bt=BoardType.One):
+    def scn_o_08_trance_journey_init_starchild(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_08_trance_journey_init', bt, width=9, height=9)
+        scene = Scene('scn_o_08_trance_journey_init_starchild', bt, width=9, height=9)
 
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
@@ -205,21 +205,85 @@ class SceneOneMixin:
         start_h = (2, 1)
         scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
 
-        # A: dark Shaman --> dark Wave --> light Wave --> light Shaman
+        # dark Starchild --> light Starchild
+        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
+
+        # light Starchild --> dark Bishop
+        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_09_trance_journey_init_shaman(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_09_trance_journey_init_shaman', bt, width=9, height=9)
+
+        start_b = (7, 7)
+        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+
+        start_I = (6, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (7, 5)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (4, 3)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (1, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_h = (2, 1)
+        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+
+        # dark Shaman --> dark Wave --> light Wave --> light Shaman
         scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Action )
         scene.append_arrow( *(start_w + start_W), mark_type=MarkType.Action )
         scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
 
-        scene.append_text( "A", *start_h, mark_type=MarkType.Action )
-        scene.append_text( "A", *start_w, mark_type=MarkType.Action )
-        scene.append_text( "A", *start_W, mark_type=MarkType.Action )
-
-        # B: dark Starchild --> light Starchild
-        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
-
-        scene.append_text( "B", *start_i, mark_type=MarkType.Action )
-
         # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_10_trance_journey_started_by_shaman(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_10_trance_journey_started_by_shaman', bt)
+
+        start_b = (7, 7)
+        end_b = (9, 18)
+        scene.board.set_piece(*end_b, piece=-PieceType.Bishop)
+
+        start_I = (7, 7)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (7, 5)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (6, 6)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (4, 3)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_h = (1, 5)
+        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(scene, start_b, rel, count=24, is_with_field_marker=True)
+
+        for i in range(16):
+            aba(str(i + 1), mark_type=MarkType.Legal)
+
+        #
+        # left arm
+
+        rel = (-2, -1)
+        aba = self.append_broken_arrow(scene, start_b, rel, count=24, is_with_field_marker=True)
+
+        for i in range(16):
+            aba(str(i + 1), mark_type=MarkType.Action)
 
         return scene

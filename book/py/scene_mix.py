@@ -34,12 +34,14 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_o_01_starchild_movement', \
-                    'scn_o_02_neighboring_fields', \
-                    'scn_o_03_starchild_activating_fields', \
-                    'scn_o_04_starchild_moving_star_init', \
-                    'scn_o_05_starchild_moving_star_end', \
-                    'scn_o_06_starchild_not_moving_monolith_init', \
-                    'scn_o_07_starchild_not_moving_monolith_end', \
-                    'scn_o_08_trance_journey_init', \
+                    # 'scn_o_01_starchild_movement', \
+                    # 'scn_o_02_neighboring_fields', \
+                    # 'scn_o_03_starchild_activating_fields', \
+                    # 'scn_o_04_starchild_moving_star_init', \
+                    # 'scn_o_05_starchild_moving_star_end', \
+                    # 'scn_o_06_starchild_not_moving_monolith_init', \
+                    # 'scn_o_07_starchild_not_moving_monolith_end', \
+                    'scn_o_08_trance_journey_init_starchild', \
+                    'scn_o_09_trance_journey_init_shaman', \
+                    'scn_o_10_trance_journey_started_by_shaman', \
                 ]

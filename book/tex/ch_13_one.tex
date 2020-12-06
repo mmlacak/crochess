@@ -178,29 +178,75 @@ it tried to move.
 
 \clearpage % ..........................................................
 
-% \vspace*{3.7\baselineskip}
 \subsection*{Trance-journey}
 \addcontentsline{toc}{subsection}{Trance-journey}
 
-\vspace*{-0.9\baselineskip}
+\vspace*{-1.1\baselineskip}
 \noindent
-\begin{wrapfigure}[12]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_08_trance_journey_init.png}
-\caption{Starting a trance-journey}
-\label{fig:scn_o_08_trance_journey_init}
+\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_08_trance_journey_init_starchild.png}
+\caption{Starchild initiating}
+\label{fig:scn_o_08_trance_journey_init_starchild}
 \end{wrapfigure}
-Trance-journey is initiated by either Shaman (A steps) or Starchild (B), by activating a
-Starchild. Activated Starchild then activates a piece, entranced piece then leaves onto
-trance-journey. Any piece, own or opponent's, can be entranced, except Kings, Stars and
-Monoliths. Entraced piece must have the same color as initiating Shaman or Starchild,
-color of entrancing Starchild do not need to match. Trance-journey is optional, last
-piece could just move.
+Trance-journey is initiated by either Shaman or Starchild, by activating another Starchild.
+Activated Starchild then activates a piece, entranced piece then leaves onto trance-journey.
+Any piece, own or opponent's, can be entranced, except Kings, Stars and Monoliths.
 
-Initiating Shaman or Starchild can themselves be activated by some other piece(s), not necessarily in the same color.
+Here, dark Starchild is activating light Starchild, which will entrance dark Bishop.
+
+% \vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_09_trance_journey_init_shaman.png}
+\caption{Shaman initiating}
+\label{fig:scn_o_09_trance_journey_init_shaman}
+\end{wrapfigure}
+Entraced piece must have the same color as initiating Shaman or Starchild, color of
+entrancing Starchild do not need to match.
+
+Here, entranced piece is dark Bishop, both initiating pieces are also dark, i.e. dark Shaman
+in this example, and dark Starchild in previous example. Entrancing piece in both examples
+is light Starchild.
+
+Initiating Shaman or Starchild can themselves be activated by some other piece(s),
+not necessarily in the same color.
+
+% Entranced piece can end its’ trance-journey on any empty step-field. If all step-fields are occupied,
+% it emerges on any empty neighboring-field around entrancing Starchild. If those are also occupied, it
+% emerges on any empty neighboring-field around initiating Shaman or Starchild. If all of those are
+% occupied as well, entranced piece is removed from chessboard, as if captured by opponent.
+
+% Entranced piece can end its' trance-journey on any empty step-field. If all are occupied, then it emerges
+% on any empty entrancing Starchild's neighboring-field first; if there's none, then on empty initiating Shaman
+% or Starchild's neighboring-fields second. If all are occupied, entranced piece is removed from chessboard, as
+% if captured by opponent.
+
+Entranced piece can end its' trance-journey on any empty step-field. If all are occupied, then it emerges
+on any empty entrancing Starchild's neighboring-field. If there's none, then it emerges on empty initiating
+Shaman or Starchild's neighboring-fields. If all are occupied, entranced piece is removed from chessboard,
+as if captured by opponent.
 
 \clearpage % ..........................................................
 
+\vspace*{-3.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_10_trance_journey_started_by_shaman.png}
+\caption{Trance-journey}
+\label{fig:scn_o_10_trance_journey_started_by_shaman}
+% \centering
+\end{figure}
+
+Trance-journey pattern depends on color of entrancing Starchild. Here, light Starchild features
+\hyperref[fig:scn_cot_14_light_shaman_trance_journey]{light Shaman's pattern}. Should entrancing
+Starchild be dark, it would also produce
+\hyperref[fig:scn_cot_16_dark_shaman_trance_journey]{dark Shaman's pattern}.
+
+Trance-journey is optional, entranced piece could just move. In these examples dark Bishop could
+move for 1 step, as it's receiving 1 momentum.
 
 
 \clearpage % ..........................................................
