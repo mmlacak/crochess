@@ -30,9 +30,22 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_02_starchild_activating_fields(self, bt=BoardType.One):
+    def scn_o_02_neighboring_fields(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_02_starchild_activating_fields', bt, width=5, height=5)
+        scene = Scene('scn_o_02_neighboring_fields', bt, width=5, height=5)
+
+        start_I = (2, 2)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
+        for index, coords in enumerate( gen() ):
+            scene.append_text( str(index + 1), *coords, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_03_starchild_activating_fields(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_03_starchild_activating_fields', bt, width=5, height=5)
 
         start_I = (2, 2)
         start_b = (2, 3)
@@ -55,9 +68,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_03_starchild_moving_star_init(self, bt=BoardType.One):
+    def scn_o_04_starchild_moving_star_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_03_starchild_moving_star_init', bt, width=5, height=5)
+        scene = Scene('scn_o_04_starchild_moving_star_init', bt, width=5, height=5)
 
         start_I = (0, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -88,9 +101,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_04_starchild_moving_star_end(self, bt=BoardType.One):
+    def scn_o_05_starchild_moving_star_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_04_starchild_moving_star_end', bt, width=5, height=5)
+        scene = Scene('scn_o_05_starchild_moving_star_end', bt, width=5, height=5)
 
         start_I = (0, 0)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -120,9 +133,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_05_starchild_not_moving_monolith_init(self, bt=BoardType.One):
+    def scn_o_06_starchild_not_moving_monolith_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_05_starchild_not_moving_monolith_init', bt, width=5, height=5)
+        scene = Scene('scn_o_06_starchild_not_moving_monolith_init', bt, width=5, height=5)
 
         start_I = (3, 3)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -145,9 +158,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_06_starchild_not_moving_monolith_end(self, bt=BoardType.One):
+    def scn_o_07_starchild_not_moving_monolith_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_06_starchild_not_moving_monolith_end', bt, width=5, height=5)
+        scene = Scene('scn_o_07_starchild_not_moving_monolith_end', bt, width=5, height=5)
 
         start_I = (1, 2)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -170,9 +183,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_07_trance_journey_init(self, bt=BoardType.One):
+    def scn_o_08_trance_journey_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_07_trance_journey_init', bt, width=9, height=9)
+        scene = Scene('scn_o_08_trance_journey_init', bt, width=9, height=9)
 
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)

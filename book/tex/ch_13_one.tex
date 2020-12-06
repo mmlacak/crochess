@@ -87,23 +87,34 @@ any empty light field on chessboard, in a single move.
 
 \clearpage % ..........................................................
 
+\subsection*{Neighboring-fields}
+\addcontentsline{toc}{subsection}{Neighboring-fields}
+
+\vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_neighboring_fields.png}
+\caption{Neighboring-fields}
+\label{fig:scn_o_02_neighboring_fields}
+\end{wrapfigure}
+Neighboring-fields are all fields immediately surrounding a piece horizontally, vertically
+and diagonally. They are the same as step-fields of a King.
+
+\vspace*{1.1\baselineskip}
 \subsection*{Activating piece}
 \addcontentsline{toc}{subsection}{Activating piece}
 
 \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_starchild_activating_fields.png}
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_03_starchild_activating_fields.png}
 \caption{Activating piece}
-\label{fig:scn_o_02_starchild_activating_fields}
+\label{fig:scn_o_03_starchild_activating_fields}
 \end{wrapfigure}
-Fields at which Starchild can activate a piece are all fields immediately surrounding
-it horizontally, vertically and diagonally. They are the same as step-fields of a King.
-Any piece activated by Starchild receives 1 momentum.
+Fields at which Starchild can activate a piece are neighboring-fields.
 
-% Note, Starchild can move only to non-empty activation fields. Starchild can activate any
-% own piece, except King, and can also activate opponent's Starchids.
 Note, Starchild can move only to non-empty activation fields, and only if it contains
 own piece, except King, or opponent's Starchids.
 
@@ -118,54 +129,56 @@ be activated, so only own Pegasus can be, with 1 momentum.
 \noindent
 \begin{wrapfigure}[5]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_03_starchild_moving_star_init.png}
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_04_starchild_moving_star_init.png}
 \caption{Moving into a Star}
-\label{fig:scn_o_03_starchild_moving_star_init}
+\label{fig:scn_o_04_starchild_moving_star_init}
 \end{wrapfigure}
 Starchild's activation fields are enumerated. Starchild can move a Star by activating it,
 the same way as any other piece, i.e. by capturing field at which Star is located.
 
-% \vspace*{2.9\baselineskip}
-\vspace*{2.1\baselineskip}
-\noindent
-\begin{wrapfigure}[9]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_04_starchild_moving_star_end.png}
-\caption{Moving a Star}
-\label{fig:scn_o_04_starchild_moving_star_end}
-\end{wrapfigure}
-Once activated, Star can move to any empty field immediately next to activating Starchild
-horizontally, vertically and diagonally. Those fields are the same as King's step-fields,
-and are enumerated in example on the left.
-
 \clearpage % ..........................................................
 
-% \vspace*{-1.1\baselineskip}
+% \vspace*{2.1\baselineskip}
+\noindent
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_05_starchild_moving_star_end.png}
+\caption{Moving a Star}
+\label{fig:scn_o_05_starchild_moving_star_end}
+\end{wrapfigure}
+Once activated, Star can move to any empty neighboring-field, which all are enumerated in
+example on the left.
+
+\vspace*{2.1\baselineskip}
 \subsection*{Not moving a Monolith}
 \addcontentsline{toc}{subsection}{Not moving a Monolith}
 
 \vspace*{-0.9\baselineskip}
 \noindent
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_06_starchild_not_moving_monolith_init.png}
+\caption{Moving into a Monolith}
+\label{fig:scn_o_06_starchild_not_moving_monolith_init}
+\end{wrapfigure}
+Starchild’s activation fields are enumerated. Starchild can try to capture field at which
+Monolith is located, as if trying to activate and move it.
+
+\vspace*{2.1\baselineskip}
+% \vspace*{3.9\baselineskip}
+\noindent
 \begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_05_starchild_not_moving_monolith_init.png}
-\caption{Moving into a Monolith}
-\label{fig:scn_o_05_starchild_not_moving_monolith_init}
-\end{wrapfigure}
-Starchild’s activation fields are enumerated. Starchild can dive into Monolith, as if trying
-to teleport.
-
-\vspace*{3.9\baselineskip}
-\noindent
-\begin{wrapfigure}[3]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_06_starchild_not_moving_monolith_end.png}
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_07_starchild_not_moving_monolith_end.png}
 \caption{Moving out of a Monolith}
-\label{fig:scn_o_06_starchild_not_moving_monolith_end}
+\label{fig:scn_o_07_starchild_not_moving_monolith_end}
 \end{wrapfigure}
-Starchild then emerges on any empty portal-field around Monolith it tried to dive into.
+Instead of moving a Monolith, Starchild then emerges on any empty portal-field around Monolith
+it tried to move.
 
-\vspace*{3.7\baselineskip}
+\clearpage % ..........................................................
+
+% \vspace*{3.7\baselineskip}
 \subsection*{Trance-journey}
 \addcontentsline{toc}{subsection}{Trance-journey}
 
@@ -173,9 +186,9 @@ Starchild then emerges on any empty portal-field around Monolith it tried to div
 \noindent
 \begin{wrapfigure}[12]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_07_trance_journey_init.png}
+\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_08_trance_journey_init.png}
 \caption{Starting a trance-journey}
-\label{fig:scn_o_07_trance_journey_init}
+\label{fig:scn_o_08_trance_journey_init}
 \end{wrapfigure}
 Trance-journey is initiated by either Shaman (A steps) or Starchild (B), by activating a
 Starchild. Activated Starchild then activates a piece, entranced piece then leaves onto
@@ -183,6 +196,12 @@ trance-journey. Any piece, own or opponent's, can be entranced, except Kings, St
 Monoliths. Entraced piece must have the same color as initiating Shaman or Starchild,
 color of entrancing Starchild do not need to match. Trance-journey is optional, last
 piece could just move.
+
+Initiating Shaman or Starchild can themselves be activated by some other piece(s), not necessarily in the same color.
+
+\clearpage % ..........................................................
+
+
 
 \clearpage % ..........................................................
 
