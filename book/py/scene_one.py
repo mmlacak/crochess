@@ -50,7 +50,8 @@ class SceneOneMixin:
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
         for index, coords in enumerate( gen() ):
-            scene.append_text( str(index + 1), *coords )
+            mark_type = MarkType.Action if index == 7 else MarkType.Illegal if index in [2, 5] else MarkType.Blocked
+            scene.append_text( str(index + 1), *coords, mark_type=mark_type )
 
         return scene
 
@@ -82,7 +83,7 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             if scene.board.is_on_board( *coords ):
                 i += 1
-                mark_type = MarkType.Blocked if index == 0 else MarkType.Action if index == 6 else MarkType.Legal
+                mark_type = MarkType.Action if index in [0, 6] else MarkType.Blocked
                 scene.append_text( str(i), *coords, mark_type=mark_type )
 
         return scene
@@ -107,14 +108,64 @@ class SceneOneMixin:
         scene.board.set_piece(*startT3, piece=-PieceType.Star)
         scene.board.set_piece(*startT4, piece=-PieceType.Star)
 
-        scene.append_arrow( *(start_I + startT1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(start_I + startT1), mark_type=MarkType.Action )
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
         i = 0
         for index, coords in enumerate( gen() ):
             if scene.board.is_on_board( *coords ):
                 i += 1
-                mark_type = MarkType.Illegal if index == 1 else MarkType.Legal
+                mark_type = MarkType.Action if index == 0 else MarkType.Illegal if index == 1 else MarkType.Legal
+                scene.append_text( str(i), *coords, mark_type=mark_type )
+
+        return scene
+
+    def scn_o_05_starchild_not_moving_monolith_init(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_05_starchild_not_moving_monolith_init', bt, width=5, height=5)
+
+        start_I = (3, 3)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_M = (2, 2)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        scene.board.set_piece(2, 1, piece=PieceType.Knight)
+        scene.board.set_piece(1, 3, piece=PieceType.Bishop)
+
+        scene.append_arrow( *(start_I + start_M), mark_type=MarkType.Action )
+
+        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
+        i = 0
+        for index, coords in enumerate( gen() ):
+            if scene.board.is_on_board( *coords ):
+                i += 1
+                mark_type = MarkType.Action if index == 5 else MarkType.Blocked
+                scene.append_text( str(i), *coords, mark_type=mark_type )
+
+        return scene
+
+    def scn_o_06_starchild_not_moving_monolith_end(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_06_starchild_not_moving_monolith_end', bt, width=5, height=5)
+
+        start_I = (1, 2)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_M = (2, 2)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        scene.board.set_piece(2, 1, piece=PieceType.Knight)
+        scene.board.set_piece(1, 3, piece=PieceType.Bishop)
+
+        scene.append_arrow( *(start_M + start_I), mark_type=MarkType.Action )
+
+        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_M, count=1 )
+        i = 0
+        for index, coords in enumerate( gen() ):
+            if scene.board.is_on_board( *coords ):
+                i += 1
+                mark_type = MarkType.Action if index == 4 else MarkType.Illegal if index in [3, 6] else MarkType.Legal
                 scene.append_text( str(i), *coords, mark_type=mark_type )
 
         return scene

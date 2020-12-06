@@ -347,10 +347,18 @@ class Colors(dict):
                                     field=CS(    ('#FFFFFF', '#FFFFFF', '#480064', '#480064') ), \
                                     arrow=CMS(   ('#00FF00', '#000000', '#FF0000', '#000000', '#0000FF', '#000000', '#333333', '#000000') ), \
                                     text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', \
-                                                  '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#999999', '#000000') ), \
+                                                  '#0000FF', '#000000', '#6666FF', '#000000', '#333333', '#000000', '#999999', '#000000') ), \
                                     marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', '#FF0000', '#000000', '#FF0000', '#000000', \
                                                   '#0000FF', '#000000', '#0000FF', '#000000', '#333333', '#000000', '#333333', '#000000') ) )
         self[ BoardType.OddOne ] = self[ BoardType.One ]
+
+        # CP = ColorsPair.from_tuple # (<interior>, <outline>)
+        # CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)
+        # CM = ColorsMark.from_tuple # ( <legal light interior>, <legal light outline>, <legal dark interior>, <legal dark outline>, \
+        #                            #   <illegal light interior>, <illegal light outline>, <illegal dark interior>, <illegal dark outline>, \
+        #                            #   <action light interior>, <action light outline>, <action dark interior>, <action dark outline>, \
+        #                            #   <blocked light interior>, <blocked light outline>, <blocked dark interior>, <blocked dark outline> )
+        # CMS = ColorsMarkSimple.from_tuple # ( <legal interior>, <legal outline>, <illegal interior>, <illegal outline>, <action interior>, <action outline>, <blocked interior>, <blocked outline> )
 
     def fetch_colors(self, bt, enforce_bw=False):
         if enforce_bw:
