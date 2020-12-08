@@ -37,7 +37,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_01_starchild_movement', \
                     # 'scn_o_02_neighboring_fields', \
                     # 'scn_o_03_starchild_activating_fields', \
-                    'scn_o_04_starchild_activating_wave_init', \
+                    # 'scn_o_04_starchild_activating_wave_init', \
                     'scn_o_05_starchild_activating_wave_end', \
                     # 'scn_o_06_starchild_moving_star_init', \
                     # 'scn_o_07_starchild_moving_star_end', \

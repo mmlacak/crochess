@@ -75,10 +75,12 @@ class SceneOneMixin:
         start_I = (2, 2)
         start_W = (1, 1)
         start_G = (0, 2)
+        start_B = (17, 17)
 
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         startT1 = (0, 0)
         startT2 = (25, 25)
@@ -106,12 +108,14 @@ class SceneOneMixin:
         scene = Scene('scn_o_05_starchild_activating_wave_end', bt)
 
         start_I = (1, 1)
-        start_W = (24, 24)
+        start_W = (21, 21)
         start_G = (0, 2)
+        start_B = (17, 17)
 
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         startT1 = (0, 0)
         startT2 = (25, 25)
@@ -123,7 +127,10 @@ class SceneOneMixin:
         scene.board.set_piece(*startT3, piece=-PieceType.Star)
         scene.board.set_piece(*startT4, piece=-PieceType.Star)
 
-        scene.append_arrow( *(startT2 + start_W), mark_type=MarkType.Blocked )
+        gen = GS.gen_steps( [(-1, -1), ], start=startT2, count=25, include_prev=True )
+        for index, coords in enumerate( gen() ):
+            mark_type = MarkType.Action if index in [7, 23] else MarkType.Blocked if index < 4 else MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
 
         return scene
 
