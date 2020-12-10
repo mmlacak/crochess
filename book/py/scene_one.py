@@ -353,3 +353,91 @@ class SceneOneMixin:
             aba(str(i + 1), mark_type=MarkType.Action)
 
         return scene
+
+    def scn_o_13_push_pull_trance_journey_init(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_13_push_pull_trance_journey_init', bt, width=9, height=9)
+
+        start_i = (6, 5)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_w_A = (6, 6)
+        scene.board.set_piece(*start_w_A, piece=-PieceType.Wave)
+
+        start_w_B = (5, 7)
+        scene.board.set_piece(*start_w_B, piece=-PieceType.Wave)
+
+        start_n = (7, 7)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        scene.append_text( "A", *start_w_A, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_w_B, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *(start_i + start_w_A), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_w_A + start_w_B), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_o_14_push_pull_trance_journey_entrancing(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_14_push_pull_trance_journey_entrancing', bt, width=9, height=9)
+
+        start_i = (6, 6)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_w_A = (5, 7)
+        scene.board.set_piece(*start_w_A, piece=-PieceType.Wave)
+
+        # start_w_B = (3, 3)
+        # scene.board.set_piece(*start_w_B, piece=-PieceType.Wave)
+
+        start_n = (7, 7)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        scene.append_text( "A", *start_w_A, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_w_B, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *(start_w_A + start_i), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(start_i + start_n), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_o_15_push_pull_trance_journey_entranced(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_15_push_pull_trance_journey_entranced', bt)
+
+        start_i = (7, 7)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_w_A = (5, 7)
+        scene.board.set_piece(*start_w_A, piece=-PieceType.Wave)
+
+        start_w_B = (6, 6)
+        scene.board.set_piece(*start_w_B, piece=-PieceType.Wave)
+
+        start_n = (7, 7)
+        end_n = (11, 11)
+        scene.board.set_piece(*end_n, piece=-PieceType.Knight)
+
+        scene.append_text( "A", *start_w_A, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_w_B, mark_type=MarkType.Blocked )
+
+        #
+        # up arm
+
+        rel = (1, 2)
+        aba = self.append_broken_arrow(scene, start_n, rel, outward_arrows=False, count=24) # , is_with_field_marker=True)
+
+        for i in range(10):
+            aba(str(10 - i), mark_type=MarkType.Legal)
+
+        #
+        # down arm
+
+        rel = (-1, -2)
+        aba = self.append_broken_arrow(scene, start_n, rel, outward_arrows=False, count=24) # , is_with_field_marker=True)
+
+        for i in range(12):
+            aba(str(12 - i), mark_type=MarkType.Action)
+
+        return scene

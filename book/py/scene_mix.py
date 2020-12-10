@@ -38,7 +38,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_02_neighboring_fields', \
                     # 'scn_o_03_starchild_activating_fields', \
                     # 'scn_o_04_starchild_activating_wave_init', \
-                    'scn_o_05_starchild_activating_wave_end', \
+                    # 'scn_o_05_starchild_activating_wave_end', \
                     # 'scn_o_06_starchild_moving_star_init', \
                     # 'scn_o_07_starchild_moving_star_end', \
                     # 'scn_o_08_starchild_not_moving_monolith_init', \
@@ -46,4 +46,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_10_trance_journey_init_starchild', \
                     # 'scn_o_11_trance_journey_init_shaman', \
                     # 'scn_o_12_trance_journey_started_by_shaman', \
+                    # 'scn_o_13_push_pull_trance_journey_init', \
+                    # 'scn_o_14_push_pull_trance_journey_entrancing', \
+                    'scn_o_15_push_pull_trance_journey_entranced', \
                 ]
