@@ -416,7 +416,7 @@ class SceneOneMixin:
         scene.board.set_piece(*start_w_B, piece=-PieceType.Wave)
 
         start_n = (7, 7)
-        end_n = (11, 11)
+        end_n = (6, 15)
         scene.board.set_piece(*end_n, piece=-PieceType.Knight)
 
         scene.append_text( "A", *start_w_A, mark_type=MarkType.Blocked )
