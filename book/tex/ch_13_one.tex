@@ -34,7 +34,7 @@ Starchild.
 \caption{Starchild}
 \label{fig:16_starchild}
 \end{wrapfigure}
-Starchild is supporting piece, it cannot capture any piece, cannot check or checkmate
+Starchild is celestial piece, it cannot capture any piece, cannot check or checkmate
 opponent's King.
 
 Starchild cannot be converted, but can be activated. If activated, it does not spend
@@ -377,7 +377,56 @@ which don't have to be in the same color.
 \subsection*{Syzygy}
 \addcontentsline{toc}{subsection}{Syzygy}
 
-[*] Syzygy (+?) ... --\textgreater ressurection [*]
+\vspace*{-1.3\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_18_syzygy_monolith.png}
+\caption{Pawn-demotion syzygy}
+\label{fig:scn_o_18_syzygy_monolith}
+% \centering
+\end{figure}
+
+Starchild is celestial piece, it can participate in
+\hyperref[fig:scn_d_15_syzygy_2_stars_init]{Pawn-demoting syzygy} in place of Stars and Monoliths.
+
+\hyperref[fig:scn_d_17_syzygy_2_monoliths_init]{Again}, shortest step connecting Stars, Monoliths,
+Starchilds is called syzygy-step, fields which are connected by syzygy-steps are called syzygy-fields.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_19_syzygy_diagonal_init.png}
+\caption{2-Stars syzygy start}
+\label{fig:scn_o_19_syzygy_diagonal_init}
+% \centering
+\end{figure}
+
+\hyperref[fig:scn_d_15_syzygy_2_stars_init]{Again}, syzygy is alignment in one straight line of at least 3
+celestial bodies, Stars, Monoliths and Starchilds. It's initiated by Starchild stepping onto horizontal,
+vertical or diagonal line connecting 2 Stars. Then, one captured piece can be (but don't have to be) ressurected.
+Only captured pieces can be ressurected. Kings, Stars and Monoliths cannot be ressurected.
+
+\clearpage % ..........................................................
+
+\vspace*{-3.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_20_syzygy_diagonal_ressurection.png}
+\caption{Queen ressurected}
+\label{fig:scn_o_20_syzygy_diagonal_ressurection}
+% \centering
+\end{figure}
+
+Chosen piece, if not Starchild, takes place resurrecting Starchild occupied previously, and resurrecting
+Starchild is removed from chessboard, as if captured by opponent. If chosen piece is Starchild, it emerges on any
+empty neighboring-field around ressurecting Starchild. If neighboring-fields are all occupied, Starchild emerges
+on any empty portal-field around Stars in syzygy. If portal-fields are occupied, Starchild emerges on any empty
+field on line connecting 2 Stars and ressurecting Starchild. If all are occupied, ressurection is not performed.
 
 % *********************************************************** Starchild
 \clearpage % ..........................................................

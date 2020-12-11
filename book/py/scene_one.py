@@ -503,3 +503,75 @@ class SceneOneMixin:
             aba(str(12 - i), mark_type=MarkType.Action)
 
         return scene
+
+    def scn_o_18_syzygy_monolith(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_18_syzygy_monolith', bt)
+
+        start_M = (12, 8)
+        end_M = (13, 6)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        scene.board.set_piece(19, 8, piece=PieceType.Starchild)
+
+        start_N = (1, 2)
+        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        startT1 = (4, 3) # (0, 0)
+        startT2 = (25, 25)
+        startT3 = (25, 0)
+        startT4 = (0, 25)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        scene.append_arrow( *(start_M + end_M), mark_type=MarkType.Action )
+
+        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_19_syzygy_diagonal_init(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_19_syzygy_diagonal_init', bt)
+
+        start_I = (12, 3)
+        end_I = (18, 7)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        startT1 = (0, 0)
+        startT2 = (25, 25)
+        startT3 = (25, 0)
+        startT4 = (0, 25)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_o_20_syzygy_diagonal_ressurection(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_20_syzygy_diagonal_ressurection', bt)
+
+        start_Q = (18, 7)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        startT1 = (0, 0)
+        startT2 = (25, 25)
+        startT3 = (25, 0)
+        startT4 = (0, 25)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        return scene

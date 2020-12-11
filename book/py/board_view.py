@@ -58,7 +58,7 @@ class BoardView:
         self.skip_if_rendering_board = skip_if_rendering_board
 
     def get_position_limits(self):
-        return ((self.x, self.y), (self.x + self.width, self.y + self.height))
+        return ((self.x, self.y), (self.x + self.width - 1, self.y + self.height - 1))
 
     def as_tuple(self):
         return (self.x, self.y, self.width, self.height, self.reverse_off_board_field_colors, self.margin)
