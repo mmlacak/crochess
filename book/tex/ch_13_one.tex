@@ -227,7 +227,7 @@ it tried to move.
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_10_star_moved_wave_teleportation.png}
-\caption{Teleporting Wave}
+\caption{Mandatory Wave teleportation}
 \label{fig:scn_o_10_star_moved_wave_teleportation}
 % \centering
 \end{figure}
@@ -238,21 +238,24 @@ piece Wave cannot "pass-through", i.e. ignore as all the other pieces on chessbo
 
 \clearpage % ..........................................................
 
-\vspace*{-2.1\baselineskip}
+\vspace*{-3.1\baselineskip}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_11_star_moved_wave_off_board.png}
-\caption{Teleporting Wave}
+\caption{Wave teleported off-board}
 \label{fig:scn_o_11_star_moved_wave_off_board}
 % \centering
 \end{figure}
 
-[*] moved Star ---\textgreater Wave \textgreater\textgreater if no board field beyond other Star \textgreater\textgreater sacrified [*]
+Wave can end up with all step-fields off-board after teleportation, due to one or both Stars
+moved out of their initial positions. In such a case, Wave is removed from chessboard as if
+captured by opponent, the same as in
+\hyperref[fig:scn_d_11_wave_teleported_off_board]{previous variant, Discovery}.
 
-see \hyperref[fig:scn_d_10_teleported_wave_blocked]{see "Teleported Wave blocked"}
-
-see \hyperref[fig:scn_d_11_wave_teleported_off_board]{see "Wave teleported off-board"}
+Wave is also removed from chessboard if, after teleportation, all of its' step-fields are
+blocked; this is again similar to
+\hyperref[fig:scn_d_10_teleported_wave_blocked]{previous variant, Discovery}.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
