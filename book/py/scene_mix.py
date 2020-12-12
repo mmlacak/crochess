@@ -43,16 +43,17 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_07_starchild_moving_star_end', \
                     # 'scn_o_08_starchild_not_moving_monolith_init', \
                     # 'scn_o_09_starchild_not_moving_monolith_end', \
-                    # 'scn_o_10_star_moved_wave_teleportation', \
-                    # 'scn_o_11_star_moved_wave_off_board', \
-                    # 'scn_o_12_trance_journey_init_starchild', \
-                    # 'scn_o_13_trance_journey_init_shaman', \
-                    # 'scn_o_14_trance_journey_started_by_shaman', \
-                    # 'scn_o_15_push_pull_trance_journey_init', \
-                    # 'scn_o_16_push_pull_trance_journey_entrancing', \
-                    # 'scn_o_17_push_pull_trance_journey_entranced', \
-                    # 'scn_o_18_syzygy_monolith', \
-                    'scn_o_19_syzygy_starchild_init', \
-                    'scn_o_20_syzygy_starchild_end', \
-                    'scn_o_21_syzygy_starchild_ressurection', \
+                    'scn_o_10_starchild_conversion_immunity_init', \
+                    # 'scn_o_11_star_moved_wave_teleportation', \
+                    # 'scn_o_12_star_moved_wave_off_board', \
+                    # 'scn_o_13_trance_journey_init_starchild', \
+                    # 'scn_o_14_trance_journey_init_shaman', \
+                    # 'scn_o_15_trance_journey_started_by_shaman', \
+                    # 'scn_o_16_push_pull_trance_journey_init', \
+                    # 'scn_o_17_push_pull_trance_journey_entrancing', \
+                    # 'scn_o_18_push_pull_trance_journey_entranced', \
+                    # 'scn_o_19_syzygy_monolith', \
+                    # 'scn_o_20_syzygy_starchild_init', \
+                    # 'scn_o_21_syzygy_starchild_end', \
+                    # 'scn_o_22_syzygy_starchild_ressurection', \
                 ]
