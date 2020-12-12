@@ -513,11 +513,12 @@ class SceneOneMixin:
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
         scene.board.set_piece(19, 8, piece=PieceType.Starchild)
+        scene.board.set_piece(22, 9, piece=-PieceType.Bishop)
 
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (4, 3) # (0, 0)
+        startT1 = (7, 4) # (0, 0)
         startT2 = (25, 25)
         startT3 = (25, 0)
         startT4 = (0, 25)
