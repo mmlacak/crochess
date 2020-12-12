@@ -51,7 +51,8 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_15_push_pull_trance_journey_init', \
                     # 'scn_o_16_push_pull_trance_journey_entrancing', \
                     # 'scn_o_17_push_pull_trance_journey_entranced', \
-                    'scn_o_18_syzygy_monolith', \
-                    # 'scn_o_19_syzygy_diagonal_init', \
-                    # 'scn_o_20_syzygy_diagonal_ressurection', \
+                    # 'scn_o_18_syzygy_monolith', \
+                    'scn_o_19_syzygy_starchild_init', \
+                    'scn_o_20_syzygy_starchild_end', \
+                    'scn_o_21_syzygy_starchild_ressurection', \
                 ]

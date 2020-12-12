@@ -34,20 +34,18 @@ Starchild.
 \caption{Starchild}
 \label{fig:16_starchild}
 \end{wrapfigure}
-Starchild is celestial piece, it cannot capture any piece, cannot check or checkmate
-opponent's King.
+Starchild cannot capture any piece, cannot check or checkmate opponent's King.
+Starchild is celestial piece, it can participate in demoting-to-Pawn syzygy.
+Starchild can be demoted to Pawn.
 
 Starchild cannot be converted, but can be activated. If activated, it does not spend
 momentum while moving. Starchild can activate any own piece, except King, and can
 activate opponent's Starchilds. Starchild can also activate and move Stars, but not
 Monoliths.
 
-Starchild can take any piece, except Kings, Stars and Monoliths, for a non-interactive,
-viewing-only trance-journey.
-
 % \vspace*{0.15\textheight}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/star/22_one.png}
 \caption{Star}
@@ -57,7 +55,9 @@ Starchild can't teleport. Starchild moves from starting to empty destination fie
 an instant, without ever stepping on any intermediate fields and without interacting
 with any pieces on them.
 
-Starchild can ressurect any captured piece.
+Starchild can ressurect any captured piece, except Kings, Stars, Monoliths.
+Starchild can take any piece, except Kings, Stars and Monoliths, for a non-interactive,
+viewing-only trance-journey.
 
 In algebraic notation, symbol for Starchild is 'I'.
 
@@ -249,8 +249,7 @@ piece Wave cannot "pass-through", i.e. ignore as all the other pieces on chessbo
 \end{figure}
 
 Wave can end up with all step-fields off-board after teleportation, due to one or both Stars
-moved out of their initial positions. In such a case, Wave is removed from chessboard as if
-captured by opponent, the same as in
+moved out of their initial positions. In such a case, Wave is oblationed, the same as in
 \hyperref[fig:scn_d_11_wave_teleported_off_board]{previous variant, Discovery}.
 
 Wave is also removed from chessboard if, after teleportation, all of its' step-fields are
@@ -299,8 +298,7 @@ is light Starchild.
 
 Entranced piece can end its' trance-journey on any empty step-field. If all are occupied, then it emerges
 on any empty entrancing Starchild's neighboring-field. If there's none, then it emerges on empty initiating
-Shaman or Starchild's neighboring-fields. If all are occupied, entranced piece is removed from chessboard,
-as if captured by opponent.
+Shaman or Starchild's neighboring-fields. If all are occupied, entranced piece is oblationed.
 
 \clearpage % ..........................................................
 
@@ -382,7 +380,7 @@ which don't have to be in the same color.
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_18_syzygy_monolith.png}
-\caption{Pawn-demotion syzygy}
+\caption{Demoting-to-Pawn syzygy}
 \label{fig:scn_o_18_syzygy_monolith}
 % \centering
 \end{figure}
@@ -400,40 +398,55 @@ Bishop steps. Starchilds are also eligible to demotion.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_19_syzygy_diagonal_init.png}
-\caption{2-Stars syzygy start}
-\label{fig:scn_o_19_syzygy_diagonal_init}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_19_syzygy_starchild_init.png}
+\caption{Ressurection syzygy start}
+\label{fig:scn_o_19_syzygy_starchild_init}
 % \centering
 \end{figure}
 
-\hyperref[fig:scn_d_15_syzygy_2_stars_init]{Again}, syzygy is alignment in one straight line of at least 3
-celestial bodies, Stars, Monoliths and Starchilds. It's initiated by Starchild stepping onto horizontal,
-vertical or diagonal line connecting 2 Stars. Then, one captured piece can be (but don't have to be) ressurected.
+Starchild-initiated syzygy is ressurection. One captured piece, if it's not Starchild, can be (but
+don't have to be) ressurected by replacing initiating Starchild, Starchild itself is then oblationed.
 Only captured pieces can be ressurected. Kings, Stars and Monoliths cannot be ressurected.
 
 \clearpage % ..........................................................
 
-\vspace*{-3.1\baselineskip}
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_20_syzygy_diagonal_ressurection.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_20_syzygy_starchild_end.png}
 \caption{Queen ressurected}
-\label{fig:scn_o_20_syzygy_diagonal_ressurection}
+\label{fig:scn_o_20_syzygy_starchild_end}
 % \centering
 \end{figure}
 
-Chosen piece, if not Starchild, takes place resurrecting Starchild occupied previously, and resurrecting
-Starchild is removed from chessboard, as if captured by opponent. If chosen piece is Starchild, it emerges on any
-empty neighboring-field around ressurecting Starchild. If neighboring-fields are all occupied, Starchild emerges
-on any empty portal-field around Stars in syzygy. If portal-fields are occupied, Starchild emerges on any empty
-field on line connecting 2 Stars and ressurecting Starchild. If all are occupied, ressurection is not performed.
+Here, ressurected Queen replaced initiating Starchild. Note, in this variant
+\hyperref[sec:One/Promotion]{promotion is monogamous}, so the only light Queen
+had to be captured, before it could be ressurected.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_21_syzygy_starchild_ressurection.png}
+\caption{Starchild ressurected}
+\label{fig:scn_o_21_syzygy_starchild_ressurection}
+% \centering
+\end{figure}
+
+If captured piece is Starchild, it can be ressurected by emerging on any empty neighboring-field around
+Starchilds in syzygy. If neighboring-fields are all occupied, Starchild emerges on any empty portal-field
+around Stars, Monoliths in syzygy. If portal-fields are occupied, Starchild emerges on any empty syzygy-field.
+If all are occupied, ressurection is not performed. Initiating Starchild is not oblationed.
 
 % *********************************************************** Starchild
 \clearpage % ..........................................................
 
 \section*{Promotion}
 \addcontentsline{toc}{section}{Promotion}
+\label{sec:One/Promotion}
 
 Promotion is non enforced, delayed variety, i.e. it's the same as in
 \hyperref[sec:Age of Aquarius/Promotion]{previous chess variant}, Age of Aquarius.
