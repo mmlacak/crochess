@@ -942,7 +942,7 @@ class Board:
         self._setup_pawn_rows(True)
         self._setup_pawn_rows(False)
 
-    def _setup_umbrella_pawns(self, is_light):
+    def _setup_scout_pawns(self, is_light):
         assert isinstance(is_light, bool)
 
         if self.type >= BoardType.OddHemerasDawn:
@@ -957,9 +957,9 @@ class Board:
                 if p in figures:
                     self.set_pieces( [ (i-2, row_3, pt), (i+2, row_3, pt), (i-1, row_4, pt), (i+1, row_4, pt) ] )
 
-    def _setup_all_umbrella_pawns(self):
-        self._setup_umbrella_pawns(True)
-        self._setup_umbrella_pawns(False)
+    def _setup_all_scout_pawns(self):
+        self._setup_scout_pawns(True)
+        self._setup_scout_pawns(False)
 
     def _setup_board(self, light_pieces):
         self.clear()
@@ -971,7 +971,7 @@ class Board:
         self.set_row(self.get_height() - 1, dark)
 
         # This *must* be last item!
-        self._setup_all_umbrella_pawns()
+        self._setup_all_scout_pawns()
 
     def _setup_none(self):
         pass

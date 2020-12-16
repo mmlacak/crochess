@@ -399,9 +399,9 @@ class SceneHemerasDawnMixin:
         return scene
 
 
-    def scn_hd_08_umbrella_pawns(self, bt=BoardType.HemerasDawn):
+    def scn_hd_08_scout_pawns(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_08_umbrella_pawns', bt)
+        scene = Scene('scn_hd_08_scout_pawns', bt)
 
         scene.board.set_piece(4, 0, piece=PieceType.Centaur)
 
