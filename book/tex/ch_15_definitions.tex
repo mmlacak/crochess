@@ -11,94 +11,22 @@
 \addcontentsline{toc}{section}{Sides of a chessboard}
 \label{sec:Definitions/Sides of a chessboard}
 
-Sides of chessboard ... light, dark, left, right.
+In canonical representation, which is used for all examples in this book,
+light player starts from bottom of a chessboard, while dark player starts
+from top.
+
+Light side of chessboard is bottom half of chessboard, it includes all fields
+closer to light player's initial positions. Similarly, dark side of chessboard
+is upper half.
+
+Queen's side is left half of chessboard, King's side is right half of chessboard.
 
 \section*{Rush}
 \addcontentsline{toc}{section}{Rush}
 \label{sec:Definitions/Rush}
 
-Rush is always allowed for Pawns which haven't moved, to the maximum
-extent of own side of chessboard. This also applies to Pawns converted
-in last/first row.
-
-\section*{Initial setups}
-\addcontentsline{toc}{section}{Initial setups}
-\label{sec:Definitions/Initial setups}
-Initial setups ...
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPP \\
-%         RGNBQKBNGR}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPP \\
-%         RGANBQKBNAGR}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPP \\
-%         RGAUNBQKBNUAGR}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPP \\
-%         RGAUWNBQKBNWUAGR}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPP \\
-%         TRGAUWNBQKBNWUAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPP \\
-%         TRGAUWCNBQKBNCWUAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPPPP \\
-%         TRGAUWCSNBQKBNSCWUAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPPPPPP \\
-%         TRGAHUWCSNBQKBNSCWUHAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPPPPPP \\
-%         TRGAHUWCSNBQKBNSCWUHAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPPPPPPPP \\
-%         TRGAHIUWCSNBQKBNSCWUIHAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% TODO :: add to "Pieces" section
-%
-% \section*{Passive pieces}
-% \addcontentsline{toc}{section}{Passive pieces}
-% \label{sec:Definitions/Passive pieces}
-%
-% Passive pieces are ...
-%
-% Activating passive piece with Pawn ... capture-fields vs. step-fields.
-
-\section*{Movement of Wave}
-\addcontentsline{toc}{section}{Movement of Wave}
-\label{sec:Definitions/Movement of Wave}
-
-Movement of Wave ... as multi-step piece activating it  ...
-
-% TODO :: table <activated-by> : <moves-like>
-
-\section*{Monolith initial positions}
-\addcontentsline{toc}{section}{Monolith initial positions}
-\label{sec:Definitions/Monolith initial positions}
-
-Monolith initial positions ...
+Rush is always allowed for Pawns which haven't moved, to the maximum extent
+of own side of chessboard. This doesn't apply to converted opponent's Pawns.
 
 \section*{Royal powers}
 \addcontentsline{toc}{section}{Royal powers}
@@ -118,9 +46,6 @@ Royal powers ...
 
 King, Star and Monolith cannot be converted, nor activated.
 Starchild cannot be converted, but can be activated.
-
-Light Starchild does accumulate momentum, but does not spend it while moving.
-Dark Starchild does not accumulate momentum, but does spend it while moving.
 
 \section*{Promotions}
 \addcontentsline{toc}{section}{Promotions}
@@ -147,30 +72,38 @@ Nineteen and One variants. In these variants only one Queen, in the same color, 
 ever allowed to be present on chessboard. In all the other variants, each side can
 have multiple Queens present on chessboard at the same time.
 
-% \section*{Movement limits}
-% \addcontentsline{toc}{section}{Movement limits}
-% \label{sec:Definitions/Movement limits}
+\section*{Monolith initial positions}
+\addcontentsline{toc}{section}{Monolith initial positions}
+\label{sec:Definitions/Monolith initial positions}
 
-% Maximum number of steps either Serpent or Monolith can make is determined by the size
-% of a chessboard.
+Monolith initial positions ...
 
-% \begin{equation}
-% sml = \lfloor \frac{n}{3} \rfloor
-% \end{equation}
+\clearpage % ..........................................................
 
-% \begin{equation}
-% mml = \lfloor \frac{n}{11} \rfloor
-% \end{equation}
+\section*{Movement limits}
+\addcontentsline{toc}{section}{Movement limits}
+\label{sec:Definitions/Movement limits}
 
-% where:
+Maximum number of steps either Serpent or Monolith can make is determined by the size
+of a chessboard.
 
-% $n$ is a size of a chessboard for a given variant
+\begin{equation}
+sml = \lfloor \frac{n}{3} \rfloor
+\end{equation}
 
-% $\lfloor\ \rfloor$ is a floor function, giving smallest integer larger than its argument
+\begin{equation}
+mml = \lfloor \frac{n}{11} \rfloor
+\end{equation}
 
-% $sml$ - Serpent's movement limit, i.e. maximum number of steps Serpent can make
+where:
 
-% $mml$ - Monolith's movement limit, i.e. maximum number of steps Monolith can make
+$n$ is a size of a chessboard for a given variant
+
+$\lfloor\ \rfloor$ is a floor function, giving smallest integer larger than its argument
+
+$sml$ - Serpent's movement limit, i.e. maximum number of steps Serpent can make
+
+$mml$ - Monolith's movement limit, i.e. maximum number of steps Monolith can make
 
 \clearpage % ..........................................................
 % ---------------------------------------------------- Definitions chapter
