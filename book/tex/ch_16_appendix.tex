@@ -7,25 +7,22 @@
 \addcontentsline{toc}{chapter}{Appendix}
 \label{ch:Appendix}
 
-
-
 \section*{Pieces}
 \addcontentsline{toc}{section}{Pieces}
 \label{sec:Appendix/Pieces}
 
 % \begin{table}[!h]
-% % \begin{center}
 % \centering
 % \begin{tabular}{ | r | l | l | l | }
 % \hline
 % \textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in} \\ \hline
 % \hline
-% 1 & Pawn & P & Classical chess \\ \hline
-% 2 & Knight & N & Classical chess \\ \hline
-% 3 & Bishop & B & Classical chess \\ \hline
-% 4 & Rook & R & Classical chess \\ \hline
-% 5 & Queen & Q & Classical chess \\ \hline
-% 6 & King & K & Classical chess \\ \hline
+% 1 & Pawn & P & \multicolumn{1}{ l | }{ \multirow{6}{*}{Classical chess} } \\ \cline{1-3}
+% 2 & Knight & N & \multicolumn{1}{ l | }{} \\ \cline{1-3}
+% 3 & Bishop & B & \multicolumn{1}{ l | }{} \\ \cline{1-3}
+% 4 & Rook & R & \multicolumn{1}{ l | }{} \\ \cline{1-3}
+% 5 & Queen & Q & \multicolumn{1}{ l | }{} \\ \cline{1-3}
+% 6 & King & K & \multicolumn{1}{ l | }{} \\ \hline
 % 7 & Pegasus & G & Croatian Ties \\ \hline
 % 8 & Pyramid & A & Mayan Ascendancy \\ \hline
 % 9 & Unicorn & U & Age of Aquarius \\ \hline
@@ -39,35 +36,101 @@
 % \end{tabular}
 % \caption{Pieces}
 % \label{tbl:Appendix/Pieces}
-% % \end{center}
 % \end{table}
+
+% \clearpage % ..........................................................
+
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ r l l l }
+% \hline
+% \textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in} \\ \hline
+% \hline
+% 1 & Pawn & P & \multirow{6}{*}{Classical chess} \\
+% 2 & Knight & N & \\
+% 3 & Bishop & B & \\
+% 4 & Rook & R & \\
+% 5 & Queen & Q & \\
+% 6 & King & K & \\ \hline
+% 7 & Pegasus & G & Croatian Ties \\
+% 8 & Pyramid & A & Mayan Ascendancy \\
+% 9 & Unicorn & U & Age of Aquarius \\
+% 10 & Wave & W & Miranda's Veil \\
+% 11 & Star & T & Nineteen \\
+% 12 & Centaur & C & Hemera's Dawn \\
+% 13 & Serpent & S & Tamoanchan Revisited \\
+% 14 & Shaman & H & Conquest of Tlalocan \\
+% 15 & Monolith & M & Discovery \\
+% 16 & Starchild & I & One \\
+% \hline
+% \end{tabular}
+% \caption{Pieces}
+% \label{tbl:Appendix/Pieces}
+% \end{table}
+
+% \clearpage % ..........................................................
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ | r | l | l | l | }
-\hline
-\textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in} \\ \hline
-\hline
-1 & Pawn & P & \multicolumn{1}{ l | }{ \multirow{6}{*}{Classical chess} } \\ \cline{1-3}
-2 & Knight & N & \multicolumn{1}{ l | }{} \\ \cline{1-3}
-3 & Bishop & B & \multicolumn{1}{ l | }{} \\ \cline{1-3}
-4 & Rook & R & \multicolumn{1}{ l | }{} \\ \cline{1-3}
-5 & Queen & Q & \multicolumn{1}{ l | }{} \\ \cline{1-3}
-6 & King & K & \multicolumn{1}{ l | }{} \\ \hline
-7 & Pegasus & G & Croatian Ties \\ \hline
-8 & Pyramid & A & Mayan Ascendancy \\ \hline
-9 & Unicorn & U & Age of Aquarius \\ \hline
-10 & Wave & W & Miranda's Veil \\ \hline
-11 & Star & T & Nineteen \\ \hline
-12 & Centaur & C & Hemera's Dawn \\ \hline
-13 & Serpent & S & Tamoanchan Revisited \\ \hline
-14 & Shaman & H & Conquest of Tlalocan \\ \hline
-15 & Monolith & M & Discovery \\ \hline
-16 & Starchild & I & One \\ \hline
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in} \\
+\midrule
+1 & Pawn & P & \multirow{6}{*}{Classical chess} \\
+2 & Knight & N & \\
+3 & Bishop & B & \\
+4 & Rook & R & \\
+5 & Queen & Q & \\
+6 & King & K & \\ \cmidrule{1-4}
+7 & Pegasus & G & Croatian Ties \\
+8 & Pyramid & A & Mayan Ascendancy \\
+9 & Unicorn & U & Age of Aquarius \\
+10 & Wave & W & Miranda's Veil \\
+11 & Star & T & Nineteen \\
+12 & Centaur & C & Hemera's Dawn \\
+13 & Serpent & S & Tamoanchan Revisited \\
+14 & Shaman & H & Conquest of Tlalocan \\
+15 & Monolith & M & Discovery \\
+16 & Starchild & I & One \\
+\bottomrule
 \end{tabular}
 \caption{Pieces}
-\label{tbl:Appendix/Pieces}
+\label{tbl:Appendix/Pieces XXX}
 \end{table}
+
+\clearpage % ..........................................................
+
+\section*{Chessboards}
+\addcontentsline{toc}{section}{Chessboards}
+\label{sec:Appendix/Chessboards}
+
+% \usepackage{booktabs}
+% \begin{tabular}{llr}
+% \toprule
+% \multicolumn{2}{c}{Item} \\
+% \cmidrule(r){1-2}
+% Animal    & Description & Price (\$) \\
+% \midrule
+% Gnat      & per gram    & 13.65      \\
+%           &    each     & 0.01       \\
+% Gnu       & stuffed     & 92.50      \\
+% Emu       & stuffed     & 33.33      \\
+% Armadillo & frozen      & 8.99       \\
+% \bottomrule
+% \end{tabular}
+
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ | r | l | l | l | }
+% \hline
+% \textbf{Id} & \textbf{Board} & \textbf{Ranks} & \textbf{Files} & \textbf{Introduced} \\ \hline
+% \hline
+% 2 & Croatian Ties & Pegasus & G \\ \hline
+% \hline
+% \end{tabular}
+% \caption{Pieces}
+% \label{tbl:Appendix/Pieces}
+% \end{table}
 
 \clearpage % ..........................................................
 
