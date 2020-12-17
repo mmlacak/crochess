@@ -15,24 +15,24 @@
 \centering
 \begin{tabular}{ rlll }
 \toprule
-\textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in} \\
+\textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in}           \\
 \midrule
-1 & Pawn & P & \multirow{6}{*}{Classical chess} \\
-2 & Knight & N & \\
-3 & Bishop & B & \\
-4 & Rook & R & \\
-5 & Queen & Q & \\
-6 & King & K & \\ \cmidrule{1-4}
-7 & Pegasus & G & Croatian Ties \\
-8 & Pyramid & A & Mayan Ascendancy \\
-9 & Unicorn & U & Age of Aquarius \\
-10 & Wave & W & Miranda's Veil \\
-11 & Star & T & Nineteen \\
-12 & Centaur & C & Hemera's Dawn \\
-13 & Serpent & S & Tamoanchan Revisited \\
-14 & Shaman & H & Conquest of Tlalocan \\
-15 & Monolith & M & Discovery \\
-16 & Starchild & I & One \\
+1           & Pawn           & P               & \multirow{6}{*}{Classical chess} \\
+2           & Knight         & N               &                                  \\
+3           & Bishop         & B               &                                  \\
+4           & Rook           & R               &                                  \\
+5           & Queen          & Q               &                                  \\
+6           & King           & K               &                                  \\ \cmidrule{1-4}
+7           & Pegasus        & G               & Croatian Ties                    \\
+8           & Pyramid        & A               & Mayan Ascendancy                 \\
+9           & Unicorn        & U               & Age of Aquarius                  \\
+10          & Wave           & W               & Miranda's Veil                   \\
+11          & Star           & T               & Nineteen                         \\
+12          & Centaur        & C               & Hemera's Dawn                    \\
+13          & Serpent        & S               & Tamoanchan Revisited             \\
+14          & Shaman         & H               & Conquest of Tlalocan             \\
+15          & Monolith       & M               & Discovery                        \\
+16          & Starchild      & I               & One                              \\
 \bottomrule
 \end{tabular}
 \caption{Pieces}
@@ -41,57 +41,62 @@
 
 \clearpage % ..........................................................
 
+\section*{Variants}
+\addcontentsline{toc}{section}{Variants}
+\label{sec:Appendix/Variants}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rll }
+\toprule
+\textbf{Id} & \textbf{Variant} & \textbf{Contains}                  \\
+\midrule
+\multirow{6}{*}{1} & \multirow{6}{*}{Classical chess} & Pawn        \\
+                   &                                  & Knight      \\
+                   &                                  & Bishop      \\
+                   &                                  & Rook        \\
+                   &                                  & Queen       \\
+                   &                                  & King        \\ \cmidrule{1-3}
+                 2 & Croatian Ties                    & Pegasus     \\
+                 3 & Mayan Ascendancy                 & Pyramid     \\
+                 4 & Age of Aquarius                  & Unicorn     \\
+                 5 & Miranda's Veil                   & Wave        \\
+                 6 & Nineteen                         & Star        \\
+                 7 & Hemera's Dawn                    & Centaur     \\
+                 8 & Tamoanchan Revisited             & Serpent     \\
+                 9 & Conquest of Tlalocan             & Shaman      \\
+                10 & Discovery                        & Monolith    \\
+                11 & One                              & Starchild   \\
+\bottomrule
+\end{tabular}
+\caption{Variants}
+\label{tbl:Appendix/Variants}
+\end{table}
+
+\clearpage % ..........................................................
+
 \section*{Chessboards}
 \addcontentsline{toc}{section}{Chessboards}
 \label{sec:Appendix/Chessboards}
-
-% \begin{table}[!h]
-% \centering
-% \begin{tabular}{ rlrrrrl }
-% \toprule
-% \textbf{Id} & \textbf{Chessboard} & \multicolumn{2}{c}{ \textbf{Ranks} } & \multicolumn{2}{c}{ \textbf{Files} } & \textbf{Introduced} \\ \cmidrule{3-6}
-%             &                     & \emph{min} & \emph{max}              & \emph{min} & \emph{max}              & \\
-% \midrule
-% \multirow{6}{*}{1} & \multirow{6}{*}{Classical chess} & \multirow{6}{*}{1} & \multirow{6}{*}{8} & \multirow{6}{*}{a} & \multirow{6}{*}{h} & Pawn \\
-%    &                                  &   &    &   &   & Knight \\
-%    &                                  &   &    &   &   & Bishop \\
-%    &                                  &   &    &   &   & Rook \\
-%    &                                  &   &    &   &   & Queen \\
-%    &                                  &   &    &   &   & King \\ \cmidrule{1-7}
-%  2 & Croatian Ties                    & 1 & 10 & a & j & Pegasus \\
-%  3 & Mayan Ascendancy                 & 1 & 12 & a & l & Pyramid \\
-%  4 & Age of Aquarius                  & 1 & 14 & a & n & Unicorn \\
-%  5 & Miranda's Veil                   & 1 & 16 & a & p & Wave \\
-%  6 & Nineteen                         & 1 & 18 & a & r & Star \\
-%  7 & Hemera's Dawn                    & 1 & 20 & a & t & Centaur \\
-%  8 & Tamoanchan Revisited             & 1 & 22 & a & v & Serpent \\
-%  9 & Conquest of Tlalocan             & 1 & 24 & a & x & Shaman \\
-% 10 & Discovery                        & 1 & 24 & a & x & Monolith \\
-% 11 & One                              & 1 & 26 & a & z & Starchild \\
-% \bottomrule
-% \end{tabular}
-% \caption{Chessboards}
-% \label{tbl:Appendix/Chessboards}
-% \end{table}
 
 \begin{table}[!h]
 \centering
 \begin{tabular}{ rlrrcrr }
 \toprule
-\textbf{Id} & \textbf{Chessboard} & \multicolumn{2}{c}{ \textbf{Ranks} } & ~ & \multicolumn{2}{c}{ \textbf{Files} } \\ \cmidrule{3-4} \cmidrule{6-7}
-            &                     & \emph{min} & \emph{max}              &   & \emph{min} & \emph{max}              \\
+\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Ranks} } & ~ & \multicolumn{2}{c}{ \textbf{Files} }   \\ \cmidrule{3-4} \cmidrule{6-7}
+            &                       & \emph{min} & \emph{max}              &   & \emph{min} & \emph{max}                \\
 \midrule
- 1 & Classical chess                  & 1 &  8 & & a & h \\ % \cmidrule{1-6}
- 2 & Croatian Ties                    & 1 & 10 & & a & j \\
- 3 & Mayan Ascendancy                 & 1 & 12 & & a & l \\
- 4 & Age of Aquarius                  & 1 & 14 & & a & n \\
- 5 & Miranda's Veil                   & 1 & 16 & & a & p \\
- 6 & Nineteen                         & 1 & 18 & & a & r \\
- 7 & Hemera's Dawn                    & 1 & 20 & & a & t \\
- 8 & Tamoanchan Revisited             & 1 & 22 & & a & v \\
- 9 & Conquest of Tlalocan             & 1 & 24 & & a & x \\
-10 & Discovery                        & 1 & 24 & & a & x \\
-11 & One                              & 1 & 26 & & a & z \\
+          1 & Classical chess       & 1          &  8                      &   & a          & h                         \\ % \cmidrule{1-6}
+          2 & Croatian Ties         & 1          & 10                      &   & a          & j                         \\
+          3 & Mayan Ascendancy      & 1          & 12                      &   & a          & l                         \\
+          4 & Age of Aquarius       & 1          & 14                      &   & a          & n                         \\
+          5 & Miranda's Veil        & 1          & 16                      &   & a          & p                         \\
+          6 & Nineteen              & 1          & 18                      &   & a          & r                         \\
+          7 & Hemera's Dawn         & 1          & 20                      &   & a          & t                         \\
+          8 & Tamoanchan Revisited  & 1          & 22                      &   & a          & v                         \\
+          9 & Conquest of Tlalocan  & 1          & 24                      &   & a          & x                         \\
+         10 & Discovery             & 1          & 24                      &   & a          & x                         \\
+         11 & One                   & 1          & 26                      &   & a          & z                         \\
 \bottomrule
 \end{tabular}
 \caption{Chessboards}
