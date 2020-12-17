@@ -11,41 +11,95 @@
 \addcontentsline{toc}{section}{Sides of a chessboard}
 \label{sec:Definitions/Sides of a chessboard}
 
-In canonical representation, which is used for all examples in this book,
-light player starts from bottom of a chessboard, while dark player starts
-from top.
+In canonical representation, which is used throughout this book, light player
+starts from bottom of a chessboard, while dark player starts from top.
 
 Light side of chessboard is bottom half of chessboard, it includes all fields
 closer to light player's initial positions. Similarly, dark side of chessboard
 is upper half.
 
-Queen's side is left half of chessboard, King's side is right half of chessboard.
+Queen's side is left half of chessboard, it contains both Queens in their initial
+position. Similarly, King's side is right half of chessboard.
 
-\section*{Rush}
-\addcontentsline{toc}{section}{Rush}
-\label{sec:Definitions/Rush}
+\clearpage % ..........................................................
 
-Rush is always allowed for Pawns which haven't moved, to the maximum extent
-of own side of chessboard. This doesn't apply to converted opponent's Pawns.
+\section*{Movement limits}
+\addcontentsline{toc}{section}{Movement limits}
+\label{sec:Definitions/Movement limits}
 
-\section*{Royal powers}
-\addcontentsline{toc}{section}{Royal powers}
-\label{sec:Definitions/Royal powers}
+Maximum number of steps either Serpent or Monolith can make is determined by the size
+of a chessboard.
 
-Royal powers ...
+\begin{equation}
+sml = \lfloor \frac{n}{3} \rfloor
+\end{equation}
 
-    Refers to unique attributes of the king: being subject to check and checkmate, the inability to be captured, and the ability to castle.
-    Protection from effects/actions induced/performed by passive and teleporting pieces, i.e. Pyramid, Wave, Star, Monolith.
-    Protection from forced move, check, checkmate during trance-journey.
+\begin{equation}
+mml = \lfloor \frac{n}{11} \rfloor
+\end{equation}
 
-% https://en.wikipedia.org/wiki/Glossary_of_chess#Royal_powers
+where:
 
-\section*{Passive powers}
-\addcontentsline{toc}{section}{Passive powers}
-\label{sec:Definitions/Passive powers}
+$n$ is size of chessboard for a given variant
 
-King, Star and Monolith cannot be converted, nor activated.
-Starchild cannot be converted, but can be activated.
+$\lfloor\ \rfloor$ is floor function, giving smallest integer larger than its argument
+
+$sml$ - Serpent's movement limit, i.e. maximum number of steps Serpent can make
+
+$mml$ - Monolith's movement limit, i.e. maximum number of steps Monolith can make
+
+\clearpage % ..........................................................
+
+\section*{Monolith initial positions}
+\addcontentsline{toc}{section}{Monolith initial positions}
+\label{sec:Definitions/Monolith initial positions}
+
+Monolith initial positions are calculated from the size of a chessboard.
+
+\begin{equation}
+dx = \lfloor \frac{n}{11} \rfloor
+\end{equation}
+
+\begin{equation}
+dy = \lfloor \frac{7 \times n}{22} \rfloor
+\end{equation}
+
+Monolith on light side of chessboard has coordinates:
+
+\begin{equation}
+mls = (dx - 1, dy - 1)
+\end{equation}
+
+Monolith on dark side of chessboard has coordinates:
+
+\begin{equation}
+mds = (n - dx, n - dy)
+\end{equation}
+
+where:
+
+$n$ is size of chessboard for a given variant
+
+$\lfloor\ \rfloor$ is floor function, giving smallest integer larger than its argument
+
+$dx$, $dy$ are offsets along x- and y-axis, respectively
+
+$mls$, $mds$ are $(x, y)$ coordinates of Monolith, both $x$ and $y$ starts from $0$
+
+\clearpage % ..........................................................
+
+\section*{Summary}
+\addcontentsline{toc}{section}{Summary}
+\label{sec:Definitions/Summary}
+
+Rush is always allowed for Pawns which haven't moved, to the maximum extent of
+own side of chessboard. Converted opponent's Pawns cannot rush.
+
+Converted opponent's Rooks cannot castle.
+
+Kings, Stars and Monoliths cannot be converted, nor activated via Wave.
+Stars can be activated and moved by Starchild.
+Starchilds cannot be converted, but can be activated.
 
 \section*{Promotions}
 \addcontentsline{toc}{section}{Promotions}
@@ -71,39 +125,6 @@ Pawn can be promoted to Queen if and only if existing Queen has been captured, i
 Nineteen and One variants. In these variants only one Queen, in the same color, is
 ever allowed to be present on chessboard. In all the other variants, each side can
 have multiple Queens present on chessboard at the same time.
-
-\section*{Monolith initial positions}
-\addcontentsline{toc}{section}{Monolith initial positions}
-\label{sec:Definitions/Monolith initial positions}
-
-Monolith initial positions ...
-
-\clearpage % ..........................................................
-
-\section*{Movement limits}
-\addcontentsline{toc}{section}{Movement limits}
-\label{sec:Definitions/Movement limits}
-
-Maximum number of steps either Serpent or Monolith can make is determined by the size
-of a chessboard.
-
-\begin{equation}
-sml = \lfloor \frac{n}{3} \rfloor
-\end{equation}
-
-\begin{equation}
-mml = \lfloor \frac{n}{11} \rfloor
-\end{equation}
-
-where:
-
-$n$ is a size of a chessboard for a given variant
-
-$\lfloor\ \rfloor$ is a floor function, giving smallest integer larger than its argument
-
-$sml$ - Serpent's movement limit, i.e. maximum number of steps Serpent can make
-
-$mml$ - Monolith's movement limit, i.e. maximum number of steps Monolith can make
 
 \clearpage % ..........................................................
 % ---------------------------------------------------- Definitions chapter
