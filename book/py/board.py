@@ -364,6 +364,10 @@ class Board:
         _i, _j = assert_floor_2(i, j)
         self._board[ _j ][ _i ] = PT(piece)
 
+    def set_piece_safe(self, i, j, piece):
+        if self.is_on_board(i, j):
+            self.set_piece(i, j, piece)
+
     def set_pieces(self, lst):
         # lst :: [ ( i, j, piece ), ... ]
         for tpl in lst:

@@ -1920,6 +1920,47 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def place_scout_pawns_around_pieces(self, scene, piece_type):
+
+        pt = PieceType(piece_type)
+        b = scene.board
+        row, dy, ddy, p = (0, 3, 1, PieceType.Pawn) if pt.is_light() else (b.get_height() - 1, -3, -1, -PieceType.Pawn)
+
+        for i in range( b.get_width() ):
+            if b.get_piece(i, row) == pt:
+                adder = GS.adder((i, row), include_prev=False)
+                b.set_piece_safe(*adder(-2, dy), piece=p)
+                b.set_piece_safe(*adder(1, ddy), piece=p)
+                b.set_piece_safe(*adder(2, 0), piece=p)
+                b.set_piece_safe(*adder(1, -ddy), piece=p)
+
+        return scene
+
+    def scn_cot_36_scout_pawns(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_36_scout_pawns', bt)
+
+        scene.board.set_piece(5, 0, piece=PieceType.Centaur)
+        scene.board.set_piece(18, 0, piece=PieceType.Centaur)
+
+        scene.board.set_piece(5, 23, piece=-PieceType.Centaur)
+        scene.board.set_piece(18, 23, piece=-PieceType.Centaur)
+
+        self.place_scout_pawns_around_pieces(scene, PieceType.Centaur)
+        self.place_scout_pawns_around_pieces(scene, -PieceType.Centaur)
+
+
+        scene.board.set_piece(10, 0, piece=PieceType.Shaman)
+        scene.board.set_piece(13, 0, piece=PieceType.Shaman)
+
+        scene.board.set_piece(10, 23, piece=-PieceType.Shaman)
+        scene.board.set_piece(13, 23, piece=-PieceType.Shaman)
+
+        self.place_scout_pawns_around_pieces(scene, PieceType.Shaman)
+        self.place_scout_pawns_around_pieces(scene, -PieceType.Shaman)
+
+        return scene
+
 
     #
     # test methods

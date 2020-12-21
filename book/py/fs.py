@@ -12,53 +12,53 @@ SUBFOLDERS =    [   \
                     'boards', \
                     \
                     'castlings', \
-                    'castlings/01_oc', \
+                    # 'castlings/01_oc', \
                     'castlings/02_c', \
-                    'castlings/03_oct', \
+                    # 'castlings/03_oct', \
                     'castlings/04_ct', \
-                    'castlings/05_oma', \
+                    # 'castlings/05_oma', \
                     'castlings/06_ma', \
-                    'castlings/07_oaoa', \
+                    # 'castlings/07_oaoa', \
                     'castlings/08_aoa', \
-                    'castlings/09_omv', \
+                    # 'castlings/09_omv', \
                     'castlings/10_mv', \
-                    'castlings/11_on', \
+                    # 'castlings/11_on', \
                     'castlings/12_n', \
-                    'castlings/13_ohd', \
+                    # 'castlings/13_ohd', \
                     'castlings/14_hd', \
-                    'castlings/15_otr', \
+                    # 'castlings/15_otr', \
                     'castlings/16_tr', \
-                    'castlings/17_ocot', \
+                    # 'castlings/17_ocot', \
                     'castlings/18_cot', \
-                    'castlings/19_od', \
+                    # 'castlings/19_od', \
                     'castlings/20_d', \
-                    'castlings/21_oo', \
+                    # 'castlings/21_oo', \
                     'castlings/22_o', \
                     \
                     'en_passants', \
                     \
                     'examples', \
-                    'examples/01_oc', \
+                    # 'examples/01_oc', \
                     'examples/02_c', \
-                    'examples/03_oct', \
+                    # 'examples/03_oct', \
                     'examples/04_ct', \
-                    'examples/05_oma', \
+                    # 'examples/05_oma', \
                     'examples/06_ma', \
-                    'examples/07_oaoa', \
+                    # 'examples/07_oaoa', \
                     'examples/08_aoa', \
-                    'examples/09_omv', \
+                    # 'examples/09_omv', \
                     'examples/10_mv', \
-                    'examples/11_on', \
+                    # 'examples/11_on', \
                     'examples/12_n', \
-                    'examples/13_ohd', \
+                    # 'examples/13_ohd', \
                     'examples/14_hd', \
-                    'examples/15_otr', \
+                    # 'examples/15_otr', \
                     'examples/16_tr', \
-                    'examples/17_ocot', \
+                    # 'examples/17_ocot', \
                     'examples/18_cot', \
-                    'examples/19_od', \
+                    # 'examples/19_od', \
                     'examples/20_d', \
-                    'examples/21_oo', \
+                    # 'examples/21_oo', \
                     'examples/22_o', \
                     \
                     'pieces', \
@@ -68,27 +68,27 @@ SUBFOLDERS =    [   \
                     'rush', \
                     \
                     'isa', \
-                    'isa/01_oc', \
+                    # 'isa/01_oc', \
                     'isa/02_c', \
-                    'isa/03_oct', \
+                    # 'isa/03_oct', \
                     'isa/04_ct', \
-                    'isa/05_oma', \
+                    # 'isa/05_oma', \
                     'isa/06_ma', \
-                    'isa/07_oaoa', \
+                    # 'isa/07_oaoa', \
                     'isa/08_aoa', \
-                    'isa/09_omv', \
+                    # 'isa/09_omv', \
                     'isa/10_mv', \
-                    'isa/11_on', \
+                    # 'isa/11_on', \
                     'isa/12_n', \
-                    'isa/13_ohd', \
+                    # 'isa/13_ohd', \
                     'isa/14_hd', \
-                    'isa/15_otr', \
+                    # 'isa/15_otr', \
                     'isa/16_tr', \
-                    'isa/17_ocot', \
+                    # 'isa/17_ocot', \
                     'isa/18_cot', \
-                    'isa/19_od', \
+                    # 'isa/19_od', \
                     'isa/20_d', \
-                    'isa/21_oo', \
+                    # 'isa/21_oo', \
                     'isa/22_o', \
                     \
                     'test', \
