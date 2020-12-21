@@ -7,37 +7,18 @@
 \addcontentsline{toc}{chapter}{Appendix}
 \label{ch:Appendix}
 
-\section*{Pieces}
-\addcontentsline{toc}{section}{Pieces}
-\label{sec:Appendix/Pieces}
+Appendix contains description of algebraic notation, extended from the base described in detail here: \\
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}. \\
+Description mostly covers short notation, and is writen in monospaced font, e.g. \texttt{Nc3}.
 
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlll }
-\toprule
-\textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in}           \\
-\midrule
-1           & Pawn           & P               & \multirow{6}{*}{Classical chess} \\
-2           & Knight         & N               &                                  \\
-3           & Bishop         & B               &                                  \\
-4           & Rook           & R               &                                  \\
-5           & Queen          & Q               &                                  \\
-6           & King           & K               &                                  \\ \cmidrule{1-4}
-7           & Pegasus        & G               & Croatian Ties                    \\
-8           & Pyramid        & A               & Mayan Ascendancy                 \\
-9           & Unicorn        & U               & Age of Aquarius                  \\
-10          & Wave           & W               & Miranda's Veil                   \\
-11          & Star           & T               & Nineteen                         \\
-12          & Centaur        & C               & Hemera's Dawn                    \\
-13          & Serpent        & S               & Tamoanchan Revisited             \\
-14          & Shaman         & H               & Conquest of Tlalocan             \\
-15          & Monolith       & M               & Discovery                        \\
-16          & Starchild      & I               & One                              \\
-\bottomrule
-\end{tabular}
-\caption{Pieces}
-\label{tbl:Appendix/Pieces}
-\end{table}
+Parts of classic notation clashes with new developments, and so had to be covered with
+exceptions made specificaly for Classical Chess, so that algebraic notation retains
+compatibility with its classic form.
+
+For instance, \texttt{0-0}, \texttt{O-O} and their Queen's side siblings for castling had
+to go in extended algebraic notation, since there are multiple castling choices available.
+Another example, \texttt{x} as annotation for a capturing move, e.g. \texttt{Nxv3}, since
+this might also be interpreted as disambiguation.
 
 \clearpage % ..........................................................
 
@@ -73,6 +54,9 @@
 \label{tbl:Appendix/Variants}
 \end{table}
 
+Each new variant contains all previously introduced pieces. For instance, Age of Aquarius
+beside Unicorn also contains Pyramid and Pegasus, on top of all classical pieces.
+
 \clearpage % ..........................................................
 
 \section*{Chessboards}
@@ -102,6 +86,47 @@
 \caption{Chessboards}
 \label{tbl:Appendix/Chessboards}
 \end{table}
+
+Positions on a chessboard are writen the same as in base algebraic notation, column + row,
+e.g. \texttt{m2} is initial position of light Pawn in Nineteen variant.
+
+\clearpage % ..........................................................
+
+\section*{Pieces}
+\addcontentsline{toc}{section}{Pieces}
+\label{sec:Appendix/Pieces}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in}           \\
+\midrule
+1           & Pawn           & P               & \multirow{6}{*}{Classical chess} \\
+2           & Knight         & N               &                                  \\
+3           & Bishop         & B               &                                  \\
+4           & Rook           & R               &                                  \\
+5           & Queen          & Q               &                                  \\
+6           & King           & K               &                                  \\ \cmidrule{1-4}
+7           & Pegasus        & G               & Croatian Ties                    \\
+8           & Pyramid        & A               & Mayan Ascendancy                 \\
+9           & Unicorn        & U               & Age of Aquarius                  \\
+10          & Wave           & W               & Miranda's Veil                   \\
+11          & Star           & T               & Nineteen                         \\
+12          & Centaur        & C               & Hemera's Dawn                    \\
+13          & Serpent        & S               & Tamoanchan Revisited             \\
+14          & Shaman         & H               & Conquest of Tlalocan             \\
+15          & Monolith       & M               & Discovery                        \\
+16          & Starchild      & I               & One                              \\
+\bottomrule
+\end{tabular}
+\caption{Pieces}
+\label{tbl:Appendix/Pieces}
+\end{table}
+
+Each piece is present in variant in which it is introduced, and all subsequent ones.
+For example, Shaman is introduced in Conquest of Tlalocan variant, so it's also present
+in succeeding variants, Discovery and One.
 
 \clearpage % ..........................................................
 
