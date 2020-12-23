@@ -46,10 +46,10 @@ class SceneOneMixin:
         start_w = (2, 17)
         scene.board.set_piece(*start_w, piece=-PieceType.Wave)
 
-        start_n = (7, 7)
+        start_n = (7, 8)
         scene.board.set_piece(*start_n, piece=-PieceType.Knight)
 
-        start_P = (21, 1)
+        start_P = (21, 2)
         scene.board.set_piece(*start_P, piece=PieceType.Pawn)
 
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
@@ -78,10 +78,10 @@ class SceneOneMixin:
         start_w = (2, 17)
         scene.board.set_piece(*start_w, piece=-PieceType.Wave)
 
-        start_n = (7, 7)
+        start_n = (7, 8)
         scene.board.set_piece(*start_n, piece=-PieceType.Knight)
 
-        start_P = (21, 1)
+        start_P = (21, 2)
         scene.board.set_piece(*start_P, piece=PieceType.Pawn)
 
         # scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
