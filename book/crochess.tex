@@ -33,11 +33,20 @@
 
 % \renewcommand{\familydefault}{\sfdefault} % \rmdefault
 
+% Algebraic notation formatting macros.
 \newcommand{\algn}[1]{\texttt{#1}}
 \newcommand{\algb}[1]{\texttt{\textbf{#1}}}
 \newcommand{\algs}[1]{\texttt{\small{#1}}}
 \newcommand{\algsb}[1]{\texttt{\small{\textbf{#1}}}}
-\newcommand{\alg}[1]{\algb{#1}} % Default, use this!
+
+\newcommand{\algi}[1]{\texttt{\textit{#1}}}
+\newcommand{\algbi}[1]{\texttt{\textbf{\textit{#1}}}}
+\newcommand{\algsi}[1]{\texttt{\small{\textit{#1}}}}
+\newcommand{\algsbi}[1]{\texttt{\small{\textbf{\textit{#1}}}}}
+
+% Defaults, use these!
+\newcommand{\alg}[1]{\algb{#1}}
+\newcommand{\algc}[1]{\algbi{#1}}
 
 % \usepackage{microtype}
 % \DisableLigatures{encoding = *, family = *}
@@ -126,7 +135,7 @@
 
     \emph{Source} \\
     \href{https://github.com/mmlacak/crochess}{https://github.com/mmlacak/crochess} \\
-    853 \textperiodcentered \textperiodcentered \textperiodcentered ~2020-12-23 12:37:04 UTC \textperiodcentered \textperiodcentered \textperiodcentered ~master \\ [2.0em] % new-commit-count-date-time-branch-place-marker
+    854 \textperiodcentered \textperiodcentered \textperiodcentered ~2020-12-23 13:16:49 UTC \textperiodcentered \textperiodcentered \textperiodcentered ~master \\ [2.0em] % new-commit-count-date-time-branch-place-marker
 
     \emph{Legal} \\
     This book is published as Public Domain work. \\
@@ -140,8 +149,8 @@
 
     \tiny{
         \emph{Parent commit} \\
-        d0c4522fec46e03aba3aea5749afcd4554138704 \\ % last-commit-id-place-marker
-        2020-12-23 07:06:35 UTC \\ % last-commit-date-time-place-marker
+        e45d464c32009d0981ecf9876d3f2cb3b1e744aa \\ % last-commit-id-place-marker
+        2020-12-23 12:37:04 UTC \\ % last-commit-date-time-place-marker
     }
     \normalsize{}
     \vspace{0.05\textheight}
