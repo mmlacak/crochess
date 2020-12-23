@@ -17,9 +17,27 @@
 \usepackage{helvet}
 \renewcommand{\sfdefault}{phv}
 
-\renewcommand{\ttdefault}{pcr}
+\renewcommand{\ttdefault}{pcr} % Adobe Courier
+% \renewcommand{\ttdefault}{ucr} % URW Courier
+% \renewcommand\ttdefault{lcmtt} % \renewcommand*\ttdefault{lcmtt} % Computer Modern Teletype L
+
+% \usepackage{tgcursor} % TeX Gyre Cursor
+% \usepackage{lmodern} % Latin Modern Mono
+% \usepackage{nimbusmono} % Nimbus 15 Mono
+% \usepackage{courier} % Courier, provided by URW Nimbus Mono
+% \usepackage{courierten} % Courier 10 Pitch BT
+
+% \usepackage[zerostyle=d]{newtxtt} %% Various versions of zeros available. See documentation for details
+% \usepackage{newtxtt} %% Various versions of zeros available. See documentation for details
+% \renewcommand{\ttdefault}{newtxtt} % New TXTT
 
 % \renewcommand{\familydefault}{\sfdefault} % \rmdefault
+
+\newcommand{\algn}[1]{\texttt{#1}}
+\newcommand{\algb}[1]{\texttt{\textbf{#1}}}
+\newcommand{\algs}[1]{\texttt{\small{#1}}}
+\newcommand{\algsb}[1]{\texttt{\small{\textbf{#1}}}}
+\newcommand{\alg}[1]{\algb{#1}} % Default, use this!
 
 % \usepackage{microtype}
 % \DisableLigatures{encoding = *, family = *}
@@ -108,7 +126,7 @@
 
     \emph{Source} \\
     \href{https://github.com/mmlacak/crochess}{https://github.com/mmlacak/crochess} \\
-    852 \textperiodcentered \textperiodcentered \textperiodcentered ~2020-12-23 07:06:35 UTC \textperiodcentered \textperiodcentered \textperiodcentered ~master \\ [2.0em] % new-commit-count-date-time-branch-place-marker
+    853 \textperiodcentered \textperiodcentered \textperiodcentered ~2020-12-23 12:37:04 UTC \textperiodcentered \textperiodcentered \textperiodcentered ~master \\ [2.0em] % new-commit-count-date-time-branch-place-marker
 
     \emph{Legal} \\
     This book is published as Public Domain work. \\
@@ -122,8 +140,8 @@
 
     \tiny{
         \emph{Parent commit} \\
-        d6ba503e118b1ffda2415ffd278aa84d8c751caa \\ % last-commit-id-place-marker
-        2020-12-23 06:39:29 UTC \\ % last-commit-date-time-place-marker
+        d0c4522fec46e03aba3aea5749afcd4554138704 \\ % last-commit-id-place-marker
+        2020-12-23 07:06:35 UTC \\ % last-commit-date-time-place-marker
     }
     \normalsize{}
     \vspace{0.05\textheight}
