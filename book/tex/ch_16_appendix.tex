@@ -9,14 +9,14 @@
 
 Appendix contains description of algebraic notation, extended from the base described in detail here: \\
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}. \\
-Description mostly covers short notation, and is writen in monospace font, e.g. \alg{Nc3}.
+This description mostly covers short notation, and is writen in monospace font, e.g. \alg{Nc3}.
 
 Parts of classic notation clashes with new developments, and so had to be covered with
 exceptions made specificaly for Classical Chess, so that algebraic notation retains
 compatibility with its classic form. These exceptions are writen in monospace italics,
 e.g. \algc{Nxb3}.
 
-For instance, \alg{0-0}, \alg{O-O} and their Queen's side siblings for castling had
+For instance, \algc{0-0}, \algc{O-O} and their Queen's side siblings for castling had
 to go in extended algebraic notation, since there are multiple castling choices available.
 Another example, \alg{x} as annotation for a capturing move, e.g. \alg{Nxv3}, since
 this might also be interpreted as disambiguation.
@@ -128,6 +128,20 @@ e.g. \alg{m2} is initial position of light Pawn in Nineteen variant.
 Each piece is present in variant in which it is introduced, and all subsequent ones.
 For example, Shaman is introduced in Conquest of Tlalocan variant, so it's also present
 in succeeding variants, Discovery and One.
+
+\clearpage % ..........................................................
+
+\section*{Movement}
+\addcontentsline{toc}{section}{Movement}
+\label{sec:Appendix/Movement}
+
+Simple movement is denoted the same way as in classic algebraic notation (\algfmt{cAN},
+for the rest of chapter), piece (always writen upper case) + destination position, which
+consists of rank (always writen in lower case) + file.
+
+In this example of \hyperref[fig:scn_ct_03_define_step_ply]{moving Pegasus to destination field 3},
+movement of the piece would be writen as \alg{Gf7}. The same movement in long algebraic notation
+(\algfmt{lAN}, for short), would be writen the same as in \algfmt{cAN}: \alg{Gc2-f7}.
 
 \clearpage % ..........................................................
 
