@@ -135,18 +135,62 @@ in succeeding variants, Discovery and One.
 \addcontentsline{toc}{section}{Movement}
 \label{sec:Appendix/Movement}
 
-Simple movement is denoted the same way as in classic algebraic notation (\algfmt{cAN},
-for the rest of chapter), piece (always writen upper case) + destination position, which
-consists of rank (always writen in lower case) + file.
+Simple movement is denoted the same way as in classic algebraic notation (\algfmt{CAN},
+for the rest of chapter), piece (always writen as upper case) + destination field, which
+consists of rank (always writen in lower case) + file (a number).
 
 In this example of \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus moving to destination field 3},
 movement of the piece would be writen as \alg{Gf7}. The same movement in long algebraic notation
-(\algfmt{lAN}, for short), would be writen the same as in \algfmt{cAN}: \alg{Gc2-f7}.
+(\algfmt{LAN}, for short), would be writen the same as in \algfmt{CAN}: \alg{Gc2-f7}.
 
 Pawn symbol can be ommitted, but doesn't have to. In this example of
 \hyperref[fig:04_croatian_ties_en_passant]{Pawn rushing to field 2}, movement can be
 writen as \alg{h5}; writing it as \alg{Ph5} is equally acceptable. Long notation would be
 either \alg{h2-h5} or \alg{Ph2-h5}, depending if Pawn's symbol is omitted or not.
+
+\subsection*{Ply}
+\addcontentsline{toc}{subsection}{Ply}
+\label{sec:Appendix/Ply}
+
+\hyperref[sec:Terms/Ply]{Ply} is a movement of a single piece in a cascading move. Two plies
+are separated by \~{} (tilde). In the example starting with
+\hyperref[fig:scn_ma_11_cascading_init]{Queen activating a Pyramid}, which then activates another
+Pyramid; example is comprised of series of 4 images, each corresponding to one ply, while last
+image depicts ending state. This can be writen as \alg{Qf7\~{}Ai7\~{}Ai9}.
+
+In \algfmt{LAN}, the same would be writen as \\
+\alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used to
+gather each ply, like so: \\
+\alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
+
+\clearpage % ..........................................................
+
+\subsection*{Disambiguating plies}
+\addcontentsline{toc}{subsection}{Disambiguating plies}
+\label{sec:Appendix/Disambiguating plies}
+
+Disambiguating is done in the same way as described for \algfmt{CAN}:
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Disambiguating\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+\#Disambiguating\_moves},
+only difference is that disambiguation really affects plies (movement of a single piece),
+and not move as a whole, as multiple pieces might get moved in a single, cascading move.
+
+\subsection*{Capturing}
+\addcontentsline{toc}{subsection}{Capturing}
+\label{sec:Appendix/Capturing}
+
+Capturing move is denoted with \alg{*} (asterisk) at the end of a ply, usually followed
+by the captured piece. Only for Classical Chess capturing is denoted with \algcty{x},
+before destination field. Here,
+\hyperref[fig:scn_ct_04_pegasus_movement]{Pegasus could capture opponent's Pawn}, which
+would be writen as \alg{Pg4*P}, or just \alg{Pg4*}, if captured piece is not needed.
+In \algfmt{CAN}, the same move would be written as \algcty{Gxg4}.
+
+\clearpage % ..........................................................
+
+\subsection*{Complex movement}
+\addcontentsline{toc}{subsection}{Complex movement}
+\label{sec:Appendix/Complex movement}
 
 Individual steps are separated by \alg{.} (single dot), multiple steps are separated by \alg{..} (two dots).
 In this example, \hyperref[fig:scn_hd_03_centaur_multi_step]{Centaur has to choose 2 different steps},
