@@ -14,9 +14,9 @@ This description mostly covers short notation, and is writen in monospace font, 
 Parts of classic notation clashes with new developments, and so had to be covered with
 exceptions made specificaly for Classical Chess, so that algebraic notation retains
 compatibility with its classic form. These exceptions are writen in monospace italics,
-e.g. \algc{Nxb3}.
+e.g. \algcty{Nxb3}.
 
-For instance, \algc{0-0}, \algc{O-O} and their Queen's side siblings for castling had
+For instance, \algcty{0-0}, \algcty{O-O} and their Queen's side siblings for castling had
 to go in extended algebraic notation, since there are multiple castling choices available.
 Another example, \alg{x} as annotation for a capturing move, e.g. \alg{Nxv3}, since
 this might also be interpreted as disambiguation.
@@ -139,9 +139,53 @@ Simple movement is denoted the same way as in classic algebraic notation (\algfm
 for the rest of chapter), piece (always writen upper case) + destination position, which
 consists of rank (always writen in lower case) + file.
 
-In this example of \hyperref[fig:scn_ct_03_define_step_ply]{moving Pegasus to destination field 3},
+In this example of \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus moving to destination field 3},
 movement of the piece would be writen as \alg{Gf7}. The same movement in long algebraic notation
 (\algfmt{lAN}, for short), would be writen the same as in \algfmt{cAN}: \alg{Gc2-f7}.
+
+Pawn symbol can be ommitted, but doesn't have to. In this example of
+\hyperref[fig:04_croatian_ties_en_passant]{Pawn rushing to field 2}, movement can be
+writen as \alg{h5}; writing it as \alg{Ph5} is equally acceptable. Long notation would be
+either \alg{h2-h5} or \alg{Ph2-h5}, depending if Pawn's symbol is omitted or not.
+
+Individual steps are separated by \alg{.} (single dot), multiple steps are separated by \alg{..} (two dots).
+In this example, \hyperref[fig:scn_hd_03_centaur_multi_step]{Centaur has to choose 2 different steps},
+which it will then follow for the rest of ply. Lets say that destination field is 8, writing it as
+just \alg{Cp14} is not enough since at least 2 different paths lead to the same destination field.
+
+The best way to write it is with both initial steps, i.e. \alg{C.c5.g6..p15}, even if it's a bit verbose.
+It would be enough if only first step is written, i.e. \alg{C.c5..p15}. The one of other paths leading
+to the same \alg{Cp15} would be \alg{C.f2.g6..p15}. Note also \alg{.} separating piece and the first
+step, without it first step would be taken as an initial field.
+
+Not recomended, but still possible is to write \emph{some} step along the way, e.g. \alg{C..i11..p15}.
+Just make sure you write step which really differentiate paths, otherwise \alg{C..j9..p15} might also
+denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
+
+\clearpage % ..........................................................
+
+\subsection*{Field separators}
+\addcontentsline{toc}{subsection}{Field separators}
+\label{sec:Appendix/Field separators}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol} & \textbf{Separates}             \\
+\midrule
+1           & .               & single step                    \\
+2           & ..              & multiple steps                 \\
+3           & -               & starting and destination field \\
+4           & \~{}            & plies                          \\
+\bottomrule
+\end{tabular}
+\caption{Field separators}
+\label{tbl:Appendix/Field separators}
+\end{table}
+
+. . .
+
 
 \clearpage % ..........................................................
 
