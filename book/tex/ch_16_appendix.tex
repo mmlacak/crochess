@@ -186,7 +186,25 @@ before destination field. Here,
 would be writen as \alg{Gg4*P}, or just \alg{Gg4*}, if captured piece is not needed.
 In \algfmt{CAN}, the same move would be written as \algcty{Gxg4}.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
+
+\subsection*{Pawn promotion}
+\addcontentsline{toc}{subsection}{Pawn promotion}
+\label{sec:Appendix/Pawn promotion}
+
+Pawn promotion is also writen the same way as in \algfmt{CAN}, as described in detail: \\
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Pawn\_promotion}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+\#Pawn\_promotion}, with Pawn's destination field + piece to which it was promoted to,
+like so: \alg{e8Q}. Inserting \alg{=} (equal sign) between field and promoted-to piece
+is also supported, e.g. \alg{e8=Q}.
+
+If \hyperref[fig:scn_aoa_03_delayed_promo_init]{promotion is being delayed}, usage of
+\alg{=} is mandatory, as there is no immediate piece to promote to, e.g. \alg{Bh11\~{}Ae11=}.
+If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
+before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
+sign), like so: \alg{e12==}.
+
+% \clearpage % ..........................................................
 
 \subsection*{Complex movement}
 \addcontentsline{toc}{subsection}{Complex movement}
@@ -212,67 +230,6 @@ denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
 \addcontentsline{toc}{subsection}{Path separators}
 \label{sec:Appendix/Path separators}
 
-% \begin{table}[!h]
-% \centering
-% \begin{tabular}{ rlll }
-% \toprule
-% \textbf{Id} & \textbf{Symbol}   & \textbf{Separates}             \\
-% \midrule
-% 1           & \alg{.}            & single step                    \\
-% 2           & \alg{..}           & multiple steps                 \\
-% 3           & \alg{-}            & starting and destination field \\
-% 4           & \alg{\~{}}         & plies                          \\ \cmidrule{1-3}
-% 5           & \alg{|}            & teleporting                    \\
-% 6           & \alg{\${}}         & syzygy                         \\
-% 7           & \alg{\&{}}         & trance-journey                 \\
-% 8           & \alg{=}            & promotion, tag                 \\
-% 9           & \alg{\_}           & castling                       \\
-% 10          & \alg{:}            & en passant                     \\
-% 11          & \alg{\%{}}         & conversion                     \\
-% 12          & \alg{+}            & check                          \\
-% 13          & \alg{++}           & double-check                   \\
-% 14          & \alg{\#{}}         & checkmate                      \\
-% 15          & \alg{*}            & capturing                      \\
-% 16          & \alg{>}            & check                          \\
-% \bottomrule
-% \end{tabular}
-% \caption{Field separators}
-% \label{tbl:Appendix/Field separators}
-% \end{table}
-
-% \begin{table}[!h]
-% \centering
-% \begin{tabular}{ rlll }
-% \toprule
-% \textbf{Id} & \textbf{Symbol}      & \textbf{Separates}             \\
-% \midrule
-% 1           & \alg{.}              & single step                    \\
-% 2           & \alg{..}             & multiple steps                 \\
-% 3           & \alg{-}              & starting and destination field \\
-% 4           & \alg{\~{}}           & plies                          \\
-% 5           & \alg{@}              & trance-journey                 \\
-% 6           & \alg{|}              & teleportation                  \\
-% 7           & \alg{||}             & failed teleportation           \\ \cmidrule{1-3}
-% 8           & \alg{>}              & syzygy, demoting to Pawn       \\
-% 9           & \alg{<}              & trance-journey displacement    \\
-% 10          & \alg{=}              & promotion, tag                 \\
-% 11          & \alg{==}             & failed promotion               \\
-% 12          & \alg{\&}             & castling                       \\
-% 13          & \alg{:}              & en passant                     \\
-% 14          & \alg{\%}             & conversion                     \\
-% 15          & \alg{\%\%}           & failed conversion              \\
-% 16          & \alg{+}              & check                          \\
-% 17          & \alg{++}             & double-check                   \\
-% 18          & \alg{\#}             & checkmate                      \\
-% 19          & \alg{*}              & capturing                      \\
-% 20          & \alg{\$}             & syzygy, ressurection           \\
-% 21          & \alg{\textbackslash} & oblation                       \\
-% \bottomrule
-% \end{tabular}
-% \caption{Path separators}
-% \label{tbl:Appendix/Path separators}
-% \end{table}
-
 \begin{table}[!h]
 \centering
 \begin{tabular}{ rlll }
@@ -283,9 +240,9 @@ denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
 2           & \alg{..}             & multiple steps                 \\
 3           & \alg{-}              & starting and destination field \\
 4           & \alg{\~{}}           & plies                          \\
-5           & \alg{@}              & trance-journey                 \\
-6           & \alg{|}              & teleportation                  \\
-7           & \alg{||}             & failed teleportation           \\
+5           & \alg{|}              & teleportation                  \\
+6           & \alg{||}             & failed teleportation, oblation \\
+7           & \alg{@}              & trance-journey                 \\
 8           & \alg{::}             & Pawn-sacrifice                 \\
 \bottomrule
 \end{tabular}
@@ -307,17 +264,16 @@ denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
 \toprule
 \textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}           \\
 \midrule
-1           & \alg{>}              & syzygy, demoting to Pawn       \\
-2           & \alg{<}              & trance-journey displacement    \\
-3           & \alg{=}              & promotion, tag                 \\
-4           & \alg{==}             & failed promotion               \\
-5           & \alg{\&}             & castling                       \\
-6           & \alg{:}              & en passant                     \\
-7           & \alg{\%}             & conversion                     \\
-8           & \alg{\%\%}           & failed conversion              \\
-9           & \alg{*}              & capturing                      \\
+1           & \alg{*}              & capturing                      \\
+2           & \alg{:}              & en passant                     \\
+3           & \alg{\&}             & castling                       \\
+4           & \alg{=}              & promotion, tag                 \\
+5           & \alg{==}             & failed promotion               \\
+6           & \alg{\%}             & conversion                     \\
+7           & \alg{\%\%}           & failed conversion, oblation    \\
+8           & \alg{<}              & trance-journey displacement    \\
+9           & \alg{>}              & syzygy, demoting to Pawn       \\
 10          & \alg{\$}             & syzygy, ressurection           \\
-% 11          & \alg{\textbackslash} & oblation                       \\
 \bottomrule
 \end{tabular}
 \caption{Ply side-effects}
