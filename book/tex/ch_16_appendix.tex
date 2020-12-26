@@ -143,7 +143,7 @@ In this example of \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus moving to de
 movement of the piece would be writen as \alg{Gf7}. The same movement in long algebraic notation
 (\algfmt{LAN}, for short), would be writen the same as in \algfmt{CAN}: \alg{Gc2-f7}.
 
-Pawn symbol can be ommitted, but doesn't have to. In this example of
+Pawn symbol can be omitted, but doesn't have to. In this example of
 \hyperref[fig:04_croatian_ties_en_passant]{Pawn rushing to field 2}, movement can be
 writen as \alg{h5}; writing it as \alg{Ph5} is equally acceptable. Long notation would be
 either \alg{h2-h5} or \alg{Ph2-h5}, depending if Pawn's symbol is omitted or not.
@@ -183,7 +183,7 @@ Capturing move is denoted with \alg{*} (asterisk) at the end of a ply, usually f
 by the captured piece. Only for Classical Chess capturing is denoted with \algcty{x},
 before destination field. Here,
 \hyperref[fig:scn_ct_04_pegasus_movement]{Pegasus could capture opponent's Pawn}, which
-would be writen as \alg{Pg4*P}, or just \alg{Pg4*}, if captured piece is not needed.
+would be writen as \alg{Gg4*P}, or just \alg{Gg4*}, if captured piece is not needed.
 In \algfmt{CAN}, the same move would be written as \algcty{Gxg4}.
 
 \clearpage % ..........................................................
@@ -203,33 +203,151 @@ to the same \alg{Cp15} would be \alg{C.f2.g6..p15}. Note also \alg{.} separating
 step, without it first step would be taken as an initial field.
 
 Not recomended, but still possible is to write \emph{some} step along the way, e.g. \alg{C..i11..p15}.
-Just make sure you write step which really differentiate paths, otherwise \alg{C..j9..p15} might also
+Care must be taken to write step which really differentiate paths, otherwise \alg{C..j9..p15} might also
 denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
 
 \clearpage % ..........................................................
 
-\subsection*{Field separators}
-\addcontentsline{toc}{subsection}{Field separators}
-\label{sec:Appendix/Field separators}
+\subsection*{Path separators}
+\addcontentsline{toc}{subsection}{Path separators}
+\label{sec:Appendix/Path separators}
+
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ rlll }
+% \toprule
+% \textbf{Id} & \textbf{Symbol}   & \textbf{Separates}             \\
+% \midrule
+% 1           & \alg{.}            & single step                    \\
+% 2           & \alg{..}           & multiple steps                 \\
+% 3           & \alg{-}            & starting and destination field \\
+% 4           & \alg{\~{}}         & plies                          \\ \cmidrule{1-3}
+% 5           & \alg{|}            & teleporting                    \\
+% 6           & \alg{\${}}         & syzygy                         \\
+% 7           & \alg{\&{}}         & trance-journey                 \\
+% 8           & \alg{=}            & promotion, tag                 \\
+% 9           & \alg{\_}           & castling                       \\
+% 10          & \alg{:}            & en passant                     \\
+% 11          & \alg{\%{}}         & conversion                     \\
+% 12          & \alg{+}            & check                          \\
+% 13          & \alg{++}           & double-check                   \\
+% 14          & \alg{\#{}}         & checkmate                      \\
+% 15          & \alg{*}            & capturing                      \\
+% 16          & \alg{>}            & check                          \\
+% \bottomrule
+% \end{tabular}
+% \caption{Field separators}
+% \label{tbl:Appendix/Field separators}
+% \end{table}
+
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ rlll }
+% \toprule
+% \textbf{Id} & \textbf{Symbol}      & \textbf{Separates}             \\
+% \midrule
+% 1           & \alg{.}              & single step                    \\
+% 2           & \alg{..}             & multiple steps                 \\
+% 3           & \alg{-}              & starting and destination field \\
+% 4           & \alg{\~{}}           & plies                          \\
+% 5           & \alg{@}              & trance-journey                 \\
+% 6           & \alg{|}              & teleportation                  \\
+% 7           & \alg{||}             & failed teleportation           \\ \cmidrule{1-3}
+% 8           & \alg{>}              & syzygy, demoting to Pawn       \\
+% 9           & \alg{<}              & trance-journey displacement    \\
+% 10          & \alg{=}              & promotion, tag                 \\
+% 11          & \alg{==}             & failed promotion               \\
+% 12          & \alg{\&}             & castling                       \\
+% 13          & \alg{:}              & en passant                     \\
+% 14          & \alg{\%}             & conversion                     \\
+% 15          & \alg{\%\%}           & failed conversion              \\
+% 16          & \alg{+}              & check                          \\
+% 17          & \alg{++}             & double-check                   \\
+% 18          & \alg{\#}             & checkmate                      \\
+% 19          & \alg{*}              & capturing                      \\
+% 20          & \alg{\$}             & syzygy, ressurection           \\
+% 21          & \alg{\textbackslash} & oblation                       \\
+% \bottomrule
+% \end{tabular}
+% \caption{Path separators}
+% \label{tbl:Appendix/Path separators}
+% \end{table}
 
 \begin{table}[!h]
 \centering
 \begin{tabular}{ rlll }
 \toprule
-\textbf{Id} & \textbf{Symbol} & \textbf{Separates}             \\
+\textbf{Id} & \textbf{Symbol}      & \textbf{Separates}             \\
 \midrule
-1           & .               & single step                    \\
-2           & ..              & multiple steps                 \\
-3           & -               & starting and destination field \\
-4           & \~{}            & plies                          \\
+1           & \alg{.}              & single step                    \\
+2           & \alg{..}             & multiple steps                 \\
+3           & \alg{-}              & starting and destination field \\
+4           & \alg{\~{}}           & plies                          \\
+5           & \alg{@}              & trance-journey                 \\
+6           & \alg{|}              & teleportation                  \\
+7           & \alg{||}             & failed teleportation           \\
+8           & \alg{::}             & Pawn-sacrifice                 \\
 \bottomrule
 \end{tabular}
-\caption{Field separators}
-\label{tbl:Appendix/Field separators}
+\caption{Path separators}
+\label{tbl:Appendix/Path separators}
 \end{table}
 
 . . .
 
+\clearpage % ..........................................................
+
+\subsection*{Ply side-effects}
+\addcontentsline{toc}{subsection}{Ply side-effects}
+\label{sec:Appendix/Ply side-effects}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}           \\
+\midrule
+1           & \alg{>}              & syzygy, demoting to Pawn       \\
+2           & \alg{<}              & trance-journey displacement    \\
+3           & \alg{=}              & promotion, tag                 \\
+4           & \alg{==}             & failed promotion               \\
+5           & \alg{\&}             & castling                       \\
+6           & \alg{:}              & en passant                     \\
+7           & \alg{\%}             & conversion                     \\
+8           & \alg{\%\%}           & failed conversion              \\
+9           & \alg{*}              & capturing                      \\
+10          & \alg{\$}             & syzygy, ressurection           \\
+% 11          & \alg{\textbackslash} & oblation                       \\
+\bottomrule
+\end{tabular}
+\caption{Ply side-effects}
+\label{tbl:Appendix/Ply side-effects}
+\end{table}
+
+. . .
+
+\clearpage % ..........................................................
+
+\subsection*{Move status}
+\addcontentsline{toc}{subsection}{Move status}
+\label{sec:Appendix/Move status}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol}      & \textbf{Status}                \\
+\midrule
+1           & \alg{+}              & check                          \\
+2           & \alg{++}             & double-check                   \\
+3           & \alg{\#}             & checkmate                      \\
+\bottomrule
+\end{tabular}
+\caption{Move status}
+\label{tbl:Appendix/Move status}
+\end{table}
+
+. . .
 
 \clearpage % ..........................................................
 
