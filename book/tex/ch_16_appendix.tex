@@ -291,11 +291,56 @@ so it would be \alg{Bd5\~{}Ah5\%R}.
 In \algfmt{XAN}, it would be \alg{Bh9-d5\~{}Ad5-h5\%}. With both plies gathered and converted piece
 noted it would be \alg{[Bh9-d5]\~{}[Ad5-h5\%R]}.
 
-Starchild is immune to conversion, Pyramid attempting such a thing is oblationed. Failed conversion
-is noted with \alg{\%\%} (double percentage) after destination field. This example of
+Starchild is immune to conversion, Pyramid attempting such a thing is
+\hyperref[sec:Terms/Oblation]{oblationed}. Failed conversion is noted with \alg{\%\%} (double percentage)
+after destination field. This example of
 \hyperref[fig:scn_o_12_starchild_conversion_immunity_init]{conversion immunity} would be written as
 \alg{Bl23\~{}Ah23\%\%}. In \algfmt{XAN}, with ply gathering, it would be
 \alg{[Bs16-l23]\~{}[Al23-h23\%\%]}.
+
+\subsection*{Complex movement}
+\addcontentsline{toc}{subsection}{Complex movement}
+\label{sec:Appendix/Complex movement}
+
+Individual steps are separated by \alg{.} (single dot), multiple steps are separated by \alg{..} (two dots).
+In this example, \hyperref[fig:scn_hd_03_centaur_multi_step]{Centaur has to choose 2 different steps},
+which it will then follow for the rest of ply. Lets say that destination field is 8, writing it as
+just \alg{Cp14} is not enough since at least 2 different paths lead to the same destination field.
+
+The best way to write it is with both initial steps, i.e. \alg{C.c5.g6..p15}, even if it's a bit verbose.
+It would be enough if only first step is written, i.e. \alg{C.c5..p15}. The one of other paths leading
+to the same \alg{Cp15} would be \alg{C.f2.g6..p15}. Note also \alg{.} separating piece and the first
+step, without it first step would be taken as an initial field.
+
+Not recomended, but still possible is to write \emph{some} step along the way, e.g. \alg{C..i11..p15}.
+Care must be taken to write step which really differentiate paths, otherwise \alg{C..j9..p15} might also
+denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
+
+\subsection*{Trance-journey}
+\addcontentsline{toc}{subsection}{Trance-journey}
+\label{sec:Appendix/Trance-journey}
+
+Trance-journey is noted with \alg{@} (at sign), instead of normal ply separator \alg{\~{}} (tilde),
+before entranced piece takes off. This
+\hyperref[fig:scn_cot_18_light_light_shaman_interaction_start]{trance-journey example}, if without any
+interactions with pieces on entranced Shaman's step-fields, would be written as \alg{Hd11\~{}We13@Hg24}.
+In \algfmt{XAN}, it would be \alg{[Hf10-d11]\~{}[Wd11-e13]@[He13-g24]}.
+
+Displacements are noted by writing \alg{<} immediately after step in which a piece is reached, followed
+by, optionally a reached piece, and mandatory by field of displacement. The same
+\hyperref[fig:scn_cot_19_light_light_shaman_interaction_end]{trance-journey example with interactions}
+would be written as \alg{Hd11\~{}We13@H..e18<i14..m12<j17..g24}. In \algfmt{XAN}, with gathered plies and
+displaced pieces it would be % \alg{[Hf10-d11]\~{}[Wd11-e13]@[He13..e18<Ni14..m12<Pj17..g24]}.
+\alg{[Hf10-d11]\~{}[Wd11-e13]@}\\
+\alg{[He13..e18<Ni14..m12<Pj17..g24]}.
+
+Captures are noted by writing \alg{*} immediately after step in which a piece is reached, optionally
+followed by a captured piece. This
+\hyperref[fig:scn_cot_21_dark_light_shaman_interaction_end]{trance-journey example with captures} would be
+written as \alg{Hf12\~{}Wd9\~{}We13@H..e18*..m12*..g24}. In \algfmt{XAN}, with gathered plies and
+captured pieces it would be % \alg{[H-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@[He13..e18*N..m12*P..g24]}.
+\alg{[H-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@}\\
+\alg{[He13..e18*N..m12*P..g24]}.
 
 \clearpage % ..........................................................
 
@@ -328,24 +373,6 @@ is noted with \alg{\%\%} (double percentage) after destination field. This examp
 . . .
 
 \clearpage % ..........................................................
-
-\subsection*{Complex movement}
-\addcontentsline{toc}{subsection}{Complex movement}
-\label{sec:Appendix/Complex movement}
-
-Individual steps are separated by \alg{.} (single dot), multiple steps are separated by \alg{..} (two dots).
-In this example, \hyperref[fig:scn_hd_03_centaur_multi_step]{Centaur has to choose 2 different steps},
-which it will then follow for the rest of ply. Lets say that destination field is 8, writing it as
-just \alg{Cp14} is not enough since at least 2 different paths lead to the same destination field.
-
-The best way to write it is with both initial steps, i.e. \alg{C.c5.g6..p15}, even if it's a bit verbose.
-It would be enough if only first step is written, i.e. \alg{C.c5..p15}. The one of other paths leading
-to the same \alg{Cp15} would be \alg{C.f2.g6..p15}. Note also \alg{.} separating piece and the first
-step, without it first step would be taken as an initial field.
-
-Not recomended, but still possible is to write \emph{some} step along the way, e.g. \alg{C..i11..p15}.
-Care must be taken to write step which really differentiate paths, otherwise \alg{C..j9..p15} might also
-denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
 
 \clearpage % ..........................................................
 
