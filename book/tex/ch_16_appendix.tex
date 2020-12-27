@@ -9,8 +9,6 @@
 
 Appendix contains description of algebraic notation, extended from the base described here: \\
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}. \\
-For official reference FIDE handbook is used: \\
-\href{https://handbook.fide.com/chapter/E012018}{https://handbook.fide.com/chapter/E012018}. \\
 This description mostly covers short notation, and is written in monospace font, e.g. \alg{Nc3}.
 
 Parts of classic notation clashes with new developments, and so had to be covered with
@@ -23,10 +21,46 @@ to go in extended algebraic notation, since there are multiple castling choices 
 Another example, \algcty{x} as annotation for a capturing move, e.g. \algcty{Nxv3}, since
 this might also be interpreted as disambiguation.
 
-Abbreviations used in this chapter: \\
-\algfmt{CAN} classical algebraic notation, i.e. short form \\
-\algfmt{LAN} long algebraic notation, also classical form \\
-\algfmt{XAN} extended algebraic notation, new short form
+\clearpage % ..........................................................
+
+\section*{Abbreviations}
+\addcontentsline{toc}{section}{Abbreviations}
+\label{sec:Appendix/Abbreviations}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol}      & \textbf{Description}                       \\
+\midrule
+1           & \algfmt{AN}          & algebraic notation, in general             \\ \cmidrule{1-3}
+2           & \algfmt{CAN}         & classic \algfmt{AN}, as described by FIDE  \\
+            &                      & handbook and Wikipedia, can be             \\
+            &                      & long, short or minimal                     \\
+3           & \algfmt{LAN}         & classic \algfmt{AN}, long form             \\
+4           & \algfmt{SAN}         & classic \algfmt{AN}, short form            \\
+5           & \algfmt{MAN}         & classic \algfmt{AN}, minimal form          \\ \cmidrule{1-3}
+6           & \algfmt{NAN}         & new, extended \algfmt{AN},                 \\
+            &                      & can be long or short                       \\
+6           & \algfmt{EAN}         & new, extended \algfmt{AN}, short form      \\
+7           & \algfmt{XAN}         & new, extended \algfmt{AN}, long form       \\ \cmidrule{1-3}
+8           & \algfmt{FIDE}        & FIDE handbook                              \\
+9           & \algfmt{FIDE point}  & point in FIDE handbook                     \\
+\bottomrule
+\end{tabular}
+\caption{Ply side-effects}
+\label{tbl:Appendix/Ply side-effects}
+\end{table}
+
+For official reference FIDE handbook is used, current date of publication is 2018-01-01: \\
+\href{https://handbook.fide.com/chapter/E012018}{https://handbook.fide.com/chapter/E012018}.
+
+Here, \algfmt{CAN} is used to indicate compatibility with Classical Chess notation, even if
+examples are written on chessboards for other variants. \algfmt{CAN} almost always means
+short notation, and only occasionally long, if appropriate.
+
+Point in FIDE handbook refers to a code under which definition can be found on above website,
+e.g. \algfmt{FIDE~C.9.3}.
 
 \clearpage % ..........................................................
 
@@ -146,13 +180,12 @@ Simple movement is denoted the same way as in \algfmt{CAN}, piece (always writte
 destination field, which consists of rank (always written in lower case) + file (a number).
 
 In this example of \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus moving to destination field 3},
-movement of the piece would be written as \alg{Gf7}. The same movement in \algfmt{LAN}, would be
+movement of the piece would be written as \alg{Gf7}. The same movement in \algfmt{XAN}, would be
 written as \alg{Gc2-f7}.
 
-Pawn symbol can be omitted, but doesn't have to. In this example of
-\hyperref[fig:04_croatian_ties_en_passant]{Pawn rushing to field 2}, movement can be
-written as \alg{h5}; writing it as \alg{Ph5} is equally acceptable. Long notation would be
-either \alg{h2-h5} or \alg{Ph2-h5}, depending if Pawn's symbol is omitted or not.
+When moving Pawn, symbol is omitted, so only destination field is written. In this example of
+\hyperref[fig:04_croatian_ties_en_passant]{Pawn rushing to field 2}, movement can be written as
+\alg{h5}. Long notation would be \alg{h2-h5}.
 
 \subsection*{Disambiguation}
 \addcontentsline{toc}{subsection}{Disambiguation}
@@ -174,12 +207,12 @@ as \alg{Gcf8}.
 
 Capturing move is denoted with \alg{*} (asterisk) at the end, usually followed by the captured
 piece. Only for Classical Chess capturing is denoted with \algcty{x}, before destination field.
-Here,
-\hyperref[fig:scn_ct_04_pegasus_movement]{Pegasus could capture opponent's Pawn}, which would
-be written as \alg{Gg4*P}, or just \alg{Gg4*}, if captured piece is not needed.
+Here, \hyperref[fig:scn_ct_04_pegasus_movement]{Pegasus could capture opponent's Pawn}, which
+would be written as \alg{Gg4*P}, or just \alg{Gg4*}, if captured piece is not needed.
 
 In \algfmt{CAN}, the same move would be written as \algcty{Gxg4}. Note, FIDE handbook requires
-captures made by Pawn to contain departuring file, \algcty{x}, and then destination field.
+captures made by Pawn to contain starting file, \algcty{x}, and then destination field; see
+\algfmt{FIDE~C.9.3}.
 If \hyperref[fig:scn_mv_22_wave_activation_by_capture_pawn]{Wave activated by Pawn example} had
 dark Wave instead of light one, light Pawn would be able to capture it, which in \algfmt{CAN}
 would be written as \algcty{fxe8}. The same move in new notation is written as \alg{e8*}, and
@@ -191,14 +224,28 @@ if captured piece is also written \alg{e8*W}.
 
 En passant is denoted with \alg{:} (colon), after destination field. In this
 \hyperref[fig:04_croatian_ties_en_passant]{en passant example} dark Pawn on the right might capture
-light Pawn if rushed, which is written as \alg{h3:}.
+light Pawn if rushed, which is written as \alg{h3:}. Rank of captured Pawn can be written after
+\alg{:}, so our example might now be \alg{h3:5}, if captured Pawn has been rushed to field 2.
 
-If disambiguation is needed, it is written as previously described above. Usually, it's enough to add
-starting file before destination field. If previous example had additional dark Pawn be located at
-\alg{g4}, en passant would be written as \alg{ih3:}.
+If disambiguation is needed, it is written as previously described. Usually, it's enough to add
+starting file before destination field. If previous example had additional dark Pawn located at
+\alg{g4}, en passant would be written as \alg{ih3:}, or \alg{ih3:5}.
 
 In \algfmt{CAN}, both en passant and its disambiguation form are written as \algcty{ixh3 e.p}, where
-\algcty{e.p.} stands for en passant.
+\algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
+
+\subsection*{Castling}
+\addcontentsline{toc}{subsection}{Castling}
+\label{sec:Appendix/Castlingn}
+
+Castling is noted with \alg{\&} (ampersand), after King's symbol and destination file. This
+\hyperref[fig:age_of_aquarius_castling_left_04]{castling example} would be written as \alg{Kd\&},
+and this \hyperref[fig:one_castling_right_04]{castling example} as \alg{Kr\&}. Rank at which
+castling Rook ended can be written after \alg{\&}, the same examples would now be written as
+\alg{Kd\&e} and \alg{Kr\&q}.
+
+Only for Classical Chess \algcty{0-0} and \algcty{O-O} for King's side, \algcty{0-0-0} and
+\algcty{O-O-O} for Queen's side are accepted as castling notation.
 
 \subsection*{Pawn promotion}
 \addcontentsline{toc}{subsection}{Pawn promotion}
@@ -215,6 +262,40 @@ If \hyperref[fig:scn_aoa_05_delayed_promo_pawn_2_moved]{promotion is being delay
 If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
 before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
 sign), like so: \alg{e12==}.
+
+\subsection*{Ply}
+\addcontentsline{toc}{subsection}{Ply}
+\label{sec:Appendix/Ply}
+
+\hyperref[sec:Terms/Ply]{Ply} is a movement of a single piece in a cascading move. Two plies
+are separated by \~{} (tilde). In the example starting with
+\hyperref[fig:scn_ma_11_cascading_init]{Queen activating a Pyramid}, which then activates another
+Pyramid; example is comprised of series of 4 images, each corresponding to one ply, while last
+image depicts ending state. This can be written as \alg{Qf7\~{}Ai7\~{}Ai9}.
+
+In \algfmt{XAN}, the same would be written as \\
+\alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used to
+gather each ply, like so: \\
+\alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
+
+\subsection*{Conversion}
+\addcontentsline{toc}{subsection}{Conversion}
+\label{sec:Appendix/Conversion}
+
+Conversion is noted with \alg{\%} (percentage) after destination field. Example starting with
+\hyperref[fig:scn_ma_08_conversion_init]{Bishop activating Pyramid}, which then converts opponent's
+Rook is covered by 3 images, 2 corresponding to 2 plies, and last one is for ending state. This
+is written as \alg{Bd5\~{}Ah5\%}. Optionally, converted piece can be written after \alg{\%} symbol,
+so it would be \alg{Bd5\~{}Ah5\%R}.
+
+In \algfmt{XAN}, it would be \alg{Bh9-d5\~{}Ad5-h5\%}. With both plies gathered and converted piece
+noted it would be \alg{[Bh9-d5]\~{}[Ad5-h5\%R]}.
+
+Starchild is immune to conversion, Pyramid attempting such a thing is oblationed. Failed conversion
+is noted with \alg{\%\%} (double percentage) after destination field. This example of
+\hyperref[fig:scn_o_12_starchild_conversion_immunity_init]{conversion immunity} would be written as
+\alg{Bl23\~{}Ah23\%\%}. In \algfmt{XAN}, with ply gathering, it would be
+\alg{[Bs16-l23]\~{}[Al23-h23\%\%]}.
 
 \clearpage % ..........................................................
 
@@ -247,21 +328,6 @@ sign), like so: \alg{e12==}.
 . . .
 
 \clearpage % ..........................................................
-
-\subsection*{Ply}
-\addcontentsline{toc}{subsection}{Ply}
-\label{sec:Appendix/Ply}
-
-\hyperref[sec:Terms/Ply]{Ply} is a movement of a single piece in a cascading move. Two plies
-are separated by \~{} (tilde). In the example starting with
-\hyperref[fig:scn_ma_11_cascading_init]{Queen activating a Pyramid}, which then activates another
-Pyramid; example is comprised of series of 4 images, each corresponding to one ply, while last
-image depicts ending state. This can be written as \alg{Qf7\~{}Ai7\~{}Ai9}.
-
-In \algfmt{LAN}, the same would be written as \\
-\alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used to
-gather each ply, like so: \\
-\alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
 
 \subsection*{Complex movement}
 \addcontentsline{toc}{subsection}{Complex movement}
