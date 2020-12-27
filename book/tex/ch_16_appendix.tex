@@ -7,19 +7,26 @@
 \addcontentsline{toc}{chapter}{Appendix}
 \label{ch:Appendix}
 
-Appendix contains description of algebraic notation, extended from the base described in detail here: \\
+Appendix contains description of algebraic notation, extended from the base described here: \\
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}. \\
-This description mostly covers short notation, and is writen in monospace font, e.g. \alg{Nc3}.
+For official reference FIDE handbook is used: \\
+\href{https://handbook.fide.com/chapter/E012018}{https://handbook.fide.com/chapter/E012018}. \\
+This description mostly covers short notation, and is written in monospace font, e.g. \alg{Nc3}.
 
 Parts of classic notation clashes with new developments, and so had to be covered with
 exceptions made specificaly for Classical Chess, so that algebraic notation retains
-compatibility with its classic form. These exceptions are writen in monospace italics,
+compatibility with its classic form. These exceptions are written in monospace italics,
 e.g. \algcty{Nxb3}.
 
 For instance, \algcty{0-0}, \algcty{O-O} and their Queen's side siblings for castling had
 to go in extended algebraic notation, since there are multiple castling choices available.
-Another example, \alg{x} as annotation for a capturing move, e.g. \alg{Nxv3}, since
+Another example, \algcty{x} as annotation for a capturing move, e.g. \algcty{Nxv3}, since
 this might also be interpreted as disambiguation.
+
+Abbreviations used in this chapter: \\
+\algfmt{CAN} classical algebraic notation, i.e. short form \\
+\algfmt{LAN} long algebraic notation, also classical form \\
+\algfmt{XAN} extended algebraic notation, new short form
 
 \clearpage % ..........................................................
 
@@ -88,7 +95,7 @@ beside Unicorn also contains Pyramid and Pegasus, on top of all classical pieces
 \label{tbl:Appendix/Chessboards}
 \end{table}
 
-Positions on a chessboard are writen the same as in base algebraic notation, column + row,
+Positions on a chessboard are written the same as in base algebraic notation, column + row,
 e.g. \alg{m2} is initial position of light Pawn in Nineteen variant.
 
 \clearpage % ..........................................................
@@ -135,18 +142,111 @@ in succeeding variants, Discovery and One.
 \addcontentsline{toc}{section}{Movement}
 \label{sec:Appendix/Movement}
 
-Simple movement is denoted the same way as in classic algebraic notation (\algfmt{CAN},
-for the rest of chapter), piece (always writen as upper case) + destination field, which
-consists of rank (always writen in lower case) + file (a number).
+Simple movement is denoted the same way as in \algfmt{CAN}, piece (always written as upper case) +
+destination field, which consists of rank (always written in lower case) + file (a number).
 
 In this example of \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus moving to destination field 3},
-movement of the piece would be writen as \alg{Gf7}. The same movement in long algebraic notation
-(\algfmt{LAN}, for short), would be writen the same as in \algfmt{CAN}: \alg{Gc2-f7}.
+movement of the piece would be written as \alg{Gf7}. The same movement in \algfmt{LAN}, would be
+written as \alg{Gc2-f7}.
 
 Pawn symbol can be omitted, but doesn't have to. In this example of
 \hyperref[fig:04_croatian_ties_en_passant]{Pawn rushing to field 2}, movement can be
-writen as \alg{h5}; writing it as \alg{Ph5} is equally acceptable. Long notation would be
+written as \alg{h5}; writing it as \alg{Ph5} is equally acceptable. Long notation would be
 either \alg{h2-h5} or \alg{Ph2-h5}, depending if Pawn's symbol is omitted or not.
+
+\subsection*{Disambiguation}
+\addcontentsline{toc}{subsection}{Disambiguation}
+\label{sec:Appendix/Disambiguation}
+
+Disambiguation is done in the same way as described for \algfmt{CAN}:
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Disambiguating\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+\#Disambiguating\_moves},
+only difference is that disambiguation really affects plies (movement of a single piece),
+and not move as a whole, as multiple pieces might get moved in a single, cascading move.
+
+For instance, should \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus simple move example}
+had another light Pegasus at \alg{i2} field, move to destination field 3 would be written
+as \alg{Gcf8}.
+
+\subsection*{Capturing}
+\addcontentsline{toc}{subsection}{Capturing}
+\label{sec:Appendix/Capturing}
+
+Capturing move is denoted with \alg{*} (asterisk) at the end, usually followed by the captured
+piece. Only for Classical Chess capturing is denoted with \algcty{x}, before destination field.
+Here,
+\hyperref[fig:scn_ct_04_pegasus_movement]{Pegasus could capture opponent's Pawn}, which would
+be written as \alg{Gg4*P}, or just \alg{Gg4*}, if captured piece is not needed.
+
+In \algfmt{CAN}, the same move would be written as \algcty{Gxg4}. Note, FIDE handbook requires
+captures made by Pawn to contain departuring file, \algcty{x}, and then destination field.
+If \hyperref[fig:scn_mv_22_wave_activation_by_capture_pawn]{Wave activated by Pawn example} had
+dark Wave instead of light one, light Pawn would be able to capture it, which in \algfmt{CAN}
+would be written as \algcty{fxe8}. The same move in new notation is written as \alg{e8*}, and
+if captured piece is also written \alg{e8*W}.
+
+\subsection*{En passant}
+\addcontentsline{toc}{subsection}{En passant}
+\label{sec:Appendix/En passant}
+
+En passant is denoted with \alg{:} (colon), after destination field. In this
+\hyperref[fig:04_croatian_ties_en_passant]{en passant example} dark Pawn on the right might capture
+light Pawn if rushed, which is written as \alg{h3:}.
+
+If disambiguation is needed, it is written as previously described above. Usually, it's enough to add
+starting file before destination field. If previous example had additional dark Pawn be located at
+\alg{g4}, en passant would be written as \alg{ih3:}.
+
+In \algfmt{CAN}, both en passant and its disambiguation form are written as \algcty{ixh3 e.p}, where
+\algcty{e.p.} stands for en passant.
+
+\subsection*{Pawn promotion}
+\addcontentsline{toc}{subsection}{Pawn promotion}
+\label{sec:Appendix/Pawn promotion}
+
+Pawn promotion is also written the same way as in \algfmt{CAN}, as described in detail: \\
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Pawn\_promotion}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+\#Pawn\_promotion}, with Pawn's destination field + piece to which it was promoted to,
+like so: \alg{e8Q}. Inserting \alg{=} (equal sign) between field and promoted-to piece
+is also supported, e.g. \alg{e8=Q}.
+
+If \hyperref[fig:scn_aoa_05_delayed_promo_pawn_2_moved]{promotion is being delayed}, usage of
+\alg{=} is mandatory, as there is no immediate piece to promote to, e.g. \alg{l14=}.
+If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
+before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
+sign), like so: \alg{e12==}.
+
+\clearpage % ..........................................................
+
+\subsection*{Ply side-effects}
+\addcontentsline{toc}{subsection}{Ply side-effects}
+\label{sec:Appendix/Ply side-effects}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}           \\
+\midrule
+1           & \alg{*}              & capturing                      \\
+2           & \alg{:}              & en passant                     \\
+3           & \alg{\&}             & castling                       \\
+4           & \alg{=}              & promotion, tag                 \\
+5           & \alg{==}             & failed promotion               \\
+6           & \alg{\%}             & conversion                     \\
+7           & \alg{\%\%}           & failed conversion, oblation    \\
+8           & \alg{<}              & trance-journey displacement    \\
+9           & \alg{>}              & syzygy, demoting to Pawn       \\
+10          & \alg{\$}             & syzygy, ressurection           \\
+\bottomrule
+\end{tabular}
+\caption{Ply side-effects}
+\label{tbl:Appendix/Ply side-effects}
+\end{table}
+
+. . .
+
+\clearpage % ..........................................................
 
 \subsection*{Ply}
 \addcontentsline{toc}{subsection}{Ply}
@@ -156,55 +256,12 @@ either \alg{h2-h5} or \alg{Ph2-h5}, depending if Pawn's symbol is omitted or not
 are separated by \~{} (tilde). In the example starting with
 \hyperref[fig:scn_ma_11_cascading_init]{Queen activating a Pyramid}, which then activates another
 Pyramid; example is comprised of series of 4 images, each corresponding to one ply, while last
-image depicts ending state. This can be writen as \alg{Qf7\~{}Ai7\~{}Ai9}.
+image depicts ending state. This can be written as \alg{Qf7\~{}Ai7\~{}Ai9}.
 
-In \algfmt{LAN}, the same would be writen as \\
+In \algfmt{LAN}, the same would be written as \\
 \alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used to
 gather each ply, like so: \\
 \alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
-
-\clearpage % ..........................................................
-
-\subsection*{Disambiguating plies}
-\addcontentsline{toc}{subsection}{Disambiguating plies}
-\label{sec:Appendix/Disambiguating plies}
-
-Disambiguating is done in the same way as described for \algfmt{CAN}:
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Disambiguating\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
-\#Disambiguating\_moves},
-only difference is that disambiguation really affects plies (movement of a single piece),
-and not move as a whole, as multiple pieces might get moved in a single, cascading move.
-
-\subsection*{Capturing}
-\addcontentsline{toc}{subsection}{Capturing}
-\label{sec:Appendix/Capturing}
-
-Capturing move is denoted with \alg{*} (asterisk) at the end of a ply, usually followed
-by the captured piece. Only for Classical Chess capturing is denoted with \algcty{x},
-before destination field. Here,
-\hyperref[fig:scn_ct_04_pegasus_movement]{Pegasus could capture opponent's Pawn}, which
-would be writen as \alg{Gg4*P}, or just \alg{Gg4*}, if captured piece is not needed.
-In \algfmt{CAN}, the same move would be written as \algcty{Gxg4}.
-
-% \clearpage % ..........................................................
-
-\subsection*{Pawn promotion}
-\addcontentsline{toc}{subsection}{Pawn promotion}
-\label{sec:Appendix/Pawn promotion}
-
-Pawn promotion is also writen the same way as in \algfmt{CAN}, as described in detail: \\
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Pawn\_promotion}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
-\#Pawn\_promotion}, with Pawn's destination field + piece to which it was promoted to,
-like so: \alg{e8Q}. Inserting \alg{=} (equal sign) between field and promoted-to piece
-is also supported, e.g. \alg{e8=Q}.
-
-If \hyperref[fig:scn_aoa_03_delayed_promo_init]{promotion is being delayed}, usage of
-\alg{=} is mandatory, as there is no immediate piece to promote to, e.g. \alg{Bh11\~{}Ae11=}.
-If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
-before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
-sign), like so: \alg{e12==}.
-
-% \clearpage % ..........................................................
 
 \subsection*{Complex movement}
 \addcontentsline{toc}{subsection}{Complex movement}
@@ -248,36 +305,6 @@ denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
 \end{tabular}
 \caption{Path separators}
 \label{tbl:Appendix/Path separators}
-\end{table}
-
-. . .
-
-\clearpage % ..........................................................
-
-\subsection*{Ply side-effects}
-\addcontentsline{toc}{subsection}{Ply side-effects}
-\label{sec:Appendix/Ply side-effects}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlll }
-\toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}           \\
-\midrule
-1           & \alg{*}              & capturing                      \\
-2           & \alg{:}              & en passant                     \\
-3           & \alg{\&}             & castling                       \\
-4           & \alg{=}              & promotion, tag                 \\
-5           & \alg{==}             & failed promotion               \\
-6           & \alg{\%}             & conversion                     \\
-7           & \alg{\%\%}           & failed conversion, oblation    \\
-8           & \alg{<}              & trance-journey displacement    \\
-9           & \alg{>}              & syzygy, demoting to Pawn       \\
-10          & \alg{\$}             & syzygy, ressurection           \\
-\bottomrule
-\end{tabular}
-\caption{Ply side-effects}
-\label{tbl:Appendix/Ply side-effects}
 \end{table}
 
 . . .
