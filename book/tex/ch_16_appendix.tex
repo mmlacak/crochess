@@ -105,30 +105,6 @@ beside Unicorn also contains Pyramid and Pegasus, on top of all classical pieces
 \addcontentsline{toc}{section}{Chessboards}
 \label{sec:Appendix/Chessboards}
 
-% \begin{table}[!h]
-% \centering
-% \begin{tabular}{ rlrrcrr }
-% \toprule
-% \textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Ranks} } & ~ & \multicolumn{2}{c}{ \textbf{Files} }   \\ \cmidrule{3-4} \cmidrule{6-7}
-%             &                       & \emph{min} & \emph{max}              &   & \emph{min} & \emph{max}                \\
-% \midrule
-%           1 & Classical chess       & 1          &  8                      &   & a          & h                         \\ % \cmidrule{1-6}
-%           2 & Croatian Ties         & 1          & 10                      &   & a          & j                         \\
-%           3 & Mayan Ascendancy      & 1          & 12                      &   & a          & l                         \\
-%           4 & Age of Aquarius       & 1          & 14                      &   & a          & n                         \\
-%           5 & Miranda's Veil        & 1          & 16                      &   & a          & p                         \\
-%           6 & Nineteen              & 1          & 18                      &   & a          & r                         \\
-%           7 & Hemera's Dawn         & 1          & 20                      &   & a          & t                         \\
-%           8 & Tamoanchan Revisited  & 1          & 22                      &   & a          & v                         \\
-%           9 & Conquest of Tlalocan  & 1          & 24                      &   & a          & x                         \\
-%          10 & Discovery             & 1          & 24                      &   & a          & x                         \\
-%          11 & One                   & 1          & 26                      &   & a          & z                         \\
-% \bottomrule
-% \end{tabular}
-% \caption{Chessboards}
-% \label{tbl:Appendix/Chessboards}
-% \end{table}
-
 \begin{table}[!h]
 \centering
 \begin{tabular}{ rlrrcrr }
@@ -331,16 +307,17 @@ after destination field. This example of
 Individual steps are separated by \alg{.} (single dot), multiple steps are separated by \alg{..} (two dots).
 In this example, \hyperref[fig:scn_hd_03_centaur_multi_step]{Centaur has to choose 2 different steps},
 which it will then follow for the rest of ply. Lets say that destination field is 8, writing it as
-just \alg{Cp14} is not good enough since at least 2 different paths lead to the same destination field.
+just \alg{Cp15} is not good enough since at least 2 different paths lead to the same destination field.
 
-The best way to write it is with both initial steps, i.e. \alg{C.c5.g6..p15}, even if it's a bit verbose.
-It would be enough if only first step is written, i.e. \alg{C.c5..p15}. The one of other paths leading
-to the same \alg{Cp15} would be \alg{C.f2.g6..p15}. Note also \alg{.} separating piece and the first
-step, without it first step would be taken as an initial field.
+The best way to write it is with both initial steps, i.e. \alg{C.c5.g6..p15}, because this is exactly definition
+of such a movement, and will contain no ambiguity. Sometimes, it might be enough if only first step is written,
+i.e. \alg{C.c5..p15}. The one of other paths leading to the same \alg{Cp15} would be \alg{C.f2.g6..p15}. Note
+also \alg{.} separating piece and the first step, without it first step would be taken as an initial field.
 
 Not recomended, but still possible is to write \emph{some} step along the way, e.g. \alg{C..i11..p15}.
-Care must be taken to write step which really differentiate paths, otherwise e.g. \alg{C..j9..p15} might
-also denote \alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
+Care must be taken to write step which really differentiate paths, otherwise noted path might inadvertently
+also denote another. For instance, \alg{C..j9..p15} might also denote \alg{C.b4.f5..p15}, which happens to
+cross \alg{j9} as well.
 
 \subsection*{Trance-journey}
 \addcontentsline{toc}{subsection}{Trance-journey}
@@ -352,9 +329,9 @@ before \hyperref[fig:scn_o_15_trance_journey_init_starchild]{entranced piece} ta
 interactions with pieces on entranced Shaman's step-fields, would be written as \alg{Hd11\~{}We13@Hg24}.
 In \algfmt{XAN}, it would be \alg{[Hf10-d11]\~{}[Wd11-e13]@[He13-g24]}.
 
-Displacements are noted by writing \alg{<} (less than) immediately after step in which a piece is reached,
-followed by, optionally a reached piece, and mandatory by field of displacement. The same
-\hyperref[fig:scn_cot_19_light_light_shaman_interaction_end]{trance-journey example with interactions}
+Displacements are noted by writing \alg{<} (less-than) immediately after step in which a piece is reached,
+followed by field of displacement. Optionally, displaced piece can be writen before displacement-field. The
+same \hyperref[fig:scn_cot_19_light_light_shaman_interaction_end]{trance-journey example with interactions}
 would be written as \\
 \alg{Hd11\~{}We13@H..e18<i14..m12<j17..g24}. In \algfmt{XAN}, with gathered plies and displaced pieces
 it would be \\
@@ -388,10 +365,10 @@ is no plies gathering, since only Monolith moved, there is only one ply.
 \addcontentsline{toc}{subsection}{Syzygy, ressurection}
 \label{sec:Appendix/Syzygy, ressurection}
 
-Ressurection is written by appending \alg{\$} after the move, followed by piece which was ressurected.
-If Starchild has been ressurected on a empty field, position is appended after piece. If there was no
-suitable empty field at which Starchild could be ressurected, ressurection is not performed, which is
-written by appending \alg{\$\$} after the move.
+Ressurection is written by appending \alg{\$} (dollar sign) after the move, followed by piece which was
+ressurected. If Starchild has been ressurected on a empty field, position is appended after piece.
+If there was no suitable empty field at which Starchild could be ressurected, ressurection is not performed,
+which is written by appending \alg{\$\$} (double dollar) after the move.
 
 In case \hyperref[fig:scn_o_22_syzygy_starchild_init]{ressurection example} ended by
 \hyperref[fig:scn_o_23_syzygy_starchild_end]{ressurecting Queen}, this would be written as \alg{It9\$Q},
@@ -403,6 +380,39 @@ it would be written as \alg{It9\$Iu8}. In \algfmt{XAN}, it would be \alg{Ii23-t9
 If all neighboring-fields around ressurecting Starchild, all portal-fields around Stars, Monoliths in syzygy,
 and all syzygy-fields are occupied, ressurection is not performed, and it is written as \alg{It9\$\$}, in
 \algfmt{XAN} it would be \alg{Ii23-t9\$\$}.
+
+\subsection*{Teleportation}
+\addcontentsline{toc}{subsection}{Teleportation}
+\label{sec:Appendix/Teleportation}
+
+Teleportation is noted by separating plies with \alg{|} (vertical bar) instead of usual \alg{\~{}} (tilde),
+followed by field at which piece teleported. If Wave teleported, vertical bar is followed by Wave and its
+destination field, optionally followed by activated pieces' plies, if there were any.
+
+If piece teleported, but there is no empty portal-field, teleportation failed, and is noted with \alg{||}
+(double vertical bar). The same notation is used for teleported Wave, if all step-fields are blocked, or
+not present on a chessboard at all.
+
+This \hyperref[fig:scn_n_02_teleport_init]{teleportation example} would be written as \alg{Ba18|q18}, in
+\algfmt{XAN} it would be \alg{Bd15-a18|q18}.
+
+This \hyperref[fig:scn_n_03_teleport_move_2]{blocked teleportation example} would be written as \alg{Ra18||},
+or in \algfmt{XAN} it would be \alg{Ra13-a18||}.
+
+This \hyperref[fig:scn_n_04_teleport_move_3]{Wave teleporting example}, followed by
+\hyperref[fig:scn_n_05_teleport_end]{Wave teleported example}, if activated Pyramid would move 2 fields upward,
+complete move would be written as \alg{Gg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would
+be \\
+\alg{[Gi11-g15]\~{}[Wg15-a18]|[Wr1-l4]\~{}[Al4-l6]}.
+
+If previous example ended with \hyperref[fig:scn_n_06_teleport_wave_blocked]{teleported Wave blocked} example,
+it would be written as \alg{Gg15\~{}Wa18||}, and in \algfmt{XAN} it would be \alg{[Gi11-g15]\~{}[Wg15-a18]||}.
+
+This \hyperref[fig:scn_d_13_teleporting_wave_cascade]{cascading teleportation example} would be written by
+sequencing teleportations like so \alg{Gh2\~{}Wb4|Wa24|Wr4\~{}Bt6}, if activated Bishop would take upper-right
+diagonal. In \algfmt{XAN}, with plies gathering, it would be \\
+\alg{[Gj6-h2]\~{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\~{}}\\
+\alg{[Br4-t6]}.
 
 \clearpage % ..........................................................
 
@@ -490,23 +500,64 @@ and all syzygy-fields are occupied, ressurection is not performed, and it is wri
 
 \clearpage % ..........................................................
 
-\subsection*{Formatting, comments}
-\addcontentsline{toc}{subsection}{Formatting, comments}
-\label{sec:Appendix/Formatting, comments}
+\subsection*{Annotations, on moves}
+\addcontentsline{toc}{subsection}{Annotations, on moves}
+\label{sec:Appendix/Annotations, on moves}
 
 \begin{table}[!h]
 \centering
 \begin{tabular}{ rlll }
 \toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Status}                \\
+\textbf{Id} & \textbf{Symbol}      & \textbf{Annotation}                                    \\
 \midrule
-1           & \alg{...}            & placeholder for move           \\
-2           & \alg{//}             & line comment                   \\
-3           & \alg{/*}, \alg{*/}   & comment block                  \\
+ 1           & \alg{...}            & placeholder for move                                  \\ \cmidrule{1-3}
+ 2           & \alg{!}              & an excellent move                                     \\
+ 3           & \alg{!!}             & a particularly good,                                  \\
+             &                      & and usually surprising move                           \\
+ 4           & \alg{?}              & a bad move; a mistake                                 \\
+ 5           & \alg{??}             & a blunder                                             \\
+ 6           & \alg{!?}             & an interesting move that may not be best              \\
+ 7           & \alg{?!}             & a dubious move or                                     \\
+             &                      & move that may turn out to be bad                      \\
+%  8           & \alg{()}             & a better move than the one played                     \\
+%  9           & \alg{[]}             & the only reasonable move,                             \\
+%              &                      & or the only move available                            \\
+% 10           & \alg{\^{}\^{}}       & a theoretical novelty                                 \\
 \bottomrule
 \end{tabular}
-\caption{Formatting, comments}
-\label{tbl:Appendix/Formatting, comments}
+\caption{Annotations, on moves}
+\label{tbl:Appendix/Annotations, on moves}
+\end{table}
+
+. . .
+
+\clearpage % ..........................................................
+
+\subsection*{Annotations, on standings}
+\addcontentsline{toc}{subsection}{Annotations, on standings}
+\label{sec:Appendix/Annotations, on standings}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol}       & \textbf{Standing}                                         \\
+\midrule
+1           & \alg{=}               & equal chances for both players                            \\
+2           & \alg{+/=}             & light player has a slight plus                            \\
+3           & \alg{=/+}             & dark player has a slight plus                             \\
+4           & \alg{+/-}             & light player has a clear plus                             \\
+5           & \alg{-/+}             & dark player has a clear plus                              \\
+6           & \alg{+-}              & light player has a winning advantage                      \\
+7           & \alg{-+}              & dark player has a winning advantage                       \\
+8           & \alg{?/?}             & unclear whether either side has                           \\
+            &                       & an advantage                                              \\
+9           & \alg{=/?}             & whoever is down in material                               \\
+            &                       & has compensation for it                                   \\
+\bottomrule
+\end{tabular}
+\caption{Annotations, on standings}
+\label{tbl:Appendix/Annotations, on standings}
 \end{table}
 
 . . .
