@@ -426,6 +426,16 @@ diagonal. In \algfmt{XAN}, with plies gathering, it would be \\
 \addcontentsline{toc}{subsection}{Pawn-sacrifice}
 \label{sec:Appendix/Pawn-sacrifice}
 
+Pawn-sacrifice is written by separating plies with \alg{::} (double colon) instead of usual \alg{\~{}} (tilde),
+followed by capturing steps. All Pawn-capturing steps made by Serpent must be written, captured pieces are not
+needed, as they can only be opponent's Pawns.
+
+This \hyperref[fig:scn_tr_21_pawn_sacrifice_init]{Pawn-sacrifice} followed by
+\hyperref[fig:scn_tr_22_pawn_sacrifice_end]{capturing opponent's Pawns} is written as \\
+\alg{Sm14\~{}Am10::S..m16*..m18*.l19*.m20*.n19*.o20*}. In \algfmt{XAN}, with plies gathering, it would be \\
+\alg{[Sr13-m14]\~{}[Am14-m10]::}\\
+\alg{[Sm10..m16*..m18*.l19*.m20*.n19*.o20*]}.
+
 \clearpage % ..........................................................
 
 \subsection*{Ply side-effects}
@@ -471,7 +481,7 @@ diagonal. In \algfmt{XAN}, with plies gathering, it would be \\
 \toprule
 \textbf{Id} & \textbf{Symbol}      & \textbf{Separates}                         \\
 \midrule
-1           & \alg{\_}             & annotations                                \\ % \cmidrule{1-3}
+1           & \alg{\_}             & annotations                                \\
 2           & \alg{.}              & single steps                               \\
 3           & \alg{..}             & multiple steps                             \\
 4           & \alg{-}              & starting and destination field             \\
@@ -480,7 +490,8 @@ diagonal. In \algfmt{XAN}, with plies gathering, it would be \\
 7           & \alg{||}             & failed teleportation, oblation             \\
 8           & \alg{@}              & trance-journey                             \\
 9           & \alg{@@}             & failed trance-journey, oblation            \\
-10          & \alg{::}             & Pawn-sacrifice                             \\
+10          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
+11          & \alg{[]}             & ply gathering                              \\
 \bottomrule
 \end{tabular}
 \caption{Path separators}
