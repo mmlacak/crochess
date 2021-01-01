@@ -588,9 +588,57 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_21_syzygy_monolith(self, bt=BoardType.One):
+    def scn_o_21_trance_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_21_syzygy_monolith', bt)
+        scene = Scene('scn_o_21_trance_journey_failed', bt)
+
+        start_b = (25, 0)
+        adder = GS.adder(start_b)
+        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+
+        start_I = adder(-1, 1) # (-1, 1)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = adder(1, 1) # (0, 2)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Action )
+
+        scene.board.set_piece(25, 5, piece=PieceType.Star)
+        scene.board.set_piece(1, 8, piece=PieceType.Star)
+        scene.board.set_piece(5, 5, piece=-PieceType.Star)
+        scene.board.set_piece(7, 6, piece=-PieceType.Star)
+
+        scene.board.set_piece(11, 3, piece=PieceType.King)
+        scene.board.set_piece(13, 4, piece=-PieceType.King)
+
+        scene.board.set_piece(17, 1, piece=PieceType.Monolith)
+        scene.board.set_piece(19, 2, piece=-PieceType.Monolith)
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
+
+        for i in range(32):
+            aba(str(i + 1), mark_type=MarkType.Blocked) # Legal)
+
+        #
+        # left arm
+
+        rel = (-2, -1)
+        aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
+
+        for i in range(32):
+            aba(str(i + 1), mark_type=MarkType.Blocked) # Action)
+
+        return scene
+
+    def scn_o_22_syzygy_monolith(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_22_syzygy_monolith', bt)
 
         start_M = (12, 8)
         end_M = (13, 6)
@@ -620,9 +668,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_22_syzygy_starchild_init(self, bt=BoardType.One):
+    def scn_o_23_syzygy_starchild_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_22_syzygy_starchild_init', bt)
+        scene = Scene('scn_o_23_syzygy_starchild_init', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -654,9 +702,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_23_syzygy_starchild_end(self, bt=BoardType.One):
+    def scn_o_24_syzygy_starchild_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_23_syzygy_starchild_end', bt)
+        scene = Scene('scn_o_24_syzygy_starchild_end', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -681,9 +729,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_24_syzygy_starchild_ressurection(self, bt=BoardType.One):
+    def scn_o_25_syzygy_starchild_ressurection(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_24_syzygy_starchild_ressurection', bt)
+        scene = Scene('scn_o_25_syzygy_starchild_ressurection', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)

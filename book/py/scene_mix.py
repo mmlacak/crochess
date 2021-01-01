@@ -34,6 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_o_02_starchild_activating_wave_init', \
-                    'scn_o_03_starchild_activating_wave_end', \
+                    'scn_o_21_trance_journey_failed', \
+                    # 'scn_cot_37_trance_journey_failed', \
                 ]

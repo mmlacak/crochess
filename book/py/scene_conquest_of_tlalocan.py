@@ -1963,6 +1963,58 @@ class SceneConquestOfTlalocanMixin:
 
 
     #
+    # Trance-journey cannot be blocked.
+
+    # def scn_cot_37_trance_journey_failed(self, bt=BoardType.ConquestOfTlalocan):
+
+    #     scene = Scene('scn_cot_37_trance_journey_failed', bt)
+
+    #     start_b = (23, 0)
+    #     adder = GS.adder(start_b)
+    #     scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+
+    #     start_I = adder(-1, 1) # (-1, 1)
+    #     scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+    #     start_i = adder(1, 1) # (0, 2)
+    #     scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+    #     scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Action )
+
+    #     # scene.board.set_piece(25, 5, piece=PieceType.Star)
+    #     # scene.board.set_piece(1, 8, piece=PieceType.Star)
+    #     # scene.board.set_piece(5, 5, piece=-PieceType.Star)
+    #     # scene.board.set_piece(7, 6, piece=-PieceType.Star)
+
+    #     # scene.board.set_piece(11, 3, piece=PieceType.King)
+    #     # scene.board.set_piece(13, 4, piece=-PieceType.King)
+
+    #     # scene.board.set_piece(17, 1, piece=PieceType.Monolith)
+    #     # scene.board.set_piece(19, 2, piece=-PieceType.Monolith)
+
+    #     #
+    #     # right arm
+
+    #     rel = (2, 1)
+    #     aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
+
+    #     for i in range(32):
+    #         aba(str(i + 1), mark_type=MarkType.Blocked) # Legal)
+
+    #     #
+    #     # left arm
+
+    #     rel = (-2, -1)
+    #     aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
+
+    #     for i in range(32):
+    #         aba(str(i + 1), mark_type=MarkType.Blocked) # Action)
+
+    #     return scene
+
+
+    #
     # test methods
 
     def test_cot_09_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
