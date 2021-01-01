@@ -316,8 +316,8 @@ also \alg{.} separating piece and the first step, without it first step would be
 
 Not recomended, but still possible is to write \emph{some} step along the way, e.g. \alg{C..i11..p15}.
 Care must be taken to write step which really differentiate paths, otherwise noted path might inadvertently
-also denote another. For instance, \alg{C..j9..p15} might also denote \alg{C.b4.f5..p15}, which happens to
-cross \alg{j9} as well.
+also denote another. For instance, in addition to original path, \alg{C..j9..p15} might also denote
+\alg{C.b4.f5..p15}, which happens to cross \alg{j9} as well.
 
 \subsection*{Trance-journey}
 \addcontentsline{toc}{subsection}{Trance-journey}
@@ -331,8 +331,8 @@ In \algfmt{XAN}, it would be \alg{[Hf10-d11]\~{}[Wd11-e13]@[He13-g24]}.
 
 Displacements are noted by writing \alg{<} (less-than) immediately after step in which a piece is reached,
 followed by field of displacement. Optionally, displaced piece can be writen before displacement-field. The
-same \hyperref[fig:scn_cot_19_light_light_shaman_interaction_end]{trance-journey example with interactions}
-would be written as \\
+same \hyperref[fig:scn_cot_19_light_light_shaman_interaction_end]{trance-journey example}, now with all
+interactions taken into account, would be written as \\
 \alg{Hd11\~{}We13@H..e18<i14..m12<j17..g24}. In \algfmt{XAN}, with gathered plies and displaced pieces
 it would be \\
 \alg{[Hf10-d11]\~{}[Wd11-e13]@}\\
@@ -345,30 +345,32 @@ optionally followed by a captured piece. This
 written as \\
 \alg{Hf12\~{}Wd9\~{}We13@H..e18*..m12*..g24}. In \algfmt{XAN}, with gathered plies and captured pieces it
 would be \\
-\alg{[H-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@}\\
+\alg{[Hi10-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@}\\
 \alg{[He13..e18*N..m12*P..g24]}.
-% \alg{[H-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@[He13..e18*N..m12*P..g24]}.
+% \alg{[Hi10-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@[He13..e18*N..m12*P..g24]}.
 
 \subsection*{Syzygy, demoting to Pawn}
 \addcontentsline{toc}{subsection}{Syzygy, demoting to Pawn}
 \label{sec:Appendix/Syzygy, demoting to Pawn}
 
 Demoting to Pawn is noted by writing \alg{>} (greater-than), followed by disambiguating position, i.e.
-one of rank, file or rank + file, in that order. Disambiguation can be preceded by piece which was demoted.
+one of rank, file or rank + file, in that order. Optionally, disambiguation can be preceded by piece which
+was demoted, and demotion-field can be written instead of just a disambiguation.
 
 In this \hyperref[fig:scn_d_15_syzygy_2_stars_init]{syzygy example}, if Monolith was moved by light player,
 then either light Wave or light Bishop could be demoted to Pawn. If Bishop was chosen, that would be written
-as \alg{Mm12>p}. In \algfmt{XAN}, with piece and demotion field noted it would be \alg{Mn14-m12>Bp8}. There
-is no plies gathering, since only Monolith moved, there is only one ply.
+as \alg{Mm12>p}. In \algfmt{XAN}, with piece and demotion-field noted it would be \alg{Mn14-m12>Bp8}. There
+is no plies gathering, since only Monolith moved, so there is only one ply.
 
 \subsection*{Syzygy, ressurection}
 \addcontentsline{toc}{subsection}{Syzygy, ressurection}
 \label{sec:Appendix/Syzygy, ressurection}
 
 Ressurection is written by appending \alg{\$} (dollar sign) after the move, followed by piece which was
-ressurected. If Starchild has been ressurected on a empty field, position is appended after piece.
+ressurected. If Starchild has been ressurected on an empty field, position is appended after piece.
 If there was no suitable empty field at which Starchild could be ressurected, ressurection is not performed,
-which is written by appending \alg{\$\$} (double dollar) after the move.
+which could be written by appending \alg{\$\$} (double dollar) after the move. Since there are no actual
+side-effects to failed ressurection, \alg{\$\$} is optional.
 
 In case \hyperref[fig:scn_o_22_syzygy_starchild_init]{ressurection example} ended by
 \hyperref[fig:scn_o_23_syzygy_starchild_end]{ressurecting Queen}, this would be written as \alg{It9\$Q},
@@ -377,9 +379,9 @@ and in \algfmt{XAN} it would be \alg{Ii23-t9\$Q}.
 If previous example ended by \hyperref[fig:scn_o_24_syzygy_starchild_ressurection]{ressurecting Starchild},
 it would be written as \alg{It9\$Iu8}. In \algfmt{XAN}, it would be \alg{Ii23-t9\$Iu8}.
 
-If all neighboring-fields around ressurecting Starchild, all portal-fields around Stars, Monoliths in syzygy,
-and all syzygy-fields are occupied, ressurection is not performed, and it is written as \alg{It9\$\$}, in
-\algfmt{XAN} it would be \alg{Ii23-t9\$\$}.
+If all fields suitable for ressurection are occupied, it is written as \alg{It9\$\$}, in \algfmt{XAN} it
+would be \alg{Ii23-t9\$\$}. Writing it as \alg{It9}, or \alg{Ii23-t9} is fine, it just doesn't note failed
+intention.
 
 \subsection*{Teleportation}
 \addcontentsline{toc}{subsection}{Teleportation}
@@ -399,7 +401,7 @@ This \hyperref[fig:scn_n_02_teleport_init]{teleportation example} would be writt
 This \hyperref[fig:scn_n_03_teleport_move_2]{blocked teleportation example} would be written as \alg{Ra18||},
 or in \algfmt{XAN} it would be \alg{Ra13-a18||}.
 
-This \hyperref[fig:scn_n_04_teleport_move_3]{Wave teleporting example}, followed by
+In this \hyperref[fig:scn_n_04_teleport_move_3]{Wave teleporting example}, followed by
 \hyperref[fig:scn_n_05_teleport_end]{Wave teleported example}, if activated Pyramid would move 2 fields upward,
 complete move would be written as \alg{Gg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would
 be \\
@@ -457,16 +459,17 @@ diagonal. In \algfmt{XAN}, with plies gathering, it would be \\
 \centering
 \begin{tabular}{ rlll }
 \toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Separates}             \\
+\textbf{Id} & \textbf{Symbol}      & \textbf{Separates}                         \\
 \midrule
-1           & \alg{.}              & single step                    \\
-2           & \alg{..}             & multiple steps                 \\
-3           & \alg{-}              & starting and destination field \\
-4           & \alg{\~{}}           & plies                          \\
-5           & \alg{|}              & teleportation                  \\
-6           & \alg{||}             & failed teleportation, oblation \\
-7           & \alg{@}              & trance-journey                 \\
-8           & \alg{::}             & Pawn-sacrifice                 \\
+1           & \alg{\_}             & annotations                                \\ % \cmidrule{1-3}
+2           & \alg{.}              & single steps                               \\
+3           & \alg{..}             & multiple steps                             \\
+4           & \alg{-}              & starting and destination field             \\
+5           & \alg{\~{}}           & plies                                      \\
+6           & \alg{|}              & teleportation                              \\
+7           & \alg{||}             & failed teleportation, oblation             \\
+8           & \alg{@}              & trance-journey                             \\
+9           & \alg{::}             & Pawn-sacrifice                             \\
 \bottomrule
 \end{tabular}
 \caption{Path separators}
