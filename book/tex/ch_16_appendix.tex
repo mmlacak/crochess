@@ -439,12 +439,15 @@ This \hyperref[fig:scn_tr_21_pawn_sacrifice_init]{Pawn-sacrifice} followed by
 If there aren't enough Pawns captured to isolate only one path an additional, non-capturing steps needs to be
 wrtten as well. In previous example, if Serpent stopped at \alg{m17}, at least 2 differrent paths are possible.
 Previous example started with \alg{Sm15\~{}Am11::S.l16.m17*} path, the other path is \alg{Sm15\~{}Am11::S.n16.m17*}.
-
 Again, for longer paths care must be taken to write step(s) which really differentiate paths, otherwise written
-path might inadvertently also denote others. Care must also be taken to properly use step separator \alg{.} (dot),
-and multiple step separator \alg{..} (two dots). For instance, first, short path in previous paragraph might also
-be confused with \alg{Sm15\~{}Am11::S..l16..m17*}, which is a shorthand for\\
-\alg{Sm15\~{}Am11::S.l14.k15.l16.k17.l18.m17*}, a very different path.
+path might inadvertently also denote others.
+
+Care must also be taken to properly use step separator \alg{.} (dot), and multiple step separator \alg{..} (two
+dots). Step separator \alg{.} is for separating 2 steps, where one step immediately follows the other. Multi-step
+separator \alg{..} is for separating 2 steps which have at least one step in-between. For instance, first, short
+path in previous paragraph (i.e. \alg{Sm15\~{}Am11::S.l16.m17*}) might also be confused with
+\alg{Sm15\~{}Am11::S..l16..m17*}, which is a shorthand for \alg{Sm15\~{}Am11::S.l14.k15.l16.k17.l18.m17*}, a very
+different path.
 
 \subsection*{Off-board traversal}
 \addcontentsline{toc}{subsection}{Off-board traversal}
