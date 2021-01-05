@@ -1141,8 +1141,33 @@ def test_4():
 
     print()
 
+def test_5():
+    print()
+
+    # % Discovery
+    # % (1, 6)
+    # % (22, 17)
+
+    # % One
+    # % (1, 7)
+    # % (24, 18)
+
+    for bt in [BoardType.Discovery, BoardType.One]:
+        bx = BoardType(bt)
+        b = Board(bt)
+        # b.setup()
+
+        print()
+        print( bx.get_name() )
+        print( b._calc_monolith_init_pos( PT.Monolith ) )
+        print( b._calc_monolith_init_pos( -PT.Monolith ) )
+
+    print()
+
+
 if __name__ == '__main__':
-    test_1()
-    test_2()
-    test_3()
-    test_4()
+    # test_1()
+    # test_2()
+    # test_3()
+    # test_4()
+    test_5()

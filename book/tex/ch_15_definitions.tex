@@ -31,18 +31,18 @@ Maximum number of steps either Serpent or Monolith can make is determined by the
 of a chessboard.
 
 \begin{equation}
-sml = \lfloor \frac{n}{3} \rfloor
+sml = \lceil \frac{n}{3} \rceil
 \end{equation}
 
 \begin{equation}
-mml = \lfloor \frac{n}{11} \rfloor
+mml = \lceil \frac{n}{11} \rceil
 \end{equation}
 
 where:
 
 $n$ is size of chessboard for a given variant
 
-$\lfloor\ \rfloor$ is floor function, giving smallest integer larger than its argument
+$\lceil\ \rceil$ is ceil function, giving smallest integer greater than or equal to its argument
 
 $sml$ - Serpent's movement limit, i.e. maximum number of steps Serpent can make
 
@@ -80,7 +80,7 @@ where:
 
 $n$ is size of chessboard for a given variant
 
-$\lfloor\ \rfloor$ is floor function, giving smallest integer larger than its argument
+$\lfloor\ \rfloor$ is floor function, giving the largest integer less than or equal to its argument
 
 $dx$, $dy$ are offsets along x- and y-axis, respectively
 
