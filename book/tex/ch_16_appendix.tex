@@ -172,9 +172,9 @@ in succeeding variants, Discovery and One.
 
 \clearpage % ..........................................................
 
-\section*{Movement}
-\addcontentsline{toc}{section}{Movement}
-\label{sec:Appendix/Movement}
+\section*{Notation}
+\addcontentsline{toc}{section}{Notation}
+\label{sec:Appendix/Notation}
 
 Simple movement is denoted the same way as in \algfmt{CAN}, piece (always written as upper case) +
 destination field, which consists of rank (always written in lower case) + file (a number).
@@ -480,19 +480,28 @@ file, rank or diagonal with starting field. For instance, if destination in this
 If, in the same example, destination is field 1, then original path is \alg{Uo3\~{}W.m4.p6.n7..o10}, the other available
 path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to distinguish between the two paths.
 
-\subsection*{Move statuses}
-\addcontentsline{toc}{subsection}{Move statuses}
-\label{sec:Appendix/Move statuses}
+\subsection*{Move symbols, annotations}
+\addcontentsline{toc}{subsection}{Move symbols, annotations}
+\label{sec:Appendix/Move symbols, annotations}
 
-\huge{TODO}
-\normalsize{}
+Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}.
+Checks are noted with \alg{+} (plus sign), checkmates are noted with \alg{\#} (hashtag), these are optional, see \algfmt{FIDE C.13}.
+Placeholder for a move is \alg{...} (ellipsis), usually used to resume game score after commentary, see\\
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+\#Notation\_for\_a\_series\_of\_moves}.
 
-\subsection*{Annotations}
-\addcontentsline{toc}{subsection}{Annotations}
-\label{sec:Appendix/Annotations}
+Annotations are written at the end of a complete move, e.g. \alg{ef8*!}. It is recommended to use \alg{\_} (underscore)
+to separate \algfmt{AN} and annotations, like so \alg{ef8*\_!}. Usage of \alg{\_} is mandatory when annotation can be
+confused for a regular chess \algfmt{AN}.
 
-\huge{TODO}
-\normalsize{}
+For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have equal chances of winning, see\\
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)#Annotation\_symbols}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+\#Annotation\_symbols}. In such a case, regular chess \algfmt{AN} is assumed, i.e. it is Pawn tagged for promotion.
+If annotation is meant instead, it has to be written as \alg{e8*\_=}.
+
+% \algmov{1.}{ef8*!}{Se5\~{}We5.f4.g5.h4.i5}
+% \algmov{2.}{Ke\&d}{}
+% \algmov{3.}{...}{Sm15\~{}Am11::S.l14.k15.l16.k17.l18.m17*}
 
 \clearpage % ..........................................................
 
@@ -525,7 +534,7 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 
 . . .
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
 \clearpage % ..........................................................
 
@@ -539,17 +548,16 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 \toprule
 \textbf{Id} & \textbf{Symbol}      & \textbf{Separates}                         \\
 \midrule
- 1          & \alg{\_}             & annotations                                \\
- 2          & \alg{.}              & single steps                               \\
- 3          & \alg{..}             & multiple steps                             \\
- 4          & \alg{-}              & starting and destination field             \\
- 5          & \alg{\~{}}           & plies                                      \\
- 6          & \alg{|}              & teleportation                              \\
- 7          & \alg{||}             & failed teleportation, oblation             \\
- 8          & \alg{@}              & trance-journey                             \\
- 9          & \alg{@@}             & failed trance-journey, oblation            \\
-10          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
-11          & \alg{[]}             & ply gathering                              \\
+ 1          & \alg{.}              & single steps                               \\
+ 2          & \alg{..}             & multiple steps                             \\
+ 3          & \alg{-}              & starting and destination field             \\
+ 4          & \alg{\~{}}           & plies                                      \\
+ 5          & \alg{|}              & teleportation                              \\
+ 6          & \alg{||}             & failed teleportation, oblation             \\
+ 7          & \alg{@}              & trance-journey                             \\
+ 8          & \alg{@@}             & failed trance-journey, oblation            \\
+ 9          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
+10          & \alg{[]}             & ply gathering                              \\
 \bottomrule
 \end{tabular}
 \caption{Path separators}
@@ -570,10 +578,11 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 \toprule
 \textbf{Id} & \textbf{Symbol}      & \textbf{Status}                \\
 \midrule
-1           & \alg{...}            & placeholder for a move         \\
-2           & \alg{(=)}            & draw offer                     \\ \cmidrule{1-3}
-3           & \alg{+}              & check                          \\
-4           & \alg{\#}             & checkmate                      \\
+1           & \alg{+}              & check                          \\
+2           & \alg{\#}             & checkmate                      \\ \cmidrule{1-3}
+3           & \alg{\_}             & annotations                    \\
+4           & \alg{...}            & placeholder for a move         \\
+5           & \alg{(=)}            & draw offer                     \\
 \bottomrule
 \end{tabular}
 \caption{Move status}
@@ -582,68 +591,68 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 
 . . .
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\subsection*{Annotations, on moves}
-\addcontentsline{toc}{subsection}{Annotations, on moves}
-\label{sec:Appendix/Annotations, on moves}
+% \subsection*{Annotations, on moves}
+% \addcontentsline{toc}{subsection}{Annotations, on moves}
+% \label{sec:Appendix/Annotations, on moves}
 
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlll }
-\toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Annotation}                                    \\
-\midrule
- 1           & \alg{!}              & an excellent move                                     \\
- 2           & \alg{!!}             & a particularly good,                                  \\
-             &                      & and usually surprising move                           \\
- 3           & \alg{?}              & a bad move; a mistake                                 \\
- 4           & \alg{??}             & a blunder                                             \\
- 5           & \alg{!?}             & an interesting move that may not be best              \\
- 6           & \alg{?!}             & a dubious move or                                     \\
-             &                      & move that may turn out to be bad                      \\
-%  7           & \alg{()}             & a better move than the one played                     \\
-%  8           & \alg{[]}             & the only reasonable move,                             \\
-%              &                      & or the only move available                            \\
-%  9           & \alg{\^{}\^{}}       & a theoretical novelty                                 \\
-\bottomrule
-\end{tabular}
-\caption{Annotations, on moves}
-\label{tbl:Appendix/Annotations, on moves}
-\end{table}
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ rlll }
+% \toprule
+% \textbf{Id} & \textbf{Symbol}      & \textbf{Annotation}                                    \\
+% \midrule
+%  1           & \alg{!}              & an excellent move                                     \\
+%  2           & \alg{!!}             & a particularly good,                                  \\
+%              &                      & and usually surprising move                           \\
+%  3           & \alg{?}              & a bad move; a mistake                                 \\
+%  4           & \alg{??}             & a blunder                                             \\
+%  5           & \alg{!?}             & an interesting move that may not be best              \\
+%  6           & \alg{?!}             & a dubious move or                                     \\
+%              &                      & move that may turn out to be bad                      \\
+% %  7           & \alg{()}             & a better move than the one played                     \\
+% %  8           & \alg{[]}             & the only reasonable move,                             \\
+% %              &                      & or the only move available                            \\
+% %  9           & \alg{\^{}\^{}}       & a theoretical novelty                                 \\
+% \bottomrule
+% \end{tabular}
+% \caption{Annotations, on moves}
+% \label{tbl:Appendix/Annotations, on moves}
+% \end{table}
 
-. . .
+% . . .
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\subsection*{Annotations, on standings}
-\addcontentsline{toc}{subsection}{Annotations, on standings}
-\label{sec:Appendix/Annotations, on standings}
+% \subsection*{Annotations, on standings}
+% \addcontentsline{toc}{subsection}{Annotations, on standings}
+% \label{sec:Appendix/Annotations, on standings}
 
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlll }
-\toprule
-\textbf{Id} & \textbf{Symbol}       & \textbf{Standing}                                         \\
-\midrule
-1           & \alg{=}               & equal chances for both players                            \\
-2           & \alg{+/=}             & light player has a slight plus                            \\
-3           & \alg{=/+}             & dark player has a slight plus                             \\
-4           & \alg{+/-}             & light player has a clear plus                             \\
-5           & \alg{-/+}             & dark player has a clear plus                              \\
-6           & \alg{+-}              & light player has a winning advantage                      \\
-7           & \alg{-+}              & dark player has a winning advantage                       \\
-8           & \alg{?/?}             & unclear whether either side has                           \\
-            &                       & an advantage                                              \\
-9           & \alg{=/?}             & whoever is down in material                               \\
-            &                       & has compensation for it                                   \\
-\bottomrule
-\end{tabular}
-\caption{Annotations, on standings}
-\label{tbl:Appendix/Annotations, on standings}
-\end{table}
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ rlll }
+% \toprule
+% \textbf{Id} & \textbf{Symbol}       & \textbf{Standing}                                         \\
+% \midrule
+% 1           & \alg{=}               & equal chances for both players                            \\
+% 2           & \alg{+/=}             & light player has a slight plus                            \\
+% 3           & \alg{=/+}             & dark player has a slight plus                             \\
+% 4           & \alg{+/-}             & light player has a clear plus                             \\
+% 5           & \alg{-/+}             & dark player has a clear plus                              \\
+% 6           & \alg{+-}              & light player has a winning advantage                      \\
+% 7           & \alg{-+}              & dark player has a winning advantage                       \\
+% 8           & \alg{?/?}             & unclear whether either side has                           \\
+%             &                       & an advantage                                              \\
+% 9           & \alg{=/?}             & whoever is down in material                               \\
+%             &                       & has compensation for it                                   \\
+% \bottomrule
+% \end{tabular}
+% \caption{Annotations, on standings}
+% \label{tbl:Appendix/Annotations, on standings}
+% \end{table}
 
-. . .
+% . . .
 
 \clearpage % ..........................................................
 
