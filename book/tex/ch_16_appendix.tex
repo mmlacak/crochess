@@ -48,8 +48,8 @@ this might also be interpreted as disambiguation.
 10          & \algfmt{FIDE point}  & point in FIDE handbook                     \\
 \bottomrule
 \end{tabular}
-\caption{Ply side-effects}
-\label{tbl:Appendix/Ply side-effects}
+\caption{Abbreviations}
+\label{tbl:Appendix/Abbreviations}
 \end{table}
 
 For official reference FIDE handbook is used, current date of publication is 2018-01-01: \\
@@ -373,10 +373,10 @@ is no plies gathering, since only Monolith moved, so there is only one ply.
 \label{sec:Appendix/Syzygy, ressurection}
 
 Ressurection is written by appending \alg{\$} (dollar sign) after the move, followed by piece which was
-ressurected. If Starchild has been ressurected on an empty field, position is appended after piece.
-If there was no suitable empty field at which Starchild could be ressurected, ressurection is not performed,
-which could be written by appending \alg{\$\$} (double dollar) after the move. Since there are no actual
-side-effects to failed ressurection, \alg{\$\$} is optional.
+ressurected. If Wave or Starchild has been ressurected on an empty field, position is appended after piece.
+If there was no suitable empty field at which Wave or Starchild could be ressurected, ressurection is not
+performed, which could be written by appending \alg{\$\$} (double dollar) after the ply. Since there are
+no actual side-effects to failed ressurection, \alg{\$\$} is optional.
 
 In case \hyperref[fig:scn_o_23_syzygy_starchild_init]{ressurection example} ended by
 \hyperref[fig:scn_o_24_syzygy_starchild_end]{ressurecting Queen}, this would be written as \alg{It9\$Q},
@@ -479,6 +479,20 @@ file, rank or diagonal with starting field. For instance, if destination in this
 \hyperref[fig:scn_mv_26_wave_off_board]{Wave off-board example} is field 2, then it can be noted just as \alg{Uo3\~{}Wp12}.
 If, in the same example, destination is field 1, then original path is \alg{Uo3\~{}W.m4.p6.n7..o10}, the other available
 path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to distinguish between the two paths.
+
+\subsection*{Move statuses}
+\addcontentsline{toc}{subsection}{Move statuses}
+\label{sec:Appendix/Move statuses}
+
+\huge{TODO}
+\normalsize{}
+
+\subsection*{Annotations}
+\addcontentsline{toc}{subsection}{Annotations}
+\label{sec:Appendix/Annotations}
+
+\huge{TODO}
+\normalsize{}
 
 \clearpage % ..........................................................
 
