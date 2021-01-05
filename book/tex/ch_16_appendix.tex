@@ -437,7 +437,7 @@ This \hyperref[fig:scn_tr_21_pawn_sacrifice_init]{Pawn-sacrifice} followed by
 \alg{[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]}.
 
 If there aren't enough Pawns captured to isolate only one path an additional, non-capturing steps needs to be
-wrtten as well. In previous example, if Serpent stopped at \alg{m17}, at least 2 differrent paths are possible.
+written as well. In previous example, if Serpent stopped at \alg{m17}, at least 2 differrent paths are possible.
 Previous example started with \alg{Sm15\~{}Am11::S.l16.m17*} path, the other path is \alg{Sm15\~{}Am11::S.n16.m17*}.
 Again, for longer paths care must be taken to write step(s) which really differentiate paths, otherwise written
 path might inadvertently also denote others.
@@ -453,8 +453,32 @@ different path.
 \addcontentsline{toc}{subsection}{Off-board traversal}
 \label{sec:Appendix/Off-board traversal}
 
-\huge{TODO}
-\normalsize{}
+Steps onto virtual, off-board fields are not written. For trance-journey, each possible destination field designates
+unique path on its own, so additional fields are neccessary only if there is some kind of interactions between
+entranced Shaman and pieces on its step-fields.
+
+For a Wave activated by Serpent, noting destination field might be enough, if destination field is on a different file
+and a different rank than starting field. If destination field is on the same rank or on the same file as starting field,
+then first step needs to be noted as well. In this
+\hyperref[fig:scn_tr_15_serpent_activated_wave_ply]{Wave activated by Serpent} example, if destination field is \alg{j4},
+then there is only one path leading to it, and it's \alg{Se5\~{}We5.f4.g5.h4.i5.j4}, so it can be noted just as
+\alg{Se5\~{}Wj4}.
+
+If destination field is \alg{i5}, which is on the same rank as Wave's ply starting field, then \alg{Se5\~{}Wi5} might be
+interpreted as either \alg{Se5\~{}We5.f4.g5.h4.i5}, or as \alg{Se5\~{}We5.f6.g5.h6.i5}, so first step is needed, like so
+\alg{Se5\~{}W.f4..i5}.
+
+If Wave activated by Serpent is blocked from reaching destination field using only on-board step-fields, then only one
+path exists, and only destination field is needed. For instance, if in this
+\hyperref[fig:scn_tr_16_wave_out_of_board]{Wave off-board example} dark Knight were located at \alg{u9}, and destination
+field is \alg{v10} it would block Wave's ply \alg{Sv6\~{}W.u7.v8.u9.v10}, and only path avaiable to Wave would be
+off-board, i.e. \alg{Sv6\~{}W..v8..v10}.
+
+For a Wave activated by Unicorn or Centaur, noting destination field might be enough, if destination field does not share
+file, rank or diagonal with starting field. For instance, if destination in this
+\hyperref[fig:scn_mv_26_wave_off_board]{Wave off-board example} is field 2, then it can be noted just as \alg{Uo3\~{}Wp12}.
+If, in the same example, destination is field 1, then original path is \alg{Uo3\~{}W.m4.p6.n7..o10}, the other available
+path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to distinguish between the two paths.
 
 \clearpage % ..........................................................
 
