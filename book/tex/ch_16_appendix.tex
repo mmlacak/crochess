@@ -499,10 +499,6 @@ For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have
 \#Annotation\_symbols}. In such a case, regular chess \algfmt{AN} is assumed, i.e. it is Pawn tagged for promotion.
 If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
-% \algmov{1.}{ef8*!}{Se5\~{}We5.f4.g5.h4.i5}
-% \algmov{2.}{Ke\&d}{}
-% \algmov{3.}{...}{Sm15\~{}Am11::S.l14.k15.l16.k17.l18.m17*}
-
 \clearpage % ..........................................................
 
 \subsection*{Ply side-effects}
@@ -533,8 +529,6 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \end{table}
 
 . . .
-
-% \clearpage % ..........................................................
 
 \clearpage % ..........................................................
 
@@ -591,73 +585,37 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 . . .
 
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
 
-% \subsection*{Annotations, on moves}
-% \addcontentsline{toc}{subsection}{Annotations, on moves}
-% \label{sec:Appendix/Annotations, on moves}
+\subsection*{Movement limits}
+\addcontentsline{toc}{subsection}{Movement limits}
+\label{sec:Appendix/Movement limits}
 
-% \begin{table}[!h]
-% \centering
-% \begin{tabular}{ rlll }
-% \toprule
-% \textbf{Id} & \textbf{Symbol}      & \textbf{Annotation}                                    \\
-% \midrule
-%  1           & \alg{!}              & an excellent move                                     \\
-%  2           & \alg{!!}             & a particularly good,                                  \\
-%              &                      & and usually surprising move                           \\
-%  3           & \alg{?}              & a bad move; a mistake                                 \\
-%  4           & \alg{??}             & a blunder                                             \\
-%  5           & \alg{!?}             & an interesting move that may not be best              \\
-%  6           & \alg{?!}             & a dubious move or                                     \\
-%              &                      & move that may turn out to be bad                      \\
-% %  7           & \alg{()}             & a better move than the one played                     \\
-% %  8           & \alg{[]}             & the only reasonable move,                             \\
-% %              &                      & or the only move available                            \\
-% %  9           & \alg{\^{}\^{}}       & a theoretical novelty                                 \\
-% \bottomrule
-% \end{tabular}
-% \caption{Annotations, on moves}
-% \label{tbl:Appendix/Annotations, on moves}
-% \end{table}
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlrr }
+\toprule
+\textbf{Id} & \textbf{Variant}      & \textbf{Serpent}  & \textbf{Monolith}         \\
+\midrule
+          1 & Tamoanchan Revisited  &                 8 &                           \\
+          2 & Conquest of Tlalocan  &                 8 &                           \\
+          3 & Discovery             &                 8 &                         3 \\
+          4 & One                   &                 9 &                         3 \\
+\bottomrule
+\end{tabular}
+\caption{Chessboards}
+\label{tbl:Appendix/Chessboards}
+\end{table}
 
-% . . .
-
-% \clearpage % ..........................................................
-
-% \subsection*{Annotations, on standings}
-% \addcontentsline{toc}{subsection}{Annotations, on standings}
-% \label{sec:Appendix/Annotations, on standings}
-
-% \begin{table}[!h]
-% \centering
-% \begin{tabular}{ rlll }
-% \toprule
-% \textbf{Id} & \textbf{Symbol}       & \textbf{Standing}                                         \\
-% \midrule
-% 1           & \alg{=}               & equal chances for both players                            \\
-% 2           & \alg{+/=}             & light player has a slight plus                            \\
-% 3           & \alg{=/+}             & dark player has a slight plus                             \\
-% 4           & \alg{+/-}             & light player has a clear plus                             \\
-% 5           & \alg{-/+}             & dark player has a clear plus                              \\
-% 6           & \alg{+-}              & light player has a winning advantage                      \\
-% 7           & \alg{-+}              & dark player has a winning advantage                       \\
-% 8           & \alg{?/?}             & unclear whether either side has                           \\
-%             &                       & an advantage                                              \\
-% 9           & \alg{=/?}             & whoever is down in material                               \\
-%             &                       & has compensation for it                                   \\
-% \bottomrule
-% \end{tabular}
-% \caption{Annotations, on standings}
-% \label{tbl:Appendix/Annotations, on standings}
-% \end{table}
-
-% . . .
+. . .
 
 \clearpage % ..........................................................
 
+\subsection*{Monolith initial positions}
+\addcontentsline{toc}{subsection}{Monolith initial positions}
+\label{sec:Appendix/Monolith initial positions}
+
 \huge{TODO}
-Serpent, Monolith movement limits --\textgreater table
 \normalsize{}
 
 \clearpage % ..........................................................
@@ -669,6 +627,9 @@ Serpent, Monolith movement limits --\textgreater table
 Movement of Wave ... as multi-step piece activating it  ...
 
 % TODO :: table <activated-by> : <moves-like>
+
+\huge{TODO}
+\normalsize{}
 
 \clearpage % ..........................................................
 
