@@ -17,6 +17,7 @@
 \usepackage{helvet}
 \renewcommand{\sfdefault}{phv}
 
+\usepackage{alltt}
 \renewcommand{\ttdefault}{pcr} % Adobe Courier
 % \renewcommand{\ttdefault}{ucr} % URW Courier
 % \renewcommand\ttdefault{lcmtt} % \renewcommand*\ttdefault{lcmtt} % Computer Modern Teletype L
@@ -48,6 +49,9 @@
 \newcommand{\alg}[1]{\algb{#1}}
 \newcommand{\algcty}[1]{\algbi{#1}} % For compatibility.
 \newcommand{\algfmt}[1]{\algn{#1}} % Formatting, e.g. ordering numbers of moves, abbreviations.
+
+% \newcommand{\algpar}[1]{\begin{alltt}#1\end{alltt}} % Works, but not verbatim --> useless!
+\newcommand{\algpar}[1]{\noindent\algfmt{#1}}
 
 % \newcommand{\algmov}[3]{\hspace*{1em}\algfmt{#1}\hspace*{1em}\alg{#2}\hspace*{1em}\alg{#3}\\}
 \newcommand{\algmov}[4][1em]{\hspace*{#1}\algfmt{#2}\hspace*{1em}\alg{#3}\hspace*{1em}\alg{#4}\\}
@@ -139,22 +143,22 @@
 
     \emph{Source} \\
     \href{https://github.com/mmlacak/crochess}{https://github.com/mmlacak/crochess} \\
-    875 \textperiodcentered \textperiodcentered \textperiodcentered ~2021-01-05 23:35:06 UTC \textperiodcentered \textperiodcentered \textperiodcentered ~master \\ [2.0em] % new-commit-count-date-time-branch-place-marker
+    876 \textperiodcentered \textperiodcentered \textperiodcentered ~2021-01-08 03:06:58 UTC \textperiodcentered \textperiodcentered \textperiodcentered ~master \\ [2.0em] % new-commit-count-date-time-branch-place-marker
 
     \emph{Legal} \\
     This book is published as Public Domain work. \\
     \href{https://en.wikipedia.org/wiki/Public\_domain}{https://en.wikipedia.org/wiki/Public\_domain} \\ [2.0em]
 
     \emph{Third, revised edition} \\
-    2021-01-05 \\ % new-commit-date-place-marker
+    2021-01-08 \\ % new-commit-date-place-marker
     Zagreb, Croatia
 
     \vfill
 
     \tiny{
         \emph{Parent commit} \\
-        acd385dd54e851f16ab92d4e9d9e5e154439ad7a \\ % last-commit-id-place-marker
-        2021-01-05 16:13:59 UTC \\ % last-commit-date-time-place-marker
+        8b23d4ec741b565d769c81dc3a5bd2e418937330 \\ % last-commit-id-place-marker
+        2021-01-05 23:35:06 UTC \\ % last-commit-date-time-place-marker
     }
     \normalsize{}
     \vspace{0.05\textheight}
@@ -172,7 +176,7 @@
     \vspace*{0.2\textheight}
 
     \textbf{\large{Mario Mlačak}} \\ [1.0em]
-    \small{2021-01-05} \\ [0.5em] % new-commit-date-small-place-marker
+    \small{2021-01-08} \\ [0.5em] % new-commit-date-small-place-marker
     \small{Zagreb, Croatia}
 \end{center}
 \clearpage % ..........................................................

@@ -505,7 +505,40 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \addcontentsline{toc}{section}{Summary}
 \label{sec:Appendix/Summary}
 
-. . .
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Entity}      & \textbf{Meaning}                           \\
+\midrule
+1           & \algfmt{< >}         & named entity, to be substituted            \\
+2           & \algfmt{|}           & option between 2 values, can be chained    \\
+3           & \algfmt{[ ]}         & optional item(s), zero or more times       \\
+4           & \algfmt{\{ \}}       & optional item(s), one or more times        \\
+5           & \algfmt{..}          & option from range of values                \\
+6           & \algfmt{?}           & empty value                                \\
+7           & \alg{value}          & verbatim value                             \\
+\bottomrule
+\end{tabular}
+\caption{Notation}
+\label{tbl:Appendix/Summary/Notation}
+\end{table}
+
+\begin{alltt}
+<piece> = ? | \alg{P} | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K} | \alg{G} | \alg{A}
+        | \alg{U} | \alg{W} | \alg{T} | \alg{C} | \alg{S} | \alg{H} | \alg{M} | \alg{I}
+
+<file> = \alg{a} .. \alg{z}
+
+<rank> = \alg{1} .. \alg{26}
+
+<field> = <file><rank>
+
+<disambiguation> = <file>
+                 | <rank>
+                 | <field>
+\end{alltt}
+
 
 \huge{TODO}
 \normalsize{}
@@ -514,7 +547,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 \subsection*{Ply side-effects}
 \addcontentsline{toc}{subsection}{Ply side-effects}
-\label{sec:Appendix/Ply side-effects}
+\label{sec:Appendix/Summary/Ply side-effects}
 
 \begin{table}[!h]
 \centering
@@ -536,7 +569,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \bottomrule
 \end{tabular}
 \caption{Ply side-effects}
-\label{tbl:Appendix/Ply side-effects}
+\label{tbl:Appendix/Summary/Ply side-effects}
 \end{table}
 
 . . .
@@ -545,7 +578,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 \subsection*{Path separators}
 \addcontentsline{toc}{subsection}{Path separators}
-\label{sec:Appendix/Path separators}
+\label{sec:Appendix/Summary/Path separators}
 
 \begin{table}[!h]
 \centering
@@ -566,7 +599,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \bottomrule
 \end{tabular}
 \caption{Path separators}
-\label{tbl:Appendix/Path separators}
+\label{tbl:Appendix/Summary/Path separators}
 \end{table}
 
 . . .
@@ -575,7 +608,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 \subsection*{Move status}
 \addcontentsline{toc}{subsection}{Move status}
-\label{sec:Appendix/Move status}
+\label{sec:Appendix/Summary/Move status}
 
 \begin{table}[!h]
 \centering
@@ -591,15 +624,15 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \bottomrule
 \end{tabular}
 \caption{Move status}
-\label{tbl:Appendix/Move status}
+\label{tbl:Appendix/Summary/Move status}
 \end{table}
 
 . . .
 
 \clearpage % ..........................................................
 
-\subsection*{Movement limits}
-\addcontentsline{toc}{subsection}{Movement limits}
+\section*{Movement limits}
+\addcontentsline{toc}{section}{Movement limits}
 \label{sec:Appendix/Movement limits}
 
 \begin{table}[!h]
@@ -614,16 +647,16 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
           4 & One                   &                 9 &                         3 \\
 \bottomrule
 \end{tabular}
-\caption{Chessboards}
-\label{tbl:Appendix/Chessboards}
+\caption{Movement limits}
+\label{tbl:Appendix/Movement limits}
 \end{table}
 
 . . .
 
 \clearpage % ..........................................................
 
-\subsection*{Monolith initial positions}
-\addcontentsline{toc}{subsection}{Monolith initial positions}
+\section*{Monolith initial positions}
+\addcontentsline{toc}{section}{Monolith initial positions}
 \label{sec:Appendix/Monolith initial positions}
 
 \begin{table}[!h]
@@ -637,8 +670,8 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
           2 & One                   &     \alg{b8}  &    \alg{y19}          \\
 \bottomrule
 \end{tabular}
-\caption{Chessboards}
-\label{tbl:Appendix/Chessboards}
+\caption{Monolith initial positions}
+\label{tbl:Appendix/Monolith initial positions}
 \end{table}
 
 . . .
