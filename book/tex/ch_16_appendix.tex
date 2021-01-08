@@ -511,13 +511,16 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \toprule
 \textbf{Id} & \textbf{Entity}      & \textbf{Meaning}                           \\
 \midrule
-1           & \algfmt{< >}         & named entity, to be substituted            \\
-2           & \algfmt{|}           & option between 2 values, can be chained    \\
-3           & \algfmt{[ ]}         & optional item(s), zero or more times       \\
-4           & \algfmt{\{ \}}       & optional item(s), one or more times        \\
-5           & \algfmt{..}          & option from range of values                \\
-6           & \algfmt{?}           & empty value                                \\
-7           & \alg{value}          & verbatim value                             \\
+ 1          & \algfmt{< >}         & named entity, to be substituted            \\
+ 2          & \algfmt{( )}         & grouping of options                        \\
+ 3          & \algfmt{|}           & option between 2 values, can be chained    \\
+ 4          & \algfmt{[ ]}         & optional item(s), zero or more times       \\
+ 5          & \algfmt{\{ \}}       & optional item(s), one or more times        \\
+ 6          & \algfmt{..}          & option from range of values                \\
+ 7          & \algfmt{\#number}    & numbered reference                         \\
+ 8          & \algfmt{?}           & empty value                                \\
+ 9          & \alg{value}          & verbatim value                             \\
+10          & \algcty{value}       & compatibility value, for \algfmt{CAN}      \\
 \bottomrule
 \end{tabular}
 \caption{Notation}
@@ -537,8 +540,43 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 <disambiguation> = <file>
                  | <rank>
                  | <field>
-\end{alltt}
 
+<movement> =
+    <piece>[<disambiguation>]<field>
+  | <piece>[<disambiguation>]\{.[.]<field>\}
+  | <piece><field>\alg{-}<field>
+
+
+<side-effects> = \alg{*}[<piece>]
+               | \alg{:}[<rank>]
+               | \alg{&}[<file>]
+               | [\alg{=}]<piece>
+               | \alg{==}
+               | \alg{%}[<piece>]
+               | \alg{%%}
+               | \alg{<}[<piece>]<field>
+               | \alg{>}[<piece>]<disambiguation>
+               | \alg{$}<piece>
+               | \alg{$I}<field>
+               | \alg{$W}<field>
+               | \alg{$$}
+
+<ply> = <movement>[<side-effects>]
+      | \alg{[}<movement>[<side-effects>]\alg{]}
+
+<status> = \alg{+}
+         | \alg{#}
+
+<move> =
+    \alg{(=)}
+  | \alg{...}
+  | <ply>[\alg{~}<ply>]<status>
+  | <ply>[\alg{~}<ply>]\alg{@}<piece>[<disambiguation>]
+      [.[.]<field>\alg{<}[<piece>]<field>]<field><status>
+  | <ply>[\alg{~}<ply>]\alg{@}<piece>[<disambiguation>]
+      [.[.]<field>\alg{*}]<field><status>
+
+\end{alltt}
 
 \huge{TODO}
 \normalsize{}
