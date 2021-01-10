@@ -529,18 +529,18 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \end{table}
 
 \begin{alltt}
-<promote-to-piece> =
-    \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{A}
-  | \alg{U} | \alg{W} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
-
 <pawn> = ? | \alg{P}
 
 <classic-piece> = <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
 
-<piece> = <pawn>
-        | <promote-to-piece>
+<promote-to-figure> =
+    \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{A}
+  | \alg{U} | \alg{W} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
 
-<figure> = <promote-to-piece>
+<piece> = <pawn>
+        | <promote-to-figure>
+
+<figure> = <promote-to-figure>
          | \alg{K}
          | \alg{T}
          | \alg{M}
@@ -570,7 +570,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 <side-effects> = \alg{*}[<piece>]
                | \alg{:}[<rank>]
                | \alg{&}[<file>]
-               | [\alg{=}]<promote-to-piece>
+               | [\alg{=}]<promote-to-figure>
                | \alg{==}
                | \alg{%}[<piece>]
                | \alg{%%}
@@ -581,19 +581,13 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
                | \alg{$I}<field>
                | \alg{$$}
 
-<ply> = <movable-piece><movement>
-          [<side-effects>]
-      | \alg{[}<movable-piece><movement>
-          [<side-effects>]\alg{]}
+<ply> =
+    <movable-piece><movement>
+      [<side-effects>]
+  | \alg{[}<movable-piece><movement>
+      [<side-effects>]\alg{]}
 
-<status> = ?
-         | \alg{+}
-         | \alg{#}
-
-<compatibility-move> =
-    <classic-piece>[<disambiguation>]\algcty{x}
-      <field><status>
-  | <file>\algcty{x}<field><status>[\algcty{\_e.p.}]
+<cascade> = <ply>(\alg{~}<ply>)
 
 <trance-journey> =
     \alg{@}<piece>[<disambiguation>]
@@ -612,23 +606,34 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 <pawn-sacrifice> =
     \alg{::S}[<disambiguation>]\{.[.]<field>[*]\}
+      [\alg{|}<field>|\alg{~}<move-new>]
   | \alg{::[S}[<disambiguation>]\{.[.]<field>[*]\}\alg{]}
+      [\alg{|}<field>|\alg{~}<move-new>]
 
 <move-star> =
     \alg{I}<movement>\alg{~}\alg{T}<movement>
   | \alg{[I}<movement>\alg{]~[}\alg{T}<movement>\alg{]}
 
 <move-new> =
-    <ply>(\alg{~}<ply>)
-  | <ply>(\alg{~}<ply>)<trance-journey>
-  | <ply>(\alg{~}<ply>)<teleportation>
-  | <ply>(\alg{~}<ply>)<pawn-sacrifice>
-  | (<ply>\alg{~})<move-star>
+    <cascade>
+  | <cascade><trance-journey>
+  | <cascade><teleportation>
+  | <cascade><pawn-sacrifice>
+  | [<cascade>\alg{~}]<move-star>
+
+<status> = ?
+         | \alg{+}
+         | \alg{#}
+
+<compatibility-capture> =
+    <classic-piece>[<disambiguation>]\algcty{x}
+      <field><status>
+  | <file>\algcty{x}<field><status>[\algcty{\_e.p.}]
 
 <move> =
     \alg{(=)}
   | \alg{...}
-  | <compatibility-move>
+  | <compatibility-capture>
   | <move-new><status>
 
 \end{alltt}
@@ -639,7 +644,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 % <move> =
 %     \alg{(=)}
 %   | \alg{...}
-%   | <compatibility-move>
+%   | <compatibility-capture>
 %   | <ply>(\alg{~}<ply>)<status>
 %   | <ply>(\alg{~}<ply>)<trance-journey><status>
 %   | <ply>(\alg{~}<ply>)<teleportation><status>
