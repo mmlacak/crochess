@@ -512,15 +512,16 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \textbf{Id} & \textbf{Entity}      & \textbf{Meaning}                           \\
 \midrule
  1          & \algfmt{< >}         & named entity, to be substituted            \\
- 2          & \algfmt{( )}         & grouping of options                        \\
- 3          & \algfmt{|}           & option between 2 values, can be chained    \\
- 4          & \algfmt{[ ]}         & optional item(s), zero or more times       \\
+ 2          & \algfmt{|}           & option between 2 values, can be chained    \\
+ 3          & \algfmt{[ ]}         & optional item(s), zero or one time         \\
+ 4          & \algfmt{( )}         & optional item(s), zero or more times       \\
  5          & \algfmt{\{ \}}       & optional item(s), one or more times        \\
  6          & \algfmt{..}          & option from range of values                \\
  7          & \algfmt{\#number}    & numbered reference                         \\
  8          & \algfmt{?}           & empty value                                \\
- 9          & \alg{value}          & verbatim value                             \\
-10          & \algcty{value}       & compatibility value, for \algfmt{CAN}      \\
+ 9          & \alg{\_}             & space                                      \\
+10          & \alg{value}          & verbatim value                             \\
+11          & \algcty{value}       & compatibility value, for \algfmt{CAN}      \\
 \bottomrule
 \end{tabular}
 \caption{Notation}
@@ -528,8 +529,28 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \end{table}
 
 \begin{alltt}
-<piece> = ? | \alg{P} | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K} | \alg{G} | \alg{A}
-        | \alg{U} | \alg{W} | \alg{T} | \alg{C} | \alg{S} | \alg{H} | \alg{M} | \alg{I}
+<promote-to-piece> =
+    \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{A}
+  | \alg{U} | \alg{W} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
+
+<pawn> = ? | \alg{P}
+
+<classic-piece> = <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
+
+<piece> = <pawn>
+        | <promote-to-piece>
+
+<figure> = <promote-to-piece>
+         | \alg{K}
+         | \alg{T}
+         | \alg{M}
+
+<movable-piece> = <piece>
+                | \alg{K}
+                | \alg{M}
+
+<any-piece> = <pawn>
+            | <figure>
 
 <file> = \alg{a} .. \alg{z}
 
@@ -542,41 +563,87 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
                  | <field>
 
 <movement> =
-    <piece>[<disambiguation>]<field>
-  | <piece>[<disambiguation>]\{.[.]<field>\}
-  | <piece><field>\alg{-}<field>
-
+    [<disambiguation>]<field>
+  | [<disambiguation>]\{.[.]<field>\}
+  | <field>\alg{-}<field>
 
 <side-effects> = \alg{*}[<piece>]
                | \alg{:}[<rank>]
                | \alg{&}[<file>]
-               | [\alg{=}]<piece>
+               | [\alg{=}]<promote-to-piece>
                | \alg{==}
                | \alg{%}[<piece>]
                | \alg{%%}
                | \alg{<}[<piece>]<field>
                | \alg{>}[<piece>]<disambiguation>
                | \alg{$}<piece>
-               | \alg{$I}<field>
                | \alg{$W}<field>
+               | \alg{$I}<field>
                | \alg{$$}
 
-<ply> = <movement>[<side-effects>]
-      | \alg{[}<movement>[<side-effects>]\alg{]}
+<ply> = <movable-piece><movement>
+          [<side-effects>]
+      | \alg{[}<movable-piece><movement>
+          [<side-effects>]\alg{]}
 
-<status> = \alg{+}
+<status> = ?
+         | \alg{+}
          | \alg{#}
+
+<compatibility-move> =
+    <classic-piece>[<disambiguation>]\algcty{x}
+      <field><status>
+  | <file>\algcty{x}<field><status>[\algcty{\_e.p.}]
+
+<trance-journey> =
+    \alg{@}<piece>[<disambiguation>]
+      (.[.]<field>\alg{<}[<piece>]<field>)<field>
+  | \alg{@}<piece>[<disambiguation>]
+      (.[.]<field>\alg{*}[<piece>])<field>
+  | \alg{@}\alg{@}[<piece>]
+
+<teleportation> =
+    \alg{|}<field>
+  | \{\alg{|W}<movement>\}[\alg{||}]
+  | \{\alg{|W}<movement>\}[\alg{~}<move-new>]
+  | \{\alg{|[W}<movement>\alg{]}\}[\alg{||}]
+  | \{\alg{|[W}<movement>\alg{]}\}[\alg{~}<move-new>]
+  | \alg{||}
+
+<pawn-sacrifice> =
+    \alg{::S}[<disambiguation>]\{.[.]<field>[*]\}
+  | \alg{::[S}[<disambiguation>]\{.[.]<field>[*]\}\alg{]}
+
+<move-star> =
+    \alg{I}<movement>\alg{~}\alg{T}<movement>
+  | \alg{[I}<movement>\alg{]~[}\alg{T}<movement>\alg{]}
+
+<move-new> =
+    <ply>(\alg{~}<ply>)
+  | <ply>(\alg{~}<ply>)<trance-journey>
+  | <ply>(\alg{~}<ply>)<teleportation>
+  | <ply>(\alg{~}<ply>)<pawn-sacrifice>
+  | (<ply>\alg{~})<move-star>
 
 <move> =
     \alg{(=)}
   | \alg{...}
-  | <ply>[\alg{~}<ply>]<status>
-  | <ply>[\alg{~}<ply>]\alg{@}<piece>[<disambiguation>]
-      [.[.]<field>\alg{<}[<piece>]<field>]<field><status>
-  | <ply>[\alg{~}<ply>]\alg{@}<piece>[<disambiguation>]
-      [.[.]<field>\alg{*}]<field><status>
+  | <compatibility-move>
+  | <move-new><status>
 
 \end{alltt}
+
+% <piece> = ? | \alg{P} | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K} | \alg{G} | \alg{A}
+%         | \alg{U} | \alg{W} | \alg{T} | \alg{C} | \alg{S} | \alg{H} | \alg{M} | \alg{I}
+
+% <move> =
+%     \alg{(=)}
+%   | \alg{...}
+%   | <compatibility-move>
+%   | <ply>(\alg{~}<ply>)<status>
+%   | <ply>(\alg{~}<ply>)<trance-journey><status>
+%   | <ply>(\alg{~}<ply>)<teleportation><status>
+%   | <ply>(\alg{~}<ply>)<pawn-sacrifice><status>
 
 \huge{TODO}
 \normalsize{}
