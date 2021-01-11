@@ -614,9 +614,13 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
   | \alg{||}
 
 <pawn-sacrifice> =
-    \alg{::S}[<disambiguation>]\{.[.]<field>[*]\}
+    \alg{S}<movement>\alg{~A}<movement>\alg{::}
+  | \alg{[S}<movement>\alg{]~[A}<movement>\alg{]::}
+
+<pawn-sacrifice-capture> =
+    \alg{S}[<disambiguation>]\{.[.]<field>[*]\}
       [\alg{|}<field>|\alg{~}<move-new>]
-  | \alg{::[S}[<disambiguation>]\{.[.]<field>[*]\}\alg{]}
+  | \alg{[S}[<disambiguation>]\{.[.]<field>[*]\}\alg{]}
       [\alg{|}<field>|\alg{~}<move-new>]
 
 <move-star> =
@@ -627,7 +631,8 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
     <cascade>
   | <cascade><trance-journey>
   | <cascade><teleportation>
-  | <cascade><pawn-sacrifice>
+  | [<cascade>\alg{~}]<pawn-sacrifice>
+      <pawn-sacrifice-capture>
   | [<cascade>\alg{~}]<move-star>
 
 <status> = ?
