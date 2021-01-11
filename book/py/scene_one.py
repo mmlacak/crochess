@@ -96,9 +96,43 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_04_neighboring_fields(self, bt=BoardType.One):
+    def scn_o_04_activating_starchild(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_04_neighboring_fields', bt, width=5, height=5)
+        scene = Scene('scn_o_04_activating_starchild', bt)
+
+        start_I = (8, 3)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_W_A = (23, 21)
+        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
+
+        start_W_B = (17, 3)
+        scene.board.set_piece(*start_W_B, piece=PieceType.Wave)
+
+        start_Q = (22, 8)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        start_w = (2, 17)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_n = (7, 8)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        start_P = (21, 2)
+        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *(start_Q + start_W_B), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W_B + start_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_W_A), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_05_neighboring_fields(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_05_neighboring_fields', bt, width=5, height=5)
 
         start_I = (2, 2)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -109,9 +143,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_05_starchild_activating_fields(self, bt=BoardType.One):
+    def scn_o_06_starchild_activating_fields(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_05_starchild_activating_fields', bt, width=5, height=5)
+        scene = Scene('scn_o_06_starchild_activating_fields', bt, width=5, height=5)
 
         start_I = (2, 2)
         start_b = (2, 3)
@@ -134,9 +168,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_06_starchild_activating_wave_momentum_init(self, bt=BoardType.One):
+    def scn_o_07_starchild_activating_wave_momentum_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_06_starchild_activating_wave_momentum_init', bt, width=5, height=5)
+        scene = Scene('scn_o_07_starchild_activating_wave_momentum_init', bt, width=5, height=5)
 
         start_I = (2, 2)
         start_W = (1, 1)
@@ -169,9 +203,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_07_starchild_activating_wave_momentum_end(self, bt=BoardType.One):
+    def scn_o_08_starchild_activating_wave_momentum_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_07_starchild_activating_wave_momentum_end', bt)
+        scene = Scene('scn_o_08_starchild_activating_wave_momentum_end', bt)
 
         start_I = (1, 1)
         start_W = (21, 21)
@@ -200,9 +234,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_08_starchild_moving_star_init(self, bt=BoardType.One):
+    def scn_o_09_starchild_moving_star_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_08_starchild_moving_star_init', bt, width=5, height=5)
+        scene = Scene('scn_o_09_starchild_moving_star_init', bt, width=5, height=5)
 
         start_I = (0, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -233,9 +267,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_09_starchild_moving_star_end(self, bt=BoardType.One):
+    def scn_o_10_starchild_moving_star_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_09_starchild_moving_star_end', bt, width=5, height=5)
+        scene = Scene('scn_o_10_starchild_moving_star_end', bt, width=5, height=5)
 
         start_I = (0, 0)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -265,9 +299,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_10_starchild_not_moving_monolith_init(self, bt=BoardType.One):
+    def scn_o_11_starchild_not_moving_monolith_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_10_starchild_not_moving_monolith_init', bt, width=5, height=5)
+        scene = Scene('scn_o_11_starchild_not_moving_monolith_init', bt, width=5, height=5)
 
         start_I = (3, 3)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -290,9 +324,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_11_starchild_not_moving_monolith_end(self, bt=BoardType.One):
+    def scn_o_12_starchild_not_moving_monolith_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_11_starchild_not_moving_monolith_end', bt, width=5, height=5)
+        scene = Scene('scn_o_12_starchild_not_moving_monolith_end', bt, width=5, height=5)
 
         start_I = (1, 2)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -315,9 +349,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_12_starchild_conversion_immunity_init(self, bt=BoardType.One):
+    def scn_o_13_starchild_conversion_immunity_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_12_starchild_conversion_immunity_init', bt)
+        scene = Scene('scn_o_13_starchild_conversion_immunity_init', bt)
 
         start_I = (7, 22)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -333,9 +367,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_13_star_moved_wave_teleportation(self, bt=BoardType.One):
+    def scn_o_14_star_moved_wave_teleportation(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_13_star_moved_wave_teleportation', bt)
+        scene = Scene('scn_o_14_star_moved_wave_teleportation', bt)
 
         start_W = (11, 9)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -362,9 +396,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_14_star_moved_wave_off_board(self, bt=BoardType.One):
+    def scn_o_15_star_moved_wave_off_board(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_14_star_moved_wave_off_board', bt, x=-4)
+        scene = Scene('scn_o_15_star_moved_wave_off_board', bt, x=-4)
 
         start_W = (11, 9)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -395,9 +429,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_15_trance_journey_init_starchild(self, bt=BoardType.One):
+    def scn_o_16_trance_journey_init_starchild(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_15_trance_journey_init_starchild', bt, width=9, height=9)
+        scene = Scene('scn_o_16_trance_journey_init_starchild', bt, width=9, height=9)
 
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
@@ -425,9 +459,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_16_trance_journey_init_shaman(self, bt=BoardType.One):
+    def scn_o_17_trance_journey_init_shaman(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_16_trance_journey_init_shaman', bt, width=9, height=9)
+        scene = Scene('scn_o_17_trance_journey_init_shaman', bt, width=9, height=9)
 
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
@@ -457,9 +491,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_17_trance_journey_started_by_shaman(self, bt=BoardType.One):
+    def scn_o_18_trance_journey_started_by_shaman(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_17_trance_journey_started_by_shaman', bt)
+        scene = Scene('scn_o_18_trance_journey_started_by_shaman', bt)
 
         start_b = (7, 7)
         end_b = (9, 18)
@@ -500,9 +534,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_18_push_pull_trance_journey_init(self, bt=BoardType.One):
+    def scn_o_19_push_pull_trance_journey_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_18_push_pull_trance_journey_init', bt, width=9, height=9)
+        scene = Scene('scn_o_19_push_pull_trance_journey_init', bt, width=9, height=9)
 
         start_i = (6, 5)
         scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
@@ -524,9 +558,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_19_push_pull_trance_journey_entrancing(self, bt=BoardType.One):
+    def scn_o_20_push_pull_trance_journey_entrancing(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_19_push_pull_trance_journey_entrancing', bt, width=9, height=9)
+        scene = Scene('scn_o_20_push_pull_trance_journey_entrancing', bt, width=9, height=9)
 
         start_i = (6, 6)
         scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
@@ -548,9 +582,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_20_push_pull_trance_journey_entranced(self, bt=BoardType.One):
+    def scn_o_21_push_pull_trance_journey_entranced(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_20_push_pull_trance_journey_entranced', bt)
+        scene = Scene('scn_o_21_push_pull_trance_journey_entranced', bt)
 
         start_i = (7, 7)
         scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
@@ -588,9 +622,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_21_trance_journey_failed(self, bt=BoardType.One):
+    def scn_o_22_trance_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_21_trance_journey_failed', bt)
+        scene = Scene('scn_o_22_trance_journey_failed', bt)
 
         start_b = (25, 0)
         adder = GS.adder(start_b)
@@ -636,9 +670,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_22_syzygy_monolith(self, bt=BoardType.One):
+    def scn_o_23_syzygy_monolith(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_22_syzygy_monolith', bt)
+        scene = Scene('scn_o_23_syzygy_monolith', bt)
 
         start_M = (12, 8)
         end_M = (13, 6)
@@ -668,9 +702,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_23_syzygy_starchild_init(self, bt=BoardType.One):
+    def scn_o_24_syzygy_starchild_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_23_syzygy_starchild_init', bt)
+        scene = Scene('scn_o_24_syzygy_starchild_init', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -702,9 +736,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_24_syzygy_starchild_end(self, bt=BoardType.One):
+    def scn_o_25_syzygy_starchild_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_24_syzygy_starchild_end', bt)
+        scene = Scene('scn_o_25_syzygy_starchild_end', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -729,9 +763,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_25_syzygy_starchild_ressurection(self, bt=BoardType.One):
+    def scn_o_26_syzygy_starchild_ressurection(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_25_syzygy_starchild_ressurection', bt)
+        scene = Scene('scn_o_26_syzygy_starchild_ressurection', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)

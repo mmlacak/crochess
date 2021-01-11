@@ -296,7 +296,7 @@ noted it would be \alg{[Bh9-d5]\~{}[Ad5-h5\%R]}.
 Starchild is immune to conversion, Pyramid attempting such a thing is
 \hyperref[sec:Terms/Oblation]{oblationed}. Failed conversion is noted with \alg{\%\%} (double percentage)
 after destination field. This example of
-\hyperref[fig:scn_o_12_starchild_conversion_immunity_init]{conversion immunity} would be written as
+\hyperref[fig:scn_o_13_starchild_conversion_immunity_init]{conversion immunity} would be written as
 \alg{Bl23\~{}Ah23\%\%}. In \algfmt{XAN}, with ply gathering, it would be
 \alg{[Bs16-l23]\~{}[Al23-h23\%\%]}.
 
@@ -324,7 +324,7 @@ also denote another. For instance, in addition to original path, \alg{C..j9..p15
 \label{sec:Appendix/Notation/Trance-journey}
 
 Trance-journey is noted with \alg{@} (at sign), instead of normal ply separator \alg{\~{}} (tilde),
-before \hyperref[fig:scn_o_15_trance_journey_init_starchild]{entranced piece} takes off. This
+before \hyperref[fig:scn_o_16_trance_journey_init_starchild]{entranced piece} takes off. This
 \hyperref[fig:scn_cot_18_light_light_shaman_interaction_start]{trance-journey example}, if without any
 interactions with pieces on entranced Shaman's step-fields, would be written as \alg{Hd11\~{}We13@Hg24}.
 In \algfmt{XAN}, it would be \alg{[Hf10-d11]\~{}[Wd11-e13]@[He13-g24]}.
@@ -351,7 +351,7 @@ would be \\
 
 Failed trance-journey is noted with \alg{@@} (double at-sign) after entrancing ply. Optionally, oblationed
 piece can be written after \alg{@@}. In this
-\hyperref[fig:scn_o_21_trance_journey_failed]{failed trance-journey example} all step-fields are blocked by
+\hyperref[fig:scn_o_22_trance_journey_failed]{failed trance-journey example} all step-fields are blocked by
 Kings, Stars, Monoliths, so entranced dark Bishop is oblationed, which is written as \alg{Iy2\~{}Iz1@@},
 and in \algfmt{XAN}, with plies gathering and oblationed piece, as \alg{[Iz3-y2]\~{}[Iy2-z1]@@B}.
 
@@ -378,11 +378,11 @@ If there was no suitable empty field at which Wave or Starchild could be ressure
 performed, which could be written by appending \alg{\$\$} (double dollar) after the ply. Since there are
 no actual side-effects to failed ressurection, \alg{\$\$} is optional.
 
-In case \hyperref[fig:scn_o_23_syzygy_starchild_init]{ressurection example} ended by
-\hyperref[fig:scn_o_24_syzygy_starchild_end]{ressurecting Queen}, this would be written as \alg{It9\$Q},
+In case \hyperref[fig:scn_o_24_syzygy_starchild_init]{ressurection example} ended by
+\hyperref[fig:scn_o_25_syzygy_starchild_end]{ressurecting Queen}, this would be written as \alg{It9\$Q},
 and in \algfmt{XAN} it would be \alg{Ii23-t9\$Q}.
 
-If previous example ended by \hyperref[fig:scn_o_25_syzygy_starchild_ressurection]{ressurecting Starchild},
+If previous example ended by \hyperref[fig:scn_o_26_syzygy_starchild_ressurection]{ressurecting Starchild},
 it would be written as \alg{It9\$Iu8}. In \algfmt{XAN}, it would be \alg{Ii23-t9\$Iu8}.
 
 If all fields suitable for ressurection are occupied, it is written as \alg{It9\$\$}, in \algfmt{XAN} it
@@ -579,7 +579,8 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
                | \alg{==}
                | \alg{%}[<disposable-piece>]
                | \alg{%%}
-               | \alg{<}[<disposable-piece>]<field>
+               | \alg{<}[<disposable-piece>]
+                   <field>
                | \alg{>}[<disposable-piece>]
                    <disambiguation>
                | \alg{$}<disposable-piece>
@@ -597,10 +598,11 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 <trance-journey> =
     \alg{@}<disposable-piece>[<disambiguation>]
-      (.[.]<field>\alg{<}[<disposable-piece>]<field>)
-      <field>
+      (.[.]<field>\alg{<}[<disposable-piece>]
+      <field>)<field>
   | \alg{@}<disposable-piece>[<disambiguation>]
-      (.[.]<field>\alg{*}[<disposable-piece>])<field>
+      (.[.]<field>\alg{*}[<disposable-piece>])
+      <field>
   | \alg{@}\alg{@}[<disposable-piece>]
 
 <teleportation> =
