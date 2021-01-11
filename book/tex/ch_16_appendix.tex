@@ -23,9 +23,9 @@ this might also be interpreted as disambiguation.
 
 \clearpage % ..........................................................
 
-\section*{Abbreviations}
-\addcontentsline{toc}{section}{Abbreviations}
-\label{sec:Appendix/Abbreviations}
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+\label{sec:Appendix/Introduction}
 
 \begin{table}[!h]
 \centering
@@ -49,7 +49,7 @@ this might also be interpreted as disambiguation.
 \bottomrule
 \end{tabular}
 \caption{Abbreviations}
-\label{tbl:Appendix/Abbreviations}
+\label{tbl:Appendix/Introduction/Abbreviations}
 \end{table}
 
 For official reference FIDE handbook is used, current date of publication is 2018-01-01: \\
@@ -64,9 +64,9 @@ e.g. \algfmt{FIDE~C.9.3}.
 
 \clearpage % ..........................................................
 
-\section*{Variants}
-\addcontentsline{toc}{section}{Variants}
-\label{sec:Appendix/Variants}
+\subsection*{Variants}
+\addcontentsline{toc}{subsection}{Variants}
+\label{sec:Appendix/Introduction/Variants}
 
 \begin{table}[!h]
 \centering
@@ -93,7 +93,7 @@ e.g. \algfmt{FIDE~C.9.3}.
 \bottomrule
 \end{tabular}
 \caption{Variants}
-\label{tbl:Appendix/Variants}
+\label{tbl:Appendix/Introduction/Variants}
 \end{table}
 
 Each new variant contains all previously introduced pieces. For instance, Age of Aquarius
@@ -101,9 +101,9 @@ beside Unicorn also contains Pyramid and Pegasus, on top of all classical pieces
 
 \clearpage % ..........................................................
 
-\section*{Chessboards}
-\addcontentsline{toc}{section}{Chessboards}
-\label{sec:Appendix/Chessboards}
+\subsection*{Chessboards}
+\addcontentsline{toc}{subsection}{Chessboards}
+\label{sec:Appendix/Introduction/Chessboards}
 
 \begin{table}[!h]
 \centering
@@ -126,7 +126,7 @@ beside Unicorn also contains Pyramid and Pegasus, on top of all classical pieces
 \bottomrule
 \end{tabular}
 \caption{Chessboards}
-\label{tbl:Appendix/Chessboards}
+\label{tbl:Appendix/Introduction/Chessboards}
 \end{table}
 
 Positions on a chessboard are written the same as in base algebraic notation, file + rank,
@@ -134,9 +134,9 @@ e.g. \alg{m2} is initial position of light Pawn in Nineteen variant.
 
 \clearpage % ..........................................................
 
-\section*{Pieces}
-\addcontentsline{toc}{section}{Pieces}
-\label{sec:Appendix/Pieces}
+\subsection*{Pieces}
+\addcontentsline{toc}{subsection}{Pieces}
+\label{sec:Appendix/Introduction/Pieces}
 
 \begin{table}[!h]
 \centering
@@ -163,7 +163,7 @@ e.g. \alg{m2} is initial position of light Pawn in Nineteen variant.
 \bottomrule
 \end{tabular}
 \caption{Pieces}
-\label{tbl:Appendix/Pieces}
+\label{tbl:Appendix/Introduction/Pieces}
 \end{table}
 
 Each piece is present in variant in which it is introduced, and all subsequent ones.
@@ -189,7 +189,7 @@ When moving Pawn, symbol is omitted, so only destination field is written. In th
 
 \subsection*{Disambiguation}
 \addcontentsline{toc}{subsection}{Disambiguation}
-\label{sec:Appendix/Disambiguation}
+\label{sec:Appendix/Notation/Disambiguation}
 
 Disambiguation is position notation, shortened to minimum neccessary to distinguish from another
 position(s). It contains one of: just file, just rank, rank + file, in that order of preferance.
@@ -205,7 +205,7 @@ as \alg{Gcf8}.
 
 \subsection*{Capturing}
 \addcontentsline{toc}{subsection}{Capturing}
-\label{sec:Appendix/Capturing}
+\label{sec:Appendix/Notation/Capturing}
 
 Capturing move is denoted with \alg{*} (asterisk) at the end, usually followed by the captured
 piece. Only for Classical Chess capturing is denoted with \algcty{x}, before destination field.
@@ -222,7 +222,7 @@ if captured piece is also written \alg{e8*W}.
 
 \subsection*{En passant}
 \addcontentsline{toc}{subsection}{En passant}
-\label{sec:Appendix/En passant}
+\label{sec:Appendix/Notation/En passant}
 
 En passant is denoted with \alg{:} (colon), after destination field. In this
 \hyperref[fig:04_croatian_ties_en_passant]{en passant example} dark Pawn on the right might capture
@@ -238,7 +238,7 @@ In \algfmt{CAN}, both en passant and its disambiguation form are written as \alg
 
 \subsection*{Castling}
 \addcontentsline{toc}{subsection}{Castling}
-\label{sec:Appendix/Castlingn}
+\label{sec:Appendix/Notation/Castlingn}
 
 Castling is noted with \alg{\&} (ampersand), after King's symbol and destination file. This
 \hyperref[fig:age_of_aquarius_castling_left_04]{castling example} would be written as \alg{Kd\&},
@@ -251,7 +251,7 @@ Only for Classical Chess \algcty{0-0} and \algcty{O-O} for King's side, \algcty{
 
 \subsection*{Pawn promotion}
 \addcontentsline{toc}{subsection}{Pawn promotion}
-\label{sec:Appendix/Pawn promotion}
+\label{sec:Appendix/Notation/Pawn promotion}
 
 Pawn promotion is also written the same way as in \algfmt{CAN}, as described in detail: \\
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Pawn\_promotion}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
@@ -267,7 +267,7 @@ sign), like so: \alg{e12==}.
 
 \subsection*{Ply}
 \addcontentsline{toc}{subsection}{Ply}
-\label{sec:Appendix/Ply}
+\label{sec:Appendix/Notation/Ply}
 
 \hyperref[sec:Terms/Ply]{Ply} is a movement of a single piece in a cascading move. Two plies
 are separated by \~{} (tilde). In the example starting with
@@ -282,7 +282,7 @@ gather each ply, like so: \\
 
 \subsection*{Conversion}
 \addcontentsline{toc}{subsection}{Conversion}
-\label{sec:Appendix/Conversion}
+\label{sec:Appendix/Notation/Conversion}
 
 Conversion is noted with \alg{\%} (percentage) after destination field. Example starting with
 \hyperref[fig:scn_ma_08_conversion_init]{Bishop activating Pyramid}, which then converts opponent's
@@ -302,7 +302,7 @@ after destination field. This example of
 
 \subsection*{Complex movement}
 \addcontentsline{toc}{subsection}{Complex movement}
-\label{sec:Appendix/Complex movement}
+\label{sec:Appendix/Notation/Complex movement}
 
 Individual steps are separated by \alg{.} (single dot), multiple steps are separated by \alg{..} (two dots).
 In this example, \hyperref[fig:scn_hd_03_centaur_multi_step]{Centaur has to choose 2 different steps},
@@ -321,7 +321,7 @@ also denote another. For instance, in addition to original path, \alg{C..j9..p15
 
 \subsection*{Trance-journey}
 \addcontentsline{toc}{subsection}{Trance-journey}
-\label{sec:Appendix/Trance-journey}
+\label{sec:Appendix/Notation/Trance-journey}
 
 Trance-journey is noted with \alg{@} (at sign), instead of normal ply separator \alg{\~{}} (tilde),
 before \hyperref[fig:scn_o_15_trance_journey_init_starchild]{entranced piece} takes off. This
@@ -357,7 +357,7 @@ and in \algfmt{XAN}, with plies gathering and oblationed piece, as \alg{[Iz3-y2]
 
 \subsection*{Syzygy, demoting to Pawn}
 \addcontentsline{toc}{subsection}{Syzygy, demoting to Pawn}
-\label{sec:Appendix/Syzygy, demoting to Pawn}
+\label{sec:Appendix/Notation/Syzygy, demoting to Pawn}
 
 Demoting to Pawn is noted by writing \alg{>} (greater-than), followed by disambiguating position, i.e.
 one of rank, file or rank + file, in that order. Optionally, disambiguation can be preceded by piece which
@@ -370,7 +370,7 @@ is no plies gathering, since only Monolith moved, so there is only one ply.
 
 \subsection*{Syzygy, ressurection}
 \addcontentsline{toc}{subsection}{Syzygy, ressurection}
-\label{sec:Appendix/Syzygy, ressurection}
+\label{sec:Appendix/Notation/Syzygy, ressurection}
 
 Ressurection is written by appending \alg{\$} (dollar sign) after the move, followed by piece which was
 ressurected. If Wave or Starchild has been ressurected on an empty field, position is appended after piece.
@@ -391,7 +391,7 @@ intention.
 
 \subsection*{Teleportation}
 \addcontentsline{toc}{subsection}{Teleportation}
-\label{sec:Appendix/Teleportation}
+\label{sec:Appendix/Notation/Teleportation}
 
 Teleportation is noted by separating plies with \alg{|} (vertical bar) instead of usual \alg{\~{}} (tilde),
 followed by field at which piece teleported. If Wave teleported, vertical bar is followed by Wave and its
@@ -424,7 +424,7 @@ diagonal. In \algfmt{XAN}, with plies gathering, it would be \\
 
 \subsection*{Pawn-sacrifice}
 \addcontentsline{toc}{subsection}{Pawn-sacrifice}
-\label{sec:Appendix/Pawn-sacrifice}
+\label{sec:Appendix/Notation/Pawn-sacrifice}
 
 Pawn-sacrifice is written by separating plies with \alg{::} (double colon) instead of usual \alg{\~{}} (tilde),
 followed by capturing steps. All Pawn-capturing steps made by Serpent must be written, captured pieces are not
@@ -451,7 +451,7 @@ different path.
 
 \subsection*{Off-board traversal}
 \addcontentsline{toc}{subsection}{Off-board traversal}
-\label{sec:Appendix/Off-board traversal}
+\label{sec:Appendix/Notation/Off-board traversal}
 
 Steps onto virtual, off-board fields are not written. For trance-journey, each possible destination field designates
 unique path on its own, so additional fields are neccessary only if there is some kind of interactions between
@@ -482,7 +482,7 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 
 \subsection*{Move symbols, annotations}
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
-\label{sec:Appendix/Move symbols, annotations}
+\label{sec:Appendix/Notation/Move symbols, annotations}
 
 Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}.
 Checks are noted with \alg{+} (plus sign), checkmates are noted with \alg{\#} (hashtag), these are optional, see \algfmt{FIDE C.13}.
@@ -501,9 +501,9 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 \clearpage % ..........................................................
 
-\section*{Summary}
-\addcontentsline{toc}{section}{Summary}
-\label{sec:Appendix/Summary}
+\section*{Grammar}
+\addcontentsline{toc}{section}{Grammar}
+\label{sec:Appendix/Grammar}
 
 \begin{table}[!h]
 \centering
@@ -524,9 +524,14 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 11          & \algcty{value}       & compatibility value, for \algfmt{CAN}      \\
 \bottomrule
 \end{tabular}
-\caption{Notation}
-\label{tbl:Appendix/Summary/Notation}
+\caption{Grammar}
+\label{tbl:Appendix/Grammar}
 \end{table}
+
+\huge{TODO}
+\normalsize{}
+
+\clearpage % ..........................................................
 
 \begin{alltt}
 <pawn> = ? | \alg{P}
@@ -537,20 +542,20 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
     \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{A}
   | \alg{U} | \alg{W} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
 
-<piece> = <pawn>
-        | <promote-to-figure>
+<disposable-piece> = <pawn>
+                   | <promote-to-figure>
 
 <figure> = <promote-to-figure>
          | \alg{K}
          | \alg{T}
          | \alg{M}
 
-<movable-piece> = <piece>
+<movable-piece> = <disposable-piece>
                 | \alg{K}
                 | \alg{M}
 
-<any-piece> = <pawn>
-            | <figure>
+<piece> = <pawn>
+        | <figure>
 
 <file> = \alg{a} .. \alg{z}
 
@@ -567,16 +572,17 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
   | [<disambiguation>]\{.[.]<field>\}
   | <field>\alg{-}<field>
 
-<side-effects> = \alg{*}[<piece>]
+<side-effects> = \alg{*}[<disposable-piece>]
                | \alg{:}[<rank>]
                | \alg{&}[<file>]
                | [\alg{=}]<promote-to-figure>
                | \alg{==}
-               | \alg{%}[<piece>]
+               | \alg{%}[<disposable-piece>]
                | \alg{%%}
-               | \alg{<}[<piece>]<field>
-               | \alg{>}[<piece>]<disambiguation>
-               | \alg{$}<piece>
+               | \alg{<}[<disposable-piece>]<field>
+               | \alg{>}[<disposable-piece>]
+                   <disambiguation>
+               | \alg{$}<disposable-piece>
                | \alg{$W}<field>
                | \alg{$I}<field>
                | \alg{$$}
@@ -590,11 +596,12 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 <cascade> = <ply>(\alg{~}<ply>)
 
 <trance-journey> =
-    \alg{@}<piece>[<disambiguation>]
-      (.[.]<field>\alg{<}[<piece>]<field>)<field>
-  | \alg{@}<piece>[<disambiguation>]
-      (.[.]<field>\alg{*}[<piece>])<field>
-  | \alg{@}\alg{@}[<piece>]
+    \alg{@}<disposable-piece>[<disambiguation>]
+      (.[.]<field>\alg{<}[<disposable-piece>]<field>)
+      <field>
+  | \alg{@}<disposable-piece>[<disambiguation>]
+      (.[.]<field>\alg{*}[<disposable-piece>])<field>
+  | \alg{@}\alg{@}[<disposable-piece>]
 
 <teleportation> =
     \alg{|}<field>
@@ -638,22 +645,11 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 \end{alltt}
 
-% <piece> = ? | \alg{P} | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K} | \alg{G} | \alg{A}
-%         | \alg{U} | \alg{W} | \alg{T} | \alg{C} | \alg{S} | \alg{H} | \alg{M} | \alg{I}
-
-% <move> =
-%     \alg{(=)}
-%   | \alg{...}
-%   | <compatibility-capture>
-%   | <ply>(\alg{~}<ply>)<status>
-%   | <ply>(\alg{~}<ply>)<trance-journey><status>
-%   | <ply>(\alg{~}<ply>)<teleportation><status>
-%   | <ply>(\alg{~}<ply>)<pawn-sacrifice><status>
-
-\huge{TODO}
-\normalsize{}
-
 \clearpage % ..........................................................
+
+\section*{Summary}
+\addcontentsline{toc}{section}{Summary}
+\label{sec:Appendix/Summary}
 
 \subsection*{Ply side-effects}
 \addcontentsline{toc}{subsection}{Ply side-effects}
@@ -741,9 +737,9 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 \clearpage % ..........................................................
 
-\section*{Movement limits}
-\addcontentsline{toc}{section}{Movement limits}
-\label{sec:Appendix/Movement limits}
+\subsection*{Movement limits}
+\addcontentsline{toc}{subsection}{Movement limits}
+\label{sec:Appendix/Summary/Movement limits}
 
 \begin{table}[!h]
 \centering
@@ -758,16 +754,16 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \bottomrule
 \end{tabular}
 \caption{Movement limits}
-\label{tbl:Appendix/Movement limits}
+\label{tbl:Appendix/Summary/Movement limits}
 \end{table}
 
 . . .
 
 \clearpage % ..........................................................
 
-\section*{Monolith initial positions}
-\addcontentsline{toc}{section}{Monolith initial positions}
-\label{sec:Appendix/Monolith initial positions}
+\subsection*{Monolith initial positions}
+\addcontentsline{toc}{subsection}{Monolith initial positions}
+\label{sec:Appendix/Summary/Monolith initial positions}
 
 \begin{table}[!h]
 \centering
@@ -781,15 +777,15 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \bottomrule
 \end{tabular}
 \caption{Monolith initial positions}
-\label{tbl:Appendix/Monolith initial positions}
+\label{tbl:Appendix/Summary/Monolith initial positions}
 \end{table}
 
 . . .
 
 \clearpage % ..........................................................
 
-\section*{Movement of Wave}
-\addcontentsline{toc}{section}{Movement of Wave}
+\subsection*{Movement of Wave}
+\addcontentsline{toc}{subsection}{Movement of Wave}
 \label{sec:Appendix/Movement of Wave}
 
 Movement of Wave ... as multi-step piece activating it  ...
@@ -801,9 +797,9 @@ Movement of Wave ... as multi-step piece activating it  ...
 
 \clearpage % ..........................................................
 
-\section*{Initial setups}
-\addcontentsline{toc}{section}{Initial setups}
-\label{sec:Appendix/Initial setups}
+\subsection*{Initial setups}
+\addcontentsline{toc}{subsection}{Initial setups}
+\label{sec:Appendix/Summary/Initial setups}
 Initial setups ...
 
 % Initial setup for Light player is (mirrored for Dark one):
