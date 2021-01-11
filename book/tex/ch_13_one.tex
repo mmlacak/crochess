@@ -226,18 +226,22 @@ accessible, because it was initially located on a dark field.
 
 \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_09_starchild_moving_star_init.png}
 \caption{Moving into a Star}
 \label{fig:scn_o_09_starchild_moving_star_init}
 \end{wrapfigure}
-Starchild's activation fields are enumerated. Starchild can move a Star by activating it,
-the same way as any other piece, i.e. by capturing field at which Star is located.
+Starchild's activation fields are enumerated, these are Starchild's neighboring-fields.
+Starchild can move a Star by activating it, the same way as any other piece, i.e. by
+capturing field at which Star is located.
 
-\vspace*{2.1\baselineskip}
+On the same activation fields Starchild can also activate any own piece and opponent's
+Starchild; Starchild cannot activate neither Kings (own and opponent's), nor Monoliths.
+
+% \vspace*{2.1\baselineskip}
 \noindent
-\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_10_starchild_moving_star_end.png}
 \caption{Moving a Star}
@@ -245,6 +249,9 @@ the same way as any other piece, i.e. by capturing field at which Star is locate
 \end{wrapfigure}
 Once activated, Star can move to any empty neighboring-field, which all are enumerated in
 example on the left.
+
+Note, even if activated Starchild received more than 1 momentum, Star can only be activated
+on Starchild's neighboring-fields, and move for only one step.
 
 \clearpage % ..........................................................
 
