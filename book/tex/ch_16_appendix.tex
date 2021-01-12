@@ -529,13 +529,14 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \end{table}
 
 Summary tries to describe notational grammar in more formal, concise way.
-Annotations are not covered, as they are short-hand commentary, usually added
-later when game is presented to readers.
+Annotations are not covered, as they are short-hand for non-standardized
+commentary.
 
 Verbatim values (e.g. \alg{x}) are as they appear in \algfmt{AN}, compatibility
 values (e.g. \algcty{x}) are used exclusively for \algfmt{CAN}. Empty value
-\algfmt{?} is mostly used to denote Pawn, when its piece symbol is dropped from
-notation.
+\algfmt{?} is used to denote Pawn (when its piece symbol is dropped from notation),
+when there is no special side-effect to ply, and when there is no special move
+status.
 
 Option separator \algfmt{|} is used to present choice between 2 values, e.g.
 \algfmt{?} \algfmt{|} \alg{P}. Options can be chained, as in
@@ -585,8 +586,8 @@ are available for a particular variant see
 <classic-piece> = <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
 
 <promote-to-figure> =
-    \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{A}
-  | \alg{U} | \alg{W} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
+  \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{A}
+| \alg{U} | \alg{W} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
 
 <disposable-piece> = <pawn>
                    | <promote-to-figure>
@@ -612,13 +613,18 @@ are available for a particular variant see
 <disambiguation> = <file>
                  | <rank>
                  | <field>
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <movement> =
-    [<disambiguation>]<field>
-  | [<disambiguation>]\{.[.]<field>\}
-  | <field>\alg{-}<field>
+  [<disambiguation>]<field>
+| [<disambiguation>]\{.[.]<field>\}
+| <field>\alg{-}<field>
 
-<side-effects> = \alg{*}[<disposable-piece>]
+<side-effects> = ?
+               | \alg{*}[<disposable-piece>]
                | \alg{:}[<rank>]
                | \alg{&}[<file>]
                | [\alg{=}]<promote-to-figure>
@@ -635,68 +641,108 @@ are available for a particular variant see
                | \alg{$$}
 
 <ply> =
-    <movable-piece><movement>
-      [<side-effects>]
-  | \alg{[}<movable-piece><movement>
-      [<side-effects>]\alg{]}
+  <movable-piece><movement><side-effects>
+| \alg{[}<movable-piece><movement><side-effects>\alg{]}
 
 <cascade> = <ply>(\alg{~}<ply>)
 
-<trance-journey> =
-    \alg{@}<disposable-piece>[<disambiguation>]
-      (.[.]<field>\alg{<}[<disposable-piece>]
-      <field>)<field>
-  | \alg{@}<disposable-piece>[<disambiguation>]
-      (.[.]<field>\alg{*}[<disposable-piece>])
-      <field>
-  | \alg{@}\alg{@}[<disposable-piece>]
-
 <teleportation> =
-    \alg{|}<field>
-  | \{\alg{|W}<movement>\}[\alg{||}]
-  | \{\alg{|W}<movement>\}[\alg{~}<move-new>]
-  | \{\alg{|[W}<movement>\alg{]}\}[\alg{||}]
-  | \{\alg{|[W}<movement>\alg{]}\}[\alg{~}<move-new>]
-  | \alg{||}
+  \alg{|}<field>
+| \{\alg{|W}<movement>\}[\alg{||}]
+| \{\alg{|W}<movement>\}[\alg{~}<move-new>]
+| \alg{||}
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+<trance-journey> =
+  \alg{@}<disposable-piece>[<disambiguation>]
+    (.[.]<field>\alg{<}[<disposable-piece>]
+    <field>)<field>
+| \alg{@}<disposable-piece>[<disambiguation>]
+    (.[.]<field>\alg{*}[<disposable-piece>])
+    <field>
+| \alg{@}\alg{@}[<disposable-piece>]
 
 <pawn-sacrifice> =
-    \alg{S}<movement>\alg{~A}<movement>\alg{::}
-  | \alg{[S}<movement>\alg{]~[A}<movement>\alg{]::}
+  \alg{S}<movement>\alg{~A}<movement>\alg{::}
 
 <pawn-sacrifice-capture> =
-    \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
-      [\alg{|}<field>|\alg{~}<move-new>]
-  | \alg{[S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}\alg{]}
-      [\alg{|}<field>|\alg{~}<move-new>]
+  \alg{S}[<disambiguation>]
+    \{.[.]<field>[\alg{*}<pawn>]\}
+    [\alg{|}<field>|\alg{~}<move-new>]
+| \alg{S}<movement>
+    [\alg{|}<field>|\alg{~}<move-new>]
 
 <move-star> =
-    \alg{I}<movement>\alg{~}\alg{T}<movement>
-  | \alg{[I}<movement>\alg{]~[}\alg{T}<movement>\alg{]}
+  \alg{I}<movement>\alg{~}\alg{T}<movement>
 
 <move-new> =
-    <cascade>
-  | <cascade><trance-journey>
-  | <cascade><teleportation>
-  | [<cascade>\alg{~}]<pawn-sacrifice>
-      [<pawn-sacrifice-capture>]
-  | [<cascade>\alg{~}]<move-star>
+  <cascade>
+| <cascade><teleportation>
+| <cascade><trance-journey>
+| [<cascade>\alg{~}]<pawn-sacrifice>
+    [<pawn-sacrifice-capture>]
+| [<cascade>\alg{~}]<move-star>
 
 <status> = ?
          | \alg{+}
          | \alg{#}
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <compatibility-capture> =
-    <classic-piece>[<disambiguation>]\algcty{x}
-      <field>[<status>]
-  | <file>\algcty{x}<field>[<status>][\algcty{\_e.p.}]
+  <classic-piece>[<disambiguation>][\algcty{x}]
+    <field>[<status>]
+| <file>[\algcty{x}]<field>[<status>][\algcty{\_e.p.}]
 
 <move> =
-    \alg{(=)}
-  | \alg{...}
-  | <compatibility-capture>
-  | <move-new><status>
-
+  \alg{(=)}
+| \alg{...}
+| <compatibility-capture>
+| <move-new><status>
 \end{alltt}
+
+Note, notational grammar isn't exact, some things are difficult to formalize,
+some are too cumbersome. For instance, any ply in trance-journey, teleportation
+and elsewhere can be gathered in \alg{[ ]} (square brackets), just like ordinary
+ply. Another example, compatibility notation for capture is valid only for
+Classical Chess, and nowhere else.
+
+% <teleportation> =
+%   \alg{|}<field>
+% | \{\alg{|W}<movement>\}[\alg{||}]
+% | \{\alg{|W}<movement>\}[\alg{~}<move-new>]
+% | \alg{||}
+
+% <teleportation> =
+%     \alg{|}<field>
+%   | \{\alg{|W}<movement>\}[\alg{||}]
+%   | \{\alg{|W}<movement>\}[\alg{~}<move-new>]
+%   | \{\alg{|[W}<movement>\alg{]}\}[\alg{||}]
+%   | \{\alg{|[W}<movement>\alg{]}\}[\alg{~}<move-new>]
+%   | \alg{||}
+
+% <pawn-sacrifice> =
+%     \alg{S}<movement>\alg{~A}<movement>\alg{::}
+%   | \alg{[S}<movement>\alg{]~[A}<movement>\alg{]::}
+
+% <pawn-sacrifice-capture> =
+%     \alg{S}[<disambiguation>]\{.[.]<field>
+%       [\alg{*}<pawn>]\}[\alg{|}<field>|\alg{~}<move-new>]
+%   | \alg{[S}[<disambiguation>]\{.[.]<field>
+%       [\alg{*}<pawn>]\}\alg{]}[\alg{|}<field>|\alg{~}<move-new>]
+
+% <pawn-sacrifice-capture> =
+%     \alg{S}[<disambiguation>]\{.[.]<field>
+%       [\alg{*}<pawn>]\}[\alg{|}<field>|\alg{~}<move-new>]
+
+% <move-star> =
+%     \alg{I}<movement>\alg{~}\alg{T}<movement>
+%   | \alg{[I}<movement>\alg{]~[}\alg{T}<movement>\alg{]}
 
 \clearpage % ..........................................................
 
@@ -747,7 +793,7 @@ are available for a particular variant see
 \midrule
  1          & \alg{.}              & single steps                               \\
  2          & \alg{..}             & multiple steps                             \\
- 3          & \alg{-}              & starting and destination field             \\
+ 3          & \alg{-}              & starting and destination field             \\ \cmidrule{1-3}
  4          & \alg{\~{}}           & plies                                      \\
  5          & \alg{|}              & teleportation                              \\
  6          & \alg{||}             & failed teleportation, oblation             \\
