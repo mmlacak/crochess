@@ -706,11 +706,15 @@ are available for a particular variant see
 | <move-new><status>
 \end{alltt}
 
-Note, notational grammar isn't exact, some things are difficult to formalize,
-some are too cumbersome. For instance, any ply in trance-journey, teleportation
-and elsewhere can be gathered in \alg{[ ]} (square brackets), just like ordinary
-ply. Another example, compatibility notation for capture is valid only for
-Classical Chess, and nowhere else.
+Notational grammar isn't exact, some things are difficult to formalize, some are
+too cumbersome. For instance, any ply in trance-journey, teleportation and
+elsewhere can be gathered in \alg{[ ]} (square brackets), just like ordinary ply.
+Another example, compatibility notation for capture is valid only for Classical
+Chess, and nowhere else.
+
+Note, ply side-effects and move status are mandatory in new \algfmt{AN}, not
+optional as in \algfmt{CAN}. These can be empty if there is no side-effect to a ply,
+or if there is no check, checkmate made in a move.
 
 \clearpage % ..........................................................
 
