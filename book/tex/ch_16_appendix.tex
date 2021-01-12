@@ -438,9 +438,9 @@ This \hyperref[fig:scn_tr_21_pawn_sacrifice_init]{Pawn-sacrifice} followed by
 
 If there aren't enough Pawns captured to isolate only one path an additional, non-capturing steps needs to be
 written as well. In previous example, if Serpent stopped at \alg{m17}, at least 2 differrent paths are possible.
-Previous example started with \alg{Sm15\~{}Am11::S.l16.m17*} path, the other path is \alg{Sm15\~{}Am11::S.n16.m17*}.
-Again, for longer paths care must be taken to write step(s) which really differentiate paths, otherwise written
-path might inadvertently also denote others.
+Previous example started with \alg{Sm15\~{}Am11::S.l16.m17*} path, other possible path is
+\alg{Sm15\~{}Am11::S.n16.m17*}. Again, for longer paths care must be taken to write step(s) which really
+differentiate paths, otherwise written path might inadvertently also denote others.
 
 Care must also be taken to properly use step separator \alg{.} (dot), and multiple step separator \alg{..} (two
 dots). Step separator \alg{.} is for separating 2 steps, where one step immediately follows the other. Multi-step
@@ -484,9 +484,9 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
 \label{sec:Appendix/Notation/Move symbols, annotations}
 
-Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}.
-Checks are noted with \alg{+} (plus sign), checkmates are noted with \alg{\#} (hashtag), these are optional, see \algfmt{FIDE C.13}.
-Placeholder for a move is \alg{...} (ellipsis), usually used to resume game score after commentary, see\\
+Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}. Checks are noted with \alg{+} (plus sign),
+checkmates are noted with \alg{\#} (hashtag), these are mandatory in \algfmt{NAN}, but optional in \algfmt{CAN}, see
+\algfmt{FIDE C.13}. Placeholder for a move is \alg{...} (ellipsis), usually used to resume game score after commentary, see\\
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
 \#Notation\_for\_a\_series\_of\_moves}.
 
@@ -559,12 +559,12 @@ written without any gaps. When space is needed, it is written as \alg{\_}
 means \algfmt{<abc>} is to be replaced with either \alg{defghi} or \alg{jkl}.
 
 Groups can contain other groups, if they do, they are valid until first matching
-closing brace. Each closing brace always closes exactly one group. For instance,
+closing bracket. Each closing bracket always closes exactly one group. For instance,
 \begin{alltt}
 <abc> = \alg{a}[\alg{b}[\alg{c}]\alg{d}]\alg{e}
 \end{alltt}
 gives \alg{abcde}, \alg{abde}, \alg{ae} for \algfmt{<abc>}.
-Braces cannot overlap, i.e. if group contains other group, it must contain it in
+Brackets cannot overlap, i.e. if group contains other group, it must contain it in
 its entirety. For instance:
 \begin{alltt}
 <abc> = \alg{a}[\alg{b}(\alg{c}]\alg{d})\alg{e}
@@ -583,7 +583,8 @@ are available for a particular variant see
 \begin{alltt}
 <pawn> = ? | \alg{P}
 
-<classic-piece> = <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
+<classic-piece> =
+  <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
 
 <promote-to-figure> =
   \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{A}
@@ -712,9 +713,9 @@ elsewhere can be gathered in \alg{[ ]} (square brackets), just like ordinary ply
 Another example, compatibility notation for capture is valid only for Classical
 Chess, and nowhere else.
 
-Note, ply side-effects and move status are mandatory in new \algfmt{AN}, not
-optional as in \algfmt{CAN}. These can be empty if there is no side-effect to a ply,
-or if there is no check, checkmate made in a move.
+Note, ply side-effects and move status are mandatory in \algfmt{NAN}, not optional
+as in \algfmt{CAN}. These can be empty if there is no side-effect to a ply, or if
+there is no check, checkmate made in a move.
 
 \clearpage % ..........................................................
 
