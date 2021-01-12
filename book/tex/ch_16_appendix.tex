@@ -528,8 +528,54 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \label{tbl:Appendix/Grammar}
 \end{table}
 
-\huge{TODO}
-\normalsize{}
+Summary tries to describe notational grammar in more formal, concise way.
+Annotations are not covered, as they are short-hand commentary, usually added
+later when game is presented to readers.
+
+Verbatim values (e.g. \alg{x}) are as they appear in \algfmt{AN}, compatibility
+values (e.g. \algcty{x}) are used exclusively for \algfmt{CAN}. Empty value
+\algfmt{?} is mostly used to denote Pawn, when its piece symbol is dropped from
+notation.
+
+Option separator \algfmt{|} is used to present choice between 2 values, e.g.
+\algfmt{?} \algfmt{|} \alg{P}. Options can be chained, as in
+\algfmt{?} \algfmt{|} \alg{+} \algfmt{|} \alg{\#}. If there are too many
+sequential values to list, range option \algfmt{..} is used instead, e.g.
+\alg{a} \algfmt{..} \alg{z}.
+
+Grouping options contain items to be repeated, \algfmt{[ ]} for items to appear
+or not, \algfmt{( )} to repeat items 0 or more times, and \algfmt{\{ \}} to repeat
+items at least once.
+
+Formatting and spacing is added to improve legibility, normally \algfmt{AN} is
+written without any gaps. When space is needed, it is written as \alg{\_}
+(underscore). Options are also valid regardless of formatting, spacing, e.g.
+\begin{alltt}
+<abc> = \alg{def}
+    \alg{ghi}
+  | \alg{jkl}
+\end{alltt}
+means \algfmt{<abc>} is to be replaced with either \alg{defghi} or \alg{jkl}.
+
+Groups can contain other groups, if they do, they are valid until first matching
+closing brace. Each closing brace always closes exactly one group. For instance,
+\begin{alltt}
+<abc> = \alg{a}[\alg{b}[\alg{c}]\alg{d}]\alg{e}
+\end{alltt}
+gives \alg{abcde}, \alg{abde}, \alg{ae} for \algfmt{<abc>}.
+Braces cannot overlap, i.e. if group contains other group, it must contain it in
+its entirety. For instance:
+\begin{alltt}
+<abc> = \alg{a}[\alg{b}(\alg{c}]\alg{d})\alg{e}
+\end{alltt}
+is not valid example, because first group \algfmt{[ ]} is closed containing
+dangling (open, but not closed) second group \algfmt{( )}.
+
+Grammar is written without context, to determine which pieces, files and ranks
+are available for a particular variant see
+\hyperref[tbl:Appendix/Introduction/Variants]{Variants},
+\hyperref[tbl:Appendix/Introduction/Chessboards]{Chessboards} and
+\hyperref[tbl:Appendix/Introduction/Pieces]{Pieces} tables.
 
 \clearpage % ..........................................................
 
@@ -618,9 +664,9 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
   | \alg{[S}<movement>\alg{]~[A}<movement>\alg{]::}
 
 <pawn-sacrifice-capture> =
-    \alg{S}[<disambiguation>]\{.[.]<field>[*]\}
+    \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
       [\alg{|}<field>|\alg{~}<move-new>]
-  | \alg{[S}[<disambiguation>]\{.[.]<field>[*]\}\alg{]}
+  | \alg{[S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}\alg{]}
       [\alg{|}<field>|\alg{~}<move-new>]
 
 <move-star> =
@@ -632,7 +678,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
   | <cascade><trance-journey>
   | <cascade><teleportation>
   | [<cascade>\alg{~}]<pawn-sacrifice>
-      <pawn-sacrifice-capture>
+      [<pawn-sacrifice-capture>]
   | [<cascade>\alg{~}]<move-star>
 
 <status> = ?
@@ -641,8 +687,8 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 <compatibility-capture> =
     <classic-piece>[<disambiguation>]\algcty{x}
-      <field><status>
-  | <file>\algcty{x}<field><status>[\algcty{\_e.p.}]
+      <field>[<status>]
+  | <file>\algcty{x}<field>[<status>][\algcty{\_e.p.}]
 
 <move> =
     \alg{(=)}
