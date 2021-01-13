@@ -612,72 +612,6 @@ in \algfmt{NAN}.
 
 \clearpage % ..........................................................
 
-\subsection*{Movement limits}
-\addcontentsline{toc}{subsection}{Movement limits}
-\label{sec:Appendix/Summary/Movement limits}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlrr }
-\toprule
-\textbf{Id} & \textbf{Variant}      & \textbf{Serpent}  & \textbf{Monolith}         \\
-\midrule
-          1 & Tamoanchan Revisited  &                 8 &                           \\
-          2 & Conquest of Tlalocan  &                 8 &                           \\
-          3 & Discovery             &                 8 &                         3 \\
-          4 & One                   &                 9 &                         3 \\
-\bottomrule
-\end{tabular}
-\caption{Movement limits}
-\label{tbl:Appendix/Summary/Movement limits}
-\end{table}
-
-Movement limits table contains maximum number of steps Serpent or Monolith can make,
-depending on which variant is being played. Monolith is not listed for the first 2
-variants, since it has only been introduced in Discovery variant.
-
-% \clearpage % ..........................................................
-
-\subsection*{Monolith initial positions}
-\addcontentsline{toc}{subsection}{Monolith initial positions}
-\label{sec:Appendix/Summary/Monolith initial positions}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlrr }
-\toprule
-\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Side} }   \\ \cmidrule{3-4}
-            &                       & \emph{light}  & \emph{dark}           \\
-\midrule
-          1 & Discovery             &     \alg{b7}  &    \alg{w18}          \\
-          2 & One                   &     \alg{b8}  &    \alg{y19}          \\
-\bottomrule
-\end{tabular}
-\caption{Monolith initial positions}
-\label{tbl:Appendix/Summary/Monolith initial positions}
-\end{table}
-
-Table above contains initial positions of both Monoliths, one located on light side of
-chessboard, the other on dark side.
-
-If making own chessboard, small markings can be placed onto these locations, to ease setting
-up pieces before match.
-
-\clearpage % ..........................................................
-
-\subsection*{Movement of Wave}
-\addcontentsline{toc}{subsection}{Movement of Wave}
-\label{sec:Appendix/Movement of Wave}
-
-Movement of Wave ... as multi-step piece activating it  ...
-
-% TODO :: table <activated-by> : <moves-like>
-
-\huge{TODO}
-\normalsize{}
-
-\clearpage % ..........................................................
-
 \subsection*{Initial setups}
 \addcontentsline{toc}{subsection}{Initial setups}
 \label{sec:Appendix/Summary/Initial setups}
@@ -742,6 +676,95 @@ Initial setups ...
 % Passive pieces are ...
 %
 % Activating passive piece with Pawn ... capture-fields vs. step-fields.
+
+\clearpage % ..........................................................
+
+\subsection*{Monolith initial positions}
+\addcontentsline{toc}{subsection}{Monolith initial positions}
+\label{sec:Appendix/Summary/Monolith initial positions}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlrr }
+\toprule
+\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Side} }   \\ \cmidrule{3-4}
+            &                       & \emph{light}  & \emph{dark}           \\
+\midrule
+          1 & Discovery             &     \alg{b7}  &    \alg{w18}          \\
+          2 & One                   &     \alg{b8}  &    \alg{y19}          \\
+\bottomrule
+\end{tabular}
+\caption{Monolith initial positions}
+\label{tbl:Appendix/Summary/Monolith initial positions}
+\end{table}
+
+Table above contains initial positions of both Monoliths, one located on light side of
+chessboard, the other on dark side.
+
+If making own chessboard, small markings can be placed onto these locations, to ease setting
+up pieces before match.
+
+\subsection*{Movement limits}
+\addcontentsline{toc}{subsection}{Movement limits}
+\label{sec:Appendix/Summary/Movement limits}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlrr }
+\toprule
+\textbf{Id} & \textbf{Variant}      & \textbf{Serpent}  & \textbf{Monolith}         \\
+\midrule
+          1 & Tamoanchan Revisited  &                 8 &                           \\
+          2 & Conquest of Tlalocan  &                 8 &                           \\
+          3 & Discovery             &                 8 &                         3 \\
+          4 & One                   &                 9 &                         3 \\
+\bottomrule
+\end{tabular}
+\caption{Movement limits}
+\label{tbl:Appendix/Summary/Movement limits}
+\end{table}
+
+Movement limits table contains maximum number of steps Serpent or Monolith can make,
+depending on which variant is being played. Monolith is not listed for the first 2
+variants, since it has only been introduced in Discovery variant.
+
+\clearpage % ..........................................................
+
+\subsection*{Movement of Wave}
+\addcontentsline{toc}{subsection}{Movement of Wave}
+\label{sec:Appendix/Movement of Wave}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Activated by} & \textbf{Moves like}                       \\
+\midrule
+1           & Pawn                  & Pawn, single direction, infinite steps    \\
+2           & Knight                & Pegasus                                   \\
+3           & Bishop                & Bishop                                    \\
+4           & Rook                  & Rook                                      \\
+5           & Queen                 & Queen                                     \\
+6           & King                  & Queen                                     \\ \cmidrule{1-3}
+7           & Pegasus               & Pegasus                                   \\
+8           & Pyramid               & Rook                                      \\
+9           & Unicorn               & Centaur                                   \\
+10          & Wave                  & activating Wave                           \\
+11          & Star                  &                                           \\
+12          & Centaur               & Centaur                                   \\
+13          & Serpent               & Serpent, 2 directions, infinite steps     \\
+14          & Shaman                & Shaman                                    \\
+15          & Monolith              &                                           \\
+16          & Starchild             & Starchild                                 \\
+\bottomrule
+\end{tabular}
+\caption{Pieces}
+\label{tbl:Appendix/Movement of Wave}
+\end{table}
+
+Movement of Wave ... as multi-step piece activating it  ...
+
+\hyperref[fig:scn_mv_22_wave_activation_by_capture_pawn]{activated by Pawn}
 
 \clearpage % ..........................................................
 

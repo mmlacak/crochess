@@ -1106,6 +1106,8 @@ class SceneMirandasVeilMixin:
         start_W = (4, 7)
         scene.board.set_piece(*start_W, piece=PieceType.Pawn)
 
+        start = (6, 9)
+
         scene.board.set_piece(1, 10, piece=PieceType.Bishop)
         scene.board.set_piece(3, 8, piece=-PieceType.Rook)
 
@@ -1129,9 +1131,15 @@ class SceneMirandasVeilMixin:
         scene.append_arrow( *coords(), mark_type=MarkType.Legal )
         scene.append_arrow( *coords(), mark_type=MarkType.Legal )
 
-        coords = GS.gen_steps(start=(6, 9), rels=[(0, 1), ], include_prev=True, count=6)
+        coords = GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True, count=6)
         for step in coords():
             scene.append_arrow(*step, mark_type=MarkType.Illegal)
+
+        coords = GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True, count=6)
+        for step in coords():
+            scene.append_arrow(*step, mark_type=MarkType.Illegal)
+
+        scene.append_text("A", *start, corner=Corner.LowerRight, mark_type=MarkType.Legal)
 
         return scene
 
