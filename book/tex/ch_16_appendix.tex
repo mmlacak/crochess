@@ -590,7 +590,7 @@ contribute any new information.
 \midrule
 1           & \alg{+}              & check                          \\
 2           & \alg{\#}             & checkmate                      \\ \cmidrule{1-3}
-3           & \alg{\_}             & annotations                    \\
+3           & \alg{\_}             & annotations separator          \\
 4           & \alg{...}            & placeholder for a move         \\
 5           & \alg{(=)}            & draw offer                     \\
 \bottomrule
@@ -599,7 +599,16 @@ contribute any new information.
 \label{tbl:Appendix/Summary/Move status}
 \end{table}
 
-. . .
+While check and checkmate status are not mandatory because of lack of information,
+they do convey information, and intent to a player. Latter variants are somewhat more
+complex than traditional chess, so it's easier to overlook some consequences of a
+single, cascading move (which may also move opponent's pieces), combined with e.g.
+wild movement of Centaur, weird movement of Serpent and Shaman.
+
+It's possible during a cascade to have checked (or even checkmated!) opponent's King,
+status applies only if check (or checkmate) holds after move of a player has been
+finished. To avoid any possible confusion, check and checkmate status are mandatory
+in \algfmt{NAN}.
 
 \clearpage % ..........................................................
 
