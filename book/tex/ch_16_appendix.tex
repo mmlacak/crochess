@@ -501,6 +501,231 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 
 \clearpage % ..........................................................
 
+\section*{Summary}
+\addcontentsline{toc}{section}{Summary}
+\label{sec:Appendix/Summary}
+
+Now that all symbols have been introduced, lets gather them according to their purpose.
+
+\subsection*{Ply side-effects}
+\addcontentsline{toc}{subsection}{Ply side-effects}
+\label{sec:Appendix/Summary/Ply side-effects}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}                   \\
+\midrule
+1           & \alg{*}              & capturing                              \\
+2           & \alg{:}              & en passant                             \\
+3           & \alg{\&}             & castling                               \\
+4           & \alg{=}              & promotion, tag                         \\
+5           & \alg{==}             & failed promotion                       \\
+6           & \alg{\%}             & conversion                             \\
+7           & \alg{\%\%}           & failed conversion, oblation            \\
+8           & \alg{<}              & trance-journey displacement            \\
+9           & \alg{>}              & syzygy, demoting to Pawn               \\
+10          & \alg{\$}             & syzygy, ressurection                   \\
+11          & \alg{\$\$}           & failed ressurection, optional          \\
+\bottomrule
+\end{tabular}
+\caption{Ply side-effects}
+\label{tbl:Appendix/Summary/Ply side-effects}
+\end{table}
+
+Side-effects are caused by a ply, sometimes it's possible to choose which side-effect will take place.
+For instance,
+\hyperref[fig:scn_ma_09_conversion_pyramid_activated]{upon reaching dark Rook with its Pyramid}, light
+player is to decide whether opponent's Rook will be captured or converted. This decision cannot be
+reconstructed based on movement alone. Notation for captured pieces have traditionally been optional,
+and so is for all other interactions. This means, at least some side-effects are now mandatory. To
+avoid any possible confusion which are, in \algfmt{NAN} all side-effects are mandatory.
+
+\clearpage % ..........................................................
+
+\subsection*{Path separators}
+\addcontentsline{toc}{subsection}{Path separators}
+\label{sec:Appendix/Summary/Path separators}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol}      & \textbf{Separates}                         \\
+\midrule
+ 1          & \alg{.}              & single steps                               \\
+ 2          & \alg{..}             & multiple steps                             \\
+ 3          & \alg{-}              & starting and destination field             \\ \cmidrule{1-3}
+ 4          & \alg{\~{}}           & plies                                      \\
+ 5          & \alg{|}              & teleportation                              \\
+ 6          & \alg{||}             & failed teleportation, oblation             \\
+ 7          & \alg{@}              & trance-journey                             \\
+ 8          & \alg{@@}             & failed trance-journey, oblation            \\
+ 9          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
+10          & \alg{[]}             & ply gathering                              \\
+\bottomrule
+\end{tabular}
+\caption{Path separators}
+\label{tbl:Appendix/Summary/Path separators}
+\end{table}
+
+. . .
+
+\clearpage % ..........................................................
+
+\subsection*{Move status}
+\addcontentsline{toc}{subsection}{Move status}
+\label{sec:Appendix/Summary/Move status}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlll }
+\toprule
+\textbf{Id} & \textbf{Symbol}      & \textbf{Status}                \\
+\midrule
+1           & \alg{+}              & check                          \\
+2           & \alg{\#}             & checkmate                      \\ \cmidrule{1-3}
+3           & \alg{\_}             & annotations                    \\
+4           & \alg{...}            & placeholder for a move         \\
+5           & \alg{(=)}            & draw offer                     \\
+\bottomrule
+\end{tabular}
+\caption{Move status}
+\label{tbl:Appendix/Summary/Move status}
+\end{table}
+
+. . .
+
+\clearpage % ..........................................................
+
+\subsection*{Movement limits}
+\addcontentsline{toc}{subsection}{Movement limits}
+\label{sec:Appendix/Summary/Movement limits}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlrr }
+\toprule
+\textbf{Id} & \textbf{Variant}      & \textbf{Serpent}  & \textbf{Monolith}         \\
+\midrule
+          1 & Tamoanchan Revisited  &                 8 &                           \\
+          2 & Conquest of Tlalocan  &                 8 &                           \\
+          3 & Discovery             &                 8 &                         3 \\
+          4 & One                   &                 9 &                         3 \\
+\bottomrule
+\end{tabular}
+\caption{Movement limits}
+\label{tbl:Appendix/Summary/Movement limits}
+\end{table}
+
+. . .
+
+\clearpage % ..........................................................
+
+\subsection*{Monolith initial positions}
+\addcontentsline{toc}{subsection}{Monolith initial positions}
+\label{sec:Appendix/Summary/Monolith initial positions}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlrr }
+\toprule
+\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Side} }   \\ \cmidrule{3-4}
+            &                       & \emph{light}  & \emph{dark}           \\
+\midrule
+          1 & Discovery             &     \alg{b7}  &    \alg{w18}          \\
+          2 & One                   &     \alg{b8}  &    \alg{y19}          \\
+\bottomrule
+\end{tabular}
+\caption{Monolith initial positions}
+\label{tbl:Appendix/Summary/Monolith initial positions}
+\end{table}
+
+. . .
+
+\clearpage % ..........................................................
+
+\subsection*{Movement of Wave}
+\addcontentsline{toc}{subsection}{Movement of Wave}
+\label{sec:Appendix/Movement of Wave}
+
+Movement of Wave ... as multi-step piece activating it  ...
+
+% TODO :: table <activated-by> : <moves-like>
+
+\huge{TODO}
+\normalsize{}
+
+\clearpage % ..........................................................
+
+\subsection*{Initial setups}
+\addcontentsline{toc}{subsection}{Initial setups}
+\label{sec:Appendix/Summary/Initial setups}
+Initial setups ...
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPP \\
+%         RGNBQKBNGR}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPP \\
+%         RGANBQKBNAGR}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPPPP \\
+%         RGAUNBQKBNUAGR}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPPPPPP \\
+%         RGAUWNBQKBNWUAGR}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPPPPPPPP \\
+%         TRGAUWNBQKBNWUAGRT}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPPPPPPPPPP \\
+%         TRGAUWCNBQKBNCWUAGRT}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPPPPPPPPPPPP \\
+%         TRGAUWCSNBQKBNSCWUAGRT}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPPPPPPPPPPPPPP \\
+%         TRGAHUWCSNBQKBNSCWUHAGRT}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPPPPPPPPPPPPPP \\
+%         TRGAHUWCSNBQKBNSCWUHAGRT}, \\
+% or more conveniently, as seen in this image:
+
+% Initial setup for Light player is (mirrored for Dark one):
+% \texttt{PPPPPPPPPPPPPPPPPPPPPPPPPP \\
+%         TRGAHIUWCSNBQKBNSCWUIHAGRT}, \\
+% or more conveniently, as seen in this image:
+
+% TODO :: add to "Pieces" section
+%
+% \section*{Passive pieces}
+% \addcontentsline{toc}{section}{Passive pieces}
+% \label{sec:Definitions/Passive pieces}
+%
+% Passive pieces are ...
+%
+% Activating passive piece with Pawn ... capture-fields vs. step-fields.
+
+\clearpage % ..........................................................
+
 \section*{Grammar}
 \addcontentsline{toc}{section}{Grammar}
 \label{sec:Appendix/Grammar}
@@ -717,223 +942,6 @@ is valid only for Classical Chess, and nowhere else.
 Note, ply side-effects and move status are mandatory in \algfmt{NAN}, not optional
 as in \algfmt{CAN}. These can be empty if there is no side-effect to a ply, or if
 there is no check, checkmate made in a move.
-
-\clearpage % ..........................................................
-
-\section*{Summary}
-\addcontentsline{toc}{section}{Summary}
-\label{sec:Appendix/Summary}
-
-\subsection*{Ply side-effects}
-\addcontentsline{toc}{subsection}{Ply side-effects}
-\label{sec:Appendix/Summary/Ply side-effects}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlll }
-\toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}                   \\
-\midrule
-1           & \alg{*}              & capturing                              \\
-2           & \alg{:}              & en passant                             \\
-3           & \alg{\&}             & castling                               \\
-4           & \alg{=}              & promotion, tag                         \\
-5           & \alg{==}             & failed promotion                       \\
-6           & \alg{\%}             & conversion                             \\
-7           & \alg{\%\%}           & failed conversion, oblation            \\
-8           & \alg{<}              & trance-journey displacement            \\
-9           & \alg{>}              & syzygy, demoting to Pawn               \\
-10          & \alg{\$}             & syzygy, ressurection                   \\
-11          & \alg{\$\$}           & failed ressurection, optional          \\
-\bottomrule
-\end{tabular}
-\caption{Ply side-effects}
-\label{tbl:Appendix/Summary/Ply side-effects}
-\end{table}
-
-. . .
-
-\clearpage % ..........................................................
-
-\subsection*{Path separators}
-\addcontentsline{toc}{subsection}{Path separators}
-\label{sec:Appendix/Summary/Path separators}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlll }
-\toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Separates}                         \\
-\midrule
- 1          & \alg{.}              & single steps                               \\
- 2          & \alg{..}             & multiple steps                             \\
- 3          & \alg{-}              & starting and destination field             \\ \cmidrule{1-3}
- 4          & \alg{\~{}}           & plies                                      \\
- 5          & \alg{|}              & teleportation                              \\
- 6          & \alg{||}             & failed teleportation, oblation             \\
- 7          & \alg{@}              & trance-journey                             \\
- 8          & \alg{@@}             & failed trance-journey, oblation            \\
- 9          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
-10          & \alg{[]}             & ply gathering                              \\
-\bottomrule
-\end{tabular}
-\caption{Path separators}
-\label{tbl:Appendix/Summary/Path separators}
-\end{table}
-
-. . .
-
-\clearpage % ..........................................................
-
-\subsection*{Move status}
-\addcontentsline{toc}{subsection}{Move status}
-\label{sec:Appendix/Summary/Move status}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlll }
-\toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Status}                \\
-\midrule
-1           & \alg{+}              & check                          \\
-2           & \alg{\#}             & checkmate                      \\ \cmidrule{1-3}
-3           & \alg{\_}             & annotations                    \\
-4           & \alg{...}            & placeholder for a move         \\
-5           & \alg{(=)}            & draw offer                     \\
-\bottomrule
-\end{tabular}
-\caption{Move status}
-\label{tbl:Appendix/Summary/Move status}
-\end{table}
-
-. . .
-
-\clearpage % ..........................................................
-
-\subsection*{Movement limits}
-\addcontentsline{toc}{subsection}{Movement limits}
-\label{sec:Appendix/Summary/Movement limits}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlrr }
-\toprule
-\textbf{Id} & \textbf{Variant}      & \textbf{Serpent}  & \textbf{Monolith}         \\
-\midrule
-          1 & Tamoanchan Revisited  &                 8 &                           \\
-          2 & Conquest of Tlalocan  &                 8 &                           \\
-          3 & Discovery             &                 8 &                         3 \\
-          4 & One                   &                 9 &                         3 \\
-\bottomrule
-\end{tabular}
-\caption{Movement limits}
-\label{tbl:Appendix/Summary/Movement limits}
-\end{table}
-
-. . .
-
-\clearpage % ..........................................................
-
-\subsection*{Monolith initial positions}
-\addcontentsline{toc}{subsection}{Monolith initial positions}
-\label{sec:Appendix/Summary/Monolith initial positions}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ rlrr }
-\toprule
-\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Side} }   \\ \cmidrule{3-4}
-            &                       & \emph{light}  & \emph{dark}           \\
-\midrule
-          1 & Discovery             &     \alg{b7}  &    \alg{w18}          \\
-          2 & One                   &     \alg{b8}  &    \alg{y19}          \\
-\bottomrule
-\end{tabular}
-\caption{Monolith initial positions}
-\label{tbl:Appendix/Summary/Monolith initial positions}
-\end{table}
-
-. . .
-
-\clearpage % ..........................................................
-
-\subsection*{Movement of Wave}
-\addcontentsline{toc}{subsection}{Movement of Wave}
-\label{sec:Appendix/Movement of Wave}
-
-Movement of Wave ... as multi-step piece activating it  ...
-
-% TODO :: table <activated-by> : <moves-like>
-
-\huge{TODO}
-\normalsize{}
-
-\clearpage % ..........................................................
-
-\subsection*{Initial setups}
-\addcontentsline{toc}{subsection}{Initial setups}
-\label{sec:Appendix/Summary/Initial setups}
-Initial setups ...
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPP \\
-%         RGNBQKBNGR}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPP \\
-%         RGANBQKBNAGR}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPP \\
-%         RGAUNBQKBNUAGR}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPP \\
-%         RGAUWNBQKBNWUAGR}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPP \\
-%         TRGAUWNBQKBNWUAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPP \\
-%         TRGAUWCNBQKBNCWUAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPPPP \\
-%         TRGAUWCSNBQKBNSCWUAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPPPPPP \\
-%         TRGAHUWCSNBQKBNSCWUHAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPPPPPP \\
-%         TRGAHUWCSNBQKBNSCWUHAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% Initial setup for Light player is (mirrored for Dark one):
-% \texttt{PPPPPPPPPPPPPPPPPPPPPPPPPP \\
-%         TRGAHIUWCSNBQKBNSCWUIHAGRT}, \\
-% or more conveniently, as seen in this image:
-
-% TODO :: add to "Pieces" section
-%
-% \section*{Passive pieces}
-% \addcontentsline{toc}{section}{Passive pieces}
-% \label{sec:Definitions/Passive pieces}
-%
-% Passive pieces are ...
-%
-% Activating passive piece with Pawn ... capture-fields vs. step-fields.
 
 \clearpage % ..........................................................
 % ---------------------------------------------------- Appendix chapter
