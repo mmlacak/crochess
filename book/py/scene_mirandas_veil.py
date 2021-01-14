@@ -1084,6 +1084,7 @@ class SceneMirandasVeilMixin:
 
         scene.board.set_piece(1, 10, piece=PieceType.Bishop)
         scene.board.set_piece(3, 8, piece=-PieceType.Rook)
+        scene.board.set_piece(2, 13, piece=-PieceType.Wave)
 
         scene.board.set_piece(6, 12, piece=PieceType.Pegasus)
         scene.board.set_piece(8, 11, piece=-PieceType.Pyramid)
@@ -1110,6 +1111,7 @@ class SceneMirandasVeilMixin:
 
         scene.board.set_piece(1, 10, piece=PieceType.Bishop)
         scene.board.set_piece(3, 8, piece=-PieceType.Rook)
+        scene.board.set_piece(2, 13, piece=-PieceType.Wave)
 
         scene.board.set_piece(6, 12, piece=PieceType.Pegasus)
         scene.board.set_piece(8, 11, piece=-PieceType.Pyramid)

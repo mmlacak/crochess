@@ -233,8 +233,8 @@ If disambiguation is needed, it is written as previously described. Usually, it'
 starting file before destination field. If previous example had additional dark Pawn located at
 \alg{g4}, en passant would be written as \alg{ih3:}, or \alg{ih3:5}.
 
-In \algfmt{CAN}, both en passant and its disambiguation form are written as \algcty{ixh3 e.p}, where
-\algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
+In \algfmt{CAN}, both en passant and its disambiguation form are written as \algcty{ixh3 e.p.},
+where \algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
 
 \subsection*{Castling}
 \addcontentsline{toc}{subsection}{Castling}
@@ -354,6 +354,10 @@ piece can be written after \alg{@@}. In this
 \hyperref[fig:scn_o_22_trance_journey_failed]{failed trance-journey example} all step-fields are blocked by
 Kings, Stars, Monoliths, so entranced dark Bishop is oblationed, which is written as \alg{Iy2\~{}Iz1@@},
 and in \algfmt{XAN}, with plies gathering and oblationed piece, as \alg{[Iz3-y2]\~{}[Iy2-z1]@@B}.
+
+\huge{TODO}
+\normalsize{}
+dark Shaman, single pattern, double pattern
 
 \subsection*{Syzygy, demoting to Pawn}
 \addcontentsline{toc}{subsection}{Syzygy, demoting to Pawn}
@@ -563,7 +567,8 @@ avoid any possible confusion which are, in \algfmt{NAN} all side-effects are man
  7          & \alg{@}              & trance-journey                             \\
  8          & \alg{@@}             & failed trance-journey, oblation            \\
  9          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
-10          & \alg{[]}             & ply gathering                              \\
+10          & \alg{,}              & items in a list                            \\
+11          & \alg{[]}             & ply gathering                              \\
 \bottomrule
 \end{tabular}
 \caption{Path separators}
@@ -714,8 +719,8 @@ up pieces before match.
 \toprule
 \textbf{Id} & \textbf{Variant}      & \textbf{Serpent}  & \textbf{Monolith}         \\
 \midrule
-          1 & Tamoanchan Revisited  &                 8 &                           \\
-          2 & Conquest of Tlalocan  &                 8 &                           \\
+          1 & Tamoanchan Revisited  &                 8 &                       --- \\
+          2 & Conquest of Tlalocan  &                 8 &                       --- \\
           3 & Discovery             &                 8 &                         3 \\
           4 & One                   &                 9 &                         3 \\
 \bottomrule
@@ -736,29 +741,31 @@ variants, since it has only been introduced in Discovery variant.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlll }
+\begin{tabular}{ rll }
 \toprule
 \textbf{Id} & \textbf{Activated by} & \textbf{Moves like}                       \\
 \midrule
-1           & Pawn                  & Pawn, single direction, infinite steps    \\
-2           & Knight                & Pegasus                                   \\
-3           & Bishop                & Bishop                                    \\
-4           & Rook                  & Rook                                      \\
-5           & Queen                 & Queen                                     \\
-6           & King                  & Queen                                     \\ \cmidrule{1-3}
-7           & Pegasus               & Pegasus                                   \\
-8           & Pyramid               & Rook                                      \\
-9           & Unicorn               & Centaur                                   \\
+ 1          & Pawn                  & Pawn, single direction,                   \\
+            &                       & infinite steps                            \\
+ 2          & Knight                & Pegasus                                   \\
+ 3          & Bishop                & Bishop                                    \\
+ 4          & Rook                  & Rook                                      \\
+ 5          & Queen                 & Queen                                     \\
+ 6          & King                  & Queen                                     \\ \cmidrule{1-3}
+ 7          & Pegasus               & Pegasus                                   \\
+ 8          & Pyramid               & Rook                                      \\
+ 9          & Unicorn               & Centaur                                   \\
 10          & Wave                  & activating Wave                           \\
-11          & Star                  &                                           \\
+11          & Star                  & ---                                       \\
 12          & Centaur               & Centaur                                   \\
-13          & Serpent               & Serpent, 2 directions, infinite steps     \\
+13          & Serpent               & Serpent, 2 alternating directions,        \\
+            &                       & infinite steps                            \\
 14          & Shaman                & Shaman                                    \\
-15          & Monolith              &                                           \\
+15          & Monolith              & ---                                       \\
 16          & Starchild             & Starchild                                 \\
 \bottomrule
 \end{tabular}
-\caption{Pieces}
+\caption{Movement of Wave}
 \label{tbl:Appendix/Movement of Wave}
 \end{table}
 
