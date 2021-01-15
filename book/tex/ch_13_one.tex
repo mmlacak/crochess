@@ -140,7 +140,7 @@ on the same dark field as its starting position (here, light Wave B and Rook).
 % \centering
 \end{figure}
 
-\hyperref[fig:10_wave]{Like Waves}, activated Starchild does not spend received momentum for moving;
+\hyperref[fig:10_wave]{Like Wave}, activated Starchild does not spend received momentum for moving;
 if Starchild activates a piece, it transfers all of received momentum to it. In example similar to
 previous, light Starchild is receiving 5 momentum after being activated by light Queen, received
 momentum is then transfered from light Wave to dark one to dark Knight in its entirety.
@@ -150,7 +150,7 @@ momentum is then transfered from light Wave to dark one to dark Knight in its en
 \subsubsection*{Neighboring-fields}
 \addcontentsline{toc}{subsubsection}{Neighboring-fields}
 
-\vspace*{-0.9\baselineskip}
+% \vspace*{-0.9\baselineskip}
 \noindent
 \begin{wrapfigure}[5]{l}{0.4\textwidth}
 \centering
@@ -161,46 +161,108 @@ momentum is then transfered from light Wave to dark one to dark Knight in its en
 Neighboring-fields are all fields immediately surrounding a piece horizontally, vertically
 and diagonally. They are the same as step-fields of a King.
 
-\vspace*{1.1\baselineskip}
-\subsubsection*{Activating piece}
-\addcontentsline{toc}{subsubsection}{Activating piece}
+% \vspace*{1.1\baselineskip}
+% \subsubsection*{Activating piece}
+% \addcontentsline{toc}{subsubsection}{Activating piece}
 
-\vspace*{-0.9\baselineskip}
+% \vspace*{-0.9\baselineskip}
+% \noindent
+% \begin{wrapfigure}[7]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_06_starchild_activating_fields.png}
+% \caption{Activating piece}
+% \label{fig:scn_o_06_starchild_activating_fields}
+% \end{wrapfigure}
+% Fields at which Starchild can activate piece other than just own Wave are neighboring-fields.
+
+% Starchild can move only to non-empty activation fields, and only if it contains own piece,
+% or opponent's Starchids; Starchild cannot activate own King.
+
+% Here, Starchild’s activation fields are enumerated. Opponent's Bishop and own King can't
+% be activated, so only own Pegasus can be, with 1 momentum.
+
+% \clearpage % ..........................................................
+
+% % \vspace*{-1.1\baselineskip}
+% \subsubsection*{Activating Wave, with momentum}
+% \addcontentsline{toc}{subsubsection}{Activating Wave, with momentum}
+
+% \vspace*{-0.9\baselineskip}
+% \noindent
+% \begin{wrapfigure}[10]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_07_starchild_activating_wave_momentum_init.png}
+% \caption{Activating Wave}
+% \label{fig:scn_o_07_starchild_activating_wave_momentum_init}
+% \end{wrapfigure}
+% Wave activated by Starchild can activate a piece on its neighboring-fields, with 1 momentum.
+% Any own piece, except King, can be activated by Wave, and also opponent's Waves.
+% Activated Wave can teleport via Star or Monolith, if they are also on Wave's neighboring-fields,
+% enumerated in this example.
+
+% \clearpage % ..........................................................
+
+\vspace*{2.1\baselineskip}
+\subsubsection*{Moving a Star}
+\addcontentsline{toc}{subsubsection}{Moving a Star}
+
+% \vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_09_starchild_moving_star_init.png}
+\caption{Moving into a Star}
+\label{fig:scn_o_09_starchild_moving_star_init}
+\end{wrapfigure}
+Starchild can activate a Star the same way as any other piece, i.e. by capturing field at
+which Star is located. Activated Star receives 1 momentum.
+
+\vspace*{2.1\baselineskip}
 \noindent
 \begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_06_starchild_activating_fields.png}
-\caption{Activating piece}
-\label{fig:scn_o_06_starchild_activating_fields}
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_10_starchild_moving_star_end.png}
+\caption{Moving a Star}
+\label{fig:scn_o_10_starchild_moving_star_end}
 \end{wrapfigure}
-Fields at which Starchild can activate piece other than just own Wave are neighboring-fields.
+Once activated, Star can move to any empty neighboring-field, which all are enumerated in
+example on the left.
 
-Starchild can move only to non-empty activation fields, and only if it contains own piece,
-or opponent's Starchids; Starchild cannot activate own King.
-
-Here, Starchild’s activation fields are enumerated. Opponent's Bishop and own King can't
-be activated, so only own Pegasus can be, with 1 momentum.
+Note, even if activated Starchild received more than 1 momentum, Star can move for only one step.
 
 \clearpage % ..........................................................
 
-% \vspace*{-1.1\baselineskip}
-\subsubsection*{Activating Wave, with momentum}
-\addcontentsline{toc}{subsubsection}{Activating Wave, with momentum}
+% \vspace*{1.1\baselineskip}
+\subsubsection*{Not moving a Monolith}
+\addcontentsline{toc}{subsubsection}{Not moving a Monolith}
 
-\vspace*{-0.9\baselineskip}
+% \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_07_starchild_activating_wave_momentum_init.png}
-\caption{Activating Wave}
-\label{fig:scn_o_07_starchild_activating_wave_momentum_init}
+\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_11_starchild_not_moving_monolith_init.png}
+\caption{Moving into a Monolith}
+\label{fig:scn_o_11_starchild_not_moving_monolith_init}
 \end{wrapfigure}
-Wave activated by Starchild can activate a piece on its neighboring-fields, with 1 momentum.
-Any own piece, except King, can be activated by Wave, and also opponent's Waves.
-Activated Wave can teleport via Star or Monolith, if they are also on Wave's neighboring-fields,
-enumerated in this example.
+Starchild can try to capture field at which Monolith is located, as if trying to activate and move
+it, like a Star.
+
+\vspace*{7.1\baselineskip}
+\noindent
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_12_starchild_not_moving_monolith_end.png}
+\caption{Moving out of a Monolith}
+\label{fig:scn_o_12_starchild_not_moving_monolith_end}
+\end{wrapfigure}
+Instead of moving a Monolith, Starchild then emerges on any empty portal-field around Monolith it
+tried to move.
 
 \clearpage % ..........................................................
+
+% \vspace*{1.1\baselineskip}
+\subsubsection*{Teleporting Wave}
+\addcontentsline{toc}{subsubsection}{Teleporting Wave}
 
 % \vspace*{-3.1\baselineskip}
 \vspace*{-2.1\baselineskip}
@@ -223,94 +285,6 @@ color of a starting field. Before teleportation, Wave had all empty, light field
 accessible, because it was initially located on a dark field.
 
 \clearpage % ..........................................................
-
-% \vspace*{-1.1\baselineskip}
-\subsubsection*{Moving a Star}
-\addcontentsline{toc}{subsubsection}{Moving a Star}
-
-\vspace*{-0.9\baselineskip}
-\noindent
-\begin{wrapfigure}[7]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_09_starchild_moving_star_init.png}
-\caption{Moving into a Star}
-\label{fig:scn_o_09_starchild_moving_star_init}
-\end{wrapfigure}
-Starchild's activation fields are enumerated, these are Starchild's neighboring-fields.
-Starchild can move a Star by activating it, the same way as any other piece, i.e. by
-capturing field at which Star is located.
-
-On the same activation fields Starchild can also activate any own piece and opponent's
-Starchild; Starchild cannot activate neither Kings (own and opponent's), nor Monoliths.
-
-% \vspace*{2.1\baselineskip}
-\noindent
-\begin{wrapfigure}[7]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_10_starchild_moving_star_end.png}
-\caption{Moving a Star}
-\label{fig:scn_o_10_starchild_moving_star_end}
-\end{wrapfigure}
-Once activated, Star can move to any empty neighboring-field, which all are enumerated in
-example on the left.
-
-Note, even if activated Starchild received more than 1 momentum, Star can only be activated
-on Starchild's neighboring-fields, and move for only one step.
-
-\clearpage % ..........................................................
-
-% \vspace*{1.1\baselineskip}
-\subsubsection*{Not moving a Monolith}
-\addcontentsline{toc}{subsubsection}{Not moving a Monolith}
-
-\vspace*{-0.9\baselineskip}
-\noindent
-\begin{wrapfigure}[5]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_11_starchild_not_moving_monolith_init.png}
-\caption{Moving into a Monolith}
-\label{fig:scn_o_11_starchild_not_moving_monolith_init}
-\end{wrapfigure}
-Starchild’s activation fields are enumerated. Starchild can try to capture field at which
-Monolith is located, as if trying to activate and move it.
-
-\vspace*{2.1\baselineskip}
-\noindent
-\begin{wrapfigure}[4]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_12_starchild_not_moving_monolith_end.png}
-\caption{Moving out of a Monolith}
-\label{fig:scn_o_12_starchild_not_moving_monolith_end}
-\end{wrapfigure}
-Instead of moving a Monolith, Starchild then emerges on any empty portal-field around Monolith
-it tried to move.
-
-\clearpage % ..........................................................
-
-% \vspace*{1.1\baselineskip}
-\subsubsection*{Conversion immunity}
-\addcontentsline{toc}{subsubsection}{Conversion immunity}
-
-\vspace*{-0.9\baselineskip}
-\noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_13_starchild_conversion_immunity_init.png}
-\caption{Conversion immunity}
-\label{fig:scn_o_13_starchild_conversion_immunity_init}
-% \centering
-\end{figure}
-
-\hyperref[sec:Mayan Ascendancy/Pyramid/Conversion]{Conversion} is a move in which activated
-Pyramid reaches opponent's piece, if it's not King, on own side of board. Pyramid is then
-oblationed, and reached piece is replaced by the same piece in opposite color.
-Starchild cannot be converted, instead, original Starchild remains on chessboard.
-
-\clearpage % ..........................................................
-
-% \vspace*{1.1\baselineskip}
-\subsubsection*{Teleporting Wave}
-\addcontentsline{toc}{subsubsection}{Teleporting Wave}
 
 \vspace*{-0.9\baselineskip}
 \noindent
@@ -345,6 +319,27 @@ moved out of their initial positions. In such a case, Wave is oblationed, the sa
 Wave is also removed from chessboard if, after teleportation, all of its step-fields are
 blocked; this is again similar to
 \hyperref[fig:scn_d_10_teleported_wave_blocked]{previous variant, Discovery}.
+
+\clearpage % ..........................................................
+
+% \vspace*{1.1\baselineskip}
+\subsubsection*{Conversion immunity}
+\addcontentsline{toc}{subsubsection}{Conversion immunity}
+
+\vspace*{-0.9\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_13_starchild_conversion_immunity_init.png}
+\caption{Conversion immunity}
+\label{fig:scn_o_13_starchild_conversion_immunity_init}
+% \centering
+\end{figure}
+
+\hyperref[sec:Mayan Ascendancy/Pyramid/Conversion]{Conversion} is a move in which activated
+Pyramid reaches opponent's piece, if it's not King, on own side of board. Pyramid is then
+oblationed, and reached piece is replaced by the same piece in opposite color.
+Starchild cannot be converted, instead, original Starchild remains on chessboard.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
