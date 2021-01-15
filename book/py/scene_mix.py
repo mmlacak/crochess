@@ -37,8 +37,8 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_02_starchild_activating_own_piece_init', \
                     # 'scn_o_03_starchild_activating_own_piece_end', \
                     # 'scn_o_04_activating_starchild', \
-                    'scn_o_09_starchild_moving_star_init', \
-                    'scn_o_10_starchild_moving_star_end', \
-                    'scn_o_11_starchild_not_moving_monolith_init', \
-                    'scn_o_12_starchild_not_moving_monolith_end', \
+                    'scn_o_06_starchild_moving_star_init', \
+                    'scn_o_07_starchild_moving_star_end', \
+                    'scn_o_08_starchild_not_moving_monolith_init', \
+                    'scn_o_09_starchild_not_moving_monolith_end', \
                 ]
