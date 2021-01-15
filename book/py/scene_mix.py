@@ -34,6 +34,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_22_wave_activation_by_capture_pawn', \
-                    'scn_mv_23_wave_activated_by_capture_pawn', \
+                    'scn_o_02_starchild_activating_own_piece_init', \
+                    'scn_o_03_starchild_activating_own_piece_end', \
+                    'scn_o_04_activating_starchild', \
                 ]

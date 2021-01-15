@@ -95,15 +95,16 @@ single step.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_starchild_activating_wave_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_starchild_activating_own_piece_init.png}
 \caption{Activating Wave}
-\label{fig:scn_o_02_starchild_activating_wave_init}
+\label{fig:scn_o_02_starchild_activating_own_piece_init}
 % \centering
 \end{figure}
 
-Starchild can activate only own Waves on its step-fields. Here, both own Waves A and B can
-be activated. Opponent's Wave cannot be activated, its also located on field in the same
-color as Starchild's. Starchild cannot activate other pieces, here dark Knight and own Pawn.
+Starchild can activate any own piece on its step-fields, except King, with 1 momentum. Here,
+both light Waves and Rook can be activated. Light Pawn can't be activated as it's located on
+the same color field as Starchild, and so is not on Starchild's step-field. None of opponent's
+pieces can be activated.
 
 \clearpage % ..........................................................
 
@@ -111,18 +112,18 @@ color as Starchild's. Starchild cannot activate other pieces, here dark Knight a
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_03_starchild_activating_wave_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_03_starchild_activating_own_piece_end.png}
 \caption{Wave activated}
-\label{fig:scn_o_03_starchild_activating_wave_end}
+\label{fig:scn_o_03_starchild_activating_own_piece_end}
 % \centering
 \end{figure}
 
-Own Wave A is now activated by Starchild, with no momentum. It moves the same as Starchild,
-i.e. to any empty field in opposite color to its starting position. Since it has no momentum,
-Wave A cannot activate own Pawn. Own Wave B cannot be activated, as it's located on the same
-color field as starting field of Wave A. Own Waves cannot activate opponent's pieces, except
-Waves. So, while dark Knight cannot be activated, opponent's Wave can be, also with no
+Activated Wave moves the same as Starchild, i.e. to any field in opposite color to its starting
+position. There it can activate any own piece, except King, and opponent's Wave, with 1 received
 momentum.
+Here, light Wave A is now activated, and it can activate light Pawn and dark Wave, with 1 momentum.
+It cannot activate neither other opponent's pieces (here, dark Knight and Pegasus), nor own pieces
+on the same dark field as its starting position (here, light Wave B and Rook).
 
 \clearpage % ..........................................................
 
@@ -139,10 +140,10 @@ momentum.
 % \centering
 \end{figure}
 
-Activated Starchild does not spend received momentum for moving; if Starchild activates Wave,
-it transfers all of received momentum to Wave. In example similar to previous, light Starchild
-is receiving 5 momentum after being activated by light Queen, received momentum is then
-transfered from light Wave to dark one in its entirety.
+\hyperref[fig:10_wave]{Like Waves}, activated Starchild does not spend received momentum for moving;
+if Starchild activates a piece, it transfers all of received momentum to it. In example similar to
+previous, light Starchild is receiving 5 momentum after being activated by light Queen, received
+momentum is then transfered from light Wave to dark one to dark Knight in its entirety.
 
 \clearpage % ..........................................................
 
