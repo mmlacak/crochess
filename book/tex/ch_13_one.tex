@@ -52,9 +52,9 @@ Monoliths.
 \caption{Star}
 \label{fig:star/22_one}
 \end{wrapfigure}
-Starchild can't teleport. Starchild moves from starting to empty destination field in
-opposite color one step, without interacting with any piece on chessboard. Starchild
-can also activate own Wave on its step-fields, with no momentum.
+Starchild can't teleport. Starchild moves from starting to destination field in opposite
+color in one step, without interacting with any piece on chessboard. Starchild can also
+activate any own piece, except King, on its step-fields, with 1 momentum.
 
 Starchild can ressurect any captured piece, except Kings, Stars, Monoliths. Waves and
 Starchilds can be ressurected without ressurecting Starchild being oblationed.
@@ -82,8 +82,9 @@ In algebraic notation, symbol for Starchild is 'I'.
 Starchild can move to any empty field in opposite color to the one it's located on.
 Starchild is not hampered by any piece between starting and destination field.
 
-Here, light Starchild in the middle is positioned at dark field, and so can access
-any empty light field on chessboard, in a single ply.
+Here, light Starchild in the middle moved from its starting position in one step.
+It is now positioned at dark field, and so can access any empty light field in a
+single step.
 
 \clearpage % ..........................................................
 
@@ -100,7 +101,7 @@ any empty light field on chessboard, in a single ply.
 % \centering
 \end{figure}
 
-Starchild can activate only own Waves on its step-field. Here, both own Waves A and B can
+Starchild can activate only own Waves on its step-fields. Here, both own Waves A and B can
 be activated. Opponent's Wave cannot be activated, its also located on field in the same
 color as Starchild's. Starchild cannot activate other pieces, here dark Knight and own Pawn.
 
@@ -141,7 +142,7 @@ momentum.
 Activated Starchild does not spend received momentum for moving; if Starchild activates Wave,
 it transfers all of received momentum to Wave. In example similar to previous, light Starchild
 is receiving 5 momentum after being activated by light Queen, received momentum is then
-transfered to both Waves in a cascade.
+transfered from light Wave to dark one in its entirety.
 
 \clearpage % ..........................................................
 
@@ -171,15 +172,17 @@ and diagonally. They are the same as step-fields of a King.
 \caption{Activating piece}
 \label{fig:scn_o_06_starchild_activating_fields}
 \end{wrapfigure}
-Fields at which Starchild can activate a piece are neighboring-fields.
+Fields at which Starchild can activate piece other than just own Wave are neighboring-fields.
 
-Note, Starchild can move only to non-empty activation fields, and only if it contains
-own piece, except King, or opponent's Starchids.
+Starchild can move only to non-empty activation fields, and only if it contains own piece,
+or opponent's Starchids; Starchild cannot activate own King.
 
 Here, Starchild’s activation fields are enumerated. Opponent's Bishop and own King can't
 be activated, so only own Pegasus can be, with 1 momentum.
 
-\vspace*{-1.1\baselineskip}
+\clearpage % ..........................................................
+
+% \vspace*{-1.1\baselineskip}
 \subsubsection*{Activating Wave, with momentum}
 \addcontentsline{toc}{subsubsection}{Activating Wave, with momentum}
 

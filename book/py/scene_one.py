@@ -23,10 +23,14 @@ class SceneOneMixin:
         scene = Scene('scn_o_01_starchild_movement', bt)
 
         scene.board.setup()
-        scene.board.set_piece(5, 0, piece=PieceType.none) # Starchild was here
 
-        start_I = (12, 12)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        start_I = (5, 0)
+        scene.board.set_piece(*start_I, piece=PieceType.none) # Starchild was here
+
+        end_I = (12, 12)
+        scene.board.set_piece(*end_I, piece=PieceType.Starchild)
+
+        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Blocked )
 
         return scene
 
