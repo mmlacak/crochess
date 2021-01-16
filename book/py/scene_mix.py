@@ -34,6 +34,8 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
+                    # 'scn_d_09_teleport_wave_via_monolith', \
+                    # 'scn_d_10_teleported_wave_blocked', \
                     # 'scn_o_02_starchild_activating_own_piece_init', \
                     # 'scn_o_03_starchild_activating_own_piece_end', \
                     # 'scn_o_04_activating_starchild', \
@@ -43,6 +45,5 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_09_starchild_not_moving_monolith_end', \
                     # 'scn_o_10_starchild_activated_wave_not_teleporting_init', \
                     # 'scn_o_11_starchild_activated_wave_not_teleporting_end', \
-                    'scn_d_09_teleport_wave_via_monolith', \
-                    'scn_d_10_teleported_wave_blocked', \
+                    'scn_o_12_star_moved_wave_teleportation', \
                 ]

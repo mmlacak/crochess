@@ -323,13 +323,16 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_12_star_moved_wave_teleportation', bt)
 
-        start_W = (11, 9)
+        start_W = (17, 9) # (11, 9)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        start_N = (10, 11)
+        start_N = (16, 11) # (10, 11)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (5, 6)
+        start_Q = (7, 4)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        startT1 = (11, 6) # (5, 6)
         startT2 = (25, 25)
         startT3 = (25, 0)
         startT4 = (0, 25)
@@ -341,9 +344,9 @@ class SceneOneMixin:
 
         scene.append_arrow( *(start_N + start_W), mark_type=MarkType.Legal )
 
-        gen = GS.gen_steps( [(-2, -1), ], start_W, include_prev=True, count=5 )
+        gen = GS.gen_steps( [(-2, -1), ], start_W, include_prev=True, count=8 )
         for index, coords in enumerate( gen() ):
-            mark_type = MarkType.Action if index == 2 else MarkType.Legal if index < 2 else MarkType.Blocked
+            mark_type = MarkType.Action if index in [2, 4] else MarkType.Legal # if index < 2 else MarkType.Blocked
             scene.append_arrow( *coords, mark_type=mark_type )
 
         return scene

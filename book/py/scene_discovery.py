@@ -365,7 +365,7 @@ class SceneDiscoveryMixin:
         scene.board.set_piece(*startT3, piece=-PieceType.Star)
         scene.board.set_piece(*startT4, piece=-PieceType.Star)
 
-        start_M1 = (9, 6) # (1, 6)
+        start_M1 = (9, 6)
         start_M2 = (22, 17)
 
         scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
@@ -376,7 +376,7 @@ class SceneDiscoveryMixin:
 
         #
         # Pegasus
-        start_G = (17, 7) # (9, 7)
+        start_G = (17, 7)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
 
         gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
@@ -387,7 +387,7 @@ class SceneDiscoveryMixin:
 
         #
         # Wave
-        start_W = (15, 3) # (7, 3)
+        start_W = (15, 3)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=7)
@@ -423,7 +423,7 @@ class SceneDiscoveryMixin:
         scene.board.set_piece(*startT3, piece=-PieceType.Star)
         scene.board.set_piece(*startT4, piece=-PieceType.Star)
 
-        start_M1 = (9, 6) # (1, 6)
+        start_M1 = (9, 6)
         start_M2 = (22, 17)
 
         scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
@@ -441,7 +441,7 @@ class SceneDiscoveryMixin:
 
         #
         # Pegasus
-        start_G = (17, 7) # (9, 7)
+        start_G = (17, 7)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
 
         gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
@@ -452,7 +452,7 @@ class SceneDiscoveryMixin:
 
         #
         # Wave
-        start_W = (15, 3) # (7, 3)
+        start_W = (15, 3)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=7)
