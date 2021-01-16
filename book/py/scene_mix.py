@@ -41,6 +41,8 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_07_starchild_moving_star_end', \
                     # 'scn_o_08_starchild_not_moving_monolith_init', \
                     # 'scn_o_09_starchild_not_moving_monolith_end', \
-                    'scn_o_10_starchild_activated_wave_not_teleporting_init', \
-                    'scn_o_11_starchild_activated_wave_not_teleporting_end', \
+                    # 'scn_o_10_starchild_activated_wave_not_teleporting_init', \
+                    # 'scn_o_11_starchild_activated_wave_not_teleporting_end', \
+                    'scn_d_09_teleport_wave_via_monolith', \
+                    'scn_d_10_teleported_wave_blocked', \
                 ]

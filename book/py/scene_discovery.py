@@ -365,34 +365,35 @@ class SceneDiscoveryMixin:
         scene.board.set_piece(*startT3, piece=-PieceType.Star)
         scene.board.set_piece(*startT4, piece=-PieceType.Star)
 
-        start_M1 = (1, 6)
+        start_M1 = (9, 6) # (1, 6)
         start_M2 = (22, 17)
 
         scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
         scene.board.set_piece(*start_M2, piece=PieceType.Monolith)
 
+        scene.board.set_piece(5, 8, piece=PieceType.Queen)
         scene.board.set_piece(16, 20, piece=PieceType.Bishop)
 
         #
-        # Wave
-        start_W = (7, 3)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=3)
-
-        for i, pos in enumerate( gen_abs_pos_W() ):
-            mark_type = MarkType.Action if i == 2 else MarkType.Legal
-            scene.append_arrow(*pos, mark_type=mark_type)
-
-        #
         # Pegasus
-        start_G = (9, 7)
+        start_G = (17, 7) # (9, 7)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
 
         gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
 
         for i, pos in enumerate( gen_abs_pos_G() ):
             mark_type = MarkType.Action if i == 1 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Wave
+        start_W = (15, 3) # (7, 3)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=7)
+
+        for i, pos in enumerate( gen_abs_pos_W() ):
+            mark_type = MarkType.Blocked if i > 2 else MarkType.Action if i == 2 else MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
 
         #
@@ -422,11 +423,13 @@ class SceneDiscoveryMixin:
         scene.board.set_piece(*startT3, piece=-PieceType.Star)
         scene.board.set_piece(*startT4, piece=-PieceType.Star)
 
-        start_M1 = (1, 6)
+        start_M1 = (9, 6) # (1, 6)
         start_M2 = (22, 17)
 
         scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
         scene.board.set_piece(*start_M2, piece=PieceType.Monolith)
+
+        scene.board.set_piece(5, 8, piece=PieceType.Queen)
 
         #
         # Pawns
@@ -437,25 +440,25 @@ class SceneDiscoveryMixin:
             scene.board.set_piece(*pos, piece=piece)
 
         #
-        # Wave
-        start_W = (7, 3)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=3)
-
-        for i, pos in enumerate( gen_abs_pos_W() ):
-            mark_type = MarkType.Action if i == 2 else MarkType.Legal
-            scene.append_arrow(*pos, mark_type=mark_type)
-
-        #
         # Pegasus
-        start_G = (9, 7)
+        start_G = (17, 7) # (9, 7)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
 
         gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
 
         for i, pos in enumerate( gen_abs_pos_G() ):
             mark_type = MarkType.Action if i == 1 else MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Wave
+        start_W = (15, 3) # (7, 3)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=7)
+
+        for i, pos in enumerate( gen_abs_pos_W() ):
+            mark_type = MarkType.Blocked if i > 2 else MarkType.Action if i == 2 else MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
 
         #
