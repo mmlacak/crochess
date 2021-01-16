@@ -349,11 +349,11 @@ would be \\
 \alg{[He13..e18*N..m12*P..g24]}.
 % \alg{[Hi10-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@[He13..e18*N..m12*P..g24]}.
 
-Failed trance-journey is noted with \alg{@@} (double at-sign) after entrancing ply. Optionally, oblationed
-piece can be written after \alg{@@}. In this
+Failed trance-journey is noted with \alg{@@@} (triple at-sign) after entrancing ply. Optionally, oblationed
+piece can be written after \alg{@@@}. In this
 \hyperref[fig:scn_o_21_trance_journey_failed]{failed trance-journey example} all step-fields are blocked by
-Kings, Stars, Monoliths, so entranced dark Bishop is oblationed, which is written as \alg{Iy2\~{}Iz1@@},
-and in \algfmt{XAN}, with plies gathering and oblationed piece, as \alg{[Iz3-y2]\~{}[Iy2-z1]@@B}.
+Kings, Stars, Monoliths, so entranced dark Bishop is oblationed, which is written as \alg{Iy2\~{}Iz1@@@},
+and in \algfmt{XAN}, with plies gathering and oblationed piece, as \alg{[Iz3-y2]\~{}[Iy2-z1]@@@B}.
 
 Dark Shaman's trance-journey is noted similar to light's one. For instance,
 \hyperref[fig:scn_cot_22_dark_dark_shaman_interaction_start]{this dark Shaman's trance-journey} would be
@@ -361,15 +361,22 @@ written as \alg{Hb14\~{}We12@H..q16*..k14*..c18}.
 
 One peculiarity of dark Shaman's trance-journey is that it starts from the far end of a pattern inward,
 towards initial position of entranced Shaman. There is no step between both locations, to note them \alg{,}
-(comma) is used to separate Shaman's initial position and trance-journey starting field. Now, with gathered
-plies and noted captured pieces it would look like so\\
+(comma) is used to separate Shaman's initial position and trance-journey starting field. Now, in \algfmt{XAN}
+with gathered plies and noted captured pieces it would look like so\\
 \alg{[He16-b14]\~{}[Wb14-e12]@}\\
 \alg{[He12,w18..q16*P..k14*N..c18]}.
 % \alg{[He16-b14]\~{}[Wb14-e12]@[He12,w18..q16*P..k14*N..c18]}.
 
-\huge{TODO}
-\normalsize{}
-dark Shaman, single pattern, double pattern
+Another peculiarity of dark Shaman is dual-pattern trance-journey, which is written with \alg{@@} (double at-sign),
+followed by list of captured pieces, each separated by \alg{,} (comma). Each piece can optionally be followed by
+location where it was captured. Order of captured pieces in a list is not important. This example of
+\hyperref[fig:scn_cot_24_dark_dark_shaman_double_interaction_start]{dark Shaman's dual trance-journey} is written as
+\alg{Hb14\~{}We12@@H,P,B,R,R,N,B,N}. In \algfmt{XAN}, with gathered plies and capturing locations noted, it would be
+written as\\
+\alg{[He16-b14]\~{}[Wb14-e12]@@}\\
+\alg{He12,Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.\\
+% \alg{[H-b14]\~{}[W-e12]@@He12,Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
+Note, for writing sacrificed, entranced dark Shaman in a list of captured pieces, its initial position is used.
 
 \subsection*{Syzygy, demoting to Pawn}
 \addcontentsline{toc}{subsection}{Syzygy, demoting to Pawn}
@@ -581,10 +588,11 @@ avoid any possible confusion which are, in \algfmt{NAN} all side-effects are man
  5          & \alg{|}              & teleportation                              \\
  6          & \alg{||}             & failed teleportation, oblation             \\
  7          & \alg{@}              & trance-journey                             \\
- 8          & \alg{@@}             & failed trance-journey, oblation            \\
- 9          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
-10          & \alg{,}              & items in a list                            \\
-11          & \alg{[]}             & ply gathering                              \\
+ 8          & \alg{@@}             & dual trance-journey, oblation              \\
+ 9          & \alg{@@@}            & failed trance-journey, oblation            \\
+10          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
+11          & \alg{,}              & items in a list                            \\
+12          & \alg{[]}             & ply gathering                              \\
 \bottomrule
 \end{tabular}
 \caption{Path separators}
@@ -593,9 +601,13 @@ avoid any possible confusion which are, in \algfmt{NAN} all side-effects are man
 
 First 3 symbols (\alg{.}, \alg{..} and \alg{-}) separates steps within a single ply.
 Other symbols (\alg{\~{}}, \alg{|}, \alg{@} and \alg{::}) are separators between plies,
-or ply terminators (\alg{||} and \alg{@@}). Ply gathering symbol (\alg{[]}) is just to
-visually enhance plies, making them easier to tell apart, but otherwise does not
-contribute any new information.
+or ply terminators (\alg{||}, \alg{@@}, and \alg{@@@}).
+
+Items separator (\alg{,}) is used where multiple items needs to be listed for a single
+step (or a ply), e.g. pieces captured in a dark Shaman's dual trance-journey.
+
+Ply gathering symbol (\alg{[]}) is just to visually enhance plies, making them easier
+to tell apart, but otherwise does not contribute any new information.
 
 \clearpage % ..........................................................
 
@@ -954,7 +966,7 @@ are available for a particular variant see
 | \alg{@}<disposable-piece>[<disambiguation>]
     (.[.]<field>\alg{*}[<disposable-piece>])
     <field>
-| \alg{@}\alg{@}[<disposable-piece>]
+| \alg{@}\alg{@}\alg{@}[<disposable-piece>]
 
 <pawn-sacrifice> =
   \alg{S}<movement>\alg{~A}<movement>\alg{::}
