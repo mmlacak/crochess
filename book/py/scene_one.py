@@ -56,10 +56,10 @@ class SceneOneMixin:
         start_g = (9, 9)
         scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
 
-        start_P = (21, 2)
-        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
+        start_i = (22, 2)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
 
-        start_R = (20, 4)
+        start_R = (19, 4)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
 
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
@@ -68,8 +68,8 @@ class SceneOneMixin:
         scene.append_arrow( *(start_I + start_W_A), mark_type=MarkType.Action )
         scene.append_arrow( *(start_I + start_W_B), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *(start_I + start_P), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_I + start_R), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_I + start_R), mark_type=MarkType.Illegal )
 
         scene.append_arrow( *(start_I + start_w), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_I + start_n), mark_type=MarkType.Illegal )
@@ -100,10 +100,10 @@ class SceneOneMixin:
         start_g = (9, 9)
         scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
 
-        start_P = (21, 2)
-        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
+        start_i = (22, 2)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
 
-        start_R = (20, 4)
+        start_R = (19, 4)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
 
         # scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
@@ -114,8 +114,8 @@ class SceneOneMixin:
         scene.append_arrow( *(start_W_A + start_W_B), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_W_A + start_w), mark_type=MarkType.Action )
 
-        scene.append_arrow( *(start_W_A + start_P), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W_A + start_R), mark_type=MarkType.Illegal )
+        scene.append_arrow( *(start_W_A + start_i), mark_type=MarkType.Illegal )
+        scene.append_arrow( *(start_W_A + start_R), mark_type=MarkType.Legal )
 
         scene.append_arrow( *(start_W_A + start_n), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_W_A + start_g), mark_type=MarkType.Illegal )

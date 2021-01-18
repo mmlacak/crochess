@@ -872,7 +872,7 @@ closing bracket. Each closing bracket always closes exactly one group. For insta
 <abc> = \alg{a}[\alg{b}[\alg{c}]\alg{d}]\alg{e}
 \end{alltt}
 gives \alg{abcde}, \alg{abde}, \alg{ae} for \algfmt{<abc>}.
-Brackets cannot overlap, i.e. if group contains other group, it must contain it in
+Brackets cannot overlap, i.e. if group contains other group, it must be contained in
 its entirety. For instance:
 \begin{alltt}
 <abc> = \alg{a}[\alg{b}(\alg{c}]\alg{d})\alg{e}
