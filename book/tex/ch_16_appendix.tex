@@ -361,11 +361,12 @@ to separate them. Now, in \algfmt{XAN} with gathered plies and noted captured pi
 % \alg{[He16-b14]\~{}[Wb14-e12]@[He12,w18..q16*P..k14*N..c18]}.
 
 Another peculiarity of dark Shaman is dual trance-journey, which is written with \alg{@@} (double at-sign),
-followed by list of captured pieces, each separated by \alg{,} (comma). Each piece can optionally be followed
-by location where it was captured. Order of captured pieces in a list is not important. This example of
+optionally followed by list of captured pieces, each separated by \alg{,} (comma). Each piece can optionally
+be followed by location where it was captured. Order of captured pieces in a list is not important. This
+example of
 \hyperref[fig:scn_cot_24_dark_dark_shaman_double_interaction_start]{dark Shaman's dual trance-journey} is
-written as \alg{Hb14\~{}We12@@P,B,R,R,N,B,N}. In \algfmt{XAN}, with gathered plies and capturing locations
-noted, it would be written as\\
+written just as \alg{Hb14\~{}We12@@} or, with captured pieces, as \alg{Hb14\~{}We12@@P,B,R,R,N,B,N}.
+In \algfmt{XAN}, with gathered plies and capturing locations noted, it would be written as\\
 \alg{[He16-b14]\~{}[Wb14-e12]@@}\\
 \alg{Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.\\
 % \alg{[H-b14]\~{}[W-e12]@@Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
@@ -932,21 +933,19 @@ are available for a particular variant see
 | <field>\alg{-}<field>
 
 <side-effects> = ?
-               | \alg{*}[<disposable-piece>]
-               | \alg{:}[<rank>]
-               | \alg{&}[<file>]
-               | [\alg{=}]<promote-to-figure>
-               | \alg{==}
-               | \alg{%}[<disposable-piece>]
-               | \alg{%%}
-               | \alg{<}[<disposable-piece>]
-                   <field>
-               | \alg{>}[<disposable-piece>]
-                   <disambiguation>
-               | \alg{$}<disposable-piece>
-               | \alg{$W}<field>
-               | \alg{$I}<field>
-               | \alg{$$}
+| \alg{*}[<disposable-piece>]
+| \alg{:}[<rank>]
+| \alg{&}[<file>]
+| [\alg{=}]<promote-to-figure>
+| \alg{==}
+| \alg{%}[<disposable-piece>]
+| \alg{%%}
+| \alg{<}[<disposable-piece>]<field>
+| \alg{>}[<disposable-piece>]<disambiguation>
+| \alg{$}<disposable-piece>
+| \alg{$W}<field>
+| \alg{$I}<field>
+| \alg{$$}
 
 <ply> =
   <movable-piece><movement><side-effects>
@@ -958,6 +957,7 @@ are available for a particular variant see
   \alg{|}<field>
 | \{\alg{|W}<movement>\}[\alg{||}]
 | \{\alg{|W}<movement>\}[\alg{~}<move-new>]
+| \alg{||}[<disposable-piece>]<field>
 | \alg{||}
 \end{alltt}
 
@@ -971,6 +971,8 @@ are available for a particular variant see
 | \alg{@}<disposable-piece>[<disambiguation>]
     (.[.]<field>\alg{*}[<disposable-piece>])
     <field>
+| \alg{@}\alg{@}[<disposable-piece>[<field>]
+    (,<disposable-piece>[<field>])]
 | \alg{@}\alg{@}\alg{@}[<disposable-piece>]
 
 <pawn-sacrifice> =
@@ -993,15 +995,15 @@ are available for a particular variant see
 | [<cascade>\alg{~}]<pawn-sacrifice>
     [<pawn-sacrifice-capture>]
 | [<cascade>\alg{~}]<move-star>
-
-<status> = ?
-         | \alg{+}
-         | \alg{#}
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<status> = ?
+         | \alg{+}
+         | \alg{#}
+
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]
     <field>[<status>]
