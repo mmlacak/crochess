@@ -406,29 +406,25 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_15_trance_journey_init_starchild', bt, width=9, height=9)
 
+        start_I = (1, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (2, 2)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (5, 1)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (4, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
 
-        start_I = (6, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = (7, 5)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        start_W = (4, 3)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (1, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_h = (2, 1)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
-
-        # dark Starchild --> light Starchild
         scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
-
-        # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W + start_w), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_w + start_b), mark_type=MarkType.Legal )
 
         return scene
 
@@ -436,31 +432,24 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_16_trance_journey_init_shaman', bt, width=9, height=9)
 
+        start_I = (1, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (2, 2)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (5, 1)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (4, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
 
-        start_I = (6, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = (7, 5)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        start_W = (4, 3)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (1, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_h = (2, 1)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
-
-        # dark Shaman --> dark Wave --> light Wave --> light Shaman
-        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_w + start_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
-
-        # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_i + start_w), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_w + start_b), mark_type=MarkType.Legal )
 
         return scene
 
@@ -468,24 +457,21 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_17_trance_journey_started_by_shaman', bt)
 
+        start_I = (5, 1)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (1, 6)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (4, 5)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (7, 7)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
         start_b = (7, 7)
         end_b = (9, 18)
         scene.board.set_piece(*end_b, piece=-PieceType.Bishop)
-
-        start_I = (7, 7)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = (7, 5)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        start_W = (6, 6)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (4, 3)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_h = (1, 5)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
 
         #
         # right arm
