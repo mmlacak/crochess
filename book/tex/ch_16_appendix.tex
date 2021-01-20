@@ -780,7 +780,7 @@ variants, since it has only been introduced in Discovery variant.
 \textbf{Id} & \textbf{Activated by} & \textbf{Moves like}                       \\
 \midrule
  1          & Pawn                  & Pawn, single direction,                   \\
-            &                       & infinite steps                            \\
+            &                       & multiple steps                            \\
  2          & Knight                & Pegasus                                   \\
  3          & Bishop                & Bishop                                    \\
  4          & Rook                  & Rook                                      \\
@@ -793,7 +793,7 @@ variants, since it has only been introduced in Discovery variant.
 11          & Star                  & ---                                       \\
 12          & Centaur               & Centaur                                   \\
 13          & Serpent               & Serpent, 2 alternating directions,        \\
-            &                       & infinite steps                            \\
+            &                       & multiple steps                            \\
 14          & Shaman                & Shaman                                    \\
 15          & Monolith              & ---                                       \\
 16          & Starchild             & Starchild                                 \\
@@ -803,9 +803,33 @@ variants, since it has only been introduced in Discovery variant.
 \label{tbl:Appendix/Movement of Wave}
 \end{table}
 
-Movement of Wave ... as multi-step piece activating it  ...
+Wave generally moves the same way as activating piece in the moment of activation,
+with ability to make multiple steps in one direction even if activated by single
+step piece, e.g. Wave activated by Knight moves like a Pegasus. Another example,
+Wave activated by Shaman on capturing-fields moves over that Shaman's
+capturing-fields.
 
-\hyperref[fig:scn_mv_22_wave_activation_by_capture_pawn]{activated by Pawn}
+\hyperref[fig:scn_tr_12_serpent_activating_wave]{Wave activated by Serpent} is
+exception, it moves by alternating between 2 diagonal steps, which, once chosen,
+can't be changed for the remainder of Wave's ply.
+
+Wave activated by Starchild cannot move a Star.
+Wave cannot be activated by a Star or a Monolith. Wave cannot activate Kings,
+Stars and Monoliths.
+
+Wave activated by Pawn always moves toward opponent's figure row, either in a
+straight line (if
+\hyperref[fig:scn_mv_20_wave_activation_by_step_pawn]{activated on a Pawn's step-field}
+), or diagonally (if
+\hyperref[fig:scn_mv_22_wave_activation_by_capture_pawn]{activated on a Pawn's capture-field});
+once left or right diagonal is chosen, it can't be changed for the remainder of
+Wave's ply.
+
+All other properties of Wave movement remains the same, regardless which piece
+activated it: ability to "pass-through" pieces (except Monoliths) on a chessboard
+as if they're not there, inability to capture any piece, ability to activate any
+own piece (except King) and ability to transfer all of received momentum to
+activated piece.
 
 \clearpage % ..........................................................
 
