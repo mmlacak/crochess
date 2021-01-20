@@ -497,19 +497,6 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_18_trance_journey_failed', bt)
 
-        start_b = (25, 0)
-        adder = GS.adder(start_b)
-        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
-
-        start_I = adder(-1, 1) # (-1, 1)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = adder(1, 1) # (0, 2)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Action )
-
         scene.board.set_piece(25, 5, piece=PieceType.Star)
         scene.board.set_piece(1, 8, piece=PieceType.Star)
         scene.board.set_piece(5, 5, piece=-PieceType.Star)
@@ -521,11 +508,26 @@ class SceneOneMixin:
         scene.board.set_piece(17, 1, piece=PieceType.Monolith)
         scene.board.set_piece(19, 2, piece=-PieceType.Monolith)
 
+        start_H_1 = (22, 3)
+        scene.board.set_piece(*start_H_1, piece=PieceType.Shaman)
+
+        start_W_1 = (24, 2)
+        scene.board.set_piece(*start_W_1, piece=PieceType.Wave)
+
+        start_H_2 = (25, 0)
+        scene.board.set_piece(*start_H_2, piece=PieceType.Shaman)
+
+        start_b = (23, 1)
+        scene.board.set_piece(*start_b, piece=PieceType.Bishop)
+
+        scene.append_arrow( *(start_H_1 + start_W_1), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W_1 + start_H_2), mark_type=MarkType.Action )
+
         #
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
+        aba = self.append_broken_arrow(scene, start_H_2, rel, count=32, is_with_field_marker=True)
 
         for i in range(32):
             aba(str(i + 1), mark_type=MarkType.Blocked) # Legal)
@@ -534,7 +536,7 @@ class SceneOneMixin:
         # left arm
 
         rel = (-2, -1)
-        aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
+        aba = self.append_broken_arrow(scene, start_H_2, rel, count=32, is_with_field_marker=True)
 
         for i in range(32):
             aba(str(i + 1), mark_type=MarkType.Blocked) # Action)
