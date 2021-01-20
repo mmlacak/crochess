@@ -538,7 +538,7 @@ If annotation is meant instead, it has to be written as \alg{e8*\_=}.
 \addcontentsline{toc}{section}{Summary}
 \label{sec:Appendix/Summary}
 
-Now that all symbols have been introduced, lets gather them according to their purpose.
+Now that all symbols have been introduced, they're gathered here according to their purpose.
 
 \subsection*{Ply side-effects}
 \addcontentsline{toc}{subsection}{Ply side-effects}
@@ -560,7 +560,7 @@ Now that all symbols have been introduced, lets gather them according to their p
 8           & \alg{<}              & trance-journey displacement            \\
 9           & \alg{>}              & syzygy, demoting to Pawn               \\
 10          & \alg{\$}             & syzygy, ressurection                   \\
-11          & \alg{\$\$}           & failed ressurection, optional          \\
+11          & \alg{\$\$}           & failed ressurection                    \\
 \bottomrule
 \end{tabular}
 \caption{Ply side-effects}
@@ -819,8 +819,8 @@ Stars and Monoliths.
 
 Wave activated by Pawn always moves toward opponent's figure row, either in a
 straight line (if
-\hyperref[fig:scn_mv_20_wave_activation_by_step_pawn]{activated on a Pawn's step-field}
-), or diagonally (if
+\hyperref[fig:scn_mv_20_wave_activation_by_step_pawn]{activated on a Pawn's step-field}),
+or diagonally (if
 \hyperref[fig:scn_mv_22_wave_activation_by_capture_pawn]{activated on a Pawn's capture-field});
 once left or right diagonal is chosen, it can't be changed for the remainder of
 Wave's ply.
@@ -956,7 +956,8 @@ are available for a particular variant see
 | [<disambiguation>]\{.[.]<field>\}
 | <field>\alg{-}<field>
 
-<side-effects> = ?
+<side-effects> =
+  ?
 | \alg{*}[<disposable-piece>]
 | \alg{:}[<rank>]
 | \alg{&}[<file>]
