@@ -87,8 +87,8 @@ single step.
 
 \clearpage % ..........................................................
 
-\subsubsection*{Activating Wave}
-\addcontentsline{toc}{subsubsection}{Activating Wave}
+\subsubsection*{Activating on step-fields}
+\addcontentsline{toc}{subsubsection}{Activating on step-fields}
 
 \vspace*{-1.1\baselineskip}
 \noindent
@@ -120,8 +120,8 @@ activating Starchild.
 Activated Wave moves the same as Starchild, i.e. to any field in opposite color to its starting
 position. There it can activate any own piece (except King), and opponent's Wave, with 1 received
 momentum. Here, light Wave A is now activated, and it can activate dark Wave or light Rook. It
-cannot activate other opponent's pieces (here, dark Knight, Pegasus and dark Starchild). Light
-Wave B can't be activated because it's on the same dark field as activating Wave.
+cannot activate other opponent's pieces (here, dark Knight, Pegasus). Light Starchild and Wave B
+can't be activated because they're on the same dark field as activating Wave.
 
 \clearpage % ..........................................................
 
@@ -159,9 +159,52 @@ momentum is then transfered from light Wave to dark Wave to dark Knight in its e
 Neighboring-fields are all fields immediately surrounding a piece horizontally, vertically
 and diagonally. They are the same as step-fields of a King.
 
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
 
-\vspace*{2.1\baselineskip}
+% \vspace*{1.1\baselineskip}
+\subsubsection*{Activating on neighboring-fields}
+\addcontentsline{toc}{subsubsection}{Activating on neighboring-fields}
+
+% \vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_06_starchild_activating_fields.png}
+\caption{Activating piece}
+\label{fig:scn_o_06_starchild_activating_fields}
+\end{wrapfigure}
+Fields at which Starchild can activate a piece are neighboring-fields; pieces that can be
+activated are own pieces (except King), and opponent's Starchild.
+
+Note, Starchild cannot move to empty neighboring-fields, it can only activate a piece on its
+neighboring-field.
+
+Here, Starchild’s activation fields are enumerated. Opponent's Bishop and own King can't
+be activated, so only own Pegasus can be, with 1 momentum.
+
+\vspace*{-1.1\baselineskip}
+\subsubsection*{Activating Wave}
+\addcontentsline{toc}{subsubsection}{Activating Wave}
+
+% \vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_07_starchild_activating_wave_momentum_init.png}
+\caption{Activating Wave}
+\label{fig:scn_o_07_starchild_activating_wave_momentum_init}
+\end{wrapfigure}
+Wave activated by Starchild on its neighboring-fields can activate a piece, with 1 momentum;
+any own piece (except King), and opponent's Waves can be activated.
+
+Wave can also move to any empty neighboring-field, regardless of color.
+
+\hyperref[fig:scn_o_10_starchild_activated_wave_not_teleporting_init]{Activated Wave cannot teleport},
+instead of teleporting, Wave would reappear on any empty portal-field around Star (or Monlith).
+
+\clearpage % ..........................................................
+
+% \vspace*{2.1\baselineskip}
 \subsubsection*{Moving a Star}
 \addcontentsline{toc}{subsubsection}{Moving a Star}
 
@@ -173,8 +216,8 @@ and diagonally. They are the same as step-fields of a King.
 \caption{Moving into a Star}
 \label{fig:scn_o_06_starchild_moving_star_init}
 \end{wrapfigure}
-Starchild can activate a Star the same way as any other piece, i.e. by capturing field at
-which Star is located. Activated Star receives 1 momentum.
+Starchild can activate a Star the same way as any other piece, i.e. by capturing neighboring-field
+at which Star is located. Activated Star receives 1 momentum.
 
 \vspace*{2.1\baselineskip}
 \noindent
@@ -192,8 +235,8 @@ Note, even if activated Starchild received more than 1 momentum, Star can move f
 \clearpage % ..........................................................
 
 % \vspace*{1.1\baselineskip}
-\subsubsection*{Not moving a Monolith}
-\addcontentsline{toc}{subsubsection}{Not moving a Monolith}
+\subsubsection*{Not teleporting}
+\addcontentsline{toc}{subsubsection}{Not teleporting}
 
 % \vspace*{-0.9\baselineskip}
 \noindent

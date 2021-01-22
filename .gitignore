@@ -26,5 +26,6 @@ obj/
 lib/
 bin/
 *OLD*
+*NEW*
 .vscode
 *synctex*
