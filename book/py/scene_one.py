@@ -406,25 +406,29 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_15_trance_journey_init_starchild', bt, width=9, height=9)
 
-        start_I = (1, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = (2, 2)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        start_W = (5, 1)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (4, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
 
+        start_I = (6, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (7, 5)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (4, 3)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (1, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_h = (2, 1)
+        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+
+        # dark Starchild --> light Starchild
         scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W + start_w), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_w + start_b), mark_type=MarkType.Legal )
+
+        # light Starchild --> dark Bishop
+        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
 
         return scene
 
@@ -432,24 +436,31 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_16_trance_journey_init_shaman', bt, width=9, height=9)
 
-        start_I = (1, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = (2, 2)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        start_W = (5, 1)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (4, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
 
-        scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_i + start_w), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_w + start_b), mark_type=MarkType.Legal )
+        start_I = (6, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (7, 5)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (4, 3)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (1, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_h = (2, 1)
+        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+
+        # dark Shaman --> dark Wave --> light Wave --> light Shaman
+        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_w + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
+
+        # light Starchild --> dark Bishop
+        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
 
         return scene
 
@@ -457,21 +468,24 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_17_trance_journey_started_by_shaman', bt)
 
-        start_I = (5, 1)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = (1, 6)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        start_W = (4, 5)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (7, 7)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
         start_b = (7, 7)
         end_b = (9, 18)
         scene.board.set_piece(*end_b, piece=-PieceType.Bishop)
+
+        start_I = (7, 7)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (7, 5)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (6, 6)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (4, 3)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_h = (1, 5)
+        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
 
         #
         # right arm
@@ -493,9 +507,110 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_18_trance_journey_failed(self, bt=BoardType.One):
+    def scn_o_18_push_pull_trance_journey_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_18_trance_journey_failed', bt)
+        scene = Scene('scn_o_18_push_pull_trance_journey_init', bt, width=9, height=9)
+
+        start_i = (6, 5)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_w_A = (6, 6)
+        scene.board.set_piece(*start_w_A, piece=-PieceType.Wave)
+
+        start_w_B = (5, 7)
+        scene.board.set_piece(*start_w_B, piece=-PieceType.Wave)
+
+        start_n = (7, 7)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        scene.append_text( "A", *start_w_A, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_w_B, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *(start_i + start_w_A), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_w_A + start_w_B), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_o_19_push_pull_trance_journey_entrancing(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_19_push_pull_trance_journey_entrancing', bt, width=9, height=9)
+
+        start_i = (6, 6)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_w_A = (5, 7)
+        scene.board.set_piece(*start_w_A, piece=-PieceType.Wave)
+
+        # start_w_B = (3, 3)
+        # scene.board.set_piece(*start_w_B, piece=-PieceType.Wave)
+
+        start_n = (7, 7)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        scene.append_text( "A", *start_w_A, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_w_B, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *(start_w_A + start_i), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(start_i + start_n), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_o_20_push_pull_trance_journey_entranced(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_20_push_pull_trance_journey_entranced', bt)
+
+        start_i = (7, 7)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_w_A = (5, 7)
+        scene.board.set_piece(*start_w_A, piece=-PieceType.Wave)
+
+        start_w_B = (6, 6)
+        scene.board.set_piece(*start_w_B, piece=-PieceType.Wave)
+
+        start_n = (7, 7)
+        end_n = (6, 15)
+        scene.board.set_piece(*end_n, piece=-PieceType.Knight)
+
+        scene.append_text( "A", *start_w_A, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_w_B, mark_type=MarkType.Blocked )
+
+        #
+        # up arm
+
+        rel = (1, 2)
+        aba = self.append_broken_arrow(scene, start_n, rel, outward_arrows=False, count=24) # , is_with_field_marker=True)
+
+        for i in range(10):
+            aba(str(10 - i), mark_type=MarkType.Legal)
+
+        #
+        # down arm
+
+        rel = (-1, -2)
+        aba = self.append_broken_arrow(scene, start_n, rel, outward_arrows=False, count=24) # , is_with_field_marker=True)
+
+        for i in range(12):
+            aba(str(12 - i), mark_type=MarkType.Action)
+
+        return scene
+
+    def scn_o_21_trance_journey_failed(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_21_trance_journey_failed', bt)
+
+        start_b = (25, 0)
+        adder = GS.adder(start_b)
+        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+
+        start_I = adder(-1, 1) # (-1, 1)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = adder(1, 1) # (0, 2)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Action )
 
         scene.board.set_piece(25, 5, piece=PieceType.Star)
         scene.board.set_piece(1, 8, piece=PieceType.Star)
@@ -508,26 +623,11 @@ class SceneOneMixin:
         scene.board.set_piece(17, 1, piece=PieceType.Monolith)
         scene.board.set_piece(19, 2, piece=-PieceType.Monolith)
 
-        start_H_1 = (22, 3)
-        scene.board.set_piece(*start_H_1, piece=PieceType.Shaman)
-
-        start_W_1 = (24, 2)
-        scene.board.set_piece(*start_W_1, piece=PieceType.Wave)
-
-        start_H_2 = (25, 0)
-        scene.board.set_piece(*start_H_2, piece=PieceType.Shaman)
-
-        start_b = (23, 1)
-        scene.board.set_piece(*start_b, piece=PieceType.Bishop)
-
-        scene.append_arrow( *(start_H_1 + start_W_1), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W_1 + start_H_2), mark_type=MarkType.Action )
-
         #
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start_H_2, rel, count=32, is_with_field_marker=True)
+        aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
 
         for i in range(32):
             aba(str(i + 1), mark_type=MarkType.Blocked) # Legal)
@@ -536,16 +636,16 @@ class SceneOneMixin:
         # left arm
 
         rel = (-2, -1)
-        aba = self.append_broken_arrow(scene, start_H_2, rel, count=32, is_with_field_marker=True)
+        aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
 
         for i in range(32):
             aba(str(i + 1), mark_type=MarkType.Blocked) # Action)
 
         return scene
 
-    def scn_o_19_syzygy_monolith(self, bt=BoardType.One):
+    def scn_o_22_syzygy_monolith(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_19_syzygy_monolith', bt)
+        scene = Scene('scn_o_22_syzygy_monolith', bt)
 
         start_M = (12, 8)
         end_M = (13, 6)
@@ -575,9 +675,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_20_syzygy_starchild_init(self, bt=BoardType.One):
+    def scn_o_23_syzygy_starchild_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_20_syzygy_starchild_init', bt)
+        scene = Scene('scn_o_23_syzygy_starchild_init', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -609,9 +709,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_21_syzygy_starchild_end(self, bt=BoardType.One):
+    def scn_o_24_syzygy_starchild_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_21_syzygy_starchild_end', bt)
+        scene = Scene('scn_o_24_syzygy_starchild_end', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -636,9 +736,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_22_syzygy_starchild_ressurection(self, bt=BoardType.One):
+    def scn_o_25_syzygy_starchild_ressurection(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_22_syzygy_starchild_ressurection', bt)
+        scene = Scene('scn_o_25_syzygy_starchild_ressurection', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
