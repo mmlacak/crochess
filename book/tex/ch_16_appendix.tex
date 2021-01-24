@@ -690,15 +690,28 @@ in \algfmt{NAN}.
 \label{tbl:Appendix/Summary/Initial setups of light figures}
 \end{table}
 
-Initial setups ...
-
 \clearpage % ..........................................................
+
+Initial setups table above contains complete row of pieces for light player, at the beginning
+of a match. In this table, lower case letters are used to denote dark pieces. In latter variants,
+dark Star is positioned in bottom right corner of a chessboard, which is indicated with \alg{t}.
+
+Dark player's setup is mirrored, with all pieces switched to opposite of light player's setup.
+So, for Nineteen variant \alg{TRNBWGUAQKAUGWBNRt} becomes \alg{trnbwguaqkaugwbnrT} for dark player.
+
+Each variant can have 1 or 2 rows of Pawns for each player, in front of its figures. For light
+player, Pawn rows are rows 2 (and 3, in later variants). For dark player Pawn rows are 2nd to
+last (and 3rd to last, in later variants).
+
+\subsubsection*{Scout Pawn}
+\addcontentsline{toc}{subsubsection}{Scout Pawn}
+\label{sec:Appendix/Summary/Initial setups/Scout Pawn}
 
 \begin{table}[!h]
 \centering
 \begin{tabular}{ rlrr }
 \toprule
-\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Light scout Pawn ranks} } \\ \cmidrule{3-4}
+\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Light scout Pawn files} } \\ \cmidrule{3-4}
             &                       & \emph{row 4}       & \emph{row 5}                     \\
 \midrule
           1 & Hemera's Dawn         & \alg{cgnr}         & \alg{dfoq}                       \\
@@ -708,24 +721,24 @@ Initial setups ...
           5 & One                   & \alg{eijmnqrv}     & \alg{fhkmnpsu}                   \\
 \bottomrule
 \end{tabular}
-\caption{Light scout Pawn ranks}
-\label{tbl:Appendix/Summary/Light scout Pawn ranks}
+\caption{Light scout Pawn files}
+\label{tbl:Appendix/Summary/Initial setups/Light scout Pawn files}
 \end{table}
 
-% TODO :: add to "Pieces" section
-%
-% \section*{Passive pieces}
-% \addcontentsline{toc}{section}{Passive pieces}
-% \label{sec:Definitions/Passive pieces}
-%
-% Passive pieces are ...
-%
-% Activating passive piece with Pawn ... capture-fields vs. step-fields.
+In addition to 2 rows of Pawns, most of later variants also have scout Pawns, table above contains
+initial positions of those for light player. For light player, scout Pawns occupy rows 4 and 5 on
+chessboard. For desired variant, one would fill row on indicated files with Pawns.
 
-\clearpage % ..........................................................
+For instance, \alg{cgnr} for \emph{row 4} in Hemera's Dawn variant means that scout Pawns are located
+at \alg{c4}, \alg{g4}, \alg{n4} and \alg{r4}.
 
-\subsection*{Monolith initial positions}
-\addcontentsline{toc}{subsection}{Monolith initial positions}
+For dark player, positions are mirrored, \emph{row 4} is the one closest to the Pawn row(s),
+\emph{row 5} contains outermost scout Pawns. For Hemera's Dawn variant, \emph{row 4} translate to
+\emph{row 17}, and \emph{row 5} becomes \emph{row 16}. So, the same \alg{cgnr} for \emph{row 4}
+now means dark Pawns are located at \alg{c17}, \alg{g17}, \alg{n17} and \alg{r17}.
+
+\subsubsection*{Monolith initial positions}
+\addcontentsline{toc}{subsubsection}{Monolith initial positions}
 \label{sec:Appendix/Summary/Monolith initial positions}
 
 \begin{table}[!h]
@@ -746,8 +759,7 @@ Initial setups ...
 Table above contains initial positions of both Monoliths, one located on light side of
 chessboard, the other on dark side.
 
-If making own chessboard, small markings can be placed onto these locations, to ease setting
-up pieces before match.
+\clearpage % ..........................................................
 
 \subsection*{Movement limits}
 \addcontentsline{toc}{subsection}{Movement limits}
@@ -866,9 +878,8 @@ activated piece.
 \label{tbl:Appendix/Grammar}
 \end{table}
 
-Summary tries to describe notational grammar in more formal, concise way.
-Annotations are not covered, as they are short-hand for non-standardized
-commentary.
+Here, notational grammar is described in more formal, concise way. Annotations
+are not covered, as they are short-hand for non-standardized commentary.
 
 Verbatim values (e.g. \alg{x}) are as they appear in \algfmt{AN}, compatibility
 values (e.g. \algcty{x}) are used exclusively for \algfmt{CAN}. Empty value
