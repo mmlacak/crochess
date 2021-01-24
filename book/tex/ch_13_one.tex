@@ -247,8 +247,8 @@ Note, even if activated Starchild received more than 1 momentum, Star can move f
 \caption{Moving into a Monolith}
 \label{fig:scn_o_10_starchild_not_moving_monolith_init}
 \end{wrapfigure}
-Starchild can try to capture field at which Monolith is located, as if trying to activate and move
-it, like a Star.
+Starchild can try to capture either step- or neighboring-field at which Monolith is located,
+as if trying to teleport.
 
 \vspace*{7.1\baselineskip}
 \noindent
@@ -258,8 +258,8 @@ it, like a Star.
 \caption{Moving out of a Monolith}
 \label{fig:scn_o_11_starchild_not_moving_monolith_end}
 \end{wrapfigure}
-Instead of moving a Monolith, Starchild then emerges on any empty portal-field around Monolith it
-tried to move. If there is none, Starchild is oblationed.
+Instead of telporting, Starchild then emerges on any empty portal-field around Monolith
+it tried to move. If there are no empty portal-fields, Starchild is oblationed.
 
 \clearpage % ..........................................................
 
@@ -269,26 +269,27 @@ tried to move. If there is none, Starchild is oblationed.
 
 % \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[6]{l}{0.4\textwidth}
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_12_starchild_activated_wave_not_teleporting_init.png}
 \caption{Moving into a Star}
 \label{fig:scn_o_12_starchild_activated_wave_not_teleporting_init}
 \end{wrapfigure}
-Wave activated by Starchild cannot teleport. Similar to Starchild, Wave can try to teleport;
-instead, it emerges on an empty portal-field around Monolith or a Star through which it tried
-to teleport.
+Wave activated by Starchild cannot teleport, regardless if Wave was activated on Starchild's
+step- or neighboring-field.
 
-\vspace*{5.1\baselineskip}
+\vspace*{7.1\baselineskip}
 \noindent
-\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_13_starchild_activated_wave_not_teleporting_end.png}
 \caption{Moving out of a Star}
 \label{fig:scn_o_13_starchild_activated_wave_not_teleporting_end}
 \end{wrapfigure}
-Also similar to Starchild, if there is no empty portal-field around Monolith (or a Star), Wave
-is oblationed.
+Instead of teleporting, Wave emerges on an empty portal-field around Monolith or a Star through
+which it tried to teleport.
+
+If there is no empty portal-field around Monolith (or a Star), Wave is oblationed.
 
 \clearpage % ..........................................................
 
