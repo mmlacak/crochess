@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2018 - 2020 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2018 - 2021 Mario Mlačak, mmlacak@gmail.com
 # Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
 
 
@@ -38,6 +38,6 @@ class SceneMix(SceneMixin, \
                     'scn_o_03_starchild_activating_own_piece_end', \
                     'scn_o_04_activating_starchild', \
                     \
-                    'scn_o_06_starchild_activating_fields', \
-                    'scn_o_07_starchild_activating_wave_momentum_init', \
+                    'scn_o_06_starchild_activating_on_neighboring_fields', \
+                    'scn_o_07_starchild_activating_wave_on_neighboring_fields', \
                 ]
