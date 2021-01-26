@@ -30,6 +30,19 @@ is master.
 
 ## Getting Started
 
+If you just wanted to read the book, grab [crochess.pdf](crochess.pdf)
+file available in project root. Alternatively, if you want
+updated version with the latest changes, fixes, you can
+download it from:
+[http://croatian-chess.blogspot.com/p/preview.html](http://croatian-chess.blogspot.com/p/preview.html).
+
+This version is compiled with normal sized images, so it takes
+almost 20 MB. Updated versions will be compiled with draft image
+quality, resulting in images and PDF file about half the size,
+at 8 MB. Other than lower resolution images, there is no
+difference between book posted here and updated version available
+through blog.
+
 ### Prerequisites
 
 To make images used in the book, install these:
