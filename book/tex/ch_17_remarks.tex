@@ -7,50 +7,54 @@
 \addcontentsline{toc}{chapter}{Remarks}
 \label{ch:Remarks}
 
-If making own chessboard, small markings can be placed onto these locations, to ease setting
-up pieces before match.
+This chapter contains some suggestions to improve chess design.
 
 \section*{Well defined game}
 \addcontentsline{toc}{section}{Well defined game}
 \label{sec:Remarks/Well defined game}
 
-Well defined game is such where all information pertainable to a game
-is plainly visible on a board. Chess in its origin is very close to
-that goal, with the exceptions being castling, and turn.
+Well defined game is one where all information related to game is plainly
+visible on a board. Chess in its origin is very close to that goal, with
+the exceptions being ability of pieces to castle, rush, and notation for
+turn; later, tag for promotion is added to the mix. Pawn-sacrifice tag
+does not belong to this list, because it has to be used in the very same
+move in which it was obtained.
 
 \subsection*{Chips}
 \addcontentsline{toc}{subsection}{Chips}
 \label{sec:Remarks/Chips}
-Chips ...
-Coins could be used insead of chips.
 
-\subsubsection*{Castling-chip}
-\addcontentsline{toc}{subsubsection}{Castling-chip}
-\label{sec:Remarks/Chips/Castling-chip}
-...
+Chip is device, similar in appearance to poker chip, which can be put
+underneath a piece to denote its status. For instance, yellow chip can be
+put under Pawn to denote its inherited ability to rush. When that Pawn is
+moved (or captured) its chip is removed from chessboard.
 
-\subsubsection*{Turn-chip}
-\addcontentsline{toc}{subsubsection}{Turn-chip}
-\label{sec:Remarks/Chips/Turn-chip}
-Turn-chip, also Zed, in algebraic notation Z, is a single chip used to
-denote which player's turn is ongoing. It's used in positional notation,
-where color of, otherwise empty, field occupied by Zed denotes which
-player "has the move".
+Similarly, if Pawn is tagged for promotion, it gets e.g. red coin placed
+under it, which is removed from chessboard when that Pawn gets promoted,
+moved or captured.
 
-\subsubsection*{Promoting-chip}
-\addcontentsline{toc}{subsubsection}{Promoting-chip}
-\label{sec:Remarks/Chips/Promoting-chip}
-...
+For castling, nominally 3 chips has to be used, 2 for Rooks and 1 for King.
+It's enough if just Rooks have their chips, if King ever moves, both Rooks
+would lose their chips.
 
-\section*{Non-movement rules}
-\addcontentsline{toc}{section}{Non-movement rules}
-\label{sec:Remarks/Non-movement rules}
+Chip for denoting turn is different, it is placed on an empty field in the
+same color to the player which turn is ongoing. This is meant more for
+readers to have indicated which player is to play, on a chessboard positions
+depicted in books, magazines, etc.
 
-50-move rule, ...
+\section*{Own chessboard}
+\addcontentsline{toc}{section}{Own chessboard}
+\label{sec:Remarks/Own chessboard}
 
-Destination filed == starting field, ...
+In casual games, coins could be used instead of chips.
 
-...
+If making own chessboard, small markings can be placed onto initial positions
+of scout Pawns, Monoliths or whole set of pieces, to ease setting up pieces
+before match.
+
+Due to chessboard being relatively large in later variants, it might help to
+write \algfmt{AN} position onto each field, twice, each oriented towards one
+player's seat.
 
 \clearpage % ..........................................................
 % ----------------------------------------------------- Remarks chapter
