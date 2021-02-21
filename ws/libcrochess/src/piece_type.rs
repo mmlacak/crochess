@@ -41,8 +41,29 @@ pub mod piece_type {
         LightStarchild,
     }
 
-    pub fn valid(e: PieceType) -> bool {
-        return PieceType::DarkStarchild <= e && e >= PieceType::LightStarchild;
+    pub fn from_symbol(c: char, is_light: bool) -> PieceType {
+        return match c {
+            ' ' => PieceType::None,
+
+            'P' => if is_light { PieceType::LightPawn } else { PieceType::DarkPawn },
+            'N' => if is_light { PieceType::LightKnight } else { PieceType::DarkKnight },
+            'B' => if is_light { PieceType::LightBishop } else { PieceType::DarkBishop },
+            'R' => if is_light { PieceType::LightRook } else { PieceType::DarkRook },
+            'Q' => if is_light { PieceType::LightQueen } else { PieceType::DarkQueen },
+            'K' => if is_light { PieceType::LightKing } else { PieceType::DarkKing },
+            'G' => if is_light { PieceType::LightPegasus } else { PieceType::DarkPegasus },
+            'A' => if is_light { PieceType::LightPyramid } else { PieceType::DarkPyramid },
+            'U' => if is_light { PieceType::LightUnicorn } else { PieceType::DarkUnicorn },
+            'W' => if is_light { PieceType::LightWave } else { PieceType::DarkWave },
+            'T' => if is_light { PieceType::LightStar } else { PieceType::DarkStar },
+            'C' => if is_light { PieceType::LightCentaur } else { PieceType::DarkCentaur },
+            'S' => if is_light { PieceType::LightSerpent } else { PieceType::DarkSerpent },
+            'H' => if is_light { PieceType::LightShaman } else { PieceType::DarkShaman },
+            'M' => if is_light { PieceType::LightMonolith } else { PieceType::DarkMonolith },
+            'I' => if is_light { PieceType::LightStarchild } else { PieceType::DarkStarchild },
+
+            _ => PieceType::None,
+        };
     }
 
     pub fn opposite(e: PieceType) -> PieceType {
@@ -87,41 +108,24 @@ pub mod piece_type {
 
     pub fn symbol(e: PieceType) -> char {
         return match e {
-            PieceType::DarkStarchild => 'i',
-            PieceType::DarkMonolith => 'm',
-            PieceType::DarkShaman => 'h',
-            PieceType::DarkSerpent => 's',
-            PieceType::DarkCentaur => 'c',
-            PieceType::DarkStar => 't',
-            PieceType::DarkWave => 'w',
-            PieceType::DarkUnicorn => 'u',
-            PieceType::DarkPyramid => 'a',
-            PieceType::DarkPegasus => 'g',
-            PieceType::DarkKing => 'k',
-            PieceType::DarkQueen => 'q',
-            PieceType::DarkRook => 'r',
-            PieceType::DarkBishop => 'b',
-            PieceType::DarkKnight => 'n',
-            PieceType::DarkPawn => 'p',
-
             PieceType::None => ' ',
 
-            PieceType::LightPawn => 'P',
-            PieceType::LightKnight => 'N',
-            PieceType::LightBishop => 'B',
-            PieceType::LightRook => 'R',
-            PieceType::LightQueen => 'Q',
-            PieceType::LightKing => 'K',
-            PieceType::LightPegasus => 'G',
-            PieceType::LightPyramid => 'A',
-            PieceType::LightUnicorn => 'U',
-            PieceType::LightWave => 'W',
-            PieceType::LightStar => 'T',
-            PieceType::LightCentaur => 'C',
-            PieceType::LightSerpent => 'S',
-            PieceType::LightShaman => 'H',
-            PieceType::LightMonolith => 'M',
-            PieceType::LightStarchild => 'I',
+            PieceType::DarkPawn | PieceType::LightPawn => 'P',
+            PieceType::DarkKnight | PieceType::LightKnight => 'N',
+            PieceType::DarkBishop | PieceType::LightBishop => 'B',
+            PieceType::DarkRook | PieceType::LightRook => 'R',
+            PieceType::DarkQueen | PieceType::LightQueen => 'Q',
+            PieceType::DarkKing | PieceType::LightKing => 'K',
+            PieceType::DarkPegasus | PieceType::LightPegasus => 'G',
+            PieceType::DarkPyramid | PieceType::LightPyramid => 'A',
+            PieceType::DarkUnicorn | PieceType::LightUnicorn => 'U',
+            PieceType::DarkWave | PieceType::LightWave => 'W',
+            PieceType::DarkStar | PieceType::LightStar => 'T',
+            PieceType::DarkCentaur | PieceType::LightCentaur => 'C',
+            PieceType::DarkSerpent | PieceType::LightSerpent => 'S',
+            PieceType::DarkShaman | PieceType::LightShaman => 'H',
+            PieceType::DarkMonolith | PieceType::LightMonolith => 'M',
+            PieceType::DarkStarchild | PieceType::LightStarchild => 'I',
         };
     }
 
