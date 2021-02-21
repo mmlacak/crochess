@@ -29,3 +29,4 @@ bin/
 *NEW*
 .vscode
 *synctex*
+target/
