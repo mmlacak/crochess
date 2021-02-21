@@ -40,8 +40,8 @@ This version is compiled with normal sized images, so it
 takes almost 20 MB. Updated versions will be compiled with
 draft image quality, resulting in images and PDF file about
 half the size, at 8+ MB. Other than lower resolution images,
-only minor updates, fixes will be a difference between book
-posted here and updated version available through blog.
+minor updates, fixes will be the only difference between
+book posted here and updated version available through blog.
 
 If you still want to compile PDF yourself, you'll need these:
 
