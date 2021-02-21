@@ -1,6 +1,7 @@
 
 use libcrochess;
 use libcrochess::piece_type::piece_type;
+use libcrochess::board_type::board_type;
 
 fn main() {
     println!("Hello, world!");
@@ -16,4 +17,8 @@ fn main() {
     libcrochess::dbg( &o );
     libcrochess::dbg( &piece_type::label(o) );
     libcrochess::dbg( &piece_type::symbol(o) );
+
+    let bt = board_type::BoardType::AgeOfAquarius;
+    libcrochess::dbg( &bt );
+    libcrochess::dbg( &board_type::label(bt) );
 }

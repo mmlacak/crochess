@@ -1,5 +1,6 @@
 
 pub mod piece_type;
+pub mod board_type;
 
 // fn dbg(x: &impl std::fmt::Debug) {
 //     println!("{:?}", &x);
