@@ -1,7 +1,8 @@
 
 use libcrochess;
-use libcrochess::piece_type::piece_type;
-use libcrochess::board_type::board_type;
+use libcrochess::piece_type;
+use libcrochess::board_type;
+use libcrochess::board;
 
 fn main() {
     println!("Hello, world!");
@@ -21,4 +22,8 @@ fn main() {
     let bt = board_type::BoardType::AgeOfAquarius;
     libcrochess::dbg( &bt );
     libcrochess::dbg( &board_type::label(bt) );
+
+    let b = board::Board { variant : board_type::BoardType::Discovery };
+    libcrochess::dbg( &b );
+    libcrochess::dbg( &board_type::label(b.variant) );
 }
