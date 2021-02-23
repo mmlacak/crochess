@@ -1,7 +1,10 @@
 #! /usr/bin/env bash
 
 
-export COMPILER=clang # gcc
+export COMPILER=clang
+# export COMPILER=gcc
+
+export OPTIONS="-Wall -pedantic -O3"
 
 ./clean.sh
 
@@ -18,4 +21,3 @@ echo
 
 ls -Fal --color=auto lib
 echo
-
