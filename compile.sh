@@ -1,13 +1,7 @@
 #! /usr/bin/env bash
 
 
-export COMPILER=clang
-# export COMPILER=gcc
-
-export OPTIONS="-Wall -pedantic -O3"
-
-./clean.sh
-
+source ./cc-opts.sh
 
 echo
 $COMPILER --version
