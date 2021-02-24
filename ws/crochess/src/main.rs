@@ -23,7 +23,9 @@ fn main() {
     libcrochess::dbg( &bt );
     libcrochess::dbg( &board_type::label(bt) );
 
-    let b = board::Board { variant : board_type::BoardType::Discovery };
+    let b = board::Board { variant: board_type::BoardType::Discovery,
+                           chessboard: Box::new([ Box::new([ piece_type::PieceType::LightPawn, piece_type::PieceType::LightKing ]) ]) };
     libcrochess::dbg( &b );
+    libcrochess::dbgv( &b );
     libcrochess::dbg( &board_type::label(b.variant) );
 }
