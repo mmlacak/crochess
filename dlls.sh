@@ -15,7 +15,7 @@ echo
 echo "${COMPILER} ${OPTIONS} -fPIC -c src/lst_node.c -Iinc -o obj/lst_node.so.o"
 ${COMPILER} ${OPTIONS} -fPIC -c src/lst_node.c -Iinc -o obj/lst_node.so.o
 echo
-echo ${COMPILER} ${OPTIONS} -fPIC -c src/map_node.c -Iinc -o obj/map_node.so.o
+echo "${COMPILER} ${OPTIONS} -fPIC -c src/map_node.c -Iinc -o obj/map_node.so.o"
 ${COMPILER} ${OPTIONS} -fPIC -c src/map_node.c -Iinc -o obj/map_node.so.o
 echo
 echo "${COMPILER} ${OPTIONS} -shared -fPIC obj/utils.so.o obj/lst_node.so.o obj/map_node.so.o -o lib/libcommon.so"
