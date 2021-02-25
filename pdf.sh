@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
-# Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
+# Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 cd book
 

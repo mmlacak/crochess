@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
-# Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
+# Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 
 import argparse
@@ -92,7 +92,7 @@ Any combination will work, multiple options separate by space, like so:
 $ python3 main.py -d -x even oct oma
 
 Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
-Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.''')
+Licensed under 3-clause (modified) BSD license. See LICENSE for details.''')
 
     size = parser.add_mutually_exclusive_group(required=True)
     size.add_argument('-f', '--final', action='store_true', default=False, help='render in final size, cca. 2400 dpi (slow!)')

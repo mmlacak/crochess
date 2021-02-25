@@ -1,7 +1,8 @@
+// Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
+// Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 use crate::piece_type as pt;
 use crate::piece_type::PieceType as PT;
-// use crate::piece_type::PieceType::None as n;
 use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
@@ -9,8 +10,6 @@ use crate::board_type::BoardType as BT;
 pub struct Board {
     pub variant: BT,
     pub chessboard: Box<[ Box<[ PT ]> ]>,
-    // pub chessboard: &'static mut[ &'static mut [ PT ] ],
-    // pub chessboard: &'static [ &'static mut [ PT ] ],
 }
 
 impl Board {

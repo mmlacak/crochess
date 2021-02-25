@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2016 - 2020 Mario Mlačak, mmlacak@gmail.com
-# Licensed under 3-clause (modified) BSD license. See LICENSE.txt for details.
+# Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 from pixel_math import is_any, q_same_rounded_floats
 

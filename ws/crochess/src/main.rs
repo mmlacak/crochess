@@ -1,3 +1,5 @@
+// Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
+// Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 use libcrochess as libcc;
 use libcrochess::piece_type as pt;
@@ -27,11 +29,6 @@ fn main() {
                            chessboard: Box::new([ Box::new([ PT::LightPawn, PT::LightKing, PT::None ]),
                                                   Box::new([ PT::None, PT::DarkKnight, PT::None ]),
                                                   Box::new([ PT::DarkKing, PT::None, PT::DarkBishop ]) ]) };
-    // let mut cs = [ & mut [ PT::LightPawn, PT::LightKing, PT::None ],
-    //                & mut [ PT::None, PT::DarkKnight, PT::None ],
-    //                & mut [ PT::DarkKing, PT::None, PT::DarkBishop ] ];
-    // let b = b::Board { variant: BT::Discovery,
-    //                    chessboard: &[cs] };
     libcc::dbg( &b );
     libcc::dbg( &b.variant.size() );
     libcc::dbgv( &b );
