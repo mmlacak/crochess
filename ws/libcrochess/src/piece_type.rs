@@ -1,6 +1,8 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+use std::fmt;
+
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 // #[repr(i32)]
 pub enum PieceType {
@@ -166,4 +168,10 @@ impl PieceType {
         return self == &PieceType::None;
     }
 
+}
+
+impl fmt::Display for PieceType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        return write!(f, "{}", self.symbol());
+    }
 }
