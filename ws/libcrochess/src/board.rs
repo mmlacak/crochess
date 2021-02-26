@@ -19,10 +19,13 @@ pub struct Chessboard(Box<[ Box<[ PT ]> ]>);
 
 impl fmt::Display for Chessboard {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for (i, box_i) in self.0.iter().rev().enumerate() {
-            for (j, box_j) in box_i.iter().enumerate() {
-                if box_j != &PT::None {
-                    write!(f, " {}", box_j) ?;
+        let size = self.0.len();
+
+        for i in 0 .. size {
+            for j in 0 .. size {
+                let p = self.0[ j ][ size - i - 1 ];
+                if p != PT::None {
+                    write!(f, " {}", p) ?;
                 }
                 else {
                     if is_field_light(i as i32, j as i32) {
@@ -370,7 +373,8 @@ impl fmt::Display for Board {
         let cb = format!("{}", self.chessboard);
         let mut files = "".to_string();
 
-        for (i, c) in ('a' .. 'z').enumerate() {
+        // Ranges don't include upper bound; '{'  is char positioned after 'z' in ASCII table.
+        for (i, c) in ('a' .. '{').enumerate() {
             if i >= size { break; }
             files += format!(" {}", c).as_str();
         }

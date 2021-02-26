@@ -43,12 +43,12 @@ fn main() {
     // libcc::dbgv( &b2.is_on_chessboard(1, 1) );
     // libcc::dbgv( &b2.is_on_chessboard(11, 11) );
     // libcc::dbgv( &b2.piece_at(1, 1) );
-    b2.set_piece_at(1, 1, PT::DarkMonolith);
+    b2.set_piece_at(7, 2, PT::DarkMonolith);
     // libcc::dbgv( &b2.piece_at(1, 1) );
     // libcc::dbgv( &b2 );
     println!( "{}", b2 );
 
-    let mut bb = b::Board::new(BT::CroatianTies);
+    let mut bb = b::Board::new(BT::One);
     libcc::dbg( &bb.variant().label() );
     // libcc::dbg( &bb.variant().size() );
     // println!( "{}", bb );
