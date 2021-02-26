@@ -8,25 +8,52 @@ use crate::piece_type::PieceType as PT;
 use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
+
+pub fn is_field_light(i: i32, j: i32) -> bool {
+    return (i + j) % 2 == 0;
+}
+
+
 #[derive(Debug, Clone)]
 pub struct Chessboard(Box<[ Box<[ PT ]> ]>);
+
+impl fmt::Display for Chessboard {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        for (i, box_i) in self.0.iter().rev().enumerate() {
+            for (j, box_j) in box_i.iter().enumerate() {
+                if box_j != &PT::None {
+                    write!(f, " {}", box_j) ?;
+                }
+                else {
+                    if is_field_light(i as i32, j as i32) {
+                        write!(f, " .") ?;
+                    }
+                    else {
+                        write!(f, " ,") ?;
+                    }
+                }
+            }
+            write!(f, "\n") ?;
+        }
+
+        return Ok(());
+    }
+}
+
 
 #[derive(Debug, Clone)]
 pub struct Board {
     variant: BT,
-    // chessboard: Box<[ Box<[ PT ]> ]>,
     chessboard: Chessboard,
 }
 
 impl Board {
 
     pub fn new(board_type: bt::BoardType) -> Board {
-        // fn new_chessboard(board_type: bt::BoardType) -> Box<[ Box<[ PT ]> ]> {
         fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
 
             use crate::piece_type::PieceType::None as n;
 
-            // fn new_cc_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_cc_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n ] ),
@@ -40,7 +67,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_ct_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_ct_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n ] ),
@@ -56,7 +82,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_ma_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_ma_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -75,7 +100,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_aoa_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_aoa_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -95,7 +119,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_mv_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_mv_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -117,7 +140,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_n_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_n_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -141,7 +163,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_hd_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_hd_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -167,7 +188,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_tr_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_tr_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -195,7 +215,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_cot_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_cot_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -225,7 +244,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_d_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_d_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -255,7 +273,6 @@ impl Board {
                 ] ) );
             }
 
-            // fn new_o_chessboard() -> Box<[ Box<[ PT ]> ]> {
             fn new_o_chessboard() -> Chessboard {
                 return Chessboard( Box::new( [
                     Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -312,14 +329,13 @@ impl Board {
         return self.variant;
     }
 
-    // pub fn chessboard(&self) -> &Box<[ Box<[ PT ]> ]> {
     pub fn chessboard(&self) -> &Chessboard {
         return &self.chessboard;
     }
 
     pub fn is_on_chessboard(&self, i: i32, j: i32) -> bool {
-        // return (0 <= i) && (i <= (*self.chessboard).len() as i32) &&
-        //        (0 <= j) && (j <= (*(*self.chessboard)[0]).len() as i32);
+        // return (0 <= i) && (i <= (*self.chessboard.0).len() as i32) &&
+        //        (0 <= j) && (j <= (*(*self.chessboard.0)[0]).len() as i32);
         let size: i32 = self.variant.size() as i32;
         return (0 <= i) && (i <= size) &&
                (0 <= j) && (j <= size);
@@ -348,6 +364,28 @@ impl Board {
 
 impl fmt::Display for Board {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        return write!(f, "({}, {})", self.variant, self.variant);
+        let size = self.variant.size();
+        let len = 2 * size + 1;
+        let divider = "-".to_string().repeat(len);
+        let cb = format!("{}", self.chessboard);
+        let mut files = "".to_string();
+
+        for (i, c) in ('a' .. 'z').enumerate() {
+            if i >= size { break; }
+            files += format!(" {}", c).as_str();
+        }
+
+        write!(f, "    {}\n", files) ?;
+        write!(f, "    {}\n", divider) ?;
+        for (i, line_i) in cb.lines().enumerate() {
+            let row = size - i;
+            write!(f, "{:2} |", row) ?;
+            write!(f, "{}", line_i) ?;
+            write!(f, " | {:2}\n", row) ?;
+        }
+        write!(f, "    {}\n", divider) ?;
+        write!(f, "    {}\n", files) ?;
+
+        return Ok(());
     }
 }

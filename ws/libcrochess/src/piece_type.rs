@@ -111,25 +111,46 @@ impl PieceType {
     }
 
     pub fn symbol(&self) -> char {
+        return self.as_char().to_ascii_uppercase();
+    }
+
+    pub fn as_char(&self) -> char {
         return match self {
+            PieceType::DarkStarchild => 'i',
+            PieceType::DarkMonolith => 'm',
+            PieceType::DarkShaman => 'h',
+            PieceType::DarkSerpent => 's',
+            PieceType::DarkCentaur => 'c',
+            PieceType::DarkStar => 't',
+            PieceType::DarkWave => 'w',
+            PieceType::DarkUnicorn => 'u',
+            PieceType::DarkPyramid => 'a',
+            PieceType::DarkPegasus => 'g',
+            PieceType::DarkKing => 'k',
+            PieceType::DarkQueen => 'q',
+            PieceType::DarkRook => 'r',
+            PieceType::DarkBishop => 'b',
+            PieceType::DarkKnight => 'n',
+            PieceType::DarkPawn => 'p',
+
             PieceType::None => ' ',
 
-            PieceType::DarkPawn | PieceType::LightPawn => 'P',
-            PieceType::DarkKnight | PieceType::LightKnight => 'N',
-            PieceType::DarkBishop | PieceType::LightBishop => 'B',
-            PieceType::DarkRook | PieceType::LightRook => 'R',
-            PieceType::DarkQueen | PieceType::LightQueen => 'Q',
-            PieceType::DarkKing | PieceType::LightKing => 'K',
-            PieceType::DarkPegasus | PieceType::LightPegasus => 'G',
-            PieceType::DarkPyramid | PieceType::LightPyramid => 'A',
-            PieceType::DarkUnicorn | PieceType::LightUnicorn => 'U',
-            PieceType::DarkWave | PieceType::LightWave => 'W',
-            PieceType::DarkStar | PieceType::LightStar => 'T',
-            PieceType::DarkCentaur | PieceType::LightCentaur => 'C',
-            PieceType::DarkSerpent | PieceType::LightSerpent => 'S',
-            PieceType::DarkShaman | PieceType::LightShaman => 'H',
-            PieceType::DarkMonolith | PieceType::LightMonolith => 'M',
-            PieceType::DarkStarchild | PieceType::LightStarchild => 'I',
+            PieceType::LightPawn => 'P',
+            PieceType::LightKnight => 'N',
+            PieceType::LightBishop => 'B',
+            PieceType::LightRook => 'R',
+            PieceType::LightQueen => 'Q',
+            PieceType::LightKing => 'K',
+            PieceType::LightPegasus => 'G',
+            PieceType::LightPyramid => 'A',
+            PieceType::LightUnicorn => 'U',
+            PieceType::LightWave => 'W',
+            PieceType::LightStar => 'T',
+            PieceType::LightCentaur => 'C',
+            PieceType::LightSerpent => 'S',
+            PieceType::LightShaman => 'H',
+            PieceType::LightMonolith => 'M',
+            PieceType::LightStarchild => 'I',
         };
     }
 
@@ -172,6 +193,6 @@ impl PieceType {
 
 impl fmt::Display for PieceType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        return write!(f, "{}", self.symbol());
+        return write!(f, "{}", self.as_char());
     }
 }
