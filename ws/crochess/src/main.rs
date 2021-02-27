@@ -12,7 +12,7 @@ fn main() {
     // println!("Hello, world!");
 
     // #[allow(non_snake_case)]
-    // let lT = PT::LightStar; // PT::from_symbol('T', true);
+    // let lT = PT::BrightStar; // PT::from_symbol('T', true);
     // libcc::dbg( &lT );
     // libcc::dbg( &lT.label() );
     // libcc::dbg( &lT.symbol() );
@@ -39,11 +39,13 @@ fn main() {
     // libcc::dbgv( &b2 );
     println!( "{}", b2 );
 
-    // b2.chessboard[1][1] = PT::DarkMonolith;
+    // b2.chessboard[1][1] = PT::Monolith;
     // libcc::dbgv( &b2.is_on_chessboard(1, 1) );
     // libcc::dbgv( &b2.is_on_chessboard(11, 11) );
     // libcc::dbgv( &b2.piece_at(1, 1) );
-    b2.set_piece_at(7, 2, PT::DarkMonolith);
+    b2.set_piece_at(7, 2, PT::Monolith);
+    b2.set_piece_at(1, 3, PT::DarkKing);
+    b2.set_piece_at(5, 2, PT::LightQueen);
     // libcc::dbgv( &b2.piece_at(1, 1) );
     // libcc::dbgv( &b2 );
     println!( "{}", b2 );
@@ -56,11 +58,13 @@ fn main() {
     // libcc::dbgv( &bb );
     println!( "{}", bb );
 
-    // bb.chessboard[3][5] = PT::DarkMonolith;
+    // bb.chessboard[3][5] = PT::Monolith;
     // libcc::dbgv( &b2.is_on_chessboard(3, 5) );
     // libcc::dbgv( &b2.is_on_chessboard(-3, -5) );
     // libcc::dbgv( &bb.piece_at(3, 5) );
-    bb.set_piece_at(3, 5, PT::DarkMonolith);
+    bb.set_piece_at(3, 5, PT::Monolith);
+    bb.set_piece_at(7, 4, PT::DimStar);
+    bb.set_piece_at(11, 11, PT::BrightStar);
     // libcc::dbgv( &bb.piece_at(3, 5) );
     // libcc::dbgv( &bb );
     println!( "{}", bb );

@@ -6,12 +6,12 @@ use std::fmt;
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 // #[repr(i32)]
 pub enum PieceType {
-    DarkStarchild = -16,
-    DarkMonolith,
+    DimStar = -15,
+
+    DarkStarchild,
     DarkShaman,
     DarkSerpent,
     DarkCentaur,
-    DarkStar,
     DarkWave,
     DarkUnicorn,
     DarkPyramid,
@@ -35,12 +35,14 @@ pub enum PieceType {
     LightPyramid,
     LightUnicorn,
     LightWave,
-    LightStar,
     LightCentaur,
     LightSerpent,
     LightShaman,
-    LightMonolith,
     LightStarchild,
+
+    BrightStar,
+
+    Monolith,
 }
 
 impl PieceType {
@@ -59,12 +61,14 @@ impl PieceType {
             'A' => if is_light { PieceType::LightPyramid } else { PieceType::DarkPyramid },
             'U' => if is_light { PieceType::LightUnicorn } else { PieceType::DarkUnicorn },
             'W' => if is_light { PieceType::LightWave } else { PieceType::DarkWave },
-            'T' => if is_light { PieceType::LightStar } else { PieceType::DarkStar },
             'C' => if is_light { PieceType::LightCentaur } else { PieceType::DarkCentaur },
             'S' => if is_light { PieceType::LightSerpent } else { PieceType::DarkSerpent },
             'H' => if is_light { PieceType::LightShaman } else { PieceType::DarkShaman },
-            'M' => if is_light { PieceType::LightMonolith } else { PieceType::DarkMonolith },
             'I' => if is_light { PieceType::LightStarchild } else { PieceType::DarkStarchild },
+
+            'T' => if is_light { PieceType::BrightStar } else { PieceType::DimStar },
+
+            'M' => PieceType::Monolith,
 
             _ => PieceType::None,
         };
@@ -72,12 +76,12 @@ impl PieceType {
 
     pub fn opposite(&self) -> PieceType {
         return match self {
+            PieceType::DimStar => PieceType::BrightStar,
+
             PieceType::DarkStarchild => PieceType::LightStarchild,
-            PieceType::DarkMonolith => PieceType::LightMonolith,
             PieceType::DarkShaman => PieceType::LightShaman,
             PieceType::DarkSerpent => PieceType::LightSerpent,
             PieceType::DarkCentaur => PieceType::LightCentaur,
-            PieceType::DarkStar => PieceType::LightStar,
             PieceType::DarkWave => PieceType::LightWave,
             PieceType::DarkUnicorn => PieceType::LightUnicorn,
             PieceType::DarkPyramid => PieceType::LightPyramid,
@@ -101,12 +105,14 @@ impl PieceType {
             PieceType::LightPyramid => PieceType::DarkPyramid,
             PieceType::LightUnicorn => PieceType::DarkUnicorn,
             PieceType::LightWave => PieceType::DarkWave,
-            PieceType::LightStar => PieceType::DarkStar,
             PieceType::LightCentaur => PieceType::DarkCentaur,
             PieceType::LightSerpent => PieceType::DarkSerpent,
             PieceType::LightShaman => PieceType::DarkShaman,
-            PieceType::LightMonolith => PieceType::DarkMonolith,
             PieceType::LightStarchild => PieceType::DarkStarchild,
+
+            PieceType::BrightStar => PieceType::DimStar,
+
+            PieceType::Monolith => PieceType::Monolith,
         };
     }
 
@@ -116,12 +122,12 @@ impl PieceType {
 
     pub fn as_char(&self) -> char {
         return match self {
+            PieceType::DimStar => 't',
+
             PieceType::DarkStarchild => 'i',
-            PieceType::DarkMonolith => 'm',
             PieceType::DarkShaman => 'h',
             PieceType::DarkSerpent => 's',
             PieceType::DarkCentaur => 'c',
-            PieceType::DarkStar => 't',
             PieceType::DarkWave => 'w',
             PieceType::DarkUnicorn => 'u',
             PieceType::DarkPyramid => 'a',
@@ -145,12 +151,14 @@ impl PieceType {
             PieceType::LightPyramid => 'A',
             PieceType::LightUnicorn => 'U',
             PieceType::LightWave => 'W',
-            PieceType::LightStar => 'T',
             PieceType::LightCentaur => 'C',
             PieceType::LightSerpent => 'S',
             PieceType::LightShaman => 'H',
-            PieceType::LightMonolith => 'M',
             PieceType::LightStarchild => 'I',
+
+            PieceType::BrightStar => 'T',
+
+            PieceType::Monolith => 'M',
         };
     }
 
@@ -166,23 +174,59 @@ impl PieceType {
             PieceType::DarkPyramid | PieceType::LightPyramid => "Pyramid",
             PieceType::DarkUnicorn | PieceType::LightUnicorn => "Unicorn",
             PieceType::DarkWave | PieceType::LightWave => "Wave",
-            PieceType::DarkStar | PieceType::LightStar => "Star",
             PieceType::DarkCentaur | PieceType::LightCentaur => "Centaur",
             PieceType::DarkSerpent | PieceType::LightSerpent => "Serpent",
             PieceType::DarkShaman | PieceType::LightShaman => "Shaman",
-            PieceType::DarkMonolith | PieceType::LightMonolith => "Monolith",
             PieceType::DarkStarchild | PieceType::LightStarchild => "Starchild",
+
+            PieceType::DimStar | PieceType::BrightStar => "Star",
+
+            PieceType::Monolith => "Monolith",
 
             PieceType::None  => "",
         };
     }
 
     pub fn is_dark(&self) -> bool {
-        return self < &PieceType::None;
+        return match self {
+            PieceType::DarkStarchild |
+            PieceType::DarkShaman |
+            PieceType::DarkSerpent |
+            PieceType::DarkCentaur |
+            PieceType::DarkWave |
+            PieceType::DarkUnicorn |
+            PieceType::DarkPyramid |
+            PieceType::DarkPegasus |
+            PieceType::DarkKing |
+            PieceType::DarkQueen |
+            PieceType::DarkRook |
+            PieceType::DarkBishop |
+            PieceType::DarkKnight |
+            PieceType::DarkPawn => true,
+
+            _ => false,
+        };
     }
 
     pub fn is_light(&self) -> bool {
-        return self > &PieceType::None;
+        return match self {
+            PieceType::LightPawn |
+            PieceType::LightKnight |
+            PieceType::LightBishop |
+            PieceType::LightRook |
+            PieceType::LightQueen |
+            PieceType::LightKing |
+            PieceType::LightPegasus |
+            PieceType::LightPyramid |
+            PieceType::LightUnicorn |
+            PieceType::LightWave |
+            PieceType::LightCentaur |
+            PieceType::LightSerpent |
+            PieceType::LightShaman |
+            PieceType::LightStarchild => true,
+
+            _ => false,
+        };
     }
 
     pub fn is_none(&self) -> bool {
