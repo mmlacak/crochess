@@ -73,6 +73,8 @@ fn main() {
     println!( "{}", bb );
 
 
+    let mut board = b::Board::new(BT::One);
+
     loop {
         let mut input = String::new();
 
@@ -81,11 +83,41 @@ fn main() {
         io::stdin().read_line(&mut input);
 
         let args: Vec<&str> = input.trim().split_whitespace().collect();
-        if 0 < args.len() {
-            let cmd = args[0];
+        if args.len() > 0 {
+            let cmd = args[ 0 ];
 
             match cmd {
                 "q" | "quit" => { break; }
+                "d" | "display" => { println!( "{}", board ); }
+                "n" | "new" => {
+                    if args.len() > 1 {
+                        let code = args[ 1 ];
+                        let b_t = BT::from_str( code );
+                        match b_t {
+                            Some(bt) => board = b::Board::new( bt ),
+                            None => { println!( "Unrecognized code: {}
+
+Use following code for new variant game:
+cc  -> Classical
+ct  -> Croatian Ties
+ma  -> Mayan Ascendancy
+aoa -> Age Of Aquarius
+mv  -> Miranda's Veil
+n   -> Nineteen
+hd  -> Hemera's Dawn
+tr  -> Tamoanchan Revisited
+cot -> Conquest Of Tlalocan
+d   -> Discovery
+o   -> One
+", code ); }
+                        };
+                    }
+                    else {
+                        board = b::Board::new( board.variant() );
+                    }
+
+                    println!( "{}", board );
+                }
                 "h" | "help" | "?" => {
                     println!( "Croatian chess - console application
 Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
@@ -106,26 +138,26 @@ n, new        - starts new game, keeps variant
 * p, players  - sets up players
                 takes two parameters, both are one of 'bot', 'human'
 * m, move     - moves piece(s)
-                takes notation as parameter, e.g. m Nc3
+                takes notation as argument, e.g. m Nc3
 * s, save     - saves current game into PGN file
-                takes <path> as parameter, e.g. s my_new_game.pgn
+                takes <path> as argument, e.g. s my_new_game.pgn
 * l, load     - loads game/positions from PGN file
-                takes <path> as parameter, e.g. l my_new_game.pgn
+                takes <path> as argument, e.g. l my_new_game.pgn
 
 Commands marked with * are not currently implemented.
 
-Supported variants (to be used as parameter to 'new' command):
-cc  - Classical
-ct  - Croatian Ties
-ma  - Mayan Ascendancy
-aoa - Age Of Aquarius
-mv  - Miranda's Veil
-n   - Nineteen
-hd  - Hemera's Dawn
-tr  - Tamoanchan Revisited
-cot - Conquest Of Tlalocan
-d   - Discovery
-o   - One" );
+Supported variants (use code as argument to 'new' command):
+cc  -> Classical
+ct  -> Croatian Ties
+ma  -> Mayan Ascendancy
+aoa -> Age Of Aquarius
+mv  -> Miranda's Veil
+n   -> Nineteen
+hd  -> Hemera's Dawn
+tr  -> Tamoanchan Revisited
+cot -> Conquest Of Tlalocan
+d   -> Discovery
+o   -> One" );
                 }
                 "a" | "about" => {
                     println!( "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
@@ -166,7 +198,7 @@ Licensed under 3-clause (modified) BSD license. Use a(bout) command for details.
 2021-2-27: ver. 0.1.0.945
 Initial public hosting, more for backup than for public useage." );
                 }
-                _ => { println!("You typed: {}", input.trim()); }
+                _ => { println!("Unrecognized: {}", input.trim()); }
             }
         }
 

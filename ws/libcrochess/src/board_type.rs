@@ -19,6 +19,26 @@ pub enum BoardType {
 }
 
 impl BoardType {
+    pub fn from_str(code: &str) -> Option<BoardType> {
+        let lc = code.trim().to_lowercase();
+        let lcs = lc.as_str();
+        return match lcs {
+            "cc" => Some(BoardType::ClassicalChess),
+            "ct" => Some(BoardType::CroatianTies),
+            "ma" => Some(BoardType::MayanAscendancy),
+            "aoa" => Some(BoardType::AgeOfAquarius),
+            "mv" => Some(BoardType::MirandasVeil),
+            "n" => Some(BoardType::Nineteen),
+            "hd" => Some(BoardType::HemerasDawn),
+            "tr" => Some(BoardType::TamoanchanRevisited),
+            "cot" => Some(BoardType::ConquestOfTlalocan),
+            "d" => Some(BoardType::Discovery),
+            "o" => Some(BoardType::One),
+
+            _ => None, // BoardType::One,
+        };
+    }
+
     pub fn label(&self) -> &'static str {
         return match self {
             BoardType::ClassicalChess => "Classical Chess",
@@ -50,7 +70,6 @@ impl BoardType {
             BoardType::One => 26,
         };
     }
-
 }
 
 impl fmt::Display for BoardType {
