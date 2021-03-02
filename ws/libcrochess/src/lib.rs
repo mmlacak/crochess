@@ -4,6 +4,9 @@
 pub mod piece_type;
 pub mod board_type;
 pub mod board;
+pub mod piece_flags;
+pub mod rules;
+pub mod rules_flags;
 
 // fn dbg(x: &impl std::fmt::Debug) {
 //     println!("{:?}", &x);

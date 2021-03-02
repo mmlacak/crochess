@@ -4,83 +4,26 @@
 use std::io;
 use std::io::Write;
 
-use libcrochess as libcc;
+// use libcrochess as libcc;
 // use libcrochess::piece_type as pt;
 use libcrochess::piece_type::PieceType as PT;
 // use libcrochess::board_type as bt;
 use libcrochess::board_type::BoardType as BT;
 use libcrochess::board as b;
+use libcrochess::piece_flags as pf;
+use libcrochess::rules as r;
+
 
 fn main() {
-    // println!("Hello, world!");
-
-    // #[allow(non_snake_case)]
-    // let lT = PT::BrightStar; // PT::from_symbol('T', true);
-    // libcc::dbg( &lT );
-    // libcc::dbg( &lT.label() );
-    // libcc::dbg( &lT.symbol() );
-
-    // #[allow(non_snake_case)]
-    // let dT = lT.opposite();
-    // libcc::dbg( &dT );
-    // libcc::dbg( &dT.label() );
-    // libcc::dbg( &dT.symbol() );
-
-    // let aoa = BT::AgeOfAquarius;
-    // libcc::dbg( &aoa );
-    // libcc::dbg( &aoa.label() );
-
-    // let mut b2 = b::Board { variant: BT::Discovery,
-    //                         chessboard: Box::new([ Box::new([ PT::LightPawn, PT::LightKing, PT::None ]),
-    //                                                Box::new([ PT::None, PT::DarkKnight, PT::None ]),
-    //                                                Box::new([ PT::DarkKing, PT::None, PT::DarkBishop ]) ]) };
-    let mut b2 = b::Board::new(BT::ClassicalChess);
-    libcc::dbg( &b2.variant().label() );
-    // libcc::dbg( &b2.variant().size() );
-    // println!( "{}", b2 );
-    // println!( "{}", b2.chessboard() );
-    // libcc::dbgv( &b2 );
-    println!( "{}", b2 );
-
-    // b2.chessboard[1][1] = PT::Monolith;
-    // libcc::dbgv( &b2.is_on_chessboard(1, 1) );
-    // libcc::dbgv( &b2.is_on_chessboard(11, 11) );
-    // libcc::dbgv( &b2.piece_at(1, 1) );
-    b2.set_piece_at(7, 2, PT::Monolith);
-    b2.set_piece_at(1, 3, PT::DarkKing);
-    b2.set_piece_at(5, 2, PT::LightQueen);
-    // libcc::dbgv( &b2.piece_at(1, 1) );
-    // libcc::dbgv( &b2 );
-    println!( "{}", b2 );
-
-    let mut bb = b::Board::new(BT::One);
-    libcc::dbg( &bb.variant().label() );
-    // libcc::dbg( &bb.variant().size() );
-    // println!( "{}", bb );
-    // println!( "{}", bb.chessboard() );
-    // libcc::dbgv( &bb );
-    println!( "{}", bb );
-
-    // bb.chessboard[3][5] = PT::Monolith;
-    // libcc::dbgv( &b2.is_on_chessboard(3, 5) );
-    // libcc::dbgv( &b2.is_on_chessboard(-3, -5) );
-    // libcc::dbgv( &bb.piece_at(3, 5) );
-    bb.set_piece_at(3, 5, PT::Monolith);
-    bb.set_piece_at(7, 4, PT::DimStar);
-    bb.set_piece_at(11, 11, PT::BrightStar);
-    // libcc::dbgv( &bb.piece_at(3, 5) );
-    // libcc::dbgv( &bb );
-    println!( "{}", bb );
-
-
-    let mut board = b::Board::new(BT::One);
+    // let mut board = b::Board::new( BT::One );
+    let mut rules = r::Rules::new( BT::One, true );
 
     loop {
         let mut input = String::new();
 
         print!( "> " );
-        io::stdout().flush();
-        io::stdin().read_line(&mut input);
+        io::stdout().flush().unwrap();
+        io::stdin().read_line(&mut input).unwrap();
 
         let args: Vec<&str> = input.trim().split_whitespace().collect();
         if args.len() > 0 {
@@ -88,13 +31,17 @@ fn main() {
 
             match cmd {
                 "q" | "quit" => { break; }
-                "d" | "display" => { println!( "{}", board ); }
+                "d" | "display" => { println!( "{}", rules.board() ); }
+                "t" | "tags" => { println!( "{}", rules.flags() ); }
                 "n" | "new" => {
                     if args.len() > 1 {
                         let code = args[ 1 ];
                         let b_t = BT::from_str( code );
                         match b_t {
-                            Some(bt) => board = b::Board::new( bt ),
+                            Some(bt) => {
+                                // board = b::Board::new( bt );
+                                rules = r::Rules::new( bt, true );
+                            }
                             None => { println!( "Unrecognized code: {}
 
 Use following code for new variant game:
@@ -113,10 +60,12 @@ o   -> One
                         };
                     }
                     else {
-                        board = b::Board::new( board.variant() );
+                        // board = b::Board::new( board.variant() );
+                        rules = r::Rules::new( rules.board().variant(), true );
                     }
 
-                    println!( "{}", board );
+                    // println!( "{}", board );
+                    println!( "{}", rules.board() );
                 }
                 "h" | "help" | "?" => {
                     println!( "Croatian chess - console application
@@ -131,6 +80,7 @@ a, about      - prints about info
 v, version    - prints version(s) info
 q, quit       - quits program
 d, display    - display current positions
+* t, tags     - display current tags
 * i, info     - display list of all moves played, time
 * t, time     - (re)sets time counter(s)
 n, new        - starts new game, keeps variant
@@ -198,6 +148,67 @@ Licensed under 3-clause (modified) BSD license. Use a(bout) command for details.
 2021-2-27: ver. 0.1.0.945
 Initial public hosting, more for backup than for public useage." );
                 }
+
+                "x" => {
+
+                    use PT::DimStar as t;
+
+                    use PT::DarkStarchild as i;
+                    use PT::DarkShaman as h;
+                    use PT::DarkSerpent as s;
+                    use PT::DarkCentaur as c;
+                    use PT::DarkWave as w;
+                    use PT::DarkUnicorn as u;
+                    use PT::DarkPyramid as a;
+                    use PT::DarkPegasus as g;
+                    use PT::DarkKing as k;
+                    use PT::DarkQueen as q;
+                    use PT::DarkRook as r;
+                    use PT::DarkBishop as b;
+                    use PT::DarkKnight as n;
+                    use PT::DarkPawn as p;
+
+                    use PT::None as x;
+
+                    use PT::LightPawn as P;
+                    use PT::LightKnight as N;
+                    use PT::LightBishop as B;
+                    use PT::LightRook as R;
+                    use PT::LightQueen as Q;
+                    use PT::LightKing as K;
+                    use PT::LightPegasus as G;
+                    use PT::LightPyramid as A;
+                    use PT::LightUnicorn as U;
+                    use PT::LightWave as W;
+                    use PT::LightCentaur as C;
+                    use PT::LightSerpent as S;
+                    use PT::LightShaman as H;
+                    use PT::LightStarchild as I;
+
+                    use PT::BrightStar as T;
+
+                    use PT::Monolith as M;
+
+                    let cb: &[ &[ PT ] ] = &[
+                        &[ r, n, b, q, k, b, n, r ],
+                        &[ p, p, p, p, p, p, p, p ],
+                        &[ x, x, x, x, x, x, x, x ],
+                        &[ x, x, x, x, x, x, x, x ],
+                        &[ x, x, x, x, x, x, x, x ],
+                        &[ x, x, x, x, x, x, x, x ],
+                        &[ P, P, P, P, P, P, P, P ],
+                        &[ R, N, B, Q, K, B, N, R ],
+                    ];
+
+                    // println!( "Setup: {}.", board.set_chessboard(cb) );
+                    // println!( "{}", board );
+                    // println!( "Setup: {}.", rules.board().set_chessboard(cb) );
+                    println!( "{}", rules.board() );
+                }
+
+                "y" => {
+                }
+
                 _ => { println!("Unrecognized: {}", input.trim()); }
             }
         }
@@ -209,3 +220,63 @@ Initial public hosting, more for backup than for public useage." );
         // }
     }
 }
+
+    // // println!("Hello, world!");
+
+    // // #[allow(non_snake_case)]
+    // // let lT = PT::BrightStar; // PT::from_symbol('T', true);
+    // // libcc::dbg( &lT );
+    // // libcc::dbg( &lT.label() );
+    // // libcc::dbg( &lT.symbol() );
+
+    // // #[allow(non_snake_case)]
+    // // let dT = lT.opposite();
+    // // libcc::dbg( &dT );
+    // // libcc::dbg( &dT.label() );
+    // // libcc::dbg( &dT.symbol() );
+
+    // // let aoa = BT::AgeOfAquarius;
+    // // libcc::dbg( &aoa );
+    // // libcc::dbg( &aoa.label() );
+
+    // // let mut b2 = b::Board { variant: BT::Discovery,
+    // //                         chessboard: Box::new([ Box::new([ PT::LightPawn, PT::LightKing, PT::None ]),
+    // //                                                Box::new([ PT::None, PT::DarkKnight, PT::None ]),
+    // //                                                Box::new([ PT::DarkKing, PT::None, PT::DarkBishop ]) ]) };
+    // let mut b2 = b::Board::new(BT::ClassicalChess);
+    // libcc::dbg( &b2.variant().label() );
+    // // libcc::dbg( &b2.variant().size() );
+    // // println!( "{}", b2 );
+    // // println!( "{}", b2.chessboard() );
+    // // libcc::dbgv( &b2 );
+    // println!( "{}", b2 );
+
+    // // b2.chessboard[1][1] = PT::Monolith;
+    // // libcc::dbgv( &b2.is_on_chessboard(1, 1) );
+    // // libcc::dbgv( &b2.is_on_chessboard(11, 11) );
+    // // libcc::dbgv( &b2.piece_at(1, 1) );
+    // b2.set_piece_at(7, 2, PT::Monolith);
+    // b2.set_piece_at(1, 3, PT::DarkKing);
+    // b2.set_piece_at(5, 2, PT::LightQueen);
+    // // libcc::dbgv( &b2.piece_at(1, 1) );
+    // // libcc::dbgv( &b2 );
+    // println!( "{}", b2 );
+
+    // let mut bb = b::Board::new(BT::One);
+    // libcc::dbg( &bb.variant().label() );
+    // // libcc::dbg( &bb.variant().size() );
+    // // println!( "{}", bb );
+    // // println!( "{}", bb.chessboard() );
+    // // libcc::dbgv( &bb );
+    // println!( "{}", bb );
+
+    // // bb.chessboard[3][5] = PT::Monolith;
+    // // libcc::dbgv( &b2.is_on_chessboard(3, 5) );
+    // // libcc::dbgv( &b2.is_on_chessboard(-3, -5) );
+    // // libcc::dbgv( &bb.piece_at(3, 5) );
+    // bb.set_piece_at(3, 5, PT::Monolith);
+    // bb.set_piece_at(7, 4, PT::DimStar);
+    // bb.set_piece_at(11, 11, PT::BrightStar);
+    // // libcc::dbgv( &bb.piece_at(3, 5) );
+    // // libcc::dbgv( &bb );
+    // println!( "{}", bb );

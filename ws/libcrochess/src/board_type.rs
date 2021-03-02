@@ -22,6 +22,7 @@ impl BoardType {
     pub fn from_str(code: &str) -> Option<BoardType> {
         let lc = code.trim().to_lowercase();
         let lcs = lc.as_str();
+
         return match lcs {
             "cc" => Some(BoardType::ClassicalChess),
             "ct" => Some(BoardType::CroatianTies),
@@ -35,7 +36,7 @@ impl BoardType {
             "d" => Some(BoardType::Discovery),
             "o" => Some(BoardType::One),
 
-            _ => None, // BoardType::One,
+            _ => None,
         };
     }
 
