@@ -3,12 +3,6 @@
 
 use std::fmt;
 
-// use crate::piece_type as pt;
-// use crate::piece_type::PieceType as PT;
-// use crate::board_type as bt;
-// use crate::board_type::BoardType as BT;
-// use crate::board as b
-
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 // #[repr(i32)]
@@ -18,6 +12,7 @@ pub enum PieceFlag {
     CanCastle, // Rooks, Kings
     TagForPromotion, // Pawn
 }
+
 
 impl PieceFlag {
 
@@ -30,6 +25,7 @@ impl PieceFlag {
         };
     }
 }
+
 
 impl fmt::Display for PieceFlag {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

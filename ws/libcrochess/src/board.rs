@@ -5,6 +5,7 @@ use std::fmt;
 
 // use crate::piece_type as pt;
 use crate::piece_type::PieceType as PT;
+
 use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
@@ -15,10 +16,10 @@ pub fn is_field_light(i: i32, j: i32) -> bool {
 
 
 #[derive(Debug, Clone)]
-pub struct Chessboard(pub Box<[ Box<[ PT ]> ]>);
+pub struct Board(pub Box<[ Box<[ PT ]> ]>);
 
 
-impl fmt::Display for Chessboard {
+impl fmt::Display for Board {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let size = self.0.len();
 
@@ -50,7 +51,7 @@ impl fmt::Display for Chessboard {
 //         let size = self.variant.size();
 //         let len = 2 * size + 1;
 //         let divider = "-".to_string().repeat(len);
-//         let cb = format!("{}", self.chessboard);
+//         let cb = format!("{}", self.board);
 //         let mut files = "".to_string();
 
 //         // Ranges don't include upper bound; '{'  is char positioned after 'z' in ASCII table.
@@ -75,12 +76,12 @@ impl fmt::Display for Chessboard {
 // }
 
 
-pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
+pub fn new_chessboard(board_type: bt::BoardType) -> Board {
 
     use crate::piece_type::PieceType::None as n;
 
-    fn new_cc_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_cc_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n ] ),
@@ -92,8 +93,8 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_ct_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_ct_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n ] ),
@@ -107,8 +108,8 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_ma_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_ma_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -125,8 +126,8 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_aoa_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_aoa_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -144,8 +145,8 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_mv_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_mv_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -165,8 +166,8 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_n_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_n_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -188,8 +189,8 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_hd_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_hd_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -213,8 +214,8 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_tr_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_tr_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -240,37 +241,8 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_cot_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
-        ] ) );
-    }
-
-    fn new_d_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_cot_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
@@ -298,8 +270,37 @@ pub fn new_chessboard(board_type: bt::BoardType) -> Chessboard {
         ] ) );
     }
 
-    fn new_o_chessboard() -> Chessboard {
-        return Chessboard( Box::new( [
+    fn new_d_chessboard() -> Board {
+        return Board( Box::new( [
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+            Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
+        ] ) );
+    }
+
+    fn new_o_chessboard() -> Board {
+        return Board( Box::new( [
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),
             Box::new( [ n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n ] ),

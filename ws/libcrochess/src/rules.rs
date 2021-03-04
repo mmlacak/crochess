@@ -16,8 +16,8 @@ use crate::setup_board as sb;
 // use crate::piece_flag as pf;
 use crate::piece_flag::PieceFlag as PF;
 
-use crate::rules_flags as rf;
-// use crate::rules_flags::Flags;
+use crate::flags as f;
+// use crate::flags::Flags;
 
 use crate::setup_flags as sf;
 
@@ -25,8 +25,8 @@ use crate::setup_flags as sf;
 #[derive(Debug, Clone)]
 pub struct Rules {
     variant: BT,
-    chessboard: b::Chessboard,
-    flags: rf::Flags,
+    board: b::Board,
+    flags: f::Flags,
 }
 
 
@@ -34,10 +34,10 @@ impl Rules {
 
     pub fn new(board_type: bt::BoardType, do_initial_setup: bool) -> Rules {
         let cb = b::new_chessboard(board_type);
-        let fs = rf::new_flags(board_type);
+        let fs = f::new_flags(board_type);
 
         let mut rules = Rules { variant: board_type,
-                                chessboard: cb,
+                                board: cb,
                                 flags: fs };
 
         if do_initial_setup {
@@ -55,11 +55,11 @@ impl Rules {
         return self.variant;
     }
 
-    pub fn chessboard(&self) -> &b::Chessboard {
-        return &self.chessboard;
+    pub fn board(&self) -> &b::Board {
+        return &self.board;
     }
 
-    pub fn flags(&self) -> &rf::Flags {
+    pub fn flags(&self) -> &f::Flags {
         return &self.flags;
     }
 
@@ -71,7 +71,7 @@ impl Rules {
 
     pub fn piece_at(&self, i: i32, j: i32) -> PT {
         if self.is_on_board(i, j) {
-            return self.chessboard.0[i as usize][j as usize];
+            return self.board.0[i as usize][j as usize];
         }
         else {
             return PT::None;
@@ -80,7 +80,7 @@ impl Rules {
 
     pub fn set_piece_at(&mut self, i: i32, j: i32, pt: PT) -> bool {
         if self.is_on_board(i, j) {
-            self.chessboard.0[i as usize][j as usize] = pt;
+            self.board.0[i as usize][j as usize] = pt;
             return true;
         }
         else {
@@ -157,7 +157,7 @@ impl fmt::Display for Rules {
         let size = self.variant().size();
         let len = 2 * size + 1;
         let divider = "-".to_string().repeat(len);
-        // let cb = format!("{}", self.board().chessboard());
+        // let cb = format!("{}", self.board());
         let fs = format!("{}", self.flags());
         let mut files = "".to_string();
 

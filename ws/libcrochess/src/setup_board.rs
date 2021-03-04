@@ -7,9 +7,6 @@ use crate::piece_type::PieceType as PT;
 use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
-// use crate::board as b;
-// use crate::board::Chessboard as CB;
-
 
 pub fn new_setup(board_type: bt::BoardType) -> &'static [ &'static [ PT ] ] {
 

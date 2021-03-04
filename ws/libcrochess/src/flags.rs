@@ -3,9 +3,6 @@
 
 use std::fmt;
 
-// use crate::piece_type as pt;
-// use crate::piece_type::PieceType as PT;
-
 use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
@@ -17,11 +14,6 @@ use crate::piece_flag::PieceFlag as PF;
 
 #[derive(Debug, Clone)]
 pub struct Flags(pub Box<[ Box<[ PF ]> ]>);
-
-// impl Flags {
-//     pub fn new(board_type: bt::BoardType) -> Flags {
-//     }
-// }
 
 
 pub fn new_flags(board_type: bt::BoardType) -> Flags {

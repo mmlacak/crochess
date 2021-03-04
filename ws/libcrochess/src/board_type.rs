@@ -3,6 +3,7 @@
 
 use std::fmt;
 
+
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub enum BoardType {
     ClassicalChess,
@@ -17,6 +18,7 @@ pub enum BoardType {
     Discovery,
     One,
 }
+
 
 impl BoardType {
     pub fn from_str(code: &str) -> Option<BoardType> {
@@ -72,6 +74,7 @@ impl BoardType {
         };
     }
 }
+
 
 impl fmt::Display for BoardType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -40,7 +40,7 @@ Use `h(elp)` for command list, `h(elp) cmd` for detailed info.
 
             match cmd {
                 "q" | "quit" => { break; }
-                "d" | "display" => { println!( "\n{}\n", rules.chessboard() ); }
+                "d" | "display" => { println!( "\n{}\n", rules.board() ); }
                 "t" | "tags" => { println!( "\n{}\n", rules.flags() ); }
                 "n" | "new" => {
                     if args.len() > 1 {
@@ -72,7 +72,7 @@ o   -> One
                         rules = r::Rules::new( rules.variant(), true );
                     }
 
-                    println!( "\n{}\n", rules.chessboard() );
+                    println!( "\n{}\n", rules.board() );
                 }
                 "h" | "help" | "?" => {
                     println!( "
@@ -202,19 +202,29 @@ Initial public hosting, more for backup than for public useage.
 
                     use PT::Monolith as M;
 
+                    // let cb: &[ &[ PT ] ] = &[
+                    //     &[ r, n, b, q, k, b, n, r ],
+                    //     &[ p, p, p, p, p, p, p, p ],
+                    //     &[ x, x, x, x, x, x, x, x ],
+                    //     &[ x, x, x, x, x, x, x, x ],
+                    //     &[ x, x, x, x, x, x, x, x ],
+                    //     &[ x, x, x, x, x, x, x, x ],
+                    //     &[ P, P, P, P, P, P, P, P ],
+                    //     &[ R, N, B, Q, K, B, N, R ],
+                    // ];
                     let cb: &[ &[ PT ] ] = &[
-                        &[ r, n, b, q, k, b, n, r ],
+                        &[ r, n, b, q, k, b, x, r ],
                         &[ p, p, p, p, p, p, p, p ],
-                        &[ x, x, x, x, x, x, x, x ],
-                        &[ x, x, x, x, x, x, x, x ],
-                        &[ x, x, x, x, x, x, x, x ],
-                        &[ x, x, x, x, x, x, x, x ],
-                        &[ P, P, P, P, P, P, P, P ],
+                        &[ x, x, x, x, x, n, x, x ],
+                        &[ x, x, x, P, x, x, x, x ],
+                        &[ x, x, x, P, x, x, x, x ],
+                        &[ x, x, x, x, P, x, x, x ],
+                        &[ P, P, P, x, x, P, P, P ],
                         &[ R, N, B, Q, K, B, N, R ],
                     ];
 
                     println!( "Setup: {}.", rules.set_board(cb) );
-                    println!( "\n{}\n", rules.chessboard() );
+                    println!( "\n{}\n", rules.board() );
                 }
 
                 "y" => {
@@ -223,12 +233,6 @@ Initial public hosting, more for backup than for public useage.
                 _ => { println!("Unrecognized: {}", input.trim()); }
             }
         }
-
-        // println!("You typed: {}", input.trim());
-
-        // for s in args.iter() {
-        //     println!("You typed: {}", s);
-        // }
     }
 }
 
@@ -251,18 +255,18 @@ Initial public hosting, more for backup than for public useage.
     // // libcc::dbg( &aoa.label() );
 
     // // let mut b2 = b::Board { variant: BT::Discovery,
-    // //                         chessboard: Box::new([ Box::new([ PT::LightPawn, PT::LightKing, PT::None ]),
+    // //                         board: Box::new([ Box::new([ PT::LightPawn, PT::LightKing, PT::None ]),
     // //                                                Box::new([ PT::None, PT::DarkKnight, PT::None ]),
     // //                                                Box::new([ PT::DarkKing, PT::None, PT::DarkBishop ]) ]) };
     // let mut b2 = b::Board::new(BT::ClassicalChess);
     // libcc::dbg( &b2.variant().label() );
     // // libcc::dbg( &b2.variant().size() );
     // // println!( "{}", b2 );
-    // // println!( "{}", b2.chessboard() );
+    // // println!( "{}", b2.board() );
     // // libcc::dbgv( &b2 );
     // println!( "{}", b2 );
 
-    // // b2.chessboard[1][1] = PT::Monolith;
+    // // b2.board[1][1] = PT::Monolith;
     // // libcc::dbgv( &b2.is_on_chessboard(1, 1) );
     // // libcc::dbgv( &b2.is_on_chessboard(11, 11) );
     // // libcc::dbgv( &b2.piece_at(1, 1) );
@@ -277,11 +281,11 @@ Initial public hosting, more for backup than for public useage.
     // libcc::dbg( &bb.variant().label() );
     // // libcc::dbg( &bb.variant().size() );
     // // println!( "{}", bb );
-    // // println!( "{}", bb.chessboard() );
+    // // println!( "{}", bb.board() );
     // // libcc::dbgv( &bb );
     // println!( "{}", bb );
 
-    // // bb.chessboard[3][5] = PT::Monolith;
+    // // bb.board[3][5] = PT::Monolith;
     // // libcc::dbgv( &b2.is_on_chessboard(3, 5) );
     // // libcc::dbgv( &b2.is_on_chessboard(-3, -5) );
     // // libcc::dbgv( &bb.piece_at(3, 5) );

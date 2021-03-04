@@ -2,13 +2,17 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 pub mod piece_type;
+
 pub mod board_type;
 pub mod board;
 pub mod setup_board;
+
 pub mod piece_flag;
+pub mod flags;
 pub mod setup_flags;
-pub mod rules_flags;
+
 pub mod rules;
+
 
 // fn dbg(x: &impl std::fmt::Debug) {
 //     println!("{:?}", &x);

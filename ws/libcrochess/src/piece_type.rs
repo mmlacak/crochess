@@ -3,6 +3,7 @@
 
 use std::fmt;
 
+
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 // #[repr(i32)]
 pub enum PieceType {
@@ -44,6 +45,7 @@ pub enum PieceType {
 
     Monolith,
 }
+
 
 impl PieceType {
 
@@ -234,6 +236,7 @@ impl PieceType {
     }
 
 }
+
 
 impl fmt::Display for PieceType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
