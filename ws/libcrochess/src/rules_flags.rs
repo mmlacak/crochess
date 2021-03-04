@@ -5,12 +5,13 @@ use std::fmt;
 
 // use crate::piece_type as pt;
 // use crate::piece_type::PieceType as PT;
+
 use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
 use crate::board as b;
 
-use crate::piece_flag as pf;
+// use crate::piece_flag as pf;
 use crate::piece_flag::PieceFlag as PF;
 
 

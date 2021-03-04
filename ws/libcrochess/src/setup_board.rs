@@ -1,8 +1,6 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
-use std::fmt;
-
 // use crate::piece_type as pt;
 use crate::piece_type::PieceType as PT;
 
@@ -10,7 +8,7 @@ use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
 // use crate::board as b;
-use crate::board::Chessboard as CB;
+// use crate::board::Chessboard as CB;
 
 
 pub fn new_setup(board_type: bt::BoardType) -> &'static [ &'static [ PT ] ] {

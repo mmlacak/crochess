@@ -5,17 +5,19 @@ use std::io;
 use std::io::Write;
 
 // use libcrochess as libcc;
+
 // use libcrochess::piece_type as pt;
 use libcrochess::piece_type::PieceType as PT;
+
 // use libcrochess::board_type as bt;
 use libcrochess::board_type::BoardType as BT;
-use libcrochess::board as b;
-use libcrochess::piece_flag as pf;
+
+// use libcrochess::board as b;
+// use libcrochess::piece_flag as pf;
 use libcrochess::rules as r;
 
 
 fn main() {
-    // let mut board = b::Board::new( BT::One );
     let mut rules = r::Rules::new( BT::One, true );
 
     println!( "
@@ -38,15 +40,14 @@ Use `h(elp)` for command list, `h(elp) cmd` for detailed info.
 
             match cmd {
                 "q" | "quit" => { break; }
-                "d" | "display" => { println!( "{}", rules.chessboard() ); }
-                "t" | "tags" => { println!( "{}", rules.flags() ); }
+                "d" | "display" => { println!( "\n{}\n", rules.chessboard() ); }
+                "t" | "tags" => { println!( "\n{}\n", rules.flags() ); }
                 "n" | "new" => {
                     if args.len() > 1 {
                         let code = args[ 1 ];
                         let b_t = BT::from_str( code );
                         match b_t {
                             Some(bt) => {
-                                // board = b::Board::new( bt );
                                 rules = r::Rules::new( bt, true );
                             }
                             None => { println!( "
@@ -68,12 +69,10 @@ o   -> One
                         };
                     }
                     else {
-                        // board = b::Board::new( board.variant() );
                         rules = r::Rules::new( rules.variant(), true );
                     }
 
-                    // println!( "{}", board );
-                    println!( "{}", rules.chessboard() );
+                    println!( "\n{}\n", rules.chessboard() );
                 }
                 "h" | "help" | "?" => {
                     println!( "
@@ -214,10 +213,8 @@ Initial public hosting, more for backup than for public useage.
                         &[ R, N, B, Q, K, B, N, R ],
                     ];
 
-                    // println!( "Setup: {}.", board.set_chessboard(cb) );
-                    // println!( "{}", board );
-                    // println!( "Setup: {}.", rules.chessboard().set_chessboard(cb) );
-                    println!( "{}", rules.chessboard() );
+                    println!( "Setup: {}.", rules.set_board(cb) );
+                    println!( "\n{}\n", rules.chessboard() );
                 }
 
                 "y" => {

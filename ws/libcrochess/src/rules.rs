@@ -10,11 +10,10 @@ use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
 use crate::board as b;
-// use crate::board::Board;
 
 use crate::setup_board as sb;
 
-use crate::piece_flag as pf;
+// use crate::piece_flag as pf;
 use crate::piece_flag::PieceFlag as PF;
 
 use crate::rules_flags as rf;
@@ -25,7 +24,6 @@ use crate::setup_flags as sf;
 
 #[derive(Debug, Clone)]
 pub struct Rules {
-    // board: b::Board,
     variant: BT,
     chessboard: b::Chessboard,
     flags: rf::Flags,
@@ -44,7 +42,7 @@ impl Rules {
 
         if do_initial_setup {
             let cb = sb::new_setup(board_type);
-            rules.chessboard.set_board(cb);
+            rules.set_board(cb);
 
             let f = sf::new_setup_rules(board_type);
             rules.set_flags(f);
@@ -61,16 +59,58 @@ impl Rules {
         return &self.chessboard;
     }
 
-    // pub fn board(&self) -> &b::Board {
-    //     return &self.board;
-    // }
-
     pub fn flags(&self) -> &rf::Flags {
         return &self.flags;
     }
 
+    pub fn is_on_board(&self, i: i32, j: i32) -> bool {
+        let size: i32 = self.variant.size() as i32;
+        return (0 <= i) && (i <= size) &&
+               (0 <= j) && (j <= size);
+    }
+
+    pub fn piece_at(&self, i: i32, j: i32) -> PT {
+        if self.is_on_board(i, j) {
+            return self.chessboard.0[i as usize][j as usize];
+        }
+        else {
+            return PT::None;
+        }
+    }
+
+    pub fn set_piece_at(&mut self, i: i32, j: i32, pt: PT) -> bool {
+        if self.is_on_board(i, j) {
+            self.chessboard.0[i as usize][j as usize] = pt;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    pub fn set_board(&mut self, pieces: &[ &[ PT ] ]) -> bool {
+        let size = self.variant.size();
+        if size != pieces.len() { return false; }
+
+        for i in 0 .. size {
+            if size != pieces[ i ].len() {
+                return false;
+            }
+        }
+
+        let mut result = true;
+        for i in 0 .. size {
+            for j in 0 .. size {
+                // Beware: lazy logical "true and ?" --> trying to set all pieces, even if previous failed.
+                result = self.set_piece_at(i as i32, j  as i32, pieces[ size - j - 1 ][ i ]) && result;
+            }
+        }
+
+        return result;
+    }
+
     pub fn flag_at(&self, i: i32, j: i32) -> PF {
-        if self.chessboard.is_on_board(i, j) {
+        if self.is_on_board(i, j) {
             return self.flags.0[i as usize][j as usize];
         }
         else {
@@ -79,7 +119,7 @@ impl Rules {
     }
 
     pub fn set_flag_at(&mut self, i: i32, j: i32, flag: PF) -> bool {
-        if self.chessboard.is_on_board(i, j) {
+        if self.is_on_board(i, j) {
             self.flags.0[i as usize][j as usize] = flag;
             return true;
         }
@@ -101,7 +141,7 @@ impl Rules {
         let mut result = true;
         for i in 0 .. size {
             for j in 0 .. size {
-                // beware: lazy logical and
+                // Beware: lazy logical "true and ?" --> trying to set all flags, even if previous failed.
                 result = self.set_flag_at(i as i32, j  as i32, flags[ size - j - 1 ][ i ]) && result;
             }
         }
