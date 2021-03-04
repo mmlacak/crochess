@@ -150,35 +150,3 @@ impl Rules {
     }
 
 }
-
-
-impl fmt::Display for Rules {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let size = self.variant().size();
-        let len = 2 * size + 1;
-        let divider = "-".to_string().repeat(len);
-        // let cb = format!("{}", self.board());
-        let fs = format!("{}", self.flags());
-        let mut files = "".to_string();
-
-        // Ranges don't include upper bound; '{'  is char positioned after 'z' in ASCII table.
-        for (i, c) in ('a' .. '{').enumerate() {
-            if i >= size { break; }
-            files += format!(" {}", c).as_str();
-        }
-
-        write!(f, "    {}\n", files) ?;
-        write!(f, "    {}\n", divider) ?;
-        // for (i, line_i) in cb.lines().enumerate() {
-        for (i, line_i) in fs.lines().enumerate() {
-            let row = size - i;
-            write!(f, "{:2} |", row) ?;
-            write!(f, "{}", line_i) ?;
-            write!(f, " | {:2}\n", row) ?;
-        }
-        write!(f, "    {}\n", divider) ?;
-        write!(f, "    {}\n", files) ?;
-
-        return Ok(());
-    }
-}

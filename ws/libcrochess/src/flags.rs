@@ -292,8 +292,23 @@ pub fn new_flags(board_type: bt::BoardType) -> Flags {
 impl fmt::Display for Flags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let size = self.0.len();
+        let len = 2 * size + 1;
+        let divider = "-".to_string().repeat(len);
+        let mut files = "".to_string();
+
+        // Ranges don't include upper bound; '{'  is char positioned immediately after 'z' in ASCII table.
+        for (i, c) in ('a' .. '{').enumerate() {
+            if i >= size { break; }
+            files += format!(" {}", c).as_str();
+        }
+
+        write!(f, "    {}\n", files) ?;
+        write!(f, "    {}\n", divider) ?;
 
         for i in 0 .. size {
+            let row = size - i;
+            write!(f, "{:2} |", row) ?;
+
             for j in 0 .. size {
                 let p = self.0[ j ][ size - i - 1 ];
                 if p != PF::None {
@@ -308,8 +323,12 @@ impl fmt::Display for Flags {
                     }
                 }
             }
-            write!(f, "\n") ?;
+
+            write!(f, " | {:2}\n", row) ?;
         }
+
+        write!(f, "    {}\n", divider) ?;
+        write!(f, "    {}", files) ?;
 
         return Ok(());
     }

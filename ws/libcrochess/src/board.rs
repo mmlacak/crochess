@@ -22,8 +22,23 @@ pub struct Board(pub Box<[ Box<[ PT ]> ]>);
 impl fmt::Display for Board {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let size = self.0.len();
+        let len = 2 * size + 1;
+        let divider = "-".to_string().repeat(len);
+        let mut files = "".to_string();
+
+        // Ranges don't include upper bound; '{'  is char positioned immediately after 'z' in ASCII table.
+        for (i, c) in ('a' .. '{').enumerate() {
+            if i >= size { break; }
+            files += format!(" {}", c).as_str();
+        }
+
+        write!(f, "    {}\n", files) ?;
+        write!(f, "    {}\n", divider) ?;
 
         for i in 0 .. size {
+            let row = size - i;
+            write!(f, "{:2} |", row) ?;
+
             for j in 0 .. size {
                 let p = self.0[ j ][ size - i - 1 ];
                 if p != PT::None {
@@ -38,42 +53,16 @@ impl fmt::Display for Board {
                     }
                 }
             }
-            write!(f, "\n") ?;
+
+            write!(f, " | {:2}\n", row) ?;
         }
+
+        write!(f, "    {}\n", divider) ?;
+        write!(f, "    {}", files) ?;
 
         return Ok(());
     }
 }
-
-
-// impl fmt::Display for Board {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         let size = self.variant.size();
-//         let len = 2 * size + 1;
-//         let divider = "-".to_string().repeat(len);
-//         let cb = format!("{}", self.board);
-//         let mut files = "".to_string();
-
-//         // Ranges don't include upper bound; '{'  is char positioned after 'z' in ASCII table.
-//         for (i, c) in ('a' .. '{').enumerate() {
-//             if i >= size { break; }
-//             files += format!(" {}", c).as_str();
-//         }
-
-//         write!(f, "    {}\n", files) ?;
-//         write!(f, "    {}\n", divider) ?;
-//         for (i, line_i) in cb.lines().enumerate() {
-//             let row = size - i;
-//             write!(f, "{:2} |", row) ?;
-//             write!(f, "{}", line_i) ?;
-//             write!(f, " | {:2}\n", row) ?;
-//         }
-//         write!(f, "    {}\n", divider) ?;
-//         write!(f, "    {}", files) ?;
-
-//         return Ok(());
-//     }
-// }
 
 
 pub fn new_chessboard(board_type: bt::BoardType) -> Board {
