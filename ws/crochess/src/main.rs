@@ -10,7 +10,7 @@ use libcrochess::piece_type::PieceType as PT;
 // use libcrochess::board_type as bt;
 use libcrochess::board_type::BoardType as BT;
 use libcrochess::board as b;
-use libcrochess::piece_flags as pf;
+use libcrochess::piece_flag as pf;
 use libcrochess::rules as r;
 
 
@@ -23,7 +23,7 @@ Croatian chess - console application
 Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
 
 Use `h(elp)` for command list, `h(elp) cmd` for detailed info.
-    " );
+" );
 
     loop {
         let mut input = String::new();
@@ -38,7 +38,7 @@ Use `h(elp)` for command list, `h(elp) cmd` for detailed info.
 
             match cmd {
                 "q" | "quit" => { break; }
-                "d" | "display" => { println!( "{}", rules.board() ); }
+                "d" | "display" => { println!( "{}", rules.chessboard() ); }
                 "t" | "tags" => { println!( "{}", rules.flags() ); }
                 "n" | "new" => {
                     if args.len() > 1 {
@@ -69,11 +69,11 @@ o   -> One
                     }
                     else {
                         // board = b::Board::new( board.variant() );
-                        rules = r::Rules::new( rules.board().variant(), true );
+                        rules = r::Rules::new( rules.variant(), true );
                     }
 
                     // println!( "{}", board );
-                    println!( "{}", rules.board() );
+                    println!( "{}", rules.chessboard() );
                 }
                 "h" | "help" | "?" => {
                     println!( "
@@ -117,7 +117,7 @@ tr  -> Tamoanchan Revisited
 cot -> Conquest Of Tlalocan
 d   -> Discovery
 o   -> One
-                    " );
+" );
                 }
                 "a" | "about" => {
                     println!( "
@@ -150,7 +150,7 @@ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                    " );
+" );
                 }
                 "v" | "version" => {
                     println!( "
@@ -160,7 +160,7 @@ Licensed under 3-clause (modified) BSD license. Use `a(bout)` command for detail
 
 2021-2-27: ver. 0.1.0.945
 Initial public hosting, more for backup than for public useage.
-                    " );
+" );
                 }
 
                 "x" => {
@@ -216,8 +216,8 @@ Initial public hosting, more for backup than for public useage.
 
                     // println!( "Setup: {}.", board.set_chessboard(cb) );
                     // println!( "{}", board );
-                    // println!( "Setup: {}.", rules.board().set_chessboard(cb) );
-                    println!( "{}", rules.board() );
+                    // println!( "Setup: {}.", rules.chessboard().set_chessboard(cb) );
+                    println!( "{}", rules.chessboard() );
                 }
 
                 "y" => {

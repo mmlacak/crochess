@@ -9,10 +9,9 @@ use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
 use crate::board as b;
-use crate::board::Board;
 
-use crate::piece_flags as pf;
-use crate::piece_flags::PieceFlag as PF;
+use crate::piece_flag as pf;
+use crate::piece_flag::PieceFlag as PF;
 
 
 #[derive(Debug, Clone)]
@@ -26,10 +25,10 @@ pub struct Flags(pub Box<[ Box<[ PF ]> ]>);
 
 pub fn new_flags(board_type: bt::BoardType) -> Flags {
 
-    use crate::piece_flags::PieceFlag::None as n;
-    // use crate::piece_flags::PieceFlag::CanRush as R;
-    // use crate::piece_flags::PieceFlag::CanCastle as C;
-    // use crate::piece_flags::PieceFlag::TagForPromotion as P;
+    use crate::piece_flag::PieceFlag::None as n;
+    // use crate::piece_flag::PieceFlag::CanRush as R;
+    // use crate::piece_flag::PieceFlag::CanCastle as C;
+    // use crate::piece_flag::PieceFlag::TagForPromotion as P;
 
     fn new_cc_flags() -> Flags {
         return Flags( Box::new( [
