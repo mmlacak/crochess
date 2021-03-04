@@ -18,6 +18,13 @@ fn main() {
     // let mut board = b::Board::new( BT::One );
     let mut rules = r::Rules::new( BT::One, true );
 
+    println!( "
+Croatian chess - console application
+Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
+
+Use `h(elp)` for command list, `h(elp) cmd` for detailed info.
+    " );
+
     loop {
         let mut input = String::new();
 
@@ -42,7 +49,8 @@ fn main() {
                                 // board = b::Board::new( bt );
                                 rules = r::Rules::new( bt, true );
                             }
-                            None => { println!( "Unrecognized code: {}
+                            None => { println!( "
+Unrecognized code: {}
 
 Use following code for new variant game:
 cc  -> Classical
@@ -68,35 +76,36 @@ o   -> One
                     println!( "{}", rules.board() );
                 }
                 "h" | "help" | "?" => {
-                    println!( "Croatian chess - console application
+                    println!( "
+Croatian chess - console application
 Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
-Licensed under 3-clause (modified) BSD license. Use a(bout) command for details.
+Licensed under 3-clause (modified) BSD license. Use `a(bout)` command for details.
 
 Based on book 'Croatian chess and other variants', by Mario Mlačak.
 
 Commands:
-h, help       - prints this screen
-a, about      - prints about info
+h, help       - prints this screen, `h(elp) cmd` for command details
+a, about      - prints about, license info
 v, version    - prints version(s) info
 q, quit       - quits program
-d, display    - display current positions
-* t, tags     - display current tags
-* i, info     - display list of all moves played, time
+d, display    - displays current position
+* t, tags     - displays current tags
+* i, info     - displays list of all moves played, time
 * t, time     - (re)sets time counter(s)
 n, new        - starts new game, keeps variant
-                to change variant use code from table below, e.g. n ct
+                to change variant use code from table below, e.g. `n ct`
 * p, players  - sets up players
-                takes two parameters, both are one of 'bot', 'human'
+                takes two parameters, both are one of `bot`, `human`
 * m, move     - moves piece(s)
-                takes notation as argument, e.g. m Nc3
+                takes notation as argument, e.g. `m Nc3`
 * s, save     - saves current game into PGN file
-                takes <path> as argument, e.g. s my_new_game.pgn
+                takes <path> as argument, e.g. `s my_new_game.pgn`
 * l, load     - loads game/positions from PGN file
-                takes <path> as argument, e.g. l my_new_game.pgn
+                takes <path> as argument, e.g. `l my_new_game.pgn`
 
 Commands marked with * are not currently implemented.
 
-Supported variants (use code as argument to 'new' command):
+Supported variants (use code as argument to `n(ew)` command):
 cc  -> Classical
 ct  -> Croatian Ties
 ma  -> Mayan Ascendancy
@@ -107,10 +116,12 @@ hd  -> Hemera's Dawn
 tr  -> Tamoanchan Revisited
 cot -> Conquest Of Tlalocan
 d   -> Discovery
-o   -> One" );
+o   -> One
+                    " );
                 }
                 "a" | "about" => {
-                    println!( "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
+                    println!( "
+Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -138,15 +149,18 @@ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." );
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                    " );
                 }
                 "v" | "version" => {
-                    println!( "Croatian chess - console application
+                    println!( "
+Croatian chess - console application
 Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
-Licensed under 3-clause (modified) BSD license. Use a(bout) command for details.
+Licensed under 3-clause (modified) BSD license. Use `a(bout)` command for details.
 
 2021-2-27: ver. 0.1.0.945
-Initial public hosting, more for backup than for public useage." );
+Initial public hosting, more for backup than for public useage.
+                    " );
                 }
 
                 "x" => {

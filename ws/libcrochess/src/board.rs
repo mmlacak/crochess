@@ -15,7 +15,7 @@ pub fn is_field_light(i: i32, j: i32) -> bool {
 
 
 #[derive(Debug, Clone)]
-pub struct Chessboard(Box<[ Box<[ PT ]> ]>);
+pub struct Chessboard(pub Box<[ Box<[ PT ]> ]>);
 
 impl fmt::Display for Chessboard {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
