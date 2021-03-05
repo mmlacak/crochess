@@ -426,7 +426,7 @@ destination field, optionally followed by activated pieces' plies, if there were
 
 If piece teleported, but there is no empty portal-field, teleportation failed, and is noted with \alg{||}
 (double vertical bar). The same notation is used for teleported Wave, if all step-fields are blocked, or
-not present on a chessboard at all.
+located off-board.
 
 This \hyperref[fig:scn_n_02_teleport_init]{teleportation example} would be written as \alg{Ba18|q18}, in
 \algfmt{XAN} it would be \alg{Bd15-a18|q18}.
@@ -481,8 +481,8 @@ differentiate paths, otherwise written path might inadvertently also denote othe
 
 Care must also be taken to properly use step separator \alg{.} (dot), and multiple step separator \alg{..} (two
 dots). Step separator \alg{.} is for separating 2 steps, where one step immediately follows the other. Multi-step
-separator \alg{..} is for separating 2 steps which have at least one step in-between. For instance, first, short
-path in previous paragraph (i.e. \alg{Sm15\~{}Am11::S.l16.m17*}) might also be confused with
+separator \alg{..} is for separating 2 steps which have at least one unwritten step in-between. For instance, first,
+short path in previous paragraph (i.e. \alg{Sm15\~{}Am11::S.l16.m17*}) might also be confused with
 \alg{Sm15\~{}Am11::S..l16..m17*}, which is a shorthand for \alg{Sm15\~{}Am11::S.l14.k15.l16.k17.l18.m17*}, a very
 different path.
 
@@ -508,7 +508,7 @@ interpreted as either \alg{Se5\~{}We5.f4.g5.h4.i5}, or as \alg{Se5\~{}We5.f6.g5.
 If Wave activated by Serpent is blocked from reaching destination field using only on-board step-fields, then only one
 path exists, and only destination field is needed. For instance, if in this
 \hyperref[fig:scn_tr_16_wave_out_of_board]{Wave off-board example} dark Knight were located at \alg{u9}, and destination
-field is \alg{v10} it would block Wave's ply \alg{Sv6\~{}W.u7.v8.u9.v10}, and only path avaiable to Wave would be
+field is \alg{v10} it would block Wave's ply \alg{Sv6\~{}W.u7.v8.u9.v10}, and only path available to Wave would be
 off-board, i.e. \alg{Sv6\~{}W..v8..v10}.
 
 For a Wave activated by Unicorn or Centaur, noting destination field might be enough, if destination field does not share
@@ -534,7 +534,7 @@ confused for a regular chess \algfmt{AN}.
 For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have equal chances of winning, see\\
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)#Annotation\_symbols}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
 \#Annotation\_symbols}. In such a case, regular chess \algfmt{AN} is assumed, i.e. it is Pawn tagged for promotion.
-If annotation is meant instead, it has to be written as \alg{e8*\_=}.
+If annotation is meant instead, it has to be written as \alg{e8\_=}.
 
 \clearpage % ..........................................................
 
@@ -733,10 +733,10 @@ In addition to 2 rows of Pawns, most of later variants also have scout Pawns, ta
 initial positions of those for light player. For light player, scout Pawns occupy rows 4 and 5 on
 chessboard. For desired variant, one would fill row on indicated files with Pawns.
 
-For instance, \alg{cgnr} for \emph{row 4} in Hemera's Dawn variant means that scout Pawns are located
-at \alg{c4}, \alg{g4}, \alg{n4} and \alg{r4}.
+For instance, \alg{cgnr} for \emph{row 4} in Hemera's Dawn variant means that light scout Pawns are
+located at \alg{c4}, \alg{g4}, \alg{n4} and \alg{r4}.
 
-For dark player, positions are mirrored, \emph{row 4} is the one closest to the Pawn row(s),
+For dark player, positions are mirrored, \emph{row 4} is the one closest to the dark figure row,
 \emph{row 5} contains outermost scout Pawns. For Hemera's Dawn variant, \emph{row 4} translate to
 \emph{row 17}, and \emph{row 5} becomes \emph{row 16}. So, the same \alg{cgnr} for \emph{row 4}
 now means dark Pawns are located at \alg{c17}, \alg{g17}, \alg{n17} and \alg{r17}.
@@ -850,8 +850,8 @@ Wave's ply.
 All other properties of Wave movement remains the same, regardless which piece
 activated it: ability to "pass-through" pieces (except Monoliths) on a chessboard
 as if they're not there, inability to capture any piece, ability to activate any
-own piece (except King) and ability to transfer all of received momentum to
-activated piece.
+own piece (except King), ability to activate opponent's Wave and ability to transfer
+all of received momentum to activated piece.
 
 \clearpage % ..........................................................
 
@@ -1055,10 +1055,17 @@ are available for a particular variant see
     <field>[<status>]
 | <file>[\algcty{x}]<field>[<status>][\algcty{\_e.p.}]
 
+<compatibility-castling> =
+  \algcty{O-O-O}
+| \algcty{0-0-0}
+| \algcty{O-O}
+| \algcty{0-0}
+
 <move> =
   \alg{(=)}
 | \alg{...}
 | <compatibility-capture>
+| <compatibility-castling>
 | <move-new><status>
 \end{alltt}
 
