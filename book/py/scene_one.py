@@ -667,18 +667,43 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_23_trance_journey_failed', bt)
 
-        start_b = (25, 0)
-        adder = GS.adder(start_b)
-        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+        start_h = (20, 1)
+        adder = GS.adder(start_h)
+        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
 
-        start_I = adder(-1, 1) # (-1, 1)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        # start_w = (22, 4)
+        start_w = adder(2, 3)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
 
-        start_i = adder(1, 1) # (0, 2)
+        start_i = adder(3, -2)
         scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
 
+        start_I = adder(-1, -1)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_b = adder(1, -1)
+        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+
+        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_w + start_i), mark_type=MarkType.Action )
         scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
         scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Action )
+
+        #
+        # blocking neighboring-fields
+
+        scene.board.set_piece(23, 1, piece=PieceType.Pawn)
+        scene.board.set_piece(23, 2, piece=PieceType.Pawn)
+        scene.board.set_piece(24, 2, piece=PieceType.Pawn)
+        scene.board.set_piece(24, 3, piece=PieceType.Pawn)
+        scene.board.set_piece(25, 3, piece=PieceType.Pawn)
+
+        scene.board.set_piece(23, 0, piece=PieceType.Rook)
+        scene.board.set_piece(24, 0, piece=PieceType.Knight)
+        scene.board.set_piece(25, 1, piece=PieceType.Pyramid)
+
+        #
+        # blocking step-fields
 
         scene.board.set_piece(25, 5, piece=PieceType.Star)
         scene.board.set_piece(1, 8, piece=PieceType.Star)
