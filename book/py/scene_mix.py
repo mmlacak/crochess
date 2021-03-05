@@ -35,4 +35,5 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     'scn_o_23_trance_journey_failed', \
+                    'scn_o_24_trance_journey_failed_2', \
                 ]
