@@ -117,6 +117,10 @@ https://croatian-chess.blogspot.com
 This project is licensed under the BSD 3-clause, modified license,
 see the [LICENSE](LICENSE) file for details.
 
+The book is published as Public Domain work, see
+[https://en.wikipedia.org/wiki/Public_domain](https://en.wikipedia.org/wiki/Public_domain)
+for details.
+
 ## Acknowledgments
 
 * Dennis
