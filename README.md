@@ -16,16 +16,16 @@ chess and growing ever more complex with each new variant.
 
 ## Versions
 
-**Book version** can be seen in a colophon (4th page), under
-*Source* section. The most recent book version is:
+**Book version** can be seen in a colophon (4th page), under *Source* section. \
+The most recent book version is:
 
 Version: 20210307204437 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
 
-**Application** and **library versions** can be seen in an
-application, using `v(ersion)` command. The latest versions are:
+**Application** and **library versions** can be seen in an application, using `v(ersion)` command. \
+The latest versions are:
 
 Application: 0.1.1+20210307205923 <!--- readme-new-app-version-major-minor-patch+build-place-marker --> \
 Library: 0.1.1+20210307205923 <!--- readme-new-lib-version-major-minor-patch+build-place-marker -->

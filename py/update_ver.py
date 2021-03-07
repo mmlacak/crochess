@@ -207,8 +207,6 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_patch):
     if is_major or is_minor or is_patch:
         major, minor, patch, build = get_current_lib_versions(root_path)
 
-        # print( "before", major, minor, patch, build )
-
         if major is not None and minor is not None and patch is not None:
             if is_major:
                 major += 1
@@ -220,11 +218,7 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_patch):
             elif is_patch:
                 patch += 1
 
-            # print( "after", major, minor, patch, build )
-
             git_version = "%s.%s.%s+%s" % ( str(major), str(minor), str(patch), book_version )
-
-            # print( "git_version", git_version )
 
         replace_app_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
         replace_lib_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
