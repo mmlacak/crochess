@@ -14,11 +14,13 @@ import subprocess
 
 
 def run_process(cmd_args_list):
-    output_str = None
+    output_str = ""
+
     try:
         output_str = subprocess.check_output(cmd_args_list)
     except subprocess.CalledProcessError:
         pass
+
     return str(output_str, encoding='utf-8', errors='replace')
 
 def split_cmd_git_args(argv):
