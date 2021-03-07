@@ -59,7 +59,7 @@ def get_current_lib_versions(root_path, ws_dir=SOURCE_WS_FOLDER, lib_dir=SOURCE_
                 build = mo.group("build")
                 return (int(major), int(minor), int(patch), str(build))
 
-        return (None, None, None, None)
+    return (None, None, None, None)
 
 def get_full_tex_path(root_path, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX_FILE_NAME):
     path = os.path.join(root_path, tex_dir, tex_name)
@@ -87,6 +87,7 @@ def get_full_lib_source_path(root_path, ws_dir=SOURCE_WS_FOLDER, lib_dir=SOURCE_
 
 def change_book_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
     new = line
+
     if is_book:
         if 'book-new-commit-version-squished-utc-date-time-place-marker' in line:
             new = '    Version: %s \\\\ [2.0em] %% book-new-commit-version-squished-utc-date-time-place-marker\n' % (book_version, )
@@ -94,6 +95,7 @@ def change_book_line_if_marked(line, git_version, book_version, book_short, is_b
             new = '    %s \\\\ %% book-new-commit-version-date-place-marker\n' % book_short
         elif 'book-new-commit-version-date-small-place-marker' in line:
             new = '    \small{%s} \\\\ [0.5em] %% book-new-commit-version-date-small-place-marker\n' % book_short
+
     return new
 
 def change_readme_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
@@ -114,30 +116,38 @@ def change_readme_line_if_marked(line, git_version, book_version, book_short, is
 
 def change_config_app_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
     new = line
+
     if is_major or is_minor or is_patch:
         if 'config-new-app-version-major-minor-patch+build-place-marker' in line:
             new = 'version = "%s" # config-new-app-version-major-minor-patch+build-place-marker\n' % git_version
+
     return new
 
 def change_config_lib_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
     new = line
+
     if is_major or is_minor or is_patch:
         if 'config-new-lib-version-major-minor-patch+build-place-marker' in line:
             new = 'version = "%s" # config-new-lib-version-major-minor-patch+build-place-marker\n' % git_version
+
     return new
 
 def change_source_app_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
     new = line
+
     if is_major or is_minor or is_patch:
         if 'source-new-app-version-major-minor-patch+build-place-marker' in line:
             new = 'const VERSION: &str = "%s"; /* source-new-app-version-major-minor-patch+build-place-marker */\n' % git_version
+
     return new
 
 def change_source_lib_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
     new = line
+
     if is_major or is_minor or is_patch:
         if 'source-new-lib-version-major-minor-patch+build-place-marker' in line:
             new = 'pub const VERSION: &str = "%s"; /* source-new-lib-version-major-minor-patch+build-place-marker */\n' % git_version
+
     return new
 
 def replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, func_change_line_if):

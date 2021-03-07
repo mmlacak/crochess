@@ -35,8 +35,8 @@ def main():
     pre_git_argv, git_commit_argv, git_push_argv = GR.split_cmd_git_args(sys.argv)
 
     is_dry_run = True if GR.any_item_in_list( ['-n', '--dry-run'], pre_git_argv) else False
-    is_verbose = True if GR.any_item_in_list( ['-v', '--verbose'], pre_git_argv) else False
-    is_debug = True if GR.any_item_in_list( ['-d', '--debug'], pre_git_argv) else False
+    is_verbose = True if is_dry_run or GR.any_item_in_list( ['-v', '--verbose'], pre_git_argv) else False
+    is_debug = True if is_dry_run or GR.any_item_in_list( ['-d', '--debug'], pre_git_argv) else False
 
     is_book = True if GR.any_item_in_list( ['-b', '--book'], pre_git_argv) else False
 
