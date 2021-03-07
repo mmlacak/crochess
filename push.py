@@ -63,19 +63,28 @@ def main():
 
     if is_book or is_major or is_minor or is_patch:
         print( "" )
-        print( "Updating versions of book: %s, major: %s, minor: %s, patch: %s." % (str(is_book), str(is_major), str(is_minor), str(is_patch)) )
+
+        if is_debug:
+            print( "Updating versions of book: %s, major: %s, minor: %s, patch: %s." % (str(is_book), str(is_major), str(is_minor), str(is_patch)) )
+
         if not is_dry_run:
             UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_patch )
 
     if git_commit_argv:
         print( "" )
-        print( "Running: %s" % str( git_commit_argv ) )
+
+        if is_debug:
+            print( "Running: %s" % str( git_commit_argv ) )
+
         if not is_dry_run:
             result = GR.run_process( git_commit_argv )
 
     if git_push_argv:
         print( "" )
-        print( "Running: %s" % str( git_push_argv ) )
+
+        if is_debug:
+            print( "Running: %s" % str( git_push_argv ) )
+
         if not is_dry_run:
             result = GR.run_process( git_push_argv )
 
