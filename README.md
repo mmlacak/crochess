@@ -14,19 +14,21 @@ Croatian Chess is a collection of various chess variants,
 starting as a simple and natural enhancement to classical
 chess and growing ever more complex with each new variant.
 
-## Version
+## Versions
 
 **Book version** can be seen in a colophon (4th page), under
 *Source* section. The most recent book version is:
 
-Version: 20210307152846 <!--- readme-new-commit-version-squished-utc-date-time-place-marker -->
+Version: 20210307204437 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
-First number is last commit to book sources, basically the
-larger the number, the newer the book you have.\
-Next is date and time of that commit, converted to UTC for
-easier comparison.\
-Lastly is branch name from which book is compiled; default
-is master.
+Large number is actually date and time of the last commit,
+converted to UTC for easier comparison.
+
+**Application** and **library versions** can be seen in an
+application, using `v(ersion)` command. The latest versions are:
+
+Application: 0.1.1+20210307205923 <!--- readme-new-app-version-major-minor-patch+build-place-marker --> \
+Library: 0.1.1+20210307205923 <!--- readme-new-lib-version-major-minor-patch+build-place-marker -->
 
 ## Getting Started
 

@@ -5,11 +5,6 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 
-# import sys
-# import os
-# import os.path
-# import re
-# import time
 import subprocess
 
 
@@ -37,8 +32,9 @@ def split_cmd_git_args(argv):
             if '.py' not in arg:
                 a = arg
 
-                if not arg.startswith('-'):
-                    a = '"%s"' % (arg, )
+                # if not arg.startswith('-'):
+                #     a = '"%s"' % (arg, )
+
                 if arg_sep_count == 0:
                     pre_git_argv.append( a )
                 elif arg_sep_count == 1:
@@ -66,7 +62,8 @@ def split_cmd_git_args(argv):
     return (pre_git_argv, git_commit_argv, git_push_argv)
 
 def any_item_in_list(items, lst):
-    for item in items:
-        if item in lst:
-            return True
-    return False
+    # for item in items:
+    #     if item in lst:
+    #         return True
+    # return False
+    return any( [ (i in lst) for i in items ] )

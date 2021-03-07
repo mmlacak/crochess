@@ -14,6 +14,9 @@ pub mod setup_flags;
 pub mod rules;
 
 
+pub const VERSION: &str = "0.1.1+20210307205923"; /* source-new-lib-version-major-minor-patch+build-place-marker */
+
+
 // fn dbg(x: &impl std::fmt::Debug) {
 //     println!("{:?}", &x);
 // }

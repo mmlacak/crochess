@@ -4,7 +4,7 @@
 use std::io;
 use std::io::Write;
 
-// use libcrochess as libcc;
+use libcrochess as libcc;
 
 // use libcrochess::piece_type as pt;
 use libcrochess::piece_type::PieceType as PT;
@@ -15,6 +15,9 @@ use libcrochess::board_type::BoardType as BT;
 // use libcrochess::board as b;
 // use libcrochess::piece_flag as pf;
 use libcrochess::rules as r;
+
+
+const VERSION: &str = "0.1.1+20210307205923"; /* source-new-app-version-major-minor-patch+build-place-marker */
 
 
 fn main() {
@@ -157,9 +160,9 @@ Croatian chess - console application
 Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
 Licensed under 3-clause (modified) BSD license. Use `a(bout)` command for details.
 
-2021-2-27: ver. 0.1.0.945
-Initial public hosting, more for backup than for public useage.
-" );
+Application: {}
+Library: {}
+", VERSION, libcc::VERSION );
                 }
 
                 "x" => {

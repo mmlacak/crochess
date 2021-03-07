@@ -10,7 +10,7 @@ import os
 import os.path
 
 import py.git_run as GR
-import py.book_ver as BV
+import py.update_ver as UV
 
 
 def get_combed_path(path):
@@ -52,7 +52,7 @@ def main():
         print( "" )
         print( "Project root folder: '%s'." % PROJECT_ROOT_PATH )
 
-        now_version, now_short = BV.get_current_times()
+        now_version, now_short = UV.get_current_times()
         print( "New version: %s." % now_version )
 
     if is_debug:
@@ -65,7 +65,7 @@ def main():
         print( "" )
         print( "Updating versions of book: %s, major: %s, minor: %s, patch: %s." % (str(is_book), str(is_major), str(is_minor), str(is_patch)) )
         if not is_dry_run:
-            BV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_patch )
+            UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_patch )
 
     if git_commit_argv:
         print( "" )
@@ -80,24 +80,6 @@ def main():
             result = GR.run_process( git_push_argv )
 
     print( "" )
-
-
-
-
-# import sys
-# import os
-# import os.path
-# import re
-# import time
-# import subprocess
-
-
-# print( "" )
-# print( sys.argv )
-# print( "" )
-# for arg in sys.argv:
-#     print( arg )
-# print( "" )
 
 
 if __name__ == '__main__':
