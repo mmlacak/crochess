@@ -19,7 +19,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under
 *Source* section. The most recent book version is:
 
-Version: 20210307150639 <!--- readme-new-commit-version-squished-utc-date-time-place-marker -->
+Version: 20210307152846 <!--- readme-new-commit-version-squished-utc-date-time-place-marker -->
 
 First number is last commit to book sources, basically the
 larger the number, the newer the book you have.\

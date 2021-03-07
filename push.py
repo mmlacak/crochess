@@ -34,21 +34,52 @@ PROJECT_ROOT_PATH = get_project_root_path()
 def main():
     pre_git_argv, git_commit_argv, git_push_argv = GR.split_cmd_git_args(sys.argv)
 
-    verbose = True if GR.any_item_in_list( ['-v', '--verbose'], pre_git_argv) else False
+    is_dry_run = True if GR.any_item_in_list( ['-n', '--dry-run'], pre_git_argv) else False
+    is_verbose = True if GR.any_item_in_list( ['-v', '--verbose'], pre_git_argv) else False
+    is_debug = True if GR.any_item_in_list( ['-d', '--debug'], pre_git_argv) else False
 
-    if verbose:
+    is_book = True if GR.any_item_in_list( ['-b', '--book'], pre_git_argv) else False
+
+    is_major = True if GR.any_item_in_list( ['-M', '--major'], pre_git_argv) else False
+    is_minor = True if not is_major and GR.any_item_in_list( ['-m', '--minor'], pre_git_argv) else False
+    is_patch = True if not (is_major or is_minor) and GR.any_item_in_list( ['-p', '--patch'], pre_git_argv) else False
+
+    if not (is_book or is_major or is_minor or is_patch):
+        # raise RuntimeError("Specify at least one of --book, --major, --minor, --patch.")
+        print( "Specify at least one of --book, --major, --minor, --patch to update version(s)." )
+
+    if is_verbose:
+        print( "" )
         print( "Project root folder: '%s'." % PROJECT_ROOT_PATH )
 
         now_version, now_short = BV.get_current_times()
-        print( "New version: %s" % now_version )
+        print( "New version: %s." % now_version )
 
-        print( "Script args: %s" % str( pre_git_argv ) )
-        print( "git commit args: %s" % str( git_commit_argv ) )
-        print( "git push args: %s" % str( git_push_argv ) )
+    if is_debug:
+        print( "" )
+        print( "Script args: %s." % str( pre_git_argv ) )
+        print( "git commit args: %s." % str( git_commit_argv ) )
+        print( "git push args: %s." % str( git_push_argv ) )
 
+    if is_book or is_major or is_minor or is_patch:
+        print( "" )
+        print( "Updating versions of book: %s, major: %s, minor: %s, patch: %s." % (str(is_book), str(is_major), str(is_minor), str(is_patch)) )
+        if not is_dry_run:
+            BV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_patch )
 
-    BV.replace_all_entries( PROJECT_ROOT_PATH )
+    if git_commit_argv:
+        print( "" )
+        print( "Running: %s" % str( git_commit_argv ) )
+        if not is_dry_run:
+            result = GR.run_process( git_commit_argv )
 
+    if git_push_argv:
+        print( "" )
+        print( "Running: %s" % str( git_push_argv ) )
+        if not is_dry_run:
+            result = GR.run_process( git_push_argv )
+
+    print( "" )
 
 
 
