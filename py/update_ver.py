@@ -36,7 +36,12 @@ SOURCE_LIB_MAIN_FILE = 'lib.rs'
 SOURCE_IGNORE_LIB_MAIN_FILE = 'lib.IGNORE.rs'
 
 
-REG_EXP_VERSION_BUILD = re.compile( r"""version = \"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)(\+(?P<build>\d{14}))?\"""" )
+#
+# https://regex101.com/r/Ly7O1x/3/
+# REG_EXP_VERSION_BUILD = re.compile( r"""/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm""" )
+
+# REG_EXP_VERSION_BUILD = re.compile( r"""version = \"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)(\+(?P<buildmetadata>\d{14}))?\"""" )
+REG_EXP_VERSION_BUILD = re.compile( r"""^version = \"(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?\"""" )
 
 
 def get_current_times():
@@ -53,11 +58,10 @@ def get_current_lib_versions(root_path, ws_dir=SOURCE_WS_FOLDER, lib_dir=SOURCE_
         for line in old:
             mo = REG_EXP_VERSION_BUILD.match(line)
             if mo is not None:
-                major = mo.group("major")
-                minor = mo.group("minor")
-                patch = mo.group("patch")
-                build = mo.group("build")
-                return (int(major), int(minor), int(patch), str(build))
+                major, minor, patch, prerelease, build = mo.groups()
+                return (int(major), int(minor), int(patch), \
+                        str(prerelease) if prerelease is not None else None, \
+                        str(build) if build is not None else None)
 
     return (None, None, None, None)
 
@@ -212,10 +216,11 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_patch):
     git_version = "0.1.0+%s" % book_version
 
     if is_book:
+        # Does *not* use git_version.
         replace_book_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
 
     if is_major or is_minor or is_patch:
-        major, minor, patch, build = get_current_lib_versions(root_path)
+        major, minor, patch, prerelease, build = get_current_lib_versions(root_path)
 
         if major is not None and minor is not None and patch is not None:
             if is_major:
@@ -228,7 +233,10 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_patch):
             elif is_patch:
                 patch += 1
 
-            git_version = "%s.%s.%s+%s" % ( str(major), str(minor), str(patch), book_version )
+            if prerelease is None:
+                git_version = "%s.%s.%s+%s" % ( str(major), str(minor), str(patch), book_version )
+            else:
+                git_version = "%s.%s.%s-%s+%s" % ( str(major), str(minor), str(patch), prerelease, book_version )
 
         replace_app_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
         replace_lib_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
