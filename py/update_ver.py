@@ -141,7 +141,7 @@ def change_source_app_line_if_marked(line, git_version, book_version, book_short
 
     if is_major or is_minor or is_patch:
         if 'source-new-app-version-major-minor-patch+build-place-marker' in line:
-            new = 'const VERSION: &str = "%s"; /* source-new-app-version-major-minor-patch+build-place-marker */\n' % git_version
+            new = 'pub const VERSION: &str = "%s"; /* source-new-app-version-major-minor-patch+build-place-marker */\n' % git_version
 
     return new
 

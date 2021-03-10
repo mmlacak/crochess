@@ -17,18 +17,18 @@ use libcrochess::board_type::BoardType as BT;
 use libcrochess::rules as r;
 
 
-const VERSION: &str = "0.1.1+20210307205923"; /* source-new-app-version-major-minor-patch+build-place-marker */
+pub mod hlp_msgs;
+
+use hlp_msgs as hm;
+
+
+pub const VERSION: &str = "0.1.2+20210310172738"; /* source-new-app-version-major-minor-patch+build-place-marker */
 
 
 fn main() {
     let mut rules = r::Rules::new( BT::One, true );
 
-    println!( "
-Croatian chess - console application
-Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
-
-Use `h(elp)` for command list, `h(elp) cmd` for detailed info.
-" );
+    hm::print_intro();
 
     loop {
         let mut input = String::new();
@@ -45,124 +45,40 @@ Use `h(elp)` for command list, `h(elp) cmd` for detailed info.
                 "q" | "quit" => { break; }
                 "d" | "display" => { println!( "\n{}\n", rules.board() ); }
                 "t" | "tags" => { println!( "\n{}\n", rules.flags() ); }
+                "a" | "about" => { hm::print_about(); }
+                "v" | "version" => { hm::print_versions(VERSION, libcc::VERSION); }
                 "n" | "new" => {
+                    let mut display = true;
+
                     if args.len() > 1 {
                         let code = args[ 1 ];
                         let b_t = BT::from_str( code );
                         match b_t {
-                            Some(bt) => {
-                                rules = r::Rules::new( bt, true );
+                            Some(bt) => { rules = r::Rules::new( bt, true ); }
+                            None => {
+                                display = false;
+                                hm::print_new_code_invalid( code );
                             }
-                            None => { println!( "
-Unrecognized code: {}
-
-Use following code for new variant game:
-cc  -> Classical
-ct  -> Croatian Ties
-ma  -> Mayan Ascendancy
-aoa -> Age Of Aquarius
-mv  -> Miranda's Veil
-n   -> Nineteen
-hd  -> Hemera's Dawn
-tr  -> Tamoanchan Revisited
-cot -> Conquest Of Tlalocan
-d   -> Discovery
-o   -> One
-", code ); }
                         };
                     }
-                    else {
-                        rules = r::Rules::new( rules.variant(), true );
-                    }
+                    else { rules = r::Rules::new( rules.variant(), true ); }
 
-                    println!( "\n{}\n", rules.board() );
+                    if display { println!( "\n{}\n", rules.board() ); }
                 }
                 "h" | "help" | "?" => {
-                    println!( "
-Croatian chess - console application
-Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
-Licensed under 3-clause (modified) BSD license. Use `a(bout)` command for details.
-
-Based on book 'Croatian chess and other variants', by Mario Mlačak.
-
-Commands:
-h, help       - prints this screen, `h(elp) cmd` for command details
-a, about      - prints about, license info
-v, version    - prints version(s) info
-q, quit       - quits program
-d, display    - displays current position
-* t, tags     - displays current tags
-* i, info     - displays list of all moves played, time
-* t, time     - (re)sets time counter(s)
-n, new        - starts new game, keeps variant
-                to change variant use code from table below, e.g. `n ct`
-* p, players  - sets up players
-                takes two parameters, both are one of `bot`, `human`
-* m, move     - moves piece(s)
-                takes notation as argument, e.g. `m Nc3`
-* s, save     - saves current game into PGN file
-                takes <path> as argument, e.g. `s my_new_game.pgn`
-* l, load     - loads game/positions from PGN file
-                takes <path> as argument, e.g. `l my_new_game.pgn`
-
-Commands marked with * are not currently implemented.
-
-Supported variants (use code as argument to `n(ew)` command):
-cc  -> Classical
-ct  -> Croatian Ties
-ma  -> Mayan Ascendancy
-aoa -> Age Of Aquarius
-mv  -> Miranda's Veil
-n   -> Nineteen
-hd  -> Hemera's Dawn
-tr  -> Tamoanchan Revisited
-cot -> Conquest Of Tlalocan
-d   -> Discovery
-o   -> One
-" );
-                }
-                "a" | "about" => {
-                    println!( "
-Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived
-   from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-" );
-                }
-                "v" | "version" => {
-                    println!( "
-Croatian chess - console application
-Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.
-Licensed under 3-clause (modified) BSD license. Use `a(bout)` command for details.
-
-Application: {}
-Library: {}
-", VERSION, libcc::VERSION );
+                    if args.len() > 1 {
+                        let cmd = args[ 1 ];
+                        match cmd {
+                            "q" | "quit" => { hm::print_help_quit(); }
+                            "d" | "display" => { hm::print_help_display(); }
+                            "t" | "tags" => { hm::print_help_tags(); }
+                            "a" | "about" => { hm::print_help_about(); }
+                            "v" | "version" => { hm::print_help_version(); }
+                            "n" | "new" => { hm::print_help_new(); }
+                            _ => { println!("Unrecognized: {}", cmd.trim()); }
+                        }
+                    }
+                    else { hm::print_help(); }
                 }
 
                 "x" => {
