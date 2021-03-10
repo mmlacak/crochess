@@ -8,6 +8,7 @@
 import sys
 import os
 import os.path
+import time
 
 import py.git_run as GR
 import py.update_ver as UV
@@ -53,7 +54,13 @@ def main():
         print( "Project root folder: '%s'." % PROJECT_ROOT_PATH )
 
         now_version, now_short = UV.get_current_times()
-        print( "New version: %s." % now_version )
+        print( "Book version: %s." % now_version )
+
+        major, minor, patch, prerelease, build = UV.get_current_lib_versions( PROJECT_ROOT_PATH )
+        if prerelease is None:
+            print( "Library version: %s.%s.%s+%s." % (major, minor, patch, build) )
+        else:
+            print( "Library version: %s.%s.%s-%s+%s." % (major, minor, patch, prerelease, build) )
 
     if is_debug:
         print( "" )

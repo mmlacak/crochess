@@ -30,3 +30,4 @@ bin/
 .vscode
 *synctex*
 target/
+*.lock
