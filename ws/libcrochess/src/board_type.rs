@@ -4,7 +4,7 @@
 use std::fmt;
 
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub enum BoardType {
     ClassicalChess,
     CroatianTies,

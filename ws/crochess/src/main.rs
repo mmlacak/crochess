@@ -1,6 +1,9 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+#![cfg_attr(debug_assertions, allow(dead_code, unused_imports))]
+
+
 use std::io;
 use std::io::Write;
 
@@ -22,7 +25,7 @@ pub mod hlp_msgs;
 use hlp_msgs as hm;
 
 
-pub const VERSION: &str = "0.1.2+20210310172738"; /* source-new-app-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.3+20210311185000"; /* source-new-app-version-major-minor-patch+build-place-marker */
 
 
 fn main() {
@@ -48,7 +51,7 @@ fn main() {
                 "a" | "about" => { hm::print_about(); }
                 "v" | "version" => { hm::print_versions(VERSION, libcc::VERSION); }
                 "n" | "new" => {
-                    let mut display = true;
+                    let mut do_display = true;
 
                     if args.len() > 1 {
                         let code = args[ 1 ];
@@ -56,15 +59,16 @@ fn main() {
                         match b_t {
                             Some(bt) => { rules = r::Rules::new( bt, true ); }
                             None => {
-                                display = false;
+                                do_display = false;
                                 hm::print_new_code_invalid( code );
                             }
                         };
                     }
                     else { rules = r::Rules::new( rules.variant(), true ); }
 
-                    if display { println!( "\n{}\n", rules.board() ); }
+                    if do_display { println!( "\n{}\n", rules.board() ); }
                 }
+                "m" | "move" => { println!( "\n{}\n", args[ 1 ] ); }
                 "h" | "help" | "?" => {
                     if args.len() > 1 {
                         let cmd = args[ 1 ];

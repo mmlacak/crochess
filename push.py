@@ -54,7 +54,7 @@ def main():
         print( "Project root folder: '%s'." % PROJECT_ROOT_PATH )
 
         now_version, now_short = UV.get_current_times()
-        print( "Book version: %s." % now_version )
+        print( "New version: %s." % now_version )
 
         major, minor, patch, prerelease, build = UV.get_current_lib_versions( PROJECT_ROOT_PATH )
         if prerelease is None:
