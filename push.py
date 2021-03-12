@@ -90,7 +90,8 @@ def main():
                 if GR.is_committing_specified_files(git_commit_argv):
                     git_commit_argv.extend( auto_updated_files )
                 else:
-                    git_add = ['git', 'add', '--', ].extend( auto_updated_files )
+                    git_add = ['git', 'add', '--', ]
+                    git_add.extend( auto_updated_files )
                     print( "Running: %s" % str( git_add ) )
                     result = GR.run_process( git_add )
                     print( result )
