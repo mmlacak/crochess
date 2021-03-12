@@ -34,6 +34,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_o_23_trance_journey_failed', \
-                    'scn_o_24_trance_journey_failed_2', \
+                    'scn_aoa_08_converting_tagged_pawn_init', \
+                    'scn_aoa_09_converting_tagged_pawn_end', \
+                    'scn_aoa_10_tagged_pawn_converted', \
                 ]

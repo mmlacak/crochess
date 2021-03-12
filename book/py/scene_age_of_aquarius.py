@@ -120,7 +120,7 @@ class SceneAgeOfAquariusMixin:
         scene.append_text("2", *startP2, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
         scene.append_text("3", *startP3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
 
-        scene.append_field_marker( *startP2, mark_type=MarkType.Legal ) # Action
+        scene.append_field_marker( *startP2, mark_type=MarkType.Action )
 
         # direction <-1, 2>
         coords = GS.gen_next( GS.gen_steps(end=endU, rels=[(-1, 2), ], include_prev=True) )
@@ -193,7 +193,7 @@ class SceneAgeOfAquariusMixin:
         coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(0, 1), ], include_prev=True) )
         scene.append_arrow( *coords() )
 
-        scene.append_field_marker( *startP1, mark_type=MarkType.Legal )
+        scene.append_field_marker( *startP1, mark_type=MarkType.Action )
 
         return scene
 
@@ -217,5 +217,97 @@ class SceneAgeOfAquariusMixin:
         # direction <3, 2>
         coords = GS.gen_next( GS.gen_steps(end=endU, rels=[(-3, 2), ], include_prev=True) )
         scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
+    # Converting Pawn tagged for promotion --> loses its tag.
+
+    def scn_aoa_08_converting_tagged_pawn_init(self, bt=BoardType.AgeOfAquarius):
+        # move_unicorn_promo_init
+
+        scene = Scene('scn_aoa_08_converting_tagged_pawn_init', bt)
+
+        startB = (12, 5)
+        startA = (7, 10)
+        startP = (4, 10)
+
+        scene.board.set_piece(*startP, piece=PieceType.Pawn)
+        scene.board.set_piece(*startA, piece=PieceType.Pyramid)
+        scene.board.set_piece(*startB, piece=PieceType.Bishop)
+
+        start_g = (4, 4)
+        start_a = (1, 10)
+
+        scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
+        scene.board.set_piece(*start_a, piece=-PieceType.Pyramid)
+
+        # direction <-1, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startB, rels=[(-1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <-1, 0>
+        coords = GS.gen_next( GS.gen_steps(start=startA, rels=[(-1, 0), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        scene.append_field_marker( *startP, mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_aoa_09_converting_tagged_pawn_end(self, bt=BoardType.AgeOfAquarius):
+        # move_unicorn_promo_init
+
+        scene = Scene('scn_aoa_09_converting_tagged_pawn_end', bt)
+
+        startB = (7, 10)
+        startP = (4, 10)
+
+        scene.board.set_piece(*startP, piece=PieceType.Pawn)
+        scene.board.set_piece(*startB, piece=PieceType.Bishop)
+
+        start_g = (4, 4)
+        start_a = (1, 10)
+
+        scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
+        scene.board.set_piece(*start_a, piece=-PieceType.Pyramid)
+
+        # direction <-1, 2>
+        coords = GS.gen_next( GS.gen_steps(start=start_g, rels=[(-1, 2), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # direction <1, 0>
+        coords = GS.gen_next( GS.gen_steps(start=start_a, rels=[(1, 0), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        scene.append_field_marker( *startP, mark_type=MarkType.Illegal )
+
+        return scene
+
+    def scn_aoa_10_tagged_pawn_converted(self, bt=BoardType.AgeOfAquarius):
+        # move_unicorn_promo_init
+
+        scene = Scene('scn_aoa_10_tagged_pawn_converted', bt)
+
+        startB = (7, 10)
+
+        scene.board.set_piece(*startB, piece=PieceType.Bishop)
+
+        start_g = (1, 10)
+        start_p = (4, 10)
+
+        scene.board.set_piece(*start_p, piece=-PieceType.Pawn)
+        scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
+
+        scene.append_text("P", 4, 10, mark_type=MarkType.Illegal)
 
         return scene
