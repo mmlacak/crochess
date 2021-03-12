@@ -308,6 +308,4 @@ class SceneAgeOfAquariusMixin:
         scene.board.set_piece(*start_p, piece=-PieceType.Pawn)
         scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
 
-        scene.append_text("P", 4, 10, mark_type=MarkType.Illegal)
-
         return scene
