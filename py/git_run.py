@@ -8,6 +8,9 @@
 import subprocess
 
 
+def any_item_in_list(items, lst):
+    return any( [ (i in lst) for i in items ] )
+
 def run_process(cmd_args_list):
     output_str = ""
 
@@ -58,5 +61,25 @@ def split_cmd_git_args(argv):
 
     return (pre_git_argv, git_commit_argv, git_push_argv)
 
-def any_item_in_list(items, lst):
-    return any( [ (i in lst) for i in items ] )
+def is_committing_all_files(git_commit_argv):
+    if not git_commit_argv:
+        return False
+
+    for arg in git_commit_argv:
+        if arg.startswith('-') and not arg.startswith('--') and 'a' in arg:
+            # Skip: --amend, --allow-empty, --allow-empty-message.
+            return True
+        elif arg == '--all':
+            return True
+
+    return False
+
+def is_committing_specified_files(git_commit_argv):
+    if not git_commit_argv:
+        return False
+
+    for arg in git_commit_argv:
+        if arg == '--':
+            return True
+
+    return False

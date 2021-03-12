@@ -167,59 +167,64 @@ def replace_entries(git_version, book_version, book_short, orig_path, ignore_pat
                 new = func_change_line_if(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch)
                 orig.write(new)
 
-    run_process( ['git', 'add', '--', orig_path] )
+    return orig_path
 
 def replace_book_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
     orig_path = get_full_tex_path(root_path)
     ignore_path = get_full_tex_path(root_path, tex_name=BOOK_IGNORE_TEX_FILE_NAME)
 
-    replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_book_line_if_marked)
+    return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_book_line_if_marked)
 
 def replace_readme_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
     orig_path = get_full_readme_path(root_path)
     ignore_path = get_full_readme_path(root_path, readme_name=README_IGNORE_FILE_NAME)
 
-    replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_readme_line_if_marked)
+    return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_readme_line_if_marked)
 
 def replace_app_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
     orig_path = get_full_app_config_path(root_path)
     ignore_path = get_full_app_config_path(root_path, app_config_name=SOURCE_IGNORE_APP_CONFIG_FILE)
 
-    replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_config_app_line_if_marked)
+    return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_config_app_line_if_marked)
 
 def replace_lib_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
     orig_path = get_full_lib_config_path(root_path)
     ignore_path = get_full_lib_config_path(root_path, lib_config_name=SOURCE_IGNORE_LIB_CONFIG_FILE)
 
-    replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_config_lib_line_if_marked)
+    return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_config_lib_line_if_marked)
 
 def replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
     orig_path = get_full_app_source_path(root_path)
     ignore_path = get_full_app_source_path(root_path, app_source_name=SOURCE_IGNORE_APP_MAIN_FILE)
 
-    replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_source_app_line_if_marked)
+    return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_source_app_line_if_marked)
 
 def replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
     orig_path = get_full_lib_source_path(root_path)
     ignore_path = get_full_lib_source_path(root_path, lib_source_name=SOURCE_IGNORE_LIB_MAIN_FILE)
 
-    replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_source_lib_line_if_marked)
+    return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_source_lib_line_if_marked)
 
 def replace_all_entries(root_path, is_book, is_major, is_minor, is_patch):
     assert is_book or is_major or is_minor or is_patch
 
+    auto_updated_files = []
     book_version, book_short = get_current_times()
     git_version = "0.1.0+%s" % book_version
 
+    def append_if_not_empty(path):
+        if path:
+            auto_updated_files.append(path)
+
     if is_book:
         # Does *not* use git_version.
-        replace_book_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
+        append_if_not_empty( replace_book_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
 
     if is_major or is_minor or is_patch:
         major, minor, patch, prerelease, build = get_current_lib_versions(root_path)
@@ -240,11 +245,13 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_patch):
             else:
                 git_version = "%s.%s.%s-%s+%s" % ( str(major), str(minor), str(patch), prerelease, book_version )
 
-        replace_app_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
-        replace_lib_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
+        append_if_not_empty( replace_app_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
+        append_if_not_empty( replace_lib_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
 
-        replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
-        replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
+        append_if_not_empty( replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
+        append_if_not_empty( replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
 
     if is_book or is_major or is_minor or is_patch:
-        replace_readme_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch)
+        append_if_not_empty( replace_readme_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
+
+    return auto_updated_files

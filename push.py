@@ -45,6 +45,8 @@ def main():
     is_minor = True if not is_major and GR.any_item_in_list( ['-m', '--minor'], pre_git_argv) else False
     is_patch = True if not (is_major or is_minor) and GR.any_item_in_list( ['-p', '--patch'], pre_git_argv) else False
 
+    auto_updated_files = []
+
     if not (is_book or is_major or is_minor or is_patch):
         # raise RuntimeError("Specify at least one of --book, --major, --minor, --patch.")
         print( "Specify at least one of --book, --major, --minor, --patch to update version(s)." )
@@ -75,10 +77,23 @@ def main():
             print( "Updating versions of book: %s, major: %s, minor: %s, patch: %s." % (str(is_book), str(is_major), str(is_minor), str(is_patch)) )
 
         if not is_dry_run:
-            UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_patch )
+            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_patch )
 
     if git_commit_argv:
         print( "" )
+
+        if not is_dry_run and auto_updated_files:
+            print( "Auto-updated: %s." % str( auto_updated_files ) )
+            print( "" )
+
+            if not GR.is_committing_all_files(git_commit_argv):
+                if GR.is_committing_specified_files(git_commit_argv):
+                    git_commit_argv.extend( auto_updated_files )
+                else:
+                    git_add = ['git', 'add', '--', ].extend( auto_updated_files )
+                    print( "Running: %s" % str( git_add ) )
+                    result = GR.run_process( git_add )
+                    print( result )
 
         if is_debug:
             print( "Running: %s" % str( git_commit_argv ) )
@@ -95,6 +110,7 @@ def main():
 
         if not is_dry_run:
             result = GR.run_process( git_push_argv )
+            print( result )
 
     print( "" )
 
