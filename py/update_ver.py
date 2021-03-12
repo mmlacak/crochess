@@ -167,6 +167,8 @@ def replace_entries(git_version, book_version, book_short, orig_path, ignore_pat
                 new = func_change_line_if(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch)
                 orig.write(new)
 
+    run_process( ['git', 'add', '--', orig_path] )
+
 def replace_book_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
     orig_path = get_full_tex_path(root_path)
