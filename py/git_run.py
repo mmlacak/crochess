@@ -29,7 +29,7 @@ def split_cmd_git_args(argv):
 
     for index, arg in enumerate(argv):
         if arg != '-*-':
-            if index > 0: # index 0 --> arg == '/home/pero/src/crochess/push.py'
+            if index > 0: # index 0 --> arg == '.../crochess/push.py'
                 a = arg
 
                 if arg_sep_count == 0:
