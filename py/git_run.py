@@ -27,9 +27,9 @@ def split_cmd_git_args(argv):
     git_commit_argv = []
     git_push_argv = []
 
-    for arg in argv:
+    for index, arg in enumerate(argv):
         if arg != '-*-':
-            if '.py' not in arg:
+            if index > 0: # index 0 --> arg == '/home/pero/src/crochess/push.py'
                 a = arg
 
                 if arg_sep_count == 0:

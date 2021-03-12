@@ -85,6 +85,7 @@ def main():
 
         if not is_dry_run:
             result = GR.run_process( git_commit_argv )
+            print( result )
 
     if git_push_argv:
         print( "" )
