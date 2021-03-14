@@ -4,38 +4,38 @@
 use std::ops as so;
 use std::fmt;
 
-use crate::step as s;
+use crate::rel_step as rs;
 
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Field(pub i32, pub i32);
 
 
-impl so::Add<s::Step> for Field {
+impl so::Add<rs::RelStep> for Field {
     type Output = Field;
 
-    fn add(self, step: s::Step) -> Field {
+    fn add(self, step: rs::RelStep) -> Field {
         return Field( self.0 + step.0, self.1 + step.1 );
     }
 }
 
-impl so::AddAssign<s::Step> for Field {
-    fn add_assign(&mut self, step: s::Step) {
+impl so::AddAssign<rs::RelStep> for Field {
+    fn add_assign(&mut self, step: rs::RelStep) {
         self.0 += step.0;
         self.1 += step.1;
     }
 }
 
-impl so::Sub<s::Step> for Field {
+impl so::Sub<rs::RelStep> for Field {
     type Output = Field;
 
-    fn sub(self, step: s::Step) -> Field {
+    fn sub(self, step: rs::RelStep) -> Field {
         return Field( self.0 - step.0, self.1 - step.1 );
     }
 }
 
-impl so::SubAssign<s::Step> for Field {
-    fn sub_assign(&mut self, step: s::Step) {
+impl so::SubAssign<rs::RelStep> for Field {
+    fn sub_assign(&mut self, step: rs::RelStep) {
         self.0 -= step.0;
         self.1 -= step.1;
     }
@@ -44,6 +44,6 @@ impl so::SubAssign<s::Step> for Field {
 
 impl fmt::Display for Field {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        return write!(f, "({}, {})", self.0, self.1);
+        return write!(f, "[{}, {}]", self.0, self.1);
     }
 }

@@ -27,8 +27,8 @@ converted to UTC for easier comparison.
 **Application** and **library versions** can be seen in an application, using `v(ersion)` command. \
 The latest versions are:
 
-Application: 0.1.3+20210311185000 <!--- readme-new-app-version-major-minor-patch+build-place-marker --> \
-Library: 0.1.3+20210311185000 <!--- readme-new-lib-version-major-minor-patch+build-place-marker -->
+Application: 0.1.4+20210314224349 <!--- readme-new-app-version-major-minor-patch+build-place-marker --> \
+Library: 0.1.4+20210314224349 <!--- readme-new-lib-version-major-minor-patch+build-place-marker -->
 
 ## Getting Started
 
