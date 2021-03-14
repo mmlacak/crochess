@@ -21,6 +21,21 @@ pub enum PlyType {
 }
 
 
+impl fmt::Display for PlyType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        return match self {
+            PlyType::Chained => write!(f, "~"),
+            PlyType::Teleportation => write!(f, "|"),
+            PlyType::FailedTeleportation => write!(f, "||"),
+            PlyType::TranceJourney => write!(f, "@"),
+            PlyType::DoubleTranceJourney => write!(f, "@@"),
+            PlyType::FailedTranceJourney => write!(f, "@@@"),
+            PlyType::PawnSacrifice => write!(f, "::"),
+        };
+    }
+}
+
+
 #[derive(Debug, Clone)]
 pub struct Ply {
     pub ply_type: PlyType,
@@ -31,17 +46,7 @@ pub struct Ply {
 
 impl fmt::Display for Ply {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self.ply_type {
-            PlyType::Chained => write!(f, "~") ?,
-            PlyType::Teleportation => write!(f, "|") ?,
-            PlyType::FailedTeleportation => write!(f, "||") ?,
-            PlyType::TranceJourney => write!(f, "@") ?,
-            PlyType::DoubleTranceJourney => write!(f, "@@") ?,
-            PlyType::FailedTranceJourney => write!(f, "@@@") ?,
-            PlyType::PawnSacrifice => write!(f, "::") ?,
-        };
-
-        write!(f, "{}", self.piece) ?;
+        write!(f, "{}{}", self.ply_type, self.piece) ?;
 
         for step in self.steps.iter() {
             write!(f, "{}", step) ?;
