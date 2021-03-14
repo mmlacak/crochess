@@ -25,7 +25,7 @@ pub mod hlp_msgs;
 use hlp_msgs as hm;
 
 
-pub const VERSION: &str = "0.1.4+20210314224349"; /* source-new-app-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.6+20210314231327"; /* source-new-app-version-major-minor-patch+build-place-marker */
 
 
 fn main() {
