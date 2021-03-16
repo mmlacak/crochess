@@ -27,6 +27,7 @@ impl fmt::Display for MoveStatus {
 
 #[derive(Debug, Clone)]
 pub struct Move {
+    origin: String,
     plies: Vec<Ply>,
     status: MoveStatus,
 }
@@ -34,12 +35,17 @@ pub struct Move {
 
 impl fmt::Display for Move {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for ply in self.plies.iter() {
-            write!(f, "{}", ply) ?;
+        if self.origin.is_empty() {
+            for ply in self.plies.iter() {
+                write!(f, "{}", ply) ?;
+            }
+
+            write!(f, "{}", self.status) ?;
+
+            return fmt::Result::Ok(());
         }
-
-        write!(f, "{}", self.status) ?;
-
-        return fmt::Result::Ok(());
+        else {
+            return write!(f, "{}", self.origin);
+        }
     }
 }

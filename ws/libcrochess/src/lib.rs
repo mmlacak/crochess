@@ -19,7 +19,7 @@ pub mod moves;
 pub mod rules;
 
 
-pub const VERSION: &str = "0.1.7+20210314234415"; /* source-new-lib-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.8+20210316050610"; /* source-new-lib-version-major-minor-patch+build-place-marker */
 
 
 // fn dbg(x: &impl std::fmt::Debug) {

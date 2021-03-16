@@ -11,7 +11,8 @@ use crate::field::Field as F;
 
 #[derive(Debug, Copy, Clone)]
 pub enum PlyType {
-    Chained,
+    First,
+    Activation,
     Teleportation,
     FailedTeleportation,
     TranceJourney,
@@ -24,7 +25,8 @@ pub enum PlyType {
 impl fmt::Display for PlyType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         return match self {
-            PlyType::Chained => write!(f, "~"),
+            PlyType::First => fmt::Result::Ok(()),
+            PlyType::Activation => write!(f, "~"),
             PlyType::Teleportation => write!(f, "|"),
             PlyType::FailedTeleportation => write!(f, "||"),
             PlyType::TranceJourney => write!(f, "@"),
