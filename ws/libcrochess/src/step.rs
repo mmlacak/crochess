@@ -15,6 +15,7 @@ pub enum StepOrder {
     Distant,
     Destination,
     Listed,
+    ListedPiece { piece: PT },
 
     Index( usize ),
 }
@@ -30,13 +31,14 @@ impl fmt::Display for StepOrder {
             SO::Distant => write!(f, ".."),
             SO::Destination => fmt::Result::Ok(()),
             SO::Listed => write!(f, ","),
+            SO::ListedPiece { piece } => write!(f, ", {}", piece),
 
             SO::Index( idx ) => {
-                if idx > 0 {
-                    write!(f, ".");
+                if *idx > 0 {
+                    write!(f, ".")
                 }
                 else {
-                    fmt::Result::Ok(());
+                    fmt::Result::Ok(())
                 }
             },
         };
@@ -46,7 +48,7 @@ impl fmt::Display for StepOrder {
 
 #[derive(Debug, Copy, Clone)]
 pub struct Step {
-    pub order: StepOrder;
+    pub order: StepOrder,
     pub is_tag_lost: bool,
     pub field: F,
     pub side_effect: SE,

@@ -14,12 +14,13 @@ pub mod setup_flags;
 pub mod rel_step;
 pub mod field;
 pub mod side_effects;
+pub mod step;
 pub mod ply;
 pub mod moves;
 pub mod rules;
 
 
-pub const VERSION: &str = "0.1.9+20210317035212"; /* source-new-lib-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.10+20210317052212"; /* source-new-lib-version-major-minor-patch+build-place-marker */
 
 
 // fn dbg(x: &impl std::fmt::Debug) {
