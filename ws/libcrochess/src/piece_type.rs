@@ -231,6 +231,49 @@ impl PieceType {
         };
     }
 
+    pub fn is_pawn(&self) -> bool {
+        return match self {
+            PieceType::LightPawn |
+            PieceType::DarkPawn => true,
+
+            _ => false,
+        };
+    }
+
+    pub fn is_figure(&self) -> bool {
+        return match self {
+            PieceType::DarkStarchild |
+            PieceType::DarkShaman |
+            PieceType::DarkSerpent |
+            PieceType::DarkCentaur |
+            PieceType::DarkWave |
+            PieceType::DarkUnicorn |
+            PieceType::DarkPyramid |
+            PieceType::DarkPegasus |
+            PieceType::DarkKing |
+            PieceType::DarkQueen |
+            PieceType::DarkRook |
+            PieceType::DarkBishop |
+            PieceType::DarkKnight => true,
+
+            PieceType::LightKnight |
+            PieceType::LightBishop |
+            PieceType::LightRook |
+            PieceType::LightQueen |
+            PieceType::LightKing |
+            PieceType::LightPegasus |
+            PieceType::LightPyramid |
+            PieceType::LightUnicorn |
+            PieceType::LightWave |
+            PieceType::LightCentaur |
+            PieceType::LightSerpent |
+            PieceType::LightShaman |
+            PieceType::LightStarchild => true,
+
+            _ => false,
+        };
+    }
+
     pub fn is_none(&self) -> bool {
         return self == &PieceType::None;
     }

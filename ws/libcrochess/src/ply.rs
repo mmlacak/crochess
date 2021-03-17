@@ -10,8 +10,7 @@ use crate::field::Field as F;
 
 
 #[derive(Debug, Copy, Clone)]
-pub enum PlyType {
-    First,
+pub enum LinkType {
     Activation,
     Teleportation,
     FailedTeleportation,
@@ -19,20 +18,21 @@ pub enum PlyType {
     DoubleTranceJourney,
     FailedTranceJourney,
     PawnSacrifice,
+    Last,
 }
 
 
-impl fmt::Display for PlyType {
+impl fmt::Display for LinkType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         return match self {
-            PlyType::First => fmt::Result::Ok(()),
-            PlyType::Activation => write!(f, "~"),
-            PlyType::Teleportation => write!(f, "|"),
-            PlyType::FailedTeleportation => write!(f, "||"),
-            PlyType::TranceJourney => write!(f, "@"),
-            PlyType::DoubleTranceJourney => write!(f, "@@"),
-            PlyType::FailedTranceJourney => write!(f, "@@@"),
-            PlyType::PawnSacrifice => write!(f, "::"),
+            LinkType::Activation => write!(f, "~"),
+            LinkType::Teleportation => write!(f, "|"),
+            LinkType::FailedTeleportation => write!(f, "||"),
+            LinkType::TranceJourney => write!(f, "@"),
+            LinkType::DoubleTranceJourney => write!(f, "@@"),
+            LinkType::FailedTranceJourney => write!(f, "@@@"),
+            LinkType::PawnSacrifice => write!(f, "::"),
+            LinkType::Last => fmt::Result::Ok(()),
         };
     }
 }
@@ -40,15 +40,15 @@ impl fmt::Display for PlyType {
 
 #[derive(Debug, Clone)]
 pub struct Ply {
-    pub ply_type: PlyType,
     pub piece: PT,
     pub steps: Vec<F>,
+    pub link: LinkType,
 }
 
 
 impl fmt::Display for Ply {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}{}", self.ply_type, self.piece) ?;
+        write!(f, "{}{}", self.link, self.piece) ?;
 
         for step in self.steps.iter() {
             write!(f, "{}", step) ?;

@@ -10,16 +10,17 @@ use crate::field::Field as F;
 #[derive(Debug, Copy, Clone)]
 pub enum SideEffect {
     None,
-    Capture { piece: PT },
+    Capture { piece: PT, is_tag_lost: bool },
     EnPassant { pawn_field: F },
     Castle { rook_field: F },
     Promote { to_figure: PT },
-    Convert { piece: PT },
+    TagForPromotion,
+    Convert { piece: PT, is_tag_lost: bool },
     FailedConversion,
     DemoteToPawn { piece: PT, field: F },
     Ressurect { piece: PT, field: F },
     FailedRessurection,
-    Displace { piece: PT, field: F }
+    Displace { piece: PT, is_tag_lost: bool, field: F }
 }
 
 
@@ -28,23 +29,17 @@ impl fmt::Display for SideEffect {
         use SideEffect as SE;
 
         return match self {
-            SE::Capture { piece } => write!(f, "*{}", piece),
+            SE::Capture { piece, is_tag_lost } => write!(f, "*{}{}", piece, if piece.is_pawn() && *is_tag_lost { "==" } else { "" } ),
             SE::EnPassant { pawn_field } => write!(f, ":{}", pawn_field.1),
             SE::Castle { rook_field } => write!(f, "&{}", rook_field.0),
-            SE::Promote { to_figure } => {
-                if to_figure.is_none() {
-                    write!(f, "=")
-                }
-                else {
-                    write!(f, "={}", to_figure)
-                }
-            },
-            SE::Convert { piece } => write!(f, "%{}", piece),
+            SE::Promote { to_figure } => write!(f, "={}", to_figure),
+            SE::TagForPromotion => write!(f, "="),
+            SE::Convert { piece, is_tag_lost } => write!(f, "%{}{}", piece, if piece.is_pawn() && *is_tag_lost { "==" } else { "" }),
             SE::FailedConversion => write!(f, "%%"),
             SE::DemoteToPawn { piece, field } => write!(f, ">{}{}", piece, field),
             SE::Ressurect { piece, field } => write!(f, "${}{}", piece, field),
             SE::FailedRessurection => write!(f, "$$"),
-            SE::Displace { piece, field } => write!(f, "<{}{}", piece, field),
+            SE::Displace { piece, is_tag_lost, field } => write!(f, "<{}{}{}", piece, if piece.is_pawn() && *is_tag_lost { "==" } else { "" }, field),
             _ => fmt::Result::Ok(()),
         };
     }
