@@ -31,7 +31,7 @@ impl fmt::Display for StepOrder {
             SO::Distant => write!(f, ".."),
             SO::Destination => fmt::Result::Ok(()),
             SO::Listed => write!(f, ","),
-            SO::ListedPiece { piece } => write!(f, ", {}", piece),
+            SO::ListedPiece { piece } => write!(f, ",{}", piece),
 
             SO::Index( idx ) => {
                 if *idx > 0 {

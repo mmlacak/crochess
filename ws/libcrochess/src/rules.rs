@@ -2,22 +2,17 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 
-// use crate::piece_type as pt;
 use crate::piece_type::PieceType as PT;
 
 use crate::board_type as bt;
 use crate::board_type::BoardType as BT;
 
 use crate::board as b;
-
 use crate::setup_board as sb;
 
-// use crate::piece_flag as pf;
 use crate::piece_flag::PieceFlag as PF;
 
 use crate::flags as f;
-// use crate::flags::Flags;
-
 use crate::setup_flags as sf;
 
 

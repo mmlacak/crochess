@@ -4,10 +4,7 @@
 use std::fmt;
 
 use crate::piece_type::PieceType as PT;
-// use crate::field::Field as F;
 use crate::step::Step as S;
-
-// use crate::field as f;
 
 
 #[derive(Debug, Copy, Clone)]

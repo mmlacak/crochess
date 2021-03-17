@@ -20,7 +20,7 @@ pub mod moves;
 pub mod rules;
 
 
-pub const VERSION: &str = "0.1.10+20210317052212"; /* source-new-lib-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.11+20210317081917"; /* source-new-lib-version-major-minor-patch+build-place-marker */
 
 
 // fn dbg(x: &impl std::fmt::Debug) {
@@ -41,14 +41,4 @@ pub fn dbgv<T: std::fmt::Debug>(x: &T) {
 
 pub fn dbg_<T: std::fmt::Debug>(x: &T) {
     print!("{:?}", &x);
-}
-
-
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
 }
