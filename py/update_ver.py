@@ -52,7 +52,7 @@ REG_EXP_VERSION_BUILD = re.compile( r"""^version = \"(?P<major>0|[1-9]\d*)\.(?P<
 def get_current_times():
     now = time.gmtime()
     # now_long = time.strftime('%Y-%m-%d %H:%M:%S UTC', now) # e.g. '2020-05-17 02:11:11 UTC'
-    book_version = time.strftime('%Y%m%d%H%M%S', now) # e.g. '20200517021111'
+    book_version = time.strftime('%Y%m%d.%H%M%S', now) # e.g. '20200517.021111'
     book_short = time.strftime('%Y-%m-%d', now) # e.g. '2020-05-17'
     return (book_version, book_short)
 
