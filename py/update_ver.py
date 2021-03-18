@@ -43,6 +43,11 @@ SOURCE_IGNORE_LIB_MAIN_FILE = 'lib.IGNORE.rs'
 # REG_EXP_VERSION_BUILD = re.compile( r"""version = \"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)(\+(?P<buildmetadata>\d{14}))?\"""" )
 REG_EXP_VERSION_BUILD = re.compile( r"""^version = \"(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?\"""" )
 
+# Possible change, extended versioning + relaxed syntax + breakage info.
+# Cargo expects SemVer 2.0 in TOML though, so would need to work around it, or ignore version info there.
+#
+# /^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:[^-~\+\s]*)))?(?:\~(?P<breaks>(?:[^-~\+\s]*)))?(?:\+(?P<buildmetadata>(?:[^-~\+\s]*)))?$/gm
+
 
 def get_current_times():
     now = time.gmtime()
