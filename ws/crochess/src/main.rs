@@ -17,6 +17,7 @@ use libcrochess::board_type::BoardType as BT;
 
 // use libcrochess::board as b;
 // use libcrochess::piece_flag as pf;
+use libcrochess::parser as p;
 use libcrochess::rules as r;
 
 
@@ -25,7 +26,7 @@ pub mod hlp_msgs;
 use hlp_msgs as hm;
 
 
-pub const VERSION: &str = "0.1.11+20210317081917"; /* source-new-app-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.12+20210320.103257"; /* source-new-app-version-major-minor-patch+build-place-marker */
 
 
 fn main() {
@@ -50,6 +51,7 @@ fn main() {
                 "t" | "tags" => { println!( "\n{}\n", rules.flags() ); }
                 "a" | "about" => { hm::print_about(); }
                 "v" | "version" => { hm::print_versions(VERSION, libcc::VERSION); }
+
                 "n" | "new" => {
                     let mut do_display = true;
 
@@ -68,7 +70,18 @@ fn main() {
 
                     if do_display { println!( "\n{}\n", rules.board() ); }
                 }
-                "m" | "move" => { println!( "\n{}\n", args[ 1 ] ); }
+
+                "m" | "move" => {
+                    let mv_str = args[ 1 ];
+                    println!( "\n{}\n", mv_str );
+
+                    let result = p::parse( mv_str, rules.variant(), rules.board(), rules.flags() );
+                    match result {
+                        Err(error) => { println!("\n{}\n", error); }
+                        Ok(mv) => { println!("\n{}\n", mv); }
+                    }
+                }
+
                 "h" | "help" | "?" => {
                     if args.len() > 1 {
                         let cmd = args[ 1 ];

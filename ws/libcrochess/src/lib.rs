@@ -17,10 +17,14 @@ pub mod side_effects;
 pub mod step;
 pub mod ply;
 pub mod moves;
+
+pub mod parse_ply;
+pub mod parser;
+
 pub mod rules;
 
 
-pub const VERSION: &str = "0.1.11+20210317081917"; /* source-new-lib-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.12+20210320.103257"; /* source-new-lib-version-major-minor-patch+build-place-marker */
 
 
 // fn dbg(x: &impl std::fmt::Debug) {

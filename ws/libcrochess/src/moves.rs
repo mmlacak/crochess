@@ -27,9 +27,9 @@ impl fmt::Display for MoveStatus {
 
 #[derive(Debug, Clone)]
 pub struct Move {
-    origin: String,
-    plies: Vec<Ply>,
-    status: MoveStatus,
+    pub origin: String,
+    pub plies: Vec<Ply>,
+    pub status: MoveStatus,
 }
 
 

@@ -19,7 +19,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under *Source* section. \
 The most recent book version is:
 
-Version: 20210317052212 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
+Version: 20210320.103257 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
@@ -27,8 +27,8 @@ converted to UTC for easier comparison.
 **Application** and **library versions** can be seen in an application, using `v(ersion)` command. \
 The latest versions are:
 
-Application: 0.1.11+20210317081917 <!--- readme-new-app-version-major-minor-patch+build-place-marker --> \
-Library: 0.1.11+20210317081917 <!--- readme-new-lib-version-major-minor-patch+build-place-marker -->
+Application: 0.1.12+20210320.103257 <!--- readme-new-app-version-major-minor-patch+build-place-marker --> \
+Library: 0.1.12+20210320.103257 <!--- readme-new-lib-version-major-minor-patch+build-place-marker -->
 
 ## Getting Started
 
