@@ -1,6 +1,8 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+pub mod ascii_checks;
+
 pub mod piece_type;
 
 pub mod board_type;
@@ -24,7 +26,7 @@ pub mod parser;
 pub mod rules;
 
 
-pub const VERSION: &str = "0.1.12+20210320.103257"; /* source-new-lib-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.13+20210320.110411"; /* source-new-lib-version-major-minor-patch+build-place-marker */
 
 
 // fn dbg(x: &impl std::fmt::Debug) {

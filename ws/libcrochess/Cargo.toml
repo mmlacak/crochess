@@ -1,6 +1,6 @@
 [package]
 name = "libcrochess"
-version = "0.1.12+20210320.103257" # config-new-lib-version-major-minor-patch+build-place-marker
+version = "0.1.13+20210320.110411" # config-new-lib-version-major-minor-patch+build-place-marker
 authors = ["Mario Mlačak <mmlacak@gmail.com>"]
 edition = "2018"
 license = "BSD-3-Clause"

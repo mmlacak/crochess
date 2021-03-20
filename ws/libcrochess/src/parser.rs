@@ -9,22 +9,19 @@ use crate::ply::LinkType as LT;
 use crate::ply::Ply;
 // use crate::step::Step as S;
 
+use crate::ascii_checks::AsciiPrintable;
 use crate::moves as m;
 use crate::parse_ply as pp;
 
 
 pub fn parse(move_str: &str, variant: BT, board: &B, flags: &F) -> Result<m::Move, String> {
 
-// TODO :: move check into sub-parsers ...
-    // if !is_ascii_printable(move_str) {
-    //     return Err("Non-ASCII characters detected in notation.");
-    // }
-
     let plies = parse_plies(move_str, variant, board, flags) ?;
 
     let mut mv = m::Move { origin: move_str.to_owned(),
                            plies: plies, // vec![],
                            status: m::MoveStatus::None };
+
     return Ok(mv);
 }
 
@@ -123,7 +120,7 @@ pub fn parse_plies(move_str: &str, variant: BT, board: &B, flags: &F) -> Result<
             depth -= 1;
         }
         else {
-            if is_ascii_printable(c) {
+            if c.is_ascii_printable() {
                 ply_string.push(c);
             }
             else {
@@ -134,24 +131,3 @@ pub fn parse_plies(move_str: &str, variant: BT, board: &B, flags: &F) -> Result<
 
     return Ok(plies);
 }
-
-
-pub fn is_ascii_printable(c: char) -> bool {
-    if !( c.is_ascii_alphanumeric() ||
-            c.is_ascii_punctuation() ||
-            c.is_ascii_graphic() ) {
-                return false;
-    }
-    return true;
-}
-
-// pub fn is_ascii_printable(string: &str) -> bool {
-//     for c in string.chars() {
-//         if !( c.is_ascii_alphanumeric() ||
-//               c.is_ascii_punctuation() ||
-//               c.is_ascii_graphic() ) {
-//                     return false;
-//         }
-//     }
-//     return true;
-// }
