@@ -26,7 +26,7 @@ pub mod hlp_msgs;
 use hlp_msgs as hm;
 
 
-pub const VERSION: &str = "0.1.13+20210320.110411"; /* source-new-app-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.14+20210321.090259"; /* source-new-app-version-major-minor-patch+build-place-marker */
 
 
 fn main() {
@@ -72,13 +72,21 @@ fn main() {
                 }
 
                 "m" | "move" => {
-                    let mv_str = args[ 1 ];
-                    println!( "\n{}\n", mv_str );
+                    if args.len() == 2 {
+                        let mv_str = args[ 1 ];
+                        println!( "\n{}\n", mv_str );
 
-                    let result = p::parse( mv_str, rules.variant(), rules.board(), rules.flags() );
-                    match result {
-                        Err(error) => { println!("\n{}\n", error); }
-                        Ok(mv) => { println!("\n{}\n", mv); }
+                        let result = p::parse( mv_str, rules.variant(), rules.board(), rules.flags() );
+                        match result {
+                            Err(error) => { println!("\n{}\n", error); }
+                            Ok(mv) => { println!("\n{}\n", mv); }
+                        }
+                    }
+                    else if args.len() <= 1 {
+                        println!("\nm(ove) command expects move notation, found no argument.\n");
+                    }
+                    else {
+                        println!("\nm(ove) command expects move notation, as one continuos argument, found {} arguments.\n", args.len()-1);
                     }
                 }
 

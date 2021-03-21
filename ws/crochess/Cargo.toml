@@ -1,6 +1,6 @@
 [package]
 name = "crochess"
-version = "0.1.13+20210320.110411" # config-new-app-version-major-minor-patch+build-place-marker
+version = "0.1.14+20210321.090259" # config-new-app-version-major-minor-patch+build-place-marker
 authors = ["Mario Mlačak <mmlacak@gmail.com>"]
 edition = "2018"
 license = "BSD-3-Clause"

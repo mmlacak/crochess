@@ -26,7 +26,7 @@ pub mod parser;
 pub mod rules;
 
 
-pub const VERSION: &str = "0.1.13+20210320.110411"; /* source-new-lib-version-major-minor-patch+build-place-marker */
+pub const VERSION: &str = "0.1.14+20210321.090259"; /* source-new-lib-version-major-minor-patch+build-place-marker */
 
 
 // fn dbg(x: &impl std::fmt::Debug) {

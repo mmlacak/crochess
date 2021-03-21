@@ -18,6 +18,10 @@ pub fn parse(move_str: &str, variant: BT, board: &B, flags: &F) -> Result<m::Mov
 
     let plies = parse_plies(move_str, variant, board, flags) ?;
 
+    if !move_str.is_ascii_printable() {
+        return Err( format!("Non-ASCII char(s) found in notation.") );
+    }
+
     let mut mv = m::Move { origin: move_str.to_owned(),
                            plies: plies, // vec![],
                            status: m::MoveStatus::None };
@@ -26,107 +30,156 @@ pub fn parse(move_str: &str, variant: BT, board: &B, flags: &F) -> Result<m::Mov
 }
 
 pub fn parse_plies(move_str: &str, variant: BT, board: &B, flags: &F) -> Result<Vec<Ply>, String> {
-    let count = move_str.chars().count();
-    let mut depth = 0;
-    let mut itr = move_str.chars().peekable();
+    let bytes = move_str.as_bytes();
+    let count = bytes.len();
+
     let mut ply_string: String = "".to_string();
     let mut plies: Vec<Ply> = vec![];
 
-    for i in 0 .. count {
-        let c: char = itr.next().unwrap_or(' ');
+    let mut is_ply_started = true;
+    let mut depth = 0;
+    let mut index = 0;
 
-        if c == '~' {
+    let get_char = | offset: usize | if index + offset < count { bytes[ index + offset ] } else { b' ' };
+
+    while index < count {
+        let c: u8 = bytes[ index ];
+
+        if c == b'~' {
             if depth != 0 {
-                return Err( format!("Unbalanced '[' and ']' braces, when '~' (activation) is reach, at {}.", i) );
+                return Err( format!("Unbalanced '[' and ']' braces, when '~' (activation) is reached, at {}.", index+1) );
             }
 
             let lt = LT::Activation;
             let ply = pp::parse_ply(ply_string.as_str(), lt, variant, board, flags) ?;
             plies.push(ply);
+
             ply_string = "".to_string();
+            is_ply_started = true;
         }
-        else if c == '|' {
+        else if c == b'|' {
             if depth != 0 {
-                return Err( format!("Unbalanced '[' and ']' braces, when '|' (teleportation) is reach, at {}.", i) );
+                return Err( format!("Unbalanced '[' and ']' braces, when '|' (teleportation) is reached, at {}.", index+1) );
             }
 
-            let c_peek: char = *itr.peek().unwrap_or(&' ');
+            let c_peek = get_char( 1 ); // if index+1 < count { bytes[ index+1 ] } else { b' ' };
             let mut lt = LT::Teleportation;
 
-            if c_peek == '|' {
+            if c_peek == b'|' {
                 lt = LT::FailedTeleportation;
 
-                // Consume 2nd '|', already used up.
-                itr.next();
+                // Skip 2nd '|', already used up.
+                index += 1;
             };
 
             let ply = pp::parse_ply(ply_string.as_str(), lt, variant, board, flags) ?;
             plies.push(ply);
+
             ply_string = "".to_string();
+            is_ply_started = true;
         }
-        else if c == '@' {
+        else if c == b'@' {
             if depth != 0 {
-                return Err( format!("Unbalanced '[' and ']' braces, when '@' (trance-journey) is reach, at {}.", i) );
+                return Err( format!("Unbalanced '[' and ']' braces, when '@' (trance-journey) is reached, at {}.", index+1) );
             }
 
-            let mut c_peek: char = *itr.peek().unwrap_or(&' ');
+            let mut c_peek = bytes[ index+1 ];
             let mut lt = LT::TranceJourney;
 
-            if c_peek == '@' {
+            if c_peek == b'@' {
                 lt = LT::DoubleTranceJourney;
 
-                // Consume 2nd '@', already used up.
-                itr.next();
+                // Skip 2nd '@', already used up.
+                index += 1;
 
-                c_peek = *itr.peek().unwrap_or(&' ');
+                c_peek = bytes[ index+1 ]; // *itr.peek().unwrap_or(&' ');
 
-                if c_peek == '@' {
+                if c_peek == b'@' {
                     lt = LT::FailedTeleportation;
 
-                    // Consume 3rd '@', already used up.
-                    itr.next();
+                    // Skip 3rd '@', already used up.
+                    index += 1;
                 }
             };
 
             let ply = pp::parse_ply(ply_string.as_str(), lt, variant, board, flags) ?;
             plies.push(ply);
-            ply_string = "".to_string();
-        }
-        else if c == ':' {
-            let mut c_peek: char = *itr.peek().unwrap_or(&' ');
 
-            if c_peek == ':' {
+            ply_string = "".to_string();
+            is_ply_started = true;
+        }
+        else if c == b':' {
+            let mut c_peek = bytes[ index+1 ];
+
+            if c_peek == b':' {
                 if depth != 0 {
-                    return Err( format!("Unbalanced '[' and ']' braces, when '::' (pawn-sacrifice) is reach, at {}.", i) );
+                    return Err( format!("Unbalanced '[' and ']' braces, when '::' (pawn-sacrifice) is reached, at {}.", index+1) );
                 }
 
                 let mut lt = LT::PawnSacrifice;
 
-                // Consume 2nd ':', already used up.
-                itr.next();
+                // Skip 2nd ':', already used up.
+                index += 1;
 
                 let ply = pp::parse_ply(ply_string.as_str(), lt, variant, board, flags) ?;
                 plies.push(ply);
+
                 ply_string = "".to_string();
+                is_ply_started = true;
             }
             else {
-                ply_string.push(c);
+                ply_string.push(c as char);
             }
         }
-        else if c == '[' {
+        else if c == b'[' {
+            if depth != 0 {
+                return Err( format!("Unbalanced '[' and ']' braces, when '[' (ply gathering) is reached, found at {}.", index+1) );
+            }
+
+            if !is_ply_started {
+                return Err( format!("Brace '[' should open only at the beginning of a ply, found at {}.", index+1) );
+            }
+
             depth += 1;
         }
-        else if c == ']' {
+        else if c == b']' {
+            if depth != 1 {
+                return Err( format!("Unbalanced '[' and ']' braces, when ']' (ply gathering) is reached, found at {}.", index+1) );
+            }
+
+            let mut c_peek = bytes[ index+1 ];
+
+            if c_peek != b'~' && c_peek != b'|' && c_peek != b'@' && c_peek != b':' {
+                return Err( format!("Brace ']' should close only at the end of a ply, found at {}.", index+1) );
+            }
+            else if c_peek == b':' {
+                c_peek = bytes[ index+2 ];
+                if c_peek != b':' {
+                    return Err( format!("Brace ']' should close only at the end of a ply, found at {}.", index+1) );
+                }
+            }
+
             depth -= 1;
+        }
+        else if c == b'#' || c == b'+' {
+            // Ignore for now, these are move statuses, not related to plies.
+            break;
         }
         else {
             if c.is_ascii_printable() {
-                ply_string.push(c);
+                ply_string.push(c as char);
+                is_ply_started = false;
             }
             else {
-                return Err( format!("Non-ASCII char '{}' found, at {}.", c, i) );
+                return Err( format!("Non-ASCII char '{}' found, at {}.", c, index+1) );
             }
         }
+
+        index += 1;
+    }
+
+    if depth != 0 {
+        return Err( format!("Unbalanced '[' and ']' braces, at the end of notation.") );
     }
 
     return Ok(plies);
