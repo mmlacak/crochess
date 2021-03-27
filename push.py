@@ -6,44 +6,28 @@
 
 
 import sys
-import os
-import os.path
-import time
 
-import py.git_run as GR
+import py.paths as P
+import py.run_subproc as RS
+import py.run_git as RG
 import py.update_ver as UV
 
 
-def get_combed_path(path):
-    path = os.path.abspath( path )
-    path = os.path.normpath( path )
-    path = os.path.normcase( path )
-
-    return path
-
-def get_project_root_path():
-    path = os.path.join(os.getcwd(), sys.argv[ 0 ])
-    path = os.path.dirname( path )
-    path = get_combed_path( path )
-
-    return path
-
-
-PROJECT_ROOT_PATH = get_project_root_path()
+PROJECT_ROOT_PATH = P.get_project_root_path( sys.argv[ 0 ] )
 
 
 def main():
-    pre_git_argv, git_commit_argv, git_push_argv = GR.split_cmd_git_args(sys.argv)
+    pre_git_argv, git_commit_argv, git_push_argv = RG.split_cmd_git_args(sys.argv)
 
-    is_dry_run = True if GR.any_item_in_list( ['-n', '--dry-run'], pre_git_argv) else False
-    is_verbose = True if is_dry_run or GR.any_item_in_list( ['-v', '--verbose'], pre_git_argv) else False
-    is_debug = True if is_dry_run or GR.any_item_in_list( ['-d', '--debug'], pre_git_argv) else False
+    is_dry_run = True if RS.any_item_in_list( ['-n', '--dry-run'], pre_git_argv) else False
+    is_verbose = True if is_dry_run or RS.any_item_in_list( ['-v', '--verbose'], pre_git_argv) else False
+    is_debug = True if is_dry_run or RS.any_item_in_list( ['-d', '--debug'], pre_git_argv) else False
 
-    is_book = True if GR.any_item_in_list( ['-b', '--book'], pre_git_argv) else False
+    is_book = True if RS.any_item_in_list( ['-b', '--book'], pre_git_argv) else False
 
-    is_major = True if GR.any_item_in_list( ['-M', '--major'], pre_git_argv) else False
-    is_minor = True if not is_major and GR.any_item_in_list( ['-m', '--minor'], pre_git_argv) else False
-    is_patch = True if not (is_major or is_minor) and GR.any_item_in_list( ['-p', '--patch'], pre_git_argv) else False
+    is_major = True if RS.any_item_in_list( ['-M', '--major'], pre_git_argv) else False
+    is_minor = True if not is_major and RS.any_item_in_list( ['-m', '--minor'], pre_git_argv) else False
+    is_patch = True if not (is_major or is_minor) and RS.any_item_in_list( ['-p', '--patch'], pre_git_argv) else False
 
     auto_updated_files = []
 
@@ -86,21 +70,21 @@ def main():
             print( "Auto-updated: %s." % str( auto_updated_files ) )
             print( "" )
 
-            if not GR.is_committing_all_files(git_commit_argv):
-                if GR.is_committing_specified_files(git_commit_argv):
+            if not RG.is_committing_all_files(git_commit_argv):
+                if RG.is_committing_specified_files(git_commit_argv):
                     git_commit_argv.extend( auto_updated_files )
                 else:
                     git_add = ['git', 'add', '--', ]
                     git_add.extend( auto_updated_files )
                     print( "Running: %s" % str( git_add ) )
-                    result = GR.run_process( git_add )
+                    result = RS.run_process( git_add )
                     print( result )
 
         if is_debug:
             print( "Running: %s" % str( git_commit_argv ) )
 
         if not is_dry_run:
-            result = GR.run_process( git_commit_argv )
+            result = RS.run_process( git_commit_argv )
             print( result )
 
     if git_push_argv:
@@ -110,7 +94,7 @@ def main():
             print( "Running: %s" % str( git_push_argv ) )
 
         if not is_dry_run:
-            result = GR.run_process( git_push_argv )
+            result = RS.run_process( git_push_argv )
             print( result )
 
     print( "" )

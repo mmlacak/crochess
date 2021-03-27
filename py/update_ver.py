@@ -9,7 +9,7 @@ import os.path
 import time
 import re
 
-from .git_run import run_process
+import py.build_env as BE
 
 
 BOOK_TEX_FOLDER = 'book'
@@ -20,20 +20,28 @@ README_FILE_NAME = 'README.md'
 README_IGNORE_FILE_NAME = 'README.IGNORE.md'
 
 
-SOURCE_WS_FOLDER = 'ws'
-SOURCE_SRC_FOLDER = 'src'
+# SOURCE_WS_FOLDER = 'ws'
+# SOURCE_SRC_FOLDER = 'src'
 
-SOURCE_APP_FOLDER = 'crochess'
-SOURCE_APP_CONFIG_FILE = 'Cargo.toml'
-SOURCE_IGNORE_APP_CONFIG_FILE = 'Cargo.IGNORE.toml'
-SOURCE_APP_MAIN_FILE = 'main.rs'
-SOURCE_IGNORE_APP_MAIN_FILE = 'main.IGNORE.rs'
+# SOURCE_APP_FOLDER = 'crochess'
+# SOURCE_APP_CONFIG_FILE = 'Cargo.toml'
+# SOURCE_IGNORE_APP_CONFIG_FILE = 'Cargo.IGNORE.toml'
+# SOURCE_APP_MAIN_FILE = 'main.rs'
+# SOURCE_IGNORE_APP_MAIN_FILE = 'main.IGNORE.rs'
 
-SOURCE_LIB_FOLDER = 'libcrochess'
-SOURCE_LIB_CONFIG_FILE = 'Cargo.toml'
-SOURCE_IGNORE_LIB_CONFIG_FILE = 'Cargo.IGNORE.toml'
-SOURCE_LIB_MAIN_FILE = 'lib.rs'
-SOURCE_IGNORE_LIB_MAIN_FILE = 'lib.IGNORE.rs'
+# SOURCE_LIB_FOLDER = 'libcrochess'
+# SOURCE_LIB_CONFIG_FILE = 'Cargo.toml'
+# SOURCE_IGNORE_LIB_CONFIG_FILE = 'Cargo.IGNORE.toml'
+# SOURCE_LIB_MAIN_FILE = 'lib.rs'
+# SOURCE_IGNORE_LIB_MAIN_FILE = 'lib.IGNORE.rs'
+
+# TODO :: import everything else from py.build_env
+
+SOURCE_APP_MAIN_FILE = 'crochess.d'
+SOURCE_APP_MAIN_IGNORE_FILE = 'crochess.IGNORE.d'
+
+SOURCE_LIB_MAIN_FILE = 'libcrochess.d'
+SOURCE_LIB_MAIN_IGNORE_FILE = 'libcrochess.IGNORE.d'
 
 
 #
@@ -56,19 +64,23 @@ def get_current_times():
     book_short = time.strftime('%Y-%m-%d', now) # e.g. '2020-05-17'
     return (book_version, book_short)
 
-def get_current_lib_versions(root_path, ws_dir=SOURCE_WS_FOLDER, lib_dir=SOURCE_LIB_FOLDER, lib_config_name=SOURCE_LIB_CONFIG_FILE):
-    path = get_full_lib_config_path(root_path, ws_dir=ws_dir, lib_dir=lib_dir, lib_config_name=lib_config_name)
+def get_current_lib_versions(root_path):
+    path = get_lib_source_file_path(root_path, SOURCE_LIB_MAIN_FILE)
 
-    with open(path, 'r') as old:
-        for line in old:
-            mo = REG_EXP_VERSION_BUILD.match(line)
-            if mo is not None:
-                major, minor, patch, prerelease, build = mo.groups()
-                return (int(major), int(minor), int(patch), \
-                        str(prerelease) if prerelease is not None else None, \
-                        str(build) if build is not None else None)
+    try:
+        with open(path, 'r') as old:
+            for line in old:
+                mo = REG_EXP_VERSION_BUILD.match(line)
+                if mo is not None:
+                    major, minor, patch, prerelease, build = mo.groups()
+                    return (int(major), int(minor), int(patch), \
+                            str(prerelease) if prerelease is not None else None, \
+                            str(build) if build is not None else None)
+    except FileNotFoundError:
+        # FileNotFoundError: [Errno 2] No such file or directory: '.../crochess/ws/libcrochess/Cargo.toml'
+        return (None, None, None, None, None)
 
-    return (None, None, None, None)
+    return (None, None, None, None, None)
 
 def get_full_tex_path(root_path, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX_FILE_NAME):
     path = os.path.join(root_path, tex_dir, tex_name)
@@ -78,20 +90,12 @@ def get_full_readme_path(root_path, readme_name=README_FILE_NAME):
     path = os.path.join(root_path, readme_name)
     return path
 
-def get_full_app_config_path(root_path, ws_dir=SOURCE_WS_FOLDER, app_dir=SOURCE_APP_FOLDER, app_config_name=SOURCE_APP_CONFIG_FILE):
-    path = os.path.join(root_path, ws_dir, app_dir, app_config_name)
+def get_app_source_file_path(root_path, file_name):
+    path = os.path.join(BE.get_app_source_dir(root_path), file_name)
     return path
 
-def get_full_lib_config_path(root_path, ws_dir=SOURCE_WS_FOLDER, lib_dir=SOURCE_LIB_FOLDER, lib_config_name=SOURCE_LIB_CONFIG_FILE):
-    path = os.path.join(root_path, ws_dir, lib_dir, lib_config_name)
-    return path
-
-def get_full_app_source_path(root_path, ws_dir=SOURCE_WS_FOLDER, app_dir=SOURCE_APP_FOLDER, app_src_dir=SOURCE_SRC_FOLDER, app_source_name=SOURCE_APP_MAIN_FILE):
-    path = os.path.join(root_path, ws_dir, app_dir, app_src_dir, app_source_name)
-    return path
-
-def get_full_lib_source_path(root_path, ws_dir=SOURCE_WS_FOLDER, lib_dir=SOURCE_LIB_FOLDER, lib_src_dir=SOURCE_SRC_FOLDER, lib_source_name=SOURCE_LIB_MAIN_FILE):
-    path = os.path.join(root_path, ws_dir, lib_dir, lib_src_dir, lib_source_name)
+def get_lib_source_file_path(root_path, file_name):
+    path = os.path.join(BE.get_lib_source_dir(root_path), file_name)
     return path
 
 def change_book_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
@@ -188,31 +192,17 @@ def replace_readme_entries(git_version, book_version, book_short, root_path, is_
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_readme_line_if_marked)
 
-def replace_app_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
-
-    orig_path = get_full_app_config_path(root_path)
-    ignore_path = get_full_app_config_path(root_path, app_config_name=SOURCE_IGNORE_APP_CONFIG_FILE)
-
-    return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_config_app_line_if_marked)
-
-def replace_lib_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
-
-    orig_path = get_full_lib_config_path(root_path)
-    ignore_path = get_full_lib_config_path(root_path, lib_config_name=SOURCE_IGNORE_LIB_CONFIG_FILE)
-
-    return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_config_lib_line_if_marked)
-
 def replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
-    orig_path = get_full_app_source_path(root_path)
-    ignore_path = get_full_app_source_path(root_path, app_source_name=SOURCE_IGNORE_APP_MAIN_FILE)
+    orig_path = get_app_source_file_path(root_path, SOURCE_APP_MAIN_FILE)
+    ignore_path = get_app_source_file_path(root_path, SOURCE_APP_MAIN_IGNORE_FILE)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_source_app_line_if_marked)
 
 def replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch):
 
-    orig_path = get_full_lib_source_path(root_path)
-    ignore_path = get_full_lib_source_path(root_path, lib_source_name=SOURCE_IGNORE_LIB_MAIN_FILE)
+    orig_path = get_lib_source_file_path(root_path, SOURCE_LIB_MAIN_FILE)
+    ignore_path = get_lib_source_file_path(root_path, SOURCE_LIB_MAIN_IGNORE_FILE)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_major, is_minor, is_patch, change_source_lib_line_if_marked)
 
@@ -249,9 +239,6 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_patch):
                 git_version = "%s.%s.%s+%s" % ( str(major), str(minor), str(patch), book_version )
             else:
                 git_version = "%s.%s.%s-%s+%s" % ( str(major), str(minor), str(patch), prerelease, book_version )
-
-        append_if_not_empty( replace_app_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
-        append_if_not_empty( replace_lib_config_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
 
         append_if_not_empty( replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )
         append_if_not_empty( replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_patch) )

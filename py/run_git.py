@@ -5,22 +5,6 @@
 # Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 
-import subprocess
-
-
-def any_item_in_list(items, lst):
-    return any( [ (i in lst) for i in items ] )
-
-def run_process(cmd_args_list):
-    output_str = ""
-
-    try:
-        output_str = subprocess.check_output(cmd_args_list)
-    except subprocess.CalledProcessError:
-        pass
-
-    return str(output_str, encoding='utf-8', errors='replace')
-
 def split_cmd_git_args(argv):
     arg_sep_count = 0 # 0 --> script argv, 1 --> git commit argv, 2 --> git push argv
     git_commit_args = False

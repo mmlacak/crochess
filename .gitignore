@@ -31,3 +31,5 @@ bin/
 *synctex*
 target/
 *.lock
+debug/
+release/
