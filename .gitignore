@@ -22,14 +22,9 @@ book/gfx/rush/
 book/gfx/isa/
 book/gfx/test/
 *IGNORE*
-obj/
-lib/
-bin/
 *OLD*
 *NEW*
 .vscode
 *synctex*
-target/
-*.lock
 debug/
 release/
