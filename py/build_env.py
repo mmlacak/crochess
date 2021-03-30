@@ -10,6 +10,35 @@ import os.path
 import py.paths as P
 
 
+
+#
+# ### $ echo $LD_LIBRARY_PATH
+# ### /usr/lib64/:.:./lib:../lib:..
+#
+# $ export LD_LIBRARY_PATH=.:./lib:../lib:..
+#
+#  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+#
+# $ gdc -shared -fPIC -L. -defaultlib=phobos2 lib.d -o libarr.so
+#
+# $ gdc -L. -larr  array.d -o arr
+#
+#  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+#
+# $ dmd -shared -fPIC -L-L. -defaultlib=phobos2 lib.d -of=libarr.so
+#
+# $ dmd -defaultlib=phobos2 -L-L. -L-larr  array.d -of=arr
+#
+#  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+#
+# $ ldc2 -shared --relocation-model=pic -L-L. -defaultlib=phobos2-ldc lib.d -of=libarr.so
+# ### $ ldc2 -shared --relocation-model=pic -L-L.  lib.d -of=libarr.so
+#
+# $ ldc2 -L-L. -L-larr  array.d -of=arr
+#
+
+
+
 COMPILER_GDC = 'gdc'
 COMPILER_LDC2 = 'ldc2'
 COMPILER_DMD = 'dmd'
@@ -17,6 +46,7 @@ COMPILER_DMD = 'dmd'
 DEFAULT_COMPILER = COMPILER_GDC
 
 EXECUTABLE_FILE_NAME = 'crochess'
+LIBRARY_FILE_NAME = 'libcrochess.so'
 EXECUTABLE_DEBUG_FOLDER = 'debug'
 EXECUTABLE_RELEASE_FOLDER = 'release'
 
