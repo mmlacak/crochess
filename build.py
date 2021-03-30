@@ -18,18 +18,40 @@ import py.build_env as BE
 PROJECT_ROOT_PATH = P.get_project_root_path( sys.argv[ 0 ] )
 
 
+def remove_build_files(root_path, all_files_or_obj_only=False):
+    build_dir = BE.get_build_dir(root_path)
+
+    file_paths = [  P.get_abs_combed_path( os.path.join( build_dir, f ) )
+                    for f in os.listdir(build_dir)
+                    if all_files_or_obj_only
+                        or RS.any_item_in( BE.OBJECT_FILE_EXTENSIONS, f ) ]
+
+    for file_path in file_paths:
+        os.remove(file_path)
+
+
 def main():
     script_argv, compiler_argv, linker_argv, executable_argv = RC.split_cmd_compiler_args(sys.argv)
 
-    is_dry_run = True if RS.any_item_in_list( ['-n', '--dry-run'], script_argv) else False
-    is_verbose = True if is_dry_run or RS.any_item_in_list( ['-v', '--verbose'], script_argv) else False
-    is_debug = True if is_dry_run or RS.any_item_in_list( ['-d', '--debug'], script_argv) else False
+    is_dry_run = True if RS.any_item_in( ['-n', '--dry-run'], script_argv) else False
+    is_verbose = True if is_dry_run or RS.any_item_in( ['-v', '--verbose'], script_argv) else False
+    is_debug = True if is_dry_run or RS.any_item_in( ['-d', '--debug'], script_argv) else False
 
-    is_debug_build = True if RS.any_item_in_list( ['-D', '--debug'], script_argv) else False
-    is_release_build = True if not is_debug_build and RS.any_item_in_list( ['-R', '--release'], script_argv) else False
+    is_debug_build = True if RS.any_item_in( ['-D', '--debug'], script_argv) else False
+    is_release_build = True if not is_debug_build and RS.any_item_in( ['-R', '--release'], script_argv) else False
+    is_build = is_release_build or is_debug_build
+    is_release_or_debug = is_release_build and not is_debug_build
 
-    # is_run_build_only = True if RS.any_item_in_list( ['-X', '--execute'], script_argv) else False
-    is_run_build = True if RS.any_item_in_list( ['-r', '--run'], script_argv) else False
+    is_gdc = True if RS.any_item_in( ['-gdc', '--gdc'], script_argv) else False
+    is_ldc2 = True if RS.any_item_in( ['-ldc2', '--ldc2'], script_argv) else False
+    is_dmd = True if RS.any_item_in( ['-dmd', '--dmd'], script_argv) else False
+    compiler =  BE.COMPILER_GDC if is_gdc else \
+                BE.COMPILER_LDC2 if is_ldc2 else \
+                BE.COMPILER_DMD if is_dmd else \
+                BE.DEFAULT_COMPILER
+
+    # is_run_app_only = True if RS.any_item_in( ['-X', '--execute'], script_argv) else False
+    is_run_app = True if RS.any_item_in( ['-r', '--run'], script_argv) else False
 
     if is_verbose:
         print( "" )
@@ -37,53 +59,78 @@ def main():
 
     if is_debug:
         print( "" )
+        print( "Compiler: %s." % str( compiler ) )
         print( "Script args: %s." % str( script_argv ) )
         print( "compiler args: %s." % str( compiler_argv ) )
         print( "linker args: %s." % str( linker_argv ) )
         print( "executable args: %s." % str( executable_argv ) )
 
-    if is_debug_build or is_release_build:
-        cmd_cwd, compile_cmd_lst = BE.get_compile_app_cmd(PROJECT_ROOT_PATH, rel_path=None, is_release_or_debug=is_release_build, adx_options_list=compiler_argv)
-
-    if is_run_build:
-        ls_cmd_lst = BE.get_ls_exe_file_cmd(PROJECT_ROOT_PATH, is_release_or_debug=is_release_build)
-        run_cmd_lst = BE.get_run_exe_file_cmd(PROJECT_ROOT_PATH, is_release_or_debug=is_release_build, options_list=compiler_argv)
-
     old_cwd = os.getcwd()
+    cmd_cwd = BE.get_build_dir(PROJECT_ROOT_PATH)
 
     if is_debug:
         print( "" )
         print( "Currently in: %s." % str( old_cwd ) )
+        print( "Build dir: %s." % str( cmd_cwd ) )
 
-        if is_debug_build or is_release_build:
-            print( "Compiling in: %s." % str( cmd_cwd ) )
-            print( "Compiling with: %s." % str( compile_cmd_lst ) )
-
-    if is_debug_build or is_release_build:
+    if is_build:
         if not is_dry_run:
-            os.chdir(cmd_cwd)
-            result = RS.run_process( compile_cmd_lst )
+            remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=True)
+
+        cwd_lib, compile_lib_cmd_lst = BE.get_compile_lib_cmd(PROJECT_ROOT_PATH, rel_path=None, compiler=compiler, is_release_or_debug=is_release_or_debug, adx_options_list=compiler_argv)
+
+        if is_debug:
+            print( "Compiling in: %s." % str( cwd_lib ) )
+            print( "Compiling with: %s." % str( compile_lib_cmd_lst ) )
+
+        if not is_dry_run:
+            # os.chdir(cwd_app)
+            result = RS.run_process( compile_lib_cmd_lst, cwd=cwd_lib )
             print( result )
+
+            remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
+
+        cwd_app, compile_app_cmd_lst = BE.get_compile_app_cmd(PROJECT_ROOT_PATH, rel_path=None, compiler=compiler, is_release_or_debug=is_release_or_debug, adx_options_list=compiler_argv)
+
+        if is_debug:
+            print( "Compiling in: %s." % str( cwd_app ) )
+            print( "Compiling with: %s." % str( compile_app_cmd_lst ) )
+
+        if not is_dry_run:
+            # os.chdir(cwd_app)
+            result = RS.run_process( compile_app_cmd_lst, cwd=cwd_app )
+            print( result )
+
+            remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
+
+        # if is_debug:
+        #     print( "" )
+        #     print( "Returning back into: %s." % str( old_cwd ) )
+
+        # if not is_dry_run:
+        #     os.chdir(old_cwd)
+
+    if is_build or is_run_app:
+        ls_cmd_lst = BE.get_ls_cmd()
 
         if is_debug:
             print( "" )
-            print( "Returning back into: %s." % str( old_cwd ) )
+            print( "Running: %s." % str( ls_cmd_lst ) )
 
         if not is_dry_run:
-            os.chdir(old_cwd)
+            print( "" )
+            result = RS.run_process( ls_cmd_lst, cwd=cmd_cwd )
+            print( result )
 
-    if is_run_build:
+    if is_run_app:
+        run_cmd_lst = BE.get_run_exe_file_cmd(PROJECT_ROOT_PATH, options_list=compiler_argv)
+
         if is_debug:
-            if not is_dry_run:
-                print( "" )
-                result = RS.run_process( ls_cmd_lst )
-                print( result )
-
             print( "" )
             print( "Running: %s." % str( run_cmd_lst ) )
 
         if not is_dry_run:
-            result = RS.run_process( run_cmd_lst )
+            result = RS.run_process( run_cmd_lst, cwd=cmd_cwd )
             print( result )
 
 

@@ -26,5 +26,4 @@ book/gfx/test/
 *NEW*
 .vscode
 *synctex*
-debug/
-release/
+build/

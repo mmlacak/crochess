@@ -8,17 +8,23 @@
 import os.path
 
 
-def get_combed_path(path):
+def get_abs_combed_path(path):
     path = os.path.abspath( path )
-    path = os.path.normpath( path )
     path = os.path.normcase( path )
+    path = os.path.normpath( path )
+
+    return path
+
+def get_combed_path(path):
+    path = os.path.normcase( path )
+    path = os.path.normpath( path )
 
     return path
 
 def get_project_root_path(main_script_path):
     path = os.path.join(os.getcwd(), main_script_path)
     path = os.path.dirname( path )
-    path = get_combed_path( path )
+    path = get_abs_combed_path( path )
 
     return path
 

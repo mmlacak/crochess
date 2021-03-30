@@ -8,14 +8,18 @@
 import subprocess
 
 
-def any_item_in_list(items, lst):
-    return any( [ (i in lst) for i in items ] )
+def any_item_in(items, lst_or_str):
+    return any( [ (i in lst_or_str) for i in items ] )
 
-def run_process(cmd_args_list):
+def run_process(cmd_args_list, cwd=None):
     output_str = ""
 
     try:
-        output_str = subprocess.check_output(cmd_args_list)
+        # if cwd is not None:
+        #     output_str = subprocess.check_output(cmd_args_list, cwd=cwd)
+        # else:
+        #     output_str = subprocess.check_output(cmd_args_list)
+        output_str = subprocess.check_output(cmd_args_list, cwd=cwd)
     except subprocess.CalledProcessError:
         pass
 

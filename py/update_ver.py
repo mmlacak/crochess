@@ -91,11 +91,11 @@ def get_full_readme_path(root_path, readme_name=README_FILE_NAME):
     return path
 
 def get_app_source_file_path(root_path, file_name):
-    path = os.path.join(BE.get_app_source_dir(root_path), file_name)
+    path = os.path.join(BE.get_app_src_dir(root_path), file_name)
     return path
 
 def get_lib_source_file_path(root_path, file_name):
-    path = os.path.join(BE.get_lib_source_dir(root_path), file_name)
+    path = os.path.join(BE.get_lib_src_dir(root_path), file_name)
     return path
 
 def change_book_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
@@ -127,30 +127,12 @@ def change_readme_line_if_marked(line, git_version, book_version, book_short, is
 
     return new
 
-def change_config_app_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
-    new = line
-
-    if is_major or is_minor or is_patch:
-        if 'config-new-app-version-major-minor-patch+build-place-marker' in line:
-            new = 'version = "%s" # config-new-app-version-major-minor-patch+build-place-marker\n' % git_version
-
-    return new
-
-def change_config_lib_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
-    new = line
-
-    if is_major or is_minor or is_patch:
-        if 'config-new-lib-version-major-minor-patch+build-place-marker' in line:
-            new = 'version = "%s" # config-new-lib-version-major-minor-patch+build-place-marker\n' % git_version
-
-    return new
-
 def change_source_app_line_if_marked(line, git_version, book_version, book_short, is_book, is_major, is_minor, is_patch):
     new = line
 
     if is_major or is_minor or is_patch:
-        if 'source-new-app-version-major-minor-patch+build-place-marker' in line:
-            new = 'pub const VERSION: &str = "%s"; /* source-new-app-version-major-minor-patch+build-place-marker */\n' % git_version
+        if 'source-new-app-version-major-minor-patch-commit+build-place-marker' in line:
+            new = 'public immutable APP_VERSION = "%s"; // source-new-app-version-major-minor-patch-commit+build-place-marker\n' % git_version
 
     return new
 
@@ -158,8 +140,8 @@ def change_source_lib_line_if_marked(line, git_version, book_version, book_short
     new = line
 
     if is_major or is_minor or is_patch:
-        if 'source-new-lib-version-major-minor-patch+build-place-marker' in line:
-            new = 'pub const VERSION: &str = "%s"; /* source-new-lib-version-major-minor-patch+build-place-marker */\n' % git_version
+        if 'source-new-lib-version-major-minor-patch-commit+build-place-marker' in line:
+            new = 'public immutable APP_VERSION = "%s"; // source-new-lib-version-major-minor-patch-commit+build-place-marker\n' % git_version
 
     return new
 

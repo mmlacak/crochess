@@ -19,15 +19,15 @@ PROJECT_ROOT_PATH = P.get_project_root_path( sys.argv[ 0 ] )
 def main():
     pre_git_argv, git_commit_argv, git_push_argv = RG.split_cmd_git_args(sys.argv)
 
-    is_dry_run = True if RS.any_item_in_list( ['-n', '--dry-run'], pre_git_argv) else False
-    is_verbose = True if is_dry_run or RS.any_item_in_list( ['-v', '--verbose'], pre_git_argv) else False
-    is_debug = True if is_dry_run or RS.any_item_in_list( ['-d', '--debug'], pre_git_argv) else False
+    is_dry_run = True if RS.any_item_in( ['-n', '--dry-run'], pre_git_argv) else False
+    is_verbose = True if is_dry_run or RS.any_item_in( ['-v', '--verbose'], pre_git_argv) else False
+    is_debug = True if is_dry_run or RS.any_item_in( ['-d', '--debug'], pre_git_argv) else False
 
-    is_book = True if RS.any_item_in_list( ['-b', '--book'], pre_git_argv) else False
+    is_book = True if RS.any_item_in( ['-b', '--book'], pre_git_argv) else False
 
-    is_major = True if RS.any_item_in_list( ['-M', '--major'], pre_git_argv) else False
-    is_minor = True if not is_major and RS.any_item_in_list( ['-m', '--minor'], pre_git_argv) else False
-    is_patch = True if not (is_major or is_minor) and RS.any_item_in_list( ['-p', '--patch'], pre_git_argv) else False
+    is_major = True if RS.any_item_in( ['-M', '--major'], pre_git_argv) else False
+    is_minor = True if not is_major and RS.any_item_in( ['-m', '--minor'], pre_git_argv) else False
+    is_patch = True if not (is_major or is_minor) and RS.any_item_in( ['-p', '--patch'], pre_git_argv) else False
 
     auto_updated_files = []
 
