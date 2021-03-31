@@ -27,26 +27,27 @@ def main():
 
     is_major = True if RS.any_item_in( ['-M', '--major'], pre_git_argv) else False
     is_minor = True if not is_major and RS.any_item_in( ['-m', '--minor'], pre_git_argv) else False
-    is_patch = True if not (is_major or is_minor) and RS.any_item_in( ['-p', '--patch'], pre_git_argv) else False
+    is_feature = True if not (is_major or is_minor) and RS.any_item_in( ['-f', '--feature'], pre_git_argv) else False
+    is_commit = True if not (is_major or is_minor or is_feature) and RS.any_item_in( ['-c', '--commit'], pre_git_argv) else False
+    is_source = is_major or is_minor or is_feature or is_commit
+
+    breaks = RS.capture_option( ['-B=', '--breaks='], pre_git_argv )
 
     auto_updated_files = []
 
-    if not (is_book or is_major or is_minor or is_patch):
-        # raise RuntimeError("Specify at least one of --book, --major, --minor, --patch.")
-        print( "Specify at least one of --book, --major, --minor, --patch to update version(s)." )
+    if not (is_book or is_source):
+        # raise RuntimeError("Specify at least one of --book, --major, --minor, --feature or --commit.")
+        print( "Specify at least one of --book, --major, --minor, --feature or --commit to update version(s)." )
 
     if is_verbose:
         print( "" )
         print( "Project root folder: '%s'." % PROJECT_ROOT_PATH )
 
-        now_version, now_short = UV.get_current_times()
-        print( "New version: %s." % now_version )
+        lib_ver = UV.get_current_lib_versions( PROJECT_ROOT_PATH, decompose_version=False )
+        print( "Library version: %s." % str(lib_ver) )
 
-        major, minor, patch, prerelease, build = UV.get_current_lib_versions( PROJECT_ROOT_PATH )
-        if prerelease is None:
-            print( "Library version: %s.%s.%s+%s." % (major, minor, patch, build) )
-        else:
-            print( "Library version: %s.%s.%s-%s+%s." % (major, minor, patch, prerelease, build) )
+        now_version, now_short = UV.get_current_times()
+        print( "New version meta: %s." % now_version )
 
     if is_debug:
         print( "" )
@@ -54,14 +55,14 @@ def main():
         print( "git commit args: %s." % str( git_commit_argv ) )
         print( "git push args: %s." % str( git_push_argv ) )
 
-    if is_book or is_major or is_minor or is_patch:
+    if is_book or is_source:
         print( "" )
 
         if is_debug:
-            print( "Updating versions of book: %s, major: %s, minor: %s, patch: %s." % (str(is_book), str(is_major), str(is_minor), str(is_patch)) )
+            print( "Updating versions of book: %s, major: %s, minor: %s, feature: %s, commit: %s." % (str(is_book), str(is_major), str(is_minor), str(is_feature), str(is_commit)) )
 
         if not is_dry_run:
-            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_patch )
+            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_source, breaks )
 
     if git_commit_argv:
         print( "" )
