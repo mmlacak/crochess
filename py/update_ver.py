@@ -65,9 +65,11 @@ REG_EXP_COMPLETE_VERSION_STRING = re.compile( r'''\"(?P<version>.*)\"''' ) # "\"
 #
 # ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^~\+\s]*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$ # greedy, dont-match-separators-of-following-groups
 #
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$ # <-- this
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$ # sem-ver-prerelease, greedy, dont-match-separators-of-following-groups
+#
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$ <-- this, full-breakage-with-tildas
 
-REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$""" )
+REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$""" )
 
 
 def get_current_times():
@@ -263,6 +265,7 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_c
                         2 if is_feature else \
                         1
                 breaks = '~' * count + breaks
+
             # old breaks section is not copied
             git_version += "%s" % breaks
 
