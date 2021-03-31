@@ -57,17 +57,17 @@ REG_EXP_COMPLETE_VERSION_STRING = re.compile( r'''\"(?P<version>.*)\"''' ) # "\"
 # Possible change, extended versioning + relaxed syntax + breakage info.
 # Cargo expects SemVer 2.0 in TOML though, so would need to work around it, or ignore version info there.
 #
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>.*?))?(?:\+(?P<meta>.*?))?(?:\~(?P<breaks>.*?))?$ # non-greedy, match-all
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>.*?))?(?:\+(?P<meta>.*?))?(?:(?:\~+)(?P<breaks>.*?))?$ # non-greedy, match-all
 #
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^-~\+\s]*?))?(?:\+(?P<meta>[^-~\+\s]*?))?(?:\~(?P<breaks>[^-~\+\s]*?))?$ # non-greedy, dont-match-separators
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^-~\+\s]*?))?(?:\+(?P<meta>[^-~\+\s]*?))?(?:(?:\~+)(?P<breaks>[^-~\+\s]*?))?$ # non-greedy, dont-match-separators
 #
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^-~\+\s]*))?(?:\+(?P<meta>[^-~\+\s]*))?(?:\~(?P<breaks>[^-~\+\s]*))?$ # greedy, dont-match-separators
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^-~\+\s]*))?(?:\+(?P<meta>[^-~\+\s]*))?(?:(?:\~+)(?P<breaks>[^-~\+\s]*))?$ # greedy, dont-match-separators
 #
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^~\+\s]*))?(?:\+(?P<meta>[^~\s]*))?(?:\~(?P<breaks>[^\s]*))?$ # greedy, dont-match-separators-of-following-groups
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^~\+\s]*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$ # greedy, dont-match-separators-of-following-groups
 #
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:\~(?P<breaks>[^\s]*))?$ # <-- this
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$ # <-- this
 
-REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:\~(?P<breaks>[^\s]*))?$""" )
+REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$""" )
 
 
 def get_current_times():
@@ -191,7 +191,7 @@ def replace_book_entries(git_version, book_version, book_short, root_path, is_bo
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_source, change_book_line_if_marked)
 
-def replace_readme_entries(git_version, book_version, book_short, root_path, is_book, is_major, is_minor, is_feature):
+def replace_readme_entries(git_version, book_version, book_short, root_path, is_book, is_source):
 
     orig_path = get_full_readme_path(root_path)
     ignore_path = get_full_readme_path(root_path, readme_name=README_IGNORE_FILE_NAME)
@@ -257,13 +257,19 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_c
         git_version += "+%s" % book_version
 
         if breaks is not None:
+            if not breaks.startswith('~'):
+                count = 4 if is_major else \
+                        3 if is_minor else \
+                        2 if is_feature else \
+                        1
+                breaks = '~' * count + breaks
             # old breaks section is not copied
-            git_version += "~%s" % breaks
+            git_version += "%s" % breaks
 
         append_if_not_empty( replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_source) )
         append_if_not_empty( replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_source) )
 
-    if is_book or is_major or is_minor or is_feature:
+    if is_book or is_source:
         append_if_not_empty( replace_readme_entries(git_version, book_version, book_short, root_path, is_book, is_source) )
 
     return auto_updated_files
