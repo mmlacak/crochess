@@ -212,7 +212,8 @@ def replace_lib_source_entries(git_version, book_version, book_short, root_path,
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_source, change_source_lib_line_if_marked)
 
-def replace_all_entries(root_path, is_book, is_source, breaks):
+def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_commit, breaks):
+    is_source = is_major or is_minor or is_feature or is_commit
     assert is_book or is_source
 
     auto_updated_files = []
@@ -229,35 +230,35 @@ def replace_all_entries(root_path, is_book, is_source, breaks):
 
     if is_source:
         major, minor, feature, commit, prerelease, old_meta, old_breaks = get_current_lib_versions( root_path, decompose_version=True )
+        assert major is not None and minor is not None and feature is not None and commit is not None
 
-        if major is not None and minor is not None and feature is not None:
-            if is_major:
-                major += 1
-                minor = 0
-                feature = 0
-                commit = 0
-            elif is_minor:
-                minor += 1
-                feature = 0
-                commit = 0
-            elif is_feature:
-                feature += 1
-                commit = 0
-            elif is_commit:
-                commit += 1
+        if is_major:
+            major += 1
+            minor = 0
+            feature = 0
+            commit = 0
+        elif is_minor:
+            minor += 1
+            feature = 0
+            commit = 0
+        elif is_feature:
+            feature += 1
+            commit = 0
+        elif is_commit:
+            commit += 1
 
-            git_version = "%s.%s.%s.%s" % ( str(major), str(minor), str(feature), str(commit) )
+        git_version = "%s.%s.%s.%s" % ( str(major), str(minor), str(feature), str(commit) )
 
-            if prerelease is not None:
-                # prerelease is copied
-                git_version += "-%s" % prerelease
+        if prerelease is not None:
+            # prerelease is copied
+            git_version += "-%s" % prerelease
 
-            # old meta is not copied, by default it is date.time
-            git_version += "+%s" % book_version
+        # old meta is not copied, by default it is date.time
+        git_version += "+%s" % book_version
 
-            if breaks is not None:
-                # old breaks section is not copied
-                git_version += "~%s" % breaks
+        if breaks is not None:
+            # old breaks section is not copied
+            git_version += "~%s" % breaks
 
         append_if_not_empty( replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_source) )
         append_if_not_empty( replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_source) )
