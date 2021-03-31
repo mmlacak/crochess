@@ -11,65 +11,30 @@ import py.paths as P
 
 
 #
-# ### $ echo $LD_LIBRARY_PATH
-# ### /usr/lib64/:.:./lib:../lib:..
+# $ export LD_LIBRARY_PATH=.:./lib:../lib:..:../../build:ws/build:~/src/crochess/ws/build
 #
-# $ export LD_LIBRARY_PATH=.:./lib:../lib:..
-#
-# $ export LD_LIBRARY_PATH=.:./lib:../lib:..:../../build
-#
-# $ export LD_LIBRARY_PATH=.:./lib:../lib:..:../../build:ws/build
+# $ export PATH=${PATH}:~/src/crochess/ws/build
 #
 #  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 #
-# # Run in ./ws/libcrochess/src.
-# $ gdc --shared -fPIC -defaultlib=phobos2 libcrochess.d -o ../../build/libcrochess.so
+# $ gdc --shared -fPIC -defaultlib=phobos2 libcrochess.d -o ../../build/libcrochess.so # in ./ws/libcrochess/src
 #
-# # Run in ./ws/crochess/src.
-# $ gdc -I../../libcrochess/src -Wl,-L../../build -Wl,-lcrochess  crochess.d -o ../../build/crochess
+# $ gdc -I../../libcrochess/src -Wl,-L../../build -Wl,-lcrochess  crochess.d -o ../../build/crochess # in ./ws/crochess/src
 #
 #  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 #
-# # Run in ./ws/libcrochess/src.
-# $ dmd -shared -fPIC -defaultlib=phobos2 libcrochess.d -of=../../build/libcrochess.so
+# $ dmd -shared -fPIC -defaultlib=phobos2 libcrochess.d -of=../../build/libcrochess.so # in ./ws/libcrochess/src
 #
-# # Run in ./ws/crochess/src.
-# $ dmd -I../../libcrochess/src -L-L../../build -L-lcrochess  crochess.d -of=../../build/crochess
+# $ dmd -I../../libcrochess/src -L-L../../build -L-lcrochess  crochess.d -of=../../build/crochess # in ./ws/crochess/src
 #
 #  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 #
-# # Run in ./ws/libcrochess/src.
-# $ ldc2 -shared -relocation-model=pic -defaultlib=phobos2-ldc libcrochess.d -of=../../build/libcrochess.so
+# $ ldc2 -shared -relocation-model=pic -defaultlib=phobos2-ldc libcrochess.d -of=../../build/libcrochess.so # in ./ws/libcrochess/src
 #
-# # Run in ./ws/crochess/src.
-# $ ldc2 -I../../libcrochess/src -L-L../../build -L-lcrochess  crochess.d -of=../../build/crochess
+# $ ldc2 -I../../libcrochess/src -L-L../../build -L-lcrochess  crochess.d -of=../../build/crochess # in ./ws/crochess/src
 #
 #  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 #
-
-
-
-#
-#  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-#
-# $ gdc -shared -fPIC -L. -defaultlib=phobos2 lib.d -o libarr.so
-#
-# $ gdc -L. -larr  array.d -o arr
-#
-#  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-#
-# $ dmd -shared -fPIC -L-L. -defaultlib=phobos2 lib.d -of=libarr.so
-#
-# $ dmd -defaultlib=phobos2 -L-L. -L-larr  array.d -of=arr
-#
-#  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-#
-# $ ldc2 -shared --relocation-model=pic -L-L. -defaultlib=phobos2-ldc lib.d -of=libarr.so
-# ### $ ldc2 -shared --relocation-model=pic -L-L.  lib.d -of=libarr.so
-#
-# $ ldc2 -L-L. -L-larr  array.d -of=arr
-#
-
 
 
 COMPILER_GDC = 'gdc'
