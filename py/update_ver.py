@@ -255,7 +255,7 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_c
             # prerelease is copied
             git_version += "-%s" % prerelease
 
-        # old meta is not copied, by default it is date.time
+        # old meta is not copied, by default it is current date.time
         git_version += "+%s" % book_version
 
         if breaks is not None:

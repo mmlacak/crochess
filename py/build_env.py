@@ -150,7 +150,7 @@ def get_source_path_list(cwd_cmd, src_dir):
     return new_lst
 
 
-def get_compile_app_cmd(root_path, rel_path=None, compiler=DEFAULT_COMPILER, is_release_or_debug=False, adx_options_list=None):
+def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, adx_options_list=None):
     cmd_lst = [compiler, ]
 
     cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug)
@@ -160,7 +160,7 @@ def get_compile_app_cmd(root_path, rel_path=None, compiler=DEFAULT_COMPILER, is_
     if adx_options_list is not None:
         cmd_lst += adx_options_list
 
-    cwd_app = rel_path or get_app_src_dir(root_path)
+    cwd_app = get_app_src_dir(root_path)
     src_dir = P.get_rel_path_or_abs(get_app_src_dir(root_path), cwd_app) # get_app_src_dir(root_path)
     cmd_lst += get_source_path_list(cwd_app, src_dir)
 
@@ -168,7 +168,7 @@ def get_compile_app_cmd(root_path, rel_path=None, compiler=DEFAULT_COMPILER, is_
 
     return cwd_app, cmd_lst
 
-def get_compile_lib_cmd(root_path, rel_path=None, compiler=DEFAULT_COMPILER, is_release_or_debug=False, adx_options_list=None):
+def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, adx_options_list=None):
     cmd_lst = [compiler, ]
 
     cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug)
@@ -178,7 +178,7 @@ def get_compile_lib_cmd(root_path, rel_path=None, compiler=DEFAULT_COMPILER, is_
     if adx_options_list is not None:
         cmd_lst += adx_options_list
 
-    cwd_lib = rel_path or get_lib_src_dir(root_path)
+    cwd_lib = get_lib_src_dir(root_path)
     src_dir = P.get_rel_path_or_abs(get_lib_src_dir(root_path), cwd_lib) # get_lib_src_dir(root_path)
     cmd_lst += get_source_path_list(cwd_lib, src_dir)
 

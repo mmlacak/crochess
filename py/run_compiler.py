@@ -49,4 +49,4 @@ def split_cmd_compiler_args(argv):
     #     # not empty argv, or explicitly to call with no args
     #     linker_argv = ['git', 'push'] + linker_argv
 
-    return (script_argv, compiler_argv, linker_argv, executable_args)
+    return (script_argv, compiler_argv, linker_argv, executable_argv)

@@ -31,13 +31,13 @@ def remove_build_files(root_path, all_files_or_obj_only=False):
 
 
 def main():
-    script_argv, compiler_argv, linker_argv, executable_argv = RC.split_cmd_compiler_args(sys.argv)
+    script_argv, compile_lib_argv, compile_app_argv, executable_argv = RC.split_cmd_compiler_args(sys.argv)
 
     is_dry_run = True if RS.any_item_in( ['-n', '--dry-run'], script_argv) else False
     is_verbose = True if is_dry_run or RS.any_item_in( ['-v', '--verbose'], script_argv) else False
     is_debug = True if is_dry_run or RS.any_item_in( ['-d', '--debug'], script_argv) else False
 
-    is_debug_build = True if RS.any_item_in( ['-D', '--debug'], script_argv) else False
+    is_debug_build = True if RS.any_item_in( ['-D', '--debug-build'], script_argv) else False
     is_release_build = True if not is_debug_build and RS.any_item_in( ['-R', '--release'], script_argv) else False
     is_build = is_release_build or is_debug_build
     is_release_or_debug = is_release_build and not is_debug_build
@@ -61,8 +61,8 @@ def main():
         print( "" )
         print( "Compiler: %s." % str( compiler ) )
         print( "Script args: %s." % str( script_argv ) )
-        print( "compiler args: %s." % str( compiler_argv ) )
-        print( "linker args: %s." % str( linker_argv ) )
+        print( "Compile library args: %s." % str( compile_lib_argv ) )
+        print( "Compile app args: %s." % str( compile_app_argv ) )
         print( "executable args: %s." % str( executable_argv ) )
 
     old_cwd = os.getcwd()
@@ -77,7 +77,7 @@ def main():
         if not is_dry_run:
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=True)
 
-        cwd_lib, compile_lib_cmd_lst = BE.get_compile_lib_cmd(PROJECT_ROOT_PATH, rel_path=None, compiler=compiler, is_release_or_debug=is_release_or_debug, adx_options_list=compiler_argv)
+        cwd_lib, compile_lib_cmd_lst = BE.get_compile_lib_cmd(PROJECT_ROOT_PATH, compiler=compiler, is_release_or_debug=is_release_or_debug, adx_options_list=compile_lib_argv)
 
         if is_debug:
             print( "Compiling in: %s." % str( cwd_lib ) )
@@ -90,25 +90,17 @@ def main():
 
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
 
-        cwd_app, compile_app_cmd_lst = BE.get_compile_app_cmd(PROJECT_ROOT_PATH, rel_path=None, compiler=compiler, is_release_or_debug=is_release_or_debug, adx_options_list=compiler_argv)
+        cwd_app, compile_app_cmd_lst = BE.get_compile_app_cmd(PROJECT_ROOT_PATH, compiler=compiler, is_release_or_debug=is_release_or_debug, adx_options_list=compile_app_argv)
 
         if is_debug:
             print( "Compiling in: %s." % str( cwd_app ) )
             print( "Compiling with: %s." % str( compile_app_cmd_lst ) )
 
         if not is_dry_run:
-            # os.chdir(cwd_app)
             result = RS.run_process( compile_app_cmd_lst, cwd=cwd_app )
             print( result )
 
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
-
-        # if is_debug:
-        #     print( "" )
-        #     print( "Returning back into: %s." % str( old_cwd ) )
-
-        # if not is_dry_run:
-        #     os.chdir(old_cwd)
 
     if is_build or is_run_app:
         ls_cmd_lst = BE.get_ls_cmd()
@@ -123,7 +115,7 @@ def main():
             print( result )
 
     if is_run_app:
-        run_cmd_lst = BE.get_run_exe_file_cmd(PROJECT_ROOT_PATH, options_list=compiler_argv)
+        run_cmd_lst = BE.get_run_exe_file_cmd(PROJECT_ROOT_PATH, options_list=executable_argv)
 
         if is_debug:
             print( "" )
