@@ -47,26 +47,8 @@ SOURCE_LIB_MAIN_IGNORE_FILE = 'libcrochess.IGNORE.d'
 # \"(?P<version>.*)\"
 REG_EXP_COMPLETE_VERSION_STRING = re.compile( r'''\"(?P<version>.*)\"''' ) # "\"(?P<version>.*)\"" ) # r"""\"(?P<version>.*)\"""" )
 
-
 #
-# https://regex101.com/r/Ly7O1x/3/
-# "^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"gm
-
-# REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^version = \"(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?\"""" )
-
-# Possible change, extended versioning + relaxed syntax + breakage info.
-# Cargo expects SemVer 2.0 in TOML though, so would need to work around it, or ignore version info there.
-#
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>.*?))?(?:\+(?P<meta>.*?))?(?:(?:\~+)(?P<breaks>.*?))?$ # non-greedy, match-all
-#
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^-~\+\s]*?))?(?:\+(?P<meta>[^-~\+\s]*?))?(?:(?:\~+)(?P<breaks>[^-~\+\s]*?))?$ # non-greedy, dont-match-separators
-#
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^-~\+\s]*))?(?:\+(?P<meta>[^-~\+\s]*))?(?:(?:\~+)(?P<breaks>[^-~\+\s]*))?$ # greedy, dont-match-separators
-#
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>[^~\+\s]*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$ # greedy, dont-match-separators-of-following-groups
-#
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?:\~+)(?P<breaks>[^\s]*))?$ # sem-ver-prerelease, greedy, dont-match-separators-of-following-groups
-#
+# https://regex101.com/r/FU3R6P/2
 # ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$ <-- this, full-breakage-with-tildas
 
 REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$""" )
