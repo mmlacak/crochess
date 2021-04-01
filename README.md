@@ -30,13 +30,17 @@ The latest versions are:
 Application: 0.0.0.1+20210331.183941 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
 Library: 0.0.0.1+20210331.183941 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
 
+Versioning used is [Natural Versioning 1.0](https://croatian-chess.blogspot.com/p/natver.html),
+with meta data containing date and time of the last commit,
+converted to UTC for easier comparison with the book version.
+
 ## Getting Started
 
 If you just want to read the book, grab [crochess.pdf](crochess.pdf)
 file available in the project root. Alternatively, if you
 want updated version with the latest changes, fixes, you
 can download it from:
-[http://croatian-chess.blogspot.com/p/preview.html](http://croatian-chess.blogspot.com/p/preview.html).
+[Croatian Chess Blog](http://croatian-chess.blogspot.com/p/preview.html).
 
 This version is compiled with normal sized images, so it
 takes almost 20 MB. Updated versions will be compiled with
@@ -120,7 +124,7 @@ This project is licensed under the BSD 3-clause, modified license,
 see the [LICENSE](LICENSE) file for details.
 
 The book is published as Public Domain work, see
-[https://en.wikipedia.org/wiki/Public_domain](https://en.wikipedia.org/wiki/Public_domain)
+[Wikipedia on public domain](https://en.wikipedia.org/wiki/Public_domain)
 for details.
 
 ## Acknowledgments
