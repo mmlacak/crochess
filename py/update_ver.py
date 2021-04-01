@@ -48,10 +48,11 @@ SOURCE_LIB_MAIN_IGNORE_FILE = 'libcrochess.IGNORE.d'
 REG_EXP_COMPLETE_VERSION_STRING = re.compile( r'''\"(?P<version>.*)\"''' ) # "\"(?P<version>.*)\"" ) # r"""\"(?P<version>.*)\"""" )
 
 #
-# https://regex101.com/r/FU3R6P/2
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$ <-- this, full-breakage-with-tildas
+# https://regex101.com/r/lqmlXE/1
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$
+#
 
-REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<feature>0|[1-9]\d*)\.(?P<commit>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$""" )
+REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$""" )
 
 
 def get_current_times():
@@ -78,7 +79,10 @@ def get_current_lib_versions(root_path, decompose_version=True):
                         mo = REG_EXP_VERSION_DECONSTRUCTED.match(version)
                         if mo is not None:
                             major, minor, feature, commit, prerelease, meta, breaks = mo.groups()
-                            return (int(major), int(minor), int(feature), int(commit), \
+                            return (int(major), \
+                                    int(minor), \
+                                    int(feature) if feature is not None else None, \
+                                    int(commit) if commit is not None else None, \
                                     str(prerelease) if prerelease is not None else None, \
                                     str(meta) if meta is not None else None, \
                                     str(breaks) if breaks is not None else None)
@@ -214,24 +218,49 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_c
 
     if is_source:
         major, minor, feature, commit, prerelease, old_meta, old_breaks = get_current_lib_versions( root_path, decompose_version=True )
-        assert major is not None and minor is not None and feature is not None and commit is not None
+        assert major is not None and minor is not None
 
         if is_major:
             major += 1
             minor = 0
-            feature = 0
-            commit = 0
+
+            if feature is not None:
+                feature = 0
+
+                if commit is not None:
+                    commit = 0
         elif is_minor:
             minor += 1
-            feature = 0
-            commit = 0
-        elif is_feature:
-            feature += 1
-            commit = 0
-        elif is_commit:
-            commit += 1
 
-        git_version = "%s.%s.%s.%s" % ( str(major), str(minor), str(feature), str(commit) )
+            if feature is not None:
+                feature = 0
+
+                if commit is not None:
+                    commit = 0
+        elif is_feature:
+            if feature is not None:
+                feature += 1
+            else:
+                feature = 1
+
+            if commit is not None:
+                commit = 0
+        elif is_commit:
+            if feature is None:
+                feature = 0
+
+            if commit is not None:
+                commit += 1
+            else:
+                commit = 1
+
+        git_version = "%s.%s" % ( str(major), str(minor), )
+
+        if feature is not None:
+            git_version += ".%s" % str(feature)
+
+            if commit is not None:
+                git_version += ".%s" % str(commit)
 
         if prerelease is not None:
             # prerelease is copied
