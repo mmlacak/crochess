@@ -122,8 +122,12 @@ def main():
             print( "Running: %s." % str( run_cmd_lst ) )
 
         if not is_dry_run:
-            result = RS.run_process( run_cmd_lst, cwd=cmd_cwd )
-            print( result )
+            try:
+                result = RS.run_process( run_cmd_lst, cwd=cmd_cwd )
+                print( result )
+            except FileNotFoundError:
+                # FileNotFoundError: [Errno 2] No such file or directory: '/home/pero/src/crochess/ws/build/crochess'
+                print( "Executable '%s' not found." % run_cmd_lst[ 0 ] )
 
 
 if __name__ == '__main__':

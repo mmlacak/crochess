@@ -34,4 +34,8 @@ def run_process(cmd_args_list, cwd=None):
     except subprocess.CalledProcessError:
         pass
 
-    return str(output_str, encoding='utf-8', errors='replace')
+    try:
+        return str(output_str, encoding='utf-8', errors='replace')
+    except TypeError:
+        # TypeError: decoding str is not supported
+        return output_str
