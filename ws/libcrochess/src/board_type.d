@@ -37,7 +37,7 @@ export BoardType from_str( string code ) {
         case "o": return BoardType.One;
 
         default: return BoardType.One;
-    };
+    }
 }
 
 export string label( BoardType bt ) {
