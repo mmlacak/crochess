@@ -4,6 +4,7 @@
 
 import pt = piece_type;
 import bt = board_type;
+import ct = chip_type;
 
 
 export class Board {
@@ -12,6 +13,7 @@ export class Board {
 
     private immutable uint capacity = bt.size( bt.BoardType.One ); // 26
     private pt.PieceType[ capacity ][ capacity ] board;
+    private ct.ChipType[ capacity ][ capacity ] chips;
 
     // @disable this();
 
@@ -27,11 +29,10 @@ export class Board {
     }
 
     final clear( bool whole_board = true ) {
-        uint len = ( whole_board ) ? this.capacity : this.size;
-
-        for ( uint i = 0; i < len; ++i ) {
-            for ( uint j = 0; j < len; ++j ) {
+        for ( uint i = 0; i < this.capacity; ++i ) {
+            for ( uint j = 0; j < this.capacity; ++j ) {
                 this.board[ i ][ j ] = pt.PieceType.None;
+                this.chips[ i ][ j ] = ct.ChipType.None;
             }
         }
     }
@@ -42,6 +43,10 @@ export class Board {
 
     final pt.PieceType[ this.capacity ][ this.capacity ] getBoard() const {
         return this.board;
+    }
+
+    final ct.ChipType[ this.capacity ][ this.capacity ] getBoard() const {
+        return this.chips;
     }
 
     final bool isFieldLight( int i, int j ) const {
@@ -64,22 +69,34 @@ export class Board {
         return pt.PieceType.None;
     }
 
-    final setPiece( int i, int j, pt.PieceType piece ) {
+    final ct.ChipType getChip( int i, int j ) const {
+        if ( this.isValid( i, j ) ) {
+            return this.chips[ i ][ j ];
+        }
+
+        return ct.ChipType.None;
+    }
+
+    final setPiece( int i, int j, pt.PieceType piece, ct.ChipType chip = ct.ChipType.None ) {
         if ( this.isValid( i, j ) ) {
             this.board[ i ][ j ] = piece;
+            this.chips[ i ][ j ] = chip;
         }
     }
 
-    final bool copyBoard( const pt.PieceType[][] board ) {
+    final bool copyFrom( const pt.PieceType[][] board, const ct.ChipType[][] chips = null ) {
         if ( board.length != this.size ) return false;
+        if ( chips !is null && chips.length != this.size ) return false;
 
         for ( uint i = 0; i < board.length; ++i ) {
             if ( board[ i ].length != this.size ) return false;
+            if ( chips !is null && ( chips[ i ].length != this.size ) ) return false;
         }
 
         for ( uint i = 0; i < this.size; ++i ) {
             for ( uint j = 0; j < this.size; ++j ) {
                 this.board[ i ][ j ] = board[ i ][ j ];
+                this.chips[ i ][ j ] = ( chips !is null ) ? chips[ i ][ j ] : ct.ChipType.None;
             }
         }
 

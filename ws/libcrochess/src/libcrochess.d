@@ -2,13 +2,14 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 
-export immutable LIB_VERSION = "0.0.2.0+20210403.032010"; // source-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker
+export immutable LIB_VERSION = "0.0.2.1+20210403.040604"; // source-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 import io = std.stdio;
 
 import pt = piece_type;
 import bt = board_type;
+import ct = chip_type;
 import b = board;
 
 
@@ -26,9 +27,9 @@ export void test_lib() {
     io.writefln("Board type: %s, size: %d.", bts1, bts);
 
     b.Board board1 = new b.Board( bt1 );
-    io.writefln("Board[3][2] piece: %d.", board1.getPiece(3, 2));
-    board1.setPiece(3, 2, pt.PieceType.LightUnicorn);
-    io.writefln("Board[3][2] piece: %d.", board1.getPiece(3, 2));
+    io.writefln("Board[3][2] piece: %d, chip: %d.", board1.getPiece(3, 2), board1.getChip(3, 2));
+    board1.setPiece(3, 2, pt.PieceType.LightUnicorn, ct.ChipType.CanCastle);
+    io.writefln("Board[3][2] piece: %d, chip: %d.", board1.getPiece(3, 2), board1.getChip(3, 2));
 
     io.writeln("Bye, library world!");
 }
