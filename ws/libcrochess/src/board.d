@@ -25,7 +25,7 @@ export final class Board {
         this.boardType = boardType;
         this.size = bt.size( this.boardType );
 
-        clear();
+        this.clear();
     }
 
     void clear() {
@@ -33,6 +33,57 @@ export final class Board {
             for ( uint j = 0; j < Board.CAPACITY; ++j ) {
                 this.board[ i ][ j ] = pt.PieceType.None;
                 this.chips[ i ][ j ] = ct.ChipType.None;
+            }
+        }
+    }
+
+    void setup() {
+        this.clear();
+
+        final switch ( this.boardType ) {
+            case bt.BoardType.ClassicalChess: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_CLASSICAL_CHESS, cast(ct.ChipType[][])Board.CHIPS_CLASSICAL_CHESS );
+                break;
+            }
+            case bt.BoardType.CroatianTies: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_CROATIAN_TIES_BOARD, cast(ct.ChipType[][])Board.CHIPS_CROTIAN_TIES );
+                break;
+            }
+            case bt.BoardType.MayanAscendancy: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_MAYAN_ASCENDANCY, cast(ct.ChipType[][])Board.CHIPS_MAYAN_ASCENDANCY );
+                break;
+            }
+            case bt.BoardType.AgeOfAquarius: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_AGE_OF_AQUARIUS, cast(ct.ChipType[][])Board.CHIPS_AGE_OF_AQUARIUS );
+                break;
+            }
+            case bt.BoardType.MirandasVeil: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_MIRANDAS_VEIL, cast(ct.ChipType[][])Board.CHIPS_MIRANDAS_VEIL );
+                break;
+            }
+            case bt.BoardType.Nineteen: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_NINETEEN, cast(ct.ChipType[][])Board.CHIPS_NINETEEN );
+                break;
+            }
+            case bt.BoardType.HemerasDawn: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_HEMERAS_DAWN, cast(ct.ChipType[][])Board.CHIPS_HEMERAS_DAWN );
+                break;
+            }
+            case bt.BoardType.TamoanchanRevisited: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_TAMOANCHAN_REVISITED, cast(ct.ChipType[][])Board.CHIPS_TAMOANCHAN_REVISITED );
+                break;
+            }
+            case bt.BoardType.ConquestOfTlalocan: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_CONQUEST_OF_TLALOCAN, cast(ct.ChipType[][])Board.CHIPS_CONQUEST_OF_TLALOCAN );
+                break;
+            }
+            case bt.BoardType.Discovery: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_DISCOVERY, cast(ct.ChipType[][])Board.CHIPS_DISCOVERY );
+                break;
+            }
+            case bt.BoardType.One: {
+                this.copyFrom( cast(pt.PieceType[][])Board.SETUP_ONE, cast(ct.ChipType[][])Board.CHIPS_ONE );
+                break;
             }
         }
     }

@@ -265,13 +265,7 @@ export bool isPawn( PieceType pt ) {
 }
 
 export bool isFigure( PieceType pt ) {
-    if ( isPawn( pt ) ) return false;
-
-    if ( isDark( pt ) ) return true;
-
-    if ( isLight( pt ) ) return true;
-
-    return false;
+    return ( !isPawn( pt ) );
 }
 
 export bool isNone( PieceType pt ) {
