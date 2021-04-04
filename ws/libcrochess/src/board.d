@@ -45,7 +45,7 @@ export final class Board {
         return this.board;
     }
 
-    ct.ChipType[ Board.CAPACITY ][ Board.CAPACITY ] getBoard() const {
+    ct.ChipType[ Board.CAPACITY ][ Board.CAPACITY ] getChips() const {
         return this.chips;
     }
 
@@ -381,5 +381,239 @@ export final class Board {
         [ P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P ],
         [ P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P ],
         [ T, R, N, B, S, I, C, U, G, W, A, H, Q, K, H, A, W, G, U, C, I, S, B, N, R, t ],
+    ];
+
+
+    private immutable static z = ct.ChipType.None;
+    private immutable static L = ct.ChipType.CanRush; // Pawns
+    private immutable static V = ct.ChipType.CanCastle; // Rooks, Kings
+    private immutable static O = ct.ChipType.TagForPromotion; // Pawn
+
+
+    private immutable static ct.ChipType[ SIZE_CLASSICAL_CHESS ][ SIZE_CLASSICAL_CHESS ] CHIPS_CLASSICAL_CHESS = [
+        [ V, z, z, z, V, z, z, V ],
+        [ L, L, L, L, L, L, L, L ],
+        [ z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z ],
+        [ L, L, L, L, L, L, L, L ],
+        [ V, z, z, z, V, z, z, V ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_CROTIAN_TIES ][ SIZE_CROTIAN_TIES ] CHIPS_CROTIAN_TIES = [
+        [ V, z, z, z, z, V, z, z, z, V ],
+        [ L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L ],
+        [ V, z, z, z, z, V, z, z, z, V ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_MAYAN_ASCENDANCY ][ SIZE_MAYAN_ASCENDANCY ] CHIPS_MAYAN_ASCENDANCY = [
+        [ V, z, z, z, z, z, V, z, z, z, z, V ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ V, z, z, z, z, z, V, z, z, z, z, V ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_AGE_OF_AQUARIUS ][ SIZE_AGE_OF_AQUARIUS ] CHIPS_AGE_OF_AQUARIUS = [
+        [ V, z, z, z, z, z, z, V, z, z, z, z, z, V ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ V, z, z, z, z, z, z, V, z, z, z, z, z, V ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_MIRANDAS_VEIL ][ SIZE_MIRANDAS_VEIL ] CHIPS_MIRANDAS_VEIL = [
+        [ V, z, z, z, z, z, z, z, V, z, z, z, z, z, z, V ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ V, z, z, z, z, z, z, z, V, z, z, z, z, z, z, V ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_NINETEEN ][ SIZE_NINETEEN ] CHIPS_NINETEEN = [
+        [ z, V, z, z, z, z, z, z, z, V, z, z, z, z, z, z, V, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, V, z, z, z, z, z, z, z, V, z, z, z, z, z, z, V, z ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_HEMERAS_DAWN ][ SIZE_HEMERAS_DAWN ] CHIPS_HEMERAS_DAWN = [
+        [ z, V, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, V, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, L, z, z, z, L, z, z, z, z, z, z, L, z, z, z, L, z, z ],
+        [ z, z, z, L, z, L, z, z, z, z, z, z, z, z, L, z, L, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, L, z, L, z, z, z, z, z, z, z, z, L, z, L, z, z, z ],
+        [ z, z, L, z, z, z, L, z, z, z, z, z, z, L, z, z, z, L, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, V, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, V, z ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_TAMOANCHAN_REVISITED ][ SIZE_TAMOANCHAN_REVISITED ] CHIPS_TAMOANCHAN_REVISITED = [
+        [ z, V, z, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, z, V, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, z, z, z, L, z, z, z, L, L, z, z, z, L, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, L, z, L, z, z, L, z, L, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, L, z, L, z, z, L, z, L, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, L, z, z, z, L, L, z, z, z, L, z, z, z, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, V, z, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, z, V, z ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_CONQUEST_OF_TLALOCAN ][ SIZE_CONQUEST_OF_TLALOCAN ] CHIPS_CONQUEST_OF_TLALOCAN = [
+        [ z, V, z, z, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, z, z, V, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, L, z, z, z, L, L, z, z, L, L, z, z, L, L, z, z, z, L, z, z, z ],
+        [ z, z, z, z, L, z, L, z, z, L, z, L, L, z, L, z, z, L, z, L, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, L, z, L, z, z, L, z, L, L, z, L, z, z, L, z, L, z, z, z, z ],
+        [ z, z, z, L, z, z, z, L, L, z, z, L, L, z, z, L, L, z, z, z, L, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, V, z, z, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, z, z, V, z ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_DISCOVERY ][ SIZE_DISCOVERY ] CHIPS_DISCOVERY = [
+        [ z, V, z, z, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, z, z, V, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, L, z, z, z, L, L, z, z, L, L, z, z, L, L, z, z, z, L, z, z, z ],
+        [ z, z, z, z, L, z, L, z, z, L, z, L, L, z, L, z, z, L, z, L, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, L, z, L, z, z, L, z, L, L, z, L, z, z, L, z, L, z, z, z, z ],
+        [ z, z, z, L, z, z, z, L, L, z, z, L, L, z, z, L, L, z, z, z, L, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, V, z, z, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, z, z, V, z ],
+    ];
+
+    private immutable static ct.ChipType[ SIZE_ONE ][ SIZE_ONE ] CHIPS_ONE = [
+        [ z, V, z, z, z, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, z, z, z, V, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, z, z, z, L, z, z, z, L, L, z, z, L, L, z, z, L, L, z, z, z, L, z, z, z, z ],
+        [ z, z, z, z, z, L, z, L, z, z, L, z, L, L, z, L, z, z, L, z, L, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z ],
+        [ z, z, z, z, z, L, z, L, z, z, L, z, L, L, z, L, z, z, L, z, L, z, z, z, z, z ],
+        [ z, z, z, z, L, z, z, z, L, L, z, z, L, L, z, z, L, L, z, z, z, L, z, z, z, z ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L, L ],
+        [ z, V, z, z, z, z, z, z, z, z, z, z, z, V, z, z, z, z, z, z, z, z, z, z, V, z ],
     ];
 }

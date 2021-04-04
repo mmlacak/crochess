@@ -2,7 +2,7 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 
-export immutable APP_VERSION = "0.0.2.3+20210404.152159"; // source-new-app-version-major-minor-feature-commit+meta~breaks-place-marker
+export immutable APP_VERSION = "0.0.2.4+20210404.162659"; // source-new-app-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 import io = std.stdio;
