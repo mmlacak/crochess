@@ -2,6 +2,8 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 
+import io = std.stdio;
+
 import pt = piece_type;
 import bt = board_type;
 import ct = chip_type;
@@ -92,13 +94,15 @@ export final class Board {
         return this.boardType;
     }
 
-    pt.PieceType[ Board.CAPACITY ][ Board.CAPACITY ] getBoard() const {
-        return this.board;
-    }
+// TODO
+    // pt.PieceType[ Board.CAPACITY ][ Board.CAPACITY ] getBoard() const {
+    //     return this.board;
+    // }
 
-    ct.ChipType[ Board.CAPACITY ][ Board.CAPACITY ] getChips() const {
-        return this.chips;
-    }
+    // ct.ChipType[ Board.CAPACITY ][ Board.CAPACITY ] getChips() const {
+    //     return this.chips;
+    // }
+// TODO
 
     static bool isFieldLight( int i, int j ) {
         return ( (i + j) % 2 == 0 );
@@ -152,6 +156,28 @@ export final class Board {
         }
 
         return true;
+    }
+
+    void toDisplay( bool is_board_or_chips = true ) {
+
+
+        for ( uint i = 0; i < this.size; ++i ) {
+            for ( uint j = 0; j < this.size; ++j ) {
+                char c;
+
+                if ( is_board_or_chips ) {
+                    c = pt.as_char( this.getPiece( i, j ) );
+                }
+                else {
+                    c = ct.as_char( this.getChip( i, j ) );
+                }
+
+                io.write( c );
+            }
+
+            io.writeln( "" );
+        }
+
     }
 
 
