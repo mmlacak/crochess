@@ -40,10 +40,10 @@ OBJECT_FILE_EXTENSIONS = ['.o', '.obj', ]
 BUILD_BIN_FOLDER = 'bin'
 
 
-OPTIONS_GCC_DEBUG = ['-Wall', '-pedantic', '-ggdb', ]
+OPTIONS_GCC_DEBUG = ['-Wall', '-pedantic', '-O0', '-ggdb', ]
 OPTIONS_GCC_RELEASE = ['-Wall', '-pedantic', '-O3', ]
 
-OPTIONS_CLANG_DEBUG = ['-Wall', '-pedantic', '-ggdb', ]
+OPTIONS_CLANG_DEBUG = ['-Wall', '-pedantic', '-O0', '-ggdb', ]
 OPTIONS_CLANG_RELEASE = ['-Wall', '-pedantic', '-O3', ]
 
 
