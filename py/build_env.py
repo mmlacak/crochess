@@ -11,93 +11,76 @@ import py.paths as P
 
 
 #
-# $ export LD_LIBRARY_PATH=.:./lib:../lib:..:../../build:ws/build:~/src/crochess/ws/build
+# $ export LD_LIBRARY_PATH=.:./lib:../lib:..:../../bin:ws/bin:~/src/crochess/ws/bin
 #
-# $ export PATH=${PATH}:~/src/crochess/ws/build
-#
-#  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-#
-# $ gdc --shared -fPIC -defaultlib=phobos2 libcrochess.d -o ../../build/libcrochess.so # in ./ws/libcrochess/src
-#
-# $ gdc -I../../libcrochess/src -Wl,-L../../build -Wl,-lcrochess  crochess.d -o ../../build/crochess # in ./ws/crochess/src
+# $ export PATH=${PATH}:~/src/crochess/ws/bin
 #
 #  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 #
-# $ dmd -shared -fPIC -defaultlib=phobos2 libcrochess.d -of=../../build/libcrochess.so # in ./ws/libcrochess/src
+# gcc -Wall -pedantic -O3 -shared -fPIC -I../inc libcrochess.c -o ../../bin/libcrochess.so # in ./ws/libcrochess/src
 #
-# $ dmd -I../../libcrochess/src -L-L../../build -L-lcrochess  crochess.d -of=../../build/crochess # in ./ws/crochess/src
-#
-#  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-#
-# $ ldc2 -shared -relocation-model=pic -defaultlib=phobos2-ldc libcrochess.d -of=../../build/libcrochess.so # in ./ws/libcrochess/src
-#
-# $ ldc2 -I../../libcrochess/src -L-L../../build -L-lcrochess  crochess.d -of=../../build/crochess # in ./ws/crochess/src
+# clang -Wall -pedantic -O3 -shared -fPIC -I../inc libcrochess.c -o ../../bin/libcrochess.so # in ./ws/libcrochess/src
 #
 #  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+#
+# gcc -O3 -Wall --pedantic -L../../bin -lcrochess -I../../libcrochess/inc -I../inc crochess.c -o ../../bin/crochess # in ./ws/crochess/src
+#
+# clang -O3 -Wall --pedantic -L../../bin -lcrochess -I../../libcrochess/inc -I../inc crochess.c -o ../../bin/crochess # in ./ws/crochess/src
 #
 
 
-COMPILER_GDC = 'gdc'
-COMPILER_LDC2 = 'ldc2'
-COMPILER_DMD = 'dmd'
+COMPILER_GCC = 'gcc'
+COMPILER_CLANG = 'clang'
 
-DEFAULT_COMPILER = COMPILER_GDC
+DEFAULT_COMPILER = COMPILER_GCC
 
 EXECUTABLE_FILE_NAME = 'crochess'
 LIBRARY_FILE_NAME = 'libcrochess.so'
 OBJECT_FILE_EXTENSIONS = ['.o', '.obj', ]
-EXECUTABLE_BUILD_FOLDER = 'build'
-EXECUTABLE_RELEASE_FOLDER = 'release'
+BUILD_BIN_FOLDER = 'bin'
 
 
-OPTIONS_GDC_DEBUG = ['-Wall', '-pedantic', '-ggdb', ]
-OPTIONS_GDC_RELEASE = ['-Wall', '-pedantic', '-O3', ]
+OPTIONS_GCC_DEBUG = ['-Wall', '-pedantic', '-ggdb', ]
+OPTIONS_GCC_RELEASE = ['-Wall', '-pedantic', '-O3', ]
 
-OPTIONS_LDC2_DEBUG = ['--wi', '--gc', ]
-OPTIONS_LDC2_RELEASE = ['--release', '-O5', '--wi', ]
-
-OPTIONS_DMD_DEBUG = ['-wi', '-debug', '-g', '-gf', '-gs', ]
-OPTIONS_DMD_RELEASE = ['-release', '-O', '-wi', ]
+OPTIONS_CLANG_DEBUG = ['-Wall', '-pedantic', '-ggdb', ]
+OPTIONS_CLANG_RELEASE = ['-Wall', '-pedantic', '-O3', ]
 
 
-OPTIONS_GDC_LIBRARY = ['--shared', '-fPIC', '-defaultlib=phobos2', ]
-OPTIONS_GDC_EXECUTABLE = ['-I../../libcrochess/src', '-Wl,-L../../build', '-Wl,-lcrochess', ]
+OPTIONS_GCC_LIBRARY = ['--shared', '-fPIC', '-I../inc', ]
+OPTIONS_GCC_EXECUTABLE = ['-L../../bin', '-lcrochess', '-I../../libcrochess/inc', '-I../inc', ]
 
-OPTIONS_LDC2_LIBRARY = ['-shared', '-relocation-model=pic', '-defaultlib=phobos2-ldc']
-OPTIONS_LDC2_EXECUTABLE = ['-I../../libcrochess/src', '-L-L../../build', '-L-lcrochess', ]
-
-OPTIONS_DMD_LIBRARY = ['-shared', '-fPIC', '-defaultlib=phobos2', ]
-OPTIONS_DMD_EXECUTABLE = ['-I../../libcrochess/src', '-L-L../../build', '-L-lcrochess', ]
+OPTIONS_CLANG_LIBRARY = ['--shared', '-fPIC', '-I../inc', ]
+OPTIONS_CLANG_EXECUTABLE = ['-L../../bin', '-lcrochess', '-I../../libcrochess/inc', '-I../inc', ]
 
 
 SOURCE_WS_FOLDER = 'ws'
 SOURCE_IGNORE_FILE_PATH = '.IGNORE.'
-SOURCE_FILE_EXT = '.d'
+SOURCE_FILE_EXT = '.c'
+HEADER_FILE_EXT = '.h'
 
 SOURCE_APP_FOLDER = 'crochess'
 SOURCE_APP_SRC_FOLDER = 'src'
+SOURCE_APP_HEADER_FOLDER = 'inc'
 
 SOURCE_LIB_FOLDER = 'libcrochess'
 SOURCE_LIB_SRC_FOLDER = 'src'
+SOURCE_LIB_HEADER_FOLDER = 'inc'
 
 
 def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_debug=False):
-    if compiler == COMPILER_GDC:
-        return OPTIONS_GDC_RELEASE if is_release_or_debug else OPTIONS_GDC_DEBUG
-    elif compiler == COMPILER_LDC2:
-        return OPTIONS_LDC2_RELEASE if is_release_or_debug else OPTIONS_LDC2_DEBUG
-    elif compiler == COMPILER_DMD:
-        return OPTIONS_DMD_RELEASE if is_release_or_debug else OPTIONS_DMD_DEBUG
+    if compiler == COMPILER_GCC:
+        return OPTIONS_GCC_RELEASE if is_release_or_debug else OPTIONS_GCC_DEBUG
+    elif compiler == COMPILER_CLANG:
+        return OPTIONS_CLANG_RELEASE if is_release_or_debug else OPTIONS_CLANG_DEBUG
     else:
         raise RuntimeError("Unknown compiler '%s'." % compiler) # return []
 
 def get_compiler_build_options(compiler=DEFAULT_COMPILER, is_executable_or_library=False):
-    if compiler == COMPILER_GDC:
-        return OPTIONS_GDC_EXECUTABLE if is_executable_or_library else OPTIONS_GDC_LIBRARY
-    elif compiler == COMPILER_LDC2:
-        return OPTIONS_LDC2_EXECUTABLE if is_executable_or_library else OPTIONS_LDC2_LIBRARY
-    elif compiler == COMPILER_DMD:
-        return OPTIONS_DMD_EXECUTABLE if is_executable_or_library else OPTIONS_DMD_LIBRARY
+    if compiler == COMPILER_GCC:
+        return OPTIONS_GCC_EXECUTABLE if is_executable_or_library else OPTIONS_GCC_LIBRARY
+    elif compiler == COMPILER_CLANG:
+        return OPTIONS_CLANG_EXECUTABLE if is_executable_or_library else OPTIONS_CLANG_LIBRARY
     else:
         raise RuntimeError("Unknown compiler '%s'." % compiler) # return []
 
@@ -107,12 +90,10 @@ def get_output_compiler_options(root_path, file_name, cwd_cmd, compiler=DEFAULT_
     out_file = P.get_rel_path_or_abs(out_file, cwd_cmd)
 
     out_lst = []
-    if compiler == COMPILER_GDC:
+    if compiler == COMPILER_GCC:
         out_lst = ['-o', out_file, ]
-    elif compiler == COMPILER_LDC2:
-        out_lst = ['-of=%s' % out_file, ]
-    elif compiler == COMPILER_DMD:
-        out_lst = ['-of=%s' % out_file, ]
+    elif compiler == COMPILER_CLANG:
+        out_lst = ['-o', out_file, ]
     else:
         raise RuntimeError("Unknown compiler '%s'." % compiler)
 
@@ -125,6 +106,9 @@ def get_app_dir(root_path):
 def get_app_src_dir(root_path):
     return os.path.join(get_app_dir(root_path), SOURCE_APP_SRC_FOLDER)
 
+def get_app_header_dir(root_path):
+    return os.path.join(get_app_dir(root_path), SOURCE_APP_HEADER_FOLDER)
+
 
 def get_lib_dir(root_path):
     return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_LIB_FOLDER)
@@ -132,9 +116,12 @@ def get_lib_dir(root_path):
 def get_lib_src_dir(root_path):
     return os.path.join(get_lib_dir(root_path), SOURCE_LIB_SRC_FOLDER)
 
+def get_lib_header_dir(root_path):
+    return os.path.join(get_lib_dir(root_path), SOURCE_LIB_HEADER_FOLDER)
+
 
 def get_build_dir(root_path):
-    return os.path.join(root_path, SOURCE_WS_FOLDER, EXECUTABLE_BUILD_FOLDER)
+    return os.path.join(root_path, SOURCE_WS_FOLDER, BUILD_BIN_FOLDER)
 
 def get_build_file_path(root_path, file_name):
     return os.path.join(get_build_dir(root_path), file_name)

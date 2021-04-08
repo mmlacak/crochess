@@ -6,15 +6,15 @@
 
 
 def split_cmd_compiler_args(argv):
-    arg_sep_count = 0 # 0 --> script argv, 1 --> compiler argv, 2 --> linker argv, 3 --> run executable
+    arg_sep_count = 0 # 0 --> script argv, 1 --> compile lib argv, 2 --> compile app argv, 3 --> run app argv
     compiler_args = False
     linker_args = False
     executable_args = False
 
     script_argv = []
-    compiler_argv = []
-    linker_argv = []
-    executable_argv = []
+    cc_lib_argv = []
+    cc_app_argv = []
+    exec_app_argv = []
 
     for index, arg in enumerate(argv):
         if arg != '-*-':
@@ -24,13 +24,13 @@ def split_cmd_compiler_args(argv):
                 if arg_sep_count == 0:
                     script_argv.append( a )
                 elif arg_sep_count == 1:
-                    compiler_argv.append( a )
+                    cc_lib_argv.append( a )
                 elif arg_sep_count == 2:
-                    linker_argv.append( a )
+                    cc_app_argv.append( a )
                 elif arg_sep_count == 3:
-                    executable_argv.append( a )
+                    exec_app_argv.append( a )
                 else:
-                    raise RuntimeError("Too many arg groups, expected: script.py <args> [-*- [<compiler args>] [-*- [<linker args>] [-*- [<executable args>]]]],\nin cmd line: '%s'." % argv)
+                    raise RuntimeError("Too many arg groups, expected: script.py <args> [-*- [<compile lib args>] [-*- [<compile app args>] [-*- [<run app args>]]]],\nin cmd line: '%s'." % argv)
         else:
             arg_sep_count += 1
 
@@ -41,12 +41,12 @@ def split_cmd_compiler_args(argv):
             elif arg_sep_count == 3:
                 executable_args = True
 
-    # if compiler_argv or compiler_args:
+    # if cc_lib_argv or compiler_args:
     #     # not empty argv, or explicitly to call with no args
-    #     compiler_argv = ['git', 'commit'] + compiler_argv
+    #     cc_lib_argv = ['git', 'commit'] + cc_lib_argv
 
-    # if linker_argv or linker_args:
+    # if cc_app_argv or linker_args:
     #     # not empty argv, or explicitly to call with no args
-    #     linker_argv = ['git', 'push'] + linker_argv
+    #     cc_app_argv = ['git', 'push'] + cc_app_argv
 
-    return (script_argv, compiler_argv, linker_argv, executable_argv)
+    return (script_argv, cc_lib_argv, cc_app_argv, exec_app_argv)

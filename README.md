@@ -27,12 +27,11 @@ converted to UTC for easier comparison.
 **Application** and **library versions** can be seen in an application, using `v(ersion)` command. \
 The latest versions are:
 
-Application: 0.0.2.6+20210407.160110 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
-Library: 0.0.2.6+20210407.160110 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
+Application: 0.0.0.1+20210408.041256 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
+Library: 0.0.0.1+20210408.041256 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
 
 Versioning used is [Natural Versioning 1.0](https://croatian-chess.blogspot.com/p/natver.html),
-with meta data containing date and time of the last commit,
-converted to UTC for easier comparison with the book version.
+with meta data containing the same format as the book version.
 
 ## Getting Started
 

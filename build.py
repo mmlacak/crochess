@@ -42,12 +42,10 @@ def main():
     is_build = is_release_build or is_debug_build
     is_release_or_debug = is_release_build and not is_debug_build
 
-    is_gdc = True if RS.any_item_in( ['-gdc', '--gdc'], script_argv) else False
-    is_ldc2 = True if RS.any_item_in( ['-ldc2', '--ldc2'], script_argv) else False
-    is_dmd = True if RS.any_item_in( ['-dmd', '--dmd'], script_argv) else False
-    compiler =  BE.COMPILER_GDC if is_gdc else \
-                BE.COMPILER_LDC2 if is_ldc2 else \
-                BE.COMPILER_DMD if is_dmd else \
+    is_gcc = True if RS.any_item_in( ['-gcc', '--gcc'], script_argv) else False
+    is_clang = True if RS.any_item_in( ['-clang', '--clang'], script_argv) else False
+    compiler =  BE.COMPILER_GCC if is_gcc else \
+                BE.COMPILER_CLANG if is_clang else \
                 BE.DEFAULT_COMPILER
 
     # is_run_app_only = True if RS.any_item_in( ['-X', '--execute'], script_argv) else False

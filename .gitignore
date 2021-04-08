@@ -27,3 +27,6 @@ book/gfx/test/
 .vscode
 *synctex*
 build/
+*.env
+bin/
+obj/
