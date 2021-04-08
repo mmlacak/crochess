@@ -5,7 +5,7 @@
 #define __LIBCROCHESS_H__
 
 
-static char LIBCROCHESS_VERSION[] = "0.0.0.1+20210408.041256"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker
+extern char LIBCROCHESS_VERSION[];
 
 int test(void);
 

@@ -5,7 +5,7 @@
 #define __CROCHESS_H__
 
 
-static char CROCHESS_VERSION[] = "0.0.0.1+20210408.041256"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+extern char CROCHESS_VERSION[];
 
 int main(void);
 

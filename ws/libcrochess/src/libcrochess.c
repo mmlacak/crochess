@@ -6,6 +6,9 @@
 #include "libcrochess.h"
 
 
+char LIBCROCHESS_VERSION[] = "0.0.0.2+20210408.044722"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker
+
+
 int test(void)
 {
     printf("\n");

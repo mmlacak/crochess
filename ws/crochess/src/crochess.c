@@ -8,6 +8,9 @@
 #include "crochess.h"
 
 
+char CROCHESS_VERSION[] = "0.0.0.2+20210408.044722"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+
+
 int main(void)
 {
     printf("\n");

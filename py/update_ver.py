@@ -22,11 +22,11 @@ README_IGNORE_FILE_NAME = 'README.IGNORE.md'
 
 # TODO :: import everything else from py.build_env
 
-SOURCE_APP_HEADER_FILE = 'crochess.h'
-SOURCE_APP_HEADER_IGNORE_FILE = 'crochess.IGNORE.h'
+SOURCE_APP_HEADER_FILE = 'crochess.c'
+SOURCE_APP_HEADER_IGNORE_FILE = 'crochess.IGNORE.c'
 
-SOURCE_LIB_HEADER_FILE = 'libcrochess.h'
-SOURCE_LIB_HEADER_IGNORE_FILE = 'libcrochess.IGNORE.h'
+SOURCE_LIB_HEADER_FILE = 'libcrochess.c'
+SOURCE_LIB_HEADER_IGNORE_FILE = 'libcrochess.IGNORE.c'
 
 #
 # \"(?P<version>.*)\"
@@ -48,7 +48,7 @@ def get_current_times():
     return (book_version, book_short)
 
 def get_current_lib_versions(root_path, decompose_version=True):
-    path = get_lib_header_file_path(root_path, SOURCE_LIB_HEADER_FILE)
+    path = get_lib_src_file_path(root_path, SOURCE_LIB_HEADER_FILE)
 
     try:
         with open(path, 'r') as old:
@@ -87,12 +87,12 @@ def get_full_readme_path(root_path, readme_name=README_FILE_NAME):
     path = os.path.join(root_path, readme_name)
     return path
 
-def get_app_header_file_path(root_path, file_name):
-    path = os.path.join(BE.get_app_header_dir(root_path), file_name)
+def get_app_src_file_path(root_path, file_name):
+    path = os.path.join(BE.get_app_src_dir(root_path), file_name)
     return path
 
-def get_lib_header_file_path(root_path, file_name):
-    path = os.path.join(BE.get_lib_header_dir(root_path), file_name)
+def get_lib_src_file_path(root_path, file_name):
+    path = os.path.join(BE.get_lib_src_dir(root_path), file_name)
     return path
 
 def change_book_line_if_marked(line, git_version, book_version, book_short, is_book, is_source):
@@ -128,10 +128,8 @@ def change_source_app_line_if_marked(line, git_version, book_version, book_short
     new = line
 
     if is_source:
-        # if 'source-new-app-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
-        #     new = 'export immutable APP_VERSION = "%s"; // source-new-app-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
         if 'source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
-            new = 'static char CROCHESS_VERSION[] = "%s"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
+            new = 'char CROCHESS_VERSION[] = "%s"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
 
     return new
 
@@ -139,10 +137,8 @@ def change_source_lib_line_if_marked(line, git_version, book_version, book_short
     new = line
 
     if is_source:
-        # if 'source-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
-        #     new = 'export immutable LIB_VERSION = "%s"; // source-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
         if 'source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
-            new = 'static char LIBCROCHESS_VERSION[] = "%s"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
+            new = 'char LIBCROCHESS_VERSION[] = "%s"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
 
     return new
 
@@ -177,15 +173,15 @@ def replace_readme_entries(git_version, book_version, book_short, root_path, is_
 
 def replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_source):
 
-    orig_path = get_app_header_file_path(root_path, SOURCE_APP_HEADER_FILE)
-    ignore_path = get_app_header_file_path(root_path, SOURCE_APP_HEADER_IGNORE_FILE)
+    orig_path = get_app_src_file_path(root_path, SOURCE_APP_HEADER_FILE)
+    ignore_path = get_app_src_file_path(root_path, SOURCE_APP_HEADER_IGNORE_FILE)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_source, change_source_app_line_if_marked)
 
 def replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_source):
 
-    orig_path = get_lib_header_file_path(root_path, SOURCE_LIB_HEADER_FILE)
-    ignore_path = get_lib_header_file_path(root_path, SOURCE_LIB_HEADER_IGNORE_FILE)
+    orig_path = get_lib_src_file_path(root_path, SOURCE_LIB_HEADER_FILE)
+    ignore_path = get_lib_src_file_path(root_path, SOURCE_LIB_HEADER_IGNORE_FILE)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_source, change_source_lib_line_if_marked)
 
