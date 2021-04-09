@@ -8,12 +8,15 @@
 #include "libcrochess.h"
 
 #include "crochess.h"
+#include "hlp_msgs.h"
 
 
-char CROCHESS_VERSION[] = "0.0.0.3+20210408.113553"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char CROCHESS_VERSION[] = "0.0.0.4+20210409.055657"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {
+    print_app_intro();
+
     int ret = 0;
 
     char buffer[ BUFSIZ ];
@@ -38,9 +41,11 @@ int main(void)
         if ( ( !strcmp("q", buffer) ) || ( !strcmp("quit", buffer) ) ) break;
         else if ( ( !strcmp("v", buffer) ) || ( !strcmp("version", buffer) ) )
         {
-            printf("Library = %s\n", LIBCROCHESS_VERSION);
-            printf("Application = %s\n", CROCHESS_VERSION);
-            // fflush( stdout );
+            print_version_info(LIBCROCHESS_VERSION, CROCHESS_VERSION);
+        }
+        else if ( ( !strcmp("a", buffer) ) || ( !strcmp("about", buffer) ) )
+        {
+            print_about_info();
         }
         else
         {
