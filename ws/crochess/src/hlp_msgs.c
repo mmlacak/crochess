@@ -18,7 +18,7 @@ void print_app_intro()
 
     printf( "Licensed under 3-clause (modified) BSD license. Use `a(bout)` for details.\n"
             "\n"
-            "Based on book 'Croatian chess and other variants', by Mario Mlačak.\n"
+            "Based on book \"Croatian chess and other variants\", by Mario Mlačak.\n"
             "\n"
             "Use `h(elp)` for command list, `h(elp) cmd` for detailed info.\n"
             "\n" );
@@ -26,7 +26,7 @@ void print_app_intro()
     // fflush( stdout );
 }
 
-void print_version_info(char * lib_ver, char * app_ver)
+void print_version_info(char const * lib_ver, char const * app_ver)
 {
     printf( "Library: %s\n", lib_ver );
     printf( "Application: %s\n", app_ver );
@@ -70,4 +70,29 @@ void print_about_info()
 {
     print_license_intro();
     print_licence_text();
+}
+
+void print_help()
+{
+    printf( "Commands:\n"
+            "h, help       - prints this screen, `h(elp) cmd` for command details\n"
+            "a, about      - prints about, license info\n"
+            "v, version    - prints version(s) info\n"
+            "q, quit       - quits program\n"
+            "d, display    - displays current position\n"
+            "t, tags       - displays current tags\n"
+            "* i, info     - displays list of all moves played, time\n"
+            "* t, time     - (re)sets time counter(s)\n"
+            "n, new        - starts new game, keeps variant\n"
+            "                to change variant use code from table below, e.g. `n ct`\n"
+            "* p, players  - sets up players\n"
+            "                takes two parameters, both are one of `bot`, `human`\n"
+            "* m, move     - moves piece(s)\n"
+            "                takes notation as argument, e.g. `m Nc3`\n"
+            "* s, save     - saves current game into PGN file\n"
+            "                takes <path> as argument, e.g. `s my_new_game.pgn`\n"
+            "* l, load     - loads game/positions from PGN file\n"
+            "                takes <path> as argument, e.g. `l my_new_game.pgn`\n"
+            "\n"
+            "Commands marked with * are currently not implemented.\n" );
 }

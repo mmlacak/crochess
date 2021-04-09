@@ -5,7 +5,7 @@
 #define __CROCHESS_H__
 
 
-extern char CROCHESS_VERSION[];
+extern char const CROCHESS_VERSION[];
 
 int main(void);
 

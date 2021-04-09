@@ -5,7 +5,7 @@
 #define __LIBCROCHESS_H__
 
 
-extern char LIBCROCHESS_VERSION[];
+extern char const LIBCROCHESS_VERSION[];
 
 int test(void);
 

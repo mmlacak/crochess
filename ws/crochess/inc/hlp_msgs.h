@@ -6,8 +6,10 @@
 
 void print_license_intro();
 void print_app_intro();
-void print_version_info(char * lib_ver, char * app_ver);
+void print_version_info(char const * lib_ver, char const * app_ver);
 void print_licence_text();
 void print_about_info();
+
+void print_help();
 
 #endif /* __HLP_MSGS_H__ */

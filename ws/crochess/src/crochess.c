@@ -11,7 +11,7 @@
 #include "hlp_msgs.h"
 
 
-char CROCHESS_VERSION[] = "0.0.0.4+20210409.055657"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.5+20210409.062228"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {
@@ -46,6 +46,10 @@ int main(void)
         else if ( ( !strcmp("a", buffer) ) || ( !strcmp("about", buffer) ) )
         {
             print_about_info();
+        }
+        else if ( ( !strcmp("h", buffer) ) || ( !strcmp("help", buffer) ) )
+        {
+            print_help();
         }
         else
         {

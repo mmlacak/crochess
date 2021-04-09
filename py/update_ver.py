@@ -129,7 +129,7 @@ def change_source_app_line_if_marked(line, git_version, book_version, book_short
 
     if is_source:
         if 'source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
-            new = 'char CROCHESS_VERSION[] = "%s"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
+            new = 'char const CROCHESS_VERSION[] = "%s"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
 
     return new
 
@@ -138,7 +138,7 @@ def change_source_lib_line_if_marked(line, git_version, book_version, book_short
 
     if is_source:
         if 'source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
-            new = 'char LIBCROCHESS_VERSION[] = "%s"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
+            new = 'char const LIBCROCHESS_VERSION[] = "%s"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
 
     return new
 
