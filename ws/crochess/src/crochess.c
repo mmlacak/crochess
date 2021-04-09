@@ -2,16 +2,18 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 #include <stdbool.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 #include "libcrochess.h"
+#include "tokenizer.h"
 
 #include "crochess.h"
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.7+20210409.204504"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.8+20210409.224830"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {
@@ -38,6 +40,9 @@ int main(void)
             continue;
         }
 
+        char * cmd = next_token_alloc(buffer, TOKEN_SEPARATORS_WHITEPSACE);
+        if ( cmd ) printf("Cmd token: '%s'.\n\n", cmd );
+
         if ( ( !strcmp("q", buffer) ) || ( !strcmp("quit", buffer) ) ) break;
         else if ( ( !strcmp("v", buffer) ) || ( !strcmp("version", buffer) ) )
         {
@@ -56,6 +61,12 @@ int main(void)
             printf("Unknown: '%s'.\n", buffer);
             // fflush( stdout );
             continue;
+        }
+
+        if ( cmd )
+        {
+            free( cmd );
+            cmd = NULL;
         }
     }
 
