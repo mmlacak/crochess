@@ -12,7 +12,14 @@ void print_license_intro()
     // fflush( stdout );
 }
 
-void print_app_intro()
+void print_version_info(char const * restrict lib_ver, char const * restrict app_ver)
+{
+    printf( "Library: %s\n", lib_ver );
+    printf( "Application: %s\n", app_ver );
+    // fflush( stdout );
+}
+
+void print_app_intro(char const * restrict lib_ver, char const * restrict app_ver)
 {
     print_license_intro();
 
@@ -20,16 +27,13 @@ void print_app_intro()
             "\n"
             "Based on book \"Croatian chess and other variants\", by Mario Mlačak.\n"
             "\n"
-            "Use `h(elp)` for command list, `h(elp) cmd` for detailed info.\n"
+            "Versions:\n" );
+
+    print_version_info(lib_ver, app_ver);
+
+    printf( "\nUse `h(elp)` for command list, `h(elp) cmd` for detailed info.\n"
             "\n" );
 
-    // fflush( stdout );
-}
-
-void print_version_info(char const * restrict lib_ver, char const * restrict app_ver)
-{
-    printf( "Library: %s\n", lib_ver );
-    printf( "Application: %s\n", app_ver );
     // fflush( stdout );
 }
 
