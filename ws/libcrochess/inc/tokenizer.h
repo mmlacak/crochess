@@ -10,6 +10,7 @@ extern char const TOKEN_SEPARATORS_WHITEPSACE[];
 extern char const TOKEN_SEPARATORS_PUNCTUATION[];
 
 bool char_in(char c, char const * restrict seps);
+char const * traverse_chars(char const * const pos, char const * restrict seps, bool skip_or_stop_at);
 char const * skip_chars(char * pos, char const * restrict seps);
 char const * stop_at(char const * const pos, char const * restrict seps);
 

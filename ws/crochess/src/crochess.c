@@ -13,7 +13,7 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.11+20210410.075129"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.12+20210410.100646"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {

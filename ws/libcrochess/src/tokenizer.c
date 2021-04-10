@@ -20,7 +20,7 @@ bool char_in(char c, char const * restrict seps)
     return false;
 }
 
-char const * skip_chars(char const * const pos, char const * restrict seps)
+char const * traverse_chars(char const * const pos, char const * restrict seps, bool skip_or_stop_at)
 {
     if ( !pos ) return NULL;
     if ( !seps ) return pos;
@@ -28,7 +28,7 @@ char const * skip_chars(char const * const pos, char const * restrict seps)
     if ( *pos == '\0' ) return pos;
     char const * p = (char const *)pos;
 
-    while ( char_in(*p, seps) )
+    while ( skip_or_stop_at == char_in(*p, seps) )
     {
         if ( *p == '\0' ) return p;
         ++p;
@@ -37,21 +37,14 @@ char const * skip_chars(char const * const pos, char const * restrict seps)
     return p;
 }
 
+char const * skip_chars(char const * const pos, char const * restrict seps)
+{
+    return traverse_chars(pos, seps, true);
+}
+
 char const * stop_at(char const * const pos, char const * restrict seps)
 {
-    if ( !pos ) return NULL;
-    if ( !seps ) return pos;
-
-    if ( *pos == '\0' ) return pos;
-    char const * p = (char const *)pos;
-
-    while ( !char_in(*p, seps) )
-    {
-        if ( *p == '\0' ) return p;
-        ++p;
-    };
-
-    return p;
+    return traverse_chars(pos, seps, false);
 }
 
 char * next_token_alloc(char const * restrict str /* = NULL */, char const * restrict seps /* = NULL */)
@@ -95,6 +88,8 @@ char * str_trim_alloc( char const * restrict str, char const * restrict chars )
 
     start = skip_chars(start, chars);
     end = stop_at(start, chars);
+
+    if ( end == start ) return NULL;
 
     size_t len = end - start;
     char * pos = malloc( len + 1 );
