@@ -77,15 +77,19 @@ def main():
                     git_add = ['git', 'add', '--', ]
                     git_add.extend( auto_updated_files )
                     print( "Running: %s" % str( git_add ) )
+                    print( "." * 72 )
                     result = RS.run_process( git_add )
                     print( result )
+                    print( "-" * 72 )
 
         if is_debug:
             print( "Running: %s" % str( git_commit_argv ) )
 
         if not is_dry_run:
+            print( "." * 72 )
             result = RS.run_process( git_commit_argv )
             print( result )
+            print( "-" * 72 )
 
     if git_push_argv:
         print( "" )
@@ -94,8 +98,10 @@ def main():
             print( "Running: %s" % str( git_push_argv ) )
 
         if not is_dry_run:
+            print( "." * 72 )
             result = RS.run_process( git_push_argv )
             print( result )
+            print( "-" * 72 )
 
     print( "" )
 
