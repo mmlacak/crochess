@@ -8,6 +8,7 @@
 import sys
 import os
 # import os.path
+import subprocess
 
 import py.paths as P
 import py.run_subproc as RS
@@ -82,9 +83,11 @@ def main():
             print( "Compiling with: %s." % str( compile_lib_cmd_lst ) )
 
         if not is_dry_run:
+            print( "." * 72 )
             # os.chdir(cwd_app)
             result = RS.run_process( compile_lib_cmd_lst, cwd=cwd_lib )
             print( result )
+            print( "-" * 72 )
 
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
 
@@ -95,8 +98,10 @@ def main():
             print( "Compiling with: %s." % str( compile_app_cmd_lst ) )
 
         if not is_dry_run:
+            print( "." * 72 )
             result = RS.run_process( compile_app_cmd_lst, cwd=cwd_app )
             print( result )
+            print( "-" * 72 )
 
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
 
@@ -108,9 +113,11 @@ def main():
             print( "Running: %s." % str( ls_cmd_lst ) )
 
         if not is_dry_run:
-            print( "" )
+            # print( "" )
+            print( "." * 72 )
             result = RS.run_process( ls_cmd_lst, cwd=cmd_cwd )
             print( result )
+            print( "-" * 72 )
 
     if is_run_app:
         run_cmd_lst = BE.get_run_exe_file_cmd(PROJECT_ROOT_PATH, options_list=executable_argv)
@@ -121,8 +128,10 @@ def main():
 
         if not is_dry_run:
             try:
-                result = RS.run_process( run_cmd_lst, cwd=cmd_cwd )
+                print( "." * 72 )
+                result = subprocess.run( run_cmd_lst, cwd=cmd_cwd ) # RS.run_process() --> subprocess.check_output() --> buffered output --> not good!
                 print( result )
+                print( "-" * 72 )
             except FileNotFoundError:
                 # FileNotFoundError: [Errno 2] No such file or directory: '/home/pero/src/crochess/ws/build/crochess'
                 print( "Executable '%s' not found." % run_cmd_lst[ 0 ] )

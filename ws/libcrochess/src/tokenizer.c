@@ -92,8 +92,8 @@ size_t flush_stdio()
 
     while ( ( c != EOF ) && ( c != '\0' ) && ( c != '\n' ) )
     {
-        c = getchar();
         ++count;
+        c = getchar();
     };
 
     return count;
