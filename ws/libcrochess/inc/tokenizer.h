@@ -4,6 +4,8 @@
 #ifndef __TOKENIZER_H__
 #define __TOKENIZER_H__
 
+#include <stddef.h>
+
 extern char const TOKEN_SEPARATORS_WHITEPSACE[];
 extern char const TOKEN_SEPARATORS_PUNCTUATION[];
 
@@ -11,5 +13,6 @@ bool char_in(char c, char const * restrict seps);
 char const * skip_chars(char * pos, char const * restrict seps);
 char const * stop_at(char const * const pos, char const * restrict seps);
 char * next_token_alloc(char const * restrict str /* = NULL */, char const * restrict seps /* = NULL */);
+size_t flush_stdio();
 
 #endif /* __TOKENIZER_H__ */

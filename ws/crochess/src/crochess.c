@@ -13,7 +13,7 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.8+20210409.224830"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.9+20210410.040822"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {
@@ -22,7 +22,7 @@ int main(void)
     int ret = 0;
 
     char buffer[ BUFSIZ ];
-    char const * const fmt = "%8192s"; // BUFSIZ == 8192
+    char const * const fmt = "%8191s"; // BUFSIZ == 8192
 
     // test();
 
@@ -40,10 +40,16 @@ int main(void)
             continue;
         }
 
-        char * cmd = next_token_alloc(buffer, TOKEN_SEPARATORS_WHITEPSACE);
-        if ( cmd ) printf("Cmd token: '%s'.\n\n", cmd );
+//         char * cmd = next_token_alloc(buffer, TOKEN_SEPARATORS_WHITEPSACE);
+
+// // TODO :: DEBUG :: DELETE !!!
+//         if ( cmd ) printf("Cmd token: '%s'.\n\n", cmd );
 
         if ( ( !strcmp("q", buffer) ) || ( !strcmp("quit", buffer) ) ) break;
+//         {
+// //            free( cmd );
+//             break;
+//         }
         else if ( ( !strcmp("v", buffer) ) || ( !strcmp("version", buffer) ) )
         {
             print_version_info(LIBCROCHESS_VERSION, CROCHESS_VERSION);
@@ -63,11 +69,10 @@ int main(void)
             continue;
         }
 
-        if ( cmd )
-        {
-            free( cmd );
-            cmd = NULL;
-        }
+        // free( cmd );
+        // cmd = NULL;
+
+        flush_stdio(); // Otherwise 'version about' --> 'version' + 'about'.
     }
 
     printf("Bye, have a nice day!\n");

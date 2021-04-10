@@ -2,6 +2,7 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
@@ -82,4 +83,18 @@ char * next_token_alloc(char const * restrict str /* = NULL */, char const * res
     pos[ len ] = '\0';
 
     return pos;
+}
+
+size_t flush_stdio()
+{
+    size_t count = 0;
+    char c = getchar();
+
+    while ( ( c != EOF ) && ( c != '\0' ) && ( c != '\n' ) )
+    {
+        c = getchar();
+        ++count;
+    };
+
+    return count;
 }
