@@ -22,7 +22,7 @@ bool char_in(char c, char const * restrict seps)
 
 char const * skip_chars(char const * const pos, char const * restrict seps)
 {
-    if ( !pos ) return pos;
+    if ( !pos ) return NULL;
     if ( !seps ) return pos;
 
     if ( *pos == '\0' ) return pos;
@@ -39,7 +39,7 @@ char const * skip_chars(char const * const pos, char const * restrict seps)
 
 char const * stop_at(char const * const pos, char const * restrict seps)
 {
-    if ( !pos ) return pos;
+    if ( !pos ) return NULL;
     if ( !seps ) return pos;
 
     if ( *pos == '\0' ) return pos;
@@ -85,15 +85,41 @@ char * next_token_alloc(char const * restrict str /* = NULL */, char const * res
     return pos;
 }
 
-size_t flush_stdio()
+char * str_trim_alloc( char const * restrict str, char const * restrict chars )
 {
-    size_t count = 0;
-    char c = getchar();
+    if ( !str ) return NULL;
+    if ( !chars ) return NULL;
 
-    while ( ( c != EOF ) && ( c != '\0' ) && ( c != '\n' ) )
+    char const * start = str;
+    char const * end = NULL;
+
+    start = skip_chars(start, chars);
+    end = stop_at(start, chars);
+
+    size_t len = end - start;
+    char * pos = malloc( len + 1 );
+    if ( !pos ) return NULL;
+
+    strncpy(pos, start, len);
+    pos[ len ] = '\0';
+
+    return pos;
+}
+
+size_t flush_stdin()
+{
+    // All <stdio.h> getters block, can't flush.
+
+    if ( feof( stdin ) ) return 0;
+    if ( ferror( stdin ) ) return 0;
+
+    size_t count = 0;
+    int c = fgetc( stdin ); // getchar();
+
+    while ( ( !feof( stdin ) ) && ( !ferror( stdin ) ) && ( c != EOF ) && ( c != '\0' ) && ( c != '\n' ) )
     {
         ++count;
-        c = getchar();
+        c = fgetc( stdin ); // getchar();
     };
 
     return count;
