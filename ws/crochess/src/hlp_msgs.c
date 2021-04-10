@@ -101,73 +101,77 @@ void print_help()
             "Commands marked with * are currently not implemented.\n" );
 }
 
+void print_help_quit()
+{
+    printf( "Quits application, any unsaved progress is lost.\n" );
+}
 
+void print_help_display()
+{
+    printf( "Displays current position, light player is positioned at the bottom,\n"
+            "dark player is positioned at the top of the chessboard.\n"
+            "\n"
+            "Light pieces are printed as upper-case, dark pieces are printed\n"
+            "as lower-case symbols.\n" );
+}
 
-// pub fn print_help_quit() {
-//     print!( "
-// Quits application.
+void print_help_tags()
+{
+    printf( "Displays current tags.\n"
+            "Tags refer to pieces located at the same position as tag.\n"
+            "\n"
+            "R -> Pawn can rush\n"
+            "C -> Rooks, Kings can castle\n"
+            "P -> Pawn tagged for promotion\n" );
+}
 
-// " );
-// }
+void print_help_about()
+{
+    printf( "Displays copyright, license info.\n" );
+}
 
-// pub fn print_help_display() {
-//     print!( "
-// Displays current position, light player is positioned at bottom,
-// dark player is positioned at top of the chessboard.
+void print_help_version()
+{
+    printf( "Displays versions of application, library; currently they are the same.\n"
+            "Version has <major>.<minor>[.<feature>[.<commit>]] numbers, optionally with\n"
+            "[-<prerelease>][+<meta>][~<breakage>] info; <meta> is used regularly.\n"
+            "\n"
+            "<meta> is compressed UTC <date>.<time> format, comparable to version found\n"
+            "in the book. For details, see Natural Versioning 1.0, at:\n"
+            "https://croatian-chess.blogspot.com/p/natver.html\n" );
+}
 
-// Light pieces are printed as upper-case, dark pieces are printed
-// as lower-case symbols.
+void print_help_new_code()
+{
+    printf( "cc  -> Classical\n"
+            "ct  -> Croatian Ties\n"
+            "ma  -> Mayan Ascendancy\n"
+            "aoa -> Age Of Aquarius\n"
+            "mv  -> Miranda's Veil\n"
+            "n   -> Nineteen\n"
+            "hd  -> Hemera's Dawn\n"
+            "tr  -> Tamoanchan Revisited\n"
+            "cot -> Conquest Of Tlalocan\n"
+            "d   -> Discovery\n"
+            "o   -> One-n" );
+}
 
-// " );
-// }
+void print_help_new()
+{
+    printf( "Starts new game, in the same variant as the last one.\n"
+            "To change variant, use code below as argument, e.g. `n(ew) ct`:\n\n" );
 
-// pub fn print_help_tags() {
-//     print!( "
-// Displays current tags.
-// Tags refer to pieces located at the same position as tag.
+    print_help_new_code();
+}
 
-// R -> Pawn can rush
-// C -> Rooks, Kings can castle
-// P -> Pawn tagged for promotion
+void print_new_code_invalid( char const * restrict str )
+{
+    if ( str ) printf( "Unrecognized code: '%s'.\n", str );
 
-// " );
-// }
+    printf( "\nUse following code for new variant game:\n" );
+    print_help_new_code();
+}
 
-// pub fn print_help_about() {
-//     print!( "
-// Displays info, license about application.
-
-// " );
-// }
-
-// pub fn print_help_version() {
-//     print!( "
-// Displays versions of application, library; currently they are the same.
-// Version has <major>.<minor>.<patch>[-<prerelease>]{{+<build>}} numbers,
-// <prerelease> is used as needed, <build> is used regularly.
-
-// <build> is squished UTC date-time, with year taking 4 digits, and all the
-// others 2: <year><month><day><hour><minute><second>, and is comparable to
-// version found in the book.
-
-// " );
-// }
-
-// pub fn print_help_new_code() {
-//     print!( "cc  -> Classical
-// ct  -> Croatian Ties
-// ma  -> Mayan Ascendancy
-// aoa -> Age Of Aquarius
-// mv  -> Miranda's Veil
-// n   -> Nineteen
-// hd  -> Hemera's Dawn
-// tr  -> Tamoanchan Revisited
-// cot -> Conquest Of Tlalocan
-// d   -> Discovery
-// o   -> One
-
-// " );
-// }
 
 // pub fn print_new_code_invalid(code: &str) {
 //     print!( "
@@ -175,14 +179,5 @@ void print_help()
 
 // Use following code for new variant game:
 // ", code );
-//     print_help_new_code();
-// }
-
-// pub fn print_help_new() {
-//     print!( "
-// Starts new game, in the same variant as the last one.
-// To change variant, use code below as argument, e.g. `n(ew) ct`:
-
-// " );
 //     print_help_new_code();
 // }

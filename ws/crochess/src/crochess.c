@@ -13,7 +13,7 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.9+20210410.040822"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.10+20210410.055618"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {
@@ -40,16 +40,7 @@ int main(void)
             continue;
         }
 
-//         char * cmd = next_token_alloc(buffer, TOKEN_SEPARATORS_WHITEPSACE);
-
-// // TODO :: DEBUG :: DELETE !!!
-//         if ( cmd ) printf("Cmd token: '%s'.\n\n", cmd );
-
         if ( ( !strcmp("q", buffer) ) || ( !strcmp("quit", buffer) ) ) break;
-//         {
-// //            free( cmd );
-//             break;
-//         }
         else if ( ( !strcmp("v", buffer) ) || ( !strcmp("version", buffer) ) )
         {
             print_version_info(LIBCROCHESS_VERSION, CROCHESS_VERSION);
@@ -60,19 +51,30 @@ int main(void)
         }
         else if ( ( !strcmp("h", buffer) ) || ( !strcmp("help", buffer) ) )
         {
-            print_help();
+            ret = scanf(fmt, buffer);
+
+            if ( ret == 0 ) print_help();
+            else if ( ( !strcmp("q", buffer) ) || ( !strcmp("quit", buffer) ) ) print_help_quit();
+            else if ( ( !strcmp("d", buffer) ) || ( !strcmp("display", buffer) ) ) print_help_display();
+            else if ( ( !strcmp("t", buffer) ) || ( !strcmp("tags", buffer) ) ) print_help_tags();
+            else if ( ( !strcmp("a", buffer) ) || ( !strcmp("about", buffer) ) ) print_help_about();
+            else if ( ( !strcmp("v", buffer) ) || ( !strcmp("version", buffer) ) ) print_help_version();
+            else if ( ( !strcmp("n", buffer) ) || ( !strcmp("new", buffer) ) ) print_help_new();
+            else
+            {
+                printf("No help entry: '%s'.\n", buffer);
+                // fflush( stdout );
+            }
+
         }
         else
         {
             printf("Unknown: '%s'.\n", buffer);
             // fflush( stdout );
-            continue;
         }
 
-        // free( cmd );
-        // cmd = NULL;
-
-        flush_stdio(); // Otherwise 'version about' --> 'version' + 'about'.
+// TODO :: fetch & print excess input
+        flush_stdio();
     }
 
     printf("Bye, have a nice day!\n");

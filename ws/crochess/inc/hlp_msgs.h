@@ -11,5 +11,13 @@ void print_licence_text();
 void print_about_info();
 
 void print_help();
+void print_help_quit();
+void print_help_display();
+void print_help_tags();
+void print_help_about();
+void print_help_version();
+void print_help_new_code();
+void print_help_new();
+void print_new_code_invalid( char const * restrict str );
 
 #endif /* __HLP_MSGS_H__ */
