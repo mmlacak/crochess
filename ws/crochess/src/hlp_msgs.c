@@ -171,13 +171,3 @@ void print_new_code_invalid( char const * restrict str )
     printf( "\nUse following code for new variant game:\n" );
     print_help_new_code();
 }
-
-
-// pub fn print_new_code_invalid(code: &str) {
-//     print!( "
-// Unrecognized code: {}
-
-// Use following code for new variant game:
-// ", code );
-//     print_help_new_code();
-// }

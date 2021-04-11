@@ -12,7 +12,7 @@ extern char const TOKEN_SEPARATORS_PUNCTUATION[];
 bool char_in(char c, char const * restrict seps);
 char const * traverse_chars(char const * const pos, char const * restrict seps, bool skip_or_stop_at);
 char const * skip_chars(char * pos, char const * restrict seps);
-char const * stop_at(char const * const pos, char const * restrict seps);
+char const * stop_at_chars(char const * const pos, char const * restrict seps);
 
 char * next_token_alloc(char const * restrict str /* = NULL */, char const * restrict seps /* = NULL */);
 char * str_trim_alloc( char const * restrict str, char const * restrict chars );

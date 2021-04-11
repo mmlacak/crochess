@@ -42,7 +42,7 @@ char const * skip_chars(char const * const pos, char const * restrict seps)
     return traverse_chars(pos, seps, true);
 }
 
-char const * stop_at(char const * const pos, char const * restrict seps)
+char const * stop_at_chars(char const * const pos, char const * restrict seps)
 {
     return traverse_chars(pos, seps, false);
 }
@@ -64,7 +64,7 @@ char * next_token_alloc(char const * restrict str /* = NULL */, char const * res
     if ( seps ) sps = seps;
 
     start = skip_chars(start, sps);
-    end = stop_at(start, sps);
+    end = stop_at_chars(start, sps);
 
     if ( end == start ) return NULL;
 
@@ -87,7 +87,7 @@ char * str_trim_alloc( char const * restrict str, char const * restrict chars )
     char const * end = NULL;
 
     start = skip_chars(start, chars);
-    end = stop_at(start, chars);
+    end = stop_at_chars(start, chars);
 
     if ( end == start ) return NULL;
 
