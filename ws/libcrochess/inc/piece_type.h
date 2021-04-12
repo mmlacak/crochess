@@ -4,6 +4,8 @@
 #ifndef __PIECE_TYPE_H__
 #define __PIECE_TYPE_H__
 
+#include <stdbool.h>
+
 
 typedef enum PieceType
 {
@@ -47,18 +49,18 @@ typedef enum PieceType
 } PieceType;
 
 
-PieceType piece_from_symbol(char const c, bool const is_light);
-PieceType opposite_piece(PieceType const pt);
+PieceType pt_from_symbol(char const c, bool const is_light);
+PieceType pt_opposite(PieceType const pt);
 
-char piece_as_char(PieceType const pt);
-char piece_symbol(PieceType const pt);
-char const * const piece_label(PieceType const pt);
+char pt_as_char(PieceType const pt);
+char pt_symbol(PieceType const pt);
+char const * const pt_label(PieceType const pt);
 
-bool is_piece_dark(PieceType const pt);
-bool is_piece_light(PieceType const pt);
-bool is_piece_pawn(PieceType const pt);
-bool is_piece_figure(PieceType const pt);
-bool is_piece_none(PieceType const pt);
+bool pt_is_dark(PieceType const pt);
+bool pt_is_light(PieceType const pt);
+bool pt_is_pawn(PieceType const pt);
+bool pt_is_figure(PieceType const pt);
+bool pt_is_none(PieceType const pt);
 
 
 #endif /* __PIECE_TYPE_H__ */

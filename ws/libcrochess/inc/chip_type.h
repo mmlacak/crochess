@@ -14,7 +14,7 @@ typedef enum ChipType
 } ChipType;
 
 
-char chip_as_char(ChipType const ct);
+char ct_as_char(ChipType const ct);
 
 
 #endif /* __CHIP_TYPE_H__ */

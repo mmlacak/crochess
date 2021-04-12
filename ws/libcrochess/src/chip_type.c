@@ -4,7 +4,7 @@
 #include "chip_type.h"
 
 
-char chip_as_char(ChipType const ct)
+char ct_as_char(ChipType const ct)
 {
     switch ( ct )
     {

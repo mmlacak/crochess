@@ -6,7 +6,7 @@
 
 #include "piece_type.h"
 
-PieceType piece_from_symbol(char const c, bool const is_light)
+PieceType pt_from_symbol(char const c, bool const is_light)
 {
     switch ( c )
     {
@@ -35,7 +35,7 @@ PieceType piece_from_symbol(char const c, bool const is_light)
     }
 }
 
-PieceType opposite_piece(PieceType const pt)
+PieceType pt_opposite(PieceType const pt)
 {
     switch ( pt )
     {
@@ -81,7 +81,7 @@ PieceType opposite_piece(PieceType const pt)
     }
 }
 
-char piece_as_char(PieceType const pt)
+char pt_as_char(PieceType const pt)
 {
     switch ( pt )
     {
@@ -127,12 +127,12 @@ char piece_as_char(PieceType const pt)
     }
 }
 
-char piece_symbol(PieceType const pt)
+char pt_symbol(PieceType const pt)
 {
-    return toupper( piece_as_char( pt ) );
+    return toupper( pt_as_char( pt ) );
 }
 
-char const * const piece_label(PieceType const pt)
+char const * const pt_label(PieceType const pt)
 {
     switch ( pt )
     {
@@ -189,7 +189,7 @@ char const * const piece_label(PieceType const pt)
     }
 }
 
-bool is_piece_dark(PieceType const pt)
+bool pt_is_dark(PieceType const pt)
 {
     switch ( pt )
     {
@@ -212,7 +212,7 @@ bool is_piece_dark(PieceType const pt)
     }
 }
 
-bool is_piece_light(PieceType const pt)
+bool pt_is_light(PieceType const pt)
 {
     switch ( pt )
     {
@@ -235,19 +235,19 @@ bool is_piece_light(PieceType const pt)
     }
 }
 
-bool is_piece_pawn(PieceType const pt)
+bool pt_is_pawn(PieceType const pt)
 {
     return ( ( pt == PT_LightPawn ) || ( pt == PT_DarkPawn ) );
 }
 
-bool is_piece_figure(PieceType const pt)
+bool pt_is_figure(PieceType const pt)
 {
-    if ( is_piece_light(pt) ) return true;
-    if ( is_piece_dark(pt) ) return true;
+    if ( pt_is_light(pt) ) return true;
+    if ( pt_is_dark(pt) ) return true;
     return false;
 }
 
-bool is_piece_none(PieceType const pt)
+bool pt_is_none(PieceType const pt)
 {
     return ( pt == PT_None );
 }

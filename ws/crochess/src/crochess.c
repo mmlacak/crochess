@@ -13,7 +13,7 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.17+20210412.102754"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.18+20210412.233331"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {
@@ -27,7 +27,7 @@ int main(void)
         memset(buffer, 0, BUFSIZ);
 
         printf("> ");
-        // fflush( stdout ); // Doesn't work from spawned process. Run directly from terminal works ok, even without fflush().
+        // fflush( stdout ); // Run directly from terminal works ok, even without fflush().
 
         ret = fgets(buffer, BUFSIZ, stdin);
         if ( !ret )

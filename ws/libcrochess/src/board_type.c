@@ -8,7 +8,7 @@
 #include "board_type.h"
 
 
-BoardType board_from_str(char const * const code)
+BoardType bt_from_str(char const * const code)
 {
     char * lc = str_to_case_alloc(code, true);
 
@@ -26,7 +26,7 @@ BoardType board_from_str(char const * const code)
     else return BT_One;
 }
 
-char const * const board_label(BoardType const bt)
+char const * const bt_label(BoardType const bt)
 {
     switch ( bt )
     {
@@ -46,21 +46,21 @@ char const * const board_label(BoardType const bt)
     }
 }
 
-unsigned int board_size(BoardType const bt)
+unsigned int bt_size(BoardType const bt)
 {
     switch ( bt )
     {
-        case BT_ClassicalChess : return 8;
-        case BT_CroatianTies : return 10;
-        case BT_MayanAscendancy : return 12;
-        case BT_AgeOfAquarius : return 14;
-        case BT_MirandasVeil : return 16;
-        case BT_Nineteen : return 18;
-        case BT_HemerasDawn : return 20;
-        case BT_TamoanchanRevisited : return 22;
-        case BT_ConquestOfTlalocan : return 24;
-        case BT_Discovery : return 24;
-        case BT_One : return 26;
+        case BT_ClassicalChess : return BOARD_SIZE_CLASSICAL_CHESS;
+        case BT_CroatianTies : return BOARD_SIZE_CROATIAN_TIES;
+        case BT_MayanAscendancy : return BOARD_SIZE_MAYAN_ASCENDANCY;
+        case BT_AgeOfAquarius : return BOARD_SIZE_AGE_OF_AQUARIUS;
+        case BT_MirandasVeil : return BOARD_SIZE_MIRANDAS_VEIL;
+        case BT_Nineteen : return BOARD_SIZE_HEMERAS_DAWN;
+        case BT_HemerasDawn : return BOARD_SIZE_TAMOANCHAN_REVISITED;
+        case BT_TamoanchanRevisited : return BOARD_SIZE_TAMOANCHAN_REVISITED;
+        case BT_ConquestOfTlalocan : return BOARD_SIZE_CONQUEST_OF_TLALOCAN;
+        case BT_Discovery : return BOARD_SIZE_DISCOVERY;
+        case BT_One : return BOARD_SIZE_ONE;
 
         default : return 0;
     }
