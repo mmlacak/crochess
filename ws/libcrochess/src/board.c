@@ -21,12 +21,19 @@ Board * brd_alloc_new(BoardType const bt)
     Board * b = malloc( sizeof( Board ) );
     if ( !b ) return NULL;
 
+    brd_init(b, bt);
+
+    return b;
+}
+
+bool brd_init( Board * const restrict b, BoardType const bt )
+{
+    if ( !b ) return false;
+
     b->type = bt;
     b->size = bt_size( b->type );
 
-    brd_clear( b );
-
-    return b;
+    return brd_clear( b );
 }
 
 bool brd_clear(Board * const restrict b)

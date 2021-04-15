@@ -22,6 +22,7 @@ typedef struct Board
 bool is_field_light( int i, int j );
 
 Board * brd_alloc_new(BoardType const bt);
+bool brd_init( Board * const restrict b, BoardType const bt );
 bool brd_clear(Board * const restrict b);
 bool brd_is_on_board( Board const * const restrict b, int i, int j );
 
