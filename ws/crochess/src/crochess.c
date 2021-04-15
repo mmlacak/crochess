@@ -8,12 +8,13 @@
 
 #include "libcrochess.h"
 #include "tokenizer.h"
+#include "board.h"
 
 #include "crochess.h"
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.19+20210415.104049"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.20+20210415.142330"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {
@@ -21,6 +22,8 @@ int main(void)
 
     char * ret = NULL;
     char buffer[ BUFSIZ ];
+
+    Board * b = brd_alloc_new( BT_One );
 
     while ( true )
     {
@@ -51,6 +54,24 @@ int main(void)
         else if ( ( !strcmp("a", cmd) ) || ( !strcmp("about", cmd) ) )
         {
             print_about_info();
+        }
+        else if ( ( !strcmp("d", cmd) ) || ( !strcmp("display", cmd) ) )
+        {
+            char * s = brd_as_string_alloc( b, true );
+            if ( s )
+            {
+                printf("%s", s);
+                free(s);
+            }
+        }
+        else if ( ( !strcmp("t", cmd) ) || ( !strcmp("tags", cmd) ) )
+        {
+            char * s = brd_as_string_alloc( b, false );
+            if ( s )
+            {
+                printf("%s", s);
+                free(s);
+            }
         }
         else if ( ( !strcmp("h", cmd) ) || ( !strcmp("help", cmd) ) || ( !strcmp("?", cmd) ) )
         {

@@ -29,5 +29,9 @@ bool brd_is_on_board( Board const * const restrict b, int i, int j );
 bool brd_set_piece_chip( Board * const restrict b, int i, int j, PieceType pt, ChipType ct );
 bool brd_set_piece( Board * const restrict b, int i, int j, PieceType pt );
 
+// static char * brd_get_divider_alloc( Board const * const restrict b );
+// static char * brd_get_horizontal_ruler_alloc( Board const * const restrict b );
+char * brd_as_string_alloc( Board const * const restrict b, bool is_board_or_chips );
+
 
 #endif /* __BOARD_H__ */
