@@ -9,10 +9,7 @@
 #include "piece_type.h"
 #include "chip_type.h"
 #include "board_type.h"
-#include "board.h"
-
-
-// char const BOARD_DISPLAY_DIVIDER[] = "-----------------------------------------------------";
+#include "chessboard.h"
 
 
 bool is_field_light( int i, int j )
@@ -21,9 +18,9 @@ bool is_field_light( int i, int j )
 }
 
 
-Board * brd_alloc_new(BoardType const bt)
+Chessboard * brd_alloc_new( BoardType const bt )
 {
-    Board * b = malloc( sizeof( Board ) );
+    Chessboard * b = malloc( sizeof( Chessboard ) );
     if ( !b ) return NULL;
 
     brd_init(b, bt);
@@ -31,88 +28,88 @@ Board * brd_alloc_new(BoardType const bt)
     return b;
 }
 
-bool brd_init( Board * const restrict b, BoardType const bt )
+bool brd_init( Chessboard * const restrict cb, BoardType const bt )
 {
-    if ( !b ) return false;
+    if ( !cb ) return false;
 
-    b->type = bt;
-    b->size = bt_size( b->type );
+    cb->type = bt;
+    cb->size = bt_size( cb->type );
 
-    return brd_clear( b );
+    return brd_clear( cb );
 }
 
-bool brd_clear(Board * const restrict b)
+bool brd_clear( Chessboard * const restrict cb )
 {
-    if ( !b ) return false;
+    if ( !cb ) return false;
 
     for ( int i = 0; i < BOARD_SIZE_MAXIMUM; ++i )
     {
         for ( int j = 0; i < BOARD_SIZE_MAXIMUM; ++i )
         {
-            b->board[ i ][ j ] = PT_None;
-            b->chips[ i ][ j ] = CT_None;
+            cb->board[ i ][ j ] = PT_None;
+            cb->chips[ i ][ j ] = CT_None;
         }
     }
 
     return true;
 }
 
-bool brd_is_on_board( Board const * const restrict b, int i, int j )
+bool brd_is_on_board( Chessboard const * const restrict cb, int i, int j )
 {
-    if ( !b ) return false;
-    return ( ( 0 <= i ) && ( i < b->size ) && ( 0 <= j ) && ( j < b->size ) );
+    if ( !cb ) return false;
+    return ( ( 0 <= i ) && ( i < cb->size ) && ( 0 <= j ) && ( j < cb->size ) );
 }
 
-PieceType brd_get_piece( Board const * const restrict b, int i, int j )
+PieceType brd_get_piece( Chessboard const * const restrict cb, int i, int j )
 {
-    if ( brd_is_on_board( b, i, j ) )
+    if ( brd_is_on_board( cb, i, j ) )
     {
-        return b->board[ i ][ j ];
+        return cb->board[ i ][ j ];
     }
 
     return PT_None;
 }
 
-ChipType brd_get_chip( Board const * const restrict b, int i, int j )
+ChipType brd_get_chip( Chessboard const * const restrict cb, int i, int j )
 {
-    if ( brd_is_on_board( b, i, j ) )
+    if ( brd_is_on_board( cb, i, j ) )
     {
-        return b->chips[ i ][ j ];
+        return cb->chips[ i ][ j ];
     }
 
     return CT_None;
 }
 
-bool brd_set_piece_chip( Board * const restrict b, int i, int j, PieceType pt, ChipType ct )
+bool brd_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, ChipType ct )
 {
-    if ( !b ) return false;
+    if ( !cb ) return false;
 
-    if ( brd_is_on_board( b, i, j ) )
+    if ( brd_is_on_board( cb, i, j ) )
     {
-        b->board[ i ][ j ] = pt;
-        b->chips[ i ][ j ] = ct;
+        cb->board[ i ][ j ] = pt;
+        cb->chips[ i ][ j ] = ct;
     }
 
     return true;
 }
 
-bool brd_set_piece( Board * const restrict b, int i, int j, PieceType pt )
+bool brd_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt )
 {
-    return brd_set_piece_chip( b, i, j, pt, CT_None );
+    return brd_set_piece_chip( cb, i, j, pt, CT_None );
 }
 
-static char * brd_get_divider_alloc( Board const * const restrict b )
+static char * brd_get_divider_alloc( Chessboard const * const restrict cb )
 {
-    if ( !b ) return NULL;
+    if ( !cb ) return NULL;
 
-    size_t len = 3 + 2 * b->size + 3 + 1;
+    size_t len = 3 + 2 * cb->size + 3 + 1;
     char * divider = calloc( 1, len );
     if ( !divider ) return NULL;
 
     for ( int i = 0; i < len; ++i )
     {
         if ( i < 3 ) divider[ i ] = ' ';
-        else if ( i < 3 + 2 * b->size - 1 ) divider[ i ] = '-';
+        else if ( i < 3 + 2 * cb->size - 1 ) divider[ i ] = '-';
         else if ( i < len ) divider[ i ] = ' ';
     }
 
@@ -122,11 +119,11 @@ static char * brd_get_divider_alloc( Board const * const restrict b )
     return divider;
 }
 
-static char * brd_get_horizontal_ruler_alloc( Board const * const restrict b )
+static char * brd_get_horizontal_ruler_alloc( Chessboard const * const restrict cb )
 {
-    if ( !b ) return NULL;
+    if ( !cb ) return NULL;
 
-    size_t len = 3 + 2 * b->size + 3 + 1;
+    size_t len = 3 + 2 * cb->size + 3 + 1;
     char * hr = calloc( 1, len );
     if ( !hr ) return NULL;
 
@@ -134,7 +131,7 @@ static char * brd_get_horizontal_ruler_alloc( Board const * const restrict b )
     for ( int i = 0; i < len; ++i )
     {
         if ( i < 3 ) hr[ i ] = ' ';
-        else if ( i < 3 + 2 * b->size )
+        else if ( i < 3 + 2 * cb->size )
         {
             if ( i % 2 == 0 ) hr[ i ] = ' ';
             else
@@ -152,14 +149,14 @@ static char * brd_get_horizontal_ruler_alloc( Board const * const restrict b )
     return hr;
 }
 
-char * brd_as_string_alloc( Board const * const restrict b, bool is_board_or_chips )
+char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips )
 {
-    if ( !b ) return NULL;
+    if ( !cb ) return NULL;
 
     char * s = calloc( 1, 2048 );
     if ( !s ) return NULL;
 
-    char * horizontal_ruler = brd_get_horizontal_ruler_alloc(b);
+    char * horizontal_ruler = brd_get_horizontal_ruler_alloc( cb );
     if ( !horizontal_ruler )
     {
         free(s);
@@ -168,7 +165,7 @@ char * brd_as_string_alloc( Board const * const restrict b, bool is_board_or_chi
 
     strcat( s, horizontal_ruler );
 
-    char * divider = brd_get_divider_alloc(b);
+    char * divider = brd_get_divider_alloc( cb );
     if ( !divider )
     {
         free(s);
@@ -178,7 +175,7 @@ char * brd_as_string_alloc( Board const * const restrict b, bool is_board_or_chi
 
     strcat( s, divider );
 
-    char * row = calloc(1, 4);
+    char * row = calloc(1, 6);
     if ( !row )
     {
         free(s);
@@ -197,20 +194,20 @@ char * brd_as_string_alloc( Board const * const restrict b, bool is_board_or_chi
         return NULL;
     }
 
-    for ( int i = 0; i < b->size; ++i )
+    for ( int i = 0; i < cb->size; ++i )
     {
-        char r = b->size - i;
+        char r = (char)( cb->size - i );
         sprintf( row, "%2hhu|", r );
         strcat( s, row );
 
-        for ( int j = 0; j < b->size; ++j )
+        for ( int j = 0; j < cb->size; ++j )
         {
             char c;
 
             if ( is_board_or_chips )
-                c = pt_as_char( b->board[ i ][ j ] );
+                c = pt_as_char( cb->board[ i ][ j ] );
             else
-                c = ct_as_char( b->chips[ i ][ j ] );
+                c = ct_as_char( cb->chips[ i ][ j ] );
 
             if ( c == ' ' )
             {
@@ -218,7 +215,7 @@ char * brd_as_string_alloc( Board const * const restrict b, bool is_board_or_chi
                 else c = '.';
             }
 
-            if ( j < b->size - 1 )
+            if ( j < cb->size - 1 )
                 sprintf( field, "%c ", c );
             else
                 sprintf( field, "%c", c );

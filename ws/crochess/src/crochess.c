@@ -8,13 +8,13 @@
 
 #include "libcrochess.h"
 #include "tokenizer.h"
-#include "board.h"
+#include "chessboard.h"
 
 #include "crochess.h"
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.20+20210415.142330"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.21+20210415.195556"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 int main(void)
 {
@@ -23,7 +23,7 @@ int main(void)
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    Board * b = brd_alloc_new( BT_One );
+    Chessboard * b = brd_alloc_new( BT_One );
 
     while ( true )
     {
