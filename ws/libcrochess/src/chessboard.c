@@ -159,7 +159,7 @@ char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_
     char * horizontal_ruler = brd_get_horizontal_ruler_alloc( cb );
     if ( !horizontal_ruler )
     {
-        free(s);
+        free( s );
         return NULL;
     }
 
@@ -168,8 +168,8 @@ char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_
     char * divider = brd_get_divider_alloc( cb );
     if ( !divider )
     {
-        free(s);
-        free(horizontal_ruler);
+        free( s );
+        free( horizontal_ruler );
         return NULL;
     }
 
@@ -178,19 +178,19 @@ char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_
     char * row = calloc(1, 6);
     if ( !row )
     {
-        free(s);
-        free(horizontal_ruler);
-        free(divider);
+        free( s );
+        free( horizontal_ruler );
+        free( divider );
         return NULL;
     }
 
     char * field = calloc(1, 3);
     if ( !field )
     {
-        free(s);
-        free(horizontal_ruler);
-        free(divider);
-        free(row);
+        free( s );
+        free( horizontal_ruler );
+        free( divider );
+        free( row );
         return NULL;
     }
 
@@ -230,10 +230,10 @@ char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_
     strcat( s, divider );
     strcat( s, horizontal_ruler );
 
-    free(horizontal_ruler);
-    free(divider);
-    free(row);
-    free(field);
+    free( horizontal_ruler );
+    free( divider );
+    free( row );
+    free( field );
 
     return s;
 }
