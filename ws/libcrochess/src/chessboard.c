@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "piece_type.h"
-#include "chip_type.h"
+#include "tag_type.h"
 #include "board_type.h"
 #include "chessboard.h"
 
@@ -47,7 +47,7 @@ bool brd_clear( Chessboard * const restrict cb )
         for ( int j = 0; i < BOARD_SIZE_MAXIMUM; ++i )
         {
             cb->board[ i ][ j ] = PT_None;
-            cb->chips[ i ][ j ] = CT_None;
+            cb->chips[ i ][ j ] = TT_None;
         }
     }
 
@@ -70,17 +70,17 @@ PieceType brd_get_piece( Chessboard const * const restrict cb, int i, int j )
     return PT_None;
 }
 
-ChipType brd_get_chip( Chessboard const * const restrict cb, int i, int j )
+TagType brd_get_chip( Chessboard const * const restrict cb, int i, int j )
 {
     if ( brd_is_on_board( cb, i, j ) )
     {
         return cb->chips[ i ][ j ];
     }
 
-    return CT_None;
+    return TT_None;
 }
 
-bool brd_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, ChipType ct )
+bool brd_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct )
 {
     if ( !cb ) return false;
 
@@ -95,7 +95,7 @@ bool brd_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType
 
 bool brd_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt )
 {
-    return brd_set_piece_chip( cb, i, j, pt, CT_None );
+    return brd_set_piece_chip( cb, i, j, pt, TT_None );
 }
 
 static char * brd_get_divider_alloc( Chessboard const * const restrict cb )
@@ -207,7 +207,7 @@ char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_
             if ( is_board_or_chips )
                 c = pt_as_char( cb->board[ i ][ j ] );
             else
-                c = ct_as_char( cb->chips[ i ][ j ] );
+                c = tt_as_char( cb->chips[ i ][ j ] );
 
             if ( c == ' ' )
             {

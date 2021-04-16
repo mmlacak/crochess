@@ -1,11 +1,11 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
-#ifndef __BOARD_H__
-#define __BOARD_H__
+#ifndef __CHESS_BOARD_H__
+#define __CHESS_BOARD_H__
 
 #include "piece_type.h"
-#include "chip_type.h"
+#include "tag_type.h"
 #include "board_type.h"
 
 
@@ -15,7 +15,7 @@ typedef struct Chessboard
     unsigned int size;
 
     PieceType board[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
-    ChipType chips[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
+    TagType chips[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
 } Chessboard;
 
 
@@ -26,7 +26,7 @@ bool brd_init( Chessboard * const restrict cb, BoardType const bt );
 bool brd_clear( Chessboard * const restrict cb );
 bool brd_is_on_board( Chessboard const * const restrict cb, int i, int j );
 
-bool brd_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, ChipType ct );
+bool brd_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct );
 bool brd_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt );
 
 // static char * brd_get_divider_alloc( Chessboard const * const restrict cb );
@@ -34,4 +34,4 @@ bool brd_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt )
 char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips );
 
 
-#endif /* __BOARD_H__ */
+#endif /* __CHESS_BOARD_H__ */
