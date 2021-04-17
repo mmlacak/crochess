@@ -27,7 +27,9 @@ bool cb_clear( Chessboard * const restrict cb );
 bool cb_setup( Chessboard * const restrict cb );
 
 bool cb_is_on_board( Chessboard const * const restrict cb, int i, int j );
-bool cb_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct );
+PieceType cb_get_piece( Chessboard const * const restrict cb, int i, int j );
+TagType cb_get_tag( Chessboard const * const restrict cb, int i, int j );
+bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct );
 bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt );
 
 // static char * cb_get_divider_alloc( Chessboard const * const restrict cb );

@@ -286,7 +286,7 @@ PieceType const SETUP_BOARD_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ] =
 };
 
 
-PieceType const * const get_setup_board( BoardType const bt )
+PieceType const * const get_board_setup( BoardType const bt )
 {
     switch ( bt )
     {
