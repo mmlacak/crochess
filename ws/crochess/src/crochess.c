@@ -15,7 +15,7 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.29+20210417.091914"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.30+20210417.101444"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main(void)
@@ -67,18 +67,33 @@ int main(void)
         }
         else if ( ( !strcmp("n", cmd) ) || ( !strcmp("new", cmd) ) )
         {
-            char * var = next_token_alloc(NULL, NULL);
-            if ( var )
-            {
-                BoardType bt = bt_from_str( var );
-                free( var );
+            bool is_code = false;
+            char * code = next_token_alloc(NULL, NULL);
 
-                free( cb );
-                cb = cb_alloc( bt );
+            if ( code )
+            {
+                is_code = bt_is_code( code );
+
+                if ( is_code )
+                {
+                    BoardType bt = bt_from_str( code );
+
+                    free( cb );
+                    cb = cb_alloc( bt );
+                }
+                else
+                {
+                    print_new_code_invalid( code );
+                }
+
+                free( code );
             }
 
-            cb_setup( cb );
-            cb_print( cb, true );
+            if ( ( !code ) || ( code && is_code ) )
+            {
+                cb_setup( cb );
+                cb_print( cb, true );
+            }
         }
         else if ( ( !strcmp("h", cmd) ) || ( !strcmp("help", cmd) ) || ( !strcmp("?", cmd) ) )
         {

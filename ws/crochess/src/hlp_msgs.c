@@ -12,14 +12,14 @@ void print_license_intro()
     // fflush( stdout );
 }
 
-void print_version_info(char const * restrict lib_ver, char const * restrict app_ver)
+void print_version_info(char const * const restrict lib_ver, char const * const restrict app_ver)
 {
     printf( "Library: %s\n", lib_ver );
     printf( "Application: %s\n", app_ver );
     // fflush( stdout );
 }
 
-void print_app_intro(char const * restrict lib_ver, char const * restrict app_ver)
+void print_app_intro(char const * const restrict lib_ver, char const * const restrict app_ver)
 {
     print_license_intro();
 
@@ -165,10 +165,11 @@ void print_help_new()
     print_help_new_code();
 }
 
-void print_new_code_invalid( char const * restrict str )
+void print_new_code_invalid( char const * const restrict str )
 {
     if ( str ) printf( "Unrecognized code: '%s'.\n", str );
 
     printf( "\nUse following code for new variant game:\n" );
     print_help_new_code();
+    printf( "\ne.g. use `n(ew) aoa` to play \"Age Of Aquarius\" variant.\n" );
 }

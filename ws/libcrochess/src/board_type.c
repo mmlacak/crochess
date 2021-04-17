@@ -9,6 +9,57 @@
 #include "board_type.h"
 
 
+char const * const BOARD_TYPE_CLASSICAL_CHESS_SYMBOL = "cc";
+char const * const BOARD_TYPE_CROATIAN_TIES_SYMBOL = "ct";
+char const * const BOARD_TYPE_MAYAN_ASCENDANCY_SYMBOL = "ma";
+char const * const BOARD_TYPE_AGE_OF_AQUARIUS_SYMBOL = "aoa";
+char const * const BOARD_TYPE_MIRANDAS_VEIL_SYMBOL = "mv";
+char const * const BOARD_TYPE_NINETEEN_SYMBOL = "n";
+char const * const BOARD_TYPE_HEMERAS_DAWN_SYMBOL = "hd";
+char const * const BOARD_TYPE_TAMOANCHAN_REVISITED_SYMBOL = "tr";
+char const * const BOARD_TYPE_CONQUEST_OF_TLALOCAN_SYMBOL = "cot";
+char const * const BOARD_TYPE_DISCOVERY_SYMBOL = "d";
+char const * const BOARD_TYPE_ONE_SYMBOL = "o";
+
+char const * const BOARD_TYPE_SYMBOLS[] =
+{
+    BOARD_TYPE_CLASSICAL_CHESS_SYMBOL,
+    BOARD_TYPE_CROATIAN_TIES_SYMBOL,
+    BOARD_TYPE_MAYAN_ASCENDANCY_SYMBOL,
+    BOARD_TYPE_AGE_OF_AQUARIUS_SYMBOL,
+    BOARD_TYPE_MIRANDAS_VEIL_SYMBOL,
+    BOARD_TYPE_NINETEEN_SYMBOL,
+    BOARD_TYPE_HEMERAS_DAWN_SYMBOL,
+    BOARD_TYPE_TAMOANCHAN_REVISITED_SYMBOL,
+    BOARD_TYPE_CONQUEST_OF_TLALOCAN_SYMBOL,
+    BOARD_TYPE_DISCOVERY_SYMBOL,
+    BOARD_TYPE_ONE_SYMBOL,
+};
+
+
+bool bt_is_code( char const * const restrict code )
+{
+    if ( !code ) return false;
+
+    char * lc = str_to_case_alloc(code, true);
+    if ( !lc ) return false;
+
+    int count = sizeof( BOARD_TYPE_SYMBOLS ) / sizeof( *BOARD_TYPE_SYMBOLS );
+    for ( int i = 0; i < count; ++i )
+    {
+        char const * const sym = BOARD_TYPE_SYMBOLS[ i ];
+
+        if ( !strcmp( sym, lc ) )
+        {
+            free( lc );
+            return true;
+        }
+    }
+
+    free( lc );
+    return false;
+}
+
 BoardType bt_from_str(char const * const restrict code)
 {
     BoardType bt = BT_One;
@@ -17,17 +68,17 @@ BoardType bt_from_str(char const * const restrict code)
     char * lc = str_to_case_alloc(code, true);
     if ( !lc ) return bt;
 
-    if ( !strcmp(lc, "cc") ) bt = BT_ClassicalChess;
-    else if ( !strcmp(lc, "ct") ) bt = BT_CroatianTies;
-    else if ( !strcmp(lc, "ma") ) bt = BT_MayanAscendancy;
-    else if ( !strcmp(lc, "aoa") ) bt = BT_AgeOfAquarius;
-    else if ( !strcmp(lc, "mv") ) bt = BT_MirandasVeil;
-    else if ( !strcmp(lc, "n") ) bt = BT_Nineteen;
-    else if ( !strcmp(lc, "hd") ) bt = BT_HemerasDawn;
-    else if ( !strcmp(lc, "tr") ) bt = BT_TamoanchanRevisited;
-    else if ( !strcmp(lc, "cot") ) bt = BT_ConquestOfTlalocan;
-    else if ( !strcmp(lc, "d") ) bt = BT_Discovery;
-    // else if ( !strcmp(lc, "o") ) bt = BT_One;
+    if ( !strcmp(lc, BOARD_TYPE_CLASSICAL_CHESS_SYMBOL) ) bt = BT_ClassicalChess;
+    else if ( !strcmp(lc, BOARD_TYPE_CROATIAN_TIES_SYMBOL) ) bt = BT_CroatianTies;
+    else if ( !strcmp(lc, BOARD_TYPE_MAYAN_ASCENDANCY_SYMBOL) ) bt = BT_MayanAscendancy;
+    else if ( !strcmp(lc, BOARD_TYPE_AGE_OF_AQUARIUS_SYMBOL) ) bt = BT_AgeOfAquarius;
+    else if ( !strcmp(lc, BOARD_TYPE_MIRANDAS_VEIL_SYMBOL) ) bt = BT_MirandasVeil;
+    else if ( !strcmp(lc, BOARD_TYPE_NINETEEN_SYMBOL) ) bt = BT_Nineteen;
+    else if ( !strcmp(lc, BOARD_TYPE_HEMERAS_DAWN_SYMBOL) ) bt = BT_HemerasDawn;
+    else if ( !strcmp(lc, BOARD_TYPE_TAMOANCHAN_REVISITED_SYMBOL) ) bt = BT_TamoanchanRevisited;
+    else if ( !strcmp(lc, BOARD_TYPE_CONQUEST_OF_TLALOCAN_SYMBOL) ) bt = BT_ConquestOfTlalocan;
+    else if ( !strcmp(lc, BOARD_TYPE_DISCOVERY_SYMBOL) ) bt = BT_Discovery;
+    // else if ( !strcmp(lc, BOARD_TYPE_ONE_SYMBOL) ) bt = BT_One;
     // else bt = BT_One;
 
     free( lc );

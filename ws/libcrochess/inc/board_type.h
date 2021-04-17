@@ -4,6 +4,8 @@
 #ifndef __BOARD_TYPE_H__
 #define __BOARD_TYPE_H__
 
+#include <stdbool.h>
+
 
 #define BOARD_SIZE_CLASSICAL_CHESS 8
 #define BOARD_SIZE_CROATIAN_TIES 10
@@ -36,6 +38,7 @@ typedef enum BoardType
 } BoardType;
 
 
+bool bt_is_code( char const * const restrict code );
 BoardType bt_from_str(char const * const restrict code);
 char const * const bt_label(BoardType const bt);
 
