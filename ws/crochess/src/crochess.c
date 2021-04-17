@@ -8,13 +8,14 @@
 
 #include "libcrochess.h"
 #include "tokenizer.h"
+#include "piece_type.h"
 #include "chessboard.h"
 
 #include "crochess.h"
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.23+20210416.022936"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.24+20210417.013458"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main(void)
@@ -24,7 +25,7 @@ int main(void)
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    Chessboard * b = brd_alloc_new( BT_One );
+    Chessboard * cb = cb_alloc( BT_One );
 
     while ( true )
     {
@@ -58,7 +59,7 @@ int main(void)
         }
         else if ( ( !strcmp("d", cmd) ) || ( !strcmp("display", cmd) ) )
         {
-            char * s = brd_as_string_alloc( b, true );
+            char * s = cb_as_string_alloc( cb, true );
             if ( s )
             {
                 printf("%s", s);
@@ -67,7 +68,7 @@ int main(void)
         }
         else if ( ( !strcmp("t", cmd) ) || ( !strcmp("tags", cmd) ) )
         {
-            char * s = brd_as_string_alloc( b, false );
+            char * s = cb_as_string_alloc( cb, false );
             if ( s )
             {
                 printf("%s", s);
@@ -92,6 +93,18 @@ int main(void)
             }
 
             free( res );
+        }
+        else if ( !strcmp("x", cmd) )
+        {
+            cb_clear( cb );
+            cb_set_piece( cb, 5, 2, PT_LightBishop );
+
+            char * s = cb_as_string_alloc( cb, true );
+            if ( s )
+            {
+                printf("%s", s);
+                free(s);
+            }
         }
         else
         {

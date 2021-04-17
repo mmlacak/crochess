@@ -15,23 +15,24 @@ typedef struct Chessboard
     unsigned int size;
 
     PieceType board[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
-    TagType chips[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
+    TagType tags[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
 } Chessboard;
 
 
 bool is_field_light( int i, int j );
 
-Chessboard * brd_alloc_new( BoardType const bt );
-bool brd_init( Chessboard * const restrict cb, BoardType const bt );
-bool brd_clear( Chessboard * const restrict cb );
-bool brd_is_on_board( Chessboard const * const restrict cb, int i, int j );
+Chessboard * cb_alloc( BoardType const bt );
+bool cb_init( Chessboard * const restrict cb, BoardType const bt );
+bool cb_clear( Chessboard * const restrict cb );
+bool cb_setup( Chessboard * const restrict cb );
 
-bool brd_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct );
-bool brd_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt );
+bool cb_is_on_board( Chessboard const * const restrict cb, int i, int j );
+bool cb_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct );
+bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt );
 
-// static char * brd_get_divider_alloc( Chessboard const * const restrict cb );
-// static char * brd_get_horizontal_ruler_alloc( Chessboard const * const restrict cb );
-char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips );
+// static char * cb_get_divider_alloc( Chessboard const * const restrict cb );
+// static char * cb_get_horizontal_ruler_alloc( Chessboard const * const restrict cb );
+char * cb_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips );
 
 
 #endif /* __CHESS_BOARD_H__ */

@@ -1,6 +1,8 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+#include <stdlib.h>
+
 #include "piece_type.h"
 #include "board_type.h"
 #include "setup_board.h"
@@ -282,3 +284,24 @@ PieceType const SETUP_BOARD_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ] =
     { P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P },
     { T, R, N, B, S, I, C, U, G, W, A, H, Q, K, H, A, W, G, U, C, I, S, B, N, R, t },
 };
+
+
+PieceType const * const get_setup_board( BoardType const bt )
+{
+    switch ( bt )
+    {
+        case BT_ClassicalChess : return (PieceType const * const)SETUP_BOARD_CLASSICAL_CHESS;
+        case BT_CroatianTies : return (PieceType const * const)SETUP_BOARD_CROATIAN_TIES;
+        case BT_MayanAscendancy : return (PieceType const * const)SETUP_BOARD_MAYAN_ASCENDANCY;
+        case BT_AgeOfAquarius : return (PieceType const * const)SETUP_BOARD_AGE_OF_AQUARIUS;
+        case BT_MirandasVeil : return (PieceType const * const)SETUP_BOARD_MIRANDAS_VEIL;
+        case BT_Nineteen : return (PieceType const * const)SETUP_BOARD_NINETEEN;
+        case BT_HemerasDawn : return (PieceType const * const)SETUP_BOARD_HEMERAS_DAWN;
+        case BT_TamoanchanRevisited : return (PieceType const * const)SETUP_BOARD_TAMOANCHAN_REVISITED;
+        case BT_ConquestOfTlalocan : return (PieceType const * const)SETUP_BOARD_CONQUEST_OF_TLALOCAN;
+        case BT_Discovery : return (PieceType const * const)SETUP_BOARD_DISCOVERY;
+        case BT_One : return (PieceType const * const)SETUP_BOARD_ONE;
+
+        default : return NULL;
+    }
+}

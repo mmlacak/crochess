@@ -55,8 +55,8 @@ unsigned int bt_size(BoardType const bt)
         case BT_MayanAscendancy : return BOARD_SIZE_MAYAN_ASCENDANCY;
         case BT_AgeOfAquarius : return BOARD_SIZE_AGE_OF_AQUARIUS;
         case BT_MirandasVeil : return BOARD_SIZE_MIRANDAS_VEIL;
-        case BT_Nineteen : return BOARD_SIZE_HEMERAS_DAWN;
-        case BT_HemerasDawn : return BOARD_SIZE_TAMOANCHAN_REVISITED;
+        case BT_Nineteen : return BOARD_SIZE_NINETEEN;
+        case BT_HemerasDawn : return BOARD_SIZE_HEMERAS_DAWN;
         case BT_TamoanchanRevisited : return BOARD_SIZE_TAMOANCHAN_REVISITED;
         case BT_ConquestOfTlalocan : return BOARD_SIZE_CONQUEST_OF_TLALOCAN;
         case BT_Discovery : return BOARD_SIZE_DISCOVERY;

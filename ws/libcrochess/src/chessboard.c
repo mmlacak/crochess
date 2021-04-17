@@ -9,6 +9,7 @@
 #include "piece_type.h"
 #include "tag_type.h"
 #include "board_type.h"
+#include "setup_board.h"
 #include "chessboard.h"
 
 
@@ -18,43 +19,67 @@ bool is_field_light( int i, int j )
 }
 
 
-Chessboard * brd_alloc_new( BoardType const bt )
+Chessboard * cb_alloc( BoardType const bt )
 {
     Chessboard * b = malloc( sizeof( Chessboard ) );
     if ( !b ) return NULL;
 
-    brd_init(b, bt);
+    cb_init(b, bt);
 
     return b;
 }
 
-bool brd_init( Chessboard * const restrict cb, BoardType const bt )
+bool cb_init( Chessboard * const restrict cb, BoardType const bt )
 {
     if ( !cb ) return false;
 
     cb->type = bt;
     cb->size = bt_size( cb->type );
 
-    return brd_clear( cb );
+    // return cb_clear( cb );
+    return cb_setup( cb );
 }
 
-bool brd_clear( Chessboard * const restrict cb )
+bool cb_clear( Chessboard * const restrict cb )
 {
     if ( !cb ) return false;
 
     for ( int i = 0; i < BOARD_SIZE_MAXIMUM; ++i )
     {
-        for ( int j = 0; i < BOARD_SIZE_MAXIMUM; ++i )
+        for ( int j = 0; j < BOARD_SIZE_MAXIMUM; ++j )
         {
             cb->board[ i ][ j ] = PT_None;
-            cb->chips[ i ][ j ] = TT_None;
+            cb->tags[ i ][ j ] = TT_None;
         }
     }
 
     return true;
 }
 
-bool brd_is_on_board( Chessboard const * const restrict cb, int i, int j )
+bool cb_setup( Chessboard * const restrict cb )
+{
+    if ( !cb ) return false;
+
+    if ( !cb_clear( cb ) ) return false;
+
+    PieceType const * const su = get_setup_board( cb->type );
+    // PieceType const * const * const su = (PieceType const * const * const)brd;
+
+    for ( int i = 0; i < cb->size; ++i )
+    {
+        for ( int j = 0; j < cb->size; ++j )
+        {
+            cb->board[ i ][ j ] = su[ cb->size * i + j ]; // su[ i ][ j ];
+
+// TODO
+            // cb->tags[ i ][ j ] = TT_None;
+        }
+    }
+
+    return true;
+}
+
+bool cb_is_on_board( Chessboard const * const restrict cb, int i, int j )
 {
     if ( !cb ) return false;
     return ( ( 0 <= i ) && ( i < cb->size ) && ( 0 <= j ) && ( j < cb->size ) );
@@ -62,7 +87,7 @@ bool brd_is_on_board( Chessboard const * const restrict cb, int i, int j )
 
 PieceType brd_get_piece( Chessboard const * const restrict cb, int i, int j )
 {
-    if ( brd_is_on_board( cb, i, j ) )
+    if ( cb_is_on_board( cb, i, j ) )
     {
         return cb->board[ i ][ j ];
     }
@@ -72,33 +97,33 @@ PieceType brd_get_piece( Chessboard const * const restrict cb, int i, int j )
 
 TagType brd_get_chip( Chessboard const * const restrict cb, int i, int j )
 {
-    if ( brd_is_on_board( cb, i, j ) )
+    if ( cb_is_on_board( cb, i, j ) )
     {
-        return cb->chips[ i ][ j ];
+        return cb->tags[ i ][ j ];
     }
 
     return TT_None;
 }
 
-bool brd_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct )
+bool cb_set_piece_chip( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct )
 {
     if ( !cb ) return false;
 
-    if ( brd_is_on_board( cb, i, j ) )
+    if ( cb_is_on_board( cb, i, j ) )
     {
         cb->board[ i ][ j ] = pt;
-        cb->chips[ i ][ j ] = ct;
+        cb->tags[ i ][ j ] = ct;
     }
 
     return true;
 }
 
-bool brd_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt )
+bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt )
 {
-    return brd_set_piece_chip( cb, i, j, pt, TT_None );
+    return cb_set_piece_chip( cb, i, j, pt, TT_None );
 }
 
-static char * brd_get_divider_alloc( Chessboard const * const restrict cb )
+static char * cb_get_divider_alloc( Chessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -119,7 +144,7 @@ static char * brd_get_divider_alloc( Chessboard const * const restrict cb )
     return divider;
 }
 
-static char * brd_get_horizontal_ruler_alloc( Chessboard const * const restrict cb )
+static char * cb_get_horizontal_ruler_alloc( Chessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -149,14 +174,14 @@ static char * brd_get_horizontal_ruler_alloc( Chessboard const * const restrict 
     return hr;
 }
 
-char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips )
+char * cb_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips )
 {
     if ( !cb ) return NULL;
 
     char * s = calloc( 1, 2048 );
     if ( !s ) return NULL;
 
-    char * horizontal_ruler = brd_get_horizontal_ruler_alloc( cb );
+    char * horizontal_ruler = cb_get_horizontal_ruler_alloc( cb );
     if ( !horizontal_ruler )
     {
         free( s );
@@ -165,7 +190,7 @@ char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_
 
     strcat( s, horizontal_ruler );
 
-    char * divider = brd_get_divider_alloc( cb );
+    char * divider = cb_get_divider_alloc( cb );
     if ( !divider )
     {
         free( s );
@@ -207,7 +232,7 @@ char * brd_as_string_alloc( Chessboard const * const restrict cb, bool is_board_
             if ( is_board_or_chips )
                 c = pt_as_char( cb->board[ i ][ j ] );
             else
-                c = tt_as_char( cb->chips[ i ][ j ] );
+                c = tt_as_char( cb->tags[ i ][ j ] );
 
             if ( c == ' ' )
             {

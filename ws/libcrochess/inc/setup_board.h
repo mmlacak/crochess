@@ -1,6 +1,10 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+#ifndef __SETUP_BOARD_H__
+#define __SETUP_BOARD_H__
+
+
 #include "piece_type.h"
 #include "board_type.h"
 
@@ -16,3 +20,9 @@ extern PieceType const SETUP_BOARD_TAMOANCHAN_REVISITED[ BOARD_SIZE_TAMOANCHAN_R
 extern PieceType const SETUP_BOARD_CONQUEST_OF_TLALOCAN[ BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ BOARD_SIZE_CONQUEST_OF_TLALOCAN ];
 extern PieceType const SETUP_BOARD_DISCOVERY[ BOARD_SIZE_DISCOVERY ][ BOARD_SIZE_DISCOVERY ];
 extern PieceType const SETUP_BOARD_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ];
+
+
+PieceType const * const get_setup_board( BoardType const bt );
+
+
+#endif /* __SETUP_BOARD_H__ */
