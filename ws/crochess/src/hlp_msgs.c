@@ -31,7 +31,7 @@ void print_app_intro(char const * const restrict lib_ver, char const * const res
 
     print_version_info(lib_ver, app_ver);
 
-    printf( "\nUse `h(elp)` for command list, `h(elp) cmd` for detailed info.\n"
+    printf( "\nUse `help` for command list, `help <cmd>` for detailed info.\n"
             "\n" );
 
     // fflush( stdout );
@@ -79,7 +79,8 @@ void print_about_info()
 void print_help()
 {
     printf( "Commands:\n"
-            "h, help       - prints this screen, `h(elp) cmd` for command details\n"
+            "h, help       - prints this screen, `help <cmd>` for command details\n"
+            "                e.g. `help tags` prints help about `tags` command\n"
             "a, about      - prints about, license info\n"
             "v, version    - prints version(s) info\n"
             "q, quit       - quits program\n"
@@ -87,17 +88,17 @@ void print_help()
             "t, tags       - displays current tags\n"
             "* i, info     - displays list of all moves played, time\n"
             "* t, time     - (re)sets time counter(s)\n"
-            "n, new        - starts new game, keeps variant\n"
-            "                to change variant use code from help msg,\n"
-            "                i.e. `h(elp) n(new)`\n"
+            "n, new        - starts new game, keeps current variant\n"
+            "                to change variant specify code, e.g. `new aoa`\n"
+            "                to see all suported codes type `help new`\n"
             "* p, players  - sets up players\n"
             "                takes two parameters, both are one of `bot`, `human`\n"
             "* m, move     - moves piece(s)\n"
-            "                takes notation as argument, e.g. `m Nc3`\n"
+            "                takes notation as argument, e.g. `move Nc3`\n"
             "* s, save     - saves current game into PGN file\n"
-            "                takes <path> as argument, e.g. `s my_new_game.pgn`\n"
+            "                takes <path> as argument, e.g. `save my_new_game.pgn`\n"
             "* l, load     - loads game/positions from PGN file\n"
-            "                takes <path> as argument, e.g. `l my_new_game.pgn`\n"
+            "                takes <path> as argument, e.g. `load my_new_game.pgn`\n"
             "\n"
             "Commands marked with * are currently not implemented.\n" );
 }
@@ -160,7 +161,7 @@ void print_help_new_code()
 void print_help_new()
 {
     printf( "Starts new game, in the same variant as the last one.\n"
-            "To change variant, use code below as argument, e.g. `n(ew) ct`:\n\n" );
+            "To change variant, use code below as argument, e.g. `new ct`:\n\n" );
 
     print_help_new_code();
 }
@@ -171,5 +172,5 @@ void print_new_code_invalid( char const * const restrict str )
 
     printf( "\nUse following code for new variant game:\n" );
     print_help_new_code();
-    printf( "\ne.g. use `n(ew) aoa` to play \"Age Of Aquarius\" variant.\n" );
+    printf( "\ne.g. use `new aoa` to play \"Age Of Aquarius\" variant.\n" );
 }

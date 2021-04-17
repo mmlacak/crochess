@@ -44,7 +44,7 @@ bool bt_is_code( char const * const restrict code )
     char * lc = str_to_case_alloc(code, true);
     if ( !lc ) return false;
 
-    int count = sizeof( BOARD_TYPE_SYMBOLS ) / sizeof( *BOARD_TYPE_SYMBOLS );
+    int const count = sizeof( BOARD_TYPE_SYMBOLS ) / sizeof( BOARD_TYPE_SYMBOLS[ 0 ] );
     for ( int i = 0; i < count; ++i )
     {
         char const * const sym = BOARD_TYPE_SYMBOLS[ i ];
