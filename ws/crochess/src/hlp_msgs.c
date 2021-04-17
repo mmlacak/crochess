@@ -88,7 +88,8 @@ void print_help()
             "* i, info     - displays list of all moves played, time\n"
             "* t, time     - (re)sets time counter(s)\n"
             "n, new        - starts new game, keeps variant\n"
-            "                to change variant use code from table below, e.g. `n ct`\n"
+            "                to change variant use code from help msg,\n"
+            "                i.e. `h(elp) n(new)`\n"
             "* p, players  - sets up players\n"
             "                takes two parameters, both are one of `bot`, `human`\n"
             "* m, move     - moves piece(s)\n"
@@ -153,7 +154,7 @@ void print_help_new_code()
             "tr  -> Tamoanchan Revisited\n"
             "cot -> Conquest Of Tlalocan\n"
             "d   -> Discovery\n"
-            "o   -> One-n" );
+            "o   -> One\n" );
 }
 
 void print_help_new()
