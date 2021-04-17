@@ -33,7 +33,8 @@ char * str_to_case_alloc(char const * const restrict str, bool is_lower_or_upper
     if ( !str ) return NULL;
 
     size_t len = strlen(str);
-    char * s = malloc(len + 1);
+    char * lc = malloc(len + 1);
+    char * s = lc;
 
     char const * pos = str;
     while ( *pos )
@@ -47,5 +48,7 @@ char * str_to_case_alloc(char const * const restrict str, bool is_lower_or_upper
         ++pos;
     }
 
-    return s;
+    lc[ len ] = '\0';
+
+    return lc;
 }

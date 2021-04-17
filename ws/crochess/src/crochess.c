@@ -15,7 +15,7 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.26+20210417.070016"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.27+20210417.080455"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main(void)
@@ -67,7 +67,16 @@ int main(void)
         }
         else if ( ( !strcmp("n", cmd) ) || ( !strcmp("new", cmd) ) )
         {
-// TODO :: parse arg --> init new board
+            char * var = next_token_alloc(NULL, NULL);
+            if ( var )
+            {
+                BoardType bt = bt_from_str( var );
+                free( var );
+
+                free( cb );
+                cb = cb_alloc( bt );
+            }
+
             cb_setup( cb );
             cb_print( cb, true );
         }

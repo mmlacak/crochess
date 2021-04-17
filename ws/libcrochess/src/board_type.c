@@ -2,6 +2,7 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 #include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "str_utils.h"
@@ -10,20 +11,28 @@
 
 BoardType bt_from_str(char const * const code)
 {
-    char * lc = str_to_case_alloc(code, true);
+    BoardType bt = BT_One;
+    if ( !code ) return bt;
 
-    if ( !strcmp(lc, "cc") ) return BT_ClassicalChess;
-    else if ( !strcmp(lc, "ct") ) return BT_CroatianTies;
-    else if ( !strcmp(lc, "ma") ) return BT_MayanAscendancy;
-    else if ( !strcmp(lc, "aoa") ) return BT_AgeOfAquarius;
-    else if ( !strcmp(lc, "mv") ) return BT_MirandasVeil;
-    else if ( !strcmp(lc, "n") ) return BT_Nineteen;
-    else if ( !strcmp(lc, "hd") ) return BT_HemerasDawn;
-    else if ( !strcmp(lc, "tr") ) return BT_TamoanchanRevisited;
-    else if ( !strcmp(lc, "cot") ) return BT_ConquestOfTlalocan;
-    else if ( !strcmp(lc, "d") ) return BT_Discovery;
-    // else if ( !strcmp(lc, "o") ) return BT_One;
-    else return BT_One;
+    char * lc = str_to_case_alloc(code, true);
+    if ( !lc ) return bt;
+
+    if ( !strcmp(lc, "cc") ) bt = BT_ClassicalChess;
+    else if ( !strcmp(lc, "ct") ) bt = BT_CroatianTies;
+    else if ( !strcmp(lc, "ma") ) bt = BT_MayanAscendancy;
+    else if ( !strcmp(lc, "aoa") ) bt = BT_AgeOfAquarius;
+    else if ( !strcmp(lc, "mv") ) bt = BT_MirandasVeil;
+    else if ( !strcmp(lc, "n") ) bt = BT_Nineteen;
+    else if ( !strcmp(lc, "hd") ) bt = BT_HemerasDawn;
+    else if ( !strcmp(lc, "tr") ) bt = BT_TamoanchanRevisited;
+    else if ( !strcmp(lc, "cot") ) bt = BT_ConquestOfTlalocan;
+    else if ( !strcmp(lc, "d") ) bt = BT_Discovery;
+    // else if ( !strcmp(lc, "o") ) bt = BT_One;
+    // else bt = BT_One;
+
+    free( lc );
+
+    return bt;
 }
 
 char const * const bt_label(BoardType const bt)

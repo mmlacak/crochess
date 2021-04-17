@@ -47,7 +47,7 @@ char const * stop_at_chars(char const * const pos, char const * restrict seps)
     return traverse_chars(pos, seps, false);
 }
 
-char * next_token_alloc(char const * restrict str /* = NULL */, char const * restrict seps /* = NULL */)
+char * next_token_alloc(char const * const restrict str /* = NULL */, char const * const restrict seps /* = NULL */)
 {
     static char const * start = NULL;
     static char const * end = NULL;
@@ -78,7 +78,7 @@ char * next_token_alloc(char const * restrict str /* = NULL */, char const * res
     return pos;
 }
 
-char * str_trim_alloc( char const * restrict str, char const * restrict chars )
+char * str_trim_alloc( char const * const restrict str, char const * const restrict chars )
 {
     if ( !str ) return NULL;
     if ( !chars ) return NULL;
