@@ -11,7 +11,7 @@ char const TOKEN_SEPARATORS_WHITEPSACE[] = " \t\v\f\r\n";
 char const TOKEN_SEPARATORS_PUNCTUATION[] = "!\"#$%%&'()*+,-./";
 
 
-bool char_in(char c, char const * restrict seps)
+bool char_in(char c, char const * const restrict seps)
 {
     if ( !seps ) return false;
 
@@ -20,7 +20,7 @@ bool char_in(char c, char const * restrict seps)
     return false;
 }
 
-char const * traverse_chars(char const * const pos, char const * restrict seps, bool skip_or_stop_at)
+char const * traverse_chars(char const * const restrict pos, char const * const restrict seps, bool skip_or_stop_at)
 {
     if ( !pos ) return NULL;
     if ( !seps ) return pos;
@@ -37,12 +37,12 @@ char const * traverse_chars(char const * const pos, char const * restrict seps, 
     return p;
 }
 
-char const * skip_chars(char const * const pos, char const * restrict seps)
+char const * skip_chars(char const * const restrict pos, char const * const restrict seps)
 {
     return traverse_chars(pos, seps, true);
 }
 
-char const * stop_at_chars(char const * const pos, char const * restrict seps)
+char const * stop_at_chars(char const * const restrict pos, char const * const restrict seps)
 {
     return traverse_chars(pos, seps, false);
 }

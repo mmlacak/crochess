@@ -9,7 +9,7 @@
 #include "board_type.h"
 
 
-BoardType bt_from_str(char const * const code)
+BoardType bt_from_str(char const * const restrict code)
 {
     BoardType bt = BT_One;
     if ( !code ) return bt;
