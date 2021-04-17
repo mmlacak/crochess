@@ -15,7 +15,7 @@
 
 bool is_field_light( int i, int j )
 {
-    return ( (i + j) % 2 == 0 );
+    return ( (i + j) % 2 != 0 );
 }
 
 
@@ -69,7 +69,10 @@ bool cb_setup( Chessboard * const restrict cb )
     {
         for ( int j = 0; j < cb->size; ++j )
         {
-            cb->board[ i ][ j ] = su[ cb->size * i + j ]; // su[ i ][ j ];
+            int x = j;
+            int y = cb->size - i - 1;
+
+            cb->board[ x ][ y ] = su[ cb->size * i + j ]; // su[ i ][ j ];
 
 // TODO
             // cb->tags[ i ][ j ] = TT_None;
@@ -227,23 +230,25 @@ char * cb_as_string_alloc( Chessboard const * const restrict cb, bool is_board_o
 
         for ( int j = 0; j < cb->size; ++j )
         {
-            char c;
+            char ch;
+            int x = j;
+            int y = cb->size - i - 1;
 
             if ( is_board_or_chips )
-                c = pt_as_char( cb->board[ i ][ j ] );
+                ch = pt_as_char( cb->board[ x ][ y ] );
             else
-                c = tt_as_char( cb->tags[ i ][ j ] );
+                ch = tt_as_char( cb->tags[ x ][ y ] );
 
-            if ( c == ' ' )
+            if ( ch == ' ' )
             {
-                if ( is_field_light( i, j ) ) c = ',';
-                else c = '.';
+                if ( is_field_light( x, y ) ) ch = '.';
+                else ch = ',';
             }
 
             if ( j < cb->size - 1 )
-                sprintf( field, "%c ", c );
+                sprintf( field, "%c ", ch );
             else
-                sprintf( field, "%c", c );
+                sprintf( field, "%c", ch );
 
             strcat( s, field );
         }
@@ -261,4 +266,18 @@ char * cb_as_string_alloc( Chessboard const * const restrict cb, bool is_board_o
     free( field );
 
     return s;
+}
+
+bool cb_print( Chessboard const * const restrict cb, bool is_board_or_chips )
+{
+    if ( !cb ) return false;
+
+    char * s = cb_as_string_alloc( cb, is_board_or_chips );
+
+    if ( !s ) return false;
+
+    printf( "%s", s );
+    free( s );
+
+    return true;
 }

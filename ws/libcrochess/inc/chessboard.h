@@ -33,6 +33,7 @@ bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt );
 // static char * cb_get_divider_alloc( Chessboard const * const restrict cb );
 // static char * cb_get_horizontal_ruler_alloc( Chessboard const * const restrict cb );
 char * cb_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips );
+bool cb_print( Chessboard const * const restrict cb, bool is_board_or_chips );
 
 
 #endif /* __CHESS_BOARD_H__ */
