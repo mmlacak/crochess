@@ -28,7 +28,7 @@ bool str_to_case(char * const restrict str, bool is_lower_or_upper)
     return true;
 }
 
-char * str_to_case_alloc(char const * const restrict str, bool is_lower_or_upper)
+char * str_to_case_alx(char const * const restrict str, bool is_lower_or_upper)
 {
     if ( !str ) return NULL;
 

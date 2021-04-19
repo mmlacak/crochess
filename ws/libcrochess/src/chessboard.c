@@ -20,24 +20,25 @@ bool is_field_light( int i, int j )
 }
 
 
-Chessboard * cb_alloc( BoardType const bt )
+Chessboard * cb_new_alx( BoardType const bt )
 {
     Chessboard * b = malloc( sizeof( Chessboard ) );
     if ( !b ) return NULL;
 
-    cb_init(b, bt);
+    cb_init(b, bt, true);
 
     return b;
 }
 
-bool cb_init( Chessboard * const restrict cb, BoardType const bt )
+bool cb_init( Chessboard * const restrict cb, BoardType const bt, bool do_setup )
 {
     if ( !cb ) return false;
 
     cb->type = bt;
     cb->size = bt_size( cb->type );
 
-    return cb_setup( cb );
+    if ( do_setup ) return cb_setup( cb );
+    else return cb_clear( cb );
 }
 
 bool cb_clear( Chessboard * const restrict cb )
@@ -128,7 +129,7 @@ bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt )
     return cb_set_piece_tag( cb, i, j, pt, TT_None );
 }
 
-static char * cb_get_divider_alloc( Chessboard const * const restrict cb )
+static char * cb_get_divider_alx( Chessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -149,7 +150,7 @@ static char * cb_get_divider_alloc( Chessboard const * const restrict cb )
     return divider;
 }
 
-static char * cb_get_horizontal_ruler_alloc( Chessboard const * const restrict cb )
+static char * cb_get_horizontal_ruler_alx( Chessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -179,14 +180,14 @@ static char * cb_get_horizontal_ruler_alloc( Chessboard const * const restrict c
     return hr;
 }
 
-char * cb_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips )
+char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_chips )
 {
     if ( !cb ) return NULL;
 
     char * s = calloc( 1, 2048 );
     if ( !s ) return NULL;
 
-    char * horizontal_ruler = cb_get_horizontal_ruler_alloc( cb );
+    char * horizontal_ruler = cb_get_horizontal_ruler_alx( cb );
     if ( !horizontal_ruler )
     {
         free( s );
@@ -195,7 +196,7 @@ char * cb_as_string_alloc( Chessboard const * const restrict cb, bool is_board_o
 
     strcat( s, horizontal_ruler );
 
-    char * divider = cb_get_divider_alloc( cb );
+    char * divider = cb_get_divider_alx( cb );
     if ( !divider )
     {
         free( s );
@@ -274,7 +275,7 @@ bool cb_print( Chessboard const * const restrict cb, bool is_board_or_chips )
 {
     if ( !cb ) return false;
 
-    char * s = cb_as_string_alloc( cb, is_board_or_chips );
+    char * s = cb_as_string_alx( cb, is_board_or_chips );
 
     if ( !s ) return false;
 

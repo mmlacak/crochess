@@ -21,8 +21,8 @@ typedef struct Chessboard
 
 bool is_field_light( int i, int j );
 
-Chessboard * cb_alloc( BoardType const bt );
-bool cb_init( Chessboard * const restrict cb, BoardType const bt );
+Chessboard * cb_new_alx( BoardType const bt );
+bool cb_init( Chessboard * const restrict cb, BoardType const bt, bool do_setup );
 bool cb_clear( Chessboard * const restrict cb );
 bool cb_setup( Chessboard * const restrict cb );
 
@@ -32,9 +32,9 @@ TagType cb_get_tag( Chessboard const * const restrict cb, int i, int j );
 bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct );
 bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt );
 
-// static char * cb_get_divider_alloc( Chessboard const * const restrict cb );
-// static char * cb_get_horizontal_ruler_alloc( Chessboard const * const restrict cb );
-char * cb_as_string_alloc( Chessboard const * const restrict cb, bool is_board_or_chips );
+// static char * cb_get_divider_alx( Chessboard const * const restrict cb );
+// static char * cb_get_horizontal_ruler_alx( Chessboard const * const restrict cb );
+char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_chips );
 bool cb_print( Chessboard const * const restrict cb, bool is_board_or_chips );
 
 

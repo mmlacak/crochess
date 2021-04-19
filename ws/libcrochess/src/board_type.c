@@ -41,7 +41,7 @@ bool bt_is_code( char const * const restrict code )
 {
     if ( !code ) return false;
 
-    char * lc = str_to_case_alloc(code, true);
+    char * lc = str_to_case_alx(code, true);
     if ( !lc ) return false;
 
     int const count = sizeof( BOARD_TYPE_SYMBOLS ) / sizeof( BOARD_TYPE_SYMBOLS[ 0 ] );
@@ -65,7 +65,7 @@ BoardType bt_from_str(char const * const restrict code)
     BoardType bt = BT_One;
     if ( !code ) return bt;
 
-    char * lc = str_to_case_alloc(code, true);
+    char * lc = str_to_case_alx(code, true);
     if ( !lc ) return bt;
 
     if ( !strcmp(lc, BOARD_TYPE_CLASSICAL_CHESS_SYMBOL) ) bt = BT_ClassicalChess;

@@ -15,7 +15,7 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.31+20210417.104215"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.32+20210419.200944"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main(void)
@@ -25,7 +25,7 @@ int main(void)
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    Chessboard * cb = cb_alloc( BT_One );
+    Chessboard * cb = cb_new_alx( BT_One );
 
     while ( true )
     {
@@ -41,7 +41,7 @@ int main(void)
             continue;
         }
 
-        char * cmd = next_token_alloc(buffer, TOKEN_SEPARATORS_WHITEPSACE);
+        char * cmd = next_token_alx(buffer, TOKEN_SEPARATORS_WHITEPSACE);
         if ( !cmd ) continue;
 
         if ( ( !strcmp("q", cmd) ) || ( !strcmp("quit", cmd) ) )
@@ -68,7 +68,7 @@ int main(void)
         else if ( ( !strcmp("n", cmd) ) || ( !strcmp("new", cmd) ) )
         {
             bool is_code = false;
-            char * code = next_token_alloc(NULL, NULL);
+            char * code = next_token_alx(NULL, NULL);
 
             if ( code )
             {
@@ -79,7 +79,7 @@ int main(void)
                     BoardType bt = bt_from_str( code );
 
                     free( cb );
-                    cb = cb_alloc( bt );
+                    cb = cb_new_alx( bt );
                 }
                 else
                 {
@@ -97,7 +97,7 @@ int main(void)
         }
         else if ( ( !strcmp("h", cmd) ) || ( !strcmp("help", cmd) ) || ( !strcmp("?", cmd) ) )
         {
-            char * res = next_token_alloc(NULL, NULL);
+            char * res = next_token_alx(NULL, NULL);
 
             if ( !res ) print_help();
             else if ( ( !strcmp("q", res) ) || ( !strcmp("quit", res) ) ) print_help_quit();

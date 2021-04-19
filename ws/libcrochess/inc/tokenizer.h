@@ -14,8 +14,8 @@ char const * traverse_chars(char const * const restrict pos, char const * const 
 char const * skip_chars(char const * const restrict pos, char const * const restrict seps);
 char const * stop_at_chars(char const * const restrict pos, char const * const restrict seps);
 
-char * next_token_alloc(char const * const restrict str /* = NULL */, char const * const restrict seps /* = NULL */);
-char * str_trim_alloc( char const * const restrict str, char const * const restrict chars );
+char * next_token_alx(char const * const restrict str /* = NULL */, char const * const restrict seps /* = NULL */);
+char * str_trim_alx( char const * const restrict str, char const * const restrict chars );
 
 size_t flush_stdin();
 
