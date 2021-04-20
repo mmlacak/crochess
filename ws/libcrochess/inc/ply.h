@@ -12,8 +12,7 @@
 
 typedef enum PlyLink
 {
-    PL_Start,
-    PL_Cascade,
+    PL_Ply, // Just one ply, starting or continuing cascade.
     PL_Teleportation,
     PL_TeleportationWave,
     PL_FailedTeleportationOblation,
@@ -58,18 +57,31 @@ typedef struct PlySideEffect
 } PlySideEffect;
 
 
+typedef struct PieceField
+{
+    PieceType piece;
+    int i;
+    int j;
+    struct PieceField * next;
+} PieceField;
+
+
 typedef struct Ply
 {
     PlyLink link;
 
     union
     {
-        struct { PieceType piece; Step * steps; } start;
-        struct { PieceType piece; Step * steps; } cascade;
-        struct { int i; int j; } teleportation;
+        struct { PieceType piece; Step * steps; } ply;
+        struct { int i; int j; } teleport;
+        struct { Step * steps; } teleport_wave;
+        struct { PieceType piece; int i; int j; } failed_teleport_oblation;
+        struct { PieceType piece; Step * steps; } trance_journey;
+        struct { PieceField * piece_field; } dual_trance_journey;
+        struct { PieceType piece; } failed_trance_journey;
     };
 
-// Step * steps;
+    unsigned int momentum;
     PlySideEffect side_effect;
     struct Ply * next;
 } Ply;
