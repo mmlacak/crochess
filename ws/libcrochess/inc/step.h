@@ -29,12 +29,11 @@ typedef enum StepSideEffectType
 typedef struct StepSideEffect
 {
     StepSideEffectType type;
-    bool is_promo_tag_lost;
 
     union
     {
-        struct { PieceType piece; } capture;
-        struct { PieceType piece; int i; int j; } displacement;
+        struct { PieceType piece; bool is_promo_tag_lost; } capture;
+        struct { PieceType piece; bool is_promo_tag_lost; int i; int j; } displacement;
     };
 } StepSideEffect;
 
@@ -45,6 +44,7 @@ typedef struct Step
     int i;
     int j;
     StepSideEffect side_effect;
+    struct Step * next;
 } Step;
 
 
