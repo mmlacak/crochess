@@ -4,6 +4,7 @@
 #ifndef __PLY_H__
 #define __PLY_H__
 
+
 #include <stdbool.h>
 
 #include "piece_type.h"
@@ -23,7 +24,6 @@ typedef enum PlyLink
     PL_PawnSacrifice,
 } PlyLink;
 
-
 typedef enum PlySideEffectType
 {
     PSET_None,
@@ -38,7 +38,6 @@ typedef enum PlySideEffectType
     PSET_Ressurecion,
     PSET_FailedRessurecion,
 } PlySideEffectType;
-
 
 typedef struct PlySideEffect
 {
@@ -56,7 +55,6 @@ typedef struct PlySideEffect
     };
 } PlySideEffect;
 
-
 typedef struct PieceField
 {
     PieceType piece;
@@ -64,7 +62,6 @@ typedef struct PieceField
     int j;
     struct PieceField * next;
 } PieceField;
-
 
 typedef struct Ply
 {
