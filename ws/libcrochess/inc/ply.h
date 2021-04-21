@@ -75,9 +75,10 @@ typedef struct Ply
         struct { PieceType piece; Step * steps; } ply;
         struct { int i; int j; } teleport;
         struct { Step * steps; } teleport_wave;
-        struct { PieceType piece; int i; int j; } failed_teleport_oblation;
-        struct { PieceType piece; Step * steps; } trance_journey;
-        struct { PieceField * piece_field; } dual_trance_journey;
+        struct { PieceType piece; int i; int j; } failed_teleport;
+        struct { PieceType piece; } failed_teleport_oblation;
+        struct { PieceType piece; int i; int j; TranceJourneyStep * steps; } trance_journey;
+        struct { PieceField * captured; } dual_trance_journey;
         struct { PieceType piece; } failed_trance_journey;
     };
 

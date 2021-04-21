@@ -18,6 +18,15 @@ typedef enum StepLink
 } StepLink;
 
 
+typedef struct Step
+{
+    StepLink link;
+    int i;
+    int j;
+    struct Step * next;
+} Step;
+
+
 typedef enum StepSideEffectType
 {
     SSET_None,
@@ -38,14 +47,14 @@ typedef struct StepSideEffect
 } StepSideEffect;
 
 
-typedef struct Step
+typedef struct TranceJourneyStep
 {
     StepLink link;
     int i;
     int j;
     StepSideEffect side_effect;
-    struct Step * next;
-} Step;
+    struct TranceJourneyStep * next;
+} TranceJourneyStep;
 
 
 #endif /* __STEP_H__ */
