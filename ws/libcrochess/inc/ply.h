@@ -55,6 +55,22 @@ typedef struct PlySideEffect
     };
 } PlySideEffect;
 
+PlySideEffect * ply_new_side_effect_alx( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j );
+
+PlySideEffect * ply_new_side_effect_none_alx();
+PlySideEffect * ply_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost );
+PlySideEffect * ply_new_side_effect_en_passant_alx( int i, int j );
+PlySideEffect * ply_new_side_effect_castle_alx( int i, int j );
+PlySideEffect * ply_new_side_effect_promote_alx( PieceType piece );
+PlySideEffect * ply_new_side_effect_tag_for_promotion_alx();
+PlySideEffect * ply_new_side_effect_convert_alx( PieceType piece, bool is_promo_tag_lost );
+PlySideEffect * ply_new_side_effect_failed_conversion_alx();
+PlySideEffect * ply_new_side_effect_demote_alx( PieceType piece, int i, int j );
+PlySideEffect * ply_new_side_effect_resurrect_alx( PieceType piece, int i, int j );
+PlySideEffect * ply_new_side_effect_failed_resurrection_alx();
+
+
+
 typedef struct PieceField
 {
     PieceType piece;
@@ -62,6 +78,9 @@ typedef struct PieceField
     int j;
     struct PieceField * next;
 } PieceField;
+
+PieceField * ply_new_piece_field_alx( PieceType piece, int i, int j );
+
 
 typedef struct Ply
 {
