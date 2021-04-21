@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 
+#include "defines.h"
 #include "step.h"
 
 
@@ -46,12 +47,12 @@ StepSideEffect * step_new_side_effect_alx( StepSideEffectType type, PieceType pi
 
 StepSideEffect * step_new_side_effect_none_alx()
 {
-    return step_new_side_effect_alx(SSET_None, PT_None, false, -1, -1);
+    return step_new_side_effect_alx(SSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD);
 }
 
 StepSideEffect * step_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost )
 {
-    return step_new_side_effect_alx(SSET_Capture, piece, is_promo_tag_lost, -1, -1);
+    return step_new_side_effect_alx(SSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD);
 }
 
 StepSideEffect * step_new_side_effect_displacement_alx( PieceType piece, bool is_promo_tag_lost, int i, int j )
