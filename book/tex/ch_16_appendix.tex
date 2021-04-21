@@ -982,20 +982,12 @@ are available for a particular variant see
                  | <rank>
                  | <field>
 
-<step-side-effects> =
-  ?
-| \alg{*}[<disposable-figure>]
-| \alg{*}[\alg{P}[\alg{==}]]
-| \alg{<}[<disposable-figure>]<field>
-| \alg{<}[\alg{P}[\alg{==}]]<field>
-
 <movement> =
   [<disambiguation>][\alg{==}]<field>
-| [<disambiguation>]
-    \{.[.]<field>[<step-side-effects>]\}
+| [<disambiguation>]\{.[.]<field>\}
 | <field>\alg{-}<field>
 
-<ply-side-effects> =
+<side-effects> =
   ?
 | \alg{*}[<disposable-figure>]
 | \alg{*}[\alg{P}[\alg{==}]]
@@ -1011,19 +1003,17 @@ are available for a particular variant see
 | \alg{$W}<field>
 | \alg{$I}<field>
 | \alg{$$}
+
+<ply> =
+  <movable-piece><movement><side-effects>
+| \alg{[}<movable-piece><movement><side-effects>\alg{]}
+
+<cascade> = <ply>(\alg{~}<ply>)
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<ply> =
-  <movable-piece><movement>
-    <ply-side-effects>
-| \alg{[}<movable-piece><movement>
-    <ply-side-effects>\alg{]}
-
-<cascade> = <ply>(\alg{~}<ply>)
-
 <teleportation> =
   \alg{|}<field>
 | \{\alg{|W}<movement>\}[\alg{||}]
@@ -1031,11 +1021,17 @@ are available for a particular variant see
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
 
+<trance-journey-start> =
+  ?
+| <disambiguation>
+| <disambiguation>,
+| <disambiguation>,<field>
+
 <trance-journey> =
-  \alg{@}<disposable-piece>[<disambiguation>]
+  \alg{@}<disposable-piece><trance-journey-start>
     (.[.]<field>\alg{<}[<disposable-piece>]
     <field>)<field>
-| \alg{@}<disposable-piece>[<disambiguation>]
+| \alg{@}<disposable-piece><trance-journey-start>
     (.[.]<field>\alg{*}[<disposable-piece>])
     <field>
 | \alg{@}\alg{@}[<disposable-piece>[<field>]
@@ -1044,18 +1040,16 @@ are available for a particular variant see
 
 <pawn-sacrifice> =
   \alg{S}<movement>\alg{~A}<movement>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
+
+<pawn-sacrifice-capture> =
+  \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
+    [\alg{|}<field>|\alg{~}<move-new>]
+| \alg{S}<movement>[\alg{|}<field>|\alg{~}<move-new>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<pawn-sacrifice-capture> =
-  \alg{S}[<disambiguation>]
-    \{.[.]<field>[\alg{*}<pawn>]\}
-    [\alg{|}<field>|\alg{~}<move-new>]
-| \alg{S}<movement>
-    [\alg{|}<field>|\alg{~}<move-new>]
-
 <move-star> =
   \alg{I}<movement>\alg{~}\alg{T}<movement>
 
@@ -1081,11 +1075,7 @@ are available for a particular variant see
 | \algcty{0-0-0}
 | \algcty{O-O}
 | \algcty{0-0}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <move> =
   \alg{(=)}
 | \alg{...}
@@ -1093,6 +1083,8 @@ are available for a particular variant see
 | <compatibility-castling>
 | <move-new><status>
 \end{alltt}
+
+\clearpage % ..........................................................
 
 Notational grammar isn't exact, some things are difficult to formalize, some are
 too cumbersome. For instance, any ply in trance-journey, teleportation and
