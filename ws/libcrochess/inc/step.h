@@ -47,9 +47,10 @@ typedef struct StepSideEffect
     };
 } StepSideEffect;
 
-StepSideEffect * step_new_none_side_effect_alx();
-StepSideEffect * step_new_capture_side_effect_alx( PieceType piece, bool is_promo_tag_lost );
-StepSideEffect * step_new_displacement_side_effect_alx( PieceType piece, bool is_promo_tag_lost, int i, int j );
+StepSideEffect * step_new_side_effect_alx( StepSideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j );
+StepSideEffect * step_new_side_effect_none_alx();
+StepSideEffect * step_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost );
+StepSideEffect * step_new_side_effect_displacement_alx( PieceType piece, bool is_promo_tag_lost, int i, int j );
 
 
 typedef struct TranceJourneyStep
