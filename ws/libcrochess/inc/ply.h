@@ -91,8 +91,8 @@ typedef struct Ply
         struct { PieceType piece; Step * steps; } ply;
         struct { int i; int j; } teleport;
         struct { Step * steps; } teleport_wave;
-        struct { PieceType piece; int i; int j; } failed_teleport;
         struct { PieceType piece; } failed_teleport_oblation;
+        struct { PieceType piece; int i; int j; } failed_teleport;
         struct { PieceType piece; int i; int j; TranceJourneyStep * steps; } trance_journey;
         struct { PieceField * captured; } dual_trance_journey;
         struct { PieceType piece; } failed_trance_journey;
@@ -102,6 +102,19 @@ typedef struct Ply
     PlySideEffect side_effect;
     struct Ply * next;
 } Ply;
+
+Ply * ply_new_alx( PlyLink link,
+                   PieceType piece, Step * steps, int i, int j, TranceJourneyStep * trance_journey_steps, PieceField * captured,
+                   unsigned int momentum, PlySideEffect side_effect );
+
+Ply * ply_new_ply_alx( PieceType piece, Step * steps, unsigned int momentum, PlySideEffect side_effect );
+Ply * ply_new_teleport_alx( int i, int j, unsigned int momentum, PlySideEffect side_effect );
+Ply * ply_new_teleport_wave_alx( Step * steps, unsigned int momentum, PlySideEffect side_effect );
+Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, unsigned int momentum, PlySideEffect side_effect );
+Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, unsigned int momentum, PlySideEffect side_effect );
+Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * steps, unsigned int momentum, PlySideEffect side_effect );
+Ply * ply_new_dual_trance_journey_alx( PieceField * captured, unsigned int momentum, PlySideEffect side_effect );
+Ply * ply_new_failed_trance_journey_alx( PieceType piece, unsigned int momentum, PlySideEffect side_effect );
 
 
 #endif /* __PLY_H__ */
