@@ -70,7 +70,6 @@ PlySideEffect * ply_new_side_effect_resurrect_alx( PieceType piece, int i, int j
 PlySideEffect * ply_new_side_effect_failed_resurrection_alx();
 
 
-
 typedef struct PieceField
 {
     PieceType piece;
@@ -98,23 +97,22 @@ typedef struct Ply
         struct { PieceType piece; } failed_trance_journey;
     };
 
-    unsigned int momentum;
     PlySideEffect side_effect;
     struct Ply * next;
 } Ply;
 
 Ply * ply_new_alx( PlyLink link,
                    PieceType piece, Step * steps, int i, int j, TranceJourneyStep * trance_journey_steps, PieceField * captured,
-                   unsigned int momentum, PlySideEffect side_effect );
+                   PlySideEffect side_effect );
 
-Ply * ply_new_ply_alx( PieceType piece, Step * steps, unsigned int momentum, PlySideEffect side_effect );
-Ply * ply_new_teleport_alx( int i, int j, unsigned int momentum, PlySideEffect side_effect );
-Ply * ply_new_teleport_wave_alx( Step * steps, unsigned int momentum, PlySideEffect side_effect );
-Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, unsigned int momentum, PlySideEffect side_effect );
-Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, unsigned int momentum, PlySideEffect side_effect );
-Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * steps, unsigned int momentum, PlySideEffect side_effect );
-Ply * ply_new_dual_trance_journey_alx( PieceField * captured, unsigned int momentum, PlySideEffect side_effect );
-Ply * ply_new_failed_trance_journey_alx( PieceType piece, unsigned int momentum, PlySideEffect side_effect );
+Ply * ply_new_ply_alx( PieceType piece, Step * steps, PlySideEffect side_effect );
+Ply * ply_new_teleport_alx( int i, int j, PlySideEffect side_effect );
+Ply * ply_new_teleport_wave_alx( Step * steps, PlySideEffect side_effect );
+Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, PlySideEffect side_effect );
+Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect );
+Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * steps, PlySideEffect side_effect );
+Ply * ply_new_dual_trance_journey_alx( PieceField * captured, PlySideEffect side_effect );
+Ply * ply_new_failed_trance_journey_alx( PieceType piece, PlySideEffect side_effect );
 
 
 #endif /* __PLY_H__ */

@@ -4,6 +4,8 @@
 #ifndef __MOVE_H__
 #define __MOVE_H__
 
+#include "ply.h"
+
 
 typedef enum MoveStatus
 {
@@ -11,6 +13,16 @@ typedef enum MoveStatus
     MS_Check,
     MS_Checkmate,
 } MoveStatus;
+
+
+typedef struct Move
+{
+    Ply * plies;
+    MoveStatus status;
+} Move;
+
+
+Move * mv_new_alx( Ply * plies, MoveStatus status );
 
 
 #endif /* __MOVE_H__ */

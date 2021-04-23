@@ -130,7 +130,7 @@ PieceField * ply_new_piece_field_alx( PieceType piece, int i, int j )
 
 Ply * ply_new_alx( PlyLink link,
                    PieceType piece, Step * steps, int i, int j, TranceJourneyStep * trance_journey_steps, PieceField * captured,
-                   unsigned int momentum, PlySideEffect side_effect )
+                   PlySideEffect side_effect )
 {
     Ply * ply = calloc( 1, sizeof( Ply ) );
     if ( !ply ) return NULL;
@@ -178,49 +178,48 @@ Ply * ply_new_alx( PlyLink link,
     }
     // Nothing additional to do if link == PL_PawnSacrifice.
 
-    ply->momentum = momentum;
     ply->side_effect = side_effect;
     ply->next = NULL;
 
     return ply;
 }
 
-Ply * ply_new_ply_alx( PieceType piece, Step * steps, unsigned int momentum, PlySideEffect side_effect )
+Ply * ply_new_ply_alx( PieceType piece, Step * steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_Ply, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, momentum, side_effect );
+    return ply_new_alx( PL_Ply, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_teleport_alx( int i, int j, unsigned int momentum, PlySideEffect side_effect )
+Ply * ply_new_teleport_alx( int i, int j, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_Teleportation, PT_None, NULL, i, j, NULL, NULL, momentum, side_effect );
+    return ply_new_alx( PL_Teleportation, PT_None, NULL, i, j, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_teleport_wave_alx( Step * steps, unsigned int momentum, PlySideEffect side_effect )
+Ply * ply_new_teleport_wave_alx( Step * steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_TeleportationWave, PT_None, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, momentum, side_effect );
+    return ply_new_alx( PL_TeleportationWave, PT_None, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, unsigned int momentum, PlySideEffect side_effect )
+Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_FailedTeleportationOblation, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, momentum, side_effect );
+    return ply_new_alx( PL_FailedTeleportationOblation, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, unsigned int momentum, PlySideEffect side_effect )
+Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_FailedTeleportation, piece, NULL, i, j, NULL, NULL, momentum, side_effect );
+    return ply_new_alx( PL_FailedTeleportation, piece, NULL, i, j, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * steps, unsigned int momentum, PlySideEffect side_effect )
+Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_TranceJourney, piece, NULL, i, j, steps, NULL, momentum, side_effect );
+    return ply_new_alx( PL_TranceJourney, piece, NULL, i, j, steps, NULL, side_effect );
 }
 
-Ply * ply_new_dual_trance_journey_alx( PieceField * captured, unsigned int momentum, PlySideEffect side_effect )
+Ply * ply_new_dual_trance_journey_alx( PieceField * captured, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_DualTranceJourney, PT_None, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, captured, momentum, side_effect );
+    return ply_new_alx( PL_DualTranceJourney, PT_None, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, captured, side_effect );
 }
 
-Ply * ply_new_failed_trance_journey_alx( PieceType piece, unsigned int momentum, PlySideEffect side_effect )
+Ply * ply_new_failed_trance_journey_alx( PieceType piece, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_FailedTranceJourney, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, momentum, side_effect );
+    return ply_new_alx( PL_FailedTranceJourney, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
