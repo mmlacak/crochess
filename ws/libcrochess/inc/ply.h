@@ -102,16 +102,16 @@ typedef struct Ply
 } Ply;
 
 Ply * ply_new_alx( PlyLink link,
-                   PieceType piece, Step * steps, int i, int j, TranceJourneyStep * trance_journey_steps, PieceField * captured,
+                   PieceType piece, Step * const restrict steps, int i, int j, TranceJourneyStep * const restrict trance_journey_steps, PieceField * const restrict captured,
                    PlySideEffect side_effect );
 
-Ply * ply_new_ply_alx( PieceType piece, Step * steps, PlySideEffect side_effect );
+Ply * ply_new_ply_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect );
 Ply * ply_new_teleport_alx( int i, int j, PlySideEffect side_effect );
-Ply * ply_new_teleport_wave_alx( Step * steps, PlySideEffect side_effect );
+Ply * ply_new_teleport_wave_alx( Step * const restrict steps, PlySideEffect side_effect );
 Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, PlySideEffect side_effect );
 Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect );
-Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * steps, PlySideEffect side_effect );
-Ply * ply_new_dual_trance_journey_alx( PieceField * captured, PlySideEffect side_effect );
+Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * const restrict steps, PlySideEffect side_effect );
+Ply * ply_new_dual_trance_journey_alx( PieceField * const restrict captured, PlySideEffect side_effect );
 Ply * ply_new_failed_trance_journey_alx( PieceType piece, PlySideEffect side_effect );
 
 

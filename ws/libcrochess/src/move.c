@@ -6,7 +6,7 @@
 #include "move.h"
 
 
-Move * mv_new_alx( Ply * plies, MoveStatus status )
+Move * mv_new_alx( Ply * const restrict plies, MoveStatus status )
 {
     Move * mv = malloc( sizeof( Move ) );
     if ( !mv ) return NULL;
