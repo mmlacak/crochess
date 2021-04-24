@@ -145,7 +145,7 @@ void print_help_version()
 
 void print_help_new_code()
 {
-    printf( "cc  -> Classical\n"
+    printf( "cc  -> Classical Chess\n"
             "ct  -> Croatian Ties\n"
             "ma  -> Mayan Ascendancy\n"
             "aoa -> Age Of Aquarius\n"

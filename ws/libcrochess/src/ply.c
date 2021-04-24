@@ -136,10 +136,10 @@ Ply * ply_new_alx( PlyLink link,
     if ( !ply ) return NULL;
 
     ply->link = link;
+    ply->piece = piece;
 
     if ( ply->link == PL_Ply )
     {
-        ply->ply.piece = piece;
         ply->ply.steps = steps;
     }
     else if ( ply->link == PL_Teleportation )
@@ -151,19 +151,14 @@ Ply * ply_new_alx( PlyLink link,
     {
         ply->teleport_wave.steps = steps;
     }
-    else if ( ply->link == PL_FailedTeleportationOblation )
-    {
-        ply->failed_teleport_oblation.piece = piece;
-    }
+    // Nothing additional to do if link == PL_FailedTeleportationOblation.
     else if ( ply->link == PL_FailedTeleportation )
     {
-        ply->failed_teleport.piece = piece;
         ply->failed_teleport.i = i;
         ply->failed_teleport.j = j;
     }
     else if ( ply->link == PL_TranceJourney )
     {
-        ply->trance_journey.piece = piece;
         ply->trance_journey.i = i;
         ply->trance_journey.j = j;
         ply->trance_journey.steps = trance_journey_steps;
@@ -172,10 +167,7 @@ Ply * ply_new_alx( PlyLink link,
     {
         ply->dual_trance_journey.captured = captured;
     }
-    else if ( ply->link == PL_FailedTranceJourney )
-    {
-        ply->failed_trance_journey.piece = piece;
-    }
+    // Nothing additional to do if link == PL_FailedTranceJourney.
     // Nothing additional to do if link == PL_PawnSacrifice.
 
     ply->side_effect = side_effect;
@@ -189,14 +181,14 @@ Ply * ply_new_ply_alx( PieceType piece, Step * const restrict steps, PlySideEffe
     return ply_new_alx( PL_Ply, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_teleport_alx( int i, int j, PlySideEffect side_effect )
+Ply * ply_new_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_Teleportation, PT_None, NULL, i, j, NULL, NULL, side_effect );
+    return ply_new_alx( PL_Teleportation, piece, NULL, i, j, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_teleport_wave_alx( Step * const restrict steps, PlySideEffect side_effect )
+Ply * ply_new_teleport_wave_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_TeleportationWave, PT_None, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_new_alx( PL_TeleportationWave, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, PlySideEffect side_effect )
