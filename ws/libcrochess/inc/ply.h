@@ -112,7 +112,7 @@ Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, PlySideEffect 
 Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * const restrict steps, PlySideEffect side_effect );
 Ply * ply_new_dual_trance_journey_alx( PieceField * const restrict captured, PlySideEffect side_effect );
 Ply * ply_new_failed_trance_journey_alx( PieceType piece, PlySideEffect side_effect );
-Ply * ply_new_pawn_sacrifice_alx( PieceType piece, PlySideEffect side_effect );
+Ply * ply_new_pawn_sacrifice_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect );
 
 
 #endif /* __PLY_H__ */
