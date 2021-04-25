@@ -66,4 +66,16 @@ typedef struct TranceJourneyStep
 TranceJourneyStep * step_new_trance_journey_alx(StepLink link, int i, int j, StepSideEffect side_effect);
 
 
+typedef struct PawnSacrificeCaptureStep
+{
+    StepLink link;
+    int i;
+    int j;
+    StepSideEffect side_effect; // Only SSET_None, SSET_Capture are valid.
+    struct PawnSacrificeCaptureStep * next;
+} PawnSacrificeCaptureStep;
+
+PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx(StepLink link, int i, int j, StepSideEffect side_effect);
+
+
 #endif /* __STEP_H__ */

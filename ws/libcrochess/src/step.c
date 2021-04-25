@@ -74,3 +74,20 @@ TranceJourneyStep * step_new_trance_journey_alx(StepLink link, int i, int j, Ste
 
     return tjs;
 }
+
+
+PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx(StepLink link, int i, int j, StepSideEffect side_effect)
+{
+    // if ( ( side_effect.type != SSET_None ) && ( side_effect.type != SSET_Capture ) ) return NULL;
+
+    PawnSacrificeCaptureStep * pscs = malloc( sizeof( PawnSacrificeCaptureStep ) );
+    if ( !pscs ) return NULL;
+
+    pscs->link = link;
+    pscs->i = i;
+    pscs->j = j;
+    pscs->side_effect = side_effect;
+    pscs->next = NULL;
+
+    return pscs;
+}

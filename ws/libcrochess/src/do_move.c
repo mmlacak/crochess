@@ -9,39 +9,6 @@
 #include "do_move.h"
 
 
-// typedef enum PlyLink
-// {
-//     PL_Ply, // Just one ply, starting or continuing cascade.
-//     PL_Teleportation,
-//     PL_TeleportationWave,
-//     PL_FailedTeleportationOblation,
-//     PL_FailedTeleportation,
-//     PL_TranceJourney,
-//     PL_DualTranceJourney,
-//     PL_FailedTranceJourney,
-//     PL_PawnSacrifice,
-// } PlyLink;
-
-// typedef struct Ply
-// {
-//     PlyLink link;
-//     PieceType piece;
-
-//     union
-//     {
-//         struct { Step * steps; } ply;
-//         struct { int i; int j; } teleport;
-//         struct { Step * steps; } teleport_wave;
-//         struct { int i; int j; } failed_teleport;
-//         struct { int i; int j; TranceJourneyStep * steps; } trance_journey;
-//         struct { PieceField * captured; } dual_trance_journey;
-//     };
-
-//     PlySideEffect side_effect;
-//     struct Ply * next;
-// } Ply;
-
-
 bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply )
 {
     if ( !cb ) return false;
@@ -187,7 +154,31 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
         case PL_PawnSacrifice :
         {
-// TODO
+            PawnSacrificeCaptureStep * s = ply->pawn_sacrifice.steps;
+
+            while ( s )
+            {
+                switch ( s->link )
+                {
+                    case SL_Start :
+                    case SL_Next :
+                    case SL_Distant :
+                    {
+                        cb_set_piece( cb, s->i, s->j, PT_None );
+                        break;
+                    };
+
+                    case SL_Destination :
+                    {
+                        cb_set_piece( cb, s->i, s->j, pt );
+// TODO :: teleportation
+                        break;
+                    };
+                }
+
+                s = s->next;
+            };
+
             break;
         }
     }
