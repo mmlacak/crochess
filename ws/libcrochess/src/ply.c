@@ -215,3 +215,8 @@ Ply * ply_new_failed_trance_journey_alx( PieceType piece, PlySideEffect side_eff
 {
     return ply_new_alx( PL_FailedTranceJourney, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
+
+Ply * ply_new_pawn_sacrifice_alx( PieceType piece, PlySideEffect side_effect )
+{
+    return ply_new_alx( PL_PawnSacrifice, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+}
