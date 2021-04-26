@@ -251,3 +251,42 @@ bool pt_is_none(PieceType const pt)
 {
     return ( pt == PT_None );
 }
+
+
+bool pt_is_opposite_color(PieceType const pt1, PieceType const pt2)
+{
+    if ( pt_is_light( pt1 ) && pt_is_dark( pt2 ) ) return true;
+    if ( pt_is_dark( pt1 ) && pt_is_light( pt2 ) ) return true;
+
+    return false;
+}
+
+bool pt_is_opposite_shade(PieceType const pt1, PieceType const pt2)
+{
+    if ( ( ( pt1 == PT_DimStar ) && ( pt2 == PT_BrightStar ) )
+        || ( ( pt1 == PT_BrightStar ) && ( pt2 == PT_DimStar ) ) ) return true;
+
+    return false;
+}
+
+bool pt_is_teleporter(PieceType const pt)
+{
+    return ( ( pt == PT_Monolith ) || ( pt == PT_DimStar ) || ( pt == PT_BrightStar ) );
+}
+
+bool pt_is_conversion(PieceType const actor, PieceType const passive)
+{
+    if ( ( actor != PT_DarkPyramid ) && ( actor != PT_LightPyramid ) ) return false;
+
+    if ( pt_is_opposite_color( actor, passive ) ) return true;
+
+    return false;
+}
+
+bool pt_is_failed_conversion(PieceType const actor, PieceType const passive)
+{
+    if ( ( ( actor == PT_DarkPyramid ) && ( passive == PT_LightStarchild ) )
+        || ( ( actor == PT_LightPyramid ) && ( passive == PT_DarkStarchild ) ) ) return true;
+
+    return false;
+}

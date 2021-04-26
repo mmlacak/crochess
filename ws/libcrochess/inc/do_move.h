@@ -8,6 +8,8 @@
 #include "move.h"
 
 
+bool is_teleport( Chessboard const * const restrict cb, int i, int j, PieceType pt );
+
 bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply );
 
 bool do_move( Chessboard * const restrict cb, Move const * const restrict move );
