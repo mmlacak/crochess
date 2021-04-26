@@ -65,8 +65,6 @@ bool pt_is_none(PieceType const pt);
 bool pt_is_opposite_color(PieceType const pt1, PieceType const pt2);
 bool pt_is_opposite_shade(PieceType const pt1, PieceType const pt2);
 bool pt_is_teleporter(PieceType const pt);
-bool pt_is_conversion(PieceType const actor, PieceType const passive);
-bool pt_is_failed_conversion(PieceType const actor, PieceType const passive);
 
 
 #endif /* __PIECE_TYPE_H__ */

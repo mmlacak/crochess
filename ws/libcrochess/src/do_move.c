@@ -1,7 +1,9 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+#include <stdlib.h>
 
+#include "defines.h"
 #include "piece_type.h"
 #include "step.h"
 #include "ply.h"
@@ -9,13 +11,38 @@
 #include "do_move.h"
 
 
-bool is_teleport( Chessboard const * const restrict cb, int i, int j, PieceType pt )
+// bool pt_is_conversion(PieceType const actor, PieceType const passive)
+// {
+//     if ( ( actor != PT_DarkPyramid ) && ( actor != PT_LightPyramid ) ) return false;
+
+//     if ( pt_is_opposite_color( actor, passive ) ) return true;
+
+//     return false;
+// }
+
+// bool pt_is_failed_conversion(PieceType const actor, PieceType const passive)
+// {
+//     if ( ( ( actor == PT_DarkPyramid ) && ( passive == PT_LightStarchild ) )
+//         || ( ( actor == PT_LightPyramid ) && ( passive == PT_DarkStarchild ) ) ) return true;
+
+//     return false;
+// }
+
+bool is_teleporting( Chessboard const * const restrict cb, int i, int j, PieceType pt )
 {
     if ( !cb ) return false;
 
     PieceType current = cb_get_piece( cb, i, j );
 
     return ( pt_is_teleporter( current ) );
+}
+
+
+PlyLink * next_ply_link( Ply const * const restrict ply )
+{
+    if ( !ply ) return NULL;
+    if ( !ply->next ) return NULL;
+    return &( ply->next->link );
 }
 
 
@@ -27,6 +54,8 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
     if ( !move->plies ) return false;
 
     if ( !ply ) return false;
+
+    bool is_first_ply = ( move->plies == ply );
 
     PieceType pt = ply->piece;
 
@@ -42,8 +71,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                 {
                     case SL_Start :
                     {
-// TODO :: check if starting ply ?
-                        cb_set_piece( cb, s->i, s->j, PT_None );
+                        if ( is_first_ply ) cb_set_piece( cb, s->i, s->j, PT_None );
                         break;
                     };
 
@@ -53,10 +81,88 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        if ( !is_teleport( cb, s->i, s->j, pt ) )
+// TODO :: ply side effects: teleporting, activation, conversion,
+
+// typedef enum PlySideEffectType
+// {
+//     PSET_None,
+//     PSET_Capture,
+//     PSET_EnPassant,
+//     PSET_Castle,
+//     PSET_Promotion,
+//     PSET_TagForPromotion,
+//     PSET_Conversion,
+//     PSET_FailedConversion,
+//     PSET_Demotion,
+//     PSET_Ressurecion,
+//     PSET_FailedRessurecion,
+// } PlySideEffectType;
+
+                        PlySideEffect const * const pse = &( ply->side_effect );
+
+                        switch ( pse->type )
                         {
-                            cb_set_piece( cb, s->i, s->j, pt );
+                            case PSET_None :
+                            case PSET_Capture :
+                            {
+                                if ( !is_teleporting( cb, s->i, s->j, pt ) )
+                                {
+                                    cb_set_piece( cb, s->i, s->j, pt );
+                                };
+
+                                break;
+                            }
+
+                            case PSET_EnPassant :
+                            {
+                                cb_set_piece( cb, s->i, s->j, pt );
+
+// TODO
+
+
+                                break;
+                            }
+
+                            case PSET_Castle :
+                            {
+                                cb_set_piece( cb, s->i, s->j, pt );
+
+                                int start_i = pse->castle.start_i;
+                                int start_j = pse->castle.start_j;
+                                int dest_i = pse->castle.dest_i;
+                                int dest_j = pse->castle.dest_j;
+                                PieceType rook = cb_get_piece( cb, start_i, start_j );
+
+                                cb_set_piece( cb, start_i, start_j, PT_None );
+                                cb_set_piece( cb, dest_i, dest_j, rook );
+
+                                break;
+                            }
+
+                            case PSET_Promotion :
+                            {
+                                PieceType new = pse->promote.piece;
+                                cb_set_piece( cb, s->i, s->j, new );
+                                break;
+                            }
+
+                            case PSET_TagForPromotion :
+
+                            case PSET_Conversion :
+
+                            case PSET_FailedConversion :
+
+                            case PSET_Demotion :
+
+                            case PSET_Ressurecion :
+
+                            case PSET_FailedRessurecion :
+
+// TODO
+                                break;
+
                         }
+
 
                         break;
                     };
@@ -185,7 +291,8 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        if ( !is_teleport( cb, s->i, s->j, pt ) )
+// TODO :: other ply side effects ?
+                        if ( !is_teleporting( cb, s->i, s->j, pt ) )
                         {
                             cb_set_piece( cb, s->i, s->j, pt );
                         }

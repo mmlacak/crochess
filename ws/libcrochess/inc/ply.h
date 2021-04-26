@@ -46,27 +46,27 @@ typedef struct PlySideEffect
     union
     {
         struct { PieceType piece; bool is_promo_tag_lost; } capture;
-        struct { int i; int j; } en_passant;
-        struct { int i; int j; } castle;
+        struct { int start_i; int start_j; int dest_i; int dest_j; } en_passant;
+        struct { int start_i; int start_j; int dest_i; int dest_j; } castle;
         struct { PieceType piece; } promote;
         struct { PieceType piece; bool is_promo_tag_lost; } convert;
-        struct { PieceType piece; int i; int j; } demote;
-        struct { PieceType piece; int i; int j; } resurrect;
+        struct { PieceType piece; int dest_i; int dest_j; } demote;
+        struct { PieceType piece; int dest_i; int dest_j; } resurrect;
     };
 } PlySideEffect;
 
-PlySideEffect * ply_new_side_effect_alx( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j );
+PlySideEffect * ply_new_side_effect_alx( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int start_i, int start_j, int dest_i, int dest_j );
 
 PlySideEffect * ply_new_side_effect_none_alx();
 PlySideEffect * ply_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost );
-PlySideEffect * ply_new_side_effect_en_passant_alx( int i, int j );
-PlySideEffect * ply_new_side_effect_castle_alx( int i, int j );
+PlySideEffect * ply_new_side_effect_en_passant_alx( int start_i, int start_j, int dest_i, int dest_j );
+PlySideEffect * ply_new_side_effect_castle_alx( int start_i, int start_j, int dest_i, int dest_j );
 PlySideEffect * ply_new_side_effect_promote_alx( PieceType piece );
 PlySideEffect * ply_new_side_effect_tag_for_promotion_alx();
 PlySideEffect * ply_new_side_effect_convert_alx( PieceType piece, bool is_promo_tag_lost );
 PlySideEffect * ply_new_side_effect_failed_conversion_alx();
-PlySideEffect * ply_new_side_effect_demote_alx( PieceType piece, int i, int j );
-PlySideEffect * ply_new_side_effect_resurrect_alx( PieceType piece, int i, int j );
+PlySideEffect * ply_new_side_effect_demote_alx( PieceType piece, int dest_i, int dest_j );
+PlySideEffect * ply_new_side_effect_resurrect_alx( PieceType piece, int dest_i, int dest_j );
 PlySideEffect * ply_new_side_effect_failed_resurrection_alx();
 
 

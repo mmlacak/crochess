@@ -273,20 +273,3 @@ bool pt_is_teleporter(PieceType const pt)
 {
     return ( ( pt == PT_Monolith ) || ( pt == PT_DimStar ) || ( pt == PT_BrightStar ) );
 }
-
-bool pt_is_conversion(PieceType const actor, PieceType const passive)
-{
-    if ( ( actor != PT_DarkPyramid ) && ( actor != PT_LightPyramid ) ) return false;
-
-    if ( pt_is_opposite_color( actor, passive ) ) return true;
-
-    return false;
-}
-
-bool pt_is_failed_conversion(PieceType const actor, PieceType const passive)
-{
-    if ( ( ( actor == PT_DarkPyramid ) && ( passive == PT_LightStarchild ) )
-        || ( ( actor == PT_LightPyramid ) && ( passive == PT_DarkStarchild ) ) ) return true;
-
-    return false;
-}
