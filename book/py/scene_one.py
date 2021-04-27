@@ -887,9 +887,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_28_syzygy_starchild_ressurection(self, bt=BoardType.One):
+    def scn_o_28_syzygy_starchild_resurrection(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_28_syzygy_starchild_ressurection', bt)
+        scene = Scene('scn_o_28_syzygy_starchild_resurrection', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
