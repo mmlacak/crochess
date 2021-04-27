@@ -31,6 +31,7 @@ PieceType cb_get_piece( Chessboard const * const restrict cb, int i, int j );
 TagType cb_get_tag( Chessboard const * const restrict cb, int i, int j );
 bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct );
 bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt );
+bool cb_set_tag( Chessboard * const restrict cb, int i, int j, TagType tt );
 
 // static char * cb_get_divider_alx( Chessboard const * const restrict cb );
 // static char * cb_get_horizontal_ruler_alx( Chessboard const * const restrict cb );

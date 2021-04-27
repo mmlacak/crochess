@@ -111,14 +111,14 @@ TagType cb_get_tag( Chessboard const * const restrict cb, int i, int j )
     return TT_None;
 }
 
-bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct )
+bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType tt )
 {
     if ( !cb ) return false;
 
     if ( cb_is_on_board( cb, i, j ) )
     {
         cb->board[ i ][ j ] = pt;
-        cb->tags[ i ][ j ] = ct;
+        cb->tags[ i ][ j ] = tt;
     }
 
     return true;
@@ -127,6 +127,18 @@ bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, PieceType p
 bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt )
 {
     return cb_set_piece_tag( cb, i, j, pt, TT_None );
+}
+
+bool cb_set_tag( Chessboard * const restrict cb, int i, int j, TagType tt )
+{
+    if ( !cb ) return false;
+
+    if ( cb_is_on_board( cb, i, j ) )
+    {
+        cb->tags[ i ][ j ] = tt;
+    }
+
+    return true;
 }
 
 static char * cb_get_divider_alx( Chessboard const * const restrict cb )

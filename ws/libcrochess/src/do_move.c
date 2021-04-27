@@ -103,7 +103,6 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                         switch ( pse->type )
                         {
                             case PSET_None :
-                            case PSET_Capture :
                             {
                                 if ( !is_teleporting( cb, s->i, s->j, pt ) )
                                 {
@@ -113,12 +112,19 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                                 break;
                             }
 
+                            case PSET_Capture :
+                            {
+                                cb_set_piece( cb, s->i, s->j, pt );
+                                break;
+                            }
+
                             case PSET_EnPassant :
                             {
                                 cb_set_piece( cb, s->i, s->j, pt );
 
-// TODO
-
+                                int i = pse->en_passant.dest_i;
+                                int j = pse->en_passant.dest_j;
+                                cb_set_piece( cb, i, j, PT_None );
 
                                 break;
                             }
@@ -147,26 +153,55 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                             }
 
                             case PSET_TagForPromotion :
+                            {
+                                cb_set_tag( cb, s->i, s->j, TT_DelayedPromotion );
+                                break;
+                            }
 
                             case PSET_Conversion :
+                            {
+                                PieceType pt = cb_get_piece( cb, s->i, s->j );
+                                PieceType new = pt_opposite( pt );
+                                cb_set_piece( cb, s->i, s->j, new );
+                                break;
+                            }
 
-                            case PSET_FailedConversion :
+                            case PSET_FailedConversion : break; // Pyramid oblationed as usual, Starchild retains its original color; nothing to do here.
 
                             case PSET_Demotion :
+                            {
+                                cb_set_piece( cb, s->i, s->j, pt );
 
-                            case PSET_Ressurecion :
+                                PieceType pt = pse->demote.piece;
+                                int i = pse->demote.dest_i;
+                                int j = pse->demote.dest_j;
+                                cb_set_piece( cb, i, j, pt );
 
-                            case PSET_FailedRessurecion :
-
-// TODO
                                 break;
+                            }
 
+                            case PSET_Resurrection :
+                            {
+                                cb_set_piece( cb, s->i, s->j, pt );
+
+                                PieceType pt = pse->resurrect.piece;
+                                int i = pse->resurrect.dest_i;
+                                int j = pse->resurrect.dest_j;
+                                cb_set_piece( cb, i, j, pt );
+
+                                break;
+                            }
+
+                            case PSET_FailedResurrection :
+                            {
+                                cb_set_piece( cb, s->i, s->j, pt );
+                                break; // Resurrection blocked, i.e. not performed, nothing to do here.
+                            }
                         }
-
 
                         break;
                     };
-                }
+                };
 
                 s = s->next;
             };
@@ -241,6 +276,11 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                 switch ( s->link )
                 {
                     case SL_Start :
+                    {
+                        cb_set_piece( cb, s->i, s->j, PT_None );
+                        break;
+                    }
+
                     case SL_Next :
                     case SL_Distant :
                         break;

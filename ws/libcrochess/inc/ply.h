@@ -35,8 +35,8 @@ typedef enum PlySideEffectType
     PSET_Conversion,
     PSET_FailedConversion,
     PSET_Demotion,
-    PSET_Ressurecion,
-    PSET_FailedRessurecion,
+    PSET_Resurrection,
+    PSET_FailedResurrection,
 } PlySideEffectType;
 
 typedef struct PlySideEffect
@@ -46,7 +46,7 @@ typedef struct PlySideEffect
     union
     {
         struct { PieceType piece; bool is_promo_tag_lost; } capture;
-        struct { int start_i; int start_j; int dest_i; int dest_j; } en_passant;
+        struct { int dest_i; int dest_j; } en_passant;
         struct { int start_i; int start_j; int dest_i; int dest_j; } castle;
         struct { PieceType piece; } promote;
         struct { PieceType piece; bool is_promo_tag_lost; } convert;
@@ -59,7 +59,7 @@ PlySideEffect * ply_new_side_effect_alx( PlySideEffectType type, PieceType piece
 
 PlySideEffect * ply_new_side_effect_none_alx();
 PlySideEffect * ply_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost );
-PlySideEffect * ply_new_side_effect_en_passant_alx( int start_i, int start_j, int dest_i, int dest_j );
+PlySideEffect * ply_new_side_effect_en_passant_alx( int dest_i, int dest_j );
 PlySideEffect * ply_new_side_effect_castle_alx( int start_i, int start_j, int dest_i, int dest_j );
 PlySideEffect * ply_new_side_effect_promote_alx( PieceType piece );
 PlySideEffect * ply_new_side_effect_tag_for_promotion_alx();
