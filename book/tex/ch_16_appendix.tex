@@ -398,24 +398,24 @@ then either light Wave or light Bishop could be demoted to Pawn. If Bishop was c
 as \alg{Mm12>p}. In \algfmt{XAN}, with piece and demotion-field noted it would be \alg{Mn14-m12>Bp8}. There
 is no plies gathering, since only Monolith moved, so there is only one ply.
 
-\subsection*{Syzygy, ressurection}
-\addcontentsline{toc}{subsection}{Syzygy, ressurection}
-\label{sec:Appendix/Notation/Syzygy, ressurection}
+\subsection*{Syzygy, resurrection}
+\addcontentsline{toc}{subsection}{Syzygy, resurrection}
+\label{sec:Appendix/Notation/Syzygy, resurrection}
 
-Ressurection is written by appending \alg{\$} (dollar sign) after the move, followed by piece which was
-ressurected. If Wave or Starchild has been ressurected on an empty field, position is appended after piece.
-If there was no suitable empty field at which Wave or Starchild could be ressurected, ressurection is not
+Resurrection is written by appending \alg{\$} (dollar sign) after the move, followed by piece which was
+resurrected. If Wave or Starchild has been resurrected on an empty field, position is appended after piece.
+If there was no suitable empty field at which Wave or Starchild could be resurrected, resurrection is not
 performed, which could be written by appending \alg{\$\$} (double dollar) after the ply. Since there are
-no actual side-effects to failed ressurection, \alg{\$\$} is optional.
+no actual side-effects to failed resurrection, \alg{\$\$} is optional.
 
-In case \hyperref[fig:scn_o_26_syzygy_starchild_init]{ressurection example} ended by
-\hyperref[fig:scn_o_27_syzygy_starchild_end]{ressurecting Queen}, this would be written as \alg{It9\$Q},
+In case \hyperref[fig:scn_o_26_syzygy_starchild_init]{resurrection example} ended by
+\hyperref[fig:scn_o_27_syzygy_starchild_end]{resurrecting Queen}, this would be written as \alg{It9\$Q},
 and in \algfmt{XAN} it would be \alg{Ii23-t9\$Q}.
 
-If previous example ended by \hyperref[fig:scn_o_28_syzygy_starchild_ressurection]{ressurecting Starchild},
+If previous example ended by \hyperref[fig:scn_o_28_syzygy_starchild_resurrection]{resurrecting Starchild},
 it would be written as \alg{It9\$Iu8}. In \algfmt{XAN}, it would be \alg{Ii23-t9\$Iu8}.
 
-If all fields suitable for ressurection are occupied, it is written as \alg{It9\$\$}, in \algfmt{XAN} it
+If all fields suitable for resurrection are occupied, it is written as \alg{It9\$\$}, in \algfmt{XAN} it
 would be \alg{Ii23-t9\$\$}. Writing it as \alg{It9}, or \alg{Ii23-t9} is fine, it just doesn't note failed
 intention.
 
@@ -566,8 +566,8 @@ Now that all symbols have been introduced, they're gathered here according to th
 7           & \alg{\%}             & conversion                             \\
 8           & \alg{\%\%}           & failed conversion, oblation            \\
 9           & \alg{>}              & syzygy, demoting to Pawn               \\
-10          & \alg{\$}             & syzygy, ressurection                   \\
-11          & \alg{\$\$}           & failed ressurection                    \\
+10          & \alg{\$}             & syzygy, resurrection                   \\
+11          & \alg{\$\$}           & failed resurrection                    \\
 \bottomrule
 \end{tabular}
 \caption{Step and ply side-effects}
