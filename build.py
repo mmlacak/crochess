@@ -43,6 +43,8 @@ def main():
     is_build = is_release_build or is_debug_build
     is_release_or_debug = is_release_build and not is_debug_build
 
+    is_extra_warnings = True if RS.any_item_in( ['-XW', '--extra-warnings'], script_argv) else False
+
     is_gcc = True if RS.any_item_in( ['-gcc', '--gcc'], script_argv) else False
     is_clang = True if RS.any_item_in( ['-clang', '--clang'], script_argv) else False
     compiler =  BE.COMPILER_GCC if is_gcc else \
@@ -76,7 +78,7 @@ def main():
         if not is_dry_run:
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=True)
 
-        cwd_lib, compile_lib_cmd_lst = BE.get_compile_lib_cmd(PROJECT_ROOT_PATH, compiler=compiler, is_release_or_debug=is_release_or_debug, adx_options_list=compile_lib_argv)
+        cwd_lib, compile_lib_cmd_lst = BE.get_compile_lib_cmd(PROJECT_ROOT_PATH, compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, adx_options_list=compile_lib_argv)
 
         if is_debug:
             print( "Compiling in: %s." % str( cwd_lib ) )
@@ -91,7 +93,7 @@ def main():
 
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
 
-        cwd_app, compile_app_cmd_lst = BE.get_compile_app_cmd(PROJECT_ROOT_PATH, compiler=compiler, is_release_or_debug=is_release_or_debug, adx_options_list=compile_app_argv)
+        cwd_app, compile_app_cmd_lst = BE.get_compile_app_cmd(PROJECT_ROOT_PATH, compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, adx_options_list=compile_app_argv)
 
         if is_debug:
             print( "Compiling in: %s." % str( cwd_app ) )

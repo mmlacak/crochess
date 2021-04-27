@@ -11,23 +11,6 @@
 #include "do_move.h"
 
 
-// bool pt_is_conversion(PieceType const actor, PieceType const passive)
-// {
-//     if ( ( actor != PT_DarkPyramid ) && ( actor != PT_LightPyramid ) ) return false;
-
-//     if ( pt_is_opposite_color( actor, passive ) ) return true;
-
-//     return false;
-// }
-
-// bool pt_is_failed_conversion(PieceType const actor, PieceType const passive)
-// {
-//     if ( ( ( actor == PT_DarkPyramid ) && ( passive == PT_LightStarchild ) )
-//         || ( ( actor == PT_LightPyramid ) && ( passive == PT_DarkStarchild ) ) ) return true;
-
-//     return false;
-// }
-
 bool is_teleporting( Chessboard const * const restrict cb, int i, int j, PieceType pt )
 {
     if ( !cb ) return false;
@@ -81,23 +64,6 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-// TODO :: ply side effects: teleporting, activation, conversion,
-
-// typedef enum PlySideEffectType
-// {
-//     PSET_None,
-//     PSET_Capture,
-//     PSET_EnPassant,
-//     PSET_Castle,
-//     PSET_Promotion,
-//     PSET_TagForPromotion,
-//     PSET_Conversion,
-//     PSET_FailedConversion,
-//     PSET_Demotion,
-//     PSET_Ressurecion,
-//     PSET_FailedRessurecion,
-// } PlySideEffectType;
-
                         PlySideEffect const * const pse = &( ply->side_effect );
 
                         switch ( pse->type )

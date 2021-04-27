@@ -42,9 +42,11 @@ BUILD_BIN_FOLDER = 'bin'
 
 OPTIONS_GCC_DEBUG = ['-Wall', '-pedantic', '-O0', '-ggdb', ] # '-Wextra',
 OPTIONS_GCC_RELEASE = ['-Wall', '-pedantic', '-O3', ] # '-Wextra',
+OPTIONS_GCC_EXTRA_WARNINGS = [ '-Wextra', ]
 
 OPTIONS_CLANG_DEBUG = ['-Wall', '-pedantic', '-O0', '-ggdb', ] # '-Wextra',
 OPTIONS_CLANG_RELEASE = ['-Wall', '-pedantic', '-O3', ] # '-Wextra',
+OPTIONS_CLANG_EXTRA_WARNINGS = [ '-Wextra', ]
 
 
 OPTIONS_GCC_LIBRARY = ['--shared', '-fPIC', '-I../inc', ]
@@ -68,13 +70,21 @@ SOURCE_LIB_SRC_FOLDER = 'src'
 SOURCE_LIB_HEADER_FOLDER = 'inc'
 
 
-def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_debug=False):
+def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False):
+    options = None
+
     if compiler == COMPILER_GCC:
-        return OPTIONS_GCC_RELEASE if is_release_or_debug else OPTIONS_GCC_DEBUG
+        options = OPTIONS_GCC_RELEASE if is_release_or_debug else OPTIONS_GCC_DEBUG
+        if is_extra_warnings:
+            options += OPTIONS_GCC_EXTRA_WARNINGS
     elif compiler == COMPILER_CLANG:
-        return OPTIONS_CLANG_RELEASE if is_release_or_debug else OPTIONS_CLANG_DEBUG
+        options = OPTIONS_CLANG_RELEASE if is_release_or_debug else OPTIONS_CLANG_DEBUG
+        if is_extra_warnings:
+            options += OPTIONS_GCC_EXTRA_WARNINGS
     else:
         raise RuntimeError("Unknown compiler '%s'." % compiler) # return []
+
+    return options
 
 def get_compiler_build_options(compiler=DEFAULT_COMPILER, is_executable_or_library=False):
     if compiler == COMPILER_GCC:
@@ -137,10 +147,10 @@ def get_source_path_list(cwd_cmd, src_dir):
     return new_lst
 
 
-def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, adx_options_list=None):
+def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, adx_options_list=None):
     cmd_lst = [compiler, ]
 
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug)
+    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings)
 
     cmd_lst += get_compiler_build_options(compiler=compiler, is_executable_or_library=True)
 
@@ -155,10 +165,10 @@ def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
 
     return cwd_app, cmd_lst
 
-def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, adx_options_list=None):
+def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, adx_options_list=None):
     cmd_lst = [compiler, ]
 
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug)
+    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings)
 
     cmd_lst += get_compiler_build_options(compiler=compiler, is_executable_or_library=False)
 
