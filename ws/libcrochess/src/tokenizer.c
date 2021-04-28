@@ -32,7 +32,7 @@ char const * traverse_chars(char const * const restrict pos, char const * const 
     {
         if ( *p == '\0' ) return p;
         ++p;
-    };
+    }
 
     return p;
 }
@@ -115,7 +115,7 @@ size_t flush_stdin()
     {
         ++count;
         c = fgetc( stdin ); // getchar();
-    };
+    }
 
     return count;
 }

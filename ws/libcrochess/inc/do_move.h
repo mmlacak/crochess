@@ -8,8 +8,6 @@
 #include "move.h"
 
 
-// bool pt_is_conversion(PieceType const actor, PieceType const passive);
-// bool pt_is_failed_conversion(PieceType const actor, PieceType const passive);
 bool is_teleporting( Chessboard const * const restrict cb, int i, int j, PieceType pt );
 
 PlyLink * next_ply_link( Ply const * const restrict ply );

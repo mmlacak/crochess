@@ -56,7 +56,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                     {
                         if ( is_first_ply ) cb_set_piece( cb, s->i, s->j, PT_None );
                         break;
-                    };
+                    }
 
                     case SL_Next :
                     case SL_Distant :
@@ -73,7 +73,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                                 if ( !is_teleporting( cb, s->i, s->j, pt ) )
                                 {
                                     cb_set_piece( cb, s->i, s->j, pt );
-                                };
+                                }
 
                                 break;
                             }
@@ -161,16 +161,16 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                             case PSET_FailedResurrection :
                             {
                                 cb_set_piece( cb, s->i, s->j, pt );
-                                break; // Resurrection blocked, i.e. not performed, nothing to do here.
+                                break; // Resurrection blocked, or no captured pieces, nothing to do here.
                             }
                         }
 
                         break;
-                    };
-                };
+                    }
+                }
 
                 s = s->next;
-            };
+            }
 
             break;
         }
@@ -202,11 +202,11 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                     {
                         cb_set_piece( cb, s->i, s->j, pt );
                         break;
-                    };
+                    }
                 }
 
                 s = s->next;
-            };
+            }
 
             break;
         }
@@ -237,7 +237,63 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                         cb_set_piece( cb, sse.displacement.i, sse.displacement.j, sse.displacement.piece );
                         break;
                     }
-                };
+                }
+
+                switch ( s->link )
+                {
+                    case SL_Start : // In previous ply piece was activated, i.e. removed from board; so, nothing to do here.
+                    case SL_Next :
+                    case SL_Distant :
+                        break;
+
+                    case SL_Destination :
+                    {
+                        cb_set_piece( cb, s->i, s->j, pt );
+                        break;
+                    }
+                }
+
+                s = s->next;
+            }
+
+            break;
+        }
+
+        case PL_DualTranceJourney :
+        {
+            PieceField * pf = ply->dual_trance_journey.captured;
+
+            while ( pf )
+            {
+                cb_set_piece( cb, pf->i, pf->j, PT_None );
+                pf = pf->next;
+            }
+
+            break;
+        }
+
+        case PL_FailedTranceJourney : break; // Current piece already removed from chessboard, nothing to do here.
+
+        case PL_PawnSacrifice :
+        {
+            PawnSacrificeCaptureStep * s = ply->pawn_sacrifice.steps;
+
+            while ( s )
+            {
+                StepSideEffect sse = s->side_effect;
+
+                switch ( sse.type )
+                {
+                    case SSET_None : break;
+
+                    case SSET_Capture :
+                    {
+                        cb_set_piece( cb, s->i, s->j, PT_None );
+                        break;
+                    }
+
+                    case SSET_Displacement : break; // Just to keep compilers happy; shouldn't be here.
+                }
 
                 switch ( s->link )
                 {
@@ -253,62 +309,17 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        cb_set_piece( cb, s->i, s->j, pt );
-                        break;
-                    };
-                }
-
-                s = s->next;
-            };
-
-            break;
-        }
-
-        case PL_DualTranceJourney :
-        {
-            PieceField * pf = ply->dual_trance_journey.captured;
-
-            while ( pf )
-            {
-                cb_set_piece( cb, pf->i, pf->j, PT_None );
-                pf = pf->next;
-            };
-
-            break;
-        }
-
-        case PL_FailedTranceJourney : break; // Current piece already removed from chessboard, nothing to do here.
-
-        case PL_PawnSacrifice :
-        {
-            PawnSacrificeCaptureStep * s = ply->pawn_sacrifice.steps;
-
-            while ( s )
-            {
-                switch ( s->link )
-                {
-                    case SL_Start :
-                    case SL_Next :
-                    case SL_Distant :
-                    {
-                        cb_set_piece( cb, s->i, s->j, PT_None );
-                        break;
-                    };
-
-                    case SL_Destination :
-                    {
-// TODO :: other ply side effects ?
                         if ( !is_teleporting( cb, s->i, s->j, pt ) )
                         {
                             cb_set_piece( cb, s->i, s->j, pt );
                         }
 
                         break;
-                    };
+                    }
                 }
 
                 s = s->next;
-            };
+            }
 
             break;
         }
@@ -330,7 +341,7 @@ bool do_move( Chessboard * const restrict cb, Move const * const restrict move )
     {
         do_ply( cb, move, p );
         p = p->next;
-    };
+    }
 
     return true;
 }
