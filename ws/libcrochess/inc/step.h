@@ -26,7 +26,7 @@ typedef struct Step
     struct Step * next;
 } Step;
 
-Step * step_new_alx(StepLink link, int i, int j);
+Step * step_new_alx( StepLink link, int i, int j );
 bool step_free_all_steps( Step ** const restrict steps );
 
 
@@ -64,7 +64,7 @@ typedef struct TranceJourneyStep
     struct TranceJourneyStep * next;
 } TranceJourneyStep;
 
-TranceJourneyStep * step_new_trance_journey_alx(StepLink link, int i, int j, StepSideEffect side_effect);
+TranceJourneyStep * step_new_trance_journey_alx( StepLink link, int i, int j, StepSideEffect side_effect );
 bool step_free_all_trance_journey_steps( TranceJourneyStep ** const restrict steps );
 
 
@@ -77,7 +77,7 @@ typedef struct PawnSacrificeCaptureStep
     struct PawnSacrificeCaptureStep * next;
 } PawnSacrificeCaptureStep;
 
-PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx(StepLink link, int i, int j, StepSideEffect side_effect);
+PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx( StepLink link, int i, int j, StepSideEffect side_effect );
 bool step_free_all_pawn_sacrifice_steps( PawnSacrificeCaptureStep ** const restrict steps );
 
 

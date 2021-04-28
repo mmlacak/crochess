@@ -23,6 +23,7 @@ typedef struct Move
 
 
 Move * mv_new_alx( Ply * const restrict plies, MoveStatus status );
+bool mv_free_move( Move ** move );
 
 
 #endif /* __MOVE_H__ */

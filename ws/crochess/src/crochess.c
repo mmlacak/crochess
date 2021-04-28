@@ -20,12 +20,12 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.54+20210428.183310"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.55+20210428.193702"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
-int main(void)
+int main( void )
 {
-    print_app_intro(LIBCROCHESS_VERSION, CROCHESS_VERSION);
+    print_app_intro( LIBCROCHESS_VERSION, CROCHESS_VERSION );
 
     char * ret = NULL;
     char buffer[ BUFSIZ ];
@@ -34,19 +34,19 @@ int main(void)
 
     while ( true )
     {
-        memset(buffer, 0, BUFSIZ);
+        memset( buffer, 0, BUFSIZ );
 
-        printf("> ");
+        printf( "> " );
         // fflush( stdout ); // Run directly from terminal works ok, even without fflush().
 
-        ret = fgets(buffer, BUFSIZ, stdin);
+        ret = fgets( buffer, BUFSIZ, stdin );
         if ( !ret )
         {
-            printf("Input error.\n");
+            printf( "Input error.\n" );
             continue;
         }
 
-        char * cmd = next_token_alx(buffer, TOKEN_SEPARATORS_WHITEPSACE);
+        char * cmd = next_token_alx( buffer, TOKEN_SEPARATORS_WHITEPSACE );
         if ( !cmd ) continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
@@ -133,9 +133,19 @@ int main(void)
             cb_set_piece( y, 5, 2, PT_LightKnight );
             cb_print( y, true );
 
+            Step * start = step_new_alx( SL_Start, 5, 2 );
+            Step * dest = step_new_alx( SL_Destination, 6, 4 );
+            start->next = dest;
 
+            PlySideEffect * pse = ply_new_side_effect_none_alx();
+            Ply * ply = ply_new_ply_alx( PT_LightKnight, start, *pse );
 
+            Move * move = mv_new_alx( ply, MS_None );
 
+            do_move( y, move );
+            cb_print( y, true );
+
+            mv_free_move( &move );
             free( y );
         }
         else

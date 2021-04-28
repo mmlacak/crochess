@@ -208,18 +208,62 @@ bool ply_free_all_plies( Ply ** const restrict plies )
     if ( !plies ) return true;
     if ( !*plies ) return false;
 
-    Ply * pf = *plies;
+    bool result = true;
+    Ply * ply = *plies;
 
-    while ( pf )
+    while ( ply )
     {
-        Ply * tmp = pf->next;
-        free( pf );
-        pf = tmp;
+        switch ( ply->link )
+        {
+            case PL_Ply :
+            {
+                Step ** steps = &( ply->ply.steps );
+                result = result && step_free_all_steps( steps );
+                break;
+            }
+
+            case PL_TeleportationWave :
+            {
+                Step ** steps = &( ply->teleport_wave.steps );
+                result = result && step_free_all_steps( steps );
+                break;
+            }
+
+            case PL_TranceJourney :
+            {
+                TranceJourneyStep ** steps = &( ply->trance_journey.steps );
+                result = result && step_free_all_trance_journey_steps( steps );
+                break;
+            }
+
+            case PL_DualTranceJourney :
+            {
+                PieceField ** captured = &( ply->dual_trance_journey.captured );
+                result = result && ply_free_all_piece_fields( captured );
+                break;
+            }
+
+            case PL_PawnSacrifice :
+            {
+                PawnSacrificeCaptureStep ** steps = &( ply->pawn_sacrifice.steps );
+                result = result && step_free_all_pawn_sacrifice_steps( steps );
+                break;
+            }
+
+            case PL_Teleportation :
+            case PL_FailedTeleportationOblation :
+            case PL_FailedTeleportation :
+            case PL_FailedTranceJourney :
+                break;
+        }
+
+        Ply * tmp = ply->next;
+        free( ply );
+        ply = tmp;
     }
 
     *plies = NULL;
-
-    return true;
+    return result;
 }
 
 

@@ -7,7 +7,7 @@
 #include "step.h"
 
 
-Step * step_new_alx(StepLink link, int i, int j)
+Step * step_new_alx( StepLink link, int i, int j )
 {
     Step * step = malloc( sizeof( Step ) );
     if ( !step ) return NULL;
@@ -66,21 +66,21 @@ StepSideEffect * step_new_side_effect_alx( StepSideEffectType type, PieceType pi
 
 StepSideEffect * step_new_side_effect_none_alx()
 {
-    return step_new_side_effect_alx(SSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD);
+    return step_new_side_effect_alx( SSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
 StepSideEffect * step_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost )
 {
-    return step_new_side_effect_alx(SSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD);
+    return step_new_side_effect_alx( SSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
 StepSideEffect * step_new_side_effect_displacement_alx( PieceType piece, bool is_promo_tag_lost, int i, int j )
 {
-    return step_new_side_effect_alx(SSET_Displacement, piece, is_promo_tag_lost, i, j);
+    return step_new_side_effect_alx( SSET_Displacement, piece, is_promo_tag_lost, i, j );
 }
 
 
-TranceJourneyStep * step_new_trance_journey_alx(StepLink link, int i, int j, StepSideEffect side_effect)
+TranceJourneyStep * step_new_trance_journey_alx( StepLink link, int i, int j, StepSideEffect side_effect )
 {
     TranceJourneyStep * tjs = malloc( sizeof( TranceJourneyStep ) );
     if ( !tjs ) return NULL;
@@ -114,7 +114,7 @@ bool step_free_all_trance_journey_steps( TranceJourneyStep ** const restrict ste
 }
 
 
-PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx(StepLink link, int i, int j, StepSideEffect side_effect)
+PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx( StepLink link, int i, int j, StepSideEffect side_effect )
 {
     // if ( ( side_effect.type != SSET_None ) && ( side_effect.type != SSET_Capture ) ) return NULL;
 
