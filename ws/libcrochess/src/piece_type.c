@@ -132,7 +132,7 @@ char pt_symbol(PieceType const pt)
     return toupper( pt_as_char( pt ) );
 }
 
-char const * const pt_label(PieceType const pt)
+char const * pt_label(PieceType const pt)
 {
     switch ( pt )
     {

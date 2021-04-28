@@ -286,21 +286,21 @@ PieceType const SETUP_BOARD_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ] =
 };
 
 
-PieceType const * const get_board_setup( BoardType const bt )
+PieceType const * get_board_setup( BoardType const bt )
 {
     switch ( bt )
     {
-        case BT_ClassicalChess : return (PieceType const * const)SETUP_BOARD_CLASSICAL_CHESS;
-        case BT_CroatianTies : return (PieceType const * const)SETUP_BOARD_CROATIAN_TIES;
-        case BT_MayanAscendancy : return (PieceType const * const)SETUP_BOARD_MAYAN_ASCENDANCY;
-        case BT_AgeOfAquarius : return (PieceType const * const)SETUP_BOARD_AGE_OF_AQUARIUS;
-        case BT_MirandasVeil : return (PieceType const * const)SETUP_BOARD_MIRANDAS_VEIL;
-        case BT_Nineteen : return (PieceType const * const)SETUP_BOARD_NINETEEN;
-        case BT_HemerasDawn : return (PieceType const * const)SETUP_BOARD_HEMERAS_DAWN;
-        case BT_TamoanchanRevisited : return (PieceType const * const)SETUP_BOARD_TAMOANCHAN_REVISITED;
-        case BT_ConquestOfTlalocan : return (PieceType const * const)SETUP_BOARD_CONQUEST_OF_TLALOCAN;
-        case BT_Discovery : return (PieceType const * const)SETUP_BOARD_DISCOVERY;
-        case BT_One : return (PieceType const * const)SETUP_BOARD_ONE;
+        case BT_ClassicalChess : return (PieceType const *)SETUP_BOARD_CLASSICAL_CHESS;
+        case BT_CroatianTies : return (PieceType const *)SETUP_BOARD_CROATIAN_TIES;
+        case BT_MayanAscendancy : return (PieceType const *)SETUP_BOARD_MAYAN_ASCENDANCY;
+        case BT_AgeOfAquarius : return (PieceType const *)SETUP_BOARD_AGE_OF_AQUARIUS;
+        case BT_MirandasVeil : return (PieceType const *)SETUP_BOARD_MIRANDAS_VEIL;
+        case BT_Nineteen : return (PieceType const *)SETUP_BOARD_NINETEEN;
+        case BT_HemerasDawn : return (PieceType const *)SETUP_BOARD_HEMERAS_DAWN;
+        case BT_TamoanchanRevisited : return (PieceType const *)SETUP_BOARD_TAMOANCHAN_REVISITED;
+        case BT_ConquestOfTlalocan : return (PieceType const *)SETUP_BOARD_CONQUEST_OF_TLALOCAN;
+        case BT_Discovery : return (PieceType const *)SETUP_BOARD_DISCOVERY;
+        case BT_One : return (PieceType const *)SETUP_BOARD_ONE;
 
         default : return NULL;
     }

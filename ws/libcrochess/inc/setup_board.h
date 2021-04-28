@@ -22,7 +22,7 @@ extern PieceType const SETUP_BOARD_DISCOVERY[ BOARD_SIZE_DISCOVERY ][ BOARD_SIZE
 extern PieceType const SETUP_BOARD_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ];
 
 
-PieceType const * const get_board_setup( BoardType const bt );
+PieceType const * get_board_setup( BoardType const bt );
 
 
 #endif /* __SETUP_BOARD_H__ */

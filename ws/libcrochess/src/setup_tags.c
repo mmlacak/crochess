@@ -253,21 +253,21 @@ TagType const SETUP_TAGS_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ] =
 };
 
 
-TagType const * const get_tags_setup( BoardType const bt )
+TagType const * get_tags_setup( BoardType const bt )
 {
     switch ( bt )
     {
-        case BT_ClassicalChess : return (TagType const * const)SETUP_TAGS_CLASSICAL_CHESS;
-        case BT_CroatianTies : return (TagType const * const)SETUP_TAGS_CROATIAN_TIES;
-        case BT_MayanAscendancy : return (TagType const * const)SETUP_TAGS_MAYAN_ASCENDANCY;
-        case BT_AgeOfAquarius : return (TagType const * const)SETUP_TAGS_AGE_OF_AQUARIUS;
-        case BT_MirandasVeil : return (TagType const * const)SETUP_TAGS_MIRANDAS_VEIL;
-        case BT_Nineteen : return (TagType const * const)SETUP_TAGS_NINETEEN;
-        case BT_HemerasDawn : return (TagType const * const)SETUP_TAGS_HEMERAS_DAWN;
-        case BT_TamoanchanRevisited : return (TagType const * const)SETUP_TAGS_TAMOANCHAN_REVISITED;
-        case BT_ConquestOfTlalocan : return (TagType const * const)SETUP_TAGS_CONQUEST_OF_TLALOCAN;
-        case BT_Discovery : return (TagType const * const)SETUP_TAGS_DISCOVERY;
-        case BT_One : return (TagType const * const)SETUP_TAGS_ONE;
+        case BT_ClassicalChess : return (TagType const *)SETUP_TAGS_CLASSICAL_CHESS;
+        case BT_CroatianTies : return (TagType const *)SETUP_TAGS_CROATIAN_TIES;
+        case BT_MayanAscendancy : return (TagType const *)SETUP_TAGS_MAYAN_ASCENDANCY;
+        case BT_AgeOfAquarius : return (TagType const *)SETUP_TAGS_AGE_OF_AQUARIUS;
+        case BT_MirandasVeil : return (TagType const *)SETUP_TAGS_MIRANDAS_VEIL;
+        case BT_Nineteen : return (TagType const *)SETUP_TAGS_NINETEEN;
+        case BT_HemerasDawn : return (TagType const *)SETUP_TAGS_HEMERAS_DAWN;
+        case BT_TamoanchanRevisited : return (TagType const *)SETUP_TAGS_TAMOANCHAN_REVISITED;
+        case BT_ConquestOfTlalocan : return (TagType const *)SETUP_TAGS_CONQUEST_OF_TLALOCAN;
+        case BT_Discovery : return (TagType const *)SETUP_TAGS_DISCOVERY;
+        case BT_One : return (TagType const *)SETUP_TAGS_ONE;
 
         default : return NULL;
     }

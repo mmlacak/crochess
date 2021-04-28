@@ -40,7 +40,7 @@ typedef enum BoardType
 
 bool bt_is_code( char const * const restrict code );
 BoardType bt_from_str(char const * const restrict code);
-char const * const bt_label(BoardType const bt);
+char const * bt_label(BoardType const bt);
 
 unsigned int bt_size(BoardType const bt);
 

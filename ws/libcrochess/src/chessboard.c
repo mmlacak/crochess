@@ -69,9 +69,9 @@ bool cb_setup( Chessboard * const restrict cb )
     TagType const * const tu = get_tags_setup( cb->type );
     if ( !tu ) return false;
 
-    for ( int i = 0; i < cb->size; ++i )
+    for ( int i = 0; i < (int)cb->size; ++i )
     {
-        for ( int j = 0; j < cb->size; ++j )
+        for ( int j = 0; j < (int)cb->size; ++j )
         {
             int x = j;
             int y = cb->size - i - 1;
@@ -88,7 +88,7 @@ bool cb_setup( Chessboard * const restrict cb )
 bool cb_is_on_board( Chessboard const * const restrict cb, int i, int j )
 {
     if ( !cb ) return false;
-    return ( ( 0 <= i ) && ( i < cb->size ) && ( 0 <= j ) && ( j < cb->size ) );
+    return ( ( 0 <= i ) && ( i < (int)cb->size ) && ( 0 <= j ) && ( j < (int)cb->size ) );
 }
 
 PieceType cb_get_piece( Chessboard const * const restrict cb, int i, int j )
@@ -149,11 +149,11 @@ static char * cb_get_divider_alx( Chessboard const * const restrict cb )
     char * divider = calloc( 1, len );
     if ( !divider ) return NULL;
 
-    for ( int i = 0; i < len; ++i )
+    for ( int i = 0; i < (int)len; ++i )
     {
         if ( i < 3 ) divider[ i ] = ' ';
-        else if ( i < 3 + 2 * cb->size - 1 ) divider[ i ] = '-';
-        else if ( i < len ) divider[ i ] = ' ';
+        else if ( i < 3 + 2 * (int)cb->size - 1 ) divider[ i ] = '-';
+        else if ( i < (int)len ) divider[ i ] = ' ';
     }
 
     divider[ len - 2 ] = '\n';
@@ -171,10 +171,10 @@ static char * cb_get_horizontal_ruler_alx( Chessboard const * const restrict cb 
     if ( !hr ) return NULL;
 
     char ch = 'a';
-    for ( int i = 0; i < len; ++i )
+    for ( int i = 0; i < (int)len; ++i )
     {
         if ( i < 3 ) hr[ i ] = ' ';
-        else if ( i < 3 + 2 * cb->size )
+        else if ( i < 3 + 2 * (int)cb->size )
         {
             if ( i % 2 == 0 ) hr[ i ] = ' ';
             else
@@ -183,7 +183,7 @@ static char * cb_get_horizontal_ruler_alx( Chessboard const * const restrict cb 
                 ++ch;
             }
         }
-        else if ( i < len ) hr[ i ] = ' ';
+        else if ( i < (int)len ) hr[ i ] = ' ';
     }
 
     hr[ len - 2 ] = '\n';
@@ -237,13 +237,13 @@ char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_
         return NULL;
     }
 
-    for ( int i = 0; i < cb->size; ++i )
+    for ( int i = 0; i < (int)cb->size; ++i )
     {
         char r = (char)( cb->size - i );
         sprintf( row, "%2hhu|", r );
         strcat( s, row );
 
-        for ( int j = 0; j < cb->size; ++j )
+        for ( int j = 0; j < (int)cb->size; ++j )
         {
             char ch;
             int x = j;
@@ -260,7 +260,7 @@ char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_
                 else ch = ',';
             }
 
-            if ( j < cb->size - 1 )
+            if ( j < (int)cb->size - 1 )
                 sprintf( field, "%c ", ch );
             else
                 sprintf( field, "%c", ch );

@@ -86,7 +86,7 @@ BoardType bt_from_str(char const * const restrict code)
     return bt;
 }
 
-char const * const bt_label(BoardType const bt)
+char const * bt_label(BoardType const bt)
 {
     switch ( bt )
     {

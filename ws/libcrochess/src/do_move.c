@@ -11,7 +11,7 @@
 #include "do_move.h"
 
 
-bool is_teleporting( Chessboard const * const restrict cb, int i, int j, PieceType pt )
+bool is_teleporting( Chessboard const * const restrict cb, int i, int j )
 {
     if ( !cb ) return false;
 
@@ -70,7 +70,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                         {
                             case PSET_None :
                             {
-                                if ( !is_teleporting( cb, s->i, s->j, pt ) )
+                                if ( !is_teleporting( cb, s->i, s->j ) )
                                 {
                                     cb_set_piece( cb, s->i, s->j, pt );
                                 }
@@ -309,7 +309,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        if ( !is_teleporting( cb, s->i, s->j, pt ) )
+                        if ( !is_teleporting( cb, s->i, s->j ) )
                         {
                             cb_set_piece( cb, s->i, s->j, pt );
                         }

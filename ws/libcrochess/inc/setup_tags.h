@@ -22,7 +22,7 @@ extern TagType const SETUP_TAGS_DISCOVERY[ BOARD_SIZE_DISCOVERY ][ BOARD_SIZE_DI
 extern TagType const SETUP_TAGS_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ];
 
 
-TagType const * const get_tags_setup( BoardType const bt );
+TagType const * get_tags_setup( BoardType const bt );
 
 
 #endif /* __SETUP_TAGS_H__ */

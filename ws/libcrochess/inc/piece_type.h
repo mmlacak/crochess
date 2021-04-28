@@ -54,7 +54,7 @@ PieceType pt_opposite(PieceType const pt);
 
 char pt_as_char(PieceType const pt);
 char pt_symbol(PieceType const pt);
-char const * const pt_label(PieceType const pt);
+char const * pt_label(PieceType const pt);
 
 bool pt_is_dark(PieceType const pt);
 bool pt_is_light(PieceType const pt);
