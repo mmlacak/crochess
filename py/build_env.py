@@ -74,13 +74,13 @@ def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_d
     options = None
 
     if compiler == COMPILER_GCC:
-        options = OPTIONS_GCC_RELEASE if is_release_or_debug else OPTIONS_GCC_DEBUG
+        options = OPTIONS_GCC_RELEASE[ : ] if is_release_or_debug else OPTIONS_GCC_DEBUG[ : ]
         if is_extra_warnings:
             options += OPTIONS_GCC_EXTRA_WARNINGS
     elif compiler == COMPILER_CLANG:
-        options = OPTIONS_CLANG_RELEASE if is_release_or_debug else OPTIONS_CLANG_DEBUG
+        options = OPTIONS_CLANG_RELEASE[ : ] if is_release_or_debug else OPTIONS_CLANG_DEBUG[ : ]
         if is_extra_warnings:
-            options += OPTIONS_GCC_EXTRA_WARNINGS
+            options += OPTIONS_CLANG_EXTRA_WARNINGS
     else:
         raise RuntimeError("Unknown compiler '%s'." % compiler) # return []
 
