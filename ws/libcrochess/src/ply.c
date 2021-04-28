@@ -7,112 +7,217 @@
 #include "ply.h"
 
 
-PlySideEffect * ply_new_side_effect_alx( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int start_i, int start_j, int dest_i, int dest_j )
-{
-    PlySideEffect * pse = calloc( 1, sizeof( PlySideEffect ) );
-    if ( !pse ) return NULL;
+// PlySideEffect * ply_new_side_effect_alx( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int start_i, int start_j, int dest_i, int dest_j )
+// {
+//     PlySideEffect * pse = calloc( 1, sizeof( PlySideEffect ) );
+//     if ( !pse ) return NULL;
 
-    pse->type = type;
+//     pse->type = type;
+
+//     // Nothing more to do if type == PSET_None.
+//     if ( pse->type == PSET_Capture )
+//     {
+//         pse->capture.piece = piece;
+//         pse->capture.is_promo_tag_lost = is_promo_tag_lost;
+//     }
+//     else if ( pse->type == PSET_EnPassant )
+//     {
+//         pse->en_passant.dest_i = dest_i;
+//         pse->en_passant.dest_j = dest_j;
+//     }
+//     else if ( pse->type == PSET_Castle )
+//     {
+//         pse->castle.start_i = start_i;
+//         pse->castle.start_j = start_j;
+//         pse->castle.dest_i = dest_i;
+//         pse->castle.dest_j = dest_j;
+//     }
+//     else if ( pse->type == PSET_Promotion )
+//     {
+//         pse->promote.piece = piece;
+//     }
+//     // Nothing more to do if type == PSET_TagForPromotion.
+//     else if ( pse->type == PSET_Conversion )
+//     {
+//         pse->convert.piece = piece;
+//         pse->convert.is_promo_tag_lost = is_promo_tag_lost;
+//     }
+//     // Nothing more to do if type == PSET_FailedConversion.
+//     else if ( pse->type == PSET_Demotion )
+//     {
+//         pse->demote.piece = piece;
+//         pse->demote.dest_i = dest_i;
+//         pse->demote.dest_j = dest_j;
+//     }
+//     else if ( pse->type == PSET_Resurrection )
+//     {
+//         pse->resurrect.piece = piece;
+//         pse->resurrect.dest_i = dest_i;
+//         pse->resurrect.dest_j = dest_j;
+//     }
+//     // Nothing more to do if type == PSET_FailedResurrection.
+
+//     return pse;
+// }
+
+// PlySideEffect * ply_new_side_effect_none_alx()
+// {
+//     return ply_new_side_effect_alx( PSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+// PlySideEffect * ply_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost )
+// {
+//     return ply_new_side_effect_alx( PSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+// PlySideEffect * ply_new_side_effect_en_passant_alx( int dest_i, int dest_j )
+// {
+//     return ply_new_side_effect_alx( PSET_EnPassant, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+// }
+
+// PlySideEffect * ply_new_side_effect_castle_alx( int start_i, int start_j, int dest_i, int dest_j )
+// {
+//     return ply_new_side_effect_alx( PSET_Castle, PT_None, false, start_i, start_j, dest_i, dest_j );
+// }
+
+// PlySideEffect * ply_new_side_effect_promote_alx( PieceType piece )
+// {
+//     return ply_new_side_effect_alx( PSET_Promotion, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+// PlySideEffect * ply_new_side_effect_tag_for_promotion_alx()
+// {
+//     return ply_new_side_effect_alx( PSET_TagForPromotion, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+// PlySideEffect * ply_new_side_effect_convert_alx( PieceType piece, bool is_promo_tag_lost )
+// {
+//     return ply_new_side_effect_alx( PSET_Conversion, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+// PlySideEffect * ply_new_side_effect_failed_conversion_alx()
+// {
+//     return ply_new_side_effect_alx( PSET_FailedConversion, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+// PlySideEffect * ply_new_side_effect_demote_alx( PieceType piece, int dest_i, int dest_j )
+// {
+//     return ply_new_side_effect_alx( PSET_Demotion, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+// }
+
+// PlySideEffect * ply_new_side_effect_resurrect_alx( PieceType piece, int dest_i, int dest_j )
+// {
+//     return ply_new_side_effect_alx( PSET_Resurrection, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+// }
+
+// PlySideEffect * ply_new_side_effect_failed_resurrection_alx()
+// {
+//     return ply_new_side_effect_alx( PSET_FailedResurrection, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+PlySideEffect ply_side_effect( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int start_i, int start_j, int dest_i, int dest_j )
+{
+    PlySideEffect pse = { .type = type, };
 
     // Nothing more to do if type == PSET_None.
-    if ( pse->type == PSET_Capture )
+    if ( pse.type == PSET_Capture )
     {
-        pse->capture.piece = piece;
-        pse->capture.is_promo_tag_lost = is_promo_tag_lost;
+        pse.capture.piece = piece;
+        pse.capture.is_promo_tag_lost = is_promo_tag_lost;
     }
-    else if ( pse->type == PSET_EnPassant )
+    else if ( pse.type == PSET_EnPassant )
     {
-        pse->en_passant.dest_i = dest_i;
-        pse->en_passant.dest_j = dest_j;
+        pse.en_passant.dest_i = dest_i;
+        pse.en_passant.dest_j = dest_j;
     }
-    else if ( pse->type == PSET_Castle )
+    else if ( pse.type == PSET_Castle )
     {
-        pse->castle.start_i = start_i;
-        pse->castle.start_j = start_j;
-        pse->castle.dest_i = dest_i;
-        pse->castle.dest_j = dest_j;
+        pse.castle.start_i = start_i;
+        pse.castle.start_j = start_j;
+        pse.castle.dest_i = dest_i;
+        pse.castle.dest_j = dest_j;
     }
-    else if ( pse->type == PSET_Promotion )
+    else if ( pse.type == PSET_Promotion )
     {
-        pse->promote.piece = piece;
+        pse.promote.piece = piece;
     }
     // Nothing more to do if type == PSET_TagForPromotion.
-    else if ( pse->type == PSET_Conversion )
+    else if ( pse.type == PSET_Conversion )
     {
-        pse->convert.piece = piece;
-        pse->convert.is_promo_tag_lost = is_promo_tag_lost;
+        pse.convert.piece = piece;
+        pse.convert.is_promo_tag_lost = is_promo_tag_lost;
     }
     // Nothing more to do if type == PSET_FailedConversion.
-    else if ( pse->type == PSET_Demotion )
+    else if ( pse.type == PSET_Demotion )
     {
-        pse->demote.piece = piece;
-        pse->demote.dest_i = dest_i;
-        pse->demote.dest_j = dest_j;
+        pse.demote.piece = piece;
+        pse.demote.dest_i = dest_i;
+        pse.demote.dest_j = dest_j;
     }
-    else if ( pse->type == PSET_Resurrection )
+    else if ( pse.type == PSET_Resurrection )
     {
-        pse->resurrect.piece = piece;
-        pse->resurrect.dest_i = dest_i;
-        pse->resurrect.dest_j = dest_j;
+        pse.resurrect.piece = piece;
+        pse.resurrect.dest_i = dest_i;
+        pse.resurrect.dest_j = dest_j;
     }
     // Nothing more to do if type == PSET_FailedResurrection.
 
     return pse;
 }
 
-PlySideEffect * ply_new_side_effect_none_alx()
+PlySideEffect ply_side_effect_none()
 {
-    return ply_new_side_effect_alx( PSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
-PlySideEffect * ply_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost )
+PlySideEffect ply_side_effect_capture( PieceType piece, bool is_promo_tag_lost )
 {
-    return ply_new_side_effect_alx( PSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
-PlySideEffect * ply_new_side_effect_en_passant_alx( int dest_i, int dest_j )
+PlySideEffect ply_side_effect_en_passant( int dest_i, int dest_j )
 {
-    return ply_new_side_effect_alx( PSET_EnPassant, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+    return ply_side_effect( PSET_EnPassant, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
 }
 
-PlySideEffect * ply_new_side_effect_castle_alx( int start_i, int start_j, int dest_i, int dest_j )
+PlySideEffect ply_side_effect_castle( int start_i, int start_j, int dest_i, int dest_j )
 {
-    return ply_new_side_effect_alx( PSET_Castle, PT_None, false, start_i, start_j, dest_i, dest_j );
+    return ply_side_effect( PSET_Castle, PT_None, false, start_i, start_j, dest_i, dest_j );
 }
 
-PlySideEffect * ply_new_side_effect_promote_alx( PieceType piece )
+PlySideEffect ply_side_effect_promote( PieceType piece )
 {
-    return ply_new_side_effect_alx( PSET_Promotion, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_Promotion, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
-PlySideEffect * ply_new_side_effect_tag_for_promotion_alx()
+PlySideEffect ply_side_effect_tag_for_promotion()
 {
-    return ply_new_side_effect_alx( PSET_TagForPromotion, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_TagForPromotion, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
-PlySideEffect * ply_new_side_effect_convert_alx( PieceType piece, bool is_promo_tag_lost )
+PlySideEffect ply_side_effect_convert( PieceType piece, bool is_promo_tag_lost )
 {
-    return ply_new_side_effect_alx( PSET_Conversion, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_Conversion, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
-PlySideEffect * ply_new_side_effect_failed_conversion_alx()
+PlySideEffect ply_side_effect_failed_conversion()
 {
-    return ply_new_side_effect_alx( PSET_FailedConversion, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_FailedConversion, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
-PlySideEffect * ply_new_side_effect_demote_alx( PieceType piece, int dest_i, int dest_j )
+PlySideEffect ply_side_effect_demote( PieceType piece, int dest_i, int dest_j )
 {
-    return ply_new_side_effect_alx( PSET_Demotion, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+    return ply_side_effect( PSET_Demotion, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
 }
 
-PlySideEffect * ply_new_side_effect_resurrect_alx( PieceType piece, int dest_i, int dest_j )
+PlySideEffect ply_side_effect_resurrect( PieceType piece, int dest_i, int dest_j )
 {
-    return ply_new_side_effect_alx( PSET_Resurrection, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+    return ply_side_effect( PSET_Resurrection, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
 }
 
-PlySideEffect * ply_new_side_effect_failed_resurrection_alx()
+PlySideEffect ply_side_effect_failed_resurrection()
 {
-    return ply_new_side_effect_alx( PSET_FailedResurrection, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_FailedResurrection, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
 

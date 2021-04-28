@@ -55,19 +55,33 @@ typedef struct PlySideEffect
     };
 } PlySideEffect;
 
-PlySideEffect * ply_new_side_effect_alx( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int start_i, int start_j, int dest_i, int dest_j );
+// PlySideEffect * ply_new_side_effect_alx( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int start_i, int start_j, int dest_i, int dest_j );
 
-PlySideEffect * ply_new_side_effect_none_alx();
-PlySideEffect * ply_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost );
-PlySideEffect * ply_new_side_effect_en_passant_alx( int dest_i, int dest_j );
-PlySideEffect * ply_new_side_effect_castle_alx( int start_i, int start_j, int dest_i, int dest_j );
-PlySideEffect * ply_new_side_effect_promote_alx( PieceType piece );
-PlySideEffect * ply_new_side_effect_tag_for_promotion_alx();
-PlySideEffect * ply_new_side_effect_convert_alx( PieceType piece, bool is_promo_tag_lost );
-PlySideEffect * ply_new_side_effect_failed_conversion_alx();
-PlySideEffect * ply_new_side_effect_demote_alx( PieceType piece, int dest_i, int dest_j );
-PlySideEffect * ply_new_side_effect_resurrect_alx( PieceType piece, int dest_i, int dest_j );
-PlySideEffect * ply_new_side_effect_failed_resurrection_alx();
+// PlySideEffect * ply_new_side_effect_none_alx();
+// PlySideEffect * ply_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost );
+// PlySideEffect * ply_new_side_effect_en_passant_alx( int dest_i, int dest_j );
+// PlySideEffect * ply_new_side_effect_castle_alx( int start_i, int start_j, int dest_i, int dest_j );
+// PlySideEffect * ply_new_side_effect_promote_alx( PieceType piece );
+// PlySideEffect * ply_new_side_effect_tag_for_promotion_alx();
+// PlySideEffect * ply_new_side_effect_convert_alx( PieceType piece, bool is_promo_tag_lost );
+// PlySideEffect * ply_new_side_effect_failed_conversion_alx();
+// PlySideEffect * ply_new_side_effect_demote_alx( PieceType piece, int dest_i, int dest_j );
+// PlySideEffect * ply_new_side_effect_resurrect_alx( PieceType piece, int dest_i, int dest_j );
+// PlySideEffect * ply_new_side_effect_failed_resurrection_alx();
+
+PlySideEffect ply_side_effect( PlySideEffectType type, PieceType piece, bool is_promo_tag_lost, int start_i, int start_j, int dest_i, int dest_j );
+
+PlySideEffect ply_side_effect_none();
+PlySideEffect ply_side_effect_capture( PieceType piece, bool is_promo_tag_lost );
+PlySideEffect ply_side_effect_en_passant( int dest_i, int dest_j );
+PlySideEffect ply_side_effect_castle( int start_i, int start_j, int dest_i, int dest_j );
+PlySideEffect ply_side_effect_promote( PieceType piece );
+PlySideEffect ply_side_effect_tag_for_promotion();
+PlySideEffect ply_side_effect_convert( PieceType piece, bool is_promo_tag_lost );
+PlySideEffect ply_side_effect_failed_conversion();
+PlySideEffect ply_side_effect_demote( PieceType piece, int dest_i, int dest_j );
+PlySideEffect ply_side_effect_resurrect( PieceType piece, int dest_i, int dest_j );
+PlySideEffect ply_side_effect_failed_resurrection();
 
 
 typedef struct PieceField

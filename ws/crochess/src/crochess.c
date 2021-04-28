@@ -20,7 +20,7 @@
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.56+20210428.222530"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.57+20210428.232441"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -137,8 +137,8 @@ int main( void )
             Step * dest = step_new_alx( SL_Destination, 6, 4 );
             start->next = dest;
 
-            PlySideEffect * pse = ply_new_side_effect_none_alx();
-            Ply * ply = ply_new_ply_alx( PT_LightKnight, start, *pse );
+            PlySideEffect pse = ply_side_effect_none();
+            Ply * ply = ply_new_ply_alx( PT_LightKnight, start, pse );
 
             Move * move = mv_new_alx( ply, MS_None );
 

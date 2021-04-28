@@ -39,43 +39,79 @@ bool step_free_all_steps( Step ** const restrict steps )
 }
 
 
-StepSideEffect * step_new_side_effect_alx( StepSideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j )
-{
-    StepSideEffect * sse = calloc( 1, sizeof( StepSideEffect ) );
-    if ( !sse ) return NULL;
+// StepSideEffect * step_new_side_effect_alx( StepSideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j )
+// {
+//     StepSideEffect * sse = calloc( 1, sizeof( StepSideEffect ) );
+//     if ( !sse ) return NULL;
 
-    sse->type = type;
+//     sse->type = type;
+
+//     // Nothing more to do if type == SSET_None.
+//     if ( sse->type == SSET_Capture )
+//     {
+//         sse->capture.piece = piece;
+//         sse->capture.is_promo_tag_lost = is_promo_tag_lost;
+//     }
+//     else if ( sse->type == SSET_Displacement )
+//     {
+//         sse->displacement.piece = piece;
+//         sse->displacement.is_promo_tag_lost = is_promo_tag_lost;
+//         sse->displacement.i = i;
+//         sse->displacement.j = j;
+//     }
+
+//     return sse;
+// }
+
+// StepSideEffect * step_new_side_effect_none_alx()
+// {
+//     return step_new_side_effect_alx( SSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+// StepSideEffect * step_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost )
+// {
+//     return step_new_side_effect_alx( SSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD );
+// }
+
+// StepSideEffect * step_new_side_effect_displacement_alx( PieceType piece, bool is_promo_tag_lost, int i, int j )
+// {
+//     return step_new_side_effect_alx( SSET_Displacement, piece, is_promo_tag_lost, i, j );
+// }
+
+StepSideEffect step_side_effect( StepSideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j )
+{
+    StepSideEffect sse = { .type = type, };
 
     // Nothing more to do if type == SSET_None.
-    if ( sse->type == SSET_Capture )
+    if ( sse.type == SSET_Capture )
     {
-        sse->capture.piece = piece;
-        sse->capture.is_promo_tag_lost = is_promo_tag_lost;
+        sse.capture.piece = piece;
+        sse.capture.is_promo_tag_lost = is_promo_tag_lost;
     }
-    else if ( sse->type == SSET_Displacement )
+    else if ( sse.type == SSET_Displacement )
     {
-        sse->displacement.piece = piece;
-        sse->displacement.is_promo_tag_lost = is_promo_tag_lost;
-        sse->displacement.i = i;
-        sse->displacement.j = j;
+        sse.displacement.piece = piece;
+        sse.displacement.is_promo_tag_lost = is_promo_tag_lost;
+        sse.displacement.i = i;
+        sse.displacement.j = j;
     }
 
     return sse;
 }
 
-StepSideEffect * step_new_side_effect_none_alx()
+StepSideEffect step_side_effect_none()
 {
-    return step_new_side_effect_alx( SSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return step_side_effect( SSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
-StepSideEffect * step_new_side_effect_capture_alx( PieceType piece, bool is_promo_tag_lost )
+StepSideEffect step_side_effect_capture( PieceType piece, bool is_promo_tag_lost )
 {
-    return step_new_side_effect_alx( SSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return step_side_effect( SSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD );
 }
 
-StepSideEffect * step_new_side_effect_displacement_alx( PieceType piece, bool is_promo_tag_lost, int i, int j )
+StepSideEffect step_side_effect_displacement( PieceType piece, bool is_promo_tag_lost, int i, int j )
 {
-    return step_new_side_effect_alx( SSET_Displacement, piece, is_promo_tag_lost, i, j );
+    return step_side_effect( SSET_Displacement, piece, is_promo_tag_lost, i, j );
 }
 
 
