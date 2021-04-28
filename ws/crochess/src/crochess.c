@@ -11,11 +11,16 @@
 #include "piece_type.h"
 #include "chessboard.h"
 
+#include "step.h"
+#include "ply.h"
+#include "move.h"
+#include "do_move.h"
+
 #include "crochess.h"
 #include "hlp_msgs.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.53+20210428.143107"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.54+20210428.183310"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main(void)
@@ -25,7 +30,7 @@ int main(void)
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    Chessboard * cb = cb_new_alx( BT_One );
+    Chessboard * cb = cb_new_alx( BT_One, true );
 
     while ( true )
     {
@@ -44,31 +49,31 @@ int main(void)
         char * cmd = next_token_alx(buffer, TOKEN_SEPARATORS_WHITEPSACE);
         if ( !cmd ) continue;
 
-        if ( ( !strcmp("q", cmd) ) || ( !strcmp("quit", cmd) ) )
+        if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
         {
             free( cmd );
             break;
         }
-        else if ( ( !strcmp("v", cmd) ) || ( !strcmp("version", cmd) ) )
+        else if ( ( !strcmp( "v", cmd ) ) || ( !strcmp( "version", cmd ) ) )
         {
-            print_version_info(LIBCROCHESS_VERSION, CROCHESS_VERSION);
+            print_version_info( LIBCROCHESS_VERSION, CROCHESS_VERSION );
         }
-        else if ( ( !strcmp("a", cmd) ) || ( !strcmp("about", cmd) ) )
+        else if ( ( !strcmp( "a", cmd ) ) || ( !strcmp( "about", cmd ) ) )
         {
             print_about_info();
         }
-        else if ( ( !strcmp("d", cmd) ) || ( !strcmp("display", cmd) ) )
+        else if ( ( !strcmp( "d", cmd ) ) || ( !strcmp( "display", cmd ) ) )
         {
             cb_print( cb, true );
         }
-        else if ( ( !strcmp("t", cmd) ) || ( !strcmp("tags", cmd) ) )
+        else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "tags", cmd ) ) )
         {
             cb_print( cb, false );
         }
-        else if ( ( !strcmp("n", cmd) ) || ( !strcmp("new", cmd) ) )
+        else if ( ( !strcmp( "n", cmd ) ) || ( !strcmp( "new", cmd ) ) )
         {
             bool is_code = false;
-            char * code = next_token_alx(NULL, NULL);
+            char * code = next_token_alx( NULL, NULL );
 
             if ( code )
             {
@@ -79,7 +84,7 @@ int main(void)
                     BoardType bt = bt_from_str( code );
 
                     free( cb );
-                    cb = cb_new_alx( bt );
+                    cb = cb_new_alx( bt, true );
                 }
                 else
                 {
@@ -95,42 +100,56 @@ int main(void)
                 cb_print( cb, true );
             }
         }
-        else if ( ( !strcmp("h", cmd) ) || ( !strcmp("help", cmd) ) || ( !strcmp("?", cmd) ) )
+        else if ( ( !strcmp( "h", cmd ) ) || ( !strcmp( "help", cmd ) ) || ( !strcmp( "?", cmd ) ) )
         {
-            char * res = next_token_alx(NULL, NULL);
+            char * res = next_token_alx( NULL, NULL );
 
             if ( !res ) print_help();
-            else if ( ( !strcmp("q", res) ) || ( !strcmp("quit", res) ) ) print_help_quit();
-            else if ( ( !strcmp("d", res) ) || ( !strcmp("display", res) ) ) print_help_display();
-            else if ( ( !strcmp("t", res) ) || ( !strcmp("tags", res) ) ) print_help_tags();
-            else if ( ( !strcmp("a", res) ) || ( !strcmp("about", res) ) ) print_help_about();
-            else if ( ( !strcmp("v", res) ) || ( !strcmp("version", res) ) ) print_help_version();
-            else if ( ( !strcmp("n", res) ) || ( !strcmp("new", res) ) ) print_help_new();
+            else if ( ( !strcmp( "q", res ) ) || ( !strcmp( "quit", res ) ) ) print_help_quit();
+            else if ( ( !strcmp( "d", res ) ) || ( !strcmp( "display", res ) ) ) print_help_display();
+            else if ( ( !strcmp( "t", res ) ) || ( !strcmp( "tags", res ) ) ) print_help_tags();
+            else if ( ( !strcmp( "a", res ) ) || ( !strcmp( "about", res ) ) ) print_help_about();
+            else if ( ( !strcmp( "v", res ) ) || ( !strcmp( "version", res ) ) ) print_help_version();
+            else if ( ( !strcmp( "n", res ) ) || ( !strcmp( "new", res ) ) ) print_help_new();
             else
             {
-                printf("No help entry: '%s'.\n", res);
+                printf( "No help entry: '%s'.\n", res );
                 // fflush( stdout );
             }
 
             free( res );
         }
-        else if ( !strcmp("x", cmd) )
+        else if ( !strcmp( "x", cmd ) )
         {
             printf( "X: '%d'.\n", is_field_light(5, 2) );
             cb_clear( cb );
             cb_set_piece( cb, 5, 2, PT_LightBishop );
             cb_print( cb, true );
         }
+        else if ( !strcmp( "y", cmd ) )
+        {
+            Chessboard * y = cb_new_alx( BT_One, false );
+
+            cb_set_piece( y, 5, 2, PT_LightKnight );
+            cb_print( y, true );
+
+
+
+
+            free( y );
+        }
         else
         {
-            printf("Unknown: '%s'.\n", buffer);
+            printf( "Unknown: '%s'.\n", buffer );
             // fflush( stdout );
         }
 
         free( cmd );
     }
 
-    printf("Bye, have a nice day!\n");
+    free( cb );
+
+    printf( "Bye, have a nice day!\n" );
     // fflush( stdout );
 
     return 0;

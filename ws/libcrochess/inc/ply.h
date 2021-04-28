@@ -79,6 +79,7 @@ typedef struct PieceField
 } PieceField;
 
 PieceField * ply_new_piece_field_alx( PieceType piece, int i, int j );
+bool ply_free_all_piece_fields( PieceField ** const restrict piece_fields );
 
 
 typedef struct Ply
@@ -107,6 +108,7 @@ Ply * ply_new_alx(  PlyLink link,
                         PieceField * const restrict captured,
                         PawnSacrificeCaptureStep * const restrict pawn_sacrifice_steps,
                     PlySideEffect side_effect );
+bool ply_free_all_plies( Ply ** const restrict plies );
 
 Ply * ply_new_ply_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect );
 Ply * ply_new_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect );

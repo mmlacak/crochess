@@ -129,6 +129,25 @@ PieceField * ply_new_piece_field_alx( PieceType piece, int i, int j )
     return pf;
 }
 
+bool ply_free_all_piece_fields( PieceField ** const restrict piece_fields )
+{
+    if ( !piece_fields ) return true;
+    if ( !*piece_fields ) return false;
+
+    PieceField * pf = *piece_fields;
+
+    while ( pf )
+    {
+        PieceField * tmp = pf->next;
+        free( pf );
+        pf = tmp;
+    }
+
+    *piece_fields = NULL;
+
+    return true;
+}
+
 
 Ply * ply_new_alx(  PlyLink link,
                     PieceType piece, Step * const restrict steps, int i, int j,
@@ -183,6 +202,26 @@ Ply * ply_new_alx(  PlyLink link,
 
     return ply;
 }
+
+bool ply_free_all_plies( Ply ** const restrict plies )
+{
+    if ( !plies ) return true;
+    if ( !*plies ) return false;
+
+    Ply * pf = *plies;
+
+    while ( pf )
+    {
+        Ply * tmp = pf->next;
+        free( pf );
+        pf = tmp;
+    }
+
+    *plies = NULL;
+
+    return true;
+}
+
 
 Ply * ply_new_ply_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect )
 {

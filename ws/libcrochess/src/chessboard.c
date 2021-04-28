@@ -20,12 +20,12 @@ bool is_field_light( int i, int j )
 }
 
 
-Chessboard * cb_new_alx( BoardType const bt )
+Chessboard * cb_new_alx( BoardType const bt, bool do_setup )
 {
     Chessboard * b = malloc( sizeof( Chessboard ) );
     if ( !b ) return NULL;
 
-    cb_init(b, bt, true);
+    cb_init( b, bt, do_setup );
 
     return b;
 }

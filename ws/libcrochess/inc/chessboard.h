@@ -21,7 +21,7 @@ typedef struct Chessboard
 
 bool is_field_light( int i, int j );
 
-Chessboard * cb_new_alx( BoardType const bt );
+Chessboard * cb_new_alx( BoardType const bt, bool do_setup );
 bool cb_init( Chessboard * const restrict cb, BoardType const bt, bool do_setup );
 bool cb_clear( Chessboard * const restrict cb );
 bool cb_setup( Chessboard * const restrict cb );

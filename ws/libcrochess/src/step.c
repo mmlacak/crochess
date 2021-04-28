@@ -20,6 +20,25 @@ Step * step_new_alx(StepLink link, int i, int j)
     return step;
 }
 
+bool step_free_all_steps( Step ** const restrict steps )
+{
+    if ( !steps ) return true;
+    if ( !*steps ) return false;
+
+    Step * s = *steps;
+
+    while ( s )
+    {
+        Step * tmp = s->next;
+        free( s );
+        s = tmp;
+    }
+
+    *steps = NULL;
+
+    return true;
+}
+
 
 StepSideEffect * step_new_side_effect_alx( StepSideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j )
 {
@@ -75,6 +94,25 @@ TranceJourneyStep * step_new_trance_journey_alx(StepLink link, int i, int j, Ste
     return tjs;
 }
 
+bool step_free_all_trance_journey_steps( TranceJourneyStep ** const restrict steps )
+{
+    if ( !steps ) return true;
+    if ( !*steps ) return false;
+
+    TranceJourneyStep * s = *steps;
+
+    while ( s )
+    {
+        TranceJourneyStep * tmp = s->next;
+        free( s );
+        s = tmp;
+    }
+
+    *steps = NULL;
+
+    return true;
+}
+
 
 PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx(StepLink link, int i, int j, StepSideEffect side_effect)
 {
@@ -90,4 +128,23 @@ PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx(StepLink link, in
     pscs->next = NULL;
 
     return pscs;
+}
+
+bool step_free_all_pawn_sacrifice_steps( PawnSacrificeCaptureStep ** const restrict steps )
+{
+    if ( !steps ) return true;
+    if ( !*steps ) return false;
+
+    PawnSacrificeCaptureStep * s = *steps;
+
+    while ( s )
+    {
+        PawnSacrificeCaptureStep * tmp = s->next;
+        free( s );
+        s = tmp;
+    }
+
+    *steps = NULL;
+
+    return true;
 }
