@@ -28,7 +28,7 @@ bool mv_free_move( Move ** move )
     Ply ** plies = &( ( *move )->plies );
     result = result && ply_free_all_plies( plies );
 
-    free( move );
+    free( *move );
     move = NULL;
 
     return result;

@@ -144,7 +144,6 @@ bool ply_free_all_piece_fields( PieceField ** const restrict piece_fields )
     }
 
     *piece_fields = NULL;
-
     return true;
 }
 

@@ -35,7 +35,6 @@ bool step_free_all_steps( Step ** const restrict steps )
     }
 
     *steps = NULL;
-
     return true;
 }
 
@@ -109,7 +108,6 @@ bool step_free_all_trance_journey_steps( TranceJourneyStep ** const restrict ste
     }
 
     *steps = NULL;
-
     return true;
 }
 
@@ -145,6 +143,5 @@ bool step_free_all_pawn_sacrifice_steps( PawnSacrificeCaptureStep ** const restr
     }
 
     *steps = NULL;
-
     return true;
 }
