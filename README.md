@@ -1,11 +1,15 @@
 <span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you_for_your_donations!-F96854.svg?logo=patreon" alt="Thank you for your donations!" /></a></span>
 <span class="badge-blogger"><a href="https://croatian-chess.blogspot.com/" title="Croatian chess blog"><img src="https://img.shields.io/badge/Blogger-Croatian_chess_blog-FF5722.svg?logo=blogger" alt="Croatian chess blog" /></a></span>
+<span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/blob/master/crochess.pdf" title="Read the book!"><img src="https://img.shields.io/badge/Read-Croatian_chess_book-EC1C24.svg?logo=adobe-acrobat-reader" alt="Read the book!" /></a></span>
 
-![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mmlacak/crochess)
-![GitHub last commit](https://img.shields.io/github/last-commit/mmlacak/crochess)
-![GitHub](https://img.shields.io/github/license/mmlacak/crochess)
+<!--- https://simpleicons.org/icons/adobeacrobatreader.svg -->
+<!--- #EC1C24 -->
+
+<!--- ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess) -->
+<!--- ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess) -->
+<!--- ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mmlacak/crochess) -->
+<!--- ![GitHub last commit](https://img.shields.io/github/last-commit/mmlacak/crochess) -->
+<!--- ![GitHub](https://img.shields.io/github/license/mmlacak/crochess) -->
 
 
 # Croatian chess - console application
