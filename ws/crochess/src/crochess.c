@@ -16,11 +16,12 @@
 #include "move.h"
 #include "do_move.h"
 
-#include "crochess.h"
 #include "hlp_msgs.h"
+#include "tests.h"
+#include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.59+20210502.180315"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.60+20210502.184359"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -128,25 +129,7 @@ int main( void )
         }
         else if ( !strcmp( "y", cmd ) )
         {
-            Chessboard * y = cb_new_alx( BT_One, false );
-
-            cb_set_piece( y, 5, 2, PT_LightKnight );
-            cb_print( y, true );
-
-            Step * start = step_new_alx( SL_Start, 5, 2 );
-            Step * dest = step_new_alx( SL_Destination, 6, 4 );
-            start->next = dest;
-
-            PlySideEffect pse = ply_side_effect_none();
-            Ply * ply = ply_new_ply_alx( PT_LightKnight, start, pse );
-
-            Move * move = mv_new_alx( ply, MS_None );
-
-            do_move( y, move );
-            cb_print( y, true );
-
-            mv_free_move( &move );
-            free( y );
+            if ( !tst_single_ply() ) printf( "Test tst_single_ply() failed.\n" );
         }
         else
         {
