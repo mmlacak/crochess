@@ -8,6 +8,7 @@
 
 
 bool tst_single_ply();
+bool tst_cascading_plies();
 
 
 #endif /* __TEST_H__ */
