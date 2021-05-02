@@ -119,7 +119,7 @@ bool tst_cascading_plies()
 
     cb_set_piece( cb, 1, 5, PT_LightPegasus );
     cb_set_piece( cb, 7, 2, PT_LightWave );
-    cb_set_piece( cb, 9, 1, PT_LightPawn );
+    cb_set_piece_tag( cb, 9, 1, PT_LightPawn, TT_CanRush );
     cb_set_piece( cb, 10, 3, PT_DarkPawn );
     cb_print( cb, true );
 
@@ -129,6 +129,7 @@ bool tst_cascading_plies()
     if ( cb_get_piece( cb, 1, 5 ) != PT_LightPegasus ) return false;
     if ( cb_get_piece( cb, 7, 2 ) != PT_LightWave ) return false;
     if ( cb_get_piece( cb, 9, 1 ) != PT_LightPawn ) return false;
+    if ( cb_get_tag( cb, 9, 1 ) != TT_CanRush ) return false;
     if ( cb_get_piece( cb, 10, 3 ) != PT_DarkPawn ) return false;
 
     //
@@ -243,7 +244,9 @@ bool tst_cascading_plies()
     if ( cb_get_piece( cb, 1, 5 ) != PT_None ) return false;
     if ( cb_get_piece( cb, 7, 2 ) != PT_LightPegasus ) return false;
     if ( cb_get_piece( cb, 9, 1 ) != PT_LightWave ) return false;
+    if ( cb_get_tag( cb, 9, 1 ) != TT_None ) return false;
     if ( cb_get_piece( cb, 9, 4 ) != PT_LightPawn ) return false;
+    if ( cb_get_tag( cb, 9, 4 ) != TT_None ) return false;
     if ( cb_get_piece( cb, 10, 3 ) != PT_DarkPawn ) return false;
 
     //
@@ -295,7 +298,9 @@ bool tst_cascading_plies()
     if ( cb_get_piece( cb, 1, 5 ) != PT_None ) return false;
     if ( cb_get_piece( cb, 7, 2 ) != PT_LightPegasus ) return false;
     if ( cb_get_piece( cb, 9, 1 ) != PT_LightWave ) return false;
+    if ( cb_get_tag( cb, 9, 1 ) != TT_None ) return false;
     if ( cb_get_piece( cb, 9, 2 ) != PT_DarkPawn ) return false;
+    if ( cb_get_tag( cb, 9, 4 ) != TT_None ) return false;
 
     //
     // free, return
