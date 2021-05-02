@@ -126,7 +126,7 @@ PieceField * ply_new_piece_field_alx( PieceType piece, int i, int j )
     return pf;
 }
 
-bool ply_free_all_piece_fields( PieceField ** const restrict piece_fields )
+bool ply_free_all_piece_fields( PieceField ** const piece_fields )
 {
     if ( !piece_fields ) return true;
     if ( !*piece_fields ) return false;
@@ -199,7 +199,7 @@ Ply * ply_new_alx(  PlyLink link,
     return ply;
 }
 
-bool ply_free_all_plies( Ply ** const restrict plies )
+bool ply_free_all_plies( Ply ** const plies )
 {
     if ( !plies ) return true;
     if ( !*plies ) return false;

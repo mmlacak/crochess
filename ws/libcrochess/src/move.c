@@ -18,7 +18,7 @@ Move * mv_new_alx( Ply * const restrict plies, MoveStatus status )
     return mv;
 }
 
-bool mv_free_complete_move( Move ** move )
+bool mv_free_complete_move( Move ** const move )
 {
     if ( !move ) return true;
     if ( !*move ) return false;
@@ -29,7 +29,7 @@ bool mv_free_complete_move( Move ** move )
     result = result && ply_free_all_plies( plies );
 
     free( *move );
-    move = NULL;
+    *move = NULL;
 
     return result;
 }
