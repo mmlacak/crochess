@@ -11,21 +11,22 @@
 #include "do_move.h"
 
 
-bool is_teleporting( Chessboard const * const restrict cb, int i, int j )
-{
-    if ( !cb ) return false;
-
-    PieceType current = cb_get_piece( cb, i, j );
-
-    return ( pt_is_teleporter( current ) );
-}
-
-
 PlyLink * next_ply_link( Ply const * const restrict ply )
 {
     if ( !ply ) return NULL;
     if ( !ply->next ) return NULL;
     return &( ply->next->link );
+}
+
+bool is_teleporting( Ply const * const restrict ply )
+{
+    PlyLink * pl = next_ply_link( ply );
+    if ( !pl ) return false;
+
+    return ( ( *pl == PL_Teleportation )
+          || ( *pl == PL_TeleportationWave )
+          || ( *pl == PL_FailedTeleportation )
+          || ( *pl == PL_FailedTeleportationOblation ) );
 }
 
 
@@ -70,7 +71,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                         {
                             case PSET_None :
                             {
-                                if ( !is_teleporting( cb, s->i, s->j ) )
+                                if ( !is_teleporting( ply ) )
                                 {
                                     cb_set_piece( cb, s->i, s->j, pt );
                                 }
@@ -309,7 +310,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        if ( !is_teleporting( cb, s->i, s->j ) )
+                        if ( !is_teleporting( ply ) )
                         {
                             cb_set_piece( cb, s->i, s->j, pt );
                         }
