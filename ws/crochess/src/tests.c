@@ -98,8 +98,10 @@ bool tst_single_ply()
     //
     // tests
 
-    if ( cb_get_piece( cb, 5, 2 ) != PT_None ) return false;
-    if ( cb_get_piece( cb, 10, 12 ) != PT_LightPegasus ) return false;
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 5, 2 ) == PT_None );
+    result = result && ( cb_get_piece( cb, 10, 12 ) == PT_LightPegasus );
 
     //
     // free, return
@@ -107,7 +109,7 @@ bool tst_single_ply()
     mv_free_complete_move( &move );
     free( cb );
 
-    return true;
+    return result;
 }
 
 bool tst_cascading_plies()
@@ -295,12 +297,14 @@ bool tst_cascading_plies()
     //
     // tests
 
-    if ( cb_get_piece( cb, 1, 5 ) != PT_None ) return false;
-    if ( cb_get_piece( cb, 7, 2 ) != PT_LightPegasus ) return false;
-    if ( cb_get_piece( cb, 9, 1 ) != PT_LightWave ) return false;
-    if ( cb_get_tag( cb, 9, 1 ) != TT_None ) return false;
-    if ( cb_get_piece( cb, 9, 2 ) != PT_DarkPawn ) return false;
-    if ( cb_get_tag( cb, 9, 4 ) != TT_None ) return false;
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 1, 5 ) == PT_None );
+    result = result && ( cb_get_piece( cb, 7, 2 ) == PT_LightPegasus );
+    result = result && ( cb_get_piece( cb, 9, 1 ) == PT_LightWave );
+    result = result && ( cb_get_tag( cb, 9, 1 ) == TT_None );
+    result = result && ( cb_get_piece( cb, 9, 2 ) == PT_DarkPawn );
+    result = result && ( cb_get_tag( cb, 9, 4 ) == TT_None );
 
     //
     // free, return
@@ -309,5 +313,89 @@ bool tst_cascading_plies()
     mv_free_complete_move( &move_1 );
     free( cb );
 
-    return true;
+    return result;
+}
+
+bool tst_castling()
+{
+    // chessboard
+
+    Chessboard * cb = cb_new_alx( BT_One, false );
+    if ( !cb ) return false;
+
+    cb_set_piece_tag( cb, 1, 0, PT_LightRook, TT_CanCastle );
+    cb_set_piece_tag( cb, 13, 0, PT_LightKing, TT_CanCastle );
+    cb_set_piece_tag( cb, 24, 0, PT_LightRook, TT_CanCastle );
+    cb_print( cb, true );
+
+    //
+    // tests
+
+    if ( cb_get_piece( cb, 1, 0 ) != PT_LightRook ) return false;
+    if ( cb_get_piece( cb, 13, 0 ) != PT_LightKing ) return false;
+    if ( cb_get_piece( cb, 24, 0 ) != PT_LightRook ) return false;
+
+    if ( cb_get_tag( cb, 1, 0 ) != TT_CanCastle ) return false;
+    if ( cb_get_tag( cb, 13, 0 ) != TT_CanCastle ) return false;
+    if ( cb_get_tag( cb, 24, 0 ) != TT_CanCastle ) return false;
+
+    //
+    // move Ku&t
+
+    Step * step_0 = step_new_alx( SL_Start, 13, 0 );
+    if ( !step_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    Step * step_1 = step_new_alx( SL_Destination, 20, 0 );
+    step_0->next = step_1;
+    if ( !step_1 )
+    {
+        step_free_all_steps( &step_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse = ply_side_effect_castle( PT_LightRook, 24, 0, 19, 0 );
+    Ply * ply = ply_new_ply_alx( PT_LightKing, step_0, pse );
+    if ( !ply )
+    {
+        step_free_all_steps( &step_0 );
+        free( cb );
+        return false;
+    }
+
+    Move * move = mv_new_alx( ply, MS_None );
+    if ( !move )
+    {
+        ply_free_all_plies( &ply );
+        free( cb );
+        return false;
+    }
+
+    do_move( cb, move );
+    cb_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 1, 0 ) == PT_LightRook );
+    result = result && ( cb_get_piece( cb, 19, 0 ) == PT_LightRook );
+    result = result && ( cb_get_piece( cb, 20, 0 ) == PT_LightKing );
+
+    result = result && ( cb_get_tag( cb, 1, 0 ) == TT_CanCastle );
+    result = result && ( cb_get_tag( cb, 19, 0 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 20, 0 ) == TT_None );
+
+    //
+    // free, return
+
+    mv_free_complete_move( &move );
+    free( cb );
+
+    return result;
 }

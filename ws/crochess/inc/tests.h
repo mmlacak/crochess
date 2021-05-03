@@ -9,6 +9,7 @@
 
 bool tst_single_ply();
 bool tst_cascading_plies();
+bool tst_castling();
 
 
 #endif /* __TEST_H__ */
