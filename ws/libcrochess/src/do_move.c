@@ -127,8 +127,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                             case PSET_Conversion :
                             {
-                                PieceType pt = cb_get_piece( cb, s->i, s->j );
-                                PieceType new = pt_opposite( pt );
+                                PieceType new = pse->convert.piece;
                                 cb_set_piece( cb, s->i, s->j, new );
                                 break;
                             }

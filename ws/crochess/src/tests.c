@@ -429,3 +429,196 @@ bool tst_castling()
 
     return result;
 }
+
+bool tst_tag_and_promotion()
+{
+    // chessboard
+
+    Chessboard * cb = cb_new_alx( BT_One, false );
+    if ( !cb ) return false;
+
+    cb_set_piece( cb, 11, 21, PT_LightPawn );
+    cb_set_piece( cb, 15, 21, PT_LightPyramid );
+    cb_set_piece( cb, 21, 15, PT_LightBishop );
+
+    cb_print( cb, true );
+    // cb_print( cb, false );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 11, 21 ) == PT_LightPawn );
+    result = result && ( cb_get_piece( cb, 15, 21 ) == PT_LightPyramid );
+    result = result && ( cb_get_piece( cb, 21, 15 ) == PT_LightBishop );
+
+    result = result && ( cb_get_tag( cb, 11, 21 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 21, 15 ) == TT_None );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Bp22~
+
+    Step * step_0_0 = step_new_alx( SL_Start, 21, 15 );
+    if ( !step_0_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    Step * step_0_1 = step_new_alx( SL_Destination, 15, 21 );
+    step_0_0->next = step_0_1;
+    if ( !step_0_1 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_0 = ply_side_effect_none();
+    Ply * ply_0 = ply_new_ply_alx( PT_LightBishop, step_0_0, pse_0 );
+    if ( !ply_0 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Al22=
+
+    Step * step_1_0 = step_new_alx( SL_Start, 15, 21 );
+    if ( !step_1_0 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    Step * step_1_1 = step_new_alx( SL_Destination, 11, 21 );
+    step_1_0->next = step_1_1;
+    if ( !step_1_1 )
+    {
+        step_free_all_steps( &step_1_0 );
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_1 = ply_side_effect_tag_for_promotion();
+    Ply * ply_1 = ply_new_ply_alx( PT_LightPyramid, step_1_0, pse_1 );
+    ply_0->next = ply_1;
+    if ( !ply_1 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Bp22~Al22=
+
+    Move * move_0 = mv_new_alx( ply_0, MS_None );
+    if ( !move_0 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    do_move( cb, move_0 );
+
+    cb_print( cb, true );
+    // cb_print( cb, false );
+
+    //
+    // tests
+
+    result = result && ( cb_get_piece( cb, 11, 21 ) == PT_LightPawn );
+    result = result && ( cb_get_piece( cb, 15, 21 ) == PT_LightBishop );
+
+    result = result && ( cb_get_tag( cb, 11, 21 ) == TT_DelayedPromotion );
+    result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 21, 15 ) == TT_None );
+
+    if ( !result )
+    {
+        mv_free_complete_move( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply l22Q
+
+    Step * step_2_0 = step_new_alx( SL_Start, 11, 21 );
+    if ( !step_2_0 )
+    {
+        mv_free_complete_move( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    Step * step_2_1 = step_new_alx( SL_Destination, 11, 21 );
+    step_2_0->next = step_2_1;
+    if ( !step_2_1 )
+    {
+        step_free_all_steps( &step_2_0 );
+        mv_free_complete_move( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_2 = ply_side_effect_promote( PT_LightQueen );
+    Ply * ply_2 = ply_new_ply_alx( PT_LightPawn, step_2_0, pse_2 );
+    if ( !ply_2 )
+    {
+        step_free_all_steps( &step_2_0 );
+        mv_free_complete_move( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move l22Q
+
+    Move * move_1 = mv_new_alx( ply_2, MS_None );
+    if ( !move_1 )
+    {
+        ply_free_all_plies( &ply_2 );
+        mv_free_complete_move( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    do_move( cb, move_1 );
+
+    cb_print( cb, true );
+    // cb_print( cb, false );
+
+    //
+    // tests
+
+    result = result && ( cb_get_piece( cb, 11, 21 ) == PT_LightQueen );
+    result = result && ( cb_get_piece( cb, 15, 21 ) == PT_LightBishop );
+
+    result = result && ( cb_get_tag( cb, 11, 21 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 21, 15 ) == TT_None );
+
+    //
+    // free, return
+
+    mv_free_complete_move( &move_0 );
+    mv_free_complete_move( &move_1 );
+    free( cb );
+
+    return result;
+}
