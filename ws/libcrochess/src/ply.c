@@ -24,6 +24,7 @@ PlySideEffect ply_side_effect( PlySideEffectType type, PieceType piece, bool is_
     }
     else if ( pse.type == PSET_Castle )
     {
+        pse.castle.rook = piece;
         pse.castle.start_i = start_i;
         pse.castle.start_j = start_j;
         pse.castle.dest_i = dest_i;
@@ -72,9 +73,9 @@ PlySideEffect ply_side_effect_en_passant( int dest_i, int dest_j )
     return ply_side_effect( PSET_EnPassant, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
 }
 
-PlySideEffect ply_side_effect_castle( int start_i, int start_j, int dest_i, int dest_j )
+PlySideEffect ply_side_effect_castle( PieceType rook, int start_i, int start_j, int dest_i, int dest_j )
 {
-    return ply_side_effect( PSET_Castle, PT_None, false, start_i, start_j, dest_i, dest_j );
+    return ply_side_effect( PSET_Castle, rook, false, start_i, start_j, dest_i, dest_j );
 }
 
 PlySideEffect ply_side_effect_promote( PieceType piece )

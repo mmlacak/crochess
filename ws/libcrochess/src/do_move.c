@@ -100,11 +100,11 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                             {
                                 cb_set_piece( cb, s->i, s->j, pt );
 
+                                PieceType rook = pse->castle.rook;
                                 int start_i = pse->castle.start_i;
                                 int start_j = pse->castle.start_j;
                                 int dest_i = pse->castle.dest_i;
                                 int dest_j = pse->castle.dest_j;
-                                PieceType rook = cb_get_piece( cb, start_i, start_j );
 
                                 cb_set_piece( cb, start_i, start_j, PT_None );
                                 cb_set_piece( cb, dest_i, dest_j, rook );

@@ -47,7 +47,7 @@ typedef struct PlySideEffect
     {
         struct { PieceType piece; bool is_promo_tag_lost; } capture;
         struct { int dest_i; int dest_j; } en_passant;
-        struct { int start_i; int start_j; int dest_i; int dest_j; } castle;
+        struct { PieceType rook; int start_i; int start_j; int dest_i; int dest_j; } castle;
         struct { PieceType piece; } promote;
         struct { PieceType piece; bool is_promo_tag_lost; } convert;
         struct { PieceType piece; int dest_i; int dest_j; } demote;
@@ -60,7 +60,7 @@ PlySideEffect ply_side_effect( PlySideEffectType type, PieceType piece, bool is_
 PlySideEffect ply_side_effect_none();
 PlySideEffect ply_side_effect_capture( PieceType piece, bool is_promo_tag_lost );
 PlySideEffect ply_side_effect_en_passant( int dest_i, int dest_j );
-PlySideEffect ply_side_effect_castle( int start_i, int start_j, int dest_i, int dest_j );
+PlySideEffect ply_side_effect_castle( PieceType rook, int start_i, int start_j, int dest_i, int dest_j );
 PlySideEffect ply_side_effect_promote( PieceType piece );
 PlySideEffect ply_side_effect_tag_for_promotion();
 PlySideEffect ply_side_effect_convert( PieceType piece, bool is_promo_tag_lost );
