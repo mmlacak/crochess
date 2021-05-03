@@ -6,7 +6,7 @@
 #include "libcrochess.h"
 
 
-char const LIBCROCHESS_VERSION[] = "0.0.0.67+20210503.051744"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const LIBCROCHESS_VERSION[] = "0.0.0.68+20210503.053845"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int test(void)

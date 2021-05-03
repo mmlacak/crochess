@@ -517,6 +517,7 @@ bool tst_tag_and_promotion()
     ply_0->next = ply_1;
     if ( !ply_1 )
     {
+        step_free_all_steps( &step_1_0 );
         ply_free_all_plies( &ply_0 );
         free( cb );
         return false;

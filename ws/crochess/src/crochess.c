@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.67+20210503.051744"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.68+20210503.053845"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
