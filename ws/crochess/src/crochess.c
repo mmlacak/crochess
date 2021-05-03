@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.65+20210503.035845"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.66+20210503.042412"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -129,8 +129,8 @@ int main( void )
         }
         else if ( !strcmp( "y", cmd ) )
         {
-            if ( !tst_single_ply() ) printf( "Test tst_single_ply() failed.\n" );
-            if ( !tst_cascading_plies() ) printf( "Test tst_cascading_plies() failed.\n" );
+            // if ( !tst_single_ply() ) printf( "Test tst_single_ply() failed.\n" );
+            // if ( !tst_cascading_plies() ) printf( "Test tst_cascading_plies() failed.\n" );
             if ( !tst_castling() ) printf( "Test tst_castling() failed.\n" );
         }
         else
