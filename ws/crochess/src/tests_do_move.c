@@ -624,14 +624,18 @@ bool tst_tag_and_promotion()
     return result;
 }
 
-bool tst_conversion()
+bool tst_conversion( bool is_failed )
 {
     // chessboard
 
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 11, 5, PT_DarkShaman );
+    if ( is_failed )
+        cb_set_piece( cb, 11, 5, PT_DarkStarchild );
+    else
+        cb_set_piece( cb, 11, 5, PT_DarkShaman );
+
     cb_set_piece( cb, 15, 5, PT_LightPyramid );
     cb_set_piece( cb, 21, 11, PT_LightBishop );
 
@@ -642,7 +646,11 @@ bool tst_conversion()
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 11, 5 ) == PT_DarkShaman );
+    if ( is_failed )
+        result = result && ( cb_get_piece( cb, 11, 5 ) == PT_DarkStarchild );
+    else
+        result = result && ( cb_get_piece( cb, 11, 5 ) == PT_DarkShaman );
+
     result = result && ( cb_get_piece( cb, 15, 5 ) == PT_LightPyramid );
     result = result && ( cb_get_piece( cb, 21, 11 ) == PT_LightBishop );
 
@@ -701,7 +709,12 @@ bool tst_conversion()
         return false;
     }
 
-    PlySideEffect pse_1 = ply_side_effect_convert( PT_LightShaman, false );
+    PlySideEffect pse_1;
+    if ( is_failed )
+        pse_1 = ply_side_effect_failed_conversion();
+    else
+        pse_1 = ply_side_effect_convert( PT_LightShaman, false );
+
     Ply * ply_1 = ply_new_ply_alx( PT_LightPyramid, step_1_0, pse_1 );
     ply_0->next = ply_1;
     if ( !ply_1 )
@@ -730,7 +743,12 @@ bool tst_conversion()
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 11, 5 ) == PT_LightShaman );
+
+    if ( is_failed )
+        result = result && ( cb_get_piece( cb, 11, 5 ) == PT_DarkStarchild );
+    else
+        result = result && ( cb_get_piece( cb, 11, 5 ) == PT_LightShaman );
+
     result = result && ( cb_get_piece( cb, 15, 5 ) == PT_LightBishop );
 
     //

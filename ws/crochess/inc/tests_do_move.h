@@ -11,7 +11,7 @@ bool tst_single_ply();
 bool tst_cascading_plies();
 bool tst_castling();
 bool tst_tag_and_promotion();
-bool tst_conversion();
+bool tst_conversion( bool is_failed );
 
 
 #endif /* __TEST_H__ */

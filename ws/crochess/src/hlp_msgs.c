@@ -23,7 +23,7 @@ void print_app_intro(char const * const restrict lib_ver, char const * const res
 {
     print_license_intro();
 
-    printf( "Licensed under 3-clause (modified) BSD license. Use `a(bout)` for details.\n"
+    printf( "Licensed under 3-clause (modified) BSD license. Use `about` for details.\n"
             "\n"
             "Based on book \"Croatian chess and other variants\", by Mario Mlačak.\n"
             "\n"
