@@ -13,6 +13,7 @@ bool tst_castling( bool do_print );
 bool tst_tag_and_promotion( bool do_print );
 bool tst_conversion( bool do_print, bool is_failed );
 bool tst_demotion( bool do_print );
+bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing );
 
 
 #endif /* __TEST_H__ */

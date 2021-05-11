@@ -758,7 +758,6 @@ bool tst_conversion( bool do_print, bool is_failed )
     //
     // tests
 
-
     if ( is_failed )
         result = result && ( cb_get_piece( cb, 11, 5 ) == PT_DarkStarchild );
     else
@@ -855,6 +854,121 @@ bool tst_demotion( bool do_print )
     result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
     result = result && ( cb_get_piece( cb, 11, 11 ) == PT_LightPawn );
     result = result && ( cb_get_piece( cb, 22, 22 ) == PT_Monolith );
+
+    //
+    // free, return
+
+    mv_free_complete_move( &move_0 );
+    free( cb );
+
+    return result;
+}
+
+bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
+{
+    // chessboard
+
+    Chessboard * cb = cb_new_alx( BT_One, false );
+    if ( !cb ) return false;
+
+    cb_set_piece( cb, 25, 0, PT_DimStar );
+    cb_set_piece( cb, 0, 25, PT_DimStar );
+    cb_set_piece( cb, 23, 15, PT_LightStarchild );
+
+    if ( do_print ) cb_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 25, 0 ) == PT_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
+    result = result && ( cb_get_piece( cb, 23, 15 ) == PT_LightStarchild );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Ip11$B, Ip11$$
+
+    Step * step_0_0 = step_new_alx( SL_Start, 23, 15 );
+    if ( !step_0_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    Step * step_0_1 = step_new_alx( SL_Destination, 15, 10 );
+    step_0_0->next = step_0_1;
+    if ( !step_0_1 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_0;
+    if ( is_failed )
+        pse_0 = ply_side_effect_failed_resurrection();
+    else
+    {
+        if ( is_oblationing )
+            pse_0 = ply_side_effect_resurrect( PT_LightBishop, 15, 10 );
+        else
+            pse_0 = ply_side_effect_resurrect( PT_LightWave, 16, 11 );
+    }
+
+    Ply * ply_0 = ply_new_ply_alx( PT_LightStarchild, step_0_0, pse_0 );
+    if ( !ply_0 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Ip11$B, Ip11$$
+
+    Move * move_0 = mv_new_alx( ply_0, MS_None );
+    if ( !move_0 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    do_move( cb, move_0 );
+
+    if ( do_print ) cb_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cb_get_piece( cb, 25, 0 ) == PT_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
+
+    if ( is_failed )
+    {
+        result = result && ( cb_get_piece( cb, 15, 10 ) == PT_LightStarchild );
+        result = result && ( cb_get_piece( cb, 16, 11 ) == PT_None );
+    }
+    else
+    {
+        if ( is_oblationing )
+        {
+            result = result && ( cb_get_piece( cb, 15, 10 ) == PT_LightBishop );
+            result = result && ( cb_get_piece( cb, 16, 11 ) == PT_None );
+        }
+        else
+        {
+            result = result && ( cb_get_piece( cb, 15, 10 ) == PT_LightStarchild );
+            result = result && ( cb_get_piece( cb, 16, 11 ) == PT_LightWave );
+        }
+    }
 
     //
     // free, return
