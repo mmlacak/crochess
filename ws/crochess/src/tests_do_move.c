@@ -759,3 +759,93 @@ bool tst_conversion( bool is_failed )
 
     return result;
 }
+
+bool tst_demotion()
+{
+    // chessboard
+
+    Chessboard * cb = cb_new_alx( BT_One, false );
+    if ( !cb ) return false;
+
+    cb_set_piece( cb, 0, 0, PT_BrightStar );
+    cb_set_piece( cb, 25, 25, PT_BrightStar );
+    cb_set_piece( cb, 11, 11, PT_LightBishop );
+    cb_set_piece( cb, 23, 15, PT_Monolith );
+
+    cb_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 0, 0 ) == PT_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
+    result = result && ( cb_get_piece( cb, 11, 11 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 23, 15 ) == PT_Monolith );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Mw23>Bl12
+
+    Step * step_0_0 = step_new_alx( SL_Start, 23, 15 );
+    if ( !step_0_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    Step * step_0_1 = step_new_alx( SL_Destination, 22, 22 );
+    step_0_0->next = step_0_1;
+    if ( !step_0_1 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_0 = ply_side_effect_demote( PT_LightPawn, 11, 11 );
+    Ply * ply_0 = ply_new_ply_alx( PT_Monolith, step_0_0, pse_0 );
+    if ( !ply_0 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Mw23>Bl12
+
+    Move * move_0 = mv_new_alx( ply_0, MS_None );
+    if ( !move_0 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    do_move( cb, move_0 );
+
+    cb_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cb_get_piece( cb, 0, 0 ) == PT_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
+    result = result && ( cb_get_piece( cb, 11, 11 ) == PT_LightPawn );
+    result = result && ( cb_get_piece( cb, 22, 22 ) == PT_Monolith );
+
+    //
+    // free, return
+
+    mv_free_complete_move( &move_0 );
+    free( cb );
+
+    return result;
+}
