@@ -15,7 +15,7 @@
 #include "tests_do_move.h"
 
 
-bool tst_single_ply()
+bool tst_single_ply( bool do_print )
 {
     // chessboard
 
@@ -24,7 +24,7 @@ bool tst_single_ply()
 
     cb_set_piece( cb, 5, 2, PT_LightPegasus );
     cb_set_piece( cb, 10, 12, PT_DarkPawn );
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests
@@ -101,7 +101,7 @@ bool tst_single_ply()
     }
 
     do_move( cb, move );
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests
@@ -118,7 +118,7 @@ bool tst_single_ply()
     return result;
 }
 
-bool tst_cascading_plies()
+bool tst_cascading_plies( bool do_print )
 {
     // chessboard
 
@@ -129,7 +129,7 @@ bool tst_cascading_plies()
     cb_set_piece( cb, 7, 2, PT_LightWave );
     cb_set_piece_tag( cb, 9, 1, PT_LightPawn, TT_CanRush );
     cb_set_piece( cb, 10, 3, PT_DarkPawn );
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests
@@ -252,7 +252,7 @@ bool tst_cascading_plies()
     }
 
     do_move( cb, move_0 );
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests
@@ -314,7 +314,7 @@ bool tst_cascading_plies()
     }
 
     do_move( cb, move_1 );
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests
@@ -336,7 +336,7 @@ bool tst_cascading_plies()
     return result;
 }
 
-bool tst_castling()
+bool tst_castling( bool do_print )
 {
     // chessboard
 
@@ -347,8 +347,11 @@ bool tst_castling()
     cb_set_piece_tag( cb, 13, 0, PT_LightKing, TT_CanCastle );
     cb_set_piece_tag( cb, 24, 0, PT_LightRook, TT_CanCastle );
 
-    cb_print( cb, true );
-    cb_print( cb, false );
+    if ( do_print )
+    {
+        cb_print( cb, true );
+        cb_print( cb, false );
+    }
 
     //
     // tests
@@ -407,8 +410,11 @@ bool tst_castling()
 
     do_move( cb, move );
 
-    cb_print( cb, true );
-    cb_print( cb, false );
+    if ( do_print )
+    {
+        cb_print( cb, true );
+        cb_print( cb, false );
+    }
 
     //
     // tests
@@ -430,7 +436,7 @@ bool tst_castling()
     return result;
 }
 
-bool tst_tag_and_promotion()
+bool tst_tag_and_promotion( bool do_print )
 {
     // chessboard
 
@@ -441,8 +447,11 @@ bool tst_tag_and_promotion()
     cb_set_piece( cb, 15, 21, PT_LightPyramid );
     cb_set_piece( cb, 21, 15, PT_LightBishop );
 
-    cb_print( cb, true );
-    // cb_print( cb, false );
+    if ( do_print )
+    {
+        cb_print( cb, true );
+        // cb_print( cb, false );
+    }
 
     //
     // tests
@@ -536,8 +545,11 @@ bool tst_tag_and_promotion()
 
     do_move( cb, move_0 );
 
-    cb_print( cb, true );
-    // cb_print( cb, false );
+    if ( do_print )
+    {
+        cb_print( cb, true );
+        // cb_print( cb, false );
+    }
 
     //
     // tests
@@ -601,8 +613,11 @@ bool tst_tag_and_promotion()
 
     do_move( cb, move_1 );
 
-    cb_print( cb, true );
-    // cb_print( cb, false );
+    if ( do_print )
+    {
+        cb_print( cb, true );
+        // cb_print( cb, false );
+    }
 
     //
     // tests
@@ -624,7 +639,7 @@ bool tst_tag_and_promotion()
     return result;
 }
 
-bool tst_conversion( bool is_failed )
+bool tst_conversion( bool do_print, bool is_failed )
 {
     // chessboard
 
@@ -639,7 +654,7 @@ bool tst_conversion( bool is_failed )
     cb_set_piece( cb, 15, 5, PT_LightPyramid );
     cb_set_piece( cb, 21, 11, PT_LightBishop );
 
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests
@@ -738,7 +753,7 @@ bool tst_conversion( bool is_failed )
 
     do_move( cb, move_0 );
 
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests
@@ -760,7 +775,7 @@ bool tst_conversion( bool is_failed )
     return result;
 }
 
-bool tst_demotion()
+bool tst_demotion( bool do_print )
 {
     // chessboard
 
@@ -772,7 +787,7 @@ bool tst_demotion()
     cb_set_piece( cb, 11, 11, PT_LightBishop );
     cb_set_piece( cb, 23, 15, PT_Monolith );
 
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests
@@ -831,7 +846,7 @@ bool tst_demotion()
 
     do_move( cb, move_0 );
 
-    cb_print( cb, true );
+    if ( do_print ) cb_print( cb, true );
 
     //
     // tests

@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.71+20210511.000509"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.72+20210511.003629"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -129,12 +129,12 @@ int main( void )
         }
         else if ( !strcmp( "y", cmd ) )
         {
-            // if ( !tst_single_ply() ) printf( "Test tst_single_ply() failed.\n" );
-            // if ( !tst_cascading_plies() ) printf( "Test tst_cascading_plies() failed.\n" );
-            // if ( !tst_castling() ) printf( "Test tst_castling() failed.\n" );
-            // if ( !tst_tag_and_promotion() ) printf( "Test tst_tag_and_promotion() failed.\n" );
-            // if ( !tst_conversion( true ) ) printf( "Test tst_conversion() failed.\n" );
-            if ( !tst_demotion() ) printf( "Test tst_demotion() failed.\n" );
+            if ( !tst_single_ply( false ) ) printf( "Test tst_single_ply() failed.\n" );
+            if ( !tst_cascading_plies( false ) ) printf( "Test tst_cascading_plies() failed.\n" );
+            if ( !tst_castling( false ) ) printf( "Test tst_castling() failed.\n" );
+            if ( !tst_tag_and_promotion( false ) ) printf( "Test tst_tag_and_promotion() failed.\n" );
+            if ( !tst_conversion( false, true ) ) printf( "Test tst_conversion() failed.\n" );
+            if ( !tst_demotion( false ) ) printf( "Test tst_demotion() failed.\n" );
         }
         else
         {

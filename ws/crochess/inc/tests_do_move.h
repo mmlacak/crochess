@@ -7,12 +7,12 @@
 #include <stdbool.h>
 
 
-bool tst_single_ply();
-bool tst_cascading_plies();
-bool tst_castling();
-bool tst_tag_and_promotion();
-bool tst_conversion( bool is_failed );
-bool tst_demotion();
+bool tst_single_ply( bool do_print );
+bool tst_cascading_plies( bool do_print );
+bool tst_castling( bool do_print );
+bool tst_tag_and_promotion( bool do_print );
+bool tst_conversion( bool do_print, bool is_failed );
+bool tst_demotion( bool do_print );
 
 
 #endif /* __TEST_H__ */
