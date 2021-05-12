@@ -1102,3 +1102,214 @@ bool tst_teleportation( bool do_print, bool is_failed )
 
     return result;
 }
+
+bool tst_teleportation_wave( bool do_print, bool is_oblationing )
+{
+    // chessboard
+
+    Chessboard * cb = cb_new_alx( BT_One, false );
+    if ( !cb ) return false;
+
+    cb_set_piece( cb, 5, 11, PT_Monolith );
+    cb_set_piece( cb, 19, 9, PT_Monolith );
+
+    cb_set_piece( cb, 10, 12, PT_LightBishop );
+    cb_set_piece( cb, 8, 14, PT_LightWave );
+    cb_set_piece( cb, 17, 7, PT_LightKnight );
+
+    if ( do_print ) cb_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 5, 11 ) == PT_Monolith );
+    result = result && ( cb_get_piece( cb, 19, 9 ) == PT_Monolith );
+
+    result = result && ( cb_get_piece( cb, 10, 12 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 8, 14 ) == PT_LightWave );
+    result = result && ( cb_get_piece( cb, 17, 7 ) == PT_LightKnight );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Bi15
+
+    Step * step_0_0 = step_new_alx( SL_Start, 10, 12 );
+    if ( !step_0_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    Step * step_0_1 = step_new_alx( SL_Destination, 8, 14 );
+    step_0_0->next = step_0_1;
+    if ( !step_0_1 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_0 = ply_side_effect_none();
+    Ply * ply_0 = ply_new_ply_alx( PT_LightBishop, step_0_0, pse_0 );
+    if ( !ply_0 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply ~Wf12
+
+    Step * step_1_0 = step_new_alx( SL_Start, 8, 14 );
+    if ( !step_1_0 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    Step * step_1_1 = step_new_alx( SL_Destination, 5, 11 );
+    step_1_0->next = step_1_1;
+    if ( !step_1_1 )
+    {
+        step_free_all_steps( &step_1_0 );
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_1 = ply_side_effect_none();
+    Ply * ply_1 = ply_new_ply_alx( PT_LightWave, step_1_0, pse_1 );
+    ply_0->next = ply_1;
+    if ( !ply_1 )
+    {
+        step_free_all_steps( &step_1_0 );
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply |Wr8
+
+    PlySideEffect pse_2 = ply_side_effect_none();
+    Ply * ply_2; // = ply_new_ply_alx( PT_LightWave, step_2_0, pse_2 );
+
+    if ( is_oblationing )
+        ply_2 = ply_new_failed_teleport_oblation_alx( PT_LightWave, pse_2 );
+    else
+    {
+        Step * step_2_0 = step_new_alx( SL_Start, 19, 9 );
+        if ( !step_2_0 )
+        {
+            ply_free_all_plies( &ply_0 );
+            free( cb );
+            return false;
+        }
+
+        Step * step_2_1 = step_new_alx( SL_Destination, 17, 7 );
+        step_2_0->next = step_2_1;
+        if ( !step_2_1 )
+        {
+            step_free_all_steps( &step_2_0 );
+            ply_free_all_plies( &ply_0 );
+            free( cb );
+            return false;
+        }
+
+        ply_2 = ply_new_teleport_wave_alx( PT_LightWave, step_2_0, pse_2 );
+    }
+
+    ply_1->next = ply_2;
+    if ( !ply_2 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply ~Np9
+
+    if ( !is_oblationing )
+    {
+        Step * step_3_0 = step_new_alx( SL_Start, 17, 7 );
+        if ( !step_3_0 )
+        {
+            ply_free_all_plies( &ply_0 );
+            free( cb );
+            return false;
+        }
+
+        Step * step_3_1 = step_new_alx( SL_Destination, 15, 8 );
+        step_3_0->next = step_3_1;
+        if ( !step_3_1 )
+        {
+            step_free_all_steps( &step_3_0 );
+            ply_free_all_plies( &ply_0 );
+            free( cb );
+            return false;
+        }
+
+        PlySideEffect pse_3 = ply_side_effect_none();
+        Ply * ply_3 = ply_new_ply_alx( PT_LightKnight, step_3_0, pse_3 );
+        ply_2->next = ply_3;
+        if ( !ply_3 )
+        {
+            step_free_all_steps( &step_3_0 );
+            ply_free_all_plies( &ply_0 );
+            free( cb );
+            return false;
+        }
+    }
+
+    //
+    // move Bi15~Wf12|Wr8~Np9
+
+    Move * move_0 = mv_new_alx( ply_0, MS_None );
+    if ( !move_0 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    do_move( cb, move_0 );
+
+    if ( do_print ) cb_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cb_get_piece( cb, 5, 11 ) == PT_Monolith );
+    result = result && ( cb_get_piece( cb, 19, 9 ) == PT_Monolith );
+
+    result = result && ( cb_get_piece( cb, 10, 12 ) == PT_None );
+    result = result && ( cb_get_piece( cb, 8, 14 ) == PT_LightBishop );
+
+    if ( is_oblationing )
+    {
+        result = result && ( cb_get_piece( cb, 17, 7 ) == PT_LightKnight );
+    }
+    else
+    {
+        result = result && ( cb_get_piece( cb, 17, 7 ) == PT_LightWave );
+        result = result && ( cb_get_piece( cb, 15, 8 ) == PT_LightKnight );
+    }
+
+    //
+    // free, return
+
+    mv_free_complete_move( &move_0 );
+    free( cb );
+
+    return result;
+}

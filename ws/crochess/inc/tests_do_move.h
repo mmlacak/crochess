@@ -16,6 +16,7 @@ bool tst_demotion( bool do_print );
 bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing );
 
 bool tst_teleportation( bool do_print, bool is_failed );
+bool tst_teleportation_wave( bool do_print, bool is_oblationing );
 
 
 #endif /* __TEST_H__ */

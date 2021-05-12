@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.75+20210512.043801"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.76+20210512.054916"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -143,6 +143,9 @@ int main( void )
 
             if ( !tst_teleportation( false, false ) ) printf( "Test tst_teleportation( _, false ) failed.\n" );
             if ( !tst_teleportation( false, true ) ) printf( "Test tst_teleportation( _, true ) failed.\n" );
+            if ( !tst_teleportation_wave( false, false ) ) printf( "Test tst_teleportation_wave( _, false ) failed.\n" );
+            if ( !tst_teleportation_wave( false, true ) ) printf( "Test tst_teleportation_wave( _, true ) failed.\n" );
+
             printf( "Tests finished.\n" );
         }
         else

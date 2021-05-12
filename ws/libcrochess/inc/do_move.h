@@ -9,7 +9,7 @@
 
 
 PlyLink * next_ply_link( Ply const * const restrict ply );
-bool is_teleporting( Ply const * const restrict ply );
+bool is_teleporting_next( Ply const * const restrict ply, bool including_wave );
 
 bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply );
 

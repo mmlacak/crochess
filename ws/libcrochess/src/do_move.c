@@ -18,15 +18,19 @@ PlyLink * next_ply_link( Ply const * const restrict ply )
     return &( ply->next->link );
 }
 
-bool is_teleporting( Ply const * const restrict ply )
+bool is_teleporting_next( Ply const * const restrict ply, bool including_wave )
 {
     PlyLink * pl = next_ply_link( ply );
     if ( !pl ) return false;
 
-    return ( ( *pl == PL_Teleportation )
-          || ( *pl == PL_TeleportationWave )
-          || ( *pl == PL_FailedTeleportation )
-          || ( *pl == PL_FailedTeleportationOblation ) );
+    bool result = ( ( *pl == PL_Teleportation )
+                 || ( *pl == PL_FailedTeleportation )
+                 || ( *pl == PL_FailedTeleportationOblation ) );
+
+    if ( including_wave )
+        result = result || ( *pl == PL_TeleportationWave );
+
+    return result;
 }
 
 
@@ -71,7 +75,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                         {
                             case PSET_None :
                             {
-                                if ( !is_teleporting( ply ) )
+                                if ( !is_teleporting_next( ply, true ) )
                                 {
                                     cb_set_piece( cb, s->i, s->j, pt );
                                 }
@@ -309,7 +313,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        if ( !is_teleporting( ply ) )
+                        if ( !is_teleporting_next( ply, true ) )
                         {
                             cb_set_piece( cb, s->i, s->j, pt );
                         }
