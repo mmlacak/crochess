@@ -76,9 +76,9 @@ StepSideEffect step_side_effect_displacement( PieceType piece, bool is_promo_tag
 }
 
 
-TranceJourneyStep * step_new_trance_journey_alx( StepLink link, int i, int j, StepSideEffect side_effect )
+SideEffectStep * step_new_side_effect_alx( StepLink link, int i, int j, StepSideEffect side_effect )
 {
-    TranceJourneyStep * tjs = malloc( sizeof( TranceJourneyStep ) );
+    SideEffectStep * tjs = malloc( sizeof( SideEffectStep ) );
     if ( !tjs ) return NULL;
 
     tjs->link = link;
@@ -90,51 +90,16 @@ TranceJourneyStep * step_new_trance_journey_alx( StepLink link, int i, int j, St
     return tjs;
 }
 
-bool step_free_all_trance_journey_steps( TranceJourneyStep ** const steps )
+bool step_free_all_side_effect_steps( SideEffectStep ** const steps )
 {
     if ( !steps ) return true;
     if ( !*steps ) return false;
 
-    TranceJourneyStep * s = *steps;
+    SideEffectStep * s = *steps;
 
     while ( s )
     {
-        TranceJourneyStep * tmp = s->next;
-        free( s );
-        s = tmp;
-    }
-
-    *steps = NULL;
-    return true;
-}
-
-
-PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx( StepLink link, int i, int j, StepSideEffect side_effect )
-{
-    // if ( ( side_effect.type != SSET_None ) && ( side_effect.type != SSET_Capture ) ) return NULL;
-
-    PawnSacrificeCaptureStep * pscs = malloc( sizeof( PawnSacrificeCaptureStep ) );
-    if ( !pscs ) return NULL;
-
-    pscs->link = link;
-    pscs->i = i;
-    pscs->j = j;
-    pscs->side_effect = side_effect;
-    pscs->next = NULL;
-
-    return pscs;
-}
-
-bool step_free_all_pawn_sacrifice_steps( PawnSacrificeCaptureStep ** const steps )
-{
-    if ( !steps ) return true;
-    if ( !*steps ) return false;
-
-    PawnSacrificeCaptureStep * s = *steps;
-
-    while ( s )
-    {
-        PawnSacrificeCaptureStep * tmp = s->next;
+        SideEffectStep * tmp = s->next;
         free( s );
         s = tmp;
     }

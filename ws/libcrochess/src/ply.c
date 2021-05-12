@@ -146,11 +146,10 @@ bool ply_free_all_piece_fields( PieceField ** const piece_fields )
 }
 
 
-Ply * ply_new_alx(  PlyLink link,
-                    PieceType piece, Step * const restrict steps, int i, int j,
-                        TranceJourneyStep * const restrict trance_journey_steps,
-                        PieceField * const restrict captured,
-                        PawnSacrificeCaptureStep * const restrict pawn_sacrifice_steps,
+Ply * ply_new_alx(  PlyLink link, PieceType piece,
+                    Step * const restrict steps, int i, int j,
+                    SideEffectStep * const restrict side_effect_steps,
+                    PieceField * const restrict captured,
                     PlySideEffect side_effect )
 {
     Ply * ply = calloc( 1, sizeof( Ply ) );
@@ -182,7 +181,7 @@ Ply * ply_new_alx(  PlyLink link,
     {
         ply->trance_journey.i = i;
         ply->trance_journey.j = j;
-        ply->trance_journey.steps = trance_journey_steps;
+        ply->trance_journey.steps = side_effect_steps;
     }
     else if ( ply->link == PL_DualTranceJourney )
     {
@@ -191,7 +190,7 @@ Ply * ply_new_alx(  PlyLink link,
     // Nothing additional to do if link == PL_FailedTranceJourney.
     else if ( ply->link == PL_PawnSacrifice )
     {
-        ply->pawn_sacrifice.steps = pawn_sacrifice_steps;
+        ply->pawn_sacrifice.steps = side_effect_steps;
     }
 
     ply->side_effect = side_effect;
@@ -228,8 +227,8 @@ bool ply_free_all_plies( Ply ** const plies )
 
             case PL_TranceJourney :
             {
-                TranceJourneyStep ** steps = &( ply->trance_journey.steps );
-                result = result && step_free_all_trance_journey_steps( steps );
+                SideEffectStep ** steps = &( ply->trance_journey.steps );
+                result = result && step_free_all_side_effect_steps( steps );
                 break;
             }
 
@@ -242,8 +241,8 @@ bool ply_free_all_plies( Ply ** const plies )
 
             case PL_PawnSacrifice :
             {
-                PawnSacrificeCaptureStep ** steps = &( ply->pawn_sacrifice.steps );
-                result = result && step_free_all_pawn_sacrifice_steps( steps );
+                SideEffectStep ** steps = &( ply->pawn_sacrifice.steps );
+                result = result && step_free_all_side_effect_steps( steps );
                 break;
             }
 
@@ -266,45 +265,45 @@ bool ply_free_all_plies( Ply ** const plies )
 
 Ply * ply_new_ply_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_Ply, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, NULL, side_effect );
+    return ply_new_alx( PL_Ply, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_Teleportation, piece, NULL, i, j, NULL, NULL, NULL, side_effect );
+    return ply_new_alx( PL_Teleportation, piece, NULL, i, j, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_teleport_wave_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_TeleportationWave, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, NULL, side_effect );
+    return ply_new_alx( PL_TeleportationWave, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_FailedTeleportationOblation, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, NULL, side_effect );
+    return ply_new_alx( PL_FailedTeleportationOblation, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_FailedTeleportation, piece, NULL, i, j, NULL, NULL, NULL, side_effect );
+    return ply_new_alx( PL_FailedTeleportation, piece, NULL, i, j, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, TranceJourneyStep * const restrict steps, PlySideEffect side_effect )
+Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, SideEffectStep * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_TranceJourney, piece, NULL, i, j, steps, NULL, NULL, side_effect );
+    return ply_new_alx( PL_TranceJourney, piece, NULL, i, j, steps, NULL, side_effect );
 }
 
 Ply * ply_new_dual_trance_journey_alx( PieceField * const restrict captured, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_DualTranceJourney, PT_None, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, captured, NULL, side_effect );
+    return ply_new_alx( PL_DualTranceJourney, PT_None, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, captured, side_effect );
 }
 
 Ply * ply_new_failed_trance_journey_alx( PieceType piece, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_FailedTranceJourney, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, NULL, side_effect );
+    return ply_new_alx( PL_FailedTranceJourney, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
-Ply * ply_new_pawn_sacrifice_alx( PieceType piece, PawnSacrificeCaptureStep * const restrict steps, PlySideEffect side_effect )
+Ply * ply_new_pawn_sacrifice_alx( PieceType piece, SideEffectStep * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_PawnSacrifice, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, steps, side_effect );
+    return ply_new_alx( PL_PawnSacrifice, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, steps, NULL, side_effect );
 }

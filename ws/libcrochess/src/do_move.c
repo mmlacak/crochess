@@ -219,7 +219,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
         case PL_TranceJourney :
         {
-            TranceJourneyStep * s = ply->trance_journey.steps;
+            SideEffectStep * s = ply->trance_journey.steps;
 
             while ( s )
             {
@@ -280,7 +280,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
         case PL_PawnSacrifice :
         {
-            PawnSacrificeCaptureStep * s = ply->pawn_sacrifice.steps;
+            SideEffectStep * s = ply->pawn_sacrifice.steps;
 
             while ( s )
             {

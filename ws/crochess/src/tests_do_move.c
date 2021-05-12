@@ -1201,7 +1201,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     // ply |Wr8
 
     PlySideEffect pse_2 = ply_side_effect_none();
-    Ply * ply_2; // = ply_new_ply_alx( PT_LightWave, step_2_0, pse_2 );
+    Ply * ply_2;
 
     if ( is_oblationing )
         ply_2 = ply_new_failed_teleport_oblation_alx( PT_LightWave, pse_2 );

@@ -55,30 +55,17 @@ StepSideEffect step_side_effect_capture( PieceType piece, bool is_promo_tag_lost
 StepSideEffect step_side_effect_displacement( PieceType piece, bool is_promo_tag_lost, int i, int j );
 
 
-typedef struct TranceJourneyStep
+typedef struct SideEffectStep
 {
     StepLink link;
     int i;
     int j;
     StepSideEffect side_effect;
-    struct TranceJourneyStep * next;
-} TranceJourneyStep;
+    struct SideEffectStep * next;
+} SideEffectStep;
 
-TranceJourneyStep * step_new_trance_journey_alx( StepLink link, int i, int j, StepSideEffect side_effect );
-bool step_free_all_trance_journey_steps( TranceJourneyStep ** const steps );
-
-
-typedef struct PawnSacrificeCaptureStep
-{
-    StepLink link;
-    int i;
-    int j;
-    StepSideEffect side_effect; // Only SSET_None, SSET_Capture are valid.
-    struct PawnSacrificeCaptureStep * next;
-} PawnSacrificeCaptureStep;
-
-PawnSacrificeCaptureStep * step_new_pawn_sacrifice_capture_alx( StepLink link, int i, int j, StepSideEffect side_effect );
-bool step_free_all_pawn_sacrifice_steps( PawnSacrificeCaptureStep ** const steps );
+SideEffectStep * step_new_side_effect_alx( StepLink link, int i, int j, StepSideEffect side_effect );
+bool step_free_all_side_effect_steps( SideEffectStep ** const steps );
 
 
 #endif /* __STEP_H__ */
