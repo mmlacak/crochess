@@ -103,6 +103,19 @@ SideEffectStep * step_new_side_effect_alx( StepLink link, int i, int j, StepSide
     return tjs;
 }
 
+SideEffectStep * step_append_side_effect_alx( SideEffectStep * const restrict steps, StepLink link, int i, int j, StepSideEffect side_effect )
+{
+    SideEffectStep * new = step_new_side_effect_alx( link, i, j, side_effect );
+    if ( !new ) return NULL;
+    if ( !steps ) return new;
+
+    SideEffectStep * s = steps;
+    while ( s->next ) s = s->next; // rewind
+    s->next = new; // append
+
+    return new;
+}
+
 bool step_free_all_side_effect_steps( SideEffectStep ** const steps )
 {
     if ( !steps ) return true;

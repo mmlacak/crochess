@@ -66,6 +66,7 @@ typedef struct SideEffectStep
 } SideEffectStep;
 
 SideEffectStep * step_new_side_effect_alx( StepLink link, int i, int j, StepSideEffect side_effect );
+SideEffectStep * step_append_side_effect_alx( SideEffectStep * const restrict steps, StepLink link, int i, int j, StepSideEffect side_effect );
 bool step_free_all_side_effect_steps( SideEffectStep ** const steps );
 
 
