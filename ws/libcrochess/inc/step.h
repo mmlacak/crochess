@@ -27,6 +27,7 @@ typedef struct Step
 } Step;
 
 Step * step_new_alx( StepLink link, int i, int j );
+Step * step_append_alx( Step * const restrict steps, StepLink link, int i, int j );
 bool step_free_all_steps( Step ** const steps );
 
 

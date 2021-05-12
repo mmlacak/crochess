@@ -20,6 +20,19 @@ Step * step_new_alx( StepLink link, int i, int j )
     return step;
 }
 
+Step * step_append_alx( Step * const restrict steps, StepLink link, int i, int j )
+{
+    Step * new = step_new_alx( link, i, j );
+    if ( !new ) return NULL;
+    if ( !steps ) return new;
+
+    Step * s = steps;
+    while ( s->next ) s = s->next; // rewind
+    s->next = new; // append
+
+    return new;
+}
+
 bool step_free_all_steps( Step ** const steps )
 {
     if ( !steps ) return true;
