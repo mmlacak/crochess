@@ -108,6 +108,12 @@ Ply * ply_new_alx(  PlyLink link, PieceType piece,
                     SideEffectStep * const restrict side_effect_steps,
                     PieceField * const restrict captured,
                     PlySideEffect side_effect );
+Ply * ply_append_alx(   Ply * const restrict plies,
+                        PlyLink link, PieceType piece,
+                        Step * const restrict steps, int i, int j,
+                        SideEffectStep * const restrict side_effect_steps,
+                        PieceField * const restrict captured,
+                        PlySideEffect side_effect );
 bool ply_free_all_plies( Ply ** const plies );
 
 Ply * ply_new_ply_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect );
@@ -119,6 +125,16 @@ Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, SideEffectStep 
 Ply * ply_new_dual_trance_journey_alx( PieceField * const restrict captured, PlySideEffect side_effect );
 Ply * ply_new_failed_trance_journey_alx( PieceType piece, PlySideEffect side_effect );
 Ply * ply_new_pawn_sacrifice_alx( PieceType piece, SideEffectStep * const restrict steps, PlySideEffect side_effect );
+
+Ply * ply_append_ply_alx( Ply * const restrict plies, PieceType piece, Step * const restrict steps, PlySideEffect side_effect );
+Ply * ply_append_teleport_alx( Ply * const restrict plies, PieceType piece, int i, int j, PlySideEffect side_effect );
+Ply * ply_append_teleport_wave_alx( Ply * const restrict plies, PieceType piece, Step * const restrict steps, PlySideEffect side_effect );
+Ply * ply_append_failed_teleport_oblation_alx( Ply * const restrict plies, PieceType piece, PlySideEffect side_effect );
+Ply * ply_append_failed_teleport_alx( Ply * const restrict plies, PieceType piece, int i, int j, PlySideEffect side_effect );
+Ply * ply_append_trance_journey_alx( Ply * const restrict plies, PieceType piece, int i, int j, SideEffectStep * const restrict steps, PlySideEffect side_effect );
+Ply * ply_append_dual_trance_journey_alx( Ply * const restrict plies, PieceField * const restrict captured, PlySideEffect side_effect );
+Ply * ply_append_failed_trance_journey_alx( Ply * const restrict plies, PieceType piece, PlySideEffect side_effect );
+Ply * ply_append_pawn_sacrifice_alx( Ply * const restrict plies, PieceType piece, SideEffectStep * const restrict steps, PlySideEffect side_effect );
 
 
 #endif /* __PLY_H__ */
