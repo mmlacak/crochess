@@ -79,6 +79,7 @@ typedef struct PieceField
 } PieceField;
 
 PieceField * ply_new_piece_field_alx( PieceType piece, int i, int j );
+PieceField * ply_append_piece_field_alx( PieceField * const restrict piece_fields, PieceType piece, int i, int j );
 bool ply_free_all_piece_fields( PieceField ** const piece_fields );
 
 

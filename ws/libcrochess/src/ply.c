@@ -127,6 +127,19 @@ PieceField * ply_new_piece_field_alx( PieceType piece, int i, int j )
     return pf;
 }
 
+PieceField * ply_append_piece_field_alx( PieceField * const restrict piece_fields, PieceType piece, int i, int j )
+{
+    PieceField * new = ply_new_piece_field_alx( piece, i, j );
+    if ( !new ) return NULL;
+    if ( !piece_fields ) return new;
+
+    PieceField * pf = piece_fields;
+    while ( pf->next ) pf = pf->next; // rewind
+    pf->next = new; // append
+
+    return new;
+}
+
 bool ply_free_all_piece_fields( PieceField ** const piece_fields )
 {
     if ( !piece_fields ) return true;
