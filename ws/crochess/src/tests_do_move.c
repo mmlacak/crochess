@@ -978,3 +978,113 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
 
     return result;
 }
+
+bool tst_teleportation( bool do_print )
+{
+    // chessboard
+
+    Chessboard * cb = cb_new_alx( BT_One, false );
+    if ( !cb ) return false;
+
+    cb_set_piece( cb, 0, 0, PT_BrightStar );
+    cb_set_piece( cb, 25, 25, PT_BrightStar );
+    cb_set_piece( cb, 25, 0, PT_DimStar );
+    cb_set_piece( cb, 0, 25, PT_DimStar );
+
+    cb_set_piece( cb, 3, 22, PT_LightBishop );
+
+    if ( do_print ) cb_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 0, 0 ) == PT_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 0 ) == PT_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
+
+    result = result && ( cb_get_piece( cb, 3, 22 ) == PT_LightBishop );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Ba26
+
+    Step * step_0_0 = step_new_alx( SL_Start, 3, 22 );
+    if ( !step_0_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    Step * step_0_1 = step_new_alx( SL_Destination, 0, 25 );
+    step_0_0->next = step_0_1;
+    if ( !step_0_1 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_0 = ply_side_effect_none();
+    Ply * ply_0 = ply_new_ply_alx( PT_LightBishop, step_0_0, pse_0 );
+    if ( !ply_0 )
+    {
+        step_free_all_steps( &step_0_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply |By25
+
+    PlySideEffect pse_1 = ply_side_effect_none();
+    Ply * ply_1 = ply_new_teleport_alx( PT_LightBishop, 24, 24, pse_1 );
+    ply_0->next = ply_1;
+    if ( !ply_1 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Ba26|By25
+
+    Move * move_0 = mv_new_alx( ply_0, MS_None );
+    if ( !move_0 )
+    {
+        ply_free_all_plies( &ply_0 );
+        free( cb );
+        return false;
+    }
+
+    do_move( cb, move_0 );
+
+    if ( do_print ) cb_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cb_get_piece( cb, 0, 0 ) == PT_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 0 ) == PT_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
+
+    result = result && ( cb_get_piece( cb, 3, 22 ) == PT_None );
+    result = result && ( cb_get_piece( cb, 24, 24 ) == PT_LightBishop );
+
+    //
+    // free, return
+
+    mv_free_complete_move( &move_0 );
+    free( cb );
+
+    return result;
+}
