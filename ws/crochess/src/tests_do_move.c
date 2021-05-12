@@ -979,7 +979,7 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
     return result;
 }
 
-bool tst_teleportation( bool do_print )
+bool tst_teleportation( bool do_print, bool is_failed )
 {
     // chessboard
 
@@ -1045,7 +1045,11 @@ bool tst_teleportation( bool do_print )
     // ply |By25
 
     PlySideEffect pse_1 = ply_side_effect_none();
-    Ply * ply_1 = ply_new_teleport_alx( PT_LightBishop, 24, 24, pse_1 );
+    Ply * ply_1;
+    if ( is_failed )
+        ply_1 = ply_new_failed_teleport_alx( PT_LightBishop, 0, 24, pse_1 );
+    else
+        ply_1 = ply_new_teleport_alx( PT_LightBishop, 24, 24, pse_1 );
     ply_0->next = ply_1;
     if ( !ply_1 )
     {
@@ -1078,7 +1082,17 @@ bool tst_teleportation( bool do_print )
     result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
 
     result = result && ( cb_get_piece( cb, 3, 22 ) == PT_None );
-    result = result && ( cb_get_piece( cb, 24, 24 ) == PT_LightBishop );
+
+    if ( is_failed )
+    {
+        result = result && ( cb_get_piece( cb, 0, 24 ) == PT_LightBishop );
+        result = result && ( cb_get_piece( cb, 24, 24 ) == PT_None );
+    }
+    else
+    {
+        result = result && ( cb_get_piece( cb, 0, 24 ) == PT_None );
+        result = result && ( cb_get_piece( cb, 24, 24 ) == PT_LightBishop );
+    }
 
     //
     // free, return

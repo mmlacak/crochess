@@ -15,7 +15,7 @@ bool tst_conversion( bool do_print, bool is_failed );
 bool tst_demotion( bool do_print );
 bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing );
 
-bool tst_teleportation( bool do_print );
+bool tst_teleportation( bool do_print, bool is_failed );
 
 
 #endif /* __TEST_H__ */

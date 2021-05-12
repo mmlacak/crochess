@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.74+20210512.042436"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.75+20210512.043801"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -133,15 +133,17 @@ int main( void )
             if ( !tst_cascading_plies( false ) ) printf( "Test tst_cascading_plies() failed.\n" );
             if ( !tst_castling( false ) ) printf( "Test tst_castling() failed.\n" );
             if ( !tst_tag_and_promotion( false ) ) printf( "Test tst_tag_and_promotion() failed.\n" );
-            if ( !tst_conversion( false, false ) ) printf( "Test tst_conversion( , false ) failed.\n" );
-            if ( !tst_conversion( false, true ) ) printf( "Test tst_conversion( , true ) failed.\n" );
+            if ( !tst_conversion( false, false ) ) printf( "Test tst_conversion( _, false ) failed.\n" );
+            if ( !tst_conversion( false, true ) ) printf( "Test tst_conversion( _, true ) failed.\n" );
             if ( !tst_demotion( false ) ) printf( "Test tst_demotion() failed.\n" );
-            if ( !tst_resurrection( false, false, false ) ) printf( "Test tst_resurrection( , false, false ) failed.\n" );
-            if ( !tst_resurrection( false, false, true ) ) printf( "Test tst_resurrection( , false, true ) failed.\n" );
-            if ( !tst_resurrection( false, true, false ) ) printf( "Test tst_resurrection( , true, false ) failed.\n" );
-            if ( !tst_resurrection( false, true, true ) ) printf( "Test tst_resurrection( , true, true ) failed.\n" );
+            if ( !tst_resurrection( false, false, false ) ) printf( "Test tst_resurrection( _, false, false ) failed.\n" );
+            if ( !tst_resurrection( false, false, true ) ) printf( "Test tst_resurrection( _, false, true ) failed.\n" );
+            if ( !tst_resurrection( false, true, false ) ) printf( "Test tst_resurrection( _, true, false ) failed.\n" );
+            if ( !tst_resurrection( false, true, true ) ) printf( "Test tst_resurrection( _, true, true ) failed.\n" );
 
-            if ( !tst_teleportation( true ) ) printf( "Test tst_teleportation() failed.\n" );
+            if ( !tst_teleportation( false, false ) ) printf( "Test tst_teleportation( _, false ) failed.\n" );
+            if ( !tst_teleportation( false, true ) ) printf( "Test tst_teleportation( _, true ) failed.\n" );
+            printf( "Tests finished.\n" );
         }
         else
         {
