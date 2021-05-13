@@ -1277,7 +1277,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
 
     cb_set_piece( cb, 7, 12, PT_LightBishop ); // 2
     cb_set_piece( cb, 5, 1, PT_DarkKnight ); // 4
-    cb_set_piece( cb, 21, 4, PT_DarkPawn ); // 9
+    cb_set_piece_tag( cb, 21, 4, PT_DarkPawn, TT_DelayedPromotion ); // 9
 
     if ( do_print ) cb_print( cb, true );
 
@@ -1293,6 +1293,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     result = result && ( cb_get_piece( cb, 7, 12 ) == PT_LightBishop );
     result = result && ( cb_get_piece( cb, 5, 1 ) == PT_DarkKnight );
     result = result && ( cb_get_piece( cb, 21, 4 ) == PT_DarkPawn );
+    result = result && ( cb_get_tag( cb, 21, 4 ) == TT_DelayedPromotion );
 
     if ( !result )
     {
@@ -1356,6 +1357,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
 
     //
     // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<Pp7
+    // ply @H..h13*B..f2*N..p7..j19..v5*P
 
     StepSideEffect sse_2_0 = step_side_effect_none();
     SideEffectStep * steps_2 = step_new_side_effect_alx( SL_Start, 7, 7, sse_2_0 );
@@ -1366,7 +1368,9 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
         return false;
     }
 
-    StepSideEffect sse_2_1 = step_side_effect_displacement( PT_LightBishop, false, 9, 18 );
+    StepSideEffect sse_2_1 = is_capturing ?
+                             step_side_effect_capture( PT_LightBishop, false ) :
+                             step_side_effect_displacement( PT_LightBishop, false, 9, 18 );
     if ( !step_append_side_effect_alx( steps_2, SL_Distant, 7, 12, sse_2_1 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1375,7 +1379,9 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
         return false;
     }
 
-    StepSideEffect sse_2_2 = step_side_effect_displacement( PT_DarkKnight, false, 1, 5 );
+    StepSideEffect sse_2_2 = is_capturing ?
+                             step_side_effect_capture( PT_DarkKnight, false ) :
+                             step_side_effect_displacement( PT_DarkKnight, false, 1, 5 );
     if ( !step_append_side_effect_alx( steps_2, SL_Distant, 5, 1, sse_2_2 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1393,7 +1399,9 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
         return false;
     }
 
-    StepSideEffect sse_2_4 = step_side_effect_displacement( PT_LightBishop, false, 11, 24 );
+    StepSideEffect sse_2_4 = is_capturing ?
+                             step_side_effect_none() :
+                             step_side_effect_displacement( PT_LightBishop, false, 11, 24 );
     if ( !step_append_side_effect_alx( steps_2, SL_Distant, 9, 18, sse_2_4 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1402,7 +1410,9 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
         return false;
     }
 
-    StepSideEffect sse_2_5 = step_side_effect_displacement( PT_DarkPawn, false, 15, 6 );
+    StepSideEffect sse_2_5 = is_capturing ?
+                             step_side_effect_capture( PT_DarkPawn, false ) :
+                             step_side_effect_displacement( PT_DarkPawn, false, 15, 6 );
     if ( !step_append_side_effect_alx( steps_2, SL_Destination, 21, 4, sse_2_5 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1422,6 +1432,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
 
     //
     // move Hg10~Wh8@H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<Pp7
+    // move Hg10~Wh8@H..h13*B..f2*N..p7..j19..v5*P
 
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
@@ -1442,14 +1453,26 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     result = result && ( cb_get_piece( cb, 6, 9 ) == shaman );
     result = result && ( cb_get_piece( cb, 7, 7 ) == PT_LightWave );
     result = result && ( cb_get_piece( cb, 21, 4 ) == shaman );
+    result = result && ( cb_get_tag( cb, 21, 4 ) == TT_None );
 
     result = result && ( cb_get_piece( cb, 7, 12 ) == PT_None );
     result = result && ( cb_get_piece( cb, 5, 1 ) == PT_None );
     result = result && ( cb_get_piece( cb, 9, 18 ) == PT_None );
 
-    result = result && ( cb_get_piece( cb, 11, 24 ) == PT_LightBishop );
-    result = result && ( cb_get_piece( cb, 1, 5 ) == PT_DarkKnight );
-    result = result && ( cb_get_piece( cb, 15, 6 ) == PT_DarkPawn );
+    if ( is_capturing )
+    {
+        result = result && ( cb_get_piece( cb, 11, 24 ) == PT_None );
+        result = result && ( cb_get_piece( cb, 1, 5 ) == PT_None );
+        result = result && ( cb_get_piece( cb, 15, 6 ) == PT_None );
+        result = result && ( cb_get_tag( cb, 15, 6 ) == TT_None );
+    }
+    else
+    {
+        result = result && ( cb_get_piece( cb, 11, 24 ) == PT_LightBishop );
+        result = result && ( cb_get_piece( cb, 1, 5 ) == PT_DarkKnight );
+        result = result && ( cb_get_piece( cb, 15, 6 ) == PT_DarkPawn );
+        result = result && ( cb_get_tag( cb, 15, 6 ) == TT_None );
+    }
 
     //
     // free, return
