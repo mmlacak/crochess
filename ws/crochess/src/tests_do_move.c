@@ -1261,3 +1261,149 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
 
     return result;
 }
+
+bool tst_trance_journey( bool do_print, bool is_capturing )
+{
+    PieceType shaman = is_capturing ? PT_DarkShaman : PT_LightShaman;
+
+    // chessboard
+
+    Chessboard * cb = cb_new_alx( BT_One, false );
+    if ( !cb ) return false;
+
+    cb_set_piece( cb, 4, 8, shaman ); // entrancing
+    cb_set_piece( cb, 6, 9, PT_LightWave );
+    cb_set_piece( cb, 7, 7, shaman ); // entranced
+
+    if ( do_print ) cb_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cb_get_piece( cb, 4, 8 ) == shaman );
+    result = result && ( cb_get_piece( cb, 6, 9 ) == PT_LightWave );
+    result = result && ( cb_get_piece( cb, 7, 7 ) == shaman );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Hg10
+
+    Step * steps_0 = step_new_alx( SL_Start, 4, 8 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !step_append_alx( steps_0, SL_Destination, 6, 9 ) )
+    {
+        step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_0 = ply_side_effect_none();
+    Ply * plies_0 = ply_new_ply_alx( shaman, steps_0, pse_0 );
+    if ( !plies_0 )
+    {
+        step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply ~Wh8
+
+    Step * steps_1 = step_new_alx( SL_Start, 6, 9 );
+    if ( !steps_1 )
+    {
+        ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !step_append_alx( steps_1, SL_Destination, 7, 7 ) )
+    {
+        step_free_all_steps( &steps_1 );
+        ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_1 = ply_side_effect_none();
+    if ( !ply_append_ply_alx( plies_0, PT_LightWave, steps_1, pse_1 ) )
+    {
+        step_free_all_steps( &steps_1 );
+        ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply @Hv5
+
+    StepSideEffect sse_2_0 = step_side_effect_none();
+    SideEffectStep * steps_2 = step_new_side_effect_alx( SL_Start, 7, 7, sse_2_0 );
+    if ( !steps_2 )
+    {
+        ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    StepSideEffect sse_2_1 = step_side_effect_none();
+    if ( !step_append_side_effect_alx( steps_2, SL_Destination, 21, 4, sse_2_1 ) )
+    {
+        step_free_all_side_effect_steps( &steps_2 );
+        ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    PlySideEffect pse_2 = ply_side_effect_none();
+    if ( !ply_append_trance_journey_alx( plies_0, shaman, 7, 7, steps_2, pse_2 ) )
+    {
+        step_free_all_side_effect_steps( &steps_2 );
+        ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Hg10~Wh8@Hv5
+
+    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    if ( !move_0 )
+    {
+        ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    do_move( cb, move_0 );
+
+    if ( do_print ) cb_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cb_get_piece( cb, 4, 8 ) == PT_None );
+    result = result && ( cb_get_piece( cb, 6, 9 ) == shaman );
+    result = result && ( cb_get_piece( cb, 7, 7 ) == PT_LightWave );
+    result = result && ( cb_get_piece( cb, 21, 4 ) == shaman );
+
+    //
+    // free, return
+
+    mv_free_complete_move( &move_0 );
+    free( cb );
+
+    return result;
+}
