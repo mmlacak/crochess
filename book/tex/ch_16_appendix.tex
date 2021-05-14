@@ -996,15 +996,13 @@ are available for a particular variant see
                  | <rank>
                  | <field>
 
-<movement> =
-  [<disambiguation>][\alg{==}]<field>
-| [<disambiguation>]\{.[.]<field>\}
-| <field>\alg{-}<field>
+<capturing-side-effects> =
+  \alg{*}[<disposable-figure>]
+| \alg{*}[\alg{P}[\alg{==}]]
 
 <side-effects> =
   ?
-| \alg{*}[<disposable-figure>]
-| \alg{*}[\alg{P}[\alg{==}]]
+| <capturing-side-effects>
 | \alg{:}[<rank>]
 | \alg{&}[<file>]
 | [\alg{=}]<promote-to-figure>
@@ -1022,11 +1020,30 @@ are available for a particular variant see
 \clearpage % ..........................................................
 
 \begin{alltt}
-<ply> =
-  <movable-piece><movement><side-effects>
-| \alg{[}<movable-piece><movement><side-effects>\alg{]}
+<step> = .[.]<field>
 
-<cascade> = <ply>(\alg{~}<ply>)
+<capturing-step> =
+  <step><capturing-side-effects>
+
+<movement> =
+  [<disambiguation>][\alg{==}]<field>
+| [<disambiguation>]\{<step>\}
+| <field>\alg{-}<field>
+
+<shaman-capturing-ply> =
+  \alg{H}[<disambiguation>]\{<capturing-step>\}
+| \alg{H}[<disambiguation>](<capturing-step>)
+  <step>
+
+<starting-ply> =
+  <active-piece><movement><side-effects>
+| <shaman-capturing-ply>
+
+<cascading-ply> =
+  <movable-piece><movement><side-effects>
+| <shaman-capturing-ply>
+
+<cascade> = <starting-ply>(\alg{~}<cascading-ply>)
 
 <teleportation> =
   \alg{|}<field>
@@ -1034,7 +1051,11 @@ are available for a particular variant see
 | \{\alg{|W}<movement>\}[\alg{~}<move-new>]
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <trance-journey-start> =
   ?
 | <disambiguation>
@@ -1056,11 +1077,7 @@ are available for a particular variant see
 
 <pawn-sacrifice> =
   \alg{S}<movement>\alg{~A}<movement>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <pawn-sacrifice-capture> =
   \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
     [\alg{|}<field>|\alg{~}<move-new>]
@@ -1070,7 +1087,11 @@ are available for a particular variant see
   \alg{I}<movement>\alg{~}\alg{T}<movement>
 
 <move-monolith> = \alg{M}<movement>
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <move-new> =
   <cascade>
 | <cascade><teleportation>
@@ -1078,7 +1099,6 @@ are available for a particular variant see
 | [<cascade>\alg{~}]<pawn-sacrifice>
     [<pawn-sacrifice-capture>]
 | [<cascade>\alg{~}]<move-star>
-| <move-monolith>
 
 <status> = ?
          | \alg{+}
@@ -1094,17 +1114,14 @@ are available for a particular variant see
 | \algcty{0-0-0}
 | \algcty{O-O}
 | \algcty{0-0}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <move> =
   \alg{(=)}
 | \alg{...}
 | <compatibility-capture>
 | <compatibility-castling>
 | <move-new><status>
+| <move-monolith><status>
 \end{alltt}
 
 \clearpage % ..........................................................
