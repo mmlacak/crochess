@@ -1356,8 +1356,8 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     }
 
     //
-    // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<Pp7
-    // ply @H..h13*B..f2*N..p7..j19..v5*P
+    // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
+    // ply @H..h13*B..f2*N..p7..j19..v5*P==
 
     StepSideEffect sse_2_0 = step_side_effect_none();
     SideEffectStep * steps_2 = step_new_side_effect_alx( SL_Start, 7, 7, sse_2_0 );
@@ -1411,8 +1411,8 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     }
 
     StepSideEffect sse_2_5 = is_capturing ?
-                             step_side_effect_capture( PT_DarkPawn, false ) :
-                             step_side_effect_displacement( PT_DarkPawn, false, 15, 6 );
+                             step_side_effect_capture( PT_DarkPawn, true ) :
+                             step_side_effect_displacement( PT_DarkPawn, true, 15, 6 );
     if ( !step_append_side_effect_alx( steps_2, SL_Destination, 21, 4, sse_2_5 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1431,8 +1431,8 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     }
 
     //
-    // move Hg10~Wh8@H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<Pp7
-    // move Hg10~Wh8@H..h13*B..f2*N..p7..j19..v5*P
+    // move Hg10~Wh8@H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
+    // move Hg10~Wh8@H..h13*B..f2*N..p7..j19..v5*P==
 
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
