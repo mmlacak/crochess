@@ -955,9 +955,14 @@ are available for a particular variant see
 <classic-piece> =
   <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
 
+<passive-figure> = \alg{A} | \alg{W}
+
+<active-piece> =
+  <classic-piece> | \alg{G} | \alg{U} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
+
 <promote-to-figure> =
-  \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{A}
-| \alg{U} | \alg{W} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
+  <passive-figure>
+| \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{U} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
 
 <disposable-figure> = <promote-to-figure>
 
@@ -969,23 +974,24 @@ are available for a particular variant see
          | \alg{T}
          | \alg{M}
 
-<movable-piece> = <disposable-piece>
-                | \alg{K}
-                | \alg{M}
+<movable-piece> = <active-piece>
+                | <passive-figure>
 
 <piece> = <pawn>
         | <figure>
+\end{alltt}
 
+% <moving-piece> = <active-piece>
+
+\clearpage % ..........................................................
+
+\begin{alltt}
 <file> = \alg{a} .. \alg{z}
 
 <rank> = \alg{1} .. \alg{26}
 
 <field> = <file><rank>
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <disambiguation> = <file>
                  | <rank>
                  | <field>
@@ -1011,17 +1017,17 @@ are available for a particular variant see
 | \alg{$W}<field>
 | \alg{$I}<field>
 | \alg{$$}
-
-<ply> =
-  <movable-piece><movement><side-effects>
-| \alg{[}<movable-piece><movement><side-effects>\alg{]}
-
-<cascade> = <ply>(\alg{~}<ply>)
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<ply> =
+  <movable-piece><movement><side-effects>
+| \alg{[}<movable-piece><movement><side-effects>\alg{]}
+
+<cascade> = <ply>(\alg{~}<ply>)
+
 <teleportation> =
   \alg{|}<field>
 | \{\alg{|W}<movement>\}[\alg{||}]
@@ -1050,18 +1056,20 @@ are available for a particular variant see
 
 <pawn-sacrifice> =
   \alg{S}<movement>\alg{~A}<movement>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
-
-<pawn-sacrifice-capture> =
-  \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
-    [\alg{|}<field>|\alg{~}<move-new>]
-| \alg{S}<movement>[\alg{|}<field>|\alg{~}<move-new>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<pawn-sacrifice-capture> =
+  \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
+    [\alg{|}<field>|\alg{~}<move-new>]
+| \alg{S}<movement>[\alg{|}<field>|\alg{~}<move-new>]
+
 <move-star> =
   \alg{I}<movement>\alg{~}\alg{T}<movement>
+
+<move-monolith> = \alg{M}<movement>
 
 <move-new> =
   <cascade>
@@ -1070,6 +1078,7 @@ are available for a particular variant see
 | [<cascade>\alg{~}]<pawn-sacrifice>
     [<pawn-sacrifice-capture>]
 | [<cascade>\alg{~}]<move-star>
+| <move-monolith>
 
 <status> = ?
          | \alg{+}
@@ -1085,7 +1094,11 @@ are available for a particular variant see
 | \algcty{0-0-0}
 | \algcty{O-O}
 | \algcty{0-0}
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <move> =
   \alg{(=)}
 | \alg{...}
