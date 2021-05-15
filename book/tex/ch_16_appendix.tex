@@ -1015,20 +1015,29 @@ are available for a particular variant see
 | \alg{$W}<field>
 | \alg{$I}<field>
 | \alg{$$}
+
+<step> = .[.]<field>
+
+<capturing-step> =
+  <step><capturing-side-effects>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<step> = .[.]<field>
-
-<capturing-step> =
-  <step><capturing-side-effects>
-
 <movement> =
-  [<disambiguation>][\alg{==}]<field>
+  [<disambiguation>]<field>
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
+
+<pawn-tag-losing-movement> =
+  [<disambiguation>]\alg{==}<field>
+| [<disambiguation>]\alg{==}\{<step>\}
+| <field>[\alg{-}]\alg{==}<field>
+
+<pawn-tag-losing-ply> =
+  <pawn><pawn-tag-losing-movement>
+  <side-effects>
 
 <shaman-capturing-ply> =
   \alg{H}[<disambiguation>]\{<capturing-step>\}
@@ -1037,25 +1046,27 @@ are available for a particular variant see
 
 <starting-ply> =
   <active-piece><movement><side-effects>
+| <pawn-tag-losing-ply>
 | <shaman-capturing-ply>
 
 <cascading-ply> =
   <movable-piece><movement><side-effects>
+| <pawn-tag-losing-ply>
 | <shaman-capturing-ply>
 
 <cascade> = <starting-ply>(\alg{~}<cascading-ply>)
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <teleportation> =
   \alg{|}<field>
 | \{\alg{|W}<movement>\}[\alg{||}]
 | \{\alg{|W}<movement>\}[\alg{~}<move-new>]
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <trance-journey-start> =
   ?
 | <disambiguation>
@@ -1082,16 +1093,16 @@ are available for a particular variant see
   \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
     [\alg{|}<field>|\alg{~}<move-new>]
 | \alg{S}<movement>[\alg{|}<field>|\alg{~}<move-new>]
-
-<move-star> =
-  \alg{I}<movement>\alg{~}\alg{T}<movement>
-
-<move-monolith> = \alg{M}<movement>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<move-star> =
+  \alg{I}<movement>\alg{~}\alg{T}<movement>
+
+<move-monolith> = \alg{M}<movement>
+
 <move-new> =
   <cascade>
 | <cascade><teleportation>
@@ -1114,7 +1125,11 @@ are available for a particular variant see
 | \algcty{0-0-0}
 | \algcty{O-O}
 | \algcty{0-0}
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <move> =
   \alg{(=)}
 | \alg{...}
@@ -1124,7 +1139,7 @@ are available for a particular variant see
 | <move-monolith><status>
 \end{alltt}
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
 Notational grammar isn't exact, some things are difficult to formalize, some are
 too cumbersome. For instance, any ply in trance-journey, teleportation and
