@@ -1018,18 +1018,11 @@ are available for a particular variant see
 | \alg{$W}<field>
 | \alg{$I}<field>
 | \alg{$$}
+
+<castling-side-effects> = \alg{&}[<file>]
 \end{alltt}
 
-% <cascading-side-effects> =
-%   ?
-% | \alg{$}<disposable-piece>
-% | \alg{$W}<field>
-% | \alg{$I}<field>
-% | \alg{$$}
-% | <demoting-side-effects>
-
 % <terminal-side-effects> =
-% | \alg{&}[<file>]
 % | [\alg{=}]<promote-to-figure>
 % | \alg{=}
 % | \alg{%}[<disposable-figure>]
@@ -1069,6 +1062,9 @@ are available for a particular variant see
 
 <starchild-resurrecting-ply> =
   \alg{I}<stepping><resurrecting-side-effects>
+
+<king-castling-move> =
+  \alg{K}<stepping><castling-side-effects>
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1187,6 +1183,7 @@ are available for a particular variant see
 | <compatibility-castling>
 | <move-new><status>
 | <move-monolith><status>
+| <king-castling-move><status>
 \end{alltt}
 
 % \clearpage % ..........................................................
