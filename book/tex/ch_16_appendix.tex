@@ -975,13 +975,14 @@ are available for a particular variant see
 <disposable-piece> = <pawn>
                    | <disposable-figure>
 
+<demoting-figure> = \alg{M} | \alg{I}
+
 <figure> = <disposable-figure>
          | \alg{K}
          | \alg{T}
          | \alg{M}
 
-<piece> = <pawn>
-        | <figure>
+<piece> = <pawn> | <figure>
 \end{alltt}
 
 % <movable-piece> = <active-piece>
@@ -1009,32 +1010,35 @@ are available for a particular variant see
 <en-passant-side-effects> =
   \alg{:}[<rank>]
 
-<cascading-side-effects> =
-  ?
-| \alg{>}[<disposable-piece>]<disambiguation>
-| \alg{$}<disposable-piece>
-| \alg{$W}<field>
-| \alg{$I}<field>
-| \alg{$$}
-
-<terminal-side-effects> =
-| \alg{&}[<file>]
-| [\alg{=}]<promote-to-figure>
-| \alg{=}
-| \alg{%}[<disposable-figure>]
-| \alg{%}[\alg{P}[\alg{==}]]
-| \alg{%%}
-| <capturing-side-effects>
-| <en-passant-side-effects>
+<demoting-side-effects> =
+  \alg{>}[<disposable-piece>]<disambiguation>
 \end{alltt}
+
+% <cascading-side-effects> =
+%   ?
+% | \alg{$}<disposable-piece>
+% | \alg{$W}<field>
+% | \alg{$I}<field>
+% | \alg{$$}
+% | <demoting-side-effects>
+
+% <terminal-side-effects> =
+% | \alg{&}[<file>]
+% | [\alg{=}]<promote-to-figure>
+% | \alg{=}
+% | \alg{%}[<disposable-figure>]
+% | \alg{%}[\alg{P}[\alg{==}]]
+% | \alg{%%}
+% | <capturing-side-effects>
+% | <en-passant-side-effects>
+
+% <side-effects> =
+%   <terminal-side-effects>
+% | <cascading-side-effects>
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<side-effects> =
-  <terminal-side-effects>
-| <cascading-side-effects>
-
 <step> = .[.]<field>
 
 <capturing-step> =
@@ -1067,11 +1071,15 @@ are available for a particular variant see
 | <active-piece><stepping>
 | <shaman-capturing-cascading-ply>
 | <shaman-capturing-terminal-ply>
+| <demoting-figure><stepping>
+  <demoting-side-effects>
 
 <starting-ply> =
   <pawn><pawn-stepping>
 | <active-piece><stepping>
 | <shaman-capturing-cascading-ply>
+| <demoting-figure><stepping>
+  <demoting-side-effects>
 
 <cascading-ply> =
   <passive-piece><stepping>
@@ -1129,6 +1137,7 @@ are available for a particular variant see
 \begin{alltt}
 <move-star> =
   \alg{I}<stepping>\alg{~}\alg{T}<stepping>
+  [<demoting-side-effects>]
 
 <move-monolith> = \alg{M}<stepping>
 
