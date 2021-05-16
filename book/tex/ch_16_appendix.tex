@@ -1003,6 +1003,25 @@ are available for a particular variant see
                  | <rank>
                  | <field>
 
+<step> = .[.]<field>
+
+<capturing-step> =
+  <step><capturing-side-effects>
+
+<stepping> =
+  [<disambiguation>]<field>
+| [<disambiguation>]\{<step>\}
+| <field>\alg{-}<field>
+
+<pawn-stepping> =
+  [<disambiguation>][\alg{==}]<field>
+| <field>\alg{-}<field>
+| <field>[\alg{-}]\alg{==}<field>
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
 <capturing-side-effects> =
   \alg{*}[<disposable-figure>]
 | \alg{*}[\alg{P}[\alg{==}]]
@@ -1020,11 +1039,15 @@ are available for a particular variant see
 | \alg{$$}
 
 <castling-side-effects> = \alg{&}[<file>]
+
+<promoting-side-effects> =
+  [\alg{=}]<promote-to-figure>
+
+<tagging-delayed-promotion-side-effects> =
+  \alg{=}
 \end{alltt}
 
 % <terminal-side-effects> =
-% | [\alg{=}]<promote-to-figure>
-% | \alg{=}
 % | \alg{%}[<disposable-figure>]
 % | \alg{%}[\alg{P}[\alg{==}]]
 % | \alg{%%}
@@ -1038,21 +1061,6 @@ are available for a particular variant see
 \clearpage % ..........................................................
 
 \begin{alltt}
-<step> = .[.]<field>
-
-<capturing-step> =
-  <step><capturing-side-effects>
-
-<stepping> =
-  [<disambiguation>]<field>
-| [<disambiguation>]\{<step>\}
-| <field>\alg{-}<field>
-
-<pawn-stepping> =
-  [<disambiguation>][\alg{==}]<field>
-| <field>\alg{-}<field>
-| <field>[\alg{-}]\alg{==}<field>
-
 <shaman-capturing-cascading-ply> =
   \alg{H}[<disambiguation>](<capturing-step>)
   <step>
@@ -1065,6 +1073,16 @@ are available for a particular variant see
 
 <king-castling-move> =
   \alg{K}<stepping><castling-side-effects>
+
+<pawn-promoting-ply> =
+  <pawn><stepping><promoting-side-effects>
+
+<pawn-promoting-move> =
+  <pawn><field><promoting-side-effects>
+
+<pyramid-tagging-delayed-promotion-ply> =
+  \alg{A}<stepping>
+  <tagging-delayed-promotion-side-effects>
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1072,13 +1090,8 @@ are available for a particular variant see
 \begin{alltt}
 <terminal-ply> =
   <pawn><pawn-stepping>
-  [<en-passant-side-effects>]
-| <active-piece><stepping>
-| <shaman-capturing-cascading-ply>
+  <en-passant-side-effects>
 | <shaman-capturing-terminal-ply>
-| <demoting-figure><stepping>
-  <demoting-side-effects>
-| <starchild-resurrecting-ply>
 
 <starting-ply> =
   <pawn><pawn-stepping>
@@ -1087,19 +1100,21 @@ are available for a particular variant see
 | <demoting-figure><stepping>
   <demoting-side-effects>
 | <starchild-resurrecting-ply>
+| <pawn-promoting-ply>
 
 <cascading-ply> =
   <passive-piece><stepping>
 | <starting-ply>
 
 <terminating-ply> =
-  <terminal-ply>
-| <passive-piece><stepping>
+  <pyramid-tagging-delayed-promotion-ply>
+| \alg{T}<stepping><demoting-side-effects>
+| <terminal-ply>
 
 <cascade> =
   <terminal-ply>
 | <starting-ply>(\alg{~}<cascading-ply>)
-  [<terminating-ply>]
+  [\alg{~}<terminating-ply>]
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1184,6 +1199,7 @@ are available for a particular variant see
 | <move-new><status>
 | <move-monolith><status>
 | <king-castling-move><status>
+| <pawn-promoting-move>
 \end{alltt}
 
 % \clearpage % ..........................................................
