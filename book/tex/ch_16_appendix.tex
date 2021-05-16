@@ -1097,7 +1097,9 @@ are available for a particular variant see
 
 \begin{alltt}
 <terminal-ply> =
-  <pawn><pawn-stepping>
+  <capturing-active-piece><stepping>
+  <capturing-side-effects>
+| <pawn><pawn-stepping>
   <en-passant-side-effects>
 | <shaman-capturing-terminal-ply>
 
@@ -1115,7 +1117,9 @@ are available for a particular variant see
 | <starting-ply>
 
 <terminating-ply> =
-  <pyramid-tagging-delayed-promotion-ply>
+  <capturing-piece><stepping>
+  <capturing-side-effects>
+| <pyramid-tagging-delayed-promotion-ply>
 | <pyramid-converting-ply>
 | <star-demoting-ply>
 | <terminal-ply>
