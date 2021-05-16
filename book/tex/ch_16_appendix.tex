@@ -957,8 +957,14 @@ are available for a particular variant see
 
 <passive-figure> = \alg{A} | \alg{W}
 
+<capturing-active-piece> =
+  <classic-piece> | \alg{G} | \alg{U} | \alg{C} | \alg{S} | \alg{H}
+
 <active-piece> =
-  <classic-piece> | \alg{G} | \alg{U} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
+  <capturing-active-piece> | \alg{I}
+
+<capturing-piece> =
+  <capturing-active-piece> | \alg{A}
 
 <promote-to-figure> =
   <passive-figure>
@@ -974,12 +980,12 @@ are available for a particular variant see
          | \alg{T}
          | \alg{M}
 
-<movable-piece> = <active-piece>
-                | <passive-figure>
-
 <piece> = <pawn>
         | <figure>
 \end{alltt}
+
+% <movable-piece> = <active-piece>
+%                 | <passive-figure>
 
 % <moving-piece> = <active-piece>
 
@@ -1039,14 +1045,10 @@ are available for a particular variant see
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
 
-<pawn-tag-losing-stepping> =
-  [<disambiguation>]\alg{==}<field>
-| [<disambiguation>]\alg{==}\{<step>\}
+<pawn-stepping> =
+  [<disambiguation>][\alg{==}]<field>
+| <field>\alg{-}<field>
 | <field>[\alg{-}]\alg{==}<field>
-
-<pawn-tag-losing-ply> =
-  <pawn><pawn-tag-losing-stepping>
-  [<en-passant-side-effects>]
 
 <shaman-capturing-cascading-ply> =
   \alg{H}[<disambiguation>](<capturing-step>)
@@ -1060,42 +1062,41 @@ are available for a particular variant see
 
 \begin{alltt}
 <terminal-ply> =
-  <active-piece><stepping><side-effects>
-| <pawn-tag-losing-ply>
+  <pawn><pawn-stepping>
+  [<en-passant-side-effects>]
+| <active-piece><stepping>
 | <shaman-capturing-cascading-ply>
 | <shaman-capturing-terminal-ply>
 
 <starting-ply> =
-  <active-piece><stepping>
-  <cascading-side-effects>
-| <pawn-tag-losing-ply>
+  <pawn><pawn-stepping>
+| <active-piece><stepping>
 | <shaman-capturing-cascading-ply>
 
 <cascading-ply> =
   <passive-piece><stepping>
-  <cascading-side-effects>
 | <starting-ply>
 
 <terminating-ply> =
   <terminal-ply>
-| <passive-piece><stepping><side-effects>
+| <passive-piece><stepping>
 
 <cascade> =
   <terminal-ply>
 | <starting-ply>(\alg{~}<cascading-ply>)
   [<terminating-ply>]
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <teleportation> =
   \alg{|}<field>
 | \{\alg{|W}<stepping>\}[\alg{||}]
 | \{\alg{|W}<stepping>\}[\alg{~}<move-new>]
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <trance-journey-start> =
   ?
 | <disambiguation>
@@ -1121,16 +1122,16 @@ are available for a particular variant see
   \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
     [\alg{|}<field>|\alg{~}<move-new>]
 | \alg{S}<stepping>[\alg{|}<field>|\alg{~}<move-new>]
-
-<move-star> =
-  \alg{I}<stepping>\alg{~}\alg{T}<stepping>
-
-<move-monolith> = \alg{M}<stepping>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<move-star> =
+  \alg{I}<stepping>\alg{~}\alg{T}<stepping>
+
+<move-monolith> = \alg{M}<stepping>
+
 <move-new> =
   <cascade>
 | <cascade><teleportation>
@@ -1153,7 +1154,11 @@ are available for a particular variant see
 | \algcty{0-0-0}
 | \algcty{O-O}
 | \algcty{0-0}
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <move> =
   \alg{(=)}
 | \alg{...}
