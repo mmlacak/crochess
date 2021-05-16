@@ -1045,12 +1045,14 @@ are available for a particular variant see
 
 <tagging-delayed-promotion-side-effects> =
   \alg{=}
+
+<converting-side-effects> =
+  \alg{%}[<disposable-figure>]
+| \alg{%}[\alg{P}[\alg{==}]]
+| \alg{%%}
 \end{alltt}
 
 % <terminal-side-effects> =
-% | \alg{%}[<disposable-figure>]
-% | \alg{%}[\alg{P}[\alg{==}]]
-% | \alg{%%}
 % | <capturing-side-effects>
 % | <en-passant-side-effects>
 
@@ -1083,6 +1085,12 @@ are available for a particular variant see
 <pyramid-tagging-delayed-promotion-ply> =
   \alg{A}<stepping>
   <tagging-delayed-promotion-side-effects>
+
+<pyramid-converting-ply> =
+  \alg{A}<stepping><converting-side-effects>
+
+<star-demoting-ply> =
+  \alg{T}<stepping><demoting-side-effects>
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1108,7 +1116,8 @@ are available for a particular variant see
 
 <terminating-ply> =
   <pyramid-tagging-delayed-promotion-ply>
-| \alg{T}<stepping><demoting-side-effects>
+| <pyramid-converting-ply>
+| <star-demoting-ply>
 | <terminal-ply>
 
 <cascade> =
@@ -1199,7 +1208,7 @@ are available for a particular variant see
 | <move-new><status>
 | <move-monolith><status>
 | <king-castling-move><status>
-| <pawn-promoting-move>
+| <pawn-promoting-move><status>
 \end{alltt}
 
 % \clearpage % ..........................................................
