@@ -1012,6 +1012,12 @@ are available for a particular variant see
 
 <demoting-side-effects> =
   \alg{>}[<disposable-piece>]<disambiguation>
+
+<resurrecting-side-effects> =
+  \alg{$}<disposable-piece>
+| \alg{$W}<field>
+| \alg{$I}<field>
+| \alg{$$}
 \end{alltt}
 
 % <cascading-side-effects> =
@@ -1060,6 +1066,9 @@ are available for a particular variant see
 
 <shaman-capturing-terminal-ply> =
   \alg{H}[<disambiguation>]\{<capturing-step>\}
+
+<starchild-resurrecting-ply> =
+  \alg{I}<stepping><resurrecting-side-effects>
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1073,6 +1082,7 @@ are available for a particular variant see
 | <shaman-capturing-terminal-ply>
 | <demoting-figure><stepping>
   <demoting-side-effects>
+| <starchild-resurrecting-ply>
 
 <starting-ply> =
   <pawn><pawn-stepping>
@@ -1080,6 +1090,7 @@ are available for a particular variant see
 | <shaman-capturing-cascading-ply>
 | <demoting-figure><stepping>
   <demoting-side-effects>
+| <starchild-resurrecting-ply>
 
 <cascading-ply> =
   <passive-piece><stepping>
@@ -1136,10 +1147,11 @@ are available for a particular variant see
 
 \begin{alltt}
 <move-star> =
-  \alg{I}<stepping>\alg{~}\alg{T}<stepping>
-  [<demoting-side-effects>]
+  \alg{I}<stepping>[<resurrecting-side-effects>]
+  \alg{~}\alg{T}<stepping>[<demoting-side-effects>]
 
-<move-monolith> = \alg{M}<stepping>
+<move-monolith> =
+  \alg{M}<stepping>[<demoting-side-effects>]
 
 <move-new> =
   <cascade>
