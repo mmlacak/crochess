@@ -985,11 +985,6 @@ are available for a particular variant see
 <piece> = <pawn> | <figure>
 \end{alltt}
 
-% <movable-piece> = <active-piece>
-%                 | <passive-figure>
-
-% <moving-piece> = <active-piece>
-
 \clearpage % ..........................................................
 
 \begin{alltt}
@@ -1052,14 +1047,6 @@ are available for a particular variant see
 | \alg{%%}
 \end{alltt}
 
-% <terminal-side-effects> =
-% | <capturing-side-effects>
-% | <en-passant-side-effects>
-
-% <side-effects> =
-%   <terminal-side-effects>
-% | <cascading-side-effects>
-
 \clearpage % ..........................................................
 
 \begin{alltt}
@@ -1082,8 +1069,10 @@ are available for a particular variant see
 <pawn-promoting-move> =
   <pawn><field><promoting-side-effects>
 
-<pyramid-tagging-delayed-promotion-ply> =
+<pyramid-promotion-ply> =
   \alg{A}<stepping>
+  <promoting-side-effects>
+| \alg{A}<stepping>
   <tagging-delayed-promotion-side-effects>
 
 <pyramid-converting-ply> =
@@ -1119,7 +1108,7 @@ are available for a particular variant see
 <terminating-ply> =
   <capturing-piece><stepping>
   <capturing-side-effects>
-| <pyramid-tagging-delayed-promotion-ply>
+| <pyramid-promotion-ply>
 | <pyramid-converting-ply>
 | <star-demoting-ply>
 | <terminal-ply>
