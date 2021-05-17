@@ -975,8 +975,6 @@ are available for a particular variant see
 <disposable-piece> = <pawn>
                    | <disposable-figure>
 
-<demoting-figure> = \alg{M} | \alg{I}
-
 <figure> = <disposable-figure>
          | \alg{K}
          | \alg{T}
@@ -1000,9 +998,6 @@ are available for a particular variant see
 
 <step> = .[.]<field>
 
-<capturing-step> =
-  <step><capturing-side-effects>
-
 <stepping> =
   [<disambiguation>]<field>
 | [<disambiguation>]\{<step>\}
@@ -1012,6 +1007,9 @@ are available for a particular variant see
   [<disambiguation>][\alg{==}]<field>
 | <field>\alg{-}<field>
 | <field>[\alg{-}]\alg{==}<field>
+
+<capturing-step> =
+  <step><capturing-side-effects>
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1070,8 +1068,7 @@ are available for a particular variant see
   <pawn><field><promoting-side-effects>
 
 <pyramid-promotion-ply> =
-  \alg{A}<stepping>
-  <promoting-side-effects>
+  \alg{A}<stepping><promoting-side-effects>
 | \alg{A}<stepping>
   <tagging-delayed-promotion-side-effects>
 
@@ -1096,8 +1093,6 @@ are available for a particular variant see
   <pawn><pawn-stepping>
 | <active-piece><stepping>
 | <shaman-capturing-cascading-ply>
-| <demoting-figure><stepping>
-  <demoting-side-effects>
 | <starchild-resurrecting-ply>
 | <pawn-promoting-ply>
 
