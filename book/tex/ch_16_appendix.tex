@@ -1089,34 +1089,42 @@ are available for a particular variant see
   <en-passant-side-effects>
 | <shaman-capturing-terminal-ply>
 
+<starchild-cascading-plies> =
+  \alg{I}<stepping>(\alg{~I}<stepping>)
+
 <starting-ply> =
   <pawn><pawn-stepping>
 | <active-piece><stepping>
 | <shaman-capturing-cascading-ply>
 | <starchild-resurrecting-ply>
 | <pawn-promoting-ply>
+| <starchild-cascading-plies>
 
 <cascading-ply> =
   <passive-piece><stepping>
 | <starting-ply>
 
+<cascading-plies> =
+  \{\alg{~W}<stepping>\}<cascading-ply>
+| \{\alg{~W}<stepping>\}\{\alg{~A}<stepping>\}
+
 <terminating-ply> =
   <capturing-piece><stepping>
   <capturing-side-effects>
-| <pyramid-promotion-ply>
-| <pyramid-converting-ply>
+| (\alg{A}<stepping>\alg{~})<pyramid-promotion-ply>
+| (\alg{A}<stepping>\alg{~})<pyramid-converting-ply>
 | <star-demoting-ply>
 | <terminal-ply>
-
-<cascade> =
-  <terminal-ply>
-| <starting-ply>(\alg{~}<cascading-ply>)
-  [\alg{~}<terminating-ply>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<cascade> =
+  <terminal-ply>
+| <starting-ply>(<cascading-plies>)
+  [\alg{~}<terminating-ply>]
+
 <teleportation> =
   \alg{|}<field>
 | \{\alg{|W}<stepping>\}[\alg{||}]
@@ -1141,7 +1149,11 @@ are available for a particular variant see
 | \alg{@}\alg{@}[<disposable-piece>[<field>]
     (,<disposable-piece>[<field>])]
 | \alg{@}\alg{@}\alg{@}[<disposable-piece>]
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <pawn-sacrifice> =
   \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
 
@@ -1149,11 +1161,7 @@ are available for a particular variant see
   \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
     [\alg{|}<field>|\alg{~}<move-new>]
 | \alg{S}<stepping>[\alg{|}<field>|\alg{~}<move-new>]
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <move-star> =
   \alg{I}<stepping>[<resurrecting-side-effects>]
   \alg{~}\alg{T}<stepping>[<demoting-side-effects>]
@@ -1172,7 +1180,11 @@ are available for a particular variant see
 <status> = ?
          | \alg{+}
          | \alg{#}
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]
     <field>[<status>]
@@ -1183,11 +1195,7 @@ are available for a particular variant see
 | \algcty{0-0-0}
 | \algcty{O-O}
 | \algcty{0-0}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <move> =
   \alg{(=)}
 | \alg{...}
