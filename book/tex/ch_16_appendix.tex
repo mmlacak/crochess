@@ -975,10 +975,7 @@ are available for a particular variant see
 <disposable-piece> = <pawn>
                    | <disposable-figure>
 
-<figure> = <disposable-figure>
-         | \alg{K}
-         | \alg{T}
-         | \alg{M}
+<figure> = <disposable-figure> | \alg{K} | \alg{T} | \alg{M}
 
 <piece> = <pawn> | <figure>
 \end{alltt}
@@ -1050,7 +1047,7 @@ are available for a particular variant see
 \begin{alltt}
 <shaman-capturing-cascading-ply> =
   \alg{H}[<disambiguation>](<capturing-step>)
-  <step>
+    <step>
 
 <shaman-capturing-terminal-ply> =
   \alg{H}[<disambiguation>]\{<capturing-step>\}
@@ -1070,7 +1067,7 @@ are available for a particular variant see
 <pyramid-promotion-ply> =
   \alg{A}<stepping><promoting-side-effects>
 | \alg{A}<stepping>
-  <tagging-delayed-promotion-side-effects>
+    <tagging-delayed-promotion-side-effects>
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effects>
@@ -1084,13 +1081,14 @@ are available for a particular variant see
 \begin{alltt}
 <terminal-ply> =
   <capturing-active-piece><stepping>
-  <capturing-side-effects>
+    <capturing-side-effects>
 | <pawn><pawn-stepping>
-  <en-passant-side-effects>
+    <en-passant-side-effects>
 | <shaman-capturing-terminal-ply>
 
 <starchild-cascading-plies> =
-  \alg{I}<stepping>(\alg{~I}<stepping>)
+  \alg{I}<stepping>\{\alg{~I}<stepping>\}
+| \{\alg{H}<stepping>\alg{~W}<stepping>\}\alg{~I}<stepping>
 
 <starting-ply> =
   <pawn><pawn-stepping>
@@ -1110,7 +1108,7 @@ are available for a particular variant see
 
 <terminating-ply> =
   <capturing-piece><stepping>
-  <capturing-side-effects>
+    <capturing-side-effects>
 | (\alg{A}<stepping>\alg{~})<pyramid-promotion-ply>
 | (\alg{A}<stepping>\alg{~})<pyramid-converting-ply>
 | <star-demoting-ply>
@@ -1123,7 +1121,7 @@ are available for a particular variant see
 <cascade> =
   <terminal-ply>
 | <starting-ply>(<cascading-plies>)
-  [\alg{~}<terminating-ply>]
+    [\alg{~}<terminating-ply>]
 
 <teleportation> =
   \alg{|}<field>
@@ -1164,7 +1162,7 @@ are available for a particular variant see
 
 <move-star> =
   \alg{I}<stepping>[<resurrecting-side-effects>]
-  \alg{~}\alg{T}<stepping>[<demoting-side-effects>]
+    \alg{~}\alg{T}<stepping>[<demoting-side-effects>]
 
 <move-monolith> =
   \alg{M}<stepping>[<demoting-side-effects>]
