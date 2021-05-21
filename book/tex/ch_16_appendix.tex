@@ -1137,10 +1137,14 @@ are available for a particular variant see
 <pawn-sacrifice> =
   \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
 
+<pawn-sacrifice-end> =
+  \alg{|}<field>
+| \alg{~}<move-new>
+
 <pawn-sacrifice-capture> =
-  \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
-    [\alg{|}<field>|\alg{~}<move-new>]
-| \alg{S}<stepping>[\alg{|}<field>|\alg{~}<move-new>]
+  \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
+    [<pawn-sacrifice-end>]
+| \alg{S}<stepping>[<pawn-sacrifice-end>]
 \end{alltt}
 
 \clearpage % ..........................................................
