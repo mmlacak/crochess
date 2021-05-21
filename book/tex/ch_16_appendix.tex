@@ -1134,22 +1134,6 @@ are available for a particular variant see
 | <disambiguation>,
 | <disambiguation>,<field>
 
-<trance-journey> =
-  \alg{@H}<trance-journey-start>
-    \{<step>[\alg{<}[<disposable-piece>]
-    <field>]\}
-| \alg{@H}<trance-journey-start>
-    \{<step>[\alg{*}[<disposable-piece>]]\}
-| \alg{@}<disposable-piece>[<disambiguation>]
-    <field>
-| \alg{@}\alg{@}[<disposable-piece>[<field>]
-    (,<disposable-piece>[<field>])]
-| \alg{@}\alg{@}\alg{@}[<disposable-piece>]
-\end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
 <pawn-sacrifice> =
   \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
 
@@ -1157,7 +1141,44 @@ are available for a particular variant see
   \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}<pawn>]\}
     [\alg{|}<field>|\alg{~}<move-new>]
 | \alg{S}<stepping>[\alg{|}<field>|\alg{~}<move-new>]
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
+<shaman-trance-journey-cascade> =
+  \alg{H}<stepping>\{\alg{~W}<stepping>\}
+
+<starchild-trance-journey-cascade> =
+  \alg{H}<stepping>\{\alg{~W}<stepping>\}\alg{~I}<stepping>
+| \alg{I}<stepping>\{\alg{~I}<stepping>\}
+
+<trance-journey> =
+  <shaman-trance-journey-cascade>
+    \alg{@H}<trance-journey-start>
+    \{<step>[\alg{<}[<disposable-piece>]<field>]\}
+| <shaman-trance-journey-cascade>
+    \alg{@H}<trance-journey-start>
+    \{<step>[\alg{*}[<disposable-piece>]]\}
+| <shaman-trance-journey-cascade>
+    \alg{@H}[<disambiguation>]<field>
+| <starchild-trance-journey-cascade>
+    \alg{@}<disposable-piece>[<disambiguation>]
+    <field>
+| <shaman-trance-journey-cascade>
+    \alg{@}\alg{@}[<disposable-piece>[<field>]
+    (,<disposable-piece>[<field>])]
+| <shaman-trance-journey-cascade>
+    \alg{@}\alg{@}\alg{@}[<disposable-piece>]
+\end{alltt}
+
+% <trance-journey-cascade> =
+%   <shaman-trance-journey-cascade>
+% | <starchild-trance-journey-cascade>
+
+\clearpage % ..........................................................
+
+\begin{alltt}
 <move-star> =
   \alg{I}<stepping>[<resurrecting-side-effects>]
     \alg{~}\alg{T}<stepping>[<demoting-side-effects>]
@@ -1168,7 +1189,7 @@ are available for a particular variant see
 <move-new> =
   <cascade>
 | <cascade><teleportation>
-| <cascade><trance-journey>
+| (<cascade>\alg{~})<trance-journey>
 | [<cascade>\alg{~}]<pawn-sacrifice>
     [<pawn-sacrifice-capture>]
 | [<cascade>\alg{~}]<move-star>
@@ -1176,11 +1197,7 @@ are available for a particular variant see
 <status> = ?
          | \alg{+}
          | \alg{#}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]
     <field>[<status>]
@@ -1191,7 +1208,11 @@ are available for a particular variant see
 | \algcty{0-0-0}
 | \algcty{O-O}
 | \algcty{0-0}
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <move> =
   \alg{(=)}
 | \alg{...}
