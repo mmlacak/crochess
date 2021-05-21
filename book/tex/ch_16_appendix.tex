@@ -1122,9 +1122,12 @@ are available for a particular variant see
 | <starting-ply>(<cascading-plies>)
     [\alg{~}<terminating-ply>]
 
+<cascading> =
+  \{<cascading-plies>\}[\alg{~}<terminating-ply>]
+
 <teleportation> =
   \alg{|}<field>
-| \{\alg{|W}<stepping>\}[\alg{~}<move-new>]
+| \{\alg{|W}<stepping>\}[\alg{~}<move-cascading>]
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
 
@@ -1139,7 +1142,7 @@ are available for a particular variant see
 
 <pawn-sacrifice-end> =
   \alg{|}<field>
-| \alg{~}<move-new>
+| \alg{~}<move-cascading>
 
 <pawn-sacrifice-capture> =
   \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
@@ -1176,19 +1179,20 @@ are available for a particular variant see
     \alg{@}\alg{@}\alg{@}[<disposable-piece>]
 \end{alltt}
 
-% <trance-journey-cascade> =
-%   <shaman-trance-journey-cascade>
-% | <starchild-trance-journey-cascade>
-
 \clearpage % ..........................................................
 
 \begin{alltt}
 <move-star> =
   \alg{I}<stepping>[<resurrecting-side-effects>]
-    \alg{~}\alg{T}<stepping>[<demoting-side-effects>]
+    \alg{~}\alg{T}<stepping>
 
-<move-monolith> =
-  \alg{M}<stepping>[<demoting-side-effects>]
+<move-cascading> =
+  <cascading>
+| <cascading><teleportation>
+| (<cascading>\alg{~})<trance-journey>
+| [<cascading>\alg{~}]<pawn-sacrifice>
+    [<pawn-sacrifice-capture>]
+| [<cascading>\alg{~}]<move-star>
 
 <move-new> =
   <cascade>
@@ -1217,15 +1221,16 @@ are available for a particular variant see
 \clearpage % ..........................................................
 
 \begin{alltt}
+<move-monolith> =
+  \alg{M}<stepping>[<demoting-side-effects>]
+
 <move> =
-  \alg{(=)}
-| \alg{...}
-| <compatibility-capture>
-| <compatibility-castling>
-| <move-new><status>
+  <move-new><status>
 | <move-monolith><status>
 | <king-castling-move><status>
 | <pawn-promoting-move><status>
+| <compatibility-capture>
+| <compatibility-castling>
 \end{alltt}
 
 % \clearpage % ..........................................................
