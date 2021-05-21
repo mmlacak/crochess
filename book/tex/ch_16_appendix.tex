@@ -1240,24 +1240,9 @@ too cumbersome. For instance, any ply in trance-journey, teleportation and
 elsewhere can be gathered in \alg{[ ]} (square brackets), just like ordinary ply.
 Another example, the two notations for capturing after Pawn-sacrifice somewhat
 overlaps, if there was no Pawn captured. Also, compatibility notation for capture
-and castling is valid only for Classical Chess, and nowhere else.
-
-To keep grammar simple, passive pieces (Pyramid and Wave) weren't removed from those
-which can start a move; which is, needless to say, wrong. However, to do so, separation
-into moving and moveable pieces would have to be made, and definition of ply, cascade
-and move would have to be duplicated, which in turn would make grammar look more
-complicated than it really is.
-
-Another things which aren't fomalized in this grammar for the sake of simplicity are
-activation rules. Wave can be activated by any own piece and opponent's Wave; Wave
-can also activate those, except own King. Pyramid can also activate own Pyramid.
-Starchild can also activate own and opponent's Starchild. Additionaly, on its
-neighboring-fields Starchild can activate almost any piece, own or opponent's, if
-entrancing it into a trance-journey. These rules would massively complicate grammar
-if defined exactly.
-
-On top of all this, algebraic notation does not distinguish between light and dark
-pieces, so some of the rules are not possible to formalize at all.
+and castling is valid only for Classical Chess, and nowhere else. Additionaly,
+algebraic notation does not distinguish between light and dark pieces, so some
+of the rules are not possible to formalize at all.
 
 Ply side-effects and move status are mandatory in \algfmt{NAN}, not optional as in
 \algfmt{CAN}. These can be empty if there is no side-effect to a ply, or if there
