@@ -1071,9 +1071,6 @@ are available for a particular variant see
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effects>
-
-<star-demoting-ply> =
-  \alg{T}<stepping><demoting-side-effects>
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1110,32 +1107,29 @@ are available for a particular variant see
     <capturing-side-effects>
 | (\alg{A}<stepping>\alg{~})<pyramid-promotion-ply>
 | (\alg{A}<stepping>\alg{~})<pyramid-converting-ply>
-| <star-demoting-ply>
 | <terminal-ply>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<cascade-start> =
+  <starting-ply>(<cascading-plies>)
+
 <cascade> =
   <terminal-ply>
-| <starting-ply>(<cascading-plies>)
-    [\alg{~}<terminating-ply>]
+| <cascade-start>[\alg{~}<terminating-ply>]
+
+<cascading-start> = \{<cascading-plies>\}
 
 <cascading> =
-  \{<cascading-plies>\}[\alg{~}<terminating-ply>]
+  <cascading-start>[\alg{~}<terminating-ply>]
 
 <teleportation> =
   \alg{|}<field>
 | \{\alg{|W}<stepping>\}[\alg{~}<move-cascading>]
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
-
-<trance-journey-start> =
-  ?
-| <disambiguation>
-| <disambiguation>,
-| <disambiguation>,<field>
 
 <pawn-sacrifice> =
   \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
@@ -1159,6 +1153,12 @@ are available for a particular variant see
 <starchild-trance-journey-cascade> =
   \alg{H}<stepping>\{\alg{~W}<stepping>\}\alg{~I}<stepping>
 | \alg{I}<stepping>\{\alg{~I}<stepping>\}
+
+<trance-journey-start> =
+  ?
+| <disambiguation>
+| <disambiguation>,
+| <disambiguation>,<field>
 
 <trance-journey> =
   <shaman-trance-journey-cascade>
@@ -1188,19 +1188,19 @@ are available for a particular variant see
 
 <move-cascading> =
   <cascading>
-| <cascading><teleportation>
-| (<cascading>\alg{~})<trance-journey>
-| [<cascading>\alg{~}]<pawn-sacrifice>
+| [<cascading-start>\alg{~}]<teleportation>
+| [<cascading-start>\alg{~}]<trance-journey>
+| [<cascading-start>\alg{~}]<pawn-sacrifice>
     [<pawn-sacrifice-capture>]
-| [<cascading>\alg{~}]<move-star>
+| [<cascading-start>\alg{~}]<move-star>
 
 <move-new> =
   <cascade>
-| <cascade><teleportation>
-| (<cascade>\alg{~})<trance-journey>
-| [<cascade>\alg{~}]<pawn-sacrifice>
+| [<cascade-start>\alg{~}]<teleportation>
+| [<cascade-start>\alg{~}]<trance-journey>
+| [<cascade-start>\alg{~}]<pawn-sacrifice>
     [<pawn-sacrifice-capture>]
-| [<cascade>\alg{~}]<move-star>
+| [<cascade-start>\alg{~}]<move-star>
 
 <status> = ?
          | \alg{+}
