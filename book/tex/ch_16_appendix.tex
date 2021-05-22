@@ -949,6 +949,10 @@ are available for a particular variant see
 
 \clearpage % ..........................................................
 
+x
+
+\clearpage % ..........................................................
+
 \begin{alltt}
 <pawn> = ? | \alg{P}
 
@@ -1100,7 +1104,7 @@ are available for a particular variant see
 
 <cascading-plies> =
   \{\alg{~W}<stepping>\}<cascading-ply>
-| \{\alg{~W}<stepping>\}\{\alg{~A}<stepping>\}
+| (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
 
 <terminating-ply> =
   <capturing-piece><stepping>
@@ -1123,11 +1127,12 @@ are available for a particular variant see
 <cascading-start> = \{<cascading-plies>\}
 
 <cascading> =
-  <cascading-start>[\alg{~}<terminating-ply>]
+  \{<cascading-plies>\}
+| (<cascading-plies>)\alg{~}<terminating-ply>
 
 <teleportation> =
   \alg{|}<field>
-| \{\alg{|W}<stepping>\}[\alg{~}<move-cascading>]
+| \{\alg{|W}<stepping>\}[<move-cascading>]
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
 
@@ -1136,7 +1141,7 @@ are available for a particular variant see
 
 <pawn-sacrifice-end> =
   \alg{|}<field>
-| \alg{~}<move-cascading>
+| <move-cascading>
 
 <pawn-sacrifice-capture> =
   \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
@@ -1188,11 +1193,11 @@ are available for a particular variant see
 
 <move-cascading> =
   <cascading>
-| [<cascading-start>\alg{~}]<teleportation>
-| [<cascading-start>\alg{~}]<trance-journey>
-| [<cascading-start>\alg{~}]<pawn-sacrifice>
+| [<cascading-start>]<teleportation>
+| [<cascading-start>]<trance-journey>
+| [<cascading-start>]<pawn-sacrifice>
     [<pawn-sacrifice-capture>]
-| [<cascading-start>\alg{~}]<move-star>
+| [<cascading-start>]<move-star>
 
 <move-new> =
   <cascade>
