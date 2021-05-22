@@ -941,15 +941,17 @@ its entirety. For instance:
 is not valid example, because first group \algfmt{[ ]} is closed containing
 dangling (open, but not closed) second group \algfmt{( )}.
 
+\clearpage % ..........................................................
+
+\huge{}
+TODO :: choices
+\normalsize{}
+
 Grammar is written without context, to determine which pieces, files and ranks
 are available for a particular variant see
 \hyperref[tbl:Appendix/Introduction/Variants]{Variants},
 \hyperref[tbl:Appendix/Introduction/Chessboards]{Chessboards} and
 \hyperref[tbl:Appendix/Introduction/Pieces]{Pieces} tables.
-
-\clearpage % ..........................................................
-
-x
 
 \clearpage % ..........................................................
 
@@ -1103,7 +1105,7 @@ x
 | <starting-ply>
 
 <cascading-plies> =
-  \{\alg{~W}<stepping>\}<cascading-ply>
+  \{\alg{~W}<stepping>\}\alg{~}<cascading-ply>
 | (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
 
 <terminating-ply> =
@@ -1130,23 +1132,23 @@ x
   \{<cascading-plies>\}
 | (<cascading-plies>)\alg{~}<terminating-ply>
 
+<wave-cascading-plies> =
+  (\alg{~W}<stepping>)\alg{~}<cascading-ply>
+| (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
+
+<wave-cascading-start> =
+  <wave-cascading-plies>(<cascading-plies>)
+| \{<cascading-plies>\}
+
+<wave-cascade> =
+  \alg{~}<cascade>
+| <wave-cascading-start>[\alg{~}<terminating-ply>]
+
 <teleportation> =
   \alg{|}<field>
-| \{\alg{|W}<stepping>\}[<move-cascading>]
+| \{\alg{|W}<stepping>\}[<move-wave-cascading>]
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
-
-<pawn-sacrifice> =
-  \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
-
-<pawn-sacrifice-end> =
-  \alg{|}<field>
-| <move-cascading>
-
-<pawn-sacrifice-capture> =
-  \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
-    [<pawn-sacrifice-end>]
-| \alg{S}<stepping>[<pawn-sacrifice-end>]
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1187,6 +1189,18 @@ x
 \clearpage % ..........................................................
 
 \begin{alltt}
+<pawn-sacrifice> =
+  \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
+
+<pawn-sacrifice-end> =
+  \alg{|}<field>
+| <move-cascading>
+
+<pawn-sacrifice-capture> =
+  \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
+    [<pawn-sacrifice-end>]
+| \alg{S}<stepping>[<pawn-sacrifice-end>]
+
 <move-star> =
   \alg{I}<stepping>[<resurrecting-side-effects>]
     \alg{~}\alg{T}<stepping>
@@ -1199,6 +1213,18 @@ x
     [<pawn-sacrifice-capture>]
 | [<cascading-start>]<move-star>
 
+<move-wave-cascading> =
+  <wave-cascade>
+| [<wave-cascading-start>]<teleportation>
+| [<wave-cascading-start>]<trance-journey>
+| [<wave-cascading-start>]<pawn-sacrifice>
+    [<pawn-sacrifice-capture>]
+| [<wave-cascading-start>]<move-star>
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
 <move-new> =
   <cascade>
 | [<cascade-start>\alg{~}]<teleportation>
@@ -1221,11 +1247,7 @@ x
 | \algcty{0-0-0}
 | \algcty{O-O}
 | \algcty{0-0}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <move-monolith> =
   \alg{M}<stepping>[<demoting-side-effects>]
 
