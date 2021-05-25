@@ -34,7 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_aoa_08_converting_tagged_pawn_init', \
-                    'scn_aoa_09_converting_tagged_pawn_end', \
-                    'scn_aoa_10_tagged_pawn_converted', \
+                    'scn_o_10_starchild_moving_star_activating', \
                 ]
