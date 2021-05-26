@@ -38,5 +38,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_27_syzygy_star', \
                     # 'scn_o_31_syzygy_starchild_cascading', \
                     # 'scn_o_32_syzygy_double_starchilds', \
-                    'scn_o_33_double_syzygy_pivot_starchilds', \
+                    'scn_o_33_double_syzygy_pivot_piece', \
+                    'scn_o_34_double_syzygy_pivot_field', \
                 ]

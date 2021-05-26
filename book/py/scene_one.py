@@ -1117,9 +1117,62 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_33_double_syzygy_pivot_starchilds(self, bt=BoardType.One):
+    def scn_o_33_double_syzygy_pivot_piece(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_33_double_syzygy_pivot_starchilds', bt)
+        scene = Scene('scn_o_33_double_syzygy_pivot_piece', bt)
+
+        start_M = (13, 6)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        start_I = (20, 16)
+        end_I = (19, 8)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_W = end_I
+        end_W = (17, 21)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_I2 = end_W
+        end_I2 = (11, 16)
+        scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
+
+        scene.board.set_piece(22, 9, piece=-PieceType.Rook)
+
+        start_N = (1, 2)
+        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        startT1 = (7, 4) # (0, 0)
+        startT2 = (25, 25) # (13, 22) # (25, 25)
+        startT3 = (25, 0)
+        startT4 = (10, 13) # (0, 25)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        start_B = (9, 10)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+
+        start_syzygy_2 = (6, 1)
+
+        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
+
+        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
+
+        gen = GS.gen_steps( [(1, 3), ], start_syzygy_2, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
+
+        return scene
+
+    def scn_o_34_double_syzygy_pivot_field(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_34_double_syzygy_pivot_field', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
