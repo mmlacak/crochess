@@ -569,7 +569,9 @@ nor it can resurrect any captured piece.
 
 Starchild-initiated syzygy is resurrection. One captured piece can optionally be resurrected by
 replacing initiating Starchild, Starchild itself is then oblationed. Only captured pieces can be
-resurrected. Kings, Stars and Monoliths cannot be resurrected.
+resurrected. Kings, Stars and Monoliths cannot be resurrected. \\
+\hyperref[fig:scn_d_16_syzygy_2_stars_steps]{Similar to demoting-to-Pawn}, only one resurrection per syzygy is
+allowed; to resurrect another piece Starchild in syzygy has to move out of alignment, and then back in.
 
 \clearpage % ..........................................................
 
@@ -671,15 +673,27 @@ shared syzygy-field.
 
 \clearpage % ..........................................................
 
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_35_two_syzygies_shared_nothing.png}
+\caption{Shared syzygy-field}
+\label{fig:scn_o_35_two_syzygies_shared_nothing}
+% \centering
+\end{figure}
+
+If two (or more) syzygies are created which do not share syzygy-field, two (or more) resurrections can be
+performed, one for each Starchild in a separate syzygy.
+
+\clearpage % ..........................................................
+
 \huge{}
-TODO :: cascading Starchilds-induced multiple paralel syzygies (no shared pieces, syzygy-steps), cascading other Starchild into other syzygy
+TODO :: leaving syzygy
 \normalsize{}
 
 % *********************************************************** Starchild
 \clearpage % ..........................................................
-
-\hyperref[fig:scn_d_16_syzygy_2_stars_steps]{Similar to demoting-to-Pawn}, only one resurrection per syzygy is
-allowed; to resurrect another piece Starchild in syzygy has to move out of alignment, and then back in.
 
 \section*{Promotion}
 \addcontentsline{toc}{section}{Promotion}

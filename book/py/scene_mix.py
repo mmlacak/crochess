@@ -38,6 +38,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_27_syzygy_star', \
                     # 'scn_o_31_syzygy_starchild_cascading', \
                     # 'scn_o_32_syzygy_double_starchilds', \
-                    'scn_o_33_two_syzygies_shared_celestial_piece', \
-                    'scn_o_34_two_syzygies_shared_field', \
+                    # 'scn_o_33_two_syzygies_shared_celestial_piece', \
+                    # 'scn_o_34_two_syzygies_shared_field', \
+                    'scn_o_35_two_syzygies_shared_nothing', \
                 ]

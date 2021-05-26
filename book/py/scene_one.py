@@ -1223,3 +1223,55 @@ class SceneOneMixin:
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
 
         return scene
+
+    def scn_o_35_two_syzygies_shared_nothing(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_35_two_syzygies_shared_nothing', bt)
+
+        start_M = (13, 6)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        start_I = (20, 16)
+        end_I = (19, 8)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_W = end_I
+        end_W = (11, 15) # (17, 21)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_I2 = end_W
+        end_I2 = (15, 20) # (11, 16)
+        scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
+
+        scene.board.set_piece(22, 9, piece=-PieceType.Rook)
+        scene.board.set_piece(6, 23, piece=-PieceType.Pawn)
+
+        start_N = (1, 2)
+        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        startT1 = (4, 3) # (0, 0)
+        startT2 = (12, 21) # (25, 25)
+        startT3 = (25, 0)
+        startT4 = (0, 25) # (10, 13) # (0, 25)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        start_B = (21, 18)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+
+        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
+
+        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
+
+        gen = GS.gen_steps( [(3, -1), ], startT4, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
+
+        return scene
