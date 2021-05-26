@@ -1117,9 +1117,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_33_double_syzygy_pivot_piece(self, bt=BoardType.One):
+    def scn_o_33_two_syzygies_shared_celestial_piece(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_33_double_syzygy_pivot_piece', bt)
+        scene = Scene('scn_o_33_two_syzygies_shared_celestial_piece', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1142,7 +1142,7 @@ class SceneOneMixin:
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
         startT1 = (7, 4) # (0, 0)
-        startT2 = (25, 25) # (13, 22) # (25, 25)
+        startT2 = (13, 22) # (25, 25)
         startT3 = (25, 0)
         startT4 = (10, 13) # (0, 25)
 
@@ -1170,9 +1170,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_34_double_syzygy_pivot_field(self, bt=BoardType.One):
+    def scn_o_34_two_syzygies_shared_field(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_34_double_syzygy_pivot_field', bt)
+        scene = Scene('scn_o_34_two_syzygies_shared_field', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1190,6 +1190,7 @@ class SceneOneMixin:
         scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
 
         scene.board.set_piece(22, 9, piece=-PieceType.Rook)
+        scene.board.set_piece(7, 4, piece=-PieceType.Pawn)
 
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
