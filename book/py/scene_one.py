@@ -1072,3 +1072,47 @@ class SceneOneMixin:
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
         return scene
+
+    def scn_o_32_syzygy_double_starchilds(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_32_syzygy_double_starchilds', bt)
+
+        start_M = (13, 6)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        start_I = (8, 22)
+        end_I = (19, 8)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_W = end_I
+        end_W = (5, 11)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_I2 = end_W
+        end_I2 = (4, 3)
+        scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
+
+        scene.board.set_piece(22, 9, piece=-PieceType.Rook)
+
+        start_N = (1, 2)
+        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        startT1 = (7, 4) # (0, 0)
+        startT2 = (25, 25)
+        startT3 = (25, 0)
+        startT4 = (0, 25)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
+
+        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
+
+        return scene
