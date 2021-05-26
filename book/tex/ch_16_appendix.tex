@@ -882,11 +882,11 @@ all of received momentum to activated piece.
 \textbf{Id} & \textbf{Entity}      & \textbf{Meaning}                           \\
 \midrule
  1          & \algfmt{< >}         & named entity, to be substituted            \\
- 2          & \algfmt{|}           & option between 2 values, can be chained    \\
+ 2          & \algfmt{|}           & choice between 2 values, can be chained    \\
  3          & \algfmt{[ ]}         & optional item(s), zero or one time         \\
  4          & \algfmt{( )}         & optional item(s), zero or more times       \\
  5          & \algfmt{\{ \}}       & optional item(s), one or more times        \\
- 6          & \algfmt{..}          & option from range of values                \\
+ 6          & \algfmt{..}          & choice from range of values                \\
  7          & \algfmt{\#number}    & numbered reference                         \\
  8          & \algfmt{?}           & empty value                                \\
  9          & \alg{\_}             & space                                      \\
@@ -907,10 +907,10 @@ values (e.g. \algcty{x}) are used exclusively for \algfmt{CAN}. Empty value
 when there is no special side-effect to a ply, and when there is no special move
 status.
 
-Option separator \algfmt{|} is used to present choice between 2 values, e.g.
-\algfmt{?} \algfmt{|} \alg{P}. Options can be chained, as in
+Value separator \algfmt{|} is used to present choice between 2 values, e.g.
+\algfmt{?} \algfmt{|} \alg{P}. Choices can be chained, as in
 \algfmt{?} \algfmt{|} \alg{+} \algfmt{|} \alg{\#}. If there are too many
-sequential values to list, range option \algfmt{..} is used instead, e.g.
+sequential values to list, range of choices \algfmt{..} is used instead, e.g.
 \alg{a} \algfmt{..} \alg{z}.
 
 Grouping options contain items to be repeated, \algfmt{[ ]} for items to appear
@@ -919,13 +919,22 @@ items at least once.
 
 Formatting and spacing is added to improve legibility, normally \algfmt{AN} is
 written without any gaps. When space is needed, it is written as \alg{\_}
-(underscore). Options are also valid regardless of formatting, spacing, e.g.
+(underscore). Choices are also valid regardless of formatting, spacing, e.g.
 \begin{alltt}
 <abc> = \alg{def}
     \alg{ghi}
   | \alg{jkl}
 \end{alltt}
 means \algfmt{<abc>} is to be replaced with either \alg{defghi} or \alg{jkl}.
+
+Choices are capturing complete values separated by \algfmt{|}, or to the either
+end of definition. For instance,
+\begin{alltt}
+<abc> = \alg{a} | \alg{b} <cde> \alg{f} | \alg{g}
+\end{alltt}
+gives one choice with 3 distinct values, \alg{a}, \alg{b}\algfmt{<cde>}\alg{f} and
+\alg{g}; and \emph{not} two choices, each with 2 distinct values, namely \alg{a} or
+\alg{b}, \alg{f} or \alg{g}.
 
 Groups can contain other groups, if they do, they are valid until first matching
 closing bracket. Each closing bracket always closes exactly one group. For instance,
