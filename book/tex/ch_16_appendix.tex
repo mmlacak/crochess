@@ -932,7 +932,7 @@ end of definition. For instance,
 \begin{alltt}
 <abc> = \alg{a} | \alg{b} <cde> \alg{f} | \alg{g}
 \end{alltt}
-gives one choice with 3 distinct values, \alg{a}, \alg{b}\algfmt{<cde>}\alg{f} and
+has one choice with 3 distinct values, \alg{a}, \alg{b}\algfmt{<cde>}\alg{f} and
 \alg{g}; and \emph{not} two choices, each with 2 distinct values, namely \alg{a} or
 \alg{b}, \alg{f} or \alg{g}.
 
@@ -952,9 +952,14 @@ dangling (open, but not closed) second group \algfmt{( )}.
 
 \clearpage % ..........................................................
 
-\huge{}
-TODO :: choices
-\normalsize{}
+Choices are fully contained within enclosing group. For instance,
+\begin{alltt}
+<abc> = \alg{a} [ \alg{b} | \alg{f} ] \alg{g} | \alg{h}
+\end{alltt}
+has two choices. Choice inside option group has 2 distinct values, \alg{b} or \alg{f}.
+Global choice (not contained in any group) has values
+\alg{a}\algfmt{[}\alg{b}\algfmt{|}\alg{f}\algfmt{]}\alg{g} or \alg{h}. This gives
+\alg{abg}, \alg{afg}, \alg{ag} and \alg{h} as possible values for \algfmt{<abc>}.
 
 Grammar is written without context, to determine which pieces, files and ranks
 are available for a particular variant see
