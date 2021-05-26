@@ -954,12 +954,13 @@ dangling (open, but not closed) second group \algfmt{( )}.
 
 Choices are fully contained within enclosing group. For instance,
 \begin{alltt}
-<abc> = \alg{a} [ \alg{b} | \alg{f} ] \alg{g} | \alg{h}
+<abc> = \alg{d} | \alg{e} [ \alg{f} | \alg{g} ] \alg{h} | \alg{i}
 \end{alltt}
-has two choices. Choice inside option group has 2 distinct values, \alg{b} or \alg{f}.
-Global choice (not contained in any group) has values
-\alg{a}\algfmt{[}\alg{b}\algfmt{|}\alg{f}\algfmt{]}\alg{g} or \alg{h}. This gives
-\alg{abg}, \alg{afg}, \alg{ag} and \alg{h} as possible values for \algfmt{<abc>}.
+has two choices. Choice inside option group has 2 possible values, either \alg{f}
+or \alg{g}. Global choice (not contained in any group) has 3 possible values: \alg{d},
+\alg{e}\algfmt{[}\alg{f}\algfmt{|}\alg{g}\algfmt{]}\alg{h} or \alg{i}. This gives
+\alg{d}, \alg{efh}, \alg{egh}, \alg{eh} and \alg{i} as possible values for
+\algfmt{<abc>}.
 
 Grammar is written without context, to determine which pieces, files and ranks
 are available for a particular variant see
