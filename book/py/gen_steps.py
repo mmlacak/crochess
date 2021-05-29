@@ -257,6 +257,26 @@ def combine_poss(start, end):
     return (x0, y0, x1, y1)
 
 
+def add_tpl(pos, rel_x, rel_y):
+    if pos is None or rel_x is None or rel_y is None:
+        return None
+    return ( pos[0] + rel_x, pos[1] + rel_y )
+
+def sub_tpl(pos, rel_x, rel_y):
+    if pos is None or rel_x is None or rel_y is None:
+        return None
+    return ( pos[0] - rel_x, pos[1] - rel_y )
+
+def append_tpl(pos, x, y):
+    if pos is None or x is None or y is None:
+        return None
+    return ( pos[0], pos[1], x, y )
+
+def append_tpl_rel(pos, rel_x, rel_y):
+    if pos is None or rel_x is None or rel_y is None:
+        return None
+    return ( pos[0], pos[1], pos[0] + rel_x, pos[1] + rel_y )
+
 def add(step, rel):
     if step is None or rel is None:
         return None

@@ -708,6 +708,45 @@ class SceneDiscoveryMixin:
 
         return scene
 
+    def scn_d_15_syzygy_explain(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_15_syzygy_explain', bt)
+
+        startT1 = (0, 0)
+        startT2 = (23, 23)
+        startT3 = (23, 0)
+        startT4 = (0, 23)
+
+        scene.board.set_piece(*startT1, piece=PieceType.Star)
+        scene.board.set_piece(*startT2, piece=PieceType.Star)
+        scene.board.set_piece(*startT3, piece=-PieceType.Star)
+        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+
+        start_M1 = (17, 2)
+        scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
+
+        start_M2 = (2, 5)
+        scene.board.set_piece(*start_M2, piece=PieceType.Monolith)
+
+        scene.append_arrow( *GS.append_tpl_rel(start_M1, 1, -2), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.append_tpl_rel(start_M2, -2, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_tpl_rel(start_M2, 1, -2), mark_type=MarkType.Action )
+
+        gen = GS.gen_steps( [(1, 0), ], startT1, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, mark_type=MarkType.Legal, end_pointer=False )
+
+        gen = GS.gen_steps( [(1, 1), ], startT1, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, mark_type=MarkType.Illegal, end_pointer=False )
+
+        gen = GS.gen_steps( [(0, 1), ], startT1, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen() ):
+            scene.append_arrow( *coords, mark_type=MarkType.Blocked, end_pointer=False )
+
+        return scene
+
     def scn_d_15_syzygy_2_stars_init(self, bt=BoardType.Discovery):
 
         scene = Scene('scn_d_15_syzygy_2_stars_init', bt)

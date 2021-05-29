@@ -339,11 +339,20 @@ can reach after passing all non-interacting pieces.
 \subsection*{Syzygy}
 \addcontentsline{toc}{subsection}{Syzygy}
 
-% \vspace*{-1.2\baselineskip}
+\vspace*{-1.2\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_15_syzygy_explain.png}
+\caption{Syzygy with Stars}
+\label{fig:scn_d_15_syzygy_explain}
+% \centering
+\end{figure}
 
-\huge{}
-TODO :: syzygy alignment
-\normalsize{}
+Syzygy is alignment in one straight line of at least 3 celestial bodies, Stars and Monoliths. It's initiated by
+Monolith stepping onto horizontal, vertical or diagonal line connecting 2 Stars. Syzygy-fields are all fields
+where Monolith would be in syzygy. For horizontal and vertical syzygy, syzygy-fields are the same as Rook
+step-fields; for diagonal syzygy, syzygy-fields are the same as Bishop step-fields.
 
 \clearpage % ..........................................................
 
@@ -357,10 +366,9 @@ TODO :: syzygy alignment
 % \centering
 \end{figure}
 
-Syzygy is alignment in one straight line of at least 3 celestial bodies, Stars and Monoliths. It's initiated by
-Monolith stepping onto horizontal, vertical or diagonal line between 2 Stars. One own figure can then be (but
-don't have to be) demoted to Pawn. Demoting to Pawn can be done even if no own Pawn has been captured yet.
-Opponent pieces, Kings, Stars, Monoliths cannot be demoted.
+One own figure can be (but don't have to be) demoted to Pawn, immediately after Monolith has stepped into syzygy.
+Demoting to Pawn can be done even if no own Pawn has been captured yet. Opponent pieces, Kings, Stars, Monoliths
+cannot be demoted.
 
 \clearpage % ..........................................................
 
