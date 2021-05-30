@@ -900,9 +900,37 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_20_syzygy_in_oppo_figure_row(self, bt=BoardType.Discovery):
+    def scn_d_20_syzygy_reentering_same_move(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_20_syzygy_in_oppo_figure_row', bt)
+        scene = Scene('scn_d_20_syzygy_reentering_same_move', bt)
+
+        start_T = (0, 0)
+        scene.board.set_piece(*start_T, piece=PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        start_M = (4, 2)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        scene.board.set_piece(22, 11, piece=PieceType.Monolith)
+
+        #
+        # diagonal arrows
+        gen_abs_pos = GS.gen_steps([(2, 1)], start=start_T, include_prev=True, bounds=scene.board.get_position_limits())
+
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal, start_pointer=False, end_pointer=False )
+
+        adder = GS.adder( start_M, include_prev=True )
+        scene.append_arrow( *adder(1, 2), mark_type=MarkType.Action )
+        scene.append_arrow( *adder(2, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder(-1, -2), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_d_21_syzygy_in_oppo_figure_row(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_21_syzygy_in_oppo_figure_row', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
