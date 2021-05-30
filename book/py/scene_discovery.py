@@ -928,9 +928,45 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_21_syzygy_in_oppo_figure_row(self, bt=BoardType.Discovery):
+    def scn_d_21_syzygy_reentering_independent(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_21_syzygy_in_oppo_figure_row', bt)
+        scene = Scene('scn_d_21_syzygy_reentering_independent', bt)
+
+        start_T = (0, 0)
+        scene.board.set_piece(*start_T, piece=PieceType.Star)
+
+        start_T1 = (0, 23)
+        scene.board.set_piece(*start_T1, piece=-PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        start_M = (14, 14)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        #
+        # diagonal SW-NE arrows
+        gen_abs_pos = GS.gen_steps([(1, 1)], start=start_T, include_prev=True, bounds=scene.board.get_position_limits())
+
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal, start_pointer=False, end_pointer=False )
+
+        #
+        # diagonal NW-SE arrows
+        gen_abs_pos = GS.gen_steps([(1, -1)], start=start_T1, include_prev=True, bounds=scene.board.get_position_limits())
+
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Blocked, start_pointer=False, end_pointer=False )
+
+        adder = GS.adder( start_M, include_prev=True )
+        scene.append_arrow( *adder(-1, 2), mark_type=MarkType.Action )
+        scene.append_arrow( *adder(-1, -2), mark_type=MarkType.Action )
+        scene.append_arrow( *adder(-2, -1), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_d_22_syzygy_in_oppo_figure_row(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_22_syzygy_in_oppo_figure_row', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
