@@ -747,9 +747,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_15_syzygy_2_stars_init(self, bt=BoardType.Discovery):
+    def scn_d_16_syzygy_2_stars_init(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_15_syzygy_2_stars_init', bt)
+        scene = Scene('scn_d_16_syzygy_2_stars_init', bt)
 
         scene.board.set_piece(0, 0, piece=PieceType.Star)
         scene.board.set_piece(0, 23, piece=-PieceType.Star)
@@ -776,9 +776,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_16_syzygy_2_stars_steps(self, bt=BoardType.Discovery):
+    def scn_d_17_syzygy_2_stars_steps(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_16_syzygy_2_stars_steps', bt)
+        scene = Scene('scn_d_17_syzygy_2_stars_steps', bt)
 
         start_T = (23, 0)
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -830,9 +830,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_17_syzygy_2_monoliths_init(self, bt=BoardType.Discovery):
+    def scn_d_18_syzygy_2_monoliths_init(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_17_syzygy_2_monoliths_init', bt)
+        scene = Scene('scn_d_18_syzygy_2_monoliths_init', bt)
 
         scene.board.set_piece(0, 0, piece=PieceType.Star)
         scene.board.set_piece(0, 23, piece=-PieceType.Star)
@@ -853,9 +853,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_18_syzygy_2_monoliths_steps(self, bt=BoardType.Discovery):
+    def scn_d_19_syzygy_2_monoliths_steps(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_18_syzygy_2_monoliths_steps', bt)
+        scene = Scene('scn_d_19_syzygy_2_monoliths_steps', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -900,9 +900,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_19_syzygy_in_oppo_figure_row(self, bt=BoardType.Discovery):
+    def scn_d_20_syzygy_in_oppo_figure_row(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_19_syzygy_in_oppo_figure_row', bt)
+        scene = Scene('scn_d_20_syzygy_in_oppo_figure_row', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
