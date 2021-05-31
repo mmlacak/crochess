@@ -552,7 +552,7 @@ Bishop steps. Starchilds are also eligible to demotion.
 % \centering
 \end{figure}
 
-Star-initiated syzygy brings no additional interactions, i.e. it neither can demote own piece to Pawn,
+Star-initiated syzygy brings no additional interactions, i.e. it neither can demote own figure to Pawn,
 nor it can resurrect any captured piece.
 
 \clearpage % ..........................................................
@@ -608,7 +608,10 @@ are occupied, piece emerges on any empty syzygy-field. If all are occupied, resu
 
 \clearpage % ..........................................................
 
-\vspace*{-2.1\baselineskip}
+\subsubsection*{Cascading syzygy}
+\addcontentsline{toc}{subsubsection}{Cascading syzygy}
+
+\vspace*{-1.2\baselineskip}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -678,7 +681,7 @@ shared syzygy-field.
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_35_two_syzygies_shared_nothing.png}
-\caption{Shared syzygy-field}
+\caption{Independent syzygies}
 \label{fig:scn_o_35_two_syzygies_shared_nothing}
 % \centering
 \end{figure}
@@ -688,9 +691,23 @@ performed, one for each Starchild in a separate syzygy.
 
 \clearpage % ..........................................................
 
-\huge{}
-TODO :: leaving syzygy
-\normalsize{}
+\subsubsection*{Reentering syzygy}
+\addcontentsline{toc}{subsubsection}{Reentering syzygy}
+
+\vspace*{-1.2\baselineskip}
+\noindent
+\begin{figure}[!h]
+% \begin{figure}[!t]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_36_reentering_syzygies.png}
+\caption{Reentering syzygy}
+\label{fig:scn_o_36_reentering_syzygies}
+% \centering
+\end{figure}
+
+Similar to \hyperref[fig:scn_d_20_syzygy_reentering_same_move]{Monolith reentering syzygy}, to get option to
+resurrect captured piece, Starchild has to move from a normal, non-syzygy field into syzygy. Starchild already
+in syzygy can move into the same (or the other) alignment, but cannot resurrect any piece. To be able to resurrect,
+Starchild has to move out of alignment in a first move, and then on a next move it can move into syzygy.
 
 % *********************************************************** Starchild
 \clearpage % ..........................................................
