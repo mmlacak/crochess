@@ -5,7 +5,7 @@
 
 #include "cc_tag.h"
 #include "cc_variant.h"
-#include "setup_tags.h"
+#include "cc_setup_tags.h"
 
 
 static const int n = CC_TE_None;
@@ -14,7 +14,7 @@ static const int C = CC_TE_CanCastle;
 static const int P = CC_TE_DelayedPromotion;
 
 
-CcTagEnum const SETUP_TAGS_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ] =
+CcTagEnum const CC_SETUP_TAGS_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ] =
 {
     { C, n, n, n, C, n, n, C },
     { R, R, R, R, R, R, R, R },
@@ -26,7 +26,7 @@ CcTagEnum const SETUP_TAGS_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHES
     { C, n, n, n, C, n, n, C },
 };
 
-CcTagEnum const SETUP_TAGS_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ] =
+CcTagEnum const CC_SETUP_TAGS_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ] =
 {
     { C, n, n, n, n, C, n, n, n, C },
     { R, R, R, R, R, R, R, R, R, R },
@@ -40,7 +40,7 @@ CcTagEnum const SETUP_TAGS_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][
     { C, n, n, n, n, C, n, n, n, C },
 };
 
-CcTagEnum const SETUP_TAGS_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ][ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ] =
+CcTagEnum const CC_SETUP_TAGS_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ][ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ] =
 {
     { C, n, n, n, n, n, C, n, n, n, n, C },
     { R, R, R, R, R, R, R, R, R, R, R, R },
@@ -56,7 +56,7 @@ CcTagEnum const SETUP_TAGS_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDA
     { C, n, n, n, n, n, C, n, n, n, n, C },
 };
 
-CcTagEnum const SETUP_TAGS_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ][ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ] =
+CcTagEnum const CC_SETUP_TAGS_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ][ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ] =
 {
     { C, n, n, n, n, n, n, C, n, n, n, n, n, C },
     { R, R, R, R, R, R, R, R, R, R, R, R, R, R },
@@ -74,7 +74,7 @@ CcTagEnum const SETUP_TAGS_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIU
     { C, n, n, n, n, n, n, C, n, n, n, n, n, C },
 };
 
-CcTagEnum const SETUP_TAGS_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ] =
+CcTagEnum const CC_SETUP_TAGS_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ] =
 {
     { C, n, n, n, n, n, n, n, C, n, n, n, n, n, n, C },
     { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
@@ -94,7 +94,7 @@ CcTagEnum const SETUP_TAGS_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][
     { C, n, n, n, n, n, n, n, C, n, n, n, n, n, n, C },
 };
 
-CcTagEnum const SETUP_TAGS_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIANT_BOARD_SIZE_NINETEEN ] =
+CcTagEnum const CC_SETUP_TAGS_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIANT_BOARD_SIZE_NINETEEN ] =
 {
     { n, C, n, n, n, n, n, n, n, C, n, n, n, n, n, n, C, n },
     { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
@@ -116,7 +116,7 @@ CcTagEnum const SETUP_TAGS_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIAN
     { n, C, n, n, n, n, n, n, n, C, n, n, n, n, n, n, C, n },
 };
 
-CcTagEnum const SETUP_TAGS_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ] =
+CcTagEnum const CC_SETUP_TAGS_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ] =
 {
     { n, C, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, C, n },
     { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
@@ -140,7 +140,7 @@ CcTagEnum const SETUP_TAGS_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ C
     { n, C, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, C, n },
 };
 
-CcTagEnum const SETUP_TAGS_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ][ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ] =
+CcTagEnum const CC_SETUP_TAGS_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ][ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ] =
 {
     { n, C, n, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, n, C, n },
     { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
@@ -166,7 +166,7 @@ CcTagEnum const SETUP_TAGS_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHA
     { n, C, n, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, n, C, n },
 };
 
-CcTagEnum const SETUP_TAGS_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ] =
+CcTagEnum const CC_SETUP_TAGS_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ] =
 {
     { n, C, n, n, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, n, n, C, n },
     { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
@@ -194,7 +194,7 @@ CcTagEnum const SETUP_TAGS_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_
     { n, C, n, n, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, n, n, C, n },
 };
 
-CcTagEnum const SETUP_TAGS_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARIANT_BOARD_SIZE_DISCOVERY ] =
+CcTagEnum const CC_SETUP_TAGS_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARIANT_BOARD_SIZE_DISCOVERY ] =
 {
     { n, C, n, n, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, n, n, C, n },
     { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
@@ -222,7 +222,7 @@ CcTagEnum const SETUP_TAGS_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARI
     { n, C, n, n, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, n, n, C, n },
 };
 
-CcTagEnum const SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ] =
+CcTagEnum const CC_SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ] =
 {
     { n, C, n, n, n, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, n, n, n, C, n },
     { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
@@ -253,21 +253,21 @@ CcTagEnum const SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SI
 };
 
 
-CcTagEnum const * get_tags_setup( CcVariantEnum const be )
+CcTagEnum const * cc_tags_setup_get( CcVariantEnum const be )
 {
     switch ( be )
     {
-        case CC_VE_ClassicalChess : return (CcTagEnum const *)SETUP_TAGS_CLASSICAL_CHESS;
-        case CC_VE_CroatianTies : return (CcTagEnum const *)SETUP_TAGS_CROATIAN_TIES;
-        case CC_VE_MayanAscendancy : return (CcTagEnum const *)SETUP_TAGS_MAYAN_ASCENDANCY;
-        case CC_VE_AgeOfAquarius : return (CcTagEnum const *)SETUP_TAGS_AGE_OF_AQUARIUS;
-        case CC_VE_MirandasVeil : return (CcTagEnum const *)SETUP_TAGS_MIRANDAS_VEIL;
-        case CC_VE_Nineteen : return (CcTagEnum const *)SETUP_TAGS_NINETEEN;
-        case CC_VE_HemerasDawn : return (CcTagEnum const *)SETUP_TAGS_HEMERAS_DAWN;
-        case CC_VE_TamoanchanRevisited : return (CcTagEnum const *)SETUP_TAGS_TAMOANCHAN_REVISITED;
-        case CC_VE_ConquestOfTlalocan : return (CcTagEnum const *)SETUP_TAGS_CONQUEST_OF_TLALOCAN;
-        case CC_VE_Discovery : return (CcTagEnum const *)SETUP_TAGS_DISCOVERY;
-        case CC_VE_One : return (CcTagEnum const *)SETUP_TAGS_ONE;
+        case CC_VE_ClassicalChess : return (CcTagEnum const *)CC_SETUP_TAGS_CLASSICAL_CHESS;
+        case CC_VE_CroatianTies : return (CcTagEnum const *)CC_SETUP_TAGS_CROATIAN_TIES;
+        case CC_VE_MayanAscendancy : return (CcTagEnum const *)CC_SETUP_TAGS_MAYAN_ASCENDANCY;
+        case CC_VE_AgeOfAquarius : return (CcTagEnum const *)CC_SETUP_TAGS_AGE_OF_AQUARIUS;
+        case CC_VE_MirandasVeil : return (CcTagEnum const *)CC_SETUP_TAGS_MIRANDAS_VEIL;
+        case CC_VE_Nineteen : return (CcTagEnum const *)CC_SETUP_TAGS_NINETEEN;
+        case CC_VE_HemerasDawn : return (CcTagEnum const *)CC_SETUP_TAGS_HEMERAS_DAWN;
+        case CC_VE_TamoanchanRevisited : return (CcTagEnum const *)CC_SETUP_TAGS_TAMOANCHAN_REVISITED;
+        case CC_VE_ConquestOfTlalocan : return (CcTagEnum const *)CC_SETUP_TAGS_CONQUEST_OF_TLALOCAN;
+        case CC_VE_Discovery : return (CcTagEnum const *)CC_SETUP_TAGS_DISCOVERY;
+        case CC_VE_One : return (CcTagEnum const *)CC_SETUP_TAGS_ONE;
 
         default : return NULL;
     }

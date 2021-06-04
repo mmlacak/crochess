@@ -10,7 +10,7 @@
 #include "cc_tag.h"
 #include "cc_variant.h"
 #include "cc_setup_board.h"
-#include "setup_tags.h"
+#include "cc_setup_tags.h"
 #include "chessboard.h"
 
 
@@ -66,7 +66,7 @@ bool cb_setup( Chessboard * const restrict cb )
     CcPieceEnum const * const su = cc_board_setup_get( cb->type );
     if ( !su ) return false;
 
-    CcTagEnum const * const tu = get_tags_setup( cb->type );
+    CcTagEnum const * const tu = cc_tags_setup_get( cb->type );
     if ( !tu ) return false;
 
     for ( int i = 0; i < (int)cb->size; ++i )
