@@ -13,7 +13,7 @@
 
 #include "cc_step.h"
 #include "cc_ply.h"
-#include "move.h"
+#include "cc_move.h"
 #include "do_move.h"
 
 #include "hlp_msgs.h"
@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.97+20210604.190829"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.98+20210604.192317"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )

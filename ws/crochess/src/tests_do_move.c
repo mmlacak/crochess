@@ -9,7 +9,7 @@
 
 #include "cc_step.h"
 #include "cc_ply.h"
-#include "move.h"
+#include "cc_move.h"
 #include "do_move.h"
 
 #include "tests_do_move.h"
@@ -86,7 +86,7 @@ bool tst_single_ply( bool do_print )
     //
     // move
 
-    Move * move = mv_new_alx( ply, MS_None );
+    CcMove * move = cc_move_new( ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -106,7 +106,7 @@ bool tst_single_ply( bool do_print )
     //
     // free, return
 
-    mv_free_complete_move( &move );
+    cc_mv_free_complete_move( &move );
     free( cb );
 
     return result;
@@ -227,7 +227,7 @@ bool tst_cascading_plies( bool do_print )
     //
     // move 0, G --> W --> P --> ...
 
-    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    CcMove * move_0 = cc_move_new( plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -251,7 +251,7 @@ bool tst_cascading_plies( bool do_print )
 
     if ( !result )
     {
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
 
         return false;
@@ -263,7 +263,7 @@ bool tst_cascading_plies( bool do_print )
     CcStep * steps_3 = cc_step_new( CC_SLE_Start, 10, 3 );
     if ( !steps_3 )
     {
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
@@ -271,7 +271,7 @@ bool tst_cascading_plies( bool do_print )
     if ( !cc_step_append_new( steps_3, CC_SLE_Destination, 9, 2 ) )
     {
         cc_step_free_all_steps( &steps_3 );
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
@@ -281,16 +281,16 @@ bool tst_cascading_plies( bool do_print )
     if ( !plies_3 )
     {
         cc_step_free_all_steps( &steps_3 );
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
 
-    Move * move_1 = mv_new_alx( plies_3, MS_None );
+    CcMove * move_1 = cc_move_new( plies_3, CC_MSE_None );
     if ( !move_1 )
     {
         cc_ply_free_all_plies( &plies_3 );
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
@@ -311,8 +311,8 @@ bool tst_cascading_plies( bool do_print )
     //
     // free, return
 
-    mv_free_complete_move( &move_0 );
-    mv_free_complete_move( &move_1 );
+    cc_mv_free_complete_move( &move_0 );
+    cc_mv_free_complete_move( &move_1 );
     free( cb );
 
     return result;
@@ -380,7 +380,7 @@ bool tst_castling( bool do_print )
         return false;
     }
 
-    Move * move = mv_new_alx( ply, MS_None );
+    CcMove * move = cc_move_new( ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -410,7 +410,7 @@ bool tst_castling( bool do_print )
     //
     // free, return
 
-    mv_free_complete_move( &move );
+    cc_mv_free_complete_move( &move );
     free( cb );
 
     return result;
@@ -509,7 +509,7 @@ bool tst_tag_and_promotion( bool do_print )
     //
     // move Bp22~Al22=
 
-    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    CcMove * move_0 = cc_move_new( plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -537,7 +537,7 @@ bool tst_tag_and_promotion( bool do_print )
 
     if ( !result )
     {
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
@@ -548,7 +548,7 @@ bool tst_tag_and_promotion( bool do_print )
     CcStep * steps_2 = cc_step_new( CC_SLE_Start, 11, 21 );
     if ( !steps_2 )
     {
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
@@ -556,7 +556,7 @@ bool tst_tag_and_promotion( bool do_print )
     if ( !cc_step_append_new( steps_2, CC_SLE_Destination, 11, 21 ) )
     {
         cc_step_free_all_steps( &steps_2 );
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
@@ -566,7 +566,7 @@ bool tst_tag_and_promotion( bool do_print )
     if ( !plies_2 )
     {
         cc_step_free_all_steps( &steps_2 );
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
@@ -574,11 +574,11 @@ bool tst_tag_and_promotion( bool do_print )
     //
     // move l22Q
 
-    Move * move_1 = mv_new_alx( plies_2, MS_None );
+    CcMove * move_1 = cc_move_new( plies_2, CC_MSE_None );
     if ( !move_1 )
     {
         cc_ply_free_all_plies( &plies_2 );
-        mv_free_complete_move( &move_0 );
+        cc_mv_free_complete_move( &move_0 );
         free( cb );
         return false;
     }
@@ -604,8 +604,8 @@ bool tst_tag_and_promotion( bool do_print )
     //
     // free, return
 
-    mv_free_complete_move( &move_0 );
-    mv_free_complete_move( &move_1 );
+    cc_mv_free_complete_move( &move_0 );
+    cc_mv_free_complete_move( &move_1 );
     free( cb );
 
     return result;
@@ -709,7 +709,7 @@ bool tst_conversion( bool do_print, bool is_failed )
     //
     // move Bp6~Al6%H
 
-    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    CcMove * move_0 = cc_move_new( plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -734,7 +734,7 @@ bool tst_conversion( bool do_print, bool is_failed )
     //
     // free, return
 
-    mv_free_complete_move( &move_0 );
+    cc_mv_free_complete_move( &move_0 );
     free( cb );
 
     return result;
@@ -799,7 +799,7 @@ bool tst_demotion( bool do_print )
     //
     // move Mw23>Bl12
 
-    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    CcMove * move_0 = cc_move_new( plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -822,7 +822,7 @@ bool tst_demotion( bool do_print )
     //
     // free, return
 
-    mv_free_complete_move( &move_0 );
+    cc_mv_free_complete_move( &move_0 );
     free( cb );
 
     return result;
@@ -895,7 +895,7 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
     //
     // move Ip11$B, Ip11$$
 
-    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    CcMove * move_0 = cc_move_new( plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -935,7 +935,7 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
     //
     // free, return
 
-    mv_free_complete_move( &move_0 );
+    cc_mv_free_complete_move( &move_0 );
     free( cb );
 
     return result;
@@ -1022,7 +1022,7 @@ bool tst_teleportation( bool do_print, bool is_failed )
     //
     // move Ba26|By25
 
-    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    CcMove * move_0 = cc_move_new( plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1058,7 +1058,7 @@ bool tst_teleportation( bool do_print, bool is_failed )
     //
     // free, return
 
-    mv_free_complete_move( &move_0 );
+    cc_mv_free_complete_move( &move_0 );
     free( cb );
 
     return result;
@@ -1222,7 +1222,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     //
     // move Bi15~Wf12|Wr8~Np9
 
-    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    CcMove * move_0 = cc_move_new( plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1256,7 +1256,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     //
     // free, return
 
-    mv_free_complete_move( &move_0 );
+    cc_mv_free_complete_move( &move_0 );
     free( cb );
 
     return result;
@@ -1434,7 +1434,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     // move Hg10~Wh8@H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
     // move Hg10~Wh8@H..h13*B..f2*N..p7..j19..v5*P==
 
-    Move * move_0 = mv_new_alx( plies_0, MS_None );
+    CcMove * move_0 = cc_move_new( plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1477,7 +1477,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     //
     // free, return
 
-    mv_free_complete_move( &move_0 );
+    cc_mv_free_complete_move( &move_0 );
     free( cb );
 
     return result;

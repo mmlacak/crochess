@@ -4,12 +4,12 @@
 #include <stdlib.h>
 
 #include "cc_ply.h"
-#include "move.h"
+#include "cc_move.h"
 
 
-Move * mv_new_alx( CcPly * const restrict plies, MoveStatus status )
+CcMove * cc_move_new( CcPly * const restrict plies, CcMoveStatusEnum status )
 {
-    Move * mv = malloc( sizeof( Move ) );
+    CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
 
     mv->plies = plies;
@@ -18,7 +18,7 @@ Move * mv_new_alx( CcPly * const restrict plies, MoveStatus status )
     return mv;
 }
 
-bool mv_free_complete_move( Move ** const move )
+bool cc_mv_free_complete_move( CcMove ** const move )
 {
     if ( !move ) return true;
     if ( !*move ) return false;

@@ -34,7 +34,7 @@ bool is_teleporting_next( CcPly const * const restrict ply, bool including_wave 
 }
 
 
-bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move, CcPly const * const restrict ply )
+bool do_ply( CcChessboard * const restrict cb, CcMove const * const restrict move, CcPly const * const restrict ply )
 {
     if ( !cb ) return false;
 
@@ -332,7 +332,7 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
     return true;
 }
 
-bool do_move( CcChessboard * const restrict cb, Move const * const restrict move )
+bool do_move( CcChessboard * const restrict cb, CcMove const * const restrict move )
 {
     if ( !cb ) return false;
 
