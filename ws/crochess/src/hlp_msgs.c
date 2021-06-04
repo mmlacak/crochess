@@ -53,7 +53,7 @@ void print_licence_text()
             "documentation and/or other materials provided with the distribution.\n"
             "\n"
             "3. Neither the name of the copyright holder nor the names of its\n"
-            "contributors may be used to endorse or promote products derived\n"
+            "contributors may ve used to endorse or promote products derived\n"
             "from this software without specific prior written permission.\n"
             "\n"
             "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"

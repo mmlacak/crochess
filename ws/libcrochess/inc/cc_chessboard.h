@@ -21,8 +21,8 @@ typedef struct CcChessboard
 
 bool cc_is_field_light( int i, int j );
 
-CcChessboard * cc_chessboard_new( CcVariantEnum const be, bool do_setup );
-bool cc_chessboard_init( CcChessboard * const restrict cb, CcVariantEnum const be, bool do_setup );
+CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool do_setup );
+bool cc_chessboard_init( CcChessboard * const restrict cb, CcVariantEnum const ve, bool do_setup );
 bool cc_chessboard_clear( CcChessboard * const restrict cb );
 bool cc_chessboard_setup( CcChessboard * const restrict cb );
 

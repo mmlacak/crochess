@@ -253,9 +253,9 @@ CcTagEnum const CC_SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD
 };
 
 
-CcTagEnum const * cc_tags_setup_get( CcVariantEnum const be )
+CcTagEnum const * cc_tags_setup_get( CcVariantEnum const ve )
 {
-    switch ( be )
+    switch ( ve )
     {
         case CC_VE_ClassicalChess : return (CcTagEnum const *)CC_SETUP_TAGS_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return (CcTagEnum const *)CC_SETUP_TAGS_CROATIAN_TIES;

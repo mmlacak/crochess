@@ -62,33 +62,33 @@ bool cc_variant_str_is_symbol( char const * const restrict str )
 
 CcVariantEnum cc_variant_from_symbol( char const * const restrict str )
 {
-    CcVariantEnum be = CC_VE_One;
-    if ( !str ) return be;
+    CcVariantEnum ve = CC_VE_One;
+    if ( !str ) return ve;
 
     char * lc = cc_str_to_case_new( str, true );
-    if ( !lc ) return be;
+    if ( !lc ) return ve;
 
-    if ( !strcmp(lc, CC_VARIANT_CLASSICAL_CHESS_SYMBOL) ) be = CC_VE_ClassicalChess;
-    else if ( !strcmp(lc, CC_VARIANT_CROATIAN_TIES_SYMBOL) ) be = CC_VE_CroatianTies;
-    else if ( !strcmp(lc, CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL) ) be = CC_VE_MayanAscendancy;
-    else if ( !strcmp(lc, CC_VARIANT_AGE_OF_AQUARIUS_SYMBOL) ) be = CC_VE_AgeOfAquarius;
-    else if ( !strcmp(lc, CC_VARIANT_MIRANDAS_VEIL_SYMBOL) ) be = CC_VE_MirandasVeil;
-    else if ( !strcmp(lc, CC_VARIANT_NINETEEN_SYMBOL) ) be = CC_VE_Nineteen;
-    else if ( !strcmp(lc, CC_VARIANT_HEMERAS_DAWN_SYMBOL) ) be = CC_VE_HemerasDawn;
-    else if ( !strcmp(lc, CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL) ) be = CC_VE_TamoanchanRevisited;
-    else if ( !strcmp(lc, CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL) ) be = CC_VE_ConquestOfTlalocan;
-    else if ( !strcmp(lc, CC_VARIANT_DISCOVERY_SYMBOL) ) be = CC_VE_Discovery;
-    // else if ( !strcmp(lc, CC_VARIANT_ONE_SYMBOL) ) be = CC_VE_One;
-    // else be = CC_VE_One;
+    if ( !strcmp(lc, CC_VARIANT_CLASSICAL_CHESS_SYMBOL) ) ve = CC_VE_ClassicalChess;
+    else if ( !strcmp(lc, CC_VARIANT_CROATIAN_TIES_SYMBOL) ) ve = CC_VE_CroatianTies;
+    else if ( !strcmp(lc, CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL) ) ve = CC_VE_MayanAscendancy;
+    else if ( !strcmp(lc, CC_VARIANT_AGE_OF_AQUARIUS_SYMBOL) ) ve = CC_VE_AgeOfAquarius;
+    else if ( !strcmp(lc, CC_VARIANT_MIRANDAS_VEIL_SYMBOL) ) ve = CC_VE_MirandasVeil;
+    else if ( !strcmp(lc, CC_VARIANT_NINETEEN_SYMBOL) ) ve = CC_VE_Nineteen;
+    else if ( !strcmp(lc, CC_VARIANT_HEMERAS_DAWN_SYMBOL) ) ve = CC_VE_HemerasDawn;
+    else if ( !strcmp(lc, CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL) ) ve = CC_VE_TamoanchanRevisited;
+    else if ( !strcmp(lc, CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL) ) ve = CC_VE_ConquestOfTlalocan;
+    else if ( !strcmp(lc, CC_VARIANT_DISCOVERY_SYMBOL) ) ve = CC_VE_Discovery;
+    // else if ( !strcmp(lc, CC_VARIANT_ONE_SYMBOL) ) ve = CC_VE_One;
+    // else ve = CC_VE_One;
 
     free( lc );
 
-    return be;
+    return ve;
 }
 
-char const * cc_variant_label( CcVariantEnum const be )
+char const * cc_variant_label( CcVariantEnum const ve )
 {
-    switch ( be )
+    switch ( ve )
     {
         case CC_VE_ClassicalChess : return "Classical Chess";
         case CC_VE_CroatianTies : return "Croatian Ties";
@@ -106,9 +106,9 @@ char const * cc_variant_label( CcVariantEnum const be )
     }
 }
 
-unsigned int cc_variant_board_size( CcVariantEnum const be )
+unsigned int cc_variant_board_size( CcVariantEnum const ve )
 {
-    switch ( be )
+    switch ( ve )
     {
         case CC_VE_ClassicalChess : return CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return CC_VARIANT_BOARD_SIZE_CROATIAN_TIES;

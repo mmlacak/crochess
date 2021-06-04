@@ -22,7 +22,7 @@ extern CcTagEnum const CC_SETUP_TAGS_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY 
 extern CcTagEnum const CC_SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ];
 
 
-CcTagEnum const * cc_tags_setup_get( CcVariantEnum const be );
+CcTagEnum const * cc_tags_setup_get( CcVariantEnum const ve );
 
 
 #endif /* __CC_SETUP_TAGS_H__ */

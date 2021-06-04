@@ -286,9 +286,9 @@ CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BO
 };
 
 
-CcPieceEnum const * cc_board_setup_get( CcVariantEnum const be )
+CcPieceEnum const * cc_board_setup_get( CcVariantEnum const ve )
 {
-    switch ( be )
+    switch ( ve )
     {
         case CC_VE_ClassicalChess : return (CcPieceEnum const *)CC_SETUP_BOARD_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return (CcPieceEnum const *)CC_SETUP_BOARD_CROATIAN_TIES;

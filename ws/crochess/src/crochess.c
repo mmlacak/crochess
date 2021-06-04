@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.94+20210604.045015"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.95+20210604.045657"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -82,10 +82,10 @@ int main( void )
 
                 if ( is_code )
                 {
-                    CcVariantEnum be = cc_variant_from_symbol( code );
+                    CcVariantEnum ve = cc_variant_from_symbol( code );
 
                     free( cb );
-                    cb = cc_chessboard_new( be, true );
+                    cb = cc_chessboard_new( ve, true );
                 }
                 else
                 {

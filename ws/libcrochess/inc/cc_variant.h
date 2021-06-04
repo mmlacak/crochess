@@ -55,9 +55,9 @@ extern char const * const CC_VARIANT_SYMBOLS[];
 
 bool cc_variant_str_is_symbol( char const * const restrict str );
 CcVariantEnum cc_variant_from_symbol( char const * const restrict str );
-char const * cc_variant_label( CcVariantEnum const be );
+char const * cc_variant_label( CcVariantEnum const ve );
 
-unsigned int cc_variant_board_size( CcVariantEnum const be );
+unsigned int cc_variant_board_size( CcVariantEnum const ve );
 
 
 #endif /* __CC_VARIANT_H__ */

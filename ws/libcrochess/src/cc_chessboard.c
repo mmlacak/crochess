@@ -20,21 +20,21 @@ bool cc_is_field_light( int i, int j )
 }
 
 
-CcChessboard * cc_chessboard_new( CcVariantEnum const be, bool do_setup )
+CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool do_setup )
 {
     CcChessboard * b = malloc( sizeof( CcChessboard ) );
     if ( !b ) return NULL;
 
-    cc_chessboard_init( b, be, do_setup );
+    cc_chessboard_init( b, ve, do_setup );
 
     return b;
 }
 
-bool cc_chessboard_init( CcChessboard * const restrict cb, CcVariantEnum const be, bool do_setup )
+bool cc_chessboard_init( CcChessboard * const restrict cb, CcVariantEnum const ve, bool do_setup )
 {
     if ( !cb ) return false;
 
-    cb->type = be;
+    cb->type = ve;
     cb->size = cc_variant_board_size( cb->type );
 
     if ( do_setup ) return cc_chessboard_setup( cb );

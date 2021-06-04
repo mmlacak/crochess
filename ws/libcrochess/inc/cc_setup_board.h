@@ -22,7 +22,7 @@ extern CcPieceEnum const CC_SETUP_BOARD_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVE
 extern CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ];
 
 
-CcPieceEnum const * cc_board_setup_get( CcVariantEnum const be );
+CcPieceEnum const * cc_board_setup_get( CcVariantEnum const ve );
 
 
 #endif /* __CC_SETUP_BOARD_H__ */
