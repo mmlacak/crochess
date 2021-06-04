@@ -6,23 +6,23 @@
 
 #include "cc_piece.h"
 #include "cc_tag.h"
-#include "board_type.h"
+#include "cc_variant.h"
 
 
 typedef struct Chessboard
 {
-    BoardType type;
+    CcVariantEnum type;
     unsigned int size;
 
-    CcPieceEnum board[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
-    CcTagEnum tags[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
+    CcPieceEnum board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
+    CcTagEnum tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
 } Chessboard;
 
 
 bool is_field_light( int i, int j );
 
-Chessboard * cb_new_alx( BoardType const bt, bool do_setup );
-bool cb_init( Chessboard * const restrict cb, BoardType const bt, bool do_setup );
+Chessboard * cb_new_alx( CcVariantEnum const be, bool do_setup );
+bool cb_init( Chessboard * const restrict cb, CcVariantEnum const be, bool do_setup );
 bool cb_clear( Chessboard * const restrict cb );
 bool cb_setup( Chessboard * const restrict cb );
 

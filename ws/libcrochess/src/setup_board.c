@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "cc_piece.h"
-#include "board_type.h"
+#include "cc_variant.h"
 #include "setup_board.h"
 
 
@@ -47,7 +47,7 @@ static const int T = CC_PE_BrightStar;
 static const int M = CC_PE_Monolith;
 
 
-CcPieceEnum const SETUP_BOARD_CLASSICAL_CHESS[ BOARD_SIZE_CLASSICAL_CHESS ][ BOARD_SIZE_CLASSICAL_CHESS ] =
+CcPieceEnum const SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ] =
 {
     { r, n, b, q, k, b, n, r },
     { p, p, p, p, p, p, p, p },
@@ -59,7 +59,7 @@ CcPieceEnum const SETUP_BOARD_CLASSICAL_CHESS[ BOARD_SIZE_CLASSICAL_CHESS ][ BOA
     { R, N, B, Q, K, B, N, R },
 };
 
-CcPieceEnum const SETUP_BOARD_CROATIAN_TIES[ BOARD_SIZE_CROATIAN_TIES ][ BOARD_SIZE_CROATIAN_TIES ] =
+CcPieceEnum const SETUP_BOARD_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ] =
 {
     { r, g, n, b, q, k, b, n, g, r },
     { p, p, p, p, p, p, p, p, p, p },
@@ -73,7 +73,7 @@ CcPieceEnum const SETUP_BOARD_CROATIAN_TIES[ BOARD_SIZE_CROATIAN_TIES ][ BOARD_S
     { R, G, N, B, Q, K, B, N, G, R },
 };
 
-CcPieceEnum const SETUP_BOARD_MAYAN_ASCENDANCY[ BOARD_SIZE_MAYAN_ASCENDANCY ][ BOARD_SIZE_MAYAN_ASCENDANCY ] =
+CcPieceEnum const SETUP_BOARD_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ][ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ] =
 {
     { r, g, a, n, b, q, k, b, n, a, g, r },
     { p, p, p, p, p, p, p, p, p, p, p, p },
@@ -89,7 +89,7 @@ CcPieceEnum const SETUP_BOARD_MAYAN_ASCENDANCY[ BOARD_SIZE_MAYAN_ASCENDANCY ][ B
     { R, G, A, N, B, Q, K, B, N, A, G, R },
 };
 
-CcPieceEnum const SETUP_BOARD_AGE_OF_AQUARIUS[ BOARD_SIZE_AGE_OF_AQUARIUS ][ BOARD_SIZE_AGE_OF_AQUARIUS ] =
+CcPieceEnum const SETUP_BOARD_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ][ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ] =
 {
     { r, g, a, u, n, b, q, k, b, n, u, a, g, r },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -107,7 +107,7 @@ CcPieceEnum const SETUP_BOARD_AGE_OF_AQUARIUS[ BOARD_SIZE_AGE_OF_AQUARIUS ][ BOA
     { R, G, A, U, N, B, Q, K, B, N, U, A, G, R },
 };
 
-CcPieceEnum const SETUP_BOARD_MIRANDAS_VEIL[ BOARD_SIZE_MIRANDAS_VEIL ][ BOARD_SIZE_MIRANDAS_VEIL ] =
+CcPieceEnum const SETUP_BOARD_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ] =
 {
     { r, g, a, u, w, n, b, q, k, b, n, w, u, a, g, r },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -127,7 +127,7 @@ CcPieceEnum const SETUP_BOARD_MIRANDAS_VEIL[ BOARD_SIZE_MIRANDAS_VEIL ][ BOARD_S
     { R, G, A, U, W, N, B, Q, K, B, N, W, U, A, G, R },
 };
 
-CcPieceEnum const SETUP_BOARD_NINETEEN[ BOARD_SIZE_NINETEEN ][ BOARD_SIZE_NINETEEN ] =
+CcPieceEnum const SETUP_BOARD_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIANT_BOARD_SIZE_NINETEEN ] =
 {
     { t, r, n, b, w, g, u, a, q, k, a, u, g, w, b, n, r, T },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -149,7 +149,7 @@ CcPieceEnum const SETUP_BOARD_NINETEEN[ BOARD_SIZE_NINETEEN ][ BOARD_SIZE_NINETE
     { T, R, N, B, W, G, U, A, Q, K, A, U, G, W, B, N, R, t },
 };
 
-CcPieceEnum const SETUP_BOARD_HEMERAS_DAWN[ BOARD_SIZE_HEMERAS_DAWN ][ BOARD_SIZE_HEMERAS_DAWN ] =
+CcPieceEnum const SETUP_BOARD_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ] =
 {
     { t, r, n, b, c, w, g, u, a, q, k, a, u, g, w, c, b, n, r, T },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -173,7 +173,7 @@ CcPieceEnum const SETUP_BOARD_HEMERAS_DAWN[ BOARD_SIZE_HEMERAS_DAWN ][ BOARD_SIZ
     { T, R, N, B, C, W, G, U, A, Q, K, A, U, G, W, C, B, N, R, t },
 };
 
-CcPieceEnum const SETUP_BOARD_TAMOANCHAN_REVISITED[ BOARD_SIZE_TAMOANCHAN_REVISITED ][ BOARD_SIZE_TAMOANCHAN_REVISITED ] =
+CcPieceEnum const SETUP_BOARD_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ][ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ] =
 {
     { t, r, n, b, s, w, u, g, c, a, q, k, a, c, g, u, w, s, b, n, r, T },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -199,7 +199,7 @@ CcPieceEnum const SETUP_BOARD_TAMOANCHAN_REVISITED[ BOARD_SIZE_TAMOANCHAN_REVISI
     { T, R, N, B, S, W, U, G, C, A, Q, K, A, C, G, U, W, S, B, N, R, t },
 };
 
-CcPieceEnum const SETUP_BOARD_CONQUEST_OF_TLALOCAN[ BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ BOARD_SIZE_CONQUEST_OF_TLALOCAN ] =
+CcPieceEnum const SETUP_BOARD_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ] =
 {
     { t, r, n, b, s, c, u, w, g, a, h, q, k, h, a, g, w, u, c, s, b, n, r, T },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -227,7 +227,7 @@ CcPieceEnum const SETUP_BOARD_CONQUEST_OF_TLALOCAN[ BOARD_SIZE_CONQUEST_OF_TLALO
     { T, R, N, B, S, C, U, W, G, A, H, Q, K, H, A, G, W, U, C, S, B, N, R, t },
 };
 
-CcPieceEnum const SETUP_BOARD_DISCOVERY[ BOARD_SIZE_DISCOVERY ][ BOARD_SIZE_DISCOVERY ] =
+CcPieceEnum const SETUP_BOARD_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARIANT_BOARD_SIZE_DISCOVERY ] =
 {
     { t, r, n, b, s, c, u, w, g, a, h, q, k, h, a, g, w, u, c, s, b, n, r, T },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -255,7 +255,7 @@ CcPieceEnum const SETUP_BOARD_DISCOVERY[ BOARD_SIZE_DISCOVERY ][ BOARD_SIZE_DISC
     { T, R, N, B, S, C, U, W, G, A, H, Q, K, H, A, G, W, U, C, S, B, N, R, t },
 };
 
-CcPieceEnum const SETUP_BOARD_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ] =
+CcPieceEnum const SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ] =
 {
     { t, r, n, b, s, i, c, u, g, w, a, h, q, k, h, a, w, g, u, c, i, s, b, n, r, T },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -286,21 +286,21 @@ CcPieceEnum const SETUP_BOARD_ONE[ BOARD_SIZE_ONE ][ BOARD_SIZE_ONE ] =
 };
 
 
-CcPieceEnum const * get_board_setup( BoardType const bt )
+CcPieceEnum const * get_board_setup( CcVariantEnum const be )
 {
-    switch ( bt )
+    switch ( be )
     {
-        case BT_ClassicalChess : return (CcPieceEnum const *)SETUP_BOARD_CLASSICAL_CHESS;
-        case BT_CroatianTies : return (CcPieceEnum const *)SETUP_BOARD_CROATIAN_TIES;
-        case BT_MayanAscendancy : return (CcPieceEnum const *)SETUP_BOARD_MAYAN_ASCENDANCY;
-        case BT_AgeOfAquarius : return (CcPieceEnum const *)SETUP_BOARD_AGE_OF_AQUARIUS;
-        case BT_MirandasVeil : return (CcPieceEnum const *)SETUP_BOARD_MIRANDAS_VEIL;
-        case BT_Nineteen : return (CcPieceEnum const *)SETUP_BOARD_NINETEEN;
-        case BT_HemerasDawn : return (CcPieceEnum const *)SETUP_BOARD_HEMERAS_DAWN;
-        case BT_TamoanchanRevisited : return (CcPieceEnum const *)SETUP_BOARD_TAMOANCHAN_REVISITED;
-        case BT_ConquestOfTlalocan : return (CcPieceEnum const *)SETUP_BOARD_CONQUEST_OF_TLALOCAN;
-        case BT_Discovery : return (CcPieceEnum const *)SETUP_BOARD_DISCOVERY;
-        case BT_One : return (CcPieceEnum const *)SETUP_BOARD_ONE;
+        case CC_VE_ClassicalChess : return (CcPieceEnum const *)SETUP_BOARD_CLASSICAL_CHESS;
+        case CC_VE_CroatianTies : return (CcPieceEnum const *)SETUP_BOARD_CROATIAN_TIES;
+        case CC_VE_MayanAscendancy : return (CcPieceEnum const *)SETUP_BOARD_MAYAN_ASCENDANCY;
+        case CC_VE_AgeOfAquarius : return (CcPieceEnum const *)SETUP_BOARD_AGE_OF_AQUARIUS;
+        case CC_VE_MirandasVeil : return (CcPieceEnum const *)SETUP_BOARD_MIRANDAS_VEIL;
+        case CC_VE_Nineteen : return (CcPieceEnum const *)SETUP_BOARD_NINETEEN;
+        case CC_VE_HemerasDawn : return (CcPieceEnum const *)SETUP_BOARD_HEMERAS_DAWN;
+        case CC_VE_TamoanchanRevisited : return (CcPieceEnum const *)SETUP_BOARD_TAMOANCHAN_REVISITED;
+        case CC_VE_ConquestOfTlalocan : return (CcPieceEnum const *)SETUP_BOARD_CONQUEST_OF_TLALOCAN;
+        case CC_VE_Discovery : return (CcPieceEnum const *)SETUP_BOARD_DISCOVERY;
+        case CC_VE_One : return (CcPieceEnum const *)SETUP_BOARD_ONE;
 
         default : return NULL;
     }

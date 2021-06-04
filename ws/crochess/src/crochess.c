@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.90+20210604.033439"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.91+20210604.041425"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -31,7 +31,7 @@ int main( void )
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    Chessboard * cb = cb_new_alx( BT_One, true );
+    Chessboard * cb = cb_new_alx( CC_VE_One, true );
 
     while ( true )
     {
@@ -78,14 +78,14 @@ int main( void )
 
             if ( code )
             {
-                is_code = bt_is_code( code );
+                is_code = cc_variant_str_is_symbol( code );
 
                 if ( is_code )
                 {
-                    BoardType bt = bt_from_str( code );
+                    CcVariantEnum be = cc_variant_from_symbol( code );
 
                     free( cb );
-                    cb = cb_new_alx( bt, true );
+                    cb = cb_new_alx( be, true );
                 }
                 else
                 {

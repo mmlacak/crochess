@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "cc_piece.h"
-#include "board_type.h"
+#include "cc_variant.h"
 #include "chessboard.h"
 
 #include "step.h"
@@ -19,7 +19,7 @@ bool tst_single_ply( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece( cb, 5, 2, CC_PE_LightPegasus );
@@ -116,7 +116,7 @@ bool tst_cascading_plies( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece( cb, 1, 5, CC_PE_LightPegasus );
@@ -322,7 +322,7 @@ bool tst_castling( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece_tag( cb, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
@@ -420,7 +420,7 @@ bool tst_tag_and_promotion( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece( cb, 11, 21, CC_PE_LightPawn );
@@ -615,7 +615,7 @@ bool tst_conversion( bool do_print, bool is_failed )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     if ( is_failed )
@@ -744,7 +744,7 @@ bool tst_demotion( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece( cb, 0, 0, CC_PE_BrightStar );
@@ -832,7 +832,7 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece( cb, 25, 0, CC_PE_DimStar );
@@ -945,7 +945,7 @@ bool tst_teleportation( bool do_print, bool is_failed )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece( cb, 0, 0, CC_PE_BrightStar );
@@ -1068,7 +1068,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece( cb, 5, 11, CC_PE_Monolith );
@@ -1268,7 +1268,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
 
     // chessboard
 
-    Chessboard * cb = cb_new_alx( BT_One, false );
+    Chessboard * cb = cb_new_alx( CC_VE_One, false );
     if ( !cb ) return false;
 
     cb_set_piece( cb, 4, 8, shaman ); // entrancing

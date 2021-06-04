@@ -8,7 +8,7 @@
 
 #include "cc_piece.h"
 #include "cc_tag.h"
-#include "board_type.h"
+#include "cc_variant.h"
 #include "setup_board.h"
 #include "setup_tags.h"
 #include "chessboard.h"
@@ -20,22 +20,22 @@ bool is_field_light( int i, int j )
 }
 
 
-Chessboard * cb_new_alx( BoardType const bt, bool do_setup )
+Chessboard * cb_new_alx( CcVariantEnum const be, bool do_setup )
 {
     Chessboard * b = malloc( sizeof( Chessboard ) );
     if ( !b ) return NULL;
 
-    cb_init( b, bt, do_setup );
+    cb_init( b, be, do_setup );
 
     return b;
 }
 
-bool cb_init( Chessboard * const restrict cb, BoardType const bt, bool do_setup )
+bool cb_init( Chessboard * const restrict cb, CcVariantEnum const be, bool do_setup )
 {
     if ( !cb ) return false;
 
-    cb->type = bt;
-    cb->size = bt_size( cb->type );
+    cb->type = be;
+    cb->size = cc_variant_board_size( cb->type );
 
     if ( do_setup ) return cb_setup( cb );
     else return cb_clear( cb );
@@ -45,9 +45,9 @@ bool cb_clear( Chessboard * const restrict cb )
 {
     if ( !cb ) return false;
 
-    for ( int i = 0; i < BOARD_SIZE_MAXIMUM; ++i )
+    for ( int i = 0; i < CC_VARIANT_BOARD_SIZE_MAXIMUM; ++i )
     {
-        for ( int j = 0; j < BOARD_SIZE_MAXIMUM; ++j )
+        for ( int j = 0; j < CC_VARIANT_BOARD_SIZE_MAXIMUM; ++j )
         {
             cb->board[ i ][ j ] = CC_PE_None;
             cb->tags[ i ][ j ] = CC_TE_None;
