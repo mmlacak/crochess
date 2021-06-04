@@ -25,8 +25,8 @@ README_IGNORE_FILE_NAME = 'README.IGNORE.md'
 SOURCE_APP_HEADER_FILE = 'crochess.c'
 SOURCE_APP_HEADER_IGNORE_FILE = 'crochess.IGNORE.c'
 
-SOURCE_LIB_HEADER_FILE = 'libcrochess.c'
-SOURCE_LIB_HEADER_IGNORE_FILE = 'libcrochess.IGNORE.c'
+SOURCE_LIB_HEADER_FILE = 'cc_version.c'
+SOURCE_LIB_HEADER_IGNORE_FILE = 'cc_version.IGNORE.c'
 
 #
 # \"(?P<version>.*)\"
@@ -138,7 +138,7 @@ def change_source_lib_line_if_marked(line, git_version, book_version, book_short
 
     if is_source:
         if 'source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
-            new = 'char const LIBCROCHESS_VERSION[] = "%s"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
+            new = 'char const CC_LIB_VERSION[] = "%s"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker\n' % git_version
 
     return new
 

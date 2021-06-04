@@ -10,7 +10,7 @@
 #include "str_utils.h"
 
 
-bool str_to_case(char * const restrict str, bool is_lower_or_upper)
+bool str_to_case( char * const restrict str, bool is_lower_or_upper )
 {
     if ( !str ) return false;
 
@@ -28,12 +28,12 @@ bool str_to_case(char * const restrict str, bool is_lower_or_upper)
     return true;
 }
 
-char * str_to_case_alx(char const * const restrict str, bool is_lower_or_upper)
+char * str_to_case_new( char const * const restrict str, bool is_lower_or_upper )
 {
     if ( !str ) return NULL;
 
-    size_t len = strlen(str);
-    char * lc = malloc(len + 1);
+    size_t len = strlen( str );
+    char * lc = malloc( len + 1 );
     char * s = lc;
 
     char const * pos = str;

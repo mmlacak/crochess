@@ -17,9 +17,9 @@ import py.paths as P
 #
 #  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 #
-# gcc -Wall -pedantic -O3 -shared -fPIC -I../inc libcrochess.c -o ../../bin/libcrochess.so # in ./ws/libcrochess/src
+# gcc -Wall -pedantic -O3 -shared -fPIC -I../inc cc_version.c -o ../../bin/libcrochess.so # in ./ws/libcrochess/src
 #
-# clang -Wall -pedantic -O3 -shared -fPIC -I../inc libcrochess.c -o ../../bin/libcrochess.so # in ./ws/libcrochess/src
+# clang -Wall -pedantic -O3 -shared -fPIC -I../inc cc_version.c -o ../../bin/libcrochess.so # in ./ws/libcrochess/src
 #
 #  --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 #

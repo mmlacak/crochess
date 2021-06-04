@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "defines.h"
+#include "cc_defines.h"
 #include "piece_type.h"
 #include "step.h"
 #include "ply.h"

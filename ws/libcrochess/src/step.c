@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "defines.h"
+#include "cc_defines.h"
 #include "step.h"
 
 
@@ -75,12 +75,12 @@ StepSideEffect step_side_effect( StepSideEffectType type, PieceType piece, bool 
 
 StepSideEffect step_side_effect_none()
 {
-    return step_side_effect( SSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return step_side_effect( SSET_None, PT_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 StepSideEffect step_side_effect_capture( PieceType piece, bool is_promo_tag_lost )
 {
-    return step_side_effect( SSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return step_side_effect( SSET_Capture, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 StepSideEffect step_side_effect_displacement( PieceType piece, bool is_promo_tag_lost, int i, int j )

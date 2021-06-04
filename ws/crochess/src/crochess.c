@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "libcrochess.h"
+#include "cc_version.h"
 #include "tokenizer.h"
 #include "piece_type.h"
 #include "chessboard.h"
@@ -21,12 +21,12 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.85+20210514.050307"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.86+20210604.021504"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
 {
-    print_app_intro( LIBCROCHESS_VERSION, CROCHESS_VERSION );
+    print_app_intro( CC_LIB_VERSION, CROCHESS_VERSION );
 
     char * ret = NULL;
     char buffer[ BUFSIZ ];
@@ -47,7 +47,7 @@ int main( void )
             continue;
         }
 
-        char * cmd = next_token_alx( buffer, TOKEN_SEPARATORS_WHITEPSACE );
+        char * cmd = next_token_new( buffer, TOKEN_SEPARATORS_WHITEPSACE );
         if ( !cmd ) continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
@@ -57,7 +57,7 @@ int main( void )
         }
         else if ( ( !strcmp( "v", cmd ) ) || ( !strcmp( "version", cmd ) ) )
         {
-            print_version_info( LIBCROCHESS_VERSION, CROCHESS_VERSION );
+            print_version_info( CC_LIB_VERSION, CROCHESS_VERSION );
         }
         else if ( ( !strcmp( "a", cmd ) ) || ( !strcmp( "about", cmd ) ) )
         {
@@ -74,7 +74,7 @@ int main( void )
         else if ( ( !strcmp( "n", cmd ) ) || ( !strcmp( "new", cmd ) ) )
         {
             bool is_code = false;
-            char * code = next_token_alx( NULL, NULL );
+            char * code = next_token_new( NULL, NULL );
 
             if ( code )
             {
@@ -103,7 +103,7 @@ int main( void )
         }
         else if ( ( !strcmp( "h", cmd ) ) || ( !strcmp( "help", cmd ) ) || ( !strcmp( "?", cmd ) ) )
         {
-            char * res = next_token_alx( NULL, NULL );
+            char * res = next_token_new( NULL, NULL );
 
             if ( !res ) print_help();
             else if ( ( !strcmp( "q", res ) ) || ( !strcmp( "quit", res ) ) ) print_help_quit();

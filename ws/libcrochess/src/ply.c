@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "defines.h"
+#include "cc_defines.h"
 #include "ply.h"
 
 
@@ -60,17 +60,17 @@ PlySideEffect ply_side_effect( PlySideEffectType type, PieceType piece, bool is_
 
 PlySideEffect ply_side_effect_none()
 {
-    return ply_side_effect( PSET_None, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_None, PT_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 PlySideEffect ply_side_effect_capture( PieceType piece, bool is_promo_tag_lost )
 {
-    return ply_side_effect( PSET_Capture, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_Capture, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 PlySideEffect ply_side_effect_en_passant( int dest_i, int dest_j )
 {
-    return ply_side_effect( PSET_EnPassant, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+    return ply_side_effect( PSET_EnPassant, PT_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
 }
 
 PlySideEffect ply_side_effect_castle( PieceType rook, int start_i, int start_j, int dest_i, int dest_j )
@@ -80,37 +80,37 @@ PlySideEffect ply_side_effect_castle( PieceType rook, int start_i, int start_j, 
 
 PlySideEffect ply_side_effect_promote( PieceType piece )
 {
-    return ply_side_effect( PSET_Promotion, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_Promotion, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 PlySideEffect ply_side_effect_tag_for_promotion()
 {
-    return ply_side_effect( PSET_TagForPromotion, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_TagForPromotion, PT_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 PlySideEffect ply_side_effect_convert( PieceType piece, bool is_promo_tag_lost )
 {
-    return ply_side_effect( PSET_Conversion, piece, is_promo_tag_lost, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_Conversion, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 PlySideEffect ply_side_effect_failed_conversion()
 {
-    return ply_side_effect( PSET_FailedConversion, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_FailedConversion, PT_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 PlySideEffect ply_side_effect_demote( PieceType piece, int dest_i, int dest_j )
 {
-    return ply_side_effect( PSET_Demotion, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+    return ply_side_effect( PSET_Demotion, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
 }
 
 PlySideEffect ply_side_effect_resurrect( PieceType piece, int dest_i, int dest_j )
 {
-    return ply_side_effect( PSET_Resurrection, piece, false, OFF_BOARD_COORD, OFF_BOARD_COORD, dest_i, dest_j );
+    return ply_side_effect( PSET_Resurrection, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
 }
 
 PlySideEffect ply_side_effect_failed_resurrection()
 {
-    return ply_side_effect( PSET_FailedResurrection, PT_None, false, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD, OFF_BOARD_COORD );
+    return ply_side_effect( PSET_FailedResurrection, PT_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
 
@@ -296,7 +296,7 @@ bool ply_free_all_plies( Ply ** const plies )
 
 Ply * ply_new_ply_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_Ply, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_new_alx( PL_Ply, piece, steps, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect )
@@ -306,12 +306,12 @@ Ply * ply_new_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_ef
 
 Ply * ply_new_teleport_wave_alx( PieceType piece, Step * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_TeleportationWave, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_new_alx( PL_TeleportationWave, piece, steps, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_failed_teleport_oblation_alx( PieceType piece, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_FailedTeleportationOblation, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_new_alx( PL_FailedTeleportationOblation, piece, NULL, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_failed_teleport_alx( PieceType piece, int i, int j, PlySideEffect side_effect )
@@ -326,23 +326,23 @@ Ply * ply_new_trance_journey_alx( PieceType piece, int i, int j, SideEffectStep 
 
 Ply * ply_new_dual_trance_journey_alx( PieceField * const restrict captured, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_DualTranceJourney, PT_None, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, captured, side_effect );
+    return ply_new_alx( PL_DualTranceJourney, PT_None, NULL, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, captured, side_effect );
 }
 
 Ply * ply_new_failed_trance_journey_alx( PieceType piece, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_FailedTranceJourney, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_new_alx( PL_FailedTranceJourney, piece, NULL, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_new_pawn_sacrifice_alx( PieceType piece, SideEffectStep * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_new_alx( PL_PawnSacrifice, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, steps, NULL, side_effect );
+    return ply_new_alx( PL_PawnSacrifice, piece, NULL, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, steps, NULL, side_effect );
 }
 
 
 Ply * ply_append_ply_alx( Ply * const restrict plies, PieceType piece, Step * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_append_alx( plies, PL_Ply, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_append_alx( plies, PL_Ply, piece, steps, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_append_teleport_alx( Ply * const restrict plies, PieceType piece, int i, int j, PlySideEffect side_effect )
@@ -352,12 +352,12 @@ Ply * ply_append_teleport_alx( Ply * const restrict plies, PieceType piece, int 
 
 Ply * ply_append_teleport_wave_alx( Ply * const restrict plies, PieceType piece, Step * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_append_alx( plies, PL_TeleportationWave, piece, steps, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_append_alx( plies, PL_TeleportationWave, piece, steps, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_append_failed_teleport_oblation_alx( Ply * const restrict plies, PieceType piece, PlySideEffect side_effect )
 {
-    return ply_append_alx( plies, PL_FailedTeleportationOblation, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_append_alx( plies, PL_FailedTeleportationOblation, piece, NULL, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_append_failed_teleport_alx( Ply * const restrict plies, PieceType piece, int i, int j, PlySideEffect side_effect )
@@ -372,15 +372,15 @@ Ply * ply_append_trance_journey_alx( Ply * const restrict plies, PieceType piece
 
 Ply * ply_append_dual_trance_journey_alx( Ply * const restrict plies, PieceField * const restrict captured, PlySideEffect side_effect )
 {
-    return ply_append_alx( plies, PL_DualTranceJourney, PT_None, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, captured, side_effect );
+    return ply_append_alx( plies, PL_DualTranceJourney, PT_None, NULL, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, captured, side_effect );
 }
 
 Ply * ply_append_failed_trance_journey_alx( Ply * const restrict plies, PieceType piece, PlySideEffect side_effect )
 {
-    return ply_append_alx( plies, PL_FailedTranceJourney, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, NULL, NULL, side_effect );
+    return ply_append_alx( plies, PL_FailedTranceJourney, piece, NULL, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL, NULL, side_effect );
 }
 
 Ply * ply_append_pawn_sacrifice_alx( Ply * const restrict plies, PieceType piece, SideEffectStep * const restrict steps, PlySideEffect side_effect )
 {
-    return ply_append_alx( plies, PL_PawnSacrifice, piece, NULL, OFF_BOARD_COORD, OFF_BOARD_COORD, steps, NULL, side_effect );
+    return ply_append_alx( plies, PL_PawnSacrifice, piece, NULL, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, steps, NULL, side_effect );
 }
