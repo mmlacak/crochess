@@ -8,10 +8,10 @@
 #include "move.h"
 
 
-PlyLink * next_ply_link( Ply const * const restrict ply );
-bool is_teleporting_next( Ply const * const restrict ply, bool including_wave );
+CcPlyLinkEnum * next_ply_link( CcPly const * const restrict ply );
+bool is_teleporting_next( CcPly const * const restrict ply, bool including_wave );
 
-bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply );
+bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move, CcPly const * const restrict ply );
 
 bool do_move( CcChessboard * const restrict cb, Move const * const restrict move );
 

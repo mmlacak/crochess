@@ -6,35 +6,35 @@
 #include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_step.h"
-#include "ply.h"
+#include "cc_ply.h"
 
 #include "do_move.h"
 
 
-PlyLink * next_ply_link( Ply const * const restrict ply )
+CcPlyLinkEnum * next_ply_link( CcPly const * const restrict ply )
 {
     if ( !ply ) return NULL;
     if ( !ply->next ) return NULL;
     return &( ply->next->link );
 }
 
-bool is_teleporting_next( Ply const * const restrict ply, bool including_wave )
+bool is_teleporting_next( CcPly const * const restrict ply, bool including_wave )
 {
-    PlyLink * pl = next_ply_link( ply );
+    CcPlyLinkEnum * pl = next_ply_link( ply );
     if ( !pl ) return false;
 
-    bool result = ( ( *pl == PL_Teleportation )
-                 || ( *pl == PL_FailedTeleportation )
-                 || ( *pl == PL_FailedTeleportationOblation ) );
+    bool result = ( ( *pl == CC_PLE_Teleportation )
+                 || ( *pl == CC_PLE_FailedTeleportation )
+                 || ( *pl == CC_PLE_FailedTeleportationOblation ) );
 
     if ( including_wave )
-        result = result || ( *pl == PL_TeleportationWave );
+        result = result || ( *pl == CC_PLE_TeleportationWave );
 
     return result;
 }
 
 
-bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply )
+bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move, CcPly const * const restrict ply )
 {
     if ( !cb ) return false;
 
@@ -49,7 +49,7 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
 
     switch ( ply->link )
     {
-        case PL_Ply :
+        case CC_PLE_Ply :
         {
             CcStep * s = ply->ply.steps;
 
@@ -69,11 +69,11 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
 
                     case CC_SLE_Destination :
                     {
-                        PlySideEffect const * const pse = &( ply->side_effect );
+                        CcPlySideEffect const * const pse = &( ply->side_effect );
 
                         switch ( pse->type )
                         {
-                            case PSET_None :
+                            case CC_PSEE_None :
                             {
                                 if ( !is_teleporting_next( ply, true ) )
                                 {
@@ -83,13 +83,13 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
                                 break;
                             }
 
-                            case PSET_Capture :
+                            case CC_PSEE_Capture :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
                                 break;
                             }
 
-                            case PSET_EnPassant :
+                            case CC_PSEE_EnPassant :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
@@ -100,7 +100,7 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
                                 break;
                             }
 
-                            case PSET_Castle :
+                            case CC_PSEE_Castle :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
@@ -116,29 +116,29 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
                                 break;
                             }
 
-                            case PSET_Promotion :
+                            case CC_PSEE_Promotion :
                             {
                                 CcPieceEnum new = pse->promote.piece;
                                 cc_chessboard_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
 
-                            case PSET_TagForPromotion :
+                            case CC_PSEE_TagForPromotion :
                             {
                                 cc_chessboard_set_tag( cb, s->i, s->j, CC_TE_DelayedPromotion );
                                 break;
                             }
 
-                            case PSET_Conversion :
+                            case CC_PSEE_Conversion :
                             {
                                 CcPieceEnum new = pse->convert.piece;
                                 cc_chessboard_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
 
-                            case PSET_FailedConversion : break; // Pyramid oblationed as usual, Starchild retains its original color; nothing to do here.
+                            case CC_PSEE_FailedConversion : break; // Pyramid oblationed as usual, Starchild retains its original color; nothing to do here.
 
-                            case PSET_Demotion :
+                            case CC_PSEE_Demotion :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
@@ -150,7 +150,7 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
                                 break;
                             }
 
-                            case PSET_Resurrection :
+                            case CC_PSEE_Resurrection :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
@@ -162,7 +162,7 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
                                 break;
                             }
 
-                            case PSET_FailedResurrection :
+                            case CC_PSEE_FailedResurrection :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
                                 break; // Resurrection blocked, or no captured pieces, nothing to do here.
@@ -179,8 +179,8 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
             break;
         }
 
-        case PL_Teleportation :
-        case PL_FailedTeleportation :
+        case CC_PLE_Teleportation :
+        case CC_PLE_FailedTeleportation :
         {
             int i = ply->teleport.i;
             int j = ply->teleport.j;
@@ -189,7 +189,7 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
             break;
         }
 
-        case PL_TeleportationWave :
+        case CC_PLE_TeleportationWave :
         {
             CcStep * s = ply->teleport_wave.steps;
 
@@ -215,9 +215,9 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
             break;
         }
 
-        case PL_FailedTeleportationOblation : break; // Oblationed piece removed in previous ply, nothing to do here.
+        case CC_PLE_FailedTeleportationOblation : break; // Oblationed piece removed in previous ply, nothing to do here.
 
-        case PL_TranceJourney :
+        case CC_PLE_TranceJourney :
         {
             CcSideEffectStep * s = ply->trance_journey.steps;
 
@@ -263,9 +263,9 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
             break;
         }
 
-        case PL_DualTranceJourney :
+        case CC_PLE_DualTranceJourney :
         {
-            PieceField * pf = ply->dual_trance_journey.captured;
+            CcPieceField * pf = ply->dual_trance_journey.captured;
 
             while ( pf )
             {
@@ -276,9 +276,9 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
             break;
         }
 
-        case PL_FailedTranceJourney : break; // Current piece already removed from chessboard, nothing to do here.
+        case CC_PLE_FailedTranceJourney : break; // Current piece already removed from chessboard, nothing to do here.
 
-        case PL_PawnSacrifice :
+        case CC_PLE_PawnSacrifice :
         {
             CcSideEffectStep * s = ply->pawn_sacrifice.steps;
 
@@ -339,7 +339,7 @@ bool do_move( CcChessboard * const restrict cb, Move const * const restrict move
     if ( !move ) return false;
     if ( !move->plies ) return false;
 
-    Ply * p = move->plies;
+    CcPly * p = move->plies;
 
     while ( p )
     {

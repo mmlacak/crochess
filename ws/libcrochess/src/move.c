@@ -3,11 +3,11 @@
 
 #include <stdlib.h>
 
-#include "ply.h"
+#include "cc_ply.h"
 #include "move.h"
 
 
-Move * mv_new_alx( Ply * const restrict plies, MoveStatus status )
+Move * mv_new_alx( CcPly * const restrict plies, MoveStatus status )
 {
     Move * mv = malloc( sizeof( Move ) );
     if ( !mv ) return NULL;
@@ -25,8 +25,8 @@ bool mv_free_complete_move( Move ** const move )
 
     bool result = true;
 
-    Ply ** plies = &( ( *move )->plies );
-    result = result && ply_free_all_plies( plies );
+    CcPly ** plies = &( ( *move )->plies );
+    result = result && cc_ply_free_all_plies( plies );
 
     free( *move );
     *move = NULL;

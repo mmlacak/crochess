@@ -4,7 +4,7 @@
 #ifndef __MOVE_H__
 #define __MOVE_H__
 
-#include "ply.h"
+#include "cc_ply.h"
 
 
 typedef enum MoveStatus
@@ -17,12 +17,12 @@ typedef enum MoveStatus
 
 typedef struct Move
 {
-    Ply * plies;
+    CcPly * plies;
     MoveStatus status;
 } Move;
 
 
-Move * mv_new_alx( Ply * const restrict plies, MoveStatus status );
+Move * mv_new_alx( CcPly * const restrict plies, MoveStatus status );
 bool mv_free_complete_move( Move ** const move );
 
 

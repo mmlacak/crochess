@@ -8,7 +8,7 @@
 #include "cc_chessboard.h"
 
 #include "cc_step.h"
-#include "ply.h"
+#include "cc_ply.h"
 #include "move.h"
 #include "do_move.h"
 
@@ -74,8 +74,8 @@ bool tst_single_ply( bool do_print )
     //
     // ply
 
-    PlySideEffect pse = ply_side_effect_capture( CC_PE_DarkPawn, true );
-    Ply * ply = ply_new_ply_alx( CC_PE_LightPegasus, start, pse );
+    CcPlySideEffect pse = cc_ply_side_effect_capture( CC_PE_DarkPawn, true );
+    CcPly * ply = cc_ply_new_ply_new( CC_PE_LightPegasus, start, pse );
     if ( !ply )
     {
         cc_step_free_all_steps( &start );
@@ -89,7 +89,7 @@ bool tst_single_ply( bool do_print )
     Move * move = mv_new_alx( ply, MS_None );
     if ( !move )
     {
-        ply_free_all_plies( &ply );
+        cc_ply_free_all_plies( &ply );
         free( cb );
         return false;
     }
@@ -159,8 +159,8 @@ bool tst_cascading_plies( bool do_print )
         return false;
     }
 
-    PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightPegasus, steps_0, pse_0 );
+    CcPlySideEffect pse_0 = cc_ply_side_effect_none();
+    CcPly * plies_0 = cc_ply_new_ply_new( CC_PE_LightPegasus, steps_0, pse_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -174,7 +174,7 @@ bool tst_cascading_plies( bool do_print )
     CcStep * steps_1 = cc_step_new( CC_SLE_Start, 7, 2 );
     if ( !steps_1 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -182,16 +182,16 @@ bool tst_cascading_plies( bool do_print )
     if ( !cc_step_append_new( steps_1, CC_SLE_Destination, 9, 1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
 
-    PlySideEffect pse_1 = ply_side_effect_none();
-    if ( !ply_append_ply_alx( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
+    CcPlySideEffect pse_1 = cc_ply_side_effect_none();
+    if ( !cc_ply_append_ply_new( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -202,7 +202,7 @@ bool tst_cascading_plies( bool do_print )
     CcStep * steps_2 = cc_step_new( CC_SLE_Start, 9, 1 );
     if ( !steps_2 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -210,16 +210,16 @@ bool tst_cascading_plies( bool do_print )
     if ( !cc_step_append_new( steps_2, CC_SLE_Destination, 9, 4 ) )
     {
         cc_step_free_all_steps( &steps_2 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
 
-    PlySideEffect pse_2 = ply_side_effect_none();
-    if ( !ply_append_ply_alx( plies_0, CC_PE_LightPawn, steps_2, pse_2 ) )
+    CcPlySideEffect pse_2 = cc_ply_side_effect_none();
+    if ( !cc_ply_append_ply_new( plies_0, CC_PE_LightPawn, steps_2, pse_2 ) )
     {
         cc_step_free_all_steps( &steps_2 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -230,7 +230,7 @@ bool tst_cascading_plies( bool do_print )
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -276,8 +276,8 @@ bool tst_cascading_plies( bool do_print )
         return false;
     }
 
-    PlySideEffect pse_3 = ply_side_effect_en_passant( 9, 4 );
-    Ply * plies_3 = ply_new_ply_alx( CC_PE_DarkPawn, steps_3, pse_3 );
+    CcPlySideEffect pse_3 = cc_ply_side_effect_en_passant( 9, 4 );
+    CcPly * plies_3 = cc_ply_new_ply_new( CC_PE_DarkPawn, steps_3, pse_3 );
     if ( !plies_3 )
     {
         cc_step_free_all_steps( &steps_3 );
@@ -289,7 +289,7 @@ bool tst_cascading_plies( bool do_print )
     Move * move_1 = mv_new_alx( plies_3, MS_None );
     if ( !move_1 )
     {
-        ply_free_all_plies( &plies_3 );
+        cc_ply_free_all_plies( &plies_3 );
         mv_free_complete_move( &move_0 );
         free( cb );
         return false;
@@ -371,8 +371,8 @@ bool tst_castling( bool do_print )
         return false;
     }
 
-    PlySideEffect pse = ply_side_effect_castle( CC_PE_LightRook, 24, 0, 19, 0 );
-    Ply * ply = ply_new_ply_alx( CC_PE_LightKing, steps_0, pse );
+    CcPlySideEffect pse = cc_ply_side_effect_castle( CC_PE_LightRook, 24, 0, 19, 0 );
+    CcPly * ply = cc_ply_new_ply_new( CC_PE_LightKing, steps_0, pse );
     if ( !ply )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -383,7 +383,7 @@ bool tst_castling( bool do_print )
     Move * move = mv_new_alx( ply, MS_None );
     if ( !move )
     {
-        ply_free_all_plies( &ply );
+        cc_ply_free_all_plies( &ply );
         free( cb );
         return false;
     }
@@ -469,8 +469,8 @@ bool tst_tag_and_promotion( bool do_print )
         return false;
     }
 
-    PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightBishop, steps_0, pse_0 );
+    CcPlySideEffect pse_0 = cc_ply_side_effect_none();
+    CcPly * plies_0 = cc_ply_new_ply_new( CC_PE_LightBishop, steps_0, pse_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -484,7 +484,7 @@ bool tst_tag_and_promotion( bool do_print )
     CcStep * steps_1 = cc_step_new( CC_SLE_Start, 15, 21 );
     if ( !steps_1 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -492,16 +492,16 @@ bool tst_tag_and_promotion( bool do_print )
     if ( !cc_step_append_new( steps_1, CC_SLE_Destination, 11, 21 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
 
-    PlySideEffect pse_1 = ply_side_effect_tag_for_promotion();
-    if ( !ply_append_ply_alx( plies_0, CC_PE_LightPyramid, steps_1, pse_1 ) )
+    CcPlySideEffect pse_1 = cc_ply_side_effect_tag_for_promotion();
+    if ( !cc_ply_append_ply_new( plies_0, CC_PE_LightPyramid, steps_1, pse_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -512,7 +512,7 @@ bool tst_tag_and_promotion( bool do_print )
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -561,8 +561,8 @@ bool tst_tag_and_promotion( bool do_print )
         return false;
     }
 
-    PlySideEffect pse_2 = ply_side_effect_promote( CC_PE_LightQueen );
-    Ply * plies_2 = ply_new_ply_alx( CC_PE_LightPawn, steps_2, pse_2 );
+    CcPlySideEffect pse_2 = cc_ply_side_effect_promote( CC_PE_LightQueen );
+    CcPly * plies_2 = cc_ply_new_ply_new( CC_PE_LightPawn, steps_2, pse_2 );
     if ( !plies_2 )
     {
         cc_step_free_all_steps( &steps_2 );
@@ -577,7 +577,7 @@ bool tst_tag_and_promotion( bool do_print )
     Move * move_1 = mv_new_alx( plies_2, MS_None );
     if ( !move_1 )
     {
-        ply_free_all_plies( &plies_2 );
+        cc_ply_free_all_plies( &plies_2 );
         mv_free_complete_move( &move_0 );
         free( cb );
         return false;
@@ -664,8 +664,8 @@ bool tst_conversion( bool do_print, bool is_failed )
         return false;
     }
 
-    PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightBishop, steps_0, pse_0 );
+    CcPlySideEffect pse_0 = cc_ply_side_effect_none();
+    CcPly * plies_0 = cc_ply_new_ply_new( CC_PE_LightBishop, steps_0, pse_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -679,7 +679,7 @@ bool tst_conversion( bool do_print, bool is_failed )
     CcStep * steps_1 = cc_step_new( CC_SLE_Start, 15, 5 );
     if ( !steps_1 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -687,21 +687,21 @@ bool tst_conversion( bool do_print, bool is_failed )
     if ( !cc_step_append_new( steps_1, CC_SLE_Destination, 11, 5 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
 
-    PlySideEffect pse_1;
+    CcPlySideEffect pse_1;
     if ( is_failed )
-        pse_1 = ply_side_effect_failed_conversion();
+        pse_1 = cc_ply_side_effect_failed_conversion();
     else
-        pse_1 = ply_side_effect_convert( CC_PE_LightShaman, false );
+        pse_1 = cc_ply_side_effect_convert( CC_PE_LightShaman, false );
 
-    if ( !ply_append_ply_alx( plies_0, CC_PE_LightPyramid, steps_1, pse_1 ) )
+    if ( !cc_ply_append_ply_new( plies_0, CC_PE_LightPyramid, steps_1, pse_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -712,7 +712,7 @@ bool tst_conversion( bool do_print, bool is_failed )
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -787,8 +787,8 @@ bool tst_demotion( bool do_print )
         return false;
     }
 
-    PlySideEffect pse_0 = ply_side_effect_demote( CC_PE_LightPawn, 11, 11 );
-    Ply * plies_0 = ply_new_ply_alx( CC_PE_Monolith, steps_0, pse_0 );
+    CcPlySideEffect pse_0 = cc_ply_side_effect_demote( CC_PE_LightPawn, 11, 11 );
+    CcPly * plies_0 = cc_ply_new_ply_new( CC_PE_Monolith, steps_0, pse_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -802,7 +802,7 @@ bool tst_demotion( bool do_print )
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -873,18 +873,18 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
         return false;
     }
 
-    PlySideEffect pse_0;
+    CcPlySideEffect pse_0;
     if ( is_failed )
-        pse_0 = ply_side_effect_failed_resurrection();
+        pse_0 = cc_ply_side_effect_failed_resurrection();
     else
     {
         if ( is_oblationing )
-            pse_0 = ply_side_effect_resurrect( CC_PE_LightBishop, 15, 10 );
+            pse_0 = cc_ply_side_effect_resurrect( CC_PE_LightBishop, 15, 10 );
         else
-            pse_0 = ply_side_effect_resurrect( CC_PE_LightWave, 16, 11 );
+            pse_0 = cc_ply_side_effect_resurrect( CC_PE_LightWave, 16, 11 );
     }
 
-    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightStarchild, steps_0, pse_0 );
+    CcPly * plies_0 = cc_ply_new_ply_new( CC_PE_LightStarchild, steps_0, pse_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -898,7 +898,7 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -992,8 +992,8 @@ bool tst_teleportation( bool do_print, bool is_failed )
         return false;
     }
 
-    PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightBishop, steps_0, pse_0 );
+    CcPlySideEffect pse_0 = cc_ply_side_effect_none();
+    CcPly * plies_0 = cc_ply_new_ply_new( CC_PE_LightBishop, steps_0, pse_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -1004,17 +1004,17 @@ bool tst_teleportation( bool do_print, bool is_failed )
     //
     // ply |By25
 
-    PlySideEffect pse_1 = ply_side_effect_none();
+    CcPlySideEffect pse_1 = cc_ply_side_effect_none();
 
-    Ply * ply_1;
+    CcPly * ply_1;
     if ( is_failed )
-        ply_1 = ply_append_failed_teleport_alx( plies_0, CC_PE_LightBishop, 0, 24, pse_1 );
+        ply_1 = cc_ply_append_failed_teleport_new( plies_0, CC_PE_LightBishop, 0, 24, pse_1 );
     else
-        ply_1 = ply_append_teleport_alx( plies_0, CC_PE_LightBishop, 24, 24, pse_1 );
+        ply_1 = cc_ply_append_teleport_new( plies_0, CC_PE_LightBishop, 24, 24, pse_1 );
 
     if ( !ply_1 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1025,7 +1025,7 @@ bool tst_teleportation( bool do_print, bool is_failed )
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1115,8 +1115,8 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
         return false;
     }
 
-    PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightBishop, steps_0, pse_0 );
+    CcPlySideEffect pse_0 = cc_ply_side_effect_none();
+    CcPly * plies_0 = cc_ply_new_ply_new( CC_PE_LightBishop, steps_0, pse_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -1130,7 +1130,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     CcStep * steps_1 = cc_step_new( CC_SLE_Start, 8, 14 );
     if ( !steps_1 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1138,16 +1138,16 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     if ( !cc_step_append_new( steps_1, CC_SLE_Destination, 5, 11 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
 
-    PlySideEffect pse_1 = ply_side_effect_none();
-    if ( !ply_append_ply_alx( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
+    CcPlySideEffect pse_1 = cc_ply_side_effect_none();
+    if ( !cc_ply_append_ply_new( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1155,17 +1155,17 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     //
     // ply |Wr8
 
-    PlySideEffect pse_2 = ply_side_effect_none();
-    Ply * ply_2;
+    CcPlySideEffect pse_2 = cc_ply_side_effect_none();
+    CcPly * ply_2;
 
     if ( is_oblationing )
-        ply_2 = ply_append_failed_teleport_oblation_alx( plies_0, CC_PE_LightWave, pse_2 );
+        ply_2 = cc_ply_append_failed_teleport_oblation_new( plies_0, CC_PE_LightWave, pse_2 );
     else
     {
         CcStep * steps_2 = cc_step_new( CC_SLE_Start, 19, 9 );
         if ( !steps_2 )
         {
-            ply_free_all_plies( &plies_0 );
+            cc_ply_free_all_plies( &plies_0 );
             free( cb );
             return false;
         }
@@ -1173,17 +1173,17 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
         if ( !cc_step_append_new( steps_2, CC_SLE_Destination, 17, 7 ) )
         {
             cc_step_free_all_steps( &steps_2 );
-            ply_free_all_plies( &plies_0 );
+            cc_ply_free_all_plies( &plies_0 );
             free( cb );
             return false;
         }
 
-        ply_2 = ply_append_teleport_wave_alx( plies_0, CC_PE_LightWave, steps_2, pse_2 );
+        ply_2 = cc_ply_append_teleport_wave_new( plies_0, CC_PE_LightWave, steps_2, pse_2 );
     }
 
     if ( !ply_2 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1196,7 +1196,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
         CcStep * steps_3 = cc_step_new( CC_SLE_Start, 17, 7 );
         if ( !steps_3 )
         {
-            ply_free_all_plies( &plies_0 );
+            cc_ply_free_all_plies( &plies_0 );
             free( cb );
             return false;
         }
@@ -1204,16 +1204,16 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
         if ( !cc_step_append_new( steps_3, CC_SLE_Destination, 15, 8 ) )
         {
             cc_step_free_all_steps( &steps_3 );
-            ply_free_all_plies( &plies_0 );
+            cc_ply_free_all_plies( &plies_0 );
             free( cb );
             return false;
         }
 
-        PlySideEffect pse_3 = ply_side_effect_none();
-        if ( !ply_append_ply_alx( plies_0, CC_PE_LightKnight, steps_3, pse_3 ) )
+        CcPlySideEffect pse_3 = cc_ply_side_effect_none();
+        if ( !cc_ply_append_ply_new( plies_0, CC_PE_LightKnight, steps_3, pse_3 ) )
         {
             cc_step_free_all_steps( &steps_3 );
-            ply_free_all_plies( &plies_0 );
+            cc_ply_free_all_plies( &plies_0 );
             free( cb );
             return false;
         }
@@ -1225,7 +1225,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1318,8 +1318,8 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
         return false;
     }
 
-    PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( shaman, steps_0, pse_0 );
+    CcPlySideEffect pse_0 = cc_ply_side_effect_none();
+    CcPly * plies_0 = cc_ply_new_ply_new( shaman, steps_0, pse_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -1333,7 +1333,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     CcStep * steps_1 = cc_step_new( CC_SLE_Start, 6, 9 );
     if ( !steps_1 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1341,16 +1341,16 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     if ( !cc_step_append_new( steps_1, CC_SLE_Destination, 7, 7 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
 
-    PlySideEffect pse_1 = ply_side_effect_none();
-    if ( !ply_append_ply_alx( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
+    CcPlySideEffect pse_1 = cc_ply_side_effect_none();
+    if ( !cc_ply_append_ply_new( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1363,7 +1363,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     CcSideEffectStep * steps_2 = cc_step_side_effect_step_new( CC_SLE_Start, 7, 7, sse_2_0 );
     if ( !steps_2 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1374,7 +1374,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     if ( !cc_step_append_side_effect_step_new( steps_2, CC_SLE_Distant, 7, 12, sse_2_1 ) )
     {
         cc_step_free_all_side_effect_steps( &steps_2 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1385,7 +1385,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     if ( !cc_step_append_side_effect_step_new( steps_2, CC_SLE_Distant, 5, 1, sse_2_2 ) )
     {
         cc_step_free_all_side_effect_steps( &steps_2 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1394,7 +1394,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     if ( !cc_step_append_side_effect_step_new( steps_2, CC_SLE_Distant, 15, 6, sse_2_3 ) )
     {
         cc_step_free_all_side_effect_steps( &steps_2 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1405,7 +1405,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     if ( !cc_step_append_side_effect_step_new( steps_2, CC_SLE_Distant, 9, 18, sse_2_4 ) )
     {
         cc_step_free_all_side_effect_steps( &steps_2 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1416,16 +1416,16 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     if ( !cc_step_append_side_effect_step_new( steps_2, CC_SLE_Destination, 21, 4, sse_2_5 ) )
     {
         cc_step_free_all_side_effect_steps( &steps_2 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
 
-    PlySideEffect pse_2 = ply_side_effect_none();
-    if ( !ply_append_trance_journey_alx( plies_0, shaman, 7, 7, steps_2, pse_2 ) )
+    CcPlySideEffect pse_2 = cc_ply_side_effect_none();
+    if ( !cc_ply_append_trance_journey_new( plies_0, shaman, 7, 7, steps_2, pse_2 ) )
     {
         cc_step_free_all_side_effect_steps( &steps_2 );
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
@@ -1437,7 +1437,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     Move * move_0 = mv_new_alx( plies_0, MS_None );
     if ( !move_0 )
     {
-        ply_free_all_plies( &plies_0 );
+        cc_ply_free_all_plies( &plies_0 );
         free( cb );
         return false;
     }
