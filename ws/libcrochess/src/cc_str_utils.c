@@ -7,10 +7,10 @@
 #include <ctype.h>
 #include <string.h>
 
-#include "str_utils.h"
+#include "cc_str_utils.h"
 
 
-bool str_to_case( char * const restrict str, bool is_lower_or_upper )
+bool cc_str_to_case( char * const restrict str, bool is_lower_or_upper )
 {
     if ( !str ) return false;
 
@@ -28,7 +28,7 @@ bool str_to_case( char * const restrict str, bool is_lower_or_upper )
     return true;
 }
 
-char * str_to_case_new( char const * const restrict str, bool is_lower_or_upper )
+char * cc_str_to_case_new( char const * const restrict str, bool is_lower_or_upper )
 {
     if ( !str ) return NULL;
 
