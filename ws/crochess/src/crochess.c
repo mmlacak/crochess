@@ -7,7 +7,7 @@
 #include <string.h>
 
 #include "cc_version.h"
-#include "tokenizer.h"
+#include "cc_tokenizer.h"
 #include "piece_type.h"
 #include "chessboard.h"
 
@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.87+20210604.023911"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.88+20210604.024802"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -47,7 +47,7 @@ int main( void )
             continue;
         }
 
-        char * cmd = next_token_new( buffer, TOKEN_SEPARATORS_WHITEPSACE );
+        char * cmd = cc_next_token_new( buffer, CC_TOKEN_SEPARATORS_WHITEPSACE );
         if ( !cmd ) continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
@@ -74,7 +74,7 @@ int main( void )
         else if ( ( !strcmp( "n", cmd ) ) || ( !strcmp( "new", cmd ) ) )
         {
             bool is_code = false;
-            char * code = next_token_new( NULL, NULL );
+            char * code = cc_next_token_new( NULL, NULL );
 
             if ( code )
             {
@@ -103,7 +103,7 @@ int main( void )
         }
         else if ( ( !strcmp( "h", cmd ) ) || ( !strcmp( "help", cmd ) ) || ( !strcmp( "?", cmd ) ) )
         {
-            char * res = next_token_new( NULL, NULL );
+            char * res = cc_next_token_new( NULL, NULL );
 
             if ( !res ) print_help();
             else if ( ( !strcmp( "q", res ) ) || ( !strcmp( "quit", res ) ) ) print_help_quit();

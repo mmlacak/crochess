@@ -6,14 +6,14 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "tokenizer.h"
+#include "cc_tokenizer.h"
 
 
-char const TOKEN_SEPARATORS_WHITEPSACE[] = " \t\v\f\r\n";
-char const TOKEN_SEPARATORS_PUNCTUATION[] = "!\"#$%%&'()*+,-./";
+char const CC_TOKEN_SEPARATORS_WHITEPSACE[] = " \t\v\f\r\n";
+char const CC_TOKEN_SEPARATORS_PUNCTUATION[] = "!\"#$%%&'()*+,-./";
 
 
-bool char_in( char c, char const * const restrict seps )
+bool cc_char_in( char c, char const * const restrict seps )
 {
     if ( !seps ) return false;
 
@@ -22,7 +22,7 @@ bool char_in( char c, char const * const restrict seps )
     return false;
 }
 
-char const * traverse_chars( char const * const restrict pos,
+char const * cc_traverse_chars( char const * const restrict pos,
                              char const * const restrict seps,
                              bool skip_or_stop_at )
 {
@@ -32,7 +32,7 @@ char const * traverse_chars( char const * const restrict pos,
     if ( *pos == '\0' ) return pos;
     char const * p = (char const *)pos;
 
-    while ( skip_or_stop_at == char_in( *p, seps ) )
+    while ( skip_or_stop_at == cc_char_in( *p, seps ) )
     {
         if ( *p == '\0' ) return p;
         ++p;
@@ -41,17 +41,17 @@ char const * traverse_chars( char const * const restrict pos,
     return p;
 }
 
-char const * skip_chars( char const * const restrict pos, char const * const restrict seps )
+char const * cc_skip_chars( char const * const restrict pos, char const * const restrict seps )
 {
-    return traverse_chars( pos, seps, true );
+    return cc_traverse_chars( pos, seps, true );
 }
 
-char const * stop_at_chars( char const * const restrict pos, char const * const restrict seps )
+char const * cc_stop_at_chars( char const * const restrict pos, char const * const restrict seps )
 {
-    return traverse_chars( pos, seps, false );
+    return cc_traverse_chars( pos, seps, false );
 }
 
-char * next_token_new( char const * const restrict str /* = NULL */,
+char * cc_next_token_new( char const * const restrict str /* = NULL */,
                        char const * const restrict seps /* = NULL */ )
 {
     static char const * start = NULL;
@@ -68,8 +68,8 @@ char * next_token_new( char const * const restrict str /* = NULL */,
 
     if ( seps ) sps = seps;
 
-    start = skip_chars( start, sps );
-    end = stop_at_chars( start, sps );
+    start = cc_skip_chars( start, sps );
+    end = cc_stop_at_chars( start, sps );
 
     if ( end == start ) return NULL;
 
@@ -83,7 +83,7 @@ char * next_token_new( char const * const restrict str /* = NULL */,
     return pos;
 }
 
-char * str_trim_new( char const * const restrict str, char const * const restrict chars )
+char * cc_str_trim_new( char const * const restrict str, char const * const restrict chars )
 {
     if ( !str ) return NULL;
     if ( !chars ) return NULL;
@@ -91,8 +91,8 @@ char * str_trim_new( char const * const restrict str, char const * const restric
     char const * start = str;
     char const * end = NULL;
 
-    start = skip_chars( start, chars );
-    end = stop_at_chars( start, chars );
+    start = cc_skip_chars( start, chars );
+    end = cc_stop_at_chars( start, chars );
 
     if ( end == start ) return NULL;
 
@@ -106,7 +106,7 @@ char * str_trim_new( char const * const restrict str, char const * const restric
     return pos;
 }
 
-// size_t flush_stdin()
+// size_t cc_flush_stdin()
 // {
 //     // All <stdio.h> getters block, can't flush.
 
