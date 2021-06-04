@@ -11,7 +11,7 @@
 #include "cc_piece.h"
 #include "cc_chessboard.h"
 
-#include "step.h"
+#include "cc_step.h"
 #include "ply.h"
 #include "move.h"
 #include "do_move.h"
@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.95+20210604.045657"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.96+20210604.185107"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )

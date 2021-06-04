@@ -8,7 +8,7 @@
 #include <stdbool.h>
 
 #include "cc_piece.h"
-#include "step.h"
+#include "cc_step.h"
 
 
 typedef enum PlyLink
@@ -90,13 +90,13 @@ typedef struct Ply
 
     union
     {
-        struct { Step * steps; } ply;
+        struct { CcStep * steps; } ply;
         struct { int i; int j; } teleport;
-        struct { Step * steps; } teleport_wave;
+        struct { CcStep * steps; } teleport_wave;
         struct { int i; int j; } failed_teleport;
-        struct { int i; int j; SideEffectStep * steps; } trance_journey;
+        struct { int i; int j; CcSideEffectStep * steps; } trance_journey;
         struct { PieceField * captured; } dual_trance_journey;
-        struct { SideEffectStep * steps; } pawn_sacrifice;
+        struct { CcSideEffectStep * steps; } pawn_sacrifice;
     };
 
     PlySideEffect side_effect;
@@ -104,37 +104,37 @@ typedef struct Ply
 } Ply;
 
 Ply * ply_new_alx(  PlyLink link, CcPieceEnum piece,
-                    Step * const restrict steps, int i, int j,
-                    SideEffectStep * const restrict side_effect_steps,
+                    CcStep * const restrict steps, int i, int j,
+                    CcSideEffectStep * const restrict side_effect_steps,
                     PieceField * const restrict captured,
                     PlySideEffect side_effect );
 Ply * ply_append_alx(   Ply * const restrict plies,
                         PlyLink link, CcPieceEnum piece,
-                        Step * const restrict steps, int i, int j,
-                        SideEffectStep * const restrict side_effect_steps,
+                        CcStep * const restrict steps, int i, int j,
+                        CcSideEffectStep * const restrict side_effect_steps,
                         PieceField * const restrict captured,
                         PlySideEffect side_effect );
 bool ply_free_all_plies( Ply ** const plies );
 
-Ply * ply_new_ply_alx( CcPieceEnum piece, Step * const restrict steps, PlySideEffect side_effect );
+Ply * ply_new_ply_alx( CcPieceEnum piece, CcStep * const restrict steps, PlySideEffect side_effect );
 Ply * ply_new_teleport_alx( CcPieceEnum piece, int i, int j, PlySideEffect side_effect );
-Ply * ply_new_teleport_wave_alx( CcPieceEnum piece, Step * const restrict steps, PlySideEffect side_effect );
+Ply * ply_new_teleport_wave_alx( CcPieceEnum piece, CcStep * const restrict steps, PlySideEffect side_effect );
 Ply * ply_new_failed_teleport_oblation_alx( CcPieceEnum piece, PlySideEffect side_effect );
 Ply * ply_new_failed_teleport_alx( CcPieceEnum piece, int i, int j, PlySideEffect side_effect );
-Ply * ply_new_trance_journey_alx( CcPieceEnum piece, int i, int j, SideEffectStep * const restrict steps, PlySideEffect side_effect );
+Ply * ply_new_trance_journey_alx( CcPieceEnum piece, int i, int j, CcSideEffectStep * const restrict steps, PlySideEffect side_effect );
 Ply * ply_new_dual_trance_journey_alx( PieceField * const restrict captured, PlySideEffect side_effect );
 Ply * ply_new_failed_trance_journey_alx( CcPieceEnum piece, PlySideEffect side_effect );
-Ply * ply_new_pawn_sacrifice_alx( CcPieceEnum piece, SideEffectStep * const restrict steps, PlySideEffect side_effect );
+Ply * ply_new_pawn_sacrifice_alx( CcPieceEnum piece, CcSideEffectStep * const restrict steps, PlySideEffect side_effect );
 
-Ply * ply_append_ply_alx( Ply * const restrict plies, CcPieceEnum piece, Step * const restrict steps, PlySideEffect side_effect );
+Ply * ply_append_ply_alx( Ply * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps, PlySideEffect side_effect );
 Ply * ply_append_teleport_alx( Ply * const restrict plies, CcPieceEnum piece, int i, int j, PlySideEffect side_effect );
-Ply * ply_append_teleport_wave_alx( Ply * const restrict plies, CcPieceEnum piece, Step * const restrict steps, PlySideEffect side_effect );
+Ply * ply_append_teleport_wave_alx( Ply * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps, PlySideEffect side_effect );
 Ply * ply_append_failed_teleport_oblation_alx( Ply * const restrict plies, CcPieceEnum piece, PlySideEffect side_effect );
 Ply * ply_append_failed_teleport_alx( Ply * const restrict plies, CcPieceEnum piece, int i, int j, PlySideEffect side_effect );
-Ply * ply_append_trance_journey_alx( Ply * const restrict plies, CcPieceEnum piece, int i, int j, SideEffectStep * const restrict steps, PlySideEffect side_effect );
+Ply * ply_append_trance_journey_alx( Ply * const restrict plies, CcPieceEnum piece, int i, int j, CcSideEffectStep * const restrict steps, PlySideEffect side_effect );
 Ply * ply_append_dual_trance_journey_alx( Ply * const restrict plies, PieceField * const restrict captured, PlySideEffect side_effect );
 Ply * ply_append_failed_trance_journey_alx( Ply * const restrict plies, CcPieceEnum piece, PlySideEffect side_effect );
-Ply * ply_append_pawn_sacrifice_alx( Ply * const restrict plies, CcPieceEnum piece, SideEffectStep * const restrict steps, PlySideEffect side_effect );
+Ply * ply_append_pawn_sacrifice_alx( Ply * const restrict plies, CcPieceEnum piece, CcSideEffectStep * const restrict steps, PlySideEffect side_effect );
 
 
 #endif /* __PLY_H__ */

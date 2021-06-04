@@ -5,7 +5,7 @@
 
 #include "cc_defines.h"
 #include "cc_piece.h"
-#include "step.h"
+#include "cc_step.h"
 #include "ply.h"
 
 #include "do_move.h"
@@ -51,23 +51,23 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
     {
         case PL_Ply :
         {
-            Step * s = ply->ply.steps;
+            CcStep * s = ply->ply.steps;
 
             while ( s )
             {
                 switch ( s->link )
                 {
-                    case SL_Start :
+                    case CC_SLE_Start :
                     {
                         if ( is_first_ply ) cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
-                    case SL_Next :
-                    case SL_Distant :
+                    case CC_SLE_Next :
+                    case CC_SLE_Distant :
                         break;
 
-                    case SL_Destination :
+                    case CC_SLE_Destination :
                     {
                         PlySideEffect const * const pse = &( ply->side_effect );
 
@@ -191,18 +191,18 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
 
         case PL_TeleportationWave :
         {
-            Step * s = ply->teleport_wave.steps;
+            CcStep * s = ply->teleport_wave.steps;
 
             while ( s )
             {
                 switch ( s->link )
                 {
-                    case SL_Start :
-                    case SL_Next :
-                    case SL_Distant :
+                    case CC_SLE_Start :
+                    case CC_SLE_Next :
+                    case CC_SLE_Distant :
                         break;
 
-                    case SL_Destination :
+                    case CC_SLE_Destination :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, pe );
                         break;
@@ -219,23 +219,23 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
 
         case PL_TranceJourney :
         {
-            SideEffectStep * s = ply->trance_journey.steps;
+            CcSideEffectStep * s = ply->trance_journey.steps;
 
             while ( s )
             {
-                StepSideEffect sse = s->side_effect;
+                CcStepSideEffect sse = s->side_effect;
 
                 switch ( sse.type )
                 {
-                    case SSET_None : break;
+                    case CC_SSEE_None : break;
 
-                    case SSET_Capture :
+                    case CC_SSEE_Capture :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
-                    case SSET_Displacement :
+                    case CC_SSEE_Displacement :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         cc_chessboard_set_piece( cb, sse.displacement.i, sse.displacement.j, sse.displacement.piece );
@@ -245,12 +245,12 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
 
                 switch ( s->link )
                 {
-                    case SL_Start : // In previous ply piece was activated, i.e. removed from board; so, nothing to do here.
-                    case SL_Next :
-                    case SL_Distant :
+                    case CC_SLE_Start : // In previous ply piece was activated, i.e. removed from board; so, nothing to do here.
+                    case CC_SLE_Next :
+                    case CC_SLE_Distant :
                         break;
 
-                    case SL_Destination :
+                    case CC_SLE_Destination :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, pe );
                         break;
@@ -280,38 +280,38 @@ bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move,
 
         case PL_PawnSacrifice :
         {
-            SideEffectStep * s = ply->pawn_sacrifice.steps;
+            CcSideEffectStep * s = ply->pawn_sacrifice.steps;
 
             while ( s )
             {
-                StepSideEffect sse = s->side_effect;
+                CcStepSideEffect sse = s->side_effect;
 
                 switch ( sse.type )
                 {
-                    case SSET_None : break;
+                    case CC_SSEE_None : break;
 
-                    case SSET_Capture :
+                    case CC_SSEE_Capture :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
-                    case SSET_Displacement : break; // Just to keep compilers happy; shouldn't be here.
+                    case CC_SSEE_Displacement : break; // Just to keep compilers happy; shouldn't be here.
                 }
 
                 switch ( s->link )
                 {
-                    case SL_Start :
+                    case CC_SLE_Start :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
-                    case SL_Next :
-                    case SL_Distant :
+                    case CC_SLE_Next :
+                    case CC_SLE_Distant :
                         break;
 
-                    case SL_Destination :
+                    case CC_SLE_Destination :
                     {
                         if ( !is_teleporting_next( ply, true ) )
                         {
