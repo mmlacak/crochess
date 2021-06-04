@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "piece_type.h"
+#include "cc_piece.h"
 #include "step.h"
 #include "ply.h"
 
@@ -45,7 +45,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
     bool is_first_ply = ( move->plies == ply );
 
-    PieceType pt = ply->piece;
+    CcPieceEnum pe = ply->piece;
 
     switch ( ply->link )
     {
@@ -59,7 +59,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                 {
                     case SL_Start :
                     {
-                        if ( is_first_ply ) cb_set_piece( cb, s->i, s->j, PT_None );
+                        if ( is_first_ply ) cb_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
@@ -77,7 +77,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                             {
                                 if ( !is_teleporting_next( ply, true ) )
                                 {
-                                    cb_set_piece( cb, s->i, s->j, pt );
+                                    cb_set_piece( cb, s->i, s->j, pe );
                                 }
 
                                 break;
@@ -85,32 +85,32 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                             case PSET_Capture :
                             {
-                                cb_set_piece( cb, s->i, s->j, pt );
+                                cb_set_piece( cb, s->i, s->j, pe );
                                 break;
                             }
 
                             case PSET_EnPassant :
                             {
-                                cb_set_piece( cb, s->i, s->j, pt );
+                                cb_set_piece( cb, s->i, s->j, pe );
 
                                 int i = pse->en_passant.dest_i;
                                 int j = pse->en_passant.dest_j;
-                                cb_set_piece( cb, i, j, PT_None );
+                                cb_set_piece( cb, i, j, CC_PE_None );
 
                                 break;
                             }
 
                             case PSET_Castle :
                             {
-                                cb_set_piece( cb, s->i, s->j, pt );
+                                cb_set_piece( cb, s->i, s->j, pe );
 
-                                PieceType rook = pse->castle.rook;
+                                CcPieceEnum rook = pse->castle.rook;
                                 int start_i = pse->castle.start_i;
                                 int start_j = pse->castle.start_j;
                                 int dest_i = pse->castle.dest_i;
                                 int dest_j = pse->castle.dest_j;
 
-                                cb_set_piece( cb, start_i, start_j, PT_None );
+                                cb_set_piece( cb, start_i, start_j, CC_PE_None );
                                 cb_set_piece( cb, dest_i, dest_j, rook );
 
                                 break;
@@ -118,7 +118,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                             case PSET_Promotion :
                             {
-                                PieceType new = pse->promote.piece;
+                                CcPieceEnum new = pse->promote.piece;
                                 cb_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
@@ -131,7 +131,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                             case PSET_Conversion :
                             {
-                                PieceType new = pse->convert.piece;
+                                CcPieceEnum new = pse->convert.piece;
                                 cb_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
@@ -140,31 +140,31 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                             case PSET_Demotion :
                             {
-                                cb_set_piece( cb, s->i, s->j, pt );
+                                cb_set_piece( cb, s->i, s->j, pe );
 
-                                PieceType pt = pse->demote.piece;
+                                CcPieceEnum pe = pse->demote.piece;
                                 int i = pse->demote.dest_i;
                                 int j = pse->demote.dest_j;
-                                cb_set_piece( cb, i, j, pt );
+                                cb_set_piece( cb, i, j, pe );
 
                                 break;
                             }
 
                             case PSET_Resurrection :
                             {
-                                cb_set_piece( cb, s->i, s->j, pt );
+                                cb_set_piece( cb, s->i, s->j, pe );
 
-                                PieceType pt = pse->resurrect.piece;
+                                CcPieceEnum pe = pse->resurrect.piece;
                                 int i = pse->resurrect.dest_i;
                                 int j = pse->resurrect.dest_j;
-                                cb_set_piece( cb, i, j, pt );
+                                cb_set_piece( cb, i, j, pe );
 
                                 break;
                             }
 
                             case PSET_FailedResurrection :
                             {
-                                cb_set_piece( cb, s->i, s->j, pt );
+                                cb_set_piece( cb, s->i, s->j, pe );
                                 break; // Resurrection blocked, or no captured pieces, nothing to do here.
                             }
                         }
@@ -185,7 +185,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
             int i = ply->teleport.i;
             int j = ply->teleport.j;
 
-            cb_set_piece( cb, i, j, pt );
+            cb_set_piece( cb, i, j, pe );
             break;
         }
 
@@ -204,7 +204,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        cb_set_piece( cb, s->i, s->j, pt );
+                        cb_set_piece( cb, s->i, s->j, pe );
                         break;
                     }
                 }
@@ -231,13 +231,13 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SSET_Capture :
                     {
-                        cb_set_piece( cb, s->i, s->j, PT_None );
+                        cb_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
                     case SSET_Displacement :
                     {
-                        cb_set_piece( cb, s->i, s->j, PT_None );
+                        cb_set_piece( cb, s->i, s->j, CC_PE_None );
                         cb_set_piece( cb, sse.displacement.i, sse.displacement.j, sse.displacement.piece );
                         break;
                     }
@@ -252,7 +252,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        cb_set_piece( cb, s->i, s->j, pt );
+                        cb_set_piece( cb, s->i, s->j, pe );
                         break;
                     }
                 }
@@ -269,7 +269,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
             while ( pf )
             {
-                cb_set_piece( cb, pf->i, pf->j, PT_None );
+                cb_set_piece( cb, pf->i, pf->j, CC_PE_None );
                 pf = pf->next;
             }
 
@@ -292,7 +292,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SSET_Capture :
                     {
-                        cb_set_piece( cb, s->i, s->j, PT_None );
+                        cb_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
@@ -303,7 +303,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                 {
                     case SL_Start :
                     {
-                        cb_set_piece( cb, s->i, s->j, PT_None );
+                        cb_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
@@ -315,7 +315,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                     {
                         if ( !is_teleporting_next( ply, true ) )
                         {
-                            cb_set_piece( cb, s->i, s->j, pt );
+                            cb_set_piece( cb, s->i, s->j, pe );
                         }
 
                         break;

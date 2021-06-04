@@ -1,8 +1,8 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
-#ifndef __TOKENIZER_H__
-#define __TOKENIZER_H__
+#ifndef __CC_TOKENIZER_H__
+#define __CC_TOKENIZER_H__
 
 #include <stddef.h>
 
@@ -27,4 +27,4 @@ char * cc_str_trim_new( char const * const restrict str, char const * const rest
 
 // size_t cc_flush_stdin();
 
-#endif /* __TOKENIZER_H__ */
+#endif /* __CC_TOKENIZER_H__ */

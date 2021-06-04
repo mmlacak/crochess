@@ -8,7 +8,7 @@
 
 #include "cc_version.h"
 #include "cc_tokenizer.h"
-#include "piece_type.h"
+#include "cc_piece.h"
 #include "chessboard.h"
 
 #include "step.h"
@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.88+20210604.024802"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.89+20210604.031844"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -124,7 +124,7 @@ int main( void )
         {
             printf( "X: '%d'.\n", is_field_light(5, 2) );
             cb_clear( cb );
-            cb_set_piece( cb, 5, 2, PT_LightBishop );
+            cb_set_piece( cb, 5, 2, CC_PE_LightBishop );
             cb_print( cb, true );
         }
         else if ( !strcmp( "y", cmd ) )

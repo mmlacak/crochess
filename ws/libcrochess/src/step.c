@@ -52,7 +52,7 @@ bool step_free_all_steps( Step ** const steps )
 }
 
 
-StepSideEffect step_side_effect( StepSideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j )
+StepSideEffect step_side_effect( StepSideEffectType type, CcPieceEnum piece, bool is_promo_tag_lost, int i, int j )
 {
     StepSideEffect sse = { .type = type, };
 
@@ -75,15 +75,15 @@ StepSideEffect step_side_effect( StepSideEffectType type, PieceType piece, bool 
 
 StepSideEffect step_side_effect_none()
 {
-    return step_side_effect( SSET_None, PT_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return step_side_effect( SSET_None, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
-StepSideEffect step_side_effect_capture( PieceType piece, bool is_promo_tag_lost )
+StepSideEffect step_side_effect_capture( CcPieceEnum piece, bool is_promo_tag_lost )
 {
     return step_side_effect( SSET_Capture, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
 }
 
-StepSideEffect step_side_effect_displacement( PieceType piece, bool is_promo_tag_lost, int i, int j )
+StepSideEffect step_side_effect_displacement( CcPieceEnum piece, bool is_promo_tag_lost, int i, int j )
 {
     return step_side_effect( SSET_Displacement, piece, is_promo_tag_lost, i, j );
 }

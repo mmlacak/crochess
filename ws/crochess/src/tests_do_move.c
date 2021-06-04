@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "piece_type.h"
+#include "cc_piece.h"
 #include "board_type.h"
 #include "chessboard.h"
 
@@ -22,8 +22,8 @@ bool tst_single_ply( bool do_print )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 5, 2, PT_LightPegasus );
-    cb_set_piece( cb, 10, 12, PT_DarkPawn );
+    cb_set_piece( cb, 5, 2, CC_PE_LightPegasus );
+    cb_set_piece( cb, 10, 12, CC_PE_DarkPawn );
     if ( do_print ) cb_print( cb, true );
 
     //
@@ -31,8 +31,8 @@ bool tst_single_ply( bool do_print )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 5, 2 ) == PT_LightPegasus );
-    result = result && ( cb_get_piece( cb, 10, 12 ) == PT_DarkPawn );
+    result = result && ( cb_get_piece( cb, 5, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cb_get_piece( cb, 10, 12 ) == CC_PE_DarkPawn );
 
     if ( !result )
     {
@@ -74,8 +74,8 @@ bool tst_single_ply( bool do_print )
     //
     // ply
 
-    PlySideEffect pse = ply_side_effect_capture( PT_DarkPawn, true );
-    Ply * ply = ply_new_ply_alx( PT_LightPegasus, start, pse );
+    PlySideEffect pse = ply_side_effect_capture( CC_PE_DarkPawn, true );
+    Ply * ply = ply_new_ply_alx( CC_PE_LightPegasus, start, pse );
     if ( !ply )
     {
         step_free_all_steps( &start );
@@ -100,8 +100,8 @@ bool tst_single_ply( bool do_print )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 5, 2 ) == PT_None );
-    result = result && ( cb_get_piece( cb, 10, 12 ) == PT_LightPegasus );
+    result = result && ( cb_get_piece( cb, 5, 2 ) == CC_PE_None );
+    result = result && ( cb_get_piece( cb, 10, 12 ) == CC_PE_LightPegasus );
 
     //
     // free, return
@@ -119,10 +119,10 @@ bool tst_cascading_plies( bool do_print )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 1, 5, PT_LightPegasus );
-    cb_set_piece( cb, 7, 2, PT_LightWave );
-    cb_set_piece_tag( cb, 9, 1, PT_LightPawn, TT_CanRush );
-    cb_set_piece( cb, 10, 3, PT_DarkPawn );
+    cb_set_piece( cb, 1, 5, CC_PE_LightPegasus );
+    cb_set_piece( cb, 7, 2, CC_PE_LightWave );
+    cb_set_piece_tag( cb, 9, 1, CC_PE_LightPawn, TT_CanRush );
+    cb_set_piece( cb, 10, 3, CC_PE_DarkPawn );
     if ( do_print ) cb_print( cb, true );
 
     //
@@ -130,11 +130,11 @@ bool tst_cascading_plies( bool do_print )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 1, 5 ) == PT_LightPegasus );
-    result = result && ( cb_get_piece( cb, 7, 2 ) == PT_LightWave );
-    result = result && ( cb_get_piece( cb, 9, 1 ) == PT_LightPawn );
+    result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_LightPegasus );
+    result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightWave );
+    result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightPawn );
     result = result && ( cb_get_tag( cb, 9, 1 ) == TT_CanRush );
-    result = result && ( cb_get_piece( cb, 10, 3 ) == PT_DarkPawn );
+    result = result && ( cb_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
 
     if ( !result )
     {
@@ -160,7 +160,7 @@ bool tst_cascading_plies( bool do_print )
     }
 
     PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( PT_LightPegasus, steps_0, pse_0 );
+    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightPegasus, steps_0, pse_0 );
     if ( !plies_0 )
     {
         step_free_all_steps( &steps_0 );
@@ -188,7 +188,7 @@ bool tst_cascading_plies( bool do_print )
     }
 
     PlySideEffect pse_1 = ply_side_effect_none();
-    if ( !ply_append_ply_alx( plies_0, PT_LightWave, steps_1, pse_1 ) )
+    if ( !ply_append_ply_alx( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
     {
         step_free_all_steps( &steps_1 );
         ply_free_all_plies( &plies_0 );
@@ -216,7 +216,7 @@ bool tst_cascading_plies( bool do_print )
     }
 
     PlySideEffect pse_2 = ply_side_effect_none();
-    if ( !ply_append_ply_alx( plies_0, PT_LightPawn, steps_2, pse_2 ) )
+    if ( !ply_append_ply_alx( plies_0, CC_PE_LightPawn, steps_2, pse_2 ) )
     {
         step_free_all_steps( &steps_2 );
         ply_free_all_plies( &plies_0 );
@@ -241,13 +241,13 @@ bool tst_cascading_plies( bool do_print )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 1, 5 ) == PT_None );
-    result = result && ( cb_get_piece( cb, 7, 2 ) == PT_LightPegasus );
-    result = result && ( cb_get_piece( cb, 9, 1 ) == PT_LightWave );
+    result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
+    result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
     result = result && ( cb_get_tag( cb, 9, 1 ) == TT_None );
-    result = result && ( cb_get_piece( cb, 9, 4 ) == PT_LightPawn );
+    result = result && ( cb_get_piece( cb, 9, 4 ) == CC_PE_LightPawn );
     result = result && ( cb_get_tag( cb, 9, 4 ) == TT_None );
-    result = result && ( cb_get_piece( cb, 10, 3 ) == PT_DarkPawn );
+    result = result && ( cb_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
 
     if ( !result )
     {
@@ -277,7 +277,7 @@ bool tst_cascading_plies( bool do_print )
     }
 
     PlySideEffect pse_3 = ply_side_effect_en_passant( 9, 4 );
-    Ply * plies_3 = ply_new_ply_alx( PT_DarkPawn, steps_3, pse_3 );
+    Ply * plies_3 = ply_new_ply_alx( CC_PE_DarkPawn, steps_3, pse_3 );
     if ( !plies_3 )
     {
         step_free_all_steps( &steps_3 );
@@ -301,11 +301,11 @@ bool tst_cascading_plies( bool do_print )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 1, 5 ) == PT_None );
-    result = result && ( cb_get_piece( cb, 7, 2 ) == PT_LightPegasus );
-    result = result && ( cb_get_piece( cb, 9, 1 ) == PT_LightWave );
+    result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
+    result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
     result = result && ( cb_get_tag( cb, 9, 1 ) == TT_None );
-    result = result && ( cb_get_piece( cb, 9, 2 ) == PT_DarkPawn );
+    result = result && ( cb_get_piece( cb, 9, 2 ) == CC_PE_DarkPawn );
     result = result && ( cb_get_tag( cb, 9, 4 ) == TT_None );
 
     //
@@ -325,9 +325,9 @@ bool tst_castling( bool do_print )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece_tag( cb, 1, 0, PT_LightRook, TT_CanCastle );
-    cb_set_piece_tag( cb, 13, 0, PT_LightKing, TT_CanCastle );
-    cb_set_piece_tag( cb, 24, 0, PT_LightRook, TT_CanCastle );
+    cb_set_piece_tag( cb, 1, 0, CC_PE_LightRook, TT_CanCastle );
+    cb_set_piece_tag( cb, 13, 0, CC_PE_LightKing, TT_CanCastle );
+    cb_set_piece_tag( cb, 24, 0, CC_PE_LightRook, TT_CanCastle );
 
     if ( do_print )
     {
@@ -340,9 +340,9 @@ bool tst_castling( bool do_print )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 1, 0 ) == PT_LightRook );
-    result = result && ( cb_get_piece( cb, 13, 0 ) == PT_LightKing );
-    result = result && ( cb_get_piece( cb, 24, 0 ) == PT_LightRook );
+    result = result && ( cb_get_piece( cb, 1, 0 ) == CC_PE_LightRook );
+    result = result && ( cb_get_piece( cb, 13, 0 ) == CC_PE_LightKing );
+    result = result && ( cb_get_piece( cb, 24, 0 ) == CC_PE_LightRook );
 
     result = result && ( cb_get_tag( cb, 1, 0 ) == TT_CanCastle );
     result = result && ( cb_get_tag( cb, 13, 0 ) == TT_CanCastle );
@@ -371,8 +371,8 @@ bool tst_castling( bool do_print )
         return false;
     }
 
-    PlySideEffect pse = ply_side_effect_castle( PT_LightRook, 24, 0, 19, 0 );
-    Ply * ply = ply_new_ply_alx( PT_LightKing, steps_0, pse );
+    PlySideEffect pse = ply_side_effect_castle( CC_PE_LightRook, 24, 0, 19, 0 );
+    Ply * ply = ply_new_ply_alx( CC_PE_LightKing, steps_0, pse );
     if ( !ply )
     {
         step_free_all_steps( &steps_0 );
@@ -399,9 +399,9 @@ bool tst_castling( bool do_print )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 1, 0 ) == PT_LightRook );
-    result = result && ( cb_get_piece( cb, 19, 0 ) == PT_LightRook );
-    result = result && ( cb_get_piece( cb, 20, 0 ) == PT_LightKing );
+    result = result && ( cb_get_piece( cb, 1, 0 ) == CC_PE_LightRook );
+    result = result && ( cb_get_piece( cb, 19, 0 ) == CC_PE_LightRook );
+    result = result && ( cb_get_piece( cb, 20, 0 ) == CC_PE_LightKing );
 
     result = result && ( cb_get_tag( cb, 1, 0 ) == TT_CanCastle );
     result = result && ( cb_get_tag( cb, 19, 0 ) == TT_None );
@@ -423,9 +423,9 @@ bool tst_tag_and_promotion( bool do_print )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 11, 21, PT_LightPawn );
-    cb_set_piece( cb, 15, 21, PT_LightPyramid );
-    cb_set_piece( cb, 21, 15, PT_LightBishop );
+    cb_set_piece( cb, 11, 21, CC_PE_LightPawn );
+    cb_set_piece( cb, 15, 21, CC_PE_LightPyramid );
+    cb_set_piece( cb, 21, 15, CC_PE_LightBishop );
 
     if ( do_print )
     {
@@ -438,9 +438,9 @@ bool tst_tag_and_promotion( bool do_print )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 11, 21 ) == PT_LightPawn );
-    result = result && ( cb_get_piece( cb, 15, 21 ) == PT_LightPyramid );
-    result = result && ( cb_get_piece( cb, 21, 15 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
+    result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightPyramid );
+    result = result && ( cb_get_piece( cb, 21, 15 ) == CC_PE_LightBishop );
 
     result = result && ( cb_get_tag( cb, 11, 21 ) == TT_None );
     result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
@@ -470,7 +470,7 @@ bool tst_tag_and_promotion( bool do_print )
     }
 
     PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( PT_LightBishop, steps_0, pse_0 );
+    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightBishop, steps_0, pse_0 );
     if ( !plies_0 )
     {
         step_free_all_steps( &steps_0 );
@@ -498,7 +498,7 @@ bool tst_tag_and_promotion( bool do_print )
     }
 
     PlySideEffect pse_1 = ply_side_effect_tag_for_promotion();
-    if ( !ply_append_ply_alx( plies_0, PT_LightPyramid, steps_1, pse_1 ) )
+    if ( !ply_append_ply_alx( plies_0, CC_PE_LightPyramid, steps_1, pse_1 ) )
     {
         step_free_all_steps( &steps_1 );
         ply_free_all_plies( &plies_0 );
@@ -528,8 +528,8 @@ bool tst_tag_and_promotion( bool do_print )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 11, 21 ) == PT_LightPawn );
-    result = result && ( cb_get_piece( cb, 15, 21 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
+    result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
 
     result = result && ( cb_get_tag( cb, 11, 21 ) == TT_DelayedPromotion );
     result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
@@ -561,8 +561,8 @@ bool tst_tag_and_promotion( bool do_print )
         return false;
     }
 
-    PlySideEffect pse_2 = ply_side_effect_promote( PT_LightQueen );
-    Ply * plies_2 = ply_new_ply_alx( PT_LightPawn, steps_2, pse_2 );
+    PlySideEffect pse_2 = ply_side_effect_promote( CC_PE_LightQueen );
+    Ply * plies_2 = ply_new_ply_alx( CC_PE_LightPawn, steps_2, pse_2 );
     if ( !plies_2 )
     {
         step_free_all_steps( &steps_2 );
@@ -594,8 +594,8 @@ bool tst_tag_and_promotion( bool do_print )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 11, 21 ) == PT_LightQueen );
-    result = result && ( cb_get_piece( cb, 15, 21 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 11, 21 ) == CC_PE_LightQueen );
+    result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
 
     result = result && ( cb_get_tag( cb, 11, 21 ) == TT_None );
     result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
@@ -619,12 +619,12 @@ bool tst_conversion( bool do_print, bool is_failed )
     if ( !cb ) return false;
 
     if ( is_failed )
-        cb_set_piece( cb, 11, 5, PT_DarkStarchild );
+        cb_set_piece( cb, 11, 5, CC_PE_DarkStarchild );
     else
-        cb_set_piece( cb, 11, 5, PT_DarkShaman );
+        cb_set_piece( cb, 11, 5, CC_PE_DarkShaman );
 
-    cb_set_piece( cb, 15, 5, PT_LightPyramid );
-    cb_set_piece( cb, 21, 11, PT_LightBishop );
+    cb_set_piece( cb, 15, 5, CC_PE_LightPyramid );
+    cb_set_piece( cb, 21, 11, CC_PE_LightBishop );
 
     if ( do_print ) cb_print( cb, true );
 
@@ -634,12 +634,12 @@ bool tst_conversion( bool do_print, bool is_failed )
     bool result = true;
 
     if ( is_failed )
-        result = result && ( cb_get_piece( cb, 11, 5 ) == PT_DarkStarchild );
+        result = result && ( cb_get_piece( cb, 11, 5 ) == CC_PE_DarkStarchild );
     else
-        result = result && ( cb_get_piece( cb, 11, 5 ) == PT_DarkShaman );
+        result = result && ( cb_get_piece( cb, 11, 5 ) == CC_PE_DarkShaman );
 
-    result = result && ( cb_get_piece( cb, 15, 5 ) == PT_LightPyramid );
-    result = result && ( cb_get_piece( cb, 21, 11 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 15, 5 ) == CC_PE_LightPyramid );
+    result = result && ( cb_get_piece( cb, 21, 11 ) == CC_PE_LightBishop );
 
     if ( !result )
     {
@@ -665,7 +665,7 @@ bool tst_conversion( bool do_print, bool is_failed )
     }
 
     PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( PT_LightBishop, steps_0, pse_0 );
+    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightBishop, steps_0, pse_0 );
     if ( !plies_0 )
     {
         step_free_all_steps( &steps_0 );
@@ -696,9 +696,9 @@ bool tst_conversion( bool do_print, bool is_failed )
     if ( is_failed )
         pse_1 = ply_side_effect_failed_conversion();
     else
-        pse_1 = ply_side_effect_convert( PT_LightShaman, false );
+        pse_1 = ply_side_effect_convert( CC_PE_LightShaman, false );
 
-    if ( !ply_append_ply_alx( plies_0, PT_LightPyramid, steps_1, pse_1 ) )
+    if ( !ply_append_ply_alx( plies_0, CC_PE_LightPyramid, steps_1, pse_1 ) )
     {
         step_free_all_steps( &steps_1 );
         ply_free_all_plies( &plies_0 );
@@ -725,11 +725,11 @@ bool tst_conversion( bool do_print, bool is_failed )
     // tests
 
     if ( is_failed )
-        result = result && ( cb_get_piece( cb, 11, 5 ) == PT_DarkStarchild );
+        result = result && ( cb_get_piece( cb, 11, 5 ) == CC_PE_DarkStarchild );
     else
-        result = result && ( cb_get_piece( cb, 11, 5 ) == PT_LightShaman );
+        result = result && ( cb_get_piece( cb, 11, 5 ) == CC_PE_LightShaman );
 
-    result = result && ( cb_get_piece( cb, 15, 5 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 15, 5 ) == CC_PE_LightBishop );
 
     //
     // free, return
@@ -747,10 +747,10 @@ bool tst_demotion( bool do_print )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 0, 0, PT_BrightStar );
-    cb_set_piece( cb, 25, 25, PT_BrightStar );
-    cb_set_piece( cb, 11, 11, PT_LightBishop );
-    cb_set_piece( cb, 23, 15, PT_Monolith );
+    cb_set_piece( cb, 0, 0, CC_PE_BrightStar );
+    cb_set_piece( cb, 25, 25, CC_PE_BrightStar );
+    cb_set_piece( cb, 11, 11, CC_PE_LightBishop );
+    cb_set_piece( cb, 23, 15, CC_PE_Monolith );
 
     if ( do_print ) cb_print( cb, true );
 
@@ -759,10 +759,10 @@ bool tst_demotion( bool do_print )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 0, 0 ) == PT_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
-    result = result && ( cb_get_piece( cb, 11, 11 ) == PT_LightBishop );
-    result = result && ( cb_get_piece( cb, 23, 15 ) == PT_Monolith );
+    result = result && ( cb_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cb_get_piece( cb, 11, 11 ) == CC_PE_LightBishop );
+    result = result && ( cb_get_piece( cb, 23, 15 ) == CC_PE_Monolith );
 
     if ( !result )
     {
@@ -787,8 +787,8 @@ bool tst_demotion( bool do_print )
         return false;
     }
 
-    PlySideEffect pse_0 = ply_side_effect_demote( PT_LightPawn, 11, 11 );
-    Ply * plies_0 = ply_new_ply_alx( PT_Monolith, steps_0, pse_0 );
+    PlySideEffect pse_0 = ply_side_effect_demote( CC_PE_LightPawn, 11, 11 );
+    Ply * plies_0 = ply_new_ply_alx( CC_PE_Monolith, steps_0, pse_0 );
     if ( !plies_0 )
     {
         step_free_all_steps( &steps_0 );
@@ -814,10 +814,10 @@ bool tst_demotion( bool do_print )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 0, 0 ) == PT_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
-    result = result && ( cb_get_piece( cb, 11, 11 ) == PT_LightPawn );
-    result = result && ( cb_get_piece( cb, 22, 22 ) == PT_Monolith );
+    result = result && ( cb_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cb_get_piece( cb, 11, 11 ) == CC_PE_LightPawn );
+    result = result && ( cb_get_piece( cb, 22, 22 ) == CC_PE_Monolith );
 
     //
     // free, return
@@ -835,9 +835,9 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 25, 0, PT_DimStar );
-    cb_set_piece( cb, 0, 25, PT_DimStar );
-    cb_set_piece( cb, 23, 15, PT_LightStarchild );
+    cb_set_piece( cb, 25, 0, CC_PE_DimStar );
+    cb_set_piece( cb, 0, 25, CC_PE_DimStar );
+    cb_set_piece( cb, 23, 15, CC_PE_LightStarchild );
 
     if ( do_print ) cb_print( cb, true );
 
@@ -846,9 +846,9 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 25, 0 ) == PT_DimStar );
-    result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
-    result = result && ( cb_get_piece( cb, 23, 15 ) == PT_LightStarchild );
+    result = result && ( cb_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+    result = result && ( cb_get_piece( cb, 23, 15 ) == CC_PE_LightStarchild );
 
     if ( !result )
     {
@@ -879,12 +879,12 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
     else
     {
         if ( is_oblationing )
-            pse_0 = ply_side_effect_resurrect( PT_LightBishop, 15, 10 );
+            pse_0 = ply_side_effect_resurrect( CC_PE_LightBishop, 15, 10 );
         else
-            pse_0 = ply_side_effect_resurrect( PT_LightWave, 16, 11 );
+            pse_0 = ply_side_effect_resurrect( CC_PE_LightWave, 16, 11 );
     }
 
-    Ply * plies_0 = ply_new_ply_alx( PT_LightStarchild, steps_0, pse_0 );
+    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightStarchild, steps_0, pse_0 );
     if ( !plies_0 )
     {
         step_free_all_steps( &steps_0 );
@@ -910,25 +910,25 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 25, 0 ) == PT_DimStar );
-    result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
+    result = result && ( cb_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
 
     if ( is_failed )
     {
-        result = result && ( cb_get_piece( cb, 15, 10 ) == PT_LightStarchild );
-        result = result && ( cb_get_piece( cb, 16, 11 ) == PT_None );
+        result = result && ( cb_get_piece( cb, 15, 10 ) == CC_PE_LightStarchild );
+        result = result && ( cb_get_piece( cb, 16, 11 ) == CC_PE_None );
     }
     else
     {
         if ( is_oblationing )
         {
-            result = result && ( cb_get_piece( cb, 15, 10 ) == PT_LightBishop );
-            result = result && ( cb_get_piece( cb, 16, 11 ) == PT_None );
+            result = result && ( cb_get_piece( cb, 15, 10 ) == CC_PE_LightBishop );
+            result = result && ( cb_get_piece( cb, 16, 11 ) == CC_PE_None );
         }
         else
         {
-            result = result && ( cb_get_piece( cb, 15, 10 ) == PT_LightStarchild );
-            result = result && ( cb_get_piece( cb, 16, 11 ) == PT_LightWave );
+            result = result && ( cb_get_piece( cb, 15, 10 ) == CC_PE_LightStarchild );
+            result = result && ( cb_get_piece( cb, 16, 11 ) == CC_PE_LightWave );
         }
     }
 
@@ -948,12 +948,12 @@ bool tst_teleportation( bool do_print, bool is_failed )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 0, 0, PT_BrightStar );
-    cb_set_piece( cb, 25, 25, PT_BrightStar );
-    cb_set_piece( cb, 25, 0, PT_DimStar );
-    cb_set_piece( cb, 0, 25, PT_DimStar );
+    cb_set_piece( cb, 0, 0, CC_PE_BrightStar );
+    cb_set_piece( cb, 25, 25, CC_PE_BrightStar );
+    cb_set_piece( cb, 25, 0, CC_PE_DimStar );
+    cb_set_piece( cb, 0, 25, CC_PE_DimStar );
 
-    cb_set_piece( cb, 3, 22, PT_LightBishop );
+    cb_set_piece( cb, 3, 22, CC_PE_LightBishop );
 
     if ( do_print ) cb_print( cb, true );
 
@@ -962,12 +962,12 @@ bool tst_teleportation( bool do_print, bool is_failed )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 0, 0 ) == PT_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 0 ) == PT_DimStar );
-    result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
 
-    result = result && ( cb_get_piece( cb, 3, 22 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 3, 22 ) == CC_PE_LightBishop );
 
     if ( !result )
     {
@@ -993,7 +993,7 @@ bool tst_teleportation( bool do_print, bool is_failed )
     }
 
     PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( PT_LightBishop, steps_0, pse_0 );
+    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightBishop, steps_0, pse_0 );
     if ( !plies_0 )
     {
         step_free_all_steps( &steps_0 );
@@ -1008,9 +1008,9 @@ bool tst_teleportation( bool do_print, bool is_failed )
 
     Ply * ply_1;
     if ( is_failed )
-        ply_1 = ply_append_failed_teleport_alx( plies_0, PT_LightBishop, 0, 24, pse_1 );
+        ply_1 = ply_append_failed_teleport_alx( plies_0, CC_PE_LightBishop, 0, 24, pse_1 );
     else
-        ply_1 = ply_append_teleport_alx( plies_0, PT_LightBishop, 24, 24, pse_1 );
+        ply_1 = ply_append_teleport_alx( plies_0, CC_PE_LightBishop, 24, 24, pse_1 );
 
     if ( !ply_1 )
     {
@@ -1037,22 +1037,22 @@ bool tst_teleportation( bool do_print, bool is_failed )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 0, 0 ) == PT_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 25 ) == PT_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 0 ) == PT_DimStar );
-    result = result && ( cb_get_piece( cb, 0, 25 ) == PT_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cb_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cb_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
 
-    result = result && ( cb_get_piece( cb, 3, 22 ) == PT_None );
+    result = result && ( cb_get_piece( cb, 3, 22 ) == CC_PE_None );
 
     if ( is_failed )
     {
-        result = result && ( cb_get_piece( cb, 0, 24 ) == PT_LightBishop );
-        result = result && ( cb_get_piece( cb, 24, 24 ) == PT_None );
+        result = result && ( cb_get_piece( cb, 0, 24 ) == CC_PE_LightBishop );
+        result = result && ( cb_get_piece( cb, 24, 24 ) == CC_PE_None );
     }
     else
     {
-        result = result && ( cb_get_piece( cb, 0, 24 ) == PT_None );
-        result = result && ( cb_get_piece( cb, 24, 24 ) == PT_LightBishop );
+        result = result && ( cb_get_piece( cb, 0, 24 ) == CC_PE_None );
+        result = result && ( cb_get_piece( cb, 24, 24 ) == CC_PE_LightBishop );
     }
 
     //
@@ -1071,12 +1071,12 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 5, 11, PT_Monolith );
-    cb_set_piece( cb, 19, 9, PT_Monolith );
+    cb_set_piece( cb, 5, 11, CC_PE_Monolith );
+    cb_set_piece( cb, 19, 9, CC_PE_Monolith );
 
-    cb_set_piece( cb, 10, 12, PT_LightBishop );
-    cb_set_piece( cb, 8, 14, PT_LightWave );
-    cb_set_piece( cb, 17, 7, PT_LightKnight );
+    cb_set_piece( cb, 10, 12, CC_PE_LightBishop );
+    cb_set_piece( cb, 8, 14, CC_PE_LightWave );
+    cb_set_piece( cb, 17, 7, CC_PE_LightKnight );
 
     if ( do_print ) cb_print( cb, true );
 
@@ -1085,12 +1085,12 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 5, 11 ) == PT_Monolith );
-    result = result && ( cb_get_piece( cb, 19, 9 ) == PT_Monolith );
+    result = result && ( cb_get_piece( cb, 5, 11 ) == CC_PE_Monolith );
+    result = result && ( cb_get_piece( cb, 19, 9 ) == CC_PE_Monolith );
 
-    result = result && ( cb_get_piece( cb, 10, 12 ) == PT_LightBishop );
-    result = result && ( cb_get_piece( cb, 8, 14 ) == PT_LightWave );
-    result = result && ( cb_get_piece( cb, 17, 7 ) == PT_LightKnight );
+    result = result && ( cb_get_piece( cb, 10, 12 ) == CC_PE_LightBishop );
+    result = result && ( cb_get_piece( cb, 8, 14 ) == CC_PE_LightWave );
+    result = result && ( cb_get_piece( cb, 17, 7 ) == CC_PE_LightKnight );
 
     if ( !result )
     {
@@ -1116,7 +1116,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     }
 
     PlySideEffect pse_0 = ply_side_effect_none();
-    Ply * plies_0 = ply_new_ply_alx( PT_LightBishop, steps_0, pse_0 );
+    Ply * plies_0 = ply_new_ply_alx( CC_PE_LightBishop, steps_0, pse_0 );
     if ( !plies_0 )
     {
         step_free_all_steps( &steps_0 );
@@ -1144,7 +1144,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     }
 
     PlySideEffect pse_1 = ply_side_effect_none();
-    if ( !ply_append_ply_alx( plies_0, PT_LightWave, steps_1, pse_1 ) )
+    if ( !ply_append_ply_alx( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
     {
         step_free_all_steps( &steps_1 );
         ply_free_all_plies( &plies_0 );
@@ -1159,7 +1159,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     Ply * ply_2;
 
     if ( is_oblationing )
-        ply_2 = ply_append_failed_teleport_oblation_alx( plies_0, PT_LightWave, pse_2 );
+        ply_2 = ply_append_failed_teleport_oblation_alx( plies_0, CC_PE_LightWave, pse_2 );
     else
     {
         Step * steps_2 = step_new_alx( SL_Start, 19, 9 );
@@ -1178,7 +1178,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
             return false;
         }
 
-        ply_2 = ply_append_teleport_wave_alx( plies_0, PT_LightWave, steps_2, pse_2 );
+        ply_2 = ply_append_teleport_wave_alx( plies_0, CC_PE_LightWave, steps_2, pse_2 );
     }
 
     if ( !ply_2 )
@@ -1210,7 +1210,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
         }
 
         PlySideEffect pse_3 = ply_side_effect_none();
-        if ( !ply_append_ply_alx( plies_0, PT_LightKnight, steps_3, pse_3 ) )
+        if ( !ply_append_ply_alx( plies_0, CC_PE_LightKnight, steps_3, pse_3 ) )
         {
             step_free_all_steps( &steps_3 );
             ply_free_all_plies( &plies_0 );
@@ -1237,20 +1237,20 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 5, 11 ) == PT_Monolith );
-    result = result && ( cb_get_piece( cb, 19, 9 ) == PT_Monolith );
+    result = result && ( cb_get_piece( cb, 5, 11 ) == CC_PE_Monolith );
+    result = result && ( cb_get_piece( cb, 19, 9 ) == CC_PE_Monolith );
 
-    result = result && ( cb_get_piece( cb, 10, 12 ) == PT_None );
-    result = result && ( cb_get_piece( cb, 8, 14 ) == PT_LightBishop );
+    result = result && ( cb_get_piece( cb, 10, 12 ) == CC_PE_None );
+    result = result && ( cb_get_piece( cb, 8, 14 ) == CC_PE_LightBishop );
 
     if ( is_oblationing )
     {
-        result = result && ( cb_get_piece( cb, 17, 7 ) == PT_LightKnight );
+        result = result && ( cb_get_piece( cb, 17, 7 ) == CC_PE_LightKnight );
     }
     else
     {
-        result = result && ( cb_get_piece( cb, 17, 7 ) == PT_LightWave );
-        result = result && ( cb_get_piece( cb, 15, 8 ) == PT_LightKnight );
+        result = result && ( cb_get_piece( cb, 17, 7 ) == CC_PE_LightWave );
+        result = result && ( cb_get_piece( cb, 15, 8 ) == CC_PE_LightKnight );
     }
 
     //
@@ -1264,7 +1264,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
 
 bool tst_trance_journey( bool do_print, bool is_capturing )
 {
-    PieceType shaman = is_capturing ? PT_DarkShaman : PT_LightShaman;
+    CcPieceEnum shaman = is_capturing ? CC_PE_DarkShaman : CC_PE_LightShaman;
 
     // chessboard
 
@@ -1272,12 +1272,12 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     if ( !cb ) return false;
 
     cb_set_piece( cb, 4, 8, shaman ); // entrancing
-    cb_set_piece( cb, 6, 9, PT_LightWave );
+    cb_set_piece( cb, 6, 9, CC_PE_LightWave );
     cb_set_piece( cb, 7, 7, shaman ); // entranced
 
-    cb_set_piece( cb, 7, 12, PT_LightBishop ); // 2
-    cb_set_piece( cb, 5, 1, PT_DarkKnight ); // 4
-    cb_set_piece_tag( cb, 21, 4, PT_DarkPawn, TT_DelayedPromotion ); // 9
+    cb_set_piece( cb, 7, 12, CC_PE_LightBishop ); // 2
+    cb_set_piece( cb, 5, 1, CC_PE_DarkKnight ); // 4
+    cb_set_piece_tag( cb, 21, 4, CC_PE_DarkPawn, TT_DelayedPromotion ); // 9
 
     if ( do_print ) cb_print( cb, true );
 
@@ -1287,12 +1287,12 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     bool result = true;
 
     result = result && ( cb_get_piece( cb, 4, 8 ) == shaman );
-    result = result && ( cb_get_piece( cb, 6, 9 ) == PT_LightWave );
+    result = result && ( cb_get_piece( cb, 6, 9 ) == CC_PE_LightWave );
     result = result && ( cb_get_piece( cb, 7, 7 ) == shaman );
 
-    result = result && ( cb_get_piece( cb, 7, 12 ) == PT_LightBishop );
-    result = result && ( cb_get_piece( cb, 5, 1 ) == PT_DarkKnight );
-    result = result && ( cb_get_piece( cb, 21, 4 ) == PT_DarkPawn );
+    result = result && ( cb_get_piece( cb, 7, 12 ) == CC_PE_LightBishop );
+    result = result && ( cb_get_piece( cb, 5, 1 ) == CC_PE_DarkKnight );
+    result = result && ( cb_get_piece( cb, 21, 4 ) == CC_PE_DarkPawn );
     result = result && ( cb_get_tag( cb, 21, 4 ) == TT_DelayedPromotion );
 
     if ( !result )
@@ -1347,7 +1347,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     }
 
     PlySideEffect pse_1 = ply_side_effect_none();
-    if ( !ply_append_ply_alx( plies_0, PT_LightWave, steps_1, pse_1 ) )
+    if ( !ply_append_ply_alx( plies_0, CC_PE_LightWave, steps_1, pse_1 ) )
     {
         step_free_all_steps( &steps_1 );
         ply_free_all_plies( &plies_0 );
@@ -1369,8 +1369,8 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     }
 
     StepSideEffect sse_2_1 = is_capturing ?
-                             step_side_effect_capture( PT_LightBishop, false ) :
-                             step_side_effect_displacement( PT_LightBishop, false, 9, 18 );
+                             step_side_effect_capture( CC_PE_LightBishop, false ) :
+                             step_side_effect_displacement( CC_PE_LightBishop, false, 9, 18 );
     if ( !step_append_side_effect_alx( steps_2, SL_Distant, 7, 12, sse_2_1 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1380,8 +1380,8 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     }
 
     StepSideEffect sse_2_2 = is_capturing ?
-                             step_side_effect_capture( PT_DarkKnight, false ) :
-                             step_side_effect_displacement( PT_DarkKnight, false, 1, 5 );
+                             step_side_effect_capture( CC_PE_DarkKnight, false ) :
+                             step_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
     if ( !step_append_side_effect_alx( steps_2, SL_Distant, 5, 1, sse_2_2 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1401,7 +1401,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
 
     StepSideEffect sse_2_4 = is_capturing ?
                              step_side_effect_none() :
-                             step_side_effect_displacement( PT_LightBishop, false, 11, 24 );
+                             step_side_effect_displacement( CC_PE_LightBishop, false, 11, 24 );
     if ( !step_append_side_effect_alx( steps_2, SL_Distant, 9, 18, sse_2_4 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1411,8 +1411,8 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     }
 
     StepSideEffect sse_2_5 = is_capturing ?
-                             step_side_effect_capture( PT_DarkPawn, true ) :
-                             step_side_effect_displacement( PT_DarkPawn, true, 15, 6 );
+                             step_side_effect_capture( CC_PE_DarkPawn, true ) :
+                             step_side_effect_displacement( CC_PE_DarkPawn, true, 15, 6 );
     if ( !step_append_side_effect_alx( steps_2, SL_Destination, 21, 4, sse_2_5 ) )
     {
         step_free_all_side_effect_steps( &steps_2 );
@@ -1449,28 +1449,28 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 4, 8 ) == PT_None );
+    result = result && ( cb_get_piece( cb, 4, 8 ) == CC_PE_None );
     result = result && ( cb_get_piece( cb, 6, 9 ) == shaman );
-    result = result && ( cb_get_piece( cb, 7, 7 ) == PT_LightWave );
+    result = result && ( cb_get_piece( cb, 7, 7 ) == CC_PE_LightWave );
     result = result && ( cb_get_piece( cb, 21, 4 ) == shaman );
     result = result && ( cb_get_tag( cb, 21, 4 ) == TT_None );
 
-    result = result && ( cb_get_piece( cb, 7, 12 ) == PT_None );
-    result = result && ( cb_get_piece( cb, 5, 1 ) == PT_None );
-    result = result && ( cb_get_piece( cb, 9, 18 ) == PT_None );
+    result = result && ( cb_get_piece( cb, 7, 12 ) == CC_PE_None );
+    result = result && ( cb_get_piece( cb, 5, 1 ) == CC_PE_None );
+    result = result && ( cb_get_piece( cb, 9, 18 ) == CC_PE_None );
 
     if ( is_capturing )
     {
-        result = result && ( cb_get_piece( cb, 11, 24 ) == PT_None );
-        result = result && ( cb_get_piece( cb, 1, 5 ) == PT_None );
-        result = result && ( cb_get_piece( cb, 15, 6 ) == PT_None );
+        result = result && ( cb_get_piece( cb, 11, 24 ) == CC_PE_None );
+        result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
+        result = result && ( cb_get_piece( cb, 15, 6 ) == CC_PE_None );
         result = result && ( cb_get_tag( cb, 15, 6 ) == TT_None );
     }
     else
     {
-        result = result && ( cb_get_piece( cb, 11, 24 ) == PT_LightBishop );
-        result = result && ( cb_get_piece( cb, 1, 5 ) == PT_DarkKnight );
-        result = result && ( cb_get_piece( cb, 15, 6 ) == PT_DarkPawn );
+        result = result && ( cb_get_piece( cb, 11, 24 ) == CC_PE_LightBishop );
+        result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_DarkKnight );
+        result = result && ( cb_get_piece( cb, 15, 6 ) == CC_PE_DarkPawn );
         result = result && ( cb_get_tag( cb, 15, 6 ) == TT_None );
     }
 

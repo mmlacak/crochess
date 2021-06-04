@@ -7,7 +7,7 @@
 
 #include <stdbool.h>
 
-#include "piece_type.h"
+#include "cc_piece.h"
 
 
 typedef enum StepLink
@@ -44,16 +44,16 @@ typedef struct StepSideEffect
 
     union
     {
-        struct { PieceType piece; bool is_promo_tag_lost; } capture;
-        struct { PieceType piece; bool is_promo_tag_lost; int i; int j; } displacement;
+        struct { CcPieceEnum piece; bool is_promo_tag_lost; } capture;
+        struct { CcPieceEnum piece; bool is_promo_tag_lost; int i; int j; } displacement;
     };
 } StepSideEffect;
 
-StepSideEffect step_side_effect( StepSideEffectType type, PieceType piece, bool is_promo_tag_lost, int i, int j );
+StepSideEffect step_side_effect( StepSideEffectType type, CcPieceEnum piece, bool is_promo_tag_lost, int i, int j );
 
 StepSideEffect step_side_effect_none();
-StepSideEffect step_side_effect_capture( PieceType piece, bool is_promo_tag_lost );
-StepSideEffect step_side_effect_displacement( PieceType piece, bool is_promo_tag_lost, int i, int j );
+StepSideEffect step_side_effect_capture( CcPieceEnum piece, bool is_promo_tag_lost );
+StepSideEffect step_side_effect_displacement( CcPieceEnum piece, bool is_promo_tag_lost, int i, int j );
 
 
 typedef struct SideEffectStep

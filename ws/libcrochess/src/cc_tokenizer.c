@@ -23,8 +23,8 @@ bool cc_char_in( char c, char const * const restrict seps )
 }
 
 char const * cc_traverse_chars( char const * const restrict pos,
-                             char const * const restrict seps,
-                             bool skip_or_stop_at )
+                                char const * const restrict seps,
+                                bool skip_or_stop_at )
 {
     if ( !pos ) return NULL;
     if ( !seps ) return pos;
@@ -52,7 +52,7 @@ char const * cc_stop_at_chars( char const * const restrict pos, char const * con
 }
 
 char * cc_next_token_new( char const * const restrict str /* = NULL */,
-                       char const * const restrict seps /* = NULL */ )
+                          char const * const restrict seps /* = NULL */ )
 {
     static char const * start = NULL;
     static char const * end = NULL;

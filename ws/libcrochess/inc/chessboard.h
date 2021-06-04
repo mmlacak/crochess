@@ -4,7 +4,7 @@
 #ifndef __CHESS_BOARD_H__
 #define __CHESS_BOARD_H__
 
-#include "piece_type.h"
+#include "cc_piece.h"
 #include "tag_type.h"
 #include "board_type.h"
 
@@ -14,7 +14,7 @@ typedef struct Chessboard
     BoardType type;
     unsigned int size;
 
-    PieceType board[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
+    CcPieceEnum board[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
     TagType tags[ BOARD_SIZE_MAXIMUM ][ BOARD_SIZE_MAXIMUM ];
 } Chessboard;
 
@@ -27,10 +27,10 @@ bool cb_clear( Chessboard * const restrict cb );
 bool cb_setup( Chessboard * const restrict cb );
 
 bool cb_is_on_board( Chessboard const * const restrict cb, int i, int j );
-PieceType cb_get_piece( Chessboard const * const restrict cb, int i, int j );
+CcPieceEnum cb_get_piece( Chessboard const * const restrict cb, int i, int j );
 TagType cb_get_tag( Chessboard const * const restrict cb, int i, int j );
-bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType ct );
-bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt );
+bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe, TagType ct );
+bool cb_set_piece( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe );
 bool cb_set_tag( Chessboard * const restrict cb, int i, int j, TagType tt );
 
 // static char * cb_get_divider_alx( Chessboard const * const restrict cb );

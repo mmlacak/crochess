@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "piece_type.h"
+#include "cc_piece.h"
 #include "tag_type.h"
 #include "board_type.h"
 #include "setup_board.h"
@@ -49,7 +49,7 @@ bool cb_clear( Chessboard * const restrict cb )
     {
         for ( int j = 0; j < BOARD_SIZE_MAXIMUM; ++j )
         {
-            cb->board[ i ][ j ] = PT_None;
+            cb->board[ i ][ j ] = CC_PE_None;
             cb->tags[ i ][ j ] = TT_None;
         }
     }
@@ -63,7 +63,7 @@ bool cb_setup( Chessboard * const restrict cb )
 
     if ( !cb_clear( cb ) ) return false;
 
-    PieceType const * const su = get_board_setup( cb->type );
+    CcPieceEnum const * const su = get_board_setup( cb->type );
     if ( !su ) return false;
 
     TagType const * const tu = get_tags_setup( cb->type );
@@ -91,14 +91,14 @@ bool cb_is_on_board( Chessboard const * const restrict cb, int i, int j )
     return ( ( 0 <= i ) && ( i < (int)cb->size ) && ( 0 <= j ) && ( j < (int)cb->size ) );
 }
 
-PieceType cb_get_piece( Chessboard const * const restrict cb, int i, int j )
+CcPieceEnum cb_get_piece( Chessboard const * const restrict cb, int i, int j )
 {
     if ( cb_is_on_board( cb, i, j ) )
     {
         return cb->board[ i ][ j ];
     }
 
-    return PT_None;
+    return CC_PE_None;
 }
 
 TagType cb_get_tag( Chessboard const * const restrict cb, int i, int j )
@@ -111,22 +111,22 @@ TagType cb_get_tag( Chessboard const * const restrict cb, int i, int j )
     return TT_None;
 }
 
-bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, PieceType pt, TagType tt )
+bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe, TagType tt )
 {
     if ( !cb ) return false;
 
     if ( cb_is_on_board( cb, i, j ) )
     {
-        cb->board[ i ][ j ] = pt;
+        cb->board[ i ][ j ] = pe;
         cb->tags[ i ][ j ] = tt;
     }
 
     return true;
 }
 
-bool cb_set_piece( Chessboard * const restrict cb, int i, int j, PieceType pt )
+bool cb_set_piece( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe )
 {
-    return cb_set_piece_tag( cb, i, j, pt, TT_None );
+    return cb_set_piece_tag( cb, i, j, pe, TT_None );
 }
 
 bool cb_set_tag( Chessboard * const restrict cb, int i, int j, TagType tt )
@@ -250,7 +250,7 @@ char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_
             int y = cb->size - i - 1;
 
             if ( is_board_or_chips )
-                ch = pt_as_char( cb->board[ x ][ y ] );
+                ch = cc_piece_as_char( cb->board[ x ][ y ] );
             else
                 ch = tt_as_char( cb->tags[ x ][ y ] );
 
