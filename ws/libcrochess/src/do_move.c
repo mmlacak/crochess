@@ -34,7 +34,7 @@ bool is_teleporting_next( Ply const * const restrict ply, bool including_wave )
 }
 
 
-bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply )
+bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply )
 {
     if ( !cb ) return false;
 
@@ -59,7 +59,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                 {
                     case SL_Start :
                     {
-                        if ( is_first_ply ) cb_set_piece( cb, s->i, s->j, CC_PE_None );
+                        if ( is_first_ply ) cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
@@ -77,7 +77,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                             {
                                 if ( !is_teleporting_next( ply, true ) )
                                 {
-                                    cb_set_piece( cb, s->i, s->j, pe );
+                                    cc_chessboard_set_piece( cb, s->i, s->j, pe );
                                 }
 
                                 break;
@@ -85,24 +85,24 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                             case PSET_Capture :
                             {
-                                cb_set_piece( cb, s->i, s->j, pe );
+                                cc_chessboard_set_piece( cb, s->i, s->j, pe );
                                 break;
                             }
 
                             case PSET_EnPassant :
                             {
-                                cb_set_piece( cb, s->i, s->j, pe );
+                                cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
                                 int i = pse->en_passant.dest_i;
                                 int j = pse->en_passant.dest_j;
-                                cb_set_piece( cb, i, j, CC_PE_None );
+                                cc_chessboard_set_piece( cb, i, j, CC_PE_None );
 
                                 break;
                             }
 
                             case PSET_Castle :
                             {
-                                cb_set_piece( cb, s->i, s->j, pe );
+                                cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
                                 CcPieceEnum rook = pse->castle.rook;
                                 int start_i = pse->castle.start_i;
@@ -110,8 +110,8 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                                 int dest_i = pse->castle.dest_i;
                                 int dest_j = pse->castle.dest_j;
 
-                                cb_set_piece( cb, start_i, start_j, CC_PE_None );
-                                cb_set_piece( cb, dest_i, dest_j, rook );
+                                cc_chessboard_set_piece( cb, start_i, start_j, CC_PE_None );
+                                cc_chessboard_set_piece( cb, dest_i, dest_j, rook );
 
                                 break;
                             }
@@ -119,20 +119,20 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                             case PSET_Promotion :
                             {
                                 CcPieceEnum new = pse->promote.piece;
-                                cb_set_piece( cb, s->i, s->j, new );
+                                cc_chessboard_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
 
                             case PSET_TagForPromotion :
                             {
-                                cb_set_tag( cb, s->i, s->j, CC_TE_DelayedPromotion );
+                                cc_chessboard_set_tag( cb, s->i, s->j, CC_TE_DelayedPromotion );
                                 break;
                             }
 
                             case PSET_Conversion :
                             {
                                 CcPieceEnum new = pse->convert.piece;
-                                cb_set_piece( cb, s->i, s->j, new );
+                                cc_chessboard_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
 
@@ -140,31 +140,31 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                             case PSET_Demotion :
                             {
-                                cb_set_piece( cb, s->i, s->j, pe );
+                                cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
                                 CcPieceEnum pe = pse->demote.piece;
                                 int i = pse->demote.dest_i;
                                 int j = pse->demote.dest_j;
-                                cb_set_piece( cb, i, j, pe );
+                                cc_chessboard_set_piece( cb, i, j, pe );
 
                                 break;
                             }
 
                             case PSET_Resurrection :
                             {
-                                cb_set_piece( cb, s->i, s->j, pe );
+                                cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
                                 CcPieceEnum pe = pse->resurrect.piece;
                                 int i = pse->resurrect.dest_i;
                                 int j = pse->resurrect.dest_j;
-                                cb_set_piece( cb, i, j, pe );
+                                cc_chessboard_set_piece( cb, i, j, pe );
 
                                 break;
                             }
 
                             case PSET_FailedResurrection :
                             {
-                                cb_set_piece( cb, s->i, s->j, pe );
+                                cc_chessboard_set_piece( cb, s->i, s->j, pe );
                                 break; // Resurrection blocked, or no captured pieces, nothing to do here.
                             }
                         }
@@ -185,7 +185,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
             int i = ply->teleport.i;
             int j = ply->teleport.j;
 
-            cb_set_piece( cb, i, j, pe );
+            cc_chessboard_set_piece( cb, i, j, pe );
             break;
         }
 
@@ -204,7 +204,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        cb_set_piece( cb, s->i, s->j, pe );
+                        cc_chessboard_set_piece( cb, s->i, s->j, pe );
                         break;
                     }
                 }
@@ -231,14 +231,14 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SSET_Capture :
                     {
-                        cb_set_piece( cb, s->i, s->j, CC_PE_None );
+                        cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
                     case SSET_Displacement :
                     {
-                        cb_set_piece( cb, s->i, s->j, CC_PE_None );
-                        cb_set_piece( cb, sse.displacement.i, sse.displacement.j, sse.displacement.piece );
+                        cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
+                        cc_chessboard_set_piece( cb, sse.displacement.i, sse.displacement.j, sse.displacement.piece );
                         break;
                     }
                 }
@@ -252,7 +252,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SL_Destination :
                     {
-                        cb_set_piece( cb, s->i, s->j, pe );
+                        cc_chessboard_set_piece( cb, s->i, s->j, pe );
                         break;
                     }
                 }
@@ -269,7 +269,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
             while ( pf )
             {
-                cb_set_piece( cb, pf->i, pf->j, CC_PE_None );
+                cc_chessboard_set_piece( cb, pf->i, pf->j, CC_PE_None );
                 pf = pf->next;
             }
 
@@ -292,7 +292,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                     case SSET_Capture :
                     {
-                        cb_set_piece( cb, s->i, s->j, CC_PE_None );
+                        cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
@@ -303,7 +303,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                 {
                     case SL_Start :
                     {
-                        cb_set_piece( cb, s->i, s->j, CC_PE_None );
+                        cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
@@ -315,7 +315,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
                     {
                         if ( !is_teleporting_next( ply, true ) )
                         {
-                            cb_set_piece( cb, s->i, s->j, pe );
+                            cc_chessboard_set_piece( cb, s->i, s->j, pe );
                         }
 
                         break;
@@ -332,7 +332,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
     return true;
 }
 
-bool do_move( Chessboard * const restrict cb, Move const * const restrict move )
+bool do_move( CcChessboard * const restrict cb, Move const * const restrict move )
 {
     if ( !cb ) return false;
 

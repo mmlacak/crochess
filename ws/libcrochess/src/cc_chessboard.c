@@ -11,37 +11,37 @@
 #include "cc_variant.h"
 #include "cc_setup_board.h"
 #include "cc_setup_tags.h"
-#include "chessboard.h"
+#include "cc_chessboard.h"
 
 
-bool is_field_light( int i, int j )
+bool cc_is_field_light( int i, int j )
 {
     return ( (i + j) % 2 != 0 );
 }
 
 
-Chessboard * cb_new_alx( CcVariantEnum const be, bool do_setup )
+CcChessboard * cc_chessboard_new( CcVariantEnum const be, bool do_setup )
 {
-    Chessboard * b = malloc( sizeof( Chessboard ) );
+    CcChessboard * b = malloc( sizeof( CcChessboard ) );
     if ( !b ) return NULL;
 
-    cb_init( b, be, do_setup );
+    cc_chessboard_init( b, be, do_setup );
 
     return b;
 }
 
-bool cb_init( Chessboard * const restrict cb, CcVariantEnum const be, bool do_setup )
+bool cc_chessboard_init( CcChessboard * const restrict cb, CcVariantEnum const be, bool do_setup )
 {
     if ( !cb ) return false;
 
     cb->type = be;
     cb->size = cc_variant_board_size( cb->type );
 
-    if ( do_setup ) return cb_setup( cb );
-    else return cb_clear( cb );
+    if ( do_setup ) return cc_chessboard_setup( cb );
+    else return cc_chessboard_clear( cb );
 }
 
-bool cb_clear( Chessboard * const restrict cb )
+bool cc_chessboard_clear( CcChessboard * const restrict cb )
 {
     if ( !cb ) return false;
 
@@ -57,11 +57,11 @@ bool cb_clear( Chessboard * const restrict cb )
     return true;
 }
 
-bool cb_setup( Chessboard * const restrict cb )
+bool cc_chessboard_setup( CcChessboard * const restrict cb )
 {
     if ( !cb ) return false;
 
-    if ( !cb_clear( cb ) ) return false;
+    if ( !cc_chessboard_clear( cb ) ) return false;
 
     CcPieceEnum const * const su = cc_board_setup_get( cb->type );
     if ( !su ) return false;
@@ -85,15 +85,15 @@ bool cb_setup( Chessboard * const restrict cb )
     return true;
 }
 
-bool cb_is_on_board( Chessboard const * const restrict cb, int i, int j )
+bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb, int i, int j )
 {
     if ( !cb ) return false;
     return ( ( 0 <= i ) && ( i < (int)cb->size ) && ( 0 <= j ) && ( j < (int)cb->size ) );
 }
 
-CcPieceEnum cb_get_piece( Chessboard const * const restrict cb, int i, int j )
+CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb, int i, int j )
 {
-    if ( cb_is_on_board( cb, i, j ) )
+    if ( cc_chessboard_is_on_board( cb, i, j ) )
     {
         return cb->board[ i ][ j ];
     }
@@ -101,9 +101,9 @@ CcPieceEnum cb_get_piece( Chessboard const * const restrict cb, int i, int j )
     return CC_PE_None;
 }
 
-CcTagEnum cb_get_tag( Chessboard const * const restrict cb, int i, int j )
+CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb, int i, int j )
 {
-    if ( cb_is_on_board( cb, i, j ) )
+    if ( cc_chessboard_is_on_board( cb, i, j ) )
     {
         return cb->tags[ i ][ j ];
     }
@@ -111,11 +111,11 @@ CcTagEnum cb_get_tag( Chessboard const * const restrict cb, int i, int j )
     return CC_TE_None;
 }
 
-bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe, CcTagEnum tt )
+bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb, int i, int j, CcPieceEnum pe, CcTagEnum tt )
 {
     if ( !cb ) return false;
 
-    if ( cb_is_on_board( cb, i, j ) )
+    if ( cc_chessboard_is_on_board( cb, i, j ) )
     {
         cb->board[ i ][ j ] = pe;
         cb->tags[ i ][ j ] = tt;
@@ -124,16 +124,16 @@ bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, CcPieceEnum
     return true;
 }
 
-bool cb_set_piece( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe )
+bool cc_chessboard_set_piece( CcChessboard * const restrict cb, int i, int j, CcPieceEnum pe )
 {
-    return cb_set_piece_tag( cb, i, j, pe, CC_TE_None );
+    return cc_chessboard_set_piece_tag( cb, i, j, pe, CC_TE_None );
 }
 
-bool cb_set_tag( Chessboard * const restrict cb, int i, int j, CcTagEnum tt )
+bool cc_chessboard_set_tag( CcChessboard * const restrict cb, int i, int j, CcTagEnum tt )
 {
     if ( !cb ) return false;
 
-    if ( cb_is_on_board( cb, i, j ) )
+    if ( cc_chessboard_is_on_board( cb, i, j ) )
     {
         cb->tags[ i ][ j ] = tt;
     }
@@ -141,7 +141,7 @@ bool cb_set_tag( Chessboard * const restrict cb, int i, int j, CcTagEnum tt )
     return true;
 }
 
-static char * cb_get_divider_alx( Chessboard const * const restrict cb )
+static char * cc_chessboard_get_divider_new( CcChessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -162,7 +162,7 @@ static char * cb_get_divider_alx( Chessboard const * const restrict cb )
     return divider;
 }
 
-static char * cb_get_horizontal_ruler_alx( Chessboard const * const restrict cb )
+static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -192,14 +192,14 @@ static char * cb_get_horizontal_ruler_alx( Chessboard const * const restrict cb 
     return hr;
 }
 
-char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_chips )
+char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool is_board_or_chips )
 {
     if ( !cb ) return NULL;
 
     char * s = calloc( 1, 2048 );
     if ( !s ) return NULL;
 
-    char * horizontal_ruler = cb_get_horizontal_ruler_alx( cb );
+    char * horizontal_ruler = cc_chessboard_get_horizontal_ruler_new( cb );
     if ( !horizontal_ruler )
     {
         free( s );
@@ -208,7 +208,7 @@ char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_
 
     strcat( s, horizontal_ruler );
 
-    char * divider = cb_get_divider_alx( cb );
+    char * divider = cc_chessboard_get_divider_new( cb );
     if ( !divider )
     {
         free( s );
@@ -256,7 +256,7 @@ char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_
 
             if ( ch == ' ' )
             {
-                if ( is_field_light( x, y ) ) ch = '.';
+                if ( cc_is_field_light( x, y ) ) ch = '.';
                 else ch = ',';
             }
 
@@ -283,11 +283,11 @@ char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_
     return s;
 }
 
-bool cb_print( Chessboard const * const restrict cb, bool is_board_or_chips )
+bool cc_chessboard_print( CcChessboard const * const restrict cb, bool is_board_or_chips )
 {
     if ( !cb ) return false;
 
-    char * s = cb_as_string_alx( cb, is_board_or_chips );
+    char * s = cc_chessboard_as_string_new( cb, is_board_or_chips );
 
     if ( !s ) return false;
 

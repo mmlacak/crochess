@@ -9,7 +9,7 @@
 #include "cc_version.h"
 #include "cc_tokenizer.h"
 #include "cc_piece.h"
-#include "chessboard.h"
+#include "cc_chessboard.h"
 
 #include "step.h"
 #include "ply.h"
@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.93+20210604.043333"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.94+20210604.045015"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -31,7 +31,7 @@ int main( void )
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, true );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, true );
 
     while ( true )
     {
@@ -65,11 +65,11 @@ int main( void )
         }
         else if ( ( !strcmp( "d", cmd ) ) || ( !strcmp( "display", cmd ) ) )
         {
-            cb_print( cb, true );
+            cc_chessboard_print( cb, true );
         }
         else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "tags", cmd ) ) )
         {
-            cb_print( cb, false );
+            cc_chessboard_print( cb, false );
         }
         else if ( ( !strcmp( "n", cmd ) ) || ( !strcmp( "new", cmd ) ) )
         {
@@ -85,7 +85,7 @@ int main( void )
                     CcVariantEnum be = cc_variant_from_symbol( code );
 
                     free( cb );
-                    cb = cb_new_alx( be, true );
+                    cb = cc_chessboard_new( be, true );
                 }
                 else
                 {
@@ -97,8 +97,8 @@ int main( void )
 
             if ( ( !code ) || ( code && is_code ) )
             {
-                cb_setup( cb );
-                cb_print( cb, true );
+                cc_chessboard_setup( cb );
+                cc_chessboard_print( cb, true );
             }
         }
         else if ( ( !strcmp( "h", cmd ) ) || ( !strcmp( "help", cmd ) ) || ( !strcmp( "?", cmd ) ) )
@@ -122,10 +122,10 @@ int main( void )
         }
         else if ( !strcmp( "x", cmd ) )
         {
-            printf( "X: '%d'.\n", is_field_light(5, 2) );
-            cb_clear( cb );
-            cb_set_piece( cb, 5, 2, CC_PE_LightBishop );
-            cb_print( cb, true );
+            printf( "X: '%d'.\n", cc_is_field_light(5, 2) );
+            cc_chessboard_clear( cb );
+            cc_chessboard_set_piece( cb, 5, 2, CC_PE_LightBishop );
+            cc_chessboard_print( cb, true );
         }
         else if ( !strcmp( "y", cmd ) )
         {

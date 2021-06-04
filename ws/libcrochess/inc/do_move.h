@@ -4,16 +4,16 @@
 #ifndef __DO_MOVE_H__
 #define __DO_MOVE_H__
 
-#include "chessboard.h"
+#include "cc_chessboard.h"
 #include "move.h"
 
 
 PlyLink * next_ply_link( Ply const * const restrict ply );
 bool is_teleporting_next( Ply const * const restrict ply, bool including_wave );
 
-bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply );
+bool do_ply( CcChessboard * const restrict cb, Move const * const restrict move, Ply const * const restrict ply );
 
-bool do_move( Chessboard * const restrict cb, Move const * const restrict move );
+bool do_move( CcChessboard * const restrict cb, Move const * const restrict move );
 
 
 #endif /* __DO_MOVE_H__ */

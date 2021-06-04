@@ -5,7 +5,7 @@
 
 #include "cc_piece.h"
 #include "cc_variant.h"
-#include "chessboard.h"
+#include "cc_chessboard.h"
 
 #include "step.h"
 #include "ply.h"
@@ -19,20 +19,20 @@ bool tst_single_ply( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 5, 2, CC_PE_LightPegasus );
-    cb_set_piece( cb, 10, 12, CC_PE_DarkPawn );
-    if ( do_print ) cb_print( cb, true );
+    cc_chessboard_set_piece( cb, 5, 2, CC_PE_LightPegasus );
+    cc_chessboard_set_piece( cb, 10, 12, CC_PE_DarkPawn );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 5, 2 ) == CC_PE_LightPegasus );
-    result = result && ( cb_get_piece( cb, 10, 12 ) == CC_PE_DarkPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 5, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 12 ) == CC_PE_DarkPawn );
 
     if ( !result )
     {
@@ -95,13 +95,13 @@ bool tst_single_ply( bool do_print )
     }
 
     do_move( cb, move );
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 5, 2 ) == CC_PE_None );
-    result = result && ( cb_get_piece( cb, 10, 12 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 5, 2 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 12 ) == CC_PE_LightPegasus );
 
     //
     // free, return
@@ -116,25 +116,25 @@ bool tst_cascading_plies( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 1, 5, CC_PE_LightPegasus );
-    cb_set_piece( cb, 7, 2, CC_PE_LightWave );
-    cb_set_piece_tag( cb, 9, 1, CC_PE_LightPawn, CC_TE_CanRush );
-    cb_set_piece( cb, 10, 3, CC_PE_DarkPawn );
-    if ( do_print ) cb_print( cb, true );
+    cc_chessboard_set_piece( cb, 1, 5, CC_PE_LightPegasus );
+    cc_chessboard_set_piece( cb, 7, 2, CC_PE_LightWave );
+    cc_chessboard_set_piece_tag( cb, 9, 1, CC_PE_LightPawn, CC_TE_CanRush );
+    cc_chessboard_set_piece( cb, 10, 3, CC_PE_DarkPawn );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_LightPegasus );
-    result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightWave );
-    result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightPawn );
-    result = result && ( cb_get_tag( cb, 9, 1 ) == CC_TE_CanRush );
-    result = result && ( cb_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 2 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 1 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 1 ) == CC_TE_CanRush );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
 
     if ( !result )
     {
@@ -236,18 +236,18 @@ bool tst_cascading_plies( bool do_print )
     }
 
     do_move( cb, move_0 );
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
-    result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
-    result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
-    result = result && ( cb_get_tag( cb, 9, 1 ) == CC_TE_None );
-    result = result && ( cb_get_piece( cb, 9, 4 ) == CC_PE_LightPawn );
-    result = result && ( cb_get_tag( cb, 9, 4 ) == CC_TE_None );
-    result = result && ( cb_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 1 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 4 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 4 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
 
     if ( !result )
     {
@@ -296,17 +296,17 @@ bool tst_cascading_plies( bool do_print )
     }
 
     do_move( cb, move_1 );
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
-    result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
-    result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
-    result = result && ( cb_get_tag( cb, 9, 1 ) == CC_TE_None );
-    result = result && ( cb_get_piece( cb, 9, 2 ) == CC_PE_DarkPawn );
-    result = result && ( cb_get_tag( cb, 9, 4 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 1 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 2 ) == CC_PE_DarkPawn );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 4 ) == CC_TE_None );
 
     //
     // free, return
@@ -322,17 +322,17 @@ bool tst_castling( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece_tag( cb, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
-    cb_set_piece_tag( cb, 13, 0, CC_PE_LightKing, CC_TE_CanCastle );
-    cb_set_piece_tag( cb, 24, 0, CC_PE_LightRook, CC_TE_CanCastle );
+    cc_chessboard_set_piece_tag( cb, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
+    cc_chessboard_set_piece_tag( cb, 13, 0, CC_PE_LightKing, CC_TE_CanCastle );
+    cc_chessboard_set_piece_tag( cb, 24, 0, CC_PE_LightRook, CC_TE_CanCastle );
 
     if ( do_print )
     {
-        cb_print( cb, true );
-        cb_print( cb, false );
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
     }
 
     //
@@ -340,13 +340,13 @@ bool tst_castling( bool do_print )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 1, 0 ) == CC_PE_LightRook );
-    result = result && ( cb_get_piece( cb, 13, 0 ) == CC_PE_LightKing );
-    result = result && ( cb_get_piece( cb, 24, 0 ) == CC_PE_LightRook );
+    result = result && ( cc_chessboard_get_piece( cb, 1, 0 ) == CC_PE_LightRook );
+    result = result && ( cc_chessboard_get_piece( cb, 13, 0 ) == CC_PE_LightKing );
+    result = result && ( cc_chessboard_get_piece( cb, 24, 0 ) == CC_PE_LightRook );
 
-    result = result && ( cb_get_tag( cb, 1, 0 ) == CC_TE_CanCastle );
-    result = result && ( cb_get_tag( cb, 13, 0 ) == CC_TE_CanCastle );
-    result = result && ( cb_get_tag( cb, 24, 0 ) == CC_TE_CanCastle );
+    result = result && ( cc_chessboard_get_tag( cb, 1, 0 ) == CC_TE_CanCastle );
+    result = result && ( cc_chessboard_get_tag( cb, 13, 0 ) == CC_TE_CanCastle );
+    result = result && ( cc_chessboard_get_tag( cb, 24, 0 ) == CC_TE_CanCastle );
 
     if ( !result )
     {
@@ -392,20 +392,20 @@ bool tst_castling( bool do_print )
 
     if ( do_print )
     {
-        cb_print( cb, true );
-        cb_print( cb, false );
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
     }
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 1, 0 ) == CC_PE_LightRook );
-    result = result && ( cb_get_piece( cb, 19, 0 ) == CC_PE_LightRook );
-    result = result && ( cb_get_piece( cb, 20, 0 ) == CC_PE_LightKing );
+    result = result && ( cc_chessboard_get_piece( cb, 1, 0 ) == CC_PE_LightRook );
+    result = result && ( cc_chessboard_get_piece( cb, 19, 0 ) == CC_PE_LightRook );
+    result = result && ( cc_chessboard_get_piece( cb, 20, 0 ) == CC_PE_LightKing );
 
-    result = result && ( cb_get_tag( cb, 1, 0 ) == CC_TE_CanCastle );
-    result = result && ( cb_get_tag( cb, 19, 0 ) == CC_TE_None );
-    result = result && ( cb_get_tag( cb, 20, 0 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 1, 0 ) == CC_TE_CanCastle );
+    result = result && ( cc_chessboard_get_tag( cb, 19, 0 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 20, 0 ) == CC_TE_None );
 
     //
     // free, return
@@ -420,17 +420,17 @@ bool tst_tag_and_promotion( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 11, 21, CC_PE_LightPawn );
-    cb_set_piece( cb, 15, 21, CC_PE_LightPyramid );
-    cb_set_piece( cb, 21, 15, CC_PE_LightBishop );
+    cc_chessboard_set_piece( cb, 11, 21, CC_PE_LightPawn );
+    cc_chessboard_set_piece( cb, 15, 21, CC_PE_LightPyramid );
+    cc_chessboard_set_piece( cb, 21, 15, CC_PE_LightBishop );
 
     if ( do_print )
     {
-        cb_print( cb, true );
-        // cb_print( cb, false );
+        cc_chessboard_print( cb, true );
+        // cc_chessboard_print( cb, false );
     }
 
     //
@@ -438,13 +438,13 @@ bool tst_tag_and_promotion( bool do_print )
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
-    result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightPyramid );
-    result = result && ( cb_get_piece( cb, 21, 15 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 15, 21 ) == CC_PE_LightPyramid );
+    result = result && ( cc_chessboard_get_piece( cb, 21, 15 ) == CC_PE_LightBishop );
 
-    result = result && ( cb_get_tag( cb, 11, 21 ) == CC_TE_None );
-    result = result && ( cb_get_tag( cb, 15, 21 ) == CC_TE_None );
-    result = result && ( cb_get_tag( cb, 21, 15 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 11, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 15 ) == CC_TE_None );
 
     if ( !result )
     {
@@ -521,19 +521,19 @@ bool tst_tag_and_promotion( bool do_print )
 
     if ( do_print )
     {
-        cb_print( cb, true );
-        // cb_print( cb, false );
+        cc_chessboard_print( cb, true );
+        // cc_chessboard_print( cb, false );
     }
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
-    result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
 
-    result = result && ( cb_get_tag( cb, 11, 21 ) == CC_TE_DelayedPromotion );
-    result = result && ( cb_get_tag( cb, 15, 21 ) == CC_TE_None );
-    result = result && ( cb_get_tag( cb, 21, 15 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 11, 21 ) == CC_TE_DelayedPromotion );
+    result = result && ( cc_chessboard_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 15 ) == CC_TE_None );
 
     if ( !result )
     {
@@ -587,19 +587,19 @@ bool tst_tag_and_promotion( bool do_print )
 
     if ( do_print )
     {
-        cb_print( cb, true );
-        // cb_print( cb, false );
+        cc_chessboard_print( cb, true );
+        // cc_chessboard_print( cb, false );
     }
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 11, 21 ) == CC_PE_LightQueen );
-    result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 11, 21 ) == CC_PE_LightQueen );
+    result = result && ( cc_chessboard_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
 
-    result = result && ( cb_get_tag( cb, 11, 21 ) == CC_TE_None );
-    result = result && ( cb_get_tag( cb, 15, 21 ) == CC_TE_None );
-    result = result && ( cb_get_tag( cb, 21, 15 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 11, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 15 ) == CC_TE_None );
 
     //
     // free, return
@@ -615,18 +615,18 @@ bool tst_conversion( bool do_print, bool is_failed )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     if ( is_failed )
-        cb_set_piece( cb, 11, 5, CC_PE_DarkStarchild );
+        cc_chessboard_set_piece( cb, 11, 5, CC_PE_DarkStarchild );
     else
-        cb_set_piece( cb, 11, 5, CC_PE_DarkShaman );
+        cc_chessboard_set_piece( cb, 11, 5, CC_PE_DarkShaman );
 
-    cb_set_piece( cb, 15, 5, CC_PE_LightPyramid );
-    cb_set_piece( cb, 21, 11, CC_PE_LightBishop );
+    cc_chessboard_set_piece( cb, 15, 5, CC_PE_LightPyramid );
+    cc_chessboard_set_piece( cb, 21, 11, CC_PE_LightBishop );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
@@ -634,12 +634,12 @@ bool tst_conversion( bool do_print, bool is_failed )
     bool result = true;
 
     if ( is_failed )
-        result = result && ( cb_get_piece( cb, 11, 5 ) == CC_PE_DarkStarchild );
+        result = result && ( cc_chessboard_get_piece( cb, 11, 5 ) == CC_PE_DarkStarchild );
     else
-        result = result && ( cb_get_piece( cb, 11, 5 ) == CC_PE_DarkShaman );
+        result = result && ( cc_chessboard_get_piece( cb, 11, 5 ) == CC_PE_DarkShaman );
 
-    result = result && ( cb_get_piece( cb, 15, 5 ) == CC_PE_LightPyramid );
-    result = result && ( cb_get_piece( cb, 21, 11 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 15, 5 ) == CC_PE_LightPyramid );
+    result = result && ( cc_chessboard_get_piece( cb, 21, 11 ) == CC_PE_LightBishop );
 
     if ( !result )
     {
@@ -719,17 +719,17 @@ bool tst_conversion( bool do_print, bool is_failed )
 
     do_move( cb, move_0 );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
     if ( is_failed )
-        result = result && ( cb_get_piece( cb, 11, 5 ) == CC_PE_DarkStarchild );
+        result = result && ( cc_chessboard_get_piece( cb, 11, 5 ) == CC_PE_DarkStarchild );
     else
-        result = result && ( cb_get_piece( cb, 11, 5 ) == CC_PE_LightShaman );
+        result = result && ( cc_chessboard_get_piece( cb, 11, 5 ) == CC_PE_LightShaman );
 
-    result = result && ( cb_get_piece( cb, 15, 5 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 15, 5 ) == CC_PE_LightBishop );
 
     //
     // free, return
@@ -744,25 +744,25 @@ bool tst_demotion( bool do_print )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 0, 0, CC_PE_BrightStar );
-    cb_set_piece( cb, 25, 25, CC_PE_BrightStar );
-    cb_set_piece( cb, 11, 11, CC_PE_LightBishop );
-    cb_set_piece( cb, 23, 15, CC_PE_Monolith );
+    cc_chessboard_set_piece( cb, 0, 0, CC_PE_BrightStar );
+    cc_chessboard_set_piece( cb, 25, 25, CC_PE_BrightStar );
+    cc_chessboard_set_piece( cb, 11, 11, CC_PE_LightBishop );
+    cc_chessboard_set_piece( cb, 23, 15, CC_PE_Monolith );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
-    result = result && ( cb_get_piece( cb, 11, 11 ) == CC_PE_LightBishop );
-    result = result && ( cb_get_piece( cb, 23, 15 ) == CC_PE_Monolith );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 11, 11 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 23, 15 ) == CC_PE_Monolith );
 
     if ( !result )
     {
@@ -809,15 +809,15 @@ bool tst_demotion( bool do_print )
 
     do_move( cb, move_0 );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
-    result = result && ( cb_get_piece( cb, 11, 11 ) == CC_PE_LightPawn );
-    result = result && ( cb_get_piece( cb, 22, 22 ) == CC_PE_Monolith );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 11, 11 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 22, 22 ) == CC_PE_Monolith );
 
     //
     // free, return
@@ -832,23 +832,23 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 25, 0, CC_PE_DimStar );
-    cb_set_piece( cb, 0, 25, CC_PE_DimStar );
-    cb_set_piece( cb, 23, 15, CC_PE_LightStarchild );
+    cc_chessboard_set_piece( cb, 25, 0, CC_PE_DimStar );
+    cc_chessboard_set_piece( cb, 0, 25, CC_PE_DimStar );
+    cc_chessboard_set_piece( cb, 23, 15, CC_PE_LightStarchild );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
-    result = result && ( cb_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
-    result = result && ( cb_get_piece( cb, 23, 15 ) == CC_PE_LightStarchild );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 23, 15 ) == CC_PE_LightStarchild );
 
     if ( !result )
     {
@@ -905,30 +905,30 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
 
     do_move( cb, move_0 );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
-    result = result && ( cb_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
 
     if ( is_failed )
     {
-        result = result && ( cb_get_piece( cb, 15, 10 ) == CC_PE_LightStarchild );
-        result = result && ( cb_get_piece( cb, 16, 11 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 15, 10 ) == CC_PE_LightStarchild );
+        result = result && ( cc_chessboard_get_piece( cb, 16, 11 ) == CC_PE_None );
     }
     else
     {
         if ( is_oblationing )
         {
-            result = result && ( cb_get_piece( cb, 15, 10 ) == CC_PE_LightBishop );
-            result = result && ( cb_get_piece( cb, 16, 11 ) == CC_PE_None );
+            result = result && ( cc_chessboard_get_piece( cb, 15, 10 ) == CC_PE_LightBishop );
+            result = result && ( cc_chessboard_get_piece( cb, 16, 11 ) == CC_PE_None );
         }
         else
         {
-            result = result && ( cb_get_piece( cb, 15, 10 ) == CC_PE_LightStarchild );
-            result = result && ( cb_get_piece( cb, 16, 11 ) == CC_PE_LightWave );
+            result = result && ( cc_chessboard_get_piece( cb, 15, 10 ) == CC_PE_LightStarchild );
+            result = result && ( cc_chessboard_get_piece( cb, 16, 11 ) == CC_PE_LightWave );
         }
     }
 
@@ -945,29 +945,29 @@ bool tst_teleportation( bool do_print, bool is_failed )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 0, 0, CC_PE_BrightStar );
-    cb_set_piece( cb, 25, 25, CC_PE_BrightStar );
-    cb_set_piece( cb, 25, 0, CC_PE_DimStar );
-    cb_set_piece( cb, 0, 25, CC_PE_DimStar );
+    cc_chessboard_set_piece( cb, 0, 0, CC_PE_BrightStar );
+    cc_chessboard_set_piece( cb, 25, 25, CC_PE_BrightStar );
+    cc_chessboard_set_piece( cb, 25, 0, CC_PE_DimStar );
+    cc_chessboard_set_piece( cb, 0, 25, CC_PE_DimStar );
 
-    cb_set_piece( cb, 3, 22, CC_PE_LightBishop );
+    cc_chessboard_set_piece( cb, 3, 22, CC_PE_LightBishop );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
-    result = result && ( cb_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
 
-    result = result && ( cb_get_piece( cb, 3, 22 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 3, 22 ) == CC_PE_LightBishop );
 
     if ( !result )
     {
@@ -1032,27 +1032,27 @@ bool tst_teleportation( bool do_print, bool is_failed )
 
     do_move( cb, move_0 );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
-    result = result && ( cb_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
-    result = result && ( cb_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
 
-    result = result && ( cb_get_piece( cb, 3, 22 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 3, 22 ) == CC_PE_None );
 
     if ( is_failed )
     {
-        result = result && ( cb_get_piece( cb, 0, 24 ) == CC_PE_LightBishop );
-        result = result && ( cb_get_piece( cb, 24, 24 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 0, 24 ) == CC_PE_LightBishop );
+        result = result && ( cc_chessboard_get_piece( cb, 24, 24 ) == CC_PE_None );
     }
     else
     {
-        result = result && ( cb_get_piece( cb, 0, 24 ) == CC_PE_None );
-        result = result && ( cb_get_piece( cb, 24, 24 ) == CC_PE_LightBishop );
+        result = result && ( cc_chessboard_get_piece( cb, 0, 24 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 24, 24 ) == CC_PE_LightBishop );
     }
 
     //
@@ -1068,29 +1068,29 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
 {
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 5, 11, CC_PE_Monolith );
-    cb_set_piece( cb, 19, 9, CC_PE_Monolith );
+    cc_chessboard_set_piece( cb, 5, 11, CC_PE_Monolith );
+    cc_chessboard_set_piece( cb, 19, 9, CC_PE_Monolith );
 
-    cb_set_piece( cb, 10, 12, CC_PE_LightBishop );
-    cb_set_piece( cb, 8, 14, CC_PE_LightWave );
-    cb_set_piece( cb, 17, 7, CC_PE_LightKnight );
+    cc_chessboard_set_piece( cb, 10, 12, CC_PE_LightBishop );
+    cc_chessboard_set_piece( cb, 8, 14, CC_PE_LightWave );
+    cc_chessboard_set_piece( cb, 17, 7, CC_PE_LightKnight );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 5, 11 ) == CC_PE_Monolith );
-    result = result && ( cb_get_piece( cb, 19, 9 ) == CC_PE_Monolith );
+    result = result && ( cc_chessboard_get_piece( cb, 5, 11 ) == CC_PE_Monolith );
+    result = result && ( cc_chessboard_get_piece( cb, 19, 9 ) == CC_PE_Monolith );
 
-    result = result && ( cb_get_piece( cb, 10, 12 ) == CC_PE_LightBishop );
-    result = result && ( cb_get_piece( cb, 8, 14 ) == CC_PE_LightWave );
-    result = result && ( cb_get_piece( cb, 17, 7 ) == CC_PE_LightKnight );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 12 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 8, 14 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_piece( cb, 17, 7 ) == CC_PE_LightKnight );
 
     if ( !result )
     {
@@ -1232,25 +1232,25 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
 
     do_move( cb, move_0 );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 5, 11 ) == CC_PE_Monolith );
-    result = result && ( cb_get_piece( cb, 19, 9 ) == CC_PE_Monolith );
+    result = result && ( cc_chessboard_get_piece( cb, 5, 11 ) == CC_PE_Monolith );
+    result = result && ( cc_chessboard_get_piece( cb, 19, 9 ) == CC_PE_Monolith );
 
-    result = result && ( cb_get_piece( cb, 10, 12 ) == CC_PE_None );
-    result = result && ( cb_get_piece( cb, 8, 14 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 12 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 8, 14 ) == CC_PE_LightBishop );
 
     if ( is_oblationing )
     {
-        result = result && ( cb_get_piece( cb, 17, 7 ) == CC_PE_LightKnight );
+        result = result && ( cc_chessboard_get_piece( cb, 17, 7 ) == CC_PE_LightKnight );
     }
     else
     {
-        result = result && ( cb_get_piece( cb, 17, 7 ) == CC_PE_LightWave );
-        result = result && ( cb_get_piece( cb, 15, 8 ) == CC_PE_LightKnight );
+        result = result && ( cc_chessboard_get_piece( cb, 17, 7 ) == CC_PE_LightWave );
+        result = result && ( cc_chessboard_get_piece( cb, 15, 8 ) == CC_PE_LightKnight );
     }
 
     //
@@ -1268,32 +1268,32 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
 
     // chessboard
 
-    Chessboard * cb = cb_new_alx( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece( cb, 4, 8, shaman ); // entrancing
-    cb_set_piece( cb, 6, 9, CC_PE_LightWave );
-    cb_set_piece( cb, 7, 7, shaman ); // entranced
+    cc_chessboard_set_piece( cb, 4, 8, shaman ); // entrancing
+    cc_chessboard_set_piece( cb, 6, 9, CC_PE_LightWave );
+    cc_chessboard_set_piece( cb, 7, 7, shaman ); // entranced
 
-    cb_set_piece( cb, 7, 12, CC_PE_LightBishop ); // 2
-    cb_set_piece( cb, 5, 1, CC_PE_DarkKnight ); // 4
-    cb_set_piece_tag( cb, 21, 4, CC_PE_DarkPawn, CC_TE_DelayedPromotion ); // 9
+    cc_chessboard_set_piece( cb, 7, 12, CC_PE_LightBishop ); // 2
+    cc_chessboard_set_piece( cb, 5, 1, CC_PE_DarkKnight ); // 4
+    cc_chessboard_set_piece_tag( cb, 21, 4, CC_PE_DarkPawn, CC_TE_DelayedPromotion ); // 9
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
     bool result = true;
 
-    result = result && ( cb_get_piece( cb, 4, 8 ) == shaman );
-    result = result && ( cb_get_piece( cb, 6, 9 ) == CC_PE_LightWave );
-    result = result && ( cb_get_piece( cb, 7, 7 ) == shaman );
+    result = result && ( cc_chessboard_get_piece( cb, 4, 8 ) == shaman );
+    result = result && ( cc_chessboard_get_piece( cb, 6, 9 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 7 ) == shaman );
 
-    result = result && ( cb_get_piece( cb, 7, 12 ) == CC_PE_LightBishop );
-    result = result && ( cb_get_piece( cb, 5, 1 ) == CC_PE_DarkKnight );
-    result = result && ( cb_get_piece( cb, 21, 4 ) == CC_PE_DarkPawn );
-    result = result && ( cb_get_tag( cb, 21, 4 ) == CC_TE_DelayedPromotion );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 12 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 5, 1 ) == CC_PE_DarkKnight );
+    result = result && ( cc_chessboard_get_piece( cb, 21, 4 ) == CC_PE_DarkPawn );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 4 ) == CC_TE_DelayedPromotion );
 
     if ( !result )
     {
@@ -1444,34 +1444,34 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
 
     do_move( cb, move_0 );
 
-    if ( do_print ) cb_print( cb, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
 
     //
     // tests
 
-    result = result && ( cb_get_piece( cb, 4, 8 ) == CC_PE_None );
-    result = result && ( cb_get_piece( cb, 6, 9 ) == shaman );
-    result = result && ( cb_get_piece( cb, 7, 7 ) == CC_PE_LightWave );
-    result = result && ( cb_get_piece( cb, 21, 4 ) == shaman );
-    result = result && ( cb_get_tag( cb, 21, 4 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 4, 8 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 6, 9 ) == shaman );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 7 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_piece( cb, 21, 4 ) == shaman );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 4 ) == CC_TE_None );
 
-    result = result && ( cb_get_piece( cb, 7, 12 ) == CC_PE_None );
-    result = result && ( cb_get_piece( cb, 5, 1 ) == CC_PE_None );
-    result = result && ( cb_get_piece( cb, 9, 18 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 12 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 5, 1 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 18 ) == CC_PE_None );
 
     if ( is_capturing )
     {
-        result = result && ( cb_get_piece( cb, 11, 24 ) == CC_PE_None );
-        result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
-        result = result && ( cb_get_piece( cb, 15, 6 ) == CC_PE_None );
-        result = result && ( cb_get_tag( cb, 15, 6 ) == CC_TE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 11, 24 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 15, 6 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_tag( cb, 15, 6 ) == CC_TE_None );
     }
     else
     {
-        result = result && ( cb_get_piece( cb, 11, 24 ) == CC_PE_LightBishop );
-        result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_DarkKnight );
-        result = result && ( cb_get_piece( cb, 15, 6 ) == CC_PE_DarkPawn );
-        result = result && ( cb_get_tag( cb, 15, 6 ) == CC_TE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 11, 24 ) == CC_PE_LightBishop );
+        result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_DarkKnight );
+        result = result && ( cc_chessboard_get_piece( cb, 15, 6 ) == CC_PE_DarkPawn );
+        result = result && ( cc_chessboard_get_tag( cb, 15, 6 ) == CC_TE_None );
     }
 
     //
