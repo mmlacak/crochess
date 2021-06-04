@@ -8,19 +8,19 @@
 #include "cc_step.h"
 #include "cc_ply.h"
 
-#include "do_move.h"
+#include "cc_do_move.h"
 
 
-CcPlyLinkEnum * next_ply_link( CcPly const * const restrict ply )
+CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply )
 {
     if ( !ply ) return NULL;
     if ( !ply->next ) return NULL;
     return &( ply->next->link );
 }
 
-bool is_teleporting_next( CcPly const * const restrict ply, bool including_wave )
+bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wave )
 {
-    CcPlyLinkEnum * pl = next_ply_link( ply );
+    CcPlyLinkEnum * pl = cc_get_next_ply_link( ply );
     if ( !pl ) return false;
 
     bool result = ( ( *pl == CC_PLE_Teleportation )
@@ -34,7 +34,7 @@ bool is_teleporting_next( CcPly const * const restrict ply, bool including_wave 
 }
 
 
-bool do_ply( CcChessboard * const restrict cb, CcMove const * const restrict move, CcPly const * const restrict ply )
+bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict move, CcPly const * const restrict ply )
 {
     if ( !cb ) return false;
 
@@ -75,7 +75,7 @@ bool do_ply( CcChessboard * const restrict cb, CcMove const * const restrict mov
                         {
                             case CC_PSEE_None :
                             {
-                                if ( !is_teleporting_next( ply, true ) )
+                                if ( !cc_is_teleporting_next( ply, true ) )
                                 {
                                     cc_chessboard_set_piece( cb, s->i, s->j, pe );
                                 }
@@ -313,7 +313,7 @@ bool do_ply( CcChessboard * const restrict cb, CcMove const * const restrict mov
 
                     case CC_SLE_Destination :
                     {
-                        if ( !is_teleporting_next( ply, true ) )
+                        if ( !cc_is_teleporting_next( ply, true ) )
                         {
                             cc_chessboard_set_piece( cb, s->i, s->j, pe );
                         }
@@ -332,7 +332,7 @@ bool do_ply( CcChessboard * const restrict cb, CcMove const * const restrict mov
     return true;
 }
 
-bool do_move( CcChessboard * const restrict cb, CcMove const * const restrict move )
+bool cc_do_move( CcChessboard * const restrict cb, CcMove const * const restrict move )
 {
     if ( !cb ) return false;
 
@@ -343,7 +343,7 @@ bool do_move( CcChessboard * const restrict cb, CcMove const * const restrict mo
 
     while ( p )
     {
-        do_ply( cb, move, p );
+        cc_do_ply( cb, move, p );
         p = p->next;
     }
 
