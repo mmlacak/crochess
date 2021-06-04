@@ -49,22 +49,22 @@ typedef enum CcPieceEnum
 } CcPieceEnum;
 
 
-CcPieceEnum cc_piece_from_symbol(char const c, bool const is_light);
-CcPieceEnum cc_piece_opposite(CcPieceEnum const pe);
+CcPieceEnum cc_piece_from_symbol( char const c, bool const is_light );
+CcPieceEnum cc_piece_opposite( CcPieceEnum const pe );
 
-char cc_piece_as_char(CcPieceEnum const pe);
-char cc_piece_symbol(CcPieceEnum const pe);
-char const * cc_piece_label(CcPieceEnum const pe);
+char cc_piece_as_char( CcPieceEnum const pe );
+char cc_piece_symbol( CcPieceEnum const pe );
+char const * cc_piece_label( CcPieceEnum const pe );
 
-bool cc_piece_is_dark(CcPieceEnum const pe);
-bool cc_piece_is_light(CcPieceEnum const pe);
-bool cc_piece_is_pawn(CcPieceEnum const pe);
-bool cc_piece_is_figure(CcPieceEnum const pe);
-bool cc_piece_is_none(CcPieceEnum const pe);
+bool cc_piece_is_dark( CcPieceEnum const pe );
+bool cc_piece_is_light( CcPieceEnum const pe );
+bool cc_piece_is_pawn( CcPieceEnum const pe );
+bool cc_piece_is_figure( CcPieceEnum const pe );
+bool cc_piece_is_none( CcPieceEnum const pe );
 
-bool cc_piece_is_opposite_color(CcPieceEnum const pe1, CcPieceEnum const pe2);
-bool cc_piece_is_opposite_shade(CcPieceEnum const pe1, CcPieceEnum const pe2);
-bool cc_piece_is_teleporter(CcPieceEnum const pe);
+bool cc_piece_is_opposite_color( CcPieceEnum const pe1, CcPieceEnum const pe2 );
+bool cc_piece_is_opposite_shade( CcPieceEnum const pe1, CcPieceEnum const pe2 );
+bool cc_piece_is_teleporter( CcPieceEnum const pe );
 
 
 #endif /* __CC_PIECE_H__ */

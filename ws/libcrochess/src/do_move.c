@@ -125,7 +125,7 @@ bool do_ply( Chessboard * const restrict cb, Move const * const restrict move, P
 
                             case PSET_TagForPromotion :
                             {
-                                cb_set_tag( cb, s->i, s->j, TT_DelayedPromotion );
+                                cb_set_tag( cb, s->i, s->j, CC_TE_DelayedPromotion );
                                 break;
                             }
 

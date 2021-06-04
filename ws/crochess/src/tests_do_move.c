@@ -121,7 +121,7 @@ bool tst_cascading_plies( bool do_print )
 
     cb_set_piece( cb, 1, 5, CC_PE_LightPegasus );
     cb_set_piece( cb, 7, 2, CC_PE_LightWave );
-    cb_set_piece_tag( cb, 9, 1, CC_PE_LightPawn, TT_CanRush );
+    cb_set_piece_tag( cb, 9, 1, CC_PE_LightPawn, CC_TE_CanRush );
     cb_set_piece( cb, 10, 3, CC_PE_DarkPawn );
     if ( do_print ) cb_print( cb, true );
 
@@ -133,7 +133,7 @@ bool tst_cascading_plies( bool do_print )
     result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_LightPegasus );
     result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightWave );
     result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightPawn );
-    result = result && ( cb_get_tag( cb, 9, 1 ) == TT_CanRush );
+    result = result && ( cb_get_tag( cb, 9, 1 ) == CC_TE_CanRush );
     result = result && ( cb_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
 
     if ( !result )
@@ -244,9 +244,9 @@ bool tst_cascading_plies( bool do_print )
     result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
     result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
     result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
-    result = result && ( cb_get_tag( cb, 9, 1 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 9, 1 ) == CC_TE_None );
     result = result && ( cb_get_piece( cb, 9, 4 ) == CC_PE_LightPawn );
-    result = result && ( cb_get_tag( cb, 9, 4 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 9, 4 ) == CC_TE_None );
     result = result && ( cb_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
 
     if ( !result )
@@ -304,9 +304,9 @@ bool tst_cascading_plies( bool do_print )
     result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
     result = result && ( cb_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
     result = result && ( cb_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
-    result = result && ( cb_get_tag( cb, 9, 1 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 9, 1 ) == CC_TE_None );
     result = result && ( cb_get_piece( cb, 9, 2 ) == CC_PE_DarkPawn );
-    result = result && ( cb_get_tag( cb, 9, 4 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 9, 4 ) == CC_TE_None );
 
     //
     // free, return
@@ -325,9 +325,9 @@ bool tst_castling( bool do_print )
     Chessboard * cb = cb_new_alx( BT_One, false );
     if ( !cb ) return false;
 
-    cb_set_piece_tag( cb, 1, 0, CC_PE_LightRook, TT_CanCastle );
-    cb_set_piece_tag( cb, 13, 0, CC_PE_LightKing, TT_CanCastle );
-    cb_set_piece_tag( cb, 24, 0, CC_PE_LightRook, TT_CanCastle );
+    cb_set_piece_tag( cb, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
+    cb_set_piece_tag( cb, 13, 0, CC_PE_LightKing, CC_TE_CanCastle );
+    cb_set_piece_tag( cb, 24, 0, CC_PE_LightRook, CC_TE_CanCastle );
 
     if ( do_print )
     {
@@ -344,9 +344,9 @@ bool tst_castling( bool do_print )
     result = result && ( cb_get_piece( cb, 13, 0 ) == CC_PE_LightKing );
     result = result && ( cb_get_piece( cb, 24, 0 ) == CC_PE_LightRook );
 
-    result = result && ( cb_get_tag( cb, 1, 0 ) == TT_CanCastle );
-    result = result && ( cb_get_tag( cb, 13, 0 ) == TT_CanCastle );
-    result = result && ( cb_get_tag( cb, 24, 0 ) == TT_CanCastle );
+    result = result && ( cb_get_tag( cb, 1, 0 ) == CC_TE_CanCastle );
+    result = result && ( cb_get_tag( cb, 13, 0 ) == CC_TE_CanCastle );
+    result = result && ( cb_get_tag( cb, 24, 0 ) == CC_TE_CanCastle );
 
     if ( !result )
     {
@@ -403,9 +403,9 @@ bool tst_castling( bool do_print )
     result = result && ( cb_get_piece( cb, 19, 0 ) == CC_PE_LightRook );
     result = result && ( cb_get_piece( cb, 20, 0 ) == CC_PE_LightKing );
 
-    result = result && ( cb_get_tag( cb, 1, 0 ) == TT_CanCastle );
-    result = result && ( cb_get_tag( cb, 19, 0 ) == TT_None );
-    result = result && ( cb_get_tag( cb, 20, 0 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 1, 0 ) == CC_TE_CanCastle );
+    result = result && ( cb_get_tag( cb, 19, 0 ) == CC_TE_None );
+    result = result && ( cb_get_tag( cb, 20, 0 ) == CC_TE_None );
 
     //
     // free, return
@@ -442,9 +442,9 @@ bool tst_tag_and_promotion( bool do_print )
     result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightPyramid );
     result = result && ( cb_get_piece( cb, 21, 15 ) == CC_PE_LightBishop );
 
-    result = result && ( cb_get_tag( cb, 11, 21 ) == TT_None );
-    result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
-    result = result && ( cb_get_tag( cb, 21, 15 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 11, 21 ) == CC_TE_None );
+    result = result && ( cb_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cb_get_tag( cb, 21, 15 ) == CC_TE_None );
 
     if ( !result )
     {
@@ -531,9 +531,9 @@ bool tst_tag_and_promotion( bool do_print )
     result = result && ( cb_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
     result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
 
-    result = result && ( cb_get_tag( cb, 11, 21 ) == TT_DelayedPromotion );
-    result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
-    result = result && ( cb_get_tag( cb, 21, 15 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 11, 21 ) == CC_TE_DelayedPromotion );
+    result = result && ( cb_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cb_get_tag( cb, 21, 15 ) == CC_TE_None );
 
     if ( !result )
     {
@@ -597,9 +597,9 @@ bool tst_tag_and_promotion( bool do_print )
     result = result && ( cb_get_piece( cb, 11, 21 ) == CC_PE_LightQueen );
     result = result && ( cb_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
 
-    result = result && ( cb_get_tag( cb, 11, 21 ) == TT_None );
-    result = result && ( cb_get_tag( cb, 15, 21 ) == TT_None );
-    result = result && ( cb_get_tag( cb, 21, 15 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 11, 21 ) == CC_TE_None );
+    result = result && ( cb_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cb_get_tag( cb, 21, 15 ) == CC_TE_None );
 
     //
     // free, return
@@ -1277,7 +1277,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
 
     cb_set_piece( cb, 7, 12, CC_PE_LightBishop ); // 2
     cb_set_piece( cb, 5, 1, CC_PE_DarkKnight ); // 4
-    cb_set_piece_tag( cb, 21, 4, CC_PE_DarkPawn, TT_DelayedPromotion ); // 9
+    cb_set_piece_tag( cb, 21, 4, CC_PE_DarkPawn, CC_TE_DelayedPromotion ); // 9
 
     if ( do_print ) cb_print( cb, true );
 
@@ -1293,7 +1293,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     result = result && ( cb_get_piece( cb, 7, 12 ) == CC_PE_LightBishop );
     result = result && ( cb_get_piece( cb, 5, 1 ) == CC_PE_DarkKnight );
     result = result && ( cb_get_piece( cb, 21, 4 ) == CC_PE_DarkPawn );
-    result = result && ( cb_get_tag( cb, 21, 4 ) == TT_DelayedPromotion );
+    result = result && ( cb_get_tag( cb, 21, 4 ) == CC_TE_DelayedPromotion );
 
     if ( !result )
     {
@@ -1453,7 +1453,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
     result = result && ( cb_get_piece( cb, 6, 9 ) == shaman );
     result = result && ( cb_get_piece( cb, 7, 7 ) == CC_PE_LightWave );
     result = result && ( cb_get_piece( cb, 21, 4 ) == shaman );
-    result = result && ( cb_get_tag( cb, 21, 4 ) == TT_None );
+    result = result && ( cb_get_tag( cb, 21, 4 ) == CC_TE_None );
 
     result = result && ( cb_get_piece( cb, 7, 12 ) == CC_PE_None );
     result = result && ( cb_get_piece( cb, 5, 1 ) == CC_PE_None );
@@ -1464,14 +1464,14 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
         result = result && ( cb_get_piece( cb, 11, 24 ) == CC_PE_None );
         result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_None );
         result = result && ( cb_get_piece( cb, 15, 6 ) == CC_PE_None );
-        result = result && ( cb_get_tag( cb, 15, 6 ) == TT_None );
+        result = result && ( cb_get_tag( cb, 15, 6 ) == CC_TE_None );
     }
     else
     {
         result = result && ( cb_get_piece( cb, 11, 24 ) == CC_PE_LightBishop );
         result = result && ( cb_get_piece( cb, 1, 5 ) == CC_PE_DarkKnight );
         result = result && ( cb_get_piece( cb, 15, 6 ) == CC_PE_DarkPawn );
-        result = result && ( cb_get_tag( cb, 15, 6 ) == TT_None );
+        result = result && ( cb_get_tag( cb, 15, 6 ) == CC_TE_None );
     }
 
     //

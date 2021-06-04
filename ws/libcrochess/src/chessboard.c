@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "cc_piece.h"
-#include "tag_type.h"
+#include "cc_tag.h"
 #include "board_type.h"
 #include "setup_board.h"
 #include "setup_tags.h"
@@ -50,7 +50,7 @@ bool cb_clear( Chessboard * const restrict cb )
         for ( int j = 0; j < BOARD_SIZE_MAXIMUM; ++j )
         {
             cb->board[ i ][ j ] = CC_PE_None;
-            cb->tags[ i ][ j ] = TT_None;
+            cb->tags[ i ][ j ] = CC_TE_None;
         }
     }
 
@@ -66,7 +66,7 @@ bool cb_setup( Chessboard * const restrict cb )
     CcPieceEnum const * const su = get_board_setup( cb->type );
     if ( !su ) return false;
 
-    TagType const * const tu = get_tags_setup( cb->type );
+    CcTagEnum const * const tu = get_tags_setup( cb->type );
     if ( !tu ) return false;
 
     for ( int i = 0; i < (int)cb->size; ++i )
@@ -101,17 +101,17 @@ CcPieceEnum cb_get_piece( Chessboard const * const restrict cb, int i, int j )
     return CC_PE_None;
 }
 
-TagType cb_get_tag( Chessboard const * const restrict cb, int i, int j )
+CcTagEnum cb_get_tag( Chessboard const * const restrict cb, int i, int j )
 {
     if ( cb_is_on_board( cb, i, j ) )
     {
         return cb->tags[ i ][ j ];
     }
 
-    return TT_None;
+    return CC_TE_None;
 }
 
-bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe, TagType tt )
+bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe, CcTagEnum tt )
 {
     if ( !cb ) return false;
 
@@ -126,10 +126,10 @@ bool cb_set_piece_tag( Chessboard * const restrict cb, int i, int j, CcPieceEnum
 
 bool cb_set_piece( Chessboard * const restrict cb, int i, int j, CcPieceEnum pe )
 {
-    return cb_set_piece_tag( cb, i, j, pe, TT_None );
+    return cb_set_piece_tag( cb, i, j, pe, CC_TE_None );
 }
 
-bool cb_set_tag( Chessboard * const restrict cb, int i, int j, TagType tt )
+bool cb_set_tag( Chessboard * const restrict cb, int i, int j, CcTagEnum tt )
 {
     if ( !cb ) return false;
 
@@ -252,7 +252,7 @@ char * cb_as_string_alx( Chessboard const * const restrict cb, bool is_board_or_
             if ( is_board_or_chips )
                 ch = cc_piece_as_char( cb->board[ x ][ y ] );
             else
-                ch = tt_as_char( cb->tags[ x ][ y ] );
+                ch = cc_tag_as_char( cb->tags[ x ][ y ] );
 
             if ( ch == ' ' )
             {
