@@ -7,22 +7,142 @@
 #include "cc_step.h"
 
 
-CcStep * cc_step_new( CcStepLinkEnum link, int i, int j )
+CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, bool is_promo_tag_lost, int start_i, int start_j, int dest_i, int dest_j )
 {
-    CcStep * step = malloc( sizeof( CcStep ) );
-    if ( !step ) return NULL;
+    CcSideEffect sse = { .type = type, };
 
-    step->link = link;
-    step->i = i;
-    step->j = j;
-    step->next = NULL;
+    // Nothing more to do if type == CC_SEE_None.
+    if ( sse.type == CC_SEE_Capture )
+    {
+        sse.capture.piece = piece;
+        sse.capture.is_promo_tag_lost = is_promo_tag_lost;
+    }
+    else if ( sse.type == CC_SEE_Displacement )
+    {
+        sse.displacement.piece = piece;
+        sse.displacement.is_promo_tag_lost = is_promo_tag_lost;
+        sse.displacement.dest_i = dest_i;
+        sse.displacement.dest_j = dest_j;
+    }
+    else if ( sse.type == CC_SEE_EnPassant )
+    {
+        sse.en_passant.dest_i = dest_i;
+        sse.en_passant.dest_j = dest_j;
+    }
+    else if ( sse.type == CC_SEE_Castle )
+    {
+        sse.castle.rook = piece;
+        sse.castle.start_i = start_i;
+        sse.castle.start_j = start_j;
+        sse.castle.dest_i = dest_i;
+        sse.castle.dest_j = dest_j;
+    }
+    else if ( sse.type == CC_SEE_Promotion )
+    {
+        sse.promote.piece = piece;
+    }
+    // Nothing more to do if type == CC_SEE_TagForPromotion.
+    else if ( sse.type == CC_SEE_Conversion )
+    {
+        sse.convert.piece = piece;
+        sse.convert.is_promo_tag_lost = is_promo_tag_lost;
+    }
+    // Nothing more to do if type == CC_SEE_FailedConversion.
+    else if ( sse.type == CC_SEE_Demotion )
+    {
+        sse.demote.piece = piece;
+        sse.demote.dest_i = dest_i;
+        sse.demote.dest_j = dest_j;
+    }
+    else if ( sse.type == CC_SEE_Resurrection )
+    {
+        sse.resurrect.piece = piece;
+        sse.resurrect.dest_i = dest_i;
+        sse.resurrect.dest_j = dest_j;
+    }
+    // Nothing more to do if type == CC_SEE_FailedResurrection.
 
-    return step;
+    return sse;
 }
 
-CcStep * cc_step_append_new( CcStep * const restrict steps, CcStepLinkEnum link, int i, int j )
+CcSideEffect cc_side_effect_none()
 {
-    CcStep * new = cc_step_new( link, i, j );
+    return cc_side_effect( CC_SEE_None, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+}
+
+CcSideEffect cc_side_effect_capture( CcPieceEnum piece, bool is_promo_tag_lost )
+{
+    return cc_side_effect( CC_SEE_Capture, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+}
+
+CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, bool is_promo_tag_lost, int dest_i, int dest_j )
+{
+    return cc_side_effect( CC_SEE_Displacement, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+}
+
+CcSideEffect cc_side_effect_en_passant( int dest_i, int dest_j )
+{
+    return cc_side_effect( CC_SEE_EnPassant, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+}
+
+CcSideEffect cc_side_effect_castle( CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j )
+{
+    return cc_side_effect( CC_SEE_Castle, rook, false, start_i, start_j, dest_i, dest_j );
+}
+
+CcSideEffect cc_side_effect_promote( CcPieceEnum piece )
+{
+    return cc_side_effect( CC_SEE_Promotion, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+}
+
+CcSideEffect cc_side_effect_tag_for_promotion()
+{
+    return cc_side_effect( CC_SEE_TagForPromotion, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+}
+
+CcSideEffect cc_side_effect_convert( CcPieceEnum piece, bool is_promo_tag_lost )
+{
+    return cc_side_effect( CC_SEE_Conversion, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+}
+
+CcSideEffect cc_side_effect_failed_conversion()
+{
+    return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+}
+
+CcSideEffect cc_side_effect_demote( CcPieceEnum piece, int dest_i, int dest_j )
+{
+    return cc_side_effect( CC_SEE_Demotion, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+}
+
+CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, int dest_i, int dest_j )
+{
+    return cc_side_effect( CC_SEE_Resurrection, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+}
+
+CcSideEffect cc_side_effect_failed_resurrection()
+{
+    return cc_side_effect( CC_SEE_FailedResurrection, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+}
+
+
+CcStep * cc_step_new( CcStepLinkEnum link, int i, int j, CcSideEffect side_effect )
+{
+    CcStep * tjs = malloc( sizeof( CcStep ) );
+    if ( !tjs ) return NULL;
+
+    tjs->link = link;
+    tjs->i = i;
+    tjs->j = j;
+    tjs->side_effect = side_effect;
+    tjs->next = NULL;
+
+    return tjs;
+}
+
+CcStep * cc_step_append_new( CcStep * const restrict steps, CcStepLinkEnum link, int i, int j, CcSideEffect side_effect )
+{
+    CcStep * new = cc_step_new( link, i, j, side_effect );
     if ( !new ) return NULL;
     if ( !steps ) return new;
 
@@ -43,89 +163,6 @@ bool cc_step_free_all_steps( CcStep ** const steps )
     while ( s )
     {
         CcStep * tmp = s->next;
-        free( s );
-        s = tmp;
-    }
-
-    *steps = NULL;
-    return true;
-}
-
-
-CcStepSideEffect cc_step_side_effect( CcStepSideEffectEnum type, CcPieceEnum piece, bool is_promo_tag_lost, int i, int j )
-{
-    CcStepSideEffect sse = { .type = type, };
-
-    // Nothing more to do if type == CC_SSEE_None.
-    if ( sse.type == CC_SSEE_Capture )
-    {
-        sse.capture.piece = piece;
-        sse.capture.is_promo_tag_lost = is_promo_tag_lost;
-    }
-    else if ( sse.type == CC_SSEE_Displacement )
-    {
-        sse.displacement.piece = piece;
-        sse.displacement.is_promo_tag_lost = is_promo_tag_lost;
-        sse.displacement.i = i;
-        sse.displacement.j = j;
-    }
-
-    return sse;
-}
-
-CcStepSideEffect cc_step_side_effect_none()
-{
-    return cc_step_side_effect( CC_SSEE_None, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
-}
-
-CcStepSideEffect cc_step_side_effect_capture( CcPieceEnum piece, bool is_promo_tag_lost )
-{
-    return cc_step_side_effect( CC_SSEE_Capture, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
-}
-
-CcStepSideEffect cc_step_side_effect_displacement( CcPieceEnum piece, bool is_promo_tag_lost, int i, int j )
-{
-    return cc_step_side_effect( CC_SSEE_Displacement, piece, is_promo_tag_lost, i, j );
-}
-
-
-CcSideEffectStep * cc_step_side_effect_step_new( CcStepLinkEnum link, int i, int j, CcStepSideEffect side_effect )
-{
-    CcSideEffectStep * tjs = malloc( sizeof( CcSideEffectStep ) );
-    if ( !tjs ) return NULL;
-
-    tjs->link = link;
-    tjs->i = i;
-    tjs->j = j;
-    tjs->side_effect = side_effect;
-    tjs->next = NULL;
-
-    return tjs;
-}
-
-CcSideEffectStep * cc_step_append_side_effect_step_new( CcSideEffectStep * const restrict steps, CcStepLinkEnum link, int i, int j, CcStepSideEffect side_effect )
-{
-    CcSideEffectStep * new = cc_step_side_effect_step_new( link, i, j, side_effect );
-    if ( !new ) return NULL;
-    if ( !steps ) return new;
-
-    CcSideEffectStep * s = steps;
-    while ( s->next ) s = s->next; // rewind
-    s->next = new; // append
-
-    return new;
-}
-
-bool cc_step_free_all_side_effect_steps( CcSideEffectStep ** const steps )
-{
-    if ( !steps ) return true;
-    if ( !*steps ) return false;
-
-    CcSideEffectStep * s = *steps;
-
-    while ( s )
-    {
-        CcSideEffectStep * tmp = s->next;
         free( s );
         s = tmp;
     }

@@ -69,11 +69,11 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
 
                     case CC_SLE_Destination :
                     {
-                        CcPlySideEffect const * const pse = &( ply->side_effect );
+                        CcSideEffect const * const pse = &( s->side_effect );
 
                         switch ( pse->type )
                         {
-                            case CC_PSEE_None :
+                            case CC_SEE_None :
                             {
                                 if ( !cc_is_teleporting_next( ply, true ) )
                                 {
@@ -83,13 +83,15 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                                 break;
                             }
 
-                            case CC_PSEE_Capture :
+                            case CC_SEE_Capture :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
                                 break;
                             }
 
-                            case CC_PSEE_EnPassant :
+                            case CC_SEE_Displacement : break; // shouldn't be here
+
+                            case CC_SEE_EnPassant :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
@@ -100,7 +102,7 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                                 break;
                             }
 
-                            case CC_PSEE_Castle :
+                            case CC_SEE_Castle :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
@@ -116,29 +118,29 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                                 break;
                             }
 
-                            case CC_PSEE_Promotion :
+                            case CC_SEE_Promotion :
                             {
                                 CcPieceEnum new = pse->promote.piece;
                                 cc_chessboard_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
 
-                            case CC_PSEE_TagForPromotion :
+                            case CC_SEE_TagForPromotion :
                             {
                                 cc_chessboard_set_tag( cb, s->i, s->j, CC_TE_DelayedPromotion );
                                 break;
                             }
 
-                            case CC_PSEE_Conversion :
+                            case CC_SEE_Conversion :
                             {
                                 CcPieceEnum new = pse->convert.piece;
                                 cc_chessboard_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
 
-                            case CC_PSEE_FailedConversion : break; // Pyramid oblationed as usual, Starchild retains its original color; nothing to do here.
+                            case CC_SEE_FailedConversion : break; // Pyramid oblationed as usual, Starchild retains its original color; nothing to do here.
 
-                            case CC_PSEE_Demotion :
+                            case CC_SEE_Demotion :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
@@ -150,7 +152,7 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                                 break;
                             }
 
-                            case CC_PSEE_Resurrection :
+                            case CC_SEE_Resurrection :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
@@ -162,7 +164,7 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                                 break;
                             }
 
-                            case CC_PSEE_FailedResurrection :
+                            case CC_SEE_FailedResurrection :
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
                                 break; // Resurrection blocked, or no captured pieces, nothing to do here.
@@ -219,28 +221,30 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
 
         case CC_PLE_TranceJourney :
         {
-            CcSideEffectStep * s = ply->trance_journey.steps;
+            CcStep * s = ply->trance_journey.steps;
 
             while ( s )
             {
-                CcStepSideEffect sse = s->side_effect;
+                CcSideEffect sse = s->side_effect;
 
                 switch ( sse.type )
                 {
-                    case CC_SSEE_None : break;
+                    case CC_SEE_None : break;
 
-                    case CC_SSEE_Capture :
+                    case CC_SEE_Capture :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
-                    case CC_SSEE_Displacement :
+                    case CC_SEE_Displacement :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
-                        cc_chessboard_set_piece( cb, sse.displacement.i, sse.displacement.j, sse.displacement.piece );
+                        cc_chessboard_set_piece( cb, sse.displacement.dest_i, sse.displacement.dest_j, sse.displacement.piece );
                         break;
                     }
+
+                    default : break; // Just to keep compilers happy; shouldn't be here.
                 }
 
                 switch ( s->link )
@@ -280,23 +284,23 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
 
         case CC_PLE_PawnSacrifice :
         {
-            CcSideEffectStep * s = ply->pawn_sacrifice.steps;
+            CcStep * s = ply->pawn_sacrifice.steps;
 
             while ( s )
             {
-                CcStepSideEffect sse = s->side_effect;
+                CcSideEffect sse = s->side_effect;
 
                 switch ( sse.type )
                 {
-                    case CC_SSEE_None : break;
+                    case CC_SEE_None : break;
 
-                    case CC_SSEE_Capture :
+                    case CC_SEE_Capture :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
                         break;
                     }
 
-                    case CC_SSEE_Displacement : break; // Just to keep compilers happy; shouldn't be here.
+                    default : break; // Just to keep compilers happy; shouldn't be here.
                 }
 
                 switch ( s->link )
