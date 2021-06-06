@@ -1430,7 +1430,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
         return false;
     }
 
-    if ( !cc_ply_append_trance_journey_new( plies_0, shaman, 7, 7, steps_2 ) )
+    if ( !cc_ply_append_trance_journey_new( plies_0, shaman, steps_2, 7, 7 ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
