@@ -66,25 +66,25 @@ CcPly * cc_ply_append_new(  CcPly * const restrict plies,
                             CcPieceField * const restrict captured );
 bool cc_ply_free_all_plies( CcPly ** const plies );
 
-CcPly * cc_ply_new_ply_new( CcPieceEnum piece, CcStep * const restrict steps );
-CcPly * cc_ply_new_teleport_new( CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_new_teleport_wave_new( CcPieceEnum piece, CcStep * const restrict steps );
-CcPly * cc_ply_new_failed_teleport_oblation_new( CcPieceEnum piece );
-CcPly * cc_ply_new_failed_teleport_new( CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_new_trance_journey_new( CcPieceEnum piece, CcStep * const restrict steps, int i, int j );
-CcPly * cc_ply_new_dual_trance_journey_new( CcPieceField * const restrict captured );
-CcPly * cc_ply_new_failed_trance_journey_new( CcPieceEnum piece );
-CcPly * cc_ply_new_pawn_sacrifice_new( CcPieceEnum piece, CcStep * const restrict steps );
+CcPly * cc_ply_cascade_new( CcPieceEnum piece, CcStep * const restrict steps );
+CcPly * cc_ply_teleport_new( CcPieceEnum piece, int i, int j );
+CcPly * cc_ply_teleport_wave_new( CcPieceEnum piece, CcStep * const restrict steps );
+CcPly * cc_ply_failed_teleport_oblation_new( CcPieceEnum piece );
+CcPly * cc_ply_failed_teleport_new( CcPieceEnum piece, int i, int j );
+CcPly * cc_ply_trance_journey_new( CcPieceEnum piece, CcStep * const restrict steps, int i, int j );
+CcPly * cc_ply_dual_trance_journey_new( CcPieceField * const restrict captured );
+CcPly * cc_ply_failed_trance_journey_new( CcPieceEnum piece );
+CcPly * cc_ply_pawn_sacrifice_new( CcPieceEnum piece, CcStep * const restrict steps );
 
-CcPly * cc_ply_append_ply_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps );
-CcPly * cc_ply_append_teleport_new( CcPly * const restrict plies, CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_append_teleport_wave_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps );
-CcPly * cc_ply_append_failed_teleport_oblation_new( CcPly * const restrict plies, CcPieceEnum piece );
-CcPly * cc_ply_append_failed_teleport_new( CcPly * const restrict plies, CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_append_trance_journey_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps, int i, int j );
-CcPly * cc_ply_append_dual_trance_journey_new( CcPly * const restrict plies, CcPieceField * const restrict captured );
-CcPly * cc_ply_append_failed_trance_journey_new( CcPly * const restrict plies, CcPieceEnum piece );
-CcPly * cc_ply_append_pawn_sacrifice_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps );
+CcPly * cc_ply_cascade_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps );
+CcPly * cc_ply_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, int i, int j );
+CcPly * cc_ply_teleport_wave_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps );
+CcPly * cc_ply_failed_teleport_oblation_append_new( CcPly * const restrict plies, CcPieceEnum piece );
+CcPly * cc_ply_failed_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, int i, int j );
+CcPly * cc_ply_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps, int i, int j );
+CcPly * cc_ply_dual_trance_journey_append_new( CcPly * const restrict plies, CcPieceField * const restrict captured );
+CcPly * cc_ply_failed_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece );
+CcPly * cc_ply_pawn_sacrifice_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep * const restrict steps );
 
 
 #endif /* __CC_PLY_H__ */
