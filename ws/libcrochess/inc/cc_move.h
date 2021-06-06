@@ -17,13 +17,22 @@ typedef enum CcMoveStatusEnum
 
 typedef struct CcMove
 {
+    char const * notation;
     CcPly * plies;
     CcMoveStatusEnum status;
+
+    struct CcMove * next;
 } CcMove;
 
 
-CcMove * cc_move_new( CcPly * const restrict plies, CcMoveStatusEnum status );
-bool cc_mv_free_complete_move( CcMove ** const move );
+CcMove * cc_move_new( char const * const restrict notation,
+                      CcPly * const restrict plies,
+                      CcMoveStatusEnum status );
+CcMove * cc_move_append_new( CcMove * const restrict moves,
+                             char const * const restrict notation,
+                             CcPly * const restrict plies,
+                             CcMoveStatusEnum status );
+bool cc_move_free_all_moves( CcMove ** const moves );
 
 
 #endif /* __CC_MOVE_H__ */

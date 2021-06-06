@@ -7,29 +7,53 @@
 #include "cc_move.h"
 
 
-CcMove * cc_move_new( CcPly * const restrict plies, CcMoveStatusEnum status )
+CcMove * cc_move_new( char const * const restrict notation, CcPly * const restrict plies, CcMoveStatusEnum status )
 {
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
 
+    mv->notation = notation;
     mv->plies = plies;
     mv->status = status;
+    mv->next = NULL;
 
     return mv;
 }
 
-bool cc_mv_free_complete_move( CcMove ** const move )
+CcMove * cc_move_append_new( CcMove * const restrict moves, char const * const restrict notation, CcPly * const restrict plies, CcMoveStatusEnum status )
 {
-    if ( !move ) return true;
-    if ( !*move ) return false;
+    CcMove * new = cc_move_new( notation, plies, status );
+    if ( !new ) return NULL;
+    if ( !moves ) return new;
+
+    CcMove * mv = moves;
+    while ( mv->next ) mv = mv->next; // rewind
+    mv->next = new; // append
+
+    return new;
+}
+
+bool cc_move_free_all_moves( CcMove ** const moves )
+{
+    if ( !moves ) return true;
+    if ( !*moves ) return false;
 
     bool result = true;
 
-    CcPly ** plies = &( ( *move )->plies );
-    result = result && cc_ply_free_all_plies( plies );
+    CcMove * mv = *moves;
 
-    free( *move );
-    *move = NULL;
+    while ( mv )
+    {
+        free( (char *)mv->notation ); // free() doesn't do pointers to const.
 
+        CcPly ** plies = &( mv->plies );
+        result = result && cc_ply_free_all_plies( plies );
+
+        CcMove * tmp = mv->next;
+        free( mv );
+        mv = tmp;
+    }
+
+    *moves = NULL;
     return result;
 }
