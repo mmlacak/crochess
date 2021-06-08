@@ -69,9 +69,9 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
 
                     case CC_SLE_Destination :
                     {
-                        CcSideEffect const * const pse = &( s->side_effect );
+                        CcSideEffect const * const se = &( s->side_effect );
 
-                        switch ( pse->type )
+                        switch ( se->type )
                         {
                             case CC_SEE_None :
                             {
@@ -95,8 +95,8 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
-                                int i = pse->en_passant.dest_i;
-                                int j = pse->en_passant.dest_j;
+                                int i = se->en_passant.dest_i;
+                                int j = se->en_passant.dest_j;
                                 cc_chessboard_set_piece( cb, i, j, CC_PE_None );
 
                                 break;
@@ -106,11 +106,11 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
-                                CcPieceEnum rook = pse->castle.rook;
-                                int start_i = pse->castle.start_i;
-                                int start_j = pse->castle.start_j;
-                                int dest_i = pse->castle.dest_i;
-                                int dest_j = pse->castle.dest_j;
+                                CcPieceEnum rook = se->castle.rook;
+                                int start_i = se->castle.start_i;
+                                int start_j = se->castle.start_j;
+                                int dest_i = se->castle.dest_i;
+                                int dest_j = se->castle.dest_j;
 
                                 cc_chessboard_set_piece( cb, start_i, start_j, CC_PE_None );
                                 cc_chessboard_set_piece( cb, dest_i, dest_j, rook );
@@ -120,7 +120,7 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
 
                             case CC_SEE_Promotion :
                             {
-                                CcPieceEnum new = pse->promote.piece;
+                                CcPieceEnum new = se->promote.piece;
                                 cc_chessboard_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
@@ -133,7 +133,7 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
 
                             case CC_SEE_Conversion :
                             {
-                                CcPieceEnum new = pse->convert.piece;
+                                CcPieceEnum new = se->convert.piece;
                                 cc_chessboard_set_piece( cb, s->i, s->j, new );
                                 break;
                             }
@@ -144,9 +144,9 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
-                                CcPieceEnum pe = pse->demote.piece;
-                                int i = pse->demote.dest_i;
-                                int j = pse->demote.dest_j;
+                                CcPieceEnum pe = se->demote.piece;
+                                int i = se->demote.dest_i;
+                                int j = se->demote.dest_j;
                                 cc_chessboard_set_piece( cb, i, j, pe );
 
                                 break;
@@ -156,9 +156,9 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                             {
                                 cc_chessboard_set_piece( cb, s->i, s->j, pe );
 
-                                CcPieceEnum pe = pse->resurrect.piece;
-                                int i = pse->resurrect.dest_i;
-                                int j = pse->resurrect.dest_j;
+                                CcPieceEnum pe = se->resurrect.piece;
+                                int i = se->resurrect.dest_i;
+                                int j = se->resurrect.dest_j;
                                 cc_chessboard_set_piece( cb, i, j, pe );
 
                                 break;
@@ -225,9 +225,9 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
 
             while ( s )
             {
-                CcSideEffect sse = s->side_effect;
+                CcSideEffect se = s->side_effect;
 
-                switch ( sse.type )
+                switch ( se.type )
                 {
                     case CC_SEE_None : break;
 
@@ -240,7 +240,7 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
                     case CC_SEE_Displacement :
                     {
                         cc_chessboard_set_piece( cb, s->i, s->j, CC_PE_None );
-                        cc_chessboard_set_piece( cb, sse.displacement.dest_i, sse.displacement.dest_j, sse.displacement.piece );
+                        cc_chessboard_set_piece( cb, se.displacement.dest_i, se.displacement.dest_j, se.displacement.piece );
                         break;
                     }
 
@@ -288,9 +288,9 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
 
             while ( s )
             {
-                CcSideEffect sse = s->side_effect;
+                CcSideEffect se = s->side_effect;
 
-                switch ( sse.type )
+                switch ( se.type )
                 {
                     case CC_SEE_None : break;
 

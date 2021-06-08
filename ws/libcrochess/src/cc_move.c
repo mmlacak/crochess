@@ -7,7 +7,9 @@
 #include "cc_move.h"
 
 
-CcMove * cc_move_new( char const * const restrict notation, CcPly * const restrict plies, CcMoveStatusEnum status )
+CcMove * cc_move_new( char const * const restrict notation,
+                      CcPly * const restrict plies,
+                      CcMoveStatusEnum status )
 {
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
@@ -20,7 +22,10 @@ CcMove * cc_move_new( char const * const restrict notation, CcPly * const restri
     return mv;
 }
 
-CcMove * cc_move_append_new( CcMove * const restrict moves, char const * const restrict notation, CcPly * const restrict plies, CcMoveStatusEnum status )
+CcMove * cc_move_append_new( CcMove * const restrict moves,
+                             char const * const restrict notation,
+                             CcPly * const restrict plies,
+                             CcMoveStatusEnum status )
 {
     CcMove * new = cc_move_new( notation, plies, status );
     if ( !new ) return NULL;
