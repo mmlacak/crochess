@@ -32,12 +32,19 @@ SOURCE_LIB_HEADER_IGNORE_FILE = 'cc_version.IGNORE.c'
 # \"(?P<version>.*)\"
 REG_EXP_COMPLETE_VERSION_STRING = re.compile( r'''\"(?P<version>.*)\"''' ) # "\"(?P<version>.*)\"" ) # r"""\"(?P<version>.*)\"""" )
 
+# #
+# # https://regex101.com/r/lqmlXE/1
+# # ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$
+# #
+
+# REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$""" )
+
 #
-# https://regex101.com/r/lqmlXE/1
-# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$
+# https://regex101.com/r/lqmlXE/2
+# ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:\:(?P<count>0|[1-9]\d*))?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$
 #
 
-REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$""" )
+REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:\:(?P<count>0|[1-9]\d*))?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$""" )
 
 
 def get_current_times():
@@ -63,21 +70,22 @@ def get_current_lib_versions(root_path, decompose_version=True):
 
                         mo = REG_EXP_VERSION_DECONSTRUCTED.match(version)
                         if mo is not None:
-                            major, minor, feature, commit, prerelease, meta, breaks = mo.groups()
+                            major, minor, feature, commit, count, prerelease, meta, breaks = mo.groups()
                             return (int(major), \
                                     int(minor), \
                                     int(feature) if feature is not None else None, \
                                     int(commit) if commit is not None else None, \
+                                    int(count) if count is not None else None, \
                                     str(prerelease) if prerelease is not None else None, \
                                     str(meta) if meta is not None else None, \
                                     str(breaks) if breaks is not None else None)
                     else:
-                        return (None, None, None, None, None, None, None) if decompose_version else None
+                        return (None, None, None, None, None, None, None, None) if decompose_version else None
     except FileNotFoundError:
         # FileNotFoundError: [Errno 2] No such file or directory: '.../crochess/ws/libcrochess/Cargo.toml'
-        return (None, None, None, None, None, None, None) if decompose_version else None
+        return (None, None, None, None, None, None, None, None) if decompose_version else None
 
-    return (None, None, None, None, None, None, None) if decompose_version else None
+    return (None, None, None, None, None, None, None, None) if decompose_version else None
 
 def get_full_tex_path(root_path, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX_FILE_NAME):
     path = os.path.join(root_path, tex_dir, tex_name)
@@ -185,7 +193,7 @@ def replace_lib_source_entries(git_version, book_version, book_short, root_path,
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_source, change_source_lib_line_if_marked)
 
-def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_commit, breaks):
+def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_commit, count, breaks):
     is_source = is_major or is_minor or is_feature or is_commit
     assert is_book or is_source
 
@@ -202,7 +210,7 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_c
         append_if_not_empty( replace_book_entries(git_version, book_version, book_short, root_path, is_book, is_source) )
 
     if is_source:
-        major, minor, feature, commit, prerelease, old_meta, old_breaks = get_current_lib_versions( root_path, decompose_version=True )
+        major, minor, feature, commit, old_count, prerelease, old_meta, old_breaks = get_current_lib_versions( root_path, decompose_version=True )
         assert major is not None and minor is not None
 
         if is_major:
@@ -247,6 +255,13 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_c
             if commit is not None:
                 git_version += ".%s" % str(commit)
 
+        if old_count is not None:
+            count = count if count is not None and old_count < count else old_count + 1
+            git_version += ":%s" % str(count)
+        else:
+            if count is not None:
+                git_version += ":%s" % str(count)
+
         if prerelease is not None:
             # prerelease is copied
             git_version += "-%s" % prerelease
@@ -256,11 +271,11 @@ def replace_all_entries(root_path, is_book, is_major, is_minor, is_feature, is_c
 
         if breaks is not None:
             if not breaks.startswith('~'):
-                count = 4 if is_major else \
-                        3 if is_minor else \
-                        2 if is_feature else \
-                        1
-                breaks = '~' * count + breaks
+                breakage = 4 if is_major else \
+                           3 if is_minor else \
+                           2 if is_feature else \
+                           1
+                breaks = '~' * breakage + breaks
 
             # old breaks section is not copied
             git_version += "%s" % breaks

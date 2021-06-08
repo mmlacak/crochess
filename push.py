@@ -30,6 +30,15 @@ def main():
     is_feature = True if not (is_major or is_minor) and RS.any_item_in( ['-f', '--feature'], pre_git_argv) else False
     is_commit = True if not (is_major or is_minor or is_feature) and RS.any_item_in( ['-c', '--commit'], pre_git_argv) else False
 
+    try:
+        count = int( RS.capture_option( ['-C=', '--count='], pre_git_argv ) )
+    except TypeError:
+        # TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+        count = None
+    except ValueError:
+        # Probably: ValueError: invalid literal for int() with base 10: 'abc'.
+        count = None
+
     breaks = RS.capture_option( ['-B=', '--breaks='], pre_git_argv )
 
     auto_updated_files = []
@@ -61,7 +70,7 @@ def main():
             print( "Updating versions of book: %s, major: %s, minor: %s, feature: %s, commit: %s." % (str(is_book), str(is_major), str(is_minor), str(is_feature), str(is_commit)) )
 
         if not is_dry_run:
-            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_feature, is_commit, breaks )
+            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_feature, is_commit, count, breaks )
 
     if git_commit_argv:
         print( "" )
