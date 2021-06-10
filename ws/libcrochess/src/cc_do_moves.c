@@ -336,15 +336,16 @@ bool cc_do_all_plies( CcChessboard * const restrict cb, CcMove const * const res
     return true;
 }
 
-bool cc_do_moves( CcChessboard * const restrict cb, CcMove const * const restrict move, bool do_all_moves )
+bool cc_do_moves( CcChessboard * const restrict cb, CcMove const * const restrict move, bool do_only_last_move, bool do_all_moves )
 {
     if ( !cb ) return false;
-
     if ( !move ) return false;
 
     bool result = true;
-
     CcMove const * mv = move;
+
+    if ( do_only_last_move ) while ( mv->next ) mv = mv->next; // move != NULL --> mv != NULL
+
     while ( mv )
     {
         if ( !mv->plies ) return false;
