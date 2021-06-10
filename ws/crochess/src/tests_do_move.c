@@ -10,7 +10,7 @@
 #include "cc_step.h"
 #include "cc_ply.h"
 #include "cc_move.h"
-#include "cc_do_move.h"
+#include "cc_do_moves.h"
 
 #include "tests_do_move.h"
 
@@ -93,7 +93,7 @@ bool tst_single_ply( bool do_print )
         return false;
     }
 
-    cc_do_move( cb, move );
+    result = result && cc_do_moves( cb, move, true );
     if ( do_print ) cc_chessboard_print( cb, true );
 
     //
@@ -231,7 +231,7 @@ bool tst_cascading_plies( bool do_print )
         return false;
     }
 
-    cc_do_move( cb, move_0 );
+    result = result && cc_do_moves( cb, move_0, true );
     if ( do_print ) cc_chessboard_print( cb, true );
 
     //
@@ -290,7 +290,7 @@ bool tst_cascading_plies( bool do_print )
         return false;
     }
 
-    cc_do_move( cb, move_1 );
+    result = result && cc_do_moves( cb, move_1, true );
     if ( do_print ) cc_chessboard_print( cb, true );
 
     //
@@ -382,7 +382,7 @@ bool tst_castling( bool do_print )
         return false;
     }
 
-    cc_do_move( cb, move );
+    result = result && cc_do_moves( cb, move, true );
 
     if ( do_print )
     {
@@ -509,7 +509,7 @@ bool tst_tag_and_promotion( bool do_print )
         return false;
     }
 
-    cc_do_move( cb, move_0 );
+    result = result && cc_do_moves( cb, move_0, true );
 
     if ( do_print )
     {
@@ -574,7 +574,7 @@ bool tst_tag_and_promotion( bool do_print )
         return false;
     }
 
-    cc_do_move( cb, move_1 );
+    result = result && cc_do_moves( cb, move_1, true );
 
     if ( do_print )
     {
@@ -707,7 +707,7 @@ bool tst_conversion( bool do_print, bool is_failed )
         return false;
     }
 
-    cc_do_move( cb, move_0 );
+    result = result && cc_do_moves( cb, move_0, true );
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -796,7 +796,7 @@ bool tst_demotion( bool do_print )
         return false;
     }
 
-    cc_do_move( cb, move_0 );
+    result = result && cc_do_moves( cb, move_0, true );
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -892,7 +892,7 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
         return false;
     }
 
-    cc_do_move( cb, move_0 );
+    result = result && cc_do_moves( cb, move_0, true );
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -1016,7 +1016,7 @@ bool tst_teleportation( bool do_print, bool is_failed )
         return false;
     }
 
-    cc_do_move( cb, move_0 );
+    result = result && cc_do_moves( cb, move_0, true );
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -1212,7 +1212,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
         return false;
     }
 
-    cc_do_move( cb, move_0 );
+    result = result && cc_do_moves( cb, move_0, true );
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -1423,7 +1423,7 @@ bool tst_trance_journey( bool do_print, bool is_capturing )
         return false;
     }
 
-    cc_do_move( cb, move_0 );
+    result = result && cc_do_moves( cb, move_0, true );
 
     if ( do_print )
     {

@@ -8,7 +8,7 @@
 #include "cc_step.h"
 #include "cc_ply.h"
 
-#include "cc_do_move.h"
+#include "cc_do_moves.h"
 
 
 CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply )
@@ -34,7 +34,7 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wa
 }
 
 
-bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict move, CcPly const * const restrict ply )
+bool cc_do_all_plies( CcChessboard * const restrict cb, CcMove const * const restrict move, CcPly const * const restrict ply )
 {
     if ( !cb ) return false;
 
@@ -336,20 +336,30 @@ bool cc_do_ply( CcChessboard * const restrict cb, CcMove const * const restrict 
     return true;
 }
 
-bool cc_do_move( CcChessboard * const restrict cb, CcMove const * const restrict move )
+bool cc_do_moves( CcChessboard * const restrict cb, CcMove const * const restrict move, bool do_all_moves )
 {
     if ( !cb ) return false;
 
     if ( !move ) return false;
-    if ( !move->plies ) return false;
 
-    CcPly * p = move->plies;
+    bool result = true;
 
-    while ( p )
+    CcMove const * mv = move;
+    while ( mv )
     {
-        cc_do_ply( cb, move, p );
-        p = p->next;
+        if ( !mv->plies ) return false;
+
+        CcPly * p = mv->plies;
+        while ( p )
+        {
+            result = result && cc_do_all_plies( cb, mv, p );
+            p = p->next;
+        }
+
+        if ( !do_all_moves ) break;
+
+        mv = mv->next;
     }
 
-    return true;
+    return result;
 }

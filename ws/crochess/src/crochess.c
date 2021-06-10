@@ -14,14 +14,14 @@
 #include "cc_step.h"
 #include "cc_ply.h"
 #include "cc_move.h"
-#include "cc_do_move.h"
+#include "cc_do_moves.h"
 
 #include "hlp_msgs.h"
 #include "tests_do_move.h"
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.0:104+20210608.015931"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.1:105+20210610.173332"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -32,6 +32,8 @@ int main( void )
     char buffer[ BUFSIZ ];
 
     CcChessboard * cb = cc_chessboard_new( CC_VE_One, true );
+
+    // cc_chessboard_print( cb, true );
 
     while ( true )
     {

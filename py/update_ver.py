@@ -32,13 +32,6 @@ SOURCE_LIB_HEADER_IGNORE_FILE = 'cc_version.IGNORE.c'
 # \"(?P<version>.*)\"
 REG_EXP_COMPLETE_VERSION_STRING = re.compile( r'''\"(?P<version>.*)\"''' ) # "\"(?P<version>.*)\"" ) # r"""\"(?P<version>.*)\"""" )
 
-# #
-# # https://regex101.com/r/lqmlXE/1
-# # ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$
-# #
-
-# REG_EXP_VERSION_DECONSTRUCTED = re.compile( r"""^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$""" )
-
 #
 # https://regex101.com/r/lqmlXE/2
 # ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)(?:\.(?P<feature>0|[1-9]\d*)(?:\.(?P<commit>0|[1-9]\d*))?)?(?:\:(?P<count>0|[1-9]\d*))?(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<meta>[^~\s]*))?(?:(?P<breaks>\~[^\s]*?))?$
