@@ -19,6 +19,7 @@ bool cc_char_in( char c, char const * const restrict seps )
 
     for ( char * x = (char *)seps; *x != '\0'; ++x )
         if ( c == *x ) return true;
+
     return false;
 }
 

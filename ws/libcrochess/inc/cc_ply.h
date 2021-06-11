@@ -60,10 +60,12 @@ typedef struct CcPly
 CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece,
                     CcStep * const restrict steps, int i, int j,
                     CcPieceField * const restrict captured );
+
 CcPly * cc_ply_append_new(  CcPly * const restrict plies,
                             CcPlyLinkEnum link, CcPieceEnum piece,
                             CcStep * const restrict steps, int i, int j,
                             CcPieceField * const restrict captured );
+
 bool cc_ply_free_all_plies( CcPly ** const plies );
 
 CcPly * cc_ply_cascade_new( CcPieceEnum piece, CcStep * const restrict steps );

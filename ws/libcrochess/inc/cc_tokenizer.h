@@ -4,7 +4,9 @@
 #ifndef __CC_TOKENIZER_H__
 #define __CC_TOKENIZER_H__
 
+#include <stdbool.h>
 #include <stddef.h>
+#include <stdlib.h>
 
 extern char const CC_TOKEN_SEPARATORS_WHITEPSACE[];
 extern char const CC_TOKEN_SEPARATORS_PUNCTUATION[];

@@ -27,11 +27,11 @@ Version: 20210531.103746 <!--- readme-new-book-version-squished-utc-date-time-pl
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
 
-**Application** and **library versions** can be seen in an application, using `v(ersion)` command. \
+**Application** and **library versions** can be seen in an application, using `version` command. \
 The latest versions are:
 
-Application: 0.0.1.2:106+20210610.175134 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
-Library: 0.0.1.2:106+20210610.175134 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
+Application: 0.0.1.3:107+20210611.234632 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
+Library: 0.0.1.3:107+20210611.234632 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
 
 Versioning used is [Natural Versioning 1.2](https://croatian-chess.blogspot.com/p/natver.html),
 with meta data containing the same format as the book version.
