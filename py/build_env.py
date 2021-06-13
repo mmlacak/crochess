@@ -36,6 +36,7 @@ DEFAULT_COMPILER = COMPILER_GCC
 
 EXECUTABLE_FILE_NAME = 'crochess'
 LIBRARY_FILE_NAME = 'libcrochess.so'
+TESTS_FILE_NAME = 'tests'
 OBJECT_FILE_EXTENSIONS = ['.o', '.obj', ]
 BUILD_BIN_FOLDER = 'bin'
 
@@ -68,6 +69,10 @@ SOURCE_APP_HEADER_FOLDER = 'inc'
 SOURCE_LIB_FOLDER = 'libcrochess'
 SOURCE_LIB_SRC_FOLDER = 'src'
 SOURCE_LIB_HEADER_FOLDER = 'inc'
+
+SOURCE_TESTS_FOLDER = 'tests'
+SOURCE_TESTS_SRC_FOLDER = 'src'
+SOURCE_TESTS_HEADER_FOLDER = 'inc'
 
 
 def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False):
@@ -130,6 +135,16 @@ def get_lib_header_dir(root_path):
     return os.path.join(get_lib_dir(root_path), SOURCE_LIB_HEADER_FOLDER)
 
 
+def get_tests_dir(root_path):
+    return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_TESTS_FOLDER)
+
+def get_tests_src_dir(root_path):
+    return os.path.join(get_tests_dir(root_path), SOURCE_TESTS_SRC_FOLDER)
+
+def get_tests_header_dir(root_path):
+    return os.path.join(get_tests_dir(root_path), SOURCE_TESTS_HEADER_FOLDER)
+
+
 def get_build_dir(root_path):
     return os.path.join(root_path, SOURCE_WS_FOLDER, BUILD_BIN_FOLDER)
 
@@ -183,13 +198,31 @@ def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
 
     return cwd_lib, cmd_lst
 
+def get_compile_tests_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, adx_options_list=None):
+    cmd_lst = [compiler, ]
+
+    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings)
+
+    cmd_lst += get_compiler_build_options(compiler=compiler, is_executable_or_library=True)
+
+    if adx_options_list is not None:
+        cmd_lst += adx_options_list
+
+    cwd_tests = get_tests_src_dir(root_path)
+    src_dir = P.get_rel_path_or_abs(get_tests_src_dir(root_path), cwd_tests) # get_app_src_dir(root_path)
+    cmd_lst += get_source_path_list(cwd_tests, src_dir)
+
+    cmd_lst += get_output_compiler_options(root_path, TESTS_FILE_NAME, cwd_tests, compiler=compiler)
+
+    return cwd_tests, cmd_lst
+
 
 def get_ls_cmd():
     cmd_lst = ['ls', '-Fal', ]
     return cmd_lst
 
-def get_run_exe_file_cmd(root_path, options_list=None):
-    cmd_str = get_build_file_path(root_path, EXECUTABLE_FILE_NAME)
+def get_run_exe_file_cmd(root_path, exe_name=EXECUTABLE_FILE_NAME, options_list=None):
+    cmd_str = get_build_file_path(root_path, exe_name)
 
     cmd_lst = [cmd_str, ]
 

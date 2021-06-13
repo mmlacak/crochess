@@ -1,0 +1,1469 @@
+// Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
+// Licensed under 3-clause (modified) BSD license. See LICENSE for details.
+
+#include <stdlib.h>
+
+#include "cc_piece.h"
+#include "cc_variant.h"
+#include "cc_chessboard.h"
+
+#include "cc_step.h"
+#include "cc_ply.h"
+#include "cc_move.h"
+#include "cc_do_moves.h"
+
+#include "tests_do_move.h"
+
+
+bool tst_single_ply( bool do_print )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece( cb, 5, 2, CC_PE_LightPegasus );
+    cc_chessboard_set_piece( cb, 10, 12, CC_PE_DarkPawn );
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 5, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 12 ) == CC_PE_DarkPawn );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // steps
+
+    CcStep * start = cc_step_none_append_new( NULL, CC_SLE_Start, 5, 2 );
+    if ( !start )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( start, CC_SLE_Next, 6, 4 ) )
+    {
+        cc_step_free_all_steps( &start );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( start, CC_SLE_Distant, 8, 8 ) )
+    {
+        cc_step_free_all_steps( &start );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_capture_append_new( start, CC_SLE_Destination, 10, 12, CC_PE_DarkPawn, true ) )
+    {
+        cc_step_free_all_steps( &start );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply
+
+    CcPly * ply = cc_ply_cascade_new( CC_PE_LightPegasus, start );
+    if ( !ply )
+    {
+        cc_step_free_all_steps( &start );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move
+
+    CcMove * move = cc_move_new( NULL, ply, CC_MSE_None );
+    if ( !move )
+    {
+        cc_ply_free_all_plies( &ply );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move, true, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 5, 2 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 12 ) == CC_PE_LightPegasus );
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move );
+    free( cb );
+
+    return result;
+}
+
+bool tst_cascading_plies( bool do_print )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece( cb, 1, 5, CC_PE_LightPegasus );
+    cc_chessboard_set_piece( cb, 7, 2, CC_PE_LightWave );
+    cc_chessboard_set_piece_tag( cb, 9, 1, CC_PE_LightPawn, CC_TE_CanRush );
+    cc_chessboard_set_piece( cb, 10, 3, CC_PE_DarkPawn );
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 2 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 1 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 1 ) == CC_TE_CanRush );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply 0, G --> W
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 1, 5 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 7, 2 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightPegasus, steps_0 );
+    if ( !plies_0 )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply 1, W --> P
+
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 7, 2 );
+    if ( !steps_1 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 9, 1 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightWave, steps_1 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply 2, P --> ...
+
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 9, 1 );
+    if ( !steps_2 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_2, CC_SLE_Destination, 9, 4 ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightPawn, steps_2 ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move 0, G --> W --> P --> ...
+
+    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    if ( !move_0 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_0, true, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 1 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 4 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 4 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 10, 3 ) == CC_PE_DarkPawn );
+
+    if ( !result )
+    {
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+
+        return false;
+    }
+
+    //
+    // move 1, p --> :P
+
+    CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 10, 3 );
+    if ( !steps_3 )
+    {
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_en_passant_append_new( steps_3, CC_SLE_Destination, 9, 2, 9, 4 ) )
+    {
+        cc_step_free_all_steps( &steps_3 );
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_3 = cc_ply_cascade_new( CC_PE_DarkPawn, steps_3 );
+    if ( !plies_3 )
+    {
+        cc_step_free_all_steps( &steps_3 );
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    CcMove * move_1 = cc_move_new( NULL, plies_3, CC_MSE_None );
+    if ( !move_1 )
+    {
+        cc_ply_free_all_plies( &plies_3 );
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_1, true, true );
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 2 ) == CC_PE_LightPegasus );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 1 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 1 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 2 ) == CC_PE_DarkPawn );
+    result = result && ( cc_chessboard_get_tag( cb, 9, 4 ) == CC_TE_None );
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move_0 );
+    cc_move_free_all_moves( &move_1 );
+    free( cb );
+
+    return result;
+}
+
+bool tst_castling( bool do_print )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece_tag( cb, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
+    cc_chessboard_set_piece_tag( cb, 13, 0, CC_PE_LightKing, CC_TE_CanCastle );
+    cc_chessboard_set_piece_tag( cb, 24, 0, CC_PE_LightRook, CC_TE_CanCastle );
+
+    if ( do_print )
+    {
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
+    }
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 1, 0 ) == CC_PE_LightRook );
+    result = result && ( cc_chessboard_get_piece( cb, 13, 0 ) == CC_PE_LightKing );
+    result = result && ( cc_chessboard_get_piece( cb, 24, 0 ) == CC_PE_LightRook );
+
+    result = result && ( cc_chessboard_get_tag( cb, 1, 0 ) == CC_TE_CanCastle );
+    result = result && ( cc_chessboard_get_tag( cb, 13, 0 ) == CC_TE_CanCastle );
+    result = result && ( cc_chessboard_get_tag( cb, 24, 0 ) == CC_TE_CanCastle );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Ku&t
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 13, 0 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_castle_append_new( steps_0, CC_SLE_Destination, 20, 0, CC_PE_LightRook, 24, 0, 19, 0 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * ply = cc_ply_cascade_new( CC_PE_LightKing, steps_0 );
+    if ( !ply )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcMove * move = cc_move_new( NULL, ply, CC_MSE_None );
+    if ( !move )
+    {
+        cc_ply_free_all_plies( &ply );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move, true, true );
+
+    if ( do_print )
+    {
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
+    }
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 1, 0 ) == CC_PE_LightRook );
+    result = result && ( cc_chessboard_get_piece( cb, 19, 0 ) == CC_PE_LightRook );
+    result = result && ( cc_chessboard_get_piece( cb, 20, 0 ) == CC_PE_LightKing );
+
+    result = result && ( cc_chessboard_get_tag( cb, 1, 0 ) == CC_TE_CanCastle );
+    result = result && ( cc_chessboard_get_tag( cb, 19, 0 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 20, 0 ) == CC_TE_None );
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move );
+    free( cb );
+
+    return result;
+}
+
+bool tst_tag_and_promotion( bool do_print )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece( cb, 11, 21, CC_PE_LightPawn );
+    cc_chessboard_set_piece( cb, 15, 21, CC_PE_LightPyramid );
+    cc_chessboard_set_piece( cb, 21, 15, CC_PE_LightBishop );
+
+    if ( do_print )
+    {
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
+    }
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 15, 21 ) == CC_PE_LightPyramid );
+    result = result && ( cc_chessboard_get_piece( cb, 21, 15 ) == CC_PE_LightBishop );
+
+    result = result && ( cc_chessboard_get_tag( cb, 11, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 15 ) == CC_TE_None );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Bp22~
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 15 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 15, 21 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightBishop, steps_0 );
+    if ( !plies_0 )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Al22=
+
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 21 );
+    if ( !steps_1 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_tag_for_promotion_append_new( steps_1, CC_SLE_Destination, 11, 21 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightPyramid, steps_1 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Bp22~Al22=
+
+    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    if ( !move_0 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_0, true, true );
+
+    if ( do_print )
+    {
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
+    }
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 11, 21 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
+
+    result = result && ( cc_chessboard_get_tag( cb, 11, 21 ) == CC_TE_DelayedPromotion );
+    result = result && ( cc_chessboard_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 15 ) == CC_TE_None );
+
+    if ( !result )
+    {
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply l22Q
+
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 11, 21 );
+    if ( !steps_2 )
+    {
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_promote_append_new( steps_2, CC_SLE_Destination, 11, 21, CC_PE_LightQueen ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_2 = cc_ply_cascade_new( CC_PE_LightPawn, steps_2 );
+    if ( !plies_2 )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move l22Q
+
+    CcMove * move_1 = cc_move_new( NULL, plies_2, CC_MSE_None );
+    if ( !move_1 )
+    {
+        cc_ply_free_all_plies( &plies_2 );
+        cc_move_free_all_moves( &move_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_1, true, true );
+
+    if ( do_print )
+    {
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
+    }
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 11, 21 ) == CC_PE_LightQueen );
+    result = result && ( cc_chessboard_get_piece( cb, 15, 21 ) == CC_PE_LightBishop );
+
+    result = result && ( cc_chessboard_get_tag( cb, 11, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 15, 21 ) == CC_TE_None );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 15 ) == CC_TE_None );
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move_0 );
+    cc_move_free_all_moves( &move_1 );
+    free( cb );
+
+    return result;
+}
+
+bool tst_conversion( bool do_print, bool is_failed )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    if ( is_failed )
+        cc_chessboard_set_piece( cb, 11, 5, CC_PE_DarkStarchild );
+    else
+        cc_chessboard_set_piece( cb, 11, 5, CC_PE_DarkShaman );
+
+    cc_chessboard_set_piece( cb, 15, 5, CC_PE_LightPyramid );
+    cc_chessboard_set_piece( cb, 21, 11, CC_PE_LightBishop );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    if ( is_failed )
+        result = result && ( cc_chessboard_get_piece( cb, 11, 5 ) == CC_PE_DarkStarchild );
+    else
+        result = result && ( cc_chessboard_get_piece( cb, 11, 5 ) == CC_PE_DarkShaman );
+
+    result = result && ( cc_chessboard_get_piece( cb, 15, 5 ) == CC_PE_LightPyramid );
+    result = result && ( cc_chessboard_get_piece( cb, 21, 11 ) == CC_PE_LightBishop );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Bp6~
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 11 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 15, 5 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightBishop, steps_0 );
+    if ( !plies_0 )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Al6%H
+
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 5 );
+    if ( !steps_1 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    CcSideEffect se_1;
+    if ( is_failed )
+        se_1 = cc_side_effect_failed_conversion();
+    else
+        se_1 = cc_side_effect_convert( CC_PE_LightShaman, false );
+
+    if ( !cc_step_append_new( steps_1, CC_SLE_Destination, 11, 5, se_1 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightPyramid, steps_1 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Bp6~Al6%H
+
+    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    if ( !move_0 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_0, true, true );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    if ( is_failed )
+        result = result && ( cc_chessboard_get_piece( cb, 11, 5 ) == CC_PE_DarkStarchild );
+    else
+        result = result && ( cc_chessboard_get_piece( cb, 11, 5 ) == CC_PE_LightShaman );
+
+    result = result && ( cc_chessboard_get_piece( cb, 15, 5 ) == CC_PE_LightBishop );
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move_0 );
+    free( cb );
+
+    return result;
+}
+
+bool tst_demotion( bool do_print )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece( cb, 0, 0, CC_PE_BrightStar );
+    cc_chessboard_set_piece( cb, 25, 25, CC_PE_BrightStar );
+    cc_chessboard_set_piece( cb, 11, 11, CC_PE_LightBishop );
+    cc_chessboard_set_piece( cb, 23, 15, CC_PE_Monolith );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 11, 11 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 23, 15 ) == CC_PE_Monolith );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Mw23>Bl12
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_demote_append_new( steps_0, CC_SLE_Destination, 22, 22, CC_PE_LightPawn, 11, 11 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_Monolith, steps_0 );
+    if ( !plies_0 )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Mw23>Bl12
+
+    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    if ( !move_0 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_0, true, true );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 11, 11 ) == CC_PE_LightPawn );
+    result = result && ( cc_chessboard_get_piece( cb, 22, 22 ) == CC_PE_Monolith );
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move_0 );
+    free( cb );
+
+    return result;
+}
+
+bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece( cb, 25, 0, CC_PE_DimStar );
+    cc_chessboard_set_piece( cb, 0, 25, CC_PE_DimStar );
+    cc_chessboard_set_piece( cb, 23, 15, CC_PE_LightStarchild );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 23, 15 ) == CC_PE_LightStarchild );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Ip11$B, Ip11$$
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    CcSideEffect se_0;
+    if ( is_failed )
+        se_0 = cc_side_effect_failed_resurrection();
+    else
+    {
+        if ( is_oblationing )
+            se_0 = cc_side_effect_resurrect( CC_PE_LightBishop, 15, 10 );
+        else
+            se_0 = cc_side_effect_resurrect( CC_PE_LightWave, 16, 11 );
+    }
+
+    if ( !cc_step_append_new( steps_0, CC_SLE_Destination, 15, 10, se_0 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightStarchild, steps_0 );
+    if ( !plies_0 )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Ip11$B, Ip11$$
+
+    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    if ( !move_0 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_0, true, true );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+
+    if ( is_failed )
+    {
+        result = result && ( cc_chessboard_get_piece( cb, 15, 10 ) == CC_PE_LightStarchild );
+        result = result && ( cc_chessboard_get_piece( cb, 16, 11 ) == CC_PE_None );
+    }
+    else
+    {
+        if ( is_oblationing )
+        {
+            result = result && ( cc_chessboard_get_piece( cb, 15, 10 ) == CC_PE_LightBishop );
+            result = result && ( cc_chessboard_get_piece( cb, 16, 11 ) == CC_PE_None );
+        }
+        else
+        {
+            result = result && ( cc_chessboard_get_piece( cb, 15, 10 ) == CC_PE_LightStarchild );
+            result = result && ( cc_chessboard_get_piece( cb, 16, 11 ) == CC_PE_LightWave );
+        }
+    }
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move_0 );
+    free( cb );
+
+    return result;
+}
+
+bool tst_teleportation( bool do_print, bool is_failed )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece( cb, 0, 0, CC_PE_BrightStar );
+    cc_chessboard_set_piece( cb, 25, 25, CC_PE_BrightStar );
+    cc_chessboard_set_piece( cb, 25, 0, CC_PE_DimStar );
+    cc_chessboard_set_piece( cb, 0, 25, CC_PE_DimStar );
+
+    cc_chessboard_set_piece( cb, 3, 22, CC_PE_LightBishop );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+
+    result = result && ( cc_chessboard_get_piece( cb, 3, 22 ) == CC_PE_LightBishop );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Ba26
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 3, 22 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 0, 25 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightBishop, steps_0 );
+    if ( !plies_0 )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply |By25
+
+    CcPly * ply_1;
+    if ( is_failed )
+        ply_1 = cc_ply_failed_teleport_append_new( plies_0, CC_PE_LightBishop, 0, 24 );
+    else
+        ply_1 = cc_ply_teleport_append_new( plies_0, CC_PE_LightBishop, 24, 24 );
+
+    if ( !ply_1 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Ba26|By25
+
+    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    if ( !move_0 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_0, true, true );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 0, 0 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 25 ) == CC_PE_BrightStar );
+    result = result && ( cc_chessboard_get_piece( cb, 25, 0 ) == CC_PE_DimStar );
+    result = result && ( cc_chessboard_get_piece( cb, 0, 25 ) == CC_PE_DimStar );
+
+    result = result && ( cc_chessboard_get_piece( cb, 3, 22 ) == CC_PE_None );
+
+    if ( is_failed )
+    {
+        result = result && ( cc_chessboard_get_piece( cb, 0, 24 ) == CC_PE_LightBishop );
+        result = result && ( cc_chessboard_get_piece( cb, 24, 24 ) == CC_PE_None );
+    }
+    else
+    {
+        result = result && ( cc_chessboard_get_piece( cb, 0, 24 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 24, 24 ) == CC_PE_LightBishop );
+    }
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move_0 );
+    free( cb );
+
+    return result;
+}
+
+bool tst_teleportation_wave( bool do_print, bool is_oblationing )
+{
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece( cb, 5, 11, CC_PE_Monolith );
+    cc_chessboard_set_piece( cb, 19, 9, CC_PE_Monolith );
+
+    cc_chessboard_set_piece( cb, 10, 12, CC_PE_LightBishop );
+    cc_chessboard_set_piece( cb, 8, 14, CC_PE_LightWave );
+    cc_chessboard_set_piece( cb, 17, 7, CC_PE_LightKnight );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 5, 11 ) == CC_PE_Monolith );
+    result = result && ( cc_chessboard_get_piece( cb, 19, 9 ) == CC_PE_Monolith );
+
+    result = result && ( cc_chessboard_get_piece( cb, 10, 12 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 8, 14 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_piece( cb, 17, 7 ) == CC_PE_LightKnight );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Bi15
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 10, 12 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 8, 14 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightBishop, steps_0 );
+    if ( !plies_0 )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply ~Wf12
+
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 8, 14 );
+    if ( !steps_1 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 5, 11 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightWave, steps_1 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply |Wr8
+
+    CcPly * ply_2;
+
+    if ( is_oblationing )
+        ply_2 = cc_ply_failed_teleport_oblation_append_new( plies_0, CC_PE_LightWave );
+    else
+    {
+        CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 19, 9 );
+        if ( !steps_2 )
+        {
+            cc_ply_free_all_plies( &plies_0 );
+            free( cb );
+            return false;
+        }
+
+        if ( !cc_step_none_append_new( steps_2, CC_SLE_Destination, 17, 7 ) )
+        {
+            cc_step_free_all_steps( &steps_2 );
+            cc_ply_free_all_plies( &plies_0 );
+            free( cb );
+            return false;
+        }
+
+        ply_2 = cc_ply_teleport_wave_append_new( plies_0, CC_PE_LightWave, steps_2 );
+    }
+
+    if ( !ply_2 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply ~Np9
+
+    if ( !is_oblationing )
+    {
+        CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 17, 7 );
+        if ( !steps_3 )
+        {
+            cc_ply_free_all_plies( &plies_0 );
+            free( cb );
+            return false;
+        }
+
+        if ( !cc_step_none_append_new( steps_3, CC_SLE_Destination, 15, 8 ) )
+        {
+            cc_step_free_all_steps( &steps_3 );
+            cc_ply_free_all_plies( &plies_0 );
+            free( cb );
+            return false;
+        }
+
+        if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightKnight, steps_3 ) )
+        {
+            cc_step_free_all_steps( &steps_3 );
+            cc_ply_free_all_plies( &plies_0 );
+            free( cb );
+            return false;
+        }
+    }
+
+    //
+    // move Bi15~Wf12|Wr8~Np9
+
+    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    if ( !move_0 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_0, true, true );
+
+    if ( do_print ) cc_chessboard_print( cb, true );
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 5, 11 ) == CC_PE_Monolith );
+    result = result && ( cc_chessboard_get_piece( cb, 19, 9 ) == CC_PE_Monolith );
+
+    result = result && ( cc_chessboard_get_piece( cb, 10, 12 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 8, 14 ) == CC_PE_LightBishop );
+
+    if ( is_oblationing )
+    {
+        result = result && ( cc_chessboard_get_piece( cb, 17, 7 ) == CC_PE_LightKnight );
+    }
+    else
+    {
+        result = result && ( cc_chessboard_get_piece( cb, 17, 7 ) == CC_PE_LightWave );
+        result = result && ( cc_chessboard_get_piece( cb, 15, 8 ) == CC_PE_LightKnight );
+    }
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move_0 );
+    free( cb );
+
+    return result;
+}
+
+bool tst_trance_journey( bool do_print, bool is_capturing )
+{
+    CcPieceEnum shaman = is_capturing ? CC_PE_DarkShaman : CC_PE_LightShaman;
+
+    // chessboard
+
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
+    if ( !cb ) return false;
+
+    cc_chessboard_set_piece( cb, 4, 8, shaman ); // entrancing
+    cc_chessboard_set_piece( cb, 6, 9, CC_PE_LightWave );
+    cc_chessboard_set_piece( cb, 7, 7, shaman ); // entranced
+
+    cc_chessboard_set_piece( cb, 7, 12, CC_PE_LightBishop ); // 2
+    cc_chessboard_set_piece( cb, 5, 1, CC_PE_DarkKnight ); // 4
+    cc_chessboard_set_piece_tag( cb, 21, 4, CC_PE_DarkPawn, CC_TE_DelayedPromotion ); // 9
+
+    if ( do_print )
+    {
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
+    }
+
+    //
+    // tests
+
+    bool result = true;
+
+    result = result && ( cc_chessboard_get_piece( cb, 4, 8 ) == shaman );
+    result = result && ( cc_chessboard_get_piece( cb, 6, 9 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 7 ) == shaman );
+
+    result = result && ( cc_chessboard_get_piece( cb, 7, 12 ) == CC_PE_LightBishop );
+    result = result && ( cc_chessboard_get_piece( cb, 5, 1 ) == CC_PE_DarkKnight );
+    result = result && ( cc_chessboard_get_piece( cb, 21, 4 ) == CC_PE_DarkPawn );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 4 ) == CC_TE_DelayedPromotion );
+
+    if ( !result )
+    {
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply Hg10
+
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 4, 8 );
+    if ( !steps_0 )
+    {
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 6, 9 ) )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    CcPly * plies_0 = cc_ply_cascade_new( shaman, steps_0 );
+    if ( !plies_0 )
+    {
+        cc_step_free_all_steps( &steps_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply ~Wh8
+
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 6, 9 );
+    if ( !steps_1 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 7, 7 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightWave, steps_1 ) )
+    {
+        cc_step_free_all_steps( &steps_1 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
+    // ply @H..h13*B..f2*N..p7..j19..v5*P==
+
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 7, 7 );
+    if ( !steps_2 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    CcSideEffect sse_2_1 = is_capturing ?
+                           cc_side_effect_capture( CC_PE_LightBishop, false ) :
+                           cc_side_effect_displacement( CC_PE_LightBishop, false, 9, 18 );
+    if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 7, 12, sse_2_1 ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    CcSideEffect sse_2_2 = is_capturing ?
+                           cc_side_effect_capture( CC_PE_DarkKnight, false ) :
+                           cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
+    if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 5, 1, sse_2_2 ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_step_none_append_new( steps_2, CC_SLE_Distant, 15, 6 ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    CcSideEffect sse_2_4 = is_capturing ?
+                           cc_side_effect_none() :
+                           cc_side_effect_displacement( CC_PE_LightBishop, false, 11, 24 );
+    if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 9, 18, sse_2_4 ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    CcSideEffect sse_2_5 = is_capturing ?
+                           cc_side_effect_capture( CC_PE_DarkPawn, true ) :
+                           cc_side_effect_displacement( CC_PE_DarkPawn, true, 15, 6 );
+    if ( !cc_step_append_new( steps_2, CC_SLE_Destination, 21, 4, sse_2_5 ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    if ( !cc_ply_trance_journey_append_new( plies_0, shaman, steps_2, 7, 7 ) )
+    {
+        cc_step_free_all_steps( &steps_2 );
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    //
+    // move Hg10~Wh8@H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
+    // move Hg10~Wh8@H..h13*B..f2*N..p7..j19..v5*P==
+
+    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    if ( !move_0 )
+    {
+        cc_ply_free_all_plies( &plies_0 );
+        free( cb );
+        return false;
+    }
+
+    result = result && cc_do_moves( cb, move_0, true, true );
+
+    if ( do_print )
+    {
+        cc_chessboard_print( cb, true );
+        cc_chessboard_print( cb, false );
+    }
+
+    //
+    // tests
+
+    result = result && ( cc_chessboard_get_piece( cb, 4, 8 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 6, 9 ) == shaman );
+    result = result && ( cc_chessboard_get_piece( cb, 7, 7 ) == CC_PE_LightWave );
+    result = result && ( cc_chessboard_get_piece( cb, 21, 4 ) == shaman );
+    result = result && ( cc_chessboard_get_tag( cb, 21, 4 ) == CC_TE_None );
+
+    result = result && ( cc_chessboard_get_piece( cb, 7, 12 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 5, 1 ) == CC_PE_None );
+    result = result && ( cc_chessboard_get_piece( cb, 9, 18 ) == CC_PE_None );
+
+    if ( is_capturing )
+    {
+        result = result && ( cc_chessboard_get_piece( cb, 11, 24 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_piece( cb, 15, 6 ) == CC_PE_None );
+        result = result && ( cc_chessboard_get_tag( cb, 15, 6 ) == CC_TE_None );
+    }
+    else
+    {
+        result = result && ( cc_chessboard_get_piece( cb, 11, 24 ) == CC_PE_LightBishop );
+        result = result && ( cc_chessboard_get_piece( cb, 1, 5 ) == CC_PE_DarkKnight );
+        result = result && ( cc_chessboard_get_piece( cb, 15, 6 ) == CC_PE_DarkPawn );
+        result = result && ( cc_chessboard_get_tag( cb, 15, 6 ) == CC_TE_None );
+    }
+
+    //
+    // free, return
+
+    cc_move_free_all_moves( &move_0 );
+    free( cb );
+
+    return result;
+}

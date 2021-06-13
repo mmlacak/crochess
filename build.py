@@ -53,6 +53,7 @@ def main():
 
     # is_run_app_only = True if RS.any_item_in( ['-X', '--execute'], script_argv) else False
     is_run_app = True if RS.any_item_in( ['-r', '--run'], script_argv) else False
+    is_run_tests = True if RS.any_item_in( ['-t', '--tests'], script_argv) else False
 
     if is_verbose:
         print( "" )
@@ -107,6 +108,20 @@ def main():
 
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
 
+        cwd_tests, compile_tests_cmd_lst = BE.get_compile_tests_cmd(PROJECT_ROOT_PATH, compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, adx_options_list=compile_app_argv)
+
+        if is_debug:
+            print( "Compiling in: %s." % str( cwd_tests ) )
+            print( "Compiling with: %s." % str( compile_tests_cmd_lst ) )
+
+        if not is_dry_run:
+            print( "." * 72 )
+            result = RS.run_process( compile_tests_cmd_lst, cwd=cwd_tests )
+            print( result )
+            print( "-" * 72 )
+
+            remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
+
     if is_build or is_run_app:
         ls_cmd_lst = BE.get_ls_cmd()
 
@@ -121,8 +136,9 @@ def main():
             print( result )
             print( "-" * 72 )
 
-    if is_run_app:
-        run_cmd_lst = BE.get_run_exe_file_cmd(PROJECT_ROOT_PATH, options_list=executable_argv)
+    if is_run_app or is_run_tests:
+        exe_name = BE.EXECUTABLE_FILE_NAME if is_run_app else BE.TESTS_FILE_NAME
+        run_cmd_lst = BE.get_run_exe_file_cmd(PROJECT_ROOT_PATH, exe_name=exe_name, options_list=executable_argv)
 
         if is_debug:
             print( "" )
