@@ -20,8 +20,9 @@ def main():
     pre_git_argv, git_commit_argv, git_push_argv = RG.split_cmd_git_args(sys.argv)
 
     is_dry_run = True if RS.any_item_in( ['-n', '--dry-run'], pre_git_argv) else False
-    is_verbose = True if is_dry_run or RS.any_item_in( ['-v', '--verbose'], pre_git_argv) else False
-    is_debug = True if is_dry_run or RS.any_item_in( ['-d', '--debug'], pre_git_argv) else False
+    is_wet_run = True if not is_dry_run and RS.any_item_in( ['-w', '--wet-run'], pre_git_argv) else False
+    is_verbose = True if is_dry_run or is_wet_run or RS.any_item_in( ['-v', '--verbose'], pre_git_argv) else False
+    is_debug = True if is_dry_run or is_wet_run or RS.any_item_in( ['-d', '--debug'], pre_git_argv) else False
 
     is_book = True if RS.any_item_in( ['-b', '--book'], pre_git_argv) else False
 
@@ -75,26 +76,27 @@ def main():
     if git_commit_argv:
         print( "" )
 
-        if not is_dry_run and auto_updated_files:
+        if not is_dry_run:
             print( "Auto-updated: %s." % str( auto_updated_files ) )
             print( "" )
 
-            if not RG.is_committing_all_files(git_commit_argv):
-                if RG.is_committing_specified_files(git_commit_argv):
-                    git_commit_argv.extend( auto_updated_files )
-                else:
-                    git_add = ['git', 'add', '--', ]
-                    git_add.extend( auto_updated_files )
-                    print( "Running: %s" % str( git_add ) )
-                    print( "." * 72 )
-                    result = RS.run_process( git_add )
-                    print( result )
-                    print( "-" * 72 )
+            if not is_wet_run and auto_updated_files:
+                if not RG.is_committing_all_files(git_commit_argv):
+                    if RG.is_committing_specified_files(git_commit_argv):
+                        git_commit_argv.extend( auto_updated_files )
+                    else:
+                        git_add = ['git', 'add', '--', ]
+                        git_add.extend( auto_updated_files )
+                        print( "Running: %s" % str( git_add ) )
+                        print( "." * 72 )
+                        result = RS.run_process( git_add )
+                        print( result )
+                        print( "-" * 72 )
 
         if is_debug:
             print( "Running: %s" % str( git_commit_argv ) )
 
-        if not is_dry_run:
+        if not is_dry_run and not is_wet_run:
             print( "." * 72 )
             result = RS.run_process( git_commit_argv )
             print( result )
@@ -106,7 +108,7 @@ def main():
         if is_debug:
             print( "Running: %s" % str( git_push_argv ) )
 
-        if not is_dry_run:
+        if not is_dry_run and not is_wet_run:
             print( "." * 72 )
             result = RS.run_process( git_push_argv )
             print( result )
