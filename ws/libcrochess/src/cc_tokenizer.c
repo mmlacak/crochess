@@ -76,7 +76,7 @@ char * cc_next_token_new( char const * const restrict str /* = NULL */,
 
     size_t len = end - start;
     char * pos = malloc( len + 1 );
-    if ( !pos ) return pos; // NULL --> maybe no enough memory.
+    if ( !pos ) return NULL;
 
     strncpy( pos, start, len );
     pos[ len ] = '\0';

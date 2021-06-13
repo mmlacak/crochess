@@ -15,7 +15,7 @@
 
 CcPly * cc_parse_ply( char const * const restrict ply_str,
                       CcChessboard const * const restrict cb,
-                      CcParseMsg * parse_msgs )
+                      CcParseMsg ** parse_msgs )
 {
     if ( !ply_str ) return NULL;
     if ( !cb ) return NULL;
@@ -28,7 +28,7 @@ CcPly * cc_parse_ply( char const * const restrict ply_str,
 
 CcMove * cc_parse_move( char const * const restrict move_str,
                         CcChessboard const * const restrict cb,
-                        CcParseMsg * parse_msgs )
+                        CcParseMsg ** parse_msgs )
 {
     if ( !move_str ) return NULL;
     if ( !cb ) return NULL;

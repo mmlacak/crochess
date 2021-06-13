@@ -8,12 +8,11 @@
 
 typedef enum CcParseMsgEnum
 {
-    CC_PE_Empty, // Unintialized.
-    CC_PE_Debug,
-    CC_PE_Info,
-    CC_PE_Warning,
-    CC_PE_Error,
-    CC_PE_Fatal,
+    CC_PME_Debug,
+    CC_PME_Info,
+    CC_PME_Warning,
+    CC_PME_Error,
+    CC_PME_Fatal,
 } CcParseMsgEnum;
 
 typedef struct CcParseMsg
@@ -24,8 +23,6 @@ typedef struct CcParseMsg
     struct CcParseMsg * next;
 } CcParseMsg;
 
-CcParseMsg * cc_parse_msg_empty_new();
-
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
                                char const * const restrict sub,
                                char const * const restrict msg );
@@ -35,6 +32,15 @@ CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
                                       char const * const restrict sub,
                                       char const * const restrict msg );
 
+CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs,
+                                              CcParseMsgEnum type,
+                                              char const * const restrict sub,
+                                              char const * const restrict msg );
+
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs );
+
+
+char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL */,
+                                  CcParseMsg ** parse_msgs );
 
 #endif /* __CC_PARSER_H__ */
