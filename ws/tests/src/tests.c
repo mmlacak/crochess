@@ -20,7 +20,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.6:110+20210613.121845"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.7:111+20210613.141736"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
