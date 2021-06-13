@@ -159,27 +159,26 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL
         }
     }
 
-    if ( parse_1st )
+    if ( ( !parse_1st ) && ( !skipped_separators ) && skipped_opening_bracket )
     {
-        if ( skipped_separators || skipped_teminators )
-        {
-            cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "separator/terminator before first ply" );
-            return NULL;
-        }
-    }
-    else
-    {
-        if ( ( !skipped_separators ) && skipped_opening_bracket )
-        {
-            cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "ply started without separator" );
-            return NULL;
-        }
+        cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "ply started without separator" );
+        return NULL;
     }
 
-    if ( *ply_start == '+' ) return "+";
-    else if ( *ply_start == '#' ) return "#";
+    if ( *ply_start == '+' )
+    {
+        ply_end = NULL; // Move end, invalidate another call on the same str.
+        return "+";
+    }
+    else if ( *ply_start == '#' )
+    {
+        ply_end = NULL; // Move end, invalidate another call on the same str.
+        return "#";
+    }
     else if ( *ply_start == '\0' )
     {
+        ply_end = NULL; // String end, invalidate another call on the same str.
+
         if ( skipped_separators || skipped_teminators || skipped_opening_bracket )
         {
             cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "premature end of ply" );
