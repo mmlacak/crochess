@@ -13,14 +13,14 @@
 
 
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
-                               char const * const restrict sub,
+                               size_t pos,
                                char const * const restrict msg )
 {
     CcParseMsg * new = malloc( sizeof( CcParseMsg ) );
     if ( !new ) return NULL;
 
     new->type = type;
-    new->sub = sub;
+    new->pos = pos;
     new->msg = msg;
     new->next = NULL;
 
@@ -29,10 +29,10 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
 
 CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
                                       CcParseMsgEnum type,
-                                      char const * const restrict sub,
+                                      size_t pos,
                                       char const * const restrict msg )
 {
-    CcParseMsg * new = cc_parse_msg_new( type, sub, msg );
+    CcParseMsg * new = cc_parse_msg_new( type, pos, msg );
     if ( !new ) return NULL;
     if ( !parse_msgs ) return new;
 
@@ -45,12 +45,12 @@ CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
 
 CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs,
                                               CcParseMsgEnum type,
-                                              char const * const restrict sub,
+                                              size_t pos,
                                               char const * const restrict msg )
 {
     if ( !parse_msgs ) return NULL;
 
-    CcParseMsg * new = cc_parse_msg_append_new( *parse_msgs, type, sub, msg );
+    CcParseMsg * new = cc_parse_msg_append_new( *parse_msgs, type, pos, msg );
 
     if ( !*parse_msgs ) *parse_msgs = new;
 
@@ -67,7 +67,6 @@ bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs )
     while ( pm )
     {
         // free() doesn't do pointers to const.
-        free( (char *)pm->sub );
         free( (char *)pm->msg );
 
         CcParseMsg * tmp = pm->next;
@@ -85,94 +84,132 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL
 {
     if ( !parse_msgs ) return NULL;
 
-    static char const * start = NULL;
-    static char const * end = NULL;
+    static char const * move_start = NULL;
+    static char const * ply_start = NULL;
+    static char const * ply_end = NULL;
 
+    bool parse_1st = (bool)move_str;
     bool skipped_opening_bracket = false;
-    bool skipped_tilde = false;
-
-// TODO :: move status, i.e. #, +
+    bool skipped_separators = false;
+    bool skipped_teminators = false;
 
     if ( move_str )
     {
-        start = move_str;
+        move_start = ply_start = move_str;
 
-        if ( *start == '[' )
+        if ( *ply_start == '[' )
         {
             skipped_opening_bracket = true;
-            ++start;
+            ++ply_start;
         }
     }
     else
     {
-        if ( !end ) return NULL;
-        start = end + 1;
+        if ( !ply_end ) return NULL;
+        ply_start = ply_end + 1;
 
-        if ( *start == ']' ) ++start;
+        if ( *ply_start == ']' ) ++ply_start;
 
-        if ( *start == '~' )
+        if ( *ply_start == '~' )
         {
-            skipped_tilde = true;
-            ++start;
+            ++ply_start;
+            skipped_separators = true;
+        }
+        else if ( *ply_start == '|' )
+        {
+            ++ply_start;
+
+            if ( *ply_start == '|' )
+            {
+                ++ply_start;
+                skipped_teminators = true;
+            }
+            else skipped_separators = true;
+        }
+        else if ( *ply_start == '@' )
+        {
+            ++ply_start;
+
+            if ( *ply_start == '@' )
+            {
+                ++ply_start;
+                skipped_teminators = true;
+
+                if ( *ply_start == '@' ) ++ply_start;
+            }
+            else skipped_separators = true;
+        }
+        else if ( *ply_start == ':' )
+        {
+            ++ply_start;
+            skipped_separators = true;
+
+            if ( *ply_start == ':' ) ++ply_start;
+            else
+            {
+                cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "malformed ply separator" );
+                return NULL;
+            }
         }
 
-        if ( *start == '[' )
+        if ( *ply_start == '[' )
         {
             skipped_opening_bracket = true;
-            ++start;
+            ++ply_start;
         }
     }
 
-    if ( *start == '\0' )
+    if ( parse_1st )
     {
-        if ( skipped_tilde )
+        if ( skipped_separators || skipped_teminators )
         {
-            cc_parse_msg_init_or_append_new( parse_msgs,
-                                            CC_PME_Error,
-                                            cc_str_duplicate_len_new( start, BUFSIZ ),
-                                            "premature end of ply" );
+            cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "separator/terminator before first ply" );
+            return NULL;
+        }
+    }
+    else
+    {
+        if ( ( !skipped_separators ) && skipped_opening_bracket )
+        {
+            cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "ply started without separator" );
+            return NULL;
+        }
+    }
+
+    if ( *ply_start == '+' ) return "+";
+    else if ( *ply_start == '#' ) return "#";
+    else if ( *ply_start == '\0' )
+    {
+        if ( skipped_separators || skipped_teminators || skipped_opening_bracket )
+        {
+            cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "premature end of ply" );
         }
 
         return NULL;
     }
 
-    if ( ( *start == ']' ) || ( *start == '~' ) || ( *start == '[' ) )
+    ply_end = ply_start + 1;
+    while ( isalnum( *ply_end ) ) ++ply_end;
+
+    if ( ( skipped_opening_bracket ) && ( *(ply_end + 1) != ']' ) )
     {
-        cc_parse_msg_init_or_append_new( parse_msgs,
-                                         CC_PME_Error,
-                                         cc_str_duplicate_len_new( start, BUFSIZ ),
-                                         "ply separators inside ply notation" );
+        cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "no closing bracket" );
         return NULL;
     }
 
-    end = start + 1;
-    while ( isalnum( *end ) ) ++end;
-
-    if ( ( skipped_opening_bracket ) && ( *(end + 1) != ']' ) )
+    if ( ( *(ply_end + 1) == ']' ) && ( !skipped_opening_bracket ) )
     {
-        cc_parse_msg_init_or_append_new( parse_msgs,
-                                         CC_PME_Error,
-                                         cc_str_duplicate_len_new( end, BUFSIZ ),
-                                         "no closing bracket" );
+        cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "no opening bracket" );
         return NULL;
     }
 
-    if ( ( *(end + 1) == ']' ) && ( !skipped_opening_bracket ) )
-    {
-        cc_parse_msg_init_or_append_new( parse_msgs,
-                                         CC_PME_Error,
-                                         cc_str_duplicate_len_new( end, BUFSIZ ),
-                                         "no opening bracket" );
-        return NULL;
-    }
+    if ( ply_end == ply_start ) return NULL;
 
-    if ( end == start ) return NULL;
-
-    size_t len = end - start;
+    size_t len = ply_end - ply_start;
     char * pos = malloc( len + 1 );
     if ( !pos ) return NULL;
 
-    strncpy( pos, start, len );
+    strncpy( pos, ply_start, len );
     pos[ len ] = '\0';
 
     return pos;

@@ -18,23 +18,23 @@ typedef enum CcParseMsgEnum
 typedef struct CcParseMsg
 {
     CcParseMsgEnum type;
-    char const * sub;
+    size_t pos;
     char const * msg;
     struct CcParseMsg * next;
 } CcParseMsg;
 
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
-                               char const * const restrict sub,
+                               size_t pos,
                                char const * const restrict msg );
 
 CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
                                       CcParseMsgEnum type,
-                                      char const * const restrict sub,
+                                      size_t pos,
                                       char const * const restrict msg );
 
 CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs,
                                               CcParseMsgEnum type,
-                                              char const * const restrict sub,
+                                              size_t pos,
                                               char const * const restrict msg );
 
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs );
