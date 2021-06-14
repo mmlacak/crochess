@@ -9,17 +9,43 @@
 #include "test_msgs.h"
 
 
+// https://stackoverflow.com/questions/15927583/how-to-suppress-warning-control-reaches-end-of-non-void-function
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
+
 char const * test_msg_enum_label( TestMsgEnum tme )
 {
     switch ( tme )
     {
+        // gcc doesn't check if all current options in enum are covered.
+
         case TME_Debug : return "Debug";
         case TME_Info : return "Info";
         case TME_Warning : return "Warning";
         case TME_Error : return "Error";
         case TME_Fatal : return "Fatal";
-        default : return "";
+        // default : return ""; // Won't be suitable --> make compilers complain.
     }
+}
+
+#pragma GCC diagnostic pop
+
+bool test_print_failure( bool expr,
+                         TestMsgEnum type,
+                         char const * const restrict msg,
+                         char const * const restrict file,
+                         size_t line,
+                         char const * const restrict func )
+{
+    bool result = expr;
+
+    if ( !result )
+    {
+        printf( "%s: %s; in %s(), at %s[%lu].\n", test_msg_enum_label( type ), msg, func, file, line );
+        fflush( stdout );
+    }
+
+    return result;
 }
 
 
@@ -112,7 +138,7 @@ bool test_msg_print_all( TestMsg const * const restrict test_msgs,
     {
         if ( tm->type >= level )
         {
-            printf( "%s: %s in %s() at %s[%lu].\n",
+            printf( "%s: %s; in %s(), at %s[%lu].\n",
                     test_msg_enum_label( tm->type ),
                     tm->msg,
                     tm->func,

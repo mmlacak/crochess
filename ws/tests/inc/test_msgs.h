@@ -18,6 +18,13 @@ typedef enum TestMsgEnum
 
 char const * test_msg_enum_label( TestMsgEnum tme );
 
+bool test_print_failure( bool expr,
+                         TestMsgEnum type,
+                         char const * const restrict msg,
+                         char const * const restrict file,
+                         size_t line,
+                         char const * const restrict func );
+
 
 typedef struct TestMsg
 {
