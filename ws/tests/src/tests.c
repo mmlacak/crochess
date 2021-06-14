@@ -1,7 +1,6 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -16,11 +15,30 @@
 #include "cc_move.h"
 
 #include "hlp_msgs.h"
+#include "test_msgs.h"
 #include "tests_do_move.h"
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.7:111+20210613.141736"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.8:112+20210614.051850"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+
+
+TestMsg * test()
+{
+    TestMsg * test_msgs = NULL;
+
+    test_msg_init_or_append_new( &test_msgs, TME_Debug, "just debugging", __FILE__, __LINE__, __func__ );
+
+    test_msg_init_or_append_new( &test_msgs, TME_Info, "just informing", __FILE__, __LINE__, __func__ );
+
+    test_msg_init_or_append_new( &test_msgs, TME_Warning, "just warning", __FILE__, __LINE__, __func__ );
+
+    test_msg_init_or_append_new( &test_msgs, TME_Error, "stepped into turd", __FILE__, __LINE__, __func__ );
+
+    test_msg_init_or_append_new( &test_msgs, TME_Fatal, "it's serious shit", __FILE__, __LINE__, __func__ );
+
+    return test_msgs;
+}
 
 
 int main( void )
@@ -82,6 +100,14 @@ int main( void )
             if ( !tst_trance_journey( false, true ) ) printf( "Test tst_trance_journey( _, true ) failed.\n" );
 
             printf( "Tests finished.\n" );
+        }
+        else if ( !strcmp( "z", cmd ) )
+        {
+            TestMsg * test_msgs = test();
+
+            test_msg_print_all( test_msgs, TME_Warning );
+
+            test_msg_free_all( &test_msgs );
         }
         else
         {
