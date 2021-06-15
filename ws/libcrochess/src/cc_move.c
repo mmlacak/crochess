@@ -2,6 +2,9 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 #include <stdlib.h>
+#include <stdio.h>
+
+#include "cc_str_utils.h"
 
 #include "cc_ply.h"
 #include "cc_move.h"
@@ -14,7 +17,7 @@ CcMove * cc_move_new( char const * const restrict notation,
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
 
-    mv->notation = notation;
+    mv->notation = cc_str_duplicate_len_new( notation, BUFSIZ );
     mv->plies = plies;
     mv->status = status;
     mv->next = NULL;

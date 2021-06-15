@@ -92,20 +92,24 @@ char * cc_str_duplicate_new( char const * const restrict str )
 char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len )
 {
     if ( !str ) return NULL;
-    if ( max_len == 0 ) return NULL;
+// if ( max_len == 0 ) return NULL;
 
     size_t len = cc_str_len_bound( str, max_len );
-    if ( len == 0 ) return NULL;
+// if ( len == 0 ) return NULL;
 
     char * new = (char *)malloc( len + 1 );
 
-    char const * s = str;
-    char * n = new;
+    if ( len > 0 )
+    {
+        char const * s = str;
+        char * n = new;
 
-    for ( size_t i = 0; ( i <= len ) && ( *s != '\0' ); ++i )
-        *n++ = *s++;
+        for ( size_t i = 0; ( i <= len ) && ( *s != '\0' ); ++i )
+            *n++ = *s++;
 
-    *n = '\0';
+        *n = '\0';
+    }
+    else *new = '\0';
 
     return new;
 }

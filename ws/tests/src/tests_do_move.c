@@ -16,7 +16,7 @@
 #include "tests_do_move.h"
 
 
-bool tst_single_ply( bool do_print )
+bool test_do_move_single_ply( bool do_print )
 {
     // chessboard
 
@@ -125,7 +125,7 @@ bool tst_single_ply( bool do_print )
     return result;
 }
 
-bool tst_cascading_plies( bool do_print )
+bool test_do_move_cascading_plies( bool do_print )
 {
     // chessboard
 
@@ -384,7 +384,7 @@ bool tst_cascading_plies( bool do_print )
     return result;
 }
 
-bool tst_castling( bool do_print )
+bool test_do_move_castling( bool do_print )
 {
     // chessboard
 
@@ -515,7 +515,7 @@ bool tst_castling( bool do_print )
     return result;
 }
 
-bool tst_tag_and_promotion( bool do_print )
+bool test_do_move_tag_and_promotion( bool do_print )
 {
     // chessboard
 
@@ -751,7 +751,7 @@ bool tst_tag_and_promotion( bool do_print )
     return result;
 }
 
-bool tst_conversion( bool do_print, bool is_failed )
+bool test_do_move_conversion( bool do_print, bool is_failed )
 {
     // chessboard
 
@@ -896,7 +896,7 @@ bool tst_conversion( bool do_print, bool is_failed )
     return result;
 }
 
-bool tst_demotion( bool do_print )
+bool test_do_move_demotion( bool do_print )
 {
     // chessboard
 
@@ -1007,7 +1007,7 @@ bool tst_demotion( bool do_print )
     return result;
 }
 
-bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
+bool test_do_move_resurrection( bool do_print, bool is_failed, bool is_oblationing )
 {
     // chessboard
 
@@ -1150,7 +1150,7 @@ bool tst_resurrection( bool do_print, bool is_failed, bool is_oblationing )
     return result;
 }
 
-bool tst_teleportation( bool do_print, bool is_failed )
+bool test_do_move_teleportation( bool do_print, bool is_failed )
 {
     // chessboard
 
@@ -1308,7 +1308,7 @@ bool tst_teleportation( bool do_print, bool is_failed )
     return result;
 }
 
-bool tst_teleportation_wave( bool do_print, bool is_oblationing )
+bool test_do_move_teleportation_wave( bool do_print, bool is_oblationing )
 {
     // chessboard
 
@@ -1534,7 +1534,7 @@ bool tst_teleportation_wave( bool do_print, bool is_oblationing )
     return result;
 }
 
-bool tst_trance_journey( bool do_print, bool is_capturing )
+bool test_do_move_trance_journey( bool do_print, bool is_capturing )
 {
     CcPieceEnum shaman = is_capturing ? CC_PE_DarkShaman : CC_PE_LightShaman;
 
