@@ -25,7 +25,7 @@ class SceneHemerasDawnMixin:
         start = (3, 4)
         scene.board.set_piece(*start, piece=PieceType.Centaur)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_SHORT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos() ):
             mark_type = MarkType.Legal if (i // 2) % 2 == 0 else MarkType.Action
@@ -52,7 +52,7 @@ class SceneHemerasDawnMixin:
 
         # Knight, short jump
 
-        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_SHORT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_2() ):
             # scene.append_field_marker(*pos)

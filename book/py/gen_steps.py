@@ -39,6 +39,24 @@ DEFAULT_KNIGHT_REL_MOVES = [ ( 2,  1),  \
                              ( 2, -1)   ]
 DEFAULT_KNIGHT_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_KNIGHT_REL_MOVES)
 
+DEFAULT_CENTAUR_SHORT_I_III_REL_MOVES =   [ ( 2,  1),  \
+                                            ( 1,  2),  \
+                                                       \
+                                            (-2, -1),  \
+                                            (-1, -2),  ]
+DEFAULT_CENTAUR_SHORT_I_III_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_CENTAUR_SHORT_I_III_REL_MOVES)
+
+DEFAULT_CENTAUR_SHORT_II_IV_REL_MOVES =   [ (-1,  2),  \
+                                            (-2,  1),  \
+                                                       \
+                                            ( 1, -2),  \
+                                            ( 2, -1)   ]
+DEFAULT_CENTAUR_SHORT_II_IV_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_CENTAUR_SHORT_II_IV_REL_MOVES)
+
+DEFAULT_CENTAUR_SHORT_REL_MOVES = DEFAULT_CENTAUR_SHORT_I_III_REL_MOVES \
+                                + DEFAULT_CENTAUR_SHORT_II_IV_REL_MOVES
+DEFAULT_CENTAUR_SHORT_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_CENTAUR_SHORT_REL_MOVES)
+
 DEFAULT_UNICORN_REL_LONG_MOVES = [ ( 4,  1),    \
                                    ( 3,  2),    \
                                    ( 2,  3),    \
@@ -59,6 +77,32 @@ DEFAULT_UNICORN_REL_LONG_MOVES = [ ( 4,  1),    \
                                    ( 3, -2),    \
                                    ( 4, -1)     ]
 DEFAULT_UNICORN_MULTI_REL_LONG_MOVES = convert_single_step_into_multi_rels(DEFAULT_UNICORN_REL_LONG_MOVES)
+
+DEFAULT_CENTAUR_LONG_I_III_REL_MOVES =    [ ( 4,  1),    \
+                                            ( 3,  2),    \
+                                            ( 2,  3),    \
+                                            ( 1,  4),    \
+                                                         \
+                                            (-4, -1),    \
+                                            (-3, -2),    \
+                                            (-2, -3),    \
+                                            (-1, -4),    ]
+DEFAULT_CENTAUR_LONG_I_III_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_CENTAUR_LONG_I_III_REL_MOVES)
+
+DEFAULT_CENTAUR_LONG_II_IV_REL_MOVES =    [ (-1,  4),    \
+                                            (-2,  3),    \
+                                            (-3,  2),    \
+                                            (-4,  1),    \
+                                                         \
+                                            ( 1, -4),    \
+                                            ( 2, -3),    \
+                                            ( 3, -2),    \
+                                            ( 4, -1)     ]
+DEFAULT_CENTAUR_LONG_II_IV_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_CENTAUR_LONG_II_IV_REL_MOVES)
+
+DEFAULT_CENTAUR_LONG_REL_MOVES  = DEFAULT_CENTAUR_LONG_I_III_REL_MOVES \
+                                + DEFAULT_CENTAUR_LONG_II_IV_REL_MOVES
+DEFAULT_CENTAUR_LONG_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_CENTAUR_LONG_REL_MOVES)
 
 DEFAULT_NEIGHBOURING_REL_MOVES = [ ( 1,  0), \
                                    ( 0,  1), \
