@@ -34,5 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_o_36_reentering_syzygies', \
+                    'scn_hd_01_centaur_same_color', \
+                    'scn_hd_02_centaur_opposite_color', \
                 ]

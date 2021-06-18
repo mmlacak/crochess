@@ -20,37 +20,39 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_01_centaur_same_color(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_01_centaur_same_color', bt, width=7, height=7)
+        scene = Scene('scn_hd_01_centaur_same_color', bt, y=1, width=7, height=7)
 
-        start = (3, 3)
+        start = (3, 4)
         scene.board.set_piece(*start, piece=PieceType.Centaur)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=scene.board_view.get_position_limits())
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos() ):
-            scene.append_field_marker(*pos)
-            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker)
+            mark_type = MarkType.Legal if (i // 2) % 2 == 0 else MarkType.Action
+            scene.append_field_marker(*pos, mark_type=mark_type)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
 
         return scene
 
     def scn_hd_02_centaur_opposite_color(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_02_centaur_opposite_color', bt)
+        scene = Scene('scn_hd_02_centaur_opposite_color', bt, width=11, height=11)
 
-        start = (6, 6)
+        start = (5, 5)
         scene.board.set_piece(*start, piece=PieceType.Centaur)
 
         # Centaur, long jump
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start, include_prev=False, bounds=((2, 2), (10, 10)))
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos() ):
-            scene.append_field_marker(*pos)
-            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker)
+            mark_type = MarkType.Legal if (i // 4) % 2 == 0 else MarkType.Action
+            scene.append_field_marker(*pos, mark_type=mark_type)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
 
         # Knight, short jump
 
-        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, bounds=((4, 4), (8, 8)))
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_2() ):
             # scene.append_field_marker(*pos)
