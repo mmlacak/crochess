@@ -26,7 +26,7 @@ A new piece is introduced, Centaur.
 \addcontentsline{toc}{section}{Centaur}
 
 \noindent
-\begin{wrapfigure}[11]{l}{0.4\textwidth}
+\begin{wrapfigure}[12]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/12_centaur.png}
 \caption{Centaur}
@@ -109,7 +109,9 @@ alternating between the two initially chosen steps, for the remainder of a ply.
 % \centering
 \end{figure}
 
-. . .
+Here, light Centaur is located on the same color (i.e. light) field, so all available step-fields
+are short jumps, which are the same as those of Knight. For the first step, Centaur can choose any
+of marked step-fields, except the one which is blocked by own piece (light Pawn).
 
 \clearpage % ..........................................................
 
@@ -122,7 +124,10 @@ alternating between the two initially chosen steps, for the remainder of a ply.
 % \centering
 \end{figure}
 
-. . .
+Here, after first step, light Centaur is located on a dark field, so all available step-fields are
+long jumps, which are the same as those of Unicorn. Since upper-left step-field (blue) was chosen
+for a first step, next step has to be one of upper-right, lower-left fields (green). Note, opponent's
+piece (dark Pawn) can be captured, but it blocks light Centaur from moving any further.
 
 \clearpage % ..........................................................
 
@@ -135,13 +140,10 @@ alternating between the two initially chosen steps, for the remainder of a ply.
 % \centering
 \end{figure}
 
-On first two jumps, Centaur can choose freely any direction (blue). After
-two directions are chosen, Centaur for the rest of a ply has to follow
-them (green), e.g. after reaching field 6, it cannot move to any 7a to 7g
-fields (red). \\
-Here, step-fields are numbered 1 to 11, they are also capture-fields. Light
-Centaur could capture dark Bishop, but is prevented from moving any further
-(grey). Pieces on all other fields are ignored (Pawns).
+After second step is chosen, complete movement of Centaur consists of alternating between the two initial
+steps. Centaur for the rest of a ply has to follow those two initial steps, e.g. after reaching field 4,
+it cannot move to any other step-field (red). Light Centaur could also capture dark Bishop, but is prevented
+from moving any further (grey). Pieces on all other fields are ignored (Pawns).
 
 \clearpage % ..........................................................
 
@@ -180,7 +182,11 @@ chessboard.
 % \centering
 \end{figure}
 
-Wave activated by Centaur moves \hyperref[fig:scn_hd_03_centaur_multi_step]{the same way},
+\huge{}
+TODO
+\normalsize{}
+
+Wave activated by Centaur moves \hyperref[fig:scn_hd_05_centaur_multi_step]{the same way},
 i.e. on first two jumps, Wave has to choose long and short step (blue). After two directions
 are chosen, Wave for the rest of a ply has to follow them (green), and cannot change mid-ply
 (red).
