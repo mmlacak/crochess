@@ -38,5 +38,8 @@ class SceneMix(SceneMixin, \
                     # 'scn_hd_02_centaur_opposite_color', \
                     # 'scn_hd_03_centaur_multi_step_init', \
                     # 'scn_hd_04_centaur_multi_step_second', \
-                    'scn_hd_05_centaur_multi_step', \
+                    # 'scn_hd_05_centaur_multi_step', \
+                    'scn_hd_07_wave_activation_by_centaur_first_step', \
+                    'scn_hd_08_wave_activation_by_centaur_second_step', \
+                    'scn_hd_09_wave_activation_by_centaur_complete', \
                 ]
