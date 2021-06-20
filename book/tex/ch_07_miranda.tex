@@ -447,13 +447,46 @@ Wave can't activate neither light Pegasus, nor dark Wave.
 \subsection*{Activation by Unicorn}
 \addcontentsline{toc}{subsection}{Activation by Unicorn}
 
+\vspace*{-1.1\baselineskip}
+% \vspace*{-0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[10]{l}{0.45\textwidth}
+\centering
+\includegraphics[width=0.4375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_24_wave_same_color.png}
+\vspace*{-0.7\baselineskip}
+\caption{Wave short jump}
+\label{fig:scn_mv_24_wave_same_color}
+\end{wrapfigure}
+Wave, activated by Unicorn on a field with the same color as Wave, has the same step-fields
+(green, blue) as Knight has.
+
+Wave activated on a field in opposite color can jump much longer, and has the same step-fields
+(green, blue) as Unicorn has. For comparison, short steps are also numbered (grey).
+
+\vspace*{0.3\baselineskip}
+\noindent
+\begin{wrapfigure}[18]{l}{0.7\textwidth}
+\centering
+\includegraphics[width=0.6875\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_25_wave_opposite_color.png}
+\vspace*{-0.7\baselineskip}
+\caption{Wave long jump}
+\label{fig:scn_mv_25_wave_opposite_color}
+\end{wrapfigure}
+On initial step, Wave can freely choose any marked field, regardless of marker color (green,
+blue). On second step, Wave can choose any step-field in the other color (blue if green was
+chosen initially, green if blue was first choice). On all subsequent steps, Wave has to keep
+alternating between the two initially chosen steps, for the remainder of a ply. This is so,
+regardless if first step was short or long.
+
+\clearpage % ..........................................................
+
 \vspace*{-1.0ex}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_24_wave_activation_by_unicorn.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_26_wave_activation_by_unicorn.png}
 \caption{Unicorn activates Wave}
-\label{fig:scn_mv_24_wave_activation_by_unicorn}
+\label{fig:scn_mv_26_wave_activation_by_unicorn}
 % \centering
 \end{figure}
 
@@ -468,9 +501,9 @@ beginning of its movement.
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_25_wave_activated_by_unicorn.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_27_wave_activated_by_unicorn.png}
 \caption{Wave activated by Unicorn}
-\label{fig:scn_mv_25_wave_activated_by_unicorn}
+\label{fig:scn_mv_27_wave_activated_by_unicorn}
 % \centering
 \end{figure}
 
@@ -478,6 +511,10 @@ Once initial 2 steps are chosen (blue), Wave has to follow them for the remainde
 of a ply (green). So, Wave cannot change its direction in the middle of a movement;
 e.g. upon reaching field 4 it can't change its direction to 5b, or any other red step,
 it has to follow initialy chosen step (here, 5).
+
+\huge{}
+TODO
+\normalsize{}
 
 % ----------------------------------------------- Activation by Unicorn
 \clearpage % ..........................................................
@@ -489,9 +526,9 @@ it has to follow initialy chosen step (here, 5).
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_26_wave_off_board.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_28_wave_off_board.png}
 \caption{Wave off-board steps}
-\label{fig:scn_mv_26_wave_off_board}
+\label{fig:scn_mv_28_wave_off_board}
 % \centering
 \end{figure}
 

@@ -1145,9 +1145,52 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_24_wave_activation_by_unicorn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_24_wave_activation_by_unicorn', bt)
+    def scn_mv_24_wave_same_color(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_24_wave_same_color', bt, y=1, width=7, height=7)
+
+        start = (3, 4)
+        scene.board.set_piece(*start, piece=PieceType.Wave)
+
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_SHORT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
+
+        for i, pos in enumerate( gen_abs_pos() ):
+            mark_type = MarkType.Legal if i < 4 else MarkType.Action
+            scene.append_field_marker(*pos, mark_type=mark_type)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
+
+        return scene
+
+    def scn_mv_25_wave_opposite_color(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_25_wave_opposite_color', bt, width=11, height=11)
+
+        start = (5, 5)
+        scene.board.set_piece(*start, piece=PieceType.Wave)
+
+        # Unicorn, long jump
+
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_LONG_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
+
+        for i, pos in enumerate( gen_abs_pos() ):
+            mark_type = MarkType.Legal if i < 8 else MarkType.Action
+            scene.append_field_marker(*pos, mark_type=mark_type)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
+
+        # Knight, short jump
+
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_SHORT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
+
+        for i, pos in enumerate( gen_abs_pos_2() ):
+            # scene.append_field_marker(*pos)
+            scene.append_text(str(i+1), *pos, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker)
+
+        return scene
+
+    def scn_mv_26_wave_activation_by_unicorn(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_26_wave_activation_by_unicorn', bt)
 
         start_U = (2, 6)
         start_W = (4, 3)
@@ -1158,9 +1201,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_25_wave_activated_by_unicorn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_27_wave_activated_by_unicorn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_25_wave_activated_by_unicorn', bt)
+        scene = Scene('scn_mv_27_wave_activated_by_unicorn', bt)
         rect = (0.05, 0.9, 0.6, 0.45)
 
         start_W = start_U = (4, 3)
@@ -1211,9 +1254,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_26_wave_off_board(self, bt=BoardType.MirandasVeil):
+    def scn_mv_28_wave_off_board(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_26_wave_off_board', bt, x=4, y=1, reverse_off_board_field_colors=False)
+        scene = Scene('scn_mv_28_wave_off_board', bt, x=4, y=1, reverse_off_board_field_colors=False)
 
         rect = (0.05, 1.0, 0.6, 0.45)
 

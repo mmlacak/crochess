@@ -165,7 +165,6 @@ class SceneHemerasDawnMixin:
         start = (17, 3)
         scene.board.set_piece(*start, piece=-PieceType.Centaur)
 
-
         #
         # short --> (-2, 1) direction
         # long --> (3, 2) direction
@@ -303,7 +302,6 @@ class SceneHemerasDawnMixin:
         # forbidden directions change
 
         # (-2, 1) is ok, i.e. direction "7", here: 10, 13 --> 8, 14
-        # multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_CENTAUR_SHORT_REL_MOVES, to_remove=((-2, 1), ) ) )
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, to_remove=((-2, 1), ) ) )
         start_X = (10, 13)
 
