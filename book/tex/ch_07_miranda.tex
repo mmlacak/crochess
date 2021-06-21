@@ -473,14 +473,13 @@ Wave activated on a field in opposite color can jump much longer, and has the sa
 \label{fig:scn_mv_25_wave_opposite_color}
 \end{wrapfigure}
 On initial step, Wave can freely choose any marked field, regardless of marker color (green,
-blue). On second step, Wave can choose any step-field in the other color (blue if green was
-chosen initially, green if blue was first choice). On all subsequent steps, Wave has to keep
-alternating between the two initially chosen steps, for the remainder of a ply. This is so,
-regardless if first step was short or long.
+blue), or step (long, short). On second step, Wave can choose any step-field in the other color
+(blue if green was chosen initially, green if blue was first choice). On all subsequent steps,
+Wave has to keep alternating between the two initially chosen steps, for the remainder of a ply.
 
 \clearpage % ..........................................................
 
-\vspace*{-1.0ex}
+% \vspace*{-1.0ex}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -490,13 +489,15 @@ regardless if first step was short or long.
 % \centering
 \end{figure}
 
-\huge{}
-TODO
-\normalsize{}
+Here, light Wave is activated by Unicorn on the same color (i.e. light) field, so all available
+step-fields are short jumps, which are the same as those of Knight. For the first step, Wave can
+choose any of marked step-fields (green, blue), including the one occupied by own piece (light
+Pawn). Light Pawn can be activated (in which case Wave stops at its field), or Wave can ignore
+light Pawn, and continue movement further.
 
 \clearpage % ..........................................................
 
-\vspace*{-1.0ex}
+% \vspace*{-1.0ex}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -506,13 +507,14 @@ TODO
 % \centering
 \end{figure}
 
-\huge{}
-TODO
-\normalsize{}
+Here, after first step, light Wave is located on a dark field, so all available step-fields are
+long jumps, which are the same as those of Unicorn. Since upper-left step-field (blue) was chosen
+for a first step, next step has to be one of upper-right, lower-left fields (green). Note, opponent's
+piece (dark Pawn) can't be activated, but it does not block light Wave from moving further.
 
 \clearpage % ..........................................................
 
-\vspace*{-1.0ex}
+% \vspace*{-1.0ex}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -522,47 +524,48 @@ TODO
 % \centering
 \end{figure}
 
-\huge{}
-TODO
-\normalsize{}
+After second step is chosen, complete movement of Wave consists of alternating between the two initially
+chosen steps, which Wave for the rest of a ply has to follow, e.g. after reaching field 4, it cannot move
+to any other step-field (red). Light Wave could also activate dark Wave, but is prevented from moving any
+further (grey). Pieces on all other fields are ignored (Pawns).
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\vspace*{-1.0ex}
-\noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_29_wave_activation_by_unicorn.png}
-\caption{Unicorn activates Wave}
-\label{fig:scn_mv_29_wave_activation_by_unicorn}
-% \centering
-\end{figure}
+% \vspace*{-1.0ex}
+% \noindent
+% \begin{figure}[!h]
+% % \begin{figure}[!t]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_29_wave_activation_by_unicorn.png}
+% \caption{Unicorn activates Wave}
+% \label{fig:scn_mv_29_wave_activation_by_unicorn}
+% % \centering
+% \end{figure}
 
-While Unicorn moves 1 step at a time, its movement
-\hyperref[sec:Age of Aquarius/Unicorn/Movement]{depends on a color of a starting field}.
-For Wave to make multiple steps as Unicorn would, that means it too has to have different
-steps for differently colored fields. So, Wave has to choose 2 different steps at the
-beginning of its movement.
+% While Unicorn moves 1 step at a time, its movement
+% \hyperref[sec:Age of Aquarius/Unicorn/Movement]{depends on a color of a starting field}.
+% For Wave to make multiple steps as Unicorn would, that means it too has to have different
+% steps for differently colored fields. So, Wave has to choose 2 different steps at the
+% beginning of its movement.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_30_wave_activated_by_unicorn.png}
-\caption{Wave activated by Unicorn}
-\label{fig:scn_mv_30_wave_activated_by_unicorn}
-% \centering
-\end{figure}
+% \noindent
+% \begin{figure}[!h]
+% % \begin{figure}[!t]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_30_wave_activated_by_unicorn.png}
+% \caption{Wave activated by Unicorn}
+% \label{fig:scn_mv_30_wave_activated_by_unicorn}
+% % \centering
+% \end{figure}
 
-Once initial 2 steps are chosen (blue), Wave has to follow them for the remainder
-of a ply (green). So, Wave cannot change its direction in the middle of a movement;
-e.g. upon reaching field 4 it can't change its direction to 5b, or any other red step,
-it has to follow initialy chosen step (here, 5).
+% Once initial 2 steps are chosen (blue), Wave has to follow them for the remainder
+% of a ply (green). So, Wave cannot change its direction in the middle of a movement;
+% e.g. upon reaching field 4 it can't change its direction to 5b, or any other red step,
+% it has to follow initialy chosen step (here, 5).
 
-\huge{}
-TODO
-\normalsize{}
+% \huge{}
+% TODO
+% \normalsize{}
 
 % ----------------------------------------------- Activation by Unicorn
 \clearpage % ..........................................................
@@ -574,9 +577,9 @@ TODO
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_31_wave_off_board.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_29_wave_off_board.png}
 \caption{Wave off-board steps}
-\label{fig:scn_mv_31_wave_off_board}
+\label{fig:scn_mv_29_wave_off_board}
 % \centering
 \end{figure}
 
