@@ -94,9 +94,9 @@ Step-fields are also capture-fields, Centaur would be able to capture opponent's
 marked field, regardless of marker color (green, blue).
 
 On initial step, Centaur can freely choose any marked field, regardless of marker color (green,
-blue). On second step, Centaur can choose any step-field in the other color (blue if green was
-chosen initially, green if blue was first choice). On all subsequent steps, Centaur has to keep
-alternating between the two initially chosen steps, for the remainder of a ply.
+blue), or step (long, short). On second step, Centaur can choose any step-field in the other color
+(blue if green was chosen initially, green if blue was first choice). On all subsequent steps,
+Centaur has to keep alternating between the two initially chosen steps, for the remainder of a ply.
 
 \clearpage % ..........................................................
 
@@ -172,7 +172,7 @@ chessboard.
 \subsection*{Activating Wave}
 \addcontentsline{toc}{subsection}{Activating Wave}
 
-% \vspace*{-1.0\baselineskip}
+\vspace*{-1.3\baselineskip}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -182,9 +182,11 @@ chessboard.
 % \centering
 \end{figure}
 
-\huge{}
-TODO
-\normalsize{}
+Wave activated by Centaur, \hyperref[fig:scn_hd_01_centaur_same_color]{moves like one}.
+Here, light Wave is activated on the opposite color (i.e. dark) field, so all available
+step-fields are long jumps, which are the same as those of Unicorn. For the first step,
+Wave can choose any of marked step-fields (green, blue), including the one occupied by
+own piece (light Pawn). Light Pawn could be activated, or stepped over.
 
 \clearpage % ..........................................................
 
@@ -198,9 +200,10 @@ TODO
 % \centering
 \end{figure}
 
-\huge{}
-TODO
-\normalsize{}
+After first step, light Wave is located on a light field, so all available step-fields are
+short jumps, which are the same as those of Knight. Since upper-right step-field (green) was
+chosen for a first step, next step has to be one of upper-left, lower-right fields (blue).
+Light Wave cannot activate opponent's piece (dark Pawn), but it can step over it.
 
 \clearpage % ..........................................................
 
@@ -214,15 +217,10 @@ TODO
 % \centering
 \end{figure}
 
-Wave activated by Centaur moves \hyperref[fig:scn_hd_03_centaur_multi_step_init]{the same way},
-i.e. on first two jumps, Wave has to choose long and short step (blue).
-
-After two directions
-are chosen, Wave for the rest of a ply has to follow them (green, blue), and cannot change mid-ply
-(red).
-
-Light Wave could also activate dark Wave on a step-field, pieces on all other fields are
-ignored (Pawns).
+After second step is chosen, complete movement of Wave consists of alternating between the two
+initially chosen steps, which Wave for the rest of a ply has to follow, e.g. after reaching field
+4, it cannot move to any other step-field (red). Light Wave could also activate dark Wave, or it
+could continue moving further. Pieces on all other fields are ignored (Pawns).
 
 \clearpage % ..........................................................
 
