@@ -36,9 +36,9 @@ Centaur is similar to Unicorn, only it can continue its jumpy movement
 in two chosen directions until another piece is encountered, or it runs
 out of a chessboard.
 
-The two directions are chosen freely on first and second jump. Once both
-long and short jump directions are determined, Centaur has to follow them
-in all subsequent steps, for the remainder of that ply.
+First direction is chosen freely, second direction is limited by the first
+choice. Once both long and short jump directions are determined, Centaur
+has to follow them in all subsequent steps, for the remainder of that ply.
 
 For Centaur's ply to be legal, all steps must end up on the chessboard.
 Unlike Wave, Centaur cannot step outside of a chessboard, and in later
