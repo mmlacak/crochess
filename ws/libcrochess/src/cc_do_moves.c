@@ -340,8 +340,7 @@ bool cc_do_ply( CcChessboard * const restrict cb,
 
 bool cc_do_moves( CcChessboard * const restrict cb,
                   CcMove const * const restrict moves,
-                  bool do_only_last_move,
-                  bool do_all_moves )
+                  CcDoMoveEnum do_spec )
 {
     if ( !cb ) return false;
     if ( !moves ) return false;
@@ -349,7 +348,7 @@ bool cc_do_moves( CcChessboard * const restrict cb,
     bool result = true;
     CcMove const * mv = moves;
 
-    if ( do_only_last_move ) while ( mv->next ) mv = mv->next; // moves != NULL --> mv != NULL
+    if ( do_spec == CC_DME_OnlyLastMove ) while ( mv->next ) mv = mv->next; // moves != NULL --> mv != NULL
 
     while ( mv )
     {
@@ -362,7 +361,7 @@ bool cc_do_moves( CcChessboard * const restrict cb,
             p = p->next;
         }
 
-        if ( !do_all_moves ) break;
+        if ( do_spec != CC_DME_AllMoves ) break;
 
         mv = mv->next;
     }
