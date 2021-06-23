@@ -14,6 +14,8 @@ CcMove * cc_move_new( char const * const restrict notation,
                       CcPly ** restrict plies,
                       CcMoveStatusEnum status )
 {
+    if ( !plies ) return NULL;
+
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
 
