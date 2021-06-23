@@ -19,6 +19,11 @@ typedef enum CcDoMoveEnum
 CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply );
 bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wave );
 
+bool cc_do_step( CcChessboard * const restrict cb,
+                 CcMove const * const restrict move,
+                 CcPly const * const restrict ply,
+                 CcStep const * const restrict step );
+
 bool cc_do_ply( CcChessboard * const restrict cb,
                 CcMove const * const restrict move,
                 CcPly const * const restrict ply );
