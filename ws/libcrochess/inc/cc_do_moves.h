@@ -11,12 +11,12 @@
 CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply );
 bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wave );
 
-bool cc_do_all_plies( CcChessboard * const restrict cb,
-                      CcMove const * const restrict move,
-                      CcPly const * const restrict ply );
+bool cc_do_ply( CcChessboard * const restrict cb,
+                CcMove const * const restrict move,
+                CcPly const * const restrict ply );
 
 bool cc_do_moves( CcChessboard * const restrict cb,
-                  CcMove const * const restrict move,
+                  CcMove const * const restrict moves,
                   bool do_only_last_move,
                   bool do_all_moves );
 
