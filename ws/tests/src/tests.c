@@ -20,7 +20,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.10:114+20210615.035816"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.11:115+20210623.121726"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -44,6 +44,22 @@ TestMsg * test()
 int main( void )
 {
     print_app_intro( CC_LIB_VERSION, CROCHESS_TESTS_VERSION );
+
+// // TODO :: DEBUG
+//     // /* static */ char * foo = "xxx";
+//     char * foo = malloc( 4 );
+//     strncpy( foo, "xxx", 4 );
+//     printf( "%s.\n", foo );
+
+//     // foo = (char *)((int)foo + 1);
+//     // printf( "%s.\n", foo );
+//     printf( "%s.\n", ++foo );
+
+//     free( foo-1 );
+//     // free( foo );
+
+//     printf( "%s.\n", foo );
+// // TODO :: DEBUG
 
     char * ret = NULL;
     char buffer[ BUFSIZ ];

@@ -62,11 +62,6 @@ size_t cc_str_len_bound( char const * const restrict str, size_t max_len )
     char const * s = str;
     size_t len = 0;
 
-    // while ( ( *s ) && ( len < max_len ) )
-    // {
-    //     ++len;
-    //     ++s;
-    // }
     while ( ( *s++ ) && ( ++len < max_len ) ) ;
 
     return len;
@@ -92,10 +87,8 @@ char * cc_str_duplicate_new( char const * const restrict str )
 char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len )
 {
     if ( !str ) return NULL;
-// if ( max_len == 0 ) return NULL;
 
     size_t len = cc_str_len_bound( str, max_len );
-// if ( len == 0 ) return NULL;
 
     char * new = (char *)malloc( len + 1 );
 
