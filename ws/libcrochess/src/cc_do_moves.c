@@ -34,7 +34,9 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wa
 }
 
 
-bool cc_do_all_plies( CcChessboard * const restrict cb, CcMove const * const restrict move, CcPly const * const restrict ply )
+bool cc_do_all_plies( CcChessboard * const restrict cb,
+                      CcMove const * const restrict move,
+                      CcPly const * const restrict ply )
 {
     if ( !cb ) return false;
 
@@ -336,7 +338,10 @@ bool cc_do_all_plies( CcChessboard * const restrict cb, CcMove const * const res
     return true;
 }
 
-bool cc_do_moves( CcChessboard * const restrict cb, CcMove const * const restrict move, bool do_only_last_move, bool do_all_moves )
+bool cc_do_moves( CcChessboard * const restrict cb,
+                  CcMove const * const restrict move,
+                  bool do_only_last_move,
+                  bool do_all_moves )
 {
     if ( !cb ) return false;
     if ( !move ) return false;

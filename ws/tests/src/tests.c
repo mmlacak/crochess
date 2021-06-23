@@ -20,7 +20,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.11:115+20210623.121726"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.12:116+20210623.124601"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -33,9 +33,9 @@ TestMsg * test()
 
     test_msg_init_or_append_new( &test_msgs, TME_Warning, "just warning", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append_new( &test_msgs, TME_Error, "stepped into turd", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append_new( &test_msgs, TME_Error, "stepped into a turd", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append_new( &test_msgs, TME_Fatal, "it's serious shit", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append_new( &test_msgs, TME_Fatal, "it's a serious shit", __FILE__, __LINE__, __func__ );
 
     return test_msgs;
 }

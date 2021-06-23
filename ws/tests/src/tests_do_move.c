@@ -91,7 +91,7 @@ bool test_do_move_single_ply( bool do_print )
     //
     // move
 
-    CcMove * move = cc_move_new( NULL, ply, CC_MSE_None );
+    CcMove * move = cc_move_new( NULL, &ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -251,7 +251,7 @@ bool test_do_move_cascading_plies( bool do_print )
     //
     // move 0, G --> W --> P --> ...
 
-    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -332,7 +332,7 @@ bool test_do_move_cascading_plies( bool do_print )
         return false;
     }
 
-    CcMove * move_1 = cc_move_new( NULL, plies_3, CC_MSE_None );
+    CcMove * move_1 = cc_move_new( NULL, &plies_3, CC_MSE_None );
     if ( !move_1 )
     {
         cc_ply_free_all_plies( &plies_3 );
@@ -461,7 +461,7 @@ bool test_do_move_castling( bool do_print )
         return false;
     }
 
-    CcMove * move = cc_move_new( NULL, ply, CC_MSE_None );
+    CcMove * move = cc_move_new( NULL, &ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -622,7 +622,7 @@ bool test_do_move_tag_and_promotion( bool do_print )
     //
     // move Bp22~Al22=
 
-    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -699,7 +699,7 @@ bool test_do_move_tag_and_promotion( bool do_print )
     //
     // move l22Q
 
-    CcMove * move_1 = cc_move_new( NULL, plies_2, CC_MSE_None );
+    CcMove * move_1 = cc_move_new( NULL, &plies_2, CC_MSE_None );
     if ( !move_1 )
     {
         cc_ply_free_all_plies( &plies_2 );
@@ -857,7 +857,7 @@ bool test_do_move_conversion( bool do_print, bool is_failed )
     //
     // move Bp6~Al6%H
 
-    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -965,7 +965,7 @@ bool test_do_move_demotion( bool do_print )
     //
     // move Mw23>Bl12
 
-    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1082,7 +1082,7 @@ bool test_do_move_resurrection( bool do_print, bool is_failed, bool is_oblationi
     //
     // move Ip11$B, Ip11$$
 
-    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1241,7 +1241,7 @@ bool test_do_move_teleportation( bool do_print, bool is_failed )
     //
     // move Ba26|By25
 
-    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1475,7 +1475,7 @@ bool test_do_move_teleportation_wave( bool do_print, bool is_oblationing )
     //
     // move Bi15~Wf12|Wr8~Np9
 
-    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1724,7 +1724,7 @@ bool test_do_move_trance_journey( bool do_print, bool is_capturing )
     // move Hg10~Wh8@H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
     // move Hg10~Wh8@H..h13*B..f2*N..p7..j19..v5*P==
 
-    CcMove * move_0 = cc_move_new( NULL, plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
