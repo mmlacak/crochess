@@ -8,13 +8,15 @@
 typedef enum CcTagEnum
 {
     CC_TE_None,
+
+    // Persistant, i.e. valid until lost.
     CC_TE_CanRush, // Pawns
     CC_TE_CanCastle, // Rooks, Kings
     CC_TE_DelayedPromotion, // Pawn
 
-    // TODO
-    // pawn sacrifice
-    // en passant
+    CC_TE_EnPassant, // Gained in a move, used or lost in next.
+
+    CC_TE_PawnSacrifice, // Gained in a move, used or lost in the very same move.
 } CcTagEnum;
 
 
