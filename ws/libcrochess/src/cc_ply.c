@@ -284,3 +284,20 @@ CcPly * cc_ply_pawn_sacrifice_append_new( CcPly * const restrict plies, CcPieceE
 {
     return cc_ply_append_new( plies, CC_PLE_PawnSacrifice, piece, steps, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, NULL );
 }
+
+
+CcStep * cc_ply_get_steps( CcPly const * const restrict ply )
+{
+    CcStep * s = NULL;
+
+    switch ( ply->link )
+    {
+        case CC_PLE_Ply : s = ply->ply.steps; break;
+        case CC_PLE_TeleportationWave : s = ply->teleport_wave.steps; break;
+        case CC_PLE_TranceJourney : s = ply->trance_journey.steps; break;
+        case CC_PLE_PawnSacrifice : s = ply->pawn_sacrifice.steps; break;
+        default : /* s = NULL; */ break;
+    }
+
+    return s;
+}

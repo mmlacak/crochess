@@ -119,9 +119,11 @@ bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb, int i, int j
     {
         cb->board[ i ][ j ] = pe;
         cb->tags[ i ][ j ] = tt;
+
+        return ( ( cb->board[ i ][ j ] == pe ) && ( cb->tags[ i ][ j ] == tt ) );
     }
 
-    return true;
+    return false;
 }
 
 bool cc_chessboard_set_piece( CcChessboard * const restrict cb, int i, int j, CcPieceEnum pe )
@@ -136,9 +138,11 @@ bool cc_chessboard_set_tag( CcChessboard * const restrict cb, int i, int j, CcTa
     if ( cc_chessboard_is_on_board( cb, i, j ) )
     {
         cb->tags[ i ][ j ] = tt;
+
+        return ( cb->tags[ i ][ j ] == tt );
     }
 
-    return true;
+    return false;
 }
 
 static char * cc_chessboard_get_divider_new( CcChessboard const * const restrict cb )

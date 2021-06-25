@@ -88,5 +88,7 @@ CcPly * cc_ply_dual_trance_journey_append_new( CcPly * const restrict plies, CcP
 CcPly * cc_ply_failed_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece );
 CcPly * cc_ply_pawn_sacrifice_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps );
 
+CcStep * cc_ply_get_steps( CcPly const * const restrict plies );
+
 
 #endif /* __CC_PLY_H__ */
