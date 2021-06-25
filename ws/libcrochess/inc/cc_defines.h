@@ -7,5 +7,8 @@
 
 #define CC_OFF_BOARD_COORD (-1)
 
+#define CC_MIN(x,y) ( (y) > (x) ) ? (x) : (y)
+#define CC_MAX(x,y) ( (x) > (y) ) ? (x) : (y)
+
 
 #endif /* __CC_DEFINES_H__ */

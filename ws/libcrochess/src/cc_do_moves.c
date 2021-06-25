@@ -558,7 +558,7 @@ bool cc_do_moves( CcChessboard * const restrict cb,
     bool result = true;
     CcMove const * mv = moves;
 
-    if ( do_spec == CC_DME_OnlyLastMove ) while ( mv->next ) mv = mv->next; // moves != NULL --> mv != NULL
+    if ( do_spec == CC_DME_DoOnlyLastMove ) while ( mv->next ) mv = mv->next; // moves != NULL --> mv != NULL
 
     while ( mv && result )
     {
@@ -571,7 +571,7 @@ bool cc_do_moves( CcChessboard * const restrict cb,
             p = p->next;
         }
 
-        if ( do_spec != CC_DME_AllMoves ) break;
+        if ( do_spec != CC_DME_DoAllMoves ) break;
 
         mv = mv->next;
     }

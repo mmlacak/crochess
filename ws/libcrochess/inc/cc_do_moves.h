@@ -10,9 +10,9 @@
 
 typedef enum CcDoMoveEnum
 {
-    CC_DME_OnlyCurrentMove,
-    CC_DME_OnlyLastMove,
-    CC_DME_AllMoves,
+    CC_DME_DoOnlyCurrentMove,
+    CC_DME_DoOnlyLastMove,
+    CC_DME_DoAllMoves,
 } CcDoMoveEnum;
 
 

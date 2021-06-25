@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "cc_defines.h"
+#include "cc_str_utils.h"
+
 #include "cc_version.h"
 #include "cc_tokenizer.h"
 #include "cc_piece.h"
@@ -20,7 +23,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.20:124+20210625.151241"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.21:125+20210625.165005"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -60,6 +63,45 @@ int main( void )
 
 //     printf( "%s.\n", foo );
 // // TODO :: DEBUG
+
+
+// // TODO :: DEBUG
+//     printf("1: %d.\n", CC_MAX( 5, 11 ));
+//     printf("2: %d.\n", CC_MAX( 11, 5 ));
+
+//     printf("3: %d.\n", CC_MIN( 5, 11 ));
+//     printf("4: %d.\n", CC_MIN( 11, 5 ));
+
+//     printf("5: %f.\n", CC_MAX( 5.1, 11.2 ));
+//     printf("6: %f.\n", CC_MAX( 11.3, 5.4 ));
+
+//     printf("7: %f.\n", CC_MIN( 5.5, 11.6 ));
+//     printf("8: %f.\n", CC_MIN( 11.7, 5.8 ));
+// // TODO :: DEBUG
+
+
+// // TODO :: DEBUG
+//     char * con_1 = cc_str_concatenate_new( "Hello", "World!" );
+//     printf( "1: %s.\n", con_1 );
+//     free( con_1 );
+
+//     char * con_2 = cc_str_concatenate_len_new( "Hello", "World!", BUFSIZ );
+//     printf( "2: %s.\n", con_2 );
+//     free( con_2 );
+
+//     char * con_3 = cc_str_concatenate_len_new( "Hello", "World!", 7 );
+//     printf( "3: %s.\n", con_3 );
+//     free( con_3 );
+
+//     char * dup_4 = cc_str_duplicate_len_new( "Hello World!", BUFSIZ );
+//     printf( "4: %s.\n", dup_4 );
+//     free( dup_4 );
+
+//     char * dup_5 = cc_str_duplicate_len_new( "Hello World!", 9 );
+//     printf( "5: %s.\n", dup_5 );
+//     free( dup_5 );
+// // TODO :: DEBUG
+
 
     char * ret = NULL;
     char buffer[ BUFSIZ ];
