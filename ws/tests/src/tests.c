@@ -20,7 +20,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.18:122+20210625.142256"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.19:123+20210625.150006"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -103,6 +103,7 @@ int main( void )
             if ( !test_do_move_conversion( false, false ) ) printf( "Test test_do_move_conversion( _, false ) failed.\n" );
             if ( !test_do_move_conversion( false, true ) ) printf( "Test test_do_move_conversion( _, true ) failed.\n" );
             if ( !test_do_move_demotion( false ) ) printf( "Test test_do_move_demotion() failed.\n" );
+
             if ( !test_do_move_resurrection( false, false, false ) ) printf( "Test test_do_move_resurrection( _, false, false ) failed.\n" );
             if ( !test_do_move_resurrection( false, false, true ) ) printf( "Test test_do_move_resurrection( _, false, true ) failed.\n" );
             if ( !test_do_move_resurrection( false, true, false ) ) printf( "Test test_do_move_resurrection( _, true, false ) failed.\n" );
@@ -110,8 +111,10 @@ int main( void )
 
             if ( !test_do_move_teleportation( false, false ) ) printf( "Test test_do_move_teleportation( _, false ) failed.\n" );
             if ( !test_do_move_teleportation( false, true ) ) printf( "Test test_do_move_teleportation( _, true ) failed.\n" );
+
             if ( !test_do_move_teleportation_wave( false, false ) ) printf( "Test test_do_move_teleportation_wave( _, false ) failed.\n" );
             if ( !test_do_move_teleportation_wave( false, true ) ) printf( "Test test_do_move_teleportation_wave( _, true ) failed.\n" );
+
             if ( !test_do_move_trance_journey( false, false ) ) printf( "Test test_do_move_trance_journey( _, false ) failed.\n" );
             if ( !test_do_move_trance_journey( false, true ) ) printf( "Test test_do_move_trance_journey( _, true ) failed.\n" );
 

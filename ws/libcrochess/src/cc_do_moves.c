@@ -377,13 +377,20 @@ bool cc_do_step( CcChessboard * const restrict cb,
 
             case CC_SEE_Capture :
             {
-                result = result && cc_chessboard_set_piece( cb, step->i, step->j, pe );
+                if ( is_last_step )
+                    result = result && cc_chessboard_set_piece( cb, step->i, step->j, pe );
+                else
+                    result = result && cc_chessboard_set_piece( cb, step->i, step->j, CC_PE_None );
                 break;
             }
 
             case CC_SEE_Displacement :
             {
-                result = result && cc_chessboard_set_piece( cb, step->i, step->j, CC_PE_None );
+                if ( is_last_step )
+                    result = result && cc_chessboard_set_piece( cb, step->i, step->j, pe );
+                else
+                    result = result && cc_chessboard_set_piece( cb, step->i, step->j, CC_PE_None );
+
                 result = result && cc_chessboard_set_piece( cb, se->displacement.dest_i, se->displacement.dest_j, se->displacement.piece );
                 break;
             }
@@ -468,8 +475,6 @@ bool cc_do_step( CcChessboard * const restrict cb,
             }
         }
     }
-
-    // TODO
 
     return true;
 }
