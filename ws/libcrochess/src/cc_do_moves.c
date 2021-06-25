@@ -344,7 +344,7 @@ bool cc_do_step( CcChessboard * const restrict cb,
                  CcStep const * const restrict step )
 {
     if ( !cb ) return false;
-
+    if ( !move ) return false;
     if ( !ply ) return false;
     if ( !step ) return false;
 
