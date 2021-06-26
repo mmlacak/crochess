@@ -10,7 +10,9 @@
 bool cc_str_to_case( char * const restrict str, bool is_lower_or_upper );
 char * cc_str_to_case_new( char const * const restrict str, bool is_lower_or_upper );
 
-size_t cc_str_len_bound( char const * const restrict str, size_t max_len );
+size_t cc_str_len( char const * const restrict str );
+size_t cc_str_len_max( char const * const restrict str, size_t max_len );
+
 char * cc_str_duplicate_new( char const * const restrict str );
 char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len );
 

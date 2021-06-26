@@ -2,6 +2,7 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "cc_piece.h"
 #include "cc_variant.h"
@@ -11,6 +12,7 @@
 #include "cc_ply.h"
 #include "cc_move.h"
 #include "cc_do_moves.h"
+#include "cc_format_moves.h"
 
 #include "test_msgs.h"
 #include "tests_do_move.h"
@@ -118,6 +120,13 @@ bool test_do_move_single_ply( bool do_print )
 
     //
     // free, return
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     cc_move_free_all_moves( &move );
     free( cb );

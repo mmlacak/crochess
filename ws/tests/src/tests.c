@@ -23,7 +23,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.21:125+20210625.165005"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.22:126+20210626.013344"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -100,6 +100,18 @@ int main( void )
 //     char * dup_5 = cc_str_duplicate_len_new( "Hello World!", 9 );
 //     printf( "5: %s.\n", dup_5 );
 //     free( dup_5 );
+
+//     char * con_6 = cc_str_concatenate_new( NULL, "Hello World!" );
+//     printf( "6: %s.\n", con_6 );
+//     free( con_6 );
+
+//     char * dup_7 = cc_str_concatenate_len_new( "Hello World!", NULL, BUFSIZ );
+//     printf( "7: %s.\n", dup_7 );
+//     free( dup_7 );
+
+//     char * dup_8 = cc_str_concatenate_len_new( NULL, "Hello World!", 9 );
+//     printf( "8: %s.\n", dup_8 );
+//     free( dup_8 );
 // // TODO :: DEBUG
 
 
