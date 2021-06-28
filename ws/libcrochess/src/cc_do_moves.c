@@ -555,6 +555,9 @@ bool cc_do_moves( CcChessboard * const restrict cb,
     if ( !cb ) return false;
     if ( !moves ) return false;
 
+    CcChessboard * tmp = cc_chessboard_duplicate_new( cb );
+    if ( !tmp ) return false;
+
     bool result = true;
     CcMove const * mv = moves;
 
@@ -567,7 +570,7 @@ bool cc_do_moves( CcChessboard * const restrict cb,
         CcPly * p = mv->plies;
         while ( p && result )
         {
-            result = result && cc_do_ply( cb, mv, p );
+            result = result && cc_do_ply( tmp, mv, p );
             p = p->next;
         }
 
@@ -576,5 +579,6 @@ bool cc_do_moves( CcChessboard * const restrict cb,
         mv = mv->next;
     }
 
+    if ( result ) cc_chessboard_copy( cb, tmp );
     return result;
 }

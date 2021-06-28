@@ -26,6 +26,9 @@ bool cc_chessboard_init( CcChessboard * const restrict cb, CcVariantEnum const v
 bool cc_chessboard_clear( CcChessboard * const restrict cb );
 bool cc_chessboard_setup( CcChessboard * const restrict cb );
 
+bool cc_chessboard_copy( CcChessboard * const restrict into, CcChessboard const * const restrict from );
+CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict from );
+
 bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb, int i, int j );
 CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb, int i, int j );
 CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb, int i, int j );

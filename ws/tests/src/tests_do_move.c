@@ -105,6 +105,13 @@ bool test_do_move_single_ply( bool do_print )
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
+
     if ( do_print ) cc_chessboard_print( cb, true );
 
     //
@@ -120,13 +127,6 @@ bool test_do_move_single_ply( bool do_print )
 
     //
     // free, return
-
-    // if ( do_print )
-    {
-        char * alg_not = cc_format_move_new( cb, move );
-        printf( "%s\n", alg_not );
-        free( alg_not );
-    }
 
     cc_move_free_all_moves( &move );
     free( cb );

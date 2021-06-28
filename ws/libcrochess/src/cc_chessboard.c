@@ -22,12 +22,12 @@ bool cc_is_field_light( int i, int j )
 
 CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool do_setup )
 {
-    CcChessboard * b = malloc( sizeof( CcChessboard ) );
-    if ( !b ) return NULL;
+    CcChessboard * cb = malloc( sizeof( CcChessboard ) );
+    if ( !cb ) return NULL;
 
-    cc_chessboard_init( b, ve, do_setup );
+    cc_chessboard_init( cb, ve, do_setup );
 
-    return b;
+    return cb;
 }
 
 bool cc_chessboard_init( CcChessboard * const restrict cb, CcVariantEnum const ve, bool do_setup )
@@ -84,6 +84,47 @@ bool cc_chessboard_setup( CcChessboard * const restrict cb )
 
     return true;
 }
+
+
+bool cc_chessboard_copy( CcChessboard * const restrict into, CcChessboard const * const restrict from )
+{
+    if ( !into ) return false;
+    if ( !from ) return false;
+
+    if ( into->type != from->type ) return false;
+    if ( into->size != from->size ) return false;
+
+    for ( int i = 0; i < (int)into->size; ++i )
+    {
+        for ( int j = 0; j < (int)into->size; ++j )
+        {
+            into->board[ i ][ j ] = from->board[ i ][ j ];
+            into->tags[ i ][ j ] = from->tags[ i ][ j ];
+        }
+    }
+
+    return true;
+}
+
+CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict from )
+{
+    if ( !from ) return NULL;
+
+    CcChessboard * cb = malloc( sizeof( CcChessboard ) );
+    if ( !cb ) return NULL;
+
+    CcVariantEnum ve = from->type;
+    cc_chessboard_init( cb, ve, false );
+
+    if ( !cc_chessboard_copy( cb, from ) )
+    {
+        free( cb );
+        return NULL;
+    }
+
+    return cb;
+}
+
 
 bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb, int i, int j )
 {
