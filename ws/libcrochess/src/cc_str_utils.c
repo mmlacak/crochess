@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 #include "cc_defines.h"
 #include "cc_str_utils.h"
@@ -60,7 +62,7 @@ size_t cc_str_len( char const * const restrict str )
     return ( str ) ? strlen( str ) : 0;
 }
 
-size_t cc_str_len_max( char const * const restrict str, size_t max_len )
+size_t cc_str_len_min( char const * const restrict str, size_t max_len )
 {
     if ( !str ) return 0;
     if ( max_len == 0 ) return 0;
@@ -93,7 +95,7 @@ char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len
 {
     if ( !str ) return NULL;
 
-    size_t len = cc_str_len_max( str, max_len );
+    size_t len = cc_str_len_min( str, max_len );
     char * new = (char *)malloc( len + 1 );
 
     if ( len > 0 )
@@ -139,8 +141,8 @@ char * cc_str_concatenate_len_new(  char const * const restrict str_1,
                                     char const * const restrict str_2,
                                     size_t max_len )
 {
-    size_t len_1 = cc_str_len_max( str_1, max_len );
-    size_t len_2 = cc_str_len_max( str_2, max_len );
+    size_t len_1 = cc_str_len_min( str_1, max_len );
+    size_t len_2 = cc_str_len_min( str_2, max_len );
     size_t len = CC_MIN( len_1 + len_2, max_len );
 
     char * new = (char *)malloc( len + 1 );
@@ -258,10 +260,10 @@ char * cc_str_append_new( char ** restrict alloc_str_1,
     if ( !new ) return NULL;
 
     free( *alloc_str_1 );
-    alloc_str_1 = NULL;
+    *alloc_str_1 = NULL;
 
     free( *alloc_str_2 );
-    alloc_str_2 = NULL;
+    *alloc_str_2 = NULL;
 
     return new;
 }
@@ -298,10 +300,127 @@ char * cc_str_append_len_new( char ** restrict alloc_str_1,
     if ( !new ) return NULL;
 
     free( *alloc_str_1 );
-    alloc_str_1 = NULL;
+    *alloc_str_1 = NULL;
 
     free( *alloc_str_2 );
-    alloc_str_2 = NULL;
+    *alloc_str_2 = NULL;
 
     return new;
+}
+
+char * cc_str_append_format_new( char ** restrict alloc_str,
+                                 char const * const restrict fmt, ... )
+{
+    va_list args;
+    va_start( args, fmt );
+
+    va_list tmp;
+    va_copy( tmp, args );
+
+    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    if ( len < 0 )
+    {
+        va_end( tmp );
+        va_end( args );
+        return NULL;
+    }
+
+    va_end( tmp );
+
+    size_t len_min = (size_t)len;
+    char * new = (char *)malloc( len_min + 1 );
+    if ( !new )
+    {
+        va_end( args );
+        return NULL;
+    }
+
+    int len_2 = vsnprintf( new, len_min + 1, fmt, args );
+    if ( len_2 < 0 )
+    {
+        va_end( args );
+        return NULL;
+    }
+
+    va_end( args );
+
+    size_t len_min_2 = (size_t)len_2;
+    if ( len_min != len_min_2 )
+    {
+        free( new );
+        return NULL;
+    }
+
+    char * appended = cc_str_append_new( alloc_str, &new );
+    if ( !appended )
+    {
+        free( new );
+        return NULL;
+    }
+
+    // Not needed, cc_str_append_new() does that.
+    // free( new );
+    // free( *alloc_str );
+    // *alloc_str = NULL;
+
+    return appended;
+}
+
+char * cc_str_append_format_len_new( char ** restrict alloc_str,
+                                     size_t max_len,
+                                     char const * const restrict fmt, ... )
+{
+    va_list args;
+    va_start( args, fmt );
+
+    va_list tmp;
+    va_copy( tmp, args );
+
+    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    if ( len < 0 )
+    {
+        va_end( tmp );
+        va_end( args );
+        return NULL;
+    }
+
+    va_end( tmp );
+
+    size_t len_min = ( (size_t)len < max_len ) ? (size_t)len : max_len;
+    char * new = (char *)malloc( len_min + 1 );
+    if ( !new )
+    {
+        va_end( args );
+        return NULL;
+    }
+
+    int len_2 = vsnprintf( new, len_min + 1, fmt, args );
+    if ( len_2 < 0 )
+    {
+        va_end( args );
+        return NULL;
+    }
+
+    va_end( args );
+
+    size_t len_min_2 = (size_t)len_2;
+    if ( len_min != len_min_2 )
+    {
+        free( new );
+        return NULL;
+    }
+
+    char * appended = cc_str_append_len_new( alloc_str, &new, max_len );
+    if ( !appended )
+    {
+        free( new );
+        return NULL;
+    }
+
+    // Not needed, cc_str_append_len_new() does that.
+    // free( new );
+    // free( *alloc_str );
+    // *alloc_str = NULL;
+
+    return appended;
 }

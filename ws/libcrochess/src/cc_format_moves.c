@@ -17,15 +17,25 @@ char cc_format_pos_file( int i )
     return (char)('a' + i);
 }
 
+
+// https://stackoverflow.com/questions/15927583/how-to-suppress-warning-control-reaches-end-of-non-void-function
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpragmas" // This is for gcc, because next item ...
+#pragma GCC diagnostic ignored "-Wunknown-warning-option" // This is actually for clang.
+#pragma GCC diagnostic ignored "-Wformat-truncation"
+
 char * cc_format_pos_rank_new( int j )
 {
     if ( ( j < CC_MIN_BOARD_COORD ) || ( CC_MAX_BOARD_COORD < j ) ) return NULL;
 
+    // Unlike clang, gcc does not see that 0 <= j <= 25, so ...
     char * new = (char *)malloc( 3 );
     snprintf( new, 2, "%-hhu", (unsigned char)(j+1) );
 
     return new;
 }
+
+#pragma GCC diagnostic pop
 
 
 char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
@@ -40,10 +50,23 @@ char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
     if ( !step ) return NULL;
     if ( !side_effect ) return NULL;
 
-    switch ( side_effect->type )
+    CcSideEffect const * const se = side_effect;
+    char * result = NULL;
+
+    switch ( se->type )
     {
         case CC_SEE_None : break;
+
         case CC_SEE_Capture :
+        {
+            result = cc_str_append_format_len_new( &result,
+                                                   BUFSIZ,
+                                                   "*%c%s",
+                                                   cc_piece_as_char( se->capture.piece ),
+                                                   ( se->capture.is_promo_tag_lost ) ? "==" : "" );
+            break;
+        }
+
         case CC_SEE_Displacement :
         case CC_SEE_EnPassant :
         case CC_SEE_Castle :
@@ -59,7 +82,7 @@ char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
             break;
     }
 
-    return NULL;
+    return result;
 }
 
 char * cc_format_step_new( CcChessboard const * const restrict cb,
