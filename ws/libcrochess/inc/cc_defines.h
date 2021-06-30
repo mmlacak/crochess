@@ -6,6 +6,9 @@
 
 
 #define CC_OFF_BOARD_COORD (-1)
+#define CC_MIN_BOARD_COORD (0)
+#define CC_MAX_BOARD_COORD (25)
+#define CC_MAX_BOARD_SIZE (26)
 
 #define CC_MIN(x,y) ( (y) > (x) ) ? (x) : (y)
 #define CC_MAX(x,y) ( (x) > (y) ) ? (x) : (y)

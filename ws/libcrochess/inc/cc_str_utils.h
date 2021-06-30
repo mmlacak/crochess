@@ -23,5 +23,18 @@ char * cc_str_concatenate_len_new(  char const * const restrict str_1,
                                     char const * const restrict str_2,
                                     size_t max_len );
 
+char * cc_str_concatenate_char_new( char const * const restrict str,
+                                    char const chr );
+
+bool cc_str_append_char( char ** const restrict alloc_str,
+                         char const chr );
+
+char * cc_str_append_new( char ** restrict alloc_str_1,
+                          char ** restrict alloc_str_2 );
+
+char * cc_str_append_len_new( char ** restrict alloc_str_1,
+                              char ** restrict alloc_str_2,
+                              size_t max_len );
+
 
 #endif /* __CC_STR_UTILS_H__ */

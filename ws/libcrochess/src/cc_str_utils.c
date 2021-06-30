@@ -78,7 +78,6 @@ char * cc_str_duplicate_new( char const * const restrict str )
     if ( !str ) return NULL;
 
     size_t len = cc_str_len( str );
-
     char * new = (char *)malloc( len + 1 );
 
     char const * s = str;
@@ -95,7 +94,6 @@ char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len
     if ( !str ) return NULL;
 
     size_t len = cc_str_len_max( str, max_len );
-
     char * new = (char *)malloc( len + 1 );
 
     if ( len > 0 )
@@ -166,6 +164,144 @@ char * cc_str_concatenate_len_new(  char const * const restrict str_1,
         *n = '\0';
     }
     else *new = '\0';
+
+    return new;
+}
+
+char * cc_str_concatenate_char_new( char const * const restrict str,
+                                    char const chr )
+{
+    if ( !str )
+    {
+        char * new = (char *)malloc( 2 );
+        if ( !new ) return NULL;
+
+        *new = chr;
+        *(new + 1) = '\0';
+        return new;
+    }
+
+    size_t len = cc_str_len( str ) + 1;
+    char * new = (char *)malloc( len + 1 );
+    if ( !new ) return NULL;
+
+    char const * s = str;
+    char * n = new;
+    while ( *s ) *n++ = *s++; // ( *s != '\0' )
+
+    *n++ = chr;
+    *n = '\0';
+
+    return new;
+}
+
+bool cc_str_append_char( char ** const restrict alloc_str,
+                         char const chr )
+{
+    if ( !alloc_str ) return false;
+
+    if ( !*alloc_str )
+    {
+        char * new = (char *)malloc( 2 );
+        if ( !new ) return false;
+
+        *new = chr;
+        *(new + 1) = '\0';
+
+        *alloc_str = new;
+        return true;
+    }
+
+    size_t len = cc_str_len( *alloc_str ) + 1;
+    char * new = realloc( *alloc_str, len + 1 );
+    if ( !new ) return false;
+
+    *alloc_str = new; // alloc_str was free'd by realloc().
+
+    char * n = new;
+    while ( *n ) ++n;
+
+    *n++ = chr;
+    *n = '\0';
+
+    return new;
+}
+
+char * cc_str_append_new( char ** restrict alloc_str_1,
+                          char ** restrict alloc_str_2 )
+{
+    if ( ( !alloc_str_1 ) && ( !alloc_str_2 ) ) return NULL;
+
+    if ( !alloc_str_1 )
+    {
+        char * new = cc_str_duplicate_new( *alloc_str_2 );
+        if ( !new ) return NULL;
+
+        free( *alloc_str_2 );
+        alloc_str_2 = NULL;
+
+        return new;
+    }
+
+    if ( !alloc_str_2 )
+    {
+        char * new = cc_str_duplicate_new( *alloc_str_1 );
+        if ( !new ) return NULL;
+
+        free( *alloc_str_1 );
+        alloc_str_1 = NULL;
+
+        return new;
+    }
+
+    char * new = cc_str_concatenate_new( *alloc_str_1, *alloc_str_2 );
+    if ( !new ) return NULL;
+
+    free( *alloc_str_1 );
+    alloc_str_1 = NULL;
+
+    free( *alloc_str_2 );
+    alloc_str_2 = NULL;
+
+    return new;
+}
+
+char * cc_str_append_len_new( char ** restrict alloc_str_1,
+                              char ** restrict alloc_str_2,
+                              size_t max_len )
+{
+    if ( ( !alloc_str_1 ) && ( !alloc_str_2 ) ) return NULL;
+
+    if ( !alloc_str_1 )
+    {
+        char * new = cc_str_duplicate_len_new( *alloc_str_2, max_len );
+        if ( !new ) return NULL;
+
+        free( *alloc_str_2 );
+        alloc_str_2 = NULL;
+
+        return new;
+    }
+
+    if ( !alloc_str_2 )
+    {
+        char * new = cc_str_duplicate_len_new( *alloc_str_1, max_len );
+        if ( !new ) return NULL;
+
+        free( *alloc_str_1 );
+        alloc_str_1 = NULL;
+
+        return new;
+    }
+
+    char * new = cc_str_concatenate_len_new( *alloc_str_1, *alloc_str_2, max_len );
+    if ( !new ) return NULL;
+
+    free( *alloc_str_1 );
+    alloc_str_1 = NULL;
+
+    free( *alloc_str_2 );
+    alloc_str_2 = NULL;
 
     return new;
 }
