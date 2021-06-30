@@ -272,6 +272,13 @@ bool test_do_move_cascading_plies( bool do_print )
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_0 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
+
     if ( do_print ) cc_chessboard_print( cb, true );
 
     //
@@ -353,6 +360,13 @@ bool test_do_move_cascading_plies( bool do_print )
     result = test_print_failure( cc_do_moves( cb, move_1, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_1 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -481,6 +495,13 @@ bool test_do_move_castling( bool do_print )
     result = test_print_failure( cc_do_moves( cb, move, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print )
     {
@@ -639,7 +660,16 @@ bool test_do_move_tag_and_promotion( bool do_print )
         return false;
     }
 
-    result = result && cc_do_moves( cb, move_0, CC_DME_DoAllMoves );
+    result = test_print_failure( cc_do_moves( cb, move_0, CC_DME_DoAllMoves ),
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
+             && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_0 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print )
     {
@@ -720,6 +750,13 @@ bool test_do_move_tag_and_promotion( bool do_print )
     result = test_print_failure( cc_do_moves( cb, move_1, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_1 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print )
     {
@@ -878,6 +915,13 @@ bool test_do_move_conversion( bool do_print, bool is_failed )
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_0 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
+
     if ( do_print ) cc_chessboard_print( cb, true );
 
     //
@@ -985,6 +1029,13 @@ bool test_do_move_demotion( bool do_print )
     result = test_print_failure( cc_do_moves( cb, move_0, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_0 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -1102,6 +1153,13 @@ bool test_do_move_resurrection( bool do_print, bool is_failed, bool is_oblationi
     result = test_print_failure( cc_do_moves( cb, move_0, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_0 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -1261,6 +1319,13 @@ bool test_do_move_teleportation( bool do_print, bool is_failed )
     result = test_print_failure( cc_do_moves( cb, move_0, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_0 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -1495,6 +1560,13 @@ bool test_do_move_teleportation_wave( bool do_print, bool is_oblationing )
     result = test_print_failure( cc_do_moves( cb, move_0, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_0 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print ) cc_chessboard_print( cb, true );
 
@@ -1744,6 +1816,13 @@ bool test_do_move_trance_journey( bool do_print, bool is_capturing )
     result = test_print_failure( cc_do_moves( cb, move_0, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
+
+    // if ( do_print )
+    {
+        char * alg_not = cc_format_move_new( cb, move_0 );
+        printf( "%s\n", alg_not );
+        free( alg_not );
+    }
 
     if ( do_print )
     {
