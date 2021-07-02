@@ -167,10 +167,29 @@ char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
         }
 
         case CC_SEE_Resurrection :
-        case CC_SEE_FailedResurrection :
+        {
+            char file = cc_format_pos_file( se->resurrect.dest_i );
+            char * rank = cc_format_pos_rank_new( se->resurrect.dest_j );
 
-// TODO
+            if ( rank )
+            {
+                result = cc_str_append_format_len_new(  &result,
+                                                        BUFSIZ,
+                                                        "$%c%c%s",
+                                                        cc_piece_symbol( se->resurrect.piece ),
+                                                        file,
+                                                        rank );
+                free( rank );
+            }
+
             break;
+        }
+
+        case CC_SEE_FailedResurrection :
+        {
+            result = cc_str_append_format_len_new( &result, BUFSIZ, "$$" );
+            break;
+        }
     }
 
     return result;
