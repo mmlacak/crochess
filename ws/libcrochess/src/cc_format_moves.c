@@ -78,6 +78,19 @@ char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
         }
 
         case CC_SEE_EnPassant :
+        {
+            char file = cc_format_pos_file( se->en_passant.dest_i );
+            char * rank = cc_format_pos_rank_new( se->en_passant.dest_j );
+
+            if ( rank )
+            {
+                result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c%s", file, rank );
+                free( rank );
+            }
+
+            break;
+        }
+
         case CC_SEE_Castle :
         case CC_SEE_Promotion :
         case CC_SEE_TagForPromotion :
