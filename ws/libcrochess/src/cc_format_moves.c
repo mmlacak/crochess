@@ -117,7 +117,22 @@ char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
         }
 
         case CC_SEE_Promotion :
+        {
+            result = cc_str_append_format_len_new( &result,
+                                                   BUFSIZ,
+                                                   "=%c",
+                                                   cc_piece_symbol( se->promote.piece ) );
+            break;
+        }
+
         case CC_SEE_TagForPromotion :
+        {
+            result = cc_str_append_format_len_new( &result,
+                                                   BUFSIZ,
+                                                   "=" );
+            break;
+        }
+
         case CC_SEE_Conversion :
         case CC_SEE_FailedConversion :
         case CC_SEE_Demotion :
@@ -189,8 +204,10 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
         case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( "::", 2 ); break;
     }
 
-    if  ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
-        cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
+// TODO
+    // if  ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
+    //     cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
+    cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
 
     CcStep * step = cc_ply_get_steps( ply );
 
