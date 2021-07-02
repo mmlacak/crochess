@@ -92,6 +92,30 @@ char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
         }
 
         case CC_SEE_Castle :
+        {
+            char file_1 = cc_format_pos_file( se->castle.start_i );
+            char * rank_1 = cc_format_pos_rank_new( se->castle.start_j );
+
+            char file_2 = cc_format_pos_file( se->castle.dest_i );
+            char * rank_2 = cc_format_pos_rank_new( se->castle.dest_j );
+
+            if ( rank_1 && rank_2 )
+            {
+                result = cc_str_append_format_len_new(  &result,
+                                                        BUFSIZ,
+                                                        "&%c%c%s-%c%s",
+                                                        cc_piece_symbol( se->castle.rook ),
+                                                        file_1,
+                                                        rank_1,
+                                                        file_2,
+                                                        rank_2 );
+            }
+
+            free( rank_1 );
+            free( rank_2 );
+            break;
+        }
+
         case CC_SEE_Promotion :
         case CC_SEE_TagForPromotion :
         case CC_SEE_Conversion :
