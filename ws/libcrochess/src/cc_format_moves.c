@@ -127,14 +127,26 @@ char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
 
         case CC_SEE_TagForPromotion :
         {
-            result = cc_str_append_format_len_new( &result,
-                                                   BUFSIZ,
-                                                   "=" );
+            result = cc_str_append_format_len_new( &result, BUFSIZ, "=" );
             break;
         }
 
         case CC_SEE_Conversion :
+        {
+            result = cc_str_append_format_len_new( &result,
+                                                   BUFSIZ,
+                                                   "%%%c%s",
+                                                   cc_piece_symbol( se->convert.piece ),
+                                                   ( se->convert.is_promo_tag_lost ) ? "==" : "" );
+            break;
+        }
+
         case CC_SEE_FailedConversion :
+        {
+            result = cc_str_append_format_len_new( &result, BUFSIZ, "%%%%" );
+            break;
+        }
+
         case CC_SEE_Demotion :
         case CC_SEE_Resurrection :
         case CC_SEE_FailedResurrection :
