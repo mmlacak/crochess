@@ -240,7 +240,7 @@ char * cc_str_append_new( char ** restrict alloc_str_1,
         if ( !new ) return NULL;
 
         free( *alloc_str_2 );
-        alloc_str_2 = NULL;
+        *alloc_str_2 = NULL;
 
         return new;
     }
@@ -251,7 +251,7 @@ char * cc_str_append_new( char ** restrict alloc_str_1,
         if ( !new ) return NULL;
 
         free( *alloc_str_1 );
-        alloc_str_1 = NULL;
+        *alloc_str_1 = NULL;
 
         return new;
     }
@@ -280,7 +280,7 @@ char * cc_str_append_len_new( char ** restrict alloc_str_1,
         if ( !new ) return NULL;
 
         free( *alloc_str_2 );
-        alloc_str_2 = NULL;
+        *alloc_str_2 = NULL;
 
         return new;
     }
@@ -291,7 +291,7 @@ char * cc_str_append_len_new( char ** restrict alloc_str_1,
         if ( !new ) return NULL;
 
         free( *alloc_str_1 );
-        alloc_str_1 = NULL;
+        *alloc_str_1 = NULL;
 
         return new;
     }
