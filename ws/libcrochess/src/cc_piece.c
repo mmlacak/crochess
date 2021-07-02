@@ -81,6 +81,42 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum const pe )
     }
 }
 
+CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe )
+{
+    switch ( pe )
+    {
+        case CC_PE_DarkStarchild :
+        case CC_PE_DarkShaman :
+        case CC_PE_DarkSerpent :
+        case CC_PE_DarkCentaur :
+        case CC_PE_DarkWave :
+        case CC_PE_DarkUnicorn :
+        case CC_PE_DarkPyramid :
+        case CC_PE_DarkPegasus :
+        case CC_PE_DarkQueen :
+        case CC_PE_DarkRook :
+        case CC_PE_DarkBishop :
+        case CC_PE_DarkKnight :
+            return CC_PE_DarkPawn;
+
+        case CC_PE_LightKnight :
+        case CC_PE_LightBishop :
+        case CC_PE_LightRook :
+        case CC_PE_LightQueen :
+        case CC_PE_LightPegasus :
+        case CC_PE_LightPyramid :
+        case CC_PE_LightUnicorn :
+        case CC_PE_LightWave :
+        case CC_PE_LightCentaur :
+        case CC_PE_LightSerpent :
+        case CC_PE_LightShaman :
+        case CC_PE_LightStarchild :
+            return CC_PE_LightPawn;
+
+        default : return CC_PE_None;
+    }
+}
+
 char cc_piece_as_char( CcPieceEnum const pe )
 {
     switch ( pe )

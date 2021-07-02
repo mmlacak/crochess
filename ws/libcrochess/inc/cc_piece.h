@@ -51,6 +51,7 @@ typedef enum CcPieceEnum
 
 CcPieceEnum cc_piece_from_symbol( char const c, bool const is_light );
 CcPieceEnum cc_piece_opposite( CcPieceEnum const pe );
+CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
 
 char cc_piece_as_char( CcPieceEnum const pe );
 char cc_piece_symbol( CcPieceEnum const pe );

@@ -448,10 +448,10 @@ bool cc_do_step( CcChessboard * const restrict cb,
             {
                 result = result && cc_chessboard_set_piece( cb, step->i, step->j, pe );
 
-                CcPieceEnum pe = se->demote.piece;
+                CcPieceEnum pawn = cc_piece_demoting_to( se->demote.piece );
                 int i = se->demote.dest_i;
                 int j = se->demote.dest_j;
-                result = result && cc_chessboard_set_piece( cb, i, j, pe );
+                result = result && cc_chessboard_set_piece( cb, i, j, pawn );
 
                 break;
             }

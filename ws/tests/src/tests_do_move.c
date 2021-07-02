@@ -1000,7 +1000,7 @@ bool test_do_move_demotion( bool do_print )
         return false;
     }
 
-    if ( !cc_step_demote_append_new( steps_0, CC_SLE_Destination, 22, 22, CC_PE_LightPawn, 11, 11 ) )
+    if ( !cc_step_demote_append_new( steps_0, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, 11, 11 ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
