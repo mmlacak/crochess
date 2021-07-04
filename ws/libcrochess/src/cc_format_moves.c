@@ -72,6 +72,10 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
     if ( !step ) return NULL;
     if ( !side_effect ) return NULL;
 
+    cc_piece_fp_char_value_t fp_char_value = ( format_move.do_dark_pieces_uppercase )
+                                             ? cc_piece_symbol
+                                             : cc_piece_as_char;
+
     CcSideEffect const * const se = side_effect;
     char * result = NULL;
 
@@ -84,7 +88,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
             result = cc_str_append_format_len_new( &result,
                                                    BUFSIZ,
                                                    "*%c%s",
-                                                   cc_piece_symbol( se->capture.piece ),
+                                                   fp_char_value( se->capture.piece ),
                                                    ( se->capture.is_promo_tag_lost ) ? "==" : "" );
             break;
         }
@@ -99,7 +103,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
                 result = cc_str_append_format_len_new(  &result,
                                                         BUFSIZ,
                                                         "<%c%s%c%s",
-                                                        cc_piece_symbol( se->displacement.piece ),
+                                                        fp_char_value( se->displacement.piece ),
                                                         ( se->displacement.is_promo_tag_lost ) ? "==" : "",
                                                         file,
                                                         rank );
@@ -136,7 +140,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
                 result = cc_str_append_format_len_new(  &result,
                                                         BUFSIZ,
                                                         "&%c%c%s-%c%s",
-                                                        cc_piece_symbol( se->castle.rook ),
+                                                        fp_char_value( se->castle.rook ),
                                                         file_1,
                                                         rank_1,
                                                         file_2,
@@ -153,7 +157,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
             result = cc_str_append_format_len_new( &result,
                                                    BUFSIZ,
                                                    "=%c",
-                                                   cc_piece_symbol( se->promote.piece ) );
+                                                   fp_char_value( se->promote.piece ) );
             break;
         }
 
@@ -168,7 +172,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
             result = cc_str_append_format_len_new( &result,
                                                    BUFSIZ,
                                                    "%%%c%s",
-                                                   cc_piece_symbol( se->convert.piece ),
+                                                   fp_char_value( se->convert.piece ),
                                                    ( se->convert.is_promo_tag_lost ) ? "==" : "" );
             break;
         }
@@ -189,7 +193,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
                 result = cc_str_append_format_len_new(  &result,
                                                         BUFSIZ,
                                                         ">%c%c%s",
-                                                        cc_piece_symbol( se->demote.piece ),
+                                                        fp_char_value( se->demote.piece ),
                                                         file,
                                                         rank );
                 free( rank );
@@ -208,7 +212,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
                 result = cc_str_append_format_len_new(  &result,
                                                         BUFSIZ,
                                                         "$%c%c%s",
-                                                        cc_piece_symbol( se->resurrect.piece ),
+                                                        fp_char_value( se->resurrect.piece ),
                                                         file,
                                                         rank );
                 free( rank );
@@ -270,6 +274,10 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
 
     if ( ply->piece == CC_PE_None ) return NULL;
 
+    cc_piece_fp_char_value_t fp_char_value = ( format_move.do_dark_pieces_uppercase )
+                                             ? cc_piece_symbol
+                                             : cc_piece_as_char;
+
     bool is_first_ply = ( ply == move->plies );
     char * ply_tilde = ( is_first_ply ) ? "" : "~";
     char * result = NULL;
@@ -290,10 +298,10 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
     if ( format_move.do_format_with_pawn_symbol )
     {
         if  ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
-            cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
+            cc_str_append_char( &result, fp_char_value( ply->piece ) );
     }
     else
-        cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
+        cc_str_append_char( &result, fp_char_value( ply->piece ) );
 
     CcStep * step = cc_ply_get_steps( ply );
 
