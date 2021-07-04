@@ -22,35 +22,47 @@ typedef enum CcFormatMoveScopeEnum
 typedef struct CcFormatMove
 {
     CcFormatMoveScopeEnum scope;
+    CcFormatStepUsageEnum usage;
+    bool do_format_with_pawn_symbol;
     bool do_dark_pieces_uppercase;
     bool do_wrap_plies_in_square_brackets;
 } CcFormatMove;
 
-CcFormatMove cc_get_format_move( CcFormatMoveScopeEnum scope,
-                                 bool do_dark_pieces_uppercase,
-                                 bool do_wrap_plies_in_square_brackets );
+CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
+                             CcFormatStepUsageEnum usage,
+                             bool do_format_with_pawn_symbol,
+                             bool do_dark_pieces_uppercase,
+                             bool do_wrap_plies_in_square_brackets );
+
+CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope );
+CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope );
+CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope );
 
 
 char cc_format_pos_file( int i );
 char * cc_format_pos_rank_new( int j );
 
-char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
-                                    CcMove const * const restrict move,
-                                    CcPly const * const restrict ply,
-                                    CcStep const * const restrict step,
-                                    CcSideEffect const * const restrict side_effect );
+char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
+                                  CcMove const * const restrict move,
+                                  CcPly const * const restrict ply,
+                                  CcStep const * const restrict step,
+                                  CcSideEffect const * const restrict side_effect,
+                                  CcFormatMove const format_move );
 
 char * cc_format_step_new( CcChessboard const * const restrict cb,
                            CcMove const * const restrict move,
                            CcPly const * const restrict ply,
-                           CcStep const * const restrict step );
+                           CcStep const * const restrict step,
+                           CcFormatMove const format_move );
 
 char * cc_format_ply_new( CcChessboard const * const restrict cb,
                           CcMove const * const restrict move,
-                          CcPly const * const restrict ply );
+                          CcPly const * const restrict ply,
+                          CcFormatMove const format_move );
 
 char * cc_format_move_new( CcChessboard const * const restrict cb,
-                           CcMove const * const restrict move );
+                           CcMove const * const restrict move,
+                           CcFormatMove const format_move );
 
 
 #endif /* __CC_PRINT_MOVES_H__ */

@@ -6,18 +6,29 @@
 
 #include <stdbool.h>
 
+#include "cc_format_moves.h"
 
-bool test_do_move_single_ply( bool do_print );
-bool test_do_move_cascading_plies( bool do_print );
-bool test_do_move_castling( bool do_print );
-bool test_do_move_tag_and_promotion( bool do_print );
-bool test_do_move_conversion( bool do_print, bool is_failed );
-bool test_do_move_demotion( bool do_print );
-bool test_do_move_resurrection( bool do_print, bool is_failed, bool is_oblationing );
+typedef struct TestPrints
+{
+    bool do_print_chessboard;
+    bool do_print_move;
+    CcFormatMove format_move;
+} TestPrints;
 
-bool test_do_move_teleportation( bool do_print, bool is_failed );
-bool test_do_move_teleportation_wave( bool do_print, bool is_oblationing );
-bool test_do_move_trance_journey( bool do_print, bool is_capturing );
+TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMove format_move );
+
+
+bool test_do_move_single_ply( TestPrints tp );
+bool test_do_move_cascading_plies( TestPrints tp );
+bool test_do_move_castling( TestPrints tp );
+bool test_do_move_tag_and_promotion( TestPrints tp );
+bool test_do_move_conversion( TestPrints tp, bool is_failed );
+bool test_do_move_demotion( TestPrints tp );
+bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationing );
+
+bool test_do_move_teleportation( TestPrints tp, bool is_failed );
+bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing );
+bool test_do_move_trance_journey( TestPrints tp, bool is_capturing );
 
 
 #endif /* __TESTS_DO_MOVE_H__ */

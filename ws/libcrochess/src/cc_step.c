@@ -126,6 +126,22 @@ CcSideEffect cc_side_effect_failed_resurrection()
 }
 
 
+bool cc_is_lower_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 )
+{
+    return usage_1 <= usage_2;
+}
+
+bool cc_is_equal_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 )
+{
+    return usage_1 == usage_2;
+}
+
+bool cc_is_greater_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 )
+{
+    return usage_1 >= usage_2;
+}
+
+
 CcStep * cc_step_new( CcStepLinkEnum link,
                       int i, int j, CcSideEffect side_effect,
                       CcFormatStepUsageEnum usage )

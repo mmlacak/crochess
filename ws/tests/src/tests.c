@@ -16,6 +16,7 @@
 #include "cc_step.h"
 #include "cc_ply.h"
 #include "cc_move.h"
+#include "cc_format_moves.h"
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
@@ -23,7 +24,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.36:140+20210704.065532"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.37:141+20210704.204823"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -150,27 +151,33 @@ int main( void )
         }
         else if ( !strcmp( "y", cmd ) )
         {
-            if ( !test_do_move_single_ply( false ) ) printf( "Test test_do_move_single_ply() failed.\n" );
-            if ( !test_do_move_cascading_plies( false ) ) printf( "Test test_do_move_cascading_plies() failed.\n" );
-            if ( !test_do_move_castling( false ) ) printf( "Test test_do_move_castling() failed.\n" );
-            if ( !test_do_move_tag_and_promotion( false ) ) printf( "Test test_do_move_tag_and_promotion() failed.\n" );
-            if ( !test_do_move_conversion( false, false ) ) printf( "Test test_do_move_conversion( _, false ) failed.\n" );
-            if ( !test_do_move_conversion( false, true ) ) printf( "Test test_do_move_conversion( _, true ) failed.\n" );
-            if ( !test_do_move_demotion( false ) ) printf( "Test test_do_move_demotion() failed.\n" );
+            // CcFormatMove fm = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
+            CcFormatMove fm = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
+            // CcFormatMove fm = cc_format_move_debug( CC_FMSE_FormatOnlyCurrentMove );
 
-            if ( !test_do_move_resurrection( false, false, false ) ) printf( "Test test_do_move_resurrection( _, false, false ) failed.\n" );
-            if ( !test_do_move_resurrection( false, false, true ) ) printf( "Test test_do_move_resurrection( _, false, true ) failed.\n" );
-            if ( !test_do_move_resurrection( false, true, false ) ) printf( "Test test_do_move_resurrection( _, true, false ) failed.\n" );
-            if ( !test_do_move_resurrection( false, true, true ) ) printf( "Test test_do_move_resurrection( _, true, true ) failed.\n" );
+            TestPrints tp = test_prints( false, true, fm );
 
-            if ( !test_do_move_teleportation( false, false ) ) printf( "Test test_do_move_teleportation( _, false ) failed.\n" );
-            if ( !test_do_move_teleportation( false, true ) ) printf( "Test test_do_move_teleportation( _, true ) failed.\n" );
+            if ( !test_do_move_single_ply( tp ) ) printf( "Test test_do_move_single_ply() failed.\n" );
+            if ( !test_do_move_cascading_plies( tp ) ) printf( "Test test_do_move_cascading_plies() failed.\n" );
+            if ( !test_do_move_castling( tp ) ) printf( "Test test_do_move_castling() failed.\n" );
+            if ( !test_do_move_tag_and_promotion( tp ) ) printf( "Test test_do_move_tag_and_promotion() failed.\n" );
+            if ( !test_do_move_conversion( tp, false ) ) printf( "Test test_do_move_conversion( _, false ) failed.\n" );
+            if ( !test_do_move_conversion( tp, true ) ) printf( "Test test_do_move_conversion( _, true ) failed.\n" );
+            if ( !test_do_move_demotion( tp ) ) printf( "Test test_do_move_demotion() failed.\n" );
 
-            if ( !test_do_move_teleportation_wave( false, false ) ) printf( "Test test_do_move_teleportation_wave( _, false ) failed.\n" );
-            if ( !test_do_move_teleportation_wave( false, true ) ) printf( "Test test_do_move_teleportation_wave( _, true ) failed.\n" );
+            if ( !test_do_move_resurrection( tp, false, false ) ) printf( "Test test_do_move_resurrection( _, false, false ) failed.\n" );
+            if ( !test_do_move_resurrection( tp, false, true ) ) printf( "Test test_do_move_resurrection( _, false, true ) failed.\n" );
+            if ( !test_do_move_resurrection( tp, true, false ) ) printf( "Test test_do_move_resurrection( _, true, false ) failed.\n" );
+            if ( !test_do_move_resurrection( tp, true, true ) ) printf( "Test test_do_move_resurrection( _, true, true ) failed.\n" );
 
-            if ( !test_do_move_trance_journey( false, false ) ) printf( "Test test_do_move_trance_journey( _, false ) failed.\n" );
-            if ( !test_do_move_trance_journey( false, true ) ) printf( "Test test_do_move_trance_journey( _, true ) failed.\n" );
+            if ( !test_do_move_teleportation( tp, false ) ) printf( "Test test_do_move_teleportation( _, false ) failed.\n" );
+            if ( !test_do_move_teleportation( tp, true ) ) printf( "Test test_do_move_teleportation( _, true ) failed.\n" );
+
+            if ( !test_do_move_teleportation_wave( tp, false ) ) printf( "Test test_do_move_teleportation_wave( _, false ) failed.\n" );
+            if ( !test_do_move_teleportation_wave( tp, true ) ) printf( "Test test_do_move_teleportation_wave( _, true ) failed.\n" );
+
+            if ( !test_do_move_trance_journey( tp, false ) ) printf( "Test test_do_move_trance_journey( _, false ) failed.\n" );
+            if ( !test_do_move_trance_journey( tp, true ) ) printf( "Test test_do_move_trance_journey( _, true ) failed.\n" );
 
             printf( "Tests finished.\n" );
         }

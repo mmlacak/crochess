@@ -10,15 +10,34 @@
 #include "cc_str_utils.h"
 
 
-CcFormatMove cc_get_format_move( CcFormatMoveScopeEnum scope,
-                                 bool do_dark_pieces_uppercase,
-                                 bool do_wrap_plies_in_square_brackets )
+CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
+                             CcFormatStepUsageEnum usage,
+                             bool do_format_with_pawn_symbol,
+                             bool do_dark_pieces_uppercase,
+                             bool do_wrap_plies_in_square_brackets )
 {
     CcFormatMove fmt_mv_t = { .scope = scope,
+                              .usage = usage,
+                              .do_format_with_pawn_symbol = do_format_with_pawn_symbol,
                               .do_dark_pieces_uppercase = do_dark_pieces_uppercase,
                               .do_wrap_plies_in_square_brackets = do_wrap_plies_in_square_brackets };
 
     return fmt_mv_t;
+}
+
+CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope )
+{
+    return cc_format_move( scope, CC_FSUE_User, false, true, false );
+}
+
+CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
+{
+    return cc_format_move( scope, CC_FSUE_Addition, false, true, true );
+}
+
+CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope )
+{
+    return cc_format_move( scope, CC_FSUE_Debug, true, false, true );
 }
 
 
@@ -40,11 +59,12 @@ char * cc_format_pos_rank_new( int j )
     return new;
 }
 
-char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
-                                    CcMove const * const restrict move,
-                                    CcPly const * const restrict ply,
-                                    CcStep const * const restrict step,
-                                    CcSideEffect const * const restrict side_effect )
+char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
+                                  CcMove const * const restrict move,
+                                  CcPly const * const restrict ply,
+                                  CcStep const * const restrict step,
+                                  CcSideEffect const * const restrict side_effect,
+                                  CcFormatMove const format_move )
 {
     if ( !cb ) return NULL;
     if ( !move ) return NULL;
@@ -210,7 +230,8 @@ char * cc_format_side_effect_new(   CcChessboard const * const restrict cb,
 char * cc_format_step_new( CcChessboard const * const restrict cb,
                            CcMove const * const restrict move,
                            CcPly const * const restrict ply,
-                           CcStep const * const restrict step )
+                           CcStep const * const restrict step,
+                           CcFormatMove const format_move )
 {
     if ( !cb ) return NULL;
     if ( !move ) return NULL;
@@ -232,7 +253,7 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
     char * rank = cc_format_pos_rank_new( step->j );
     result = cc_str_append_len_new( &result, &rank, BUFSIZ );
 
-    char * se = cc_format_side_effect_new( cb, move, ply, step, &(step->side_effect) );
+    char * se = cc_format_side_effect_new( cb, move, ply, step, &(step->side_effect), format_move );
     result = cc_str_append_len_new( &result, &se, BUFSIZ );
 
     return result;
@@ -240,7 +261,8 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
 
 char * cc_format_ply_new( CcChessboard const * const restrict cb,
                           CcMove const * const restrict move,
-                          CcPly const * const restrict ply )
+                          CcPly const * const restrict ply,
+                          CcFormatMove const format_move )
 {
     if ( !cb ) return NULL;
     if ( !move ) return NULL;
@@ -265,16 +287,19 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
         case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( "::", 2 ); break;
     }
 
-// TODO
-    // if  ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
-    //     cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
-    cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
+    if ( format_move.do_format_with_pawn_symbol )
+    {
+        if  ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
+            cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
+    }
+    else
+        cc_str_append_char( &result, cc_piece_symbol( ply->piece ) );
 
     CcStep * step = cc_ply_get_steps( ply );
 
     while ( step )
     {
-        char * new = cc_format_step_new( cb, move, ply, step );
+        char * new = cc_format_step_new( cb, move, ply, step, format_move );
         char * appended = cc_str_concatenate_len_new( result, new, BUFSIZ );
 
         free( result );
@@ -288,7 +313,8 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
 }
 
 char * cc_format_move_new( CcChessboard const * const restrict cb,
-                           CcMove const * const restrict move )
+                           CcMove const * const restrict move,
+                           CcFormatMove const format_move )
 {
     if ( !cb ) return NULL;
     if ( !move ) return NULL;
@@ -299,7 +325,7 @@ char * cc_format_move_new( CcChessboard const * const restrict cb,
 
     while ( ply )
     {
-        char * new = cc_format_ply_new( cb, move, ply );
+        char * new = cc_format_ply_new( cb, move, ply, format_move );
         char * appended = cc_str_concatenate_len_new( result, new, BUFSIZ );
 
         free( result );

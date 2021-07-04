@@ -70,10 +70,15 @@ CcSideEffect cc_side_effect_failed_resurrection();
 
 typedef enum CcFormatStepUsageEnum
 {
-    CC_FSE_User,
-    CC_FSE_Addition,
-    CC_FSE_Debug,
+    CC_FSUE_User,
+    CC_FSUE_Addition,
+    CC_FSUE_Debug,
 } CcFormatStepUsageEnum;
+
+bool cc_is_lower_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 );
+bool cc_is_equal_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 );
+bool cc_is_greater_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 );
+
 
 typedef struct CcStep
 {
