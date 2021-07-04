@@ -12,12 +12,23 @@
 #include "cc_step.h"
 
 
-typedef enum CcPrintMoveEnum
+typedef enum CcFormatMoveScopeEnum
 {
-    CC_PME_PrintOnlyCurrentMove,
-    CC_PME_PrintOnlyLastMove,
-    CC_PME_PrintAllMoves,
-} CcPrintMoveEnum;
+    CC_FMSE_FormatOnlyCurrentMove,
+    CC_FMSE_FormatOnlyLastMove,
+    CC_FMSE_FormatAllMoves,
+} CcFormatMoveScopeEnum;
+
+typedef struct CcFormatMove
+{
+    CcFormatMoveScopeEnum scope;
+    bool do_dark_pieces_uppercase;
+    bool do_wrap_plies_in_square_brackets;
+} CcFormatMove;
+
+CcFormatMove cc_get_format_move( CcFormatMoveScopeEnum scope,
+                                 bool do_dark_pieces_uppercase,
+                                 bool do_wrap_plies_in_square_brackets );
 
 
 char cc_format_pos_file( int i );

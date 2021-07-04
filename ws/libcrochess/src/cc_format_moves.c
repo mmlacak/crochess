@@ -10,6 +10,18 @@
 #include "cc_str_utils.h"
 
 
+CcFormatMove cc_get_format_move( CcFormatMoveScopeEnum scope,
+                                 bool do_dark_pieces_uppercase,
+                                 bool do_wrap_plies_in_square_brackets )
+{
+    CcFormatMove fmt_mv_t = { .scope = scope,
+                              .do_dark_pieces_uppercase = do_dark_pieces_uppercase,
+                              .do_wrap_plies_in_square_brackets = do_wrap_plies_in_square_brackets };
+
+    return fmt_mv_t;
+}
+
+
 char cc_format_pos_file( int i )
 {
     if ( ( i < CC_MIN_BOARD_COORD ) || ( CC_MAX_BOARD_COORD < i ) ) return '?';
