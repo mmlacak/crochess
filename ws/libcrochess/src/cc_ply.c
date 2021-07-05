@@ -301,3 +301,45 @@ CcStep * cc_ply_get_steps( CcPly const * const restrict ply )
 
     return s;
 }
+
+bool cc_ply_contains_side_effects( CcPly const * const restrict ply )
+{
+    if ( !ply ) return false;
+
+    CcStep const * steps = cc_ply_get_steps( ply );
+    if ( !steps ) return false;
+
+    CcStep const * s = steps;
+    while ( s->next )
+    {
+        if ( s->side_effect.type != CC_SEE_None ) return true;
+        s = s->next;
+    }
+
+    return false;
+}
+
+size_t cc_ply_step_count( CcPly const * const restrict ply, bool include_starting_pos )
+{
+    if ( !ply ) return 0;
+
+    CcStep const * steps = cc_ply_get_steps( ply );
+    if ( !steps ) return 0;
+
+    size_t count = 0;
+
+    CcStep const * s = steps;
+    while ( s->next )
+    {
+        if ( s->link == CC_SLE_Start )
+        {
+            if ( include_starting_pos ) ++count;
+        }
+        else
+            ++count;
+
+        s = s->next;
+    }
+
+    return count;
+}

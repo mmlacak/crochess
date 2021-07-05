@@ -10,34 +10,62 @@
 #include "cc_str_utils.h"
 
 
+bool cc_if_wrap_ply_in_square_brackets( CcWrapPlyInSquareBracketsEnum wrap,
+                                        CcMove const * const restrict move,
+                                        CcPly const * const restrict ply,
+                                        bool default_wrap )
+{
+    if ( wrap == CC_WPISB_Never ) return false;
+    if ( wrap == CC_WPISB_Always ) return true;
+
+    if ( !move ) return default_wrap;
+    if ( !move->plies ) return default_wrap;
+    if ( !ply ) return default_wrap;
+
+// bool is_first_ply = ( ply == move->plies );
+
+    if ( wrap == CC_WPISB_IfMoreThanOnePly )
+        return ( cc_move_ply_count( move ) > 1 );
+
+    if ( wrap == CC_WPISB_IfContainsSideEffects )
+        return cc_ply_contains_side_effects( ply );
+
+    if ( wrap == CC_WPISB_IfHasMoreThanOneStep )
+        return ( cc_ply_step_count( ply, false ) > 1 );
+
+    return default_wrap;
+}
+
 CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
                              CcFormatStepUsageEnum usage,
                              bool do_format_with_pawn_symbol,
                              bool do_dark_pieces_uppercase,
-                             bool do_wrap_plies_in_square_brackets )
+                             CcWrapPlyInSquareBracketsEnum wrap,
+                             bool default_wrap )
 {
     CcFormatMove fmt_mv_t = { .scope = scope,
                               .usage = usage,
                               .do_format_with_pawn_symbol = do_format_with_pawn_symbol,
                               .do_dark_pieces_uppercase = do_dark_pieces_uppercase,
-                              .do_wrap_plies_in_square_brackets = do_wrap_plies_in_square_brackets };
+                              .wrap = wrap,
+                              .default_wrap = default_wrap };
 
     return fmt_mv_t;
 }
 
 CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope )
 {
-    return cc_format_move( scope, CC_FSUE_User, false, true, false );
+    return cc_format_move( scope, CC_FSUE_User, false, true, CC_WPISB_Never, false );
 }
 
 CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
 {
-    return cc_format_move( scope, CC_FSUE_Addition, false, true, true );
+    return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfContainsSideEffects, false );
 }
 
 CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope )
 {
-    return cc_format_move( scope, CC_FSUE_Debug, true, false, true );
+    return cc_format_move( scope, CC_FSUE_Debug, true, false, CC_WPISB_Always, true );
 }
 
 
@@ -295,6 +323,9 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
         case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( "::", 2 ); break;
     }
 
+    if ( cc_if_wrap_ply_in_square_brackets( format_move.wrap, move, ply, format_move.default_wrap ) )
+        result = cc_str_concatenate_len_new( result, "[", BUFSIZ );
+
     if ( format_move.do_format_with_pawn_symbol )
     {
         if  ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
@@ -316,6 +347,9 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
 
         step = step->next;
     }
+
+    if ( cc_if_wrap_ply_in_square_brackets( format_move.wrap, move, ply, format_move.default_wrap ) )
+        result = cc_str_concatenate_len_new( result, "]", BUFSIZ );
 
     return result;
 }

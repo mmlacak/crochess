@@ -19,20 +19,36 @@ typedef enum CcFormatMoveScopeEnum
     CC_FMSE_FormatAllMoves,
 } CcFormatMoveScopeEnum;
 
+typedef enum CcWrapPlyInSquareBracketsEnum
+{
+    CC_WPISB_Never,
+    CC_WPISB_IfMoreThanOnePly,
+    CC_WPISB_IfContainsSideEffects,
+    CC_WPISB_IfHasMoreThanOneStep,
+    CC_WPISB_Always,
+} CcWrapPlyInSquareBracketsEnum;
+
+bool cc_if_wrap_ply_in_square_brackets( CcWrapPlyInSquareBracketsEnum wrap,
+                                        CcMove const * const restrict move,
+                                        CcPly const * const restrict ply,
+                                        bool default_value );
+
 typedef struct CcFormatMove
 {
     CcFormatMoveScopeEnum scope;
     CcFormatStepUsageEnum usage;
     bool do_format_with_pawn_symbol;
     bool do_dark_pieces_uppercase;
-    bool do_wrap_plies_in_square_brackets;
+    CcWrapPlyInSquareBracketsEnum wrap;
+    bool default_wrap;
 } CcFormatMove;
 
 CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
                              CcFormatStepUsageEnum usage,
                              bool do_format_with_pawn_symbol,
                              bool do_dark_pieces_uppercase,
-                             bool do_wrap_plies_in_square_brackets );
+                             CcWrapPlyInSquareBracketsEnum wrap,
+                             bool default_wrap );
 
 CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope );
 CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope );

@@ -36,5 +36,7 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
 
 bool cc_move_free_all_moves( CcMove ** const moves );
 
+size_t cc_move_ply_count( CcMove const * const restrict move );
+
 
 #endif /* __CC_MOVE_H__ */
