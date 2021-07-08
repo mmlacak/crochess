@@ -1300,6 +1300,7 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 
     //
     // ply |By25
+    // ply ||By25
 
     CcPly * ply_1;
     if ( is_failed )
@@ -1316,6 +1317,7 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 
     //
     // move Ba26|By25
+    // move Ba26||By25
 
     CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
     if ( !move_0 )
