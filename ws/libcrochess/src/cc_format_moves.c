@@ -20,16 +20,17 @@ bool cc_if_wrap_ply_in_square_brackets( CcWrapPlyInSquareBracketsEnum wrap,
 
     if ( !move ) return default_wrap;
 
-    if ( wrap == CC_WPISB_IfCascadingPlies )
-        return ( cc_move_ply_count( move ) > 1 );
+    size_t ply_count = cc_move_ply_count( move );
+
+    if ( wrap == CC_WPISB_IfCascading )
+        return ( ply_count > 1 );
 
     if ( !ply ) return default_wrap;
 
-    if ( wrap == CC_WPISB_IfContainsSideEffects )
-        return cc_ply_contains_side_effects( ply );
+    size_t step_count = cc_ply_step_count( ply, true );
 
-    if ( wrap == CC_WPISB_IfHasMoreThanOneStep )
-        return ( cc_ply_step_count( ply, false ) > 1 );
+    if ( wrap == CC_WPISB_IfCascading_HasSteps )
+        return ( ( ply_count > 1 ) && ( step_count > 1 ) );
 
     return default_wrap;
 }
@@ -58,7 +59,7 @@ CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope )
 
 CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
 {
-    return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfContainsSideEffects, false );
+    return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfCascading_HasSteps, false );
 }
 
 CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope )
@@ -365,18 +366,18 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
 
         case CC_PLE_TranceJourney :
         {
-            bool is_start_pos_diff = true;
+            bool is_start_pos_equal = false;
 
             if ( step )
             {
                 if ( step->link == CC_SLE_Start )
                 {
-                    is_start_pos_diff =  ( ( step->i == ply->trance_journey.i )
+                    is_start_pos_equal = ( ( step->i == ply->trance_journey.i )
                                         && ( step->j == ply->trance_journey.j ) );
                 }
             }
 
-            if ( !is_start_pos_diff )
+            if ( !is_start_pos_equal )
             {
                 char file = cc_format_pos_file( ply->trance_journey.i );
                 char * rank = cc_format_pos_rank_new( ply->trance_journey.j );

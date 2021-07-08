@@ -22,9 +22,8 @@ typedef enum CcFormatMoveScopeEnum
 typedef enum CcWrapPlyInSquareBracketsEnum
 {
     CC_WPISB_Never,
-    CC_WPISB_IfCascadingPlies,
-    CC_WPISB_IfContainsSideEffects,
-    CC_WPISB_IfHasMoreThanOneStep,
+    CC_WPISB_IfCascading_HasSteps,
+    CC_WPISB_IfCascading,
     CC_WPISB_Always,
 } CcWrapPlyInSquareBracketsEnum;
 

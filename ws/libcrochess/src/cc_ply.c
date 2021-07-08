@@ -326,9 +326,9 @@ size_t cc_ply_step_count( CcPly const * const restrict ply, bool include_startin
     CcStep const * steps = cc_ply_get_steps( ply );
     if ( !steps ) return 0;
 
-    size_t count = 0;
-
+    size_t count = 1;
     CcStep const * s = steps;
+
     while ( s->next )
     {
         if ( s->link == CC_SLE_Start )

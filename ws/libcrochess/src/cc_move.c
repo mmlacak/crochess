@@ -75,7 +75,7 @@ size_t cc_move_ply_count( CcMove const * const restrict move )
     if ( !move ) return 0;
     if ( !move->plies ) return 0;
 
-    size_t count = 0;
+    size_t count = 1;
     CcPly const * p = move->plies;
 
     while ( p->next )
