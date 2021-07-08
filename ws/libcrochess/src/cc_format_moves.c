@@ -59,8 +59,8 @@ CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope )
 
 CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
 {
-    return cc_format_move( scope, CC_FSUE_User, false, true, CC_WPISB_IfCascading_HasSteps, false );
-    // return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfCascading_HasSteps, false );
+    // return cc_format_move( scope, CC_FSUE_User, false, true, CC_WPISB_IfCascading_HasSteps, false );
+    return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfCascading_HasSteps, false );
     // return cc_format_move( scope, CC_FSUE_Debug, false, true, CC_WPISB_IfCascading_HasSteps, false );
 }
 
@@ -318,29 +318,19 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
                            CcMove const * const restrict move,
                            CcPly const * const restrict ply,
                            CcStep const * const restrict step,
-                           CcFormatMove const format_move )
+                           CcFormatMove const format_move,
+                           bool * const restrict has_preceding_step )
 {
     if ( !cb ) return NULL;
     if ( !move ) return NULL;
     if ( !ply ) return NULL;
     if ( !step ) return NULL;
 
-    static CcMove const * last_move = NULL;
-    static CcPly const * last_ply = NULL;
-    static bool has_preceding_step = false;
-
-    if ( ( last_move != move ) || ( last_ply != ply ) ) // ( ( !last_ply ) ||   )
-    {
-        last_move = move;
-        last_ply = ply;
-        has_preceding_step = false;
-    }
-
     char * result = NULL;
 
     if ( step->usage <= format_move.usage )
     {
-        if ( has_preceding_step )
+        if ( *has_preceding_step )
         {
             switch ( step->link )
             {
@@ -351,7 +341,7 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
             }
         }
 
-        has_preceding_step = true;
+        *has_preceding_step = true;
 
         cc_str_append_char( &result, cc_format_pos_file( step->i ) );
 
@@ -492,9 +482,11 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
         default : break;
     }
 
+    bool has_preceding_step = false;
+
     while ( step )
     {
-        char * new = cc_format_step_new( cb, move, ply, step, format_move );
+        char * new = cc_format_step_new( cb, move, ply, step, format_move, &has_preceding_step );
         char * appended = cc_str_concatenate_len_new( result, new, BUFSIZ );
 
         free( result );

@@ -68,7 +68,8 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
                            CcMove const * const restrict move,
                            CcPly const * const restrict ply,
                            CcStep const * const restrict step,
-                           CcFormatMove const format_move );
+                           CcFormatMove const format_move,
+                           bool * const restrict has_preceding_step );
 
 char * cc_format_ply_new( CcChessboard const * const restrict cb,
                           CcMove const * const restrict move,
