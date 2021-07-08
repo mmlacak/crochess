@@ -75,9 +75,9 @@ typedef enum CcFormatStepUsageEnum
     CC_FSUE_Debug,
 } CcFormatStepUsageEnum;
 
-bool cc_is_lower_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 );
-bool cc_is_equal_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 );
-bool cc_is_greater_format_step_usage( CcFormatStepUsageEnum usage_1, CcFormatStepUsageEnum usage_2 );
+bool cc_format_step_usage_user( CcFormatStepUsageEnum usage );
+bool cc_format_step_usage_addition( CcFormatStepUsageEnum usage );
+bool cc_format_step_usage_debug( CcFormatStepUsageEnum usage );
 
 
 typedef struct CcStep

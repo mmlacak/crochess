@@ -59,7 +59,8 @@ CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope )
 
 CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
 {
-    return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfCascading_HasSteps, false );
+    return cc_format_move( scope, CC_FSUE_User, false, true, CC_WPISB_IfCascading_HasSteps, false );
+    // return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfCascading_HasSteps, false );
 }
 
 CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope )
@@ -156,26 +157,36 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
         case CC_SEE_Castle :
         {
-            char file_1 = cc_format_pos_file( se->castle.start_i );
-            char * rank_1 = cc_format_pos_rank_new( se->castle.start_j );
-
-            char file_2 = cc_format_pos_file( se->castle.dest_i );
-            char * rank_2 = cc_format_pos_rank_new( se->castle.dest_j );
-
-            if ( rank_1 && rank_2 )
+            if ( format_move.usage == CC_FSUE_Debug )
             {
-                result = cc_str_append_format_len_new(  &result,
-                                                        BUFSIZ,
-                                                        "&%c%c%s-%c%s",
-                                                        fp_char_value( se->castle.rook ),
-                                                        file_1,
-                                                        rank_1,
-                                                        file_2,
-                                                        rank_2 );
+                char file_1 = cc_format_pos_file( se->castle.start_i );
+                char * rank_1 = cc_format_pos_rank_new( se->castle.start_j );
+
+                char file_2 = cc_format_pos_file( se->castle.dest_i );
+                char * rank_2 = cc_format_pos_rank_new( se->castle.dest_j );
+
+                if ( rank_1 && rank_2 )
+                {
+                    result = cc_str_append_format_len_new(  &result,
+                                                            BUFSIZ,
+                                                            "&%c%c%s-%c%s",
+                                                            fp_char_value( se->castle.rook ),
+                                                            file_1,
+                                                            rank_1,
+                                                            file_2,
+                                                            rank_2 );
+                }
+
+                free( rank_1 );
+                free( rank_2 );
+            }
+            else
+            {
+                char file_2 = cc_format_pos_file( se->castle.dest_i );
+
+                result = cc_str_append_format_len_new( &result, BUFSIZ, "&%c", file_2 );
             }
 
-            free( rank_1 );
-            free( rank_2 );
             break;
         }
 

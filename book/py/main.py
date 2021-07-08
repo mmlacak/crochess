@@ -17,9 +17,11 @@ from board import BoardType
 
 
 def get_board_type_choices():
-    bts = BoardType.get_all_list(include_none=False)
+    # bts = BoardType.get_all_list(include_none=False)
+    bts = BoardType.get_even_list()
     lbls = [ bt.get_label() for bt in bts ]
-    lbls.extend( ['all', 'even', 'odd'] )
+    # lbls.extend( ['all', 'even', 'odd'] )
+    lbls.extend( ['all', ] )
     return lbls
 
 def get_board_types(labels):
@@ -29,16 +31,18 @@ def get_board_types(labels):
     bts = []
 
     if 'all' in labels:
-        bts.extend( BoardType.get_all_list(include_none=False) )
+        # bts.extend( BoardType.get_all_list(include_none=False) )
+        bts.extend( BoardType.get_even_list() )
 
     if 'even' in labels:
         bts.extend( BoardType.get_even_list() )
 
-    if 'odd' in labels:
-        bts.extend( BoardType.get_odd_list() )
+    # if 'odd' in labels:
+    #     bts.extend( BoardType.get_odd_list() )
 
     if not labels:
-        bts.extend( BoardType.get_all_list(include_none=False) )
+        # bts.extend( BoardType.get_all_list(include_none=False) )
+        bts.extend( BoardType.get_even_list() )
     else:
         btx = [ BoardType.get(lbl) for lbl in labels if lbl not in ['all', 'even', 'odd'] ]
         bts.extend( btx )
@@ -62,34 +66,21 @@ def main():
 Arguments -x and -I expect at least one of the following options:
 
 all  - all variants will be rendered
-even - even variants
-odd  - odd variants
 
-oc   - Odd Classical chess
 c    - Classical chess
-oct  - Odd Croatian Ties
 ct   - Croatian Ties
-oma  - Odd Mayan Ascendancy
 ma   - Mayan Ascendancy
-oaoa - Odd Age Of Aquarius
 aoa  - Age Of Aquarius
-omv  - Odd Mirandas Veil
 mv   - Mirandas Veil
-on   - Odd Nineteen
 n    - Nineteen
-ohd  - Odd Hemeras Dawn
 hd   - Hemeras Dawn
-otr  - Odd Tamoanchan Revisited
 tr   - Tamoanchan Revisited
-ocot - Odd Conquest Of Tlalocan
 cot  - Conquest Of Tlalocan
-od   - Odd Discovery
 d    - Discovery
-oo   - Odd One
 o    - One
 
 Any combination will work, multiple options separate by space, like so:
-$ python3 main.py -d -x even oct oma
+$ python3 main.py -d -x ct ma
 
 Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
 Licensed under 3-clause (modified) BSD license. See LICENSE for details.''')
