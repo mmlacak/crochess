@@ -43,7 +43,7 @@ typedef struct CcSideEffect
     {
         struct { CcPieceEnum piece; bool is_promo_tag_lost; } capture;
         struct { CcPieceEnum piece; bool is_promo_tag_lost; int dest_i; int dest_j; } displacement;
-        struct { int dest_i; int dest_j; } en_passant;
+        struct { CcPieceEnum piece; int dest_i; int dest_j; } en_passant;
         struct { CcPieceEnum rook; int start_i; int start_j; int dest_i; int dest_j; } castle;
         struct { CcPieceEnum piece; } promote;
         struct { CcPieceEnum piece; bool is_promo_tag_lost; } convert;
@@ -57,7 +57,7 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, bool is_p
 CcSideEffect cc_side_effect_none();
 CcSideEffect cc_side_effect_capture( CcPieceEnum piece, bool is_promo_tag_lost );
 CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, bool is_promo_tag_lost, int dest_i, int dest_j );
-CcSideEffect cc_side_effect_en_passant( int dest_i, int dest_j );
+CcSideEffect cc_side_effect_en_passant( CcPieceEnum piece, int dest_i, int dest_j );
 CcSideEffect cc_side_effect_castle( CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j );
 CcSideEffect cc_side_effect_promote( CcPieceEnum piece );
 CcSideEffect cc_side_effect_tag_for_promotion();
@@ -109,7 +109,7 @@ CcStep * cc_step_displacement_new( CcStepLinkEnum link, int i, int j,
                                    CcFormatStepUsageEnum usage );
 
 CcStep * cc_step_en_passant_new( CcStepLinkEnum link, int i, int j,
-                                 int dest_i, int dest_j,
+                                 CcPieceEnum piece, int dest_i, int dest_j,
                                  CcFormatStepUsageEnum usage );
 
 CcStep * cc_step_castle_new( CcStepLinkEnum link, int i, int j,
@@ -158,7 +158,7 @@ CcStep * cc_step_displacement_append_new( CcStep * const restrict steps,
 
 CcStep * cc_step_en_passant_append_new( CcStep * const restrict steps,
                                         CcStepLinkEnum link, int i, int j,
-                                        int dest_i, int dest_j,
+                                        CcPieceEnum piece, int dest_i, int dest_j,
                                         CcFormatStepUsageEnum usage );
 
 CcStep * cc_step_castle_append_new( CcStep * const restrict steps,

@@ -138,6 +138,8 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
             }
             else
             {
+                char piece = fp_char_value( se->displacement.piece );
+                char * is_promo_tag_lost = ( se->displacement.is_promo_tag_lost ) ? "==" : "";
                 char file = cc_format_pos_file( se->displacement.dest_i );
                 char * rank = cc_format_pos_rank_new( se->displacement.dest_j );
 
@@ -146,8 +148,8 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
                     result = cc_str_append_format_len_new(  &result,
                                                             BUFSIZ,
                                                             "<%c%s%c%s",
-                                                            fp_char_value( se->displacement.piece ),
-                                                            ( se->displacement.is_promo_tag_lost ) ? "==" : "",
+                                                            piece,
+                                                            is_promo_tag_lost,
                                                             file,
                                                             rank );
                     free( rank );
@@ -170,12 +172,13 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
             }
             else
             {
+                char piece = fp_char_value( se->en_passant.piece );
                 char file = cc_format_pos_file( se->en_passant.dest_i );
                 char * rank = cc_format_pos_rank_new( se->en_passant.dest_j );
 
                 if ( rank )
                 {
-                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c%s", file, rank );
+                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c%c%s", piece, file, rank );
                     free( rank );
                 }
             }
@@ -322,11 +325,13 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
     if ( !ply ) return NULL;
     if ( !step ) return NULL;
 
+    static CcMove const * last_move = NULL;
     static CcPly const * last_ply = NULL;
     static bool has_preceding_step = false;
 
-    if ( last_ply != ply ) // ( ( !last_ply ) ||   )
+    if ( ( last_move != move ) || ( last_ply != ply ) ) // ( ( !last_ply ) ||   )
     {
+        last_move = move;
         last_ply = ply;
         has_preceding_step = false;
     }
@@ -401,12 +406,12 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
         result = cc_str_concatenate_len_new( result, "[", BUFSIZ );
 
     if ( format_move.do_format_with_pawn_symbol )
+        cc_str_append_char( &result, fp_char_value( ply->piece ) );
+    else
     {
-        if  ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
+        if ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
             cc_str_append_char( &result, fp_char_value( ply->piece ) );
     }
-    else
-        cc_str_append_char( &result, fp_char_value( ply->piece ) );
 
     CcStep const * step = cc_ply_get_steps( ply );
 

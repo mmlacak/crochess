@@ -26,6 +26,7 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, bool is_p
     }
     else if ( sse.type == CC_SEE_EnPassant )
     {
+        sse.en_passant.piece = piece;
         sse.en_passant.dest_i = dest_i;
         sse.en_passant.dest_j = dest_j;
     }
@@ -80,9 +81,9 @@ CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, bool is_promo_tag_l
     return cc_side_effect( CC_SEE_Displacement, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
 }
 
-CcSideEffect cc_side_effect_en_passant( int dest_i, int dest_j )
+CcSideEffect cc_side_effect_en_passant( CcPieceEnum piece, int dest_i, int dest_j )
 {
-    return cc_side_effect( CC_SEE_EnPassant, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+    return cc_side_effect( CC_SEE_EnPassant, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
 }
 
 CcSideEffect cc_side_effect_castle( CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j )
@@ -203,10 +204,10 @@ CcStep * cc_step_displacement_new( CcStepLinkEnum link, int i, int j,
 }
 
 CcStep * cc_step_en_passant_new( CcStepLinkEnum link, int i, int j,
-                                 int dest_i, int dest_j,
+                                 CcPieceEnum piece, int dest_i, int dest_j,
                                  CcFormatStepUsageEnum usage )
 {
-    CcSideEffect se = cc_side_effect_en_passant( dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_en_passant( piece, dest_i, dest_j );
     return cc_step_new( link, i, j, se, usage );
 }
 
@@ -302,10 +303,10 @@ CcStep * cc_step_displacement_append_new( CcStep * const restrict steps,
 
 CcStep * cc_step_en_passant_append_new( CcStep * const restrict steps,
                                         CcStepLinkEnum link, int i, int j,
-                                        int dest_i, int dest_j,
+                                        CcPieceEnum piece, int dest_i, int dest_j,
                                         CcFormatStepUsageEnum usage )
 {
-    CcSideEffect se = cc_side_effect_en_passant( dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_en_passant( piece, dest_i, dest_j );
     return cc_step_append_new( steps, link, i, j, se, usage );
 }
 

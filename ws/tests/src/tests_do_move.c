@@ -100,9 +100,9 @@ bool test_do_move_single_ply( TestPrints tp )
     }
 
     //
-    // move
+    // move [Gf3.g5..i9-k13*p==]
 
-    CcMove * move = cc_move_new( NULL, &ply, CC_MSE_None );
+    CcMove * move = cc_move_new( "[Gf3.g5..i9-k13*p==]", &ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -267,9 +267,9 @@ bool test_do_move_cascading_plies( TestPrints tp )
     }
 
     //
-    // move 0, G --> W --> P --> ...
+    // move 0, [Gb6-h3]~[Wh3-j2]~[j2-j5]
 
-    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( "[Gb6-h3]~[Wh3-j2]~[j2-j5]", &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -340,7 +340,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return false;
     }
 
-    if ( !cc_step_en_passant_append_new( steps_3, CC_SLE_Destination, 9, 2, 9, 4, CC_FSUE_User ) )
+    if ( !cc_step_en_passant_append_new( steps_3, CC_SLE_Destination, 9, 2, CC_PE_LightPawn, 9, 4, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_3 );
         cc_move_free_all_moves( &move_0 );
@@ -357,7 +357,10 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return false;
     }
 
-    CcMove * move_1 = cc_move_new( NULL, &plies_3, CC_MSE_None );
+    //
+    // move 1, [pk4-j3:Pj5]
+
+    CcMove * move_1 = cc_move_new( "[pk4-j3:Pj5]", &plies_3, CC_MSE_None );
     if ( !move_1 )
     {
         cc_ply_free_all_plies( &plies_3 );
@@ -493,7 +496,10 @@ bool test_do_move_castling( TestPrints tp )
         return false;
     }
 
-    CcMove * move = cc_move_new( NULL, &ply, CC_MSE_None );
+    //
+    // move, [Kn1-u1&Ry1-t1]
+
+    CcMove * move = cc_move_new( "[Kn1-u1&Ry1-t1]", &ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -659,9 +665,9 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     }
 
     //
-    // move Bp22~Al22=
+    // move [Bv16-p22]~[Ap22-l22=]
 
-    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( "[Bv16-p22]~[Ap22-l22=]", &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -745,9 +751,9 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     }
 
     //
-    // move l22Q
+    // move [Pl22-l22=Q]
 
-    CcMove * move_1 = cc_move_new( NULL, &plies_2, CC_MSE_None );
+    CcMove * move_1 = cc_move_new( "[Pl22-l22=Q]", &plies_2, CC_MSE_None );
     if ( !move_1 )
     {
         cc_ply_free_all_plies( &plies_2 );
@@ -910,9 +916,12 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     }
 
     //
-    // move Bp6~Al6%H
+    // move [Bv12-p6]~[Ap6-l6%H]
+    //      [Bv12-p6]~[Ap6-l6%%]
 
-    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
+    char * alg_not =  ( is_failed ) ? "[Bv12-p6]~[Ap6-l6%%]" : "[Bv12-p6]~[Ap6-l6%H]";
+
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1025,9 +1034,9 @@ bool test_do_move_demotion( TestPrints tp )
     }
 
     //
-    // move Mw23>Bl12
+    // move [Mx16-w23>Bl12]
 
-    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( "[Mx16-w23>Bl12]", &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1149,9 +1158,16 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
     }
 
     //
-    // move Ip11$B, Ip11$$
+    // move [Ix16-p11$Wq12]
+    //      [Ix16-p11$Bp11]
+    //      [Ix16-p11$$]
+    //      [Ix16-p11$$]
 
-    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
+    char * alg_not = ( is_failed ) ? "[Ix16-p11$$]"
+                                   : ( is_oblationing ) ? "[Ix16-p11$Bp11]"
+                                                        : "[Ix16-p11$Wq12]";
+
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1316,10 +1332,12 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
     }
 
     //
-    // move Ba26|By25
-    // move Ba26||By25
+    // move [Bd23-a26]|[By25]
+    //      [Bd23-a26]||[Ba25]
 
-    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
+    char * alg_not = ( is_failed ) ? "[Bd23-a26]||[Ba25]" : "[Bd23-a26]|[By25]";
+
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1558,9 +1576,13 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     }
 
     //
-    // move Bi15~Wf12|Wr8~Np9
+    // move [Bk13-i15]~[Wi15-f12]|[Wt10-r8]~[Nr8-p9]
+    //      [Bk13-i15]~[Wi15-f12]||[W]
 
-    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
+    char * alg_not = ( is_oblationing ) ? "[Bk13-i15]~[Wi15-f12]||[W]"
+                                        : "[Bk13-i15]~[Wi15-f12]|[Wt10-r8]~[Nr8-p9]";
+
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1813,10 +1835,13 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     }
 
     //
-    // move Hg10~Wh8@H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
-    // move Hg10~Wh8@H..h13*B..f2*N..p7..j19..v5*P==
+    // move [He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]
+    //      [he9-g10]~[Wg10-h8]@[hh8..h13*B..f2*n..p7..j19-v5*p==]
 
-    CcMove * move_0 = cc_move_new( NULL, &plies_0, CC_MSE_None );
+    char * alg_not = ( is_capturing ) ? "[he9-g10]~[Wg10-h8]@[hh8..h13*B..f2*n..p7..j19-v5*p==]"
+                                      : "[He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]";
+
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
