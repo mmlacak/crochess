@@ -126,22 +126,6 @@ CcSideEffect cc_side_effect_failed_resurrection()
 }
 
 
-bool cc_format_step_usage_user( CcFormatStepUsageEnum usage )
-{
-    return ( usage <= CC_FSUE_User );
-}
-
-bool cc_format_step_usage_addition( CcFormatStepUsageEnum usage )
-{
-    return ( usage <= CC_FSUE_Addition );
-}
-
-bool cc_format_step_usage_debug( CcFormatStepUsageEnum usage )
-{
-    return ( usage <= CC_FSUE_Debug );
-}
-
-
 CcStep * cc_step_new( CcStepLinkEnum link,
                       int i, int j, CcSideEffect side_effect,
                       CcFormatStepUsageEnum usage )

@@ -61,6 +61,7 @@ CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
 {
     return cc_format_move( scope, CC_FSUE_User, false, true, CC_WPISB_IfCascading_HasSteps, false );
     // return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfCascading_HasSteps, false );
+    // return cc_format_move( scope, CC_FSUE_Debug, false, true, CC_WPISB_IfCascading_HasSteps, false );
 }
 
 CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope )
@@ -113,29 +114,44 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
         case CC_SEE_Capture :
         {
-            result = cc_str_append_format_len_new( &result,
-                                                   BUFSIZ,
-                                                   "*%c%s",
-                                                   fp_char_value( se->capture.piece ),
-                                                   ( se->capture.is_promo_tag_lost ) ? "==" : "" );
+            if ( format_move.usage <= CC_FSUE_User )
+            {
+                result = cc_str_append_format_len_new( &result, BUFSIZ, "*" );
+            }
+            else
+            {
+                result = cc_str_append_format_len_new( &result,
+                                                       BUFSIZ,
+                                                       "*%c%s",
+                                                       fp_char_value( se->capture.piece ),
+                                                       ( se->capture.is_promo_tag_lost ) ? "==" : "" );
+            }
+
             break;
         }
 
         case CC_SEE_Displacement :
         {
-            char file = cc_format_pos_file( se->displacement.dest_i );
-            char * rank = cc_format_pos_rank_new( se->displacement.dest_j );
-
-            if ( rank )
+            if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_len_new(  &result,
-                                                        BUFSIZ,
-                                                        "<%c%s%c%s",
-                                                        fp_char_value( se->displacement.piece ),
-                                                        ( se->displacement.is_promo_tag_lost ) ? "==" : "",
-                                                        file,
-                                                        rank );
-                free( rank );
+                result = cc_str_append_format_len_new( &result, BUFSIZ, "<" );
+            }
+            else
+            {
+                char file = cc_format_pos_file( se->displacement.dest_i );
+                char * rank = cc_format_pos_rank_new( se->displacement.dest_j );
+
+                if ( rank )
+                {
+                    result = cc_str_append_format_len_new(  &result,
+                                                            BUFSIZ,
+                                                            "<%c%s%c%s",
+                                                            fp_char_value( se->displacement.piece ),
+                                                            ( se->displacement.is_promo_tag_lost ) ? "==" : "",
+                                                            file,
+                                                            rank );
+                    free( rank );
+                }
             }
 
             break;
@@ -143,13 +159,25 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
         case CC_SEE_EnPassant :
         {
-            char file = cc_format_pos_file( se->en_passant.dest_i );
-            char * rank = cc_format_pos_rank_new( se->en_passant.dest_j );
-
-            if ( rank )
+            if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c%s", file, rank );
-                free( rank );
+                result = cc_str_append_format_len_new( &result, BUFSIZ, ":" );
+            }
+            else if ( format_move.usage <= CC_FSUE_Addition )
+            {
+                char file = cc_format_pos_file( se->en_passant.dest_i );
+                result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c", file );
+            }
+            else
+            {
+                char file = cc_format_pos_file( se->en_passant.dest_i );
+                char * rank = cc_format_pos_rank_new( se->en_passant.dest_j );
+
+                if ( rank )
+                {
+                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c%s", file, rank );
+                    free( rank );
+                }
             }
 
             break;
@@ -157,7 +185,16 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
         case CC_SEE_Castle :
         {
-            if ( format_move.usage == CC_FSUE_Debug )
+            if ( format_move.usage <= CC_FSUE_User )
+            {
+                result = cc_str_append_format_len_new( &result, BUFSIZ, "&" );
+            }
+            else if ( format_move.usage <= CC_FSUE_Addition )
+            {
+                char file_2 = cc_format_pos_file( se->castle.dest_i );
+                result = cc_str_append_format_len_new( &result, BUFSIZ, "&%c", file_2 );
+            }
+            else
             {
                 char file_1 = cc_format_pos_file( se->castle.start_i );
                 char * rank_1 = cc_format_pos_rank_new( se->castle.start_j );
@@ -180,22 +217,19 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
                 free( rank_1 );
                 free( rank_2 );
             }
-            else
-            {
-                char file_2 = cc_format_pos_file( se->castle.dest_i );
-
-                result = cc_str_append_format_len_new( &result, BUFSIZ, "&%c", file_2 );
-            }
 
             break;
         }
 
         case CC_SEE_Promotion :
         {
-            result = cc_str_append_format_len_new( &result,
-                                                   BUFSIZ,
-                                                   "=%c",
-                                                   fp_char_value( se->promote.piece ) );
+            char * fmt = ( format_move.usage <= CC_FSUE_User ) ? "%c" : "=%c";
+
+            result = cc_str_append_format_len_new(  &result,
+                                                    BUFSIZ,
+                                                    fmt,
+                                                    fp_char_value( se->promote.piece ) );
+
             break;
         }
 
@@ -207,11 +241,19 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
         case CC_SEE_Conversion :
         {
-            result = cc_str_append_format_len_new( &result,
-                                                   BUFSIZ,
-                                                   "%%%c%s",
-                                                   fp_char_value( se->convert.piece ),
-                                                   ( se->convert.is_promo_tag_lost ) ? "==" : "" );
+            if ( format_move.usage <= CC_FSUE_User )
+            {
+                result = cc_str_append_format_len_new( &result, BUFSIZ, "%%" );
+            }
+            else
+            {
+                result = cc_str_append_format_len_new(  &result,
+                                                        BUFSIZ,
+                                                        "%%%c%s",
+                                                        fp_char_value( se->convert.piece ),
+                                                        ( se->convert.is_promo_tag_lost ) ? "==" : "" );
+            }
+
             break;
         }
 
@@ -280,23 +322,40 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
     if ( !ply ) return NULL;
     if ( !step ) return NULL;
 
-    char * result = NULL;
+    static CcPly const * last_ply = NULL;
+    static bool has_preceding_step = false;
 
-    switch ( step->link )
+    if ( last_ply != ply ) // ( ( !last_ply ) ||   )
     {
-        case CC_SLE_Start : break;
-        case CC_SLE_Next : result = cc_str_duplicate_len_new( ".", 1 ); break;
-        case CC_SLE_Distant : result = cc_str_duplicate_len_new( "..", 2 ); break;
-        case CC_SLE_Destination : result = cc_str_duplicate_len_new( "-", 1 ); break;
+        last_ply = ply;
+        has_preceding_step = false;
     }
 
-    cc_str_append_char( &result, cc_format_pos_file( step->i ) );
+    char * result = NULL;
 
-    char * rank = cc_format_pos_rank_new( step->j );
-    result = cc_str_append_len_new( &result, &rank, BUFSIZ );
+    if ( step->usage <= format_move.usage )
+    {
+        if ( has_preceding_step )
+        {
+            switch ( step->link )
+            {
+                case CC_SLE_Start : break;
+                case CC_SLE_Next : result = cc_str_duplicate_len_new( ".", 1 ); break;
+                case CC_SLE_Distant : result = cc_str_duplicate_len_new( "..", 2 ); break;
+                case CC_SLE_Destination : result = cc_str_duplicate_len_new( "-", 1 ); break;
+            }
+        }
 
-    char * se = cc_format_side_effect_new( cb, move, ply, step, &(step->side_effect), format_move );
-    result = cc_str_append_len_new( &result, &se, BUFSIZ );
+        has_preceding_step = true;
+
+        cc_str_append_char( &result, cc_format_pos_file( step->i ) );
+
+        char * rank = cc_format_pos_rank_new( step->j );
+        result = cc_str_append_len_new( &result, &rank, BUFSIZ );
+
+        char * se = cc_format_side_effect_new( cb, move, ply, step, &(step->side_effect), format_move );
+        result = cc_str_append_len_new( &result, &se, BUFSIZ );
+    }
 
     return result;
 }
