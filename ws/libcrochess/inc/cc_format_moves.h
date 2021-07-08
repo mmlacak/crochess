@@ -27,11 +27,6 @@ typedef enum CcWrapPlyInSquareBracketsEnum
     CC_WPISB_Always,
 } CcWrapPlyInSquareBracketsEnum;
 
-bool cc_if_wrap_ply_in_square_brackets( CcWrapPlyInSquareBracketsEnum wrap,
-                                        CcMove const * const restrict move,
-                                        CcPly const * const restrict ply,
-                                        bool default_value );
-
 typedef struct CcFormatMove
 {
     CcFormatMoveScopeEnum scope;
@@ -52,6 +47,10 @@ CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
 CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope );
 CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope );
 CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope );
+
+bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
+                                        CcPly const * const restrict ply,
+                                        CcFormatMove const format_move );
 
 
 char cc_format_pos_file( int i );

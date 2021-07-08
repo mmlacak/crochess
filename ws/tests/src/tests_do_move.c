@@ -60,28 +60,28 @@ bool test_do_move_single_ply( TestPrints tp )
     //
     // steps
 
-    CcStep * start = cc_step_none_append_new( NULL, CC_SLE_Start, 5, 2, CC_FSUE_Addition );
+    CcStep * start = cc_step_none_append_new( NULL, CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
     if ( !start )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append_new( start, CC_SLE_Next, 6, 4, CC_FSUE_Debug ) )
+    if ( !cc_step_none_append_new( start, CC_SLE_Next, 6, 4, CC_FSUE_Clarification_NoOutput ) )
     {
         cc_step_free_all_steps( &start );
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append_new( start, CC_SLE_Distant, 8, 8, CC_FSUE_Debug ) )
+    if ( !cc_step_none_append_new( start, CC_SLE_Distant, 8, 8, CC_FSUE_Addition ) )
     {
         cc_step_free_all_steps( &start );
         free( cb );
         return false;
     }
 
-    if ( !cc_step_capture_append_new( start, CC_SLE_Destination, 10, 12, CC_PE_DarkPawn, true, CC_FSUE_User ) )
+    if ( !cc_step_capture_append_new( start, CC_SLE_Distant, 10, 12, CC_PE_DarkPawn, true, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &start );
         free( cb );
@@ -100,9 +100,9 @@ bool test_do_move_single_ply( TestPrints tp )
     }
 
     //
-    // move [Gf3.g5..i9-k13*p==]
+    // move [Gf3.g5..i9..k13*p==]
 
-    CcMove * move = cc_move_new( "[Gf3.g5..i9-k13*p==]", &ply, CC_MSE_None );
+    CcMove * move = cc_move_new( "[Gf3.g5..i9..k13*p==]", &ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -190,7 +190,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // ply 0, G --> W
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 1, 5, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 1, 5, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -215,7 +215,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // ply 1, W --> P
 
-    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 7, 2, CC_FSUE_Addition );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 7, 2, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -242,7 +242,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // ply 2, P --> ...
 
-    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 9, 1, CC_FSUE_Addition );
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 9, 1, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -332,7 +332,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // move 1, p --> :P
 
-    CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 10, 3, CC_FSUE_Addition );
+    CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 10, 3, CC_FSUE_Clarification_NoOutput );
     if ( !steps_3 )
     {
         cc_move_free_all_moves( &move_0 );
@@ -474,7 +474,7 @@ bool test_do_move_castling( TestPrints tp )
     //
     // move Ku&t
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 13, 0, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 13, 0, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -615,7 +615,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     //
     // ply Bp22~
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 15, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -640,7 +640,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     //
     // ply Al22=
 
-    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 21, CC_FSUE_Addition );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 21, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -725,7 +725,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     //
     // ply l22Q
 
-    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 11, 21, CC_FSUE_Addition );
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 11, 21, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2 )
     {
         cc_move_free_all_moves( &move_0 );
@@ -860,7 +860,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     //
     // ply Bp6~
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 11, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 11, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -885,7 +885,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     //
     // ply Al6%H
 
-    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 5, CC_FSUE_Addition );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 5, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1011,7 +1011,7 @@ bool test_do_move_demotion( TestPrints tp )
     //
     // ply Mw23>Bl12
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -1124,7 +1124,7 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
     //
     // ply Ip11$B, Ip11$$
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -1292,7 +1292,7 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
     //
     // ply Ba26
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 3, 22, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 3, 22, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -1461,7 +1461,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     //
     // ply Bi15
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 10, 12, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 10, 12, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -1486,7 +1486,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     //
     // ply ~Wf12
 
-    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 8, 14, CC_FSUE_Addition );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 8, 14, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1519,7 +1519,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
         ply_2 = cc_ply_failed_teleport_oblation_append_new( plies_0, CC_PE_LightWave );
     else
     {
-        CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 19, 9, CC_FSUE_Addition );
+        CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 19, 9, CC_FSUE_Clarification_NoOutput );
         if ( !steps_2 )
         {
             cc_ply_free_all_plies( &plies_0 );
@@ -1550,7 +1550,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
 
     if ( !is_oblationing )
     {
-        CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 17, 7, CC_FSUE_Addition );
+        CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 17, 7, CC_FSUE_Clarification_NoOutput );
         if ( !steps_3 )
         {
             cc_ply_free_all_plies( &plies_0 );
@@ -1713,7 +1713,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     //
     // ply Hg10
 
-    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 4, 8, CC_FSUE_Addition );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 4, 8, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -1738,7 +1738,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     //
     // ply ~Wh8
 
-    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 6, 9, CC_FSUE_Addition );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 6, 9, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1766,7 +1766,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
     // ply @H..h13*B..f2*N..p7..j19..v5*P==
 
-    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Addition );
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2 )
     {
         cc_ply_free_all_plies( &plies_0 );

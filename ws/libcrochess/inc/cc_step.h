@@ -71,6 +71,8 @@ CcSideEffect cc_side_effect_failed_resurrection();
 typedef enum CcFormatStepUsageEnum
 {
     CC_FSUE_User,
+    CC_FSUE_Clarification,
+    CC_FSUE_Clarification_NoOutput,
     CC_FSUE_Addition,
     CC_FSUE_Debug,
 } CcFormatStepUsageEnum;
@@ -197,6 +199,9 @@ CcStep * cc_step_resurrect_append_new( CcStep * const restrict steps,
 CcStep * cc_step_failed_resurrection_append_new( CcStep * const restrict steps,
                                                  CcStepLinkEnum link, int i, int j,
                                                  CcFormatStepUsageEnum usage );
+
+
+size_t cc_step_count_usage( CcStep const * const restrict steps, CcFormatStepUsageEnum usage );
 
 
 #endif /* __CC_STEP_H__ */

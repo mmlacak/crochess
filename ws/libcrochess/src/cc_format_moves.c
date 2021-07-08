@@ -10,31 +10,6 @@
 #include "cc_str_utils.h"
 
 
-bool cc_if_wrap_ply_in_square_brackets( CcWrapPlyInSquareBracketsEnum wrap,
-                                        CcMove const * const restrict move,
-                                        CcPly const * const restrict ply,
-                                        bool default_wrap )
-{
-    if ( wrap == CC_WPISB_Never ) return false;
-    if ( wrap == CC_WPISB_Always ) return true;
-
-    if ( !move ) return default_wrap;
-
-    size_t ply_count = cc_move_ply_count( move );
-
-    if ( wrap == CC_WPISB_IfCascading )
-        return ( ply_count > 1 );
-
-    if ( !ply ) return default_wrap;
-
-    size_t step_count = cc_ply_step_count( ply, true );
-
-    if ( wrap == CC_WPISB_IfCascading_HasSteps )
-        return ( ( ply_count > 1 ) && ( step_count > 1 ) );
-
-    return default_wrap;
-}
-
 CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
                              CcFormatStepUsageEnum usage,
                              bool do_format_with_pawn_symbol,
@@ -60,13 +35,40 @@ CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope )
 CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
 {
     // return cc_format_move( scope, CC_FSUE_User, false, true, CC_WPISB_IfCascading_HasSteps, false );
-    return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfCascading_HasSteps, false );
+    return cc_format_move( scope, CC_FSUE_Clarification, false, true, CC_WPISB_IfCascading_HasSteps, false );
+    // return cc_format_move( scope, CC_FSUE_Clarification_NoOutput, false, true, CC_WPISB_IfCascading_HasSteps, false );
+    // return cc_format_move( scope, CC_FSUE_Addition, false, true, CC_WPISB_IfCascading_HasSteps, false );
     // return cc_format_move( scope, CC_FSUE_Debug, false, true, CC_WPISB_IfCascading_HasSteps, false );
 }
 
 CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope )
 {
     return cc_format_move( scope, CC_FSUE_Debug, true, false, CC_WPISB_Always, true );
+}
+
+bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
+                                        CcPly const * const restrict ply,
+                                        CcFormatMove const format_move )
+{
+    if ( format_move.wrap == CC_WPISB_Never ) return false;
+    if ( format_move.wrap == CC_WPISB_Always ) return true;
+
+    if ( !move ) return format_move.default_wrap;
+
+    size_t ply_count = cc_move_ply_count( move );
+
+    if ( format_move.wrap == CC_WPISB_IfCascading )
+        return ( ply_count > 1 );
+
+    if ( !ply ) return format_move.default_wrap;
+
+    CcStep const * steps = cc_ply_get_steps( ply );
+    size_t step_count = cc_step_count_usage( steps, format_move.usage ); // cc_ply_step_count( ply, true );
+
+    if ( format_move.wrap == CC_WPISB_IfCascading_HasSteps )
+        return ( ( ply_count > 1 ) && ( step_count > 1 ) );
+
+    return format_move.default_wrap;
 }
 
 
@@ -101,9 +103,9 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
     if ( !step ) return NULL;
     if ( !side_effect ) return NULL;
 
-    cc_piece_fp_char_value_t fp_char_value = ( format_move.do_dark_pieces_uppercase )
-                                             ? cc_piece_symbol
-                                             : cc_piece_as_char;
+    cc_piece_fp_char_value_t fp_char_value =
+        ( format_move.do_dark_pieces_uppercase ) ? cc_piece_symbol
+                                                 : cc_piece_as_char;
 
     CcSideEffect const * const se = side_effect;
     char * result = NULL;
@@ -165,10 +167,15 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
             {
                 result = cc_str_append_format_len_new( &result, BUFSIZ, ":" );
             }
-            else if ( format_move.usage <= CC_FSUE_Addition )
+            else if ( format_move.usage <= CC_FSUE_Clarification )
             {
-                char file = cc_format_pos_file( se->en_passant.dest_i );
-                result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c", file );
+                char * rank = cc_format_pos_rank_new( se->en_passant.dest_j );
+
+                if ( rank )
+                {
+                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%s", rank );
+                    free( rank );
+                }
             }
             else
             {
@@ -192,7 +199,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
             {
                 result = cc_str_append_format_len_new( &result, BUFSIZ, "&" );
             }
-            else if ( format_move.usage <= CC_FSUE_Addition )
+            else if ( format_move.usage <= CC_FSUE_Clarification )
             {
                 char file_2 = cc_format_pos_file( se->castle.dest_i );
                 result = cc_str_append_format_len_new( &result, BUFSIZ, "&%c", file_2 );
@@ -325,6 +332,7 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
     if ( !move ) return NULL;
     if ( !ply ) return NULL;
     if ( !step ) return NULL;
+    if ( !has_preceding_step ) return NULL;
 
     char * result = NULL;
 
@@ -387,10 +395,7 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
         case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( "::", 2 ); break;
     }
 
-    bool do_wrap = cc_if_wrap_ply_in_square_brackets( format_move.wrap,
-                                                      move,
-                                                      ply,
-                                                      format_move.default_wrap );
+    bool do_wrap = cc_if_wrap_ply_in_square_brackets( move, ply, format_move );
 
     if ( do_wrap )
         result = cc_str_concatenate_len_new( result, "[", BUFSIZ );

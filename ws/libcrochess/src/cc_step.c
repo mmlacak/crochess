@@ -378,3 +378,20 @@ CcStep * cc_step_failed_resurrection_append_new( CcStep * const restrict steps,
     CcSideEffect se = cc_side_effect_failed_resurrection();
     return cc_step_append_new( steps, link, i, j, se, usage );
 }
+
+
+size_t cc_step_count_usage( CcStep const * const restrict steps, CcFormatStepUsageEnum usage )
+{
+    if ( !steps ) return 0;
+
+    size_t count = 0;
+    CcStep const * s = steps;
+
+    while ( s )
+    {
+        if ( s->usage <= usage ) ++count;
+        s = s->next;
+    }
+
+    return count;
+}
