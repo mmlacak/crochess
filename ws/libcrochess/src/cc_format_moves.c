@@ -63,7 +63,7 @@ bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
     if ( !ply ) return format_move.default_wrap;
 
     CcStep const * steps = cc_ply_get_steps( ply );
-    size_t step_count = cc_step_count_usage( steps, format_move.usage ); // cc_ply_step_count( ply, true );
+    size_t step_count = cc_step_count_usage( steps, format_move.usage );
 
     if ( format_move.wrap == CC_WPISB_IfCascading_HasSteps )
         return ( ( ply_count > 1 ) && ( step_count > 1 ) );
