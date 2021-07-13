@@ -22,13 +22,16 @@ PROJECT_ROOT_PATH = P.get_project_root_path( sys.argv[ 0 ] )
 def remove_build_files(root_path, all_files_or_obj_only=False):
     build_dir = BE.get_build_dir(root_path)
 
-    file_paths = [  P.get_abs_combed_path( os.path.join( build_dir, f ) )
-                    for f in os.listdir(build_dir)
-                    if all_files_or_obj_only
-                        or RS.any_item_in( BE.OBJECT_FILE_EXTENSIONS, f ) ]
+    if os.path.exists(build_dir):
+        file_paths = [  P.get_abs_combed_path( os.path.join( build_dir, f ) )
+                        for f in os.listdir(build_dir)
+                        if all_files_or_obj_only
+                            or RS.any_item_in( BE.OBJECT_FILE_EXTENSIONS, f ) ]
 
-    for file_path in file_paths:
-        os.remove(file_path)
+        for file_path in file_paths:
+            os.remove(file_path)
+    else:
+        os.makedirs(build_dir)
 
 
 def main():
