@@ -30,3 +30,4 @@ build/
 *.env
 bin/
 obj/
+*docs*
