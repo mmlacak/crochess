@@ -25,6 +25,7 @@ def main():
     is_debug = True if is_dry_run or is_wet_run or RS.any_item_in( ['-d', '--debug'], pre_git_argv) else False
 
     is_book = True if RS.any_item_in( ['-b', '--book'], pre_git_argv) else False
+    is_docs = True if RS.any_item_in( ['-D', '--docs'], pre_git_argv) else False
 
     is_major = True if RS.any_item_in( ['-M', '--major'], pre_git_argv) else False
     is_minor = True if not is_major and RS.any_item_in( ['-m', '--minor'], pre_git_argv) else False
@@ -44,9 +45,9 @@ def main():
 
     auto_updated_files = []
 
-    if not (is_book or is_major or is_minor or is_feature or is_commit):
+    if not (is_book or is_docs or is_major or is_minor or is_feature or is_commit):
         # raise RuntimeError("Specify at least one of --book, --major, --minor, --feature or --commit.")
-        print( "Specify at least one of --book, --major, --minor, --feature or --commit to update version(s)." )
+        print( "Specify at least one of --book, --docs, --major, --minor, --feature or --commit to update version(s)." )
 
     if is_verbose:
         print( "" )
@@ -64,14 +65,14 @@ def main():
         print( "git commit args: %s." % str( git_commit_argv ) )
         print( "git push args: %s." % str( git_push_argv ) )
 
-    if is_book or is_major or is_minor or is_feature or is_commit:
+    if is_book or is_docs or is_major or is_minor or is_feature or is_commit:
         print( "" )
 
         if is_debug:
-            print( "Updating versions of book: %s, major: %s, minor: %s, feature: %s, commit: %s." % (str(is_book), str(is_major), str(is_minor), str(is_feature), str(is_commit)) )
+            print( "Updating versions of book: %s, docs: %s, major: %s, minor: %s, feature: %s, commit: %s." % (str(is_book), str(is_docs), str(is_major), str(is_minor), str(is_feature), str(is_commit)) )
 
         if not is_dry_run:
-            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_major, is_minor, is_feature, is_commit, count, breaks )
+            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_docs, is_major, is_minor, is_feature, is_commit, count, breaks )
 
     if git_commit_argv:
         print( "" )
