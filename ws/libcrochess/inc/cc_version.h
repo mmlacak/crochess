@@ -7,7 +7,5 @@
 
 extern char const CC_LIB_VERSION[];
 
-int cc_lib_test( void );
-
 
 #endif /* __CC_VERSION_H__ */
