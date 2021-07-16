@@ -31,7 +31,7 @@ bool test_do_move_single_ply( TestPrints tp )
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece( cb, 5, 2, CC_PE_LightPegasus );
@@ -60,28 +60,28 @@ bool test_do_move_single_ply( TestPrints tp )
     //
     // steps
 
-    CcStep * start = cc_step_none_append__new( NULL, CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
+    CcStep * start = cc_step_none_append_new( NULL, CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
     if ( !start )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append__new( start, CC_SLE_Next, 6, 4, CC_FSUE_Clarification_NoOutput ) )
+    if ( !cc_step_none_append_new( start, CC_SLE_Next, 6, 4, CC_FSUE_Clarification_NoOutput ) )
     {
         cc_step_free_all_steps( &start );
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append__new( start, CC_SLE_Distant, 8, 8, CC_FSUE_Addition ) )
+    if ( !cc_step_none_append_new( start, CC_SLE_Distant, 8, 8, CC_FSUE_Addition ) )
     {
         cc_step_free_all_steps( &start );
         free( cb );
         return false;
     }
 
-    if ( !cc_step_capture_append__new( start, CC_SLE_Distant, 10, 12, CC_PE_DarkPawn, true, CC_FSUE_User ) )
+    if ( !cc_step_capture_append_new( start, CC_SLE_Distant, 10, 12, CC_PE_DarkPawn, true, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &start );
         free( cb );
@@ -91,7 +91,7 @@ bool test_do_move_single_ply( TestPrints tp )
     //
     // ply
 
-    CcPly * ply = cc_ply_cascade__new( CC_PE_LightPegasus, &start );
+    CcPly * ply = cc_ply_cascade_new( CC_PE_LightPegasus, &start );
     if ( !ply )
     {
         cc_step_free_all_steps( &start );
@@ -102,7 +102,7 @@ bool test_do_move_single_ply( TestPrints tp )
     //
     // move [Gf3.g5..i9..k13*p==]
 
-    CcMove * move = cc_move__new( "[Gf3.g5..i9..k13*p==]", &ply, CC_MSE_None );
+    CcMove * move = cc_move_new( "[Gf3.g5..i9..k13*p==]", &ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -116,7 +116,7 @@ bool test_do_move_single_ply( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -147,7 +147,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece( cb, 1, 5, CC_PE_LightPegasus );
@@ -190,21 +190,21 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // ply 0, G --> W
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 1, 5, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 1, 5, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_0, CC_SLE_Destination, 7, 2, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 7, 2, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * plies_0 = cc_ply_cascade__new( CC_PE_LightPegasus, &steps_0 );
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightPegasus, &steps_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -215,7 +215,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // ply 1, W --> P
 
-    CcStep * steps_1 = cc_step_none__new( CC_SLE_Start, 7, 2, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 7, 2, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -223,7 +223,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_1, CC_SLE_Destination, 9, 1, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 9, 1, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -231,7 +231,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return false;
     }
 
-    if ( !cc_ply_cascade_append__new( plies_0, CC_PE_LightWave, &steps_1 ) )
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightWave, &steps_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -242,7 +242,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // ply 2, P --> ...
 
-    CcStep * steps_2 = cc_step_none__new( CC_SLE_Start, 9, 1, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 9, 1, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -250,7 +250,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_2, CC_SLE_Destination, 9, 4, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_2, CC_SLE_Destination, 9, 4, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
@@ -258,7 +258,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return false;
     }
 
-    if ( !cc_ply_cascade_append__new( plies_0, CC_PE_LightPawn, &steps_2 ) )
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightPawn, &steps_2 ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
@@ -269,7 +269,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // move 0, [Gb6-h3]~[Wh3-j2]~[j2-j5]
 
-    CcMove * move_0 = cc_move__new( "[Gb6-h3]~[Wh3-j2]~[j2-j5]", &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( "[Gb6-h3]~[Wh3-j2]~[j2-j5]", &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -283,7 +283,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_0, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_0, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -332,7 +332,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // move 1, p --> :P
 
-    CcStep * steps_3 = cc_step_none__new( CC_SLE_Start, 10, 3, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 10, 3, CC_FSUE_Clarification_NoOutput );
     if ( !steps_3 )
     {
         cc_move_free_all_moves( &move_0 );
@@ -340,7 +340,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return false;
     }
 
-    if ( !cc_step_en_passant_append__new( steps_3, CC_SLE_Destination, 9, 2, CC_PE_LightPawn, 9, 4, CC_FSUE_User ) )
+    if ( !cc_step_en_passant_append_new( steps_3, CC_SLE_Destination, 9, 2, CC_PE_LightPawn, 9, 4, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_3 );
         cc_move_free_all_moves( &move_0 );
@@ -348,7 +348,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return false;
     }
 
-    CcPly * plies_3 = cc_ply_cascade__new( CC_PE_DarkPawn, &steps_3 );
+    CcPly * plies_3 = cc_ply_cascade_new( CC_PE_DarkPawn, &steps_3 );
     if ( !plies_3 )
     {
         cc_step_free_all_steps( &steps_3 );
@@ -360,7 +360,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     //
     // move 1, [pk4-j3:Pj5]
 
-    CcMove * move_1 = cc_move__new( "[pk4-j3:Pj5]", &plies_3, CC_MSE_None );
+    CcMove * move_1 = cc_move_new( "[pk4-j3:Pj5]", &plies_3, CC_MSE_None );
     if ( !move_1 )
     {
         cc_ply_free_all_plies( &plies_3 );
@@ -375,7 +375,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_1, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_1, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -423,7 +423,7 @@ bool test_do_move_castling( TestPrints tp )
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece_tag( cb, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
@@ -474,21 +474,21 @@ bool test_do_move_castling( TestPrints tp )
     //
     // move Ku&t
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 13, 0, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 13, 0, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_castle_append__new( steps_0, CC_SLE_Destination, 20, 0, CC_PE_LightRook, 24, 0, 19, 0, CC_FSUE_User ) )
+    if ( !cc_step_castle_append_new( steps_0, CC_SLE_Destination, 20, 0, CC_PE_LightRook, 24, 0, 19, 0, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * ply = cc_ply_cascade__new( CC_PE_LightKing, &steps_0 );
+    CcPly * ply = cc_ply_cascade_new( CC_PE_LightKing, &steps_0 );
     if ( !ply )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -499,7 +499,7 @@ bool test_do_move_castling( TestPrints tp )
     //
     // move, [Kn1-u1&Ry1-t1]
 
-    CcMove * move = cc_move__new( "[Kn1-u1&Ry1-t1]", &ply, CC_MSE_None );
+    CcMove * move = cc_move_new( "[Kn1-u1&Ry1-t1]", &ply, CC_MSE_None );
     if ( !move )
     {
         cc_ply_free_all_plies( &ply );
@@ -513,7 +513,7 @@ bool test_do_move_castling( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -564,7 +564,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece( cb, 11, 21, CC_PE_LightPawn );
@@ -615,21 +615,21 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     //
     // ply Bp22~
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 21, 15, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_0, CC_SLE_Destination, 15, 21, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 15, 21, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * plies_0 = cc_ply_cascade__new( CC_PE_LightBishop, &steps_0 );
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightBishop, &steps_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -640,7 +640,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     //
     // ply Al22=
 
-    CcStep * steps_1 = cc_step_none__new( CC_SLE_Start, 15, 21, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 21, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -648,7 +648,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
         return false;
     }
 
-    if ( !cc_step_tag_for_promotion_append__new( steps_1, CC_SLE_Destination, 11, 21, CC_FSUE_User ) )
+    if ( !cc_step_tag_for_promotion_append_new( steps_1, CC_SLE_Destination, 11, 21, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -656,7 +656,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
         return false;
     }
 
-    if ( !cc_ply_cascade_append__new( plies_0, CC_PE_LightPyramid, &steps_1 ) )
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightPyramid, &steps_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -667,7 +667,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     //
     // move [Bv16-p22]~[Ap22-l22=]
 
-    CcMove * move_0 = cc_move__new( "[Bv16-p22]~[Ap22-l22=]", &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( "[Bv16-p22]~[Ap22-l22=]", &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -681,7 +681,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_0, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_0, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -725,7 +725,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     //
     // ply l22Q
 
-    CcStep * steps_2 = cc_step_none__new( CC_SLE_Start, 11, 21, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 11, 21, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2 )
     {
         cc_move_free_all_moves( &move_0 );
@@ -733,7 +733,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
         return false;
     }
 
-    if ( !cc_step_promote_append__new( steps_2, CC_SLE_Destination, 11, 21, CC_PE_LightQueen, CC_FSUE_User ) )
+    if ( !cc_step_promote_append_new( steps_2, CC_SLE_Destination, 11, 21, CC_PE_LightQueen, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_move_free_all_moves( &move_0 );
@@ -741,7 +741,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
         return false;
     }
 
-    CcPly * plies_2 = cc_ply_cascade__new( CC_PE_LightPawn, &steps_2 );
+    CcPly * plies_2 = cc_ply_cascade_new( CC_PE_LightPawn, &steps_2 );
     if ( !plies_2 )
     {
         cc_step_free_all_steps( &steps_2 );
@@ -753,7 +753,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     //
     // move [Pl22-l22=Q]
 
-    CcMove * move_1 = cc_move__new( "[Pl22-l22=Q]", &plies_2, CC_MSE_None );
+    CcMove * move_1 = cc_move_new( "[Pl22-l22=Q]", &plies_2, CC_MSE_None );
     if ( !move_1 )
     {
         cc_ply_free_all_plies( &plies_2 );
@@ -768,7 +768,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_1, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_1, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -816,7 +816,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     if ( is_failed )
@@ -860,21 +860,21 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     //
     // ply Bp6~
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 21, 11, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 11, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_0, CC_SLE_Destination, 15, 5, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 15, 5, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * plies_0 = cc_ply_cascade__new( CC_PE_LightBishop, &steps_0 );
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightBishop, &steps_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -885,7 +885,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     //
     // ply Al6%H
 
-    CcStep * steps_1 = cc_step_none__new( CC_SLE_Start, 15, 5, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 5, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -899,7 +899,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     else
         se_1 = cc_side_effect_convert( CC_PE_LightShaman, false );
 
-    if ( !cc_step_append__new( steps_1, CC_SLE_Destination, 11, 5, se_1, CC_FSUE_User ) )
+    if ( !cc_step_append_new( steps_1, CC_SLE_Destination, 11, 5, se_1, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -907,7 +907,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
         return false;
     }
 
-    if ( !cc_ply_cascade_append__new( plies_0, CC_PE_LightPyramid, &steps_1 ) )
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightPyramid, &steps_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -921,7 +921,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
 
     char * alg_not =  ( is_failed ) ? "[Bv12-p6]~[Ap6-l6%%]" : "[Bv12-p6]~[Ap6-l6%H]";
 
-    CcMove * move_0 = cc_move__new( alg_not, &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -935,7 +935,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_0, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_0, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -971,7 +971,7 @@ bool test_do_move_demotion( TestPrints tp )
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece( cb, 0, 0, CC_PE_BrightStar );
@@ -1011,21 +1011,21 @@ bool test_do_move_demotion( TestPrints tp )
     //
     // ply Mw23>Bl12
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_demote_append__new( steps_0, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, 11, 11, CC_FSUE_User ) )
+    if ( !cc_step_demote_append_new( steps_0, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, 11, 11, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * plies_0 = cc_ply_cascade__new( CC_PE_Monolith, &steps_0 );
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_Monolith, &steps_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -1036,7 +1036,7 @@ bool test_do_move_demotion( TestPrints tp )
     //
     // move [Mx16-w23>Bl12]
 
-    CcMove * move_0 = cc_move__new( "[Mx16-w23>Bl12]", &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( "[Mx16-w23>Bl12]", &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1050,7 +1050,7 @@ bool test_do_move_demotion( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_0, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_0, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -1089,7 +1089,7 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece( cb, 25, 0, CC_PE_DimStar );
@@ -1124,7 +1124,7 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
     //
     // ply Ip11$B, Ip11$$
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
@@ -1142,14 +1142,14 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
             se_0 = cc_side_effect_resurrect( CC_PE_LightWave, 16, 11 );
     }
 
-    if ( !cc_step_append__new( steps_0, CC_SLE_Destination, 15, 10, se_0, CC_FSUE_User ) )
+    if ( !cc_step_append_new( steps_0, CC_SLE_Destination, 15, 10, se_0, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * plies_0 = cc_ply_cascade__new( CC_PE_LightStarchild, &steps_0 );
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightStarchild, &steps_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -1167,7 +1167,7 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
                                    : ( is_oblationing ) ? "[Ix16-p11$Bp11]"
                                                         : "[Ix16-p11$Wq12]";
 
-    CcMove * move_0 = cc_move__new( alg_not, &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1181,7 +1181,7 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_0, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_0, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -1246,7 +1246,7 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece( cb, 0, 0, CC_PE_BrightStar );
@@ -1292,21 +1292,21 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
     //
     // ply Ba26
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 3, 22, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 3, 22, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_0, CC_SLE_Destination, 0, 25, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 0, 25, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * plies_0 = cc_ply_cascade__new( CC_PE_LightBishop, &steps_0 );
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightBishop, &steps_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -1320,9 +1320,9 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 
     CcPly * ply_1;
     if ( is_failed )
-        ply_1 = cc_ply_failed_teleport_append__new( plies_0, CC_PE_LightBishop, 0, 24 );
+        ply_1 = cc_ply_failed_teleport_append_new( plies_0, CC_PE_LightBishop, 0, 24 );
     else
-        ply_1 = cc_ply_teleport_append__new( plies_0, CC_PE_LightBishop, 24, 24 );
+        ply_1 = cc_ply_teleport_append_new( plies_0, CC_PE_LightBishop, 24, 24 );
 
     if ( !ply_1 )
     {
@@ -1337,7 +1337,7 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 
     char * alg_not = ( is_failed ) ? "[Bd23-a26]||[Ba25]" : "[Bd23-a26]|[By25]";
 
-    CcMove * move_0 = cc_move__new( alg_not, &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1351,7 +1351,7 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_0, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_0, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -1415,7 +1415,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
 {
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece( cb, 5, 11, CC_PE_Monolith );
@@ -1461,21 +1461,21 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     //
     // ply Bi15
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 10, 12, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 10, 12, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_0, CC_SLE_Destination, 8, 14, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 8, 14, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * plies_0 = cc_ply_cascade__new( CC_PE_LightBishop, &steps_0 );
+    CcPly * plies_0 = cc_ply_cascade_new( CC_PE_LightBishop, &steps_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -1486,7 +1486,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     //
     // ply ~Wf12
 
-    CcStep * steps_1 = cc_step_none__new( CC_SLE_Start, 8, 14, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 8, 14, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1494,7 +1494,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_1, CC_SLE_Destination, 5, 11, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 5, 11, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1502,7 +1502,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
         return false;
     }
 
-    if ( !cc_ply_cascade_append__new( plies_0, CC_PE_LightWave, &steps_1 ) )
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightWave, &steps_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1516,10 +1516,10 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     CcPly * ply_2;
 
     if ( is_oblationing )
-        ply_2 = cc_ply_failed_teleport_oblation_append__new( plies_0, CC_PE_LightWave );
+        ply_2 = cc_ply_failed_teleport_oblation_append_new( plies_0, CC_PE_LightWave );
     else
     {
-        CcStep * steps_2 = cc_step_none__new( CC_SLE_Start, 19, 9, CC_FSUE_Clarification_NoOutput );
+        CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 19, 9, CC_FSUE_Clarification_NoOutput );
         if ( !steps_2 )
         {
             cc_ply_free_all_plies( &plies_0 );
@@ -1527,7 +1527,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
             return false;
         }
 
-        if ( !cc_step_none_append__new( steps_2, CC_SLE_Destination, 17, 7, CC_FSUE_User ) )
+        if ( !cc_step_none_append_new( steps_2, CC_SLE_Destination, 17, 7, CC_FSUE_User ) )
         {
             cc_step_free_all_steps( &steps_2 );
             cc_ply_free_all_plies( &plies_0 );
@@ -1535,7 +1535,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
             return false;
         }
 
-        ply_2 = cc_ply_teleport_wave_append__new( plies_0, CC_PE_LightWave, &steps_2 );
+        ply_2 = cc_ply_teleport_wave_append_new( plies_0, CC_PE_LightWave, &steps_2 );
     }
 
     if ( !ply_2 )
@@ -1550,7 +1550,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
 
     if ( !is_oblationing )
     {
-        CcStep * steps_3 = cc_step_none__new( CC_SLE_Start, 17, 7, CC_FSUE_Clarification_NoOutput );
+        CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 17, 7, CC_FSUE_Clarification_NoOutput );
         if ( !steps_3 )
         {
             cc_ply_free_all_plies( &plies_0 );
@@ -1558,7 +1558,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
             return false;
         }
 
-        if ( !cc_step_none_append__new( steps_3, CC_SLE_Destination, 15, 8, CC_FSUE_User ) )
+        if ( !cc_step_none_append_new( steps_3, CC_SLE_Destination, 15, 8, CC_FSUE_User ) )
         {
             cc_step_free_all_steps( &steps_3 );
             cc_ply_free_all_plies( &plies_0 );
@@ -1566,7 +1566,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
             return false;
         }
 
-        if ( !cc_ply_cascade_append__new( plies_0, CC_PE_LightKnight, &steps_3 ) )
+        if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightKnight, &steps_3 ) )
         {
             cc_step_free_all_steps( &steps_3 );
             cc_ply_free_all_plies( &plies_0 );
@@ -1582,7 +1582,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     char * alg_not = ( is_oblationing ) ? "[Bk13-i15]~[Wi15-f12]||[W]"
                                         : "[Bk13-i15]~[Wi15-f12]|[Wt10-r8]~[Nr8-p9]";
 
-    CcMove * move_0 = cc_move__new( alg_not, &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1596,7 +1596,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_0, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_0, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
@@ -1654,7 +1654,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
 
     // chessboard
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, false );
+    CcChessboard * cb = cc_chessboard_new( CC_VE_One, false );
     if ( !cb ) return false;
 
     cc_chessboard_set_piece( cb, 4, 8, shaman ); // entrancing
@@ -1713,21 +1713,21 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     //
     // ply Hg10
 
-    CcStep * steps_0 = cc_step_none__new( CC_SLE_Start, 4, 8, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 4, 8, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0 )
     {
         free( cb );
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_0, CC_SLE_Destination, 6, 9, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 6, 9, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_0 );
         free( cb );
         return false;
     }
 
-    CcPly * plies_0 = cc_ply_cascade__new( shaman, &steps_0 );
+    CcPly * plies_0 = cc_ply_cascade_new( shaman, &steps_0 );
     if ( !plies_0 )
     {
         cc_step_free_all_steps( &steps_0 );
@@ -1738,7 +1738,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     //
     // ply ~Wh8
 
-    CcStep * steps_1 = cc_step_none__new( CC_SLE_Start, 6, 9, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 6, 9, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1746,7 +1746,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_1, CC_SLE_Destination, 7, 7, CC_FSUE_User ) )
+    if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 7, 7, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1754,7 +1754,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
         return false;
     }
 
-    if ( !cc_ply_cascade_append__new( plies_0, CC_PE_LightWave, &steps_1 ) )
+    if ( !cc_ply_cascade_append_new( plies_0, CC_PE_LightWave, &steps_1 ) )
     {
         cc_step_free_all_steps( &steps_1 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1766,7 +1766,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
     // ply @H..h13*B..f2*N..p7..j19..v5*P==
 
-    CcStep * steps_2 = cc_step_none__new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1777,7 +1777,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     CcSideEffect sse_2_1 = is_capturing ?
                            cc_side_effect_capture( CC_PE_LightBishop, false ) :
                            cc_side_effect_displacement( CC_PE_LightBishop, false, 9, 18 );
-    if ( !cc_step_append__new( steps_2, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User ) )
+    if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1788,7 +1788,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     CcSideEffect sse_2_2 = is_capturing ?
                            cc_side_effect_capture( CC_PE_DarkKnight, false ) :
                            cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
-    if ( !cc_step_append__new( steps_2, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User ) )
+    if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1796,7 +1796,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
         return false;
     }
 
-    if ( !cc_step_none_append__new( steps_2, CC_SLE_Distant, 15, 6, CC_FSUE_Addition ) )
+    if ( !cc_step_none_append_new( steps_2, CC_SLE_Distant, 15, 6, CC_FSUE_Addition ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1807,7 +1807,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     CcSideEffect sse_2_4 = is_capturing ?
                            cc_side_effect_none() :
                            cc_side_effect_displacement( CC_PE_LightBishop, false, 11, 24 );
-    if ( !cc_step_append__new( steps_2, CC_SLE_Distant, 9, 18, sse_2_4, CC_FSUE_User ) )
+    if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 9, 18, sse_2_4, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1818,7 +1818,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     CcSideEffect sse_2_5 = is_capturing ?
                            cc_side_effect_capture( CC_PE_DarkPawn, true ) :
                            cc_side_effect_displacement( CC_PE_DarkPawn, true, 15, 6 );
-    if ( !cc_step_append__new( steps_2, CC_SLE_Destination, 21, 4, sse_2_5, CC_FSUE_User ) )
+    if ( !cc_step_append_new( steps_2, CC_SLE_Destination, 21, 4, sse_2_5, CC_FSUE_User ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1826,7 +1826,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
         return false;
     }
 
-    if ( !cc_ply_trance_journey_append__new( plies_0, shaman, &steps_2, 7, 7 ) )
+    if ( !cc_ply_trance_journey_append_new( plies_0, shaman, &steps_2, 7, 7 ) )
     {
         cc_step_free_all_steps( &steps_2 );
         cc_ply_free_all_plies( &plies_0 );
@@ -1841,7 +1841,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     char * alg_not = ( is_capturing ) ? "[he9-g10]~[Wg10-h8]@[hh8..h13*B..f2*n..p7..j19-v5*p==]"
                                       : "[He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]";
 
-    CcMove * move_0 = cc_move__new( alg_not, &plies_0, CC_MSE_None );
+    CcMove * move_0 = cc_move_new( alg_not, &plies_0, CC_MSE_None );
     if ( !move_0 )
     {
         cc_ply_free_all_plies( &plies_0 );
@@ -1855,7 +1855,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
 
     if ( tp.do_print_move )
     {
-        char * alg_not = cc_format_move__new( cb, move_0, tp.format_move );
+        char * alg_not = cc_format_move_new( cb, move_0, tp.format_move );
         printf( "%s\n", alg_not );
         free( alg_not );
     }

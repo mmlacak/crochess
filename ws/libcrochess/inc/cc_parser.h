@@ -23,24 +23,24 @@ typedef struct CcParseMsg
     struct CcParseMsg * next;
 } CcParseMsg;
 
-CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
-                                size_t pos,
-                                char const * const restrict msg );
+CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
+                               size_t pos,
+                               char const * const restrict msg );
 
-CcParseMsg * cc_parse_msg_append__new( CcParseMsg * const restrict parse_msgs,
-                                       CcParseMsgEnum type,
-                                       size_t pos,
-                                       char const * const restrict msg );
+CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
+                                      CcParseMsgEnum type,
+                                      size_t pos,
+                                      char const * const restrict msg );
 
-CcParseMsg * cc_parse_msg_init_or_append__new( CcParseMsg ** const restrict parse_msgs,
-                                               CcParseMsgEnum type,
-                                               size_t pos,
-                                               char const * const restrict msg );
+CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs,
+                                              CcParseMsgEnum type,
+                                              size_t pos,
+                                              char const * const restrict msg );
 
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs );
 
 
-char * cc_parse_next_ply_str__new( char const * const restrict move_str /* = NULL */,
-                                   CcParseMsg ** parse_msgs );
+char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL */,
+                                  CcParseMsg ** parse_msgs );
 
 #endif /* __CC_PARSER_H__ */

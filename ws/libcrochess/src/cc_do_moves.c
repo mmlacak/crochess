@@ -555,7 +555,7 @@ bool cc_do_moves( CcChessboard * const restrict cb,
     if ( !cb ) return false;
     if ( !moves ) return false;
 
-    CcChessboard * tmp = cc_chessboard_duplicate__new( cb );
+    CcChessboard * tmp = cc_chessboard_duplicate_new( cb );
     if ( !tmp ) return false;
 
     bool result = true;

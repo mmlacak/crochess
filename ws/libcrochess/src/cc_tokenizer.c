@@ -52,8 +52,8 @@ char const * cc_stop_at_chars( char const * const restrict pos, char const * con
     return cc_traverse_chars( pos, seps, false );
 }
 
-char * cc_next_token__new( char const * const restrict str /* = NULL */,
-                           char const * const restrict seps /* = NULL */ )
+char * cc_next_token_new( char const * const restrict str /* = NULL */,
+                          char const * const restrict seps /* = NULL */ )
 {
     static char const * start = NULL;
     static char const * end = NULL;
@@ -84,7 +84,7 @@ char * cc_next_token__new( char const * const restrict str /* = NULL */,
     return pos;
 }
 
-char * cc_str_trim__new( char const * const restrict str, char const * const restrict chars )
+char * cc_str_trim_new( char const * const restrict str, char const * const restrict chars )
 {
     if ( !str ) return NULL;
     if ( !chars ) return NULL;

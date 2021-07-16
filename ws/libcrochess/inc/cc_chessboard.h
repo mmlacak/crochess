@@ -21,13 +21,13 @@ typedef struct CcChessboard
 
 bool cc_is_field_light( int i, int j );
 
-CcChessboard * cc_chessboard__new( CcVariantEnum const ve, bool do_setup );
+CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool do_setup );
 bool cc_chessboard_init( CcChessboard * const restrict cb, CcVariantEnum const ve, bool do_setup );
 bool cc_chessboard_clear( CcChessboard * const restrict cb );
 bool cc_chessboard_setup( CcChessboard * const restrict cb );
 
 bool cc_chessboard_copy( CcChessboard * const restrict into, CcChessboard const * const restrict from );
-CcChessboard * cc_chessboard_duplicate__new( CcChessboard const * const restrict from );
+CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict from );
 
 bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb, int i, int j );
 CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb, int i, int j );
@@ -36,9 +36,9 @@ bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb, int i, int j
 bool cc_chessboard_set_piece( CcChessboard * const restrict cb, int i, int j, CcPieceEnum pe );
 bool cc_chessboard_set_tag( CcChessboard * const restrict cb, int i, int j, CcTagEnum tt );
 
-// static char * cc_chessboard_get_divider__new( CcChessboard const * const restrict cb );
-// static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard const * const restrict cb );
-char * cc_chessboard_as_string__new( CcChessboard const * const restrict cb, bool is_board_or_chips );
+// static char * cc_chessboard_get_divider_new( CcChessboard const * const restrict cb );
+// static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard const * const restrict cb );
+char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool is_board_or_chips );
 bool cc_chessboard_print( CcChessboard const * const restrict cb, bool is_board_or_chips );
 
 

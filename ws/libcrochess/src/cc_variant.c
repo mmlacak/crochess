@@ -41,7 +41,7 @@ bool cc_variant_str_is_symbol( char const * const restrict str )
 {
     if ( !str ) return false;
 
-    char * lc = cc_str_to_case__new( str, true );
+    char * lc = cc_str_to_case_new( str, true );
     if ( !lc ) return false;
 
     int const count = sizeof( CC_VARIANT_SYMBOLS ) / sizeof( CC_VARIANT_SYMBOLS[ 0 ] );
@@ -65,7 +65,7 @@ CcVariantEnum cc_variant_from_symbol( char const * const restrict str )
     CcVariantEnum ve = CC_VE_One;
     if ( !str ) return ve;
 
-    char * lc = cc_str_to_case__new( str, true );
+    char * lc = cc_str_to_case_new( str, true );
     if ( !lc ) return ve;
 
     if ( !strcmp(lc, CC_VARIANT_CLASSICAL_CHESS_SYMBOL) ) ve = CC_VE_ClassicalChess;

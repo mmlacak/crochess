@@ -24,22 +24,22 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.48:152+20210716.092705"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.49:153+20210716.100950"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
 {
     TestMsg * test_msgs = NULL;
 
-    test_msg_init_or_append__new( &test_msgs, TME_Debug, "just debugging", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append_new( &test_msgs, TME_Debug, "just debugging", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append__new( &test_msgs, TME_Info, "just informing", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append_new( &test_msgs, TME_Info, "just informing", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append__new( &test_msgs, TME_Warning, "just warning", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append_new( &test_msgs, TME_Warning, "just warning", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append__new( &test_msgs, TME_Error, "stepped into a turd", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append_new( &test_msgs, TME_Error, "stepped into a turd", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append__new( &test_msgs, TME_Fatal, "it's a serious shit", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append_new( &test_msgs, TME_Fatal, "it's a serious shit", __FILE__, __LINE__, __func__ );
 
     return test_msgs;
 }
@@ -82,35 +82,35 @@ int main( void )
 
 
 // // TODO :: DEBUG
-//     char * con_1 = cc_str_concatenate__new( "Hello", "World!" );
+//     char * con_1 = cc_str_concatenate_new( "Hello", "World!" );
 //     printf( "1: %s.\n", con_1 );
 //     free( con_1 );
 
-//     char * con_2 = cc_str_concatenate_len__new( "Hello", "World!", BUFSIZ );
+//     char * con_2 = cc_str_concatenate_len_new( "Hello", "World!", BUFSIZ );
 //     printf( "2: %s.\n", con_2 );
 //     free( con_2 );
 
-//     char * con_3 = cc_str_concatenate_len__new( "Hello", "World!", 7 );
+//     char * con_3 = cc_str_concatenate_len_new( "Hello", "World!", 7 );
 //     printf( "3: %s.\n", con_3 );
 //     free( con_3 );
 
-//     char * dup_4 = cc_str_duplicate_len__new( "Hello World!", BUFSIZ );
+//     char * dup_4 = cc_str_duplicate_len_new( "Hello World!", BUFSIZ );
 //     printf( "4: %s.\n", dup_4 );
 //     free( dup_4 );
 
-//     char * dup_5 = cc_str_duplicate_len__new( "Hello World!", 9 );
+//     char * dup_5 = cc_str_duplicate_len_new( "Hello World!", 9 );
 //     printf( "5: %s.\n", dup_5 );
 //     free( dup_5 );
 
-//     char * con_6 = cc_str_concatenate__new( NULL, "Hello World!" );
+//     char * con_6 = cc_str_concatenate_new( NULL, "Hello World!" );
 //     printf( "6: %s.\n", con_6 );
 //     free( con_6 );
 
-//     char * dup_7 = cc_str_concatenate_len__new( "Hello World!", NULL, BUFSIZ );
+//     char * dup_7 = cc_str_concatenate_len_new( "Hello World!", NULL, BUFSIZ );
 //     printf( "7: %s.\n", dup_7 );
 //     free( dup_7 );
 
-//     char * dup_8 = cc_str_concatenate_len__new( NULL, "Hello World!", 9 );
+//     char * dup_8 = cc_str_concatenate_len_new( NULL, "Hello World!", 9 );
 //     printf( "8: %s.\n", dup_8 );
 //     free( dup_8 );
 // // TODO :: DEBUG
@@ -133,7 +133,7 @@ int main( void )
             continue;
         }
 
-        char * cmd = cc_next_token__new( buffer, CC_TOKEN_SEPARATORS_WHITEPSACE );
+        char * cmd = cc_next_token_new( buffer, CC_TOKEN_SEPARATORS_WHITEPSACE );
         if ( !cmd ) continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )

@@ -54,30 +54,30 @@ bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
 
 
 char cc_format_pos_file( int i );
-char * cc_format_pos_rank__new( int j );
+char * cc_format_pos_rank_new( int j );
 
-char * cc_format_side_effect__new( CcChessboard const * const restrict cb,
-                                   CcMove const * const restrict move,
-                                   CcPly const * const restrict ply,
-                                   CcStep const * const restrict step,
-                                   CcSideEffect const * const restrict side_effect,
-                                   CcFormatMove const format_move );
+char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
+                                  CcMove const * const restrict move,
+                                  CcPly const * const restrict ply,
+                                  CcStep const * const restrict step,
+                                  CcSideEffect const * const restrict side_effect,
+                                  CcFormatMove const format_move );
 
-char * cc_format_step__new( CcChessboard const * const restrict cb,
-                            CcMove const * const restrict move,
-                            CcPly const * const restrict ply,
-                            CcStep const * const restrict step,
-                            CcFormatMove const format_move,
-                            bool * const restrict has_preceding_step );
-
-char * cc_format_ply__new( CcChessboard const * const restrict cb,
+char * cc_format_step_new( CcChessboard const * const restrict cb,
                            CcMove const * const restrict move,
                            CcPly const * const restrict ply,
-                           CcFormatMove const format_move );
+                           CcStep const * const restrict step,
+                           CcFormatMove const format_move,
+                           bool * const restrict has_preceding_step );
 
-char * cc_format_move__new( CcChessboard const * const restrict cb,
-                            CcMove const * const restrict move,
-                            CcFormatMove const format_move );
+char * cc_format_ply_new( CcChessboard const * const restrict cb,
+                          CcMove const * const restrict move,
+                          CcPly const * const restrict ply,
+                          CcFormatMove const format_move );
+
+char * cc_format_move_new( CcChessboard const * const restrict cb,
+                           CcMove const * const restrict move,
+                           CcFormatMove const format_move );
 
 
 #endif /* __CC_PRINT_MOVES_H__ */

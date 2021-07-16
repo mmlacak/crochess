@@ -10,16 +10,16 @@
 #include "cc_move.h"
 
 
-CcMove * cc_move__new( char const * const restrict notation,
-                       CcPly ** restrict plies,
-                       CcMoveStatusEnum status )
+CcMove * cc_move_new( char const * const restrict notation,
+                      CcPly ** restrict plies,
+                      CcMoveStatusEnum status )
 {
     if ( !plies ) return NULL;
 
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
 
-    mv->notation = cc_str_duplicate_len__new( notation, BUFSIZ );
+    mv->notation = cc_str_duplicate_len_new( notation, BUFSIZ );
     mv->plies = *plies;
     mv->status = status;
     mv->next = NULL;
@@ -29,12 +29,12 @@ CcMove * cc_move__new( char const * const restrict notation,
     return mv;
 }
 
-CcMove * cc_move_append__new( CcMove * const restrict moves,
-                              char const * const restrict notation,
-                              CcPly ** restrict plies,
-                              CcMoveStatusEnum status )
+CcMove * cc_move_append_new( CcMove * const restrict moves,
+                             char const * const restrict notation,
+                             CcPly ** restrict plies,
+                             CcMoveStatusEnum status )
 {
-    CcMove * new = cc_move__new( notation, plies, status );
+    CcMove * new = cc_move_new( notation, plies, status );
     if ( !new ) return NULL;
     if ( !moves ) return new;
 

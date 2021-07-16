@@ -158,7 +158,7 @@ void print_help_new_code()
             "o   -> One\n" );
 }
 
-void print_help__new()
+void print_help_new()
 {
     printf( "Starts new game, in the same variant as the last one.\n"
             "To change variant, use code below as argument, e.g. `new ct`:\n\n" );

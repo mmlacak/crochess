@@ -22,10 +22,10 @@ char const * cc_skip_chars( char const * const restrict pos, char const * const 
 char const * cc_stop_at_chars( char const * const restrict pos, char const * const restrict seps );
 
 
-char * cc_next_token__new( char const * const restrict str /* = NULL */,
-                           char const * const restrict seps /* = NULL */ );
+char * cc_next_token_new( char const * const restrict str /* = NULL */,
+                          char const * const restrict seps /* = NULL */ );
 
-char * cc_str_trim__new( char const * const restrict str, char const * const restrict chars );
+char * cc_str_trim_new( char const * const restrict str, char const * const restrict chars );
 
 // size_t cc_flush_stdin();
 
