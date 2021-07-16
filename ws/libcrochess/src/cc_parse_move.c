@@ -34,7 +34,7 @@ CcMove * cc_parse_move( char const * const restrict move_str,
     if ( !cb ) return NULL;
     if ( !parse_msgs ) return NULL;
 
-    // char const * ply_str = cc_next_token_new( move_str, "~[]+#_" );
+    // char const * ply_str = cc_next_token__new( move_str, "~[]+#_" );
     // if ( !ply_str ) return NULL;
 
     // CcPly * ply = cc_parse_ply( ply_str, cb );
@@ -42,7 +42,7 @@ CcMove * cc_parse_move( char const * const restrict move_str,
     // free( ply_str );
     // if ( !ply ) return NULL;
 
-    // while ( ply_str = cc_next_token_new( NULL, NULL ) )
+    // while ( ply_str = cc_next_token__new( NULL, NULL ) )
     // {
     //     if ( !ply_str ) break;
 
@@ -55,7 +55,7 @@ CcMove * cc_parse_move( char const * const restrict move_str,
     // }
 
     // CcMoveStatusEnum mse = CC_MSE_None;
-    // CcMove * move = cc_move_new( move_str, ply, mse );
+    // CcMove * move = cc_move__new( move_str, ply, mse );
 
     // return move;
 

@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.47:151+20210715.135651"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.48:152+20210716.092705"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -29,7 +29,7 @@ int main( void )
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    CcChessboard * cb = cc_chessboard_new( CC_VE_One, true );
+    CcChessboard * cb = cc_chessboard__new( CC_VE_One, true );
 
     while ( true )
     {
@@ -45,7 +45,7 @@ int main( void )
             continue;
         }
 
-        char * cmd = cc_next_token_new( buffer, CC_TOKEN_SEPARATORS_WHITEPSACE );
+        char * cmd = cc_next_token__new( buffer, CC_TOKEN_SEPARATORS_WHITEPSACE );
         if ( !cmd ) continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
@@ -72,7 +72,7 @@ int main( void )
         else if ( ( !strcmp( "n", cmd ) ) || ( !strcmp( "new", cmd ) ) )
         {
             bool is_code = false;
-            char * code = cc_next_token_new( NULL, NULL );
+            char * code = cc_next_token__new( NULL, NULL );
 
             if ( code )
             {
@@ -83,7 +83,7 @@ int main( void )
                     CcVariantEnum ve = cc_variant_from_symbol( code );
 
                     free( cb );
-                    cb = cc_chessboard_new( ve, true );
+                    cb = cc_chessboard__new( ve, true );
                 }
                 else
                 {
@@ -101,7 +101,7 @@ int main( void )
         }
         else if ( ( !strcmp( "h", cmd ) ) || ( !strcmp( "help", cmd ) ) || ( !strcmp( "?", cmd ) ) )
         {
-            char * res = cc_next_token_new( NULL, NULL );
+            char * res = cc_next_token__new( NULL, NULL );
 
             if ( !res ) print_help();
             else if ( ( !strcmp( "q", res ) ) || ( !strcmp( "quit", res ) ) ) print_help_quit();
@@ -109,7 +109,7 @@ int main( void )
             else if ( ( !strcmp( "t", res ) ) || ( !strcmp( "tags", res ) ) ) print_help_tags();
             else if ( ( !strcmp( "a", res ) ) || ( !strcmp( "about", res ) ) ) print_help_about();
             else if ( ( !strcmp( "v", res ) ) || ( !strcmp( "version", res ) ) ) print_help_version();
-            else if ( ( !strcmp( "n", res ) ) || ( !strcmp( "new", res ) ) ) print_help_new();
+            else if ( ( !strcmp( "n", res ) ) || ( !strcmp( "new", res ) ) ) print_help__new();
             else
             {
                 printf( "No help entry: '%s'.\n", res );

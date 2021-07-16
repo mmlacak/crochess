@@ -12,27 +12,27 @@
 #include "cc_parser.h"
 
 
-CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
-                               size_t pos,
-                               char const * const restrict msg )
+CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
+                                size_t pos,
+                                char const * const restrict msg )
 {
     CcParseMsg * new = malloc( sizeof( CcParseMsg ) );
     if ( !new ) return NULL;
 
     new->type = type;
     new->pos = pos;
-    new->msg = cc_str_duplicate_len_new( msg, BUFSIZ );
+    new->msg = cc_str_duplicate_len__new( msg, BUFSIZ );
     new->next = NULL;
 
     return new;
 }
 
-CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
-                                      CcParseMsgEnum type,
-                                      size_t pos,
-                                      char const * const restrict msg )
+CcParseMsg * cc_parse_msg_append__new( CcParseMsg * const restrict parse_msgs,
+                                       CcParseMsgEnum type,
+                                       size_t pos,
+                                       char const * const restrict msg )
 {
-    CcParseMsg * new = cc_parse_msg_new( type, pos, msg );
+    CcParseMsg * new = cc_parse_msg__new( type, pos, msg );
     if ( !new ) return NULL;
     if ( !parse_msgs ) return new;
 
@@ -43,14 +43,14 @@ CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
     return new;
 }
 
-CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs,
-                                              CcParseMsgEnum type,
-                                              size_t pos,
-                                              char const * const restrict msg )
+CcParseMsg * cc_parse_msg_init_or_append__new( CcParseMsg ** const restrict parse_msgs,
+                                               CcParseMsgEnum type,
+                                               size_t pos,
+                                               char const * const restrict msg )
 {
     if ( !parse_msgs ) return NULL;
 
-    CcParseMsg * new = cc_parse_msg_append_new( *parse_msgs, type, pos, msg );
+    CcParseMsg * new = cc_parse_msg_append__new( *parse_msgs, type, pos, msg );
 
     if ( !*parse_msgs ) *parse_msgs = new;
 
@@ -79,8 +79,8 @@ bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs )
 }
 
 
-char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL */,
-                                  CcParseMsg ** parse_msgs )
+char * cc_parse_next_ply_str__new( char const * const restrict move_str /* = NULL */,
+                                   CcParseMsg ** parse_msgs )
 {
     if ( !parse_msgs ) return NULL;
 
@@ -147,7 +147,7 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL
             if ( *ply_start == ':' ) ++ply_start;
             else
             {
-                cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "malformed ply separator" );
+                cc_parse_msg_init_or_append__new( parse_msgs, CC_PME_Error, ply_start - move_start, "malformed ply separator" );
                 return NULL;
             }
         }
@@ -161,7 +161,7 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL
 
     if ( ( !parse_1st ) && ( !skipped_separators ) && skipped_opening_bracket )
     {
-        cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "ply started without separator" );
+        cc_parse_msg_init_or_append__new( parse_msgs, CC_PME_Error, ply_start - move_start, "ply started without separator" );
         return NULL;
     }
 
@@ -181,7 +181,7 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL
 
         if ( skipped_separators || skipped_teminators || skipped_opening_bracket )
         {
-            cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "premature end of ply" );
+            cc_parse_msg_init_or_append__new( parse_msgs, CC_PME_Error, ply_start - move_start, "premature end of ply" );
         }
 
         return NULL;
@@ -192,13 +192,13 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL
 
     if ( ( skipped_opening_bracket ) && ( *(ply_end + 1) != ']' ) )
     {
-        cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "no closing bracket" );
+        cc_parse_msg_init_or_append__new( parse_msgs, CC_PME_Error, ply_start - move_start, "no closing bracket" );
         return NULL;
     }
 
     if ( ( *(ply_end + 1) == ']' ) && ( !skipped_opening_bracket ) )
     {
-        cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "no opening bracket" );
+        cc_parse_msg_init_or_append__new( parse_msgs, CC_PME_Error, ply_start - move_start, "no opening bracket" );
         return NULL;
     }
 

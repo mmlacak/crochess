@@ -49,7 +49,7 @@ bool test_print_failure( bool expr,
 }
 
 
-TestMsg * test_msg_new( TestMsgEnum type,
+TestMsg * test_msg__new( TestMsgEnum type,
                         char const * const restrict msg,
                         char const * const restrict file,
                         size_t line,
@@ -59,25 +59,25 @@ TestMsg * test_msg_new( TestMsgEnum type,
     if ( !new ) return NULL;
 
     new->type = type;
-    new->msg = cc_str_duplicate_len_new( msg, BUFSIZ ); // msg; // Don't borrow, unknown scope!
+    new->msg = cc_str_duplicate_len__new( msg, BUFSIZ ); // msg; // Don't borrow, unknown scope!
 
-    new->file = cc_str_duplicate_len_new( file, BUFSIZ ); // file; // Don't borrow, unknown scope!
+    new->file = cc_str_duplicate_len__new( file, BUFSIZ ); // file; // Don't borrow, unknown scope!
     new->line = line;
-    new->func = cc_str_duplicate_len_new( func, BUFSIZ ); // func; // Don't borrow, unknown scope!
+    new->func = cc_str_duplicate_len__new( func, BUFSIZ ); // func; // Don't borrow, unknown scope!
 
     new->next = NULL;
 
     return new;
 }
 
-TestMsg * test_msg_append_new( TestMsg * const restrict test_msgs,
+TestMsg * test_msg_append__new( TestMsg * const restrict test_msgs,
                                TestMsgEnum type,
                                char const * const restrict msg,
                                char const * const restrict file,
                                size_t line,
                                char const * const restrict func )
 {
-    TestMsg * new = test_msg_new( type, msg, file, line, func );
+    TestMsg * new = test_msg__new( type, msg, file, line, func );
     if ( !new ) return NULL;
     if ( !test_msgs ) return new;
 
@@ -88,7 +88,7 @@ TestMsg * test_msg_append_new( TestMsg * const restrict test_msgs,
     return new;
 }
 
-TestMsg * test_msg_init_or_append_new( TestMsg ** const restrict test_msgs,
+TestMsg * test_msg_init_or_append__new( TestMsg ** const restrict test_msgs,
                                        TestMsgEnum type,
                                        char const * const restrict msg,
                                        char const * const restrict file,
@@ -97,7 +97,7 @@ TestMsg * test_msg_init_or_append_new( TestMsg ** const restrict test_msgs,
 {
     if ( !test_msgs ) return NULL;
 
-    TestMsg * new = test_msg_append_new( *test_msgs, type, msg, file, line, func );
+    TestMsg * new = test_msg_append__new( *test_msgs, type, msg, file, line, func );
 
     if ( !*test_msgs ) *test_msgs = new;
 

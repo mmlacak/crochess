@@ -17,7 +17,7 @@ void print_help_tags();
 void print_help_about();
 void print_help_version();
 void print_help_new_code();
-void print_help_new();
+void print_help__new();
 void print_new_code_invalid( char const * const restrict str );
 
 #endif /* __HLP_MSGS_H__ */

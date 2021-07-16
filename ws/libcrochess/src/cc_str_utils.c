@@ -31,7 +31,7 @@ bool cc_str_to_case( char * const restrict str, bool is_lower_or_upper )
     return true;
 }
 
-char * cc_str_to_case_new( char const * const restrict str, bool is_lower_or_upper )
+char * cc_str_to_case__new( char const * const restrict str, bool is_lower_or_upper )
 {
     if ( !str ) return NULL;
 
@@ -75,7 +75,7 @@ size_t cc_str_len_min( char const * const restrict str, size_t max_len )
     return len;
 }
 
-char * cc_str_duplicate_new( char const * const restrict str )
+char * cc_str_duplicate__new( char const * const restrict str )
 {
     if ( !str ) return NULL;
 
@@ -91,7 +91,7 @@ char * cc_str_duplicate_new( char const * const restrict str )
     return new;
 }
 
-char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len )
+char * cc_str_duplicate_len__new( char const * const restrict str, size_t max_len )
 {
     if ( !str ) return NULL;
 
@@ -114,7 +114,7 @@ char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len
 }
 
 
-char * cc_str_concatenate_new(  char const * const restrict str_1,
+char * cc_str_concatenate__new( char const * const restrict str_1,
                                 char const * const restrict str_2 )
 {
     size_t len_1 = cc_str_len( str_1 );
@@ -137,7 +137,7 @@ char * cc_str_concatenate_new(  char const * const restrict str_1,
     return new;
 }
 
-char * cc_str_concatenate_len_new(  char const * const restrict str_1,
+char * cc_str_concatenate_len__new( char const * const restrict str_1,
                                     char const * const restrict str_2,
                                     size_t max_len )
 {
@@ -170,8 +170,8 @@ char * cc_str_concatenate_len_new(  char const * const restrict str_1,
     return new;
 }
 
-char * cc_str_concatenate_char_new( char const * const restrict str,
-                                    char const chr )
+char * cc_str_concatenate_char__new( char const * const restrict str,
+                                     char const chr )
 {
     if ( !str )
     {
@@ -229,14 +229,14 @@ bool cc_str_append_char( char ** const restrict alloc_str,
     return new;
 }
 
-char * cc_str_append_new( char ** restrict alloc_str_1,
-                          char ** restrict alloc_str_2 )
+char * cc_str_append__new( char ** restrict alloc_str_1,
+                           char ** restrict alloc_str_2 )
 {
     if ( ( !alloc_str_1 ) && ( !alloc_str_2 ) ) return NULL;
 
     if ( !alloc_str_1 )
     {
-        char * new = cc_str_duplicate_new( *alloc_str_2 );
+        char * new = cc_str_duplicate__new( *alloc_str_2 );
         if ( !new ) return NULL;
 
         free( *alloc_str_2 );
@@ -247,7 +247,7 @@ char * cc_str_append_new( char ** restrict alloc_str_1,
 
     if ( !alloc_str_2 )
     {
-        char * new = cc_str_duplicate_new( *alloc_str_1 );
+        char * new = cc_str_duplicate__new( *alloc_str_1 );
         if ( !new ) return NULL;
 
         free( *alloc_str_1 );
@@ -256,7 +256,7 @@ char * cc_str_append_new( char ** restrict alloc_str_1,
         return new;
     }
 
-    char * new = cc_str_concatenate_new( *alloc_str_1, *alloc_str_2 );
+    char * new = cc_str_concatenate__new( *alloc_str_1, *alloc_str_2 );
     if ( !new ) return NULL;
 
     free( *alloc_str_1 );
@@ -268,15 +268,15 @@ char * cc_str_append_new( char ** restrict alloc_str_1,
     return new;
 }
 
-char * cc_str_append_len_new( char ** restrict alloc_str_1,
-                              char ** restrict alloc_str_2,
-                              size_t max_len )
+char * cc_str_append_len__new( char ** restrict alloc_str_1,
+                               char ** restrict alloc_str_2,
+                               size_t max_len )
 {
     if ( ( !alloc_str_1 ) && ( !alloc_str_2 ) ) return NULL;
 
     if ( !alloc_str_1 )
     {
-        char * new = cc_str_duplicate_len_new( *alloc_str_2, max_len );
+        char * new = cc_str_duplicate_len__new( *alloc_str_2, max_len );
         if ( !new ) return NULL;
 
         free( *alloc_str_2 );
@@ -287,7 +287,7 @@ char * cc_str_append_len_new( char ** restrict alloc_str_1,
 
     if ( !alloc_str_2 )
     {
-        char * new = cc_str_duplicate_len_new( *alloc_str_1, max_len );
+        char * new = cc_str_duplicate_len__new( *alloc_str_1, max_len );
         if ( !new ) return NULL;
 
         free( *alloc_str_1 );
@@ -296,7 +296,7 @@ char * cc_str_append_len_new( char ** restrict alloc_str_1,
         return new;
     }
 
-    char * new = cc_str_concatenate_len_new( *alloc_str_1, *alloc_str_2, max_len );
+    char * new = cc_str_concatenate_len__new( *alloc_str_1, *alloc_str_2, max_len );
     if ( !new ) return NULL;
 
     free( *alloc_str_1 );
@@ -308,8 +308,8 @@ char * cc_str_append_len_new( char ** restrict alloc_str_1,
     return new;
 }
 
-char * cc_str_append_format_new( char ** restrict alloc_str,
-                                 char const * const restrict fmt, ... )
+char * cc_str_append_format__new( char ** restrict alloc_str,
+                                  char const * const restrict fmt, ... )
 {
     va_list args;
     va_start( args, fmt );
@@ -351,14 +351,14 @@ char * cc_str_append_format_new( char ** restrict alloc_str,
         return NULL;
     }
 
-    char * appended = cc_str_append_new( alloc_str, &new );
+    char * appended = cc_str_append__new( alloc_str, &new );
     if ( !appended )
     {
         free( new );
         return NULL;
     }
 
-    // Not needed, cc_str_append_new() does that.
+    // Not needed, cc_str_append__new() does that.
     // free( new );
     // free( *alloc_str );
     // *alloc_str = NULL;
@@ -366,9 +366,9 @@ char * cc_str_append_format_new( char ** restrict alloc_str,
     return appended;
 }
 
-char * cc_str_append_format_len_new( char ** restrict alloc_str,
-                                     size_t max_len,
-                                     char const * const restrict fmt, ... )
+char * cc_str_append_format_len__new( char ** restrict alloc_str,
+                                      size_t max_len,
+                                      char const * const restrict fmt, ... )
 {
     va_list args;
     va_start( args, fmt );
@@ -410,14 +410,14 @@ char * cc_str_append_format_len_new( char ** restrict alloc_str,
         return NULL;
     }
 
-    char * appended = cc_str_append_len_new( alloc_str, &new, max_len );
+    char * appended = cc_str_append_len__new( alloc_str, &new, max_len );
     if ( !appended )
     {
         free( new );
         return NULL;
     }
 
-    // Not needed, cc_str_append_len_new() does that.
+    // Not needed, cc_str_append_len__new() does that.
     // free( new );
     // free( *alloc_str );
     // *alloc_str = NULL;

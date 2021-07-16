@@ -20,7 +20,7 @@ bool cc_is_field_light( int i, int j )
 }
 
 
-CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool do_setup )
+CcChessboard * cc_chessboard__new( CcVariantEnum const ve, bool do_setup )
 {
     CcChessboard * cb = malloc( sizeof( CcChessboard ) );
     if ( !cb ) return NULL;
@@ -106,7 +106,7 @@ bool cc_chessboard_copy( CcChessboard * const restrict into, CcChessboard const 
     return true;
 }
 
-CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict from )
+CcChessboard * cc_chessboard_duplicate__new( CcChessboard const * const restrict from )
 {
     if ( !from ) return NULL;
 
@@ -186,7 +186,7 @@ bool cc_chessboard_set_tag( CcChessboard * const restrict cb, int i, int j, CcTa
     return false;
 }
 
-static char * cc_chessboard_get_divider_new( CcChessboard const * const restrict cb )
+static char * cc_chessboard_get_divider__new( CcChessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -207,7 +207,7 @@ static char * cc_chessboard_get_divider_new( CcChessboard const * const restrict
     return divider;
 }
 
-static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard const * const restrict cb )
+static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -237,14 +237,14 @@ static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard const * const
     return hr;
 }
 
-char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool is_board_or_chips )
+char * cc_chessboard_as_string__new( CcChessboard const * const restrict cb, bool is_board_or_chips )
 {
     if ( !cb ) return NULL;
 
     char * s = calloc( 1, 2048 );
     if ( !s ) return NULL;
 
-    char * horizontal_ruler = cc_chessboard_get_horizontal_ruler_new( cb );
+    char * horizontal_ruler = cc_chessboard_get_horizontal_ruler__new( cb );
     if ( !horizontal_ruler )
     {
         free( s );
@@ -253,7 +253,7 @@ char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool
 
     strcat( s, horizontal_ruler );
 
-    char * divider = cc_chessboard_get_divider_new( cb );
+    char * divider = cc_chessboard_get_divider__new( cb );
     if ( !divider )
     {
         free( s );
@@ -332,7 +332,7 @@ bool cc_chessboard_print( CcChessboard const * const restrict cb, bool is_board_
 {
     if ( !cb ) return false;
 
-    char * s = cc_chessboard_as_string_new( cb, is_board_or_chips );
+    char * s = cc_chessboard_as_string__new( cb, is_board_or_chips );
 
     if ( !s ) return false;
 

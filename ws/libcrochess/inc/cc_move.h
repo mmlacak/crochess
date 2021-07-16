@@ -25,14 +25,14 @@ typedef struct CcMove
 } CcMove;
 
 
-CcMove * cc_move_new( char const * const restrict notation,
-                      CcPly ** restrict plies,
-                      CcMoveStatusEnum status );
+CcMove * cc_move__new( char const * const restrict notation,
+                       CcPly ** restrict plies,
+                       CcMoveStatusEnum status );
 
-CcMove * cc_move_append_new( CcMove * const restrict moves,
-                             char const * const restrict notation,
-                             CcPly ** restrict plies,
-                             CcMoveStatusEnum status );
+CcMove * cc_move_append__new( CcMove * const restrict moves,
+                              char const * const restrict notation,
+                              CcPly ** restrict plies,
+                              CcMoveStatusEnum status );
 
 bool cc_move_free_all_moves( CcMove ** const moves );
 

@@ -8,12 +8,14 @@ libcrochess is a main library facilitating everything needed to play any
 of Croatian Chess variants:
 - chessboard and tags storage and transformations
 - formatting output for chessboard, and algebraic notation
-- parsing user input, and algebraic notation
-- enforcing rules, timings
-- list of moves
-- save and load game
-- export into extended PGN format file
-- list, start bot(s)
+- parsing user input, and algebraic notation [*]
+- enforcing rules, timings [*]
+- list of moves [*]
+- save and load game [*]
+- export into extended PGN format filev
+- list, start bot(s) [*]
+
+[*] currently not implemented
 
 libcrochess does not implement bots on its own, those will be implemented
 as separate libraries, to allow for different bots to play against each other,
