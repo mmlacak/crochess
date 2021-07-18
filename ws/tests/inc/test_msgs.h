@@ -56,7 +56,7 @@ TestMsg * test_msg_init_or_append_new( TestMsg ** const restrict test_msgs,
                                        size_t line,
                                        char const * const restrict func );
 
-bool test_msg_free_all( TestMsg ** const restrict test_msgs );
+bool test_msg_free_all( TestMsg ** const restrict test_msgs_f );
 
 bool test_msg_print_all( TestMsg const * const restrict test_msgs,
                          TestMsgEnum level );

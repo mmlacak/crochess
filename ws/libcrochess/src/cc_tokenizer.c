@@ -52,22 +52,22 @@ char const * cc_stop_at_chars( char const * const restrict pos, char const * con
     return cc_traverse_chars( pos, seps, false );
 }
 
-char * cc_next_token_new( char const * const restrict str /* = NULL */,
-                          char const * const restrict seps /* = NULL */ )
+char * cc_next_token_new( char const * const restrict str_s,
+                          char const * const restrict seps_s )
 {
     static char const * start = NULL;
     static char const * end = NULL;
     static char const * sps = NULL;
 
-    if ( str )
-        start = str;
+    if ( str_s )
+        start = str_s;
     else
     {
         if ( !end ) return NULL;
         start = end + 1;
     }
 
-    if ( seps ) sps = seps;
+    if ( seps_s ) sps = seps_s;
 
     start = cc_skip_chars( start, sps );
     end = cc_stop_at_chars( start, sps );

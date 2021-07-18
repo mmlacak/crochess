@@ -57,12 +57,12 @@ CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse
     return new;
 }
 
-bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs )
+bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f )
 {
-    if ( !parse_msgs ) return true;
-    if ( !*parse_msgs ) return false;
+    if ( !parse_msgs_f ) return true;
+    if ( !*parse_msgs_f ) return false;
 
-    CcParseMsg * pm = *parse_msgs;
+    CcParseMsg * pm = *parse_msgs_f;
 
     while ( pm )
     {
@@ -74,12 +74,12 @@ bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs )
         pm = tmp;
     }
 
-    *parse_msgs = NULL;
+    *parse_msgs_f = NULL;
     return true;
 }
 
 
-char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL */,
+char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
                                   CcParseMsg ** parse_msgs )
 {
     if ( !parse_msgs ) return NULL;
@@ -88,14 +88,14 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str /* = NULL
     static char const * ply_start = NULL;
     static char const * ply_end = NULL;
 
-    bool parse_1st = (bool)move_str;
+    bool parse_1st = (bool)move_str_s;
     bool skipped_opening_bracket = false;
     bool skipped_separators = false;
     bool skipped_teminators = false;
 
-    if ( move_str )
+    if ( move_str_s )
     {
-        move_start = ply_start = move_str;
+        move_start = ply_start = move_str_s;
 
         if ( *ply_start == '[' )
         {
