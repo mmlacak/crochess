@@ -26,20 +26,20 @@ char * cc_str_concatenate_len_new( char const * const restrict str_1,
 char * cc_str_concatenate_char_new( char const * const restrict str,
                                     char const chr );
 
-bool cc_str_append_char( char ** const restrict alloc_str,
+bool cc_str_append_char( char ** const restrict str_r,
                          char const chr );
 
-char * cc_str_append_new( char ** restrict alloc_str_1,
-                          char ** restrict alloc_str_2 );
+char * cc_str_append_new( char ** restrict str_1_f,
+                          char ** restrict str_2_f );
 
-char * cc_str_append_len_new( char ** restrict alloc_str_1,
-                              char ** restrict alloc_str_2,
+char * cc_str_append_len_new( char ** restrict str_1_f,
+                              char ** restrict str_2_f,
                               size_t max_len );
 
-char * cc_str_append_format_new( char ** restrict alloc_str,
+char * cc_str_append_format_new( char ** restrict str_f,
                                  char const * const restrict fmt, ... );
 
-char * cc_str_append_format_len_new( char ** restrict alloc_str,
+char * cc_str_append_format_len_new( char ** restrict str_f,
                                      size_t max_len,
                                      char const * const restrict fmt, ... );
 

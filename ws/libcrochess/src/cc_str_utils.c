@@ -197,12 +197,12 @@ char * cc_str_concatenate_char_new( char const * const restrict str,
     return new;
 }
 
-bool cc_str_append_char( char ** const restrict alloc_str,
+bool cc_str_append_char( char ** const restrict str_r,
                          char const chr )
 {
-    if ( !alloc_str ) return false;
+    if ( !str_r ) return false;
 
-    if ( !*alloc_str )
+    if ( !*str_r )
     {
         char * new = (char *)malloc( 2 );
         if ( !new ) return false;
@@ -210,15 +210,15 @@ bool cc_str_append_char( char ** const restrict alloc_str,
         *new = chr;
         *(new + 1) = '\0';
 
-        *alloc_str = new;
+        *str_r = new;
         return true;
     }
 
-    size_t len = cc_str_len( *alloc_str ) + 1;
-    char * new = realloc( *alloc_str, len + 1 );
+    size_t len = cc_str_len( *str_r ) + 1;
+    char * new = realloc( *str_r, len + 1 );
     if ( !new ) return false;
 
-    *alloc_str = new; // alloc_str was free'd by realloc().
+    *str_r = new; // str_r was free'd by realloc().
 
     char * n = new;
     while ( *n ) ++n;
@@ -229,86 +229,86 @@ bool cc_str_append_char( char ** const restrict alloc_str,
     return new;
 }
 
-char * cc_str_append_new( char ** restrict alloc_str_1,
-                          char ** restrict alloc_str_2 )
+char * cc_str_append_new( char ** restrict str_1_f,
+                          char ** restrict str_2_f )
 {
-    if ( ( !alloc_str_1 ) && ( !alloc_str_2 ) ) return NULL;
+    if ( ( !str_1_f ) && ( !str_2_f ) ) return NULL;
 
-    if ( !alloc_str_1 )
+    if ( !str_1_f )
     {
-        char * new = cc_str_duplicate_new( *alloc_str_2 );
+        char * new = cc_str_duplicate_new( *str_2_f );
         if ( !new ) return NULL;
 
-        free( *alloc_str_2 );
-        *alloc_str_2 = NULL;
+        free( *str_2_f );
+        *str_2_f = NULL;
 
         return new;
     }
 
-    if ( !alloc_str_2 )
+    if ( !str_2_f )
     {
-        char * new = cc_str_duplicate_new( *alloc_str_1 );
+        char * new = cc_str_duplicate_new( *str_1_f );
         if ( !new ) return NULL;
 
-        free( *alloc_str_1 );
-        *alloc_str_1 = NULL;
+        free( *str_1_f );
+        *str_1_f = NULL;
 
         return new;
     }
 
-    char * new = cc_str_concatenate_new( *alloc_str_1, *alloc_str_2 );
+    char * new = cc_str_concatenate_new( *str_1_f, *str_2_f );
     if ( !new ) return NULL;
 
-    free( *alloc_str_1 );
-    *alloc_str_1 = NULL;
+    free( *str_1_f );
+    *str_1_f = NULL;
 
-    free( *alloc_str_2 );
-    *alloc_str_2 = NULL;
+    free( *str_2_f );
+    *str_2_f = NULL;
 
     return new;
 }
 
-char * cc_str_append_len_new( char ** restrict alloc_str_1,
-                              char ** restrict alloc_str_2,
+char * cc_str_append_len_new( char ** restrict str_1_f,
+                              char ** restrict str_2_f,
                               size_t max_len )
 {
-    if ( ( !alloc_str_1 ) && ( !alloc_str_2 ) ) return NULL;
+    if ( ( !str_1_f ) && ( !str_2_f ) ) return NULL;
 
-    if ( !alloc_str_1 )
+    if ( !str_1_f )
     {
-        char * new = cc_str_duplicate_len_new( *alloc_str_2, max_len );
+        char * new = cc_str_duplicate_len_new( *str_2_f, max_len );
         if ( !new ) return NULL;
 
-        free( *alloc_str_2 );
-        *alloc_str_2 = NULL;
+        free( *str_2_f );
+        *str_2_f = NULL;
 
         return new;
     }
 
-    if ( !alloc_str_2 )
+    if ( !str_2_f )
     {
-        char * new = cc_str_duplicate_len_new( *alloc_str_1, max_len );
+        char * new = cc_str_duplicate_len_new( *str_1_f, max_len );
         if ( !new ) return NULL;
 
-        free( *alloc_str_1 );
-        *alloc_str_1 = NULL;
+        free( *str_1_f );
+        *str_1_f = NULL;
 
         return new;
     }
 
-    char * new = cc_str_concatenate_len_new( *alloc_str_1, *alloc_str_2, max_len );
+    char * new = cc_str_concatenate_len_new( *str_1_f, *str_2_f, max_len );
     if ( !new ) return NULL;
 
-    free( *alloc_str_1 );
-    *alloc_str_1 = NULL;
+    free( *str_1_f );
+    *str_1_f = NULL;
 
-    free( *alloc_str_2 );
-    *alloc_str_2 = NULL;
+    free( *str_2_f );
+    *str_2_f = NULL;
 
     return new;
 }
 
-char * cc_str_append_format_new( char ** restrict alloc_str,
+char * cc_str_append_format_new( char ** restrict str_f,
                                  char const * const restrict fmt, ... )
 {
     va_list args;
@@ -351,7 +351,7 @@ char * cc_str_append_format_new( char ** restrict alloc_str,
         return NULL;
     }
 
-    char * appended = cc_str_append_new( alloc_str, &new );
+    char * appended = cc_str_append_new( str_f, &new );
     if ( !appended )
     {
         free( new );
@@ -360,13 +360,13 @@ char * cc_str_append_format_new( char ** restrict alloc_str,
 
     // Not needed, cc_str_append_new() does that.
     // free( new );
-    // free( *alloc_str );
-    // *alloc_str = NULL;
+    // free( *str_f );
+    // *str_f = NULL;
 
     return appended;
 }
 
-char * cc_str_append_format_len_new( char ** restrict alloc_str,
+char * cc_str_append_format_len_new( char ** restrict str_f,
                                      size_t max_len,
                                      char const * const restrict fmt, ... )
 {
@@ -410,7 +410,7 @@ char * cc_str_append_format_len_new( char ** restrict alloc_str,
         return NULL;
     }
 
-    char * appended = cc_str_append_len_new( alloc_str, &new, max_len );
+    char * appended = cc_str_append_len_new( str_f, &new, max_len );
     if ( !appended )
     {
         free( new );
@@ -419,8 +419,8 @@ char * cc_str_append_format_len_new( char ** restrict alloc_str,
 
     // Not needed, cc_str_append_len_new() does that.
     // free( new );
-    // free( *alloc_str );
-    // *alloc_str = NULL;
+    // free( *str_f );
+    // *str_f = NULL;
 
     return appended;
 }

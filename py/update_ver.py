@@ -248,13 +248,6 @@ def replace_all_entries(root_path, is_book, is_docs, is_major, is_minor, is_feat
         # Does *not* use git_version.
         append_if_not_empty( replace_book_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source) )
 
-    if is_docs:
-        git_version = get_current_lib_versions( root_path, decompose_version=False )
-        assert git_version is not None and git_version.strip() != ""
-
-        # *Does* use git_version.
-        append_if_not_empty( replace_docs_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source) )
-
     if is_source:
         major, minor, feature, commit, old_count, prerelease, old_meta, old_breaks = get_current_lib_versions( root_path, decompose_version=True )
         assert major is not None and minor is not None
@@ -329,6 +322,14 @@ def replace_all_entries(root_path, is_book, is_docs, is_major, is_minor, is_feat
         append_if_not_empty( replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source) )
         append_if_not_empty( replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source) )
         append_if_not_empty( replace_tests_source_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source) )
+
+    # Keep at back, in case library version gets updated too.
+    if is_docs:
+        git_version = get_current_lib_versions( root_path, decompose_version=False )
+        assert git_version is not None and git_version.strip() != ""
+
+        # *Does* use git_version.
+        append_if_not_empty( replace_docs_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source) )
 
     if is_book or is_source:
         # Works, because if book, then git_version is *not* used.
