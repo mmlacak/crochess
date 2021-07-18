@@ -11,30 +11,30 @@
 
 
 CcMove * cc_move_new( char const * const restrict notation,
-                      CcPly ** restrict plies,
+                      CcPly ** restrict plies_n,
                       CcMoveStatusEnum status )
 {
-    if ( !plies ) return NULL;
+    if ( !plies_n ) return NULL;
 
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
 
     mv->notation = cc_str_duplicate_len_new( notation, BUFSIZ );
-    mv->plies = *plies;
+    mv->plies = *plies_n;
     mv->status = status;
     mv->next = NULL;
 
-    *plies = NULL; // Taking ownership.
+    *plies_n = NULL; // Taking ownership.
 
     return mv;
 }
 
 CcMove * cc_move_append_new( CcMove * const restrict moves,
                              char const * const restrict notation,
-                             CcPly ** restrict plies,
+                             CcPly ** restrict plies_n,
                              CcMoveStatusEnum status )
 {
-    CcMove * new = cc_move_new( notation, plies, status );
+    CcMove * new = cc_move_new( notation, plies_n, status );
     if ( !new ) return NULL;
     if ( !moves ) return new;
 
