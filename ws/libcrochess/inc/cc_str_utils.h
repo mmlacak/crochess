@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 
-bool cc_str_to_case( char * const restrict str, bool is_lower_or_upper );
+bool cc_str_to_case( char * const restrict str_io, bool is_lower_or_upper );
 char * cc_str_to_case_new( char const * const restrict str, bool is_lower_or_upper );
 
 size_t cc_str_len( char const * const restrict str );
@@ -26,7 +26,7 @@ char * cc_str_concatenate_len_new( char const * const restrict str_1,
 char * cc_str_concatenate_char_new( char const * const restrict str,
                                     char const chr );
 
-bool cc_str_append_char( char ** const restrict str_r,
+bool cc_str_append_char( char ** const restrict str_io_r,
                          char const chr );
 
 char * cc_str_append_new( char ** restrict str_1_f,

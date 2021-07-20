@@ -33,7 +33,7 @@ application, library takes over networking.
 
 Here are recommended reads (book and related pages), before diving into detailed reference:
 - [**Croatian Chess and other variants book**][the book]
-- [Naming and organization](organization.md "Naming and organization")
-- [Memory Management](memory.md "Memory Management")
+- [Naming and organization](1_organization.md "Naming and organization")
+- [Memory management](2_memory.md "Memory management")
 
 [The Book]: https://github.com/mmlacak/crochess/raw/master/crochess.pdf "Croatian Chess and other variants"

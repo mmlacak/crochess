@@ -13,11 +13,11 @@
 #include "cc_str_utils.h"
 
 
-bool cc_str_to_case( char * const restrict str, bool is_lower_or_upper )
+bool cc_str_to_case( char * const restrict str_io, bool is_lower_or_upper )
 {
-    if ( !str ) return false;
+    if ( !str_io ) return false;
 
-    char * s = str;
+    char * s = str_io;
     while ( *s )
     {
         if ( is_lower_or_upper )
@@ -197,12 +197,12 @@ char * cc_str_concatenate_char_new( char const * const restrict str,
     return new;
 }
 
-bool cc_str_append_char( char ** const restrict str_r,
+bool cc_str_append_char( char ** const restrict str_io_r,
                          char const chr )
 {
-    if ( !str_r ) return false;
+    if ( !str_io_r ) return false;
 
-    if ( !*str_r )
+    if ( !*str_io_r )
     {
         char * new = (char *)malloc( 2 );
         if ( !new ) return false;
@@ -210,15 +210,15 @@ bool cc_str_append_char( char ** const restrict str_r,
         *new = chr;
         *(new + 1) = '\0';
 
-        *str_r = new;
+        *str_io_r = new;
         return true;
     }
 
-    size_t len = cc_str_len( *str_r ) + 1;
-    char * new = realloc( *str_r, len + 1 );
+    size_t len = cc_str_len( *str_io_r ) + 1;
+    char * new = realloc( *str_io_r, len + 1 );
     if ( !new ) return false;
 
-    *str_r = new; // str_r was free'd by realloc().
+    *str_io_r = new; // str_io_r was free'd by realloc().
 
     char * n = new;
     while ( *n ) ++n;
