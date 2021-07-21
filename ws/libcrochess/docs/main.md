@@ -1,6 +1,8 @@
 <!-- Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com -->
 <!-- Licensed as Public Domain work, see https://en.wikipedia.org/wiki/Public_domain. -->
 
+|| [next >>>](1_organization.md "next >>>")
+
 libcrochess developer documentation                         {#mainpage}
 ===================================
 
@@ -32,8 +34,10 @@ stdin, stdout and stderr into and from crochess application so that other
 application, library takes over networking.
 
 Here are recommended reads (book and related pages), before diving into detailed reference:
-- [**Croatian Chess and other variants book**][the book]
+- [**Croatian Chess and other variants**][the book]
 - [Naming and organization](1_organization.md "Naming and organization")
 - [Memory management](2_memory.md "Memory management")
+
+|| [next >>>](1_organization.md "next >>>")
 
 [The Book]: https://github.com/mmlacak/crochess/raw/master/crochess.pdf "Croatian Chess and other variants"

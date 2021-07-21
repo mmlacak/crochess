@@ -1,6 +1,8 @@
 <!-- Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com -->
 <!-- Licensed as Public Domain work, see https://en.wikipedia.org/wiki/Public_domain. -->
 
+[<<< prev](main.md "<<< prev") || [next >>>](2_memory.md "next >>>")
+
 Naming and organization                         {#organization}
 =======================
 
@@ -31,7 +33,8 @@ Organization
 ------------
 
 Items (pieces, tags, variants, moves, plies, steps) introduced in [the book] are represented
-in the samely named files, `cc_piece`, `cc_tag`, `cc_variant`, `cc_move`, `cc_ply`, `cc_step`.
+in the samely named files (headers and sources), `cc_piece`, `cc_tag`, `cc_variant`, `cc_move`,
+`cc_ply`, `cc_step`.
 
 Board (as a holder of pieces) and tags are combined in a `cc_chessboard` files. Initial setup
 for those can be found in `cc_setup_board` and `cc_setup_tags` files.
@@ -46,7 +49,7 @@ Parser messages (and other generic parser stuff) are located in `cc_parser` file
 Move parsing module (`cc_parse_move` files) is not finished yet.
 
 House-keeping utilities are comprised of the rest of modules:
-- `cc_define.h` contains `#define`s used accross all modules
+- `cc_define.h` contains `#define`s used accross modules
 - `cc_str_utils` files, various string related functions
 - `cc_tokenizer` files, primitive tokenizer for CLI commands issued by user
 - `cc_version` files, library version
@@ -54,13 +57,12 @@ House-keeping utilities are comprised of the rest of modules:
 Versioning
 ----------
 
-Library version defined in `cc_version.c` file is a reference version for the whole project,
-versions of other applications (`crochess`, `tests`) and libraries (implementing bots) are
-required to list `libcrochess` library version as its own.
+Library version defined in `cc_version.c` file is a reference version for the whole project.
+Other applications (`crochess`, `tests`) and libraries (implementing bots) are defining
+`libcrochess` library version as their own.
 
 In turn, `libcrochess` library version is updated every time source code anywhere in the
-project is updated, regardless if code is in the library itself, or is in application, or
-in other dependant libraries.
+project is updated, regardless if updated code is actually in the library, or elsewhere.
 
 Versioning scheme used is
 [**Natural Versioning 1.2**](https://croatian-chess.blogspot.com/p/natver.html "Natural Versioning 1.2").
@@ -71,6 +73,8 @@ However, doxygen C parser consistently confuses local variable(s) `i`, `r`, `s`,
 referencing static one(s) in `cc_setup_board.c`, `cc_setup_tags.c` files, e.g. in the
 description of `cc_chessboard_as_string_new()`.
 Please, ignore.
+
+[<<< prev](main.md "<<< prev") || [next >>>](2_memory.md "next >>>")
 
 
 [The Book]: https://github.com/mmlacak/crochess/raw/master/crochess.pdf "Croatian Chess and other variants"
