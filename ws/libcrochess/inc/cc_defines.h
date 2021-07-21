@@ -5,12 +5,42 @@
 #define __CC_DEFINES_H__
 
 
+/**
+    Off-board coordinate.
+
+    Used for e.g. missing coordinates, if notation contains only destination field.
+*/
 #define CC_OFF_BOARD_COORD (-1)
+
+/**
+    The smallest valid on-board coordinate.
+*/
 #define CC_MIN_BOARD_COORD (0)
+
+/**
+    The largest valid on-board coordinate.
+
+    This is the largest valid coordinate for the largest board, used by One variant.
+    For other variants actual upper limit is smaller, see `cc_variant_board_size()`.
+*/
 #define CC_MAX_BOARD_COORD (25)
+
+/**
+    The largest valid board size.
+
+    This is the largest valid board size for the largest board, used by One variant.
+    For other variants actual upper limit is smaller, see `cc_variant_board_size()`.
+*/
 #define CC_MAX_BOARD_SIZE (26)
 
+/**
+    Macro to inline comparing, producing smaller value.
+*/
 #define CC_MIN(x,y) ( ( (y) > (x) ) ? (x) : (y) )
+
+/**
+    Macro to inline comparing, producing larger value.
+*/
 #define CC_MAX(x,y) ( ( (x) > (y) ) ? (x) : (y) )
 
 

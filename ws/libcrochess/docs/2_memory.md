@@ -6,7 +6,7 @@
 Memory management                         {#memory_management}
 =================
 
-Entity is this text refers to any
+Entity in this text refers to any
 [**plain-old-data**](https://en.wikipedia.org/wiki/Passive_data_structure "plain-old-data") structure,
 which can be `alloc()`-ated on the heap. Here, these are mostly linked `struct`s, usually containing
 `union`s.
@@ -23,9 +23,8 @@ entities, and, by extension, over all accessible entities in a linked structure.
 Note that in a linked list, entity in the middle has ownership only over entities in the tail of that
 linked list; only the first entity has the complete ownership of the entire linked list.
 
-If a pointer in an entity does not have ownership over linked entity, `_b` is appended to its name,
-e.g. `CcPly * related_ply_b`. Function(s) `free()`-ing containing entity does not `free()` borrow
-(or weak) pointers.
+If a pointer in an entity does not have ownership over linked entity, `_w` is appended to its name,
+e.g. `CcPly * related_ply_w`. Function(s) `free()`-ing containing entity does not `free()` weak pointers.
 
 For instance, `CcMove` contains `CcPly *`, so it owns all `CcPly` items in that linked list.
 Now, each `CcPly` contains `CcStep *`, so it owns all `CcStep` items in that linked list.
