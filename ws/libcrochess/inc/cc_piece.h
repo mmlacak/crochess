@@ -6,7 +6,27 @@
 
 #include <stdbool.h>
 
+/**
+    @file cc_piece.h
+    @brief Piece enumeration, and related functions.
 
+    In this text, piece symbol is uppercase char, representing piece type, e.g. `N`.
+
+    Piece symbol on its own does not contain information if a particular piece is
+    light/bright or dark/dim.
+
+    Piece char is representation of a piece type, it is lowercase if piece is dark/dim
+    pieces, otherwise it's uppercase.
+
+    For example, piece char for dark Knight is `n`, while for light Knight it is `N`;
+    piece symbol for both is the same, `N`.
+*/
+
+/**
+    Enumerates all pieces, used in all variants.
+
+    Piece `CC_PE_None` is used for e.g. empty on-board fields, any off-board field.
+*/
 typedef enum CcPieceEnum
 {
     CC_PE_DimStar = -15,
@@ -49,25 +69,151 @@ typedef enum CcPieceEnum
 } CcPieceEnum;
 
 
+/**
+    Function interface, i.e. function pointer type.
+
+    @param pe Piece enum item.
+
+    @return Char, either a piece symbol, or a piece char.
+*/
 typedef char (*cc_piece_fp_char_value_t)( CcPieceEnum const pe );
 
-CcPieceEnum cc_piece_from_symbol( char const c, bool const is_light );
+/**
+    Function returning piece enum, based on a piece symbol, and a flag.
+
+    @param symbol Piece symbol, uppercase char. It is taken verbatim, i.e. not converted to uppercase char.
+    @param is_light Whether piece is light/bright (`true`), or dark/dim (`false`).
+
+    @return Piece enum if valid piece symbol passed, otherwise `CC_PE_None`.
+*/
+CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light );
+
+/**
+    Function returning piece enum in opposite color (shade) to argument.
+
+    @param pe Piece enum argument.
+
+    @return Piece enum, dark (dim) piece converted to light (bright) piece, and vice versa.
+            Monolith, None pieces are returned unchanged.
+*/
 CcPieceEnum cc_piece_opposite( CcPieceEnum const pe );
+
+/**
+    Function returning Pawn to which piece can be demoted, or None if piece can't be demoted.
+
+    @param pe Piece enum.
+
+    @return Dark Pawn if dark piece, light Pawn if piece is light, otherwise `CC_PE_None`.
+*/
 CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
 
+/**
+    Function returning piece char, based on piece enum.
+
+    @param pe Piece enum.
+
+    @return Piece char, lowercase if piece is dark (dim), uppercase if piece is light (bright),
+            space otherwise.
+*/
 char cc_piece_as_char( CcPieceEnum const pe );
+
+/**
+    Function returning piece symbol, based on piece enum.
+
+    @param pe Piece enum.
+
+    @return Piece symbol, uppercase char if valid piece, space otherwise (if piece is None).
+*/
 char cc_piece_symbol( CcPieceEnum const pe );
+
+/**
+    Function returning piece label.
+
+    @param pe Piece enum.
+
+    @return Piece label, capitalized name of a piece. Piece label is the same for dark (dim)
+            and light (bright) pieces. For None piece, label is empty string.
+*/
 char const * cc_piece_label( CcPieceEnum const pe );
 
+/**
+    Function returning whether piece is dark.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is dark, `false` otherwise.
+*/
 bool cc_piece_is_dark( CcPieceEnum const pe );
+
+/**
+    Function returning whether piece is light.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is light, `false` otherwise.
+*/
 bool cc_piece_is_light( CcPieceEnum const pe );
+
+/**
+    Function returning whether piece is Pawn.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is Pawn, regardless if light or dark; `false` otherwise.
+*/
 bool cc_piece_is_pawn( CcPieceEnum const pe );
-bool cc_piece_is_figure( CcPieceEnum const pe );
+
+/**
+    Function returning whether piece is None.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is None, `false` otherwise.
+*/
 bool cc_piece_is_none( CcPieceEnum const pe );
 
+/**
+    Function returning whether pieces are of opposite color (dark, light).
+
+    @param pe1 Piece enum.
+    @param pe2 Piece enum.
+
+    @return `true` if one piece is dark and the other is light, `false` otherwise.
+*/
 bool cc_piece_is_opposite_color( CcPieceEnum const pe1, CcPieceEnum const pe2 );
+
+/**
+    Function returning whether pieces are of opposite shade (dim, bright).
+
+    @param pe1 Piece enum.
+    @param pe2 Piece enum.
+
+    @return `true` if one piece is dim and the other is bright, `false` otherwise.
+*/
 bool cc_piece_is_opposite_shade( CcPieceEnum const pe1, CcPieceEnum const pe2 );
+
+/**
+    Function returning whether piece is teleporting piece.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is Monolith, or a star; `false` otherwise.
+*/
 bool cc_piece_is_teleporter( CcPieceEnum const pe );
+
+/**
+    Function returning whether piece is a figure.
+
+    By the book, figure is any piece, except Pawn. For practical reasons,
+    additional flags to filter out Monolith and stars are included.
+
+    @param pe Piece enum.
+    @param include_monolith Whether to include Monolith.
+    @param include_stars Whether to include stars.
+
+    @return `true` if piece is a figure, `false` otherwise.
+*/
+bool cc_piece_is_figure( CcPieceEnum const pe, bool include_monolith, bool include_stars );
 
 
 #endif /* __CC_PIECE_H__ */

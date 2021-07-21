@@ -6,9 +6,9 @@
 
 #include "cc_piece.h"
 
-CcPieceEnum cc_piece_from_symbol( char const c, bool const is_light )
+CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light )
 {
-    switch ( c )
+    switch ( symbol )
     {
         case ' ' : return CC_PE_None;
 
@@ -276,13 +276,6 @@ bool cc_piece_is_pawn( CcPieceEnum const pe )
     return ( ( pe == CC_PE_LightPawn ) || ( pe == CC_PE_DarkPawn ) );
 }
 
-bool cc_piece_is_figure( CcPieceEnum const pe )
-{
-    if ( cc_piece_is_light( pe ) ) return true;
-    if ( cc_piece_is_dark( pe ) ) return true;
-    return false;
-}
-
 bool cc_piece_is_none( CcPieceEnum const pe )
 {
     return ( pe == CC_PE_None );
@@ -308,4 +301,13 @@ bool cc_piece_is_opposite_shade( CcPieceEnum const pe1, CcPieceEnum const pe2 )
 bool cc_piece_is_teleporter( CcPieceEnum const pe )
 {
     return ( ( pe == CC_PE_Monolith ) || ( pe == CC_PE_DimStar ) || ( pe == CC_PE_BrightStar ) );
+}
+
+bool cc_piece_is_figure( CcPieceEnum const pe, bool include_monolith, bool include_stars )
+{
+    if ( cc_piece_is_light( pe ) ) return true;
+    if ( cc_piece_is_dark( pe ) ) return true;
+    if ( include_monolith && ( pe == CC_PE_Monolith ) ) return true;
+    if ( include_stars && ( ( pe == CC_PE_DimStar ) || ( pe == CC_PE_BrightStar ) ) ) return true;
+    return false;
 }

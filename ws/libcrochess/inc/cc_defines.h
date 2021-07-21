@@ -6,6 +6,11 @@
 
 
 /**
+    @file cc_defines.h
+    @brief Defines and macros used in project.
+*/
+
+/**
     Off-board coordinate.
 
     Used for e.g. missing coordinates, if notation contains only destination field.
