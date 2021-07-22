@@ -282,16 +282,11 @@ bool cc_piece_is_none( CcPieceEnum const pe )
 }
 
 
-bool cc_piece_is_opposite_color( CcPieceEnum const pe1, CcPieceEnum const pe2 )
+bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2 )
 {
     if ( cc_piece_is_light( pe1 ) && cc_piece_is_dark( pe2 ) ) return true;
     if ( cc_piece_is_dark( pe1 ) && cc_piece_is_light( pe2 ) ) return true;
 
-    return false;
-}
-
-bool cc_piece_is_opposite_shade( CcPieceEnum const pe1, CcPieceEnum const pe2 )
-{
     if ( ( ( pe1 == CC_PE_DimStar ) && ( pe2 == CC_PE_BrightStar ) )
         || ( ( pe1 == CC_PE_BrightStar ) && ( pe2 == CC_PE_DimStar ) ) ) return true;
 

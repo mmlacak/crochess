@@ -173,24 +173,15 @@ bool cc_piece_is_pawn( CcPieceEnum const pe );
 bool cc_piece_is_none( CcPieceEnum const pe );
 
 /**
-    Function returning whether pieces are of opposite color (dark, light).
+    Function returning whether pieces are of opposite color (dark, light),
+    or shade (dim, bright).
 
     @param pe1 Piece enum.
     @param pe2 Piece enum.
 
-    @return `true` if one piece is dark and the other is light, `false` otherwise.
+    @return `true` if one piece is dark (dim) and the other is light (bright), `false` otherwise.
 */
-bool cc_piece_is_opposite_color( CcPieceEnum const pe1, CcPieceEnum const pe2 );
-
-/**
-    Function returning whether pieces are of opposite shade (dim, bright).
-
-    @param pe1 Piece enum.
-    @param pe2 Piece enum.
-
-    @return `true` if one piece is dim and the other is bright, `false` otherwise.
-*/
-bool cc_piece_is_opposite_shade( CcPieceEnum const pe1, CcPieceEnum const pe2 );
+bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2 );
 
 /**
     Function returning whether piece is teleporting piece.
