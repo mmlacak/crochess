@@ -9,6 +9,12 @@
 #include "cc_variant.h"
 
 
+/**
+    @file cc_variant.c
+    @brief Variants symbols, and related functions.
+*/
+
+
 char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL = "cc";
 char const * const CC_VARIANT_CROATIAN_TIES_SYMBOL = "ct";
 char const * const CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL = "ma";
@@ -41,22 +47,22 @@ bool cc_variant_str_is_symbol( char const * const restrict str )
 {
     if ( !str ) return false;
 
-    char * lc = cc_str_to_case_new( str, true );
-    if ( !lc ) return false;
+    char * lc__o = cc_str_to_case_new( str, true );
+    if ( !lc__o ) return false;
 
     int const count = sizeof( CC_VARIANT_SYMBOLS ) / sizeof( CC_VARIANT_SYMBOLS[ 0 ] );
     for ( int i = 0; i < count; ++i )
     {
         char const * const sym = CC_VARIANT_SYMBOLS[ i ];
 
-        if ( !strcmp( sym, lc ) )
+        if ( !strcmp( sym, lc__o ) )
         {
-            free( lc );
+            free( lc__o );
             return true;
         }
     }
 
-    free( lc );
+    free( lc__o );
     return false;
 }
 
@@ -65,26 +71,30 @@ CcVariantEnum cc_variant_from_symbol( char const * const restrict str )
     CcVariantEnum ve = CC_VE_One;
     if ( !str ) return ve;
 
-    char * lc = cc_str_to_case_new( str, true );
-    if ( !lc ) return ve;
+    char * lc__o = cc_str_to_case_new( str, true );
+    if ( !lc__o ) return ve;
 
-    if ( !strcmp(lc, CC_VARIANT_CLASSICAL_CHESS_SYMBOL) ) ve = CC_VE_ClassicalChess;
-    else if ( !strcmp(lc, CC_VARIANT_CROATIAN_TIES_SYMBOL) ) ve = CC_VE_CroatianTies;
-    else if ( !strcmp(lc, CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL) ) ve = CC_VE_MayanAscendancy;
-    else if ( !strcmp(lc, CC_VARIANT_AGE_OF_AQUARIUS_SYMBOL) ) ve = CC_VE_AgeOfAquarius;
-    else if ( !strcmp(lc, CC_VARIANT_MIRANDAS_VEIL_SYMBOL) ) ve = CC_VE_MirandasVeil;
-    else if ( !strcmp(lc, CC_VARIANT_NINETEEN_SYMBOL) ) ve = CC_VE_Nineteen;
-    else if ( !strcmp(lc, CC_VARIANT_HEMERAS_DAWN_SYMBOL) ) ve = CC_VE_HemerasDawn;
-    else if ( !strcmp(lc, CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL) ) ve = CC_VE_TamoanchanRevisited;
-    else if ( !strcmp(lc, CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL) ) ve = CC_VE_ConquestOfTlalocan;
-    else if ( !strcmp(lc, CC_VARIANT_DISCOVERY_SYMBOL) ) ve = CC_VE_Discovery;
-    // else if ( !strcmp(lc, CC_VARIANT_ONE_SYMBOL) ) ve = CC_VE_One;
+    if ( !strcmp(lc__o, CC_VARIANT_CLASSICAL_CHESS_SYMBOL) ) ve = CC_VE_ClassicalChess;
+    else if ( !strcmp(lc__o, CC_VARIANT_CROATIAN_TIES_SYMBOL) ) ve = CC_VE_CroatianTies;
+    else if ( !strcmp(lc__o, CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL) ) ve = CC_VE_MayanAscendancy;
+    else if ( !strcmp(lc__o, CC_VARIANT_AGE_OF_AQUARIUS_SYMBOL) ) ve = CC_VE_AgeOfAquarius;
+    else if ( !strcmp(lc__o, CC_VARIANT_MIRANDAS_VEIL_SYMBOL) ) ve = CC_VE_MirandasVeil;
+    else if ( !strcmp(lc__o, CC_VARIANT_NINETEEN_SYMBOL) ) ve = CC_VE_Nineteen;
+    else if ( !strcmp(lc__o, CC_VARIANT_HEMERAS_DAWN_SYMBOL) ) ve = CC_VE_HemerasDawn;
+    else if ( !strcmp(lc__o, CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL) ) ve = CC_VE_TamoanchanRevisited;
+    else if ( !strcmp(lc__o, CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL) ) ve = CC_VE_ConquestOfTlalocan;
+    else if ( !strcmp(lc__o, CC_VARIANT_DISCOVERY_SYMBOL) ) ve = CC_VE_Discovery;
+    // else if ( !strcmp(lc__o, CC_VARIANT_ONE_SYMBOL) ) ve = CC_VE_One;
     // else ve = CC_VE_One;
 
-    free( lc );
-
+    free( lc__o );
     return ve;
 }
+
+
+// https://stackoverflow.com/questions/15927583/how-to-suppress-warning-control-reaches-end-of-non-void-function
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
 
 char const * cc_variant_label( CcVariantEnum const ve )
 {
@@ -102,7 +112,7 @@ char const * cc_variant_label( CcVariantEnum const ve )
         case CC_VE_Discovery : return "Discovery";
         case CC_VE_One : return "One";
 
-        default : return "";
+        // default : return ""; // Won't be suitable --> make compilers complain.
     }
 }
 
@@ -122,6 +132,8 @@ unsigned int cc_variant_board_size( CcVariantEnum const ve )
         case CC_VE_Discovery : return CC_VARIANT_BOARD_SIZE_DISCOVERY;
         case CC_VE_One : return CC_VARIANT_BOARD_SIZE_ONE;
 
-        default : return 0;
+        // default : return 0; // Won't be suitable --> make compilers complain.
     }
 }
+
+#pragma GCC diagnostic pop

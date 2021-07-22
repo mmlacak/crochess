@@ -4,6 +4,12 @@
 #include "cc_tag.h"
 
 
+/**
+    @file cc_tag.c
+    @brief Tag related functions.
+*/
+
+
 // https://stackoverflow.com/questions/15927583/how-to-suppress-warning-control-reaches-end-of-non-void-function
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreturn-type"

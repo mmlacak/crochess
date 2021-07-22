@@ -6,6 +6,13 @@
 
 #include "cc_piece.h"
 
+
+/**
+    @file cc_piece.c
+    @brief Piece related functions.
+*/
+
+
 CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light )
 {
     switch ( symbol )
