@@ -17,6 +17,18 @@ Ownership
 Ownership defines who (which pointer) gets to `free()` allocated memory.
 It refers to the one pointer variable, which is the reference from which all other usages are borrowed.
 
+### Variables
+
+If a pointer, as a standalone variable, has ownership over any entity, `__o` is appended to its name,
+e.g. `CcChessboard * cb__o`.
+
+`__o` is not appended, if ownership is transferred to a function (its parameter), or to another variable.
+
+So, `__o` is appended to a pointer name if that pointer has entity ownership during its whole scope,
+or is the last in a chain of ownership transfers.
+
+### Entities
+
 Every `alloc()`-ated entity has implicit ownership over all links (pointers) to other `alloc()`-ated
 entities, and, by extension, over all accessible entities in a linked structure.
 
@@ -30,9 +42,11 @@ For instance, `CcMove` contains `CcPly *`, so it owns all `CcPly` items in that 
 Now, each `CcPly` contains `CcStep *`, so it owns all `CcStep` items in that linked list.
 So, `CcMove` indirectly owns every `CcStep` in the whole structure.
 
-This is evidenced in `cc_move_free_all_moves()` (`free()`-s all `CcMove`s in a linked list),
-which calls `cc_ply_free_all_plies()` (`free()`-s all linked `CcPly`s in a `CcMove`),
-which calls `cc_step_free_all_steps()`(`free()`-s all linked `CcStep`s in a `CcPly`).
+This is evidenced when `free()`-ing hierarchially complete structure from a single `CcMove` pointer.
+
+All `CcMove`s in a linked list are `free()`-ed by calling `cc_move_free_all_moves()`, which
+`free()`-s all linked `CcPly`s in each `CcMove` (by calling `cc_ply_free_all_plies()`), which
+`free()`-s all linked `CcStep`s in each `CcPly` (by calling `cc_step_free_all_steps()`).
 
 ### Transfer of ownership
 
@@ -42,8 +56,8 @@ returned pointer is borrowed, e.g. `cc_ply_get_steps()`.
 
 ### Borrows
 
-Whether borrow is mutable or not can be seen in function return type, if entity pointed to is
-`const`, that is imutable borrow. Borrows are usually mutable (e.g. `CcStep * cc_ply_get_steps()`),
+Whether borrow is mutable or not can be seen in a function return type, if returned pointer points
+to `const` entity, that is imutable borrow. Borrows are usually mutable (e.g. `CcStep * cc_ply_get_steps()`),
 although there are also read-only borrows (e.g. `char const * cc_variant_label()`).
 
 Parameters
@@ -58,8 +72,8 @@ _Static_ parameters are mostly input, read-only borrows, that initialize local s
 inside a function body. For a first call in a series such a parameters have to be valid pointers,
 afterwards they can be `NULL`s.
 
-Those _static_ parameters are usually used to initialize a kind of an interator (or generator),
-after which said interator (or generator) continues to return valid values until it runs out of
+Those _static_ parameters are usually used to initialize a kind of an iterator (or generator),
+after which said iterator (or generator) continues to return valid values until it runs out of
 them, or is initialized again.
 
 _Static_ parameters are indicated by appending `_s` to parameter name, e.g. `char const * const restrict str_s`.
@@ -88,10 +102,26 @@ Summary
 
 If multiple indicators are needed, _static_ indicator (`_s`) is apended to parameter name first, followed
 by direction indicator (one of `_o`, `_io`), finally followed by ownership transfer indicator (one of
-`_n`, `_f`, `_r`).
+`_w`, `__o`, `_n`, `_f`, `_r`).
 
 _Static_ and direction indicators can be combined, ownership transfer indicator is always kept separated,
 e.g. `str_sio_n`.
+
+### Functions
+
+| Indicator |              `arg` |                     `*arg` |
+| --------: | -----------------: | -------------------------: |
+|           |             borrow | read (+ write, if mutable) |
+|    `_new` | ownership transfer |    read + write + `free()` |
+
+### Variables
+
+| Indicator |     Variable |     `arg` |                  `*arg` |
+| --------: | -----------: | --------: | ----------------------: |
+|           |   standalone |    borrow |            read + write |
+|     `__o` |   standalone | ownership | read + write + `free()` |
+|           | in an entity | ownership | read + write + `free()` |
+|      `_w` |         both |      weak |            read + write |
 
 ### Input, output parameters
 
@@ -99,8 +129,6 @@ e.g. `str_sio_n`.
 | --------: | -------------: | ----------------: |
 |           |          input |              read |
 |      `_s` |  input, `NULL` |    read, _static_ |
-|      `_o` |         output |             write |
-|     `_io` | input + output |      read + write |
 
 ### Ownership transfer parameters
 
