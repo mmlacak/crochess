@@ -99,15 +99,6 @@ CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light );
 CcPieceEnum cc_piece_opposite( CcPieceEnum const pe );
 
 /**
-    Function returning Pawn to which piece can be demoted, or None if piece can't be demoted.
-
-    @param pe Piece enum.
-
-    @return Dark Pawn if dark piece, light Pawn if piece is light, otherwise `CC_PE_None`.
-*/
-CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
-
-/**
     Function returning piece char, based on piece enum.
 
     @param pe Piece enum.
@@ -116,6 +107,16 @@ CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
             space otherwise.
 */
 char cc_piece_as_char( CcPieceEnum const pe );
+
+/**
+    Function returning piece label.
+
+    @param pe Piece enum.
+
+    @return Piece label, capitalized name of a piece. Piece label is the same for dark (dim)
+            and light (bright) pieces. For None piece, label is empty string.
+*/
+char const * cc_piece_label( CcPieceEnum const pe );
 
 /**
     Function returning piece symbol, based on piece enum.
@@ -127,14 +128,13 @@ char cc_piece_as_char( CcPieceEnum const pe );
 char cc_piece_symbol( CcPieceEnum const pe );
 
 /**
-    Function returning piece label.
+    Function returning Pawn to which piece can be demoted, or None if piece can't be demoted.
 
     @param pe Piece enum.
 
-    @return Piece label, capitalized name of a piece. Piece label is the same for dark (dim)
-            and light (bright) pieces. For None piece, label is empty string.
+    @return Dark Pawn if dark piece, light Pawn if piece is light, otherwise `CC_PE_None`.
 */
-char const * cc_piece_label( CcPieceEnum const pe );
+CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
 
 /**
     Function returning whether piece is dark.

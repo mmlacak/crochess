@@ -35,6 +35,11 @@ CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light )
     }
 }
 
+
+// https://stackoverflow.com/questions/15927583/how-to-suppress-warning-control-reaches-end-of-non-void-function
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreturn-type"
+
 CcPieceEnum cc_piece_opposite( CcPieceEnum const pe )
 {
     switch ( pe )
@@ -77,43 +82,7 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum const pe )
 
         case CC_PE_Monolith : return CC_PE_Monolith;
 
-        default : return CC_PE_None;
-    }
-}
-
-CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe )
-{
-    switch ( pe )
-    {
-        case CC_PE_DarkStarchild :
-        case CC_PE_DarkShaman :
-        case CC_PE_DarkSerpent :
-        case CC_PE_DarkCentaur :
-        case CC_PE_DarkWave :
-        case CC_PE_DarkUnicorn :
-        case CC_PE_DarkPyramid :
-        case CC_PE_DarkPegasus :
-        case CC_PE_DarkQueen :
-        case CC_PE_DarkRook :
-        case CC_PE_DarkBishop :
-        case CC_PE_DarkKnight :
-            return CC_PE_DarkPawn;
-
-        case CC_PE_LightKnight :
-        case CC_PE_LightBishop :
-        case CC_PE_LightRook :
-        case CC_PE_LightQueen :
-        case CC_PE_LightPegasus :
-        case CC_PE_LightPyramid :
-        case CC_PE_LightUnicorn :
-        case CC_PE_LightWave :
-        case CC_PE_LightCentaur :
-        case CC_PE_LightSerpent :
-        case CC_PE_LightShaman :
-        case CC_PE_LightStarchild :
-            return CC_PE_LightPawn;
-
-        default : return CC_PE_None;
+        // default : return CC_PE_None; // Won't be suitable --> make compilers complain.
     }
 }
 
@@ -159,13 +128,8 @@ char cc_piece_as_char( CcPieceEnum const pe )
 
         case CC_PE_Monolith : return 'M';
 
-        default : return ' ';
+        // default : return ' '; // Won't be suitable --> make compilers complain.
     }
-}
-
-char cc_piece_symbol( CcPieceEnum const pe )
-{
-    return toupper( cc_piece_as_char( pe ) );
 }
 
 char const * cc_piece_label( CcPieceEnum const pe )
@@ -221,8 +185,23 @@ char const * cc_piece_label( CcPieceEnum const pe )
 
         case CC_PE_Monolith : return "Monolith";
 
-        default : return "";
+        // default : return ""; // Won't be suitable --> make compilers complain.
     }
+}
+
+#pragma GCC diagnostic pop
+
+
+char cc_piece_symbol( CcPieceEnum const pe )
+{
+    return toupper( cc_piece_as_char( pe ) );
+}
+
+CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe )
+{
+    if ( cc_piece_is_dark( pe ) ) return CC_PE_DarkPawn;
+    if ( cc_piece_is_light( pe ) ) return CC_PE_LightPawn;
+    return CC_PE_None;
 }
 
 bool cc_piece_is_dark( CcPieceEnum const pe )
@@ -302,7 +281,7 @@ bool cc_piece_is_figure( CcPieceEnum const pe, bool include_monolith, bool inclu
 {
     if ( cc_piece_is_light( pe ) ) return true;
     if ( cc_piece_is_dark( pe ) ) return true;
-    if ( include_monolith && ( pe == CC_PE_Monolith ) ) return true;
-    if ( include_stars && ( ( pe == CC_PE_DimStar ) || ( pe == CC_PE_BrightStar ) ) ) return true;
+    if ( pe == CC_PE_Monolith ) return include_monolith;
+    if ( ( pe == CC_PE_DimStar ) || ( pe == CC_PE_BrightStar ) ) return include_stars;
     return false;
 }
