@@ -9,7 +9,7 @@
 
 /**
     @file cc_variant.h
-    @brief Varians constants, symbols, enumeration, and related functions.
+    @brief Variants constants, symbols, enumeration, and related functions.
 */
 
 /**
