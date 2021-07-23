@@ -14,6 +14,12 @@
 #include "cc_chessboard.h"
 
 
+/**
+    @file cc_chessboard.c
+    @brief Chessboard related functions.
+*/
+
+
 bool cc_is_field_light( int i, int j )
 {
     return ( (i + j) % 2 != 0 );
