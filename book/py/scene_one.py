@@ -806,16 +806,27 @@ class SceneOneMixin:
         #
         # blocking step-fields
 
-        scene.board.set_piece(25, 5, piece=PieceType.Star)
-        scene.board.set_piece(1, 8, piece=PieceType.Star)
-        scene.board.set_piece(5, 5, piece=-PieceType.Star)
-        scene.board.set_piece(7, 6, piece=-PieceType.Star)
+        # scene.board.set_piece(25, 5, piece=PieceType.Star)
+        # scene.board.set_piece(1, 8, piece=PieceType.Star)
+        # scene.board.set_piece(5, 5, piece=-PieceType.Star)
+        # scene.board.set_piece(7, 6, piece=-PieceType.Star)
 
-        scene.board.set_piece(11, 3, piece=PieceType.King)
-        scene.board.set_piece(13, 4, piece=-PieceType.King)
+        # scene.board.set_piece(11, 3, piece=PieceType.King)
+        # scene.board.set_piece(13, 4, piece=-PieceType.King)
 
-        scene.board.set_piece(17, 1, piece=PieceType.Monolith)
-        scene.board.set_piece(19, 2, piece=-PieceType.Monolith)
+        # scene.board.set_piece(17, 1, piece=PieceType.Monolith)
+        # scene.board.set_piece(19, 2, piece=-PieceType.Monolith)
+
+        scene.board.set_piece(25, 5, piece=PieceType.Pawn)
+        scene.board.set_piece(1, 8, piece=PieceType.Pawn)
+        scene.board.set_piece(5, 5, piece=-PieceType.Pawn)
+        scene.board.set_piece(7, 6, piece=-PieceType.Pawn)
+
+        scene.board.set_piece(11, 3, piece=PieceType.Pawn)
+        scene.board.set_piece(13, 4, piece=-PieceType.Pawn)
+
+        scene.board.set_piece(17, 1, piece=PieceType.Pawn)
+        scene.board.set_piece(19, 2, piece=-PieceType.Pawn)
 
         #
         # right arm
