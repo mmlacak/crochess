@@ -9,7 +9,13 @@
 #include "cc_tokenizer.h"
 
 
-char const CC_TOKEN_SEPARATORS_WHITEPSACE[] = " \t\v\f\r\n";
+/**
+    @file cc_tokenizer.c
+    @brief Tokenizer constants, and related functions.
+*/
+
+
+char const CC_TOKEN_SEPARATORS_WHITESPACE[] = " \t\v\f\r\n";
 char const CC_TOKEN_SEPARATORS_PUNCTUATION[] = "!\"#$%%&'()*+,-./";
 
 
