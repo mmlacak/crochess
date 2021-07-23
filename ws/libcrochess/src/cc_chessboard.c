@@ -25,7 +25,11 @@ CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool do_setup )
     CcChessboard * cb = malloc( sizeof( CcChessboard ) );
     if ( !cb ) return NULL;
 
-    cc_chessboard_init( cb, ve, do_setup );
+    if ( !cc_chessboard_init( cb, ve, do_setup ) )
+    {
+        free( cb );
+        return NULL;
+    }
 
     return cb;
 }
@@ -91,8 +95,7 @@ bool cc_chessboard_copy( CcChessboard * const restrict into_io, CcChessboard con
     if ( !into_io ) return false;
     if ( !from ) return false;
 
-    if ( into_io->type != from->type ) return false;
-    if ( into_io->size != from->size ) return false;
+    if ( !cc_chessboard_init( into_io, from->type, false ) ) return false;
 
     for ( int i = 0; i < (int)into_io->size; ++i )
     {
@@ -186,6 +189,7 @@ bool cc_chessboard_set_tag( CcChessboard * const restrict cb_io, int i, int j, C
     return false;
 }
 
+
 static char * cc_chessboard_get_divider_new( CcChessboard const * const restrict cb )
 {
     if ( !cb ) return NULL;
@@ -237,7 +241,7 @@ static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard const * const
     return hr;
 }
 
-char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool is_board_or_chips )
+char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool is_board_or_tag )
 {
     if ( !cb ) return NULL;
 
@@ -294,7 +298,7 @@ char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool
             int x = j;
             int y = cb->size - i - 1;
 
-            if ( is_board_or_chips )
+            if ( is_board_or_tag )
                 ch = cc_piece_as_char( cb->board[ x ][ y ] );
             else
                 ch = cc_tag_as_char( cb->tags[ x ][ y ] );
@@ -328,12 +332,11 @@ char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool
     return s;
 }
 
-bool cc_chessboard_print( CcChessboard const * const restrict cb, bool is_board_or_chips )
+bool cc_chessboard_print( CcChessboard const * const restrict cb, bool is_board_or_tag )
 {
     if ( !cb ) return false;
 
-    char * s = cc_chessboard_as_string_new( cb, is_board_or_chips );
-
+    char * s = cc_chessboard_as_string_new( cb, is_board_or_tag );
     if ( !s ) return false;
 
     printf( "%s", s );
