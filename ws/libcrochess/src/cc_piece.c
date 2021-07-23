@@ -42,11 +42,6 @@ CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light )
     }
 }
 
-
-// https://stackoverflow.com/questions/15927583/how-to-suppress-warning-control-reaches-end-of-non-void-function
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wreturn-type"
-
 CcPieceEnum cc_piece_opposite( CcPieceEnum const pe )
 {
     switch ( pe )
@@ -89,7 +84,7 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum const pe )
 
         case CC_PE_Monolith : return CC_PE_Monolith;
 
-        // default : return CC_PE_None; // Won't be suitable --> make compilers complain.
+        default : return CC_PE_None;
     }
 }
 
@@ -135,7 +130,7 @@ char cc_piece_as_char( CcPieceEnum const pe )
 
         case CC_PE_Monolith : return 'M';
 
-        // default : return ' '; // Won't be suitable --> make compilers complain.
+        default : return '?';
     }
 }
 
@@ -192,12 +187,9 @@ char const * cc_piece_label( CcPieceEnum const pe )
 
         case CC_PE_Monolith : return "Monolith";
 
-        // default : return ""; // Won't be suitable --> make compilers complain.
+        default : return "???";
     }
 }
-
-#pragma GCC diagnostic pop
-
 
 char cc_piece_symbol( CcPieceEnum const pe )
 {

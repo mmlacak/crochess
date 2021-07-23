@@ -91,11 +91,6 @@ CcVariantEnum cc_variant_from_symbol( char const * const restrict str )
     return ve;
 }
 
-
-// https://stackoverflow.com/questions/15927583/how-to-suppress-warning-control-reaches-end-of-non-void-function
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wreturn-type"
-
 char const * cc_variant_label( CcVariantEnum const ve )
 {
     switch ( ve )
@@ -112,7 +107,7 @@ char const * cc_variant_label( CcVariantEnum const ve )
         case CC_VE_Discovery : return "Discovery";
         case CC_VE_One : return "One";
 
-        // default : return ""; // Won't be suitable --> make compilers complain.
+        default : return "???";
     }
 }
 
@@ -132,8 +127,6 @@ unsigned int cc_variant_board_size( CcVariantEnum const ve )
         case CC_VE_Discovery : return CC_VARIANT_BOARD_SIZE_DISCOVERY;
         case CC_VE_One : return CC_VARIANT_BOARD_SIZE_ONE;
 
-        // default : return 0; // Won't be suitable --> make compilers complain.
+        default : return 0;
     }
 }
-
-#pragma GCC diagnostic pop

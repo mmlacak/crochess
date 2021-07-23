@@ -9,26 +9,19 @@
 #include "test_msgs.h"
 
 
-// https://stackoverflow.com/questions/15927583/how-to-suppress-warning-control-reaches-end-of-non-void-function
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wreturn-type"
-
 char const * test_msg_enum_label( TestMsgEnum tme )
 {
     switch ( tme )
     {
-        // gcc doesn't check if all current options in enum are covered.
-
         case TME_Debug : return "Debug";
         case TME_Info : return "Info";
         case TME_Warning : return "Warning";
         case TME_Error : return "Error";
         case TME_Fatal : return "Fatal";
-        // default : return ""; // Won't be suitable --> make compilers complain.
+
+        default : return "???";
     }
 }
-
-#pragma GCC diagnostic pop
 
 bool test_print_failure( bool expr,
                          TestMsgEnum type,
