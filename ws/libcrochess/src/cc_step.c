@@ -165,8 +165,8 @@ CcStep * cc_step_append_new( CcStep * const restrict steps,
 
 bool cc_step_free_all_steps( CcStep ** const steps_f )
 {
-    if ( !steps_f ) return true;
-    if ( !*steps_f ) return false;
+    if ( !steps_f ) return false;
+    if ( !*steps_f ) return true;
 
     CcStep * s = *steps_f;
 

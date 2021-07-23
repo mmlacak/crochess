@@ -13,17 +13,17 @@
 #include "cc_str_utils.h"
 
 
-bool cc_str_to_case( char * const restrict str_io, bool is_lower_or_upper )
+bool cc_str_to_case( char * const restrict str_io, bool to_upper_or_lower )
 {
     if ( !str_io ) return false;
 
     char * s = str_io;
     while ( *s )
     {
-        if ( is_lower_or_upper )
-            *s = tolower( *s );
-        else
+        if ( to_upper_or_lower )
             *s = toupper( *s );
+        else
+            *s = tolower( *s );
 
         ++s;
     }
@@ -31,7 +31,7 @@ bool cc_str_to_case( char * const restrict str_io, bool is_lower_or_upper )
     return true;
 }
 
-char * cc_str_to_case_new( char const * const restrict str, bool is_lower_or_upper )
+char * cc_str_to_case_new( char const * const restrict str, bool to_upper_or_lower )
 {
     if ( !str ) return NULL;
 
@@ -42,10 +42,10 @@ char * cc_str_to_case_new( char const * const restrict str, bool is_lower_or_upp
     char const * pos = str;
     while ( *pos )
     {
-        if ( is_lower_or_upper )
-            *s = tolower( *pos );
-        else
+        if ( to_upper_or_lower )
             *s = toupper( *pos );
+        else
+            *s = tolower( *pos );
 
         ++s;
         ++pos;
@@ -226,7 +226,7 @@ bool cc_str_append_char( char ** const restrict str_io_r,
     *n++ = chr;
     *n = '\0';
 
-    return new;
+    return (bool)( new );
 }
 
 char * cc_str_append_new( char ** restrict str_1_f,
@@ -234,36 +234,26 @@ char * cc_str_append_new( char ** restrict str_1_f,
 {
     if ( ( !str_1_f ) && ( !str_2_f ) ) return NULL;
 
-    if ( !str_1_f )
+    char * new = NULL;
+
+    if ( str_1_f && str_2_f )
+        new = cc_str_concatenate_new( *str_1_f, *str_2_f );
+    else if ( str_1_f )
+        new = cc_str_duplicate_new( *str_1_f );
+    else if ( str_2_f )
+        new = cc_str_duplicate_new( *str_2_f );
+
+    if ( str_1_f )
     {
-        char * new = cc_str_duplicate_new( *str_2_f );
-        if ( !new ) return NULL;
-
-        free( *str_2_f );
-        *str_2_f = NULL;
-
-        return new;
-    }
-
-    if ( !str_2_f )
-    {
-        char * new = cc_str_duplicate_new( *str_1_f );
-        if ( !new ) return NULL;
-
         free( *str_1_f );
         *str_1_f = NULL;
-
-        return new;
     }
 
-    char * new = cc_str_concatenate_new( *str_1_f, *str_2_f );
-    if ( !new ) return NULL;
-
-    free( *str_1_f );
-    *str_1_f = NULL;
-
-    free( *str_2_f );
-    *str_2_f = NULL;
+    if ( str_2_f )
+    {
+        free( *str_2_f );
+        *str_2_f = NULL;
+    }
 
     return new;
 }
@@ -274,36 +264,26 @@ char * cc_str_append_len_new( char ** restrict str_1_f,
 {
     if ( ( !str_1_f ) && ( !str_2_f ) ) return NULL;
 
-    if ( !str_1_f )
+    char * new = NULL;
+
+    if ( str_1_f && str_2_f )
+        new = cc_str_concatenate_len_new( *str_1_f, *str_2_f, max_len );
+    else if ( str_1_f )
+        new = cc_str_duplicate_len_new( *str_1_f, max_len );
+    else if ( str_2_f )
+        new = cc_str_duplicate_len_new( *str_2_f, max_len );
+
+    if ( str_1_f )
     {
-        char * new = cc_str_duplicate_len_new( *str_2_f, max_len );
-        if ( !new ) return NULL;
-
-        free( *str_2_f );
-        *str_2_f = NULL;
-
-        return new;
-    }
-
-    if ( !str_2_f )
-    {
-        char * new = cc_str_duplicate_len_new( *str_1_f, max_len );
-        if ( !new ) return NULL;
-
         free( *str_1_f );
         *str_1_f = NULL;
-
-        return new;
     }
 
-    char * new = cc_str_concatenate_len_new( *str_1_f, *str_2_f, max_len );
-    if ( !new ) return NULL;
-
-    free( *str_1_f );
-    *str_1_f = NULL;
-
-    free( *str_2_f );
-    *str_2_f = NULL;
+    if ( str_2_f )
+    {
+        free( *str_2_f );
+        *str_2_f = NULL;
+    }
 
     return new;
 }
@@ -351,19 +331,8 @@ char * cc_str_append_format_new( char ** restrict str_f,
         return NULL;
     }
 
-    char * appended = cc_str_append_new( str_f, &new );
-    if ( !appended )
-    {
-        free( new );
-        return NULL;
-    }
-
-    // Not needed, cc_str_append_new() does that.
-    // free( new );
-    // free( *str_f );
-    // *str_f = NULL;
-
-    return appended;
+    // No need to free() str_f, new; cc_str_append_new() does that.
+    return cc_str_append_new( str_f, &new );
 }
 
 char * cc_str_append_format_len_new( char ** restrict str_f,
@@ -410,17 +379,6 @@ char * cc_str_append_format_len_new( char ** restrict str_f,
         return NULL;
     }
 
-    char * appended = cc_str_append_len_new( str_f, &new, max_len );
-    if ( !appended )
-    {
-        free( new );
-        return NULL;
-    }
-
-    // Not needed, cc_str_append_len_new() does that.
-    // free( new );
-    // free( *str_f );
-    // *str_f = NULL;
-
-    return appended;
+    // No need to free() str_f, new; cc_str_append_len_new() does that.
+    return cc_str_append_len_new( str_f, &new, max_len );
 }

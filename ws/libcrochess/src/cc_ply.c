@@ -135,8 +135,8 @@ CcPly * cc_ply_append_new( CcPly * const restrict plies,
 
 bool cc_ply_free_all_plies( CcPly ** const plies_f )
 {
-    if ( !plies_f ) return true;
-    if ( !*plies_f ) return false;
+    if ( !plies_f ) return false;
+    if ( !*plies_f ) return true;
 
     bool result = true;
     CcPly * ply = *plies_f;

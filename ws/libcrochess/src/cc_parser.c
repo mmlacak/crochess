@@ -59,8 +59,8 @@ CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse
 
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f )
 {
-    if ( !parse_msgs_f ) return true;
-    if ( !*parse_msgs_f ) return false;
+    if ( !parse_msgs_f ) return false;
+    if ( !*parse_msgs_f ) return true;
 
     CcParseMsg * pm = *parse_msgs_f;
 

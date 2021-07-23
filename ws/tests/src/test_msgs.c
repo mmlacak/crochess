@@ -99,8 +99,8 @@ TestMsg * test_msg_init_or_append_new( TestMsg ** const restrict test_msgs,
 
 bool test_msg_free_all( TestMsg ** const restrict test_msgs_f )
 {
-    if ( !test_msgs_f ) return true;
-    if ( !*test_msgs_f ) return false;
+    if ( !test_msgs_f ) return false;
+    if ( !*test_msgs_f ) return true;
 
     TestMsg * tm = *test_msgs_f;
 

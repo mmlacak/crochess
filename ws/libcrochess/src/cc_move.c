@@ -47,8 +47,8 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
 
 bool cc_move_free_all_moves( CcMove ** const moves )
 {
-    if ( !moves ) return true;
-    if ( !*moves ) return false;
+    if ( !moves ) return false;
+    if ( !*moves ) return true;
 
     bool result = true;
 
