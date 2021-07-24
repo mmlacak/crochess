@@ -8,6 +8,12 @@
 #include "cc_setup_board.h"
 
 
+/**
+    @file cc_setup_board.c
+    @brief Board constant setups, and related functions.
+*/
+
+
 static const int t = CC_PE_DimStar;
 
 static const int i = CC_PE_DarkStarchild;
