@@ -256,6 +256,8 @@ char * cc_str_append_new( char ** restrict str_1_f,
     else if ( str_2_f )
         new = cc_str_duplicate_new( *str_2_f );
 
+    if ( !new ) return NULL;
+
     if ( str_1_f )
     {
         free( *str_1_f );
@@ -285,6 +287,8 @@ char * cc_str_append_len_new( char ** restrict str_1_f,
         new = cc_str_duplicate_len_new( *str_1_f, max_len );
     else if ( str_2_f )
         new = cc_str_duplicate_len_new( *str_2_f, max_len );
+
+    if ( !new ) return NULL;
 
     if ( str_1_f )
     {
