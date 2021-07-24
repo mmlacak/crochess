@@ -154,7 +154,7 @@ bool cc_str_append_char( char ** const restrict str_io_r,
     If either string is not allocated, only allocated string is copied into a newly allocated string.
 
     @note
-    Allocated string arguments are freed, and their pointers set to `NULL`, if valid result is produced.
+    Allocated string arguments are freed, and their inner pointers set to `NULL`, if valid result is produced.
 
     @note
     If no valid result is produced, allocated string arguments are not freed.
@@ -179,7 +179,7 @@ char * cc_str_append_new( char ** restrict str_1_f,
     If either string is not allocated, only allocated string is copied into a newly allocated string.
 
     @note
-    Allocated string arguments are freed, and their pointers set to `NULL`, if valid result is produced.
+    Allocated string arguments are freed, and their inner pointers set to `NULL`, if valid result is produced.
 
     @note
     If no valid result is produced, allocated string arguments are not freed.
@@ -201,7 +201,7 @@ char * cc_str_append_len_new( char ** restrict str_1_f,
     If string is not allocated, only formatted string is copied into a newly allocated string.
 
     @note
-    If allocated, string argument is freed, and its pointer set to `NULL`, if valid result is produced.
+    If allocated, string argument is freed, and its inner pointer set to `NULL`, if valid result is produced.
 
     @note
     If no valid result is produced, allocated string argument is not freed.
@@ -224,7 +224,7 @@ char * cc_str_append_format_new( char ** restrict str_f,
     If string is not allocated, only formatted string is copied into a newly allocated string.
 
     @note
-    If allocated, string argument is freed, and its pointer set to `NULL`, if valid result is produced.
+    If allocated, string argument is freed, and its inner pointer set to `NULL`, if valid result is produced.
 
     @note
     If no valid result is produced, allocated string argument is not freed.

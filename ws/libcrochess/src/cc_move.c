@@ -10,6 +10,12 @@
 #include "cc_move.h"
 
 
+/**
+    @file cc_move.c
+    @brief Move enumeration, structure, and related functions.
+*/
+
+
 CcMove * cc_move_new( char const * const restrict notation,
                       CcPly ** restrict plies_n,
                       CcMoveStatusEnum status )
@@ -45,14 +51,14 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
     return new;
 }
 
-bool cc_move_free_all_moves( CcMove ** const moves )
+bool cc_move_free_all_moves( CcMove ** const moves_f )
 {
-    if ( !moves ) return false;
-    if ( !*moves ) return true;
+    if ( !moves_f ) return false;
+    if ( !*moves_f ) return true;
 
     bool result = true;
 
-    CcMove * mv = *moves;
+    CcMove * mv = *moves_f;
 
     while ( mv )
     {
@@ -66,7 +72,7 @@ bool cc_move_free_all_moves( CcMove ** const moves )
         mv = tmp;
     }
 
-    *moves = NULL;
+    *moves_f = NULL;
     return result;
 }
 
