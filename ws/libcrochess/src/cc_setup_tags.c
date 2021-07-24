@@ -8,6 +8,12 @@
 #include "cc_setup_tags.h"
 
 
+/**
+    @file cc_setup_tags.c
+    @brief Tag constant setups, and related functions.
+*/
+
+
 static const int n = CC_TE_None;
 static const int R = CC_TE_CanRush;
 static const int C = CC_TE_CanCastle;
