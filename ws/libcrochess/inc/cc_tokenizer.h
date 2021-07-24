@@ -71,7 +71,7 @@ char const * cc_stop_at_chars( char const * const restrict pos, char const * con
 
 
 /**
-    Iterator traversing over string, returning next token as newly `alloc()`-ated string.
+    Iterator traversing over string, returning next token as newly allocated string.
 
     @param str_s _Static_ string to traverse.
     @param seps_s _Static_ separators to skip.
@@ -100,18 +100,18 @@ char const * cc_stop_at_chars( char const * const restrict pos, char const * con
     will continue parsing next token in the original `str_s` string from the last position,
     but with different set of separators.
 
-    @return Newly `alloc()`-ated string containing next token if successful, `NULL` otherwise.
+    @return Newly allocated string containing next token if successful, `NULL` otherwise.
 */
 char * cc_next_token_new( char const * const restrict str_s,
                           char const * const restrict seps_s );
 
 /**
-    Function returning newly `alloc()`-ated string, with `chars` trimmed from the beginning and the end.
+    Function returning newly allocated string, with `chars` trimmed from the beginning and the end.
 
     @param str String to trim, on both ends.
     @param chars Characters to trim from string.
 
-    @return Newly `alloc()`-ated, trimmed string if successful, `NULL` otherwise.
+    @return Newly allocated, trimmed string if successful, `NULL` otherwise.
 */
 char * cc_str_trim_new( char const * const restrict str, char const * const restrict chars );
 

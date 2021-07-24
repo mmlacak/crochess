@@ -13,6 +13,12 @@
 #include "cc_str_utils.h"
 
 
+/**
+    @file cc_str_utils.c
+    @brief String utility functions.
+*/
+
+
 bool cc_str_to_case( char * const restrict str_io, bool to_upper_or_lower )
 {
     if ( !str_io ) return false;
@@ -37,8 +43,9 @@ char * cc_str_to_case_new( char const * const restrict str, bool to_upper_or_low
 
     size_t len = strlen( str );
     char * lc = malloc( len + 1 );
-    char * s = lc;
+    if ( !lc ) return NULL;
 
+    char * s = lc;
     char const * pos = str;
     while ( *pos )
     {
@@ -75,12 +82,14 @@ size_t cc_str_len_min( char const * const restrict str, size_t max_len )
     return len;
 }
 
+
 char * cc_str_duplicate_new( char const * const restrict str )
 {
     if ( !str ) return NULL;
 
     size_t len = cc_str_len( str );
     char * new = (char *)malloc( len + 1 );
+    if ( !new ) return NULL;
 
     char const * s = str;
     char * n = new;
@@ -97,6 +106,7 @@ char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len
 
     size_t len = cc_str_len_min( str, max_len );
     char * new = (char *)malloc( len + 1 );
+    if ( !new ) return NULL;
 
     if ( len > 0 )
     {
@@ -122,6 +132,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1,
     size_t len = len_1 + len_2;
 
     char * new = (char *)malloc( len + 1 );
+    if ( !new ) return NULL;
 
     char const * s = str_1;
     char * n = new;
@@ -146,6 +157,7 @@ char * cc_str_concatenate_len_new( char const * const restrict str_1,
     size_t len = CC_MIN( len_1 + len_2, max_len );
 
     char * new = (char *)malloc( len + 1 );
+    if ( !new ) return NULL;
 
     if ( len > 0 )
     {
@@ -197,6 +209,7 @@ char * cc_str_concatenate_char_new( char const * const restrict str,
     return new;
 }
 
+
 bool cc_str_append_char( char ** const restrict str_io_r,
                          char const chr )
 {
@@ -218,7 +231,7 @@ bool cc_str_append_char( char ** const restrict str_io_r,
     char * new = realloc( *str_io_r, len + 1 );
     if ( !new ) return false;
 
-    *str_io_r = new; // str_io_r was free'd by realloc().
+    *str_io_r = new; // *str_io_r was free'd by realloc().
 
     char * n = new;
     while ( *n ) ++n;
