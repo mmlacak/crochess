@@ -7,6 +7,12 @@
 #include "cc_ply.h"
 
 
+/**
+    @file cc_ply.c
+    @brief Ply related functions.
+*/
+
+
 CcPieceField * cc_ply_piece_field_new( CcPieceEnum piece, int i, int j )
 {
     CcPieceField * pf = malloc( sizeof( CcPieceField ) );
@@ -20,7 +26,7 @@ CcPieceField * cc_ply_piece_field_new( CcPieceEnum piece, int i, int j )
     return pf;
 }
 
-CcPieceField * cc_ply_append_piece_field_new( CcPieceField * const restrict piece_fields,
+CcPieceField * cc_ply_piece_field_append_new( CcPieceField * const restrict piece_fields,
                                               CcPieceEnum piece,
                                               int i,
                                               int j )
@@ -36,7 +42,7 @@ CcPieceField * cc_ply_append_piece_field_new( CcPieceField * const restrict piec
     return new;
 }
 
-bool cc_ply_free_all_piece_fields( CcPieceField ** const piece_fields_f )
+bool cc_ply_piece_field_free_all( CcPieceField ** const piece_fields_f )
 {
     if ( !piece_fields_f ) return true;
     if ( !*piece_fields_f ) return false;
@@ -57,14 +63,14 @@ bool cc_ply_free_all_piece_fields( CcPieceField ** const piece_fields_f )
 
 CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece,
                     CcStep ** restrict steps_n, int i, int j,
-                    CcPieceField ** restrict captured )
+                    CcPieceField ** restrict captured_n )
 {
     if ( ( !steps_n ) && ( ( link == CC_PLE_Ply )
                         || ( link == CC_PLE_TeleportationWave )
                         || ( link == CC_PLE_TranceJourney )
                         || ( link == CC_PLE_PawnSacrifice ) ) ) return NULL;
 
-    if ( ( !captured ) && ( link == CC_PLE_DualTranceJourney ) ) return NULL;
+    if ( ( !captured_n ) && ( link == CC_PLE_DualTranceJourney ) ) return NULL;
 
     CcPly * ply = calloc( 1, sizeof( CcPly ) );
     if ( !ply ) return NULL;
@@ -102,8 +108,8 @@ CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece,
     }
     else if ( ply->link == CC_PLE_DualTranceJourney )
     {
-        ply->dual_trance_journey.captured = *captured;
-        *captured = NULL;
+        ply->dual_trance_journey.captured = *captured_n;
+        *captured_n = NULL;
     }
     // Nothing additional to do if link == CC_PLE_FailedTranceJourney.
     else if ( ply->link == CC_PLE_PawnSacrifice )
@@ -120,9 +126,9 @@ CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece,
 CcPly * cc_ply_append_new( CcPly * const restrict plies,
                            CcPlyLinkEnum link, CcPieceEnum piece,
                            CcStep ** restrict steps_n, int i, int j,
-                           CcPieceField ** restrict captured )
+                           CcPieceField ** restrict captured_n )
 {
-    CcPly * new = cc_ply_new( link, piece, steps_n, i, j, captured );
+    CcPly * new = cc_ply_new( link, piece, steps_n, i, j, captured_n );
     if ( !new ) return NULL;
     if ( !plies ) return new;
 
@@ -169,7 +175,7 @@ bool cc_ply_free_all_plies( CcPly ** const plies_f )
             case CC_PLE_DualTranceJourney :
             {
                 CcPieceField ** captured = &( ply->dual_trance_journey.captured );
-                result = result && cc_ply_free_all_piece_fields( captured );
+                result = result && cc_ply_piece_field_free_all( captured );
                 break;
             }
 

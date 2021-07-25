@@ -75,6 +75,8 @@ CcMove * cc_move_new( char const * const restrict notation,
     @warning
     If no valid move is produced, plies are still valid, and accessible.
 
+    @see cc_move_new()
+
     @return
     A newly allocated move, is successful, `NULL` otherwise.
 */
