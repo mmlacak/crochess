@@ -172,7 +172,7 @@ bool cc_chessboard_set_piece( CcChessboard * const restrict cb_io, int i, int j,
     @param cb_io Chessboard.
     @param i File, position along horizontal axis.
     @param j Rank, position along vertical axis.
-    @param ct Tag to set.
+    @param tt Tag to set.
 
     @return `true` if successful, `false` otherwise.
 */

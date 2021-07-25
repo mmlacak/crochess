@@ -7,6 +7,12 @@
 #include "cc_step.h"
 
 
+/**
+    @file cc_step.c
+    @brief Step related functions.
+*/
+
+
 CcSideEffect cc_side_effect( CcSideEffectEnum type,
                              CcPieceEnum piece,
                              bool is_promo_tag_lost,

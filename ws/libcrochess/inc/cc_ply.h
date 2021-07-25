@@ -103,17 +103,30 @@ typedef struct CcPly
 
     union
     {
-        struct { CcStep * steps; /**< Steps taken by the piece. */  } ply; /**< Ordinary, or cascading ply. */
-        struct { int i; /**< File where piece teleported. */
-                 int j; /**< Rank where piece teleported. */ } teleport; /**< Teleporting piece (not a Wave!). */
-        struct { CcStep * steps; /**< Steps taken by the Wave. */ } teleport_wave; /**< Teleporting Wave. */
-        struct { int i; /**< File where piece reappeared. */
-                 int j; /**< Rank where piece reappeared. */ } failed_teleport; /**< Failed teleportation, piece is not oblationed. */
-        struct { int i; /**< File of a actual start along pattern, might be different from starting position for a dark Shaman. */
-                 int j; /**< Rank of a actual start along pattern, might be different from starting position for a dark Shaman. */
-                 CcStep * steps; /**< Steps in a trance-journey. */ } trance_journey; /**< Trance-journey ply. */
-        struct { CcPieceField * captured; /**< Linked list of pieces, and positions where they were captured. */ } dual_trance_journey; /**< Dual trance-journey. */
-        struct { CcStep * steps; /**< Steps in a pawn-sacrifice. */ } pawn_sacrifice; /**< Pawn-sacrifice ply. */
+        struct  { CcStep * steps; /**< Steps taken by the piece. */
+                } ply; /**< Ordinary, or cascading ply. */
+
+        struct  { int i; /**< File where piece teleported. */
+                  int j; /**< Rank where piece teleported. */
+                } teleport; /**< Teleporting piece (not a Wave!). */
+
+        struct  { CcStep * steps; /**< Steps taken by the Wave. */
+                } teleport_wave; /**< Teleporting Wave. */
+
+        struct  { int i; /**< File where piece reappeared. */
+                  int j; /**< Rank where piece reappeared. */
+                } failed_teleport; /**< Failed teleportation, piece is not oblationed. */
+
+        struct  { int i; /**< File of a actual start along pattern, might be different from starting position for a dark Shaman. */
+                  int j; /**< Rank of a actual start along pattern, might be different from starting position for a dark Shaman. */
+                  CcStep * steps; /**< Steps in a trance-journey. */
+                } trance_journey; /**< Trance-journey ply. */
+
+        struct  { CcPieceField * captured; /**< Linked list of pieces, and positions where they were captured. */
+                } dual_trance_journey; /**< Dual trance-journey. */
+
+        struct  { CcStep * steps; /**< Steps in a pawn-sacrifice. */
+                } pawn_sacrifice; /**< Pawn-sacrifice ply. */
     }; /**< Union of all substructures used by different ply linkage. */
 
     struct CcPly * next; /**< Next ply in a cascade. */
@@ -205,8 +218,12 @@ bool cc_ply_free_all_plies( CcPly ** const plies_f );
 
 
 /** @defgroup ply_convenience The ply conveniences
- *  The ply convenience functions are meant to be used instead of `cc_ply_new()`, and `cc_ply_append_new()`,
-    because they have minimal set of arguments required by type of a ply (its linkage).
+ *  The ply convenience functions are meant to be used instead of `cc_ply_new()`, and `cc_ply_append_new()`.
+
+    They have minimal set of arguments required by the type of a ply (its linkage),
+    otherwise they behave exactly as their generic progenitor.
+
+    @see cc_ply_new(), cc_ply_append_new()
  *  @{
  */
 
