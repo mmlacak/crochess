@@ -10,7 +10,7 @@
 #include "cc_ply.h"
 #include "cc_move.h"
 
-#include "cc_parser.h"
+#include "cc_parse_msg.h"
 
 CcPly * cc_parse_ply( char const * const restrict ply_str,
                       CcChessboard const * const restrict cb,
