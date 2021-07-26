@@ -8,6 +8,15 @@
 #include "cc_move.h"
 
 
+/**
+    @file cc_do_moves.h
+    @brief Enumeration, and related functions applying transformations to chessboard.
+*/
+
+
+/**
+    Apply move enumeration.
+*/
 typedef enum CcDoMoveEnum
 {
     CC_DME_DoOnlyCurrentMove,
@@ -16,18 +25,70 @@ typedef enum CcDoMoveEnum
 } CcDoMoveEnum;
 
 
+/**
+    Function returning linkage of a next ply in a cascade.
+
+    @param ply A ply.
+
+    @return Linkage if successful (and if there is next ply in a cascade), `NULL` otherwise.
+*/
 CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply );
+
+/**
+    Checks if linkage of a next ply in a cascade is teleportation.
+
+    @param ply A ply.
+    @param including_wave Whether to include Wave teleportation.
+
+    @note
+    Currently, teleporting linkages are:
+    - `CC_PLE_Teleportation`
+    - `CC_PLE_FailedTeleportation`
+    - `CC_PLE_FailedTeleportationOblation`
+    - `CC_PLE_TeleportationWave`, if including Wave flag is `true`
+
+    @return `true` if next ply is teleporting, `false` otherwise.
+*/
 bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wave );
 
+
+/**
+    Applies step to chessboard.
+
+    @param cb A chessboard to be altered.
+    @param move Grand-parent move which owns this step.
+    @param ply Parent ply which owns this step.
+    @param step A step being applied.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_do_step( CcChessboard * const restrict cb,
                  CcMove const * const restrict move,
                  CcPly const * const restrict ply,
                  CcStep const * const restrict step );
 
+/**
+    Applies ply to chessboard.
+
+    @param cb A chessboard to be altered.
+    @param move Parent move which owns this step.
+    @param ply A ply being applied.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_do_ply( CcChessboard * const restrict cb,
                 CcMove const * const restrict move,
                 CcPly const * const restrict ply );
 
+/**
+    Applies move(s) to chessboard.
+
+    @param cb A chessboard to be altered.
+    @param moves A move(s) being applied.
+    @param do_spec Flag, which move(s) are to be applied.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_do_moves( CcChessboard * const restrict cb,
                   CcMove const * const restrict moves,
                   CcDoMoveEnum do_spec );

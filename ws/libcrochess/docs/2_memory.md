@@ -109,14 +109,14 @@ e.g. `str_sio_n`.
 
 ### Functions
 
-| Indicator |              `arg` |                     `*arg` |
+| Indicator |           `return` |                  `*return` |
 | --------: | -----------------: | -------------------------: |
 |           |             borrow | read (+ write, if mutable) |
 |    `_new` | ownership transfer |    read + write + `free()` |
 
 ### Variables
 
-| Indicator |     Variable |     `arg` |                  `*arg` |
+| Indicator |     Variable |     `var` |                  `*var` |
 | --------: | -----------: | --------: | ----------------------: |
 |           |   standalone |    borrow |            read + write |
 |     `__o` |   standalone | ownership | read + write + `free()` |
