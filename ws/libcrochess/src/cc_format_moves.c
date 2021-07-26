@@ -9,6 +9,11 @@
 #include "cc_format_moves.h"
 #include "cc_str_utils.h"
 
+/**
+    @file cc_format_moves.c
+    @brief Functions to format move(s) as algebraic notation.
+*/
+
 
 CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
                              CcFormatStepUsageEnum usage,
@@ -326,19 +331,19 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
                            CcPly const * const restrict ply,
                            CcStep const * const restrict step,
                            CcFormatMove const format_move,
-                           bool * const restrict has_preceding_step )
+                           bool * const restrict has_preceding_step_io )
 {
     if ( !cb ) return NULL;
     if ( !move ) return NULL;
     if ( !ply ) return NULL;
     if ( !step ) return NULL;
-    if ( !has_preceding_step ) return NULL;
+    if ( !has_preceding_step_io ) return NULL;
 
     char * result = NULL;
 
     if ( step->usage <= format_move.usage )
     {
-        if ( *has_preceding_step )
+        if ( *has_preceding_step_io )
         {
             switch ( step->link )
             {
@@ -349,7 +354,7 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
             }
         }
 
-        *has_preceding_step = true;
+        *has_preceding_step_io = true;
 
         cc_str_append_char( &result, cc_format_pos_file( step->i ) );
 

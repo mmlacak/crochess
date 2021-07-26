@@ -7,7 +7,6 @@
 #include "cc_variant.h"
 #include "cc_setup_tags.h"
 
-
 /**
     @file cc_setup_tags.c
     @brief Tag constant setups, and related functions.

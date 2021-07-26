@@ -6,7 +6,6 @@
 
 #include "cc_piece.h"
 
-
 /**
     @file cc_piece.c
     @brief Piece related functions.

@@ -6,7 +6,6 @@
 
 #include <stdbool.h>
 
-
 /**
     @file cc_variant.h
     @brief Variants constants, symbols, enumeration, and related functions.

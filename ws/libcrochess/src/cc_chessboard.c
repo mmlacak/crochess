@@ -13,7 +13,6 @@
 #include "cc_setup_tags.h"
 #include "cc_chessboard.h"
 
-
 /**
     @file cc_chessboard.c
     @brief Chessboard related functions.

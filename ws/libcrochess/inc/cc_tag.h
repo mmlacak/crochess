@@ -4,7 +4,6 @@
 #ifndef __CC_TAG_H__
 #define __CC_TAG_H__
 
-
 /**
     @file cc_tag.h
     @brief Tag enumeration, and related functions.

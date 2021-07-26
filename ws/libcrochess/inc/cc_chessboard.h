@@ -8,7 +8,6 @@
 #include "cc_tag.h"
 #include "cc_variant.h"
 
-
 /**
     @file cc_chessboard.h
     @brief Chessboard structure, and related functions.

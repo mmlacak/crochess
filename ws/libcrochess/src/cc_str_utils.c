@@ -12,7 +12,6 @@
 #include "cc_defines.h"
 #include "cc_str_utils.h"
 
-
 /**
     @file cc_str_utils.c
     @brief String utility functions.

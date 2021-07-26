@@ -129,6 +129,8 @@ e.g. `str_sio_n`.
 | --------: | -------------: | ----------------: |
 |           |          input |              read |
 |      `_s` |  input, `NULL` |    read, _static_ |
+|      `_o` |         output |             write |
+|     `_io` | input + output |      read + write |
 
 ### Ownership transfer parameters
 

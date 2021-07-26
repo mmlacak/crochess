@@ -8,7 +8,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-
 /**
     @file cc_tokenizer.h
     @brief Tokenizer constants, and related functions.

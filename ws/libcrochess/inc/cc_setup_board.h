@@ -7,7 +7,6 @@
 #include "cc_piece.h"
 #include "cc_variant.h"
 
-
 /**
     @file cc_setup_board.h
     @brief Board constant setups, and related functions.

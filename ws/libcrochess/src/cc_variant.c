@@ -8,7 +8,6 @@
 #include "cc_str_utils.h"
 #include "cc_variant.h"
 
-
 /**
     @file cc_variant.c
     @brief Variants symbols, and related functions.

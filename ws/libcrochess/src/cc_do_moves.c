@@ -10,6 +10,11 @@
 
 #include "cc_do_moves.h"
 
+/**
+    @file cc_do_moves.c
+    @brief Functions applying transformations to chessboard.
+*/
+
 
 CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply )
 {

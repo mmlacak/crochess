@@ -7,7 +7,6 @@
 #include "cc_chessboard.h"
 #include "cc_move.h"
 
-
 /**
     @file cc_do_moves.h
     @brief Enumeration, and related functions applying transformations to chessboard.

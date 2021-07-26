@@ -8,7 +8,6 @@
 
 #include "cc_tokenizer.h"
 
-
 /**
     @file cc_tokenizer.c
     @brief Tokenizer constants, and related functions.

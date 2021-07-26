@@ -5,7 +5,6 @@
 
 #include "cc_version.h"
 
-
 /**
     @file cc_version.c
     @brief Library version constant.

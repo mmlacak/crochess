@@ -3,7 +3,6 @@
 
 #include "cc_tag.h"
 
-
 /**
     @file cc_tag.c
     @brief Tag related functions.

@@ -9,7 +9,6 @@
 #include "cc_ply.h"
 #include "cc_move.h"
 
-
 /**
     @file cc_move.c
     @brief Move enumeration, structure, and related functions.

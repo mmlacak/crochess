@@ -8,7 +8,6 @@
 
 #include "cc_piece.h"
 
-
 /**
     @file cc_step.h
     @brief Step enumerations, structures, and related functions.

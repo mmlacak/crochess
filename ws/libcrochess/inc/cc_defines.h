@@ -4,7 +4,6 @@
 #ifndef __CC_DEFINES_H__
 #define __CC_DEFINES_H__
 
-
 /**
     @file cc_defines.h
     @brief Defines and macros used in project.

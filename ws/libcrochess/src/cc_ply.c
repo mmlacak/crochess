@@ -6,7 +6,6 @@
 #include "cc_defines.h"
 #include "cc_ply.h"
 
-
 /**
     @file cc_ply.c
     @brief Ply related functions.

@@ -4,7 +4,6 @@
 #ifndef __CC_VERSION_H__
 #define __CC_VERSION_H__
 
-
 /**
     @file cc_version.h
     @brief Library version constant.

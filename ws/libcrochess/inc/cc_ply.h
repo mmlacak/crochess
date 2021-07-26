@@ -9,7 +9,6 @@
 #include "cc_piece.h"
 #include "cc_step.h"
 
-
 /**
     @file cc_ply.h
     @brief Ply enumeration, structures, and related functions.

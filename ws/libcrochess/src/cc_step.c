@@ -6,7 +6,6 @@
 #include "cc_defines.h"
 #include "cc_step.h"
 
-
 /**
     @file cc_step.c
     @brief Step related functions.
