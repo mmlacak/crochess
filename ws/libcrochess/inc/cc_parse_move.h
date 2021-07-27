@@ -21,4 +21,8 @@ CcMove * cc_parse_move( char const * const restrict move_str,
                         CcParseMsg ** parse_msgs );
 
 
+char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
+                                  CcParseMsg ** parse_msgs );
+
+
 #endif /* __CC_PARSE_MOVE_H__ */

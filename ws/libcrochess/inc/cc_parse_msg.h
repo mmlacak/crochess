@@ -101,7 +101,4 @@ CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f );
 
 
-char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
-                                  CcParseMsg ** parse_msgs );
-
 #endif /* __CC_PARSER_H__ */
