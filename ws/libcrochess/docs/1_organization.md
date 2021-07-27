@@ -33,8 +33,8 @@ Organization
 ------------
 
 Items (pieces, tags, variants, moves, plies, steps) introduced in [the book] are represented
-in the samely named files (headers and sources), `cc_piece`, `cc_tag`, `cc_variant`, `cc_move`,
-`cc_ply`, `cc_step`.
+in the samely named files (headers and sources), e.g. `cc_piece`, `cc_tag`, `cc_variant`,
+`cc_move`, `cc_ply`, `cc_step`.
 
 Board (as a holder of pieces) and tags are combined in a `cc_chessboard` files. Initial setup
 for those can be found in `cc_setup_board` and `cc_setup_tags` files.
@@ -45,8 +45,8 @@ Functions in this module assume that argument(s) are correct, so there are only 
 Moves are formatted into algebraic notation in a `cc_format_moves` files.
 These functions too assume that argument(s) are correct, so there are only a few sanity checks.
 
-Parser messages (and other generic parser stuff) are located in `cc_parser` files.
-Move parsing module (`cc_parse_move` files) is not finished yet.
+Parser messages are located in `cc_parse_msg` files. Move parsing module (`cc_parse_move` files)
+is not finished yet.
 
 House-keeping utilities are comprised of the rest of modules:
 - `cc_define.h` contains `#define`s used accross modules

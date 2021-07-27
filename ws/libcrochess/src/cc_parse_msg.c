@@ -15,7 +15,6 @@
 */
 
 
-
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
                                size_t pos,
                                char const * const restrict msg )
