@@ -6,6 +6,15 @@
 
 #include <stdbool.h>
 
+/**
+    @file cc_parse_msg.h
+    @brief Parse message enumeration, structure, and related functions.
+*/
+
+
+/**
+    Parser message enumeration.
+*/
 typedef enum CcParseMsgEnum
 {
     CC_PME_Debug,
@@ -15,28 +24,80 @@ typedef enum CcParseMsgEnum
     CC_PME_Fatal,
 } CcParseMsgEnum;
 
+/**
+    Parser message structure, linked list.
+*/
 typedef struct CcParseMsg
 {
-    CcParseMsgEnum type;
-    size_t pos;
-    char const * msg;
-    struct CcParseMsg * next;
+    CcParseMsgEnum type; /**< Type of a parser message. */
+    size_t pos; /**< Position within string, e.g. user input. */
+    char const * msg; /**< Parser message. */
+    struct CcParseMsg * next; /**< Next parser message, in a linked list. */
 } CcParseMsg;
 
+/**
+    Returns a newly allocated parser message.
+
+    @param type Type of a parser message.
+    @param pos Position within string, e.g. user input.
+    @param msg Parser message.
+
+    @return A newly allocated parser message if successful, `NULL` otherwise.
+*/
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
                                size_t pos,
                                char const * const restrict msg );
 
+/**
+    Allocates a new parser message, appends it to a linked list.
+
+    @param parse_msgs Linked list of parser messages, to which a newly allocated parser message is appended.
+    @param type Type of a parser message.
+    @param pos Position within string, e.g. user input.
+    @param msg Parser message.
+
+    @note
+    Linked list `parse_msgs` can be `NULL`, a parser message will still be allocated, and returned.
+
+    @return
+    A newly allocated parser message, is successful, `NULL` otherwise.
+*/
 CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
                                       CcParseMsgEnum type,
                                       size_t pos,
                                       char const * const restrict msg );
 
-CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs,
+/**
+    Allocates a new parser message, appends it to a linked list.
+
+    @param parse_msgs_io Linked list of parser messages, to which a newly allocated parser message is appended.
+    @param type Type of a parser message.
+    @param pos Position within string, e.g. user input.
+    @param msg Parser message.
+
+    @note
+    Linked list `*parse_msgs_io` can be `NULL`, a parser message will still be allocated, and returned.
+
+    @note
+    If linked list `*parse_msgs_io` is `NULL`, it will be initialized,
+    with a newly allocated parser message as its first element.
+
+    @return
+    A newly allocated parser message, is successful, `NULL` otherwise.
+*/
+CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs_io,
                                               CcParseMsgEnum type,
                                               size_t pos,
                                               char const * const restrict msg );
 
+/**
+    Frees all parser messages, and associated resources, in a linked list.
+
+    @param parse_msgs_f Linked list of parser messages.
+
+    @return `true` if successful, `false` otherwise.
+
+*/
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f );
 
 
