@@ -3,6 +3,11 @@
 
 #include "cc_test_utils.h"
 
+/**
+    @file cc_test_utils.c
+    @brief Convenience test functions.
+*/
+
 
 bool cc_test_util_free_all( CcChessboard ** const cb_f,
                             CcMove ** const moves_f,

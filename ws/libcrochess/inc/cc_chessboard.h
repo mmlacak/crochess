@@ -100,6 +100,13 @@ bool cc_chessboard_copy( CcChessboard * const restrict into_io, CcChessboard con
 */
 CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict from );
 
+/**
+    Frees chessboard, and all allocated resources.
+
+    @param cb_f A chessboard.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_chessboard_free_all( CcChessboard ** const cb_f );
 
 
