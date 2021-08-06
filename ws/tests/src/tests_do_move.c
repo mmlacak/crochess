@@ -82,7 +82,7 @@ bool test_do_move_single_ply( TestPrints tp )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &ply, &start, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -194,7 +194,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -258,7 +258,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     if ( !move_1 ) return cc_test_util_free_all( &cb__o, &move__o, &plies_3, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move_1, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -370,7 +370,7 @@ bool test_do_move_castling( TestPrints tp )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &ply, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -498,7 +498,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -558,7 +558,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     if ( !move_1 ) return cc_test_util_free_all( &cb__o, &move__o, &plies_2, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move_1, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -684,7 +684,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -774,7 +774,7 @@ bool test_do_move_demotion( TestPrints tp )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -880,7 +880,7 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -1020,7 +1020,7 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -1195,7 +1195,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
@@ -1379,7 +1379,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move__o not done", __FILE__, __LINE__, __func__ )
+                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( tp.do_print_move )
