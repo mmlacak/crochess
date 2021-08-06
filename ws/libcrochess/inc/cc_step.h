@@ -5,6 +5,7 @@
 #define __CC_STEP_H__
 
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "cc_piece.h"
 

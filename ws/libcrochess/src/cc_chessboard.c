@@ -133,6 +133,17 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict 
     return cb;
 }
 
+bool cc_chessboard_free_all( CcChessboard ** const cb_f )
+{
+    if ( !cb_f ) return false;
+    if ( !*cb_f ) return true;
+
+    free( *cb_f );
+    *cb_f = NULL;
+
+    return true;
+}
+
 
 bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb, int i, int j )
 {

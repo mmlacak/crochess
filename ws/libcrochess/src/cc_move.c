@@ -6,7 +6,6 @@
 
 #include "cc_str_utils.h"
 
-#include "cc_ply.h"
 #include "cc_move.h"
 
 /**

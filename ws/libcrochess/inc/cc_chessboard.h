@@ -100,6 +100,8 @@ bool cc_chessboard_copy( CcChessboard * const restrict into_io, CcChessboard con
 */
 CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict from );
 
+bool cc_chessboard_free_all( CcChessboard ** const cb_f );
+
 
 /**
     Function returning if given position belongs to a board.
