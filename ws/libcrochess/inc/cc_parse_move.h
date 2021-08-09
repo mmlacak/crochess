@@ -17,17 +17,29 @@
 // TODO :: DOCS
 CcPly * cc_parse_ply( char const * const restrict ply_str,
                       CcChessboard const * const restrict cb,
-                      CcParseMsg ** parse_msgs );
+                      CcParseMsg ** parse_msgs_io );
 
 // TODO :: DOCS
 CcMove * cc_parse_move( char const * const restrict move_str,
                         CcChessboard const * const restrict cb,
-                        CcParseMsg ** parse_msgs );
+                        CcParseMsg ** parse_msgs_io );
 
 
 // TODO :: DOCS
-char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
-                                  CcParseMsg ** parse_msgs );
+bool cc_parse_char_is_ply_gather( char const c );
+
+// TODO :: DOCS
+char const * cc_parse_ply_gathers( char const * const restrict move_str, bool skip_or_stop_at );
+
+// TODO :: DOCS
+bool cc_parse_is_segment_divider(char const * const restrict move_str );
+
+// TODO :: DOCS
+char const * cc_parse_segment_divider( char const * const restrict move_str, bool skip_or_stop_at );
+
+// TODO :: DOCS
+char * cc_parse_next_segment_str_new( char const * const restrict move_str_s,
+                                      CcParseMsg ** parse_msgs_io );
 
 
 // TODO :: DOCS

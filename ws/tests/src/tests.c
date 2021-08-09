@@ -26,7 +26,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.69:173+20210809.010636"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.70:174+20210809.033253"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -186,18 +186,20 @@ int main( void )
         else if ( !strcmp( "y", cmd ) )
         {
             // char const * const user_an = "[Ng6]~[We5]~[Re8]";
-            // char const * const user_an = "Ne6~[Wa3]";
-            char const * const user_an = "Ne6-a3";
-            // char * user_an = cc_next_token_new( NULL, NULL );
+            // char const * const user_an = "Ng6~[We5]~Re8";
+            // char const * const user_an = "Ne6-a3";
+
+            // TODO :: Uncomment free(), if this is active!
+            char * user_an = cc_next_token_new( NULL, NULL );
 
             if ( user_an )
             {
                 printf( "%s\n", user_an );
 
                 CcParseMsg * pmsgs = NULL;
-                char * an = cc_parse_next_ply_str_new( user_an, &pmsgs );
+                char * an = cc_parse_next_segment_str_new( user_an, &pmsgs );
 
-                while ( true )
+                do
                 {
                     if ( pmsgs )
                     {
@@ -212,15 +214,16 @@ int main( void )
                         free( an );
                         an = NULL;
                     }
-                    else break;
 
-                    an = cc_parse_next_ply_str_new( NULL, &pmsgs );
+                    an = cc_parse_next_segment_str_new( NULL, &pmsgs );
                 }
+                while ( an );
 
                 cc_parse_msg_free_all( &pmsgs );
 
-                // free( user_an );
-                // user_an = NULL;
+                // TODO :: Uncomment, if cc_next_token_new() is active!
+                free( user_an );
+                user_an = NULL;
             }
         }
         else if ( !strcmp( "z", cmd ) )
