@@ -26,7 +26,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.70:174+20210809.033253"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.71:175+20210809.045750"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -188,6 +188,7 @@ int main( void )
             // char const * const user_an = "[Ng6]~[We5]~[Re8]";
             // char const * const user_an = "Ng6~[We5]~Re8";
             // char const * const user_an = "Ne6-a3";
+            // char const * const user_an = "Hb14~We12@@P,B,R,R,N,B,N";
 
             // TODO :: Uncomment free(), if this is active!
             char * user_an = cc_next_token_new( NULL, NULL );
@@ -197,7 +198,7 @@ int main( void )
                 printf( "%s\n", user_an );
 
                 CcParseMsg * pmsgs = NULL;
-                char * an = cc_parse_next_segment_str_new( user_an, &pmsgs );
+                char * an = cc_parse_next_ply_str_new( user_an, &pmsgs );
 
                 do
                 {
@@ -215,7 +216,7 @@ int main( void )
                         an = NULL;
                     }
 
-                    an = cc_parse_next_segment_str_new( NULL, &pmsgs );
+                    an = cc_parse_next_ply_str_new( NULL, &pmsgs );
                 }
                 while ( an );
 

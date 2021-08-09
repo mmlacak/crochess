@@ -13,7 +13,6 @@
 #include "cc_parse_msg.h"
 
 
-
 // TODO :: DOCS
 CcPly * cc_parse_ply( char const * const restrict ply_str,
                       CcChessboard const * const restrict cb,
@@ -32,13 +31,13 @@ bool cc_parse_char_is_ply_gather( char const c );
 char const * cc_parse_ply_gathers( char const * const restrict move_str, bool skip_or_stop_at );
 
 // TODO :: DOCS
-bool cc_parse_is_segment_divider(char const * const restrict move_str );
+size_t cc_parse_ply_divider_len(char const * const restrict move_str );
 
 // TODO :: DOCS
-char const * cc_parse_segment_divider( char const * const restrict move_str, bool skip_or_stop_at );
+char const * cc_parse_ply_divider( char const * const restrict move_str, bool skip_or_stop_at );
 
 // TODO :: DOCS
-char * cc_parse_next_segment_str_new( char const * const restrict move_str_s,
+char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
                                       CcParseMsg ** parse_msgs_io );
 
 

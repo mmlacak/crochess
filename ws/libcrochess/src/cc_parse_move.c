@@ -87,85 +87,111 @@ char const * cc_parse_ply_gathers( char const * const restrict move_str, bool sk
     return m;
 }
 
-bool cc_parse_is_segment_divider( char const * const restrict move_str )
+size_t cc_parse_ply_divider_len(char const * const restrict move_str )
 {
-    if ( !move_str ) return false;
+    if ( !move_str ) return 0;
 
-    char const c = *move_str;
+    char const * c = move_str;
 
-    if ( ( c == '~' ) || ( c == '@' ) || ( c == '|' ) || ( c == ':' ) ) return true;
+    if ( *c == '~' ) return 1;
 
-// TODO :: FIX
-    // if ( *move_str == ':' )
-    //     return ( *(move_str + 1) == ':' );
+    if ( *c == '|' )
+    {
+        if ( *++c == '|' ) return 2;
+        return 1;
+    }
 
-    return false;
+    if ( *c == '@' )
+    {
+        if ( *++c == '@' )
+        {
+            if ( *++c == '@' ) return 3;
+            return 2;
+        }
+        return 1;
+    }
+
+    if ( *c == ':' )
+    {
+        if ( *++c == ':' ) return 2;
+        return 0; // En passant is not ply divider.
+    }
+
+    return 0;
 }
 
-char const * cc_parse_segment_divider( char const * const restrict move_str, bool skip_or_stop_at )
+char const * cc_parse_ply_divider( char const * const restrict move_str, bool skip_or_stop_at )
 {
     if ( !move_str ) return NULL;
 
     char const * m = move_str;
 
     if ( skip_or_stop_at )
-        while ( ( *m != '\0' ) && ( cc_parse_is_segment_divider( m ) ) ) ++m;
+        while ( *m != '\0' )
+        {
+            size_t len = cc_parse_ply_divider_len( m );
+
+            if ( len > 0 )
+                m += len;
+            else
+                break;
+        }
     else
-        while ( ( *m != '\0' ) && ( !cc_parse_is_segment_divider( m ) ) ) ++m;
+        while ( ( *m != '\0' ) && ( !cc_parse_ply_divider_len( m ) ) ) ++m;
 
     return m;
 }
 
-char * cc_parse_next_segment_str_new( char const * const restrict move_str_s,
+char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
                                       CcParseMsg ** parse_msgs_io )
 {
     if ( !parse_msgs_io ) return NULL;
 
     static char const * move_start = NULL;
-    static char const * seg_start = NULL;
-    static char const * seg_end = NULL;
+    static char const * ply_start = NULL;
+    static char const * ply_end = NULL;
 
     bool parse_1st = (bool)move_str_s;
 
     if ( move_str_s )
     {
-        move_start = seg_start = seg_end = move_str_s;
+        move_start = ply_start = ply_end = move_str_s;
     }
 
-    if ( !seg_end ) return NULL;
+    if ( !ply_end ) return NULL;
 
-    if ( *seg_end == '\0' )
+    if ( *ply_end == '\0' )
     {
-        seg_end = NULL; // Invalidate future calls without initialization.
+        ply_end = NULL; // Invalidate future calls without initialization.
         return NULL;
     }
 
     if ( !parse_1st )
-        seg_start = cc_parse_segment_divider( seg_end, false );
+        ply_start = cc_parse_ply_divider( ply_end, false );
 
-    seg_end = cc_parse_segment_divider( seg_start, true );
-    seg_end = cc_parse_segment_divider( seg_end, false );
+    ply_end = cc_parse_ply_divider( ply_start, true );
+    ply_end = cc_parse_ply_divider( ply_end, false );
 
-    if ( seg_end == seg_start ) return NULL;
+    if ( ply_end == ply_start ) return NULL;
 
-    size_t len = seg_end - seg_start;
-    char * seg = malloc( len + 1 );
-    if ( !seg ) return NULL;
+    size_t len = ply_end - ply_start;
+    char * ply_str = malloc( len + 1 );
+    if ( !ply_str ) return NULL;
 
-    char const * pos = seg_start;
-    char * res = seg;
+    char const * in = ply_start;
+    char * out = ply_str;
 
-    while ( pos < seg_end )
+    while ( in < ply_end )
     {
-        if ( !cc_parse_char_is_ply_gather( *pos ) )
-            *res++ = *pos++;
+        if ( !cc_parse_char_is_ply_gather( *in ) )
+            *out++ = *in++;
         else
-            ++pos;
+            ++in;
     }
 
-    *res = '\0';
+    *out = '\0';
 
-    return seg;
+    return ply_str;
 }
 
 
