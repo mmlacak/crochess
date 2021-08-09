@@ -84,18 +84,24 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
 
     if ( move_str_s )
     {
-        move_start = ply_start = move_str_s;
+        move_start = ply_start = ply_end = move_str_s;
 
         if ( *ply_start == '[' )
         {
             skipped_opening_bracket = true;
-            ++ply_start;
+            ply_end = ++ply_start;
         }
     }
     else
     {
         if ( !ply_end ) return NULL;
-        ply_start = ply_end + 1;
+
+        // if ( *ply_end != '\0' )
+        //     ply_start = ply_end + 1;
+        // else
+        //     ply_start = ply_end;
+        // ply_start = ply_end + ( ( *ply_end != '\0' ) ? 1 : 0 );
+        ply_start = ply_end + ( isalnum( *ply_end ) ? 1 : 0 );
 
         if ( *ply_start == ']' ) ++ply_start;
 
@@ -179,13 +185,13 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
     ply_end = ply_start + 1;
     while ( isalnum( *ply_end ) ) ++ply_end;
 
-    if ( ( skipped_opening_bracket ) && ( *(ply_end + 1) != ']' ) )
+    if ( ( skipped_opening_bracket ) && ( *ply_end != ']' ) )
     {
         cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "no closing bracket" );
         return NULL;
     }
 
-    if ( ( *(ply_end + 1) == ']' ) && ( !skipped_opening_bracket ) )
+    if ( ( *ply_end == ']' ) && ( !skipped_opening_bracket ) )
     {
         cc_parse_msg_init_or_append_new( parse_msgs, CC_PME_Error, ply_start - move_start, "no opening bracket" );
         return NULL;
@@ -201,4 +207,17 @@ char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
     pos[ len ] = '\0';
 
     return pos;
+}
+
+
+CcParseMsg * cc_parse_msg_get_last( CcParseMsg const * const restrict parse_msgs )
+{
+    if ( !parse_msgs ) return NULL;
+
+    CcParseMsg * pm = (CcParseMsg *)parse_msgs;
+
+    while ( pm->next )
+        pm = pm->next;
+
+    return pm;
 }

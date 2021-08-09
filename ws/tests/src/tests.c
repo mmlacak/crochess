@@ -17,6 +17,8 @@
 #include "cc_ply.h"
 #include "cc_move.h"
 #include "cc_format_moves.h"
+#include "cc_parse_msg.h"
+#include "cc_parse_move.h"
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
@@ -24,7 +26,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.68:172+20210806.060307"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.69:173+20210809.010636"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -149,7 +151,7 @@ int main( void )
         {
             print_about_info();
         }
-        else if ( !strcmp( "y", cmd ) )
+        else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "test", cmd ) ) )
         {
             // CcFormatMove fm = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
             CcFormatMove fm = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
@@ -180,6 +182,46 @@ int main( void )
             if ( !test_do_move_trance_journey( tp, true ) ) printf( "Test test_do_move_trance_journey( _, true ) failed.\n" );
 
             printf( "Tests finished.\n" );
+        }
+        else if ( !strcmp( "y", cmd ) )
+        {
+            // char const * const user_an = "[Ng6]~[We5]~[Re8]";
+            // char const * const user_an = "Ne6~[Wa3]";
+            char const * const user_an = "Ne6-a3";
+            // char * user_an = cc_next_token_new( NULL, NULL );
+
+            if ( user_an )
+            {
+                printf( "%s\n", user_an );
+
+                CcParseMsg * pmsgs = NULL;
+                char * an = cc_parse_next_ply_str_new( user_an, &pmsgs );
+
+                while ( true )
+                {
+                    if ( pmsgs )
+                    {
+                        CcParseMsg * pm = cc_parse_msg_get_last( pmsgs );
+
+                        if ( pm ) printf( "%s at %lu\n", pm->msg, pm->pos );
+                    }
+
+                    if ( an )
+                    {
+                        printf( "%s\n", an );
+                        free( an );
+                        an = NULL;
+                    }
+                    else break;
+
+                    an = cc_parse_next_ply_str_new( NULL, &pmsgs );
+                }
+
+                cc_parse_msg_free_all( &pmsgs );
+
+                // free( user_an );
+                // user_an = NULL;
+            }
         }
         else if ( !strcmp( "z", cmd ) )
         {
