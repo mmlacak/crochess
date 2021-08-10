@@ -18,6 +18,7 @@
 #include "cc_move.h"
 #include "cc_format_moves.h"
 #include "cc_parse_msg.h"
+#include "cc_parse_utils.h"
 #include "cc_parse_move.h"
 
 #include "hlp_msgs.h"
@@ -26,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.71:175+20210809.045750"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.72:176+20210810.053334"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()

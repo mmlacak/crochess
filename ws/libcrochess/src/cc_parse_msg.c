@@ -1,8 +1,6 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
-#include <stdbool.h>
-#include <stdlib.h>
 #include <stdio.h>
 
 #include "cc_str_utils.h"
@@ -79,4 +77,17 @@ bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f )
 
     *parse_msgs_f = NULL;
     return true;
+}
+
+
+CcParseMsg * cc_parse_msg_get_last( CcParseMsg const * const restrict parse_msgs )
+{
+    if ( !parse_msgs ) return NULL;
+
+    CcParseMsg * pm = (CcParseMsg *)parse_msgs;
+
+    while ( pm->next )
+        pm = pm->next;
+
+    return pm;
 }

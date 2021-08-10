@@ -5,6 +5,7 @@
 #define __CC_STR_UTILS_H__
 
 #include <stdbool.h>
+#include <stdlib.h>
 
 /**
     @file cc_str_utils.h

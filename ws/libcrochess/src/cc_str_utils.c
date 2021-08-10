@@ -2,8 +2,6 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 #include <stddef.h>
-#include <stdbool.h>
-#include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
 #include <stdarg.h>
