@@ -41,6 +41,11 @@ CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light )
     }
 }
 
+CcPieceEnum cc_piece_is_symbol( char const c )
+{
+    return ( cc_piece_from_symbol( c, true ) != CC_PE_None ); // Argument is_light does not matter.
+}
+
 CcPieceEnum cc_piece_opposite( CcPieceEnum const pe )
 {
     switch ( pe )

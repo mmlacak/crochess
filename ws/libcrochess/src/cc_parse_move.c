@@ -12,9 +12,6 @@
 #include "cc_parse_move.h"
 
 
-// TODO :: DOCS
-
-
 CcPly * cc_parse_ply( char const * const restrict ply_str,
                       CcChessboard const * const restrict cb,
                       CcParseMsg ** parse_msgs_io )

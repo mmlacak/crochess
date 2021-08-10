@@ -1,6 +1,8 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+#include "cc_piece.h"
+
 #include "cc_parse_utils.h"
 
 
@@ -9,7 +11,7 @@ bool cc_parse_utils_char_is_ply_gather( char const c )
     return ( ( c == '[' ) || ( c == ']' ) );
 }
 
-char const * cc_parse_utils_go_ply_gathers( char const * const restrict move_str, bool skip_or_stop_at )
+char const * cc_parse_utils_go_ply_gather( char const * const restrict move_str, bool skip_or_stop_at )
 {
     if ( !move_str ) return NULL;
 
@@ -23,7 +25,7 @@ char const * cc_parse_utils_go_ply_gathers( char const * const restrict move_str
     return m;
 }
 
-size_t cc_parse_utils_ply_divider_len( char const * const restrict move_str )
+size_t cc_parse_utils_ply_link_len( char const * const restrict move_str )
 {
     if ( !move_str ) return 0;
 
@@ -56,7 +58,7 @@ size_t cc_parse_utils_ply_divider_len( char const * const restrict move_str )
     return 0;
 }
 
-char const * cc_parse_utils_go_ply_dividers( char const * const restrict move_str, bool skip_or_stop_at )
+char const * cc_parse_utils_go_ply_link( char const * const restrict move_str, bool skip_or_stop_at )
 {
     if ( !move_str ) return NULL;
 
@@ -65,7 +67,7 @@ char const * cc_parse_utils_go_ply_dividers( char const * const restrict move_st
     if ( skip_or_stop_at )
         while ( *m != '\0' )
         {
-            size_t len = cc_parse_utils_ply_divider_len( m );
+            size_t len = cc_parse_utils_ply_link_len( m );
 
             if ( len > 0 )
                 m += len;
@@ -73,7 +75,7 @@ char const * cc_parse_utils_go_ply_dividers( char const * const restrict move_st
                 break;
         }
     else
-        while ( ( *m != '\0' ) && ( !cc_parse_utils_ply_divider_len( m ) ) ) ++m;
+        while ( ( *m != '\0' ) && ( !cc_parse_utils_ply_link_len( m ) ) ) ++m;
 
     return m;
 }
@@ -100,10 +102,10 @@ char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
     }
 
     if ( !parse_1st )
-        ply_start = cc_parse_utils_go_ply_dividers( ply_end, false );
+        ply_start = cc_parse_utils_go_ply_link( ply_end, false );
 
-    ply_end = cc_parse_utils_go_ply_dividers( ply_start, true );
-    ply_end = cc_parse_utils_go_ply_dividers( ply_end, false );
+    ply_end = cc_parse_utils_go_ply_link( ply_start, true );
+    ply_end = cc_parse_utils_go_ply_link( ply_end, false );
 
     if ( ply_end == ply_start ) return NULL;
 
@@ -125,4 +127,90 @@ char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
     *out = '\0';
 
     return ply_str;
+}
+
+bool cc_parse_util_get_ply_link( char const * const restrict ply_str,
+                                 CcPlyLinkEnum * const restrict link_o )
+{
+    if ( !ply_str ) return false;
+    if ( !link_o ) return false;
+
+    size_t len = cc_parse_utils_ply_link_len( ply_str );
+
+    if ( len == 0 )
+    {
+        *link_o = CC_PLE_Ply;
+        return true;
+    }
+    else if ( len == 1 )
+    {
+        char const c_0 = ply_str[ 0 ];
+
+        if ( c_0 == '~' )
+        {
+            *link_o = CC_PLE_Ply;
+            return true;
+        }
+        else if ( c_0 == '|' )
+        {
+            char const c_1 = ply_str[ 1 ];
+
+            if ( c_1 == 'W' )
+                *link_o = CC_PLE_TeleportationWave;
+            else
+                *link_o = CC_PLE_Teleportation;
+
+            return true;
+        }
+        else if ( c_0 == '@' )
+        {
+            *link_o = CC_PLE_TranceJourney;
+            return true;
+        }
+        else
+            return false;
+    }
+    else if ( len == 2 )
+    {
+        char const c_0 = ply_str[ 0 ];
+        char const c_1 = ply_str[ 1 ];
+
+        if ( ( c_0 == '|' ) && ( c_1 == '|' ) )
+        {
+            char const c_2 = ply_str[ 2 ];
+            char const c_3 = ply_str[ 3 ];
+
+            if ( ( c_2 == '\0' ) ||
+                 ( cc_piece_is_symbol( c_2 ) && ( c_3 == '\0' ) ) )
+                *link_o = CC_PLE_FailedTeleportationOblation;
+            else
+                *link_o = CC_PLE_FailedTeleportation;
+
+            return true;
+        }
+        else if ( ( c_0 == '@' ) && ( c_1 == '@' ) )
+        {
+            *link_o = CC_PLE_DualTranceJourney;
+            return true;
+        }
+        else if ( ( c_0 == ':' ) && ( c_1 == ':' ) )
+        {
+            *link_o = CC_PLE_PawnSacrifice;
+            return true;
+        }
+    }
+    else if ( len == 3 )
+    {
+        char const c_0 = ply_str[ 0 ];
+        char const c_1 = ply_str[ 1 ];
+        char const c_2 = ply_str[ 2 ];
+
+        if ( ( c_0 == '@' ) && ( c_1 == '@' ) && ( c_2 == '@' ) )
+        {
+            *link_o = CC_PLE_FailedTranceJourney;
+            return true;
+        }
+    }
+
+    return false;
 }

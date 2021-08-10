@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.74:178+20210810.072844"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.75:179+20210810.092731"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -191,20 +191,39 @@ int main( void )
             // char const * const user_an = "Ne6-a3";
             // char const * const user_an = "Hb14~We12@@P,B,R,R,N,B,N";
 
+            // char const * const user_an = "Bi15~Wf12|Wr8~Np9";
+            // char const * const user_an = "Bi15~Wf12||W";
+            // char const * const user_an = "Hg10~Wh8@[Hh13<Bj19..f2<Nb6..j19<Bl25-v5<P==p7]";
+            // char const * const user_an = "Hg10~Wh8@[Hh13*B..f2*N..j19-v5*P==]";
+
+            char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
+
             // TODO :: Uncomment free(), if this is active!
-            char * user_an = cc_next_token_new( NULL, NULL );
+            // char * user_an = cc_next_token_new( NULL, NULL );
 
             if ( user_an )
             {
                 printf( "%s\n", user_an );
 
                 char * an = cc_parse_utils_next_ply_str_new( user_an );
+                CcPlyLinkEnum ple = CC_PLE_Ply;
+                bool result = true;
 
                 do
                 {
                     if ( an )
                     {
-                        printf( "%s\n", an );
+                        result = cc_parse_util_get_ply_link( an, &ple );
+
+                        if ( result )
+                        {
+                            printf( "%s # %d\n", an, ple );
+                        }
+                        else
+                        {
+                            printf( "%s # ---\n", an );
+                        }
+
                         free( an );
                         an = NULL;
                     }
@@ -214,8 +233,8 @@ int main( void )
                 while ( an );
 
                 // TODO :: Uncomment, if cc_next_token_new() is active!
-                free( user_an );
-                user_an = NULL;
+                // free( user_an );
+                // user_an = NULL;
             }
         }
         else if ( !strcmp( "z", cmd ) )

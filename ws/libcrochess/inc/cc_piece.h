@@ -88,6 +88,9 @@ typedef char (*cc_piece_fp_char_value_t)( CcPieceEnum const pe );
 */
 CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light );
 
+// TODO :: DOCS
+CcPieceEnum cc_piece_is_symbol( char const symbol );
+
 /**
     Function returning piece enum in opposite color (shade) to argument.
 
