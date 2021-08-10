@@ -427,31 +427,6 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
             break;
         }
 
-        case CC_PLE_TranceJourney :
-        {
-            bool is_start_pos_equal = false;
-
-            if ( step )
-            {
-                if ( step->link == CC_SLE_Start )
-                {
-                    is_start_pos_equal = ( ( step->i == ply->trance_journey.i )
-                                        && ( step->j == ply->trance_journey.j ) );
-                }
-            }
-
-            if ( !is_start_pos_equal )
-            {
-                char file = cc_format_pos_file( ply->trance_journey.i );
-                char * rank = cc_format_pos_rank_new( ply->trance_journey.j );
-
-                if ( rank )
-                    result = cc_str_append_format_len_new( &result, BUFSIZ, "%c%s,", file, rank );
-            }
-
-            break;
-        }
-
         case CC_PLE_DualTranceJourney :
         {
             CcPieceField * pf = ply->dual_trance_journey.captured;

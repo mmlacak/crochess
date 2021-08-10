@@ -1370,7 +1370,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     if ( !cc_step_append_new( steps_2, CC_SLE_Destination, 21, 4, sse_2_5, CC_FSUE_User ) )
         return cc_test_util_free_all( &cb__o, NULL, &plies_0, &steps_2, false );
 
-    if ( !cc_ply_trance_journey_append_new( plies_0, shaman, &steps_2, 7, 7 ) )
+    if ( !cc_ply_trance_journey_append_new( plies_0, shaman, &steps_2 ) )
         return cc_test_util_free_all( &cb__o, NULL, &plies_0, &steps_2, false );
 
     //

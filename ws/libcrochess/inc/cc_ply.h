@@ -105,15 +105,13 @@ typedef struct CcPly
                 } ply; /**< Ordinary, or cascading ply. */
 
         struct  { CcStep * steps; /**< Step(s) taken by the piece. */
-                } teleport; /**< Teleporting Wave. */
+                } teleport; /**< Teleporting piece. */
 
         struct  { int i; /**< File where piece reappeared. */
                   int j; /**< Rank where piece reappeared. */
                 } failed_teleport; /**< Failed teleportation, piece is not oblationed. */
 
-        struct  { int i; /**< File of a actual start along pattern, might be different from starting position for a dark Shaman. */
-                  int j; /**< Rank of a actual start along pattern, might be different from starting position for a dark Shaman. */
-                  CcStep * steps; /**< Steps in a trance-journey. */
+        struct  { CcStep * steps; /**< Steps in a trance-journey. */
                 } trance_journey; /**< Trance-journey ply. */
 
         struct  { CcPieceField * captured; /**< Linked list of pieces, and positions where they were captured. */
@@ -235,7 +233,7 @@ CcPly * cc_ply_cascade_new( CcPieceEnum piece, CcStep ** restrict steps_n );
 CcPly * cc_ply_teleport_new( CcPieceEnum piece, CcStep ** restrict steps_n );
 CcPly * cc_ply_failed_teleport_oblation_new( CcPieceEnum piece );
 CcPly * cc_ply_failed_teleport_new( CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_trance_journey_new( CcPieceEnum piece, CcStep ** restrict steps_n, int i, int j );
+CcPly * cc_ply_trance_journey_new( CcPieceEnum piece, CcStep ** restrict steps_n );
 CcPly * cc_ply_dual_trance_journey_new( CcPieceField ** restrict captured );
 CcPly * cc_ply_failed_trance_journey_new( CcPieceEnum piece );
 CcPly * cc_ply_pawn_sacrifice_new( CcPieceEnum piece, CcStep ** restrict steps_n );
@@ -257,7 +255,7 @@ CcPly * cc_ply_cascade_append_new( CcPly * const restrict plies, CcPieceEnum pie
 CcPly * cc_ply_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
 CcPly * cc_ply_failed_teleport_oblation_append_new( CcPly * const restrict plies, CcPieceEnum piece );
 CcPly * cc_ply_failed_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n, int i, int j );
+CcPly * cc_ply_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
 CcPly * cc_ply_dual_trance_journey_append_new( CcPly * const restrict plies, CcPieceField ** restrict captured );
 CcPly * cc_ply_failed_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece );
 CcPly * cc_ply_pawn_sacrifice_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );

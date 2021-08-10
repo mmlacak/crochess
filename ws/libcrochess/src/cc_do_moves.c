@@ -214,15 +214,6 @@ bool cc_do_ply( CcChessboard * const restrict cb,
 
             case CC_PLE_FailedTeleportationOblation : break; // Oblationed piece removed in previous ply, nothing to do here.
 
-            // case CC_PLE_TranceJourney :
-            // {
-            //     int i = ply->trance_journey.i;
-            //     int j = ply->trance_journey.j;
-
-            //     result = result && cc_chessboard_set_piece( cb, i, j, CC_PE_None );
-            //     break;
-            // }
-
             case CC_PLE_DualTranceJourney :
             {
                 CcPieceField * pf = ply->dual_trance_journey.captured;
