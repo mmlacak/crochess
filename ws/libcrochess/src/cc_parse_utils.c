@@ -78,11 +78,8 @@ char const * cc_parse_utils_go_ply_dividers( char const * const restrict move_st
     return m;
 }
 
-char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s,
-                                        CcParseMsg ** parse_msgs_io )
+char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
 {
-    if ( !parse_msgs_io ) return NULL;
-
     /* static char const * move_start = NULL; */
     static char const * ply_start = NULL;
     static char const * ply_end = NULL;
