@@ -1006,7 +1006,12 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
     if ( is_failed )
         ply_1 = cc_ply_failed_teleport_append_new( plies_0, CC_PE_LightBishop, 0, 24 );
     else
-        ply_1 = cc_ply_teleport_append_new( plies_0, CC_PE_LightBishop, 24, 24 );
+    {
+        CcStep * steps_1 = cc_step_none_new( CC_SLE_Destination, 24, 24, CC_FSUE_User );
+        if ( !steps_1 ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
+
+        ply_1 = cc_ply_teleport_append_new( plies_0, CC_PE_LightBishop, &steps_1 );
+    }
 
     if ( !ply_1 ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
@@ -1164,7 +1169,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
         if ( !cc_step_none_append_new( steps_2, CC_SLE_Destination, 17, 7, CC_FSUE_User ) )
             return cc_test_util_free_all( &cb__o, NULL, &plies_0, &steps_2, false );
 
-        ply_2 = cc_ply_teleport_wave_append_new( plies_0, CC_PE_LightWave, &steps_2 );
+        ply_2 = cc_ply_teleport_append_new( plies_0, CC_PE_LightWave, &steps_2 );
     }
 
     if ( !ply_2 ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );

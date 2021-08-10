@@ -23,8 +23,7 @@
 typedef enum CcPlyLinkEnum
 {
     CC_PLE_Ply, /**< Just one ply, starting or continuing cascade. If cascading, corresponds to `~`. */
-    CC_PLE_Teleportation, /**< Teleportation of piece (but not Wave!). Corresponds to `|`. */
-    CC_PLE_TeleportationWave, /**< Teleportation of Wave, corresponds to `|`. */
+    CC_PLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
     CC_PLE_FailedTeleportationOblation, /**< Failed teleportation, piece is oblationed, corresponds to `||`. */
     CC_PLE_FailedTeleportation, /**< Failed teleportation, piece is not oblationed, corresponds to `||`. */
     CC_PLE_TranceJourney, /**< Trance-journey, corresponds to `@`. */
@@ -105,12 +104,8 @@ typedef struct CcPly
         struct  { CcStep * steps; /**< Steps taken by the piece. */
                 } ply; /**< Ordinary, or cascading ply. */
 
-        struct  { int i; /**< File where piece teleported. */
-                  int j; /**< Rank where piece teleported. */
-                } teleport; /**< Teleporting piece (not a Wave!). */
-
-        struct  { CcStep * steps; /**< Steps taken by the Wave. */
-                } teleport_wave; /**< Teleporting Wave. */
+        struct  { CcStep * steps; /**< Step(s) taken by the piece. */
+                } teleport; /**< Teleporting Wave. */
 
         struct  { int i; /**< File where piece reappeared. */
                   int j; /**< Rank where piece reappeared. */
@@ -237,8 +232,7 @@ bool cc_ply_free_all_plies( CcPly ** const plies_f );
  */
 
 CcPly * cc_ply_cascade_new( CcPieceEnum piece, CcStep ** restrict steps_n );
-CcPly * cc_ply_teleport_new( CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_teleport_wave_new( CcPieceEnum piece, CcStep ** restrict steps_n );
+CcPly * cc_ply_teleport_new( CcPieceEnum piece, CcStep ** restrict steps_n );
 CcPly * cc_ply_failed_teleport_oblation_new( CcPieceEnum piece );
 CcPly * cc_ply_failed_teleport_new( CcPieceEnum piece, int i, int j );
 CcPly * cc_ply_trance_journey_new( CcPieceEnum piece, CcStep ** restrict steps_n, int i, int j );
@@ -260,8 +254,7 @@ CcPly * cc_ply_pawn_sacrifice_new( CcPieceEnum piece, CcStep ** restrict steps_n
  */
 
 CcPly * cc_ply_cascade_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
-CcPly * cc_ply_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_teleport_wave_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
+CcPly * cc_ply_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
 CcPly * cc_ply_failed_teleport_oblation_append_new( CcPly * const restrict plies, CcPieceEnum piece );
 CcPly * cc_ply_failed_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, int i, int j );
 CcPly * cc_ply_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n, int i, int j );

@@ -37,18 +37,16 @@ CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply );
     Checks if linkage of a next ply in a cascade is teleportation.
 
     @param ply A ply.
-    @param including_wave Whether to include Wave teleportation.
 
     @note
     Currently, teleporting linkages are:
     - `CC_PLE_Teleportation`
     - `CC_PLE_FailedTeleportation`
     - `CC_PLE_FailedTeleportationOblation`
-    - `CC_PLE_TeleportationWave`, if including Wave flag is `true`
 
     @return `true` if next ply is teleporting, `false` otherwise.
 */
-bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wave );
+bool cc_is_teleporting_next( CcPly const * const restrict ply );
 
 
 /**

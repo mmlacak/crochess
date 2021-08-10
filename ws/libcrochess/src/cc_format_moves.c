@@ -391,7 +391,6 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
     {
         case CC_PLE_Ply : result = cc_str_duplicate_len_new( ply_tilde, 1 ); break;
         case CC_PLE_Teleportation : result = cc_str_duplicate_len_new( "|", 1 ); break;
-        case CC_PLE_TeleportationWave : result = cc_str_duplicate_len_new( "|", 1 ); break;
         case CC_PLE_FailedTeleportationOblation : result = cc_str_duplicate_len_new( "||", 2 ); break;
         case CC_PLE_FailedTeleportation : result = cc_str_duplicate_len_new( "||", 2 ); break;
         case CC_PLE_TranceJourney : result = cc_str_duplicate_len_new( "@", 1 ); break;
@@ -417,17 +416,6 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
 
     switch ( ply->link )
     {
-        case CC_PLE_Teleportation :
-        {
-            char file = cc_format_pos_file( ply->teleport.i );
-            char * rank = cc_format_pos_rank_new( ply->teleport.j );
-
-            if ( rank )
-                result = cc_str_append_format_len_new( &result, BUFSIZ, "%c%s", file, rank );
-
-            break;
-        }
-
         case CC_PLE_FailedTeleportation :
         {
             char file = cc_format_pos_file( ply->failed_teleport.i );

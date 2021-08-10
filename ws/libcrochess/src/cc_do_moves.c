@@ -23,7 +23,7 @@ CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply )
     return &( ply->next->link );
 }
 
-bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wave )
+bool cc_is_teleporting_next( CcPly const * const restrict ply )
 {
     CcPlyLinkEnum * pl = cc_get_next_ply_link( ply );
     if ( !pl ) return false;
@@ -31,9 +31,6 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply, bool including_wa
     bool result = ( ( *pl == CC_PLE_Teleportation )
                  || ( *pl == CC_PLE_FailedTeleportation )
                  || ( *pl == CC_PLE_FailedTeleportationOblation ) );
-
-    if ( including_wave )
-        result = result || ( *pl == CC_PLE_TeleportationWave );
 
     return result;
 }
@@ -71,7 +68,7 @@ bool cc_do_step( CcChessboard * const restrict cb,
         {
             case CC_SEE_None :
             {
-                if ( is_last_step && ( !cc_is_teleporting_next( ply, true ) ) )
+                if ( is_last_step && ( !cc_is_teleporting_next( ply ) ) )
                     result = result && cc_chessboard_set_piece( cb, step->i, step->j, pe );
                 break;
             }
@@ -206,11 +203,10 @@ bool cc_do_ply( CcChessboard * const restrict cb,
     {
         switch ( ply->link )
         {
-            case CC_PLE_Teleportation :
             case CC_PLE_FailedTeleportation :
             {
-                int i = ply->teleport.i;
-                int j = ply->teleport.j;
+                int i = ply->failed_teleport.i;
+                int j = ply->failed_teleport.j;
 
                 result = result && cc_chessboard_set_piece( cb, i, j, pe );
                 break;

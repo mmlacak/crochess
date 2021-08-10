@@ -153,13 +153,7 @@ bool cc_parse_util_get_ply_link( char const * const restrict ply_str,
         }
         else if ( c_0 == '|' )
         {
-            char const c_1 = ply_str[ 1 ];
-
-            if ( c_1 == 'W' )
-                *link_o = CC_PLE_TeleportationWave;
-            else
-                *link_o = CC_PLE_Teleportation;
-
+            *link_o = CC_PLE_Teleportation;
             return true;
         }
         else if ( c_0 == '@' )
