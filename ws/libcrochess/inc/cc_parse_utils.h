@@ -11,20 +11,20 @@
 
 
 // TODO :: DOCS
-bool cc_parse_char_is_ply_gather( char const c );
+bool cc_parse_utils_char_is_ply_gather( char const c );
 
 // TODO :: DOCS
-char const * cc_parse_ply_gathers( char const * const restrict move_str, bool skip_or_stop_at );
+char const * cc_parse_utils_go_ply_gathers( char const * const restrict move_str, bool skip_or_stop_at );
 
 // TODO :: DOCS
-size_t cc_parse_ply_divider_len( char const * const restrict move_str );
+size_t cc_parse_utils_ply_divider_len( char const * const restrict move_str );
 
 // TODO :: DOCS
-char const * cc_parse_ply_divider( char const * const restrict move_str, bool skip_or_stop_at );
+char const * cc_parse_utils_go_ply_dividers( char const * const restrict move_str, bool skip_or_stop_at );
 
 // TODO :: DOCS
-char * cc_parse_next_ply_str_new( char const * const restrict move_str_s,
-                                  CcParseMsg ** parse_msgs_io );
+char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s,
+                                        CcParseMsg ** parse_msgs_io );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

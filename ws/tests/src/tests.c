@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.72:176+20210810.053334"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.73:177+20210810.054833"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -199,7 +199,7 @@ int main( void )
                 printf( "%s\n", user_an );
 
                 CcParseMsg * pmsgs = NULL;
-                char * an = cc_parse_next_ply_str_new( user_an, &pmsgs );
+                char * an = cc_parse_utils_next_ply_str_new( user_an, &pmsgs );
 
                 do
                 {
@@ -217,7 +217,7 @@ int main( void )
                         an = NULL;
                     }
 
-                    an = cc_parse_next_ply_str_new( NULL, &pmsgs );
+                    an = cc_parse_utils_next_ply_str_new( NULL, &pmsgs );
                 }
                 while ( an );
 
