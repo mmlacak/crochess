@@ -1333,10 +1333,14 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
 
     //
     // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
-    // ply @H..h13*B..f2*N..p7..j19..v5*P==
+    // ply @hh8,j9..h13*B..f2*n..p7..j19-v5*p==
 
     CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2 ) return cc_test_util_free_all( &cb__o, NULL, &plies_0, NULL, false );
+
+    if ( is_capturing )
+        if ( !cc_step_none_append_new( steps_2, CC_SLE_Restart, 9, 8, CC_FSUE_Clarification ) )
+            return cc_test_util_free_all( &cb__o, NULL, &plies_0, &steps_2, false );
 
     CcSideEffect sse_2_1 = is_capturing ?
                            cc_side_effect_capture( CC_PE_LightBishop, false ) :
@@ -1370,9 +1374,9 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
 
     //
     // move [He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]
-    //      [he9-g10]~[Wg10-h8]@[hh8..h13*B..f2*n..p7..j19-v5*p==]
+    //      [he9-g10]~[Wg10-h8]@[hh8,j9..h13*B..f2*n..p7..j19-v5*p==]
 
-    char * alg_not = ( is_capturing ) ? "[he9-g10]~[Wg10-h8]@[hh8..h13*B..f2*n..p7..j19-v5*p==]"
+    char * alg_not = ( is_capturing ) ? "[he9-g10]~[Wg10-h8]@[hh8,j9..h13*B..f2*n..p7..j19-v5*p==]"
                                       : "[He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]";
 
     CcMove * move__o = cc_move_new( alg_not, &plies_0, CC_MSE_None );

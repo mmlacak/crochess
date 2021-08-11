@@ -348,11 +348,15 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
             switch ( step->link )
             {
                 case CC_SLE_Start : break;
+                case CC_SLE_Restart : break;
                 case CC_SLE_Next : result = cc_str_duplicate_len_new( ".", 1 ); break;
                 case CC_SLE_Distant : result = cc_str_duplicate_len_new( "..", 2 ); break;
                 case CC_SLE_Destination : result = cc_str_duplicate_len_new( "-", 1 ); break;
             }
         }
+
+        if ( step->link == CC_SLE_Restart )
+            result = cc_str_duplicate_len_new( ",", 1 );
 
         *has_preceding_step_io = true;
 
