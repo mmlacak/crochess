@@ -42,9 +42,10 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
                              CcPly ** restrict plies_n,
                              CcMoveStatusEnum status )
 {
+    if ( !moves ) return NULL;
+
     CcMove * new = cc_move_new( notation, plies_n, status );
     if ( !new ) return NULL;
-    if ( !moves ) return new;
 
     CcMove * mv = moves;
     while ( mv->next ) mv = mv->next; // rewind

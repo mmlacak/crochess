@@ -38,9 +38,10 @@ CcPly * cc_ply_append_new( CcPly * const restrict plies,
                            CcPieceEnum piece,
                            CcStep ** restrict steps_n )
 {
+    if ( !plies ) return NULL;
+
     CcPly * new = cc_ply_new( link, piece, steps_n );
     if ( !new ) return NULL;
-    if ( !plies ) return new;
 
     CcPly * p = plies;
     while ( p->next ) p = p->next; // rewind

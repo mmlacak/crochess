@@ -157,9 +157,10 @@ CcStep * cc_step_append_new( CcStep * const restrict steps,
                              CcStepLinkEnum link, int i, int j, CcSideEffect side_effect,
                              CcFormatStepUsageEnum usage )
 {
+    if ( !steps ) return NULL;
+
     CcStep * new = cc_step_new( link, i, j, side_effect, usage );
     if ( !new ) return NULL;
-    if ( !steps ) return new;
 
     CcStep * s = steps;
     while ( s->next ) s = s->next; // rewind

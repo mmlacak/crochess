@@ -70,9 +70,10 @@ TestMsg * test_msg_append_new( TestMsg * const restrict test_msgs,
                                size_t line,
                                char const * const restrict func )
 {
+    if ( !test_msgs ) return NULL;
+
     TestMsg * new = test_msg_new( type, msg, file, line, func );
     if ( !new ) return NULL;
-    if ( !test_msgs ) return new;
 
     TestMsg * tm = test_msgs;
     while ( tm->next ) tm = tm->next; // rewind

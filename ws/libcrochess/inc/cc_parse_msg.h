@@ -63,6 +63,7 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
     @return
     A newly allocated parser message, is successful, `NULL` otherwise.
 */
+// TODO :: DOCS
 CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
                                       CcParseMsgEnum type,
                                       size_t pos,

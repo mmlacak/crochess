@@ -225,6 +225,7 @@ CcStep * cc_step_new( CcStepLinkEnum link,
     @return
     A newly allocated step, is successful, `NULL` otherwise.
 */
+// TODO :: DOCS
 CcStep * cc_step_append_new( CcStep * const restrict steps,
                              CcStepLinkEnum link, int i, int j, CcSideEffect side_effect,
                              CcFormatStepUsageEnum usage );

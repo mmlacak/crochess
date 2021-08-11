@@ -57,7 +57,7 @@ bool test_do_move_single_ply( TestPrints tp )
     //
     // steps
 
-    CcStep * start = cc_step_none_append_new( NULL, CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
+    CcStep * start = cc_step_none_new( CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
     if ( !start ) return cc_test_util_free_all( &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( start, CC_SLE_Next, 6, 4, CC_FSUE_Clarification_NoOutput ) )

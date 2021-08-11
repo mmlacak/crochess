@@ -33,9 +33,10 @@ CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
                                       size_t pos,
                                       char const * const restrict msg )
 {
+    if ( !parse_msgs ) return NULL;
+
     CcParseMsg * new = cc_parse_msg_new( type, pos, msg );
     if ( !new ) return NULL;
-    if ( !parse_msgs ) return new;
 
     CcParseMsg * pm = parse_msgs;
     while ( pm->next ) pm = pm->next; // rewind
