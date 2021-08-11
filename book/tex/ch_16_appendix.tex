@@ -1014,7 +1014,7 @@ are available for a particular variant see
                  | <rank>
                  | <field>
 
-<step> = .[.]<field>
+<step> = \alg{.}[\alg{.}]<field>
 
 <stepping> =
   [<disambiguation>]<field>
@@ -1179,8 +1179,8 @@ are available for a particular variant see
 <trance-journey-start> =
   ?
 | <disambiguation>
-| <disambiguation>,
-| <disambiguation>,<field>
+| \alg{,}<field>
+| <disambiguation>\alg{,}<field>
 
 <trance-journey> =
   <shaman-trance-journey-cascade>
@@ -1214,7 +1214,7 @@ are available for a particular variant see
 | <move-cascading>
 
 <pawn-sacrifice-capture> =
-  \alg{S}[<disambiguation>]\{.[.]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
+  \alg{S}[<disambiguation>]\{\alg{.}[\alg{.}]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
     [<pawn-sacrifice-end>]
 | \alg{S}<stepping>[<pawn-sacrifice-end>]
 
