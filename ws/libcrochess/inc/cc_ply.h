@@ -34,93 +34,18 @@ typedef enum CcPlyLinkEnum
 
 
 /**
-    Piece + field structure, linked list.
-
-    Used for enumerating pieces captured in a dual trance-journey.
-*/
-typedef struct CcPieceField
-{
-    CcPieceEnum piece; /**< A piece */
-    int i; /**< File. */
-    int j; /**< Rank. */
-    struct CcPieceField * next; /**< Next piece-field in a linked list. */
-} CcPieceField;
-
-/**
-    Allocates a new piece-field.
-
-    @param piece A piece.
-    @param i File.
-    @param j Rank.
-
-    @return A newly allocated piece-field.
-*/
-CcPieceField * cc_ply_piece_field_new( CcPieceEnum piece, int i, int j );
-
-/**
-    Allocates a new piece-field, appends it to a linked list.
-
-    @param piece_fields Linked list of piece-fields, to which a newly allocated piece-field is appended.
-    @param piece A piece.
-    @param i File.
-    @param j Rank.
-
-    @note
-    Linked list `piece_fields` can be `NULL`, a piece-field will still be allocated, and returned.
-
-    @return
-    A newly allocated piece-field, is successful, `NULL` otherwise.
-*/
-CcPieceField * cc_ply_piece_field_append_new( CcPieceField * const restrict piece_fields,
-                                              CcPieceEnum piece,
-                                              int i,
-                                              int j );
-
-/**
-    Frees all piece-fields in a linked list.
-
-    @param piece_fields_f Linked list of piece-fields.
-
-    @return `true` if successful, `false` otherwise.
-
-*/
-bool cc_ply_piece_field_free_all( CcPieceField ** const piece_fields_f );
-
-
-/**
     Ply structure, linked list.
 
     Contains union of structures, which correspond to a ply link.
 
     For instance, `ply->teleport` is used when linkage is `CC_PLE_Teleportation`.
 */
+// TODO :: DOCS
 typedef struct CcPly
 {
     CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
     CcPieceEnum piece; /**< Piece. */
-
-    union
-    {
-        struct  { CcStep * steps; /**< Steps taken by the piece. */
-                } ply; /**< Ordinary, or cascading ply. */
-
-        struct  { CcStep * steps; /**< Step(s) taken by the piece. */
-                } teleport; /**< Teleporting piece. */
-
-        struct  { int i; /**< File where piece reappeared. */
-                  int j; /**< Rank where piece reappeared. */
-                } failed_teleport; /**< Failed teleportation, piece is not oblationed. */
-
-        struct  { CcStep * steps; /**< Steps in a trance-journey. */
-                } trance_journey; /**< Trance-journey ply. */
-
-        struct  { CcPieceField * captured; /**< Linked list of pieces, and positions where they were captured. */
-                } dual_trance_journey; /**< Dual trance-journey. */
-
-        struct  { CcStep * steps; /**< Steps in a pawn-sacrifice. */
-                } pawn_sacrifice; /**< Pawn-sacrifice ply. */
-    }; /**< Union of all substructures used by different ply linkage. */
-
+    CcStep * steps; /**< Steps taken by the piece. */
     struct CcPly * next; /**< Next ply in a cascade. */
 } CcPly;
 
@@ -150,9 +75,8 @@ typedef struct CcPly
     @return
     A newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece,
-                    CcStep ** restrict steps_n, int i, int j,
-                    CcPieceField ** restrict captured_n );
+// TODO :: DOCS
+CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece, CcStep ** restrict steps_n );
 
 
 /**
@@ -190,10 +114,11 @@ CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece,
     @return
     A newly allocated ply, is successful, `NULL` otherwise.
 */
+// TODO :: DOCS
 CcPly * cc_ply_append_new( CcPly * const restrict plies,
-                           CcPlyLinkEnum link, CcPieceEnum piece,
-                           CcStep ** restrict steps_n, int i, int j,
-                           CcPieceField ** restrict captured_n );
+                           CcPlyLinkEnum link,
+                           CcPieceEnum piece,
+                           CcStep ** restrict steps_n );
 
 /**
     Frees all plies in a linked list, and all associated entities.
@@ -207,75 +132,6 @@ CcPly * cc_ply_append_new( CcPly * const restrict plies,
     @return `true` if successful, `false` otherwise.
 */
 bool cc_ply_free_all_plies( CcPly ** const plies_f );
-
-
-/** @defgroup ply_convenience The ply conveniences
- *  The ply convenience functions are meant to be used instead of `cc_ply_new()`, and `cc_ply_append_new()`.
-
-    They have minimal set of arguments required by the type of a ply (its linkage),
-    otherwise they behave exactly as their generic progenitor.
-
-    @see cc_ply_new(), cc_ply_append_new()
- *  @{
- */
-
-/** @defgroup ply_convenience_new The new ply conveniences
- *  The new ply convenience functions  are meant to be used instead of `cc_ply_new()`.
-
-    They have minimal set of arguments required by the type of a ply (its linkage),
-    otherwise they behave exactly as their generic progenitor.
-
-    @see cc_ply_new()
- *  @{
- */
-
-CcPly * cc_ply_cascade_new( CcPieceEnum piece, CcStep ** restrict steps_n );
-CcPly * cc_ply_teleport_new( CcPieceEnum piece, CcStep ** restrict steps_n );
-CcPly * cc_ply_failed_teleport_oblation_new( CcPieceEnum piece );
-CcPly * cc_ply_failed_teleport_new( CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_trance_journey_new( CcPieceEnum piece, CcStep ** restrict steps_n );
-CcPly * cc_ply_dual_trance_journey_new( CcPieceField ** restrict captured );
-CcPly * cc_ply_failed_trance_journey_new( CcPieceEnum piece );
-CcPly * cc_ply_pawn_sacrifice_new( CcPieceEnum piece, CcStep ** restrict steps_n );
-
-/** @} */ // end of ply_convenience_new
-
-
-/** @defgroup ply_convenience_append The append new ply conveniences
- *  The append new ply convenience functions are meant to be used instead of `cc_ply_append_new()`.
-
-    They have minimal set of arguments required by the type of a ply (its linkage),
-    otherwise they behave exactly as their generic progenitor.
-
-    @see cc_ply_append_new()
- *  @{
- */
-
-CcPly * cc_ply_cascade_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
-CcPly * cc_ply_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
-CcPly * cc_ply_failed_teleport_oblation_append_new( CcPly * const restrict plies, CcPieceEnum piece );
-CcPly * cc_ply_failed_teleport_append_new( CcPly * const restrict plies, CcPieceEnum piece, int i, int j );
-CcPly * cc_ply_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
-CcPly * cc_ply_dual_trance_journey_append_new( CcPly * const restrict plies, CcPieceField ** restrict captured );
-CcPly * cc_ply_failed_trance_journey_append_new( CcPly * const restrict plies, CcPieceEnum piece );
-CcPly * cc_ply_pawn_sacrifice_append_new( CcPly * const restrict plies, CcPieceEnum piece, CcStep ** restrict steps_n );
-
-/** @} */ // end of ply_convenience_append
-
-/** @} */ // end of ply_convenience
-
-
-/**
-    Returns steps, if a ply has ones.
-
-    @param ply A ply.
-
-    @note
-    A ply has steps, if its linkage is ordinary cascading, Wave teleportation, trance-journey, or pawn-sacrifice.
-
-    @return Steps, if successful, `NULL` otherwise.
-*/
-CcStep * cc_ply_get_steps( CcPly const * const restrict ply );
 
 /**
     Checks whether any step in a ply has side-effects.

@@ -18,17 +18,21 @@ CcMove * cc_move_new( char const * const restrict notation,
                       CcPly ** restrict plies_n,
                       CcMoveStatusEnum status )
 {
-    if ( !plies_n ) return NULL;
-
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
 
     mv->notation = cc_str_duplicate_len_new( notation, BUFSIZ );
-    mv->plies = *plies_n;
+
+    if ( plies_n )
+    {
+        mv->plies = *plies_n;
+        *plies_n = NULL; // Taking ownership.
+    }
+    else
+        mv->plies = NULL;
+
     mv->status = status;
     mv->next = NULL;
-
-    *plies_n = NULL; // Taking ownership.
 
     return mv;
 }

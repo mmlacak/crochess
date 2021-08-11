@@ -43,11 +43,12 @@ bool cc_do_step( CcChessboard * const restrict cb,
 {
     if ( !cb ) return false;
     if ( !move ) return false;
+    if ( !move->plies ) return false;
     if ( !ply ) return false;
     if ( !step ) return false;
 
     CcPieceEnum pe = ply->piece;
-    CcStep * steps = cc_ply_get_steps( ply );
+    CcStep * steps = ply->steps;
     if ( !steps ) return false;
 
     CcStep * last = steps;
@@ -181,56 +182,20 @@ bool cc_do_ply( CcChessboard * const restrict cb,
                 CcMove const * const restrict move,
                 CcPly const * const restrict ply )
 {
-    if ( !cb ) return false;
+    // if ( !cb ) return false;
 
-    if ( !move ) return false;
-    if ( !move->plies ) return false;
+    // if ( !move ) return false;
+    // if ( !move->plies ) return false;
 
     if ( !ply ) return false;
 
     bool result = true;
-
-    CcPieceEnum pe = ply->piece;
-    CcStep * s = cc_ply_get_steps( ply );
+    CcStep * s = ply->steps;
 
     while ( s && result )
     {
         result = result && cc_do_step( cb, move, ply, s );
         s = s->next;
-    }
-
-    if ( result )
-    {
-        switch ( ply->link )
-        {
-            case CC_PLE_FailedTeleportation :
-            {
-                int i = ply->failed_teleport.i;
-                int j = ply->failed_teleport.j;
-
-                result = result && cc_chessboard_set_piece( cb, i, j, pe );
-                break;
-            }
-
-            case CC_PLE_FailedTeleportationOblation : break; // Oblationed piece removed in previous ply, nothing to do here.
-
-            case CC_PLE_DualTranceJourney :
-            {
-                CcPieceField * pf = ply->dual_trance_journey.captured;
-
-                while ( pf )
-                {
-                    result = result && cc_chessboard_set_piece( cb, pf->i, pf->j, CC_PE_None );
-                    pf = pf->next;
-                }
-
-                break;
-            }
-
-            case CC_PLE_FailedTranceJourney : break; // Current piece already removed from chessboard, nothing to do here.
-
-            default : break; // Nothing to do, everything is within steps.
-        }
     }
 
     return result;

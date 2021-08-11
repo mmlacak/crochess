@@ -67,7 +67,7 @@ bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
 
     if ( !ply ) return format_move.default_wrap;
 
-    CcStep const * steps = cc_ply_get_steps( ply );
+    CcStep const * steps = ply->steps;
     size_t step_count = cc_step_count_usage( steps, format_move.usage );
 
     if ( format_move.wrap == CC_WPISB_IfCascading_HasSteps )
@@ -412,48 +412,7 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
             cc_str_append_char( &result, fp_char_value( ply->piece ) );
     }
 
-    CcStep const * step = cc_ply_get_steps( ply );
-
-    switch ( ply->link )
-    {
-        case CC_PLE_FailedTeleportation :
-        {
-            char file = cc_format_pos_file( ply->failed_teleport.i );
-            char * rank = cc_format_pos_rank_new( ply->failed_teleport.j );
-
-            if ( rank )
-                result = cc_str_append_format_len_new( &result, BUFSIZ, "%c%s", file, rank );
-
-            break;
-        }
-
-        case CC_PLE_DualTranceJourney :
-        {
-            CcPieceField * pf = ply->dual_trance_journey.captured;
-            bool is_first_capture = true;
-
-            while ( pf )
-            {
-                char file = cc_format_pos_file( pf->i );
-                char * rank = cc_format_pos_rank_new( pf->j );
-
-                if ( rank )
-                    result = cc_str_append_format_len_new( &result,
-                                                           BUFSIZ,
-                                                           ( is_first_capture ) ? "%c%c%s" : ",%c%c%s",
-                                                           fp_char_value( pf->piece ),
-                                                           file,
-                                                           rank );
-
-                is_first_capture = false;
-                pf = pf->next;
-            }
-
-            break;
-        }
-
-        default : break;
-    }
+    CcStep const * step = ply->steps;
 
     bool has_preceding_step = false;
 
