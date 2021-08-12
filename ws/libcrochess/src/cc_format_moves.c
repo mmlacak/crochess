@@ -395,7 +395,6 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
     {
         case CC_PLE_Ply : result = cc_str_duplicate_len_new( ply_tilde, 1 ); break;
         case CC_PLE_Teleportation : result = cc_str_duplicate_len_new( "|", 1 ); break;
-        case CC_PLE_FailedTeleportationOblation : result = cc_str_duplicate_len_new( "||", 2 ); break;
         case CC_PLE_FailedTeleportation : result = cc_str_duplicate_len_new( "||", 2 ); break;
         case CC_PLE_TranceJourney : result = cc_str_duplicate_len_new( "@", 1 ); break;
         case CC_PLE_DualTranceJourney : result = cc_str_duplicate_len_new( "@@", 2 ); break;

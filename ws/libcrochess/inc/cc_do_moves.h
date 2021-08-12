@@ -42,7 +42,6 @@ CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply );
     Currently, teleporting linkages are:
     - `CC_PLE_Teleportation`
     - `CC_PLE_FailedTeleportation`
-    - `CC_PLE_FailedTeleportationOblation`
 
     @return `true` if next ply is teleporting, `false` otherwise.
 */

@@ -1155,7 +1155,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     CcPly * ply_2;
 
     if ( is_oblationing )
-        ply_2 = cc_ply_append_new( plies_0, CC_PLE_FailedTeleportationOblation, CC_PE_LightWave, NULL );
+        ply_2 = cc_ply_append_new( plies_0, CC_PLE_FailedTeleportation, CC_PE_LightWave, NULL );
     else
     {
         CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 19, 9, CC_FSUE_Clarification_NoOutput );

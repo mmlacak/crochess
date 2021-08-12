@@ -29,8 +29,7 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply )
     if ( !pl ) return false;
 
     bool result = ( ( *pl == CC_PLE_Teleportation )
-                 || ( *pl == CC_PLE_FailedTeleportation )
-                 || ( *pl == CC_PLE_FailedTeleportationOblation ) );
+                 || ( *pl == CC_PLE_FailedTeleportation ) );
 
     return result;
 }

@@ -171,15 +171,7 @@ bool cc_parse_util_get_ply_link( char const * const restrict ply_str,
 
         if ( ( c_0 == '|' ) && ( c_1 == '|' ) )
         {
-            char const c_2 = ply_str[ 2 ];
-            char const c_3 = ply_str[ 3 ];
-
-            if ( ( c_2 == '\0' ) ||
-                 ( cc_piece_is_symbol( c_2 ) && ( c_3 == '\0' ) ) )
-                *link_o = CC_PLE_FailedTeleportationOblation;
-            else
-                *link_o = CC_PLE_FailedTeleportation;
-
+            *link_o = CC_PLE_FailedTeleportation;
             return true;
         }
         else if ( ( c_0 == '@' ) && ( c_1 == '@' ) )

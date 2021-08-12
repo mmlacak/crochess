@@ -24,8 +24,7 @@ typedef enum CcPlyLinkEnum
 {
     CC_PLE_Ply, /**< Just one ply, starting or continuing cascade. If cascading, corresponds to `~`. */
     CC_PLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
-    CC_PLE_FailedTeleportationOblation, /**< Failed teleportation, piece is oblationed, corresponds to `||`. */
-    CC_PLE_FailedTeleportation, /**< Failed teleportation, piece is not oblationed, corresponds to `||`. */
+    CC_PLE_FailedTeleportation, /**< Failed teleportation, corresponds to `||`. */
     CC_PLE_TranceJourney, /**< Trance-journey, corresponds to `@`. */
     CC_PLE_DualTranceJourney, /**< Double trance-journey, corresponds to `@@`. */
     CC_PLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
@@ -41,16 +40,15 @@ typedef enum CcPlyLinkEnum
     `steps` can have only one item in a linked list, if a single destination field is needed.
     `steps` can be empty (`NULL`) for certain ply links.
 
-    |                             `link` |                                          `steps` |
-    | ---------------------------------: | -----------------------------------------------: |
-    |                         CC_PLE_Ply |                           steps taken by a piece |
-    |               CC_PLE_Teleportation | steps taken if Wave, otherwise destination field |
-    | CC_PLE_FailedTeleportationOblation |                        steps are empty (ignored) |
-    |         CC_PLE_FailedTeleportation |                                destination field |
-    |               CC_PLE_TranceJourney |                           steps taken by a piece |
-    |           CC_PLE_DualTranceJourney |              fields at which pieces are captured |
-    |         CC_PLE_FailedTranceJourney |                        steps are empty (ignored) |
-    |               CC_PLE_PawnSacrifice |                         steps taken by a Serpent |
+    |                             `link` |                                                                      `steps` |
+    | ---------------------------------: | ---------------------------------------------------------------------------: |
+    |                         CC_PLE_Ply |                                                       steps taken by a piece |
+    |               CC_PLE_Teleportation |                             steps taken if Wave, otherwise destination field |
+    |         CC_PLE_FailedTeleportation | steps are empty (`NULL`) if piece is oblationed, destination field otherwise |
+    |               CC_PLE_TranceJourney |                                                       steps taken by a piece |
+    |           CC_PLE_DualTranceJourney |                                          fields at which pieces are captured |
+    |         CC_PLE_FailedTranceJourney |                                                     steps are empty (`NULL`) |
+    |               CC_PLE_PawnSacrifice |                                                     steps taken by a Serpent |
 */
 typedef struct CcPly
 {
