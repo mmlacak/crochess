@@ -7,10 +7,24 @@
 #include "cc_chessboard.h"
 #include "cc_move.h"
 
+#include "cc_format_moves.h"
+
 /**
     @file cc_test_utils.h
     @brief Convenience test functions.
 */
+
+
+// TODO :: DOCS
+typedef struct TestPrints
+{
+    bool do_print_chessboard;
+    bool do_print_move;
+    CcFormatMove format_move;
+} TestPrints;
+
+// TODO :: DOCS
+TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMove format_move );
 
 
 /**

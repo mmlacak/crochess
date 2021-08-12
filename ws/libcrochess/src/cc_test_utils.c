@@ -9,6 +9,15 @@
 */
 
 
+TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMove format_move )
+{
+    TestPrints tp = { .do_print_chessboard = do_print_chessboard,
+                      .do_print_move = do_print_move,
+                      .format_move = format_move };
+    return tp;
+}
+
+
 bool cc_test_util_free_all( CcChessboard ** const cb_f,
                             CcMove ** const moves_f,
                             CcPly ** const plies_f,

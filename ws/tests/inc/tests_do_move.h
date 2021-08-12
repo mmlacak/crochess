@@ -6,17 +6,10 @@
 
 #include <stdbool.h>
 
-#include "cc_format_moves.h"
+#include "cc_test_utils.h"
 
-typedef struct TestPrints
-{
-    bool do_print_chessboard;
-    bool do_print_move;
-    CcFormatMove format_move;
-} TestPrints;
 
-TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMove format_move );
-
+extern char const TESTS_DO_MOVE_LINE_SEPARATOR[];
 
 bool test_do_move_single_ply( TestPrints tp );
 bool test_do_move_cascading_plies( TestPrints tp );

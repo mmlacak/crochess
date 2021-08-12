@@ -24,10 +24,11 @@
 #include "hlp_msgs.h"
 #include "test_msgs.h"
 #include "tests_do_move.h"
+#include "tests_book_move.h"
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.82:186+20210812.084812"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.83:187+20210812.105024"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -151,6 +152,43 @@ int main( void )
         else if ( ( !strcmp( "a", cmd ) ) || ( !strcmp( "about", cmd ) ) )
         {
             print_about_info();
+        }
+        else if ( ( !strcmp( "b", cmd ) ) || ( !strcmp( "book", cmd ) ) )
+        {
+            CcFormatMove fm_user = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
+            CcFormatMove fm_output = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
+            CcFormatMove fm_debug = cc_format_move_debug( CC_FMSE_FormatOnlyCurrentMove );
+
+            char * dpcb = cc_next_token_new( NULL, NULL );
+            char * dpm = cc_next_token_new( NULL, NULL );
+            char * fm = cc_next_token_new( NULL, NULL );
+
+            bool do_print_chesboard = false;
+            if ( dpcb )
+                do_print_chesboard = ( ( !strncmp( dpcb, "1", 1 ) ) || ( !strncmp( dpcb, "true", 4 ) ) ) ? true : false;
+
+            bool do_print_move = true;
+            if ( dpm )
+                do_print_move = ( ( !strncmp( dpm, "0", 1 ) ) || ( !strncmp( dpm, "false", 5 ) ) ) ? false : true;
+
+            CcFormatMove format_move = fm_output;
+            if ( fm )
+                format_move = ( !strncmp( fm, "user", 4 ) ) ? fm_user
+                            : ( !strncmp( fm, "debug", 5 ) ) ? fm_debug
+                            : fm_output;
+
+            TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
+
+            if ( !test_book_move_scn_ct_03_define_step_ply( tp ) ) printf( "Test test_book_move_scn_ct_03_define_step_ply() failed.\n" );
+
+            free( dpcb );
+            dpcb = NULL;
+
+            free( dpm );
+            dpm = NULL;
+
+            free( fm );
+            fm = NULL;
         }
         else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "test", cmd ) ) )
         {

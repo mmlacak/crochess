@@ -13,23 +13,17 @@
 #include "cc_move.h"
 #include "cc_do_moves.h"
 #include "cc_format_moves.h"
-#include "cc_test_utils.h"
 
 #include "test_msgs.h"
 #include "tests_do_move.h"
 
 
-TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMove format_move )
-{
-    TestPrints tp = { .do_print_chessboard = do_print_chessboard,
-                      .do_print_move = do_print_move,
-                      .format_move = format_move };
-    return tp;
-}
-
+char const TESTS_DO_MOVE_LINE_SEPARATOR[] = " ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... \n";
 
 bool test_do_move_single_ply( TestPrints tp )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -113,6 +107,8 @@ bool test_do_move_single_ply( TestPrints tp )
 
 bool test_do_move_cascading_plies( TestPrints tp )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -305,6 +301,8 @@ bool test_do_move_cascading_plies( TestPrints tp )
 
 bool test_do_move_castling( TestPrints tp )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -421,6 +419,8 @@ bool test_do_move_castling( TestPrints tp )
 
 bool test_do_move_tag_and_promotion( TestPrints tp )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -605,6 +605,8 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
 
 bool test_do_move_conversion( TestPrints tp, bool is_failed )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -720,6 +722,8 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
 
 bool test_do_move_demotion( TestPrints tp )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -813,6 +817,8 @@ bool test_do_move_demotion( TestPrints tp )
 
 bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationing )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -945,6 +951,8 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
 
 bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -1084,6 +1092,8 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 
 bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     // chessboard
 
     CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
@@ -1251,6 +1261,8 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
 
 bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
 {
+    printf( TESTS_DO_MOVE_LINE_SEPARATOR );
+
     CcPieceEnum shaman = is_capturing ? CC_PE_DarkShaman : CC_PE_LightShaman;
 
     // chessboard
