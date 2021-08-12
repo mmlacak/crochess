@@ -16,7 +16,6 @@
 #include "cc_step.h"
 #include "cc_ply.h"
 #include "cc_move.h"
-#include "cc_format_moves.h"
 #include "cc_parse_msg.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_move.h"
@@ -28,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.83:187+20210812.105024"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.84:188+20210812.115644"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -46,6 +45,69 @@ TestMsg * test()
     test_msg_init_or_append_new( &test_msgs, TME_Fatal, "it's a serious shit", __FILE__, __LINE__, __func__ );
 
     return test_msgs;
+}
+
+
+bool get_print_chessboard_from_cli_arg()
+{
+    bool do_print_chesboard = false;
+
+    char * dpcb = cc_next_token_new( NULL, NULL );
+    if ( dpcb )
+        do_print_chesboard = ( ( !strncmp( dpcb, "1", 1 ) ) || ( !strncmp( dpcb, "true", 4 ) ) ) ? true : false;
+
+    free( dpcb );
+    dpcb = NULL;
+
+    return do_print_chesboard;
+}
+
+bool get_print_move_from_cli_arg()
+{
+    bool do_print_move = true;
+
+    char * dpm = cc_next_token_new( NULL, NULL );
+    if ( dpm )
+        do_print_move = ( ( !strncmp( dpm, "0", 1 ) ) || ( !strncmp( dpm, "false", 5 ) ) ) ? false : true;
+
+    free( dpm );
+    dpm = NULL;
+
+    return do_print_move;
+}
+
+CcFormatMove get_format_move_from_cli_arg()
+{
+    CcFormatMove fm_user = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
+    CcFormatMove fm_output = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
+    CcFormatMove fm_debug = cc_format_move_debug( CC_FMSE_FormatOnlyCurrentMove );
+
+    CcFormatMove format_move = fm_output;
+
+    char * fm = cc_next_token_new( NULL, NULL );
+    if ( fm )
+        format_move = ( !strncmp( fm, "user", 4 ) ) ? fm_user
+                    : ( !strncmp( fm, "debug", 5 ) ) ? fm_debug
+                    : fm_output;
+
+    free( fm );
+    fm = NULL;
+
+    return format_move;
+}
+
+int get_test_number_from_cli_arg()
+{
+    int test_number = 0; // all tests
+
+    char * tn = cc_next_token_new( NULL, NULL );
+    if ( tn )
+        test_number = atoi( tn );
+
+    free( tn );
+    tn = NULL;
+
+    return test_number;
 }
 
 
@@ -155,70 +217,97 @@ int main( void )
         }
         else if ( ( !strcmp( "b", cmd ) ) || ( !strcmp( "book", cmd ) ) )
         {
-            CcFormatMove fm_user = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
-            CcFormatMove fm_output = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
-            CcFormatMove fm_debug = cc_format_move_debug( CC_FMSE_FormatOnlyCurrentMove );
-
-            char * dpcb = cc_next_token_new( NULL, NULL );
-            char * dpm = cc_next_token_new( NULL, NULL );
-            char * fm = cc_next_token_new( NULL, NULL );
-
-            bool do_print_chesboard = false;
-            if ( dpcb )
-                do_print_chesboard = ( ( !strncmp( dpcb, "1", 1 ) ) || ( !strncmp( dpcb, "true", 4 ) ) ) ? true : false;
-
-            bool do_print_move = true;
-            if ( dpm )
-                do_print_move = ( ( !strncmp( dpm, "0", 1 ) ) || ( !strncmp( dpm, "false", 5 ) ) ) ? false : true;
-
-            CcFormatMove format_move = fm_output;
-            if ( fm )
-                format_move = ( !strncmp( fm, "user", 4 ) ) ? fm_user
-                            : ( !strncmp( fm, "debug", 5 ) ) ? fm_debug
-                            : fm_output;
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg();
+            bool do_print_move = get_print_move_from_cli_arg();
+            CcFormatMove format_move = get_format_move_from_cli_arg();
+            int test_number = get_test_number_from_cli_arg();
 
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
-            if ( !test_book_move_scn_ct_03_define_step_ply( tp ) ) printf( "Test test_book_move_scn_ct_03_define_step_ply() failed.\n" );
-
-            free( dpcb );
-            dpcb = NULL;
-
-            free( dpm );
-            dpm = NULL;
-
-            free( fm );
-            fm = NULL;
+            if ( ( test_number == 1 ) || ( test_number == 0 ) )
+                if ( !test_book_move_scn_ct_03_define_step_ply( tp ) )
+                    printf( "Test test_book_move_scn_ct_03_define_step_ply() failed.\n" );
         }
         else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "test", cmd ) ) )
         {
-            // CcFormatMove fm = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
-            CcFormatMove fm = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
-            // CcFormatMove fm = cc_format_move_debug( CC_FMSE_FormatOnlyCurrentMove );
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg();
+            bool do_print_move = get_print_move_from_cli_arg();
+            CcFormatMove format_move = get_format_move_from_cli_arg();
+            int test_number = get_test_number_from_cli_arg();
 
-            TestPrints tp = test_prints( false, true, fm );
+            TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
-            if ( !test_do_move_single_ply( tp ) ) printf( "Test test_do_move_single_ply() failed.\n" );
-            if ( !test_do_move_cascading_plies( tp ) ) printf( "Test test_do_move_cascading_plies() failed.\n" );
-            if ( !test_do_move_castling( tp ) ) printf( "Test test_do_move_castling() failed.\n" );
-            if ( !test_do_move_tag_and_promotion( tp ) ) printf( "Test test_do_move_tag_and_promotion() failed.\n" );
-            if ( !test_do_move_conversion( tp, false ) ) printf( "Test test_do_move_conversion( _, false ) failed.\n" );
-            if ( !test_do_move_conversion( tp, true ) ) printf( "Test test_do_move_conversion( _, true ) failed.\n" );
-            if ( !test_do_move_demotion( tp ) ) printf( "Test test_do_move_demotion() failed.\n" );
+            if ( ( test_number == 1 ) || ( test_number == 0 ) )
+                if ( !test_do_move_single_ply( tp ) )
+                    printf( "Test test_do_move_single_ply() failed.\n" );
 
-            if ( !test_do_move_resurrection( tp, false, false ) ) printf( "Test test_do_move_resurrection( _, false, false ) failed.\n" );
-            if ( !test_do_move_resurrection( tp, false, true ) ) printf( "Test test_do_move_resurrection( _, false, true ) failed.\n" );
-            if ( !test_do_move_resurrection( tp, true, false ) ) printf( "Test test_do_move_resurrection( _, true, false ) failed.\n" );
-            if ( !test_do_move_resurrection( tp, true, true ) ) printf( "Test test_do_move_resurrection( _, true, true ) failed.\n" );
+            if ( ( test_number == 2 ) || ( test_number == 0 ) )
+                if ( !test_do_move_cascading_plies( tp ) )
+                    printf( "Test test_do_move_cascading_plies() failed.\n" );
 
-            if ( !test_do_move_teleportation( tp, false ) ) printf( "Test test_do_move_teleportation( _, false ) failed.\n" );
-            if ( !test_do_move_teleportation( tp, true ) ) printf( "Test test_do_move_teleportation( _, true ) failed.\n" );
+            if ( ( test_number == 3 ) || ( test_number == 0 ) )
+                if ( !test_do_move_castling( tp ) )
+                    printf( "Test test_do_move_castling() failed.\n" );
 
-            if ( !test_do_move_teleportation_wave( tp, false ) ) printf( "Test test_do_move_teleportation_wave( _, false ) failed.\n" );
-            if ( !test_do_move_teleportation_wave( tp, true ) ) printf( "Test test_do_move_teleportation_wave( _, true ) failed.\n" );
+            if ( ( test_number == 4 ) || ( test_number == 0 ) )
+                if ( !test_do_move_tag_and_promotion( tp ) )
+                    printf( "Test test_do_move_tag_and_promotion() failed.\n" );
 
-            if ( !test_do_move_trance_journey( tp, false ) ) printf( "Test test_do_move_trance_journey( _, false ) failed.\n" );
-            if ( !test_do_move_trance_journey( tp, true ) ) printf( "Test test_do_move_trance_journey( _, true ) failed.\n" );
+            if ( ( test_number == 5 ) || ( test_number == 0 ) )
+                if ( !test_do_move_conversion( tp, false ) )
+                    printf( "Test test_do_move_conversion( _, false ) failed.\n" );
+
+            if ( ( test_number == 6 ) || ( test_number == 0 ) )
+                if ( !test_do_move_conversion( tp, true ) )
+                    printf( "Test test_do_move_conversion( _, true ) failed.\n" );
+
+            if ( ( test_number == 7 ) || ( test_number == 0 ) )
+                if ( !test_do_move_demotion( tp ) )
+                    printf( "Test test_do_move_demotion() failed.\n" );
+
+
+            if ( ( test_number == 8 ) || ( test_number == 0 ) )
+                if ( !test_do_move_resurrection( tp, false, false ) )
+                    printf( "Test test_do_move_resurrection( _, false, false ) failed.\n" );
+
+            if ( ( test_number == 9 ) || ( test_number == 0 ) )
+                if ( !test_do_move_resurrection( tp, false, true ) )
+                    printf( "Test test_do_move_resurrection( _, false, true ) failed.\n" );
+
+            if ( ( test_number == 10 ) || ( test_number == 0 ) )
+                if ( !test_do_move_resurrection( tp, true, false ) )
+                    printf( "Test test_do_move_resurrection( _, true, false ) failed.\n" );
+
+            if ( ( test_number == 11 ) || ( test_number == 0 ) )
+                if ( !test_do_move_resurrection( tp, true, true ) )
+                    printf( "Test test_do_move_resurrection( _, true, true ) failed.\n" );
+
+
+            if ( ( test_number == 12 ) || ( test_number == 0 ) )
+                if ( !test_do_move_teleportation( tp, false ) )
+                    printf( "Test test_do_move_teleportation( _, false ) failed.\n" );
+
+            if ( ( test_number == 13 ) || ( test_number == 0 ) )
+                if ( !test_do_move_teleportation( tp, true ) )
+                    printf( "Test test_do_move_teleportation( _, true ) failed.\n" );
+
+
+            if ( ( test_number == 14 ) || ( test_number == 0 ) )
+                if ( !test_do_move_teleportation_wave( tp, false ) )
+                    printf( "Test test_do_move_teleportation_wave( _, false ) failed.\n" );
+
+            if ( ( test_number == 15 ) || ( test_number == 0 ) )
+                if ( !test_do_move_teleportation_wave( tp, true ) )
+                    printf( "Test test_do_move_teleportation_wave( _, true ) failed.\n" );
+
+
+            if ( ( test_number == 16 ) || ( test_number == 0 ) )
+                if ( !test_do_move_trance_journey( tp, false ) )
+                    printf( "Test test_do_move_trance_journey( _, false ) failed.\n" );
+
+            if ( ( test_number == 17 ) || ( test_number == 0 ) )
+                if ( !test_do_move_trance_journey( tp, true ) )
+                    printf( "Test test_do_move_trance_journey( _, true ) failed.\n" );
 
             printf( "Tests finished.\n" );
         }

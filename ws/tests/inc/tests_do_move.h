@@ -9,7 +9,9 @@
 #include "cc_test_utils.h"
 
 
-extern char const TESTS_DO_MOVE_LINE_SEPARATOR[];
+extern char const TESTS_DO_MOVE_TEST_SEPARATOR[];
+extern char const TESTS_DO_MOVE_NOTATION_SEPARATOR[];
+extern char const TESTS_DO_MOVE_CHESSBOARD_SEPARATOR[];
 
 bool test_do_move_single_ply( TestPrints tp );
 bool test_do_move_cascading_plies( TestPrints tp );
