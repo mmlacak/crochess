@@ -161,8 +161,6 @@ bool cc_parse_util_get_ply_link( char const * const restrict ply_str,
             *link_o = CC_PLE_TranceJourney;
             return true;
         }
-        else
-            return false;
     }
     else if ( len == 2 )
     {

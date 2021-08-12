@@ -33,18 +33,18 @@ typedef enum CcStepLinkEnum
 */
 typedef enum CcSideEffectEnum
 {
-    CC_SEE_None,
-    CC_SEE_Capture,
-    CC_SEE_Displacement,
-    CC_SEE_EnPassant,
-    CC_SEE_Castle,
-    CC_SEE_Promotion,
-    CC_SEE_TagForPromotion,
-    CC_SEE_Conversion,
-    CC_SEE_FailedConversion,
-    CC_SEE_Demotion,
-    CC_SEE_Resurrection,
-    CC_SEE_FailedResurrection,
+    CC_SEE_None, /**< No side effects. */
+    CC_SEE_Capture, /**< Corresponds to `*`. */
+    CC_SEE_Displacement, /**< Corresponds to `<`. */
+    CC_SEE_EnPassant, /**< Corresponds to `:`. */
+    CC_SEE_Castle, /**< Corresponds to `&`. */
+    CC_SEE_Promotion, /**< Corresponds to `=`. */
+    CC_SEE_TagForPromotion, /**< Corresponds to `=`. */
+    CC_SEE_Conversion, /**< Corresponds to `%`. */
+    CC_SEE_FailedConversion, /**< Corresponds to `%%`. */
+    CC_SEE_Demotion, /**< Corresponds to `>`. */
+    CC_SEE_Resurrection, /**< Corresponds to `$`. */
+    CC_SEE_FailedResurrection, /**< Corresponds to `$$`. */
 } CcSideEffectEnum;
 
 /**
