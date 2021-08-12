@@ -208,25 +208,16 @@ CcStep * cc_step_new( CcStepLinkEnum link,
 /**
     Appends a newly allocated step to a given linked list.
 
-    @param steps Linked list to which a new step is appended, can be `NULL`.
+    @param steps Linked list to which a new step is appended.
     @param link Type of a link to previous step.
     @param i File.
     @param j Rank.
     @param side_effect Side-effect structure.
     @param usage Step formatting usage.
 
-    @note
-    A new step is appended to `steps`, if it's a valid pointer.
-
-    @note
-    If not, appending is not done, but a new step is still returned.
-
-    @see cc_step_new()
-
     @return
     A newly allocated step, is successful, `NULL` otherwise.
 */
-// TODO :: DOCS
 CcStep * cc_step_append_new( CcStep * const restrict steps,
                              CcStepLinkEnum link, int i, int j, CcSideEffect side_effect,
                              CcFormatStepUsageEnum usage );

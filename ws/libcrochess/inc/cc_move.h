@@ -39,11 +39,14 @@ typedef struct CcMove
     Returns newly allocated move.
 
     @param notation Original notation, as received from a user.
-    @param plies_n Plies, should be valid pointer.
+    @param plies_n Plies linked list, can be `NULL`.
     @param status Move status.
 
     @warning
     Takes ownership of plies, inner pointer will be set to `NULL`, if valid move is produced.
+
+    @warning
+    If no valid `plies_n` is given, move is still returned, with `plies` member set to `NULL`.
 
     @warning
     If no valid move is produced, plies are still valid, and accessible.
@@ -51,37 +54,23 @@ typedef struct CcMove
     @return
     A newly allocated move, is successful, `NULL` otherwise.
 */
-// TODO :: DOCS
 CcMove * cc_move_new( char const * const restrict notation,
                       CcPly ** restrict plies_n,
                       CcMoveStatusEnum status );
 
 /**
-    Allocates a new move, appends it to a linked list.
+    Appends a newly allocated move to a linked list.
 
     @param moves Linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
     @param plies_n Plies, should be valid pointer.
     @param status Move status.
 
-    @note
-    A new move is appended to `moves`, if it's a valid pointer.
-
-    @note
-    If not, appending is not done, but a new move is still returned.
-
-    @warning
-    Takes ownership of plies, inner pointer will be set to `NULL`, if valid move is produced.
-
-    @warning
-    If no valid move is produced, plies are still valid, and accessible.
-
     @see cc_move_new()
 
     @return
     A newly allocated move, is successful, `NULL` otherwise.
 */
-// TODO :: DOCS
 CcMove * cc_move_append_new( CcMove * const restrict moves,
                              char const * const restrict notation,
                              CcPly ** restrict plies_n,

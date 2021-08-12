@@ -88,8 +88,14 @@ typedef char (*cc_piece_fp_char_value_t)( CcPieceEnum const pe );
 */
 CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light );
 
-// TODO :: DOCS
-CcPieceEnum cc_piece_is_symbol( char const symbol );
+/**
+    Function returns wether given character is a valid chess piece symbol.
+
+    @param c A character.
+
+    @return `true` if given character is a valid chess piece symbol, `false` otherwise.
+*/
+CcPieceEnum cc_piece_is_symbol( char const c );
 
 /**
     Function returning piece enum in opposite color (shade) to argument.

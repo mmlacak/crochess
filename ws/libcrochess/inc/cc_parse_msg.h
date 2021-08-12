@@ -50,20 +50,16 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
                                char const * const restrict msg );
 
 /**
-    Allocates a new parser message, appends it to a linked list.
+    Appends a newly Allocated parser message to a linked list.
 
     @param parse_msgs Linked list of parser messages, to which a newly allocated parser message is appended.
     @param type Type of a parser message.
     @param pos Position within string, e.g. user input.
     @param msg Parser message.
 
-    @note
-    Linked list `parse_msgs` can be `NULL`, a parser message will still be allocated, and returned.
-
     @return
     A newly allocated parser message, is successful, `NULL` otherwise.
 */
-// TODO :: DOCS
 CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
                                       CcParseMsgEnum type,
                                       size_t pos,
@@ -102,7 +98,13 @@ CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse
 */
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f );
 
-// TODO :: DOCS
+/**
+    Function returning last parse message from a given linked list.
+
+    @param parse_msgs Linked list of parse messages.
+
+    @return Last parse message in a given linked list, if successful; `NULL` otherwise.
+*/
 CcParseMsg * cc_parse_msg_get_last( CcParseMsg const * const restrict parse_msgs );
 
 

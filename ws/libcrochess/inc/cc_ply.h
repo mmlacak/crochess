@@ -36,15 +36,26 @@ typedef enum CcPlyLinkEnum
 /**
     Ply structure, linked list.
 
-    Contains union of structures, which correspond to a ply link.
+    @warning
+    `steps` change meaning, depending on ply `link`.
+    `steps` can have only one item in a linked list, if a single destination field is needed.
+    `steps` can be empty (`NULL`) for certain ply links.
 
-    For instance, `ply->teleport` is used when linkage is `CC_PLE_Teleportation`.
+    |                             `link` |                                          `steps` |
+    | ---------------------------------: | -----------------------------------------------: |
+    |                         CC_PLE_Ply |                           steps taken by a piece |
+    |               CC_PLE_Teleportation | steps taken if Wave, otherwise destination field |
+    | CC_PLE_FailedTeleportationOblation |                        steps are empty (ignored) |
+    |         CC_PLE_FailedTeleportation |                                destination field |
+    |               CC_PLE_TranceJourney |                           steps taken by a piece |
+    |           CC_PLE_DualTranceJourney |              fields at which pieces are captured |
+    |         CC_PLE_FailedTranceJourney |                        steps are empty (ignored) |
+    |               CC_PLE_PawnSacrifice |                         steps taken by a Serpent |
 */
-// TODO :: DOCS
 typedef struct CcPly
 {
     CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
-    CcPieceEnum piece; /**< Piece. */
+    CcPieceEnum piece; /**< A piece taking a ride. */
     CcStep * steps; /**< Steps taken by the piece. */
     struct CcPly * next; /**< Next ply in a cascade. */
 } CcPly;
@@ -55,66 +66,32 @@ typedef struct CcPly
     @param link Link to previous ply in a cascade.
     @param piece A piece.
     @param steps_n Steps, linked list, can be `NULL`.
-    @param i File.
-    @param j Rank.
-    @param captured_n Captured pieces + fields, linked list, can be `NULL`.
 
     @warning
-    Takes ownership of steps, inner pointer will be set to `NULL`,
-    for ordinary cascade, Wave teleportation, trance-journey and pawn-sacrifice,
-    if valid ply is produced.
+    Takes ownership of steps, inner pointer will be set to `NULL`, if valid ply is produced.
 
     @warning
-    Takes ownership of captured piece-fields, inner pointer will be set to `NULL`,
-    for double trance-journey, if valid ply is produced.
-
-    @warning
-    If no valid ply is produced, steps and captured piece-fields are still valid,
-    and accessible.
+    If no valid ply is produced, steps are still valid, and accessible.
 
     @return
     A newly allocated ply, is successful, `NULL` otherwise.
 */
-// TODO :: DOCS
 CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece, CcStep ** restrict steps_n );
 
 
 /**
-    Appends newly allocated ply to a linked list.
+    Appends a newly allocated ply to a given linked list.
 
-    @param plies Plies, linked list, can be `NULL`.
+    @param plies Plies, linked list.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
     @param steps_n Steps, linked list, can be `NULL`.
-    @param i File.
-    @param j Rank.
-    @param captured_n Captured pieces + fields, linked list, can be `NULL`.
-
-    @note
-    A new ply is appended to `plies`, if it's a valid pointer.
-
-    @note
-    If not, appending is not done, but a new ply is still returned.
-
-    @warning
-    Takes ownership of steps, inner pointer will be set to `NULL`,
-    for ordinary cascade, Wave teleportation, trance-journey and pawn-sacrifice,
-    if valid ply is produced.
-
-    @warning
-    Takes ownership of captured piece-fields, inner pointer will be set to `NULL`,
-    for double trance-journey, if valid ply is produced.
-
-    @warning
-    If no valid ply is produced, steps and captured piece-fields are still valid,
-    and accessible.
 
     @see cc_ply_new()
 
     @return
     A newly allocated ply, is successful, `NULL` otherwise.
 */
-// TODO :: DOCS
 CcPly * cc_ply_append_new( CcPly * const restrict plies,
                            CcPlyLinkEnum link,
                            CcPieceEnum piece,
