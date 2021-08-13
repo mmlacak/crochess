@@ -208,9 +208,9 @@ bool test_do_move_cascading_plies( TestPrints tp )
         return cc_move_data_free_all( &cb__o, NULL, &plies_0, &steps_2, false );
 
     //
-    // move 0, [Gb6-h3]~[Wh3-j2]~[j2-j5]
+    // move 0, [Gb6-h3]~[Wh3-j2]~[Pj2-j5]
 
-    CcMove * move__o = cc_move_new( "[Gb6-h3]~[Wh3-j2]~[j2-j5]", &plies_0, CC_MSE_None );
+    CcMove * move__o = cc_move_new( "[Gb6-h3]~[Wh3-j2]~[Pj2-j5]", &plies_0, CC_MSE_None );
     if ( !move__o ) return cc_move_data_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
@@ -1491,7 +1491,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     if ( !steps_2 ) return cc_move_data_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     if ( is_capturing )
-        if ( !cc_step_none_append_new( steps_2, CC_SLE_Restart, 9, 8, CC_FSUE_Clarification ) )
+        if ( !cc_step_none_append_new( steps_2, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification ) )
             return cc_move_data_free_all( &cb__o, NULL, &plies_0, &steps_2, false );
 
     CcSideEffect sse_2_1 = is_capturing ?

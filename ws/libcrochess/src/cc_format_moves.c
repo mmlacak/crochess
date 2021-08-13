@@ -348,22 +348,26 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
             switch ( step->link )
             {
                 case CC_SLE_Start : break;
-                case CC_SLE_Restart : break;
+                case CC_SLE_Reposition : break;
                 case CC_SLE_Next : result = cc_str_duplicate_len_new( ".", 1 ); break;
                 case CC_SLE_Distant : result = cc_str_duplicate_len_new( "..", 2 ); break;
                 case CC_SLE_Destination : result = cc_str_duplicate_len_new( "-", 1 ); break;
             }
         }
 
-        if ( step->link == CC_SLE_Restart )
+        if ( step->link == CC_SLE_Reposition )
             result = cc_str_duplicate_len_new( ",", 1 );
 
         *has_preceding_step_io = true;
 
         cc_str_append_char( &result, cc_format_pos_file( step->i ) );
 
-        char * rank = cc_format_pos_rank_new( step->j );
-        result = cc_str_append_len_new( &result, &rank, BUFSIZ );
+        if ( !( cc_side_effect_enum_is_castling( step->side_effect.type )
+                && ( step->usage <= CC_FSUE_Clarification ) ) )
+        {
+            char * rank = cc_format_pos_rank_new( step->j );
+            result = cc_str_append_len_new( &result, &rank, BUFSIZ );
+        }
 
         char * se = cc_format_side_effect_new( cb, move, ply, step, &(step->side_effect), format_move );
         result = cc_str_append_len_new( &result, &se, BUFSIZ );

@@ -12,6 +12,12 @@
 */
 
 
+bool cc_side_effect_enum_is_castling( CcSideEffectEnum see )
+{
+    return ( see == CC_SEE_Castle );
+}
+
+
 CcSideEffect cc_side_effect( CcSideEffectEnum type,
                              CcPieceEnum piece,
                              bool is_promo_tag_lost,

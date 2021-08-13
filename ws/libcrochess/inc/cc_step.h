@@ -21,7 +21,7 @@
 typedef enum CcStepLinkEnum
 {
     CC_SLE_Start, /**< Position from which a piece started moving. */
-    CC_SLE_Restart, /**< In trance-journey, dark Shaman's distant first step; separated by , (comma). */
+    CC_SLE_Reposition, /**< In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
     CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
     CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
     CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
@@ -46,6 +46,10 @@ typedef enum CcSideEffectEnum
     CC_SEE_Resurrection, /**< Corresponds to `$`. */
     CC_SEE_FailedResurrection, /**< Corresponds to `$$`. */
 } CcSideEffectEnum;
+
+//* TODO :: DOCS
+bool cc_side_effect_enum_is_castling( CcSideEffectEnum see );
+
 
 /**
     Step side-effect structure.
