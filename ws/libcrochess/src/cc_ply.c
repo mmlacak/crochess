@@ -90,7 +90,9 @@ bool cc_ply_contains_side_effects( CcPly const * const restrict ply )
     return false;
 }
 
-size_t cc_ply_step_count( CcPly const * const restrict ply, bool include_starting_pos )
+size_t cc_ply_step_count( CcPly const * const restrict ply,
+                          CcFormatStepUsageEnum usage,
+                          bool include_starting_pos )
 {
     if ( !ply ) return 0;
 
@@ -102,12 +104,15 @@ size_t cc_ply_step_count( CcPly const * const restrict ply, bool include_startin
 
     while ( s->next )
     {
-        if ( s->link == CC_SLE_Start )
+        if ( s->usage <= usage )
         {
-            if ( include_starting_pos ) ++count;
+            if ( s->link == CC_SLE_Start )
+            {
+                if ( include_starting_pos ) ++count;
+            }
+            else
+                ++count;
         }
-        else
-            ++count;
 
         s = s->next;
     }

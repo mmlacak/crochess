@@ -364,7 +364,9 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
 
     if ( step->usage <= format_move.usage )
     {
-        if ( *has_preceding_step_io )
+        size_t step_count = cc_ply_step_count( ply, format_move.usage, true );
+
+        if ( *has_preceding_step_io || ( step_count > 1 ) )
         {
             switch ( step->link )
             {
