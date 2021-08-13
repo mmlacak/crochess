@@ -202,6 +202,15 @@ bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2 );
 bool cc_piece_is_teleporter( CcPieceEnum const pe );
 
 /**
+    Function returning whether piece is lightweight.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is lightweight; `false` otherwise.
+*/
+bool cc_piece_is_lightweight( CcPieceEnum const pe );
+
+/**
     Function returning whether piece is a figure.
 
     By the book, figure is any piece, except Pawn. For practical reasons,

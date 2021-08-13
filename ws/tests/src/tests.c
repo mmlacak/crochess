@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.86:190+20210813.094911"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.87:191+20210813.112053"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -86,8 +86,8 @@ CcFormatMove get_format_move_from_cli_arg()
 
     char * fm = cc_next_token_new( NULL, NULL );
     if ( fm )
-        format_move = ( !strncmp( fm, "user", 4 ) ) ? fm_user
-                    : ( !strncmp( fm, "debug", 5 ) ) ? fm_debug
+        format_move = ( ( !strncmp( fm, "u", 1 ) ) || ( !strncmp( fm, "user", 4 ) ) ) ? fm_user
+                    : ( ( !strncmp( fm, "d", 1 ) ) || ( !strncmp( fm, "debug", 5 ) ) ) ? fm_debug
                     : fm_output;
 
     free( fm );

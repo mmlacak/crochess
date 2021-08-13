@@ -299,18 +299,29 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
         case CC_SEE_Resurrection :
         {
-            char file = cc_format_pos_file( se->resurrect.dest_i );
-            char * rank = cc_format_pos_rank_new( se->resurrect.dest_j );
+            if ( cc_piece_is_lightweight( se->resurrect.piece )
+                || ( format_move.usage >= CC_FSUE_Clarification ) )
+            {
+                char file = cc_format_pos_file( se->resurrect.dest_i );
+                char * rank = cc_format_pos_rank_new( se->resurrect.dest_j );
 
-            if ( rank )
+                if ( rank )
+                {
+                    result = cc_str_append_format_len_new(  &result,
+                                                            BUFSIZ,
+                                                            "$%c%c%s",
+                                                            fp_char_value( se->resurrect.piece ),
+                                                            file,
+                                                            rank );
+                    free( rank );
+                }
+            }
+            else
             {
                 result = cc_str_append_format_len_new(  &result,
                                                         BUFSIZ,
-                                                        "$%c%c%s",
-                                                        fp_char_value( se->resurrect.piece ),
-                                                        file,
-                                                        rank );
-                free( rank );
+                                                        "$%c",
+                                                        fp_char_value( se->resurrect.piece ) );
             }
 
             break;

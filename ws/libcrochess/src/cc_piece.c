@@ -280,6 +280,12 @@ bool cc_piece_is_teleporter( CcPieceEnum const pe )
     return ( ( pe == CC_PE_Monolith ) || ( pe == CC_PE_DimStar ) || ( pe == CC_PE_BrightStar ) );
 }
 
+bool cc_piece_is_lightweight( CcPieceEnum const pe )
+{
+    return ( ( pe == CC_PE_LightStarchild ) || ( pe == CC_PE_DarkStarchild )
+          || ( pe == CC_PE_LightWave ) || ( pe == CC_PE_DarkWave ) );
+}
+
 bool cc_piece_is_figure( CcPieceEnum const pe, bool include_monolith, bool include_stars )
 {
     if ( cc_piece_is_light( pe ) ) return true;
