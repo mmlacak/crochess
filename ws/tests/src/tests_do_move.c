@@ -1129,7 +1129,9 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
     CcStep * steps_1 = cc_step_none_new( CC_SLE_Destination, i, 24, CC_FSUE_User );
     if ( !steps_1 ) return cc_move_data_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
-    CcPly * ply_1 = cc_ply_append_new( plies_0, CC_PLE_FailedTeleportation, CC_PE_LightBishop, &steps_1 );
+    CcPlyLinkEnum ple = ( is_failed ) ? CC_PLE_FailedTeleportation : CC_PLE_Teleportation;
+
+    CcPly * ply_1 = cc_ply_append_new( plies_0, ple, CC_PE_LightBishop, &steps_1 );
     if ( !ply_1 ) return cc_move_data_free_all( &cb__o, NULL, &plies_0, NULL, false );
 
     //
