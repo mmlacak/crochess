@@ -38,6 +38,14 @@ Here are recommended reads (book and related pages), before diving into detailed
 - [Naming and organization](1_organization.md "Naming and organization")
 - [Memory management](2_memory.md "Memory management")
 
+### Abbreviations
+
+Abbreviations used in documentation.
+
+| Abbreviation |            Meaning |
+| -----------: | -----------------: |
+|           AN | algebraic notation |
+
 || [next >>>](1_organization.md "next >>>")
 
 [The Book]: https://github.com/mmlacak/crochess/raw/master/crochess.pdf "Croatian Chess and other variants"

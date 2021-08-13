@@ -89,7 +89,7 @@ typedef char (*cc_piece_fp_char_value_t)( CcPieceEnum const pe );
 CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light );
 
 /**
-    Function returns wether given character is a valid chess piece symbol.
+    Function returns whether given character is a valid chess piece symbol.
 
     @param c A character.
 

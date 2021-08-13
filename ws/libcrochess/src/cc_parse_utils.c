@@ -5,6 +5,11 @@
 
 #include "cc_parse_utils.h"
 
+/**
+    @file cc_parse_utils.c
+    @brief Helper functions to parse algebraic notation.
+*/
+
 
 bool cc_parse_utils_char_is_ply_gather( char const c )
 {
