@@ -139,17 +139,27 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
         case CC_SEE_Displacement :
         {
-            if ( format_move.usage <= CC_FSUE_User )
+            bool is_user = ( format_move.usage <= CC_FSUE_User );
+
+            char piece = fp_char_value( se->displacement.piece );
+            char * is_promo_tag_lost = ( se->displacement.is_promo_tag_lost ) ? "==" : "";
+            char file = cc_format_pos_file( se->displacement.dest_i );
+            char * rank = cc_format_pos_rank_new( se->displacement.dest_j );
+
+            if ( is_user )
             {
-                result = cc_str_append_format_len_new( &result, BUFSIZ, "<" );
+                if ( rank )
+                {
+                    result = cc_str_append_format_len_new(  &result,
+                                                            BUFSIZ,
+                                                            "<%c%s",
+                                                            file,
+                                                            rank );
+                    free( rank );
+                }
             }
             else
             {
-                char piece = fp_char_value( se->displacement.piece );
-                char * is_promo_tag_lost = ( se->displacement.is_promo_tag_lost ) ? "==" : "";
-                char file = cc_format_pos_file( se->displacement.dest_i );
-                char * rank = cc_format_pos_rank_new( se->displacement.dest_j );
-
                 if ( rank )
                 {
                     result = cc_str_append_format_len_new(  &result,
