@@ -13,7 +13,6 @@
 #include "cc_move.h"
 #include "cc_do_moves.h"
 #include "cc_format_moves.h"
-#include "cc_test_utils.h"
 
 #include "test_msgs.h"
 #include "tests_book_move.h"
@@ -53,34 +52,34 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_test_util_free_all( &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_move_data_free_all( &cb__o, NULL, NULL, NULL, false );
 
     //
     // steps
 
     CcStep * start = cc_step_none_new( CC_SLE_Start, 2, 1, CC_FSUE_Clarification_NoOutput );
-    if ( !start ) return cc_test_util_free_all( &cb__o, NULL, NULL, NULL, false );
+    if ( !start ) return cc_move_data_free_all( &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( start, CC_SLE_Next, 3, 3, CC_FSUE_Clarification_NoOutput ) )
-        return cc_test_util_free_all( &cb__o, NULL, NULL, &start, false );
+        return cc_move_data_free_all( &cb__o, NULL, NULL, &start, false );
 
     if ( !cc_step_none_append_new( start, CC_SLE_Next, 4, 5, CC_FSUE_Clarification_NoOutput ) )
-        return cc_test_util_free_all( &cb__o, NULL, NULL, &start, false );
+        return cc_move_data_free_all( &cb__o, NULL, NULL, &start, false );
 
     if ( !cc_step_none_append_new( start, CC_SLE_Next, 5, 7, CC_FSUE_User ) )
-        return cc_test_util_free_all( &cb__o, NULL, NULL, &start, false );
+        return cc_move_data_free_all( &cb__o, NULL, NULL, &start, false );
 
     //
     // ply
 
     CcPly * ply = cc_ply_new( CC_PLE_Ply, pe, &start );
-    if ( !ply ) return cc_test_util_free_all( &cb__o, NULL, NULL, &start, false );
+    if ( !ply ) return cc_move_data_free_all( &cb__o, NULL, NULL, &start, false );
 
     //
     // move [Gc2.d4.e6.f8]
 
     CcMove * move__o = cc_move_new( "[Gc2.d4.e6.f8]", &ply, CC_MSE_None );
-    if ( !move__o ) return cc_test_util_free_all( &cb__o, NULL, &ply, &start, false );
+    if ( !move__o ) return cc_move_data_free_all( &cb__o, NULL, &ply, &start, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -117,5 +116,5 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
     //
     // free, return
 
-    return cc_test_util_free_all( &cb__o, &move__o, NULL, NULL, result );
+    return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }

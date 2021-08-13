@@ -6,7 +6,7 @@
 
 #include <stdbool.h>
 
-#include "cc_test_utils.h"
+#include "test_utils.h"
 
 
 extern char const TESTS_DO_MOVE_TEST_SEPARATOR[];
