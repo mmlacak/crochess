@@ -47,7 +47,13 @@ typedef enum CcSideEffectEnum
     CC_SEE_FailedResurrection, /**< Corresponds to `$$`. */
 } CcSideEffectEnum;
 
-//* TODO :: DOCS
+/**
+    Function checks if given side-effect enum is castling.
+
+    @param see An enum
+
+    @return `true` if castling, `false` otherwise.
+*/
 bool cc_side_effect_enum_is_castling( CcSideEffectEnum see );
 
 
