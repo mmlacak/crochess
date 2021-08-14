@@ -14,7 +14,7 @@
 
 bool cc_parse_ply_get_piece( char const * const restrict ply_str,
                              bool const is_light,
-                             CcPieceEnum * const restrict piece_io )
+                             CcPieceEnum * const restrict piece_o )
 {
     if ( !ply_str ) return false;
 
@@ -23,13 +23,13 @@ bool cc_parse_ply_get_piece( char const * const restrict ply_str,
     p = cc_parse_utils_go_ply_link( p, true );
     if ( !p ) return false;
 
-    if ( isupper( *p ) ) // WARNING: useage of cc_piece_is_symbol() here is bug,
-                         //          all other upper chars would end as Pawns.
-        *piece_io = cc_piece_from_symbol( *p, is_light );
+    if ( isupper( *p ) ) // <!> Useage of cc_piece_is_symbol() here is bug,
+                         //     all other upper chars would end as Pawns.
+        *piece_o = cc_piece_from_symbol( *p, is_light );
     else
-        *piece_io = ( is_light ) ? CC_PE_LightPawn : CC_PE_DarkPawn;
+        *piece_o = ( is_light ) ? CC_PE_LightPawn : CC_PE_DarkPawn;
 
-    return cc_piece_is_valid( *piece_io );
+    return cc_piece_is_valid( *piece_o );
 }
 
 CcPly * cc_parse_ply( char const * const restrict ply_str,

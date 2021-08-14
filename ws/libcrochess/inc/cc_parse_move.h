@@ -16,7 +16,7 @@
 // TODO :: DOCS
 bool cc_parse_ply_get_piece( char const * const restrict ply_str,
                              bool const is_light,
-                             CcPieceEnum * const restrict piece_io );
+                             CcPieceEnum * const restrict piece_o );
 
 // TODO :: DOCS
 CcPly * cc_parse_ply( char const * const restrict ply_str,
