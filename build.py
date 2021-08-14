@@ -14,6 +14,7 @@ import py.paths as P
 import py.run_subproc as RS
 import py.run_compiler as RC
 import py.build_env as BE
+import py.docs_env as DE
 
 
 PROJECT_ROOT_PATH = P.get_project_root_path( sys.argv[ 0 ] )
@@ -54,6 +55,9 @@ def main():
                 BE.COMPILER_CLANG if is_clang else \
                 BE.DEFAULT_COMPILER
 
+    is_docs = True if RS.any_item_in( ['-docs', '--docs'], script_argv) else False
+    compiler_docs = DE.COMPILER_DOCS
+
     # is_run_app_only = True if RS.any_item_in( ['-X', '--execute'], script_argv) else False
     is_run_app = True if RS.any_item_in( ['-r', '--run'], script_argv) else False
     is_run_tests = True if RS.any_item_in( ['-t', '--tests'], script_argv) else False
@@ -71,7 +75,8 @@ def main():
         print( "executable args: %s." % str( executable_argv ) )
 
     old_cwd = os.getcwd()
-    cmd_cwd = BE.get_build_dir(PROJECT_ROOT_PATH)
+    cmd_cwd = BE.get_build_dir( PROJECT_ROOT_PATH )
+    docs_cwd = DE.get_docs_dir( PROJECT_ROOT_PATH )
 
     if is_debug:
         print( "" )
@@ -136,6 +141,19 @@ def main():
             # print( "" )
             print( "." * 72 )
             result = RS.run_process( ls_cmd_lst, cwd=cmd_cwd )
+            print( result )
+            print( "-" * 72 )
+
+    if is_docs:
+        cwd_docs, cmd_docs = DE.get_compile_docs_cmd(PROJECT_ROOT_PATH, compiler_docs=compiler_docs)
+
+        if is_debug:
+            print( "Compiling docs in: %s." % str( cwd_docs ) )
+            print( "Compiling docs with: %s." % str( cmd_docs ) )
+
+        if not is_dry_run:
+            print( "." * 72 )
+            result = RS.run_process( cmd_docs, cwd=cwd_docs )
             print( result )
             print( "-" * 72 )
 
