@@ -293,17 +293,31 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
             char file = cc_format_pos_file( se->demote.dest_i );
             char * rank = cc_format_pos_rank_new( se->demote.dest_j );
 
-            if ( rank )
+            if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_len_new(  &result,
-                                                        BUFSIZ,
-                                                        ">%c%c%s",
-                                                        fp_char_value( se->demote.piece ),
-                                                        file,
-                                                        rank );
-                free( rank );
+                if ( rank )
+                {
+                    result = cc_str_append_format_len_new(  &result,
+                                                            BUFSIZ,
+                                                            ">%c%s",
+                                                            file,
+                                                            rank );
+                }
+            }
+            else
+            {
+                if ( rank )
+                {
+                    result = cc_str_append_format_len_new(  &result,
+                                                            BUFSIZ,
+                                                            ">%c%c%s",
+                                                            fp_char_value( se->demote.piece ),
+                                                            file,
+                                                            rank );
+                }
             }
 
+            free( rank );
             break;
         }
 
