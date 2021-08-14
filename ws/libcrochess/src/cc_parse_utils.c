@@ -237,3 +237,26 @@ size_t cc_parse_utils_step_link_len( char const * const restrict ply_str )
 
     return 0;
 }
+
+char const * cc_parse_utils_go_step_link( char const * const restrict ply_str,
+                                          bool const skip_or_stop_at )
+{
+    if ( !ply_str ) return NULL;
+
+    char const * p = ply_str;
+
+    if ( skip_or_stop_at )
+        while ( *p != '\0' )
+        {
+            size_t len = cc_parse_utils_step_link_len( p );
+
+            if ( len > 0 )
+                p += len;
+            else
+                break;
+        }
+    else
+        while ( ( *p != '\0' ) && ( !cc_parse_utils_step_link_len( p ) ) ) ++p;
+
+    return p;
+}

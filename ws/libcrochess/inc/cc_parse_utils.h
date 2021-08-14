@@ -106,6 +106,7 @@ char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
 bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
                                   CcPlyLinkEnum * const restrict link_o );
 
+
 /**
     Function returns pointer to first step, within a given ply AN string.
 
@@ -125,5 +126,26 @@ char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str )
     @note For a first step in a ply, there is no preceeding step, and so no link; returned value is also `0`.
 */
 size_t cc_parse_utils_step_link_len( char const * const restrict ply_str );
+
+/**
+    Function returns string pointer, starting from a given location, and moving toward end of string.
+
+    @param ply_str A ply, algebraic notation string.
+    @param skip_or_stop_at A flag, whether to skip step link characters, or stop at first of them.
+
+    String pointer skips over almost all characters, and stops at step link ones,
+    if given `skip_or_stop_at` flag was `true`.
+
+    If flag is `false`, string pointer will skip over step link characters,
+    and stop at any other.
+
+    @see CcStepLinkEnum
+    @see cc_parse_utils_step_link_len
+
+    @return String pointer if successful, `NULL` otherwise.
+*/
+char const * cc_parse_utils_go_step_link( char const * const restrict ply_str,
+                                          bool const skip_or_stop_at );
+
 
 #endif /* __CC_PARSE_UTILS_H__ */
