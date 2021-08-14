@@ -23,7 +23,8 @@ bool cc_parse_ply_get_piece( char const * const restrict ply_str,
     p = cc_parse_utils_go_ply_link( p, true );
     if ( !p ) return false;
 
-    if ( isupper( *p ) )
+    if ( isupper( *p ) ) // WARNING: useage of cc_piece_is_symbol() here is bug,
+                         //          all other upper chars would end as Pawns.
         *piece_io = cc_piece_from_symbol( *p, is_light );
     else
         *piece_io = ( is_light ) ? CC_PE_LightPawn : CC_PE_DarkPawn;
