@@ -228,7 +228,7 @@ CcStep * cc_step_en_passant_new( CcStepLinkEnum const link, int const i, int con
 }
 
 CcStep * cc_step_castle_new( CcStepLinkEnum const link, int const i, int const j,
-                             CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j,
+                             CcPieceEnum const rook, int const start_i, int const start_j, int const dest_i, int const dest_j,
                              CcFormatStepUsageEnum const usage )
 {
     CcSideEffect se = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
@@ -328,7 +328,7 @@ CcStep * cc_step_en_passant_append_new( CcStep * const restrict steps,
 
 CcStep * cc_step_castle_append_new( CcStep * const restrict steps,
                                     CcStepLinkEnum const link, int const i, int const j,
-                                    CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j,
+                                    CcPieceEnum const rook, int const start_i, int const start_j, int const dest_i, int const dest_j,
                                     CcFormatStepUsageEnum const usage )
 {
     CcSideEffect se = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
