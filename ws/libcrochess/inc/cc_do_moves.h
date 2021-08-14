@@ -121,7 +121,6 @@ bool cc_do_moves( CcChessboard * const restrict cb,
 
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result ); // return cumulative result
     @endcode
-    .
 
     Failure can be enforced (e.g. when allocation fails),
     simply by passing `false` as an argument, e.g.:
@@ -129,7 +128,6 @@ bool cc_do_moves( CcChessboard * const restrict cb,
     if ( !cc_ply_cascade_append_new( ... ) )
         return cc_move_data_free_all( &cb__o, NULL, &plies_0, &steps_2, false ); // false == enforced failure
     @endcode
-    .
 
     @return `true` if cumulatively successful, `false` otherwise.
 */
