@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.1:200+20210814.150346"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.2:201+20210814.152812"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -320,10 +320,10 @@ int main( void )
 
             // char const * const user_an = "Bi15~Wf12|Wr8~Np9";
             // char const * const user_an = "Bi15~Wf12||W";
-            // char const * const user_an = "Hg10~Wh8@[Hh13<Bj19..f2<Nb6..j19<Bl25-v5<P==p7]";
-            // char const * const user_an = "Hg10~Wh8@[Hh13*B..f2*N..j19-v5*P==]";
+            char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6..j19<Bl25-v5<P==p7]";
+            // char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N..j19-v5*P==]";
 
-            char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
+            // char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
 
             // TODO :: Uncomment free(), if this is active!
             // char * user_an = cc_next_token_new( NULL, NULL );
@@ -343,10 +343,13 @@ int main( void )
 
                 bool is_piece_light = true;
 
+                char const * steps_str = NULL;
+
                 do
                 {
                     result_1 = cc_parse_utils_get_ply_link( an, &ple );
                     result_2 = cc_parse_ply_get_piece( an, is_piece_light, &pe );
+                    steps_str = cc_parse_utils_get_steps_str( an );
 
                     printf( "%s ", an );
 
@@ -355,6 +358,9 @@ int main( void )
 
                     if ( result_2 )
                         printf( " - %d %c", pe, cc_piece_as_char( pe ) );
+
+                    if ( steps_str )
+                        printf( " - %s", steps_str );
 
                     if ( ( !result_1 ) && ( !result_2 ) )
                         printf( " ---" );

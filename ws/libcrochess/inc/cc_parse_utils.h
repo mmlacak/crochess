@@ -106,5 +106,14 @@ char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
 bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
                                   CcPlyLinkEnum * const restrict link_o );
 
+/**
+    Function returns pointer to first step, within a given ply AN string.
+
+    @param ply_str A ply, algebraic notation string.
+
+    @return Valid pointer to first step if successful, `NULL` otherwise.
+*/
+char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str );
+
 
 #endif /* __CC_PARSE_UTILS_H__ */

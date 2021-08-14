@@ -1,6 +1,8 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+#include <ctype.h>
+
 #include "cc_piece.h"
 
 #include "cc_parse_utils.h"
@@ -204,4 +206,17 @@ bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
     }
 
     return false;
+}
+
+char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str )
+{
+    if ( !ply_str ) return NULL;
+
+    size_t len = cc_parse_utils_ply_link_len( ply_str );
+
+    char const * p = ply_str + len;
+
+    if ( isupper( *p ) ) ++p;
+
+    return p;
 }
