@@ -75,13 +75,27 @@ def main():
         print( "executable args: %s." % str( executable_argv ) )
 
     old_cwd = os.getcwd()
-    cmd_cwd = BE.get_build_dir( PROJECT_ROOT_PATH )
     docs_cwd = DE.get_docs_dir( PROJECT_ROOT_PATH )
+    cmd_cwd = BE.get_build_dir( PROJECT_ROOT_PATH )
 
     if is_debug:
         print( "" )
         print( "Currently in: %s." % str( old_cwd ) )
+        print( "Docs dir: %s." % str( docs_cwd ) )
         print( "Build dir: %s." % str( cmd_cwd ) )
+
+    if is_docs:
+        cwd_docs, cmd_docs = DE.get_compile_docs_cmd(PROJECT_ROOT_PATH, compiler_docs=compiler_docs)
+
+        if is_debug:
+            print( "Compiling docs in: %s." % str( cwd_docs ) )
+            print( "Compiling docs with: %s." % str( cmd_docs ) )
+
+        if not is_dry_run:
+            print( "." * 72 )
+            result = RS.run_process( cmd_docs, cwd=cwd_docs )
+            print( result )
+            print( "-" * 72 )
 
     if is_build:
         if not is_dry_run:
@@ -141,19 +155,6 @@ def main():
             # print( "" )
             print( "." * 72 )
             result = RS.run_process( ls_cmd_lst, cwd=cmd_cwd )
-            print( result )
-            print( "-" * 72 )
-
-    if is_docs:
-        cwd_docs, cmd_docs = DE.get_compile_docs_cmd(PROJECT_ROOT_PATH, compiler_docs=compiler_docs)
-
-        if is_debug:
-            print( "Compiling docs in: %s." % str( cwd_docs ) )
-            print( "Compiling docs with: %s." % str( cmd_docs ) )
-
-        if not is_dry_run:
-            print( "." * 72 )
-            result = RS.run_process( cmd_docs, cwd=cwd_docs )
             print( result )
             print( "-" * 72 )
 
