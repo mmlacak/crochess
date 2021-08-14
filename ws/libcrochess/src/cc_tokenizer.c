@@ -18,7 +18,7 @@ char const CC_TOKEN_SEPARATORS_WHITESPACE[] = " \t\v\f\r\n";
 char const CC_TOKEN_SEPARATORS_PUNCTUATION[] = "!\"#$%%&'()*+,-./";
 
 
-bool cc_char_in( char c, char const * const restrict seps )
+bool cc_char_in( char const c, char const * const restrict seps )
 {
     if ( !seps ) return false;
 
@@ -30,7 +30,7 @@ bool cc_char_in( char c, char const * const restrict seps )
 
 char const * cc_traverse_chars( char const * const restrict pos,
                                 char const * const restrict seps,
-                                bool skip_or_stop_at )
+                                bool const skip_or_stop_at )
 {
     if ( !pos ) return NULL;
     if ( !seps ) return pos;
@@ -47,12 +47,14 @@ char const * cc_traverse_chars( char const * const restrict pos,
     return p;
 }
 
-char const * cc_skip_chars( char const * const restrict pos, char const * const restrict seps )
+char const * cc_skip_chars( char const * const restrict pos,
+                            char const * const restrict seps )
 {
     return cc_traverse_chars( pos, seps, true );
 }
 
-char const * cc_stop_at_chars( char const * const restrict pos, char const * const restrict seps )
+char const * cc_stop_at_chars( char const * const restrict pos,
+                               char const * const restrict seps )
 {
     return cc_traverse_chars( pos, seps, false );
 }
@@ -89,7 +91,8 @@ char * cc_next_token_new( char const * const restrict str_s,
     return pos;
 }
 
-char * cc_str_trim_new( char const * const restrict str, char const * const restrict chars )
+char * cc_str_trim_new( char const * const restrict str,
+                        char const * const restrict chars )
 {
     if ( !str ) return NULL;
     if ( !chars ) return NULL;

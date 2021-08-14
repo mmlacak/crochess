@@ -55,8 +55,8 @@ typedef struct CcMove
     A newly allocated move, is successful, `NULL` otherwise.
 */
 CcMove * cc_move_new( char const * const restrict notation,
-                      CcPly ** restrict plies_n,
-                      CcMoveStatusEnum status );
+                      CcPly ** const restrict plies_n,
+                      CcMoveStatusEnum const status );
 
 /**
     Appends a newly allocated move to a linked list.
@@ -73,8 +73,8 @@ CcMove * cc_move_new( char const * const restrict notation,
 */
 CcMove * cc_move_append_new( CcMove * const restrict moves,
                              char const * const restrict notation,
-                             CcPly ** restrict plies_n,
-                             CcMoveStatusEnum status );
+                             CcPly ** const restrict plies_n,
+                             CcMoveStatusEnum const status );
 
 /**
     Frees all moves in a linked list, and all associated entities.
@@ -87,7 +87,7 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_move_free_all_moves( CcMove ** const moves_f );
+bool cc_move_free_all_moves( CcMove ** const restrict moves_f );
 
 /**
     Function returns count of plies owned by a given move.

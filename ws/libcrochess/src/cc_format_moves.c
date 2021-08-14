@@ -15,12 +15,12 @@
 */
 
 
-CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
-                             CcFormatStepUsageEnum usage,
-                             bool do_format_with_pawn_symbol,
-                             bool do_dark_pieces_uppercase,
-                             CcWrapPlyInSquareBracketsEnum wrap,
-                             bool default_wrap )
+CcFormatMove cc_format_move( CcFormatMoveScopeEnum const scope,
+                             CcFormatStepUsageEnum const usage,
+                             bool const do_format_with_pawn_symbol,
+                             bool const do_dark_pieces_uppercase,
+                             CcWrapPlyInSquareBracketsEnum const wrap,
+                             bool const default_wrap )
 {
     CcFormatMove fmt_mv_t = { .scope = scope,
                               .usage = usage,
@@ -32,12 +32,12 @@ CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
     return fmt_mv_t;
 }
 
-CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope )
+CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum const scope )
 {
     return cc_format_move( scope, CC_FSUE_User, false, true, CC_WPISB_Never, false );
 }
 
-CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
+CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum const scope )
 {
     // return cc_format_move( scope, CC_FSUE_User, false, true, CC_WPISB_IfCascading_HasSteps, false );
     return cc_format_move( scope, CC_FSUE_Clarification, false, true, CC_WPISB_IfCascading_HasSteps, false );
@@ -46,7 +46,7 @@ CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope )
     // return cc_format_move( scope, CC_FSUE_Debug, false, true, CC_WPISB_IfCascading_HasSteps, false );
 }
 
-CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope )
+CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum const scope )
 {
     return cc_format_move( scope, CC_FSUE_Debug, true, false, CC_WPISB_Always, true );
 }
@@ -77,14 +77,14 @@ bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
 }
 
 
-char cc_format_pos_file( int i )
+char cc_format_pos_file( int const i )
 {
     if ( ( i < CC_MIN_BOARD_COORD ) || ( CC_MAX_BOARD_COORD < i ) ) return '?';
 
     return (char)('a' + i);
 }
 
-char * cc_format_pos_rank_new( int j )
+char * cc_format_pos_rank_new( int const j )
 {
     if ( ( j < CC_MIN_BOARD_COORD ) || ( CC_MAX_BOARD_COORD < j ) ) return NULL;
 

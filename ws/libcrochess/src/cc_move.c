@@ -15,8 +15,8 @@
 
 
 CcMove * cc_move_new( char const * const restrict notation,
-                      CcPly ** restrict plies_n,
-                      CcMoveStatusEnum status )
+                      CcPly ** const restrict plies_n,
+                      CcMoveStatusEnum const status )
 {
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
@@ -39,8 +39,8 @@ CcMove * cc_move_new( char const * const restrict notation,
 
 CcMove * cc_move_append_new( CcMove * const restrict moves,
                              char const * const restrict notation,
-                             CcPly ** restrict plies_n,
-                             CcMoveStatusEnum status )
+                             CcPly ** const restrict plies_n,
+                             CcMoveStatusEnum const status )
 {
     if ( !moves ) return NULL;
 
@@ -54,7 +54,7 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
     return new;
 }
 
-bool cc_move_free_all_moves( CcMove ** const moves_f )
+bool cc_move_free_all_moves( CcMove ** const restrict moves_f )
 {
     if ( !moves_f ) return false;
     if ( !*moves_f ) return true;

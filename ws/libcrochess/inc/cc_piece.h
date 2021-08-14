@@ -231,7 +231,9 @@ bool cc_piece_is_lightweight( CcPieceEnum const pe );
 
     @return `true` if piece is a figure, `false` otherwise.
 */
-bool cc_piece_is_figure( CcPieceEnum const pe, bool include_monolith, bool include_stars );
+bool cc_piece_is_figure( CcPieceEnum const pe,
+                         bool const include_monolith,
+                         bool const include_stars );
 
 
 #endif /* __CC_PIECE_H__ */

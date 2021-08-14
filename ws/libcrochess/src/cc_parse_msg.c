@@ -14,7 +14,7 @@
 
 
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
-                               size_t pos,
+                               size_t const pos,
                                char const * const restrict msg )
 {
     CcParseMsg * new = malloc( sizeof( CcParseMsg ) );
@@ -29,8 +29,8 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
 }
 
 CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
-                                      CcParseMsgEnum type,
-                                      size_t pos,
+                                      CcParseMsgEnum const type,
+                                      size_t const pos,
                                       char const * const restrict msg )
 {
     if ( !parse_msgs ) return NULL;
@@ -46,8 +46,8 @@ CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
 }
 
 CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs_io,
-                                              CcParseMsgEnum type,
-                                              size_t pos,
+                                              CcParseMsgEnum const type,
+                                              size_t const pos,
                                               char const * const restrict msg )
 {
     if ( !parse_msgs_io ) return NULL;

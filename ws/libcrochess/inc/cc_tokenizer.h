@@ -33,7 +33,7 @@ extern char const CC_TOKEN_SEPARATORS_PUNCTUATION[];
 
     @return `true` if character is found in string, `false` otherwise.
 */
-bool cc_char_in( char c, char const * const restrict seps );
+bool cc_char_in( char const c, char const * const restrict seps );
 
 /**
     Function traversing over string, returning next position within it.
@@ -46,7 +46,7 @@ bool cc_char_in( char c, char const * const restrict seps );
 */
 char const * cc_traverse_chars( char const * const restrict pos,
                                 char const * const restrict seps,
-                                bool skip_or_stop_at );
+                                bool const skip_or_stop_at );
 
 /**
     Function traversing over string, skipping separators, returning next position within string.
@@ -56,7 +56,8 @@ char const * cc_traverse_chars( char const * const restrict pos,
 
     @return Next position within `pos` string if successful, `NULL` otherwise.
 */
-char const * cc_skip_chars( char const * const restrict pos, char const * const restrict seps );
+char const * cc_skip_chars( char const * const restrict pos,
+                            char const * const restrict seps );
 
 /**
     Function traversing over string, stopping at separators, returning next position within string.
@@ -66,7 +67,8 @@ char const * cc_skip_chars( char const * const restrict pos, char const * const 
 
     @return Next position within `pos` string if successful, `NULL` otherwise.
 */
-char const * cc_stop_at_chars( char const * const restrict pos, char const * const restrict seps );
+char const * cc_stop_at_chars( char const * const restrict pos,
+                               char const * const restrict seps );
 
 
 /**
@@ -112,7 +114,8 @@ char * cc_next_token_new( char const * const restrict str_s,
 
     @return Newly allocated, trimmed string if successful, `NULL` otherwise.
 */
-char * cc_str_trim_new( char const * const restrict str, char const * const restrict chars );
+char * cc_str_trim_new( char const * const restrict str,
+                        char const * const restrict chars );
 
 // size_t cc_flush_stdin();
 

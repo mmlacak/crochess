@@ -75,12 +75,12 @@ typedef struct CcFormatMove
 
     @return Move format structure.
 */
-CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
-                             CcFormatStepUsageEnum usage,
-                             bool do_format_with_pawn_symbol,
-                             bool do_dark_pieces_uppercase,
-                             CcWrapPlyInSquareBracketsEnum wrap,
-                             bool default_wrap );
+CcFormatMove cc_format_move( CcFormatMoveScopeEnum const scope,
+                             CcFormatStepUsageEnum const usage,
+                             bool const do_format_with_pawn_symbol,
+                             bool const do_dark_pieces_uppercase,
+                             CcWrapPlyInSquareBracketsEnum const wrap,
+                             bool const default_wrap );
 
 /** @defgroup format_move_convenience The format move conveniences
  *  The format move convenience functions are meant to be used instead of `cc_format_move()`.
@@ -100,7 +100,7 @@ CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
 
     @return Move format structure.
 */
-CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope );
+CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum const scope );
 
 /**
     Returns move formatting flags, meant for verbose short algebraic notation,
@@ -110,7 +110,7 @@ CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope );
 
     @return Move format structure.
 */
-CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope );
+CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum const scope );
 
 /**
     Returns move formatting flags, meant for debug short algebraic notation,
@@ -120,7 +120,7 @@ CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope );
 
     @return Move format structure.
 */
-CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope );
+CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum const scope );
 
 /** @} */ // end of step_convenience_new
 
@@ -145,7 +145,7 @@ bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
 
     @return A file character if successful, `?` otherwise.
 */
-char cc_format_pos_file( int i );
+char cc_format_pos_file( int const i );
 
 /**
     Returns a newly allocated string representing a rank in algebraic notation.
@@ -154,7 +154,7 @@ char cc_format_pos_file( int i );
 
     @return A newly allocated rank string if successful, `NULL` otherwise.
 */
-char * cc_format_pos_rank_new( int j );
+char * cc_format_pos_rank_new( int const j );
 
 
 /**

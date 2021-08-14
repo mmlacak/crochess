@@ -16,7 +16,8 @@
 */
 
 
-bool cc_str_to_case( char * const restrict str_io, bool to_upper_or_lower )
+bool cc_str_to_case( char * const restrict str_io,
+                     bool const to_upper_or_lower )
 {
     if ( !str_io ) return false;
 
@@ -34,7 +35,8 @@ bool cc_str_to_case( char * const restrict str_io, bool to_upper_or_lower )
     return true;
 }
 
-char * cc_str_to_case_new( char const * const restrict str, bool to_upper_or_lower )
+char * cc_str_to_case_new( char const * const restrict str,
+                           bool const to_upper_or_lower )
 {
     if ( !str ) return NULL;
 
@@ -66,7 +68,8 @@ size_t cc_str_len( char const * const restrict str )
     return ( str ) ? strlen( str ) : 0;
 }
 
-size_t cc_str_len_min( char const * const restrict str, size_t max_len )
+size_t cc_str_len_min( char const * const restrict str,
+                       size_t const max_len )
 {
     if ( !str ) return 0;
     if ( max_len == 0 ) return 0;
@@ -97,7 +100,8 @@ char * cc_str_duplicate_new( char const * const restrict str )
     return new;
 }
 
-char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len )
+char * cc_str_duplicate_len_new( char const * const restrict str,
+                                 size_t const max_len )
 {
     if ( !str ) return NULL;
 
@@ -147,7 +151,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1,
 
 char * cc_str_concatenate_len_new( char const * const restrict str_1,
                                    char const * const restrict str_2,
-                                   size_t max_len )
+                                   size_t const max_len )
 {
     size_t len_1 = cc_str_len_min( str_1, max_len );
     size_t len_2 = cc_str_len_min( str_2, max_len );
@@ -239,8 +243,8 @@ bool cc_str_append_char( char ** const restrict str_io_r,
     return (bool)( new );
 }
 
-char * cc_str_append_new( char ** restrict str_1_f,
-                          char ** restrict str_2_f )
+char * cc_str_append_new( char ** const restrict str_1_f,
+                          char ** const restrict str_2_f )
 {
     if ( ( !str_1_f ) && ( !str_2_f ) ) return NULL;
 
@@ -270,9 +274,9 @@ char * cc_str_append_new( char ** restrict str_1_f,
     return new;
 }
 
-char * cc_str_append_len_new( char ** restrict str_1_f,
-                              char ** restrict str_2_f,
-                              size_t max_len )
+char * cc_str_append_len_new( char ** const restrict str_1_f,
+                              char ** const restrict str_2_f,
+                              size_t const max_len )
 {
     if ( ( !str_1_f ) && ( !str_2_f ) ) return NULL;
 
@@ -302,7 +306,7 @@ char * cc_str_append_len_new( char ** restrict str_1_f,
     return new;
 }
 
-char * cc_str_append_format_new( char ** restrict str_f,
+char * cc_str_append_format_new( char ** const restrict str_f,
                                  char const * const restrict fmt, ... )
 {
     va_list args;
@@ -349,8 +353,8 @@ char * cc_str_append_format_new( char ** restrict str_f,
     return cc_str_append_new( str_f, &new );
 }
 
-char * cc_str_append_format_len_new( char ** restrict str_f,
-                                     size_t max_len,
+char * cc_str_append_format_len_new( char ** const restrict str_f,
+                                     size_t const max_len,
                                      char const * const restrict fmt, ... )
 {
     va_list args;

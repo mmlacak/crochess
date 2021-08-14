@@ -291,7 +291,9 @@ bool cc_piece_is_lightweight( CcPieceEnum const pe )
           || ( pe == CC_PE_LightWave ) || ( pe == CC_PE_DarkWave ) );
 }
 
-bool cc_piece_is_figure( CcPieceEnum const pe, bool include_monolith, bool include_stars )
+bool cc_piece_is_figure( CcPieceEnum const pe,
+                         bool const include_monolith,
+                         bool const include_stars )
 {
     if ( cc_piece_is_light( pe ) ) return true;
     if ( cc_piece_is_dark( pe ) ) return true;

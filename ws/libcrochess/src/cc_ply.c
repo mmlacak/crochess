@@ -29,7 +29,9 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum const ple )
 }
 
 
-CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece, CcStep ** restrict steps_n )
+CcPly * cc_ply_new( CcPlyLinkEnum const link,
+                    CcPieceEnum const piece,
+                    CcStep ** const restrict steps_n )
 {
     CcPly * ply = calloc( 1, sizeof( CcPly ) );
     if ( !ply ) return NULL;
@@ -51,9 +53,9 @@ CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece, CcStep ** restrict st
 }
 
 CcPly * cc_ply_append_new( CcPly * const restrict plies,
-                           CcPlyLinkEnum link,
-                           CcPieceEnum piece,
-                           CcStep ** restrict steps_n )
+                           CcPlyLinkEnum const link,
+                           CcPieceEnum const piece,
+                           CcStep ** const restrict steps_n )
 {
     if ( !plies ) return NULL;
 
@@ -67,7 +69,7 @@ CcPly * cc_ply_append_new( CcPly * const restrict plies,
     return new;
 }
 
-bool cc_ply_free_all_plies( CcPly ** const plies_f )
+bool cc_ply_free_all_plies( CcPly ** const restrict plies_f )
 {
     if ( !plies_f ) return false;
     if ( !*plies_f ) return true;
@@ -108,8 +110,8 @@ bool cc_ply_contains_side_effects( CcPly const * const restrict ply )
 }
 
 size_t cc_ply_step_count( CcPly const * const restrict ply,
-                          CcFormatStepUsageEnum usage,
-                          bool include_starting_pos )
+                          CcFormatStepUsageEnum const usage,
+                          bool const include_starting_pos )
 {
     if ( !ply ) return 0;
 

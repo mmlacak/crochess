@@ -19,13 +19,13 @@
 */
 
 
-bool cc_is_field_light( int i, int j )
+bool cc_is_field_light( int const i, int const j )
 {
     return ( (i + j) % 2 != 0 );
 }
 
 
-CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool do_setup )
+CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool const do_setup )
 {
     CcChessboard * cb = malloc( sizeof( CcChessboard ) );
     if ( !cb ) return NULL;
@@ -39,7 +39,9 @@ CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool do_setup )
     return cb;
 }
 
-bool cc_chessboard_init( CcChessboard * const restrict cb_io, CcVariantEnum const ve, bool do_setup )
+bool cc_chessboard_init( CcChessboard * const restrict cb_io,
+                         CcVariantEnum const ve,
+                         bool const do_setup )
 {
     if ( !cb_io ) return false;
 
@@ -95,7 +97,8 @@ bool cc_chessboard_setup( CcChessboard * const restrict cb_io )
 }
 
 
-bool cc_chessboard_copy( CcChessboard * const restrict into_io, CcChessboard const * const restrict from )
+bool cc_chessboard_copy( CcChessboard * const restrict into_io,
+                         CcChessboard const * const restrict from )
 {
     if ( !into_io ) return false;
     if ( !from ) return false;
@@ -133,7 +136,7 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict 
     return cb;
 }
 
-bool cc_chessboard_free_all( CcChessboard ** const cb_f )
+bool cc_chessboard_free_all( CcChessboard ** const restrict cb_f )
 {
     if ( !cb_f ) return false;
     if ( !*cb_f ) return true;
@@ -145,13 +148,17 @@ bool cc_chessboard_free_all( CcChessboard ** const cb_f )
 }
 
 
-bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb, int i, int j )
+bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb,
+                                int const i,
+                                int const j )
 {
     if ( !cb ) return false;
     return ( ( 0 <= i ) && ( i < (int)cb->size ) && ( 0 <= j ) && ( j < (int)cb->size ) );
 }
 
-CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb, int i, int j )
+CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb,
+                                     int const i,
+                                     int const j )
 {
     if ( cc_chessboard_is_on_board( cb, i, j ) )
     {
@@ -161,7 +168,9 @@ CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb, int
     return CC_PE_None;
 }
 
-CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb, int i, int j )
+CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb,
+                                 int const i,
+                                 int const j )
 {
     if ( cc_chessboard_is_on_board( cb, i, j ) )
     {
@@ -171,7 +180,11 @@ CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb, int i, 
     return CC_TE_None;
 }
 
-bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb_io, int i, int j, CcPieceEnum pe, CcTagEnum tt )
+bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb_io,
+                                  int const i,
+                                  int const j,
+                                  CcPieceEnum const pe,
+                                  CcTagEnum const tt )
 {
     if ( !cb_io ) return false;
 
@@ -186,12 +199,18 @@ bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb_io, int i, in
     return false;
 }
 
-bool cc_chessboard_set_piece( CcChessboard * const restrict cb_io, int i, int j, CcPieceEnum pe )
+bool cc_chessboard_set_piece( CcChessboard * const restrict cb_io,
+                              int const i,
+                              int const j,
+                              CcPieceEnum const pe )
 {
     return cc_chessboard_set_piece_tag( cb_io, i, j, pe, CC_TE_None );
 }
 
-bool cc_chessboard_set_tag( CcChessboard * const restrict cb_io, int i, int j, CcTagEnum tt )
+bool cc_chessboard_set_tag( CcChessboard * const restrict cb_io,
+                            int const i,
+                            int const j,
+                            CcTagEnum const tt )
 {
     if ( !cb_io ) return false;
 
@@ -257,7 +276,8 @@ static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard const * const
     return hr;
 }
 
-char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool is_board_or_tag )
+char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb,
+                                    bool const is_board_or_tag )
 {
     if ( !cb ) return NULL;
 
@@ -348,7 +368,8 @@ char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb, bool
     return s;
 }
 
-bool cc_chessboard_print( CcChessboard const * const restrict cb, bool is_board_or_tag )
+bool cc_chessboard_print( CcChessboard const * const restrict cb,
+                          bool const is_board_or_tag )
 {
     if ( !cb ) return false;
 

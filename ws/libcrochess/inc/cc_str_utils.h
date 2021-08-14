@@ -29,7 +29,8 @@
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_to_case( char * const restrict str_io, bool to_upper_or_lower );
+bool cc_str_to_case( char * const restrict str_io,
+                     bool const to_upper_or_lower );
 
 /**
     Function returning a newly allocated string, converted to uppercase or lowercase.
@@ -39,7 +40,8 @@ bool cc_str_to_case( char * const restrict str_io, bool to_upper_or_lower );
 
     @return A newly allocated, converted string if successful, `NULL` otherwise.
 */
-char * cc_str_to_case_new( char const * const restrict str, bool to_upper_or_lower );
+char * cc_str_to_case_new( char const * const restrict str,
+                           bool const to_upper_or_lower );
 
 
 /**
@@ -59,7 +61,8 @@ size_t cc_str_len( char const * const restrict str );
 
     @return Capped length of a string if successful, `0` otherwise.
 */
-size_t cc_str_len_min( char const * const restrict str, size_t max_len );
+size_t cc_str_len_min( char const * const restrict str,
+                       size_t const max_len );
 
 
 /**
@@ -81,7 +84,8 @@ char * cc_str_duplicate_new( char const * const restrict str );
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
-char * cc_str_duplicate_len_new( char const * const restrict str, size_t max_len );
+char * cc_str_duplicate_len_new( char const * const restrict str,
+                                 size_t const max_len );
 
 /**
     Function concatenating strings, by returning a newly allocated string.
@@ -106,7 +110,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1,
 */
 char * cc_str_concatenate_len_new( char const * const restrict str_1,
                                    char const * const restrict str_2,
-                                   size_t max_len );
+                                   size_t const max_len );
 
 /**
     Function concatenating character to a string, by returning a newly allocated string.
@@ -162,8 +166,8 @@ bool cc_str_append_char( char ** const restrict str_io_r,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_new( char ** restrict str_1_f,
-                          char ** restrict str_2_f );
+char * cc_str_append_new( char ** const restrict str_1_f,
+                          char ** const restrict str_2_f );
 
 /**
     Function appending strings, by returning a newly allocated string,
@@ -187,9 +191,9 @@ char * cc_str_append_new( char ** restrict str_1_f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_len_new( char ** restrict str_1_f,
-                              char ** restrict str_2_f,
-                              size_t max_len );
+char * cc_str_append_len_new( char ** const restrict str_1_f,
+                              char ** const restrict str_2_f,
+                              size_t const max_len );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string.
@@ -209,7 +213,7 @@ char * cc_str_append_len_new( char ** restrict str_1_f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_new( char ** restrict str_f,
+char * cc_str_append_format_new( char ** const restrict str_f,
                                  char const * const restrict fmt, ... );
 
 /**
@@ -232,8 +236,8 @@ char * cc_str_append_format_new( char ** restrict str_f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_len_new( char ** restrict str_f,
-                                     size_t max_len,
+char * cc_str_append_format_len_new( char ** const restrict str_f,
+                                     size_t const max_len,
                                      char const * const restrict fmt, ... );
 
 

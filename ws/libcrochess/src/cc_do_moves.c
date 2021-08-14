@@ -202,7 +202,7 @@ bool cc_do_ply( CcChessboard * const restrict cb,
 
 bool cc_do_moves( CcChessboard * const restrict cb,
                   CcMove const * const restrict moves,
-                  CcDoMoveEnum do_spec )
+                  CcDoMoveEnum const do_spec )
 {
     if ( !cb ) return false;
     if ( !moves ) return false;
@@ -236,11 +236,11 @@ bool cc_do_moves( CcChessboard * const restrict cb,
 }
 
 
-bool cc_move_data_free_all( CcChessboard ** const cb_f,
-                            CcMove ** const moves_f,
-                            CcPly ** const plies_f,
-                            CcStep ** const steps_f,
-                            bool cumulative_result )
+bool cc_move_data_free_all( CcChessboard ** const restrict cb_f,
+                            CcMove ** const restrict moves_f,
+                            CcPly ** const restrict plies_f,
+                            CcStep ** const restrict steps_f,
+                            bool const cumulative_result )
 {
     bool results = true;
 
