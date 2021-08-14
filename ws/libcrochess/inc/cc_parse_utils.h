@@ -115,5 +115,15 @@ bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
 */
 char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str );
 
+/**
+    Function returns length of a step link in an algebraic notation, in characters.
+
+    @param ply_str A ply, algebraic notation string.
+
+    @return Length of a step link if successful, `0` otherwise.
+
+    @note For a first step in a ply, there is no preceeding step, and so no link; returned value is also `0`.
+*/
+size_t cc_parse_utils_step_link_len( char const * const restrict ply_str );
 
 #endif /* __CC_PARSE_UTILS_H__ */

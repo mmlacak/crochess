@@ -220,3 +220,20 @@ char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str )
 
     return p;
 }
+
+size_t cc_parse_utils_step_link_len( char const * const restrict ply_str )
+{
+    if ( !ply_str ) return 0;
+
+    char const * c = ply_str;
+
+    if ( *c == '-' ) return 1;
+
+    if ( *c == '.' )
+    {
+        if ( *++c == '.' ) return 2;
+        return 1;
+    }
+
+    return 0;
+}
