@@ -31,7 +31,16 @@ typedef enum CcPlyLinkEnum
     CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `::`. */
 } CcPlyLinkEnum;
 
-// *** TODO :: DOCS ***
+/**
+    Function returns string symbol, as used in algebraic notation, for a given ply link.
+
+    @param ple A ply linkage.
+
+    @note
+    Returned string is pre-defined in library, not allocated one, so it needs no `free()`-ing.
+
+    @return String symbol if link is valid, `NULL` otherwise.
+*/
 char const * cc_ply_link_symbol( CcPlyLinkEnum const ple );
 
 

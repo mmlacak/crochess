@@ -23,6 +23,8 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum const ple )
         case CC_PLE_DualTranceJourney : return "@@";
         case CC_PLE_FailedTranceJourney : return "@@@";
         case CC_PLE_PawnSacrifice : return "::";
+
+        default : return NULL; // gcc complains otherwise, it's good default anyway.
     }
 }
 
