@@ -2,7 +2,7 @@
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
 // #include <stdbool.h>
-// #include <ctype.h>
+#include <ctype.h>
 // #include <stdlib.h>
 // #include <string.h>
 // #include <stdio.h>
@@ -11,6 +11,25 @@
 #include "cc_parse_utils.h"
 #include "cc_parse_move.h"
 
+
+bool cc_parse_ply_get_piece( char const * const restrict ply_str,
+                             bool const is_light,
+                             CcPieceEnum * const restrict piece_io )
+{
+    if ( !ply_str ) return false;
+
+    char const * p = ply_str;
+
+    p = cc_parse_utils_go_ply_link( p, true );
+    if ( !p ) return false;
+
+    if ( isupper( *p ) )
+        *piece_io = cc_piece_from_symbol( *p, is_light );
+    else
+        *piece_io = ( is_light ) ? CC_PE_LightPawn : CC_PE_DarkPawn;
+
+    return cc_piece_is_valid( *piece_io );
+}
 
 CcPly * cc_parse_ply( char const * const restrict ply_str,
                       CcChessboard const * const restrict cb,

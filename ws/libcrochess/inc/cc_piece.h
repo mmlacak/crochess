@@ -95,7 +95,16 @@ CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light );
 
     @return `true` if given character is a valid chess piece symbol, `false` otherwise.
 */
-CcPieceEnum cc_piece_is_symbol( char const c );
+bool cc_piece_is_symbol( char const c );
+
+/**
+    Function returns whether given piece enum value is a valid chess piece.
+
+    @param pe A piece enum value.
+
+    @return `true` if given enum is a valid chess piece, `false` otherwise.
+*/
+bool cc_piece_is_valid( CcPieceEnum const pe );
 
 /**
     Function returning piece enum in opposite color (shade) to argument.

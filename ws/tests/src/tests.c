@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.91:195+20210814.055947"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.92:196+20210814.073420"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -336,20 +336,32 @@ int main( void )
                 if ( !an ) continue;
 
                 CcPlyLinkEnum ple = CC_PLE_Ply;
-                bool result = true;
+                bool result_1 = true;
+
+                CcPieceEnum pe = CC_PE_None;
+                bool result_2 = true;
+
+                bool is_piece_light = true;
 
                 do
                 {
-                    result = cc_parse_util_get_ply_link( an, &ple );
+                    result_1 = cc_parse_utils_get_ply_link( an, &ple );
+                    result_2 = cc_parse_ply_get_piece( an, is_piece_light, &pe );
 
-                    if ( result )
-                    {
-                        printf( "%s # %d\n", an, ple );
-                    }
-                    else
-                    {
-                        printf( "%s # ---\n", an );
-                    }
+                    printf( "%s ", an );
+
+                    if ( result_1 )
+                        printf( " - %d %s", ple, cc_ply_link_symbol(ple ) );
+
+                    if ( result_2 )
+                        printf( " - %d %c", pe, cc_piece_as_char( pe ) );
+
+                    if ( ( !result_1 ) && ( !result_2 ) )
+                        printf( " ---" );
+
+                    printf( "\n" );
+
+                    is_piece_light = !is_piece_light;
 
                     free( an );
                     // an = NULL;

@@ -12,6 +12,21 @@
 */
 
 
+char const * cc_ply_link_symbol( CcPlyLinkEnum const ple )
+{
+    switch ( ple )
+    {
+        case CC_PLE_Ply : return "~";
+        case CC_PLE_Teleportation : return "|";
+        case CC_PLE_FailedTeleportation : return "||";
+        case CC_PLE_TranceJourney : return "@";
+        case CC_PLE_DualTranceJourney : return "@@";
+        case CC_PLE_FailedTranceJourney : return "@@@";
+        case CC_PLE_PawnSacrifice : return "::";
+    }
+}
+
+
 CcPly * cc_ply_new( CcPlyLinkEnum link, CcPieceEnum piece, CcStep ** restrict steps_n )
 {
     CcPly * ply = calloc( 1, sizeof( CcPly ) );

@@ -14,6 +14,11 @@
 
 
 // TODO :: DOCS
+bool cc_parse_ply_get_piece( char const * const restrict ply_str,
+                             bool const is_light,
+                             CcPieceEnum * const restrict piece_io );
+
+// TODO :: DOCS
 CcPly * cc_parse_ply( char const * const restrict ply_str,
                       CcChessboard const * const restrict cb,
                       CcParseMsg ** parse_msgs_io );

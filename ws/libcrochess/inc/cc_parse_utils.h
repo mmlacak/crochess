@@ -42,7 +42,8 @@ bool cc_parse_utils_char_is_ply_gather( char const c );
 
     @return String pointer if successful, `NULL` otherwise.
 */
-char const * cc_parse_utils_go_ply_gather( char const * const restrict move_str, bool skip_or_stop_at );
+char const * cc_parse_utils_go_ply_gather( char const * const restrict move_str,
+                                           bool const skip_or_stop_at );
 
 /**
     Function returns length of a ply link in an algebraic notation, in characters.
@@ -72,7 +73,8 @@ size_t cc_parse_utils_ply_link_len( char const * const restrict move_str );
 
     @return String pointer if successful, `NULL` otherwise.
 */
-char const * cc_parse_utils_go_ply_link( char const * const restrict move_str, bool skip_or_stop_at );
+char const * cc_parse_utils_go_ply_link( char const * const restrict move_str,
+                                         bool const skip_or_stop_at );
 
 /**
     Iterator returns newly allocated string, containing next ply algebraic notation.
@@ -101,8 +103,8 @@ char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_parse_util_get_ply_link( char const * const restrict ply_str,
-                                 CcPlyLinkEnum * const restrict link_o );
+bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
+                                  CcPlyLinkEnum * const restrict link_o );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

@@ -31,6 +31,9 @@ typedef enum CcPlyLinkEnum
     CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `::`. */
 } CcPlyLinkEnum;
 
+// *** TODO :: DOCS ***
+char const * cc_ply_link_symbol( CcPlyLinkEnum const ple );
+
 
 /**
     Ply structure, linked list.
