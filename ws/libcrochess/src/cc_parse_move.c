@@ -17,6 +17,7 @@ bool cc_parse_ply_get_piece( char const * const restrict ply_str,
                              CcPieceEnum * const restrict piece_o )
 {
     if ( !ply_str ) return false;
+    if ( !piece_o ) return false;
 
     char const * p = ply_str;
 
