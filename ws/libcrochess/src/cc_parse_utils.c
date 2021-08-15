@@ -260,3 +260,47 @@ char const * cc_parse_utils_go_step_link( char const * const restrict ply_str,
 
     return p;
 }
+
+char * cc_parse_utils_next_step_str_new( char const * const restrict ply_str_s )
+{
+    /* static char const * ply_start = NULL; */
+    static char const * step_start = NULL;
+    static char const * step_end = NULL;
+
+    bool parse_1st = (bool)ply_str_s;
+
+    if ( ply_str_s )
+    {
+        /* ply_start = */ step_start = step_end = cc_parse_utils_get_steps_str( ply_str_s );
+    }
+
+    if ( !step_end ) return NULL;
+
+    if ( *step_end == '\0' )
+    {
+        step_end = NULL; // Invalidate future calls without initialization.
+        return NULL;
+    }
+
+    if ( !parse_1st )
+        step_start = cc_parse_utils_go_step_link( step_end, false );
+
+    step_end = cc_parse_utils_go_step_link( step_start, true );
+    step_end = cc_parse_utils_go_step_link( step_end, false );
+
+    if ( step_end == step_start ) return NULL;
+
+    size_t len = step_end - step_start;
+    char * ply_str = malloc( len + 1 );
+    if ( !ply_str ) return NULL;
+
+    char const * in = step_start;
+    char * out = ply_str;
+
+    while ( in < step_end )
+        *out++ = *in++;
+
+    *out = '\0';
+
+    return ply_str;
+}

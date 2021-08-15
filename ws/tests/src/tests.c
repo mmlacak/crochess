@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.4:203+20210814.165702"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.5:204+20210815.085500"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -320,8 +320,8 @@ int main( void )
 
             // char const * const user_an = "Bi15~Wf12|Wr8~Np9";
             // char const * const user_an = "Bi15~Wf12||W";
-            char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6..j19<Bl25-v5<P==p7]";
-            // char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N..j19-v5*P==]";
+            char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6.p7..j19<Bl25-v5<P==p7]";
+            // char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
 
             // char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
 
@@ -332,8 +332,8 @@ int main( void )
             {
                 printf( "%s\n", user_an );
 
-                char * an = cc_parse_utils_next_ply_str_new( user_an );
-                if ( !an ) continue;
+                char * an__o = cc_parse_utils_next_ply_str_new( user_an );
+                if ( !an__o ) continue;
 
                 CcPlyLinkEnum ple = CC_PLE_Ply;
                 bool result_1 = true;
@@ -347,20 +347,39 @@ int main( void )
 
                 do
                 {
-                    result_1 = cc_parse_utils_get_ply_link( an, &ple );
-                    result_2 = cc_parse_ply_get_piece( an, is_piece_light, &pe );
-                    steps_str = cc_parse_utils_get_steps_str( an );
+                    result_1 = cc_parse_utils_get_ply_link( an__o, &ple );
+                    result_2 = cc_parse_ply_get_piece( an__o, is_piece_light, &pe );
+                    steps_str = cc_parse_utils_get_steps_str( an__o );
 
-                    printf( "%s ", an );
+                    printf( "%s ", an__o );
 
                     if ( result_1 )
-                        printf( " - %d %s", ple, cc_ply_link_symbol(ple ) );
+                        printf( " [%d %s]", ple, cc_ply_link_symbol(ple ) );
 
                     if ( result_2 )
-                        printf( " - %d %c", pe, cc_piece_as_char( pe ) );
+                        printf( " {%d %c}", pe, cc_piece_as_char( pe ) );
 
                     if ( steps_str )
-                        printf( " - %s", steps_str );
+                    {
+                        printf( " (%s)", steps_str );
+
+                        char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
+
+                        if ( step_an__o )
+                        {
+                            printf( "\n" );
+
+                            do
+                            {
+                                printf( "    %s\n", step_an__o );
+                                step_an__o = cc_parse_utils_next_step_str_new( NULL );
+                            }
+                            while ( step_an__o );
+                        }
+
+                        free( step_an__o );
+                        step_an__o = NULL;
+                    }
 
                     if ( ( !result_1 ) && ( !result_2 ) )
                         printf( " ---" );
@@ -369,12 +388,12 @@ int main( void )
 
                     is_piece_light = !is_piece_light;
 
-                    free( an );
-                    // an = NULL;
+                    free( an__o );
+                    // an__o = NULL;
 
-                    an = cc_parse_utils_next_ply_str_new( NULL );
+                    an__o = cc_parse_utils_next_ply_str_new( NULL );
                 }
-                while ( an );
+                while ( an__o );
 
                 // TODO :: Uncomment, if cc_next_token_new() is active!
                 // free( user_an );

@@ -147,5 +147,21 @@ size_t cc_parse_utils_step_link_len( char const * const restrict ply_str );
 char const * cc_parse_utils_go_step_link( char const * const restrict ply_str,
                                           bool const skip_or_stop_at );
 
+/**
+    Iterator returns newly allocated string, containing next step algebraic notation.
+
+    @param ply_str_s A ply, _static_ parameter, AN string used to initialize iterator, can be `NULL`.
+
+    @note
+    Iterator is initialized with valid `ply_str_s` once, after which subsequent calls
+    has to pass `NULL` as argument.
+
+    @note
+    Once AN string is traversed completely, `NULL` is returned.
+
+    @return String pointer to newly allocated AN string if successful, `NULL` otherwise.
+*/
+char * cc_parse_utils_next_step_str_new( char const * const restrict ply_str_s );
+
 
 #endif /* __CC_PARSE_UTILS_H__ */
