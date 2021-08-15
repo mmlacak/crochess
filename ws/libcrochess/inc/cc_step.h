@@ -27,6 +27,19 @@ typedef enum CcStepLinkEnum
     CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
 } CcStepLinkEnum;
 
+/**
+    Function returns string symbol, as used in algebraic notation, for a given step link.
+
+    @param sle A step linkage.
+
+    @note
+    Returned string is pre-defined in library, not allocated one, so it needs no `free()`-ing.
+
+    @return String symbol if link is valid, `NULL` otherwise.
+*/
+char const * cc_step_link_symbol( CcStepLinkEnum const sle );
+
+
 
 /**
     Step side-effect enumeration.

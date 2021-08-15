@@ -227,6 +227,8 @@ size_t cc_parse_utils_step_link_len( char const * const restrict ply_str )
 
     char const * c = ply_str;
 
+    if ( *c == ',' ) return 1;
+
     if ( *c == '-' ) return 1;
 
     if ( *c == '.' )

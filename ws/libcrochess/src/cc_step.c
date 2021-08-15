@@ -12,6 +12,21 @@
 */
 
 
+char const * cc_step_link_symbol( CcStepLinkEnum const sle )
+{
+    switch ( sle )
+    {
+        case CC_SLE_Start : return "";
+        case CC_SLE_Reposition : return ",";
+        case CC_SLE_Next : return ".";
+        case CC_SLE_Distant : return "..";
+        case CC_SLE_Destination : return "-";
+
+        default : return NULL; // gcc complains without default.
+    }
+}
+
+
 bool cc_side_effect_enum_is_castling( CcSideEffectEnum const see )
 {
     return ( see == CC_SEE_Castle );
