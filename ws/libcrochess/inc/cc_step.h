@@ -40,7 +40,6 @@ typedef enum CcStepLinkEnum
 char const * cc_step_link_symbol( CcStepLinkEnum const sle );
 
 
-
 /**
     Step side-effect enumeration.
 */

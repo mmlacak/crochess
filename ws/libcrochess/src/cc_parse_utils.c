@@ -208,6 +208,28 @@ bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
     return false;
 }
 
+bool cc_parse_utils_get_ply_piece( char const * const restrict ply_str,
+                                   bool const is_light,
+                                   CcPieceEnum * const restrict piece_o )
+{
+    if ( !ply_str ) return false;
+    if ( !piece_o ) return false;
+
+    char const * p = ply_str;
+
+    p = cc_parse_utils_go_ply_link( p, true );
+    if ( !p ) return false;
+
+    if ( isupper( *p ) ) // <!> Useage of cc_piece_is_symbol() here is bug,
+                         //     all other upper chars would end as Pawns.
+        *piece_o = cc_piece_from_symbol( *p, is_light );
+    else
+        *piece_o = ( is_light ) ? CC_PE_LightPawn : CC_PE_DarkPawn;
+
+    return cc_piece_is_valid( *piece_o );
+}
+
+
 char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str )
 {
     if ( !ply_str ) return NULL;

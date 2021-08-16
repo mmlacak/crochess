@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.7:206+20210815.093245"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.8:207+20210816.162731"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -350,7 +350,7 @@ int main( void )
                 do
                 {
                     result_1 = cc_parse_utils_get_ply_link( an__o, &ple );
-                    result_2 = cc_parse_ply_get_piece( an__o, is_piece_light, &pe );
+                    result_2 = cc_parse_utils_get_ply_piece( an__o, is_piece_light, &pe );
                     steps_str = cc_parse_utils_get_steps_str( an__o );
 
                     printf( "%s ", an__o );

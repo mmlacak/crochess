@@ -106,6 +106,22 @@ char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
 bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
                                   CcPlyLinkEnum * const restrict link_o );
 
+/**
+    Function getting piece, for a given ply AN string.
+
+    @param ply_str A ply, algebraic notation string.
+    @param is_light A flag, whether piece is light or dark (bright or dim, in case of Stars).
+    @param piece_o An _output_ parameter, returned piece.
+
+    @note
+    Piece is returned via _output_ parameter, not via return value.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_parse_utils_get_ply_piece( char const * const restrict ply_str,
+                                   bool const is_light,
+                                   CcPieceEnum * const restrict piece_o );
+
 
 /**
     Function returns pointer to first step, within a given ply AN string.
