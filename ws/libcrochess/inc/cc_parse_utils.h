@@ -48,13 +48,11 @@ char const * cc_parse_utils_go_ply_gather( char const * const restrict move_str,
 /**
     Function returns length of a ply link in an algebraic notation, in characters.
 
-    @param move_str A move, algebraic notation string.
+    @param ply_str A ply, algebraic notation string.
 
     @return Length of a ply link if successful, `0` otherwise.
-
-    @note For a first ply in a move, there is no preceeding ply, and so no link; returned value is also `0`.
 */
-size_t cc_parse_utils_ply_link_len( char const * const restrict move_str );
+size_t cc_parse_utils_ply_link_len( char const * const restrict ply_str );
 
 /**
     Function returns string pointer, starting from a given location, and moving toward end of string.
@@ -135,13 +133,11 @@ char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str )
 /**
     Function returns length of a step link in an algebraic notation, in characters.
 
-    @param ply_str A ply, algebraic notation string.
+    @param step_str A step, algebraic notation string.
 
     @return Length of a step link if successful, `0` otherwise.
-
-    @note For a first step in a ply, there is no preceeding step, and so no link; returned value is also `0`.
 */
-size_t cc_parse_utils_step_link_len( char const * const restrict ply_str );
+size_t cc_parse_utils_step_link_len( char const * const restrict step_str );
 
 /**
     Function returns string pointer, starting from a given location, and moving toward end of string.
@@ -178,6 +174,32 @@ char const * cc_parse_utils_go_step_link( char const * const restrict ply_str,
     @return String pointer to newly allocated AN string if successful, `NULL` otherwise.
 */
 char * cc_parse_utils_next_step_str_new( char const * const restrict ply_str_s );
+
+/**
+    Function returns whether given ply has multiple steps.
+
+    @param ply_str A ply, algebraic notation string.
+
+    @return `true` if ply has multiple steps, `false` otherwise.
+*/
+bool cc_parse_utils_ply_has_multiple_steps( char const * const restrict ply_str );
+
+
+/**
+    Function getting step link, for a given step AN string.
+
+    @param ply_str A ply, algebraic notation string.
+    @param step_str A step, algebraic notation string.
+    @param link_o An _output_ parameter, returned step link.
+
+    @note
+    Step link is returned via _output_ parameter, not via return value.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
+                                   char const * const restrict step_str,
+                                   CcStepLinkEnum * const restrict link_o );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

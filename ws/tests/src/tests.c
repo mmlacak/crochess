@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.8:207+20210816.162731"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.9:208+20210816.173321"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -349,23 +349,27 @@ int main( void )
 
                 do
                 {
-                    result_1 = cc_parse_utils_get_ply_link( an__o, &ple );
-                    result_2 = cc_parse_utils_get_ply_piece( an__o, is_piece_light, &pe );
-                    steps_str = cc_parse_utils_get_steps_str( an__o );
-
                     printf( "%s ", an__o );
 
+                    result_1 = cc_parse_utils_get_ply_link( an__o, &ple );
                     if ( result_1 )
-                        printf( " [%d %s]", ple, cc_ply_link_symbol(ple ) );
+                        printf( " [%d %s]", ple, cc_ply_link_symbol( ple ) );
+                    else
+                        printf( " [---]" );
 
+                    result_2 = cc_parse_utils_get_ply_piece( an__o, is_piece_light, &pe );
                     if ( result_2 )
                         printf( " {%d %c}", pe, cc_piece_as_char( pe ) );
+                    else
+                        printf( " {---}" );
 
+                    steps_str = cc_parse_utils_get_steps_str( an__o );
                     if ( steps_str )
                     {
                         printf( " (%s)", steps_str );
 
                         char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
+                        CcStepLinkEnum sle = CC_SLE_Destination;
 
                         if ( step_an__o )
                         {
@@ -373,7 +377,15 @@ int main( void )
 
                             do
                             {
-                                printf( "    %s\n", step_an__o );
+                                printf( "    %s", step_an__o );
+
+                                bool result_3 = cc_parse_utils_get_step_link( an__o, step_an__o, &sle );
+                                if ( result_3 )
+                                    printf( " [%d %s]", sle, cc_step_link_symbol( sle ) );
+                                else
+                                    printf( " [---]" );
+
+                                printf( "\n" );
                                 step_an__o = cc_parse_utils_next_step_str_new( NULL );
                             }
                             while ( step_an__o );

@@ -33,11 +33,11 @@ char const * cc_parse_utils_go_ply_gather( char const * const restrict move_str,
     return m;
 }
 
-size_t cc_parse_utils_ply_link_len( char const * const restrict move_str )
+size_t cc_parse_utils_ply_link_len( char const * const restrict ply_str )
 {
-    if ( !move_str ) return 0;
+    if ( !ply_str ) return 0;
 
-    char const * c = move_str;
+    char const * c = ply_str;
 
     if ( *c == '~' ) return 1;
 
@@ -243,11 +243,11 @@ char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str )
     return p;
 }
 
-size_t cc_parse_utils_step_link_len( char const * const restrict ply_str )
+size_t cc_parse_utils_step_link_len( char const * const restrict step_str )
 {
-    if ( !ply_str ) return 0;
+    if ( !step_str ) return 0;
 
-    char const * c = ply_str;
+    char const * c = step_str;
 
     if ( *c == ',' ) return 1;
 
@@ -327,4 +327,74 @@ char * cc_parse_utils_next_step_str_new( char const * const restrict ply_str_s )
     *out = '\0';
 
     return ply_str;
+}
+
+bool cc_parse_utils_ply_has_multiple_steps( char const * const restrict ply_str )
+{
+    if ( !ply_str ) return false;
+
+    char const * p = ply_str;
+
+    do
+    {
+        if ( ( *p == '.' ) || ( *p == '-' ) ) return true;
+    }
+    while ( *p++ );
+
+    return false;
+}
+
+
+bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
+                                   char const * const restrict step_str,
+                                   CcStepLinkEnum * const restrict link_o )
+{
+    if ( !ply_str ) return false;
+    if ( !step_str ) return false;
+    if ( !link_o ) return false;
+
+    size_t len = cc_parse_utils_step_link_len( step_str );
+
+    if ( len == 0 )
+    {
+        if ( cc_parse_utils_ply_has_multiple_steps( ply_str ) )
+            *link_o = CC_SLE_Start;
+        else
+            *link_o = CC_SLE_Destination;
+
+        return true;
+    }
+    else if ( len == 1 )
+    {
+        char const c_0 = step_str[ 0 ];
+
+        if ( c_0 == '.' )
+        {
+            *link_o = CC_SLE_Next;
+            return true;
+        }
+        else if ( c_0 == ',' )
+        {
+            *link_o = CC_SLE_Reposition;
+            return true;
+        }
+        else if ( c_0 == '-' )
+        {
+            *link_o = CC_SLE_Destination;
+            return true;
+        }
+    }
+    else if ( len == 2 )
+    {
+        char const c_0 = step_str[ 0 ];
+        char const c_1 = step_str[ 1 ];
+
+        if ( ( c_0 == '.' ) && ( c_1 == '.' ) )
+        {
+            *link_o = CC_SLE_Distant;
+            return true;
+        }
+    }
+
+    return false;
 }
