@@ -452,3 +452,13 @@ char * cc_parse_utils_step_fields_str_new( char const * const restrict step_str 
 
     return fields_str;
 }
+
+char const * cc_parse_utils_side_effect_str( char const * const restrict step_str )
+{
+    if ( !step_str ) return NULL;
+
+    char const * side_effect = cc_parse_utils_stop_at_side_effects( step_str );
+    // if ( !side_effect ) return NULL; // Not needed, doesn't do anything with side_effect.
+
+    return side_effect;
+}

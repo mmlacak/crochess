@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.10:209+20210817.125521"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.11:210+20210817.132304"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -390,8 +390,15 @@ int main( void )
                                     printf( " {%s}", fields_an__o );
                                 else
                                     printf( " {---}" );
+
                                 free( fields_an__o );
                                 fields_an__o = NULL;
+
+                                char const * side_effects = cc_parse_utils_side_effect_str( step_an__o );
+                                if ( side_effects )
+                                    printf( " (%s)", side_effects );
+                                else
+                                    printf( " (---)" );
 
                                 printf( "\n" );
                                 step_an__o = cc_parse_utils_next_step_str_new( NULL );
