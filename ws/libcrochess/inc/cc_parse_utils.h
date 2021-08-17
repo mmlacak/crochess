@@ -200,10 +200,28 @@ bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
                                    char const * const restrict step_str,
                                    CcStepLinkEnum * const restrict link_o );
 
-// *** TODO :: DOCS ***
+/**
+    Function returns pointer to first character of a side effect, in a given step.
+
+    @param step_str A step, algebraic notation string.
+
+    @note
+    Returned pointer points to first character of a side effect, if it exists.
+
+    @note
+    If it doesn't, returned pointer points to end of string, i.e. `\0` character.
+
+    @return String pointer if successful, `NULL` otherwise.
+*/
 char const * cc_parse_utils_stop_at_side_effects( char const * const restrict step_str );
 
-// *** TODO :: DOCS ***
+/**
+    Function returns newly allocated string containing fields string notation.
+
+    @param step_str A step, algebraic notation string.
+
+    @return String pointer if successful, `NULL` otherwise.
+*/
 char * cc_parse_utils_step_fields_str_new( char const * const restrict step_str );
 
 
