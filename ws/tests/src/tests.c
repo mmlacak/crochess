@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.9:208+20210816.173321"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.10:209+20210817.125521"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -384,6 +384,14 @@ int main( void )
                                     printf( " [%d %s]", sle, cc_step_link_symbol( sle ) );
                                 else
                                     printf( " [---]" );
+
+                                char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
+                                if ( fields_an__o )
+                                    printf( " {%s}", fields_an__o );
+                                else
+                                    printf( " {---}" );
+                                free( fields_an__o );
+                                fields_an__o = NULL;
 
                                 printf( "\n" );
                                 step_an__o = cc_parse_utils_next_step_str_new( NULL );

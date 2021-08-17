@@ -184,7 +184,6 @@ char * cc_parse_utils_next_step_str_new( char const * const restrict ply_str_s )
 */
 bool cc_parse_utils_ply_has_multiple_steps( char const * const restrict ply_str );
 
-
 /**
     Function getting step link, for a given step AN string.
 
@@ -200,6 +199,12 @@ bool cc_parse_utils_ply_has_multiple_steps( char const * const restrict ply_str 
 bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
                                    char const * const restrict step_str,
                                    CcStepLinkEnum * const restrict link_o );
+
+// *** TODO :: DOCS ***
+char const * cc_parse_utils_stop_at_side_effects( char const * const restrict step_str );
+
+// *** TODO :: DOCS ***
+char * cc_parse_utils_step_fields_str_new( char const * const restrict step_str );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

@@ -315,18 +315,18 @@ char * cc_parse_utils_next_step_str_new( char const * const restrict ply_str_s )
     if ( step_end == step_start ) return NULL;
 
     size_t len = step_end - step_start;
-    char * ply_str = malloc( len + 1 );
-    if ( !ply_str ) return NULL;
+    char * step_str = malloc( len + 1 );
+    if ( !step_str ) return NULL;
 
     char const * in = step_start;
-    char * out = ply_str;
+    char * out = step_str;
 
     while ( in < step_end )
         *out++ = *in++;
 
     *out = '\0';
 
-    return ply_str;
+    return step_str;
 }
 
 bool cc_parse_utils_ply_has_multiple_steps( char const * const restrict ply_str )
@@ -337,13 +337,12 @@ bool cc_parse_utils_ply_has_multiple_steps( char const * const restrict ply_str 
 
     do
     {
-        if ( ( *p == '.' ) || ( *p == '-' ) ) return true;
+        if ( ( *p == '.' ) || ( *p == '-' ) || ( *p == ',' ) ) return true;
     }
     while ( *p++ );
 
     return false;
 }
-
 
 bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
                                    char const * const restrict step_str,
@@ -397,4 +396,59 @@ bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
     }
 
     return false;
+}
+
+char const * cc_parse_utils_stop_at_side_effects( char const * const restrict step_str )
+{
+    if ( !step_str ) return NULL;
+
+    char const * p = step_str;
+
+    while ( *p != '\0' )
+    {
+        switch ( *p )
+        {
+            case '*' :
+            case '<' :
+            case ':' :
+            case '&' :
+            case '=' :
+            case '%' :
+            case '>' :
+            case '$' :
+                return p;
+
+            default :
+                ++p;
+        }
+    }
+
+    return p;
+}
+
+char * cc_parse_utils_step_fields_str_new( char const * const restrict step_str )
+{
+    if ( !step_str ) return NULL;
+
+    char const * fields_start = cc_parse_utils_go_step_link( step_str, true );
+    if ( !fields_start ) return NULL;
+
+    char const * fields_end = cc_parse_utils_stop_at_side_effects( fields_start );
+    if ( !fields_end ) return NULL;
+
+    if ( fields_end == fields_start ) return NULL;
+
+    size_t len = fields_end - fields_start;
+    char * fields_str = malloc( len + 1 );
+    if ( !fields_str ) return NULL;
+
+    char const * in = fields_start;
+    char * out = fields_str;
+
+    while ( in < fields_end )
+        *out++ = *in++;
+
+    *out = '\0';
+
+    return fields_str;
 }
