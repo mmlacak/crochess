@@ -15,6 +15,39 @@
     @brief String utility functions.
 */
 
+bool cc_str_count( char const * const restrict str,
+                   cc_ctype_fp_t fp_ctype,
+                   size_t * const restrict count_o )
+{
+    if ( !str ) return false;
+    if ( !fp_ctype ) return false;
+    if ( !count_o ) return false;
+
+    char const * s = str;
+    *count_o = 0;
+
+    while ( *s != '\0' )
+    {
+        if ( fp_ctype( *s++ ) ) *count_o += 1;
+    }
+
+    return true;
+}
+
+char const * cc_str_traverse( char const * const restrict str,
+                              cc_ctype_fp_t fp_ctype,
+                              bool const skip_or_stop_at )
+{
+    if ( !str ) return NULL;
+    if ( !fp_ctype ) return NULL;
+
+    char const * s = str;
+
+    while ( ( *s != '\0' ) && ( skip_or_stop_at == fp_ctype( *s ) ) ) ++s;
+
+    return s;
+}
+
 
 bool cc_str_to_case( char * const restrict str_io,
                      bool const to_upper_or_lower )

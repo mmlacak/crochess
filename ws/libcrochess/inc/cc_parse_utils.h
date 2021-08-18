@@ -235,5 +235,11 @@ char * cc_parse_utils_step_fields_str_new( char const * const restrict step_str 
 */
 char const * cc_parse_utils_side_effect_str( char const * const restrict step_str );
 
+// *** TODO :: DOCS ***
+bool cc_parse_utils_get_fields( char const * const restrict fields_str,
+                                int * restrict disambiguation_file_o,
+                                int * restrict disambiguation_rank_o,
+                                int * restrict file_o,
+                                int * restrict rank_o );
 
 #endif /* __CC_PARSE_UTILS_H__ */

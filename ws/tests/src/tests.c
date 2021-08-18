@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.11:210+20210817.132304"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.12:211+20210818.015002"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -321,8 +321,9 @@ int main( void )
             // char const * const user_an = "Bi15~Wf12|Wr8~Np9";
             // char const * const user_an = "Bi15~Wf12||W";
             // char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6.p7..j19<Bl25-v5<P==p7]";
-            char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
+            // char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
 
+            char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p7.rp7.r9p7..j19<Bl25-v5<P==p7]";
             // char const * const user_an = "Sm15~Am11::S..m17*..m19*.l20*.m21*.n20*.o21*";
             // char const * const user_an = "[Sr14-m15]~[Am15-m11]::[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]";
             // char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
@@ -390,6 +391,22 @@ int main( void )
                                     printf( " {%s}", fields_an__o );
                                 else
                                     printf( " {---}" );
+
+                                int disambiguation_file;
+                                int disambiguation_rank;
+                                int file;
+                                int rank;
+
+                                bool result_4 = cc_parse_utils_get_fields( fields_an__o,
+                                                                           &disambiguation_file,
+                                                                           &disambiguation_rank,
+                                                                           &file,
+                                                                           &rank );
+
+                                if ( result_4 )
+                                    printf( " {%d, %d --> %d, %d}", disambiguation_file, disambiguation_rank, file, rank );
+                                else
+                                    printf( " { --> }" );
 
                                 free( fields_an__o );
                                 fields_an__o = NULL;

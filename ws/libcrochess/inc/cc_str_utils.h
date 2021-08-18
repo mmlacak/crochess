@@ -21,6 +21,20 @@
 */
 
 
+// *** TODO :: DOCS ***
+typedef int (*cc_ctype_fp_t)( int ch );
+
+// *** TODO :: DOCS ***
+bool cc_str_count( char const * const restrict str,
+                   cc_ctype_fp_t fp_ctype,
+                   size_t * const restrict count_o );
+
+// *** TODO :: DOCS ***
+char const * cc_str_traverse( char const * const restrict str,
+                              cc_ctype_fp_t fp_ctype,
+                              bool const skip_or_stop_at );
+
+
 /**
     Function converting a string in-place, to uppercase or lowercase.
 

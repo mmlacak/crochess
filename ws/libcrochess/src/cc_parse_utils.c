@@ -3,6 +3,8 @@
 
 #include <ctype.h>
 
+#include "cc_defines.h"
+#include "cc_str_utils.h"
 #include "cc_piece.h"
 
 #include "cc_parse_utils.h"
@@ -461,4 +463,84 @@ char const * cc_parse_utils_side_effect_str( char const * const restrict step_st
     // if ( !side_effect ) return NULL; // Not needed, doesn't do anything with side_effect.
 
     return side_effect;
+}
+
+bool cc_parse_utils_get_fields( char const * const restrict fields_str,
+                                int * restrict disambiguation_file_o,
+                                int * restrict disambiguation_rank_o,
+                                int * restrict file_o,
+                                int * restrict rank_o )
+{
+    if ( !fields_str ) return false;
+    if ( !disambiguation_file_o ) return false;
+    if ( !disambiguation_rank_o ) return false;
+    if ( !file_o ) return false;
+    if ( !rank_o ) return false;
+
+    *disambiguation_file_o = CC_INVALID_OFF_BOARD_COORD_MIN;
+    *disambiguation_rank_o = CC_INVALID_OFF_BOARD_COORD_MIN;
+    *file_o = CC_INVALID_OFF_BOARD_COORD_MIN;
+    *rank_o = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+    size_t len = cc_str_len_min( fields_str, 7 );
+    if ( len > 6 ) return false; // 2 files + 2 ranks --> 2 chars + 2 * 2-digit ints --> 6 chars max
+    if ( len == 0 ) return true;
+
+    int file_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
+    int rank_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
+    int file_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
+    int rank_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+// // // TODO :: DELETE
+//     size_t file_count = 0;
+//     bool result = cc_str_count( fields_str, &islower, &file_count );
+//     if ( !result ) return false;
+
+//     if ( file_count > 2 ) return false;
+// // // TODO :: DELETE
+
+    char const * file_0_str = fields_str;
+    if ( *file_0_str != '\0' )
+    {
+        bool is_file_0 = ( islower( *file_0_str ) ) ? true : false;
+        file_0 = ( is_file_0 ) ? ( *file_0_str ) - 'a' : CC_INVALID_OFF_BOARD_COORD_MIN;
+
+        char const * rank_0_str = file_0_str + is_file_0;
+        if ( *rank_0_str != '\0' )
+        {
+            int rank_0_len = (bool)isdigit( *rank_0_str );
+            if ( rank_0_len > 0 ) rank_0_len += (bool)isdigit( *( rank_0_str + 1 ) );
+            rank_0 = ( rank_0_len > 0 ) ? atoi( rank_0_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
+
+            char const * file_1_str = rank_0_str + rank_0_len;
+            if ( *file_1_str != '\0' )
+            {
+                bool is_file_1 = ( islower( *file_1_str ) ) ? true : false;
+                file_1 = ( is_file_1 ) ? ( *file_1_str ) - 'a' : CC_INVALID_OFF_BOARD_COORD_MIN;
+
+                char const * rank_1_str = file_1_str + is_file_1;
+                if ( *rank_1_str != '\0' )
+                {
+                    int rank_1_len = (bool)isdigit( *rank_1_str );
+                    if ( rank_1_len > 0 ) rank_1_len += (bool)isdigit( *( rank_1_str + 1 ) );
+                    rank_1 = ( rank_1_len > 0 ) ? atoi( rank_1_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
+                }
+            }
+        }
+    }
+
+    if ( ( file_1 == CC_INVALID_OFF_BOARD_COORD_MIN ) && ( rank_1 == CC_INVALID_OFF_BOARD_COORD_MIN ) )
+    {
+        *file_o = file_0;
+        *rank_o = rank_0;
+    }
+    else
+    {
+        *disambiguation_file_o = file_0;
+        *disambiguation_rank_o = rank_0;
+        *file_o = file_1;
+        *rank_o = rank_1;
+    }
+
+    return true;
 }

@@ -98,22 +98,38 @@ CcSideEffect cc_side_effect( CcSideEffectEnum const type,
 
 CcSideEffect cc_side_effect_none()
 {
-    return cc_side_effect( CC_SEE_None, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return cc_side_effect( CC_SEE_None, CC_PE_None, false,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
 CcSideEffect cc_side_effect_capture( CcPieceEnum const piece, bool const is_promo_tag_lost )
 {
-    return cc_side_effect( CC_SEE_Capture, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return cc_side_effect( CC_SEE_Capture, piece, is_promo_tag_lost,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
 CcSideEffect cc_side_effect_displacement( CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j )
 {
-    return cc_side_effect( CC_SEE_Displacement, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+    return cc_side_effect( CC_SEE_Displacement, piece, is_promo_tag_lost,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           dest_i,
+                           dest_j );
 }
 
 CcSideEffect cc_side_effect_en_passant( CcPieceEnum const piece, int const dest_i, int const dest_j )
 {
-    return cc_side_effect( CC_SEE_EnPassant, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+    return cc_side_effect( CC_SEE_EnPassant, piece, false,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           dest_i,
+                           dest_j );
 }
 
 CcSideEffect cc_side_effect_castle( CcPieceEnum const rook, int const start_i, int const start_j, int const dest_i, int const dest_j )
@@ -123,37 +139,65 @@ CcSideEffect cc_side_effect_castle( CcPieceEnum const rook, int const start_i, i
 
 CcSideEffect cc_side_effect_promote( CcPieceEnum const piece )
 {
-    return cc_side_effect( CC_SEE_Promotion, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return cc_side_effect( CC_SEE_Promotion, piece, false,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
 CcSideEffect cc_side_effect_tag_for_promotion()
 {
-    return cc_side_effect( CC_SEE_TagForPromotion, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return cc_side_effect( CC_SEE_TagForPromotion, CC_PE_None, false,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
 CcSideEffect cc_side_effect_convert( CcPieceEnum const piece, bool const is_promo_tag_lost )
 {
-    return cc_side_effect( CC_SEE_Conversion, piece, is_promo_tag_lost, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return cc_side_effect( CC_SEE_Conversion, piece, is_promo_tag_lost,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
 CcSideEffect cc_side_effect_failed_conversion()
 {
-    return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, false,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
 CcSideEffect cc_side_effect_demote( CcPieceEnum const piece, int const dest_i, int const dest_j )
 {
-    return cc_side_effect( CC_SEE_Demotion, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+    return cc_side_effect( CC_SEE_Demotion, piece, false,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           dest_i,
+                           dest_j );
 }
 
 CcSideEffect cc_side_effect_resurrect( CcPieceEnum const piece, int const dest_i, int const dest_j )
 {
-    return cc_side_effect( CC_SEE_Resurrection, piece, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, dest_i, dest_j );
+    return cc_side_effect( CC_SEE_Resurrection, piece, false,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           dest_i,
+                           dest_j );
 }
 
 CcSideEffect cc_side_effect_failed_resurrection()
 {
-    return cc_side_effect( CC_SEE_FailedResurrection, CC_PE_None, false, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return cc_side_effect( CC_SEE_FailedResurrection, CC_PE_None, false,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN,
+                           CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
 

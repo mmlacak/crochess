@@ -10,6 +10,16 @@
 */
 
 /**
+    Smallest, invalid off-board coordinate.
+
+    No valid trance-journey starting from any chessboard field could get to this coordinate,
+    and still make it back to any on-board field.
+
+    Used for e.g. missing coordinates, for which invalid value ascertains no useage.
+*/
+#define CC_INVALID_OFF_BOARD_COORD_MIN (-99)
+
+/**
     Off-board coordinate.
 
     Used for e.g. missing coordinates, if notation contains only destination field.
