@@ -386,14 +386,14 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
             {
                 case CC_SLE_Start : break;
                 case CC_SLE_Reposition : break;
-                case CC_SLE_Next : result = cc_str_duplicate_len_new( ".", 1 ); break;
-                case CC_SLE_Distant : result = cc_str_duplicate_len_new( "..", 2 ); break;
-                case CC_SLE_Destination : result = cc_str_duplicate_len_new( "-", 1 ); break;
+                case CC_SLE_Next : result = cc_str_duplicate_len_new( ".", false, 1 ); break;
+                case CC_SLE_Distant : result = cc_str_duplicate_len_new( "..", false, 2 ); break;
+                case CC_SLE_Destination : result = cc_str_duplicate_len_new( "-", false, 1 ); break;
             }
         }
 
         if ( step->link == CC_SLE_Reposition )
-            result = cc_str_duplicate_len_new( ",", 1 );
+            result = cc_str_duplicate_len_new( ",", false, 1 );
 
         *has_preceding_step_io = true;
 
@@ -434,13 +434,13 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
 
     switch ( ply->link )
     {
-        case CC_PLE_Ply : result = cc_str_duplicate_len_new( ply_tilde, 1 ); break;
-        case CC_PLE_Teleportation : result = cc_str_duplicate_len_new( "|", 1 ); break;
-        case CC_PLE_FailedTeleportation : result = cc_str_duplicate_len_new( "||", 2 ); break;
-        case CC_PLE_TranceJourney : result = cc_str_duplicate_len_new( "@", 1 ); break;
-        case CC_PLE_DualTranceJourney : result = cc_str_duplicate_len_new( "@@", 2 ); break;
-        case CC_PLE_FailedTranceJourney : result = cc_str_duplicate_len_new( "@@@", 3 ); break;
-        case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( "::", 2 ); break;
+        case CC_PLE_Ply : result = cc_str_duplicate_len_new( ply_tilde, false, 1 ); break;
+        case CC_PLE_Teleportation : result = cc_str_duplicate_len_new( "|", false, 1 ); break;
+        case CC_PLE_FailedTeleportation : result = cc_str_duplicate_len_new( "||", false, 2 ); break;
+        case CC_PLE_TranceJourney : result = cc_str_duplicate_len_new( "@", false, 1 ); break;
+        case CC_PLE_DualTranceJourney : result = cc_str_duplicate_len_new( "@@", false, 2 ); break;
+        case CC_PLE_FailedTranceJourney : result = cc_str_duplicate_len_new( "@@@", false, 3 ); break;
+        case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( "::", false, 2 ); break;
     }
 
     bool do_wrap = cc_if_wrap_ply_in_square_brackets( move, ply, format_move );

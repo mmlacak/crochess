@@ -22,7 +22,7 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
 
     new->type = type;
     new->pos = pos;
-    new->msg = cc_str_duplicate_len_new( msg, BUFSIZ );
+    new->msg = cc_str_duplicate_len_new( msg, false, BUFSIZ );
     new->next = NULL;
 
     return new;

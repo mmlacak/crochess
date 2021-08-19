@@ -465,6 +465,130 @@ char const * cc_parse_utils_side_effect_str( char const * const restrict step_st
     return side_effect;
 }
 
+// bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str )
+// {
+//     if ( !fields_str ) return false;
+
+//     // Max len of a fields string is 6, i.e.
+//     // 2 files + 2 ranks --> 2 chars + 2 * 2-digit ints --> 6 chars max.
+//     // By checking next char, we check if string is longer than expected, i.e. not '\0'.
+//     #define MAX_LEN_TO_CHECK (7)
+//     #define MAX_FILES_CHARS (2)
+//     // #define MAX_RANKS_CHARS (4)
+//     #define MAX_RANK_CHARS (2)
+//     #define INVALID_POS (-1)
+
+//     size_t pos = 0;
+//     char const * f = fields_str;
+
+//     int pos_char_0 = INVALID_POS;
+//     int pos_char_1 = INVALID_POS;
+//     size_t count_lower = 0;
+//     bool is_first_chars_lower = true;
+
+//     size_t digit_0_count = 0;
+//     size_t digit_1_count = 0;
+//     bool if_count_digit_0 = true;
+
+//     while ( ( *f != '\0' ) && ( pos <= MAX_LEN_TO_CHECK ) )
+//     {
+//         if ( islower( *f ) )
+//         {
+//             if ( pos_char_0 == INVALID_POS )
+//                 pos_char_0 = pos;
+//             else if ( pos_char_1 == INVALID_POS )
+//                 pos_char_1 = pos;
+//             else
+//                 return false;
+
+//             if ( pos_char_0 + 1 == pos_char_1 )
+//             {
+//                 if ( pos_char_0 > 0 ) return false;
+//             }
+
+//             ++count_lower;
+
+//             if ( !is_first_chars_lower ) if_count_digit_0 = false;
+//         }
+//         else if ( isdigit( *f ) )
+//         {
+//             if ( if_count_digit_0 )
+//                 ++digit_0_count;
+//             else
+//                 ++digit_1_count;
+
+//             is_first_chars_lower = false;
+//         }
+//         else
+//             return false;
+
+//         ++pos;
+//         ++f;
+//     }
+
+//     if ( pos == MAX_LEN_TO_CHECK ) return false;
+
+//     if ( count_lower > MAX_FILES_CHARS ) return false;
+//     if ( digit_0_count > MAX_RANK_CHARS ) return false;
+//     if ( digit_1_count > MAX_RANK_CHARS ) return false;
+
+//     return true;
+// }
+
+bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str )
+{
+    if ( !fields_str ) return false;
+
+    // Max len of a fields string is 6, i.e.
+    // 2 files + 2 ranks --> 2 chars + 2 * 2-digit ints --> 6 chars max.
+    // By checking next char, we check if string is longer than expected, i.e. not '\0'.
+    #define MAX_LEN_TO_CHECK (7)
+    #define MAX_LEN (6)
+    #define MIN_LEN (2)
+    #define INVALID_POS (-1)
+
+    size_t len = cc_str_len_min( fields_str, MAX_LEN_TO_CHECK );
+    if ( len > MAX_LEN ) return false;
+    if ( len < MIN_LEN ) return false;
+
+    bool result = true;
+    char const * f_str__o = cc_str_duplicate_len_new( fields_str, true, MAX_LEN_TO_CHECK );
+    char const * f = f_str__o;
+
+    if ( !isdigit( *f ) )
+        result = false;
+    else
+    {
+        ++f;
+
+        if ( isdigit( *f ) )
+            ++f;
+
+        if ( !islower( *f ) )
+            result = false;
+        else
+        {
+            ++f;
+
+            if ( isdigit( *f ) )
+            {
+                ++f;
+
+                if ( isdigit( *f ) )
+                    ++f;
+            }
+
+            if ( islower( *f ) )
+                ++f;
+        }
+    }
+
+    result = result && ( *f == '\0' );
+
+    free( (char *)f_str__o );
+    return result;
+}
+
 bool cc_parse_utils_get_fields( char const * const restrict fields_str,
                                 int * restrict disambiguation_file_o,
                                 int * restrict disambiguation_rank_o,
@@ -482,22 +606,12 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
     *file_o = CC_INVALID_OFF_BOARD_COORD_MIN;
     *rank_o = CC_INVALID_OFF_BOARD_COORD_MIN;
 
-    size_t len = cc_str_len_min( fields_str, 7 );
-    if ( len > 6 ) return false; // 2 files + 2 ranks --> 2 chars + 2 * 2-digit ints --> 6 chars max
-    if ( len == 0 ) return true;
+    if ( !cc_parse_utils_is_fields_str_valid( fields_str ) ) return false;
 
     int file_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
     int rank_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
     int file_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
     int rank_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
-
-// // // TODO :: DELETE
-//     size_t file_count = 0;
-//     bool result = cc_str_count_chars( fields_str, &islower, &file_count );
-//     if ( !result ) return false;
-
-//     if ( file_count > 2 ) return false;
-// // // TODO :: DELETE
 
     char const * file_0_str = fields_str;
     if ( *file_0_str != '\0' )

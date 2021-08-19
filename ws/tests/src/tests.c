@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.13:212+20210819.124916"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.14:213+20210819.180238"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -160,11 +160,11 @@ int main( void )
 //     printf( "3: %s.\n", con_3 );
 //     free( con_3 );
 
-//     char * dup_4 = cc_str_duplicate_len_new( "Hello World!", BUFSIZ );
+//     char * dup_4 = cc_str_duplicate_len_new( "Hello World!", false, BUFSIZ );
 //     printf( "4: %s.\n", dup_4 );
 //     free( dup_4 );
 
-//     char * dup_5 = cc_str_duplicate_len_new( "Hello World!", 9 );
+//     char * dup_5 = cc_str_duplicate_len_new( "Hello World!", false, 9 );
 //     printf( "5: %s.\n", dup_5 );
 //     free( dup_5 );
 
@@ -323,13 +323,32 @@ int main( void )
             // char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6.p7..j19<Bl25-v5<P==p7]";
             // char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
 
-            char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
+            // char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
             // char const * const user_an = "Sm15~Am11::S..m17*..m19*.l20*.m21*.n20*.o21*";
             // char const * const user_an = "[Sr14-m15]~[Am15-m11]::[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]";
             // char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
 
+            // Invalid.
+            char const * const user_an = "H..9p175.rp1q7.r9p1q7..9rp7.9r7p..195p7.r99p.r199p.r1X9p7..9X7.rX7.r9X7..19X17.rX17.r19X17";
+
+            //
+            // Test with AN from CLI.
+
             // TODO :: Uncomment free(), if this is active!
             // char * user_an = cc_next_token_new( NULL, NULL );
+
+            //
+            // Test reversing string.
+
+            // char * reverse__o = cc_str_duplicate_len_new( user_an, true, BUFSIZ );
+            // printf( "Reverse: '%s'.\n", reverse__o );
+            // free( reverse__o );
+            // reverse__o = NULL;
+
+            // reverse__o = cc_str_duplicate_new( user_an, true );
+            // printf( "Reverse: '%s'.\n", reverse__o );
+            // free( reverse__o );
+            // reverse__o = NULL;
 
             if ( user_an )
             {

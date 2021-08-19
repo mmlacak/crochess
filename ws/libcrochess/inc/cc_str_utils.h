@@ -84,7 +84,6 @@ bool cc_str_to_case( char * const restrict str_io,
 char * cc_str_to_case_new( char const * const restrict str,
                            bool const to_upper_or_lower );
 
-
 /**
     Function returning length of a string.
 
@@ -111,21 +110,25 @@ size_t cc_str_len_min( char const * const restrict str,
     copied from a given string.
 
     @param str A string to duplicate.
+    @param do_reverse Flag, whether returned string should be reversed.
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
-char * cc_str_duplicate_new( char const * const restrict str );
+char * cc_str_duplicate_new( char const * const restrict str,
+                             bool const do_reverse );
 
 /**
     Function duplicating a string, by returning a newly allocated string,
     copied from a given string, at maximum first `max_len` characters.
 
     @param str A string to duplicate.
+    @param do_reverse Flag, whether returned string should be reversed.
     @param max_len Maximum length to copy, if a given string is longer than that.
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
 char * cc_str_duplicate_len_new( char const * const restrict str,
+                                 bool const do_reverse,
                                  size_t const max_len );
 
 /**

@@ -21,7 +21,7 @@ CcMove * cc_move_new( char const * const restrict notation,
     CcMove * mv = malloc( sizeof( CcMove ) );
     if ( !mv ) return NULL;
 
-    mv->notation = cc_str_duplicate_len_new( notation, BUFSIZ );
+    mv->notation = cc_str_duplicate_len_new( notation, false, BUFSIZ );
 
     if ( plies_n )
     {
