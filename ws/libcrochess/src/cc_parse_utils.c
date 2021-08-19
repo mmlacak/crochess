@@ -465,86 +465,22 @@ char const * cc_parse_utils_side_effect_str( char const * const restrict step_st
     return side_effect;
 }
 
-// bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str )
-// {
-//     if ( !fields_str ) return false;
-
-//     // Max len of a fields string is 6, i.e.
-//     // 2 files + 2 ranks --> 2 chars + 2 * 2-digit ints --> 6 chars max.
-//     // By checking next char, we check if string is longer than expected, i.e. not '\0'.
-//     #define MAX_LEN_TO_CHECK (7)
-//     #define MAX_FILES_CHARS (2)
-//     // #define MAX_RANKS_CHARS (4)
-//     #define MAX_RANK_CHARS (2)
-//     #define INVALID_POS (-1)
-
-//     size_t pos = 0;
-//     char const * f = fields_str;
-
-//     int pos_char_0 = INVALID_POS;
-//     int pos_char_1 = INVALID_POS;
-//     size_t count_lower = 0;
-//     bool is_first_chars_lower = true;
-
-//     size_t digit_0_count = 0;
-//     size_t digit_1_count = 0;
-//     bool if_count_digit_0 = true;
-
-//     while ( ( *f != '\0' ) && ( pos <= MAX_LEN_TO_CHECK ) )
-//     {
-//         if ( islower( *f ) )
-//         {
-//             if ( pos_char_0 == INVALID_POS )
-//                 pos_char_0 = pos;
-//             else if ( pos_char_1 == INVALID_POS )
-//                 pos_char_1 = pos;
-//             else
-//                 return false;
-
-//             if ( pos_char_0 + 1 == pos_char_1 )
-//             {
-//                 if ( pos_char_0 > 0 ) return false;
-//             }
-
-//             ++count_lower;
-
-//             if ( !is_first_chars_lower ) if_count_digit_0 = false;
-//         }
-//         else if ( isdigit( *f ) )
-//         {
-//             if ( if_count_digit_0 )
-//                 ++digit_0_count;
-//             else
-//                 ++digit_1_count;
-
-//             is_first_chars_lower = false;
-//         }
-//         else
-//             return false;
-
-//         ++pos;
-//         ++f;
-//     }
-
-//     if ( pos == MAX_LEN_TO_CHECK ) return false;
-
-//     if ( count_lower > MAX_FILES_CHARS ) return false;
-//     if ( digit_0_count > MAX_RANK_CHARS ) return false;
-//     if ( digit_1_count > MAX_RANK_CHARS ) return false;
-
-//     return true;
-// }
-
 bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str )
 {
     if ( !fields_str ) return false;
 
     // Max len of a fields string is 6, i.e.
     // 2 files + 2 ranks --> 2 chars + 2 * 2-digit ints --> 6 chars max.
-    // By checking next char, we check if string is longer than expected, i.e. not '\0'.
-    #define MAX_LEN_TO_CHECK (7)
     #define MAX_LEN (6)
+
+    // Min len of a fields string is 2, i.e.
+    // 1 file + 1 rank --> 1 char + 1 * 1-digit int --> 2 chars min.
     #define MIN_LEN (2)
+
+    // By checking 1 char over maximum size,
+    // we check if string is longer than expected.
+    #define MAX_LEN_TO_CHECK (7)
+
     #define INVALID_POS (-1)
 
     size_t len = cc_str_len_min( fields_str, MAX_LEN_TO_CHECK );

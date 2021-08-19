@@ -235,10 +235,40 @@ char * cc_parse_utils_step_fields_str_new( char const * const restrict step_str 
 */
 char const * cc_parse_utils_side_effect_str( char const * const restrict step_str );
 
-// *** TODO :: DOCS ***
+/**
+    Function checks if fields string is valid.
+
+    Valid fields string consists of optional disambiguation + field.
+    Disambiguation consists of one of:
+    - file
+    - rank
+    - file + rank.
+
+    Field consists of file + rank.
+    File is always lowercase letter, while rank can be 1 or 2 digit characters.
+
+    @param fields_str A fields string.
+
+    @return `true` if fields string is valid, `false` otherwise.
+*/
 bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str );
 
-// *** TODO :: DOCS ***
+/**
+    Function separates disambiguation and field data, from a given fields string.
+
+    @param fields_str A fields string.
+    @param disambiguation_file_o An _output_ parameter, disambiguation file.
+    @param disambiguation_rank_o An _output_ parameter, disambiguation rank.
+    @param file_o An _output_ parameter, file.
+    @param rank_o  An _output_ parameter, rank.
+
+    @note
+    _Output_ arguments without corresponding data in fields string are initialized to `CC_INVALID_OFF_BOARD_COORD_MIN`.
+
+    @see CC_INVALID_OFF_BOARD_COORD_MIN
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_parse_utils_get_fields( char const * const restrict fields_str,
                                 int * restrict disambiguation_file_o,
                                 int * restrict disambiguation_rank_o,
