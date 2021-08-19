@@ -15,12 +15,12 @@
     @brief String utility functions.
 */
 
-bool cc_str_count( char const * const restrict str,
-                   cc_ctype_fp_t fp_ctype,
-                   size_t * const restrict count_o )
+bool cc_str_count_chars( char const * const restrict str,
+                         cc_ctype_fp_ischar_t fp_is_char,
+                         size_t * const restrict count_o )
 {
     if ( !str ) return false;
-    if ( !fp_ctype ) return false;
+    if ( !fp_is_char ) return false;
     if ( !count_o ) return false;
 
     char const * s = str;
@@ -28,22 +28,22 @@ bool cc_str_count( char const * const restrict str,
 
     while ( *s != '\0' )
     {
-        if ( fp_ctype( *s++ ) ) *count_o += 1;
+        if ( fp_is_char( *s++ ) ) *count_o += 1;
     }
 
     return true;
 }
 
-char const * cc_str_traverse( char const * const restrict str,
-                              cc_ctype_fp_t fp_ctype,
-                              bool const skip_or_stop_at )
+char const * cc_str_traverse_chars( char const * const restrict str,
+                                    cc_ctype_fp_ischar_t fp_is_char,
+                                    bool const skip_or_stop_at )
 {
     if ( !str ) return NULL;
-    if ( !fp_ctype ) return NULL;
+    if ( !fp_is_char ) return NULL;
 
     char const * s = str;
 
-    while ( ( *s != '\0' ) && ( skip_or_stop_at == fp_ctype( *s ) ) ) ++s;
+    while ( ( *s != '\0' ) && ( skip_or_stop_at == fp_is_char( *s ) ) ) ++s;
 
     return s;
 }

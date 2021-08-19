@@ -493,7 +493,7 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
 
 // // // TODO :: DELETE
 //     size_t file_count = 0;
-//     bool result = cc_str_count( fields_str, &islower, &file_count );
+//     bool result = cc_str_count_chars( fields_str, &islower, &file_count );
 //     if ( !result ) return false;
 
 //     if ( file_count > 2 ) return false;

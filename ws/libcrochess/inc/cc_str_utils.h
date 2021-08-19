@@ -11,7 +11,7 @@
     @file cc_str_utils.h
     @brief String utility functions.
 
-    All strings are assumed to be null-terminated (`\0`) byte strings.
+    All strings are assumed to be null-terminated (``'\0'``) byte strings.
 
     All functions which return string, return them null-terminated.
 
@@ -21,18 +21,45 @@
 */
 
 
-// *** TODO :: DOCS ***
-typedef int (*cc_ctype_fp_t)( int ch );
+/**
+    Function interface, i.e. function pointer type;
+    used to interface with all `ctype.h` filter functions, e.g. `islower()`.
 
-// *** TODO :: DOCS ***
-bool cc_str_count( char const * const restrict str,
-                   cc_ctype_fp_t fp_ctype,
-                   size_t * const restrict count_o );
+    @param ch A single character.
 
-// *** TODO :: DOCS ***
-char const * cc_str_traverse( char const * const restrict str,
-                              cc_ctype_fp_t fp_ctype,
-                              bool const skip_or_stop_at );
+    @return Integer, meaning depends on interfaced function.
+*/
+typedef int (*cc_ctype_fp_ischar_t)( int ch );
+
+/**
+    Function counts characters in a string, based on a given filtering function.
+
+    @param str A string.
+    @param fp_is_char A function pointer, used to filter characters.
+    @param count_o An _output_ parameter, used to hold result.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_str_count_chars( char const * const restrict str,
+                         cc_ctype_fp_ischar_t fp_is_char,
+                         size_t * const restrict count_o );
+
+/**
+    Function returns a string pointer, by traversing a given string,
+    and either skiping over filtered characters, or stoping at first of those.
+
+    @param str A string.
+    @param fp_is_char A function pointer, used to filter characters.
+    @param skip_or_stop_at A flag, whether to skip (if `true`) or stop at (if `false`) filtered character.
+
+    @return A string pointer within a given string, if successful, `NULL` otherwise.
+
+    If there is no searched-for characters in a string,
+    function returns pointer to the terminating character (i.e. ``'\0'``) of a given string.
+*/
+char const * cc_str_traverse_chars( char const * const restrict str,
+                                    cc_ctype_fp_ischar_t fp_is_char,
+                                    bool const skip_or_stop_at );
 
 
 /**

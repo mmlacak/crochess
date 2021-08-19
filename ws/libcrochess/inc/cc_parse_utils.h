@@ -209,7 +209,7 @@ bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
     Returned pointer points to first character of a side effect, if it exists.
 
     @note
-    If it doesn't, returned pointer points to end of string, i.e. `\0` character.
+    If it doesn't, returned pointer points to end of string, i.e. ``'\0'`` character.
 
     @return String pointer if successful, `NULL` otherwise.
 */
