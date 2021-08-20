@@ -537,12 +537,12 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
     if ( !file_o ) return false;
     if ( !rank_o ) return false;
 
+    if ( !cc_parse_utils_is_fields_str_valid( fields_str ) ) return false;
+
     *disambiguation_file_o = CC_INVALID_OFF_BOARD_COORD_MIN;
     *disambiguation_rank_o = CC_INVALID_OFF_BOARD_COORD_MIN;
     *file_o = CC_INVALID_OFF_BOARD_COORD_MIN;
     *rank_o = CC_INVALID_OFF_BOARD_COORD_MIN;
-
-    if ( !cc_parse_utils_is_fields_str_valid( fields_str ) ) return false;
 
     int file_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
     int rank_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
