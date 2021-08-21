@@ -554,8 +554,9 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
         if ( *rank_0_str != '\0' )
         {
             int rank_0_len = isdigit( *rank_0_str ) ? 1 : 0;
-            if ( rank_0_len > 0 ) rank_0_len += isdigit( *( rank_0_str + 1 ) ) ? 1 : 0;
+            // if ( rank_0_len > 0 ) rank_0_len += isdigit( *( rank_0_str + 1 ) ) ? 1 : 0; // Not needed
             rank_0 = ( rank_0_len > 0 ) ? atoi( rank_0_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
+// TODO :: CHECK :: rank_0 is on-board
 
             char const * file_1_str = rank_0_str + rank_0_len;
             if ( *file_1_str != '\0' )
@@ -567,8 +568,9 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
                 if ( *rank_1_str != '\0' )
                 {
                     int rank_1_len = isdigit( *rank_1_str ) ? 1 : 0;
-                    if ( rank_1_len > 0 ) rank_1_len += isdigit( *( rank_1_str + 1 ) ) ? 1 : 0;
+                    // if ( rank_1_len > 0 ) rank_1_len += isdigit( *( rank_1_str + 1 ) ) ? 1 : 0; // Not needed.
                     rank_1 = ( rank_1_len > 0 ) ? atoi( rank_1_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
+// TODO :: CHECK :: rank_1 is on-board
                 }
             }
         }
@@ -588,4 +590,241 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
     }
 
     return true;
+}
+
+bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
+                                     CcSideEffect * const restrict side_effect_o )
+{
+    if ( !step_str ) return false;
+    if ( !side_effect_o ) return false;
+
+    char const * side_effect_str = cc_parse_utils_side_effect_str( step_str );
+    if ( !side_effect_str ) return false;
+
+    char const * s = side_effect_str;
+
+    if ( *s == '*' )
+    {
+        CcPieceEnum piece = CC_PE_None;
+        bool is_promo_tag_lost = false;
+
+        if ( isupper( *( s + 1 ) ) )
+        {
+// TODO :: FIX :: is_light = true !!!
+            piece = cc_piece_from_symbol( *++s, true );
+            if ( !cc_piece_is_valid( piece ) )
+                return false;
+        }
+
+        if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
+            is_promo_tag_lost = true;
+
+        *side_effect_o = cc_side_effect_capture( piece, is_promo_tag_lost );
+        return true;
+    }
+    else if ( *s == '<' )
+    {
+        CcPieceEnum piece = CC_PE_None;
+        bool is_promo_tag_lost = false;
+        int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+        if ( isupper( *( s + 1 ) ) )
+// TODO :: FIX :: is_light = true !!!
+        {
+            piece = cc_piece_from_symbol( *++s, true );
+            if ( !cc_piece_is_valid( piece ) )
+                return false;
+        }
+
+        if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
+        {
+            s += 2;
+            is_promo_tag_lost = true;
+        }
+
+        if ( islower( *( s + 1 ) ) )
+            dest_i = ( *++s ) - 'a';
+// TODO :: CHECK :: dest_i is on-board
+        else
+            return false;
+
+        int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
+        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
+        if ( dest_j_len > 0 )
+            dest_j = atoi( ++s ) - 1;
+// TODO :: CHECK :: dest_j is on-board
+        else
+            return false;
+
+        *side_effect_o = cc_side_effect_displacement( piece, is_promo_tag_lost, dest_i, dest_j );
+        return true;
+    }
+    else if ( *s == ':' )
+    {
+// TODO :: FIX :: piece = None !!!
+        CcPieceEnum piece = CC_PE_None;
+// TODO :: FIX :: dest_i = off-board !!!
+        int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+        int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
+        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
+        if ( dest_j_len > 0 )
+            dest_j = atoi( ++s ) - 1;
+// TODO :: CHECK :: dest_j is on-board
+        else
+            return false;
+
+        *side_effect_o = cc_side_effect_en_passant( piece, dest_i, dest_j );
+        return true;
+    }
+    else if ( *s == '&' )
+    {
+// TODO :: FIX :: piece = None !!!
+        CcPieceEnum rook = CC_PE_None;
+// TODO :: FIX :: dest_i = off-board !!!
+        int start_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+// TODO :: FIX :: dest_i = off-board !!!
+        int start_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+// TODO :: FIX :: dest_i = off-board !!!
+        int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+        int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
+        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
+        if ( dest_j_len > 0 )
+            dest_j = atoi( ++s ) - 1;
+// TODO :: CHECK :: dest_j is on-board
+        else
+            return false;
+
+        *side_effect_o = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
+        return true;
+    }
+    else if ( *s == '=' )
+    {
+        if ( isupper( *( s + 1 ) ) )
+        {
+// TODO :: FIX :: is_light = true !!!
+            CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
+            if ( !cc_piece_is_valid( piece ) )
+                return false;
+
+            *side_effect_o = cc_side_effect_promote( piece );
+            return true;
+        }
+        else
+        {
+            *side_effect_o = cc_side_effect_tag_for_promotion();
+            return true;
+        }
+    }
+    else if ( *s == '%' )
+    {
+        if ( ( *( s + 1 ) ) == '%' )
+        {
+            *side_effect_o = cc_side_effect_failed_conversion();
+            return true;
+        }
+        else if ( isupper( *( s + 1 ) ) )
+        {
+// TODO :: FIX :: is_light = true !!!
+            CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
+            if ( !cc_piece_is_valid( piece ) )
+                return false;
+
+            bool is_promo_tag_lost = false;
+
+            if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
+                is_promo_tag_lost = true;
+
+            *side_effect_o = cc_side_effect_convert( piece, is_promo_tag_lost );
+            return true;
+        }
+        else
+            return false;
+    }
+    else if ( *s == '>' )
+    {
+        CcPieceEnum piece = CC_PE_None;
+        int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+        if ( isupper( *( s + 1 ) ) )
+        {
+// TODO :: FIX :: is_light = true !!!
+            CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
+            if ( !cc_piece_is_valid( piece ) )
+                return false;
+        }
+
+        if ( islower( *( s + 1 ) ) )
+            dest_i = ( *++s ) - 'a';
+// TODO :: CHECK :: dest_i is on-board
+        else
+            return false;
+
+        int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
+        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
+        if ( dest_j_len > 0 )
+            dest_j = atoi( ++s ) - 1;
+// TODO :: CHECK :: dest_j is on-board
+        else
+            return false;
+
+        *side_effect_o = cc_side_effect_demote( piece, dest_i, dest_j );
+        return true;
+    }
+    else if ( *s == '$' )
+    {
+        if ( ( *( s + 1 ) ) == '$' )
+        {
+            *side_effect_o = cc_side_effect_failed_resurrection();
+            return true;
+        }
+        else if ( isupper( *( s + 1 ) ) )
+        {
+            int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+            int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+            CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
+            if ( !cc_piece_is_valid( piece ) )
+                return false;
+
+            if ( islower( *( s + 1 ) ) )
+                dest_i = ( *++s ) - 'a';
+// TODO :: CHECK :: dest_i is on-board
+            else
+                return false;
+
+            int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
+            // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
+            if ( dest_j_len > 0 )
+                dest_j = atoi( ++s ) - 1;
+// TODO :: CHECK :: dest_j is on-board
+            else
+                return false;
+
+            *side_effect_o = cc_side_effect_resurrect( piece, dest_i, dest_j );
+            return true;
+        }
+    }
+    if ( isupper( *s ) )
+    {
+// TODO :: FIX :: is_light = true !!!
+        CcPieceEnum piece = cc_piece_from_symbol( *s, true );
+        if ( !cc_piece_is_valid( piece ) )
+            return false;
+
+        *side_effect_o = cc_side_effect_promote( piece );
+        return true;
+    }
+    else
+    {
+        *side_effect_o = cc_side_effect_none();
+        return true;
+    }
+
+    return false;
 }

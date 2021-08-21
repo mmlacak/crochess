@@ -275,4 +275,9 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
                                 int * restrict file_o,
                                 int * restrict rank_o );
 
+// *** TODO :: DOCS ***
+bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
+                                     CcSideEffect * const restrict side_effect_o );
+
+
 #endif /* __CC_PARSE_UTILS_H__ */
