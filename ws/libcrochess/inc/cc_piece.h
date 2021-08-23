@@ -63,7 +63,7 @@ typedef enum CcPieceEnum
     CC_PE_LightShaman,
     CC_PE_LightStarchild,
 
-    CC_PE_BrightStar,
+    CC_PE_BrightStar = 15,
 
     CC_PE_Monolith,
 } CcPieceEnum;
@@ -198,10 +198,20 @@ bool cc_piece_is_none( CcPieceEnum const pe );
 
     @param pe1 Piece enum.
     @param pe2 Piece enum.
+    @param strict Flag, is comparison strict.
+
+    @note
+    Strict comparison means types of pieces are the same, and only their colors (or shades) are different.
+    For instance, light Bishop and dark Bishop are strict opposites, whereas light Bishop and dark Rook
+    are only opposites, but not strict opposites.
+
+    @note
+    Under no circumstances are shades and colors opposing each other, they are not comparable.
+    Bright Star and dark Bishop are one such an example.
 
     @return `true` if one piece is dark (dim) and the other is light (bright), `false` otherwise.
 */
-bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2 );
+bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2, bool strict );
 
 /**
     Function returning whether piece is teleporting piece.

@@ -279,8 +279,11 @@ bool cc_piece_is_none( CcPieceEnum const pe )
 }
 
 
-bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2 )
+bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2, bool strict )
 {
+    if ( strict )
+        return ( pe1 == ( -pe2 ) );
+
     if ( cc_piece_is_light( pe1, false ) && cc_piece_is_dark( pe2, false ) ) return true;
     if ( cc_piece_is_dark( pe1, false ) && cc_piece_is_light( pe2, false ) ) return true;
 
