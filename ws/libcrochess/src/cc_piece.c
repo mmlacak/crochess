@@ -207,12 +207,12 @@ char cc_piece_symbol( CcPieceEnum const pe )
 
 CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe )
 {
-    if ( cc_piece_is_dark( pe ) ) return CC_PE_DarkPawn;
-    if ( cc_piece_is_light( pe ) ) return CC_PE_LightPawn;
+    if ( cc_piece_is_dark( pe, false ) ) return CC_PE_DarkPawn;
+    if ( cc_piece_is_light( pe, false ) ) return CC_PE_LightPawn;
     return CC_PE_None;
 }
 
-bool cc_piece_is_dark( CcPieceEnum const pe )
+bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars )
 {
     switch ( pe )
     {
@@ -229,13 +229,18 @@ bool cc_piece_is_dark( CcPieceEnum const pe )
         case CC_PE_DarkRook :
         case CC_PE_DarkBishop :
         case CC_PE_DarkKnight :
-        case CC_PE_DarkPawn : return true;
+        case CC_PE_DarkPawn :
+            return true;
 
-        default : return false;
+        case CC_PE_DimStar :
+            return include_stars;
+
+        default :
+            return false;
     }
 }
 
-bool cc_piece_is_light( CcPieceEnum const pe )
+bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars )
 {
     switch ( pe )
     {
@@ -252,9 +257,14 @@ bool cc_piece_is_light( CcPieceEnum const pe )
         case CC_PE_LightCentaur :
         case CC_PE_LightSerpent :
         case CC_PE_LightShaman :
-        case CC_PE_LightStarchild : return true;
+        case CC_PE_LightStarchild :
+            return true;
 
-        default : return false;
+        case CC_PE_BrightStar :
+            return include_stars;
+
+        default :
+            return false;
     }
 }
 
@@ -271,11 +281,11 @@ bool cc_piece_is_none( CcPieceEnum const pe )
 
 bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2 )
 {
-    if ( cc_piece_is_light( pe1 ) && cc_piece_is_dark( pe2 ) ) return true;
-    if ( cc_piece_is_dark( pe1 ) && cc_piece_is_light( pe2 ) ) return true;
+    if ( cc_piece_is_light( pe1, false ) && cc_piece_is_dark( pe2, false ) ) return true;
+    if ( cc_piece_is_dark( pe1, false ) && cc_piece_is_light( pe2, false ) ) return true;
 
-    if ( ( ( pe1 == CC_PE_DimStar ) && ( pe2 == CC_PE_BrightStar ) )
-        || ( ( pe1 == CC_PE_BrightStar ) && ( pe2 == CC_PE_DimStar ) ) ) return true;
+    if ( ( pe1 == CC_PE_BrightStar ) && ( pe2 == CC_PE_DimStar ) ) return true;
+    if ( ( pe1 == CC_PE_DimStar ) && ( pe2 == CC_PE_BrightStar ) ) return true;
 
     return false;
 }
@@ -295,9 +305,8 @@ bool cc_piece_is_figure( CcPieceEnum const pe,
                          bool const include_monolith,
                          bool const include_stars )
 {
-    if ( cc_piece_is_light( pe ) ) return true;
-    if ( cc_piece_is_dark( pe ) ) return true;
+    if ( cc_piece_is_light( pe, include_stars ) ) return true;
+    if ( cc_piece_is_dark( pe, include_stars ) ) return true;
     if ( pe == CC_PE_Monolith ) return include_monolith;
-    if ( ( pe == CC_PE_DimStar ) || ( pe == CC_PE_BrightStar ) ) return include_stars;
     return false;
 }

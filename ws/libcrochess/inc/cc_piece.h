@@ -158,19 +158,21 @@ CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
     Function returning whether piece is dark.
 
     @param pe Piece enum.
+    @param include_stars Flag, whether to include dim Star.
 
     @return `true` if piece is dark, `false` otherwise.
 */
-bool cc_piece_is_dark( CcPieceEnum const pe );
+bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars );
 
 /**
     Function returning whether piece is light.
 
     @param pe Piece enum.
+    @param include_stars Flag, whether to include bright Star.
 
     @return `true` if piece is light, `false` otherwise.
 */
-bool cc_piece_is_light( CcPieceEnum const pe );
+bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars );
 
 /**
     Function returning whether piece is Pawn.
