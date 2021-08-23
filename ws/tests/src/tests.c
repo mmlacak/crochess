@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.21:220+20210823.161619"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.22:221+20210823.193231"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -313,6 +313,9 @@ int main( void )
         }
         else if ( !strcmp( "y", cmd ) )
         {
+            CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, true );
+            if ( !cb__o ) return false;
+
             // char const * const user_an = "[Ng6]~[We5]~[Re8]";
             // char const * const user_an = "Ng6~[We5]~Re8";
             // char const * const user_an = "Ne6-a3";
@@ -323,13 +326,13 @@ int main( void )
             // char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6.p7..j19<Bl25-v5<P==p7]";
             // char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
 
-            // char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
+            char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
             // char const * const user_an = "Sm15~Am11::S..m17*..m19*.l20*.m21*.n20*.o21*";
             // char const * const user_an = "[Sr14-m15]~[Am15-m11]::[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]";
             // char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
 
             // Invalid.
-            char const * const user_an = "H..9p175.rp1q7.r9p1q7..9rp7.9r7p..195p7.r99p.r199p.r1X9p7..9X7.rX7.r9X7..19X17.rX17.r19X17";
+            // char const * const user_an = "H..9p175.rp1q7.r9p1q7..9rp7.9r7p..195p7.r99p.r199p.r1X9p7..9X7.rX7.r9X7..19X17.rX17.r19X17";
 
             //
             // Test with AN from CLI.
@@ -417,6 +420,7 @@ int main( void )
                                 int rank;
 
                                 bool result_4 = cc_parse_utils_get_fields( fields_an__o,
+                                                                           cb__o,
                                                                            &disambiguation_file,
                                                                            &disambiguation_rank,
                                                                            &file,
@@ -464,6 +468,9 @@ int main( void )
                 // free( user_an );
                 // user_an = NULL;
             }
+
+            free( cb__o );
+            cb__o = NULL;
         }
         else if ( !strcmp( "z", cmd ) )
         {

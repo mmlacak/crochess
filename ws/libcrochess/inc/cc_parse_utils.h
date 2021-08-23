@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include "cc_chessboard.h"
 #include "cc_ply.h"
 
 /**
@@ -257,6 +258,7 @@ bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str 
     Function separates disambiguation and field data, from a given fields string.
 
     @param fields_str A fields string.
+    @param cb A chessboard, used to check if parsed coordinates are on-board.
     @param disambiguation_file_o An _output_ parameter, disambiguation file.
     @param disambiguation_rank_o An _output_ parameter, disambiguation rank.
     @param file_o An _output_ parameter, file.
@@ -270,6 +272,7 @@ bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str 
     @return `true` if successful, `false` otherwise.
 */
 bool cc_parse_utils_get_fields( char const * const restrict fields_str,
+                                CcChessboard const * const restrict cb,
                                 int * restrict disambiguation_file_o,
                                 int * restrict disambiguation_rank_o,
                                 int * restrict file_o,

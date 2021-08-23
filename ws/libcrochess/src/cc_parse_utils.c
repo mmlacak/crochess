@@ -526,6 +526,7 @@ bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str 
 }
 
 bool cc_parse_utils_get_fields( char const * const restrict fields_str,
+                                CcChessboard const * const restrict cb,
                                 int * restrict disambiguation_file_o,
                                 int * restrict disambiguation_rank_o,
                                 int * restrict file_o,
@@ -550,13 +551,20 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
         bool is_file_0 = ( islower( *file_0_str ) ) ? true : false;
         file_0 = ( is_file_0 ) ? ( *file_0_str ) - 'a' : CC_INVALID_OFF_BOARD_COORD_MIN;
 
+        if ( !cc_chessboard_is_coord_on_board( cb, file_0 ) )
+            file_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
+
         char const * rank_0_str = file_0_str + is_file_0;
         if ( *rank_0_str != '\0' )
         {
+            // <!> Needed, rank_0_len is used.
+            //
             int rank_0_len = isdigit( *rank_0_str ) ? 1 : 0;
-            // if ( rank_0_len > 0 ) rank_0_len += isdigit( *( rank_0_str + 1 ) ) ? 1 : 0; // Not needed
+            if ( rank_0_len > 0 ) rank_0_len += isdigit( *( rank_0_str + 1 ) ) ? 1 : 0;
             rank_0 = ( rank_0_len > 0 ) ? atoi( rank_0_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
-// TODO :: CHECK :: rank_0 is on-board
+
+            if ( !cc_chessboard_is_coord_on_board( cb, rank_0 ) )
+                rank_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
 
             char const * file_1_str = rank_0_str + rank_0_len;
             if ( *file_1_str != '\0' )
@@ -564,13 +572,21 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
                 bool is_file_1 = ( islower( *file_1_str ) ) ? true : false;
                 file_1 = ( is_file_1 ) ? ( *file_1_str ) - 'a' : CC_INVALID_OFF_BOARD_COORD_MIN;
 
+                if ( !cc_chessboard_is_coord_on_board( cb, file_1 ) )
+                    file_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
+
                 char const * rank_1_str = file_1_str + is_file_1;
                 if ( *rank_1_str != '\0' )
                 {
-                    int rank_1_len = isdigit( *rank_1_str ) ? 1 : 0;
-                    // if ( rank_1_len > 0 ) rank_1_len += isdigit( *( rank_1_str + 1 ) ) ? 1 : 0; // Not needed.
-                    rank_1 = ( rank_1_len > 0 ) ? atoi( rank_1_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
-// TODO :: CHECK :: rank_1 is on-board
+                    // <.> Not needed, rank_1_len is not used.
+                    //
+                    // int rank_1_len = isdigit( *rank_1_str ) ? 1 : 0;
+                    // if ( rank_1_len > 0 ) rank_1_len += isdigit( *( rank_1_str + 1 ) ) ? 1 : 0;
+                    // rank_1 = ( rank_1_len > 0 ) ? atoi( rank_1_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
+                    rank_1 = ( isdigit( *rank_1_str ) ) ? atoi( rank_1_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
+
+                    if ( !cc_chessboard_is_coord_on_board( cb, rank_1 ) )
+                        rank_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
                 }
             }
         }

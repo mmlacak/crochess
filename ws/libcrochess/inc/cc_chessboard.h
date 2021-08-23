@@ -112,6 +112,16 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict 
 */
 bool cc_chessboard_free_all( CcChessboard ** const restrict cb_f );
 
+/**
+    Function returning if given coordinate belongs to a board.
+
+    @param cb Chessboard.
+    @param coord A coordinate.
+
+    @return `true` if coordinate is on-board, `false` otherwise.
+*/
+bool cc_chessboard_is_coord_on_board( CcChessboard const * const restrict cb,
+                                      int const coord );
 
 /**
     Function returning if given position belongs to a board.
@@ -122,9 +132,9 @@ bool cc_chessboard_free_all( CcChessboard ** const restrict cb_f );
 
     @return `true` if position is on-board, `false` otherwise.
 */
-bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb,
-                                int const i,
-                                int const j );
+bool cc_chessboard_is_pos_on_board( CcChessboard const * const restrict cb,
+                                    int const i,
+                                    int const j );
 
 /**
     Function returning piece on a given position.

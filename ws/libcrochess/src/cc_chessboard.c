@@ -147,20 +147,28 @@ bool cc_chessboard_free_all( CcChessboard ** const restrict cb_f )
     return true;
 }
 
-
-bool cc_chessboard_is_on_board( CcChessboard const * const restrict cb,
-                                int const i,
-                                int const j )
+bool cc_chessboard_is_coord_on_board( CcChessboard const * const restrict cb,
+                                      int const coord )
 {
     if ( !cb ) return false;
-    return ( ( 0 <= i ) && ( i < (int)cb->size ) && ( 0 <= j ) && ( j < (int)cb->size ) );
+    return ( ( 0 <= coord ) && ( coord < (int)cb->size ) );
+}
+
+bool cc_chessboard_is_pos_on_board( CcChessboard const * const restrict cb,
+                                    int const i,
+                                    int const j )
+{
+    if ( !cb ) return false;
+
+    return ( cc_chessboard_is_coord_on_board( cb, i )
+          && cc_chessboard_is_coord_on_board( cb, j ) );
 }
 
 CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb,
                                      int const i,
                                      int const j )
 {
-    if ( cc_chessboard_is_on_board( cb, i, j ) )
+    if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
     {
         return cb->board[ i ][ j ];
     }
@@ -172,7 +180,7 @@ CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb,
                                  int const i,
                                  int const j )
 {
-    if ( cc_chessboard_is_on_board( cb, i, j ) )
+    if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
     {
         return cb->tags[ i ][ j ];
     }
@@ -188,7 +196,7 @@ bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb_io,
 {
     if ( !cb_io ) return false;
 
-    if ( cc_chessboard_is_on_board( cb_io, i, j ) )
+    if ( cc_chessboard_is_pos_on_board( cb_io, i, j ) )
     {
         cb_io->board[ i ][ j ] = pe;
         cb_io->tags[ i ][ j ] = tt;
@@ -214,7 +222,7 @@ bool cc_chessboard_set_tag( CcChessboard * const restrict cb_io,
 {
     if ( !cb_io ) return false;
 
-    if ( cc_chessboard_is_on_board( cb_io, i, j ) )
+    if ( cc_chessboard_is_pos_on_board( cb_io, i, j ) )
     {
         cb_io->tags[ i ][ j ] = tt;
 
