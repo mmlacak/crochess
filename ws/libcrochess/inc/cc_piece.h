@@ -175,11 +175,11 @@ bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars );
 bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars );
 
 /**
-    Function returning whether piece is Pawn.
+    Function returning whether piece is a Pawn.
 
     @param pe Piece enum.
 
-    @return `true` if piece is Pawn, regardless if light or dark; `false` otherwise.
+    @return `true` if piece is a Pawn, regardless if light or dark; `false` otherwise.
 */
 bool cc_piece_is_pawn( CcPieceEnum const pe );
 
@@ -191,6 +191,24 @@ bool cc_piece_is_pawn( CcPieceEnum const pe );
     @return `true` if piece is None, `false` otherwise.
 */
 bool cc_piece_is_none( CcPieceEnum const pe );
+
+/**
+    Function returning whether piece is a Star.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Star, regardless if bright or dim; `false` otherwise.
+*/
+bool cc_piece_is_star( CcPieceEnum const pe );
+
+/**
+    Function returning whether piece is a Monolith.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Monolith; `false` otherwise.
+*/
+bool cc_piece_is_monolith( CcPieceEnum const pe );
 
 /**
     Function returning whether pieces are of opposite color (dark, light),
@@ -247,5 +265,15 @@ bool cc_piece_is_figure( CcPieceEnum const pe,
                          bool const include_monolith,
                          bool const include_stars );
 
+/**
+    Function returns piece coerced to a given color (or shade, if it's a Star).
+
+    @param pe A piece.
+    @param to_light A flag, coerce piece either to light (or bright) if `true`,
+                    or to dark (or dim) if `false`.
+
+    @return A piece coerced to a given color (or shade).
+*/
+CcPieceEnum cc_piece_coerce( CcPieceEnum const pe, bool const to_light );
 
 #endif /* __CC_PIECE_H__ */

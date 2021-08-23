@@ -278,11 +278,25 @@ bool cc_piece_is_none( CcPieceEnum const pe )
     return ( pe == CC_PE_None );
 }
 
+bool cc_piece_is_star( CcPieceEnum const pe )
+{
+    return ( ( pe == CC_PE_BrightStar ) || ( pe == CC_PE_DimStar ) );
+}
+
+bool cc_piece_is_monolith( CcPieceEnum const pe )
+{
+    return ( pe == CC_PE_Monolith );
+}
+
 
 bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2, bool strict )
 {
     if ( strict )
-        return ( pe1 == ( -pe2 ) );
+    {
+        if ( cc_piece_is_none( pe1 ) || cc_piece_is_none( pe2 ) ) return false;
+        if ( cc_piece_is_monolith( pe1 ) || cc_piece_is_monolith( pe2 ) ) return false;
+        return ( pe1 == cc_piece_opposite( pe2 ) );
+    }
 
     if ( cc_piece_is_light( pe1, false ) && cc_piece_is_dark( pe2, false ) ) return true;
     if ( cc_piece_is_dark( pe1, false ) && cc_piece_is_light( pe2, false ) ) return true;
@@ -295,7 +309,7 @@ bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2, bool st
 
 bool cc_piece_is_teleporter( CcPieceEnum const pe )
 {
-    return ( ( pe == CC_PE_Monolith ) || ( pe == CC_PE_DimStar ) || ( pe == CC_PE_BrightStar ) );
+    return ( cc_piece_is_monolith( pe ) || cc_piece_is_star( pe ) );
 }
 
 bool cc_piece_is_lightweight( CcPieceEnum const pe )
@@ -312,4 +326,15 @@ bool cc_piece_is_figure( CcPieceEnum const pe,
     if ( cc_piece_is_dark( pe, include_stars ) ) return true;
     if ( pe == CC_PE_Monolith ) return include_monolith;
     return false;
+}
+
+CcPieceEnum cc_piece_coerce( CcPieceEnum const pe, bool const to_light )
+{
+    if ( cc_piece_is_monolith( pe ) || cc_piece_is_none( pe ) )
+        return pe;
+
+    if ( to_light == cc_piece_is_light( pe, true ) )
+        return pe;
+
+    return cc_piece_opposite( pe );
 }
