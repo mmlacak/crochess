@@ -288,21 +288,31 @@ bool cc_piece_is_monolith( CcPieceEnum const pe )
     return ( pe == CC_PE_Monolith );
 }
 
+bool cc_piece_is_the_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict )
+{
+    if ( pe_1 == pe_2 ) return true;
 
-bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2, bool strict )
+    if ( !strict )
+        if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
+
+    return false;
+}
+
+
+bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict )
 {
     if ( strict )
     {
-        if ( cc_piece_is_none( pe1 ) || cc_piece_is_none( pe2 ) ) return false;
-        if ( cc_piece_is_monolith( pe1 ) || cc_piece_is_monolith( pe2 ) ) return false;
-        return ( pe1 == cc_piece_opposite( pe2 ) );
+        if ( cc_piece_is_none( pe_1 ) || cc_piece_is_none( pe_2 ) ) return false;
+        if ( cc_piece_is_monolith( pe_1 ) || cc_piece_is_monolith( pe_2 ) ) return false;
+        return ( pe_1 == cc_piece_opposite( pe_2 ) );
     }
 
-    if ( cc_piece_is_light( pe1, false ) && cc_piece_is_dark( pe2, false ) ) return true;
-    if ( cc_piece_is_dark( pe1, false ) && cc_piece_is_light( pe2, false ) ) return true;
+    if ( cc_piece_is_light( pe_1, false ) && cc_piece_is_dark( pe_2, false ) ) return true;
+    if ( cc_piece_is_dark( pe_1, false ) && cc_piece_is_light( pe_2, false ) ) return true;
 
-    if ( ( pe1 == CC_PE_BrightStar ) && ( pe2 == CC_PE_DimStar ) ) return true;
-    if ( ( pe1 == CC_PE_DimStar ) && ( pe2 == CC_PE_BrightStar ) ) return true;
+    if ( ( pe_1 == CC_PE_BrightStar ) && ( pe_2 == CC_PE_DimStar ) ) return true;
+    if ( ( pe_1 == CC_PE_DimStar ) && ( pe_2 == CC_PE_BrightStar ) ) return true;
 
     return false;
 }

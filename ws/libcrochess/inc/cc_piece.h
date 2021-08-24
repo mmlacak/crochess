@@ -211,11 +211,27 @@ bool cc_piece_is_star( CcPieceEnum const pe );
 bool cc_piece_is_monolith( CcPieceEnum const pe );
 
 /**
+    Function checks if two given pieces are the same type, or are the same.
+
+    @param pe_1 A piece.
+    @param pe_2 The other piece.
+    @param strict Flag, whether to check pieces are the same (if `true`),
+                  or have the same type (if `false`).
+
+    @note
+    Type of a piece is what remains after it has been stripped of color (or shade).
+    For instance, light and dark Rook are both Rooks, that is their type.
+
+    @return `true` if the same (type), `false` otherwise.
+*/
+bool cc_piece_is_the_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict );
+
+/**
     Function returning whether pieces are of opposite color (dark, light),
     or shade (dim, bright).
 
-    @param pe1 Piece enum.
-    @param pe2 Piece enum.
+    @param pe_1 A piece.
+    @param pe_2 Another piece.
     @param strict Flag, is comparison strict.
 
     @note
@@ -229,7 +245,7 @@ bool cc_piece_is_monolith( CcPieceEnum const pe );
 
     @return `true` if one piece is dark (dim) and the other is light (bright), `false` otherwise.
 */
-bool cc_piece_is_opposite( CcPieceEnum const pe1, CcPieceEnum const pe2, bool strict );
+bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict );
 
 /**
     Function returning whether piece is teleporting piece.

@@ -38,7 +38,7 @@ PROJECT_NAME           = "Croatian Chess"
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = "0.0.2.22:221+20210823.193231"   # docs-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker
+PROJECT_NUMBER         = "0.0.2.23:222+20210824.015050"   # docs-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
