@@ -561,7 +561,8 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
             //
             int rank_0_len = isdigit( *rank_0_str ) ? 1 : 0;
             if ( rank_0_len > 0 ) rank_0_len += isdigit( *( rank_0_str + 1 ) ) ? 1 : 0;
-            rank_0 = ( rank_0_len > 0 ) ? atoi( rank_0_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
+            rank_0 = ( rank_0_len > 0 ) ? atoi( rank_0_str ) - 1
+                                        : CC_INVALID_OFF_BOARD_COORD_MIN;
 
             if ( !cc_chessboard_is_coord_on_board( cb, rank_0 ) )
                 rank_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
@@ -578,12 +579,8 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
                 char const * rank_1_str = file_1_str + is_file_1;
                 if ( *rank_1_str != '\0' )
                 {
-                    // <.> Not needed, rank_1_len is not used.
-                    //
-                    // int rank_1_len = isdigit( *rank_1_str ) ? 1 : 0;
-                    // if ( rank_1_len > 0 ) rank_1_len += isdigit( *( rank_1_str + 1 ) ) ? 1 : 0;
-                    // rank_1 = ( rank_1_len > 0 ) ? atoi( rank_1_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
-                    rank_1 = ( isdigit( *rank_1_str ) ) ? atoi( rank_1_str ) - 1 : CC_INVALID_OFF_BOARD_COORD_MIN;
+                    rank_1 = ( isdigit( *rank_1_str ) ) ? atoi( rank_1_str ) - 1
+                                                        : CC_INVALID_OFF_BOARD_COORD_MIN;
 
                     if ( !cc_chessboard_is_coord_on_board( cb, rank_1 ) )
                         rank_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
@@ -680,11 +677,6 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         else
             return false;
 
-        // <.> Not needed.
-        //
-        // int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
-        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0;
-        // if ( dest_j_len > 0 )
         if ( isdigit( *( s + 1 ) ) )
         {
             dest_j = atoi( ++s ) - 1;
@@ -823,11 +815,6 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         else
             return false;
 
-        // <.> Not needed.
-        //
-        // int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
-        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0;
-        // if ( dest_j_len > 0 )
         if ( isdigit( *( s + 1 ) ) )
         {
             dest_j = atoi( ++s ) - 1;
@@ -867,11 +854,6 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             else
                 return false;
 
-            // <.> Not needed.
-            //
-            // int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
-            // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0;
-            // if ( dest_j_len > 0 )
             if ( isdigit( *( s + 1 ) ) )
             {
                 dest_j = atoi( ++s ) - 1;
