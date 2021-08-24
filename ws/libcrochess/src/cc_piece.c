@@ -273,6 +273,11 @@ bool cc_piece_is_pawn( CcPieceEnum const pe )
     return ( ( pe == CC_PE_LightPawn ) || ( pe == CC_PE_DarkPawn ) );
 }
 
+bool cc_piece_is_king( CcPieceEnum const pe )
+{
+    return ( ( pe == CC_PE_LightKing ) || ( pe == CC_PE_DarkKing ) );
+}
+
 bool cc_piece_is_none( CcPieceEnum const pe )
 {
     return ( pe == CC_PE_None );
@@ -294,6 +299,23 @@ bool cc_piece_is_the_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2, 
 
     if ( !strict )
         if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
+
+    return false;
+}
+
+bool cc_piece_is_the_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const include_stars )
+{
+    if ( cc_piece_is_light( pe_1, false ) && cc_piece_is_light( pe_2, false ) )
+        return true;
+
+    if ( cc_piece_is_dark( pe_1, false ) && cc_piece_is_dark( pe_2, false ) )
+        return true;
+
+    if ( include_stars )
+    {
+        if ( ( pe_1 == CC_PE_BrightStar ) && ( pe_2 == CC_PE_BrightStar ) ) return true;
+        if ( ( pe_1 == CC_PE_DimStar ) && ( pe_2 == CC_PE_DimStar ) ) return true;
+    }
 
     return false;
 }

@@ -695,20 +695,13 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     else if ( *s == ':' )
     {
-        CcPieceEnum piece = ( cc_piece_is_pawn( ply_piece ) ) ? cc_piece_opposite( ply_piece )
-                                                              : CC_PE_None;
-
-        if ( !cc_piece_is_valid( piece ) )
+        if ( !cc_piece_is_pawn( ply_piece ) )
             return false;
 
+        CcPieceEnum piece = cc_piece_opposite( ply_piece );
         int dist_i = step_i;
         int dist_j = CC_INVALID_OFF_BOARD_COORD_MIN;
         int board_j = CC_INVALID_OFF_BOARD_COORD_MIN;
-
-        // <.> Not needed.
-        //
-        // if ( !cc_rule_utils_find_en_passant_target( cb, ply_piece, step_i, step_j, &piece, &board_j ) )
-        //     return false;
 
         if ( isdigit( *( s + 1 ) ) )
         {
@@ -728,15 +721,17 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     else if ( *s == '&' )
     {
-// TODO :: FIX :: piece = None !!!
-        CcPieceEnum rook = CC_PE_None;
+        if ( !cc_piece_is_king( ply_piece ) )
+            return false;
+
+        CcPieceEnum rook = ( ply_piece == CC_PE_LightKing ) ? CC_PE_LightRook
+                                                            : CC_PE_DarkRook;
 // TODO :: FIX :: dest_i = off-board !!!
         int start_i = CC_INVALID_OFF_BOARD_COORD_MIN;
-// TODO :: FIX :: dest_i = off-board !!!
-        int start_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int start_j = step_j;
 // TODO :: FIX :: dest_i = off-board !!!
         int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
-        int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int dest_j = step_j;
 
         int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
         // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
@@ -753,16 +748,16 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     {
         if ( isupper( *( s + 1 ) ) )
         {
-            CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
+            CcPieceEnum pawn = cc_chessboard_get_piece( cb, step_i, step_j );
 
-            CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
-            if ( !cc_piece_is_valid( pe ) )
+            CcPieceEnum promoted_to = cc_piece_from_symbol( *++s, cc_piece_is_light( pawn, true ) );
+            if ( !cc_piece_is_valid( promoted_to ) )
                 return false;
 
-            if ( !cc_piece_is_the_same_type( piece, pe, true ) )
+            if ( !cc_piece_is_the_same_color( pawn, promoted_to, false ) )
                 return false;
 
-            *side_effect_o = cc_side_effect_promote( piece );
+            *side_effect_o = cc_side_effect_promote( promoted_to );
             return true;
         }
         else

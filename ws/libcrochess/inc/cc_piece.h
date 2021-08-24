@@ -184,6 +184,15 @@ bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars );
 bool cc_piece_is_pawn( CcPieceEnum const pe );
 
 /**
+    Function returning whether piece is a King.
+
+    @param pe A piece.
+
+    @return `true` if piece is a King, regardless if light or dark; `false` otherwise.
+*/
+bool cc_piece_is_king( CcPieceEnum const pe );
+
+/**
     Function returning whether piece is None.
 
     @param pe Piece enum.
@@ -225,6 +234,18 @@ bool cc_piece_is_monolith( CcPieceEnum const pe );
     @return `true` if the same (type), `false` otherwise.
 */
 bool cc_piece_is_the_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict );
+
+/**
+    Function checks if two given pieces are the same color, or shade.
+
+    @param pe_1 A piece.
+    @param pe_2 The other piece.
+    @param include_stars Flag, whether to include shades in checks (if `true`),
+                         or check only colors (if `false`).
+
+    @return `true` if the same color (shade), `false` otherwise.
+*/
+bool cc_piece_is_the_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const include_stars );
 
 /**
     Function returning whether pieces are of opposite color (dark, light),
