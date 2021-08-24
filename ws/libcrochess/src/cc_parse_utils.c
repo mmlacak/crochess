@@ -744,9 +744,13 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     {
         if ( isupper( *( s + 1 ) ) )
         {
-// TODO :: FIX :: is_light = true !!!
-            CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
-            if ( !cc_piece_is_valid( piece ) )
+            CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
+
+            CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
+            if ( !cc_piece_is_valid( pe ) )
+                return false;
+
+            if ( !cc_piece_is_the_same_type( piece, pe, true ) )
                 return false;
 
             *side_effect_o = cc_side_effect_promote( piece );
@@ -767,15 +771,23 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
         else if ( isupper( *( s + 1 ) ) )
         {
-// TODO :: FIX :: is_light = true !!!
-            CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
-            if ( !cc_piece_is_valid( piece ) )
+            CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
+
+            CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
+            if ( !cc_piece_is_valid( pe ) )
+                return false;
+
+            if ( !cc_piece_is_the_same_type( piece, pe, true ) )
                 return false;
 
             bool is_promo_tag_lost = false;
 
             if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
                 is_promo_tag_lost = true;
+
+            CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
+            if ( is_promo_tag_lost != ( tag == CC_TE_DelayedPromotion ) )
+                return false;
 
             *side_effect_o = cc_side_effect_convert( piece, is_promo_tag_lost );
             return true;
@@ -791,23 +803,38 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
 
         if ( isupper( *( s + 1 ) ) )
         {
-// TODO :: FIX :: is_light = true !!!
-            CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
-            if ( !cc_piece_is_valid( piece ) )
+            CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
+
+            CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
+            if ( !cc_piece_is_valid( pe ) )
+                return false;
+
+            if ( !cc_piece_is_the_same_type( piece, pe, true ) )
                 return false;
         }
 
         if ( islower( *( s + 1 ) ) )
+        {
             dest_i = ( *++s ) - 'a';
-// TODO :: CHECK :: dest_i is on-board
+
+            if ( !cc_chessboard_is_coord_on_board( cb, dest_i ) )
+                return false;
+        }
         else
             return false;
 
-        int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
-        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
-        if ( dest_j_len > 0 )
+        // <.> Not needed.
+        //
+        // int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
+        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0;
+        // if ( dest_j_len > 0 )
+        if ( isdigit( *( s + 1 ) ) )
+        {
             dest_j = atoi( ++s ) - 1;
-// TODO :: CHECK :: dest_j is on-board
+
+            if ( !cc_chessboard_is_coord_on_board( cb, dest_j ) )
+                return false;
+        }
         else
             return false;
 
@@ -831,16 +858,27 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                 return false;
 
             if ( islower( *( s + 1 ) ) )
+            {
                 dest_i = ( *++s ) - 'a';
-// TODO :: CHECK :: dest_i is on-board
+
+                if ( !cc_chessboard_is_coord_on_board( cb, dest_i ) )
+                    return false;
+            }
             else
                 return false;
 
-            int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
-            // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
-            if ( dest_j_len > 0 )
+            // <.> Not needed.
+            //
+            // int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
+            // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0;
+            // if ( dest_j_len > 0 )
+            if ( isdigit( *( s + 1 ) ) )
+            {
                 dest_j = atoi( ++s ) - 1;
-// TODO :: CHECK :: dest_j is on-board
+
+                if ( !cc_chessboard_is_coord_on_board( cb, dest_j ) )
+                    return false;
+            }
             else
                 return false;
 
@@ -850,9 +888,13 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     if ( isupper( *s ) )
     {
-// TODO :: FIX :: is_light = true !!!
-        CcPieceEnum piece = cc_piece_from_symbol( *s, true );
-        if ( !cc_piece_is_valid( piece ) )
+        CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
+
+        CcPieceEnum pe = cc_piece_from_symbol( *s, cc_piece_is_light( piece, true ) );
+        if ( !cc_piece_is_valid( pe ) )
+            return false;
+
+        if ( !cc_piece_is_the_same_type( piece, pe, true ) )
             return false;
 
         *side_effect_o = cc_side_effect_promote( piece );
