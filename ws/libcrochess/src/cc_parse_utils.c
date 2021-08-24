@@ -9,6 +9,8 @@
 
 #include "cc_parse_utils.h"
 
+#include "cc_rule_utils.h"
+
 /**
     @file cc_parse_utils.c
     @brief Helper functions to parse algebraic notation.
@@ -607,6 +609,7 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
 
 bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                                      CcChessboard const * const restrict cb,
+                                     CcPieceEnum ply_piece,
                                      int const step_i,
                                      int const step_j,
                                      CcSideEffect * const restrict side_effect_o )
@@ -692,21 +695,35 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     else if ( *s == ':' )
     {
-// TODO :: FIX :: piece = None !!!
-        CcPieceEnum piece = CC_PE_None;
-// TODO :: FIX :: dest_i = off-board !!!
-        int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
-        int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+        CcPieceEnum piece = ( cc_piece_is_pawn( ply_piece ) ) ? cc_piece_opposite( ply_piece )
+                                                              : CC_PE_None;
 
-        int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
-        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
-        if ( dest_j_len > 0 )
-            dest_j = atoi( ++s ) - 1;
-// TODO :: CHECK :: dest_j is on-board
+        if ( !cc_piece_is_valid( piece ) )
+            return false;
+
+        int dist_i = step_i;
+        int dist_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int board_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+        // <.> Not needed.
+        //
+        // if ( !cc_rule_utils_find_en_passant_target( cb, ply_piece, step_i, step_j, &piece, &board_j ) )
+        //     return false;
+
+        if ( isdigit( *( s + 1 ) ) )
+        {
+            dist_j = atoi( ++s ) - 1;
+
+            if ( !cc_chessboard_is_coord_on_board( cb, dist_j ) )
+                return false;
+
+            if ( dist_j != board_j )
+                return false;
+        }
         else
             return false;
 
-        *side_effect_o = cc_side_effect_en_passant( piece, dest_i, dest_j );
+        *side_effect_o = cc_side_effect_en_passant( piece, dist_i, dist_j );
         return true;
     }
     else if ( *s == '&' )
