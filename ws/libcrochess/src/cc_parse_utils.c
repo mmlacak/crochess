@@ -775,23 +775,23 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
         else if ( isupper( *( s + 1 ) ) )
         {
-            CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
+            if ( ( ply_piece != CC_PE_LightPyramid ) && ( ply_piece != CC_PE_DarkPyramid ) )
+                return false;
 
-            CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
+            bool is_dark = !cc_piece_is_light( ply_piece, false );
+            CcPieceEnum pe = cc_piece_from_symbol( *++s, is_dark );
             if ( !cc_piece_is_valid( pe ) )
                 return false;
 
-            if ( !cc_piece_is_the_same_type( piece, pe, true ) )
-                return false;
-
-            bool is_promo_tag_lost = false;
-
-            if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-                is_promo_tag_lost = true;
+            CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
+            if ( piece != pe ) return false;
 
             CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-            if ( is_promo_tag_lost != ( tag == CC_TE_DelayedPromotion ) )
-                return false;
+            bool is_promo_tag_lost = ( tag == CC_TE_DelayedPromotion );
+
+            if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
+                if ( !is_promo_tag_lost )
+                    return false;
 
             *side_effect_o = cc_side_effect_convert( piece, is_promo_tag_lost );
             return true;
