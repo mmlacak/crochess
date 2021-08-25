@@ -269,6 +269,18 @@ bool cc_piece_is_the_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2,
 bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict );
 
 /**
+    Function returning whether piece can be captured.
+
+    @param pe A piece.
+
+    @note
+    Disposable pieces are also pieces to which Pawn can be promoted.
+
+    @return `true` if piece is disposable, `false` otherwise.
+*/
+bool cc_piece_is_disposable( CcPieceEnum const pe );
+
+/**
     Function returning whether piece is teleporting piece.
 
     @param pe Piece enum.

@@ -339,6 +339,23 @@ bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool 
     return false;
 }
 
+bool cc_piece_is_disposable( CcPieceEnum const pe )
+{
+    switch ( pe )
+    {
+        case CC_PE_DimStar :
+        case CC_PE_DarkKing :
+        case CC_PE_None :
+        case CC_PE_LightKing :
+        case CC_PE_BrightStar :
+        case CC_PE_Monolith :
+            return false;
+
+        default :
+            return true;
+    }
+}
+
 bool cc_piece_is_teleporter( CcPieceEnum const pe )
 {
     return ( cc_piece_is_monolith( pe ) || cc_piece_is_star( pe ) );
