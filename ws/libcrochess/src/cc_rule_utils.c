@@ -5,7 +5,7 @@
 
 
 bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict cb,
-                                           CcPieceEnum pawn_en_passant,
+                                           CcPieceEnum const pawn_en_passant,
                                            int const step_i,
                                            int const step_j,
                                            CcPieceEnum * const restrict pawn_o,

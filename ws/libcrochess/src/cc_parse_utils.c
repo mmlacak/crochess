@@ -615,6 +615,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                                      CcSideEffect * const restrict side_effect_o )
 {
     if ( !step_str ) return false;
+    if ( !cb ) return false;
     if ( !side_effect_o ) return false;
 
     char const * side_effect_str = cc_parse_utils_side_effect_str( step_str );
@@ -625,7 +626,6 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     if ( *s == '*' )
     {
         CcPieceEnum piece = CC_PE_None;
-        bool is_promo_tag_lost = false;
 
         if ( isupper( *( s + 1 ) ) )
         {
@@ -641,8 +641,12 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                 return false;
         }
 
+        CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
+        bool is_promo_tag_lost = ( tag == CC_TE_DelayedPromotion );
+
         if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-            is_promo_tag_lost = true;
+            if ( !is_promo_tag_lost )
+                return false;
 
         *side_effect_o = cc_side_effect_capture( piece, is_promo_tag_lost );
         return true;
@@ -650,9 +654,6 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     else if ( *s == '<' )
     {
         CcPieceEnum piece = CC_PE_None;
-        bool is_promo_tag_lost = false;
-        int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
-        int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         if ( isupper( *( s + 1 ) ) )
         {
@@ -666,11 +667,18 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                 return false;
         }
 
+        CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
+        bool is_promo_tag_lost = ( tag == CC_TE_DelayedPromotion );
+
         if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
         {
-            s += 2;
-            is_promo_tag_lost = true;
+            if ( !is_promo_tag_lost )
+                return false;
+            else
+                s += 2;
         }
+
+        int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         if ( islower( *( s + 1 ) ) )
         {
@@ -681,6 +689,8 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
         else
             return false;
+
+        int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         if ( isdigit( *( s + 1 ) ) )
         {
@@ -701,12 +711,12 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             return false;
 
         CcPieceEnum piece = CC_PE_None;
-        int dist_i = step_i;
-        int dist_j = CC_INVALID_OFF_BOARD_COORD_MIN;
         int board_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         if ( !cc_rule_utils_find_en_passant_target( cb, ply_piece, step_i, step_j, &piece, &board_j ) )
             return false;
+
+        int dist_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         if ( isdigit( *( s + 1 ) ) )
         {
@@ -717,6 +727,8 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
         else
             return false;
+
+        int dist_i = step_i;
 
         *side_effect_o = cc_side_effect_en_passant( piece, dist_i, dist_j );
         return true;
@@ -755,9 +767,6 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         if ( isupper( *( s + 1 ) ) )
         {
             CcPieceEnum promote_to = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, false ) );
-            if ( !CC_PIECE_IS_VALID( promote_to ) )
-                return false;
-
             if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
                 return false;
 
@@ -862,12 +871,12 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
         else if ( isupper( *( s + 1 ) ) )
         {
-            int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
-            int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
             CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
             if ( !CC_PIECE_IS_VALID( piece ) )
                 return false;
+
+            int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
 
             if ( islower( *( s + 1 ) ) )
             {
@@ -878,6 +887,8 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             }
             else
                 return false;
+
+            int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
             if ( isdigit( *( s + 1 ) ) )
             {
@@ -900,9 +911,6 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             return false;
 
         CcPieceEnum promote_to = cc_piece_from_symbol( *s, cc_piece_is_light( piece, true ) );
-        if ( !CC_PIECE_IS_VALID( promote_to ) )
-            return false;
-
         if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
             return false;
 
