@@ -43,12 +43,29 @@ CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light )
 
 bool cc_piece_is_symbol( char const c )
 {
-    return ( cc_piece_from_symbol( c, true ) != CC_PE_None ); // Argument is_light does not matter.
-}
+    switch ( c )
+    {
+        case 'P' :
+        case 'N' :
+        case 'B' :
+        case 'R' :
+        case 'Q' :
+        case 'K' :
+        case 'G' :
+        case 'A' :
+        case 'U' :
+        case 'W' :
+        case 'C' :
+        case 'S' :
+        case 'H' :
+        case 'I' :
 
-bool cc_piece_is_valid( CcPieceEnum const pe )
-{
-    return ( pe != CC_PE_None );
+        case 'T' :
+
+        case 'M' : return true;
+
+        default : return false;
+    }
 }
 
 CcPieceEnum cc_piece_opposite( CcPieceEnum const pe )

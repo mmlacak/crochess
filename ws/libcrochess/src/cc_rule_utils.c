@@ -27,7 +27,7 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict c
     {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, step_i, j );
 
-        if ( cc_piece_is_valid( pe ) )
+        if ( CC_PIECE_IS_VALID( pe ) )
         {
             if ( cc_piece_is_opposite( pe, pawn_en_passant, true ) )
             {

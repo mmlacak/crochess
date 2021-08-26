@@ -230,7 +230,7 @@ bool cc_parse_utils_get_ply_piece( char const * const restrict ply_str,
     else
         *piece_o = ( is_light ) ? CC_PE_LightPawn : CC_PE_DarkPawn;
 
-    return cc_piece_is_valid( *piece_o );
+    return CC_PIECE_IS_VALID( *piece_o );
 }
 
 
@@ -634,7 +634,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                 return false;
 
             CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
-            if ( !cc_piece_is_valid( pe ) )
+            if ( !CC_PIECE_IS_VALID( pe ) )
                 return false;
 
             if ( !cc_piece_is_the_same_type( piece, pe, true ) )
@@ -659,7 +659,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             piece = cc_chessboard_get_piece( cb, step_i, step_j );
 
             CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
-            if ( !cc_piece_is_valid( pe ) )
+            if ( !CC_PIECE_IS_VALID( pe ) )
                 return false;
 
             if ( !cc_piece_is_the_same_type( piece, pe, true ) )
@@ -757,7 +757,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         if ( isupper( *( s + 1 ) ) )
         {
             CcPieceEnum promote_to = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, false ) );
-            if ( !cc_piece_is_valid( promote_to ) )
+            if ( !CC_PIECE_IS_VALID( promote_to ) )
                 return false;
 
             if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
@@ -786,7 +786,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
 
             bool is_dark = !cc_piece_is_light( ply_piece, false );
             CcPieceEnum pe = cc_piece_from_symbol( *++s, is_dark );
-            if ( !cc_piece_is_valid( pe ) )
+            if ( !CC_PIECE_IS_VALID( pe ) )
                 return false;
 
             CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
@@ -820,7 +820,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
 
 // CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
             // CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
-            // if ( !cc_piece_is_valid( pe ) )
+            // if ( !CC_PIECE_IS_VALID( pe ) )
             //     return false;
 
             // if ( !cc_piece_is_the_same_type( piece, pe, true ) )
@@ -868,7 +868,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             int dest_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
             CcPieceEnum piece = cc_piece_from_symbol( *++s, true );
-            if ( !cc_piece_is_valid( piece ) )
+            if ( !CC_PIECE_IS_VALID( piece ) )
                 return false;
 
             if ( islower( *( s + 1 ) ) )
@@ -902,7 +902,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             return false;
 
         CcPieceEnum promote_to = cc_piece_from_symbol( *s, cc_piece_is_light( piece, true ) );
-        if ( !cc_piece_is_valid( promote_to ) )
+        if ( !CC_PIECE_IS_VALID( promote_to ) )
             return false;
 
         if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
