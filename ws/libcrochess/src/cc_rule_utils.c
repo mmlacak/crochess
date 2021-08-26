@@ -16,13 +16,28 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict c
     if ( !cc_chessboard_is_pos_on_board( cb, step_i, step_j ) ) return false;
     if ( !CC_VARIANT_BOARD_SIZE_IS_VALID( cb->size ) ) return false;
 
+    CcPieceEnum empty = cc_chessboard_get_piece( cb, step_i, step_j );
+    if ( !CC_PIECE_IS_NONE( empty ) ) return false;
+
     int half = (int)cb->size / 2;
     if ( half <= 0 )
         return false;
 
     int diff_j = ( step_j < half ) ? 1 : -1;
-    int lower_j = ( step_j < half ) ? 0 : half;
-    int upper_j = ( step_j < half ) ? half : (int)cb->size;
+
+    //
+    // Check that position from step, 1 field towards initial positions of opponent Pawns
+    // is also empty. This checks that opponent's Pawn rushed from, or over that position,
+    // i.e. that step position was definitely rushed over by opponent's Pawn.
+    int prev_start_j = step_j - diff_j;
+    if ( !cc_chessboard_is_coord_on_board( cb, prev_start_j ) ) return false;
+    CcPieceEnum prev_pawn = cc_chessboard_get_piece( cb, step_i, prev_start_j );
+    if ( !CC_PIECE_IS_NONE( prev_pawn ) ) return false;
+
+    // <.> Rank 0 --> piece row, rank 1 --> Pawn's row ==> start checking at rank 2.
+    //     Similarly for dark side ==> end checking at size - 2.
+    int lower_j = ( step_j < half ) ? 2 : half;
+    int upper_j = ( step_j < half ) ? half : ( (int)cb->size - 2 );
 
     for ( int j = step_j + diff_j; ( lower_j <= j ) && ( j < upper_j ); j += diff_j )
     {
