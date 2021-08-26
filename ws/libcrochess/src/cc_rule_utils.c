@@ -14,6 +14,7 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict c
     if ( !cb ) return false;
     if ( !CC_PIECE_IS_PAWN( pawn_en_passant ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, step_i, step_j ) ) return false;
+    if ( !CC_VARIANT_BOARD_SIZE_IS_VALID( cb->size ) ) return false;
 
     int half = (int)cb->size / 2;
     if ( half <= 0 )

@@ -83,6 +83,9 @@ CcVariantEnum cc_variant_from_symbol( char const * const restrict str )
     else if ( !strcmp(lc__o, CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL) ) ve = CC_VE_TamoanchanRevisited;
     else if ( !strcmp(lc__o, CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL) ) ve = CC_VE_ConquestOfTlalocan;
     else if ( !strcmp(lc__o, CC_VARIANT_DISCOVERY_SYMBOL) ) ve = CC_VE_Discovery;
+    //
+    // <.> Not needed, CC_VE_One is default.
+    //
     // else if ( !strcmp(lc__o, CC_VARIANT_ONE_SYMBOL) ) ve = CC_VE_One;
     // else ve = CC_VE_One;
 

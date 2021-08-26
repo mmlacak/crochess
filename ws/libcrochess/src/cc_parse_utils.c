@@ -700,19 +700,17 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         if ( !CC_PIECE_IS_PAWN( ply_piece ) )
             return false;
 
-// TODO :: CHECK :: cc_rule_utils_find_en_passant_target
-
-        CcPieceEnum piece = cc_piece_opposite( ply_piece );
+        CcPieceEnum piece = CC_PE_None;
         int dist_i = step_i;
         int dist_j = CC_INVALID_OFF_BOARD_COORD_MIN;
         int board_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
+        if ( !cc_rule_utils_find_en_passant_target( cb, ply_piece, step_i, step_j, &piece, &board_j ) )
+            return false;
+
         if ( isdigit( *( s + 1 ) ) )
         {
             dist_j = atoi( ++s ) - 1;
-
-            if ( !cc_chessboard_is_coord_on_board( cb, dist_j ) )
-                return false;
 
             if ( dist_j != board_j )
                 return false;
