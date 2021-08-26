@@ -630,7 +630,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         if ( isupper( *( s + 1 ) ) )
         {
             piece = cc_chessboard_get_piece( cb, step_i, step_j );
-            if ( !cc_piece_is_disposable( piece ) )
+            if ( !CC_PIECE_IS_DISPOSABLE( piece ) )
                 return false;
 
             CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
@@ -697,8 +697,10 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     else if ( *s == ':' )
     {
-        if ( !cc_piece_is_pawn( ply_piece ) )
+        if ( !CC_PIECE_IS_PAWN( ply_piece ) )
             return false;
+
+// TODO :: CHECK :: cc_rule_utils_find_en_passant_target
 
         CcPieceEnum piece = cc_piece_opposite( ply_piece );
         int dist_i = step_i;
@@ -723,7 +725,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     else if ( *s == '&' )
     {
-        if ( !cc_piece_is_king( ply_piece ) )
+        if ( !CC_PIECE_IS_KING( ply_piece ) )
             return false;
 
         CcPieceEnum rook = ( ply_piece == CC_PE_LightKing ) ? CC_PE_LightRook
@@ -749,19 +751,19 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     else if ( *s == '=' )
     {
         CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
-        if ( !cc_piece_is_pawn( piece ) )
+        if ( !CC_PIECE_IS_PAWN( piece ) )
             return false;
 
         if ( isupper( *( s + 1 ) ) )
         {
-            CcPieceEnum promoted_to = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, false ) );
-            if ( !cc_piece_is_valid( promoted_to ) )
+            CcPieceEnum promote_to = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, false ) );
+            if ( !cc_piece_is_valid( promote_to ) )
                 return false;
 
-            if ( !cc_piece_is_disposable( promoted_to ) )
+            if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
                 return false;
 
-            *side_effect_o = cc_side_effect_promote( promoted_to );
+            *side_effect_o = cc_side_effect_promote( promote_to );
             return true;
         }
         else
@@ -805,7 +807,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     else if ( *s == '>' )
     {
-        if ( cc_piece_is_monolith( ply_piece ) )
+        if ( CC_PIECE_IS_MONOLITH( ply_piece ) )
             return false;
 
         CcPieceEnum piece = CC_PE_None;
@@ -896,17 +898,17 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     if ( isupper( *s ) )
     {
         CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
-        if ( !cc_piece_is_pawn( piece ) )
+        if ( !CC_PIECE_IS_PAWN( piece ) )
             return false;
 
-        CcPieceEnum promoted_to = cc_piece_from_symbol( *s, cc_piece_is_light( piece, true ) );
-        if ( !cc_piece_is_valid( promoted_to ) )
+        CcPieceEnum promote_to = cc_piece_from_symbol( *s, cc_piece_is_light( piece, true ) );
+        if ( !cc_piece_is_valid( promote_to ) )
             return false;
 
-        if ( !cc_piece_is_disposable( promoted_to ) )
+        if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
             return false;
 
-        *side_effect_o = cc_side_effect_promote( promoted_to );
+        *side_effect_o = cc_side_effect_promote( promote_to );
         return true;
     }
     else

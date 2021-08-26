@@ -323,7 +323,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
         case CC_SEE_Resurrection :
         {
-            if ( cc_piece_is_lightweight( se->resurrect.piece )
+            if ( CC_PIECE_IS_WEIGHTLESS( se->resurrect.piece )
                 || ( format_move.usage >= CC_FSUE_Clarification ) )
             {
                 char file = cc_format_pos_file( se->resurrect.dest_i );

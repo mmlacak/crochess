@@ -268,31 +268,6 @@ bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars )
     }
 }
 
-bool cc_piece_is_pawn( CcPieceEnum const pe )
-{
-    return ( ( pe == CC_PE_LightPawn ) || ( pe == CC_PE_DarkPawn ) );
-}
-
-bool cc_piece_is_king( CcPieceEnum const pe )
-{
-    return ( ( pe == CC_PE_LightKing ) || ( pe == CC_PE_DarkKing ) );
-}
-
-bool cc_piece_is_none( CcPieceEnum const pe )
-{
-    return ( pe == CC_PE_None );
-}
-
-bool cc_piece_is_star( CcPieceEnum const pe )
-{
-    return ( ( pe == CC_PE_BrightStar ) || ( pe == CC_PE_DimStar ) );
-}
-
-bool cc_piece_is_monolith( CcPieceEnum const pe )
-{
-    return ( pe == CC_PE_Monolith );
-}
-
 bool cc_piece_is_the_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict )
 {
     if ( pe_1 == pe_2 ) return true;
@@ -325,8 +300,8 @@ bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool 
 {
     if ( strict )
     {
-        if ( cc_piece_is_none( pe_1 ) || cc_piece_is_none( pe_2 ) ) return false;
-        if ( cc_piece_is_monolith( pe_1 ) || cc_piece_is_monolith( pe_2 ) ) return false;
+        if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
+        if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
         return ( pe_1 == cc_piece_opposite( pe_2 ) );
     }
 
@@ -337,34 +312,6 @@ bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool 
     if ( ( pe_1 == CC_PE_DimStar ) && ( pe_2 == CC_PE_BrightStar ) ) return true;
 
     return false;
-}
-
-bool cc_piece_is_disposable( CcPieceEnum const pe )
-{
-    switch ( pe )
-    {
-        case CC_PE_DimStar :
-        case CC_PE_DarkKing :
-        case CC_PE_None :
-        case CC_PE_LightKing :
-        case CC_PE_BrightStar :
-        case CC_PE_Monolith :
-            return false;
-
-        default :
-            return true;
-    }
-}
-
-bool cc_piece_is_teleporter( CcPieceEnum const pe )
-{
-    return ( cc_piece_is_monolith( pe ) || cc_piece_is_star( pe ) );
-}
-
-bool cc_piece_is_lightweight( CcPieceEnum const pe )
-{
-    return ( ( pe == CC_PE_LightStarchild ) || ( pe == CC_PE_DarkStarchild )
-          || ( pe == CC_PE_LightWave ) || ( pe == CC_PE_DarkWave ) );
 }
 
 bool cc_piece_is_figure( CcPieceEnum const pe,
@@ -379,7 +326,7 @@ bool cc_piece_is_figure( CcPieceEnum const pe,
 
 CcPieceEnum cc_piece_coerce( CcPieceEnum const pe, bool const to_light )
 {
-    if ( cc_piece_is_monolith( pe ) || cc_piece_is_none( pe ) )
+    if ( CC_PIECE_IS_MONOLITH( pe ) || CC_PIECE_IS_NONE( pe ) )
         return pe;
 
     if ( to_light == cc_piece_is_light( pe, true ) )

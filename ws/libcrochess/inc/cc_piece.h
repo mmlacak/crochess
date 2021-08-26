@@ -22,6 +22,95 @@
     piece symbol for both is the same, `N`.
 */
 
+
+/**
+    Macro expression to evaluate whether piece is a Pawn.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Pawn, `false` otherwise.
+*/
+#define CC_PIECE_IS_PAWN(pe) ( ( (pe) == CC_PE_LightPawn ) || ( (pe) == CC_PE_DarkPawn ) )
+
+/**
+    Macro expression to evaluate whether piece is a King.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a King, `false` otherwise.
+*/
+#define CC_PIECE_IS_KING(pe) ( ( (pe) == CC_PE_LightKing ) || ( (pe) == CC_PE_DarkKing ) )
+
+/**
+    Macro expression to evaluate whether piece is None.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is None, `false` otherwise.
+*/
+#define CC_PIECE_IS_NONE(pe) ( (pe) == CC_PE_None )
+
+/**
+    Macro expression to evaluate whether piece is a Star.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Star, `false` otherwise.
+*/
+#define CC_PIECE_IS_STAR(pe) ( ( (pe) == CC_PE_BrightStar ) || ( (pe) == CC_PE_DimStar ) )
+
+/**
+    Macro expression to evaluate whether piece is a Monolith.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Monolith, `false` otherwise.
+*/
+#define CC_PIECE_IS_MONOLITH(pe) ( (pe) == CC_PE_Monolith )
+
+/**
+    Macro expression to evaluate whether piece is weightless.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is weightless, `false` otherwise.
+*/
+#define CC_PIECE_IS_WEIGHTLESS(pe) ( ( (pe) == CC_PE_LightStarchild ) \
+                                  || ( (pe) == CC_PE_DarkStarchild )  \
+                                  || ( (pe) == CC_PE_LightWave )      \
+                                  || ( (pe) == CC_PE_DarkWave ) )
+
+/**
+    Macro expression to evaluate whether piece can be captured.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is disposable, `false` otherwise.
+*/
+#define CC_PIECE_IS_DISPOSABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                  && ( (pe) != CC_PE_DarkKing )     \
+                                  && ( (pe) != CC_PE_None )         \
+                                  && ( (pe) != CC_PE_LightKing )    \
+                                  && ( (pe) != CC_PE_BrightStar )   \
+                                  && ( (pe) != CC_PE_Monolith ) )
+
+/**
+    Macro expression to evaluate whether Pawn can be promoted to a given piece.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is promote-to, `false` otherwise.
+*/
+#define CC_PIECE_IS_PROMOTE_TO(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                  && ( (pe) != CC_PE_DarkKing )     \
+                                  && ( (pe) != CC_PE_DarkPawn )     \
+                                  && ( (pe) != CC_PE_None )         \
+                                  && ( (pe) != CC_PE_LightPawn )    \
+                                  && ( (pe) != CC_PE_LightKing )    \
+                                  && ( (pe) != CC_PE_BrightStar )   \
+                                  && ( (pe) != CC_PE_Monolith ) )
+
+
 /**
     Enumerates all pieces, used in all variants.
 
@@ -175,51 +264,6 @@ bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars );
 bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars );
 
 /**
-    Function returning whether piece is a Pawn.
-
-    @param pe Piece enum.
-
-    @return `true` if piece is a Pawn, regardless if light or dark; `false` otherwise.
-*/
-bool cc_piece_is_pawn( CcPieceEnum const pe );
-
-/**
-    Function returning whether piece is a King.
-
-    @param pe A piece.
-
-    @return `true` if piece is a King, regardless if light or dark; `false` otherwise.
-*/
-bool cc_piece_is_king( CcPieceEnum const pe );
-
-/**
-    Function returning whether piece is None.
-
-    @param pe Piece enum.
-
-    @return `true` if piece is None, `false` otherwise.
-*/
-bool cc_piece_is_none( CcPieceEnum const pe );
-
-/**
-    Function returning whether piece is a Star.
-
-    @param pe Piece enum.
-
-    @return `true` if piece is a Star, regardless if bright or dim; `false` otherwise.
-*/
-bool cc_piece_is_star( CcPieceEnum const pe );
-
-/**
-    Function returning whether piece is a Monolith.
-
-    @param pe Piece enum.
-
-    @return `true` if piece is a Monolith; `false` otherwise.
-*/
-bool cc_piece_is_monolith( CcPieceEnum const pe );
-
-/**
     Function checks if two given pieces are the same type, or are the same.
 
     @param pe_1 A piece.
@@ -267,36 +311,6 @@ bool cc_piece_is_the_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2,
     @return `true` if one piece is dark (dim) and the other is light (bright), `false` otherwise.
 */
 bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict );
-
-/**
-    Function returning whether piece can be captured.
-
-    @param pe A piece.
-
-    @note
-    Disposable pieces are also pieces to which Pawn can be promoted.
-
-    @return `true` if piece is disposable, `false` otherwise.
-*/
-bool cc_piece_is_disposable( CcPieceEnum const pe );
-
-/**
-    Function returning whether piece is teleporting piece.
-
-    @param pe Piece enum.
-
-    @return `true` if piece is Monolith, or a star; `false` otherwise.
-*/
-bool cc_piece_is_teleporter( CcPieceEnum const pe );
-
-/**
-    Function returning whether piece is lightweight.
-
-    @param pe Piece enum.
-
-    @return `true` if piece is lightweight; `false` otherwise.
-*/
-bool cc_piece_is_lightweight( CcPieceEnum const pe );
 
 /**
     Function returning whether piece is a figure.
