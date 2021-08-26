@@ -634,7 +634,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                 return false;
 
             CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
-            if ( !CC_PIECE_IS_VALID( pe ) )
+            if ( !CC_PIECE_IS_DISPOSABLE( pe ) )
                 return false;
 
             if ( !cc_piece_is_the_same_type( piece, pe, true ) )
@@ -658,9 +658,11 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         if ( isupper( *( s + 1 ) ) )
         {
             piece = cc_chessboard_get_piece( cb, step_i, step_j );
+            if ( !CC_PIECE_IS_DISPLACEABLE( piece ) )
+                return false;
 
             CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
-            if ( !CC_PIECE_IS_VALID( pe ) )
+            if ( !CC_PIECE_IS_DISPLACEABLE( pe ) )
                 return false;
 
             if ( !cc_piece_is_the_same_type( piece, pe, true ) )

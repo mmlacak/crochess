@@ -119,6 +119,20 @@
                                   && ( (pe) != CC_PE_BrightStar )   \
                                   && ( (pe) != CC_PE_Monolith ) )
 
+/**
+    Macro expression to evaluate whether piece can be displaced.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is displaceable, `false` otherwise.
+*/
+#define CC_PIECE_IS_DISPLACEABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                    && ( (pe) != CC_PE_DarkKing )     \
+                                    && ( (pe) != CC_PE_None )         \
+                                    && ( (pe) != CC_PE_LightKing )    \
+                                    && ( (pe) != CC_PE_BrightStar )   \
+                                    && ( (pe) != CC_PE_Monolith ) )
+
 
 /**
     Enumerates all pieces, used in all variants.
