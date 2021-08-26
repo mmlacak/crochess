@@ -790,7 +790,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
         else if ( isupper( *( s + 1 ) ) )
         {
-            if ( ( ply_piece != CC_PE_LightPyramid ) && ( ply_piece != CC_PE_DarkPyramid ) )
+            if ( !CC_PIECE_IS_PYRAMID( ply_piece ) )
                 return false;
 
             bool is_dark = !cc_piece_is_light( ply_piece, false );
@@ -863,7 +863,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     else if ( *s == '$' )
     {
-        if ( ( ply_piece != CC_PE_LightStarchild ) && ( ply_piece != CC_PE_DarkStarchild ) )
+        if ( !CC_PIECE_IS_STARCHILD( ply_piece ) )
             return false;
 
         if ( ( *( s + 1 ) ) == '$' )

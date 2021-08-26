@@ -51,6 +51,15 @@
 #define CC_PIECE_IS_KING(pe) ( ( (pe) == CC_PE_LightKing ) || ( (pe) == CC_PE_DarkKing ) )
 
 /**
+    Macro expression to evaluate whether piece is a Pyramid.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Pyramid, `false` otherwise.
+*/
+#define CC_PIECE_IS_PYRAMID(pe) ( ( (pe) == CC_PE_LightPyramid ) || ( (pe) == CC_PE_DarkPyramid ) )
+
+/**
     Macro expression to evaluate whether piece is None.
 
     @param pe Piece enum.
@@ -76,6 +85,15 @@
     @return `true` if piece is a Monolith, `false` otherwise.
 */
 #define CC_PIECE_IS_MONOLITH(pe) ( (pe) == CC_PE_Monolith )
+
+/**
+    Macro expression to evaluate whether piece is a Starchild.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Starchild, `false` otherwise.
+*/
+#define CC_PIECE_IS_STARCHILD(pe) ( ( (pe) == CC_PE_LightStarchild ) || ( (pe) == CC_PE_DarkStarchild ) )
 
 /**
     Macro expression to evaluate whether piece is weightless.
