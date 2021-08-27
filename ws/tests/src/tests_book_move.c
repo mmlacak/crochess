@@ -88,7 +88,7 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
     if ( tp.do_print_move )
     {
         printf( TESTS_BOOK_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_BOOK_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );

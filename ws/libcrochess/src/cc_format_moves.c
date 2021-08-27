@@ -95,17 +95,9 @@ char * cc_format_pos_rank_new( int const j )
     return new;
 }
 
-char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
-                                  CcMove const * const restrict move,
-                                  CcPly const * const restrict ply,
-                                  CcStep const * const restrict step,
-                                  CcSideEffect const * const restrict side_effect,
+char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effect,
                                   CcFormatMove const format_move )
 {
-    if ( !cb ) return NULL;
-    if ( !move ) return NULL;
-    if ( !ply ) return NULL;
-    if ( !step ) return NULL;
     if ( !side_effect ) return NULL;
 
     cc_piece_fp_char_value_t fp_char_value =
@@ -361,14 +353,12 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
     return result;
 }
 
-char * cc_format_step_new( CcChessboard const * const restrict cb,
-                           CcMove const * const restrict move,
+char * cc_format_step_new( CcMove const * const restrict move,
                            CcPly const * const restrict ply,
                            CcStep const * const restrict step,
                            CcFormatMove const format_move,
                            bool * const restrict has_preceding_step_io )
 {
-    if ( !cb ) return NULL;
     if ( !move ) return NULL;
     if ( !ply ) return NULL;
     if ( !step ) return NULL;
@@ -406,19 +396,17 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
             result = cc_str_append_len_new( &result, &rank, BUFSIZ );
         }
 
-        char * se = cc_format_side_effect_new( cb, move, ply, step, &(step->side_effect), format_move );
+        char * se = cc_format_side_effect_new( &(step->side_effect), format_move );
         result = cc_str_append_len_new( &result, &se, BUFSIZ );
     }
 
     return result;
 }
 
-char * cc_format_ply_new( CcChessboard const * const restrict cb,
-                          CcMove const * const restrict move,
+char * cc_format_ply_new( CcMove const * const restrict move,
                           CcPly const * const restrict ply,
                           CcFormatMove const format_move )
 {
-    if ( !cb ) return NULL;
     if ( !move ) return NULL;
     if ( !ply ) return NULL;
 
@@ -462,7 +450,7 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
 
     while ( step )
     {
-        char * new = cc_format_step_new( cb, move, ply, step, format_move, &has_preceding_step );
+        char * new = cc_format_step_new( move, ply, step, format_move, &has_preceding_step );
         char * appended = cc_str_concatenate_len_new( result, new, BUFSIZ );
 
         free( result );
@@ -478,11 +466,9 @@ char * cc_format_ply_new( CcChessboard const * const restrict cb,
     return result;
 }
 
-char * cc_format_move_new( CcChessboard const * const restrict cb,
-                           CcMove const * const restrict move,
+char * cc_format_move_new( CcMove const * const restrict move,
                            CcFormatMove const format_move )
 {
-    if ( !cb ) return NULL;
     if ( !move ) return NULL;
     if ( !move->plies ) return NULL;
 
@@ -491,7 +477,7 @@ char * cc_format_move_new( CcChessboard const * const restrict cb,
 
     while ( ply )
     {
-        char * new = cc_format_ply_new( cb, move, ply, format_move );
+        char * new = cc_format_ply_new( move, ply, format_move );
         char * appended = cc_str_concatenate_len_new( result, new, BUFSIZ );
 
         free( result );

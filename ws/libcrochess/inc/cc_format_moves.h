@@ -160,26 +160,17 @@ char * cc_format_pos_rank_new( int const j );
 /**
     Returns a newly allocated string containing formatted output of side-effect.
 
-    @param cb A chessboard.
-    @param move A move, owner of a `ply`.
-    @param ply A ply, owner of a `step`.
-    @param step A step, owner of a `side_effect`.
     @param side_effect A side-effect being formatted for algebraic notation output.
     @param format_move A format flags.
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
-                                  CcMove const * const restrict move,
-                                  CcPly const * const restrict ply,
-                                  CcStep const * const restrict step,
-                                  CcSideEffect const * const restrict side_effect,
+char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effect,
                                   CcFormatMove const format_move );
 
 /**
     Returns a newly allocated string containing formatted output of a step.
 
-    @param cb A chessboard.
     @param move A move, owner of a `ply`.
     @param ply A ply, owner of a `step`.
     @param step A step being formatted for algebraic notation output.
@@ -188,8 +179,7 @@ char * cc_format_side_effect_new( CcChessboard const * const restrict cb,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_step_new( CcChessboard const * const restrict cb,
-                           CcMove const * const restrict move,
+char * cc_format_step_new( CcMove const * const restrict move,
                            CcPly const * const restrict ply,
                            CcStep const * const restrict step,
                            CcFormatMove const format_move,
@@ -198,29 +188,25 @@ char * cc_format_step_new( CcChessboard const * const restrict cb,
 /**
     Returns a newly allocated string containing formatted output of a ply.
 
-    @param cb A chessboard.
     @param move A move, owner of a `ply`.
     @param ply A ply being formatted for algebraic notation output.
     @param format_move A format flags.
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_ply_new( CcChessboard const * const restrict cb,
-                          CcMove const * const restrict move,
+char * cc_format_ply_new( CcMove const * const restrict move,
                           CcPly const * const restrict ply,
                           CcFormatMove const format_move );
 
 /**
     Returns a newly allocated string containing formatted output of a move..
 
-    @param cb A chessboard.
     @param move A move being formatted for algebraic notation output.
     @param format_move A format flags.
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_move_new( CcChessboard const * const restrict cb,
-                           CcMove const * const restrict move,
+char * cc_format_move_new( CcMove const * const restrict move,
                            CcFormatMove const format_move );
 
 

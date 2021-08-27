@@ -27,7 +27,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.36:235+20210826.154536"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.37:236+20210827.162211"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -313,6 +313,8 @@ int main( void )
         }
         else if ( !strcmp( "y", cmd ) )
         {
+            CcFormatMove format_move = get_format_move_from_cli_arg();
+
             CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, true );
             if ( !cb__o ) return false;
 
@@ -324,9 +326,9 @@ int main( void )
             // char const * const user_an = "Bi15~Wf12|Wr8~Np9";
             // char const * const user_an = "Bi15~Wf12||W";
             // char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6.p7..j19<Bl25-v5<P==p7]";
-            // char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
+            char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
 
-            char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
+            // char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
             // char const * const user_an = "Sm15~Am11::S..m17*..m19*.l20*.m21*.n20*.o21*";
             // char const * const user_an = "[Sr14-m15]~[Am15-m11]::[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]";
             // char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
@@ -357,8 +359,8 @@ int main( void )
             {
                 printf( "%s\n", user_an );
 
-                char * an__o = cc_parse_utils_next_ply_str_new( user_an );
-                if ( !an__o ) continue;
+                char * ply_an__o = cc_parse_utils_next_ply_str_new( user_an );
+                if ( !ply_an__o ) continue;
 
                 CcPlyLinkEnum ple = CC_PLE_Ply;
                 bool result_1 = true;
@@ -372,21 +374,21 @@ int main( void )
 
                 do
                 {
-                    printf( "%s ", an__o );
+                    printf( "%s ", ply_an__o );
 
-                    result_1 = cc_parse_utils_get_ply_link( an__o, &ple );
+                    result_1 = cc_parse_utils_get_ply_link( ply_an__o, &ple );
                     if ( result_1 )
                         printf( " [%d %s]", ple, cc_ply_link_symbol( ple ) );
                     else
                         printf( " [---]" );
 
-                    result_2 = cc_parse_utils_get_ply_piece( an__o, is_piece_light, &pe );
+                    result_2 = cc_parse_utils_get_ply_piece( ply_an__o, is_piece_light, &pe );
                     if ( result_2 )
                         printf( " {%d %c}", pe, cc_piece_as_char( pe ) );
                     else
                         printf( " {---}" );
 
-                    steps_str = cc_parse_utils_get_steps_str( an__o );
+                    steps_str = cc_parse_utils_get_steps_str( ply_an__o );
                     if ( steps_str )
                     {
                         printf( " (%s)", steps_str );
@@ -402,7 +404,7 @@ int main( void )
                             {
                                 printf( "    %s", step_an__o );
 
-                                bool result_3 = cc_parse_utils_get_step_link( an__o, step_an__o, &sle );
+                                bool result_3 = cc_parse_utils_get_step_link( ply_an__o, step_an__o, &sle );
                                 if ( result_3 )
                                     printf( " [%d %s]", sle, cc_step_link_symbol( sle ) );
                                 else
@@ -414,20 +416,20 @@ int main( void )
                                 else
                                     printf( " {---}" );
 
-                                int disambiguation_file;
-                                int disambiguation_rank;
-                                int file;
-                                int rank;
+                                int disamb_step_i;
+                                int disamb_step_j;
+                                int step_i;
+                                int step_j;
 
                                 bool result_4 = cc_parse_utils_get_fields( fields_an__o,
                                                                            cb__o,
-                                                                           &disambiguation_file,
-                                                                           &disambiguation_rank,
-                                                                           &file,
-                                                                           &rank );
+                                                                           &disamb_step_i,
+                                                                           &disamb_step_j,
+                                                                           &step_i,
+                                                                           &step_j );
 
                                 if ( result_4 )
-                                    printf( " {%d, %d --> %d, %d}", disambiguation_file, disambiguation_rank, file, rank );
+                                    printf( " {%d, %d --> %d, %d}", disamb_step_i, disamb_step_j, step_i, step_j );
                                 else
                                     printf( " { --> }" );
 
@@ -439,6 +441,28 @@ int main( void )
                                     printf( " (%s)", side_effects );
                                 else
                                     printf( " (---)" );
+
+                                CcSideEffect se = cc_side_effect_none();
+                                bool result_5 = cc_parse_utils_get_side_effect( step_an__o,
+                                                                                cb__o,
+                                                                                pe,
+                                                                                step_i,
+                                                                                step_j,
+                                                                                &se );
+                                if ( result_5 )
+                                {
+                                    char * se__o = cc_format_side_effect_new( &se, format_move );
+                                    if ( se__o )
+                                    {
+                                        printf( " >%s<", se__o );
+                                        free( se__o );
+                                        se__o = NULL;
+                                    }
+                                    else
+                                        printf( " >===<" );
+                                }
+                                else
+                                    printf( " >---<" );
 
                                 printf( "\n" );
                                 step_an__o = cc_parse_utils_next_step_str_new( NULL );
@@ -457,12 +481,12 @@ int main( void )
 
                     is_piece_light = !is_piece_light;
 
-                    free( an__o );
-                    // an__o = NULL;
+                    free( ply_an__o );
+                    // ply_an__o = NULL;
 
-                    an__o = cc_parse_utils_next_ply_str_new( NULL );
+                    ply_an__o = cc_parse_utils_next_ply_str_new( NULL );
                 }
-                while ( an__o );
+                while ( ply_an__o );
 
                 // TODO :: Uncomment, if cc_next_token_new() is active!
                 // free( user_an );

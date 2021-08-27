@@ -91,7 +91,7 @@ bool test_do_move_single_ply( TestPrints tp )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -220,7 +220,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -292,7 +292,7 @@ bool test_do_move_cascading_plies( TestPrints tp )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move_1, tp.format_move );
+        char * alg_not = cc_format_move_new( move_1, tp.format_move );
         printf( "%s\n", move_1->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -418,7 +418,7 @@ bool test_do_move_castling( TestPrints tp )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -558,7 +558,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -624,7 +624,7 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move_1, tp.format_move );
+        char * alg_not = cc_format_move_new( move_1, tp.format_move );
         printf( "%s\n", move_1->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -764,7 +764,7 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -870,7 +870,7 @@ bool test_do_move_demotion( TestPrints tp )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -992,7 +992,7 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -1150,7 +1150,7 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -1341,7 +1341,7 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -1543,7 +1543,7 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
     if ( tp.do_print_move )
     {
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( cb__o, move__o, tp.format_move );
+        char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
         printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
