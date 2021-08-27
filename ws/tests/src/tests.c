@@ -22,12 +22,14 @@
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
+#include "test_utils.h"
 #include "tests_do_move.h"
 #include "tests_book_move.h"
+#include "tests_parse_move.h"
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.38:237+20210827.165100"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.39:238+20210827.181831"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -108,147 +110,6 @@ int get_test_number_from_cli_arg()
     tn__o = NULL;
 
     return test_number;
-}
-
-
-bool test_parser( CcChessboard const * const restrict cb,
-                  char const * const restrict move_str )
-{
-    if ( !cb ) return false;
-    if ( !move_str ) return false;
-
-    CcFormatMove format_move = get_format_move_from_cli_arg();
-
-    printf( "%s\n", move_str );
-
-    char * ply_an__o = cc_parse_utils_next_ply_str_new( move_str );
-    if ( !ply_an__o ) return false;
-
-    CcPlyLinkEnum ple = CC_PLE_Ply;
-    bool result_1 = true;
-
-    CcPieceEnum pe = CC_PE_None;
-    bool result_2 = true;
-
-    bool is_piece_light = true;
-
-    char const * steps_str = NULL;
-
-    do
-    {
-        printf( "%s ", ply_an__o );
-
-        result_1 = cc_parse_utils_get_ply_link( ply_an__o, &ple );
-        if ( result_1 )
-            printf( " [%d %s]", ple, cc_ply_link_symbol( ple ) );
-        else
-            printf( " [---]" );
-
-        result_2 = cc_parse_utils_get_ply_piece( ply_an__o, is_piece_light, &pe );
-        if ( result_2 )
-            printf( " {%d %c}", pe, cc_piece_as_char( pe ) );
-        else
-            printf( " {---}" );
-
-        steps_str = cc_parse_utils_get_steps_str( ply_an__o );
-        if ( steps_str )
-        {
-            printf( " (%s)", steps_str );
-
-            char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
-            CcStepLinkEnum sle = CC_SLE_Destination;
-
-            if ( step_an__o )
-            {
-                printf( "\n" );
-
-                do
-                {
-                    printf( "    %s", step_an__o );
-
-                    bool result_3 = cc_parse_utils_get_step_link( ply_an__o, step_an__o, &sle );
-                    if ( result_3 )
-                        printf( " [%d %s]", sle, cc_step_link_symbol( sle ) );
-                    else
-                        printf( " [---]" );
-
-                    char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
-                    if ( fields_an__o )
-                        printf( " {%s}", fields_an__o );
-                    else
-                        printf( " {---}" );
-
-                    int disamb_step_i;
-                    int disamb_step_j;
-                    int step_i;
-                    int step_j;
-
-                    bool result_4 = cc_parse_utils_get_fields( fields_an__o,
-                                                               cb,
-                                                               &disamb_step_i,
-                                                               &disamb_step_j,
-                                                               &step_i,
-                                                               &step_j );
-
-                    if ( result_4 )
-                        printf( " {%d, %d --> %d, %d}", disamb_step_i, disamb_step_j, step_i, step_j );
-                    else
-                        printf( " { --> }" );
-
-                    free( fields_an__o );
-                    fields_an__o = NULL;
-
-                    char const * side_effects = cc_parse_utils_side_effect_str( step_an__o );
-                    if ( side_effects )
-                        printf( " (%s)", side_effects );
-                    else
-                        printf( " (---)" );
-
-                    CcSideEffect se = cc_side_effect_none();
-                    bool result_5 = cc_parse_utils_get_side_effect( step_an__o,
-                                                                    cb,
-                                                                    pe,
-                                                                    step_i,
-                                                                    step_j,
-                                                                    &se );
-                    if ( result_5 )
-                    {
-                        char * se__o = cc_format_side_effect_new( &se, format_move );
-                        if ( se__o )
-                        {
-                            printf( " >%s<", se__o );
-                            free( se__o );
-                            se__o = NULL;
-                        }
-                        else
-                            printf( " >===<" );
-                    }
-                    else
-                        printf( " >---<" );
-
-                    printf( "\n" );
-                    step_an__o = cc_parse_utils_next_step_str_new( NULL );
-                }
-                while ( step_an__o );
-            }
-
-            free( step_an__o );
-            step_an__o = NULL;
-        }
-
-        if ( ( !result_1 ) && ( !result_2 ) && ( !steps_str ) )
-            printf( " ---" );
-
-        printf( "\n" );
-
-        is_piece_light = !is_piece_light;
-
-        free( ply_an__o );
-        ply_an__o = cc_parse_utils_next_ply_str_new( NULL );
-    }
-    while ( ply_an__o );
-
-    return true;
 }
 
 
@@ -491,6 +352,14 @@ int main( void )
         }
         else if ( !strcmp( "y", cmd ) )
         {
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg();
+            bool do_print_move = get_print_move_from_cli_arg();
+            CcFormatMove format_move = get_format_move_from_cli_arg();
+            int test_number = get_test_number_from_cli_arg();
+
+            TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
+
+
             CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, true );
 
             // char const * const user_an = "[Ng6]~[We5]~[Re8]";
@@ -518,7 +387,7 @@ int main( void )
             // char * user_an = cc_next_token_new( NULL, NULL );
 
 
-            test_parser( cb__o, user_an );
+            test_parser( cb__o, user_an, tp );
 
 
             // TODO :: Uncomment, if cc_next_token_new() is active!
