@@ -18,14 +18,9 @@
 #include "tests_book_move.h"
 
 
-char const TESTS_BOOK_MOVE_TEST_SEPARATOR[] = " === === === === === === === === === === === === === === === === === === === === \n";
-char const TESTS_BOOK_MOVE_NOTATION_SEPARATOR[] = " ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... \n";
-char const TESTS_BOOK_MOVE_CHESSBOARD_SEPARATOR[] = " --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- \n";
-
-
 bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
 {
-    printf( TESTS_BOOK_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "scn_ct_03_define_step_ply\n" );
 
     // chessboard
@@ -38,9 +33,9 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
     cc_chessboard_set_piece( cb__o, 2, 1, pe );
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_BOOK_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_BOOK_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -87,19 +82,19 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_BOOK_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_BOOK_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_BOOK_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_BOOK_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //

@@ -14,17 +14,14 @@
 #include "cc_do_moves.h"
 #include "cc_format_moves.h"
 
+#include "test_utils.h"
 #include "test_msgs.h"
 #include "tests_do_move.h"
 
 
-char const TESTS_DO_MOVE_TEST_SEPARATOR[] = " === === === === === === === === === === === === === === === === === === === === \n";
-char const TESTS_DO_MOVE_NOTATION_SEPARATOR[] = " ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... \n";
-char const TESTS_DO_MOVE_CHESSBOARD_SEPARATOR[] = " --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- \n";
-
-bool test_do_move_single_ply( TestPrints tp )
+bool test_do_move_single_ply( TestPrints const tp )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_single_ply\n" );
 
     // chessboard
@@ -37,9 +34,9 @@ bool test_do_move_single_ply( TestPrints tp )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -90,19 +87,19 @@ bool test_do_move_single_ply( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -122,9 +119,9 @@ bool test_do_move_single_ply( TestPrints tp )
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_cascading_plies( TestPrints tp )
+bool test_do_move_cascading_plies( TestPrints const tp )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_cascading_plies\n" );
 
     // chessboard
@@ -139,9 +136,9 @@ bool test_do_move_cascading_plies( TestPrints tp )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -219,19 +216,19 @@ bool test_do_move_cascading_plies( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -291,19 +288,19 @@ bool test_do_move_cascading_plies( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move_1, tp.format_move );
         printf( "%s\n", move_1->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -339,9 +336,9 @@ bool test_do_move_cascading_plies( TestPrints tp )
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_castling( TestPrints tp )
+bool test_do_move_castling( TestPrints const tp )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_castling\n" );
 
     // chessboard
@@ -355,11 +352,11 @@ bool test_do_move_castling( TestPrints tp )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, false );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -417,21 +414,21 @@ bool test_do_move_castling( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, false );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -467,9 +464,9 @@ bool test_do_move_castling( TestPrints tp )
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_tag_and_promotion( TestPrints tp )
+bool test_do_move_tag_and_promotion( TestPrints const tp )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_tag_and_promotion\n" );
 
     // chessboard
@@ -483,11 +480,11 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, false );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -557,21 +554,21 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, false );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -623,21 +620,21 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move_1, tp.format_move );
         printf( "%s\n", move_1->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, false );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -669,9 +666,9 @@ bool test_do_move_tag_and_promotion( TestPrints tp )
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_conversion( TestPrints tp, bool is_failed )
+bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_conversion\n" );
 
     // chessboard
@@ -689,9 +686,9 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -763,19 +760,19 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -800,9 +797,9 @@ bool test_do_move_conversion( TestPrints tp, bool is_failed )
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_demotion( TestPrints tp )
+bool test_do_move_demotion( TestPrints const tp )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_demotion\n" );
 
     // chessboard
@@ -817,9 +814,9 @@ bool test_do_move_demotion( TestPrints tp )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -869,19 +866,19 @@ bool test_do_move_demotion( TestPrints tp )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -909,9 +906,9 @@ bool test_do_move_demotion( TestPrints tp )
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationing )
+bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool const is_oblationing )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_resurrection\n" );
 
     // chessboard
@@ -925,9 +922,9 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -991,19 +988,19 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -1057,9 +1054,9 @@ bool test_do_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationi
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_teleportation( TestPrints tp, bool is_failed )
+bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_teleportation\n" );
 
     // chessboard
@@ -1076,9 +1073,9 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -1149,19 +1146,19 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -1214,9 +1211,9 @@ bool test_do_move_teleportation( TestPrints tp, bool is_failed )
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
+bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblationing )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_teleportation_wave\n" );
 
     // chessboard
@@ -1233,9 +1230,9 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -1340,19 +1337,19 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -1397,9 +1394,9 @@ bool test_do_move_teleportation_wave( TestPrints tp, bool is_oblationing )
     return cc_move_data_free_all( &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
+bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
 {
-    printf( TESTS_DO_MOVE_TEST_SEPARATOR );
+    printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "test_do_move_trance_journey\n" );
 
     CcPieceEnum shaman = is_capturing ? CC_PE_DarkShaman : CC_PE_LightShaman;
@@ -1419,11 +1416,11 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, false );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
@@ -1542,21 +1539,21 @@ bool test_do_move_trance_journey( TestPrints tp, bool is_capturing )
 
     if ( tp.do_print_move )
     {
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         char * alg_not = cc_format_move_new( move__o, tp.format_move );
         printf( "%s\n", move__o->notation );
-        printf( TESTS_DO_MOVE_NOTATION_SEPARATOR );
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
     if ( tp.do_print_chessboard )
     {
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, true );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
         cc_chessboard_print( cb__o, false );
-        printf( TESTS_DO_MOVE_CHESSBOARD_SEPARATOR );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //

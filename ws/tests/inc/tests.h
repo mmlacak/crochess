@@ -21,9 +21,6 @@ bool get_print_move_from_cli_arg();
 CcFormatMove get_format_move_from_cli_arg();
 int get_test_number_from_cli_arg();
 
-bool test_parser( CcChessboard const * const restrict cb,
-                  char const * const restrict move_str );
-
 int main(void);
 
 

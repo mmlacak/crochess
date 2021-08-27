@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.39:238+20210827.181831"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.40:239+20210827.183803"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -315,52 +315,6 @@ int main( void )
         }
         else if ( !strcmp( "x", cmd ) )
         {
-            // char const * const user_an = "[Ng6]~[We5]~[Re8]";
-            // char const * const user_an = "Ng6~[We5]~Re8";
-            // char const * const user_an = "Ne6-a3";
-            // char const * const user_an = "Hb14~We12@@P,B,R,R,N,B,N";
-
-            // char const * const user_an = "Bi15~Wf12|Wr8~Np9";
-            // char const * const user_an = "Bi15~Wf12||W";
-            // char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6.p7..j19<Bl25-v5<P==p7]";
-            char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
-
-            // char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
-            // char const * const user_an = "Sm15~Am11::S..m17*..m19*.l20*.m21*.n20*.o21*";
-            // char const * const user_an = "[Sr14-m15]~[Am15-m11]::[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]";
-            // char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
-
-            // Invalid.
-            // char const * const user_an = "H..9p175.rp1q7.r9p1q7..9rp7.9r7p..195p7.r99p.r199p.r1X9p7..9X7.rX7.r9X7..19X17.rX17.r19X17";
-
-
-            //
-            // Test reversing string.
-
-            printf( "Original: '%s'.\n", user_an );
-
-            char * reverse__o = cc_str_duplicate_len_new( user_an, true, BUFSIZ );
-            printf( "Reverse: '%s'.\n", reverse__o );
-            free( reverse__o );
-            reverse__o = NULL;
-
-            reverse__o = cc_str_duplicate_new( user_an, true );
-            printf( "Reverse: '%s'.\n", reverse__o );
-            free( reverse__o );
-            reverse__o = NULL;
-
-        }
-        else if ( !strcmp( "y", cmd ) )
-        {
-            bool do_print_chesboard = get_print_chessboard_from_cli_arg();
-            bool do_print_move = get_print_move_from_cli_arg();
-            CcFormatMove format_move = get_format_move_from_cli_arg();
-            int test_number = get_test_number_from_cli_arg();
-
-            TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
-
-
-            CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, true );
 
             // char const * const user_an = "[Ng6]~[We5]~[Re8]";
             // char const * const user_an = "Ng6~[We5]~Re8";
@@ -387,16 +341,38 @@ int main( void )
             // char * user_an = cc_next_token_new( NULL, NULL );
 
 
-            test_parser( cb__o, user_an, tp );
+            //
+            // Test reversing string.
 
+            printf( "Original: '%s'.\n", user_an );
+
+            char * reverse__o = cc_str_duplicate_len_new( user_an, true, BUFSIZ );
+            printf( "Reverse: '%s'.\n", reverse__o );
+            free( reverse__o );
+            reverse__o = NULL;
+
+            reverse__o = cc_str_duplicate_new( user_an, true );
+            printf( "Reverse: '%s'.\n", reverse__o );
+            free( reverse__o );
+            reverse__o = NULL;
 
             // TODO :: Uncomment, if cc_next_token_new() is active!
             // free( user_an );
             // user_an = NULL;
 
-            free( cb__o );
-            cb__o = NULL;
+        }
+        else if ( !strcmp( "y", cmd ) )
+        {
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg();
+            bool do_print_move = get_print_move_from_cli_arg();
+            CcFormatMove format_move = get_format_move_from_cli_arg();
+            int test_number = get_test_number_from_cli_arg();
 
+            TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
+
+            if ( ( test_number == 1 ) || ( test_number == 0 ) )
+                if ( !test_parse_move_single_ply( tp ) )
+                    printf( "Test test_parse_move_single_ply() failed.\n" );
         }
         else if ( !strcmp( "z", cmd ) )
         {

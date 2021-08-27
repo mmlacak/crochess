@@ -9,6 +9,10 @@
 
 #include "cc_format_moves.h"
 
+extern char const TESTS_MOVE_TEST_SEPARATOR[];
+extern char const TESTS_MOVE_NOTATION_SEPARATOR[];
+extern char const TESTS_MOVE_CHESSBOARD_SEPARATOR[];
+
 
 typedef struct TestPrints
 {
