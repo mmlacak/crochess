@@ -66,7 +66,9 @@ bool test_parser( CcChessboard const * const restrict cb,
     CcPieceEnum pe = CC_PE_None;
     bool result_2 = true;
 
+// TODO :: FIX !!!
     bool is_piece_light = true;
+// TODO :: FIX !!!
 
     char const * steps_str = NULL;
 
@@ -80,7 +82,9 @@ bool test_parser( CcChessboard const * const restrict cb,
         else
             printf( " [---]" );
 
+// TODO :: FIX :: is_piece_light !!!
         result_2 = cc_parse_utils_get_ply_piece( ply_an__o, is_piece_light, &pe );
+// TODO :: FIX :: is_piece_light !!!
         if ( result_2 )
             printf( " {%d %c}", pe, cc_piece_as_char( pe ) );
         else
@@ -163,13 +167,12 @@ bool test_parser( CcChessboard const * const restrict cb,
                         printf( " >---<" );
 
                     printf( "\n" );
+
+                    free( step_an__o );
                     step_an__o = cc_parse_utils_next_step_str_new( NULL );
                 }
                 while ( step_an__o );
             }
-
-            free( step_an__o );
-            step_an__o = NULL;
         }
 
         if ( ( !result_1 ) && ( !result_2 ) && ( !steps_str ) )
@@ -191,7 +194,7 @@ bool test_parser( CcChessboard const * const restrict cb,
 bool test_parse_move_single_ply( TestPrints tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_single_ply\n" );
+    printf( "test_parse_move_single_ply\n" );
 
     // chessboard
 
@@ -199,7 +202,7 @@ bool test_parse_move_single_ply( TestPrints tp )
     if ( !cb__o ) return false;
 
     cc_chessboard_set_piece( cb__o, 5, 2, CC_PE_LightPegasus );
-    cc_chessboard_set_piece( cb__o, 10, 12, CC_PE_DarkPawn );
+    cc_chessboard_set_piece_tag( cb__o, 10, 12, CC_PE_DarkPawn, CC_TE_DelayedPromotion );
 
     if ( tp.do_print_chessboard )
     {
@@ -209,22 +212,37 @@ bool test_parse_move_single_ply( TestPrints tp )
     }
 
     //
-    // [Gf3.g5..i9..k13*p==]
-    char const * const move_str = "[Gf3.g5..i9..k13*P==]";
-
-    if ( tp.do_print_move )
-    {
-        printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        printf( "%s\n", move_str );
-    }
-
-
-    //
     // tests
 
     bool result = true;
 
-    result = test_print_failure( test_parser( cb__o, move_str, tp ),
+// TODO :: FIX !!!
+    //
+    // test [p==k12]
+    // char const * const move_str = "==k12";
+
+    // if ( tp.do_print_move )
+    // {
+    //     printf( TESTS_MOVE_NOTATION_SEPARATOR );
+    //     printf( "%s\n", move_str );
+    // }
+
+    // result = test_print_failure( !test_parser( cb__o, move_str, tp ),
+    //                              TME_Error, "parse failed", __FILE__, __LINE__, __func__ )
+    //          && result;
+// TODO :: FIX !!!
+
+    //
+    // test [Gf3.g5..i9..k13*p==]
+    char const * const move_str_2 = "[Gf3.g5..i9..k13*P==]";
+
+    if ( tp.do_print_move )
+    {
+        printf( TESTS_MOVE_NOTATION_SEPARATOR );
+        printf( "%s\n", move_str_2 );
+    }
+
+    result = test_print_failure( test_parser( cb__o, move_str_2, tp ),
                                  TME_Error, "parse failed", __FILE__, __LINE__, __func__ )
              && result;
 
