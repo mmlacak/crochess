@@ -37,6 +37,10 @@ CcGame * cc_game_new( CcGameStatusEnum status,
                       CcVariantEnum ve,
                       bool const do_setup );
 
+bool cc_game_do_moves( CcGame * const restrict gm,
+                       CcMove ** const restrict move_n,
+                       CcDoMoveEnum dme );
+
 bool cc_game_free_all( CcGame ** const restrict game_f );
 
 

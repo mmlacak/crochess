@@ -76,6 +76,9 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
                              CcPly ** const restrict plies_n,
                              CcMoveStatusEnum const status );
 
+bool cc_move_append_or_init( CcMove ** const restrict moves_io,
+                             CcMove ** const restrict move_n );
+
 /**
     Frees all moves in a linked list, and all associated entities.
 

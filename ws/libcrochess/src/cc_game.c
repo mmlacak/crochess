@@ -1,6 +1,7 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+#include "cc_do_moves.h"
 #include "cc_game.h"
 
 
@@ -46,6 +47,23 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     gm->moves = NULL;
 
     return gm;
+}
+
+bool cc_game_do_moves( CcGame * const restrict gm,
+                       CcMove ** const restrict move_n,
+                       CcDoMoveEnum dme )
+{
+    if ( !gm ) return false;
+    if ( !move_n ) return false;
+    if ( !*move_n ) return false;
+
+    if ( !cc_do_moves( gm->chessboard, *move_n, dme ) )
+        return false;
+
+    if ( !cc_move_append_or_init( &( gm->moves ), move_n ) )
+        return false;
+
+    return true;
 }
 
 bool cc_game_free_all( CcGame ** const restrict game_f )

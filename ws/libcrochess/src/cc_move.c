@@ -54,6 +54,27 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
     return new;
 }
 
+bool cc_move_append_or_init( CcMove ** const restrict moves_io,
+                             CcMove ** const restrict move_n )
+{
+    if ( !moves_io ) return false;
+    if ( !move_n ) return false;
+    if ( !*move_n ) return false;
+
+    if ( *moves_io )
+    {
+        CcMove * mv = *moves_io;
+        while ( mv->next ) mv = mv->next; // rewind
+        mv->next = *move_n; // append
+    }
+    else
+        *moves_io = *move_n;
+
+    *move_n = NULL;
+
+    return true;
+}
+
 bool cc_move_free_all_moves( CcMove ** const restrict moves_f )
 {
     if ( !moves_f ) return false;
