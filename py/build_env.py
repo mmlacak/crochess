@@ -44,7 +44,7 @@ BUILD_BIN_FOLDER = 'bin'
 OPTIONS_GCC_DEBUG = [ '-Wall', '-pedantic', '-O0', '-ggdb', ]
 OPTIONS_GCC_RELEASE = [ '-Wall', '-pedantic', '-O3', ]
 OPTIONS_GCC_EXTRA_WARNINGS = [ '-Wextra', ] # '-fdiagnostics-show-option'
-OPTIONS_GCC_SILENCE = [ ]
+OPTIONS_GCC_SILENCE = [ '-Wno-return-type', ]
 
 OPTIONS_CLANG_DEBUG = ['-Wall', '-pedantic', '-O0', '-ggdb', ]
 OPTIONS_CLANG_RELEASE = ['-Wall', '-pedantic', '-O3', ]
