@@ -6,6 +6,9 @@
 
 #include <stdbool.h>
 
+#include "cc_chessboard.h"
+#include "cc_move.h"
+
 
 typedef enum CcGameStatusEnum
 {
@@ -21,6 +24,20 @@ CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
                                       bool const is_resign,
                                       bool const is_end,
                                       bool const is_win );
+
+
+typedef struct CcGame
+{
+    CcGameStatusEnum status;
+    CcChessboard * chessboard;
+    CcMove * moves;
+} CcGame;
+
+CcGame * cc_game_new( CcGameStatusEnum status,
+                      CcVariantEnum ve,
+                      bool const do_setup );
+
+bool cc_game_free_all( CcGame ** const restrict game_f );
 
 
 
