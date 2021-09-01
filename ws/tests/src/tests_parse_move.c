@@ -39,6 +39,7 @@
 #include "cc_ply.h"
 #include "cc_move.h"
 #include "cc_do_moves.h"
+#include "cc_game.h"
 #include "cc_format_moves.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_move.h"

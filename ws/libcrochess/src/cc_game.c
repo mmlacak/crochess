@@ -43,24 +43,31 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     if ( !gm ) return NULL;
 
     gm->status = status;
+
     gm->chessboard = cc_chessboard_new( ve, do_setup );
+    if ( !gm->chessboard )
+    {
+        free( gm );
+        return NULL;
+    }
+
     gm->moves = NULL;
 
     return gm;
 }
 
 bool cc_game_do_moves( CcGame * const restrict gm,
-                       CcMove ** const restrict move_n,
+                       CcMove ** const restrict moves_n,
                        CcDoMoveEnum dme )
 {
     if ( !gm ) return false;
-    if ( !move_n ) return false;
-    if ( !*move_n ) return false;
+    if ( !moves_n ) return false;
+    if ( !*moves_n ) return false;
 
-    if ( !cc_do_moves( gm->chessboard, *move_n, dme ) )
+    if ( !cc_do_moves( gm->chessboard, *moves_n, dme ) )
         return false;
 
-    if ( !cc_move_append_or_init( &( gm->moves ), move_n ) )
+    if ( !cc_move_append_or_init( &( gm->moves ), moves_n ) )
         return false;
 
     return true;

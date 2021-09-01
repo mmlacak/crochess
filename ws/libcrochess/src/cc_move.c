@@ -55,22 +55,22 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
 }
 
 bool cc_move_append_or_init( CcMove ** const restrict moves_io,
-                             CcMove ** const restrict move_n )
+                             CcMove ** const restrict moves_n )
 {
     if ( !moves_io ) return false;
-    if ( !move_n ) return false;
-    if ( !*move_n ) return false;
+    if ( !moves_n ) return false;
+    if ( !*moves_n ) return false;
 
     if ( *moves_io )
     {
         CcMove * mv = *moves_io;
         while ( mv->next ) mv = mv->next; // rewind
-        mv->next = *move_n; // append
+        mv->next = *moves_n; // append
     }
     else
-        *moves_io = *move_n;
+        *moves_io = *moves_n;
 
-    *move_n = NULL;
+    *moves_n = NULL;
 
     return true;
 }

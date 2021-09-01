@@ -9,6 +9,10 @@
 #include "cc_chessboard.h"
 #include "cc_move.h"
 
+#define CC_GAME_STATUS_IS_LIGHT_TURN(gse) ( (gse) == CC_GSE_Turn_Light )
+
+#define CC_GAME_STATUS_IS_DARK_TURN(gse) ( (gse) == CC_GSE_Turn_Dark )
+
 
 typedef enum CcGameStatusEnum
 {
@@ -38,7 +42,7 @@ CcGame * cc_game_new( CcGameStatusEnum status,
                       bool const do_setup );
 
 bool cc_game_do_moves( CcGame * const restrict gm,
-                       CcMove ** const restrict move_n,
+                       CcMove ** const restrict moves_n,
                        CcDoMoveEnum dme );
 
 bool cc_game_free_all( CcGame ** const restrict game_f );
