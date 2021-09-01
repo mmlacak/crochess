@@ -265,5 +265,5 @@ bool test_parse_move_single_ply( TestPrints tp )
 
     // free( gm__o );
     // return result;
-    return cc_move_data_free_all( &gm__o, NULL, NULL, NULL, NULL, result );
+    return cc_game_move_data_free_all( &gm__o, NULL, NULL, NULL, NULL, result );
 }

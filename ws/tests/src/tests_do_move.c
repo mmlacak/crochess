@@ -53,34 +53,34 @@ bool test_do_move_single_ply( TestPrints const tp )
                                    TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // steps
 
     CcStep * start = cc_step_none_new( CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
-    if ( !start ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !start ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( start, CC_SLE_Next, 6, 4, CC_FSUE_Clarification_NoOutput ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
 
     if ( !cc_step_none_append_new( start, CC_SLE_Distant, 8, 8, CC_FSUE_Addition ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
 
     if ( !cc_step_capture_append_new( start, CC_SLE_Distant, 10, 12, CC_PE_DarkPawn, true, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
 
     //
     // ply
 
     CcPly * ply = cc_ply_new( CC_PLE_Ply, CC_PE_LightPegasus, &start );
-    if ( !ply ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
+    if ( !ply ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
 
     //
     // move [Gf3.g5..i9..k13*p==]
 
     CcMove * move__o = cc_move_new( "[Gf3.g5..i9..k13*p==]", &ply, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &ply, &start, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &ply, &start, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -117,7 +117,7 @@ bool test_do_move_single_ply( TestPrints const tp )
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_cascading_plies( TestPrints const tp )
@@ -167,49 +167,49 @@ bool test_do_move_cascading_plies( TestPrints const tp )
                                    TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // ply 0, G --> W
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 1, 5, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 7, 2, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * plies_0 = cc_ply_new( CC_PLE_Ply, CC_PE_LightPegasus, &steps_0 );
-    if ( !plies_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !plies_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // ply 1, W --> P
 
     CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 7, 2, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_1 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !steps_1 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 9, 1, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     if ( !cc_ply_append_new( plies_0, CC_PLE_Ply, CC_PE_LightWave, &steps_1 ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     //
     // ply 2, P --> ...
 
     CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 9, 1, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_2 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !steps_2 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     if ( !cc_step_none_append_new( steps_2, CC_SLE_Destination, 9, 4, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     if ( !cc_ply_append_new( plies_0, CC_PLE_Ply, CC_PE_LightPawn, &steps_2 ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     //
     // move 0, [Gb6-h3]~[Wh3-j2]~[Pj2-j5]
 
     CcMove * move__o = cc_move_new( "[Gb6-h3]~[Wh3-j2]~[Pj2-j5]", &plies_0, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -263,25 +263,25 @@ bool test_do_move_cascading_plies( TestPrints const tp )
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
 
     //
     // move 1, p --> :P
 
     CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 10, 3, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_3 ) return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
+    if ( !steps_3 ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
 
     if ( !cc_step_en_passant_append_new( steps_3, CC_SLE_Destination, 9, 2, CC_PE_LightPawn, 9, 4, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_3, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_3, false );
 
     CcPly * plies_3 = cc_ply_new( CC_PLE_Ply, CC_PE_DarkPawn, &steps_3 );
-    if ( !plies_3 ) return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_3, false );
+    if ( !plies_3 ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_3, false );
 
     //
     // move 1, [pk4-j3:Pj5]
 
     CcMove * move_1 = cc_move_append_new( move__o, "[pk4-j3:Pj5]", &plies_3, CC_MSE_None );
-    if ( !move_1 ) return cc_move_data_free_all( NULL, &cb__o, &move__o, &plies_3, NULL, false );
+    if ( !move_1 ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, &plies_3, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move_1, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -334,7 +334,7 @@ bool test_do_move_cascading_plies( TestPrints const tp )
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_castling( TestPrints const tp )
@@ -389,25 +389,25 @@ bool test_do_move_castling( TestPrints const tp )
                                  TME_Error, "tag not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // move Ku&t
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 13, 0, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_castle_append_new( steps_0, CC_SLE_Destination, 20, 0, CC_PE_LightRook, 24, 0, 19, 0, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * ply = cc_ply_new( CC_PLE_Ply, CC_PE_LightKing, &steps_0 );
-    if ( !ply ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !ply ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // move, [Kn1-u1&Ry1-t1]
 
     CcMove * move__o = cc_move_new( "[Kn1-u1&Ry1-t1]", &ply, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &ply, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &ply, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -462,7 +462,7 @@ bool test_do_move_castling( TestPrints const tp )
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_tag_and_promotion( TestPrints const tp )
@@ -517,37 +517,37 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
                                  TME_Error, "tag found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // ply Bp22~
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 15, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 15, 21, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * plies_0 = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0 );
-    if ( !plies_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !plies_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // ply Al22=
 
     CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 21, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_1 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !steps_1 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     if ( !cc_step_tag_for_promotion_append_new( steps_1, CC_SLE_Destination, 11, 21, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     if ( !cc_ply_append_new( plies_0, CC_PLE_Ply, CC_PE_LightPyramid, &steps_1 ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     //
     // move [Bv16-p22]~[Ap22-l22=]
 
     CcMove * move__o = cc_move_new( "[Bv16-p22]~[Ap22-l22=]", &plies_0, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -595,25 +595,25 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
                                  TME_Error, "tag found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
 
     //
     // ply l22Q
 
     CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 11, 21, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_2 ) return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
+    if ( !steps_2 ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
 
     if ( !cc_step_promote_append_new( steps_2, CC_SLE_Destination, 11, 21, CC_PE_LightQueen, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_2, false );
 
     CcPly * plies_2 = cc_ply_new( CC_PLE_Ply, CC_PE_LightPawn, &steps_2 );
-    if ( !plies_2 ) return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_2, false );
+    if ( !plies_2 ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_2, false );
 
     //
     // move [Pl22-l22=Q]
 
     CcMove * move_1 = cc_move_append_new( move__o, "[Pl22-l22=Q]", &plies_2, CC_MSE_None );
-    if ( !move_1 ) return cc_move_data_free_all( NULL, &cb__o, &move__o, &plies_2, NULL, false );
+    if ( !move_1 ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, &plies_2, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move_1, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -664,7 +664,7 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
@@ -714,25 +714,25 @@ bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // ply Bp6~
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 21, 11, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 15, 5, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * plies_0 = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0 );
-    if ( !plies_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !plies_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // ply Al6%H
 
     CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 15, 5, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_1 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !steps_1 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     CcSideEffect se_1;
     if ( is_failed )
@@ -741,10 +741,10 @@ bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
         se_1 = cc_side_effect_convert( CC_PE_LightShaman, false );
 
     if ( !cc_step_append_new( steps_1, CC_SLE_Destination, 11, 5, se_1, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     if ( !cc_ply_append_new( plies_0, CC_PLE_Ply, CC_PE_LightPyramid, &steps_1 ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     //
     // move [Bv12-p6]~[Ap6-l6%H]
@@ -753,7 +753,7 @@ bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
     char * alg_not =  ( is_failed ) ? "[Bv12-p6]~[Ap6-l6%%]" : "[Bv12-p6]~[Ap6-l6%H]";
 
     CcMove * move__o = cc_move_new( alg_not, &plies_0, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -795,7 +795,7 @@ bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_demotion( TestPrints const tp )
@@ -841,25 +841,25 @@ bool test_do_move_demotion( TestPrints const tp )
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // ply Mw23>Bl12
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_demote_append_new( steps_0, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, 11, 11, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * plies_0 = cc_ply_new( CC_PLE_Ply, CC_PE_Monolith, &steps_0 );
-    if ( !plies_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !plies_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // move [Mx16-w23>Bl12]
 
     CcMove * move__o = cc_move_new( "[Mx16-w23>Bl12]", &plies_0, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -904,7 +904,7 @@ bool test_do_move_demotion( TestPrints const tp )
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool const is_oblationing )
@@ -945,13 +945,13 @@ bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool 
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // ply Ip11$B, Ip11$$
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     CcSideEffect se_0;
     if ( is_failed )
@@ -965,10 +965,10 @@ bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool 
     }
 
     if ( !cc_step_append_new( steps_0, CC_SLE_Destination, 15, 10, se_0, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * plies_0 = cc_ply_new( CC_PLE_Ply, CC_PE_LightStarchild, &steps_0 );
-    if ( !plies_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !plies_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // move [Ix16-p11$Wq12]
@@ -981,7 +981,7 @@ bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool 
                                                         : "[Ix16-p11$Wq12]";
 
     CcMove * move__o = cc_move_new( alg_not, &plies_0, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -1052,7 +1052,7 @@ bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool 
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
@@ -1104,19 +1104,19 @@ bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // ply Ba26
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 3, 22, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 0, 25, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * plies_0 = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0 );
-    if ( !plies_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !plies_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // ply |By25
@@ -1125,12 +1125,12 @@ bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
     int i = ( is_failed ) ? 0 : 24;
 
     CcStep * steps_1 = cc_step_none_new( CC_SLE_Destination, i, 24, CC_FSUE_User );
-    if ( !steps_1 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !steps_1 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     CcPlyLinkEnum ple = ( is_failed ) ? CC_PLE_FailedTeleportation : CC_PLE_Teleportation;
 
     CcPly * ply_1 = cc_ply_append_new( plies_0, ple, CC_PE_LightBishop, &steps_1 );
-    if ( !ply_1 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !ply_1 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     //
     // move [Bd23-a26]|[By25]
@@ -1139,7 +1139,7 @@ bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
     char * alg_not = ( is_failed ) ? "[Bd23-a26]||[Ba25]" : "[Bd23-a26]|[By25]";
 
     CcMove * move__o = cc_move_new( alg_not, &plies_0, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -1209,7 +1209,7 @@ bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblationing )
@@ -1261,31 +1261,31 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // ply Bi15
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 10, 12, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 8, 14, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * plies_0 = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0 );
-    if ( !plies_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !plies_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // ply ~Wf12
 
     CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 8, 14, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_1 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !steps_1 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 5, 11, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     if ( !cc_ply_append_new( plies_0, CC_PLE_Ply, CC_PE_LightWave, &steps_1 ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     //
     // ply |Wr8
@@ -1297,15 +1297,15 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
     else
     {
         CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 19, 9, CC_FSUE_Clarification_NoOutput );
-        if ( !steps_2 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+        if ( !steps_2 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
         if ( !cc_step_none_append_new( steps_2, CC_SLE_Destination, 17, 7, CC_FSUE_User ) )
-            return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+            return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
         ply_2 = cc_ply_append_new( plies_0, CC_PLE_Teleportation, CC_PE_LightWave, &steps_2 );
     }
 
-    if ( !ply_2 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !ply_2 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     //
     // ply ~Np9
@@ -1313,13 +1313,13 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
     if ( !is_oblationing )
     {
         CcStep * steps_3 = cc_step_none_new( CC_SLE_Start, 17, 7, CC_FSUE_Clarification_NoOutput );
-        if ( !steps_3 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+        if ( !steps_3 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
         if ( !cc_step_none_append_new( steps_3, CC_SLE_Destination, 15, 8, CC_FSUE_User ) )
-            return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_3, false );
+            return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_3, false );
 
         if ( !cc_ply_append_new( plies_0, CC_PLE_Ply, CC_PE_LightKnight, &steps_3 ) )
-            return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_3, false );
+            return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_3, false );
     }
 
     //
@@ -1330,7 +1330,7 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
                                         : "[Bk13-i15]~[Wi15-f12]|[Wt10-r8]~[Nr8-p9]";
 
     CcMove * move__o = cc_move_new( alg_not, &plies_0, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -1392,7 +1392,7 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
@@ -1457,72 +1457,72 @@ bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
                                  TME_Error, "tag not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     //
     // ply Hg10
 
     CcStep * steps_0 = cc_step_none_new( CC_SLE_Start, 4, 8, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append_new( steps_0, CC_SLE_Destination, 6, 9, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     CcPly * plies_0 = cc_ply_new( CC_PLE_Ply, shaman, &steps_0 );
-    if ( !plies_0 ) return cc_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
+    if ( !plies_0 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0, false );
 
     //
     // ply ~Wh8
 
     CcStep * steps_1 = cc_step_none_new( CC_SLE_Start, 6, 9, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_1 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !steps_1 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     if ( !cc_step_none_append_new( steps_1, CC_SLE_Destination, 7, 7, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     if ( !cc_ply_append_new( plies_0, CC_PLE_Ply, CC_PE_LightWave, &steps_1 ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_1, false );
 
     //
     // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
     // ply @hh8,j9..h13*B..f2*n..p7..j19-v5*p==
 
     CcStep * steps_2 = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_2 ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !steps_2 ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     if ( is_capturing )
         if ( !cc_step_none_append_new( steps_2, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification ) )
-            return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+            return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     CcSideEffect sse_2_1 = is_capturing ?
                            cc_side_effect_capture( CC_PE_LightBishop, false ) :
                            cc_side_effect_displacement( CC_PE_LightBishop, false, 9, 18 );
     if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     CcSideEffect sse_2_2 = is_capturing ?
                            cc_side_effect_capture( CC_PE_DarkKnight, false ) :
                            cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
     if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     if ( !cc_step_none_append_new( steps_2, CC_SLE_Distant, 15, 6, CC_FSUE_Addition ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     CcSideEffect sse_2_4 = is_capturing ?
                            cc_side_effect_none() :
                            cc_side_effect_displacement( CC_PE_LightBishop, false, 11, 24 );
     if ( !cc_step_append_new( steps_2, CC_SLE_Distant, 9, 18, sse_2_4, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     CcSideEffect sse_2_5 = is_capturing ?
                            cc_side_effect_capture( CC_PE_DarkPawn, true ) :
                            cc_side_effect_displacement( CC_PE_DarkPawn, true, 15, 6 );
     if ( !cc_step_append_new( steps_2, CC_SLE_Destination, 21, 4, sse_2_5, CC_FSUE_User ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     if ( !cc_ply_append_new( plies_0, CC_PLE_TranceJourney, shaman, &steps_2 ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false );
 
     //
     // move [He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]
@@ -1532,7 +1532,7 @@ bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
                                       : "[He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]";
 
     CcMove * move__o = cc_move_new( alg_not, &plies_0, CC_MSE_None );
-    if ( !move__o ) return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )
@@ -1632,5 +1632,5 @@ bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
     //
     // free, return
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }

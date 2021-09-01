@@ -56,12 +56,12 @@ bool cc_game_do_moves( CcGame * const restrict gm,
 // DOCS
 bool cc_game_free_all( CcGame ** const restrict game_f );
 
-bool cc_move_data_free_all( CcGame ** const restrict gm_f,
-                            CcChessboard ** const restrict cb_f,
-                            CcMove ** const restrict moves_f,
-                            CcPly ** const restrict plies_f,
-                            CcStep ** const restrict steps_f,
-                            bool const cumulative_result );
+bool cc_game_move_data_free_all( CcGame ** const restrict gm_f,
+                                 CcChessboard ** const restrict cb_f,
+                                 CcMove ** const restrict moves_f,
+                                 CcPly ** const restrict plies_f,
+                                 CcStep ** const restrict steps_f,
+                                 bool const cumulative_result );
 
 
 #endif /* __CC_GAME_H__ */

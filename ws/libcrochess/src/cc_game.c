@@ -123,24 +123,24 @@ bool cc_game_free_all( CcGame ** const restrict game_f )
 
     result = test_2( ... ) && result; // Ditto for test 2.
 
-    return cc_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result ); // return cumulative result
+    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result ); // return cumulative result
     @endcode
 
     Failure can be enforced (e.g. when allocation fails),
     simply by passing `false` as an argument, e.g.:
     @code{.c}
     if ( !cc_ply_cascade_append_new( ... ) )
-        return cc_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false ); // false == enforced failure
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false ); // false == enforced failure
     @endcode
 
     @return `true` if cumulatively successful, `false` otherwise.
 */
-bool cc_move_data_free_all( CcGame ** const restrict gm_f,
-                            CcChessboard ** const restrict cb_f,
-                            CcMove ** const restrict moves_f,
-                            CcPly ** const restrict plies_f,
-                            CcStep ** const restrict steps_f,
-                            bool const cumulative_result )
+bool cc_game_move_data_free_all( CcGame ** const restrict gm_f,
+                                 CcChessboard ** const restrict cb_f,
+                                 CcMove ** const restrict moves_f,
+                                 CcPly ** const restrict plies_f,
+                                 CcStep ** const restrict steps_f,
+                                 bool const cumulative_result )
 {
     bool results = true;
 
