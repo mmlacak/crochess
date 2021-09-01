@@ -234,23 +234,3 @@ bool cc_do_moves( CcChessboard * const restrict cb,
     if ( result ) cc_chessboard_copy( cb, tmp );
     return result;
 }
-
-
-bool cc_move_data_free_all( CcChessboard ** const restrict cb_f,
-                            CcMove ** const restrict moves_f,
-                            CcPly ** const restrict plies_f,
-                            CcStep ** const restrict steps_f,
-                            bool const cumulative_result )
-{
-    bool results = true;
-
-    if ( cb_f ) results = cc_chessboard_free_all( cb_f ) && results;
-
-    if ( moves_f ) results = cc_move_free_all_moves( moves_f ) && results;
-
-    if ( plies_f ) results = cc_ply_free_all_plies( plies_f ) && results;
-
-    if ( steps_f ) results = cc_step_free_all_steps( steps_f ) && results;
-
-    return ( cumulative_result && results );
-}

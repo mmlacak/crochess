@@ -6,10 +6,12 @@
 
 #include <stdbool.h>
 
+#include "cc_game.h"
+
 #include "test_utils.h"
 
 
-bool test_parser( CcChessboard const * const restrict cb,
+bool test_parser( CcGame const * const restrict gm,
                   char const * const restrict move_str,
                   TestPrints const tp );
 
