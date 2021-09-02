@@ -599,6 +599,48 @@ avoid any possible confusion which are, in \algfmt{NAN} all side-effects are man
 
 \clearpage % ..........................................................
 
+\subsubsection*{Side-effects on pieces}
+\addcontentsline{toc}{subsubsection}{Side-effects on pieces}
+\label{sec:Appendix/Summary/Side-effects/Side-effects on pieces}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlcc }
+\toprule
+\textbf{Id} & \textbf{Piece} & \textbf{Disposable?} & \textbf{Promoted-to?} \\
+\midrule
+1           & Pawn           & +                    & -                     \\
+2           & Knight         & +                    & +                     \\
+3           & Bishop         & +                    & +                     \\
+4           & Rook           & +                    & +                     \\
+5           & Queen          & +                    & +                     \\
+6           & King           & -                    & -                     \\ \cmidrule{1-4}
+7           & Pegasus        & +                    & +                     \\
+8           & Pyramid        & +                    & +                     \\
+9           & Unicorn        & +                    & +                     \\
+10          & Wave           & +                    & +                     \\
+11          & Star           & -                    & -                     \\
+12          & Centaur        & +                    & +                     \\
+13          & Serpent        & +                    & +                     \\
+14          & Shaman         & +                    & +                     \\
+15          & Monolith       & -                    & -                     \\
+16          & Starchild      & +                    & +                     \\
+\bottomrule
+\end{tabular}
+\caption{Side-effects on pieces}
+\label{tbl:Appendix/Summary/Side-effects/Side-effects on pieces}
+\end{table}
+
+Disposable pieces are all that can be captured, that is all but Kings, Stars and Monoliths.
+Disposable pieces can be also displaced, teleported, converted, oblationed, or resurrected.
+Pawn can be promoted to any other disposable piece.
+
+Non-disposable pieces (Kings, Stars and Monoliths) cannot be captured, displaced,
+teleported, converted, oblationed, or resurrected. Pawn cannot be promoted to
+any non-disposable piece.
+
+\clearpage % ..........................................................
+
 \subsection*{Path separators}
 \addcontentsline{toc}{subsection}{Path separators}
 \label{sec:Appendix/Summary/Path separators}
@@ -871,17 +913,47 @@ as if they're not there, inability to capture any piece, ability to activate any
 own piece (except King), ability to activate opponent's Wave and ability to transfer
 all of received momentum to activated piece.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\subsection*{Effects on pieces}
-\addcontentsline{toc}{subsection}{Effects on pieces}
-\label{sec:Appendix/Effects on pieces}
+% \subsection*{Side-effects on pieces}
+% \addcontentsline{toc}{subsection}{Side-effects on pieces}
+% \label{sec:Appendix/Summary/Side-effects on pieces}
 
-\huge{}
-TODO
-\normalsize()
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ rlcc }
+% \toprule
+% \textbf{Id} & \textbf{Piece} & \textbf{Disposable?} & \textbf{Promoted-to?} \\
+% \midrule
+% 1           & Pawn           & +                    & -                     \\
+% 2           & Knight         & +                    & +                     \\
+% 3           & Bishop         & +                    & +                     \\
+% 4           & Rook           & +                    & +                     \\
+% 5           & Queen          & +                    & +                     \\
+% 6           & King           & -                    & -                     \\ \cmidrule{1-4}
+% 7           & Pegasus        & +                    & +                     \\
+% 8           & Pyramid        & +                    & +                     \\
+% 9           & Unicorn        & +                    & +                     \\
+% 10          & Wave           & +                    & +                     \\
+% 11          & Star           & -                    & -                     \\
+% 12          & Centaur        & +                    & +                     \\
+% 13          & Serpent        & +                    & +                     \\
+% 14          & Shaman         & +                    & +                     \\
+% 15          & Monolith       & -                    & -                     \\
+% 16          & Starchild      & +                    & +                     \\
+% \bottomrule
+% \end{tabular}
+% \caption{Side-effects on pieces}
+% \label{tbl:Appendix/Summary/Side-effects on pieces}
+% \end{table}
 
-table(s): pieces | can be captured? | promoted-to? | displaced? | teleported? | converted? | oblationed? | ressurected?
+% Disposable pieces are all that can be captured, that is all but Kings, Stars and Monoliths.
+% Disposable pieces can be also displaced, teleported, converted, oblationed, or resurrected.
+% Pawn can be promoted to any other disposable piece.
+
+% Non-disposable pieces (Kings, Stars and Monoliths) cannot be captured, displaced,
+% teleported, converted, oblationed, or resurrected. Pawn cannot be promoted to
+% any non-disposable piece.
 
 \clearpage % ..........................................................
 
