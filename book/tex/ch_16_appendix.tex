@@ -477,27 +477,27 @@ as \alg{[If5-c3]||}.
 \addcontentsline{toc}{subsection}{Pawn-sacrifice}
 \label{sec:Appendix/Notation/Pawn-sacrifice}
 
-Pawn-sacrifice is written by separating plies with \alg{::} (double colon) instead of usual \alg{\~{}} (tilde),
+Pawn-sacrifice is written by separating plies with \alg{:::} (triple colon) instead of usual \alg{\~{}} (tilde),
 followed by capturing steps. All Pawn-capturing steps made by Serpent must be written, captured pieces are not
 needed, as they can only be opponent's Pawns.
 
 This \hyperref[fig:scn_tr_21_pawn_sacrifice_init]{Pawn-sacrifice} followed by
 \hyperref[fig:scn_tr_22_pawn_sacrifice_end]{capturing opponent's Pawns} is written as \\
-\alg{Sm15\~{}Am11::S..m17*..m19*.l20*.m21*.n20*.o21*}. In \algfmt{XAN}, with plies gathering, it would be \\
-\alg{[Sr14-m15]\~{}[Am15-m11]::}\\
+\alg{Sm15\~{}Am11:::S..m17*..m19*.l20*.m21*.n20*.o21*}. In \algfmt{XAN}, with plies gathering, it would be \\
+\alg{[Sr14-m15]\~{}[Am15-m11]:::}\\
 \alg{[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]}.
 
 If there aren't enough Pawns captured to isolate only one path an additional, non-capturing steps needs to be
 written as well. In previous example, if Serpent stopped at \alg{m17}, at least 2 differrent paths are possible.
-Previous example started with \alg{Sm15\~{}Am11::S.l16.m17*} path, other possible path is
-\alg{Sm15\~{}Am11::S.n16.m17*}. Again, for longer paths care must be taken to write step(s) which really
+Previous example started with \alg{Sm15\~{}Am11:::S.l16.m17*} path, other possible path is
+\alg{Sm15\~{}Am11:::S.n16.m17*}. Again, for longer paths care must be taken to write step(s) which really
 differentiate paths, otherwise written path might inadvertently also denote others.
 
 Care must also be taken to properly use step separator \alg{.} (dot), and multiple step separator \alg{..} (two
 dots). Step separator \alg{.} is for separating 2 steps, where one step immediately follows the other. Multi-step
 separator \alg{..} is for separating 2 steps which have at least one unwritten step in-between. For instance, first,
-short path in previous paragraph (i.e. \alg{Sm15\~{}Am11::S.l16.m17*}) might also be confused with
-\alg{Sm15\~{}Am11::S..l16..m17*}, which is a shorthand for \alg{Sm15\~{}Am11::S.l14.k15.l16.k17.l18.m17*}, a very
+short path in previous paragraph (i.e. \alg{Sm15\~{}Am11:::S.l16.m17*}) might also be confused with
+\alg{Sm15\~{}Am11:::S..l16..m17*}, which is a shorthand for \alg{Sm15\~{}Am11:::S.l14.k15.l16.k17.l18.m17*}, a very
 different path.
 
 \subsection*{Off-board traversal}
@@ -660,7 +660,7 @@ any non-disposable piece.
  7          & \alg{@}              & trance-journey                             \\
  8          & \alg{@@}             & dual trance-journey, oblation              \\
  9          & \alg{@@@}            & failed trance-journey, oblation            \\
-10          & \alg{::}             & Pawn-sacrifice                             \\ \cmidrule{1-3}
+10          & \alg{:::}            & Pawn-sacrifice                             \\ \cmidrule{1-3}
 11          & \alg{,}              & items in a list                            \\
 12          & \alg{[]}             & ply gathering                              \\
 \bottomrule
@@ -670,7 +670,7 @@ any non-disposable piece.
 \end{table}
 
 First 3 symbols (\alg{.}, \alg{..} and \alg{-}) separates steps within a single ply.
-Other symbols (\alg{\~{}}, \alg{|}, \alg{@} and \alg{::}) are separators between plies,
+Other symbols (\alg{\~{}}, \alg{|}, \alg{@} and \alg{:::}) are separators between plies,
 or ply terminators (\alg{||}, \alg{@@}, and \alg{@@@}).
 
 Items separator (\alg{,}) is used where multiple items needs to be listed for a single
@@ -1293,7 +1293,7 @@ are available for a particular variant see
 
 \begin{alltt}
 <pawn-sacrifice> =
-  \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{::}
+  \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{:::}
 
 <pawn-sacrifice-end> =
   \alg{|}<field>
