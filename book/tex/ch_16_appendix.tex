@@ -279,10 +279,15 @@ If \hyperref[fig:scn_aoa_05_delayed_promo_pawn_2_moved]{promotion is being delay
 \alg{=} is mandatory, as there is no immediate piece to promote to, e.g. \alg{l14=}.
 If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
 before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
-sign) before destination field, like so: \alg{==e12}.
+sign) after piece, but before (destination) field, like so \alg{==e12}. In \algfmt{XAN}
+the same move would be noted as \alg{Pe11==e12}.
 
 If the same example contained e.g. dark Bishop at \alg{f12}, Pawn tagged for promotion could
 capture it, which would be written as \alg{==f12*B}.
+
+If, in the same situation, light Pawn instead of moving was captured by dark Unicorn on a
+field where it was tagged for promotion, it would be written as \alg{Ue11*P==}, and in
+\algfmt{XAN} it would be \alg{Ud7-e11*P==}.
 
 \subsection*{Ply}
 \addcontentsline{toc}{subsection}{Ply}
