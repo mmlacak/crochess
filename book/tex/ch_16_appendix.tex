@@ -1002,13 +1002,13 @@ has one choice with 3 distinct values, \alg{a}, \alg{b}\algfmt{<cde>}\alg{f} and
 Groups can contain other groups, if they do, they are valid until first matching
 closing bracket. Each closing bracket always closes exactly one group. For instance,
 \begin{alltt}
-<abc> = \alg{a}[\alg{b}[\alg{c}]\alg{d}]\alg{e}
+<abc> = \alg{a} [ \alg{b} [ \alg{c} ] \alg{d} ] \alg{e}
 \end{alltt}
 gives \alg{abcde}, \alg{abde}, \alg{ae} for \algfmt{<abc>}.
 Brackets cannot overlap, i.e. if group contains other group, it must be contained in
 its entirety. For instance:
 \begin{alltt}
-<abc> = \alg{a}[\alg{b}(\alg{c}]\alg{d})\alg{e}
+<abc> = \alg{a} [ \alg{b} ( \alg{c} ] \alg{d} ) \alg{e}
 \end{alltt}
 is not valid example, because first group \algfmt{[ ]} is closed containing
 dangling (open, but not closed) second group \algfmt{( )}.
