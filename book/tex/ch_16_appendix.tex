@@ -605,15 +605,40 @@ Now that all symbols have been introduced, they're gathered here according to th
 \end{table}
 
 Every side-effect is result of a single step. Most side-effects can occur only on a last step of a ply,
-these are called ply side-effects. Capturing, displacement and failed promotion are both step and ply
-side-effects, others are purely ply side-effects. Failed promotion can be followed by other side-effects
-in the same step, e.g. en passant; this is why it's written before destination field.
+these are called ply side-effects. Capturing, displacement and losing tags (promotion, rushing, or castling)
+are both step and ply side-effects, others are purely ply side-effects.
+
+Losing tag is a side-effect which is caused by moving a piece (directly, or by activating it),
+or by action taken on a piece (e.g. demoting a piece, converting it, etc.). So, losing tag can be
+present in a piece movement alone, whether in the same ply, or the next one (if piece has been
+activated). If caused by own, or opponent's actions, losing tag is a follow-up to a causing
+side-effects, like capture, displacement, conversion, or demoting.
+
+Regardless where losing tag is present (in a movement, or as a side-effect), it's always written
+immediately after piece which just lost its tag. If piece is not written (e.g. Pawn has been moved),
+it's written just before destination field (if in a side-effect), or just before any movement notation,
+like individual steps (if in a movement).
+
+For example, in this \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{promotion tag example},
+movement of a light Pawn cause it to lose promotion tag, which would be written as \alg{==e12},
+more verbose as a \alg{P==e11.e12}, or in \algfmt{XAN} as a \alg{P==e11-e12}. If the same Pawn has
+been captured by dark Unicorn, it would be written as \alg{Ue11*P==}, more verbose notation would
+be \alg{Ud7.e11*P==}, or in \algfmt{XAN} it would be \alg{Ud7-e11*P==}. If the same example contained
+e.g. dark Bishop on a \alg{f12} which light Pawn could capture, that would be written as \alg{==f12*B},
+more verbosely as \alg{P==e11.f12*B}, or in \algfmt{XAN} it would be \alg{P==e11-f12*B}.
+
+In this \hyperref[fig:scn_mv_18_activating_rush_pawn_init]{activating Pawns example}, light Pawn on
+the left is being activated, and can capture dark Knight. This would be written as
+\alg{Re2\~{}Wc2\~{}P::b3*N}, more verbose notation would be \alg{[Re6..e2]\~{}[We2..c2]\~{}[P::c2.b3*N]},
+and in \algfmt{XAN} it would be \alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
 
 Sometimes it's possible to choose which side-effect will take place. For instance,
 \hyperref[fig:scn_ma_09_conversion_pyramid_activated]{upon reaching dark Rook with its Pyramid}, light
 player is to decide whether opponent's Rook will be captured or converted. This decision cannot be
 reconstructed based on movement alone. Notation for captured pieces have traditionally been optional,
-and so is for all other interactions. This means, at least some side-effects are now mandatory. To
+and so is for all other interactions.
+
+This means, at least some side-effects are now mandatory. To
 avoid any possible confusion which are, in \algfmt{NAN} all side-effects are mandatory.
 
 \clearpage % ..........................................................
@@ -1276,7 +1301,7 @@ are available for a particular variant see
   \alg{|}<field>
 | <move-cascading>
 
-<pawn-sacrifice-capture> =
+<pawn-sacrifice-captures> =
   \alg{S}[<disambiguation>]\{\alg{.}[\alg{.}]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
     [<pawn-sacrifice-end>]
 | \alg{S}<stepping>[<pawn-sacrifice-end>]
@@ -1290,7 +1315,7 @@ are available for a particular variant see
 | [<cascading-start>]<teleportation>
 | [<cascading-start>]<trance-journey>
 | [<cascading-start>]<pawn-sacrifice>
-    [<pawn-sacrifice-capture>]
+    [<pawn-sacrifice-captures>]
 | [<cascading-start>]<move-star>
 
 <move-wave-cascading> =
@@ -1298,7 +1323,7 @@ are available for a particular variant see
 | [<wave-cascading-start>]<teleportation>
 | [<wave-cascading-start>]<trance-journey>
 | [<wave-cascading-start>]<pawn-sacrifice>
-    [<pawn-sacrifice-capture>]
+    [<pawn-sacrifice-captures>]
 | [<wave-cascading-start>]<move-star>
 \end{alltt}
 
@@ -1310,7 +1335,7 @@ are available for a particular variant see
 | [<cascade-start>\alg{~}]<teleportation>
 | [<cascade-start>\alg{~}]<trance-journey>
 | [<cascade-start>\alg{~}]<pawn-sacrifice>
-    [<pawn-sacrifice-capture>]
+    [<pawn-sacrifice-captures>]
 | [<cascade-start>\alg{~}]<move-star>
 
 <status> = ?
