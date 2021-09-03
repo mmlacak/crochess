@@ -240,11 +240,12 @@ starting file before destination field. If previous example had additional dark 
 In \algfmt{CAN}, both en passant and its disambiguation form are written as \algcty{ixh3 e.p.},
 where \algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
 
-Losing ability to rush is denoted with \alg{::} (double colon) after piece, but before (destination)
-field. Usually, this is used when Pawn is captured, converted, activated, etc., not when it was moved.
-For instance, in this \hyperref[fig:scn_n_03_teleport_move_2]{teleporting example}, after dark Rook's
-failed teleportation, light Bishop could capture dark Pawn on its initial position, which would be
-denoted as \alg{Br17*P::}, and in \algfmt{XAN} it would be \alg{Bq18-r17*P::}.
+Losing ability to rush is denoted with \alg{::} (double colon) just after piece, just before
+destination field, or just before movement notation (e.g. individual steps). Usually, this is used
+when Pawn is captured, converted, activated, etc., not when it was moved. For instance, in this
+\hyperref[fig:scn_n_03_teleport_move_2]{teleporting example}, after dark Rook's failed teleportation,
+light Bishop could capture dark Pawn on its initial position, which would be denoted as \alg{Br17*P::},
+and in \algfmt{XAN} it would be \alg{Bq18-r17*P::}.
 
 \subsection*{Castling}
 \addcontentsline{toc}{subsection}{Castling}
@@ -256,11 +257,12 @@ and this \hyperref[fig:one_castling_right_04]{castling example} as \alg{Kr\&}. F
 castling Rook ended can be written after \alg{\&}, the same examples would now be written as
 \alg{Kd\&e} and \alg{Kr\&q}.
 
-Losing ability to castle is denoted with \alg{\&\&} (double ampersand) after piece, but before
-(destination) field. Using previous examples, if Rooks moved to their destination fields without
-castling, it would be written as \alg{R\&\&e1}, and \alg{R\&\&q1}, and in \algfmt{XAN} it would
-be \alg{Ra1\&\&e1}, and \alg{Ry1\&\&q1}. If Rook in the first example was captured by opponent's
-Bishop, it would be written as \alg{Ba1*R\&\&}.
+Losing ability to castle is denoted with \alg{\&\&} (double ampersand) just after piece, just
+before destination field, or just before movement notation (e.g. individual steps). Using previous
+examples, if Rooks moved to their destination fields without castling, it would be written as
+\alg{R\&\&e1}, and \alg{R\&\&q1}, and in \algfmt{XAN} it would be \alg{R\&\&a1-e1}, and
+\alg{R\&\&y1-q1}. If Rook in the first example was captured by opponent's Bishop, it would
+be written as \alg{Ba1*R\&\&}.
 
 Only for Classical Chess \algcty{0-0} and \algcty{O-O} for King's side, \algcty{0-0-0} and
 \algcty{O-O-O} for Queen's side are accepted as castling notation.
@@ -279,8 +281,9 @@ If \hyperref[fig:scn_aoa_05_delayed_promo_pawn_2_moved]{promotion is being delay
 \alg{=} is mandatory, as there is no immediate piece to promote to, e.g. \alg{l14=}.
 If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
 before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
-sign) after piece, but before (destination) field, like so \alg{==e12}. In \algfmt{XAN}
-the same move would be noted as \alg{Pe11==e12}.
+sign) just after piece, just before destination field, or just before movement notation
+(e.g. individual steps), like so \alg{==e12}. In \algfmt{XAN} the same move would be noted
+as \alg{P==e11-e12}.
 
 If the same example contained e.g. dark Bishop at \alg{f12}, Pawn tagged for promotion could
 capture it, which would be written as \alg{==f12*B}.
