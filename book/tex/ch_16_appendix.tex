@@ -1085,11 +1085,6 @@ are available for a particular variant see
 \hyperref[tbl:Appendix/Introduction/Chessboards]{Chessboards} and
 \hyperref[tbl:Appendix/Introduction/Pieces]{Pieces} tables.
 
-\huge{}
-TODO
-\normalsize{}
-grammar: fix tag losing side-effects
-
 \clearpage % ..........................................................
 
 \begin{alltt}
@@ -1126,6 +1121,16 @@ grammar: fix tag losing side-effects
 \clearpage % ..........................................................
 
 \begin{alltt}
+<disposable-figure-losing-tag> =
+  <disposable-figure>
+| \alg{R\&\&}
+
+<disposable-piece-losing-tag> =
+  <disposable-piece>
+| \alg{P==}
+| \alg{P::}
+| \alg{R\&\&}
+
 <file> = \alg{a} .. \alg{z}
 
 <rank> = \alg{1} .. \alg{26}
@@ -1156,14 +1161,14 @@ grammar: fix tag losing side-effects
 
 \begin{alltt}
 <capturing-side-effects> =
-  \alg{*}[<disposable-figure>]
-| \alg{*}[\alg{P}[\alg{==}]]
+  \alg{*}[<disposable-piece-losing-tag>]
 
 <en-passant-side-effects> =
   \alg{:}[<rank>]
 
 <demoting-side-effects> =
-  \alg{>}[<disposable-piece>]<disambiguation>
+  \alg{>}[<disposable-figure-losing-tag>]
+    <disambiguation>
 
 <resurrecting-side-effects> =
   \alg{$}<disposable-piece>
@@ -1180,8 +1185,7 @@ grammar: fix tag losing side-effects
   \alg{=}
 
 <converting-side-effects> =
-  \alg{%}[<disposable-figure>]
-| \alg{%}[\alg{P}[\alg{==}]]
+  \alg{%}[<disposable-piece-losing-tag>]
 | \alg{%%}
 \end{alltt}
 
@@ -1307,22 +1311,23 @@ grammar: fix tag losing side-effects
 <trance-journey> =
   <shaman-trance-journey-cascade>
     \alg{@H}<trance-journey-start>
-    \{<step>[\alg{<}[<disposable-piece>]<field>]\}
+    \{<step>[\alg{<}
+    [<disposable-piece-losing-tag>]<field>]\}
 | <shaman-trance-journey-cascade>
     \alg{@H}<trance-journey-start>
-    \{<step>[\alg{*}[<disposable-piece>]]\}
+    \{<step>[\alg{*}[<disposable-piece-losing-tag>]]\}
 | <shaman-trance-journey-cascade>
     \alg{@H}[<disambiguation>]<field>
 | <starchild-trance-journey-cascade>
-    \alg{@}<disposable-piece>[<disambiguation>]
-    <field>
+    \alg{@}<disposable-piece-losing-tag>
+    [<disambiguation>]<field>
 | <shaman-trance-journey-cascade>
-    \alg{@}\alg{@}[<disposable-piece>[<field>]
-    (,<disposable-piece>[<field>])]
+    \alg{@@}[<disposable-piece-losing-tag>[<field>]
+    (,<disposable-piece-losing-tag>[<field>])]
 | <shaman-trance-journey-cascade>
-    \alg{@}\alg{@}\alg{@}[<disposable-piece>]
+    \alg{@@@H}
 | <starchild-trance-journey-cascade>
-    \alg{@}\alg{@}\alg{@}[<disposable-piece>]
+    \alg{@@@}[<disposable-piece-losing-tag>]
 \end{alltt}
 
 \clearpage % ..........................................................
