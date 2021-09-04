@@ -224,29 +224,6 @@ dark Wave instead of light one, light Pawn would be able to capture it, which in
 would be written as \algcty{fxe8}. The same move in new notation is written as \alg{e8*}, and
 if captured piece is also written \alg{e8*W}.
 
-\subsection*{En passant}
-\addcontentsline{toc}{subsection}{En passant}
-\label{sec:Appendix/Notation/En passant}
-
-En passant is denoted with \alg{:} (colon), after destination field. In this
-\hyperref[fig:04_croatian_ties_en_passant]{en passant example} dark Pawn on the right might capture
-light Pawn if rushed, which is written as \alg{h3:}. Rank of captured Pawn can be written after
-\alg{:}, so our example might now be \alg{h3:5}, if captured Pawn has been rushed to field 2.
-
-If disambiguation is needed, it is written as previously described. Usually, it's enough to add
-starting file before destination field. If previous example had additional dark Pawn located at
-\alg{g4}, en passant would be written as \alg{ih3:}, or \alg{ih3:5}.
-
-In \algfmt{CAN}, both en passant and its disambiguation form are written as \algcty{ixh3 e.p.},
-where \algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
-
-Losing ability to rush is denoted with \alg{::} (double colon) just after piece, just before
-destination field, or just before movement notation (e.g. individual steps). Usually, this is used
-when Pawn is captured, converted, activated, etc., not when it was moved. For instance, in this
-\hyperref[fig:scn_n_03_teleport_move_2]{teleporting example}, after dark Rook's failed teleportation,
-light Bishop could capture dark Pawn on its initial position, which would be denoted as \alg{Br17*P::},
-and in \algfmt{XAN} it would be \alg{Bq18-r17*P::}.
-
 \subsection*{Castling}
 \addcontentsline{toc}{subsection}{Castling}
 \label{sec:Appendix/Notation/Castlingn}
@@ -306,6 +283,33 @@ In \algfmt{XAN}, the same would be written as \\
 \alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used to
 gather each ply, like so: \\
 \alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
+
+\subsection*{En passant}
+\addcontentsline{toc}{subsection}{En passant}
+\label{sec:Appendix/Notation/En passant}
+
+En passant is denoted with \alg{:} (colon), after destination field. In this
+\hyperref[fig:04_croatian_ties_en_passant]{en passant example} dark Pawn on the right might capture
+light Pawn if rushed, which is written as \alg{h3:}. Rank of captured Pawn can be written after
+\alg{:}, so our example might now be \alg{h3:5}, if captured Pawn has been rushed to field 2.
+
+If disambiguation is needed, it is written as previously described. Usually, it's enough to add
+starting file before destination field. If previous example had additional dark Pawn located at
+\alg{g4}, en passant would be written as \alg{ih3:}, or \alg{ih3:5}.
+
+In \algfmt{CAN}, both en passant and its disambiguation form are written as \algcty{ixh3 e.p.},
+where \algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
+
+Losing ability to rush is denoted with \alg{::} (double colon) just after piece, just before
+destination field, or just before movement notation (e.g. individual steps). Usually, this is used
+when Pawn is captured, converted, activated, etc., not when it was moved. For instance, in this
+\hyperref[fig:scn_n_03_teleport_move_2]{teleporting example}, after dark Rook's failed teleportation,
+light Bishop could capture dark Pawn on its initial position, which would be denoted as \alg{Br17*P::},
+and in \algfmt{XAN} it would be \alg{Bq18-r17*P::}.
+
+In this \hyperref[fig:scn_mv_18_activating_rush_pawn_init]{activating Pawns example}, light Pawn on
+the left is being activated, and can capture dark Knight. This would be written as
+\alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be \alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
 
 \subsection*{Conversion}
 \addcontentsline{toc}{subsection}{Conversion}
@@ -584,23 +588,24 @@ Now that all symbols have been introduced, they're gathered here according to th
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlll }
+\begin{tabular}{ rllc }
 \toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}                   \\
+\textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}           & \textbf{Necessary?}   \\
 \midrule
-1           & \alg{*}              & capturing                              \\
-2           & \alg{<}              & trance-journey displacement            \\ \cmidrule{1-3}
-3           & \alg{==}             & lost promotion tag                     \\
-4           & \alg{::}             & lost rushing tag                       \\
-5           & \alg{\&\&}           & lost castling tag                      \\ \cmidrule{1-3}
-6           & \alg{:}              & en passant                             \\
-7           & \alg{\&}             & castling                               \\
-8           & \alg{=}              & promotion, tag                         \\
-9           & \alg{\%}             & conversion                             \\
-10          & \alg{\%\%}           & failed conversion, oblation            \\
-11          & \alg{>}              & syzygy, demoting to Pawn               \\
-12          & \alg{\$}             & syzygy, resurrection                   \\
-13          & \alg{\$\$}           & failed resurrection                    \\
+1           & \alg{*}              & capturing                      & -                     \\
+2           & \alg{<}              & trance-journey displacement    & +                     \\ \cmidrule{1-4}
+3           & \alg{==}             & lost promotion tag             & -                     \\
+4           & \alg{::}             & lost rushing tag               & -                     \\
+5           & \alg{\&\&}           & lost castling tag              & -                     \\ \cmidrule{1-4}
+6           & \alg{:}              & en passant                     & -                     \\
+7           & \alg{\&}             & castling                       & +                     \\
+8           & \alg{=}              & promotion                      & -                     \\
+9           & \alg{=}              & tag for promotion              & +                     \\
+10          & \alg{\%}             & conversion                     & +                     \\
+11          & \alg{\%\%}           & failed conversion, oblation    & +                     \\
+12          & \alg{>}              & syzygy, demoting to Pawn       & +                     \\
+13          & \alg{\$}             & syzygy, resurrection           & +                     \\
+14          & \alg{\$\$}           & failed resurrection            & +                     \\
 \bottomrule
 \end{tabular}
 \caption{Side-effects}
@@ -630,10 +635,21 @@ be \alg{Ud7.e11*P==}, or in \algfmt{XAN} it would be \alg{Ud7-e11*P==}. If the s
 e.g. dark Bishop on a \alg{f12} which light Pawn could capture, that would be written as \alg{==f12*B},
 more verbosely as \alg{P==e11.f12*B}, or in \algfmt{XAN} it would be \alg{P==e11-f12*B}.
 
-In this \hyperref[fig:scn_mv_18_activating_rush_pawn_init]{activating Pawns example}, light Pawn on
-the left is being activated, and can capture dark Knight. This would be written as
-\alg{Re2\~{}Wc2\~{}P::b3*N}, more verbose notation would be \alg{[Re6..e2]\~{}[We2..c2]\~{}[P::c2.b3*N]},
-and in \algfmt{XAN} it would be \alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
+Revisiting this \hyperref[fig:scn_mv_18_activating_rush_pawn_init]{activating Pawns example}, light Pawn
+on the left capturing dark Knight would be written as \alg{Re2\~{}Wc2\~{}P::b3*N}, more verbose notation
+would be \alg{[Re6..e2]\~{}[We2..c2]\~{}[P::c2.b3*N]}, and in \algfmt{XAN} it would be
+\alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
+
+Most of newly added side-effects are necessary to be, at least, indicated in a notation, to be able
+to reconstruct what has happened. For instance, tagging for promotion (\alg{=}) is one such a side-effect,
+otherwise immediate promotion could be assumed, in which case there would be missing piece to which Pawn
+has been promoted to. Another example, it is necessary to indicate castling (\alg{\&}), otherwise King
+would just move to a distant field.
+
+Almost all of necessary side-effects also need additional data to be complete. For example, displacement
+(\alg{<}) needs, at least, field at which piece has been displaced. Demoting to Pawn (\alg{>}) needs, at
+very least, disambiguation to be able to find field, and from there which piece on that field has been
+demoted to a Pawn.
 
 Sometimes it's possible to choose which side-effect will take place. For instance,
 \hyperref[fig:scn_ma_09_conversion_pyramid_activated]{upon reaching dark Rook with its Pyramid}, light
@@ -641,8 +657,18 @@ player is to decide whether opponent's Rook will be captured or converted. This 
 reconstructed based on movement alone. Notation for captured pieces have traditionally been optional,
 and so is for all other interactions.
 
-This means, at least some side-effects are now mandatory. To
-avoid any possible confusion which are, in \algfmt{NAN} all side-effects are mandatory.
+This means, old side-effects (from Classical Chess) are not necessary to write down in a notation, but
+those are in minority, and almost all of new side-effects are necessary. To avoid any possible confusion,
+in \algfmt{NAN} all side-effects are mandatory, except tag losing  side-effects (i.e. \alg{==}, \alg{::},
+and \alg{\&\&}).
+
+It is recommended to also write optional side-effects and their data, for not much more effort reader
+is presented with much easier to understand notation. For example, compare minimalistic notation with
+slightly more verbose version: \alg{Re2\~{}Wc2\~{}Pb3*}, vs. \alg{Re2\~{}Wc2\~{}P::b3*N},
+\alg{Hb14\~{}We12@H..q16*..k14*..c18} vs. \\
+\alg{Hb14\~{}We12@H,w18..q16*P..k14*N..c18}.
+% \alg{Hb14\~{}We12@@} vs. \alg{Hb14\~{}We12@@P,B,R,R,N,B,N} vs.
+% \alg{Hb14\~{}We12@@Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
 
 \clearpage % ..........................................................
 
@@ -1058,6 +1084,11 @@ are available for a particular variant see
 \hyperref[tbl:Appendix/Introduction/Variants]{Variants},
 \hyperref[tbl:Appendix/Introduction/Chessboards]{Chessboards} and
 \hyperref[tbl:Appendix/Introduction/Pieces]{Pieces} tables.
+
+\huge{}
+TODO
+\normalsize{}
+grammar: fix tag losing side-effects
 
 \clearpage % ..........................................................
 
