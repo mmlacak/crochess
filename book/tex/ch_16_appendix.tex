@@ -643,7 +643,7 @@ Most of newly added side-effects are necessary to be, at least, indicated in a n
 to reconstruct what has happened. For instance, tagging for promotion (\alg{=}) is one such a side-effect,
 otherwise immediate promotion could be assumed, in which case there would be missing piece to which Pawn
 has been promoted to. Another example, it is necessary to indicate castling (\alg{\&}), otherwise King
-would just move to a distant field.
+would just move to a (distant) field.
 
 Almost all of necessary side-effects also need additional data to be complete. For example, displacement
 (\alg{<}) needs, at least, field at which piece has been displaced. Demoting to Pawn (\alg{>}) needs, at
