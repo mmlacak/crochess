@@ -612,8 +612,8 @@ Now that all symbols have been introduced, they're gathered here according to th
 \end{table}
 
 Every side-effect is result of a single step. Most side-effects can occur only on a last step of a ply,
-these are called ply side-effects. Capturing, displacement and losing tags (promotion, rushing, or castling)
-are both step and ply side-effects, others are purely ply side-effects.
+these are called ply side-effects. Capturing, displacement and losing (promotion, rushing, or castling)
+tags are both step and ply side-effects, others are purely ply side-effects.
 
 Losing tag is a side-effect which is caused by moving a piece (directly, or by activating it),
 or by action taken on a piece (e.g. demoting a piece, converting it, etc.). So, losing tag can be
@@ -1036,7 +1036,8 @@ items at least once.
 
 Formatting and spacing is added to improve legibility, normally \algfmt{AN} is
 written without any gaps. When space is needed, it is written as \alg{\_}
-(underscore). Choices are also valid regardless of formatting, spacing, e.g.
+(underscore). Choices and groups are also valid regardless of formatting,
+spacing, e.g.
 \begin{alltt}
 <abc> = \alg{def}
     \alg{ghi}
@@ -1073,10 +1074,10 @@ Choices are fully contained within enclosing group. For instance,
 \begin{alltt}
 <abc> = \alg{d} | \alg{e} [ \alg{f} | \alg{g} ] \alg{h} | \alg{i}
 \end{alltt}
-has two choices. Choice inside option group has 2 possible values, either \alg{f}
-or \alg{g}. Global choice (not contained in any group) has 3 possible values: \alg{d},
-\alg{e}\algfmt{[}\alg{f}\algfmt{|}\alg{g}\algfmt{]}\alg{h} or \alg{i}. This gives
-\alg{d}, \alg{efh}, \alg{egh}, \alg{eh} and \alg{i} as possible values for
+has two choices. Choice inside option group \algfmt{[ ]} has 2 possible values,
+either \alg{f} or \alg{g}. Global choice (not contained in any group) has 3 possible
+values: \alg{d}, \alg{e}\algfmt{[}\alg{f}\algfmt{|}\alg{g}\algfmt{]}\alg{h} or \alg{i}.
+This gives \alg{d}, \alg{efh}, \alg{egh}, \alg{eh} and \alg{i} as possible values for
 \algfmt{<abc>}.
 
 Grammar is written without context, to determine which pieces, files and ranks
@@ -1121,16 +1122,6 @@ are available for a particular variant see
 \clearpage % ..........................................................
 
 \begin{alltt}
-<disposable-figure-losing-tag> =
-  <disposable-figure>
-| \alg{R\&\&}
-
-<disposable-piece-losing-tag> =
-  <disposable-piece>
-| \alg{P==}
-| \alg{P::}
-| \alg{R\&\&}
-
 <file> = \alg{a} .. \alg{z}
 
 <rank> = \alg{1} .. \alg{26}
@@ -1148,10 +1139,15 @@ are available for a particular variant see
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
 
-<pawn-stepping> =
-  [<disambiguation>][\alg{==}]<field>
-| <field>\alg{-}<field>
-| <field>[\alg{-}]\alg{==}<field>
+<disposable-figure-losing-tag> =
+  <disposable-figure>
+| \alg{R\&\&}
+
+<disposable-piece-losing-tag> =
+  <disposable-piece>
+| \alg{P==}
+| \alg{P::}
+| \alg{R\&\&}
 
 <capturing-step> =
   <step><capturing-side-effects>
@@ -1218,36 +1214,32 @@ are available for a particular variant see
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effects>
+
+<starchild-cascading-plies> =
+  \alg{I}<stepping>\{\alg{~I}<stepping>\}
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<terminal-ply> =
-  <capturing-active-piece><stepping>
-    <capturing-side-effects>
-| <pawn><pawn-stepping>
-    <en-passant-side-effects>
-| <shaman-capturing-terminal-ply>
-
-<starchild-cascading-plies> =
-  \alg{I}<stepping>\{\alg{~I}<stepping>\}
-
 <starting-ply> =
-  <pawn><pawn-stepping>
-| <active-piece><stepping>
+  <active-piece><stepping>
+| <pawn>[\alg{==}|\alg{::}]<stepping>
+| \alg{R\&\&}<stepping>
 | <shaman-capturing-cascading-ply>
 | <starchild-resurrecting-ply>
 | <pawn-promoting-ply>
 | <starchild-cascading-plies>
 
-<cascading-ply> =
-  <passive-piece><stepping>
-| <starting-ply>
-
-<cascading-plies> =
-  \{\alg{~W}<stepping>\}\alg{~}<cascading-ply>
-| (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
+<terminal-ply> =
+  <capturing-active-piece><stepping>
+    <capturing-side-effects>
+| \alg{R\&\&}<stepping><capturing-side-effects>
+| <pawn>[\alg{==}|\alg{::}]<stepping>
+    <capturing-side-effects>
+| <pawn>[\alg{==}|\alg{::}]<stepping>
+    <en-passant-side-effects>
+| <shaman-capturing-terminal-ply>
 
 <terminating-ply> =
   <capturing-piece><stepping>
@@ -1255,6 +1247,13 @@ are available for a particular variant see
 | (\alg{A}<stepping>\alg{~})<pyramid-promotion-ply>
 | (\alg{A}<stepping>\alg{~})<pyramid-converting-ply>
 | <terminal-ply>
+
+<cascading-ply> = <starting-ply>
+                | <passive-piece><stepping>
+
+<cascading-plies> =
+  \{\alg{~W}<stepping>\}\alg{~}<cascading-ply>
+| (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1333,14 +1332,14 @@ are available for a particular variant see
 
 \begin{alltt}
 <pawn-sacrifice> =
-  \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}]]\alg{:::}
+  \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}|\alg{::}]]\alg{:::}
 
-<pawn-sacrifice-end> =
-  \alg{|}<field>
-| <move-cascading>
+<pawn-sacrifice-end> = \alg{|}<field>
+                     | <move-cascading>
 
 <pawn-sacrifice-captures> =
-  \alg{S}[<disambiguation>]\{\alg{.}[\alg{.}]<field>[\alg{*}[\alg{P}[\alg{==}]]]\}
+  \alg{S}[<disambiguation>]
+    \{\alg{.}[\alg{.}]<field>[\alg{*}[\alg{P}[\alg{==}|\alg{::}]]]\}
     [<pawn-sacrifice-end>]
 | \alg{S}<stepping>[<pawn-sacrifice-end>]
 
@@ -1364,6 +1363,10 @@ are available for a particular variant see
     [<pawn-sacrifice-captures>]
 | [<wave-cascading-start>]<move-star>
 \end{alltt}
+
+% <pawn-sacrifice-end> =
+%   \alg{|}<field>
+% | <move-cascading>
 
 \clearpage % ..........................................................
 
