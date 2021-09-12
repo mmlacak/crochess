@@ -35,8 +35,8 @@ entities, and, by extension, over all accessible entities in a linked structure.
 Note that in a linked list, entity in the middle has ownership only over entities in the tail of that
 linked list; only the first entity has the complete ownership of the entire linked list.
 
-If a pointer in an entity does not have ownership over linked entity, `_w` is appended to its name,
-e.g. `CcPly * related_ply_w`. Function(s) `free()`-ing containing entity does not `free()` weak pointers.
+If a pointer in an entity does not have ownership over linked entity, `__w` is appended to its name,
+e.g. `CcPly * related_ply__w`. Function(s) `free()`-ing containing entity does not `free()` weak pointers.
 
 For instance, `CcMove` contains `CcPly *`, so it owns all `CcPly` items in that linked list.
 Now, each `CcPly` contains `CcStep *`, so it owns all `CcStep` items in that linked list.
@@ -89,11 +89,11 @@ input+output one, e.g. `char * const restrict str_io`.
 Ownership transfer parameters are indicated by:
 - their type (pointer to pointer to type), e.g. `CcParseMsg ** parse_msgs`
 - appending direction indicator (`_o`, `_io`) to parameter name if they are output, or input+output parameter
-- appending `_n` if inner pointer is going to be `NULL`-ed, e.g. `CcPly ** restrict plies_n`
-- appending `_f` if inner pointer is going to be `free()`-ed then `NULL`-ed, e.g. `char ** restrict str_f`
-- appending `_r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** const restrict str_io_r`
+- appending `__n` if inner pointer is going to be `NULL`-ed, e.g. `CcPly ** restrict plies__n`
+- appending `__f` if inner pointer is going to be `free()`-ed then `NULL`-ed, e.g. `char ** restrict str__f`
+- appending `__r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** const restrict str_io__r`
 
-Ownership transfer indicator (one of `_n`, `_f`, `_r`) tells what will happen to inner pointer
+Ownership transfer indicator (one of `__n`, `__f`, `__r`) tells what will happen to inner pointer
 (i.e. to `*arg` if `arg` is passed), if main line is executed; that is to say, if all parameters
 were valid.
 
@@ -102,10 +102,10 @@ Summary
 
 If multiple indicators are needed, _static_ indicator (`_s`) is apended to parameter name first, followed
 by direction indicator (one of `_o`, `_io`), finally followed by ownership transfer indicator (one of
-`_w`, `__o`, `_n`, `_f`, `_r`).
+`__w`, `__o`, `__n`, `__f`, `__r`).
 
 _Static_ and direction indicators can be combined, ownership transfer indicator is always kept separated,
-e.g. `str_sio_n`.
+e.g. `str_sio__n`.
 
 ### Functions
 
@@ -121,7 +121,7 @@ e.g. `str_sio_n`.
 |           |   standalone |    borrow |            read + write |
 |     `__o` |   standalone | ownership | read + write + `free()` |
 |           | in an entity | ownership | read + write + `free()` |
-|      `_w` |         both |      weak |            read + write |
+|     `__w` |         both |      weak |            read + write |
 
 ### Input, output parameters
 
@@ -140,8 +140,8 @@ e.g. `str_sio_n`.
 |      `_s` |        `!NULL` |           input, `NULL` |  read, _static_ |
 |      `_o` |        `!NULL` |                  output |           write |
 |     `_io` |        `!NULL` |          input + output |    read + write |
-|      `_n` |        `!NULL` |         `*args = NULL;` | ownership taken |
-|      `_f` |        `!NULL` | `free(); *args = NULL;` |           freed |
-|      `_r` |        `!NULL` |    `*args = realloc();` |     reallocated |
+|     `__n` |        `!NULL` |         `*args = NULL;` | ownership taken |
+|     `__f` |        `!NULL` | `free(); *args = NULL;` |           freed |
+|     `__r` |        `!NULL` |    `*args = realloc();` |     reallocated |
 
 [<<< prev](1_organization.md "<<< prev") ||
