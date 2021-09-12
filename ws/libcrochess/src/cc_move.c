@@ -15,7 +15,7 @@
 
 
 CcMove * cc_move_new( char const * const restrict notation,
-                      CcPly ** const restrict plies_n,
+                      CcPly ** const restrict plies__n,
                       CcMoveStatusEnum const status )
 {
     CcMove * mv = malloc( sizeof( CcMove ) );
@@ -23,10 +23,10 @@ CcMove * cc_move_new( char const * const restrict notation,
 
     mv->notation = cc_str_duplicate_len_new( notation, false, BUFSIZ );
 
-    if ( plies_n )
+    if ( plies__n )
     {
-        mv->plies = *plies_n;
-        *plies_n = NULL; // Taking ownership.
+        mv->plies = *plies__n;
+        *plies__n = NULL; // Taking ownership.
     }
     else
         mv->plies = NULL;
@@ -39,12 +39,12 @@ CcMove * cc_move_new( char const * const restrict notation,
 
 CcMove * cc_move_append_new( CcMove * const restrict moves,
                              char const * const restrict notation,
-                             CcPly ** const restrict plies_n,
+                             CcPly ** const restrict plies__n,
                              CcMoveStatusEnum const status )
 {
     if ( !moves ) return NULL;
 
-    CcMove * new = cc_move_new( notation, plies_n, status );
+    CcMove * new = cc_move_new( notation, plies__n, status );
     if ( !new ) return NULL;
 
     CcMove * mv = moves;
@@ -55,34 +55,34 @@ CcMove * cc_move_append_new( CcMove * const restrict moves,
 }
 
 bool cc_move_append_or_init( CcMove ** const restrict moves_io,
-                             CcMove ** const restrict moves_n )
+                             CcMove ** const restrict moves__n )
 {
     if ( !moves_io ) return false;
-    if ( !moves_n ) return false;
-    if ( !*moves_n ) return false;
+    if ( !moves__n ) return false;
+    if ( !*moves__n ) return false;
 
     if ( *moves_io )
     {
         CcMove * mv = *moves_io;
         while ( mv->next ) mv = mv->next; // rewind
-        mv->next = *moves_n; // append
+        mv->next = *moves__n; // append
     }
     else
-        *moves_io = *moves_n;
+        *moves_io = *moves__n;
 
-    *moves_n = NULL;
+    *moves__n = NULL;
 
     return true;
 }
 
-bool cc_move_free_all_moves( CcMove ** const restrict moves_f )
+bool cc_move_free_all_moves( CcMove ** const restrict moves__f )
 {
-    if ( !moves_f ) return false;
-    if ( !*moves_f ) return true;
+    if ( !moves__f ) return false;
+    if ( !*moves__f ) return true;
 
     bool result = true;
 
-    CcMove * mv = *moves_f;
+    CcMove * mv = *moves__f;
 
     while ( mv )
     {
@@ -96,7 +96,7 @@ bool cc_move_free_all_moves( CcMove ** const restrict moves_f )
         mv = tmp;
     }
 
-    *moves_f = NULL;
+    *moves__f = NULL;
     return result;
 }
 

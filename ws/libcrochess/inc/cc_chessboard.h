@@ -106,11 +106,11 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict 
 /**
     Frees chessboard, and all allocated resources.
 
-    @param cb_f A chessboard.
+    @param cb__f A chessboard.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_chessboard_free_all( CcChessboard ** const restrict cb_f );
+bool cc_chessboard_free_all( CcChessboard ** const restrict cb__f );
 
 /**
     Function returning if given coordinate belongs to a board.

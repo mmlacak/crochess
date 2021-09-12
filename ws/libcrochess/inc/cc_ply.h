@@ -75,7 +75,7 @@ typedef struct CcPly
 
     @param link Link to previous ply in a cascade.
     @param piece A piece.
-    @param steps_n Steps, linked list, can be `NULL`.
+    @param steps__n Steps, linked list, can be `NULL`.
 
     @warning
     Takes ownership of steps, inner pointer will be set to `NULL`, if valid ply is produced.
@@ -88,7 +88,7 @@ typedef struct CcPly
 */
 CcPly * cc_ply_new( CcPlyLinkEnum const link,
                     CcPieceEnum const piece,
-                    CcStep ** const restrict steps_n );
+                    CcStep ** const restrict steps__n );
 
 
 /**
@@ -97,7 +97,7 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     @param plies Plies, linked list.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
-    @param steps_n Steps, linked list, can be `NULL`.
+    @param steps__n Steps, linked list, can be `NULL`.
 
     @see cc_ply_new()
 
@@ -107,12 +107,12 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
 CcPly * cc_ply_append_new( CcPly * const restrict plies,
                            CcPlyLinkEnum const link,
                            CcPieceEnum const piece,
-                           CcStep ** const restrict steps_n );
+                           CcStep ** const restrict steps__n );
 
 /**
     Frees all plies in a linked list, and all associated entities.
 
-    @param plies_f Linked list of plies.
+    @param plies__f Linked list of plies.
 
     @warning
     In case of an error, function will continue to free accessible resources,
@@ -120,7 +120,7 @@ CcPly * cc_ply_append_new( CcPly * const restrict plies,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_ply_free_all_plies( CcPly ** const restrict plies_f );
+bool cc_ply_free_all_plies( CcPly ** const restrict plies__f );
 
 /**
     Checks whether any step in a ply has side-effects.

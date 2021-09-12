@@ -234,12 +234,12 @@ CcStep * cc_step_append_new( CcStep * const restrict steps,
     return new;
 }
 
-bool cc_step_free_all_steps( CcStep ** const restrict steps_f )
+bool cc_step_free_all_steps( CcStep ** const restrict steps__f )
 {
-    if ( !steps_f ) return false;
-    if ( !*steps_f ) return true;
+    if ( !steps__f ) return false;
+    if ( !*steps__f ) return true;
 
-    CcStep * s = *steps_f;
+    CcStep * s = *steps__f;
 
     while ( s )
     {
@@ -248,7 +248,7 @@ bool cc_step_free_all_steps( CcStep ** const restrict steps_f )
         s = tmp;
     }
 
-    *steps_f = NULL;
+    *steps__f = NULL;
     return true;
 }
 

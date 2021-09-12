@@ -59,12 +59,12 @@ CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse
     return new;
 }
 
-bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f )
+bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs__f )
 {
-    if ( !parse_msgs_f ) return false;
-    if ( !*parse_msgs_f ) return true;
+    if ( !parse_msgs__f ) return false;
+    if ( !*parse_msgs__f ) return true;
 
-    CcParseMsg * pm = *parse_msgs_f;
+    CcParseMsg * pm = *parse_msgs__f;
 
     while ( pm )
     {
@@ -76,7 +76,7 @@ bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f )
         pm = tmp;
     }
 
-    *parse_msgs_f = NULL;
+    *parse_msgs__f = NULL;
     return true;
 }
 

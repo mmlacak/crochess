@@ -98,12 +98,12 @@ TestMsg * test_msg_init_or_append_new( TestMsg ** const restrict test_msgs,
     return new;
 }
 
-bool test_msg_free_all( TestMsg ** const restrict test_msgs_f )
+bool test_msg_free_all( TestMsg ** const restrict test_msgs__f )
 {
-    if ( !test_msgs_f ) return false;
-    if ( !*test_msgs_f ) return true;
+    if ( !test_msgs__f ) return false;
+    if ( !*test_msgs__f ) return true;
 
-    TestMsg * tm = *test_msgs_f;
+    TestMsg * tm = *test_msgs__f;
 
     while ( tm )
     {
@@ -117,7 +117,7 @@ bool test_msg_free_all( TestMsg ** const restrict test_msgs_f )
         tm = tmp;
     }
 
-    *test_msgs_f = NULL;
+    *test_msgs__f = NULL;
     return true;
 }
 

@@ -39,14 +39,14 @@ typedef struct CcMove
     Returns newly allocated move.
 
     @param notation Original notation, as received from a user.
-    @param plies_n Plies linked list, can be `NULL`.
+    @param plies__n Plies linked list, can be `NULL`.
     @param status Move status.
 
     @warning
     Takes ownership of plies, inner pointer will be set to `NULL`, if valid move is produced.
 
     @warning
-    If no valid `plies_n` is given, move is still returned, with `plies` member set to `NULL`.
+    If no valid `plies__n` is given, move is still returned, with `plies` member set to `NULL`.
 
     @warning
     If no valid move is produced, plies are still valid, and accessible.
@@ -55,7 +55,7 @@ typedef struct CcMove
     A newly allocated move, is successful, `NULL` otherwise.
 */
 CcMove * cc_move_new( char const * const restrict notation,
-                      CcPly ** const restrict plies_n,
+                      CcPly ** const restrict plies__n,
                       CcMoveStatusEnum const status );
 
 /**
@@ -63,7 +63,7 @@ CcMove * cc_move_new( char const * const restrict notation,
 
     @param moves Linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
-    @param plies_n Plies, should be valid pointer.
+    @param plies__n Plies, should be valid pointer.
     @param status Move status.
 
     @see cc_move_new()
@@ -73,16 +73,16 @@ CcMove * cc_move_new( char const * const restrict notation,
 */
 CcMove * cc_move_append_new( CcMove * const restrict moves,
                              char const * const restrict notation,
-                             CcPly ** const restrict plies_n,
+                             CcPly ** const restrict plies__n,
                              CcMoveStatusEnum const status );
 
 bool cc_move_append_or_init( CcMove ** const restrict moves_io,
-                             CcMove ** const restrict move_n );
+                             CcMove ** const restrict move__n );
 
 /**
     Frees all moves in a linked list, and all associated entities.
 
-    @param moves_f Linked list of moves.
+    @param moves__f Linked list of moves.
 
     @warning
     In case of an error, function will continue to free accessible resources,
@@ -90,7 +90,7 @@ bool cc_move_append_or_init( CcMove ** const restrict moves_io,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_move_free_all_moves( CcMove ** const restrict moves_f );
+bool cc_move_free_all_moves( CcMove ** const restrict moves__f );
 
 /**
     Function returns count of plies owned by a given move.

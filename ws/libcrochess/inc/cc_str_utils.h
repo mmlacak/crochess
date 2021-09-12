@@ -173,7 +173,7 @@ char * cc_str_concatenate_char_new( char const * const restrict str,
 /**
     Function appending character to a string.
 
-    @param str_io_r An input and output string.
+    @param str_io__r An input and output string.
     @param chr A character to concatenate.
 
     @note
@@ -185,16 +185,16 @@ char * cc_str_concatenate_char_new( char const * const restrict str,
     @return `true` if successful, `false` otherwise.
 
     @return
-    Resulting string is returned via output parameter `str_io_r`.
+    Resulting string is returned via output parameter `str_io__r`.
 */
-bool cc_str_append_char( char ** const restrict str_io_r,
+bool cc_str_append_char( char ** const restrict str_io__r,
                          char const chr );
 
 /**
     Function appending strings, by returning a newly allocated string.
 
-    @param str_1_f A string, can be unallocated.
-    @param str_2_f A string to append, can be unallocated.
+    @param str_1__f A string, can be unallocated.
+    @param str_2__f A string to append, can be unallocated.
 
     @note
     If both strings are allocated, resulting string is concatenating the two.
@@ -210,15 +210,15 @@ bool cc_str_append_char( char ** const restrict str_io_r,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_new( char ** const restrict str_1_f,
-                          char ** const restrict str_2_f );
+char * cc_str_append_new( char ** const restrict str_1__f,
+                          char ** const restrict str_2__f );
 
 /**
     Function appending strings, by returning a newly allocated string,
     capped at given maximum length.
 
-    @param str_1_f A string, can be unallocated.
-    @param str_2_f A string to append, can be unallocated.
+    @param str_1__f A string, can be unallocated.
+    @param str_2__f A string to append, can be unallocated.
     @param max_len Maximum length to concatenate, if length of strings is greater than given argument.
 
     @note
@@ -235,14 +235,14 @@ char * cc_str_append_new( char ** const restrict str_1_f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_len_new( char ** const restrict str_1_f,
-                              char ** const restrict str_2_f,
+char * cc_str_append_len_new( char ** const restrict str_1__f,
+                              char ** const restrict str_2__f,
                               size_t const max_len );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string.
 
-    @param str_f A string, can be unallocated.
+    @param str__f A string, can be unallocated.
     @param fmt A string format to append.
     @param ... Variadic input for a string format.
 
@@ -257,14 +257,14 @@ char * cc_str_append_len_new( char ** const restrict str_1_f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_new( char ** const restrict str_f,
+char * cc_str_append_format_new( char ** const restrict str__f,
                                  char const * const restrict fmt, ... );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string,
     capped at given maximum length.
 
-    @param str_f A string, can be unallocated.
+    @param str__f A string, can be unallocated.
     @param max_len Maximum length to append, if length of strings is greater than given argument.
     @param fmt A string format to append.
     @param ... Variadic input for a string format.
@@ -280,7 +280,7 @@ char * cc_str_append_format_new( char ** const restrict str_f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_len_new( char ** const restrict str_f,
+char * cc_str_append_format_len_new( char ** const restrict str__f,
                                      size_t const max_len,
                                      char const * const restrict fmt, ... );
 

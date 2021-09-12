@@ -247,11 +247,11 @@ CcStep * cc_step_append_new( CcStep * const restrict steps,
 /**
     Frees all steps in a linked list.
 
-    @param steps_f Linked list of steps.
+    @param steps__f Linked list of steps.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_step_free_all_steps( CcStep ** const restrict steps_f );
+bool cc_step_free_all_steps( CcStep ** const restrict steps__f );
 
 
 /** @defgroup step_convenience The step conveniences

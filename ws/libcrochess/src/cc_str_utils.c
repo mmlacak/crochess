@@ -269,12 +269,12 @@ char * cc_str_concatenate_char_new( char const * const restrict str,
 }
 
 
-bool cc_str_append_char( char ** const restrict str_io_r,
+bool cc_str_append_char( char ** const restrict str_io__r,
                          char const chr )
 {
-    if ( !str_io_r ) return false;
+    if ( !str_io__r ) return false;
 
-    if ( !*str_io_r )
+    if ( !*str_io__r )
     {
         char * new = (char *)malloc( 2 );
         if ( !new ) return false;
@@ -282,15 +282,15 @@ bool cc_str_append_char( char ** const restrict str_io_r,
         *new = chr;
         *(new + 1) = '\0';
 
-        *str_io_r = new;
+        *str_io__r = new;
         return true;
     }
 
-    size_t len = cc_str_len( *str_io_r ) + 1;
-    char * new = realloc( *str_io_r, len + 1 );
+    size_t len = cc_str_len( *str_io__r ) + 1;
+    char * new = realloc( *str_io__r, len + 1 );
     if ( !new ) return false;
 
-    *str_io_r = new; // *str_io_r was free'd by realloc().
+    *str_io__r = new; // *str_io__r was free'd by realloc().
 
     char * n = new;
     while ( *n ) ++n;
@@ -301,70 +301,70 @@ bool cc_str_append_char( char ** const restrict str_io_r,
     return (bool)( new );
 }
 
-char * cc_str_append_new( char ** const restrict str_1_f,
-                          char ** const restrict str_2_f )
+char * cc_str_append_new( char ** const restrict str_1__f,
+                          char ** const restrict str_2__f )
 {
-    if ( ( !str_1_f ) && ( !str_2_f ) ) return NULL;
+    if ( ( !str_1__f ) && ( !str_2__f ) ) return NULL;
 
     char * new = NULL;
 
-    if ( str_1_f && str_2_f )
-        new = cc_str_concatenate_new( *str_1_f, *str_2_f );
-    else if ( str_1_f )
-        new = cc_str_duplicate_new( *str_1_f, false );
-    else if ( str_2_f )
-        new = cc_str_duplicate_new( *str_2_f, false );
+    if ( str_1__f && str_2__f )
+        new = cc_str_concatenate_new( *str_1__f, *str_2__f );
+    else if ( str_1__f )
+        new = cc_str_duplicate_new( *str_1__f, false );
+    else if ( str_2__f )
+        new = cc_str_duplicate_new( *str_2__f, false );
 
     if ( !new ) return NULL;
 
-    if ( str_1_f )
+    if ( str_1__f )
     {
-        free( *str_1_f );
-        *str_1_f = NULL;
+        free( *str_1__f );
+        *str_1__f = NULL;
     }
 
-    if ( str_2_f )
+    if ( str_2__f )
     {
-        free( *str_2_f );
-        *str_2_f = NULL;
+        free( *str_2__f );
+        *str_2__f = NULL;
     }
 
     return new;
 }
 
-char * cc_str_append_len_new( char ** const restrict str_1_f,
-                              char ** const restrict str_2_f,
+char * cc_str_append_len_new( char ** const restrict str_1__f,
+                              char ** const restrict str_2__f,
                               size_t const max_len )
 {
-    if ( ( !str_1_f ) && ( !str_2_f ) ) return NULL;
+    if ( ( !str_1__f ) && ( !str_2__f ) ) return NULL;
 
     char * new = NULL;
 
-    if ( str_1_f && str_2_f )
-        new = cc_str_concatenate_len_new( *str_1_f, *str_2_f, max_len );
-    else if ( str_1_f )
-        new = cc_str_duplicate_len_new( *str_1_f, false, max_len );
-    else if ( str_2_f )
-        new = cc_str_duplicate_len_new( *str_2_f, false, max_len );
+    if ( str_1__f && str_2__f )
+        new = cc_str_concatenate_len_new( *str_1__f, *str_2__f, max_len );
+    else if ( str_1__f )
+        new = cc_str_duplicate_len_new( *str_1__f, false, max_len );
+    else if ( str_2__f )
+        new = cc_str_duplicate_len_new( *str_2__f, false, max_len );
 
     if ( !new ) return NULL;
 
-    if ( str_1_f )
+    if ( str_1__f )
     {
-        free( *str_1_f );
-        *str_1_f = NULL;
+        free( *str_1__f );
+        *str_1__f = NULL;
     }
 
-    if ( str_2_f )
+    if ( str_2__f )
     {
-        free( *str_2_f );
-        *str_2_f = NULL;
+        free( *str_2__f );
+        *str_2__f = NULL;
     }
 
     return new;
 }
 
-char * cc_str_append_format_new( char ** const restrict str_f,
+char * cc_str_append_format_new( char ** const restrict str__f,
                                  char const * const restrict fmt, ... )
 {
     va_list args;
@@ -407,11 +407,11 @@ char * cc_str_append_format_new( char ** const restrict str_f,
         return NULL;
     }
 
-    // No need to free() str_f, new; cc_str_append_new() does that.
-    return cc_str_append_new( str_f, &new );
+    // No need to free() str__f, new; cc_str_append_new() does that.
+    return cc_str_append_new( str__f, &new );
 }
 
-char * cc_str_append_format_len_new( char ** const restrict str_f,
+char * cc_str_append_format_len_new( char ** const restrict str__f,
                                      size_t const max_len,
                                      char const * const restrict fmt, ... )
 {
@@ -455,6 +455,6 @@ char * cc_str_append_format_len_new( char ** const restrict str_f,
         return NULL;
     }
 
-    // No need to free() str_f, new; cc_str_append_len_new() does that.
-    return cc_str_append_len_new( str_f, &new, max_len );
+    // No need to free() str__f, new; cc_str_append_len_new() does that.
+    return cc_str_append_len_new( str__f, &new, max_len );
 }

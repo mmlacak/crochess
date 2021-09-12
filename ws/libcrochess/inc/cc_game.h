@@ -50,11 +50,11 @@ CcGame * cc_game_new( CcGameStatusEnum status,
 
 // DOCS
 bool cc_game_do_moves( CcGame * const restrict gm,
-                       CcMove ** const restrict moves_n,
+                       CcMove ** const restrict moves__n,
                        CcDoMoveEnum dme );
 
 // DOCS
-bool cc_game_free_all( CcGame ** const restrict game_f );
+bool cc_game_free_all( CcGame ** const restrict game__f );
 
 
 /**
@@ -64,11 +64,11 @@ bool cc_game_free_all( CcGame ** const restrict game_f );
     allocated resources (even in the middle of building whole move data
     structure), before returning from a calling test function.
 
-    @param gm_f A game, can be `NULL`.
-    @param cb_f A chessboard, can be `NULL`.
-    @param moves_f Linked list of moves, can be `NULL`.
-    @param plies_f Linked list of plies, can be `NULL`.
-    @param steps_f Linked list of steps, can be `NULL`.
+    @param gm__f A game, can be `NULL`.
+    @param cb__f A chessboard, can be `NULL`.
+    @param moves__f Linked list of moves, can be `NULL`.
+    @param plies__f Linked list of plies, can be `NULL`.
+    @param steps__f Linked list of steps, can be `NULL`.
     @param cumulative_result A cumulative result so far.
 
     @note
@@ -99,11 +99,11 @@ bool cc_game_free_all( CcGame ** const restrict game_f );
 
     @return `true` if cumulatively successful, `false` otherwise.
 */
-bool cc_game_move_data_free_all( CcGame ** const restrict gm_f,
-                                 CcChessboard ** const restrict cb_f,
-                                 CcMove ** const restrict moves_f,
-                                 CcPly ** const restrict plies_f,
-                                 CcStep ** const restrict steps_f,
+bool cc_game_move_data_free_all( CcGame ** const restrict gm__f,
+                                 CcChessboard ** const restrict cb__f,
+                                 CcMove ** const restrict moves__f,
+                                 CcPly ** const restrict plies__f,
+                                 CcStep ** const restrict steps__f,
                                  bool const cumulative_result );
 
 

@@ -136,13 +136,13 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict 
     return cb;
 }
 
-bool cc_chessboard_free_all( CcChessboard ** const restrict cb_f )
+bool cc_chessboard_free_all( CcChessboard ** const restrict cb__f )
 {
-    if ( !cb_f ) return false;
-    if ( !*cb_f ) return true;
+    if ( !cb__f ) return false;
+    if ( !*cb__f ) return true;
 
-    free( *cb_f );
-    *cb_f = NULL;
+    free( *cb__f );
+    *cb__f = NULL;
 
     return true;
 }

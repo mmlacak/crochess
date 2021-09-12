@@ -31,7 +31,7 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum const ple )
 
 CcPly * cc_ply_new( CcPlyLinkEnum const link,
                     CcPieceEnum const piece,
-                    CcStep ** const restrict steps_n )
+                    CcStep ** const restrict steps__n )
 {
     CcPly * ply = calloc( 1, sizeof( CcPly ) );
     if ( !ply ) return NULL;
@@ -39,10 +39,10 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     ply->link = link;
     ply->piece = piece;
 
-    if ( steps_n )
+    if ( steps__n )
     {
-        ply->steps = *steps_n;
-        *steps_n = NULL;
+        ply->steps = *steps__n;
+        *steps__n = NULL;
     }
     else
         ply->steps = NULL;
@@ -55,11 +55,11 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
 CcPly * cc_ply_append_new( CcPly * const restrict plies,
                            CcPlyLinkEnum const link,
                            CcPieceEnum const piece,
-                           CcStep ** const restrict steps_n )
+                           CcStep ** const restrict steps__n )
 {
     if ( !plies ) return NULL;
 
-    CcPly * new = cc_ply_new( link, piece, steps_n );
+    CcPly * new = cc_ply_new( link, piece, steps__n );
     if ( !new ) return NULL;
 
     CcPly * p = plies;
@@ -69,13 +69,13 @@ CcPly * cc_ply_append_new( CcPly * const restrict plies,
     return new;
 }
 
-bool cc_ply_free_all_plies( CcPly ** const restrict plies_f )
+bool cc_ply_free_all_plies( CcPly ** const restrict plies__f )
 {
-    if ( !plies_f ) return false;
-    if ( !*plies_f ) return true;
+    if ( !plies__f ) return false;
+    if ( !*plies__f ) return true;
 
     bool result = true;
-    CcPly * ply = *plies_f;
+    CcPly * ply = *plies__f;
 
     while ( ply )
     {
@@ -87,7 +87,7 @@ bool cc_ply_free_all_plies( CcPly ** const restrict plies_f )
         ply = tmp;
     }
 
-    *plies_f = NULL;
+    *plies__f = NULL;
     return result;
 }
 

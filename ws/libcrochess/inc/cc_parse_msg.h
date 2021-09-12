@@ -91,12 +91,12 @@ CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse
 /**
     Frees all parser messages, and associated resources, in a linked list.
 
-    @param parse_msgs_f Linked list of parser messages.
+    @param parse_msgs__f Linked list of parser messages.
 
     @return `true` if successful, `false` otherwise.
 
 */
-bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs_f );
+bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs__f );
 
 /**
     Function returning last parse message from a given linked list.
