@@ -49,8 +49,9 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict c
         {
             if ( cc_piece_is_opposite( pe, pawn_en_passant, true ) )
             {
-
-// TODO :: FIX :: check opponent's Pawn tag == CC_TE_EnPassant !!!
+                CcTagEnum te = cc_chessboard_get_tag( cb, step_i, j );
+                if ( !CC_TAG_CAN_EN_PASSANT( te ) )
+                    return false;
 
                 *pawn_o = pe;
                 *dist_j_o = j;
