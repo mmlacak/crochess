@@ -751,22 +751,9 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         // if ( dest_i_len > 0 ) dest_i_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
         if ( dest_i_len > 0 )
             dest_i = atoi( ++s ) - 1;
-        else
+
+        if ( !cc_rule_utils_find_castling_rook( cb, ply_piece, step_i, step_j, &dest_i, &rook, &start_i ) )
             return false;
-
-// TODO :: FIX :: start_i, dest_i
-
-        // if ( !cc_chessboard_is_coord_on_board( cb, dest_i ) )
-        //     return false;
-
-        // if ( dest_i == step_i + 1 )
-        //     start_i = 0; // TODO :: FIX
-        // else if ( dest_i == step_i - 1 )
-        //     start_i = 25; // TODO :: FIX
-        // else
-        //     return false;
-
-// TODO :: FIX :: start_i, dest_i
 
         *side_effect_o = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
         return true;

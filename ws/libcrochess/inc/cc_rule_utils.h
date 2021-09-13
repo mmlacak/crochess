@@ -23,7 +23,7 @@ bool cc_rule_utils_find_castling_rook( CcChessboard const * const restrict cb,
                                        CcPieceEnum const king_castling,
                                        int const step_i_K,
                                        int const step_j_K,
-                                       int const dest_i_R,
+                                       int * const restrict dest_i_R_io,
                                        CcPieceEnum * const restrict rook_o,
                                        int * const restrict start_i_R_o );
 

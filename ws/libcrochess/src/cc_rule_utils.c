@@ -69,17 +69,17 @@ bool cc_rule_utils_find_castling_rook( CcChessboard const * const restrict cb,
                                        CcPieceEnum const king_castling,
                                        int const step_i_K,
                                        int const step_j_K,
-                                       int const dest_i_R,
+                                       int * const restrict dest_i_R_io,
                                        CcPieceEnum * const restrict rook_o,
                                        int * const restrict start_i_R_o )
 {
     if ( !cb ) return false;
+    if ( !dest_i_R_io ) return false;
     if ( !rook_o ) return false;
     if ( !start_i_R_o ) return false;
 
     if ( !CC_PIECE_IS_KING( king_castling ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, step_i_K, step_j_K ) ) return false;
-    if ( !cc_chessboard_is_coord_on_board( cb, dest_i_R ) ) return false;
     if ( !CC_VARIANT_BOARD_SIZE_IS_VALID( cb->size ) ) return false;
 
     //
@@ -102,7 +102,13 @@ bool cc_rule_utils_find_castling_rook( CcChessboard const * const restrict cb,
 
     CcPieceEnum rook = cc_piece_is_light( king_castling, false ) ? CC_PE_LightRook
                                                                  : CC_PE_DarkRook;
-    bool is_left = ( step_i_K < dest_i_R );
+    bool is_left = ( step_i_K < start_i_K );
+    int dest_i_R = is_left ? step_i_K + 1 : step_i_K - 1;
+
+    if ( cc_chessboard_is_coord_on_board( cb, *dest_i_R_io )
+        && ( dest_i_R != *dest_i_R_io ) )
+            return false;
+
     int start_i_R = cc_setup_board_get_figure_row_initial_file( cb->type, rook, is_left );
     if ( !cc_chessboard_is_coord_on_board( cb, start_i_R ) )
         return false;
@@ -134,6 +140,7 @@ bool cc_rule_utils_find_castling_rook( CcChessboard const * const restrict cb,
 
 // TODO :: FIX :: Everything between King and its destination must not be under attack!
 
+    *dest_i_R_io = dest_i_R;
     *rook_o = rook;
     *start_i_R_o = start_i_R;
 
