@@ -278,7 +278,7 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
                                 int * restrict file_o,
                                 int * restrict rank_o );
 
-// *** TODO :: DOCS ***
+// TODO :: DOCS
 bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                                      CcChessboard const * const restrict cb,
                                      CcPieceEnum ply_piece,

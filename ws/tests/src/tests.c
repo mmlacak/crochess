@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.52:251+20210912.075217"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.53:252+20210913.190850"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -117,7 +117,7 @@ int main( void )
 {
     print_app_intro( CC_LIB_VERSION, CROCHESS_TESTS_VERSION );
 
-// // TODO :: DEBUG
+// // DEBUG
 //     // /* static */ char * foo = "xxx";
 //     char * foo = malloc( 4 );
 //     strncpy( foo, "xxx", 4 );
@@ -131,10 +131,10 @@ int main( void )
 //     // free( foo );
 
 //     printf( "%s.\n", foo );
-// // TODO :: DEBUG
+// // DEBUG
 
 
-// // TODO :: DEBUG
+// // DEBUG
 //     printf("1: %d.\n", CC_MAX( 5, 11 ));
 //     printf("2: %d.\n", CC_MAX( 11, 5 ));
 
@@ -146,10 +146,10 @@ int main( void )
 
 //     printf("7: %f.\n", CC_MIN( 5.5, 11.6 ));
 //     printf("8: %f.\n", CC_MIN( 11.7, 5.8 ));
-// // TODO :: DEBUG
+// // DEBUG
 
 
-// // TODO :: DEBUG
+// // DEBUG
 //     char * con_1 = cc_str_concatenate_new( "Hello", "World!" );
 //     printf( "1: %s.\n", con_1 );
 //     free( con_1 );
@@ -181,7 +181,7 @@ int main( void )
 //     char * dup_8 = cc_str_concatenate_len_new( NULL, "Hello World!", 9 );
 //     printf( "8: %s.\n", dup_8 );
 //     free( dup_8 );
-// // TODO :: DEBUG
+// // DEBUG
 
 
     char * ret = NULL;
@@ -337,7 +337,7 @@ int main( void )
             //
             // Test with AN from CLI.
 
-            // TODO :: Uncomment free(), if this is active!
+            // <!> :: Uncomment free() below, if this is active!
             // char * user_an = cc_next_token_new( NULL, NULL );
 
 
@@ -356,7 +356,7 @@ int main( void )
             free( reverse__o );
             reverse__o = NULL;
 
-            // TODO :: Uncomment, if cc_next_token_new() is active!
+            // <!> :: Uncomment, if cc_next_token_new() above is active!
             // free( user_an );
             // user_an = NULL;
 

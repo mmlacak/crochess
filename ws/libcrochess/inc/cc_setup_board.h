@@ -78,5 +78,13 @@ extern CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VAR
 */
 CcPieceEnum const * cc_board_setup_get( CcVariantEnum const ve );
 
+// TODO :: DOCS
+bool cc_board_setup_has_piece( CcVariantEnum const ve, CcPieceEnum const pe );
+
+// TODO :: DOCS
+int cc_setup_board_get_figure_row_initial_file( CcVariantEnum const ve,
+                                                CcPieceEnum const pe,
+                                                bool const search_left_first );
+
 
 #endif /* __CC_SETUP_BOARD_H__ */

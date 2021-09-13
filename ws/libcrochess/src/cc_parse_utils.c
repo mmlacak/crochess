@@ -742,20 +742,31 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
 
         CcPieceEnum rook = ( ply_piece == CC_PE_LightKing ) ? CC_PE_LightRook
                                                             : CC_PE_DarkRook;
-// TODO :: FIX :: dest_i = off-board !!!
         int start_i = CC_INVALID_OFF_BOARD_COORD_MIN;
         int start_j = step_j;
-// TODO :: FIX :: dest_i = off-board !!!
         int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
         int dest_j = step_j;
 
-        int dest_j_len = isdigit( *( s + 1 ) ) ? 1 : 0;
-        // if ( dest_j_len > 0 ) dest_j_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
-        if ( dest_j_len > 0 )
-            dest_j = atoi( ++s ) - 1;
-// TODO :: CHECK :: dest_j is on-board
+        int dest_i_len = isdigit( *( s + 1 ) ) ? 1 : 0;
+        // if ( dest_i_len > 0 ) dest_i_len += isdigit( *( s + 2 ) ) ? 1 : 0; // Not needed.
+        if ( dest_i_len > 0 )
+            dest_i = atoi( ++s ) - 1;
         else
             return false;
+
+// TODO :: FIX :: start_i, dest_i
+
+        // if ( !cc_chessboard_is_coord_on_board( cb, dest_i ) )
+        //     return false;
+
+        // if ( dest_i == step_i + 1 )
+        //     start_i = 0; // TODO :: FIX
+        // else if ( dest_i == step_i - 1 )
+        //     start_i = 25; // TODO :: FIX
+        // else
+        //     return false;
+
+// TODO :: FIX :: start_i, dest_i
 
         *side_effect_o = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
         return true;

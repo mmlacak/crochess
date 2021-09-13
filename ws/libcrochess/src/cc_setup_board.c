@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 
+#include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_variant.h"
 #include "cc_setup_board.h"
@@ -309,4 +310,55 @@ CcPieceEnum const * cc_board_setup_get( CcVariantEnum const ve )
 
         default : return NULL;
     }
+}
+
+
+bool cc_board_setup_has_piece( CcVariantEnum const ve, CcPieceEnum const pe )
+{
+    CcPieceEnum const * const su = cc_board_setup_get( ve );
+    if ( !su ) return false;
+
+    size_t const size = cc_variant_board_size( ve );
+
+    for ( int i = 0; i < (int)size; ++i )
+    {
+        for ( int j = 0; j < (int)size; ++j )
+        {
+            int z = size * i + j;
+
+            if ( su[ z ] == pe )
+                return true;
+        }
+    }
+
+    return false;
+}
+
+int cc_setup_board_get_figure_row_initial_file( CcVariantEnum const ve,
+                                                CcPieceEnum const pe,
+                                                bool const search_left_first )
+{
+    // Not figure row pieces.
+    if ( ( CC_PIECE_IS_NONE( pe ) ) ||
+         ( CC_PIECE_IS_PAWN( pe ) ) ||
+         ( CC_PIECE_IS_MONOLITH( pe ) ) )
+        return CC_INVALID_OFF_BOARD_COORD_MIN;
+
+    CcPieceEnum const * const su = cc_board_setup_get( ve );
+    if ( !su ) return CC_INVALID_OFF_BOARD_COORD_MIN;
+
+    size_t const size = cc_variant_board_size( ve );
+    int start = search_left_first ? 0 : (int)(size - 1);
+    int step = search_left_first ? 1 : -1;
+    int rank = cc_piece_is_light( pe, true ) ? (int)(size - 1) : 0;
+
+    for ( int j = start; (0 <= j) && (j < (int)size); j += step )
+    {
+        int z = size * rank + j;
+
+        if ( su[ z ] == pe )
+            return j;
+    }
+
+    return CC_INVALID_OFF_BOARD_COORD_MIN;
 }

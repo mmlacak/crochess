@@ -16,6 +16,30 @@
     demoted (if figure), promoted (if Pawn).
 */
 
+// TODO :: DOCS
+#define CC_TAG_EXISTS(te) ( (te) != CC_TE_None )
+
+// TODO :: DOCS
+#define CC_TAG_CAN_RUSH(te) ( (te) == CC_TE_CanRush )
+
+// TODO :: DOCS
+#define CC_TAG_CAN_CASTLE(te) ( (te) == CC_TE_CanCastle )
+
+// TODO :: DOCS
+#define CC_TAG_CAN_PROMOTE(te) ( (te) == CC_TE_DelayedPromotion )
+
+// TODO :: DOCS
+#define CC_TAG_CAN_EN_PASSANT(te) ( (te) == CC_TE_EnPassant )
+
+// TODO :: DOCS
+#define CC_TAG_CAN_PAWN_SACRIFICE(te) ( (te) == CC_TE_PawnSacrifice )
+
+// TODO :: DOCS
+#define CC_TAG_IS_LASTING(te) ( ( (te) == CC_TE_CanRush )           \
+                             || ( (te) == CC_TE_CanCastle )         \
+                             || ( (te) == CC_TE_DelayedPromotion ) )
+
+
 /**
     Enumerates all tags, used in all variants.
 

@@ -1,6 +1,8 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under 3-clause (modified) BSD license. See LICENSE for details.
 
+#include "cc_defines.h"
+#include "cc_setup_board.h"
 #include "cc_rule_utils.h"
 
 
@@ -60,4 +62,80 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict c
     }
 
     return false;
+}
+
+
+bool cc_rule_utils_find_castling_rook( CcChessboard const * const restrict cb,
+                                       CcPieceEnum const king_castling,
+                                       int const step_i_K,
+                                       int const step_j_K,
+                                       int const dest_i_R,
+                                       CcPieceEnum * const restrict rook_o,
+                                       int * const restrict start_i_R_o )
+{
+    if ( !cb ) return false;
+    if ( !rook_o ) return false;
+    if ( !start_i_R_o ) return false;
+
+    if ( !CC_PIECE_IS_KING( king_castling ) ) return false;
+    if ( !cc_chessboard_is_pos_on_board( cb, step_i_K, step_j_K ) ) return false;
+    if ( !cc_chessboard_is_coord_on_board( cb, dest_i_R ) ) return false;
+    if ( !CC_VARIANT_BOARD_SIZE_IS_VALID( cb->size ) ) return false;
+
+    //
+    // King checks
+
+    int start_i_K = cc_setup_board_get_figure_row_initial_file( cb->type, king_castling, false );
+    if ( !cc_chessboard_is_coord_on_board( cb, start_i_K ) )
+        return false;
+
+    CcPieceEnum king = cc_chessboard_get_piece( cb, start_i_K, step_j_K );
+    if ( king_castling != king )
+        return false;
+
+    CcTagEnum tag_K = cc_chessboard_get_tag( cb, start_i_K, step_j_K );
+    if ( !CC_TAG_CAN_CASTLE( tag_K ) )
+        return false;
+
+    //
+    // Rook to find
+
+    CcPieceEnum rook = cc_piece_is_light( king_castling, false ) ? CC_PE_LightRook
+                                                                 : CC_PE_DarkRook;
+    bool is_left = ( step_i_K < dest_i_R );
+    int start_i_R = cc_setup_board_get_figure_row_initial_file( cb->type, rook, is_left );
+    if ( !cc_chessboard_is_coord_on_board( cb, start_i_R ) )
+        return false;
+
+    //
+    // Rook checks
+
+    rook = cc_chessboard_get_piece( cb, start_i_R, step_j_K );
+    if ( ( !CC_PIECE_IS_ROOK( rook ) ) &&
+         ( !cc_piece_is_the_same_color( king_castling, rook, false ) ) )
+        return false;
+
+    CcTagEnum tag_R = cc_chessboard_get_tag( cb, start_i_R, step_j_K );
+    if ( !CC_TAG_CAN_CASTLE( tag_R ) )
+        return false;
+
+    //
+    // Field are empty?
+
+    int lower = is_left ? start_i_R + 1 : start_i_K + 1;
+    int upper = is_left ? start_i_K - 1 : start_i_R - 1;
+
+    for ( int i = lower; i <= upper; ++i )
+    {
+        CcPieceEnum empty = cc_chessboard_get_piece( cb, i, step_j_K );
+        if ( !CC_PIECE_IS_NONE( empty ) )
+            return false;
+    }
+
+// TODO :: FIX :: Everything between King and its destination must not be under attack!
+
+    *rook_o = rook;
+    *start_i_R_o = start_i_R;
+
+    return true;
 }

@@ -151,6 +151,8 @@ bool cc_chessboard_is_coord_on_board( CcChessboard const * const restrict cb,
                                       int const coord )
 {
     if ( !cb ) return false;
+    if ( !CC_VARIANT_BOARD_SIZE_IS_VALID( cb->size ) ) return false;
+
     return ( ( 0 <= coord ) && ( coord < (int)cb->size ) );
 }
 

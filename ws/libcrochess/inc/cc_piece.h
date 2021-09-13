@@ -42,6 +42,15 @@
 #define CC_PIECE_IS_PAWN(pe) ( ( (pe) == CC_PE_LightPawn ) || ( (pe) == CC_PE_DarkPawn ) )
 
 /**
+    Macro expression to evaluate whether piece is a Rook.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Rook, `false` otherwise.
+*/
+#define CC_PIECE_IS_ROOK(pe) ( ( (pe) == CC_PE_LightRook ) || ( (pe) == CC_PE_DarkRook ) )
+
+/**
     Macro expression to evaluate whether piece is a King.
 
     @param pe Piece enum.

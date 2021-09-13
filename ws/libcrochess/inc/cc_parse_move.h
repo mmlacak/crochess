@@ -13,12 +13,12 @@
 #include "cc_parse_msg.h"
 
 
-// TODO :: DOCS
+// DOCS
 CcPly * cc_parse_ply( char const * const restrict ply_str,
                       CcChessboard const * const restrict cb,
                       CcParseMsg ** parse_msgs_io );
 
-// TODO :: DOCS
+// DOCS
 CcMove * cc_parse_move( char const * const restrict move_str,
                         CcChessboard const * const restrict cb,
                         CcParseMsg ** parse_msgs_io );
