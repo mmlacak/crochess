@@ -34,18 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_mv_24_wave_same_color', \
-                    # 'scn_mv_25_wave_opposite_color', \
-                    # 'scn_mv_26_wave_activation_by_unicorn_first_step', \
-                    # 'scn_mv_27_wave_activation_by_unicorn_second_step', \
-                    # 'scn_mv_28_wave_activation_by_unicorn_complete', \
-                    # 'scn_hd_01_centaur_same_color', \
-                    # 'scn_hd_02_centaur_opposite_color', \
-                    # 'scn_hd_03_centaur_multi_step_init', \
-                    # 'scn_hd_04_centaur_multi_step_second', \
-                    # 'scn_hd_05_centaur_multi_step', \
-                    # 'scn_hd_07_wave_activation_by_centaur_first_step', \
-                    # 'scn_hd_08_wave_activation_by_centaur_second_step', \
-                    # 'scn_hd_09_wave_activation_by_centaur_complete', \
-                    'scn_o_25_trance_journey_failed_2', \
+                    'scn_d_17_syzygy_2_stars_steps', \
                 ]

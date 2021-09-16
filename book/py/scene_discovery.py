@@ -806,7 +806,7 @@ class SceneDiscoveryMixin:
         gen_abs_pos = GS.gen_steps([(-1, 1)], start=start_T, include_prev=True, bounds=scene.board.get_position_limits())
 
         for i, pos in enumerate( gen_abs_pos() ):
-            scene.append_arrow( *pos, mark_type=MarkType.Legal, start_pointer=False, end_pointer=False )
+            scene.append_arrow( *pos, mark_type=MarkType.Blocked, start_pointer=False, end_pointer=False )
 
         #
         # field markers
