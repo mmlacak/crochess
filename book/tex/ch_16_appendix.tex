@@ -369,7 +369,7 @@ interactions with pieces on entranced Shaman's step-fields, would be written as 
 In \algfmt{XAN}, it would be \alg{[Hf10-d11]\~{}[Wd11-e13]@[He13-g24]}.
 
 Displacements are noted by writing \alg{<} (less-than) immediately after step in which a piece is reached,
-followed by field of displacement. Optionally, displaced piece can be writen before displacement-field. The
+followed by field of displacement. Optionally, displaced piece can be written before displacement-field. The
 same \hyperref[fig:scn_cot_19_light_light_shaman_interaction_end]{trance-journey example}, now with all
 interactions taken into account, would be written as \alg{Hd11\~{}We13@H..e18<i14..m12<j17..g24}.
 In \algfmt{XAN}, with gathered plies and displaced pieces it would be \\
@@ -425,12 +425,15 @@ and in \algfmt{XAN}, with plies gathering and oblationed piece, as \alg{[Hu2-w5]
 
 Demoting to Pawn is noted by writing \alg{>} (greater-than), optionally followed by disambiguating position,
 i.e. one of rank, file or rank + file, in that order. Optional disambiguation can be preceded by piece which
-was demoted, and demotion-field can be written instead of just a disambiguation.
+was demoted, and demotion-field can be written instead of just a disambiguation. If writing just demoted piece
+is enough to identify which one is it, and where, demoting position does not need to be written.
 
 In this \hyperref[fig:scn_d_16_syzygy_2_stars_init]{syzygy example}, if Monolith was moved by light player,
-then either light Wave or light Bishop could be demoted to Pawn. If Bishop was chosen, that would be written
-as \alg{Mm12>p}. In \algfmt{XAN}, with piece and demotion-field noted it would be \alg{Mn14-m12>Bp8}. There
-is no plies gathering, since only Monolith moved, so there is only one ply.
+then either light Wave or light Bishop could be demoted to Pawn. To be able to distinguish which one is it,
+either demoting position or piece has to be written. If Bishop was chosen, that would be written as \alg{Mm12>p}.
+Since there is only one light Bishop in demoting-to-Pawn syzygy, the same move could be also written as
+\alg{Mm12>B}. In \algfmt{XAN}, with piece and demotion-field noted it would be \alg{Mn14-m12>Bp8}. There is
+no plies gathering, since only Monolith moved, so there is only one ply.
 
 \subsection*{Syzygy, resurrection}
 \addcontentsline{toc}{subsection}{Syzygy, resurrection}
