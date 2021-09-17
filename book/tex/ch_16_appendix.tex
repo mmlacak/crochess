@@ -423,8 +423,8 @@ and in \algfmt{XAN}, with plies gathering and oblationed piece, as \alg{[Hu2-w5]
 \addcontentsline{toc}{subsection}{Syzygy, demoting to Pawn}
 \label{sec:Appendix/Notation/Syzygy, demoting to Pawn}
 
-Demoting to Pawn is noted by writing \alg{>} (greater-than), followed by disambiguating position, i.e.
-one of rank, file or rank + file, in that order. Optionally, disambiguation can be preceded by piece which
+Demoting to Pawn is noted by writing \alg{>} (greater-than), optionally followed by disambiguating position,
+i.e. one of rank, file or rank + file, in that order. Optional disambiguation can be preceded by piece which
 was demoted, and demotion-field can be written instead of just a disambiguation.
 
 In this \hyperref[fig:scn_d_16_syzygy_2_stars_init]{syzygy example}, if Monolith was moved by light player,
@@ -743,8 +743,8 @@ any non-disposable piece.
 \end{table}
 
 First 3 symbols (\alg{.}, \alg{..} and \alg{-}) separates steps within a single ply.
-Other symbols (\alg{\~{}}, \alg{|}, \alg{@} and \alg{:::}) are separators between plies,
-or ply terminators (\alg{||}, \alg{@@}, and \alg{@@@}).
+Other symbols (\alg{\~{}}, \alg{|}, \alg{@} and \alg{:::}) are separators between plies;
+or ply and, by extension, move terminators (\alg{||}, \alg{@@}, and \alg{@@@}).
 
 Items separator (\alg{,}) is used where multiple items needs to be listed for a single
 step (or a ply), e.g. pieces captured in a dark Shaman's dual trance-journey.
@@ -1164,7 +1164,7 @@ are available for a particular variant see
 
 <demoting-side-effects> =
   \alg{>}[<disposable-figure-losing-tag>]
-    <disambiguation>
+    [<disambiguation>]
 
 <resurrecting-side-effects> =
   \alg{$}<disposable-piece>
