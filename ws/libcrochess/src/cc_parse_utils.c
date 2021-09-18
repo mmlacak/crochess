@@ -9,7 +9,7 @@
 
 #include "cc_parse_utils.h"
 
-#include "cc_rule_utils.h"
+#include "cc_rules_misc.h"
 
 /**
     @file cc_parse_utils.c
