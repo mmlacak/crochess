@@ -53,29 +53,29 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
     //
     // steps
 
-    CcStep * start = cc_step_none_new( CC_SLE_Start, 2, 1, CC_FSUE_Clarification_NoOutput );
-    if ( !start ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    CcStep * start__t = cc_step_none_new( CC_SLE_Start, 2, 1, CC_FSUE_Clarification_NoOutput );
+    if ( !start__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( start, CC_SLE_Next, 3, 3, CC_FSUE_Clarification_NoOutput ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
+    if ( !cc_step_none_append_new( start__t, CC_SLE_Next, 3, 3, CC_FSUE_Clarification_NoOutput ) )
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
-    if ( !cc_step_none_append_new( start, CC_SLE_Next, 4, 5, CC_FSUE_Clarification_NoOutput ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
+    if ( !cc_step_none_append_new( start__t, CC_SLE_Next, 4, 5, CC_FSUE_Clarification_NoOutput ) )
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
-    if ( !cc_step_none_append_new( start, CC_SLE_Next, 5, 7, CC_FSUE_User ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
+    if ( !cc_step_none_append_new( start__t, CC_SLE_Next, 5, 7, CC_FSUE_User ) )
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
     //
     // ply
 
-    CcPly * ply = cc_ply_new( CC_PLE_Ply, pe, &start );
-    if ( !ply ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start, false );
+    CcPly * ply__t = cc_ply_new( CC_PLE_Ply, pe, &start__t );
+    if ( !ply__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
     //
     // move [Gc2.d4.e6.f8]
 
-    CcMove * move__o = cc_move_new( "[Gc2.d4.e6.f8]", &ply, CC_MSE_None );
-    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &ply, &start, false );
+    CcMove * move__o = cc_move_new( "[Gc2.d4.e6.f8]", &ply__t, CC_MSE_None );
+    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &ply__t, &start__t, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
                                  TME_Error, "move not done", __FILE__, __LINE__, __func__ )

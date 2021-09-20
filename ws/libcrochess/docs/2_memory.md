@@ -20,12 +20,33 @@ It refers to the one pointer variable, which is the reference from which all oth
 ### Variables
 
 If a pointer, as a standalone variable, has ownership over any entity, `__o` is appended to its name,
-e.g. `CcChessboard * cb__o`.
-
-`__o` is not appended, if ownership is transferred to a function (its parameter), or to another variable.
+e.g. `CcChessboard * cb__o`. If ownership is transferred to a function (its parameter), some entity,
+or to another variable, `__t` is appended.
 
 So, `__o` is appended to a pointer name if that pointer has entity ownership during its whole scope,
-or is the last in a chain of ownership transfers.
+or is the last in a chain of ownership transfers. If pointer has temporary ownership of an entity,
+`__t` is appended to its name.
+
+Transfer of ownership `__t` indicates what would happen if main line of execution is followed, i.e.
+if all data is valid. It is possible that some condition fails, and ownership was not transferred,
+in which case just before bail-out, all ownership and transfer variables must be cleaned as well.
+
+For instance, lets say that up to certain point in code we have instantiated variables, but we haven't
+yet transferred ownership of plies and steps to a larger entity:
+@code{.c}
+    CcChessboard * cb__o = cc_chessboard_new( ... );
+    ...
+    CcPly * plies_0__t = cc_ply_new( ... );
+    ...
+    CcStep * steps_2__t = cc_step_none_new( ... );
+@endcode
+
+Now, if append new step fails, it also has to clean-up all ownership and transfer variables,
+before it can bail-out:
+@code{.c}
+    if ( !cc_step_none_append_new( steps_2__t, ... ) )
+        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
+@endcode
 
 ### Entities
 
@@ -116,12 +137,13 @@ e.g. `str_sio__n`.
 
 ### Variables
 
-| Indicator |     Variable |     `var` |                  `*var` |
-| --------: | -----------: | --------: | ----------------------: |
-|           |   standalone |    borrow |            read + write |
-|     `__o` |   standalone | ownership | read + write + `free()` |
-|           | in an entity | ownership | read + write + `free()` |
-|     `__w` |         both |      weak |            read + write |
+| Indicator |     Variable |              `var` |                  `*var` |
+| --------: | -----------: | -----------------: | ----------------------: |
+|           |   standalone |             borrow |            read + write |
+|     `__o` |   standalone |          ownership | read + write + `free()` |
+|     `__t` |   standalone | ownership transfer |            read + write |
+|           | in an entity |          ownership | read + write + `free()` |
+|     `__w` |         both |               weak |            read + write |
 
 ### Input, output parameters
 
