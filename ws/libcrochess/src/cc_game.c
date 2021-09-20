@@ -64,6 +64,8 @@ bool cc_game_do_moves( CcGame * const restrict gm,
     if ( !moves__n ) return false;
     if ( !*moves__n ) return false;
 
+// TODO :: status after each move
+
     if ( !cc_do_moves( gm->chessboard, *moves__n, dme ) )
         return false;
 

@@ -123,7 +123,7 @@ Summary
 
 If multiple indicators are needed, _static_ indicator (`_s`) is apended to parameter name first, followed
 by direction indicator (one of `_o`, `_io`), finally followed by ownership transfer indicator (one of
-`__w`, `__o`, `__n`, `__f`, `__r`).
+`__w`, `__t`, `__o`, `__n`, `__f`, `__r`).
 
 _Static_ and direction indicators can be combined, ownership transfer indicator is always kept separated,
 e.g. `str_sio__n`.
