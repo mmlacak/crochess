@@ -814,7 +814,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
     }
     else if ( *s == '>' )
     {
-        if ( CC_PIECE_IS_MONOLITH( ply_piece ) )
+        if ( !CC_PIECE_IS_MONOLITH( ply_piece ) )
             return false;
 
         CcPieceEnum piece = CC_PE_None;

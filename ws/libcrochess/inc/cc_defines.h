@@ -20,6 +20,14 @@
 #define CC_INVALID_OFF_BOARD_COORD_MIN (-99)
 
 /**
+    Invalid off-board coordinate, used as an empty argument.
+
+    Used to pass empty (non-initializing) values to _static_ parameters,
+    which would otherwise initialize _static_ variables in a function body.
+*/
+#define CC_STATIC_NONE (-99)
+
+/**
     Off-board coordinate.
 
     Used for e.g. missing coordinates, if notation contains only destination field.
