@@ -147,12 +147,12 @@ e.g. `str_sio__n`.
 
 ### Input, output parameters
 
-| Indicator |          `arg` |            `*arg` |
-| --------: | -------------: | ----------------: |
-|           |          input |              read |
-|      `_s` |  input, `NULL` |    read, _static_ |
-|      `_o` |         output |             write |
-|     `_io` | input + output |      read + write |
+| Indicator |            `arg` |            `*arg` |
+| --------: | ---------------: | ----------------: |
+|           |            input |              read |
+|      `_s` |    input, `NULL` |    read, _static_ |
+|      `_o` |           output |             write |
+|     `_io` |   input + output |      read + write |
 
 ### Ownership transfer parameters
 
@@ -165,5 +165,6 @@ e.g. `str_sio__n`.
 |     `__n` |        `!NULL` |         `*args = NULL;` | ownership taken |
 |     `__f` |        `!NULL` | `free(); *args = NULL;` |           freed |
 |     `__r` |        `!NULL` |    `*args = realloc();` |     reallocated |
+|     `__o` |        `!NULL` |        (input +) output | ownership given |
 
 [<<< prev](1_organization.md "<<< prev") ||
