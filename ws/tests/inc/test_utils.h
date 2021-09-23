@@ -25,4 +25,7 @@ typedef struct TestPrints
 TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMove format_move );
 
 
+bool test_duplicates( CcMove const * const restrict moves );
+
+
 #endif /* __TEST_UTILS_H__ */
