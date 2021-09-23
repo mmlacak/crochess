@@ -110,6 +110,16 @@ CcPly * cc_ply_append_new( CcPly * const restrict plies,
                            CcStep ** const restrict steps__n );
 
 /**
+    Duplicates a given plies into a newly allocated linked list.
+
+    @param plies Linked list to duplicate.
+
+    @return
+    A newly allocated plies, is successful, `NULL` otherwise.
+*/
+CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies );
+
+/**
     Frees all plies in a linked list, and all associated entities.
 
     @param plies__f Linked list of plies.

@@ -12,6 +12,7 @@
 extern char const TESTS_MOVE_TEST_SEPARATOR[];
 extern char const TESTS_MOVE_NOTATION_SEPARATOR[];
 extern char const TESTS_MOVE_CHESSBOARD_SEPARATOR[];
+extern char const TESTS_MOVE_MISC_SEPARATOR[];
 
 
 typedef struct TestPrints

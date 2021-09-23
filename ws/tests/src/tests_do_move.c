@@ -609,6 +609,50 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
     CcPly * plies_2__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightPawn, &steps_2__t );
     if ( !plies_2__t ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_2__t, false );
 
+
+// TODO :: DEBUG
+    printf( TESTS_MOVE_MISC_SEPARATOR );
+
+    CcPly * p = plies_2__t;
+    while ( p )
+    {
+        printf( "%p\n", (void *)p );
+
+        CcStep * s = p->steps;
+        while ( s )
+        {
+            printf( "    %p\n", (void *)s );
+            s = s->next;
+        }
+
+        p = p->next;
+    }
+
+    printf( TESTS_MOVE_NOTATION_SEPARATOR );
+
+    CcPly * dup__o = cc_ply_duplicate_all_new( plies_2__t );
+
+    CcPly * d = dup__o;
+    while ( d )
+    {
+        printf( "%p\n", (void *)d );
+
+        CcStep * s = d->steps;
+        while ( s )
+        {
+            printf( "    %p\n", (void *)s );
+            s = s->next;
+        }
+
+        d = d->next;
+    }
+
+    cc_ply_free_all_plies( &dup__o );
+
+    printf( TESTS_MOVE_MISC_SEPARATOR );
+// TODO :: DEBUG
+
+
     //
     // move [Pl22-l22=Q]
 

@@ -69,6 +69,40 @@ CcPly * cc_ply_append_new( CcPly * const restrict plies,
     return new;
 }
 
+CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
+{
+    if ( !plies ) return NULL;
+
+    CcStep * steps = cc_step_duplicate_all_new( plies->steps );
+    if ( !steps ) return NULL;
+
+    CcPly * new = cc_ply_new( plies->link, plies->piece, &steps );
+    if ( !new ) return NULL;
+
+    CcPly const * from = plies->next;
+
+    while ( from )
+    {
+        CcStep * s = cc_step_duplicate_all_new( from->steps );
+        if ( !s )
+        {
+            cc_ply_free_all_plies( &new );
+            return NULL;
+        }
+
+        CcPly * n = cc_ply_append_new( new, from->link, from->piece, &s );
+        if ( !n )
+        {
+            cc_ply_free_all_plies( &new );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return new;
+}
+
 bool cc_ply_free_all_plies( CcPly ** const restrict plies__f )
 {
     if ( !plies__f ) return false;
