@@ -56,25 +56,6 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     return gm;
 }
 
-bool cc_game_do_moves( CcGame * const restrict gm,
-                       CcMove ** const restrict moves__n,
-                       CcDoMoveEnum dme )
-{
-    if ( !gm ) return false;
-    if ( !moves__n ) return false;
-    if ( !*moves__n ) return false;
-
-// TODO :: status after each move
-
-    if ( !cc_do_moves( gm->chessboard, *moves__n, dme ) )
-        return false;
-
-    if ( !cc_move_append_or_init( &( gm->moves ), moves__n ) )
-        return false;
-
-    return true;
-}
-
 bool cc_game_free_all( CcGame ** const restrict game__f )
 {
     if ( !game__f ) return false;

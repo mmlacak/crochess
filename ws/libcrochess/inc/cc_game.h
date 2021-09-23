@@ -16,6 +16,9 @@
 // DOCS
 #define CC_GAME_STATUS_IS_DARK_TURN(gse) ( (gse) == CC_GSE_Turn_Dark )
 
+// DOCS
+#define CC_GAME_STATUS_IS_TURN(gse) ( ( (gse) == CC_GSE_Turn_Light ) || ( (gse) == CC_GSE_Turn_Dark ) )
+
 
 // DOCS
 typedef enum CcGameStatusEnum
@@ -47,11 +50,6 @@ typedef struct CcGame
 CcGame * cc_game_new( CcGameStatusEnum status,
                       CcVariantEnum ve,
                       bool const do_setup );
-
-// DOCS
-bool cc_game_do_moves( CcGame * const restrict gm,
-                       CcMove ** const restrict moves__n,
-                       CcDoMoveEnum dme );
 
 // DOCS
 bool cc_game_free_all( CcGame ** const restrict game__f );

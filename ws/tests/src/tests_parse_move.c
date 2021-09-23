@@ -260,6 +260,15 @@ bool test_parse_move_single_ply( TestPrints tp )
                                  TME_Error, "parse failed", __FILE__, __LINE__, __func__ )
              && result;
 
+    if ( tp.do_print_chessboard )
+    {
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
+        cc_chessboard_print( cb, true );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
+        cc_chessboard_print( cb, false );
+        printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
+    }
+
     //
     // free, return
 

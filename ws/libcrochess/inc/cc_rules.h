@@ -1,0 +1,23 @@
+// Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
+// Licensed under 3-clause (modified) BSD license. See LICENSE for details.
+
+#ifndef __CC_RULES_H__
+#define __CC_RULES_H__
+
+#include <stdbool.h>
+
+#include "cc_game.h"
+
+
+// DOCS
+bool cc_rules_do_moves( CcGame * const restrict gm,
+                        CcMove ** const restrict moves__n,
+                        CcDoMoveEnum dme );
+
+
+// DOCS
+bool cc_rules_make_move( CcGame * const restrict game,
+                         char const * const restrict move_an );
+
+
+#endif /* __CC_RULES_H__ */
