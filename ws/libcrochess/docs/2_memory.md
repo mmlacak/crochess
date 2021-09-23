@@ -113,10 +113,11 @@ Ownership transfer parameters are indicated by:
 - appending `__n` if inner pointer is going to be `NULL`-ed, e.g. `CcPly ** restrict plies__n`
 - appending `__f` if inner pointer is going to be `free()`-ed then `NULL`-ed, e.g. `char ** restrict str__f`
 - appending `__r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** const restrict str_io__r`
+- appending `__o` if inner pointer is going to transfer ownership out of a function, e.g. `char ** const restrict str__o`
 
-Ownership transfer indicator (one of `__n`, `__f`, `__r`) tells what will happen to inner pointer
-(i.e. to `*arg` if `arg` is passed), if main line is executed; that is to say, if all parameters
-were valid.
+Ownership transfer indicator (one of `__n`, `__f`, `__r`, `__o`) tells what will happen to inner
+pointer (i.e. to `*arg` if `arg` is passed into `Foo **` type parameter), if main line is executed;
+that is to say, if all parameters were valid, and all sanity checks passed.
 
 Summary
 -------
