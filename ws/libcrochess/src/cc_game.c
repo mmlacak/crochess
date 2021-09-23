@@ -62,28 +62,28 @@ CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game )
 
     CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
 
-    CcGame * g = cc_game_new( game->status, ve, false );
-    if ( !g ) return NULL;
+    CcGame * gm__o = cc_game_new( game->status, ve, false );
+    if ( !gm__o ) return NULL;
 
-    CcChessboard * c = cc_chessboard_duplicate_new( game->chessboard );
-    if ( game->chessboard && ( !c ) )
+    CcChessboard * cb__t = cc_chessboard_duplicate_new( game->chessboard );
+    if ( game->chessboard && ( !cb__t ) )
     {
-        cc_game_free_all( &g );
+        cc_game_free_all( &gm__o );
         return NULL;
     }
 
-    g->chessboard = c;
+    gm__o->chessboard = cb__t;
 
-    CcMove * m = cc_move_duplicate_all_new( game->moves );
-    if ( game->moves && ( !m ) )
+    CcMove * mv__t = cc_move_duplicate_all_new( game->moves );
+    if ( game->moves && ( !mv__t ) )
     {
-        cc_game_free_all( &g );
+        cc_game_free_all( &gm__o );
         return NULL;
     }
 
-    g->moves = m;
+    gm__o->moves = mv__t;
 
-    return g;
+    return gm__o;
 }
 
 bool cc_game_free_all( CcGame ** const restrict game__f )

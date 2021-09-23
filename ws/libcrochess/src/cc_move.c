@@ -84,34 +84,34 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
 {
     if ( !moves ) return NULL;
 
-    CcPly * plies = cc_ply_duplicate_all_new( moves->plies );
-    if ( !plies ) return NULL;
+    CcPly * plies__t = cc_ply_duplicate_all_new( moves->plies );
+    if ( !plies__t ) return NULL;
 
-    CcMove * new = cc_move_new( moves->notation, &plies, moves->status );
-    if ( !new ) return NULL;
+    CcMove * new__o = cc_move_new( moves->notation, &plies__t, moves->status );
+    if ( !new__o ) return NULL;
 
     CcMove const * from = moves->next;
 
     while ( from )
     {
-        CcPly * p = cc_ply_duplicate_all_new( from->plies );
-        if ( !p )
+        CcPly * p__t = cc_ply_duplicate_all_new( from->plies );
+        if ( !p__t )
         {
-            cc_move_free_all_moves( &new );
+            cc_move_free_all_moves( &new__o );
             return NULL;
         }
 
-        CcMove * n = cc_move_append_new( new, from->notation, &p, from->status );
-        if ( !n )
+        CcMove * n__w = cc_move_append_new( new__o, from->notation, &p__t, from->status );
+        if ( !n__w )
         {
-            cc_move_free_all_moves( &new );
+            cc_move_free_all_moves( &new__o );
             return NULL;
         }
 
         from = from->next;
     }
 
-    return new;
+    return new__o;
 }
 
 bool cc_move_free_all_moves( CcMove ** const restrict moves__f )
