@@ -80,6 +80,16 @@ bool cc_move_append_or_init( CcMove ** const restrict moves_io,
                              CcMove ** const restrict move__n );
 
 /**
+    Duplicates a given moves into a newly allocated linked list.
+
+    @param moves Linked list to duplicate.
+
+    @return
+    A newly allocated moves, is successful, `NULL` otherwise.
+*/
+CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves );
+
+/**
     Frees all moves in a linked list, and all associated entities.
 
     @param moves__f Linked list of moves.

@@ -80,6 +80,40 @@ bool cc_move_append_or_init( CcMove ** const restrict moves_io,
     return true;
 }
 
+CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
+{
+    if ( !moves ) return NULL;
+
+    CcPly * plies = cc_ply_duplicate_all_new( moves->plies );
+    if ( !plies ) return NULL;
+
+    CcMove * new = cc_move_new( moves->notation, &plies, moves->status );
+    if ( !new ) return NULL;
+
+    CcMove const * from = moves->next;
+
+    while ( from )
+    {
+        CcPly * p = cc_ply_duplicate_all_new( from->plies );
+        if ( !p )
+        {
+            cc_move_free_all_moves( &new );
+            return NULL;
+        }
+
+        CcMove * n = cc_move_append_new( new, from->notation, &p, from->status );
+        if ( !n )
+        {
+            cc_move_free_all_moves( &new );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return new;
+}
+
 bool cc_move_free_all_moves( CcMove ** const restrict moves__f )
 {
     if ( !moves__f ) return false;
