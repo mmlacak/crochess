@@ -51,6 +51,16 @@ CcGame * cc_game_new( CcGameStatusEnum status,
                       CcVariantEnum ve,
                       bool const do_setup );
 
+/**
+    Duplicates a given game into a newly allocated one.
+
+    @param game Game to duplicate.
+
+    @return
+    A newly allocated game, is successful, `NULL` otherwise.
+*/
+CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game );
+
 // DOCS
 bool cc_game_free_all( CcGame ** const restrict game__f );
 

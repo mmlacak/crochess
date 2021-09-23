@@ -56,6 +56,36 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     return gm;
 }
 
+CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game )
+{
+    if ( !game ) return NULL;
+
+    CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
+
+    CcGame * g = cc_game_new( game->status, ve, false );
+    if ( !g ) return NULL;
+
+    CcChessboard * c = cc_chessboard_duplicate_new( game->chessboard );
+    if ( game->chessboard && ( !c ) )
+    {
+        cc_game_free_all( &g );
+        return NULL;
+    }
+
+    g->chessboard = c;
+
+    CcMove * m = cc_move_duplicate_all_new( game->moves );
+    if ( game->moves && ( !m ) )
+    {
+        cc_game_free_all( &g );
+        return NULL;
+    }
+
+    g->moves = m;
+
+    return g;
+}
+
 bool cc_game_free_all( CcGame ** const restrict game__f )
 {
     if ( !game__f ) return false;
