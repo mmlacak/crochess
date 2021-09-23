@@ -69,7 +69,7 @@ CcMove * cc_move_new( char const * const restrict notation,
     @see cc_move_new()
 
     @return
-    A newly allocated move, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
 */
 CcMove * cc_move_append( CcMove * const restrict moves,
                          char const * const restrict notation,

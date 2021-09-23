@@ -102,7 +102,7 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     @see cc_ply_new()
 
     @return
-    A newly allocated ply, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
 */
 CcPly * cc_ply_append( CcPly * const restrict plies,
                        CcPlyLinkEnum const link,

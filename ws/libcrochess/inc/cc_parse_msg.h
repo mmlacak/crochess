@@ -58,7 +58,7 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum const type,
     @param msg Parser message.
 
     @return
-    A newly allocated parser message, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
                                   CcParseMsgEnum const type,
@@ -81,7 +81,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
     with a newly allocated parser message as its first element.
 
     @return
-    A newly allocated parser message, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msgs_io,
                                           CcParseMsgEnum const type,

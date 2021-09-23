@@ -238,7 +238,7 @@ CcStep * cc_step_new( CcStepLinkEnum const link,
     @param usage Step formatting usage.
 
     @return
-    A newly allocated step, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated step, is successful, `NULL` otherwise.
 */
 CcStep * cc_step_append( CcStep * const restrict steps,
                          CcStepLinkEnum const link, int const i, int const j, CcSideEffect const side_effect,
