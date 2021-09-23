@@ -71,10 +71,10 @@ CcMove * cc_move_new( char const * const restrict notation,
     @return
     A newly allocated move, is successful, `NULL` otherwise.
 */
-CcMove * cc_move_append_new( CcMove * const restrict moves,
-                             char const * const restrict notation,
-                             CcPly ** const restrict plies__n,
-                             CcMoveStatusEnum const status );
+CcMove * cc_move_append( CcMove * const restrict moves,
+                         char const * const restrict notation,
+                         CcPly ** const restrict plies__n,
+                         CcMoveStatusEnum const status );
 
 bool cc_move_append_or_init( CcMove ** const restrict moves_io,
                              CcMove ** const restrict move__n );

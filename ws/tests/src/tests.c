@@ -29,22 +29,22 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.67:266+20210923.131037"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.68:267+20210923.143041"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
 {
     TestMsg * test_msgs = NULL;
 
-    test_msg_init_or_append_new( &test_msgs, TME_Debug, "just debugging", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append( &test_msgs, TME_Debug, "just debugging", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append_new( &test_msgs, TME_Info, "just informing", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append( &test_msgs, TME_Info, "just informing", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append_new( &test_msgs, TME_Warning, "just warning", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append( &test_msgs, TME_Warning, "just warning", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append_new( &test_msgs, TME_Error, "stepped into a turd", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append( &test_msgs, TME_Error, "stepped into a turd", __FILE__, __LINE__, __func__ );
 
-    test_msg_init_or_append_new( &test_msgs, TME_Fatal, "it's a serious shit", __FILE__, __LINE__, __func__ );
+    test_msg_init_or_append( &test_msgs, TME_Fatal, "it's a serious shit", __FILE__, __LINE__, __func__ );
 
     return test_msgs;
 }
@@ -388,15 +388,15 @@ int main( void )
 
             CcStep * steps_2__o = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
 
-            cc_step_none_append_new( steps_2__o, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
+            cc_step_none_append( steps_2__o, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
 
             CcSideEffect sse_2_1 = cc_side_effect_capture( CC_PE_LightBishop, false );
-            cc_step_append_new( steps_2__o, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
+            cc_step_append( steps_2__o, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
 
             CcSideEffect sse_2_2 = cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
-            cc_step_append_new( steps_2__o, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User );
+            cc_step_append( steps_2__o, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User );
 
-            cc_step_none_append_new( steps_2__o, CC_SLE_Distant, 15, 6, CC_FSUE_Addition );
+            cc_step_none_append( steps_2__o, CC_SLE_Distant, 15, 6, CC_FSUE_Addition );
 
             CcStep * s = steps_2__o;
             while( s )

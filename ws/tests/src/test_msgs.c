@@ -63,12 +63,12 @@ TestMsg * test_msg_new( TestMsgEnum type,
     return new;
 }
 
-TestMsg * test_msg_append_new( TestMsg * const restrict test_msgs,
-                               TestMsgEnum type,
-                               char const * const restrict msg,
-                               char const * const restrict file,
-                               size_t line,
-                               char const * const restrict func )
+TestMsg * test_msg_append( TestMsg * const restrict test_msgs,
+                           TestMsgEnum type,
+                           char const * const restrict msg,
+                           char const * const restrict file,
+                           size_t line,
+                           char const * const restrict func )
 {
     if ( !test_msgs ) return NULL;
 
@@ -82,16 +82,16 @@ TestMsg * test_msg_append_new( TestMsg * const restrict test_msgs,
     return new;
 }
 
-TestMsg * test_msg_init_or_append_new( TestMsg ** const restrict test_msgs,
-                                       TestMsgEnum type,
-                                       char const * const restrict msg,
-                                       char const * const restrict file,
-                                       size_t line,
-                                       char const * const restrict func )
+TestMsg * test_msg_init_or_append( TestMsg ** const restrict test_msgs,
+                                   TestMsgEnum type,
+                                   char const * const restrict msg,
+                                   char const * const restrict file,
+                                   size_t line,
+                                   char const * const restrict func )
 {
     if ( !test_msgs ) return NULL;
 
-    TestMsg * new = test_msg_append_new( *test_msgs, type, msg, file, line, func );
+    TestMsg * new = test_msg_append( *test_msgs, type, msg, file, line, func );
 
     if ( !*test_msgs ) *test_msgs = new;
 

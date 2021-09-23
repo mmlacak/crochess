@@ -56,13 +56,13 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
     CcStep * start__t = cc_step_none_new( CC_SLE_Start, 2, 1, CC_FSUE_Clarification_NoOutput );
     if ( !start__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( start__t, CC_SLE_Next, 3, 3, CC_FSUE_Clarification_NoOutput ) )
+    if ( !cc_step_none_append( start__t, CC_SLE_Next, 3, 3, CC_FSUE_Clarification_NoOutput ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
-    if ( !cc_step_none_append_new( start__t, CC_SLE_Next, 4, 5, CC_FSUE_Clarification_NoOutput ) )
+    if ( !cc_step_none_append( start__t, CC_SLE_Next, 4, 5, CC_FSUE_Clarification_NoOutput ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
-    if ( !cc_step_none_append_new( start__t, CC_SLE_Next, 5, 7, CC_FSUE_User ) )
+    if ( !cc_step_none_append( start__t, CC_SLE_Next, 5, 7, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
     //

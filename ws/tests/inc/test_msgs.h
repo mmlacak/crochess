@@ -42,19 +42,19 @@ TestMsg * test_msg_new( TestMsgEnum type,
                         size_t line,
                         char const * const restrict func );
 
-TestMsg * test_msg_append_new( TestMsg * const restrict test_msgs,
-                               TestMsgEnum type,
-                               char const * const restrict msg,
-                               char const * const restrict file,
-                               size_t line,
-                               char const * const restrict func );
+TestMsg * test_msg_append( TestMsg * const restrict test_msgs,
+                           TestMsgEnum type,
+                           char const * const restrict msg,
+                           char const * const restrict file,
+                           size_t line,
+                           char const * const restrict func );
 
-TestMsg * test_msg_init_or_append_new( TestMsg ** const restrict test_msgs,
-                                       TestMsgEnum type,
-                                       char const * const restrict msg,
-                                       char const * const restrict file,
-                                       size_t line,
-                                       char const * const restrict func );
+TestMsg * test_msg_init_or_append( TestMsg ** const restrict test_msgs,
+                                   TestMsgEnum type,
+                                   char const * const restrict msg,
+                                   char const * const restrict file,
+                                   size_t line,
+                                   char const * const restrict func );
 
 bool test_msg_free_all( TestMsg ** const restrict test_msgs__f );
 

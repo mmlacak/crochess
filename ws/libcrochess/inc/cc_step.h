@@ -240,9 +240,9 @@ CcStep * cc_step_new( CcStepLinkEnum const link,
     @return
     A newly allocated step, is successful, `NULL` otherwise.
 */
-CcStep * cc_step_append_new( CcStep * const restrict steps,
-                             CcStepLinkEnum const link, int const i, int const j, CcSideEffect const side_effect,
-                             CcFormatStepUsageEnum const usage );
+CcStep * cc_step_append( CcStep * const restrict steps,
+                         CcStepLinkEnum const link, int const i, int const j, CcSideEffect const side_effect,
+                         CcFormatStepUsageEnum const usage );
 
 /**
     Duplicates a given steps into a newly allocated linked list.
@@ -265,12 +265,12 @@ bool cc_step_free_all_steps( CcStep ** const restrict steps__f );
 
 
 /** @defgroup step_convenience The step conveniences
- *  The step convenience functions are meant to be used instead of `cc_step_new()`, and `cc_step_append_new()`
+ *  The step convenience functions are meant to be used instead of `cc_step_new()`, and `cc_step_append()`
 
     They have minimal set of arguments required by the type of a step (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_step_new(), cc_step_append_new()
+    @see cc_step_new(), cc_step_append()
  *  @{
  */
 
@@ -332,70 +332,70 @@ CcStep * cc_step_failed_resurrection_new( CcStepLinkEnum const link, int const i
 
 
 /** @defgroup step_convenience_append The append new step conveniences
- *  The append new step convenience functions are meant to be used instead of `cc_step_append_new()`.
+ *  The append new step convenience functions are meant to be used instead of `cc_step_append()`.
 
     They have minimal set of arguments required by the type of a step (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_step_append_new()
+    @see cc_step_append()
  *  @{
  */
 
-CcStep * cc_step_none_append_new( CcStep * const restrict steps,
-                                  CcStepLinkEnum const link, int const i, int const j,
-                                  CcFormatStepUsageEnum const usage );
+CcStep * cc_step_none_append( CcStep * const restrict steps,
+                              CcStepLinkEnum const link, int const i, int const j,
+                              CcFormatStepUsageEnum const usage );
 
-CcStep * cc_step_capture_append_new( CcStep * const restrict steps,
-                                     CcStepLinkEnum const link, int const i, int const j,
-                                     CcPieceEnum const piece, bool const is_promo_tag_lost,
-                                     CcFormatStepUsageEnum const usage );
+CcStep * cc_step_capture_append( CcStep * const restrict steps,
+                                 CcStepLinkEnum const link, int const i, int const j,
+                                 CcPieceEnum const piece, bool const is_promo_tag_lost,
+                                 CcFormatStepUsageEnum const usage );
 
-CcStep * cc_step_displacement_append_new( CcStep * const restrict steps,
-                                          CcStepLinkEnum const link, int const i, int const j,
-                                          CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j,
-                                          CcFormatStepUsageEnum const usage );
+CcStep * cc_step_displacement_append( CcStep * const restrict steps,
+                                      CcStepLinkEnum const link, int const i, int const j,
+                                      CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j,
+                                      CcFormatStepUsageEnum const usage );
 
-CcStep * cc_step_en_passant_append_new( CcStep * const restrict steps,
-                                        CcStepLinkEnum const link, int const i, int const j,
-                                        CcPieceEnum const piece, int const dest_i, int const dest_j,
-                                        CcFormatStepUsageEnum const usage );
-
-CcStep * cc_step_castle_append_new( CcStep * const restrict steps,
-                                    CcStepLinkEnum const link, int const i, int const j,
-                                    CcPieceEnum const rook, int const start_i, int const start_j, int const dest_i, int const dest_j,
-                                    CcFormatStepUsageEnum const usage );
-
-CcStep * cc_step_promote_append_new( CcStep * const restrict steps,
-                                     CcStepLinkEnum const link, int const i, int const j,
-                                     CcPieceEnum const piece,
-                                     CcFormatStepUsageEnum const usage );
-
-CcStep * cc_step_tag_for_promotion_append_new( CcStep * const restrict steps,
-                                               CcStepLinkEnum const link, int const i, int const j,
-                                               CcFormatStepUsageEnum const usage );
-
-CcStep * cc_step_convert_append_new( CcStep * const restrict steps,
-                                     CcStepLinkEnum const link, int const i, int const j,
-                                     CcPieceEnum const piece, bool const is_promo_tag_lost,
-                                     CcFormatStepUsageEnum const usage );
-
-CcStep * cc_step_failed_conversion_append_new( CcStep * const restrict steps,
-                                               CcStepLinkEnum const link, int const i, int const j,
-                                               CcFormatStepUsageEnum const usage );
-
-CcStep * cc_step_demote_append_new( CcStep * const restrict steps,
+CcStep * cc_step_en_passant_append( CcStep * const restrict steps,
                                     CcStepLinkEnum const link, int const i, int const j,
                                     CcPieceEnum const piece, int const dest_i, int const dest_j,
                                     CcFormatStepUsageEnum const usage );
 
-CcStep * cc_step_resurrect_append_new( CcStep * const restrict steps,
-                                       CcStepLinkEnum const link, int const i, int const j,
-                                       CcPieceEnum const piece, int const dest_i, int const dest_j,
-                                       CcFormatStepUsageEnum const usage );
+CcStep * cc_step_castle_append( CcStep * const restrict steps,
+                                CcStepLinkEnum const link, int const i, int const j,
+                                CcPieceEnum const rook, int const start_i, int const start_j, int const dest_i, int const dest_j,
+                                CcFormatStepUsageEnum const usage );
 
-CcStep * cc_step_failed_resurrection_append_new( CcStep * const restrict steps,
-                                                 CcStepLinkEnum const link, int const i, int const j,
-                                                 CcFormatStepUsageEnum const usage );
+CcStep * cc_step_promote_append( CcStep * const restrict steps,
+                                 CcStepLinkEnum const link, int const i, int const j,
+                                 CcPieceEnum const piece,
+                                 CcFormatStepUsageEnum const usage );
+
+CcStep * cc_step_tag_for_promotion_append( CcStep * const restrict steps,
+                                           CcStepLinkEnum const link, int const i, int const j,
+                                           CcFormatStepUsageEnum const usage );
+
+CcStep * cc_step_convert_append( CcStep * const restrict steps,
+                                 CcStepLinkEnum const link, int const i, int const j,
+                                 CcPieceEnum const piece, bool const is_promo_tag_lost,
+                                 CcFormatStepUsageEnum const usage );
+
+CcStep * cc_step_failed_conversion_append( CcStep * const restrict steps,
+                                           CcStepLinkEnum const link, int const i, int const j,
+                                           CcFormatStepUsageEnum const usage );
+
+CcStep * cc_step_demote_append( CcStep * const restrict steps,
+                                CcStepLinkEnum const link, int const i, int const j,
+                                CcPieceEnum const piece, int const dest_i, int const dest_j,
+                                CcFormatStepUsageEnum const usage );
+
+CcStep * cc_step_resurrect_append( CcStep * const restrict steps,
+                                   CcStepLinkEnum const link, int const i, int const j,
+                                   CcPieceEnum const piece, int const dest_i, int const dest_j,
+                                   CcFormatStepUsageEnum const usage );
+
+CcStep * cc_step_failed_resurrection_append( CcStep * const restrict steps,
+                                             CcStepLinkEnum const link, int const i, int const j,
+                                             CcFormatStepUsageEnum const usage );
 
 /** @} */ // end of step_convenience_append
 

@@ -28,10 +28,10 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
     return new;
 }
 
-CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
-                                      CcParseMsgEnum const type,
-                                      size_t const pos,
-                                      char const * const restrict msg )
+CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
+                                  CcParseMsgEnum const type,
+                                  size_t const pos,
+                                  char const * const restrict msg )
 {
     if ( !parse_msgs ) return NULL;
 
@@ -45,14 +45,14 @@ CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
     return new;
 }
 
-CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs_io,
-                                              CcParseMsgEnum const type,
-                                              size_t const pos,
-                                              char const * const restrict msg )
+CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msgs_io,
+                                          CcParseMsgEnum const type,
+                                          size_t const pos,
+                                          char const * const restrict msg )
 {
     if ( !parse_msgs_io ) return NULL;
 
-    CcParseMsg * new = cc_parse_msg_append_new( *parse_msgs_io, type, pos, msg );
+    CcParseMsg * new = cc_parse_msg_append( *parse_msgs_io, type, pos, msg );
 
     if ( !*parse_msgs_io ) *parse_msgs_io = new;
 

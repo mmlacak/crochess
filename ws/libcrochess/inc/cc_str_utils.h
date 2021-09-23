@@ -193,11 +193,11 @@ bool cc_str_append_char( char ** const restrict str_io__r,
 /**
     Function appending strings, by returning a newly allocated string.
 
-    @param str_1__f A string, can be unallocated.
-    @param str_2__f A string to append, can be unallocated.
+    @param str_1__f A string, can be `NULL`.
+    @param str_2__f A string to append, can be `NULL`.
 
     @note
-    If both strings are allocated, resulting string is concatenating the two.
+    If both strings are allocated, resulting string is concatenation of the two.
 
     @note
     If either string is not allocated, only allocated string is copied into a newly allocated string.

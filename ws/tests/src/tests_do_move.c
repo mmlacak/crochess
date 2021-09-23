@@ -61,13 +61,13 @@ bool test_do_move_single_ply( TestPrints const tp )
     CcStep * start__t = cc_step_none_new( CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
     if ( !start__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( start__t, CC_SLE_Next, 6, 4, CC_FSUE_Clarification_NoOutput ) )
+    if ( !cc_step_none_append( start__t, CC_SLE_Next, 6, 4, CC_FSUE_Clarification_NoOutput ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
-    if ( !cc_step_none_append_new( start__t, CC_SLE_Distant, 8, 8, CC_FSUE_Addition ) )
+    if ( !cc_step_none_append( start__t, CC_SLE_Distant, 8, 8, CC_FSUE_Addition ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
-    if ( !cc_step_capture_append_new( start__t, CC_SLE_Distant, 10, 12, CC_PE_DarkPawn, true, CC_FSUE_User ) )
+    if ( !cc_step_capture_append( start__t, CC_SLE_Distant, 10, 12, CC_PE_DarkPawn, true, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &start__t, false );
 
     //
@@ -175,7 +175,7 @@ bool test_do_move_cascading_plies( TestPrints const tp )
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 1, 5, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_0__t, CC_SLE_Destination, 7, 2, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 7, 2, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightPegasus, &steps_0__t );
@@ -187,10 +187,10 @@ bool test_do_move_cascading_plies( TestPrints const tp )
     CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 7, 2, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_1__t, CC_SLE_Destination, 9, 1, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_1__t, CC_SLE_Destination, 9, 1, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
-    if ( !cc_ply_append_new( plies_0__t, CC_PLE_Ply, CC_PE_LightWave, &steps_1__t ) )
+    if ( !cc_ply_append( plies_0__t, CC_PLE_Ply, CC_PE_LightWave, &steps_1__t ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
     //
@@ -199,10 +199,10 @@ bool test_do_move_cascading_plies( TestPrints const tp )
     CcStep * steps_2__t = cc_step_none_new( CC_SLE_Start, 9, 1, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_2__t, CC_SLE_Destination, 9, 4, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_2__t, CC_SLE_Destination, 9, 4, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
-    if ( !cc_ply_append_new( plies_0__t, CC_PLE_Ply, CC_PE_LightPawn, &steps_2__t ) )
+    if ( !cc_ply_append( plies_0__t, CC_PLE_Ply, CC_PE_LightPawn, &steps_2__t ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     //
@@ -271,7 +271,7 @@ bool test_do_move_cascading_plies( TestPrints const tp )
     CcStep * steps_3__t = cc_step_none_new( CC_SLE_Start, 10, 3, CC_FSUE_Clarification_NoOutput );
     if ( !steps_3__t ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
 
-    if ( !cc_step_en_passant_append_new( steps_3__t, CC_SLE_Destination, 9, 2, CC_PE_LightPawn, 9, 4, CC_FSUE_User ) )
+    if ( !cc_step_en_passant_append( steps_3__t, CC_SLE_Destination, 9, 2, CC_PE_LightPawn, 9, 4, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_3__t, false );
 
     CcPly * plies_3__t = cc_ply_new( CC_PLE_Ply, CC_PE_DarkPawn, &steps_3__t );
@@ -280,7 +280,7 @@ bool test_do_move_cascading_plies( TestPrints const tp )
     //
     // move 1, [pk4-j3:Pj5]
 
-    CcMove * move_1__w = cc_move_append_new( move__o, "[pk4-j3:Pj5]", &plies_3__t, CC_MSE_None );
+    CcMove * move_1__w = cc_move_append( move__o, "[pk4-j3:Pj5]", &plies_3__t, CC_MSE_None );
     if ( !move_1__w ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, &plies_3__t, NULL, false );
 
     result = test_print_failure( cc_do_moves( cb__o, move_1__w, CC_DME_DoAllMoves ),
@@ -397,7 +397,7 @@ bool test_do_move_castling( TestPrints const tp )
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 13, 0, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_castle_append_new( steps_0__t, CC_SLE_Destination, 20, 0, CC_PE_LightRook, 24, 0, 19, 0, CC_FSUE_User ) )
+    if ( !cc_step_castle_append( steps_0__t, CC_SLE_Destination, 20, 0, CC_PE_LightRook, 24, 0, 19, 0, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * ply__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightKing, &steps_0__t );
@@ -525,7 +525,7 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 21, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_0__t, CC_SLE_Destination, 15, 21, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 15, 21, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
@@ -537,10 +537,10 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
     CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 15, 21, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
-    if ( !cc_step_tag_for_promotion_append_new( steps_1__t, CC_SLE_Destination, 11, 21, CC_FSUE_User ) )
+    if ( !cc_step_tag_for_promotion_append( steps_1__t, CC_SLE_Destination, 11, 21, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
-    if ( !cc_ply_append_new( plies_0__t, CC_PLE_Ply, CC_PE_LightPyramid, &steps_1__t ) )
+    if ( !cc_ply_append( plies_0__t, CC_PLE_Ply, CC_PE_LightPyramid, &steps_1__t ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
     //
@@ -603,7 +603,7 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
     CcStep * steps_2__t = cc_step_none_new( CC_SLE_Start, 11, 21, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2__t ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, false );
 
-    if ( !cc_step_promote_append_new( steps_2__t, CC_SLE_Destination, 11, 21, CC_PE_LightQueen, CC_FSUE_User ) )
+    if ( !cc_step_promote_append( steps_2__t, CC_SLE_Destination, 11, 21, CC_PE_LightQueen, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, &steps_2__t, false );
 
     CcPly * plies_2__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightPawn, &steps_2__t );
@@ -612,7 +612,7 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
     //
     // move [Pl22-l22=Q]
 
-    CcMove * move_1__w = cc_move_append_new( move__o, "[Pl22-l22=Q]", &plies_2__t, CC_MSE_None );
+    CcMove * move_1__w = cc_move_append( move__o, "[Pl22-l22=Q]", &plies_2__t, CC_MSE_None );
     if ( !move_1__w ) return cc_game_move_data_free_all( NULL, &cb__o, &move__o, &plies_2__t, NULL, false );
 
     // result = test_duplicates( move__o ) && result; // Not really testing moves.
@@ -724,7 +724,7 @@ bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 21, 11, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_0__t, CC_SLE_Destination, 15, 5, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 15, 5, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
@@ -742,10 +742,10 @@ bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
     else
         se_1 = cc_side_effect_convert( CC_PE_LightShaman, false );
 
-    if ( !cc_step_append_new( steps_1__t, CC_SLE_Destination, 11, 5, se_1, CC_FSUE_User ) )
+    if ( !cc_step_append( steps_1__t, CC_SLE_Destination, 11, 5, se_1, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
-    if ( !cc_ply_append_new( plies_0__t, CC_PLE_Ply, CC_PE_LightPyramid, &steps_1__t ) )
+    if ( !cc_ply_append( plies_0__t, CC_PLE_Ply, CC_PE_LightPyramid, &steps_1__t ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
     //
@@ -851,7 +851,7 @@ bool test_do_move_demotion( TestPrints const tp )
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_demote_append_new( steps_0__t, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, 11, 11, CC_FSUE_User ) )
+    if ( !cc_step_demote_append( steps_0__t, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, 11, 11, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_Monolith, &steps_0__t );
@@ -966,7 +966,7 @@ bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool 
             se_0 = cc_side_effect_resurrect( CC_PE_LightWave, 16, 11 );
     }
 
-    if ( !cc_step_append_new( steps_0__t, CC_SLE_Destination, 15, 10, se_0, CC_FSUE_User ) )
+    if ( !cc_step_append( steps_0__t, CC_SLE_Destination, 15, 10, se_0, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightStarchild, &steps_0__t );
@@ -1114,7 +1114,7 @@ bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 3, 22, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_0__t, CC_SLE_Destination, 0, 25, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 0, 25, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
@@ -1131,7 +1131,7 @@ bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
 
     CcPlyLinkEnum ple = ( is_failed ) ? CC_PLE_FailedTeleportation : CC_PLE_Teleportation;
 
-    CcPly * ply_1__w = cc_ply_append_new( plies_0__t, ple, CC_PE_LightBishop, &steps_1__t );
+    CcPly * ply_1__w = cc_ply_append( plies_0__t, ple, CC_PE_LightBishop, &steps_1__t );
     if ( !ply_1__w ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
     //
@@ -1271,7 +1271,7 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 10, 12, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_0__t, CC_SLE_Destination, 8, 14, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 8, 14, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
@@ -1283,10 +1283,10 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
     CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 8, 14, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_1__t, CC_SLE_Destination, 5, 11, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_1__t, CC_SLE_Destination, 5, 11, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
-    if ( !cc_ply_append_new( plies_0__t, CC_PLE_Ply, CC_PE_LightWave, &steps_1__t ) )
+    if ( !cc_ply_append( plies_0__t, CC_PLE_Ply, CC_PE_LightWave, &steps_1__t ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
     //
@@ -1295,16 +1295,16 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
     CcPly * ply_2__w;
 
     if ( is_oblationing )
-        ply_2__w = cc_ply_append_new( plies_0__t, CC_PLE_FailedTeleportation, CC_PE_LightWave, NULL );
+        ply_2__w = cc_ply_append( plies_0__t, CC_PLE_FailedTeleportation, CC_PE_LightWave, NULL );
     else
     {
         CcStep * steps_2__t = cc_step_none_new( CC_SLE_Start, 19, 9, CC_FSUE_Clarification_NoOutput );
         if ( !steps_2__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
-        if ( !cc_step_none_append_new( steps_2__t, CC_SLE_Destination, 17, 7, CC_FSUE_User ) )
+        if ( !cc_step_none_append( steps_2__t, CC_SLE_Destination, 17, 7, CC_FSUE_User ) )
             return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
-        ply_2__w = cc_ply_append_new( plies_0__t, CC_PLE_Teleportation, CC_PE_LightWave, &steps_2__t );
+        ply_2__w = cc_ply_append( plies_0__t, CC_PLE_Teleportation, CC_PE_LightWave, &steps_2__t );
     }
 
     if ( !ply_2__w ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
@@ -1317,10 +1317,10 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
         CcStep * steps_3__t = cc_step_none_new( CC_SLE_Start, 17, 7, CC_FSUE_Clarification_NoOutput );
         if ( !steps_3__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
-        if ( !cc_step_none_append_new( steps_3__t, CC_SLE_Destination, 15, 8, CC_FSUE_User ) )
+        if ( !cc_step_none_append( steps_3__t, CC_SLE_Destination, 15, 8, CC_FSUE_User ) )
             return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_3__t, false );
 
-        if ( !cc_ply_append_new( plies_0__t, CC_PLE_Ply, CC_PE_LightKnight, &steps_3__t ) )
+        if ( !cc_ply_append( plies_0__t, CC_PLE_Ply, CC_PE_LightKnight, &steps_3__t ) )
             return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_3__t, false );
     }
 
@@ -1467,7 +1467,7 @@ bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 4, 8, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_0__t, CC_SLE_Destination, 6, 9, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 6, 9, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, shaman, &steps_0__t );
@@ -1479,10 +1479,10 @@ bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
     CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 6, 9, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
-    if ( !cc_step_none_append_new( steps_1__t, CC_SLE_Destination, 7, 7, CC_FSUE_User ) )
+    if ( !cc_step_none_append( steps_1__t, CC_SLE_Destination, 7, 7, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
-    if ( !cc_ply_append_new( plies_0__t, CC_PLE_Ply, CC_PE_LightWave, &steps_1__t ) )
+    if ( !cc_ply_append( plies_0__t, CC_PLE_Ply, CC_PE_LightWave, &steps_1__t ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
 
     //
@@ -1493,37 +1493,37 @@ bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
     if ( !steps_2__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
 
     if ( is_capturing )
-        if ( !cc_step_none_append_new( steps_2__t, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification ) )
+        if ( !cc_step_none_append( steps_2__t, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification ) )
             return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_1 = is_capturing ?
                            cc_side_effect_capture( CC_PE_LightBishop, false ) :
                            cc_side_effect_displacement( CC_PE_LightBishop, false, 9, 18 );
-    if ( !cc_step_append_new( steps_2__t, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User ) )
+    if ( !cc_step_append( steps_2__t, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_2 = is_capturing ?
                            cc_side_effect_capture( CC_PE_DarkKnight, false ) :
                            cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
-    if ( !cc_step_append_new( steps_2__t, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User ) )
+    if ( !cc_step_append( steps_2__t, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
-    if ( !cc_step_none_append_new( steps_2__t, CC_SLE_Distant, 15, 6, CC_FSUE_Addition ) )
+    if ( !cc_step_none_append( steps_2__t, CC_SLE_Distant, 15, 6, CC_FSUE_Addition ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_4 = is_capturing ?
                            cc_side_effect_none() :
                            cc_side_effect_displacement( CC_PE_LightBishop, false, 11, 24 );
-    if ( !cc_step_append_new( steps_2__t, CC_SLE_Distant, 9, 18, sse_2_4, CC_FSUE_User ) )
+    if ( !cc_step_append( steps_2__t, CC_SLE_Distant, 9, 18, sse_2_4, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_5 = is_capturing ?
                            cc_side_effect_capture( CC_PE_DarkPawn, true ) :
                            cc_side_effect_displacement( CC_PE_DarkPawn, true, 15, 6 );
-    if ( !cc_step_append_new( steps_2__t, CC_SLE_Destination, 21, 4, sse_2_5, CC_FSUE_User ) )
+    if ( !cc_step_append( steps_2__t, CC_SLE_Destination, 21, 4, sse_2_5, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
-    if ( !cc_ply_append_new( plies_0__t, CC_PLE_TranceJourney, shaman, &steps_2__t ) )
+    if ( !cc_ply_append( plies_0__t, CC_PLE_TranceJourney, shaman, &steps_2__t ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     //

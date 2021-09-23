@@ -60,10 +60,10 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum const type,
     @return
     A newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
-                                      CcParseMsgEnum const type,
-                                      size_t const pos,
-                                      char const * const restrict msg );
+CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
+                                  CcParseMsgEnum const type,
+                                  size_t const pos,
+                                  char const * const restrict msg );
 
 /**
     Allocates a new parser message, appends it to a linked list.
@@ -83,10 +83,10 @@ CcParseMsg * cc_parse_msg_append_new( CcParseMsg * const restrict parse_msgs,
     @return
     A newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_init_or_append_new( CcParseMsg ** const restrict parse_msgs_io,
-                                              CcParseMsgEnum const type,
-                                              size_t const pos,
-                                              char const * const restrict msg );
+CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msgs_io,
+                                          CcParseMsgEnum const type,
+                                          size_t const pos,
+                                          char const * const restrict msg );
 
 /**
     Frees all parser messages, and associated resources, in a linked list.

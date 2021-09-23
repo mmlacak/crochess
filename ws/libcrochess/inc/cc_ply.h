@@ -104,10 +104,10 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     @return
     A newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append_new( CcPly * const restrict plies,
-                           CcPlyLinkEnum const link,
-                           CcPieceEnum const piece,
-                           CcStep ** const restrict steps__n );
+CcPly * cc_ply_append( CcPly * const restrict plies,
+                       CcPlyLinkEnum const link,
+                       CcPieceEnum const piece,
+                       CcStep ** const restrict steps__n );
 
 /**
     Duplicates a given plies into a newly allocated linked list.

@@ -42,10 +42,10 @@ CcMove * cc_move_new( char const * const restrict notation,
     return mv;
 }
 
-CcMove * cc_move_append_new( CcMove * const restrict moves,
-                             char const * const restrict notation,
-                             CcPly ** const restrict plies__n,
-                             CcMoveStatusEnum const status )
+CcMove * cc_move_append( CcMove * const restrict moves,
+                         char const * const restrict notation,
+                         CcPly ** const restrict plies__n,
+                         CcMoveStatusEnum const status )
 {
     if ( !moves ) return NULL;
 
@@ -101,7 +101,7 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
             return NULL;
         }
 
-        CcMove * n__w = cc_move_append_new( new__o, from->notation, &p__t, from->status );
+        CcMove * n__w = cc_move_append( new__o, from->notation, &p__t, from->status );
         if ( !n__w )
         {
             cc_move_free_all_moves( &new__o );

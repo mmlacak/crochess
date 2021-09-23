@@ -52,10 +52,10 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     return ply;
 }
 
-CcPly * cc_ply_append_new( CcPly * const restrict plies,
-                           CcPlyLinkEnum const link,
-                           CcPieceEnum const piece,
-                           CcStep ** const restrict steps__n )
+CcPly * cc_ply_append( CcPly * const restrict plies,
+                       CcPlyLinkEnum const link,
+                       CcPieceEnum const piece,
+                       CcStep ** const restrict steps__n )
 {
     if ( !plies ) return NULL;
 
@@ -90,7 +90,7 @@ CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
             return NULL;
         }
 
-        CcPly * n__w = cc_ply_append_new( new__o, from->link, from->piece, &s__t );
+        CcPly * n__w = cc_ply_append( new__o, from->link, from->piece, &s__t );
         if ( !n__w )
         {
             cc_ply_free_all_plies( &new__o );
