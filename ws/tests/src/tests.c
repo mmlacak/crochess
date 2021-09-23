@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.60:259+20210923.004021"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.61:260+20210923.015740"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -376,11 +376,53 @@ int main( void )
         }
         else if ( !strcmp( "z", cmd ) )
         {
-            TestMsg * test_msgs = test();
+            // TestMsg * test_msgs = test();
+            // test_msg_print_all( test_msgs, TME_Warning );
+            // test_msg_free_all( &test_msgs );
 
-            test_msg_print_all( test_msgs, TME_Warning );
+            printf( TESTS_MOVE_TEST_SEPARATOR );
 
-            test_msg_free_all( &test_msgs );
+            CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
+            if ( !cb__o ) return false;
+
+
+            CcStep * steps_2__o = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
+
+            cc_step_none_append_new( steps_2__o, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
+
+            CcSideEffect sse_2_1 = cc_side_effect_capture( CC_PE_LightBishop, false );
+            cc_step_append_new( steps_2__o, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
+
+            CcSideEffect sse_2_2 = cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
+            cc_step_append_new( steps_2__o, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User );
+
+            cc_step_none_append_new( steps_2__o, CC_SLE_Distant, 15, 6, CC_FSUE_Addition );
+
+            CcStep * s = steps_2__o;
+            while( s )
+            {
+                printf( "%p\n", (void *)s );
+                s = s->next;
+            }
+
+            printf( TESTS_MOVE_NOTATION_SEPARATOR );
+
+
+            CcStep * dup__o = cc_step_duplicate_all_new( steps_2__o );
+            if ( !dup__o ) printf( "No dup!\n" );
+
+            CcStep * d = dup__o;
+            while( d )
+            {
+                printf( "%p\n", (void *)d );
+                d = d->next;
+            }
+
+            cc_step_free_all_steps( &steps_2__o );
+
+            cc_step_free_all_steps( &dup__o );
+
+            printf( TESTS_MOVE_TEST_SEPARATOR );
         }
         else
         {

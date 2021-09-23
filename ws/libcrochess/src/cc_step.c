@@ -234,6 +234,30 @@ CcStep * cc_step_append_new( CcStep * const restrict steps,
     return new;
 }
 
+CcStep * cc_step_duplicate_all_new( CcStep const * const restrict steps )
+{
+    if ( !steps ) return NULL;
+
+    CcStep * new = cc_step_new( steps->link, steps->i, steps->j, steps->side_effect, steps->usage );
+    if ( !new ) return NULL;
+
+    CcStep const * from = steps->next;
+
+    while ( from )
+    {
+        CcStep * n = cc_step_append_new( new, from->link, from->i, from->j, from->side_effect, from->usage );
+        if ( !n )
+        {
+            cc_step_free_all_steps( &new );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return new;
+}
+
 bool cc_step_free_all_steps( CcStep ** const restrict steps__f )
 {
     if ( !steps__f ) return false;

@@ -244,6 +244,9 @@ CcStep * cc_step_append_new( CcStep * const restrict steps,
                              CcStepLinkEnum const link, int const i, int const j, CcSideEffect const side_effect,
                              CcFormatStepUsageEnum const usage );
 
+// TODO :: DOCS
+CcStep * cc_step_duplicate_all_new( CcStep const * const restrict steps );
+
 /**
     Frees all steps in a linked list.
 
