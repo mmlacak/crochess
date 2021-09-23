@@ -22,6 +22,11 @@ CcMove * cc_move_new( char const * const restrict notation,
     if ( !mv ) return NULL;
 
     mv->notation = cc_str_duplicate_len_new( notation, false, BUFSIZ );
+    if ( notation && ( !mv->notation ) )
+    {
+        free( mv );
+        return NULL;
+    }
 
     if ( plies__n )
     {
