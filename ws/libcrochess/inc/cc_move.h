@@ -76,6 +76,7 @@ CcMove * cc_move_append( CcMove * const restrict moves,
                          CcPly ** const restrict plies__n,
                          CcMoveStatusEnum const status );
 
+// TODO :: DOCS
 bool cc_move_append_or_init( CcMove ** const restrict moves_io,
                              CcMove ** const restrict move__n );
 

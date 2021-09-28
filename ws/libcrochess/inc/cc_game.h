@@ -35,7 +35,7 @@ typedef enum CcGameStatusEnum
 CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
                                       bool const is_resign,
                                       bool const is_end,
-                                      bool const is_lost );
+                                      bool const is_won );
 
 
 // DOCS

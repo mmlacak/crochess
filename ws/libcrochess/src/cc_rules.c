@@ -4,32 +4,80 @@
 #include "cc_rules.h"
 
 
-bool cc_rules_do_moves( CcGame * const restrict gm,
+bool cc_rules_do_moves( CcGame ** restrict game_io__r,
                         CcMove ** const restrict moves__n,
                         CcDoMoveEnum dme )
 {
-    if ( !gm ) return false;
+    if ( !game_io__r ) return false;
+    if ( !*game_io__r ) return false;
+    if ( !((*game_io__r)->chessboard) ) return false;
+
     if ( !moves__n ) return false;
     if ( !*moves__n ) return false;
 
-// TODO :: status after each move
+    if ( !CC_GAME_STATUS_IS_TURN( (*game_io__r)->status ) ) return false;
 
-    if ( !cc_do_moves( gm->chessboard, *moves__n, dme ) )
-        return false;
+    CcGame * gm__t = cc_game_duplicate_all_new( *game_io__r );
+    if ( !gm__t ) return false;
 
-    if ( !cc_move_append_or_init( &( gm->moves ), moves__n ) )
+    if ( dme == CC_DME_DoAllMoves )
+    {
+        CcMove * mv = *moves__n;
+
+        while ( mv )
+        {
+            if ( !cc_do_moves( gm__t->chessboard, mv, CC_DME_DoOnlyCurrentMove ) )
+            {
+                cc_game_free_all( &gm__t );
+                return false;
+            }
+
+// TODO :: flags for status
+            gm__t->status = cc_game_status_next( gm__t->status, false, false, false );
+
+            mv = mv->next;
+        }
+    }
+    else
+    {
+        if ( !cc_do_moves( gm__t->chessboard, *moves__n, dme ) )
+        {
+            cc_game_free_all( &gm__t );
+            return false;
+        }
+
+// TODO :: flags for status
+        gm__t->status = cc_game_status_next( gm__t->status, false, false, false );
+    }
+
+    if ( !cc_move_append_or_init( &( gm__t->moves ), moves__n ) )
+    {
+        cc_game_free_all( &gm__t );
         return false;
+    }
+
+    if ( !cc_game_free_all( game_io__r ) )
+    {
+        cc_game_free_all( &gm__t );
+        return false;
+    }
+
+    *game_io__r = gm__t;
 
     return true;
 }
 
 
-bool cc_rules_make_move( CcGame * const restrict game,
+bool cc_rules_make_move( CcGame ** const restrict game_io__r,
                          char const * const restrict move_an )
 {
-    if ( !game ) return false;
+    if ( !game_io__r ) return false;
+    if ( !*game_io__r ) return false;
+    if ( !((*game_io__r)->chessboard) ) return false;
+
     if ( !move_an ) return false;
-    if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
+
+    if ( !CC_GAME_STATUS_IS_TURN( (*game_io__r)->status ) ) return false;
 
 
     return true;

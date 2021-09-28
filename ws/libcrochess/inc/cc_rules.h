@@ -10,13 +10,13 @@
 
 
 // DOCS
-bool cc_rules_do_moves( CcGame * const restrict gm,
+bool cc_rules_do_moves( CcGame ** restrict game_io__r,
                         CcMove ** const restrict moves__n,
                         CcDoMoveEnum dme );
 
 
 // DOCS
-bool cc_rules_make_move( CcGame * const restrict game,
+bool cc_rules_make_move( CcGame ** restrict game_io__r,
                          char const * const restrict move_an );
 
 

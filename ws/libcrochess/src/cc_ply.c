@@ -77,7 +77,11 @@ CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
     if ( !steps__t ) return NULL;
 
     CcPly * new__o = cc_ply_new( plies->link, plies->piece, &steps__t );
-    if ( !new__o ) return NULL;
+    if ( !new__o )
+    {
+        cc_step_free_all_steps( &steps__t );
+        return NULL;
+    }
 
     CcPly const * from = plies->next;
 
@@ -93,6 +97,7 @@ CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
         CcPly * n__w = cc_ply_append( new__o, from->link, from->piece, &s__t );
         if ( !n__w )
         {
+            cc_step_free_all_steps( &s__t );
             cc_ply_free_all_plies( &new__o );
             return NULL;
         }

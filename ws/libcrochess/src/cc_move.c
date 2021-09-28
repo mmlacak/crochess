@@ -88,7 +88,11 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
     if ( !plies__t ) return NULL;
 
     CcMove * new__o = cc_move_new( moves->notation, &plies__t, moves->status );
-    if ( !new__o ) return NULL;
+    if ( !new__o )
+    {
+        cc_ply_free_all_plies( &plies__t );
+        return NULL;
+    }
 
     CcMove const * from = moves->next;
 
@@ -104,6 +108,7 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
         CcMove * n__w = cc_move_append( new__o, from->notation, &p__t, from->status );
         if ( !n__w )
         {
+            cc_ply_free_all_plies( &p__t );
             cc_move_free_all_moves( &new__o );
             return NULL;
         }
