@@ -30,9 +30,9 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
     CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_CroatianTies, false );
     if ( !game__o ) return false;
 
-    CcPieceEnum pe = CC_PE_LightPegasus;
+    CcPieceEnum piece_G = CC_PE_LightPegasus;
 
-    cc_chessboard_set_piece( game__o->chessboard, 2, 1, pe );
+    cc_chessboard_set_piece( game__o->chessboard, 2, 1, piece_G );
     if ( tp.do_print_chessboard )
     {
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
@@ -45,7 +45,7 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
 
     bool result = true;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 2, 1 ) == pe ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 2, 1 ) == piece_G ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
@@ -69,7 +69,7 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
     //
     // ply
 
-    CcPly * ply__t = cc_ply_new( CC_PLE_Ply, pe, &start__t );
+    CcPly * ply__t = cc_ply_new( CC_PLE_Ply, piece_G, &start__t );
     if ( !ply__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &start__t, false );
 
     //
@@ -114,7 +114,7 @@ bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
                                  TME_Error, "piece found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 5, 7 ) == CC_PE_LightPegasus ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 5, 7 ) == piece_G ),
                                    TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
