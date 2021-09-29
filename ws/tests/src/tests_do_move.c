@@ -390,19 +390,19 @@ bool test_do_move_castling( TestPrints const tp )
 
     // chessboard
 
-    CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
-    if ( !cb__o ) return false;
+    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    if ( !game__o ) return false;
 
-    cc_chessboard_set_piece_tag( cb__o, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
-    cc_chessboard_set_piece_tag( cb__o, 13, 0, CC_PE_LightKing, CC_TE_CanCastle );
-    cc_chessboard_set_piece_tag( cb__o, 24, 0, CC_PE_LightRook, CC_TE_CanCastle );
+    cc_chessboard_set_piece_tag( game__o->chessboard, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
+    cc_chessboard_set_piece_tag( game__o->chessboard, 13, 0, CC_PE_LightKing, CC_TE_CanCastle );
+    cc_chessboard_set_piece_tag( game__o->chessboard, 24, 0, CC_PE_LightRook, CC_TE_CanCastle );
 
     if ( tp.do_print_chessboard )
     {
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
-        cc_chessboard_print( cb__o, true );
+        cc_chessboard_print( game__o->chessboard, true );
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
-        cc_chessboard_print( cb__o, false );
+        cc_chessboard_print( game__o->chessboard, false );
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
@@ -411,53 +411,49 @@ bool test_do_move_castling( TestPrints const tp )
 
     bool result = true;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 1, 0 ) == CC_PE_LightRook ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 1, 0 ) == CC_PE_LightRook ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 13, 0 ) == CC_PE_LightKing ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 13, 0 ) == CC_PE_LightKing ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 24, 0 ) == CC_PE_LightRook ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 24, 0 ) == CC_PE_LightRook ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 1, 0 ) == CC_TE_CanCastle ),
+    result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 1, 0 ) == CC_TE_CanCastle ),
                                  TME_Error, "tag not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 13, 0 ) == CC_TE_CanCastle ),
+    result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 13, 0 ) == CC_TE_CanCastle ),
                                  TME_Error, "tag not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 24, 0 ) == CC_TE_CanCastle ),
+    result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 24, 0 ) == CC_TE_CanCastle ),
                                  TME_Error, "tag not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     //
     // move Ku&t
 
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 13, 0, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_castle_append( steps_0__t, CC_SLE_Destination, 20, 0, CC_PE_LightRook, 24, 0, 19, 0, CC_FSUE_User ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     CcPly * ply__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightKing, &steps_0__t );
-    if ( !ply__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
+    if ( !ply__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // move, [Kn1-u1&Ry1-t1]
 
     CcMove * move__o = cc_move_new( "[Kn1-u1&Ry1-t1]", &ply__t, CC_MSE_None );
-    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &ply__t, NULL, false );
-
-    result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
-             && result;
+    if ( !move__o ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, NULL, false );
 
     if ( tp.do_print_move )
     {
@@ -469,46 +465,58 @@ bool test_do_move_castling( TestPrints const tp )
         free( alg_not );
     }
 
+    result = test_print_failure( CC_GAME_STATUS_IS_LIGHT_TURN( game__o->status ),
+                                 TME_Error, "light player should be on turn", __FILE__, __LINE__, __func__ )
+             && result;
+
+    result = test_print_failure( cc_rules_do_moves( &game__o, &move__o, CC_DME_DoAllMoves ),
+                                 TME_Error, "move(s) not done", __FILE__, __LINE__, __func__ )
+             && result;
+
+    result = test_print_failure( CC_GAME_STATUS_IS_DARK_TURN( game__o->status ),
+                                 TME_Error, "dark player should be on turn", __FILE__, __LINE__, __func__ )
+             && result;
+
     if ( tp.do_print_chessboard )
     {
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
-        cc_chessboard_print( cb__o, true );
+        cc_chessboard_print( game__o->chessboard, true );
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
-        cc_chessboard_print( cb__o, false );
+        cc_chessboard_print( game__o->chessboard, false );
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
     // tests
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 1, 0 ) == CC_PE_LightRook ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 1, 0 ) == CC_PE_LightRook ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 19, 0 ) == CC_PE_LightRook ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 19, 0 ) == CC_PE_LightRook ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 20, 0 ) == CC_PE_LightKing ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 20, 0 ) == CC_PE_LightKing ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 1, 0 ) == CC_TE_CanCastle ),
+    result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 1, 0 ) == CC_TE_CanCastle ),
                                  TME_Error, "tag not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 19, 0 ) == CC_TE_None ),
+    result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 19, 0 ) == CC_TE_None ),
                                  TME_Error, "tag found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 20, 0 ) == CC_TE_None ),
+    result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 20, 0 ) == CC_TE_None ),
                                  TME_Error, "tag found", __FILE__, __LINE__, __func__ )
              && result;
 
     //
     // free, return
 
-    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( &game__o, NULL, &move__o, NULL, NULL, result );
 }
 
 bool test_do_move_tag_and_promotion( TestPrints const tp )
