@@ -123,7 +123,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
                                                        BUFSIZ,
                                                        "*%c%s",
                                                        fp_char_value( se->capture.piece ),
-                                                       ( se->capture.is_promo_tag_lost ) ? "==" : "" );
+                                                       ( se->capture.is_tag_lost ) ? "==" : "" );
             }
 
             break;
@@ -134,7 +134,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             bool is_user = ( format_move.usage <= CC_FSUE_User );
 
             char piece = fp_char_value( se->displacement.piece );
-            char * is_promo_tag_lost = ( se->displacement.is_promo_tag_lost ) ? "==" : "";
+            char * is_tag_lost = ( se->displacement.is_tag_lost ) ? "==" : "";
             char file = cc_format_pos_file( se->displacement.dest_i );
             char * rank = cc_format_pos_rank_new( se->displacement.dest_j );
 
@@ -158,7 +158,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
                                                             BUFSIZ,
                                                             "<%c%s%c%s",
                                                             piece,
-                                                            is_promo_tag_lost,
+                                                            is_tag_lost,
                                                             file,
                                                             rank );
                     free( rank );
@@ -268,7 +268,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
                                                         BUFSIZ,
                                                         "%%%c%s",
                                                         fp_char_value( se->convert.piece ),
-                                                        ( se->convert.is_promo_tag_lost ) ? "==" : "" );
+                                                        ( se->convert.is_tag_lost ) ? "==" : "" );
             }
 
             break;

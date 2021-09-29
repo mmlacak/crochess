@@ -79,11 +79,11 @@ typedef struct CcSideEffect
     union
     {
         struct  { CcPieceEnum piece; /**< Piece which has been captured. */
-                  bool is_promo_tag_lost; /**< Flag, whether captured Pawn has lost its delayed promotion tag. */
+                  bool is_tag_lost; /**< Flag, whether captured piece has lost its tag. */
                 } capture; /**< Capture. */
 
         struct  { CcPieceEnum piece; /**< Piece which has been displaced. */
-                  bool is_promo_tag_lost; /**< Flag, whether displaced Pawn has lost its delayed promotion tag. */
+                  bool is_tag_lost; /**< Flag, whether displaced piece has lost its tag. */
                   int dest_i; /**< File, displacement destination. */
                   int dest_j; /**< Rank, displacement destination. */
                 } displacement; /**< Displacement, used during light Shaman's trance-journey. */
@@ -104,7 +104,7 @@ typedef struct CcSideEffect
                 } promote; /**< Promotion. */
 
         struct  { CcPieceEnum piece; /**< Piece which has been converted. */
-                  bool is_promo_tag_lost; /**< Flag, if converted Pawn has lost its delayed promotion tag. */
+                  bool is_tag_lost; /**< Flag, if converted piece has lost its tag. */
                 } convert; /**< Conversion. */
 
         struct  { CcPieceEnum piece; /**< Piece which has been demoted to Pawn. */
@@ -124,7 +124,7 @@ typedef struct CcSideEffect
 
     @param type Side-effect enum.
     @param piece A piece.
-    @param is_promo_tag_lost Flag, if Pawn has lost its delayed promotion tag.
+    @param is_tag_lost Flag, if Pawn has lost its delayed promotion tag.
     @param start_i File, starting position.
     @param start_j Rank, starting position.
     @param dest_i File, destination position.
@@ -138,7 +138,7 @@ typedef struct CcSideEffect
 */
 CcSideEffect cc_side_effect( CcSideEffectEnum const type,
                              CcPieceEnum const piece,
-                             bool const is_promo_tag_lost,
+                             bool const is_tag_lost,
                              int const start_i, int const start_j,
                              int const dest_i, int const dest_j );
 
@@ -153,13 +153,13 @@ CcSideEffect cc_side_effect( CcSideEffectEnum const type,
  */
 
 CcSideEffect cc_side_effect_none();
-CcSideEffect cc_side_effect_capture( CcPieceEnum const piece, bool const is_promo_tag_lost );
-CcSideEffect cc_side_effect_displacement( CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j );
+CcSideEffect cc_side_effect_capture( CcPieceEnum const piece, bool const is_tag_lost );
+CcSideEffect cc_side_effect_displacement( CcPieceEnum const piece, bool const is_tag_lost, int const dest_i, int const dest_j );
 CcSideEffect cc_side_effect_en_passant( CcPieceEnum const piece, int const dest_i, int const dest_j );
 CcSideEffect cc_side_effect_castle( CcPieceEnum const rook, int const start_i, int const start_j, int const dest_i, int const dest_j );
 CcSideEffect cc_side_effect_promote( CcPieceEnum const piece );
 CcSideEffect cc_side_effect_tag_for_promotion();
-CcSideEffect cc_side_effect_convert( CcPieceEnum const piece, bool const is_promo_tag_lost );
+CcSideEffect cc_side_effect_convert( CcPieceEnum const piece, bool const is_tag_lost );
 CcSideEffect cc_side_effect_failed_conversion();
 CcSideEffect cc_side_effect_demote( CcPieceEnum const piece, int const dest_i, int const dest_j );
 CcSideEffect cc_side_effect_resurrect( CcPieceEnum const piece, int const dest_i, int const dest_j );
@@ -288,11 +288,11 @@ CcStep * cc_step_none_new( CcStepLinkEnum const link, int const i, int const j,
                            CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_capture_new( CcStepLinkEnum const link, int const i, int const j,
-                              CcPieceEnum const piece, bool const is_promo_tag_lost,
+                              CcPieceEnum const piece, bool const is_tag_lost,
                               CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_displacement_new( CcStepLinkEnum const link, int const i, int const j,
-                                   CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j,
+                                   CcPieceEnum const piece, bool const is_tag_lost, int const dest_i, int const dest_j,
                                    CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_en_passant_new( CcStepLinkEnum const link, int const i, int const j,
@@ -311,7 +311,7 @@ CcStep * cc_step_tag_for_promotion_new( CcStepLinkEnum const link, int const i, 
                                         CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_convert_new( CcStepLinkEnum const link, int const i, int const j,
-                              CcPieceEnum const piece, bool const is_promo_tag_lost,
+                              CcPieceEnum const piece, bool const is_tag_lost,
                               CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_failed_conversion_new( CcStepLinkEnum const link, int const i, int const j,
@@ -347,12 +347,12 @@ CcStep * cc_step_none_append( CcStep * const restrict steps,
 
 CcStep * cc_step_capture_append( CcStep * const restrict steps,
                                  CcStepLinkEnum const link, int const i, int const j,
-                                 CcPieceEnum const piece, bool const is_promo_tag_lost,
+                                 CcPieceEnum const piece, bool const is_tag_lost,
                                  CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_displacement_append( CcStep * const restrict steps,
                                       CcStepLinkEnum const link, int const i, int const j,
-                                      CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j,
+                                      CcPieceEnum const piece, bool const is_tag_lost, int const dest_i, int const dest_j,
                                       CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_en_passant_append( CcStep * const restrict steps,
@@ -376,7 +376,7 @@ CcStep * cc_step_tag_for_promotion_append( CcStep * const restrict steps,
 
 CcStep * cc_step_convert_append( CcStep * const restrict steps,
                                  CcStepLinkEnum const link, int const i, int const j,
-                                 CcPieceEnum const piece, bool const is_promo_tag_lost,
+                                 CcPieceEnum const piece, bool const is_tag_lost,
                                  CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_failed_conversion_append( CcStep * const restrict steps,

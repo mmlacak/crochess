@@ -642,13 +642,13 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
 
         CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-        bool is_promo_tag_lost = ( tag == CC_TE_DelayedPromotion );
+        bool is_tag_lost = ( tag == CC_TE_DelayedPromotion );
 
         if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-            if ( !is_promo_tag_lost )
+            if ( !is_tag_lost )
                 return false;
 
-        *side_effect_o = cc_side_effect_capture( piece, is_promo_tag_lost );
+        *side_effect_o = cc_side_effect_capture( piece, is_tag_lost );
         return true;
     }
     else if ( *s == '<' )
@@ -670,11 +670,11 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
 
         CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-        bool is_promo_tag_lost = ( tag == CC_TE_DelayedPromotion );
+        bool is_tag_lost = ( tag == CC_TE_DelayedPromotion );
 
         if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
         {
-            if ( !is_promo_tag_lost )
+            if ( !is_tag_lost )
                 return false;
             else
                 s += 2;
@@ -704,7 +704,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         else
             return false;
 
-        *side_effect_o = cc_side_effect_displacement( piece, is_promo_tag_lost, dest_i, dest_j );
+        *side_effect_o = cc_side_effect_displacement( piece, is_tag_lost, dest_i, dest_j );
         return true;
     }
     else if ( *s == ':' )
@@ -800,13 +800,13 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             if ( piece != pe ) return false;
 
             CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-            bool is_promo_tag_lost = ( tag == CC_TE_DelayedPromotion );
+            bool is_tag_lost = ( tag == CC_TE_DelayedPromotion );
 
             if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-                if ( !is_promo_tag_lost )
+                if ( !is_tag_lost )
                     return false;
 
-            *side_effect_o = cc_side_effect_convert( piece, is_promo_tag_lost );
+            *side_effect_o = cc_side_effect_convert( piece, is_tag_lost );
             return true;
         }
         else

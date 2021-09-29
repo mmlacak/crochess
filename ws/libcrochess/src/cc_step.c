@@ -35,7 +35,7 @@ bool cc_side_effect_enum_is_castling( CcSideEffectEnum const see )
 
 CcSideEffect cc_side_effect( CcSideEffectEnum const type,
                              CcPieceEnum const piece,
-                             bool const is_promo_tag_lost,
+                             bool const is_tag_lost,
                              int const start_i, int const start_j,
                              int const dest_i, int const dest_j )
 {
@@ -45,12 +45,12 @@ CcSideEffect cc_side_effect( CcSideEffectEnum const type,
     if ( sse.type == CC_SEE_Capture )
     {
         sse.capture.piece = piece;
-        sse.capture.is_promo_tag_lost = is_promo_tag_lost;
+        sse.capture.is_tag_lost = is_tag_lost;
     }
     else if ( sse.type == CC_SEE_Displacement )
     {
         sse.displacement.piece = piece;
-        sse.displacement.is_promo_tag_lost = is_promo_tag_lost;
+        sse.displacement.is_tag_lost = is_tag_lost;
         sse.displacement.dest_i = dest_i;
         sse.displacement.dest_j = dest_j;
     }
@@ -76,7 +76,7 @@ CcSideEffect cc_side_effect( CcSideEffectEnum const type,
     else if ( sse.type == CC_SEE_Conversion )
     {
         sse.convert.piece = piece;
-        sse.convert.is_promo_tag_lost = is_promo_tag_lost;
+        sse.convert.is_tag_lost = is_tag_lost;
     }
     // Nothing more to do if type == CC_SEE_FailedConversion.
     else if ( sse.type == CC_SEE_Demotion )
@@ -105,18 +105,18 @@ CcSideEffect cc_side_effect_none()
                            CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
-CcSideEffect cc_side_effect_capture( CcPieceEnum const piece, bool const is_promo_tag_lost )
+CcSideEffect cc_side_effect_capture( CcPieceEnum const piece, bool const is_tag_lost )
 {
-    return cc_side_effect( CC_SEE_Capture, piece, is_promo_tag_lost,
+    return cc_side_effect( CC_SEE_Capture, piece, is_tag_lost,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
-CcSideEffect cc_side_effect_displacement( CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j )
+CcSideEffect cc_side_effect_displacement( CcPieceEnum const piece, bool const is_tag_lost, int const dest_i, int const dest_j )
 {
-    return cc_side_effect( CC_SEE_Displacement, piece, is_promo_tag_lost,
+    return cc_side_effect( CC_SEE_Displacement, piece, is_tag_lost,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            dest_i,
@@ -155,9 +155,9 @@ CcSideEffect cc_side_effect_tag_for_promotion()
                            CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
-CcSideEffect cc_side_effect_convert( CcPieceEnum const piece, bool const is_promo_tag_lost )
+CcSideEffect cc_side_effect_convert( CcPieceEnum const piece, bool const is_tag_lost )
 {
-    return cc_side_effect( CC_SEE_Conversion, piece, is_promo_tag_lost,
+    return cc_side_effect( CC_SEE_Conversion, piece, is_tag_lost,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
@@ -287,18 +287,18 @@ CcStep * cc_step_none_new( CcStepLinkEnum const link, int const i, int const j,
 }
 
 CcStep * cc_step_capture_new( CcStepLinkEnum const link, int const i, int const j,
-                              CcPieceEnum const piece, bool const is_promo_tag_lost,
+                              CcPieceEnum const piece, bool const is_tag_lost,
                               CcFormatStepUsageEnum const usage )
 {
-    CcSideEffect se = cc_side_effect_capture( piece, is_promo_tag_lost );
+    CcSideEffect se = cc_side_effect_capture( piece, is_tag_lost );
     return cc_step_new( link, i, j, se, usage );
 }
 
 CcStep * cc_step_displacement_new( CcStepLinkEnum const link, int const i, int const j,
-                                   CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j,
+                                   CcPieceEnum const piece, bool const is_tag_lost, int const dest_i, int const dest_j,
                                    CcFormatStepUsageEnum const usage )
 {
-    CcSideEffect se = cc_side_effect_displacement( piece, is_promo_tag_lost, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_displacement( piece, is_tag_lost, dest_i, dest_j );
     return cc_step_new( link, i, j, se, usage );
 }
 
@@ -334,10 +334,10 @@ CcStep * cc_step_tag_for_promotion_new( CcStepLinkEnum const link, int const i, 
 }
 
 CcStep * cc_step_convert_new( CcStepLinkEnum const link, int const i, int const j,
-                              CcPieceEnum const piece, bool const is_promo_tag_lost,
+                              CcPieceEnum const piece, bool const is_tag_lost,
                               CcFormatStepUsageEnum const usage )
 {
-    CcSideEffect se = cc_side_effect_convert( piece, is_promo_tag_lost );
+    CcSideEffect se = cc_side_effect_convert( piece, is_tag_lost );
     return cc_step_new( link, i, j, se, usage );
 }
 
@@ -384,19 +384,19 @@ CcStep * cc_step_none_append( CcStep * const restrict steps,
 
 CcStep * cc_step_capture_append( CcStep * const restrict steps,
                                  CcStepLinkEnum const link, int const i, int const j,
-                                 CcPieceEnum const piece, bool const is_promo_tag_lost,
+                                 CcPieceEnum const piece, bool const is_tag_lost,
                                  CcFormatStepUsageEnum const usage )
 {
-    CcSideEffect se = cc_side_effect_capture( piece, is_promo_tag_lost );
+    CcSideEffect se = cc_side_effect_capture( piece, is_tag_lost );
     return cc_step_append( steps, link, i, j, se, usage );
 }
 
 CcStep * cc_step_displacement_append( CcStep * const restrict steps,
                                       CcStepLinkEnum const link, int const i, int const j,
-                                      CcPieceEnum const piece, bool const is_promo_tag_lost, int const dest_i, int const dest_j,
+                                      CcPieceEnum const piece, bool const is_tag_lost, int const dest_i, int const dest_j,
                                       CcFormatStepUsageEnum const usage )
 {
-    CcSideEffect se = cc_side_effect_displacement( piece, is_promo_tag_lost, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_displacement( piece, is_tag_lost, dest_i, dest_j );
     return cc_step_append( steps, link, i, j, se, usage );
 }
 
@@ -437,10 +437,10 @@ CcStep * cc_step_tag_for_promotion_append( CcStep * const restrict steps,
 
 CcStep * cc_step_convert_append( CcStep * const restrict steps,
                                  CcStepLinkEnum const link, int const i, int const j,
-                                 CcPieceEnum const piece, bool const is_promo_tag_lost,
+                                 CcPieceEnum const piece, bool const is_tag_lost,
                                  CcFormatStepUsageEnum const usage )
 {
-    CcSideEffect se = cc_side_effect_convert( piece, is_promo_tag_lost );
+    CcSideEffect se = cc_side_effect_convert( piece, is_tag_lost );
     return cc_step_append( steps, link, i, j, se, usage );
 }
 
