@@ -26,7 +26,7 @@ bool test_book_move_scn_ct_03_define_step_ply( int const index, TestPrints const
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d scn_ct_03_define_step_ply\n", index );
 
-    // chessboard
+    // game
 
     CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_CroatianTies, false );
     if ( !game__o ) return false;
@@ -76,14 +76,14 @@ bool test_book_move_scn_ct_03_define_step_ply( int const index, TestPrints const
     //
     // move [Gc2.d4.e6.f8]
 
-    CcMove * move__o = cc_move_new( "[Gc2.d4.e6.f8]", &ply__t, CC_MSE_None );
-    if ( !move__o ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, &start__t, false );
+    CcMove * move__t = cc_move_new( "[Gc2.d4.e6.f8]", &ply__t, CC_MSE_None );
+    if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, &start__t, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__o, tp.format_move );
-        printf( "%s\n", move__o->notation );
+        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
@@ -93,7 +93,7 @@ bool test_book_move_scn_ct_03_define_step_ply( int const index, TestPrints const
                                  TME_Error, "light player should be on turn", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( cc_rules_do_moves( &game__o, &move__o, CC_DME_DoAllMoves ),
+    result = test_print_failure( cc_rules_do_moves( &game__o, &move__t, CC_DME_DoAllMoves ),
                                  TME_Error, "move(s) not done", __FILE__, __LINE__, __func__ )
              && result;
 
