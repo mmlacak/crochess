@@ -95,6 +95,18 @@ char * cc_format_pos_rank_new( int const j )
     return new;
 }
 
+char * cc_format_lost_tag( CcTagEnum te )
+{
+    switch ( te )
+    {
+        case CC_TE_CanRush : return "::";
+        case CC_TE_CanCastle : return "&&";
+        case CC_TE_DelayedPromotion : return "==";
+
+        default : return "";
+    }
+}
+
 char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effect,
                                   CcFormatMove const format_move )
 {
@@ -123,7 +135,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
                                                        BUFSIZ,
                                                        "*%c%s",
                                                        fp_char_value( se->capture.piece ),
-                                                       ( se->capture.is_tag_lost ) ? "==" : "" );
+                                                       cc_format_lost_tag( se->capture.lost_tag ));
             }
 
             break;
@@ -134,34 +146,34 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             bool is_user = ( format_move.usage <= CC_FSUE_User );
 
             char piece = fp_char_value( se->displacement.piece );
-            char * is_tag_lost = ( se->displacement.is_tag_lost ) ? "==" : "";
+            char * lost_tag = cc_format_lost_tag( se->displacement.lost_tag );
             char file = cc_format_pos_file( se->displacement.dest_i );
-            char * rank = cc_format_pos_rank_new( se->displacement.dest_j );
+            char * rank__o = cc_format_pos_rank_new( se->displacement.dest_j );
 
             if ( is_user )
             {
-                if ( rank )
+                if ( rank__o )
                 {
                     result = cc_str_append_format_len_new(  &result,
                                                             BUFSIZ,
                                                             "<%c%s",
                                                             file,
-                                                            rank );
-                    free( rank );
+                                                            rank__o );
+                    free( rank__o );
                 }
             }
             else
             {
-                if ( rank )
+                if ( rank__o )
                 {
                     result = cc_str_append_format_len_new(  &result,
                                                             BUFSIZ,
                                                             "<%c%s%c%s",
                                                             piece,
-                                                            is_tag_lost,
+                                                            lost_tag,
                                                             file,
-                                                            rank );
-                    free( rank );
+                                                            rank__o );
+                    free( rank__o );
                 }
             }
 
@@ -176,24 +188,24 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             }
             else if ( format_move.usage <= CC_FSUE_Clarification )
             {
-                char * rank = cc_format_pos_rank_new( se->en_passant.dest_j );
+                char * rank__o = cc_format_pos_rank_new( se->en_passant.dest_j );
 
-                if ( rank )
+                if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%s", rank );
-                    free( rank );
+                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%s", rank__o );
+                    free( rank__o );
                 }
             }
             else
             {
                 char piece = fp_char_value( se->en_passant.piece );
                 char file = cc_format_pos_file( se->en_passant.dest_i );
-                char * rank = cc_format_pos_rank_new( se->en_passant.dest_j );
+                char * rank__o = cc_format_pos_rank_new( se->en_passant.dest_j );
 
-                if ( rank )
+                if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c%c%s", piece, file, rank );
-                    free( rank );
+                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c%c%s", piece, file, rank__o );
+                    free( rank__o );
                 }
             }
 
@@ -268,7 +280,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
                                                         BUFSIZ,
                                                         "%%%c%s",
                                                         fp_char_value( se->convert.piece ),
-                                                        ( se->convert.is_tag_lost ) ? "==" : "" );
+                                                        cc_format_lost_tag( se->convert.lost_tag ) );
             }
 
             break;
@@ -283,33 +295,33 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         case CC_SEE_Demotion :
         {
             char file = cc_format_pos_file( se->demote.dest_i );
-            char * rank = cc_format_pos_rank_new( se->demote.dest_j );
+            char * rank__o = cc_format_pos_rank_new( se->demote.dest_j );
 
             if ( format_move.usage <= CC_FSUE_User )
             {
-                if ( rank )
+                if ( rank__o )
                 {
                     result = cc_str_append_format_len_new(  &result,
                                                             BUFSIZ,
                                                             ">%c%s",
                                                             file,
-                                                            rank );
+                                                            rank__o );
                 }
             }
             else
             {
-                if ( rank )
+                if ( rank__o )
                 {
                     result = cc_str_append_format_len_new(  &result,
                                                             BUFSIZ,
                                                             ">%c%c%s",
                                                             fp_char_value( se->demote.piece ),
                                                             file,
-                                                            rank );
+                                                            rank__o );
                 }
             }
 
-            free( rank );
+            free( rank__o );
             break;
         }
 
@@ -319,17 +331,17 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
                 || ( format_move.usage >= CC_FSUE_Clarification ) )
             {
                 char file = cc_format_pos_file( se->resurrect.dest_i );
-                char * rank = cc_format_pos_rank_new( se->resurrect.dest_j );
+                char * rank__o = cc_format_pos_rank_new( se->resurrect.dest_j );
 
-                if ( rank )
+                if ( rank__o )
                 {
                     result = cc_str_append_format_len_new(  &result,
                                                             BUFSIZ,
                                                             "$%c%c%s",
                                                             fp_char_value( se->resurrect.piece ),
                                                             file,
-                                                            rank );
-                    free( rank );
+                                                            rank__o );
+                    free( rank__o );
                 }
             }
             else
@@ -392,8 +404,8 @@ char * cc_format_step_new( CcMove const * const restrict move,
         if ( !( cc_side_effect_enum_is_castling( step->side_effect.type )
                 && ( step->usage <= CC_FSUE_Clarification ) ) )
         {
-            char * rank = cc_format_pos_rank_new( step->j );
-            result = cc_str_append_len_new( &result, &rank, BUFSIZ );
+            char * rank__o = cc_format_pos_rank_new( step->j );
+            result = cc_str_append_len_new( &result, &rank__o, BUFSIZ );
         }
 
         char * se = cc_format_side_effect_new( &(step->side_effect), format_move );
@@ -428,7 +440,7 @@ char * cc_format_ply_new( CcMove const * const restrict move,
         case CC_PLE_TranceJourney : result = cc_str_duplicate_len_new( "@", false, 1 ); break;
         case CC_PLE_DualTranceJourney : result = cc_str_duplicate_len_new( "@@", false, 2 ); break;
         case CC_PLE_FailedTranceJourney : result = cc_str_duplicate_len_new( "@@@", false, 3 ); break;
-        case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( "::", false, 2 ); break;
+        case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( ":::", false, 2 ); break;
     }
 
     bool do_wrap = cc_if_wrap_ply_in_square_brackets( move, ply, format_move );

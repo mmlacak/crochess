@@ -642,13 +642,19 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
 
         CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-        bool is_tag_lost = ( tag == CC_TE_DelayedPromotion );
+        CcTagEnum lost_tag = CC_TE_None;
 
         if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-            if ( !is_tag_lost )
-                return false;
+            lost_tag = CC_TE_DelayedPromotion;
+        else if ( ( *( s + 1 ) == '&' ) && ( *( s + 2 ) == '&' ) )
+            lost_tag = CC_TE_CanCastle;
+        else if ( ( *( s + 1 ) == ':' ) && ( *( s + 2 ) == '&' ) )
+            lost_tag = CC_TE_CanRush;
 
-        *side_effect_o = cc_side_effect_capture( piece, is_tag_lost );
+        if ( CC_TAG_IS_LASTING( tag ) && ( tag != lost_tag ) )
+            return false;
+
+        *side_effect_o = cc_side_effect_capture( piece, lost_tag );
         return true;
     }
     else if ( *s == '<' )
@@ -670,11 +676,11 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         }
 
         CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-        bool is_tag_lost = ( tag == CC_TE_DelayedPromotion );
+        bool lost_tag = ( tag == CC_TE_DelayedPromotion );
 
         if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
         {
-            if ( !is_tag_lost )
+            if ( !lost_tag )
                 return false;
             else
                 s += 2;
@@ -704,7 +710,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         else
             return false;
 
-        *side_effect_o = cc_side_effect_displacement( piece, is_tag_lost, dest_i, dest_j );
+        *side_effect_o = cc_side_effect_displacement( piece, lost_tag, dest_i, dest_j );
         return true;
     }
     else if ( *s == ':' )
@@ -800,13 +806,13 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             if ( piece != pe ) return false;
 
             CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-            bool is_tag_lost = ( tag == CC_TE_DelayedPromotion );
+            bool lost_tag = ( tag == CC_TE_DelayedPromotion );
 
             if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-                if ( !is_tag_lost )
+                if ( !lost_tag )
                     return false;
 
-            *side_effect_o = cc_side_effect_convert( piece, is_tag_lost );
+            *side_effect_o = cc_side_effect_convert( piece, lost_tag );
             return true;
         }
         else

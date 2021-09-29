@@ -77,7 +77,7 @@ bool test_do_move_single_ply( TestPrints const tp )
     if ( !cc_step_none_append( start__t, CC_SLE_Distant, 8, 8, CC_FSUE_Addition ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &start__t, false );
 
-    if ( !cc_step_capture_append( start__t, CC_SLE_Distant, 10, 12, CC_PE_DarkPawn, true, CC_FSUE_User ) )
+    if ( !cc_step_capture_append( start__t, CC_SLE_Distant, 10, 12, CC_PE_DarkPawn, CC_TE_DelayedPromotion, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &start__t, false );
 
     //
@@ -1521,14 +1521,14 @@ bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
             return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_1 = is_capturing ?
-                           cc_side_effect_capture( CC_PE_LightBishop, false ) :
-                           cc_side_effect_displacement( CC_PE_LightBishop, false, 9, 18 );
+                           cc_side_effect_capture( CC_PE_LightBishop, CC_TE_None ) :
+                           cc_side_effect_displacement( CC_PE_LightBishop, CC_TE_None, 9, 18 );
     if ( !cc_step_append( steps_2__t, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_2 = is_capturing ?
-                           cc_side_effect_capture( CC_PE_DarkKnight, false ) :
-                           cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
+                           cc_side_effect_capture( CC_PE_DarkKnight, CC_TE_None ) :
+                           cc_side_effect_displacement( CC_PE_DarkKnight, CC_TE_None, 1, 5 );
     if ( !cc_step_append( steps_2__t, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
@@ -1542,8 +1542,8 @@ bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_5 = is_capturing ?
-                           cc_side_effect_capture( CC_PE_DarkPawn, true ) :
-                           cc_side_effect_displacement( CC_PE_DarkPawn, true, 15, 6 );
+                           cc_side_effect_capture( CC_PE_DarkPawn, CC_TE_DelayedPromotion ) :
+                           cc_side_effect_displacement( CC_PE_DarkPawn, CC_TE_DelayedPromotion, 15, 6 );
     if ( !cc_step_append( steps_2__t, CC_SLE_Destination, 21, 4, sse_2_5, CC_FSUE_User ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
 

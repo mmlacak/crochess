@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.72:271+20210929.034435"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.73:272+20210929.045904"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -390,7 +390,7 @@ int main( void )
 
             cc_step_none_append( steps_2__o, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
 
-            CcSideEffect sse_2_1 = cc_side_effect_capture( CC_PE_LightBishop, false );
+            CcSideEffect sse_2_1 = cc_side_effect_capture( CC_PE_LightBishop, CC_TE_None );
             cc_step_append( steps_2__o, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
 
             CcSideEffect sse_2_2 = cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );

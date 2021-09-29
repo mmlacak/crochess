@@ -157,6 +157,9 @@ char cc_format_pos_file( int const i );
 char * cc_format_pos_rank_new( int const j );
 
 
+// TODO :: DOCS
+char * cc_format_lost_tag( CcTagEnum te );
+
 /**
     Returns a newly allocated string containing formatted output of side-effect.
 
