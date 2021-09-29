@@ -21,10 +21,10 @@
 #include "tests_do_move.h"
 
 
-bool test_do_move_single_ply( TestPrints const tp )
+bool test_do_move_single_ply( int const index, TestPrints const tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_single_ply\n" );
+    printf( "%d test_do_move_single_ply\n", index );
 
     // chessboard
 
@@ -144,10 +144,10 @@ bool test_do_move_single_ply( TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_cascading_plies( TestPrints const tp )
+bool test_do_move_cascading_plies( int const index, TestPrints const tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_cascading_plies\n" );
+    printf( "%d test_do_move_cascading_plies\n", index );
 
     // chessboard
 
@@ -383,10 +383,10 @@ bool test_do_move_cascading_plies( TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_castling( TestPrints const tp )
+bool test_do_move_castling( int const index, TestPrints const tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_castling\n" );
+    printf( "%d test_do_move_castling\n", index );
 
     // chessboard
 
@@ -519,10 +519,10 @@ bool test_do_move_castling( TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_tag_and_promotion( TestPrints const tp )
+bool test_do_move_tag_and_promotion( int const index, TestPrints const tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_tag_and_promotion\n" );
+    printf( "%d test_do_move_tag_and_promotion\n", index );
 
     // chessboard
 
@@ -737,10 +737,10 @@ bool test_do_move_tag_and_promotion( TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
+bool test_do_move_conversion( int const index, TestPrints const tp, bool const is_failed )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_conversion\n" );
+    printf( "%d test_do_move_conversion\n", index );
 
     // chessboard
 
@@ -868,10 +868,10 @@ bool test_do_move_conversion( TestPrints const tp, bool const is_failed )
     return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_demotion( TestPrints const tp )
+bool test_do_move_demotion( int const index, TestPrints const tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_demotion\n" );
+    printf( "%d test_do_move_demotion\n", index );
 
     // chessboard
 
@@ -977,10 +977,13 @@ bool test_do_move_demotion( TestPrints const tp )
     return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool const is_oblationing )
+bool test_do_move_resurrection( int const index,
+                                TestPrints const tp,
+                                bool const is_failed,
+                                bool const is_oblationing )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_resurrection\n" );
+    printf( "%d test_do_move_resurrection\n", index );
 
     // chessboard
 
@@ -1125,10 +1128,10 @@ bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool 
     return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
+bool test_do_move_teleportation( int const index, TestPrints const tp, bool const is_failed )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_teleportation\n" );
+    printf( "%d test_do_move_teleportation\n", index );
 
     // chessboard
 
@@ -1282,10 +1285,10 @@ bool test_do_move_teleportation( TestPrints const tp, bool const is_failed )
     return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblationing )
+bool test_do_move_teleportation_wave( int const index, TestPrints const tp, bool const is_oblationing )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_teleportation_wave\n" );
+    printf( "%d test_do_move_teleportation_wave\n", index );
 
     // chessboard
 
@@ -1465,10 +1468,10 @@ bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblatio
     return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
 }
 
-bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing )
+bool test_do_move_trance_journey( int const index, TestPrints const tp, bool const is_capturing )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "test_do_move_trance_journey\n" );
+    printf( "%d test_do_move_trance_journey\n", index );
 
     CcPieceEnum shaman = is_capturing ? CC_PE_DarkShaman : CC_PE_LightShaman;
 

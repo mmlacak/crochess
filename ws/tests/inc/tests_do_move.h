@@ -9,17 +9,20 @@
 #include "test_utils.h"
 
 
-bool test_do_move_single_ply( TestPrints const tp );
-bool test_do_move_cascading_plies( TestPrints const tp );
-bool test_do_move_castling( TestPrints const tp );
-bool test_do_move_tag_and_promotion( TestPrints const tp );
-bool test_do_move_conversion( TestPrints const tp, bool const is_failed );
-bool test_do_move_demotion( TestPrints const tp );
-bool test_do_move_resurrection( TestPrints const tp, bool const is_failed, bool const is_oblationing );
+bool test_do_move_single_ply( int const index, TestPrints const tp );
+bool test_do_move_cascading_plies( int const index, TestPrints const tp );
+bool test_do_move_castling( int const index, TestPrints const tp );
+bool test_do_move_tag_and_promotion( int const index, TestPrints const tp );
+bool test_do_move_conversion( int const index, TestPrints const tp, bool const is_failed );
+bool test_do_move_demotion( int const index, TestPrints const tp );
+bool test_do_move_resurrection( int const index,
+                                TestPrints const tp,
+                                bool const is_failed,
+                                bool const is_oblationing );
 
-bool test_do_move_teleportation( TestPrints const tp, bool const is_failed );
-bool test_do_move_teleportation_wave( TestPrints const tp, bool const is_oblationing );
-bool test_do_move_trance_journey( TestPrints const tp, bool const is_capturing );
+bool test_do_move_teleportation( int const index, TestPrints const tp, bool const is_failed );
+bool test_do_move_teleportation_wave( int const index, TestPrints const tp, bool const is_oblationing );
+bool test_do_move_trance_journey( int const index, TestPrints const tp, bool const is_capturing );
 
 
 #endif /* __TESTS_DO_MOVE_H__ */

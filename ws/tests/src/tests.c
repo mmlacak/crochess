@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.76:275+20210929.225257"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.77:276+20210929.230628"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -227,7 +227,7 @@ int main( void )
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
             if ( ( test_number == 1 ) || ( test_number == 0 ) )
-                if ( !test_book_move_scn_ct_03_define_step_ply( tp ) )
+                if ( !test_book_move_scn_ct_03_define_step_ply( 1, tp ) )
                     printf( "Test test_book_move_scn_ct_03_define_step_ply() failed.\n" );
         }
         else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "test", cmd ) ) )
@@ -240,75 +240,75 @@ int main( void )
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
             if ( ( test_number == 1 ) || ( test_number == 0 ) )
-                if ( !test_do_move_single_ply( tp ) )
+                if ( !test_do_move_single_ply( 1, tp ) )
                     printf( "Test test_do_move_single_ply() failed.\n" );
 
             if ( ( test_number == 2 ) || ( test_number == 0 ) )
-                if ( !test_do_move_cascading_plies( tp ) )
+                if ( !test_do_move_cascading_plies( 2, tp ) )
                     printf( "Test test_do_move_cascading_plies() failed.\n" );
 
             if ( ( test_number == 3 ) || ( test_number == 0 ) )
-                if ( !test_do_move_castling( tp ) )
+                if ( !test_do_move_castling( 3, tp ) )
                     printf( "Test test_do_move_castling() failed.\n" );
 
             if ( ( test_number == 4 ) || ( test_number == 0 ) )
-                if ( !test_do_move_tag_and_promotion( tp ) )
+                if ( !test_do_move_tag_and_promotion( 4, tp ) )
                     printf( "Test test_do_move_tag_and_promotion() failed.\n" );
 
             if ( ( test_number == 5 ) || ( test_number == 0 ) )
-                if ( !test_do_move_conversion( tp, false ) )
+                if ( !test_do_move_conversion( 5, tp, false ) )
                     printf( "Test test_do_move_conversion( _, false ) failed.\n" );
 
             if ( ( test_number == 6 ) || ( test_number == 0 ) )
-                if ( !test_do_move_conversion( tp, true ) )
+                if ( !test_do_move_conversion( 6, tp, true ) )
                     printf( "Test test_do_move_conversion( _, true ) failed.\n" );
 
             if ( ( test_number == 7 ) || ( test_number == 0 ) )
-                if ( !test_do_move_demotion( tp ) )
+                if ( !test_do_move_demotion( 7, tp ) )
                     printf( "Test test_do_move_demotion() failed.\n" );
 
 
             if ( ( test_number == 8 ) || ( test_number == 0 ) )
-                if ( !test_do_move_resurrection( tp, false, false ) )
+                if ( !test_do_move_resurrection( 8, tp, false, false ) )
                     printf( "Test test_do_move_resurrection( _, false, false ) failed.\n" );
 
             if ( ( test_number == 9 ) || ( test_number == 0 ) )
-                if ( !test_do_move_resurrection( tp, false, true ) )
+                if ( !test_do_move_resurrection( 9, tp, false, true ) )
                     printf( "Test test_do_move_resurrection( _, false, true ) failed.\n" );
 
             if ( ( test_number == 10 ) || ( test_number == 0 ) )
-                if ( !test_do_move_resurrection( tp, true, false ) )
+                if ( !test_do_move_resurrection( 10, tp, true, false ) )
                     printf( "Test test_do_move_resurrection( _, true, false ) failed.\n" );
 
             if ( ( test_number == 11 ) || ( test_number == 0 ) )
-                if ( !test_do_move_resurrection( tp, true, true ) )
+                if ( !test_do_move_resurrection( 11, tp, true, true ) )
                     printf( "Test test_do_move_resurrection( _, true, true ) failed.\n" );
 
 
             if ( ( test_number == 12 ) || ( test_number == 0 ) )
-                if ( !test_do_move_teleportation( tp, false ) )
+                if ( !test_do_move_teleportation( 12, tp, false ) )
                     printf( "Test test_do_move_teleportation( _, false ) failed.\n" );
 
             if ( ( test_number == 13 ) || ( test_number == 0 ) )
-                if ( !test_do_move_teleportation( tp, true ) )
+                if ( !test_do_move_teleportation( 13, tp, true ) )
                     printf( "Test test_do_move_teleportation( _, true ) failed.\n" );
 
 
             if ( ( test_number == 14 ) || ( test_number == 0 ) )
-                if ( !test_do_move_teleportation_wave( tp, false ) )
+                if ( !test_do_move_teleportation_wave( 14, tp, false ) )
                     printf( "Test test_do_move_teleportation_wave( _, false ) failed.\n" );
 
             if ( ( test_number == 15 ) || ( test_number == 0 ) )
-                if ( !test_do_move_teleportation_wave( tp, true ) )
+                if ( !test_do_move_teleportation_wave( 15, tp, true ) )
                     printf( "Test test_do_move_teleportation_wave( _, true ) failed.\n" );
 
 
             if ( ( test_number == 16 ) || ( test_number == 0 ) )
-                if ( !test_do_move_trance_journey( tp, false ) )
+                if ( !test_do_move_trance_journey( 16, tp, false ) )
                     printf( "Test test_do_move_trance_journey( _, false ) failed.\n" );
 
             if ( ( test_number == 17 ) || ( test_number == 0 ) )
-                if ( !test_do_move_trance_journey( tp, true ) )
+                if ( !test_do_move_trance_journey( 17, tp, true ) )
                     printf( "Test test_do_move_trance_journey( _, true ) failed.\n" );
 
             printf( "Tests finished.\n" );

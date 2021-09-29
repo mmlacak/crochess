@@ -20,10 +20,11 @@
 #include "tests_book_move.h"
 
 
-bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
+// bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
+bool test_book_move_scn_ct_03_define_step_ply( int const index, TestPrints const tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
-    printf( "scn_ct_03_define_step_ply\n" );
+    printf( "%d scn_ct_03_define_step_ply\n", index );
 
     // chessboard
 
