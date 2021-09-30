@@ -1517,23 +1517,23 @@ bool test_do_move_trance_journey( int const index, TestPrints const tp, bool con
 
     // game
 
-    CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
-    if ( !cb__o ) return false;
+    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    if ( !game__o ) return false;
 
-    cc_chessboard_set_piece( cb__o, 4, 8, shaman ); // entrancing
-    cc_chessboard_set_piece( cb__o, 6, 9, CC_PE_LightWave );
-    cc_chessboard_set_piece( cb__o, 7, 7, shaman ); // entranced
+    cc_chessboard_set_piece( game__o->chessboard, 4, 8, shaman ); // entrancing
+    cc_chessboard_set_piece( game__o->chessboard, 6, 9, CC_PE_LightWave );
+    cc_chessboard_set_piece( game__o->chessboard, 7, 7, shaman ); // entranced
 
-    cc_chessboard_set_piece( cb__o, 7, 12, CC_PE_LightBishop ); // 2
-    cc_chessboard_set_piece( cb__o, 5, 1, CC_PE_DarkKnight ); // 4
-    cc_chessboard_set_piece_tag( cb__o, 21, 4, CC_PE_DarkPawn, CC_TE_DelayedPromotion ); // 9
+    cc_chessboard_set_piece( game__o->chessboard, 7, 12, CC_PE_LightBishop ); // 2
+    cc_chessboard_set_piece( game__o->chessboard, 5, 1, CC_PE_DarkKnight ); // 4
+    cc_chessboard_set_piece_tag( game__o->chessboard, 21, 4, CC_PE_DarkPawn, CC_TE_DelayedPromotion ); // 9
 
     if ( tp.do_print_chessboard )
     {
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
-        cc_chessboard_print( cb__o, true );
+        cc_chessboard_print( game__o->chessboard, true );
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
-        cc_chessboard_print( cb__o, false );
+        cc_chessboard_print( game__o->chessboard, false );
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
@@ -1542,100 +1542,100 @@ bool test_do_move_trance_journey( int const index, TestPrints const tp, bool con
 
     bool result = true;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 4, 8 ) == shaman ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 4, 8 ) == shaman ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 6, 9 ) == CC_PE_LightWave ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 6, 9 ) == CC_PE_LightWave ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 7, 7 ) == shaman ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 7, 7 ) == shaman ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 7, 12 ) == CC_PE_LightBishop ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 7, 12 ) == CC_PE_LightBishop ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 5, 1 ) == CC_PE_DarkKnight ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 5, 1 ) == CC_PE_DarkKnight ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 21, 4 ) == CC_PE_DarkPawn ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 21, 4 ) == CC_PE_DarkPawn ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 21, 4 ) == CC_TE_DelayedPromotion ),
+    result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 21, 4 ) == CC_TE_DelayedPromotion ),
                                  TME_Error, "tag not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    if ( !result ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !result ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     //
     // ply Hg10
 
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 4, 8, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, NULL, false );
+    if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 6, 9, CC_FSUE_User ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, shaman, &steps_0__t );
-    if ( !plies_0__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, NULL, &steps_0__t, false );
+    if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // ply ~Wh8
 
     CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 6, 9, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_1__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
+    if ( !steps_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( !cc_step_none_append( steps_1__t, CC_SLE_Destination, 7, 7, CC_FSUE_User ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_1__t, false );
 
     if ( !cc_ply_append( plies_0__t, CC_PLE_Ply, CC_PE_LightWave, &steps_1__t ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_1__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_1__t, false );
 
     //
     // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
     // ply @hh8,j9..h13*B..f2*n..p7..j19-v5*p==
 
     CcStep * steps_2__t = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
-    if ( !steps_2__t ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
+    if ( !steps_2__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( is_capturing )
         if ( !cc_step_none_append( steps_2__t, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification ) )
-            return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
+            return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_1 = is_capturing ?
                            cc_side_effect_capture( CC_PE_LightBishop, CC_TE_None ) :
                            cc_side_effect_displacement( CC_PE_LightBishop, CC_TE_None, 9, 18 );
     if ( !cc_step_append( steps_2__t, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_2 = is_capturing ?
                            cc_side_effect_capture( CC_PE_DarkKnight, CC_TE_None ) :
                            cc_side_effect_displacement( CC_PE_DarkKnight, CC_TE_None, 1, 5 );
     if ( !cc_step_append( steps_2__t, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_2__t, false );
 
     if ( !cc_step_none_append( steps_2__t, CC_SLE_Distant, 15, 6, CC_FSUE_Addition ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_4 = is_capturing ?
                            cc_side_effect_none() :
                            cc_side_effect_displacement( CC_PE_LightBishop, false, 11, 24 );
     if ( !cc_step_append( steps_2__t, CC_SLE_Distant, 9, 18, sse_2_4, CC_FSUE_User ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_2__t, false );
 
     CcSideEffect sse_2_5 = is_capturing ?
                            cc_side_effect_capture( CC_PE_DarkPawn, CC_TE_DelayedPromotion ) :
                            cc_side_effect_displacement( CC_PE_DarkPawn, CC_TE_DelayedPromotion, 15, 6 );
     if ( !cc_step_append( steps_2__t, CC_SLE_Destination, 21, 4, sse_2_5, CC_FSUE_User ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_2__t, false );
 
     if ( !cc_ply_append( plies_0__t, CC_PLE_TranceJourney, shaman, &steps_2__t ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, &steps_2__t, false );
+        return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, &steps_2__t, false );
 
     //
     // move [He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]
@@ -1644,100 +1644,108 @@ bool test_do_move_trance_journey( int const index, TestPrints const tp, bool con
     char * alg_not = ( is_capturing ) ? "[he9-g10]~[Wg10-h8]@[hh8,j9..h13*B..f2*n..p7..j19-v5*p==]"
                                       : "[He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]";
 
-    CcMove * move__o = cc_move_new( alg_not, &plies_0__t, CC_MSE_None );
-    if ( !move__o ) return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0__t, NULL, false );
-
-    result = test_print_failure( cc_do_moves( cb__o, move__o, CC_DME_DoAllMoves ),
-                                 TME_Error, "move not done", __FILE__, __LINE__, __func__ )
-             && result;
+    CcMove * move__t = cc_move_new( alg_not, &plies_0__t, CC_MSE_None );
+    if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__o, tp.format_move );
-        printf( "%s\n", move__o->notation );
+        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
         free( alg_not );
     }
 
+    result = test_print_failure( CC_GAME_STATUS_IS_LIGHT_TURN( game__o->status ),
+                                 TME_Error, "light player should be on turn", __FILE__, __LINE__, __func__ )
+             && result;
+
+    result = test_print_failure( cc_rules_do_moves( &game__o, &move__t, CC_DME_DoAllMoves ),
+                                 TME_Error, "move(s) not done", __FILE__, __LINE__, __func__ )
+             && result;
+
+    result = test_print_failure( CC_GAME_STATUS_IS_DARK_TURN( game__o->status ),
+                                 TME_Error, "dark player should be on turn", __FILE__, __LINE__, __func__ )
+             && result;
+
     if ( tp.do_print_chessboard )
     {
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
-        cc_chessboard_print( cb__o, true );
+        cc_chessboard_print( game__o->chessboard, true );
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
-        cc_chessboard_print( cb__o, false );
+        cc_chessboard_print( game__o->chessboard, false );
         printf( TESTS_MOVE_CHESSBOARD_SEPARATOR );
     }
 
     //
     // tests
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 4, 8 ) == CC_PE_None ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 4, 8 ) == CC_PE_None ),
                                  TME_Error, "piece found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 6, 9 ) == shaman ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 6, 9 ) == shaman ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 7, 7 ) == CC_PE_LightWave ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 7, 7 ) == CC_PE_LightWave ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 21, 4 ) == shaman ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 21, 4 ) == shaman ),
                                  TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 21, 4 ) == CC_TE_None ),
+    result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 21, 4 ) == CC_TE_None ),
                                  TME_Error, "tag found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 7, 12 ) == CC_PE_None ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 7, 12 ) == CC_PE_None ),
                                  TME_Error, "piece found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 5, 1 ) == CC_PE_None ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 5, 1 ) == CC_PE_None ),
                                  TME_Error, "piece found", __FILE__, __LINE__, __func__ )
              && result;
 
-    result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 9, 18 ) == CC_PE_None ),
+    result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 9, 18 ) == CC_PE_None ),
                                  TME_Error, "piece found", __FILE__, __LINE__, __func__ )
              && result;
 
     if ( is_capturing )
     {
-        result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 11, 24 ) == CC_PE_None ),
+        result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 11, 24 ) == CC_PE_None ),
                                     TME_Error, "piece found", __FILE__, __LINE__, __func__ )
                  && result;
 
-        result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 1, 5 ) == CC_PE_None ),
+        result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 1, 5 ) == CC_PE_None ),
                                     TME_Error, "piece found", __FILE__, __LINE__, __func__ )
                  && result;
 
-        result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 15, 6 ) == CC_PE_None ),
+        result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 15, 6 ) == CC_PE_None ),
                                     TME_Error, "piece found", __FILE__, __LINE__, __func__ )
                  && result;
 
-        result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 15, 6 ) == CC_TE_None ),
+        result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 15, 6 ) == CC_TE_None ),
                                     TME_Error, "tag found", __FILE__, __LINE__, __func__ )
                  && result;
     }
     else
     {
-        result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 11, 24 ) == CC_PE_LightBishop ),
+        result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 11, 24 ) == CC_PE_LightBishop ),
                                     TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
                  && result;
 
-        result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 1, 5 ) == CC_PE_DarkKnight ),
+        result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 1, 5 ) == CC_PE_DarkKnight ),
                                     TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
                  && result;
 
-        result = test_print_failure( ( cc_chessboard_get_piece( cb__o, 15, 6 ) == CC_PE_DarkPawn ),
+        result = test_print_failure( ( cc_chessboard_get_piece( game__o->chessboard, 15, 6 ) == CC_PE_DarkPawn ),
                                     TME_Error, "piece not found", __FILE__, __LINE__, __func__ )
                  && result;
 
-        result = test_print_failure( ( cc_chessboard_get_tag( cb__o, 15, 6 ) == CC_TE_None ),
+        result = test_print_failure( ( cc_chessboard_get_tag( game__o->chessboard, 15, 6 ) == CC_TE_None ),
                                     TME_Error, "tag found", __FILE__, __LINE__, __func__ )
                  && result;
     }
@@ -1745,5 +1753,5 @@ bool test_do_move_trance_journey( int const index, TestPrints const tp, bool con
     //
     // free, return
 
-    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result );
+    return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
