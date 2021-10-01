@@ -11,7 +11,7 @@
 <!--- ![GitHub](https://img.shields.io/github/license/mmlacak/crochess) -->
 
 
-# Croatian chess - chess variants console application
+# Croatian chess - book and console application
 
 Croatian Chess is a collection of various chess variants,
 starting as a simple and natural enhancement to classical
@@ -136,7 +136,6 @@ for details.
 * Dennis R.
 * Ken T.
 * Simon P. J.
-* Richard S.
 * Alessandro M.
 * Tomasso A.
 * and many, many others
