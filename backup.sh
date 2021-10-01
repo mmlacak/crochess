@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # Copyright (c) 2010 - 2019 Mario Mlačak, mmlacak@gmail.com
-# Licensed under GNU GPL v3+ license. See LICENSE, COPYING files for details.
+# Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
 # Fiddling with current dir, because zip stores relative path into archive,
@@ -12,7 +12,7 @@ cd .. # out of crochess folder
 rm -rfv crochess.zip
 
 echo
-zip -rTv9 crochess.zip crochess -x *.* *. -i \*.txt \*LICENSE\* \*CODE_OF_CONDUCT\* \*CONTRIBUTING\* \*.md \*.sh \*.py \*.tex \*.c \*.h \*.ico \*Doxyfile\* -x \*tmp\* \*temp\* \*.github\* \*.DIFF.\* \*bin\* crochess/ws/docs/\*
+zip -rTv9 crochess.zip crochess -x *.* *. -i \*.txt \*LICENSING\* \*COPYING\* \*CODE_OF_CONDUCT\* \*CONTRIBUTING\* \*.md \*.sh \*.py \*.tex \*.c \*.h \*.ico \*Doxyfile\* -x \*tmp\* \*temp\* \*.github\* \*.DIFF.\* \*bin\* crochess/ws/docs/\*
 echo
 
 ls -Fal --color=auto *.zip

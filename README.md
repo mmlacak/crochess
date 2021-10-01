@@ -30,8 +30,8 @@ converted to UTC for easier comparison.
 **Application** and **library versions** can be seen in an application, using `version` command. \
 The latest versions are:
 
-Application: 0.0.2.84:283+20211001.043026 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
-Library: 0.0.2.84:283+20211001.043026 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
+Application: 0.0.2.85:284+20211001.044244 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
+Library: 0.0.2.85:284+20211001.044244 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
 
 Versioning used is [Natural Versioning 1.2](https://croatian-chess.blogspot.com/p/natver.html),
 with meta data containing the same format as the book version.
@@ -124,7 +124,7 @@ https://croatian-chess.blogspot.com
 
 This project is licensed under the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your
-option) any later version, see the [LICENSE](LICENSE), [COPYING](COPYING) file for details.
+option) any later version, see the [LICENSING](LICENSING), [COPYING](COPYING) file for details.
 
 The book is published as Public Domain work, see
 [Wikipedia on public domain](https://en.wikipedia.org/wiki/Public_domain)

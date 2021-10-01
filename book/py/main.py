@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
-# Licensed under GNU GPL v3+ license. See LICENSE, COPYING files for details.
+# Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
 import argparse
@@ -83,7 +83,7 @@ Any combination will work, multiple options separate by space, like so:
 $ python3 main.py -d -x ct ma
 
 Copyright (c) 2010 - 2020 Mario Mlačak, mmlacak@gmail.com
-Licensed under GNU GPL v3+ license. See LICENSE, COPYING files for details.''')
+Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.''')
 
     size = parser.add_mutually_exclusive_group(required=True)
     size.add_argument('-f', '--final', action='store_true', default=False, help='render in final size, cca. 2400 dpi (slow!)')

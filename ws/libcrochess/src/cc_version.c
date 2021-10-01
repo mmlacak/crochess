@@ -1,5 +1,5 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
-// Licensed under GNU GPL v3+ license. See LICENSE, COPYING files for details.
+// Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdio.h>
 
@@ -11,4 +11,4 @@
 */
 
 
-char const CC_LIB_VERSION[] = "0.0.2.84:283+20211001.043026"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CC_LIB_VERSION[] = "0.0.2.85:284+20211001.044244"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker
