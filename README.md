@@ -124,7 +124,8 @@ https://croatian-chess.blogspot.com
 
 This project is licensed under the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your
-option) any later version, see the [LICENSING](LICENSING), [COPYING](COPYING) file for details.
+option) any later version, see the [LICENSING](LICENSING), [COPYING](COPYING)
+files for details.
 
 The book is published as Public Domain work, see
 [Wikipedia on public domain](https://en.wikipedia.org/wiki/Public_domain)
