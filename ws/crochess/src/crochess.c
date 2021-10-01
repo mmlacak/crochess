@@ -1,5 +1,5 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
-// Licensed under 3-clause (modified) BSD license. See LICENSE for details.
+// Licensed under GNU GPL v3+ license. See LICENSE, COPYING files for details.
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.83:282+20210930.020935"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.84:283+20211001.043026"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )

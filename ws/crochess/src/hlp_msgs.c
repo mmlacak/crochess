@@ -1,5 +1,5 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
-// Licensed under 3-clause (modified) BSD license. See LICENSE for details.
+// Licensed under GNU GPL v3+ license. See LICENSE, COPYING files for details.
 
 #include <stdio.h>
 
@@ -7,7 +7,7 @@
 
 void print_license_intro()
 {
-    printf( "Croatian chess - console application\n"
+    printf( "Croatian chess - chess variants console application\n"
             "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n" );
     // fflush( stdout );
 }
@@ -23,7 +23,7 @@ void print_app_intro(char const * const restrict lib_ver, char const * const res
 {
     print_license_intro();
 
-    printf( "Licensed under 3-clause (modified) BSD license. Use `about` for details.\n"
+    printf( "Licensed under GNU GPL v3+ license. Use `about` for details.\n"
             "\n"
             "Based on book \"Croatian chess and other variants\", by Mario Mlačak.\n"
             "\n"
@@ -39,34 +39,19 @@ void print_app_intro(char const * const restrict lib_ver, char const * const res
 
 void print_licence_text()
 {
-    printf( "All rights reserved.\n"
+    printf( "\n"
+            "This program is free software: you can redistribute it and/or modify\n"
+            "it under the terms of the GNU General Public License as published by\n"
+            "the Free Software Foundation, either version 3 of the License, or\n"
+            "(at your option) any later version.\n"
             "\n"
-            "Redistribution and use in source and binary forms, with or without\n"
-            "modification, are permitted provided that the following conditions\n"
-            "are met:\n"
+            "This program is distributed in the hope that it will be useful,\n"
+            "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+            "GNU General Public License for more details.\n"
             "\n"
-            "1. Redistributions of source code must retain the above copyright\n"
-            "notice, this list of conditions and the following disclaimer.\n"
-            "\n"
-            "2. Redistributions in binary form must reproduce the above copyright\n"
-            "notice, this list of conditions and the following disclaimer in the\n"
-            "documentation and/or other materials provided with the distribution.\n"
-            "\n"
-            "3. Neither the name of the copyright holder nor the names of its\n"
-            "contributors may ve used to endorse or promote products derived\n"
-            "from this software without specific prior written permission.\n"
-            "\n"
-            "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
-            "\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n"
-            "LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n"
-            "A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n"
-            "HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n"
-            "SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n"
-            "LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n"
-            "DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n"
-            "THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n"
-            "(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n"
-            "OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n" );
+            "You should have received a copy of the GNU General Public License\n"
+            "along with this program.  If not, see <https://www.gnu.org/licenses/>.\n" );
     // fflush( stdout );
 }
 

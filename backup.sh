@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # Copyright (c) 2010 - 2019 Mario Mlačak, mmlacak@gmail.com
-# Licensed under 3-clause (modified) BSD license. See LICENSE for details.
+# Licensed under GNU GPL v3+ license. See LICENSE, COPYING files for details.
 
 
 # Fiddling with current dir, because zip stores relative path into archive,
