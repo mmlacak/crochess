@@ -263,7 +263,7 @@ sign) just after piece, just before destination field, or just before movement n
 as \alg{P==e11-e12}.
 
 If the same example contained e.g. dark Bishop at \alg{f12}, Pawn tagged for promotion could
-capture it, which would be written as \alg{==f12*B}.
+capture it, which would be written as \alg{==f12*B}, and in \algfmt{XAN} as \alg{P==e11-f12*B}.
 
 If, in the same situation, light Pawn instead of moving was captured by dark Unicorn on a
 field where it was tagged for promotion, it would be written as \alg{Ue11*P==}, and in
@@ -607,7 +607,7 @@ Now that all symbols have been introduced, they're gathered here according to th
 11          & \alg{\%\%}           & failed conversion, oblation    & +                     \\
 12          & \alg{>}              & syzygy, demoting to Pawn       & +                     \\
 13          & \alg{\$}             & syzygy, resurrection           & +                     \\
-14          & \alg{\$\$}           & failed resurrection            & +                     \\
+14          & \alg{\$\$}           & failed resurrection            & -                     \\
 \bottomrule
 \end{tabular}
 \caption{Side-effects}
