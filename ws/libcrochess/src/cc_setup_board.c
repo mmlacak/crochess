@@ -292,7 +292,7 @@ CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BO
 };
 
 
-CcPieceEnum const * cc_board_setup_get( CcVariantEnum const ve )
+CcPieceEnum const * cc_setup_board_get( CcVariantEnum const ve )
 {
     switch ( ve )
     {
@@ -313,9 +313,9 @@ CcPieceEnum const * cc_board_setup_get( CcVariantEnum const ve )
 }
 
 
-bool cc_board_setup_has_piece( CcVariantEnum const ve, CcPieceEnum const pe )
+bool cc_setup_board_has_piece( CcVariantEnum const ve, CcPieceEnum const pe )
 {
-    CcPieceEnum const * const su = cc_board_setup_get( ve );
+    CcPieceEnum const * const su = cc_setup_board_get( ve );
     if ( !su ) return false;
 
     size_t const size = cc_variant_board_size( ve );
@@ -344,7 +344,7 @@ int cc_setup_board_get_figure_row_initial_file( CcVariantEnum const ve,
          ( CC_PIECE_IS_MONOLITH( pe ) ) )
         return CC_INVALID_OFF_BOARD_COORD_MIN;
 
-    CcPieceEnum const * const su = cc_board_setup_get( ve );
+    CcPieceEnum const * const su = cc_setup_board_get( ve );
     if ( !su ) return CC_INVALID_OFF_BOARD_COORD_MIN;
 
     size_t const size = cc_variant_board_size( ve );

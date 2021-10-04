@@ -74,10 +74,10 @@ bool cc_chessboard_setup( CcChessboard * const restrict cb_io )
 
     if ( !cc_chessboard_clear( cb_io ) ) return false;
 
-    CcPieceEnum const * const su = cc_board_setup_get( cb_io->type );
+    CcPieceEnum const * const su = cc_setup_board_get( cb_io->type );
     if ( !su ) return false;
 
-    CcTagEnum const * const tu = cc_tags_setup_get( cb_io->type );
+    CcTagEnum const * const tu = cc_setup_tags_get( cb_io->type );
     if ( !tu ) return false;
 
     for ( int i = 0; i < (int)cb_io->size; ++i )

@@ -258,7 +258,7 @@ CcTagEnum const CC_SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD
 };
 
 
-CcTagEnum const * cc_tags_setup_get( CcVariantEnum const ve )
+CcTagEnum const * cc_setup_tags_get( CcVariantEnum const ve )
 {
     switch ( ve )
     {
