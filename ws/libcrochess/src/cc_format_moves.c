@@ -95,7 +95,7 @@ char * cc_format_pos_rank_new( int const j )
     return new;
 }
 
-char * cc_format_lost_tag( CcTagEnum te )
+char const * cc_format_lost_tag( CcTagEnum te )
 {
     switch ( te )
     {
@@ -146,7 +146,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             bool is_user = ( format_move.usage <= CC_FSUE_User );
 
             char piece = fp_char_value( se->displacement.piece );
-            char * lost_tag = cc_format_lost_tag( se->displacement.lost_tag );
+            char const * lost_tag = cc_format_lost_tag( se->displacement.lost_tag );
             char file = cc_format_pos_file( se->displacement.dest_i );
             char * rank__o = cc_format_pos_rank_new( se->displacement.dest_j );
 

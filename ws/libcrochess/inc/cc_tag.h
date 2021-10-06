@@ -16,25 +16,67 @@
     demoted (if figure), promoted (if Pawn).
 */
 
-// TODO :: DOCS
+/**
+    Macro expression to evaluate whether given tag is valid (i.e. not None).
+
+    @param te Tag enum.
+
+    @return `true` if valid tag, `false` otherwise.
+*/
 #define CC_TAG_EXISTS(te) ( (te) != CC_TE_None )
 
-// TODO :: DOCS
+/**
+    Macro expression to evaluate whether given tag is denoting "can rush" ability.
+
+    @param te Tag enum.
+
+    @return `true` if "can rush" tag, `false` otherwise.
+*/
 #define CC_TAG_CAN_RUSH(te) ( (te) == CC_TE_CanRush )
 
-// TODO :: DOCS
+/**
+    Macro expression to evaluate whether given tag is denoting "can castle" ability.
+
+    @param te Tag enum.
+
+    @return `true` if "can castle" tag, `false` otherwise.
+*/
 #define CC_TAG_CAN_CASTLE(te) ( (te) == CC_TE_CanCastle )
 
-// TODO :: DOCS
+/**
+    Macro expression to evaluate whether given tag is denoting "can be promoted" option.
+
+    @param te Tag enum.
+
+    @return `true` if "can be promoted" tag, `false` otherwise.
+*/
 #define CC_TAG_CAN_PROMOTE(te) ( (te) == CC_TE_DelayedPromotion )
 
-// TODO :: DOCS
+/**
+    Macro expression to evaluate whether given tag is denoting "can be captured by en passant" option.
+
+    @param te Tag enum.
+
+    @return `true` if "can be captured by en passant" tag, `false` otherwise.
+*/
 #define CC_TAG_CAN_EN_PASSANT(te) ( (te) == CC_TE_EnPassant )
 
-// TODO :: DOCS
+/**
+    Macro expression to evaluate whether given tag is denoting "can capture after Pawn sacrifice" ability.
+
+    @param te Tag enum.
+
+    @return `true` if "can capture after Pawn sacrifice" tag, `false` otherwise.
+*/
 #define CC_TAG_CAN_PAWN_SACRIFICE(te) ( (te) == CC_TE_PawnSacrifice )
 
-// TODO :: DOCS
+/**
+    Macro expression to evaluate whether given tag can last for several moves.
+
+    @param te Tag enum.
+
+    @return `true` if lasting tag, `false` otherwise.
+*/
 #define CC_TAG_IS_LASTING(te) ( ( (te) == CC_TE_CanRush )           \
                              || ( (te) == CC_TE_CanCastle )         \
                              || ( (te) == CC_TE_DelayedPromotion ) )

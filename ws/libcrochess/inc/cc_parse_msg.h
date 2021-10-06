@@ -39,7 +39,6 @@ typedef struct CcParseMsg
     Returns a newly allocated parser message.
 
     @param type Type of a parser message.
-    @param pos Position within string, e.g. user input.
     @param msg Parser message.
 
     @return A newly allocated parser message if successful, `NULL` otherwise.
@@ -52,7 +51,6 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum const type,
 
     @param parse_msgs Linked list of parser messages, to which a newly allocated parser message is appended.
     @param type Type of a parser message.
-    @param pos Position within string, e.g. user input.
     @param msg Parser message.
 
     @return
@@ -65,9 +63,8 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
 /**
     Allocates a new parser message, appends it to a linked list.
 
-    @param parse_msgs_io Linked list of parser messages, to which a newly allocated parser message is appended.
+    @param parse_msgs_io Linked list of parser messages, to which a newly allocated parser message is appended, can be `NULL`.
     @param type Type of a parser message.
-    @param pos Position within string, e.g. user input.
     @param msg Parser message.
 
     @note
@@ -84,7 +81,27 @@ CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msg
                                           CcParseMsgEnum const type,
                                           char const * const restrict msg );
 
-// TODO :: DOCS
+/**
+    Allocates a new parser message, appends it to a linked list.
+
+    @param parse_msgs_io Linked list of parser messages, to which a newly allocated parser message is appended, can be `NULL`.
+    @param type Type of a parser message.
+    @param fmt Formatting string, as defined for `printf`.
+    @param ... Variadic format arguments, as used for `printf`.
+
+    @note
+    Linked list `*parse_msgs_io` can be `NULL`, a parser message will still be allocated, and returned.
+
+    @note
+    If linked list `*parse_msgs_io` is `NULL`, it will be initialized,
+    with a newly allocated parser message as its first element.
+
+    @note
+    Maximum length of a formatted string output is limited at `BUFSIZ`, constant from `<stdio.h>`.
+
+    @return
+    Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
+*/
 CcParseMsg * cc_parse_msg_init_or_append_format( CcParseMsg ** const restrict parse_msgs_io,
                                                  CcParseMsgEnum const type,
                                                  char const * const restrict fmt, ... );

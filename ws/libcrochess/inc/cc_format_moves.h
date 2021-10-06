@@ -157,8 +157,15 @@ char cc_format_pos_file( int const i );
 char * cc_format_pos_rank_new( int const j );
 
 
-// TODO :: DOCS
-char * cc_format_lost_tag( CcTagEnum te );
+/**
+    Returns pointer to a constant string, based on a tag.
+
+    @param te A tag.
+
+    @return A pointer to non-empty string if tag can be lost,
+            a pointer to empty string otherwise.
+*/
+char const * cc_format_lost_tag( CcTagEnum te );
 
 /**
     Returns a newly allocated string containing formatted output of side-effect.

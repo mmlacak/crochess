@@ -104,14 +104,42 @@ size_t cc_str_len( char const * const restrict str );
 size_t cc_str_len_min( char const * const restrict str,
                        size_t const max_len );
 
-// TODO :: DOCS
+/**
+    Function returns length of a formatted variadic input.
+
+    @param fmt A string format to append.
+    @param ... Variadic input for a string format.
+
+    @note
+    Output returned is direct result of a `vsnprintf` found in `<stdio.h>`,
+    see C Standard Library reference for details.
+
+    @return Length of a formatted variadic input if non-negative,
+            error code if negative.
+*/
 int cc_str_len_format( char const * const restrict fmt, ... );
 
 
-// TODO :: DOCS
+/**
+    Function returns a newly allocated string containing formatted variadic input.
+
+    @param fmt A string format to append.
+    @param ... Variadic input for a string format.
+
+    @return A newly allocated string if successful, `NULL` otherwise.
+*/
 char * cc_str_format_new( char const * const restrict fmt, ... );
 
-// TODO :: DOCS
+/**
+    Function returns a newly allocated string containing formatted variadic input,
+    capped at given maximum length.
+
+    @param max_len Maximum length to append, if length of strings is greater than given argument.
+    @param fmt A string format to append.
+    @param ... Variadic input for a string format.
+
+    @return A newly allocated string if successful, `NULL` otherwise.
+*/
 char * cc_str_format_len_new( size_t const max_len,
                               char const * const restrict fmt, ... );
 

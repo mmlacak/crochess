@@ -72,16 +72,38 @@ extern CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VAR
 /**
     Function returning setup for a board, based on given variant.
 
-    @param ve Variant.
+    @param ve A variant.
 
     @return Pointer to setup if successful, `NULL` otherwise.
 */
 CcPieceEnum const * cc_setup_board_get( CcVariantEnum const ve );
 
-// TODO :: DOCS
+/**
+    Function checks if piece is present in an initial setup of a chessboard.
+
+    @param ve A variant.
+    @param pe A piece.
+
+    @return `true` if piece is found in an initial setup, `false` otherwise.
+*/
 bool cc_setup_board_has_piece( CcVariantEnum const ve, CcPieceEnum const pe );
 
-// TODO :: DOCS
+/**
+    Function returns file of a figure in an initial setup of a chessboard.
+
+    @param ve A variant.
+    @param pe A figure.
+    @param search_left_first Flag, whether to search left (Queen-side),
+                             or right (King-side) first.
+
+    @note
+    Function returns valid results only for figures in first (or last) row in an
+    initial setup of chessboard. Pawns and Monoliths are not covered, they'll
+    always return invalid value (`CC_INVALID_OFF_BOARD_COORD_MIN`).
+
+    @return File if figure is found in a first/last row of initial setup,
+            `CC_INVALID_OFF_BOARD_COORD_MIN` otherwise.
+*/
 int cc_setup_board_get_figure_row_initial_file( CcVariantEnum const ve,
                                                 CcPieceEnum const pe,
                                                 bool const search_left_first );
