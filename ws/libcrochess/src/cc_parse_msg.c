@@ -2,6 +2,7 @@
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdio.h>
+#include <stdarg.h>
 
 #include "cc_str_utils.h"
 #include "cc_tokenizer.h"
@@ -14,14 +15,12 @@
 
 
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
-                               size_t const pos,
                                char const * const restrict msg )
 {
     CcParseMsg * new = malloc( sizeof( CcParseMsg ) );
     if ( !new ) return NULL;
 
     new->type = type;
-    new->pos = pos;
     new->msg = cc_str_duplicate_len_new( msg, false, BUFSIZ );
     new->next = NULL;
 
@@ -30,12 +29,11 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
 
 CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
                                   CcParseMsgEnum const type,
-                                  size_t const pos,
                                   char const * const restrict msg )
 {
     if ( !parse_msgs ) return NULL;
 
-    CcParseMsg * new = cc_parse_msg_new( type, pos, msg );
+    CcParseMsg * new = cc_parse_msg_new( type, msg );
     if ( !new ) return NULL;
 
     CcParseMsg * pm = parse_msgs;
@@ -47,16 +45,32 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
 
 CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msgs_io,
                                           CcParseMsgEnum const type,
-                                          size_t const pos,
                                           char const * const restrict msg )
 {
     if ( !parse_msgs_io ) return NULL;
 
-    CcParseMsg * new = cc_parse_msg_append( *parse_msgs_io, type, pos, msg );
+    CcParseMsg * new = cc_parse_msg_append( *parse_msgs_io, type, msg );
 
     if ( !*parse_msgs_io ) *parse_msgs_io = new;
 
     return new;
+}
+
+CcParseMsg * cc_parse_msg_init_or_append_format( CcParseMsg ** const restrict parse_msgs_io,
+                                                 CcParseMsgEnum const type,
+                                                 char const * const restrict fmt, ... )
+{
+
+    va_list args;
+    va_start( args, fmt );
+
+    char * msg__t = cc_str_format_len_new( BUFSIZ, fmt, args );
+
+    va_end( args );
+
+    if ( !msg__t ) return NULL;
+
+    return cc_parse_msg_init_or_append( parse_msgs_io, type, msg__t );
 }
 
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs__f )

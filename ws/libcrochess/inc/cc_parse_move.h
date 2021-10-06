@@ -9,19 +9,21 @@
 // #include "cc_step.h"
 #include "cc_ply.h"
 #include "cc_move.h"
+#include "cc_game.h"
 
 #include "cc_parse_msg.h"
 
 
-// DOCS
-CcPly * cc_parse_ply( char const * const restrict ply_str,
-                      CcChessboard const * const restrict cb,
-                      CcParseMsg ** parse_msgs_io );
+// // DOCS
+// CcPly * cc_parse_ply( char const * const restrict ply_str,
+//                       CcChessboard const * const restrict cb,
+//                       CcParseMsg ** parse_msgs_io );
 
 // DOCS
-CcMove * cc_parse_move( char const * const restrict move_str,
-                        CcChessboard const * const restrict cb,
-                        CcParseMsg ** parse_msgs_io );
+bool cc_parse_move( char const * const restrict move_str,
+                    CcGame const * const restrict game,
+                    CcMove ** const restrict move_o,
+                    CcParseMsg ** const restrict parse_msgs_io );
 
 
 #endif /* __CC_PARSE_MOVE_H__ */

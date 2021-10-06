@@ -104,6 +104,16 @@ size_t cc_str_len( char const * const restrict str );
 size_t cc_str_len_min( char const * const restrict str,
                        size_t const max_len );
 
+// TODO :: DOCS
+int cc_str_len_format( char const * const restrict fmt, ... );
+
+
+// TODO :: DOCS
+char * cc_str_format_new( char const * const restrict fmt, ... );
+
+// TODO :: DOCS
+char * cc_str_format_len_new( size_t const max_len,
+                              char const * const restrict fmt, ... );
 
 /**
     Function duplicating a string, by returning a newly allocated string,

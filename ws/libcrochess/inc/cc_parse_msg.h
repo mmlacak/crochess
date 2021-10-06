@@ -31,7 +31,6 @@ typedef enum CcParseMsgEnum
 typedef struct CcParseMsg
 {
     CcParseMsgEnum type; /**< Type of a parser message. */
-    size_t pos; /**< Position within string, e.g. user input. */
     char const * msg; /**< Parser message. */
     struct CcParseMsg * next; /**< Next parser message, in a linked list. */
 } CcParseMsg;
@@ -46,7 +45,6 @@ typedef struct CcParseMsg
     @return A newly allocated parser message if successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum const type,
-                               size_t const pos,
                                char const * const restrict msg );
 
 /**
@@ -62,7 +60,6 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum const type,
 */
 CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
                                   CcParseMsgEnum const type,
-                                  size_t const pos,
                                   char const * const restrict msg );
 
 /**
@@ -85,8 +82,12 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
 */
 CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msgs_io,
                                           CcParseMsgEnum const type,
-                                          size_t const pos,
                                           char const * const restrict msg );
+
+// TODO :: DOCS
+CcParseMsg * cc_parse_msg_init_or_append_format( CcParseMsg ** const restrict parse_msgs_io,
+                                                 CcParseMsgEnum const type,
+                                                 char const * const restrict fmt, ... );
 
 /**
     Frees all parser messages, and associated resources, in a linked list.

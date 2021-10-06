@@ -115,6 +115,110 @@ size_t cc_str_len_min( char const * const restrict str,
     return len;
 }
 
+int cc_str_len_format( char const * const restrict fmt, ... )
+{
+    va_list args;
+    va_start( args, fmt );
+
+    int len = vsnprintf( NULL, 0, fmt, args ); // len does not include \0.
+    va_end( args );
+
+    return len;
+}
+
+
+char * cc_str_format_new( char const * const restrict fmt, ... )
+{
+    va_list args;
+    va_start( args, fmt );
+
+    va_list tmp;
+    va_copy( tmp, args );
+
+    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    if ( len < 0 )
+    {
+        va_end( tmp );
+        va_end( args );
+        return NULL;
+    }
+
+    va_end( tmp );
+
+    size_t len_min = (size_t)len;
+    char * new__t = (char *)malloc( len_min + 1 );
+    if ( !new__t )
+    {
+        va_end( args );
+        return NULL;
+    }
+
+    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
+    if ( len_2 < 0 )
+    {
+        free( new__t );
+        va_end( args );
+        return NULL;
+    }
+
+    va_end( args );
+
+    size_t len_min_2 = (size_t)len_2;
+    if ( len_min != len_min_2 )
+    {
+        free( new__t );
+        return NULL;
+    }
+
+    return new__t;
+}
+
+char * cc_str_format_len_new( size_t const max_len,
+                              char const * const restrict fmt, ... )
+{
+    va_list args;
+    va_start( args, fmt );
+
+    va_list tmp;
+    va_copy( tmp, args );
+
+    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    if ( len < 0 )
+    {
+        va_end( tmp );
+        va_end( args );
+        return NULL;
+    }
+
+    va_end( tmp );
+
+    size_t len_min = ( (size_t)len < max_len ) ? (size_t)len : max_len;
+    char * new__t = (char *)malloc( len_min + 1 );
+    if ( !new__t )
+    {
+        va_end( args );
+        return NULL;
+    }
+
+    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
+    if ( len_2 < 0 )
+    {
+        free( new__t );
+        va_end( args );
+        return NULL;
+    }
+
+    va_end( args );
+
+    size_t len_min_2 = (size_t)len_2;
+    if ( len_min != len_min_2 )
+    {
+        free( new__t );
+        return NULL;
+    }
+
+    return new__t;
+}
 
 char * cc_str_duplicate_new( char const * const restrict str,
                              bool const do_reverse )
@@ -384,16 +488,17 @@ char * cc_str_append_format_new( char ** const restrict str__f,
     va_end( tmp );
 
     size_t len_min = (size_t)len;
-    char * new = (char *)malloc( len_min + 1 );
-    if ( !new )
+    char * new__t = (char *)malloc( len_min + 1 );
+    if ( !new__t )
     {
         va_end( args );
         return NULL;
     }
 
-    int len_2 = vsnprintf( new, len_min + 1, fmt, args );
+    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
     if ( len_2 < 0 )
     {
+        free( new__t );
         va_end( args );
         return NULL;
     }
@@ -403,12 +508,12 @@ char * cc_str_append_format_new( char ** const restrict str__f,
     size_t len_min_2 = (size_t)len_2;
     if ( len_min != len_min_2 )
     {
-        free( new );
+        free( new__t );
         return NULL;
     }
 
-    // No need to free() str__f, new; cc_str_append_new() does that.
-    return cc_str_append_new( str__f, &new );
+    // No need to free() str__f, new__t; cc_str_append_new() does that.
+    return cc_str_append_new( str__f, &new__t );
 }
 
 char * cc_str_append_format_len_new( char ** const restrict str__f,
@@ -432,16 +537,17 @@ char * cc_str_append_format_len_new( char ** const restrict str__f,
     va_end( tmp );
 
     size_t len_min = ( (size_t)len < max_len ) ? (size_t)len : max_len;
-    char * new = (char *)malloc( len_min + 1 );
-    if ( !new )
+    char * new__t = (char *)malloc( len_min + 1 );
+    if ( !new__t )
     {
         va_end( args );
         return NULL;
     }
 
-    int len_2 = vsnprintf( new, len_min + 1, fmt, args );
+    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
     if ( len_2 < 0 )
     {
+        free( new__t );
         va_end( args );
         return NULL;
     }
@@ -451,10 +557,10 @@ char * cc_str_append_format_len_new( char ** const restrict str__f,
     size_t len_min_2 = (size_t)len_2;
     if ( len_min != len_min_2 )
     {
-        free( new );
+        free( new__t );
         return NULL;
     }
 
-    // No need to free() str__f, new; cc_str_append_len_new() does that.
-    return cc_str_append_len_new( str__f, &new, max_len );
+    // No need to free() str__f, new__t; cc_str_append_len_new() does that.
+    return cc_str_append_len_new( str__f, &new__t, max_len );
 }
