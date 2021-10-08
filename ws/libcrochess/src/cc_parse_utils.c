@@ -233,6 +233,26 @@ bool cc_parse_utils_get_ply_piece( char const * const restrict ply_str,
     return CC_PIECE_IS_VALID( *piece_o );
 }
 
+bool cc_parse_utils_get_ply_piece_symbol( char const * const restrict ply_str,
+                                          char * const restrict piece_symbol_o )
+{
+    if ( !ply_str ) return false;
+    if ( !piece_symbol_o ) return false;
+
+    char const * p = ply_str;
+
+    p = cc_parse_utils_go_ply_link( p, true );
+    if ( !p ) return false;
+
+    if ( isupper( *p ) ) // <!> Useage of cc_piece_is_symbol() here is bug,
+                         //     all other upper chars would end as Pawns.
+        *piece_symbol_o = *p;
+    else
+        *piece_symbol_o = 'P';
+
+    return cc_piece_is_symbol( *piece_symbol_o );
+}
+
 
 char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str )
 {

@@ -121,6 +121,23 @@ bool cc_parse_utils_get_ply_piece( char const * const restrict ply_str,
                                    bool const is_light,
                                    CcPieceEnum * const restrict piece_o );
 
+/**
+    Function getting piece symbol, for a given ply AN string.
+
+    @param ply_str A ply, algebraic notation string.
+    @param piece_symbol_o An _output_ parameter, returned piece symbol.
+
+    @note
+    Piece symbol is returned via _output_ parameter, not via return value.
+
+    @note
+    Piece symbol is a single character, as written in AN string, or `P` for a Pawn.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_parse_utils_get_ply_piece_symbol( char const * const restrict ply_str,
+                                          char * const restrict piece_symbol_o );
+
 
 /**
     Function returns pointer to first step, within a given ply AN string.
