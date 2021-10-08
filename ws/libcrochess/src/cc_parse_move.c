@@ -61,8 +61,9 @@ bool cc_parse_move( char const * const restrict move_str,
         {
             cc_parse_msg_init_or_append_format( parse_msgs_io,
                                                 CC_PME_Error,
-                                                "Ply link not found in '%s'.",
-                                                ply_an__o );
+                                                "Ply link not found in '%s', within '%s'.",
+                                                ply_an__o,
+                                                move_str );
             free( ply_an__o );
             return false;
         }
@@ -71,112 +72,134 @@ bool cc_parse_move( char const * const restrict move_str,
         {
             cc_parse_msg_init_or_append_format( parse_msgs_io,
                                                 CC_PME_Error,
-                                                "Piece symbol not found in '%s'.",
-                                                ply_an__o );
+                                                "Piece symbol not found in '%s', within '%s'.",
+                                                ply_an__o,
+                                                move_str );
             free( ply_an__o );
             return false;
         }
 
         steps_str = cc_parse_utils_get_steps_str( ply_an__o );
-        if ( steps_str )
+        if ( !steps_str )
         {
-            char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
-            CcStepLinkEnum sle = CC_SLE_Destination;
-
-            if ( step_an__o )
-            {
-                do
-                {
-                    if ( !cc_parse_utils_get_step_link( ply_an__o, step_an__o, &sle ) )
-                    {
-                        cc_parse_msg_init_or_append_format( parse_msgs_io,
-                                                            CC_PME_Error,
-                                                            "Step link not found in '%s', within '%s'.",
-                                                            step_an__o,
-                                                            ply_an__o );
-                        free( step_an__o );
-                        free( ply_an__o );
-                        return false;
-                    }
-
-                    char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
-                    if ( !fields_an__o )
-                    {
-                        cc_parse_msg_init_or_append_format( parse_msgs_io,
-                                                            CC_PME_Error,
-                                                            "Movement not found in '%s', within '%s'.",
-                                                            step_an__o,
-                                                            ply_an__o );
-                        free( step_an__o );
-                        free( ply_an__o );
-                        return false;
-                    }
-
-                    int disamb_step_i;
-                    int disamb_step_j;
-                    int step_i;
-                    int step_j;
-
-                    if ( !cc_parse_utils_get_fields( fields_an__o,
-                                                     cb,
-                                                     &disamb_step_i,
-                                                     &disamb_step_j,
-                                                     &step_i,
-                                                     &step_j ) )
-                    {
-                        cc_parse_msg_init_or_append_format( parse_msgs_io,
-                                                            CC_PME_Error,
-                                                            "Movement not found in '%s', within '%s', within '%s'.",
-                                                            fields_an__o,
-                                                            step_an__o,
-                                                            ply_an__o );
-                        free( fields_an__o );
-                        free( step_an__o );
-                        free( ply_an__o );
-                        return false;
-                    }
-
-                    free( fields_an__o );
-                    fields_an__o = NULL;
-
-                    char const * side_effects = cc_parse_utils_side_effect_str( step_an__o );
-                    if ( !side_effects )
-                    {
-                        cc_parse_msg_init_or_append_format( parse_msgs_io,
-                                                            CC_PME_Error,
-                                                            "Side-effects not found in '%s', within '%s'.",
-                                                            step_an__o,
-                                                            ply_an__o );
-                        free( step_an__o );
-                        free( ply_an__o );
-                        return false;
-                    }
-
-                    CcSideEffect se = cc_side_effect_none();
-                    if ( !cc_parse_utils_get_side_effect( step_an__o,
-                                                          cb,
-                                                          pe,
-                                                          step_i,
-                                                          step_j,
-                                                          &se ) )
-                    {
-                        cc_parse_msg_init_or_append_format( parse_msgs_io,
-                                                            CC_PME_Error,
-                                                            "Side-effects not found in '%s', within '%s', within '%s'.",
-                                                            side_effects,
-                                                            step_an__o,
-                                                            ply_an__o );
-                        free( step_an__o );
-                        free( ply_an__o );
-                        return false;
-                    }
-
-                    free( step_an__o );
-                    step_an__o = cc_parse_utils_next_step_str_new( NULL );
-                }
-                while ( step_an__o );
-            }
+            cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                                CC_PME_Error,
+                                                "Step(s) not found in '%s', within '%s'.",
+                                                ply_an__o,
+                                                move_str );
+            free( ply_an__o );
+            return false;
         }
+
+        char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
+        if ( !step_an__o )
+        {
+            cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                                CC_PME_Error,
+                                                "Step not found in '%s', within '%s'.",
+                                                ply_an__o,
+                                                move_str );
+            free( ply_an__o );
+            return false;
+        }
+
+        CcStepLinkEnum sle = CC_SLE_Destination;
+
+        do
+        {
+            if ( !cc_parse_utils_get_step_link( ply_an__o, step_an__o, &sle ) )
+            {
+                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                                    CC_PME_Error,
+                                                    "Step link not found in '%s', within '%s', within '%s'.",
+                                                    step_an__o,
+                                                    ply_an__o,
+                                                    move_str );
+                free( step_an__o );
+                free( ply_an__o );
+                return false;
+            }
+
+            char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
+            if ( !fields_an__o )
+            {
+                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                                    CC_PME_Error,
+                                                    "Movement not found in '%s', within '%s', within '%s'.",
+                                                    step_an__o,
+                                                    ply_an__o,
+                                                    move_str );
+                free( step_an__o );
+                free( ply_an__o );
+                return false;
+            }
+
+            int disamb_step_i;
+            int disamb_step_j;
+            int step_i;
+            int step_j;
+
+            if ( !cc_parse_utils_get_fields( fields_an__o,
+                                             cb,
+                                             &disamb_step_i,
+                                             &disamb_step_j,
+                                             &step_i,
+                                             &step_j ) )
+            {
+                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                                    CC_PME_Error,
+                                                    "Movement not found in '%s', within '%s', within '%s', within '%s'.",
+                                                    fields_an__o,
+                                                    step_an__o,
+                                                    ply_an__o,
+                                                    move_str );
+                free( fields_an__o );
+                free( step_an__o );
+                free( ply_an__o );
+                return false;
+            }
+
+            free( fields_an__o );
+            fields_an__o = NULL;
+
+            char const * side_effects = cc_parse_utils_side_effect_str( step_an__o );
+            if ( !side_effects )
+            {
+                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                                    CC_PME_Error,
+                                                    "Side-effects not found in '%s', within '%s', within '%s'.",
+                                                    step_an__o,
+                                                    ply_an__o,
+                                                    move_str );
+                free( step_an__o );
+                free( ply_an__o );
+                return false;
+            }
+
+            CcSideEffect se = cc_side_effect_none();
+            if ( !cc_parse_utils_get_side_effect( step_an__o,
+                                                  cb,
+                                                  pe,
+                                                  step_i,
+                                                  step_j,
+                                                  &se ) )
+            {
+                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                                    CC_PME_Error,
+                                                    "Side-effects not found in '%s', within '%s', within '%s', within '%s'.",
+                                                    side_effects,
+                                                    step_an__o,
+                                                    ply_an__o,
+                                                    move_str );
+                free( step_an__o );
+                free( ply_an__o );
+                return false;
+            }
+
+            free( step_an__o );
+            step_an__o = cc_parse_utils_next_step_str_new( NULL );
+        }
+        while ( step_an__o );
 
 
 // // TODO :: FIX :: is_piece_light !!!
