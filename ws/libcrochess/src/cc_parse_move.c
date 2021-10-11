@@ -37,7 +37,13 @@ bool cc_parse_move( char const * const restrict move_str,
     if ( !move_o ) return false;
     if ( !parse_msgs_io ) return false;
 
-    if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
+    if ( !CC_GAME_STATUS_IS_TURN( game->status ) )
+    {
+        cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                            CC_PME_Error,
+                                            "Cannot make a move in a finished game." );
+        return false;
+    }
 
     CcChessboard const * const cb = game->chessboard;
 
@@ -49,9 +55,9 @@ bool cc_parse_move( char const * const restrict move_str,
     CcPieceEnum pe = CC_PE_None;
 
     // First piece in a first ply *always* has the color of a player on-turn.
-// TODO :: FIX :: is_piece_light !!!
     bool is_piece_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
-// TODO :: FIX :: is_piece_light !!!
+
+// TODO :: compare is_piece_light to actual piece, on actual starting position
 
     char const * steps_str = NULL;
 
