@@ -458,10 +458,10 @@ Wave can't activate neither light Pegasus, nor dark Wave.
 \label{fig:scn_mv_24_wave_same_color}
 \end{wrapfigure}
 Wave, activated by Unicorn on a field with the same color as Wave, has the same step-fields
-(green, blue) as Knight has.
+as Knight has.
 
 Wave activated on a field in opposite color can jump much longer, and has the same step-fields
-(green, blue) as Unicorn has. For comparison, short steps are also numbered (grey).
+as Unicorn has. For comparison, short steps are also numbered (grey).
 
 \vspace*{0.3\baselineskip}
 \noindent
@@ -472,14 +472,15 @@ Wave activated on a field in opposite color can jump much longer, and has the sa
 \caption{Wave long jump}
 \label{fig:scn_mv_25_wave_opposite_color}
 \end{wrapfigure}
-On initial step, Wave can freely choose any marked field, regardless of marker color (green,
-blue), or step (long, short). On second step, Wave can choose any step-field in the other color
-(blue if green was chosen initially, green if blue was first choice). On all subsequent steps,
-Wave has to keep alternating between the two initially chosen steps, for the remainder of a ply.
+On two initial steps, Wave can freely choose any marked fields, regardless if it's long or short step.
+If Wave was positioned on a same-color field, first step would be short, and second one long; vice versa
+if Wave started on an opposite-color field. On all subsequent steps, Wave has to keep alternating between
+the two initially chosen steps, for the remainder of a ply.
 
 \clearpage % ..........................................................
 
-% \vspace*{-1.0ex}
+\vspace*{-2.7\baselineskip}
+% \vspace*{-1.1ex}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -489,11 +490,12 @@ Wave has to keep alternating between the two initially chosen steps, for the rem
 % \centering
 \end{figure}
 
-Here, light Wave is activated by Unicorn on the same color (i.e. light) field, so all available
-step-fields are short jumps, which are the same as those of Knight. For the first step, Wave can
-choose any of marked step-fields (green, blue), including the one occupied by own piece (light
-Pawn). Light Pawn can be activated (in which case Wave stops at its field), or Wave can ignore
-light Pawn, and continue movement further.
+Here, light Wave is activated by Unicorn on the same-color (light) field, so all available
+step-fields are short jumps, i.e. the same as Knight. For first step, Wave can choose any of
+marked step-fields, including the one occupied by own piece (light Pawn on field 2). Normally,
+own piece could be activated, leaving Wave in its position. In this particular case, light Pawn
+is blocked from moving, so it can't be activated. Light Wave can still choose field 2 as a first
+step, only it has to move past light Pawn on it.
 
 \clearpage % ..........................................................
 
@@ -507,10 +509,11 @@ light Pawn, and continue movement further.
 % \centering
 \end{figure}
 
-Here, after first step, light Wave is located on a dark field, so all available step-fields are
-long jumps, which are the same as those of Unicorn. Since upper-left step-field (blue) was chosen
-for a first step, next step has to be one of upper-right, lower-left fields (green). Note, opponent's
-piece (dark Pawn) can't be activated, but it does not block light Wave from moving further.
+Here, after first step, light Wave is located on an opposite-color (dark) field, so all available
+step-fields are long jumps, which are the same as those of Unicorn. Dark Pawn on field 3 can't be
+activated, because it's opponent's piece. Just as with light Pawn in previous example, that does
+not prevent light Wave to choose field 3 as its second step, only it has to move over dark Pawn
+on it, and continue moving further.
 
 \clearpage % ..........................................................
 
@@ -526,8 +529,9 @@ piece (dark Pawn) can't be activated, but it does not block light Wave from movi
 
 After second step is chosen, complete movement of Wave consists of alternating between the two initially
 chosen steps, which Wave for the rest of a ply has to follow, e.g. after reaching field 4, it cannot move
-to any other step-field (red). Light Wave could also activate dark Wave, but is prevented from moving any
-further (grey). Pieces on all other fields are ignored (Pawns).
+to any other step-field (red). Light Wave could also activate dark Wave, in which case it would end it's
+ply on dark Wave's field, and dark Wave would move away. Pieces on all other non-step fields are ignored
+(Pawns).
 
 % ----------------------------------------------- Activation by Unicorn
 \clearpage % ..........................................................

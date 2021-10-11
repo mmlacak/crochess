@@ -1209,7 +1209,7 @@ class SceneMirandasVeilMixin:
         gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_SHORT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos() ):
-            mark_type = MarkType.Action if i == 1 else MarkType.Legal
+            mark_type = MarkType.Blocked if i == 1 else MarkType.Legal
             scene.append_field_marker(*pos, mark_type=mark_type)
             scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
 
@@ -1280,15 +1280,13 @@ class SceneMirandasVeilMixin:
 
         arr = GS.gen_steps(start=start, rels=rels, include_prev=True, bounds=scene.board_view.get_position_limits())
         for i, pos in enumerate( arr() ):
-            mark_type = MarkType.Blocked if i > 4 else \
-                        MarkType.Legal if i % 2 == 0 else \
+            mark_type = MarkType.Legal if i % 2 == 0 else \
                         MarkType.Action
             scene.append_arrow( *pos, mark_type=mark_type )
 
         txt = GS.gen_steps(start=start, rels=rels, include_prev=False, bounds=scene.board_view.get_position_limits())
         for i, pos in enumerate( txt() ):
-            mark_type = MarkType.Blocked if i > 4 else \
-                        MarkType.Legal if i % 2 == 0 else \
+            mark_type = MarkType.Legal if i % 2 == 0 else \
                         MarkType.Action
             corner = Corner.UpperRight if i % 2 == 0 else Corner.UpperLeft
             scene.append_text( str(i+1), *pos, corner=corner, mark_type=mark_type )
