@@ -48,7 +48,14 @@ bool cc_parse_move( char const * const restrict move_str,
     CcChessboard const * const cb = game->chessboard;
 
     char * ply_an__o = cc_parse_utils_next_ply_str_new( move_str );
-    if ( !ply_an__o ) return false;
+    if ( !ply_an__o )
+    {
+        cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                            CC_PME_Error,
+                                            "Ply not found in '%s'.",
+                                            move_str );
+        return false;
+    }
 
     CcPlyLinkEnum ple = CC_PLE_Ply;
     char piece_symbol = ' ';
