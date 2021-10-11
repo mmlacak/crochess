@@ -1156,9 +1156,8 @@ class SceneMirandasVeilMixin:
         gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_SHORT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos() ):
-            mark_type = MarkType.Legal if i < 4 else MarkType.Action
-            scene.append_field_marker(*pos, mark_type=mark_type)
-            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
+            scene.append_field_marker(*pos, mark_type=MarkType.Legal)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal)
 
         return scene
 
@@ -1174,9 +1173,8 @@ class SceneMirandasVeilMixin:
         gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_LONG_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos() ):
-            mark_type = MarkType.Legal if i < 8 else MarkType.Action
-            scene.append_field_marker(*pos, mark_type=mark_type)
-            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
+            scene.append_field_marker(*pos, mark_type=MarkType.Action)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action)
 
         # Knight, short jump
 
@@ -1211,11 +1209,11 @@ class SceneMirandasVeilMixin:
         gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_SHORT_MULTI_REL_MOVES, start=start, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos() ):
-            mark_type = MarkType.Legal if i < 4 else MarkType.Action
+            mark_type = MarkType.Action if i == 1 else MarkType.Legal
             scene.append_field_marker(*pos, mark_type=mark_type)
             scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
 
-        scene.append_arrow( *(start_U + start), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(start_U + start), mark_type=MarkType.Action )
 
         return scene
 
@@ -1239,15 +1237,15 @@ class SceneMirandasVeilMixin:
 
         scene.board.set_piece(9, 13, piece=-PieceType.Wave)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_LONG_I_III_MULTI_REL_MOVES, start=start_W, include_prev=False, count=1)
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_CENTAUR_LONG_MULTI_REL_MOVES, start=start_W, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos() ):
-            mark_type = MarkType.Legal
+            mark_type = MarkType.Blocked if i == 2 else MarkType.Action
             scene.append_field_marker(*pos, mark_type=mark_type)
             scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
 
         scene.append_arrow( *(start_U + start), mark_type=MarkType.Blocked )
-        scene.append_arrow( *(start + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start + start_W), mark_type=MarkType.Legal )
 
         return scene
 
@@ -1283,15 +1281,15 @@ class SceneMirandasVeilMixin:
         arr = GS.gen_steps(start=start, rels=rels, include_prev=True, bounds=scene.board_view.get_position_limits())
         for i, pos in enumerate( arr() ):
             mark_type = MarkType.Blocked if i > 4 else \
-                        MarkType.Action if i % 2 == 0 else \
-                        MarkType.Legal
+                        MarkType.Legal if i % 2 == 0 else \
+                        MarkType.Action
             scene.append_arrow( *pos, mark_type=mark_type )
 
         txt = GS.gen_steps(start=start, rels=rels, include_prev=False, bounds=scene.board_view.get_position_limits())
         for i, pos in enumerate( txt() ):
             mark_type = MarkType.Blocked if i > 4 else \
-                        MarkType.Action if i % 2 == 0 else \
-                        MarkType.Legal
+                        MarkType.Legal if i % 2 == 0 else \
+                        MarkType.Action
             corner = Corner.UpperRight if i % 2 == 0 else Corner.UpperLeft
             scene.append_text( str(i+1), *pos, corner=corner, mark_type=mark_type )
 
