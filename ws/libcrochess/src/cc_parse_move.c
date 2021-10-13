@@ -7,6 +7,7 @@
 // #include <string.h>
 // #include <stdio.h>
 
+#include "cc_defines.h"
 #include "cc_rules.h"
 
 #include "cc_parse_msg.h"
@@ -117,6 +118,7 @@ bool cc_parse_move( char const * const restrict move_str,
         }
 
         CcStepLinkEnum sle = CC_SLE_Destination;
+        CcStep * steps__t = NULL;
 
         do
         {
@@ -130,7 +132,8 @@ bool cc_parse_move( char const * const restrict move_str,
                                                     move_str );
                 free( step_an__o );
                 free( ply_an__o );
-                return false;
+
+                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
             }
 
             char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
@@ -144,13 +147,14 @@ bool cc_parse_move( char const * const restrict move_str,
                                                     move_str );
                 free( step_an__o );
                 free( ply_an__o );
-                return false;
+
+                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
             }
 
-            int disamb_step_i;
-            int disamb_step_j;
-            int step_i;
-            int step_j;
+            int disamb_step_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+            int disamb_step_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+            int step_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+            int step_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
             if ( !cc_parse_utils_get_fields( fields_an__o,
                                              cb,
@@ -169,7 +173,8 @@ bool cc_parse_move( char const * const restrict move_str,
                 free( fields_an__o );
                 free( step_an__o );
                 free( ply_an__o );
-                return false;
+
+                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
             }
 
             free( fields_an__o );
@@ -186,7 +191,8 @@ bool cc_parse_move( char const * const restrict move_str,
                                                     move_str );
                 free( step_an__o );
                 free( ply_an__o );
-                return false;
+
+                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
             }
 
             CcSideEffect se = cc_side_effect_none();
@@ -206,8 +212,19 @@ bool cc_parse_move( char const * const restrict move_str,
                                                     move_str );
                 free( step_an__o );
                 free( ply_an__o );
-                return false;
+
+                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
             }
+
+            if ( !cc_step_append_or_init( &steps__t, sle, step_i, step_j, se, CC_FSUE_User ) )
+            {
+                free( step_an__o );
+                free( ply_an__o );
+
+                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
+            }
+
+// TODO :: USE :: disamb_step_i, disamb_step_j
 
             free( step_an__o );
             step_an__o = cc_parse_utils_next_step_str_new( NULL );

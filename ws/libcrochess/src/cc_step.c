@@ -234,6 +234,19 @@ CcStep * cc_step_append( CcStep * const restrict steps,
     return new;
 }
 
+CcStep * cc_step_append_or_init( CcStep ** const restrict steps_io,
+                                 CcStepLinkEnum const link, int const i, int const j, CcSideEffect const side_effect,
+                                 CcFormatStepUsageEnum const usage )
+{
+    if ( !steps_io ) return NULL;
+
+    CcStep * new = cc_step_append( *steps_io, link, i, j, side_effect, usage );
+
+    if ( !*steps_io ) *steps_io = new;
+
+    return new;
+}
+
 CcStep * cc_step_duplicate_all_new( CcStep const * const restrict steps )
 {
     if ( !steps ) return NULL;

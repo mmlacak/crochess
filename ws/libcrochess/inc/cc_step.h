@@ -246,6 +246,30 @@ CcStep * cc_step_append( CcStep * const restrict steps,
                          CcFormatStepUsageEnum const usage );
 
 /**
+    Allocates a new step, appends it to a linked list.
+
+    @param steps_io Linked list of parser messages, to which a newly allocated step is appended, can be `NULL`.
+    @param link Type of a link to previous step.
+    @param i File.
+    @param j Rank.
+    @param side_effect Side-effect structure.
+    @param usage Step formatting usage.
+
+    @note
+    Linked list `*steps_io` can be `NULL`, a step will still be allocated, and returned.
+
+    @note
+    If linked list `*steps_io` is `NULL`, it will be initialized,
+    with a newly allocated step as its first element.
+
+    @return
+    Weak pointer to a newly allocated step, is successful, `NULL` otherwise.
+*/
+CcStep * cc_step_append_or_init( CcStep ** const restrict steps_io,
+                                 CcStepLinkEnum const link, int const i, int const j, CcSideEffect const side_effect,
+                                 CcFormatStepUsageEnum const usage );
+
+/**
     Duplicates a given steps into a newly allocated linked list.
 
     @param steps Linked list to duplicate.
