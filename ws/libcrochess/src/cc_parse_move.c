@@ -61,6 +61,7 @@ bool cc_parse_move( char const * const restrict move_str,
     CcPlyLinkEnum ple = CC_PLE_Ply;
     char piece_symbol = ' ';
     CcPieceEnum pe = CC_PE_None;
+    CcPly * plies__t = NULL;
 
     // First piece in a first ply *always* has the color of a player on-turn.
     bool is_piece_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
@@ -79,7 +80,8 @@ bool cc_parse_move( char const * const restrict move_str,
                                                 ply_an__o,
                                                 move_str );
             free( ply_an__o );
-            return false;
+
+            return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
         }
 
         if ( !cc_parse_utils_get_ply_piece_symbol( ply_an__o, &piece_symbol ) )
@@ -90,7 +92,8 @@ bool cc_parse_move( char const * const restrict move_str,
                                                 ply_an__o,
                                                 move_str );
             free( ply_an__o );
-            return false;
+
+            return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
         }
 
         steps_str = cc_parse_utils_get_steps_str( ply_an__o );
@@ -102,7 +105,8 @@ bool cc_parse_move( char const * const restrict move_str,
                                                 ply_an__o,
                                                 move_str );
             free( ply_an__o );
-            return false;
+
+            return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
         }
 
         char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
@@ -114,7 +118,8 @@ bool cc_parse_move( char const * const restrict move_str,
                                                 ply_an__o,
                                                 move_str );
             free( ply_an__o );
-            return false;
+
+            return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
         }
 
         CcStepLinkEnum sle = CC_SLE_Destination;
@@ -133,7 +138,7 @@ bool cc_parse_move( char const * const restrict move_str,
                 free( step_an__o );
                 free( ply_an__o );
 
-                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
+                return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
             char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
@@ -148,7 +153,7 @@ bool cc_parse_move( char const * const restrict move_str,
                 free( step_an__o );
                 free( ply_an__o );
 
-                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
+                return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
             int disamb_step_i = CC_INVALID_OFF_BOARD_COORD_MIN;
@@ -174,7 +179,7 @@ bool cc_parse_move( char const * const restrict move_str,
                 free( step_an__o );
                 free( ply_an__o );
 
-                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
+                return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
             free( fields_an__o );
@@ -192,7 +197,7 @@ bool cc_parse_move( char const * const restrict move_str,
                 free( step_an__o );
                 free( ply_an__o );
 
-                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
+                return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
             CcSideEffect se = cc_side_effect_none();
@@ -213,7 +218,7 @@ bool cc_parse_move( char const * const restrict move_str,
                 free( step_an__o );
                 free( ply_an__o );
 
-                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
+                return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
             if ( !cc_step_append_or_init( &steps__t, sle, step_i, step_j, se, CC_FSUE_User ) )
@@ -221,7 +226,7 @@ bool cc_parse_move( char const * const restrict move_str,
                 free( step_an__o );
                 free( ply_an__o );
 
-                return cc_game_move_data_free_all( NULL, NULL, NULL, NULL, &steps__t, false );
+                return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
 // TODO :: USE :: disamb_step_i, disamb_step_j
@@ -235,6 +240,15 @@ bool cc_parse_move( char const * const restrict move_str,
 // // TODO :: FIX :: is_piece_light !!!
 //         is_piece_light = !is_piece_light;
 // // TODO :: FIX :: is_piece_light !!!
+
+// TODO :: FIX :: is_piece_light --> piece_symbol --> pe !!!
+        if ( !cc_ply_append_or_init( &plies__t, ple, pe, &steps__t ) )
+        {
+            free( ply_an__o );
+
+            return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
+        }
+// TODO :: FIX :: is_piece_light --> piece_symbol --> pe !!!
 
         free( ply_an__o );
         ply_an__o = cc_parse_utils_next_ply_str_new( NULL );

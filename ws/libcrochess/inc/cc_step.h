@@ -248,7 +248,7 @@ CcStep * cc_step_append( CcStep * const restrict steps,
 /**
     Allocates a new step, appends it to a linked list.
 
-    @param steps_io Linked list of parser messages, to which a newly allocated step is appended, can be `NULL`.
+    @param steps_io Linked list of steps, to which a newly allocated step is appended, can be `NULL`.
     @param link Type of a link to previous step.
     @param i File.
     @param j Rank.

@@ -69,6 +69,20 @@ CcPly * cc_ply_append( CcPly * const restrict plies,
     return new;
 }
 
+CcPly * cc_ply_append_or_init( CcPly ** const restrict plies_io,
+                               CcPlyLinkEnum const link,
+                               CcPieceEnum const piece,
+                               CcStep ** const restrict steps__n )
+{
+    if ( !plies_io ) return NULL;
+
+    CcPly * new = cc_ply_append( *plies_io, link, piece, steps__n );
+
+    if ( !*plies_io ) *plies_io = new;
+
+    return new;
+}
+
 CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
 {
     if ( !plies ) return NULL;
