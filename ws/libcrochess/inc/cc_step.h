@@ -109,6 +109,7 @@ typedef struct CcSideEffect
                 } convert; /**< Conversion. */
 
         struct  { CcPieceEnum piece; /**< Piece which has been demoted to Pawn. */
+                  CcTagEnum lost_tag; /**< Flag, whether demoted piece has lost its tag. */
                   int dest_i; /**< File, at which demoting happened. */
                   int dest_j; /**< Rank, at which demoting happened. */
                 } demote; /**< Demoting. */
@@ -162,7 +163,7 @@ CcSideEffect cc_side_effect_promote( CcPieceEnum const piece );
 CcSideEffect cc_side_effect_tag_for_promotion();
 CcSideEffect cc_side_effect_convert( CcPieceEnum const piece, CcTagEnum const lost_tag );
 CcSideEffect cc_side_effect_failed_conversion();
-CcSideEffect cc_side_effect_demote( CcPieceEnum const piece, int const dest_i, int const dest_j );
+CcSideEffect cc_side_effect_demote( CcPieceEnum const piece, CcTagEnum lost_tag, int const dest_i, int const dest_j );
 CcSideEffect cc_side_effect_resurrect( CcPieceEnum const piece, int const dest_i, int const dest_j );
 CcSideEffect cc_side_effect_failed_resurrection();
 
@@ -343,7 +344,7 @@ CcStep * cc_step_failed_conversion_new( CcStepLinkEnum const link, int const i, 
                                         CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_demote_new( CcStepLinkEnum const link, int const i, int const j,
-                             CcPieceEnum const piece, int const dest_i, int const dest_j,
+                             CcPieceEnum const piece, CcTagEnum lost_tag, int const dest_i, int const dest_j,
                              CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_resurrect_new( CcStepLinkEnum const link, int const i, int const j,
@@ -410,7 +411,7 @@ CcStep * cc_step_failed_conversion_append( CcStep * const restrict steps,
 
 CcStep * cc_step_demote_append( CcStep * const restrict steps,
                                 CcStepLinkEnum const link, int const i, int const j,
-                                CcPieceEnum const piece, int const dest_i, int const dest_j,
+                                CcPieceEnum const piece, CcTagEnum lost_tag, int const dest_i, int const dest_j,
                                 CcFormatStepUsageEnum const usage );
 
 CcStep * cc_step_resurrect_append( CcStep * const restrict steps,

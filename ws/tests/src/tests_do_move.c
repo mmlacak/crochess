@@ -927,7 +927,7 @@ bool test_do_move_demotion( int const index, TestPrints const tp )
     CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
-    if ( !cc_step_demote_append( steps_0__t, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, 11, 11, CC_FSUE_User ) )
+    if ( !cc_step_demote_append( steps_0__t, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, CC_TE_None, 11, 11, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_Monolith, &steps_0__t );

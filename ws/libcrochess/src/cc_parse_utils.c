@@ -63,8 +63,9 @@ size_t cc_parse_utils_ply_link_len( char const * const restrict ply_str )
 
     if ( *c == ':' )
     {
-        if ( *++c == ':' ) return 2;
-        return 0; // En passant is not ply divider.
+        if ( *++c == ':' )
+            if ( *++c == ':' ) return 3;
+        return 0; // En passant, losing rush are not ply dividers.
     }
 
     return 0;
@@ -190,11 +191,6 @@ bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
             *link_o = CC_PLE_DualTranceJourney;
             return true;
         }
-        else if ( ( c_0 == ':' ) && ( c_1 == ':' ) )
-        {
-            *link_o = CC_PLE_PawnSacrifice;
-            return true;
-        }
     }
     else if ( len == 3 )
     {
@@ -205,6 +201,11 @@ bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
         if ( ( c_0 == '@' ) && ( c_1 == '@' ) && ( c_2 == '@' ) )
         {
             *link_o = CC_PLE_FailedTranceJourney;
+            return true;
+        }
+        else if ( ( c_0 == ':' ) && ( c_1 == ':' ) && ( c_2 == ':' ) )
+        {
+            *link_o = CC_PLE_PawnSacrifice;
             return true;
         }
     }
@@ -627,6 +628,34 @@ bool cc_parse_utils_get_fields( char const * const restrict fields_str,
     return true;
 }
 
+bool cc_parse_utils_get_lost_tag( char const * const restrict lost_tag_str,
+                                  CcChessboard const * const restrict cb,
+                                  int const step_i,
+                                  int const step_j,
+                                  CcTagEnum * const restrict lost_tag_o )
+{
+    if ( !lost_tag_str ) return false;
+    if ( !cb ) return false;
+    if ( !lost_tag_o ) return false;
+
+    char const * s = lost_tag_str;
+
+    CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
+    CcTagEnum lost_tag = CC_TE_None;
+
+    if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
+        lost_tag = CC_TE_DelayedPromotion;
+    else if ( ( *( s + 1 ) == '&' ) && ( *( s + 2 ) == '&' ) )
+        lost_tag = CC_TE_CanCastle;
+    else if ( ( *( s + 1 ) == ':' ) && ( *( s + 2 ) == ':' ) )
+        lost_tag = CC_TE_CanRush;
+
+    if ( CC_TAG_IS_LASTING( tag ) && ( tag != lost_tag ) )
+        return false;
+
+    return true;
+}
+
 bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                                      CcChessboard const * const restrict cb,
                                      CcPieceEnum ply_piece,
@@ -661,17 +690,8 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                 return false;
         }
 
-        CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
         CcTagEnum lost_tag = CC_TE_None;
-
-        if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-            lost_tag = CC_TE_DelayedPromotion;
-        else if ( ( *( s + 1 ) == '&' ) && ( *( s + 2 ) == '&' ) )
-            lost_tag = CC_TE_CanCastle;
-        else if ( ( *( s + 1 ) == ':' ) && ( *( s + 2 ) == '&' ) )
-            lost_tag = CC_TE_CanRush;
-
-        if ( CC_TAG_IS_LASTING( tag ) && ( tag != lost_tag ) )
+        if ( !cc_parse_utils_get_lost_tag( s, cb, step_i, step_j, &lost_tag ) )
             return false;
 
         *side_effect_o = cc_side_effect_capture( piece, lost_tag );
@@ -695,16 +715,11 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                 return false;
         }
 
-        CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-        bool lost_tag = ( tag == CC_TE_DelayedPromotion );
-
-        if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-        {
-            if ( !lost_tag )
-                return false;
-            else
-                s += 2;
-        }
+        CcTagEnum lost_tag = CC_TE_None;
+        if ( !cc_parse_utils_get_lost_tag( s, cb, step_i, step_j, &lost_tag ) )
+            return false;
+        else
+            s += 2; // All lost tag notations are 2 chars long.
 
         int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
 
@@ -825,12 +840,9 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             CcPieceEnum piece = cc_chessboard_get_piece( cb, step_i, step_j );
             if ( piece != pe ) return false;
 
-            CcTagEnum tag = cc_chessboard_get_tag( cb, step_i, step_j );
-            bool lost_tag = ( tag == CC_TE_DelayedPromotion );
-
-            if ( ( *( s + 1 ) == '=' ) && ( *( s + 2 ) == '=' ) )
-                if ( !lost_tag )
-                    return false;
+            CcTagEnum lost_tag = CC_TE_None;
+            if ( !cc_parse_utils_get_lost_tag( s, cb, step_i, step_j, &lost_tag ) )
+                return false;
 
             *side_effect_o = cc_side_effect_convert( piece, lost_tag );
             return true;
@@ -862,6 +874,12 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
 // TODO :: FIX !!!
         }
 
+        CcTagEnum lost_tag = CC_TE_None;
+        if ( !cc_parse_utils_get_lost_tag( s, cb, step_i, step_j, &lost_tag ) )
+            return false;
+        else
+            s += 2; // All lost tags notation is 2 chars long.
+
         if ( islower( *( s + 1 ) ) )
         {
             dest_i = ( *++s ) - 'a';
@@ -882,7 +900,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
         else
             return false;
 
-        *side_effect_o = cc_side_effect_demote( piece, dest_i, dest_j );
+        *side_effect_o = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
         return true;
     }
     else if ( *s == '$' )

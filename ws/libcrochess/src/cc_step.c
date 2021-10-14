@@ -173,9 +173,9 @@ CcSideEffect cc_side_effect_failed_conversion()
                            CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
-CcSideEffect cc_side_effect_demote( CcPieceEnum const piece, int const dest_i, int const dest_j )
+CcSideEffect cc_side_effect_demote( CcPieceEnum const piece, CcTagEnum lost_tag, int const dest_i, int const dest_j )
 {
-    return cc_side_effect( CC_SEE_Demotion, piece, CC_TE_None,
+    return cc_side_effect( CC_SEE_Demotion, piece, lost_tag,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            CC_INVALID_OFF_BOARD_COORD_MIN,
                            dest_i,
@@ -362,10 +362,10 @@ CcStep * cc_step_failed_conversion_new( CcStepLinkEnum const link, int const i, 
 }
 
 CcStep * cc_step_demote_new( CcStepLinkEnum const link, int const i, int const j,
-                             CcPieceEnum const piece, int const dest_i, int const dest_j,
+                             CcPieceEnum const piece, CcTagEnum lost_tag, int const dest_i, int const dest_j,
                              CcFormatStepUsageEnum const usage )
 {
-    CcSideEffect se = cc_side_effect_demote( piece, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
     return cc_step_new( link, i, j, se, usage );
 }
 
@@ -467,10 +467,10 @@ CcStep * cc_step_failed_conversion_append( CcStep * const restrict steps,
 
 CcStep * cc_step_demote_append( CcStep * const restrict steps,
                                 CcStepLinkEnum const link, int const i, int const j,
-                                CcPieceEnum const piece, int const dest_i, int const dest_j,
+                                CcPieceEnum const piece, CcTagEnum lost_tag, int const dest_i, int const dest_j,
                                 CcFormatStepUsageEnum const usage )
 {
-    CcSideEffect se = cc_side_effect_demote( piece, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
     return cc_step_append( steps, link, i, j, se, usage );
 }
 

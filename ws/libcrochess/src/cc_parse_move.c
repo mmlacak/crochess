@@ -36,6 +36,7 @@ bool cc_parse_move( char const * const restrict move_str,
     if ( !move_str ) return false;
     if ( !game ) return false;
     if ( !move_o ) return false;
+    if ( *move_o ) return false;
     if ( !parse_msgs_io ) return false;
 
     if ( !CC_GAME_STATUS_IS_TURN( game->status ) )
@@ -156,10 +157,10 @@ bool cc_parse_move( char const * const restrict move_str,
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
-            int disamb_step_i = CC_INVALID_OFF_BOARD_COORD_MIN;
-            int disamb_step_j = CC_INVALID_OFF_BOARD_COORD_MIN;
-            int step_i = CC_INVALID_OFF_BOARD_COORD_MIN;
-            int step_j = CC_INVALID_OFF_BOARD_COORD_MIN;
+            int disamb_step_i;
+            int disamb_step_j;
+            int step_i;
+            int step_j;
 
             if ( !cc_parse_utils_get_fields( fields_an__o,
                                              cb,
@@ -255,7 +256,9 @@ bool cc_parse_move( char const * const restrict move_str,
     }
     while ( ply_an__o );
 
+    CcMoveStatusEnum mse = CC_MSE_None;
 
+    *move_o = cc_move_new( move_str, &plies__t, mse );
 
 // TODO
     return true;
