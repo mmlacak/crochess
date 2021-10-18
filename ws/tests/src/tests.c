@@ -19,6 +19,7 @@
 #include "cc_parse_msg.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_move.h"
+#include "cc_gen_steps.h"
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
@@ -29,7 +30,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.94:293+20211014.171115"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.95:294+20211018.140725"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -423,6 +424,36 @@ int main( void )
             cc_step_free_all_steps( &dup__o );
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
+        }
+        else if ( !strcmp( "zz", cmd ) )
+        {
+            // int i = 3;
+            // int j = 7;
+
+            // printf( "Start: (%d, %d)\n", i, j );
+
+            // for ( int k = 0; k < 10; ++k )
+            // {
+            //     if ( cc_gen_steps( &i, &j, 3, 2, true ) )
+            //         printf( "Step %d: (%d, %d)\n", k, i, j );
+            //     else
+            //         printf( "Step %d fail!\n", k );
+            // }
+
+            int step_i = 7;
+            int step_j = -2;
+
+            printf( "Start: (%d, %d)\n", step_i, step_j );
+
+            for ( int k = 0; k < 10; ++k )
+            {
+                cc_gen_steps( &step_i, &step_j, -1, 1, true );
+
+                if ( cc_gen_steps_is_valid( step_i, step_j, CC_GEN_STEPS_UNICORN, CC_GEN_STEPS_UNICORN_LEN ) )
+                    printf( "Step %d: (%d, %d)\n", k, step_i, step_j );
+                else
+                    printf( "Step %d fail: (%d, %d)\n", k, step_i, step_j );
+            }
         }
         else
         {

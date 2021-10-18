@@ -4,29 +4,44 @@
 #ifndef __CC_GEN_STEPS_H__
 #define __CC_GEN_STEPS_H__
 
+#include <stddef.h>
 #include <stdbool.h>
 
-#define CC_GEN_STEP_COORDS_LEN 2
 
-#define CC_GEN_STEP_BISHOP_LEN 4
-#define CC_GEN_STEP_ROOK_LEN 4
-#define CC_GEN_STEP_QUEEN_LEN 8
-#define CC_GEN_STEP_KNIGHT_LEN 8
-#define CC_GEN_STEP_UNICORN_LEN 16
+// DOCS
+#define CC_GEN_STEPS_COORDS_LEN 2
 
-
-extern int const CC_GEN_STEP_BISHOP[ CC_GEN_STEP_BISHOP_LEN ][ CC_GEN_STEP_COORDS_LEN ];
-extern int const CC_GEN_STEP_ROOK[ CC_GEN_STEP_ROOK_LEN ][ CC_GEN_STEP_COORDS_LEN ];
-extern int const CC_GEN_STEP_QUEEN[ CC_GEN_STEP_QUEEN_LEN ][ CC_GEN_STEP_COORDS_LEN ];
-extern int const CC_GEN_STEP_KNIGHT[ CC_GEN_STEP_KNIGHT_LEN ][ CC_GEN_STEP_COORDS_LEN ];
-extern int const CC_GEN_STEP_UNICORN[ CC_GEN_STEP_UNICORN_LEN ][ CC_GEN_STEP_COORDS_LEN ];
+// DOCS
+#define CC_GEN_STEPS_BISHOP_LEN 4
+#define CC_GEN_STEPS_ROOK_LEN 4
+#define CC_GEN_STEPS_QUEEN_LEN 8
+#define CC_GEN_STEPS_KNIGHT_LEN 8
+#define CC_GEN_STEPS_UNICORN_LEN 16
 
 
-bool cc_gen_step( int * const restrict i_io,
-                  int * const restrict j_io,
-                  int const step_i,
-                  int const step_j,
-                  bool const from_or_to );
+// DOCS
+// Also, Serpent.
+extern int const CC_GEN_STEPS_BISHOP[ CC_GEN_STEPS_BISHOP_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
+
+// DOCS
+extern int const CC_GEN_STEPS_ROOK[ CC_GEN_STEPS_ROOK_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
+extern int const CC_GEN_STEPS_QUEEN[ CC_GEN_STEPS_QUEEN_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
+extern int const CC_GEN_STEPS_KNIGHT[ CC_GEN_STEPS_KNIGHT_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
+extern int const CC_GEN_STEPS_UNICORN[ CC_GEN_STEPS_UNICORN_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
+
+
+// DOCS
+bool cc_gen_steps( int * const restrict i_io,
+                   int * const restrict j_io,
+                   int const step_i,
+                   int const step_j,
+                   bool const from_or_to );
+
+// DOCS
+bool cc_gen_steps_is_valid( int const step_i,
+                            int const step_j,
+                            int const array[  ][ CC_GEN_STEPS_COORDS_LEN ],
+                            size_t const array_len );
 
 
 #endif /* __CC_GEN_STEPS_H__ */
