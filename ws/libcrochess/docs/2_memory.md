@@ -105,6 +105,15 @@ Output parameters (mutable borrows) are indicated by their type (`const` pointer
 appending either `_o`, or `_io` to their name, depending if they are pure output parameter, or
 input+output one, e.g. `char * const restrict str_io`.
 
+### Optional parameters
+
+Discretional parameters are indicated by appending `_d` to their name, e.g. `int const disamb_i_d`.
+For pointers, `NULL` is used if optional parameter is not given. For other types check which value(s)
+are used to convey absence of a valid value.
+
+In a given example, disambiguation coordinate is optional, with `CC_INVALID_OFF_BOARD_COORD_MIN`
+used as an absence value.
+
 ### Ownership transfer parameters
 
 Ownership transfer parameters are indicated by:
@@ -123,11 +132,11 @@ Summary
 -------
 
 If multiple indicators are needed, _static_ indicator (`_s`) is apended to parameter name first, followed
-by direction indicator (one of `_o`, `_io`), finally followed by ownership transfer indicator (one of
-`__w`, `__t`, `__o`, `__n`, `__f`, `__r`).
+by direction indicator (one of `_o`, `_io`), followed by discretion indicator (`_d`), finally followed by
+ownership transfer indicator (one of `__w`, `__t`, `__o`, `__n`, `__f`, `__r`).
 
-_Static_ and direction indicators can be combined, ownership transfer indicator is always kept separated,
-e.g. `str_sio__n`.
+_Static_, direction and discretion indicators can be combined, ownership transfer indicator is always kept
+separated, e.g. `str_sio__n`, `move_siod__r`.
 
 ### Functions
 
@@ -148,12 +157,13 @@ e.g. `str_sio__n`.
 
 ### Input, output parameters
 
-| Indicator |            `arg` |            `*arg` |
-| --------: | ---------------: | ----------------: |
-|           |            input |              read |
-|      `_s` |    input, `NULL` |    read, _static_ |
-|      `_o` |           output |             write |
-|     `_io` |   input + output |      read + write |
+| Indicator |               `arg` |            `*arg` |
+| --------: | ------------------: | ----------------: |
+|           |               input |              read |
+|      `_s` |       input, `NULL` |    read, _static_ |
+|      `_o` |              output |             write |
+|     `_io` |      input + output |      read + write |
+|      `_d` | input, discretional |              read |
 
 ### Ownership transfer parameters
 
@@ -163,6 +173,7 @@ e.g. `str_sio__n`.
 |      `_s` |        `!NULL` |           input, `NULL` |  read, _static_ |
 |      `_o` |        `!NULL` |                  output |           write |
 |     `_io` |        `!NULL` |          input + output |    read + write |
+|      `_d` |        `!NULL` |     input, discretional |            read |
 |     `__n` |        `!NULL` |         `*args = NULL;` | ownership taken |
 |     `__f` |        `!NULL` | `free(); *args = NULL;` |           freed |
 |     `__r` |        `!NULL` |    `*args = realloc();` |     reallocated |
