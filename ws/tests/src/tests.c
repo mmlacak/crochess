@@ -30,7 +30,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.95:294+20211018.140725"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.96:295+20211018.144414"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -449,7 +449,8 @@ int main( void )
             {
                 cc_gen_steps( &step_i, &step_j, -1, 1, true );
 
-                if ( cc_gen_steps_is_valid( step_i, step_j, CC_GEN_STEPS_UNICORN, CC_GEN_STEPS_UNICORN_LEN ) )
+                // if ( cc_gen_steps_is_valid( step_i, step_j, CC_GEN_STEPS_UNICORN, CC_GEN_STEPS_UNICORN_LEN ) )
+                if ( CC_GEN_STEPS_UNICORN_IS_VALID( step_i, step_j ) )
                     printf( "Step %d: (%d, %d)\n", k, step_i, step_j );
                 else
                     printf( "Step %d fail: (%d, %d)\n", k, step_i, step_j );
