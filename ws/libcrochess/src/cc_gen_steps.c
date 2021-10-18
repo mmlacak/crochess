@@ -4,6 +4,13 @@
 #include "cc_gen_steps.h"
 
 
+int const CC_GEN_STEPS_PAWN[ CC_GEN_STEPS_PAWN_LEN ][ CC_GEN_STEPS_COORDS_LEN ] =
+{
+    { -1,  1 },
+    {  0,  1 },
+    {  1,  1 },
+};
+
 int const CC_GEN_STEPS_BISHOP[ CC_GEN_STEPS_BISHOP_LEN ][ CC_GEN_STEPS_COORDS_LEN ] =
 {
     {  1,  1 },
