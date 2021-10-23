@@ -34,9 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_24_wave_same_color', \
-                    'scn_mv_25_wave_opposite_color', \
-                    'scn_mv_26_wave_activation_by_unicorn_first_step', \
-                    'scn_mv_27_wave_activation_by_unicorn_second_step', \
-                    'scn_mv_28_wave_activation_by_unicorn_complete', \
+                    'scn_mv_04_wave_no_activating_blocked_piece', \
                 ]
