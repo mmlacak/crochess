@@ -167,14 +167,18 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_05_wave_blocked(self, bt=BoardType.MirandasVeil):
+    def scn_mv_05_wave_blocked_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_05_wave_blocked', bt)
+        scene = Scene('scn_mv_05_wave_blocked_init', bt)
+
+        scene.board.set_piece(9, 9, piece=-PieceType.Rook)
+        scene.board.set_piece(9, 4, piece=-PieceType.Wave)
+        scene.board.set_piece(11, 4, piece=PieceType.Wave)
+        scene.board.set_piece(11, 0, piece=PieceType.Rook)
+        scene.board.set_piece(15, 0, piece=PieceType.Wave)
 
         start = (15, 1)
         scene.board.set_piece(*start, piece=-PieceType.Wave)
-        scene.board.set_piece(15, 0, piece=-PieceType.Pyramid)
-        scene.board.set_piece(11, 0, piece=-PieceType.Rook)
 
         # horizontal Pawns
         coords = GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=False, count=15)
@@ -195,18 +199,24 @@ class SceneMirandasVeilMixin:
             scene.board.set_piece(*step, piece=piece)
 
         # arrows
+        scene.append_arrow( 9, 9, 9, 4, mark_type=MarkType.Legal )
+        scene.append_arrow( 9, 4, 11, 4, mark_type=MarkType.Legal )
+        scene.append_arrow( 11, 4, 11, 0, mark_type=MarkType.Legal )
         scene.append_arrow( 11, 0, 15, 0, mark_type=MarkType.Legal )
         scene.append_arrow( 15, 0, 15, 1, mark_type=MarkType.Action )
 
         # horizontal arrows
-        coords = GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True, count=15)
-        for step in coords():
-            scene.append_arrow(*step, mark_type=MarkType.Blocked)
+        # coords = GS.gen_steps(start=start, rels=[(-1, 0), ], include_prev=True, count=15)
+        # for step in coords():
+        #     scene.append_arrow(*step, mark_type=MarkType.Blocked)
 
         # vertical arrows
-        coords = GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True, count=14)
-        for step in coords():
-            scene.append_arrow(*step, mark_type=MarkType.Blocked)
+        # coords = GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True, count=14)
+        # for step in coords():
+        #     scene.append_arrow(*step, mark_type=MarkType.Blocked)
+
+        # scene.append_text("A", 9, 9, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
+        # scene.append_text("B", 9, 8, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
 
         return scene
 
