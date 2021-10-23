@@ -4,12 +4,12 @@
 #include "cc_rule_steps.h"
 
 
-bool cc_rules_steps_piece_pos_iter( CcGame const * const restrict game,
-                                    char const piece_symbol,
-                                    CcPieceEnum * const restrict piece_o,
-                                    int * const restrict pos_i_o,
-                                    int * const restrict pos_j_o,
-                                    bool initialize_iter )
+bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
+                                   char const piece_symbol,
+                                   CcPieceEnum * const restrict piece_o,
+                                   int * const restrict pos_i_o,
+                                   int * const restrict pos_j_o,
+                                   bool initialize_iter )
 {
     if ( !game ) return false;
     if ( !game->chessboard ) return false;
@@ -52,16 +52,16 @@ bool cc_rules_steps_piece_pos_iter( CcGame const * const restrict game,
     return false;
 }
 
-bool cc_rules_steps_find_piece_start_pos( CcGame const * const restrict game,
-                                          CcPlyLinkEnum const ple,
-                                          char const piece_symbol,
-                                          int const * const restrict disamb_i_d,
-                                          int const * const restrict disamb_j_d,
-                                          int const dest_i,
-                                          int const dest_j,
-                                          CcPieceEnum * const restrict piece_o,
-                                          int * const restrict pos_i_o,
-                                          int * const restrict pos_j_o )
+bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
+                                         CcPlyLinkEnum const ple,
+                                         char const piece_symbol,
+                                         int const * const restrict disamb_i_d,
+                                         int const * const restrict disamb_j_d,
+                                         int const dest_i,
+                                         int const dest_j,
+                                         CcPieceEnum * const restrict piece_o,
+                                         int * const restrict pos_i_o,
+                                         int * const restrict pos_j_o )
 {
     if ( !game ) return false;
     if ( !piece_o ) return false;
@@ -103,7 +103,7 @@ bool cc_rules_steps_find_piece_start_pos( CcGame const * const restrict game,
     int pos_j;
     bool initialize_iter = true;
 
-    while ( cc_rules_steps_piece_pos_iter( game, piece_symbol, &piece, &pos_i, &pos_j, initialize_iter ) )
+    while ( cc_rule_steps_piece_pos_iter( game, piece_symbol, &piece, &pos_i, &pos_j, initialize_iter ) )
     {
         initialize_iter = false;
 
@@ -116,7 +116,6 @@ bool cc_rules_steps_find_piece_start_pos( CcGame const * const restrict game,
         *pos_i_o = pos_i;
         *pos_j_o = pos_j;
         return true;
-
     }
 
     return false;
