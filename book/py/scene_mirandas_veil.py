@@ -152,17 +152,21 @@ class SceneMirandasVeilMixin:
 
         scene = Scene('scn_mv_04_wave_no_momentum_no_activating', bt)
 
-        scene.board.set_piece(8, 6, piece=PieceType.Bishop)
-        scene.board.set_piece(7, 5, piece=PieceType.Wave)
-        scene.board.set_piece(6, 6, piece=PieceType.Knight)
-        scene.board.set_piece(5, 4, piece=PieceType.Wave)
-        scene.board.set_piece(3, 5, piece=PieceType.Pawn)
+        scene.board.set_piece( 8, 6, piece=PieceType.Bishop )
+        scene.board.set_piece( 7, 5, piece=PieceType.Wave )
+        scene.board.set_piece( 6, 6, piece=PieceType.Knight )
+        scene.board.set_piece( 5, 4, piece=PieceType.Wave )
+        scene.board.set_piece( 3, 5, piece=PieceType.Pawn )
+        scene.board.set_piece( 1, 6, piece=-PieceType.Wave )
 
         scene.append_arrow( 8, 6, 7, 5, mark_type=MarkType.Legal )
         scene.append_arrow( 7, 5, 6, 6, mark_type=MarkType.Legal )
         scene.append_arrow( 6, 6, 5, 4, mark_type=MarkType.Action )
         scene.append_arrow( 5, 4, 3, 5, mark_type=MarkType.Illegal )
         scene.append_arrow( 3, 5, 1, 6, mark_type=MarkType.Legal )
+
+        scene.append_text( "A", 7, 5, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", 5, 4, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
 
         return scene
 
