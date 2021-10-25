@@ -216,8 +216,8 @@ class SceneMirandasVeilMixin:
                     PieceType.Unicorn if i < 8 else \
                     PieceType.Pegasus if i < 10 else \
                     PieceType.Pyramid if i < 12 else \
-                    PieceType.King if i < 13 else \
                     PieceType.Queen
+                    # PieceType.King if i < 13 else \
             scene.board.set_piece(*step, piece=piece)
 
         # arrows
@@ -226,6 +226,11 @@ class SceneMirandasVeilMixin:
         scene.append_arrow( 11, 4, 11, 0, mark_type=MarkType.Legal )
         scene.append_arrow( 11, 0, 15, 0, mark_type=MarkType.Legal )
         scene.append_arrow( 15, 0, 15, 1, mark_type=MarkType.Action )
+
+        scene.append_text( "A", 9, 4, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "1", 11, 4, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "2", 15, 0, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -255,8 +260,8 @@ class SceneMirandasVeilMixin:
                     PieceType.Unicorn if i < 8 else \
                     PieceType.Pegasus if i < 10 else \
                     PieceType.Pyramid if i < 12 else \
-                    PieceType.King if i < 13 else \
                     PieceType.Queen
+                    # PieceType.King if i < 13 else \
             scene.board.set_piece(*step, piece=piece)
 
         # horizontal arrows
@@ -270,6 +275,10 @@ class SceneMirandasVeilMixin:
             scene.append_arrow(*step, mark_type=MarkType.Blocked)
 
         scene.append_arrow(*(start + (15, 0)), mark_type=MarkType.Blocked)
+
+        scene.append_text( "A", 11, 4, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "1", 11, 0, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "2", 15, 1, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
 
         return scene
 
