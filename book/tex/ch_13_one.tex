@@ -176,8 +176,8 @@ and diagonally. They are the same as step-fields of a King.
 Fields at which Starchild can activate a piece are neighboring-fields; pieces that can be
 activated are own pieces (except King), and opponent's Starchild.
 
-Note, Starchild cannot move to empty neighboring-fields, it can only activate a piece on its
-neighboring-field.
+Note, Starchild cannot move to empty neighboring-fields (if they're not in opposite color to starting
+field), it can only activate a piece on its neighboring-field.
 
 Here, Starchild’s activation fields are enumerated. Opponent's Bishop and own King can't
 be activated, so only own Pegasus can be, with 1 momentum.
@@ -202,6 +202,34 @@ Wave can also move to any empty neighboring-field, regardless of color.
 \hyperref[fig:scn_o_13_starchild_activated_wave_not_teleporting_init]{Activated Wave cannot teleport}.
 Instead of teleporting, Wave would reappear on any empty portal-field around Star (or Monolith).
 If there are no empty portal-fields, Wave would be oblationed.
+
+\clearpage % ..........................................................
+
+% \vspace*{1.1\baselineskip}
+\subsubsection*{Not teleporting}
+\addcontentsline{toc}{subsubsection}{Not teleporting}
+
+% \vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_11_starchild_not_moving_monolith_init.png}
+\caption{Moving into a Monolith}
+\label{fig:scn_o_11_starchild_not_moving_monolith_init}
+\end{wrapfigure}
+Starchild can try to capture either step- or neighboring-field at which Monolith is located,
+as if trying to teleport.
+
+\vspace*{7.1\baselineskip}
+\noindent
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_12_starchild_not_moving_monolith_end.png}
+\caption{Moving out of a Monolith}
+\label{fig:scn_o_12_starchild_not_moving_monolith_end}
+\end{wrapfigure}
+Instead of teleporting, Starchild then emerges on any empty portal-field around Monolith
+it tried to move. If there are no empty portal-fields, Starchild is oblationed.
 
 \clearpage % ..........................................................
 
@@ -246,31 +274,9 @@ Nevertheless, activated Star can move for only one field.
 
 \clearpage % ..........................................................
 
-% \vspace*{1.1\baselineskip}
-\subsubsection*{Not teleporting}
-\addcontentsline{toc}{subsubsection}{Not teleporting}
-
-% \vspace*{-0.9\baselineskip}
-\noindent
-\begin{wrapfigure}[4]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_11_starchild_not_moving_monolith_init.png}
-\caption{Moving into a Monolith}
-\label{fig:scn_o_11_starchild_not_moving_monolith_init}
-\end{wrapfigure}
-Starchild can try to capture either step- or neighboring-field at which Monolith is located,
-as if trying to teleport.
-
-\vspace*{7.1\baselineskip}
-\noindent
-\begin{wrapfigure}[5]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_12_starchild_not_moving_monolith_end.png}
-\caption{Moving out of a Monolith}
-\label{fig:scn_o_12_starchild_not_moving_monolith_end}
-\end{wrapfigure}
-Instead of teleporting, Starchild then emerges on any empty portal-field around Monolith
-it tried to move. If there are no empty portal-fields, Starchild is oblationed.
+\huge{}
+TODO :: To clarify, moving Star is optional, Starchild could just not teleport.
+\normalsize{}
 
 \clearpage % ..........................................................
 
