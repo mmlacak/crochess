@@ -217,7 +217,6 @@ class SceneMirandasVeilMixin:
                     PieceType.Pegasus if i < 10 else \
                     PieceType.Pyramid if i < 12 else \
                     PieceType.Queen
-                    # PieceType.King if i < 13 else \
             scene.board.set_piece(*step, piece=piece)
 
         # arrows
@@ -261,7 +260,6 @@ class SceneMirandasVeilMixin:
                     PieceType.Pegasus if i < 10 else \
                     PieceType.Pyramid if i < 12 else \
                     PieceType.Queen
-                    # PieceType.King if i < 13 else \
             scene.board.set_piece(*step, piece=piece)
 
         # horizontal arrows
@@ -281,11 +279,6 @@ class SceneMirandasVeilMixin:
         scene.append_text( "2", 15, 1, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
 
         return scene
-
-# TODO :: Wave activated with no momentum
-
-        # scene.append_text("A", 9, 9, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
-        # scene.append_text("B", 9, 8, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
 
     #
     # cascading
