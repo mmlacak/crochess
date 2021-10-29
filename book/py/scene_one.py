@@ -126,17 +126,17 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_04_activating_starchild', bt)
 
+        start_Q = (22, 8)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        start_W_A = (17, 3)
+        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
+
         start_I = (8, 3)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
-        start_W_A = (23, 21)
-        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
-
-        start_W_B = (17, 3)
+        start_W_B = (23, 21)
         scene.board.set_piece(*start_W_B, piece=PieceType.Wave)
-
-        start_Q = (22, 8)
-        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
 
         start_w = (2, 17)
         scene.board.set_piece(*start_w, piece=-PieceType.Wave)
@@ -147,13 +147,13 @@ class SceneOneMixin:
         start_P = (21, 2)
         scene.board.set_piece(*start_P, piece=PieceType.Pawn)
 
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *(start_Q + start_W_B), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W_B + start_I), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I + start_W_A), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W_A + start_w), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_Q + start_W_A), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W_A + start_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_W_B), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W_B + start_w), mark_type=MarkType.Legal )
         scene.append_arrow( *(start_w + start_n), mark_type=MarkType.Legal )
 
         return scene

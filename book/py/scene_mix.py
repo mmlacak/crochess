@@ -36,6 +36,7 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_mv_04_wave_no_momentum_no_activating', \
                     # 'scn_mv_05_wave_no_activating_blocked_piece', \
-                    'scn_mv_06_wave_blocked_init', \
-                    'scn_mv_07_wave_blocked_end', \
+                    # 'scn_mv_06_wave_blocked_init', \
+                    # 'scn_mv_07_wave_blocked_end', \
+                    'scn_o_04_activating_starchild', \
                 ]

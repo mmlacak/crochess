@@ -57,8 +57,8 @@ color in one step, without interacting with any piece on chessboard.
 
 Starchild can resurrect any captured piece, except Kings, Stars, Monoliths. Waves and
 Starchilds can be resurrected without resurrecting Starchild being oblationed. Starchild
-can take any piece, except Kings, Waves, Stars and Monoliths, for a non-interactive,
-viewing-only trance-journey.
+can take any piece, except Kings, Waves, Stars, Starchilds and Monoliths, for a
+non-interactive, viewing-only trance-journey.
 
 In algebraic notation, symbol for Starchild is 'I'.
 
@@ -78,12 +78,13 @@ In algebraic notation, symbol for Starchild is 'I'.
 % \centering
 \end{figure}
 
-Starchild can move to any empty field in opposite color to the one it's located on.
-Starchild is not hampered by any piece between starting and destination field.
+Starchild can move to any empty field in opposite color to starting location in
+one step. Starchild is not hampered by any piece between starting and destination
+field.
 
-Here, light Starchild in the middle moved from its starting position in one step.
-It is now positioned at dark field, and so can access any empty light field in a
-single step.
+Here, light Starchild in the middle moved from its starting position. It is now
+positioned at dark field, so in next move it can access any empty light field, in
+a single step.
 
 \clearpage % ..........................................................
 
@@ -121,7 +122,7 @@ Activated Wave moves the same as Starchild, i.e. to any field in opposite color 
 position. There it can activate any own piece (except King), and opponent's Wave, with 1 received
 momentum. Here, light Wave A is now activated, and it can activate dark Wave or light Rook. It
 cannot activate other opponent's pieces (here, dark Knight, Pegasus). Light Starchild and Wave B
-can't be activated because they're on the same dark field as activating Wave.
+can't be activated because they're on the same dark field as starting position of activating Wave.
 
 \clearpage % ..........................................................
 
@@ -140,8 +141,9 @@ can't be activated because they're on the same dark field as activating Wave.
 
 \hyperref[fig:10_wave]{Like Wave}, activated Starchild does not spend received momentum for moving;
 if Starchild activates a piece, it transfers all of received momentum to it. In example similar to
-previous, light Starchild is receiving 5 momentum after being activated by light Queen, received
-momentum is then transfered from light Wave to dark Wave to dark Knight in its entirety.
+previous, light Starchild is receiving 5 momentum after being activated by light Queen via light
+Wave A, received momentum is then transfered from light Wave B to dark Wave to dark Knight in its
+entirety.
 
 \clearpage % ..........................................................
 
@@ -159,9 +161,7 @@ momentum is then transfered from light Wave to dark Wave to dark Knight in its e
 Neighboring-fields are all fields immediately surrounding a piece horizontally, vertically
 and diagonally. They are the same as step-fields of a King.
 
-\clearpage % ..........................................................
-
-% \vspace*{1.1\baselineskip}
+\vspace*{2.1\baselineskip}
 \subsubsection*{Activating on neighboring-fields}
 \addcontentsline{toc}{subsubsection}{Activating on neighboring-fields}
 
@@ -176,32 +176,11 @@ and diagonally. They are the same as step-fields of a King.
 Fields at which Starchild can activate a piece are neighboring-fields; pieces that can be
 activated are own pieces (except King), and opponent's Starchild.
 
-Note, Starchild cannot move to empty neighboring-fields (if they're not in opposite color to starting
-field), it can only activate a piece on its neighboring-field.
+Note, Starchild cannot move to empty neighboring-fields, if they're not in opposite color to starting
+field; otherwise it can only activate a piece on its neighboring-field.
 
 Here, Starchild’s activation fields are enumerated. Opponent's Bishop and own King can't
 be activated, so only own Pegasus can be, with 1 momentum.
-
-\vspace*{-1.1\baselineskip}
-\subsubsection*{Activating Wave}
-\addcontentsline{toc}{subsubsection}{Activating Wave}
-
-% \vspace*{-0.9\baselineskip}
-\noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_07_starchild_activating_wave_on_neighboring_fields.png}
-\caption{Activating Wave}
-\label{fig:scn_o_07_starchild_activating_wave_on_neighboring_fields}
-\end{wrapfigure}
-Wave activated by Starchild on its neighboring-fields can activate a piece, with 1 momentum;
-any own piece (except King), and opponent's Waves can be activated.
-
-Wave can also move to any empty neighboring-field, regardless of color.
-
-\hyperref[fig:scn_o_13_starchild_activated_wave_not_teleporting_init]{Activated Wave cannot teleport}.
-Instead of teleporting, Wave would reappear on any empty portal-field around Star (or Monolith).
-If there are no empty portal-fields, Wave would be oblationed.
 
 \clearpage % ..........................................................
 
@@ -277,6 +256,27 @@ Nevertheless, activated Star can move for only one field.
 \huge{}
 TODO :: To clarify, moving Star is optional, Starchild could just not teleport.
 \normalsize{}
+
+\vspace*{2.1\baselineskip}
+\subsubsection*{Activating Wave}
+\addcontentsline{toc}{subsubsection}{Activating Wave}
+
+% \vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_07_starchild_activating_wave_on_neighboring_fields.png}
+\caption{Activating Wave}
+\label{fig:scn_o_07_starchild_activating_wave_on_neighboring_fields}
+\end{wrapfigure}
+Wave activated by Starchild on its neighboring-fields can activate a piece, with 1 momentum;
+any own piece (except King), and opponent's Waves can be activated.
+
+Wave can also move to any empty neighboring-field, regardless of color.
+
+\hyperref[fig:scn_o_13_starchild_activated_wave_not_teleporting_init]{Activated Wave cannot teleport}.
+Instead of teleporting, Wave would reappear on any empty portal-field around Star (or Monolith).
+If there are no empty portal-fields, Wave would be oblationed.
 
 \clearpage % ..........................................................
 
