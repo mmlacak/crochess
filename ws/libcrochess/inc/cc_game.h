@@ -10,43 +10,80 @@
 #include "cc_move.h"
 #include "cc_do_moves.h"
 
-// DOCS
+/**
+    @file cc_game.h
+    @brief Game enumerations, structures, and related functions.
+*/
+
+
+/**
+    Macro to inline check if it's light player's turn.
+*/
 #define CC_GAME_STATUS_IS_LIGHT_TURN(gse) ( (gse) == CC_GSE_Turn_Light )
 
-// DOCS
+/**
+    Macro to inline check if it's dark player's turn.
+*/
 #define CC_GAME_STATUS_IS_DARK_TURN(gse) ( (gse) == CC_GSE_Turn_Dark )
 
-// DOCS
+/**
+    Macro to inline check if game is on-going, i.e. it's either light or dark players turn.
+*/
 #define CC_GAME_STATUS_IS_TURN(gse) ( ( (gse) == CC_GSE_Turn_Light ) || ( (gse) == CC_GSE_Turn_Dark ) )
 
 
-// DOCS
+/**
+    Game status enumeration.
+*/
 typedef enum CcGameStatusEnum
 {
-    CC_GSE_None,
-    CC_GSE_Turn_Light,
-    CC_GSE_Turn_Dark,
-    CC_GSE_Win_Light,
-    CC_GSE_Win_Dark,
-    CC_GSE_Draw,
+    CC_GSE_None, /**< Uninitialized game. */
+    CC_GSE_Turn_Light, /**< Light player is on turn. */
+    CC_GSE_Turn_Dark, /**< Dark player is on turn. */
+    CC_GSE_Win_Light, /**< Light player has won. */
+    CC_GSE_Win_Dark, /**< Dark player has won. */
+    CC_GSE_Draw, /**< Game was drawn. */
 } CcGameStatusEnum;
 
-// DOCS
+/**
+    Function returns next game status, based on current one, and additional flags from user or position on chessboard.
+
+    @param gse Current game status.
+    @param is_resign User flag, if player resigns.
+    @param is_end Flag, if game has ended due to rules.
+    @param is_won Flag, if current player has won the game.
+
+    @return Next game status.
+*/
 CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
                                       bool const is_resign,
                                       bool const is_end,
                                       bool const is_won );
 
 
-// DOCS
+/**
+    Game structure.
+*/
 typedef struct CcGame
 {
-    CcGameStatusEnum status;
-    CcChessboard * chessboard;
-    CcMove * moves;
+    CcGameStatusEnum status; /**< Current game status. */
+    CcChessboard * chessboard; /**< Current position on a chessboard. */
+    CcMove * moves; /**< Linked list of moves played so far. */
 } CcGame;
 
-// DOCS
+/**
+    Returns a newly allocated game.
+
+    @param status Initial game status.
+    @param ve Variant to play.
+    @param do_setup Flag, if start from initial setup (`true`), or from manually set-up position (`false`).
+
+    @note
+    Linked list of performed moves will be empty. If neccessary, it can be populated once newly allocated game is returned.
+
+    @return
+    A newly allocated game, is successful, `NULL` otherwise.
+*/
 CcGame * cc_game_new( CcGameStatusEnum status,
                       CcVariantEnum ve,
                       bool const do_setup );
@@ -61,7 +98,13 @@ CcGame * cc_game_new( CcGameStatusEnum status,
 */
 CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game );
 
-// DOCS
+/**
+    Frees game, and all owned resources (chessboard, moves).
+
+    @param game__f A game to free.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_game_free_all( CcGame ** const restrict game__f );
 
 

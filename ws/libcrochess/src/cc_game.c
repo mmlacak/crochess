@@ -4,6 +4,11 @@
 #include "cc_do_moves.h"
 #include "cc_game.h"
 
+/**
+    @file cc_game.c
+    @brief Game enumerations, structures, and related functions.
+*/
+
 
 CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
                                       bool const is_resign,
