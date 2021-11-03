@@ -305,7 +305,7 @@ bool cc_parse_utils_get_lost_tag( char const * const restrict lost_tag_str,
 // TODO :: DOCS
 bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
                                      CcChessboard const * const restrict cb,
-                                     CcPieceEnum ply_piece,
+                                     CcPieceEnum const ply_piece,
                                      int const step_i,
                                      int const step_j,
                                      CcSideEffect * const restrict side_effect_o );

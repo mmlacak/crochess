@@ -9,7 +9,7 @@ bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
                                    CcPieceEnum * const restrict piece_o,
                                    int * const restrict pos_i_o,
                                    int * const restrict pos_j_o,
-                                   bool initialize_iter )
+                                   bool const initialize_iter )
 {
     if ( !game ) return false;
     if ( !game->chessboard ) return false;
@@ -21,6 +21,7 @@ bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
 
     static int pos_i = 0;
     static int pos_j = 0;
+    int size = (int)game->chessboard->size;
 
     if ( initialize_iter )
     {
@@ -28,17 +29,25 @@ bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
         pos_j = 0;
     }
 
-    for ( int i = pos_i; i < (int)game->chessboard->size; ++i )
+    for ( int i = pos_i; i < size; ++i )
     {
-        for ( int j = pos_j; j < (int)game->chessboard->size; ++j )
+        for ( int j = pos_j; j < size; ++j )
         {
             CcPieceEnum pe = cc_chessboard_get_piece( game->chessboard, i, j );
 
             if ( cc_piece_symbol( pe ) == piece_symbol )
             {
                 // Next position to check.
-                pos_j = j + 1;
-                pos_i = i;
+                if ( j < size - 1 )
+                {
+                    pos_j = j + 1;
+                    pos_i = i;
+                }
+                else
+                {
+                    pos_j = 0;
+                    pos_i = i + 1;
+                }
 
                 *piece_o = pe;
                 *pos_i_o = i;

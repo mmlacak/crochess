@@ -14,7 +14,7 @@ bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
                                    CcPieceEnum * const restrict piece_o,
                                    int * const restrict pos_i_o,
                                    int * const restrict pos_j_o,
-                                   bool initialize_iter );
+                                   bool const initialize_iter );
 
 // DOCS
 bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
