@@ -5,6 +5,11 @@
 #include "cc_setup_board.h"
 #include "cc_rules_misc.h"
 
+/**
+    @file cc_rules_misc.h
+    @brief Miscellaneous rules checkers.
+*/
+
 
 bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict cb,
                                            CcPieceEnum const pawn_en_passant,
