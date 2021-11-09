@@ -129,3 +129,21 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
 
     return false;
 }
+
+bool cc_rule_steps_check_movement( CcGame const * const restrict game,
+                                   CcPlyLinkEnum const ple,
+                                   CcPieceEnum const piece,
+                                   int const start_i,
+                                   int const start_j,
+                                   int const dest_i,
+                                   int const dest_j,
+                                   int * const restrict step_1_i_o,
+                                   int * const restrict step_1_j_o,
+                                   int * const restrict step_2_i_o,
+                                   int * const restrict step_2_j_o )
+{
+    if ( !game ) return false;
+
+
+    return false;
+}

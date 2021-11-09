@@ -1,6 +1,7 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include "cc_parse_move.h"
 #include "cc_rules.h"
 
 
@@ -69,7 +70,8 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
 
 
 bool cc_rules_make_move( CcGame ** const restrict game_io__r,
-                         char const * const restrict move_an )
+                         char const * const restrict move_an,
+                         CcParseMsg ** const restrict parse_msgs_io )
 {
     if ( !game_io__r ) return false;
     if ( !*game_io__r ) return false;
@@ -79,6 +81,24 @@ bool cc_rules_make_move( CcGame ** const restrict game_io__r,
 
     if ( !CC_GAME_STATUS_IS_TURN( (*game_io__r)->status ) ) return false;
 
+    CcMove * move__t = NULL;
+
+    if ( !cc_parse_move( move_an, *game_io__r, &move__t, parse_msgs_io ) )
+    {
+        cc_move_free_all_moves( &move__t );
+        return false;
+    }
+
+    if ( !cc_rules_do_moves( game_io__r, &move__t, CC_DME_DoOnlyCurrentMove ) )
+    {
+        cc_parse_msg_init_or_append_format( parse_msgs_io,
+                                            CC_PME_Error,
+                                            "Error while making move '%s'.",
+                                            move_an );
+
+        cc_move_free_all_moves( &move__t );
+        return false;
+    }
 
     return true;
 }
