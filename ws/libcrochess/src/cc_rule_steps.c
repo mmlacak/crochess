@@ -2,22 +2,20 @@
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include "cc_defines.h"
-#include "cc_rule_defs.h"
+// #include "cc_rule_defs.h"
 #include "cc_rule_steps.h"
 
 
 bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
                                    char const piece_symbol,
                                    CcPieceEnum * const restrict piece_o,
-                                   int * const restrict pos_i_o,
-                                   int * const restrict pos_j_o,
+                                   CcPos * const restrict start_o,
                                    bool const initialize_iter )
 {
     if ( !game ) return false;
     if ( !game->chessboard ) return false;
     if ( !piece_o ) return false;
-    if ( !pos_i_o ) return false;
-    if ( !pos_j_o ) return false;
+    if ( !start_o ) return false;
 
     if ( !cc_piece_is_symbol( piece_symbol ) ) return false;
 
@@ -52,9 +50,7 @@ bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
                 }
 
                 *piece_o = pe;
-                *pos_i_o = i;
-                *pos_j_o = j;
-
+                *start_o = cc_pos( i, j );
                 return true;
             }
         }
@@ -71,13 +67,11 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
                                          int const dest_i,
                                          int const dest_j,
                                          CcPieceEnum * const restrict piece_o,
-                                         int * const restrict pos_i_o,
-                                         int * const restrict pos_j_o )
+                                         CcPos * const restrict start_o )
 {
     if ( !game ) return false;
     if ( !piece_o ) return false;
-    if ( !pos_i_o ) return false;
-    if ( !pos_j_o ) return false;
+    if ( !start_o ) return false;
 
     if ( !cc_piece_is_symbol( piece_symbol ) ) return false;
 
@@ -92,10 +86,9 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
     if ( !cc_chessboard_is_pos_on_board( game->chessboard, dest_i, dest_j ) )
         return false;
 
-    int step_1_i = CC_OFF_BOARD_COORD;
-    int step_1_j = CC_OFF_BOARD_COORD;
-    int step_2_i = CC_OFF_BOARD_COORD;
-    int step_2_j = CC_OFF_BOARD_COORD;
+    CcPos dest = cc_pos( dest_i, dest_j );
+    CcPos step_1 = cc_pos_empty();
+    CcPos step_2 = cc_pos_empty();
 
     if ( disamb_i_d && disamb_j_d )
     {
@@ -104,14 +97,13 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
         if ( cc_piece_symbol( pe ) == piece_symbol )
         {
             if (  cc_rule_steps_check_movement( game, ple, pe,
-                                                *disamb_i_d, *disamb_j_d,
-                                                dest_i, dest_j,
-                                                &step_1_i, &step_1_j,
-                                                &step_2_i, & step_2_j ) )
+                                                cc_pos( *disamb_i_d, *disamb_j_d ),
+                                                dest,
+                                                &step_1,
+                                                &step_2 ) )
             {
                 *piece_o = pe;
-                *pos_i_o = *disamb_i_d;
-                *pos_j_o = *disamb_j_d;
+                *start_o = cc_pos( *disamb_i_d, *disamb_j_d );
                 return true;
             }
         }
@@ -119,28 +111,26 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
         return false;
     }
 
-    CcPieceEnum piece;
-    int pos_i;
-    int pos_j;
+    CcPieceEnum piece = CC_PE_None;
+    CcPos start = cc_pos_empty();
     bool initialize_iter = true;
 
-    while ( cc_rule_steps_piece_pos_iter( game, piece_symbol, &piece, &pos_i, &pos_j, initialize_iter ) )
+    while ( cc_rule_steps_piece_pos_iter( game, piece_symbol, &piece, &start, initialize_iter ) )
     {
         initialize_iter = false;
 
-        if ( ( disamb_i_d ) && ( *disamb_i_d != pos_i ) ) continue;
-        if ( ( disamb_j_d ) && ( *disamb_j_d != pos_j ) ) continue;
+        if ( ( disamb_i_d ) && ( *disamb_i_d != start.i ) ) continue;
+        if ( ( disamb_j_d ) && ( *disamb_j_d != start.j ) ) continue;
 
         if ( !cc_rule_steps_check_movement( game, ple, piece,
-                                            pos_i, pos_j,
-                                            dest_i, dest_j,
-                                            &step_1_i, &step_1_j,
-                                            &step_2_i, & step_2_j ) )
+                                            start,
+                                            dest,
+                                            &step_1,
+                                            &step_2 ) )
             continue;
 
         *piece_o = piece;
-        *pos_i_o = pos_i;
-        *pos_j_o = pos_j;
+        *start_o = start;
         return true;
     }
 
@@ -150,14 +140,10 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
 bool cc_rule_steps_check_movement( CcGame const * const restrict game,
                                    CcPlyLinkEnum const ple,
                                    CcPieceEnum const piece,
-                                   int const start_i,
-                                   int const start_j,
-                                   int const dest_i,
-                                   int const dest_j,
-                                   int * const restrict step_1_i_o,
-                                   int * const restrict step_1_j_o,
-                                   int * const restrict step_2_i_o,
-                                   int * const restrict step_2_j_o )
+                                   CcPos const start,
+                                   CcPos const dest,
+                                   CcPos * const restrict step_1_o,
+                                   CcPos * const restrict step_2_o )
 {
     if ( !game ) return false;
 

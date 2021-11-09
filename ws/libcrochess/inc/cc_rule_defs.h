@@ -13,6 +13,7 @@ typedef struct CcPos {
 } CcPos;
 
 CcPos cc_pos( int const i, int const j );
+CcPos cc_pos_empty();
 
 
 typedef struct CcPiecePos {
@@ -22,6 +23,7 @@ typedef struct CcPiecePos {
 } CcPiecePos;
 
 CcPiecePos cc_piece_pos( CcPieceEnum const piece, int const i, int const j );
+CcPiecePos cc_piece_pos_empty();
 
 CcPiecePos cc_piece_pos_from_pos( CcPieceEnum const piece, CcPos const pos );
 CcPos cc_pos_from_piece_pos( CcPiecePos const piece_pos );
