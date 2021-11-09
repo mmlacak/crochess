@@ -3,6 +3,8 @@
 
 #include "cc_rule_steps.h"
 
+#include "cc_defines.h"
+
 
 bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
                                    char const piece_symbol,
@@ -90,18 +92,28 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
     if ( !cc_chessboard_is_pos_on_board( game->chessboard, dest_i, dest_j ) )
         return false;
 
+    int step_1_i = CC_OFF_BOARD_COORD;
+    int step_1_j = CC_OFF_BOARD_COORD;
+    int step_2_i = CC_OFF_BOARD_COORD;
+    int step_2_j = CC_OFF_BOARD_COORD;
+
     if ( disamb_i_d && disamb_j_d )
     {
         CcPieceEnum pe = cc_chessboard_get_piece( game->chessboard, *disamb_i_d, *disamb_j_d );
 
         if ( cc_piece_symbol( pe ) == piece_symbol )
         {
-// TODO :: CHECK :: movement of a piece disamb --> dest
-
-            *piece_o = pe;
-            *pos_i_o = *disamb_i_d;
-            *pos_j_o = *disamb_j_d;
-            return true;
+            if (  cc_rule_steps_check_movement( game, ple, pe,
+                                                *disamb_i_d, *disamb_j_d,
+                                                dest_i, dest_j,
+                                                &step_1_i, &step_1_j,
+                                                &step_2_i, & step_2_j ) )
+            {
+                *piece_o = pe;
+                *pos_i_o = *disamb_i_d;
+                *pos_j_o = *disamb_j_d;
+                return true;
+            }
         }
 
         return false;
@@ -119,7 +131,12 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
         if ( ( disamb_i_d ) && ( *disamb_i_d != pos_i ) ) continue;
         if ( ( disamb_j_d ) && ( *disamb_j_d != pos_j ) ) continue;
 
-// TODO :: CHECK :: movement of a piece pos --> dest
+        if ( !cc_rule_steps_check_movement( game, ple, piece,
+                                            pos_i, pos_j,
+                                            dest_i, dest_j,
+                                            &step_1_i, &step_1_j,
+                                            &step_2_i, & step_2_j ) )
+            continue;
 
         *piece_o = piece;
         *pos_i_o = pos_i;
