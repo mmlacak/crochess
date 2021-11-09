@@ -1,9 +1,9 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#include "cc_rule_steps.h"
-
 #include "cc_defines.h"
+#include "cc_rule_defs.h"
+#include "cc_rule_steps.h"
 
 
 bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
