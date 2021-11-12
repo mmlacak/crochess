@@ -51,7 +51,7 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
         gm__t->status = cc_game_status_next( gm__t->status, false, false, false );
     }
 
-    if ( !cc_move_append_or_init( &( gm__t->moves ), moves__n ) )
+    if ( !cc_move_extend_or_init( &( gm__t->moves ), moves__n ) )
     {
         cc_game_free_all( &gm__t );
         return false;

@@ -240,9 +240,12 @@ CcStep * cc_step_append_or_init( CcStep ** const restrict steps_io,
 {
     if ( !steps_io ) return NULL;
 
-    CcStep * new = cc_step_append( *steps_io, link, i, j, side_effect, usage );
+    CcStep * new = NULL;
 
-    if ( !*steps_io ) *steps_io = new;
+    if ( !*steps_io )
+        *steps_io = new = cc_step_new( link, i, j, side_effect, usage );
+    else
+        new = cc_step_append( *steps_io, link, i, j, side_effect, usage );
 
     return new;
 }

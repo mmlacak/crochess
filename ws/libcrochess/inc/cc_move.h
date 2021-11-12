@@ -77,19 +77,19 @@ CcMove * cc_move_append( CcMove * const restrict moves,
                          CcMoveStatusEnum const status );
 
 /**
-    Appends a move to a linked list.
+    Extends moves linked list with another move(s).
 
     @param moves_io Linked list of moves, to which a move is appended, can be `NULL`.
-    @param move__n A move to append to a list.
+    @param move__n A move(s) to append to a list.
 
     @note
     If linked list `*moves_io` is `NULL`, it will be initialized,
-    with a move as its first element, and appended move will still be returned.
+    with a move as its first element.
 
     @return
-    Weak pointer to appended move, is successful, `NULL` otherwise.
+    `true` is successful, `false` otherwise.
 */
-bool cc_move_append_or_init( CcMove ** const restrict moves_io,
+bool cc_move_extend_or_init( CcMove ** const restrict moves_io,
                              CcMove ** const restrict move__n );
 
 /**

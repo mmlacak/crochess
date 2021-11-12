@@ -59,7 +59,7 @@ CcMove * cc_move_append( CcMove * const restrict moves,
     return new;
 }
 
-bool cc_move_append_or_init( CcMove ** const restrict moves_io,
+bool cc_move_extend_or_init( CcMove ** const restrict moves_io,
                              CcMove ** const restrict moves__n )
 {
     if ( !moves_io ) return false;

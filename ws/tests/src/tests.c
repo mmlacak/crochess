@@ -15,6 +15,7 @@
 
 #include "cc_step.h"
 #include "cc_ply.h"
+#include "cc_pos.h"
 #include "cc_move.h"
 #include "cc_parse_msg.h"
 #include "cc_parse_utils.h"
@@ -30,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.109:308+20211112.064419"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.110:309+20211112.080234"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -454,6 +455,61 @@ int main( void )
                     printf( "Step %d: (%d, %d)\n", k, step_i, step_j );
                 else
                     printf( "Step %d fail: (%d, %d)\n", k, step_i, step_j );
+            }
+        }
+        else if ( !strcmp( "z2", cmd ) )
+        {
+            CcPosLink * pl = NULL;
+
+            cc_pos_link_append_or_init( &pl, 1, 1 );
+            cc_pos_link_append_or_init( &pl, 2, 2 );
+            cc_pos_link_append_or_init( &pl, 3, 3 );
+            cc_pos_link_append_or_init( &pl, 4, 4 );
+            cc_pos_link_append_or_init( &pl, 5, 5 );
+            cc_pos_link_append_or_init( &pl, 6, 6 );
+
+            CcPosLink * x = pl;
+            while ( x )
+            {
+                printf( "Pos: %d, %d (%p --> %p).\n", x->i, x->j, (void *)x, (void *)(x->next) );
+                x = x->next;
+            }
+        }
+        else if ( !strcmp( "z3", cmd ) )
+        {
+            CcPly * pl = NULL;
+
+            cc_ply_append_or_init( &pl, CC_PLE_Ply, CC_PE_LightRook, NULL );
+            cc_ply_append_or_init( &pl, CC_PLE_Teleportation, CC_PE_DarkUnicorn, NULL );
+            cc_ply_append_or_init( &pl, CC_PLE_FailedTeleportation, CC_PE_LightUnicorn, NULL );
+            cc_ply_append_or_init( &pl, CC_PLE_TranceJourney, CC_PE_DarkPawn, NULL );
+            cc_ply_append_or_init( &pl, CC_PLE_DualTranceJourney, CC_PE_LightPawn, NULL );
+            cc_ply_append_or_init( &pl, CC_PLE_PawnSacrifice, CC_PE_DarkRook, NULL );
+
+            CcPly * x = pl;
+            while ( x )
+            {
+                printf( "Ply: %d, %d (%p --> %p).\n", x->link, x->piece, (void *)x, (void *)(x->next) );
+                x = x->next;
+            }
+        }
+        else if ( !strcmp( "z4", cmd ) )
+        {
+            CcStep * st = NULL;
+            CcSideEffect se = cc_side_effect_none();
+
+            cc_step_append_or_init( &st, CC_SLE_Start, 1, 1, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &st, CC_SLE_Next, 2, 2, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &st, CC_SLE_Distant, 3, 3, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &st, CC_SLE_Next, 4, 4, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &st, CC_SLE_Distant, 5, 5, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &st, CC_SLE_Destination, 6, 6, se, CC_FSUE_Debug );
+
+            CcStep * x = st;
+            while ( x )
+            {
+                printf( "Step: %d: %d, %d (%p --> %p).\n", x->link, x->i, x->j, (void *)x, (void *)(x->next) );
+                x = x->next;
             }
         }
         else

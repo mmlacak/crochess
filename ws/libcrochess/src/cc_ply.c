@@ -76,9 +76,12 @@ CcPly * cc_ply_append_or_init( CcPly ** const restrict plies_io,
 {
     if ( !plies_io ) return NULL;
 
-    CcPly * new = cc_ply_append( *plies_io, link, piece, steps__n );
+    CcPly * new = NULL;
 
-    if ( !*plies_io ) *plies_io = new;
+    if ( !*plies_io )
+        *plies_io = new = cc_ply_new( link, piece, steps__n );
+    else
+        new = cc_ply_append( *plies_io, link, piece, steps__n );
 
     return new;
 }

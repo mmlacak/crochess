@@ -27,9 +27,6 @@ CcPosLink * cc_pos_link_append( CcPosLink * const restrict pos_link,
                                 int const i,
                                 int const j );
 
-// CcPosLink * cc_pos_link_append_or_init( CcPosLink ** const restrict pos_link_io,
-//                                         CcPosLink ** const restrict pos_link__n );
-
 CcPosLink * cc_pos_link_append_or_init( CcPosLink ** const restrict pos_link_io,
                                         int const i,
                                         int const j );
