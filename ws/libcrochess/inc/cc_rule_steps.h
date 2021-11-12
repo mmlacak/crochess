@@ -27,14 +27,22 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
                                          CcPieceEnum * const restrict piece_o,
                                          CcPos * const restrict start_o );
 
+
+// DOCS
+bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
+                                 CcPlyLinkEnum const ple,
+                                 CcPieceEnum const piece,
+                                 CcPos const start,
+                                 CcPos const dest,
+                                 CcPosLink ** const restrict steps_o );
+
 // DOCS
 bool cc_rule_steps_check_movement( CcGame const * const restrict game,
                                    CcPlyLinkEnum const ple,
                                    CcPieceEnum const piece,
                                    CcPos const start,
                                    CcPos const dest,
-                                   CcPos * const restrict step_1_o,
-                                   CcPos * const restrict step_2_o );
+                                   CcPosLink ** const restrict steps_o );
 
 
 #endif /* __CC_RULE_STEPS_H__ */

@@ -1,6 +1,9 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <stddef.h>
+#include <math.h>
+
 #include "cc_defines.h"
 // #include "cc_pos.h"
 #include "cc_rule_steps.h"
@@ -87,8 +90,7 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
         return false;
 
     CcPos dest = cc_pos( dest_i, dest_j );
-    CcPos step_1 = cc_pos_empty();
-    CcPos step_2 = cc_pos_empty();
+    CcPosLink * steps = NULL;
 
     if ( disamb_i_d && disamb_j_d )
     {
@@ -99,8 +101,7 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
             if (  cc_rule_steps_check_movement( game, ple, pe,
                                                 cc_pos( *disamb_i_d, *disamb_j_d ),
                                                 dest,
-                                                &step_1,
-                                                &step_2 ) )
+                                                &steps ) )
             {
                 *piece_o = pe;
                 *start_o = cc_pos( *disamb_i_d, *disamb_j_d );
@@ -125,8 +126,7 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
         if ( !cc_rule_steps_check_movement( game, ple, piece,
                                             start,
                                             dest,
-                                            &step_1,
-                                            &step_2 ) )
+                                            &steps ) )
             continue;
 
         *piece_o = piece;
@@ -137,16 +137,50 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
     return false;
 }
 
+
+bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
+                                 CcPlyLinkEnum const ple,
+                                 CcPieceEnum const piece,
+                                 CcPos const start,
+                                 CcPos const dest,
+                                 CcPosLink ** const restrict steps_o )
+{
+    if ( !game ) return false;
+    if ( !steps_o ) return false;
+    if ( *steps_o ) return false;
+
+    if ( !CC_PIECE_IS_BISHOP( piece ) ) return false;
+
+    CcPos offset = cc_pos_subtract( dest, start );
+
+    if ( ( offset.i == 0 ) || ( offset.j == 0 ) ) return false;
+
+    if ( abs( offset.i ) != abs( offset.j ) ) return false;
+
+    CcPos step = offset; // TODO :: FIX
+    CcPosLink * pos = NULL;
+
+    for ( CcPos p = start; cc_pos_is_equal( p, dest ); p = cc_pos_add( p, step ) )
+    {
+    }
+
+
+    return false;
+}
+
 bool cc_rule_steps_check_movement( CcGame const * const restrict game,
                                    CcPlyLinkEnum const ple,
                                    CcPieceEnum const piece,
                                    CcPos const start,
                                    CcPos const dest,
-                                   CcPos * const restrict step_1_o,
-                                   CcPos * const restrict step_2_o )
+                                   CcPosLink ** const restrict steps_o )
 {
-    if ( !game ) return false;
+    // if ( !game ) return false;
+    // if ( !steps_o ) return false;
+    // if ( *steps_o ) return false;
 
-
-    return false;
+    if ( CC_PIECE_IS_BISHOP( piece ) )
+        return cc_rule_steps_check_bishop( game, ple, piece, start, dest, steps_o );
+    else
+        return false;
 }

@@ -65,5 +65,10 @@
 */
 #define CC_MAX(x,y) ( ( (x) > (y) ) ? (x) : (y) )
 
+/**
+    Macro to inline sign function.
+*/
+#define CC_SIGN(i) ( ( (i) > 0 ) ? (1) : ( ( (i) < 0 ) ? (-1) : (0) ) )
+
 
 #endif /* __CC_DEFINES_H__ */
