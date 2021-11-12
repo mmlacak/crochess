@@ -13,5 +13,5 @@ CcPos cc_pos( int const i, int const j )
 
 CcPos cc_pos_empty()
 {
-    return cc_pos( CC_OFF_BOARD_COORD, CC_OFF_BOARD_COORD );
+    return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN );
 }

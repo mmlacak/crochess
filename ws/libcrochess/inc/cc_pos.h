@@ -4,8 +4,6 @@
 #ifndef __CC_POS_H__
 #define __CC_POS_H__
 
-#include "cc_piece.h"
-
 
 typedef struct CcPos {
     int i;
