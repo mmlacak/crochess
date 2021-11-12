@@ -14,4 +14,24 @@ CcPos cc_pos( int const i, int const j );
 CcPos cc_pos_empty();
 
 
+typedef struct CcPosLink {
+    int i;
+    int j;
+
+    struct CcPosLink * next;
+} CcPosLink;
+
+CcPosLink * cc_pos_link_new( int const i, int const j );
+
+CcPosLink * cc_pos_link_append( CcPosLink * const restrict pos_link,
+                                int const i,
+                                int const j );
+
+// CcPosLink * cc_pos_link_append_or_init( CcPosLink ** const restrict pos_link_io,
+//                                         CcPosLink ** const restrict pos_link__n );
+
+CcPosLink * cc_pos_link_append_or_init( CcPosLink ** const restrict pos_link_io,
+                                        int const i,
+                                        int const j );
+
 #endif /* __CC_POS_H__ */
