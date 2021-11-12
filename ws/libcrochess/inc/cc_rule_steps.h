@@ -5,8 +5,8 @@
 #define __CC_RULE_STEPS_H__
 
 #include "cc_piece.h"
+#include "cc_pos.h"
 #include "cc_game.h"
-#include "cc_rule_defs.h"
 
 
 // DOCS
