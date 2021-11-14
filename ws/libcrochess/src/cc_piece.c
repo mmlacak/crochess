@@ -285,17 +285,14 @@ bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars )
     }
 }
 
-bool cc_piece_is_the_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict )
+bool cc_piece_has_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
 {
-    if ( pe_1 == pe_2 ) return true;
-
-    if ( !strict )
-        if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
-
+    if ( CC_PIECE_IS_THE_SAME( pe_1, pe_2 ) ) return true;
+    if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
     return false;
 }
 
-bool cc_piece_is_the_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const include_stars )
+bool cc_piece_has_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
 {
     if ( cc_piece_is_light( pe_1, false ) && cc_piece_is_light( pe_2, false ) )
         return true;
@@ -303,30 +300,64 @@ bool cc_piece_is_the_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2,
     if ( cc_piece_is_dark( pe_1, false ) && cc_piece_is_dark( pe_2, false ) )
         return true;
 
-    if ( include_stars )
-    {
-        if ( ( pe_1 == CC_PE_BrightStar ) && ( pe_2 == CC_PE_BrightStar ) ) return true;
-        if ( ( pe_1 == CC_PE_DimStar ) && ( pe_2 == CC_PE_DimStar ) ) return true;
-    }
+    return false;
+}
+
+bool cc_piece_has_same_shade( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
+{
+    if ( ( pe_1 == CC_PE_BrightStar ) && ( pe_2 == CC_PE_BrightStar ) ) return true;
+    if ( ( pe_1 == CC_PE_DimStar ) && ( pe_2 == CC_PE_DimStar ) ) return true;
+    return false;
+}
+
+bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
+{
+    if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
+    if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
+    return ( pe_1 == cc_piece_opposite( pe_2 ) );
+}
+
+bool cc_piece_belongs_to_me( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
+{
+    if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
+    if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
+
+    if ( cc_piece_is_light( pe_1, false ) && cc_piece_is_light( pe_2, false ) ) return true;
+    if ( cc_piece_is_dark( pe_1, false ) && cc_piece_is_dark( pe_2, false ) ) return true;
 
     return false;
 }
 
-
-bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict )
+bool cc_piece_belongs_to_opponent( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
 {
-    if ( strict )
-    {
-        if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
-        if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
-        return ( pe_1 == cc_piece_opposite( pe_2 ) );
-    }
+    if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
+    if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
 
     if ( cc_piece_is_light( pe_1, false ) && cc_piece_is_dark( pe_2, false ) ) return true;
     if ( cc_piece_is_dark( pe_1, false ) && cc_piece_is_light( pe_2, false ) ) return true;
 
-    if ( ( pe_1 == CC_PE_BrightStar ) && ( pe_2 == CC_PE_DimStar ) ) return true;
-    if ( ( pe_1 == CC_PE_DimStar ) && ( pe_2 == CC_PE_BrightStar ) ) return true;
+    return false;
+}
+
+bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target )
+{
+    if ( CC_PIECE_IS_NONE( target ) ) return true;
+    if ( CC_PIECE_IS_KING( target ) ) return false;
+
+    if ( CC_PIECE_IS_WAVE( piece ) )
+        return ( CC_PIECE_IS_WAVE( target )
+                 || cc_piece_belongs_to_me( piece, target ) );
+
+    if ( CC_PIECE_IS_MONOLITH( piece ) || CC_PIECE_IS_STAR( piece ) )
+        return ( CC_PIECE_IS_NONE( target ) );
+
+    if ( !CC_PIECE_IS_KING( piece ) )
+    {
+        if ( CC_PIECE_IS_MONOLITH( target ) ) return true;
+        if ( CC_PIECE_IS_STAR( target ) ) return true;
+    }
+
+    if ( cc_piece_belongs_to_opponent( piece, target ) ) return true;
 
     return false;
 }
@@ -335,6 +366,7 @@ bool cc_piece_is_figure( CcPieceEnum const pe,
                          bool const include_monolith,
                          bool const include_stars )
 {
+    if ( CC_PIECE_IS_PAWN( pe ) ) return false;
     if ( cc_piece_is_light( pe, include_stars ) ) return true;
     if ( cc_piece_is_dark( pe, include_stars ) ) return true;
     if ( pe == CC_PE_Monolith ) return include_monolith;

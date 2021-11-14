@@ -21,7 +21,8 @@
 
 
 // DOCS
-extern int const CC_GEN_STEPS_PAWN[ CC_GEN_STEPS_PAWN_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
+extern int const CC_GEN_STEPS_LIGHT_PAWN[ CC_GEN_STEPS_PAWN_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
+extern int const CC_GEN_STEPS_DARK_PAWN[ CC_GEN_STEPS_PAWN_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
 extern int const CC_GEN_STEPS_BISHOP[ CC_GEN_STEPS_BISHOP_LEN ][ CC_GEN_STEPS_COORDS_LEN ]; // Also, Serpent.
 extern int const CC_GEN_STEPS_ROOK[ CC_GEN_STEPS_ROOK_LEN ][ CC_GEN_STEPS_COORDS_LEN ]; // Also, Serpent's color-changing move.
 extern int const CC_GEN_STEPS_QUEEN[ CC_GEN_STEPS_QUEEN_LEN ][ CC_GEN_STEPS_COORDS_LEN ];
@@ -44,8 +45,11 @@ bool cc_gen_steps_is_valid( int const step_i,
 
 
 // DOCS
-#define CC_GEN_STEPS_PAWN_IS_VALID(step_i,step_j) \
-    ( cc_gen_steps_is_valid( (step_i), (step_j), CC_GEN_STEPS_PAWN, CC_GEN_STEPS_PAWN_LEN ) )
+#define CC_GEN_STEPS_LIGHT_PAWN_IS_VALID(step_i,step_j) \
+    ( cc_gen_steps_is_valid( (step_i), (step_j), CC_GEN_STEPS_LIGHT_PAWN, CC_GEN_STEPS_PAWN_LEN ) )
+
+#define CC_GEN_STEPS_DARK_PAWN_IS_VALID(step_i,step_j) \
+    ( cc_gen_steps_is_valid( (step_i), (step_j), CC_GEN_STEPS_DARK_PAWN, CC_GEN_STEPS_PAWN_LEN ) )
 
 #define CC_GEN_STEPS_BISHOP_IS_VALID(step_i,step_j) \
     ( cc_gen_steps_is_valid( (step_i), (step_j), CC_GEN_STEPS_BISHOP, CC_GEN_STEPS_BISHOP_LEN ) )

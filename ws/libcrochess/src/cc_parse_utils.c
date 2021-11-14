@@ -686,7 +686,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             if ( !CC_PIECE_IS_DISPOSABLE( pe ) )
                 return false;
 
-            if ( !cc_piece_is_the_same_type( piece, pe, true ) )
+            if ( !CC_PIECE_IS_THE_SAME( piece, pe ) )
                 return false;
         }
 
@@ -711,7 +711,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             if ( !CC_PIECE_IS_DISPLACEABLE( pe ) )
                 return false;
 
-            if ( !cc_piece_is_the_same_type( piece, pe, true ) )
+            if ( !CC_PIECE_IS_THE_SAME( piece, pe ) )
                 return false;
         }
 
@@ -868,7 +868,7 @@ bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
             // if ( !CC_PIECE_IS_VALID( pe ) )
             //     return false;
 
-            // if ( !cc_piece_is_the_same_type( piece, pe, true ) )
+            // if ( !CC_PIECE_IS_THE_SAME( piece, pe ) )
             //     return false;
 
 // TODO :: FIX !!!

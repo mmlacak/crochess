@@ -50,5 +50,13 @@ CcPosLink * cc_pos_link_append_or_init( CcPosLink ** const restrict pos_link_io,
                                         int const i,
                                         int const j );
 
+// DOCS
+CcPosLink * cc_pos_link_append_pos( CcPosLink * const restrict pos_link,
+                                    CcPos const pos );
+
+// DOCS
+CcPosLink * cc_pos_link_append_pos_or_init( CcPosLink ** const restrict pos_link_io,
+                                            CcPos const pos );
+
 
 #endif /* __CC_POS_H__ */

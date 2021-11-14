@@ -6,6 +6,7 @@
 
 #include "cc_defines.h"
 // #include "cc_pos.h"
+#include "cc_gen_steps.h"
 #include "cc_rule_steps.h"
 
 
@@ -152,20 +153,39 @@ bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
     if ( !CC_PIECE_IS_BISHOP( piece ) ) return false;
 
     CcPos offset = cc_pos_subtract( dest, start );
-
     if ( ( offset.i == 0 ) || ( offset.j == 0 ) ) return false;
-
     if ( abs( offset.i ) != abs( offset.j ) ) return false;
 
-    CcPos step = offset; // TODO :: FIX
-    CcPosLink * pos = NULL;
+    CcPos step = cc_pos( CC_SIGN( offset.i ), CC_SIGN( offset.j ) );
+    if ( !CC_GEN_STEPS_BISHOP_IS_VALID( step.i, step.j ) ) return false;
 
-    for ( CcPos p = start; cc_pos_is_equal( p, dest ); p = cc_pos_add( p, step ) )
+    CcPosLink * pl__t = NULL;
+    for ( CcPos p = cc_pos_add( start, step ); !cc_pos_is_equal( p, dest ); p = cc_pos_add( p, step ) )
     {
+        CcPieceEnum pe = cc_chessboard_get_piece( game->chessboard, p.i, p.j );
+        if ( !CC_PIECE_IS_NONE( pe ) ) return false;
+
+        if ( !cc_pos_link_append_pos_or_init( &pl__t, p ) )
+        {
+            free( pl__t );
+            // pl__t = NULL; // Not neccessary.
+            return false;
+        }
     }
 
+    CcPieceEnum pe_dest = cc_chessboard_get_piece( game->chessboard, dest.i, dest.j );
 
-    return false;
+    if ( cc_piece_is_targetable( piece, pe_dest ) )
+    {
+        *steps_o = pl__t;
+        return true;
+    }
+    else
+    {
+        free( pl__t );
+        // pl__t = NULL; // Not neccessary.
+        return false;
+    }
 }
 
 bool cc_rule_steps_check_movement( CcGame const * const restrict game,

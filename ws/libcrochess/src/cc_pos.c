@@ -67,14 +67,14 @@ CcPosLink * cc_pos_link_append( CcPosLink * const restrict pos_link,
 {
     if ( !pos_link ) return NULL;
 
-    CcPosLink * new = cc_pos_link_new( i, j );
-    if ( !new ) return NULL;
+    CcPosLink * pl__t = cc_pos_link_new( i, j );
+    if ( !pl__t ) return NULL;
 
     CcPosLink * pl = pos_link;
     while ( pl->next ) pl = pl->next; // rewind
-    pl->next = new; // append
+    pl->next = pl__t; // append
 
-    return new;
+    return pl__t;
 }
 
 CcPosLink * cc_pos_link_append_or_init( CcPosLink ** const restrict pos_link_io,
@@ -83,12 +83,24 @@ CcPosLink * cc_pos_link_append_or_init( CcPosLink ** const restrict pos_link_io,
 {
     if ( !pos_link_io ) return NULL;
 
-    CcPosLink * new = NULL;
+    CcPosLink * pl__t = NULL;
 
     if ( !*pos_link_io )
-        *pos_link_io = new = cc_pos_link_new( i, j );
+        *pos_link_io = pl__t = cc_pos_link_new( i, j );
     else
-        new = cc_pos_link_append( *pos_link_io, i, j );
+        pl__t = cc_pos_link_append( *pos_link_io, i, j );
 
-    return new;
+    return pl__t;
+}
+
+CcPosLink * cc_pos_link_append_pos( CcPosLink * const restrict pos_link,
+                                    CcPos const pos )
+{
+    return cc_pos_link_append( pos_link, pos.i, pos.j );
+}
+
+CcPosLink * cc_pos_link_append_pos_or_init( CcPosLink ** const restrict pos_link_io,
+                                            CcPos const pos )
+{
+    return cc_pos_link_append_or_init( pos_link_io, pos.i, pos.j );
 }

@@ -52,7 +52,7 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict c
 
         if ( CC_PIECE_IS_VALID( pe ) )
         {
-            if ( cc_piece_is_opposite( pe, pawn_en_passant, true ) )
+            if ( cc_piece_belongs_to_opponent( pe, pawn_en_passant ) )
             {
                 CcTagEnum te = cc_chessboard_get_tag( cb, step_i, j );
                 if ( !CC_TAG_CAN_EN_PASSANT( te ) )
@@ -124,7 +124,7 @@ bool cc_rule_utils_find_castling_rook( CcChessboard const * const restrict cb,
 
     rook = cc_chessboard_get_piece( cb, start_i_R, step_j_K );
     if ( ( !CC_PIECE_IS_ROOK( rook ) ) &&
-         ( !cc_piece_is_the_same_color( king_castling, rook, false ) ) )
+         ( !cc_piece_has_same_color( king_castling, rook ) ) )
         return false;
 
     CcTagEnum tag_R = cc_chessboard_get_tag( cb, start_i_R, step_j_K );

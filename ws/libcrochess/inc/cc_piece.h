@@ -33,6 +33,16 @@
 #define CC_PIECE_IS_VALID(pe) ( (pe) != CC_PE_None )
 
 /**
+    Macro expression to evaluate whether given pieces are the same.
+
+    @param pe1 A piece enum.
+    @param pe1 A piece enum.
+
+    @return `true` if pieces are the same, `false` otherwise.
+*/
+#define CC_PIECE_IS_THE_SAME(pe1,pe2) ( (pe2) == (pe2) )
+
+/**
     Macro expression to evaluate whether piece is a Pawn.
 
     @param pe Piece enum.
@@ -76,6 +86,15 @@
     @return `true` if piece is a Pyramid, `false` otherwise.
 */
 #define CC_PIECE_IS_PYRAMID(pe) ( ( (pe) == CC_PE_LightPyramid ) || ( (pe) == CC_PE_DarkPyramid ) )
+
+/**
+    Macro expression to evaluate whether piece is a Wave.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is a Wave, `false` otherwise.
+*/
+#define CC_PIECE_IS_WAVE(pe) ( ( (pe) == CC_PE_LightWave ) || ( (pe) == CC_PE_DarkWave ) )
 
 /**
     Macro expression to evaluate whether piece is None.
@@ -314,53 +333,108 @@ bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars );
 bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars );
 
 /**
-    Function checks if two given pieces are the same type, or are the same.
+    Function checks if two given pieces are the same type.
 
     @param pe_1 A piece.
     @param pe_2 The other piece.
-    @param strict Flag, whether to check pieces are the same (if `true`),
-                  or have the same type (if `false`).
 
     @note
     Type of a piece is what remains after it has been stripped of color (or shade).
     For instance, light and dark Rook are both Rooks, that is their type.
 
-    @return `true` if the same (type), `false` otherwise.
+    @return `true` if the same type, `false` otherwise.
 */
-bool cc_piece_is_the_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict );
+bool cc_piece_has_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
 /**
-    Function checks if two given pieces are the same color, or shade.
+    Function checks if two given pieces are the same color.
 
     @param pe_1 A piece.
     @param pe_2 The other piece.
-    @param include_stars Flag, whether to include shades in checks (if `true`),
-                         or check only colors (if `false`).
 
-    @return `true` if the same color (shade), `false` otherwise.
+    @note
+    Stars have shade (bright, dim), not color, so this function returns `false`
+    if any given piece is a Star.
+
+    @return `true` if the same color, `false` otherwise.
 */
-bool cc_piece_is_the_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const include_stars );
+bool cc_piece_has_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+
+/**
+    Function checks if two given Stars are the same shade.
+
+    @param pe_1 A piece.
+    @param pe_2 The other piece.
+
+    @return `true` if Stars are the same shade, `false` otherwise.
+*/
+bool cc_piece_has_same_shade( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
 /**
     Function returning whether pieces are of opposite color (dark, light),
-    or shade (dim, bright).
+    or shade (dim, bright), but otherwise the same type.
 
     @param pe_1 A piece.
     @param pe_2 Another piece.
-    @param strict Flag, is comparison strict.
 
-    @note
-    Strict comparison means types of pieces are the same, and only their colors (or shades) are different.
-    For instance, light Bishop and dark Bishop are strict opposites, whereas light Bishop and dark Rook
-    are only opposites, but not strict opposites.
+    @warning
+    Pieces with no color (or shade) always return `false`; these are None, Monolith pieces.
 
     @note
     Under no circumstances are shades and colors opposing each other, they are not comparable.
     Bright Star and dark Bishop are one such an example.
 
-    @return `true` if one piece is dark (dim) and the other is light (bright), `false` otherwise.
+    @return
+    `true` if two pieces of the same type are dark and light (or, dim and bright), `false` otherwise.
 */
-bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2, bool const strict );
+bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+
+/**
+    Function returning whether other piece belongs to me, i.e.
+    if pieces are of the same color (dark, light), not neccessarily the same type.
+
+    @param pe_1 A piece.
+    @param pe_2 Another piece.
+
+    @warning
+    Pieces with no color always return `false`; these are None, Monolith, Stars.
+
+    @return `true` if both pieces are dark or light, `false` otherwise.
+*/
+bool cc_piece_belongs_to_me( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+
+/**
+    Function returning whether other piece belongs to opponent, i.e.
+    if pieces are of opposite color (dark, light), not neccessarily the same type.
+
+    @param pe_1 A piece.
+    @param pe_2 Another piece.
+
+    @warning
+    Pieces with no color always return `false`; these are None, Monolith, Stars.
+
+    @return `true` if one piece is dark and the other is light, `false` otherwise.
+*/
+bool cc_piece_belongs_to_opponent( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+
+/**
+    Function returning whether second piece is targetable, i.e.
+    if first piece can interact (capture, activate, displace, ...) target piece.
+
+    @param piece A piece, moving about.
+    @param target Target piece, one located at destination field of first piece.
+
+    @note
+    This function handles only generic cases, which always holds true,
+    i.e. cases decidable only by comparing two given pieces.
+
+    @warning
+    Special cases (like own Pyramid capturing own Pawn for Pawn-sacrifice) has to be
+    handled in a separate function(s).
+
+    @return `true` if targetable, `false` otherwise.
+*/
+bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target );
 
 /**
     Function returning whether piece is a figure.
