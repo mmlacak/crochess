@@ -418,15 +418,18 @@ bool cc_piece_belongs_to_me( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 bool cc_piece_belongs_to_opponent( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
 /**
-    Function returning whether second piece is targetable, i.e.
-    if first piece can interact (capture, activate, displace, ...) target piece.
+    Function tests whether second piece is targetable.
 
     @param piece A piece, moving about.
     @param target Target piece, one located at destination field of first piece.
 
     @note
-    This function handles only generic cases, which always holds true,
-    i.e. cases decidable only by comparing two given pieces.
+    None piece is always targetable, a piece would always be able to end its
+    movement on an empty field.
+
+    @note
+    This function handles only capturing, activating target piece,
+    and teleporting first piece.
 
     @warning
     Special cases (like own Pyramid capturing own Pawn for Pawn-sacrifice) has to be

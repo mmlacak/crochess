@@ -147,6 +147,7 @@ bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
                                  CcPosLink ** const restrict steps_o )
 {
     if ( !game ) return false;
+    if ( !game->chessboard ) return false;
     if ( !steps_o ) return false;
     if ( *steps_o ) return false;
 

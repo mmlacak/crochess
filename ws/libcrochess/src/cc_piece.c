@@ -341,22 +341,45 @@ bool cc_piece_belongs_to_opponent( CcPieceEnum const pe_1, CcPieceEnum const pe_
 
 bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target )
 {
+    // An empty field, always targetable.
     if ( CC_PIECE_IS_NONE( target ) ) return true;
+
+    // Kings can't be ever captured, activated.
     if ( CC_PIECE_IS_KING( target ) ) return false;
 
-    if ( CC_PIECE_IS_WAVE( piece ) )
-        return ( CC_PIECE_IS_WAVE( target )
-                 || cc_piece_belongs_to_me( piece, target ) );
+    // Own Wave, Pyramid can be activated by any own piece.
+    if ( ( CC_PIECE_IS_WAVE( target ) || CC_PIECE_IS_PYRAMID( target ) )
+            && cc_piece_belongs_to_me( piece, target ) )
+                return true;
 
+    // Wave can activate other Wave, or any other own piece.
+    if ( CC_PIECE_IS_WAVE( piece ) )
+        if ( CC_PIECE_IS_WAVE( target )
+             || cc_piece_belongs_to_me( piece, target ) )
+                return true;
+
+    // Starchild can activate own Starchild, Wave; on its step-fields.
+    if ( CC_PIECE_IS_STARCHILD( piece ) )
+        if ( ( CC_PIECE_IS_STARCHILD( target ) || CC_PIECE_IS_WAVE( target ) )
+                && cc_piece_belongs_to_me( piece, target ) )
+                    return true;
+
+    // Special case, not handled:
+    // Starchild can activate any own piece (except King), opponent’s
+    // Starchild and any Star on its neighboring-fields.
+
+    // Monolith, Star can only move to an empty field.
     if ( CC_PIECE_IS_MONOLITH( piece ) || CC_PIECE_IS_STAR( piece ) )
         return ( CC_PIECE_IS_NONE( target ) );
 
+    // Any piece, own or opponent's, can teleport, except Kings.
     if ( !CC_PIECE_IS_KING( piece ) )
     {
         if ( CC_PIECE_IS_MONOLITH( target ) ) return true;
         if ( CC_PIECE_IS_STAR( target ) ) return true;
     }
 
+    // Any piece can capture opponent's piece.
     if ( cc_piece_belongs_to_opponent( piece, target ) ) return true;
 
     return false;
