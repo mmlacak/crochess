@@ -390,32 +390,34 @@ bool cc_piece_has_same_shade( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
 /**
-    Function returning whether other piece belongs to me, i.e.
+    Function checks whether two pieces has the same owner, i.e.
     if pieces are of the same color (dark, light), not neccessarily the same type.
 
     @param pe_1 A piece.
     @param pe_2 Another piece.
 
     @warning
-    Pieces with no color always return `false`; these are None, Monolith, Stars.
+    Pieces with no ownership (i.e. color) always return `false`;
+    these are None, Monolith, Stars.
 
     @return `true` if both pieces are dark or light, `false` otherwise.
 */
-bool cc_piece_belongs_to_me( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_is_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
 /**
-    Function returning whether other piece belongs to opponent, i.e.
+    Function checks whether two pieces belongs to different players, i.e.
     if pieces are of opposite color (dark, light), not neccessarily the same type.
 
     @param pe_1 A piece.
     @param pe_2 Another piece.
 
     @warning
-    Pieces with no color always return `false`; these are None, Monolith, Stars.
+    Pieces with no ownership (i.e. color) always return `false`;
+    these are None, Monolith, Stars.
 
     @return `true` if one piece is dark and the other is light, `false` otherwise.
 */
-bool cc_piece_belongs_to_opponent( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_is_opposing_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
 /**
     Function tests whether second piece is targetable.

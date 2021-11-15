@@ -52,7 +52,7 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict c
 
         if ( CC_PIECE_IS_VALID( pe ) )
         {
-            if ( cc_piece_belongs_to_opponent( pe, pawn_en_passant ) )
+            if ( cc_piece_is_opposing_owner( pe, pawn_en_passant ) )
             {
                 CcTagEnum te = cc_chessboard_get_tag( cb, step_i, j );
                 if ( !CC_TAG_CAN_EN_PASSANT( te ) )
