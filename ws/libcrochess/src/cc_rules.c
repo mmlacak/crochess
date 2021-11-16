@@ -34,7 +34,7 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
             }
 
 // TODO :: flags for status
-            gm__t->status = cc_game_status_next( gm__t->status, false, false, false );
+            gm__t->status = cc_game_status_next( gm__t->status, false, false );
 
             mv = mv->next;
         }
@@ -48,7 +48,7 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
         }
 
 // TODO :: flags for status
-        gm__t->status = cc_game_status_next( gm__t->status, false, false, false );
+        gm__t->status = cc_game_status_next( gm__t->status, false, false );
     }
 
     if ( !cc_move_extend_or_init( &( gm__t->moves ), moves__n ) )
@@ -91,7 +91,7 @@ bool cc_rules_make_move( CcGame ** const restrict game_io__r,
 
     if ( !cc_rules_do_moves( game_io__r, &move__t, CC_DME_DoOnlyCurrentMove ) )
     {
-        cc_parse_msg_init_or_append_format( parse_msgs_io,
+        cc_parse_msg_append_or_init_format( parse_msgs_io,
                                             CC_PME_Error,
                                             "Error while making move '%s'.",
                                             move_an );

@@ -402,7 +402,7 @@ bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
     @return `true` if both pieces are dark or light, `false` otherwise.
 */
-bool cc_piece_is_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_has_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
 /**
     Function checks whether two pieces belongs to different players, i.e.
@@ -417,7 +417,7 @@ bool cc_piece_is_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
     @return `true` if one piece is dark and the other is light, `false` otherwise.
 */
-bool cc_piece_is_opposing_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_has_different_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
 /**
     Function tests whether second piece is targetable.
@@ -439,7 +439,9 @@ bool cc_piece_is_opposing_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 
 
     @return `true` if targetable, `false` otherwise.
 */
+// TODO :: DELETE :: MOVE :: REDESIGN
 bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target );
+// TODO :: DELETE :: MOVE :: REDESIGN
 
 /**
     Function returning whether piece is a figure.
@@ -457,15 +459,5 @@ bool cc_piece_is_figure( CcPieceEnum const pe,
                          bool const include_monolith,
                          bool const include_stars );
 
-/**
-    Function returns piece coerced to a given color (or shade, if it's a Star).
-
-    @param pe A piece.
-    @param to_light A flag, coerce piece either to light (or bright) if `true`,
-                    or to dark (or dim) if `false`.
-
-    @return A piece coerced to a given color (or shade).
-*/
-CcPieceEnum cc_piece_coerce( CcPieceEnum const pe, bool const to_light );
 
 #endif /* __CC_PIECE_H__ */

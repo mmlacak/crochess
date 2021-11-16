@@ -41,7 +41,7 @@ bool cc_parse_move( char const * const restrict move_str,
 
     if ( !CC_GAME_STATUS_IS_TURN( game->status ) )
     {
-        cc_parse_msg_init_or_append_format( parse_msgs_io,
+        cc_parse_msg_append_or_init_format( parse_msgs_io,
                                             CC_PME_Error,
                                             "Cannot make a move in a finished game." );
         return false;
@@ -52,7 +52,7 @@ bool cc_parse_move( char const * const restrict move_str,
     char * ply_an__o = cc_parse_utils_next_ply_str_new( move_str );
     if ( !ply_an__o )
     {
-        cc_parse_msg_init_or_append_format( parse_msgs_io,
+        cc_parse_msg_append_or_init_format( parse_msgs_io,
                                             CC_PME_Error,
                                             "Ply not found in '%s'.",
                                             move_str );
@@ -75,7 +75,7 @@ bool cc_parse_move( char const * const restrict move_str,
     {
         if ( !cc_parse_utils_get_ply_link( ply_an__o, &ple ) )
         {
-            cc_parse_msg_init_or_append_format( parse_msgs_io,
+            cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                 CC_PME_Error,
                                                 "Ply link not found in '%s', within '%s'.",
                                                 ply_an__o,
@@ -87,7 +87,7 @@ bool cc_parse_move( char const * const restrict move_str,
 
         if ( !cc_parse_utils_get_ply_piece_symbol( ply_an__o, &piece_symbol ) )
         {
-            cc_parse_msg_init_or_append_format( parse_msgs_io,
+            cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                 CC_PME_Error,
                                                 "Piece symbol not found in '%s', within '%s'.",
                                                 ply_an__o,
@@ -100,7 +100,7 @@ bool cc_parse_move( char const * const restrict move_str,
         steps_str = cc_parse_utils_get_steps_str( ply_an__o );
         if ( !steps_str )
         {
-            cc_parse_msg_init_or_append_format( parse_msgs_io,
+            cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                 CC_PME_Error,
                                                 "Step(s) not found in '%s', within '%s'.",
                                                 ply_an__o,
@@ -113,7 +113,7 @@ bool cc_parse_move( char const * const restrict move_str,
         char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
         if ( !step_an__o )
         {
-            cc_parse_msg_init_or_append_format( parse_msgs_io,
+            cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                 CC_PME_Error,
                                                 "Step not found in '%s', within '%s'.",
                                                 ply_an__o,
@@ -130,7 +130,7 @@ bool cc_parse_move( char const * const restrict move_str,
         {
             if ( !cc_parse_utils_get_step_link( ply_an__o, step_an__o, &sle ) )
             {
-                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                     CC_PME_Error,
                                                     "Step link not found in '%s', within '%s', within '%s'.",
                                                     step_an__o,
@@ -145,7 +145,7 @@ bool cc_parse_move( char const * const restrict move_str,
             char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
             if ( !fields_an__o )
             {
-                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                     CC_PME_Error,
                                                     "Movement not found in '%s', within '%s', within '%s'.",
                                                     step_an__o,
@@ -169,7 +169,7 @@ bool cc_parse_move( char const * const restrict move_str,
                                              &step_i,
                                              &step_j ) )
             {
-                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                     CC_PME_Error,
                                                     "Movement not found in '%s', within '%s', within '%s', within '%s'.",
                                                     fields_an__o,
@@ -189,7 +189,7 @@ bool cc_parse_move( char const * const restrict move_str,
             char const * side_effects = cc_parse_utils_side_effect_str( step_an__o );
             if ( !side_effects )
             {
-                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                     CC_PME_Error,
                                                     "Side-effects not found in '%s', within '%s', within '%s'.",
                                                     step_an__o,
@@ -209,7 +209,7 @@ bool cc_parse_move( char const * const restrict move_str,
                                                   step_j,
                                                   &se ) )
             {
-                cc_parse_msg_init_or_append_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs_io,
                                                     CC_PME_Error,
                                                     "Side-effects not found in '%s', within '%s', within '%s', within '%s'.",
                                                     side_effects,

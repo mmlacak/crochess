@@ -46,19 +46,27 @@ typedef enum CcGameStatusEnum
 } CcGameStatusEnum;
 
 /**
-    Function returns next game status, based on current one, and additional flags from user or position on chessboard.
+    Function returns next game status, based on current one, and additional flags
+    from user or position on chessboard.
 
     @param gse Current game status.
-    @param is_resign User flag, if player resigns.
     @param is_end Flag, if game has ended due to rules.
     @param is_won Flag, if current player has won the game.
 
     @return Next game status.
 */
 CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
-                                      bool const is_resign,
                                       bool const is_end,
                                       bool const is_won );
+
+/**
+    Function returns next game status, based on current player resignation.
+
+    @param gse Current game status.
+
+    @return Next game status.
+*/
+CcGameStatusEnum cc_game_resign( CcGameStatusEnum const gse );
 
 
 /**

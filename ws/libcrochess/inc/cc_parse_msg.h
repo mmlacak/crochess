@@ -77,7 +77,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msgs_io,
+CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** const restrict parse_msgs_io,
                                           CcParseMsgEnum const type,
                                           char const * const restrict msg );
 
@@ -102,7 +102,7 @@ CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msg
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_init_or_append_format( CcParseMsg ** const restrict parse_msgs_io,
+CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** const restrict parse_msgs_io,
                                                  CcParseMsgEnum const type,
                                                  char const * const restrict fmt, ... );
 

@@ -43,7 +43,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * const restrict parse_msgs,
     return new;
 }
 
-CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msgs_io,
+CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** const restrict parse_msgs_io,
                                           CcParseMsgEnum const type,
                                           char const * const restrict msg )
 {
@@ -56,7 +56,7 @@ CcParseMsg * cc_parse_msg_init_or_append( CcParseMsg ** const restrict parse_msg
     return new;
 }
 
-CcParseMsg * cc_parse_msg_init_or_append_format( CcParseMsg ** const restrict parse_msgs_io,
+CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** const restrict parse_msgs_io,
                                                  CcParseMsgEnum const type,
                                                  char const * const restrict fmt, ... )
 {
@@ -70,7 +70,7 @@ CcParseMsg * cc_parse_msg_init_or_append_format( CcParseMsg ** const restrict pa
 
     if ( !msg__t ) return NULL;
 
-    return cc_parse_msg_init_or_append( parse_msgs_io, type, msg__t );
+    return cc_parse_msg_append_or_init( parse_msgs_io, type, msg__t );
 }
 
 bool cc_parse_msg_free_all( CcParseMsg ** const restrict parse_msgs__f )

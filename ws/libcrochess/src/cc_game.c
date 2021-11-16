@@ -11,16 +11,9 @@
 
 
 CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
-                                      bool const is_resign,
                                       bool const is_end,
                                       bool const is_won )
 {
-    if ( is_resign )
-    {
-        if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Win_Dark;
-        if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Light;
-    }
-
     if ( is_end )
     {
         if ( is_won )
@@ -36,6 +29,13 @@ CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
     if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Turn_Light;
     if ( gse == CC_GSE_None ) return CC_GSE_None;
 
+    return gse;
+}
+
+CcGameStatusEnum cc_game_resign( CcGameStatusEnum const gse )
+{
+    if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Win_Dark;
+    if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Light;
     return gse;
 }
 

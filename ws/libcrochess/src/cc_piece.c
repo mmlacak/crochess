@@ -317,7 +317,7 @@ bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
     return ( pe_1 == cc_piece_opposite( pe_2 ) );
 }
 
-bool cc_piece_is_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
+bool cc_piece_has_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
 {
     if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
     if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
@@ -328,7 +328,7 @@ bool cc_piece_is_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
     return false;
 }
 
-bool cc_piece_is_opposing_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
+bool cc_piece_has_different_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 )
 {
     if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
     if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
@@ -339,6 +339,7 @@ bool cc_piece_is_opposing_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 
     return false;
 }
 
+// TODO :: DELETE :: MOVE :: REDESIGN
 bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target )
 {
     // An empty field, always targetable.
@@ -349,19 +350,19 @@ bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target )
 
     // Own Wave, Pyramid can be activated by any own piece.
     if ( ( CC_PIECE_IS_WAVE( target ) || CC_PIECE_IS_PYRAMID( target ) )
-            && cc_piece_is_same_owner( piece, target ) )
+            && cc_piece_has_same_owner( piece, target ) )
                 return true;
 
     // Wave can activate other Wave, or any other own piece.
     if ( CC_PIECE_IS_WAVE( piece ) )
         if ( CC_PIECE_IS_WAVE( target )
-             || cc_piece_is_same_owner( piece, target ) )
+             || cc_piece_has_same_owner( piece, target ) )
                 return true;
 
     // Starchild can activate own Starchild, Wave; on its step-fields.
     if ( CC_PIECE_IS_STARCHILD( piece ) )
         if ( ( CC_PIECE_IS_STARCHILD( target ) || CC_PIECE_IS_WAVE( target ) )
-                && cc_piece_is_same_owner( piece, target ) )
+                && cc_piece_has_same_owner( piece, target ) )
                     return true;
 
     // Special case, not handled:
@@ -380,10 +381,11 @@ bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target )
     }
 
     // Any piece can capture opponent's piece.
-    if ( cc_piece_is_opposing_owner( piece, target ) ) return true;
+    if ( cc_piece_has_different_owner( piece, target ) ) return true;
 
     return false;
 }
+// TODO :: DELETE :: MOVE :: REDESIGN
 
 bool cc_piece_is_figure( CcPieceEnum const pe,
                          bool const include_monolith,
@@ -394,15 +396,4 @@ bool cc_piece_is_figure( CcPieceEnum const pe,
     if ( cc_piece_is_dark( pe, include_stars ) ) return true;
     if ( pe == CC_PE_Monolith ) return include_monolith;
     return false;
-}
-
-CcPieceEnum cc_piece_coerce( CcPieceEnum const pe, bool const to_light )
-{
-    if ( CC_PIECE_IS_MONOLITH( pe ) || CC_PIECE_IS_NONE( pe ) )
-        return pe;
-
-    if ( to_light == cc_piece_is_light( pe, true ) )
-        return pe;
-
-    return cc_piece_opposite( pe );
 }
