@@ -67,8 +67,6 @@ bool cc_parse_move( char const * const restrict move_str,
     // First piece in a first ply *always* has the color of a player on-turn.
     bool is_piece_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
 
-// TODO :: compare is_piece_light to actual piece, on actual starting position
-
     char const * steps_str = NULL;
 
     do
@@ -125,6 +123,8 @@ bool cc_parse_move( char const * const restrict move_str,
 
         CcStepLinkEnum sle = CC_SLE_Destination;
         CcStep * steps__t = NULL;
+        int disamb_i = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int disamb_j = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         do
         {
@@ -183,6 +183,32 @@ bool cc_parse_move( char const * const restrict move_str,
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
+            if ( cc_chessboard_is_coord_on_board( game->chessboard, disamb_step_i )
+              || cc_chessboard_is_coord_on_board( game->chessboard, disamb_step_j ) )
+            {
+                if ( cc_chessboard_is_coord_on_board( game->chessboard, disamb_i )
+                  || cc_chessboard_is_coord_on_board( game->chessboard, disamb_j ) )
+                {
+                    cc_parse_msg_append_or_init_format( parse_msgs_io,
+                                                        CC_PME_Error,
+                                                        "More than one disambiguation encountered, in '%s', within '%s', within '%s', within '%s'.",
+                                                        fields_an__o,
+                                                        step_an__o,
+                                                        ply_an__o,
+                                                        move_str );
+                    free( fields_an__o );
+                    free( step_an__o );
+                    free( ply_an__o );
+
+                    return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
+                }
+                else
+                {
+                    disamb_i = disamb_step_i;
+                    disamb_j = disamb_step_j;
+                }
+            }
+
             free( fields_an__o );
             fields_an__o = NULL;
 
@@ -236,6 +262,8 @@ bool cc_parse_move( char const * const restrict move_str,
             step_an__o = cc_parse_utils_next_step_str_new( NULL );
         }
         while ( step_an__o );
+
+// TODO :: compare is_piece_light to actual piece, on actual starting position
 
 
 // // TODO :: FIX :: is_piece_light !!!
