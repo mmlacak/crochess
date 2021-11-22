@@ -10,14 +10,14 @@
 
 
 // DOCS
-bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
+bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb,
                                    char const piece_symbol,
                                    CcPieceEnum * const restrict piece_o,
                                    CcPos * const restrict start_o,
                                    bool const initialize_iter );
 
 // DOCS
-bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
+bool cc_rule_steps_find_piece_start_pos( CcChessboard const * const restrict cb,
                                          CcPlyLinkEnum const ple,
                                          char const piece_symbol,
                                          int const * const restrict disamb_i_d,
@@ -29,7 +29,7 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
 
 
 // DOCS
-bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
+bool cc_rule_steps_check_bishop( CcChessboard const * const restrict cb,
                                  CcPlyLinkEnum const ple,
                                  CcPieceEnum const piece,
                                  CcPos const start,
@@ -37,7 +37,7 @@ bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
                                  CcPosLink ** const restrict steps_o );
 
 // DOCS
-bool cc_rule_steps_check_movement( CcGame const * const restrict game,
+bool cc_rule_steps_check_movement( CcChessboard const * const restrict cb,
                                    CcPlyLinkEnum const ple,
                                    CcPieceEnum const piece,
                                    CcPos const start,

@@ -256,12 +256,12 @@ bool cc_parse_move( char const * const restrict move_str,
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
-// TODO :: USE :: disamb_step_i, disamb_step_j
-
             free( step_an__o );
             step_an__o = cc_parse_utils_next_step_str_new( NULL );
         }
         while ( step_an__o );
+
+// TODO :: USE :: disamb_i, disamb_j
 
 // TODO :: compare is_piece_light to actual piece, on actual starting position
 

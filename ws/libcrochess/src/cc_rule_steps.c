@@ -10,14 +10,13 @@
 #include "cc_rule_steps.h"
 
 
-bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
+bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb,
                                    char const piece_symbol,
                                    CcPieceEnum * const restrict piece_o,
                                    CcPos * const restrict start_o,
                                    bool const initialize_iter )
 {
-    if ( !game ) return false;
-    if ( !game->chessboard ) return false;
+    if ( !cb ) return false;
     if ( !piece_o ) return false;
     if ( !start_o ) return false;
 
@@ -25,7 +24,7 @@ bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
 
     static int pos_i = 0;
     static int pos_j = 0;
-    int size = (int)game->chessboard->size;
+    int size = (int)cb->size;
 
     if ( initialize_iter )
     {
@@ -37,7 +36,7 @@ bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
     {
         for ( int j = pos_j; j < size; ++j )
         {
-            CcPieceEnum pe = cc_chessboard_get_piece( game->chessboard, i, j );
+            CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
 
             if ( cc_piece_symbol( pe ) == piece_symbol )
             {
@@ -63,7 +62,7 @@ bool cc_rule_steps_piece_pos_iter( CcGame const * const restrict game,
     return false;
 }
 
-bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
+bool cc_rule_steps_find_piece_start_pos( CcChessboard const * const restrict cb,
                                          CcPlyLinkEnum const ple,
                                          char const piece_symbol,
                                          int const * const restrict disamb_i_d,
@@ -73,21 +72,21 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
                                          CcPieceEnum * const restrict piece_o,
                                          CcPos * const restrict start_o )
 {
-    if ( !game ) return false;
+    if ( !cb ) return false;
     if ( !piece_o ) return false;
     if ( !start_o ) return false;
 
     if ( !cc_piece_is_symbol( piece_symbol ) ) return false;
 
     if ( disamb_i_d )
-        if ( !cc_chessboard_is_coord_on_board( game->chessboard, *disamb_i_d ) )
+        if ( !cc_chessboard_is_coord_on_board( cb, *disamb_i_d ) )
             return false;
 
     if ( disamb_j_d )
-        if ( !cc_chessboard_is_coord_on_board( game->chessboard, *disamb_j_d ) )
+        if ( !cc_chessboard_is_coord_on_board( cb, *disamb_j_d ) )
             return false;
 
-    if ( !cc_chessboard_is_pos_on_board( game->chessboard, dest_i, dest_j ) )
+    if ( !cc_chessboard_is_pos_on_board( cb, dest_i, dest_j ) )
         return false;
 
     CcPos dest = cc_pos( dest_i, dest_j );
@@ -95,11 +94,11 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
 
     if ( disamb_i_d && disamb_j_d )
     {
-        CcPieceEnum pe = cc_chessboard_get_piece( game->chessboard, *disamb_i_d, *disamb_j_d );
+        CcPieceEnum pe = cc_chessboard_get_piece( cb, *disamb_i_d, *disamb_j_d );
 
         if ( cc_piece_symbol( pe ) == piece_symbol )
         {
-            if (  cc_rule_steps_check_movement( game, ple, pe,
+            if (  cc_rule_steps_check_movement( cb, ple, pe,
                                                 cc_pos( *disamb_i_d, *disamb_j_d ),
                                                 dest,
                                                 &steps ) )
@@ -117,14 +116,14 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
     CcPos start = cc_pos_empty();
     bool initialize_iter = true;
 
-    while ( cc_rule_steps_piece_pos_iter( game, piece_symbol, &piece, &start, initialize_iter ) )
+    while ( cc_rule_steps_piece_pos_iter( cb, piece_symbol, &piece, &start, initialize_iter ) )
     {
         initialize_iter = false;
 
         if ( ( disamb_i_d ) && ( *disamb_i_d != start.i ) ) continue;
         if ( ( disamb_j_d ) && ( *disamb_j_d != start.j ) ) continue;
 
-        if ( !cc_rule_steps_check_movement( game, ple, piece,
+        if ( !cc_rule_steps_check_movement( cb, ple, piece,
                                             start,
                                             dest,
                                             &steps ) )
@@ -139,15 +138,14 @@ bool cc_rule_steps_find_piece_start_pos( CcGame const * const restrict game,
 }
 
 
-bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
+bool cc_rule_steps_check_bishop( CcChessboard const * const restrict cb,
                                  CcPlyLinkEnum const ple,
                                  CcPieceEnum const piece,
                                  CcPos const start,
                                  CcPos const dest,
                                  CcPosLink ** const restrict steps_o )
 {
-    if ( !game ) return false;
-    if ( !game->chessboard ) return false;
+    if ( !cb ) return false;
     if ( !steps_o ) return false;
     if ( *steps_o ) return false;
 
@@ -163,7 +161,7 @@ bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
     CcPosLink * pl__t = NULL;
     for ( CcPos p = cc_pos_add( start, step ); !cc_pos_is_equal( p, dest ); p = cc_pos_add( p, step ) )
     {
-        CcPieceEnum pe = cc_chessboard_get_piece( game->chessboard, p.i, p.j );
+        CcPieceEnum pe = cc_chessboard_get_piece( cb, p.i, p.j );
         if ( !CC_PIECE_IS_NONE( pe ) ) return false;
 
         if ( !cc_pos_link_append_pos_or_init( &pl__t, p ) )
@@ -174,7 +172,7 @@ bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
         }
     }
 
-    CcPieceEnum pe_dest = cc_chessboard_get_piece( game->chessboard, dest.i, dest.j );
+    CcPieceEnum pe_dest = cc_chessboard_get_piece( cb, dest.i, dest.j );
 
     if ( cc_piece_is_targetable( piece, pe_dest ) )
     {
@@ -189,19 +187,19 @@ bool cc_rule_steps_check_bishop( CcGame const * const restrict game,
     }
 }
 
-bool cc_rule_steps_check_movement( CcGame const * const restrict game,
+bool cc_rule_steps_check_movement( CcChessboard const * const restrict cb,
                                    CcPlyLinkEnum const ple,
                                    CcPieceEnum const piece,
                                    CcPos const start,
                                    CcPos const dest,
                                    CcPosLink ** const restrict steps_o )
 {
-    // if ( !game ) return false;
+    // if ( !cb ) return false;
     // if ( !steps_o ) return false;
     // if ( *steps_o ) return false;
 
     if ( CC_PIECE_IS_BISHOP( piece ) )
-        return cc_rule_steps_check_bishop( game, ple, piece, start, dest, steps_o );
+        return cc_rule_steps_check_bishop( cb, ple, piece, start, dest, steps_o );
     else
         return false;
 }
