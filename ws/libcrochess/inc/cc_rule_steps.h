@@ -13,8 +13,7 @@
 bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb,
                                    char const piece_symbol,
                                    CcPieceEnum * const restrict piece_o,
-                                   CcPos * const restrict start_o,
-                                   bool const initialize_iter );
+                                   CcPos * const restrict start_o );
 
 // DOCS
 bool cc_rule_steps_find_piece_start_pos( CcChessboard const * const restrict cb,

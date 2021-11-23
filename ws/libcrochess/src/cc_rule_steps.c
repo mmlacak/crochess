@@ -10,27 +10,30 @@
 #include "cc_rule_steps.h"
 
 
-bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb,
+bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb_s,
                                    char const piece_symbol,
                                    CcPieceEnum * const restrict piece_o,
-                                   CcPos * const restrict start_o,
-                                   bool const initialize_iter )
+                                   CcPos * const restrict start_o )
 {
-    if ( !cb ) return false;
     if ( !piece_o ) return false;
     if ( !start_o ) return false;
 
     if ( !cc_piece_is_symbol( piece_symbol ) ) return false;
 
+    static CcChessboard const * cb = NULL;
     static int pos_i = 0;
     static int pos_j = 0;
-    int size = (int)cb->size;
 
-    if ( initialize_iter )
+    if ( cb != cb_s )
     {
+        cb = cb_s;
         pos_i = 0;
         pos_j = 0;
     }
+
+    if ( !cb ) return false;
+
+    int size = (int)cb->size;
 
     for ( int i = pos_i; i < size; ++i )
     {
@@ -114,12 +117,9 @@ bool cc_rule_steps_find_piece_start_pos( CcChessboard const * const restrict cb,
 
     CcPieceEnum piece = CC_PE_None;
     CcPos start = cc_pos_empty();
-    bool initialize_iter = true;
 
-    while ( cc_rule_steps_piece_pos_iter( cb, piece_symbol, &piece, &start, initialize_iter ) )
+    while ( cc_rule_steps_piece_pos_iter( cb, piece_symbol, &piece, &start ) )
     {
-        initialize_iter = false;
-
         if ( ( disamb_i_d ) && ( *disamb_i_d != start.i ) ) continue;
         if ( ( disamb_j_d ) && ( *disamb_j_d != start.j ) ) continue;
 
