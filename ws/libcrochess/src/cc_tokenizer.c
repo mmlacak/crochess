@@ -60,11 +60,10 @@ char const * cc_stop_at_chars( char const * const restrict pos,
 }
 
 char * cc_next_token_new( char const * const restrict str_s,
-                          char const * const restrict seps_s )
+                          char const * const restrict seps )
 {
     static char const * start = NULL;
     static char const * end = NULL;
-    static char const * sps = NULL;
 
     if ( str_s )
         start = str_s;
@@ -74,10 +73,8 @@ char * cc_next_token_new( char const * const restrict str_s,
         start = end + 1;
     }
 
-    if ( seps_s ) sps = seps_s;
-
-    start = cc_skip_chars( start, sps );
-    end = cc_stop_at_chars( start, sps );
+    start = cc_skip_chars( start, seps );
+    end = cc_stop_at_chars( start, seps );
 
     if ( end == start ) return NULL;
 

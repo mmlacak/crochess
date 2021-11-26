@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.119:318+20211126.164708"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.120:319+20211126.171507"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -56,7 +56,7 @@ bool get_print_chessboard_from_cli_arg()
 {
     bool do_print_chesboard = false;
 
-    char * dpcb__o = cc_next_token_new( NULL, NULL );
+    char * dpcb__o = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
     if ( dpcb__o )
         do_print_chesboard = ( ( !strncmp( dpcb__o, "1", 1 ) ) || ( !strncmp( dpcb__o, "true", 4 ) ) ) ? true : false;
 
@@ -70,7 +70,7 @@ bool get_print_move_from_cli_arg()
 {
     bool do_print_move = true;
 
-    char * dpm__o = cc_next_token_new( NULL, NULL );
+    char * dpm__o = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
     if ( dpm__o )
         do_print_move = ( ( !strncmp( dpm__o, "0", 1 ) ) || ( !strncmp( dpm__o, "false", 5 ) ) ) ? false : true;
 
@@ -88,7 +88,7 @@ CcFormatMove get_format_move_from_cli_arg()
 
     CcFormatMove format_move = fm_output;
 
-    char * fm__o = cc_next_token_new( NULL, NULL );
+    char * fm__o = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
     if ( fm__o )
         format_move = ( ( !strncmp( fm__o, "u", 1 ) ) || ( !strncmp( fm__o, "user", 4 ) ) ) ? fm_user
                     : ( ( !strncmp( fm__o, "d", 1 ) ) || ( !strncmp( fm__o, "debug", 5 ) ) ) ? fm_debug
@@ -104,7 +104,7 @@ int get_test_number_from_cli_arg()
 {
     int test_number = 0; // all tests
 
-    char * tn__o = cc_next_token_new( NULL, NULL );
+    char * tn__o = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
     if ( tn__o )
         test_number = atoi( tn__o );
 
@@ -340,7 +340,7 @@ int main( void )
             // Test with AN from CLI.
 
             // <!> :: Uncomment free() below, if this is active!
-            // char * user_an = cc_next_token_new( NULL, NULL );
+            // char * user_an = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
 
 
             //

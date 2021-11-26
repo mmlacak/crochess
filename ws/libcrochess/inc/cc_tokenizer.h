@@ -71,6 +71,7 @@ char const * cc_stop_at_chars( char const * const restrict pos,
                                char const * const restrict seps );
 
 
+// TODO :: DOCS
 /**
     Iterator traversing over string, returning next token as newly allocated string.
 
@@ -103,8 +104,9 @@ char const * cc_stop_at_chars( char const * const restrict pos,
 
     @return Newly allocated string containing next token if successful, `NULL` otherwise.
 */
+// TODO :: DOCS
 char * cc_next_token_new( char const * const restrict str_s,
-                          char const * const restrict seps_s );
+                          char const * const restrict seps );
 
 /**
     Function returning newly allocated string, with `chars` trimmed from the beginning and the end.

@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.119:318+20211126.164708"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.120:319+20211126.171507"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -72,7 +72,7 @@ int main( void )
         else if ( ( !strcmp( "n", cmd ) ) || ( !strcmp( "new", cmd ) ) )
         {
             bool is_code = false;
-            char * code = cc_next_token_new( NULL, NULL );
+            char * code = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
 
             if ( code )
             {
@@ -101,7 +101,7 @@ int main( void )
         }
         else if ( ( !strcmp( "h", cmd ) ) || ( !strcmp( "help", cmd ) ) || ( !strcmp( "?", cmd ) ) )
         {
-            char * res = cc_next_token_new( NULL, NULL );
+            char * res = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
 
             if ( !res ) print_help();
             else if ( ( !strcmp( "q", res ) ) || ( !strcmp( "quit", res ) ) ) print_help_quit();
