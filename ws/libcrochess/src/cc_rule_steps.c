@@ -15,31 +15,30 @@ bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb_s,
                                    CcPieceEnum * const restrict piece_o,
                                    CcPos * const restrict start_o )
 {
+    static CcChessboard const * cb__w = NULL;
+    static int pos_i = 0;
+    static int pos_j = 0;
+
+    if ( ( !cb_s ) || ( cb__w != cb_s ) )
+    {
+        cb__w = cb_s;
+        pos_i = 0;
+        pos_j = 0;
+    }
+
+    if ( !cb_s ) return false;
     if ( !piece_o ) return false;
     if ( !start_o ) return false;
 
     if ( !cc_piece_is_symbol( piece_symbol ) ) return false;
 
-    static CcChessboard const * cb = NULL;
-    static int pos_i = 0;
-    static int pos_j = 0;
-
-    if ( cb != cb_s )
-    {
-        cb = cb_s;
-        pos_i = 0;
-        pos_j = 0;
-    }
-
-    if ( !cb ) return false;
-
-    int size = (int)cb->size;
+    int size = (int)cb__w->size;
 
     for ( int i = pos_i; i < size; ++i )
     {
         for ( int j = pos_j; j < size; ++j )
         {
-            CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
+            CcPieceEnum pe = cc_chessboard_get_piece( cb__w, i, j );
 
             if ( cc_piece_symbol( pe ) == piece_symbol )
             {
