@@ -36,7 +36,7 @@
     Macro expression to evaluate whether given pieces are the same.
 
     @param pe1 A piece enum.
-    @param pe1 A piece enum.
+    @param pe2 Other piece enum.
 
     @return `true` if pieces are the same, `false` otherwise.
 */
