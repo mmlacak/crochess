@@ -10,35 +10,34 @@
 #include "cc_rule_steps.h"
 
 
-bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb_s,
+bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb,
                                    char const piece_symbol,
                                    CcPieceEnum * const restrict piece_o,
-                                   CcPos * const restrict start_o )
+                                   CcPos * const restrict start_o,
+                                   bool const initialize_iter )
 {
-    static CcChessboard const * cb__w = NULL;
-    static int pos_i = 0;
-    static int pos_j = 0;
-
-    if ( ( !cb_s ) || ( cb__w != cb_s ) )
-    {
-        cb__w = cb_s;
-        pos_i = 0;
-        pos_j = 0;
-    }
-
-    if ( !cb_s ) return false;
+    if ( !cb ) return false;
     if ( !piece_o ) return false;
     if ( !start_o ) return false;
 
     if ( !cc_piece_is_symbol( piece_symbol ) ) return false;
 
-    int size = (int)cb__w->size;
+    static int pos_i = 0;
+    static int pos_j = 0;
+
+    if ( initialize_iter )
+    {
+        pos_i = 0;
+        pos_j = 0;
+    }
+
+    int size = (int)cb->size;
 
     for ( int i = pos_i; i < size; ++i )
     {
         for ( int j = pos_j; j < size; ++j )
         {
-            CcPieceEnum pe = cc_chessboard_get_piece( cb__w, i, j );
+            CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
 
             if ( cc_piece_symbol( pe ) == piece_symbol )
             {
@@ -116,21 +115,21 @@ bool cc_rule_steps_find_piece_start_pos( CcChessboard const * const restrict cb,
 
     CcPieceEnum piece = CC_PE_None;
     CcPos start = cc_pos_empty();
+    bool init = true;
 
-    while ( cc_rule_steps_piece_pos_iter( cb, piece_symbol, &piece, &start ) )
+    while ( cc_rule_steps_piece_pos_iter( cb, piece_symbol, &piece, &start, init ) )
     {
+        init = false;
+
         if ( ( disamb_i_d ) && ( *disamb_i_d != start.i ) ) continue;
         if ( ( disamb_j_d ) && ( *disamb_j_d != start.j ) ) continue;
 
-        if ( !cc_rule_steps_check_movement( cb, ple, piece,
-                                            start,
-                                            dest,
-                                            &steps ) )
-            continue;
-
-        *piece_o = piece;
-        *start_o = start;
-        return true;
+        if ( cc_rule_steps_check_movement( cb, ple, piece, start, dest, &steps ) )
+        {
+            *piece_o = piece;
+            *start_o = start;
+            return true;
+        }
     }
 
     return false;

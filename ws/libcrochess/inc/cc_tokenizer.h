@@ -76,7 +76,7 @@ char const * cc_stop_at_chars( char const * const restrict pos,
     allocated string.
 
     @param str_s _Static_ string to traverse.
-    @param seps A separators to skip.
+    @param seps A separators between tokens.
     @param token_o An _output_ parameter.
     @param initialize_iter Flag, whether to initialize iterator.
 
