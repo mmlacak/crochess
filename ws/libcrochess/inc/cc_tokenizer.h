@@ -71,44 +71,40 @@ char const * cc_stop_at_chars( char const * const restrict pos,
                                char const * const restrict seps );
 
 
-// TODO :: DOCS
-/**
-    Iterator traversing over string, returning next token as newly allocated string.
+// // TODO :: DOCS
+// /**
+//     Iterator traversing over string, returning next token as newly allocated string.
 
-    @param str_s _Static_ string to traverse.
-    @param seps_s _Static_ separators to skip.
+//     @param str_s _Static_ string to traverse.
+//     @param seps_s _Static_ separators to skip.
 
-    @note
-    Both `str_s` and `seps_s` are _static_ parameters, they have to be valid pointers for the first call, e.g.
-    ~~~{.c}
-    cc_next_token_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE );
-    ~~~
+//     @note
+//     Both `str_s` and `seps_s` are _static_ parameters, they have to be valid pointers for the first call, e.g.
+//     ~~~{.c}
+//     cc_next_token_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE );
+//     ~~~
 
-    @note
-    Once iterator is initialized, both _static_ parameters can be `NULL`, e.g.
-    ~~~{.c}
-    cc_next_token_new( NULL, NULL );
-    ~~~
+//     @note
+//     Once iterator is initialized, both _static_ parameters can be `NULL`, e.g.
+//     ~~~{.c}
+//     cc_next_token_new( NULL, NULL );
+//     ~~~
 
-    @note
-    Iterator will continue to return next token on each subsequent call, until it reaches end of an
-    original string (`str_s`), or is initialized again, with different strings.
+//     @note
+//     Iterator will continue to return next token on each subsequent call, until it reaches end of an
+//     original string (`str_s`), or is initialized again, with different strings.
 
-    @note
-    When reinitializing iterator, only parameter that has been changed needs to be passed, e.g.
-    ~~~{.c}
-    cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_PUNCTUATION );
-    ~~~
-    will continue parsing next token in the original `str_s` string from the last position,
-    but with different set of separators.
+//     @note
+//     When reinitializing iterator, only parameter that has been changed needs to be passed, e.g.
+//     ~~~{.c}
+//     cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_PUNCTUATION );
+//     ~~~
+//     will continue parsing next token in the original `str_s` string from the last position,
+//     but with different set of separators.
 
-    @return Newly allocated string containing next token if successful, `NULL` otherwise.
-*/
-// TODO :: DOCS
-char * cc_next_token_new( char const * const restrict str_s,
-                          char const * const restrict seps );
-
-// TODO :: DOCS
+//     @return Newly allocated string containing next token if successful, `NULL` otherwise.
+// */
+// // TODO :: DOCS
 bool cc_next_token_iter_new( char const * const restrict str_s,
                              char const * const restrict seps,
                              char ** const restrict token_o,

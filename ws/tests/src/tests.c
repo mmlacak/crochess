@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.121:320+20211128.194030"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.122:321+20211128.200932"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -52,12 +52,12 @@ TestMsg * test()
 }
 
 
-bool get_print_chessboard_from_cli_arg()
+bool get_print_chessboard_from_cli_arg( char const * const restrict str )
 {
     bool do_print_chesboard = false;
 
-    char * dpcb__o = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
-    if ( dpcb__o )
+    char * dpcb__o = NULL;
+    if ( cc_next_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &dpcb__o, false ) )
         do_print_chesboard = ( ( !strncmp( dpcb__o, "1", 1 ) ) || ( !strncmp( dpcb__o, "true", 4 ) ) ) ? true : false;
 
     free( dpcb__o );
@@ -66,12 +66,12 @@ bool get_print_chessboard_from_cli_arg()
     return do_print_chesboard;
 }
 
-bool get_print_move_from_cli_arg()
+bool get_print_move_from_cli_arg( char const * const restrict str )
 {
     bool do_print_move = true;
 
-    char * dpm__o = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
-    if ( dpm__o )
+    char * dpm__o = NULL;
+    if ( cc_next_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &dpm__o, false ) )
         do_print_move = ( ( !strncmp( dpm__o, "0", 1 ) ) || ( !strncmp( dpm__o, "false", 5 ) ) ) ? false : true;
 
     free( dpm__o );
@@ -80,7 +80,7 @@ bool get_print_move_from_cli_arg()
     return do_print_move;
 }
 
-CcFormatMove get_format_move_from_cli_arg()
+CcFormatMove get_format_move_from_cli_arg( char const * const restrict str )
 {
     CcFormatMove fm_user = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
     CcFormatMove fm_output = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
@@ -88,8 +88,8 @@ CcFormatMove get_format_move_from_cli_arg()
 
     CcFormatMove format_move = fm_output;
 
-    char * fm__o = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
-    if ( fm__o )
+    char * fm__o = NULL;
+    if ( cc_next_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &fm__o, false ) )
         format_move = ( ( !strncmp( fm__o, "u", 1 ) ) || ( !strncmp( fm__o, "user", 4 ) ) ) ? fm_user
                     : ( ( !strncmp( fm__o, "d", 1 ) ) || ( !strncmp( fm__o, "debug", 5 ) ) ) ? fm_debug
                     : fm_output;
@@ -100,12 +100,12 @@ CcFormatMove get_format_move_from_cli_arg()
     return format_move;
 }
 
-int get_test_number_from_cli_arg()
+int get_test_number_from_cli_arg( char const * const restrict str )
 {
     int test_number = 0; // all tests
 
-    char * tn__o = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
-    if ( tn__o )
+    char * tn__o = NULL;
+    if ( cc_next_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &tn__o, false ) )
         test_number = atoi( tn__o );
 
     free( tn__o );
@@ -203,8 +203,9 @@ int main( void )
             continue;
         }
 
-        char * cmd = cc_next_token_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE );
-        if ( !cmd ) continue;
+        char * cmd = NULL;
+        if ( !cc_next_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &cmd, true ) )
+            continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
         {
@@ -221,10 +222,10 @@ int main( void )
         }
         else if ( ( !strcmp( "b", cmd ) ) || ( !strcmp( "book", cmd ) ) )
         {
-            bool do_print_chesboard = get_print_chessboard_from_cli_arg();
-            bool do_print_move = get_print_move_from_cli_arg();
-            CcFormatMove format_move = get_format_move_from_cli_arg();
-            int test_number = get_test_number_from_cli_arg();
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer );
+            bool do_print_move = get_print_move_from_cli_arg( buffer );
+            CcFormatMove format_move = get_format_move_from_cli_arg( buffer );
+            int test_number = get_test_number_from_cli_arg( buffer );
 
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
@@ -234,10 +235,10 @@ int main( void )
         }
         else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "test", cmd ) ) )
         {
-            bool do_print_chesboard = get_print_chessboard_from_cli_arg();
-            bool do_print_move = get_print_move_from_cli_arg();
-            CcFormatMove format_move = get_format_move_from_cli_arg();
-            int test_number = get_test_number_from_cli_arg();
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer );
+            bool do_print_move = get_print_move_from_cli_arg( buffer );
+            CcFormatMove format_move = get_format_move_from_cli_arg( buffer );
+            int test_number = get_test_number_from_cli_arg( buffer );
 
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
@@ -340,7 +341,9 @@ int main( void )
             // Test with AN from CLI.
 
             // <!> :: Uncomment free() below, if this is active!
-            // char * user_an = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
+            // char * user_an = NULL;
+            // if ( !cc_next_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &user_an, false ) )
+            //     continue;
 
 
             //
@@ -358,17 +361,17 @@ int main( void )
             free( reverse__o );
             reverse__o = NULL;
 
-            // <!> :: Uncomment, if cc_next_token_new() above is active!
+            // <!> :: Uncomment, if cc_next_token_iter_new() above is active!
             // free( user_an );
             // user_an = NULL;
 
         }
         else if ( !strcmp( "y", cmd ) )
         {
-            bool do_print_chesboard = get_print_chessboard_from_cli_arg();
-            bool do_print_move = get_print_move_from_cli_arg();
-            CcFormatMove format_move = get_format_move_from_cli_arg();
-            int test_number = get_test_number_from_cli_arg();
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer );
+            bool do_print_move = get_print_move_from_cli_arg( buffer );
+            CcFormatMove format_move = get_format_move_from_cli_arg( buffer );
+            int test_number = get_test_number_from_cli_arg( buffer );
 
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 

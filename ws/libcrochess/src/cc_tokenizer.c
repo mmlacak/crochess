@@ -59,35 +59,6 @@ char const * cc_stop_at_chars( char const * const restrict pos,
     return cc_traverse_chars( pos, seps, false );
 }
 
-char * cc_next_token_new( char const * const restrict str_s,
-                          char const * const restrict seps )
-{
-    static char const * start = NULL;
-    static char const * end = NULL;
-
-    if ( str_s )
-        start = str_s;
-    else
-    {
-        if ( !end ) return NULL;
-        start = end + 1;
-    }
-
-    start = cc_skip_chars( start, seps );
-    end = cc_stop_at_chars( start, seps );
-
-    if ( end == start ) return NULL;
-
-    size_t len = end - start;
-    char * pos = malloc( len + 1 );
-    if ( !pos ) return NULL;
-
-    strncpy( pos, start, len );
-    pos[ len ] = '\0';
-
-    return pos;
-}
-
 bool cc_next_token_iter_new( char const * const restrict str_s,
                              char const * const restrict seps,
                              char ** const restrict token_o,
