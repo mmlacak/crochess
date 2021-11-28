@@ -108,6 +108,12 @@ char const * cc_stop_at_chars( char const * const restrict pos,
 char * cc_next_token_new( char const * const restrict str_s,
                           char const * const restrict seps );
 
+// TODO :: DOCS
+bool cc_next_token_iter_new( char const * const restrict str_s,
+                             char const * const restrict seps,
+                             char ** const restrict token_o,
+                             bool const initialize_iter );
+
 /**
     Function returning newly allocated string, with `chars` trimmed from the beginning and the end.
 

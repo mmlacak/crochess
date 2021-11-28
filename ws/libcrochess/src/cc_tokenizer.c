@@ -88,6 +88,54 @@ char * cc_next_token_new( char const * const restrict str_s,
     return pos;
 }
 
+bool cc_next_token_iter_new( char const * const restrict str_s,
+                             char const * const restrict seps,
+                             char ** const restrict token_o,
+                             bool const initialize_iter )
+{
+    static char const * start = NULL;
+    static char const * end = NULL;
+
+    if ( !str_s ) return false;
+    if ( !seps ) return false;
+    if ( !token_o ) return false;
+    if ( *token_o ) return false;
+
+    if ( initialize_iter )
+    {
+        start = str_s;
+    }
+    else
+    {
+        if ( !end )
+        {
+            start = end = NULL;
+            return false;
+        }
+
+        start = end + 1;
+    }
+
+    start = cc_skip_chars( start, seps );
+    end = cc_stop_at_chars( start, seps );
+
+    if ( ( *start == '\0' ) || ( end == start ) )
+    {
+        start = end = NULL;
+        return false;
+    }
+
+    size_t len = end - start;
+    char * pos = malloc( len + 1 );
+    if ( !pos ) return false;
+
+    strncpy( pos, start, len );
+    pos[ len ] = '\0';
+
+    *token_o = pos;
+    return true;
+}
+
 char * cc_str_trim_new( char const * const restrict str,
                         char const * const restrict chars )
 {

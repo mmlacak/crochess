@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.120:319+20211126.171507"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.121:320+20211128.194030"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -45,8 +45,9 @@ int main( void )
             continue;
         }
 
-        char * cmd = cc_next_token_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE );
-        if ( !cmd ) continue;
+        char * cmd = NULL;
+        if ( !cc_next_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &cmd, true ) )
+            continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
         {
@@ -72,9 +73,9 @@ int main( void )
         else if ( ( !strcmp( "n", cmd ) ) || ( !strcmp( "new", cmd ) ) )
         {
             bool is_code = false;
-            char * code = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
+            char * code = NULL;
 
-            if ( code )
+            if ( cc_next_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &code, false ) )
             {
                 is_code = cc_variant_str_is_symbol( code );
 
@@ -101,9 +102,9 @@ int main( void )
         }
         else if ( ( !strcmp( "h", cmd ) ) || ( !strcmp( "help", cmd ) ) || ( !strcmp( "?", cmd ) ) )
         {
-            char * res = cc_next_token_new( NULL, CC_TOKEN_SEPARATORS_WHITESPACE );
+            char * res = NULL;
 
-            if ( !res ) print_help();
+            if ( !cc_next_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &res, false ) ) print_help();
             else if ( ( !strcmp( "q", res ) ) || ( !strcmp( "quit", res ) ) ) print_help_quit();
             else if ( ( !strcmp( "d", res ) ) || ( !strcmp( "display", res ) ) ) print_help_display();
             else if ( ( !strcmp( "t", res ) ) || ( !strcmp( "tags", res ) ) ) print_help_tags();
