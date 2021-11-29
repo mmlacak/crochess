@@ -49,8 +49,8 @@ bool cc_parse_move( char const * const restrict move_str,
 
     CcChessboard const * const cb = game->chessboard;
 
-    char * ply_an__o = cc_parse_utils_next_ply_str_new( move_str );
-    if ( !ply_an__o )
+    char * ply_an__o = NULL;
+    if ( !cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, true ) )
     {
         cc_parse_msg_append_or_init_format( parse_msgs_io,
                                             CC_PME_Error,
@@ -280,9 +280,8 @@ bool cc_parse_move( char const * const restrict move_str,
 // TODO :: FIX :: is_piece_light --> piece_symbol --> pe !!!
 
         free( ply_an__o );
-        ply_an__o = cc_parse_utils_next_ply_str_new( NULL );
     }
-    while ( ply_an__o );
+    while ( cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, false ) );
 
     CcMoveStatusEnum mse = CC_MSE_None;
 

@@ -94,38 +94,37 @@ char const * cc_parse_utils_go_ply_link( char const * const restrict move_str,
     return m;
 }
 
-char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
+bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
+                                      char ** const restrict ply_an_o,
+                                      bool const initialize_iter )
 {
-    /* static char const * move_start = NULL; */
     static char const * ply_start = NULL;
     static char const * ply_end = NULL;
 
-    bool parse_1st = (bool)move_str_s;
-
-    if ( move_str_s )
+    if ( initialize_iter )
     {
-        /* move_start = */ ply_start = ply_end = move_str_s;
+        ply_start = ply_end = move_str;
     }
 
-    if ( !ply_end ) return NULL;
+    if ( !ply_end ) return false;
 
     if ( *ply_end == '\0' )
     {
         ply_end = NULL; // Invalidate future calls without initialization.
-        return NULL;
+        return false;
     }
 
-    if ( !parse_1st )
+    if ( !initialize_iter ) // If not first call in a sequence.
         ply_start = cc_parse_utils_go_ply_link( ply_end, false );
 
     ply_end = cc_parse_utils_go_ply_link( ply_start, true );
     ply_end = cc_parse_utils_go_ply_link( ply_end, false );
 
-    if ( ply_end == ply_start ) return NULL;
+    if ( ply_end == ply_start ) return false;
 
     size_t len = ply_end - ply_start;
     char * ply_str = malloc( len + 1 );
-    if ( !ply_str ) return NULL;
+    if ( !ply_str ) return false;
 
     char const * in = ply_start;
     char * out = ply_str;
@@ -140,7 +139,8 @@ char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s )
 
     *out = '\0';
 
-    return ply_str;
+    *ply_an_o = ply_str;
+    return true;
 }
 
 bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,

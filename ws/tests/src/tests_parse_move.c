@@ -63,8 +63,9 @@ bool test_parser( CcGame const * const restrict gm,
         printf( "%s\n", move_str );
     }
 
-    char * ply_an__o = cc_parse_utils_next_ply_str_new( move_str );
-    if ( !ply_an__o ) return false;
+    char * ply_an__o = NULL;
+    if ( !cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, true ) )
+        return false;
 
     CcPlyLinkEnum ple = CC_PLE_Ply;
     bool result_1 = true;
@@ -192,9 +193,8 @@ bool test_parser( CcGame const * const restrict gm,
 // TODO :: FIX :: is_piece_light !!!
 
         free( ply_an__o );
-        ply_an__o = cc_parse_utils_next_ply_str_new( NULL );
     }
-    while ( ply_an__o );
+    while ( cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, false ) );
 
     return true;
 }

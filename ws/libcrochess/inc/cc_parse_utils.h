@@ -75,21 +75,25 @@ size_t cc_parse_utils_ply_link_len( char const * const restrict ply_str );
 char const * cc_parse_utils_go_ply_link( char const * const restrict move_str,
                                          bool const skip_or_stop_at );
 
-/**
-    Iterator returns newly allocated string, containing next ply algebraic notation.
+// TODO :: DOCS
+// /**
+//     Iterator returns newly allocated string, containing next ply algebraic notation.
 
-    @param move_str_s A move, _static_ parameter, AN string used to initialize iterator, can be `NULL`.
+//     @param move_str_s A move, _static_ parameter, AN string used to initialize iterator, can be `NULL`.
 
-    @note
-    Iterator is initialized with valid `move_str_s` once, after which subsequent calls
-    has to pass `NULL` as argument.
+//     @note
+//     Iterator is initialized with valid `move_str_s` once, after which subsequent calls
+//     has to pass `NULL` as argument.
 
-    @note
-    Once AN string is traversed completely, `NULL` is returned.
+//     @note
+//     Once AN string is traversed completely, `NULL` is returned.
 
-    @return String pointer to newly allocated AN string if successful, `NULL` otherwise.
-*/
-char * cc_parse_utils_next_ply_str_new( char const * const restrict move_str_s );
+//     @return String pointer to newly allocated AN string if successful, `NULL` otherwise.
+// */
+// TODO :: DOCS
+bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
+                                      char ** const restrict ply_an_o,
+                                      bool const initialize_iter );
 
 /**
     Function getting ply link, for a given ply AN string.
