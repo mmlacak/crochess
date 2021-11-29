@@ -59,10 +59,10 @@ char const * cc_stop_at_chars( char const * const restrict pos,
     return cc_traverse_chars( pos, seps, false );
 }
 
-bool cc_next_token_iter_new( char const * const restrict str_s,
-                             char const * const restrict seps,
-                             char ** const restrict token_o,
-                             bool const initialize_iter )
+bool cc_token_iter_new( char const * const restrict str_s,
+                        char const * const restrict seps,
+                        char ** const restrict token_o,
+                        bool const initialize_iter )
 {
     static char const * start = NULL;
     static char const * end = NULL;
