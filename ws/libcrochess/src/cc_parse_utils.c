@@ -98,6 +98,10 @@ bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
                                       char ** const restrict ply_an_o,
                                       bool const initialize_iter )
 {
+    if ( !move_str ) return false;
+    if ( !ply_an_o ) return false;
+    if ( *ply_an_o ) return false;
+
     static char const * ply_start = NULL;
     static char const * ply_end = NULL;
 

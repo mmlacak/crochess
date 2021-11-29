@@ -75,14 +75,14 @@ char const * cc_stop_at_chars( char const * const restrict pos,
     Iterator traversing over string, returning next token as newly
     allocated string.
 
-    @param str_s _Static_ string to traverse.
+    @param str String to traverse.
     @param seps A separators between tokens.
     @param token_o An _output_ parameter.
     @param initialize_iter Flag, whether to initialize iterator.
 
     @note
-    _Static_ `str_s` parameter has to be valid pointer even if iterator is not
-    being intialized, to ensure string (buffer) is still allocated and readable.
+    Parameter `str` has to be valid pointer even if iterator is not being
+    intialized, to ensure string (buffer) is still allocated and readable.
 
     @note
     _Output_ parameter `token_o` has to have inner pointer initialized to `NULL`,
@@ -108,14 +108,14 @@ char const * cc_stop_at_chars( char const * const restrict pos,
 
     @note
     Iterator will continue to return next token on each subsequent call,
-    until it reaches end of an original string (`str_s`), or is initialized
+    until it reaches end of an original string (`str`), or is initialized
     again with different string.
 
     @return `true` if next token was found, `NULL` otherwise.
     If `true` was returned, _output_ argument `token_o` contains a newly
     allocated copy of a token found.
 */
-bool cc_token_iter_new( char const * const restrict str_s,
+bool cc_token_iter_new( char const * const restrict str,
                         char const * const restrict seps,
                         char ** const restrict token_o,
                         bool const initialize_iter );

@@ -91,6 +91,50 @@ char const * cc_parse_utils_go_ply_link( char const * const restrict move_str,
 //     @return String pointer to newly allocated AN string if successful, `NULL` otherwise.
 // */
 // TODO :: DOCS
+
+/**
+    Iterator traversing over move algebraic notation (AN) string,
+    returning next ply AN as newly allocated string.
+
+    @param move_str Move AN string to traverse.
+    @param ply_an_o An _output_ parameter, ply AN.
+    @param initialize_iter Flag, whether to initialize iterator.
+
+    @note
+    Parameter `move_str` has to be valid pointer even if iterator is not being
+    intialized, to ensure string (buffer) is still allocated and readable.
+
+    @note
+    _Output_ parameter `ply_an_o` has to have inner pointer initialized to `NULL`,
+    i.e. `*ply_an_o == NULL` has to hold true.
+
+    @note
+    If used within a loop, newly allocated string has to be `free()`-ed, or
+    ownership transferred to some other variable, before each new loop.
+    ~~~{.c}
+    char * ply_an__o = NULL;
+    bool init = true;
+
+    while ( !cc_parse_utils_ply_str_iter_new( ..., &ply_an__o, init ) )
+    {
+        init = false;
+
+        ... // some stuff
+
+        free( ply_an__o ); // Or transfer ownership.
+        ply_an__o = NULL; // Must be set to NULL.
+    }
+    ~~~
+
+    @note
+    Iterator will continue to return next ply AN on each subsequent call,
+    until it reaches end of an original string (`move_str`), or is initialized
+    again with different string.
+
+    @return `true` if next ply AN was found, `NULL` otherwise.
+    If `true` was returned, _output_ argument `ply_an_o` contains a newly
+    allocated copy of a ply AN found.
+*/
 bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
                                       char ** const restrict ply_an_o,
                                       bool const initialize_iter );
