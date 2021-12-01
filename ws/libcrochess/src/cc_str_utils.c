@@ -126,6 +126,34 @@ int cc_str_len_format( char const * const restrict fmt, ... )
     return len;
 }
 
+bool cc_str_copy_substring_new( char const * const restrict first,
+                                size_t const length,
+                                char ** const restrict str_o )
+{
+    if ( !first ) return false;
+
+    char * tmp__t = malloc( length + 1 );
+    if ( !tmp__t ) return false;
+
+    strncpy( tmp__t, first, length );
+    tmp__t[ length ] = '\0';
+
+    *str_o = tmp__t;
+    return true;
+}
+
+bool cc_str_copy_substring_until_end_new( char const * const restrict first,
+                                          char const * const restrict end,
+                                          char ** const restrict str_o )
+{
+    if ( !first ) return false;
+    if ( !end ) return false;
+
+    size_t length = end - first;
+
+    return cc_str_copy_substring_new( first, length, str_o );
+}
+
 
 char * cc_str_format_new( char const * const restrict fmt, ... )
 {

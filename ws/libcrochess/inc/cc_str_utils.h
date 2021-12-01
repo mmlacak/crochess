@@ -119,6 +119,16 @@ size_t cc_str_len_min( char const * const restrict str,
 */
 int cc_str_len_format( char const * const restrict fmt, ... );
 
+// TODO :: DOCS
+bool cc_str_copy_substring_new( char const * const restrict first,
+                                size_t const length,
+                                char ** const restrict str_o );
+
+// TODO :: DOCS
+bool cc_str_copy_substring_until_end_new( char const * const restrict first,
+                                          char const * const restrict end,
+                                          char ** const restrict str_o );
+
 
 /**
     Function returns a newly allocated string containing formatted variadic input.

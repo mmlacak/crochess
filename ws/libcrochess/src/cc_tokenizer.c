@@ -59,51 +59,33 @@ char const * cc_stop_at_chars( char const * const restrict pos,
     return cc_traverse_chars( pos, seps, false );
 }
 
+
 bool cc_token_iter_new( char const * const restrict str,
                         char const * const restrict seps,
-                        char ** const restrict token_o,
-                        bool const initialize_iter )
+                        char ** const restrict first_io,
+                        char ** const restrict end_io )
 {
-    static char const * start = NULL;
-    static char const * end = NULL;
-
     if ( !str ) return false;
     if ( !seps ) return false;
-    if ( !token_o ) return false;
-    if ( *token_o ) return false;
+    if ( !first_io ) return false;
+    if ( !end_io ) return false;
 
-    if ( initialize_iter )
-    {
-        start = str;
-    }
+    if ( !( *first_io ) && !( *end_io ) )
+        *first_io = str;
+    else if ( ( *first_io ) && ( *end_io ) )
+        *first_io = *end_io + 1;
     else
+        return false;
+
+    *first_io = cc_skip_chars( *first_io, seps );
+    *end_io = cc_stop_at_chars( *first_io, seps );
+
+    if ( ( *first_io == '\0' ) || ( *end_io == *first_io ) )
     {
-        if ( !end )
-        {
-            start = end = NULL;
-            return false;
-        }
-
-        start = end + 1;
-    }
-
-    start = cc_skip_chars( start, seps );
-    end = cc_stop_at_chars( start, seps );
-
-    if ( ( *start == '\0' ) || ( end == start ) )
-    {
-        start = end = NULL;
+        *first_io = *end_io = NULL;
         return false;
     }
 
-    size_t len = end - start;
-    char * pos = malloc( len + 1 );
-    if ( !pos ) return false;
-
-    strncpy( pos, start, len );
-    pos[ len ] = '\0';
-
-    *token_o = pos;
     return true;
 }
 

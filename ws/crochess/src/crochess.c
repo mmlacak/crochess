@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.126:325+20211129.155803"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.127:326+20211201.095630"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -45,8 +45,13 @@ int main( void )
             continue;
         }
 
+        char * first__w = NULL;
+        char * end__w = NULL;
+        if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            continue;
+
         char * cmd = NULL;
-        if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &cmd, true ) )
+        if ( !cc_str_copy_substring_until_end_new( first__w, end__w, &cmd ) )
             continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
@@ -75,8 +80,11 @@ int main( void )
             bool is_code = false;
             char * code = NULL;
 
-            if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &code, false ) )
+            if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
+                if ( !cc_str_copy_substring_until_end_new( first__w, end__w, &code ) )
+                    continue;
+
                 is_code = cc_variant_str_is_symbol( code );
 
                 if ( is_code )
@@ -104,7 +112,11 @@ int main( void )
         {
             char * res = NULL;
 
-            if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &res, false ) ) print_help();
+            if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+                if ( !cc_str_copy_substring_until_end_new( first__w, end__w, &res ) )
+                    continue;
+
+            if ( !res ) print_help();
             else if ( ( !strcmp( "q", res ) ) || ( !strcmp( "quit", res ) ) ) print_help_quit();
             else if ( ( !strcmp( "d", res ) ) || ( !strcmp( "display", res ) ) ) print_help_display();
             else if ( ( !strcmp( "t", res ) ) || ( !strcmp( "tags", res ) ) ) print_help_tags();

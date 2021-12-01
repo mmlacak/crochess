@@ -71,54 +71,56 @@ char const * cc_stop_at_chars( char const * const restrict pos,
                                char const * const restrict seps );
 
 
-/**
-    Iterator traversing over string, returning next token as newly
-    allocated string.
+// TODO :: DOCS
+// /**
+//     Iterator traversing over string, returning next token as newly
+//     allocated string.
 
-    @param str String to traverse.
-    @param seps A separators between tokens.
-    @param token_o An _output_ parameter.
-    @param initialize_iter Flag, whether to initialize iterator.
+//     @param str String to traverse.
+//     @param seps A separators between tokens.
+//     @param token_o An _output_ parameter.
+//     @param initialize_iter Flag, whether to initialize iterator.
 
-    @note
-    Parameter `str` has to be valid pointer even if iterator is not being
-    intialized, to ensure string (buffer) is still allocated and readable.
+//     @note
+//     Parameter `str` has to be valid pointer even if iterator is not being
+//     intialized, to ensure string (buffer) is still allocated and readable.
 
-    @note
-    _Output_ parameter `token_o` has to have inner pointer initialized to `NULL`,
-    i.e. `*token_o == NULL` has to hold true.
+//     @note
+//     _Output_ parameter `token_o` has to have inner pointer initialized to `NULL`,
+//     i.e. `*token_o == NULL` has to hold true.
 
-    @note
-    If used within a loop, newly allocated string has to be `free()`-ed, or
-    ownership transferred to some other variable, before each new loop.
-    ~~~{.c}
-    char * cmd = NULL;
-    bool init = true;
+//     @note
+//     If used within a loop, newly allocated string has to be `free()`-ed, or
+//     ownership transferred to some other variable, before each new loop.
+//     ~~~{.c}
+//     char * cmd = NULL;
+//     bool init = true;
 
-    while ( !cc_token_iter_new( ..., ..., &cmd, init ) )
-    {
-        init = false;
+//     while ( !cc_token_iter_new( ..., ..., &cmd, init ) )
+//     {
+//         init = false;
 
-        ... // some stuff
+//         ... // some stuff
 
-        free( cmd ); // Or transfer ownership.
-        cmd = NULL; // Must be set to NULL.
-    }
-    ~~~
+//         free( cmd ); // Or transfer ownership.
+//         cmd = NULL; // Must be set to NULL.
+//     }
+//     ~~~
 
-    @note
-    Iterator will continue to return next token on each subsequent call,
-    until it reaches end of an original string (`str`), or is initialized
-    again with different string.
+//     @note
+//     Iterator will continue to return next token on each subsequent call,
+//     until it reaches end of an original string (`str`), or is initialized
+//     again with different string.
 
-    @return `true` if next token was found, `NULL` otherwise.
-    If `true` was returned, _output_ argument `token_o` contains a newly
-    allocated copy of a token found.
-*/
+//     @return `true` if next token was found, `NULL` otherwise.
+//     If `true` was returned, _output_ argument `token_o` contains a newly
+//     allocated copy of a token found.
+// */
+// TODO :: DOCS
 bool cc_token_iter_new( char const * const restrict str,
                         char const * const restrict seps,
-                        char ** const restrict token_o,
-                        bool const initialize_iter );
+                        char ** const restrict first_io,
+                        char ** const restrict end_io );
 
 /**
     Function returning newly allocated string, with `chars` trimmed from the beginning and the end.
