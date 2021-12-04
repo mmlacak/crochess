@@ -80,7 +80,7 @@ bool cc_token_iter_new( char const * const restrict str,
     *first_io = cc_skip_chars( *first_io, seps );
     *end_io = cc_stop_at_chars( *first_io, seps );
 
-    if ( ( **first_io == '\0' ) || ( **end_io == **first_io ) )
+    if ( ( **first_io == '\0' ) || ( *end_io == *first_io ) )
     {
         *first_io = *end_io = NULL;
         return false;

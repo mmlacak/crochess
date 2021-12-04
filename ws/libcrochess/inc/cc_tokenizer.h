@@ -71,52 +71,38 @@ char const * cc_stop_at_chars( char const * const restrict pos,
                                char const * const restrict seps );
 
 
-// TODO :: DOCS
-// /**
-//     Iterator traversing over string, returning next token as newly
-//     allocated string.
+/**
+    Iterator traversing over string, returning next token as a pair
+    of pointers.
 
-//     @param str String to traverse.
-//     @param seps A separators between tokens.
-//     @param token_o An _output_ parameter.
-//     @param initialize_iter Flag, whether to initialize iterator.
+    @param str String to traverse.
+    @param seps A separators between tokens.
+    @param first_io An _input_ / _output_ parameter.
+    @param end_io An _input_ / _output_ parameter.
 
-//     @note
-//     Parameter `str` has to be valid pointer even if iterator is not being
-//     intialized, to ensure string (buffer) is still allocated and readable.
+    @note
+    Both _input_ / _output_ arguments `first_io` and `end_io` has to be
+    valid pointers. Both inner pointers has to be `NULL` (i.e. `*first_io == NULL`,
+    `*end_io == NULL`) at first call. At subsequent calls, both inner pointers
+    has to be valid pointers.
 
-//     @note
-//     _Output_ parameter `token_o` has to have inner pointer initialized to `NULL`,
-//     i.e. `*token_o == NULL` has to hold true.
+    @note
+    Iterator will continue to return next token on each subsequent call,
+    until end of a string is reached, or _input_ / _output_ arguments are
+    initialized to `NULL`.
 
-//     @note
-//     If used within a loop, newly allocated string has to be `free()`-ed, or
-//     ownership transferred to some other variable, before each new loop.
-//     ~~~{.c}
-//     char * cmd = NULL;
-//     bool init = true;
+    @note
+    Upon reaching end of a given string, both _input_ / _output_ arguments
+    `first_io` and `end_io` are reset to `NULL`. So, next calls (or, next loop)
+    will start returning tokens from the beginning of a given string `str`.
 
-//     while ( !cc_token_iter_new( ..., ..., &cmd, init ) )
-//     {
-//         init = false;
+    @return `true` if next token was found, `false` otherwise.
 
-//         ... // some stuff
-
-//         free( cmd ); // Or transfer ownership.
-//         cmd = NULL; // Must be set to NULL.
-//     }
-//     ~~~
-
-//     @note
-//     Iterator will continue to return next token on each subsequent call,
-//     until it reaches end of an original string (`str`), or is initialized
-//     again with different string.
-
-//     @return `true` if next token was found, `NULL` otherwise.
-//     If `true` was returned, _output_ argument `token_o` contains a newly
-//     allocated copy of a token found.
-// */
-// TODO :: DOCS
+    @return
+    If `true` was returned, _input_ / _output_ argument `first_io` contains
+    pointer to first `char` of a found token; argument `end_io` contains end
+    of a token, i.e. first `char` that does not belong to a token.
+*/
 bool cc_token_iter_new( char const * const restrict str,
                         char const * const restrict seps,
                         char const ** const restrict first_io,

@@ -132,7 +132,7 @@ int cc_str_len_format( char const * const restrict fmt, ... );
 
     @note
     _Output_ argument is always allocated as 1 bigger than a given length.
-    Extra character is always set to string terminator, i.e. `\0`.
+    Extra character is always set to string terminator, i.e. ``'\0'``.
 
     @return `true` if successful, `false` otherwise.
 */
