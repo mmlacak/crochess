@@ -73,7 +73,7 @@ bool cc_token_iter_new( char const * const restrict str,
     if ( !( *first_io ) && !( *end_io ) )
         *first_io = str;
     else if ( ( *first_io ) && ( *end_io ) )
-        *first_io = *end_io + 1;
+        *first_io = *end_io;
     else
         return false;
 
