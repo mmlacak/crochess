@@ -62,8 +62,8 @@ char const * cc_stop_at_chars( char const * const restrict pos,
 
 bool cc_token_iter_new( char const * const restrict str,
                         char const * const restrict seps,
-                        char ** const restrict first_io,
-                        char ** const restrict end_io )
+                        char const ** const restrict first_io,
+                        char const ** const restrict end_io )
 {
     if ( !str ) return false;
     if ( !seps ) return false;
@@ -80,7 +80,7 @@ bool cc_token_iter_new( char const * const restrict str,
     *first_io = cc_skip_chars( *first_io, seps );
     *end_io = cc_stop_at_chars( *first_io, seps );
 
-    if ( ( *first_io == '\0' ) || ( *end_io == *first_io ) )
+    if ( ( **first_io == '\0' ) || ( **end_io == **first_io ) )
     {
         *first_io = *end_io = NULL;
         return false;

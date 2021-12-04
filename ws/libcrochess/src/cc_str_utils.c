@@ -131,6 +131,8 @@ bool cc_str_copy_substring_new( char const * const restrict first,
                                 char ** const restrict str_o )
 {
     if ( !first ) return false;
+    if ( !str_o ) return false;
+    if ( *str_o ) return false;
 
     char * tmp__t = malloc( length + 1 );
     if ( !tmp__t ) return false;

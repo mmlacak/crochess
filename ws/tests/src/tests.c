@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.127:326+20211201.095630"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.128:327+20211204.165330"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -56,11 +56,11 @@ bool get_print_chessboard_from_cli_arg( char const * const restrict str )
 {
     bool do_print_chesboard = false;
 
-    char * dpcb__o = NULL;
+    char const * dpcb__o = NULL;
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &dpcb__o, false ) )
         do_print_chesboard = ( ( !strncmp( dpcb__o, "1", 1 ) ) || ( !strncmp( dpcb__o, "true", 4 ) ) ) ? true : false;
 
-    free( dpcb__o );
+    free( (void *)dpcb__o );
     dpcb__o = NULL;
 
     return do_print_chesboard;
@@ -70,11 +70,11 @@ bool get_print_move_from_cli_arg( char const * const restrict str )
 {
     bool do_print_move = true;
 
-    char * dpm__o = NULL;
+    char const * dpm__o = NULL;
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &dpm__o, false ) )
         do_print_move = ( ( !strncmp( dpm__o, "0", 1 ) ) || ( !strncmp( dpm__o, "false", 5 ) ) ) ? false : true;
 
-    free( dpm__o );
+    free( (void *)dpm__o );
     dpm__o = NULL;
 
     return do_print_move;
@@ -88,13 +88,13 @@ CcFormatMove get_format_move_from_cli_arg( char const * const restrict str )
 
     CcFormatMove format_move = fm_output;
 
-    char * fm__o = NULL;
+    char const * fm__o = NULL;
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &fm__o, false ) )
         format_move = ( ( !strncmp( fm__o, "u", 1 ) ) || ( !strncmp( fm__o, "user", 4 ) ) ) ? fm_user
                     : ( ( !strncmp( fm__o, "d", 1 ) ) || ( !strncmp( fm__o, "debug", 5 ) ) ) ? fm_debug
                     : fm_output;
 
-    free( fm__o );
+    free( (void *)fm__o );
     fm__o = NULL;
 
     return format_move;
@@ -104,11 +104,11 @@ int get_test_number_from_cli_arg( char const * const restrict str )
 {
     int test_number = 0; // all tests
 
-    char * tn__o = NULL;
+    char const * tn__o = NULL;
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &tn__o, false ) )
         test_number = atoi( tn__o );
 
-    free( tn__o );
+    free( (void *)tn__o );
     tn__o = NULL;
 
     return test_number;
@@ -203,8 +203,13 @@ int main( void )
             continue;
         }
 
+        char const * first__w = NULL;
+        char const * end__w = NULL;
+        if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            continue;
+
         char * cmd = NULL;
-        if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &cmd, true ) )
+        if ( !cc_str_copy_substring_until_end_new( first__w, end__w, &cmd ) )
             continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )

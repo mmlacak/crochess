@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "cc_version.h"
+#include "cc_str_utils.h"
 #include "cc_tokenizer.h"
 #include "cc_piece.h"
 #include "cc_chessboard.h"
@@ -19,7 +20,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.127:326+20211201.095630"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.128:327+20211204.165330"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -45,8 +46,8 @@ int main( void )
             continue;
         }
 
-        char * first__w = NULL;
-        char * end__w = NULL;
+        char const * first__w = NULL;
+        char const * end__w = NULL;
         if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             continue;
 
