@@ -119,15 +119,44 @@ size_t cc_str_len_min( char const * const restrict str,
 */
 int cc_str_len_format( char const * const restrict fmt, ... );
 
-// TODO :: DOCS
-bool cc_str_copy_substring_new( char const * const restrict first,
-                                size_t const length,
-                                char ** const restrict str_o );
+/**
+    Function copies (sub-)string into a newly allocated string.
 
-// TODO :: DOCS
-bool cc_str_copy_substring_until_end_new( char const * const restrict first,
-                                          char const * const restrict end,
-                                          char ** const restrict str_o );
+    @param str A (sub-)string to copy.
+    @param length Length to copy.
+    @param str_o An _output_ string.
+
+    @note
+    _Output_ argument has to be valid pointer, with inner pointer set to `NULL`,
+    i.e. `*str_o == NULL` has to be true.
+
+    @note
+    _Output_ argument is always allocated as 1 bigger than a given length.
+    Extra character is always set to string terminator, i.e. `\0`.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_str_copy_new( char const * const restrict str,
+                      size_t const length,
+                      char ** const restrict str_o );
+
+/**
+    Function copies (sub-)string into a newly allocated string.
+
+    @param str A (sub-)string to copy.
+    @param end An end of a (sub-)string to copy.
+    @param str_o An _output_ string.
+
+    @note
+    Argument `end` points to first byte which will not be copied.
+
+    @return `true` if successful, `false` otherwise.
+
+    @see `cc_str_copy_new()`
+*/
+bool cc_str_copy_until_end_new( char const * const restrict str,
+                                char const * const restrict end,
+                                char ** const restrict str_o );
 
 
 /**

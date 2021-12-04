@@ -126,34 +126,35 @@ int cc_str_len_format( char const * const restrict fmt, ... )
     return len;
 }
 
-bool cc_str_copy_substring_new( char const * const restrict first,
-                                size_t const length,
-                                char ** const restrict str_o )
+bool cc_str_copy_new( char const * const restrict str,
+                      size_t const length,
+                      char ** const restrict str_o )
 {
-    if ( !first ) return false;
+    if ( !str ) return false;
     if ( !str_o ) return false;
     if ( *str_o ) return false;
 
     char * tmp__t = malloc( length + 1 );
     if ( !tmp__t ) return false;
 
-    strncpy( tmp__t, first, length );
+    if ( !strncpy( tmp__t, str, length ) )
+        return false;
     tmp__t[ length ] = '\0';
 
     *str_o = tmp__t;
     return true;
 }
 
-bool cc_str_copy_substring_until_end_new( char const * const restrict first,
-                                          char const * const restrict end,
-                                          char ** const restrict str_o )
+bool cc_str_copy_until_end_new( char const * const restrict str,
+                                char const * const restrict end,
+                                char ** const restrict str_o )
 {
-    if ( !first ) return false;
+    if ( !str ) return false;
     if ( !end ) return false;
 
-    size_t length = end - first;
+    size_t length = end - str;
 
-    return cc_str_copy_substring_new( first, length, str_o );
+    return cc_str_copy_new( str, length, str_o );
 }
 
 

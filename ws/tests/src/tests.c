@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.128:327+20211204.165330"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.129:328+20211204.173828"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -209,7 +209,7 @@ int main( void )
             continue;
 
         char * cmd = NULL;
-        if ( !cc_str_copy_substring_until_end_new( first__w, end__w, &cmd ) )
+        if ( !cc_str_copy_until_end_new( first__w, end__w, &cmd ) )
             continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )

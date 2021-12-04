@@ -20,7 +20,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.128:327+20211204.165330"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.129:328+20211204.173828"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -52,7 +52,7 @@ int main( void )
             continue;
 
         char * cmd = NULL;
-        if ( !cc_str_copy_substring_until_end_new( first__w, end__w, &cmd ) )
+        if ( !cc_str_copy_until_end_new( first__w, end__w, &cmd ) )
             continue;
 
         if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
@@ -83,7 +83,7 @@ int main( void )
 
             if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
-                if ( !cc_str_copy_substring_until_end_new( first__w, end__w, &code ) )
+                if ( !cc_str_copy_until_end_new( first__w, end__w, &code ) )
                     continue;
 
                 is_code = cc_variant_str_is_symbol( code );
@@ -114,7 +114,7 @@ int main( void )
             char * res = NULL;
 
             if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
-                if ( !cc_str_copy_substring_until_end_new( first__w, end__w, &res ) )
+                if ( !cc_str_copy_until_end_new( first__w, end__w, &res ) )
                     continue;
 
             if ( !res ) print_help();
