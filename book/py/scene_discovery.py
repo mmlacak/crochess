@@ -144,10 +144,17 @@ class SceneDiscoveryMixin:
         start_M = (22, 6) # rel == (2, 1) --> left step
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
-        adder = GS.adder(start_M, include_prev=True)
-        scene.append_arrow( *adder( 1, 2 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 2, 1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder( -2, 1 ), mark_type=MarkType.Illegal )
+        adder = GS.adder(start_M, include_prev=False)
+        scene.board.set_piece(*adder( -2, 1 ), piece=PieceType.Pawn)
+        scene.board.set_piece(*adder( 1, 1 ), piece=PieceType.Pawn)
+        scene.board.set_piece(*adder( 0, 1 ), piece=-PieceType.Pawn)
+        scene.board.set_piece(*adder( 1, 1 ), piece=-PieceType.Pawn)
+        scene.board.set_piece(*adder( 1, 2 ), piece=PieceType.Pawn)
+
+        adder_2 = GS.adder(start_M, include_prev=True)
+        scene.append_arrow( *adder_2( 1, 2 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_2( 2, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_2( -2, 1 ), mark_type=MarkType.Legal )
 
         return scene
 
