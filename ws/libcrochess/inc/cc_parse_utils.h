@@ -118,9 +118,12 @@ char const * cc_parse_utils_go_ply_link( char const * const restrict move_str,
     If `true` was returned, _output_ argument `ply_an_o` contains a newly
     allocated copy of a ply AN found.
 */
+// bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
+//                                       char ** const restrict ply_an_o,
+//                                       bool const initialize_iter );
 bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
-                                      char ** const restrict ply_an_o,
-                                      bool const initialize_iter );
+                                      char const ** const restrict ply_start_o,
+                                      char const ** const restrict ply_end_o );
 
 /**
     Function getting ply link, for a given ply AN string.
