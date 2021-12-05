@@ -81,20 +81,21 @@ char const * cc_stop_at_chars( char const * const restrict pos,
     @param end_io An _input_ / _output_ parameter.
 
     @note
-    Both _input_ / _output_ arguments `first_io` and `end_io` has to be
-    valid pointers. Both inner pointers has to be `NULL` (i.e. `*first_io == NULL`,
-    `*end_io == NULL`) at first call. At subsequent calls, both inner pointers
-    has to be valid pointers.
+    Both _input_ / _output_ arguments `first_io` and `end_io` has to be valid
+    pointers.
+    Both inner pointers has to be `NULL` (i.e. `*first_io == NULL`, `*end_io == NULL`)
+    at first call.
+    At subsequent calls, both inner pointers has to be valid pointers.
+    It is error if one inner pointer is valid, and the other `NULL`.
 
     @note
-    Iterator will continue to return next token on each subsequent call,
-    until end of a string is reached, or _input_ / _output_ arguments are
-    initialized to `NULL`.
+    Iterator will continue to return next token on each subsequent call, until
+    end of a string is reached, or both inner pointers are initialized to `NULL`.
 
     @note
-    Upon reaching end of a given string, both _input_ / _output_ arguments
-    `first_io` and `end_io` are reset to `NULL`. So, next calls (or, next loop)
-    will start returning tokens from the beginning of a given string `str`.
+    Upon reaching end of a given string, both inner pointers (`*first_io` and
+    `*end_io`) are reset to `NULL`. So, if nothing changes, next calls (or, next
+    loop) will again start from the beginning of a given string `str`.
 
     @return `true` if next token was found, `false` otherwise.
 
