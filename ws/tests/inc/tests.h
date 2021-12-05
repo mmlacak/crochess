@@ -16,10 +16,22 @@ extern char const CROCHESS_TESTS_VERSION[];
 
 TestMsg * test();
 
-bool get_print_chessboard_from_cli_arg( char const * const restrict str );
-bool get_print_move_from_cli_arg( char const * const restrict str );
-CcFormatMove get_format_move_from_cli_arg( char const * const restrict str );
-int get_test_number_from_cli_arg( char const * const restrict str );
+bool get_print_chessboard_from_cli_arg( char const * const restrict str,
+                                        char const ** const restrict first_io,
+                                        char const ** const restrict end_io );
+
+bool get_print_move_from_cli_arg( char const * const restrict str,
+                                  char const ** const restrict first_io,
+                                  char const ** const restrict end_io );
+
+CcFormatMove get_format_move_from_cli_arg( char const * const restrict str,
+                                           char const ** const restrict first_io,
+                                           char const ** const restrict end_io );
+
+int get_integer_from_cli_arg( char const * const restrict str,
+                              int const default_num,
+                              char const ** const restrict first_io,
+                              char const ** const restrict end_io );
 
 int main(void);
 

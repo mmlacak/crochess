@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.131:330+20211204.185847"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.132:331+20211205.100658"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -52,13 +52,16 @@ TestMsg * test()
 }
 
 
-bool get_print_chessboard_from_cli_arg( char const * const restrict str )
+bool get_print_chessboard_from_cli_arg( char const * const restrict str,
+                                        char const ** const restrict first_io,
+                                        char const ** const restrict end_io )
 {
     bool do_print_chesboard = false;
+    char * dpcb__o = NULL;
 
-    char const * dpcb__o = NULL;
-    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &dpcb__o, false ) )
-        do_print_chesboard = ( ( !strncmp( dpcb__o, "1", 1 ) ) || ( !strncmp( dpcb__o, "true", 4 ) ) ) ? true : false;
+    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
+        if ( cc_str_copy_until_end_new( *first_io, *end_io, &dpcb__o ) )
+            do_print_chesboard = ( ( !strncmp( dpcb__o, "1", 1 ) ) || ( !strncmp( dpcb__o, "true", 4 ) ) ) ? true : false;
 
     free( (void *)dpcb__o );
     dpcb__o = NULL;
@@ -66,13 +69,16 @@ bool get_print_chessboard_from_cli_arg( char const * const restrict str )
     return do_print_chesboard;
 }
 
-bool get_print_move_from_cli_arg( char const * const restrict str )
+bool get_print_move_from_cli_arg( char const * const restrict str,
+                                  char const ** const restrict first_io,
+                                  char const ** const restrict end_io )
 {
     bool do_print_move = true;
+    char * dpm__o = NULL;
 
-    char const * dpm__o = NULL;
-    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &dpm__o, false ) )
-        do_print_move = ( ( !strncmp( dpm__o, "0", 1 ) ) || ( !strncmp( dpm__o, "false", 5 ) ) ) ? false : true;
+    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
+        if ( cc_str_copy_until_end_new( *first_io, *end_io, &dpm__o ) )
+            do_print_move = ( ( !strncmp( dpm__o, "0", 1 ) ) || ( !strncmp( dpm__o, "false", 5 ) ) ) ? false : true;
 
     free( (void *)dpm__o );
     dpm__o = NULL;
@@ -80,19 +86,22 @@ bool get_print_move_from_cli_arg( char const * const restrict str )
     return do_print_move;
 }
 
-CcFormatMove get_format_move_from_cli_arg( char const * const restrict str )
+CcFormatMove get_format_move_from_cli_arg( char const * const restrict str,
+                                           char const ** const restrict first_io,
+                                           char const ** const restrict end_io )
 {
     CcFormatMove fm_user = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
     CcFormatMove fm_output = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
     CcFormatMove fm_debug = cc_format_move_debug( CC_FMSE_FormatOnlyCurrentMove );
 
     CcFormatMove format_move = fm_output;
+    char * fm__o = NULL;
 
-    char const * fm__o = NULL;
-    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &fm__o, false ) )
-        format_move = ( ( !strncmp( fm__o, "u", 1 ) ) || ( !strncmp( fm__o, "user", 4 ) ) ) ? fm_user
-                    : ( ( !strncmp( fm__o, "d", 1 ) ) || ( !strncmp( fm__o, "debug", 5 ) ) ) ? fm_debug
-                    : fm_output;
+    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
+        if ( cc_str_copy_until_end_new( *first_io, *end_io, &fm__o ) )
+            format_move = ( ( !strncmp( fm__o, "u", 1 ) ) || ( !strncmp( fm__o, "user", 4 ) ) ) ? fm_user
+                        : ( ( !strncmp( fm__o, "d", 1 ) ) || ( !strncmp( fm__o, "debug", 5 ) ) ) ? fm_debug
+                        : fm_output;
 
     free( (void *)fm__o );
     fm__o = NULL;
@@ -100,18 +109,22 @@ CcFormatMove get_format_move_from_cli_arg( char const * const restrict str )
     return format_move;
 }
 
-int get_test_number_from_cli_arg( char const * const restrict str )
+int get_integer_from_cli_arg( char const * const restrict str,
+                              int const default_num,
+                              char const ** const restrict first_io,
+                              char const ** const restrict end_io )
 {
-    int test_number = 0; // all tests
+    int number = default_num;
+    char * num__o = NULL;
 
-    char const * tn__o = NULL;
-    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, &tn__o, false ) )
-        test_number = atoi( tn__o );
+    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
+        if ( cc_str_copy_until_end_new( *first_io, *end_io, &num__o ) )
+            number = atoi( num__o );
 
-    free( (void *)tn__o );
-    tn__o = NULL;
+    free( (void *)num__o );
+    num__o = NULL;
 
-    return test_number;
+    return number;
 }
 
 
@@ -227,10 +240,10 @@ int main( void )
         }
         else if ( ( !strcmp( "b", cmd ) ) || ( !strcmp( "book", cmd ) ) )
         {
-            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer );
-            bool do_print_move = get_print_move_from_cli_arg( buffer );
-            CcFormatMove format_move = get_format_move_from_cli_arg( buffer );
-            int test_number = get_test_number_from_cli_arg( buffer );
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
+            bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
+            CcFormatMove format_move = get_format_move_from_cli_arg( buffer, &first__w, &end__w );
+            int test_number = get_integer_from_cli_arg( buffer, 0, &first__w, &end__w );
 
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
@@ -240,10 +253,10 @@ int main( void )
         }
         else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "test", cmd ) ) )
         {
-            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer );
-            bool do_print_move = get_print_move_from_cli_arg( buffer );
-            CcFormatMove format_move = get_format_move_from_cli_arg( buffer );
-            int test_number = get_test_number_from_cli_arg( buffer );
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
+            bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
+            CcFormatMove format_move = get_format_move_from_cli_arg( buffer, &first__w, &end__w );
+            int test_number = get_integer_from_cli_arg( buffer, 0, &first__w, &end__w );
 
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
@@ -347,7 +360,7 @@ int main( void )
 
             // <!> :: Uncomment free() below, if this is active!
             // char * user_an = NULL;
-            // if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &user_an, false ) )
+            // if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             //     continue;
 
 
@@ -373,10 +386,10 @@ int main( void )
         }
         else if ( !strcmp( "y", cmd ) )
         {
-            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer );
-            bool do_print_move = get_print_move_from_cli_arg( buffer );
-            CcFormatMove format_move = get_format_move_from_cli_arg( buffer );
-            int test_number = get_test_number_from_cli_arg( buffer );
+            bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
+            bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
+            CcFormatMove format_move = get_format_move_from_cli_arg( buffer, &first__w, &end__w );
+            int test_number = get_integer_from_cli_arg( buffer, 0, &first__w, &end__w );
 
             TestPrints tp = test_prints( do_print_chesboard, do_print_move, format_move );
 
@@ -519,6 +532,19 @@ int main( void )
                 printf( "Step: %d: %d, %d (%p --> %p).\n", x->link, x->i, x->j, (void *)x, (void *)(x->next) );
                 x = x->next;
             }
+        }
+        else if ( !strcmp( "z5", cmd ) )
+        {
+            int size = get_integer_from_cli_arg( buffer, 0, &first__w, &end__w );
+
+            char const * str = "a:b:c:d:e";
+            if ( size < 1 ) size = cc_str_len_min( str, BUFSIZ ) + 1;
+
+            char const * end = cc_str_end( str );
+            printf( "%p -> %p, size: %lu == %lu\n", (void *)str, (void *)end, end - str, strlen( str ) + 1 );
+
+            end = cc_str_end_limit( str, size );
+            printf( "%p -> %p, size: %i: %lu == %lu\n", (void *)str, (void *)end, size, end - str, strlen( str ) + 1 );
         }
         else
         {

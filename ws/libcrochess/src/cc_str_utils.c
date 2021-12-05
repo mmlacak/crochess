@@ -115,6 +115,35 @@ size_t cc_str_len_min( char const * const restrict str,
     return len;
 }
 
+char const * cc_str_end( char const * const restrict str )
+{
+    if ( !str ) return NULL;
+
+    char const * end = str;
+
+    while ( *end != '\0' ) ++end;
+
+    return ++end;
+}
+
+char const * cc_str_end_limit( char const * const restrict str,
+                               size_t const max_len )
+{
+    if ( !str ) return NULL;
+    if ( max_len == 0 ) return NULL;
+
+    char const * end = str;
+    size_t len = 0;
+
+    while ( *end != '\0' )
+        if ( ++len < max_len )
+            ++end;
+        else
+            return NULL;
+
+    return ++end;
+}
+
 int cc_str_len_format( char const * const restrict fmt, ... )
 {
     va_list args;

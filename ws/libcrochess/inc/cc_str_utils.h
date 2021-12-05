@@ -104,6 +104,13 @@ size_t cc_str_len( char const * const restrict str );
 size_t cc_str_len_min( char const * const restrict str,
                        size_t const max_len );
 
+// TODO :: DOCS
+char const * cc_str_end( char const * const restrict str );
+
+// TODO :: DOCS
+char const * cc_str_end_limit( char const * const restrict str,
+                               size_t const max_len );
+
 /**
     Function returns length of a formatted variadic input.
 

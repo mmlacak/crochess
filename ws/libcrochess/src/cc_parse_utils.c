@@ -94,114 +94,111 @@ char const * cc_parse_utils_go_ply_link( char const * const restrict move_str,
     return m;
 }
 
-// bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
-//                                       char ** const restrict ply_an_o,
-//                                       bool const initialize_iter )
-// {
-//     if ( !move_str ) return false;
-//     if ( !ply_an_o ) return false;
-//     if ( *ply_an_o ) return false;
-
-//     static char const * ply_start = NULL;
-//     static char const * ply_end = NULL;
-
-//     if ( initialize_iter )
-//     {
-//         ply_start = ply_end = move_str;
-//     }
-
-//     if ( !ply_end ) return false;
-
-//     if ( *ply_end == '\0' )
-//     {
-//         ply_end = NULL; // Invalidate future calls without initialization.
-//         return false;
-//     }
-
-//     if ( !initialize_iter ) // If not first call in a sequence.
-//         ply_start = cc_parse_utils_go_ply_link( ply_end, false );
-
-//     ply_end = cc_parse_utils_go_ply_link( ply_start, true );
-//     ply_end = cc_parse_utils_go_ply_link( ply_end, false );
-
-//     if ( ply_end == ply_start ) return false;
-
-//     size_t len = ply_end - ply_start;
-//     char * ply_str = malloc( len + 1 );
-//     if ( !ply_str ) return false;
-
-//     char const * in = ply_start;
-//     char * out = ply_str;
-
-//     while ( in < ply_end )
-//     {
-//         if ( !cc_parse_utils_char_is_ply_gather( *in ) )
-//             *out++ = *in++;
-//         else
-//             ++in;
-//     }
-
-//     *out = '\0';
-
-//     *ply_an_o = ply_str;
-//     return true;
-// }
-
 bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
-                                      char const ** const restrict ply_first_o,
-                                      char const ** const restrict ply_end_o )
+                                      char ** const restrict ply_an_o,
+                                      bool const initialize_iter )
 {
     if ( !move_str ) return false;
-    if ( !ply_first_o ) return false;
-    if ( !ply_end_o ) return false;
+    if ( !ply_an_o ) return false;
+    if ( *ply_an_o ) return false;
 
-// static char const * ply_start = NULL;
-// static char const * ply_end = NULL;
+    static char const * ply_start = NULL;
+    static char const * ply_end = NULL;
 
-    if ( !( *ply_first_o ) && !( *ply_end_o ) )
-        *ply_first_o = move_str;
-    else if ( ( *ply_first_o ) && ( *ply_end_o ) )
-        *ply_first_o = cc_parse_utils_go_ply_link( *ply_end_o, false );
-    else
-        return false;
-
-    *ply_end_o = cc_parse_utils_go_ply_link( *ply_first_o, true );
-    *ply_end_o = cc_parse_utils_go_ply_link( *ply_end_o, false );
-
-// if ( **ply_end_o == '\0' )
-// {
-//     *ply_end_o = NULL; // Invalidate future calls without initialization.
-//     return false;
-// }
-
-// if ( **ply_end_o == *ply_first_o ) return false;
-
-    if ( ( **ply_first_o == '\0' ) || ( *ply_end_o == *ply_first_o ) )
+    if ( initialize_iter )
     {
-        *ply_first_o = *ply_end_o = NULL;
+        ply_start = ply_end = move_str;
+    }
+
+    if ( !ply_end ) return false;
+
+    if ( *ply_end == '\0' )
+    {
+        ply_end = NULL; // Invalidate future calls without initialization.
         return false;
     }
 
-// size_t len = ply_end - ply_start;
-// char * ply_str = malloc( len + 1 );
-// if ( !ply_str ) return false;
+    if ( !initialize_iter ) // If not first call in a sequence.
+        ply_start = cc_parse_utils_go_ply_link( ply_end, false );
 
-// char const * in = ply_start;
-// char * out = ply_str;
+    ply_end = cc_parse_utils_go_ply_link( ply_start, true );
+    ply_end = cc_parse_utils_go_ply_link( ply_end, false );
 
-// while ( in < ply_end )
-// {
-//     if ( !cc_parse_utils_char_is_ply_gather( *in ) )
-//         *out++ = *in++;
-//     else
-//         ++in;
-// }
+    if ( ply_end == ply_start ) return false;
 
-// *out = '\0';
+    size_t len = ply_end - ply_start;
+    char * ply_str = malloc( len + 1 );
+    if ( !ply_str ) return false;
 
-// *ply_an_o = ply_str;
+    char const * in = ply_start;
+    char * out = ply_str;
+
+    while ( in < ply_end )
+    {
+        if ( !cc_parse_utils_char_is_ply_gather( *in ) )
+            *out++ = *in++;
+        else
+            ++in;
+    }
+
+    *out = '\0';
+
+    *ply_an_o = ply_str;
     return true;
 }
+
+// bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
+//                                       char const ** const restrict ply_first_o,
+//                                       char const ** const restrict ply_end_o )
+// {
+//     if ( !move_str ) return false;
+//     if ( !ply_first_o ) return false;
+//     if ( !ply_end_o ) return false;
+
+//     if ( !( *ply_first_o ) && !( *ply_end_o ) )
+//         *ply_first_o = move_str;
+//     else if ( ( *ply_first_o ) && ( *ply_end_o ) )
+//         *ply_first_o = cc_parse_utils_go_ply_link( *ply_end_o, false );
+//     else
+//         return false;
+
+//     *ply_end_o = cc_parse_utils_go_ply_link( *ply_first_o, true );
+//     *ply_end_o = cc_parse_utils_go_ply_link( *ply_end_o, false );
+
+// // if ( **ply_end_o == '\0' )
+// // {
+// //     *ply_end_o = NULL; // Invalidate future calls without initialization.
+// //     return false;
+// // }
+
+// // if ( **ply_end_o == *ply_first_o ) return false;
+
+//     if ( ( **ply_first_o == '\0' ) || ( *ply_end_o == *ply_first_o ) )
+//     {
+//         *ply_first_o = *ply_end_o = NULL;
+//         return false;
+//     }
+
+// // size_t len = ply_end - ply_start;
+// // char * ply_str = malloc( len + 1 );
+// // if ( !ply_str ) return false;
+
+// // char const * in = ply_start;
+// // char * out = ply_str;
+
+// // while ( in < ply_end )
+// // {
+// //     if ( !cc_parse_utils_char_is_ply_gather( *in ) )
+// //         *out++ = *in++;
+// //     else
+// //         ++in;
+// // }
+
+// // *out = '\0';
+
+// // *ply_an_o = ply_str;
+//     return true;
+// }
 
 bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
                                   CcPlyLinkEnum * const restrict link_o )
