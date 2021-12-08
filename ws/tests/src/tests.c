@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.132:331+20211205.100658"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.133:332+20211208.222735"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -535,16 +535,16 @@ int main( void )
         }
         else if ( !strcmp( "z5", cmd ) )
         {
-            int size = get_integer_from_cli_arg( buffer, 0, &first__w, &end__w );
+            int len = get_integer_from_cli_arg( buffer, 0, &first__w, &end__w );
 
             char const * str = "a:b:c:d:e";
-            if ( size < 1 ) size = cc_str_len_min( str, BUFSIZ ) + 1;
+            if ( len < 1 ) len = cc_str_len_min( str, BUFSIZ );
 
             char const * end = cc_str_end( str );
-            printf( "%p -> %p, size: %lu == %lu\n", (void *)str, (void *)end, end - str, strlen( str ) + 1 );
+            printf( "%p -> %p, size: %lu == %lu + 1\n", (void *)str, (void *)end, end - str, strlen( str ) );
 
-            end = cc_str_end_limit( str, size );
-            printf( "%p -> %p, size: %i: %lu == %lu\n", (void *)str, (void *)end, size, end - str, strlen( str ) + 1 );
+            end = cc_str_end_limit( str, len );
+            printf( "%p -> %p, size: %i --> %lu == %lu + 1\n", (void *)str, (void *)end, len, end - str, strlen( str ) );
         }
         else
         {

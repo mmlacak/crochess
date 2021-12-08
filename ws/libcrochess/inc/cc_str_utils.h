@@ -104,10 +104,33 @@ size_t cc_str_len( char const * const restrict str );
 size_t cc_str_len_min( char const * const restrict str,
                        size_t const max_len );
 
-// TODO :: DOCS
+/**
+    Function returns end of a given string.
+
+    @param str A string.
+
+    @note
+    End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
+
+    @return End of a string if successful, `NULL` otherwise.
+*/
 char const * cc_str_end( char const * const restrict str );
 
-// TODO :: DOCS
+/**
+    Function returns end of a given string, if found within given length.
+
+    @param str A string.
+    @param max_len Maximum length of a string to check.
+
+    @note
+    Parameter `max_len` expects length of a string without terminating character ``'\0'``,
+    i.e. the same as returned by `strlen()`.
+
+    @note
+    End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
+
+    @return End of a string if successful, `NULL` otherwise.
+*/
 char const * cc_str_end_limit( char const * const restrict str,
                                size_t const max_len );
 

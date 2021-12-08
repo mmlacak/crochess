@@ -136,7 +136,7 @@ char const * cc_str_end_limit( char const * const restrict str,
     size_t len = 0;
 
     while ( *end != '\0' )
-        if ( ++len < max_len )
+        if ( len++ < max_len )
             ++end;
         else
             return NULL;
