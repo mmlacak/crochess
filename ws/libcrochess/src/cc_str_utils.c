@@ -115,6 +115,17 @@ size_t cc_str_len_min( char const * const restrict str,
     return len;
 }
 
+int cc_str_len_format( char const * const restrict fmt, ... )
+{
+    va_list args;
+    va_start( args, fmt );
+
+    int len = vsnprintf( NULL, 0, fmt, args ); // len does not include \0.
+    va_end( args );
+
+    return len;
+}
+
 char const * cc_str_end( char const * const restrict str )
 {
     if ( !str ) return NULL;
@@ -144,15 +155,52 @@ char const * cc_str_end_limit( char const * const restrict str,
     return ++end;
 }
 
-int cc_str_len_format( char const * const restrict fmt, ... )
+bool cc_str_compare( char const * const restrict first_1,
+                     char const * const restrict end_1_d,
+                     char const * const restrict first_2,
+                     char const * const restrict end_2_d,
+                     long long * const restrict index_o )
 {
-    va_list args;
-    va_start( args, fmt );
+    if ( !first_1 && !first_2 ) return false;
+    if ( !first_1 ) return false;
+    if ( !first_2 ) return false;
 
-    int len = vsnprintf( NULL, 0, fmt, args ); // len does not include \0.
-    va_end( args );
+    char const * str_1 = first_1;
+    char const * last_1 = ( end_1_d ) ? end_1_d - 1 : NULL;
+    char const * str_2 = first_2;
+    char const * last_2 = ( end_2_d ) ? end_2_d - 1 : NULL;
+    long long index = 1;
 
-    return len;
+    while ( ( *str_1 != '\0' ) && ( *str_2 != '\0' ) )
+    {
+        if ( last_1 && ( str_1 >= last_1 ) )
+            break;
+
+        if ( last_2 && ( str_2 >= last_2 ) )
+            break;
+
+        if ( *str_1 != *str_2 )
+            break;
+
+        ++index;
+        ++str_1;
+        ++str_2;
+    }
+
+    *index_o = ( *str_1 == *str_2 ) ? 0 :
+               ( *str_1 < *str_2 ) ? -index : index;
+    return true;
+}
+
+bool cc_str_compare_limit( char const * const restrict first_1,
+                           char const * const restrict end_1_d,
+                           char const * const restrict first_2,
+                           char const * const restrict end_2_d,
+                           size_t const max_len,
+                           long long * const restrict index_o )
+{
+
+    return false;
 }
 
 bool cc_str_copy_new( char const * const restrict str,

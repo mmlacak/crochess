@@ -20,7 +20,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.133:332+20211208.222735"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.134:333+20211209.133646"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -51,32 +51,32 @@ int main( void )
         if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             continue;
 
-        char * cmd = NULL;
-        if ( !cc_str_copy_until_end_new( first__w, end__w, &cmd ) )
+        char * cmd__o = NULL;
+        if ( !cc_str_copy_until_end_new( first__w, end__w, &cmd__o ) )
             continue;
 
-        if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
+        if ( ( !strcmp( "q", cmd__o ) ) || ( !strcmp( "quit", cmd__o ) ) )
         {
-            free( cmd );
+            free( cmd__o );
             break;
         }
-        else if ( ( !strcmp( "v", cmd ) ) || ( !strcmp( "version", cmd ) ) )
+        else if ( ( !strcmp( "v", cmd__o ) ) || ( !strcmp( "version", cmd__o ) ) )
         {
             print_version_info( CC_LIB_VERSION, CROCHESS_VERSION );
         }
-        else if ( ( !strcmp( "a", cmd ) ) || ( !strcmp( "about", cmd ) ) )
+        else if ( ( !strcmp( "a", cmd__o ) ) || ( !strcmp( "about", cmd__o ) ) )
         {
             print_about_info();
         }
-        else if ( ( !strcmp( "d", cmd ) ) || ( !strcmp( "display", cmd ) ) )
+        else if ( ( !strcmp( "d", cmd__o ) ) || ( !strcmp( "display", cmd__o ) ) )
         {
             cc_chessboard_print( cb, true );
         }
-        else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "tags", cmd ) ) )
+        else if ( ( !strcmp( "t", cmd__o ) ) || ( !strcmp( "tags", cmd__o ) ) )
         {
             cc_chessboard_print( cb, false );
         }
-        else if ( ( !strcmp( "n", cmd ) ) || ( !strcmp( "new", cmd ) ) )
+        else if ( ( !strcmp( "n", cmd__o ) ) || ( !strcmp( "new", cmd__o ) ) )
         {
             bool is_code = false;
             char * code = NULL;
@@ -109,7 +109,7 @@ int main( void )
                 cc_chessboard_print( cb, true );
             }
         }
-        else if ( ( !strcmp( "h", cmd ) ) || ( !strcmp( "help", cmd ) ) || ( !strcmp( "?", cmd ) ) )
+        else if ( ( !strcmp( "h", cmd__o ) ) || ( !strcmp( "help", cmd__o ) ) || ( !strcmp( "?", cmd__o ) ) )
         {
             char * res = NULL;
 
@@ -132,7 +132,7 @@ int main( void )
 
             free( res );
         }
-        else if ( !strcmp( "x", cmd ) )
+        else if ( !strcmp( "x", cmd__o ) )
         {
             printf( "X: '%d'.\n", cc_is_field_light(5, 2) );
             cc_chessboard_clear( cb );
@@ -145,7 +145,7 @@ int main( void )
             // fflush( stdout );
         }
 
-        free( cmd );
+        free( cmd__o );
     }
 
     free( cb );

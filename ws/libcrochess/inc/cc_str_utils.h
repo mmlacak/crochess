@@ -105,6 +105,21 @@ size_t cc_str_len_min( char const * const restrict str,
                        size_t const max_len );
 
 /**
+    Function returns length of a formatted variadic input.
+
+    @param fmt A string format to append.
+    @param ... Variadic input for a string format.
+
+    @note
+    Output returned is direct result of a `vsnprintf` found in `<stdio.h>`,
+    see C Standard Library reference for details.
+
+    @return Length of a formatted variadic input if non-negative,
+            error code if negative.
+*/
+int cc_str_len_format( char const * const restrict fmt, ... );
+
+/**
     Function returns end of a given string.
 
     @param str A string.
@@ -134,20 +149,20 @@ char const * cc_str_end( char const * const restrict str );
 char const * cc_str_end_limit( char const * const restrict str,
                                size_t const max_len );
 
-/**
-    Function returns length of a formatted variadic input.
+// TODO :: DOCS
+bool cc_str_compare( char const * const restrict first_1,
+                     char const * const restrict end_1_d,
+                     char const * const restrict first_2,
+                     char const * const restrict end_2_d,
+                     long long * const restrict index_o );
 
-    @param fmt A string format to append.
-    @param ... Variadic input for a string format.
-
-    @note
-    Output returned is direct result of a `vsnprintf` found in `<stdio.h>`,
-    see C Standard Library reference for details.
-
-    @return Length of a formatted variadic input if non-negative,
-            error code if negative.
-*/
-int cc_str_len_format( char const * const restrict fmt, ... );
+// TODO :: DOCS
+bool cc_str_compare_limit( char const * const restrict first_1,
+                           char const * const restrict end_1_d,
+                           char const * const restrict first_2,
+                           char const * const restrict end_2_d,
+                           size_t const max_len,
+                           long long * const restrict index_o );
 
 /**
     Function copies (sub-)string into a newly allocated string.
