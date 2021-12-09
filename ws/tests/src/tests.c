@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.134:333+20211209.133646"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.135:334+20211209.142225"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -550,10 +550,6 @@ int main( void )
         {
             char const * const str_1 = "a:b:c:d:e";
             char const * const str_2 = "a:b:c:f:e";
-            char const * const str_3 = "a:a:d:";
-            char const * const str_4 = "a";
-            char const * const str_5 = "b";
-            char const * const str_6 = "";
 
             long long index = 0;
 
@@ -591,6 +587,42 @@ int main( void )
                     continue;
 
                 printf( "+3: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
+            }
+
+            printf( "--- --- --- \n" );
+
+            for ( char const * s_1 = str_1, * s_2 = str_2 ;
+                  ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
+                  ++s_1, ++s_2 )
+            {
+                if ( !cc_str_compare_limit( s_1, NULL, s_2, NULL, 5, &index ) )
+                    continue;
+
+                printf( "max 5: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
+            }
+
+            printf( "--- --- --- \n" );
+
+            for ( char const * s_1 = str_1, * s_2 = str_2 ;
+                  ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
+                  ++s_2 )
+            {
+                if ( !cc_str_compare_limit( s_1, NULL, s_2, NULL, 5, &index ) )
+                    continue;
+
+                printf( "max 5: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
+            }
+
+            printf( "--- --- --- \n" );
+
+            for ( char const * s_1 = str_1, * s_2 = str_2 ;
+                  ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
+                  ++s_1, ++s_2 )
+            {
+                if ( !cc_str_compare_limit( s_1, s_1 + 3, s_2, s_2 + 3, 5, &index ) )
+                    continue;
+
+                printf( "+3: max 5: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
             }
 
             printf( "--- --- --- \n" );
