@@ -188,7 +188,6 @@ bool cc_str_compare( char const * const restrict first_1,
                      char const * const restrict end_2_d,
                      long long * const restrict index_o );
 
-
 /**
     Compares two (sub-)strings, returns index of a first difference.
 

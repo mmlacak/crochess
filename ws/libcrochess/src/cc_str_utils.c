@@ -161,7 +161,6 @@ bool cc_str_compare( char const * const restrict first_1,
                      char const * const restrict end_2_d,
                      long long * const restrict index_o )
 {
-    if ( !first_1 && !first_2 ) return false;
     if ( !first_1 ) return false;
     if ( !first_2 ) return false;
 
@@ -199,7 +198,6 @@ bool cc_str_compare_limit( char const * const restrict first_1,
                            size_t const max_len,
                            long long * const restrict index_o )
 {
-    if ( !first_1 && !first_2 ) return false;
     if ( !first_1 ) return false;
     if ( !first_2 ) return false;
 
