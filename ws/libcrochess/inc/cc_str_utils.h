@@ -149,14 +149,61 @@ char const * cc_str_end( char const * const restrict str );
 char const * cc_str_end_limit( char const * const restrict str,
                                size_t const max_len );
 
-// TODO :: DOCS
+/**
+    Compares two (sub-)strings, returns index of a first difference.
+
+    @param first_1 A first character of a first (sub-)string.
+    @param end_1_d An _optional_ parameter, end of a first (sub-)string.
+    @param first_2 A first character of a second (sub-)string.
+    @param end_2_d An _optional_ parameter, end of a second (sub-)string.
+    @param index_o An _output_ parameter, index of a first difference found.
+
+    @note
+    End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
+    If not given, string(s) are tested until terminating character (``'\0'``) is encountered.
+
+    @note
+    _Output_ argument contains index of a characters that differ,
+    zero if given strings are equal.
+
+    @note
+    Index will be negative if, in lexographical order, first string preceedes second;
+    positive if otherwise.
+
+    @warning
+    If strings are different, index starts at `1`, not `0`.
+    To fetch first pair of characters that differ, use:
+    ~~~{.c}
+    char c1 = first_1[ llabs(index_o) - 1 ];
+    char c2 = first_2[ llabs(index_o) - 1 ];
+    ~~~
+
+    @return `true` if successful, `false` otherwise.
+    Index of a first pair of characters in a given strings that differ is
+    returned via _output_ parameter `index_o`.
+*/
 bool cc_str_compare( char const * const restrict first_1,
                      char const * const restrict end_1_d,
                      char const * const restrict first_2,
                      char const * const restrict end_2_d,
                      long long * const restrict index_o );
 
-// TODO :: DOCS
+
+/**
+    Compares two (sub-)strings, returns index of a first difference.
+
+    @param first_1 A first character of a first (sub-)string.
+    @param end_1_d An _optional_ parameter, end of a first (sub-)string.
+    @param first_2 A first character of a second (sub-)string.
+    @param end_2_d An _optional_ parameter, end of a second (sub-)string.
+    @param max_len Maximum length of a strings to check.
+    @param index_o An _output_ parameter, index of a first difference found.
+
+    @see cc_str_compare
+
+    @return `true` if successful, `false` otherwise.
+    Index of a first difference found is returned via _output_ parameter `index_o`.
+*/
 bool cc_str_compare_limit( char const * const restrict first_1,
                            char const * const restrict end_1_d,
                            char const * const restrict first_2,
