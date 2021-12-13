@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.138:337+20211213.102148"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.139:338+20211213.105256"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -125,10 +125,10 @@ int get_integer_from_cli_arg( char const * const restrict str,
 
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
-        if ( *first_io >= *end_io ) return 0;
+        if ( *first_io >= *end_io ) return default_num;
 
         size_t len = *end_io - *first_io;
-        if ( len > 11 ) return 0;
+        if ( len > 11 ) return default_num;
 
         memcpy( num, *first_io, len );
         number = atoi( num );
@@ -231,24 +231,29 @@ int main( void )
         if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             continue;
 
-        char * cmd = NULL;
-        if ( !cc_str_copy_until_end_new( first__w, end__w, &cmd ) )
-            continue;
+        long long index = 0;
 
-        if ( ( !strcmp( "q", cmd ) ) || ( !strcmp( "quit", cmd ) ) )
+        if ( ( cc_str_compare_limit( first__w, end__w, "q", NULL, BUFSIZ, &index ) ||
+               cc_str_compare_limit( first__w, end__w, "quit", NULL, BUFSIZ, &index ) )
+            && ( index == 0 ) )
         {
-            free( cmd );
             break;
         }
-        else if ( ( !strcmp( "v", cmd ) ) || ( !strcmp( "version", cmd ) ) )
+        else if ( ( cc_str_compare_limit( first__w, end__w, "v", NULL, BUFSIZ, &index ) ||
+                    cc_str_compare_limit( first__w, end__w, "version", NULL, BUFSIZ, &index ) )
+                && ( index == 0 ) )
         {
             print_version_info( CC_LIB_VERSION, CROCHESS_TESTS_VERSION );
         }
-        else if ( ( !strcmp( "a", cmd ) ) || ( !strcmp( "about", cmd ) ) )
+        else if ( ( cc_str_compare_limit( first__w, end__w, "a", NULL, BUFSIZ, &index ) ||
+                    cc_str_compare_limit( first__w, end__w, "about", NULL, BUFSIZ, &index ) )
+                && ( index == 0 ) )
         {
             print_about_info();
         }
-        else if ( ( !strcmp( "b", cmd ) ) || ( !strcmp( "book", cmd ) ) )
+        else if ( ( cc_str_compare_limit( first__w, end__w, "b", NULL, BUFSIZ, &index ) ||
+                    cc_str_compare_limit( first__w, end__w, "book", NULL, BUFSIZ, &index ) )
+                && ( index == 0 ) )
         {
             bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
             bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
@@ -261,7 +266,9 @@ int main( void )
                 if ( !test_book_move_scn_ct_03_define_step_ply( 1, tp ) )
                     printf( "Test test_book_move_scn_ct_03_define_step_ply() failed.\n" );
         }
-        else if ( ( !strcmp( "t", cmd ) ) || ( !strcmp( "test", cmd ) ) )
+        else if ( ( cc_str_compare_limit( first__w, end__w, "t", NULL, BUFSIZ, &index ) ||
+                    cc_str_compare_limit( first__w, end__w, "test", NULL, BUFSIZ, &index ) )
+                && ( index == 0 ) )
         {
             bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
             bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
@@ -344,7 +351,7 @@ int main( void )
 
             printf( "Tests finished.\n" );
         }
-        else if ( !strcmp( "x", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "x", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
 
             // char const * const user_an = "[Ng6]~[We5]~[Re8]";
@@ -394,7 +401,7 @@ int main( void )
             // user_an = NULL;
 
         }
-        else if ( !strcmp( "y", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "y", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
             bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
             bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
@@ -407,7 +414,7 @@ int main( void )
                 if ( !test_parse_move_single_ply( tp ) )
                     printf( "Test test_parse_move_single_ply() failed.\n" );
         }
-        else if ( !strcmp( "z", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "z", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
             // TestMsg * test_msgs = test();
             // test_msg_print_all( test_msgs, TME_Warning );
@@ -457,7 +464,7 @@ int main( void )
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
         }
-        else if ( !strcmp( "zz", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "zz", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
             // int i = 3;
             // int j = 7;
@@ -488,7 +495,7 @@ int main( void )
                     printf( "Step %d fail: (%d, %d)\n", k, step_i, step_j );
             }
         }
-        else if ( !strcmp( "z2", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "z2", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
             CcPosLink * pl = NULL;
 
@@ -506,7 +513,7 @@ int main( void )
                 x = x->next;
             }
         }
-        else if ( !strcmp( "z3", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "z3", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
             CcPly * pl = NULL;
 
@@ -524,7 +531,7 @@ int main( void )
                 x = x->next;
             }
         }
-        else if ( !strcmp( "z4", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "z4", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
             CcStep * st = NULL;
             CcSideEffect se = cc_side_effect_none();
@@ -543,7 +550,7 @@ int main( void )
                 x = x->next;
             }
         }
-        else if ( !strcmp( "z5", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "z5", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
             int len = get_integer_from_cli_arg( buffer, 0, &first__w, &end__w );
 
@@ -556,7 +563,7 @@ int main( void )
             end = cc_str_end_limit( str, len );
             printf( "%p -> %p, size: %i --> %lu == %lu + 1\n", (void *)str, (void *)end, len, end - str, strlen( str ) );
         }
-        else if ( !strcmp( "z6", cmd ) )
+        else if ( cc_str_compare_limit( first__w, end__w, "z6", NULL, BUFSIZ, &index ) && ( index == 0 ) )
         {
             char const * const str_1 = "a:b:c:d:e";
             char const * const str_2 = "a:b:c:f:e";
@@ -643,8 +650,6 @@ int main( void )
             printf( "Unknown: '%s'.\n", buffer );
             // fflush( stdout );
         }
-
-        free( cmd );
     }
 
     printf( "Bye, have a nice day!\n" );
