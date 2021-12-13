@@ -548,7 +548,7 @@ bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str 
 
     #define INVALID_POS (-1)
 
-    size_t len = cc_str_len_min( fields_str, MAX_LEN_TO_CHECK );
+    size_t len = cc_str_len_min( fields_str, NULL, MAX_LEN_TO_CHECK );
     if ( len > MAX_LEN ) return false;
     if ( len < MIN_LEN ) return false;
 

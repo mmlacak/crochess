@@ -84,6 +84,7 @@ bool cc_str_to_case( char * const restrict str_io,
 char * cc_str_to_case_new( char const * const restrict str,
                            bool const to_upper_or_lower );
 
+// TODO :: DOCS
 /**
     Function returning length of a string.
 
@@ -91,8 +92,11 @@ char * cc_str_to_case_new( char const * const restrict str,
 
     @return Length of a string if successful, `0` otherwise.
 */
-size_t cc_str_len( char const * const restrict str );
+// TODO :: DOCS
+size_t cc_str_len( char const * const restrict first,
+                   char const * const restrict end_d );
 
+// TODO :: DOCS
 /**
     Function returning length of a null-terminated string, capped at maximum length.
 
@@ -101,7 +105,9 @@ size_t cc_str_len( char const * const restrict str );
 
     @return Capped length of a string if successful, `0` otherwise.
 */
-size_t cc_str_len_min( char const * const restrict str,
+// TODO :: DOCS
+size_t cc_str_len_min( char const * const restrict first,
+                       char const * const restrict end_d,
                        size_t const max_len );
 
 /**
@@ -203,12 +209,25 @@ bool cc_str_compare( char const * const restrict first_1,
     @return `true` if successful, `false` otherwise.
     Index of a first difference found is returned via _output_ parameter `index_o`.
 */
-bool cc_str_compare_limit( char const * const restrict first_1,
-                           char const * const restrict end_1_d,
-                           char const * const restrict first_2,
-                           char const * const restrict end_2_d,
-                           size_t const max_len,
-                           long long * const restrict index_o );
+bool cc_str_compare_len( char const * const restrict first_1,
+                         char const * const restrict end_1_d,
+                         char const * const restrict first_2,
+                         char const * const restrict end_2_d,
+                         size_t const max_len,
+                         long long * const restrict index_o );
+
+// TODO :: DOCS
+bool cc_str_is_equal( char const * const restrict first_1,
+                      char const * const restrict end_1_d,
+                      char const * const restrict first_2,
+                      char const * const restrict end_2_d );
+
+// TODO :: DOCS
+bool cc_str_is_equal_len( char const * const restrict first_1,
+                          char const * const restrict end_1_d,
+                          char const * const restrict first_2,
+                          char const * const restrict end_2_d,
+                          size_t const max_len );
 
 /**
     Function copies (sub-)string into a newly allocated string.
