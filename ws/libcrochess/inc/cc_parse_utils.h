@@ -28,25 +28,6 @@
 bool cc_parse_utils_char_is_ply_gather( char const c );
 
 /**
-    Function returns string pointer, starting from a given location, and moving toward end of string.
-
-    @param move_str A move, algebraic notation string.
-    @param skip_or_stop_at A flag, whether to skip ply gather characters, or stop at first of them.
-
-    String pointer skips over almost all characters, and stops at ply gather ones,
-    if given `skip_or_stop_at` flag was `true`.
-
-    If flag is `false`, string pointer will skip over ply gather characters,
-    and stop at any other.
-
-    @see cc_parse_utils_char_is_ply_gather
-
-    @return String pointer if successful, `NULL` otherwise.
-*/
-char const * cc_parse_utils_go_ply_gather( char const * const restrict move_str,
-                                           bool const skip_or_stop_at );
-
-/**
     Function returns length of a ply link in an algebraic notation, in characters.
 
     @param ply_str A ply, algebraic notation string.

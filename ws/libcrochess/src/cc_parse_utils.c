@@ -22,21 +22,6 @@ bool cc_parse_utils_char_is_ply_gather( char const c )
     return ( ( c == '[' ) || ( c == ']' ) );
 }
 
-char const * cc_parse_utils_go_ply_gather( char const * const restrict move_str,
-                                           bool const skip_or_stop_at )
-{
-    if ( !move_str ) return NULL;
-
-    char const * m = move_str;
-
-    if ( skip_or_stop_at )
-        while ( ( *m != '\0' ) && cc_parse_utils_char_is_ply_gather( *m ) ) ++m;
-    else
-        while ( ( *m != '\0' ) && !cc_parse_utils_char_is_ply_gather( *m ) ) ++m;
-
-    return m;
-}
-
 size_t cc_parse_utils_ply_link_len( char const * const restrict ply_str )
 {
     if ( !ply_str ) return 0;
