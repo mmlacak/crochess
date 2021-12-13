@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.137:336+20211213.081406"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.138:337+20211213.102148"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -57,14 +57,15 @@ bool get_print_chessboard_from_cli_arg( char const * const restrict str,
                                         char const ** const restrict end_io )
 {
     bool do_print_chesboard = false;
-    char * dpcb__o = NULL;
 
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
-        if ( cc_str_copy_until_end_new( *first_io, *end_io, &dpcb__o ) )
-            do_print_chesboard = ( ( !strncmp( dpcb__o, "1", 1 ) ) || ( !strncmp( dpcb__o, "true", 4 ) ) ) ? true : false;
+    {
+        long long index = 0;
 
-    free( (void *)dpcb__o );
-    dpcb__o = NULL;
+        if ( cc_str_compare_limit( *first_io, *end_io, "1", NULL, 1, &index )
+            || ( cc_str_compare_limit( *first_io, *end_io, "true", NULL, 4, &index ) ) )
+                do_print_chesboard = ( index == 0 );
+    }
 
     return do_print_chesboard;
 }
@@ -74,14 +75,15 @@ bool get_print_move_from_cli_arg( char const * const restrict str,
                                   char const ** const restrict end_io )
 {
     bool do_print_move = true;
-    char * dpm__o = NULL;
 
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
-        if ( cc_str_copy_until_end_new( *first_io, *end_io, &dpm__o ) )
-            do_print_move = ( ( !strncmp( dpm__o, "0", 1 ) ) || ( !strncmp( dpm__o, "false", 5 ) ) ) ? false : true;
+    {
+        long long index = 0;
 
-    free( (void *)dpm__o );
-    dpm__o = NULL;
+        if ( cc_str_compare_limit( *first_io, *end_io, "0", NULL, 1, &index )
+            || ( cc_str_compare_limit( *first_io, *end_io, "false", NULL, 5, &index ) ) )
+                do_print_move = ( index != 0 );
+    }
 
     return do_print_move;
 }
@@ -95,16 +97,20 @@ CcFormatMove get_format_move_from_cli_arg( char const * const restrict str,
     CcFormatMove fm_debug = cc_format_move_debug( CC_FMSE_FormatOnlyCurrentMove );
 
     CcFormatMove format_move = fm_output;
-    char * fm__o = NULL;
 
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
-        if ( cc_str_copy_until_end_new( *first_io, *end_io, &fm__o ) )
-            format_move = ( ( !strncmp( fm__o, "u", 1 ) ) || ( !strncmp( fm__o, "user", 4 ) ) ) ? fm_user
-                        : ( ( !strncmp( fm__o, "d", 1 ) ) || ( !strncmp( fm__o, "debug", 5 ) ) ) ? fm_debug
-                        : fm_output;
+    {
+        long long index = 0;
 
-    free( (void *)fm__o );
-    fm__o = NULL;
+        if ( ( cc_str_compare_limit( *first_io, *end_io, "u", NULL, 1, &index )
+            || ( cc_str_compare_limit( *first_io, *end_io, "user", NULL, 4, &index ) ) )
+                && ( index == 0 ) )
+                    format_move = fm_user;
+        else if ( ( cc_str_compare_limit( *first_io, *end_io, "d", NULL, 1, &index )
+                || ( cc_str_compare_limit( *first_io, *end_io, "debug", NULL, 5, &index ) ) )
+                    && ( index == 0 ) )
+                        format_move = fm_debug;
+    }
 
     return format_move;
 }
@@ -115,14 +121,18 @@ int get_integer_from_cli_arg( char const * const restrict str,
                               char const ** const restrict end_io )
 {
     int number = default_num;
-    char * num__o = NULL;
+    char num[ 12 ] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', };
 
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
-        if ( cc_str_copy_until_end_new( *first_io, *end_io, &num__o ) )
-            number = atoi( num__o );
+    {
+        if ( *first_io >= *end_io ) return 0;
 
-    free( (void *)num__o );
-    num__o = NULL;
+        size_t len = *end_io - *first_io;
+        if ( len > 11 ) return 0;
+
+        memcpy( num, *first_io, len );
+        number = atoi( num );
+    }
 
     return number;
 }
