@@ -101,12 +101,21 @@ size_t cc_str_len( char const * const restrict first,
 {
     if ( !first ) return 0;
 
-    if ( !end_d )
-        return strlen( first );
-    else if ( end_d > first )
-        return end_d - first;
-    else
-        return 0;
+    size_t len = strlen( first );
+
+    if ( end_d )
+        // Effectively, checks if end_d belongs to a string,
+        // i.e. first + 1 <= end_d <= first + strlen() + 2 (at most).
+        //
+        // At most +2 because +1 for '\0' might not be present,
+        // another +1 because end of string is first char which
+        // does not belong to that string.
+        //
+        // In case end_d < first, (size_t) cast pushes (end_d - first)
+        // towards max ints, so min() will still return reasonable len.
+        len = CC_MIN( len, (size_t)(end_d - first) );
+
+    return len;
 }
 
 size_t cc_str_len_min( char const * const restrict first,
@@ -117,22 +126,25 @@ size_t cc_str_len_min( char const * const restrict first,
     if ( max_len == 0 ) return 0;
 
     size_t len = 0;
+    char const * s = first;
 
-    if ( !end_d )
-    {
-        char const * s = first;
+    while ( ( *s != '\0' ) && ( ++len < max_len ) ) ++s;
 
-        while ( ( *s++ ) && ( ++len < max_len ) ) ;
+    if ( end_d )
+        // Effectively, checks if end_d belongs to a string,
+        // i.e. first + 1 <= end_d <= first + strlen() + 2 (at most).
+        //
+        // At most +2 because +1 for '\0' might not be present,
+        // another +1 because end of string is first char which
+        // does not belong to that string.
+        //
+        // In case end_d < first, (size_t) cast pushes (end_d - first)
+        // towards max ints, so min() will still return reasonable len.
+        len = CC_MIN( len, (size_t)(end_d - first) );
 
-        return len;
-    }
-    else if ( end_d > first )
-    {
-        len = (size_t)( end_d - first );
-        return CC_MIN( len, max_len );
-    }
-    else
-        return 0;
+    // Not needed, len was already capped in the while() loop above.
+    // return CC_MIN( len, max_len );
+    return len;
 }
 
 int cc_str_len_format( char const * const restrict fmt, ... )

@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.140:339+20211213.145240"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.141:340+20211214.045323"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -629,6 +629,18 @@ int main( void )
 
             printf( "--- --- --- \n" );
 
+        }
+        else if ( cc_str_is_equal_len( first__w, end__w, "z7", NULL, BUFSIZ ) )
+        {
+            char * first = "a:b:c:d:e";
+            char * end_3 = first + 3;
+            char * end_99 = first + 99;
+            char * end__3 = first - 3;
+
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, NULL ), cc_str_len_min( first, NULL, 5 ), cc_str_len_min( first, NULL, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_3 ), cc_str_len_min( first, end_3, 5 ), cc_str_len_min( first, end_3, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_99 ), cc_str_len_min( first, end_99, 5 ), cc_str_len_min( first, end_99, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end__3 ), cc_str_len_min( first, end__3, 5 ), cc_str_len_min( first, end__3, 33 ) );
         }
         else
         {
