@@ -21,7 +21,7 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
     if ( !new ) return NULL;
 
     new->type = type;
-    new->msg = cc_str_duplicate_len_new( msg, false, BUFSIZ );
+    new->msg = cc_str_duplicate_min_new( msg, false, BUFSIZ );
     new->next = NULL;
 
     return new;
@@ -64,7 +64,7 @@ CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** const restrict pa
     va_list args;
     va_start( args, fmt );
 
-    char * msg__t = cc_str_format_len_new( BUFSIZ, fmt, args );
+    char * msg__t = cc_str_format_min_new( BUFSIZ, fmt, args );
 
     va_end( args );
 

@@ -164,25 +164,22 @@ char const * cc_str_end( char const * const restrict str )
 
     char const * end = str;
 
-    while ( *end != '\0' ) ++end;
+    while ( *end++ != '\0' ) ;
 
     return ++end;
 }
 
-char const * cc_str_end_limit( char const * const restrict str,
-                               size_t const max_len )
+char const * cc_str_end_min( char const * const restrict str,
+                             size_t const max_len_d )
 {
     if ( !str ) return NULL;
-    if ( max_len == 0 ) return NULL;
 
     char const * end = str;
-    size_t len = 0;
+    size_t index = 0;
 
-    while ( *end != '\0' )
-        if ( len++ < max_len )
-            ++end;
-        else
-            return NULL;
+    while ( *end++ != '\0' )
+        if ( ( max_len_d != 0 ) && ( index++ >= max_len_d ) )
+            return end;
 
     return ++end;
 }
@@ -223,7 +220,7 @@ bool cc_str_compare( char const * const restrict first_1,
     return true;
 }
 
-bool cc_str_compare_len( char const * const restrict first_1,
+bool cc_str_compare_min( char const * const restrict first_1,
                          char const * const restrict end_1_d,
                          char const * const restrict first_2,
                          char const * const restrict end_2_d,
@@ -281,7 +278,7 @@ bool cc_str_is_equal( char const * const restrict first_1,
     return false;
 }
 
-bool cc_str_is_equal_len( char const * const restrict first_1,
+bool cc_str_is_equal_min( char const * const restrict first_1,
                           char const * const restrict end_1_d,
                           char const * const restrict first_2,
                           char const * const restrict end_2_d,
@@ -297,7 +294,7 @@ bool cc_str_is_equal_len( char const * const restrict first_1,
 
     long long index = 0;
 
-    if ( cc_str_compare_len( first_1, end_1_d, first_2, end_2_d, max_len, &index ) )
+    if ( cc_str_compare_min( first_1, end_1_d, first_2, end_2_d, max_len, &index ) )
         return ( index == 0 );
 
     return false;
@@ -381,7 +378,7 @@ char * cc_str_format_new( char const * const restrict fmt, ... )
     return new__t;
 }
 
-char * cc_str_format_len_new( size_t const max_len,
+char * cc_str_format_min_new( size_t const max_len,
                               char const * const restrict fmt, ... )
 {
     va_list args;
@@ -458,7 +455,7 @@ char * cc_str_duplicate_new( char const * const restrict str,
     return new;
 }
 
-char * cc_str_duplicate_len_new( char const * const restrict str,
+char * cc_str_duplicate_min_new( char const * const restrict str,
                                  bool const do_reverse,
                                  size_t const max_len )
 {
@@ -519,7 +516,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1,
     return new;
 }
 
-char * cc_str_concatenate_len_new( char const * const restrict str_1,
+char * cc_str_concatenate_min_new( char const * const restrict str_1,
                                    char const * const restrict str_2,
                                    size_t const max_len )
 {
@@ -644,7 +641,7 @@ char * cc_str_append_new( char ** const restrict str_1__f,
     return new;
 }
 
-char * cc_str_append_len_new( char ** const restrict str_1__f,
+char * cc_str_append_min_new( char ** const restrict str_1__f,
                               char ** const restrict str_2__f,
                               size_t const max_len )
 {
@@ -653,11 +650,11 @@ char * cc_str_append_len_new( char ** const restrict str_1__f,
     char * new = NULL;
 
     if ( str_1__f && str_2__f )
-        new = cc_str_concatenate_len_new( *str_1__f, *str_2__f, max_len );
+        new = cc_str_concatenate_min_new( *str_1__f, *str_2__f, max_len );
     else if ( str_1__f )
-        new = cc_str_duplicate_len_new( *str_1__f, false, max_len );
+        new = cc_str_duplicate_min_new( *str_1__f, false, max_len );
     else if ( str_2__f )
-        new = cc_str_duplicate_len_new( *str_2__f, false, max_len );
+        new = cc_str_duplicate_min_new( *str_2__f, false, max_len );
 
     if ( !new ) return NULL;
 
@@ -724,7 +721,7 @@ char * cc_str_append_format_new( char ** const restrict str__f,
     return cc_str_append_new( str__f, &new__t );
 }
 
-char * cc_str_append_format_len_new( char ** const restrict str__f,
+char * cc_str_append_format_min_new( char ** const restrict str__f,
                                      size_t const max_len,
                                      char const * const restrict fmt, ... )
 {
@@ -769,6 +766,6 @@ char * cc_str_append_format_len_new( char ** const restrict str__f,
         return NULL;
     }
 
-    // No need to free() str__f, new__t; cc_str_append_len_new() does that.
-    return cc_str_append_len_new( str__f, &new__t, max_len );
+    // No need to free() str__f, new__t; cc_str_append_min_new() does that.
+    return cc_str_append_min_new( str__f, &new__t, max_len );
 }

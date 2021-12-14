@@ -127,11 +127,11 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_len_new( &result, BUFSIZ, "*" );
+                result = cc_str_append_format_min_new( &result, BUFSIZ, "*" );
             }
             else
             {
-                result = cc_str_append_format_len_new( &result,
+                result = cc_str_append_format_min_new( &result,
                                                        BUFSIZ,
                                                        "*%c%s",
                                                        fp_char_value( se->capture.piece ),
@@ -154,7 +154,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             {
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new(  &result,
+                    result = cc_str_append_format_min_new(  &result,
                                                             BUFSIZ,
                                                             "<%c%s",
                                                             file,
@@ -166,7 +166,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             {
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new(  &result,
+                    result = cc_str_append_format_min_new(  &result,
                                                             BUFSIZ,
                                                             "<%c%s%c%s",
                                                             piece,
@@ -184,7 +184,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_len_new( &result, BUFSIZ, ":" );
+                result = cc_str_append_format_min_new( &result, BUFSIZ, ":" );
             }
             else if ( format_move.usage <= CC_FSUE_Clarification )
             {
@@ -192,7 +192,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%s", rank__o );
+                    result = cc_str_append_format_min_new( &result, BUFSIZ, ":%s", rank__o );
                     free( rank__o );
                 }
             }
@@ -204,7 +204,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new( &result, BUFSIZ, ":%c%c%s", piece, file, rank__o );
+                    result = cc_str_append_format_min_new( &result, BUFSIZ, ":%c%c%s", piece, file, rank__o );
                     free( rank__o );
                 }
             }
@@ -216,12 +216,12 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_len_new( &result, BUFSIZ, "&" );
+                result = cc_str_append_format_min_new( &result, BUFSIZ, "&" );
             }
             else if ( format_move.usage <= CC_FSUE_Clarification )
             {
                 char file_2 = cc_format_pos_file( se->castle.dest_i );
-                result = cc_str_append_format_len_new( &result, BUFSIZ, "&%c", file_2 );
+                result = cc_str_append_format_min_new( &result, BUFSIZ, "&%c", file_2 );
             }
             else
             {
@@ -233,7 +233,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
                 if ( rank_1 && rank_2 )
                 {
-                    result = cc_str_append_format_len_new(  &result,
+                    result = cc_str_append_format_min_new(  &result,
                                                             BUFSIZ,
                                                             "&%c%c%s-%c%s",
                                                             fp_char_value( se->castle.rook ),
@@ -254,7 +254,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             char * fmt = ( format_move.usage <= CC_FSUE_User ) ? "%c" : "=%c";
 
-            result = cc_str_append_format_len_new(  &result,
+            result = cc_str_append_format_min_new(  &result,
                                                     BUFSIZ,
                                                     fmt,
                                                     fp_char_value( se->promote.piece ) );
@@ -264,7 +264,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
         case CC_SEE_TagForPromotion :
         {
-            result = cc_str_append_format_len_new( &result, BUFSIZ, "=" );
+            result = cc_str_append_format_min_new( &result, BUFSIZ, "=" );
             break;
         }
 
@@ -272,11 +272,11 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_len_new( &result, BUFSIZ, "%%" );
+                result = cc_str_append_format_min_new( &result, BUFSIZ, "%%" );
             }
             else
             {
-                result = cc_str_append_format_len_new(  &result,
+                result = cc_str_append_format_min_new(  &result,
                                                         BUFSIZ,
                                                         "%%%c%s",
                                                         fp_char_value( se->convert.piece ),
@@ -288,7 +288,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
         case CC_SEE_FailedConversion :
         {
-            result = cc_str_append_format_len_new( &result, BUFSIZ, "%%%%" );
+            result = cc_str_append_format_min_new( &result, BUFSIZ, "%%%%" );
             break;
         }
 
@@ -301,7 +301,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             {
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new(  &result,
+                    result = cc_str_append_format_min_new(  &result,
                                                             BUFSIZ,
                                                             ">%c%s",
                                                             file,
@@ -312,7 +312,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             {
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new(  &result,
+                    result = cc_str_append_format_min_new(  &result,
                                                             BUFSIZ,
                                                             ">%c%c%s",
                                                             fp_char_value( se->demote.piece ),
@@ -335,7 +335,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_len_new(  &result,
+                    result = cc_str_append_format_min_new(  &result,
                                                             BUFSIZ,
                                                             "$%c%c%s",
                                                             fp_char_value( se->resurrect.piece ),
@@ -346,7 +346,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             }
             else
             {
-                result = cc_str_append_format_len_new(  &result,
+                result = cc_str_append_format_min_new(  &result,
                                                         BUFSIZ,
                                                         "$%c",
                                                         fp_char_value( se->resurrect.piece ) );
@@ -357,7 +357,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
         case CC_SEE_FailedResurrection :
         {
-            result = cc_str_append_format_len_new( &result, BUFSIZ, "$$" );
+            result = cc_str_append_format_min_new( &result, BUFSIZ, "$$" );
             break;
         }
     }
@@ -388,14 +388,14 @@ char * cc_format_step_new( CcMove const * const restrict move,
             {
                 case CC_SLE_Start : break;
                 case CC_SLE_Reposition : break;
-                case CC_SLE_Next : result = cc_str_duplicate_len_new( ".", false, 1 ); break;
-                case CC_SLE_Distant : result = cc_str_duplicate_len_new( "..", false, 2 ); break;
-                case CC_SLE_Destination : result = cc_str_duplicate_len_new( "-", false, 1 ); break;
+                case CC_SLE_Next : result = cc_str_duplicate_min_new( ".", false, 1 ); break;
+                case CC_SLE_Distant : result = cc_str_duplicate_min_new( "..", false, 2 ); break;
+                case CC_SLE_Destination : result = cc_str_duplicate_min_new( "-", false, 1 ); break;
             }
         }
 
         if ( step->link == CC_SLE_Reposition )
-            result = cc_str_duplicate_len_new( ",", false, 1 );
+            result = cc_str_duplicate_min_new( ",", false, 1 );
 
         *has_preceding_step_io = true;
 
@@ -405,11 +405,11 @@ char * cc_format_step_new( CcMove const * const restrict move,
                 && ( step->usage <= CC_FSUE_Clarification ) ) )
         {
             char * rank__o = cc_format_pos_rank_new( step->j );
-            result = cc_str_append_len_new( &result, &rank__o, BUFSIZ );
+            result = cc_str_append_min_new( &result, &rank__o, BUFSIZ );
         }
 
         char * se = cc_format_side_effect_new( &(step->side_effect), format_move );
-        result = cc_str_append_len_new( &result, &se, BUFSIZ );
+        result = cc_str_append_min_new( &result, &se, BUFSIZ );
     }
 
     return result;
@@ -434,19 +434,19 @@ char * cc_format_ply_new( CcMove const * const restrict move,
 
     switch ( ply->link )
     {
-        case CC_PLE_Ply : result = cc_str_duplicate_len_new( ply_tilde, false, 1 ); break;
-        case CC_PLE_Teleportation : result = cc_str_duplicate_len_new( "|", false, 1 ); break;
-        case CC_PLE_FailedTeleportation : result = cc_str_duplicate_len_new( "||", false, 2 ); break;
-        case CC_PLE_TranceJourney : result = cc_str_duplicate_len_new( "@", false, 1 ); break;
-        case CC_PLE_DualTranceJourney : result = cc_str_duplicate_len_new( "@@", false, 2 ); break;
-        case CC_PLE_FailedTranceJourney : result = cc_str_duplicate_len_new( "@@@", false, 3 ); break;
-        case CC_PLE_PawnSacrifice : result = cc_str_duplicate_len_new( ":::", false, 2 ); break;
+        case CC_PLE_Ply : result = cc_str_duplicate_min_new( ply_tilde, false, 1 ); break;
+        case CC_PLE_Teleportation : result = cc_str_duplicate_min_new( "|", false, 1 ); break;
+        case CC_PLE_FailedTeleportation : result = cc_str_duplicate_min_new( "||", false, 2 ); break;
+        case CC_PLE_TranceJourney : result = cc_str_duplicate_min_new( "@", false, 1 ); break;
+        case CC_PLE_DualTranceJourney : result = cc_str_duplicate_min_new( "@@", false, 2 ); break;
+        case CC_PLE_FailedTranceJourney : result = cc_str_duplicate_min_new( "@@@", false, 3 ); break;
+        case CC_PLE_PawnSacrifice : result = cc_str_duplicate_min_new( ":::", false, 2 ); break;
     }
 
     bool do_wrap = cc_if_wrap_ply_in_square_brackets( move, ply, format_move );
 
     if ( do_wrap )
-        result = cc_str_concatenate_len_new( result, "[", BUFSIZ );
+        result = cc_str_concatenate_min_new( result, "[", BUFSIZ );
 
     if ( format_move.do_format_with_pawn_symbol )
         cc_str_append_char( &result, fp_char_value( ply->piece ) );
@@ -463,7 +463,7 @@ char * cc_format_ply_new( CcMove const * const restrict move,
     while ( step )
     {
         char * new = cc_format_step_new( move, ply, step, format_move, &has_preceding_step );
-        char * appended = cc_str_concatenate_len_new( result, new, BUFSIZ );
+        char * appended = cc_str_concatenate_min_new( result, new, BUFSIZ );
 
         free( result );
         free( new );
@@ -473,7 +473,7 @@ char * cc_format_ply_new( CcMove const * const restrict move,
     }
 
     if ( do_wrap )
-        result = cc_str_concatenate_len_new( result, "]", BUFSIZ );
+        result = cc_str_concatenate_min_new( result, "]", BUFSIZ );
 
     return result;
 }
@@ -490,7 +490,7 @@ char * cc_format_move_new( CcMove const * const restrict move,
     while ( ply )
     {
         char * new = cc_format_ply_new( move, ply, format_move );
-        char * appended = cc_str_concatenate_len_new( result, new, BUFSIZ );
+        char * appended = cc_str_concatenate_min_new( result, new, BUFSIZ );
 
         free( result );
         free( new );

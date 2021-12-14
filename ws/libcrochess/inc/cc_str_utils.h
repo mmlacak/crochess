@@ -142,22 +142,18 @@ int cc_str_len_format( char const * const restrict fmt, ... );
 char const * cc_str_end( char const * const restrict str );
 
 /**
-    Function returns end of a given string, if found within given length.
+    Function returns end of a given (sub-)string.
 
     @param str A string.
-    @param max_len Maximum length of a string to check.
+    @param max_len_d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole string is returned.
 
     @note
-    Parameter `max_len` expects length of a string without terminating character ``'\0'``,
-    i.e. the same as returned by `strlen()`.
+    End of a string is a pointer to a first `char` that does not belong to a given (sub-)string.
 
-    @note
-    End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
-
-    @return End of a string if successful, `NULL` otherwise.
+    @return End of a (sub-)string if successful, `NULL` otherwise.
 */
-char const * cc_str_end_limit( char const * const restrict str,
-                               size_t const max_len );
+char const * cc_str_end_min( char const * const restrict str,
+                             size_t const max_len_d );
 
 /**
     Compares two (sub-)strings, returns index of a first difference.
@@ -213,7 +209,7 @@ bool cc_str_compare( char const * const restrict first_1,
     @return `true` if successful, `false` otherwise.
     Index of a first difference found is returned via _output_ parameter `index_o`.
 */
-bool cc_str_compare_len( char const * const restrict first_1,
+bool cc_str_compare_min( char const * const restrict first_1,
                          char const * const restrict end_1_d,
                          char const * const restrict first_2,
                          char const * const restrict end_2_d,
@@ -252,7 +248,7 @@ bool cc_str_is_equal( char const * const restrict first_1,
 
     @return `true` if two given (sub-)strings are equal up to a maximum length, `false` otherwise.
 */
-bool cc_str_is_equal_len( char const * const restrict first_1,
+bool cc_str_is_equal_min( char const * const restrict first_1,
                           char const * const restrict end_1_d,
                           char const * const restrict first_2,
                           char const * const restrict end_2_d,
@@ -318,7 +314,7 @@ char * cc_str_format_new( char const * const restrict fmt, ... );
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_str_format_len_new( size_t const max_len,
+char * cc_str_format_min_new( size_t const max_len,
                               char const * const restrict fmt, ... );
 
 /**
@@ -343,7 +339,7 @@ char * cc_str_duplicate_new( char const * const restrict str,
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
-char * cc_str_duplicate_len_new( char const * const restrict str,
+char * cc_str_duplicate_min_new( char const * const restrict str,
                                  bool const do_reverse,
                                  size_t const max_len );
 
@@ -368,7 +364,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1,
 
     @return A newly allocated, concatenated string if successful, `NULL` otherwise.
 */
-char * cc_str_concatenate_len_new( char const * const restrict str_1,
+char * cc_str_concatenate_min_new( char const * const restrict str_1,
                                    char const * const restrict str_2,
                                    size_t const max_len );
 
@@ -451,7 +447,7 @@ char * cc_str_append_new( char ** const restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_len_new( char ** const restrict str_1__f,
+char * cc_str_append_min_new( char ** const restrict str_1__f,
                               char ** const restrict str_2__f,
                               size_t const max_len );
 
@@ -496,7 +492,7 @@ char * cc_str_append_format_new( char ** const restrict str__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_len_new( char ** const restrict str__f,
+char * cc_str_append_format_min_new( char ** const restrict str__f,
                                      size_t const max_len,
                                      char const * const restrict fmt, ... );
 

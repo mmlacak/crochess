@@ -52,11 +52,11 @@ TestMsg * test_msg_new( TestMsgEnum type,
     if ( !new ) return NULL;
 
     new->type = type;
-    new->msg = cc_str_duplicate_len_new( msg, false, BUFSIZ ); // msg; // Don't borrow, unknown scope!
+    new->msg = cc_str_duplicate_min_new( msg, false, BUFSIZ ); // msg; // Don't borrow, unknown scope!
 
-    new->file = cc_str_duplicate_len_new( file, false, BUFSIZ ); // file; // Don't borrow, unknown scope!
+    new->file = cc_str_duplicate_min_new( file, false, BUFSIZ ); // file; // Don't borrow, unknown scope!
     new->line = line;
-    new->func = cc_str_duplicate_len_new( func, false, BUFSIZ ); // func; // Don't borrow, unknown scope!
+    new->func = cc_str_duplicate_min_new( func, false, BUFSIZ ); // func; // Don't borrow, unknown scope!
 
     new->next = NULL;
 
