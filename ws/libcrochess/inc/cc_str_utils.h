@@ -84,28 +84,32 @@ bool cc_str_to_case( char * const restrict str_io,
 char * cc_str_to_case_new( char const * const restrict str,
                            bool const to_upper_or_lower );
 
-// TODO :: DOCS
 /**
-    Function returning length of a string.
+    Function returning length of a zero-terminated string.
 
-    @param str A string.
+    @param first Pointer to a first `char` of a (sub-)string.
+    @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so length of a whole string is returned.
+
+    @note
+    End of a string is first `char` that does not belong to a (sub-)string,
+    i.e. one past '\0', if it's present.
 
     @return Length of a string if successful, `0` otherwise.
 */
-// TODO :: DOCS
 size_t cc_str_len( char const * const restrict first,
                    char const * const restrict end_d );
 
-// TODO :: DOCS
 /**
-    Function returning length of a null-terminated string, capped at maximum length.
+    Function returning length of a zero-terminated string, capped at maximum length.
 
-    @param str A string.
+    @param first Pointer to a first `char` of a (sub-)string.
+    @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so capped length of a whole string is returned.
     @param max_len Maximum length to return, if string is longer than that.
+
+    @see cc_str_len()
 
     @return Capped length of a string if successful, `0` otherwise.
 */
-// TODO :: DOCS
 size_t cc_str_len_min( char const * const restrict first,
                        char const * const restrict end_d,
                        size_t const max_len );

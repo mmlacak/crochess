@@ -112,7 +112,7 @@ size_t cc_str_len( char const * const restrict first,
         // does not belong to that string.
         //
         // In case end_d < first, (size_t) cast pushes (end_d - first)
-        // towards max ints, so min() will still return reasonable len.
+        // towards max ints, so MIN() will still return reasonable len.
         len = CC_MIN( len, (size_t)(end_d - first) );
 
     return len;
@@ -139,7 +139,7 @@ size_t cc_str_len_min( char const * const restrict first,
         // does not belong to that string.
         //
         // In case end_d < first, (size_t) cast pushes (end_d - first)
-        // towards max ints, so min() will still return reasonable len.
+        // towards max ints, so MIN() will still return reasonable len.
         len = CC_MIN( len, (size_t)(end_d - first) );
 
     // Not needed, len was already capped in the while() loop above.
