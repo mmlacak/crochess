@@ -220,13 +220,38 @@ bool cc_str_compare_len( char const * const restrict first_1,
                          size_t const max_len,
                          long long * const restrict index_o );
 
-// TODO :: DOCS
+/**
+    Function checks if two (sub-)strings are equal.
+
+    @param first_1 A first character of a first (sub-)string.
+    @param end_1_d An _optional_ parameter, end of a first (sub-)string.
+    @param first_2 A first character of a second (sub-)string.
+    @param end_2_d An _optional_ parameter, end of a second (sub-)string.
+
+    @note
+    End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
+    If not given, string(s) are tested until terminating character (``'\0'``) is encountered.
+
+    @return `true` if two given (sub-)strings are equal, `false` otherwise.
+*/
 bool cc_str_is_equal( char const * const restrict first_1,
                       char const * const restrict end_1_d,
                       char const * const restrict first_2,
                       char const * const restrict end_2_d );
 
-// TODO :: DOCS
+/**
+    Function checks if two (sub-)strings are equal, up to a given maximum length.
+
+    @param first_1 A first character of a first (sub-)string.
+    @param end_1_d An _optional_ parameter, end of a first (sub-)string.
+    @param first_2 A first character of a second (sub-)string.
+    @param end_2_d An _optional_ parameter, end of a second (sub-)string.
+    @param max_len Maximum length of (sub-)strings to check.
+
+    @see cc_str_is_equal()
+
+    @return `true` if two given (sub-)strings are equal up to a maximum length, `false` otherwise.
+*/
 bool cc_str_is_equal_len( char const * const restrict first_1,
                           char const * const restrict end_1_d,
                           char const * const restrict first_2,
