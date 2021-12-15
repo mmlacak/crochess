@@ -105,7 +105,7 @@ size_t cc_str_len( char const * const restrict first,
     size_t len = 0;
     char const * s = first;
 
-    if ( max_len_d == 0 )
+    if ( max_len_d == CC_MAX_LEN_IGNORE )
     {
         while ( *s != '\0' ) ++s;
         len = s - first;
@@ -150,7 +150,7 @@ char const * cc_str_end( char const * const restrict str,
     size_t index = 0;
 
     while ( *end++ != '\0' )
-        if ( ( max_len_d != 0 ) && ( index++ >= max_len_d ) )
+        if ( ( max_len_d != CC_MAX_LEN_IGNORE ) && ( index++ >= max_len_d ) )
             return end;
 
     return ++end;
@@ -174,7 +174,7 @@ bool cc_str_compare( char const * const restrict first_1,
 
     while ( ( *str_1 != '\0' )
          && ( *str_2 != '\0' )
-         && ( ( max_len_d == 0 ) || ( index < max_len_d ) ) )
+         && ( ( max_len_d == CC_MAX_LEN_IGNORE ) || ( index < max_len_d ) ) )
     {
         if ( last_1 && ( str_1 >= last_1 ) )
             break;
@@ -268,7 +268,8 @@ char * cc_str_format_new( size_t const max_len_d,
 
     va_end( tmp );
 
-    size_t len_min = ( max_len_d > 0 ) ? CC_MIN( (size_t)len, max_len_d ) : (size_t)len;
+    size_t len_min = ( max_len_d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len_d )
+                                                        : (size_t)len;
     char * new__t = (char *)malloc( len_min + 1 );
     if ( !new__t )
     {
@@ -297,42 +298,12 @@ char * cc_str_format_new( size_t const max_len_d,
 }
 
 char * cc_str_duplicate_new( char const * const restrict str,
-                             bool const do_reverse )
+                             bool const do_reverse,
+                             size_t const max_len_d )
 {
     if ( !str ) return NULL;
 
-    size_t len = cc_str_len( str, NULL, 0 );
-    char * new = (char *)malloc( len + 1 );
-    if ( !new ) return NULL;
-
-    char const * s = str;
-    char * n = do_reverse ? new + len : new;
-
-    if ( do_reverse )
-    {
-        *n-- = '\0';
-
-        while ( *s != '\0' )
-            *n-- = *s++;
-    }
-    else
-    {
-        while ( *s != '\0' )
-            *n++ = *s++;
-
-        *n = '\0';
-    }
-
-    return new;
-}
-
-char * cc_str_duplicate_min_new( char const * const restrict str,
-                                 bool const do_reverse,
-                                 size_t const max_len )
-{
-    if ( !str ) return NULL;
-
-    size_t len = cc_str_len( str, NULL, max_len );
+    size_t len = cc_str_len( str, NULL, max_len_d );
     char * new = (char *)malloc( len + 1 );
     if ( !new ) return NULL;
 
@@ -366,8 +337,8 @@ char * cc_str_duplicate_min_new( char const * const restrict str,
 char * cc_str_concatenate_new( char const * const restrict str_1,
                                char const * const restrict str_2 )
 {
-    size_t len_1 = cc_str_len( str_1, NULL, 0 );
-    size_t len_2 = cc_str_len( str_2, NULL, 0 );
+    size_t len_1 = cc_str_len( str_1, NULL, CC_MAX_LEN_IGNORE );
+    size_t len_2 = cc_str_len( str_2, NULL, CC_MAX_LEN_IGNORE );
     size_t len = len_1 + len_2;
 
     char * new = (char *)malloc( len + 1 );
@@ -434,7 +405,7 @@ char * cc_str_concatenate_char_new( char const * const restrict str,
         return new;
     }
 
-    size_t len = cc_str_len( str, NULL, 0 ) + 1;
+    size_t len = cc_str_len( str, NULL, CC_MAX_LEN_IGNORE ) + 1;
     char * new = (char *)malloc( len + 1 );
     if ( !new ) return NULL;
 
@@ -466,7 +437,7 @@ bool cc_str_append_char( char ** const restrict str_io__r,
         return true;
     }
 
-    size_t len = cc_str_len( *str_io__r, NULL, 0 ) + 1;
+    size_t len = cc_str_len( *str_io__r, NULL, CC_MAX_LEN_IGNORE ) + 1;
     char * new = realloc( *str_io__r, len + 1 );
     if ( !new ) return false;
 
@@ -491,9 +462,9 @@ char * cc_str_append_new( char ** const restrict str_1__f,
     if ( str_1__f && str_2__f )
         new = cc_str_concatenate_new( *str_1__f, *str_2__f );
     else if ( str_1__f )
-        new = cc_str_duplicate_new( *str_1__f, false );
+        new = cc_str_duplicate_new( *str_1__f, false, CC_MAX_LEN_IGNORE );
     else if ( str_2__f )
-        new = cc_str_duplicate_new( *str_2__f, false );
+        new = cc_str_duplicate_new( *str_2__f, false, CC_MAX_LEN_IGNORE );
 
     if ( !new ) return NULL;
 
@@ -523,9 +494,9 @@ char * cc_str_append_min_new( char ** const restrict str_1__f,
     if ( str_1__f && str_2__f )
         new = cc_str_concatenate_min_new( *str_1__f, *str_2__f, max_len );
     else if ( str_1__f )
-        new = cc_str_duplicate_min_new( *str_1__f, false, max_len );
+        new = cc_str_duplicate_new( *str_1__f, false, max_len );
     else if ( str_2__f )
-        new = cc_str_duplicate_min_new( *str_2__f, false, max_len );
+        new = cc_str_duplicate_new( *str_2__f, false, max_len );
 
     if ( !new ) return NULL;
 

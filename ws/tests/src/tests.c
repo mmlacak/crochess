@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.147:346+20211215.113145"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.148:347+20211215.115716"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -179,11 +179,11 @@ int main( void )
 //     printf( "3: %s.\n", con_3 );
 //     free( con_3 );
 
-//     char * dup_4 = cc_str_duplicate_min_new( "Hello World!", false, BUFSIZ );
+//     char * dup_4 = cc_str_duplicate_new( "Hello World!", false, BUFSIZ );
 //     printf( "4: %s.\n", dup_4 );
 //     free( dup_4 );
 
-//     char * dup_5 = cc_str_duplicate_min_new( "Hello World!", false, 9 );
+//     char * dup_5 = cc_str_duplicate_new( "Hello World!", false, 9 );
 //     printf( "5: %s.\n", dup_5 );
 //     free( dup_5 );
 
@@ -371,12 +371,12 @@ int main( void )
 
             printf( "Original: '%s'.\n", user_an );
 
-            char * reverse__o = cc_str_duplicate_min_new( user_an, true, BUFSIZ );
+            char * reverse__o = cc_str_duplicate_new( user_an, true, BUFSIZ );
             printf( "Reverse: '%s'.\n", reverse__o );
             free( reverse__o );
             reverse__o = NULL;
 
-            reverse__o = cc_str_duplicate_new( user_an, true );
+            reverse__o = cc_str_duplicate_new( user_an, true, CC_MAX_LEN_IGNORE );
             printf( "Reverse: '%s'.\n", reverse__o );
             free( reverse__o );
             reverse__o = NULL;
@@ -538,7 +538,7 @@ int main( void )
         else if ( cc_str_is_equal( first__w, end__w, "z5", NULL, BUFSIZ ) )
         {
             char const * str = "a:b:c:d:e";
-            char const * end = cc_str_end( str, 0 );
+            char const * end = cc_str_end( str, CC_MAX_LEN_IGNORE );
             printf( "%p -> %p, size: %lu ~= %lu\n", (void *)str, (void *)end, end - str, strlen( str ) );
 
             end = cc_str_end( str, 5 );
@@ -563,7 +563,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_1, ++s_2 )
             {
-                if ( !cc_str_compare( s_1, NULL, s_2, NULL, 0, &index ) )
+                if ( !cc_str_compare( s_1, NULL, s_2, NULL, CC_MAX_LEN_IGNORE, &index ) )
                     continue;
 
                 printf( "\"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
@@ -575,7 +575,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_2 )
             {
-                if ( !cc_str_compare( s_1, NULL, s_2, NULL, 0, &index ) )
+                if ( !cc_str_compare( s_1, NULL, s_2, NULL, CC_MAX_LEN_IGNORE, &index ) )
                     continue;
 
                 printf( "\"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
@@ -587,7 +587,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_1, ++s_2 )
             {
-                if ( !cc_str_compare( s_1, s_1 + 3, s_2, s_2 + 3, 0, &index ) )
+                if ( !cc_str_compare( s_1, s_1 + 3, s_2, s_2 + 3, CC_MAX_LEN_IGNORE, &index ) )
                     continue;
 
                 printf( "+3: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
@@ -642,10 +642,10 @@ int main( void )
             char * end_99 = first + 99;
             char * end__3 = first - 3;
 
-            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, NULL, 0 ), cc_str_len( first, NULL, 5 ), cc_str_len( first, NULL, 33 ) );
-            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_3, 0 ), cc_str_len( first, end_3, 5 ), cc_str_len( first, end_3, 33 ) );
-            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_99, 0 ), cc_str_len( first, end_99, 5 ), cc_str_len( first, end_99, 33 ) );
-            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end__3, 0 ), cc_str_len( first, end__3, 5 ), cc_str_len( first, end__3, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, NULL, CC_MAX_LEN_IGNORE ), cc_str_len( first, NULL, 5 ), cc_str_len( first, NULL, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_3, CC_MAX_LEN_IGNORE ), cc_str_len( first, end_3, 5 ), cc_str_len( first, end_3, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_99, CC_MAX_LEN_IGNORE ), cc_str_len( first, end_99, 5 ), cc_str_len( first, end_99, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end__3, CC_MAX_LEN_IGNORE ), cc_str_len( first, end__3, 5 ), cc_str_len( first, end__3, 33 ) );
         }
         else
         {

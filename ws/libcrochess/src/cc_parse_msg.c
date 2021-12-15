@@ -21,7 +21,7 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
     if ( !new ) return NULL;
 
     new->type = type;
-    new->msg = cc_str_duplicate_min_new( msg, false, BUFSIZ );
+    new->msg = cc_str_duplicate_new( msg, false, BUFSIZ );
     new->next = NULL;
 
     return new;

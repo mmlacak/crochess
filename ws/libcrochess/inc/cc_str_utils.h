@@ -22,6 +22,11 @@
 
 
 /**
+    Value to ignore maximum length constraint on various functions.
+*/
+#define CC_MAX_LEN_IGNORE (0)
+
+/**
     Function interface, i.e. function pointer type;
     used to interface with all `ctype.h` filter functions, e.g. `islower()`.
 
@@ -255,29 +260,17 @@ char * cc_str_format_new( size_t const max_len_d,
 
 /**
     Function duplicating a string, by returning a newly allocated string,
-    copied from a given string.
+    copied from a given string, at maximum first `max_len_d` characters.
 
     @param str A string to duplicate.
     @param do_reverse Flag, whether returned string should be reversed.
+    @param max_len_d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
 char * cc_str_duplicate_new( char const * const restrict str,
-                             bool const do_reverse );
-
-/**
-    Function duplicating a string, by returning a newly allocated string,
-    copied from a given string, at maximum first `max_len` characters.
-
-    @param str A string to duplicate.
-    @param do_reverse Flag, whether returned string should be reversed.
-    @param max_len Maximum length to copy, if a given string is longer than that.
-
-    @return A newly allocated, duplicated string if successful, `NULL` otherwise.
-*/
-char * cc_str_duplicate_min_new( char const * const restrict str,
-                                 bool const do_reverse,
-                                 size_t const max_len );
+                             bool const do_reverse,
+                             size_t const max_len_d );
 
 /**
     Function concatenating strings, by returning a newly allocated string.

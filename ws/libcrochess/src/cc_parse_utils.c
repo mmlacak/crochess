@@ -553,7 +553,7 @@ bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str 
     if ( len < MIN_LEN ) return false;
 
     bool result = true;
-    char const * f_str__o = cc_str_duplicate_min_new( fields_str, true, MAX_LEN_TO_CHECK );
+    char const * f_str__o = cc_str_duplicate_new( fields_str, true, MAX_LEN_TO_CHECK );
     char const * f = f_str__o;
 
     if ( !isdigit( *f ) )
