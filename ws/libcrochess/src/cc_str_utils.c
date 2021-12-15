@@ -368,34 +368,6 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
     return new;
 }
 
-char * cc_str_concatenate_char_new( char const * const restrict str,
-                                    char const chr )
-{
-    if ( !str )
-    {
-        char * new = (char *)malloc( 2 );
-        if ( !new ) return NULL;
-
-        *new = chr;
-        *(new + 1) = '\0';
-        return new;
-    }
-
-    size_t len = cc_str_len( str, NULL, CC_MAX_LEN_IGNORE ) + 1;
-    char * new = (char *)malloc( len + 1 );
-    if ( !new ) return NULL;
-
-    char const * s = str;
-    char * n = new;
-    while ( *s ) *n++ = *s++; // ( *s != '\0' )
-
-    *n++ = chr;
-    *n = '\0';
-
-    return new;
-}
-
-
 bool cc_str_append_char( char ** const restrict str_io__r,
                          char const chr )
 {

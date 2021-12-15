@@ -287,20 +287,6 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
                                size_t const max_len_d );
 
 /**
-    Function concatenating character to a string, by returning a newly allocated string.
-
-    @param str A string.
-    @param chr A character to concatenate.
-
-    @note
-    Given string can be `NULL`, if so, only character is copied to a newly allocated string.
-
-    @return A newly allocated, concatenated string if successful, `NULL` otherwise.
-*/
-char * cc_str_concatenate_char_new( char const * const restrict str,
-                                    char const chr );
-
-/**
     Function appending character to a string.
 
     @param str_io__r An input and output string.
