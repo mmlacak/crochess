@@ -433,6 +433,7 @@ char * cc_str_append_new( char ** const restrict str_1__f,
 }
 
 char * cc_str_append_format_new( char ** const restrict str__f,
+                                 size_t const max_len_d,
                                  char const * const restrict fmt, ... )
 {
     va_list args;
@@ -451,7 +452,8 @@ char * cc_str_append_format_new( char ** const restrict str__f,
 
     va_end( tmp );
 
-    size_t len_min = (size_t)len;
+    size_t len_min = ( max_len_d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len_d )
+                                                        : (size_t)len;
     char * new__t = (char *)malloc( len_min + 1 );
     if ( !new__t )
     {
@@ -477,54 +479,5 @@ char * cc_str_append_format_new( char ** const restrict str__f,
     }
 
     // No need to free() str__f, new__t; cc_str_append_new() does that.
-    return cc_str_append_new( str__f, &new__t, CC_MAX_LEN_IGNORE );
-}
-
-char * cc_str_append_format_min_new( char ** const restrict str__f,
-                                     size_t const max_len,
-                                     char const * const restrict fmt, ... )
-{
-    va_list args;
-    va_start( args, fmt );
-
-    va_list tmp;
-    va_copy( tmp, args );
-
-    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
-    if ( len < 0 )
-    {
-        va_end( tmp );
-        va_end( args );
-        return NULL;
-    }
-
-    va_end( tmp );
-
-    size_t len_min = ( (size_t)len < max_len ) ? (size_t)len : max_len;
-    char * new__t = (char *)malloc( len_min + 1 );
-    if ( !new__t )
-    {
-        va_end( args );
-        return NULL;
-    }
-
-    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
-    if ( len_2 < 0 )
-    {
-        free( new__t );
-        va_end( args );
-        return NULL;
-    }
-
-    va_end( args );
-
-    size_t len_min_2 = (size_t)len_2;
-    if ( len_min != len_min_2 )
-    {
-        free( new__t );
-        return NULL;
-    }
-
-    // No need to free() str__f, new__t; cc_str_append_new() does that.
-    return cc_str_append_new( str__f, &new__t, max_len );
+    return cc_str_append_new( str__f, &new__t, max_len_d );
 }

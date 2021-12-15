@@ -127,15 +127,15 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_min_new( &result, BUFSIZ, "*" );
+                result = cc_str_append_format_new( &result, BUFSIZ, "*" );
             }
             else
             {
-                result = cc_str_append_format_min_new( &result,
-                                                       BUFSIZ,
-                                                       "*%c%s",
-                                                       fp_char_value( se->capture.piece ),
-                                                       cc_format_lost_tag( se->capture.lost_tag ));
+                result = cc_str_append_format_new( &result,
+                                                   BUFSIZ,
+                                                   "*%c%s",
+                                                   fp_char_value( se->capture.piece ),
+                                                   cc_format_lost_tag( se->capture.lost_tag ));
             }
 
             break;
@@ -154,11 +154,11 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             {
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_min_new(  &result,
-                                                            BUFSIZ,
-                                                            "<%c%s",
-                                                            file,
-                                                            rank__o );
+                    result = cc_str_append_format_new(  &result,
+                                                        BUFSIZ,
+                                                        "<%c%s",
+                                                        file,
+                                                        rank__o );
                     free( rank__o );
                 }
             }
@@ -166,13 +166,13 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             {
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_min_new(  &result,
-                                                            BUFSIZ,
-                                                            "<%c%s%c%s",
-                                                            piece,
-                                                            lost_tag,
-                                                            file,
-                                                            rank__o );
+                    result = cc_str_append_format_new(  &result,
+                                                        BUFSIZ,
+                                                        "<%c%s%c%s",
+                                                        piece,
+                                                        lost_tag,
+                                                        file,
+                                                        rank__o );
                     free( rank__o );
                 }
             }
@@ -184,7 +184,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_min_new( &result, BUFSIZ, ":" );
+                result = cc_str_append_format_new( &result, BUFSIZ, ":" );
             }
             else if ( format_move.usage <= CC_FSUE_Clarification )
             {
@@ -192,7 +192,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_min_new( &result, BUFSIZ, ":%s", rank__o );
+                    result = cc_str_append_format_new( &result, BUFSIZ, ":%s", rank__o );
                     free( rank__o );
                 }
             }
@@ -204,7 +204,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_min_new( &result, BUFSIZ, ":%c%c%s", piece, file, rank__o );
+                    result = cc_str_append_format_new( &result, BUFSIZ, ":%c%c%s", piece, file, rank__o );
                     free( rank__o );
                 }
             }
@@ -216,12 +216,12 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_min_new( &result, BUFSIZ, "&" );
+                result = cc_str_append_format_new( &result, BUFSIZ, "&" );
             }
             else if ( format_move.usage <= CC_FSUE_Clarification )
             {
                 char file_2 = cc_format_pos_file( se->castle.dest_i );
-                result = cc_str_append_format_min_new( &result, BUFSIZ, "&%c", file_2 );
+                result = cc_str_append_format_new( &result, BUFSIZ, "&%c", file_2 );
             }
             else
             {
@@ -233,14 +233,14 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
                 if ( rank_1 && rank_2 )
                 {
-                    result = cc_str_append_format_min_new(  &result,
-                                                            BUFSIZ,
-                                                            "&%c%c%s-%c%s",
-                                                            fp_char_value( se->castle.rook ),
-                                                            file_1,
-                                                            rank_1,
-                                                            file_2,
-                                                            rank_2 );
+                    result = cc_str_append_format_new(  &result,
+                                                        BUFSIZ,
+                                                        "&%c%c%s-%c%s",
+                                                        fp_char_value( se->castle.rook ),
+                                                        file_1,
+                                                        rank_1,
+                                                        file_2,
+                                                        rank_2 );
                 }
 
                 free( rank_1 );
@@ -254,17 +254,17 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             char * fmt = ( format_move.usage <= CC_FSUE_User ) ? "%c" : "=%c";
 
-            result = cc_str_append_format_min_new(  &result,
-                                                    BUFSIZ,
-                                                    fmt,
-                                                    fp_char_value( se->promote.piece ) );
+            result = cc_str_append_format_new(  &result,
+                                                BUFSIZ,
+                                                fmt,
+                                                fp_char_value( se->promote.piece ) );
 
             break;
         }
 
         case CC_SEE_TagForPromotion :
         {
-            result = cc_str_append_format_min_new( &result, BUFSIZ, "=" );
+            result = cc_str_append_format_new( &result, BUFSIZ, "=" );
             break;
         }
 
@@ -272,15 +272,15 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                result = cc_str_append_format_min_new( &result, BUFSIZ, "%%" );
+                result = cc_str_append_format_new( &result, BUFSIZ, "%%" );
             }
             else
             {
-                result = cc_str_append_format_min_new(  &result,
-                                                        BUFSIZ,
-                                                        "%%%c%s",
-                                                        fp_char_value( se->convert.piece ),
-                                                        cc_format_lost_tag( se->convert.lost_tag ) );
+                result = cc_str_append_format_new(  &result,
+                                                    BUFSIZ,
+                                                    "%%%c%s",
+                                                    fp_char_value( se->convert.piece ),
+                                                    cc_format_lost_tag( se->convert.lost_tag ) );
             }
 
             break;
@@ -288,7 +288,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
         case CC_SEE_FailedConversion :
         {
-            result = cc_str_append_format_min_new( &result, BUFSIZ, "%%%%" );
+            result = cc_str_append_format_new( &result, BUFSIZ, "%%%%" );
             break;
         }
 
@@ -301,23 +301,23 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
             {
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_min_new(  &result,
-                                                            BUFSIZ,
-                                                            ">%c%s",
-                                                            file,
-                                                            rank__o );
+                    result = cc_str_append_format_new(  &result,
+                                                        BUFSIZ,
+                                                        ">%c%s",
+                                                        file,
+                                                        rank__o );
                 }
             }
             else
             {
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_min_new(  &result,
-                                                            BUFSIZ,
-                                                            ">%c%c%s",
-                                                            fp_char_value( se->demote.piece ),
-                                                            file,
-                                                            rank__o );
+                    result = cc_str_append_format_new(  &result,
+                                                        BUFSIZ,
+                                                        ">%c%c%s",
+                                                        fp_char_value( se->demote.piece ),
+                                                        file,
+                                                        rank__o );
                 }
             }
 
@@ -335,21 +335,21 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
                 if ( rank__o )
                 {
-                    result = cc_str_append_format_min_new(  &result,
-                                                            BUFSIZ,
-                                                            "$%c%c%s",
-                                                            fp_char_value( se->resurrect.piece ),
-                                                            file,
-                                                            rank__o );
+                    result = cc_str_append_format_new(  &result,
+                                                        BUFSIZ,
+                                                        "$%c%c%s",
+                                                        fp_char_value( se->resurrect.piece ),
+                                                        file,
+                                                        rank__o );
                     free( rank__o );
                 }
             }
             else
             {
-                result = cc_str_append_format_min_new(  &result,
-                                                        BUFSIZ,
-                                                        "$%c",
-                                                        fp_char_value( se->resurrect.piece ) );
+                result = cc_str_append_format_new(  &result,
+                                                    BUFSIZ,
+                                                    "$%c",
+                                                    fp_char_value( se->resurrect.piece ) );
             }
 
             break;
@@ -357,7 +357,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
         case CC_SEE_FailedResurrection :
         {
-            result = cc_str_append_format_min_new( &result, BUFSIZ, "$$" );
+            result = cc_str_append_format_new( &result, BUFSIZ, "$$" );
             break;
         }
     }

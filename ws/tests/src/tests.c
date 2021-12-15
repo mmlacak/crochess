@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.151:350+20211215.124119"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.152:351+20211215.131312"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()

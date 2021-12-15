@@ -333,9 +333,11 @@ char * cc_str_append_new( char ** const restrict str_1__f,
                           size_t const max_len_d );
 
 /**
-    Function appending string and formatted variadic input, by returning a newly allocated string.
+    Function appending string and formatted variadic input, by returning a newly allocated string,
+    capped at given maximum length.
 
     @param str__f A string, can be unallocated.
+    @param max_len_d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
     @param fmt A string format to append.
     @param ... Variadic input for a string format.
 
@@ -351,31 +353,8 @@ char * cc_str_append_new( char ** const restrict str_1__f,
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
 char * cc_str_append_format_new( char ** const restrict str__f,
+                                 size_t const max_len_d,
                                  char const * const restrict fmt, ... );
-
-/**
-    Function appending string and formatted variadic input, by returning a newly allocated string,
-    capped at given maximum length.
-
-    @param str__f A string, can be unallocated.
-    @param max_len Maximum length to append, if length of strings is greater than given argument.
-    @param fmt A string format to append.
-    @param ... Variadic input for a string format.
-
-    @note
-    If string is not allocated, only formatted string is copied into a newly allocated string.
-
-    @note
-    If allocated, string argument is freed, and its inner pointer set to `NULL`, if valid result is produced.
-
-    @note
-    If no valid result is produced, allocated string argument is not freed.
-
-    @return A newly allocated, appended string if successful, `NULL` otherwise.
-*/
-char * cc_str_append_format_min_new( char ** const restrict str__f,
-                                     size_t const max_len,
-                                     char const * const restrict fmt, ... );
 
 
 #endif /* __CC_STR_UTILS_H__ */
