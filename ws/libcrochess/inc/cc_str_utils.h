@@ -143,9 +143,10 @@ char const * cc_str_end( char const * const restrict str,
     Compares two (sub-)strings, returns index of a first difference.
 
     @param first_1 A first character of a first (sub-)string.
-    @param end_1_d An _optional_ parameter, end of a first (sub-)string.
+    @param end_1_d An _optional_ parameter, end of a first (sub-)string, can be `NULL`.
     @param first_2 A first character of a second (sub-)string.
-    @param end_2_d An _optional_ parameter, end of a second (sub-)string.
+    @param end_2_d An _optional_ parameter, end of a second (sub-)string, can be `NULL`.
+    @param max_len_d An _optional_ parameter, maximum length of a strings to check. Can be `0`, if so strings are checked in their entirety.
     @param index_o An _output_ parameter, index of a first difference found.
 
     @note
@@ -169,36 +170,14 @@ char const * cc_str_end( char const * const restrict str,
     ~~~
 
     @return `true` if successful, `false` otherwise.
-    Index of a first pair of characters in a given strings that differ is
-    returned via _output_ parameter `index_o`.
+    Index of a first difference found is returned via _output_ parameter `index_o`.
 */
 bool cc_str_compare( char const * const restrict first_1,
                      char const * const restrict end_1_d,
                      char const * const restrict first_2,
                      char const * const restrict end_2_d,
+                     size_t const max_len_d,
                      long long * const restrict index_o );
-
-/**
-    Compares two (sub-)strings, returns index of a first difference.
-
-    @param first_1 A first character of a first (sub-)string.
-    @param end_1_d An _optional_ parameter, end of a first (sub-)string.
-    @param first_2 A first character of a second (sub-)string.
-    @param end_2_d An _optional_ parameter, end of a second (sub-)string.
-    @param max_len Maximum length of a strings to check.
-    @param index_o An _output_ parameter, index of a first difference found.
-
-    @see cc_str_compare
-
-    @return `true` if successful, `false` otherwise.
-    Index of a first difference found is returned via _output_ parameter `index_o`.
-*/
-bool cc_str_compare_min( char const * const restrict first_1,
-                         char const * const restrict end_1_d,
-                         char const * const restrict first_2,
-                         char const * const restrict end_2_d,
-                         size_t const max_len,
-                         long long * const restrict index_o );
 
 /**
     Function checks if two (sub-)strings are equal.

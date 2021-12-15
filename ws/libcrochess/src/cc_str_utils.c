@@ -160,6 +160,7 @@ bool cc_str_compare( char const * const restrict first_1,
                      char const * const restrict end_1_d,
                      char const * const restrict first_2,
                      char const * const restrict end_2_d,
+                     size_t const max_len_d,
                      long long * const restrict index_o )
 {
     if ( !first_1 ) return false;
@@ -171,44 +172,9 @@ bool cc_str_compare( char const * const restrict first_1,
     char const * last_2 = ( end_2_d ) ? end_2_d - 1 : NULL;
     size_t index = 1;
 
-    while ( ( *str_1 != '\0' ) && ( *str_2 != '\0' ) )
-    {
-        if ( last_1 && ( str_1 >= last_1 ) )
-            break;
-
-        if ( last_2 && ( str_2 >= last_2 ) )
-            break;
-
-        if ( *str_1 != *str_2 )
-            break;
-
-        ++index;
-        ++str_1;
-        ++str_2;
-    }
-
-    *index_o = ( *str_1 == *str_2 ) ? 0 :
-               ( *str_1 < *str_2 ) ? (long long)-index : (long long)index;
-    return true;
-}
-
-bool cc_str_compare_min( char const * const restrict first_1,
-                         char const * const restrict end_1_d,
-                         char const * const restrict first_2,
-                         char const * const restrict end_2_d,
-                         size_t const max_len,
-                         long long * const restrict index_o )
-{
-    if ( !first_1 ) return false;
-    if ( !first_2 ) return false;
-
-    char const * str_1 = first_1;
-    char const * last_1 = ( end_1_d ) ? end_1_d - 1 : NULL;
-    char const * str_2 = first_2;
-    char const * last_2 = ( end_2_d ) ? end_2_d - 1 : NULL;
-    size_t index = 1;
-
-    while ( ( *str_1 != '\0' ) && ( *str_2 != '\0' ) && ( index < max_len ) )
+    while ( ( *str_1 != '\0' )
+         && ( *str_2 != '\0' )
+         && ( ( max_len_d == 0 ) || ( index < max_len_d ) ) )
     {
         if ( last_1 && ( str_1 >= last_1 ) )
             break;
@@ -244,7 +210,7 @@ bool cc_str_is_equal( char const * const restrict first_1,
 
     long long index = 0;
 
-    if ( cc_str_compare( first_1, end_1_d, first_2, end_2_d, &index ) )
+    if ( cc_str_compare( first_1, end_1_d, first_2, end_2_d, 0, &index ) )
         return ( index == 0 );
 
     return false;
@@ -266,7 +232,7 @@ bool cc_str_is_equal_min( char const * const restrict first_1,
 
     long long index = 0;
 
-    if ( cc_str_compare_min( first_1, end_1_d, first_2, end_2_d, max_len, &index ) )
+    if ( cc_str_compare( first_1, end_1_d, first_2, end_2_d, max_len, &index ) )
         return ( index == 0 );
 
     return false;

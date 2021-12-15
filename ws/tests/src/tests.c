@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.144:343+20211215.101640"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.145:344+20211215.104357"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -563,7 +563,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_1, ++s_2 )
             {
-                if ( !cc_str_compare( s_1, NULL, s_2, NULL, &index ) )
+                if ( !cc_str_compare( s_1, NULL, s_2, NULL, 0, &index ) )
                     continue;
 
                 printf( "\"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
@@ -575,7 +575,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_2 )
             {
-                if ( !cc_str_compare( s_1, NULL, s_2, NULL, &index ) )
+                if ( !cc_str_compare( s_1, NULL, s_2, NULL, 0, &index ) )
                     continue;
 
                 printf( "\"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
@@ -587,7 +587,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_1, ++s_2 )
             {
-                if ( !cc_str_compare( s_1, s_1 + 3, s_2, s_2 + 3, &index ) )
+                if ( !cc_str_compare( s_1, s_1 + 3, s_2, s_2 + 3, 0, &index ) )
                     continue;
 
                 printf( "+3: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
@@ -599,7 +599,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_1, ++s_2 )
             {
-                if ( !cc_str_compare_min( s_1, NULL, s_2, NULL, 5, &index ) )
+                if ( !cc_str_compare( s_1, NULL, s_2, NULL, 5, &index ) )
                     continue;
 
                 printf( "max 5: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
@@ -611,7 +611,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_2 )
             {
-                if ( !cc_str_compare_min( s_1, NULL, s_2, NULL, 5, &index ) )
+                if ( !cc_str_compare( s_1, NULL, s_2, NULL, 5, &index ) )
                     continue;
 
                 printf( "max 5: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
@@ -623,7 +623,7 @@ int main( void )
                   ( *s_1 != '\0' ) && ( *s_2 != '\0' ) ;
                   ++s_1, ++s_2 )
             {
-                if ( !cc_str_compare_min( s_1, s_1 + 3, s_2, s_2 + 3, 5, &index ) )
+                if ( !cc_str_compare( s_1, s_1 + 3, s_2, s_2 + 3, 5, &index ) )
                     continue;
 
                 printf( "+3: max 5: \"%s\" == \"%s\": %lli.\n", s_1, s_2, index );
