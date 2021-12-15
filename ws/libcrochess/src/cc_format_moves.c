@@ -405,11 +405,11 @@ char * cc_format_step_new( CcMove const * const restrict move,
                 && ( step->usage <= CC_FSUE_Clarification ) ) )
         {
             char * rank__o = cc_format_pos_rank_new( step->j );
-            result = cc_str_append_min_new( &result, &rank__o, BUFSIZ );
+            result = cc_str_append_new( &result, &rank__o, BUFSIZ );
         }
 
         char * se = cc_format_side_effect_new( &(step->side_effect), format_move );
-        result = cc_str_append_min_new( &result, &se, BUFSIZ );
+        result = cc_str_append_new( &result, &se, BUFSIZ );
     }
 
     return result;

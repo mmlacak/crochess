@@ -307,35 +307,12 @@ bool cc_str_append_char( char ** const restrict str_io__r,
                          char const chr );
 
 /**
-    Function appending strings, by returning a newly allocated string.
-
-    @param str_1__f A string, can be `NULL`.
-    @param str_2__f A string to append, can be `NULL`.
-
-    @note
-    If both strings are allocated, resulting string is concatenation of the two.
-
-    @note
-    If either string is not allocated, only allocated string is copied into a newly allocated string.
-
-    @note
-    Allocated string arguments are freed, and their inner pointers set to `NULL`, if valid result is produced.
-
-    @note
-    If no valid result is produced, allocated string arguments are not freed.
-
-    @return A newly allocated, appended string if successful, `NULL` otherwise.
-*/
-char * cc_str_append_new( char ** const restrict str_1__f,
-                          char ** const restrict str_2__f );
-
-/**
     Function appending strings, by returning a newly allocated string,
     capped at given maximum length.
 
     @param str_1__f A string, can be unallocated.
     @param str_2__f A string to append, can be unallocated.
-    @param max_len Maximum length to concatenate, if length of strings is greater than given argument.
+    @param max_len_d _Optional_, maximum length to concatenate, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
 
     @note
     If both strings are allocated, resulting string is concatenating the two.
@@ -351,9 +328,9 @@ char * cc_str_append_new( char ** const restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_min_new( char ** const restrict str_1__f,
-                              char ** const restrict str_2__f,
-                              size_t const max_len );
+char * cc_str_append_new( char ** const restrict str_1__f,
+                          char ** const restrict str_2__f,
+                          size_t const max_len_d );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string.
