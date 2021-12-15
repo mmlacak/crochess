@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.142:341+20211214.072410"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.143:342+20211215.095651"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -639,13 +639,16 @@ int main( void )
         {
             char * first = "a:b:c:d:e";
             char * end_3 = first + 3;
+
+            // Don't mind gcc warning, these here are intentional.
+            // warning: array subscript xx is outside array bounds of ‘char[10]’ [-Warray-bounds]
             char * end_99 = first + 99;
             char * end__3 = first - 3;
 
-            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, NULL ), cc_str_len_min( first, NULL, 5 ), cc_str_len_min( first, NULL, 33 ) );
-            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_3 ), cc_str_len_min( first, end_3, 5 ), cc_str_len_min( first, end_3, 33 ) );
-            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_99 ), cc_str_len_min( first, end_99, 5 ), cc_str_len_min( first, end_99, 33 ) );
-            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end__3 ), cc_str_len_min( first, end__3, 5 ), cc_str_len_min( first, end__3, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, NULL, 0 ), cc_str_len( first, NULL, 5 ), cc_str_len( first, NULL, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_3, 0 ), cc_str_len( first, end_3, 5 ), cc_str_len( first, end_3, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_99, 0 ), cc_str_len( first, end_99, 5 ), cc_str_len( first, end_99, 33 ) );
+            printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end__3, 0 ), cc_str_len( first, end__3, 5 ), cc_str_len( first, end__3, 33 ) );
         }
         else
         {

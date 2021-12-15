@@ -85,34 +85,24 @@ char * cc_str_to_case_new( char const * const restrict str,
                            bool const to_upper_or_lower );
 
 /**
-    Function returning length of a zero-terminated string.
+    Function returning length of a string, optionally capped at maximum length.
 
     @param first Pointer to a first `char` of a (sub-)string.
-    @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so length of a whole string is returned.
+    @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so length of a whole zero-terminated string is returned.
+    @param max_len_d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so length of whole zero-terminated string is returned.
 
     @note
-    End of a string is first `char` that does not belong to a (sub-)string,
-    i.e. one past '\0', if it's present.
+    End of a string is first `char` that does not belong to a (sub-)string.
+    For a whole string (when `end_d` is `NULL`) it's a `char` past ``'\0'``.
+
+    @warning
+    If none optional arguments (`end_d`, `max_len_d`) are given, given string (`first`) has to be zero-terminated.
 
     @return Length of a string if successful, `0` otherwise.
 */
 size_t cc_str_len( char const * const restrict first,
-                   char const * const restrict end_d );
-
-/**
-    Function returning length of a zero-terminated string, capped at maximum length.
-
-    @param first Pointer to a first `char` of a (sub-)string.
-    @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so capped length of a whole string is returned.
-    @param max_len Maximum length to return, if string is longer than that.
-
-    @see cc_str_len()
-
-    @return Capped length of a string if successful, `0` otherwise.
-*/
-size_t cc_str_len_min( char const * const restrict first,
-                       char const * const restrict end_d,
-                       size_t const max_len );
+                   char const * const restrict end_d,
+                   size_t const max_len_d );
 
 /**
     Function returns length of a formatted variadic input.
@@ -145,10 +135,11 @@ char const * cc_str_end( char const * const restrict str );
     Function returns end of a given (sub-)string.
 
     @param str A string.
-    @param max_len_d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole string is returned.
+    @param max_len_d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is returned.
 
     @note
-    End of a string is a pointer to a first `char` that does not belong to a given (sub-)string.
+    End of a string is first `char` that does not belong to a (sub-)string,
+    i.e. one past '\0'.
 
     @return End of a (sub-)string if successful, `NULL` otherwise.
 */
