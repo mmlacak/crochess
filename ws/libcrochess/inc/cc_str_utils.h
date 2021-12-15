@@ -273,29 +273,18 @@ char * cc_str_duplicate_new( char const * const restrict str,
                              size_t const max_len_d );
 
 /**
-    Function concatenating strings, by returning a newly allocated string.
-
-    @param str_1 A string to copy first, can be `NULL`.
-    @param str_2 A string to concatenate, can be `NULL`.
-
-    @return A newly allocated, concatenated string if successful, `NULL` otherwise.
-*/
-char * cc_str_concatenate_new( char const * const restrict str_1,
-                               char const * const restrict str_2 );
-
-/**
     Function concatenating strings, by returning a newly allocated string,
     capped at a given maximum length.
 
-    @param str_1 A string to copy first, can be `NULL`.
-    @param str_2 A string to concatenate, can be `NULL`.
-    @param max_len Maximum length to concatenate, if a given strings are longer than that.
+    @param str_1_d An _optional_ string to copy first, can be `NULL`.
+    @param str_2_d An _optional_ string to concatenate, can be `NULL`.
+    @param max_len_d _Optional_, maximum length to concatenate, if a given strings are longer than that. Can be `0`, if so strings are concatenated in their entirety.
 
     @return A newly allocated, concatenated string if successful, `NULL` otherwise.
 */
-char * cc_str_concatenate_min_new( char const * const restrict str_1,
-                                   char const * const restrict str_2,
-                                   size_t const max_len );
+char * cc_str_concatenate_new( char const * const restrict str_1_d,
+                               char const * const restrict str_2_d,
+                               size_t const max_len_d );
 
 /**
     Function concatenating character to a string, by returning a newly allocated string.

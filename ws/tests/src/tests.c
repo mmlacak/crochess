@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.148:347+20211215.115716"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.149:348+20211215.122358"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -163,41 +163,6 @@ int main( void )
 
 //     printf("7: %f.\n", CC_MIN( 5.5, 11.6 ));
 //     printf("8: %f.\n", CC_MIN( 11.7, 5.8 ));
-// // DEBUG
-
-
-// // DEBUG
-//     char * con_1 = cc_str_concatenate_new( "Hello", "World!" );
-//     printf( "1: %s.\n", con_1 );
-//     free( con_1 );
-
-//     char * con_2 = cc_str_concatenate_min_new( "Hello", "World!", BUFSIZ );
-//     printf( "2: %s.\n", con_2 );
-//     free( con_2 );
-
-//     char * con_3 = cc_str_concatenate_min_new( "Hello", "World!", 7 );
-//     printf( "3: %s.\n", con_3 );
-//     free( con_3 );
-
-//     char * dup_4 = cc_str_duplicate_new( "Hello World!", false, BUFSIZ );
-//     printf( "4: %s.\n", dup_4 );
-//     free( dup_4 );
-
-//     char * dup_5 = cc_str_duplicate_new( "Hello World!", false, 9 );
-//     printf( "5: %s.\n", dup_5 );
-//     free( dup_5 );
-
-//     char * con_6 = cc_str_concatenate_new( NULL, "Hello World!" );
-//     printf( "6: %s.\n", con_6 );
-//     free( con_6 );
-
-//     char * dup_7 = cc_str_concatenate_min_new( "Hello World!", NULL, BUFSIZ );
-//     printf( "7: %s.\n", dup_7 );
-//     free( dup_7 );
-
-//     char * dup_8 = cc_str_concatenate_min_new( NULL, "Hello World!", 9 );
-//     printf( "8: %s.\n", dup_8 );
-//     free( dup_8 );
 // // DEBUG
 
 
@@ -479,6 +444,40 @@ int main( void )
                 else
                     printf( "Step %d fail: (%d, %d)\n", k, step_i, step_j );
             }
+        }
+        else if ( cc_str_is_equal( first__w, end__w, "z1", NULL, BUFSIZ ) )
+        {
+            char * con_1 = cc_str_concatenate_new( "Hello", "World!", CC_MAX_LEN_IGNORE );
+            printf( "1: %s.\n", con_1 );
+            free( con_1 );
+
+            char * con_2 = cc_str_concatenate_new( "Hello", "World!", BUFSIZ );
+            printf( "2: %s.\n", con_2 );
+            free( con_2 );
+
+            char * con_3 = cc_str_concatenate_new( "Hello", "World!", 7 );
+            printf( "3: %s.\n", con_3 );
+            free( con_3 );
+
+            char * dup_4 = cc_str_duplicate_new( "Hello World!", false, BUFSIZ );
+            printf( "4: %s.\n", dup_4 );
+            free( dup_4 );
+
+            char * dup_5 = cc_str_duplicate_new( "Hello World!", false, 9 );
+            printf( "5: %s.\n", dup_5 );
+            free( dup_5 );
+
+            char * con_6 = cc_str_concatenate_new( NULL, "Hello World!", CC_MAX_LEN_IGNORE );
+            printf( "6: %s.\n", con_6 );
+            free( con_6 );
+
+            char * dup_7 = cc_str_concatenate_new( "Hello World!", NULL, BUFSIZ );
+            printf( "7: %s.\n", dup_7 );
+            free( dup_7 );
+
+            char * dup_8 = cc_str_concatenate_new( NULL, "Hello World!", 9 );
+            printf( "8: %s.\n", dup_8 );
+            free( dup_8 );
         }
         else if ( cc_str_is_equal( first__w, end__w, "z2", NULL, BUFSIZ ) )
         {

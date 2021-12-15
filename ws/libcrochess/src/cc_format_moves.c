@@ -446,7 +446,7 @@ char * cc_format_ply_new( CcMove const * const restrict move,
     bool do_wrap = cc_if_wrap_ply_in_square_brackets( move, ply, format_move );
 
     if ( do_wrap )
-        result = cc_str_concatenate_min_new( result, "[", BUFSIZ );
+        result = cc_str_concatenate_new( result, "[", BUFSIZ );
 
     if ( format_move.do_format_with_pawn_symbol )
         cc_str_append_char( &result, fp_char_value( ply->piece ) );
@@ -463,7 +463,7 @@ char * cc_format_ply_new( CcMove const * const restrict move,
     while ( step )
     {
         char * new = cc_format_step_new( move, ply, step, format_move, &has_preceding_step );
-        char * appended = cc_str_concatenate_min_new( result, new, BUFSIZ );
+        char * appended = cc_str_concatenate_new( result, new, BUFSIZ );
 
         free( result );
         free( new );
@@ -473,7 +473,7 @@ char * cc_format_ply_new( CcMove const * const restrict move,
     }
 
     if ( do_wrap )
-        result = cc_str_concatenate_min_new( result, "]", BUFSIZ );
+        result = cc_str_concatenate_new( result, "]", BUFSIZ );
 
     return result;
 }
@@ -490,7 +490,7 @@ char * cc_format_move_new( CcMove const * const restrict move,
     while ( ply )
     {
         char * new = cc_format_ply_new( move, ply, format_move );
-        char * appended = cc_str_concatenate_min_new( result, new, BUFSIZ );
+        char * appended = cc_str_concatenate_new( result, new, BUFSIZ );
 
         free( result );
         free( new );
