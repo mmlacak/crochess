@@ -91,12 +91,13 @@ char * cc_str_to_case_new( char const * const restrict str,
     @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so length of a whole zero-terminated string is returned.
     @param max_len_d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so length of whole zero-terminated string is returned.
 
+    @warning
+    If no optional arguments (`end_d`, `max_len_d`) are given, given
+    string (`first`) has to be zero-terminated.
+
     @note
     End of a string is first `char` that does not belong to a (sub-)string.
     For a whole string (when `end_d` is `NULL`) it's a `char` past ``'\0'``.
-
-    @warning
-    If none optional arguments (`end_d`, `max_len_d`) are given, given string (`first`) has to be zero-terminated.
 
     @return Length of a string if successful, `0` otherwise.
 */
@@ -120,31 +121,23 @@ size_t cc_str_len( char const * const restrict first,
 int cc_str_len_format( char const * const restrict fmt, ... );
 
 /**
-    Function returns end of a given string.
-
-    @param str A string.
-
-    @note
-    End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
-
-    @return End of a string if successful, `NULL` otherwise.
-*/
-char const * cc_str_end( char const * const restrict str );
-
-/**
     Function returns end of a given (sub-)string.
 
     @param str A string.
     @param max_len_d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is returned.
 
+    @warning
+    If optional argument `max_len_d` is `0`, given string (`str`) has
+    to be zero-terminated.
+
     @note
     End of a string is first `char` that does not belong to a (sub-)string,
-    i.e. one past '\0'.
+    i.e. one past '\0', if `max_len_d` is `0`.
 
     @return End of a (sub-)string if successful, `NULL` otherwise.
 */
-char const * cc_str_end_min( char const * const restrict str,
-                             size_t const max_len_d );
+char const * cc_str_end( char const * const restrict str,
+                         size_t const max_len_d );
 
 /**
     Compares two (sub-)strings, returns index of a first difference.

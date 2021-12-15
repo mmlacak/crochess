@@ -141,19 +141,8 @@ int cc_str_len_format( char const * const restrict fmt, ... )
     return len;
 }
 
-char const * cc_str_end( char const * const restrict str )
-{
-    if ( !str ) return NULL;
-
-    char const * end = str;
-
-    while ( *end++ != '\0' ) ;
-
-    return ++end;
-}
-
-char const * cc_str_end_min( char const * const restrict str,
-                             size_t const max_len_d )
+char const * cc_str_end( char const * const restrict str,
+                         size_t const max_len_d )
 {
     if ( !str ) return NULL;
 

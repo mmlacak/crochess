@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.143:342+20211215.095651"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.144:343+20211215.101640"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -538,19 +538,16 @@ int main( void )
         else if ( cc_str_is_equal_min( first__w, end__w, "z5", NULL, BUFSIZ ) )
         {
             char const * str = "a:b:c:d:e";
-            char const * end = cc_str_end( str );
+            char const * end = cc_str_end( str, 0 );
             printf( "%p -> %p, size: %lu ~= %lu\n", (void *)str, (void *)end, end - str, strlen( str ) );
 
-            end = cc_str_end_min( str, 0 );
+            end = cc_str_end( str, 5 );
             printf( "%p -> %p, size: %lu ~= %lu\n", (void *)str, (void *)end, end - str, strlen( str ) );
 
-            end = cc_str_end_min( str, 5 );
+            end = cc_str_end( str, 55 );
             printf( "%p -> %p, size: %lu ~= %lu\n", (void *)str, (void *)end, end - str, strlen( str ) );
 
-            end = cc_str_end_min( str, 55 );
-            printf( "%p -> %p, size: %lu ~= %lu\n", (void *)str, (void *)end, end - str, strlen( str ) );
-
-            end = cc_str_end_min( str, -5 );
+            end = cc_str_end( str, -5 );
             printf( "%p -> %p, size: %lu ~= %lu\n", (void *)str, (void *)end, end - str, strlen( str ) );
         }
         else if ( cc_str_is_equal_min( first__w, end__w, "z6", NULL, BUFSIZ ) )
