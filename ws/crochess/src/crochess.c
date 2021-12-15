@@ -20,7 +20,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.145:344+20211215.104357"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.146:345+20211215.105331"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -51,33 +51,33 @@ int main( void )
         if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             continue;
 
-        if ( cc_str_is_equal_min( first__w, end__w, "q", NULL, BUFSIZ ) ||
-             cc_str_is_equal_min( first__w, end__w, "quit", NULL, BUFSIZ ) )
+        if ( cc_str_is_equal( first__w, end__w, "q", NULL, BUFSIZ ) ||
+             cc_str_is_equal( first__w, end__w, "quit", NULL, BUFSIZ ) )
         {
             break;
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "v", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "version", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "v", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "version", NULL, BUFSIZ ) )
         {
             print_version_info( CC_LIB_VERSION, CROCHESS_VERSION );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "a", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "about", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "a", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "about", NULL, BUFSIZ ) )
         {
             print_about_info();
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "d", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "display", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "d", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "display", NULL, BUFSIZ ) )
         {
             cc_chessboard_print( cb, true );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "t", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "tags", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "t", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "tags", NULL, BUFSIZ ) )
         {
             cc_chessboard_print( cb, false );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "n", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "new", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "n", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "new", NULL, BUFSIZ ) )
         {
             bool is_code = false;
             char * code = NULL;
@@ -110,9 +110,9 @@ int main( void )
                 cc_chessboard_print( cb, true );
             }
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "h", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "?", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "help", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "h", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "?", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "help", NULL, BUFSIZ ) )
         {
             char * res = NULL;
 
@@ -135,7 +135,7 @@ int main( void )
 
             free( res );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "x", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "x", NULL, BUFSIZ ) )
         {
             printf( "X: '%d'.\n", cc_is_field_light(5, 2) );
             cc_chessboard_clear( cb );

@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.145:344+20211215.104357"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.146:345+20211215.105331"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -60,8 +60,8 @@ bool get_print_chessboard_from_cli_arg( char const * const restrict str,
 
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
-        if ( cc_str_is_equal_min( *first_io, *end_io, "1", NULL, 1 )
-            || cc_str_is_equal_min( *first_io, *end_io, "true", NULL, 4 ) )
+        if ( cc_str_is_equal( *first_io, *end_io, "1", NULL, 1 )
+            || cc_str_is_equal( *first_io, *end_io, "true", NULL, 4 ) )
                 do_print_chesboard = true;
     }
 
@@ -76,8 +76,8 @@ bool get_print_move_from_cli_arg( char const * const restrict str,
 
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
-        if ( cc_str_is_equal_min( *first_io, *end_io, "0", NULL, 1 )
-            || cc_str_is_equal_min( *first_io, *end_io, "false", NULL, 5 ) )
+        if ( cc_str_is_equal( *first_io, *end_io, "0", NULL, 1 )
+            || cc_str_is_equal( *first_io, *end_io, "false", NULL, 5 ) )
                 do_print_move = true;
     }
 
@@ -96,11 +96,11 @@ CcFormatMove get_format_move_from_cli_arg( char const * const restrict str,
 
     if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
-        if ( cc_str_is_equal_min( *first_io, *end_io, "u", NULL, 1 )
-            || cc_str_is_equal_min( *first_io, *end_io, "user", NULL, 4 ) )
+        if ( cc_str_is_equal( *first_io, *end_io, "u", NULL, 1 )
+            || cc_str_is_equal( *first_io, *end_io, "user", NULL, 4 ) )
                 format_move = fm_user;
-        else if ( cc_str_is_equal_min( *first_io, *end_io, "d", NULL, 1 )
-                || cc_str_is_equal_min( *first_io, *end_io, "debug", NULL, 5 ) )
+        else if ( cc_str_is_equal( *first_io, *end_io, "d", NULL, 1 )
+                || cc_str_is_equal( *first_io, *end_io, "debug", NULL, 5 ) )
                     format_move = fm_debug;
     }
 
@@ -223,23 +223,23 @@ int main( void )
         if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             continue;
 
-        if ( cc_str_is_equal_min( first__w, end__w, "q", NULL, BUFSIZ ) ||
-             cc_str_is_equal_min( first__w, end__w, "quit", NULL, BUFSIZ ) )
+        if ( cc_str_is_equal( first__w, end__w, "q", NULL, BUFSIZ ) ||
+             cc_str_is_equal( first__w, end__w, "quit", NULL, BUFSIZ ) )
         {
             break;
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "v", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "version", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "v", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "version", NULL, BUFSIZ ) )
         {
             print_version_info( CC_LIB_VERSION, CROCHESS_TESTS_VERSION );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "a", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "about", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "a", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "about", NULL, BUFSIZ ) )
         {
             print_about_info();
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "b", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "book", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "b", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "book", NULL, BUFSIZ ) )
         {
             bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
             bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
@@ -252,8 +252,8 @@ int main( void )
                 if ( !test_book_move_scn_ct_03_define_step_ply( 1, tp ) )
                     printf( "Test test_book_move_scn_ct_03_define_step_ply() failed.\n" );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "t", NULL, BUFSIZ ) ||
-                  cc_str_is_equal_min( first__w, end__w, "test", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "t", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "test", NULL, BUFSIZ ) )
         {
             bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
             bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
@@ -336,7 +336,7 @@ int main( void )
 
             printf( "Tests finished.\n" );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "x", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "x", NULL, BUFSIZ ) )
         {
 
             // char const * const user_an = "[Ng6]~[We5]~[Re8]";
@@ -386,7 +386,7 @@ int main( void )
             // user_an = NULL;
 
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "y", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "y", NULL, BUFSIZ ) )
         {
             bool do_print_chesboard = get_print_chessboard_from_cli_arg( buffer, &first__w, &end__w );
             bool do_print_move = get_print_move_from_cli_arg( buffer, &first__w, &end__w );
@@ -399,7 +399,7 @@ int main( void )
                 if ( !test_parse_move_single_ply( tp ) )
                     printf( "Test test_parse_move_single_ply() failed.\n" );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "z", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "z", NULL, BUFSIZ ) )
         {
             // TestMsg * test_msgs = test();
             // test_msg_print_all( test_msgs, TME_Warning );
@@ -449,7 +449,7 @@ int main( void )
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "zz", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "zz", NULL, BUFSIZ ) )
         {
             // int i = 3;
             // int j = 7;
@@ -480,7 +480,7 @@ int main( void )
                     printf( "Step %d fail: (%d, %d)\n", k, step_i, step_j );
             }
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "z2", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "z2", NULL, BUFSIZ ) )
         {
             CcPosLink * pl = NULL;
 
@@ -498,7 +498,7 @@ int main( void )
                 x = x->next;
             }
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "z3", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "z3", NULL, BUFSIZ ) )
         {
             CcPly * pl = NULL;
 
@@ -516,7 +516,7 @@ int main( void )
                 x = x->next;
             }
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "z4", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "z4", NULL, BUFSIZ ) )
         {
             CcStep * st = NULL;
             CcSideEffect se = cc_side_effect_none();
@@ -535,7 +535,7 @@ int main( void )
                 x = x->next;
             }
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "z5", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "z5", NULL, BUFSIZ ) )
         {
             char const * str = "a:b:c:d:e";
             char const * end = cc_str_end( str, 0 );
@@ -550,7 +550,7 @@ int main( void )
             end = cc_str_end( str, -5 );
             printf( "%p -> %p, size: %lu ~= %lu\n", (void *)str, (void *)end, end - str, strlen( str ) );
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "z6", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "z6", NULL, BUFSIZ ) )
         {
             char const * const str_1 = "a:b:c:d:e";
             char const * const str_2 = "a:b:c:f:e";
@@ -632,7 +632,7 @@ int main( void )
             printf( "--- --- --- \n" );
 
         }
-        else if ( cc_str_is_equal_min( first__w, end__w, "z7", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( first__w, end__w, "z7", NULL, BUFSIZ ) )
         {
             char * first = "a:b:c:d:e";
             char * end_3 = first + 3;

@@ -198,41 +198,20 @@ bool cc_str_compare( char const * const restrict first_1,
 bool cc_str_is_equal( char const * const restrict first_1,
                       char const * const restrict end_1_d,
                       char const * const restrict first_2,
-                      char const * const restrict end_2_d )
+                      char const * const restrict end_2_d,
+                      size_t const max_len_d )
 {
     if ( !first_1 ) return false;
     if ( !first_2 ) return false;
 
-    size_t len_1 = cc_str_len( first_1, end_1_d, 0 );
-    size_t len_2 = cc_str_len( first_2, end_2_d, 0 );
+    size_t len_1 = cc_str_len( first_1, end_1_d, max_len_d );
+    size_t len_2 = cc_str_len( first_2, end_2_d, max_len_d );
 
     if ( len_1 != len_2 ) return false;
 
     long long index = 0;
 
-    if ( cc_str_compare( first_1, end_1_d, first_2, end_2_d, 0, &index ) )
-        return ( index == 0 );
-
-    return false;
-}
-
-bool cc_str_is_equal_min( char const * const restrict first_1,
-                          char const * const restrict end_1_d,
-                          char const * const restrict first_2,
-                          char const * const restrict end_2_d,
-                          size_t const max_len )
-{
-    if ( !first_1 ) return false;
-    if ( !first_2 ) return false;
-
-    size_t len_1 = cc_str_len( first_1, end_1_d, max_len );
-    size_t len_2 = cc_str_len( first_2, end_2_d, max_len );
-
-    if ( len_1 != len_2 ) return false;
-
-    long long index = 0;
-
-    if ( cc_str_compare( first_1, end_1_d, first_2, end_2_d, max_len, &index ) )
+    if ( cc_str_compare( first_1, end_1_d, first_2, end_2_d, max_len_d, &index ) )
         return ( index == 0 );
 
     return false;
