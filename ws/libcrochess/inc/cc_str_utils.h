@@ -241,27 +241,17 @@ bool cc_str_copy_until_end_new( char const * const restrict str,
 
 
 /**
-    Function returns a newly allocated string containing formatted variadic input.
-
-    @param fmt A string format to append.
-    @param ... Variadic input for a string format.
-
-    @return A newly allocated string if successful, `NULL` otherwise.
-*/
-char * cc_str_format_new( char const * const restrict fmt, ... );
-
-/**
     Function returns a newly allocated string containing formatted variadic input,
     capped at given maximum length.
 
-    @param max_len Maximum length to append, if length of strings is greater than given argument.
+    @param max_len_d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so entirety of formatted string is returned.
     @param fmt A string format to append.
     @param ... Variadic input for a string format.
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_str_format_min_new( size_t const max_len,
-                              char const * const restrict fmt, ... );
+char * cc_str_format_new( size_t const max_len_d,
+                          char const * const restrict fmt, ... );
 
 /**
     Function duplicating a string, by returning a newly allocated string,
