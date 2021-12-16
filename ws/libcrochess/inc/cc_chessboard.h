@@ -53,45 +53,45 @@ CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool const do_setup );
 /**
     (Re-)initializes a chessboard, for a new variant.
 
-    @param cb_io Chessboard to (re-)initialize.
-    @param ve New variant to play, can be different to the one found in `cb_io->type`.
+    @param cb__io Chessboard to (re-)initialize.
+    @param ve New variant to play, can be different to the one found in `cb__io->type`.
     @param do_setup Wheather to set-up pieces to their initial positions.
                     If `false`, chessboard is cleared of all pieces.
 
     @return `true` if chessboard is succesfully (re-)initialized, `false` otherwise.
 */
-bool cc_chessboard_init( CcChessboard * const restrict cb_io,
+bool cc_chessboard_init( CcChessboard * const restrict cb__io,
                          CcVariantEnum const ve,
                          bool const do_setup );
 
 /**
     Clears a chessboard of all pieces.
 
-    @param cb_io Chessboard to clear.
+    @param cb__io Chessboard to clear.
 
     @return `true` if chessboard is succesfully cleared, `false` otherwise.
 */
-bool cc_chessboard_clear( CcChessboard * const restrict cb_io );
+bool cc_chessboard_clear( CcChessboard * const restrict cb__io );
 
 /**
     Sets up pieces on a chessboard to their initial positions.
 
-    @param cb_io Chessboard to set-up.
+    @param cb__io Chessboard to set-up.
 
     @return `true` if chessboard is succesfully set up, `false` otherwise.
 */
-bool cc_chessboard_setup( CcChessboard * const restrict cb_io );
+bool cc_chessboard_setup( CcChessboard * const restrict cb__io );
 
 
 /**
     Copies a chessboard to another one.
 
-    @param into_io Chessboard to copy into.
+    @param into__io Chessboard to copy into.
     @param from Chessboard to copy from.
 
     @return `true` if chessboard is succesfully copied, `false` otherwise.
 */
-bool cc_chessboard_copy( CcChessboard * const restrict into_io,
+bool cc_chessboard_copy( CcChessboard * const restrict into__io,
                          CcChessboard const * const restrict from );
 
 /**
@@ -165,7 +165,7 @@ CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb,
 /**
     Function setting piece and tag onto given position.
 
-    @param cb_io Chessboard.
+    @param cb__io Chessboard.
     @param i File, position along horizontal axis.
     @param j Rank, position along vertical axis.
     @param pe Piece to set.
@@ -173,7 +173,7 @@ CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb_io,
+bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb__io,
                                   int const i,
                                   int const j,
                                   CcPieceEnum const pe,
@@ -185,14 +185,14 @@ bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb_io,
     @warning
     Function resets tag on the same position to `CC_TE_None`.
 
-    @param cb_io Chessboard.
+    @param cb__io Chessboard.
     @param i File, position along horizontal axis.
     @param j Rank, position along vertical axis.
     @param pe Piece to set.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_chessboard_set_piece( CcChessboard * const restrict cb_io,
+bool cc_chessboard_set_piece( CcChessboard * const restrict cb__io,
                               int const i,
                               int const j,
                               CcPieceEnum const pe );
@@ -203,14 +203,14 @@ bool cc_chessboard_set_piece( CcChessboard * const restrict cb_io,
     @note
     Function does not alter piece on the same position.
 
-    @param cb_io Chessboard.
+    @param cb__io Chessboard.
     @param i File, position along horizontal axis.
     @param j Rank, position along vertical axis.
     @param tt Tag to set.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_chessboard_set_tag( CcChessboard * const restrict cb_io,
+bool cc_chessboard_set_tag( CcChessboard * const restrict cb__io,
                             int const i,
                             int const j,
                             CcTagEnum const tt );
