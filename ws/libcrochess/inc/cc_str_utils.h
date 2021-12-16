@@ -208,27 +208,15 @@ bool cc_str_is_equal( char const * const restrict first_1,
 /**
     Function copies (sub-)string into a newly allocated string.
 
-    @param str A (sub-)string to copy.
+    @param first A (sub-)string to copy.
+    @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is copied.
     @param max_len_d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
 
     @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
 */
-char * cc_str_copy_new( char const * const restrict str,
+char * cc_str_copy_new( char const * const restrict first,
+                        char const * const restrict end_d,
                         size_t const max_len_d );
-
-/**
-    Function copies (sub-)string into a newly allocated string.
-
-    @param str A (sub-)string to copy.
-    @param end An end of a (sub-)string to copy.
-
-    @note
-    Argument `end` points to first byte which will not be copied.
-
-    @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
-*/
-char * cc_str_copy_until_end_new( char const * const restrict str,
-                                  char const * const restrict end );
 
 
 /**

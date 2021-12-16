@@ -217,33 +217,22 @@ bool cc_str_is_equal( char const * const restrict first_1,
     return false;
 }
 
-char * cc_str_copy_new( char const * const restrict str,
+char * cc_str_copy_new( char const * const restrict first,
+                        char const * const restrict end_d,
                         size_t const max_len_d )
 {
-    if ( !str ) return NULL;
+    if ( !first ) return NULL;
 
-    size_t len = cc_str_len( str, NULL, max_len_d );
+    size_t len = cc_str_len( first, end_d, max_len_d );
     char * tmp__t = malloc( len + 1 );
     if ( !tmp__t ) return NULL;
 
-    if ( !strncpy( tmp__t, str, len ) )
+    if ( !strncpy( tmp__t, first, len ) )
         return NULL;
     tmp__t[ len ] = '\0';
 
     return tmp__t;
 }
-
-char * cc_str_copy_until_end_new( char const * const restrict str,
-                                  char const * const restrict end )
-{
-    if ( !str ) return NULL;
-    if ( !end ) return NULL;
-
-    size_t length = end - str;
-
-    return cc_str_copy_new( str, length );
-}
-
 
 char * cc_str_format_new( size_t const max_len_d,
                           char const * const restrict fmt, ... )

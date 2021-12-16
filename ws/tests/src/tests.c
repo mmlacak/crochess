@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.154:353+20211216.003920"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.155:354+20211216.005545"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -341,7 +341,7 @@ int main( void )
             free( reverse__o );
             reverse__o = NULL;
 
-            reverse__o = cc_str_duplicate_new( user_an, true, CC_MAX_LEN_IGNORE );
+            reverse__o = cc_str_duplicate_new( user_an, true, BUFSIZ );
             printf( "Reverse: '%s'.\n", reverse__o );
             free( reverse__o );
             reverse__o = NULL;
@@ -447,14 +447,14 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "z0", NULL, BUFSIZ ) )
         {
-            char * foo = cc_str_copy_new( "f:o:o", CC_MAX_LEN_IGNORE );
+            char * foo = cc_str_copy_new( "f:o:o", NULL, BUFSIZ );
             if ( !foo )
             {
                 printf( "1: error cc_str_copy_new \n" );
                 continue;
             }
             printf( "1: %s", foo );
-            foo = cc_str_append_format_new( &foo, CC_MAX_LEN_IGNORE, "%c", ':' );
+            foo = cc_str_append_format_new( &foo, BUFSIZ, "%c", ':' );
             if ( !foo )
             {
                 printf( "1: error cc_str_append_format_new \n" );
@@ -465,7 +465,7 @@ int main( void )
 
             // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-            char * bar = cc_str_copy_new( "b:a:r", CC_MAX_LEN_IGNORE );
+            char * bar = cc_str_copy_new( "b:a:r", NULL, BUFSIZ );
             if ( !bar )
             {
                 printf( "2: error cc_str_copy_new \n" );
@@ -483,7 +483,7 @@ int main( void )
 
             // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-            char * baz = cc_str_copy_new( "b:a:z", CC_MAX_LEN_IGNORE );
+            char * baz = cc_str_copy_new( "b:a:z", NULL, BUFSIZ );
             if ( !baz )
             {
                 printf( "3: error cc_str_copy_new \n" );
@@ -501,7 +501,7 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "z1", NULL, BUFSIZ ) )
         {
-            char * con_1 = cc_str_concatenate_new( "Hello", "World!", CC_MAX_LEN_IGNORE );
+            char * con_1 = cc_str_concatenate_new( "Hello", "World!", BUFSIZ );
             printf( "1: %s.\n", con_1 );
             free( con_1 );
 
@@ -591,7 +591,7 @@ int main( void )
         else if ( cc_str_is_equal( first__w, end__w, "z5", NULL, BUFSIZ ) )
         {
             char const * str = "a:b:c:d:e";
-            char const * end = cc_str_end( str, CC_MAX_LEN_IGNORE );
+            char const * end = cc_str_end( str, BUFSIZ );
             printf( "%p -> %p, size: %lu ~= %lu\n", (void *)str, (void *)end, end - str, strlen( str ) );
 
             end = cc_str_end( str, 5 );

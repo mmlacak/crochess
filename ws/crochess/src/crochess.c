@@ -20,7 +20,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.154:353+20211216.003920"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.155:354+20211216.005545"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -84,7 +84,7 @@ int main( void )
 
             if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
-                code = cc_str_copy_until_end_new( first__w, end__w );
+                code = cc_str_copy_new( first__w, end__w, BUFSIZ );
                 if ( !code ) continue;
 
                 is_code = cc_variant_str_is_symbol( code );
@@ -118,7 +118,7 @@ int main( void )
 
             if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
-                res = cc_str_copy_until_end_new( first__w, end__w );
+                res = cc_str_copy_new( first__w, end__w, BUFSIZ );
                 if ( !res ) continue;
             }
 
