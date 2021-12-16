@@ -272,28 +272,6 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
                                char const * const restrict str_2_d,
                                size_t const max_len_d );
 
-// TODO :: REPLACE :: DELETE :: replace with cc_str_append_format_new
-/**
-    Function appending character to a string.
-
-    @param str_io__r An input and output string.
-    @param chr A character to concatenate.
-
-    @note
-    If allocated, string will get reallocated to accomodate additional character.
-
-    @note
-    If not yet allocated, only character is copied into a newly allocated string.
-
-    @return `true` if successful, `false` otherwise.
-
-    @return
-    Resulting string is returned via output parameter `str_io__r`.
-*/
-bool cc_str_append_char( char ** const restrict str_io__r,
-                         char const chr );
-// TODO :: REPLACE :: DELETE :: replace with cc_str_append_format_new
-
 /**
     Function appending strings, by returning a newly allocated string,
     capped at given maximum length.

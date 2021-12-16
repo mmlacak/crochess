@@ -399,7 +399,7 @@ char * cc_format_step_new( CcMove const * const restrict move,
 
         *has_preceding_step_io = true;
 
-        cc_str_append_char( &result, cc_format_pos_file( step->i ) );
+        result = cc_str_append_format_new( &result, BUFSIZ, "%c", cc_format_pos_file( step->i ) );
 
         if ( !( cc_side_effect_enum_is_castling( step->side_effect.type )
                 && ( step->usage <= CC_FSUE_Clarification ) ) )
@@ -449,11 +449,11 @@ char * cc_format_ply_new( CcMove const * const restrict move,
         result = cc_str_concatenate_new( result, "[", BUFSIZ );
 
     if ( format_move.do_format_with_pawn_symbol )
-        cc_str_append_char( &result, fp_char_value( ply->piece ) );
+        result = cc_str_append_format_new( &result, BUFSIZ, "%c", fp_char_value( ply->piece ) );
     else
     {
         if ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
-            cc_str_append_char( &result, fp_char_value( ply->piece ) );
+            result = cc_str_append_format_new( &result, BUFSIZ, "%c", fp_char_value( ply->piece ) );
     }
 
     CcStep const * step = ply->steps;
@@ -503,7 +503,8 @@ char * cc_format_move_new( CcMove const * const restrict move,
     if ( move->status  == CC_MSE_Check ) status = '+';
     else if ( move->status  == CC_MSE_Checkmate ) status = '#';
 
-    if ( status != '\0' ) cc_str_append_char( &result, status );
+    if ( status != '\0' )
+        result = cc_str_append_format_new( &result, BUFSIZ, "%c", status );
 
     return result;
 }

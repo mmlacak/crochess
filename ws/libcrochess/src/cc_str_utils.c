@@ -364,40 +364,6 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
     return new;
 }
 
-// TODO :: REPLACE :: DELETE :: replace with cc_str_append_format_new
-bool cc_str_append_char( char ** const restrict str_io__r,
-                         char const chr )
-{
-    if ( !str_io__r ) return false;
-
-    if ( !*str_io__r )
-    {
-        char * new = (char *)malloc( 2 );
-        if ( !new ) return false;
-
-        *new = chr;
-        *(new + 1) = '\0';
-
-        *str_io__r = new;
-        return true;
-    }
-
-    size_t len = cc_str_len( *str_io__r, NULL, CC_MAX_LEN_IGNORE ) + 1;
-    char * new = realloc( *str_io__r, len + 1 );
-    if ( !new ) return false;
-
-    *str_io__r = new; // *str_io__r was free'd by realloc().
-
-    char * n = new;
-    while ( *n != '\0' ) ++n;
-
-    *n++ = chr;
-    *n = '\0';
-
-    return (bool)( new );
-}
-// TODO :: REPLACE :: DELETE :: replace with cc_str_append_format_new
-
 char * cc_str_append_new( char ** const restrict str_1__f,
                           char ** const restrict str_2__f,
                           size_t const max_len_d )
