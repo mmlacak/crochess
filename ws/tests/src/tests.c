@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.152:351+20211215.131312"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.153:352+20211216.000551"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -444,6 +444,56 @@ int main( void )
                 else
                     printf( "Step %d fail: (%d, %d)\n", k, step_i, step_j );
             }
+        }
+        else if ( cc_str_is_equal( first__w, end__w, "z0", NULL, BUFSIZ ) )
+        {
+            char * foo = cc_str_copy_new( "f:o:o", CC_MAX_LEN_IGNORE );
+            if ( !foo )
+            {
+                printf( "1: error cc_str_copy_new \n" );
+                free( foo );
+                continue;
+            }
+            if ( !cc_str_append_char( &foo, ':' ) )
+            {
+                printf( "1: error cc_str_append_char \n" );
+                free( foo );
+                continue;
+            }
+            printf( "1: %s\n", foo );
+            free( foo );
+
+            char * bar = cc_str_copy_new( "b:a:r", CC_MAX_LEN_IGNORE );
+            if ( !bar )
+            {
+                printf( "2: error cc_str_copy_new \n" );
+                free( bar );
+                continue;
+            }
+            char * bar_2 = cc_str_append_format_new( &bar, BUFSIZ, "%c", ';' );
+            if ( !bar_2 )
+            {
+                printf( "2: error \n" );
+                continue;
+            }
+            printf( "2: %s\n", bar_2 );
+            free( bar_2 );
+
+            char * baz = cc_str_copy_new( "b:a:z", CC_MAX_LEN_IGNORE );
+            if ( !baz )
+            {
+                printf( "3: error cc_str_copy_new \n" );
+                free( baz );
+                continue;
+            }
+            char * baz_2 = cc_str_append_format_new( &baz, BUFSIZ, "." );
+            if ( !baz_2 )
+            {
+                printf( "3: error \n" );
+                continue;
+            }
+            printf( "3: %s\n", baz_2 );
+            free( baz_2 );
         }
         else if ( cc_str_is_equal( first__w, end__w, "z1", NULL, BUFSIZ ) )
         {

@@ -209,40 +209,26 @@ bool cc_str_is_equal( char const * const restrict first_1,
     Function copies (sub-)string into a newly allocated string.
 
     @param str A (sub-)string to copy.
-    @param length Length to copy.
-    @param str_o An _output_ string.
+    @param max_len_d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
 
-    @note
-    _Output_ argument has to be valid pointer, with inner pointer set to `NULL`,
-    i.e. `*str_o == NULL` has to be true.
-
-    @note
-    _Output_ argument is always allocated as 1 bigger than a given length.
-    Extra character is always set to string terminator, i.e. ``'\0'``.
-
-    @return `true` if successful, `false` otherwise.
+    @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
 */
-bool cc_str_copy_new( char const * const restrict str,
-                      size_t const length,
-                      char ** const restrict str_o );
+char * cc_str_copy_new( char const * const restrict str,
+                        size_t const max_len_d );
 
 /**
     Function copies (sub-)string into a newly allocated string.
 
     @param str A (sub-)string to copy.
     @param end An end of a (sub-)string to copy.
-    @param str_o An _output_ string.
 
     @note
     Argument `end` points to first byte which will not be copied.
 
-    @return `true` if successful, `false` otherwise.
-
-    @see `cc_str_copy_new()`
+    @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
 */
-bool cc_str_copy_until_end_new( char const * const restrict str,
-                                char const * const restrict end,
-                                char ** const restrict str_o );
+char * cc_str_copy_until_end_new( char const * const restrict str,
+                                  char const * const restrict end );
 
 
 /**
@@ -286,6 +272,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
                                char const * const restrict str_2_d,
                                size_t const max_len_d );
 
+// TODO :: REPLACE :: DELETE :: replace with cc_str_append_format_new
 /**
     Function appending character to a string.
 
@@ -305,6 +292,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
 */
 bool cc_str_append_char( char ** const restrict str_io__r,
                          char const chr );
+// TODO :: REPLACE :: DELETE :: replace with cc_str_append_format_new
 
 /**
     Function appending strings, by returning a newly allocated string,

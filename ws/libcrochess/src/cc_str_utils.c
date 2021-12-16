@@ -217,35 +217,31 @@ bool cc_str_is_equal( char const * const restrict first_1,
     return false;
 }
 
-bool cc_str_copy_new( char const * const restrict str,
-                      size_t const length,
-                      char ** const restrict str_o )
+char * cc_str_copy_new( char const * const restrict str,
+                        size_t const max_len_d )
 {
-    if ( !str ) return false;
-    if ( !str_o ) return false;
-    if ( *str_o ) return false;
+    if ( !str ) return NULL;
 
-    char * tmp__t = malloc( length + 1 );
-    if ( !tmp__t ) return false;
+    size_t len = cc_str_len( str, NULL, max_len_d );
+    char * tmp__t = malloc( len + 1 );
+    if ( !tmp__t ) return NULL;
 
-    if ( !strncpy( tmp__t, str, length ) )
-        return false;
-    tmp__t[ length ] = '\0';
+    if ( !strncpy( tmp__t, str, len ) )
+        return NULL;
+    tmp__t[ len ] = '\0';
 
-    *str_o = tmp__t;
-    return true;
+    return tmp__t;
 }
 
-bool cc_str_copy_until_end_new( char const * const restrict str,
-                                char const * const restrict end,
-                                char ** const restrict str_o )
+char * cc_str_copy_until_end_new( char const * const restrict str,
+                                  char const * const restrict end )
 {
-    if ( !str ) return false;
-    if ( !end ) return false;
+    if ( !str ) return NULL;
+    if ( !end ) return NULL;
 
     size_t length = end - str;
 
-    return cc_str_copy_new( str, length, str_o );
+    return cc_str_copy_new( str, length );
 }
 
 
@@ -368,6 +364,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
     return new;
 }
 
+// TODO :: REPLACE :: DELETE :: replace with cc_str_append_format_new
 bool cc_str_append_char( char ** const restrict str_io__r,
                          char const chr )
 {
@@ -392,13 +389,14 @@ bool cc_str_append_char( char ** const restrict str_io__r,
     *str_io__r = new; // *str_io__r was free'd by realloc().
 
     char * n = new;
-    while ( *n ) ++n;
+    while ( *n != '\0' ) ++n;
 
     *n++ = chr;
     *n = '\0';
 
     return (bool)( new );
 }
+// TODO :: REPLACE :: DELETE :: replace with cc_str_append_format_new
 
 char * cc_str_append_new( char ** const restrict str_1__f,
                           char ** const restrict str_2__f,
