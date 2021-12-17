@@ -41,13 +41,13 @@ typedef int (*cc_ctype_fp_ischar_t)( int ch );
 
     @param str A string.
     @param fp_is_char A function pointer, used to filter characters.
-    @param count_o An _output_ parameter, used to hold result.
+    @param count__o An _output_ parameter, used to hold result.
 
     @return `true` if successful, `false` otherwise.
 */
 bool cc_str_count_chars( char const * const restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,
-                         size_t * const restrict count_o );
+                         size_t * const restrict count__o );
 
 /**
     Function returns a string pointer, by traversing a given string,
@@ -70,12 +70,12 @@ char const * cc_str_traverse_chars( char const * const restrict str,
 /**
     Function converting a string in-place, to uppercase or lowercase.
 
-    @param str_io String to convert.
+    @param str__io String to convert.
     @param to_upper_or_lower Whether to uppercase (`true`), or lowercase (`false`) string.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_to_case( char * const restrict str_io,
+bool cc_str_to_case( char * const restrict str__io,
                      bool const to_upper_or_lower );
 
 /**
@@ -93,22 +93,22 @@ char * cc_str_to_case_new( char const * const restrict str,
     Function returning length of a string, optionally capped at maximum length.
 
     @param first Pointer to a first `char` of a (sub-)string.
-    @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so length of a whole zero-terminated string is returned.
-    @param max_len_d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so length of whole zero-terminated string is returned.
+    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so length of a whole zero-terminated string is returned.
+    @param max_len__d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so length of whole zero-terminated string is returned.
 
     @warning
-    If no optional arguments (`end_d`, `max_len_d`) are given, given
+    If no optional arguments (`end__d`, `max_len__d`) are given, given
     string (`first`) has to be zero-terminated.
 
     @note
     End of a string is first `char` that does not belong to a (sub-)string.
-    For a whole string (when `end_d` is `NULL`) it's a `char` past ``'\0'``.
+    For a whole string (when `end__d` is `NULL`) it's a `char` past ``'\0'``.
 
     @return Length of a string if successful, `0` otherwise.
 */
 size_t cc_str_len( char const * const restrict first,
-                   char const * const restrict end_d,
-                   size_t const max_len_d );
+                   char const * const restrict end__d,
+                   size_t const max_len__d );
 
 /**
     Function returns length of a formatted variadic input.
@@ -129,30 +129,30 @@ int cc_str_len_format( char const * const restrict fmt, ... );
     Function returns end of a given (sub-)string.
 
     @param str A string.
-    @param max_len_d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is returned.
+    @param max_len__d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is returned.
 
     @warning
-    If optional argument `max_len_d` is `0`, given string (`str`) has
+    If optional argument `max_len__d` is `0`, given string (`str`) has
     to be zero-terminated.
 
     @note
     End of a string is first `char` that does not belong to a (sub-)string,
-    i.e. one past '\0', if `max_len_d` is `0`.
+    i.e. one past '\0', if `max_len__d` is `0`.
 
     @return End of a (sub-)string if successful, `NULL` otherwise.
 */
 char const * cc_str_end( char const * const restrict str,
-                         size_t const max_len_d );
+                         size_t const max_len__d );
 
 /**
     Compares two (sub-)strings, returns index of a first difference.
 
     @param first_1 A first character of a first (sub-)string.
-    @param end_1_d An _optional_ parameter, end of a first (sub-)string, can be `NULL`.
+    @param end_1__d An _optional_ parameter, end of a first (sub-)string, can be `NULL`.
     @param first_2 A first character of a second (sub-)string.
-    @param end_2_d An _optional_ parameter, end of a second (sub-)string, can be `NULL`.
-    @param max_len_d An _optional_ parameter, maximum length of a strings to check. Can be `0`, if so strings are checked in their entirety.
-    @param index_o An _output_ parameter, index of a first difference found.
+    @param end_2__d An _optional_ parameter, end of a second (sub-)string, can be `NULL`.
+    @param max_len__d An _optional_ parameter, maximum length of a strings to check. Can be `0`, if so strings are checked in their entirety.
+    @param index__o An _output_ parameter, index of a first difference found.
 
     @note
     End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
@@ -170,28 +170,28 @@ char const * cc_str_end( char const * const restrict str,
     If strings are different, index starts at `1`, not `0`.
     To fetch first pair of characters that differ, use:
     ~~~{.c}
-    char c1 = first_1[ llabs(index_o) - 1 ];
-    char c2 = first_2[ llabs(index_o) - 1 ];
+    char c1 = first_1[ llabs(index__o) - 1 ];
+    char c2 = first_2[ llabs(index__o) - 1 ];
     ~~~
 
     @return `true` if successful, `false` otherwise.
-    Index of a first difference found is returned via _output_ parameter `index_o`.
+    Index of a first difference found is returned via _output_ parameter `index__o`.
 */
 bool cc_str_compare( char const * const restrict first_1,
-                     char const * const restrict end_1_d,
+                     char const * const restrict end_1__d,
                      char const * const restrict first_2,
-                     char const * const restrict end_2_d,
-                     size_t const max_len_d,
-                     long long * const restrict index_o );
+                     char const * const restrict end_2__d,
+                     size_t const max_len__d,
+                     long long * const restrict index__o );
 
 /**
     Function checks if two (sub-)strings are equal, up to a given maximum length.
 
     @param first_1 A first character of a first (sub-)string.
-    @param end_1_d An _optional_ parameter, end of a first (sub-)string.
+    @param end_1__d An _optional_ parameter, end of a first (sub-)string.
     @param first_2 A first character of a second (sub-)string.
-    @param end_2_d An _optional_ parameter, end of a second (sub-)string.
-    @param max_len_d An _optional_ parameter, maximum length of a strings to check. Can be `0`, if so strings are checked in their entirety.
+    @param end_2__d An _optional_ parameter, end of a second (sub-)string.
+    @param max_len__d An _optional_ parameter, maximum length of a strings to check. Can be `0`, if so strings are checked in their entirety.
 
     @note
     End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
@@ -200,65 +200,65 @@ bool cc_str_compare( char const * const restrict first_1,
     @return `true` if two given (sub-)strings are equal up to a maximum length, `false` otherwise.
 */
 bool cc_str_is_equal( char const * const restrict first_1,
-                      char const * const restrict end_1_d,
+                      char const * const restrict end_1__d,
                       char const * const restrict first_2,
-                      char const * const restrict end_2_d,
-                      size_t const max_len_d );
+                      char const * const restrict end_2__d,
+                      size_t const max_len__d );
 
 /**
     Function copies (sub-)string into a newly allocated string.
 
     @param first A (sub-)string to copy.
-    @param end_d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is copied.
-    @param max_len_d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
+    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is copied.
+    @param max_len__d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
 
     @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
 */
 char * cc_str_copy_new( char const * const restrict first,
-                        char const * const restrict end_d,
-                        size_t const max_len_d );
+                        char const * const restrict end__d,
+                        size_t const max_len__d );
 
 
 /**
     Function returns a newly allocated string containing formatted variadic input,
     capped at given maximum length.
 
-    @param max_len_d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so entirety of formatted string is returned.
+    @param max_len__d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so entirety of formatted string is returned.
     @param fmt A string format to append.
     @param ... Variadic input for a string format.
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_str_format_new( size_t const max_len_d,
+char * cc_str_format_new( size_t const max_len__d,
                           char const * const restrict fmt, ... );
 
 /**
     Function duplicating a string, by returning a newly allocated string,
-    copied from a given string, at maximum first `max_len_d` characters.
+    copied from a given string, at maximum first `max_len__d` characters.
 
     @param str A string to duplicate.
     @param do_reverse Flag, whether returned string should be reversed.
-    @param max_len_d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
+    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
 char * cc_str_duplicate_new( char const * const restrict str,
                              bool const do_reverse,
-                             size_t const max_len_d );
+                             size_t const max_len__d );
 
 /**
     Function concatenating strings, by returning a newly allocated string,
     capped at a given maximum length.
 
-    @param str_1_d An _optional_ string to copy first, can be `NULL`.
-    @param str_2_d An _optional_ string to concatenate, can be `NULL`.
-    @param max_len_d _Optional_, maximum length to concatenate, if a given strings are longer than that. Can be `0`, if so strings are concatenated in their entirety.
+    @param str_1__d An _optional_ string to copy first, can be `NULL`.
+    @param str_2__d An _optional_ string to concatenate, can be `NULL`.
+    @param max_len__d _Optional_, maximum length to concatenate, if a given strings are longer than that. Can be `0`, if so strings are concatenated in their entirety.
 
     @return A newly allocated, concatenated string if successful, `NULL` otherwise.
 */
-char * cc_str_concatenate_new( char const * const restrict str_1_d,
-                               char const * const restrict str_2_d,
-                               size_t const max_len_d );
+char * cc_str_concatenate_new( char const * const restrict str_1__d,
+                               char const * const restrict str_2__d,
+                               size_t const max_len__d );
 
 /**
     Function appending strings, by returning a newly allocated string,
@@ -266,7 +266,7 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
 
     @param str_1__f A string, can be unallocated.
     @param str_2__f A string to append, can be unallocated.
-    @param max_len_d _Optional_, maximum length to concatenate, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
+    @param max_len__d _Optional_, maximum length to concatenate, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
 
     @note
     If both strings are allocated, resulting string is concatenating the two.
@@ -284,14 +284,14 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
 */
 char * cc_str_append_new( char const ** const restrict str_1__f,
                           char const ** const restrict str_2__f,
-                          size_t const max_len_d );
+                          size_t const max_len__d );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string,
     capped at given maximum length.
 
     @param str__f A string, can be unallocated.
-    @param max_len_d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
+    @param max_len__d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
     @param fmt A string format to append.
     @param ... Variadic input for a string format.
 
@@ -307,7 +307,7 @@ char * cc_str_append_new( char const ** const restrict str_1__f,
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
 char * cc_str_append_format_new( char const ** const restrict str__f,
-                                 size_t const max_len_d,
+                                 size_t const max_len__d,
                                  char const * const restrict fmt, ... );
 
 

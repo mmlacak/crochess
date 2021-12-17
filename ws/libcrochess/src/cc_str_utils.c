@@ -17,18 +17,18 @@
 
 bool cc_str_count_chars( char const * const restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,
-                         size_t * const restrict count_o )
+                         size_t * const restrict count__o )
 {
     if ( !str ) return false;
     if ( !fp_is_char ) return false;
-    if ( !count_o ) return false;
+    if ( !count__o ) return false;
 
     char const * s = str;
-    *count_o = 0;
+    *count__o = 0;
 
     while ( *s != '\0' )
     {
-        if ( fp_is_char( *s++ ) ) *count_o += 1;
+        if ( fp_is_char( *s++ ) ) *count__o += 1;
     }
 
     return true;
@@ -49,12 +49,12 @@ char const * cc_str_traverse_chars( char const * const restrict str,
 }
 
 
-bool cc_str_to_case( char * const restrict str_io,
+bool cc_str_to_case( char * const restrict str__io,
                      bool const to_upper_or_lower )
 {
-    if ( !str_io ) return false;
+    if ( !str__io ) return false;
 
-    char * s = str_io;
+    char * s = str__io;
     while ( *s )
     {
         if ( to_upper_or_lower )
@@ -73,8 +73,8 @@ char * cc_str_to_case_new( char const * const restrict str,
 {
     if ( !str ) return NULL;
 
-    size_t len = strlen( str );
-    char * lc = malloc( len + 1 );
+    size_t const len = strlen( str );
+    char * const lc = malloc( len + 1 );
     if ( !lc ) return NULL;
 
     char * s = lc;
@@ -97,36 +97,36 @@ char * cc_str_to_case_new( char const * const restrict str,
 
 
 size_t cc_str_len( char const * const restrict first,
-                   char const * const restrict end_d,
-                   size_t const max_len_d )
+                   char const * const restrict end__d,
+                   size_t const max_len__d )
 {
     if ( !first ) return 0;
 
     size_t len = 0;
     char const * s = first;
 
-    if ( max_len_d == CC_MAX_LEN_IGNORE )
+    if ( max_len__d == CC_MAX_LEN_IGNORE )
     {
         while ( *s != '\0' ) ++s;
         len = s - first;
     }
     else
-        while ( ( *s != '\0' ) && ( ++len < max_len_d ) ) ++s;
+        while ( ( *s != '\0' ) && ( ++len < max_len__d ) ) ++s;
 
-    if ( end_d )
-        // Effectively, checks if end_d belongs to a string,
-        // i.e. first + 1 <= end_d <= first + strlen() + 2 (at most).
+    if ( end__d )
+        // Effectively, checks if end__d belongs to a string,
+        // i.e. first + 1 <= end__d <= first + strlen() + 2 (at most).
         //
-        // At most +2 because +1 for '\0' might not be present,
-        // another +1 because end of string is first char which
+        // At most +2 because +1 for '\0' (which might not be present),
+        // and another +1 because end of string is a first char which
         // does not belong to that string.
         //
-        // In case end_d < first, (size_t) cast pushes (end_d - first)
+        // In case end__d < first, (size_t) cast pushes (end__d - first)
         // towards max ints, so MIN() will still return reasonable len.
-        len = CC_MIN( len, (size_t)(end_d - first) );
+        len = CC_MIN( len, (size_t)(end__d - first) );
 
     // Not needed, len was already capped in the while() loop above.
-    // return CC_MIN( len, max_len_d );
+    // return CC_MIN( len, max_len__d );
     return len;
 }
 
@@ -135,14 +135,14 @@ int cc_str_len_format( char const * const restrict fmt, ... )
     va_list args;
     va_start( args, fmt );
 
-    int len = vsnprintf( NULL, 0, fmt, args ); // len does not include \0.
+    int const len = vsnprintf( NULL, 0, fmt, args ); // len does not include \0.
     va_end( args );
 
     return len;
 }
 
 char const * cc_str_end( char const * const restrict str,
-                         size_t const max_len_d )
+                         size_t const max_len__d )
 {
     if ( !str ) return NULL;
 
@@ -150,31 +150,31 @@ char const * cc_str_end( char const * const restrict str,
     size_t index = 0;
 
     while ( *end++ != '\0' )
-        if ( ( max_len_d != CC_MAX_LEN_IGNORE ) && ( index++ >= max_len_d ) )
+        if ( ( max_len__d != CC_MAX_LEN_IGNORE ) && ( index++ >= max_len__d ) )
             return end;
 
     return ++end;
 }
 
 bool cc_str_compare( char const * const restrict first_1,
-                     char const * const restrict end_1_d,
+                     char const * const restrict end_1__d,
                      char const * const restrict first_2,
-                     char const * const restrict end_2_d,
-                     size_t const max_len_d,
-                     long long * const restrict index_o )
+                     char const * const restrict end_2__d,
+                     size_t const max_len__d,
+                     long long * const restrict index__o )
 {
     if ( !first_1 ) return false;
     if ( !first_2 ) return false;
 
     char const * str_1 = first_1;
-    char const * last_1 = ( end_1_d ) ? end_1_d - 1 : NULL;
+    char const * const last_1 = ( end_1__d ) ? end_1__d - 1 : NULL;
     char const * str_2 = first_2;
-    char const * last_2 = ( end_2_d ) ? end_2_d - 1 : NULL;
+    char const * const last_2 = ( end_2__d ) ? end_2__d - 1 : NULL;
     size_t index = 1;
 
     while ( ( *str_1 != '\0' )
          && ( *str_2 != '\0' )
-         && ( ( max_len_d == CC_MAX_LEN_IGNORE ) || ( index < max_len_d ) ) )
+         && ( ( max_len__d == CC_MAX_LEN_IGNORE ) || ( index < max_len__d ) ) )
     {
         if ( last_1 && ( str_1 >= last_1 ) )
             break;
@@ -190,40 +190,41 @@ bool cc_str_compare( char const * const restrict first_1,
         ++str_2;
     }
 
-    *index_o = ( *str_1 == *str_2 ) ? 0 :
-               ( *str_1 < *str_2 ) ? (long long)-index : (long long)index;
+    *index__o =
+        ( *str_1 == *str_2 ) ? 0
+                             : ( *str_1 < *str_2 ) ? (long long)(-index)
+                                                   : (long long)index;
+
     return true;
 }
 
 bool cc_str_is_equal( char const * const restrict first_1,
-                      char const * const restrict end_1_d,
+                      char const * const restrict end_1__d,
                       char const * const restrict first_2,
-                      char const * const restrict end_2_d,
-                      size_t const max_len_d )
+                      char const * const restrict end_2__d,
+                      size_t const max_len__d )
 {
     if ( !first_1 ) return false;
     if ( !first_2 ) return false;
 
-    size_t len_1 = cc_str_len( first_1, end_1_d, max_len_d );
-    size_t len_2 = cc_str_len( first_2, end_2_d, max_len_d );
-
+    size_t const len_1 = cc_str_len( first_1, end_1__d, max_len__d );
+    size_t const len_2 = cc_str_len( first_2, end_2__d, max_len__d );
     if ( len_1 != len_2 ) return false;
 
     long long index = 0;
-
-    if ( cc_str_compare( first_1, end_1_d, first_2, end_2_d, max_len_d, &index ) )
+    if ( cc_str_compare( first_1, end_1__d, first_2, end_2__d, max_len__d, &index ) )
         return ( index == 0 );
 
     return false;
 }
 
 char * cc_str_copy_new( char const * const restrict first,
-                        char const * const restrict end_d,
-                        size_t const max_len_d )
+                        char const * const restrict end__d,
+                        size_t const max_len__d )
 {
     if ( !first ) return NULL;
 
-    size_t len = cc_str_len( first, end_d, max_len_d );
+    size_t const len = cc_str_len( first, end__d, max_len__d );
     char * tmp__t = malloc( len + 1 );
     if ( !tmp__t ) return NULL;
 
@@ -234,7 +235,7 @@ char * cc_str_copy_new( char const * const restrict first,
     return tmp__t;
 }
 
-char * cc_str_format_new( size_t const max_len_d,
+char * cc_str_format_new( size_t const max_len__d,
                           char const * const restrict fmt, ... )
 {
     va_list args;
@@ -243,7 +244,7 @@ char * cc_str_format_new( size_t const max_len_d,
     va_list tmp;
     va_copy( tmp, args );
 
-    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    int const len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
     if ( len < 0 )
     {
         va_end( tmp );
@@ -253,8 +254,8 @@ char * cc_str_format_new( size_t const max_len_d,
 
     va_end( tmp );
 
-    size_t len_min = ( max_len_d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len_d )
-                                                        : (size_t)len;
+    size_t const len_min = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len__d )
+                                                               : (size_t)len;
     char * new__t = (char *)malloc( len_min + 1 );
     if ( !new__t )
     {
@@ -262,20 +263,19 @@ char * cc_str_format_new( size_t const max_len_d,
         return NULL;
     }
 
-    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
+    int const len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
     if ( len_2 < 0 )
     {
-        free( new__t );
+        CC_FREE( new__t );
         va_end( args );
         return NULL;
     }
 
     va_end( args );
 
-    size_t len_min_2 = (size_t)len_2;
-    if ( len_min != len_min_2 )
+    if ( len_min != (size_t const)len_2 )
     {
-        free( new__t );
+        CC_FREE( new__t );
         return NULL;
     }
 
@@ -284,11 +284,11 @@ char * cc_str_format_new( size_t const max_len_d,
 
 char * cc_str_duplicate_new( char const * const restrict str,
                              bool const do_reverse,
-                             size_t const max_len_d )
+                             size_t const max_len__d )
 {
     if ( !str ) return NULL;
 
-    size_t len = cc_str_len( str, NULL, max_len_d );
+    size_t len = cc_str_len( str, NULL, max_len__d );
     char * new = (char *)malloc( len + 1 );
     if ( !new ) return NULL;
 
@@ -318,13 +318,13 @@ char * cc_str_duplicate_new( char const * const restrict str,
     return new;
 }
 
-char * cc_str_concatenate_new( char const * const restrict str_1_d,
-                               char const * const restrict str_2_d,
-                               size_t const max_len_d )
+char * cc_str_concatenate_new( char const * const restrict str_1__d,
+                               char const * const restrict str_2__d,
+                               size_t const max_len__d )
 {
-    size_t len_1 = cc_str_len( str_1_d, NULL, max_len_d );
-    size_t len_2 = cc_str_len( str_2_d, NULL, max_len_d );
-    size_t len = ( max_len_d != CC_MAX_LEN_IGNORE ) ? CC_MIN( len_1 + len_2, max_len_d )
+    size_t len_1 = cc_str_len( str_1__d, NULL, max_len__d );
+    size_t len_2 = cc_str_len( str_2__d, NULL, max_len__d );
+    size_t len = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( len_1 + len_2, max_len__d )
                                                     : len_1 + len_2;
 
     char * new = (char *)malloc( len + 1 );
@@ -334,13 +334,13 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
     {
         char * n = new;
 
-        char const * s = str_1_d;
+        char const * s = str_1__d;
         len_1 = CC_MIN( len_1, len );
         if ( s && ( len_1 > 0 ) )
             for ( size_t i = 0; ( i < len_1 ) && ( *s != '\0' ); ++i )
                 *n++ = *s++;
 
-        s = str_2_d;
+        s = str_2__d;
         len_2 = len - len_1;
         if ( s && ( len_2 > 0 ) )
             for ( size_t i = 0; ( i < len_2 ) && ( *s != '\0' ); ++i )
@@ -355,30 +355,30 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
 
 char * cc_str_append_new( char const ** const restrict str_1__f,
                           char const ** const restrict str_2__f,
-                          size_t const max_len_d )
+                          size_t const max_len__d )
 {
     if ( ( !str_1__f ) && ( !str_2__f ) ) return NULL;
 
     char * new = NULL;
 
     if ( str_1__f && str_2__f )
-        new = cc_str_concatenate_new( *str_1__f, *str_2__f, max_len_d );
+        new = cc_str_concatenate_new( *str_1__f, *str_2__f, max_len__d );
     else if ( str_1__f )
-        new = cc_str_duplicate_new( *str_1__f, false, max_len_d );
+        new = cc_str_duplicate_new( *str_1__f, false, max_len__d );
     else if ( str_2__f )
-        new = cc_str_duplicate_new( *str_2__f, false, max_len_d );
+        new = cc_str_duplicate_new( *str_2__f, false, max_len__d );
 
     if ( !new ) return NULL;
 
     if ( str_1__f )
     {
-        free( (void *)(*str_1__f) );
+        CC_FREE( *str_1__f );
         *str_1__f = NULL;
     }
 
     if ( str_2__f )
     {
-        free( (void *)(*str_2__f) );
+        CC_FREE( *str_2__f );
         *str_2__f = NULL;
     }
 
@@ -386,7 +386,7 @@ char * cc_str_append_new( char const ** const restrict str_1__f,
 }
 
 char * cc_str_append_format_new( char const ** const restrict str__f,
-                                 size_t const max_len_d,
+                                 size_t const max_len__d,
                                  char const * const restrict fmt, ... )
 {
     va_list args;
@@ -405,7 +405,7 @@ char * cc_str_append_format_new( char const ** const restrict str__f,
 
     va_end( tmp );
 
-    size_t len_min = ( max_len_d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len_d )
+    size_t len_min = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len__d )
                                                         : (size_t)len;
     char * new__t = (char *)malloc( len_min + 1 );
     if ( !new__t )
@@ -414,25 +414,24 @@ char * cc_str_append_format_new( char const ** const restrict str__f,
         return NULL;
     }
 
-    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
+    int const len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
     if ( len_2 < 0 )
     {
-        free( new__t );
+        CC_FREE( new__t );
         va_end( args );
         return NULL;
     }
 
     va_end( args );
 
-    size_t len_min_2 = (size_t)len_2;
-    if ( len_min != len_min_2 )
+    if ( len_min != (size_t const)len_2 )
     {
-        free( new__t );
+        CC_FREE( new__t );
         return NULL;
     }
 
     // No need to free() str__f, new__t; cc_str_append_new() does that.
     return cc_str_append_new( str__f,
-                              (char const ** const)(&new__t),
-                              max_len_d );
+                              CC_CAST_TC_P_PC( char, &new__t ),
+                              max_len__d );
 }
