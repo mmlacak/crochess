@@ -51,14 +51,14 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply );
 /**
     Applies step to chessboard.
 
-    @param cb_io A chessboard to be altered.
+    @param cb__io A chessboard to be altered.
     @param move Grand-parent move which owns this step.
     @param ply Parent ply which owns this step.
     @param step A step being applied.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_do_step( CcChessboard * const restrict cb_io,
+bool cc_do_step( CcChessboard * const restrict cb__io,
                  CcMove const * const restrict move,
                  CcPly const * const restrict ply,
                  CcStep const * const restrict step );
@@ -66,26 +66,26 @@ bool cc_do_step( CcChessboard * const restrict cb_io,
 /**
     Applies ply to chessboard.
 
-    @param cb_io A chessboard to be altered.
+    @param cb__io A chessboard to be altered.
     @param move Parent move which owns this step.
     @param ply A ply being applied.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_do_ply( CcChessboard * const restrict cb_io,
+bool cc_do_ply( CcChessboard * const restrict cb__io,
                 CcMove const * const restrict move,
                 CcPly const * const restrict ply );
 
 /**
     Applies move(s) to chessboard.
 
-    @param cb_io A chessboard to be altered.
+    @param cb__io A chessboard to be altered.
     @param moves A move(s) being applied.
     @param do_spec Flag, which move(s) are to be applied.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_do_moves( CcChessboard * const restrict cb_io,
+bool cc_do_moves( CcChessboard * const restrict cb__io,
                   CcMove const * const restrict moves,
                   CcDoMoveEnum const do_spec );
 

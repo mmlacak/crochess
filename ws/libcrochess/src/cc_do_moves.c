@@ -25,7 +25,7 @@ CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply )
 
 bool cc_is_teleporting_next( CcPly const * const restrict ply )
 {
-    CcPlyLinkEnum * pl = cc_get_next_ply_link( ply );
+    CcPlyLinkEnum const * const pl = cc_get_next_ply_link( ply );
     if ( !pl ) return false;
 
     bool result = ( ( *pl == CC_PLE_Teleportation )
@@ -35,22 +35,22 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply )
 }
 
 
-bool cc_do_step( CcChessboard * const restrict cb_io,
+bool cc_do_step( CcChessboard * const restrict cb__io,
                  CcMove const * const restrict move,
                  CcPly const * const restrict ply,
                  CcStep const * const restrict step )
 {
-    if ( !cb_io ) return false;
+    if ( !cb__io ) return false;
     if ( !move ) return false;
     if ( !move->plies ) return false;
     if ( !ply ) return false;
     if ( !step ) return false;
 
     CcPieceEnum pe = ply->piece;
-    CcStep * steps = ply->steps;
+    CcStep const * const steps = ply->steps;
     if ( !steps ) return false;
 
-    CcStep * last = steps;
+    CcStep const * last = steps;
     while ( last->next ) { last = last->next; }
 
     bool result = true;
@@ -59,7 +59,7 @@ bool cc_do_step( CcChessboard * const restrict cb_io,
     bool is_last_step = ( last == step );
 
     if ( is_first_ply && is_first_step )
-        result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, CC_PE_None );
+        result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, CC_PE_None );
     else
     {
         CcSideEffect const * const se = &( step->side_effect );
@@ -69,44 +69,44 @@ bool cc_do_step( CcChessboard * const restrict cb_io,
             case CC_SEE_None :
             {
                 if ( is_last_step && ( !cc_is_teleporting_next( ply ) ) )
-                    result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, pe );
+                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
                 break;
             }
 
             case CC_SEE_Capture :
             {
                 if ( is_last_step )
-                    result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, pe );
+                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
                 else
-                    result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, CC_PE_None );
+                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, CC_PE_None );
                 break;
             }
 
             case CC_SEE_Displacement :
             {
                 if ( is_last_step )
-                    result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, pe );
+                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
                 else
-                    result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, CC_PE_None );
+                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, CC_PE_None );
 
-                result = result && cc_chessboard_set_piece( cb_io, se->displacement.dest_i, se->displacement.dest_j, se->displacement.piece );
+                result = result && cc_chessboard_set_piece( cb__io, se->displacement.dest_i, se->displacement.dest_j, se->displacement.piece );
                 break;
             }
 
             case CC_SEE_EnPassant :
             {
-                result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
 
                 int i = se->en_passant.dest_i;
                 int j = se->en_passant.dest_j;
-                result = result && cc_chessboard_set_piece( cb_io, i, j, CC_PE_None );
+                result = result && cc_chessboard_set_piece( cb__io, i, j, CC_PE_None );
 
                 break;
             }
 
             case CC_SEE_Castle :
             {
-                result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
 
                 CcPieceEnum rook = se->castle.rook;
                 int start_i = se->castle.start_i;
@@ -114,8 +114,8 @@ bool cc_do_step( CcChessboard * const restrict cb_io,
                 int dest_i = se->castle.dest_i;
                 int dest_j = se->castle.dest_j;
 
-                result = result && cc_chessboard_set_piece( cb_io, start_i, start_j, CC_PE_None );
-                result = result && cc_chessboard_set_piece( cb_io, dest_i, dest_j, rook );
+                result = result && cc_chessboard_set_piece( cb__io, start_i, start_j, CC_PE_None );
+                result = result && cc_chessboard_set_piece( cb__io, dest_i, dest_j, rook );
 
                 break;
             }
@@ -123,20 +123,20 @@ bool cc_do_step( CcChessboard * const restrict cb_io,
             case CC_SEE_Promotion :
             {
                 CcPieceEnum new = se->promote.piece;
-                result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, new );
+                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, new );
                 break;
             }
 
             case CC_SEE_TagForPromotion :
             {
-                cc_chessboard_set_tag( cb_io, step->i, step->j, CC_TE_DelayedPromotion );
+                cc_chessboard_set_tag( cb__io, step->i, step->j, CC_TE_DelayedPromotion );
                 break;
             }
 
             case CC_SEE_Conversion :
             {
                 CcPieceEnum new = se->convert.piece;
-                result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, new );
+                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, new );
                 break;
             }
 
@@ -144,31 +144,31 @@ bool cc_do_step( CcChessboard * const restrict cb_io,
 
             case CC_SEE_Demotion :
             {
-                result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
 
                 CcPieceEnum pawn = cc_piece_demoting_to( se->demote.piece );
                 int i = se->demote.dest_i;
                 int j = se->demote.dest_j;
-                result = result && cc_chessboard_set_piece( cb_io, i, j, pawn );
+                result = result && cc_chessboard_set_piece( cb__io, i, j, pawn );
 
                 break;
             }
 
             case CC_SEE_Resurrection :
             {
-                result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
 
                 CcPieceEnum pe = se->resurrect.piece;
                 int i = se->resurrect.dest_i;
                 int j = se->resurrect.dest_j;
-                result = result && cc_chessboard_set_piece( cb_io, i, j, pe );
+                result = result && cc_chessboard_set_piece( cb__io, i, j, pe );
 
                 break;
             }
 
             case CC_SEE_FailedResurrection :
             {
-                result = result && cc_chessboard_set_piece( cb_io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
                 break; // Resurrection blocked, or no captured pieces, nothing to do here.
             }
         }
@@ -177,11 +177,11 @@ bool cc_do_step( CcChessboard * const restrict cb_io,
     return true;
 }
 
-bool cc_do_ply( CcChessboard * const restrict cb_io,
+bool cc_do_ply( CcChessboard * const restrict cb__io,
                 CcMove const * const restrict move,
                 CcPly const * const restrict ply )
 {
-    // if ( !cb_io ) return false;
+    // if ( !cb__io ) return false;
 
     // if ( !move ) return false;
     // if ( !move->plies ) return false;
@@ -189,25 +189,25 @@ bool cc_do_ply( CcChessboard * const restrict cb_io,
     if ( !ply ) return false;
 
     bool result = true;
-    CcStep * s = ply->steps;
+    CcStep const * s = ply->steps;
 
     while ( s && result )
     {
-        result = result && cc_do_step( cb_io, move, ply, s );
+        result = result && cc_do_step( cb__io, move, ply, s );
         s = s->next;
     }
 
     return result;
 }
 
-bool cc_do_moves( CcChessboard * const restrict cb_io,
+bool cc_do_moves( CcChessboard * const restrict cb__io,
                   CcMove const * const restrict moves,
                   CcDoMoveEnum const do_spec )
 {
-    if ( !cb_io ) return false;
+    if ( !cb__io ) return false;
     if ( !moves ) return false;
 
-    CcChessboard * tmp = cc_chessboard_duplicate_new( cb_io );
+    CcChessboard * tmp = cc_chessboard_duplicate_new( cb__io );
     if ( !tmp ) return false;
 
     bool result = true;
@@ -220,7 +220,7 @@ bool cc_do_moves( CcChessboard * const restrict cb_io,
     {
         if ( !mv->plies ) return false;
 
-        CcPly * p = mv->plies;
+        CcPly const * p = mv->plies;
         while ( p && result )
         {
             result = result && cc_do_ply( tmp, mv, p );
@@ -232,6 +232,6 @@ bool cc_do_moves( CcChessboard * const restrict cb_io,
         mv = mv->next;
     }
 
-    if ( result ) cc_chessboard_copy( cb_io, tmp );
+    if ( result ) cc_chessboard_copy( cb__io, tmp );
     return result;
 }
