@@ -52,48 +52,48 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     return ply;
 }
 
-CcPly * cc_ply_append( CcPly * const restrict plies,
+CcPly * cc_ply_append( CcPly * const restrict plies__io,
                        CcPlyLinkEnum const link,
                        CcPieceEnum const piece,
                        CcStep ** const restrict steps__n )
 {
-    if ( !plies ) return NULL;
+    if ( !plies__io ) return NULL;
 
-    CcPly * new = cc_ply_new( link, piece, steps__n );
-    if ( !new ) return NULL;
+    CcPly * new__t = cc_ply_new( link, piece, steps__n );
+    if ( !new__t ) return NULL;
 
-    CcPly * p = plies;
+    CcPly * p = plies__io;
     while ( p->next ) p = p->next; // rewind
-    p->next = new; // append
+    p->next = new__t; // append
 
-    return new;
+    return new__t;
 }
 
-CcPly * cc_ply_append_or_init( CcPly ** const restrict plies_io,
+CcPly * cc_ply_append_or_init( CcPly ** const restrict plies__io,
                                CcPlyLinkEnum const link,
                                CcPieceEnum const piece,
                                CcStep ** const restrict steps__n )
 {
-    if ( !plies_io ) return NULL;
+    if ( !plies__io ) return NULL;
 
-    CcPly * new = NULL;
+    CcPly * new__t = NULL;
 
-    if ( !*plies_io )
-        *plies_io = new = cc_ply_new( link, piece, steps__n );
+    if ( !*plies__io )
+        *plies__io = new__t = cc_ply_new( link, piece, steps__n );
     else
-        new = cc_ply_append( *plies_io, link, piece, steps__n );
+        new__t = cc_ply_append( *plies__io, link, piece, steps__n );
 
-    return new;
+    return new__t;
 }
 
 CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
 {
     if ( !plies ) return NULL;
 
-    CcStep * steps__t = cc_step_duplicate_all_new( plies->steps );
+    CcStep const * steps__t = cc_step_duplicate_all_new( plies->steps );
     if ( !steps__t ) return NULL;
 
-    CcPly * new__o = cc_ply_new( plies->link, plies->piece, &steps__t );
+    CcPly * new__o = cc_ply_new( plies->link, plies->piece, CC_CAST_T_P_PC( CcStep, &steps__t ) );
     if ( !new__o )
     {
         cc_step_free_all_steps( &steps__t );
@@ -107,15 +107,15 @@ CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
         CcStep * s__t = cc_step_duplicate_all_new( from->steps );
         if ( !s__t )
         {
-            cc_ply_free_all_plies( &new__o );
+            cc_ply_free_all_plies( CC_CAST_TC_P_PC( CcPly, &new__o ) );
             return NULL;
         }
 
         CcPly * n__w = cc_ply_append( new__o, from->link, from->piece, &s__t );
         if ( !n__w )
         {
-            cc_step_free_all_steps( &s__t );
-            cc_ply_free_all_plies( &new__o );
+            cc_step_free_all_steps( CC_CAST_TC_P_PC( CcStep, &s__t ) );
+            cc_ply_free_all_plies( CC_CAST_TC_P_PC( CcPly, &new__o ) );
             return NULL;
         }
 
@@ -125,21 +125,21 @@ CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
     return new__o;
 }
 
-bool cc_ply_free_all_plies( CcPly ** const restrict plies__f )
+bool cc_ply_free_all_plies( CcPly const ** const restrict plies__f )
 {
     if ( !plies__f ) return false;
     if ( !*plies__f ) return true;
 
     bool result = true;
-    CcPly * ply = *plies__f;
+    CcPly const * ply = *plies__f;
 
     while ( ply )
     {
-        CcStep ** steps = &( ply->steps );
+        CcStep const ** const steps = CC_CAST_TC_P_PC( CcStep, &( ply->steps ) );
         result = result && cc_step_free_all_steps( steps );
 
-        CcPly * tmp = ply->next;
-        free( ply );
+        CcPly const * tmp = ply->next;
+        CC_FREE( ply );
         ply = tmp;
     }
 

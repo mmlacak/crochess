@@ -94,7 +94,7 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
 /**
     Appends a newly allocated ply to a given linked list.
 
-    @param plies Plies, linked list.
+    @param plies__io _Input/ouput_ parameter, plies linked list.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
     @param steps__n Steps, linked list, can be `NULL`.
@@ -104,7 +104,7 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     @return
     Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append( CcPly * const restrict plies,
+CcPly * cc_ply_append( CcPly * const restrict plies__io,
                        CcPlyLinkEnum const link,
                        CcPieceEnum const piece,
                        CcStep ** const restrict steps__n );
@@ -112,22 +112,22 @@ CcPly * cc_ply_append( CcPly * const restrict plies,
 /**
     Allocates a new ply, appends it to a linked list.
 
-    @param plies_io Linked list of plies, to which a newly allocated ply is appended, can be `NULL`.
+    @param plies__io _Input/output_ parameter, linked list of plies, to which a newly allocated ply is appended, can be `NULL`.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
     @param steps__n Steps, linked list, can be `NULL`.
 
     @note
-    Linked list `*plies_io` can be `NULL`, a ply will still be allocated, and returned.
+    Linked list `*plies__io` can be `NULL`, a ply will still be allocated, and returned.
 
     @note
-    If linked list `*plies_io` is `NULL`, it will be initialized,
+    If linked list `*plies__io` is `NULL`, it will be initialized,
     with a newly allocated ply as its first element.
 
     @return
     Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append_or_init( CcPly ** const restrict plies_io,
+CcPly * cc_ply_append_or_init( CcPly ** const restrict plies__io,
                                CcPlyLinkEnum const link,
                                CcPieceEnum const piece,
                                CcStep ** const restrict steps__n );
@@ -153,7 +153,7 @@ CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_ply_free_all_plies( CcPly ** const restrict plies__f );
+bool cc_ply_free_all_plies( CcPly const ** const restrict plies__f );
 
 /**
     Checks whether any step in a ply has side-effects.
