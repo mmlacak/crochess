@@ -140,12 +140,12 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict 
     return cb__t;
 }
 
-bool cc_chessboard_free_all( CcChessboard const ** const restrict cb__n )
+bool cc_chessboard_free_all( CcChessboard const ** const restrict cb__f )
 {
-    if ( !cb__n ) return false;
-    if ( !*cb__n ) return true;
+    if ( !cb__f ) return false;
+    if ( !*cb__f ) return true;
 
-    CC_FREE_NULL( cb__n );
+    CC_FREE_NULL( cb__f );
     return true;
 }
 

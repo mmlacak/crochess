@@ -109,11 +109,11 @@ CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game );
 /**
     Frees game, and all owned resources (chessboard, moves).
 
-    @param game__n A game to free.
+    @param game__f A game to free.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_game_free_all( CcGame const ** const restrict game__n );
+bool cc_game_free_all( CcGame const ** const restrict game__f );
 
 
 /**
@@ -123,11 +123,11 @@ bool cc_game_free_all( CcGame const ** const restrict game__n );
     allocated resources (even in the middle of building whole move data
     structure), before returning from a calling test function.
 
-    @param gm__n A game, can be `NULL`.
-    @param cb__n A chessboard, can be `NULL`.
-    @param moves__n Linked list of moves, can be `NULL`.
-    @param plies__n Linked list of plies, can be `NULL`.
-    @param steps__n Linked list of steps, can be `NULL`.
+    @param gm__f A game, can be `NULL`.
+    @param cb__f A chessboard, can be `NULL`.
+    @param moves__f Linked list of moves, can be `NULL`.
+    @param plies__f Linked list of plies, can be `NULL`.
+    @param steps__f Linked list of steps, can be `NULL`.
     @param cumulative_result A cumulative result so far.
 
     @note
@@ -158,11 +158,11 @@ bool cc_game_free_all( CcGame const ** const restrict game__n );
 
     @return `true` if cumulatively successful, `false` otherwise.
 */
-bool cc_game_move_data_free_all( CcGame const ** const restrict gm__n,
-                                 CcChessboard const ** const restrict cb__n,
-                                 CcMove const ** const restrict moves__n,
-                                 CcPly const ** const restrict plies__n,
-                                 CcStep const ** const restrict steps__n,
+bool cc_game_move_data_free_all( CcGame const ** const restrict gm__f,
+                                 CcChessboard const ** const restrict cb__f,
+                                 CcMove const ** const restrict moves__f,
+                                 CcPly const ** const restrict plies__f,
+                                 CcStep const ** const restrict steps__f,
                                  bool const cumulative_result );
 
 

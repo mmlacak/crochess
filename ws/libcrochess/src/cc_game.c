@@ -53,7 +53,7 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     gm->chessboard = cc_chessboard_new( ve, do_setup );
     if ( !gm->chessboard )
     {
-        free( gm );
+        CC_FREE( gm );
         return NULL;
     }
 
@@ -83,6 +83,7 @@ CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game )
     CcMove * mv__t = cc_move_duplicate_all_new( game->moves );
     if ( game->moves && ( !mv__t ) )
     {
+        cc_chessboard_free_all( CC_CAST_TC_P_PC( CcChessboard, &cb__t ) );
         cc_game_free_all( CC_CAST_TC_P_PC( CcGame, &gm__t ) );
         return NULL;
     }
@@ -92,42 +93,42 @@ CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game )
     return gm__t;
 }
 
-bool cc_game_free_all( CcGame const ** const restrict game__n )
+bool cc_game_free_all( CcGame const ** const restrict game__f )
 {
-    if ( !game__n ) return false;
-    if ( !*game__n ) return true;
+    if ( !game__f ) return false;
+    if ( !*game__f ) return true;
 
     bool result = true;
 
-    CcChessboard ** cb__a = &( ( *game__n )->chessboard );
+    CcChessboard ** cb__a = &( ( *game__f )->chessboard );
     result = cc_chessboard_free_all( CC_CAST_TC_P_PC( CcChessboard, cb__a ) ) && result;
 
-    CcMove ** mv = &( ( *game__n )->moves );
-    result = cc_move_free_all_moves( CC_CAST_TC_P_PC( CcMove, mv ) ) && result;
+    CcMove ** mv__a = &( ( *game__f )->moves );
+    result = cc_move_free_all_moves( CC_CAST_TC_P_PC( CcMove, mv__a ) ) && result;
 
-    CC_FREE_NULL( game__n );
+    CC_FREE_NULL( game__f );
 
     return result;
 }
 
-bool cc_game_move_data_free_all( CcGame const ** const restrict gm__n,
-                                 CcChessboard const ** const restrict cb__n,
-                                 CcMove const ** const restrict moves__n,
-                                 CcPly const ** const restrict plies__n,
-                                 CcStep const ** const restrict steps__n,
+bool cc_game_move_data_free_all( CcGame const ** const restrict gm__f,
+                                 CcChessboard const ** const restrict cb__f,
+                                 CcMove const ** const restrict moves__f,
+                                 CcPly const ** const restrict plies__f,
+                                 CcStep const ** const restrict steps__f,
                                  bool const cumulative_result )
 {
     bool results = true;
 
-    if ( gm__n ) results = cc_game_free_all( gm__n ) && results;
+    if ( gm__f ) results = cc_game_free_all( gm__f ) && results;
 
-    if ( cb__n ) results = cc_chessboard_free_all( cb__n ) && results;
+    if ( cb__f ) results = cc_chessboard_free_all( cb__f ) && results;
 
-    if ( moves__n ) results = cc_move_free_all_moves( moves__n ) && results;
+    if ( moves__f ) results = cc_move_free_all_moves( moves__f ) && results;
 
-    if ( plies__n ) results = cc_ply_free_all_plies( plies__n ) && results;
+    if ( plies__f ) results = cc_ply_free_all_plies( plies__f ) && results;
 
-    if ( steps__n ) results = cc_step_free_all_steps( steps__n ) && results;
+    if ( steps__f ) results = cc_step_free_all_steps( steps__f ) && results;
 
     return ( cumulative_result && results );
 }
