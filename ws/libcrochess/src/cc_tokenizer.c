@@ -62,27 +62,27 @@ char const * cc_stop_at_chars( char const * const restrict pos,
 
 bool cc_token_iter_new( char const * const restrict str,
                         char const * const restrict seps,
-                        char const ** const restrict first_io,
-                        char const ** const restrict end_io )
+                        char const ** const restrict first__io,
+                        char const ** const restrict end__io )
 {
     if ( !str ) return false;
     if ( !seps ) return false;
-    if ( !first_io ) return false;
-    if ( !end_io ) return false;
+    if ( !first__io ) return false;
+    if ( !end__io ) return false;
 
-    if ( !( *first_io ) && !( *end_io ) )
-        *first_io = str;
-    else if ( ( *first_io ) && ( *end_io ) )
-        *first_io = *end_io;
+    if ( !( *first__io ) && !( *end__io ) )
+        *first__io = str;
+    else if ( ( *first__io ) && ( *end__io ) )
+        *first__io = *end__io;
     else
         return false;
 
-    *first_io = cc_skip_chars( *first_io, seps );
-    *end_io = cc_stop_at_chars( *first_io, seps );
+    *first__io = cc_skip_chars( *first__io, seps );
+    *end__io = cc_stop_at_chars( *first__io, seps );
 
-    if ( ( **first_io == '\0' ) || ( *end_io == *first_io ) )
+    if ( ( **first__io == '\0' ) || ( *end__io == *first__io ) )
     {
-        *first_io = *end_io = NULL;
+        *first__io = *end__io = NULL;
         return false;
     }
 

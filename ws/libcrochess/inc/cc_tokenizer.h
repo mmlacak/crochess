@@ -77,13 +77,13 @@ char const * cc_stop_at_chars( char const * const restrict pos,
 
     @param str String to traverse.
     @param seps A separators between tokens.
-    @param first_io An _input_ / _output_ parameter.
-    @param end_io An _input_ / _output_ parameter.
+    @param first__io An _input_ / _output_ parameter.
+    @param end__io An _input_ / _output_ parameter.
 
     @note
-    Both _input_ / _output_ arguments `first_io` and `end_io` has to be valid
+    Both _input_ / _output_ arguments `first__io` and `end__io` has to be valid
     pointers.
-    Both inner pointers has to be `NULL` (i.e. `*first_io == NULL`, `*end_io == NULL`)
+    Both inner pointers has to be `NULL` (i.e. `*first__io == NULL`, `*end__io == NULL`)
     at first call.
     At subsequent calls, both inner pointers has to be valid pointers.
     It is error if one inner pointer is valid, and the other `NULL`.
@@ -93,21 +93,21 @@ char const * cc_stop_at_chars( char const * const restrict pos,
     end of a string is reached, or both inner pointers are initialized to `NULL`.
 
     @note
-    Upon reaching end of a given string, both inner pointers (`*first_io` and
-    `*end_io`) are reset to `NULL`. So, if nothing changes, next calls (or, next
+    Upon reaching end of a given string, both inner pointers (`*first__io` and
+    `*end__io`) are reset to `NULL`. So, if nothing changes, next calls (or, next
     loop) will again start from the beginning of a given string `str`.
 
     @return `true` if next token was found, `false` otherwise.
 
     @return
-    If `true` was returned, _input_ / _output_ argument `first_io` contains
-    pointer to first `char` of a found token; argument `end_io` contains end
+    If `true` was returned, _input_ / _output_ argument `first__io` contains
+    pointer to first `char` of a found token; argument `end__io` contains end
     of a token, i.e. first `char` that does not belong to a token.
 */
 bool cc_token_iter_new( char const * const restrict str,
                         char const * const restrict seps,
-                        char const ** const restrict first_io,
-                        char const ** const restrict end_io );
+                        char const ** const restrict first__io,
+                        char const ** const restrict end__io );
 
 /**
     Function returning newly allocated string, with `chars` trimmed from the beginning and the end.
