@@ -61,7 +61,7 @@ CcMove * cc_move_new( char const * const restrict notation,
 /**
     Appends a newly allocated move to a linked list.
 
-    @param moves Linked list of moves, to which a new move is appended.
+    @param moves__io Linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
     @param plies__n Plies, should be valid pointer.
     @param status Move status.
@@ -71,7 +71,7 @@ CcMove * cc_move_new( char const * const restrict notation,
     @return
     Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
 */
-CcMove * cc_move_append( CcMove * const restrict moves,
+CcMove * cc_move_append( CcMove * const restrict moves__io,
                          char const * const restrict notation,
                          CcPly ** const restrict plies__n,
                          CcMoveStatusEnum const status );
@@ -79,17 +79,17 @@ CcMove * cc_move_append( CcMove * const restrict moves,
 /**
     Extends moves linked list with another move(s).
 
-    @param moves_io Linked list of moves, to which a move is appended, can be `NULL`.
+    @param moves__io Linked list of moves, to which a move is appended, can be `NULL`.
     @param move__n A move(s) to append to a list.
 
     @note
-    If linked list `*moves_io` is `NULL`, it will be initialized,
+    If linked list `*moves__io` is `NULL`, it will be initialized,
     with a move as its first element.
 
     @return
     `true` is successful, `false` otherwise.
 */
-bool cc_move_extend_or_init( CcMove ** const restrict moves_io,
+bool cc_move_extend_or_init( CcMove ** const restrict moves__io,
                              CcMove ** const restrict move__n );
 
 /**
@@ -113,7 +113,7 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_move_free_all_moves( CcMove ** const restrict moves__f );
+bool cc_move_free_all_moves( CcMove const ** const restrict moves__f );
 
 /**
     Function returns count of plies owned by a given move.

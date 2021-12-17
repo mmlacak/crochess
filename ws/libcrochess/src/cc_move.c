@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "cc_defines.h"
 #include "cc_str_utils.h"
 
 #include "cc_move.h"
@@ -18,62 +19,62 @@ CcMove * cc_move_new( char const * const restrict notation,
                       CcPly ** const restrict plies__n,
                       CcMoveStatusEnum const status )
 {
-    CcMove * mv = malloc( sizeof( CcMove ) );
-    if ( !mv ) return NULL;
+    CcMove * mv__t = malloc( sizeof( CcMove ) );
+    if ( !mv__t ) return NULL;
 
-    mv->notation = cc_str_duplicate_new( notation, false, BUFSIZ );
-    if ( notation && ( !mv->notation ) )
+    mv__t->notation = cc_str_duplicate_new( notation, false, BUFSIZ );
+    if ( notation && ( !mv__t->notation ) )
     {
-        free( mv );
+        CC_FREE( mv__t );
         return NULL;
     }
 
     if ( plies__n )
     {
-        mv->plies = *plies__n;
+        mv__t->plies = *plies__n;
         *plies__n = NULL; // Taking ownership.
     }
     else
-        mv->plies = NULL;
+        mv__t->plies = NULL;
 
-    mv->status = status;
-    mv->next = NULL;
+    mv__t->status = status;
+    mv__t->next = NULL;
 
-    return mv;
+    return mv__t;
 }
 
-CcMove * cc_move_append( CcMove * const restrict moves,
+CcMove * cc_move_append( CcMove * const restrict moves__io,
                          char const * const restrict notation,
                          CcPly ** const restrict plies__n,
                          CcMoveStatusEnum const status )
 {
-    if ( !moves ) return NULL;
+    if ( !moves__io ) return NULL;
 
     CcMove * new = cc_move_new( notation, plies__n, status );
     if ( !new ) return NULL;
 
-    CcMove * mv = moves;
+    CcMove * mv = moves__io;
     while ( mv->next ) mv = mv->next; // rewind
     mv->next = new; // append
 
     return new;
 }
 
-bool cc_move_extend_or_init( CcMove ** const restrict moves_io,
+bool cc_move_extend_or_init( CcMove ** const restrict moves__io,
                              CcMove ** const restrict moves__n )
 {
-    if ( !moves_io ) return false;
+    if ( !moves__io ) return false;
     if ( !moves__n ) return false;
     if ( !*moves__n ) return false;
 
-    if ( *moves_io )
+    if ( *moves__io )
     {
-        CcMove * mv = *moves_io;
+        CcMove * mv = *moves__io;
         while ( mv->next ) mv = mv->next; // rewind
         mv->next = *moves__n; // append
     }
     else
-        *moves_io = *moves__n;
+        *moves__io = *moves__n;
 
     *moves__n = NULL;
 
@@ -90,7 +91,7 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
     CcMove * new__o = cc_move_new( moves->notation, &plies__t, moves->status );
     if ( !new__o )
     {
-        cc_ply_free_all_plies( &plies__t );
+        cc_ply_free_all_plies( CC_CAST_TC_P_PC( CcPly, &plies__t ) );
         return NULL;
     }
 
@@ -101,15 +102,15 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
         CcPly * p__t = cc_ply_duplicate_all_new( from->plies );
         if ( !p__t )
         {
-            cc_move_free_all_moves( &new__o );
+            cc_move_free_all_moves( CC_CAST_TC_P_PC( CcMove, &new__o ) );
             return NULL;
         }
 
         CcMove * n__w = cc_move_append( new__o, from->notation, &p__t, from->status );
         if ( !n__w )
         {
-            cc_ply_free_all_plies( &p__t );
-            cc_move_free_all_moves( &new__o );
+            cc_ply_free_all_plies( CC_CAST_TC_P_PC( CcPly, &p__t ) );
+            cc_move_free_all_moves( CC_CAST_TC_P_PC( CcMove, &new__o ) );
             return NULL;
         }
 
@@ -119,24 +120,24 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
     return new__o;
 }
 
-bool cc_move_free_all_moves( CcMove ** const restrict moves__f )
+bool cc_move_free_all_moves( CcMove const ** const restrict moves__f )
 {
     if ( !moves__f ) return false;
     if ( !*moves__f ) return true;
 
     bool result = true;
 
-    CcMove * mv = *moves__f;
+    CcMove const * mv = *moves__f;
 
     while ( mv )
     {
-        free( (char *)mv->notation ); // free() doesn't do pointers to const.
+        CC_FREE( mv->notation );
 
-        CcPly ** plies = &( mv->plies );
+        CcPly const ** const plies = CC_CAST_TC_P_PC( CcPly, &( mv->plies ) );
         result = result && cc_ply_free_all_plies( plies );
 
         CcMove * tmp = mv->next;
-        free( mv );
+        CC_FREE( mv );
         mv = tmp;
     }
 
