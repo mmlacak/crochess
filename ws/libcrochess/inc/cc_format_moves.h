@@ -156,6 +156,8 @@ char cc_format_pos_file( int const i );
 */
 char * cc_format_pos_rank_new( int const j );
 
+// TODO :: char[ 2 ] cc_format_pos_rank( int const j )
+
 
 /**
     Returns pointer to a constant string, based on a tag.
@@ -185,7 +187,7 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
     @param ply A ply, owner of a `step`.
     @param step A step being formatted for algebraic notation output.
     @param format_move A format flags.
-    @param has_preceding_step_io Input/output flag, whether any previous step has been formatted into the output.
+    @param has_preceding_step__io Input/output flag, whether any previous step has been formatted into the output.
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
@@ -193,7 +195,7 @@ char * cc_format_step_new( CcMove const * const restrict move,
                            CcPly const * const restrict ply,
                            CcStep const * const restrict step,
                            CcFormatMove const format_move,
-                           bool * const restrict has_preceding_step_io );
+                           bool * const restrict has_preceding_step__io );
 
 /**
     Returns a newly allocated string containing formatted output of a ply.

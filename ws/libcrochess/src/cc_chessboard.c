@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_tag.h"
 #include "cc_variant.h"
@@ -32,7 +33,7 @@ CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool const do_setup )
 
     if ( !cc_chessboard_init( cb__t, ve, do_setup ) )
     {
-        free( cb__t );
+        CC_FREE( cb__t );
         return NULL;
     }
 
@@ -48,8 +49,10 @@ bool cc_chessboard_init( CcChessboard * const restrict cb__io,
     cb__io->type = ve;
     cb__io->size = cc_variant_board_size( cb__io->type );
 
-    if ( do_setup ) return cc_chessboard_setup( cb__io );
-    else return cc_chessboard_clear( cb__io );
+    if ( do_setup )
+        return cc_chessboard_setup( cb__io );
+    else
+        return cc_chessboard_clear( cb__io );
 }
 
 bool cc_chessboard_clear( CcChessboard * const restrict cb__io )
@@ -103,7 +106,8 @@ bool cc_chessboard_copy( CcChessboard * const restrict into__io,
     if ( !into__io ) return false;
     if ( !from ) return false;
 
-    if ( !cc_chessboard_init( into__io, from->type, false ) ) return false;
+    if ( !cc_chessboard_init( into__io, from->type, false ) )
+        return false;
 
     for ( int i = 0; i < (int)into__io->size; ++i )
     {
@@ -121,29 +125,27 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict 
 {
     if ( !from ) return NULL;
 
-    CcChessboard * cb__t = malloc( sizeof( CcChessboard ) );
+    CcChessboard * const cb__t = malloc( sizeof( CcChessboard ) );
     if ( !cb__t ) return NULL;
 
-    CcVariantEnum ve = from->type;
-    cc_chessboard_init( cb__t, ve, false );
+// CcVariantEnum ve = from->type;
+    cc_chessboard_init( cb__t, from->type, false );
 
     if ( !cc_chessboard_copy( cb__t, from ) )
     {
-        free( cb__t );
+        CC_FREE( cb__t );
         return NULL;
     }
 
     return cb__t;
 }
 
-bool cc_chessboard_free_all( CcChessboard ** const restrict cb__f )
+bool cc_chessboard_free_all( CcChessboard const ** const restrict cb__n )
 {
-    if ( !cb__f ) return false;
-    if ( !*cb__f ) return true;
+    if ( !cb__n ) return false;
+    if ( !*cb__n ) return true;
 
-    free( *cb__f );
-    *cb__f = NULL;
-
+    CC_FREE_NULL( cb__n );
     return true;
 }
 
@@ -203,7 +205,8 @@ bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb__io,
         cb__io->board[ i ][ j ] = pe;
         cb__io->tags[ i ][ j ] = tt;
 
-        return ( ( cb__io->board[ i ][ j ] == pe ) && ( cb__io->tags[ i ][ j ] == tt ) ); // cb__io volatile ?
+        return  ( ( cb__io->board[ i ][ j ] == pe )
+               && ( cb__io->tags[ i ][ j ] == tt ) ); // cb__io remove restrict, volatile ?
     }
 
     return false;
@@ -239,21 +242,21 @@ static char * cc_chessboard_get_divider_new( CcChessboard const * const restrict
 {
     if ( !cb ) return NULL;
 
-    size_t len = 3 + 2 * cb->size + 3 + 1;
-    char * divider = calloc( 1, len );
-    if ( !divider ) return NULL;
+    size_t const len = 3 + 2 * cb->size + 3 + 1;
+    char * const divider__t = calloc( 1, len );
+    if ( !divider__t ) return NULL;
 
     for ( int i = 0; i < (int)len; ++i )
     {
-        if ( i < 3 ) divider[ i ] = ' ';
-        else if ( i < 3 + 2 * (int)cb->size - 1 ) divider[ i ] = '-';
-        else if ( i < (int)len ) divider[ i ] = ' ';
+        if ( i < 3 ) divider__t[ i ] = ' ';
+        else if ( i < 3 + 2 * (int)cb->size - 1 ) divider__t[ i ] = '-';
+        else if ( i < (int)len ) divider__t[ i ] = ' ';
     }
 
-    divider[ len - 2 ] = '\n';
-    divider[ len - 1 ] = '\0';
+    divider__t[ len - 2 ] = '\n';
+    divider__t[ len - 1 ] = '\0';
 
-    return divider;
+    return divider__t;
 }
 
 static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard const * const restrict cb )
@@ -303,22 +306,22 @@ char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb,
 
     strcat( show__t, horizontal_ruler );
 
-    char * divider = cc_chessboard_get_divider_new( cb );
-    if ( !divider )
+    char * divider__a = cc_chessboard_get_divider_new( cb );
+    if ( !divider__a )
     {
         free( show__t );
         free( horizontal_ruler );
         return NULL;
     }
 
-    strcat( show__t, divider );
+    strcat( show__t, divider__a );
 
     char * row = calloc(1, 6);
     if ( !row )
     {
         free( show__t );
         free( horizontal_ruler );
-        free( divider );
+        free( divider__a );
         return NULL;
     }
 
@@ -327,7 +330,7 @@ char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb,
     {
         free( show__t );
         free( horizontal_ruler );
-        free( divider );
+        free( divider__a );
         free( row );
         return NULL;
     }
@@ -367,11 +370,11 @@ char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb,
         strcat( show__t, row );
     }
 
-    strcat( show__t, divider );
+    strcat( show__t, divider__a );
     strcat( show__t, horizontal_ruler );
 
     free( horizontal_ruler );
-    free( divider );
+    free( divider__a );
     free( row );
     free( field );
 

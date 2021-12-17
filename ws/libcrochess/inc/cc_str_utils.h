@@ -282,8 +282,8 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_new( char ** const restrict str_1__f,
-                          char ** const restrict str_2__f,
+char * cc_str_append_new( char const ** const restrict str_1__f,
+                          char const ** const restrict str_2__f,
                           size_t const max_len_d );
 
 /**
@@ -306,7 +306,7 @@ char * cc_str_append_new( char ** const restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_new( char ** const restrict str__f,
+char * cc_str_append_format_new( char const ** const restrict str__f,
                                  size_t const max_len_d,
                                  char const * const restrict fmt, ... );
 

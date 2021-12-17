@@ -353,8 +353,8 @@ char * cc_str_concatenate_new( char const * const restrict str_1_d,
     return new;
 }
 
-char * cc_str_append_new( char ** const restrict str_1__f,
-                          char ** const restrict str_2__f,
+char * cc_str_append_new( char const ** const restrict str_1__f,
+                          char const ** const restrict str_2__f,
                           size_t const max_len_d )
 {
     if ( ( !str_1__f ) && ( !str_2__f ) ) return NULL;
@@ -372,20 +372,20 @@ char * cc_str_append_new( char ** const restrict str_1__f,
 
     if ( str_1__f )
     {
-        free( *str_1__f );
+        free( (void *)(*str_1__f) );
         *str_1__f = NULL;
     }
 
     if ( str_2__f )
     {
-        free( *str_2__f );
+        free( (void *)(*str_2__f) );
         *str_2__f = NULL;
     }
 
     return new;
 }
 
-char * cc_str_append_format_new( char ** const restrict str__f,
+char * cc_str_append_format_new( char const ** const restrict str__f,
                                  size_t const max_len_d,
                                  char const * const restrict fmt, ... )
 {
@@ -432,5 +432,7 @@ char * cc_str_append_format_new( char ** const restrict str__f,
     }
 
     // No need to free() str__f, new__t; cc_str_append_new() does that.
-    return cc_str_append_new( str__f, &new__t, max_len_d );
+    return cc_str_append_new( str__f,
+                              (char const ** const)(&new__t),
+                              max_len_d );
 }

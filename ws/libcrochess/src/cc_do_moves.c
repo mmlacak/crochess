@@ -28,8 +28,8 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply )
     CcPlyLinkEnum const * const pl = cc_get_next_ply_link( ply );
     if ( !pl ) return false;
 
-    bool result = ( ( *pl == CC_PLE_Teleportation )
-                 || ( *pl == CC_PLE_FailedTeleportation ) );
+    bool const result = ( ( *pl == CC_PLE_Teleportation )
+                       || ( *pl == CC_PLE_FailedTeleportation ) );
 
     return result;
 }
@@ -46,7 +46,7 @@ bool cc_do_step( CcChessboard * const restrict cb__io,
     if ( !ply ) return false;
     if ( !step ) return false;
 
-    CcPieceEnum pe = ply->piece;
+    CcPieceEnum const pe = ply->piece;
     CcStep const * const steps = ply->steps;
     if ( !steps ) return false;
 
@@ -54,9 +54,9 @@ bool cc_do_step( CcChessboard * const restrict cb__io,
     while ( last->next ) { last = last->next; }
 
     bool result = true;
-    bool is_first_ply = ( move->plies == ply );
-    bool is_first_step = ( steps == step );
-    bool is_last_step = ( last == step );
+    bool const is_first_ply = ( move->plies == ply );
+    bool const is_first_step = ( steps == step );
+    bool const is_last_step = ( last == step );
 
     if ( is_first_ply && is_first_step )
         result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, CC_PE_None );
@@ -174,7 +174,7 @@ bool cc_do_step( CcChessboard * const restrict cb__io,
         }
     }
 
-    return true;
+    return result;
 }
 
 bool cc_do_ply( CcChessboard * const restrict cb__io,
@@ -207,8 +207,8 @@ bool cc_do_moves( CcChessboard * const restrict cb__io,
     if ( !cb__io ) return false;
     if ( !moves ) return false;
 
-    CcChessboard * tmp = cc_chessboard_duplicate_new( cb__io );
-    if ( !tmp ) return false;
+    CcChessboard * const cb__a = cc_chessboard_duplicate_new( cb__io );
+    if ( !cb__a ) return false;
 
     bool result = true;
     CcMove const * mv = moves;
@@ -218,12 +218,16 @@ bool cc_do_moves( CcChessboard * const restrict cb__io,
 
     while ( mv && result )
     {
-        if ( !mv->plies ) return false;
+        if ( !mv->plies )
+        {
+            cc_chessboard_free_all( &cb__a );
+            return false;
+        }
 
         CcPly const * p = mv->plies;
         while ( p && result )
         {
-            result = result && cc_do_ply( tmp, mv, p );
+            result = result && cc_do_ply( cb__a, mv, p );
             p = p->next;
         }
 
@@ -232,6 +236,9 @@ bool cc_do_moves( CcChessboard * const restrict cb__io,
         mv = mv->next;
     }
 
-    if ( result ) cc_chessboard_copy( cb__io, tmp );
+    if ( result ) cc_chessboard_copy( cb__io, cb__a );
+
+    cc_chessboard_free_all( &cb__a );
+
     return result;
 }

@@ -71,4 +71,23 @@
 #define CC_SIGN(i) ( ( (i) > 0 ) ? (1) : ( ( (i) < 0 ) ? (-1) : (0) ) )
 
 
+/**
+    Macro to free() with cast.
+*/
+#define CC_FREE(ptr) free( (void *)(ptr) )
+
+/**
+    Macro to free() with cast, and setting inner pointer to NULL.
+*/
+#define CC_FREE_NULL(ptr_ptr)   \
+    free( (void *)(*ptr_ptr) ); \
+    *(ptr_ptr) = NULL;
+
+/**
+    Macro to cast any pointer-to-pointer into const-pointer-to-pointer-to-const-type,
+    i.e. `type **` --> `type const ** const`.
+*/
+#define CC_CAST_TC_P_PC(type,ptr_ptr) ( (type const ** const)(ptr_ptr) )
+
+
 #endif /* __CC_DEFINES_H__ */

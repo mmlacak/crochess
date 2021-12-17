@@ -51,7 +51,7 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply );
 /**
     Applies step to chessboard.
 
-    @param cb__io A chessboard to be altered.
+    @param cb__io _Input/output_ parameter, a chessboard to be altered.
     @param move Grand-parent move which owns this step.
     @param ply Parent ply which owns this step.
     @param step A step being applied.
@@ -66,7 +66,7 @@ bool cc_do_step( CcChessboard * const restrict cb__io,
 /**
     Applies ply to chessboard.
 
-    @param cb__io A chessboard to be altered.
+    @param cb__io _Input/output_ parameter, a chessboard to be altered.
     @param move Parent move which owns this step.
     @param ply A ply being applied.
 
@@ -79,7 +79,7 @@ bool cc_do_ply( CcChessboard * const restrict cb__io,
 /**
     Applies move(s) to chessboard.
 
-    @param cb__io A chessboard to be altered.
+    @param cb__io _Input/output_ parameter, a chessboard to be altered.
     @param moves A move(s) being applied.
     @param do_spec Flag, which move(s) are to be applied.
 

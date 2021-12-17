@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.157:356+20211217.040910"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.158:357+20211217.091226"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -454,7 +454,7 @@ int main( void )
                 continue;
             }
             printf( "1: %s", foo );
-            foo = cc_str_append_format_new( &foo, BUFSIZ, "%c", ':' );
+            foo = cc_str_append_format_new( (char const ** const)(&foo), BUFSIZ, "%c", ':' );
             if ( !foo )
             {
                 printf( "1: error cc_str_append_format_new \n" );
@@ -472,7 +472,7 @@ int main( void )
                 continue;
             }
             printf( "2: %s", bar );
-            bar = cc_str_append_format_new( &bar, BUFSIZ, "%c", ';' );
+            bar = cc_str_append_format_new( (char const ** const)(&bar), BUFSIZ, "%c", ';' );
             if ( !bar )
             {
                 printf( "2: error \n" );
@@ -490,7 +490,7 @@ int main( void )
                 continue;
             }
             printf( "3: %s", baz );
-            baz = cc_str_append_format_new( &baz, BUFSIZ, "." );
+            baz = cc_str_append_format_new( (char const ** const)(&baz), BUFSIZ, "." );
             if ( !baz )
             {
                 printf( "3: error \n" );
