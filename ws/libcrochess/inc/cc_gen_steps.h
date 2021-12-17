@@ -31,8 +31,8 @@ extern int const CC_GEN_STEPS_UNICORN[ CC_GEN_STEPS_UNICORN_LEN ][ CC_GEN_STEPS_
 
 
 // DOCS
-bool cc_gen_steps( int * const restrict i_io,
-                   int * const restrict j_io,
+bool cc_gen_steps( int * const restrict i__io,
+                   int * const restrict j__io,
                    int const step_i,
                    int const step_j,
                    bool const from_or_to );

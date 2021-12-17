@@ -4,16 +4,16 @@
 #include "cc_gen_pos.h"
 
 
-bool cc_gen_pos( CcPos * const restrict pos_io,
+bool cc_gen_pos( CcPos * const restrict pos__io,
                  CcPos const step,
                  bool const from_or_to )
 {
-    if ( !pos_io ) return false;
+    if ( !pos__io ) return false;
 
     if ( from_or_to )
-        *pos_io = cc_pos_add( *pos_io, step );
+        *pos__io = cc_pos_add( *pos__io, step );
     else
-        *pos_io = cc_pos_subtract( *pos_io, step );
+        *pos__io = cc_pos_subtract( *pos__io, step );
 
     return true;
 }

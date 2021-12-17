@@ -12,7 +12,7 @@
 
 
 // DOCS
-bool cc_gen_pos( CcPos * const restrict pos_io,
+bool cc_gen_pos( CcPos * const restrict pos__io,
                  CcPos const step,
                  bool const from_or_to );
 

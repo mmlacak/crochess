@@ -229,7 +229,7 @@ CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe )
     return CC_PE_None;
 }
 
-bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars )
+bool cc_piece_is_dark( CcPieceEnum const pe, bool const include_stars )
 {
     switch ( pe )
     {
@@ -257,7 +257,7 @@ bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars )
     }
 }
 
-bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars )
+bool cc_piece_is_light( CcPieceEnum const pe, bool const include_stars )
 {
     switch ( pe )
     {

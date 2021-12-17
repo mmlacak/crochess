@@ -320,7 +320,7 @@ CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
 
     @return `true` if piece is dark, `false` otherwise.
 */
-bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars );
+bool cc_piece_is_dark( CcPieceEnum const pe, bool const include_stars );
 
 /**
     Function returning whether piece is light.
@@ -330,7 +330,7 @@ bool cc_piece_is_dark( CcPieceEnum const pe, bool include_stars );
 
     @return `true` if piece is light, `false` otherwise.
 */
-bool cc_piece_is_light( CcPieceEnum const pe, bool include_stars );
+bool cc_piece_is_light( CcPieceEnum const pe, bool const include_stars );
 
 /**
     Function checks if two given pieces are the same type.
