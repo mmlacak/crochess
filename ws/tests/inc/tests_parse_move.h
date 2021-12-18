@@ -11,22 +11,22 @@
 #include "test_utils.h"
 
 
-bool test_parser( CcGame const * const restrict gm,
-                  char const * const restrict move_str,
-                  TestPrints const tp );
+bool test_parser( CcGame * restrict gm,
+                  char const * restrict move_str,
+                  TestPrints tp );
 
 
-bool test_parse_move_single_ply( TestPrints const tp );
-// bool test_parse_move_cascading_plies( TestPrints const tp );
-// bool test_parse_move_castling( TestPrints const tp );
-// bool test_parse_move_tag_and_promotion( TestPrints const tp );
-// bool test_parse_move_conversion( TestPrints const tp, bool const is_failed );
-// bool test_parse_move_demotion( TestPrints const tp );
-// bool test_parse_move_resurrection( TestPrints const tp, bool const is_failed, bool const is_oblationing );
+bool test_parse_move_single_ply( TestPrints tp );
+// bool test_parse_move_cascading_plies( TestPrints tp );
+// bool test_parse_move_castling( TestPrints tp );
+// bool test_parse_move_tag_and_promotion( TestPrints tp );
+// bool test_parse_move_conversion( TestPrints tp, bool is_failed );
+// bool test_parse_move_demotion( TestPrints tp );
+// bool test_parse_move_resurrection( TestPrints tp, bool is_failed, bool is_oblationing );
 
-// bool test_parse_move_teleportation( TestPrints const tp, bool const is_failed );
-// bool test_parse_move_teleportation_wave( TestPrints const tp, bool const is_oblationing );
-// bool test_parse_move_trance_journey( TestPrints const tp, bool const is_capturing );
+// bool test_parse_move_teleportation( TestPrints tp, bool is_failed );
+// bool test_parse_move_teleportation_wave( TestPrints tp, bool is_oblationing );
+// bool test_parse_move_trance_journey( TestPrints tp, bool is_capturing );
 
 
 #endif /* __TESTS_PARSE_MOVE_H__ */

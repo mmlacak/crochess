@@ -9,7 +9,7 @@
 #include "test_msgs.h"
 
 
-char const * test_msg_enum_label( TestMsgEnum tme )
+char * test_msg_enum_label( TestMsgEnum tme )
 {
     switch ( tme )
     {
@@ -25,10 +25,10 @@ char const * test_msg_enum_label( TestMsgEnum tme )
 
 bool test_print_failure( bool expr,
                          TestMsgEnum type,
-                         char const * const restrict msg,
-                         char const * const restrict file,
+                         char const * restrict msg,
+                         char const * restrict file,
                          size_t line,
-                         char const * const restrict func )
+                         char const * restrict func )
 {
     bool result = expr;
 
@@ -43,10 +43,10 @@ bool test_print_failure( bool expr,
 
 
 TestMsg * test_msg_new( TestMsgEnum type,
-                        char const * const restrict msg,
-                        char const * const restrict file,
+                        char const * restrict msg,
+                        char const * restrict file,
                         size_t line,
-                        char const * const restrict func )
+                        char const * restrict func )
 {
     TestMsg * new = malloc( sizeof( TestMsg ) );
     if ( !new ) return NULL;
@@ -63,12 +63,12 @@ TestMsg * test_msg_new( TestMsgEnum type,
     return new;
 }
 
-TestMsg * test_msg_append( TestMsg * const restrict test_msgs,
+TestMsg * test_msg_append( TestMsg * restrict test_msgs,
                            TestMsgEnum type,
-                           char const * const restrict msg,
-                           char const * const restrict file,
+                           char const * restrict msg,
+                           char const * restrict file,
                            size_t line,
-                           char const * const restrict func )
+                           char const * restrict func )
 {
     if ( !test_msgs ) return NULL;
 
@@ -82,12 +82,12 @@ TestMsg * test_msg_append( TestMsg * const restrict test_msgs,
     return new;
 }
 
-TestMsg * test_msg_init_or_append( TestMsg ** const restrict test_msgs,
+TestMsg * test_msg_init_or_append( TestMsg ** restrict test_msgs,
                                    TestMsgEnum type,
-                                   char const * const restrict msg,
-                                   char const * const restrict file,
+                                   char const * restrict msg,
+                                   char const * restrict file,
                                    size_t line,
-                                   char const * const restrict func )
+                                   char const * restrict func )
 {
     if ( !test_msgs ) return NULL;
 
@@ -98,7 +98,7 @@ TestMsg * test_msg_init_or_append( TestMsg ** const restrict test_msgs,
     return new;
 }
 
-bool test_msg_free_all( TestMsg ** const restrict test_msgs__f )
+bool test_msg_free_all( TestMsg ** restrict test_msgs__f )
 {
     if ( !test_msgs__f ) return false;
     if ( !*test_msgs__f ) return true;
@@ -121,12 +121,12 @@ bool test_msg_free_all( TestMsg ** const restrict test_msgs__f )
     return true;
 }
 
-bool test_msg_print_all( TestMsg const * const restrict test_msgs,
+bool test_msg_print_all( TestMsg * restrict test_msgs,
                          TestMsgEnum level )
 {
     if ( !test_msgs ) return false;
 
-    TestMsg const * tm = test_msgs;
+    TestMsg * tm = test_msgs;
 
     while ( tm )
     {

@@ -5,8 +5,8 @@
 #define __HLP_MSGS_H__
 
 void print_license_intro();
-void print_version_info(char const * const restrict lib_ver, char const * const restrict app_ver);
-void print_app_intro(char const * const restrict lib_ver, char const * const restrict app_ver);
+void print_version_info( char const * restrict lib_ver, char const * restrict app_ver );
+void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver );
 void print_licence_text();
 void print_about_info();
 

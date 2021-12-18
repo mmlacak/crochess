@@ -31,17 +31,17 @@ extern int const CC_GEN_STEPS_UNICORN[ CC_GEN_STEPS_UNICORN_LEN ][ CC_GEN_STEPS_
 
 
 // DOCS
-bool cc_gen_steps( int * const restrict i__io,
-                   int * const restrict j__io,
-                   int const step_i,
-                   int const step_j,
-                   bool const from_or_to );
+bool cc_gen_steps( int * restrict i__io,
+                   int * restrict j__io,
+                   int step_i,
+                   int step_j,
+                   bool from_or_to );
 
 // DOCS
-bool cc_gen_steps_is_valid( int const step_i,
-                            int const step_j,
+bool cc_gen_steps_is_valid( int step_i,
+                            int step_j,
                             int const array[  ][ CC_GEN_STEPS_COORDS_LEN ],
-                            size_t const array_len );
+                            size_t array_len );
 
 
 // DOCS

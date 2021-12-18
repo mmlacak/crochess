@@ -9,7 +9,7 @@
 */
 
 
-char cc_tag_as_char( CcTagEnum const ct )
+char cc_tag_as_char( CcTagEnum ct )
 {
     switch ( ct )
     {

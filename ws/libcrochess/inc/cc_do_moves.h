@@ -31,7 +31,7 @@ typedef enum CcDoMoveEnum
 
     @return Linkage if successful (and if there is next ply in a cascade), `NULL` otherwise.
 */
-CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply );
+CcPlyLinkEnum * cc_get_next_ply_link( CcPly * restrict ply );
 
 /**
     Checks if linkage of a next ply in a cascade is teleportation.
@@ -45,7 +45,7 @@ CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply );
 
     @return `true` if next ply is teleporting, `false` otherwise.
 */
-bool cc_is_teleporting_next( CcPly const * const restrict ply );
+bool cc_is_teleporting_next( CcPly * restrict ply );
 
 
 /**
@@ -58,10 +58,10 @@ bool cc_is_teleporting_next( CcPly const * const restrict ply );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_do_step( CcChessboard * const restrict cb__io,
-                 CcMove const * const restrict move,
-                 CcPly const * const restrict ply,
-                 CcStep const * const restrict step );
+bool cc_do_step( CcChessboard * restrict cb__io,
+                 CcMove * restrict move,
+                 CcPly * restrict ply,
+                 CcStep * restrict step );
 
 /**
     Applies ply to chessboard.
@@ -72,9 +72,9 @@ bool cc_do_step( CcChessboard * const restrict cb__io,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_do_ply( CcChessboard * const restrict cb__io,
-                CcMove const * const restrict move,
-                CcPly const * const restrict ply );
+bool cc_do_ply( CcChessboard * restrict cb__io,
+                CcMove * restrict move,
+                CcPly * restrict ply );
 
 /**
     Applies move(s) to chessboard.
@@ -85,9 +85,9 @@ bool cc_do_ply( CcChessboard * const restrict cb__io,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_do_moves( CcChessboard * const restrict cb__io,
-                  CcMove const * const restrict moves,
-                  CcDoMoveEnum const do_spec );
+bool cc_do_moves( CcChessboard * restrict cb__io,
+                  CcMove * restrict moves,
+                  CcDoMoveEnum do_spec );
 
 
 #endif /* __CC_DO_MOVES_H__ */

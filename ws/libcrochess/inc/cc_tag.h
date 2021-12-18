@@ -108,7 +108,7 @@ typedef enum CcTagEnum
 
     @return Tag char, uppercase if valid, space otherwise.
 */
-char cc_tag_as_char( CcTagEnum const ct );
+char cc_tag_as_char( CcTagEnum ct );
 
 
 #endif /* __CC_TAG_H__ */

@@ -27,7 +27,7 @@ typedef enum CcMoveStatusEnum
 */
 typedef struct CcMove
 {
-    char const * notation; /**< Original notation, before parsing. Usually, from user input. */
+    char * notation; /**< Original notation, before parsing. Usually, from user input. */
     CcPly * plies; /**< Plies. */
     CcMoveStatusEnum status; /**< Status. */
 
@@ -54,9 +54,9 @@ typedef struct CcMove
     @return
     A newly allocated move, is successful, `NULL` otherwise.
 */
-CcMove * cc_move_new( char const * const restrict notation,
-                      CcPly ** const restrict plies__n,
-                      CcMoveStatusEnum const status );
+CcMove * cc_move_new( char const * restrict notation,
+                      CcPly ** restrict plies__n,
+                      CcMoveStatusEnum status );
 
 /**
     Appends a newly allocated move to a linked list.
@@ -71,10 +71,10 @@ CcMove * cc_move_new( char const * const restrict notation,
     @return
     Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
 */
-CcMove * cc_move_append( CcMove * const restrict moves__io,
-                         char const * const restrict notation,
-                         CcPly ** const restrict plies__n,
-                         CcMoveStatusEnum const status );
+CcMove * cc_move_append( CcMove * restrict moves__io,
+                         char const * restrict notation,
+                         CcPly ** restrict plies__n,
+                         CcMoveStatusEnum status );
 
 /**
     Extends moves linked list with another move(s).
@@ -89,8 +89,8 @@ CcMove * cc_move_append( CcMove * const restrict moves__io,
     @return
     `true` is successful, `false` otherwise.
 */
-bool cc_move_extend_or_init( CcMove ** const restrict moves__io,
-                             CcMove ** const restrict move__n );
+bool cc_move_extend_or_init( CcMove ** restrict moves__io,
+                             CcMove ** restrict move__n );
 
 /**
     Duplicates a given moves into a newly allocated linked list.
@@ -100,7 +100,7 @@ bool cc_move_extend_or_init( CcMove ** const restrict moves__io,
     @return
     A newly allocated moves, is successful, `NULL` otherwise.
 */
-CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves );
+CcMove * cc_move_duplicate_all_new( CcMove * restrict moves );
 
 /**
     Frees all moves in a linked list, and all associated entities.
@@ -113,7 +113,7 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_move_free_all_moves( CcMove const ** const restrict moves__f );
+bool cc_move_free_all_moves( CcMove ** restrict moves__f );
 
 /**
     Function returns count of plies owned by a given move.
@@ -122,7 +122,7 @@ bool cc_move_free_all_moves( CcMove const ** const restrict moves__f );
 
     @return Count of plies if successful, `0` otherwise.
 */
-size_t cc_move_ply_count( CcMove const * const restrict move );
+size_t cc_move_ply_count( CcMove * restrict move );
 
 
 #endif /* __CC_MOVE_H__ */

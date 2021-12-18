@@ -14,16 +14,16 @@ typedef struct CcPos {
 } CcPos;
 
 // DOCS
-CcPos cc_pos( int const i, int const j );
+CcPos cc_pos( int i, int j );
 CcPos cc_pos_empty();
 
 // DOCS
-CcPos cc_pos_add( CcPos const augend, CcPos const addend );
-CcPos cc_pos_subtract( CcPos const minuend, CcPos const subtrahend );
+CcPos cc_pos_add( CcPos augend, CcPos addend );
+CcPos cc_pos_subtract( CcPos minuend, CcPos subtrahend );
 
 // DOCS
-bool cc_pos_is_equal( CcPos const pos_1, CcPos const pos_2 );
-bool cc_pos_is_not_equal( CcPos const pos_1, CcPos const pos_2 );
+bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
+bool cc_pos_is_not_equal( CcPos pos_1, CcPos pos_2 );
 
 
 // DOCS
@@ -35,28 +35,28 @@ typedef struct CcPosLink {
 } CcPosLink;
 
 // DOCS
-CcPosLink * cc_pos_link_new( int const i, int const j );
-CcPosLink * cc_pos_link_from_pos_new( CcPos const pos );
+CcPosLink * cc_pos_link_new( int i, int j );
+CcPosLink * cc_pos_link_from_pos_new( CcPos pos );
 
-CcPos cc_pos_from_pos_link( CcPosLink const * const restrict pos_link );
-
-// DOCS
-CcPosLink * cc_pos_link_append( CcPosLink * const restrict pos_link__io,
-                                int const i,
-                                int const j );
+CcPos cc_pos_from_pos_link( CcPosLink * restrict pos_link );
 
 // DOCS
-CcPosLink * cc_pos_link_append_or_init( CcPosLink ** const restrict pos_link__io,
-                                        int const i,
-                                        int const j );
+CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
+                                int i,
+                                int j );
 
 // DOCS
-CcPosLink * cc_pos_link_append_pos( CcPosLink * const restrict pos_link__io,
-                                    CcPos const pos );
+CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
+                                        int i,
+                                        int j );
 
 // DOCS
-CcPosLink * cc_pos_link_append_pos_or_init( CcPosLink ** const restrict pos_link__io,
-                                            CcPos const pos );
+CcPosLink * cc_pos_link_append_pos( CcPosLink * restrict pos_link__io,
+                                    CcPos pos );
+
+// DOCS
+CcPosLink * cc_pos_link_append_pos_or_init( CcPosLink ** restrict pos_link__io,
+                                            CcPos pos );
 
 
 #endif /* __CC_POS_H__ */

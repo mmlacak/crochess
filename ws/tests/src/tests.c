@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.164:363+20211217.135204"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.165:364+20211218.142113"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -52,9 +52,9 @@ TestMsg * test()
 }
 
 
-bool get_print_chessboard_from_cli_arg( char const * const restrict str,
-                                        char const ** const restrict first_io,
-                                        char const ** const restrict end_io )
+bool get_print_chessboard_from_cli_arg( char const * restrict str,
+                                        char const ** restrict first_io,
+                                        char const ** restrict end_io )
 {
     bool do_print_chesboard = false;
 
@@ -68,9 +68,9 @@ bool get_print_chessboard_from_cli_arg( char const * const restrict str,
     return do_print_chesboard;
 }
 
-bool get_print_move_from_cli_arg( char const * const restrict str,
-                                  char const ** const restrict first_io,
-                                  char const ** const restrict end_io )
+bool get_print_move_from_cli_arg( char const * restrict str,
+                                  char const ** restrict first_io,
+                                  char const ** restrict end_io )
 {
     bool do_print_move = true;
 
@@ -84,9 +84,9 @@ bool get_print_move_from_cli_arg( char const * const restrict str,
     return do_print_move;
 }
 
-CcFormatMove get_format_move_from_cli_arg( char const * const restrict str,
-                                           char const ** const restrict first_io,
-                                           char const ** const restrict end_io )
+CcFormatMove get_format_move_from_cli_arg( char const * restrict str,
+                                           char const ** restrict first_io,
+                                           char const ** restrict end_io )
 {
     CcFormatMove fm_user = cc_format_move_user( CC_FMSE_FormatOnlyCurrentMove );
     CcFormatMove fm_output = cc_format_move_output( CC_FMSE_FormatOnlyCurrentMove );
@@ -107,10 +107,10 @@ CcFormatMove get_format_move_from_cli_arg( char const * const restrict str,
     return format_move;
 }
 
-int get_integer_from_cli_arg( char const * const restrict str,
-                              int const default_num,
-                              char const ** const restrict first_io,
-                              char const ** const restrict end_io )
+int get_integer_from_cli_arg( char const * restrict str,
+                              int default_num,
+                              char const ** restrict first_io,
+                              char const ** restrict end_io )
 {
     int number = default_num;
     char num[ 12 ] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', };
@@ -304,23 +304,23 @@ int main( void )
         else if ( cc_str_is_equal( first__w, end__w, "x", NULL, BUFSIZ ) )
         {
 
-            // char const * const user_an = "[Ng6]~[We5]~[Re8]";
-            // char const * const user_an = "Ng6~[We5]~Re8";
-            // char const * const user_an = "Ne6-a3";
-            // char const * const user_an = "Hb14~We12@@P,B,R,R,N,B,N";
+            // char * user_an = "[Ng6]~[We5]~[Re8]";
+            // char * user_an = "Ng6~[We5]~Re8";
+            // char * user_an = "Ne6-a3";
+            // char * user_an = "Hb14~We12@@P,B,R,R,N,B,N";
 
-            // char const * const user_an = "Bi15~Wf12|Wr8~Np9";
-            // char const * const user_an = "Bi15~Wf12||W";
-            // char const * const user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6.p7..j19<Bl25-v5<P==p7]";
-            char const * const user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
+            // char * user_an = "Bi15~Wf12|Wr8~Np9";
+            // char * user_an = "Bi15~Wf12||W";
+            // char * user_an = "Hg10~Wh8@[H..h13<Bj19..f2<Nb6.p7..j19<Bl25-v5<P==p7]";
+            char * user_an = "Hg10~Wh8@[H,j9..h13*B..f2*N.p7..j19-v5*P==]";
 
-            // char const * const user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
-            // char const * const user_an = "Sm15~Am11::S..m17*..m19*.l20*.m21*.n20*.o21*";
-            // char const * const user_an = "[Sr14-m15]~[Am15-m11]::[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]";
-            // char const * const user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
+            // char * user_an = "Hig10~W10h8@[H..h13<Bj19..f2<Nb6.p7..9p17.rp17.r9p17..19p7.rp7.r19p7..9p7.rp7.r9p7..19p17.rp17.r19p17..j19<Bl25-v5<P==p7]";
+            // char * user_an = "Sm15~Am11::S..m17*..m19*.l20*.m21*.n20*.o21*";
+            // char * user_an = "[Sr14-m15]~[Am15-m11]::[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]";
+            // char * user_an = "Bi15~Wf12|Wr8|Na3@Np9||Ba3||K@@P,B,R,R,N,B,N@@@M::Sx7||";
 
             // Invalid.
-            // char const * const user_an = "H..9p175.rp1q7.r9p1q7..9rp7.9r7p..195p7.r99p.r199p.r1X9p7..9X7.rX7.r9X7..19X17.rX17.r19X17";
+            // char * user_an = "H..9p175.rp1q7.r9p1q7..9rp7.9r7p..195p7.r99p.r199p.r1X9p7..9X7.rX7.r9X7..19X17.rX17.r19X17";
 
             //
             // Test with AN from CLI.
@@ -454,7 +454,7 @@ int main( void )
                 continue;
             }
             printf( "1: %s", foo );
-            foo = cc_str_append_format_new( (char const ** const)(&foo), BUFSIZ, "%c", ':' );
+            foo = cc_str_append_format_new( (char ** const)(&foo), BUFSIZ, "%c", ':' );
             if ( !foo )
             {
                 printf( "1: error cc_str_append_format_new \n" );
@@ -472,7 +472,7 @@ int main( void )
                 continue;
             }
             printf( "2: %s", bar );
-            bar = cc_str_append_format_new( (char const ** const)(&bar), BUFSIZ, "%c", ';' );
+            bar = cc_str_append_format_new( (char ** const)(&bar), BUFSIZ, "%c", ';' );
             if ( !bar )
             {
                 printf( "2: error \n" );
@@ -490,7 +490,7 @@ int main( void )
                 continue;
             }
             printf( "3: %s", baz );
-            baz = cc_str_append_format_new( (char const ** const)(&baz), BUFSIZ, "." );
+            baz = cc_str_append_format_new( (char ** const)(&baz), BUFSIZ, "." );
             if ( !baz )
             {
                 printf( "3: error \n" );
@@ -605,8 +605,8 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "z6", NULL, BUFSIZ ) )
         {
-            char const * const str_1 = "a:b:c:d:e";
-            char const * const str_2 = "a:b:c:f:e";
+            char const * str_1 = "a:b:c:d:e";
+            char const * str_2 = "a:b:c:f:e";
 
             long long index = 0;
 
@@ -687,13 +687,13 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "z7", NULL, BUFSIZ ) )
         {
-            char * first = "a:b:c:d:e";
-            char * end_3 = first + 3;
+            char const * first = "a:b:c:d:e";
+            char const * end_3 = first + 3;
 
             // Don't mind gcc warning, these here are intentional.
             // warning: array subscript xx is outside array bounds of ‘char[10]’ [-Warray-bounds]
-            char * end_99 = first + 99;
-            char * end__3 = first - 3;
+            char const * end_99 = first + 99;
+            char const * end__3 = first - 3;
 
             printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, NULL, CC_MAX_LEN_IGNORE ), cc_str_len( first, NULL, 5 ), cc_str_len( first, NULL, 33 ) );
             printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_3, CC_MAX_LEN_IGNORE ), cc_str_len( first, end_3, 5 ), cc_str_len( first, end_3, 33 ) );

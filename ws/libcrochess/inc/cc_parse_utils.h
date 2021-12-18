@@ -25,7 +25,7 @@
 
     @return `true` if ply gatherer, `false` otherwise.
 */
-bool cc_parse_utils_char_is_ply_gather( char const c );
+bool cc_parse_utils_char_is_ply_gather( char c );
 
 /**
     Function returns length of a ply link in an algebraic notation, in characters.
@@ -34,7 +34,7 @@ bool cc_parse_utils_char_is_ply_gather( char const c );
 
     @return Length of a ply link if successful, `0` otherwise.
 */
-size_t cc_parse_utils_ply_link_len( char const * const restrict ply_str );
+size_t cc_parse_utils_ply_link_len( char const * restrict ply_str );
 
 /**
     Function returns string pointer, starting from a given location, and moving toward end of string.
@@ -53,8 +53,8 @@ size_t cc_parse_utils_ply_link_len( char const * const restrict ply_str );
 
     @return String pointer if successful, `NULL` otherwise.
 */
-char const * cc_parse_utils_go_ply_link( char const * const restrict move_str,
-                                         bool const skip_or_stop_at );
+char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
+                                         bool skip_or_stop_at );
 
 /**
     Iterator traversing over move algebraic notation (AN) string,
@@ -99,12 +99,12 @@ char const * cc_parse_utils_go_ply_link( char const * const restrict move_str,
     If `true` was returned, _output_ argument `ply_an_o` contains a newly
     allocated copy of a ply AN found.
 */
-bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
-                                      char ** const restrict ply_an_o,
-                                      bool const initialize_iter );
-// bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
-//                                       char const ** const restrict ply_start_o,
-//                                       char const ** const restrict ply_end_o );
+bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
+                                      char ** restrict ply_an_o,
+                                      bool initialize_iter );
+// bool cc_parse_utils_ply_str_iter_new( char * restrict move_str,
+//                                       char ** restrict ply_start_o,
+//                                       char ** restrict ply_end_o );
 
 /**
     Function getting ply link, for a given ply AN string.
@@ -117,8 +117,8 @@ bool cc_parse_utils_ply_str_iter_new( char const * const restrict move_str,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
-                                  CcPlyLinkEnum * const restrict link_o );
+bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
+                                  CcPlyLinkEnum * restrict link_o );
 
 /**
     Function getting piece, for a given ply AN string.
@@ -132,9 +132,9 @@ bool cc_parse_utils_get_ply_link( char const * const restrict ply_str,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_parse_utils_get_ply_piece( char const * const restrict ply_str,
-                                   bool const is_light,
-                                   CcPieceEnum * const restrict piece_o );
+bool cc_parse_utils_get_ply_piece( char const * restrict ply_str,
+                                   bool is_light,
+                                   CcPieceEnum * restrict piece_o );
 
 /**
     Function getting piece symbol, for a given ply AN string.
@@ -150,8 +150,8 @@ bool cc_parse_utils_get_ply_piece( char const * const restrict ply_str,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_parse_utils_get_ply_piece_symbol( char const * const restrict ply_str,
-                                          char * const restrict piece_symbol_o );
+bool cc_parse_utils_get_ply_piece_symbol( char const * restrict ply_str,
+                                          char * restrict piece_symbol_o );
 
 
 /**
@@ -161,7 +161,7 @@ bool cc_parse_utils_get_ply_piece_symbol( char const * const restrict ply_str,
 
     @return Valid pointer to first step if successful, `NULL` otherwise.
 */
-char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str );
+char const * cc_parse_utils_get_steps_str( char const * restrict ply_str );
 
 /**
     Function returns length of a step link in an algebraic notation, in characters.
@@ -170,7 +170,7 @@ char const * cc_parse_utils_get_steps_str( char const * const restrict ply_str )
 
     @return Length of a step link if successful, `0` otherwise.
 */
-size_t cc_parse_utils_step_link_len( char const * const restrict step_str );
+size_t cc_parse_utils_step_link_len( char const * restrict step_str );
 
 /**
     Function returns string pointer, starting from a given location, and moving toward end of string.
@@ -189,8 +189,8 @@ size_t cc_parse_utils_step_link_len( char const * const restrict step_str );
 
     @return String pointer if successful, `NULL` otherwise.
 */
-char const * cc_parse_utils_go_step_link( char const * const restrict ply_str,
-                                          bool const skip_or_stop_at );
+char const * cc_parse_utils_go_step_link( char const * restrict ply_str,
+                                          bool skip_or_stop_at );
 
 /**
     Iterator returns newly allocated string, containing next step algebraic notation.
@@ -206,7 +206,7 @@ char const * cc_parse_utils_go_step_link( char const * const restrict ply_str,
 
     @return String pointer to newly allocated AN string if successful, `NULL` otherwise.
 */
-char * cc_parse_utils_next_step_str_new( char const * const restrict ply_str_s );
+char * cc_parse_utils_next_step_str_new( char const * restrict ply_str_s );
 
 /**
     Function returns whether given ply has multiple steps.
@@ -215,7 +215,7 @@ char * cc_parse_utils_next_step_str_new( char const * const restrict ply_str_s )
 
     @return `true` if ply has multiple steps, `false` otherwise.
 */
-bool cc_parse_utils_ply_has_multiple_steps( char const * const restrict ply_str );
+bool cc_parse_utils_ply_has_multiple_steps( char const * restrict ply_str );
 
 /**
     Function getting step link, for a given step AN string.
@@ -229,9 +229,9 @@ bool cc_parse_utils_ply_has_multiple_steps( char const * const restrict ply_str 
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
-                                   char const * const restrict step_str,
-                                   CcStepLinkEnum * const restrict link_o );
+bool cc_parse_utils_get_step_link( char const * restrict ply_str,
+                                   char const * restrict step_str,
+                                   CcStepLinkEnum * restrict link_o );
 
 /**
     Function returns pointer to first character of a side effect, in a given step.
@@ -246,7 +246,7 @@ bool cc_parse_utils_get_step_link( char const * const restrict ply_str,
 
     @return String pointer if successful, `NULL` otherwise.
 */
-char const * cc_parse_utils_stop_at_side_effects( char const * const restrict step_str );
+char const * cc_parse_utils_stop_at_side_effects( char const * restrict step_str );
 
 /**
     Function returns newly allocated string containing fields string notation.
@@ -255,7 +255,7 @@ char const * cc_parse_utils_stop_at_side_effects( char const * const restrict st
 
     @return Newly allocated string pointer if successful, `NULL` otherwise.
 */
-char * cc_parse_utils_step_fields_str_new( char const * const restrict step_str );
+char * cc_parse_utils_step_fields_str_new( char const * restrict step_str );
 
 /**
     Function returns string pointer to side-effect, within given step AN string.
@@ -266,7 +266,7 @@ char * cc_parse_utils_step_fields_str_new( char const * const restrict step_str 
 
     @return String pointer if successful, `NULL` otherwise.
 */
-char const * cc_parse_utils_side_effect_str( char const * const restrict step_str );
+char const * cc_parse_utils_side_effect_str( char const * restrict step_str );
 
 /**
     Function checks if fields string is valid.
@@ -284,7 +284,7 @@ char const * cc_parse_utils_side_effect_str( char const * const restrict step_st
 
     @return `true` if fields string is valid, `false` otherwise.
 */
-bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str );
+bool cc_parse_utils_is_fields_str_valid( char const * restrict fields_str );
 
 /**
     Function separates disambiguation and field data, from a given fields string.
@@ -303,27 +303,27 @@ bool cc_parse_utils_is_fields_str_valid( char const * const restrict fields_str 
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_parse_utils_get_fields( char const * const restrict fields_str,
-                                CcChessboard const * const restrict cb,
+bool cc_parse_utils_get_fields( char const * restrict fields_str,
+                                CcChessboard * restrict cb,
                                 int * restrict disambiguation_file_o,
                                 int * restrict disambiguation_rank_o,
                                 int * restrict file_o,
                                 int * restrict rank_o );
 
 // TODO :: DOCS
-bool cc_parse_utils_get_lost_tag( char const * const restrict lost_tag_str,
-                                  CcChessboard const * const restrict cb,
-                                  int const step_i,
-                                  int const step_j,
-                                  CcTagEnum * const restrict lost_tag_o );
+bool cc_parse_utils_get_lost_tag( char const * restrict lost_tag_str,
+                                  CcChessboard * restrict cb,
+                                  int step_i,
+                                  int step_j,
+                                  CcTagEnum * restrict lost_tag_o );
 
 // TODO :: DOCS
-bool cc_parse_utils_get_side_effect( char const * const restrict step_str,
-                                     CcChessboard const * const restrict cb,
-                                     CcPieceEnum const ply_piece,
-                                     int const step_i,
-                                     int const step_j,
-                                     CcSideEffect * const restrict side_effect_o );
+bool cc_parse_utils_get_side_effect( char const * restrict step_str,
+                                     CcChessboard * restrict cb,
+                                     CcPieceEnum ply_piece,
+                                     int step_i,
+                                     int step_j,
+                                     CcSideEffect * restrict side_effect_o );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

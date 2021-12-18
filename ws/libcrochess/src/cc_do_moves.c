@@ -16,29 +16,29 @@
 */
 
 
-CcPlyLinkEnum * cc_get_next_ply_link( CcPly const * const restrict ply )
+CcPlyLinkEnum * cc_get_next_ply_link( CcPly * restrict ply )
 {
     if ( !ply ) return NULL;
     if ( !ply->next ) return NULL;
     return &( ply->next->link );
 }
 
-bool cc_is_teleporting_next( CcPly const * const restrict ply )
+bool cc_is_teleporting_next( CcPly * restrict ply )
 {
-    CcPlyLinkEnum const * const pl = cc_get_next_ply_link( ply );
+    CcPlyLinkEnum * pl = cc_get_next_ply_link( ply );
     if ( !pl ) return false;
 
-    bool const result = ( ( *pl == CC_PLE_Teleportation )
+    bool result = ( ( *pl == CC_PLE_Teleportation )
                        || ( *pl == CC_PLE_FailedTeleportation ) );
 
     return result;
 }
 
 
-bool cc_do_step( CcChessboard * const restrict cb__io,
-                 CcMove const * const restrict move,
-                 CcPly const * const restrict ply,
-                 CcStep const * const restrict step )
+bool cc_do_step( CcChessboard * restrict cb__io,
+                 CcMove * restrict move,
+                 CcPly * restrict ply,
+                 CcStep * restrict step )
 {
     if ( !cb__io ) return false;
     if ( !move ) return false;
@@ -46,23 +46,23 @@ bool cc_do_step( CcChessboard * const restrict cb__io,
     if ( !ply ) return false;
     if ( !step ) return false;
 
-    CcPieceEnum const pe = ply->piece;
-    CcStep const * const steps = ply->steps;
+    CcPieceEnum pe = ply->piece;
+    CcStep * steps = ply->steps;
     if ( !steps ) return false;
 
-    CcStep const * last = steps;
+    CcStep * last = steps;
     while ( last->next ) { last = last->next; }
 
     bool result = true;
-    bool const is_first_ply = ( move->plies == ply );
-    bool const is_first_step = ( steps == step );
-    bool const is_last_step = ( last == step );
+    bool is_first_ply = ( move->plies == ply );
+    bool is_first_step = ( steps == step );
+    bool is_last_step = ( last == step );
 
     if ( is_first_ply && is_first_step )
         result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, CC_PE_None );
     else
     {
-        CcSideEffect const * const se = &( step->side_effect );
+        CcSideEffect * se = &( step->side_effect );
 
         switch ( se->type )
         {
@@ -177,9 +177,9 @@ bool cc_do_step( CcChessboard * const restrict cb__io,
     return result;
 }
 
-bool cc_do_ply( CcChessboard * const restrict cb__io,
-                CcMove const * const restrict move,
-                CcPly const * const restrict ply )
+bool cc_do_ply( CcChessboard * restrict cb__io,
+                CcMove * restrict move,
+                CcPly * restrict ply )
 {
     // if ( !cb__io ) return false;
 
@@ -189,7 +189,7 @@ bool cc_do_ply( CcChessboard * const restrict cb__io,
     if ( !ply ) return false;
 
     bool result = true;
-    CcStep const * s = ply->steps;
+    CcStep * s = ply->steps;
 
     while ( s && result )
     {
@@ -200,18 +200,18 @@ bool cc_do_ply( CcChessboard * const restrict cb__io,
     return result;
 }
 
-bool cc_do_moves( CcChessboard * const restrict cb__io,
-                  CcMove const * const restrict moves,
-                  CcDoMoveEnum const do_spec )
+bool cc_do_moves( CcChessboard * restrict cb__io,
+                  CcMove * restrict moves,
+                  CcDoMoveEnum do_spec )
 {
     if ( !cb__io ) return false;
     if ( !moves ) return false;
 
-    CcChessboard * const cb__a = cc_chessboard_duplicate_new( cb__io );
+    CcChessboard * cb__a = cc_chessboard_duplicate_new( cb__io );
     if ( !cb__a ) return false;
 
     bool result = true;
-    CcMove const * mv = moves;
+    CcMove * mv = moves;
 
     if ( do_spec == CC_DME_DoOnlyLastMove )
         while ( mv->next ) mv = mv->next; // moves != NULL --> mv != NULL
@@ -224,7 +224,7 @@ bool cc_do_moves( CcChessboard * const restrict cb__io,
             return false;
         }
 
-        CcPly const * p = mv->plies;
+        CcPly * p = mv->plies;
         while ( p && result )
         {
             result = result && cc_do_ply( cb__a, mv, p );

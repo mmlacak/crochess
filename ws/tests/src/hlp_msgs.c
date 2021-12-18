@@ -12,14 +12,14 @@ void print_license_intro()
     // fflush( stdout );
 }
 
-void print_version_info(char const * const restrict lib_ver, char const * const restrict app_ver)
+void print_version_info( char const * restrict lib_ver, char const * restrict app_ver )
 {
     printf( "Library: %s\n", lib_ver );
     printf( "Application: %s\n", app_ver );
     // fflush( stdout );
 }
 
-void print_app_intro(char const * const restrict lib_ver, char const * const restrict app_ver)
+void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver )
 {
     print_license_intro();
 

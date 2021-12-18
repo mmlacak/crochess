@@ -43,14 +43,14 @@ char const * const CC_VARIANT_SYMBOLS[] =
 };
 
 
-bool cc_variant_str_is_symbol( char const * const restrict str )
+bool cc_variant_str_is_symbol( char const * restrict str )
 {
     if ( !str ) return false;
 
     char * lc__a = cc_str_to_case_new( str, false );
     if ( !lc__a ) return false;
 
-    int const count = sizeof( CC_VARIANT_SYMBOLS ) / sizeof( CC_VARIANT_SYMBOLS[ 0 ] );
+    int count = sizeof( CC_VARIANT_SYMBOLS ) / sizeof( CC_VARIANT_SYMBOLS[ 0 ] );
     for ( int i = 0; i < count; ++i )
     {
         char const * const sym = CC_VARIANT_SYMBOLS[ i ];
@@ -66,7 +66,7 @@ bool cc_variant_str_is_symbol( char const * const restrict str )
     return false;
 }
 
-CcVariantEnum cc_variant_from_symbol( char const * const restrict str )
+CcVariantEnum cc_variant_from_symbol( char const * restrict str )
 {
     CcVariantEnum ve = CC_VE_One;
     if ( !str ) return ve;
@@ -94,7 +94,7 @@ CcVariantEnum cc_variant_from_symbol( char const * const restrict str )
     return ve;
 }
 
-char const * cc_variant_label( CcVariantEnum const ve )
+char const * cc_variant_label( CcVariantEnum ve )
 {
     switch ( ve )
     {
@@ -114,7 +114,7 @@ char const * cc_variant_label( CcVariantEnum const ve )
     }
 }
 
-unsigned int cc_variant_board_size( CcVariantEnum const ve )
+unsigned int cc_variant_board_size( CcVariantEnum ve )
 {
     switch ( ve )
     {

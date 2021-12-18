@@ -292,7 +292,7 @@ CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BO
 };
 
 
-CcPieceEnum const * cc_setup_board_get( CcVariantEnum const ve )
+CcPieceEnum const * cc_setup_board_get( CcVariantEnum ve )
 {
     switch ( ve )
     {
@@ -313,18 +313,18 @@ CcPieceEnum const * cc_setup_board_get( CcVariantEnum const ve )
 }
 
 
-bool cc_setup_board_has_piece( CcVariantEnum const ve, CcPieceEnum const pe )
+bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe )
 {
-    CcPieceEnum const * const su = cc_setup_board_get( ve );
+    CcPieceEnum const * su = cc_setup_board_get( ve );
     if ( !su ) return false;
 
-    size_t const size = cc_variant_board_size( ve );
+    size_t size = cc_variant_board_size( ve );
 
     for ( int i = 0; i < (int)size; ++i )
     {
         for ( int j = 0; j < (int)size; ++j )
         {
-            int const z = size * i + j;
+            int z = size * i + j;
 
             if ( su[ z ] == pe )
                 return true;
@@ -334,9 +334,9 @@ bool cc_setup_board_has_piece( CcVariantEnum const ve, CcPieceEnum const pe )
     return false;
 }
 
-int cc_setup_board_get_figure_row_initial_file( CcVariantEnum const ve,
-                                                CcPieceEnum const pe,
-                                                bool const search_left_first )
+int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
+                                                CcPieceEnum pe,
+                                                bool search_left_first )
 {
     // Not figure row pieces.
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
@@ -344,17 +344,17 @@ int cc_setup_board_get_figure_row_initial_file( CcVariantEnum const ve,
          ( CC_PIECE_IS_MONOLITH( pe ) ) )
         return CC_INVALID_OFF_BOARD_COORD_MIN;
 
-    CcPieceEnum const * const su = cc_setup_board_get( ve );
+    CcPieceEnum const * su = cc_setup_board_get( ve );
     if ( !su ) return CC_INVALID_OFF_BOARD_COORD_MIN;
 
-    size_t const size = cc_variant_board_size( ve );
-    int const start = search_left_first ? 0 : (int)(size - 1);
-    int const step = search_left_first ? 1 : -1;
-    int const rank = cc_piece_is_light( pe, true ) ? (int)(size - 1) : 0;
+    size_t size = cc_variant_board_size( ve );
+    int start = search_left_first ? 0 : (int)(size - 1);
+    int step = search_left_first ? 1 : -1;
+    int rank = cc_piece_is_light( pe, true ) ? (int)(size - 1) : 0;
 
     for ( int j = start; (0 <= j) && (j < (int)size); j += step )
     {
-        int const z = size * rank + j;
+        int z = size * rank + j;
 
         if ( su[ z ] == pe )
             return j;

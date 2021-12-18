@@ -4,9 +4,9 @@
 #include "cc_gen_pos.h"
 
 
-bool cc_gen_pos( CcPos * const restrict pos__io,
-                 CcPos const step,
-                 bool const from_or_to )
+bool cc_gen_pos( CcPos * restrict pos__io,
+                 CcPos step,
+                 bool from_or_to )
 {
     if ( !pos__io ) return false;
 

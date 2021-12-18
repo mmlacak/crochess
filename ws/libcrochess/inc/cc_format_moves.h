@@ -75,12 +75,12 @@ typedef struct CcFormatMove
 
     @return Move format structure.
 */
-CcFormatMove cc_format_move( CcFormatMoveScopeEnum const scope,
-                             CcFormatStepUsageEnum const usage,
-                             bool const do_format_with_pawn_symbol,
-                             bool const do_dark_pieces_uppercase,
-                             CcWrapPlyInSquareBracketsEnum const wrap,
-                             bool const default_wrap );
+CcFormatMove cc_format_move( CcFormatMoveScopeEnum scope,
+                             CcFormatStepUsageEnum usage,
+                             bool do_format_with_pawn_symbol,
+                             bool do_dark_pieces_uppercase,
+                             CcWrapPlyInSquareBracketsEnum wrap,
+                             bool default_wrap );
 
 /** @defgroup format_move_convenience The format move conveniences
  *  The format move convenience functions are meant to be used instead of `cc_format_move()`.
@@ -100,7 +100,7 @@ CcFormatMove cc_format_move( CcFormatMoveScopeEnum const scope,
 
     @return Move format structure.
 */
-CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum const scope );
+CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum scope );
 
 /**
     Returns move formatting flags, meant for verbose short algebraic notation,
@@ -110,7 +110,7 @@ CcFormatMove cc_format_move_user( CcFormatMoveScopeEnum const scope );
 
     @return Move format structure.
 */
-CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum const scope );
+CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum scope );
 
 /**
     Returns move formatting flags, meant for debug short algebraic notation,
@@ -120,7 +120,7 @@ CcFormatMove cc_format_move_output( CcFormatMoveScopeEnum const scope );
 
     @return Move format structure.
 */
-CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum const scope );
+CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum scope );
 
 /** @} */ // end of step_convenience_new
 
@@ -134,9 +134,9 @@ CcFormatMove cc_format_move_debug( CcFormatMoveScopeEnum const scope );
 
     @return `true` if ply is to be wrapped, `false` otherwise.
 */
-bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
-                                        CcPly const * const restrict ply,
-                                        CcFormatMove const format_move );
+bool cc_if_wrap_ply_in_square_brackets( CcMove * restrict move,
+                                        CcPly * restrict ply,
+                                        CcFormatMove format_move );
 
 /**
     Returns lowercase character representing a file in algebraic notation.
@@ -145,7 +145,7 @@ bool cc_if_wrap_ply_in_square_brackets( CcMove const * const restrict move,
 
     @return A file character if successful, `?` otherwise.
 */
-char cc_format_pos_file( int const i );
+char cc_format_pos_file( int i );
 
 /**
     Returns a newly allocated string representing a rank in algebraic notation.
@@ -154,9 +154,9 @@ char cc_format_pos_file( int const i );
 
     @return A newly allocated rank string if successful, `NULL` otherwise.
 */
-char * cc_format_pos_rank_new( int const j );
+char * cc_format_pos_rank_new( int j );
 
-// TODO :: char[ 2 ] cc_format_pos_rank( int const j )
+// TODO :: char[ 2 ] cc_format_pos_rank( int j )
 
 
 /**
@@ -177,8 +177,8 @@ char const * cc_format_lost_tag( CcTagEnum te );
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effect,
-                                  CcFormatMove const format_move );
+char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
+                                  CcFormatMove format_move );
 
 /**
     Returns a newly allocated string containing formatted output of a step.
@@ -191,11 +191,11 @@ char * cc_format_side_effect_new( CcSideEffect const * const restrict side_effec
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_step_new( CcMove const * const restrict move,
-                           CcPly const * const restrict ply,
-                           CcStep const * const restrict step,
-                           CcFormatMove const format_move,
-                           bool * const restrict has_preceding_step__io );
+char * cc_format_step_new( CcMove * restrict move,
+                           CcPly * restrict ply,
+                           CcStep * restrict step,
+                           CcFormatMove format_move,
+                           bool * restrict has_preceding_step__io );
 
 /**
     Returns a newly allocated string containing formatted output of a ply.
@@ -206,9 +206,9 @@ char * cc_format_step_new( CcMove const * const restrict move,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_ply_new( CcMove const * const restrict move,
-                          CcPly const * const restrict ply,
-                          CcFormatMove const format_move );
+char * cc_format_ply_new( CcMove * restrict move,
+                          CcPly * restrict ply,
+                          CcFormatMove format_move );
 
 /**
     Returns a newly allocated string containing formatted output of a move..
@@ -218,8 +218,8 @@ char * cc_format_ply_new( CcMove const * const restrict move,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_move_new( CcMove const * const restrict move,
-                           CcFormatMove const format_move );
+char * cc_format_move_new( CcMove * restrict move,
+                           CcFormatMove format_move );
 
 
 #endif /* __CC_PRINT_MOVES_H__ */

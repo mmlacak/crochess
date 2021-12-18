@@ -6,10 +6,10 @@
 #include "test_utils.h"
 
 
-char const TESTS_MOVE_TEST_SEPARATOR[] = " === === === === === === === === === === === === === === === === === === === === \n";
-char const TESTS_MOVE_NOTATION_SEPARATOR[] = " ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... \n";
-char const TESTS_MOVE_CHESSBOARD_SEPARATOR[] = " --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- \n";
-char const TESTS_MOVE_MISC_SEPARATOR[] = " *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** \n";
+char TESTS_MOVE_TEST_SEPARATOR[] = " === === === === === === === === === === === === === === === === === === === === \n";
+char TESTS_MOVE_NOTATION_SEPARATOR[] = " ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... \n";
+char TESTS_MOVE_CHESSBOARD_SEPARATOR[] = " --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- \n";
+char TESTS_MOVE_MISC_SEPARATOR[] = " *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** \n";
 
 
 TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMove format_move )
@@ -21,13 +21,13 @@ TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMo
 }
 
 
-bool test_duplicates( CcMove const * const restrict moves )
+bool test_duplicates( CcMove * restrict moves )
 {
     if ( !moves ) return false;
 
     printf( TESTS_MOVE_MISC_SEPARATOR );
 
-    CcMove const * m = moves;
+    CcMove * m = moves;
     while ( m )
     {
         printf( "%p\n", (void *)m );

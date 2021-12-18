@@ -15,9 +15,9 @@
 */
 
 
-CcMove * cc_move_new( char const * const restrict notation,
-                      CcPly ** const restrict plies__n,
-                      CcMoveStatusEnum const status )
+CcMove * cc_move_new( char const * restrict notation,
+                      CcPly ** restrict plies__n,
+                      CcMoveStatusEnum status )
 {
     CcMove * mv__t = malloc( sizeof( CcMove ) );
     if ( !mv__t ) return NULL;
@@ -43,10 +43,10 @@ CcMove * cc_move_new( char const * const restrict notation,
     return mv__t;
 }
 
-CcMove * cc_move_append( CcMove * const restrict moves__io,
-                         char const * const restrict notation,
-                         CcPly ** const restrict plies__n,
-                         CcMoveStatusEnum const status )
+CcMove * cc_move_append( CcMove * restrict moves__io,
+                         char const * restrict notation,
+                         CcPly ** restrict plies__n,
+                         CcMoveStatusEnum status )
 {
     if ( !moves__io ) return NULL;
 
@@ -60,8 +60,8 @@ CcMove * cc_move_append( CcMove * const restrict moves__io,
     return new;
 }
 
-bool cc_move_extend_or_init( CcMove ** const restrict moves__io,
-                             CcMove ** const restrict moves__n )
+bool cc_move_extend_or_init( CcMove ** restrict moves__io,
+                             CcMove ** restrict moves__n )
 {
     if ( !moves__io ) return false;
     if ( !moves__n ) return false;
@@ -81,7 +81,7 @@ bool cc_move_extend_or_init( CcMove ** const restrict moves__io,
     return true;
 }
 
-CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
+CcMove * cc_move_duplicate_all_new( CcMove * restrict moves )
 {
     if ( !moves ) return NULL;
 
@@ -91,26 +91,26 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
     CcMove * new__o = cc_move_new( moves->notation, &plies__t, moves->status );
     if ( !new__o )
     {
-        cc_ply_free_all_plies( CC_CAST_TC_P_PC( CcPly, &plies__t ) );
+        cc_ply_free_all_plies( &plies__t );
         return NULL;
     }
 
-    CcMove const * from = moves->next;
+    CcMove * from = moves->next;
 
     while ( from )
     {
         CcPly * p__t = cc_ply_duplicate_all_new( from->plies );
         if ( !p__t )
         {
-            cc_move_free_all_moves( CC_CAST_TC_P_PC( CcMove, &new__o ) );
+            cc_move_free_all_moves( &new__o );
             return NULL;
         }
 
         CcMove * n__w = cc_move_append( new__o, from->notation, &p__t, from->status );
         if ( !n__w )
         {
-            cc_ply_free_all_plies( CC_CAST_TC_P_PC( CcPly, &p__t ) );
-            cc_move_free_all_moves( CC_CAST_TC_P_PC( CcMove, &new__o ) );
+            cc_ply_free_all_plies( &p__t );
+            cc_move_free_all_moves( &new__o );
             return NULL;
         }
 
@@ -120,20 +120,20 @@ CcMove * cc_move_duplicate_all_new( CcMove const * const restrict moves )
     return new__o;
 }
 
-bool cc_move_free_all_moves( CcMove const ** const restrict moves__f )
+bool cc_move_free_all_moves( CcMove ** restrict moves__f )
 {
     if ( !moves__f ) return false;
     if ( !*moves__f ) return true;
 
     bool result = true;
 
-    CcMove const * mv = *moves__f;
+    CcMove * mv = *moves__f;
 
     while ( mv )
     {
         CC_FREE( mv->notation );
 
-        CcPly const ** const plies = CC_CAST_TC_P_PC( CcPly, &( mv->plies ) );
+        CcPly ** plies = &( mv->plies );
         result = result && cc_ply_free_all_plies( plies );
 
         CcMove * tmp = mv->next;
@@ -145,13 +145,13 @@ bool cc_move_free_all_moves( CcMove const ** const restrict moves__f )
     return result;
 }
 
-size_t cc_move_ply_count( CcMove const * const restrict move )
+size_t cc_move_ply_count( CcMove * restrict move )
 {
     if ( !move ) return 0;
     if ( !move->plies ) return 0;
 
     size_t count = 1;
-    CcPly const * p = move->plies;
+    CcPly * p = move->plies;
 
     while ( p->next )
     {

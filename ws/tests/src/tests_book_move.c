@@ -21,7 +21,7 @@
 
 
 // bool test_book_move_scn_ct_03_define_step_ply( TestPrints tp )
-bool test_book_move_scn_ct_03_define_step_ply( int const index, TestPrints const tp )
+bool test_book_move_scn_ct_03_define_step_ply( int index, TestPrints tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d scn_ct_03_define_step_ply\n", index );

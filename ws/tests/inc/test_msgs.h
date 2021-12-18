@@ -16,49 +16,49 @@ typedef enum TestMsgEnum
     TME_Fatal,
 } TestMsgEnum;
 
-char const * test_msg_enum_label( TestMsgEnum tme );
+char * test_msg_enum_label( TestMsgEnum tme );
 
 bool test_print_failure( bool expr,
                          TestMsgEnum type,
-                         char const * const restrict msg,
-                         char const * const restrict file,
+                         char const * restrict msg,
+                         char const * restrict file,
                          size_t line,
-                         char const * const restrict func );
+                         char const * restrict func );
 
 
 typedef struct TestMsg
 {
     TestMsgEnum type;
-    char const * msg;
-    char const * file;
+    char * msg;
+    char * file;
     size_t line;
-    char const * func;
+    char * func;
     struct TestMsg * next;
 } TestMsg;
 
 TestMsg * test_msg_new( TestMsgEnum type,
-                        char const * const restrict msg,
-                        char const * const restrict file,
+                        char const * restrict msg,
+                        char const * restrict file,
                         size_t line,
-                        char const * const restrict func );
+                        char const * restrict func );
 
-TestMsg * test_msg_append( TestMsg * const restrict test_msgs,
+TestMsg * test_msg_append( TestMsg * restrict test_msgs,
                            TestMsgEnum type,
-                           char const * const restrict msg,
-                           char const * const restrict file,
+                           char const * restrict msg,
+                           char const * restrict file,
                            size_t line,
-                           char const * const restrict func );
+                           char const * restrict func );
 
-TestMsg * test_msg_init_or_append( TestMsg ** const restrict test_msgs,
+TestMsg * test_msg_init_or_append( TestMsg ** restrict test_msgs,
                                    TestMsgEnum type,
-                                   char const * const restrict msg,
-                                   char const * const restrict file,
+                                   char const * restrict msg,
+                                   char const * restrict file,
                                    size_t line,
-                                   char const * const restrict func );
+                                   char const * restrict func );
 
-bool test_msg_free_all( TestMsg ** const restrict test_msgs__f );
+bool test_msg_free_all( TestMsg ** restrict test_msgs__f );
 
-bool test_msg_print_all( TestMsg const * const restrict test_msgs,
+bool test_msg_print_all( TestMsg * restrict test_msgs,
                          TestMsgEnum level );
 
 

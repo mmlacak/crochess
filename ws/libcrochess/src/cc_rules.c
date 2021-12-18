@@ -6,7 +6,7 @@
 
 
 bool cc_rules_do_moves( CcGame ** restrict game_io__r,
-                        CcMove ** const restrict moves__n,
+                        CcMove ** restrict moves__n,
                         CcDoMoveEnum dme )
 {
     if ( !game_io__r ) return false;
@@ -69,9 +69,9 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
 }
 
 
-bool cc_rules_make_move( CcGame ** const restrict game_io__r,
-                         char const * const restrict move_an,
-                         CcParseMsg ** const restrict parse_msgs_io )
+bool cc_rules_make_move( CcGame ** restrict game_io__r,
+                         char const * restrict move_an,
+                         CcParseMsg ** restrict parse_msgs_io )
 {
     if ( !game_io__r ) return false;
     if ( !*game_io__r ) return false;

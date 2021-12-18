@@ -76,7 +76,7 @@ extern CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VAR
 
     @return Pointer to setup if successful, `NULL` otherwise.
 */
-CcPieceEnum const * cc_setup_board_get( CcVariantEnum const ve );
+CcPieceEnum const * cc_setup_board_get( CcVariantEnum ve );
 
 /**
     Function checks if piece is present in an initial setup of a chessboard.
@@ -86,7 +86,7 @@ CcPieceEnum const * cc_setup_board_get( CcVariantEnum const ve );
 
     @return `true` if piece is found in an initial setup, `false` otherwise.
 */
-bool cc_setup_board_has_piece( CcVariantEnum const ve, CcPieceEnum const pe );
+bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe );
 
 /**
     Function returns file of a figure in an initial setup of a chessboard.
@@ -104,9 +104,9 @@ bool cc_setup_board_has_piece( CcVariantEnum const ve, CcPieceEnum const pe );
     @return File if figure is found in a first/last row of initial setup,
             `CC_INVALID_OFF_BOARD_COORD_MIN` otherwise.
 */
-int cc_setup_board_get_figure_row_initial_file( CcVariantEnum const ve,
-                                                CcPieceEnum const pe,
-                                                bool const search_left_first );
+int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
+                                                CcPieceEnum pe,
+                                                bool search_left_first );
 
 
 #endif /* __CC_SETUP_BOARD_H__ */

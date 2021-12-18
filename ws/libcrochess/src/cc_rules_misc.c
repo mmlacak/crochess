@@ -11,12 +11,12 @@
 */
 
 
-bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict cb,
-                                           CcPieceEnum const pawn_en_passant,
-                                           int const step_i,
-                                           int const step_j,
-                                           CcPieceEnum * const restrict pawn_o,
-                                           int * const restrict dist_j_o )
+bool cc_rule_utils_find_en_passant_target( CcChessboard * restrict cb,
+                                           CcPieceEnum pawn_en_passant,
+                                           int step_i,
+                                           int step_j,
+                                           CcPieceEnum * restrict pawn_o,
+                                           int * restrict dist_j_o )
 {
     if ( !cb ) return false;
     if ( !CC_PIECE_IS_PAWN( pawn_en_passant ) ) return false;
@@ -71,13 +71,13 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard const * const restrict c
 }
 
 
-bool cc_rule_utils_find_castling_rook( CcChessboard const * const restrict cb,
-                                       CcPieceEnum const king_castling,
-                                       int const step_i_K,
-                                       int const step_j_K,
-                                       int * const restrict dest_i_R_io,
-                                       CcPieceEnum * const restrict rook_o,
-                                       int * const restrict start_i_R_o )
+bool cc_rule_utils_find_castling_rook( CcChessboard * restrict cb,
+                                       CcPieceEnum king_castling,
+                                       int step_i_K,
+                                       int step_j_K,
+                                       int * restrict dest_i_R_io,
+                                       CcPieceEnum * restrict rook_o,
+                                       int * restrict start_i_R_o )
 {
     if ( !cb ) return false;
     if ( !dest_i_R_io ) return false;

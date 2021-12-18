@@ -45,9 +45,9 @@ typedef int (*cc_ctype_fp_ischar_t)( int ch );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_count_chars( char const * const restrict str,
+bool cc_str_count_chars( char const * restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,
-                         size_t * const restrict count__o );
+                         size_t * restrict count__o );
 
 /**
     Function returns a string pointer, by traversing a given string,
@@ -62,9 +62,9 @@ bool cc_str_count_chars( char const * const restrict str,
     If there is no searched-for characters in a string,
     function returns pointer to the terminating character (i.e. ``'\0'``) of a given string.
 */
-char const * cc_str_traverse_chars( char const * const restrict str,
+char const * cc_str_traverse_chars( char const * restrict str,
                                     cc_ctype_fp_ischar_t fp_is_char,
-                                    bool const skip_or_stop_at );
+                                    bool skip_or_stop_at );
 
 
 /**
@@ -75,8 +75,8 @@ char const * cc_str_traverse_chars( char const * const restrict str,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_to_case( char * const restrict str__io,
-                     bool const to_upper_or_lower );
+bool cc_str_to_case( char * restrict str__io,
+                     bool to_upper_or_lower );
 
 /**
     Function returning a newly allocated string, converted to uppercase or lowercase.
@@ -86,8 +86,8 @@ bool cc_str_to_case( char * const restrict str__io,
 
     @return A newly allocated, converted string if successful, `NULL` otherwise.
 */
-char * cc_str_to_case_new( char const * const restrict str,
-                           bool const to_upper_or_lower );
+char * cc_str_to_case_new( char const * restrict str,
+                           bool to_upper_or_lower );
 
 /**
     Function returning length of a string, optionally capped at maximum length.
@@ -106,9 +106,9 @@ char * cc_str_to_case_new( char const * const restrict str,
 
     @return Length of a string if successful, `0` otherwise.
 */
-size_t cc_str_len( char const * const restrict first,
-                   char const * const restrict end__d,
-                   size_t const max_len__d );
+size_t cc_str_len( char const * restrict first,
+                   char const * restrict end__d,
+                   size_t max_len__d );
 
 /**
     Function returns length of a formatted variadic input.
@@ -123,7 +123,7 @@ size_t cc_str_len( char const * const restrict first,
     @return Length of a formatted variadic input if non-negative,
             error code if negative.
 */
-int cc_str_len_format( char const * const restrict fmt, ... );
+int cc_str_len_format( char const * restrict fmt, ... );
 
 /**
     Function returns end of a given (sub-)string.
@@ -141,8 +141,8 @@ int cc_str_len_format( char const * const restrict fmt, ... );
 
     @return End of a (sub-)string if successful, `NULL` otherwise.
 */
-char const * cc_str_end( char const * const restrict str,
-                         size_t const max_len__d );
+char const * cc_str_end( char const * restrict str,
+                         size_t max_len__d );
 
 /**
     Compares two (sub-)strings, returns index of a first difference.
@@ -177,12 +177,12 @@ char const * cc_str_end( char const * const restrict str,
     @return `true` if successful, `false` otherwise.
     Index of a first difference found is returned via _output_ parameter `index__o`.
 */
-bool cc_str_compare( char const * const restrict first_1,
-                     char const * const restrict end_1__d,
-                     char const * const restrict first_2,
-                     char const * const restrict end_2__d,
-                     size_t const max_len__d,
-                     long long * const restrict index__o );
+bool cc_str_compare( char const * restrict first_1,
+                     char const * restrict end_1__d,
+                     char const * restrict first_2,
+                     char const * restrict end_2__d,
+                     size_t max_len__d,
+                     long long * restrict index__o );
 
 /**
     Function checks if two (sub-)strings are equal, up to a given maximum length.
@@ -199,11 +199,11 @@ bool cc_str_compare( char const * const restrict first_1,
 
     @return `true` if two given (sub-)strings are equal up to a maximum length, `false` otherwise.
 */
-bool cc_str_is_equal( char const * const restrict first_1,
-                      char const * const restrict end_1__d,
-                      char const * const restrict first_2,
-                      char const * const restrict end_2__d,
-                      size_t const max_len__d );
+bool cc_str_is_equal( char const * restrict first_1,
+                      char const * restrict end_1__d,
+                      char const * restrict first_2,
+                      char const * restrict end_2__d,
+                      size_t max_len__d );
 
 /**
     Function copies (sub-)string into a newly allocated string.
@@ -214,9 +214,9 @@ bool cc_str_is_equal( char const * const restrict first_1,
 
     @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
 */
-char * cc_str_copy_new( char const * const restrict first,
-                        char const * const restrict end__d,
-                        size_t const max_len__d );
+char * cc_str_copy_new( char const * restrict first,
+                        char const * restrict end__d,
+                        size_t max_len__d );
 
 
 /**
@@ -229,8 +229,8 @@ char * cc_str_copy_new( char const * const restrict first,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_str_format_new( size_t const max_len__d,
-                          char const * const restrict fmt, ... );
+char * cc_str_format_new( size_t max_len__d,
+                          char const * restrict fmt, ... );
 
 /**
     Function duplicating a string, by returning a newly allocated string,
@@ -242,9 +242,9 @@ char * cc_str_format_new( size_t const max_len__d,
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
-char * cc_str_duplicate_new( char const * const restrict str,
-                             bool const do_reverse,
-                             size_t const max_len__d );
+char * cc_str_duplicate_new( char const * restrict str,
+                             bool do_reverse,
+                             size_t max_len__d );
 
 /**
     Function concatenating strings, by returning a newly allocated string,
@@ -256,9 +256,9 @@ char * cc_str_duplicate_new( char const * const restrict str,
 
     @return A newly allocated, concatenated string if successful, `NULL` otherwise.
 */
-char * cc_str_concatenate_new( char const * const restrict str_1__d,
-                               char const * const restrict str_2__d,
-                               size_t const max_len__d );
+char * cc_str_concatenate_new( char const * restrict str_1__d,
+                               char const * restrict str_2__d,
+                               size_t max_len__d );
 
 /**
     Function appending strings, by returning a newly allocated string,
@@ -282,9 +282,9 @@ char * cc_str_concatenate_new( char const * const restrict str_1__d,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_new( char const ** const restrict str_1__f,
-                          char const ** const restrict str_2__f,
-                          size_t const max_len__d );
+char * cc_str_append_new( char ** restrict str_1__f,
+                          char ** restrict str_2__f,
+                          size_t max_len__d );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string,
@@ -306,9 +306,9 @@ char * cc_str_append_new( char const ** const restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_new( char const ** const restrict str__f,
-                                 size_t const max_len__d,
-                                 char const * const restrict fmt, ... );
+char * cc_str_append_format_new( char ** restrict str__f,
+                                 size_t max_len__d,
+                                 char const * restrict fmt, ... );
 
 
 #endif /* __CC_STR_UTILS_H__ */

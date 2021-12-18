@@ -9,10 +9,10 @@
 
 #include "cc_format_moves.h"
 
-extern char const TESTS_MOVE_TEST_SEPARATOR[];
-extern char const TESTS_MOVE_NOTATION_SEPARATOR[];
-extern char const TESTS_MOVE_CHESSBOARD_SEPARATOR[];
-extern char const TESTS_MOVE_MISC_SEPARATOR[];
+extern char TESTS_MOVE_TEST_SEPARATOR[];
+extern char TESTS_MOVE_NOTATION_SEPARATOR[];
+extern char TESTS_MOVE_CHESSBOARD_SEPARATOR[];
+extern char TESTS_MOVE_MISC_SEPARATOR[];
 
 
 typedef struct TestPrints
@@ -25,7 +25,7 @@ typedef struct TestPrints
 TestPrints test_prints( bool do_print_chessboard, bool do_print_move, CcFormatMove format_move );
 
 
-bool test_duplicates( CcMove const * const restrict moves );
+bool test_duplicates( CcMove * restrict moves );
 
 
 #endif /* __TEST_UTILS_H__ */

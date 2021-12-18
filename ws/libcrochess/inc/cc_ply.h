@@ -41,7 +41,7 @@ typedef enum CcPlyLinkEnum
 
     @return String symbol if link is valid, `NULL` otherwise.
 */
-char const * cc_ply_link_symbol( CcPlyLinkEnum const ple );
+char * cc_ply_link_symbol( CcPlyLinkEnum ple );
 
 
 /**
@@ -86,9 +86,9 @@ typedef struct CcPly
     @return
     A newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_new( CcPlyLinkEnum const link,
-                    CcPieceEnum const piece,
-                    CcStep ** const restrict steps__n );
+CcPly * cc_ply_new( CcPlyLinkEnum link,
+                    CcPieceEnum piece,
+                    CcStep ** restrict steps__n );
 
 
 /**
@@ -104,10 +104,10 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     @return
     Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append( CcPly * const restrict plies__io,
-                       CcPlyLinkEnum const link,
-                       CcPieceEnum const piece,
-                       CcStep ** const restrict steps__n );
+CcPly * cc_ply_append( CcPly * restrict plies__io,
+                       CcPlyLinkEnum link,
+                       CcPieceEnum piece,
+                       CcStep ** restrict steps__n );
 
 /**
     Allocates a new ply, appends it to a linked list.
@@ -127,10 +127,10 @@ CcPly * cc_ply_append( CcPly * const restrict plies__io,
     @return
     Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append_or_init( CcPly ** const restrict plies__io,
-                               CcPlyLinkEnum const link,
-                               CcPieceEnum const piece,
-                               CcStep ** const restrict steps__n );
+CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
+                               CcPlyLinkEnum link,
+                               CcPieceEnum piece,
+                               CcStep ** restrict steps__n );
 
 /**
     Duplicates a given plies into a newly allocated linked list.
@@ -140,7 +140,7 @@ CcPly * cc_ply_append_or_init( CcPly ** const restrict plies__io,
     @return
     A newly allocated plies, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies );
+CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies );
 
 /**
     Frees all plies in a linked list, and all associated entities.
@@ -153,7 +153,7 @@ CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_ply_free_all_plies( CcPly const ** const restrict plies__f );
+bool cc_ply_free_all_plies( CcPly ** restrict plies__f );
 
 /**
     Checks whether any step in a ply has side-effects.
@@ -162,7 +162,7 @@ bool cc_ply_free_all_plies( CcPly const ** const restrict plies__f );
 
     @return `true` if any step has side-effects, `false` otherwise.
 */
-bool cc_ply_contains_side_effects( CcPly const * const restrict ply );
+bool cc_ply_contains_side_effects( CcPly * restrict ply );
 
 /**
     Function returns count of steps owned by a given ply.
@@ -175,8 +175,8 @@ bool cc_ply_contains_side_effects( CcPly const * const restrict ply );
 
     @return Count of steps if successful, `0` otherwise.
 */
-size_t cc_ply_step_count( CcPly const * const restrict ply,
-                          CcFormatStepUsageEnum const usage,
-                          bool const include_starting_pos );
+size_t cc_ply_step_count( CcPly * restrict ply,
+                          CcFormatStepUsageEnum usage,
+                          bool include_starting_pos );
 
 #endif /* __CC_PLY_H__ */

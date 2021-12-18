@@ -10,11 +10,11 @@
 #include "cc_rule_steps.h"
 
 
-bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb,
-                                   char const piece_symbol,
-                                   CcPieceEnum * const restrict piece_o,
-                                   CcPos * const restrict start_o,
-                                   bool const initialize_iter )
+bool cc_rule_steps_piece_pos_iter( CcChessboard * restrict cb,
+                                   char piece_symbol,
+                                   CcPieceEnum * restrict piece_o,
+                                   CcPos * restrict start_o,
+                                   bool initialize_iter )
 {
     if ( !cb ) return false;
     if ( !piece_o ) return false;
@@ -63,15 +63,15 @@ bool cc_rule_steps_piece_pos_iter( CcChessboard const * const restrict cb,
     return false;
 }
 
-bool cc_rule_steps_find_piece_start_pos( CcChessboard const * const restrict cb,
-                                         CcPlyLinkEnum const ple,
-                                         char const piece_symbol,
-                                         int const * const restrict disamb_i_d,
-                                         int const * const restrict disamb_j_d,
-                                         int const dest_i,
-                                         int const dest_j,
-                                         CcPieceEnum * const restrict piece_o,
-                                         CcPos * const restrict start_o )
+bool cc_rule_steps_find_piece_start_pos( CcChessboard * restrict cb,
+                                         CcPlyLinkEnum ple,
+                                         char piece_symbol,
+                                         int * restrict disamb_i_d,
+                                         int * restrict disamb_j_d,
+                                         int dest_i,
+                                         int dest_j,
+                                         CcPieceEnum * restrict piece_o,
+                                         CcPos * restrict start_o )
 {
     if ( !cb ) return false;
     if ( !piece_o ) return false;
@@ -136,12 +136,12 @@ bool cc_rule_steps_find_piece_start_pos( CcChessboard const * const restrict cb,
 }
 
 
-bool cc_rule_steps_check_bishop( CcChessboard const * const restrict cb,
-                                 CcPlyLinkEnum const ple,
-                                 CcPieceEnum const piece,
-                                 CcPos const start,
-                                 CcPos const dest,
-                                 CcPosLink ** const restrict steps_o )
+bool cc_rule_steps_check_bishop( CcChessboard * restrict cb,
+                                 CcPlyLinkEnum ple,
+                                 CcPieceEnum piece,
+                                 CcPos start,
+                                 CcPos dest,
+                                 CcPosLink ** restrict steps_o )
 {
     if ( !cb ) return false;
     if ( !steps_o ) return false;
@@ -185,12 +185,12 @@ bool cc_rule_steps_check_bishop( CcChessboard const * const restrict cb,
     }
 }
 
-bool cc_rule_steps_check_movement( CcChessboard const * const restrict cb,
-                                   CcPlyLinkEnum const ple,
-                                   CcPieceEnum const piece,
-                                   CcPos const start,
-                                   CcPos const dest,
-                                   CcPosLink ** const restrict steps_o )
+bool cc_rule_steps_check_movement( CcChessboard * restrict cb,
+                                   CcPlyLinkEnum ple,
+                                   CcPieceEnum piece,
+                                   CcPos start,
+                                   CcPos dest,
+                                   CcPosLink ** restrict steps_o )
 {
     // if ( !cb ) return false;
     // if ( !steps_o ) return false;

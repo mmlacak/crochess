@@ -76,7 +76,7 @@ extern CcTagEnum const CC_SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIAN
 
     @return Pointer to setup if successful, `NULL` otherwise.
 */
-CcTagEnum const * cc_setup_tags_get( CcVariantEnum const ve );
+CcTagEnum const * cc_setup_tags_get( CcVariantEnum ve );
 
 
 #endif /* __CC_SETUP_TAGS_H__ */

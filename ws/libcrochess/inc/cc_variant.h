@@ -179,7 +179,7 @@ extern char const * const CC_VARIANT_SYMBOLS[];
     @return `true` if `str` is variant symbol, `false` otherwise.
             Strings are compared case-insensitive.
 */
-bool cc_variant_str_is_symbol( char const * const restrict str );
+bool cc_variant_str_is_symbol( char const * restrict str );
 
 /**
     Function returning variant enum, based on a string.
@@ -189,7 +189,7 @@ bool cc_variant_str_is_symbol( char const * const restrict str );
     @return `CcVariantEnum` if `str` is valid variant symbol, `CC_VE_One` otherwise.
             Strings are compared case-insensitive.
 */
-CcVariantEnum cc_variant_from_symbol( char const * const restrict str );
+CcVariantEnum cc_variant_from_symbol( char const * restrict str );
 
 /**
     Function returning variant label.
@@ -198,7 +198,7 @@ CcVariantEnum cc_variant_from_symbol( char const * const restrict str );
 
     @return Variant label, i.e. capitalized name of a variant.
 */
-char const * cc_variant_label( CcVariantEnum const ve );
+char const * cc_variant_label( CcVariantEnum ve );
 
 /**
     Function returning size of a board for a given variant.
@@ -207,7 +207,7 @@ char const * cc_variant_label( CcVariantEnum const ve );
 
     @return Size of a board used by given variant.
 */
-unsigned int cc_variant_board_size( CcVariantEnum const ve );
+unsigned int cc_variant_board_size( CcVariantEnum ve );
 
 
 #endif /* __CC_VARIANT_H__ */

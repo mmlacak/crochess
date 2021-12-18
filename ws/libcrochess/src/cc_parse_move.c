@@ -15,8 +15,8 @@
 #include "cc_parse_move.h"
 
 
-// CcPly * cc_parse_ply( char const * const restrict ply_str,
-//                       CcChessboard const * const restrict cb,
+// CcPly * cc_parse_ply( char * restrict ply_str,
+//                       CcChessboard * restrict cb,
 //                       CcParseMsg ** parse_msgs_io )
 // {
 //     if ( !ply_str ) return NULL;
@@ -28,10 +28,10 @@
 //     return NULL;
 // }
 
-bool cc_parse_move( char const * const restrict move_str,
-                    CcGame const * const restrict game,
-                    CcMove ** const restrict move_o,
-                    CcParseMsg ** const restrict parse_msgs_io )
+bool cc_parse_move( char const * restrict move_str,
+                    CcGame * restrict game,
+                    CcMove ** restrict move_o,
+                    CcParseMsg ** restrict parse_msgs_io )
 {
     if ( !move_str ) return false;
     if ( !game ) return false;
@@ -47,7 +47,7 @@ bool cc_parse_move( char const * const restrict move_str,
         return false;
     }
 
-    CcChessboard const * const cb = game->chessboard;
+    CcChessboard * cb = game->chessboard;
 
     char * ply_an__o = NULL;
     if ( !cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, true ) )

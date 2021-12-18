@@ -12,14 +12,14 @@
 
 // DOCS
 bool cc_rules_do_moves( CcGame ** restrict game_io__r,
-                        CcMove ** const restrict moves__n,
+                        CcMove ** restrict moves__n,
                         CcDoMoveEnum dme );
 
 
 // DOCS
 bool cc_rules_make_move( CcGame ** restrict game_io__r,
-                         char const * const restrict move_an,
-                         CcParseMsg ** const restrict parse_msgs_io );
+                         char const * restrict move_an,
+                         CcParseMsg ** restrict parse_msgs_io );
 
 
 #endif /* __CC_RULES_H__ */

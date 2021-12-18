@@ -36,7 +36,7 @@ typedef struct CcChessboard
 
     @return `true` if position is light, `false` otherwise.
 */
-bool cc_is_field_light( int const i, int const j );
+bool cc_is_field_light( int i, int j );
 
 
 /**
@@ -48,7 +48,7 @@ bool cc_is_field_light( int const i, int const j );
 
     @return A newly allocated chessboard is successful, `NULL` otherwise.
 */
-CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool const do_setup );
+CcChessboard * cc_chessboard_new( CcVariantEnum ve, bool do_setup );
 
 /**
     (Re-)initializes a chessboard, for a new variant.
@@ -60,9 +60,9 @@ CcChessboard * cc_chessboard_new( CcVariantEnum const ve, bool const do_setup );
 
     @return `true` if chessboard is succesfully (re-)initialized, `false` otherwise.
 */
-bool cc_chessboard_init( CcChessboard * const restrict cb__io,
-                         CcVariantEnum const ve,
-                         bool const do_setup );
+bool cc_chessboard_init( CcChessboard * restrict cb__io,
+                         CcVariantEnum ve,
+                         bool do_setup );
 
 /**
     Clears a chessboard of all pieces.
@@ -71,7 +71,7 @@ bool cc_chessboard_init( CcChessboard * const restrict cb__io,
 
     @return `true` if chessboard is succesfully cleared, `false` otherwise.
 */
-bool cc_chessboard_clear( CcChessboard * const restrict cb__io );
+bool cc_chessboard_clear( CcChessboard * restrict cb__io );
 
 /**
     Sets up pieces on a chessboard to their initial positions.
@@ -80,7 +80,7 @@ bool cc_chessboard_clear( CcChessboard * const restrict cb__io );
 
     @return `true` if chessboard is succesfully set up, `false` otherwise.
 */
-bool cc_chessboard_setup( CcChessboard * const restrict cb__io );
+bool cc_chessboard_setup( CcChessboard * restrict cb__io );
 
 
 /**
@@ -91,8 +91,8 @@ bool cc_chessboard_setup( CcChessboard * const restrict cb__io );
 
     @return `true` if chessboard is succesfully copied, `false` otherwise.
 */
-bool cc_chessboard_copy( CcChessboard * const restrict into__io,
-                         CcChessboard const * const restrict from );
+bool cc_chessboard_copy( CcChessboard * restrict into__io,
+                         CcChessboard * restrict from );
 
 /**
     Duplicates a chessboard, by allocating a new one and copying into it from a given chessboard.
@@ -101,7 +101,7 @@ bool cc_chessboard_copy( CcChessboard * const restrict into__io,
 
     @return A newly allocated chessboard if succesfully duplicated, `NULL` otherwise.
 */
-CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict from );
+CcChessboard * cc_chessboard_duplicate_new( CcChessboard * restrict from );
 
 /**
     Frees chessboard, and all allocated resources.
@@ -110,7 +110,7 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard const * const restrict 
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_chessboard_free_all( CcChessboard const ** const restrict cb__f );
+bool cc_chessboard_free_all( CcChessboard ** restrict cb__f );
 
 /**
     Function returning if given coordinate belongs to a board.
@@ -120,8 +120,8 @@ bool cc_chessboard_free_all( CcChessboard const ** const restrict cb__f );
 
     @return `true` if coordinate is on-board, `false` otherwise.
 */
-bool cc_chessboard_is_coord_on_board( CcChessboard const * const restrict cb,
-                                      int const coord );
+bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
+                                      int coord );
 
 /**
     Function returning if given position belongs to a board.
@@ -132,9 +132,9 @@ bool cc_chessboard_is_coord_on_board( CcChessboard const * const restrict cb,
 
     @return `true` if position is on-board, `false` otherwise.
 */
-bool cc_chessboard_is_pos_on_board( CcChessboard const * const restrict cb,
-                                    int const i,
-                                    int const j );
+bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
+                                    int i,
+                                    int j );
 
 /**
     Function returning piece on a given position.
@@ -145,9 +145,9 @@ bool cc_chessboard_is_pos_on_board( CcChessboard const * const restrict cb,
 
     @return Piece if position is on-board, `CC_PE_None` otherwise.
 */
-CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb,
-                                     int const i,
-                                     int const j );
+CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb,
+                                     int i,
+                                     int j );
 
 /**
     Function returning tag for a given position.
@@ -158,9 +158,9 @@ CcPieceEnum cc_chessboard_get_piece( CcChessboard const * const restrict cb,
 
     @return Tag if position is on-board, `CC_TE_None` otherwise.
 */
-CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb,
-                                 int const i,
-                                 int const j );
+CcTagEnum cc_chessboard_get_tag( CcChessboard * restrict cb,
+                                 int i,
+                                 int j );
 
 /**
     Function setting piece and tag onto given position.
@@ -173,11 +173,11 @@ CcTagEnum cc_chessboard_get_tag( CcChessboard const * const restrict cb,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb__io,
-                                  int const i,
-                                  int const j,
-                                  CcPieceEnum const pe,
-                                  CcTagEnum const ct );
+bool cc_chessboard_set_piece_tag( CcChessboard * restrict cb__io,
+                                  int i,
+                                  int j,
+                                  CcPieceEnum pe,
+                                  CcTagEnum ct );
 
 /**
     Function setting piece onto given position.
@@ -192,10 +192,10 @@ bool cc_chessboard_set_piece_tag( CcChessboard * const restrict cb__io,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_chessboard_set_piece( CcChessboard * const restrict cb__io,
-                              int const i,
-                              int const j,
-                              CcPieceEnum const pe );
+bool cc_chessboard_set_piece( CcChessboard * restrict cb__io,
+                              int i,
+                              int j,
+                              CcPieceEnum pe );
 
 /**
     Function setting tag onto given position.
@@ -210,13 +210,13 @@ bool cc_chessboard_set_piece( CcChessboard * const restrict cb__io,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_chessboard_set_tag( CcChessboard * const restrict cb__io,
-                            int const i,
-                            int const j,
-                            CcTagEnum const tt );
+bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
+                            int i,
+                            int j,
+                            CcTagEnum tt );
 
-// static char * cc_chessboard_get_divider_new( CcChessboard const * const restrict cb );
-// static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard const * const restrict cb );
+// static char * cc_chessboard_get_divider_new( CcChessboard * restrict cb );
+// static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard * restrict cb );
 
 /**
     Formats a newly allocated string to represent piece, tag positions on a given chessboard.
@@ -226,8 +226,8 @@ bool cc_chessboard_set_tag( CcChessboard * const restrict cb__io,
 
     @return A newly allocated string is successful, `NULL` otherwise.
 */
-char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb,
-                                    bool const is_board_or_tag );
+char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
+                                    bool is_board_or_tag );
 
 /**
     Prints string representing piece, tag positions on a given chessboard.
@@ -237,8 +237,8 @@ char * cc_chessboard_as_string_new( CcChessboard const * const restrict cb,
 
     @return `true` is successful, `false` otherwise.
 */
-bool cc_chessboard_print( CcChessboard const * const restrict cb,
-                          bool const is_board_or_tag );
+bool cc_chessboard_print( CcChessboard * restrict cb,
+                          bool is_board_or_tag );
 
 
 #endif /* __CC_CHESS_BOARD_H__ */

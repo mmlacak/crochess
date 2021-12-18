@@ -11,9 +11,9 @@
 */
 
 
-CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
-                                      bool const is_end,
-                                      bool const is_won )
+CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse,
+                                      bool is_end,
+                                      bool is_won )
 {
     if ( is_end )
     {
@@ -33,7 +33,7 @@ CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
     return gse;
 }
 
-CcGameStatusEnum cc_game_resign( CcGameStatusEnum const gse )
+CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse )
 {
     if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Win_Dark;
     if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Light;
@@ -43,7 +43,7 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum const gse )
 
 CcGame * cc_game_new( CcGameStatusEnum status,
                       CcVariantEnum ve,
-                      bool const do_setup )
+                      bool do_setup )
 {
     CcGame * gm = malloc( sizeof( CcGame ) );
     if ( !gm ) return NULL;
@@ -62,19 +62,19 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     return gm;
 }
 
-CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game )
+CcGame * cc_game_duplicate_all_new( CcGame * restrict game )
 {
     if ( !game ) return NULL;
 
-    CcVariantEnum const ve = game->chessboard ? game->chessboard->type : CC_VE_One;
+    CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
 
-    CcGame * const gm__t = cc_game_new( game->status, ve, false );
+    CcGame * gm__t = cc_game_new( game->status, ve, false );
     if ( !gm__t ) return NULL;
 
     CcChessboard * cb__t = cc_chessboard_duplicate_new( game->chessboard );
     if ( game->chessboard && ( !cb__t ) )
     {
-        cc_game_free_all( CC_CAST_TC_P_PC( CcGame, &gm__t ) );
+        cc_game_free_all( &gm__t );
         return NULL;
     }
 
@@ -83,8 +83,8 @@ CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game )
     CcMove * mv__t = cc_move_duplicate_all_new( game->moves );
     if ( game->moves && ( !mv__t ) )
     {
-        cc_chessboard_free_all( CC_CAST_TC_P_PC( CcChessboard, &cb__t ) );
-        cc_game_free_all( CC_CAST_TC_P_PC( CcGame, &gm__t ) );
+        cc_chessboard_free_all( &cb__t );
+        cc_game_free_all( &gm__t );
         return NULL;
     }
 
@@ -93,7 +93,7 @@ CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game )
     return gm__t;
 }
 
-bool cc_game_free_all( CcGame const ** const restrict game__f )
+bool cc_game_free_all( CcGame ** restrict game__f )
 {
     if ( !game__f ) return false;
     if ( !*game__f ) return true;
@@ -101,22 +101,22 @@ bool cc_game_free_all( CcGame const ** const restrict game__f )
     bool result = true;
 
     CcChessboard ** cb__a = &( ( *game__f )->chessboard );
-    result = cc_chessboard_free_all( CC_CAST_TC_P_PC( CcChessboard, cb__a ) ) && result;
+    result = cc_chessboard_free_all(cb__a ) && result;
 
     CcMove ** mv__a = &( ( *game__f )->moves );
-    result = cc_move_free_all_moves( CC_CAST_TC_P_PC( CcMove, mv__a ) ) && result;
+    result = cc_move_free_all_moves( mv__a ) && result;
 
     CC_FREE_NULL( game__f );
 
     return result;
 }
 
-bool cc_game_move_data_free_all( CcGame const ** const restrict gm__f,
-                                 CcChessboard const ** const restrict cb__f,
-                                 CcMove const ** const restrict moves__f,
-                                 CcPly const ** const restrict plies__f,
-                                 CcStep const ** const restrict steps__f,
-                                 bool const cumulative_result )
+bool cc_game_move_data_free_all( CcGame ** restrict gm__f,
+                                 CcChessboard ** restrict cb__f,
+                                 CcMove ** restrict moves__f,
+                                 CcPly ** restrict plies__f,
+                                 CcStep ** restrict steps__f,
+                                 bool cumulative_result )
 {
     bool results = true;
 

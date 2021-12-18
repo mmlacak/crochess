@@ -243,7 +243,7 @@ typedef enum CcPieceEnum
 
     @return Char, either a piece symbol, or a piece char.
 */
-typedef char (*cc_piece_fp_char_value_t)( CcPieceEnum const pe );
+typedef char (*cc_piece_fp_char_value_t)( CcPieceEnum pe );
 
 /**
     Function returning piece enum, based on a piece symbol, and a flag.
@@ -253,7 +253,7 @@ typedef char (*cc_piece_fp_char_value_t)( CcPieceEnum const pe );
 
     @return Piece enum if valid piece symbol passed, otherwise `CC_PE_None`.
 */
-CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light );
+CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light );
 
 /**
     Function returns whether given character is a valid chess piece symbol.
@@ -262,7 +262,7 @@ CcPieceEnum cc_piece_from_symbol( char const symbol, bool const is_light );
 
     @return `true` if given character is a valid chess piece symbol, `false` otherwise.
 */
-bool cc_piece_is_symbol( char const c );
+bool cc_piece_is_symbol( char c );
 
 /**
     Function returning piece enum in opposite color (shade) to argument.
@@ -272,7 +272,7 @@ bool cc_piece_is_symbol( char const c );
     @return Piece enum, dark (dim) piece converted to light (bright) piece, and vice versa.
             Monolith, None pieces are returned unchanged.
 */
-CcPieceEnum cc_piece_opposite( CcPieceEnum const pe );
+CcPieceEnum cc_piece_opposite( CcPieceEnum pe );
 
 /**
     Function returning piece char, based on piece enum.
@@ -282,7 +282,7 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum const pe );
     @return Piece char, lowercase if piece is dark (dim), uppercase if piece is light (bright),
             space otherwise.
 */
-char cc_piece_as_char( CcPieceEnum const pe );
+char cc_piece_as_char( CcPieceEnum pe );
 
 /**
     Function returning piece label.
@@ -292,7 +292,7 @@ char cc_piece_as_char( CcPieceEnum const pe );
     @return Piece label, capitalized name of a piece. Piece label is the same for dark (dim)
             and light (bright) pieces. For None piece, label is empty string.
 */
-char const * cc_piece_label( CcPieceEnum const pe );
+char * cc_piece_label( CcPieceEnum pe );
 
 /**
     Function returning piece symbol, based on piece enum.
@@ -301,7 +301,7 @@ char const * cc_piece_label( CcPieceEnum const pe );
 
     @return Piece symbol, uppercase char if valid piece, space otherwise (if piece is None).
 */
-char cc_piece_symbol( CcPieceEnum const pe );
+char cc_piece_symbol( CcPieceEnum pe );
 
 /**
     Function returning Pawn to which piece can be demoted, or None if piece can't be demoted.
@@ -310,7 +310,7 @@ char cc_piece_symbol( CcPieceEnum const pe );
 
     @return Dark Pawn if dark piece, light Pawn if piece is light, otherwise `CC_PE_None`.
 */
-CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
+CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe );
 
 /**
     Function returning whether piece is dark.
@@ -320,7 +320,7 @@ CcPieceEnum cc_piece_demoting_to( CcPieceEnum const pe );
 
     @return `true` if piece is dark, `false` otherwise.
 */
-bool cc_piece_is_dark( CcPieceEnum const pe, bool const include_stars );
+bool cc_piece_is_dark( CcPieceEnum pe, bool include_stars );
 
 /**
     Function returning whether piece is light.
@@ -330,7 +330,7 @@ bool cc_piece_is_dark( CcPieceEnum const pe, bool const include_stars );
 
     @return `true` if piece is light, `false` otherwise.
 */
-bool cc_piece_is_light( CcPieceEnum const pe, bool const include_stars );
+bool cc_piece_is_light( CcPieceEnum pe, bool include_stars );
 
 /**
     Function checks if two given pieces are the same type.
@@ -344,7 +344,7 @@ bool cc_piece_is_light( CcPieceEnum const pe, bool const include_stars );
 
     @return `true` if the same type, `false` otherwise.
 */
-bool cc_piece_has_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_has_same_type( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
     Function checks if two given pieces are the same color.
@@ -358,7 +358,7 @@ bool cc_piece_has_same_type( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
     @return `true` if the same color, `false` otherwise.
 */
-bool cc_piece_has_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_has_same_color( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
     Function checks if two given Stars are the same shade.
@@ -368,7 +368,7 @@ bool cc_piece_has_same_color( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
     @return `true` if Stars are the same shade, `false` otherwise.
 */
-bool cc_piece_has_same_shade( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_has_same_shade( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
     Function returning whether pieces are of opposite color (dark, light),
@@ -387,7 +387,7 @@ bool cc_piece_has_same_shade( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
     @return
     `true` if two pieces of the same type are dark and light (or, dim and bright), `false` otherwise.
 */
-bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_is_opposite( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
     Function checks whether two pieces has the same owner, i.e.
@@ -402,7 +402,7 @@ bool cc_piece_is_opposite( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
     @return `true` if both pieces are dark or light, `false` otherwise.
 */
-bool cc_piece_has_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
     Function checks whether two pieces belongs to different players, i.e.
@@ -417,7 +417,7 @@ bool cc_piece_has_same_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
 
     @return `true` if one piece is dark and the other is light, `false` otherwise.
 */
-bool cc_piece_has_different_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_2 );
+bool cc_piece_has_different_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
     Function tests whether second piece is targetable.
@@ -440,7 +440,7 @@ bool cc_piece_has_different_owner( CcPieceEnum const pe_1, CcPieceEnum const pe_
     @return `true` if targetable, `false` otherwise.
 */
 // TODO :: DELETE :: MOVE :: REDESIGN
-bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target );
+bool cc_piece_is_targetable( CcPieceEnum piece, CcPieceEnum target );
 // TODO :: DELETE :: MOVE :: REDESIGN
 
 /**
@@ -455,9 +455,9 @@ bool cc_piece_is_targetable( CcPieceEnum const piece, CcPieceEnum const target )
 
     @return `true` if piece is a figure, `false` otherwise.
 */
-bool cc_piece_is_figure( CcPieceEnum const pe,
-                         bool const include_monolith,
-                         bool const include_stars );
+bool cc_piece_is_figure( CcPieceEnum pe,
+                         bool include_monolith,
+                         bool include_stars );
 
 
 #endif /* __CC_PIECE_H__ */

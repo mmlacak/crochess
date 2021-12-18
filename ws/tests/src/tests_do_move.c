@@ -21,7 +21,7 @@
 #include "tests_do_move.h"
 
 
-bool test_do_move_single_ply( int const index, TestPrints const tp )
+bool test_do_move_single_ply( int index, TestPrints tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_single_ply\n", index );
@@ -144,7 +144,7 @@ bool test_do_move_single_ply( int const index, TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_cascading_plies( int const index, TestPrints const tp )
+bool test_do_move_cascading_plies( int index, TestPrints tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_cascading_plies\n", index );
@@ -383,7 +383,7 @@ bool test_do_move_cascading_plies( int const index, TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_castling( int const index, TestPrints const tp )
+bool test_do_move_castling( int index, TestPrints tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_castling\n", index );
@@ -519,7 +519,7 @@ bool test_do_move_castling( int const index, TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_tag_and_promotion( int const index, TestPrints const tp )
+bool test_do_move_tag_and_promotion( int index, TestPrints tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_tag_and_promotion\n", index );
@@ -737,7 +737,7 @@ bool test_do_move_tag_and_promotion( int const index, TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_conversion( int const index, TestPrints const tp, bool const is_failed )
+bool test_do_move_conversion( int index, TestPrints tp, bool is_failed )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_conversion\n", index );
@@ -876,7 +876,7 @@ bool test_do_move_conversion( int const index, TestPrints const tp, bool const i
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_demotion( int const index, TestPrints const tp )
+bool test_do_move_demotion( int index, TestPrints tp )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_demotion\n", index );
@@ -993,10 +993,10 @@ bool test_do_move_demotion( int const index, TestPrints const tp )
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_resurrection( int const index,
-                                TestPrints const tp,
-                                bool const is_failed,
-                                bool const is_oblationing )
+bool test_do_move_resurrection( int index,
+                                TestPrints tp,
+                                bool is_failed,
+                                bool is_oblationing )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_resurrection\n", index );
@@ -1152,7 +1152,7 @@ bool test_do_move_resurrection( int const index,
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_teleportation( int const index, TestPrints const tp, bool const is_failed )
+bool test_do_move_teleportation( int index, TestPrints tp, bool is_failed )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_teleportation\n", index );
@@ -1317,7 +1317,7 @@ bool test_do_move_teleportation( int const index, TestPrints const tp, bool cons
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_teleportation_wave( int const index, TestPrints const tp, bool const is_oblationing )
+bool test_do_move_teleportation_wave( int index, TestPrints tp, bool is_oblationing )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_teleportation_wave\n", index );
@@ -1508,7 +1508,7 @@ bool test_do_move_teleportation_wave( int const index, TestPrints const tp, bool
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );
 }
 
-bool test_do_move_trance_journey( int const index, TestPrints const tp, bool const is_capturing )
+bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
 {
     printf( TESTS_MOVE_TEST_SEPARATOR );
     printf( "%d test_do_move_trance_journey\n", index );

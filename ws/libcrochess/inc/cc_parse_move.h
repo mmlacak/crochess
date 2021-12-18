@@ -15,15 +15,15 @@
 
 
 // // DOCS
-// CcPly * cc_parse_ply( char const * const restrict ply_str,
-//                       CcChessboard const * const restrict cb,
+// CcPly * cc_parse_ply( char * restrict ply_str,
+//                       CcChessboard * restrict cb,
 //                       CcParseMsg ** parse_msgs_io );
 
 // DOCS
-bool cc_parse_move( char const * const restrict move_str,
-                    CcGame const * const restrict game,
-                    CcMove ** const restrict move_o,
-                    CcParseMsg ** const restrict parse_msgs_io );
+bool cc_parse_move( char const * restrict move_str,
+                    CcGame * restrict game,
+                    CcMove ** restrict move_o,
+                    CcParseMsg ** restrict parse_msgs_io );
 
 
 #endif /* __CC_PARSE_MOVE_H__ */

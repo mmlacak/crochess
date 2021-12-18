@@ -48,14 +48,14 @@
 #include "tests_parse_move.h"
 
 
-bool test_parser( CcGame const * const restrict gm,
-                  char const * const restrict move_str,
-                  TestPrints const tp )
+bool test_parser( CcGame * restrict gm,
+                  char const * restrict move_str,
+                  TestPrints tp )
 {
     if ( !gm ) return false;
     if ( !move_str ) return false;
 
-    CcChessboard const * const cb = gm->chessboard;
+    CcChessboard * cb = gm->chessboard;
 
     if ( tp.do_print_move )
     {
@@ -233,7 +233,7 @@ bool test_parse_move_single_ply( TestPrints tp )
 // TODO :: FIX !!!
     //
     // test [p==k12]
-    // char const * const move_str = "==k12";
+    // char const * move_str = "==k12";
 
     // if ( tp.do_print_move )
     // {
@@ -248,7 +248,7 @@ bool test_parse_move_single_ply( TestPrints tp )
 
     //
     // test [Gf3.g5..i9..k13*p==]
-    char const * const move_str_2 = "[Gf3.g5..i9..k13*P==]";
+    char const * move_str_2 = "[Gf3.g5..i9..k13*P==]";
 
     // if ( tp.do_print_move )
     // {

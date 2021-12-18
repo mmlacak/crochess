@@ -12,7 +12,7 @@
 */
 
 
-char const * cc_ply_link_symbol( CcPlyLinkEnum const ple )
+char * cc_ply_link_symbol( CcPlyLinkEnum ple )
 {
     switch ( ple )
     {
@@ -29,9 +29,9 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum const ple )
 }
 
 
-CcPly * cc_ply_new( CcPlyLinkEnum const link,
-                    CcPieceEnum const piece,
-                    CcStep ** const restrict steps__n )
+CcPly * cc_ply_new( CcPlyLinkEnum link,
+                    CcPieceEnum piece,
+                    CcStep ** restrict steps__n )
 {
     CcPly * ply = calloc( 1, sizeof( CcPly ) );
     if ( !ply ) return NULL;
@@ -52,10 +52,10 @@ CcPly * cc_ply_new( CcPlyLinkEnum const link,
     return ply;
 }
 
-CcPly * cc_ply_append( CcPly * const restrict plies__io,
-                       CcPlyLinkEnum const link,
-                       CcPieceEnum const piece,
-                       CcStep ** const restrict steps__n )
+CcPly * cc_ply_append( CcPly * restrict plies__io,
+                       CcPlyLinkEnum link,
+                       CcPieceEnum piece,
+                       CcStep ** restrict steps__n )
 {
     if ( !plies__io ) return NULL;
 
@@ -69,10 +69,10 @@ CcPly * cc_ply_append( CcPly * const restrict plies__io,
     return new__t;
 }
 
-CcPly * cc_ply_append_or_init( CcPly ** const restrict plies__io,
-                               CcPlyLinkEnum const link,
-                               CcPieceEnum const piece,
-                               CcStep ** const restrict steps__n )
+CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
+                               CcPlyLinkEnum link,
+                               CcPieceEnum piece,
+                               CcStep ** restrict steps__n )
 {
     if ( !plies__io ) return NULL;
 
@@ -86,36 +86,36 @@ CcPly * cc_ply_append_or_init( CcPly ** const restrict plies__io,
     return new__t;
 }
 
-CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
+CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
 {
     if ( !plies ) return NULL;
 
-    CcStep const * steps__t = cc_step_duplicate_all_new( plies->steps );
+    CcStep * steps__t = cc_step_duplicate_all_new( plies->steps );
     if ( !steps__t ) return NULL;
 
-    CcPly * new__o = cc_ply_new( plies->link, plies->piece, CC_CAST_T_P_PC( CcStep, &steps__t ) );
+    CcPly * new__o = cc_ply_new( plies->link, plies->piece, &steps__t );
     if ( !new__o )
     {
         cc_step_free_all_steps( &steps__t );
         return NULL;
     }
 
-    CcPly const * from = plies->next;
+    CcPly * from = plies->next;
 
     while ( from )
     {
         CcStep * s__t = cc_step_duplicate_all_new( from->steps );
         if ( !s__t )
         {
-            cc_ply_free_all_plies( CC_CAST_TC_P_PC( CcPly, &new__o ) );
+            cc_ply_free_all_plies( &new__o );
             return NULL;
         }
 
         CcPly * n__w = cc_ply_append( new__o, from->link, from->piece, &s__t );
         if ( !n__w )
         {
-            cc_step_free_all_steps( CC_CAST_TC_P_PC( CcStep, &s__t ) );
-            cc_ply_free_all_plies( CC_CAST_TC_P_PC( CcPly, &new__o ) );
+            cc_step_free_all_steps( &s__t );
+            cc_ply_free_all_plies( &new__o );
             return NULL;
         }
 
@@ -125,20 +125,20 @@ CcPly * cc_ply_duplicate_all_new( CcPly const * const restrict plies )
     return new__o;
 }
 
-bool cc_ply_free_all_plies( CcPly const ** const restrict plies__f )
+bool cc_ply_free_all_plies( CcPly ** restrict plies__f )
 {
     if ( !plies__f ) return false;
     if ( !*plies__f ) return true;
 
     bool result = true;
-    CcPly const * ply = *plies__f;
+    CcPly * ply = *plies__f;
 
     while ( ply )
     {
-        CcStep const ** const steps = CC_CAST_TC_P_PC( CcStep, &( ply->steps ) );
+        CcStep ** steps = &( ply->steps );
         result = result && cc_step_free_all_steps( steps );
 
-        CcPly const * tmp = ply->next;
+        CcPly * tmp = ply->next;
         CC_FREE( ply );
         ply = tmp;
     }
@@ -148,14 +148,14 @@ bool cc_ply_free_all_plies( CcPly const ** const restrict plies__f )
 }
 
 
-bool cc_ply_contains_side_effects( CcPly const * const restrict ply )
+bool cc_ply_contains_side_effects( CcPly * restrict ply )
 {
     if ( !ply ) return false;
 
-    CcStep const * steps = ply->steps;
+    CcStep * steps = ply->steps;
     if ( !steps ) return false;
 
-    CcStep const * s = steps;
+    CcStep * s = steps;
     while ( s->next )
     {
         if ( s->side_effect.type != CC_SEE_None ) return true;
@@ -165,17 +165,17 @@ bool cc_ply_contains_side_effects( CcPly const * const restrict ply )
     return false;
 }
 
-size_t cc_ply_step_count( CcPly const * const restrict ply,
-                          CcFormatStepUsageEnum const usage,
-                          bool const include_starting_pos )
+size_t cc_ply_step_count( CcPly * restrict ply,
+                          CcFormatStepUsageEnum usage,
+                          bool include_starting_pos )
 {
     if ( !ply ) return 0;
 
-    CcStep const * steps = ply->steps;
+    CcStep * steps = ply->steps;
     if ( !steps ) return 0;
 
     size_t count = 1;
-    CcStep const * s = steps;
+    CcStep * s = steps;
 
     while ( s->next )
     {

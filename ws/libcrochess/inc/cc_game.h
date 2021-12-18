@@ -55,9 +55,9 @@ typedef enum CcGameStatusEnum
 
     @return Next game status.
 */
-CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
-                                      bool const is_end,
-                                      bool const is_won );
+CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse,
+                                      bool is_end,
+                                      bool is_won );
 
 /**
     Function returns next game status, based on current player resignation.
@@ -66,7 +66,7 @@ CcGameStatusEnum cc_game_status_next( CcGameStatusEnum const gse,
 
     @return Next game status.
 */
-CcGameStatusEnum cc_game_resign( CcGameStatusEnum const gse );
+CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse );
 
 
 /**
@@ -94,7 +94,7 @@ typedef struct CcGame
 */
 CcGame * cc_game_new( CcGameStatusEnum status,
                       CcVariantEnum ve,
-                      bool const do_setup );
+                      bool do_setup );
 
 /**
     Duplicates a given game into a newly allocated one.
@@ -104,7 +104,7 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     @return
     A newly allocated game, is successful, `NULL` otherwise.
 */
-CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game );
+CcGame * cc_game_duplicate_all_new( CcGame * restrict game );
 
 /**
     Frees game, and all owned resources (chessboard, moves).
@@ -113,7 +113,7 @@ CcGame * cc_game_duplicate_all_new( CcGame const * const restrict game );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_game_free_all( CcGame const ** const restrict game__f );
+bool cc_game_free_all( CcGame ** restrict game__f );
 
 
 /**
@@ -158,12 +158,12 @@ bool cc_game_free_all( CcGame const ** const restrict game__f );
 
     @return `true` if cumulatively successful, `false` otherwise.
 */
-bool cc_game_move_data_free_all( CcGame const ** const restrict gm__f,
-                                 CcChessboard const ** const restrict cb__f,
-                                 CcMove const ** const restrict moves__f,
-                                 CcPly const ** const restrict plies__f,
-                                 CcStep const ** const restrict steps__f,
-                                 bool const cumulative_result );
+bool cc_game_move_data_free_all( CcGame ** restrict gm__f,
+                                 CcChessboard ** restrict cb__f,
+                                 CcMove ** restrict moves__f,
+                                 CcPly ** restrict plies__f,
+                                 CcStep ** restrict steps__f,
+                                 bool cumulative_result );
 
 
 #endif /* __CC_GAME_H__ */

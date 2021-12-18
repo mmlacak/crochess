@@ -83,17 +83,12 @@
     free( (void *)(*ptr_ptr) ); \
     *(ptr_ptr) = NULL;
 
-/**
-    Macro to cast any pointer-to-pointer into const-pointer-to-pointer-to-const-type,
-    i.e. `type **` --> `type const ** const`.
-*/
-#define CC_CAST_TC_P_PC(type,ptr_ptr) ( (type const ** const)(ptr_ptr) )
 
-/**
-    Macro to cast any pointer-to-pointer into const-pointer-to-pointer-to-type,
-    i.e. `type **` --> `type const **`.
-*/
-#define CC_CAST_T_P_PC(type,ptr_ptr) ( (type ** const)(ptr_ptr) )
+// /**
+//     Macro to cast any pointer-to-pointer into const-pointer-to-pointer-to-type,
+//     i.e. `type **` --> `type ** const`.
+// */
+// #define CC_CAST_T_P_PC(type,ptr_ptr) ( (type ** const)(ptr_ptr) )
 
 
 #endif /* __CC_DEFINES_H__ */
