@@ -49,7 +49,7 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
 /**
     Appends a newly allocated parser message to a linked list.
 
-    @param parse_msgs Linked list of parser messages, to which a newly allocated parser message is appended.
+    @param parse_msgs__io Linked list of parser messages, to which a newly allocated parser message is appended.
     @param type Type of a parser message.
     @param msg Parser message.
 
@@ -63,15 +63,15 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
 /**
     Allocates a new parser message, appends it to a linked list.
 
-    @param parse_msgs_io Linked list of parser messages, to which a newly allocated parser message is appended, can be `NULL`.
+    @param parse_msgs__io Linked list of parser messages, to which a newly allocated parser message is appended, can be `NULL`.
     @param type Type of a parser message.
     @param msg Parser message.
 
     @note
-    Linked list `*parse_msgs_io` can be `NULL`, a parser message will still be allocated, and returned.
+    Linked list `*parse_msgs__io` can be `NULL`, a parser message will still be allocated, and returned.
 
     @note
-    If linked list `*parse_msgs_io` is `NULL`, it will be initialized,
+    If linked list `*parse_msgs__io` is `NULL`, it will be initialized,
     with a newly allocated parser message as its first element.
 
     @return
@@ -84,16 +84,16 @@ CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
 /**
     Allocates a new parser message, appends it to a linked list.
 
-    @param parse_msgs_io Linked list of parser messages, to which a newly allocated parser message is appended, can be `NULL`.
+    @param parse_msgs__io Linked list of parser messages, to which a newly allocated parser message is appended, can be `NULL`.
     @param type Type of a parser message.
     @param fmt Formatting string, as defined for `printf`.
     @param ... Variadic format arguments, as used for `printf`.
 
     @note
-    Linked list `*parse_msgs_io` can be `NULL`, a parser message will still be allocated, and returned.
+    Linked list `*parse_msgs__io` can be `NULL`, a parser message will still be allocated, and returned.
 
     @note
-    If linked list `*parse_msgs_io` is `NULL`, it will be initialized,
+    If linked list `*parse_msgs__io` is `NULL`, it will be initialized,
     with a newly allocated parser message as its first element.
 
     @note
