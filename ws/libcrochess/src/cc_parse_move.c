@@ -17,11 +17,11 @@
 
 // CcPly * cc_parse_ply( char * restrict ply_str,
 //                       CcChessboard * restrict cb,
-//                       CcParseMsg ** parse_msgs_io )
+//                       CcParseMsg ** parse_msgs__io )
 // {
 //     if ( !ply_str ) return NULL;
 //     if ( !cb ) return NULL;
-//     if ( !parse_msgs_io ) return NULL;
+//     if ( !parse_msgs__io ) return NULL;
 
 
 // // TODO
@@ -30,18 +30,18 @@
 
 bool cc_parse_move( char const * restrict move_str,
                     CcGame * restrict game,
-                    CcMove ** restrict move_o,
-                    CcParseMsg ** restrict parse_msgs_io )
+                    CcMove ** restrict move__o,
+                    CcParseMsg ** restrict parse_msgs__io )
 {
     if ( !move_str ) return false;
     if ( !game ) return false;
-    if ( !move_o ) return false;
-    if ( *move_o ) return false;
-    if ( !parse_msgs_io ) return false;
+    if ( !move__o ) return false;
+    if ( *move__o ) return false;
+    if ( !parse_msgs__io ) return false;
 
     if ( !CC_GAME_STATUS_IS_TURN( game->status ) )
     {
-        cc_parse_msg_append_or_init_format( parse_msgs_io,
+        cc_parse_msg_append_or_init_format( parse_msgs__io,
                                             CC_PME_Error,
                                             "Cannot make a move in a finished game." );
         return false;
@@ -49,10 +49,10 @@ bool cc_parse_move( char const * restrict move_str,
 
     CcChessboard * cb = game->chessboard;
 
-    char * ply_an__o = NULL;
-    if ( !cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, true ) )
+    char * ply_an__t = NULL;
+    if ( !cc_parse_utils_ply_str_iter_new( move_str, &ply_an__t, true ) )
     {
-        cc_parse_msg_append_or_init_format( parse_msgs_io,
+        cc_parse_msg_append_or_init_format( parse_msgs__io,
                                             CC_PME_Error,
                                             "Ply not found in '%s'.",
                                             move_str );
@@ -71,52 +71,52 @@ bool cc_parse_move( char const * restrict move_str,
 
     do
     {
-        if ( !cc_parse_utils_get_ply_link( ply_an__o, &ple ) )
+        if ( !cc_parse_utils_get_ply_link( ply_an__t, &ple ) )
         {
-            cc_parse_msg_append_or_init_format( parse_msgs_io,
+            cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                 CC_PME_Error,
                                                 "Ply link not found in '%s', within '%s'.",
-                                                ply_an__o,
+                                                ply_an__t,
                                                 move_str );
-            free( ply_an__o );
+            CC_FREE( ply_an__t );
 
             return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
         }
 
-        if ( !cc_parse_utils_get_ply_piece_symbol( ply_an__o, &piece_symbol ) )
+        if ( !cc_parse_utils_get_ply_piece_symbol( ply_an__t, &piece_symbol ) )
         {
-            cc_parse_msg_append_or_init_format( parse_msgs_io,
+            cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                 CC_PME_Error,
                                                 "Piece symbol not found in '%s', within '%s'.",
-                                                ply_an__o,
+                                                ply_an__t,
                                                 move_str );
-            free( ply_an__o );
+            CC_FREE( ply_an__t );
 
             return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
         }
 
-        steps_str = cc_parse_utils_get_steps_str( ply_an__o );
+        steps_str = cc_parse_utils_get_steps_str( ply_an__t );
         if ( !steps_str )
         {
-            cc_parse_msg_append_or_init_format( parse_msgs_io,
+            cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                 CC_PME_Error,
                                                 "Step(s) not found in '%s', within '%s'.",
-                                                ply_an__o,
+                                                ply_an__t,
                                                 move_str );
-            free( ply_an__o );
+            CC_FREE( ply_an__t );
 
             return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
         }
 
-        char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
-        if ( !step_an__o )
+        char * step_an__t = cc_parse_utils_next_step_str_new( steps_str );
+        if ( !step_an__t )
         {
-            cc_parse_msg_append_or_init_format( parse_msgs_io,
+            cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                 CC_PME_Error,
                                                 "Step not found in '%s', within '%s'.",
-                                                ply_an__o,
+                                                ply_an__t,
                                                 move_str );
-            free( ply_an__o );
+            CC_FREE( ply_an__t );
 
             return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
         }
@@ -128,31 +128,31 @@ bool cc_parse_move( char const * restrict move_str,
 
         do
         {
-            if ( !cc_parse_utils_get_step_link( ply_an__o, step_an__o, &sle ) )
+            if ( !cc_parse_utils_get_step_link( ply_an__t, step_an__t, &sle ) )
             {
-                cc_parse_msg_append_or_init_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                     CC_PME_Error,
                                                     "Step link not found in '%s', within '%s', within '%s'.",
-                                                    step_an__o,
-                                                    ply_an__o,
+                                                    step_an__t,
+                                                    ply_an__t,
                                                     move_str );
-                free( step_an__o );
-                free( ply_an__o );
+                CC_FREE( step_an__t );
+                CC_FREE( ply_an__t );
 
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
-            char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
-            if ( !fields_an__o )
+            char * fields_an__t = cc_parse_utils_step_fields_str_new( step_an__t );
+            if ( !fields_an__t )
             {
-                cc_parse_msg_append_or_init_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                     CC_PME_Error,
                                                     "Movement not found in '%s', within '%s', within '%s'.",
-                                                    step_an__o,
-                                                    ply_an__o,
+                                                    step_an__t,
+                                                    ply_an__t,
                                                     move_str );
-                free( step_an__o );
-                free( ply_an__o );
+                CC_FREE( step_an__t );
+                CC_FREE( ply_an__t );
 
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
@@ -162,23 +162,23 @@ bool cc_parse_move( char const * restrict move_str,
             int step_i;
             int step_j;
 
-            if ( !cc_parse_utils_get_fields( fields_an__o,
+            if ( !cc_parse_utils_get_fields( fields_an__t,
                                              cb,
                                              &disamb_step_i,
                                              &disamb_step_j,
                                              &step_i,
                                              &step_j ) )
             {
-                cc_parse_msg_append_or_init_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                     CC_PME_Error,
                                                     "Movement not found in '%s', within '%s', within '%s', within '%s'.",
-                                                    fields_an__o,
-                                                    step_an__o,
-                                                    ply_an__o,
+                                                    fields_an__t,
+                                                    step_an__t,
+                                                    ply_an__t,
                                                     move_str );
-                free( fields_an__o );
-                free( step_an__o );
-                free( ply_an__o );
+                CC_FREE( fields_an__t );
+                CC_FREE( step_an__t );
+                CC_FREE( ply_an__t );
 
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
@@ -189,16 +189,16 @@ bool cc_parse_move( char const * restrict move_str,
                 if ( cc_chessboard_is_coord_on_board( game->chessboard, disamb_i )
                   || cc_chessboard_is_coord_on_board( game->chessboard, disamb_j ) )
                 {
-                    cc_parse_msg_append_or_init_format( parse_msgs_io,
+                    cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                         CC_PME_Error,
                                                         "More than one disambiguation encountered, in '%s', within '%s', within '%s', within '%s'.",
-                                                        fields_an__o,
-                                                        step_an__o,
-                                                        ply_an__o,
+                                                        fields_an__t,
+                                                        step_an__t,
+                                                        ply_an__t,
                                                         move_str );
-                    free( fields_an__o );
-                    free( step_an__o );
-                    free( ply_an__o );
+                    CC_FREE( fields_an__t );
+                    CC_FREE( step_an__t );
+                    CC_FREE( ply_an__t );
 
                     return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
                 }
@@ -209,57 +209,56 @@ bool cc_parse_move( char const * restrict move_str,
                 }
             }
 
-            free( fields_an__o );
-            fields_an__o = NULL;
+            CC_FREE_NULL( &fields_an__t );
 
-            char const * side_effects = cc_parse_utils_side_effect_str( step_an__o );
+            char const * side_effects = cc_parse_utils_side_effect_str( step_an__t );
             if ( !side_effects )
             {
-                cc_parse_msg_append_or_init_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                     CC_PME_Error,
                                                     "Side-effects not found in '%s', within '%s', within '%s'.",
-                                                    step_an__o,
-                                                    ply_an__o,
+                                                    step_an__t,
+                                                    ply_an__t,
                                                     move_str );
-                free( step_an__o );
-                free( ply_an__o );
+                CC_FREE( step_an__t );
+                CC_FREE( ply_an__t );
 
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
             CcSideEffect se = cc_side_effect_none();
-            if ( !cc_parse_utils_get_side_effect( step_an__o,
+            if ( !cc_parse_utils_get_side_effect( step_an__t,
                                                   cb,
                                                   pe,
                                                   step_i,
                                                   step_j,
                                                   &se ) )
             {
-                cc_parse_msg_append_or_init_format( parse_msgs_io,
+                cc_parse_msg_append_or_init_format( parse_msgs__io,
                                                     CC_PME_Error,
                                                     "Side-effects not found in '%s', within '%s', within '%s', within '%s'.",
                                                     side_effects,
-                                                    step_an__o,
-                                                    ply_an__o,
+                                                    step_an__t,
+                                                    ply_an__t,
                                                     move_str );
-                free( step_an__o );
-                free( ply_an__o );
+                CC_FREE( step_an__t );
+                CC_FREE( ply_an__t );
 
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
             if ( !cc_step_append_or_init( &steps__t, sle, step_i, step_j, se, CC_FSUE_User ) )
             {
-                free( step_an__o );
-                free( ply_an__o );
+                CC_FREE( step_an__t );
+                CC_FREE( ply_an__t );
 
                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
             }
 
-            free( step_an__o );
-            step_an__o = cc_parse_utils_next_step_str_new( NULL );
+            CC_FREE( step_an__t );
+            step_an__t = cc_parse_utils_next_step_str_new( NULL );
         }
-        while ( step_an__o );
+        while ( step_an__t );
 
 // TODO :: USE :: disamb_i, disamb_j
 
@@ -273,19 +272,19 @@ bool cc_parse_move( char const * restrict move_str,
 // TODO :: FIX :: is_piece_light --> piece_symbol --> pe !!!
         if ( !cc_ply_append_or_init( &plies__t, ple, pe, &steps__t ) )
         {
-            free( ply_an__o );
+            CC_FREE( ply_an__t );
 
             return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
         }
 // TODO :: FIX :: is_piece_light --> piece_symbol --> pe !!!
 
-        free( ply_an__o );
+        CC_FREE( ply_an__t );
     }
-    while ( cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, false ) );
+    while ( cc_parse_utils_ply_str_iter_new( move_str, &ply_an__t, false ) );
 
     CcMoveStatusEnum mse = CC_MSE_None;
 
-    *move_o = cc_move_new( move_str, &plies__t, mse );
+    *move__o = cc_move_new( move_str, &plies__t, mse );
 
 // TODO
     return true;

@@ -17,13 +17,13 @@
 // // DOCS
 // CcPly * cc_parse_ply( char * restrict ply_str,
 //                       CcChessboard * restrict cb,
-//                       CcParseMsg ** parse_msgs_io );
+//                       CcParseMsg ** parse_msgs__io );
 
 // DOCS
 bool cc_parse_move( char const * restrict move_str,
                     CcGame * restrict game,
-                    CcMove ** restrict move_o,
-                    CcParseMsg ** restrict parse_msgs_io );
+                    CcMove ** restrict move__o,
+                    CcParseMsg ** restrict parse_msgs__io );
 
 
 #endif /* __CC_PARSE_MOVE_H__ */
