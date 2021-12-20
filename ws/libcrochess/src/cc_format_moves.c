@@ -461,8 +461,8 @@ char * cc_format_ply_new( CcMove * restrict move,
     if ( ply->piece == CC_PE_None ) return NULL;
 
     cc_piece_fp_char_value_t fp_char_value = ( format_move.do_dark_pieces_uppercase )
-                                                 ? cc_piece_symbol
-                                                 : cc_piece_as_char;
+                                           ? cc_piece_symbol
+                                           : cc_piece_as_char;
 
     bool is_first_ply = ( ply == move->plies );
     char const * ply_tilde = ( is_first_ply ) ? "" : "~";

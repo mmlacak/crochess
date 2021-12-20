@@ -80,8 +80,10 @@
     Macro to free() with cast, and setting inner pointer to NULL.
 */
 #define CC_FREE_NULL(ptr_ptr)   \
+{                               \
     free( (void *)(*ptr_ptr) ); \
-    *(ptr_ptr) = NULL;
+    *(ptr_ptr) = NULL;          \
+}
 
 
 // /**
