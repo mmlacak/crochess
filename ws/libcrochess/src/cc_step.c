@@ -205,17 +205,17 @@ CcStep * cc_step_new( CcStepLinkEnum link,
                       int i, int j, CcSideEffect side_effect,
                       CcFormatStepUsageEnum usage )
 {
-    CcStep * step__t = malloc( sizeof( CcStep ) );
-    if ( !step__t ) return NULL;
+    CcStep * step__a = malloc( sizeof( CcStep ) );
+    if ( !step__a ) return NULL;
 
-    step__t->link = link;
-    step__t->i = i;
-    step__t->j = j;
-    step__t->side_effect = side_effect;
-    step__t->usage = usage;
-    step__t->next = NULL;
+    step__a->link = link;
+    step__a->i = i;
+    step__a->j = j;
+    step__a->side_effect = side_effect;
+    step__a->usage = usage;
+    step__a->next = NULL;
 
-    return step__t;
+    return step__a;
 }
 
 CcStep * cc_step_append( CcStep * restrict steps__io,

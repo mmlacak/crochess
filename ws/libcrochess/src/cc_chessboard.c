@@ -28,16 +28,16 @@ bool cc_is_field_light( int i, int j )
 
 CcChessboard * cc_chessboard_new( CcVariantEnum ve, bool do_setup )
 {
-    CcChessboard * cb__t = malloc( sizeof( CcChessboard ) );
-    if ( !cb__t ) return NULL;
+    CcChessboard * cb__a = malloc( sizeof( CcChessboard ) );
+    if ( !cb__a ) return NULL;
 
-    if ( !cc_chessboard_init( cb__t, ve, do_setup ) )
+    if ( !cc_chessboard_init( cb__a, ve, do_setup ) )
     {
-        CC_FREE( cb__t );
+        CC_FREE( cb__a );
         return NULL;
     }
 
-    return cb__t;
+    return cb__a;
 }
 
 bool cc_chessboard_init( CcChessboard * restrict cb__io,
@@ -125,18 +125,18 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard * restrict from )
 {
     if ( !from ) return NULL;
 
-    CcChessboard * cb__t = malloc( sizeof( CcChessboard ) );
-    if ( !cb__t ) return NULL;
+    CcChessboard * cb__a = malloc( sizeof( CcChessboard ) );
+    if ( !cb__a ) return NULL;
 
-    cc_chessboard_init( cb__t, from->type, false );
+    cc_chessboard_init( cb__a, from->type, false );
 
-    if ( !cc_chessboard_copy( cb__t, from ) )
+    if ( !cc_chessboard_copy( cb__a, from ) )
     {
-        CC_FREE( cb__t );
+        CC_FREE( cb__a );
         return NULL;
     }
 
-    return cb__t;
+    return cb__a;
 }
 
 bool cc_chessboard_free_all( CcChessboard ** restrict cb__f )
@@ -242,20 +242,20 @@ static char * cc_chessboard_get_divider_new( CcChessboard * restrict cb )
     if ( !cb ) return NULL;
 
     size_t len = 3 + 2 * cb->size + 3 + 1;
-    char * divider__t = calloc( 1, len );
-    if ( !divider__t ) return NULL;
+    char * divider__a = calloc( 1, len );
+    if ( !divider__a ) return NULL;
 
     for ( int i = 0; i < (int)len; ++i )
     {
-        if ( i < 3 ) divider__t[ i ] = ' ';
-        else if ( i < 3 + 2 * (int)cb->size - 1 ) divider__t[ i ] = '-';
-        else if ( i < (int)len ) divider__t[ i ] = ' ';
+        if ( i < 3 ) divider__a[ i ] = ' ';
+        else if ( i < 3 + 2 * (int)cb->size - 1 ) divider__a[ i ] = '-';
+        else if ( i < (int)len ) divider__a[ i ] = ' ';
     }
 
-    divider__t[ len - 2 ] = '\n';
-    divider__t[ len - 1 ] = '\0';
+    divider__a[ len - 2 ] = '\n';
+    divider__a[ len - 1 ] = '\0';
 
-    return divider__t;
+    return divider__a;
 }
 
 static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard * restrict cb )
@@ -263,29 +263,29 @@ static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard * restrict cb
     if ( !cb ) return NULL;
 
     size_t len = 3 + 2 * cb->size + 3 + 1;
-    char * hr__t = calloc( 1, len );
-    if ( !hr__t ) return NULL;
+    char * hr__a = calloc( 1, len );
+    if ( !hr__a ) return NULL;
 
     char ch = 'a';
     for ( int i = 0; i < (int)len; ++i )
     {
-        if ( i < 3 ) hr__t[ i ] = ' ';
+        if ( i < 3 ) hr__a[ i ] = ' ';
         else if ( i < 3 + 2 * (int)cb->size )
         {
-            if ( i % 2 == 0 ) hr__t[ i ] = ' ';
+            if ( i % 2 == 0 ) hr__a[ i ] = ' ';
             else
             {
-                hr__t[ i ] = ch;
+                hr__a[ i ] = ch;
                 ++ch;
             }
         }
-        else if ( i < (int)len ) hr__t[ i ] = ' ';
+        else if ( i < (int)len ) hr__a[ i ] = ' ';
     }
 
-    hr__t[ len - 2 ] = '\n';
-    hr__t[ len - 1 ] = '\0';
+    hr__a[ len - 2 ] = '\n';
+    hr__a[ len - 1 ] = '\0';
 
-    return hr__t;
+    return hr__a;
 }
 
 char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
@@ -293,32 +293,32 @@ char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
 {
     if ( !cb ) return NULL;
 
-    char * show__t = calloc( 1, 2048 );
-    if ( !show__t ) return NULL;
+    char * show__a = calloc( 1, 2048 );
+    if ( !show__a ) return NULL;
 
     char * horizontal_ruler = cc_chessboard_get_horizontal_ruler_new( cb );
     if ( !horizontal_ruler )
     {
-        CC_FREE( show__t );
+        CC_FREE( show__a );
         return NULL;
     }
 
-    strcat( show__t, horizontal_ruler );
+    strcat( show__a, horizontal_ruler );
 
     char * divider__a = cc_chessboard_get_divider_new( cb );
     if ( !divider__a )
     {
-        CC_FREE( show__t );
+        CC_FREE( show__a );
         CC_FREE( horizontal_ruler );
         return NULL;
     }
 
-    strcat( show__t, divider__a );
+    strcat( show__a, divider__a );
 
     char * row__a = calloc(1, 6);
     if ( !row__a )
     {
-        CC_FREE( show__t );
+        CC_FREE( show__a );
         CC_FREE( horizontal_ruler );
         CC_FREE( divider__a );
         return NULL;
@@ -327,7 +327,7 @@ char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
     char * field__a = calloc(1, 3);
     if ( !field__a )
     {
-        CC_FREE( show__t );
+        CC_FREE( show__a );
         CC_FREE( horizontal_ruler );
         CC_FREE( divider__a );
         CC_FREE( row__a );
@@ -338,7 +338,7 @@ char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
     {
         char r = (char)( cb->size - i );
         sprintf( row__a, "%2hhu|", r );
-        strcat( show__t, row__a );
+        strcat( show__a, row__a );
 
         for ( int j = 0; j < (int)cb->size; ++j )
         {
@@ -362,22 +362,22 @@ char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
             else
                 sprintf( field__a, "%c", ch );
 
-            strcat( show__t, field__a );
+            strcat( show__a, field__a );
         }
 
         sprintf( row__a, "|%2hhu\n", r );
-        strcat( show__t, row__a );
+        strcat( show__a, row__a );
     }
 
-    strcat( show__t, divider__a );
-    strcat( show__t, horizontal_ruler );
+    strcat( show__a, divider__a );
+    strcat( show__a, horizontal_ruler );
 
     CC_FREE( horizontal_ruler );
     CC_FREE( divider__a );
     CC_FREE( row__a );
     CC_FREE( field__a );
 
-    return show__t;
+    return show__a;
 }
 
 bool cc_chessboard_print( CcChessboard * restrict cb,

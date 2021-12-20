@@ -41,14 +41,14 @@ bool cc_pos_is_not_equal( CcPos pos_1, CcPos pos_2 )
 
 CcPosLink * cc_pos_link_new( int i, int j )
 {
-    CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
-    if ( !pl__t ) return NULL;
+    CcPosLink * pl__a = malloc( sizeof( CcPosLink ) );
+    if ( !pl__a ) return NULL;
 
-    pl__t->i = i;
-    pl__t->j = j;
-    pl__t->next = NULL;
+    pl__a->i = i;
+    pl__a->j = j;
+    pl__a->next = NULL;
 
-    return pl__t;
+    return pl__a;
 }
 
 CcPosLink * cc_pos_link_from_pos_new( CcPos pos )
@@ -67,14 +67,14 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__t = cc_pos_link_new( i, j );
-    if ( !pl__t ) return NULL;
+    CcPosLink * pl__a = cc_pos_link_new( i, j );
+    if ( !pl__a ) return NULL;
 
     CcPosLink * pl = pos_link__io;
     while ( pl->next ) pl = pl->next; // rewind
-    pl->next = pl__t; // append
+    pl->next = pl__a; // append
 
-    return pl__t;
+    return pl__a;
 }
 
 CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
@@ -83,14 +83,14 @@ CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__t = NULL;
+    CcPosLink * pl__a = NULL;
 
     if ( !*pos_link__io )
-        *pos_link__io = pl__t = cc_pos_link_new( i, j );
+        *pos_link__io = pl__a = cc_pos_link_new( i, j );
     else
-        pl__t = cc_pos_link_append( *pos_link__io, i, j );
+        pl__a = cc_pos_link_append( *pos_link__io, i, j );
 
-    return pl__t;
+    return pl__a;
 }
 
 CcPosLink * cc_pos_link_append_pos( CcPosLink * restrict pos_link__io,

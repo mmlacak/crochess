@@ -174,7 +174,7 @@ bool cc_rule_steps_check_bishop( CcChessboard * restrict cb,
 
     if ( cc_piece_is_targetable( piece, pe_dest ) )
     {
-        *steps_o = pl__t;
+        *steps_o = pl__t; // Ownership transfer --> pl__t is now weak pointer.
         return true;
     }
     else

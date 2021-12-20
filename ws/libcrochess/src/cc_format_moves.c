@@ -89,12 +89,12 @@ char * cc_format_pos_rank_new( int j )
     if ( ( j < CC_MIN_BOARD_COORD ) || ( CC_MAX_BOARD_COORD < j ) ) return NULL;
 
     // Unlike clang, gcc does not see that 0 <= j <= 25, so ...
-    char * an__t = (char *)malloc( 4 );
-    if ( !an__t ) return NULL;
+    char * an__a = (char *)malloc( 4 );
+    if ( !an__a ) return NULL;
 
-    snprintf( an__t, 3, "%-hhu", (unsigned char)(j+1) );
+    snprintf( an__a, 3, "%-hhu", (unsigned char)(j+1) );
 
-    return an__t;
+    return an__a;
 }
 
 // TODO :: char[ 2 ] cc_format_pos_rank( int j )
@@ -121,7 +121,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
                                                  : cc_piece_as_char;
 
     CcSideEffect * se = side_effect;
-    char * an__t = NULL;
+    char * an__a = NULL;
 
     switch ( se->type )
     {
@@ -131,13 +131,13 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                an__t = cc_str_append_format_new( &an__t,
+                an__a = cc_str_append_format_new( &an__a,
                                                   BUFSIZ,
                                                   "*" );
             }
             else
             {
-                an__t = cc_str_append_format_new( &an__t,
+                an__a = cc_str_append_format_new( &an__a,
                                                   BUFSIZ,
                                                   "*%c%s",
                                                   fp_char_value( se->capture.piece ),
@@ -160,7 +160,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
             {
                 if ( rank__a )
                 {
-                    an__t = cc_str_append_format_new( &an__t,
+                    an__a = cc_str_append_format_new( &an__a,
                                                       BUFSIZ,
                                                       "<%c%s",
                                                       file,
@@ -172,7 +172,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
             {
                 if ( rank__a )
                 {
-                    an__t = cc_str_append_format_new( &an__t,
+                    an__a = cc_str_append_format_new( &an__a,
                                                       BUFSIZ,
                                                       "<%c%s%c%s",
                                                       piece,
@@ -190,7 +190,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                an__t = cc_str_append_format_new( &an__t,
+                an__a = cc_str_append_format_new( &an__a,
                                                   BUFSIZ,
                                                   ":" );
             }
@@ -200,7 +200,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
 
                 if ( rank__a )
                 {
-                    an__t = cc_str_append_format_new( &an__t,
+                    an__a = cc_str_append_format_new( &an__a,
                                                       BUFSIZ,
                                                       ":%s",
                                                       rank__a );
@@ -215,7 +215,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
 
                 if ( rank__a )
                 {
-                    an__t = cc_str_append_format_new( &an__t,
+                    an__a = cc_str_append_format_new( &an__a,
                                                       BUFSIZ,
                                                       ":%c%c%s",
                                                       piece,
@@ -232,14 +232,14 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                an__t = cc_str_append_format_new( &an__t,
+                an__a = cc_str_append_format_new( &an__a,
                                                   BUFSIZ,
                                                   "&" );
             }
             else if ( format_move.usage <= CC_FSUE_Clarification )
             {
                 char file_2 = cc_format_pos_file( se->castle.dest_i );
-                an__t = cc_str_append_format_new( &an__t,
+                an__a = cc_str_append_format_new( &an__a,
                                                   BUFSIZ,
                                                   "&%c",
                                                   file_2 );
@@ -254,7 +254,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
 
                 if ( rank_1__a && rank_2__a )
                 {
-                    an__t = cc_str_append_format_new( &an__t,
+                    an__a = cc_str_append_format_new( &an__a,
                                                       BUFSIZ,
                                                       "&%c%c%s-%c%s",
                                                       fp_char_value( se->castle.rook ),
@@ -275,7 +275,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
         {
             char const * fmt = ( format_move.usage <= CC_FSUE_User ) ? "%c" : "=%c";
 
-            an__t = cc_str_append_format_new( &an__t,
+            an__a = cc_str_append_format_new( &an__a,
                                               BUFSIZ,
                                               fmt,
                                               fp_char_value( se->promote.piece ) );
@@ -285,7 +285,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
 
         case CC_SEE_TagForPromotion :
         {
-            an__t = cc_str_append_format_new( &an__t,
+            an__a = cc_str_append_format_new( &an__a,
                                               BUFSIZ,
                                               "=" );
             break;
@@ -295,13 +295,13 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
         {
             if ( format_move.usage <= CC_FSUE_User )
             {
-                an__t = cc_str_append_format_new( &an__t,
+                an__a = cc_str_append_format_new( &an__a,
                                                   BUFSIZ,
                                                   "%%" );
             }
             else
             {
-                an__t = cc_str_append_format_new( &an__t,
+                an__a = cc_str_append_format_new( &an__a,
                                                   BUFSIZ,
                                                   "%%%c%s",
                                                   fp_char_value( se->convert.piece ),
@@ -313,7 +313,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
 
         case CC_SEE_FailedConversion :
         {
-            an__t = cc_str_append_format_new( &an__t,
+            an__a = cc_str_append_format_new( &an__a,
                                               BUFSIZ,
                                               "%%%%" );
             break;
@@ -328,7 +328,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
             {
                 if ( rank__a )
                 {
-                    an__t = cc_str_append_format_new( &an__t,
+                    an__a = cc_str_append_format_new( &an__a,
                                                       BUFSIZ,
                                                       ">%c%s",
                                                       file,
@@ -339,7 +339,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
             {
                 if ( rank__a )
                 {
-                    an__t = cc_str_append_format_new( &an__t,
+                    an__a = cc_str_append_format_new( &an__a,
                                                       BUFSIZ,
                                                       ">%c%c%s",
                                                       fp_char_value( se->demote.piece ),
@@ -362,7 +362,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
 
                 if ( rank__a )
                 {
-                    an__t = cc_str_append_format_new( &an__t,
+                    an__a = cc_str_append_format_new( &an__a,
                                                       BUFSIZ,
                                                       "$%c%c%s",
                                                       fp_char_value( se->resurrect.piece ),
@@ -373,7 +373,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
             }
             else
             {
-                an__t = cc_str_append_format_new( &an__t,
+                an__a = cc_str_append_format_new( &an__a,
                                                   BUFSIZ,
                                                   "$%c",
                                                   fp_char_value( se->resurrect.piece ) );
@@ -384,14 +384,14 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
 
         case CC_SEE_FailedResurrection :
         {
-            an__t = cc_str_append_format_new( &an__t,
+            an__a = cc_str_append_format_new( &an__a,
                                               BUFSIZ,
                                               "$$" );
             break;
         }
     }
 
-    return an__t;
+    return an__a;
 }
 
 char * cc_format_step_new( CcMove * restrict move,
@@ -405,7 +405,7 @@ char * cc_format_step_new( CcMove * restrict move,
     if ( !step ) return NULL;
     if ( !has_preceding_step__io ) return NULL;
 
-    char * an__t = NULL;
+    char * an__a = NULL;
 
     if ( step->usage <= format_move.usage )
     {
@@ -417,18 +417,18 @@ char * cc_format_step_new( CcMove * restrict move,
             {
                 case CC_SLE_Start : break;
                 case CC_SLE_Reposition : break;
-                case CC_SLE_Next : an__t = cc_str_duplicate_new( ".", false, 1 ); break;
-                case CC_SLE_Distant : an__t = cc_str_duplicate_new( "..", false, 2 ); break;
-                case CC_SLE_Destination : an__t = cc_str_duplicate_new( "-", false, 1 ); break;
+                case CC_SLE_Next : an__a = cc_str_duplicate_new( ".", false, 1 ); break;
+                case CC_SLE_Distant : an__a = cc_str_duplicate_new( "..", false, 2 ); break;
+                case CC_SLE_Destination : an__a = cc_str_duplicate_new( "-", false, 1 ); break;
             }
         }
 
         if ( step->link == CC_SLE_Reposition )
-            an__t = cc_str_duplicate_new( ",", false, 1 );
+            an__a = cc_str_duplicate_new( ",", false, 1 );
 
         *has_preceding_step__io = true;
 
-        an__t = cc_str_append_format_new( &an__t,
+        an__a = cc_str_append_format_new( &an__a,
                                           BUFSIZ,
                                           "%c",
                                           cc_format_pos_file( step->i ) );
@@ -437,18 +437,18 @@ char * cc_format_step_new( CcMove * restrict move,
                 && ( step->usage <= CC_FSUE_Clarification ) ) )
         {
             char * rank__t = cc_format_pos_rank_new( step->j );
-            an__t = cc_str_append_new( &an__t,
+            an__a = cc_str_append_new( &an__a,
                                        &rank__t,
                                        BUFSIZ );
         }
 
         char * se__t = cc_format_side_effect_new( &(step->side_effect), format_move );
-        an__t = cc_str_append_new( &an__t,
+        an__a = cc_str_append_new( &an__a,
                                    &se__t,
                                    BUFSIZ );
     }
 
-    return an__t;
+    return an__a;
 }
 
 char * cc_format_ply_new( CcMove * restrict move,
@@ -466,36 +466,36 @@ char * cc_format_ply_new( CcMove * restrict move,
 
     bool is_first_ply = ( ply == move->plies );
     char const * ply_tilde = ( is_first_ply ) ? "" : "~";
-    char * an__t = NULL;
+    char * an__a = NULL;
 
     switch ( ply->link )
     {
-        case CC_PLE_Ply : an__t = cc_str_duplicate_new( ply_tilde, false, 1 ); break;
-        case CC_PLE_Teleportation : an__t = cc_str_duplicate_new( "|", false, 1 ); break;
-        case CC_PLE_FailedTeleportation : an__t = cc_str_duplicate_new( "||", false, 2 ); break;
-        case CC_PLE_TranceJourney : an__t = cc_str_duplicate_new( "@", false, 1 ); break;
-        case CC_PLE_DualTranceJourney : an__t = cc_str_duplicate_new( "@@", false, 2 ); break;
-        case CC_PLE_FailedTranceJourney : an__t = cc_str_duplicate_new( "@@@", false, 3 ); break;
-        case CC_PLE_PawnSacrifice : an__t = cc_str_duplicate_new( ":::", false, 3 ); break;
+        case CC_PLE_Ply : an__a = cc_str_duplicate_new( ply_tilde, false, 1 ); break;
+        case CC_PLE_Teleportation : an__a = cc_str_duplicate_new( "|", false, 1 ); break;
+        case CC_PLE_FailedTeleportation : an__a = cc_str_duplicate_new( "||", false, 2 ); break;
+        case CC_PLE_TranceJourney : an__a = cc_str_duplicate_new( "@", false, 1 ); break;
+        case CC_PLE_DualTranceJourney : an__a = cc_str_duplicate_new( "@@", false, 2 ); break;
+        case CC_PLE_FailedTranceJourney : an__a = cc_str_duplicate_new( "@@@", false, 3 ); break;
+        case CC_PLE_PawnSacrifice : an__a = cc_str_duplicate_new( ":::", false, 3 ); break;
     }
 
     bool do_wrap = cc_if_wrap_ply_in_square_brackets( move, ply, format_move );
 
     if ( do_wrap )
-        an__t = cc_str_append_format_new( &an__t,
+        an__a = cc_str_append_format_new( &an__a,
                                           BUFSIZ,
                                           "%c",
                                           '[' );
 
     if ( format_move.do_format_with_pawn_symbol )
-        an__t = cc_str_append_format_new( &an__t,
+        an__a = cc_str_append_format_new( &an__a,
                                           BUFSIZ,
                                           "%c",
                                           fp_char_value( ply->piece ) );
     else
     {
         if ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
-            an__t = cc_str_append_format_new( &an__t,
+            an__a = cc_str_append_format_new( &an__a,
                                               BUFSIZ,
                                               "%c",
                                               fp_char_value( ply->piece ) );
@@ -507,7 +507,7 @@ char * cc_format_ply_new( CcMove * restrict move,
     while ( step )
     {
         char * ply_an__t = cc_format_step_new( move, ply, step, format_move, &has_preceding_step );
-        an__t = cc_str_append_new( &an__t,
+        an__a = cc_str_append_new( &an__a,
                                    &ply_an__t,
                                    BUFSIZ );
 
@@ -515,12 +515,12 @@ char * cc_format_ply_new( CcMove * restrict move,
     }
 
     if ( do_wrap )
-        an__t = cc_str_append_format_new( &an__t,
+        an__a = cc_str_append_format_new( &an__a,
                                           BUFSIZ,
                                           "%c",
                                           ']' );
 
-    return an__t;
+    return an__a;
 }
 
 char * cc_format_move_new( CcMove * restrict move,
@@ -529,13 +529,13 @@ char * cc_format_move_new( CcMove * restrict move,
     if ( !move ) return NULL;
     if ( !move->plies ) return NULL;
 
-    char * an__t = NULL;
+    char * an__a = NULL;
     CcPly * ply = move->plies;
 
     while ( ply )
     {
         char * ply_an__t = cc_format_ply_new( move, ply, format_move );
-        an__t = cc_str_append_new( &an__t,
+        an__a = cc_str_append_new( &an__a,
                                    &ply_an__t,
                                    BUFSIZ );
 
@@ -547,10 +547,10 @@ char * cc_format_move_new( CcMove * restrict move,
     else if ( move->status  == CC_MSE_Checkmate ) status = '#';
 
     if ( status != '\0' )
-        an__t = cc_str_append_format_new( &an__t,
+        an__a = cc_str_append_format_new( &an__a,
                                           BUFSIZ,
                                           "%c",
                                           status );
 
-    return an__t;
+    return an__a;
 }

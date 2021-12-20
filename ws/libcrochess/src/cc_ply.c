@@ -59,14 +59,14 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
 {
     if ( !plies__io ) return NULL;
 
-    CcPly * new__t = cc_ply_new( link, piece, steps__n );
-    if ( !new__t ) return NULL;
+    CcPly * ply__a = cc_ply_new( link, piece, steps__n );
+    if ( !ply__a ) return NULL;
 
     CcPly * p = plies__io;
     while ( p->next ) p = p->next; // rewind
-    p->next = new__t; // append
+    p->next = ply__a; // append
 
-    return new__t;
+    return ply__a;
 }
 
 CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
@@ -76,14 +76,14 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
 {
     if ( !plies__io ) return NULL;
 
-    CcPly * new__t = NULL;
+    CcPly * ply__a = NULL;
 
     if ( !*plies__io )
-        *plies__io = new__t = cc_ply_new( link, piece, steps__n );
+        *plies__io = ply__a = cc_ply_new( link, piece, steps__n );
     else
-        new__t = cc_ply_append( *plies__io, link, piece, steps__n );
+        ply__a = cc_ply_append( *plies__io, link, piece, steps__n );
 
-    return new__t;
+    return ply__a;
 }
 
 CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )

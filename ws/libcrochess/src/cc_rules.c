@@ -63,7 +63,7 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
         return false;
     }
 
-    *game_io__r = gm__t;
+    *game_io__r = gm__t; // Ownership transfer --> gm__t is now weak pointer.
 
     return true;
 }

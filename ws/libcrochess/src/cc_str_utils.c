@@ -74,10 +74,10 @@ char * cc_str_to_case_new( char const * restrict str,
     if ( !str ) return NULL;
 
     size_t len = strlen( str );
-    char * lc__t = malloc( len + 1 );
-    if ( !lc__t ) return NULL;
+    char * lc__a = malloc( len + 1 );
+    if ( !lc__a ) return NULL;
 
-    char * s = lc__t;
+    char * s = lc__a;
     char const * pos = str;
     while ( *pos )
     {
@@ -90,9 +90,9 @@ char * cc_str_to_case_new( char const * restrict str,
         ++pos;
     }
 
-    lc__t[ len ] = '\0';
+    lc__a[ len ] = '\0';
 
-    return lc__t;
+    return lc__a;
 }
 
 
@@ -225,14 +225,14 @@ char * cc_str_copy_new( char const * restrict first,
     if ( !first ) return NULL;
 
     size_t len = cc_str_len( first, end__d, max_len__d );
-    char * tmp__t = malloc( len + 1 );
-    if ( !tmp__t ) return NULL;
+    char * str__a = malloc( len + 1 );
+    if ( !str__a ) return NULL;
 
-    if ( !strncpy( tmp__t, first, len ) )
+    if ( !strncpy( str__a, first, len ) )
         return NULL;
-    tmp__t[ len ] = '\0';
+    str__a[ len ] = '\0';
 
-    return tmp__t;
+    return str__a;
 }
 
 char * cc_str_format_new( size_t max_len__d,
@@ -256,17 +256,17 @@ char * cc_str_format_new( size_t max_len__d,
 
     size_t len_min = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len__d )
                                                          : (size_t)len;
-    char * new__t = (char *)malloc( len_min + 1 );
-    if ( !new__t )
+    char * str__a = (char *)malloc( len_min + 1 );
+    if ( !str__a )
     {
         va_end( args );
         return NULL;
     }
 
-    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
+    int len_2 = vsnprintf( str__a, len_min + 1, fmt, args );
     if ( len_2 < 0 )
     {
-        CC_FREE( new__t );
+        CC_FREE( str__a );
         va_end( args );
         return NULL;
     }
@@ -275,11 +275,11 @@ char * cc_str_format_new( size_t max_len__d,
 
     if ( len_min != (size_t const)len_2 )
     {
-        CC_FREE( new__t );
+        CC_FREE( str__a );
         return NULL;
     }
 
-    return new__t;
+    return str__a;
 }
 
 char * cc_str_duplicate_new( char const * restrict str,
@@ -289,13 +289,13 @@ char * cc_str_duplicate_new( char const * restrict str,
     if ( !str ) return NULL;
 
     size_t len = cc_str_len( str, NULL, max_len__d );
-    char * new__t = (char *)malloc( len + 1 );
-    if ( !new__t ) return NULL;
+    char * str__a = (char *)malloc( len + 1 );
+    if ( !str__a ) return NULL;
 
     if ( len > 0 )
     {
         char const * s = str;
-        char * n = do_reverse ? new__t + len : new__t;
+        char * n = do_reverse ? str__a + len : str__a;
 
         if ( do_reverse )
         {
@@ -313,9 +313,9 @@ char * cc_str_duplicate_new( char const * restrict str,
         }
     }
     else
-        *new__t = '\0';
+        *str__a = '\0';
 
-    return new__t;
+    return str__a;
 }
 
 char * cc_str_concatenate_new( char const * restrict str_1__d,
@@ -327,12 +327,12 @@ char * cc_str_concatenate_new( char const * restrict str_1__d,
     size_t len = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( len_1 + len_2, max_len__d )
                                                      : len_1 + len_2;
 
-    char * new__t = (char *)malloc( len + 1 );
-    if ( !new__t ) return NULL;
+    char * str__a = (char *)malloc( len + 1 );
+    if ( !str__a ) return NULL;
 
     if ( len > 0 )
     {
-        char * n = new__t;
+        char * n = str__a;
 
         char const * s = str_1__d;
         len_1 = CC_MIN( len_1, len );
@@ -348,9 +348,9 @@ char * cc_str_concatenate_new( char const * restrict str_1__d,
 
         *n = '\0';
     }
-    else *new__t = '\0';
+    else *str__a = '\0';
 
-    return new__t;
+    return str__a;
 }
 
 char * cc_str_append_new( char ** restrict str_1__f,
@@ -359,16 +359,16 @@ char * cc_str_append_new( char ** restrict str_1__f,
 {
     if ( ( !str_1__f ) && ( !str_2__f ) ) return NULL;
 
-    char * new = NULL;
+    char * str__a = NULL;
 
     if ( str_1__f && str_2__f )
-        new = cc_str_concatenate_new( *str_1__f, *str_2__f, max_len__d );
+        str__a = cc_str_concatenate_new( *str_1__f, *str_2__f, max_len__d );
     else if ( str_1__f )
-        new = cc_str_duplicate_new( *str_1__f, false, max_len__d );
+        str__a = cc_str_duplicate_new( *str_1__f, false, max_len__d );
     else if ( str_2__f )
-        new = cc_str_duplicate_new( *str_2__f, false, max_len__d );
+        str__a = cc_str_duplicate_new( *str_2__f, false, max_len__d );
 
-    if ( !new ) return NULL;
+    if ( !str__a ) return NULL;
 
     if ( str_1__f )
         CC_FREE_NULL( str_1__f );
@@ -376,7 +376,7 @@ char * cc_str_append_new( char ** restrict str_1__f,
     if ( str_2__f )
         CC_FREE_NULL( str_2__f );
 
-    return new;
+    return str__a;
 }
 
 char * cc_str_append_format_new( char ** restrict str__f,
@@ -401,17 +401,17 @@ char * cc_str_append_format_new( char ** restrict str__f,
 
     size_t len_min = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len__d )
                                                          : (size_t)len;
-    char * new__t = (char *)malloc( len_min + 1 );
-    if ( !new__t )
+    char * str__t = (char *)malloc( len_min + 1 );
+    if ( !str__t )
     {
         va_end( args );
         return NULL;
     }
 
-    int len_2 = vsnprintf( new__t, len_min + 1, fmt, args );
+    int len_2 = vsnprintf( str__t, len_min + 1, fmt, args );
     if ( len_2 < 0 ) // error?
     {
-        CC_FREE( new__t );
+        CC_FREE( str__t );
         va_end( args );
         return NULL;
     }
@@ -420,12 +420,12 @@ char * cc_str_append_format_new( char ** restrict str__f,
 
     if ( len_min != (size_t const)len_2 )
     {
-        CC_FREE( new__t );
+        CC_FREE( str__t );
         return NULL;
     }
 
-    // No need to free() str__f, new__t; cc_str_append_new() does that.
+    // No need to free() str__f, str__t; cc_str_append_new() does that.
     return cc_str_append_new( str__f,
-                              &new__t,
+                              &str__t,
                               max_len__d );
 }
