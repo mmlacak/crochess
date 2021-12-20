@@ -109,6 +109,7 @@ CcMove * cc_move_duplicate_all_new( CcMove * restrict moves )
         CcMove * mv__w = cc_move_append( mv__a, from->notation, &p__t, from->status );
         if ( !mv__w )
         {
+            cc_ply_free_all_plies( &p__t ); // Failed append --> no ownership transfer ...
             cc_move_free_all_moves( &mv__a );
             return NULL;
         }
