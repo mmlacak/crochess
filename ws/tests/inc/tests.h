@@ -11,7 +11,7 @@
 #include "test_msgs.h"
 
 
-extern char CROCHESS_TESTS_VERSION[];
+extern char const CROCHESS_TESTS_VERSION[];
 
 
 TestMsg * test();
