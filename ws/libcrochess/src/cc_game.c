@@ -45,21 +45,21 @@ CcGame * cc_game_new( CcGameStatusEnum status,
                       CcVariantEnum ve,
                       bool do_setup )
 {
-    CcGame * gm = malloc( sizeof( CcGame ) );
-    if ( !gm ) return NULL;
+    CcGame * gm__t = malloc( sizeof( CcGame ) );
+    if ( !gm__t ) return NULL;
 
-    gm->status = status;
+    gm__t->status = status;
 
-    gm->chessboard = cc_chessboard_new( ve, do_setup );
-    if ( !gm->chessboard )
+    gm__t->chessboard = cc_chessboard_new( ve, do_setup );
+    if ( !gm__t->chessboard )
     {
-        CC_FREE( gm );
+        CC_FREE( gm__t );
         return NULL;
     }
 
-    gm->moves = NULL;
+    gm__t->moves = NULL;
 
-    return gm;
+    return gm__t;
 }
 
 CcGame * cc_game_duplicate_all_new( CcGame * restrict game )
@@ -79,11 +79,11 @@ CcGame * cc_game_duplicate_all_new( CcGame * restrict game )
     }
 
     gm__t->chessboard = cb__t;
+    cb__t = NULL; // Ownership transferred, above.
 
     CcMove * mv__t = cc_move_duplicate_all_new( game->moves );
     if ( game->moves && ( !mv__t ) )
     {
-        cc_chessboard_free_all( &cb__t );
         cc_game_free_all( &gm__t );
         return NULL;
     }
@@ -101,7 +101,7 @@ bool cc_game_free_all( CcGame ** restrict game__f )
     bool result = true;
 
     CcChessboard ** cb__a = &( ( *game__f )->chessboard );
-    result = cc_chessboard_free_all(cb__a ) && result;
+    result = cc_chessboard_free_all( cb__a ) && result;
 
     CcMove ** mv__a = &( ( *game__f )->moves );
     result = cc_move_free_all_moves( mv__a ) && result;
