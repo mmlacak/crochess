@@ -47,7 +47,7 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
                                char const * restrict msg );
 
 /**
-    Appends a newly Allocated parser message to a linked list.
+    Appends a newly allocated parser message to a linked list.
 
     @param parse_msgs Linked list of parser messages, to which a newly allocated parser message is appended.
     @param type Type of a parser message.
@@ -56,7 +56,7 @@ CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs,
+CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
                                   CcParseMsgEnum type,
                                   char const * restrict msg );
 
@@ -77,7 +77,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs_io,
+CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
                                           CcParseMsgEnum type,
                                           char const * restrict msg );
 
@@ -102,7 +102,7 @@ CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs_io,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_msgs_io,
+CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_msgs__io,
                                                  CcParseMsgEnum type,
                                                  char const * restrict fmt, ... );
 

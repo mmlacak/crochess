@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_tokenizer.h"
 #include "cc_parse_msg.h"
@@ -17,46 +18,46 @@
 CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
                                char const * restrict msg )
 {
-    CcParseMsg * new = malloc( sizeof( CcParseMsg ) );
-    if ( !new ) return NULL;
+    CcParseMsg * pm__a = malloc( sizeof( CcParseMsg ) );
+    if ( !pm__a ) return NULL;
 
-    new->type = type;
-    new->msg = cc_str_duplicate_new( msg, false, BUFSIZ );
-    new->next = NULL;
+    pm__a->type = type;
+    pm__a->msg = cc_str_duplicate_new( msg, false, BUFSIZ );
+    pm__a->next = NULL;
 
-    return new;
+    return pm__a;
 }
 
-CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs,
+CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
                                   CcParseMsgEnum type,
                                   char const * restrict msg )
 {
-    if ( !parse_msgs ) return NULL;
+    if ( !parse_msgs__io ) return NULL;
 
-    CcParseMsg * new = cc_parse_msg_new( type, msg );
-    if ( !new ) return NULL;
+    CcParseMsg * pm__t = cc_parse_msg_new( type, msg );
+    if ( !pm__t ) return NULL;
 
-    CcParseMsg * pm = parse_msgs;
+    CcParseMsg * pm = parse_msgs__io;
     while ( pm->next ) pm = pm->next; // rewind
-    pm->next = new; // append
+    pm->next = pm__t; // append // Ownersip transfer --> pm__t is now weak pointer.
 
-    return new;
+    return pm__t;
 }
 
-CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs_io,
+CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
                                           CcParseMsgEnum type,
                                           char const * restrict msg )
 {
-    if ( !parse_msgs_io ) return NULL;
+    if ( !parse_msgs__io ) return NULL;
 
-    CcParseMsg * new = cc_parse_msg_append( *parse_msgs_io, type, msg );
+    CcParseMsg * pm__t = cc_parse_msg_append( *parse_msgs__io, type, msg );
 
-    if ( !*parse_msgs_io ) *parse_msgs_io = new;
+    if ( !*parse_msgs__io ) *parse_msgs__io = pm__t; // Ownersip transfer --> pm__t is now weak pointer.
 
-    return new;
+    return pm__t;
 }
 
-CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_msgs_io,
+CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_msgs__io,
                                                  CcParseMsgEnum type,
                                                  char const * restrict fmt, ... )
 {
@@ -64,13 +65,17 @@ CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_ms
     va_list args;
     va_start( args, fmt );
 
-    char * msg__t = cc_str_format_new( BUFSIZ, fmt, args );
+    char * msg__a = cc_str_format_new( BUFSIZ, fmt, args );
 
     va_end( args );
 
-    if ( !msg__t ) return NULL;
+    if ( !msg__a ) return NULL;
 
-    return cc_parse_msg_append_or_init( parse_msgs_io, type, msg__t );
+    CcParseMsg * pm__w = cc_parse_msg_append_or_init( parse_msgs__io, type, msg__a );
+
+    CC_FREE( msg__a );
+
+    return pm__w;
 }
 
 bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f )
@@ -82,11 +87,10 @@ bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f )
 
     while ( pm )
     {
-        // free() doesn't do pointers to const.
-        free( (char *)pm->msg );
+        CC_FREE( pm->msg );
 
         CcParseMsg * tmp = pm->next;
-        free( pm );
+        CC_FREE( pm );
         pm = tmp;
     }
 
@@ -99,10 +103,10 @@ CcParseMsg * cc_parse_msg_get_last( CcParseMsg * restrict parse_msgs )
 {
     if ( !parse_msgs ) return NULL;
 
-    CcParseMsg * pm = (CcParseMsg *)parse_msgs;
+    CcParseMsg * pm__w = (CcParseMsg *)parse_msgs;
 
-    while ( pm->next )
-        pm = pm->next;
+    while ( pm__w->next )
+        pm__w = pm__w->next;
 
-    return pm;
+    return pm__w;
 }
