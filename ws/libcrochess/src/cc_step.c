@@ -12,7 +12,7 @@
 */
 
 
-char * cc_step_link_symbol( CcStepLinkEnum sle )
+char const * cc_step_link_symbol( CcStepLinkEnum sle )
 {
     switch ( sle )
     {
@@ -224,14 +224,14 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
 {
     if ( !steps__io ) return NULL;
 
-    CcStep * new = cc_step_new( link, i, j, side_effect, usage );
-    if ( !new ) return NULL;
+    CcStep * step__t = cc_step_new( link, i, j, side_effect, usage );
+    if ( !step__t ) return NULL;
 
     CcStep * s = steps__io;
     while ( s->next ) s = s->next; // rewind
-    s->next = new; // append
+    s->next = step__t; // append // Ownership transfer --> step__t is now weak pointer.
 
-    return new;
+    return step__t;
 }
 
 CcStep * cc_step_append_or_init( CcStep ** restrict steps__io,
@@ -240,39 +240,41 @@ CcStep * cc_step_append_or_init( CcStep ** restrict steps__io,
 {
     if ( !steps__io ) return NULL;
 
-    CcStep * new = NULL;
+    CcStep * step__w = NULL;
 
     if ( !*steps__io )
-        *steps__io = new = cc_step_new( link, i, j, side_effect, usage );
+        *steps__io = step__w = cc_step_new( link, i, j, side_effect, usage );
     else
-        new = cc_step_append( *steps__io, link, i, j, side_effect, usage );
+        step__w = cc_step_append( *steps__io, link, i, j, side_effect, usage );
 
-    return new;
+    return step__w;
 }
 
+// TODO :: REWRITE :: using cc_step_append_or_init
 CcStep * cc_step_duplicate_all_new( CcStep * restrict steps__io )
 {
     if ( !steps__io ) return NULL;
 
-    CcStep * new__o = cc_step_new( steps__io->link, steps__io->i, steps__io->j, steps__io->side_effect, steps__io->usage );
-    if ( !new__o ) return NULL;
+    CcStep * steps__a = cc_step_new( steps__io->link, steps__io->i, steps__io->j, steps__io->side_effect, steps__io->usage );
+    if ( !steps__a ) return NULL;
 
     CcStep * from = steps__io->next;
 
     while ( from )
     {
-        CcStep * n__w = cc_step_append( new__o, from->link, from->i, from->j, from->side_effect, from->usage );
-        if ( !n__w )
+        CcStep * step__w = cc_step_append( steps__a, from->link, from->i, from->j, from->side_effect, from->usage );
+        if ( !step__w )
         {
-            cc_step_free_all_steps( &new__o );
+            cc_step_free_all_steps( &steps__a );
             return NULL;
         }
 
         from = from->next;
     }
 
-    return new__o;
+    return steps__a;
 }
+// TODO :: REWRITE :: using cc_step_append_or_init
 
 bool cc_step_free_all_steps( CcStep ** restrict steps__f )
 {

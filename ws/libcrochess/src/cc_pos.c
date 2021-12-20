@@ -110,7 +110,6 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f )
     if ( !pos_link__f ) return false;
     if ( !*pos_link__f ) return true;
 
-    bool result = true;
     CcPosLink * pl = *pos_link__f;
 
     while ( pl )
@@ -121,5 +120,5 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f )
     }
 
     *pos_link__f = NULL;
-    return result;
+    return true;
 }

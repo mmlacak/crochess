@@ -38,7 +38,7 @@ typedef enum CcStepLinkEnum
 
     @return String symbol if link is valid, `NULL` otherwise.
 */
-char * cc_step_link_symbol( CcStepLinkEnum sle );
+char const * cc_step_link_symbol( CcStepLinkEnum sle );
 
 
 /**
