@@ -2,6 +2,7 @@
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <ctype.h>
 
 #include "cc_piece.h"
@@ -160,7 +161,7 @@ char cc_piece_as_char( CcPieceEnum pe )
     }
 }
 
-char * cc_piece_label( CcPieceEnum pe )
+char const * cc_piece_label( CcPieceEnum pe )
 {
     switch ( pe )
     {
@@ -213,7 +214,7 @@ char * cc_piece_label( CcPieceEnum pe )
 
         case CC_PE_Monolith : return "Monolith";
 
-        default : return "???";
+        default : return NULL;
     }
 }
 

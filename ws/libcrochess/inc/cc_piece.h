@@ -289,10 +289,13 @@ char cc_piece_as_char( CcPieceEnum pe );
 
     @param pe Piece enum.
 
-    @return Piece label, capitalized name of a piece. Piece label is the same for dark (dim)
-            and light (bright) pieces. For None piece, label is empty string.
+    @note
+    Piece label is capitalized name of a piece. Piece label is the same for
+    dark (dim) and light (bright) pieces. For None piece, label is empty string.
+
+    @return Pointer to string if successful, `NULL` otherwise.
 */
-char * cc_piece_label( CcPieceEnum pe );
+char const * cc_piece_label( CcPieceEnum pe );
 
 /**
     Function returning piece symbol, based on piece enum.
