@@ -22,11 +22,11 @@
     @param pawn_en_passant Pawn which made en passant move.
     @param step_i File where en passant Pawn moved.
     @param step_j Rank where en passant Pawn moved.
-    @param pawn_o _Output_, Pawn which was captured.
-    @param dist_j_o _Output_, rank where was Pawn captured.
+    @param pawn__o _Output_, Pawn which was captured.
+    @param dist_j__o _Output_, rank where was Pawn captured.
 
     @note
-    Position of captured Pawn is (`step_i`, `dist_j_o`).
+    Position of captured Pawn is (`step_i`, `dist_j__o`).
 
     @return
     `true` is successful, `false` otherwise.
@@ -35,8 +35,8 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard * restrict cb,
                                            CcPieceEnum pawn_en_passant,
                                            int step_i,
                                            int step_j,
-                                           CcPieceEnum * restrict pawn_o,
-                                           int * restrict dist_j_o );
+                                           CcPieceEnum * restrict pawn__o,
+                                           int * restrict dist_j__o );
 
 /**
     Function finds Rook which castled.
@@ -45,15 +45,15 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard * restrict cb,
     @param king_castling King castling.
     @param step_i_K File where castling King moved.
     @param step_j_K Rank where castling King moved.
-    @param dest_i_R_io _Input/output_ parameter, file where castling Rook ended.
-    @param rook_o _Output_, Rook which castled.
-    @param start_i_R_o _Output_, file from where Rook castled.
+    @param dest_i_R__io _Input/output_ parameter, file where castling Rook ended.
+    @param rook__o _Output_, Rook which castled.
+    @param start_i_R__o _Output_, file from where Rook castled.
 
     @note
-    Starting position of castling Rook is (`start_i_R_o`, `step_j_K`).
+    Starting position of castling Rook is (`start_i_R__o`, `step_j_K`).
 
     @note
-    End position of castling Rook is (`dest_i_R_io`, `step_j_K`).
+    End position of castling Rook is (`dest_i_R__io`, `step_j_K`).
 
     @return
     `true` is successful, `false` otherwise.
@@ -62,9 +62,9 @@ bool cc_rule_utils_find_castling_rook( CcChessboard * restrict cb,
                                        CcPieceEnum king_castling,
                                        int step_i_K,
                                        int step_j_K,
-                                       int * restrict dest_i_R_io,
-                                       CcPieceEnum * restrict rook_o,
-                                       int * restrict start_i_R_o );
+                                       int * restrict dest_i_R__io,
+                                       CcPieceEnum * restrict rook__o,
+                                       int * restrict start_i_R__o );
 
 
 #endif /* __CC_RULES_MISC_H__ */

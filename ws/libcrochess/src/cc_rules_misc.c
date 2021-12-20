@@ -15,8 +15,8 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard * restrict cb,
                                            CcPieceEnum pawn_en_passant,
                                            int step_i,
                                            int step_j,
-                                           CcPieceEnum * restrict pawn_o,
-                                           int * restrict dist_j_o )
+                                           CcPieceEnum * restrict pawn__o,
+                                           int * restrict dist_j__o )
 {
     if ( !cb ) return false;
     if ( !CC_PIECE_IS_PAWN( pawn_en_passant ) ) return false;
@@ -58,8 +58,8 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard * restrict cb,
                 if ( !CC_TAG_CAN_EN_PASSANT( te ) )
                     return false;
 
-                *pawn_o = pe;
-                *dist_j_o = j;
+                *pawn__o = pe;
+                *dist_j__o = j;
                 return true;
             }
             else
@@ -75,14 +75,14 @@ bool cc_rule_utils_find_castling_rook( CcChessboard * restrict cb,
                                        CcPieceEnum king_castling,
                                        int step_i_K,
                                        int step_j_K,
-                                       int * restrict dest_i_R_io,
-                                       CcPieceEnum * restrict rook_o,
-                                       int * restrict start_i_R_o )
+                                       int * restrict dest_i_R__io,
+                                       CcPieceEnum * restrict rook__o,
+                                       int * restrict start_i_R__o )
 {
     if ( !cb ) return false;
-    if ( !dest_i_R_io ) return false;
-    if ( !rook_o ) return false;
-    if ( !start_i_R_o ) return false;
+    if ( !dest_i_R__io ) return false;
+    if ( !rook__o ) return false;
+    if ( !start_i_R__o ) return false;
 
     if ( !CC_PIECE_IS_KING( king_castling ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, step_i_K, step_j_K ) ) return false;
@@ -111,8 +111,8 @@ bool cc_rule_utils_find_castling_rook( CcChessboard * restrict cb,
     bool is_left = ( step_i_K < start_i_K );
     int dest_i_R = is_left ? step_i_K + 1 : step_i_K - 1;
 
-    if ( cc_chessboard_is_coord_on_board( cb, *dest_i_R_io )
-        && ( dest_i_R != *dest_i_R_io ) )
+    if ( cc_chessboard_is_coord_on_board( cb, *dest_i_R__io )
+        && ( dest_i_R != *dest_i_R__io ) )
             return false;
 
     int start_i_R = cc_setup_board_get_figure_row_initial_file( cb->type, rook, is_left );
@@ -146,9 +146,9 @@ bool cc_rule_utils_find_castling_rook( CcChessboard * restrict cb,
 
 // TODO :: FIX :: Everything between King and its destination must not be under attack!
 
-    *dest_i_R_io = dest_i_R;
-    *rook_o = rook;
-    *start_i_R_o = start_i_R;
+    *dest_i_R__io = dest_i_R;
+    *rook__o = rook;
+    *start_i_R__o = start_i_R;
 
     return true;
 }
