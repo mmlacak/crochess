@@ -58,5 +58,8 @@ CcPosLink * cc_pos_link_append_pos( CcPosLink * restrict pos_link__io,
 CcPosLink * cc_pos_link_append_pos_or_init( CcPosLink ** restrict pos_link__io,
                                             CcPos pos );
 
+// DOCS
+bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
+
 
 #endif /* __CC_POS_H__ */

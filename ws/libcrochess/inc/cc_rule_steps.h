@@ -12,20 +12,20 @@
 // DOCS
 bool cc_rule_steps_piece_pos_iter( CcChessboard * restrict cb,
                                    char piece_symbol,
-                                   CcPieceEnum * restrict piece_o,
-                                   CcPos * restrict start_o,
+                                   CcPieceEnum * restrict piece__o,
+                                   CcPos * restrict start__o,
                                    bool initialize_iter );
 
 // DOCS
 bool cc_rule_steps_find_piece_start_pos( CcChessboard * restrict cb,
                                          CcPlyLinkEnum ple,
                                          char piece_symbol,
-                                         int * restrict disamb_i_d,
-                                         int * restrict disamb_j_d,
+                                         int * restrict disamb_i__d,
+                                         int * restrict disamb_j__d,
                                          int dest_i,
                                          int dest_j,
-                                         CcPieceEnum * restrict piece_o,
-                                         CcPos * restrict start_o );
+                                         CcPieceEnum * restrict piece__o,
+                                         CcPos * restrict start__o );
 
 
 // DOCS
@@ -34,7 +34,7 @@ bool cc_rule_steps_check_bishop( CcChessboard * restrict cb,
                                  CcPieceEnum piece,
                                  CcPos start,
                                  CcPos dest,
-                                 CcPosLink ** restrict steps_o );
+                                 CcPosLink ** restrict pls__o );
 
 // DOCS
 bool cc_rule_steps_check_movement( CcChessboard * restrict cb,
@@ -42,7 +42,7 @@ bool cc_rule_steps_check_movement( CcChessboard * restrict cb,
                                    CcPieceEnum piece,
                                    CcPos start,
                                    CcPos dest,
-                                   CcPosLink ** restrict steps_o );
+                                   CcPosLink ** restrict pls__o );
 
 
 #endif /* __CC_RULE_STEPS_H__ */

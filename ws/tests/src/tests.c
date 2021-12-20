@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.176:375+20211220.173140"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.177:376+20211220.181659"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -144,8 +144,8 @@ int main( void )
 //     // printf( "%s.\n", foo );
 //     printf( "%s.\n", ++foo );
 
-//     free( foo-1 );
-//     // free( foo );
+//     CC_FREE( foo-1 );
+//     // CC_FREE( foo );
 
 //     printf( "%s.\n", foo );
 // // DEBUG
@@ -325,7 +325,7 @@ int main( void )
             //
             // Test with AN from CLI.
 
-            // <!> :: Uncomment free() below, if this is active!
+            // <!> :: Uncomment CC_FREE() below, if this is active!
             // char * user_an = NULL;
             // if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             //     continue;
@@ -338,16 +338,16 @@ int main( void )
 
             char * reverse__o = cc_str_duplicate_new( user_an, true, BUFSIZ );
             printf( "Reverse: '%s'.\n", reverse__o );
-            free( reverse__o );
+            CC_FREE( reverse__o );
             reverse__o = NULL;
 
             reverse__o = cc_str_duplicate_new( user_an, true, BUFSIZ );
             printf( "Reverse: '%s'.\n", reverse__o );
-            free( reverse__o );
+            CC_FREE( reverse__o );
             reverse__o = NULL;
 
             // <!> :: Uncomment, if cc_token_iter_new() above is active!
-            // free( user_an );
+            // CC_FREE( user_an );
             // user_an = NULL;
 
         }
@@ -461,7 +461,7 @@ int main( void )
                 continue;
             }
             printf( " --> %s\n", foo );
-            free( foo );
+            CC_FREE( foo );
 
             // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -479,7 +479,7 @@ int main( void )
                 continue;
             }
             printf( " --> %s\n", bar );
-            free( bar );
+            CC_FREE( bar );
 
             // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -497,96 +497,105 @@ int main( void )
                 continue;
             }
             printf( " --> %s\n", baz );
-            free( baz );
+            CC_FREE( baz );
         }
         else if ( cc_str_is_equal( first__w, end__w, "z1", NULL, BUFSIZ ) )
         {
             char * con_1 = cc_str_concatenate_new( "Hello", "World!", BUFSIZ );
             printf( "1: %s.\n", con_1 );
-            free( con_1 );
+            CC_FREE( con_1 );
 
             char * con_2 = cc_str_concatenate_new( "Hello", "World!", BUFSIZ );
             printf( "2: %s.\n", con_2 );
-            free( con_2 );
+            CC_FREE( con_2 );
 
             char * con_3 = cc_str_concatenate_new( "Hello", "World!", 7 );
             printf( "3: %s.\n", con_3 );
-            free( con_3 );
+            CC_FREE( con_3 );
 
             char * dup_4 = cc_str_duplicate_new( "Hello World!", false, BUFSIZ );
             printf( "4: %s.\n", dup_4 );
-            free( dup_4 );
+            CC_FREE( dup_4 );
 
             char * dup_5 = cc_str_duplicate_new( "Hello World!", false, 9 );
             printf( "5: %s.\n", dup_5 );
-            free( dup_5 );
+            CC_FREE( dup_5 );
 
             char * con_6 = cc_str_concatenate_new( NULL, "Hello World!", CC_MAX_LEN_IGNORE );
             printf( "6: %s.\n", con_6 );
-            free( con_6 );
+            CC_FREE( con_6 );
 
             char * dup_7 = cc_str_concatenate_new( "Hello World!", NULL, BUFSIZ );
             printf( "7: %s.\n", dup_7 );
-            free( dup_7 );
+            CC_FREE( dup_7 );
 
             char * dup_8 = cc_str_concatenate_new( NULL, "Hello World!", 9 );
             printf( "8: %s.\n", dup_8 );
-            free( dup_8 );
+            CC_FREE( dup_8 );
         }
         else if ( cc_str_is_equal( first__w, end__w, "z2", NULL, BUFSIZ ) )
         {
-            CcPosLink * pl = NULL;
+            CcPosLink * pl__a = NULL;
 
-            cc_pos_link_append_or_init( &pl, 1, 1 );
-            cc_pos_link_append_or_init( &pl, 2, 2 );
-            cc_pos_link_append_or_init( &pl, 3, 3 );
-            cc_pos_link_append_or_init( &pl, 4, 4 );
-            cc_pos_link_append_or_init( &pl, 5, 5 );
-            cc_pos_link_append_or_init( &pl, 6, 6 );
+            cc_pos_link_append_or_init( &pl__a, 1, 1 );
+            cc_pos_link_append_or_init( &pl__a, 2, 2 );
+            cc_pos_link_append_or_init( &pl__a, 3, 3 );
+            cc_pos_link_append_or_init( &pl__a, 4, 4 );
+            cc_pos_link_append_or_init( &pl__a, 5, 5 );
+            cc_pos_link_append_or_init( &pl__a, 6, 6 );
 
-            CcPosLink * x = pl;
+            CcPosLink * x = pl__a;
             while ( x )
             {
                 printf( "Pos: %d, %d (%p --> %p).\n", x->i, x->j, (void *)x, (void *)(x->next) );
                 x = x->next;
             }
+
+            if ( !cc_pos_link_free_all( &pl__a ) )
+                continue;
         }
         else if ( cc_str_is_equal( first__w, end__w, "z3", NULL, BUFSIZ ) )
         {
-            CcPly * pl = NULL;
+            CcPly * ply__a = NULL;
 
-            cc_ply_append_or_init( &pl, CC_PLE_Ply, CC_PE_LightRook, NULL );
-            cc_ply_append_or_init( &pl, CC_PLE_Teleportation, CC_PE_DarkUnicorn, NULL );
-            cc_ply_append_or_init( &pl, CC_PLE_FailedTeleportation, CC_PE_LightUnicorn, NULL );
-            cc_ply_append_or_init( &pl, CC_PLE_TranceJourney, CC_PE_DarkPawn, NULL );
-            cc_ply_append_or_init( &pl, CC_PLE_DualTranceJourney, CC_PE_LightPawn, NULL );
-            cc_ply_append_or_init( &pl, CC_PLE_PawnSacrifice, CC_PE_DarkRook, NULL );
+            cc_ply_append_or_init( &ply__a, CC_PLE_Ply, CC_PE_LightRook, NULL );
+            cc_ply_append_or_init( &ply__a, CC_PLE_Teleportation, CC_PE_DarkUnicorn, NULL );
+            cc_ply_append_or_init( &ply__a, CC_PLE_FailedTeleportation, CC_PE_LightUnicorn, NULL );
+            cc_ply_append_or_init( &ply__a, CC_PLE_TranceJourney, CC_PE_DarkPawn, NULL );
+            cc_ply_append_or_init( &ply__a, CC_PLE_DualTranceJourney, CC_PE_LightPawn, NULL );
+            cc_ply_append_or_init( &ply__a, CC_PLE_PawnSacrifice, CC_PE_DarkRook, NULL );
 
-            CcPly * x = pl;
+            CcPly * x = ply__a;
             while ( x )
             {
                 printf( "Ply: %d, %d (%p --> %p).\n", x->link, x->piece, (void *)x, (void *)(x->next) );
                 x = x->next;
             }
+
+            if ( !cc_ply_free_all_plies( &ply__a ) )
+                continue;
         }
         else if ( cc_str_is_equal( first__w, end__w, "z4", NULL, BUFSIZ ) )
         {
-            CcStep * st = NULL;
+            CcStep * steps__a = NULL;
             CcSideEffect se = cc_side_effect_none();
 
-            cc_step_append_or_init( &st, CC_SLE_Start, 1, 1, se, CC_FSUE_Debug );
-            cc_step_append_or_init( &st, CC_SLE_Next, 2, 2, se, CC_FSUE_Debug );
-            cc_step_append_or_init( &st, CC_SLE_Distant, 3, 3, se, CC_FSUE_Debug );
-            cc_step_append_or_init( &st, CC_SLE_Next, 4, 4, se, CC_FSUE_Debug );
-            cc_step_append_or_init( &st, CC_SLE_Distant, 5, 5, se, CC_FSUE_Debug );
-            cc_step_append_or_init( &st, CC_SLE_Destination, 6, 6, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &steps__a, CC_SLE_Start, 1, 1, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &steps__a, CC_SLE_Next, 2, 2, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &steps__a, CC_SLE_Distant, 3, 3, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &steps__a, CC_SLE_Next, 4, 4, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &steps__a, CC_SLE_Distant, 5, 5, se, CC_FSUE_Debug );
+            cc_step_append_or_init( &steps__a, CC_SLE_Destination, 6, 6, se, CC_FSUE_Debug );
 
-            CcStep * x = st;
+            CcStep * x = steps__a;
             while ( x )
             {
                 printf( "Step: %d: %d, %d (%p --> %p).\n", x->link, x->i, x->j, (void *)x, (void *)(x->next) );
                 x = x->next;
             }
+
+            if ( !cc_step_free_all_steps( &steps__a ) )
+                continue;
         }
         else if ( cc_str_is_equal( first__w, end__w, "z5", NULL, BUFSIZ ) )
         {

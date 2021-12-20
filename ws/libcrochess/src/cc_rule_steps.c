@@ -10,20 +10,23 @@
 #include "cc_rule_steps.h"
 
 
+// TODO :: CONVERT :: use new iterator template
 bool cc_rule_steps_piece_pos_iter( CcChessboard * restrict cb,
                                    char piece_symbol,
-                                   CcPieceEnum * restrict piece_o,
-                                   CcPos * restrict start_o,
+                                   CcPieceEnum * restrict piece__o,
+                                   CcPos * restrict start__o,
                                    bool initialize_iter )
 {
     if ( !cb ) return false;
-    if ( !piece_o ) return false;
-    if ( !start_o ) return false;
+    if ( !piece__o ) return false;
+    if ( !start__o ) return false;
 
     if ( !cc_piece_is_symbol( piece_symbol ) ) return false;
 
+// TODO :: REMOVE :: STATIC
     static int pos_i = 0;
     static int pos_j = 0;
+// TODO :: REMOVE :: STATIC
 
     if ( initialize_iter )
     {
@@ -53,8 +56,8 @@ bool cc_rule_steps_piece_pos_iter( CcChessboard * restrict cb,
                     pos_i = i + 1;
                 }
 
-                *piece_o = pe;
-                *start_o = cc_pos( i, j );
+                *piece__o = pe;
+                *start__o = cc_pos( i, j );
                 return true;
             }
         }
@@ -62,50 +65,53 @@ bool cc_rule_steps_piece_pos_iter( CcChessboard * restrict cb,
 
     return false;
 }
+// TODO :: CONVERT :: use new iterator template
 
 bool cc_rule_steps_find_piece_start_pos( CcChessboard * restrict cb,
                                          CcPlyLinkEnum ple,
                                          char piece_symbol,
-                                         int * restrict disamb_i_d,
-                                         int * restrict disamb_j_d,
+                                         int * restrict disamb_i__d,
+                                         int * restrict disamb_j__d,
                                          int dest_i,
                                          int dest_j,
-                                         CcPieceEnum * restrict piece_o,
-                                         CcPos * restrict start_o )
+                                         CcPieceEnum * restrict piece__o,
+                                         CcPos * restrict start__o )
 {
     if ( !cb ) return false;
-    if ( !piece_o ) return false;
-    if ( !start_o ) return false;
+    if ( !piece__o ) return false;
+    if ( !start__o ) return false;
 
     if ( !cc_piece_is_symbol( piece_symbol ) ) return false;
 
-    if ( disamb_i_d )
-        if ( !cc_chessboard_is_coord_on_board( cb, *disamb_i_d ) )
+    if ( disamb_i__d )
+        if ( !cc_chessboard_is_coord_on_board( cb, *disamb_i__d ) )
             return false;
 
-    if ( disamb_j_d )
-        if ( !cc_chessboard_is_coord_on_board( cb, *disamb_j_d ) )
+    if ( disamb_j__d )
+        if ( !cc_chessboard_is_coord_on_board( cb, *disamb_j__d ) )
             return false;
 
     if ( !cc_chessboard_is_pos_on_board( cb, dest_i, dest_j ) )
         return false;
 
     CcPos dest = cc_pos( dest_i, dest_j );
-    CcPosLink * steps = NULL;
+    CcPosLink * pos_s__a = NULL;
 
-    if ( disamb_i_d && disamb_j_d )
+    if ( disamb_i__d && disamb_j__d )
     {
-        CcPieceEnum pe = cc_chessboard_get_piece( cb, *disamb_i_d, *disamb_j_d );
+        CcPieceEnum pe = cc_chessboard_get_piece( cb, *disamb_i__d, *disamb_j__d );
 
         if ( cc_piece_symbol( pe ) == piece_symbol )
         {
             if (  cc_rule_steps_check_movement( cb, ple, pe,
-                                                cc_pos( *disamb_i_d, *disamb_j_d ),
+                                                cc_pos( *disamb_i__d, *disamb_j__d ),
                                                 dest,
-                                                &steps ) )
+                                                &pos_s__a ) )
             {
-                *piece_o = pe;
-                *start_o = cc_pos( *disamb_i_d, *disamb_j_d );
+                *piece__o = pe;
+                *start__o = cc_pos( *disamb_i__d, *disamb_j__d );
+
+                cc_pos_link_free_all( &pos_s__a );
                 return true;
             }
         }
@@ -121,13 +127,15 @@ bool cc_rule_steps_find_piece_start_pos( CcChessboard * restrict cb,
     {
         init = false;
 
-        if ( ( disamb_i_d ) && ( *disamb_i_d != start.i ) ) continue;
-        if ( ( disamb_j_d ) && ( *disamb_j_d != start.j ) ) continue;
+        if ( ( disamb_i__d ) && ( *disamb_i__d != start.i ) ) continue;
+        if ( ( disamb_j__d ) && ( *disamb_j__d != start.j ) ) continue;
 
-        if ( cc_rule_steps_check_movement( cb, ple, piece, start, dest, &steps ) )
+        if ( cc_rule_steps_check_movement( cb, ple, piece, start, dest, &pos_s__a ) )
         {
-            *piece_o = piece;
-            *start_o = start;
+            *piece__o = piece;
+            *start__o = start;
+
+            cc_pos_link_free_all( &pos_s__a );
             return true;
         }
     }
@@ -141,11 +149,11 @@ bool cc_rule_steps_check_bishop( CcChessboard * restrict cb,
                                  CcPieceEnum piece,
                                  CcPos start,
                                  CcPos dest,
-                                 CcPosLink ** restrict steps_o )
+                                 CcPosLink ** restrict pls__o )
 {
     if ( !cb ) return false;
-    if ( !steps_o ) return false;
-    if ( *steps_o ) return false;
+    if ( !pls__o ) return false;
+    if ( *pls__o ) return false;
 
     if ( !CC_PIECE_IS_BISHOP( piece ) ) return false;
 
@@ -164,8 +172,7 @@ bool cc_rule_steps_check_bishop( CcChessboard * restrict cb,
 
         if ( !cc_pos_link_append_pos_or_init( &pl__t, p ) )
         {
-            free( pl__t );
-            // pl__t = NULL; // Not neccessary.
+            cc_pos_link_free_all( &pl__t );
             return false;
         }
     }
@@ -174,15 +181,12 @@ bool cc_rule_steps_check_bishop( CcChessboard * restrict cb,
 
     if ( cc_piece_is_targetable( piece, pe_dest ) )
     {
-        *steps_o = pl__t; // Ownership transfer --> pl__t is now weak pointer.
+        *pls__o = pl__t; // Ownership transfer --> pl__t is now weak pointer.
         return true;
     }
-    else
-    {
-        free( pl__t );
-        // pl__t = NULL; // Not neccessary.
-        return false;
-    }
+
+    cc_pos_link_free_all( &pl__t );
+    return false;
 }
 
 bool cc_rule_steps_check_movement( CcChessboard * restrict cb,
@@ -190,14 +194,14 @@ bool cc_rule_steps_check_movement( CcChessboard * restrict cb,
                                    CcPieceEnum piece,
                                    CcPos start,
                                    CcPos dest,
-                                   CcPosLink ** restrict steps_o )
+                                   CcPosLink ** restrict pls__o )
 {
     // if ( !cb ) return false;
-    // if ( !steps_o ) return false;
-    // if ( *steps_o ) return false;
+    // if ( !pls__o ) return false;
+    // if ( *pls__o ) return false;
 
     if ( CC_PIECE_IS_BISHOP( piece ) )
-        return cc_rule_steps_check_bishop( cb, ple, piece, start, dest, steps_o );
+        return cc_rule_steps_check_bishop( cb, ple, piece, start, dest, pls__o );
     else
         return false;
 }

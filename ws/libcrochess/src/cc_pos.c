@@ -104,3 +104,22 @@ CcPosLink * cc_pos_link_append_pos_or_init( CcPosLink ** restrict pos_link__io,
 {
     return cc_pos_link_append_or_init( pos_link__io, pos.i, pos.j );
 }
+
+bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f )
+{
+    if ( !pos_link__f ) return false;
+    if ( !*pos_link__f ) return true;
+
+    bool result = true;
+    CcPosLink * pl = *pos_link__f;
+
+    while ( pl )
+    {
+        CcPosLink * tmp = pl->next;
+        CC_FREE( pl );
+        pl = tmp;
+    }
+
+    *pos_link__f = NULL;
+    return result;
+}
