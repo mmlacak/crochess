@@ -18,8 +18,8 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
 
 // DOCS
 bool cc_rules_make_move( CcGame ** restrict game_io__r,
-                         char const * restrict move_an,
-                         CcParseMsg ** restrict parse_msgs_io );
+                         char const * restrict move_str,
+                         CcParseMsg ** restrict parse_msgs__io );
 
 
 #endif /* __CC_RULES_H__ */
