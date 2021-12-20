@@ -41,7 +41,7 @@ typedef enum CcPlyLinkEnum
 
     @return String symbol if link is valid, `NULL` otherwise.
 */
-char * cc_ply_link_symbol( CcPlyLinkEnum ple );
+char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
 
 
 /**

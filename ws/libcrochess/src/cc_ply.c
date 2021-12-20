@@ -12,7 +12,7 @@
 */
 
 
-char * cc_ply_link_symbol( CcPlyLinkEnum ple )
+char const * cc_ply_link_symbol( CcPlyLinkEnum ple )
 {
     switch ( ple )
     {
@@ -33,23 +33,23 @@ CcPly * cc_ply_new( CcPlyLinkEnum link,
                     CcPieceEnum piece,
                     CcStep ** restrict steps__n )
 {
-    CcPly * ply = calloc( 1, sizeof( CcPly ) );
-    if ( !ply ) return NULL;
+    CcPly * ply__a = calloc( 1, sizeof( CcPly ) );
+    if ( !ply__a ) return NULL;
 
-    ply->link = link;
-    ply->piece = piece;
+    ply__a->link = link;
+    ply__a->piece = piece;
 
     if ( steps__n )
     {
-        ply->steps = *steps__n;
+        ply__a->steps = *steps__n;
         *steps__n = NULL;
     }
     else
-        ply->steps = NULL;
+        ply__a->steps = NULL;
 
-    ply->next = NULL;
+    ply__a->next = NULL;
 
-    return ply;
+    return ply__a;
 }
 
 CcPly * cc_ply_append( CcPly * restrict plies__io,
@@ -59,14 +59,14 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
 {
     if ( !plies__io ) return NULL;
 
-    CcPly * ply__a = cc_ply_new( link, piece, steps__n );
-    if ( !ply__a ) return NULL;
+    CcPly * ply__t = cc_ply_new( link, piece, steps__n );
+    if ( !ply__t ) return NULL;
 
     CcPly * p = plies__io;
     while ( p->next ) p = p->next; // rewind
-    p->next = ply__a; // append
+    p->next = ply__t; // append // Ownership transfer --> ply__t is now weak pointer.
 
-    return ply__a;
+    return ply__t;
 }
 
 CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
@@ -76,14 +76,14 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
 {
     if ( !plies__io ) return NULL;
 
-    CcPly * ply__a = NULL;
+    CcPly * ply__w = NULL;
 
     if ( !*plies__io )
-        *plies__io = ply__a = cc_ply_new( link, piece, steps__n );
+        *plies__io = ply__w = cc_ply_new( link, piece, steps__n );
     else
-        ply__a = cc_ply_append( *plies__io, link, piece, steps__n );
+        ply__w = cc_ply_append( *plies__io, link, piece, steps__n );
 
-    return ply__a;
+    return ply__w;
 }
 
 CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
@@ -93,8 +93,8 @@ CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
     CcStep * steps__t = cc_step_duplicate_all_new( plies->steps );
     if ( !steps__t ) return NULL;
 
-    CcPly * new__o = cc_ply_new( plies->link, plies->piece, &steps__t );
-    if ( !new__o )
+    CcPly * ply__a = cc_ply_new( plies->link, plies->piece, &steps__t );
+    if ( !ply__a )
     {
         cc_step_free_all_steps( &steps__t );
         return NULL;
@@ -107,22 +107,22 @@ CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
         CcStep * s__t = cc_step_duplicate_all_new( from->steps );
         if ( !s__t )
         {
-            cc_ply_free_all_plies( &new__o );
+            cc_ply_free_all_plies( &ply__a );
             return NULL;
         }
 
-        CcPly * n__w = cc_ply_append( new__o, from->link, from->piece, &s__t );
-        if ( !n__w )
+        CcPly * ply = cc_ply_append( ply__a, from->link, from->piece, &s__t );
+        if ( !ply )
         {
-            cc_step_free_all_steps( &s__t );
-            cc_ply_free_all_plies( &new__o );
+            cc_step_free_all_steps( &s__t ); // Failed append --> ownership not transferred ...
+            cc_ply_free_all_plies( &ply__a );
             return NULL;
         }
 
         from = from->next;
     }
 
-    return new__o;
+    return ply__a;
 }
 
 bool cc_ply_free_all_plies( CcPly ** restrict plies__f )
@@ -136,7 +136,7 @@ bool cc_ply_free_all_plies( CcPly ** restrict plies__f )
     while ( ply )
     {
         CcStep ** steps = &( ply->steps );
-        result = result && cc_step_free_all_steps( steps );
+        result = cc_step_free_all_steps( steps ) && result;
 
         CcPly * tmp = ply->next;
         CC_FREE( ply );
@@ -151,11 +151,9 @@ bool cc_ply_free_all_plies( CcPly ** restrict plies__f )
 bool cc_ply_contains_side_effects( CcPly * restrict ply )
 {
     if ( !ply ) return false;
+    if ( !ply->steps ) return false;
 
-    CcStep * steps = ply->steps;
-    if ( !steps ) return false;
-
-    CcStep * s = steps;
+    CcStep * s = ply->steps;
     while ( s->next )
     {
         if ( s->side_effect.type != CC_SEE_None ) return true;
