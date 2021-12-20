@@ -41,11 +41,11 @@ char const * cc_str_traverse_chars( char const * restrict str,
     if ( !str ) return NULL;
     if ( !fp_is_char ) return NULL;
 
-    char const * s = str;
+    char const * str__w = str;
 
-    while ( ( *s != '\0' ) && ( skip_or_stop_at == fp_is_char( *s ) ) ) ++s;
+    while ( ( *str__w != '\0' ) && ( skip_or_stop_at == fp_is_char( *str__w ) ) ) ++str__w;
 
-    return s;
+    return str__w;
 }
 
 
@@ -146,14 +146,14 @@ char const * cc_str_end( char const * restrict str,
 {
     if ( !str ) return NULL;
 
-    char const * end = str;
+    char const * end__w = str;
     size_t index = 0;
 
-    while ( *end++ != '\0' )
+    while ( *end__w++ != '\0' )
         if ( ( max_len__d != CC_MAX_LEN_IGNORE ) && ( index++ >= max_len__d ) )
-            return end;
+            return end__w;
 
-    return ++end;
+    return ++end__w;
 }
 
 bool cc_str_compare( char const * restrict first_1,
