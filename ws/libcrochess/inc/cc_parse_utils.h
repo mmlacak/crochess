@@ -16,6 +16,8 @@
 */
 
 
+#define CC_PARSE_STR_LOST_TAG_LENGTH (2)
+
 /**
     Function checks if a given character is a ply gathering.
 
@@ -61,7 +63,7 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
     returning next ply AN as newly allocated string.
 
     @param move_str Move AN string to traverse.
-    @param ply_an_o An _output_ parameter, ply AN.
+    @param ply_an__o An _output_ parameter, ply AN.
     @param initialize_iter Flag, whether to initialize iterator.
 
     @note
@@ -69,8 +71,8 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
     intialized, to ensure string (buffer) is still allocated and readable.
 
     @note
-    _Output_ parameter `ply_an_o` has to have inner pointer initialized to `NULL`,
-    i.e. `*ply_an_o == NULL` has to hold true.
+    _Output_ parameter `ply_an__o` has to have inner pointer initialized to `NULL`,
+    i.e. `*ply_an__o == NULL` has to hold true.
 
     @note
     If used within a loop, newly allocated string has to be `free()`-ed, or
@@ -96,21 +98,20 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
     again with different string.
 
     @return `true` if next ply AN was found, `NULL` otherwise.
-    If `true` was returned, _output_ argument `ply_an_o` contains a newly
+    If `true` was returned, _output_ argument `ply_an__o` contains a newly
     allocated copy of a ply AN found.
 */
+// TODO :: CONVERT :: new iterator template
 bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
-                                      char ** restrict ply_an_o,
+                                      char ** restrict ply_an__o,
                                       bool initialize_iter );
-// bool cc_parse_utils_ply_str_iter_new( char * restrict move_str,
-//                                       char ** restrict ply_start_o,
-//                                       char ** restrict ply_end_o );
+// TODO :: CONVERT :: new iterator template
 
 /**
     Function getting ply link, for a given ply AN string.
 
     @param ply_str A ply, algebraic notation string.
-    @param link_o An _output_ parameter, returned ply link.
+    @param link__o An _output_ parameter, returned ply link.
 
     @note
     Ply link is returned via _output_ parameter, not via return value.
@@ -118,14 +119,14 @@ bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
     @return `true` if successful, `false` otherwise.
 */
 bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
-                                  CcPlyLinkEnum * restrict link_o );
+                                  CcPlyLinkEnum * restrict link__o );
 
 /**
     Function getting piece, for a given ply AN string.
 
     @param ply_str A ply, algebraic notation string.
     @param is_light A flag, whether piece is light or dark (bright or dim, in case of Stars).
-    @param piece_o An _output_ parameter, returned piece.
+    @param piece__o An _output_ parameter, returned piece.
 
     @note
     Piece is returned via _output_ parameter, not via return value.
@@ -134,13 +135,13 @@ bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
 */
 bool cc_parse_utils_get_ply_piece( char const * restrict ply_str,
                                    bool is_light,
-                                   CcPieceEnum * restrict piece_o );
+                                   CcPieceEnum * restrict piece__o );
 
 /**
     Function getting piece symbol, for a given ply AN string.
 
     @param ply_str A ply, algebraic notation string.
-    @param piece_symbol_o An _output_ parameter, returned piece symbol.
+    @param piece_symbol__o An _output_ parameter, returned piece symbol.
 
     @note
     Piece symbol is returned via _output_ parameter, not via return value.
@@ -151,7 +152,7 @@ bool cc_parse_utils_get_ply_piece( char const * restrict ply_str,
     @return `true` if successful, `false` otherwise.
 */
 bool cc_parse_utils_get_ply_piece_symbol( char const * restrict ply_str,
-                                          char * restrict piece_symbol_o );
+                                          char * restrict piece_symbol__o );
 
 
 /**
@@ -195,10 +196,10 @@ char const * cc_parse_utils_go_step_link( char const * restrict ply_str,
 /**
     Iterator returns newly allocated string, containing next step algebraic notation.
 
-    @param ply_str_s A ply, _static_ parameter, AN string used to initialize iterator, can be `NULL`.
+    @param ply_str__s A ply, _static_ parameter, AN string used to initialize iterator, can be `NULL`.
 
     @note
-    Iterator is initialized with valid `ply_str_s` once, after which subsequent calls
+    Iterator is initialized with valid `ply_str__s` once, after which subsequent calls
     has to pass `NULL` as argument.
 
     @note
@@ -206,7 +207,7 @@ char const * cc_parse_utils_go_step_link( char const * restrict ply_str,
 
     @return String pointer to newly allocated AN string if successful, `NULL` otherwise.
 */
-char * cc_parse_utils_next_step_str_new( char const * restrict ply_str_s );
+char * cc_parse_utils_next_step_str_new( char const * restrict ply_str__s );
 
 /**
     Function returns whether given ply has multiple steps.
@@ -222,7 +223,7 @@ bool cc_parse_utils_ply_has_multiple_steps( char const * restrict ply_str );
 
     @param ply_str A ply, algebraic notation string.
     @param step_str A step, algebraic notation string.
-    @param link_o An _output_ parameter, returned step link.
+    @param link__o An _output_ parameter, returned step link.
 
     @note
     Step link is returned via _output_ parameter, not via return value.
@@ -231,7 +232,7 @@ bool cc_parse_utils_ply_has_multiple_steps( char const * restrict ply_str );
 */
 bool cc_parse_utils_get_step_link( char const * restrict ply_str,
                                    char const * restrict step_str,
-                                   CcStepLinkEnum * restrict link_o );
+                                   CcStepLinkEnum * restrict link__o );
 
 /**
     Function returns pointer to first character of a side effect, in a given step.
@@ -291,10 +292,10 @@ bool cc_parse_utils_is_fields_str_valid( char const * restrict fields_str );
 
     @param fields_str A fields string.
     @param cb A chessboard, used to check if parsed coordinates are on-board.
-    @param disambiguation_file_o An _output_ parameter, disambiguation file.
-    @param disambiguation_rank_o An _output_ parameter, disambiguation rank.
-    @param file_o An _output_ parameter, file.
-    @param rank_o  An _output_ parameter, rank.
+    @param disambiguation_file__o An _output_ parameter, disambiguation file.
+    @param disambiguation_rank__o An _output_ parameter, disambiguation rank.
+    @param file__o An _output_ parameter, file.
+    @param rank__o  An _output_ parameter, rank.
 
     @note
     _Output_ arguments without corresponding data in fields string are initialized to `CC_INVALID_OFF_BOARD_COORD_MIN`.
@@ -305,17 +306,17 @@ bool cc_parse_utils_is_fields_str_valid( char const * restrict fields_str );
 */
 bool cc_parse_utils_get_fields( char const * restrict fields_str,
                                 CcChessboard * restrict cb,
-                                int * restrict disambiguation_file_o,
-                                int * restrict disambiguation_rank_o,
-                                int * restrict file_o,
-                                int * restrict rank_o );
+                                int * restrict disambiguation_file__o,
+                                int * restrict disambiguation_rank__o,
+                                int * restrict file__o,
+                                int * restrict rank__o );
 
 // TODO :: DOCS
 bool cc_parse_utils_get_lost_tag( char const * restrict lost_tag_str,
                                   CcChessboard * restrict cb,
                                   int step_i,
                                   int step_j,
-                                  CcTagEnum * restrict lost_tag_o );
+                                  CcTagEnum * restrict lost_tag__o );
 
 // TODO :: DOCS
 bool cc_parse_utils_get_side_effect( char const * restrict step_str,
@@ -323,7 +324,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
                                      CcPieceEnum ply_piece,
                                      int step_i,
                                      int step_j,
-                                     CcSideEffect * restrict side_effect_o );
+                                     CcSideEffect * restrict side_effect__o );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

@@ -61,31 +61,32 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
 {
     if ( !move_str ) return NULL;
 
-    char const * m = move_str;
+    char const * str__w = move_str;
 
     if ( skip_or_stop_at )
-        while ( *m != '\0' )
+        while ( *str__w != '\0' )
         {
-            size_t len = cc_parse_utils_ply_link_len( m );
+            size_t len = cc_parse_utils_ply_link_len( str__w );
 
             if ( len > 0 )
-                m += len;
+                str__w += len;
             else
                 break;
         }
     else
-        while ( ( *m != '\0' ) && ( !cc_parse_utils_ply_link_len( m ) ) ) ++m;
+        while ( ( *str__w != '\0' ) && ( !cc_parse_utils_ply_link_len( str__w ) ) ) ++str__w;
 
-    return m;
+    return str__w;
 }
 
+// TODO :: CONVERT :: new iterator template
 bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
-                                      char ** restrict ply_an_o,
+                                      char ** restrict ply_an__o,
                                       bool initialize_iter )
 {
     if ( !move_str ) return false;
-    if ( !ply_an_o ) return false;
-    if ( *ply_an_o ) return false;
+    if ( !ply_an__o ) return false;
+    if ( *ply_an__o ) return false;
 
     static char const * ply_start = NULL;
     static char const * ply_end = NULL;
@@ -112,11 +113,11 @@ bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
     if ( ply_end == ply_start ) return false;
 
     size_t len = ply_end - ply_start;
-    char * ply_str = malloc( len + 1 );
-    if ( !ply_str ) return false;
+    char * ply_str__t = malloc( len + 1 );
+    if ( !ply_str__t ) return false;
 
     char const * in = ply_start;
-    char * out = ply_str;
+    char * out = ply_str__t;
 
     while ( in < ply_end )
     {
@@ -128,74 +129,23 @@ bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
 
     *out = '\0';
 
-    *ply_an_o = ply_str;
+    *ply_an__o = ply_str__t; // Ownership transfer --> ply_str__t is now weak pointer.
+
     return true;
 }
-
-// bool cc_parse_utils_ply_str_iter_new( char * restrict move_str,
-//                                       char ** restrict ply_first_o,
-//                                       char ** restrict ply_end_o )
-// {
-//     if ( !move_str ) return false;
-//     if ( !ply_first_o ) return false;
-//     if ( !ply_end_o ) return false;
-
-//     if ( !( *ply_first_o ) && !( *ply_end_o ) )
-//         *ply_first_o = move_str;
-//     else if ( ( *ply_first_o ) && ( *ply_end_o ) )
-//         *ply_first_o = cc_parse_utils_go_ply_link( *ply_end_o, false );
-//     else
-//         return false;
-
-//     *ply_end_o = cc_parse_utils_go_ply_link( *ply_first_o, true );
-//     *ply_end_o = cc_parse_utils_go_ply_link( *ply_end_o, false );
-
-// // if ( **ply_end_o == '\0' )
-// // {
-// //     *ply_end_o = NULL; // Invalidate future calls without initialization.
-// //     return false;
-// // }
-
-// // if ( **ply_end_o == *ply_first_o ) return false;
-
-//     if ( ( **ply_first_o == '\0' ) || ( *ply_end_o == *ply_first_o ) )
-//     {
-//         *ply_first_o = *ply_end_o = NULL;
-//         return false;
-//     }
-
-// // size_t len = ply_end - ply_start;
-// // char * ply_str = malloc( len + 1 );
-// // if ( !ply_str ) return false;
-
-// // char * in = ply_start;
-// // char * out = ply_str;
-
-// // while ( in < ply_end )
-// // {
-// //     if ( !cc_parse_utils_char_is_ply_gather( *in ) )
-// //         *out++ = *in++;
-// //     else
-// //         ++in;
-// // }
-
-// // *out = '\0';
-
-// // *ply_an_o = ply_str;
-//     return true;
-// }
+// TODO :: CONVERT :: new iterator template
 
 bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
-                                  CcPlyLinkEnum * restrict link_o )
+                                  CcPlyLinkEnum * restrict link__o )
 {
     if ( !ply_str ) return false;
-    if ( !link_o ) return false;
+    if ( !link__o ) return false;
 
     size_t len = cc_parse_utils_ply_link_len( ply_str );
 
     if ( len == 0 )
     {
-        *link_o = CC_PLE_Ply;
+        *link__o = CC_PLE_Ply;
         return true;
     }
     else if ( len == 1 )
@@ -204,17 +154,17 @@ bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
 
         if ( c_0 == '~' )
         {
-            *link_o = CC_PLE_Ply;
+            *link__o = CC_PLE_Ply;
             return true;
         }
         else if ( c_0 == '|' )
         {
-            *link_o = CC_PLE_Teleportation;
+            *link__o = CC_PLE_Teleportation;
             return true;
         }
         else if ( c_0 == '@' )
         {
-            *link_o = CC_PLE_TranceJourney;
+            *link__o = CC_PLE_TranceJourney;
             return true;
         }
     }
@@ -225,12 +175,12 @@ bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
 
         if ( ( c_0 == '|' ) && ( c_1 == '|' ) )
         {
-            *link_o = CC_PLE_FailedTeleportation;
+            *link__o = CC_PLE_FailedTeleportation;
             return true;
         }
         else if ( ( c_0 == '@' ) && ( c_1 == '@' ) )
         {
-            *link_o = CC_PLE_DualTranceJourney;
+            *link__o = CC_PLE_DualTranceJourney;
             return true;
         }
     }
@@ -242,12 +192,12 @@ bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
 
         if ( ( c_0 == '@' ) && ( c_1 == '@' ) && ( c_2 == '@' ) )
         {
-            *link_o = CC_PLE_FailedTranceJourney;
+            *link__o = CC_PLE_FailedTranceJourney;
             return true;
         }
         else if ( ( c_0 == ':' ) && ( c_1 == ':' ) && ( c_2 == ':' ) )
         {
-            *link_o = CC_PLE_PawnSacrifice;
+            *link__o = CC_PLE_PawnSacrifice;
             return true;
         }
     }
@@ -257,10 +207,10 @@ bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
 
 bool cc_parse_utils_get_ply_piece( char const * restrict ply_str,
                                    bool is_light,
-                                   CcPieceEnum * restrict piece_o )
+                                   CcPieceEnum * restrict piece__o )
 {
     if ( !ply_str ) return false;
-    if ( !piece_o ) return false;
+    if ( !piece__o ) return false;
 
     char const * p = ply_str;
 
@@ -269,18 +219,18 @@ bool cc_parse_utils_get_ply_piece( char const * restrict ply_str,
 
     if ( isupper( *p ) ) // <!> Useage of cc_piece_is_symbol() here is bug,
                          //     all other upper chars would end as Pawns.
-        *piece_o = cc_piece_from_symbol( *p, is_light );
+        *piece__o = cc_piece_from_symbol( *p, is_light );
     else
-        *piece_o = ( is_light ) ? CC_PE_LightPawn : CC_PE_DarkPawn;
+        *piece__o = ( is_light ) ? CC_PE_LightPawn : CC_PE_DarkPawn;
 
-    return CC_PIECE_IS_VALID( *piece_o );
+    return CC_PIECE_IS_VALID( *piece__o );
 }
 
 bool cc_parse_utils_get_ply_piece_symbol( char const * restrict ply_str,
-                                          char * restrict piece_symbol_o )
+                                          char * restrict piece_symbol__o )
 {
     if ( !ply_str ) return false;
-    if ( !piece_symbol_o ) return false;
+    if ( !piece_symbol__o ) return false;
 
     char const * p = ply_str;
 
@@ -289,11 +239,11 @@ bool cc_parse_utils_get_ply_piece_symbol( char const * restrict ply_str,
 
     if ( isupper( *p ) ) // <!> Useage of cc_piece_is_symbol() here is bug,
                          //     all other upper chars would end as Pawns.
-        *piece_symbol_o = *p;
+        *piece_symbol__o = *p;
     else
-        *piece_symbol_o = 'P';
+        *piece_symbol__o = 'P';
 
-    return cc_piece_is_symbol( *piece_symbol_o );
+    return cc_piece_is_symbol( *piece_symbol__o );
 }
 
 
@@ -303,11 +253,11 @@ char const * cc_parse_utils_get_steps_str( char const * restrict ply_str )
 
     size_t len = cc_parse_utils_ply_link_len( ply_str );
 
-    char const * p = ply_str + len;
+    char const * steps__w = ply_str + len;
 
-    if ( isupper( *p ) ) ++p;
+    if ( isupper( *steps__w ) ) ++steps__w;
 
-    return p;
+    return steps__w;
 }
 
 size_t cc_parse_utils_step_link_len( char const * restrict step_str )
@@ -334,35 +284,37 @@ char const * cc_parse_utils_go_step_link( char const * restrict ply_str,
 {
     if ( !ply_str ) return NULL;
 
-    char const * p = ply_str;
+    char const * str__w = ply_str;
 
     if ( skip_or_stop_at )
-        while ( *p != '\0' )
+        while ( *str__w != '\0' )
         {
-            size_t len = cc_parse_utils_step_link_len( p );
+            size_t len = cc_parse_utils_step_link_len( str__w );
 
             if ( len > 0 )
-                p += len;
+                str__w += len;
             else
                 break;
         }
     else
-        while ( ( *p != '\0' ) && ( !cc_parse_utils_step_link_len( p ) ) ) ++p;
+        while ( ( *str__w != '\0' ) && ( !cc_parse_utils_step_link_len( str__w ) ) ) ++str__w;
 
-    return p;
+    return str__w;
 }
 
-char * cc_parse_utils_next_step_str_new( char const * restrict ply_str_s )
+char * cc_parse_utils_next_step_str_new( char const * restrict ply_str__s )
 {
+// TODO :: REMOVE :: static variables
     /* static char * ply_start = NULL; */
     static char const * step_start = NULL;
     static char const * step_end = NULL;
+// TODO :: REMOVE :: static variables
 
-    bool parse_1st = (bool)ply_str_s;
+    bool is_first = (bool)ply_str__s;
 
-    if ( ply_str_s )
+    if ( ply_str__s )
     {
-        /* ply_start = */ step_start = step_end = cc_parse_utils_get_steps_str( ply_str_s );
+        /* ply_start = */ step_start = step_end = cc_parse_utils_get_steps_str( ply_str__s );
     }
 
     if ( !step_end ) return NULL;
@@ -373,7 +325,7 @@ char * cc_parse_utils_next_step_str_new( char const * restrict ply_str_s )
         return NULL;
     }
 
-    if ( !parse_1st )
+    if ( !is_first )
         step_start = cc_parse_utils_go_step_link( step_end, false );
 
     step_end = cc_parse_utils_go_step_link( step_start, true );
@@ -382,18 +334,18 @@ char * cc_parse_utils_next_step_str_new( char const * restrict ply_str_s )
     if ( step_end == step_start ) return NULL;
 
     size_t len = step_end - step_start;
-    char * step_str = malloc( len + 1 );
-    if ( !step_str ) return NULL;
+    char * step_str__a = malloc( len + 1 );
+    if ( !step_str__a ) return NULL;
 
     char const * in = step_start;
-    char * out = step_str;
+    char * out = step_str__a;
 
     while ( in < step_end )
         *out++ = *in++;
 
     *out = '\0';
 
-    return step_str;
+    return step_str__a;
 }
 
 bool cc_parse_utils_ply_has_multiple_steps( char const * restrict ply_str )
@@ -413,20 +365,20 @@ bool cc_parse_utils_ply_has_multiple_steps( char const * restrict ply_str )
 
 bool cc_parse_utils_get_step_link( char const * restrict ply_str,
                                    char const * restrict step_str,
-                                   CcStepLinkEnum * restrict link_o )
+                                   CcStepLinkEnum * restrict link__o )
 {
     if ( !ply_str ) return false;
     if ( !step_str ) return false;
-    if ( !link_o ) return false;
+    if ( !link__o ) return false;
 
     size_t len = cc_parse_utils_step_link_len( step_str );
 
     if ( len == 0 )
     {
         if ( cc_parse_utils_ply_has_multiple_steps( ply_str ) )
-            *link_o = CC_SLE_Start;
+            *link__o = CC_SLE_Start;
         else
-            *link_o = CC_SLE_Destination;
+            *link__o = CC_SLE_Destination;
 
         return true;
     }
@@ -436,17 +388,17 @@ bool cc_parse_utils_get_step_link( char const * restrict ply_str,
 
         if ( c_0 == '.' )
         {
-            *link_o = CC_SLE_Next;
+            *link__o = CC_SLE_Next;
             return true;
         }
         else if ( c_0 == ',' )
         {
-            *link_o = CC_SLE_Reposition;
+            *link__o = CC_SLE_Reposition;
             return true;
         }
         else if ( c_0 == '-' )
         {
-            *link_o = CC_SLE_Destination;
+            *link__o = CC_SLE_Destination;
             return true;
         }
     }
@@ -457,7 +409,7 @@ bool cc_parse_utils_get_step_link( char const * restrict ply_str,
 
         if ( ( c_0 == '.' ) && ( c_1 == '.' ) )
         {
-            *link_o = CC_SLE_Distant;
+            *link__o = CC_SLE_Distant;
             return true;
         }
     }
@@ -469,11 +421,11 @@ char const * cc_parse_utils_stop_at_side_effects( char const * restrict step_str
 {
     if ( !step_str ) return NULL;
 
-    char const * p = step_str;
+    char const * str__w = step_str;
 
-    while ( *p != '\0' )
+    while ( *str__w != '\0' )
     {
-        switch ( *p )
+        switch ( *str__w )
         {
             case '*' :
             case '<' :
@@ -483,14 +435,14 @@ char const * cc_parse_utils_stop_at_side_effects( char const * restrict step_str
             case '%' :
             case '>' :
             case '$' :
-                return p;
+                return str__w;
 
             default :
-                ++p;
+                ++str__w;
         }
     }
 
-    return p;
+    return str__w;
 }
 
 char * cc_parse_utils_step_fields_str_new( char const * restrict step_str )
@@ -506,28 +458,28 @@ char * cc_parse_utils_step_fields_str_new( char const * restrict step_str )
     if ( fields_end == fields_start ) return NULL;
 
     size_t len = fields_end - fields_start;
-    char * fields_str = malloc( len + 1 );
-    if ( !fields_str ) return NULL;
+    char * fields_str__a = malloc( len + 1 );
+    if ( !fields_str__a ) return NULL;
 
     char const * in = fields_start;
-    char * out = fields_str;
+    char * out = fields_str__a;
 
     while ( in < fields_end )
         *out++ = *in++;
 
     *out = '\0';
 
-    return fields_str;
+    return fields_str__a;
 }
 
 char const * cc_parse_utils_side_effect_str( char const * restrict step_str )
 {
     if ( !step_str ) return NULL;
 
-    char const * side_effect = cc_parse_utils_stop_at_side_effects( step_str );
-    // if ( !side_effect ) return NULL; // Not needed, doesn't do anything with side_effect.
+    char const * str_se__w = cc_parse_utils_stop_at_side_effects( step_str );
+    // if ( !str_se__w ) return NULL; // Not needed, doesn't do anything with side_effect.
 
-    return side_effect;
+    return str_se__w;
 }
 
 bool cc_parse_utils_is_fields_str_valid( char const * restrict fields_str )
@@ -553,8 +505,8 @@ bool cc_parse_utils_is_fields_str_valid( char const * restrict fields_str )
     if ( len < MIN_LEN ) return false;
 
     bool result = true;
-    char * f_str__o = cc_str_duplicate_new( fields_str, true, MAX_LEN_TO_CHECK );
-    char * f = f_str__o;
+    char * f_str__a = cc_str_duplicate_new( fields_str, true, MAX_LEN_TO_CHECK );
+    char * f = f_str__a;
 
     if ( !isdigit( *f ) )
         result = false;
@@ -586,29 +538,30 @@ bool cc_parse_utils_is_fields_str_valid( char const * restrict fields_str )
 
     result = result && ( *f == '\0' );
 
-    free( (char *)f_str__o );
+    CC_FREE( f_str__a );
+
     return result;
 }
 
 bool cc_parse_utils_get_fields( char const * restrict fields_str,
                                 CcChessboard * restrict cb,
-                                int * restrict disambiguation_file_o,
-                                int * restrict disambiguation_rank_o,
-                                int * restrict file_o,
-                                int * restrict rank_o )
+                                int * restrict disambiguation_file__o,
+                                int * restrict disambiguation_rank__o,
+                                int * restrict file__o,
+                                int * restrict rank__o )
 {
     if ( !fields_str ) return false;
-    if ( !disambiguation_file_o ) return false;
-    if ( !disambiguation_rank_o ) return false;
-    if ( !file_o ) return false;
-    if ( !rank_o ) return false;
+    if ( !disambiguation_file__o ) return false;
+    if ( !disambiguation_rank__o ) return false;
+    if ( !file__o ) return false;
+    if ( !rank__o ) return false;
 
     if ( !cc_parse_utils_is_fields_str_valid( fields_str ) ) return false;
 
-    int file_0 = *disambiguation_file_o = CC_INVALID_OFF_BOARD_COORD_MIN;
-    int rank_0 = *disambiguation_rank_o = CC_INVALID_OFF_BOARD_COORD_MIN;
-    int file_1 = *file_o = CC_INVALID_OFF_BOARD_COORD_MIN;
-    int rank_1 = *rank_o = CC_INVALID_OFF_BOARD_COORD_MIN;
+    int file_0 = *disambiguation_file__o = CC_INVALID_OFF_BOARD_COORD_MIN;
+    int rank_0 = *disambiguation_rank__o = CC_INVALID_OFF_BOARD_COORD_MIN;
+    int file_1 = *file__o = CC_INVALID_OFF_BOARD_COORD_MIN;
+    int rank_1 = *rank__o = CC_INVALID_OFF_BOARD_COORD_MIN;
 
     char const * file_0_str = fields_str;
     if ( *file_0_str != '\0' )
@@ -656,15 +609,15 @@ bool cc_parse_utils_get_fields( char const * restrict fields_str,
 
     if ( ( file_1 == CC_INVALID_OFF_BOARD_COORD_MIN ) && ( rank_1 == CC_INVALID_OFF_BOARD_COORD_MIN ) )
     {
-        *file_o = file_0;
-        *rank_o = rank_0;
+        *file__o = file_0;
+        *rank__o = rank_0;
     }
     else
     {
-        *disambiguation_file_o = file_0;
-        *disambiguation_rank_o = rank_0;
-        *file_o = file_1;
-        *rank_o = rank_1;
+        *disambiguation_file__o = file_0;
+        *disambiguation_rank__o = rank_0;
+        *file__o = file_1;
+        *rank__o = rank_1;
     }
 
     return true;
@@ -674,11 +627,11 @@ bool cc_parse_utils_get_lost_tag( char const * restrict lost_tag_str,
                                   CcChessboard * restrict cb,
                                   int step_i,
                                   int step_j,
-                                  CcTagEnum * restrict lost_tag_o )
+                                  CcTagEnum * restrict lost_tag__o )
 {
     if ( !lost_tag_str ) return false;
     if ( !cb ) return false;
-    if ( !lost_tag_o ) return false;
+    if ( !lost_tag__o ) return false;
 
     char const * s = lost_tag_str;
 
@@ -695,6 +648,8 @@ bool cc_parse_utils_get_lost_tag( char const * restrict lost_tag_str,
     if ( CC_TAG_IS_LASTING( tag ) && ( tag != lost_tag ) )
         return false;
 
+    *lost_tag__o = lost_tag;
+
     return true;
 }
 
@@ -703,11 +658,11 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
                                      CcPieceEnum ply_piece,
                                      int step_i,
                                      int step_j,
-                                     CcSideEffect * restrict side_effect_o )
+                                     CcSideEffect * restrict side_effect__o )
 {
     if ( !step_str ) return false;
     if ( !cb ) return false;
-    if ( !side_effect_o ) return false;
+    if ( !side_effect__o ) return false;
 
     char const * side_effect_str = cc_parse_utils_side_effect_str( step_str );
     if ( !side_effect_str ) return false;
@@ -736,7 +691,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         if ( !cc_parse_utils_get_lost_tag( s, cb, step_i, step_j, &lost_tag ) )
             return false;
 
-        *side_effect_o = cc_side_effect_capture( piece, lost_tag );
+        *side_effect__o = cc_side_effect_capture( piece, lost_tag );
         return true;
     }
     else if ( *s == '<' )
@@ -761,7 +716,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         if ( !cc_parse_utils_get_lost_tag( s, cb, step_i, step_j, &lost_tag ) )
             return false;
         else
-            s += 2; // All lost tag notations are 2 chars long.
+            s += CC_PARSE_STR_LOST_TAG_LENGTH;
 
         int dest_i = CC_INVALID_OFF_BOARD_COORD_MIN;
 
@@ -787,7 +742,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         else
             return false;
 
-        *side_effect_o = cc_side_effect_displacement( piece, lost_tag, dest_i, dest_j );
+        *side_effect__o = cc_side_effect_displacement( piece, lost_tag, dest_i, dest_j );
         return true;
     }
     else if ( *s == ':' )
@@ -815,7 +770,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
 
         int dist_i = step_i;
 
-        *side_effect_o = cc_side_effect_en_passant( piece, dist_i, dist_j );
+        *side_effect__o = cc_side_effect_en_passant( piece, dist_i, dist_j );
         return true;
     }
     else if ( *s == '&' )
@@ -838,7 +793,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         if ( !cc_rule_utils_find_castling_rook( cb, ply_piece, step_i, step_j, &dest_i, &rook, &start_i ) )
             return false;
 
-        *side_effect_o = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
+        *side_effect__o = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
         return true;
     }
     else if ( *s == '=' )
@@ -853,12 +808,12 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
             if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
                 return false;
 
-            *side_effect_o = cc_side_effect_promote( promote_to );
+            *side_effect__o = cc_side_effect_promote( promote_to );
             return true;
         }
         else
         {
-            *side_effect_o = cc_side_effect_tag_for_promotion();
+            *side_effect__o = cc_side_effect_tag_for_promotion();
             return true;
         }
     }
@@ -866,7 +821,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
     {
         if ( ( *( s + 1 ) ) == '%' )
         {
-            *side_effect_o = cc_side_effect_failed_conversion();
+            *side_effect__o = cc_side_effect_failed_conversion();
             return true;
         }
         else if ( isupper( *( s + 1 ) ) )
@@ -886,7 +841,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
             if ( !cc_parse_utils_get_lost_tag( s, cb, step_i, step_j, &lost_tag ) )
                 return false;
 
-            *side_effect_o = cc_side_effect_convert( piece, lost_tag );
+            *side_effect__o = cc_side_effect_convert( piece, lost_tag );
             return true;
         }
         else
@@ -920,7 +875,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         if ( !cc_parse_utils_get_lost_tag( s, cb, step_i, step_j, &lost_tag ) )
             return false;
         else
-            s += 2; // All lost tags notation is 2 chars long.
+            s += CC_PARSE_STR_LOST_TAG_LENGTH;
 
         if ( islower( *( s + 1 ) ) )
         {
@@ -942,7 +897,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         else
             return false;
 
-        *side_effect_o = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
+        *side_effect__o = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
         return true;
     }
     else if ( *s == '$' )
@@ -952,7 +907,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
 
         if ( ( *( s + 1 ) ) == '$' )
         {
-            *side_effect_o = cc_side_effect_failed_resurrection();
+            *side_effect__o = cc_side_effect_failed_resurrection();
             return true;
         }
         else if ( isupper( *( s + 1 ) ) )
@@ -986,7 +941,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
             else
                 return false;
 
-            *side_effect_o = cc_side_effect_resurrect( piece, dest_i, dest_j );
+            *side_effect__o = cc_side_effect_resurrect( piece, dest_i, dest_j );
             return true;
         }
     }
@@ -1000,12 +955,12 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
             return false;
 
-        *side_effect_o = cc_side_effect_promote( promote_to );
+        *side_effect__o = cc_side_effect_promote( promote_to );
         return true;
     }
     else
     {
-        *side_effect_o = cc_side_effect_none();
+        *side_effect__o = cc_side_effect_none();
         return true;
     }
 
