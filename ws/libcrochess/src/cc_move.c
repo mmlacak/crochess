@@ -60,6 +60,8 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
     return mv__a;
 }
 
+// TODO :: ADD :: cc_move_append_or_init
+
 bool cc_move_extend_or_init( CcMove ** restrict moves__io,
                              CcMove ** restrict moves__n )
 {
@@ -81,6 +83,7 @@ bool cc_move_extend_or_init( CcMove ** restrict moves__io,
     return true;
 }
 
+// TODO :: REWRITE :: using cc_move_append_or_init
 CcMove * cc_move_duplicate_all_new( CcMove * restrict moves )
 {
     if ( !moves ) return NULL;
@@ -119,6 +122,7 @@ CcMove * cc_move_duplicate_all_new( CcMove * restrict moves )
 
     return mv__a;
 }
+// TODO :: REWRITE :: using cc_move_append_or_init
 
 bool cc_move_free_all_moves( CcMove ** restrict moves__f )
 {

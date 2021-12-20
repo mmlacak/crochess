@@ -67,14 +67,14 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__a = cc_pos_link_new( i, j );
-    if ( !pl__a ) return NULL;
+    CcPosLink * pl__t = cc_pos_link_new( i, j );
+    if ( !pl__t ) return NULL;
 
     CcPosLink * pl = pos_link__io;
     while ( pl->next ) pl = pl->next; // rewind
-    pl->next = pl__a; // append
+    pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
 
-    return pl__a;
+    return pl__t;
 }
 
 CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
@@ -83,14 +83,14 @@ CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__a = NULL;
+    CcPosLink * pl__w = NULL;
 
     if ( !*pos_link__io )
-        *pos_link__io = pl__a = cc_pos_link_new( i, j );
+        *pos_link__io = pl__w = cc_pos_link_new( i, j );
     else
-        pl__a = cc_pos_link_append( *pos_link__io, i, j );
+        pl__w = cc_pos_link_append( *pos_link__io, i, j );
 
-    return pl__a;
+    return pl__w;
 }
 
 CcPosLink * cc_pos_link_append_pos( CcPosLink * restrict pos_link__io,

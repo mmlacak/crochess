@@ -86,6 +86,7 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
     return ply__w;
 }
 
+// TODO :: REWRITE :: using cc_ply_append_or_init
 CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
 {
     if ( !plies ) return NULL;
@@ -124,6 +125,7 @@ CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
 
     return ply__a;
 }
+// TODO :: REWRITE :: using cc_ply_append_or_init
 
 bool cc_ply_free_all_plies( CcPly ** restrict plies__f )
 {
