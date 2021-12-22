@@ -260,6 +260,11 @@ char * cc_str_concatenate_new( char const * restrict str_1__d,
                                char const * restrict str_2__d,
                                size_t max_len__d );
 
+// TODO :: DOCS
+char * cc_str_extend_new( char ** restrict str_1__f,
+                          char const * restrict str_2__d,
+                          size_t max_len__d );
+
 /**
     Function appending strings, by returning a newly allocated string,
     capped at given maximum length.

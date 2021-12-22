@@ -17,6 +17,10 @@
 */
 
 
+// TODO :: DOCS
+#define CC_FORMAT_RANK_LENGTH (3)
+#define CC_FORMAT_RANK_SIZE (4)
+
 /**
     Format move scope enumeration.
 */
@@ -60,6 +64,16 @@ typedef struct CcFormatMove
     CcWrapPlyInSquareBracketsEnum wrap; /**< Wrap, when ply should be wrapped. */
     bool default_wrap; /**< Default wrapping, fall-back value. */
 } CcFormatMove;
+
+// TODO :: DOCS
+typedef struct CcFormatRank
+{
+    char rank[ CC_FORMAT_RANK_SIZE ];
+} CcFormatRank;
+
+// TODO :: DOCS
+CcFormatRank cc_format_rank_zero();
+bool cc_format_rank_is_zero( CcFormatRank rank );
 
 /**
     Returns move format structure.
@@ -156,8 +170,8 @@ char cc_format_pos_file( int i );
 */
 char * cc_format_pos_rank_new( int j );
 
-// TODO :: char[ 2 ] cc_format_pos_rank( int j )
-
+// TODO :: DOCS
+CcFormatRank cc_format_pos_rank( int j );
 
 /**
     Returns pointer to a constant string, based on a tag.

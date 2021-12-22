@@ -353,6 +353,21 @@ char * cc_str_concatenate_new( char const * restrict str_1__d,
     return str__a;
 }
 
+char * cc_str_extend_new( char ** restrict str_1__f,
+                          char const * restrict str_2__d,
+                          size_t max_len__d )
+{
+    if ( !str_1__f ) return NULL;
+
+    char * str__a = cc_str_concatenate_new( *str_1__f, str_2__d, max_len__d );
+    if ( !str__a ) return NULL;
+
+    if ( str_1__f )
+        CC_FREE_NULL( str_1__f );
+
+    return str__a;
+}
+
 char * cc_str_append_new( char ** restrict str_1__f,
                           char ** restrict str_2__f,
                           size_t max_len__d )
