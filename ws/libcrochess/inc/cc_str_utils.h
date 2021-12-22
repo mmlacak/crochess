@@ -260,7 +260,25 @@ char * cc_str_concatenate_new( char const * restrict str_1__d,
                                char const * restrict str_2__d,
                                size_t max_len__d );
 
-// TODO :: DOCS
+/**
+    Function extending existing string, by returning a newly allocated string,
+    capped at given maximum length.
+
+    @param str_1__f A string, can be unallocated.
+    @param str_2__d An _optional_ string to concatenate, can be `NULL`.
+    @param max_len__d _Optional_, maximum length to concatenate, if a given strings are longer than that. Can be `0`, if so zero-terminated strings are concatenated in their entirety.
+
+    @note
+    If first string is not allocated, only second string is copied into a newly allocated string.
+
+    @note
+    Allocated first string is freed, and its inner pointer is set to `NULL`, if valid result is produced.
+
+    @note
+    If no valid result is produced, allocated first string is not freed.
+
+    @return A newly allocated, extended string if successful, `NULL` otherwise.
+*/
 char * cc_str_extend_new( char ** restrict str_1__f,
                           char const * restrict str_2__d,
                           size_t max_len__d );

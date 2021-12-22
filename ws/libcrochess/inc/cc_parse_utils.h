@@ -311,14 +311,37 @@ bool cc_parse_utils_get_fields( char const * restrict fields_str,
                                 int * restrict file__o,
                                 int * restrict rank__o );
 
-// TODO :: DOCS
+/**
+    Function returns lost tag, if found in a string.
+
+    @param lost_tag_str A lost tag string.
+    @param cb A chessboard.
+    @param step_i File, horizontal coordinate of a step.
+    @param step_j Rank, vertical coordinate of a step.
+    @param lost_tag__o _Output_ parameter, lost tag found.
+
+    @return `true` if successful, `false` otherwise.
+    If successful, _output_ argument `lost_tag__o` contains lost tag, or empty string if none was lost.
+*/
 bool cc_parse_utils_get_lost_tag( char const * restrict lost_tag_str,
                                   CcChessboard * restrict cb,
                                   int step_i,
                                   int step_j,
                                   CcTagEnum * restrict lost_tag__o );
 
-// TODO :: DOCS
+/**
+    Function returns side-effect found in a setp string.
+
+    @param step_str A step string.
+    @param cb A chessboard.
+    @param ply_piece A piece performing a ply, to which this step belongs.
+    @param step_i File, horizontal coordinate of a step.
+    @param step_j Rank, vertical coordinate of a step.
+    @param side_effect__o _Output_ parameter, side-effect found.
+
+    @return `true` if successful, `false` otherwise.
+    If successful, _output_ argument `side_effect__o` contains side-effect found in a step string.
+*/
 bool cc_parse_utils_get_side_effect( char const * restrict step_str,
                                      CcChessboard * restrict cb,
                                      CcPieceEnum ply_piece,

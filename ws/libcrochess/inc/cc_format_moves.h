@@ -17,8 +17,14 @@
 */
 
 
-// TODO :: DOCS
+/**
+    Defined constant for length of a zero-terminated rank string, i.e. `char` array.
+*/
 #define CC_FORMAT_RANK_LENGTH (3)
+
+/**
+    Defined constant for the size of a rank array.
+*/
 #define CC_FORMAT_RANK_SIZE (4)
 
 /**
@@ -65,14 +71,28 @@ typedef struct CcFormatMove
     bool default_wrap; /**< Default wrapping, fall-back value. */
 } CcFormatMove;
 
-// TODO :: DOCS
+/**
+    Rank format structure, used to pass short string by-value.
+*/
 typedef struct CcFormatRank
 {
-    char rank[ CC_FORMAT_RANK_SIZE ];
+    char rank[ CC_FORMAT_RANK_SIZE ]; /**< Character array, i.e. zero-terminated rank string. */
 } CcFormatRank;
 
-// TODO :: DOCS
+/**
+    Function returning all zero-ed rank array.
+
+    @return Rank format with all zeroes in an rank array.
+*/
 CcFormatRank cc_format_rank_zero();
+
+/**
+    Function checking if rank format is all zero-ed.
+
+    @param rank Rank format.
+
+    @return `true` if rank array contains only zeros, `false` otherwise.
+*/
 bool cc_format_rank_is_zero( CcFormatRank rank );
 
 /**
@@ -170,7 +190,13 @@ char cc_format_pos_file( int i );
 */
 char * cc_format_pos_rank_new( int j );
 
-// TODO :: DOCS
+/**
+    Returns formatted rank, with a string in a contained array.
+
+    @param j A rank, position along vertical axis.
+
+    @return Rank format with zero-terminated string in a rank array.
+*/
 CcFormatRank cc_format_pos_rank( int j );
 
 /**

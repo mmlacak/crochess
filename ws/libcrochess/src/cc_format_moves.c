@@ -115,7 +115,7 @@ char * cc_format_pos_rank_new( int j )
 
 CcFormatRank cc_format_pos_rank( int j )
 {
-    CcFormatRank rank = cc_format_rank_zero(); // { .rank = { '\0', '\0', '\0', '\0' } };
+    CcFormatRank rank = cc_format_rank_zero();
 
     if ( ( j < CC_MIN_BOARD_COORD ) || ( CC_MAX_BOARD_COORD < j ) ) return rank;
 
