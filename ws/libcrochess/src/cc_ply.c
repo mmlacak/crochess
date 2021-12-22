@@ -86,46 +86,36 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
     return ply__w;
 }
 
-// TODO :: REWRITE :: using cc_ply_append_or_init
 CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
 {
     if ( !plies ) return NULL;
 
-    CcStep * steps__t = cc_step_duplicate_all_new( plies->steps );
-    if ( !steps__t ) return NULL;
+    CcPly * ply__a = NULL;
+    CcPly * from = plies;
 
-    CcPly * ply__a = cc_ply_new( plies->link, plies->piece, &steps__t );
-    if ( !ply__a )
+    do
     {
-        cc_step_free_all_steps( &steps__t );
-        return NULL;
-    }
-
-    CcPly * from = plies->next;
-
-    while ( from )
-    {
-        CcStep * s__t = cc_step_duplicate_all_new( from->steps );
-        if ( !s__t )
+        CcStep * steps__t = cc_step_duplicate_all_new( from->steps );
+        if ( !steps__t )
         {
             cc_ply_free_all_plies( &ply__a );
             return NULL;
         }
 
-        CcPly * ply = cc_ply_append( ply__a, from->link, from->piece, &s__t );
-        if ( !ply )
+        CcPly * ply__w = cc_ply_append_or_init( &ply__a, from->link, from->piece, &steps__t );
+        if ( !ply__w )
         {
-            cc_step_free_all_steps( &s__t ); // Failed append --> ownership not transferred ...
+            cc_step_free_all_steps( &steps__t ); // Failed append --> ownership not transferred ...
             cc_ply_free_all_plies( &ply__a );
             return NULL;
         }
 
         from = from->next;
     }
+    while ( from );
 
     return ply__a;
 }
-// TODO :: REWRITE :: using cc_ply_append_or_init
 
 bool cc_ply_free_all_plies( CcPly ** restrict plies__f )
 {

@@ -1751,6 +1751,17 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
     }
 
     //
+    // test duplicate
+    // CcMove * move_2__a =  cc_move_duplicate_all_new( move__t );
+    // if ( !move_2__a ) return cc_game_move_data_free_all( &game__o, NULL, &move__t, &plies_0__t, NULL, false );
+
+// TODO :: FIX :: test_duplicates()
+    result = test_print_failure( test_duplicates( move__t ),
+                                 TME_Error, "move(s) not duplicated", __FILE__, __LINE__, __func__ )
+             && result;
+// TODO :: FIX :: test_duplicates()
+
+    //
     // free, return
 
     return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, result );

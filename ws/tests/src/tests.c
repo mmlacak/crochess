@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.184:383+20211222.143555"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.185:384+20211222.210141"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -372,23 +372,23 @@ int main( void )
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
 
-            CcChessboard * cb__o = cc_chessboard_new( CC_VE_One, false );
-            if ( !cb__o ) return false;
+            CcChessboard * cb__a = cc_chessboard_new( CC_VE_One, false );
+            if ( !cb__a ) return false;
 
 
-            CcStep * steps_2__o = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
+            CcStep * steps_2__a = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
 
-            cc_step_none_append( steps_2__o, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
+            cc_step_none_append( steps_2__a, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
 
             CcSideEffect sse_2_1 = cc_side_effect_capture( CC_PE_LightBishop, CC_TE_None );
-            cc_step_append( steps_2__o, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
+            cc_step_append( steps_2__a, CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
 
             CcSideEffect sse_2_2 = cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
-            cc_step_append( steps_2__o, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User );
+            cc_step_append( steps_2__a, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User );
 
-            cc_step_none_append( steps_2__o, CC_SLE_Distant, 15, 6, CC_FSUE_Addition );
+            cc_step_none_append( steps_2__a, CC_SLE_Distant, 15, 6, CC_FSUE_Addition );
 
-            CcStep * s = steps_2__o;
+            CcStep * s = steps_2__a;
             while( s )
             {
                 printf( "%p\n", (void *)s );
@@ -398,7 +398,7 @@ int main( void )
             printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
 
-            CcStep * dup__o = cc_step_duplicate_all_new( steps_2__o );
+            CcStep * dup__o = cc_step_duplicate_all_new( steps_2__a );
             if ( !dup__o ) printf( "No dup!\n" );
 
             CcStep * d = dup__o;
@@ -408,7 +408,7 @@ int main( void )
                 d = d->next;
             }
 
-            cc_step_free_all_steps( &steps_2__o );
+            cc_step_free_all_steps( &steps_2__a );
 
             cc_step_free_all_steps( &dup__o );
 
@@ -708,6 +708,72 @@ int main( void )
             printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_3, CC_MAX_LEN_IGNORE ), cc_str_len( first, end_3, 5 ), cc_str_len( first, end_3, 33 ) );
             printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end_99, CC_MAX_LEN_IGNORE ), cc_str_len( first, end_99, 5 ), cc_str_len( first, end_99, 33 ) );
             printf( "%zu ~ %zu ~ %zu\n", cc_str_len( first, end__3, CC_MAX_LEN_IGNORE ), cc_str_len( first, end__3, 5 ), cc_str_len( first, end__3, 33 ) );
+        }
+        else if ( cc_str_is_equal( first__w, end__w, "z8", NULL, BUFSIZ ) )
+        {
+
+            printf( TESTS_MOVE_TEST_SEPARATOR );
+
+            // CcChessboard * cb__a = cc_chessboard_new( CC_VE_One, false );
+            // if ( !cb__a ) return false;
+
+            CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
+            cc_step_none_append( steps_1__t, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
+
+            CcPly * ply_2__a = cc_ply_new( CC_PLE_Ply, CC_PE_LightPegasus, &steps_1__t );
+
+
+            CcSideEffect sse_2_1 = cc_side_effect_capture( CC_PE_LightBishop, CC_TE_None );
+            CcStep * steps_2__t = cc_step_new( CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
+
+            CcSideEffect sse_2_2 = cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
+            cc_step_append( steps_2__t, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User );
+
+            cc_step_none_append( steps_2__t, CC_SLE_Distant, 15, 6, CC_FSUE_Addition );
+
+            cc_ply_append( ply_2__a, CC_PLE_Teleportation, CC_PE_LightPyramid, &steps_2__t );
+
+            CcPly * p = ply_2__a;
+            while( p )
+            {
+                printf( "%p\n", (void *)p );
+
+                CcStep * s = p->steps;
+                while ( s )
+                {
+                    printf( "    %p\n", (void *)s );
+                    s = s->next;
+                }
+
+                p = p->next;
+            }
+
+
+            printf( TESTS_MOVE_NOTATION_SEPARATOR );
+
+            CcPly * dup__o = cc_ply_duplicate_all_new( ply_2__a );
+            if ( !dup__o ) printf( "No duplicate!\n" );
+
+            CcPly * d = dup__o;
+            while( d )
+            {
+                printf( "%p\n", (void *)d );
+
+                CcStep * s = d->steps;
+                while ( s )
+                {
+                    printf( "    %p\n", (void *)s );
+                    s = s->next;
+                }
+
+                d = d->next;
+            }
+
+            cc_ply_free_all_plies( &ply_2__a );
+
+            cc_ply_free_all_plies( &dup__o );
+
+            printf( TESTS_MOVE_TEST_SEPARATOR );
         }
         else
         {

@@ -321,7 +321,7 @@ bool cc_parse_utils_get_fields( char const * restrict fields_str,
     @param lost_tag__o _Output_ parameter, lost tag found.
 
     @return `true` if successful, `false` otherwise.
-    If successful, _output_ argument `lost_tag__o` contains lost tag, or empty string if none was lost.
+    If successful, _output_ argument `lost_tag__o` contains lost tag, or `CC_TE_None` if none was lost.
 */
 bool cc_parse_utils_get_lost_tag( char const * restrict lost_tag_str,
                                   CcChessboard * restrict cb,
