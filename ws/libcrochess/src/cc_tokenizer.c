@@ -36,15 +36,15 @@ char const * cc_traverse_chars( char const * restrict pos,
     if ( !seps ) return pos;
 
     if ( *pos == '\0' ) return pos;
-    char const * p = pos;
+    char const * pos__w = pos;
 
-    while ( skip_or_stop_at == cc_char_in( *p, seps ) )
+    while ( skip_or_stop_at == cc_char_in( *pos__w, seps ) )
     {
-        if ( *p == '\0' ) return p;
-        ++p;
+        if ( *pos__w == '\0' ) return pos__w;
+        ++pos__w;
     }
 
-    return p;
+    return pos__w;
 }
 
 char const * cc_skip_chars( char const * restrict pos,
@@ -104,13 +104,13 @@ char * cc_str_trim_new( char const * restrict str,
     if ( end == start ) return NULL;
 
     size_t len = end - start;
-    char * pos = malloc( len + 1 );
-    if ( !pos ) return NULL;
+    char * pos__a = malloc( len + 1 );
+    if ( !pos__a ) return NULL;
 
-    strncpy( pos, start, len );
-    pos[ len ] = '\0';
+    strncpy( pos__a, start, len );
+    pos__a[ len ] = '\0';
 
-    return pos;
+    return pos__a;
 }
 
 // size_t cc_flush_stdin()
