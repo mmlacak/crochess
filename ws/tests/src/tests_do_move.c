@@ -1657,6 +1657,16 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
         free( alg_not );
     }
 
+    //
+    // test duplicate
+
+    result = test_print_failure( test_duplicates( move__t ),
+                                 TME_Error, "move(s) not duplicated", __FILE__, __LINE__, __func__ )
+             && result;
+
+    //
+    // do move
+
     result = test_print_failure( CC_GAME_STATUS_IS_LIGHT_TURN( game__o->status ),
                                  TME_Error, "light player should be on turn", __FILE__, __LINE__, __func__ )
              && result;
@@ -1749,17 +1759,6 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
                                     TME_Error, "tag found", __FILE__, __LINE__, __func__ )
                  && result;
     }
-
-    //
-    // test duplicate
-    // CcMove * move_2__a =  cc_move_duplicate_all_new( move__t );
-    // if ( !move_2__a ) return cc_game_move_data_free_all( &game__o, NULL, &move__t, &plies_0__t, NULL, false );
-
-// TODO :: FIX :: test_duplicates()
-    result = test_print_failure( test_duplicates( move__t ),
-                                 TME_Error, "move(s) not duplicated", __FILE__, __LINE__, __func__ )
-             && result;
-// TODO :: FIX :: test_duplicates()
 
     //
     // free, return

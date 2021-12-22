@@ -61,7 +61,7 @@ CcMove * cc_move_new( char const * restrict notation,
 /**
     Appends a newly allocated move to a linked list.
 
-    @param moves__io Linked list of moves, to which a new move is appended.
+    @param moves__io _Input/output_ parameter, linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
     @param plies__n Plies, should be valid pointer.
     @param status Move status.
@@ -75,6 +75,29 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
                          char const * restrict notation,
                          CcPly ** restrict plies__n,
                          CcMoveStatusEnum status );
+
+/**
+    Allocates a new move, appends it to a linked list.
+
+    @param moves__io _Input/output_ parameter, linked list of moves, to which a new move is appended.
+    @param notation Original notation, as received from a user.
+    @param plies__n Plies, should be valid pointer.
+    @param status Move status.
+
+    @note
+    Linked list `*moves__io` can be `NULL`, a move will still be allocated, and returned.
+
+    @note
+    If linked list `*moves__io` is `NULL`, it will be initialized,
+    with a newly allocated move as its first element.
+
+    @return
+    Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
+*/
+CcMove * cc_move_append_or_init( CcMove ** restrict moves__io,
+                                 char const * restrict notation,
+                                 CcPly ** restrict plies__n,
+                                 CcMoveStatusEnum status );
 
 /**
     Extends moves linked list with another move(s).

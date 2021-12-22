@@ -60,7 +60,22 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
     return mv__a;
 }
 
-// TODO :: ADD :: cc_move_append_or_init
+CcMove * cc_move_append_or_init( CcMove ** restrict moves__io,
+                                 char const * restrict notation,
+                                 CcPly ** restrict plies__n,
+                                 CcMoveStatusEnum status )
+{
+    if ( !moves__io ) return NULL;
+
+    CcMove * move__w = NULL;
+
+    if ( !*moves__io )
+        *moves__io = move__w = cc_move_new( notation, plies__n, status );
+    else
+        move__w = cc_move_append( *moves__io, notation, plies__n, status );
+
+    return move__w;
+}
 
 bool cc_move_extend_or_init( CcMove ** restrict moves__io,
                              CcMove ** restrict moves__n )
@@ -83,46 +98,36 @@ bool cc_move_extend_or_init( CcMove ** restrict moves__io,
     return true;
 }
 
-// TODO :: REWRITE :: using cc_move_append_or_init
 CcMove * cc_move_duplicate_all_new( CcMove * restrict moves )
 {
     if ( !moves ) return NULL;
 
-    CcPly * plies__t = cc_ply_duplicate_all_new( moves->plies );
-    if ( !plies__t ) return NULL;
+    CcMove * mv__a = NULL;
+    CcMove * from = moves;
 
-    CcMove * mv__a = cc_move_new( moves->notation, &plies__t, moves->status );
-    if ( !mv__a )
+    do
     {
-        cc_ply_free_all_plies( &plies__t );
-        return NULL;
-    }
-
-    CcMove * from = moves->next;
-
-    while ( from )
-    {
-        CcPly * p__t = cc_ply_duplicate_all_new( from->plies );
-        if ( !p__t )
+        CcPly * plies__t = cc_ply_duplicate_all_new( moves->plies );
+        if ( !plies__t )
         {
             cc_move_free_all_moves( &mv__a );
             return NULL;
         }
 
-        CcMove * mv__w = cc_move_append( mv__a, from->notation, &p__t, from->status );
+        CcMove * mv__w = cc_move_append_or_init( &mv__a, from->notation, &plies__t, from->status );
         if ( !mv__w )
         {
-            cc_ply_free_all_plies( &p__t ); // Failed append --> no ownership transfer ...
+            cc_ply_free_all_plies( &plies__t ); // Failed append --> no ownership transfer ...
             cc_move_free_all_moves( &mv__a );
             return NULL;
         }
 
         from = from->next;
     }
+    while ( from );
 
     return mv__a;
 }
-// TODO :: REWRITE :: using cc_move_append_or_init
 
 bool cc_move_free_all_moves( CcMove ** restrict moves__f )
 {

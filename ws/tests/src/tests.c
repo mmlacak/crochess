@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.185:384+20211222.210141"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.186:385+20211222.213714"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -398,10 +398,10 @@ int main( void )
             printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
 
-            CcStep * dup__o = cc_step_duplicate_all_new( steps_2__a );
-            if ( !dup__o ) printf( "No dup!\n" );
+            CcStep * dup__a = cc_step_duplicate_all_new( steps_2__a );
+            if ( !dup__a ) printf( "No dup!\n" );
 
-            CcStep * d = dup__o;
+            CcStep * d = dup__a;
             while( d )
             {
                 printf( "%p\n", (void *)d );
@@ -410,7 +410,7 @@ int main( void )
 
             cc_step_free_all_steps( &steps_2__a );
 
-            cc_step_free_all_steps( &dup__o );
+            cc_step_free_all_steps( &dup__a );
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
         }
@@ -751,10 +751,10 @@ int main( void )
 
             printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
-            CcPly * dup__o = cc_ply_duplicate_all_new( ply_2__a );
-            if ( !dup__o ) printf( "No duplicate!\n" );
+            CcPly * dup__a = cc_ply_duplicate_all_new( ply_2__a );
+            if ( !dup__a ) printf( "No duplicate!\n" );
 
-            CcPly * d = dup__o;
+            CcPly * d = dup__a;
             while( d )
             {
                 printf( "%p\n", (void *)d );
@@ -771,7 +771,7 @@ int main( void )
 
             cc_ply_free_all_plies( &ply_2__a );
 
-            cc_ply_free_all_plies( &dup__o );
+            cc_ply_free_all_plies( &dup__a );
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
         }
