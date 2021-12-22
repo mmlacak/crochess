@@ -102,15 +102,15 @@ char const * cc_variant_label( CcVariantEnum ve )
         case CC_VE_CroatianTies : return "Croatian Ties";
         case CC_VE_MayanAscendancy : return "Mayan Ascendancy";
         case CC_VE_AgeOfAquarius : return "Age of Aquarius";
-        case CC_VE_MirandasVeil : return "Miranda’s Veil";
+        case CC_VE_MirandasVeil : return "Miranda's Veil";
         case CC_VE_Nineteen : return "Nineteen";
-        case CC_VE_HemerasDawn : return "Hemera’s Dawn";
+        case CC_VE_HemerasDawn : return "Hemera's Dawn";
         case CC_VE_TamoanchanRevisited : return "Tamoanchan Revisited";
         case CC_VE_ConquestOfTlalocan : return "Conquest of Tlalocan";
         case CC_VE_Discovery : return "Discovery";
         case CC_VE_One : return "One";
 
-        default : return "???";
+        default : return NULL;
     }
 }
 
