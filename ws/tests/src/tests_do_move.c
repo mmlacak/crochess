@@ -1660,9 +1660,9 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
     //
     // test duplicate
 
-    result = test_print_failure( test_duplicates( move__t ),
-                                 TME_Error, "move(s) not duplicated", __FILE__, __LINE__, __func__ )
-             && result;
+    // result = test_print_failure( test_duplicates( move__t ),
+    //                              TME_Error, "move(s) not duplicated", __FILE__, __LINE__, __func__ )
+    //          && result;
 
     //
     // do move

@@ -74,7 +74,9 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
                 break;
         }
     else
-        while ( ( *str__w != '\0' ) && ( !cc_parse_utils_ply_link_len( str__w ) ) ) ++str__w;
+        while ( ( *str__w != '\0' ) &&
+                ( cc_parse_utils_ply_link_len( str__w ) == 0 ) )
+            ++str__w;
 
     return str__w;
 }
@@ -134,6 +136,33 @@ bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
     return true;
 }
 // TODO :: CONVERT :: new iterator template
+
+bool cc_parse_utils_ply_str_iter( char const * restrict move_str,
+                                  char const ** restrict ply_first__io,
+                                  char const ** restrict ply_end__io )
+{
+    if ( !move_str ) return false;
+    if ( !ply_first__io ) return false;
+    if ( !ply_end__io ) return false;
+
+    if ( !( *ply_first__io ) && !( *ply_end__io ) )
+        *ply_first__io = move_str;
+    else if ( ( *ply_first__io ) && ( *ply_end__io ) )
+        *ply_first__io = cc_parse_utils_go_ply_link( *ply_end__io, false );
+    else
+        return false;
+
+    *ply_end__io = cc_parse_utils_go_ply_link( *ply_first__io, true );
+    *ply_end__io = cc_parse_utils_go_ply_link( *ply_end__io, false );
+
+    if ( ( **ply_first__io == '\0' ) || ( *ply_end__io == *ply_first__io ) )
+    {
+        *ply_first__io = *ply_end__io = NULL;
+        return false;
+    }
+
+    return true;
+}
 
 bool cc_parse_utils_get_ply_link( char const * restrict ply_str,
                                   CcPlyLinkEnum * restrict link__o )

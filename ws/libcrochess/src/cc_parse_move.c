@@ -65,6 +65,7 @@ bool cc_parse_move( char const * restrict move_str,
     CcPly * plies__t = NULL;
 
     // First piece in a first ply *always* has the color of a player on-turn.
+// TODO :: not exactly --> Monolith
     bool is_piece_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
 
     char const * steps_str = NULL;

@@ -108,6 +108,43 @@ bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
 // TODO :: CONVERT :: new iterator template
 
 /**
+    Iterator traversing over move algebraic notation (AN),
+    returning next ply as a pair of pointers.
+
+    @param move_str Move AN string to traverse.
+    @param ply_first__io _Input/output_ parameter, first `char` of a ply AN.
+    @param ply_end__io _Input/output_ parameter, end of a ply AN.
+
+    @note
+    Both _input/output_ arguments `ply_first__io` and `ply_end__io`
+    has to be valid pointers.
+    Both inner pointers has to be `NULL` (i.e. `*ply_first__io == NULL`,
+    `*ply_end__io == NULL`) at first call.
+    At subsequent calls, both inner pointers has to be valid pointers.
+    It is error if one inner pointer is valid, and the other `NULL`.
+
+    @note
+    Iterator will continue to return next ply on each subsequent call,
+    until end of a move AN string is reached, or both inner pointers are
+    initialized to `NULL`.
+
+    @note
+    Upon reaching end of a given move AN string, both inner pointers (`*ply_first__io`
+    and `*ply_end__io`) are reset to `NULL`. So, if nothing changes, next calls (or,
+    next loop) will again start from the beginning of a given string `move_str`.
+
+    @return `true` if next ply AN string was found, `false` otherwise.
+
+    @return
+    If `true` was returned, _input/output_ argument `ply_first__io` contains
+    pointer to first `char` of a found ply; argument `ply_end__io` contains end
+    of a ply, i.e. first `char` that does not belong to a ply AN string.
+*/
+bool cc_parse_utils_ply_str_iter( char const * restrict move_str,
+                                  char const ** restrict ply_first__io,
+                                  char const ** restrict ply_end__io );
+
+/**
     Function getting ply link, for a given ply AN string.
 
     @param ply_str A ply, algebraic notation string.
