@@ -31,6 +31,7 @@ def main():
     is_minor = True if not is_major and RS.any_item_in( ['-m', '--minor'], pre_git_argv) else False
     is_feature = True if not (is_major or is_minor) and RS.any_item_in( ['-f', '--feature'], pre_git_argv) else False
     is_commit = True if not (is_major or is_minor or is_feature) and RS.any_item_in( ['-c', '--commit'], pre_git_argv) else False
+    is_meta = True if not (is_major or is_minor or is_feature or is_commit) and RS.any_item_in( ['-meta', '--meta'], pre_git_argv) else False
 
     try:
         count = int( RS.capture_option( ['-C=', '--count='], pre_git_argv ) )
@@ -45,9 +46,9 @@ def main():
 
     auto_updated_files = []
 
-    if not (is_book or is_docs or is_major or is_minor or is_feature or is_commit):
-        # raise RuntimeError("Specify at least one of --book, --major, --minor, --feature or --commit.")
-        print( "Specify at least one of --book, --docs, --major, --minor, --feature or --commit to update version(s)." )
+    if not (is_book or is_docs or is_major or is_minor or is_feature or is_commit or is_meta):
+        # raise RuntimeError("Specify at least one of --book, --major, --minor, --feature or --commit or --meta.")
+        print( "Specify at least one of --book, --docs, --major, --minor, --feature or --commit or --meta to update version(s)." )
 
     if is_verbose:
         print( "" )
@@ -65,14 +66,14 @@ def main():
         print( "git commit args: %s." % str( git_commit_argv ) )
         print( "git push args: %s." % str( git_push_argv ) )
 
-    if is_book or is_docs or is_major or is_minor or is_feature or is_commit:
+    if is_book or is_docs or is_major or is_minor or is_feature or is_commit or is_meta:
         print( "" )
 
         if is_debug:
-            print( "Updating versions of book: %s, docs: %s, major: %s, minor: %s, feature: %s, commit: %s." % (str(is_book), str(is_docs), str(is_major), str(is_minor), str(is_feature), str(is_commit)) )
+            print( "Updating versions of book: %s, docs: %s, major: %s, minor: %s, feature: %s, commit: %s, meta: %s." % (str(is_book), str(is_docs), str(is_major), str(is_minor), str(is_feature), str(is_commit), str(is_meta)) )
 
         if not is_dry_run:
-            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_docs, is_major, is_minor, is_feature, is_commit, count, breaks )
+            auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_docs, is_major, is_minor, is_feature, is_commit, is_meta, count, breaks )
 
     if git_commit_argv:
         print( "" )

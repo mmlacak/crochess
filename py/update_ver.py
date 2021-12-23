@@ -232,8 +232,8 @@ def replace_tests_source_entries(git_version, book_version, book_short, root_pat
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, change_source_tests_line_if_marked)
 
-def replace_all_entries(root_path, is_book, is_docs, is_major, is_minor, is_feature, is_commit, count, breaks):
-    is_source = is_major or is_minor or is_feature or is_commit
+def replace_all_entries(root_path, is_book, is_docs, is_major, is_minor, is_feature, is_commit, is_meta, count, breaks):
+    is_source = is_major or is_minor or is_feature or is_commit or is_meta
     assert is_book or is_docs or is_source
 
     auto_updated_files = []
@@ -294,12 +294,19 @@ def replace_all_entries(root_path, is_book, is_docs, is_major, is_minor, is_feat
             if commit is not None:
                 git_version += ".%s" % str(commit)
 
-        if old_count is not None:
-            count = count if count is not None and old_count < count else old_count + 1
-            git_version += ":%s" % str(count)
-        else:
-            if count is not None:
+        if not is_meta:
+            if old_count is not None:
+                count = count if count is not None and old_count < count else old_count + 1
                 git_version += ":%s" % str(count)
+            else:
+                if count is not None:
+                    git_version += ":%s" % str(count)
+        else:
+            if old_count is not None:
+                git_version += ":%s" % str(old_count)
+            else:
+                if count is not None:
+                    git_version += ":%s" % str(count)
 
         if prerelease is not None:
             # prerelease is copied
