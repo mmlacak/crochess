@@ -31,7 +31,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.188:387+20211225.123659"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.189:388+20211225.130506"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -547,7 +547,7 @@ int main( void )
             CcPosLink * x = pl__a;
             while ( x )
             {
-                printf( "Pos: %d, %d (%p --> %p).\n", x->i, x->j, (void *)x, (void *)(x->next) );
+                printf( "Pos: %d, %d (%p --> %p).\n", x->pos.i, x->pos.j, (void *)x, (void *)(x->next) );
                 x = x->next;
             }
 

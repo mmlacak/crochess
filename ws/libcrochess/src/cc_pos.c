@@ -38,27 +38,22 @@ bool cc_pos_is_not_equal( CcPos pos_1, CcPos pos_2 )
     return ( ( pos_1.i != pos_2.i ) || ( pos_1.j != pos_2.j ) );
 }
 
+bool cc_pos_is_empty( CcPos pos )
+{
+    return ( ( pos.i == CC_INVALID_OFF_BOARD_COORD_MIN ) &&
+             ( pos.j == CC_INVALID_OFF_BOARD_COORD_MIN ) );
+}
+
 
 CcPosLink * cc_pos_link_new( int i, int j )
 {
     CcPosLink * pl__a = malloc( sizeof( CcPosLink ) );
     if ( !pl__a ) return NULL;
 
-    pl__a->i = i;
-    pl__a->j = j;
+    pl__a->pos = cc_pos( i, j );
     pl__a->next = NULL;
 
     return pl__a;
-}
-
-CcPosLink * cc_pos_link_from_pos_new( CcPos pos )
-{
-    return cc_pos_link_new( pos.i, pos.j );
-}
-
-CcPos cc_pos_from_pos_link( CcPosLink * restrict pos_link )
-{
-    return cc_pos( pos_link->i, pos_link->j );
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
@@ -91,18 +86,6 @@ CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
         pl__w = cc_pos_link_append( *pos_link__io, i, j );
 
     return pl__w;
-}
-
-CcPosLink * cc_pos_link_append_pos( CcPosLink * restrict pos_link__io,
-                                    CcPos pos )
-{
-    return cc_pos_link_append( pos_link__io, pos.i, pos.j );
-}
-
-CcPosLink * cc_pos_link_append_pos_or_init( CcPosLink ** restrict pos_link__io,
-                                            CcPos pos )
-{
-    return cc_pos_link_append_or_init( pos_link__io, pos.i, pos.j );
 }
 
 bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f )
