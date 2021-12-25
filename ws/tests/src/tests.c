@@ -12,15 +12,16 @@
 #include "cc_tokenizer.h"
 #include "cc_piece.h"
 #include "cc_chessboard.h"
+#include "cc_pos.h"
+#include "cc_gen_pos.h"
+#include "cc_gen_steps.h"
 
 #include "cc_step.h"
 #include "cc_ply.h"
-#include "cc_pos.h"
 #include "cc_move.h"
 #include "cc_parse_msg.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_move.h"
-#include "cc_gen_steps.h"
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
@@ -31,7 +32,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.189:388+20211225.130506"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.190:389+20211225.143754"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -416,33 +417,18 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "zz", NULL, BUFSIZ ) )
         {
-            // int i = 3;
-            // int j = 7;
-
-            // printf( "Start: (%d, %d)\n", i, j );
-
-            // for ( int k = 0; k < 10; ++k )
-            // {
-            //     if ( cc_gen_steps( &i, &j, 3, 2, true ) )
-            //         printf( "Step %d: (%d, %d)\n", k, i, j );
-            //     else
-            //         printf( "Step %d fail!\n", k );
-            // }
-
-            int step_i = 7;
-            int step_j = -2;
-
-            printf( "Start: (%d, %d)\n", step_i, step_j );
+            CcPos pos = { -2, -7 };
+            printf( "Start: (%d, %d)\n", pos.i, pos.j );
 
             for ( int k = 0; k < 10; ++k )
             {
-                cc_gen_steps( &step_i, &step_j, -1, 1, true );
+                CcPos step = { 1, 1 };
+                cc_gen_pos( &pos, step, true );
 
-                // if ( cc_gen_steps_is_valid( step_i, step_j, CC_GEN_STEPS_UNICORN, CC_GEN_STEPS_UNICORN_LEN ) )
-                if ( CC_GEN_STEPS_UNICORN_IS_VALID( step_i, step_j ) )
-                    printf( "Step %d: (%d, %d)\n", k, step_i, step_j );
+                if ( CC_GEN_POS_UNICORN_IS_VALID( pos ) )
+                    printf( "Step %d: (%d, %d)\n", k, pos.i, pos.j );
                 else
-                    printf( "Step %d fail: (%d, %d)\n", k, step_i, step_j );
+                    printf( "Step %d fail: (%d, %d)\n", k, pos.i, pos.j );
             }
         }
         else if ( cc_str_is_equal( first__w, end__w, "z0", NULL, BUFSIZ ) )
