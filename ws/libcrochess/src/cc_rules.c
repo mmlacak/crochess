@@ -69,36 +69,35 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
 }
 
 
-bool cc_rules_make_move( CcGame ** restrict game_io__r,
-                         char const * restrict move_str,
-                         CcParseMsg ** restrict parse_msgs__io )
-{
-    if ( !game_io__r ) return false;
-    if ( !*game_io__r ) return false;
-    if ( !((*game_io__r)->chessboard) ) return false;
+// bool cc_rules_make_move( CcGame ** restrict game_io__r,
+//                          char const * restrict move_str,
+//                          CcParseMsg ** restrict parse_msgs__io )
+// {
+//     if ( !game_io__r ) return false;
+//     if ( !*game_io__r ) return false;
+//     if ( !((*game_io__r)->chessboard) ) return false;
+//     if ( !move_str ) return false;
 
-    if ( !move_str ) return false;
+//     if ( !CC_GAME_STATUS_IS_TURN( (*game_io__r)->status ) ) return false;
 
-    if ( !CC_GAME_STATUS_IS_TURN( (*game_io__r)->status ) ) return false;
+//     CcMove * move__t = NULL;
 
-    CcMove * move__t = NULL;
+//     if ( !cc_parse_move( move_str, *game_io__r, &move__t, parse_msgs__io ) )
+//     {
+//         cc_move_free_all_moves( &move__t );
+//         return false;
+//     }
 
-    if ( !cc_parse_move( move_str, *game_io__r, &move__t, parse_msgs__io ) )
-    {
-        cc_move_free_all_moves( &move__t );
-        return false;
-    }
+//     if ( !cc_rules_do_moves( game_io__r, &move__t, CC_DME_DoOnlyCurrentMove ) )
+//     {
+//         cc_parse_msg_append_or_init_format( parse_msgs__io,
+//                                             CC_PME_Error,
+//                                             "Error while making move '%s'.",
+//                                             move_str );
 
-    if ( !cc_rules_do_moves( game_io__r, &move__t, CC_DME_DoOnlyCurrentMove ) )
-    {
-        cc_parse_msg_append_or_init_format( parse_msgs__io,
-                                            CC_PME_Error,
-                                            "Error while making move '%s'.",
-                                            move_str );
+//         cc_move_free_all_moves( &move__t );
+//         return false;
+//     }
 
-        cc_move_free_all_moves( &move__t );
-        return false;
-    }
-
-    return true;
-}
+//     return true;
+// }

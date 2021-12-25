@@ -16,10 +16,10 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
                         CcDoMoveEnum dme );
 
 
-// DOCS
-bool cc_rules_make_move( CcGame ** restrict game_io__r,
-                         char const * restrict move_str,
-                         CcParseMsg ** restrict parse_msgs__io );
+// // DOCS
+// bool cc_rules_make_move( CcGame ** restrict game_io__r,
+//                          char const * restrict move_str,
+//                          CcParseMsg ** restrict parse_msgs__io );
 
 
 #endif /* __CC_RULES_H__ */
