@@ -5,7 +5,7 @@
 #include "cc_gen_pos.h"
 
 
-CcPos const CC_GEN_POS_LIGHT_PAWN[ CC_GEN_POS_PAWN_SIZE ] =
+CcPos const CC_GEN_STEPS_LIGHT_PAWN[ CC_GEN_STEPS_PAWN_SIZE ] =
 {
     { -1,  1 },
     {  0,  1 },
@@ -14,7 +14,7 @@ CcPos const CC_GEN_POS_LIGHT_PAWN[ CC_GEN_POS_PAWN_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_POS_DARK_PAWN[ CC_GEN_POS_PAWN_SIZE ] =
+CcPos const CC_GEN_STEPS_DARK_PAWN[ CC_GEN_STEPS_PAWN_SIZE ] =
 {
     { -1,  -1 },
     {  0,  -1 },
@@ -23,7 +23,7 @@ CcPos const CC_GEN_POS_DARK_PAWN[ CC_GEN_POS_PAWN_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_POS_BISHOP[ CC_GEN_POS_BISHOP_SIZE ] =
+CcPos const CC_GEN_STEPS_BISHOP[ CC_GEN_STEPS_BISHOP_SIZE ] =
 {
     {  1,  1 },
     { -1,  1 },
@@ -33,7 +33,7 @@ CcPos const CC_GEN_POS_BISHOP[ CC_GEN_POS_BISHOP_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_POS_ROOK[ CC_GEN_POS_ROOK_SIZE ] =
+CcPos const CC_GEN_STEPS_ROOK[ CC_GEN_STEPS_ROOK_SIZE ] =
 {
     {  1,  0 },
     {  0,  1 },
@@ -43,7 +43,7 @@ CcPos const CC_GEN_POS_ROOK[ CC_GEN_POS_ROOK_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_POS_QUEEN[ CC_GEN_POS_QUEEN_SIZE ] =
+CcPos const CC_GEN_STEPS_QUEEN[ CC_GEN_STEPS_QUEEN_SIZE ] =
 {
     {  1,  0 },
     {  1,  1 },
@@ -57,7 +57,7 @@ CcPos const CC_GEN_POS_QUEEN[ CC_GEN_POS_QUEEN_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_POS_KNIGHT[ CC_GEN_POS_KNIGHT_SIZE ] =
+CcPos const CC_GEN_STEPS_KNIGHT[ CC_GEN_STEPS_KNIGHT_SIZE ] =
 {
     {  2,  1 },
     {  1,  2 },
@@ -74,7 +74,7 @@ CcPos const CC_GEN_POS_KNIGHT[ CC_GEN_POS_KNIGHT_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_POS_UNICORN[ CC_GEN_POS_UNICORN_SIZE ] =
+CcPos const CC_GEN_STEPS_UNICORN[ CC_GEN_STEPS_UNICORN_SIZE ] =
 {
     {  4,  1 },
     {  3,  2 },
@@ -114,9 +114,9 @@ bool cc_gen_pos( CcPos * restrict pos__io,
     return true;
 }
 
-bool cc_gen_pos_is_valid( CcPos step,
-                          CcPos const array[  ],
-                          size_t array_len )
+bool cc_gen_step_is_valid( CcPos step,
+                           CcPos const array[  ],
+                           size_t array_len )
 {
     for ( int k = 0; (size_t)k < array_len; ++k )
     {

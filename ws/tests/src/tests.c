@@ -32,7 +32,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.190:389+20211225.143754"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.191:390+20211225.150339"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -417,18 +417,18 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "zz", NULL, BUFSIZ ) )
         {
-            CcPos pos = { -2, -7 };
-            printf( "Start: (%d, %d)\n", pos.i, pos.j );
+            CcPos step = { -2, -7 };
+            printf( "Start: (%d, %d)\n", step.i, step.j );
 
             for ( int k = 0; k < 10; ++k )
             {
-                CcPos step = { 1, 1 };
-                cc_gen_pos( &pos, step, true );
+                CcPos diff = { 1, 1 };
+                cc_gen_pos( &step, diff, true );
 
-                if ( CC_GEN_POS_UNICORN_IS_VALID( pos ) )
-                    printf( "Step %d: (%d, %d)\n", k, pos.i, pos.j );
+                if ( CC_GEN_STEPS_UNICORN_IS_VALID( step ) )
+                    printf( "Pos %d: (%d, %d)\n", k, step.i, step.j );
                 else
-                    printf( "Step %d fail: (%d, %d)\n", k, pos.i, pos.j );
+                    printf( "Pos %d fail: (%d, %d)\n", k, step.i, step.j );
             }
         }
         else if ( cc_str_is_equal( first__w, end__w, "z0", NULL, BUFSIZ ) )
