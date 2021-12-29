@@ -10,7 +10,7 @@
 */
 
 
-CcPos const CC_GEN_STEPS_LIGHT_PAWN[ CC_GEN_STEPS_PAWN_SIZE ] =
+CcPos const CC_GEN_POS_LIGHT_PAWN_STEPS[ CC_GEN_POS_PAWN_STEPS_SIZE ] =
 {
     { -1,  1 },
     {  0,  1 },
@@ -19,7 +19,7 @@ CcPos const CC_GEN_STEPS_LIGHT_PAWN[ CC_GEN_STEPS_PAWN_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_STEPS_DARK_PAWN[ CC_GEN_STEPS_PAWN_SIZE ] =
+CcPos const CC_GEN_POS_DARK_PAWN_STEPS[ CC_GEN_POS_PAWN_STEPS_SIZE ] =
 {
     { -1,  -1 },
     {  0,  -1 },
@@ -28,7 +28,7 @@ CcPos const CC_GEN_STEPS_DARK_PAWN[ CC_GEN_STEPS_PAWN_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_STEPS_BISHOP[ CC_GEN_STEPS_BISHOP_SIZE ] =
+CcPos const CC_GEN_POS_BISHOP_STEPS[ CC_GEN_POS_BISHOP_STEPS_SIZE ] =
 {
     {  1,  1 },
     { -1,  1 },
@@ -38,7 +38,7 @@ CcPos const CC_GEN_STEPS_BISHOP[ CC_GEN_STEPS_BISHOP_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_STEPS_ROOK[ CC_GEN_STEPS_ROOK_SIZE ] =
+CcPos const CC_GEN_POS_ROOK_STEPS[ CC_GEN_POS_ROOK_STEPS_SIZE ] =
 {
     {  1,  0 },
     {  0,  1 },
@@ -48,7 +48,7 @@ CcPos const CC_GEN_STEPS_ROOK[ CC_GEN_STEPS_ROOK_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_STEPS_QUEEN[ CC_GEN_STEPS_QUEEN_SIZE ] =
+CcPos const CC_GEN_POS_QUEEN_STEPS[ CC_GEN_POS_QUEEN_STEPS_SIZE ] =
 {
     {  1,  0 },
     {  1,  1 },
@@ -62,7 +62,7 @@ CcPos const CC_GEN_STEPS_QUEEN[ CC_GEN_STEPS_QUEEN_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_STEPS_KNIGHT[ CC_GEN_STEPS_KNIGHT_SIZE ] =
+CcPos const CC_GEN_POS_KNIGHT_STEPS[ CC_GEN_POS_KNIGHT_STEPS_SIZE ] =
 {
     {  2,  1 },
     {  1,  2 },
@@ -79,7 +79,7 @@ CcPos const CC_GEN_STEPS_KNIGHT[ CC_GEN_STEPS_KNIGHT_SIZE ] =
     { CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN },
 };
 
-CcPos const CC_GEN_STEPS_UNICORN[ CC_GEN_STEPS_UNICORN_SIZE ] =
+CcPos const CC_GEN_POS_UNICORN_STEPS[ CC_GEN_POS_UNICORN_STEPS_SIZE ] =
 {
     {  4,  1 },
     {  3,  2 },
@@ -119,9 +119,9 @@ bool cc_gen_pos( CcPos * restrict pos__io,
     return true;
 }
 
-bool cc_gen_step_is_valid( CcPos step,
-                           CcPos const array[  ],
-                           size_t array_len )
+bool cc_gen_pos_is_valid_step( CcPos step,
+                               CcPos const array[  ],
+                               size_t array_len )
 {
     for ( int k = 0; (size_t)k < array_len; ++k )
     {

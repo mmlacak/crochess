@@ -162,7 +162,7 @@
 //     if ( abs( offset.i ) != abs( offset.j ) ) return false;
 
 //     CcPos step = cc_pos( CC_SIGN( offset.i ), CC_SIGN( offset.j ) );
-//     if ( !CC_GEN_STEPS_BISHOP_IS_VALID( step.i, step.j ) ) return false;
+//     if ( !CC_GEN_POS_BISHOP_STEP_IS_VALID( step.i, step.j ) ) return false;
 
 //     CcPosLink * pl__t = NULL;
 //     for ( CcPos p = cc_pos_add( start, step ); !cc_pos_is_equal( p, dest ); p = cc_pos_add( p, step ) )

@@ -32,7 +32,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.193:392+20211229.040903"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.194:393+20211229.070230"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -425,7 +425,7 @@ int main( void )
                 CcPos diff = { 1, 1 };
                 cc_gen_pos( &step, diff, true );
 
-                if ( CC_GEN_STEPS_UNICORN_IS_VALID( step ) )
+                if ( CC_GEN_POS_UNICORN_STEP_IS_VALID( step ) )
                     printf( "Pos %d: (%d, %d)\n", k, step.i, step.j );
                 else
                     printf( "Pos %d fail: (%d, %d)\n", k, step.i, step.j );

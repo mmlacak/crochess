@@ -17,9 +17,9 @@
 
 /** @defgroup step_generator_array The step generator array
  *  The step generator constants and arrays are meant to be used via `cc_gen_pos()`,
-    and `cc_gen_step_is_valid()`.
+    and `cc_gen_pos_is_valid_step()`.
 
-    @see cc_gen_pos(), cc_gen_step_is_valid()
+    @see cc_gen_pos(), cc_gen_pos_is_valid_step()
  *  @{
  */
 
@@ -32,12 +32,12 @@
  *  @{
  */
 
-#define CC_GEN_STEPS_PAWN_LEN (3)
-#define CC_GEN_STEPS_BISHOP_LEN (4)
-#define CC_GEN_STEPS_ROOK_LEN (4)
-#define CC_GEN_STEPS_QUEEN_LEN (8)
-#define CC_GEN_STEPS_KNIGHT_LEN (8)
-#define CC_GEN_STEPS_UNICORN_LEN (16)
+#define CC_GEN_POS_PAWN_STEPS_LEN (3)
+#define CC_GEN_POS_BISHOP_STEPS_LEN (4)
+#define CC_GEN_POS_ROOK_STEPS_LEN (4)
+#define CC_GEN_POS_QUEEN_STEPS_LEN (8)
+#define CC_GEN_POS_KNIGHT_STEPS_LEN (8)
+#define CC_GEN_POS_UNICORN_STEPS_LEN (16)
 
 /** @} */ // end of step_generator_lengths
 
@@ -51,12 +51,12 @@
  *  @{
  */
 
-#define CC_GEN_STEPS_PAWN_SIZE (CC_GEN_STEPS_PAWN_LEN + 1)
-#define CC_GEN_STEPS_BISHOP_SIZE (CC_GEN_STEPS_BISHOP_LEN + 1)
-#define CC_GEN_STEPS_ROOK_SIZE (CC_GEN_STEPS_ROOK_LEN + 1)
-#define CC_GEN_STEPS_QUEEN_SIZE (CC_GEN_STEPS_QUEEN_LEN + 1)
-#define CC_GEN_STEPS_KNIGHT_SIZE (CC_GEN_STEPS_KNIGHT_LEN + 1)
-#define CC_GEN_STEPS_UNICORN_SIZE (CC_GEN_STEPS_UNICORN_LEN + 1)
+#define CC_GEN_POS_PAWN_STEPS_SIZE (CC_GEN_POS_PAWN_STEPS_LEN + 1)
+#define CC_GEN_POS_BISHOP_STEPS_SIZE (CC_GEN_POS_BISHOP_STEPS_LEN + 1)
+#define CC_GEN_POS_ROOK_STEPS_SIZE (CC_GEN_POS_ROOK_STEPS_LEN + 1)
+#define CC_GEN_POS_QUEEN_STEPS_SIZE (CC_GEN_POS_QUEEN_STEPS_LEN + 1)
+#define CC_GEN_POS_KNIGHT_STEPS_SIZE (CC_GEN_POS_KNIGHT_STEPS_LEN + 1)
+#define CC_GEN_POS_UNICORN_STEPS_SIZE (CC_GEN_POS_UNICORN_STEPS_LEN + 1)
 
 /** @} */ // end of step_generator_sizes
 
@@ -78,13 +78,13 @@
  *  @{
  */
 
-extern CcPos const CC_GEN_STEPS_LIGHT_PAWN[ CC_GEN_STEPS_PAWN_SIZE ];
-extern CcPos const CC_GEN_STEPS_DARK_PAWN[ CC_GEN_STEPS_PAWN_SIZE ];
-extern CcPos const CC_GEN_STEPS_BISHOP[ CC_GEN_STEPS_BISHOP_SIZE ]; // Also, Serpent.
-extern CcPos const CC_GEN_STEPS_ROOK[ CC_GEN_STEPS_ROOK_SIZE ]; // Also, Serpent's color-changing move.
-extern CcPos const CC_GEN_STEPS_QUEEN[ CC_GEN_STEPS_QUEEN_SIZE ];
-extern CcPos const CC_GEN_STEPS_KNIGHT[ CC_GEN_STEPS_KNIGHT_SIZE ];
-extern CcPos const CC_GEN_STEPS_UNICORN[ CC_GEN_STEPS_UNICORN_SIZE ];
+extern CcPos const CC_GEN_POS_LIGHT_PAWN_STEPS[ CC_GEN_POS_PAWN_STEPS_SIZE ];
+extern CcPos const CC_GEN_POS_DARK_PAWN_STEPS[ CC_GEN_POS_PAWN_STEPS_SIZE ];
+extern CcPos const CC_GEN_POS_BISHOP_STEPS[ CC_GEN_POS_BISHOP_STEPS_SIZE ]; // Also, Serpent.
+extern CcPos const CC_GEN_POS_ROOK_STEPS[ CC_GEN_POS_ROOK_STEPS_SIZE ]; // Also, Serpent's color-changing move.
+extern CcPos const CC_GEN_POS_QUEEN_STEPS[ CC_GEN_POS_QUEEN_STEPS_SIZE ];
+extern CcPos const CC_GEN_POS_KNIGHT_STEPS[ CC_GEN_POS_KNIGHT_STEPS_SIZE ];
+extern CcPos const CC_GEN_POS_UNICORN_STEPS[ CC_GEN_POS_UNICORN_STEPS_SIZE ];
 
 /** @} */ // end of step_generator_arrays
 
@@ -114,15 +114,15 @@ bool cc_gen_pos( CcPos * restrict pos__io,
 
     @return `true` if step is valid, `false` otherwise.
 */
-bool cc_gen_step_is_valid( CcPos step,
-                           CcPos const array[  ],
-                           size_t array_len );
+bool cc_gen_pos_is_valid_step( CcPos step,
+                               CcPos const array[  ],
+                               size_t array_len );
 
 
 /** @defgroup step_is_valid_macros The step validity macros
- *  The step validity macro conveniences are meant to be used instead of `cc_gen_step_is_valid()`.
+ *  The step validity macro conveniences are meant to be used instead of `cc_gen_pos_is_valid_step()`.
 
-    @see cc_gen_step_is_valid()
+    @see cc_gen_pos_is_valid_step()
  *  @{
  */
 
@@ -131,26 +131,26 @@ bool cc_gen_step_is_valid( CcPos step,
  *  @{
  */
 
-#define CC_GEN_STEPS_LIGHT_PAWN_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_LIGHT_PAWN, CC_GEN_STEPS_PAWN_LEN ) )
+#define CC_GEN_POS_LIGHT_PAWN_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_LIGHT_PAWN_STEPS, CC_GEN_POS_PAWN_STEPS_LEN ) )
 
-#define CC_GEN_STEPS_DARK_PAWN_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_DARK_PAWN, CC_GEN_STEPS_PAWN_LEN ) )
+#define CC_GEN_POS_DARK_PAWN_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_DARK_PAWN_STEPS, CC_GEN_POS_PAWN_STEPS_LEN ) )
 
-#define CC_GEN_STEPS_BISHOP_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_BISHOP, CC_GEN_STEPS_BISHOP_LEN ) )
+#define CC_GEN_POS_BISHOP_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_BISHOP_STEPS, CC_GEN_POS_BISHOP_STEPS_LEN ) )
 
-#define CC_GEN_STEPS_ROOK_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_ROOK, CC_GEN_STEPS_ROOK_LEN ) )
+#define CC_GEN_POS_ROOK_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_ROOK_STEPS, CC_GEN_POS_ROOK_STEPS_LEN ) )
 
-#define CC_GEN_STEPS_QUEEN_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_QUEEN, CC_GEN_STEPS_QUEEN_LEN ) )
+#define CC_GEN_POS_QUEEN_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_QUEEN_STEPS, CC_GEN_POS_QUEEN_STEPS_LEN ) )
 
-#define CC_GEN_STEPS_KNIGHT_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_KNIGHT, CC_GEN_STEPS_KNIGHT_LEN ) )
+#define CC_GEN_POS_KNIGHT_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_KNIGHT_STEPS, CC_GEN_POS_KNIGHT_STEPS_LEN ) )
 
-#define CC_GEN_STEPS_UNICORN_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_UNICORN, CC_GEN_STEPS_UNICORN_LEN ) )
+#define CC_GEN_POS_UNICORN_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_UNICORN_STEPS, CC_GEN_POS_UNICORN_STEPS_LEN ) )
 
 /** @} */ // end of step_is_valid_base_macros
 
@@ -160,11 +160,11 @@ bool cc_gen_step_is_valid( CcPos step,
  *  @{
  */
 
-#define CC_GEN_STEPS_SERPENT_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_BISHOP, CC_GEN_STEPS_BISHOP_LEN ) )
+#define CC_GEN_POS_SERPENT_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_BISHOP_STEPS, CC_GEN_POS_BISHOP_STEPS_LEN ) )
 
-#define CC_GEN_STEPS_SERPENT_COLOR_CHANGE_IS_VALID(step) \
-    ( cc_gen_step_is_valid( (step), CC_GEN_STEPS_ROOK, CC_GEN_STEPS_ROOK_LEN ) )
+#define CC_GEN_POS_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step) \
+    ( cc_gen_pos_is_valid_step( (step), CC_GEN_POS_ROOK_STEPS, CC_GEN_POS_ROOK_STEPS_LEN ) )
 
 /** @} */ // end of step_is_valid_derived_macros
 
