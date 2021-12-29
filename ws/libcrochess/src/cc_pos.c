@@ -6,6 +6,11 @@
 #include "cc_defines.h"
 #include "cc_pos.h"
 
+/**
+    @file cc_pos.c
+    @brief Positions structures, and related functions.
+*/
+
 
 CcPos cc_pos( int i, int j )
 {
@@ -13,7 +18,7 @@ CcPos cc_pos( int i, int j )
     return pos;
 }
 
-CcPos cc_pos_empty()
+CcPos cc_pos_invalid()
 {
     return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN );
 }
@@ -33,15 +38,10 @@ bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
     return ( ( pos_1.i == pos_2.i ) && ( pos_1.j == pos_2.j ) );
 }
 
-bool cc_pos_is_not_equal( CcPos pos_1, CcPos pos_2 )
+bool cc_pos_is_valid( CcPos pos )
 {
-    return ( ( pos_1.i != pos_2.i ) || ( pos_1.j != pos_2.j ) );
-}
-
-bool cc_pos_is_empty( CcPos pos )
-{
-    return ( ( pos.i == CC_INVALID_OFF_BOARD_COORD_MIN ) &&
-             ( pos.j == CC_INVALID_OFF_BOARD_COORD_MIN ) );
+    return ( ( pos.i != CC_INVALID_OFF_BOARD_COORD_MIN ) &&
+             ( pos.j != CC_INVALID_OFF_BOARD_COORD_MIN ) );
 }
 
 

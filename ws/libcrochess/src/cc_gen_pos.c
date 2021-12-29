@@ -4,6 +4,11 @@
 #include "cc_defines.h"
 #include "cc_gen_pos.h"
 
+/**
+    @file cc_gen_pos.c
+    @brief Step generator constants, arrays, and related functions.
+*/
+
 
 CcPos const CC_GEN_STEPS_LIGHT_PAWN[ CC_GEN_STEPS_PAWN_SIZE ] =
 {

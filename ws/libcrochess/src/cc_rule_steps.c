@@ -120,7 +120,7 @@
 //     }
 
 //     CcPieceEnum piece = CC_PE_None;
-//     CcPos start = cc_pos_empty();
+//     CcPos start = cc_pos_invalid();
 //     bool init = true;
 
 //     while ( cc_rule_steps_piece_pos_iter( cb, piece_symbol, &piece, &start, init ) )

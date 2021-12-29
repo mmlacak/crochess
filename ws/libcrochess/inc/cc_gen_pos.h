@@ -9,6 +9,11 @@
 
 #include "cc_pos.h"
 
+/**
+    @file cc_gen_pos.h
+    @brief Step generator constants, arrays, and related functions.
+*/
+
 
 /** @defgroup step_generator_array The step generator array
  *  The step generator constants and arrays are meant to be used via `cc_gen_pos()`,
@@ -22,8 +27,8 @@
  *  The step generator array lengths.
 
     @note
-    Length of an array is count of useful data in it, similar how `strlen()`
-    does not count zero-terminating `char` in strings.
+    Length of an array is count of useful data in it, without terminating data,
+    similar how `strlen()` does not count zero-terminating `char` in strings.
  *  @{
  */
 
