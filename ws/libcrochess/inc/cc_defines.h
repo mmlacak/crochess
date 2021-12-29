@@ -4,6 +4,9 @@
 #ifndef __CC_DEFINES_H__
 #define __CC_DEFINES_H__
 
+#include "limits.h"
+
+
 /**
     @file cc_defines.h
     @brief Defines and macros used in project.
@@ -17,15 +20,7 @@
 
     Used for e.g. missing coordinates, for which invalid value ascertains no useage.
 */
-#define CC_INVALID_OFF_BOARD_COORD_MIN (-99)
-
-/**
-    Invalid off-board coordinate, used as an empty argument.
-
-    Used to pass empty (non-initializing) values to _static_ parameters,
-    which would otherwise initialize _static_ variables in a function body.
-*/
-#define CC_STATIC_NONE (-99)
+#define CC_INVALID_OFF_BOARD_COORD_MIN (INT_MIN)
 
 /**
     Off-board coordinate.
