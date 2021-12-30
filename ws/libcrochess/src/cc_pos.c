@@ -47,13 +47,13 @@ bool cc_pos_is_valid( CcPos pos )
 
 CcPosLink * cc_pos_link_new( int i, int j )
 {
-    CcPosLink * pl__a = malloc( sizeof( CcPosLink ) );
-    if ( !pl__a ) return NULL;
+    CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
+    if ( !pl__t ) return NULL;
 
-    pl__a->pos = cc_pos( i, j );
-    pl__a->next = NULL;
+    pl__t->pos = cc_pos( i, j );
+    pl__t->next = NULL;
 
-    return pl__a;
+    return pl__t;
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,

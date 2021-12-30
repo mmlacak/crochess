@@ -5,20 +5,20 @@
 #include "cc_rules.h"
 
 
-bool cc_rules_do_moves( CcGame ** restrict game_io__r,
+bool cc_rules_do_moves( CcGame ** restrict game__io_r,
                         CcMove ** restrict moves__n,
                         CcDoMoveEnum dme )
 {
-    if ( !game_io__r ) return false;
-    if ( !*game_io__r ) return false;
-    if ( !((*game_io__r)->chessboard) ) return false;
+    if ( !game__io_r ) return false;
+    if ( !*game__io_r ) return false;
+    if ( !((*game__io_r)->chessboard) ) return false;
 
     if ( !moves__n ) return false;
     if ( !*moves__n ) return false;
 
-    if ( !CC_GAME_STATUS_IS_TURN( (*game_io__r)->status ) ) return false;
+    if ( !CC_GAME_STATUS_IS_TURN( (*game__io_r)->status ) ) return false;
 
-    CcGame * gm__t = cc_game_duplicate_all_new( *game_io__r );
+    CcGame * gm__t = cc_game_duplicate_all_new( *game__io_r );
     if ( !gm__t ) return false;
 
     if ( dme == CC_DME_DoAllMoves )
@@ -57,38 +57,38 @@ bool cc_rules_do_moves( CcGame ** restrict game_io__r,
         return false;
     }
 
-    if ( !cc_game_free_all( game_io__r ) )
+    if ( !cc_game_free_all( game__io_r ) )
     {
         cc_game_free_all( &gm__t );
         return false;
     }
 
-    *game_io__r = gm__t; // Ownership transfer --> gm__t is now weak pointer.
+    *game__io_r = gm__t; // Ownership transfer --> gm__t is now weak pointer.
 
     return true;
 }
 
 
-// bool cc_rules_make_move( CcGame ** restrict game_io__r,
+// bool cc_rules_make_move( CcGame ** restrict game__io_r,
 //                          char const * restrict move_str,
 //                          CcParseMsg ** restrict parse_msgs__io )
 // {
-//     if ( !game_io__r ) return false;
-//     if ( !*game_io__r ) return false;
-//     if ( !((*game_io__r)->chessboard) ) return false;
+//     if ( !game__io_r ) return false;
+//     if ( !*game__io_r ) return false;
+//     if ( !((*game__io_r)->chessboard) ) return false;
 //     if ( !move_str ) return false;
 
-//     if ( !CC_GAME_STATUS_IS_TURN( (*game_io__r)->status ) ) return false;
+//     if ( !CC_GAME_STATUS_IS_TURN( (*game__io_r)->status ) ) return false;
 
 //     CcMove * move__t = NULL;
 
-//     if ( !cc_parse_move( move_str, *game_io__r, &move__t, parse_msgs__io ) )
+//     if ( !cc_parse_move( move_str, *game__io_r, &move__t, parse_msgs__io ) )
 //     {
 //         cc_move_free_all_moves( &move__t );
 //         return false;
 //     }
 
-//     if ( !cc_rules_do_moves( game_io__r, &move__t, CC_DME_DoOnlyCurrentMove ) )
+//     if ( !cc_rules_do_moves( game__io_r, &move__t, CC_DME_DoOnlyCurrentMove ) )
 //     {
 //         cc_parse_msg_append_or_init_format( parse_msgs__io,
 //                                             CC_PME_Error,

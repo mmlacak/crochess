@@ -59,7 +59,7 @@ bool cc_do_step( CcChessboard * restrict cb__io,
     bool is_last_step = ( last == step );
 
     if ( is_first_ply && is_first_step )
-        result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, CC_PE_None );
+        result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, CC_PE_None, CC_TE_None );
     else
     {
         CcSideEffect * se = &( step->side_effect );
