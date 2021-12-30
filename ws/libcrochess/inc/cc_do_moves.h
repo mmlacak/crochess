@@ -47,6 +47,23 @@ CcPlyLinkEnum * cc_get_next_ply_link( CcPly * restrict ply );
 */
 bool cc_is_teleporting_next( CcPly * restrict ply );
 
+/**
+    Removes all temporarily tags.
+
+    @param cb__io _Input/output_ parameter, a chessboard to be altered.
+
+    @note
+    Temporarily tags are those which are used (or lost) in the same or the very next move,
+    those are `CC_TE_EnPassant`, `CC_TE_PawnSacrifice`.
+
+    @note
+    Function is meant to clean-up tags after every move, so temporarily tags can't be
+    used after expiration.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_remove_all_temporarily_tags( CcChessboard * restrict cb__io );
+
 
 /**
     Applies step to chessboard.

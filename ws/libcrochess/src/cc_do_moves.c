@@ -5,6 +5,7 @@
 
 #include "cc_defines.h"
 #include "cc_piece.h"
+#include "cc_tag.h"
 #include "cc_step.h"
 #include "cc_ply.h"
 
@@ -30,6 +31,33 @@ bool cc_is_teleporting_next( CcPly * restrict ply )
 
     bool result = ( ( *pl == CC_PLE_Teleportation )
                  || ( *pl == CC_PLE_FailedTeleportation ) );
+
+    return result;
+}
+
+bool cc_remove_all_temporarily_tags( CcChessboard * restrict cb__io )
+{
+    if ( !cb__io ) return false;
+
+    CcChessboard * cb__a = cc_chessboard_duplicate_new( cb__io );
+    if ( !cb__a ) return false;
+
+    bool result = true;
+
+    for ( int i = 0; (size_t)i < cb__io->size; ++i )
+    {
+        for ( int j = 0; (size_t)j < cb__io->size; ++j )
+        {
+            CcTagEnum te = cc_chessboard_get_tag( cb__a, i, j );
+
+            if ( CC_TAG_IS_TEMPORARILY( te ) )
+                result = result && cc_chessboard_set_tag( cb__a, i, j, CC_TE_None );
+        }
+    }
+
+    if ( result ) cc_chessboard_copy( cb__io, cb__a );
+
+    cc_chessboard_free_all( &cb__a );
 
     return result;
 }
@@ -235,6 +263,8 @@ bool cc_do_moves( CcChessboard * restrict cb__io,
 
         mv = mv->next;
     }
+
+    result = result && cc_remove_all_temporarily_tags( cb__a );
 
     if ( result ) cc_chessboard_copy( cb__io, cb__a );
 

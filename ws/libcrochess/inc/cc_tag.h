@@ -77,9 +77,20 @@
 
     @return `true` if lasting tag, `false` otherwise.
 */
-#define CC_TAG_IS_LASTING(te) ( ( (te) == CC_TE_CanRush )           \
-                             || ( (te) == CC_TE_CanCastle )         \
+#define CC_TAG_IS_LASTING(te) ( ( (te) == CC_TE_CanRush )               \
+                             || ( (te) == CC_TE_CanCastle )             \
                              || ( (te) == CC_TE_DelayedPromotion ) )
+
+/**
+    Macro expression to evaluate whether given tag is temporarily,
+    i.e. lasts at most a single move.
+
+    @param te Tag enum.
+
+    @return `true` if temporarily tag, `false` otherwise.
+*/
+#define CC_TAG_IS_TEMPORARILY(te) ( ( (te) == CC_TE_EnPassant )         \
+                                 || ( (te) == CC_TE_PawnSacrifice ) )
 
 
 /**
