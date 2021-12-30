@@ -69,44 +69,44 @@ bool cc_do_step( CcChessboard * restrict cb__io,
             case CC_SEE_None :
             {
                 if ( is_last_step && ( !cc_is_teleporting_next( ply ) ) )
-                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
+                    result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, pe, CC_TE_None );
                 break;
             }
 
             case CC_SEE_Capture :
             {
                 if ( is_last_step )
-                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
+                    result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, pe, CC_TE_None );
                 else
-                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, CC_PE_None );
+                    result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, CC_PE_None, CC_TE_None );
                 break;
             }
 
             case CC_SEE_Displacement :
             {
                 if ( is_last_step )
-                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
+                    result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, pe, CC_TE_None );
                 else
-                    result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, CC_PE_None );
+                    result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, CC_PE_None, CC_TE_None );
 
-                result = result && cc_chessboard_set_piece( cb__io, se->displacement.dest_i, se->displacement.dest_j, se->displacement.piece );
+                result = result && cc_chessboard_set_piece_tag( cb__io, se->displacement.dest_i, se->displacement.dest_j, se->displacement.piece, CC_TE_None );
                 break;
             }
 
             case CC_SEE_EnPassant :
             {
-                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, pe, CC_TE_None );
 
                 int i = se->en_passant.dest_i;
                 int j = se->en_passant.dest_j;
-                result = result && cc_chessboard_set_piece( cb__io, i, j, CC_PE_None );
+                result = result && cc_chessboard_set_piece_tag( cb__io, i, j, CC_PE_None, CC_TE_None );
 
                 break;
             }
 
             case CC_SEE_Castle :
             {
-                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, pe, CC_TE_None );
 
                 CcPieceEnum rook = se->castle.rook;
                 int start_i = se->castle.start_i;
@@ -114,8 +114,8 @@ bool cc_do_step( CcChessboard * restrict cb__io,
                 int dest_i = se->castle.dest_i;
                 int dest_j = se->castle.dest_j;
 
-                result = result && cc_chessboard_set_piece( cb__io, start_i, start_j, CC_PE_None );
-                result = result && cc_chessboard_set_piece( cb__io, dest_i, dest_j, rook );
+                result = result && cc_chessboard_set_piece_tag( cb__io, start_i, start_j, CC_PE_None, CC_TE_None );
+                result = result && cc_chessboard_set_piece_tag( cb__io, dest_i, dest_j, rook, CC_TE_None );
 
                 break;
             }
@@ -123,7 +123,7 @@ bool cc_do_step( CcChessboard * restrict cb__io,
             case CC_SEE_Promotion :
             {
                 CcPieceEnum new = se->promote.piece;
-                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, new );
+                result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, new, CC_TE_None );
                 break;
             }
 
@@ -136,7 +136,7 @@ bool cc_do_step( CcChessboard * restrict cb__io,
             case CC_SEE_Conversion :
             {
                 CcPieceEnum new = se->convert.piece;
-                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, new );
+                result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, new, CC_TE_None );
                 break;
             }
 
@@ -144,31 +144,31 @@ bool cc_do_step( CcChessboard * restrict cb__io,
 
             case CC_SEE_Demotion :
             {
-                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, pe, CC_TE_None );
 
                 CcPieceEnum pawn = cc_piece_demoting_to( se->demote.piece );
                 int i = se->demote.dest_i;
                 int j = se->demote.dest_j;
-                result = result && cc_chessboard_set_piece( cb__io, i, j, pawn );
+                result = result && cc_chessboard_set_piece_tag( cb__io, i, j, pawn, CC_TE_None );
 
                 break;
             }
 
             case CC_SEE_Resurrection :
             {
-                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, pe, CC_TE_None );
 
                 CcPieceEnum pe = se->resurrect.piece;
                 int i = se->resurrect.dest_i;
                 int j = se->resurrect.dest_j;
-                result = result && cc_chessboard_set_piece( cb__io, i, j, pe );
+                result = result && cc_chessboard_set_piece_tag( cb__io, i, j, pe, CC_TE_None );
 
                 break;
             }
 
             case CC_SEE_FailedResurrection :
             {
-                result = result && cc_chessboard_set_piece( cb__io, step->i, step->j, pe );
+                result = result && cc_chessboard_set_piece_tag( cb__io, step->i, step->j, pe, CC_TE_None );
                 break; // Resurrection blocked, or no captured pieces, nothing to do here.
             }
         }
