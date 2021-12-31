@@ -104,10 +104,10 @@ char const * cc_stop_at_chars( char const * restrict pos,
     pointer to first `char` of a found token; argument `end__io` contains end
     of a token, i.e. first `char` that does not belong to a token.
 */
-bool cc_token_iter_new( char const * restrict str,
-                        char const * restrict seps,
-                        char const ** restrict first__io,
-                        char const ** restrict end__io );
+bool cc_token_iter( char const * restrict str,
+                    char const * restrict seps,
+                    char const ** restrict first__io,
+                    char const ** restrict end__io );
 
 /**
     Function returning newly allocated string, with `chars` trimmed from the beginning and the end.

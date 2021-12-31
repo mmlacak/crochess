@@ -32,7 +32,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.198:397+20211231.071824"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.199:398+20211231.083906"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -59,7 +59,7 @@ bool get_print_chessboard_from_cli_arg( char const * restrict str,
 {
     bool do_print_chesboard = false;
 
-    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
+    if ( cc_token_iter( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
         if ( cc_str_is_equal( *first_io, *end_io, "1", NULL, 1 )
             || cc_str_is_equal( *first_io, *end_io, "true", NULL, 4 ) )
@@ -75,7 +75,7 @@ bool get_print_move_from_cli_arg( char const * restrict str,
 {
     bool do_print_move = true;
 
-    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
+    if ( cc_token_iter( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
         if ( cc_str_is_equal( *first_io, *end_io, "0", NULL, 1 )
             || cc_str_is_equal( *first_io, *end_io, "false", NULL, 5 ) )
@@ -95,7 +95,7 @@ CcFormatMove get_format_move_from_cli_arg( char const * restrict str,
 
     CcFormatMove format_move = fm_output;
 
-    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
+    if ( cc_token_iter( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
         if ( cc_str_is_equal( *first_io, *end_io, "u", NULL, 1 )
             || cc_str_is_equal( *first_io, *end_io, "user", NULL, 4 ) )
@@ -116,7 +116,7 @@ int get_integer_from_cli_arg( char const * restrict str,
     int number = default_num;
     char num[ 12 ] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', };
 
-    if ( cc_token_iter_new( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
+    if ( cc_token_iter( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
         if ( *first_io >= *end_io ) return default_num;
 
@@ -186,7 +186,7 @@ int main( void )
 
         char const * first__w = NULL;
         char const * end__w = NULL;
-        if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+        if ( !cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             continue;
 
         if ( cc_str_is_equal( first__w, end__w, "q", NULL, BUFSIZ ) ||
@@ -304,7 +304,6 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "x", NULL, BUFSIZ ) )
         {
-
             // char * user_an = "[Ng6]~[We5]~[Re8]";
             // char * user_an = "Ng6~[We5]~Re8";
             // char * user_an = "Ne6-a3";
@@ -328,7 +327,7 @@ int main( void )
 
             // <!> :: Uncomment CC_FREE() below, if this is active!
             // char * user_an = NULL;
-            // if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            // if ( !cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             //     continue;
 
 
@@ -347,7 +346,7 @@ int main( void )
             CC_FREE( reverse__o );
             reverse__o = NULL;
 
-            // <!> :: Uncomment, if cc_token_iter_new() above is active!
+            // <!> :: Uncomment, if cc_token_iter() above is active!
             // CC_FREE( user_an );
             // user_an = NULL;
 
@@ -412,6 +411,8 @@ int main( void )
             cc_step_free_all_steps( &steps_2__a );
 
             cc_step_free_all_steps( &dup__a );
+
+            cc_chessboard_free_all( &cb__a );
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
         }
@@ -539,6 +540,8 @@ int main( void )
 
             if ( !cc_pos_link_free_all( &pl__a ) )
                 continue;
+
+            cc_pos_link_free_all( &pl__a );
         }
         else if ( cc_str_is_equal( first__w, end__w, "z3", NULL, BUFSIZ ) )
         {
@@ -560,6 +563,8 @@ int main( void )
 
             if ( !cc_ply_free_all_plies( &ply__a ) )
                 continue;
+
+            cc_ply_free_all_plies( &ply__a );
         }
         else if ( cc_str_is_equal( first__w, end__w, "z4", NULL, BUFSIZ ) )
         {
@@ -697,7 +702,6 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "z8", NULL, BUFSIZ ) )
         {
-
             printf( TESTS_MOVE_TEST_SEPARATOR );
 
             // CcChessboard * cb__a = cc_chessboard_new( CC_VE_One, false );
@@ -758,6 +762,37 @@ int main( void )
             cc_ply_free_all_plies( &ply_2__a );
 
             cc_ply_free_all_plies( &dup__a );
+
+            // cc_chessboard_free_all( &cb__a );
+
+            printf( TESTS_MOVE_TEST_SEPARATOR );
+        }
+        else if ( cc_str_is_equal( first__w, end__w, "z9", NULL, BUFSIZ ) )
+        {
+            printf( TESTS_MOVE_TEST_SEPARATOR );
+
+            CcChessboard * cb__a = cc_chessboard_new( CC_VE_One, false );
+            if ( !cb__a ) return false;
+
+            cc_chessboard_set_piece( cb__a, 7, 9, CC_PE_LightBishop );
+            cc_chessboard_set_piece( cb__a, 11, 5, CC_PE_LightBishop );
+            cc_chessboard_set_piece( cb__a, 15, 7, CC_PE_DarkBishop );
+
+            CcPos pos = cc_pos_invalid();
+
+            while ( cc_gen_steps_piece_pos_iter( cb__a, CC_PE_LightBishop, false, &pos ) )
+            {
+                printf( "Found: %d, %d.\n", pos.i, pos.j );
+            }
+
+            printf( TESTS_MOVE_NOTATION_SEPARATOR );
+
+            while ( cc_gen_steps_piece_pos_iter( cb__a, CC_PE_LightBishop, true, &pos ) )
+            {
+                printf( "Found: %d, %d.\n", pos.i, pos.j );
+            }
+
+            cc_chessboard_free_all( &cb__a );
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
         }

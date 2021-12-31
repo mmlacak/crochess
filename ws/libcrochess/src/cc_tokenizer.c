@@ -60,10 +60,10 @@ char const * cc_stop_at_chars( char const * restrict pos,
 }
 
 
-bool cc_token_iter_new( char const * restrict str,
-                        char const * restrict seps,
-                        char const ** restrict first__io,
-                        char const ** restrict end__io )
+bool cc_token_iter( char const * restrict str,
+                    char const * restrict seps,
+                    char const ** restrict first__io,
+                    char const ** restrict end__io )
 {
     if ( !str ) return false;
     if ( !seps ) return false;

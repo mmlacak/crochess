@@ -40,6 +40,8 @@ bool cc_gen_steps_piece_pos_iter( CcChessboard * restrict cb,
                 return true;
             }
         }
+
+        pos.j = 0;
     }
 
     *pos__io = cc_pos_invalid();

@@ -20,7 +20,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.198:397+20211231.071824"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.199:398+20211231.083906"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -48,7 +48,7 @@ int main( void )
 
         char const * first__w = NULL;
         char const * end__w = NULL;
-        if ( !cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+        if ( !cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             continue;
 
         if ( cc_str_is_equal( first__w, end__w, "q", NULL, BUFSIZ ) ||
@@ -82,7 +82,7 @@ int main( void )
             bool is_code = false;
             char * code = NULL;
 
-            if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
                 code = cc_str_copy_new( first__w, end__w, BUFSIZ );
                 if ( !code ) continue;
@@ -116,7 +116,7 @@ int main( void )
         {
             char * res = NULL;
 
-            if ( cc_token_iter_new( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
                 res = cc_str_copy_new( first__w, end__w, BUFSIZ );
                 if ( !res ) continue;
