@@ -10,13 +10,6 @@
 
 
 // // DOCS
-// bool cc_rule_steps_piece_pos_iter( CcChessboard * restrict cb,
-//                                    char piece_symbol,
-//                                    CcPieceEnum * restrict piece__o,
-//                                    CcPos * restrict start__o,
-//                                    bool initialize_iter );
-
-// // DOCS
 // bool cc_rule_steps_find_piece_start_pos( CcChessboard * restrict cb,
 //                                          CcPlyLinkEnum ple,
 //                                          char piece_symbol,

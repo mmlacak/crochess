@@ -42,26 +42,26 @@ CcPos cc_pos( int i, int j );
 CcPos cc_pos_invalid();
 
 /**
-    Function adds two positions.
+    Function adds step to a position.
 
-    @param augend A position to add to.
-    @param addend A position to be added.
+    @param pos A position to add to.
+    @param step A step to be added.
 
-    @return A position with added coordinates.
+    @return A position with added step.
 
 */
-CcPos cc_pos_add( CcPos augend, CcPos addend );
+CcPos cc_pos_add( CcPos pos, CcPos step );
 
 /**
-    Function subtracts two positions.
+    Function subtracts step from aposition.
 
-    @param minuend A position to subtract from.
-    @param subtrahend A position to be subtracted.
+    @param pos A position to subtract from.
+    @param step A step to be subtracted.
 
-    @return A position with subtracted coordinates.
+    @return A position with subtracted step.
 
 */
-CcPos cc_pos_subtract( CcPos minuend, CcPos subtrahend );
+CcPos cc_pos_subtract( CcPos pos, CcPos step );
 
 /**
     Function checks if two positions are the same.

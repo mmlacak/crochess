@@ -23,14 +23,14 @@ CcPos cc_pos_invalid()
     return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
-CcPos cc_pos_add( CcPos augend, CcPos addend )
+CcPos cc_pos_add( CcPos pos, CcPos step )
 {
-    return cc_pos( augend.i + addend.i, augend.j + addend.j );
+    return cc_pos( pos.i + step.i, pos.j + step.j );
 }
 
-CcPos cc_pos_subtract( CcPos minuend, CcPos subtrahend )
+CcPos cc_pos_subtract( CcPos pos, CcPos step )
 {
-    return cc_pos( minuend.i - subtrahend.i, minuend.j - subtrahend.j );
+    return cc_pos( pos.i - step.i, pos.j - step.j );
 }
 
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
