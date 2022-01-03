@@ -32,7 +32,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.199:398+20211231.083906"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.200:399+20220103.133528"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -524,12 +524,12 @@ int main( void )
         {
             CcPosLink * pl__a = NULL;
 
-            cc_pos_link_append_or_init( &pl__a, 1, 1 );
-            cc_pos_link_append_or_init( &pl__a, 2, 2 );
-            cc_pos_link_append_or_init( &pl__a, 3, 3 );
-            cc_pos_link_append_or_init( &pl__a, 4, 4 );
-            cc_pos_link_append_or_init( &pl__a, 5, 5 );
-            cc_pos_link_append_or_init( &pl__a, 6, 6 );
+            CC_POS_LINK_APPEND_OR_INIT( &pl__a, 1, 1 );
+            CC_POS_LINK_APPEND_OR_INIT( &pl__a, 2, 2 );
+            CC_POS_LINK_APPEND_OR_INIT( &pl__a, 3, 3 );
+            CC_POS_LINK_APPEND_OR_INIT( &pl__a, 4, 4 );
+            CC_POS_LINK_APPEND_OR_INIT( &pl__a, 5, 5 );
+            CC_POS_LINK_APPEND_OR_INIT( &pl__a, 6, 6 );
 
             CcPosLink * x = pl__a;
             while ( x )

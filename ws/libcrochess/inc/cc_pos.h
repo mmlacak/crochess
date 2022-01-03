@@ -13,6 +13,45 @@
 
 
 /**
+    Macro to allocate new position link, with given coordinates.
+
+    @param i File, horizontal coordinate.
+    @param j Rank, vertical coordinate.
+
+    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_pos_link_new()
+*/
+#define CC_POS_LINK_NEW(i,j) cc_pos_link_new( cc_pos( (i), (j) ) )
+
+/**
+    Macro to append a newly allocated new position link, with given coordinates.
+
+    @param pos_link__io a position linked list, to be appended.
+    @param i File, horizontal coordinate.
+    @param j Rank, vertical coordinate.
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_pos_link_append()
+*/
+#define CC_POS_LINK_APPEND(pos_link__io,i,j) cc_pos_link_append( (pos_link__io), cc_pos( (i), (j) ) )
+
+/**
+    Macro to initialize or append a position linked list, with given coordinates.
+
+    @param pos_link__io a position linked list, to be appended.
+    @param i File, horizontal coordinate.
+    @param j Rank, vertical coordinate.
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_pos_link_append_or_init()
+*/
+#define CC_POS_LINK_APPEND_OR_INIT(pos_link__io,i,j) cc_pos_link_append_or_init( (pos_link__io), cc_pos( (i), (j) ) )
+
+
+/**
     Structure holding a position, either absolute or relative,
     i.e. either a location or a step.
 */
@@ -96,32 +135,28 @@ typedef struct CcPosLink {
 /**
     Function allocates a new linked position.
 
-    @param i File, horizontal coordinate.
-    @param j Rank, vertical coordinate.
+    @param pos A position.
 
-    @return Pointer to a newly alloctaed linked position if successful, `NULL` otherwise.
+    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_new( int i, int j );
+CcPosLink * cc_pos_link_new( CcPos pos );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list.
-    @param i File, horizontal coordinate.
-    @param j Rank, vertical coordinate.
+    @param pos A position.
 
-    @return A weak pointer to a newly alloctaed linked position if successful, `NULL` otherwise.
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                int i,
-                                int j );
+                                CcPos pos );
 
 /**
     Allocates a new linked position, appends it to a linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
-    @param i File, horizontal coordinate.
-    @param j Rank, vertical coordinate.
+    @param pos A position.
 
     @note
     Linked list `*pos_link__io` can be `NULL`, a linked position will still be
@@ -131,11 +166,10 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     If linked list `*pos_link__io` is `NULL`, it will be initialized,
     with a newly allocated linked position as its first element.
 
-    @return A weak pointer to a newly alloctaed linked position if successful, `NULL` otherwise.
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
-                                        int i,
-                                        int j );
+                                        CcPos pos );
 
 /**
     Frees all positions in a linked list.

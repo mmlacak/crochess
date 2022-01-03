@@ -50,29 +50,73 @@
 */
 #define CC_MAX_BOARD_SIZE (26)
 
+
+/**
+    Macro to check if a given coordinate is valid.
+
+    @param coord A coordinate.
+
+    @return `1` if valid, `0` otherwise.
+*/
+#define CC_COORD_IS_VALID(coord) ( (coord) != CC_INVALID_OFF_BOARD_COORD_MIN )
+
+
 /**
     Macro to inline comparing, producing smaller value.
+
+    @param x A number.
+    @param y An other number
+
+    @return Smaller number of the two given.
 */
 #define CC_MIN(x,y) ( ( (y) > (x) ) ? (x) : (y) )
 
 /**
     Macro to inline comparing, producing larger value.
+
+    @param x A number.
+    @param y An other number
+
+    @return Larger number of the two given.
 */
 #define CC_MAX(x,y) ( ( (x) > (y) ) ? (x) : (y) )
 
 /**
     Macro to inline sign function.
+
+    @param i A number.
+
+    @note
+    Sign of a number is defined as `1` for positive numbers,
+    `-1` for negative numbers, `0` otherwise.
+
+    @return Sign of a given number.
 */
 #define CC_SIGN(i) ( ( (i) > 0 ) ? (1) : ( ( (i) < 0 ) ? (-1) : (0) ) )
 
 
 /**
     Macro to free() with cast.
+
+    @param ptr A pointer.
+
+    @note
+    Pointer is just cast to `void *`, before being handled over to `free()`.
+
+    @return Nothing.
 */
 #define CC_FREE(ptr) free( (void *)(ptr) )
 
 /**
     Macro to free() with cast, and setting inner pointer to NULL.
+
+    @param ptr_ptr A pointer to pointer.
+
+    @note
+    Inner pointer is just cast to `void *`, before being handled over to `free()`,
+    then set to `NULL`.
+
+    @return Nothing.
 */
 #define CC_FREE_NULL(ptr_ptr)           \
 {                                       \

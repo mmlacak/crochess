@@ -40,7 +40,7 @@
 
     @return `true` if pieces are the same, `false` otherwise.
 */
-#define CC_PIECE_IS_THE_SAME(pe1,pe2) ( (pe2) == (pe2) )
+#define CC_PIECE_IS_THE_SAME(pe1,pe2) ( (pe1) == (pe2) )
 
 /**
     Macro expression to evaluate whether piece is a Pawn.
@@ -421,30 +421,6 @@ bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
     @return `true` if one piece is dark and the other is light, `false` otherwise.
 */
 bool cc_piece_has_different_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
-
-// /**
-//     Function tests whether second piece is targetable.
-
-//     @param piece A piece, moving about.
-//     @param target Target piece, one located at destination field of first piece.
-
-//     @note
-//     None piece is always targetable, a piece would always be able to end its
-//     movement on an empty field.
-
-//     @note
-//     This function handles only capturing, activating target piece,
-//     and teleporting first piece.
-
-//     @warning
-//     Special cases (like own Pyramid capturing own Pawn for Pawn-sacrifice) has to be
-//     handled in a separate function(s).
-
-//     @return `true` if targetable, `false` otherwise.
-// */
-// // TODO :: DELETE :: MOVE :: REDESIGN
-// bool cc_piece_is_targetable( CcPieceEnum piece, CcPieceEnum target );
-// // TODO :: DELETE :: MOVE :: REDESIGN
 
 /**
     Function returning whether piece is a figure.
