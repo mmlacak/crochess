@@ -62,8 +62,8 @@ bool cc_rule_steps_find_piece_start_pos( CcGame * restrict game,
 
     while ( cc_gen_steps_piece_pos_iter( cb, piece, include_opposite, &start ) )
     {
-        if ( ( CC_COORD_IS_VALID( disamb_i__d ) ) && ( disamb_i__d != start.i ) ) return false;
-        if ( ( CC_COORD_IS_VALID( disamb_j__d ) ) && ( disamb_j__d != start.j ) ) return false;
+        if ( is_disamb_i && ( disamb_i__d != start.i ) ) continue;
+        if ( is_disamb_j && ( disamb_j__d != start.j ) ) continue;
 
         if ( cc_rule_steps_check_movement( game, ple, piece, start, dest, &pos_s__a ) )
         {
@@ -158,8 +158,8 @@ bool cc_rule_steps_check_bishop( CcGame * restrict game,
     if ( !CC_GEN_POS_BISHOP_STEP_IS_VALID( step ) ) return false;
 
     CcChessboard * cb = game->chessboard;
-
     CcPosLink * pl__t = NULL;
+
     for ( CcPos p = cc_pos_add( start, step ); !cc_pos_is_equal( p, dest ); p = cc_pos_add( p, step ) )
     {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, p.i, p.j );
@@ -174,7 +174,7 @@ bool cc_rule_steps_check_bishop( CcGame * restrict game,
 
     if ( cc_rule_steps_is_ply_allowed( game, piece, start, dest ) )
     {
-        *pls__o = pl__t; // Ownership transfer --> pl__t is now weak pointer.
+        *pls__o = pl__t; // Ownership transfer --> pl__t is now weak pointer --> no free().
         return true;
     }
 

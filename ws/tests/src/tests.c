@@ -19,6 +19,9 @@
 #include "cc_step.h"
 #include "cc_ply.h"
 #include "cc_move.h"
+
+#include "cc_rule_steps.h"
+
 #include "cc_parse_msg.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_move.h"
@@ -32,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.201:400+20220103.143915"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.202:401+20220103.213101"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -771,28 +774,52 @@ int main( void )
         {
             printf( TESTS_MOVE_TEST_SEPARATOR );
 
-            CcChessboard * cb__a = cc_chessboard_new( CC_VE_One, false );
-            if ( !cb__a ) return false;
+            CcGame * game__a = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+            if ( !game__a ) return false;
 
-            cc_chessboard_set_piece( cb__a, 7, 9, CC_PE_LightBishop );
-            cc_chessboard_set_piece( cb__a, 11, 5, CC_PE_LightBishop );
-            cc_chessboard_set_piece( cb__a, 15, 7, CC_PE_DarkBishop );
+            CcChessboard * cb = game__a->chessboard;
+
+            cc_chessboard_set_piece( cb, 7, 9, CC_PE_LightBishop ); // 1
+            cc_chessboard_set_piece( cb, 11, 5, CC_PE_LightBishop ); // 2
+            cc_chessboard_set_piece( cb, 15, 7, CC_PE_DarkBishop ); // 3
+
+            cc_chessboard_set_piece( cb, 3, 7, CC_PE_LightRook );
+            cc_chessboard_set_piece( cb, 19, 3, CC_PE_DarkKnight );
 
             CcPos pos = cc_pos_invalid();
+            CcPos dest = cc_pos( 4, 12 ); // Bishop 1 shadows 2, i.e. both have step == ( -1, 1 ).
 
-            while ( cc_gen_steps_piece_pos_iter( cb__a, CC_PE_LightBishop, false, &pos ) )
+            while ( cc_gen_steps_piece_pos_iter( cb, CC_PE_LightBishop, false, &pos ) )
             {
-                printf( "Found: %d, %d.\n", pos.i, pos.j );
+                CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+                CcPosLink * pl__a = NULL;
+
+                if ( cc_rule_steps_check_movement( game__a, CC_PLE_Ply, pe, pos, dest, &pl__a ) )
+                    printf( "Found: %d, %d --> %d, %d.\n", pos.i, pos.j, dest.i, dest.j );
+                else
+                    printf( "Found: %d, %d.\n", pos.i, pos.j );
+
+                cc_pos_link_free_all( &pl__a );
             }
 
             printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
-            while ( cc_gen_steps_piece_pos_iter( cb__a, CC_PE_LightBishop, true, &pos ) )
+            dest = cc_pos( 12, 4 ); // Bishops 2 and 3 qualifies.
+
+            while ( cc_gen_steps_piece_pos_iter( cb, CC_PE_LightBishop, true, &pos ) )
             {
-                printf( "Found: %d, %d.\n", pos.i, pos.j );
+                CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+                CcPosLink * pl__a = NULL;
+
+                if ( cc_rule_steps_check_movement( game__a, CC_PLE_Ply, pe, pos, dest, &pl__a ) )
+                    printf( "Found: %d, %d --> %d, %d.\n", pos.i, pos.j, dest.i, dest.j );
+                else
+                    printf( "Found: %d, %d.\n", pos.i, pos.j );
+
+                cc_pos_link_free_all( &pl__a );
             }
 
-            cc_chessboard_free_all( &cb__a );
+            cc_game_free_all( &game__a );
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
         }
