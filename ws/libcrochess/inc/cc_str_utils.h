@@ -11,9 +11,9 @@
     @file cc_str_utils.h
     @brief String utility functions.
 
-    All strings are assumed to be null-terminated (``'\0'``) byte strings.
+    All strings are assumed to be zero-terminated (``'\0'``) byte strings.
 
-    All functions which return string, return them null-terminated.
+    All functions which return string, return them zero-terminated.
 
     Length of a string is as returned by `strlen()`, i.e. without terminating character.
 

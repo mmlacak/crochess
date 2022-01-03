@@ -9,7 +9,7 @@
 
 /**
     @file cc_do_moves.h
-    @brief Enumeration, and related functions applying transformations to chessboard.
+    @brief Applying moves, plies, steps to chessboard.
 */
 
 

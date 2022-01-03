@@ -11,7 +11,7 @@
 
 /**
     @file cc_format_moves.c
-    @brief Functions to format move(s) as algebraic notation.
+    @brief Format moves, plies, steps as algebraic notation strings.
 */
 
 

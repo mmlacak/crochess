@@ -8,7 +8,7 @@
 
 /**
     @file cc_pos.h
-    @brief Positions structures, and related functions.
+    @brief Position, linked list of positions.
 */
 
 

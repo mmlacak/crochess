@@ -9,7 +9,7 @@
 
 /**
     @file cc_setup_board.h
-    @brief Board constant setups, and related functions.
+    @brief Board setups.
 */
 
 

@@ -10,7 +10,7 @@
 
 /**
     @file cc_setup_board.c
-    @brief Board constant setups, and related functions.
+    @brief Board setups data arrays, and related functions.
 */
 
 

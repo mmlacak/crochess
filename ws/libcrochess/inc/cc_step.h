@@ -12,7 +12,7 @@
 
 /**
     @file cc_step.h
-    @brief Step enumerations, structures, and related functions.
+    @brief Steps linked list, storage for link type, field, side-effect.
 */
 
 

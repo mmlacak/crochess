@@ -8,7 +8,7 @@
 
 /**
     @file cc_move.h
-    @brief Move enumeration, structure, and related functions.
+    @brief Move linked list; storage for plies, status, user algebraic notation.
 */
 
 /**

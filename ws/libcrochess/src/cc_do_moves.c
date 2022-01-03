@@ -13,7 +13,7 @@
 
 /**
     @file cc_do_moves.c
-    @brief Functions applying transformations to chessboard.
+    @brief Applying moves, plies, steps to chessboard.
 */
 
 

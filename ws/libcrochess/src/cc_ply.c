@@ -8,7 +8,7 @@
 
 /**
     @file cc_ply.c
-    @brief Ply related functions.
+    @brief Functions for plies linked list.
 */
 
 

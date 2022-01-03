@@ -7,7 +7,7 @@
 
 /**
     @file cc_game.c
-    @brief Game enumerations, structures, and related functions.
+    @brief Functions related to game storage.
 */
 
 

@@ -10,7 +10,7 @@
 
 /**
     @file cc_chessboard.h
-    @brief Chessboard structure, and related functions.
+    @brief Storage for pieces, tags on board.
 */
 
 

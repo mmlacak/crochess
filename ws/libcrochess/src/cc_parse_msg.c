@@ -11,7 +11,7 @@
 
 /**
     @file cc_parse_msg.c
-    @brief Parse message related functions.
+    @brief Parse messages related functions.
 */
 
 

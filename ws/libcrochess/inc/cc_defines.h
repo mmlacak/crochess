@@ -9,7 +9,7 @@
 
 /**
     @file cc_defines.h
-    @brief Defines and macros used in project.
+    @brief Constants and macros used throughout project.
 */
 
 /**

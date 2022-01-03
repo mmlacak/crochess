@@ -16,7 +16,7 @@
 
 /**
     @file cc_chessboard.c
-    @brief Chessboard related functions.
+    @brief Chessboard functions.
 */
 
 

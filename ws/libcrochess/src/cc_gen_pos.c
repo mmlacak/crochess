@@ -6,7 +6,7 @@
 
 /**
     @file cc_gen_pos.c
-    @brief Step generator constants, arrays, and related functions.
+    @brief Step generators, arrays.
 */
 
 

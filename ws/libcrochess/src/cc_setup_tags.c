@@ -9,7 +9,7 @@
 
 /**
     @file cc_setup_tags.c
-    @brief Tag constant setups, and related functions.
+    @brief Tag setups data arrays, and related functions.
 */
 
 

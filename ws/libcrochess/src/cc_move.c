@@ -11,7 +11,7 @@
 
 /**
     @file cc_move.c
-    @brief Move enumeration, structure, and related functions.
+    @brief Functions for move linked list, storage.
 */
 
 

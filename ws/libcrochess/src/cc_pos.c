@@ -8,7 +8,7 @@
 
 /**
     @file cc_pos.c
-    @brief Positions structures, and related functions.
+    @brief Functions for positions, linked list.
 */
 
 

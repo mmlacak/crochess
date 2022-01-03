@@ -9,7 +9,7 @@
 
 /**
     @file cc_parse_msg.h
-    @brief Parse message enumeration, structure, and related functions.
+    @brief Parse messages linked list.
 */
 
 

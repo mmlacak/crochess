@@ -11,7 +11,7 @@
 
 /**
     @file cc_gen_pos.h
-    @brief Step generator constants, arrays, and related functions.
+    @brief Step generators.
 */
 
 

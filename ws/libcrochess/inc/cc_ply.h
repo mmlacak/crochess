@@ -11,7 +11,7 @@
 
 /**
     @file cc_ply.h
-    @brief Ply enumeration, structures, and related functions.
+    @brief Plies linked list, starage for link type, piece, steps.
 */
 
 /**

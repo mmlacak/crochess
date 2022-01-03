@@ -13,7 +13,7 @@
 
 /**
     @file cc_format_moves.h
-    @brief Enumerations, structures, and related functions to format move(s) as algebraic notation.
+    @brief Format moves, plies, steps as algebraic notation strings.
 */
 
 

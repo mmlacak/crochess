@@ -12,22 +12,34 @@
 
 /**
     @file cc_game.h
-    @brief Game enumerations, structures, and related functions.
+    @brief Storage for game status, current chessboard and all performed moves so far.
 */
 
 
 /**
     Macro to inline check if it's light player's turn.
+
+    @param gse A game status enumeration.
+
+    @return `1` if it's light player's turn, `0` otherwise.
 */
 #define CC_GAME_STATUS_IS_LIGHT_TURN(gse) ( (gse) == CC_GSE_Turn_Light )
 
 /**
     Macro to inline check if it's dark player's turn.
+
+    @param gse A game status enumeration.
+
+    @return `1` if it's dark player's turn, `0` otherwise.
 */
 #define CC_GAME_STATUS_IS_DARK_TURN(gse) ( (gse) == CC_GSE_Turn_Dark )
 
 /**
     Macro to inline check if game is on-going, i.e. it's either light or dark players turn.
+
+    @param gse A game status enumeration.
+
+    @return `1` if it's either light or dark player's turn, `0` otherwise.
 */
 #define CC_GAME_STATUS_IS_TURN(gse) ( ( (gse) == CC_GSE_Turn_Light ) || ( (gse) == CC_GSE_Turn_Dark ) )
 

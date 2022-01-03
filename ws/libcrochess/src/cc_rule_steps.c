@@ -96,22 +96,22 @@ bool cc_rule_steps_is_ply_allowed( CcGame * restrict game,
     // Kings can't be ever captured, activated.
     if ( CC_PIECE_IS_KING( target ) ) return false;
 
-    bool same_owner = cc_piece_has_same_owner( piece, target );
+    bool is_same_owner = cc_piece_has_same_owner( piece, target );
 
     // Own Wave, Pyramid can be activated by any own piece.
     if ( ( CC_PIECE_IS_WAVE( target ) || CC_PIECE_IS_PYRAMID( target ) )
-        && same_owner )
+        && is_same_owner )
             return true;
 
     // Wave can activate other Wave, or any other own piece.
     if ( CC_PIECE_IS_WAVE( piece ) )
-        if ( CC_PIECE_IS_WAVE( target ) || same_owner )
+        if ( CC_PIECE_IS_WAVE( target ) || is_same_owner )
             return true;
 
     // Starchild can activate own Starchild, Wave; on its step-fields.
     if ( CC_PIECE_IS_STARCHILD( piece ) )
         if ( ( CC_PIECE_IS_STARCHILD( target ) || CC_PIECE_IS_WAVE( target ) )
-            && same_owner )
+            && is_same_owner )
                 return true;
 
     // Special case, not handled:
