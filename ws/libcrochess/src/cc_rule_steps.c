@@ -11,31 +11,32 @@
 #include "cc_rule_steps.h"
 
 
-bool cc_rule_steps_find_piece_start_pos( CcGame * restrict game,
-                                         CcPlyLinkEnum ple,
-                                         CcPieceEnum piece,
-                                         bool include_opposite,
-                                         int disamb_i__d,
-                                         int disamb_j__d,
-                                         CcPos dest,
-                                         CcPos * restrict start__o )
+bool cc_rule_steps_find_unique_path( CcGame * restrict game,
+                                     CcPlyLinkEnum ple,
+                                     CcPieceEnum piece,
+                                     bool include_opposite,
+                                     int disamb_i__d,
+                                     int disamb_j__d,
+                                     CcPos dest,
+                                     CcPosLink ** restrict path__o )
 {
     if ( !game ) return false;
     if ( !game->chessboard ) return false;
-    if ( !start__o ) return false;
+    if ( !path__o ) return false;
+    if ( *path__o ) return false;
+
+// TODO :: teleporting
 
     CcChessboard * cb = game->chessboard;
 
-    bool is_disamb_i = ( cc_chessboard_is_coord_on_board( cb, disamb_i__d ) );
-    bool is_disamb_j = ( cc_chessboard_is_coord_on_board( cb, disamb_j__d ) );
+    bool is_disamb_i = cc_chessboard_is_coord_on_board( cb, disamb_i__d );
+    bool is_disamb_j = cc_chessboard_is_coord_on_board( cb, disamb_j__d );
 
     if ( ( CC_COORD_IS_VALID( disamb_i__d ) ) && ( !is_disamb_i ) ) return false;
     if ( ( CC_COORD_IS_VALID( disamb_j__d ) ) && ( !is_disamb_j ) ) return false;
 
     if ( !cc_chessboard_is_pos_on_board( cb, dest.i, dest.j ) )
         return false;
-
-    CcPosLink * pos_s__a = NULL;
 
     if ( is_disamb_i && is_disamb_j )
     {
@@ -46,35 +47,39 @@ bool cc_rule_steps_find_piece_start_pos( CcGame * restrict game,
             if (  cc_rule_steps_check_movement( game, ple, pe,
                                                 cc_pos( disamb_i__d, disamb_j__d ),
                                                 dest,
-                                                &pos_s__a ) )
-            {
-                *start__o = cc_pos( disamb_i__d, disamb_j__d );
-
-                cc_pos_link_free_all( &pos_s__a );
+                                                path__o ) )
                 return true;
-            }
         }
 
         return false;
     }
 
     CcPos start = cc_pos_invalid();
+    CcPosLink * pls__t = NULL;
 
     while ( cc_gen_steps_piece_pos_iter( cb, piece, include_opposite, &start ) )
     {
+
         if ( is_disamb_i && ( disamb_i__d != start.i ) ) continue;
         if ( is_disamb_j && ( disamb_j__d != start.j ) ) continue;
 
-        if ( cc_rule_steps_check_movement( game, ple, piece, start, dest, &pos_s__a ) )
-        {
-            *start__o = start;
+        CcPieceEnum pe = cc_chessboard_get_piece( cb, start.i, start.j );
 
-            cc_pos_link_free_all( &pos_s__a );
-            return true;
+        if ( cc_rule_steps_check_movement( game, ple, pe, start, dest, &pls__t ) )
+        {
+            if ( *path__o ) // Previous path found? --> Not unique!
+            {
+                cc_pos_link_free_all( &pls__t );
+                cc_pos_link_free_all( path__o );
+                return false;
+            }
+
+            *path__o = pls__t;
+            pls__t = NULL;
         }
     }
 
-    return false;
+    return (bool)( *path__o );
 }
 
 
@@ -150,6 +155,8 @@ bool cc_rule_steps_check_bishop( CcGame * restrict game,
 
     if ( !CC_PIECE_IS_BISHOP( piece ) ) return false;
 
+// TODO :: teleportation
+
     CcPos offset = cc_pos_subtract( dest, start );
     if ( ( offset.i == 0 ) || ( offset.j == 0 ) ) return false;
     if ( abs( offset.i ) != abs( offset.j ) ) return false;
@@ -158,18 +165,24 @@ bool cc_rule_steps_check_bishop( CcGame * restrict game,
     if ( !CC_GEN_POS_BISHOP_STEP_IS_VALID( step ) ) return false;
 
     CcChessboard * cb = game->chessboard;
-    CcPosLink * pl__t = NULL;
+    CcPosLink * pl__t = cc_pos_link_new( start );
 
     for ( CcPos p = cc_pos_add( start, step ); !cc_pos_is_equal( p, dest ); p = cc_pos_add( p, step ) )
     {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, p.i, p.j );
         if ( !CC_PIECE_IS_NONE( pe ) ) return false;
 
-        if ( !cc_pos_link_append_or_init( &pl__t, p ) )
+        if ( !cc_pos_link_append( pl__t, p ) )
         {
             cc_pos_link_free_all( &pl__t );
             return false;
         }
+    }
+
+    if ( !cc_pos_link_append( pl__t, dest ) )
+    {
+        cc_pos_link_free_all( &pl__t );
+        return false;
     }
 
     if ( cc_rule_steps_is_ply_allowed( game, piece, start, dest ) )

@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.202:401+20220103.213101"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.203:402+20220105.045221"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -491,37 +491,66 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "z1", NULL, BUFSIZ ) )
         {
-            char * con_1 = cc_str_concatenate_new( "Hello", "World!", BUFSIZ );
-            printf( "1: %s.\n", con_1 );
-            CC_FREE( con_1 );
+            printf( TESTS_MOVE_TEST_SEPARATOR );
 
-            char * con_2 = cc_str_concatenate_new( "Hello", "World!", BUFSIZ );
-            printf( "2: %s.\n", con_2 );
-            CC_FREE( con_2 );
+            CcGame * game__a = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+            if ( !game__a ) return false;
 
-            char * con_3 = cc_str_concatenate_new( "Hello", "World!", 7 );
-            printf( "3: %s.\n", con_3 );
-            CC_FREE( con_3 );
+            CcChessboard * cb = game__a->chessboard;
 
-            char * dup_4 = cc_str_duplicate_new( "Hello World!", false, BUFSIZ );
-            printf( "4: %s.\n", dup_4 );
-            CC_FREE( dup_4 );
+            cc_chessboard_set_piece( cb, 7, 9, CC_PE_LightBishop ); // 1
+            cc_chessboard_set_piece( cb, 11, 5, CC_PE_LightBishop ); // 2
+            cc_chessboard_set_piece( cb, 15, 7, CC_PE_DarkBishop ); // 3
 
-            char * dup_5 = cc_str_duplicate_new( "Hello World!", false, 9 );
-            printf( "5: %s.\n", dup_5 );
-            CC_FREE( dup_5 );
+            cc_chessboard_set_piece( cb, 3, 7, CC_PE_LightRook );
+            cc_chessboard_set_piece( cb, 19, 3, CC_PE_DarkKnight );
 
-            char * con_6 = cc_str_concatenate_new( NULL, "Hello World!", CC_MAX_LEN_IGNORE );
-            printf( "6: %s.\n", con_6 );
-            CC_FREE( con_6 );
+            CcPosLink * pls__a = NULL;
+            CcPos dest = cc_pos( 4, 12 ); // Bishop 1 shadows 2, i.e. both have step == ( -1, 1 ).
 
-            char * dup_7 = cc_str_concatenate_new( "Hello World!", NULL, BUFSIZ );
-            printf( "7: %s.\n", dup_7 );
-            CC_FREE( dup_7 );
+            for ( int i = 0; i < 2; ++i )
+            {
+                if ( cc_rule_steps_find_unique_path( game__a, CC_PLE_Ply, CC_PE_LightBishop, (bool)i,
+                                                    CC_INVALID_OFF_BOARD_COORD_MIN,
+                                                    CC_INVALID_OFF_BOARD_COORD_MIN,
+                                                    dest,
+                                                    &pls__a ) )
+                {
+                    printf( "Found: %d, %d --> %d, %d.\n", pls__a->pos.i, pls__a->pos.j, dest.i, dest.j );
+                    cc_pos_link_free_all( &pls__a );
+                }
+                else
+                {
+                    printf( "Not found: %d, %d.\n", dest.i, dest.j );
+                }
 
-            char * dup_8 = cc_str_concatenate_new( NULL, "Hello World!", 9 );
-            printf( "8: %s.\n", dup_8 );
-            CC_FREE( dup_8 );
+                printf( TESTS_MOVE_NOTATION_SEPARATOR );
+            }
+
+            dest = cc_pos( 12, 4 ); // Bishops 2 and 3 qualifies.
+
+            for ( int i = 0; i < 2; ++i )
+            {
+                printf( TESTS_MOVE_NOTATION_SEPARATOR );
+
+                if ( cc_rule_steps_find_unique_path( game__a, CC_PLE_Ply, CC_PE_DarkBishop, (bool)i,
+                                                    CC_INVALID_OFF_BOARD_COORD_MIN,
+                                                    CC_INVALID_OFF_BOARD_COORD_MIN,
+                                                    dest,
+                                                    &pls__a ) )
+                {
+                    printf( "Found: %d, %d --> %d, %d.\n", pls__a->pos.i, pls__a->pos.j, dest.i, dest.j );
+                    cc_pos_link_free_all( &pls__a );
+                }
+                else
+                {
+                    printf( "Not found: %d, %d.\n", dest.i, dest.j );
+                }
+            }
+
+            cc_game_free_all( &game__a );
+
+            printf( TESTS_MOVE_TEST_SEPARATOR );
         }
         else if ( cc_str_is_equal( first__w, end__w, "z2", NULL, BUFSIZ ) )
         {
@@ -540,9 +569,6 @@ int main( void )
                 printf( "Pos: %d, %d (%p --> %p).\n", x->pos.i, x->pos.j, (void *)x, (void *)(x->next) );
                 x = x->next;
             }
-
-            if ( !cc_pos_link_free_all( &pl__a ) )
-                continue;
 
             cc_pos_link_free_all( &pl__a );
         }
@@ -563,9 +589,6 @@ int main( void )
                 printf( "Ply: %d, %d (%p --> %p).\n", x->link, x->piece, (void *)x, (void *)(x->next) );
                 x = x->next;
             }
-
-            if ( !cc_ply_free_all_plies( &ply__a ) )
-                continue;
 
             cc_ply_free_all_plies( &ply__a );
         }

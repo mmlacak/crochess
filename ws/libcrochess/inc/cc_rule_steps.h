@@ -10,14 +10,14 @@
 
 
 // DOCS
-bool cc_rule_steps_find_piece_start_pos( CcGame * restrict game,
-                                         CcPlyLinkEnum ple,
-                                         CcPieceEnum piece,
-                                         bool include_opposite,
-                                         int disamb_i__d,
-                                         int disamb_j__d,
-                                         CcPos dest,
-                                         CcPos * restrict start__o );
+bool cc_rule_steps_find_unique_path( CcGame * restrict game,
+                                     CcPlyLinkEnum ple,
+                                     CcPieceEnum piece,
+                                     bool include_opposite,
+                                     int disamb_i__d,
+                                     int disamb_j__d,
+                                     CcPos dest,
+                                     CcPosLink ** restrict path__o );
 
 
 // TODO :: REDESIGN
