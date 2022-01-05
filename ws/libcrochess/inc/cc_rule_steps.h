@@ -11,7 +11,8 @@
 
 // DOCS
 bool cc_rule_steps_find_unique_path( CcGame * restrict game,
-                                     CcPlyLinkEnum ple,
+                                     CcPieceEnum last_active,
+                                     CcPieceEnum teleport_in,
                                      CcPieceEnum piece,
                                      bool include_opposite,
                                      int disamb_i__d,
@@ -30,7 +31,8 @@ bool cc_rule_steps_is_ply_allowed( CcGame * restrict game,
 
 // DOCS
 bool cc_rule_steps_check_bishop( CcGame * restrict game,
-                                 CcPlyLinkEnum ple,
+                                 CcPieceEnum last_active,
+                                 CcPieceEnum teleport_in,
                                  CcPieceEnum piece,
                                  CcPos start,
                                  CcPos dest,
@@ -38,7 +40,8 @@ bool cc_rule_steps_check_bishop( CcGame * restrict game,
 
 // DOCS
 bool cc_rule_steps_check_movement( CcGame * restrict game,
-                                   CcPlyLinkEnum ple,
+                                   CcPieceEnum last_active,
+                                   CcPieceEnum teleport_in,
                                    CcPieceEnum piece,
                                    CcPos start,
                                    CcPos dest,

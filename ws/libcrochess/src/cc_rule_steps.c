@@ -12,7 +12,8 @@
 
 
 bool cc_rule_steps_find_unique_path( CcGame * restrict game,
-                                     CcPlyLinkEnum ple,
+                                     CcPieceEnum last_active,
+                                     CcPieceEnum teleport_in,
                                      CcPieceEnum piece,
                                      bool include_opposite,
                                      int disamb_i__d,
@@ -24,8 +25,6 @@ bool cc_rule_steps_find_unique_path( CcGame * restrict game,
     if ( !game->chessboard ) return false;
     if ( !path__o ) return false;
     if ( *path__o ) return false;
-
-// TODO :: teleporting
 
     CcChessboard * cb = game->chessboard;
 
@@ -42,13 +41,22 @@ bool cc_rule_steps_find_unique_path( CcGame * restrict game,
     {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, disamb_i__d, disamb_j__d );
 
-        if ( CC_PIECE_IS_THE_SAME( pe, piece ) )
+        if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
+             ( include_opposite && cc_piece_has_same_type( pe, piece ) ) )
         {
-            if (  cc_rule_steps_check_movement( game, ple, pe,
+            if ( CC_PIECE_IS_TELEPORTER( teleport_in ) ) return false;
+
+            if (  cc_rule_steps_check_movement( game, last_active, teleport_in, pe,
                                                 cc_pos( disamb_i__d, disamb_j__d ),
                                                 dest,
                                                 path__o ) )
                 return true;
+        }
+        else if ( CC_PIECE_IS_TELEPORTER( pe ) )
+        {
+            if ( !CC_PIECE_IS_TELEPORTER( teleport_in ) ) return false;
+
+// TODO :: teleporting
         }
 
         return false;
@@ -57,25 +65,41 @@ bool cc_rule_steps_find_unique_path( CcGame * restrict game,
     CcPos start = cc_pos_invalid();
     CcPosLink * pls__t = NULL;
 
+// TODO :: teleporting
     while ( cc_gen_steps_piece_pos_iter( cb, piece, include_opposite, &start ) )
+// TODO :: teleporting
     {
-
         if ( is_disamb_i && ( disamb_i__d != start.i ) ) continue;
         if ( is_disamb_j && ( disamb_j__d != start.j ) ) continue;
 
         CcPieceEnum pe = cc_chessboard_get_piece( cb, start.i, start.j );
 
-        if ( cc_rule_steps_check_movement( game, ple, pe, start, dest, &pls__t ) )
+        if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
+             ( include_opposite && cc_piece_has_same_type( pe, piece ) ) )
         {
-            if ( *path__o ) // Previous path found? --> Not unique!
-            {
-                cc_pos_link_free_all( &pls__t );
-                cc_pos_link_free_all( path__o );
-                return false;
-            }
+            if ( CC_PIECE_IS_TELEPORTER( teleport_in ) ) return false;
 
-            *path__o = pls__t;
-            pls__t = NULL;
+            if ( cc_rule_steps_check_movement( game, last_active, teleport_in, pe,
+                                               start,
+                                               dest,
+                                               &pls__t ) )
+            {
+                if ( *path__o ) // Previous path found? --> Not unique!
+                {
+                    cc_pos_link_free_all( &pls__t );
+                    cc_pos_link_free_all( path__o );
+                    return false;
+                }
+
+                *path__o = pls__t;
+                pls__t = NULL;
+            }
+        }
+        else if ( CC_PIECE_IS_TELEPORTER( pe ) )
+        {
+            if ( !CC_PIECE_IS_TELEPORTER( teleport_in ) ) return false;
+
+// TODO :: teleporting
         }
     }
 
@@ -142,7 +166,8 @@ bool cc_rule_steps_is_ply_allowed( CcGame * restrict game,
 // TODO :: REDESIGN
 
 bool cc_rule_steps_check_bishop( CcGame * restrict game,
-                                 CcPlyLinkEnum ple,
+                                 CcPieceEnum last_active,
+                                 CcPieceEnum teleport_in,
                                  CcPieceEnum piece,
                                  CcPos start,
                                  CcPos dest,
@@ -196,7 +221,8 @@ bool cc_rule_steps_check_bishop( CcGame * restrict game,
 }
 
 bool cc_rule_steps_check_movement( CcGame * restrict game,
-                                   CcPlyLinkEnum ple,
+                                   CcPieceEnum last_active,
+                                   CcPieceEnum teleport_in,
                                    CcPieceEnum piece,
                                    CcPos start,
                                    CcPos dest,
@@ -207,7 +233,7 @@ bool cc_rule_steps_check_movement( CcGame * restrict game,
     // if ( *pls__o ) return false;
 
     if ( CC_PIECE_IS_BISHOP( piece ) )
-        return cc_rule_steps_check_bishop( game, ple, piece, start, dest, pls__o );
+        return cc_rule_steps_check_bishop( game, last_active, teleport_in, piece, start, dest, pls__o );
     else
         return false;
 }

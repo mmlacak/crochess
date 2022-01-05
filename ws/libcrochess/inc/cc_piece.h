@@ -188,6 +188,17 @@
                                     && ( (pe) != CC_PE_BrightStar )   \
                                     && ( (pe) != CC_PE_Monolith ) )
 
+/**
+    Macro expression to evaluate whether piece can teleport other pieces.
+
+    @param pe Piece enum.
+
+    @return `true` if piece is teleport_in, `false` otherwise.
+*/
+#define CC_PIECE_IS_TELEPORTER(pe) ( ( (pe) == CC_PE_DimStar )      \
+                                  || ( (pe) == CC_PE_BrightStar )   \
+                                  || ( (pe) == CC_PE_Monolith ) )
+
 
 /**
     Enumerates all pieces, used in all variants.

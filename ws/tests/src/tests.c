@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.203:402+20220105.045221"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.204:403+20220105.084950"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -505,16 +505,18 @@ int main( void )
             cc_chessboard_set_piece( cb, 3, 7, CC_PE_LightRook );
             cc_chessboard_set_piece( cb, 19, 3, CC_PE_DarkKnight );
 
+            CcPieceEnum last_active = CC_PE_None;
+            CcPieceEnum teleport_in = CC_PE_None;
             CcPosLink * pls__a = NULL;
             CcPos dest = cc_pos( 4, 12 ); // Bishop 1 shadows 2, i.e. both have step == ( -1, 1 ).
 
             for ( int i = 0; i < 2; ++i )
             {
-                if ( cc_rule_steps_find_unique_path( game__a, CC_PLE_Ply, CC_PE_LightBishop, (bool)i,
-                                                    CC_INVALID_OFF_BOARD_COORD_MIN,
-                                                    CC_INVALID_OFF_BOARD_COORD_MIN,
-                                                    dest,
-                                                    &pls__a ) )
+                if ( cc_rule_steps_find_unique_path( game__a, last_active, teleport_in, CC_PE_LightBishop, (bool)i,
+                                                     CC_INVALID_OFF_BOARD_COORD_MIN,
+                                                     CC_INVALID_OFF_BOARD_COORD_MIN,
+                                                     dest,
+                                                     &pls__a ) )
                 {
                     printf( "Found: %d, %d --> %d, %d.\n", pls__a->pos.i, pls__a->pos.j, dest.i, dest.j );
                     cc_pos_link_free_all( &pls__a );
@@ -533,11 +535,11 @@ int main( void )
             {
                 printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
-                if ( cc_rule_steps_find_unique_path( game__a, CC_PLE_Ply, CC_PE_DarkBishop, (bool)i,
-                                                    CC_INVALID_OFF_BOARD_COORD_MIN,
-                                                    CC_INVALID_OFF_BOARD_COORD_MIN,
-                                                    dest,
-                                                    &pls__a ) )
+                if ( cc_rule_steps_find_unique_path( game__a, last_active, teleport_in, CC_PE_DarkBishop, (bool)i,
+                                                     CC_INVALID_OFF_BOARD_COORD_MIN,
+                                                     CC_INVALID_OFF_BOARD_COORD_MIN,
+                                                     dest,
+                                                     &pls__a ) )
                 {
                     printf( "Found: %d, %d --> %d, %d.\n", pls__a->pos.i, pls__a->pos.j, dest.i, dest.j );
                     cc_pos_link_free_all( &pls__a );
@@ -809,6 +811,8 @@ int main( void )
             cc_chessboard_set_piece( cb, 3, 7, CC_PE_LightRook );
             cc_chessboard_set_piece( cb, 19, 3, CC_PE_DarkKnight );
 
+            CcPieceEnum last_active = CC_PE_None;
+            CcPieceEnum teleport_in = CC_PE_None;
             CcPos pos = cc_pos_invalid();
             CcPos dest = cc_pos( 4, 12 ); // Bishop 1 shadows 2, i.e. both have step == ( -1, 1 ).
 
@@ -817,7 +821,7 @@ int main( void )
                 CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
                 CcPosLink * pl__a = NULL;
 
-                if ( cc_rule_steps_check_movement( game__a, CC_PLE_Ply, pe, pos, dest, &pl__a ) )
+                if ( cc_rule_steps_check_movement( game__a, last_active, teleport_in, pe, pos, dest, &pl__a ) )
                     printf( "Found: %d, %d --> %d, %d.\n", pos.i, pos.j, dest.i, dest.j );
                 else
                     printf( "Found: %d, %d.\n", pos.i, pos.j );
@@ -834,7 +838,7 @@ int main( void )
                 CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
                 CcPosLink * pl__a = NULL;
 
-                if ( cc_rule_steps_check_movement( game__a, CC_PLE_Ply, pe, pos, dest, &pl__a ) )
+                if ( cc_rule_steps_check_movement( game__a, last_active, teleport_in, pe, pos, dest, &pl__a ) )
                     printf( "Found: %d, %d --> %d, %d.\n", pos.i, pos.j, dest.i, dest.j );
                 else
                     printf( "Found: %d, %d.\n", pos.i, pos.j );

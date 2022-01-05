@@ -33,12 +33,14 @@ bool cc_gen_steps_piece_pos_iter( CcChessboard * restrict cb,
         {
             CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
 
-            if ( ( pe == piece ) ||
+// TODO :: teleporting
+            if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
                  ( include_opposite && cc_piece_is_opposite( pe, piece ) ) )
             {
                 *pos__io = cc_pos( i, j );
                 return true;
             }
+// TODO :: teleporting
         }
 
         pos.j = 0;
