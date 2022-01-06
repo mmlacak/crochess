@@ -141,3 +141,41 @@ for details.
 * and many, many others
 
 Thank you all!
+
+## Playlist
+
+Certainly not an OST, but a collection of songs for your listening pleasure while reading [the book](crochess.pdf):
+
+<!-- * [Main theme](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=1&zoom=page-fit): [Christopher Tin - Sogno di Volare ("The Dream of Flight") (Civilization VI Main Theme)](https://www.youtube.com/watch?v=WQYN2P3E06s) -->
+<!-- * [Introduction](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=9&zoom=page-fit): [A. Marcello - Oboe Concerto in d minor (Marcel Ponseele, baroque oboe / Il Gardellino)](https://www.youtube.com/watch?v=vE2O_yfgtBU) -->
+<!-- * [Prerequisites](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=11&zoom=page-fit): [Albinoni - Oboe Concerto #2 in D Minor Op. 9](https://www.youtube.com/watch?v=LjgndGuy77o) -->
+<!-- * [Classical Chess](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=13&zoom=page-fit): [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=Y1yvzngMqu4) -->
+<!-- * [Croatian Ties](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=15&zoom=page-fit): [Ride of the Valkyries (by Wagner)](https://www.youtube.com/watch?v=UCO8DQ9ocos) -->
+<!-- * [Mayan Ascendancy](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=23&zoom=page-fit): [Carl Orff - O Fortuna ~ Carmina Burana](https://www.youtube.com/watch?v=GXFSK0ogeg4) -->
+<!-- * [Age of Aquarius](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=47&zoom=page-fit): [Vivaldi - Four Seasons (Winter)](https://www.youtube.com/watch?v=nGdFHJXciAQ) -->
+<!-- * [Miranda’s veil](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=63&zoom=page-fit): [Vangelis - La petite fille de la mer](https://www.youtube.com/watch?v=UdPOCQGYwrk) -->
+<!-- * [Nineteen](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=95&zoom=page-fit): [Jean-Michel Jarre - Equinoxe, Pt. 4](https://www.youtube.com/watch?v=W18VtbMEbZ0) -->
+<!-- * [Hemera’s Dawn](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=117&zoom=page-fit): [Jean-Michel Jarre - Magnetic Fields, Pt. 1](https://www.youtube.com/watch?v=_0tuo-nbuHs) -->
+<!-- * [Tamoanchan Revisited](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=135&zoom=page-fit): [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994) -->
+<!-- * [Conquest of Tlalocan](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=157&zoom=page-fit): [The Ecstasy of Gold - Ennio Morricone ( The Good, the Bad and the Ugly )](https://www.youtube.com/watch?v=PYI09PMNazw) -->
+<!-- * [Discovery](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=199&zoom=page-fit): [György Ligeti: Lux Aeterna](https://www.youtube.com/watch?v=-iVYu5lyX5M) -->
+<!-- * [One](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=227&zoom=page-fit): [Vangelis - L'enfant](https://www.youtube.com/watch?v=VwLtjnNIS9M) -->
+<!-- * [Outro](https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf#page=352&zoom=page-fit): [Johann Sebastian Bach - Bouree In E Minor](https://www.youtube.com/watch?v=APNI2CC0k6A) -->
+
+<!-- Links to chapters in [the book](crochess.pdf) work in Firefox (and derivatives), but not in Chromium and its derivatives (of which most notable is Chrome). -->
+
+* Main theme: [Christopher Tin - Sogno di Volare ("The Dream of Flight") (Civilization VI Main Theme)](https://www.youtube.com/watch?v=WQYN2P3E06s)
+* Introduction: [A. Marcello - Oboe Concerto in d minor (Marcel Ponseele, baroque oboe / Il Gardellino)](https://www.youtube.com/watch?v=vE2O_yfgtBU)
+* Prerequisites: [Albinoni - Oboe Concerto #2 in D Minor Op. 9](https://www.youtube.com/watch?v=LjgndGuy77o)
+* Classical Chess: [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=Y1yvzngMqu4)
+* Croatian Ties: [Ride of the Valkyries (by Wagner)](https://www.youtube.com/watch?v=UCO8DQ9ocos)
+* Mayan Ascendancy: [Carl Orff - O Fortuna ~ Carmina Burana](https://www.youtube.com/watch?v=GXFSK0ogeg4)
+* Age of Aquarius: [Vivaldi - Four Seasons (Winter)](https://www.youtube.com/watch?v=nGdFHJXciAQ)
+* Miranda’s veil: [Vangelis - La petite fille de la mer](https://www.youtube.com/watch?v=UdPOCQGYwrk)
+* Nineteen: [Jean-Michel Jarre - Equinoxe, Pt. 4](https://www.youtube.com/watch?v=W18VtbMEbZ0)
+* Hemera’s Dawn: [Jean-Michel Jarre - Magnetic Fields, Pt. 1](https://www.youtube.com/watch?v=_0tuo-nbuHs)
+* Tamoanchan Revisited: [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994)
+* Conquest of Tlalocan: [The Ecstasy of Gold - Ennio Morricone ( The Good, the Bad and the Ugly )](https://www.youtube.com/watch?v=PYI09PMNazw)
+* Discovery: [György Ligeti: Lux Aeterna](https://www.youtube.com/watch?v=-iVYu5lyX5M)
+* One: [Vangelis - L'enfant](https://www.youtube.com/watch?v=VwLtjnNIS9M)
+* Outro: [Johann Sebastian Bach - Bouree In E Minor](https://www.youtube.com/watch?v=APNI2CC0k6A)
