@@ -146,7 +146,7 @@ Thank you all!
 
 A collection of songs for your listening pleasure while reading [the book](crochess.pdf):
 
-* Main theme: [Christopher Tin - Sogno di Volare ("The Dream of Flight") (Civilization VI Main Theme)](https://www.youtube.com/watch?v=WQYN2P3E06s)
+* Main theme: [Christopher Tin - Sogno di Volare ("The Dream of Flight")](https://www.youtube.com/watch?v=WQYN2P3E06s)
 * Introduction: [A. Marcello - Oboe Concerto in d minor (Marcel Ponseele, baroque oboe / Il Gardellino)](https://www.youtube.com/watch?v=vE2O_yfgtBU)
 * Prerequisites: [Albinoni - Oboe Concerto #2 in D Minor Op. 9](https://www.youtube.com/watch?v=LjgndGuy77o)
 * Classical Chess: [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=Y1yvzngMqu4)
@@ -154,10 +154,24 @@ A collection of songs for your listening pleasure while reading [the book](croch
 * Mayan Ascendancy: [Carl Orff - O Fortuna ~ Carmina Burana](https://www.youtube.com/watch?v=GXFSK0ogeg4)
 * Age of Aquarius: [Vivaldi - Four Seasons (Winter)](https://www.youtube.com/watch?v=nGdFHJXciAQ)
 * Miranda’s veil: [Vangelis - La petite fille de la mer](https://www.youtube.com/watch?v=UdPOCQGYwrk)
-* Nineteen: [Jean-Michel Jarre - Equinoxe, Pt. 4](https://www.youtube.com/watch?v=W18VtbMEbZ0)
-* Hemera’s Dawn: [Jean-Michel Jarre - Magnetic Fields, Pt. 1](https://www.youtube.com/watch?v=_0tuo-nbuHs)
-* Tamoanchan Revisited: [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994)
-* Conquest of Tlalocan: [The Ecstasy of Gold - Ennio Morricone ( The Good, the Bad and the Ugly )](https://www.youtube.com/watch?v=PYI09PMNazw)
-* Discovery: [György Ligeti: Lux Aeterna](https://www.youtube.com/watch?v=-iVYu5lyX5M)
+* Nineteen: [L'Achéron - Muy Linda, Anthony Holborne](https://www.youtube.com/watch?v=-3wgZZ9qu34)
+* Hemera’s Dawn: [Tiësto - Elements Of Life (Live In Copenhagen)](https://www.youtube.com/watch?v=r0lvZuZeEMw)
+* Tamoanchan Revisited: [The Atlantics - Adventures In Paradise](https://www.youtube.com/watch?v=J9c8acZnfnQ)
+* Conquest of Tlalocan: [The Ecstasy of Gold - Ennio Morricone (The Good, the Bad and the Ugly)](https://www.youtube.com/watch?v=PYI09PMNazw)
+* Discovery: [The Doors - Break On Through (To The Other Side)](https://www.youtube.com/watch?v=-r679Hhs9Zs)
 * One: [Vangelis - L'enfant](https://www.youtube.com/watch?v=VwLtjnNIS9M)
 * Outro: [Johann Sebastian Bach - Bouree In E Minor](https://www.youtube.com/watch?v=APNI2CC0k6A)
+
+Outtakes:
+
+* [Chamber Concerto in D Minor, RV 96: I. Allegro](https://www.youtube.com/watch?v=sQOegZhWJmI) [1]
+* [La bourrée d'Avignon - Philidor (Ens. Le Banquet du Roy)](https://www.youtube.com/watch?v=GrtryY5xZjM)
+* [Mozart Lacrimosa](https://www.youtube.com/watch?v=t6Hz6oscEPc)
+* [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994)
+* [The Tornados ~ Telstar (1962)](https://www.youtube.com/watch?v=ryrEPzsx1gQ)
+
+[1] Unfortunately, complete concerto (which also works on Linux) is not available anymore.
+
+<!-- * [deadmau5 - Arguru 2k19](https://www.youtube.com/watch?v=gtLQ3PKN1Qw) -->
+<!-- * [DJ Tiesto - Adagio For Strings](https://www.youtube.com/watch?v=8tIgN7eICn4) -->
+<!-- * [The Shadows - Atlantis](https://www.youtube.com/watch?v=EJnXfT1v7gI) -->
