@@ -164,14 +164,10 @@ A collection of songs for your listening pleasure while reading [the book](croch
 
 Outtakes:
 
-* [Chamber Concerto in D Minor, RV 96: I. Allegro](https://www.youtube.com/watch?v=sQOegZhWJmI) [1]
+* [Vivaldi - Chamber Concerto in D Minor, RV 96: I. Allegro](https://www.youtube.com/watch?v=sQOegZhWJmI) [1]
 * [La bourrée d'Avignon - Philidor (Ens. Le Banquet du Roy)](https://www.youtube.com/watch?v=GrtryY5xZjM)
 * [Mozart Lacrimosa](https://www.youtube.com/watch?v=t6Hz6oscEPc)
 * [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994)
-* [The Tornados ~ Telstar (1962)](https://www.youtube.com/watch?v=ryrEPzsx1gQ)
+* [The Tornados - Telstar](https://www.youtube.com/watch?v=SQdDjy1UtW4)
 
 [1] Unfortunately, complete concerto (which also works on Linux) is not available anymore.
-
-<!-- * [deadmau5 - Arguru 2k19](https://www.youtube.com/watch?v=gtLQ3PKN1Qw) -->
-<!-- * [DJ Tiesto - Adagio For Strings](https://www.youtube.com/watch?v=8tIgN7eICn4) -->
-<!-- * [The Shadows - Atlantis](https://www.youtube.com/watch?v=EJnXfT1v7gI) -->
