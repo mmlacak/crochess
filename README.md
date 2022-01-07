@@ -152,7 +152,7 @@ A collection of songs for your listening pleasure while reading [the book](croch
 * Classical Chess: [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=Y1yvzngMqu4)
 * Croatian Ties: [Ride of the Valkyries (by Wagner)](https://www.youtube.com/watch?v=UCO8DQ9ocos)
 * Mayan Ascendancy: [Carl Orff - O Fortuna ~ Carmina Burana](https://www.youtube.com/watch?v=GXFSK0ogeg4)
-* Age of Aquarius: [Vivaldi - Four Seasons (Winter)](https://www.youtube.com/watch?v=nGdFHJXciAQ)
+* Age of Aquarius: [Handel: Music for the Royal Fireworks: Suite HWV 351 - IV. La Réjouissance](https://www.youtube.com/watch?v=KMslsg-NWWU)
 * Miranda’s veil: [Vangelis - La petite fille de la mer](https://www.youtube.com/watch?v=UdPOCQGYwrk)
 * Nineteen: [L'Achéron - Muy Linda, Anthony Holborne](https://www.youtube.com/watch?v=-3wgZZ9qu34)
 * Hemera’s Dawn: [Tiësto - Elements Of Life (Live In Copenhagen)](https://www.youtube.com/watch?v=r0lvZuZeEMw)
