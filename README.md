@@ -152,7 +152,7 @@ A collection of songs for your listening pleasure while reading [the book](croch
 * Classical Chess: [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=Y1yvzngMqu4)
 * Croatian Ties: [Ride of the Valkyries (by Wagner)](https://www.youtube.com/watch?v=UCO8DQ9ocos)
 * Mayan Ascendancy: [Carl Orff - O Fortuna ~ Carmina Burana](https://www.youtube.com/watch?v=GXFSK0ogeg4)
-* Age of Aquarius: [Handel: Music for the Royal Fireworks: Suite HWV 351 - IV. La Réjouissance](https://www.youtube.com/watch?v=KMslsg-NWWU)
+* Age of Aquarius: [Handel - La Réjouissance](https://www.youtube.com/watch?v=KMslsg-NWWU)
 * Miranda’s veil: [Vangelis - La petite fille de la mer](https://www.youtube.com/watch?v=UdPOCQGYwrk)
 * Nineteen: [L'Achéron - Muy Linda, Anthony Holborne](https://www.youtube.com/watch?v=-3wgZZ9qu34)
 * Hemera’s Dawn: [Tiësto - Elements Of Life (Live In Copenhagen)](https://www.youtube.com/watch?v=r0lvZuZeEMw)
@@ -160,7 +160,7 @@ A collection of songs for your listening pleasure while reading [the book](croch
 * Conquest of Tlalocan: [The Ecstasy of Gold - Ennio Morricone (The Good, the Bad and the Ugly)](https://www.youtube.com/watch?v=PYI09PMNazw)
 * Discovery: [The Doors - Break On Through (To The Other Side)](https://www.youtube.com/watch?v=-r679Hhs9Zs)
 * One: [Vangelis - L'enfant](https://www.youtube.com/watch?v=VwLtjnNIS9M)
-* Outro: [Johann Sebastian Bach - Bouree In E Minor](https://www.youtube.com/watch?v=APNI2CC0k6A)
+* Outro: [Chris Christodoulou - Coalescence | Risk of Rain (2013)](https://www.youtube.com/watch?v=ysPtBjY8o_A)
 
 Outtakes:
 
@@ -169,5 +169,7 @@ Outtakes:
 * [Mozart Lacrimosa](https://www.youtube.com/watch?v=t6Hz6oscEPc)
 * [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994)
 * [The Tornados - Telstar](https://www.youtube.com/watch?v=SQdDjy1UtW4)
+* [Johann Sebastian Bach - Bouree In E Minor](https://www.youtube.com/watch?v=APNI2CC0k6A)
+* [Andreas Waldetoft - To The Ends of the Galaxy](https://www.youtube.com/watch?v=FuELLd3Ec4U)
 
 [1] Unfortunately, complete concerto (which also works on Linux) is not available anymore.
