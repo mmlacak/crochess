@@ -147,9 +147,7 @@ Thank you all!
 A collection of songs for your listening pleasure while reading [the book](crochess.pdf):
 
 * Main theme: [Christopher Tin - Sogno di Volare ("The Dream of Flight")](https://www.youtube.com/watch?v=WQYN2P3E06s)
-* Introduction:
-  1. [A. Marcello - Oboe Concerto in d minor (Marcel Ponseele, baroque oboe / Il Gardellino)](https://www.youtube.com/watch?v=vE2O_yfgtBU)
-  2. [Albinoni - Oboe Concerto #2 in D Minor Op. 9](https://www.youtube.com/watch?v=LjgndGuy77o)
+* Introduction: [A. Marcello - Oboe Concerto in d minor (Marcel Ponseele, baroque oboe / Il Gardellino)](https://www.youtube.com/watch?v=vE2O_yfgtBU)
 * Prerequisites: [Johann Sebastian Bach - Bouree In E Minor](https://www.youtube.com/watch?v=APNI2CC0k6A)
 * Classical Chess: [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=Y1yvzngMqu4)
 * Croatian Ties: [Ride of the Valkyries (by Wagner)](https://www.youtube.com/watch?v=UCO8DQ9ocos)
@@ -166,11 +164,12 @@ A collection of songs for your listening pleasure while reading [the book](croch
 
 Outtakes:
 
-* [Vivaldi - Chamber Concerto in D Minor, RV 96: I. Allegro](https://www.youtube.com/watch?v=sQOegZhWJmI) [^1]
-* [La bourrée d'Avignon - Philidor (Ens. Le Banquet du Roy)](https://www.youtube.com/watch?v=GrtryY5xZjM)
+* [Vivaldi - Chamber Concerto in D Minor, RV 96: I. Allegro](https://www.youtube.com/watch?v=sQOegZhWJmI) [^rv96]
+* [Albinoni - Oboe Concerto #2 in D Minor Op. 9](https://www.youtube.com/watch?v=LjgndGuy77o)
 * [Mozart Lacrimosa](https://www.youtube.com/watch?v=t6Hz6oscEPc)
 * [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994)
 * [The Tornados - Telstar](https://www.youtube.com/watch?v=SQdDjy1UtW4)
+* [La bourrée d'Avignon - Philidor (Ens. Le Banquet du Roy)](https://www.youtube.com/watch?v=GrtryY5xZjM)
 * [Andreas Waldetoft - To The Ends of the Galaxy](https://www.youtube.com/watch?v=FuELLd3Ec4U)
 
-[^1]: Unfortunately, complete concerto (which also works on Linux) is not available anymore.
+[^rv96]: Unfortunately, complete concerto (which also works on Linux) is not available anymore.
