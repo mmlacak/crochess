@@ -20,6 +20,12 @@ bool cc_rule_steps_find_unique_path( CcGame * restrict game,
                                      CcPos dest,
                                      CcPosLink ** restrict path__o );
 
+// DOCS
+bool cc_rule_steps_check_teleportation( CcPieceEnum teleport_in,
+                                        CcPos start,
+                                        CcPieceEnum piece,
+                                        CcPos dest,
+                                        CcPieceEnum teleport_out );
 
 // TODO :: REDESIGN
 bool cc_rule_steps_is_ply_allowed( CcGame * restrict game,

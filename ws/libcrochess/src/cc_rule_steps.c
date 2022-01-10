@@ -40,6 +40,7 @@ bool cc_rule_steps_find_unique_path( CcGame * restrict game,
     if ( is_disamb_i && is_disamb_j )
     {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, disamb_i__d, disamb_j__d );
+        CcPos start = cc_pos( disamb_i__d, disamb_j__d );
 
         if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
              ( include_opposite && cc_piece_has_same_type( pe, piece ) ) )
@@ -47,14 +48,29 @@ bool cc_rule_steps_find_unique_path( CcGame * restrict game,
             if ( CC_PIECE_IS_TELEPORTER( teleport_in ) ) return false;
 
             if (  cc_rule_steps_check_movement( game, last_active, teleport_in, pe,
-                                                cc_pos( disamb_i__d, disamb_j__d ),
+                                                start,
                                                 dest,
                                                 path__o ) )
                 return true;
         }
         else if ( CC_PIECE_IS_TELEPORTER( pe ) )
         {
+            // pe == teleporter_out
             if ( !CC_PIECE_IS_TELEPORTER( teleport_in ) ) return false;
+
+            if ( cc_rule_steps_check_teleportation( teleport_in, start, piece, dest, pe ) )
+            {
+                if ( CC_PIECE_IS_WAVE( piece ) )
+                {
+                    if (  cc_rule_steps_check_movement( game, last_active, teleport_in, piece,
+                                                        start,
+                                                        dest,
+                                                        path__o ) )
+                        return true;
+                }
+                else
+                    return true;
+            }
 
 // TODO :: teleporting
         }
@@ -106,6 +122,39 @@ bool cc_rule_steps_find_unique_path( CcGame * restrict game,
     return (bool)( *path__o );
 }
 
+bool cc_rule_steps_check_teleportation( CcPieceEnum teleport_in,
+                                        CcPos start,
+                                        CcPieceEnum piece,
+                                        CcPos dest,
+                                        CcPieceEnum teleport_out )
+{
+    if ( !CC_PIECE_IS_TELEPORTABLE( piece ) ) return false;
+    if ( !CC_PIECE_IS_TELEPORTER( teleport_in ) ) return false;
+    if ( !CC_PIECE_IS_TELEPORTER( teleport_out ) ) return false;
+
+    if ( CC_PIECE_IS_WAVE( piece ) )
+        if ( CC_PIECE_IS_THE_SAME( teleport_in, teleport_out ) )
+            return true; // Movement is checked normally.
+    else
+    {
+        if ( ( teleport_in == CC_PE_DimStar ) &&
+             ( teleport_out == CC_PE_DimStar ) )
+                return false;
+
+        if ( ( teleport_in == CC_PE_BrightStar ) &&
+             ( teleport_out == CC_PE_BrightStar ) )
+                return false;
+
+        // Teleporting into Monolith does not limit
+        // from which teleporter piece can emerge.
+
+        CcPos offset = cc_pos_subtract( dest, start );
+        if ( CC_GEN_POS_QUEEN_STEP_IS_VALID( offset ) )
+            return true; // Normal movement of a piece should not be checked.
+    }
+
+    return false;
+}
 
 // TODO :: REDESIGN
 bool cc_rule_steps_is_ply_allowed( CcGame * restrict game,

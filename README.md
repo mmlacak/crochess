@@ -22,7 +22,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under *Source* section. \
 The most recent book version is:
 
-Version: 20220110.062512 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
+Version: 20220110.072940 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
@@ -30,8 +30,8 @@ converted to UTC for easier comparison.
 **Application** and **library versions** can be seen in an application, using `version` command. \
 The latest versions are:
 
-Application: 0.0.2.204:403+20220105.084950 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
-Library: 0.0.2.204:403+20220105.084950 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
+Application: 0.0.2.205:404+20220110.072940 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
+Library: 0.0.2.205:404+20220110.072940 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
 
 Versioning used is [Natural Versioning 1.2](https://croatian-chess.blogspot.com/p/natver.html),
 with meta data containing the same format as the book version.
