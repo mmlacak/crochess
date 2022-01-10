@@ -777,7 +777,7 @@ to tell apart, but otherwise does not contribute any new information.
 \textbf{Id} & \textbf{Symbol}      & \textbf{Status}                \\
 \midrule
 1           & \alg{+}              & check                          \\
-2           & \alg{\#}             & checkmate                      \\ \cmidrule{1-3}
+2           & \alg{\#}             & checkmate, resign              \\ \cmidrule{1-3}
 3           & \alg{\_}             & annotations separator          \\
 4           & \alg{...}            & placeholder for a move         \\
 5           & \alg{(=)}            & draw offer                     \\
@@ -791,12 +791,20 @@ While check and checkmate status are not mandatory because of lack of informatio
 they do convey information, and intent to a player. Later variants are somewhat more
 complex than traditional chess, so it's easier to overlook some consequences of a
 single, cascading move (which may also move opponent's pieces), combined with e.g.
-wild movement of Centaur, weird movement of Serpent and Shaman.
+wild movement of Centaur, weird movement of Serpent and Shaman. To avoid any possible
+confusion, check and checkmate status are mandatory in \algfmt{NAN}.
 
-It's possible during a cascade to have checked (or even checkmated!) opponent's King,
-status applies only if check (or checkmate) holds after move of a player has been
-finished. To avoid any possible confusion, check and checkmate status are mandatory
-in \algfmt{NAN}.
+Only last piece participating in a cascade can check or checkmate opponent's King,
+because all pieces prior transfer any remaining momentum to next piece in a cascade.
+
+It's possible that on the very next move,
+\hyperref[fig:scn_mv_34_activated_piece_checking]{after cascade is finished}, and
+after all moved pieces have restored access to all of their step- and capture-fields,
+to have opponent's King checked, checkmated. If opponent's King is checkmated on
+opponent's turn, only checkmated status is noted, like so:
+
+\noindent
+\algmov{91.}{...}{\#}{Checkmated on own turn.}
 
 \clearpage % ..........................................................
 
@@ -1421,6 +1429,7 @@ are available for a particular variant see
 | <pawn-promoting-move><status>
 | <compatibility-capture>
 | <compatibility-castling>
+| \alg{#}
 \end{alltt}
 
 % \clearpage % ..........................................................
