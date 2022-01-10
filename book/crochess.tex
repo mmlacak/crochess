@@ -52,7 +52,10 @@
 
 % \newcommand{\algpar}[1]{\begin{alltt}#1\end{alltt}} % Works, but not verbatim --> useless!
 \newcommand{\algpar}[1]{\noindent\algfmt{#1}}
-\newcommand{\algmov}[5][1em]{\hspace{#1}\algfmt{#2}\hspace{1em}\alg{#3}\hspace{1em}\alg{#4}\hspace{1em}\emph{\small{#5}}\\}
+
+\newcommand{\algcycpar}{\noindent}
+\newcommand{\algcyc}[5][0em]{\hspace{#1}\algfmt{#2}\hspace{1em}\alg{#3}\hspace{1em}\alg{#4}\hspace{1em}\emph{\small{#5}}\\}
+\newcommand{\algcycparend}{\vspace{-1.0\baselineskip}}
 
 % \usepackage{microtype}
 % \DisableLigatures{encoding = *, family = *}
@@ -141,7 +144,7 @@
 
     \emph{Source} \\
     \href{https://github.com/mmlacak/crochess}{https://github.com/mmlacak/crochess} \\
-    Version: 20220110.053516 \\ [2.0em] % book-new-commit-version-squished-utc-date-time-place-marker
+    Version: 20220110.062512 \\ [2.0em] % book-new-commit-version-squished-utc-date-time-place-marker
 
     \emph{Legal} \\
     This book is published as Public Domain work. \\

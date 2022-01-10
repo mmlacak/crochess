@@ -576,6 +576,25 @@ checkmates are noted with \alg{\#} (hashtag), these are mandatory in \algfmt{NAN
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
 \#Notation\_for\_a\_series\_of\_moves}.
 
+Only last piece participating in a cascade can check or checkmate opponent's King,
+because all pieces prior transfer any remaining momentum to next piece in a cascade.
+
+It's possible that on the very next move,
+\hyperref[fig:scn_mv_34_activated_piece_checking]{after cascade is finished}, and
+after all moved pieces have restored access to all of their step- and capture-fields,
+to have opponent's King checked, checkmated. If King is checked on its own player's
+turn, checked status is written in front of regular move notation, like so:
+
+\algcycpar
+\algcyc{91.}{...}{+Nb3}{Checked on own turn.}
+\algcycparend
+
+If King is checkmated on its own player's turn, only checkmated status is written, like so:
+
+\algcycpar
+\algcyc{92.}{...}{\#}{Checkmated on own turn.}
+\algcycparend
+
 Annotations are written at the end of a complete move, e.g. \alg{ef8*!}. It is recommended to use \alg{\_} (underscore)
 to separate \algfmt{AN} and annotations, like so \alg{ef8*\_!}. Usage of \alg{\_} is mandatory when annotation can be
 confused for a regular chess \algfmt{AN}.
@@ -793,18 +812,6 @@ complex than traditional chess, so it's easier to overlook some consequences of 
 single, cascading move (which may also move opponent's pieces), combined with e.g.
 wild movement of Centaur, weird movement of Serpent and Shaman. To avoid any possible
 confusion, check and checkmate status are mandatory in \algfmt{NAN}.
-
-Only last piece participating in a cascade can check or checkmate opponent's King,
-because all pieces prior transfer any remaining momentum to next piece in a cascade.
-
-It's possible that on the very next move,
-\hyperref[fig:scn_mv_34_activated_piece_checking]{after cascade is finished}, and
-after all moved pieces have restored access to all of their step- and capture-fields,
-to have opponent's King checked, checkmated. If opponent's King is checkmated on
-opponent's turn, only checkmated status is noted, like so:
-
-\noindent
-\algmov{91.}{...}{\#}{Checkmated on own turn.}
 
 \clearpage % ..........................................................
 
@@ -1423,7 +1430,7 @@ are available for a particular variant see
   \alg{M}<stepping>[<demoting-side-effects>]
 
 <move> =
-  <move-new><status>
+  [\alg{+}]<move-new><status>
 | <move-monolith><status>
 | <king-castling-move><status>
 | <pawn-promoting-move><status>
