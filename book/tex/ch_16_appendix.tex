@@ -29,23 +29,23 @@ this might also be interpreted as disambiguation.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlll }
+\begin{tabular}{ lll }
 \toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Description}                       \\
+\textbf{Symbol}      & \textbf{Description}                      \\
 \midrule
-1           & \algfmt{AN}          & algebraic notation, in general             \\ \cmidrule{1-3}
-2           & \algfmt{CAN}         & classic \algfmt{AN}, as described by FIDE  \\
-            &                      & handbook and Wikipedia, can be             \\
-            &                      & long, short or minimal                     \\
-3           & \algfmt{LAN}         & classic \algfmt{AN}, long form             \\
-4           & \algfmt{SAN}         & classic \algfmt{AN}, short form            \\
-5           & \algfmt{MAN}         & classic \algfmt{AN}, minimal form          \\ \cmidrule{1-3}
-6           & \algfmt{NAN}         & new, extended \algfmt{AN},                 \\
-            &                      & can be long or short                       \\
-7           & \algfmt{EAN}         & new, extended \algfmt{AN}, short form      \\
-8           & \algfmt{XAN}         & new, extended \algfmt{AN}, long form       \\ \cmidrule{1-3}
-9           & \algfmt{FIDE}        & FIDE handbook                              \\
-10          & \algfmt{FIDE point}  & point in FIDE handbook                     \\
+\algfmt{AN}          & algebraic notation, in general            \\ \cmidrule{1-2}
+\algfmt{CAN}         & classic \algfmt{AN}, as described by FIE  \\
+                     & handbook and Wikipedia, can be            \\
+                     & long, short or minimal                    \\
+\algfmt{LAN}         & classic \algfmt{AN}, long form            \\
+\algfmt{SAN}         & classic \algfmt{AN}, short form           \\
+\algfmt{MAN}         & classic \algfmt{AN}, minimal form         \\ \cmidrule{1-2}
+\algfmt{NAN}         & new, extended \algfmt{AN},                \\
+                     & can be long or short                      \\
+\algfmt{EAN}         & new, extended \algfmt{AN}, short form     \\
+\algfmt{XAN}         & new, extended \algfmt{AN}, long form      \\ \cmidrule{1-2}
+\algfmt{FIDE}        & FIDE handbook                             \\
+\algfmt{FIDE point}  & point in FIDE handbook                    \\
 \bottomrule
 \end{tabular}
 \caption{Abbreviations}
@@ -70,26 +70,26 @@ e.g. \algfmt{FIDE~C.9.3}.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rll }
+\begin{tabular}{ ll }
 \toprule
-\textbf{Id} & \textbf{Variant} & \textbf{Contains}                  \\
+\textbf{Variant} & \textbf{Contains}           \\
 \midrule
-\multirow{6}{*}{1} & \multirow{6}{*}{Classical chess} & Pawn        \\
-                   &                                  & Knight      \\
-                   &                                  & Bishop      \\
-                   &                                  & Rook        \\
-                   &                                  & Queen       \\
-                   &                                  & King        \\ \cmidrule{1-3}
-                 2 & Croatian Ties                    & Pegasus     \\
-                 3 & Mayan Ascendancy                 & Pyramid     \\
-                 4 & Age of Aquarius                  & Unicorn     \\
-                 5 & Miranda's Veil                   & Wave        \\
-                 6 & Nineteen                         & Star        \\
-                 7 & Hemera's Dawn                    & Centaur     \\
-                 8 & Tamoanchan Revisited             & Serpent     \\
-                 9 & Conquest of Tlalocan             & Shaman      \\
-                10 & Discovery                        & Monolith    \\
-                11 & One                              & Starchild   \\
+\multirow{6}{*}{Classical chess} & Pawn        \\
+                                 & Knight      \\
+                                 & Bishop      \\
+                                 & Rook        \\
+                                 & Queen       \\
+                                 & King        \\ \cmidrule{1-2}
+Croatian Ties                    & Pegasus     \\
+Mayan Ascendancy                 & Pyramid     \\
+Age of Aquarius                  & Unicorn     \\
+Miranda's Veil                   & Wave        \\
+Nineteen                         & Star        \\
+Hemera's Dawn                    & Centaur     \\
+Tamoanchan Revisited             & Serpent     \\
+Conquest of Tlalocan             & Shaman      \\
+Discovery                        & Monolith    \\
+One                              & Starchild   \\
 \bottomrule
 \end{tabular}
 \caption{Variants}
@@ -107,22 +107,22 @@ beside Unicorn also contains Pyramid and Pegasus, on top of all classical pieces
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlrrcrr }
+\begin{tabular}{ lrrcrr }
 \toprule
-\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Files} } & ~ & \multicolumn{2}{c}{ \textbf{Ranks} }   \\ \cmidrule{3-4} \cmidrule{6-7}
-            &                       & \emph{min} & \emph{max}              &   & \emph{min} & \emph{max/size}           \\
+\textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Files} } & ~ & \multicolumn{2}{c}{ \textbf{Ranks} }   \\ \cmidrule{2-3} \cmidrule{5-6}
+                      & \emph{min} & \emph{max}              &   & \emph{min} & \emph{max/size}           \\
 \midrule
-          1 & Classical chess       & a          & h                       &   & 1          &  8                        \\ % \cmidrule{1-6}
-          2 & Croatian Ties         & a          & j                       &   & 1          & 10                        \\
-          3 & Mayan Ascendancy      & a          & l                       &   & 1          & 12                        \\
-          4 & Age of Aquarius       & a          & n                       &   & 1          & 14                        \\
-          5 & Miranda's Veil        & a          & p                       &   & 1          & 16                        \\
-          6 & Nineteen              & a          & r                       &   & 1          & 18                        \\
-          7 & Hemera's Dawn         & a          & t                       &   & 1          & 20                        \\
-          8 & Tamoanchan Revisited  & a          & v                       &   & 1          & 22                        \\
-          9 & Conquest of Tlalocan  & a          & x                       &   & 1          & 24                        \\
-         10 & Discovery             & a          & x                       &   & 1          & 24                        \\
-         11 & One                   & a          & z                       &   & 1          & 26                        \\
+Classical chess       & a          & h                       &   & 1          &  8                        \\ % \cmidrule{1-6}
+Croatian Ties         & a          & j                       &   & 1          & 10                        \\
+Mayan Ascendancy      & a          & l                       &   & 1          & 12                        \\
+Age of Aquarius       & a          & n                       &   & 1          & 14                        \\
+Miranda's Veil        & a          & p                       &   & 1          & 16                        \\
+Nineteen              & a          & r                       &   & 1          & 18                        \\
+Hemera's Dawn         & a          & t                       &   & 1          & 20                        \\
+Tamoanchan Revisited  & a          & v                       &   & 1          & 22                        \\
+Conquest of Tlalocan  & a          & x                       &   & 1          & 24                        \\
+Discovery             & a          & x                       &   & 1          & 24                        \\
+One                   & a          & z                       &   & 1          & 26                        \\
 \bottomrule
 \end{tabular}
 \caption{Chessboards}
@@ -144,26 +144,26 @@ maximum rank of 20, so board size for that variant is \mbox{20 $\times$ 20}.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlll }
+\begin{tabular}{ lll }
 \toprule
-\textbf{Id} & \textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in}           \\
+\textbf{Piece} & \textbf{Symbol} & \textbf{Introduced in}           \\
 \midrule
-1           & Pawn           & P               & \multirow{6}{*}{Classical chess} \\
-2           & Knight         & N               &                                  \\
-3           & Bishop         & B               &                                  \\
-4           & Rook           & R               &                                  \\
-5           & Queen          & Q               &                                  \\
-6           & King           & K               &                                  \\ \cmidrule{1-4}
-7           & Pegasus        & G               & Croatian Ties                    \\
-8           & Pyramid        & A               & Mayan Ascendancy                 \\
-9           & Unicorn        & U               & Age of Aquarius                  \\
-10          & Wave           & W               & Miranda's Veil                   \\
-11          & Star           & T               & Nineteen                         \\
-12          & Centaur        & C               & Hemera's Dawn                    \\
-13          & Serpent        & S               & Tamoanchan Revisited             \\
-14          & Shaman         & H               & Conquest of Tlalocan             \\
-15          & Monolith       & M               & Discovery                        \\
-16          & Starchild      & I               & One                              \\
+Pawn           & P               & \multirow{6}{*}{Classical chess} \\
+Knight         & N               &                                  \\
+Bishop         & B               &                                  \\
+Rook           & R               &                                  \\
+Queen          & Q               &                                  \\
+King           & K               &                                  \\ \cmidrule{1-3}
+Pegasus        & G               & Croatian Ties                    \\
+Pyramid        & A               & Mayan Ascendancy                 \\
+Unicorn        & U               & Age of Aquarius                  \\
+Wave           & W               & Miranda's Veil                   \\
+Star           & T               & Nineteen                         \\
+Centaur        & C               & Hemera's Dawn                    \\
+Serpent        & S               & Tamoanchan Revisited             \\
+Shaman         & H               & Conquest of Tlalocan             \\
+Monolith       & M               & Discovery                        \\
+Starchild      & I               & One                              \\
 \bottomrule
 \end{tabular}
 \caption{Pieces}
@@ -531,9 +531,10 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 \addcontentsline{toc}{subsection}{Losing tags}
 \label{sec:Appendix/Notation/Losing tags}
 
-Losing tag is a side-effect of a tagged piece being moved, captured, etc. As such, losing
-tag can accompany most other side-effects. So, losing tag is denoted immediately after piece
-symbol, but before any positional, or movement notation, depending on what is available.
+Losing tag is a side-effect of a tagged piece being moved, captured, etc. As such, losing tag can
+\hyperref[tbl:Appendix/Summary/Accompanying-losing-tags]{accompany some other side-effects}.
+So, losing tag is denoted immediately after piece symbol, but before any positional, or movement
+notation, depending on what is available.
 
 Losing ability to castle is denoted with \alg{\&\&} (double ampersand).
 \hyperref[sec:Appendix/Notation/Castling]{Using previous examples}, if Rooks moved to their
@@ -617,22 +618,22 @@ Now that all symbols have been introduced, they're gathered here according to th
 \centering
 \begin{tabular}{ rllc }
 \toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Side-effect}           & \textbf{Necessary?}   \\
+\textbf{Symbol}      & \textbf{Side-effect}           & \textbf{Necessary?}   \\
 \midrule
-1           & \alg{*}              & capturing                      & -                     \\
-2           & \alg{<}              & trance-journey displacement    & +                     \\ \cmidrule{1-4}
-3           & \alg{==}             & lost promotion tag             & -                     \\
-4           & \alg{::}             & lost rushing tag               & -                     \\
-5           & \alg{\&\&}           & lost castling tag              & -                     \\ \cmidrule{1-4}
-6           & \alg{:}              & en passant                     & -                     \\
-7           & \alg{\&}             & castling                       & +                     \\
-8           & \alg{=}              & promotion                      & -                     \\
-9           & \alg{=}              & tag for promotion              & +                     \\
-10          & \alg{\%}             & conversion                     & +                     \\
-11          & \alg{\%\%}           & failed conversion, oblation    & +                     \\
-12          & \alg{>}              & syzygy, demoting to Pawn       & +                     \\
-13          & \alg{\$}             & syzygy, resurrection           & +                     \\
-14          & \alg{\$\$}           & failed resurrection            & -                     \\
+\alg{*}              & capturing                      & -                     \\
+\alg{<}              & trance-journey displacement    & +                     \\ \cmidrule{1-3}
+\alg{==}             & lost promotion tag             & -                     \\
+\alg{::}             & lost rushing tag               & -                     \\
+\alg{\&\&}           & lost castling tag              & -                     \\ \cmidrule{1-3}
+\alg{:}              & en passant                     & -                     \\
+\alg{\&}             & castling                       & +                     \\
+\alg{=}              & promotion                      & -                     \\
+\alg{=}              & tag for promotion              & +                     \\
+\alg{\%}             & conversion                     & +                     \\
+\alg{\%\%}           & failed conversion, oblation    & +                     \\
+\alg{>}              & syzygy, demoting to Pawn       & +                     \\
+\alg{\$}             & syzygy, resurrection           & +                     \\
+\alg{\$\$}           & failed resurrection            & -                     \\
 \bottomrule
 \end{tabular}
 \caption{Side-effects}
@@ -642,30 +643,6 @@ Now that all symbols have been introduced, they're gathered here according to th
 Every side-effect is result of a single step. Most side-effects can occur only on a last step of a ply,
 these are called ply side-effects. Capturing, displacement and losing (promotion, rushing, or castling)
 tags are both step and ply side-effects, others are purely ply side-effects.
-
-Losing tag is a side-effect which is caused by moving a piece (directly, or by activating it),
-or by action taken on a piece (e.g. demoting a piece, converting it, etc.). So, losing tag can be
-present in a piece movement alone, whether in the same ply, or the next one (if piece has been
-activated). If caused by own, or opponent's actions, losing tag is a follow-up to a causing
-side-effects, like capture, displacement, conversion, or demoting.
-
-Regardless where losing tag is present (in a movement, or as a side-effect), it's always written
-immediately after piece which just lost its tag. If piece is not written (e.g. Pawn has been moved),
-it's written just before destination field (if in a side-effect), or just before any movement notation,
-like individual steps (if in a movement).
-
-For example, in this \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{promotion tag example},
-movement of a light Pawn cause it to lose promotion tag, which would be written as \alg{==e12},
-more verbose as a \alg{P==e11.e12}, or in \algfmt{XAN} as a \alg{P==e11-e12}. If the same Pawn has
-been captured by dark Unicorn, it would be written as \alg{Ue11*P==}, more verbose notation would
-be \alg{Ud7.e11*P==}, or in \algfmt{XAN} it would be \alg{Ud7-e11*P==}. If the same example contained
-e.g. dark Bishop on a \alg{f12} which light Pawn could capture, that would be written as \alg{==f12*B},
-more verbosely as \alg{P==e11.f12*B}, or in \algfmt{XAN} it would be \alg{P==e11-f12*B}.
-
-Revisiting this \hyperref[fig:scn_mv_22_activating_rush_pawn_init]{activating Pawns example}, light Pawn
-on the left capturing dark Knight would be written as \alg{Re2\~{}Wc2\~{}P::b3*N}, more verbose notation
-would be \alg{[Re6..e2]\~{}[We2..c2]\~{}[P::c2.b3*N]}, and in \algfmt{XAN} it would be
-\alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
 
 Most of newly added side-effects are necessary to be, at least, indicated in a notation, to be able
 to reconstruct what has happened. For instance, tagging for promotion (\alg{=}) is one such a side-effect,
@@ -691,12 +668,69 @@ and \alg{\&\&}).
 
 It is recommended to also write optional side-effects and their data, for not much more effort reader
 is presented with much easier to understand notation. Compare minimalistic notation with slightly more
-verbose version: \\
-\alg{Re2\~{}Wc2\~{}Pb3*}, vs. \alg{Re2\~{}Wc2\~{}P::b3*N}, \\
+verbose version:
+
+\noindent
+\alg{Re2\~{}Wc2\~{}Pb3*} vs. \alg{Re2\~{}Wc2\~{}P::b3*N},
+
+\noindent
 \alg{Hb14\~{}We12@H..q16*..k14*..c18} vs. \\
-\alg{Hb14\~{}We12@H,w18..q16*P..k14*N..c18}, \\
-\alg{Hb14\~{}We12@@} vs. \alg{Hb14\~{}We12@@P,B,R,R,N,B,N}. % vs. \\
-% \alg{Hb14\~{}We12@@Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
+\alg{Hb14\~{}We12@H,w18..q16*P..k14*N..c18},
+
+\noindent
+\alg{Hb14\~{}We12@@} vs. \\
+\alg{Hb14\~{}We12@@P,B,R,R,N,B,N} vs. \\
+\alg{Hb14\~{}We12@@Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
+
+\subsection*{Accompanying losing tags}
+\addcontentsline{toc}{subsection}{Accompanying losing tags}
+\label{sec:Appendix/Summary/Accompanying-losing-tags}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ rlccc }
+\toprule
+\textbf{Symbol}                 & \textbf{Side-effect}           & \multicolumn{3}{c}{ \textbf{Accompanying losing tags} }              \\ \cmidrule{3-5}
+                                &                                & \emph{castling}      & \emph{promotion}      & \emph{rushing}        \\
+\midrule
+\alg{*}                         & capturing                      & +                    & +                     & +                     \\ \cmidrule{1-5}
+\multirow{2}{*}{\alg{<}}        & trance-journey                 & \multirow{2}{*}{+}   & \multirow{2}{*}{+}    & \multirow{2}{*}{+}    \\
+                                & displacement                   &                      &                       &                       \\ \cmidrule{1-5}
+\alg{:}                         & en passant                     & -                    & -                     & -                     \\
+\alg{\&}                        & castling                       & *                    & -                     & -                     \\
+\alg{=}                         & promotion                      & -                    & *                     & -                     \\
+\alg{=}                         & tag for promotion              & -                    & -                     & -                     \\
+\alg{\%}                        & conversion                     & -                    & +                     & -                     \\ \cmidrule{1-5}
+\multirow{2}{*}{\alg{\%\%}}     & failed conversion,             & \multirow{2}{*}{-}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
+                                & oblation                       &                      &                       &                       \\ \cmidrule{1-5}
+\multirow{2}{*}{\alg{>}}        & syzygy,                        & \multirow{2}{*}{+}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
+                                & demoting to Pawn               &                      &                       &                       \\ \cmidrule{1-5}
+\alg{\$}                        & syzygy, resurrection           & -                    & -                     & -                     \\
+\alg{\$\$}                      & failed resurrection            & -                    & -                     & -                     \\
+\bottomrule
+\end{tabular}
+\caption{Accompanying losing tags}
+\label{tbl:Appendix/Summary/Accompanying-losing-tags}
+\end{table}
+
+Table above lists most side-effects in rows. Some of those side-effects could also cause
+targeted piece to lose its promotion, rushing, or castling tag. Losing tags accompanying
+those side-effects are listed as columns. For instance, Rook still holding its castling
+tag can be captured, which is indicated by + (plus sign), under column \emph{castling},
+and row \emph{\alg{*} capturing}.
+
+Some combinations are not possible, which is noted by - (minus sign). For example, Pawn
+holding promotion tag cannot be captured by en passant move, as indicated by - at
+\emph{promotion} column and \emph{\alg{:} en passant} row. This is so because Pawn can get
+promotion tag only on opponent's side of chessboard, while it can be subjected to en passant
+only on own side of chessboard.
+
+Two combinations are actually using a tag, those are indicated by * (asterisk). Using a
+tag implicitly loses it, since no tag can be repeatedly applied (e.g. Pawn after promotion
+cannot be promoted again), so using a tag is not written as tag loss in \algfmt{AN}. For
+instance, a Rook having castling tag can castle, as found under \emph{castling} column,
+and \emph{\alg{\&} castling} row. Another instance is a Pawn holding promotion tag which
+it can use, found in \emph{promotion} column and \emph{\alg{=} promotion} row.
 
 \clearpage % ..........................................................
 
@@ -706,26 +740,26 @@ verbose version: \\
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlcc }
+\begin{tabular}{ lcc }
 \toprule
-\textbf{Id} & \textbf{Piece} & \textbf{Disposable?} & \textbf{Promoted-to?} \\
+\textbf{Piece} & \textbf{Disposable?} & \textbf{Promote-to?}  \\
 \midrule
-1           & Pawn           & +                    & -                     \\
-2           & Knight         & +                    & +                     \\
-3           & Bishop         & +                    & +                     \\
-4           & Rook           & +                    & +                     \\
-5           & Queen          & +                    & +                     \\
-6           & King           & -                    & -                     \\ \cmidrule{1-4}
-7           & Pegasus        & +                    & +                     \\
-8           & Pyramid        & +                    & +                     \\
-9           & Unicorn        & +                    & +                     \\
-10          & Wave           & +                    & +                     \\
-11          & Star           & -                    & -                     \\
-12          & Centaur        & +                    & +                     \\
-13          & Serpent        & +                    & +                     \\
-14          & Shaman         & +                    & +                     \\
-15          & Monolith       & -                    & -                     \\
-16          & Starchild      & +                    & +                     \\
+Pawn           & +                    & -                     \\
+Knight         & +                    & +                     \\
+Bishop         & +                    & +                     \\
+Rook           & +                    & +                     \\
+Queen          & +                    & +                     \\
+King           & -                    & -                     \\ \cmidrule{1-3}
+Pegasus        & +                    & +                     \\
+Pyramid        & +                    & +                     \\
+Unicorn        & +                    & +                     \\
+Wave           & +                    & +                     \\
+Star           & -                    & -                     \\
+Centaur        & +                    & +                     \\
+Serpent        & +                    & +                     \\
+Shaman         & +                    & +                     \\
+Monolith       & -                    & -                     \\
+Starchild      & +                    & +                     \\
 \bottomrule
 \end{tabular}
 \caption{Side-effects on pieces}
@@ -748,22 +782,22 @@ any non-disposable piece.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlll }
+\begin{tabular}{ ll }
 \toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Separates}                         \\
+\textbf{Symbol}      & \textbf{Separates}                         \\
 \midrule
- 1          & \alg{.}              & single steps                               \\
- 2          & \alg{..}             & multiple steps                             \\
- 3          & \alg{-}              & starting and destination field             \\ \cmidrule{1-3}
- 4          & \alg{\~{}}           & plies                                      \\
- 5          & \alg{|}              & teleportation                              \\
- 6          & \alg{||}             & failed teleportation, oblation             \\
- 7          & \alg{@}              & trance-journey                             \\
- 8          & \alg{@@}             & dual trance-journey, oblation              \\
- 9          & \alg{@@@}            & failed trance-journey, oblation            \\
-10          & \alg{:::}            & Pawn-sacrifice                             \\ \cmidrule{1-3}
-11          & \alg{,}              & items in a list                            \\
-12          & \alg{[]}             & ply gathering                              \\
+\alg{.}              & single steps                               \\
+\alg{..}             & multiple steps                             \\
+\alg{-}              & starting and destination field             \\ \cmidrule{1-2}
+\alg{\~{}}           & plies                                      \\
+\alg{|}              & teleportation                              \\
+\alg{||}             & failed teleportation, oblation             \\
+\alg{@}              & trance-journey                             \\
+\alg{@@}             & dual trance-journey, oblation              \\
+\alg{@@@}            & failed trance-journey, oblation            \\
+\alg{:::}            & Pawn-sacrifice                             \\ \cmidrule{1-2}
+\alg{,}              & items in a list                            \\
+\alg{[]}             & ply gathering                              \\
 \bottomrule
 \end{tabular}
 \caption{Path separators}
@@ -788,15 +822,15 @@ to tell apart, but otherwise does not contribute any new information.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlll }
+\begin{tabular}{ ll }
 \toprule
-\textbf{Id} & \textbf{Symbol}      & \textbf{Status}                \\
+\textbf{Symbol}      & \textbf{Status}                \\
 \midrule
-1           & \alg{+}              & check                          \\
-2           & \alg{\#}             & checkmate, resign              \\ \cmidrule{1-3}
-3           & \alg{\_}             & annotations separator          \\
-4           & \alg{...}            & placeholder for a move         \\
-5           & \alg{(=)}            & draw offer                     \\
+\alg{+}              & check                          \\
+\alg{\#}             & checkmate, resign              \\ \cmidrule{1-2}
+\alg{\_}             & annotations separator          \\
+\alg{...}            & placeholder for a move         \\
+\alg{(=)}            & draw offer                     \\
 \bottomrule
 \end{tabular}
 \caption{Move status}
@@ -818,33 +852,33 @@ confusion, check and checkmate status are mandatory in \algfmt{NAN}.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlrr }
+\begin{tabular}{ lrr }
 \toprule
-\textbf{Id} & \textbf{Variant}      & \textbf{No. of Pawn rows}     \\ \cmidrule{3-3}
-                          \multicolumn{3}{r}{ \textbf{Figure row} } \\
+\textbf{Variant}        & \textbf{No. of Pawn rows}     \\ \cmidrule{3-3}
+              \multicolumn{3}{r}{ \textbf{Figure row} } \\
 \midrule
-          1 & Classical chess       &                     1         \\
-                               \multicolumn{3}{r}{ \alg{RNBQKBNR} } \\ \cmidrule{1-3}
-          2 & Croatian Ties         &                     1         \\
-                             \multicolumn{3}{r}{ \alg{RGNBQKBNGR} } \\ \cmidrule{1-3}
-          3 & Mayan Ascendancy      &                     1         \\
-                           \multicolumn{3}{r}{ \alg{RGANBQKBNAGR} } \\ \cmidrule{1-3}
-          4 & Age of Aquarius       &                     1         \\
-                         \multicolumn{3}{r}{ \alg{RGAUNBQKBNUAGR} } \\ \cmidrule{1-3}
-          5 & Miranda's Veil        &                     1         \\
-                       \multicolumn{3}{r}{ \alg{RGAUWNBQKBNWUAGR} } \\ \cmidrule{1-3}
-          6 & Nineteen              &                     2         \\
-                     \multicolumn{3}{r}{ \alg{TRNBWGUAQKAUGWBNRt} } \\ \cmidrule{1-3}
-          7 & Hemera's Dawn         &                     2         \\
-                   \multicolumn{3}{r}{ \alg{TRNBCWGUAQKAUGWCBNRt} } \\ \cmidrule{1-3}
-          8 & Tamoanchan Revisited  &                     2         \\
-                 \multicolumn{3}{r}{ \alg{TRNBSWUGCAQKACGUWSBNRt} } \\ \cmidrule{1-3}
-          9 & Conquest of Tlalocan  &                     2         \\
-               \multicolumn{3}{r}{ \alg{TRNBSCUWGAHQKHAGWUCSBNRt} } \\ \cmidrule{1-3}
-         10 & Discovery             &                     2         \\
-               \multicolumn{3}{r}{ \alg{TRNBSCUWGAHQKHAGWUCSBNRt} } \\ \cmidrule{1-3}
-         11 & One                   &                     2         \\
-             \multicolumn{3}{r}{ \alg{TRNBSICUGWAHQKHAWGUCISBNRt} } \\
+Classical chess         &                     1         \\
+                   \multicolumn{3}{r}{ \alg{RNBQKBNR} } \\ \cmidrule{1-3}
+Croatian Ties           &                     1         \\
+                 \multicolumn{3}{r}{ \alg{RGNBQKBNGR} } \\ \cmidrule{1-3}
+Mayan Ascendancy        &                     1         \\
+               \multicolumn{3}{r}{ \alg{RGANBQKBNAGR} } \\ \cmidrule{1-3}
+Age of Aquarius         &                     1         \\
+             \multicolumn{3}{r}{ \alg{RGAUNBQKBNUAGR} } \\ \cmidrule{1-3}
+Miranda's Veil          &                     1         \\
+           \multicolumn{3}{r}{ \alg{RGAUWNBQKBNWUAGR} } \\ \cmidrule{1-3}
+Nineteen                &                     2         \\
+         \multicolumn{3}{r}{ \alg{TRNBWGUAQKAUGWBNRt} } \\ \cmidrule{1-3}
+Hemera's Dawn           &                     2         \\
+       \multicolumn{3}{r}{ \alg{TRNBCWGUAQKAUGWCBNRt} } \\ \cmidrule{1-3}
+Tamoanchan Revisited    &                     2         \\
+     \multicolumn{3}{r}{ \alg{TRNBSWUGCAQKACGUWSBNRt} } \\ \cmidrule{1-3}
+Conquest of Tlalocan    &                     2         \\
+   \multicolumn{3}{r}{ \alg{TRNBSCUWGAHQKHAGWUCSBNRt} } \\ \cmidrule{1-3}
+Discovery               &                     2         \\
+   \multicolumn{3}{r}{ \alg{TRNBSCUWGAHQKHAGWUCSBNRt} } \\ \cmidrule{1-3}
+One                     &                     2         \\
+ \multicolumn{3}{r}{ \alg{TRNBSICUGWAHQKHAWGUCISBNRt} } \\
 \bottomrule
 \end{tabular}
 \caption{Initial setups of light figures}
@@ -870,16 +904,16 @@ last (and 3rd to last, in later variants).
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlrr }
+\begin{tabular}{ lrr }
 \toprule
-\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Light scout Pawn files} } \\ \cmidrule{3-4}
-            &                       & \emph{row 4}       & \emph{row 5}                     \\
+\textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Light scout Pawn files} } \\ \cmidrule{2-3}
+                      & \emph{row 4}       & \emph{row 5}                     \\
 \midrule
-          1 & Hemera's Dawn         & \alg{cgnr}         & \alg{dfoq}                       \\
-          2 & Tamoanchan Revisited  & \alg{gklp}         & \alg{hjmo}                       \\
-          3 & Conquest of Tlalocan  & \alg{dhilmpqu}     & \alg{egjlmort}                   \\
-          4 & Discovery             & \alg{dhilmpqu}     & \alg{egjlmort}                   \\
-          5 & One                   & \alg{eijmnqrv}     & \alg{fhkmnpsu}                   \\
+Hemera's Dawn         & \alg{cgnr}         & \alg{dfoq}                       \\
+Tamoanchan Revisited  & \alg{gklp}         & \alg{hjmo}                       \\
+Conquest of Tlalocan  & \alg{dhilmpqu}     & \alg{egjlmort}                   \\
+Discovery             & \alg{dhilmpqu}     & \alg{egjlmort}                   \\
+One                   & \alg{eijmnqrv}     & \alg{fhkmnpsu}                   \\
 \bottomrule
 \end{tabular}
 \caption{Light scout Pawn files}
@@ -904,13 +938,13 @@ now means dark Pawns are located at \alg{c17}, \alg{g17}, \alg{n17} and \alg{r17
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlrr }
+\begin{tabular}{ lrr }
 \toprule
-\textbf{Id} & \textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Side} }   \\ \cmidrule{3-4}
-            &                       & \emph{light}  & \emph{dark}           \\
+\textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Side} }   \\ \cmidrule{2-3}
+                      & \emph{light}  & \emph{dark}           \\
 \midrule
-          1 & Discovery             &     \alg{b7}  &    \alg{w18}          \\
-          2 & One                   &     \alg{b8}  &    \alg{y19}          \\
+Discovery             &     \alg{b7}  &    \alg{w18}          \\
+One                   &     \alg{b8}  &    \alg{y19}          \\
 \bottomrule
 \end{tabular}
 \caption{Monolith initial positions}
@@ -928,14 +962,14 @@ chessboard, the other on dark side.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlrr }
+\begin{tabular}{ lrr }
 \toprule
-\textbf{Id} & \textbf{Variant}      & \textbf{Serpent}  & \textbf{Monolith}         \\
+\textbf{Variant}      & \textbf{Serpent}  & \textbf{Monolith}         \\
 \midrule
-          1 & Tamoanchan Revisited  &                 8 &                       --- \\
-          2 & Conquest of Tlalocan  &                 8 &                       --- \\
-          3 & Discovery             &                 8 &                         3 \\
-          4 & One                   &                 9 &                         3 \\
+Tamoanchan Revisited  &                 8 &                       --- \\
+Conquest of Tlalocan  &                 8 &                       --- \\
+Discovery             &                 8 &                         3 \\
+One                   &                 9 &                         3 \\
 \bottomrule
 \end{tabular}
 \caption{Movement limits}
@@ -954,28 +988,28 @@ variants, since it has only been introduced in Discovery variant.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rll }
+\begin{tabular}{ ll }
 \toprule
-\textbf{Id} & \textbf{Activated by} & \textbf{Moves like}                       \\
+\textbf{Activated by} & \textbf{Moves like}                       \\
 \midrule
- 1          & Pawn                  & Pawn, single direction,                   \\
-            &                       & multiple steps                            \\
- 2          & Knight                & Pegasus                                   \\
- 3          & Bishop                & Bishop                                    \\
- 4          & Rook                  & Rook                                      \\
- 5          & Queen                 & Queen                                     \\
- 6          & King                  & Queen                                     \\ \cmidrule{1-3}
- 7          & Pegasus               & Pegasus                                   \\
- 8          & Pyramid               & Rook                                      \\
- 9          & Unicorn               & Centaur, unrestricted step choices        \\
-10          & Wave                  & activating Wave                           \\
-11          & Star                  & ---                                       \\
-12          & Centaur               & Centaur                                   \\
-13          & Serpent               & Serpent, 2 alternating directions,        \\
-            &                       & multiple steps                            \\
-14          & Shaman                & Shaman                                    \\
-15          & Monolith              & ---                                       \\
-16          & Starchild             & Starchild                                 \\
+Pawn                  & Pawn, single direction,                   \\
+                      & multiple steps                            \\
+Knight                & Pegasus                                   \\
+Bishop                & Bishop                                    \\
+Rook                  & Rook                                      \\
+Queen                 & Queen                                     \\
+King                  & Queen                                     \\ \cmidrule{1-2}
+Pegasus               & Pegasus                                   \\
+Pyramid               & Rook                                      \\
+Unicorn               & Centaur, unrestricted step choices        \\
+Wave                  & activating Wave                           \\
+Star                  & ---                                       \\
+Centaur               & Centaur                                   \\
+Serpent               & Serpent, 2 alternating directions,        \\
+                      & multiple steps                            \\
+Shaman                & Shaman                                    \\
+Monolith              & ---                                       \\
+Starchild             & Starchild                                 \\
 \bottomrule
 \end{tabular}
 \caption{Movement of Wave}
@@ -1023,21 +1057,21 @@ all of received momentum to activated piece.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ rlll }
+\begin{tabular}{ lll }
 \toprule
-\textbf{Id} & \textbf{Entity}      & \textbf{Meaning}                           \\
+\textbf{Entity}      & \textbf{Meaning}                           \\
 \midrule
- 1          & \algfmt{< >}         & named entity, to be substituted            \\
- 2          & \algfmt{|}           & choice between 2 values, can be chained    \\
- 3          & \algfmt{[ ]}         & optional item(s), zero or one time         \\
- 4          & \algfmt{( )}         & optional item(s), zero or more times       \\
- 5          & \algfmt{\{ \}}       & optional item(s), one or more times        \\
- 6          & \algfmt{..}          & choice from range of values                \\
- 7          & \algfmt{\#number}    & numbered reference                         \\
- 8          & \algfmt{?}           & empty value                                \\
- 9          & \alg{\_}             & space                                      \\
-10          & \alg{value}          & verbatim \algfmt{AN} value                 \\
-11          & \algcty{value}       & compatibility value, for \algfmt{CAN}      \\
+\algfmt{< >}         & named entity, to be substituted            \\
+\algfmt{|}           & choice between 2 values, can be chained    \\
+\algfmt{[ ]}         & optional item(s), zero or one time         \\
+\algfmt{( )}         & optional item(s), zero or more times       \\
+\algfmt{\{ \}}       & optional item(s), one or more times        \\
+\algfmt{..}          & choice from range of values                \\
+\algfmt{\#number}    & numbered reference                         \\
+\algfmt{?}           & empty value                                \\
+\alg{\_}             & space                                      \\
+\alg{value}          & verbatim \algfmt{AN} value                 \\
+\algcty{value}       & compatibility value, for \algfmt{CAN}      \\
 \bottomrule
 \end{tabular}
 \caption{Grammar}
