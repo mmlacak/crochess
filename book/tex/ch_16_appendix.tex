@@ -226,20 +226,13 @@ if captured piece is also written \alg{e8*W}.
 
 \subsection*{Castling}
 \addcontentsline{toc}{subsection}{Castling}
-\label{sec:Appendix/Notation/Castlingn}
+\label{sec:Appendix/Notation/Castling}
 
 Castling is noted with \alg{\&} (ampersand), after King's symbol and destination file. This
 \hyperref[fig:age_of_aquarius_castling_left_04]{castling example} would be written as \alg{Kd\&},
 and this \hyperref[fig:one_castling_right_04]{castling example} as \alg{Kr\&}. File at which
 castling Rook ended can be written after \alg{\&}, the same examples would now be written as
 \alg{Kd\&e} and \alg{Kr\&q}.
-
-Losing ability to castle is denoted with \alg{\&\&} (double ampersand) just after piece, just
-before destination field, or just before movement notation (e.g. individual steps). Using previous
-examples, if Rooks moved to their destination fields without castling, it would be written as
-\alg{R\&\&e1}, and \alg{R\&\&q1}, and in \algfmt{XAN} it would be \alg{R\&\&a1-e1}, and
-\alg{R\&\&y1-q1}. If Rook in the first example was captured by opponent's Bishop, it would
-be written as \alg{Ba1*R\&\&}.
 
 Only for Classical Chess \algcty{0-0} and \algcty{O-O} for King's side, \algcty{0-0-0} and
 \algcty{O-O-O} for Queen's side are accepted as castling notation.
@@ -253,21 +246,8 @@ Pawn promotion is also written the same way as in \algfmt{CAN}, as described in 
 \#Pawn\_promotion}, with Pawn's destination field + piece to which it was promoted to,
 like so: \alg{e8Q}. Inserting \alg{=} (equal sign) between field and promoted-to piece
 is also supported, e.g. \alg{e8=Q}.
-
-If \hyperref[fig:scn_aoa_05_delayed_promo_pawn_2_moved]{promotion is being delayed}, usage of
-\alg{=} is mandatory, as there is no immediate piece to promote to, e.g. \alg{l14=}.
-If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
-before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
-sign) just after piece, just before destination field, or just before movement notation
-(e.g. individual steps), like so \alg{==e12}. In \algfmt{XAN} the same move would be noted
-as \alg{P==e11-e12}.
-
-If the same example contained e.g. dark Bishop at \alg{f12}, Pawn tagged for promotion could
-capture it, which would be written as \alg{==f12*B}, and in \algfmt{XAN} as \alg{P==e11-f12*B}.
-
-If, in the same situation, light Pawn instead of moving was captured by dark Unicorn on a
-field where it was tagged for promotion, it would be written as \alg{Ue11*P==}, and in
-\algfmt{XAN} it would be \alg{Ud7-e11*P==}.
+If \hyperref[fig:scn_aoa_05_delayed_promo_pawn_2_moved]{promotion is being delayed}, usage
+of \alg{=} is mandatory, as there is no immediate piece to promote to, e.g. \alg{l14=}.
 
 \subsection*{Ply}
 \addcontentsline{toc}{subsection}{Ply}
@@ -299,16 +279,6 @@ starting file before destination field. If previous example had additional dark 
 
 In \algfmt{CAN}, both en passant and its disambiguation form are written as \algcty{ixh3 e.p.},
 where \algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
-
-Losing ability to rush is denoted with \alg{::} (double colon) just after piece, just before
-destination field, or just before movement notation (e.g. individual steps). For instance, in this
-\hyperref[fig:scn_n_03_teleport_move_2]{teleporting example}, after dark Rook's failed teleportation,
-light Bishop could capture dark Pawn on its initial position, which would be denoted as \alg{Br17*P::},
-and in \algfmt{XAN} it would be \alg{Bq18-r17*P::}.
-
-In this \hyperref[fig:scn_mv_22_activating_rush_pawn_init]{activating Pawns example}, light Pawn on
-the left is being activated, and can capture dark Knight. This would be written as
-\alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be \alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
 
 \subsection*{Conversion}
 \addcontentsline{toc}{subsection}{Conversion}
@@ -561,10 +531,37 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 \addcontentsline{toc}{subsection}{Losing tags}
 \label{sec:Appendix/Notation/Losing tags}
 
-\huge{}
-TODO
-\normalsize{}
-delete descriptions from notations, move descriptions from summary here
+Losing tag is a side-effect of a tagged piece being moved, captured, etc. As such, losing
+tag can accompany most other side-effects. So, losing tag is denoted immediately after piece
+symbol, but before any positional, or movement notation, depending on what is available.
+
+Losing ability to castle is denoted with \alg{\&\&} (double ampersand).
+\hyperref[sec:Appendix/Notation/Castling]{Using previous examples}, if Rooks moved to their
+destination fields without castling, it would be written as \alg{R\&\&e1}, and \alg{R\&\&q1},
+and in \algfmt{XAN} it would be \alg{R\&\&a1-e1}, and \alg{R\&\&y1-q1}. If Rook in the first
+example was captured by opponent's Bishop on neighboring-field, it would be written as
+\alg{Ba1*R\&\&}, or as \alg{Bb2-a1*R\&\&} in \algfmt{XAN}.
+
+If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
+before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
+sign), like so \alg{==e12}. In \algfmt{XAN} the same move would be noted as \alg{P==e11-e12}.
+
+If the same example contained e.g. dark Bishop at \alg{f12}, Pawn tagged for promotion could
+capture it, which would be written as \alg{==f12*B}, and in \algfmt{XAN} as \alg{P==e11-f12*B}.
+
+If, in the same situation, light Pawn instead of moving was captured by dark Unicorn on a
+field where it was tagged for promotion, it would be written as \alg{Ue11*P==}, and in
+\algfmt{XAN} it would be \alg{Ud7-e11*P==}.
+
+Losing ability to rush is denoted with \alg{::} (double colon). For instance, in this
+\hyperref[fig:scn_n_03_teleport_move_2]{teleporting example}, after dark Rook's failed
+teleportation, light Bishop could capture dark Pawn on its initial position, which would
+be denoted as \alg{Br17*P::}, and in \algfmt{XAN} it would be \alg{Bq18-r17*P::}.
+
+In this \hyperref[fig:scn_mv_22_activating_rush_pawn_init]{activating Pawns example}, light
+Pawn on the left is being activated, and can capture dark Knight. This would be written as
+\alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
+\alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
 
 \subsection*{Move symbols, annotations}
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
