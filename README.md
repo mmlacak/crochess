@@ -162,6 +162,8 @@ A collection of songs for your listening pleasure while reading [the book](croch
 * One: [Vangelis - L'enfant](https://www.youtube.com/watch?v=VwLtjnNIS9M)
 * Outro: [Chris Christodoulou - Coalescence | Risk of Rain (2013)](https://www.youtube.com/watch?v=ysPtBjY8o_A)
 
+YouTube playlist featuring all listed songs: [Croatian chess soundtrack](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPpCuR2Om646OVN1e3-xSiGj).
+
 Outtakes:
 
 * [Vivaldi - Chamber Concerto in D Minor, RV 96: I. Allegro](https://www.youtube.com/watch?v=sQOegZhWJmI) [^rv96]
@@ -171,5 +173,7 @@ Outtakes:
 * [The Tornados - Telstar](https://www.youtube.com/watch?v=SQdDjy1UtW4)
 * [La bourrée d'Avignon - Philidor (Ens. Le Banquet du Roy)](https://www.youtube.com/watch?v=GrtryY5xZjM)
 * [Andreas Waldetoft - To The Ends of the Galaxy](https://www.youtube.com/watch?v=FuELLd3Ec4U)
+
+YouTube playlist featuring all listed songs + outtakes: [Croatian chess soundtrack + outtakes](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPqG2NZhkRy0CO68jH7MDXdg).
 
 [^rv96]: Unfortunately, complete concerto (which also works on Linux) is not available anymore.
