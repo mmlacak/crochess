@@ -85,8 +85,9 @@ although there are also read-only borrows (e.g. `char const * cc_variant_label()
 Parameters
 ----------
 
-Pointers as function parameters are usually input, read-only borrows, as indicated by their type,
-`const` pointer to `const` type, e.g. `char const * const restrict str`.
+Pointers as function parameters are usually input, read-only borrows. Strings (i.e. `char *`) have
+their underlying type `const`-ed (i.e. `char const *`), most other types do not have `const`.
+For instance, `char const * restrict str`, `CcMove * restrict moves`.
 
 ### _Static_ parameters
 
@@ -129,6 +130,15 @@ Ownership transfer indicator (one of `__n`, `__f`, `__r`, `__a`) tells what will
 pointer (i.e. to `*arg` if `arg` is passed into `Foo **` type parameter), if main line is executed;
 that is to say, if all parameters were valid, and all sanity checks passed.
 
+### Weak parameters
+
+Weak parameters are indicated by appending `__w` to their name, e.g. `ply_start__w`. They are the same as
+input, read-only boorows, only they are stored in some structure, as opposed to just being used within
+called function. For example, `char const * restrict ply_start__w`.
+
+Since lifetime of a data pointed to by weak pointer depends on external owner, it's best to be used within
+hierarhical structure, where weak pointers from children points to their parents.
+
 Summary
 -------
 
@@ -166,6 +176,7 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 |     `__o` |              output |             write |
 |    `__io` |      input + output |      read + write |
 |     `__d` | input, discretional |              read |
+|     `__w` |         input, weak |              read |
 
 ### Ownership transfer parameters
 
