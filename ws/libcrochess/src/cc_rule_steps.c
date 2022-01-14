@@ -133,8 +133,10 @@ bool cc_rule_steps_check_teleportation( CcPieceEnum teleport_in,
     if ( !CC_PIECE_IS_TELEPORTER( teleport_out ) ) return false;
 
     if ( CC_PIECE_IS_WAVE( piece ) )
+    {
         if ( CC_PIECE_IS_THE_SAME( teleport_in, teleport_out ) )
             return true; // Movement is checked normally.
+    }
     else
     {
         if ( ( teleport_in == CC_PE_DimStar ) &&
