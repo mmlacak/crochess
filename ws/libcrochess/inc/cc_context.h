@@ -10,38 +10,43 @@
 #include "cc_game.h"
 
 
-typedef struct CcPlyContext
+typedef struct CcContextPly
 {
     CcChessboard chessboard;
     char const * ply_start__w;
     char const * ply_end__w;
-    struct CcPlyContext * next;
-} CcPlyContext;
+    struct CcContextPly * next;
+} CcContextPly;
 
 
-CcPlyContext * cc_ply_context_new( char const * restrict ply_start__w,
+CcContextPly * cc_context_ply_new( char const * restrict ply_start__w,
                                    char const * restrict ply_end__w );
 
-CcPlyContext * cc_ply_context_append( CcPlyContext * restrict ply_context__io,
+CcContextPly * cc_context_ply_append( CcContextPly * restrict context_ply__io,
                                       char const * restrict ply_start__w,
                                       char const * restrict ply_end__w );
 
-CcPlyContext * cc_ply_context_append_or_init( CcPlyContext ** restrict ply_context__io,
+CcContextPly * cc_context_ply_append_or_init( CcContextPly ** restrict context_ply__io,
                                               char const * restrict ply_start__w,
                                               char const * restrict ply_end__w );
 
-bool cc_ply_context_free_all( CcPlyContext ** restrict ply_context__f );
+bool cc_context_ply_free_all( CcContextPly ** restrict context_ply__f );
 
 
 typedef struct CcContext
 {
-    CcGame game;
+    CcGame * game__w;
     char * user_move_an;
     char * converted_an;
     char const * move_an__w;
-    CcPlyContext * ply_context;
+    CcContextPly * context_ply;
 } CcContext;
 
+
+CcContext * cc_context_new( CcGame * restrict game__w,
+                            char const * restrict user_move_an );
+
+bool cc_context_free_all( CcContext ** restrict context__f );
 
 
 

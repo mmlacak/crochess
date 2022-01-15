@@ -1,71 +1,111 @@
 // Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <stdio.h>
 
 #include "cc_defines.h"
+#include "cc_str_utils.h"
 #include "cc_context.h"
 
 
-CcPlyContext * cc_ply_context_new( char const * restrict ply_start__w,
+CcContextPly * cc_context_ply_new( char const * restrict ply_start__w,
                                    char const * restrict ply_end__w )
 {
-    CcPlyContext * ply_context__a = calloc( 1, sizeof( CcPlyContext ) );
-    if ( !ply_context__a ) return NULL;
+    CcContextPly * context_ply__a = calloc( 1, sizeof( CcContextPly ) );
+    if ( !context_ply__a ) return NULL;
 
-    ply_context__a->ply_start__w = ply_start__w;
-    ply_context__a->ply_end__w = ply_end__w;
+    context_ply__a->ply_start__w = ply_start__w;
+    context_ply__a->ply_end__w = ply_end__w;
 
-    ply_context__a->next = NULL;
+    context_ply__a->next = NULL;
 
-    return ply_context__a;
+    return context_ply__a;
 }
 
-CcPlyContext * cc_ply_context_append( CcPlyContext * restrict ply_context__io,
+CcContextPly * cc_context_ply_append( CcContextPly * restrict context_ply__io,
                                       char const * restrict ply_start__w,
                                       char const * restrict ply_end__w )
 {
-    if ( !ply_context__io ) return NULL;
+    if ( !context_ply__io ) return NULL;
 
-    CcPlyContext * ply_context__t = cc_ply_context_new( ply_start__w, ply_end__w );
-    if ( !ply_context__t ) return NULL;
+    CcContextPly * context_ply__t = cc_context_ply_new( ply_start__w, ply_end__w );
+    if ( !context_ply__t ) return NULL;
 
-    CcPlyContext * p = ply_context__io;
+    CcContextPly * p = context_ply__io;
     while ( p->next ) p = p->next; // rewind
-    p->next = ply_context__t; // append // Ownership transfer --> ply_context__t is now weak pointer.
+    p->next = context_ply__t; // append // Ownership transfer --> context_ply__t is now weak pointer.
 
-    return ply_context__t;
+    return context_ply__t;
 }
 
-CcPlyContext * cc_ply_context_append_or_init( CcPlyContext ** restrict ply_context__io,
+CcContextPly * cc_context_ply_append_or_init( CcContextPly ** restrict context_ply__io,
                                               char const * restrict ply_start__w,
                                               char const * restrict ply_end__w )
 {
-    if ( !ply_context__io ) return NULL;
+    if ( !context_ply__io ) return NULL;
 
-    CcPlyContext * ply_context__w = NULL;
+    CcContextPly * context_ply__w = NULL;
 
-    if ( !*ply_context__io )
-        *ply_context__io = ply_context__w = cc_ply_context_new( ply_start__w, ply_end__w );
+    if ( !*context_ply__io )
+        *context_ply__io = context_ply__w = cc_context_ply_new( ply_start__w, ply_end__w );
     else
-        ply_context__w = cc_ply_context_append( *ply_context__io, ply_start__w, ply_end__w );
+        context_ply__w = cc_context_ply_append( *context_ply__io, ply_start__w, ply_end__w );
 
-    return ply_context__w;
+    return context_ply__w;
 }
 
-bool cc_ply_context_free_all( CcPlyContext ** restrict ply_context__f )
+bool cc_context_ply_free_all( CcContextPly ** restrict context_ply__f )
 {
-    if ( !ply_context__f ) return false;
-    if ( !*ply_context__f ) return true;
+    if ( !context_ply__f ) return false;
+    if ( !*context_ply__f ) return true;
 
-    CcPlyContext * pc = *ply_context__f;
+    CcContextPly * cp = *context_ply__f;
 
-    while ( pc )
+    while ( cp )
     {
-        CcPlyContext * tmp = pc->next;
-        CC_FREE( pc );
-        pc = tmp;
+        CcContextPly * tmp = cp->next;
+        CC_FREE( cp );
+        cp = tmp;
     }
 
-    *ply_context__f = NULL;
+    *context_ply__f = NULL;
     return true;
+}
+
+
+CcContext * cc_context_new( CcGame * restrict game__w,
+                            char const * restrict user_move_an )
+{
+    CcContext * context__a = calloc( 1, sizeof( CcContext ) );
+    if ( !context__a ) return NULL;
+
+    context__a->game__w = game__w;
+
+    context__a->user_move_an = cc_str_duplicate_new( user_move_an, false, BUFSIZ );
+    context__a->converted_an = NULL; // TODO :: convert user_move_an, if neccessary
+
+    context__a->move_an__w =
+        ( context__a->converted_an ) ? context__a->converted_an
+                                     : context__a->user_move_an;
+
+    context__a->context_ply = NULL;
+
+    return context__a;
+}
+
+bool cc_context_free_all( CcContext ** restrict context__f )
+{
+    if ( !context__f ) return false;
+    if ( !*context__f ) return true;
+
+    bool result = true;
+    CcContext * ctx = *context__f;
+
+    CC_FREE( ctx->user_move_an );
+    CC_FREE( ctx->converted_an );
+
+    result = cc_context_ply_free_all( &( ctx->context_ply ) ) && result;
+
+    *context__f = NULL;
+    return result;
 }
