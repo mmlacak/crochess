@@ -7,6 +7,11 @@
 #include "cc_str_utils.h"
 #include "cc_context.h"
 
+/**
+    @file cc_context.c
+    @brief Context functions, used while parsing AN notation.
+*/
+
 
 CcContextPly * cc_context_ply_new( char const * restrict ply_start__w,
                                    char const * restrict ply_end__w )
@@ -106,6 +111,6 @@ bool cc_context_free_all( CcContext ** restrict context__f )
 
     result = cc_context_ply_free_all( &( ctx->context_ply ) ) && result;
 
-    *context__f = NULL;
+    CC_FREE_NULL( context__f );
     return result;
 }
