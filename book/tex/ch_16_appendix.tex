@@ -34,7 +34,7 @@ this might also be interpreted as disambiguation.
 \textbf{Symbol}      & \textbf{Description}                      \\
 \midrule
 \algfmt{AN}          & algebraic notation, in general            \\ \cmidrule{1-2}
-\algfmt{CAN}         & classic \algfmt{AN}, as described by FIE  \\
+\algfmt{CAN}         & classic \algfmt{AN}, as described by FIDE \\
                      & handbook and Wikipedia, can be            \\
                      & long, short or minimal                    \\
 \algfmt{LAN}         & classic \algfmt{AN}, long form            \\
@@ -531,17 +531,18 @@ path is \alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to di
 \addcontentsline{toc}{subsection}{Losing tags}
 \label{sec:Appendix/Notation/Losing tags}
 
-Losing tag is a side-effect of a tagged piece being moved, captured, etc. As such, losing tag can
-\hyperref[tbl:Appendix/Summary/Accompanying-losing-tags]{accompany some other side-effects}.
+Losing tag is a side-effect of a tagged piece being moved, captured, etc. As such, losing tag
+can \hyperref[tbl:Appendix/Summary/Accompanying-losing-tags]{accompany some other side-effects}.
 So, losing tag is denoted immediately after piece symbol, but before any positional, or movement
-notation, depending on what is available.
+notation, depending on what is available. Writing lost tag is completely optional, it's meant to
+remind readers what happened and when.
 
 Losing ability to castle is denoted with \alg{\&\&} (double ampersand).
-\hyperref[sec:Appendix/Notation/Castling]{Using previous examples}, if Rooks moved to their
-destination fields without castling, it would be written as \alg{R\&\&e1}, and \alg{R\&\&q1},
-and in \algfmt{XAN} it would be \alg{R\&\&a1-e1}, and \alg{R\&\&y1-q1}. If Rook in the first
-example was captured by opponent's Bishop on neighboring-field, it would be written as
-\alg{Ba1*R\&\&}, or as \alg{Bb2-a1*R\&\&} in \algfmt{XAN}.
+\hyperref[sec:Appendix/Notation/Castling]{Using previous castling examples}, if Rooks
+moved to their destination fields without castling, it would be written as \alg{R\&\&e1},
+and \alg{R\&\&q1}, and in \algfmt{XAN} it would be \alg{R\&\&a1-e1}, and \alg{R\&\&y1-q1}.
+If Rook in the first example was captured by opponent's Bishop on neighboring-field, it
+would be written as \alg{Ba1*R\&\&}, or as \alg{Bb2-a1*R\&\&} in \algfmt{XAN}.
 
 If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
 before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
@@ -690,23 +691,23 @@ verbose version:
 \centering
 \begin{tabular}{ rlccc }
 \toprule
-\textbf{Symbol}                 & \textbf{Side-effect}           & \multicolumn{3}{c}{ \textbf{Accompanying losing tags} }              \\ \cmidrule{3-5}
-                                &                                & \emph{castling}      & \emph{promotion}      & \emph{rushing}        \\
+\textbf{Symbol}             & \textbf{Side-effect}  & \multicolumn{3}{c}{ \textbf{Accompanying losing tags} }              \\ \cmidrule{3-5}
+                            &                       & \emph{castling}      & \emph{promoting}      & \emph{rushing}        \\
 \midrule
-\alg{*}                         & capturing                      & +                    & +                     & +                     \\ \cmidrule{1-5}
-\multirow{2}{*}{\alg{<}}        & trance-journey                 & \multirow{2}{*}{+}   & \multirow{2}{*}{+}    & \multirow{2}{*}{+}    \\
-                                & displacement                   &                      &                       &                       \\ \cmidrule{1-5}
-\alg{:}                         & en passant                     & -                    & -                     & -                     \\
-\alg{\&}                        & castling                       & *                    & -                     & -                     \\
-\alg{=}                         & promotion                      & -                    & *                     & -                     \\
-\alg{=}                         & tag for promotion              & -                    & -                     & -                     \\
-\alg{\%}                        & conversion                     & -                    & +                     & -                     \\ \cmidrule{1-5}
-\multirow{2}{*}{\alg{\%\%}}     & failed conversion,             & \multirow{2}{*}{-}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
-                                & oblation                       &                      &                       &                       \\ \cmidrule{1-5}
-\multirow{2}{*}{\alg{>}}        & syzygy,                        & \multirow{2}{*}{+}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
-                                & demoting to Pawn               &                      &                       &                       \\ \cmidrule{1-5}
-\alg{\$}                        & syzygy, resurrection           & -                    & -                     & -                     \\
-\alg{\$\$}                      & failed resurrection            & -                    & -                     & -                     \\
+\alg{*}                     & capture               & +                    & +                     & +                     \\ \cmidrule{1-5}
+\multirow{2}{*}{\alg{<}}    & trance-journey        & \multirow{2}{*}{+}   & \multirow{2}{*}{+}    & \multirow{2}{*}{+}    \\
+                            & displacement          &                      &                       &                       \\ \cmidrule{1-5}
+\alg{:}                     & en passant            & -                    & -                     & -                     \\
+\alg{\&}                    & castle                & *                    & -                     & -                     \\
+\alg{=}                     & promotion             & -                    & *                     & -                     \\
+\alg{=}                     & tag for promotion     & -                    & -                     & -                     \\
+\alg{\%}                    & conversion            & -                    & +                     & -                     \\ \cmidrule{1-5}
+\multirow{2}{*}{\alg{\%\%}} & failed conversion,    & \multirow{2}{*}{-}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
+                            & oblation              &                      &                       &                       \\ \cmidrule{1-5}
+\multirow{2}{*}{\alg{>}}    & syzygy,               & \multirow{2}{*}{+}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
+                            & demoting to Pawn      &                      &                       &                       \\ \cmidrule{1-5}
+\alg{\$}                    & syzygy, resurrection  & -                    & -                     & -                     \\
+\alg{\$\$}                  & failed resurrection   & -                    & -                     & -                     \\
 \bottomrule
 \end{tabular}
 \caption{Accompanying losing tags}
@@ -714,23 +715,23 @@ verbose version:
 \end{table}
 
 Table above lists most side-effects in rows. Some of those side-effects could also cause
-targeted piece to lose its promotion, rushing, or castling tag. Losing tags accompanying
-those side-effects are listed as columns. For instance, Rook still holding its castling
+targeted piece to lose its promoting, rushing, or castling tag. Losing tags (accompanying
+those side-effects) are listed as columns. For instance, Rook still holding its castling
 tag can be captured, which is indicated by + (plus sign), under column \emph{castling},
-and row \emph{\alg{*} capturing}.
+and row \emph{\alg{*} capture}.
 
 Some combinations are not possible, which is noted by - (minus sign). For example, Pawn
-holding promotion tag cannot be captured by en passant move, as indicated by - at
-\emph{promotion} column and \emph{\alg{:} en passant} row. This is so because Pawn can get
-promotion tag only on opponent's side of chessboard, while it can be subjected to en passant
+holding promoting tag cannot be captured by en passant move, as indicated by - at
+\emph{promoting} column and \emph{\alg{:} en passant} row. This is so because Pawn can get
+promoting tag only on opponent's side of chessboard, while it can be subjected to en passant
 only on own side of chessboard.
 
 Two combinations are actually using a tag, those are indicated by * (asterisk). Using a
 tag implicitly loses it, since no tag can be repeatedly applied (e.g. Pawn after promotion
 cannot be promoted again), so using a tag is not written as tag loss in \algfmt{AN}. For
 instance, a Rook having castling tag can castle, as found under \emph{castling} column,
-and \emph{\alg{\&} castling} row. Another instance is a Pawn holding promotion tag which
-it can use, found in \emph{promotion} column and \emph{\alg{=} promotion} row.
+and \emph{\alg{\&} castle} row. Another instance is a Pawn holding promoting tag which
+it can use, found in \emph{promoting} column and \emph{\alg{=} promotion} row.
 
 \clearpage % ..........................................................
 
