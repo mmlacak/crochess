@@ -575,14 +575,15 @@ checkmates are noted with \alg{\#} (hashtag), these are mandatory in \algfmt{NAN
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
 \#Notation\_for\_a\_series\_of\_moves}.
 
-Only last piece participating in a cascade can check or checkmate opponent's King,
-because all pieces prior transfer any remaining momentum to next piece in a cascade.
+Only \hyperref[fig:scn_mv_34_activated_piece_checking]{last piece in a cascade can check or checkmate}
+opponent's King in the same move, because all pieces prior transfer any remaining momentum to next piece
+in a cascade.
+% TODO :: and add example after
 
-It's possible that on the very next move,
-\hyperref[fig:scn_mv_34_activated_piece_checking]{after cascade is finished}, and
-after all moved pieces have restored access to all of their step- and capture-fields,
-to have opponent's King checked, checkmated. If King is checked on its own player's
-turn, checked status is written in front of regular move notation, like so:
+It's possible that on the very next move, after cascade is finished, and after all moved
+pieces have restored access to all of their step- and capture-fields, to have opponent's
+King checked, checkmated. If King is checked on its own player's turn, checked status is
+written in front of regular move notation, like so:
 
 \algcycpar
 \algcyc{91.}{...}{+Nb3}{Checked on own turn.}
