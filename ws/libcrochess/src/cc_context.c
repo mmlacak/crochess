@@ -16,8 +16,10 @@
 CcContextPly * cc_context_ply_new( char const * restrict ply_start__w,
                                    char const * restrict ply_end__w )
 {
-    CcContextPly * context_ply__a = calloc( 1, sizeof( CcContextPly ) );
+    CcContextPly * context_ply__a = malloc( sizeof( CcContextPly ) );
     if ( !context_ply__a ) return NULL;
+
+    context_ply__a->chessboard = NULL;
 
     context_ply__a->ply_start__w = ply_start__w;
     context_ply__a->ply_end__w = ply_end__w;
@@ -81,7 +83,7 @@ bool cc_context_ply_free_all( CcContextPly ** restrict context_ply__f )
 CcContext * cc_context_new( CcGame * restrict game__w,
                             char const * restrict user_move_an )
 {
-    CcContext * context__a = calloc( 1, sizeof( CcContext ) );
+    CcContext * context__a = malloc( sizeof( CcContext ) );
     if ( !context__a ) return NULL;
 
     context__a->game__w = game__w;

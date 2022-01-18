@@ -33,7 +33,7 @@ CcPly * cc_ply_new( CcPlyLinkEnum link,
                     CcPieceEnum piece,
                     CcStep ** restrict steps__n )
 {
-    CcPly * ply__a = calloc( 1, sizeof( CcPly ) );
+    CcPly * ply__a = malloc( sizeof( CcPly ) );
     if ( !ply__a ) return NULL;
 
     ply__a->link = link;

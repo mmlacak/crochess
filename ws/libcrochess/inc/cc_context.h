@@ -20,7 +20,7 @@
 */
 typedef struct CcContextPly
 {
-    CcChessboard chessboard; /**< Chessboard, position at the beginning of a ply being parsed. */
+    CcChessboard * chessboard; /**< Chessboard, position at the beginning of a ply being parsed. */
     char const * ply_start__w; /**< Start of a ply AN substring, i.e. first `char` that belongs to it. Points to a `char` within `move_an__w` in a parent context. */
     char const * ply_end__w; /**< End of a ply AN substring, i.e. first `char` that does not belongs to it. Points to a `char` within `move_an__w` in a parent context. */
     struct CcContextPly * next; /**< Next ply context. */
