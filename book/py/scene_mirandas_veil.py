@@ -1562,6 +1562,8 @@ class SceneMirandasVeilMixin:
         scene.append_text("C", *start_W_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
         scene.append_text("D", *start_R_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
+        scene.append_text("R", *GS.add_tpl(start_R_2, 0, -2), corner=Corner.UpperRight, mark_type=MarkType.Action)
+
         #
         # Q labels
 
@@ -1649,6 +1651,8 @@ class SceneMirandasVeilMixin:
         scene.append_text("C", *start_W_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
         scene.append_text("D", *start_R_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
+        scene.append_text("R", *start_R_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+
         #
         # Q labels
 
@@ -1668,49 +1672,3 @@ class SceneMirandasVeilMixin:
             scene.append_text( "R"+str(i+1), *pos_2, corner=Corner.UpperRight, mark_type=mark_type, rect=rect )
 
         return scene
-
-
-    # def scn_mv_36_activated_piece_checking(self, bt=BoardType.MirandasVeil):
-
-    #     scene = Scene('scn_mv_36_activated_piece_checking', bt, height=9.7)
-
-    #     scene.board.set_piece(7, 0, piece=-PieceType.King)
-
-    #     start_G = (11, 6)
-    #     scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
-
-    #     start_W = (5, 3)
-    #     scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-    #     start_R = (4, 1)
-    #     scene.board.set_piece(*start_R, piece=PieceType.Rook)
-
-    #     #
-    #     # G --> W
-
-    #     coords = GS.gen_steps(start=start_G, rels=[(-2, -1), ], include_prev=True, count=3)
-    #     for i, pos in enumerate( coords() ):
-    #         scene.append_arrow( *pos )
-
-    #     # W --> R
-    #     scene.append_arrow( *(start_W + start_R) )
-
-    #     # R -->
-    #     end_R = (4, 0)
-    #     scene.append_arrow( *(start_R + end_R), mark_type=MarkType.Action )
-
-    #     scene.append_text("R", *end_R, corner=Corner.UpperLeft)
-
-    #     #
-    #     # G labels
-    #     coords_2 = GS.gen_steps(start=GS.add(start_G, (-2, -1)), rels=[(2, 1), ], include_prev=False, count=3)
-    #     for i, pos_2 in enumerate( coords_2() ):
-    #         scene.append_text( "G"+str(i+1), *pos_2, corner=Corner.UpperLeft )
-
-    #     #
-    #     # R labels
-    #     coords_3 = GS.gen_steps(start=GS.add(end_R, (1, 0)), rels=[(1, 0), ], include_prev=False, count=3)
-    #     for i, pos_3 in enumerate( coords_3() ):
-    #         scene.append_text( "R"+str(i+1), *pos_3, corner=Corner.UpperLeft )
-
-    #     return scene

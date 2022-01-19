@@ -36,5 +36,4 @@ class SceneMix(SceneMixin, \
         return  [
                     'scn_mv_34_activated_piece_check_init', \
                     'scn_mv_35_activated_piece_check_cascade', \
-                    # 'scn_mv_36_activated_piece_checking', \
                 ]

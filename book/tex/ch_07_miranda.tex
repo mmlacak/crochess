@@ -653,11 +653,21 @@ of a board.
 % \centering
 \end{figure}
 
-. . .
+Activated pieces are limited by received momentum for all their movement, actions.
+All pieces in a cascade transfer all of their remaining momentum to next piece in a
+cascade. So, pieces in a cascade do not attack opponent's King immediately in the
+very same move in which they have moved. Only the last piece in a cascade can check
+(or even checkmate) opponent's King, if it has enough remaining momentum after
+finishing its movement.
+
+Here, light Queen activates light Wave A, which cascades to light Rook B, then light
+Wave C, and finally to light Rook D, which moves onto final field R. Note that most
+of momentum received is spent by light Rooks for moving, so the last piece in cascade
+(light Rook D) will have only 1 remaining momenum, after all movement is done.
 
 \clearpage % ..........................................................
 
-% \vspace*{-2.9ex} % Does space after title depends on size of paragraph that follows?
+% \vspace*{-2.9ex}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
@@ -667,55 +677,27 @@ of a board.
 % \centering
 \end{figure}
 
-. . .
+Here, after light player's move dark King is not in check; light Rook B gave all of its
+remaining momentum to light Wave C, light Rook D has only 1 remaining momentum. Should
+light Queen started from slightly distant field (Q2, Q3), then dark King would be in check,
+as light Rook D would have more remaining momentum. Note that starting field Q3 could also
+lead to immediate checkmate, should all dark King's escape fields be blocked, or covered
+by other light pieces.
 
-% \vspace*{-2.9ex} % Does space after title depends on size of paragraph that follows?
-% \noindent
-% \begin{figure}[!h]
-% % \begin{figure}[!t]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_activated_piece_checking.png}
-% \caption{Activated Rook to move}
-% \label{fig:scn_mv_36_activated_piece_checking}
-% % \centering
-% \end{figure}
-
-% Activated pieces are limited by received momentum. Here, if activated light
-% Rook moves to field R, it would not pose a threat to dark King, since received
-% momentum of 3 does not provide enough reach, due to 1 being spent for moving.
-% If initial position of light Pegasus was G2, dark King would be checked by
-% light Rook. Initial position of G3 could lead to checkmate, if all escape
-% fields on second rank are blocked, or covered by other light pieces.
-
-% After being moved in a cascade, active pieces regain full access to all their
-% step- and capture-fields on the very next move. So, even if dark King was not
-% checked immediately after light player's move, it will be on the very next move
-% (on dark player's turn!), with all fields of first rank covered by light Rook.
-
-% \clearpage % ..........................................................
-
-% \huge{}
-% TODO
-% \normalsize{}
-% :: King not checked by Rook in the middle of a cascade (in the same move)
-% $\rightarrow$ all of received momentum transferred to next Wave
+After being moved in a cascade, active pieces regain full access to all of their step- and
+capture-fields at the very beginning of the very next move. So, even if dark King was not
+checked immediately after light player's move, it will be double checked on the very next
+move (on dark player's own turn!), with dark King's file and rank covered by light Rooks.
 
 % -------------------------------------- Checking with activated pieces
 % **************************************************************** Wave
-\clearpage % ..........................................................
-
-\section*{Promotion}
-\addcontentsline{toc}{section}{Promotion}
-
-Promotion is non enforced, delayed variety, i.e. it's the same as in
-\hyperref[sec:Age of Aquarius/Promotion]{previous chess variant}, Age of Aquarius.
-
 \clearpage % ..........................................................
 
 \section*{Rush, en passant}
 \addcontentsline{toc}{section}{Rush, en passant}
 
 \noindent
-\begin{wrapfigure}{l}{0.4\textwidth}
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.1875\textwidth, keepaspectratio=true]{en_passants/10_miranda_s_veil_en_passant.png}
 \caption{En passant}
@@ -724,6 +706,15 @@ Promotion is non enforced, delayed variety, i.e. it's the same as in
 Rush and en passant are identical to those in Classic Chess, only difference
 is that Pawn can now move longer on initial turn, up to 6 fields in this
 variant.
+
+% \clearpage % ..........................................................
+
+\vspace*{9.0\baselineskip}
+\section*{Promotion}
+\addcontentsline{toc}{section}{Promotion}
+
+Promotion is non enforced, delayed variety, i.e. it's the same as in
+\hyperref[sec:Age of Aquarius/Promotion]{previous chess variant}, Age of Aquarius.
 
 \clearpage % ..........................................................
 
