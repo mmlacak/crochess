@@ -569,16 +569,19 @@ Pawn on the left is being activated, and can capture dark Knight. This would be 
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
 \label{sec:Appendix/Notation/Move symbols, annotations}
 
-Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}. Checks are noted with \alg{+} (plus sign),
-checkmates are noted with \alg{\#} (hashtag), these are mandatory in \algfmt{NAN}, but optional in \algfmt{CAN}, see
-\algfmt{FIDE C.13}. Placeholder for a move is \alg{...} (ellipsis), usually used to resume game score after commentary, see\\
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}. Checks are
+noted with \alg{+} (plus sign), checkmates are noted with \alg{\#} (hashtag), these are mandatory
+in \algfmt{NAN}, but optional in \algfmt{CAN}, see \algfmt{FIDE C.13}. Placeholder for a move is
+\alg{...} (ellipsis), usually used to resume game score after commentary, see\\
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}
+{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
 \#Notation\_for\_a\_series\_of\_moves}.
 
-Only \hyperref[fig:scn_mv_34_activated_piece_checking]{last piece in a cascade can check or checkmate}
-opponent's King in the same move, because all pieces prior transfer any remaining momentum to next piece
+Only
+\hyperref[fig:scn_mv_35_activated_piece_check_cascade]{last piece in a cascade can check or checkmate}
+opponent's King in the same move, because
+\hyperref[fig:scn_mv_34_activated_piece_check_init]{all pieces prior transfer any remaining momentum to next piece}
 in a cascade.
-% TODO :: and add example after
 
 It's possible that on the very next move, after cascade is finished, and after all moved
 pieces have restored access to all of their step- and capture-fields, to have opponent's
@@ -595,14 +598,16 @@ If King is checkmated on its own player's turn, only checkmated status is writte
 \algcyc{92.}{...}{\#}{Checkmated on own turn.}
 \algcycparend
 
-Annotations are written at the end of a complete move, e.g. \alg{ef8*!}. It is recommended to use \alg{\_} (underscore)
-to separate \algfmt{AN} and annotations, like so \alg{ef8*\_!}. Usage of \alg{\_} is mandatory when annotation can be
-confused for a regular chess \algfmt{AN}.
+Annotations are written at the end of a complete move, e.g. \alg{ef8*!}. It is recommended
+to use \alg{\_} (underscore) to separate \algfmt{AN} and annotations, like so \alg{ef8*\_!}.
+Usage of \alg{\_} is mandatory when annotation can be confused for a regular chess \algfmt{AN}.
 
-For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have equal chances of winning, see\\
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)#Annotation\_symbols}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
-\#Annotation\_symbols}. In such a case, regular chess \algfmt{AN} is assumed, i.e. it is Pawn tagged for promotion.
-If annotation is meant instead, it has to be written as \alg{e8\_=}.
+For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have equal chances
+of winning, see\\
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)#Annotation\_symbols}
+{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+\#Annotation\_symbols}. In such a case, regular chess \algfmt{AN} is assumed, i.e. it is Pawn
+tagged for promotion. If annotation is meant instead, it has to be written as \alg{e8\_=}.
 
 \subsection*{Speculative pathing}
 \addcontentsline{toc}{subsection}{Speculative pathing}
@@ -623,6 +628,11 @@ Now that all symbols have been introduced, they're gathered here according to th
 \subsection*{Side-effects}
 \addcontentsline{toc}{subsection}{Side-effects}
 \label{sec:Appendix/Summary/Side-effects}
+
+\huge{}
+TODO :: REDO
+\normalsize{}
+almost all ---\textgreater optional
 
 \begin{table}[!h]
 \centering

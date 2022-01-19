@@ -1488,47 +1488,229 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_34_activated_piece_checking(self, bt=BoardType.MirandasVeil):
+    def scn_mv_34_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_34_activated_piece_checking', bt, height=9.7)
+        scene = Scene('scn_mv_34_activated_piece_check_init', bt, height=9.7)
+        rect = (0.05, 0.8, 0.65, 0.1)
 
-        scene.board.set_piece(7, 0, piece=-PieceType.King)
+        start_k = (3, 6)
+        scene.board.set_piece(*start_k, piece=-PieceType.King)
 
-        start_G = (11, 6)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        start_W_1 = GS.add_tpl( start_k, 4, 2 )
+        scene.board.set_piece(*start_W_1, piece=PieceType.Wave)
 
-        start_W = (5, 3)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        start_R_1 = GS.add_tpl( start_k, 2, 2 )
+        scene.board.set_piece(*start_R_1, piece=PieceType.Rook)
 
-        start_R = (4, 1)
-        scene.board.set_piece(*start_R, piece=PieceType.Rook)
+        start_W_2 = GS.add_tpl( start_k, 0, 2 )
+        scene.board.set_piece(*start_W_2, piece=PieceType.Wave)
+
+        start_R_2 = GS.add_tpl( start_k, -2, 2 )
+        scene.board.set_piece(*start_R_2, piece=PieceType.Rook)
+
+        start_Q = GS.add_tpl( start_W_1, 5, -5 )
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
 
         #
-        # G --> W
+        # Q --> W 1
 
-        coords = GS.gen_steps(start=start_G, rels=[(-2, -1), ], include_prev=True, count=3)
+        coords = GS.gen_steps(start=start_Q, rels=[(-1, 1), ], include_prev=True, count=5)
+        for i, pos in enumerate( coords() ):
+            mark_type = MarkType.Action if i >= 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *pos, mark_type=mark_type )
+
+        #
+        # W 1 --> R 1
+
+        coords = GS.gen_steps(start=start_W_1, rels=[(-1, 0), ], include_prev=True, count=2)
+        for i, pos in enumerate( coords() ):
+            mark_type = MarkType.Action if i >= 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *pos, mark_type=mark_type )
+
+        #
+        # R 1 --> W 2
+
+        coords = GS.gen_steps(start=start_R_1, rels=[(-1, 0), ], include_prev=True, count=2)
+        for i, pos in enumerate( coords() ):
+            mark_type = MarkType.Action if i >= 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *pos, mark_type=mark_type )
+
+        #
+        # W 2 --> R 2
+
+        coords = GS.gen_steps(start=start_W_2, rels=[(-1, 0), ], include_prev=True, count=2)
+        for i, pos in enumerate( coords() ):
+            mark_type = MarkType.Action if i >= 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *pos, mark_type=mark_type )
+
+        #
+        # R 2 -->
+
+        coords = GS.gen_steps(start=start_R_2, rels=[(0, -1), ], include_prev=True, count=2)
         for i, pos in enumerate( coords() ):
             scene.append_arrow( *pos )
 
-        # W --> R
-        scene.append_arrow( *(start_W + start_R) )
+        #
+        # labels
 
-        # R -->
-        end_R = (4, 0)
-        scene.append_arrow( *(start_R + end_R), mark_type=MarkType.Action )
-
-        scene.append_text("R", *end_R, corner=Corner.UpperLeft)
+        scene.append_text("A", *start_W_1, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("B", *start_R_1, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("C", *start_W_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("D", *start_R_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         #
-        # G labels
-        coords_2 = GS.gen_steps(start=GS.add(start_G, (-2, -1)), rels=[(2, 1), ], include_prev=False, count=3)
+        # Q labels
+
+        coords_2 = GS.gen_steps(start=GS.add(start_Q, (-1, 1)), rels=[(1, -1), ], include_prev=False, count=3)
         for i, pos_2 in enumerate( coords_2() ):
-            scene.append_text( "G"+str(i+1), *pos_2, corner=Corner.UpperLeft )
-
-        #
-        # R labels
-        coords_3 = GS.gen_steps(start=GS.add(end_R, (1, 0)), rels=[(1, 0), ], include_prev=False, count=3)
-        for i, pos_3 in enumerate( coords_3() ):
-            scene.append_text( "R"+str(i+1), *pos_3, corner=Corner.UpperLeft )
+            mark_type = MarkType.Action if i > 0 else \
+                        MarkType.Legal
+            scene.append_text( "Q"+str(i+1), *pos_2, corner=Corner.UpperRight, mark_type=mark_type, rect=rect )
 
         return scene
+
+
+    def scn_mv_35_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_35_activated_piece_check_cascade', bt, height=9.7)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_k = (3, 6)
+        scene.board.set_piece(*start_k, piece=-PieceType.King)
+
+        start_Q = GS.add_tpl( start_k, 4, 2 )
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        start_W_1 = GS.add_tpl( start_k, 2, 2 )
+        scene.board.set_piece(*start_W_1, piece=PieceType.Wave)
+
+        start_R_1 = GS.add_tpl( start_k, 0, 2 )
+        scene.board.set_piece(*start_R_1, piece=PieceType.Rook)
+
+        start_W_2 = GS.add_tpl( start_k, -2, 2 )
+        scene.board.set_piece(*start_W_2, piece=PieceType.Wave)
+
+        start_R_2 = GS.add_tpl( start_k, -2, 0 )
+        scene.board.set_piece(*start_R_2, piece=PieceType.Rook)
+
+        #
+        # -- > Q
+
+        coords = GS.gen_steps(end=start_Q, rels=[(-1, 1), ], include_prev=True, count=5)
+        for i, pos in enumerate( coords() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Blocked )
+
+        #
+        # Q -- > W 1
+
+        coords = GS.gen_steps(end=start_W_1, rels=[(-1, 0), ], include_prev=True, count=2)
+        for i, pos in enumerate( coords() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Blocked )
+
+        #
+        # W 1 --> R 1
+
+        coords = GS.gen_steps(end=start_R_1, rels=[(-1, 0), ], include_prev=True, count=2)
+        for i, pos in enumerate( coords() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Blocked )
+
+        #
+        # R 1 --> W 2
+
+        coords = GS.gen_steps(end=start_W_2, rels=[(-1, 0), ], include_prev=True, count=2)
+        for i, pos in enumerate( coords() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Blocked )
+
+        #
+        # W 2 --> R 2
+
+        coords = GS.gen_steps(end=start_R_2, rels=[(0, -1), ], include_prev=True, count=2)
+        for i, pos in enumerate( coords() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Blocked )
+
+        #
+        # R 2 --> k -->
+
+        coords = GS.gen_steps(start=start_R_2, rels=[(1, 0), ], include_prev=True, count=3)
+        for i, pos in enumerate( coords() ):
+            mark_type = MarkType.Action if i > 0 else \
+                        MarkType.Legal
+            scene.append_arrow( *pos, mark_type=mark_type )
+
+        #
+        # labels
+
+        scene.append_text("A", *start_W_1, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("B", *start_R_1, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("C", *start_W_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("D", *start_R_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+
+        #
+        # Q labels
+
+        coords_2 = GS.gen_steps(start=GS.add_tpl(start_Q, 4, -4), rels=[(1, -1), ], include_prev=False, count=3)
+        for i, pos_2 in enumerate( coords_2() ):
+            mark_type = MarkType.Action if i > 0 else \
+                        MarkType.Legal
+            scene.append_text( "Q"+str(i+1), *pos_2, corner=Corner.UpperRight, mark_type=mark_type, rect=rect )
+
+        #
+        # R 2 labels
+
+        coords_2 = GS.gen_steps(start=start_R_2, rels=[(1, 0), ], include_prev=False, count=3)
+        for i, pos_2 in enumerate( coords_2() ):
+            mark_type = MarkType.Action if i > 0 else \
+                        MarkType.Legal
+            scene.append_text( "R"+str(i+1), *pos_2, corner=Corner.UpperRight, mark_type=mark_type, rect=rect )
+
+        return scene
+
+
+    # def scn_mv_36_activated_piece_checking(self, bt=BoardType.MirandasVeil):
+
+    #     scene = Scene('scn_mv_36_activated_piece_checking', bt, height=9.7)
+
+    #     scene.board.set_piece(7, 0, piece=-PieceType.King)
+
+    #     start_G = (11, 6)
+    #     scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+
+    #     start_W = (5, 3)
+    #     scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+    #     start_R = (4, 1)
+    #     scene.board.set_piece(*start_R, piece=PieceType.Rook)
+
+    #     #
+    #     # G --> W
+
+    #     coords = GS.gen_steps(start=start_G, rels=[(-2, -1), ], include_prev=True, count=3)
+    #     for i, pos in enumerate( coords() ):
+    #         scene.append_arrow( *pos )
+
+    #     # W --> R
+    #     scene.append_arrow( *(start_W + start_R) )
+
+    #     # R -->
+    #     end_R = (4, 0)
+    #     scene.append_arrow( *(start_R + end_R), mark_type=MarkType.Action )
+
+    #     scene.append_text("R", *end_R, corner=Corner.UpperLeft)
+
+    #     #
+    #     # G labels
+    #     coords_2 = GS.gen_steps(start=GS.add(start_G, (-2, -1)), rels=[(2, 1), ], include_prev=False, count=3)
+    #     for i, pos_2 in enumerate( coords_2() ):
+    #         scene.append_text( "G"+str(i+1), *pos_2, corner=Corner.UpperLeft )
+
+    #     #
+    #     # R labels
+    #     coords_3 = GS.gen_steps(start=GS.add(end_R, (1, 0)), rels=[(1, 0), ], include_prev=False, count=3)
+    #     for i, pos_3 in enumerate( coords_3() ):
+    #         scene.append_text( "R"+str(i+1), *pos_3, corner=Corner.UpperLeft )
+
+    #     return scene
