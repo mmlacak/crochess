@@ -34,6 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_34_activated_piece_check_init', \
-                    'scn_mv_35_activated_piece_check_cascade', \
+                    'scn_o_31_syzygy_opponents_starchild', \
                 ]
