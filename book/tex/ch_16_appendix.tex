@@ -565,6 +565,52 @@ Pawn on the left is being activated, and can capture dark Knight. This would be 
 \alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
 \alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
 
+\subsection*{Default pathing}
+\addcontentsline{toc}{subsection}{Default pathing}
+\label{sec:Appendix/Notation/Default pathing}
+
+In Classical Chess, all pieces have exactly one path from starting field to destination,
+so to specify unique path only destination is needed when writing movement of a piece.
+This is no longer so for newly added pieces. For instance, Serpent can have multiple paths
+leading to the same destination, those can overlap, and even have different lengths.
+
+In a \hyperref[fig:scn_tr_05_serpent_end]{finished Serpent movement example}, assuming that
+starting position is \alg{c3}, and destination \alg{g3}, depicted complete path is
+\alg{Sc3.d4.c5.d6.e5.f6.g5.f4.g3}. Even with as few steps as possible, to have unique path
+it would still need to be written as \alg{S..d6..f6..g3}.
+
+However, one of the shortest paths (here, e.g. \\
+\alg{Sc3.d4.e3.f4.g3}) would result in exactly the same outcome, namely Serpent moved from
+\alg{c3} onto \alg{g3}, with no additional interactions taking place. Even with additional
+side-effects, most of the time it does not matter if a piece made long or short path to e.g.
+capture opponent's piece.
+
+The only time when length of a path is important is in a cascade, when momentum is build-up
+by first piece, and spent by others. For instance, in a
+\hyperref[fig:scn_tr_07_serpent_loop_1]{Serpent activating Pyramid example}, depending on
+a path taken by Serpent, Pyramid might get 4 or 8 momentum when activated.
+
+Even so, exact path taken by a piece is not important, only amount of a momentum gathered,
+and spent. To correctly support movement of pieces in a cascade, momentum built by first
+piece has to be maximized, and momentum spent by activated pieces minimized. So, all movement
+can be written with just destination field; path is assumed to be the shortest possible for
+all pieces, except for the first piece in a cascade, which is assumed to be taking the longest
+path available.
+
+First example here can then be written as \alg{Sg3}, this would be taken as if
+\alg{Sc3.d4.e3.f4.g3} is written, i.e. light Serpent would be taking the shortest path
+available. Next example would be written as \alg{Sc7\~{}Ad7}, it would be assumed to be
+\alg{Sc3.d4.c5.d6.e5.d4.c5.d6.c7\~{}Ac7-d7}, i.e. light Serpent would take the longest
+path available, since it's the first piece in a cascade.
+
+\subsection*{Default side-effects}
+\addcontentsline{toc}{subsection}{Default side-effects}
+\label{sec:Appendix/Notation/Default side-effects}
+
+\huge{}
+TODO
+\normalsize{}
+
 \subsection*{Move symbols, annotations}
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
 \label{sec:Appendix/Notation/Move symbols, annotations}
@@ -608,14 +654,6 @@ of winning, see\\
 {https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
 \#Annotation\_symbols}. In such a case, regular chess \algfmt{AN} is assumed, i.e. it is Pawn
 tagged for promotion. If annotation is meant instead, it has to be written as \alg{e8\_=}.
-
-\subsection*{Speculative pathing}
-\addcontentsline{toc}{subsection}{Speculative pathing}
-\label{sec:Appendix/Notation/Speculative pathing}
-
-\huge{}
-TODO
-\normalsize{}
 
 \clearpage % ..........................................................
 

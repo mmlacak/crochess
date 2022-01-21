@@ -1081,7 +1081,6 @@ class SceneOneMixin:
 
         return scene
 
-# TODO :: rename all below
     def scn_o_32_syzygy_starchild_cascading(self, bt=BoardType.One):
 
         scene = Scene('scn_o_32_syzygy_starchild_cascading', bt)
