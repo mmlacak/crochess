@@ -604,25 +604,17 @@ to the right; movement is assumed to be \alg{Sc3.d4.c5.d6.e5.d4.c5.d6.c7\~{}Ac7-
 i.e. light Serpent would take the longest path available, since it's the first piece in
 a cascade.
 
-\subsection*{Default side-effects}
-\addcontentsline{toc}{subsection}{Default side-effects}
-\label{sec:Appendix/Notation/Default side-effects}
-
-\huge{}
-TODO
-\normalsize{}
-
 \subsection*{Move symbols, annotations}
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
 \label{sec:Appendix/Notation/Move symbols, annotations}
 
-Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}. Checks are
-noted with \alg{+} (plus sign), checkmates are noted with \alg{\#} (hashtag), these are mandatory
-in \algfmt{NAN}, but optional in \algfmt{CAN}, see \algfmt{FIDE C.13}. Placeholder for a move is
-\alg{...} (ellipsis), usually used to resume game score after commentary, see\\
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}
-{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
-\#Notation\_for\_a\_series\_of\_moves}.
+Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}.
+Checks are noted with \alg{+} (plus sign), checkmates are noted with \alg{\#} (hashtag),
+these are optional in \algfmt{CAN}, see \algfmt{FIDE C.13}, and so are in \algfmt{NAN}.
+Placeholder for a move is \alg{...} (ellipsis), usually used to resume game score after
+commentary, see \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}
+{https://en.wikipedia.org/wiki/\\
+Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}.
 
 Only
 \hyperref[fig:scn_mv_35_activated_piece_check_cascade]{last piece in a cascade can check or checkmate}
@@ -668,16 +660,11 @@ Now that all symbols have been introduced, they're gathered here according to th
 \addcontentsline{toc}{subsection}{Side-effects}
 \label{sec:Appendix/Summary/Side-effects}
 
-\huge{}
-TODO :: REDO
-\normalsize{}
-almost all ---\textgreater optional
-
 \begin{table}[!h]
 \centering
 \begin{tabular}{ rlc }
 \toprule
-\textbf{Symbol}      & \textbf{Side-effect}           & \textbf{Necessary?}   \\
+\textbf{Symbol}      & \textbf{Side-effect}           & \textbf{Mandatory?}   \\
 \midrule
 \alg{*}              & capturing                      & -                     \\
 \alg{<}              & trance-journey displacement    & +                     \\ \cmidrule{1-3}
@@ -685,9 +672,9 @@ almost all ---\textgreater optional
 \alg{::}             & lost rushing tag               & -                     \\
 \alg{\&\&}           & lost castling tag              & -                     \\ \cmidrule{1-3}
 \alg{:}              & en passant                     & -                     \\
-\alg{\&}             & castling                       & +                     \\
-\alg{=}              & promotion                      & -                     \\
-\alg{=}              & tag for promotion              & +                     \\
+\alg{\&}             & castling                       & -                     \\
+\alg{=}              & promotion                      & +                     \\
+\alg{=}              & tag for promotion              & -                     \\
 \alg{\%}             & conversion                     & +                     \\
 \alg{\%\%}           & failed conversion, oblation    & +                     \\
 \alg{>}              & syzygy, demoting to Pawn       & +                     \\
@@ -699,40 +686,37 @@ almost all ---\textgreater optional
 \label{tbl:Appendix/Summary/Side-effects}
 \end{table}
 
-Every side-effect is result of a single step. Most side-effects can occur only on a last step of a ply,
-these are called ply side-effects. Capturing, displacement and losing (promotion, rushing, or castling)
-tags are both step and ply side-effects, others are purely ply side-effects.
+Every side-effect is result of a single step. Most side-effects can occur only on a last step of
+a ply, these are called ply side-effects. Capturing, displacement and losing (promotion, rushing,
+or castling) tags are both step and ply side-effects, others are purely ply side-effects.
 
-Most of newly added side-effects are necessary to be, at least, indicated in a notation, to be able
-to reconstruct what has happened. For instance, tagging for promotion (\alg{=}) is one such a side-effect,
-otherwise immediate promotion could be assumed, in which case there would be missing piece to which Pawn
-has been promoted to. Another example, it is necessary to indicate castling (\alg{\&}), otherwise King
-would just move to a (distant) field.
+In Classical Chess capturing opponent's piece is the most prevalent side-effect, since there aren't
+all that many, and those can be done once per Pawn (en passant, promotion), or once per whole game
+(castling). So, in \algfmt{CAN} capturing is optional, see \algfmt{FIDE C.9}; this is so in
+\algfmt{NAN} as well.
 
-Almost all of necessary side-effects also need additional data to be complete. For example, displacement
-(\alg{<}) needs, at least, field at which piece has been displaced. Demoting to Pawn (\alg{>}) needs, at
-very least, disambiguation to be able to find field, and from there which piece on that field has been
-demoted to a Pawn.
+Most mandatory side-effects are marked as such, because otherwise \algfmt{AN} would lack information
+to describe what happened. Trance-journey displacement has to have a destination field where a piece
+has been displaced. Promotion needs a promoted-to piece written, otherwise it's assumed that a Pawn
+has been tagged for promotion. Demoting to Pawn syzygy has to have, at very least, a disambiguation
+(or piece, if unique) written to be able to find which piece has been demoted, and on which field.
+Resurrection syzygy must have a piece which has been resurrected, if initiating Starchild was not
+oblationed then destination field as well.
 
-Sometimes it's possible to choose which side-effect will take place. For instance,
-\hyperref[fig:scn_ma_09_conversion_pyramid_activated]{upon reaching dark Rook with its Pyramid}, light
-player is to decide whether opponent's Rook will be captured or converted. This decision cannot be
-reconstructed based on movement alone. Notation for captured pieces have traditionally been optional,
-and so is for all other interactions.
+Other mandatory side-effects are designated as such, because otherwise it could be assumed that
+targeted piece has been captured. Conversion, and failed conversion are such side-effects.
 
-Old side-effects (from Classical Chess) are mostly not necessary to write down in a notation, but those
-are in minority, and almost all of new side-effects are necessary. To avoid any possible confusion, in
-\algfmt{NAN} all side-effects are mandatory, except tag losing side-effects (i.e. \alg{==}, \alg{::},
-and \alg{\&\&}).
-
-It is recommended to also write optional side-effects and their data, for not much more effort reader
-is presented with much easier to understand notation. Compare minimalistic notation with slightly more
-verbose version:
+It is recommended to also write optional side-effects and their data, for not much more effort
+reader is presented with much easier to understand notation. Compare minimalistic notation with
+slightly more verbose version:
 
 \noindent
-\alg{Re2\~{}Wc2\~{}Pb3*} vs. \alg{Re2\~{}Wc2\~{}P::b3*N},
+\alg{Re2\~{}Wc2\~{}b3} vs. \\
+\alg{Re2\~{}Wc2\~{}b3*} vs. \\
+\alg{Re2\~{}Wc2\~{}P::b3*N},
 
 \noindent
+\alg{Hb14\~{}We12@H..q16..k14..c18} vs. \\
 \alg{Hb14\~{}We12@H..q16*..k14*..c18} vs. \\
 \alg{Hb14\~{}We12@H,w18..q16*P..k14*N..c18},
 
@@ -776,11 +760,11 @@ Table above lists most side-effects in rows. Some of those side-effects could al
 targeted piece to lose its promoting, rushing, or castling tag. Losing tags (accompanying
 those side-effects) are listed as columns. For instance, Rook still holding its castling
 tag can be captured, which is indicated by + (plus sign), under column \emph{castling},
-and row \emph{\alg{*} capture}.
+and row \emph{capture}.
 
 Some combinations are not possible, which is noted by - (minus sign). For example, Pawn
 holding promoting tag cannot be captured by en passant move, as indicated by - at
-\emph{promoting} column and \emph{\alg{:} en passant} row. This is so because Pawn can get
+\emph{promoting} column and \emph{en passant} row. This is so because Pawn can get
 promoting tag only on opponent's side of chessboard, while it can be subjected to en passant
 only on own side of chessboard.
 
@@ -788,8 +772,8 @@ Two combinations are actually using a tag, those are indicated by * (asterisk). 
 tag implicitly loses it, since no tag can be repeatedly applied (e.g. Pawn after promotion
 cannot be promoted again), so using a tag is not written as tag loss in \algfmt{AN}. For
 instance, a Rook having castling tag can castle, as found under \emph{castling} column,
-and \emph{\alg{\&} castle} row. Another instance is a Pawn holding promoting tag which
-it can use, found in \emph{promoting} column and \emph{\alg{=} promotion} row.
+and \emph{castle} row. Another instance is a Pawn holding promoting tag which it can use,
+found in \emph{promoting} column and \emph{promotion} row.
 
 \clearpage % ..........................................................
 
@@ -896,12 +880,12 @@ to tell apart, but otherwise does not contribute any new information.
 \label{tbl:Appendix/Summary/Move status}
 \end{table}
 
-While check and checkmate status are not mandatory because of lack of information,
-they do convey information, and intent to a player. Later variants are somewhat more
-complex than traditional chess, so it's easier to overlook some consequences of a
-single, cascading move (which may also move opponent's pieces), combined with e.g.
-wild movement of Centaur, weird movement of Serpent and Shaman. To avoid any possible
-confusion, check and checkmate status are mandatory in \algfmt{NAN}.
+Check and checkmate status are optional in \algfmt{NAN}, just like in \algfmt{CAN},
+see \algfmt{FIDE C.9}.
+
+\huge
+TODO
+\normalsize
 
 \clearpage % ..........................................................
 
