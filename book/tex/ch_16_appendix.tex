@@ -1273,14 +1273,17 @@ are available for a particular variant see
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
 
-<pawn-losing-tag> =
-  <pawn>
-| \alg{P==}
-| \alg{P::}
+<pawn-losing-promotion-tag> = <pawn>
+                            | \alg{P==}
+
+<pawn-losing-tag> = <pawn-losing-promotion-tag>
+                  | \alg{P::}
+
+<rook-losing-tag> = \alg{R}[\alg{\&\&}]
 
 <disposable-figure-losing-tag> =
   <disposable-figure>
-| \alg{R\&\&}
+| <rook-losing-tag>
 
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
@@ -1338,7 +1341,7 @@ are available for a particular variant see
   \alg{I}<stepping><resurrecting-side-effect>
 
 <king-castling-move> =
-  \alg{K}<stepping><castling-side-effect>
+  \alg{K}<stepping>[<castling-side-effect>]
 
 <pawn-promoting-ply> =
   <pawn><stepping><promoting-side-effect>
@@ -1349,7 +1352,7 @@ are available for a particular variant see
 <pyramid-promotion-ply> =
   \alg{A}<stepping><promoting-side-effect>
 | \alg{A}<stepping>
-    <tagging-delayed-promotion-side-effect>
+    [<tagging-delayed-promotion-side-effect>]
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effect>
@@ -1364,7 +1367,7 @@ are available for a particular variant see
 <starting-ply> =
   <active-piece><stepping>
 | <pawn-losing-tag><stepping>
-| \alg{R\&\&}<stepping>
+| <rook-losing-tag><stepping>
 | <shaman-capturing-cascading-ply>
 | <starchild-resurrecting-ply>
 | <pawn-promoting-ply>
@@ -1373,11 +1376,12 @@ are available for a particular variant see
 <terminal-ply> =
   <capturing-active-piece><stepping>
     [<capturing-side-effect>]
-| \alg{R\&\&}<stepping>[<capturing-side-effect>]
-| <pawn-losing-tag><stepping>
+| <rook-losing-tag><stepping>
     [<capturing-side-effect>]
 | <pawn-losing-tag><stepping>
-    <en-passant-side-effect>
+    [<capturing-side-effect>]
+| <pawn-losing-promotion-tag><stepping>
+    [<en-passant-side-effect>]
 | <shaman-capturing-terminal-ply>
 
 <terminating-ply> =
@@ -1471,14 +1475,14 @@ are available for a particular variant see
 
 \begin{alltt}
 <pawn-sacrifice> =
-  \alg{S}<stepping>\alg{~A}<stepping>[\alg{*}<pawn-losing-tag>]\alg{;;}
+  \alg{S}<stepping>\alg{~A}<stepping>[\alg{*}[<pawn-losing-tag>]]\alg{;;}
 
 <pawn-sacrifice-end> = \alg{|}<field>
                      | <move-cascading>
 
 <pawn-sacrifice-captures> =
   \alg{S}[<disambiguation>]
-    \{\alg{.}[\alg{.}]<field>[\alg{*}<pawn-losing-tag>]\}
+    \{\alg{.}[\alg{.}]<field>[\alg{*}[<pawn-losing-tag>]]\}
     [<pawn-sacrifice-end>]
 | \alg{S}<stepping>[<pawn-sacrifice-end>]
 
@@ -1502,10 +1506,6 @@ are available for a particular variant see
     [<pawn-sacrifice-captures>]
 | [<wave-cascading-start>]<move-star>
 \end{alltt}
-
-% <pawn-sacrifice-end> =
-%   \alg{|}<field>
-% | <move-cascading>
 
 \clearpage % ..........................................................
 
