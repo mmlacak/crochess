@@ -1245,50 +1245,55 @@ are available for a particular variant see
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
 
+<pawn-losing-tag> =
+  <pawn>
+| \alg{P==}
+| \alg{P::}
+
 <disposable-figure-losing-tag> =
   <disposable-figure>
 | \alg{R\&\&}
 
 <disposable-piece-losing-tag> =
-  <disposable-piece>
-| \alg{P==}
-| \alg{P::}
-| \alg{R\&\&}
-
-<capturing-step> =
-  <step>[<capturing-side-effects>]
+  <disposable-figure-losing-tag>
+| <pawn-losing-tag>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<capturing-side-effects> =
+<capturing-side-effect> =
   \alg{*}[<disposable-piece-losing-tag>]
 
-<en-passant-side-effects> =
+<en-passant-side-effect> =
   \alg{:}[<rank>]
 
-<demoting-side-effects> =
+<demoting-side-effect> =
   \alg{>}[<disposable-figure-losing-tag>]
+    <disambiguation>
+| \alg{>}<disposable-figure-losing-tag>
     [<disambiguation>]
 
-<resurrecting-side-effects> =
+<resurrecting-side-effect> =
   \alg{$}<disposable-piece>
 | \alg{$W}<field>
 | \alg{$I}<field>
 | \alg{$$}
 
-<castling-side-effects> = \alg{&}[<file>]
+<castling-side-effect> = \alg{&}[<file>]
 
-<promoting-side-effects> =
+<promoting-side-effect> =
   [\alg{=}]<promote-to-figure>
 
-<tagging-delayed-promotion-side-effects> =
+<tagging-delayed-promotion-side-effect> =
   \alg{=}
 
-<converting-side-effects> =
+<converting-side-effect> =
   \alg{%}[<disposable-piece-losing-tag>]
 | \alg{%%}
+
+<capturing-step> =
+  <step>[<capturing-side-effect>]
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1302,24 +1307,24 @@ are available for a particular variant see
   \alg{H}[<disambiguation>]\{<capturing-step>\}
 
 <starchild-resurrecting-ply> =
-  \alg{I}<stepping><resurrecting-side-effects>
+  \alg{I}<stepping><resurrecting-side-effect>
 
 <king-castling-move> =
-  \alg{K}<stepping><castling-side-effects>
+  \alg{K}<stepping><castling-side-effect>
 
 <pawn-promoting-ply> =
-  <pawn><stepping><promoting-side-effects>
+  <pawn><stepping><promoting-side-effect>
 
 <pawn-promoting-move> =
-  <pawn><field><promoting-side-effects>
+  <pawn><field><promoting-side-effect>
 
 <pyramid-promotion-ply> =
-  \alg{A}<stepping><promoting-side-effects>
+  \alg{A}<stepping><promoting-side-effect>
 | \alg{A}<stepping>
-    <tagging-delayed-promotion-side-effects>
+    <tagging-delayed-promotion-side-effect>
 
 <pyramid-converting-ply> =
-  \alg{A}<stepping><converting-side-effects>
+  \alg{A}<stepping><converting-side-effect>
 
 <starchild-cascading-plies> =
   \alg{I}<stepping>\{\alg{~I}<stepping>\}
@@ -1330,7 +1335,7 @@ are available for a particular variant see
 \begin{alltt}
 <starting-ply> =
   <active-piece><stepping>
-| <pawn>[\alg{==}|\alg{::}]<stepping>
+| <pawn-losing-tag><stepping>
 | \alg{R\&\&}<stepping>
 | <shaman-capturing-cascading-ply>
 | <starchild-resurrecting-ply>
@@ -1339,17 +1344,17 @@ are available for a particular variant see
 
 <terminal-ply> =
   <capturing-active-piece><stepping>
-    [<capturing-side-effects>]
-| \alg{R\&\&}<stepping>[<capturing-side-effects>]
-| <pawn>[\alg{==}|\alg{::}]<stepping>
-    [<capturing-side-effects>]
-| <pawn>[\alg{==}|\alg{::}]<stepping>
-    <en-passant-side-effects>
+    [<capturing-side-effect>]
+| \alg{R\&\&}<stepping>[<capturing-side-effect>]
+| <pawn-losing-tag><stepping>
+    [<capturing-side-effect>]
+| <pawn-losing-tag><stepping>
+    <en-passant-side-effect>
 | <shaman-capturing-terminal-ply>
 
 <terminating-ply> =
   <capturing-piece><stepping>
-    [<capturing-side-effects>]
+    [<capturing-side-effect>]
 | (\alg{A}<stepping>\alg{~})<pyramid-promotion-ply>
 | (\alg{A}<stepping>\alg{~})<pyramid-converting-ply>
 | <terminal-ply>
@@ -1436,21 +1441,22 @@ are available for a particular variant see
 
 \clearpage % ..........................................................
 
+% TODO :: <pawn-sacrifice> ugly as sin Sxx~AxxP::::: (!!!)
 \begin{alltt}
 <pawn-sacrifice> =
-  \alg{S}<stepping>\alg{~A}<stepping>\alg{*}[\alg{P}[\alg{==}|\alg{::}]]\alg{:::}
+  \alg{S}<stepping>\alg{~A}<stepping>[\alg{*}<pawn-losing-tag>]\alg{:::}
 
 <pawn-sacrifice-end> = \alg{|}<field>
                      | <move-cascading>
 
 <pawn-sacrifice-captures> =
   \alg{S}[<disambiguation>]
-    \{\alg{.}[\alg{.}]<field>[\alg{*}[\alg{P}[\alg{==}|\alg{::}]]]\}
+    \{\alg{.}[\alg{.}]<field>[\alg{*}<pawn-losing-tag>]\}
     [<pawn-sacrifice-end>]
 | \alg{S}<stepping>[<pawn-sacrifice-end>]
 
 <move-star> =
-  \alg{I}<stepping>[<resurrecting-side-effects>]
+  \alg{I}<stepping>[<resurrecting-side-effect>]
     \alg{~}\alg{T}<stepping>
 
 <move-cascading> =
@@ -1501,8 +1507,13 @@ are available for a particular variant see
 | \algcty{0-0}
 
 <move-monolith> =
-  \alg{M}<stepping>[<demoting-side-effects>]
+  \alg{M}<stepping>
+| \alg{M}<stepping><demoting-side-effect>
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <move> =
   [\alg{+}]<move-new>[<status>]
 | <move-monolith>[<status>]
@@ -1527,6 +1538,12 @@ of the rules are not possible to formalize at all.
 Ply side-effects and move status are mandatory in \algfmt{NAN}, not optional as in
 \algfmt{CAN}. These can be empty if there is no side-effect to a ply, or if there
 is no check, checkmate made in a move.
+
+\huge
+TODO
+\normalsize
+\algfmt{<pawn-sacrifice>} ugly as sin
+Sxx\~{}Axx*P::::: (!!!) $\rightarrow$ Sxx\~{}Axx*P::;; (?)
 
 \clearpage % ..........................................................
 % ---------------------------------------------------- Appendix chapter
