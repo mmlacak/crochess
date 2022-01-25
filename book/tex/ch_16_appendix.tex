@@ -859,9 +859,9 @@ to tell apart, but otherwise does not contribute any new information.
 
 \clearpage % ..........................................................
 
-\subsection*{Move status}
-\addcontentsline{toc}{subsection}{Move status}
-\label{sec:Appendix/Summary/Move status}
+\subsection*{Move symbols}
+\addcontentsline{toc}{subsection}{Move symbols}
+\label{sec:Appendix/Summary/Move symbols}
 
 \begin{table}[!h]
 \centering
@@ -876,8 +876,8 @@ to tell apart, but otherwise does not contribute any new information.
 \alg{(=)}            & draw offer                     \\
 \bottomrule
 \end{tabular}
-\caption{Move status}
-\label{tbl:Appendix/Summary/Move status}
+\caption{Move symbols}
+\label{tbl:Appendix/Summary/Move symbols}
 \end{table}
 
 Check and checkmate status are optional in \algfmt{NAN}, just like in \algfmt{CAN},
@@ -1256,7 +1256,7 @@ are available for a particular variant see
 | \alg{R\&\&}
 
 <capturing-step> =
-  <step><capturing-side-effects>
+  <step>[<capturing-side-effects>]
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1339,17 +1339,17 @@ are available for a particular variant see
 
 <terminal-ply> =
   <capturing-active-piece><stepping>
-    <capturing-side-effects>
-| \alg{R\&\&}<stepping><capturing-side-effects>
+    [<capturing-side-effects>]
+| \alg{R\&\&}<stepping>[<capturing-side-effects>]
 | <pawn>[\alg{==}|\alg{::}]<stepping>
-    <capturing-side-effects>
+    [<capturing-side-effects>]
 | <pawn>[\alg{==}|\alg{::}]<stepping>
     <en-passant-side-effects>
 | <shaman-capturing-terminal-ply>
 
 <terminating-ply> =
   <capturing-piece><stepping>
-    <capturing-side-effects>
+    [<capturing-side-effects>]
 | (\alg{A}<stepping>\alg{~})<pyramid-promotion-ply>
 | (\alg{A}<stepping>\alg{~})<pyramid-converting-ply>
 | <terminal-ply>
@@ -1504,10 +1504,10 @@ are available for a particular variant see
   \alg{M}<stepping>[<demoting-side-effects>]
 
 <move> =
-  [\alg{+}]<move-new><status>
-| <move-monolith><status>
-| <king-castling-move><status>
-| <pawn-promoting-move><status>
+  [\alg{+}]<move-new>[<status>]
+| <move-monolith>[<status>]
+| <king-castling-move>[<status>]
+| <pawn-promoting-move>[<status>]
 | <compatibility-capture>
 | <compatibility-castling>
 | \alg{#}
