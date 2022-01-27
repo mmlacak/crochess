@@ -653,10 +653,11 @@ these are optional in \algfmt{CAN}, see \algfmt{FIDE C.13}. Resigns are written 
 \algcycparend
 
 Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}; it's
-written immediately following a completed move notation, like so:
+written immediately following a completed move notation (which might include check), like
+so:
 
 \algcycpar
-\algcyc{71.}{Nb3(=)}{...}{Draw offered.}
+\algcyc{71.}{Nb3+(=)}{...}{Draw offered.}
 \algcycparend
 
 Accepted draw offer is noted with \alg{(==)} (two equal signs in brackets) as a complete
@@ -952,8 +953,8 @@ new information.
 \alg{(=)}            & draw offer                     \\
 \alg{(==)}           & draw accepted                  \\
 \alg{(===)}          & draw by rules                  \\ \cmidrule{1-2}
-\alg{...}            & placeholder for a move         \\
 \alg{\_}             & annotations separator          \\
+\alg{...}            & placeholder for a move         \\
 \bottomrule
 \end{tabular}
 \caption{Move symbols}
@@ -1571,7 +1572,7 @@ are available for a particular variant see
 | [<cascade-start>\alg{~}]<move-star>
 
 <status> = ?
-         | \alg{+}
+         | \alg{+}[\alg{(=)}]
          | \alg{#}
          | \alg{(=)}
 
