@@ -1573,6 +1573,7 @@ are available for a particular variant see
 <status> = ?
          | \alg{+}
          | \alg{#}
+         | \alg{(=)}
 
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]
@@ -1601,6 +1602,9 @@ are available for a particular variant see
 | <compatibility-capture>
 | <compatibility-castling>
 | \alg{#}
+| \alg{##}
+| \alg{(==)}
+| \alg{(===)}
 \end{alltt}
 
 % \clearpage % ..........................................................
@@ -1613,10 +1617,6 @@ overlaps, if there was no Pawn captured. Also, compatibility notation for captur
 and castling is valid only for Classical Chess, and nowhere else. Additionaly,
 algebraic notation does not distinguish between light and dark pieces, so some
 of the rules are not possible to formalize at all.
-
-Ply side-effects and move status are mandatory in \algfmt{NAN}, not optional as in
-\algfmt{CAN}. These can be empty if there is no side-effect to a ply, or if there
-is no check, checkmate made in a move.
 
 \clearpage % ..........................................................
 % ---------------------------------------------------- Appendix chapter
