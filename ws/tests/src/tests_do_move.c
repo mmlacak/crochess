@@ -89,7 +89,7 @@ bool test_do_move_single_ply( int index, TestPrints tp )
     //
     // Move [Gf3.g5..i9..k13*p==]
 
-    CcMove * move__t = cc_move_new( "[Gf3.g5..i9..k13*p==]", &ply__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( "[Gf3.g5..i9..k13*p==]", CC_MPSE_None, &ply__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, &start__t, false );
 
     if ( tp.do_print_move )
@@ -234,7 +234,7 @@ bool test_do_move_cascading_plies( int index, TestPrints tp )
     //
     // move 0, [Gb6-h3]~[Wh3-j2]~[Pj2-j5]
 
-    CcMove * move__t = cc_move_new( "[Gb6-h3]~[Wh3-j2]~[Pj2-j5]", &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( "[Gb6-h3]~[Wh3-j2]~[Pj2-j5]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -316,7 +316,7 @@ bool test_do_move_cascading_plies( int index, TestPrints tp )
     //
     // move 1, [pk4-j3:Pj5]
 
-    CcMove * move_1__o = cc_move_new( "[pk4-j3:Pj5]", &plies_3__t, CC_MSE_None );
+    CcMove * move_1__o = cc_move_on_new( "[pk4-j3:Pj5]", CC_MPSE_None, &plies_3__t, CC_MSE_None );
     if ( !move_1__o ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_3__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -452,7 +452,7 @@ bool test_do_move_castling( int index, TestPrints tp )
     //
     // move, [Kn1-u1&Ry1-t1]
 
-    CcMove * move__t = cc_move_new( "[Kn1-u1&Ry1-t1]", &ply__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( "[Kn1-u1&Ry1-t1]", CC_MPSE_None, &ply__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -600,7 +600,7 @@ bool test_do_move_tag_and_promotion( int index, TestPrints tp )
     //
     // move [Bv16-p22]~[Ap22-l22=]
 
-    CcMove * move__t = cc_move_new( "[Bv16-p22]~[Ap22-l22=]", &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( "[Bv16-p22]~[Ap22-l22=]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -674,7 +674,7 @@ bool test_do_move_tag_and_promotion( int index, TestPrints tp )
     //
     // move [Pl22-l22=Q]
 
-    CcMove * move_1__t = cc_move_new( "[Pl22-l22=Q]", &plies_2__t, CC_MSE_None );
+    CcMove * move_1__t = cc_move_on_new( "[Pl22-l22=Q]", CC_MPSE_None, &plies_2__t, CC_MSE_None );
     if ( !move_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_2__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -822,7 +822,7 @@ bool test_do_move_conversion( int index, TestPrints tp, bool is_failed )
 
     char * alg_not =  ( is_failed ) ? "[Bv12-p6]~[Ap6-l6%%]" : "[Bv12-p6]~[Ap6-l6%H]";
 
-    CcMove * move__t = cc_move_new( alg_not, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -936,7 +936,7 @@ bool test_do_move_demotion( int index, TestPrints tp )
     //
     // move [Mx16-w23>Bl12]
 
-    CcMove * move__t = cc_move_new( "[Mx16-w23>Bl12]", &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( "[Mx16-w23>Bl12]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -1069,7 +1069,7 @@ bool test_do_move_resurrection( int index,
                                    : ( is_oblationing ) ? "[Ix16-p11$Bp11]"
                                                         : "[Ix16-p11$Wq12]";
 
-    CcMove * move__t = cc_move_new( alg_not, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -1235,7 +1235,7 @@ bool test_do_move_teleportation( int index, TestPrints tp, bool is_failed )
 
     char * alg_not = ( is_failed ) ? "[Bd23-a26]||[Ba25]" : "[Bd23-a26]|[By25]";
 
-    CcMove * move__t = cc_move_new( alg_not, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -1434,7 +1434,7 @@ bool test_do_move_teleportation_wave( int index, TestPrints tp, bool is_oblation
     char * alg_not = ( is_oblationing ) ? "[Bk13-i15]~[Wi15-f12]||[W]"
                                         : "[Bk13-i15]~[Wi15-f12]|[Wt10-r8]~[Nr8-p9]";
 
-    CcMove * move__t = cc_move_new( alg_not, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
@@ -1644,7 +1644,7 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
     char * alg_not = ( is_capturing ) ? "[he9-g10]~[Wg10-h8]@[hh8,j9..h13*B..f2*n..p7..j19-v5*p==]"
                                       : "[He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]";
 
-    CcMove * move__t = cc_move_new( alg_not, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )

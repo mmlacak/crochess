@@ -272,7 +272,7 @@
 
 //     CcMoveStatusEnum mse = CC_MSE_None;
 
-//     *move__o = cc_move_new( move_str, &plies__t, mse );
+//     *move__o = cc_move_on_new( move_str, CC_MPSE_None, &plies__t, mse );
 
 // TODO
 //     return true;

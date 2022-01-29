@@ -76,7 +76,7 @@ bool test_book_move_scn_ct_03_define_step_ply( int index, TestPrints tp )
     //
     // move [Gc2.d4.e6.f8]
 
-    CcMove * move__t = cc_move_new( "[Gc2.d4.e6.f8]", &ply__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on_new( "[Gc2.d4.e6.f8]", CC_MPSE_None, &ply__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, &start__t, false );
 
     if ( tp.do_print_move )
