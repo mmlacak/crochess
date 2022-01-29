@@ -450,7 +450,7 @@ char * cc_format_step_new( CcMove * restrict move,
                                           "%c",
                                           cc_format_pos_file( step->i ) );
 
-        if ( !( cc_side_effect_enum_is_castling( step->side_effect.type )
+        if ( !( CC_SIDE_EFFECT_ENUM_IS_CASTLING( step->side_effect.type )
                 && ( step->usage <= CC_FSUE_Clarification ) ) )
         {
             CcFormatRank rank = cc_format_pos_rank( step->j );
