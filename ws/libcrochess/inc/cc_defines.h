@@ -21,7 +21,7 @@
     Used for e.g. missing coordinates, for which invalid value ascertains no useage.
 */
 // + number, so that value isn't get by accident, e.g. by simply flipping bits, ...
-#define CC_INVALID_OFF_BOARD_COORD_MIN (INT_MIN + 11)
+#define CC_INVALID_OFF_BOARD_COORD_MIN (INT_MIN + 3583)
 
 /**
     Off-board coordinate.

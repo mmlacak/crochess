@@ -12,33 +12,51 @@
 */
 
 
-// TODO :: DOCS
+/**
+    Move prestatus enumeration, before any movement.
+*/
 typedef enum CcMovePreStatusEnum
 {
-    CC_MPSE_None,
-    CC_MPSE_PreCheck,
-    CC_MPSE_PreCheckmate,
-    CC_MPSE_Resign,
-    CC_MPSE_DrawAccepted,
-    CC_MPSE_DrawByRules,
+    CC_MPSE_None, /**< No prestatus, game still on-going. */
+    CC_MPSE_PreCheck, /**< Prechecked, game still on-going. */
+    CC_MPSE_PreCheckmate, /**< Precheckmated, game ended. */
+    CC_MPSE_Resign, /**< Player resigned, game ended. */
+    CC_MPSE_DrawAccepted, /**< Player accepted draw offer, game ended. */
+    CC_MPSE_DrawByRules, /**< Game was drawn by rules, game ended. */
 } CcMovePreStatusEnum;
 
-// TODO :: DOCS
+/**
+    Macro to inline check if given prestatus is game ending.
+
+    @param mpse A prestatus, i.e. one of `CcMovePreStatusEnum` values.
+
+    @see CcMovePreStatusEnum
+
+    @return `true` if game ending prestatus, `false` otherwise.
+*/
 #define CC_MOVE_PRESTATUS_IS_GAME_END(mpse) ( ( (mpse) != CC_MPSE_None ) && ( (mpse) != CC_MPSE_PreCheck ) )
 
-// TODO :: DOCS
+/**
+    Macro to inline check if given prestatus is not game ending.
+
+    @param mpse A prestatus, i.e. one of `CcMovePreStatusEnum` values.
+
+    @see CcMovePreStatusEnum
+
+    @return `true` if prestatus is not game ending, `false` otherwise.
+*/
 #define CC_MOVE_PRESTATUS_IS_GAME_ON(mpse) ( ( (mpse) == CC_MPSE_None ) || ( (mpse) == CC_MPSE_PreCheck ) )
 
 /**
-    Move status enumeration.
+    Move status enumeration, after a valid movement.
 */
 typedef enum CcMoveStatusEnum
 {
-    CC_MSE_None,
-    CC_MSE_DrawOffer,
-    CC_MSE_Check,
-    CC_MSE_Check_DrawOffer,
-    CC_MSE_Checkmate,
+    CC_MSE_None, /**< No status. */
+    CC_MSE_DrawOffer, /**< Player offered a draw. */
+    CC_MSE_Check, /**< Checking opponent. */
+    CC_MSE_Check_DrawOffer, /**< Checking opponent, player offered a draw. */
+    CC_MSE_Checkmate, /**< Checkmating opponent. */
 } CcMoveStatusEnum;
 
 
@@ -48,7 +66,7 @@ typedef enum CcMoveStatusEnum
 typedef struct CcMove
 {
     char * notation; /**< Original notation, before parsing. Usually, from user input. */
-    CcMovePreStatusEnum prestatus; // TODO :: DOCS
+    CcMovePreStatusEnum prestatus; /**< Prestatus. */
     CcPly * plies; /**< Plies. */
     CcMoveStatusEnum status; /**< Status. */
 
@@ -60,8 +78,12 @@ typedef struct CcMove
     Returns newly allocated move.
 
     @param notation Original notation, as received from a user.
+    @param prestatus Prestatus.
     @param plies__n Plies linked list, can be `NULL`.
     @param status Move status.
+
+    @note
+    If `prestatus` argument is game ending, `plies__n` has to be `NULL`, and `status` has to be `CC_MSE_None`.
 
     @warning
     Takes ownership of plies, inner pointer will be set to `NULL`, if valid move is produced.
@@ -85,6 +107,7 @@ CcMove * cc_move_new( char const * restrict notation,
 
     @param moves__io _Input/output_ parameter, linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
+    @param prestatus Prestatus.
     @param plies__n Plies, should be valid pointer.
     @param status Move status.
 
@@ -104,6 +127,7 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
 
     @param moves__io _Input/output_ parameter, linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
+    @param prestatus Prestatus.
     @param plies__n Plies, should be valid pointer.
     @param status Move status.
 
@@ -113,6 +137,8 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
     @note
     If linked list `*moves__io` is `NULL`, it will be initialized,
     with a newly allocated move as its first element.
+
+    @see cc_move_new()
 
     @return
     Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
@@ -164,12 +190,13 @@ bool cc_move_free_all_moves( CcMove ** restrict moves__f );
 
 
 /** @defgroup move_convenience The move conveniences
- *  The move convenience functions are meant to be used instead of `cc_move_new()`, and `cc_move_append()`
+ *  The move convenience functions are meant to be used instead of `cc_move_new()`,
+    `cc_move_append()`, and `cc_move_append_or_init()`.
 
     They have minimal set of arguments required by the type of a move (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_move_new(), cc_move_append()
+    @see cc_move_new(), cc_move_append(), cc_move_append_or_init()
  *  @{
  */
 
@@ -195,7 +222,8 @@ CcMove * cc_move_end_new( char const * restrict notation,
 
 
 /** @defgroup move_convenience_append The append new move conveniences
- *  The append new move convenience functions are meant to be used instead of `cc_move_append()`.
+ *  The append new move convenience functions are meant to be used instead of
+    `cc_move_append()`.
 
     They have minimal set of arguments required by the type of a move (its linkage),
     otherwise they behave exactly as their generic progenitor.
@@ -218,12 +246,13 @@ CcMove * cc_move_end_append( CcMove * restrict moves__io,
 
 
 /** @defgroup move_convenience_append_or_init The append or init new move conveniences
- *  The append or init new move convenience functions are meant to be used instead of `cc_move_append_or_init()`.
+ *  The append or init new move convenience functions are meant to be used instead of
+    `cc_move_append_or_init()`.
 
     They have minimal set of arguments required by the type of a move (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_move_append()
+    @see cc_move_append_or_init()
  *  @{
  */
 
