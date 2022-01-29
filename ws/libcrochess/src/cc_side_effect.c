@@ -35,7 +35,7 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     }
     else if ( sse.type == CC_SEE_EnPassant )
     {
-        sse.en_passant.piece = piece;
+        sse.en_passant.pawn = piece;
         sse.en_passant.dest_i = dest_i;
         sse.en_passant.dest_j = dest_j;
     }
@@ -86,16 +86,18 @@ bool cc_side_effect_is_valid( CcSideEffect see )
             return true;
 
         case CC_SEE_Capture :
-            return CC_PIECE_IS_VALID( see.capture.piece ) &&
+            return CC_PIECE_IS_DISPOSABLE( see.capture.piece ) &&
                    CC_TAG_CAN_BE_LOST( see.capture.lost_tag );
 
         case CC_SEE_Displacement :
-            return CC_COORD_IS_ON_BOARD( see.displacement.dest_i ) &&
+            return CC_PIECE_IS_DISPLACEABLE( see.displacement.piece ) &&
+                   CC_COORD_IS_ON_BOARD( see.displacement.dest_i ) &&
                    CC_COORD_IS_ON_BOARD( see.displacement.dest_j ) &&
                    CC_TAG_CAN_BE_LOST( see.displacement.lost_tag );
 
         case CC_SEE_EnPassant :
-            return CC_COORD_IS_ON_BOARD( see.en_passant.dest_i ) &&
+            return CC_PIECE_IS_PAWN( see.en_passant.pawn ) &&
+                   CC_COORD_IS_ON_BOARD( see.en_passant.dest_i ) &&
                    CC_COORD_IS_ON_BOARD( see.en_passant.dest_j );
 
         case CC_SEE_Castle :
@@ -106,20 +108,20 @@ bool cc_side_effect_is_valid( CcSideEffect see )
                    CC_COORD_IS_ON_BOARD( see.castle.dest_j );
 
         case CC_SEE_Promotion :
-            return cc_piece_is_figure( see.capture.piece, false, false );
+            return CC_PIECE_IS_PROMOTE_TO( see.promote.piece );
 
         case CC_SEE_Conversion :
-            return CC_PIECE_IS_VALID( see.convert.piece ) &&
+            return CC_PIECE_IS_CONVERTABLE( see.convert.piece ) &&
                    CC_TAG_CAN_BE_LOST( see.convert.lost_tag );
 
         case CC_SEE_Demotion :
-            return cc_piece_is_figure( see.demote.piece, false, false ) &&
+            return CC_PIECE_IS_DEMOTEABLE( see.demote.piece ) &&
                    CC_TAG_CAN_BE_LOST( see.demote.lost_tag ) &&
                    CC_COORD_IS_ON_BOARD( see.demote.dest_i ) &&
                    CC_COORD_IS_ON_BOARD( see.demote.dest_j );
 
         case CC_SEE_Resurrection :
-            return CC_PIECE_IS_VALID( see.resurrect.piece ) &&
+            return CC_PIECE_IS_RESURRECTABLE( see.resurrect.piece ) &&
                    CC_COORD_IS_ON_BOARD( see.resurrect.dest_i ) &&
                    CC_COORD_IS_ON_BOARD( see.resurrect.dest_j );
 

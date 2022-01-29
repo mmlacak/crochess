@@ -231,7 +231,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
             }
             else
             {
-                char piece = fp_char_value( se->en_passant.piece );
+                char piece = fp_char_value( se->en_passant.pawn );
                 char file = cc_format_pos_file( se->en_passant.dest_i );
                 CcFormatRank rank = cc_format_pos_rank( se->en_passant.dest_j );
 

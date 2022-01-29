@@ -65,7 +65,7 @@ typedef struct CcSideEffect
                   int dest_j; /**< Rank, displacement destination. */
                 } displacement; /**< Displacement, used during light Shaman's trance-journey. */
 
-        struct  { CcPieceEnum piece; /**< Pawn which has been captured. */
+        struct  { CcPieceEnum pawn; /**< Pawn which has been captured. */
                   int dest_i; /**< File of captured Pawn. */
                   int dest_j; /**< Rank of captured Pawn. */
                 } en_passant; /**< En passant. */

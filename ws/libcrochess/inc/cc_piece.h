@@ -26,7 +26,9 @@
 /**
     Macro expression to evaluate whether given piece is a valid chess piece, and not None.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if valid chess piece, `false` otherwise.
 */
@@ -45,7 +47,9 @@
 /**
     Macro expression to evaluate whether piece is a Pawn.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a Pawn, `false` otherwise.
 */
@@ -54,7 +58,9 @@
 /**
     Macro expression to evaluate whether piece is a Bishop.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a Bishop, `false` otherwise.
 */
@@ -63,7 +69,9 @@
 /**
     Macro expression to evaluate whether piece is a Rook.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a Rook, `false` otherwise.
 */
@@ -72,7 +80,9 @@
 /**
     Macro expression to evaluate whether piece is a King.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a King, `false` otherwise.
 */
@@ -81,7 +91,9 @@
 /**
     Macro expression to evaluate whether piece is a Pyramid.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a Pyramid, `false` otherwise.
 */
@@ -90,7 +102,9 @@
 /**
     Macro expression to evaluate whether piece is a Wave.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a Wave, `false` otherwise.
 */
@@ -99,7 +113,9 @@
 /**
     Macro expression to evaluate whether piece is None.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is None, `false` otherwise.
 */
@@ -108,7 +124,9 @@
 /**
     Macro expression to evaluate whether piece is a Star.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a Star, `false` otherwise.
 */
@@ -117,7 +135,9 @@
 /**
     Macro expression to evaluate whether piece is a Monolith.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a Monolith, `false` otherwise.
 */
@@ -126,7 +146,9 @@
 /**
     Macro expression to evaluate whether piece is a Starchild.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is a Starchild, `false` otherwise.
 */
@@ -135,7 +157,9 @@
 /**
     Macro expression to evaluate whether piece is weightless.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is weightless, `false` otherwise.
 */
@@ -147,7 +171,9 @@
 /**
     Macro expression to evaluate whether piece can be captured.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is disposable, `false` otherwise.
 */
@@ -161,7 +187,9 @@
 /**
     Macro expression to evaluate whether Pawn can be promoted to a given piece.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is promote-to, `false` otherwise.
 */
@@ -177,7 +205,9 @@
 /**
     Macro expression to evaluate whether piece can be displaced.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is displaceable, `false` otherwise.
 */
@@ -189,9 +219,59 @@
                                     && ( (pe) != CC_PE_Monolith ) )
 
 /**
+    Macro expression to evaluate whether piece can be converted.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is convertable, `false` otherwise.
+*/
+#define CC_PIECE_IS_CONVERTABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                   && ( (pe) != CC_PE_DarkKing )     \
+                                   && ( (pe) != CC_PE_None )         \
+                                   && ( (pe) != CC_PE_LightKing )    \
+                                   && ( (pe) != CC_PE_BrightStar )   \
+                                   && ( (pe) != CC_PE_Monolith ) )
+
+/**
+    Macro expression to evaluate whether piece can be demoted.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is demoteable, `false` otherwise.
+*/
+#define CC_PIECE_IS_DEMOTEABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                  && ( (pe) != CC_PE_DarkKing )     \
+                                  && ( (pe) != CC_PE_None )         \
+                                  && ( (pe) != CC_PE_LightKing )    \
+                                  && ( (pe) != CC_PE_BrightStar )   \
+                                  && ( (pe) != CC_PE_Monolith ) )
+
+/**
+    Macro expression to evaluate whether piece can be resurrected.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is resurrectable, `false` otherwise.
+*/
+#define CC_PIECE_IS_RESURRECTABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                     && ( (pe) != CC_PE_DarkKing )     \
+                                     && ( (pe) != CC_PE_None )         \
+                                     && ( (pe) != CC_PE_LightKing )    \
+                                     && ( (pe) != CC_PE_BrightStar )   \
+                                     && ( (pe) != CC_PE_Monolith ) )
+
+/**
     Macro expression to evaluate whether piece can teleport other pieces.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is teleport_in, `false` otherwise.
 */
@@ -202,7 +282,9 @@
 /**
     Macro expression to evaluate whether piece can teleport.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return `true` if piece is teleportable, `false` otherwise.
 */
@@ -302,7 +384,9 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum pe );
 /**
     Function returning piece char, based on piece enum.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return Piece char, lowercase if piece is dark (dim), uppercase if piece is light (bright),
             space otherwise.
@@ -312,7 +396,9 @@ char cc_piece_as_char( CcPieceEnum pe );
 /**
     Function returning piece label.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @note
     Piece label is capitalized name of a piece. Piece label is the same for
@@ -325,7 +411,9 @@ char const * cc_piece_label( CcPieceEnum pe );
 /**
     Function returning piece symbol, based on piece enum.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return Piece symbol, uppercase char if valid piece, space otherwise (if piece is None).
 */
@@ -334,7 +422,9 @@ char cc_piece_symbol( CcPieceEnum pe );
 /**
     Function returning Pawn to which piece can be demoted, or None if piece can't be demoted.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
 
     @return Dark Pawn if dark piece, light Pawn if piece is light, otherwise `CC_PE_None`.
 */
@@ -343,7 +433,9 @@ CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe );
 /**
     Function returning whether piece is dark.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
     @param include_stars Flag, whether to include dim Star.
 
     @return `true` if piece is dark, `false` otherwise.
@@ -353,7 +445,9 @@ bool cc_piece_is_dark( CcPieceEnum pe, bool include_stars );
 /**
     Function returning whether piece is light.
 
-    @param pe Piece enum.
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
     @param include_stars Flag, whether to include bright Star.
 
     @return `true` if piece is light, `false` otherwise.
