@@ -4,6 +4,8 @@
 #ifndef __CC_STEP_H__
 #define __CC_STEP_H__
 
+#include <stddef.h>
+
 #include "cc_side_effect.h"
 
 /**

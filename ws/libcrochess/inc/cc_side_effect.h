@@ -4,9 +4,6 @@
 #ifndef __CC_SIDE_EFFECT_H__
 #define __CC_SIDE_EFFECT_H__
 
-#include <stdbool.h>
-#include <stdlib.h>
-
 #include "cc_piece.h"
 #include "cc_tag.h"
 
