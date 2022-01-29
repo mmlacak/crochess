@@ -245,8 +245,8 @@ CcMove * cc_move_end_append( CcMove * restrict moves__io,
 /** @} */ // end of move_convenience_append
 
 
-/** @defgroup move_convenience_append_or_init The append or init new move conveniences
- *  The append or init new move convenience functions are meant to be used instead of
+/** @defgroup move_convenience_append_or_init The append new or init move conveniences
+ *  The append new or init move convenience functions are meant to be used instead of
     `cc_move_append_or_init()`.
 
     They have minimal set of arguments required by the type of a move (its linkage),

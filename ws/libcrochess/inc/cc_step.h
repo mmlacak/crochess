@@ -291,12 +291,13 @@ bool cc_step_free_all_steps( CcStep ** restrict steps__f );
 
 
 /** @defgroup step_convenience The step conveniences
- *  The step convenience functions are meant to be used instead of `cc_step_new()`, and `cc_step_append()`
+ *  The step convenience functions are meant to be used instead of `cc_step_new()`,
+    `cc_step_append()` and `cc_step_append_or_init()`.
 
     They have minimal set of arguments required by the type of a step (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_step_new(), cc_step_append()
+    @see cc_step_new(), cc_step_append(), cc_step_append_or_init()
  *  @{
  */
 
@@ -424,6 +425,77 @@ CcStep * cc_step_failed_resurrection_append( CcStep * restrict steps__io,
                                              CcFormatStepUsageEnum usage );
 
 /** @} */ // end of step_convenience_append
+
+
+
+/** @defgroup step_convenience_append_or_init The append new or init step conveniences
+ *  The append new or init step convenience functions are meant to be used instead of
+    `cc_step_append_or_init()`.
+
+    They have minimal set of arguments required by the type of a step (its linkage),
+    otherwise they behave exactly as their generic progenitor.
+
+    @see cc_step_append_or_init()
+ *  @{
+ */
+
+CcStep * cc_step_none_append_or_init( CcStep ** restrict steps__io,
+                                      CcStepLinkEnum link, int i, int j,
+                                      CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_capture_append_or_init( CcStep ** restrict steps__io,
+                                         CcStepLinkEnum link, int i, int j,
+                                         CcPieceEnum piece, CcTagEnum lost_tag,
+                                         CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_displacement_append_or_init( CcStep ** restrict steps__io,
+                                              CcStepLinkEnum link, int i, int j,
+                                              CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j,
+                                              CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_en_passant_append_or_init( CcStep ** restrict steps__io,
+                                            CcStepLinkEnum link, int i, int j,
+                                            CcPieceEnum piece, int dest_i, int dest_j,
+                                            CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_castle_append_or_init( CcStep ** restrict steps__io,
+                                        CcStepLinkEnum link, int i, int j,
+                                        CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j,
+                                        CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_promote_append_or_init( CcStep ** restrict steps__io,
+                                         CcStepLinkEnum link, int i, int j,
+                                         CcPieceEnum piece,
+                                         CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_tag_for_promotion_append_or_init( CcStep ** restrict steps__io,
+                                                   CcStepLinkEnum link, int i, int j,
+                                                   CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_convert_append_or_init( CcStep ** restrict steps__io,
+                                         CcStepLinkEnum link, int i, int j,
+                                         CcPieceEnum piece, CcTagEnum lost_tag,
+                                         CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_failed_conversion_append_or_init( CcStep ** restrict steps__io,
+                                                   CcStepLinkEnum link, int i, int j,
+                                                   CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_demote_append_or_init( CcStep ** restrict steps__io,
+                                        CcStepLinkEnum link, int i, int j,
+                                        CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j,
+                                        CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_resurrect_append_or_init( CcStep ** restrict steps__io,
+                                           CcStepLinkEnum link, int i, int j,
+                                           CcPieceEnum piece, int dest_i, int dest_j,
+                                           CcFormatStepUsageEnum usage );
+
+CcStep * cc_step_failed_resurrection_append_or_init( CcStep ** restrict steps__io,
+                                                     CcStepLinkEnum link, int i, int j,
+                                                     CcFormatStepUsageEnum usage );
+
+/** @} */ // end of step_convenience_append_or_init
 
 /** @} */ // end of step_convenience
 
