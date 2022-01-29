@@ -694,7 +694,7 @@ status is written in front of regular move notation, like so:
 \algcycparend
 
 If King is checkmated on its own player's turn, game ends, and only checkmated status
-is written, like so:
+(which is mandatory in \algfmt{NAN}) is written, like so:
 
 \algcycpar
 \algcyc{92.}{...}{\#}{Checkmated on own turn, i.e. precheckmated.}
@@ -810,7 +810,7 @@ slightly more verbose version:
 \centering
 \begin{tabular}{ rlccc }
 \toprule
-\textbf{Symbol}             & \textbf{Side-effect}  & \multicolumn{3}{c}{ \textbf{Accompanying losing tags} }              \\ \cmidrule{3-5}
+\textbf{Sym.}               & \textbf{Side-effect}  & \multicolumn{3}{c}{ \textbf{Accompanying losing tags} }              \\ \cmidrule{3-5}
                             &                       & \emph{castling}      & \emph{promoting}      & \emph{rushing}        \\
 \midrule
 \alg{*}                     & capture               & +                    & +                     & +                     \\ \cmidrule{1-5}
@@ -948,7 +948,9 @@ new information.
 \textbf{Symbol}      & \textbf{Status}                \\
 \midrule
 \alg{+}              & check                          \\
+\alg{+}              & precheck                       \\
 \alg{\#}             & checkmate                      \\
+\alg{\#}             & precheckmate                   \\
 \alg{\#\#}           & resign                         \\ \cmidrule{1-2}
 \alg{(=)}            & draw offer                     \\
 \alg{(==)}           & draw accepted                  \\
@@ -961,9 +963,9 @@ new information.
 \label{tbl:Appendix/Summary/Move symbols}
 \end{table}
 
-Check notation is optional in \algfmt{NAN}, just like in \algfmt{CAN}, see \algfmt{FIDE C.9}.
-Checkmate and resign notation are both mandatory, to note end of a game score (list of moves
-by both players).
+Check notation is optional in \algfmt{NAN}, just like in \algfmt{CAN}, see \algfmt{FIDE C.9};
+precheck notation is also optional. Checkmate, precheckmate and resign notations are mandatory,
+to note end of a game score (list of moves by both players).
 
 Draw offer notation is optional in \algfmt{NAN}; accepted draw and draw by rules notations
 are mandatory, since they also note end of a game score.
