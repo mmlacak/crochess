@@ -75,6 +75,62 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     return sse;
 }
 
+bool cc_side_effect_is_valid( CcSideEffect see )
+{
+    switch ( see.type )
+    {
+        case CC_SEE_None :
+        case CC_SEE_TagForPromotion :
+        case CC_SEE_FailedConversion :
+        case CC_SEE_FailedResurrection :
+            return true;
+
+        case CC_SEE_Capture :
+            return CC_PIECE_IS_VALID( see.capture.piece ) &&
+                   CC_TAG_CAN_BE_LOST( see.capture.lost_tag );
+
+        case CC_SEE_Displacement :
+            return CC_COORD_IS_ON_BOARD( see.displacement.dest_i ) &&
+                   CC_COORD_IS_ON_BOARD( see.displacement.dest_j ) &&
+                   CC_TAG_CAN_BE_LOST( see.displacement.lost_tag );
+
+        case CC_SEE_EnPassant :
+            return CC_COORD_IS_ON_BOARD( see.en_passant.dest_i ) &&
+                   CC_COORD_IS_ON_BOARD( see.en_passant.dest_j );
+
+        case CC_SEE_Castle :
+            return CC_PIECE_IS_ROOK( see.castle.rook ) &&
+                   CC_COORD_IS_ON_BOARD( see.castle.start_i ) &&
+                   CC_COORD_IS_ON_BOARD( see.castle.start_j ) &&
+                   CC_COORD_IS_ON_BOARD( see.castle.dest_i ) &&
+                   CC_COORD_IS_ON_BOARD( see.castle.dest_j );
+
+        case CC_SEE_Promotion :
+            return cc_piece_is_figure( see.capture.piece, false, false );
+
+        case CC_SEE_Conversion :
+            return CC_PIECE_IS_VALID( see.convert.piece ) &&
+                   CC_TAG_CAN_BE_LOST( see.convert.lost_tag );
+
+        case CC_SEE_Demotion :
+            return cc_piece_is_figure( see.demote.piece, false, false ) &&
+                   CC_TAG_CAN_BE_LOST( see.demote.lost_tag ) &&
+                   CC_COORD_IS_ON_BOARD( see.demote.dest_i ) &&
+                   CC_COORD_IS_ON_BOARD( see.demote.dest_j );
+
+        case CC_SEE_Resurrection :
+            return CC_PIECE_IS_VALID( see.resurrect.piece ) &&
+                   CC_COORD_IS_ON_BOARD( see.resurrect.dest_i ) &&
+                   CC_COORD_IS_ON_BOARD( see.resurrect.dest_j );
+
+        default :
+            return false;
+    }
+}
+
+//
+// conveniances
+
 CcSideEffect cc_side_effect_none()
 {
     return cc_side_effect( CC_SEE_None, CC_PE_None, CC_TE_None,

@@ -61,6 +61,18 @@
 */
 #define CC_COORD_IS_VALID(coord) ( (coord) != CC_INVALID_OFF_BOARD_COORD_MIN )
 
+/**
+    Macro to check if a given coordinate is on board.
+
+    @param coord A coordinate.
+
+    @note
+    Board coordinate limits used are from largest board, i.e. One variant.
+
+    @return `1` if on board, `0` otherwise.
+*/
+#define CC_COORD_IS_ON_BOARD(coord) ( ( CC_MIN_BOARD_COORD <= (coord) ) && ( (coord) <= CC_MAX_BOARD_COORD ) )
+
 
 /**
     Macro to inline comparing, producing smaller value.

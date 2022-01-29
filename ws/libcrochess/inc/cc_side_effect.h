@@ -4,6 +4,8 @@
 #ifndef __CC_SIDE_EFFECT_H__
 #define __CC_SIDE_EFFECT_H__
 
+#include <stddef.h>
+
 #include "cc_piece.h"
 #include "cc_tag.h"
 
@@ -117,6 +119,18 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
                              CcTagEnum lost_tag,
                              int start_i, int start_j,
                              int dest_i, int dest_j );
+
+/**
+    Function checks if a given side-effect is valid.
+
+    @param see A side-effect.
+
+    @warning
+    Coordinates in a side-effect are checked only against largest board, i.e. One variant.
+
+    @return `true` if valid, `false` otherwise.
+*/
+bool cc_side_effect_is_valid( CcSideEffect see );
 
 /** @defgroup side_effect_convenience The side-effect conveniences
  *  The side-effect convenience functions are meant to be used instead of `cc_side_effect()`.

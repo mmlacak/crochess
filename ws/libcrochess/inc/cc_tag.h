@@ -19,7 +19,9 @@
 /**
     Macro expression to evaluate whether given tag is valid (i.e. not None).
 
-    @param te Tag enum.
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
 
     @return `true` if valid tag, `false` otherwise.
 */
@@ -28,7 +30,9 @@
 /**
     Macro expression to evaluate whether given tag is denoting "can rush" ability.
 
-    @param te Tag enum.
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
 
     @return `true` if "can rush" tag, `false` otherwise.
 */
@@ -37,7 +41,9 @@
 /**
     Macro expression to evaluate whether given tag is denoting "can castle" ability.
 
-    @param te Tag enum.
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
 
     @return `true` if "can castle" tag, `false` otherwise.
 */
@@ -46,7 +52,9 @@
 /**
     Macro expression to evaluate whether given tag is denoting "can be promoted" option.
 
-    @param te Tag enum.
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
 
     @return `true` if "can be promoted" tag, `false` otherwise.
 */
@@ -55,7 +63,9 @@
 /**
     Macro expression to evaluate whether given tag is denoting "can be captured by en passant" option.
 
-    @param te Tag enum.
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
 
     @return `true` if "can be captured by en passant" tag, `false` otherwise.
 */
@@ -64,7 +74,9 @@
 /**
     Macro expression to evaluate whether given tag is denoting "can capture after Pawn sacrifice" ability.
 
-    @param te Tag enum.
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
 
     @return `true` if "can capture after Pawn sacrifice" tag, `false` otherwise.
 */
@@ -73,7 +85,9 @@
 /**
     Macro expression to evaluate whether given tag can last for several moves.
 
-    @param te Tag enum.
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
 
     @return `true` if lasting tag, `false` otherwise.
 */
@@ -85,12 +99,26 @@
     Macro expression to evaluate whether given tag is temporarily,
     i.e. lasts at most a single move.
 
-    @param te Tag enum.
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
 
     @return `true` if temporarily tag, `false` otherwise.
 */
 #define CC_TAG_IS_TEMPORARILY(te) ( ( (te) == CC_TE_EnPassant )         \
                                  || ( (te) == CC_TE_PawnSacrifice ) )
+
+/**
+    Macro expression to check if given tag is none, or can be lost,
+    i.e. lasts at least a single move.
+
+    @param te Tag enum, i.e. one of `CcTagEnum` values.
+
+    @see CcTagEnum
+
+    @return `true` if tag can be lost, or is `CC_TE_None`; `false` otherwise.
+*/
+#define CC_TAG_CAN_BE_LOST(te) ( (te) != CC_TE_PawnSacrifice )
 
 
 /**
