@@ -8,6 +8,7 @@
 
 #include "cc_piece.h"
 #include "cc_tag.h"
+#include "cc_variant.h"
 
 /**
     @file cc_side_effect.h
@@ -124,13 +125,11 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     Function checks if a given side-effect is valid.
 
     @param see A side-effect.
-
-    @warning
-    Coordinates in a side-effect are checked only against largest board, i.e. One variant.
+    @param ve A variant being played.
 
     @return `true` if valid, `false` otherwise.
 */
-bool cc_side_effect_is_valid( CcSideEffect see );
+bool cc_side_effect_is_valid( CcSideEffect see, CcVariantEnum ve );
 
 /** @defgroup side_effect_convenience The side-effect conveniences
  *  The side-effect convenience functions are meant to be used instead of `cc_side_effect()`.

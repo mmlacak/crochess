@@ -75,7 +75,7 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     return sse;
 }
 
-bool cc_side_effect_is_valid( CcSideEffect see )
+bool cc_side_effect_is_valid( CcSideEffect see, CcVariantEnum ve )
 {
     switch ( see.type )
     {
@@ -91,21 +91,25 @@ bool cc_side_effect_is_valid( CcSideEffect see )
 
         case CC_SEE_Displacement :
             return CC_PIECE_IS_DISPLACEABLE( see.displacement.piece ) &&
-                   CC_COORD_IS_ON_BOARD( see.displacement.dest_i ) &&
-                   CC_COORD_IS_ON_BOARD( see.displacement.dest_j ) &&
+                   cc_variant_is_pos_on_board( ve,
+                                               see.displacement.dest_i,
+                                               see.displacement.dest_j ) &&
                    CC_TAG_CAN_BE_LOST( see.displacement.lost_tag );
 
         case CC_SEE_EnPassant :
             return CC_PIECE_IS_PAWN( see.en_passant.pawn ) &&
-                   CC_COORD_IS_ON_BOARD( see.en_passant.dest_i ) &&
-                   CC_COORD_IS_ON_BOARD( see.en_passant.dest_j );
+                   cc_variant_is_pos_on_board( ve,
+                                               see.en_passant.dest_i,
+                                               see.en_passant.dest_j );
 
         case CC_SEE_Castle :
             return CC_PIECE_IS_ROOK( see.castle.rook ) &&
-                   CC_COORD_IS_ON_BOARD( see.castle.start_i ) &&
-                   CC_COORD_IS_ON_BOARD( see.castle.start_j ) &&
-                   CC_COORD_IS_ON_BOARD( see.castle.dest_i ) &&
-                   CC_COORD_IS_ON_BOARD( see.castle.dest_j );
+                   cc_variant_is_pos_on_board( ve,
+                                               see.castle.start_i,
+                                               see.castle.start_j ) &&
+                   cc_variant_is_pos_on_board( ve,
+                                               see.castle.dest_i,
+                                               see.castle.dest_j );
 
         case CC_SEE_Promotion :
             return CC_PIECE_IS_PROMOTE_TO( see.promote.piece );
@@ -117,13 +121,15 @@ bool cc_side_effect_is_valid( CcSideEffect see )
         case CC_SEE_Demotion :
             return CC_PIECE_IS_DEMOTEABLE( see.demote.piece ) &&
                    CC_TAG_CAN_BE_LOST( see.demote.lost_tag ) &&
-                   CC_COORD_IS_ON_BOARD( see.demote.dest_i ) &&
-                   CC_COORD_IS_ON_BOARD( see.demote.dest_j );
+                   cc_variant_is_pos_on_board( ve,
+                                               see.demote.dest_i,
+                                               see.demote.dest_j );
 
         case CC_SEE_Resurrection :
             return CC_PIECE_IS_RESURRECTABLE( see.resurrect.piece ) &&
-                   CC_COORD_IS_ON_BOARD( see.resurrect.dest_i ) &&
-                   CC_COORD_IS_ON_BOARD( see.resurrect.dest_j );
+                   cc_variant_is_pos_on_board( ve,
+                                               see.resurrect.dest_i,
+                                               see.resurrect.dest_j );
 
         default :
             return false;

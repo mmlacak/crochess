@@ -148,6 +148,7 @@ bool cc_chessboard_free_all( CcChessboard ** restrict cb__f )
     return true;
 }
 
+// TODO :: USE :: cc_variant_is_coord_on_board
 bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
                                       int coord )
 {
@@ -156,7 +157,9 @@ bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
 
     return ( ( 0 <= coord ) && ( coord < (int)cb->size ) );
 }
+// TODO :: USE :: cc_variant_is_coord_on_board
 
+// TODO :: USE :: cc_variant_is_pos_on_board
 bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
                                     int i,
                                     int j )
@@ -166,6 +169,7 @@ bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
     return ( cc_chessboard_is_coord_on_board( cb, i )
           && cc_chessboard_is_coord_on_board( cb, j ) );
 }
+// TODO :: USE :: cc_variant_is_pos_on_board
 
 CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb,
                                      int i,

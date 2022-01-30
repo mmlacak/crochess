@@ -20,7 +20,10 @@
 typedef struct CcChessboard
 {
     CcVariantEnum type; /**< Chess variant to play. */
+
+// TODO :: REMOVE
     unsigned int size; /**< Actual size of a board used for a given variant. */
+// TODO :: REMOVE
 
     CcPieceEnum board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]; /**< Holds pieces in place. */
     CcTagEnum tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]; /**< Holds tags for pieces at their respective position. */
@@ -120,8 +123,10 @@ bool cc_chessboard_free_all( CcChessboard ** restrict cb__f );
 
     @return `true` if coordinate is on-board, `false` otherwise.
 */
+// TODO :: USE :: cc_variant_is_coord_on_board
 bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
                                       int coord );
+// TODO :: USE :: cc_variant_is_coord_on_board
 
 /**
     Function returning if given position belongs to a board.
@@ -132,9 +137,11 @@ bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
 
     @return `true` if position is on-board, `false` otherwise.
 */
+// TODO :: USE :: cc_variant_is_pos_on_board
 bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
                                     int i,
                                     int j );
+// TODO :: USE :: cc_variant_is_pos_on_board
 
 /**
     Function returning piece on a given position.

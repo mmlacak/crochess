@@ -133,3 +133,16 @@ unsigned int cc_variant_board_size( CcVariantEnum ve )
         default : return 0;
     }
 }
+
+bool cc_variant_is_coord_on_board( CcVariantEnum ve, int coord )
+{
+    unsigned int size = cc_variant_board_size( ve );
+    return ( ( 0 <= coord ) && ( coord < (int)size ) );
+}
+
+bool cc_variant_is_pos_on_board( CcVariantEnum ve, int i, int j )
+{
+    unsigned int size = cc_variant_board_size( ve );
+    return ( ( 0 <= i ) && ( i < (int)size ) &&
+             ( 0 <= j ) && ( j < (int)size ) );
+}
