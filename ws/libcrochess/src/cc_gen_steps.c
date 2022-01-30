@@ -20,7 +20,7 @@ bool cc_gen_steps_piece_pos_iter( CcChessboard * restrict cb,
     CcPos pos = *pos__io;
 
     // Next position to check.
-    if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) )
+    if ( !cc_variant_is_pos_on_board( cb->type, pos.i, pos.j ) )
         pos = cc_pos( 0, 0 );
     else if ( pos.j < size - 1 )
         pos = cc_pos( pos.i, pos.j + 1 );

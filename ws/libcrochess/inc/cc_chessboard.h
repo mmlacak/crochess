@@ -116,34 +116,6 @@ CcChessboard * cc_chessboard_duplicate_new( CcChessboard * restrict from );
 bool cc_chessboard_free_all( CcChessboard ** restrict cb__f );
 
 /**
-    Function returning if given coordinate belongs to a board.
-
-    @param cb Chessboard.
-    @param coord A coordinate.
-
-    @return `true` if coordinate is on-board, `false` otherwise.
-*/
-// TODO :: USE :: cc_variant_is_coord_on_board
-bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
-                                      int coord );
-// TODO :: USE :: cc_variant_is_coord_on_board
-
-/**
-    Function returning if given position belongs to a board.
-
-    @param cb Chessboard.
-    @param i File, position along horizontal axis.
-    @param j Rank, position along vertical axis.
-
-    @return `true` if position is on-board, `false` otherwise.
-*/
-// TODO :: USE :: cc_variant_is_pos_on_board
-bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
-                                    int i,
-                                    int j );
-// TODO :: USE :: cc_variant_is_pos_on_board
-
-/**
     Function returning piece on a given position.
 
     @param cb Chessboard.

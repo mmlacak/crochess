@@ -148,34 +148,11 @@ bool cc_chessboard_free_all( CcChessboard ** restrict cb__f )
     return true;
 }
 
-// TODO :: USE :: cc_variant_is_coord_on_board
-bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
-                                      int coord )
-{
-    if ( !cb ) return false;
-    if ( !CC_VARIANT_BOARD_SIZE_IS_VALID( cb->size ) ) return false;
-
-    return ( ( 0 <= coord ) && ( coord < (int)cb->size ) );
-}
-// TODO :: USE :: cc_variant_is_coord_on_board
-
-// TODO :: USE :: cc_variant_is_pos_on_board
-bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
-                                    int i,
-                                    int j )
-{
-    if ( !cb ) return false;
-
-    return ( cc_chessboard_is_coord_on_board( cb, i )
-          && cc_chessboard_is_coord_on_board( cb, j ) );
-}
-// TODO :: USE :: cc_variant_is_pos_on_board
-
 CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb,
                                      int i,
                                      int j )
 {
-    if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
+    if ( cc_variant_is_pos_on_board( cb->type, i, j ) )
     {
         return cb->board[ i ][ j ];
     }
@@ -187,7 +164,7 @@ CcTagEnum cc_chessboard_get_tag( CcChessboard * restrict cb,
                                  int i,
                                  int j )
 {
-    if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
+    if ( cc_variant_is_pos_on_board( cb->type, i, j ) )
     {
         return cb->tags[ i ][ j ];
     }
@@ -203,7 +180,7 @@ bool cc_chessboard_set_piece_tag( CcChessboard * restrict cb__io,
 {
     if ( !cb__io ) return false;
 
-    if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) )
+    if ( cc_variant_is_pos_on_board( cb__io->type, i, j ) )
     {
         cb__io->board[ i ][ j ] = pe;
         cb__io->tags[ i ][ j ] = tt;
@@ -230,7 +207,7 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
 {
     if ( !cb__io ) return false;
 
-    if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) )
+    if ( cc_variant_is_pos_on_board( cb__io->type, i, j ) )
     {
         cb__io->tags[ i ][ j ] = tt;
 

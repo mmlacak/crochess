@@ -28,13 +28,13 @@ bool cc_rule_steps_find_unique_path( CcGame * restrict game,
 
     CcChessboard * cb = game->chessboard;
 
-    bool is_disamb_i = cc_chessboard_is_coord_on_board( cb, disamb_i__d );
-    bool is_disamb_j = cc_chessboard_is_coord_on_board( cb, disamb_j__d );
+    bool is_disamb_i = cc_variant_is_coord_on_board( cb->type, disamb_i__d );
+    bool is_disamb_j = cc_variant_is_coord_on_board( cb->type, disamb_j__d );
 
     if ( ( CC_COORD_IS_VALID( disamb_i__d ) ) && ( !is_disamb_i ) ) return false;
     if ( ( CC_COORD_IS_VALID( disamb_j__d ) ) && ( !is_disamb_j ) ) return false;
 
-    if ( !cc_chessboard_is_pos_on_board( cb, dest.i, dest.j ) )
+    if ( !cc_variant_is_pos_on_board( cb->type, dest.i, dest.j ) )
         return false;
 
     if ( is_disamb_i && is_disamb_j )

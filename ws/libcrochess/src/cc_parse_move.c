@@ -171,11 +171,11 @@
 //                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
 //             }
 
-//             if ( cc_chessboard_is_coord_on_board( game->chessboard, disamb_step_i )
-//               || cc_chessboard_is_coord_on_board( game->chessboard, disamb_step_j ) )
+//             if ( cc_variant_is_coord_on_board( game->chessboard->type, disamb_step_i )
+//               || cc_variant_is_coord_on_board( game->chessboard->type, disamb_step_j ) )
 //             {
-//                 if ( cc_chessboard_is_coord_on_board( game->chessboard, disamb_i )
-//                   || cc_chessboard_is_coord_on_board( game->chessboard, disamb_j ) )
+//                 if ( cc_variant_is_coord_on_board( game->chessboard->type, disamb_i )
+//                   || cc_variant_is_coord_on_board( game->chessboard->type, disamb_j ) )
 //                 {
 //                     cc_parse_msg_append_or_init_format( parse_msgs__io,
 //                                                         CC_PME_Error,
