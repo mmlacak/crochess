@@ -11,26 +11,27 @@
 \usepackage[utf8]{inputenc}
 % \usepackage[T1]{fontenc}
 
-\usepackage{charter}
-\renewcommand{\rmdefault}{bch}
+\usepackage{alltt}
+\renewcommand{\ttdefault}{pcr} % Adobe Courier % semi-bold {, }, under-bold _
+% \renewcommand{\ttdefault}{ucr} % URW Courier % Not good, can't render <, >, |, semi-bold {, }
+% \renewcommand\ttdefault{lcmtt} % Computer Modern Teletype L % everything (semi-)bold, heightened, no italics
+% \renewcommand*\ttdefault{lcmtt} % Computer Modern Teletype L % everything (semi-)bold, heightened, no italics
+
+% \usepackage{tgcursor} % TeX Gyre Cursor % semi-bold {, }, under-bold _
+% \usepackage{lmodern} % Latin Modern Mono % overrides normal font --> is ok, almost the same geometry as Charter; tt --> everything (semi-)bold, heightened
+% \usepackage{nimbusmono} % Nimbus 15 Mono % overrides Charter defaults; tt --> everything (semi-)bold, under-bold %, :
+% \usepackage{courier} % Courier, provided by URW Nimbus Mono % semi-bold {, }, under-bold _
+% \usepackage{courierten} % Courier 10 Pitch BT % Not good, can't render <, >, |, everything semi-bold
+
+% \usepackage[zerostyle=d]{newtxtt} %% Various versions of zeros available. See documentation for details
+% \usepackage{newtxtt} %% Various versions of zeros available. See documentation for details
+% \renewcommand{\ttdefault}{newtxtt} % New TXTT % Not courier, everything semi-bold, heightened
 
 \usepackage{helvet}
 \renewcommand{\sfdefault}{phv}
 
-\usepackage{alltt}
-\renewcommand{\ttdefault}{pcr} % Adobe Courier
-% \renewcommand{\ttdefault}{ucr} % URW Courier
-% \renewcommand\ttdefault{lcmtt} % \renewcommand*\ttdefault{lcmtt} % Computer Modern Teletype L
-
-% \usepackage{tgcursor} % TeX Gyre Cursor
-% \usepackage{lmodern} % Latin Modern Mono
-% \usepackage{nimbusmono} % Nimbus 15 Mono
-% \usepackage{courier} % Courier, provided by URW Nimbus Mono
-% \usepackage{courierten} % Courier 10 Pitch BT
-
-% \usepackage[zerostyle=d]{newtxtt} %% Various versions of zeros available. See documentation for details
-% \usepackage{newtxtt} %% Various versions of zeros available. See documentation for details
-% \renewcommand{\ttdefault}{newtxtt} % New TXTT
+\usepackage{charter}
+\renewcommand{\rmdefault}{bch}
 
 % \renewcommand{\familydefault}{\sfdefault} % \rmdefault
 
@@ -144,14 +145,14 @@
 
     \emph{Source} \\
     \href{https://github.com/mmlacak/crochess}{https://github.com/mmlacak/crochess} \\
-    Version: 20220202.083432 \\ [2.0em] % book-new-commit-version-squished-utc-date-time-place-marker
+    Version: 20220203.030904 \\ [2.0em] % book-new-commit-version-squished-utc-date-time-place-marker
 
     \emph{Legal} \\
     This book is published as Public Domain work. \\
     \href{https://en.wikipedia.org/wiki/Public\_domain}{https://en.wikipedia.org/wiki/Public\_domain} \\ [2.0em]
 
     \emph{Third, revised edition} \\
-    2022-02-02 \\ % book-new-commit-version-date-place-marker
+    2022-02-03 \\ % book-new-commit-version-date-place-marker
     Zagreb, Croatia
 
     \vfill
@@ -171,7 +172,7 @@
     \vspace*{0.2\textheight}
 
     \textbf{\large{Mario Mlačak}} \\ [1.0em]
-    \small{2022-02-02} \\ [0.5em] % book-new-commit-version-date-small-place-marker
+    \small{2022-02-03} \\ [0.5em] % book-new-commit-version-date-small-place-marker
     \small{Zagreb, Croatia}
 \end{center}
 \clearpage % ..........................................................
