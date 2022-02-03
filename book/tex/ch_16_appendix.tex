@@ -1329,11 +1329,10 @@ are available for a particular variant see
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
 
-<pawn-losing-promotion-tag> = <pawn>
-                            | \alg{P==}
+<pawn-losing-promotion-tag> = <pawn> | \alg{P==}
 
-<pawn-losing-tag> = <pawn-losing-promotion-tag>
-                  | \alg{P::}
+<pawn-losing-tag> = \alg{P::}
+| <pawn-losing-promotion-tag>
 
 <rook-losing-tag> = \alg{R}[\alg{\&\&}]
 
