@@ -59,7 +59,7 @@
 
     @return `1` if valid, `0` otherwise.
 */
-#define CC_COORD_IS_VALID(coord) ( (coord) != CC_INVALID_OFF_BOARD_COORD_MIN )
+#define CC_IS_COORD_VALID(coord) ( (coord) != CC_INVALID_OFF_BOARD_COORD_MIN )
 
 /**
     Macro to check if a given coordinate is on board.
@@ -67,9 +67,12 @@
     @param board_size A chessboard size, integer.
     @param coord A coordinate, integer.
 
+    @warning
+    All arguments are cast to `int`.
+
     @return `1` if on board, `0` otherwise.
 */
-#define CC_COORD_IS_ON_BOARD(board_size,coord) ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) && ( (coord) < (int)(board_size) ) )
+#define CC_IS_COORD_ON_BOARD(board_size,coord) ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) && ( (coord) < (int)(board_size) ) )
 
 /**
     Macro to check if a given position is on board.
@@ -78,9 +81,12 @@
     @param i File, position along horizontal axis, integer.
     @param j Rank, position along vertical axis, integer.
 
+    @warning
+    All arguments are cast to `int`.
+
     @return `1` if on board, `0` otherwise.
 */
-#define CC_POS_IS_ON_BOARD(board_size,i,j) ( ( CC_MIN_BOARD_COORD <= (int)(i) ) && ( (int)(i) < (int)(board_size) ) && ( CC_MIN_BOARD_COORD <= (int)(j) ) && ( (int)(j) < (int)(board_size) ) )
+#define CC_IS_POS_ON_BOARD(board_size,i,j) ( ( CC_MIN_BOARD_COORD <= (int)(i) ) && ( (int)(i) < (int)(board_size) ) && ( CC_MIN_BOARD_COORD <= (int)(j) ) && ( (int)(j) < (int)(board_size) ) )
 
 
 /**

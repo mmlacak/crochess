@@ -598,7 +598,7 @@ bool cc_parse_utils_get_fields( char const * restrict fields_str,
         bool is_file_0 = ( islower( *file_0_str ) ) ? true : false;
         file_0 = ( is_file_0 ) ? ( *file_0_str ) - 'a' : CC_INVALID_OFF_BOARD_COORD_MIN;
 
-        if ( !CC_COORD_IS_ON_BOARD( cb->size, file_0 ) )
+        if ( !cc_chessboard_is_coord_on_board( cb, file_0 ) )
             file_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         char const * rank_0_str = file_0_str + is_file_0;
@@ -611,7 +611,7 @@ bool cc_parse_utils_get_fields( char const * restrict fields_str,
             rank_0 = ( rank_0_len > 0 ) ? atoi( rank_0_str ) - 1
                                         : CC_INVALID_OFF_BOARD_COORD_MIN;
 
-            if ( !CC_COORD_IS_ON_BOARD( cb->size, rank_0 ) )
+            if ( !cc_chessboard_is_coord_on_board( cb, rank_0 ) )
                 rank_0 = CC_INVALID_OFF_BOARD_COORD_MIN;
 
             char const * file_1_str = rank_0_str + rank_0_len;
@@ -620,7 +620,7 @@ bool cc_parse_utils_get_fields( char const * restrict fields_str,
                 bool is_file_1 = ( islower( *file_1_str ) ) ? true : false;
                 file_1 = ( is_file_1 ) ? ( *file_1_str ) - 'a' : CC_INVALID_OFF_BOARD_COORD_MIN;
 
-                if ( !CC_COORD_IS_ON_BOARD( cb->size, file_1 ) )
+                if ( !cc_chessboard_is_coord_on_board( cb, file_1 ) )
                     file_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
 
                 char const * rank_1_str = file_1_str + is_file_1;
@@ -629,7 +629,7 @@ bool cc_parse_utils_get_fields( char const * restrict fields_str,
                     rank_1 = ( isdigit( *rank_1_str ) ) ? atoi( rank_1_str ) - 1
                                                         : CC_INVALID_OFF_BOARD_COORD_MIN;
 
-                    if ( !CC_COORD_IS_ON_BOARD( cb->size, rank_1 ) )
+                    if ( !cc_chessboard_is_coord_on_board( cb, rank_1 ) )
                         rank_1 = CC_INVALID_OFF_BOARD_COORD_MIN;
                 }
             }
@@ -753,7 +753,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         {
             dest_i = ( *++s ) - 'a';
 
-            if ( !CC_COORD_IS_ON_BOARD( cb->size, dest_i ) )
+            if ( !cc_chessboard_is_coord_on_board( cb, dest_i ) )
                 return false;
         }
         else
@@ -765,7 +765,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         {
             dest_j = atoi( ++s ) - 1;
 
-            if ( !CC_COORD_IS_ON_BOARD( cb->size, dest_j ) )
+            if ( !cc_chessboard_is_coord_on_board( cb, dest_j ) )
                 return false;
         }
         else
@@ -910,7 +910,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         {
             dest_i = ( *++s ) - 'a';
 
-            if ( !CC_COORD_IS_ON_BOARD( cb->size, dest_i ) )
+            if ( !cc_chessboard_is_coord_on_board( cb, dest_i ) )
                 return false;
         }
         else
@@ -920,7 +920,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         {
             dest_j = atoi( ++s ) - 1;
 
-            if ( !CC_COORD_IS_ON_BOARD( cb->size, dest_j ) )
+            if ( !cc_chessboard_is_coord_on_board( cb, dest_j ) )
                 return false;
         }
         else
@@ -952,7 +952,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
             {
                 dest_i = ( *++s ) - 'a';
 
-                if ( !CC_COORD_IS_ON_BOARD( cb->size, dest_i ) )
+                if ( !cc_chessboard_is_coord_on_board( cb, dest_i ) )
                     return false;
             }
             else
@@ -964,7 +964,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
             {
                 dest_j = atoi( ++s ) - 1;
 
-                if ( !CC_COORD_IS_ON_BOARD( cb->size, dest_j ) )
+                if ( !cc_chessboard_is_coord_on_board( cb, dest_j ) )
                     return false;
             }
             else
