@@ -1468,8 +1468,8 @@ are available for a particular variant see
 <cascading-start> = \{<cascading-plies>\}
 
 <cascading> =
-  \{<cascading-plies>\}
-| (<cascading-plies>)\alg{~}<terminating-ply>
+  \{<cascading-plies>\}[\alg{~}<terminating-ply>]
+| [\{<cascading-plies>\}\alg{~}]<terminating-ply>
 
 <wave-cascading-plies> =
   (\alg{~W}<stepping>)\alg{~}<cascading-ply>
