@@ -209,26 +209,5 @@ char const * cc_variant_label( CcVariantEnum ve );
 */
 unsigned int cc_variant_board_size( CcVariantEnum ve );
 
-/**
-    Function checks if given coordinate is valid for a board.
-
-    @param ve A variant.
-    @param coord A coordinate.
-
-    @return `true` if coordinate is on-board, `false` otherwise.
-*/
-bool cc_variant_is_coord_on_board( CcVariantEnum ve, int coord );
-
-/**
-    Function checks if given position is valid for a board.
-
-    @param ve A variant.
-    @param i File, position along horizontal axis.
-    @param j Rank, position along vertical axis.
-
-    @return `true` if position is on-board, `false` otherwise.
-*/
-bool cc_variant_is_pos_on_board( CcVariantEnum ve, int i, int j );
-
 
 #endif /* __CC_VARIANT_H__ */

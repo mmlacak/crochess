@@ -20,7 +20,7 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard * restrict cb,
 {
     if ( !cb ) return false;
     if ( !CC_PIECE_IS_PAWN( pawn_en_passant ) ) return false;
-    if ( !cc_variant_is_pos_on_board( cb->type, step_i, step_j ) ) return false;
+    if ( !CC_POS_IS_ON_BOARD( cb->size, step_i, step_j ) ) return false;
     if ( !CC_VARIANT_BOARD_SIZE_IS_VALID( cb->size ) ) return false;
 
     CcPieceEnum empty = cc_chessboard_get_piece( cb, step_i, step_j );
@@ -37,7 +37,7 @@ bool cc_rule_utils_find_en_passant_target( CcChessboard * restrict cb,
     // is also empty. This checks that opponent's Pawn rushed from, or over that position,
     // i.e. that step position was definitely rushed over by opponent's Pawn.
     int prev_start_j = step_j - diff_j;
-    if ( !cc_variant_is_coord_on_board( cb->type, prev_start_j ) ) return false;
+    if ( !CC_COORD_IS_ON_BOARD( cb->size, prev_start_j ) ) return false;
     CcPieceEnum prev_pawn = cc_chessboard_get_piece( cb, step_i, prev_start_j );
     if ( !CC_PIECE_IS_NONE( prev_pawn ) ) return false;
 
@@ -85,14 +85,14 @@ bool cc_rule_utils_find_castling_rook( CcChessboard * restrict cb,
     if ( !start_i_R__o ) return false;
 
     if ( !CC_PIECE_IS_KING( king_castling ) ) return false;
-    if ( !cc_variant_is_pos_on_board( cb->type, step_i_K, step_j_K ) ) return false;
+    if ( !CC_POS_IS_ON_BOARD( cb->size, step_i_K, step_j_K ) ) return false;
     if ( !CC_VARIANT_BOARD_SIZE_IS_VALID( cb->size ) ) return false;
 
     //
     // King checks
 
     int start_i_K = cc_setup_board_get_figure_row_initial_file( cb->type, king_castling, false );
-    if ( !cc_variant_is_coord_on_board( cb->type, start_i_K ) )
+    if ( !CC_COORD_IS_ON_BOARD( cb->size, start_i_K ) )
         return false;
 
     CcPieceEnum king = cc_chessboard_get_piece( cb, start_i_K, step_j_K );
@@ -111,12 +111,12 @@ bool cc_rule_utils_find_castling_rook( CcChessboard * restrict cb,
     bool is_left = ( step_i_K < start_i_K );
     int dest_i_R = is_left ? step_i_K + 1 : step_i_K - 1;
 
-    if ( cc_variant_is_coord_on_board( cb->type, *dest_i_R__io )
+    if ( CC_COORD_IS_ON_BOARD( cb->size, *dest_i_R__io )
         && ( dest_i_R != *dest_i_R__io ) )
             return false;
 
     int start_i_R = cc_setup_board_get_figure_row_initial_file( cb->type, rook, is_left );
-    if ( !cc_variant_is_coord_on_board( cb->type, start_i_R ) )
+    if ( !CC_COORD_IS_ON_BOARD( cb->size, start_i_R ) )
         return false;
 
     //

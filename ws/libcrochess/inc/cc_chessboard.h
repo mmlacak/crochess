@@ -20,10 +20,7 @@
 typedef struct CcChessboard
 {
     CcVariantEnum type; /**< Chess variant to play. */
-
-// TODO :: REMOVE
     unsigned int size; /**< Actual size of a board used for a given variant. */
-// TODO :: REMOVE
 
     CcPieceEnum board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]; /**< Holds pieces in place. */
     CcTagEnum tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]; /**< Holds tags for pieces at their respective position. */

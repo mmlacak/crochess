@@ -152,7 +152,7 @@ CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb,
                                      int i,
                                      int j )
 {
-    if ( cc_variant_is_pos_on_board( cb->type, i, j ) )
+    if ( CC_POS_IS_ON_BOARD( cb->size, i, j ) )
     {
         return cb->board[ i ][ j ];
     }
@@ -164,7 +164,7 @@ CcTagEnum cc_chessboard_get_tag( CcChessboard * restrict cb,
                                  int i,
                                  int j )
 {
-    if ( cc_variant_is_pos_on_board( cb->type, i, j ) )
+    if ( CC_POS_IS_ON_BOARD( cb->size, i, j ) )
     {
         return cb->tags[ i ][ j ];
     }
@@ -180,7 +180,7 @@ bool cc_chessboard_set_piece_tag( CcChessboard * restrict cb__io,
 {
     if ( !cb__io ) return false;
 
-    if ( cc_variant_is_pos_on_board( cb__io->type, i, j ) )
+    if ( CC_POS_IS_ON_BOARD( cb__io->size, i, j ) )
     {
         cb__io->board[ i ][ j ] = pe;
         cb__io->tags[ i ][ j ] = tt;
@@ -207,7 +207,7 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
 {
     if ( !cb__io ) return false;
 
-    if ( cc_variant_is_pos_on_board( cb__io->type, i, j ) )
+    if ( CC_POS_IS_ON_BOARD( cb__io->size, i, j ) )
     {
         cb__io->tags[ i ][ j ] = tt;
 

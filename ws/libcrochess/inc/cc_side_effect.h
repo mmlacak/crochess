@@ -8,7 +8,7 @@
 
 #include "cc_piece.h"
 #include "cc_tag.h"
-#include "cc_variant.h"
+// #include "cc_variant.h" // TODO :: REMOVE
 
 /**
     @file cc_side_effect.h
@@ -125,11 +125,11 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     Function checks if a given side-effect is valid.
 
     @param see A side-effect.
-    @param ve A variant being played.
+    @param board_size A chessboard size.
 
     @return `true` if valid, `false` otherwise.
 */
-bool cc_side_effect_is_valid( CcSideEffect see, CcVariantEnum ve );
+bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size );
 
 /** @defgroup side_effect_convenience The side-effect conveniences
  *  The side-effect convenience functions are meant to be used instead of `cc_side_effect()`.
