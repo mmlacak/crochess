@@ -72,7 +72,7 @@
 
     @return `1` if on board, `0` otherwise.
 */
-#define CC_IS_COORD_ON_BOARD(board_size,coord) ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) && ( (coord) < (int)(board_size) ) )
+#define CC_IS_COORD_ON_BOARD(board_size,coord) ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) && ( (int)(coord) < (int)(board_size) ) )
 
 /**
     Macro to check if a given position is on board.

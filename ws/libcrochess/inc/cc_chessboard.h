@@ -65,6 +65,15 @@ bool cc_chessboard_init( CcChessboard * restrict cb__io,
                          bool do_setup );
 
 /**
+    Checks if chessboard size is valid, i.e. the same as defined for variant being played.
+
+    @param cb Chessboard to check.
+
+    @return `true` if chessboard size is valid, `false` otherwise.
+*/
+bool cc_chessboard_is_size_valid( CcChessboard * restrict cb );
+
+/**
     Clears a chessboard of all pieces.
 
     @param cb__io Chessboard to clear.

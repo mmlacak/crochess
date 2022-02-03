@@ -71,25 +71,6 @@
 */
 #define CC_VARIANT_BOARD_SIZE_MAXIMUM (26)
 
-/**
-    Macro expression to evaluate whether given number is a valid chessboard size.
-
-    @param size A number.
-
-    @return `true` if valid chessboard size, `false` otherwise.
-*/
-#define CC_VARIANT_BOARD_SIZE_IS_VALID(size) ( ( (size) == CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS )      \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_CROATIAN_TIES )        \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY )     \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS )      \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL )        \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_NINETEEN )             \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN )         \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ) \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ) \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_DISCOVERY )            \
-                                            || ( (size) == CC_VARIANT_BOARD_SIZE_ONE ) )
-
 
 /**
     Enumeration of all variants.

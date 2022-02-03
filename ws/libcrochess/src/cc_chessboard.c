@@ -55,6 +55,15 @@ bool cc_chessboard_init( CcChessboard * restrict cb__io,
         return cc_chessboard_clear( cb__io );
 }
 
+bool cc_chessboard_is_size_valid( CcChessboard * restrict cb )
+{
+    if ( !cb ) return false;
+
+    unsigned int size = cc_variant_board_size( cb->type );
+
+    return ( size == cb->size );
+}
+
 bool cc_chessboard_clear( CcChessboard * restrict cb__io )
 {
     if ( !cb__io ) return false;
