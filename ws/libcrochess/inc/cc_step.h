@@ -149,6 +149,29 @@ CcStep * cc_step_append_or_init( CcStep ** restrict steps__io,
 CcStep * cc_step_duplicate_all_new( CcStep * restrict steps__io );
 
 /**
+    Checks if a given step is valid.
+
+    @param step A step, technically a linked list of steps.
+    @param board_size A chessboard size.
+
+    @note
+    Only single step is checked; neither an entire linked list, nor `link` member are checked.
+
+    @return `true` if valid, `false` otherwise.
+*/
+bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size );
+
+/**
+    Checks if all steps in a given linked list are valid.
+
+    @param steps A linked list of steps.
+    @param board_size A chessboard size.
+
+    @return `true` if valid, `false` otherwise.
+*/
+bool cc_steps_are_valid( CcStep * restrict steps, unsigned int board_size );
+
+/**
     Frees all steps in a linked list.
 
     @param steps__f Linked list of steps.

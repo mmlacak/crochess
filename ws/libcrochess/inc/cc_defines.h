@@ -62,6 +62,16 @@
 #define CC_IS_COORD_VALID(coord) ( (coord) != CC_INVALID_OFF_BOARD_COORD_MIN )
 
 /**
+    Macro to check if a given position is valid.
+
+    @param i File, position along horizontal axis, integer.
+    @param j Rank, position along vertical axis, integer.
+
+    @return `1` if valid, `0` otherwise.
+*/
+#define CC_IS_POS_VALID(i,j) ( ( (i) != CC_INVALID_OFF_BOARD_COORD_MIN ) && ( (j) != CC_INVALID_OFF_BOARD_COORD_MIN ) )
+
+/**
     Macro to check if a given coordinate is on board.
 
     @param board_size A chessboard size, integer.

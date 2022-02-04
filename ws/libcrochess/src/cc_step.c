@@ -101,6 +101,49 @@ CcStep * cc_step_duplicate_all_new( CcStep * restrict steps__io )
 }
 // TODO :: REWRITE :: using cc_step_append_or_init
 
+bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size )
+{
+    if ( !step ) return false;
+
+    if ( !CC_IS_POS_VALID( step->i, step->j ) ) return false;
+
+    if ( !cc_side_effect_is_valid( step->side_effect, board_size ) ) return false;
+
+    return true;
+}
+
+bool cc_steps_are_valid( CcStep * restrict steps, unsigned int board_size )
+{
+    if ( !steps ) return false;
+
+    if ( !cc_step_is_valid( steps, board_size ) ) return false;
+    if ( !steps->next ) return ( steps->link != CC_SLE_Reposition ); // The only step can't be repositioning.
+
+    bool is_starting = ( steps->link == CC_SLE_Start );
+    bool is_repositioning = ( steps->link == CC_SLE_Reposition );
+
+    CcStep * s = steps->next;
+    while ( s )
+    {
+        if ( s->link == CC_SLE_Start ) return false; // Starting step must be the first one.
+        if ( ( s->link == CC_SLE_Destination ) && ( s->next ) ) return false; // Destination step must be the last one.
+
+        if ( s->link == CC_SLE_Reposition ) // Repositioning can be only on first step or second step, if following starting step.
+        {
+            if ( is_repositioning ) return false; // Already repositioning, but it can be only one.
+
+            if ( s != steps->next ) return false; // If not on second step, repositioning is misplaced.
+            if ( !is_starting ) return false; // Repositioning is on second step, but not following starting step.
+        }
+
+        if ( !cc_step_is_valid( s, board_size ) ) return false;
+
+        s = s->next;
+    }
+
+    return true;
+}
+
 bool cc_step_free_all_steps( CcStep ** restrict steps__f )
 {
     if ( !steps__f ) return false;
