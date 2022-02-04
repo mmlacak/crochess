@@ -42,7 +42,7 @@ typedef struct CcContextPly
     A newly allocated ply context, is successful, `NULL` otherwise.
 */
 CcContextPly * cc_context_ply__new( char const * restrict ply_start__w,
-                                   char const * restrict ply_end__w );
+                                    char const * restrict ply_end__w );
 
 /**
     Appends a newly allocated ply context to a linked list.
@@ -114,7 +114,7 @@ typedef struct CcContext
     A newly allocated context, is successful, `NULL` otherwise.
 */
 CcContext * cc_context__new( CcGame * restrict game__w,
-                            char const * restrict user_move_an );
+                             char const * restrict user_move_an );
 
 /**
     Frees user linked list of ply contexts, and all owned resources (move notation, converted notation).

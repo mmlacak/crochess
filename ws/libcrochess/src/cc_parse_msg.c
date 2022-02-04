@@ -16,7 +16,7 @@
 
 
 CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
-                               char const * restrict msg )
+                                char const * restrict msg )
 {
     CcParseMsg * pm__a = malloc( sizeof( CcParseMsg ) );
     if ( !pm__a ) return NULL;

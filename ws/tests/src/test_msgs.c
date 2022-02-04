@@ -43,10 +43,10 @@ bool test_print_failure( bool expr,
 
 
 TestMsg * test_msg__new( TestMsgEnum type,
-                        char const * restrict msg,
-                        char const * restrict file,
-                        size_t line,
-                        char const * restrict func )
+                         char const * restrict msg,
+                         char const * restrict file,
+                         size_t line,
+                         char const * restrict func )
 {
     TestMsg * new = malloc( sizeof( TestMsg ) );
     if ( !new ) return NULL;

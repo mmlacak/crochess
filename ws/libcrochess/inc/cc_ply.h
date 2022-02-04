@@ -87,8 +87,8 @@ typedef struct CcPly
     A newly allocated ply, is successful, `NULL` otherwise.
 */
 CcPly * cc_ply__new( CcPlyLinkEnum link,
-                    CcPieceEnum piece,
-                    CcStep ** restrict steps__n );
+                     CcPieceEnum piece,
+                     CcStep ** restrict steps__n );
 
 
 /**

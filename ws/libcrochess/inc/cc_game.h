@@ -105,8 +105,8 @@ typedef struct CcGame
     A newly allocated game, is successful, `NULL` otherwise.
 */
 CcGame * cc_game__new( CcGameStatusEnum status,
-                      CcVariantEnum ve,
-                      bool do_setup );
+                       CcVariantEnum ve,
+                       bool do_setup );
 
 /**
     Duplicates a given game into a newly allocated one.

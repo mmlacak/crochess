@@ -44,7 +44,7 @@ typedef struct CcParseMsg
     @return A newly allocated parser message if successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
-                               char const * restrict msg );
+                                char const * restrict msg );
 
 /**
     Appends a newly allocated parser message to a linked list.

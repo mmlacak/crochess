@@ -37,10 +37,10 @@ typedef struct TestMsg
 } TestMsg;
 
 TestMsg * test_msg__new( TestMsgEnum type,
-                        char const * restrict msg,
-                        char const * restrict file,
-                        size_t line,
-                        char const * restrict func );
+                         char const * restrict msg,
+                         char const * restrict file,
+                         size_t line,
+                         char const * restrict func );
 
 TestMsg * test_msg_append( TestMsg * restrict test_msgs,
                            TestMsgEnum type,

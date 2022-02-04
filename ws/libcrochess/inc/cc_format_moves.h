@@ -218,7 +218,7 @@ char const * cc_format_lost_tag( CcTagEnum te );
     @return A newly allocated string if successful, `NULL` otherwise.
 */
 char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
-                                  CcFormatMove format_move );
+                                   CcFormatMove format_move );
 
 /**
     Returns a newly allocated string containing formatted output of a step.
@@ -232,10 +232,10 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
     @return A newly allocated string if successful, `NULL` otherwise.
 */
 char * cc_format_step__new( CcMove * restrict move,
-                           CcPly * restrict ply,
-                           CcStep * restrict step,
-                           CcFormatMove format_move,
-                           bool * restrict has_preceding_step__io );
+                            CcPly * restrict ply,
+                            CcStep * restrict step,
+                            CcFormatMove format_move,
+                            bool * restrict has_preceding_step__io );
 
 /**
     Returns a newly allocated string containing formatted output of a ply.
@@ -247,8 +247,8 @@ char * cc_format_step__new( CcMove * restrict move,
     @return A newly allocated string if successful, `NULL` otherwise.
 */
 char * cc_format_ply__new( CcMove * restrict move,
-                          CcPly * restrict ply,
-                          CcFormatMove format_move );
+                           CcPly * restrict ply,
+                           CcFormatMove format_move );
 
 /**
     Returns a newly allocated string containing formatted output of a move..
@@ -259,7 +259,7 @@ char * cc_format_ply__new( CcMove * restrict move,
     @return A newly allocated string if successful, `NULL` otherwise.
 */
 char * cc_format_move__new( CcMove * restrict move,
-                           CcFormatMove format_move );
+                            CcFormatMove format_move );
 
 
 #endif /* __CC_PRINT_MOVES_H__ */

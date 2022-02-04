@@ -14,7 +14,7 @@
 
 
 CcContextPly * cc_context_ply__new( char const * restrict ply_start__w,
-                                   char const * restrict ply_end__w )
+                                    char const * restrict ply_end__w )
 {
     CcContextPly * context_ply__a = malloc( sizeof( CcContextPly ) );
     if ( !context_ply__a ) return NULL;
@@ -81,7 +81,7 @@ bool cc_context_ply_free_all( CcContextPly ** restrict context_ply__f )
 
 
 CcContext * cc_context__new( CcGame * restrict game__w,
-                            char const * restrict user_move_an )
+                             char const * restrict user_move_an )
 {
     CcContext * context__a = malloc( sizeof( CcContext ) );
     if ( !context__a ) return NULL;

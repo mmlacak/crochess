@@ -236,7 +236,7 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
     @return A newly allocated string is successful, `NULL` otherwise.
 */
 char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
-                                    bool is_board_or_tag );
+                                     bool is_board_or_tag );
 
 /**
     Prints string representing piece, tag positions on a given chessboard.

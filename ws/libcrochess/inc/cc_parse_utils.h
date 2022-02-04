@@ -103,8 +103,8 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
 */
 // TODO :: CONVERT :: new iterator template
 bool cc_parse_utils_ply_str_iter__new( char const * restrict move_str,
-                                      char ** restrict ply_an__o,
-                                      bool initialize_iter );
+                                       char ** restrict ply_an__o,
+                                       bool initialize_iter );
 // TODO :: CONVERT :: new iterator template
 
 /**

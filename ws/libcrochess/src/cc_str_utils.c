@@ -69,7 +69,7 @@ bool cc_str_to_case( char * restrict str__io,
 }
 
 char * cc_str_to_case__new( char const * restrict str,
-                           bool to_upper_or_lower )
+                            bool to_upper_or_lower )
 {
     if ( !str ) return NULL;
 
@@ -219,8 +219,8 @@ bool cc_str_is_equal( char const * restrict first_1,
 }
 
 char * cc_str_copy__new( char const * restrict first,
-                        char const * restrict end__d,
-                        size_t max_len__d )
+                         char const * restrict end__d,
+                         size_t max_len__d )
 {
     if ( !first ) return NULL;
 
@@ -236,7 +236,7 @@ char * cc_str_copy__new( char const * restrict first,
 }
 
 char * cc_str_format__new( size_t max_len__d,
-                          char const * restrict fmt, ... )
+                           char const * restrict fmt, ... )
 {
     va_list args;
     va_start( args, fmt );
@@ -283,8 +283,8 @@ char * cc_str_format__new( size_t max_len__d,
 }
 
 char * cc_str_duplicate__new( char const * restrict str,
-                             bool do_reverse,
-                             size_t max_len__d )
+                              bool do_reverse,
+                              size_t max_len__d )
 {
     if ( !str ) return NULL;
 
@@ -319,8 +319,8 @@ char * cc_str_duplicate__new( char const * restrict str,
 }
 
 char * cc_str_concatenate__new( char const * restrict str_1__d,
-                               char const * restrict str_2__d,
-                               size_t max_len__d )
+                                char const * restrict str_2__d,
+                                size_t max_len__d )
 {
     size_t len_1 = cc_str_len( str_1__d, NULL, max_len__d );
     size_t len_2 = cc_str_len( str_2__d, NULL, max_len__d );
@@ -354,8 +354,8 @@ char * cc_str_concatenate__new( char const * restrict str_1__d,
 }
 
 char * cc_str_extend__new( char ** restrict str_1__f,
-                          char const * restrict str_2__d,
-                          size_t max_len__d )
+                           char const * restrict str_2__d,
+                           size_t max_len__d )
 {
     if ( !str_1__f ) return NULL;
 
@@ -369,8 +369,8 @@ char * cc_str_extend__new( char ** restrict str_1__f,
 }
 
 char * cc_str_append__new( char ** restrict str_1__f,
-                          char ** restrict str_2__f,
-                          size_t max_len__d )
+                           char ** restrict str_2__f,
+                           size_t max_len__d )
 {
     if ( ( !str_1__f ) && ( !str_2__f ) ) return NULL;
 
@@ -395,8 +395,8 @@ char * cc_str_append__new( char ** restrict str_1__f,
 }
 
 char * cc_str_append_format__new( char ** restrict str__f,
-                                 size_t max_len__d,
-                                 char const * restrict fmt, ... )
+                                  size_t max_len__d,
+                                  char const * restrict fmt, ... )
 {
     va_list args;
     va_start( args, fmt );
@@ -440,7 +440,5 @@ char * cc_str_append_format__new( char ** restrict str__f,
     }
 
     // No need to free() str__f, str__t; cc_str_append__new() does that.
-    return cc_str_append__new( str__f,
-                              &str__t,
-                              max_len__d );
+    return cc_str_append__new( str__f, &str__t, max_len__d );
 }

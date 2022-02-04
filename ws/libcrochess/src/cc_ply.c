@@ -30,8 +30,8 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple )
 
 
 CcPly * cc_ply__new( CcPlyLinkEnum link,
-                    CcPieceEnum piece,
-                    CcStep ** restrict steps__n )
+                     CcPieceEnum piece,
+                     CcStep ** restrict steps__n )
 {
     CcPly * ply__a = malloc( sizeof( CcPly ) );
     if ( !ply__a ) return NULL;

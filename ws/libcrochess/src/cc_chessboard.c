@@ -294,7 +294,7 @@ static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict c
 }
 
 char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
-                                    bool is_board_or_tag )
+                                     bool is_board_or_tag )
 {
     if ( !cb ) return NULL;
 

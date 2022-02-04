@@ -137,7 +137,7 @@ char const * cc_format_lost_tag( CcTagEnum te )
 }
 
 char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
-                                  CcFormatMove format_move )
+                                   CcFormatMove format_move )
 {
     if ( !side_effect ) return NULL;
 
@@ -157,16 +157,16 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
             if ( format_move.usage <= CC_FSUE_User )
             {
                 an__a = cc_str_append_format__new( &an__a,
-                                                  BUFSIZ,
-                                                  "*" );
+                                                   BUFSIZ,
+                                                   "*" );
             }
             else
             {
                 an__a = cc_str_append_format__new( &an__a,
-                                                  BUFSIZ,
-                                                  "*%c%s",
-                                                  fp_char_value( se->capture.piece ),
-                                                  cc_format_lost_tag( se->capture.lost_tag ));
+                                                   BUFSIZ,
+                                                   "*%c%s",
+                                                   fp_char_value( se->capture.piece ),
+                                                   cc_format_lost_tag( se->capture.lost_tag ));
             }
 
             break;
@@ -186,10 +186,10 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                 if ( !cc_format_rank_is_zero( rank ) )
                 {
                     an__a = cc_str_append_format__new( &an__a,
-                                                      BUFSIZ,
-                                                      "<%c%s",
-                                                      file,
-                                                      rank.rank );
+                                                       BUFSIZ,
+                                                       "<%c%s",
+                                                       file,
+                                                       rank.rank );
                 }
             }
             else
@@ -197,12 +197,12 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                 if ( !cc_format_rank_is_zero( rank ) )
                 {
                     an__a = cc_str_append_format__new( &an__a,
-                                                      BUFSIZ,
-                                                      "<%c%s%c%s",
-                                                      piece,
-                                                      lost_tag,
-                                                      file,
-                                                      rank.rank );
+                                                       BUFSIZ,
+                                                       "<%c%s%c%s",
+                                                       piece,
+                                                       lost_tag,
+                                                       file,
+                                                       rank.rank );
                 }
             }
 
@@ -214,8 +214,8 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
             if ( format_move.usage <= CC_FSUE_User )
             {
                 an__a = cc_str_append_format__new( &an__a,
-                                                  BUFSIZ,
-                                                  ":" );
+                                                   BUFSIZ,
+                                                   ":" );
             }
             else if ( format_move.usage <= CC_FSUE_Clarification )
             {
@@ -224,9 +224,9 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                 if ( !cc_format_rank_is_zero( rank ) )
                 {
                     an__a = cc_str_append_format__new( &an__a,
-                                                      BUFSIZ,
-                                                      ":%s",
-                                                      rank.rank );
+                                                       BUFSIZ,
+                                                       ":%s",
+                                                       rank.rank );
                 }
             }
             else
@@ -238,11 +238,11 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                 if ( !cc_format_rank_is_zero( rank ) )
                 {
                     an__a = cc_str_append_format__new( &an__a,
-                                                      BUFSIZ,
-                                                      ":%c%c%s",
-                                                      piece,
-                                                      file,
-                                                      rank.rank );
+                                                       BUFSIZ,
+                                                       ":%c%c%s",
+                                                       piece,
+                                                       file,
+                                                       rank.rank );
                 }
             }
 
@@ -254,16 +254,16 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
             if ( format_move.usage <= CC_FSUE_User )
             {
                 an__a = cc_str_append_format__new( &an__a,
-                                                  BUFSIZ,
-                                                  "&" );
+                                                   BUFSIZ,
+                                                   "&" );
             }
             else if ( format_move.usage <= CC_FSUE_Clarification )
             {
                 char file_2 = cc_format_pos_file( se->castle.dest_i );
                 an__a = cc_str_append_format__new( &an__a,
-                                                  BUFSIZ,
-                                                  "&%c",
-                                                  file_2 );
+                                                   BUFSIZ,
+                                                   "&%c",
+                                                   file_2 );
             }
             else
             {
@@ -277,13 +277,13 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                   && ( !cc_format_rank_is_zero( rank_2 ) ) )
                 {
                     an__a = cc_str_append_format__new( &an__a,
-                                                      BUFSIZ,
-                                                      "&%c%c%s-%c%s",
-                                                      fp_char_value( se->castle.rook ),
-                                                      file_1,
-                                                      rank_1.rank,
-                                                      file_2,
-                                                      rank_2.rank );
+                                                       BUFSIZ,
+                                                       "&%c%c%s-%c%s",
+                                                       fp_char_value( se->castle.rook ),
+                                                       file_1,
+                                                       rank_1.rank,
+                                                       file_2,
+                                                       rank_2.rank );
                 }
             }
 
@@ -295,9 +295,9 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
             char const * fmt = ( format_move.usage <= CC_FSUE_User ) ? "%c" : "=%c";
 
             an__a = cc_str_append_format__new( &an__a,
-                                              BUFSIZ,
-                                              fmt,
-                                              fp_char_value( se->promote.piece ) );
+                                               BUFSIZ,
+                                               fmt,
+                                               fp_char_value( se->promote.piece ) );
 
             break;
         }
@@ -305,8 +305,8 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
         case CC_SEE_TagForPromotion :
         {
             an__a = cc_str_append_format__new( &an__a,
-                                              BUFSIZ,
-                                              "=" );
+                                               BUFSIZ,
+                                               "=" );
             break;
         }
 
@@ -315,16 +315,16 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
             if ( format_move.usage <= CC_FSUE_User )
             {
                 an__a = cc_str_append_format__new( &an__a,
-                                                  BUFSIZ,
-                                                  "%%" );
+                                                   BUFSIZ,
+                                                   "%%" );
             }
             else
             {
                 an__a = cc_str_append_format__new( &an__a,
-                                                  BUFSIZ,
-                                                  "%%%c%s",
-                                                  fp_char_value( se->convert.piece ),
-                                                  cc_format_lost_tag( se->convert.lost_tag ) );
+                                                   BUFSIZ,
+                                                   "%%%c%s",
+                                                   fp_char_value( se->convert.piece ),
+                                                   cc_format_lost_tag( se->convert.lost_tag ) );
             }
 
             break;
@@ -333,8 +333,8 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
         case CC_SEE_FailedConversion :
         {
             an__a = cc_str_append_format__new( &an__a,
-                                              BUFSIZ,
-                                              "%%%%" );
+                                               BUFSIZ,
+                                               "%%%%" );
             break;
         }
 
@@ -348,10 +348,10 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                 if ( !cc_format_rank_is_zero( rank ) )
                 {
                     an__a = cc_str_append_format__new( &an__a,
-                                                      BUFSIZ,
-                                                      ">%c%s",
-                                                      file,
-                                                      rank.rank );
+                                                       BUFSIZ,
+                                                       ">%c%s",
+                                                       file,
+                                                       rank.rank );
                 }
             }
             else
@@ -359,11 +359,11 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                 if ( !cc_format_rank_is_zero( rank ) )
                 {
                     an__a = cc_str_append_format__new( &an__a,
-                                                      BUFSIZ,
-                                                      ">%c%c%s",
-                                                      fp_char_value( se->demote.piece ),
-                                                      file,
-                                                      rank.rank );
+                                                       BUFSIZ,
+                                                       ">%c%c%s",
+                                                       fp_char_value( se->demote.piece ),
+                                                       file,
+                                                       rank.rank );
                 }
             }
 
@@ -381,19 +381,19 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                 if ( !cc_format_rank_is_zero( rank ) )
                 {
                     an__a = cc_str_append_format__new( &an__a,
-                                                      BUFSIZ,
-                                                      "$%c%c%s",
-                                                      fp_char_value( se->resurrect.piece ),
-                                                      file,
-                                                      rank.rank );
+                                                       BUFSIZ,
+                                                       "$%c%c%s",
+                                                       fp_char_value( se->resurrect.piece ),
+                                                       file,
+                                                       rank.rank );
                 }
             }
             else
             {
                 an__a = cc_str_append_format__new( &an__a,
-                                                  BUFSIZ,
-                                                  "$%c",
-                                                  fp_char_value( se->resurrect.piece ) );
+                                                   BUFSIZ,
+                                                   "$%c",
+                                                   fp_char_value( se->resurrect.piece ) );
             }
 
             break;
@@ -402,8 +402,8 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
         case CC_SEE_FailedResurrection :
         {
             an__a = cc_str_append_format__new( &an__a,
-                                              BUFSIZ,
-                                              "$$" );
+                                               BUFSIZ,
+                                               "$$" );
             break;
         }
     }
@@ -412,10 +412,10 @@ char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
 }
 
 char * cc_format_step__new( CcMove * restrict move,
-                           CcPly * restrict ply,
-                           CcStep * restrict step,
-                           CcFormatMove format_move,
-                           bool * restrict has_preceding_step__io )
+                            CcPly * restrict ply,
+                            CcStep * restrict step,
+                            CcFormatMove format_move,
+                            bool * restrict has_preceding_step__io )
 {
     if ( !move ) return NULL;
     if ( !ply ) return NULL;
@@ -446,31 +446,31 @@ char * cc_format_step__new( CcMove * restrict move,
         *has_preceding_step__io = true;
 
         an__a = cc_str_append_format__new( &an__a,
-                                          BUFSIZ,
-                                          "%c",
-                                          cc_format_pos_file( step->i ) );
+                                           BUFSIZ,
+                                           "%c",
+                                           cc_format_pos_file( step->i ) );
 
         if ( !( CC_SIDE_EFFECT_ENUM_IS_CASTLING( step->side_effect.type )
                 && ( step->usage <= CC_FSUE_Clarification ) ) )
         {
             CcFormatRank rank = cc_format_pos_rank( step->j );
             an__a = cc_str_extend__new( &an__a,
-                                       rank.rank,
-                                       BUFSIZ );
+                                        rank.rank,
+                                        BUFSIZ );
         }
 
         char * se__t = cc_format_side_effect__new( &(step->side_effect), format_move );
         an__a = cc_str_append__new( &an__a,
-                                   &se__t,
-                                   BUFSIZ );
+                                    &se__t,
+                                    BUFSIZ );
     }
 
     return an__a;
 }
 
 char * cc_format_ply__new( CcMove * restrict move,
-                          CcPly * restrict ply,
-                          CcFormatMove format_move )
+                           CcPly * restrict ply,
+                           CcFormatMove format_move )
 {
     if ( !move ) return NULL;
     if ( !ply ) return NULL;
@@ -500,22 +500,22 @@ char * cc_format_ply__new( CcMove * restrict move,
 
     if ( do_wrap )
         an__a = cc_str_append_format__new( &an__a,
-                                          BUFSIZ,
-                                          "%c",
-                                          '[' );
+                                           BUFSIZ,
+                                           "%c",
+                                           '[' );
 
     if ( format_move.do_format_with_pawn_symbol )
         an__a = cc_str_append_format__new( &an__a,
-                                          BUFSIZ,
-                                          "%c",
-                                          fp_char_value( ply->piece ) );
+                                           BUFSIZ,
+                                           "%c",
+                                           fp_char_value( ply->piece ) );
     else
     {
         if ( ( ply->piece != CC_PE_DarkPawn ) && ( ply->piece != CC_PE_LightPawn ) )
             an__a = cc_str_append_format__new( &an__a,
-                                              BUFSIZ,
-                                              "%c",
-                                              fp_char_value( ply->piece ) );
+                                               BUFSIZ,
+                                               "%c",
+                                               fp_char_value( ply->piece ) );
     }
 
     CcStep * step = ply->steps;
@@ -525,17 +525,17 @@ char * cc_format_ply__new( CcMove * restrict move,
     {
         char * ply_an__t = cc_format_step__new( move, ply, step, format_move, &has_preceding_step );
         an__a = cc_str_append__new( &an__a,
-                                   &ply_an__t,
-                                   BUFSIZ );
+                                    &ply_an__t,
+                                    BUFSIZ );
 
         step = step->next;
     }
 
     if ( do_wrap )
         an__a = cc_str_append_format__new( &an__a,
-                                          BUFSIZ,
-                                          "%c",
-                                          ']' );
+                                           BUFSIZ,
+                                           "%c",
+                                           ']' );
 
     return an__a;
 }
@@ -553,8 +553,8 @@ char * cc_format_move__new( CcMove * restrict move,
     {
         char * ply_an__t = cc_format_ply__new( move, ply, format_move );
         an__a = cc_str_append__new( &an__a,
-                                   &ply_an__t,
-                                   BUFSIZ );
+                                    &ply_an__t,
+                                    BUFSIZ );
 
         ply = ply->next;
     }
@@ -565,9 +565,9 @@ char * cc_format_move__new( CcMove * restrict move,
 
     if ( status != '\0' )
         an__a = cc_str_append_format__new( &an__a,
-                                          BUFSIZ,
-                                          "%c",
-                                          status );
+                                           BUFSIZ,
+                                           "%c",
+                                           status );
 
     return an__a;
 }

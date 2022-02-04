@@ -98,9 +98,9 @@ typedef struct CcMove
     A newly allocated move, is successful, `NULL` otherwise.
 */
 CcMove * cc_move__new( char const * restrict notation,
-                      CcMovePreStatusEnum prestatus,
-                      CcPly ** restrict plies__n,
-                      CcMoveStatusEnum status );
+                       CcMovePreStatusEnum prestatus,
+                       CcPly ** restrict plies__n,
+                       CcMoveStatusEnum status );
 
 /**
     Appends a newly allocated move to a linked list.
@@ -211,12 +211,12 @@ bool cc_moves_free_all( CcMove ** restrict moves__f );
  */
 
 CcMove * cc_move_on__new( char const * restrict notation,
-                         CcMovePreStatusEnum prestatus,
-                         CcPly ** restrict plies__n,
-                         CcMoveStatusEnum status );
+                          CcMovePreStatusEnum prestatus,
+                          CcPly ** restrict plies__n,
+                          CcMoveStatusEnum status );
 
 CcMove * cc_move_end__new( char const * restrict notation,
-                          CcMovePreStatusEnum prestatus );
+                           CcMovePreStatusEnum prestatus );
 
 /** @} */ // end of move_convenience_new
 

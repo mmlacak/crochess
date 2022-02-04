@@ -16,9 +16,9 @@
 
 
 CcMove * cc_move__new( char const * restrict notation,
-                      CcMovePreStatusEnum prestatus,
-                      CcPly ** restrict plies__n,
-                      CcMoveStatusEnum status )
+                       CcMovePreStatusEnum prestatus,
+                       CcPly ** restrict plies__n,
+                       CcMoveStatusEnum status )
 {
     if ( CC_MOVE_PRESTATUS_IS_GAME_END( prestatus ) )
     {
@@ -173,16 +173,16 @@ bool cc_moves_free_all( CcMove ** restrict moves__f )
 // new conveniences
 
 CcMove * cc_move_on__new( char const * restrict notation,
-                         CcMovePreStatusEnum prestatus,
-                         CcPly ** restrict plies__n,
-                         CcMoveStatusEnum status )
+                          CcMovePreStatusEnum prestatus,
+                          CcPly ** restrict plies__n,
+                          CcMoveStatusEnum status )
 {
     if ( !CC_MOVE_PRESTATUS_IS_GAME_ON( prestatus ) ) return NULL;
     return cc_move__new( notation, prestatus, plies__n, status );
 }
 
 CcMove * cc_move_end__new( char const * restrict notation,
-                          CcMovePreStatusEnum prestatus )
+                           CcMovePreStatusEnum prestatus )
 {
     if ( !CC_MOVE_PRESTATUS_IS_GAME_END( prestatus ) ) return NULL;
     return cc_move__new( notation, prestatus, NULL, CC_MSE_None );
