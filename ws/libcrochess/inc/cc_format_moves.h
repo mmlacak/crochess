@@ -188,7 +188,7 @@ char cc_format_pos_file( int i );
 
     @return A newly allocated rank string if successful, `NULL` otherwise.
 */
-char * cc_format_pos_rank_new( int j );
+char * cc_format_pos_rank__new( int j );
 
 /**
     Returns formatted rank, with a string in a contained array.
@@ -217,7 +217,7 @@ char const * cc_format_lost_tag( CcTagEnum te );
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
+char * cc_format_side_effect__new( CcSideEffect * restrict side_effect,
                                   CcFormatMove format_move );
 
 /**
@@ -231,7 +231,7 @@ char * cc_format_side_effect_new( CcSideEffect * restrict side_effect,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_step_new( CcMove * restrict move,
+char * cc_format_step__new( CcMove * restrict move,
                            CcPly * restrict ply,
                            CcStep * restrict step,
                            CcFormatMove format_move,
@@ -246,7 +246,7 @@ char * cc_format_step_new( CcMove * restrict move,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_ply_new( CcMove * restrict move,
+char * cc_format_ply__new( CcMove * restrict move,
                           CcPly * restrict ply,
                           CcFormatMove format_move );
 
@@ -258,7 +258,7 @@ char * cc_format_ply_new( CcMove * restrict move,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_format_move_new( CcMove * restrict move,
+char * cc_format_move__new( CcMove * restrict move,
                            CcFormatMove format_move );
 
 

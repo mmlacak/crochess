@@ -26,7 +26,7 @@ bool cc_is_field_light( int i, int j )
 }
 
 
-CcChessboard * cc_chessboard_new( CcVariantEnum ve, bool do_setup )
+CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup )
 {
     CcChessboard * cb__a = malloc( sizeof( CcChessboard ) );
     if ( !cb__a ) return NULL;
@@ -130,7 +130,7 @@ bool cc_chessboard_copy( CcChessboard * restrict into__io,
     return true;
 }
 
-CcChessboard * cc_chessboard_duplicate_new( CcChessboard * restrict from )
+CcChessboard * cc_chessboard_duplicate__new( CcChessboard * restrict from )
 {
     if ( !from ) return NULL;
 
@@ -242,7 +242,7 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
 }
 
 
-static char * cc_chessboard_get_divider_new( CcChessboard * restrict cb )
+static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -263,7 +263,7 @@ static char * cc_chessboard_get_divider_new( CcChessboard * restrict cb )
     return divider__a;
 }
 
-static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard * restrict cb )
+static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict cb )
 {
     if ( !cb ) return NULL;
 
@@ -293,7 +293,7 @@ static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard * restrict cb
     return hr__a;
 }
 
-char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
+char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
                                     bool is_board_or_tag )
 {
     if ( !cb ) return NULL;
@@ -301,7 +301,7 @@ char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
     char * show__a = calloc( 1, 2048 );
     if ( !show__a ) return NULL;
 
-    char * horizontal_ruler = cc_chessboard_get_horizontal_ruler_new( cb );
+    char * horizontal_ruler = cc_chessboard_get_horizontal_ruler__new( cb );
     if ( !horizontal_ruler )
     {
         CC_FREE( show__a );
@@ -310,7 +310,7 @@ char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
 
     strcat( show__a, horizontal_ruler );
 
-    char * divider__a = cc_chessboard_get_divider_new( cb );
+    char * divider__a = cc_chessboard_get_divider__new( cb );
     if ( !divider__a )
     {
         CC_FREE( show__a );
@@ -390,7 +390,7 @@ bool cc_chessboard_print( CcChessboard * restrict cb,
 {
     if ( !cb ) return false;
 
-    char * show__a = cc_chessboard_as_string_new( cb, is_board_or_tag );
+    char * show__a = cc_chessboard_as_string__new( cb, is_board_or_tag );
     if ( !show__a ) return false;
 
     printf( "%s", show__a );

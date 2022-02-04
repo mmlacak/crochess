@@ -81,7 +81,7 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
     char * ply_an__o = NULL;
     bool init = true;
 
-    while ( !cc_parse_utils_ply_str_iter_new( ..., &ply_an__o, init ) )
+    while ( !cc_parse_utils_ply_str_iter__new( ..., &ply_an__o, init ) )
     {
         init = false;
 
@@ -102,7 +102,7 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
     allocated copy of a ply AN found.
 */
 // TODO :: CONVERT :: new iterator template
-bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
+bool cc_parse_utils_ply_str_iter__new( char const * restrict move_str,
                                       char ** restrict ply_an__o,
                                       bool initialize_iter );
 // TODO :: CONVERT :: new iterator template
@@ -244,7 +244,7 @@ char const * cc_parse_utils_go_step_link( char const * restrict ply_str,
 
     @return String pointer to newly allocated AN string if successful, `NULL` otherwise.
 */
-char * cc_parse_utils_next_step_str_new( char const * restrict ply_str__s );
+char * cc_parse_utils_next_step_str__new( char const * restrict ply_str__s );
 
 /**
     Function returns whether given ply has multiple steps.
@@ -293,7 +293,7 @@ char const * cc_parse_utils_stop_at_side_effects( char const * restrict step_str
 
     @return Newly allocated string pointer if successful, `NULL` otherwise.
 */
-char * cc_parse_utils_step_fields_str_new( char const * restrict step_str );
+char * cc_parse_utils_step_fields_str__new( char const * restrict step_str );
 
 /**
     Function returns string pointer to side-effect, within given step AN string.

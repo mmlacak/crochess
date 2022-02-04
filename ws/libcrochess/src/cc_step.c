@@ -26,7 +26,7 @@ char const * cc_step_link_symbol( CcStepLinkEnum sle )
     }
 }
 
-CcStep * cc_step_new( CcStepLinkEnum link,
+CcStep * cc_step__new( CcStepLinkEnum link,
                       int i, int j, CcSideEffect side_effect,
                       CcFormatStepUsageEnum usage )
 {
@@ -49,7 +49,7 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
 {
     if ( !steps__io ) return NULL;
 
-    CcStep * step__t = cc_step_new( link, i, j, side_effect, usage );
+    CcStep * step__t = cc_step__new( link, i, j, side_effect, usage );
     if ( !step__t ) return NULL;
 
     CcStep * s = steps__io;
@@ -68,7 +68,7 @@ CcStep * cc_step_append_or_init( CcStep ** restrict steps__io,
     CcStep * step__w = NULL;
 
     if ( !*steps__io )
-        *steps__io = step__w = cc_step_new( link, i, j, side_effect, usage );
+        *steps__io = step__w = cc_step__new( link, i, j, side_effect, usage );
     else
         step__w = cc_step_append( *steps__io, link, i, j, side_effect, usage );
 
@@ -76,11 +76,11 @@ CcStep * cc_step_append_or_init( CcStep ** restrict steps__io,
 }
 
 // TODO :: REWRITE :: using cc_step_append_or_init
-CcStep * cc_steps_duplicate_all_new( CcStep * restrict steps__io )
+CcStep * cc_steps_duplicate_all__new( CcStep * restrict steps__io )
 {
     if ( !steps__io ) return NULL;
 
-    CcStep * steps__a = cc_step_new( steps__io->link, steps__io->i, steps__io->j, steps__io->side_effect, steps__io->usage );
+    CcStep * steps__a = cc_step__new( steps__io->link, steps__io->i, steps__io->j, steps__io->side_effect, steps__io->usage );
     if ( !steps__a ) return NULL;
 
     CcStep * from = steps__io->next;
@@ -165,96 +165,96 @@ bool cc_steps_free_all( CcStep ** restrict steps__f )
 //
 // new conveniences
 
-CcStep * cc_step_none_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_none__new( CcStepLinkEnum link, int i, int j,
                            CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_none();
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_capture_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_capture__new( CcStepLinkEnum link, int i, int j,
                               CcPieceEnum piece, CcTagEnum lost_tag,
                               CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_displacement_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_displacement__new( CcStepLinkEnum link, int i, int j,
                                    CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j,
                                    CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, dest_i, dest_j );
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_en_passant_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_en_passant__new( CcStepLinkEnum link, int i, int j,
                                  CcPieceEnum piece, int dest_i, int dest_j,
                                  CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_en_passant( piece, dest_i, dest_j );
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_castle_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_castle__new( CcStepLinkEnum link, int i, int j,
                              CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j,
                              CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_promote_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_promote__new( CcStepLinkEnum link, int i, int j,
                               CcPieceEnum piece,
                               CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_promote( piece );
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_tag_for_promotion_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, int i, int j,
                                         CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_tag_for_promotion();
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_convert_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_convert__new( CcStepLinkEnum link, int i, int j,
                               CcPieceEnum piece, CcTagEnum lost_tag,
                               CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_convert( piece, lost_tag );
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_failed_conversion_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_failed_conversion__new( CcStepLinkEnum link, int i, int j,
                                         CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_failed_conversion();
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_demote_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_demote__new( CcStepLinkEnum link, int i, int j,
                              CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j,
                              CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_resurrect_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_resurrect__new( CcStepLinkEnum link, int i, int j,
                                 CcPieceEnum piece, int dest_i, int dest_j,
                                 CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_resurrect( piece, dest_i, dest_j );
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
-CcStep * cc_step_failed_resurrection_new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, int i, int j,
                                           CcFormatStepUsageEnum usage )
 {
     CcSideEffect se = cc_side_effect_failed_resurrection();
-    return cc_step_new( link, i, j, se, usage );
+    return cc_step__new( link, i, j, se, usage );
 }
 
 //

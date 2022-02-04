@@ -97,7 +97,7 @@ typedef struct CcMove
     @return
     A newly allocated move, is successful, `NULL` otherwise.
 */
-CcMove * cc_move_new( char const * restrict notation,
+CcMove * cc_move__new( char const * restrict notation,
                       CcMovePreStatusEnum prestatus,
                       CcPly ** restrict plies__n,
                       CcMoveStatusEnum status );
@@ -111,7 +111,7 @@ CcMove * cc_move_new( char const * restrict notation,
     @param plies__n Plies, should be valid pointer.
     @param status Move status.
 
-    @see cc_move_new()
+    @see cc_move__new()
 
     @return
     Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
@@ -138,7 +138,7 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
     If linked list `*moves__io` is `NULL`, it will be initialized,
     with a newly allocated move as its first element.
 
-    @see cc_move_new()
+    @see cc_move__new()
 
     @return
     Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
@@ -173,7 +173,7 @@ bool cc_move_extend_or_init( CcMove ** restrict moves__io,
     @return
     A newly allocated moves, is successful, `NULL` otherwise.
 */
-CcMove * cc_moves_duplicate_all_new( CcMove * restrict moves );
+CcMove * cc_moves_duplicate_all__new( CcMove * restrict moves );
 
 /**
     Frees all moves in a linked list, and all associated entities.
@@ -190,32 +190,32 @@ bool cc_moves_free_all( CcMove ** restrict moves__f );
 
 
 /** @defgroup move_convenience The move conveniences
- *  The move convenience functions are meant to be used instead of `cc_move_new()`,
+ *  The move convenience functions are meant to be used instead of `cc_move__new()`,
     `cc_move_append()`, and `cc_move_append_or_init()`.
 
     They have minimal set of arguments required by the type of a move (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_move_new(), cc_move_append(), cc_move_append_or_init()
+    @see cc_move__new(), cc_move_append(), cc_move_append_or_init()
  *  @{
  */
 
 /** @defgroup move_convenience_new The new move conveniences
- *  The new move convenience functions are meant to be used instead of `cc_move_new()`.
+ *  The new move convenience functions are meant to be used instead of `cc_move__new()`.
 
     They have minimal set of arguments required by the type of a move (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_move_new()
+    @see cc_move__new()
  *  @{
  */
 
-CcMove * cc_move_on_new( char const * restrict notation,
+CcMove * cc_move_on__new( char const * restrict notation,
                          CcMovePreStatusEnum prestatus,
                          CcPly ** restrict plies__n,
                          CcMoveStatusEnum status );
 
-CcMove * cc_move_end_new( char const * restrict notation,
+CcMove * cc_move_end__new( char const * restrict notation,
                           CcMovePreStatusEnum prestatus );
 
 /** @} */ // end of move_convenience_new

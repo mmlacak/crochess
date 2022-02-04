@@ -89,7 +89,7 @@ bool cc_token_iter( char const * restrict str,
     return true;
 }
 
-char * cc_str_trim_new( char const * restrict str,
+char * cc_str_trim__new( char const * restrict str,
                         char const * restrict chars )
 {
     if ( !str ) return NULL;

@@ -35,17 +35,17 @@ must be cleaned as well.
 For instance, lets say that up to certain point in code we have instantiated variables, but we haven't
 yet transferred ownership of plies and steps to a larger entity:
 @code{.c}
-    CcChessboard * cb__a = cc_chessboard_new( ... ); // ownership (asset)
+    CcChessboard * cb__a = cc_chessboard__new( ... ); // ownership (asset)
     ...
-    CcPly * plies_0__t = cc_ply_new( ... ); // transfer
+    CcPly * plies_0__t = cc_ply__new( ... ); // transfer
     ...
-    CcStep * steps_2__t = cc_step_none_new( ... ); // ditto
+    CcStep * steps_2__t = cc_step_none__new( ... ); // ditto
 @endcode
 
 Now, if append new step fails, it also has to clean-up all ownership and transfer variables,
 before it can bail-out:
 @code{.c}
-    if ( !cc_step_none_append_new( steps_2__t, ... ) )
+    if ( !cc_step_none_append__new( steps_2__t, ... ) )
         return cc_game_move_data_free_all( NULL, &cb__a, NULL, &plies_0__t, &steps_2__t, false );
 @endcode
 
@@ -73,7 +73,7 @@ All `CcMove`s in a linked list are `free()`-ed by calling `cc_move_free_all_move
 ### Transfer of ownership
 
 Transfer of ownership from a functions which allocates new memory is indicated by function name
-ending in `_new`, e.g. `cc_ply_teleport_new()`. If function name does not end in `_new`, then
+ending in `__new`, e.g. `cc_ply_teleport__new()`. If function name does not end in `__new`, then
 returned pointer is borrowed, e.g. `cc_ply_get_steps()`.
 
 ### Borrows
@@ -155,7 +155,7 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 | Indicator |           `return` |                  `*return` |
 | --------: | -----------------: | -------------------------: |
 |           |             borrow | read (+ write, if mutable) |
-|    `_new` | ownership transfer |    read + write + `free()` |
+|   `__new` | ownership transfer |    read + write + `free()` |
 
 ### Variables
 

@@ -82,7 +82,7 @@ char const * cc_parse_utils_go_ply_link( char const * restrict move_str,
 }
 
 // TODO :: CONVERT :: new iterator template
-bool cc_parse_utils_ply_str_iter_new( char const * restrict move_str,
+bool cc_parse_utils_ply_str_iter__new( char const * restrict move_str,
                                       char ** restrict ply_an__o,
                                       bool initialize_iter )
 {
@@ -331,7 +331,7 @@ char const * cc_parse_utils_go_step_link( char const * restrict ply_str,
     return str__w;
 }
 
-char * cc_parse_utils_next_step_str_new( char const * restrict ply_str__s )
+char * cc_parse_utils_next_step_str__new( char const * restrict ply_str__s )
 {
 // TODO :: REMOVE :: static variables
     /* static char * ply_start = NULL; */
@@ -474,7 +474,7 @@ char const * cc_parse_utils_stop_at_side_effects( char const * restrict step_str
     return str__w;
 }
 
-char * cc_parse_utils_step_fields_str_new( char const * restrict step_str )
+char * cc_parse_utils_step_fields_str__new( char const * restrict step_str )
 {
     if ( !step_str ) return NULL;
 
@@ -534,7 +534,7 @@ bool cc_parse_utils_is_fields_str_valid( char const * restrict fields_str )
     if ( len < MIN_LEN ) return false;
 
     bool result = true;
-    char * f_str__a = cc_str_duplicate_new( fields_str, true, MAX_LEN_TO_CHECK );
+    char * f_str__a = cc_str_duplicate__new( fields_str, true, MAX_LEN_TO_CHECK );
     char * f = f_str__a;
 
     if ( !isdigit( *f ) )

@@ -36,7 +36,7 @@ typedef struct TestMsg
     struct TestMsg * next;
 } TestMsg;
 
-TestMsg * test_msg_new( TestMsgEnum type,
+TestMsg * test_msg__new( TestMsgEnum type,
                         char const * restrict msg,
                         char const * restrict file,
                         size_t line,

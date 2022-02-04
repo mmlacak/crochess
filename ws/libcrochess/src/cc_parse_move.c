@@ -37,7 +37,7 @@
 //     CcChessboard * cb = game->chessboard;
 
 //     char * ply_an__t = NULL;
-//     if ( !cc_parse_utils_ply_str_iter_new( move_str, &ply_an__t, true ) )
+//     if ( !cc_parse_utils_ply_str_iter__new( move_str, &ply_an__t, true ) )
 //     {
 //         cc_parse_msg_append_or_init_format( parse_msgs__io,
 //                                             CC_PME_Error,
@@ -96,7 +96,7 @@
 //             return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, NULL, false );
 //         }
 
-//         char * step_an__t = cc_parse_utils_next_step_str_new( steps_str );
+//         char * step_an__t = cc_parse_utils_next_step_str__new( steps_str );
 //         if ( !step_an__t )
 //         {
 //             cc_parse_msg_append_or_init_format( parse_msgs__io,
@@ -130,7 +130,7 @@
 //                 return cc_game_move_data_free_all( NULL, NULL, NULL, &plies__t, &steps__t, false );
 //             }
 
-//             char * fields_an__t = cc_parse_utils_step_fields_str_new( step_an__t );
+//             char * fields_an__t = cc_parse_utils_step_fields_str__new( step_an__t );
 //             if ( !fields_an__t )
 //             {
 //                 cc_parse_msg_append_or_init_format( parse_msgs__io,
@@ -244,7 +244,7 @@
 //             }
 
 //             CC_FREE( step_an__t );
-//             step_an__t = cc_parse_utils_next_step_str_new( NULL );
+//             step_an__t = cc_parse_utils_next_step_str__new( NULL );
 //         }
 //         while ( step_an__t );
 
@@ -268,11 +268,11 @@
 
 //         CC_FREE( ply_an__t );
 //     }
-//     while ( cc_parse_utils_ply_str_iter_new( move_str, &ply_an__t, false ) );
+//     while ( cc_parse_utils_ply_str_iter__new( move_str, &ply_an__t, false ) );
 
 //     CcMoveStatusEnum mse = CC_MSE_None;
 
-//     *move__o = cc_move_on_new( move_str, CC_MPSE_None, &plies__t, mse );
+//     *move__o = cc_move_on__new( move_str, CC_MPSE_None, &plies__t, mse );
 
 // TODO
 //     return true;

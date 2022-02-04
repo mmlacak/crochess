@@ -13,7 +13,7 @@
 */
 
 
-CcContextPly * cc_context_ply_new( char const * restrict ply_start__w,
+CcContextPly * cc_context_ply__new( char const * restrict ply_start__w,
                                    char const * restrict ply_end__w )
 {
     CcContextPly * context_ply__a = malloc( sizeof( CcContextPly ) );
@@ -35,7 +35,7 @@ CcContextPly * cc_context_ply_append( CcContextPly * restrict context_ply__io,
 {
     if ( !context_ply__io ) return NULL;
 
-    CcContextPly * context_ply__t = cc_context_ply_new( ply_start__w, ply_end__w );
+    CcContextPly * context_ply__t = cc_context_ply__new( ply_start__w, ply_end__w );
     if ( !context_ply__t ) return NULL;
 
     CcContextPly * p = context_ply__io;
@@ -54,7 +54,7 @@ CcContextPly * cc_context_ply_append_or_init( CcContextPly ** restrict context_p
     CcContextPly * context_ply__w = NULL;
 
     if ( !*context_ply__io )
-        *context_ply__io = context_ply__w = cc_context_ply_new( ply_start__w, ply_end__w );
+        *context_ply__io = context_ply__w = cc_context_ply__new( ply_start__w, ply_end__w );
     else
         context_ply__w = cc_context_ply_append( *context_ply__io, ply_start__w, ply_end__w );
 
@@ -80,7 +80,7 @@ bool cc_context_ply_free_all( CcContextPly ** restrict context_ply__f )
 }
 
 
-CcContext * cc_context_new( CcGame * restrict game__w,
+CcContext * cc_context__new( CcGame * restrict game__w,
                             char const * restrict user_move_an )
 {
     CcContext * context__a = malloc( sizeof( CcContext ) );
@@ -88,7 +88,7 @@ CcContext * cc_context_new( CcGame * restrict game__w,
 
     context__a->game__w = game__w;
 
-    context__a->user_move_an = cc_str_duplicate_new( user_move_an, false, BUFSIZ );
+    context__a->user_move_an = cc_str_duplicate__new( user_move_an, false, BUFSIZ );
     context__a->converted_an = NULL; // TODO :: convert user_move_an, if neccessary
 
     context__a->move_an__w =

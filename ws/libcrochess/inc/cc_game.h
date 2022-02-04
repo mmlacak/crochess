@@ -104,7 +104,7 @@ typedef struct CcGame
     @return
     A newly allocated game, is successful, `NULL` otherwise.
 */
-CcGame * cc_game_new( CcGameStatusEnum status,
+CcGame * cc_game__new( CcGameStatusEnum status,
                       CcVariantEnum ve,
                       bool do_setup );
 
@@ -116,7 +116,7 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     @return
     A newly allocated game, is successful, `NULL` otherwise.
 */
-CcGame * cc_game_duplicate_all_new( CcGame * restrict game );
+CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
 
 /**
     Frees game, and all owned resources (chessboard, moves).
@@ -164,7 +164,7 @@ bool cc_game_free_all( CcGame ** restrict game__f );
     Failure can be enforced (e.g. when allocation fails),
     simply by passing `false` as an argument, e.g.:
     @code{.c}
-    if ( !cc_ply_cascade_append_new( ... ) )
+    if ( !cc_ply_cascade_append__new( ... ) )
         return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false ); // false == enforced failure
     @endcode
 

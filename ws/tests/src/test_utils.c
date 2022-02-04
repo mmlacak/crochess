@@ -52,7 +52,7 @@ bool test_duplicates( CcMove * restrict moves )
 
     printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
-    CcMove * dup__o = cc_moves_duplicate_all_new( moves );
+    CcMove * dup__o = cc_moves_duplicate_all__new( moves );
     if ( !dup__o ) return false;
 
     CcMove * d = dup__o;

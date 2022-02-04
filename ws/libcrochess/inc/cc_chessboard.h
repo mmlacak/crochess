@@ -48,7 +48,7 @@ bool cc_is_field_light( int i, int j );
 
     @return A newly allocated chessboard is successful, `NULL` otherwise.
 */
-CcChessboard * cc_chessboard_new( CcVariantEnum ve, bool do_setup );
+CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup );
 
 /**
     (Re-)initializes a chessboard, for a new variant.
@@ -110,7 +110,7 @@ bool cc_chessboard_copy( CcChessboard * restrict into__io,
 
     @return A newly allocated chessboard if succesfully duplicated, `NULL` otherwise.
 */
-CcChessboard * cc_chessboard_duplicate_new( CcChessboard * restrict from );
+CcChessboard * cc_chessboard_duplicate__new( CcChessboard * restrict from );
 
 /**
     Frees chessboard, and all allocated resources.
@@ -224,8 +224,8 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
                             int j,
                             CcTagEnum tt );
 
-// static char * cc_chessboard_get_divider_new( CcChessboard * restrict cb );
-// static char * cc_chessboard_get_horizontal_ruler_new( CcChessboard * restrict cb );
+// static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb );
+// static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict cb );
 
 /**
     Formats a newly allocated string to represent piece, tag positions on a given chessboard.
@@ -235,7 +235,7 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
 
     @return A newly allocated string is successful, `NULL` otherwise.
 */
-char * cc_chessboard_as_string_new( CcChessboard * restrict cb,
+char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
                                     bool is_board_or_tag );
 
 /**

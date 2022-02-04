@@ -39,7 +39,7 @@ bool cc_remove_all_temporarily_tags( CcChessboard * restrict cb__io )
 {
     if ( !cb__io ) return false;
 
-    CcChessboard * cb__a = cc_chessboard_duplicate_new( cb__io );
+    CcChessboard * cb__a = cc_chessboard_duplicate__new( cb__io );
     if ( !cb__a ) return false;
 
     bool result = true;
@@ -235,7 +235,7 @@ bool cc_do_moves( CcChessboard * restrict cb__io,
     if ( !cb__io ) return false;
     if ( !moves ) return false;
 
-    CcChessboard * cb__a = cc_chessboard_duplicate_new( cb__io );
+    CcChessboard * cb__a = cc_chessboard_duplicate__new( cb__io );
     if ( !cb__a ) return false;
 
     bool result = true;

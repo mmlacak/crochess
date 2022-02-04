@@ -20,7 +20,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.2.222:421+20220204.054657"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.2.223:422+20220204.060506"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -30,7 +30,7 @@ int main( void )
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    CcChessboard * cb = cc_chessboard_new( CC_VE_One, true );
+    CcChessboard * cb = cc_chessboard__new( CC_VE_One, true );
 
     while ( true )
     {
@@ -84,7 +84,7 @@ int main( void )
 
             if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
-                code = cc_str_copy_new( first__w, end__w, BUFSIZ );
+                code = cc_str_copy__new( first__w, end__w, BUFSIZ );
                 if ( !code ) continue;
 
                 is_code = cc_variant_str_is_symbol( code );
@@ -94,7 +94,7 @@ int main( void )
                     CcVariantEnum ve = cc_variant_from_symbol( code );
 
                     free( cb );
-                    cb = cc_chessboard_new( ve, true );
+                    cb = cc_chessboard__new( ve, true );
                 }
                 else
                 {
@@ -118,7 +118,7 @@ int main( void )
 
             if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
-                res = cc_str_copy_new( first__w, end__w, BUFSIZ );
+                res = cc_str_copy__new( first__w, end__w, BUFSIZ );
                 if ( !res ) continue;
             }
 

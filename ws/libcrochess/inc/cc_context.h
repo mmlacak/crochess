@@ -41,7 +41,7 @@ typedef struct CcContextPly
     @return
     A newly allocated ply context, is successful, `NULL` otherwise.
 */
-CcContextPly * cc_context_ply_new( char const * restrict ply_start__w,
+CcContextPly * cc_context_ply__new( char const * restrict ply_start__w,
                                    char const * restrict ply_end__w );
 
 /**
@@ -51,7 +51,7 @@ CcContextPly * cc_context_ply_new( char const * restrict ply_start__w,
     @param ply_start__w Weak pointer to a substring start within `move_an__w`, in a parent context.
     @param ply_end__w Weak pointer to a substring end within `move_an__w`, in a parent context.
 
-    @see cc_context_ply_new()
+    @see cc_context_ply__new()
 
     @return
     Weak pointer to a newly allocated ply context, is successful, `NULL` otherwise.
@@ -113,7 +113,7 @@ typedef struct CcContext
     @return
     A newly allocated context, is successful, `NULL` otherwise.
 */
-CcContext * cc_context_new( CcGame * restrict game__w,
+CcContext * cc_context__new( CcGame * restrict game__w,
                             char const * restrict user_move_an );
 
 /**

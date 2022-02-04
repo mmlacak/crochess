@@ -15,7 +15,7 @@
 */
 
 
-CcMove * cc_move_new( char const * restrict notation,
+CcMove * cc_move__new( char const * restrict notation,
                       CcMovePreStatusEnum prestatus,
                       CcPly ** restrict plies__n,
                       CcMoveStatusEnum status )
@@ -29,7 +29,7 @@ CcMove * cc_move_new( char const * restrict notation,
     CcMove * mv__a = malloc( sizeof( CcMove ) );
     if ( !mv__a ) return NULL;
 
-    mv__a->notation = cc_str_duplicate_new( notation, false, BUFSIZ );
+    mv__a->notation = cc_str_duplicate__new( notation, false, BUFSIZ );
     if ( notation && ( !mv__a->notation ) )
     {
         CC_FREE( mv__a );
@@ -60,7 +60,7 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
 {
     if ( !moves__io ) return NULL;
 
-    CcMove * mv__a = cc_move_new( notation, prestatus, plies__n, status );
+    CcMove * mv__a = cc_move__new( notation, prestatus, plies__n, status );
     if ( !mv__a ) return NULL;
 
     CcMove * mv = moves__io;
@@ -81,7 +81,7 @@ CcMove * cc_move_append_or_init( CcMove ** restrict moves__io,
     CcMove * move__w = NULL;
 
     if ( !*moves__io )
-        *moves__io = move__w = cc_move_new( notation, prestatus, plies__n, status );
+        *moves__io = move__w = cc_move__new( notation, prestatus, plies__n, status );
     else
         move__w = cc_move_append( *moves__io, notation, prestatus, plies__n, status );
 
@@ -109,7 +109,7 @@ bool cc_move_extend_or_init( CcMove ** restrict moves__io,
     return true;
 }
 
-CcMove * cc_moves_duplicate_all_new( CcMove * restrict moves )
+CcMove * cc_moves_duplicate_all__new( CcMove * restrict moves )
 {
     if ( !moves ) return NULL;
 
@@ -118,7 +118,7 @@ CcMove * cc_moves_duplicate_all_new( CcMove * restrict moves )
 
     do
     {
-        CcPly * plies__t = cc_plies_duplicate_all_new( moves->plies );
+        CcPly * plies__t = cc_plies_duplicate_all__new( moves->plies );
         if ( !plies__t )
         {
             cc_moves_free_all( &mv__a );
@@ -172,20 +172,20 @@ bool cc_moves_free_all( CcMove ** restrict moves__f )
 //
 // new conveniences
 
-CcMove * cc_move_on_new( char const * restrict notation,
+CcMove * cc_move_on__new( char const * restrict notation,
                          CcMovePreStatusEnum prestatus,
                          CcPly ** restrict plies__n,
                          CcMoveStatusEnum status )
 {
     if ( !CC_MOVE_PRESTATUS_IS_GAME_ON( prestatus ) ) return NULL;
-    return cc_move_new( notation, prestatus, plies__n, status );
+    return cc_move__new( notation, prestatus, plies__n, status );
 }
 
-CcMove * cc_move_end_new( char const * restrict notation,
+CcMove * cc_move_end__new( char const * restrict notation,
                           CcMovePreStatusEnum prestatus )
 {
     if ( !CC_MOVE_PRESTATUS_IS_GAME_END( prestatus ) ) return NULL;
-    return cc_move_new( notation, prestatus, NULL, CC_MSE_None );
+    return cc_move__new( notation, prestatus, NULL, CC_MSE_None );
 }
 
 //

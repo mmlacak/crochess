@@ -42,7 +42,7 @@ bool test_print_failure( bool expr,
 }
 
 
-TestMsg * test_msg_new( TestMsgEnum type,
+TestMsg * test_msg__new( TestMsgEnum type,
                         char const * restrict msg,
                         char const * restrict file,
                         size_t line,
@@ -52,11 +52,11 @@ TestMsg * test_msg_new( TestMsgEnum type,
     if ( !new ) return NULL;
 
     new->type = type;
-    new->msg = cc_str_duplicate_new( msg, false, BUFSIZ ); // msg; // Don't borrow, unknown scope!
+    new->msg = cc_str_duplicate__new( msg, false, BUFSIZ ); // msg; // Don't borrow, unknown scope!
 
-    new->file = cc_str_duplicate_new( file, false, BUFSIZ ); // file; // Don't borrow, unknown scope!
+    new->file = cc_str_duplicate__new( file, false, BUFSIZ ); // file; // Don't borrow, unknown scope!
     new->line = line;
-    new->func = cc_str_duplicate_new( func, false, BUFSIZ ); // func; // Don't borrow, unknown scope!
+    new->func = cc_str_duplicate__new( func, false, BUFSIZ ); // func; // Don't borrow, unknown scope!
 
     new->next = NULL;
 
@@ -72,7 +72,7 @@ TestMsg * test_msg_append( TestMsg * restrict test_msgs,
 {
     if ( !test_msgs ) return NULL;
 
-    TestMsg * new = test_msg_new( type, msg, file, line, func );
+    TestMsg * new = test_msg__new( type, msg, file, line, func );
     if ( !new ) return NULL;
 
     TestMsg * tm = test_msgs;

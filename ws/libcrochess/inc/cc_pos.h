@@ -20,9 +20,9 @@
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link_new()
+    @see cc_pos_link__new()
 */
-#define CC_POS_LINK_NEW(i,j) cc_pos_link_new( cc_pos( (i), (j) ) )
+#define CC_POS_LINK_NEW(i,j) cc_pos_link__new( cc_pos( (i), (j) ) )
 
 /**
     Macro to append a newly allocated new position link, with given coordinates.
@@ -139,7 +139,7 @@ typedef struct CcPosLink {
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_new( CcPos pos );
+CcPosLink * cc_pos_link__new( CcPos pos );
 
 /**
     Function appends a newly allocated linked position to a given linked list.

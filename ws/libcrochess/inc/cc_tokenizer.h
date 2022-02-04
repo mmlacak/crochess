@@ -117,7 +117,7 @@ bool cc_token_iter( char const * restrict str,
 
     @return Newly allocated, trimmed string if successful, `NULL` otherwise.
 */
-char * cc_str_trim_new( char const * restrict str,
+char * cc_str_trim__new( char const * restrict str,
                         char const * restrict chars );
 
 // size_t cc_flush_stdin();

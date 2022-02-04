@@ -45,7 +45,7 @@ bool cc_pos_is_valid( CcPos pos )
 }
 
 
-CcPosLink * cc_pos_link_new( CcPos pos )
+CcPosLink * cc_pos_link__new( CcPos pos )
 {
     CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
     if ( !pl__t ) return NULL;
@@ -61,7 +61,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__t = cc_pos_link_new( pos );
+    CcPosLink * pl__t = cc_pos_link__new( pos );
     if ( !pl__t ) return NULL;
 
     CcPosLink * pl = pos_link__io;
@@ -79,7 +79,7 @@ CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
     CcPosLink * pl__w = NULL;
 
     if ( !*pos_link__io )
-        *pos_link__io = pl__w = cc_pos_link_new( pos );
+        *pos_link__io = pl__w = cc_pos_link__new( pos );
     else
         pl__w = cc_pos_link_append( *pos_link__io, pos );
 

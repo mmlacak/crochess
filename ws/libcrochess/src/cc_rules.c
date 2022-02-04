@@ -18,7 +18,7 @@ bool cc_rules_do_moves( CcGame ** restrict game__io_r,
 
     if ( !CC_GAME_STATUS_IS_TURN( (*game__io_r)->status ) ) return false;
 
-    CcGame * gm__t = cc_game_duplicate_all_new( *game__io_r );
+    CcGame * gm__t = cc_game_duplicate_all__new( *game__io_r );
     if ( !gm__t ) return false;
 
     if ( dme == CC_DME_DoAllMoves )

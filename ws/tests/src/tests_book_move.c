@@ -28,7 +28,7 @@ bool test_book_move_scn_ct_03_define_step_ply( int index, TestPrints tp )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_CroatianTies, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_CroatianTies, false );
     if ( !game__o ) return false;
 
     CcPieceEnum piece_G = CC_PE_LightPegasus;
@@ -55,7 +55,7 @@ bool test_book_move_scn_ct_03_define_step_ply( int index, TestPrints tp )
     //
     // steps
 
-    CcStep * start__t = cc_step_none_new( CC_SLE_Start, 2, 1, CC_FSUE_Clarification_NoOutput );
+    CcStep * start__t = cc_step_none__new( CC_SLE_Start, 2, 1, CC_FSUE_Clarification_NoOutput );
     if ( !start__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( start__t, CC_SLE_Next, 3, 3, CC_FSUE_Clarification_NoOutput ) )
@@ -70,19 +70,19 @@ bool test_book_move_scn_ct_03_define_step_ply( int index, TestPrints tp )
     //
     // ply
 
-    CcPly * ply__t = cc_ply_new( CC_PLE_Ply, piece_G, &start__t );
+    CcPly * ply__t = cc_ply__new( CC_PLE_Ply, piece_G, &start__t );
     if ( !ply__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &start__t, false );
 
     //
     // move [Gc2.d4.e6.f8]
 
-    CcMove * move__t = cc_move_on_new( "[Gc2.d4.e6.f8]", CC_MPSE_None, &ply__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( "[Gc2.d4.e6.f8]", CC_MPSE_None, &ply__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, &start__t, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );

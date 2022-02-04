@@ -64,7 +64,7 @@ bool test_parser( CcGame * restrict gm,
     }
 
     char * ply_an__o = NULL;
-    if ( !cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, true ) )
+    if ( !cc_parse_utils_ply_str_iter__new( move_str, &ply_an__o, true ) )
         return false;
 
     CcPlyLinkEnum ple = CC_PLE_Ply;
@@ -103,7 +103,7 @@ bool test_parser( CcGame * restrict gm,
         {
             printf( " (%s)", steps_str );
 
-            char * step_an__o = cc_parse_utils_next_step_str_new( steps_str );
+            char * step_an__o = cc_parse_utils_next_step_str__new( steps_str );
             CcStepLinkEnum sle = CC_SLE_Destination;
 
             if ( step_an__o )
@@ -120,7 +120,7 @@ bool test_parser( CcGame * restrict gm,
                     else
                         printf( " [---]" );
 
-                    char * fields_an__o = cc_parse_utils_step_fields_str_new( step_an__o );
+                    char * fields_an__o = cc_parse_utils_step_fields_str__new( step_an__o );
                     if ( fields_an__o )
                         printf( " {%s}", fields_an__o );
                     else
@@ -161,7 +161,7 @@ bool test_parser( CcGame * restrict gm,
                                                                     &se );
                     if ( result_5 )
                     {
-                        char * se__o = cc_format_side_effect_new( &se, tp.format_move );
+                        char * se__o = cc_format_side_effect__new( &se, tp.format_move );
                         if ( se__o )
                         {
                             printf( " >%s<", se__o );
@@ -177,7 +177,7 @@ bool test_parser( CcGame * restrict gm,
                     printf( "\n" );
 
                     free( step_an__o );
-                    step_an__o = cc_parse_utils_next_step_str_new( NULL );
+                    step_an__o = cc_parse_utils_next_step_str__new( NULL );
                 }
                 while ( step_an__o );
             }
@@ -194,7 +194,7 @@ bool test_parser( CcGame * restrict gm,
 
         free( ply_an__o );
     }
-    while ( cc_parse_utils_ply_str_iter_new( move_str, &ply_an__o, false ) );
+    while ( cc_parse_utils_ply_str_iter__new( move_str, &ply_an__o, false ) );
 
     return true;
 }
@@ -208,7 +208,7 @@ bool test_parse_move_single_ply( TestPrints tp )
     //
     // game
 
-    CcGame * gm__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * gm__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !gm__o ) return false;
 
     CcChessboard * cb = gm__o->chessboard;

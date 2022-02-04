@@ -43,7 +43,7 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse )
 }
 
 
-CcGame * cc_game_new( CcGameStatusEnum status,
+CcGame * cc_game__new( CcGameStatusEnum status,
                       CcVariantEnum ve,
                       bool do_setup )
 {
@@ -52,7 +52,7 @@ CcGame * cc_game_new( CcGameStatusEnum status,
 
     gm__a->status = status;
 
-    gm__a->chessboard = cc_chessboard_new( ve, do_setup );
+    gm__a->chessboard = cc_chessboard__new( ve, do_setup );
     if ( !gm__a->chessboard )
     {
         CC_FREE( gm__a );
@@ -64,16 +64,16 @@ CcGame * cc_game_new( CcGameStatusEnum status,
     return gm__a;
 }
 
-CcGame * cc_game_duplicate_all_new( CcGame * restrict game )
+CcGame * cc_game_duplicate_all__new( CcGame * restrict game )
 {
     if ( !game ) return NULL;
 
     CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
 
-    CcGame * gm__a = cc_game_new( game->status, ve, false );
+    CcGame * gm__a = cc_game__new( game->status, ve, false );
     if ( !gm__a ) return NULL;
 
-    CcChessboard * cb__t = cc_chessboard_duplicate_new( game->chessboard );
+    CcChessboard * cb__t = cc_chessboard_duplicate__new( game->chessboard );
     if ( game->chessboard && ( !cb__t ) )
     {
         cc_game_free_all( &gm__a );
@@ -82,7 +82,7 @@ CcGame * cc_game_duplicate_all_new( CcGame * restrict game )
 
     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
 
-    CcMove * mv__t = cc_moves_duplicate_all_new( game->moves );
+    CcMove * mv__t = cc_moves_duplicate_all__new( game->moves );
     if ( game->moves && ( !mv__t ) )
     {
         cc_game_free_all( &gm__a );

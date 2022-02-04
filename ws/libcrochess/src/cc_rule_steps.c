@@ -241,7 +241,7 @@ bool cc_rule_steps_check_bishop( CcGame * restrict game,
     if ( !CC_GEN_POS_BISHOP_STEP_IS_VALID( step ) ) return false;
 
     CcChessboard * cb = game->chessboard;
-    CcPosLink * pl__t = cc_pos_link_new( start );
+    CcPosLink * pl__t = cc_pos_link__new( start );
 
     for ( CcPos p = cc_pos_add( start, step ); !cc_pos_is_equal( p, dest ); p = cc_pos_add( p, step ) )
     {

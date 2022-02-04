@@ -86,7 +86,7 @@ bool cc_str_to_case( char * restrict str__io,
 
     @return A newly allocated, converted string if successful, `NULL` otherwise.
 */
-char * cc_str_to_case_new( char const * restrict str,
+char * cc_str_to_case__new( char const * restrict str,
                            bool to_upper_or_lower );
 
 /**
@@ -214,7 +214,7 @@ bool cc_str_is_equal( char const * restrict first_1,
 
     @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
 */
-char * cc_str_copy_new( char const * restrict first,
+char * cc_str_copy__new( char const * restrict first,
                         char const * restrict end__d,
                         size_t max_len__d );
 
@@ -229,7 +229,7 @@ char * cc_str_copy_new( char const * restrict first,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_str_format_new( size_t max_len__d,
+char * cc_str_format__new( size_t max_len__d,
                           char const * restrict fmt, ... );
 
 /**
@@ -242,7 +242,7 @@ char * cc_str_format_new( size_t max_len__d,
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
-char * cc_str_duplicate_new( char const * restrict str,
+char * cc_str_duplicate__new( char const * restrict str,
                              bool do_reverse,
                              size_t max_len__d );
 
@@ -256,7 +256,7 @@ char * cc_str_duplicate_new( char const * restrict str,
 
     @return A newly allocated, concatenated string if successful, `NULL` otherwise.
 */
-char * cc_str_concatenate_new( char const * restrict str_1__d,
+char * cc_str_concatenate__new( char const * restrict str_1__d,
                                char const * restrict str_2__d,
                                size_t max_len__d );
 
@@ -279,7 +279,7 @@ char * cc_str_concatenate_new( char const * restrict str_1__d,
 
     @return A newly allocated, extended string if successful, `NULL` otherwise.
 */
-char * cc_str_extend_new( char ** restrict str_1__f,
+char * cc_str_extend__new( char ** restrict str_1__f,
                           char const * restrict str_2__d,
                           size_t max_len__d );
 
@@ -305,7 +305,7 @@ char * cc_str_extend_new( char ** restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_new( char ** restrict str_1__f,
+char * cc_str_append__new( char ** restrict str_1__f,
                           char ** restrict str_2__f,
                           size_t max_len__d );
 
@@ -329,7 +329,7 @@ char * cc_str_append_new( char ** restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_new( char ** restrict str__f,
+char * cc_str_append_format__new( char ** restrict str__f,
                                  size_t max_len__d,
                                  char const * restrict fmt, ... );
 

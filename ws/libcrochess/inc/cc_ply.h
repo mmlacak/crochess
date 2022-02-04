@@ -86,7 +86,7 @@ typedef struct CcPly
     @return
     A newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_new( CcPlyLinkEnum link,
+CcPly * cc_ply__new( CcPlyLinkEnum link,
                     CcPieceEnum piece,
                     CcStep ** restrict steps__n );
 
@@ -99,7 +99,7 @@ CcPly * cc_ply_new( CcPlyLinkEnum link,
     @param piece A piece.
     @param steps__n Steps, linked list, can be `NULL`.
 
-    @see cc_ply_new()
+    @see cc_ply__new()
 
     @return
     Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
@@ -140,7 +140,7 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
     @return
     A newly allocated plies, is successful, `NULL` otherwise.
 */
-CcPly * cc_plies_duplicate_all_new( CcPly * restrict plies );
+CcPly * cc_plies_duplicate_all__new( CcPly * restrict plies );
 
 /**
     Frees all plies in a linked list, and all associated entities.

@@ -68,7 +68,7 @@ bool cc_str_to_case( char * restrict str__io,
     return true;
 }
 
-char * cc_str_to_case_new( char const * restrict str,
+char * cc_str_to_case__new( char const * restrict str,
                            bool to_upper_or_lower )
 {
     if ( !str ) return NULL;
@@ -218,7 +218,7 @@ bool cc_str_is_equal( char const * restrict first_1,
     return false;
 }
 
-char * cc_str_copy_new( char const * restrict first,
+char * cc_str_copy__new( char const * restrict first,
                         char const * restrict end__d,
                         size_t max_len__d )
 {
@@ -235,7 +235,7 @@ char * cc_str_copy_new( char const * restrict first,
     return str__a;
 }
 
-char * cc_str_format_new( size_t max_len__d,
+char * cc_str_format__new( size_t max_len__d,
                           char const * restrict fmt, ... )
 {
     va_list args;
@@ -282,7 +282,7 @@ char * cc_str_format_new( size_t max_len__d,
     return str__a;
 }
 
-char * cc_str_duplicate_new( char const * restrict str,
+char * cc_str_duplicate__new( char const * restrict str,
                              bool do_reverse,
                              size_t max_len__d )
 {
@@ -318,7 +318,7 @@ char * cc_str_duplicate_new( char const * restrict str,
     return str__a;
 }
 
-char * cc_str_concatenate_new( char const * restrict str_1__d,
+char * cc_str_concatenate__new( char const * restrict str_1__d,
                                char const * restrict str_2__d,
                                size_t max_len__d )
 {
@@ -353,13 +353,13 @@ char * cc_str_concatenate_new( char const * restrict str_1__d,
     return str__a;
 }
 
-char * cc_str_extend_new( char ** restrict str_1__f,
+char * cc_str_extend__new( char ** restrict str_1__f,
                           char const * restrict str_2__d,
                           size_t max_len__d )
 {
     if ( !str_1__f ) return NULL;
 
-    char * str__a = cc_str_concatenate_new( *str_1__f, str_2__d, max_len__d );
+    char * str__a = cc_str_concatenate__new( *str_1__f, str_2__d, max_len__d );
     if ( !str__a ) return NULL;
 
     if ( str_1__f )
@@ -368,7 +368,7 @@ char * cc_str_extend_new( char ** restrict str_1__f,
     return str__a;
 }
 
-char * cc_str_append_new( char ** restrict str_1__f,
+char * cc_str_append__new( char ** restrict str_1__f,
                           char ** restrict str_2__f,
                           size_t max_len__d )
 {
@@ -377,11 +377,11 @@ char * cc_str_append_new( char ** restrict str_1__f,
     char * str__a = NULL;
 
     if ( str_1__f && str_2__f )
-        str__a = cc_str_concatenate_new( *str_1__f, *str_2__f, max_len__d );
+        str__a = cc_str_concatenate__new( *str_1__f, *str_2__f, max_len__d );
     else if ( str_1__f )
-        str__a = cc_str_duplicate_new( *str_1__f, false, max_len__d );
+        str__a = cc_str_duplicate__new( *str_1__f, false, max_len__d );
     else if ( str_2__f )
-        str__a = cc_str_duplicate_new( *str_2__f, false, max_len__d );
+        str__a = cc_str_duplicate__new( *str_2__f, false, max_len__d );
 
     if ( !str__a ) return NULL;
 
@@ -394,7 +394,7 @@ char * cc_str_append_new( char ** restrict str_1__f,
     return str__a;
 }
 
-char * cc_str_append_format_new( char ** restrict str__f,
+char * cc_str_append_format__new( char ** restrict str__f,
                                  size_t max_len__d,
                                  char const * restrict fmt, ... )
 {
@@ -439,8 +439,8 @@ char * cc_str_append_format_new( char ** restrict str__f,
         return NULL;
     }
 
-    // No need to free() str__f, str__t; cc_str_append_new() does that.
-    return cc_str_append_new( str__f,
+    // No need to free() str__f, str__t; cc_str_append__new() does that.
+    return cc_str_append__new( str__f,
                               &str__t,
                               max_len__d );
 }

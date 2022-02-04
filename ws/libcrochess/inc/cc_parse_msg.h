@@ -43,7 +43,7 @@ typedef struct CcParseMsg
 
     @return A newly allocated parser message if successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_new( CcParseMsgEnum type,
+CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
                                char const * restrict msg );
 
 /**

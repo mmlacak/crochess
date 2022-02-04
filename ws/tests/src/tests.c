@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.222:421+20220204.054657"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.223:422+20220204.060506"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -339,12 +339,12 @@ int main( void )
 
             printf( "Original: '%s'.\n", user_an );
 
-            char * reverse__o = cc_str_duplicate_new( user_an, true, BUFSIZ );
+            char * reverse__o = cc_str_duplicate__new( user_an, true, BUFSIZ );
             printf( "Reverse: '%s'.\n", reverse__o );
             CC_FREE( reverse__o );
             reverse__o = NULL;
 
-            reverse__o = cc_str_duplicate_new( user_an, true, BUFSIZ );
+            reverse__o = cc_str_duplicate__new( user_an, true, BUFSIZ );
             printf( "Reverse: '%s'.\n", reverse__o );
             CC_FREE( reverse__o );
             reverse__o = NULL;
@@ -375,11 +375,11 @@ int main( void )
 
             printf( TESTS_MOVE_TEST_SEPARATOR );
 
-            CcChessboard * cb__a = cc_chessboard_new( CC_VE_One, false );
+            CcChessboard * cb__a = cc_chessboard__new( CC_VE_One, false );
             if ( !cb__a ) return false;
 
 
-            CcStep * steps_2__a = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
+            CcStep * steps_2__a = cc_step_none__new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
 
             cc_step_none_append( steps_2__a, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
 
@@ -401,7 +401,7 @@ int main( void )
             printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
 
-            CcStep * dup__a = cc_steps_duplicate_all_new( steps_2__a );
+            CcStep * dup__a = cc_steps_duplicate_all__new( steps_2__a );
             if ( !dup__a ) printf( "No dup!\n" );
 
             CcStep * d = dup__a;
@@ -437,14 +437,14 @@ int main( void )
         }
         else if ( cc_str_is_equal( first__w, end__w, "z0", NULL, BUFSIZ ) )
         {
-            char * foo = cc_str_copy_new( "f:o:o", NULL, BUFSIZ );
+            char * foo = cc_str_copy__new( "f:o:o", NULL, BUFSIZ );
             if ( !foo )
             {
                 printf( "1: error cc_str_copy_new \n" );
                 continue;
             }
             printf( "1: %s", foo );
-            foo = cc_str_append_format_new( (char ** const)(&foo), BUFSIZ, "%c", ':' );
+            foo = cc_str_append_format__new( (char ** const)(&foo), BUFSIZ, "%c", ':' );
             if ( !foo )
             {
                 printf( "1: error cc_str_append_format_new \n" );
@@ -455,14 +455,14 @@ int main( void )
 
             // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-            char * bar = cc_str_copy_new( "b:a:r", NULL, BUFSIZ );
+            char * bar = cc_str_copy__new( "b:a:r", NULL, BUFSIZ );
             if ( !bar )
             {
                 printf( "2: error cc_str_copy_new \n" );
                 continue;
             }
             printf( "2: %s", bar );
-            bar = cc_str_append_format_new( (char ** const)(&bar), BUFSIZ, "%c", ';' );
+            bar = cc_str_append_format__new( (char ** const)(&bar), BUFSIZ, "%c", ';' );
             if ( !bar )
             {
                 printf( "2: error \n" );
@@ -473,14 +473,14 @@ int main( void )
 
             // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-            char * baz = cc_str_copy_new( "b:a:z", NULL, BUFSIZ );
+            char * baz = cc_str_copy__new( "b:a:z", NULL, BUFSIZ );
             if ( !baz )
             {
                 printf( "3: error cc_str_copy_new \n" );
                 continue;
             }
             printf( "3: %s", baz );
-            baz = cc_str_append_format_new( (char ** const)(&baz), BUFSIZ, "." );
+            baz = cc_str_append_format__new( (char ** const)(&baz), BUFSIZ, "." );
             if ( !baz )
             {
                 printf( "3: error \n" );
@@ -493,7 +493,7 @@ int main( void )
         {
             printf( TESTS_MOVE_TEST_SEPARATOR );
 
-            CcGame * game__a = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+            CcGame * game__a = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
             if ( !game__a ) return false;
 
             CcChessboard * cb = game__a->chessboard;
@@ -732,17 +732,17 @@ int main( void )
         {
             printf( TESTS_MOVE_TEST_SEPARATOR );
 
-            // CcChessboard * cb__a = cc_chessboard_new( CC_VE_One, false );
+            // CcChessboard * cb__a = cc_chessboard__new( CC_VE_One, false );
             // if ( !cb__a ) return false;
 
-            CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
+            CcStep * steps_1__t = cc_step_none__new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
             cc_step_none_append( steps_1__t, CC_SLE_Reposition, 9, 8, CC_FSUE_Clarification );
 
-            CcPly * ply_2__a = cc_ply_new( CC_PLE_Ply, CC_PE_LightPegasus, &steps_1__t );
+            CcPly * ply_2__a = cc_ply__new( CC_PLE_Ply, CC_PE_LightPegasus, &steps_1__t );
 
 
             CcSideEffect sse_2_1 = cc_side_effect_capture( CC_PE_LightBishop, CC_TE_None );
-            CcStep * steps_2__t = cc_step_new( CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
+            CcStep * steps_2__t = cc_step__new( CC_SLE_Distant, 7, 12, sse_2_1, CC_FSUE_User );
 
             CcSideEffect sse_2_2 = cc_side_effect_displacement( CC_PE_DarkKnight, false, 1, 5 );
             cc_step_append( steps_2__t, CC_SLE_Distant, 5, 1, sse_2_2, CC_FSUE_User );
@@ -769,7 +769,7 @@ int main( void )
 
             printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
-            CcPly * dup__a = cc_plies_duplicate_all_new( ply_2__a );
+            CcPly * dup__a = cc_plies_duplicate_all__new( ply_2__a );
             if ( !dup__a ) printf( "No duplicate!\n" );
 
             CcPly * d = dup__a;
@@ -799,7 +799,7 @@ int main( void )
         {
             printf( TESTS_MOVE_TEST_SEPARATOR );
 
-            CcGame * game__a = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+            CcGame * game__a = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
             if ( !game__a ) return false;
 
             CcChessboard * cb = game__a->chessboard;

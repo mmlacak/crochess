@@ -28,7 +28,7 @@ bool test_do_move_single_ply( int index, TestPrints tp )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     CcPieceEnum piece_G = CC_PE_LightPegasus;
@@ -68,7 +68,7 @@ bool test_do_move_single_ply( int index, TestPrints tp )
     //
     // Steps
 
-    CcStep * start__t = cc_step_none_new( CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
+    CcStep * start__t = cc_step_none__new( CC_SLE_Start, 5, 2, CC_FSUE_Clarification_NoOutput );
     if ( !start__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( start__t, CC_SLE_Next, 6, 4, CC_FSUE_Clarification_NoOutput ) )
@@ -83,19 +83,19 @@ bool test_do_move_single_ply( int index, TestPrints tp )
     //
     // Ply
 
-    CcPly * ply__t = cc_ply_new( CC_PLE_Ply, piece_G, &start__t );
+    CcPly * ply__t = cc_ply__new( CC_PLE_Ply, piece_G, &start__t );
     if ( !ply__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &start__t, false );
 
     //
     // Move [Gf3.g5..i9..k13*p==]
 
-    CcMove * move__t = cc_move_on_new( "[Gf3.g5..i9..k13*p==]", CC_MPSE_None, &ply__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( "[Gf3.g5..i9..k13*p==]", CC_MPSE_None, &ply__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, &start__t, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -151,7 +151,7 @@ bool test_do_move_cascading_plies( int index, TestPrints tp )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     cc_chessboard_set_piece( game__o->chessboard, 1, 5, CC_PE_LightPegasus );
@@ -198,19 +198,19 @@ bool test_do_move_cascading_plies( int index, TestPrints tp )
     //
     // ply 0, G --> W
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 1, 5, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 1, 5, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 7, 2, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightPegasus, &steps_0__t );
+    CcPly * plies_0__t = cc_ply__new( CC_PLE_Ply, CC_PE_LightPegasus, &steps_0__t );
     if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // ply 1, W --> P
 
-    CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 7, 2, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1__t = cc_step_none__new( CC_SLE_Start, 7, 2, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( !cc_step_none_append( steps_1__t, CC_SLE_Destination, 9, 1, CC_FSUE_User ) )
@@ -222,7 +222,7 @@ bool test_do_move_cascading_plies( int index, TestPrints tp )
     //
     // ply 2, P --> ...
 
-    CcStep * steps_2__t = cc_step_none_new( CC_SLE_Start, 9, 1, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_2__t = cc_step_none__new( CC_SLE_Start, 9, 1, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( !cc_step_none_append( steps_2__t, CC_SLE_Destination, 9, 4, CC_FSUE_User ) )
@@ -234,13 +234,13 @@ bool test_do_move_cascading_plies( int index, TestPrints tp )
     //
     // move 0, [Gb6-h3]~[Wh3-j2]~[Pj2-j5]
 
-    CcMove * move__t = cc_move_on_new( "[Gb6-h3]~[Wh3-j2]~[Pj2-j5]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( "[Gb6-h3]~[Wh3-j2]~[Pj2-j5]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -304,25 +304,25 @@ bool test_do_move_cascading_plies( int index, TestPrints tp )
     //
     // move 1, p --> :P
 
-    CcStep * steps_3__t = cc_step_none_new( CC_SLE_Start, 10, 3, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_3__t = cc_step_none__new( CC_SLE_Start, 10, 3, CC_FSUE_Clarification_NoOutput );
     if ( !steps_3__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_en_passant_append( steps_3__t, CC_SLE_Destination, 9, 2, CC_PE_LightPawn, 9, 4, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_3__t, false );
 
-    CcPly * plies_3__t = cc_ply_new( CC_PLE_Ply, CC_PE_DarkPawn, &steps_3__t );
+    CcPly * plies_3__t = cc_ply__new( CC_PLE_Ply, CC_PE_DarkPawn, &steps_3__t );
     if ( !plies_3__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_3__t, false );
 
     //
     // move 1, [pk4-j3:Pj5]
 
-    CcMove * move_1__o = cc_move_on_new( "[pk4-j3:Pj5]", CC_MPSE_None, &plies_3__t, CC_MSE_None );
+    CcMove * move_1__o = cc_move_on__new( "[pk4-j3:Pj5]", CC_MPSE_None, &plies_3__t, CC_MSE_None );
     if ( !move_1__o ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_3__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move_1__o, tp.format_move );
+        char * alg_not = cc_format_move__new( move_1__o, tp.format_move );
         printf( "%s\n", move_1__o->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -390,7 +390,7 @@ bool test_do_move_castling( int index, TestPrints tp )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     cc_chessboard_set_piece_tag( game__o->chessboard, 1, 0, CC_PE_LightRook, CC_TE_CanCastle );
@@ -440,25 +440,25 @@ bool test_do_move_castling( int index, TestPrints tp )
     //
     // move Ku&t
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 13, 0, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 13, 0, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_castle_append( steps_0__t, CC_SLE_Destination, 20, 0, CC_PE_LightRook, 24, 0, 19, 0, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * ply__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightKing, &steps_0__t );
+    CcPly * ply__t = cc_ply__new( CC_PLE_Ply, CC_PE_LightKing, &steps_0__t );
     if ( !ply__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // move, [Kn1-u1&Ry1-t1]
 
-    CcMove * move__t = cc_move_on_new( "[Kn1-u1&Ry1-t1]", CC_MPSE_None, &ply__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( "[Kn1-u1&Ry1-t1]", CC_MPSE_None, &ply__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &ply__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -526,7 +526,7 @@ bool test_do_move_tag_and_promotion( int index, TestPrints tp )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     cc_chessboard_set_piece( game__o->chessboard, 11, 21, CC_PE_LightPawn );
@@ -576,19 +576,19 @@ bool test_do_move_tag_and_promotion( int index, TestPrints tp )
     //
     // ply Bp22~
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 21, 15, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 21, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 15, 21, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
+    CcPly * plies_0__t = cc_ply__new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
     if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // ply Al22=
 
-    CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 15, 21, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1__t = cc_step_none__new( CC_SLE_Start, 15, 21, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( !cc_step_tag_for_promotion_append( steps_1__t, CC_SLE_Destination, 11, 21, CC_FSUE_User ) )
@@ -600,13 +600,13 @@ bool test_do_move_tag_and_promotion( int index, TestPrints tp )
     //
     // move [Bv16-p22]~[Ap22-l22=]
 
-    CcMove * move__t = cc_move_on_new( "[Bv16-p22]~[Ap22-l22=]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( "[Bv16-p22]~[Ap22-l22=]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -662,25 +662,25 @@ bool test_do_move_tag_and_promotion( int index, TestPrints tp )
     //
     // ply l22Q
 
-    CcStep * steps_2__t = cc_step_none_new( CC_SLE_Start, 11, 21, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_2__t = cc_step_none__new( CC_SLE_Start, 11, 21, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_promote_append( steps_2__t, CC_SLE_Destination, 11, 21, CC_PE_LightQueen, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_2__t, false );
 
-    CcPly * plies_2__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightPawn, &steps_2__t );
+    CcPly * plies_2__t = cc_ply__new( CC_PLE_Ply, CC_PE_LightPawn, &steps_2__t );
     if ( !plies_2__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_2__t, false );
 
     //
     // move [Pl22-l22=Q]
 
-    CcMove * move_1__t = cc_move_on_new( "[Pl22-l22=Q]", CC_MPSE_None, &plies_2__t, CC_MSE_None );
+    CcMove * move_1__t = cc_move_on__new( "[Pl22-l22=Q]", CC_MPSE_None, &plies_2__t, CC_MSE_None );
     if ( !move_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_2__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move_1__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move_1__t, tp.format_move );
         printf( "%s\n", move_1__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -744,7 +744,7 @@ bool test_do_move_conversion( int index, TestPrints tp, bool is_failed )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     if ( is_failed )
@@ -789,19 +789,19 @@ bool test_do_move_conversion( int index, TestPrints tp, bool is_failed )
     //
     // ply Bp6~
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 21, 11, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 21, 11, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 15, 5, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
+    CcPly * plies_0__t = cc_ply__new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
     if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // ply Al6%H
 
-    CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 15, 5, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1__t = cc_step_none__new( CC_SLE_Start, 15, 5, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     CcSideEffect se_1;
@@ -822,13 +822,13 @@ bool test_do_move_conversion( int index, TestPrints tp, bool is_failed )
 
     char * alg_not =  ( is_failed ) ? "[Bv12-p6]~[Ap6-l6%%]" : "[Bv12-p6]~[Ap6-l6%H]";
 
-    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -883,7 +883,7 @@ bool test_do_move_demotion( int index, TestPrints tp )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     cc_chessboard_set_piece( game__o->chessboard, 0, 0, CC_PE_BrightStar );
@@ -924,25 +924,25 @@ bool test_do_move_demotion( int index, TestPrints tp )
     //
     // ply Mw23>Bl12
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_demote_append( steps_0__t, CC_SLE_Destination, 22, 22, CC_PE_LightBishop, CC_TE_None, 11, 11, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_Monolith, &steps_0__t );
+    CcPly * plies_0__t = cc_ply__new( CC_PLE_Ply, CC_PE_Monolith, &steps_0__t );
     if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // move [Mx16-w23>Bl12]
 
-    CcMove * move__t = cc_move_on_new( "[Mx16-w23>Bl12]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( "[Mx16-w23>Bl12]", CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -1003,7 +1003,7 @@ bool test_do_move_resurrection( int index,
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     cc_chessboard_set_piece( game__o->chessboard, 25, 0, CC_PE_DimStar );
@@ -1039,7 +1039,7 @@ bool test_do_move_resurrection( int index,
     //
     // ply Ip11$B, Ip11$$
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 23, 15, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     CcSideEffect se_0;
@@ -1056,7 +1056,7 @@ bool test_do_move_resurrection( int index,
     if ( !cc_step_append( steps_0__t, CC_SLE_Destination, 15, 10, se_0, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightStarchild, &steps_0__t );
+    CcPly * plies_0__t = cc_ply__new( CC_PLE_Ply, CC_PE_LightStarchild, &steps_0__t );
     if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
@@ -1069,13 +1069,13 @@ bool test_do_move_resurrection( int index,
                                    : ( is_oblationing ) ? "[Ix16-p11$Bp11]"
                                                         : "[Ix16-p11$Wq12]";
 
-    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -1159,7 +1159,7 @@ bool test_do_move_teleportation( int index, TestPrints tp, bool is_failed )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     cc_chessboard_set_piece( game__o->chessboard, 0, 0, CC_PE_BrightStar );
@@ -1206,13 +1206,13 @@ bool test_do_move_teleportation( int index, TestPrints tp, bool is_failed )
     //
     // ply Ba26
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 3, 22, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 3, 22, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 0, 25, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
+    CcPly * plies_0__t = cc_ply__new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
     if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
@@ -1221,7 +1221,7 @@ bool test_do_move_teleportation( int index, TestPrints tp, bool is_failed )
 
     int i = ( is_failed ) ? 0 : 24;
 
-    CcStep * steps_1__t = cc_step_none_new( CC_SLE_Destination, i, 24, CC_FSUE_User );
+    CcStep * steps_1__t = cc_step_none__new( CC_SLE_Destination, i, 24, CC_FSUE_User );
     if ( !steps_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     CcPlyLinkEnum ple = ( is_failed ) ? CC_PLE_FailedTeleportation : CC_PLE_Teleportation;
@@ -1235,13 +1235,13 @@ bool test_do_move_teleportation( int index, TestPrints tp, bool is_failed )
 
     char * alg_not = ( is_failed ) ? "[Bd23-a26]||[Ba25]" : "[Bd23-a26]|[By25]";
 
-    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -1324,7 +1324,7 @@ bool test_do_move_teleportation_wave( int index, TestPrints tp, bool is_oblation
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     cc_chessboard_set_piece( game__o->chessboard, 5, 11, CC_PE_Monolith );
@@ -1371,19 +1371,19 @@ bool test_do_move_teleportation_wave( int index, TestPrints tp, bool is_oblation
     //
     // ply Bi15
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 10, 12, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 10, 12, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 8, 14, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
+    CcPly * plies_0__t = cc_ply__new( CC_PLE_Ply, CC_PE_LightBishop, &steps_0__t );
     if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // ply ~Wf12
 
-    CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 8, 14, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1__t = cc_step_none__new( CC_SLE_Start, 8, 14, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( !cc_step_none_append( steps_1__t, CC_SLE_Destination, 5, 11, CC_FSUE_User ) )
@@ -1401,7 +1401,7 @@ bool test_do_move_teleportation_wave( int index, TestPrints tp, bool is_oblation
         ply_2__w = cc_ply_append( plies_0__t, CC_PLE_FailedTeleportation, CC_PE_LightWave, NULL );
     else
     {
-        CcStep * steps_2__t = cc_step_none_new( CC_SLE_Start, 19, 9, CC_FSUE_Clarification_NoOutput );
+        CcStep * steps_2__t = cc_step_none__new( CC_SLE_Start, 19, 9, CC_FSUE_Clarification_NoOutput );
         if ( !steps_2__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
         if ( !cc_step_none_append( steps_2__t, CC_SLE_Destination, 17, 7, CC_FSUE_User ) )
@@ -1417,7 +1417,7 @@ bool test_do_move_teleportation_wave( int index, TestPrints tp, bool is_oblation
 
     if ( !is_oblationing )
     {
-        CcStep * steps_3__t = cc_step_none_new( CC_SLE_Start, 17, 7, CC_FSUE_Clarification_NoOutput );
+        CcStep * steps_3__t = cc_step_none__new( CC_SLE_Start, 17, 7, CC_FSUE_Clarification_NoOutput );
         if ( !steps_3__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
         if ( !cc_step_none_append( steps_3__t, CC_SLE_Destination, 15, 8, CC_FSUE_User ) )
@@ -1434,13 +1434,13 @@ bool test_do_move_teleportation_wave( int index, TestPrints tp, bool is_oblation
     char * alg_not = ( is_oblationing ) ? "[Bk13-i15]~[Wi15-f12]||[W]"
                                         : "[Bk13-i15]~[Wi15-f12]|[Wt10-r8]~[Nr8-p9]";
 
-    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
@@ -1517,7 +1517,7 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
 
     // game
 
-    CcGame * game__o = cc_game_new( CC_GSE_Turn_Light, CC_VE_One, false );
+    CcGame * game__o = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, false );
     if ( !game__o ) return false;
 
     cc_chessboard_set_piece( game__o->chessboard, 4, 8, shaman ); // entrancing
@@ -1575,19 +1575,19 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
     //
     // ply Hg10
 
-    CcStep * steps_0__t = cc_step_none_new( CC_SLE_Start, 4, 8, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_0__t = cc_step_none__new( CC_SLE_Start, 4, 8, CC_FSUE_Clarification_NoOutput );
     if ( !steps_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, NULL, false );
 
     if ( !cc_step_none_append( steps_0__t, CC_SLE_Destination, 6, 9, CC_FSUE_User ) )
         return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
-    CcPly * plies_0__t = cc_ply_new( CC_PLE_Ply, shaman, &steps_0__t );
+    CcPly * plies_0__t = cc_ply__new( CC_PLE_Ply, shaman, &steps_0__t );
     if ( !plies_0__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, NULL, &steps_0__t, false );
 
     //
     // ply ~Wh8
 
-    CcStep * steps_1__t = cc_step_none_new( CC_SLE_Start, 6, 9, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_1__t = cc_step_none__new( CC_SLE_Start, 6, 9, CC_FSUE_Clarification_NoOutput );
     if ( !steps_1__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( !cc_step_none_append( steps_1__t, CC_SLE_Destination, 7, 7, CC_FSUE_User ) )
@@ -1600,7 +1600,7 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
     // ply @H..h13<Bj19..f2<Nb6..p7..j19<Bl25..v5<P==p7
     // ply @hh8,j9..h13*B..f2*n..p7..j19-v5*p==
 
-    CcStep * steps_2__t = cc_step_none_new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
+    CcStep * steps_2__t = cc_step_none__new( CC_SLE_Start, 7, 7, CC_FSUE_Clarification_NoOutput );
     if ( !steps_2__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( is_capturing )
@@ -1644,13 +1644,13 @@ bool test_do_move_trance_journey( int index, TestPrints tp, bool is_capturing )
     char * alg_not = ( is_capturing ) ? "[he9-g10]~[Wg10-h8]@[hh8,j9..h13*B..f2*n..p7..j19-v5*p==]"
                                       : "[He9-g10]~[Wg10-h8]@[Hh8..h13<Bj19..f2<nb6..p7..j19<Bl25-v5<p==p7]";
 
-    CcMove * move__t = cc_move_on_new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
+    CcMove * move__t = cc_move_on__new( alg_not, CC_MPSE_None, &plies_0__t, CC_MSE_None );
     if ( !move__t ) return cc_game_move_data_free_all( &game__o, NULL, NULL, &plies_0__t, NULL, false );
 
     if ( tp.do_print_move )
     {
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
-        char * alg_not = cc_format_move_new( move__t, tp.format_move );
+        char * alg_not = cc_format_move__new( move__t, tp.format_move );
         printf( "%s\n", move__t->notation );
         printf( TESTS_MOVE_NOTATION_SEPARATOR );
         printf( "%s\n", alg_not );
