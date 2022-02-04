@@ -82,7 +82,7 @@ CcGame * cc_game_duplicate_all_new( CcGame * restrict game )
 
     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
 
-    CcMove * mv__t = cc_move_duplicate_all_new( game->moves );
+    CcMove * mv__t = cc_moves_duplicate_all_new( game->moves );
     if ( game->moves && ( !mv__t ) )
     {
         cc_game_free_all( &gm__a );
@@ -105,7 +105,7 @@ bool cc_game_free_all( CcGame ** restrict game__f )
     result = cc_chessboard_free_all( cb__a ) && result;
 
     CcMove ** mv__a = &( ( *game__f )->moves );
-    result = cc_move_free_all_moves( mv__a ) && result;
+    result = cc_moves_free_all( mv__a ) && result;
 
     CC_FREE_NULL( game__f );
 
@@ -125,11 +125,11 @@ bool cc_game_move_data_free_all( CcGame ** restrict gm__f,
 
     if ( cb__f ) results = cc_chessboard_free_all( cb__f ) && results;
 
-    if ( moves__f ) results = cc_move_free_all_moves( moves__f ) && results;
+    if ( moves__f ) results = cc_moves_free_all( moves__f ) && results;
 
-    if ( plies__f ) results = cc_ply_free_all_plies( plies__f ) && results;
+    if ( plies__f ) results = cc_plies_free_all( plies__f ) && results;
 
-    if ( steps__f ) results = cc_step_free_all_steps( steps__f ) && results;
+    if ( steps__f ) results = cc_steps_free_all( steps__f ) && results;
 
     return ( cumulative_result && results );
 }

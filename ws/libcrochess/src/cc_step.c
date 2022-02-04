@@ -76,7 +76,7 @@ CcStep * cc_step_append_or_init( CcStep ** restrict steps__io,
 }
 
 // TODO :: REWRITE :: using cc_step_append_or_init
-CcStep * cc_step_duplicate_all_new( CcStep * restrict steps__io )
+CcStep * cc_steps_duplicate_all_new( CcStep * restrict steps__io )
 {
     if ( !steps__io ) return NULL;
 
@@ -90,7 +90,7 @@ CcStep * cc_step_duplicate_all_new( CcStep * restrict steps__io )
         CcStep * step__w = cc_step_append( steps__a, from->link, from->i, from->j, from->side_effect, from->usage );
         if ( !step__w )
         {
-            cc_step_free_all_steps( &steps__a );
+            cc_steps_free_all( &steps__a );
             return NULL;
         }
 
@@ -144,7 +144,7 @@ bool cc_steps_are_valid( CcStep * restrict steps, unsigned int board_size )
     return true;
 }
 
-bool cc_step_free_all_steps( CcStep ** restrict steps__f )
+bool cc_steps_free_all( CcStep ** restrict steps__f )
 {
     if ( !steps__f ) return false;
     if ( !*steps__f ) return true;

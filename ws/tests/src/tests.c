@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.2.221:420+20220204.051727"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.2.222:421+20220204.054657"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 TestMsg * test()
@@ -401,7 +401,7 @@ int main( void )
             printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
 
-            CcStep * dup__a = cc_step_duplicate_all_new( steps_2__a );
+            CcStep * dup__a = cc_steps_duplicate_all_new( steps_2__a );
             if ( !dup__a ) printf( "No dup!\n" );
 
             CcStep * d = dup__a;
@@ -411,9 +411,9 @@ int main( void )
                 d = d->next;
             }
 
-            cc_step_free_all_steps( &steps_2__a );
+            cc_steps_free_all( &steps_2__a );
 
-            cc_step_free_all_steps( &dup__a );
+            cc_steps_free_all( &dup__a );
 
             cc_chessboard_free_all( &cb__a );
 
@@ -592,7 +592,7 @@ int main( void )
                 x = x->next;
             }
 
-            cc_ply_free_all_plies( &ply__a );
+            cc_plies_free_all( &ply__a );
         }
         else if ( cc_str_is_equal( first__w, end__w, "z4", NULL, BUFSIZ ) )
         {
@@ -613,7 +613,7 @@ int main( void )
                 x = x->next;
             }
 
-            if ( !cc_step_free_all_steps( &steps__a ) )
+            if ( !cc_steps_free_all( &steps__a ) )
                 continue;
         }
         else if ( cc_str_is_equal( first__w, end__w, "z5", NULL, BUFSIZ ) )
@@ -769,7 +769,7 @@ int main( void )
 
             printf( TESTS_MOVE_NOTATION_SEPARATOR );
 
-            CcPly * dup__a = cc_ply_duplicate_all_new( ply_2__a );
+            CcPly * dup__a = cc_plies_duplicate_all_new( ply_2__a );
             if ( !dup__a ) printf( "No duplicate!\n" );
 
             CcPly * d = dup__a;
@@ -787,9 +787,9 @@ int main( void )
                 d = d->next;
             }
 
-            cc_ply_free_all_plies( &ply_2__a );
+            cc_plies_free_all( &ply_2__a );
 
-            cc_ply_free_all_plies( &dup__a );
+            cc_plies_free_all( &dup__a );
 
             // cc_chessboard_free_all( &cb__a );
 

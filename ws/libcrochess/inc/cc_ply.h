@@ -140,7 +140,7 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
     @return
     A newly allocated plies, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies );
+CcPly * cc_plies_duplicate_all_new( CcPly * restrict plies );
 
 /**
     Frees all plies in a linked list, and all associated entities.
@@ -153,7 +153,7 @@ CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_ply_free_all_plies( CcPly ** restrict plies__f );
+bool cc_plies_free_all( CcPly ** restrict plies__f );
 
 /**
     Checks whether any step in a ply has side-effects.

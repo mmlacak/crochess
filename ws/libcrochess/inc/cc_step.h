@@ -146,7 +146,7 @@ CcStep * cc_step_append_or_init( CcStep ** restrict steps__io,
     @return
     A newly allocated steps, is successful, `NULL` otherwise.
 */
-CcStep * cc_step_duplicate_all_new( CcStep * restrict steps__io );
+CcStep * cc_steps_duplicate_all_new( CcStep * restrict steps__io );
 
 /**
     Checks if a given step is valid.
@@ -178,7 +178,7 @@ bool cc_steps_are_valid( CcStep * restrict steps, unsigned int board_size );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_step_free_all_steps( CcStep ** restrict steps__f );
+bool cc_steps_free_all( CcStep ** restrict steps__f );
 
 
 /** @defgroup step_convenience The step conveniences

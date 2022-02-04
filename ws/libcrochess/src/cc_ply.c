@@ -86,7 +86,7 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
     return ply__w;
 }
 
-CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
+CcPly * cc_plies_duplicate_all_new( CcPly * restrict plies )
 {
     if ( !plies ) return NULL;
 
@@ -95,18 +95,18 @@ CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
 
     do
     {
-        CcStep * steps__t = cc_step_duplicate_all_new( from->steps );
+        CcStep * steps__t = cc_steps_duplicate_all_new( from->steps );
         if ( !steps__t )
         {
-            cc_ply_free_all_plies( &ply__a );
+            cc_plies_free_all( &ply__a );
             return NULL;
         }
 
         CcPly * ply__w = cc_ply_append_or_init( &ply__a, from->link, from->piece, &steps__t );
         if ( !ply__w )
         {
-            cc_step_free_all_steps( &steps__t ); // Failed append --> ownership not transferred ...
-            cc_ply_free_all_plies( &ply__a );
+            cc_steps_free_all( &steps__t ); // Failed append --> ownership not transferred ...
+            cc_plies_free_all( &ply__a );
             return NULL;
         }
 
@@ -117,7 +117,7 @@ CcPly * cc_ply_duplicate_all_new( CcPly * restrict plies )
     return ply__a;
 }
 
-bool cc_ply_free_all_plies( CcPly ** restrict plies__f )
+bool cc_plies_free_all( CcPly ** restrict plies__f )
 {
     if ( !plies__f ) return false;
     if ( !*plies__f ) return true;
@@ -128,7 +128,7 @@ bool cc_ply_free_all_plies( CcPly ** restrict plies__f )
     while ( ply )
     {
         CcStep ** steps = &( ply->steps );
-        result = cc_step_free_all_steps( steps ) && result;
+        result = cc_steps_free_all( steps ) && result;
 
         CcPly * tmp = ply->next;
         CC_FREE( ply );

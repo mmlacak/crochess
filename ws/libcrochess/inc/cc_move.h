@@ -173,7 +173,7 @@ bool cc_move_extend_or_init( CcMove ** restrict moves__io,
     @return
     A newly allocated moves, is successful, `NULL` otherwise.
 */
-CcMove * cc_move_duplicate_all_new( CcMove * restrict moves );
+CcMove * cc_moves_duplicate_all_new( CcMove * restrict moves );
 
 /**
     Frees all moves in a linked list, and all associated entities.
@@ -186,7 +186,7 @@ CcMove * cc_move_duplicate_all_new( CcMove * restrict moves );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_move_free_all_moves( CcMove ** restrict moves__f );
+bool cc_moves_free_all( CcMove ** restrict moves__f );
 
 
 /** @defgroup move_convenience The move conveniences

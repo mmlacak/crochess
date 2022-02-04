@@ -84,7 +84,7 @@ bool cc_rules_do_moves( CcGame ** restrict game__io_r,
 
 //     if ( !cc_parse_move( move_str, *game__io_r, &move__t, parse_msgs__io ) )
 //     {
-//         cc_move_free_all_moves( &move__t );
+//         cc_moves_free_all( &move__t );
 //         return false;
 //     }
 
@@ -95,7 +95,7 @@ bool cc_rules_do_moves( CcGame ** restrict game__io_r,
 //                                             "Error while making move '%s'.",
 //                                             move_str );
 
-//         cc_move_free_all_moves( &move__t );
+//         cc_moves_free_all( &move__t );
 //         return false;
 //     }
 
