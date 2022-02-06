@@ -65,7 +65,7 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
 typedef struct CcPly
 {
     CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
-    CcPieceEnum piece; /**< A piece taking a ride. */
+    CcPieceEnum piece; /**< A piece being moved. */
     CcStep * steps; /**< Steps taken by the piece. */
     struct CcPly * next; /**< Next ply in a cascade. */
 } CcPly;
@@ -141,6 +141,12 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
     A newly allocated plies, is successful, `NULL` otherwise.
 */
 CcPly * cc_plies_duplicate_all__new( CcPly * restrict plies );
+
+// TODO :: DOCS
+bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
+
+// TODO :: DOCS
+bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size );
 
 /**
     Frees all plies in a linked list, and all associated entities.

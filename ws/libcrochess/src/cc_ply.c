@@ -117,6 +117,77 @@ CcPly * cc_plies_duplicate_all__new( CcPly * restrict plies )
     return ply__a;
 }
 
+bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
+{
+    if ( !ply ) return false;
+
+    if ( ply->piece == CC_PE_None ) return false;
+
+    if ( ply->link == CC_PLE_Ply )
+    {
+        if ( !ply->steps ) return false;
+    }
+    else if ( ply->link == CC_PLE_Teleportation )
+    {
+        if ( !ply->steps ) return false;
+
+        if ( ( ply->next ) && ( !CC_PIECE_IS_WAVE( ply->piece ) ) )
+            return false;
+        else if ( ( !ply->next ) && ( CC_PIECE_IS_WAVE( ply->piece ) ) )
+            return false;
+    }
+    else if ( ply->link == CC_PLE_FailedTeleportation )
+    {
+        if ( ( ply->steps ) &&
+             ( ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) ||
+               ( !CC_PIECE_IS_WAVE( ply->piece ) ) ) )
+// TODO :: check last active piece
+            return false;
+
+        if ( ply->next ) return false;
+    }
+    else if ( ply->link == CC_PLE_TranceJourney )
+    {
+        if ( !ply->steps ) return false;
+        if ( ply->next ) return false;
+    }
+    else if ( ply->link == CC_PLE_DualTranceJourney )
+    {
+        if ( ply->next ) return false;
+    }
+    else if ( ply->link == CC_PLE_FailedTranceJourney )
+    {
+        if ( ply->steps ) return false;
+        if ( ply->next ) return false;
+    }
+    if ( ply->link == CC_PLE_PawnSacrifice )
+    {
+        if ( !ply->steps ) return false;
+    }
+    else
+        return false;
+
+    if ( !cc_steps_are_valid( ply->steps, board_size ) ) return false;
+
+    return true;
+}
+
+bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size )
+{
+    if ( !plies ) return false;
+
+    if ( plies->link != CC_PLE_Ply ) return false; // Start of a plies.
+
+    CcPly * p = plies;
+    while ( p )
+    {
+        if ( !cc_ply_is_valid( p, board_size ) )
+            return false;
+    }
+
+    return true;
+}
+
 bool cc_plies_free_all( CcPly ** restrict plies__f )
 {
     if ( !plies__f ) return false;
