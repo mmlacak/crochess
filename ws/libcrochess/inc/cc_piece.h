@@ -155,6 +155,39 @@
 #define CC_PIECE_IS_STARCHILD(pe) ( ( (pe) == CC_PE_LightStarchild ) || ( (pe) == CC_PE_DarkStarchild ) )
 
 /**
+    Macro expression to evaluate whether piece is passive.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is passive, `false` otherwise.
+*/
+#define CC_PIECE_IS_PASIVE(pe) ( ( (pe) == CC_PE_DimStar )      \
+                              || ( (pe) == CC_PE_DarkWave )     \
+                              || ( (pe) == CC_PE_DarkPyramid )  \
+                              || ( (pe) == CC_PE_LightPyramid ) \
+                              || ( (pe) == CC_PE_LightWave )    \
+                              || ( (pe) == CC_PE_BrightStar ) )
+
+/**
+    Macro expression to evaluate whether piece is active.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is active, `false` otherwise.
+*/
+#define CC_PIECE_IS_ACTIVE(pe) ( ( (pe) != CC_PE_DimStar )      \
+                              && ( (pe) != CC_PE_DarkWave )     \
+                              && ( (pe) != CC_PE_DarkPyramid )  \
+                              && ( (pe) != CC_PE_None )         \
+                              && ( (pe) != CC_PE_LightPyramid ) \
+                              && ( (pe) != CC_PE_LightWave )    \
+                              && ( (pe) != CC_PE_BrightStar ) )
+
+/**
     Macro expression to evaluate whether piece is weightless.
 
     @param pe Piece enum, one of `CcPieceEnum` values.

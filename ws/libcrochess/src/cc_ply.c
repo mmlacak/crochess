@@ -176,7 +176,9 @@ bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size )
 {
     if ( !plies ) return false;
 
-    if ( plies->link != CC_PLE_Ply ) return false; // Start of a plies.
+    // Start of a plies.
+    if ( !CC_PIECE_IS_ACTIVE( plies->piece ) ) return false;
+    if ( plies->link != CC_PLE_Ply ) return false;
 
     CcPly * p = plies;
     while ( p )
