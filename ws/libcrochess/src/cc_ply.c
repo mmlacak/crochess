@@ -139,7 +139,9 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
     else if ( ply->link == CC_PLE_FailedTeleportation )
     {
         if ( ( ply->steps ) &&
-             ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) )
+             ( ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) ||
+               ( !CC_PIECE_IS_WAVE( ply->piece ) ) ) )
+            // If Wave is activated by Starchild is checked in cc_plies_are_valid().
             return false;
 
         if ( ply->next ) return false;
