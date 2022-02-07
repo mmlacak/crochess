@@ -139,9 +139,7 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
     else if ( ply->link == CC_PLE_FailedTeleportation )
     {
         if ( ( ply->steps ) &&
-             ( ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) ||
-               ( !CC_PIECE_IS_WAVE( ply->piece ) ) ) )
-// TODO :: check last active piece
+             ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) )
             return false;
 
         if ( ply->next ) return false;
@@ -185,6 +183,13 @@ bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size )
     {
         if ( !cc_ply_is_valid( p, board_size ) )
             return false;
+
+        if ( p->link == CC_PLE_FailedTeleportation )
+        {
+            if ( ( p->steps ) && ( CC_PIECE_IS_WAVE( p->piece ) ) )
+                if ( !CC_PIECE_IS_STARCHILD( cc_ply_last_active_piece( plies, p ) ) )
+                    return false;
+        }
     }
 
     return true;
@@ -256,4 +261,30 @@ size_t cc_ply_step_count( CcPly * restrict ply,
     }
 
     return count;
+}
+
+CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
+                                      CcPly * restrict ply )
+{
+    if ( !plies ) return CC_PE_None;
+
+    if ( plies == ply ) // First ply in a linked list.
+        return CC_PIECE_IS_ACTIVE( plies->piece ) ? plies->piece
+                                                  : CC_PE_None;
+
+    if ( ply && CC_PIECE_IS_ACTIVE( ply->piece ) )
+        return ply->piece;
+
+    CcPieceEnum lap = CC_PE_None;
+    CcPly * p = plies;
+
+    while ( p )
+    {
+        if ( CC_PIECE_IS_ACTIVE( p->piece ) )
+            lap = p->piece;
+
+        if ( p == ply ) break;
+    }
+
+    return lap;
 }

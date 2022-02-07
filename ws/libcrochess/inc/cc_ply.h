@@ -185,4 +185,9 @@ size_t cc_ply_step_count( CcPly * restrict ply,
                           CcFormatStepUsageEnum usage,
                           bool include_starting_pos );
 
+// TODO :: DOCS
+CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
+                                      CcPly * restrict ply );
+
+
 #endif /* __CC_PLY_H__ */
