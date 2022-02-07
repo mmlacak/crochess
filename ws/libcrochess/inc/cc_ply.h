@@ -142,10 +142,28 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
 */
 CcPly * cc_plies_duplicate_all__new( CcPly * restrict plies );
 
-// TODO :: DOCS
+/**
+    Checks if a given ply is valid.
+
+    @param ply A ply, technically a linked list of plies.
+    @param board_size A chessboard size.
+
+    @note
+    Only single ply is checked, rest of a linked list (accessible
+    via `next` member) is not checked.
+
+    @return `true` if valid, `false` otherwise.
+*/
 bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
 
-// TODO :: DOCS
+/**
+    Checks if all plies in a given linked list are valid.
+
+    @param plies A linked list of plies.
+    @param board_size A chessboard size.
+
+    @return `true` if valid, `false` otherwise.
+*/
 bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size );
 
 /**
@@ -185,7 +203,23 @@ size_t cc_ply_step_count( CcPly * restrict ply,
                           CcFormatStepUsageEnum usage,
                           bool include_starting_pos );
 
-// TODO :: DOCS
+/**
+    Function returns last active piece for a ply, within a given linked list.
+
+    Last active piece for a ply is piece in that ply, if it's active.
+
+    @param plies A linked list of plies.
+    @param ply A ply, within given linked list; can be `NULL`.
+
+    @note
+    If `ply` is `NULL`, last active piece in a complete linked list is returned.
+
+    @note
+    If `ply` does not belong to a given linked list,
+    failure is indicated by returning `CC_PE_None`.
+
+    @return Last active piece is successful, `CC_PE_None` otherwise.
+*/
 CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
                                       CcPly * restrict ply );
 

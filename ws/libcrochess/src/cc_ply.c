@@ -141,7 +141,7 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
         if ( ( ply->steps ) &&
              ( ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) ||
                ( !CC_PIECE_IS_WAVE( ply->piece ) ) ) )
-            // If Wave is activated by Starchild is checked in cc_plies_are_valid().
+            // If Wave was activated by Starchild is checked in cc_plies_are_valid().
             return false;
 
         if ( ply->next ) return false;
@@ -277,16 +277,21 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
     if ( ply && CC_PIECE_IS_ACTIVE( ply->piece ) )
         return ply->piece;
 
-    CcPieceEnum lap = CC_PE_None;
+    CcPieceEnum last_active_piece = CC_PE_None;
+    bool ply_encountered = false;
     CcPly * p = plies;
 
     while ( p )
     {
         if ( CC_PIECE_IS_ACTIVE( p->piece ) )
-            lap = p->piece;
+            last_active_piece = p->piece;
 
-        if ( p == ply ) break;
+        if ( p == ply )
+        {
+            ply_encountered = true;
+            break;
+        }
     }
 
-    return lap;
+    return ply_encountered ? last_active_piece : CC_PE_None;
 }
