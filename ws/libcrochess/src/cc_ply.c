@@ -8,7 +8,7 @@
 
 /**
     @file cc_ply.c
-    @brief Functions for plies linked list.
+    @brief Ply, plies linked list functions.
 */
 
 
@@ -185,6 +185,8 @@ bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size )
     {
         if ( !cc_ply_is_valid( p, board_size ) )
             return false;
+
+// TODO :: add last active piece checks for activated pieces in cascades
 
         if ( p->link == CC_PLE_FailedTeleportation )
         {
