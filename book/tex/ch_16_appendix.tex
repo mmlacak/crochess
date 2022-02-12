@@ -1107,7 +1107,7 @@ Movement limits table contains maximum number of steps Serpent or Monolith can m
 depending on which variant is being played. Monolith is not listed for the first 2
 variants, since it has only been introduced in Discovery variant.
 
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
 
 \subsection*{Activations}
 \addcontentsline{toc}{subsection}{Activations}
@@ -1120,10 +1120,11 @@ variants, since it has only been introduced in Discovery variant.
 \multicolumn{2}{c}{ \textbf{Pieces} }                               & \textbf{Note}         \\ \cmidrule{1-2}
 \emph{Activating}           & \emph{Activated}                      &                       \\
 \midrule
-any own                     & Pyramid                               &                       \\
-any own                     & Wave                                  &                       \\
+any own                     & Pyramid                               & except Starchild      \\
+any own                     & Wave                                  & including Starchild   \\
 Wave                        & any own                               & except King           \\
-Wave                        & opponent's Wave                       &                       \\ \cmidrule{1-3}
+Wave                        & opponent's Wave                       & ---                   \\
+Starchild                   & Starchild                             & ---                   \\ \cmidrule{1-3}
 \multirow{2}{*}{Starchild}  & \multirow{2}{*}{any own}              & except King, only on  \\
                             &                                       & neighboring fields    \\ \cmidrule{1-3}
 \multirow{2}{*}{Starchild}  & \multirow{2}{*}{opponent's Starchild} & only on               \\
@@ -1136,7 +1137,11 @@ Wave                        & opponent's Wave                       &           
 \label{tbl:Appendix/Summary/Activations}
 \end{table}
 
-. . . % \multirow{2}{*}{\alg{<}}
+Above, in the Activations table, are listed all the rules which piece can activate
+other own pieces, and opponent's Wave, Starchild. Activations are made on step-
+and capture-fields, but Starchild can activate only own Wave, Starchild on its
+step-fields. Starchild can also activate most pieces on its
+\hyperref[fig:scn_o_06_starchild_activating_on_neighboring_fields]{neighboring-fields}.
 
 \clearpage % ..........................................................
 
