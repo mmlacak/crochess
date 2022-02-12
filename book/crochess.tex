@@ -12,13 +12,10 @@
 % \usepackage[T1]{fontenc}
 
 \usepackage{alltt}
-\renewcommand{\ttdefault}{pcr} % Adobe Courier % semi-bold {, }, under-bold _
-% \renewcommand{\ttdefault}{ucr} % URW Courier % Not good, can't render <, >, |, semi-bold {, }
-% \renewcommand\ttdefault{lcmtt} % Computer Modern Teletype L % everything (semi-)bold, heightened, no italics
-% \renewcommand*\ttdefault{lcmtt} % Computer Modern Teletype L % everything (semi-)bold, heightened, no italics
 
 % \usepackage{tgcursor} % TeX Gyre Cursor % semi-bold {, }, under-bold _
 % \usepackage{lmodern} % Latin Modern Mono % overrides normal font --> is ok, almost the same geometry as Charter; tt --> everything (semi-)bold, heightened
+% \usepackage[lighttt]{lmodern} % Latin Modern Mono % overrides normal font --> is ok, almost the same geometry as Charter; tt --> still ugly %, uppercase heightened
 % \usepackage{nimbusmono} % Nimbus 15 Mono % overrides Charter defaults; tt --> everything (semi-)bold, under-bold %, :
 % \usepackage{courier} % Courier, provided by URW Nimbus Mono % semi-bold {, }, under-bold _
 % \usepackage{courierten} % Courier 10 Pitch BT % Not good, can't render <, >, |, everything semi-bold
@@ -26,6 +23,11 @@
 % \usepackage[zerostyle=d]{newtxtt} %% Various versions of zeros available. See documentation for details
 % \usepackage{newtxtt} %% Various versions of zeros available. See documentation for details
 % \renewcommand{\ttdefault}{newtxtt} % New TXTT % Not courier, everything semi-bold, heightened
+
+\renewcommand{\ttdefault}{pcr} % Adobe Courier % semi-bold {, }, under-bold _
+% \renewcommand{\ttdefault}{ucr} % URW Courier % Not good, can't render <, >, |, semi-bold {, }
+% \renewcommand\ttdefault{lcmtt} % Computer Modern Teletype L % everything (semi-)bold, heightened, no italics
+% \renewcommand*\ttdefault{lcmtt} % Computer Modern Teletype L % everything (semi-)bold, heightened, no italics
 
 \usepackage{helvet}
 \renewcommand{\sfdefault}{phv}
