@@ -215,7 +215,7 @@ size_t cc_ply_step_count( CcPly * restrict ply,
     If `ply` is `NULL`, last active piece in a complete linked list is returned.
 
     @note
-    If `ply` does not belong to a given linked list,
+    If `ply` is given, but does not belong to a given linked list,
     failure is indicated by returning `CC_PE_None`.
 
     @return Last active piece if successful, `CC_PE_None` otherwise.

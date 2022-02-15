@@ -276,11 +276,13 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
         return CC_PIECE_IS_ACTIVE( plies->piece ) ? plies->piece
                                                   : CC_PE_None;
 
-    if ( ply && CC_PIECE_IS_ACTIVE( ply->piece ) )
-        return ply->piece;
+    // <!> Shadows issue if ply is not contained in plies.
+    //
+    // if ( ply && CC_PIECE_IS_ACTIVE( ply->piece ) )
+    //     return ply->piece;
 
     CcPieceEnum last_active_piece = CC_PE_None;
-    bool ply_encountered = false;
+    bool ply_encountered = ( !ply );
     CcPly * p = plies;
 
     while ( p )
@@ -293,6 +295,8 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
             ply_encountered = true;
             break;
         }
+
+        p = p->next;
     }
 
     return ply_encountered ? last_active_piece : CC_PE_None;
