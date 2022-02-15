@@ -114,7 +114,7 @@ bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size )
 {
     if ( !step ) return false;
 
-    if ( !CC_IS_POS_VALID( step->i, step->j ) ) return false;
+    if ( !CC_IS_POS_ON_BOARD( board_size, step->i, step->j ) ) return false;
 
     if ( !cc_side_effect_is_valid( step->side_effect, board_size ) ) return false;
 
@@ -126,7 +126,7 @@ bool cc_steps_are_valid( CcStep * restrict steps, unsigned int board_size )
     if ( !steps ) return false;
 
     if ( !cc_step_is_valid( steps, board_size ) ) return false;
-    if ( !steps->next ) return ( steps->link != CC_SLE_Reposition ); // The only step can't be repositioning.
+    if ( !steps->next ) return ( steps->link != CC_SLE_Destination ); // The only step must be destination.
 
     bool is_starting = ( steps->link == CC_SLE_Start );
     bool is_repositioning = ( steps->link == CC_SLE_Reposition );
@@ -134,8 +134,9 @@ bool cc_steps_are_valid( CcStep * restrict steps, unsigned int board_size )
     CcStep * s = steps->next;
     while ( s )
     {
-        if ( s->link == CC_SLE_Start ) return false; // Starting step must be the first one.
-        if ( ( s->link == CC_SLE_Destination ) && ( s->next ) ) return false; // Destination step must be the last one.
+        if ( s->link == CC_SLE_Start ) return false; // Only first step can be starting.
+        if ( ( s->link == CC_SLE_Destination ) && ( s->next ) ) return false; // Destination step must not be in the middle.
+        if ( ( !s->next ) && ( s->link != CC_SLE_Destination ) ) return false; // The last step must be destination.
 
         if ( s->link == CC_SLE_Reposition ) // Repositioning can be only on first step or second step, if following starting step.
         {
