@@ -59,8 +59,8 @@ class SceneOneMixin:
         start_I_2 = (22, 2)
         scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
 
-        start_R = (19, 4)
-        scene.board.set_piece(*start_R, piece=PieceType.Rook)
+        start_A = (19, 4)
+        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
 
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked )
@@ -69,7 +69,7 @@ class SceneOneMixin:
         scene.append_arrow( *(start_I + start_W_B), mark_type=MarkType.Legal )
 
         scene.append_arrow( *(start_I + start_I_2), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_I + start_R), mark_type=MarkType.Illegal )
+        scene.append_arrow( *(start_I + start_A), mark_type=MarkType.Illegal )
 
         scene.append_arrow( *(start_I + start_w), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_I + start_n), mark_type=MarkType.Illegal )
@@ -103,8 +103,8 @@ class SceneOneMixin:
         start_I_2 = (22, 2)
         scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
 
-        start_R = (19, 4)
-        scene.board.set_piece(*start_R, piece=PieceType.Rook)
+        start_A = (19, 4)
+        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
 
         # scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked )
@@ -115,7 +115,7 @@ class SceneOneMixin:
         scene.append_arrow( *(start_W_A + start_w), mark_type=MarkType.Action )
 
         scene.append_arrow( *(start_W_A + start_I_2), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_W_A + start_R), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W_A + start_A), mark_type=MarkType.Legal )
 
         scene.append_arrow( *(start_W_A + start_n), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_W_A + start_g), mark_type=MarkType.Illegal )
@@ -182,7 +182,7 @@ class SceneOneMixin:
 
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_G, piece=PieceType.Pyramid)
         scene.board.set_piece(*start_K, piece=PieceType.King)
 
         scene.append_arrow( *(start_I + start_G), mark_type=MarkType.Action )
