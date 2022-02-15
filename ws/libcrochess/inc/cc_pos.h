@@ -22,7 +22,7 @@
 
     @see cc_pos_link__new()
 */
-#define CC_POS_LINK_NEW(i,j) cc_pos_link__new( cc_pos( (i), (j) ) )
+#define CC_POS_LINK__NEW(i,j) cc_pos_link__new( cc_pos( (i), (j) ) )
 
 /**
     Macro to append a newly allocated new position link, with given coordinates.

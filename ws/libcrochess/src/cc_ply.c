@@ -180,20 +180,41 @@ bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size )
     if ( !CC_PIECE_IS_ACTIVE( plies->piece ) ) return false;
     if ( plies->link != CC_PLE_Ply ) return false;
 
+    CcPieceEnum prev_piece = CC_PE_None;
+    CcPieceEnum last_active_piece = CC_PE_None;
     CcPly * p = plies;
+
     while ( p )
     {
-        if ( !cc_ply_is_valid( p, board_size ) )
-            return false;
+        if ( CC_PIECE_IS_ACTIVE( p->piece ) )
+            last_active_piece = p->piece;
 
 // TODO :: add last active piece checks for activated pieces in cascades
+
+        if ( ( !CC_PIECE_CAN_BE_ACTIVATED( p->piece ) ) ) // Kings, Monolith cannot be activated, ...
+            if ( p != plies ) return false; // ... so, can't be in the middle of a cascade.
+
+        // if ( CC_PIECE_IS_PYRAMID( p->piece ) )
+        // {
+        //     // <*> If last active piece was Pawn, Starchild or Shaman, it can't activate
+        //     //     Pyramid on its step-fields, neither directly, nor via Wave(s). Also,
+        //     //     Serpent can't activate Pyramid on its color-changing ply.
+        //     //
+        //     //     Legality check, needs positions --> deferred to rules.
+        // }
+
+        if ( !cc_ply_is_valid( p, board_size ) )
+            return false;
 
         if ( p->link == CC_PLE_FailedTeleportation )
         {
             if ( ( p->steps ) && ( CC_PIECE_IS_WAVE( p->piece ) ) )
-                if ( !CC_PIECE_IS_STARCHILD( cc_ply_last_active_piece( plies, p ) ) )
+                if ( !CC_PIECE_IS_STARCHILD( last_active_piece ) )
                     return false;
         }
+
+        prev_piece = p->piece;
+        p = p->next;
     }
 
     return true;

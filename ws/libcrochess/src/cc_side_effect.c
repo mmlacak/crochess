@@ -86,11 +86,11 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
             return true;
 
         case CC_SEE_Capture :
-            return CC_PIECE_IS_DISPOSABLE( see.capture.piece ) &&
+            return CC_PIECE_CAN_BE_CAPTURED( see.capture.piece ) &&
                    CC_TAG_CAN_BE_LOST( see.capture.lost_tag );
 
         case CC_SEE_Displacement :
-            return CC_PIECE_IS_DISPLACEABLE( see.displacement.piece ) &&
+            return CC_PIECE_CAN_BE_DISPLACED( see.displacement.piece ) &&
                    CC_IS_POS_ON_BOARD( board_size,
                                        see.displacement.dest_i,
                                        see.displacement.dest_j ) &&
@@ -112,21 +112,21 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
                                        see.castle.dest_j );
 
         case CC_SEE_Promotion :
-            return CC_PIECE_IS_PROMOTE_TO( see.promote.piece );
+            return CC_PAWN_CAN_BE_PROMOTED_TO( see.promote.piece );
 
         case CC_SEE_Conversion :
-            return CC_PIECE_IS_CONVERTABLE( see.convert.piece ) &&
+            return CC_PIECE_CAN_BE_CONVERTED( see.convert.piece ) &&
                    CC_TAG_CAN_BE_LOST( see.convert.lost_tag );
 
         case CC_SEE_Demotion :
-            return CC_PIECE_IS_DEMOTEABLE( see.demote.piece ) &&
+            return CC_PIECE_CAN_BE_DEMOTED( see.demote.piece ) &&
                    CC_TAG_CAN_BE_LOST( see.demote.lost_tag ) &&
                    CC_IS_POS_ON_BOARD( board_size,
                                        see.demote.dest_i,
                                        see.demote.dest_j );
 
         case CC_SEE_Resurrection :
-            return CC_PIECE_IS_RESURRECTABLE( see.resurrect.piece ) &&
+            return CC_PIECE_CAN_BE_RESURRECTED( see.resurrect.piece ) &&
                    CC_IS_POS_ON_BOARD( board_size,
                                        see.resurrect.dest_i,
                                        see.resurrect.dest_j );

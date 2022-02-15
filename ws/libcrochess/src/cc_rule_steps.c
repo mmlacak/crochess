@@ -128,7 +128,7 @@ bool cc_rule_steps_check_teleportation( CcPieceEnum teleport_in,
                                         CcPos dest,
                                         CcPieceEnum teleport_out )
 {
-    if ( !CC_PIECE_IS_TELEPORTABLE( piece ) ) return false;
+    if ( !CC_PIECE_CAN_BE_TELEPORTED( piece ) ) return false;
     if ( !CC_PIECE_IS_TELEPORTER( teleport_in ) ) return false;
     if ( !CC_PIECE_IS_TELEPORTER( teleport_out ) ) return false;
 

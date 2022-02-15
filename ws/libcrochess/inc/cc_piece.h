@@ -202,6 +202,20 @@
                                   || ( (pe) == CC_PE_DarkWave ) )
 
 /**
+    Macro expression to evaluate whether piece can be activated.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece can be activated, `false` otherwise.
+*/
+#define CC_PIECE_CAN_BE_ACTIVATED(pe) ( ( (pe) != CC_PE_DarkKing )     \
+                                     && ( (pe) != CC_PE_None )         \
+                                     && ( (pe) != CC_PE_LightKing )    \
+                                     && ( (pe) != CC_PE_Monolith ) )
+
+/**
     Macro expression to evaluate whether piece can be captured.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
@@ -210,12 +224,12 @@
 
     @return `true` if piece is disposable, `false` otherwise.
 */
-#define CC_PIECE_IS_DISPOSABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                  && ( (pe) != CC_PE_DarkKing )     \
-                                  && ( (pe) != CC_PE_None )         \
-                                  && ( (pe) != CC_PE_LightKing )    \
-                                  && ( (pe) != CC_PE_BrightStar )   \
-                                  && ( (pe) != CC_PE_Monolith ) )
+#define CC_PIECE_CAN_BE_CAPTURED(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                    && ( (pe) != CC_PE_DarkKing )     \
+                                    && ( (pe) != CC_PE_None )         \
+                                    && ( (pe) != CC_PE_LightKing )    \
+                                    && ( (pe) != CC_PE_BrightStar )   \
+                                    && ( (pe) != CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether Pawn can be promoted to a given piece.
@@ -226,14 +240,14 @@
 
     @return `true` if piece is promote-to, `false` otherwise.
 */
-#define CC_PIECE_IS_PROMOTE_TO(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                  && ( (pe) != CC_PE_DarkKing )     \
-                                  && ( (pe) != CC_PE_DarkPawn )     \
-                                  && ( (pe) != CC_PE_None )         \
-                                  && ( (pe) != CC_PE_LightPawn )    \
-                                  && ( (pe) != CC_PE_LightKing )    \
-                                  && ( (pe) != CC_PE_BrightStar )   \
-                                  && ( (pe) != CC_PE_Monolith ) )
+#define CC_PAWN_CAN_BE_PROMOTED_TO(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                      && ( (pe) != CC_PE_DarkKing )     \
+                                      && ( (pe) != CC_PE_DarkPawn )     \
+                                      && ( (pe) != CC_PE_None )         \
+                                      && ( (pe) != CC_PE_LightPawn )    \
+                                      && ( (pe) != CC_PE_LightKing )    \
+                                      && ( (pe) != CC_PE_BrightStar )   \
+                                      && ( (pe) != CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether piece can be displaced.
@@ -244,12 +258,12 @@
 
     @return `true` if piece is displaceable, `false` otherwise.
 */
-#define CC_PIECE_IS_DISPLACEABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                    && ( (pe) != CC_PE_DarkKing )     \
-                                    && ( (pe) != CC_PE_None )         \
-                                    && ( (pe) != CC_PE_LightKing )    \
-                                    && ( (pe) != CC_PE_BrightStar )   \
-                                    && ( (pe) != CC_PE_Monolith ) )
+#define CC_PIECE_CAN_BE_DISPLACED(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                     && ( (pe) != CC_PE_DarkKing )     \
+                                     && ( (pe) != CC_PE_None )         \
+                                     && ( (pe) != CC_PE_LightKing )    \
+                                     && ( (pe) != CC_PE_BrightStar )   \
+                                     && ( (pe) != CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether piece can be converted.
@@ -260,12 +274,12 @@
 
     @return `true` if piece is convertable, `false` otherwise.
 */
-#define CC_PIECE_IS_CONVERTABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                   && ( (pe) != CC_PE_DarkKing )     \
-                                   && ( (pe) != CC_PE_None )         \
-                                   && ( (pe) != CC_PE_LightKing )    \
-                                   && ( (pe) != CC_PE_BrightStar )   \
-                                   && ( (pe) != CC_PE_Monolith ) )
+#define CC_PIECE_CAN_BE_CONVERTED(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                     && ( (pe) != CC_PE_DarkKing )     \
+                                     && ( (pe) != CC_PE_None )         \
+                                     && ( (pe) != CC_PE_LightKing )    \
+                                     && ( (pe) != CC_PE_BrightStar )   \
+                                     && ( (pe) != CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether piece can be demoted.
@@ -276,12 +290,12 @@
 
     @return `true` if piece is demoteable, `false` otherwise.
 */
-#define CC_PIECE_IS_DEMOTEABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                  && ( (pe) != CC_PE_DarkKing )     \
-                                  && ( (pe) != CC_PE_None )         \
-                                  && ( (pe) != CC_PE_LightKing )    \
-                                  && ( (pe) != CC_PE_BrightStar )   \
-                                  && ( (pe) != CC_PE_Monolith ) )
+#define CC_PIECE_CAN_BE_DEMOTED(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                   && ( (pe) != CC_PE_DarkKing )     \
+                                   && ( (pe) != CC_PE_None )         \
+                                   && ( (pe) != CC_PE_LightKing )    \
+                                   && ( (pe) != CC_PE_BrightStar )   \
+                                   && ( (pe) != CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether piece can be resurrected.
@@ -292,12 +306,12 @@
 
     @return `true` if piece is resurrectable, `false` otherwise.
 */
-#define CC_PIECE_IS_RESURRECTABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                     && ( (pe) != CC_PE_DarkKing )     \
-                                     && ( (pe) != CC_PE_None )         \
-                                     && ( (pe) != CC_PE_LightKing )    \
-                                     && ( (pe) != CC_PE_BrightStar )   \
-                                     && ( (pe) != CC_PE_Monolith ) )
+#define CC_PIECE_CAN_BE_RESURRECTED(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                       && ( (pe) != CC_PE_DarkKing )     \
+                                       && ( (pe) != CC_PE_None )         \
+                                       && ( (pe) != CC_PE_LightKing )    \
+                                       && ( (pe) != CC_PE_BrightStar )   \
+                                       && ( (pe) != CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether piece can teleport other pieces.
@@ -321,12 +335,12 @@
 
     @return `true` if piece is teleportable, `false` otherwise.
 */
-#define CC_PIECE_IS_TELEPORTABLE(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                    && ( (pe) != CC_PE_DarkKing )     \
-                                    && ( (pe) != CC_PE_None )         \
-                                    && ( (pe) != CC_PE_LightKing )    \
-                                    && ( (pe) != CC_PE_BrightStar )   \
-                                    && ( (pe) != CC_PE_Monolith ) )
+#define CC_PIECE_CAN_BE_TELEPORTED(pe) ( ( (pe) != CC_PE_DimStar )      \
+                                      && ( (pe) != CC_PE_DarkKing )     \
+                                      && ( (pe) != CC_PE_None )         \
+                                      && ( (pe) != CC_PE_LightKing )    \
+                                      && ( (pe) != CC_PE_BrightStar )   \
+                                      && ( (pe) != CC_PE_Monolith ) )
 
 
 /**

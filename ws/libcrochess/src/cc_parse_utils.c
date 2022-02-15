@@ -705,11 +705,11 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         if ( isupper( *( s + 1 ) ) )
         {
             piece = cc_chessboard_get_piece( cb, step_i, step_j );
-            if ( !CC_PIECE_IS_DISPOSABLE( piece ) )
+            if ( !CC_PIECE_CAN_BE_CAPTURED( piece ) )
                 return false;
 
             CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
-            if ( !CC_PIECE_IS_DISPOSABLE( pe ) )
+            if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) )
                 return false;
 
             if ( !CC_PIECE_IS_THE_SAME( piece, pe ) )
@@ -730,11 +730,11 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         if ( isupper( *( s + 1 ) ) )
         {
             piece = cc_chessboard_get_piece( cb, step_i, step_j );
-            if ( !CC_PIECE_IS_DISPLACEABLE( piece ) )
+            if ( !CC_PIECE_CAN_BE_DISPLACED( piece ) )
                 return false;
 
             CcPieceEnum pe = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, true ) );
-            if ( !CC_PIECE_IS_DISPLACEABLE( pe ) )
+            if ( !CC_PIECE_CAN_BE_DISPLACED( pe ) )
                 return false;
 
             if ( !CC_PIECE_IS_THE_SAME( piece, pe ) )
@@ -834,7 +834,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
         if ( isupper( *( s + 1 ) ) )
         {
             CcPieceEnum promote_to = cc_piece_from_symbol( *++s, cc_piece_is_light( piece, false ) );
-            if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
+            if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) )
                 return false;
 
             *side_effect__o = cc_side_effect_promote( promote_to );
@@ -981,7 +981,7 @@ bool cc_parse_utils_get_side_effect( char const * restrict step_str,
             return false;
 
         CcPieceEnum promote_to = cc_piece_from_symbol( *s, cc_piece_is_light( piece, true ) );
-        if ( !CC_PIECE_IS_PROMOTE_TO( promote_to ) )
+        if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) )
             return false;
 
         *side_effect__o = cc_side_effect_promote( promote_to );
