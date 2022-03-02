@@ -1488,9 +1488,125 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_34_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_34_activating_pyramid(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_34_activated_piece_check_init', bt, height=9.7)
+        scene = Scene('scn_mv_34_activating_pyramid', bt)
+
+        #
+        # left side
+
+        left_R = (4, 14)
+        scene.board.set_piece(*left_R, piece=PieceType.Rook)
+
+        left_W_1 = (4, 1)
+        scene.board.set_piece(*left_W_1, piece=PieceType.Wave)
+
+        left_P = (2, 1)
+        scene.board.set_piece(*left_P, piece=PieceType.Pawn)
+
+        left_W_2 = (1, 2)
+        scene.board.set_piece(*left_W_2, piece=PieceType.Wave)
+
+        left_A = (1, 6)
+        scene.board.set_piece(*left_A, piece=PieceType.Pyramid)
+
+        left_B = (1, 11)
+        scene.board.set_piece(*left_B, piece=PieceType.Bishop)
+
+        #
+        # R --> W1
+
+        gen = GS.gen_steps( [(0, -1), ], left_R, include_prev=True, count=13 )
+        for index, coords in enumerate( gen() ):
+            mark_type = MarkType.Action if index >= 12 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        #
+        # W1 --> P
+
+        coords = GS.gen_next( GS.gen_steps(start=left_W_1, rels=[(-1, 0), ], include_prev=True) )
+
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        #
+        # P --> W2
+
+        scene.append_arrow( *(left_P + left_W_2), mark_type=MarkType.Action )
+
+        #
+        # W2 --> A --> B
+
+        gen_2 = GS.gen_steps( [(0, 1), ], left_W_2, include_prev=True, count=13 )
+        for index, coords in enumerate( gen_2() ):
+            mark_type = MarkType.Action if index in [3, 8] else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+
+        #
+        # right side
+
+        right_R = (14, 14)
+        scene.board.set_piece(*right_R, piece=PieceType.Rook)
+
+        right_W_1 = (14, 1)
+        scene.board.set_piece(*right_W_1, piece=PieceType.Wave)
+
+        right_P = (12, 1)
+        scene.board.set_piece(*right_P, piece=PieceType.Pawn)
+
+        right_W_2 = (12, 3)
+        scene.board.set_piece(*right_W_2, piece=PieceType.Wave)
+
+        right_A = (12, 6)
+        scene.board.set_piece(*right_A, piece=PieceType.Pyramid)
+
+        right_B = (12, 11)
+        scene.board.set_piece(*right_B, piece=PieceType.Bishop)
+
+        #
+        # R --> W1
+
+        gen_3 = GS.gen_steps( [(0, -1), ], right_R, include_prev=True, count=13 )
+        for index, coords in enumerate( gen_3() ):
+            mark_type = MarkType.Action if index >= 12 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        #
+        # W1 --> P
+
+        coords_3 = GS.gen_next( GS.gen_steps(start=right_W_1, rels=[(-1, 0), ], include_prev=True) )
+
+        scene.append_arrow( *coords_3() )
+        scene.append_arrow( *coords_3(), mark_type=MarkType.Action )
+
+        #
+        # P --> W2
+
+        coords_4 = GS.gen_next( GS.gen_steps(start=right_P, rels=[(0, 1), ], include_prev=True) )
+
+        scene.append_arrow( *coords_4() )
+        scene.append_arrow( *coords_4(), mark_type=MarkType.Action )
+
+        #
+        # W2 --> A --> B
+
+        gen_4 = GS.gen_steps( [(0, 1), ], right_W_2, include_prev=True, count=12 )
+        for index, coords in enumerate( gen_4() ):
+            mark_type = MarkType.Illegal if index == 2 else \
+                        MarkType.Action if index == 7 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        return scene
+
+
+    def scn_mv_35_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_35_activated_piece_check_init', bt, height=9.7)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_k = (3, 6)
@@ -1576,9 +1692,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_35_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
+    def scn_mv_36_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_35_activated_piece_check_cascade', bt, height=9.7)
+        scene = Scene('scn_mv_36_activated_piece_check_cascade', bt, height=9.7)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_k = (3, 6)
