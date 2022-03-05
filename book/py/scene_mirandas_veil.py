@@ -1510,9 +1510,6 @@ class SceneMirandasVeilMixin:
         left_A = (1, 6)
         scene.board.set_piece(*left_A, piece=PieceType.Pyramid)
 
-        left_B = (1, 13)
-        scene.board.set_piece(*left_B, piece=PieceType.Bishop)
-
         #
         # R --> W1
 
@@ -1536,9 +1533,9 @@ class SceneMirandasVeilMixin:
         scene.append_arrow( *(left_P + left_W_2), mark_type=MarkType.Action )
 
         #
-        # W2 --> A --> B
+        # W2 --> A
 
-        gen_2 = GS.gen_steps( [(0, 1), ], left_W_2, include_prev=True, count=13 )
+        gen_2 = GS.gen_steps( [(0, 1), ], left_W_2, include_prev=True, count=4 )
         for index, coords in enumerate( gen_2() ):
             mark_type = MarkType.Action if index in [3, 10] else \
                         MarkType.Legal
@@ -1566,9 +1563,6 @@ class SceneMirandasVeilMixin:
         right_A = (12, 6)
         scene.board.set_piece(*right_A, piece=PieceType.Pyramid)
 
-        right_B = (12, 13)
-        scene.board.set_piece(*right_B, piece=PieceType.Bishop)
-
         #
         # R --> W1
 
@@ -1595,9 +1589,9 @@ class SceneMirandasVeilMixin:
         scene.append_arrow( *coords_4(), mark_type=MarkType.Action )
 
         #
-        # W2 --> A --> B
+        # W2 --> A
 
-        gen_4 = GS.gen_steps( [(0, 1), ], right_W_2, include_prev=True, count=12 )
+        gen_4 = GS.gen_steps( [(0, 1), ], right_W_2, include_prev=True, count=3 )
         for index, coords in enumerate( gen_4() ):
             mark_type = MarkType.Illegal if index == 2 else \
                         MarkType.Action if index == 9 else \
@@ -1637,9 +1631,6 @@ class SceneMirandasVeilMixin:
 
         left_A = (3, 11)
         scene.board.set_piece(*left_A, piece=PieceType.Pyramid)
-
-        left_B = (3, 13)
-        scene.board.set_piece(*left_B, piece=PieceType.Bishop)
 
         #
         # R --> W1
@@ -1716,9 +1707,6 @@ class SceneMirandasVeilMixin:
 
         right_A = (12, 11)
         scene.board.set_piece(*right_A, piece=PieceType.Pyramid)
-
-        right_B = (12, 13)
-        scene.board.set_piece(*right_B, piece=PieceType.Bishop)
 
         #
         # R --> W1
