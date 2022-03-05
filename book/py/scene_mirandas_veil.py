@@ -1488,9 +1488,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_34_activating_pyramid(self, bt=BoardType.MirandasVeil):
+    def scn_mv_34_activating_pyramid_by_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_34_activating_pyramid', bt)
+        scene = Scene('scn_mv_34_activating_pyramid_by_pawn', bt)
 
         #
         # left side
@@ -1510,7 +1510,7 @@ class SceneMirandasVeilMixin:
         left_A = (1, 6)
         scene.board.set_piece(*left_A, piece=PieceType.Pyramid)
 
-        left_B = (1, 11)
+        left_B = (1, 13)
         scene.board.set_piece(*left_B, piece=PieceType.Bishop)
 
         #
@@ -1540,9 +1540,12 @@ class SceneMirandasVeilMixin:
 
         gen_2 = GS.gen_steps( [(0, 1), ], left_W_2, include_prev=True, count=13 )
         for index, coords in enumerate( gen_2() ):
-            mark_type = MarkType.Action if index in [3, 8] else \
+            mark_type = MarkType.Action if index in [3, 10] else \
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_text("1", *left_W_1, corner=Corner.LowerLeft)
+        scene.append_text("2", *left_W_2, corner=Corner.LowerLeft)
 
 
         #
@@ -1563,7 +1566,7 @@ class SceneMirandasVeilMixin:
         right_A = (12, 6)
         scene.board.set_piece(*right_A, piece=PieceType.Pyramid)
 
-        right_B = (12, 11)
+        right_B = (12, 13)
         scene.board.set_piece(*right_B, piece=PieceType.Bishop)
 
         #
@@ -1597,16 +1600,185 @@ class SceneMirandasVeilMixin:
         gen_4 = GS.gen_steps( [(0, 1), ], right_W_2, include_prev=True, count=12 )
         for index, coords in enumerate( gen_4() ):
             mark_type = MarkType.Illegal if index == 2 else \
-                        MarkType.Action if index == 7 else \
+                        MarkType.Action if index == 9 else \
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_text("4", *right_W_1, corner=Corner.LowerLeft)
+        scene.append_text("5", *right_W_2, corner=Corner.LowerLeft)
 
         return scene
 
 
-    def scn_mv_35_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_35_activating_pyramid_cascade_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_35_activated_piece_check_init', bt, height=9.7)
+        scene = Scene('scn_mv_35_activating_pyramid_cascade_pawn', bt)
+
+        #
+        # left side
+
+        left_R = (6, 14)
+        scene.board.set_piece(*left_R, piece=PieceType.Rook)
+
+        left_W_1 = (6, 1)
+        scene.board.set_piece(*left_W_1, piece=PieceType.Wave)
+
+        left_P = (4, 1)
+        scene.board.set_piece(*left_P, piece=PieceType.Pawn)
+
+        left_W_2 = (3, 2)
+        scene.board.set_piece(*left_W_2, piece=PieceType.Wave)
+
+        left_N = (3, 6)
+        scene.board.set_piece(*left_N, piece=PieceType.Knight)
+
+        left_W_3 = (1, 7)
+        scene.board.set_piece(*left_W_3, piece=PieceType.Wave)
+
+        left_A = (3, 11)
+        scene.board.set_piece(*left_A, piece=PieceType.Pyramid)
+
+        left_B = (3, 13)
+        scene.board.set_piece(*left_B, piece=PieceType.Bishop)
+
+        #
+        # R --> W1
+
+        gen = GS.gen_steps( [(0, -1), ], left_R, include_prev=True, count=13 )
+        for index, coords in enumerate( gen() ):
+            mark_type = MarkType.Action if index >= 12 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        #
+        # W1 --> P
+
+        coords = GS.gen_next( GS.gen_steps(start=left_W_1, rels=[(-1, 0), ], include_prev=True) )
+
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        #
+        # P --> W2
+
+        scene.append_arrow( *(left_P + left_W_2), mark_type=MarkType.Action )
+
+        #
+        # W2 --> N
+
+        coords_2 = GS.gen_next( GS.gen_steps(start=left_W_2, rels=[(0, 1), ], include_prev=True) )
+
+        scene.append_arrow( *coords_2() )
+        scene.append_arrow( *coords_2() )
+        scene.append_arrow( *coords_2() )
+        scene.append_arrow( *coords_2(), mark_type=MarkType.Action )
+
+        #
+        # N --> W3
+
+        coords_3 = GS.gen_next( GS.gen_steps(start=left_N, rels=[(-2, 1), ], include_prev=True) )
+
+        scene.append_arrow( *coords_3(), mark_type=MarkType.Action )
+
+        #
+        # W3 --> A
+
+        coords_4 = GS.gen_next( GS.gen_steps(start=left_W_3, rels=[(1, 2), ], include_prev=True) )
+
+        scene.append_arrow( *coords_4() )
+        scene.append_arrow( *coords_4(), mark_type=MarkType.Action )
+
+        scene.append_text("1", *left_W_1, corner=Corner.LowerLeft)
+        scene.append_text("2", *left_W_2, corner=Corner.LowerLeft)
+        scene.append_text("3", *left_W_3, corner=Corner.LowerLeft)
+
+
+        #
+        # right side
+
+        right_R = (14, 14)
+        scene.board.set_piece(*right_R, piece=PieceType.Rook)
+
+        right_W_1 = (14, 1)
+        scene.board.set_piece(*right_W_1, piece=PieceType.Wave)
+
+        right_P = (12, 1)
+        scene.board.set_piece(*right_P, piece=PieceType.Pawn)
+
+        right_W_2 = (12, 3)
+        scene.board.set_piece(*right_W_2, piece=PieceType.Wave)
+
+        right_N = (12, 6)
+        scene.board.set_piece(*right_N, piece=PieceType.Knight)
+
+        right_W_3 = (10, 7)
+        scene.board.set_piece(*right_W_3, piece=PieceType.Wave)
+
+        right_A = (12, 11)
+        scene.board.set_piece(*right_A, piece=PieceType.Pyramid)
+
+        right_B = (12, 13)
+        scene.board.set_piece(*right_B, piece=PieceType.Bishop)
+
+        #
+        # R --> W1
+
+        gen_3 = GS.gen_steps( [(0, -1), ], right_R, include_prev=True, count=13 )
+        for index, coords in enumerate( gen_3() ):
+            mark_type = MarkType.Action if index >= 12 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        #
+        # W1 --> P
+
+        coords_5 = GS.gen_next( GS.gen_steps(start=right_W_1, rels=[(-1, 0), ], include_prev=True) )
+
+        scene.append_arrow( *coords_5() )
+        scene.append_arrow( *coords_5(), mark_type=MarkType.Action )
+
+        #
+        # P --> W2
+
+        coords_6 = GS.gen_next( GS.gen_steps(start=right_P, rels=[(0, 1), ], include_prev=True) )
+
+        scene.append_arrow( *coords_6() )
+        scene.append_arrow( *coords_6(), mark_type=MarkType.Action )
+
+        #
+        # W2 --> N
+
+        coords_7 = GS.gen_next( GS.gen_steps(start=right_W_2, rels=[(0, 1), ], include_prev=True) )
+
+        scene.append_arrow( *coords_7() )
+        scene.append_arrow( *coords_7() )
+        scene.append_arrow( *coords_7(), mark_type=MarkType.Action )
+
+        #
+        # N --> W3
+
+        coords_8 = GS.gen_next( GS.gen_steps(start=right_N, rels=[(-2, 1), ], include_prev=True) )
+
+        scene.append_arrow( *coords_8(), mark_type=MarkType.Action )
+
+        #
+        # W3 --> A
+
+        coords_9 = GS.gen_next( GS.gen_steps(start=right_W_3, rels=[(1, 2), ], include_prev=True) )
+
+        scene.append_arrow( *coords_9() )
+        scene.append_arrow( *coords_9(), mark_type=MarkType.Action )
+
+        scene.append_text("4", *right_W_1, corner=Corner.LowerLeft)
+        scene.append_text("5", *right_W_2, corner=Corner.LowerLeft)
+        scene.append_text("6", *right_W_3, corner=Corner.LowerLeft)
+
+        return scene
+
+
+    def scn_mv_36_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_36_activated_piece_check_init', bt, height=9.7)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_k = (3, 6)
@@ -1692,9 +1864,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_36_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
+    def scn_mv_37_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_36_activated_piece_check_cascade', bt, height=9.7)
+        scene = Scene('scn_mv_37_activated_piece_check_cascade', bt, height=9.7)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_k = (3, 6)
