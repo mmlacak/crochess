@@ -6,9 +6,8 @@
 
 #include <stdbool.h>
 
+#include "cc_str_utils.h"
 #include "cc_chessboard.h"
-#include "cc_move.h"
-#include "cc_do_moves.h"
 
 /**
     @file cc_game.h
@@ -88,7 +87,7 @@ typedef struct CcGame
 {
     CcGameStatusEnum status; /**< Current game status. */
     CcChessboard * chessboard; /**< Current position on a chessboard. */
-    CcMove * moves; /**< Linked list of moves played so far. */
+    CcString * moves; /**< Linked list of moves played so far. */
 } CcGame;
 
 /**
@@ -108,15 +107,17 @@ CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantEnum ve,
                        bool do_setup );
 
-/**
-    Duplicates a given game into a newly allocated one.
+// TODO :: DELETE
+// /**
+//     Duplicates a given game into a newly allocated one.
 
-    @param game Game to duplicate.
+//     @param game Game to duplicate.
 
-    @return
-    A newly allocated game, is successful, `NULL` otherwise.
-*/
-CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
+//     @return
+//     A newly allocated game, is successful, `NULL` otherwise.
+// */
+// CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
+// TODO :: DELETE
 
 /**
     Frees game, and all owned resources (chessboard, moves).
@@ -126,56 +127,6 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
     @return `true` if successful, `false` otherwise.
 */
 bool cc_game_free_all( CcGame ** restrict game__f );
-
-
-/**
-    Frees everything from all of given chessboard, moves, plies, steps.
-
-    Function is meant as a convenience, to allow for one-liner to free
-    allocated resources (even in the middle of building whole move data
-    structure), before returning from a calling test function.
-
-    @param gm__f A game, can be `NULL`.
-    @param cb__f A chessboard, can be `NULL`.
-    @param moves__f Linked list of moves, can be `NULL`.
-    @param plies__f Linked list of plies, can be `NULL`.
-    @param steps__f Linked list of steps, can be `NULL`.
-    @param cumulative_result A cumulative result so far.
-
-    @note
-    Any of ponters can be `NULL`, in which case they are skipped,
-    and don't affect result returned.
-
-    Argument `cumulative_result` is meant for functions returning
-    `bool` result, so tests could be writen as:
-    @code{.c}
-    bool result = true; // cumulative result of tests
-
-    // Assuming test_1 returns bool too.
-    // Putting it to first place is mandatory,
-    // to ensure it's actually run, even if result is already `false`.
-    result = test_1( ... ) && result;
-
-    result = test_2( ... ) && result; // Ditto for test 2.
-
-    return cc_game_move_data_free_all( NULL, &cb__o, &move__o, NULL, NULL, result ); // return cumulative result
-    @endcode
-
-    Failure can be enforced (e.g. when allocation fails),
-    simply by passing `false` as an argument, e.g.:
-    @code{.c}
-    if ( !cc_ply_cascade_append__new( ... ) )
-        return cc_game_move_data_free_all( NULL, &cb__o, NULL, &plies_0, &steps_2, false ); // false == enforced failure
-    @endcode
-
-    @return `true` if cumulatively successful, `false` otherwise.
-*/
-bool cc_game_move_data_free_all( CcGame ** restrict gm__f,
-                                 CcChessboard ** restrict cb__f,
-                                 CcMove ** restrict moves__f,
-                                 CcPly ** restrict plies__f,
-                                 CcStep ** restrict steps__f,
-                                 bool cumulative_result );
 
 
 #endif /* __CC_GAME_H__ */

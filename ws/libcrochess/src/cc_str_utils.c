@@ -15,6 +15,86 @@
     @brief String utility functions.
 */
 
+
+CcString * cc_string__new( char const * restrict str )
+{
+    CcString * str__a = malloc( sizeof( CcString ) );
+    if ( !str__a ) return NULL;
+
+    str__a->str = cc_str_duplicate__new( str, false, BUFSIZ );
+    str__a->next = NULL;
+
+    return str__a;
+}
+
+CcString * cc_string_append( CcString * restrict strings__io,
+                             char const * restrict str )
+{
+    if ( !strings__io ) return NULL;
+
+    CcString * str__t = cc_string__new( str );
+    if ( !str__t ) return NULL;
+
+    CcString * pm = strings__io;
+    while ( pm->next ) pm = pm->next; // rewind
+    pm->next = str__t; // append // Ownersip transfer --> str__t is now weak pointer.
+
+    return str__t;
+}
+
+CcString * cc_string_append_or_init( CcString ** restrict strings__io,
+                                     char const * restrict str )
+{
+    if ( !strings__io ) return NULL;
+
+    CcString * str__t = cc_string_append( *strings__io, str );
+
+    if ( !*strings__io ) *strings__io = str__t; // Ownersip transfer --> str__t is now weak pointer.
+
+    return str__t;
+}
+
+CcString * cc_string_append_or_init_format( CcString ** restrict strings__io,
+                                            char const * restrict fmt, ... )
+{
+
+    va_list args;
+    va_start( args, fmt );
+
+    char * msg__a = cc_str_format__new( BUFSIZ, fmt, args );
+
+    va_end( args );
+
+    if ( !msg__a ) return NULL;
+
+    CcString * pm__w = cc_string_append_or_init( strings__io, msg__a );
+
+    CC_FREE( msg__a );
+
+    return pm__w;
+}
+
+bool cc_string_free_all( CcString ** restrict strings__f )
+{
+    if ( !strings__f ) return false;
+    if ( !*strings__f ) return true;
+
+    CcString * pm = *strings__f;
+
+    while ( pm )
+    {
+        CC_FREE( pm->str );
+
+        CcString * tmp = pm->next;
+        CC_FREE( pm );
+        pm = tmp;
+    }
+
+    *strings__f = NULL;
+    return true;
+}
+
+
 bool cc_str_count_chars( char const * restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,
                          size_t * restrict count__o )

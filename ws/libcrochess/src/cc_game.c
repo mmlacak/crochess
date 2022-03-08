@@ -4,7 +4,6 @@
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "cc_do_moves.h"
 #include "cc_game.h"
 
 /**
@@ -64,35 +63,37 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     return gm__a;
 }
 
-CcGame * cc_game_duplicate_all__new( CcGame * restrict game )
-{
-    if ( !game ) return NULL;
+// TODO :: DELETE
+// CcGame * cc_game_duplicate_all__new( CcGame * restrict game )
+// {
+//     if ( !game ) return NULL;
 
-    CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
+//     CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
 
-    CcGame * gm__a = cc_game__new( game->status, ve, false );
-    if ( !gm__a ) return NULL;
+//     CcGame * gm__a = cc_game__new( game->status, ve, false );
+//     if ( !gm__a ) return NULL;
 
-    CcChessboard * cb__t = cc_chessboard_duplicate__new( game->chessboard );
-    if ( game->chessboard && ( !cb__t ) )
-    {
-        cc_game_free_all( &gm__a );
-        return NULL;
-    }
+//     CcChessboard * cb__t = cc_chessboard_duplicate__new( game->chessboard );
+//     if ( game->chessboard && ( !cb__t ) )
+//     {
+//         cc_game_free_all( &gm__a );
+//         return NULL;
+//     }
 
-    gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
+//     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
 
-    CcMove * mv__t = cc_moves_duplicate_all__new( game->moves );
-    if ( game->moves && ( !mv__t ) )
-    {
-        cc_game_free_all( &gm__a );
-        return NULL;
-    }
+//     // CcMove * mv__t = cc_moves_duplicate_all__new( game->moves );
+//     // if ( game->moves && ( !mv__t ) )
+//     // {
+//     //     cc_game_free_all( &gm__a );
+//     //     return NULL;
+//     // }
 
-    gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
+//     // gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
 
-    return gm__a;
-}
+//     return gm__a;
+// }
+// TODO :: DELETE
 
 bool cc_game_free_all( CcGame ** restrict game__f )
 {
@@ -104,32 +105,9 @@ bool cc_game_free_all( CcGame ** restrict game__f )
     CcChessboard ** cb__a = &( ( *game__f )->chessboard );
     result = cc_chessboard_free_all( cb__a ) && result;
 
-    CcMove ** mv__a = &( ( *game__f )->moves );
-    result = cc_moves_free_all( mv__a ) && result;
+    CC_FREE( ( *game__f )->moves );
 
     CC_FREE_NULL( game__f );
 
     return result;
-}
-
-bool cc_game_move_data_free_all( CcGame ** restrict gm__f,
-                                 CcChessboard ** restrict cb__f,
-                                 CcMove ** restrict moves__f,
-                                 CcPly ** restrict plies__f,
-                                 CcStep ** restrict steps__f,
-                                 bool cumulative_result )
-{
-    bool results = true;
-
-    if ( gm__f ) results = cc_game_free_all( gm__f ) && results;
-
-    if ( cb__f ) results = cc_chessboard_free_all( cb__f ) && results;
-
-    if ( moves__f ) results = cc_moves_free_all( moves__f ) && results;
-
-    if ( plies__f ) results = cc_plies_free_all( plies__f ) && results;
-
-    if ( steps__f ) results = cc_steps_free_all( steps__f ) && results;
-
-    return ( cumulative_result && results );
 }

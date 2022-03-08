@@ -36,6 +36,90 @@
 */
 typedef int (*cc_ctype_fp_ischar_t)( int ch );
 
+
+/**
+    String structure, linked list.
+*/
+typedef struct CcString
+{
+    char * str; /**< String. */
+    struct CcString * next; /**< Next string, in a linked list. */
+} CcString;
+
+/**
+    Returns a newly allocated string.
+
+    @param str String.
+
+    @return A newly allocated string if successful, `NULL` otherwise.
+*/
+CcString * cc_string__new( char const * restrict str );
+
+/**
+    Appends a newly allocated string to a linked list.
+
+    @param strings__io Linked list of strings, to which a newly allocated string is appended.
+    @param str String.
+
+    @return
+    Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
+*/
+CcString * cc_string_append( CcString * restrict strings__io,
+                             char const * restrict str );
+
+/**
+    Allocates a new string, appends it to a linked list.
+
+    @param strings__io Linked list of strings, to which a newly allocated string is appended, can be `NULL`.
+    @param str String.
+
+    @note
+    Linked list `*strings__io` can be `NULL`, a string will still be allocated, and returned.
+
+    @note
+    If linked list `*strings__io` is `NULL`, it will be initialized,
+    with a newly allocated string as its first element.
+
+    @return
+    Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
+*/
+CcString * cc_string_append_or_init( CcString ** restrict strings__io,
+                                     char const * restrict str );
+
+/**
+    Allocates a new string, appends it to a linked list.
+
+    @param strings__io Linked list of strings, to which a newly allocated string is appended, can be `NULL`.
+    @param fmt Formatting string, as defined for `printf`.
+    @param ... Variadic format arguments, as used for `printf`.
+
+    @note
+    Linked list `*strings__io` can be `NULL`, a string will still be allocated, and returned.
+
+    @note
+    If linked list `*strings__io` is `NULL`, it will be initialized,
+    with a newly allocated string as its first element.
+
+    @note
+    Maximum length of a formatted string output is limited at `BUFSIZ`, constant from `<stdio.h>`.
+
+    @return
+    Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
+*/
+CcString * cc_string_append_or_init_format( CcString ** restrict strings__io,
+                                            char const * restrict fmt, ... );
+
+/**
+    Frees all strings, and associated resources, in a linked list.
+
+    @param strings__f Linked list of strings.
+
+    @return `true` if successful, `false` otherwise.
+
+*/
+bool cc_string_free_all( CcString ** restrict strings__f );
+
+
 /**
     Function counts characters in a string, based on a given filtering function.
 
