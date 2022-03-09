@@ -16,23 +16,25 @@
 */
 
 
-CcString * cc_string__new( char const * restrict str )
+CcString * cc_string__new( char const * restrict str,
+                           size_t max_len__d )
 {
     CcString * str__a = malloc( sizeof( CcString ) );
     if ( !str__a ) return NULL;
 
-    str__a->str = cc_str_duplicate__new( str, false, BUFSIZ );
+    str__a->str = cc_str_duplicate__new( str, false, max_len__d );
     str__a->next = NULL;
 
     return str__a;
 }
 
 CcString * cc_string_append( CcString * restrict strings__io,
-                             char const * restrict str )
+                             char const * restrict str,
+                             size_t max_len__d )
 {
     if ( !strings__io ) return NULL;
 
-    CcString * str__t = cc_string__new( str );
+    CcString * str__t = cc_string__new( str, max_len__d );
     if ( !str__t ) return NULL;
 
     CcString * pm = strings__io;
@@ -43,11 +45,12 @@ CcString * cc_string_append( CcString * restrict strings__io,
 }
 
 CcString * cc_string_append_or_init( CcString ** restrict strings__io,
-                                     char const * restrict str )
+                                     char const * restrict str,
+                                     size_t max_len__d )
 {
     if ( !strings__io ) return NULL;
 
-    CcString * str__t = cc_string_append( *strings__io, str );
+    CcString * str__t = cc_string_append( *strings__io, str, max_len__d );
 
     if ( !*strings__io ) *strings__io = str__t; // Ownersip transfer --> str__t is now weak pointer.
 
@@ -55,21 +58,22 @@ CcString * cc_string_append_or_init( CcString ** restrict strings__io,
 }
 
 CcString * cc_string_append_or_init_format( CcString ** restrict strings__io,
+                                            size_t max_len__d,
                                             char const * restrict fmt, ... )
 {
 
     va_list args;
     va_start( args, fmt );
 
-    char * msg__a = cc_str_format__new( BUFSIZ, fmt, args );
+    char * str__a = cc_str_format__new( max_len__d, fmt, args );
 
     va_end( args );
 
-    if ( !msg__a ) return NULL;
+    if ( !str__a ) return NULL;
 
-    CcString * pm__w = cc_string_append_or_init( strings__io, msg__a );
+    CcString * pm__w = cc_string_append_or_init( strings__io, str__a, max_len__d );
 
-    CC_FREE( msg__a );
+    CC_FREE( str__a );
 
     return pm__w;
 }

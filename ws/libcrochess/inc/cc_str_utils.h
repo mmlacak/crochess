@@ -50,28 +50,33 @@ typedef struct CcString
     Returns a newly allocated string.
 
     @param str String.
+    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-CcString * cc_string__new( char const * restrict str );
+CcString * cc_string__new( char const * restrict str,
+                           size_t max_len__d );
 
 /**
     Appends a newly allocated string to a linked list.
 
     @param strings__io Linked list of strings, to which a newly allocated string is appended.
     @param str String.
+    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
 
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
 CcString * cc_string_append( CcString * restrict strings__io,
-                             char const * restrict str );
+                             char const * restrict str,
+                             size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list.
 
     @param strings__io Linked list of strings, to which a newly allocated string is appended, can be `NULL`.
     @param str String.
+    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
 
     @note
     Linked list `*strings__io` can be `NULL`, a string will still be allocated, and returned.
@@ -84,12 +89,14 @@ CcString * cc_string_append( CcString * restrict strings__io,
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
 CcString * cc_string_append_or_init( CcString ** restrict strings__io,
-                                     char const * restrict str );
+                                     char const * restrict str,
+                                     size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list.
 
     @param strings__io Linked list of strings, to which a newly allocated string is appended, can be `NULL`.
+    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param fmt Formatting string, as defined for `printf`.
     @param ... Variadic format arguments, as used for `printf`.
 
@@ -100,13 +107,11 @@ CcString * cc_string_append_or_init( CcString ** restrict strings__io,
     If linked list `*strings__io` is `NULL`, it will be initialized,
     with a newly allocated string as its first element.
 
-    @note
-    Maximum length of a formatted string output is limited at `BUFSIZ`, constant from `<stdio.h>`.
-
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
 CcString * cc_string_append_or_init_format( CcString ** restrict strings__io,
+                                            size_t max_len__d,
                                             char const * restrict fmt, ... );
 
 /**
