@@ -16,13 +16,14 @@
 
 
 CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
-                                char const * restrict msg )
+                                char const * restrict msg,
+                                size_t max_len__d )
 {
     CcParseMsg * pm__a = malloc( sizeof( CcParseMsg ) );
     if ( !pm__a ) return NULL;
 
     pm__a->type = type;
-    pm__a->msg = cc_str_duplicate__new( msg, false, BUFSIZ );
+    pm__a->msg = cc_str_duplicate__new( msg, false, max_len__d );
     pm__a->next = NULL;
 
     return pm__a;
@@ -30,11 +31,12 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
 
 CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
                                   CcParseMsgEnum type,
-                                  char const * restrict msg )
+                                  char const * restrict msg,
+                                  size_t max_len__d )
 {
     if ( !parse_msgs__io ) return NULL;
 
-    CcParseMsg * pm__t = cc_parse_msg__new( type, msg );
+    CcParseMsg * pm__t = cc_parse_msg__new( type, msg, max_len__d );
     if ( !pm__t ) return NULL;
 
     CcParseMsg * pm = parse_msgs__io;
@@ -46,11 +48,12 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
 
 CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
                                           CcParseMsgEnum type,
-                                          char const * restrict msg )
+                                          char const * restrict msg,
+                                          size_t max_len__d )
 {
     if ( !parse_msgs__io ) return NULL;
 
-    CcParseMsg * pm__t = cc_parse_msg_append( *parse_msgs__io, type, msg );
+    CcParseMsg * pm__t = cc_parse_msg_append( *parse_msgs__io, type, msg, max_len__d );
 
     if ( !*parse_msgs__io ) *parse_msgs__io = pm__t; // Ownersip transfer --> pm__t is now weak pointer.
 
@@ -59,19 +62,19 @@ CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
 
 CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_msgs__io,
                                                  CcParseMsgEnum type,
+                                                 size_t max_len__d,
                                                  char const * restrict fmt, ... )
 {
-
     va_list args;
     va_start( args, fmt );
 
-    char * msg__a = cc_str_format__new( BUFSIZ, fmt, args );
+    char * msg__a = cc_str_format__new( max_len__d, fmt, args );
 
     va_end( args );
 
     if ( !msg__a ) return NULL;
 
-    CcParseMsg * pm__w = cc_parse_msg_append_or_init( parse_msgs__io, type, msg__a );
+    CcParseMsg * pm__w = cc_parse_msg_append_or_init( parse_msgs__io, type, msg__a, max_len__d );
 
     CC_FREE( msg__a );
 

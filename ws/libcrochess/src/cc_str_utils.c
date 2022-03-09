@@ -37,9 +37,9 @@ CcString * cc_string_append( CcString * restrict strings__io,
     CcString * str__t = cc_string__new( str, max_len__d );
     if ( !str__t ) return NULL;
 
-    CcString * pm = strings__io;
-    while ( pm->next ) pm = pm->next; // rewind
-    pm->next = str__t; // append // Ownersip transfer --> str__t is now weak pointer.
+    CcString * s = strings__io;
+    while ( s->next ) s = s->next; // rewind
+    s->next = str__t; // append // Ownersip transfer --> str__t is now weak pointer.
 
     return str__t;
 }
@@ -83,15 +83,15 @@ bool cc_string_free_all( CcString ** restrict strings__f )
     if ( !strings__f ) return false;
     if ( !*strings__f ) return true;
 
-    CcString * pm = *strings__f;
+    CcString * str = *strings__f;
 
-    while ( pm )
+    while ( str )
     {
-        CC_FREE( pm->str );
+        CC_FREE( str->str );
 
-        CcString * tmp = pm->next;
-        CC_FREE( pm );
-        pm = tmp;
+        CcString * tmp = str->next;
+        CC_FREE( str );
+        str = tmp;
     }
 
     *strings__f = NULL;
