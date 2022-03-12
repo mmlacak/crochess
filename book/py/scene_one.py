@@ -115,7 +115,7 @@ class SceneOneMixin:
         scene.append_arrow( *(start_W_A + start_w), mark_type=MarkType.Action )
 
         scene.append_arrow( *(start_W_A + start_I_2), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_W_A + start_A), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W_A + start_A), mark_type=MarkType.Illegal )
 
         scene.append_arrow( *(start_W_A + start_n), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_W_A + start_g), mark_type=MarkType.Illegal )

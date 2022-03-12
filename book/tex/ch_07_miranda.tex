@@ -546,21 +546,25 @@ both in \hyperref[fig:scn_ma_01_pyramid_activation_init]{a direct activation}, o
 
 \clearpage % ..........................................................
 
-% \vspace*{-1.1\baselineskip}
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
 % \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activating_pyramid_cascade_pawn.png}
+\vspace*{-1.3\baselineskip}
 \caption{Activating Pyramid by cascading Pawn}
 \label{fig:scn_mv_35_activating_pyramid_cascade_pawn}
 % \centering
 \end{figure}
 
+\vspace*{-0.3\baselineskip}
 All pieces can activate Pyramid on their capture-fields, even if a Pawn in cascade used
 step-fields to continue (or start) said cascade (right example, above).
 
-So, in summary, if Pyramid can be activated depends solely if last active piece (preceeding
-that Pyramid in a cascade) travelled over its step- or capture-fields.
+So, if Pyramid can be activated depends solely if last active piece (preceeding that Pyramid
+in a cascade) travelled over its step- or capture-fields. This is so for all other activations,
+what Wave can activate is what last active piece preceeding it in a cascade could activate,
+plus opponent's Wave.
 
 % -------------------------------------------------- Activating Pyramid
 \clearpage % ..........................................................
