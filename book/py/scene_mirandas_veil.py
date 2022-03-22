@@ -1610,10 +1610,6 @@ class SceneMirandasVeilMixin:
 
         scene = Scene('scn_mv_35_activating_pyramid_cascade_pawn', bt)
 
-# \huge
-# TODO :: FIX ME !!!
-# \normalsize
-
         #
         # left side
 
@@ -1623,19 +1619,19 @@ class SceneMirandasVeilMixin:
         left_W_1 = (6, 1)
         scene.board.set_piece(*left_W_1, piece=PieceType.Wave)
 
-        left_P = (4, 1)
+        left_P = (2, 1)
         scene.board.set_piece(*left_P, piece=PieceType.Pawn)
 
-        left_W_2 = (3, 2)
+        left_W_2 = (1, 2)
         scene.board.set_piece(*left_W_2, piece=PieceType.Wave)
 
-        left_N = (3, 6)
+        left_N = (3, 4)
         scene.board.set_piece(*left_N, piece=PieceType.Knight)
 
-        left_W_3 = (1, 7)
+        left_W_3 = (1, 5)
         scene.board.set_piece(*left_W_3, piece=PieceType.Wave)
 
-        left_A = (3, 11)
+        left_A = (3, 9)
         scene.board.set_piece(*left_A, piece=PieceType.Pyramid)
 
         #
@@ -1653,6 +1649,8 @@ class SceneMirandasVeilMixin:
         coords = GS.gen_next( GS.gen_steps(start=left_W_1, rels=[(-1, 0), ], include_prev=True) )
 
         scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
 
         #
@@ -1663,10 +1661,8 @@ class SceneMirandasVeilMixin:
         #
         # W2 --> N
 
-        coords_2 = GS.gen_next( GS.gen_steps(start=left_W_2, rels=[(0, 1), ], include_prev=True) )
+        coords_2 = GS.gen_next( GS.gen_steps(start=left_W_2, rels=[(1, 1), ], include_prev=True) )
 
-        scene.append_arrow( *coords_2() )
-        scene.append_arrow( *coords_2() )
         scene.append_arrow( *coords_2() )
         scene.append_arrow( *coords_2(), mark_type=MarkType.Action )
 
