@@ -34,5 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_o_03_starchild_activating_own_piece_end', \
+                    'scn_mv_34_activating_pyramid_by_pawn', \
                 ]

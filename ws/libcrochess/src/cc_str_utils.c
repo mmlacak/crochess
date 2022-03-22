@@ -37,6 +37,8 @@ CcString * cc_string_append( CcString * restrict strings__io,
     CcString * str__t = cc_string__new( str, max_len__d );
     if ( !str__t ) return NULL;
 
+// TODO :: FIX ME !!!
+
     CcString * s = strings__io;
     while ( s->next ) s = s->next; // rewind
     s->next = str__t; // append // Ownersip transfer --> str__t is now weak pointer.
@@ -49,6 +51,8 @@ CcString * cc_string_append_or_init( CcString ** restrict strings__io,
                                      size_t max_len__d )
 {
     if ( !strings__io ) return NULL;
+
+// TODO :: FIX ME !!!
 
     CcString * str__t = cc_string_append( *strings__io, str, max_len__d );
 
@@ -64,6 +68,8 @@ CcString * cc_string_append_or_init_format( CcString ** restrict strings__io,
 
     va_list args;
     va_start( args, fmt );
+
+// TODO :: FIX ME !!!
 
     char * str__a = cc_str_format__new( max_len__d, fmt, args );
 

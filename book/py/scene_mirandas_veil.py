@@ -1495,10 +1495,10 @@ class SceneMirandasVeilMixin:
         #
         # left side
 
-        left_R = (4, 14)
+        left_R = (6, 14)
         scene.board.set_piece(*left_R, piece=PieceType.Rook)
 
-        left_W_1 = (4, 1)
+        left_W_1 = (6, 1)
         scene.board.set_piece(*left_W_1, piece=PieceType.Wave)
 
         left_P = (2, 1)
@@ -1507,7 +1507,7 @@ class SceneMirandasVeilMixin:
         left_W_2 = (1, 2)
         scene.board.set_piece(*left_W_2, piece=PieceType.Wave)
 
-        left_A = (1, 6)
+        left_A = (4, 5)
         scene.board.set_piece(*left_A, piece=PieceType.Pyramid)
 
         #
@@ -1525,6 +1525,8 @@ class SceneMirandasVeilMixin:
         coords = GS.gen_next( GS.gen_steps(start=left_W_1, rels=[(-1, 0), ], include_prev=True) )
 
         scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
 
         #
@@ -1535,9 +1537,9 @@ class SceneMirandasVeilMixin:
         #
         # W2 --> A
 
-        gen_2 = GS.gen_steps( [(0, 1), ], left_W_2, include_prev=True, count=4 )
+        gen_2 = GS.gen_steps( [(1, 1), ], left_W_2, include_prev=True, count=3 )
         for index, coords in enumerate( gen_2() ):
-            mark_type = MarkType.Action if index in [3, 10] else \
+            mark_type = MarkType.Action if index == 2 else \
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
@@ -1607,6 +1609,10 @@ class SceneMirandasVeilMixin:
     def scn_mv_35_activating_pyramid_cascade_pawn(self, bt=BoardType.MirandasVeil):
 
         scene = Scene('scn_mv_35_activating_pyramid_cascade_pawn', bt)
+
+# \huge
+# TODO :: FIX ME !!!
+# \normalsize
 
         #
         # left side
