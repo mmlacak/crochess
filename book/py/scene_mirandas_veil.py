@@ -161,6 +161,106 @@ class SceneMirandasVeilMixin:
         start_W_B = (7, 4)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
+        # B --> W(A)
+        coords_B_WA = GS.gen_next( GS.gen_steps(start=start_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Action )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_next( GS.gen_steps(start=start_W_A, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Action )
+
+        # W(B) --> N
+        coords_WB_N = GS.gen_steps(start=start_W_B, rels=[(-1, 1), ], include_prev=True, count=7)
+        for step in coords_WB_N():
+            scene.append_arrow( *step )
+
+        # labels
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_mv_05_wave_cascading_steps(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_05_wave_cascading_steps', bt)
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_A = (4, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (7, 4)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_N = (3, 8)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_W_C = (5, 9)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_W_D = (13, 5)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        # B --> W(A)
+        coords_B_WA = GS.gen_next( GS.gen_steps(start=start_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Action )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_next( GS.gen_steps(start=start_W_A, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Action )
+
+        # W(B) --> N
+        coords_WB_N = GS.gen_next( GS.gen_steps(start=start_W_B, rels=[(-1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N(), mark_type=MarkType.Action )
+
+        # N --> W(C)
+        scene.append_arrow( *(start_N + start_W_C), mark_type=MarkType.Action )
+
+        # W(C) --> W(D)
+        coords_WC_WD = GS.gen_next( GS.gen_steps(start=start_W_C, rels=[(2, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_WC_WD() )
+        scene.append_arrow( *coords_WC_WD() )
+        scene.append_arrow( *coords_WC_WD() )
+        scene.append_arrow( *coords_WC_WD(), mark_type=MarkType.Action )
+
+        # W(D) --> P
+        coords_WD_P = GS.gen_next( GS.gen_steps(start=start_W_D, rels=[(-1, -2), ], include_prev=True) )
+        scene.append_arrow( *coords_WD_P() )
+        scene.append_arrow( *coords_WD_P() )
+
+        # labels
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_W_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_mv_06_wave_cascading_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_06_wave_cascading_end', bt)
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_A = (4, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (7, 4)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
         start_N = (3, 8)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
@@ -229,9 +329,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_04_wave_no_momentum_no_activating(self, bt=BoardType.MirandasVeil):
+    def scn_mv_07_wave_no_momentum_no_activating(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_04_wave_no_momentum_no_activating', bt)
+        scene = Scene('scn_mv_07_wave_no_momentum_no_activating', bt)
 
         scene.board.set_piece( 8, 6, piece=PieceType.Bishop )
         scene.board.set_piece( 7, 5, piece=PieceType.Wave )
@@ -251,9 +351,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_05_wave_no_activating_blocked_piece(self, bt=BoardType.MirandasVeil):
+    def scn_mv_08_wave_no_activating_blocked_piece(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_05_wave_no_activating_blocked_piece', bt)
+        scene = Scene('scn_mv_08_wave_no_activating_blocked_piece', bt)
 
         scene.board.set_piece(6, 6, piece=PieceType.Knight)
         scene.board.set_piece(5, 4, piece=PieceType.Wave)
@@ -270,9 +370,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_06_wave_blocked_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_09_wave_blocked_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_06_wave_blocked_init', bt)
+        scene = Scene('scn_mv_09_wave_blocked_init', bt)
 
         scene.board.set_piece(9, 9, piece=-PieceType.Rook)
         scene.board.set_piece(9, 4, piece=-PieceType.Wave)
@@ -314,9 +414,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_07_wave_blocked_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_10_wave_blocked_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_07_wave_blocked_end', bt)
+        scene = Scene('scn_mv_10_wave_blocked_end', bt)
 
         scene.board.set_piece(9, 4, piece=-PieceType.Rook)
         scene.board.set_piece(11, 4, piece=-PieceType.Wave)
@@ -364,10 +464,10 @@ class SceneMirandasVeilMixin:
     #
     # cascading
 
-    def scn_mv_08_cascading_rook(self, bt=BoardType.MirandasVeil):
+    def scn_mv_11_cascading_rook(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_rook
 
-        scene = Scene('scn_mv_08_cascading_rook', bt, width=9, height=9)
+        scene = Scene('scn_mv_11_cascading_rook', bt, width=9, height=9)
 
         start = (5, 7)
         scene.board.set_piece(*start, piece=PieceType.Rook)
@@ -387,10 +487,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_09_cascading_wave_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_12_cascading_wave_1(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_wave_1
 
-        scene = Scene('scn_mv_09_cascading_wave_1', bt, width=9, height=9)
+        scene = Scene('scn_mv_12_cascading_wave_1', bt, width=9, height=9)
 
         start = (5, 3)
         scene.board.set_piece(*start, piece=PieceType.Rook)
@@ -433,10 +533,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_10_cascading_wave_2(self, bt=BoardType.MirandasVeil):
+    def scn_mv_13_cascading_wave_2(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_wave_2
 
-        scene = Scene('scn_mv_10_cascading_wave_2', bt, width=9, height=9)
+        scene = Scene('scn_mv_13_cascading_wave_2', bt, width=9, height=9)
 
         start = (3, 3)
         scene.board.set_piece(5, 3, piece=PieceType.Rook)
@@ -479,10 +579,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_11_cascading_rook_2nd_time(self, bt=BoardType.MirandasVeil):
+    def scn_mv_14_cascading_rook_2nd_time(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_rook_b
 
-        scene = Scene('scn_mv_11_cascading_rook_2nd_time', bt, width=9, height=9)
+        scene = Scene('scn_mv_14_cascading_rook_2nd_time', bt, width=9, height=9)
 
         start = (5, 3)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -522,10 +622,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_12_cascading_wave_1_2nd_time(self, bt=BoardType.MirandasVeil):
+    def scn_mv_15_cascading_wave_1_2nd_time(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_wave_1_b
 
-        scene = Scene('scn_mv_12_cascading_wave_1_2nd_time', bt, width=9, height=9)
+        scene = Scene('scn_mv_15_cascading_wave_1_2nd_time', bt, width=9, height=9)
 
         start = (3, 3)
         scene.board.set_piece(3, 5, piece=PieceType.Queen)
@@ -568,10 +668,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_13_cascading_queen(self, bt=BoardType.MirandasVeil):
+    def scn_mv_16_cascading_queen(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_queen
 
-        scene = Scene('scn_mv_13_cascading_queen', bt, width=9, height=9)
+        scene = Scene('scn_mv_16_cascading_queen', bt, width=9, height=9)
 
         start = (3, 5)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -623,10 +723,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_14_cascading_wave_2_2nd_time(self, bt=BoardType.MirandasVeil):
+    def scn_mv_17_cascading_wave_2_2nd_time(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_wave_2_b
 
-        scene = Scene('scn_mv_14_cascading_wave_2_2nd_time', bt, width=9, height=9)
+        scene = Scene('scn_mv_17_cascading_wave_2_2nd_time', bt, width=9, height=9)
 
         start = (5, 3)
         scene.board.set_piece(3, 5, piece=PieceType.Wave)
@@ -699,10 +799,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_15_cascading_wave_1_3rd_time(self, bt=BoardType.MirandasVeil):
+    def scn_mv_18_cascading_wave_1_3rd_time(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_wave_1_c
 
-        scene = Scene('scn_mv_15_cascading_wave_1_3rd_time', bt, width=9, height=9)
+        scene = Scene('scn_mv_18_cascading_wave_1_3rd_time', bt, width=9, height=9)
 
         start = (3, 5)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -775,10 +875,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_16_cascading_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_19_cascading_end(self, bt=BoardType.MirandasVeil):
         # move_wave_cascading_end
 
-        scene = Scene('scn_mv_16_cascading_end', bt, width=9, height=9)
+        scene = Scene('scn_mv_19_cascading_end', bt, width=9, height=9)
 
         scene.board.set_piece(3, 5, piece=PieceType.Wave)
         scene.board.set_piece(3, 3, piece=PieceType.Rook)
@@ -793,10 +893,10 @@ class SceneMirandasVeilMixin:
     #
     # cascading opponent
 
-    def scn_mv_17_casc_oppo_light_queen(self, bt=BoardType.MirandasVeil):
+    def scn_mv_20_casc_oppo_light_queen(self, bt=BoardType.MirandasVeil):
         # move_wave_opponent_light_queen
 
-        scene = Scene('scn_mv_17_casc_oppo_light_queen', bt, width=9, height=9)
+        scene = Scene('scn_mv_20_casc_oppo_light_queen', bt, width=9, height=9)
 
         start = (5, 6)
         scene.board.set_piece(*start, piece=PieceType.Queen)
@@ -812,10 +912,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_18_casc_oppo_light_wave(self, bt=BoardType.MirandasVeil):
+    def scn_mv_21_casc_oppo_light_wave(self, bt=BoardType.MirandasVeil):
         # move_wave_opponent_light_wave
 
-        scene = Scene('scn_mv_18_casc_oppo_light_wave', bt, width=9, height=9)
+        scene = Scene('scn_mv_21_casc_oppo_light_wave', bt, width=9, height=9)
 
         start = (5, 3)
         scene.board.set_piece(3, 5, piece=-PieceType.Queen)
@@ -886,10 +986,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_19_casc_oppo_dark_wave(self, bt=BoardType.MirandasVeil):
+    def scn_mv_22_casc_oppo_dark_wave(self, bt=BoardType.MirandasVeil):
         # move_wave_opponent_dark_wave
 
-        scene = Scene('scn_mv_19_casc_oppo_dark_wave', bt, width=9, height=9)
+        scene = Scene('scn_mv_22_casc_oppo_dark_wave', bt, width=9, height=9)
 
         start = (3, 3)
         scene.board.set_piece(3, 5, piece=-PieceType.Queen)
@@ -960,10 +1060,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_20_casc_oppo_dark_queen(self, bt=BoardType.MirandasVeil):
+    def scn_mv_23_casc_oppo_dark_queen(self, bt=BoardType.MirandasVeil):
         # move_wave_opponent_dark_queen
 
-        scene = Scene('scn_mv_20_casc_oppo_dark_queen', bt, width=9, height=9)
+        scene = Scene('scn_mv_23_casc_oppo_dark_queen', bt, width=9, height=9)
 
         start = (3, 5)
         scene.board.set_piece(*start, piece=-PieceType.Wave)
@@ -1020,10 +1120,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_21_casc_oppo_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_24_casc_oppo_end(self, bt=BoardType.MirandasVeil):
         # move_wave_opponent_end
 
-        scene = Scene('scn_mv_21_casc_oppo_end', bt, width=9, height=9)
+        scene = Scene('scn_mv_24_casc_oppo_end', bt, width=9, height=9)
 
         start = (3, 5)
         scene.board.set_piece(3, 5, piece=-PieceType.Wave)
@@ -1035,10 +1135,10 @@ class SceneMirandasVeilMixin:
     #
     # activating pawn, with rushing ability
 
-    def scn_mv_22_activating_rush_pawn_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_25_activating_rush_pawn_init(self, bt=BoardType.MirandasVeil):
         # move_wave_activating_pawn_init
 
-        scene = Scene('scn_mv_22_activating_rush_pawn_init', bt) # , width=5, height=8)
+        scene = Scene('scn_mv_25_activating_rush_pawn_init', bt) # , width=5, height=8)
 
         #
         # 1 - momentum smaller than rush
@@ -1103,10 +1203,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_23_activating_rush_pawn_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_26_activating_rush_pawn_end(self, bt=BoardType.MirandasVeil):
         # move_wave_activating_pawn_end
 
-        scene = Scene('scn_mv_23_activating_rush_pawn_end', bt)
+        scene = Scene('scn_mv_26_activating_rush_pawn_end', bt)
 
         #
         # 1 - momentum smaller than rush
@@ -1176,10 +1276,10 @@ class SceneMirandasVeilMixin:
     #
     # activating by pawn
 
-    def scn_mv_24_wave_activation_by_step_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_27_wave_activation_by_step_pawn(self, bt=BoardType.MirandasVeil):
         # move_wave_activation_by_pawn
 
-        scene = Scene('scn_mv_24_wave_activation_by_step_pawn', bt)
+        scene = Scene('scn_mv_27_wave_activation_by_step_pawn', bt)
 
         #
         # step-fields 1, Pawn 1
@@ -1221,9 +1321,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_25_wave_activated_by_step_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_28_wave_activated_by_step_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_25_wave_activated_by_step_pawn', bt)
+        scene = Scene('scn_mv_28_wave_activated_by_step_pawn', bt)
 
         #
         # step-fields 1, Pawn 1
@@ -1284,10 +1384,10 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_26_wave_activation_by_capture_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_29_wave_activation_by_capture_pawn(self, bt=BoardType.MirandasVeil):
         # move_wave_activation_by_pawn
 
-        scene = Scene('scn_mv_26_wave_activation_by_capture_pawn', bt)
+        scene = Scene('scn_mv_29_wave_activation_by_capture_pawn', bt)
 
         #
         # capture-fields
@@ -1311,9 +1411,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_27_wave_activated_by_capture_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_30_wave_activated_by_capture_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_27_wave_activated_by_capture_pawn', bt)
+        scene = Scene('scn_mv_30_wave_activated_by_capture_pawn', bt)
 
         #
         # capture-fields
@@ -1359,9 +1459,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_28_wave_same_color(self, bt=BoardType.MirandasVeil):
+    def scn_mv_31_wave_same_color(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_28_wave_same_color', bt, y=1, width=7, height=7)
+        scene = Scene('scn_mv_31_wave_same_color', bt, y=1, width=7, height=7)
 
         start = (3, 4)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -1374,9 +1474,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_29_wave_opposite_color(self, bt=BoardType.MirandasVeil):
+    def scn_mv_32_wave_opposite_color(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_29_wave_opposite_color', bt, width=11, height=11)
+        scene = Scene('scn_mv_32_wave_opposite_color', bt, width=11, height=11)
 
         start = (5, 5)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -1400,9 +1500,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_30_wave_activation_by_unicorn_first_step(self, bt=BoardType.MirandasVeil):
+    def scn_mv_33_wave_activation_by_unicorn_first_step(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_30_wave_activation_by_unicorn_first_step', bt)
+        scene = Scene('scn_mv_33_wave_activation_by_unicorn_first_step', bt)
 
         start = (6, 3)
         start_U = (2, 4)
@@ -1430,9 +1530,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_31_wave_activation_by_unicorn_second_step(self, bt=BoardType.MirandasVeil):
+    def scn_mv_34_wave_activation_by_unicorn_second_step(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_31_wave_activation_by_unicorn_second_step', bt)
+        scene = Scene('scn_mv_34_wave_activation_by_unicorn_second_step', bt)
 
         start = (6, 3)
         start_W = (5, 5)
@@ -1462,9 +1562,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_32_wave_activation_by_unicorn_complete(self, bt=BoardType.MirandasVeil):
+    def scn_mv_35_wave_activation_by_unicorn_complete(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_32_wave_activation_by_unicorn_complete', bt)
+        scene = Scene('scn_mv_35_wave_activation_by_unicorn_complete', bt)
 
         start = (6, 3)
         start_U = (2, 4)
@@ -1526,9 +1626,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_33_wave_off_board(self, bt=BoardType.MirandasVeil):
+    def scn_mv_36_wave_off_board(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_33_wave_off_board', bt, x=4, y=1, reverse_off_board_field_colors=False)
+        scene = Scene('scn_mv_36_wave_off_board', bt, x=4, y=1, reverse_off_board_field_colors=False)
 
         rect = (0.05, 1.0, 0.6, 0.45)
 
@@ -1569,9 +1669,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_34_activating_pyramid_by_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_37_activating_pyramid_by_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_34_activating_pyramid_by_pawn', bt)
+        scene = Scene('scn_mv_37_activating_pyramid_by_pawn', bt)
 
         #
         # left side
@@ -1687,9 +1787,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_35_activating_pyramid_cascade_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_38_activating_pyramid_cascade_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_35_activating_pyramid_cascade_pawn', bt)
+        scene = Scene('scn_mv_38_activating_pyramid_cascade_pawn', bt)
 
         #
         # left side
@@ -1847,9 +1947,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_36_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_39_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_36_activated_piece_check_init', bt, height=9.7)
+        scene = Scene('scn_mv_39_activated_piece_check_init', bt, height=9.7)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_k = (3, 6)
@@ -1935,9 +2035,9 @@ class SceneMirandasVeilMixin:
         return scene
 
 
-    def scn_mv_37_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
+    def scn_mv_40_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_37_activated_piece_check_cascade', bt, height=9.7)
+        scene = Scene('scn_mv_40_activated_piece_check_cascade', bt, height=9.7)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_k = (3, 6)
