@@ -148,6 +148,87 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    def scn_mv_04_wave_cascading_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_04_wave_cascading_init', bt)
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_A = (4, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (7, 4)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_N = (3, 8)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_W_C = (5, 9)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_W_D = (13, 5)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        start_P = (11, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        # B --> W(A)
+        coords_B_WA = GS.gen_next( GS.gen_steps(start=start_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Action )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_next( GS.gen_steps(start=start_W_A, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Action )
+
+        # W(B) --> N
+        coords_WB_N = GS.gen_next( GS.gen_steps(start=start_W_B, rels=[(-1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N(), mark_type=MarkType.Action )
+
+        # N --> W(C)
+        scene.append_arrow( *(start_N + start_W_C), mark_type=MarkType.Action )
+
+        # W(C) --> W(D)
+        coords_WC_WD = GS.gen_next( GS.gen_steps(start=start_W_C, rels=[(2, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_WC_WD() )
+        scene.append_arrow( *coords_WC_WD() )
+        scene.append_arrow( *coords_WC_WD() )
+        scene.append_arrow( *coords_WC_WD(), mark_type=MarkType.Action )
+
+        # W(D) --> P
+        coords_WD_P = GS.gen_next( GS.gen_steps(start=start_W_D, rels=[(-1, -2), ], include_prev=True) )
+        scene.append_arrow( *coords_WD_P() )
+        scene.append_arrow( *coords_WD_P(), mark_type=MarkType.Action )
+
+        # P -->
+        coords_P = GS.gen_next( GS.gen_steps(start=start_P, rels=[(0, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_P() )
+        scene.append_arrow( *coords_P() )
+        scene.append_arrow( *coords_P(), mark_type=MarkType.Blocked )
+
+        # labels
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_W_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        # momentum received
+        scene.append_text( "3", *start_W_A, corner=Corner.LowerLeft, mark_type=MarkType.Action )
+        scene.append_text( "3", *start_W_B, corner=Corner.LowerLeftFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "3", *start_N, corner=Corner.LowerLeft, mark_type=MarkType.Action )
+        scene.append_text( "2", *start_W_C, corner=Corner.LowerLeftFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "2", *start_W_D, corner=Corner.LowerLeft, mark_type=MarkType.Action )
+        scene.append_text( "2", *start_P, corner=Corner.LowerLeft, mark_type=MarkType.Action )
+
+        return scene
+
     def scn_mv_04_wave_no_momentum_no_activating(self, bt=BoardType.MirandasVeil):
 
         scene = Scene('scn_mv_04_wave_no_momentum_no_activating', bt)
@@ -1774,19 +1855,19 @@ class SceneMirandasVeilMixin:
         start_k = (3, 6)
         scene.board.set_piece(*start_k, piece=-PieceType.King)
 
-        start_W_1 = GS.add_tpl( start_k, 4, 2 )
-        scene.board.set_piece(*start_W_1, piece=PieceType.Wave)
+        start_W_A = GS.add_tpl( start_k, 4, 2 )
+        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
 
         start_R_1 = GS.add_tpl( start_k, 2, 2 )
         scene.board.set_piece(*start_R_1, piece=PieceType.Rook)
 
-        start_W_2 = GS.add_tpl( start_k, 0, 2 )
-        scene.board.set_piece(*start_W_2, piece=PieceType.Wave)
+        start_W_C = GS.add_tpl( start_k, 0, 2 )
+        scene.board.set_piece(*start_W_C, piece=PieceType.Wave)
 
         start_R_2 = GS.add_tpl( start_k, -2, 2 )
         scene.board.set_piece(*start_R_2, piece=PieceType.Rook)
 
-        start_Q = GS.add_tpl( start_W_1, 5, -5 )
+        start_Q = GS.add_tpl( start_W_A, 5, -5 )
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
 
         #
@@ -1801,7 +1882,7 @@ class SceneMirandasVeilMixin:
         #
         # W 1 --> R 1
 
-        coords = GS.gen_steps(start=start_W_1, rels=[(-1, 0), ], include_prev=True, count=2)
+        coords = GS.gen_steps(start=start_W_A, rels=[(-1, 0), ], include_prev=True, count=2)
         for i, pos in enumerate( coords() ):
             mark_type = MarkType.Action if i >= 1 else \
                         MarkType.Legal
@@ -1819,7 +1900,7 @@ class SceneMirandasVeilMixin:
         #
         # W 2 --> R 2
 
-        coords = GS.gen_steps(start=start_W_2, rels=[(-1, 0), ], include_prev=True, count=2)
+        coords = GS.gen_steps(start=start_W_C, rels=[(-1, 0), ], include_prev=True, count=2)
         for i, pos in enumerate( coords() ):
             mark_type = MarkType.Action if i >= 1 else \
                         MarkType.Legal
@@ -1835,9 +1916,9 @@ class SceneMirandasVeilMixin:
         #
         # labels
 
-        scene.append_text("A", *start_W_1, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("A", *start_W_A, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
         scene.append_text("B", *start_R_1, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
-        scene.append_text("C", *start_W_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("C", *start_W_C, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
         scene.append_text("D", *start_R_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         scene.append_text("R", *GS.add_tpl(start_R_2, 0, -2), corner=Corner.UpperRight, mark_type=MarkType.Action)
@@ -1865,14 +1946,14 @@ class SceneMirandasVeilMixin:
         start_Q = GS.add_tpl( start_k, 4, 2 )
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
 
-        start_W_1 = GS.add_tpl( start_k, 2, 2 )
-        scene.board.set_piece(*start_W_1, piece=PieceType.Wave)
+        start_W_A = GS.add_tpl( start_k, 2, 2 )
+        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
 
         start_R_1 = GS.add_tpl( start_k, 0, 2 )
         scene.board.set_piece(*start_R_1, piece=PieceType.Rook)
 
-        start_W_2 = GS.add_tpl( start_k, -2, 2 )
-        scene.board.set_piece(*start_W_2, piece=PieceType.Wave)
+        start_W_C = GS.add_tpl( start_k, -2, 2 )
+        scene.board.set_piece(*start_W_C, piece=PieceType.Wave)
 
         start_R_2 = GS.add_tpl( start_k, -2, 0 )
         scene.board.set_piece(*start_R_2, piece=PieceType.Rook)
@@ -1887,7 +1968,7 @@ class SceneMirandasVeilMixin:
         #
         # Q -- > W 1
 
-        coords = GS.gen_steps(end=start_W_1, rels=[(-1, 0), ], include_prev=True, count=2)
+        coords = GS.gen_steps(end=start_W_A, rels=[(-1, 0), ], include_prev=True, count=2)
         for i, pos in enumerate( coords() ):
             scene.append_arrow( *pos, mark_type=MarkType.Blocked )
 
@@ -1901,7 +1982,7 @@ class SceneMirandasVeilMixin:
         #
         # R 1 --> W 2
 
-        coords = GS.gen_steps(end=start_W_2, rels=[(-1, 0), ], include_prev=True, count=2)
+        coords = GS.gen_steps(end=start_W_C, rels=[(-1, 0), ], include_prev=True, count=2)
         for i, pos in enumerate( coords() ):
             scene.append_arrow( *pos, mark_type=MarkType.Blocked )
 
@@ -1924,9 +2005,9 @@ class SceneMirandasVeilMixin:
         #
         # labels
 
-        scene.append_text("A", *start_W_1, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("A", *start_W_A, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
         scene.append_text("B", *start_R_1, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
-        scene.append_text("C", *start_W_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("C", *start_W_C, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
         scene.append_text("D", *start_R_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         scene.append_text("R", *start_R_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)

@@ -331,6 +331,12 @@ def sub(step, rel):
         return None
     return ( step[0] - rel[0], step[1] - rel[1] )
 
+def get_start(tpl_4):
+    return (tpl_4[0], tpl_4[1])
+
+def get_end(tpl_4):
+    return (tpl_4[2], tpl_4[3])
+
 def adder(step, include_prev=False):
     _current = step
     _next = step
