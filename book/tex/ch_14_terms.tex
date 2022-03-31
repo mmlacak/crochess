@@ -12,14 +12,15 @@ This chapter defines some terms as used in this book.
 \section*{Turn}
 \addcontentsline{toc}{section}{Turn}
 \label{sec:Terms/Turn}
-Turn denotes player who hasn't finished his (or her) move, i.e. the one who "has the move",
-the one who "is on the move",
+Turn denotes player who hasn't finished his (or her) move, i.e. the one who
+"has the move", the one who "is on the move",
 \hyperref[tbl:Appendix/Introduction/Abbreviations]{see \algfmt{FIDE 1.3}}.
 
 \section*{Move}
 \addcontentsline{toc}{section}{Move}
 \label{sec:Terms/Move}
-Move is completed movement of all pieces, performed sequentialy, by one player, in one turn.
+Move is completed movement of all pieces, performed sequentialy, by one player,
+in one turn.
 
 \section*{Cycle}
 \addcontentsline{toc}{section}{Cycle}
@@ -29,7 +30,8 @@ Cycle consists of light player's move, followed by dark player's move.
 \section*{Game score}
 \addcontentsline{toc}{section}{Game score}
 \label{sec:Terms/Game score}
-Game score is a numbered list of cycles, in order in which they were played during a game.
+Game score is a numbered list of cycles, in order in which they were played during
+a game.
 
 \section*{Momentum}
 \addcontentsline{toc}{section}{Momentum}
@@ -44,13 +46,21 @@ Cascade is a move where at least 2 pieces have moved.
 \section*{Ply}
 \addcontentsline{toc}{section}{Ply}
 \label{sec:Terms/Ply}
-Ply is completed movement of a piece, from its starting position to its destination field.
+Ply is completed movement of a piece, from its starting position to its destination
+field.
+
+\section*{Oblation}
+\addcontentsline{toc}{section}{Oblation}
+\label{sec:Terms/Oblation}
+Oblation is removal of a piece from chessboard by rules or circumstances,
+without being captured by opponent.
 
 \section*{Activation}
 \addcontentsline{toc}{section}{Activation}
 \label{sec:Terms/Activation}
-Activation is a ply in which a piece captures field previously occupied by another piece,
-and transfer all of its momentum to activated piece.
+Activation is a piece capturing field previously occupied by some other piece, without
+capturing that piece itself. Activating piece transfers all of its momentum to activated
+piece. Activated piece then has to move to some other field, or it's oblationed.
 
 \section*{Push-pull activation}
 \addcontentsline{toc}{section}{Push-pull activation}
@@ -60,34 +70,7 @@ Activation of a piece which in the same move started a cascade.
 \section*{Step-fields}
 \addcontentsline{toc}{section}{Step-fields}
 \label{sec:Terms/Step-fields}
-Step-fields are all fields where a piece can end it's movement.
-
-\section*{Step}
-\addcontentsline{toc}{section}{Step}
-\label{sec:Terms/Step}
-Step is a movement of a piece from one step-field to next.
-
-\section*{Rush}
-\addcontentsline{toc}{section}{Rush}
-\label{sec:Terms/Rush}
-Rush is Pawn's longer initial movement, i.e. from its starting position, for at least 2 fields forward.
-Rushing Pawn presents opponent with en passant opportunity.
-
-\section*{Tag}
-\addcontentsline{toc}{section}{Tag}
-\label{sec:Terms/Tag}
-Tag is a delayed opportunity link between a piece and a field at which it stands.
-Only one tag at any given time can be applied to a piece.
-
-Piece can be tagged for castling, promotion or rushing; doing any of these things consumes tag, and cannot be repeated again.
-For instance, Pawn can be rushed for less than maximum allowed in a variant; regardless, rushed Pawn cannot be rushed again.
-
-Tag, and opportunity it represents, is definitely lost when tagged piece is moved, captured, converted, activated or displaced.
-
-Initially, all Pawns are tagged for rushing, and all Rooks and Kings are tagged for castling.
-Later in game, Pawns can be tagged for promotion.
-
-As a special case, Serpent can be tagged for Pawn-sacrifice; this tag is not delayed, so it has to be used in the same move in which it has been obtained.
+Step-fields are all fields where a piece can end its movement.
 
 \section*{Capture-fields}
 \addcontentsline{toc}{section}{Capture-fields}
@@ -95,11 +78,47 @@ As a special case, Serpent can be tagged for Pawn-sacrifice; this tag is not del
 Capture-fields are all fields where a piece can capture opponent's piece.
 Usually, these are the same as step-fields, except for Pawn and Shaman.
 
+Some pieces cannot capture opponent's pieces, so they have only step-fields
+but no capture-fields; these are Wave, Star, Monolith, and Starchild.
+Wave and Star inherit their step-fields from activating piece.
+
+\section*{Step}
+\addcontentsline{toc}{section}{Step}
+\label{sec:Terms/Step}
+Step is a movement of a piece from one step- or capture-field to next
+(of the same kind).
+
+\section*{Rush}
+\addcontentsline{toc}{section}{Rush}
+\label{sec:Terms/Rush}
+Rush is Pawn's longer initial movement, i.e. from its starting position, for at
+least 2 fields forward. Rushing Pawn presents opponent with en passant opportunity.
+
+\section*{Tag}
+\addcontentsline{toc}{section}{Tag}
+\label{sec:Terms/Tag}
+Tag is a delayed opportunity link between a piece and a field at which it stands.
+Only one tag at any given time can be applied to a piece.
+
+Piece can be tagged for castling, promotion or rushing; doing any of these things
+consumes tag, and cannot be repeated again. For instance, Pawn can be rushed for
+less than maximum allowed in a variant; regardless, rushed Pawn cannot be rushed
+again.
+
+Tag, and opportunity it represents, is definitely lost when tagged piece is moved,
+captured, converted, activated or displaced.
+
+Initially, all Pawns are tagged for rushing, and all Rooks and Kings are tagged
+for castling. Later in game, Pawns can be tagged for promotion.
+
+As a special case, Serpent can be tagged for Pawn-sacrifice; this tag is not
+delayed, so it has to be used in the same move in which it has been obtained.
+
 \section*{Neighboring-fields}
 \addcontentsline{toc}{section}{Neighboring-fields}
 \label{sec:Terms/Neighboring-fields}
-Neighboring-fields are all fields immediately surrounding a particular field horizontally,
-vertically and diagonally.
+Neighboring-fields are all fields immediately surrounding a particular field
+horizontally, vertically and diagonally.
 
 % \section*{Royal-fields}
 % \addcontentsline{toc}{section}{Royal-fields}
@@ -110,10 +129,11 @@ vertically and diagonally.
 \section*{Portal-fields}
 \addcontentsline{toc}{section}{Portal-fields}
 \label{sec:Terms/Portal-fields}
-Portal-fields are all fields immediately surrounding a particular field horizontally,
-vertically and diagonally.
+Portal-fields are all fields immediately surrounding a particular field
+horizontally, vertically and diagonally.
 
-These are used in teleportation context, i.e. in a cascade involving a Star or Monolith.
+These are used in teleportation context, i.e. in a cascade involving a Star or
+Monolith.
 
 \section*{Displacement-fields}
 \addcontentsline{toc}{section}{Displacement-fields}
@@ -121,13 +141,8 @@ These are used in teleportation context, i.e. in a cascade involving a Star or M
 Displacement-fields are all fields where a piece can be moved to directly.
 Displacement is not affected by how piece normally moves.
 
-These are used in trance-journey context, i.e. in a cascade involving entranced light Shaman.
-
-\section*{Oblation}
-\addcontentsline{toc}{section}{Oblation}
-\label{sec:Terms/Oblation}
-Oblation is removal of a piece from chessboard by rules or circumstances,
-without being captured by opponent.
+These are used in trance-journey context, i.e. in a cascade involving entranced
+light Shaman.
 
 \section*{Chip}
 \addcontentsline{toc}{section}{Chip}
@@ -146,7 +161,7 @@ any item except chips.
 \addcontentsline{toc}{section}{Passive piece}
 \label{sec:Terms/Passive piece}
 Passive piece is any which needs to be activated, before it can move.
-These are Pyramid and Wave.
+These are Pyramid, Wave, and Star.
 
 \section*{Figure}
 \addcontentsline{toc}{section}{Figure}
