@@ -34,7 +34,8 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_04_wave_cascading_init', \
-                    'scn_mv_05_wave_cascading_steps', \
-                    'scn_mv_06_wave_cascading_end', \
+                    # 'scn_mv_04_wave_cascading_init', \
+                    # 'scn_mv_05_wave_cascading_steps', \
+                    # 'scn_mv_06_wave_cascading_end', \
+                    'scn_mv_07_wave_cascading_opponent', \
                 ]
