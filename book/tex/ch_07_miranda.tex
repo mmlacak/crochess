@@ -63,55 +63,68 @@ In algebraic notation symbol for Wave is 'W'.
 \subsection*{Activation}
 \addcontentsline{toc}{subsection}{Activation}
 
-\vspace*{-2.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_01_move_wave_init.png}
-\caption{Wave activation}
-\label{fig:scn_mv_01_move_wave_init}
-% \centering
-\end{figure}
+% \vspace*{-2.0ex}
+% \noindent
+% % \begin{figure}[t]
+% \begin{figure}[h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_01_move_wave_init.png}
+% \caption{Wave activation}
+% \label{fig:scn_mv_01_move_wave_init}
+% % \centering
+% \end{figure}
 
-Above, after activation Wave could move the same way Knight does, over multiple
-step-fields. So, in this case Wave would move as Pegasus does. Once Wave starts
-moving in a chosen direction, it cannot be changed. Wave does not spend received
-momentum while moving, and would transfer it entirely to any piece it activates.
+% Above, after activation Wave could move the same way Knight does, over multiple
+% step-fields. So, in this case Wave would move as Pegasus does. Once Wave starts
+% moving in a chosen direction, it cannot be changed. Wave does not spend received
+% momentum while moving, and would transfer it entirely to any piece it activates.
+
+% \clearpage % ..........................................................
+
+% \noindent
+% % \begin{figure}[t]
+% \begin{figure}[h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_02_move_wave_activated.png}
+% \caption{Wave activated}
+% \label{fig:scn_mv_02_move_wave_activated}
+% % \centering
+% \end{figure}
+
+% Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
+% can also activate pieces (blue arrows) obscured by other pieces, for instance
+% light Pyramid which is blocked for regular Pegasus. Wave cannot activate Kings
+% nor opponent's pieces (red arrows), except dark Wave. \\
+% Again, Wave cannot change direction of movement after first step. For instance,
+% upon reaching step-field 5, it cannot change direction to 5c, or any other
+% greyed-out direction.
+
+% \clearpage % ..........................................................
+
+% \noindent
+% % \begin{figure}[t]
+% \begin{figure}[h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_03_move_wave_finished.png}
+% \caption{Wave finished}
+% \label{fig:scn_mv_03_move_wave_finished}
+% % \centering
+% \end{figure}
+
+% Greyed-out arrows show steps light Wave have taken in its ply. Activated Bishop
+% now continues the move according to own rules of movement, i.e. diagonally. Note
+% that it's restricted by momentum received, and thus can make only one step, i.e.
+% can move for only one field.
 
 \clearpage % ..........................................................
 
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_02_move_wave_activated.png}
-\caption{Wave activated}
-\label{fig:scn_mv_02_move_wave_activated}
-% \centering
-\end{figure}
+\subsubsection*{Obstructions, limits}
+\addcontentsline{toc}{subsubsection}{Obstructions, limits}
 
-Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
-can also activate pieces (blue arrows) obscured by other pieces, for instance
-light Pyramid which is blocked for regular Pegasus. Wave cannot activate Kings
-nor opponent's pieces (red arrows), except dark Wave. \\
-Again, Wave cannot change direction of movement after first step. For instance,
-upon reaching step-field 5, it cannot change direction to 5c, or any other
-greyed-out direction.
+\huge
+TODO
+\normalsize
 
-\clearpage % ..........................................................
+\textgreater \textgreater \textgreater
 
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_03_move_wave_finished.png}
-\caption{Wave finished}
-\label{fig:scn_mv_03_move_wave_finished}
-% \centering
-\end{figure}
-
-Greyed-out arrows show steps light Wave have taken in its ply. Activated Bishop
-now continues the move according to own rules of movement, i.e. diagonally. Note
-that it's restricted by momentum received, and thus can make only one step, i.e.
-can move for only one field.
+Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave 1.
 
 \clearpage % ..........................................................
 
@@ -172,14 +185,6 @@ received momentum for movement, but all the other pieces do.
 
 Here, numbers in lower, left corner are received momentum. Bishop gathered 3 momentum,
 1 has been spent by Knight, and so activated Pawn can be rushed for only 2 fields.
-
-\clearpage % ..........................................................
-
-\huge
-TODO
-\normalsize
-
-\textgreater \textgreater \textgreater Naturaly, Rook is obstructed by surrounding pieces, i.e. it can’t move past Wave 1.
 
 \clearpage % ..........................................................
 
@@ -286,137 +291,137 @@ Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 \subsection*{Cascading Waves}
 \addcontentsline{toc}{subsection}{Cascading Waves}
 
-\noindent
-\begin{wrapfigure}[13]{l}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_12_cascading_rook.png}
-\caption{Rook starting cascade}
-\label{fig:scn_mv_12_cascading_rook}
-\end{wrapfigure}
-Cascading Waves refers to a move in which two or more Waves have been displaced.
-For example, Wave can activate another Wave. Wave can also activate active
-piece (or Pyramid), which can then activate another Wave.
+% \noindent
+% \begin{wrapfigure}[13]{l}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_12_cascading_rook.png}
+% \caption{Rook starting cascade}
+% \label{fig:scn_mv_12_cascading_rook}
+% \end{wrapfigure}
+% Cascading Waves refers to a move in which two or more Waves have been displaced.
+% For example, Wave can activate another Wave. Wave can also activate active
+% piece (or Pyramid), which can then activate another Wave.
 
-On the left, Rook is about to activate Wave 1, giving it momentum of 4.
+% On the left, Rook is about to activate Wave 1, giving it momentum of 4.
 
-\vspace*{0.05\textheight}
-\noindent
-\begin{wrapfigure}[12]{r}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_13_cascading_wave_1.png}
-\caption{Wave 1 cascading}
-\label{fig:scn_mv_13_cascading_wave_1}
-\end{wrapfigure}
-Activated Wave 1 inherits rules of movement from activating piece, and so now
-moves as Rook would. It's not obstructed with any piece in its way, nor it's
-limited by received momentum, i.e. it can move further than just 4 fields away.
-Wave 1 can also activate Wave 2.
+% \vspace*{0.05\textheight}
+% \noindent
+% \begin{wrapfigure}[12]{r}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_13_cascading_wave_1.png}
+% \caption{Wave 1 cascading}
+% \label{fig:scn_mv_13_cascading_wave_1}
+% \end{wrapfigure}
+% Activated Wave 1 inherits rules of movement from activating piece, and so now
+% moves as Rook would. It's not obstructed with any piece in its way, nor it's
+% limited by received momentum, i.e. it can move further than just 4 fields away.
+% Wave 1 can also activate Wave 2.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\noindent
-\begin{wrapfigure}[13]{l}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_14_cascading_wave_2.png}
-\caption{Wave 2 cascading}
-\label{fig:scn_mv_14_cascading_wave_2}
-\end{wrapfigure}
-Activated Wave 2 inherits rules of movement from activating piece (in this
-case Wave 1), and so too moves as Rook would. Wave 2 also received momentum
-of 4. Again, it's not obstructed by any piece, nor it's limited by received
-momentum. Wave 2 can also activate either Queen or Rook.
+% \noindent
+% \begin{wrapfigure}[13]{l}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_14_cascading_wave_2.png}
+% \caption{Wave 2 cascading}
+% \label{fig:scn_mv_14_cascading_wave_2}
+% \end{wrapfigure}
+% Activated Wave 2 inherits rules of movement from activating piece (in this
+% case Wave 1), and so too moves as Rook would. Wave 2 also received momentum
+% of 4. Again, it's not obstructed by any piece, nor it's limited by received
+% momentum. Wave 2 can also activate either Queen or Rook.
 
-\vspace*{0.075\textheight}
-\noindent
-\begin{wrapfigure}[15]{r}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_15_cascading_rook_2nd_time.png}
-\caption{Rook, 2nd cascading}
-\label{fig:scn_mv_15_cascading_rook_2nd_time}
-\end{wrapfigure}
-Rook is now activated, but it is limited by momentum received, i.e. it can
-move at most 4 fields away. Naturaly, Rook is obstructed by surrounding pieces,
-i.e. it can't move past Wave 1. Rook can activate Wave 1.
+% \vspace*{0.075\textheight}
+% \noindent
+% \begin{wrapfigure}[15]{r}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_15_cascading_rook_2nd_time.png}
+% \caption{Rook, 2nd cascading}
+% \label{fig:scn_mv_15_cascading_rook_2nd_time}
+% \end{wrapfigure}
+% Rook is now activated, but it is limited by momentum received, i.e. it can
+% move at most 4 fields away. Naturaly, Rook is obstructed by surrounding pieces,
+% i.e. it can't move past Wave 1. Rook can activate Wave 1.
 
-Note, piece for each activation in a cascade can choose any legal direction of
-movement for that ply, independent of what was chosen for previous plies.
+% Note, piece for each activation in a cascade can choose any legal direction of
+% movement for that ply, independent of what was chosen for previous plies.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\noindent
-\begin{wrapfigure}[10]{l}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_16_cascading_wave_1_2nd_time.png}
-\caption{Wave 1, 2nd cascading}
-\label{fig:scn_mv_16_cascading_wave_1_2nd_time}
-\end{wrapfigure}
-Activated Wave 1 received momentum of 2 and rules of movement from Rook. Again,
-Wave 1 is not obstructed by any piece, nor it is limited by received momentum.
-Wave 1 can also activate either Queen or Wave 2.
+% \noindent
+% \begin{wrapfigure}[10]{l}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_16_cascading_wave_1_2nd_time.png}
+% \caption{Wave 1, 2nd cascading}
+% \label{fig:scn_mv_16_cascading_wave_1_2nd_time}
+% \end{wrapfigure}
+% Activated Wave 1 received momentum of 2 and rules of movement from Rook. Again,
+% Wave 1 is not obstructed by any piece, nor it is limited by received momentum.
+% Wave 1 can also activate either Queen or Wave 2.
 
-\vspace*{0.155\textheight}
-\noindent
-\begin{wrapfigure}[10]{r}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_17_cascading_queen.png}
-\caption{Queen cascading}
-\label{fig:scn_mv_17_cascading_queen}
-\end{wrapfigure}
-Activated Queen received momentum of 2, it can move at most 2 fields away.
-Queen can also activate Wave 2, giving it momentum of 0.
+% \vspace*{0.155\textheight}
+% \noindent
+% \begin{wrapfigure}[10]{r}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_17_cascading_queen.png}
+% \caption{Queen cascading}
+% \label{fig:scn_mv_17_cascading_queen}
+% \end{wrapfigure}
+% Activated Queen received momentum of 2, it can move at most 2 fields away.
+% Queen can also activate Wave 2, giving it momentum of 0.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\noindent
-\begin{wrapfigure}[7]{l}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_18_cascading_wave_2_2nd_time.png}
-\caption{Wave 2, 2nd cascading}
-\label{fig:scn_mv_18_cascading_wave_2_2nd_time}
-\end{wrapfigure}
-Activated Wave 2 received rules of movement from Queen, and 0 momentum.
-Note, since Wave 2 has no momentum it can't activate Rook, only Wave 1.
+% \noindent
+% \begin{wrapfigure}[7]{l}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_18_cascading_wave_2_2nd_time.png}
+% \caption{Wave 2, 2nd cascading}
+% \label{fig:scn_mv_18_cascading_wave_2_2nd_time}
+% \end{wrapfigure}
+% Activated Wave 2 received rules of movement from Queen, and 0 momentum.
+% Note, since Wave 2 has no momentum it can't activate Rook, only Wave 1.
 
-\vspace*{0.245\textheight}
-\noindent
-\begin{wrapfigure}[9]{r}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_19_cascading_wave_1_3rd_time.png}
-\caption{Wave 1, 3rd cascading}
-\label{fig:scn_mv_19_cascading_wave_1_3rd_time}
-\end{wrapfigure}
-Activated Wave 1 inherits rules of movement from activating piece (Wave 2),
-meaning Wave 1 too now moves as Queen would. Due to no momentum, Wave 1 can't
-activate neither Queen nor Rook.
+% \vspace*{0.245\textheight}
+% \noindent
+% \begin{wrapfigure}[9]{r}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_19_cascading_wave_1_3rd_time.png}
+% \caption{Wave 1, 3rd cascading}
+% \label{fig:scn_mv_19_cascading_wave_1_3rd_time}
+% \end{wrapfigure}
+% Activated Wave 1 inherits rules of movement from activating piece (Wave 2),
+% meaning Wave 1 too now moves as Queen would. Due to no momentum, Wave 1 can't
+% activate neither Queen nor Rook.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\noindent
-\begin{wrapfigure}[3]{l}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_20_cascading_end.png}
-\caption{Wave 1, end cascading}
-\label{fig:scn_mv_20_cascading_end}
-\end{wrapfigure}
-Wave 1 end this rather long cascade by settling past Rook.
+% \noindent
+% \begin{wrapfigure}[3]{l}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_20_cascading_end.png}
+% \caption{Wave 1, end cascading}
+% \label{fig:scn_mv_20_cascading_end}
+% \end{wrapfigure}
+% Wave 1 end this rather long cascade by settling past Rook.
 
-\vspace*{0.345\textheight}
-In a cascade, Wave is not limited by received momentum, nor it's obstructed by
-other pieces on board. Wave inherts rules of movement from activating piece,
-and can make multiple steps, even if activating piece can make only one.
-For details see \hyperref[sec:Appendix/Movement of Wave]{Movement of Wave}
-in Definitions. All other pieces moves according to their own rules, and are
-restricted by momentum received.
+% \vspace*{0.345\textheight}
+% In a cascade, Wave is not limited by received momentum, nor it's obstructed by
+% other pieces on board. Wave inherts rules of movement from activating piece,
+% and can make multiple steps, even if activating piece can make only one.
+% For details see \hyperref[sec:Appendix/Movement of Wave]{Movement of Wave}
+% in Definitions. All other pieces moves according to their own rules, and are
+% restricted by momentum received.
 
-During cascade, after each ply activation takes place according to current
-positions of pieces on the board, just as it would at the beginning of the move.
-For each activation in a cascade, all pieces can choose any legal direction
-independently of previous choices.
+% During cascade, after each ply activation takes place according to current
+% positions of pieces on the board, just as it would at the beginning of the move.
+% For each activation in a cascade, all pieces can choose any legal direction
+% independently of previous choices.
 
-This makes it possible, in the same cascade, to activate piece which started it,
-Rook in this example. Such cascade is said to feature push-pull activation.
-It's also possible to reactivate other (non-initiating) pieces in the same
-cascade, e.g. here Wave 1 was reactivated 3 times.
+% This makes it possible, in the same cascade, to activate piece which started it,
+% Rook in this example. Such cascade is said to feature push-pull activation.
+% It's also possible to reactivate other (non-initiating) pieces in the same
+% cascade, e.g. here Wave 1 was reactivated 3 times.
 
 % ----------------------------------------------------- Cascading Waves
 \clearpage % ..........................................................
@@ -425,77 +430,77 @@ cascade, e.g. here Wave 1 was reactivated 3 times.
 \subsection*{Cascading opponent}
 \addcontentsline{toc}{subsection}{Cascading opponent}
 
-\noindent
-\begin{wrapfigure}[10]{l}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_21_casc_oppo_light_queen.png}
-\caption{Light Queen starting cascade}
-\label{fig:scn_mv_21_casc_oppo_light_queen}
-\end{wrapfigure}
-Cascading opponent refers to a move in which opponent's Wave has been displaced,
-potentially other opponent's pieces.
+% \noindent
+% \begin{wrapfigure}[10]{l}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_21_casc_oppo_light_queen.png}
+% \caption{Light Queen starting cascade}
+% \label{fig:scn_mv_21_casc_oppo_light_queen}
+% \end{wrapfigure}
+% Cascading opponent refers to a move in which opponent's Wave has been displaced,
+% potentially other opponent's pieces.
 
-On the left, light Queen is about to activate light Wave, giving it momentum of 3.
+% On the left, light Queen is about to activate light Wave, giving it momentum of 3.
 
-\vspace*{0.155\textheight}
-\noindent
-\begin{wrapfigure}[5]{r}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_22_casc_oppo_light_wave.png}
-\caption{Light Wave}
-\label{fig:scn_mv_22_casc_oppo_light_wave}
-\end{wrapfigure}
-Activated light Wave can activate dark Wave, but can't interact with dark Queen in
-any way.
-
-\clearpage % ..........................................................
-
-\noindent
-\begin{wrapfigure}[5]{l}{0.5625\textwidth} % 5 bch % 4 lmc
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_23_casc_oppo_dark_wave.png}
-\caption{Dark Wave}
-\label{fig:scn_mv_23_casc_oppo_dark_wave}
-\end{wrapfigure}
-Activated dark Wave now can activate dark Queen, but cannot interact with light Queen
-in any way.
-
-\vspace*{0.315\textheight}
-\noindent
-\begin{wrapfigure}[13]{r}{0.5625\textwidth} % 13 bch % 12 lmc
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_24_casc_oppo_dark_queen.png}
-\caption{Dark Queen}
-\label{fig:scn_mv_24_casc_oppo_dark_queen}
-\end{wrapfigure}
-Activated dark Queen is limited to momentum transferred to it, i.e. 3. Dark Queen
-cannot activate light Wave. Just as it could in ordinary, non-cascading move dark
-Queen can capture either light Wave or light Queen. Also, dark Queen is obstructed
-by pieces present on board.
+% \vspace*{0.155\textheight}
+% \noindent
+% \begin{wrapfigure}[5]{r}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_22_casc_oppo_light_wave.png}
+% \caption{Light Wave}
+% \label{fig:scn_mv_22_casc_oppo_light_wave}
+% \end{wrapfigure}
+% Activated light Wave can activate dark Wave, but can't interact with dark Queen in
+% any way.
 
 \clearpage % ..........................................................
 
-\noindent
-\begin{wrapfigure}[4]{l}{0.5625\textwidth}
-\centering
-\includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_25_casc_oppo_end.png}
-\caption{Cascading opponent end}
-\label{fig:scn_mv_25_casc_oppo_end}
-\end{wrapfigure}
-This example of cascading opponent ends with dark Queen capturing light Queen.
+% \noindent
+% \begin{wrapfigure}[5]{l}{0.5625\textwidth} % 5 bch % 4 lmc
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_23_casc_oppo_dark_wave.png}
+% \caption{Dark Wave}
+% \label{fig:scn_mv_23_casc_oppo_dark_wave}
+% \end{wrapfigure}
+% Activated dark Wave now can activate dark Queen, but cannot interact with light Queen
+% in any way.
 
-\vspace*{0.355\textheight}
-In summary, during cascade opponent's pieces retain all of their normal behavior,
-most notably capturing their opponent's (in cascade, that means your own!) pieces.
+% \vspace*{0.315\textheight}
+% \noindent
+% \begin{wrapfigure}[13]{r}{0.5625\textwidth} % 13 bch % 12 lmc
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_24_casc_oppo_dark_queen.png}
+% \caption{Dark Queen}
+% \label{fig:scn_mv_24_casc_oppo_dark_queen}
+% \end{wrapfigure}
+% Activated dark Queen is limited to momentum transferred to it, i.e. 3. Dark Queen
+% cannot activate light Wave. Just as it could in ordinary, non-cascading move dark
+% Queen can capture either light Wave or light Queen. Also, dark Queen is obstructed
+% by pieces present on board.
 
-This behavior retention include checking and checkmating their opponent's (again,
-your own) King, en passant, promotion of their own pieces (if their Pyramid has
-been activated), etc. This list includes all other movements, features described
-later in this book.
+\clearpage % ..........................................................
 
-Plies which cannot be performed by opponent's pieces during cascade are those
-involving opponent's King, including castling, as that would require activation
-of opponent's King, which is not allowed.
+% \noindent
+% \begin{wrapfigure}[4]{l}{0.5625\textwidth}
+% \centering
+% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_25_casc_oppo_end.png}
+% \caption{Cascading opponent end}
+% \label{fig:scn_mv_25_casc_oppo_end}
+% \end{wrapfigure}
+% This example of cascading opponent ends with dark Queen capturing light Queen.
+
+% \vspace*{0.355\textheight}
+% In summary, during cascade opponent's pieces retain all of their normal behavior,
+% most notably capturing their opponent's (in cascade, that means your own!) pieces.
+
+% This behavior retention include checking and checkmating their opponent's (again,
+% your own) King, en passant, promotion of their own pieces (if their Pyramid has
+% been activated), etc. This list includes all other movements, features described
+% later in this book.
+
+% Plies which cannot be performed by opponent's pieces during cascade are those
+% involving opponent's King, including castling, as that would require activation
+% of opponent's King, which is not allowed.
 
 % -------------------------------------------------- Cascading opponent
 \clearpage % ..........................................................
