@@ -128,83 +128,6 @@ Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave
 
 \clearpage % ..........................................................
 
-\subsubsection*{Cascading Waves}
-\addcontentsline{toc}{subsubsection}{Cascading Waves}
-
-\vspace*{-3.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_04_wave_cascading_init.png}
-\caption{Cascade start}
-\label{fig:scn_mv_04_wave_cascading_init}
-% \centering
-\end{figure}
-
-Activated Wave inherits way of movement from activating piece,
-\hyperref[sec:Appendix/Movement of Wave]{rules of inheritance are simple, with few exceptions}.
-When activated by other Wave, movement of an activated Wave is exactly the same as
-activating Wave.
-
-Here, Wave B moves like a Bishop, because activating Wave A moved like a Bishop,
-since it was activated by one.
-
-\clearpage % ..........................................................
-
-\vspace*{-5.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_05_wave_cascading_steps.png}
-\caption{Active piece cascaded}
-\label{fig:scn_mv_05_wave_cascading_steps}
-% \centering
-\end{figure}
-
-When piece activated in a cascade is not a Wave, it has its own rules of movement, and
-Waves activated afterwards inherit them from that activating piece.
-
-Here, all Waves activated after Knight moves like multi-step Knight (i.e. Pegasus),
-since Waves are not restricted to only one step, even if activating piece is.
-
-\clearpage % ..........................................................
-
-\vspace*{-5.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_06_wave_cascading_end.png}
-\caption{Cascade end}
-\label{fig:scn_mv_06_wave_cascading_end}
-% \centering
-\end{figure}
-
-First piece in a cascade gathers momentum over step-fields travelled. All pieces
-transfer any remaining momentum to the next piece in a cascade. Waves do not spend
-received momentum for movement, but all the other pieces do.
-
-Here, numbers in lower, left corner are received momentum. Bishop gathered 3 momentum,
-1 has been spent by Knight, and so activated Pawn can be rushed for only 2 fields.
-
-\clearpage % ..........................................................
-
-\subsubsection*{Cascading opponent}
-\addcontentsline{toc}{subsubsection}{Cascading opponent}
-
-\vspace*{-3.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_07_wave_cascading_opponent.png}
-\caption{Cascading opponent}
-\label{fig:scn_mv_07_wave_cascading_opponent}
-% \centering
-\end{figure}
-
-. . .
-
-\clearpage % ..........................................................
-
 \subsubsection*{No momentum}
 \addcontentsline{toc}{subsubsection}{No momentum}
 
@@ -291,126 +214,67 @@ Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 \subsection*{Cascading Waves}
 \addcontentsline{toc}{subsection}{Cascading Waves}
 
-% \noindent
-% \begin{wrapfigure}[13]{l}{0.5625\textwidth}
+\vspace*{-3.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_04_wave_cascading_init.png}
+\caption{Cascade start}
+\label{fig:scn_mv_04_wave_cascading_init}
 % \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_12_cascading_rook.png}
-% \caption{Rook starting cascade}
-% \label{fig:scn_mv_12_cascading_rook}
-% \end{wrapfigure}
-% Cascading Waves refers to a move in which two or more Waves have been displaced.
-% For example, Wave can activate another Wave. Wave can also activate active
-% piece (or Pyramid), which can then activate another Wave.
+\end{figure}
 
-% On the left, Rook is about to activate Wave 1, giving it momentum of 4.
+Activated Wave inherits way of movement from activating piece,
+\hyperref[sec:Appendix/Movement of Wave]{rules of inheritance are simple, with few exceptions}.
+When activated by other Wave, movement of an activated Wave is exactly the same as
+activating Wave.
 
-% \vspace*{0.05\textheight}
-% \noindent
-% \begin{wrapfigure}[12]{r}{0.5625\textwidth}
+Here, Wave B moves like a Bishop, because activating Wave A moved like a Bishop,
+since it was activated by one.
+
+\clearpage % ..........................................................
+
+\vspace*{-5.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_05_wave_cascading_steps.png}
+\caption{Active piece cascaded}
+\label{fig:scn_mv_05_wave_cascading_steps}
 % \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_13_cascading_wave_1.png}
-% \caption{Wave 1 cascading}
-% \label{fig:scn_mv_13_cascading_wave_1}
-% \end{wrapfigure}
-% Activated Wave 1 inherits rules of movement from activating piece, and so now
-% moves as Rook would. It's not obstructed with any piece in its way, nor it's
-% limited by received momentum, i.e. it can move further than just 4 fields away.
-% Wave 1 can also activate Wave 2.
+\end{figure}
 
-% \clearpage % ..........................................................
+When piece activated in a cascade is not a Wave, it has its own rules of movement, and
+Waves activated afterwards inherit them from that activating piece.
 
-% \noindent
-% \begin{wrapfigure}[13]{l}{0.5625\textwidth}
+Here, all Waves activated after Knight moves like multi-step Knight (i.e. Pegasus),
+since Waves are not restricted to only one step, even if activating piece is.
+
+\clearpage % ..........................................................
+
+\vspace*{-5.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_06_wave_cascading_end.png}
+\caption{Cascade end}
+\label{fig:scn_mv_06_wave_cascading_end}
 % \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_14_cascading_wave_2.png}
-% \caption{Wave 2 cascading}
-% \label{fig:scn_mv_14_cascading_wave_2}
-% \end{wrapfigure}
-% Activated Wave 2 inherits rules of movement from activating piece (in this
-% case Wave 1), and so too moves as Rook would. Wave 2 also received momentum
-% of 4. Again, it's not obstructed by any piece, nor it's limited by received
-% momentum. Wave 2 can also activate either Queen or Rook.
+\end{figure}
 
-% \vspace*{0.075\textheight}
-% \noindent
-% \begin{wrapfigure}[15]{r}{0.5625\textwidth}
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_15_cascading_rook_2nd_time.png}
-% \caption{Rook, 2nd cascading}
-% \label{fig:scn_mv_15_cascading_rook_2nd_time}
-% \end{wrapfigure}
-% Rook is now activated, but it is limited by momentum received, i.e. it can
-% move at most 4 fields away. Naturaly, Rook is obstructed by surrounding pieces,
-% i.e. it can't move past Wave 1. Rook can activate Wave 1.
+First piece in a cascade gathers momentum over step-fields travelled. All pieces
+transfer any remaining momentum to the next piece in a cascade. Waves do not spend
+received momentum for movement, but all the other pieces do.
 
-% Note, piece for each activation in a cascade can choose any legal direction of
-% movement for that ply, independent of what was chosen for previous plies.
-
-% \clearpage % ..........................................................
-
-% \noindent
-% \begin{wrapfigure}[10]{l}{0.5625\textwidth}
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_16_cascading_wave_1_2nd_time.png}
-% \caption{Wave 1, 2nd cascading}
-% \label{fig:scn_mv_16_cascading_wave_1_2nd_time}
-% \end{wrapfigure}
-% Activated Wave 1 received momentum of 2 and rules of movement from Rook. Again,
-% Wave 1 is not obstructed by any piece, nor it is limited by received momentum.
-% Wave 1 can also activate either Queen or Wave 2.
-
-% \vspace*{0.155\textheight}
-% \noindent
-% \begin{wrapfigure}[10]{r}{0.5625\textwidth}
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_17_cascading_queen.png}
-% \caption{Queen cascading}
-% \label{fig:scn_mv_17_cascading_queen}
-% \end{wrapfigure}
-% Activated Queen received momentum of 2, it can move at most 2 fields away.
-% Queen can also activate Wave 2, giving it momentum of 0.
-
-% \clearpage % ..........................................................
-
-% \noindent
-% \begin{wrapfigure}[7]{l}{0.5625\textwidth}
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_18_cascading_wave_2_2nd_time.png}
-% \caption{Wave 2, 2nd cascading}
-% \label{fig:scn_mv_18_cascading_wave_2_2nd_time}
-% \end{wrapfigure}
-% Activated Wave 2 received rules of movement from Queen, and 0 momentum.
-% Note, since Wave 2 has no momentum it can't activate Rook, only Wave 1.
-
-% \vspace*{0.245\textheight}
-% \noindent
-% \begin{wrapfigure}[9]{r}{0.5625\textwidth}
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_19_cascading_wave_1_3rd_time.png}
-% \caption{Wave 1, 3rd cascading}
-% \label{fig:scn_mv_19_cascading_wave_1_3rd_time}
-% \end{wrapfigure}
-% Activated Wave 1 inherits rules of movement from activating piece (Wave 2),
-% meaning Wave 1 too now moves as Queen would. Due to no momentum, Wave 1 can't
-% activate neither Queen nor Rook.
-
-% \clearpage % ..........................................................
-
-% \noindent
-% \begin{wrapfigure}[3]{l}{0.5625\textwidth}
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_20_cascading_end.png}
-% \caption{Wave 1, end cascading}
-% \label{fig:scn_mv_20_cascading_end}
-% \end{wrapfigure}
-% Wave 1 end this rather long cascade by settling past Rook.
+Here, numbers in lower, left corner are received momentum. Bishop gathered 3 momentum,
+1 has been spent by Knight, and so activated Pawn can be rushed for only 2 fields.
 
 % \vspace*{0.345\textheight}
 % In a cascade, Wave is not limited by received momentum, nor it's obstructed by
 % other pieces on board. Wave inherts rules of movement from activating piece,
 % and can make multiple steps, even if activating piece can make only one.
 % For details see \hyperref[sec:Appendix/Movement of Wave]{Movement of Wave}
-% in Definitions. All other pieces moves according to their own rules, and are
+% in Appendix. All other pieces moves according to their own rules, and are
 % restricted by momentum received.
 
 % During cascade, after each ply activation takes place according to current
@@ -430,66 +294,18 @@ Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 \subsection*{Cascading opponent}
 \addcontentsline{toc}{subsection}{Cascading opponent}
 
-% \noindent
-% \begin{wrapfigure}[10]{l}{0.5625\textwidth}
+\vspace*{-3.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_07_wave_cascading_opponent.png}
+\caption{Cascading opponent}
+\label{fig:scn_mv_07_wave_cascading_opponent}
 % \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_21_casc_oppo_light_queen.png}
-% \caption{Light Queen starting cascade}
-% \label{fig:scn_mv_21_casc_oppo_light_queen}
-% \end{wrapfigure}
-% Cascading opponent refers to a move in which opponent's Wave has been displaced,
-% potentially other opponent's pieces.
+\end{figure}
 
-% On the left, light Queen is about to activate light Wave, giving it momentum of 3.
+. . .
 
-% \vspace*{0.155\textheight}
-% \noindent
-% \begin{wrapfigure}[5]{r}{0.5625\textwidth}
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_22_casc_oppo_light_wave.png}
-% \caption{Light Wave}
-% \label{fig:scn_mv_22_casc_oppo_light_wave}
-% \end{wrapfigure}
-% Activated light Wave can activate dark Wave, but can't interact with dark Queen in
-% any way.
-
-\clearpage % ..........................................................
-
-% \noindent
-% \begin{wrapfigure}[5]{l}{0.5625\textwidth} % 5 bch % 4 lmc
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_23_casc_oppo_dark_wave.png}
-% \caption{Dark Wave}
-% \label{fig:scn_mv_23_casc_oppo_dark_wave}
-% \end{wrapfigure}
-% Activated dark Wave now can activate dark Queen, but cannot interact with light Queen
-% in any way.
-
-% \vspace*{0.315\textheight}
-% \noindent
-% \begin{wrapfigure}[13]{r}{0.5625\textwidth} % 13 bch % 12 lmc
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_24_casc_oppo_dark_queen.png}
-% \caption{Dark Queen}
-% \label{fig:scn_mv_24_casc_oppo_dark_queen}
-% \end{wrapfigure}
-% Activated dark Queen is limited to momentum transferred to it, i.e. 3. Dark Queen
-% cannot activate light Wave. Just as it could in ordinary, non-cascading move dark
-% Queen can capture either light Wave or light Queen. Also, dark Queen is obstructed
-% by pieces present on board.
-
-\clearpage % ..........................................................
-
-% \noindent
-% \begin{wrapfigure}[4]{l}{0.5625\textwidth}
-% \centering
-% \includegraphics[width=0.5625\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_25_casc_oppo_end.png}
-% \caption{Cascading opponent end}
-% \label{fig:scn_mv_25_casc_oppo_end}
-% \end{wrapfigure}
-% This example of cascading opponent ends with dark Queen capturing light Queen.
-
-% \vspace*{0.355\textheight}
 % In summary, during cascade opponent's pieces retain all of their normal behavior,
 % most notably capturing their opponent's (in cascade, that means your own!) pieces.
 
@@ -502,6 +318,59 @@ Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 % involving opponent's King, including castling, as that would require activation
 % of opponent's King, which is not allowed.
 
+\clearpage % ..........................................................
+
+% % Cascade check, checkmate --------------------------------------------
+
+\subsubsection*{Cascade check, checkmate}
+\addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
+
+\vspace*{-2.9ex}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_activated_piece_check_init.png}
+\caption{Activating Rooks}
+\label{fig:scn_mv_40_activated_piece_check_init}
+% \centering
+\end{figure}
+
+Activated pieces are limited by received momentum for all their movement, actions.
+All pieces in a cascade transfer all of their remaining momentum to next piece in a
+cascade. So, pieces in a cascade do not attack opponent's King immediately in the
+very same move in which they have moved. Only the last piece in a cascade can check
+(or even checkmate) opponent's King, if it has enough remaining momentum after
+finishing its movement.
+
+Here, light Queen activates light Wave A, which cascades to light Rook B, then light
+Wave C, and finally to light Rook D, which moves onto final field R. Note that most
+of momentum received is spent by light Rooks for moving, so the last piece in cascade
+(light Rook D) will have only 1 remaining momenum, after all movement is done.
+
+\clearpage % ..........................................................
+
+% \vspace*{-2.9ex}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_41_activated_piece_check_cascade.png}
+\caption{Activated Rooks moved}
+\label{fig:scn_mv_41_activated_piece_check_cascade}
+% \centering
+\end{figure}
+
+Here, after light player's move dark King is not in check; light Rook B gave all of its
+remaining momentum to light Wave C, light Rook D has only 1 remaining momentum. Should
+light Queen started from slightly distant field (Q2, Q3), then dark King would be in check,
+as light Rook D would have more remaining momentum. Note that starting field Q3 could also
+lead to immediate checkmate, should all dark King's escape fields be blocked, or covered
+by other light pieces.
+
+After being moved in a cascade, active pieces regain full access to all of their step- and
+capture-fields at the very beginning of the very next move. So, even if dark King was not
+checked immediately after light player's move, it will be double checked on the very next
+move (on dark player's own turn!), with dark King's file and rank covered by light Rooks.
+
+% % -------------------------------------------- Cascade check, checkmate
+
 % -------------------------------------------------- Cascading opponent
 \clearpage % ..........................................................
 % Activating Pawn -----------------------------------------------------
@@ -509,9 +378,9 @@ Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 \subsection*{Activating Pawn}
 \addcontentsline{toc}{subsection}{Activating Pawn}
 
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_26_activating_rush_pawn_init.png}
 \caption{Activating Pawns}
 \label{fig:scn_mv_26_activating_rush_pawn_init}
@@ -525,9 +394,9 @@ up to (and including) 6 fields.
 
 \clearpage % ..........................................................
 
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_27_activating_rush_pawn_end.png}
 \caption{Pawns activated}
 \label{fig:scn_mv_27_activating_rush_pawn_end}
@@ -545,10 +414,9 @@ longest rush movement available in this variant.
 \subsection*{Activation by Pawn}
 \addcontentsline{toc}{subsection}{Activation by Pawn}
 
-\vspace*{-1.0ex}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_28_wave_activation_by_step_pawn.png}
 \caption{Pawn activates Wave on step-field}
 \label{fig:scn_mv_28_wave_activation_by_step_pawn}
@@ -562,9 +430,9 @@ Wave is located, and is blocked from rushing any further.
 
 \clearpage % ..........................................................
 
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_29_wave_activated_by_step_pawn.png}
 \caption{Wave activated on Pawn's step-field}
 \label{fig:scn_mv_29_wave_activated_by_step_pawn}
@@ -579,9 +447,9 @@ opponent's piece (dark Wave), nor own (Pawn 3).
 
 \clearpage % ..........................................................
 
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_30_wave_activation_by_capture_pawn.png}
 \caption{Pawn activates Wave on capture-field}
 \label{fig:scn_mv_30_wave_activation_by_capture_pawn}
@@ -597,9 +465,9 @@ present.
 
 \clearpage % ..........................................................
 
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_31_wave_activated_by_capture_pawn.png}
 \caption{Wave activated on Pawn's capture-field}
 \label{fig:scn_mv_31_wave_activated_by_capture_pawn}
@@ -621,7 +489,6 @@ Wave can't activate neither light Pegasus, nor dark Wave.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_38_activating_pyramid_by_pawn.png}
 \vspace*{-1.3\baselineskip}
 \caption{Activating Pyramid by Pawn}
@@ -644,7 +511,6 @@ both in \hyperref[fig:scn_ma_01_pyramid_activation_init]{a direct activation}, o
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_activating_pyramid_cascade_pawn.png}
 \vspace*{-1.3\baselineskip}
 \caption{Activating Pyramid by cascading Pawn}
@@ -702,7 +568,6 @@ the two initially chosen steps, for the remainder of a ply.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_wave_activation_by_unicorn_first_step.png}
 \vspace*{-1.3\baselineskip}
 \caption{Unicorn activates Wave}
@@ -720,9 +585,9 @@ step, only it has to move past light Pawn on it.
 
 \clearpage % ..........................................................
 
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_wave_activation_by_unicorn_second_step.png}
 \caption{Wave activated by Unicorn, step 1}
 \label{fig:scn_mv_35_wave_activation_by_unicorn_second_step}
@@ -737,9 +602,9 @@ on it, and continue moving further.
 
 \clearpage % ..........................................................
 
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_wave_activation_by_unicorn_complete.png}
 \caption{Wave activated by Unicorn, complete ply}
 \label{fig:scn_mv_36_wave_activation_by_unicorn_complete}
@@ -757,10 +622,9 @@ ply on dark Wave's field, and dark Wave would move away. Pieces on all other non
 \subsubsection*{Out of board steps}
 \addcontentsline{toc}{subsubsection}{Out of board steps}
 
-\vspace*{-2.9ex}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_wave_off_board.png}
 \caption{Wave off-board steps}
 \label{fig:scn_mv_37_wave_off_board}
@@ -775,59 +639,6 @@ board. It is illegal for any piece, including Wave, to end its ply outside
 of a board.
 
 % ----------------------------------------------- Activation by Unicorn
-\clearpage % ..........................................................
-% Cascade check, checkmate --------------------------------------------
-
-\subsection*{Cascade check, checkmate}
-\addcontentsline{toc}{subsection}{Cascade check, checkmate}
-
-\vspace*{-2.9ex}
-\noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_activated_piece_check_init.png}
-\caption{Activating Rooks}
-\label{fig:scn_mv_40_activated_piece_check_init}
-% \centering
-\end{figure}
-
-Activated pieces are limited by received momentum for all their movement, actions.
-All pieces in a cascade transfer all of their remaining momentum to next piece in a
-cascade. So, pieces in a cascade do not attack opponent's King immediately in the
-very same move in which they have moved. Only the last piece in a cascade can check
-(or even checkmate) opponent's King, if it has enough remaining momentum after
-finishing its movement.
-
-Here, light Queen activates light Wave A, which cascades to light Rook B, then light
-Wave C, and finally to light Rook D, which moves onto final field R. Note that most
-of momentum received is spent by light Rooks for moving, so the last piece in cascade
-(light Rook D) will have only 1 remaining momenum, after all movement is done.
-
-\clearpage % ..........................................................
-
-% \vspace*{-2.9ex}
-\noindent
-\begin{figure}[!h]
-% \begin{figure}[!t]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_41_activated_piece_check_cascade.png}
-\caption{Activated Rooks moved}
-\label{fig:scn_mv_41_activated_piece_check_cascade}
-% \centering
-\end{figure}
-
-Here, after light player's move dark King is not in check; light Rook B gave all of its
-remaining momentum to light Wave C, light Rook D has only 1 remaining momentum. Should
-light Queen started from slightly distant field (Q2, Q3), then dark King would be in check,
-as light Rook D would have more remaining momentum. Note that starting field Q3 could also
-lead to immediate checkmate, should all dark King's escape fields be blocked, or covered
-by other light pieces.
-
-After being moved in a cascade, active pieces regain full access to all of their step- and
-capture-fields at the very beginning of the very next move. So, even if dark King was not
-checked immediately after light player's move, it will be double checked on the very next
-move (on dark player's own turn!), with dark King's file and rank covered by light Rooks.
-
-% -------------------------------------------- Cascade check, checkmate
 % **************************************************************** Wave
 \clearpage % ..........................................................
 
@@ -864,7 +675,6 @@ All other constraints from Classical Chess still applies.
 
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/10_mv/miranda_s_veil_castling.png}
 \caption{Castling}
 \label{fig:miranda_s_veil_castling}
@@ -875,7 +685,6 @@ In example above, all valid King's castling moves are numbered.
 
 \noindent
 \begin{figure}[!h]
-% \begin{figure}[!t]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/10_mv/miranda_s_veil_castling_right_05.png}
 \caption{Castling long right}
 \label{fig:miranda_s_veil_castling_right_05}
