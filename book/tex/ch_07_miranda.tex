@@ -115,19 +115,6 @@ In algebraic notation symbol for Wave is 'W'.
 
 \clearpage % ..........................................................
 
-\subsubsection*{Obstructions, limits}
-\addcontentsline{toc}{subsubsection}{Obstructions, limits}
-
-\huge
-TODO
-\normalsize
-
-\textgreater \textgreater \textgreater
-
-Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave 1.
-
-\clearpage % ..........................................................
-
 \subsubsection*{No momentum}
 \addcontentsline{toc}{subsubsection}{No momentum}
 
@@ -207,7 +194,299 @@ Note, Wave (just like any other piece) has to move away from its starting positi
 it cannot stay and re-activate piece that has activated it (here, light Wave 2).
 Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 
+\clearpage % ..........................................................
+% Activating Pawn .....................................................
+
+\subsubsection*{Activating Pawn}
+\addcontentsline{toc}{subsubsection}{Activating Pawn}
+
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_26_activating_rush_pawn_init.png}
+\vspace*{-1.3\baselineskip}
+\caption{Activating Pawns}
+\label{fig:scn_mv_26_activating_rush_pawn_init}
+% \centering
+\end{figure}
+
+\vspace*{-0.3\baselineskip}
+Image above and the next one both have two examples presented in parallel, on the left,
+and to the right.
+
+Activating Pawn in its initial position gives it ability to capture opponent's
+piece, or rush, i.e. perform longer initial movement. Pawn can be rushed only for
+momentum received, but no more than longest rush move available, in this variant
+up to (and including) 6 fields.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_27_activating_rush_pawn_end.png}
+\caption{Pawns activated}
+\label{fig:scn_mv_27_activating_rush_pawn_end}
+% \centering
+\end{figure}
+
+Pawn 1 received 4 momentum, and so when rushing it the furthest 2 fields are out
+of reach. Pawn 2 had 13 momentum, but could use only 6 for rush, since this is the
+longest rush movement available in this variant.
+
+% ..................................................... Activating Pawn
+\clearpage % ..........................................................
+% Activating Pyramid ..................................................
+
+\subsubsection*{Activating Pyramid}
+\addcontentsline{toc}{subsubsection}{Activating Pyramid}
+
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_38_activating_pyramid_by_pawn.png}
+\vspace*{-1.3\baselineskip}
+\caption{Activating Pyramid by Pawn}
+\label{fig:scn_mv_38_activating_pyramid_by_pawn}
+% \centering
+\end{figure}
+
+\vspace*{-0.3\baselineskip}
+Image above and the next one both have two examples presented in parallel, on the left,
+and to the right.
+
+Pawn cannot activate Pyramid on its step-fields, regardless
+\hyperref[fig:scn_ma_04_pyramid_activation_by_pawn]{if it's direct activation}, or in a cascade
+(right example, above). All pieces, including Pawn, can activate Pyramid on their capture-fields,
+both in \hyperref[fig:scn_ma_01_pyramid_activation_init]{a direct activation}, or in a cascade
+(left example, above).
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_activating_pyramid_cascade_pawn.png}
+\vspace*{-1.3\baselineskip}
+\caption{Activating Pyramid by cascading Pawn}
+\label{fig:scn_mv_39_activating_pyramid_cascade_pawn}
+% \centering
+\end{figure}
+
+\vspace*{-0.3\baselineskip}
+All pieces can activate Pyramid on their capture-fields, even if a Pawn in cascade used
+step-fields to continue (or start) said cascade (right example, above).
+
+So, if Pyramid can be activated depends solely if last active piece (preceeding that Pyramid
+in a cascade) travelled over its step- or capture-fields. This is so for all other activations,
+what Wave can activate is what last active piece preceeding it in a cascade could activate,
+with addition of opponent's Wave.
+
+% .................................................. Activating Pyramid
 % ---------------------------------------------------------- Activation
+\clearpage % ..........................................................
+% Movement ------------------------------------------------------------
+
+\subsection*{Movement}
+\addcontentsline{toc}{subsection}{Movement}
+
+\clearpage % ..........................................................
+
+\subsubsection*{Obstructions, limits}
+\addcontentsline{toc}{subsubsection}{Obstructions, limits}
+
+\huge
+TODO
+\normalsize
+
+\textgreater \textgreater \textgreater
+
+Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave 1.
+
+\clearpage % ..........................................................
+% Activation by Pawn ..................................................
+
+\subsubsection*{Activation by Pawn}
+\addcontentsline{toc}{subsubsection}{Activation by Pawn}
+
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_28_wave_activation_by_step_pawn.png}
+\caption{Pawn activates Wave on step-field}
+\label{fig:scn_mv_28_wave_activation_by_step_pawn}
+% \centering
+\end{figure}
+
+Pawn can activate Wave on its step-fields. Ordinary step would give 1 momentum to
+Wave (Pawn 1), while rushed Pawn would give count of travelled-over step-fields as
+momentum, in this case 3 (Pawn 2). Note, rushed Pawn has to capture field at which
+Wave is located, and is blocked from rushing any further.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_29_wave_activated_by_step_pawn.png}
+\caption{Wave activated on Pawn's step-field}
+\label{fig:scn_mv_29_wave_activated_by_step_pawn}
+% \centering
+\end{figure}
+
+In all cases, Wave activated on Pawn's step-fields can move only forward, until the end
+of the board. Either Wave could also activate light Knight or light Bishop, transferring
+to them received momentum (1 and 3, respectively). Wave cannot change its direction to
+Pawn's capture-fields, even if pieces are present on them. So, Wave cannot activate neither
+opponent's piece (dark Wave), nor own (Pawn 3).
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_30_wave_activation_by_capture_pawn.png}
+\caption{Pawn activates Wave on capture-field}
+\label{fig:scn_mv_30_wave_activation_by_capture_pawn}
+% \centering
+\end{figure}
+
+In this example, Wave can be activated by Pawn on its capture-field, receiving 1 momentum.
+
+Once activated, Wave can move forward diagonally (towards opponent's
+\hyperref[sec:Terms/Figure row]{figure row}), either to the left or to the right, until the
+end of the board, regardless if capture-fields are empty, or if own or opponent's pieces are
+present.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_31_wave_activated_by_capture_pawn.png}
+\caption{Wave activated on Pawn's capture-field}
+\label{fig:scn_mv_31_wave_activated_by_capture_pawn}
+% \centering
+\end{figure}
+
+Wave could also activate either light Bishop or light Knight, giving it received 1 momentum.
+Once in motion, Wave cannot change initially chosen direction. Here, upon reaching field A,
+Wave cannot change direction to Pawn's step-fields, or to Pawn's other capture diagonal. So,
+Wave can't activate neither light Pegasus, nor dark Wave.
+
+% .................................................. Activation by Pawn
+\clearpage % ..........................................................
+% Activation by Unicorn ...............................................
+
+\subsubsection*{Activation by Unicorn}
+\addcontentsline{toc}{subsubsection}{Activation by Unicorn}
+
+\vspace*{-0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[10]{l}{0.45\textwidth}
+\centering
+\includegraphics[width=0.4375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_32_wave_same_color.png}
+\vspace*{-0.3\baselineskip}
+\caption{Wave short jump}
+\label{fig:scn_mv_32_wave_same_color}
+\end{wrapfigure}
+Wave, activated by Unicorn on a field with the same color as Wave, has the same step-fields
+as Knight has.
+
+Wave activated on a field in opposite color can jump much longer, and has the same step-fields
+as Unicorn has. For comparison, short steps are also numbered (grey).
+
+\vspace*{0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[18]{l}{0.7\textwidth}
+\centering
+\includegraphics[width=0.6875\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_33_wave_opposite_color.png}
+\vspace*{-0.3\baselineskip}
+\caption{Wave long jump}
+\label{fig:scn_mv_33_wave_opposite_color}
+\end{wrapfigure}
+On two initial steps, Wave can freely choose any marked fields, regardless if it's long or short step.
+If Wave was positioned on a same-color field, first step would be short, and second one long; vice versa
+if Wave started on an opposite-color field. On all subsequent steps, Wave has to keep alternating between
+the two initially chosen steps, for the remainder of a ply.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_wave_activation_by_unicorn_first_step.png}
+\vspace*{-1.3\baselineskip}
+\caption{Unicorn activates Wave}
+\label{fig:scn_mv_34_wave_activation_by_unicorn_first_step}
+% \centering
+\end{figure}
+
+\vspace*{-0.3\baselineskip}
+Here, light Wave is activated by Unicorn on the same-color (light) field, so all available
+step-fields are short jumps, i.e. the same as Knight. For first step, Wave can choose any of
+marked step-fields, including the one occupied by own piece (light Pawn on field 2). Normally,
+own piece could be activated, leaving Wave in its position. In this particular case, light Pawn
+is blocked from moving, so it can't be activated. Light Wave can still choose field 2 as a first
+step, only it has to move past light Pawn on it.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_wave_activation_by_unicorn_second_step.png}
+\caption{Wave activated by Unicorn, step 1}
+\label{fig:scn_mv_35_wave_activation_by_unicorn_second_step}
+% \centering
+\end{figure}
+
+Here, after first step, light Wave is located on an opposite-color (dark) field, so all available
+step-fields are long jumps, which are the same as those of Unicorn. Dark Pawn on field 3 can't be
+activated, because it's opponent's piece. Just as with light Pawn in previous example, that does
+not prevent light Wave to choose field 3 as its second step, only it has to move over dark Pawn
+on it, and continue moving further.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_wave_activation_by_unicorn_complete.png}
+\caption{Wave activated by Unicorn, complete ply}
+\label{fig:scn_mv_36_wave_activation_by_unicorn_complete}
+% \centering
+\end{figure}
+
+After second step is chosen, complete movement of Wave consists of alternating between the two initially
+chosen steps, which Wave for the rest of a ply has to follow, e.g. after reaching field 4, it cannot move
+to any other step-field (red). Light Wave could also activate dark Wave, in which case it would end it's
+ply on dark Wave's field, and dark Wave would move away. Pieces on all other non-step fields are ignored
+(Pawns).
+
+\clearpage % ..........................................................
+
+\subsubsection*{Out of board steps}
+\addcontentsline{toc}{subsubsection}{Out of board steps}
+
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_wave_off_board.png}
+\caption{Wave off-board steps}
+\label{fig:scn_mv_37_wave_off_board}
+% \centering
+\end{figure}
+
+Here, light grey fields are virtual fields extending existing chessboard.
+For Wave, it's legal to step outside of a board, and all subsequent steps
+are also legal, as long as its ply ends on a board. So, Wave activated by
+Unicorn can reach fields 1 and 2, even though it stepped outside of the
+board. It is illegal for any piece, including Wave, to end its ply outside
+of a board.
+
+% ............................................... Activation by Unicorn
+% ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
 % Cascading Waves -----------------------------------------------------
 
@@ -319,8 +598,7 @@ Here, numbers in lower, left corner are received momentum. Bishop gathered 3 mom
 % of opponent's King, which is not allowed.
 
 \clearpage % ..........................................................
-
-% % Cascade check, checkmate --------------------------------------------
+% Cascade check, checkmate ............................................
 
 \subsubsection*{Cascade check, checkmate}
 \addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
@@ -369,276 +647,8 @@ capture-fields at the very beginning of the very next move. So, even if dark Kin
 checked immediately after light player's move, it will be double checked on the very next
 move (on dark player's own turn!), with dark King's file and rank covered by light Rooks.
 
-% % -------------------------------------------- Cascade check, checkmate
-
+% ............................................ Cascade check, checkmate
 % -------------------------------------------------- Cascading opponent
-\clearpage % ..........................................................
-% Activating Pawn -----------------------------------------------------
-
-\subsection*{Activating Pawn}
-\addcontentsline{toc}{subsection}{Activating Pawn}
-
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_26_activating_rush_pawn_init.png}
-\caption{Activating Pawns}
-\label{fig:scn_mv_26_activating_rush_pawn_init}
-% \centering
-\end{figure}
-
-Activating Pawn in its initial position gives it ability to capture opponent's
-piece, or rush, i.e. perform longer initial movement. Pawn can be rushed only for
-momentum received, but no more than longest rush move available, in this variant
-up to (and including) 6 fields.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_27_activating_rush_pawn_end.png}
-\caption{Pawns activated}
-\label{fig:scn_mv_27_activating_rush_pawn_end}
-% \centering
-\end{figure}
-
-Pawn 1 received 4 momentum, and so when rushing it the furthest 2 fields are out
-of reach. Pawn 2 had 13 momentum, but could use only 6 for rush, since this is the
-longest rush movement available in this variant.
-
-% ----------------------------------------------------- Activating Pawn
-\clearpage % ..........................................................
-% Activation by Pawn --------------------------------------------------
-
-\subsection*{Activation by Pawn}
-\addcontentsline{toc}{subsection}{Activation by Pawn}
-
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_28_wave_activation_by_step_pawn.png}
-\caption{Pawn activates Wave on step-field}
-\label{fig:scn_mv_28_wave_activation_by_step_pawn}
-% \centering
-\end{figure}
-
-Pawn can activate Wave on its step-fields. Ordinary step would give 1 momentum to
-Wave (Pawn 1), while rushed Pawn would give count of travelled-over step-fields as
-momentum, in this case 3 (Pawn 2). Note, rushed Pawn has to capture field at which
-Wave is located, and is blocked from rushing any further.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_29_wave_activated_by_step_pawn.png}
-\caption{Wave activated on Pawn's step-field}
-\label{fig:scn_mv_29_wave_activated_by_step_pawn}
-% \centering
-\end{figure}
-
-In all cases, Wave activated on Pawn's step-fields can move only forward, until the end
-of the board. Either Wave could also activate light Knight or light Bishop, transferring
-to them received momentum (1 and 3, respectively). Wave cannot change its direction to
-Pawn's capture-fields, even if pieces are present on them. So, Wave cannot activate neither
-opponent's piece (dark Wave), nor own (Pawn 3).
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_30_wave_activation_by_capture_pawn.png}
-\caption{Pawn activates Wave on capture-field}
-\label{fig:scn_mv_30_wave_activation_by_capture_pawn}
-% \centering
-\end{figure}
-
-In this example, Wave can be activated by Pawn on its capture-field, receiving 1 momentum.
-
-Once activated, Wave can move forward diagonally (towards opponent's
-\hyperref[sec:Terms/Figure row]{figure row}), either to the left or to the right, until the
-end of the board, regardless if capture-fields are empty, or if own or opponent's pieces are
-present.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_31_wave_activated_by_capture_pawn.png}
-\caption{Wave activated on Pawn's capture-field}
-\label{fig:scn_mv_31_wave_activated_by_capture_pawn}
-% \centering
-\end{figure}
-
-Wave could also activate either light Bishop or light Knight, giving it received 1 momentum.
-Once in motion, Wave cannot change initially chosen direction. Here, upon reaching field A,
-Wave cannot change direction to Pawn's step-fields, or to Pawn's other capture diagonal. So,
-Wave can't activate neither light Pegasus, nor dark Wave.
-
-% -------------------------------------------------- Activation by Pawn
-\clearpage % ..........................................................
-% Activating Pyramid --------------------------------------------------
-
-\subsection*{Activating Pyramid}
-\addcontentsline{toc}{subsection}{Activating Pyramid}
-
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_38_activating_pyramid_by_pawn.png}
-\vspace*{-1.3\baselineskip}
-\caption{Activating Pyramid by Pawn}
-\label{fig:scn_mv_38_activating_pyramid_by_pawn}
-% \centering
-\end{figure}
-
-\vspace*{-0.3\baselineskip}
-Image above and the next one both have two examples presented in parallel, on the left,
-and to the right.
-
-Pawn cannot activate Pyramid on its step-fields, regardless
-\hyperref[fig:scn_ma_04_pyramid_activation_by_pawn]{if it's direct activation}, or in a cascade
-(right example, above). All pieces, including Pawn, can activate Pyramid on their capture-fields,
-both in \hyperref[fig:scn_ma_01_pyramid_activation_init]{a direct activation}, or in a cascade
-(left example, above).
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_activating_pyramid_cascade_pawn.png}
-\vspace*{-1.3\baselineskip}
-\caption{Activating Pyramid by cascading Pawn}
-\label{fig:scn_mv_39_activating_pyramid_cascade_pawn}
-% \centering
-\end{figure}
-
-\vspace*{-0.3\baselineskip}
-All pieces can activate Pyramid on their capture-fields, even if a Pawn in cascade used
-step-fields to continue (or start) said cascade (right example, above).
-
-So, if Pyramid can be activated depends solely if last active piece (preceeding that Pyramid
-in a cascade) travelled over its step- or capture-fields. This is so for all other activations,
-what Wave can activate is what last active piece preceeding it in a cascade could activate,
-with addition of opponent's Wave.
-
-% -------------------------------------------------- Activating Pyramid
-\clearpage % ..........................................................
-% Activation by Unicorn -----------------------------------------------
-
-\subsection*{Activation by Unicorn}
-\addcontentsline{toc}{subsection}{Activation by Unicorn}
-
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[10]{l}{0.45\textwidth}
-\centering
-\includegraphics[width=0.4375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_32_wave_same_color.png}
-\vspace*{-0.3\baselineskip}
-\caption{Wave short jump}
-\label{fig:scn_mv_32_wave_same_color}
-\end{wrapfigure}
-Wave, activated by Unicorn on a field with the same color as Wave, has the same step-fields
-as Knight has.
-
-Wave activated on a field in opposite color can jump much longer, and has the same step-fields
-as Unicorn has. For comparison, short steps are also numbered (grey).
-
-\vspace*{0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[18]{l}{0.7\textwidth}
-\centering
-\includegraphics[width=0.6875\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_33_wave_opposite_color.png}
-\vspace*{-0.3\baselineskip}
-\caption{Wave long jump}
-\label{fig:scn_mv_33_wave_opposite_color}
-\end{wrapfigure}
-On two initial steps, Wave can freely choose any marked fields, regardless if it's long or short step.
-If Wave was positioned on a same-color field, first step would be short, and second one long; vice versa
-if Wave started on an opposite-color field. On all subsequent steps, Wave has to keep alternating between
-the two initially chosen steps, for the remainder of a ply.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_wave_activation_by_unicorn_first_step.png}
-\vspace*{-1.3\baselineskip}
-\caption{Unicorn activates Wave}
-\label{fig:scn_mv_34_wave_activation_by_unicorn_first_step}
-% \centering
-\end{figure}
-
-\vspace*{-0.3\baselineskip}
-Here, light Wave is activated by Unicorn on the same-color (light) field, so all available
-step-fields are short jumps, i.e. the same as Knight. For first step, Wave can choose any of
-marked step-fields, including the one occupied by own piece (light Pawn on field 2). Normally,
-own piece could be activated, leaving Wave in its position. In this particular case, light Pawn
-is blocked from moving, so it can't be activated. Light Wave can still choose field 2 as a first
-step, only it has to move past light Pawn on it.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_wave_activation_by_unicorn_second_step.png}
-\caption{Wave activated by Unicorn, step 1}
-\label{fig:scn_mv_35_wave_activation_by_unicorn_second_step}
-% \centering
-\end{figure}
-
-Here, after first step, light Wave is located on an opposite-color (dark) field, so all available
-step-fields are long jumps, which are the same as those of Unicorn. Dark Pawn on field 3 can't be
-activated, because it's opponent's piece. Just as with light Pawn in previous example, that does
-not prevent light Wave to choose field 3 as its second step, only it has to move over dark Pawn
-on it, and continue moving further.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_wave_activation_by_unicorn_complete.png}
-\caption{Wave activated by Unicorn, complete ply}
-\label{fig:scn_mv_36_wave_activation_by_unicorn_complete}
-% \centering
-\end{figure}
-
-After second step is chosen, complete movement of Wave consists of alternating between the two initially
-chosen steps, which Wave for the rest of a ply has to follow, e.g. after reaching field 4, it cannot move
-to any other step-field (red). Light Wave could also activate dark Wave, in which case it would end it's
-ply on dark Wave's field, and dark Wave would move away. Pieces on all other non-step fields are ignored
-(Pawns).
-
-\clearpage % ..........................................................
-
-\subsubsection*{Out of board steps}
-\addcontentsline{toc}{subsubsection}{Out of board steps}
-
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_wave_off_board.png}
-\caption{Wave off-board steps}
-\label{fig:scn_mv_37_wave_off_board}
-% \centering
-\end{figure}
-
-Here, light grey fields are virtual fields extending existing chessboard.
-For Wave, it's legal to step outside of a board, and all subsequent steps
-are also legal, as long as its ply ends on a board. So, Wave activated by
-Unicorn can reach fields 1 and 2, even though it stepped outside of the
-board. It is illegal for any piece, including Wave, to end its ply outside
-of a board.
-
-% ----------------------------------------------- Activation by Unicorn
 % **************************************************************** Wave
 \clearpage % ..........................................................
 
