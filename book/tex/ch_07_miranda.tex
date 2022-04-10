@@ -304,6 +304,28 @@ TODO
 Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave 1.
 
 \clearpage % ..........................................................
+% Activation by Knight ................................................
+
+\subsubsection*{Activation by Knight}
+\addcontentsline{toc}{subsubsection}{Activation by Knight}
+
+\huge
+TODO
+\normalsize
+
+% ................................................ Activation by Knight
+\clearpage % ..........................................................
+% Activation by King ..................................................
+
+\subsubsection*{Activation by King}
+\addcontentsline{toc}{subsubsection}{Activation by King}
+
+\huge
+TODO
+\normalsize
+
+% .................................................. Activation by King
+\clearpage % ..........................................................
 % Activation by Pawn ..................................................
 
 \subsubsection*{Activation by Pawn}
@@ -603,30 +625,33 @@ Here, numbers in lower, left corner are received momentum. Bishop gathered 3 mom
 \subsubsection*{Cascade check, checkmate}
 \addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
 
-\vspace*{-2.9ex}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_activated_piece_check_init.png}
+\vspace*{-1.3\baselineskip}
 \caption{Activating Rooks}
 \label{fig:scn_mv_40_activated_piece_check_init}
 % \centering
 \end{figure}
 
-Activated pieces are limited by received momentum for all their movement, actions.
-All pieces in a cascade transfer all of their remaining momentum to next piece in a
-cascade. So, pieces in a cascade do not attack opponent's King immediately in the
-very same move in which they have moved. Only the last piece in a cascade can check
-(or even checkmate) opponent's King, if it has enough remaining momentum after
-finishing its movement.
+\vspace*{-0.3\baselineskip}
+Activated pieces (except Waves) are limited by received momentum for all their movement,
+actions. All pieces in a cascade transfer all of their remaining momentum to next piece
+in a cascade. So, pieces in a cascade do not attack opponent's King immediately in the
+very same move in which they have moved. Only the last piece in a cascade can check (or
+even checkmate) opponent's King, if it has enough remaining momentum after finishing its
+movement.
 
 Here, light Queen activates light Wave A, which cascades to light Rook B, then light
 Wave C, and finally to light Rook D, which moves onto final field R. Note that most
 of momentum received is spent by light Rooks for moving, so the last piece in cascade
-(light Rook D) will have only 1 remaining momenum, after all movement is done.
+(light Rook D) will have only 1 remaining momenum, after all movement is done. Numbers
+in lower left corner are received momentum.
 
 \clearpage % ..........................................................
 
-% \vspace*{-2.9ex}
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_41_activated_piece_check_cascade.png}
@@ -636,11 +661,12 @@ of momentum received is spent by light Rooks for moving, so the last piece in ca
 \end{figure}
 
 Here, after light player's move dark King is not in check; light Rook B gave all of its
-remaining momentum to light Wave C, light Rook D has only 1 remaining momentum. Should
-light Queen started from slightly distant field (Q2, Q3), then dark King would be in check,
-as light Rook D would have more remaining momentum. Note that starting field Q3 could also
-lead to immediate checkmate, should all dark King's escape fields be blocked, or covered
-by other light pieces.
+remaining momentum to light Wave C, light Rook D has only 1 remaining momentum. Numbers
+in lower left corner are remaining momentum. Should light Queen started from slightly
+distant field (Q2, Q3), then dark King would be in check, as light Rook D would have
+more remaining momentum. Note that starting fields Q2, Q3 could also lead to immediate
+checkmate, should all dark King's escape fields be blocked, or covered by other light
+pieces.
 
 After being moved in a cascade, active pieces regain full access to all of their step- and
 capture-fields at the very beginning of the very next move. So, even if dark King was not

@@ -1304,6 +1304,14 @@ class SceneMirandasVeilMixin:
         scene.append_text("R", *GS.add_tpl(start_R_2, 0, -2), corner=Corner.UpperRight, mark_type=MarkType.Action)
 
         #
+        # received momentum
+
+        scene.append_text("5", *start_W_A, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
+        scene.append_text("5", *start_R_1, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
+        scene.append_text("3", *start_W_C, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
+        scene.append_text("3", *start_R_2, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
+
+        #
         # Q labels
 
         coords_2 = GS.gen_steps(start=GS.add(start_Q, (-1, 1)), rels=[(1, -1), ], include_prev=False, count=3)
@@ -1391,6 +1399,14 @@ class SceneMirandasVeilMixin:
         scene.append_text("D", *start_R_2, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         scene.append_text("R", *start_R_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+
+        #
+        # remaining momentum
+
+        scene.append_text("0", *start_W_A, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
+        scene.append_text("0", *start_R_1, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
+        scene.append_text("0", *start_W_C, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
+        scene.append_text("1", *start_R_2, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
 
         #
         # Q labels
