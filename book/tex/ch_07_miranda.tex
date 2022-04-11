@@ -43,7 +43,7 @@ has no momentum. Wave can move past (pass "through") any piece, as if it isn't t
 After activation Wave moves like activating piece, over piece's step- or capture-
 fields, depending where it was activated. Wave can make multiple steps, in the
 same way activating piece does, even if activating piece can make only one. Note,
-Wave can choose direction on the first 1 (or 2) step(s), which cannot be changed
+Wave can choose direction only on first 1 (or 2) step(s), which cannot be changed
 later. Wave can step outside of a chessboard, and only has to end its ply on a
 board. For details see
 \hyperref[sec:Appendix/Movement of Wave]{Movement of Wave}.
@@ -63,14 +63,73 @@ In algebraic notation symbol for Wave is 'W'.
 \subsection*{Activation}
 \addcontentsline{toc}{subsection}{Activation}
 
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_01_wave_activation_init.png}
+% \vspace*{-1.3\baselineskip}
+\caption{Activating Wave}
+\label{fig:scn_mv_01_wave_activation_init}
+% \centering
+\end{figure}
+
+% \vspace*{-0.3\baselineskip}
+. . .
+
 % G -> -> -> W
 % activation == capturing field
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_02_wave_activated.png}
+% \vspace*{-1.3\baselineskip}
+\caption{Wave activated}
+\label{fig:scn_mv_02_wave_activated}
+% \centering
+\end{figure}
+
+% \vspace*{-0.3\baselineskip}
+. . .
 
 % W <-<-<--- * --->->->
 % activated W moves like activating G
 
+\clearpage % ..........................................................
+
+\subsubsection*{Activating pieces}
+\addcontentsline{toc}{subsubsection}{Activating pieces}
+
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_03_wave_activating_rook.png}
+% \vspace*{-1.3\baselineskip}
+\caption{Activating Rook}
+\label{fig:scn_mv_03_wave_activating_rook}
+% \centering
+\end{figure}
+
+% \vspace*{-0.3\baselineskip}
+. . .
+
 % G --> W -p-> R --->
 % W passes thru other pieces
+
+% \clearpage % ..........................................................
+
+% G --> W --> R -->|-- b
+% R limited by received momentum
+
+% \clearpage % ..........................................................
+
+% G ---> W ---> R --| P .. b
+% R obstructed by other pieces
+
+% \clearpage % ..........................................................
+
 
 
 
@@ -244,17 +303,6 @@ momentum received from Knight.
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 
-% \clearpage % ..........................................................
-
-% \subsubsection*{Obstructions, limits}
-% \addcontentsline{toc}{subsubsection}{Obstructions, limits}
-
-
-% G --> W --> R -->|-- b
-% R limited by received momentum
-
-% G ---> W ---> R --| P .. b
-% R obstructed by other pieces
 
 \huge
 TODO

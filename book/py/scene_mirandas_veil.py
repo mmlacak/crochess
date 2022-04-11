@@ -18,6 +18,75 @@ from scene import Scene
 
 class SceneMirandasVeilMixin:
 
+    #
+    # activation
+
+    def scn_mv_01_wave_activation_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_01_wave_activation_init', bt)
+
+        start_G = (1, 4)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_W = (7, 7)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # G --> W
+        coords_G_W = GS.gen_next( GS.gen_steps(start=start_G, rels=[(2, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_G_W() )
+        scene.append_arrow( *coords_G_W() )
+        scene.append_arrow( *coords_G_W(), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_mv_02_wave_activated(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_02_wave_activated', bt)
+
+        start_G = (7, 7)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        arr = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_G, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, pos in enumerate( arr() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_mv_03_wave_activating_rook(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_03_wave_activating_rook', bt)
+
+        start_G = (1, 4)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_W = (7, 7)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_p = (11, 5)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_R = (15, 3)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        # G --> W
+        coords_G_W = GS.gen_next( GS.gen_steps(start=start_G, rels=[(2, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_G_W() )
+        scene.append_arrow( *coords_G_W() )
+        scene.append_arrow( *coords_G_W(), mark_type=MarkType.Action )
+
+        # W -p-> R
+
+        coords_W_p_R = GS.gen_next( GS.gen_steps(start=start_W, rels=[(2, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_W_p_R() )
+        scene.append_arrow( *coords_W_p_R(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords_W_p_R() )
+        scene.append_arrow( *coords_W_p_R(), mark_type=MarkType.Action )
+
+        return scene
+
+    #
+    # ...
+
     def scn_mv_04_wave_cascading_init(self, bt=BoardType.MirandasVeil):
 
         scene = Scene('scn_mv_04_wave_cascading_init', bt)
