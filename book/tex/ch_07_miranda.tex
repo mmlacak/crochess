@@ -43,13 +43,13 @@ has no momentum. Wave can move past (pass "through") any piece, as if it isn't t
 After activation Wave moves like activating piece, over piece's step- or capture-
 fields, depending where it was activated. Wave can make multiple steps, in the
 same way activating piece does, even if activating piece can make only one. Note,
-Wave can choose direction on the first 1 or 2 step(s), which cannot be changed
+Wave can choose direction on the first 1 (or 2) step(s), which cannot be changed
 later. Wave can step outside of a chessboard, and only has to end its ply on a
 board. For details see
 \hyperref[sec:Appendix/Movement of Wave]{Movement of Wave}.
 
-Wave cannot capture any piece. Thus, Wave cannot check nor checkmate opponent's
-King.
+Wave cannot capture any piece. Thus, Wave cannot neither check nor checkmate
+opponent's King.
 
 Wave can activate any own piece, except King, if it has momentum. Wave can
 also activate other Wave, own or opponent's, even if it has no momentum. In
@@ -62,6 +62,21 @@ In algebraic notation symbol for Wave is 'W'.
 
 \subsection*{Activation}
 \addcontentsline{toc}{subsection}{Activation}
+
+% G -> -> -> W
+% activation == capturing field
+
+% W <-<-<--- * --->->->
+% activated W moves like activating G
+
+% G --> W -p-> R --->
+% W passes thru other pieces
+
+
+
+
+
+% TODO
 
 % \vspace*{-2.0ex}
 % \noindent
@@ -112,87 +127,6 @@ In algebraic notation symbol for Wave is 'W'.
 % now continues the move according to own rules of movement, i.e. diagonally. Note
 % that it's restricted by momentum received, and thus can make only one step, i.e.
 % can move for only one field.
-
-\clearpage % ..........................................................
-
-\subsubsection*{No momentum}
-\addcontentsline{toc}{subsubsection}{No momentum}
-
-\vspace*{-3.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_08_wave_no_momentum_no_activating.png}
-\caption{No momentum}
-\label{fig:scn_mv_08_wave_no_momentum_no_activating}
-% \centering
-\end{figure}
-
-Wave can be activated with no momentum, if so it can activate only other Waves, but
-cannot activate ordinary (non-Wave) pieces. Here, one momentum originating from Bishop
-has been already spent by Knight, so Wave B is activated with no momentum, and so it
-cannot activate Pawn. Wave B can pass-by Pawn, and activate dark Wave, also with no
-momentum.
-
-\clearpage % ..........................................................
-
-\subsubsection*{Piece blocked}
-\addcontentsline{toc}{subsubsection}{Piece blocked}
-
-\vspace*{-3.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_09_wave_no_activating_blocked_piece.png}
-\caption{Piece blocked}
-\label{fig:scn_mv_09_wave_no_activating_blocked_piece}
-% \centering
-\end{figure}
-
-Wave cannot activate blocked pieces, even if it has momentum. Here, Pawn is blocked
-from moving forward by own Bishop, and there are no opponent's pieces on its'
-diagonal capture-fields. So, Wave cannot activate Pawn, even though it has one
-momentum received from Knight.
-
-\clearpage % ..........................................................
-
-\subsubsection*{Wave blocked}
-\addcontentsline{toc}{subsubsection}{Wave blocked}
-
-\vspace*{-3.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_10_wave_blocked_init.png}
-\caption{Activating Wave}
-\label{fig:scn_mv_10_wave_blocked_init}
-% \centering
-\end{figure}
-
-Wave cannot activate opponent's pieces, except for Waves. Activated Wave which movement
-is completely blocked is oblationed, i.e. is removed from chessboard as if captured by
-opponent.
-
-Here, dark Wave B is about to be activated with one momentum.
-
-\clearpage % ..........................................................
-
-\vspace*{-5.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_11_wave_blocked_end.png}
-\caption{Activated Wave blocked}
-\label{fig:scn_mv_11_wave_blocked_end}
-% \centering
-\end{figure}
-
-Here, dark Wave B is activated without committing its movement yet (it's "in-the-air").
-All accessible step-fields are blocked by opponent's light pieces, which cannot be
-activated by dark Wave, even though it has one momentum.
-Note, Wave (just like any other piece) has to move away from its starting position,
-it cannot stay and re-activate piece that has activated it (here, light Wave 2).
-Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 
 \clearpage % ..........................................................
 % Activating Pawn .....................................................
@@ -283,6 +217,26 @@ what Wave can activate is what last active piece preceeding it in a cascade coul
 with addition of opponent's Wave.
 
 % .................................................. Activating Pyramid
+\clearpage % ..........................................................
+
+\subsubsection*{Piece blocked}
+\addcontentsline{toc}{subsubsection}{Piece blocked}
+
+\vspace*{-3.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_09_wave_no_activating_blocked_piece.png}
+\caption{Piece blocked}
+\label{fig:scn_mv_09_wave_no_activating_blocked_piece}
+% \centering
+\end{figure}
+
+Wave cannot activate blocked pieces, even if it has momentum. Here, Pawn is blocked
+from moving forward by own Bishop, and there are no opponent's pieces on its'
+diagonal capture-fields. So, Wave cannot activate Pawn, even though it has one
+momentum received from Knight.
+
 % ---------------------------------------------------------- Activation
 \clearpage % ..........................................................
 % Movement ------------------------------------------------------------
@@ -290,10 +244,17 @@ with addition of opponent's Wave.
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\subsubsection*{Obstructions, limits}
-\addcontentsline{toc}{subsubsection}{Obstructions, limits}
+% \subsubsection*{Obstructions, limits}
+% \addcontentsline{toc}{subsubsection}{Obstructions, limits}
+
+
+% G --> W --> R -->|-- b
+% R limited by received momentum
+
+% G ---> W ---> R --| P .. b
+% R obstructed by other pieces
 
 \huge
 TODO
@@ -570,6 +531,8 @@ received momentum for movement, but all the other pieces do.
 Here, numbers in lower, left corner are received momentum. Bishop gathered 3 momentum,
 1 has been spent by Knight, and so activated Pawn can be rushed for only 2 fields.
 
+% TODO
+
 % \vspace*{0.345\textheight}
 % In a cascade, Wave is not limited by received momentum, nor it's obstructed by
 % other pieces on board. Wave inherts rules of movement from activating piece,
@@ -587,6 +550,67 @@ Here, numbers in lower, left corner are received momentum. Bishop gathered 3 mom
 % Rook in this example. Such cascade is said to feature push-pull activation.
 % It's also possible to reactivate other (non-initiating) pieces in the same
 % cascade, e.g. here Wave 1 was reactivated 3 times.
+
+\clearpage % ..........................................................
+
+\subsubsection*{No momentum}
+\addcontentsline{toc}{subsubsection}{No momentum}
+
+\vspace*{-3.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_08_wave_no_momentum_no_activating.png}
+\caption{No momentum}
+\label{fig:scn_mv_08_wave_no_momentum_no_activating}
+% \centering
+\end{figure}
+
+Wave can be activated with no momentum, if so it can activate only other Waves, but
+cannot activate ordinary (non-Wave) pieces. Here, one momentum originating from Bishop
+has been already spent by Knight, so Wave B is activated with no momentum, and so it
+cannot activate Pawn. Wave B can pass-by Pawn, and activate dark Wave, also with no
+momentum.
+
+\clearpage % ..........................................................
+
+\subsubsection*{Wave blocked}
+\addcontentsline{toc}{subsubsection}{Wave blocked}
+
+\vspace*{-3.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_10_wave_blocked_init.png}
+\caption{Activating Wave}
+\label{fig:scn_mv_10_wave_blocked_init}
+% \centering
+\end{figure}
+
+Wave cannot activate opponent's pieces, except for Waves. Activated Wave which movement
+is completely blocked is oblationed, i.e. is removed from chessboard as if captured by
+opponent.
+
+Here, dark Wave B is about to be activated with one momentum.
+
+\clearpage % ..........................................................
+
+\vspace*{-5.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_11_wave_blocked_end.png}
+\caption{Activated Wave blocked}
+\label{fig:scn_mv_11_wave_blocked_end}
+% \centering
+\end{figure}
+
+Here, dark Wave B is activated without committing its movement yet (it's "in-the-air").
+All accessible step-fields are blocked by opponent's light pieces, which cannot be
+activated by dark Wave, even though it has one momentum.
+Note, Wave (just like any other piece) has to move away from its starting position,
+it cannot stay and re-activate piece that has activated it (here, light Wave 2).
+Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 
 % ----------------------------------------------------- Cascading Waves
 \clearpage % ..........................................................
@@ -606,6 +630,8 @@ Here, numbers in lower, left corner are received momentum. Bishop gathered 3 mom
 \end{figure}
 
 . . .
+
+% TODO
 
 % In summary, during cascade opponent's pieces retain all of their normal behavior,
 % most notably capturing their opponent's (in cascade, that means your own!) pieces.
