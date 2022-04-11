@@ -5,6 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
+import enum
 from util import in_range
 import gen_steps as GS
 
@@ -81,6 +82,37 @@ class SceneMirandasVeilMixin:
         scene.append_arrow( *coords_W_p_R(), mark_type=MarkType.Blocked )
         scene.append_arrow( *coords_W_p_R() )
         scene.append_arrow( *coords_W_p_R(), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_mv_04_rook_activated(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_04_rook_activated', bt)
+
+        start_G = (7, 7)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_W = (15, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_p = (11, 5)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        coords_R_1 = GS.gen_steps( start=start_W, rels=[(0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arrow in enumerate( coords_R_1() ):
+            scene.append_arrow( *arrow )
+
+        coords_R_2 = GS.gen_steps( start=start_W, rels=[(-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arrow in enumerate( coords_R_2() ):
+            mark_type = MarkType.Legal if i < 3 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        coords_R_3 = GS.gen_steps( start=start_W, rels=[(0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arrow in enumerate( coords_R_3() ):
+            mark_type = MarkType.Legal if i < 3 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 

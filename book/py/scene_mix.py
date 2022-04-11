@@ -36,5 +36,6 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_mv_01_wave_activation_init', \
                     # 'scn_mv_02_wave_activated', \
-                    'scn_mv_03_wave_activating_rook', \
+                    # 'scn_mv_03_wave_activating_rook', \
+                    'scn_mv_04_rook_activated', \
                 ]
