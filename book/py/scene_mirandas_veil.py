@@ -26,17 +26,18 @@ class SceneMirandasVeilMixin:
 
         scene = Scene('scn_mv_01_wave_activation_init', bt)
 
-        start_G = (1, 4)
+        start_G = (1, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
 
-        start_W = (7, 7)
+        start_W = (6, 12)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         # G --> W
-        coords_G_W = GS.gen_next( GS.gen_steps(start=start_G, rels=[(2, 1), ], include_prev=True) )
-        scene.append_arrow( *coords_G_W() )
-        scene.append_arrow( *coords_G_W() )
-        scene.append_arrow( *coords_G_W(), mark_type=MarkType.Action )
+        coords_G_W = GS.gen_steps( start=start_G, rels=[(1, 2), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_G_W() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 
@@ -44,7 +45,7 @@ class SceneMirandasVeilMixin:
 
         scene = Scene('scn_mv_02_wave_activated', bt)
 
-        start_G = (7, 7)
+        start_G = (6, 12)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
 
         arr = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_G, include_prev=True, bounds=scene.board_view.get_position_limits() )
@@ -57,31 +58,33 @@ class SceneMirandasVeilMixin:
 
         scene = Scene('scn_mv_03_wave_activating_rook', bt)
 
-        start_G = (1, 4)
+        start_G = (1, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
 
-        start_W = (7, 7)
+        start_W = (6, 12)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_p = (11, 5)
+        start_p = (8, 8)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_R = (15, 3)
+        start_R = (9, 6)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
         # G --> W
-        coords_G_W = GS.gen_next( GS.gen_steps(start=start_G, rels=[(2, 1), ], include_prev=True) )
-        scene.append_arrow( *coords_G_W() )
-        scene.append_arrow( *coords_G_W() )
-        scene.append_arrow( *coords_G_W(), mark_type=MarkType.Action )
+        coords_G_W = GS.gen_steps( start=start_G, rels=[(1, 2), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_G_W() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         # W -p-> R
 
-        coords_W_p_R = GS.gen_next( GS.gen_steps(start=start_W, rels=[(2, -1), ], include_prev=True) )
-        scene.append_arrow( *coords_W_p_R() )
-        scene.append_arrow( *coords_W_p_R(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords_W_p_R() )
-        scene.append_arrow( *coords_W_p_R(), mark_type=MarkType.Action )
+        coords_W_p_R = GS.gen_steps( start=start_W, rels=[(1, -2), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_W_p_R() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Blocked if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 
@@ -89,30 +92,21 @@ class SceneMirandasVeilMixin:
 
         scene = Scene('scn_mv_04_rook_activated', bt)
 
-        start_G = (7, 7)
+        start_G = (6, 12)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
 
-        start_W = (15, 3)
+        start_W = (9, 6)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_p = (11, 5)
+        start_p = (8, 8)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        coords_R_1 = GS.gen_steps( start=start_W, rels=[(0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arrow in enumerate( coords_R_1() ):
-            scene.append_arrow( *arrow )
-
-        coords_R_2 = GS.gen_steps( start=start_W, rels=[(-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arrow in enumerate( coords_R_2() ):
-            mark_type = MarkType.Legal if i < 3 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        coords_R_3 = GS.gen_steps( start=start_W, rels=[(0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arrow in enumerate( coords_R_3() ):
-            mark_type = MarkType.Legal if i < 3 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
+        for rel in GS.DEFAULT_ROOK_REL_MOVES:
+            coords_R = GS.gen_steps( start=start_W, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+            for i, arrow in enumerate( coords_R() ):
+                mark_type = MarkType.Legal if i < 5 else \
+                            MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 

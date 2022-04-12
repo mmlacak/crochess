@@ -104,11 +104,11 @@ DEFAULT_CENTAUR_LONG_REL_MOVES  = DEFAULT_CENTAUR_LONG_I_III_REL_MOVES \
                                 + DEFAULT_CENTAUR_LONG_II_IV_REL_MOVES
 DEFAULT_CENTAUR_LONG_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_CENTAUR_LONG_REL_MOVES)
 
-DEFAULT_NEIGHBOURING_REL_MOVES = [ ( 1,  0), \
-                                   ( 0,  1), \
-                                   (-1,  0), \
-                                   ( 0, -1)  ]
-DEFAULT_NEIGHBOURING_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_NEIGHBOURING_REL_MOVES)
+DEFAULT_ROOK_REL_MOVES = [  ( 1,  0), \
+                            ( 0,  1), \
+                            (-1,  0), \
+                            ( 0, -1)  ]
+DEFAULT_ROOK_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_ROOK_REL_MOVES)
 
 DEFAULT_KING_REL_MOVES = [ ( 1,  0), \
                            ( 1,  1), \
