@@ -110,6 +110,73 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    def scn_mv_05_rook_interactions(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_05_rook_interactions', bt)
+
+        start_G = (1, 2)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_W = (6, 12)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_p = (8, 8)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_R = (9, 6)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_n = (9, 3)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_P = (11, 6)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_b = (13, 6)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        start_g = (9, 14)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        # G --> W
+        coords_G_W = GS.gen_steps( start=start_G, rels=[(1, 2), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_G_W() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W -p-> R
+        coords_W_p_R = GS.gen_steps( start=start_W, rels=[(1, -2), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_W_p_R() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Blocked if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --> n
+        coords_R_n = GS.gen_steps( start=start_R, rels=[(0, -1), ], include_prev=True, count=6 )
+        for i, arrow in enumerate( coords_R_n() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Blocked if i >= 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --|P .. b
+        coords_R_n = GS.gen_steps( start=start_R, rels=[(1, 0), ], include_prev=True, count=6 )
+        for i, arrow in enumerate( coords_R_n() ):
+            mark_type = MarkType.Blocked if i >= 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R -->|-- g
+        coords_R_n = GS.gen_steps( start=start_R, rels=[(0, 1), ], include_prev=True, count=9 )
+        for i, arrow in enumerate( coords_R_n() ):
+            mark_type = MarkType.Blocked if i >= 5 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
     #
     # ...
 
