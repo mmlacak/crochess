@@ -117,12 +117,9 @@ Here, Wave cannot activate opponent's Pawn on its step-field, but it's not
 hindered by that Pawn, and can reach fields behind it, which would be out of
 reach for Pegasus.
 
-% G --> W --p-->
-% W passes thru other pieces
-
 \clearpage % ..........................................................
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_04_wave_activating_rook.png}
@@ -136,9 +133,6 @@ activate any other Wave, own or opponent's, even if it doesn't have any momentum
 
 Here, Wave can activate own Rook, and transfer to it all of 5 received momentum.
 
-% G --> W -p-> R --->
-% W activates other own pieces
-
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
@@ -151,8 +145,12 @@ Here, Wave can activate own Rook, and transfer to it all of 5 received momentum.
 % \centering
 \end{figure}
 
-% \vspace*{-0.3\baselineskip}
-. . .
+Activated piece (if not Wave) moves the same as it would in a normal move, i.e. if
+not activated. The only difference is that activated piece is limited by received
+momentum, i.e. can't move for more fields than momentum it received.
+
+Here, activated Rook (now "in the air"), moves as Rooks do, along horizontals or
+verticals. Rook can reach at most 5 fields, because that's the momentum it received.
 
 % R <-<-<--- * --->->->
 % R limited by received momentum
