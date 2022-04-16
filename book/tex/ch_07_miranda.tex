@@ -152,23 +152,24 @@ momentum, i.e. can't move for more fields than momentum it received.
 Here, activated Rook (now "in the air"), moves as Rooks do, along horizontals or
 verticals. Rook can reach at most 5 fields, because that's the momentum it received.
 
-% R <-<-<--- * --->->->
-% R limited by received momentum
-
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_06_rook_interactions.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_06_rook_captures.png}
 % \vspace*{-1.3\baselineskip}
-\caption{Rook interactions}
-\label{fig:scn_mv_06_rook_interactions}
+\caption{Rook captures}
+\label{fig:scn_mv_06_rook_captures}
 % \centering
 \end{figure}
 
-% \vspace*{-0.3\baselineskip}
-. . .
+Activated piece (if not Wave) can also capture opponent's piece, if it's within reach,
+and not obstructed by other pieces.
+
+Here, activated Rook can capture dark Knight; it can't capture dark Bishop since
+own light Pawn is in the way. Light Rook can't capture dark Pegasus since it's out
+of reach.
 
 % G --> W --> R --> n
 % R capturing Knight within reach

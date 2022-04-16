@@ -139,9 +139,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_06_rook_interactions(self, bt=BoardType.MirandasVeil):
+    def scn_mv_06_rook_captures(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_06_rook_interactions', bt)
+        scene = Scene('scn_mv_06_rook_captures', bt)
 
         start_G = (1, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )

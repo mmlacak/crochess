@@ -39,5 +39,5 @@ class SceneMix(SceneMixin, \
                     'scn_mv_03_pawn_pass_through', \
                     'scn_mv_04_wave_activating_rook', \
                     'scn_mv_05_rook_activated', \
-                    'scn_mv_06_rook_interactions', \
+                    'scn_mv_06_rook_captures', \
                 ]
