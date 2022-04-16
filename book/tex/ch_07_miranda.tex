@@ -171,24 +171,25 @@ Here, activated Rook can capture dark Knight; it can't capture dark Bishop since
 own light Pawn is in the way. Light Rook can't capture dark Pegasus since it's out
 of reach.
 
-% G --> W --> R --> n
-% R capturing Knight within reach
+\clearpage % ..........................................................
 
-% \clearpage % ..........................................................
+\subsubsection*{Piece blocked}
+\addcontentsline{toc}{subsubsection}{Piece blocked}
 
-% G --> W --> R -->|-- b
-% R limited by received momentum --> can't capture Bishop out of reach
+\vspace*{-3.0ex}
+\noindent
+% \begin{figure}[t]
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_07_wave_no_activating_blocked_piece.png}
+\caption{Piece blocked}
+\label{fig:scn_mv_07_wave_no_activating_blocked_piece}
+% \centering
+\end{figure}
 
-% \clearpage % ..........................................................
-
-% G ---> W ---> R --| P .. b
-% R obstructed by other pieces
-
-% \clearpage % ..........................................................
-
-
-
-
+Wave cannot activate blocked pieces, even if it has momentum. Here, Pawn is blocked
+from moving forward by own Bishop, and there are no opponent's pieces on its'
+diagonal capture-fields. So, Wave cannot activate Pawn, even though it has one
+momentum received from Knight.
 
 
 % TODO
@@ -332,26 +333,6 @@ what Wave can activate is what last active piece preceeding it in a cascade coul
 with addition of opponent's Wave.
 
 % .................................................. Activating Pyramid
-\clearpage % ..........................................................
-
-\subsubsection*{Piece blocked}
-\addcontentsline{toc}{subsubsection}{Piece blocked}
-
-\vspace*{-3.0ex}
-\noindent
-% \begin{figure}[t]
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_15_wave_no_activating_blocked_piece.png}
-\caption{Piece blocked}
-\label{fig:scn_mv_15_wave_no_activating_blocked_piece}
-% \centering
-\end{figure}
-
-Wave cannot activate blocked pieces, even if it has momentum. Here, Pawn is blocked
-from moving forward by own Bishop, and there are no opponent's pieces on its'
-diagonal capture-fields. So, Wave cannot activate Pawn, even though it has one
-momentum received from Knight.
-
 % ---------------------------------------------------------- Activation
 \clearpage % ..........................................................
 % Movement ------------------------------------------------------------
@@ -590,10 +571,17 @@ of a board.
 % \centering
 \end{figure}
 
+% TODO --> DELETE --> movement explained earlier
+
 Activated Wave inherits way of movement from activating piece,
 \hyperref[sec:Appendix/Movement of Wave]{rules of inheritance are simple, with few exceptions}.
 When activated by other Wave, movement of an activated Wave is exactly the same as
 activating Wave.
+
+% TODO --> DELETE --> movement explained earlier
+
+% TODO -->
+% activated Wave can also activate other Wave
 
 Here, Wave B moves like a Bishop, because activating Wave A moved like a Bishop,
 since it was activated by one.

@@ -20,7 +20,7 @@ from scene import Scene
 class SceneMirandasVeilMixin:
 
     #
-    # activation
+    # Activation
 
     def scn_mv_01_wave_activation_init(self, bt=BoardType.MirandasVeil):
 
@@ -53,6 +53,9 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *pos, mark_type=MarkType.Legal )
 
         return scene
+
+    #
+    # Activating pieces
 
     def scn_mv_03_pawn_pass_through(self, bt=BoardType.MirandasVeil):
 
@@ -203,6 +206,28 @@ class SceneMirandasVeilMixin:
             mark_type = MarkType.Blocked if i >= 5 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    #
+    # Piece blocked
+
+    def scn_mv_07_wave_no_activating_blocked_piece(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_07_wave_no_activating_blocked_piece', bt)
+
+        scene.board.set_piece(6, 6, piece=PieceType.Knight)
+        scene.board.set_piece(5, 4, piece=PieceType.Wave)
+        scene.board.set_piece(3, 6, piece=PieceType.Bishop)
+        scene.board.set_piece(3, 5, piece=PieceType.Pawn)
+
+        scene.append_arrow( 6, 6, 5, 4, mark_type=MarkType.Action )
+        scene.append_arrow( 5, 4, 3, 5, mark_type=MarkType.Illegal )
+        scene.append_arrow( 3, 5, 1, 6, mark_type=MarkType.Legal )
+
+        scene.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Blocked )
+        scene.append_arrow( 3, 5, 3, 6, mark_type=MarkType.Blocked )
+        scene.append_arrow( 3, 5, 4, 6, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -490,25 +515,6 @@ class SceneMirandasVeilMixin:
 
         scene.append_text( "A", 7, 5, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
         scene.append_text( "B", 5, 4, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
-
-        return scene
-
-    def scn_mv_15_wave_no_activating_blocked_piece(self, bt=BoardType.MirandasVeil):
-
-        scene = Scene('scn_mv_15_wave_no_activating_blocked_piece', bt)
-
-        scene.board.set_piece(6, 6, piece=PieceType.Knight)
-        scene.board.set_piece(5, 4, piece=PieceType.Wave)
-        scene.board.set_piece(3, 6, piece=PieceType.Bishop)
-        scene.board.set_piece(3, 5, piece=PieceType.Pawn)
-
-        scene.append_arrow( 6, 6, 5, 4, mark_type=MarkType.Action )
-        scene.append_arrow( 5, 4, 3, 5, mark_type=MarkType.Illegal )
-        scene.append_arrow( 3, 5, 1, 6, mark_type=MarkType.Legal )
-
-        scene.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Blocked )
-        scene.append_arrow( 3, 5, 3, 6, mark_type=MarkType.Blocked )
-        scene.append_arrow( 3, 5, 4, 6, mark_type=MarkType.Blocked )
 
         return scene
 
