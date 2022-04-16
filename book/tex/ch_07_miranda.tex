@@ -170,7 +170,7 @@ of reach.
 \subsubsection*{Piece blocked}
 \addcontentsline{toc}{subsubsection}{Piece blocked}
 
-\vspace*{-3.0ex}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_07_wave_no_activating_blocked_piece.png}
@@ -183,59 +183,20 @@ from moving forward by own Bishop, and there are no opponent's pieces on its'
 diagonal capture-fields. So, Wave cannot activate Pawn, even though it has one
 momentum received from Knight.
 
-
-% TODO
-
-% \vspace*{-2.0ex}
-% \noindent
-% % \begin{figure}[h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_01_move_wave_init.png}
-% \caption{Wave activation}
-% \label{fig:scn_mv_01_move_wave_init}
-% % \end{figure}
-
-% Above, after activation Wave could move the same way Knight does, over multiple
-% step-fields. So, in this case Wave would move as Pegasus does. Once Wave starts
-% moving in a chosen direction, it cannot be changed. Wave does not spend received
-% momentum while moving, and would transfer it entirely to any piece it activates.
-
-% \clearpage % ..........................................................
-
-% \noindent
-% % \begin{figure}[h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_02_move_wave_activated.png}
-% \caption{Wave activated}
-% \label{fig:scn_mv_02_move_wave_activated}
-% % \end{figure}
-
-% Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
-% can also activate pieces (blue arrows) obscured by other pieces, for instance
-% light Pyramid which is blocked for regular Pegasus. Wave cannot activate Kings
-% nor opponent's pieces (red arrows), except dark Wave. \\
-% Again, Wave cannot change direction of movement after first step. For instance,
-% upon reaching step-field 5, it cannot change direction to 5c, or any other
-% greyed-out direction.
-
-% \clearpage % ..........................................................
-
-% \noindent
-% % \begin{figure}[h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_03_move_wave_finished.png}
-% \caption{Wave finished}
-% \label{fig:scn_mv_03_move_wave_finished}
-% % \end{figure}
-
-% Greyed-out arrows show steps light Wave have taken in its ply. Activated Bishop
-% now continues the move according to own rules of movement, i.e. diagonally. Note
-% that it's restricted by momentum received, and thus can make only one step, i.e.
-% can move for only one field.
-
 % ---------------------------------------------------------- Activation
 \clearpage % ..........................................................
 % Movement ------------------------------------------------------------
 
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
+
+Activated Wave inherits way of movement from activating piece,
+\hyperref[sec:Appendix/Movement of Wave]{rules of inheritance are simple, with few exceptions}.
+When activated by other Wave, movement of an activated Wave is exactly the same as
+activating Wave.
+
+When piece activated in a cascade is not a Wave, it has its own rules of movement, and
+Waves activated afterwards inherit them from that activating piece.
 
 
 \huge
@@ -252,9 +213,27 @@ Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave
 \subsubsection*{Activation by Knight}
 \addcontentsline{toc}{subsubsection}{Activation by Knight}
 
+% Above, after activation Wave could move the same way Knight does, over multiple
+% step-fields. So, in this case Wave would move as Pegasus does. Once Wave starts
+% moving in a chosen direction, it cannot be changed. Wave does not spend received
+% momentum while moving, and would transfer it entirely to any piece it activates.
+
 \huge
 TODO
 \normalsize
+
+% Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
+% can also activate pieces (blue arrows) obscured by other pieces, for instance
+% light Pyramid which is blocked for regular Pegasus. Wave cannot activate Kings
+% nor opponent's pieces (red arrows), except dark Wave. \\
+% Again, Wave cannot change direction of movement after first step. For instance,
+% upon reaching step-field 5, it cannot change direction to 5c, or any other
+% greyed-out direction.
+
+% Greyed-out arrows show steps light Wave have taken in its ply. Activated Bishop
+% now continues the move according to own rules of movement, i.e. diagonally. Note
+% that it's restricted by momentum received, and thus can make only one step, i.e.
+% can move for only one field.
 
 % ................................................ Activation by Knight
 \clearpage % ..........................................................
@@ -450,7 +429,7 @@ of a board.
 \subsection*{Cascading Waves}
 \addcontentsline{toc}{subsection}{Cascading Waves}
 
-\vspace*{-3.0ex}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_10_wave_cascading_init.png}
@@ -458,14 +437,9 @@ of a board.
 \label{fig:scn_mv_10_wave_cascading_init}
 \end{figure}
 
-% TODO --> DELETE --> movement explained earlier
-
-Activated Wave inherits way of movement from activating piece,
-\hyperref[sec:Appendix/Movement of Wave]{rules of inheritance are simple, with few exceptions}.
-When activated by other Wave, movement of an activated Wave is exactly the same as
-activating Wave.
-
-% TODO --> DELETE --> movement explained earlier
+\huge
+TODO
+\normalsize
 
 % TODO -->
 % activated Wave can also activate other Wave
@@ -475,7 +449,7 @@ since it was activated by one.
 
 \clearpage % ..........................................................
 
-\vspace*{-5.0ex}
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_11_wave_cascading_steps.png}
@@ -483,15 +457,19 @@ since it was activated by one.
 \label{fig:scn_mv_11_wave_cascading_steps}
 \end{figure}
 
-When piece activated in a cascade is not a Wave, it has its own rules of movement, and
-Waves activated afterwards inherit them from that activating piece.
+\huge
+TODO
+\normalsize
+
+% TODO -->
+% activated piece transfers all of received momentum, even if it can move for just 1 field
 
 Here, all Waves activated after Knight moves like multi-step Knight (i.e. Pegasus),
 since Waves are not restricted to only one step, even if activating piece is.
 
 \clearpage % ..........................................................
 
-\vspace*{-5.0ex}
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_12_wave_cascading_end.png}
@@ -531,7 +509,7 @@ Here, numbers in lower, left corner are received momentum. Bishop gathered 3 mom
 \subsubsection*{No momentum}
 \addcontentsline{toc}{subsubsection}{No momentum}
 
-\vspace*{-3.0ex}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_14_wave_no_momentum_no_activating.png}
