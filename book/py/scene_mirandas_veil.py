@@ -232,6 +232,42 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Movement
+
+    def scn_mv_08_bishop_activating_wave(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_08_bishop_activating_wave', bt)
+
+        start_B = (3, 6)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+
+        start_W = (7, 10)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        # B --> W
+        coords_B_W = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_B_W() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    def scn_mv_09_wave_activated_by_bishop(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_09_wave_activated_by_bishop', bt)
+
+        start_B = (7, 10)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+
+        # W <-<-<--- * --->->->
+        arr = GS.gen_multi_steps( GS.DEFAULT_BISHOP_MULTI_REL_MOVES, start=start_B, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, pos in enumerate( arr() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        return scene
+
+    #
     # ...
 
     def scn_mv_10_wave_cascading_init(self, bt=BoardType.MirandasVeil):

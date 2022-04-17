@@ -190,19 +190,40 @@ momentum received from Knight.
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_08_bishop_activating_wave.png}
+\caption{Bishop activating Wave}
+\label{fig:scn_mv_08_bishop_activating_wave}
+\end{figure}
+
 \textgreater \textgreater \textgreater
 Activated Wave inherits way of movement from activating piece,
 \hyperref[sec:Appendix/Movement of Wave]{rules of inheritance are simple, with few exceptions}.
-When activated by other Wave, movement of an activated Wave is exactly the same as
-activating Wave.
 
-\textgreater \textgreater \textgreater
-When piece activated in a cascade is not a Wave, it has its own rules of movement, and
-Waves activated afterwards inherit them from that activating piece.
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_09_wave_activated_by_bishop.png}
+% \vspace*{-1.3\baselineskip}
+\caption{Wave activated by Bishop}
+\label{fig:scn_mv_09_wave_activated_by_bishop}
+\end{figure}
+
+. . .
 
 \huge
 TODO
 \normalsize
+
+\clearpage % ..........................................................
+% Activated by Knight .................................................
+
+\subsubsection*{Activated by Knight}
+\addcontentsline{toc}{subsubsection}{Activated by Knight}
 
 \textgreater \textgreater \textgreater
 Above, after activation Wave could move the same way Knight does, over multiple
@@ -210,14 +231,9 @@ step-fields. So, in this case Wave would move as Pegasus does. Once Wave starts
 moving in a chosen direction, it cannot be changed. Wave does not spend received
 momentum while moving, and would transfer it entirely to any piece it activates.
 
-\textgreater \textgreater \textgreater
-Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave 1.
-
-\clearpage % ..........................................................
-% Activation by Knight ................................................
-
-\subsubsection*{Activation by Knight}
-\addcontentsline{toc}{subsubsection}{Activation by Knight}
+\huge
+TODO
+\normalsize
 
 \textgreater \textgreater \textgreater
 Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
@@ -228,33 +244,29 @@ Again, Wave cannot change direction of movement after first step. For instance,
 upon reaching step-field 5, it cannot change direction to 5c, or any other
 greyed-out direction.
 
-\huge
-TODO
-\normalsize
-
 \textgreater \textgreater \textgreater
 Greyed-out arrows show steps light Wave have taken in its ply. Activated Bishop
 now continues the move according to own rules of movement, i.e. diagonally. Note
 that it's restricted by momentum received, and thus can make only one step, i.e.
 can move for only one field.
 
-% ................................................ Activation by Knight
+% ................................................. Activated by Knight
 \clearpage % ..........................................................
-% Activation by King ..................................................
+% Activated by King ...................................................
 
-\subsubsection*{Activation by King}
-\addcontentsline{toc}{subsubsection}{Activation by King}
+\subsubsection*{Activated by King}
+\addcontentsline{toc}{subsubsection}{Activated by King}
 
 \huge
 TODO
 \normalsize
 
-% .................................................. Activation by King
+% ................................................... Activated by King
 \clearpage % ..........................................................
-% Activation by Pawn ..................................................
+% Activated by Pawn ...................................................
 
-\subsubsection*{Activation by Pawn}
-\addcontentsline{toc}{subsubsection}{Activation by Pawn}
+\subsubsection*{Activated by Pawn}
+\addcontentsline{toc}{subsubsection}{Activated by Pawn}
 
 \vspace*{-1.4\baselineskip}
 \noindent
@@ -317,12 +329,12 @@ Once in motion, Wave cannot change initially chosen direction. Here, upon reachi
 Wave cannot change direction to Pawn's step-fields, or to Pawn's other capture diagonal. So,
 Wave can't activate neither light Pegasus, nor dark Wave.
 
-% .................................................. Activation by Pawn
+% ................................................... Activated by Pawn
 \clearpage % ..........................................................
-% Activation by Unicorn ...............................................
+% Activated by Unicorn ................................................
 
-\subsubsection*{Activation by Unicorn}
-\addcontentsline{toc}{subsubsection}{Activation by Unicorn}
+\subsubsection*{Activated by Unicorn}
+\addcontentsline{toc}{subsubsection}{Activated by Unicorn}
 
 \vspace*{-0.7\baselineskip}
 \noindent
@@ -424,7 +436,7 @@ Unicorn can reach fields 1 and 2, even though it stepped outside of the
 board. It is illegal for any piece, including Wave, to end its ply outside
 of a board.
 
-% ............................................... Activation by Unicorn
+% ................................................ Activated by Unicorn
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
 % Cascading Waves -----------------------------------------------------
@@ -446,6 +458,8 @@ TODO
 
 % TODO -->
 % activated Wave can also activate other Wave
+When activated by other Wave, movement of an activated Wave is exactly the same as
+activating Wave.
 
 Here, Wave B moves like a Bishop, because activating Wave A moved like a Bishop,
 since it was activated by one.
@@ -466,6 +480,9 @@ TODO
 
 % TODO -->
 % activated piece transfers all of received momentum, even if it can move for just 1 field
+\textgreater \textgreater \textgreater
+When piece activated in a cascade is not a Wave, it has its own rules of movement, and
+Waves activated afterwards inherit them from that activating piece.
 
 Here, all Waves activated after Knight moves like multi-step Knight (i.e. Pegasus),
 since Waves are not restricted to only one step, even if activating piece is.

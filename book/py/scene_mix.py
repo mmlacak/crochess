@@ -34,10 +34,13 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_01_wave_activation_init', \
-                    'scn_mv_02_wave_activated', \
-                    'scn_mv_03_pawn_pass_through', \
-                    'scn_mv_04_wave_activating_rook', \
-                    'scn_mv_05_rook_activated', \
-                    'scn_mv_06_rook_captures', \
+                    # 'scn_mv_01_wave_activation_init', \
+                    # 'scn_mv_02_wave_activated', \
+                    # 'scn_mv_03_pawn_pass_through', \
+                    # 'scn_mv_04_wave_activating_rook', \
+                    # 'scn_mv_05_rook_activated', \
+                    # 'scn_mv_06_rook_captures', \
+                    # 'scn_mv_07_wave_no_activating_blocked_piece', \
+                    # 'scn_mv_08_bishop_activating_wave', \
+                    'scn_mv_09_wave_activated_by_bishop', \
                 ]
