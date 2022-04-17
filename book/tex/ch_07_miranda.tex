@@ -190,21 +190,27 @@ momentum received from Knight.
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 
+\textgreater \textgreater \textgreater
 Activated Wave inherits way of movement from activating piece,
 \hyperref[sec:Appendix/Movement of Wave]{rules of inheritance are simple, with few exceptions}.
 When activated by other Wave, movement of an activated Wave is exactly the same as
 activating Wave.
 
+\textgreater \textgreater \textgreater
 When piece activated in a cascade is not a Wave, it has its own rules of movement, and
 Waves activated afterwards inherit them from that activating piece.
-
 
 \huge
 TODO
 \normalsize
 
 \textgreater \textgreater \textgreater
+Above, after activation Wave could move the same way Knight does, over multiple
+step-fields. So, in this case Wave would move as Pegasus does. Once Wave starts
+moving in a chosen direction, it cannot be changed. Wave does not spend received
+momentum while moving, and would transfer it entirely to any piece it activates.
 
+\textgreater \textgreater \textgreater
 Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave 1.
 
 \clearpage % ..........................................................
@@ -213,27 +219,24 @@ Naturaly, Rook is obstructed by surrounding pieces, i.e. it can't move past Wave
 \subsubsection*{Activation by Knight}
 \addcontentsline{toc}{subsubsection}{Activation by Knight}
 
-% Above, after activation Wave could move the same way Knight does, over multiple
-% step-fields. So, in this case Wave would move as Pegasus does. Once Wave starts
-% moving in a chosen direction, it cannot be changed. Wave does not spend received
-% momentum while moving, and would transfer it entirely to any piece it activates.
+\textgreater \textgreater \textgreater
+Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
+can also activate pieces (blue arrows) obscured by other pieces, for instance
+light Pyramid which is blocked for regular Pegasus. Wave cannot activate Kings
+nor opponent's pieces (red arrows), except dark Wave. \\
+Again, Wave cannot change direction of movement after first step. For instance,
+upon reaching step-field 5, it cannot change direction to 5c, or any other
+greyed-out direction.
 
 \huge
 TODO
 \normalsize
 
-% Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
-% can also activate pieces (blue arrows) obscured by other pieces, for instance
-% light Pyramid which is blocked for regular Pegasus. Wave cannot activate Kings
-% nor opponent's pieces (red arrows), except dark Wave. \\
-% Again, Wave cannot change direction of movement after first step. For instance,
-% upon reaching step-field 5, it cannot change direction to 5c, or any other
-% greyed-out direction.
-
-% Greyed-out arrows show steps light Wave have taken in its ply. Activated Bishop
-% now continues the move according to own rules of movement, i.e. diagonally. Note
-% that it's restricted by momentum received, and thus can make only one step, i.e.
-% can move for only one field.
+\textgreater \textgreater \textgreater
+Greyed-out arrows show steps light Wave have taken in its ply. Activated Bishop
+now continues the move according to own rules of movement, i.e. diagonally. Note
+that it's restricted by momentum received, and thus can make only one step, i.e.
+can move for only one field.
 
 % ................................................ Activation by Knight
 \clearpage % ..........................................................
