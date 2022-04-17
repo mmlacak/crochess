@@ -257,6 +257,17 @@ moving in a chosen direction, it cannot be changed.
 TODO
 \normalsize
 
+% ................................................. Activated by Knight
+\clearpage % ..........................................................
+% Activated by King ...................................................
+
+\subsubsection*{Activated by King}
+\addcontentsline{toc}{subsubsection}{Activated by King}
+
+\huge
+TODO
+\normalsize
+
 \clearpage % ..........................................................
 
 \textgreater \textgreater \textgreater
@@ -274,17 +285,6 @@ now continues the move according to own rules of movement, i.e. diagonally. Note
 that it's restricted by momentum received, and thus can make only one step, i.e.
 can move for only one field.
 
-% ................................................. Activated by Knight
-\clearpage % ..........................................................
-% Activated by King ...................................................
-
-\subsubsection*{Activated by King}
-\addcontentsline{toc}{subsubsection}{Activated by King}
-
-\huge
-TODO
-\normalsize
-
 % ................................................... Activated by King
 \clearpage % ..........................................................
 % Activated by Pawn ...................................................
@@ -292,14 +292,18 @@ TODO
 \subsubsection*{Activated by Pawn}
 \addcontentsline{toc}{subsubsection}{Activated by Pawn}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_20_wave_activation_by_step_pawn.png}
+\vspace*{-1.3\baselineskip}
 \caption{Pawn activates Wave on step-field}
 \label{fig:scn_mv_20_wave_activation_by_step_pawn}
 \end{figure}
 
+\vspace*{-0.5\baselineskip}
+Image above and the next one both have two examples presented in parallel, on the
+left, and to the right. \\
 Pawn can activate Wave on its step-fields. Ordinary step would give 1 momentum to
 Wave (Pawn 1), while rushed Pawn would give count of travelled-over step-fields as
 momentum, in this case 3 (Pawn 2). Note, rushed Pawn has to capture field at which
