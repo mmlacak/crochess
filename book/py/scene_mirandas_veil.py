@@ -268,6 +268,41 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Activated by Knight
+
+    def scn_mv_10_knight_activating_wave(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_10_knight_activating_wave', bt)
+
+        start_N = (3, 6)
+        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        start_W = (5, 7)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        # N --> W
+        scene.append_arrow( *( start_N + start_W ), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_mv_11_wave_activated_by_knight(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_11_wave_activated_by_knight', bt)
+
+        start_N = (5, 7)
+        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        # W <-<-<--- * --->->->
+        arr = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, pos in enumerate( arr() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        return scene
+
+
+
+
+    #
     # ...
 
     def scn_mv_10_wave_cascading_init(self, bt=BoardType.MirandasVeil):
