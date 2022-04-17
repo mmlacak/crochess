@@ -299,8 +299,37 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    #
+    # Activated by King
 
+    def scn_mv_12_king_activating_wave(self, bt=BoardType.MirandasVeil):
 
+        scene = Scene('scn_mv_12_king_activating_wave', bt)
+
+        start_K = (3, 6)
+        scene.board.set_piece(*start_K, piece=PieceType.King)
+
+        start_W = (4, 7)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        # N --> W
+        scene.append_arrow( *( start_K + start_W ), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_mv_13_wave_activated_by_king(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_13_wave_activated_by_king', bt)
+
+        start_K = (4, 7)
+        scene.board.set_piece(*start_K, piece=PieceType.King)
+
+        # W <-<-<--- * --->->->
+        arr = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_K, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, pos in enumerate( arr() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        return scene
 
     #
     # ...

@@ -43,6 +43,8 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_07_wave_no_activating_blocked_piece', \
                     # 'scn_mv_08_bishop_activating_wave', \
                     # 'scn_mv_09_wave_activated_by_bishop', \
-                    'scn_mv_10_knight_activating_wave', \
-                    'scn_mv_11_wave_activated_by_knight', \
+                    # 'scn_mv_10_knight_activating_wave', \
+                    # 'scn_mv_11_wave_activated_by_knight', \
+                    'scn_mv_12_king_activating_wave', \
+                    'scn_mv_13_wave_activated_by_king', \
                 ]
