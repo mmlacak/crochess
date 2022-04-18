@@ -205,10 +205,6 @@ by pieces which move for one field (such as Pawn, Knight, King, and Unicorn) can
 over multiple fields. Again, Wave is not limited by received momentum, and can move past
 any piece as if it's not there.
 
-% \textgreater \textgreater \textgreater
-% Activated Wave inherits way of movement from activating piece,
-% \hyperref[sec:Appendix/Movement of Wave]{rules of inheritance are simple, with few exceptions}.
-
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
@@ -239,10 +235,10 @@ not obstructed by neither Pawn nor Knight, and can move past them. Wave is not l
 \label{fig:scn_mv_10_knight_activating_wave}
 \end{figure}
 
-\textgreater \textgreater \textgreater
-Above, after activation Wave could move the same way Knight does, over multiple
-step-fields. So, in this case Wave would move as Pegasus does. Once Wave starts
-moving in a chosen direction, it cannot be changed.
+Wave can make multiple steps in a ply, even if activated by a piece which can make only
+one step. Activated Wave can take one chosen direction, which cannot be changed later.
+
+Here, Knight is about to activate Wave, and transfer to it one momentum.
 
 \clearpage % ..........................................................
 
@@ -250,16 +246,13 @@ moving in a chosen direction, it cannot be changed.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_11_wave_activated_by_knight.png}
-% \vspace*{-1.3\baselineskip}
 \caption{Wave activated by Knight}
 \label{fig:scn_mv_11_wave_activated_by_knight}
 \end{figure}
 
-. . .
-
-\huge
-TODO
-\normalsize
+Here, Wave activated by light Knight (now "in the air") can choose one semi-diagonal
+(corresponding to Knight's step), and then move over multiple step-fields, up to
+the edge of chessboard. So, Wave activated by Knight moves like a Pegasus.
 
 % ................................................. Activated by Knight
 \clearpage % ..........................................................
