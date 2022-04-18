@@ -260,16 +260,11 @@ class SceneMirandasVeilMixin:
         start_B = (7, 10)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        # # W <-<-<--- * --->->->
-        # arr = GS.gen_multi_steps( GS.DEFAULT_BISHOP_MULTI_REL_MOVES, start=start_B, include_prev=True, bounds=scene.board_view.get_position_limits() )
-        # for i, pos in enumerate( arr() ):
-        #     scene.append_arrow( *pos, mark_type=MarkType.Legal )
-
         start_P = (5, 12)
         scene.board.set_piece(*start_P, piece=PieceType.Pawn)
 
-        start_b = (10, 7)
-        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+        start_n = (10, 7)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
 
         # W --> (1, 1)
         coords_W_0 = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
