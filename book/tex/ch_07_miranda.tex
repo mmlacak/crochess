@@ -120,16 +120,19 @@ reach for Pegasus.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_04_wave_activating_rook.png}
+\vspace*{-1.3\baselineskip}
 \caption{Activating Rook}
 \label{fig:scn_mv_04_wave_activating_rook}
 \end{figure}
 
+\vspace*{-0.3\baselineskip}
 Wave can activate any own piece, except King, if it has momentum. Wave can also
 activate any other Wave, own or opponent's, even if it doesn't have any momentum.
 Wave does not spend received momentum while moving, and would transfer it entirely
 to any piece it activates.
 
-Here, Wave can activate own Rook, and transfer to it all of 5 received momentum.
+Here, Wave can activate own Rook, even though it's positioned behind opponent's
+Pawn, and transfer to it all of 5 received momentum.
 
 \clearpage % ..........................................................
 
@@ -286,29 +289,6 @@ or vertical lines (corresponding to steps King can make).
 Then, Wave activated by King (now "in the air") can move over multiple step-fields,
 up to the edge of chessboard. Direction taken by activated Wave cannot be changed
 for duration of a ply. So, Wave activated by King moves like a Queen.
-
-\clearpage % ..........................................................
-
-\huge
-TODO
-\normalsize
-
-\textgreater \textgreater \textgreater
-Wave can move unhindered by any piece, even on step-fields (green arrows). Wave
-can also activate pieces (blue arrows) obscured by other pieces, for instance
-light Pyramid which is blocked for regular Pegasus. Wave cannot activate Kings
-nor opponent's pieces (red arrows), except dark Wave.
-
-\textgreater \textgreater \textgreater
-Again, Wave cannot change direction of movement after first step. For instance,
-upon reaching step-field 5, it cannot change direction to 5c, or any other
-greyed-out direction.
-
-\textgreater \textgreater \textgreater
-Greyed-out arrows show steps light Wave have taken in its ply. Activated Bishop
-now continues the move according to own rules of movement, i.e. diagonally. Note
-that it's restricted by momentum received, and thus can make only one step, i.e.
-can move for only one field.
 
 % ................................................... Activated by King
 \clearpage % ..........................................................
