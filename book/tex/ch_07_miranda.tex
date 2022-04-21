@@ -502,13 +502,6 @@ since it was activated by one.
 \label{fig:scn_mv_11_wave_cascading_steps}
 \end{figure}
 
-\huge
-TODO
-\normalsize
-
-% TODO -->
-% activated piece transfers all of received momentum, even if it can move for just 1 field
-\textgreater \textgreater \textgreater
 When piece activated in a cascade is not a Wave, it has its own rules of movement, and
 Waves activated afterwards inherit them from that activating piece.
 
@@ -521,13 +514,15 @@ since Waves are not restricted to only one step, even if activating piece is.
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_12_wave_cascading_end.png}
+\vspace*{-1.3\baselineskip}
 \caption{Cascade end}
 \label{fig:scn_mv_12_wave_cascading_end}
 \end{figure}
 
+\vspace*{-0.3\baselineskip}
 First piece in a cascade gathers momentum over step-fields travelled. All pieces
-transfer any remaining momentum to the next piece in a cascade. Waves do not spend
-received momentum for movement, but all the other pieces do.
+transfer all of momentum remaining after movement to the next piece in a cascade.
+Wave doesn't spend received momentum for movement, but all the other pieces do.
 
 Here, numbers in lower, left corner are received momentum. Bishop gathered 3 momentum,
 1 has been spent by Knight, and so activated Pawn can be rushed for only 2 fields.
