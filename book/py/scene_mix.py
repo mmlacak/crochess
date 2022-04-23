@@ -47,6 +47,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_11_wave_activated_by_knight', \
                     # 'scn_mv_12_king_activating_wave', \
                     # 'scn_mv_13_wave_activated_by_king', \
-                    # 'scn_mv_32_reactivating_piece_init', \
+                    'scn_mv_32_reactivating_piece_init', \
                     'scn_mv_33_reactivating_piece_steps', \
                 ]

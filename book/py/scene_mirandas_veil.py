@@ -1398,6 +1398,9 @@ class SceneMirandasVeilMixin:
         start_W_C = (11, 8)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
+        start_w = (9, 2)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
         # R --> W(A)
         coords_R_WA = GS.gen_steps( start=start_R, rels=[(1, 0), ], include_prev=True, count=5 )
         for i, arrow in enumerate( coords_R_WA() ):
@@ -1429,6 +1432,10 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
+
         return scene
 
     def scn_mv_33_reactivating_piece_steps(self, bt=BoardType.MirandasVeil):
@@ -1451,6 +1458,9 @@ class SceneMirandasVeilMixin:
 
         start_B = (11, 8)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_w = (9, 2)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
         # --> R
         coords_R_WA = GS.gen_steps( end=start_R, rels=[(1, 0), ], include_prev=True, count=5 )
@@ -1477,15 +1487,33 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
 
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        # W(C) is "in the air"
+        # scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
         # R, starting position, previous scene
         scene.append_text( "R", *start_R_prev, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
-        # W(C) --->
-        coords_WC_ = GS.gen_steps( start=start_B, rels=[(-1, -1), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( coords_WC_() ):
+        # W(C) --> W(A)
+        coords_WC_WA = GS.gen_steps( start=start_B, rels=[(-1, -1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_WC_WA() ):
             mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> w
+        coords_WA_w = GS.gen_steps( start=start_W_A, rels=[(1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_WA_w() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # w --->
+        coords_w_ = GS.gen_steps( start=start_w, rels=[(1, 1), ], include_prev=True, count=6 )
+        for i, arrow in enumerate( coords_w_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
         return scene
 
