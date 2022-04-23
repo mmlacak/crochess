@@ -1373,6 +1373,63 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    #
+    # Reactivating pieces
+
+    def scn_mv_32_reactivating_piece_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_32_reactivating_piece_init', bt)
+
+        start_R = (2, 1)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W_A = (7, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_N = (7, 4)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_W_B = (5, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_B = (8, 11)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_C = (11, 8)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # R --> W(A)
+        coords_R_WA = GS.gen_steps( start=start_R, rels=[(1, 0), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_R_WA() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> N
+        coords_WA_N = GS.gen_steps( start=start_W_A, rels=[(0, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WA_N() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # N --> W(B)
+        scene.append_arrow( *( start_N + start_W_B ), mark_type=MarkType.Action )
+
+        # W(B) --> B
+        coords_WB_N = GS.gen_steps( start=start_W_B, rels=[(1, 2), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WB_N() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # B --> W(C)
+        coords_B_WC = GS.gen_steps( start=start_B, rels=[(1, -1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_B_WC() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
 
 
 

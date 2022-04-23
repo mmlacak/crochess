@@ -622,13 +622,13 @@ both in \hyperref[fig:scn_ma_01_pyramid_activation_init]{a direct activation}, o
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
-All pieces can activate Pyramid on their capture-fields, even if a Pawn in cascade used
-step-fields to continue (or start) said cascade (right example, above).
+All pieces can activate Pyramid on their capture-fields, even if a Pawn in cascade
+used step-fields to continue (or start) said cascade (right example, above).
 
-So, if Pyramid can be activated depends solely if last active piece (preceeding that Pyramid
-in a cascade) travelled over its step- or capture-fields. This is so for all other activations,
-what Wave can activate is what last active piece preceeding it in a cascade could activate,
-with addition of opponent's Wave.
+So, if Pyramid can be activated depends solely if last active piece (preceeding that
+Pyramid in a cascade) travelled over its step- or capture-fields. This is so for all
+other activations, what Wave can activate is what last active piece preceeding it in
+a cascade could activate, with addition of opponent's Wave.
 
 % .................................................. Activating Pyramid
 \clearpage % ..........................................................
@@ -637,15 +637,27 @@ with addition of opponent's Wave.
 \subsubsection*{Reactivating pieces}
 \addcontentsline{toc}{subsubsection}{Reactivating pieces}
 
-\huge
-TODO
-\normalsize
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_32_reactivating_piece_init.png}
+\vspace*{-1.3\baselineskip}
+\caption{Reactivating piece}
+\label{fig:scn_mv_32_reactivating_piece_init}
+\end{figure}
 
+\vspace*{-0.3\baselineskip}
 \textgreater \textgreater \textgreater
 During cascade, after each ply activation takes place according to current
 positions of pieces on the board, just as it would at the beginning of the move.
 For each activation in a cascade, all pieces can choose any legal direction
 independently of previous choices.
+
+\clearpage % ..........................................................
+
+\huge
+TODO
+\normalsize
 
 \textgreater \textgreater \textgreater
 This makes it possible, in the same cascade, to activate piece which started it,
