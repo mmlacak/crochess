@@ -1398,8 +1398,8 @@ class SceneMirandasVeilMixin:
         start_W_C = (11, 8)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
-        start_w = (9, 2)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+        start_G = (9, 2)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
 
         # R --> W(A)
         coords_R_WA = GS.gen_steps( start=start_R, rels=[(1, 0), ], include_prev=True, count=5 )
@@ -1459,8 +1459,8 @@ class SceneMirandasVeilMixin:
         start_B = (11, 8)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_w = (9, 2)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+        start_G = (9, 2)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
 
         # --> R
         coords_R_WA = GS.gen_steps( end=start_R, rels=[(1, 0), ], include_prev=True, count=5 )
@@ -1503,17 +1503,19 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(A) --> w
+        # W(A) --> G
         coords_WA_w = GS.gen_steps( start=start_W_A, rels=[(1, -1), ], include_prev=True, count=2 )
         for i, arrow in enumerate( coords_WA_w() ):
             mark_type = MarkType.Action if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # w --->
-        coords_w_ = GS.gen_steps( start=start_w, rels=[(1, 1), ], include_prev=True, count=6 )
+        # G --->
+        coords_w_ = GS.gen_steps( start=start_G, rels=[(2, 1), ], include_prev=True, count=3 )
         for i, arrow in enumerate( coords_w_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+            mark_type = MarkType.Legal if i == 0 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 
