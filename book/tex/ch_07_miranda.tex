@@ -641,17 +641,16 @@ a cascade could activate, with addition of opponent's Wave.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_32_reactivating_piece_init.png}
-\vspace*{-1.3\baselineskip}
+% \vspace*{-1.3\baselineskip}
 \caption{Start reactivating piece}
 \label{fig:scn_mv_32_reactivating_piece_init}
 \end{figure}
 
-\vspace*{-0.3\baselineskip}
-\textgreater \textgreater \textgreater
-During cascade, after each ply activation takes place according to current
-positions of pieces on the board, just as it would at the beginning of the move.
-For each activation in a cascade, all pieces can choose any legal direction
-independently of previous choices.
+% \vspace*{-0.3\baselineskip}
+During cascade, after each ply activation takes place according to current positions
+of pieces on a chessboard, just as it would at the beginning of a move. For each
+activation in a cascade, all pieces can choose any legal direction of movement
+independently of any previous choice.
 
 \clearpage % ..........................................................
 
@@ -665,11 +664,13 @@ independently of previous choices.
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
-\textgreater \textgreater \textgreater
-This makes it possible, in the same cascade, to activate piece which started it,
-Rook in this example. Such cascade is said to feature push-pull activation.
-It's also possible to reactivate other (non-initiating) pieces in the same
-cascade, e.g. here Wave 1 was reactivated 3 times.
+It's possible to re-activate piece which already participated in the same cascade;
+reactivation takes place on a field occupied by piece at the beginning of that ply.
+
+Here, Wave C (now "in the air") is about to reactivate Wave A, which can then e.g.
+cascade Pegasus. Since Wave A has already been moved in cascade from its initial
+position "a", so reactivation takes place on a changed position, i.e. current at
+the beginning of reactivating ply.
 
 % ................................................. Reactivating pieces
 \clearpage % ..........................................................

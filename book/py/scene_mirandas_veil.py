@@ -1496,6 +1496,8 @@ class SceneMirandasVeilMixin:
         # R, starting position, previous scene
         scene.append_text( "R", *start_R_prev, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
+        scene.append_text( "a", *start_R, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+
         # W(C) --> W(A)
         coords_WC_WA = GS.gen_steps( start=start_B, rels=[(-1, -1), ], include_prev=True, count=4 )
         for i, arrow in enumerate( coords_WC_WA() ):
