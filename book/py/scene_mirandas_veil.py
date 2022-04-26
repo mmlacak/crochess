@@ -1648,14 +1648,12 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-
-
     #
-    # ... Cascading opponent
+    # Cascading opponent
 
-    def scn_mv_95_wave_cascading_opponent(self, bt=BoardType.MirandasVeil):
+    def scn_mv_36_wave_cascading_opponent(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_95_wave_cascading_opponent', bt)
+        scene = Scene('scn_mv_36_wave_cascading_opponent', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -1733,6 +1731,12 @@ class SceneMirandasVeilMixin:
         scene.append_text( "2", *start_P, corner=Corner.LowerLeft, mark_type=MarkType.Action )
 
         return scene
+
+
+
+
+    #
+    # ...
 
     def scn_mv_98_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
 
