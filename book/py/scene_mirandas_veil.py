@@ -1787,6 +1787,51 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    def scn_mv_38_cascaded_opponent_promoting(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_38_cascaded_opponent_promoting', bt)
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_A = (4, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_w_B = (7, 4)
+        scene.board.set_piece( *start_w_B, piece=-PieceType.Wave )
+
+        start_p = (10, 1)
+        end_p = (10, 0)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # B --> W(A)
+        coords_B_WA = GS.gen_next( GS.gen_steps(start=start_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Action )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_next( GS.gen_steps(start=start_W_A, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Action )
+
+        # W(B) --> p
+        coords_WB_a = GS.gen_next( GS.gen_steps(start=start_w_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_WB_a() )
+        scene.append_arrow( *coords_WB_a() )
+        scene.append_arrow( *coords_WB_a(), mark_type=MarkType.Action )
+
+        # p --->
+        scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Action )
+
+        # labels
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_w_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+
 
     #
     # ...
