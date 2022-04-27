@@ -674,43 +674,58 @@ the beginning of reactivating ply.
 
 % ................................................. Reactivating pieces
 \clearpage % ..........................................................
-% Wave blocked ........................................................
+% Cascade check, checkmate ............................................
 
-\subsubsection*{Wave blocked}
-\addcontentsline{toc}{subsubsection}{Wave blocked}
+\subsubsection*{Cascade check, checkmate}
+\addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
 
 \vspace*{-1.4\baselineskip}
 \noindent
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_wave_blocked_init.png}
-\caption{Activating Wave}
-\label{fig:scn_mv_34_wave_blocked_init}
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_activated_piece_check_init.png}
+\vspace*{-1.3\baselineskip}
+\caption{Activating Rooks}
+\label{fig:scn_mv_34_activated_piece_check_init}
 \end{figure}
 
-Wave cannot activate opponent's pieces, except for Waves. Activated Wave which movement
-is completely blocked is oblationed, i.e. is removed from chessboard as if captured by
-opponent.
+\vspace*{-0.3\baselineskip}
+Activated pieces (except Waves) are limited by received momentum for all their movement,
+actions. All pieces in a cascade transfer all of their remaining momentum to next piece
+in a cascade. So, pieces in a cascade do not attack opponent's King immediately in the
+very same move in which they have moved. Only the last piece in a cascade can check (or
+even checkmate) opponent's King, if it has enough remaining momentum after finishing its
+movement.
 
-Here, dark Wave B is about to be activated with one momentum.
+Here, light Queen activates light Wave A, which cascades to light Rook B, then light
+Wave C, and finally to light Rook D, which moves onto final field R. Note that most
+of momentum received is spent by light Rooks for moving, so the last piece in cascade
+(light Rook D) will have only 1 remaining momenum, after all movement is done. Numbers
+in lower left corner are received momentum.
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_wave_blocked_end.png}
-\caption{Activated Wave blocked}
-\label{fig:scn_mv_35_wave_blocked_end}
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activated_piece_check_cascade.png}
+\caption{Activated Rooks moved}
+\label{fig:scn_mv_35_activated_piece_check_cascade}
 \end{figure}
 
-Here, dark Wave B is activated without committing its movement yet (it's "in-the-air").
-All accessible step-fields are blocked by opponent's light pieces, which cannot be
-activated by dark Wave, even though it has one momentum.
-Note, Wave (just like any other piece) has to move away from its starting position,
-it cannot stay and re-activate piece that has activated it (here, light Wave 2).
-Thus, dark Wave B is oblationed, i.e. removed from chessboard.
+Here, after light player's move dark King is not in check; light Rook B gave all of its
+remaining momentum to light Wave C, light Rook D has only 1 remaining momentum. Numbers
+in lower left corner are remaining momentum. Should light Queen started from slightly
+distant field (Q2, Q3), then dark King would be in check, as light Rook D would have
+more remaining momentum. Note that starting fields Q2, Q3 could also lead to immediate
+checkmate, should all dark King's escape fields be blocked, or covered by other light
+pieces.
 
-% ........................................................ Wave blocked
+After being moved in a cascade, active pieces regain full access to all of their step- and
+capture-fields at the very beginning of the very next move. So, even if dark King was not
+checked immediately after light player's move, it will be double checked on the very next
+move (on dark player's own turn!), with dark King's file and rank covered by light Rooks.
+
+% ............................................ Cascade check, checkmate
 % ----------------------------------------------------- Cascading Waves
 \clearpage % ..........................................................
 % Cascading opponent --------------------------------------------------
@@ -763,11 +778,19 @@ activating light Wave, it's just capturing it.
 \label{fig:scn_mv_38_cascaded_opponent_promoting}
 \end{figure}
 
-This behavior retention includes promotion; opponent's Pawn in own cascade can be
-promoted only to other opponent's pieces.
+Opponent's Pawn in own cascade can be promoted only to other opponent's pieces,
+this includes opponent's Pawns tagged for promotion.
 
 Here, dark Pawn, in a cascade started by light player, is not (and cannot be)
-promoted to light piece, it's being promoting to dark piece, e.g. dark Queen.
+promoted to light piece, it's being promoted to dark piece, e.g. dark Queen.
+
+\clearpage % ..........................................................
+
+\huge
+TODO
+\normalsize
+
+check(-mate)
 
 \clearpage % ..........................................................
 
@@ -791,58 +814,43 @@ involving opponent's King, including castling, as that would require activation
 of opponent's King, which is not allowed.
 
 \clearpage % ..........................................................
-% Cascade check, checkmate ............................................
+% Wave blocked ........................................................
 
-\subsubsection*{Cascade check, checkmate}
-\addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
+\subsubsection*{Wave blocked}
+\addcontentsline{toc}{subsubsection}{Wave blocked}
 
 \vspace*{-1.4\baselineskip}
 \noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_98_activated_piece_check_init.png}
-\vspace*{-1.3\baselineskip}
-\caption{Activating Rooks}
-\label{fig:scn_mv_98_activated_piece_check_init}
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_98_wave_blocked_init.png}
+\caption{Activating Wave}
+\label{fig:scn_mv_98_wave_blocked_init}
 \end{figure}
 
-\vspace*{-0.3\baselineskip}
-Activated pieces (except Waves) are limited by received momentum for all their movement,
-actions. All pieces in a cascade transfer all of their remaining momentum to next piece
-in a cascade. So, pieces in a cascade do not attack opponent's King immediately in the
-very same move in which they have moved. Only the last piece in a cascade can check (or
-even checkmate) opponent's King, if it has enough remaining momentum after finishing its
-movement.
+Wave cannot activate opponent's pieces, except for Waves. Activated Wave which movement
+is completely blocked is oblationed, i.e. is removed from chessboard as if captured by
+opponent.
 
-Here, light Queen activates light Wave A, which cascades to light Rook B, then light
-Wave C, and finally to light Rook D, which moves onto final field R. Note that most
-of momentum received is spent by light Rooks for moving, so the last piece in cascade
-(light Rook D) will have only 1 remaining momenum, after all movement is done. Numbers
-in lower left corner are received momentum.
+Here, dark Wave B is about to be activated with one momentum.
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_99_activated_piece_check_cascade.png}
-\caption{Activated Rooks moved}
-\label{fig:scn_mv_99_activated_piece_check_cascade}
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_99_wave_blocked_end.png}
+\caption{Activated Wave blocked}
+\label{fig:scn_mv_99_wave_blocked_end}
 \end{figure}
 
-Here, after light player's move dark King is not in check; light Rook B gave all of its
-remaining momentum to light Wave C, light Rook D has only 1 remaining momentum. Numbers
-in lower left corner are remaining momentum. Should light Queen started from slightly
-distant field (Q2, Q3), then dark King would be in check, as light Rook D would have
-more remaining momentum. Note that starting fields Q2, Q3 could also lead to immediate
-checkmate, should all dark King's escape fields be blocked, or covered by other light
-pieces.
+Here, dark Wave B is activated without committing its movement yet (it's "in-the-air").
+All accessible step-fields are blocked by opponent's light pieces, which cannot be
+activated by dark Wave, even though it has one momentum.
+Note, Wave (just like any other piece) has to move away from its starting position,
+it cannot stay and re-activate piece that has activated it (here, light Wave 2).
+Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 
-After being moved in a cascade, active pieces regain full access to all of their step- and
-capture-fields at the very beginning of the very next move. So, even if dark King was not
-checked immediately after light player's move, it will be double checked on the very next
-move (on dark player's own turn!), with dark King's file and rank covered by light Rooks.
-
-% ............................................ Cascade check, checkmate
+% ........................................................ Wave blocked
 % -------------------------------------------------- Cascading opponent
 % **************************************************************** Wave
 \clearpage % ..........................................................
