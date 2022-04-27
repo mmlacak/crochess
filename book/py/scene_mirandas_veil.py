@@ -1723,16 +1723,69 @@ class SceneMirandasVeilMixin:
         scene.append_text( "D", *start_W_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         # momentum received
-        scene.append_text( "3", *start_W_A, corner=Corner.LowerLeft, mark_type=MarkType.Action )
-        scene.append_text( "3", *start_w_B, corner=Corner.LowerLeftFieldMarker, mark_type=MarkType.Action )
-        scene.append_text( "3", *start_n, corner=Corner.LowerLeft, mark_type=MarkType.Action )
-        scene.append_text( "2", *start_w_C, corner=Corner.LowerLeftFieldMarker, mark_type=MarkType.Action )
-        scene.append_text( "2", *start_W_D, corner=Corner.LowerLeft, mark_type=MarkType.Action )
-        scene.append_text( "2", *start_P, corner=Corner.LowerLeft, mark_type=MarkType.Action )
+        # scene.append_text( "3", *start_W_A, corner=Corner.LowerLeft, mark_type=MarkType.Action )
+        # scene.append_text( "3", *start_w_B, corner=Corner.LowerLeftFieldMarker, mark_type=MarkType.Action )
+        # scene.append_text( "3", *start_n, corner=Corner.LowerLeft, mark_type=MarkType.Action )
+        # scene.append_text( "2", *start_w_C, corner=Corner.LowerLeftFieldMarker, mark_type=MarkType.Action )
+        # scene.append_text( "2", *start_W_D, corner=Corner.LowerLeft, mark_type=MarkType.Action )
+        # scene.append_text( "2", *start_P, corner=Corner.LowerLeft, mark_type=MarkType.Action )
 
         return scene
 
+    def scn_mv_37_cascaded_opponent_capturing(self, bt=BoardType.MirandasVeil):
 
+        scene = Scene('scn_mv_37_cascaded_opponent_capturing', bt)
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_A = (4, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_w_B = (7, 4)
+        scene.board.set_piece( *start_w_B, piece=-PieceType.Wave )
+
+        start_n = (3, 8)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_W_C = (5, 9)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_w_D = (13, 5)
+        scene.board.set_piece( *start_w_D, piece=-PieceType.Wave )
+
+        start_P = (11, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        # B --> W(A)
+        coords_B_WA = GS.gen_next( GS.gen_steps(start=start_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Action )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_next( GS.gen_steps(start=start_W_A, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Action )
+
+        # W(B) --> N
+        coords_WB_N = GS.gen_next( GS.gen_steps(start=start_w_B, rels=[(-1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N() )
+        scene.append_arrow( *coords_WB_N(), mark_type=MarkType.Action )
+
+        # N --> W(C)
+        scene.append_arrow( *(start_n + start_W_C), mark_type=MarkType.Action )
+
+        # labels
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_w_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_w_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
 
 
     #

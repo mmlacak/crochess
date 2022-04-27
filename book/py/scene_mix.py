@@ -34,7 +34,9 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_32_reactivating_piece_init', \
-                    'scn_mv_33_reactivating_piece_steps', \
+                    # 'scn_mv_32_reactivating_piece_init', \
+                    # 'scn_mv_33_reactivating_piece_steps', \
                     # 'scn_mv_34_wave_blocked_init', \
+                    'scn_mv_36_wave_cascading_opponent', \
+                    'scn_mv_37_cascaded_opponent_capturing', \
                 ]
