@@ -679,14 +679,31 @@ the beginning of reactivating ply.
 \subsubsection*{Cascade check, checkmate}
 \addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.6\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_activated_piece_check_init.png}
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Activating Rooks}
 \label{fig:scn_mv_34_activated_piece_check_init}
 \end{figure}
+
+\vspace*{-0.4\baselineskip}
+Activated pieces (except Waves) are limited by received momentum for all their movement,
+actions. All pieces in a cascade transfer all of their remaining momentum to next piece
+in a cascade. Only last piece can have some residual momentum at the end of a cascade.
+Once started moving, piece has to follow its direction for the remainder of a ply, and
+cannot act upon opponent's pieces positioned on its step- or capture-fields outside of
+chosen heading. Last piece in a cascade would be able to check opponent's King, only if
+that King is positioned on a capture-field in a chosen heading prior to activation of a
+piece, i.e. opponent's King would already be checked before cascading move. So, pieces
+in a cascade do not attack opponent's King immediately in the very same move in which
+they have moved.
+
+Here, light Queen cascades light Waves and Rooks, numbers in lower left corner are
+received momentum.
+
+\clearpage % ..........................................................
 
 \huge
 TODO
@@ -696,22 +713,6 @@ TODO
 $\rightarrow$ last piece in cascade can only continue to go in determined direction \\
 $\rightarrow$ King can't ever be in a check, checkmate until cascade finishes \\
 $\rightarrow$ only at the very beginning of the very next move, King can be checked, checkmated \\
-
-\clearpage % ..........................................................
-
-\vspace*{-0.3\baselineskip}
-Activated pieces (except Waves) are limited by received momentum for all their movement,
-actions. All pieces in a cascade transfer all of their remaining momentum to next piece
-in a cascade. So, pieces in a cascade do not attack opponent's King immediately in the
-very same move in which they have moved. Only the last piece in a cascade can check (or
-even checkmate) opponent's King, if it has enough remaining momentum after finishing its
-movement.
-
-Here, light Queen activates light Wave A, which cascades to light Rook B, then light
-Wave C, and finally to light Rook D, which moves onto final field R. Note that most
-of momentum received is spent by light Rooks for moving, so the last piece in cascade
-(light Rook D) will have only 1 remaining momenum, after all movement is done. Numbers
-in lower left corner are received momentum.
 
 \clearpage % ..........................................................
 
