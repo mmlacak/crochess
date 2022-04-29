@@ -1678,13 +1678,11 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *pos, mark_type=MarkType.Blocked )
 
         #
-        # R 2 --> k -->
+        # R 2 -->
 
-        coords = GS.gen_steps(start=start_R_2, rels=[(1, 0), ], include_prev=True, count=3)
+        coords = GS.gen_steps(start=start_R_2, rels=[(0, -1), ], include_prev=True, count=3)
         for i, pos in enumerate( coords() ):
-            mark_type = MarkType.Action if i > 0 else \
-                        MarkType.Legal
-            scene.append_arrow( *pos, mark_type=mark_type )
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
 
         #
         # labels
@@ -1716,11 +1714,9 @@ class SceneMirandasVeilMixin:
         #
         # R 2 labels
 
-        coords_2 = GS.gen_steps(start=start_R_2, rels=[(1, 0), ], include_prev=False, count=3)
-        for i, pos_2 in enumerate( coords_2() ):
-            mark_type = MarkType.Action if i > 0 else \
-                        MarkType.Legal
-            scene.append_text( "R"+str(i+1), *pos_2, corner=Corner.UpperRight, mark_type=mark_type, rect=rect )
+        coords_3 = GS.gen_steps(start=start_R_2, rels=[(0, -1), ], include_prev=False, count=3)
+        for i, pos_3 in enumerate( coords_3() ):
+            scene.append_text( "R"+str(i+1), *pos_3, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect )
 
         return scene
 

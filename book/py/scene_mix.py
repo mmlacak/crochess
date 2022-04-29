@@ -37,7 +37,8 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_32_reactivating_piece_init', \
                     # 'scn_mv_33_reactivating_piece_steps', \
                     # 'scn_mv_98_wave_blocked_init', \
+                    'scn_mv_35_activated_piece_check_cascade', \
                     # 'scn_mv_36_wave_cascading_opponent', \
                     # 'scn_mv_37_cascaded_opponent_capturing', \
-                    'scn_mv_38_cascaded_opponent_promoting', \
+                    # 'scn_mv_38_cascaded_opponent_promoting', \
                 ]
