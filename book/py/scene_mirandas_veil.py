@@ -1682,7 +1682,9 @@ class SceneMirandasVeilMixin:
 
         coords = GS.gen_steps(start=start_R_2, rels=[(0, -1), ], include_prev=True, count=3)
         for i, pos in enumerate( coords() ):
-            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+            mark_type = MarkType.Blocked if i > 0 else \
+                        MarkType.Legal
+            scene.append_arrow( *pos, mark_type=mark_type )
 
         #
         # labels
@@ -1707,7 +1709,7 @@ class SceneMirandasVeilMixin:
 
         coords_2 = GS.gen_steps(start=GS.add_tpl(start_Q, 4, -4), rels=[(1, -1), ], include_prev=False, count=3)
         for i, pos_2 in enumerate( coords_2() ):
-            mark_type = MarkType.Action if i > 0 else \
+            mark_type = MarkType.Blocked if i > 0 else \
                         MarkType.Legal
             scene.append_text( "Q"+str(i+1), *pos_2, corner=Corner.UpperRight, mark_type=mark_type, rect=rect )
 
@@ -1716,7 +1718,9 @@ class SceneMirandasVeilMixin:
 
         coords_3 = GS.gen_steps(start=start_R_2, rels=[(0, -1), ], include_prev=False, count=3)
         for i, pos_3 in enumerate( coords_3() ):
-            scene.append_text( "R"+str(i+1), *pos_3, corner=Corner.UpperRight, mark_type=MarkType.Legal, rect=rect )
+            mark_type = MarkType.Blocked if i > 0 else \
+                        MarkType.Legal
+            scene.append_text( "R"+str(i+1), *pos_3, corner=Corner.UpperRight, mark_type=mark_type, rect=rect )
 
         return scene
 
