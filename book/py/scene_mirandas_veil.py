@@ -1544,6 +1544,9 @@ class SceneMirandasVeilMixin:
         start_W_C = (9, 6)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
+        start_W_D = (9, 9)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
         start_k = (8, 2)
         scene.board.set_piece( *start_k, piece=-PieceType.King )
 
@@ -1572,8 +1575,15 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # W(B) --> W(C)
-        coords_Q_WB = GS.gen_steps( start=start_W_B, rels=[(-1, 0), ], include_prev=True, count=3 )
-        for i, arrow in enumerate( coords_Q_WB() ):
+        coords_WB_WC = GS.gen_steps( start=start_W_B, rels=[(-1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WB_WC() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(C) --> W(D)
+        coords_WC_WD = GS.gen_steps( start=start_W_C, rels=[(0, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WC_WD() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
@@ -1581,6 +1591,7 @@ class SceneMirandasVeilMixin:
         scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
         scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -1588,6 +1599,8 @@ class SceneMirandasVeilMixin:
 
         scene = Scene('scn_mv_35_activated_piece_check_cascade', bt) # , height=9.7
         rect = (0.05, 0.8, 0.65, 0.1)
+
+
 
         return scene
 
