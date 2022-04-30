@@ -1547,10 +1547,10 @@ class SceneMirandasVeilMixin:
         start_W_D = (9, 9)
         scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
 
-        start_k = (8, 2)
+        start_k = (12, 2)
         scene.board.set_piece( *start_k, piece=-PieceType.King )
 
-        start_p = (12, 1)
+        start_p = (7, 1)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         # B --> W(A)
@@ -1600,7 +1600,83 @@ class SceneMirandasVeilMixin:
         scene = Scene('scn_mv_35_activated_piece_check_cascade', bt) # , height=9.7
         rect = (0.05, 0.8, 0.65, 0.1)
 
+        start_B_prev = (1, 4)
+        start_B = (9, 12)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
+        start_W_A = (12, 9)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_Q = (12, 6)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_B = (9, 6)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_W_C = (9, 9)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_W_D_prev = (9, 9)
+        # start_W_D = (9, 9)
+        # scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        start_k = (12, 2)
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        start_p = (7, 1)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # B --> W(A)
+        coords_B_WA = GS.gen_steps( end=start_B, rels=[(1, 1), ], include_prev=True, count=8 )
+        for i, arrow in enumerate( coords_B_WA() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(A) --> Q
+        coords_WA_Q = GS.gen_steps( end=start_W_A, rels=[(1, -1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WA_Q() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # Q --> W(B)
+        coords_Q_WB = GS.gen_steps( end=start_Q, rels=[(0, -1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_Q_WB() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(B) --> W(C)
+        coords_WB_WC = GS.gen_steps( end=start_W_B, rels=[(-1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WB_WC() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(C) --> W(D)
+        coords_WC_WD = GS.gen_steps( end=start_W_C, rels=[(0, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WC_WD() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        # W(D) --> Q
+        coords_WD_Q = GS.gen_steps( start=start_W_D_prev, rels=[(1, -1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WD_Q() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # Q --> p
+        coords_Q_p = GS.gen_steps( start=start_Q, rels=[(-1, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_Q_p() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 
