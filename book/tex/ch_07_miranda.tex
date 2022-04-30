@@ -683,20 +683,15 @@ the beginning of reactivating ply.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_activated_piece_check_init.png}
-\caption{Activating Rooks}
+\caption{Activating Queen}
 \label{fig:scn_mv_34_activated_piece_check_init}
 \end{figure}
 
-Activated pieces (except Waves) are limited by received momentum for all their movement,
-actions. All pieces in a cascade transfer all of their remaining momentum to next piece
-in a cascade. Only last piece can have some residual momentum at the end of a cascade.
-Once started moving, piece has to follow its chosen direction for the remainder of a ply,
-and cannot act upon pieces positioned on its step- or capture-fields outside of chosen
-heading. So, pieces in a cascade do not attack opponent's King immediately in the very
-same move in which they have moved.
+\huge
+TODO
+\normalsize
 
-Here, light Queen cascades light Waves and Rooks, with last piece in a cascade (light
-Rook D) going to field R; numbers in lower left corner are received momentum.
+
 
 \clearpage % ..........................................................
 
@@ -704,22 +699,15 @@ Rook D) going to field R; numbers in lower left corner are received momentum.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activated_piece_check_cascade.png}
-\caption{Activated Rooks moved}
+\caption{Activated Queen captures}
 \label{fig:scn_mv_35_activated_piece_check_cascade}
 \end{figure}
 
-Here, after light player's move dark King is not in check; numbers in lower left
-corner are remaining momentum. Both light Rooks B and D have their chosen direction
-not intersecting with dark King's position. Even if last piece in a cascade (light
-Rook D) had more remaining momentum, dark King still wouldn't be in check, as light
-Rook D would had to follow its chosen direction downward, and so it wouldn't be able
-to attack dark King positioned sidewise.
+\huge
+TODO
+\normalsize
 
-After being moved in a cascade, active pieces regain full access to all of their step-
-and capture-fields at the very beginning of the very next move. So, even if dark King
-was not checked immediately after light player's move, it will be double checked at the
-start of the very next move (on dark player's own turn!), with dark King's file and rank
-covered by light Rooks.
+
 
 % ............................................ Cascade check, checkmate
 % ----------------------------------------------------- Cascading Waves
