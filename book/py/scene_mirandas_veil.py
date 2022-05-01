@@ -1526,7 +1526,7 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_34_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_34_activated_piece_check_init', bt) # , height=9.7
+        scene = Scene('scn_mv_34_activated_piece_check_init', bt, height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_B = (1, 4)
@@ -1597,7 +1597,7 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_35_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_35_activated_piece_check_cascade', bt) # , height=9.7
+        scene = Scene('scn_mv_35_activated_piece_check_cascade', bt, height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_B_prev = (1, 4)
@@ -1659,7 +1659,7 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
 
-        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
         scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
         # scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )

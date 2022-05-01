@@ -680,11 +680,31 @@ the beginning of reactivating ply.
 \addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
 
 \vspace*{-1.4\baselineskip}
+% \vspace*{-1.7\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_activated_piece_check_init.png}
+% \vspace*{-1.6\baselineskip}
 \caption{Activating Queen}
 \label{fig:scn_mv_34_activated_piece_check_init}
+\end{figure}
+
+% \vspace*{-0.9\baselineskip}
+Opponent's King is checked (or checkmated) only after cascade has finished, just like
+after normal, non-cascaded move. During cascade, piece can be reactivated on a temporary
+field, and thus repositioned to a new field. So, a piece can temporary be located on a
+field where it would check (or checkmate) opponent's King, if that would be its final
+destination for that cascade. When piece is moved out of temporary field, opponent's King
+is not affected, and game continues.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activated_piece_check_cascade.png}
+\caption{Reactivated Queen captures Pawn}
+\label{fig:scn_mv_35_activated_piece_check_cascade}
 \end{figure}
 
 \huge
@@ -695,18 +715,11 @@ TODO
 
 \clearpage % ..........................................................
 
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activated_piece_check_cascade.png}
-\caption{Reactivated Queen captures}
-\label{fig:scn_mv_35_activated_piece_check_cascade}
-\end{figure}
-
 \huge
 TODO
 \normalsize
 
+grammar
 
 
 % ............................................ Cascade check, checkmate
