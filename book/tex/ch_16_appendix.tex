@@ -677,41 +677,6 @@ as a complete move, this also ends a game, like so:
 In \algfmt{NAN} checks and draw offers are optional; checkmates, resigns, accepted and
 forced draws are all mandatory, to set game score end.
 
-Only
-\hyperref[fig:scn_mv_35_activated_piece_check_cascade]{last piece in a cascade can check or checkmate}
-opponent's King in the same move, because
-\hyperref[fig:scn_mv_34_activated_piece_check_init]{all pieces prior transfer any remaining momentum to next piece}
-in a cascade.
-
-So, it's possible that immediately at the beginning of the very next opponent's move
-to have opponent's King checked, checkmated. This is so because after cascade is finished,
-but before next move started, all pieces moved in that cascade have restored access to all
-of their step- and capture-fields. If King is checked on its own player's turn, checked
-status is written in front of regular move notation, like so:
-
-\algcycpar
-\algcyc{91.}{...}{+Nb3}{Checked on own turn, i.e. prechecked.}
-\algcycparend
-
-If King is checkmated on its own player's turn, game ends, and only checkmated status
-(which is mandatory in \algfmt{NAN}) is written, like so:
-
-\algcycpar
-\algcyc{92.}{...}{\#}{Checkmated on own turn, i.e. precheckmated.}
-\algcycparend
-
-Player checked on own turn can check opponent, like so:
-
-\algcycpar
-\algcyc{91.}{...}{+Nb3+}{Prechecked, then checking opponent.}
-\algcycparend
-
-Player in precheck can also checkmate opponent, like so:
-
-\algcycpar
-\algcyc{91.}{...}{+Nb3\#}{Prechecked, then checkmating opponent.}
-\algcycparend
-
 Annotations are written at the end of a complete move, draw offer, e.g. \alg{ef8*!},
 \alg{Nb3(=)=}. It is recommended to use \alg{\_} (underscore) to separate \algfmt{AN}
 and annotations, like so \alg{ef8*\_!}, \alg{Nb3(=)\_=}. Usage of underscore is mandatory
@@ -948,9 +913,7 @@ new information.
 \textbf{Symbol}      & \textbf{Status}                \\
 \midrule
 \alg{+}              & check                          \\
-\alg{+}              & precheck                       \\
 \alg{\#}             & checkmate                      \\
-\alg{\#}             & precheckmate                   \\
 \alg{\#\#}           & resign                         \\ \cmidrule{1-2}
 \alg{(=)}            & draw offer                     \\
 \alg{(==)}           & draw accepted                  \\
@@ -963,12 +926,12 @@ new information.
 \label{tbl:Appendix/Summary/Move symbols}
 \end{table}
 
-Check notation is optional in \algfmt{NAN}, just like in \algfmt{CAN}, see \algfmt{FIDE C.9};
-precheck notation is also optional. Checkmate, precheckmate and resign notations are mandatory,
-to note end of a game score (list of moves by both players).
+Check notation is optional in \algfmt{NAN}, just like in \algfmt{CAN}, see
+\algfmt{FIDE C.9}. Checkmate and resign notations are mandatory, to note end
+of a game score (list of moves by both players).
 
-Draw offer notation is optional in \algfmt{NAN}; accepted draw and draw by rules notations
-are mandatory, since they also note end of a game score.
+Draw offer notation is optional in \algfmt{NAN}; accepted draw and draw by
+rules notations are mandatory, since they also note end of a game score.
 
 \clearpage % ..........................................................
 
@@ -1659,13 +1622,12 @@ are available for a particular variant see
 
 \begin{alltt}
 <move> =
-  [\alg{+}]<move-new>[<status>]
+  <move-new>[<status>]
 | <move-monolith>[<status>]
 | <king-castling-move>[<status>]
 | <pawn-promoting-move>[<status>]
 | <compatibility-capture>
 | <compatibility-castling>
-| \alg{#}
 | \alg{##}
 | \alg{(==)}
 | \alg{(===)}
