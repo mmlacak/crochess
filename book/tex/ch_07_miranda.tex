@@ -680,22 +680,19 @@ the beginning of reactivating ply.
 \addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
 
 \vspace*{-1.4\baselineskip}
-% \vspace*{-1.7\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_activated_piece_check_init.png}
-% \vspace*{-1.6\baselineskip}
 \caption{Activating Queen}
 \label{fig:scn_mv_34_activated_piece_check_init}
 \end{figure}
 
-% \vspace*{-0.9\baselineskip}
 Opponent's King is checked (or checkmated) only after cascade has finished, just like
 after normal, non-cascaded move. During cascade, piece can be reactivated on a temporary
 field, and thus repositioned to a new field. So, a piece can temporary be located on a
 field where it would check (or checkmate) opponent's King, if that would be its final
-destination for that cascade. When piece is moved out of temporary field, opponent's King
-is not affected, and game continues.
+destination for that cascade. When piece is repositioned from its temporary location,
+opponent's King is not affected, and game continues.
 
 \clearpage % ..........................................................
 
@@ -703,15 +700,18 @@ is not affected, and game continues.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activated_piece_check_cascade.png}
-\caption{Reactivated Queen captures Pawn}
+\caption{Reactivating Queen}
 \label{fig:scn_mv_35_activated_piece_check_cascade}
 \end{figure}
 
-\huge
-TODO
-\normalsize
-
-
+Here, light Queen after being positioned on a temporary field does not attack dark
+King, because all of its momentum has been transferred to Wave B, then C and finally
+D. Wave D is now "in-the-air", about ot reactivate light Queen with remaining 5
+momentum; grey arrows show path travelled over by piece they point to. After
+reactivation, dark Queen still won't attack dark King, even though it's located on
+light Queen's capture-field, and within range. This is so because being checked (or
+checkmated) is a status of a position, after all pieces had settled down, and move
+has been done.
 
 \clearpage % ..........................................................
 
