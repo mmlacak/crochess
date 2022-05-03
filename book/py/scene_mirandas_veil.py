@@ -1914,6 +1914,61 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    def scn_mv_40_cascade_self_checkmate_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_40_cascade_self_checkmate_end', bt)
+
+        end_B = (4, 1)
+        scene.board.set_piece( *end_B, piece=PieceType.Bishop )
+
+        end_W_A = (7, 4)
+        scene.board.set_piece( *end_W_A, piece=PieceType.Wave )
+
+        end_w_B = (10, 1)
+        scene.board.set_piece( *end_w_B, piece=-PieceType.Wave )
+
+        end_r = (12, 1)
+        scene.board.set_piece( *end_r, piece=-PieceType.Rook )
+
+        start_K = (12, 14)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        # B --> W(A)
+        coords_B_WA = GS.gen_next( GS.gen_steps(end=end_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Blocked )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_next( GS.gen_steps(end=end_W_A, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Blocked )
+
+        # W(B) --> r
+        coords_WB_a = GS.gen_next( GS.gen_steps(end=end_w_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_WB_a(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords_WB_a(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords_WB_a(), mark_type=MarkType.Blocked )
+
+        # r --->
+        coords_r_ = GS.gen_next( GS.gen_steps(end=end_r, rels=[(1, 0), ], include_prev=True) )
+        scene.append_arrow( *coords_r_(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords_r_(), mark_type=MarkType.Blocked )
+
+        # r --> K
+        coords_r_K = GS.gen_steps( start=end_r, rels=[(0, 1), ], include_prev=True, count=13 )
+        for i, arrow in enumerate( coords_r_K() ):
+            mark_type = MarkType.Illegal if i == 12 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # labels
+        scene.append_text( "A", *end_W_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *end_w_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
 
 
 
