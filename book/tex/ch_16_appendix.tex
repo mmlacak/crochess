@@ -638,49 +638,57 @@ a cascade.
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
 \label{sec:Appendix/Notation/Move symbols, annotations}
 
-Placeholder for a move is \alg{...} (three dots), usually used to resume game score after
-commentary, see \\
+Placeholder for a move is \alg{...} (three dots), usually used to resume game score
+after commentary, see \\
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}
 {https://en.wikipedia.org/wiki/\\
 Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}.
 
 Checks are noted with \alg{+} (plus sign), checkmates are noted with \alg{\#} (hashtag),
-these are optional in \algfmt{CAN}, see \algfmt{FIDE C.13}. Resigns are written with
-\alg{\#\#} (double hashtag) as a complete move, which also ends a game, like so:
+these are optional in \algfmt{CAN}, see \algfmt{FIDE C.13}. Self-checkmates are written
+as stand-alone \alg{\#} (hashtag) on an opponent's turn as a complete move, which ends
+a game, like so:
+
+\algcycpar
+\algcyc{92.}{...}{\#}{Light player checkmated self.}
+\algcycparend
+
+Resigns are written with \alg{\#\#} (double hashtag) as a complete move, which also
+ends a game, like so:
 
 \algcycpar
 \algcyc{92.}{...}{\#\#}{Dark player resigns.}
 \algcycparend
 
-Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12}; it's
-written immediately following a completed move notation (which might include check), like
-so:
+Draw offer is noted with \alg{(=)} (equal sign in brackets), see \algfmt{FIDE C.12};
+it's written immediately following a completed move notation (which might include check),
+like so:
 
 \algcycpar
-\algcyc{71.}{Nb3+(=)}{...}{Draw offered.}
+\algcyc{71.}{Nb3+(=)}{...}{Light player offers draw.}
 \algcycparend
 
-Accepted draw offer is noted with \alg{(==)} (two equal signs in brackets) as a complete
-move, this ends a game, like so:
+Accepted draw offer is noted with \alg{(==)} (two equal signs in brackets) as a
+complete move, this ends a game, like so:
 
 \algcycpar
-\algcyc{82.}{...}{(==)}{Draw offer accepted.}
+\algcyc{82.}{...}{(==)}{Dark player accepts draw offer.}
 \algcycparend
 
-Forced draw, i.e. draw by rules, is written with \alg{(===)} (three equal signs in brackets)
-as a complete move, this also ends a game, like so:
+Forced draw, i.e. draw by rules, is written with \alg{(===)} (three equal signs in
+brackets) as a complete move, this also ends a game, like so:
 
 \algcycpar
 \algcyc{82.}{...}{(===)}{Draw forced, by the rules.}
 \algcycparend
 
-In \algfmt{NAN} checks and draw offers are optional; checkmates, resigns, accepted and
-forced draws are all mandatory, to set game score end.
+In \algfmt{NAN} checks and draw offers are optional; checkmates, self-checkmates,
+resigns, accepted and forced draws are all mandatory, to set game score end.
 
 Annotations are written at the end of a complete move, draw offer, e.g. \alg{ef8*!},
 \alg{Nb3(=)=}. It is recommended to use \alg{\_} (underscore) to separate \algfmt{AN}
-and annotations, like so \alg{ef8*\_!}, \alg{Nb3(=)\_=}. Usage of underscore is mandatory
-when annotation can be confused for a regular chess \algfmt{AN}.
+and annotations, like so \alg{ef8*\_!}, \alg{Nb3(=)\_=}. Usage of underscore is
+mandatory when annotation can be confused for a regular chess \algfmt{AN}.
 
 For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have equal
 chances of winning, see\\
@@ -914,6 +922,7 @@ new information.
 \midrule
 \alg{+}              & check                          \\
 \alg{\#}             & checkmate                      \\
+\alg{\#}             & self-checkmate                 \\
 \alg{\#\#}           & resign                         \\ \cmidrule{1-2}
 \alg{(=)}            & draw offer                     \\
 \alg{(==)}           & draw accepted                  \\
@@ -927,8 +936,8 @@ new information.
 \end{table}
 
 Check notation is optional in \algfmt{NAN}, just like in \algfmt{CAN}, see
-\algfmt{FIDE C.9}. Checkmate and resign notations are mandatory, to note end
-of a game score (list of moves by both players).
+\algfmt{FIDE C.9}. Checkmate, self-checkmate and resign notations are mandatory,
+to note end of a game score (list of moves by both players).
 
 Draw offer notation is optional in \algfmt{NAN}; accepted draw and draw by
 rules notations are mandatory, since they also note end of a game score.
@@ -1628,6 +1637,7 @@ are available for a particular variant see
 | <pawn-promoting-move>[<status>]
 | <compatibility-capture>
 | <compatibility-castling>
+| \alg{#}
 | \alg{##}
 | \alg{(==)}
 | \alg{(===)}

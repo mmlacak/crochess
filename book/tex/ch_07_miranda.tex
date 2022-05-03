@@ -791,7 +791,7 @@ Opponent's piece, activated in own cascade, can be positioned on a field where
 it would check own King if cascade has finished; this is fine as long as that piece
 is reactivated and
 \hyperref[fig:scn_mv_34_activated_piece_check_init]{moved away from its temporary position}.
-Opponent's piece left in a position from where it does check own King after cascade
+Opponent's piece left in a position from where it does check own King after own cascade
 is finished leads to immediate self-induced checkmate, since now it's opponent's turn,
 and own King can't be removed from check.
 
@@ -805,33 +805,10 @@ and own King can't be removed from check.
 \label{fig:scn_mv_40_cascade_self_checkmate_end}
 \end{figure}
 
-Here, light player's cascade (notice, first piece in a cascade is light Bishop) has
-finished. Grey arrows show path travelled over by a piece they point to. Now is dark
-player's turn. Light player has left dark Rook in a position to check light King.
-Since light King can't be moved out of a check, this is immediate self-checkmate.
-
-\clearpage % ..........................................................
-
-\huge
-TODO
-\normalsize
-
-self-checkmate grammar
-
-\textgreater \textgreater \textgreater
-In summary, during cascade opponent's pieces retain all of their normal behavior,
-most notably capturing their opponent's (in cascade, that means your own!) pieces.
-
-\textgreater \textgreater \textgreater
-This behavior retention include checking and checkmating their opponent's (again,
-your own) King, en passant, promotion of their own pieces (if their Pyramid has
-been activated), etc. This list includes all other movements, features described
-later in this book.
-
-\textgreater \textgreater \textgreater
-Plies which cannot be performed by opponent's pieces during cascade are those
-involving opponent's King, including castling, as that would require activation
-of opponent's King, which is not allowed.
+Here, light player's cascade has finished; notice, first piece in a cascade is light
+Bishop. Light player has left dark Rook in a position to check light King; grey arrows
+show path travelled over by a piece they point to. Now is dark player's turn; since
+light King can't be moved out of a check, this is immediate self-checkmate.
 
 \clearpage % ..........................................................
 % Wave blocked ........................................................
