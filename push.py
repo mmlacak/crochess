@@ -48,7 +48,7 @@ def main():
 
     if not (is_book or is_docs or is_major or is_minor or is_feature or is_commit or is_meta):
         # raise RuntimeError("Specify at least one of --book, --major, --minor, --feature or --commit or --meta.")
-        print( "Specify at least one of --book, --docs, --major, --minor, --feature or --commit or --meta to update version(s)." )
+        print( "Specify at least one of --book, --docs, --major, --minor, --feature, --commit or --meta to update version(s)." )
 
     if is_verbose:
         print( "" )
