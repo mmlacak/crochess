@@ -24,7 +24,7 @@ are enumerated from '1' to '16'. A new piece is introduced, Wave.
 \section*{Wave}
 \addcontentsline{toc}{section}{Wave}
 
-\vspace*{-1.0ex}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{wrapfigure}[12]{l}{0.4\textwidth}
 \centering
@@ -43,9 +43,9 @@ has no momentum. Wave can move past (pass "through") any piece, as if it isn't t
 After activation Wave moves like activating piece, over piece's step- or capture-
 fields, depending where it was activated. Wave can make multiple steps, in the
 same way activating piece does, even if activating piece can make only one. Note,
-Wave can choose direction only on first 1 (or 2) step(s), which cannot be changed
-later. Wave can step outside of a chessboard, and only has to end its ply on a
-board. For details see
+Wave can choose direction only on its first step (2, if activated by Unicorn),
+which cannot be changed for duration of a ply. Wave can step outside of a
+chessboard, and only has to end its ply on a board. For details see
 \hyperref[sec:Appendix/Movement of Wave]{Movement of Wave}.
 
 Wave cannot capture any piece. Thus, Wave cannot neither check nor checkmate
@@ -184,7 +184,7 @@ of reach.
 \end{figure}
 
 Wave cannot activate blocked pieces, even if it has momentum. Here, Pawn is blocked
-from moving forward by own Bishop, and there are no opponent's pieces on its'
+from moving forward by own Bishop, and there are no opponent's pieces on its
 diagonal capture-fields. So, Wave cannot activate Pawn, even though it has one
 momentum received from Knight.
 
@@ -647,10 +647,10 @@ a cascade could activate, with addition of opponent's Wave.
 \end{figure}
 
 % \vspace*{-0.3\baselineskip}
-During cascade, after each ply activation takes place according to current positions
-of pieces on a chessboard, just as it would at the beginning of a move. For each
-activation in a cascade, all pieces can choose any legal direction of movement
-independently of any previous choice.
+During cascade, after each ply activation takes place according to current position
+of pieces on a chessboard, just as it would at the beginning of a move. Every piece
+activated in a cascade can choose any legal direction of movement independently of
+any previous choice.
 
 \clearpage % ..........................................................
 
