@@ -107,18 +107,6 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_03_pyramid_activation_end(self, bt=BoardType.MayanAscendancy):
-        # move_pyramid_activation_end
-
-        scene = Scene('scn_ma_03_pyramid_activation_end', bt)
-
-        scene.board.set_piece(3, 7, PieceType.Pegasus)
-        scene.board.set_piece(6, 7, PieceType.Bishop)
-        scene.board.set_piece(3, 9, PieceType.Pyramid)
-        scene.board.set_piece(3, 3, -PieceType.Bishop)
-
-        return scene
-
     #
     # Pawn activating Pyramid
 
