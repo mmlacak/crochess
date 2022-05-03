@@ -1863,6 +1863,58 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    #
+    # Cascade self-checkmate
+
+    def scn_mv_39_cascade_self_checkmate_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_39_cascade_self_checkmate_init', bt)
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_A = (4, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_w_B = (7, 4)
+        scene.board.set_piece( *start_w_B, piece=-PieceType.Wave )
+
+        start_r = (10, 1)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_K = (12, 14)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        # B --> W(A)
+        coords_B_WA = GS.gen_next( GS.gen_steps(start=start_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA() )
+        scene.append_arrow( *coords_B_WA(), mark_type=MarkType.Action )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_next( GS.gen_steps(start=start_W_A, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB() )
+        scene.append_arrow( *coords_WA_WB(), mark_type=MarkType.Action )
+
+        # W(B) --> r
+        coords_WB_a = GS.gen_next( GS.gen_steps(start=start_w_B, rels=[(1, -1), ], include_prev=True) )
+        scene.append_arrow( *coords_WB_a() )
+        scene.append_arrow( *coords_WB_a() )
+        scene.append_arrow( *coords_WB_a(), mark_type=MarkType.Action )
+
+        # r --->
+        coords_r_ = GS.gen_next( GS.gen_steps(start=start_r, rels=[(1, 0), ], include_prev=True) )
+        scene.append_arrow( *coords_r_() )
+        scene.append_arrow( *coords_r_() )
+
+        # labels
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_w_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+
 
 
     #

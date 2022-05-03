@@ -522,7 +522,7 @@ since Waves are not restricted to only one step, even if activating piece is.
 \vspace*{-0.3\baselineskip}
 First piece in a cascade gathers momentum over step-fields travelled. All pieces
 transfer all of momentum remaining after movement to the next piece in a cascade.
-Wave doesn't spend received momentum for movement, but all the other pieces do.
+Wave doesn't spend received momentum for movement, but all other pieces do.
 
 Here, numbers in lower, left corner are received momentum. Bishop gathered 3 momentum,
 1 has been spent by Knight, and so activated Pawn can be rushed for only 2 fields.
@@ -687,12 +687,12 @@ the beginning of reactivating ply.
 \label{fig:scn_mv_34_activated_piece_check_init}
 \end{figure}
 
-Opponent's King is checked (or checkmated) only after cascade has finished, just like
-after normal, non-cascaded move. During cascade, piece can be reactivated on a temporary
-field, and thus repositioned to a new field. So, a piece can temporary be located on a
-field where it would check (or checkmate) opponent's King, if that would be its final
-destination for that cascade. When piece is repositioned from its temporary location,
-opponent's King is not affected, and game continues.
+King is checked (or checkmated) only after cascade has finished, just like after
+normal, non-cascaded move. During cascade, piece can be reactivated on a temporary
+field, and thus repositioned to a new field. So, a piece can temporary be located
+on a field where it would check (or checkmate) King, if that would be its final
+destination for that cascade. When piece is repositioned from its temporary
+location, King is not affected, and game continues.
 
 \clearpage % ..........................................................
 
@@ -773,6 +773,21 @@ Here, dark Pawn, in a cascade started by light player, is not (and cannot be)
 promoted to light piece, it's being promoted to dark piece, e.g. dark Queen.
 
 \clearpage % ..........................................................
+
+\subsubsection*{Cascade self-checkmate}
+\addcontentsline{toc}{subsubsection}{Cascade self-checkmate}
+
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_cascade_self_checkmate_init.png}
+% \vspace*{-1.3\baselineskip}
+\caption{Cascading opponent's Rook}
+\label{fig:scn_mv_39_cascade_self_checkmate_init}
+\end{figure}
+
+% \vspace*{-0.3\baselineskip}
+. . .
 
 \huge
 TODO
