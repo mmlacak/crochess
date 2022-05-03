@@ -777,23 +777,23 @@ promoted to light piece, it's being promoted to dark piece, e.g. dark Queen.
 \subsubsection*{Cascade self-checkmate}
 \addcontentsline{toc}{subsubsection}{Cascade self-checkmate}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_cascade_self_checkmate_init.png}
-% \vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Cascading opponent's Rook}
 \label{fig:scn_mv_39_cascade_self_checkmate_init}
 \end{figure}
 
-% \vspace*{-0.3\baselineskip}
-. . .
-
-\huge
-TODO
-\normalsize
-
-check(-mate)
+\vspace*{-0.4\baselineskip}
+Opponent's piece, activated in own cascade, can be positioned on a field where
+it would check own King if cascade has finished; this is fine as long as that piece
+is reactivated and
+\hyperref[fig:scn_mv_34_activated_piece_check_init]{moved away from its temporary position}.
+Opponent's piece left in a position from where it does check own King after cascade
+is finished leads to immediate self-induced checkmate, since now it's opponent's turn,
+and own King can't be removed from check.
 
 \clearpage % ..........................................................
 
@@ -807,17 +807,22 @@ check(-mate)
 
 . . .
 
+\hyperref[fig:scn_mv_34_activated_piece_check_init]{...}
+
+
 \huge
 TODO
 \normalsize
 
-check(-mate)
+self-checkmate grammar
 
 \clearpage % ..........................................................
 
 \huge
 TODO
 \normalsize
+
+self-checkmate grammar
 
 \textgreater \textgreater \textgreater
 In summary, during cascade opponent's pieces retain all of their normal behavior,
