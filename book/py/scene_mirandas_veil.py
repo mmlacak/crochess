@@ -1969,15 +1969,12 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-
-
-
     #
-    # ... Wave blocked
+    # Wave blocked
 
-    def scn_mv_98_wave_blocked_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_41_wave_blocked_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_98_wave_blocked_init', bt)
+        scene = Scene('scn_mv_41_wave_blocked_init', bt)
 
         start_r = (9, 9)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
@@ -2052,9 +2049,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_99_wave_blocked_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_42_wave_blocked_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_99_wave_blocked_end', bt)
+        scene = Scene('scn_mv_42_wave_blocked_end', bt)
 
         scene.board.set_piece(9, 4, piece=-PieceType.Rook)
         scene.board.set_piece(11, 4, piece=-PieceType.Wave)
