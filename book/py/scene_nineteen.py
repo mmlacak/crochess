@@ -92,7 +92,7 @@ class SceneNineteenMixin:
         start_B = (3, 14)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_W = (1, 1)
+        start_W = (0, 1)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         start_T_1 = (0, 0)
