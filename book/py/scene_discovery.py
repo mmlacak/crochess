@@ -162,15 +162,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_07_teleport_via_monolith', bt)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.board.set_piece(0, 7, piece=PieceType.Wave)
 
@@ -208,7 +208,7 @@ class SceneDiscoveryMixin:
 
         #
         # Star 1
-        gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT1, include_prev=False, count=1)
+        gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_1, include_prev=False, count=1)
 
         j = 0
         for i, pos in enumerate( gen_abs_pos_1() ):
@@ -218,7 +218,7 @@ class SceneDiscoveryMixin:
 
         #
         # Star 2
-        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT2, include_prev=False, count=1)
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_2, include_prev=False, count=1)
 
         j = 0
         for i, pos in enumerate( gen_abs_pos_2() ):
@@ -228,7 +228,7 @@ class SceneDiscoveryMixin:
 
         #
         # Star 3
-        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT3, include_prev=False, count=1)
+        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_3, include_prev=False, count=1)
 
         j = 0
         for i, pos in enumerate( gen_abs_pos_3() ):
@@ -238,7 +238,7 @@ class SceneDiscoveryMixin:
 
         #
         # Star 4
-        gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT4, include_prev=False, count=1)
+        gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_4, include_prev=False, count=1)
 
         j = 0
         for i, pos in enumerate( gen_abs_pos_4() ):
@@ -252,15 +252,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_08_teleport_via_star', bt)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.board.set_piece(0, 7, piece=PieceType.Wave)
         scene.board.set_piece(2, 7, piece=PieceType.King)
@@ -298,7 +298,7 @@ class SceneDiscoveryMixin:
 
         #
         # Star 1
-        gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT1, include_prev=False, count=1)
+        gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_1, include_prev=False, count=1)
 
         j = 0
         for i, pos in enumerate( gen_abs_pos_1() ):
@@ -308,7 +308,7 @@ class SceneDiscoveryMixin:
 
         #
         # Star 2
-        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT2, include_prev=False, count=1)
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_2, include_prev=False, count=1)
 
         j = 0
         for i, pos in enumerate( gen_abs_pos_2() ):
@@ -322,15 +322,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_09_teleport_wave_via_star', bt)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.board.set_piece(1, 6, piece=PieceType.Monolith)
         scene.board.set_piece(22, 17, piece=PieceType.Monolith)
@@ -361,14 +361,14 @@ class SceneDiscoveryMixin:
 
         #
         # Wave, teleported
-        gen_abs_pos_Wt = GS.gen_steps([(-2, 1), ], start=startT3, include_prev=True, bounds=scene.board.get_position_limits()) # , count=3)
+        gen_abs_pos_Wt = GS.gen_steps([(-2, 1), ], start=start_T_3, include_prev=True, bounds=scene.board.get_position_limits()) # , count=3)
 
         for i, pos in enumerate( gen_abs_pos_Wt() ):
             mark_type = MarkType.Action if i == 2 else MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
 
-        scene.append_text("A", *startT4, corner=Corner.UpperRight, mark_type=MarkType.Legal)
-        scene.append_text("B", *startT3, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("A", *start_T_4, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("B", *start_T_3, corner=Corner.UpperRight, mark_type=MarkType.Legal)
 
         return scene
 
@@ -376,15 +376,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_10_teleport_wave_via_monolith', bt)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_M1 = (9, 6)
         start_M2 = (22, 17)
@@ -434,15 +434,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_11_teleported_wave_blocked', bt)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_M1 = (9, 6)
         start_M2 = (22, 17)
@@ -498,15 +498,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_12_wave_teleported_off_board', bt, x=-4.0, y=1.0)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_M1 = (1, 6)
         start_M2 = (1, 17)
@@ -552,15 +552,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_13_wave_teleport_on_and_off_board', bt, x=-4.0, y=1.0)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_M1 = (0, 6)
         start_M2 = (0, 15)
@@ -615,15 +615,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_14_teleporting_wave_cascade', bt)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_M1 = (1, 4)
         start_M2 = (12, 17)
@@ -665,7 +665,7 @@ class SceneDiscoveryMixin:
 
         #
         # Wave, teleported
-        gen_abs_pos_Wt = GS.gen_steps([(-2, 1), ], start=startT3, include_prev=True, bounds=scene.board.get_position_limits()) # , count=3)
+        gen_abs_pos_Wt = GS.gen_steps([(-2, 1), ], start=start_T_3, include_prev=True, bounds=scene.board.get_position_limits()) # , count=3)
 
         for i, pos in enumerate( gen_abs_pos_Wt() ):
             mark_type = MarkType.Action if i == 2 else MarkType.Legal
@@ -673,8 +673,8 @@ class SceneDiscoveryMixin:
 
         scene.append_text("A", *start_M1, corner=Corner.UpperRight, mark_type=MarkType.Legal)
         scene.append_text("B", *start_M2, corner=Corner.UpperRight, mark_type=MarkType.Legal)
-        scene.append_text("C", *startT4, corner=Corner.UpperRight, mark_type=MarkType.Legal)
-        scene.append_text("D", *startT3, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("C", *start_T_4, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("D", *start_T_3, corner=Corner.UpperRight, mark_type=MarkType.Legal)
 
         return scene
 
@@ -697,15 +697,15 @@ class SceneDiscoveryMixin:
         scene.board.set_piece(4, 17, piece=PieceType.Monolith)
         scene.board.set_piece(18, 9, piece=-PieceType.Knight)
 
-        startW = (3, 10)
-        scene.board.set_piece(*startW, piece=PieceType.Wave)
+        start_W = (3, 10)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         startH = (5, 9)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
 
-        scene.append_arrow( *(startH + startW), mark_type=MarkType.Action )
-        scene.append_arrow( *(startW + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
 
         #
         # right arm
@@ -733,15 +733,15 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_16_syzygy_explain', bt)
 
-        startT1 = (0, 0)
-        startT2 = (23, 23)
-        startT3 = (23, 0)
-        startT4 = (0, 23)
+        start_T_1 = (0, 0)
+        start_T_2 = (23, 23)
+        start_T_3 = (23, 0)
+        start_T_4 = (0, 23)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_M1 = (17, 2)
         scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
@@ -754,15 +754,15 @@ class SceneDiscoveryMixin:
         scene.append_arrow( *GS.append_tpl_rel(start_M2, -2, 1), mark_type=MarkType.Action )
         scene.append_arrow( *GS.append_tpl_rel(start_M2, 1, -2), mark_type=MarkType.Action )
 
-        gen = GS.gen_steps( [(1, 0), ], startT1, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        gen = GS.gen_steps( [(1, 0), ], start_T_1, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, mark_type=MarkType.Legal, end_pointer=False )
 
-        gen = GS.gen_steps( [(1, 1), ], startT1, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        gen = GS.gen_steps( [(1, 1), ], start_T_1, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, mark_type=MarkType.Illegal, end_pointer=False )
 
-        gen = GS.gen_steps( [(0, 1), ], startT1, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        gen = GS.gen_steps( [(0, 1), ], start_T_1, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, mark_type=MarkType.Blocked, end_pointer=False )
 
@@ -956,8 +956,8 @@ class SceneDiscoveryMixin:
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
 
-        start_T1 = (0, 23)
-        scene.board.set_piece(*start_T1, piece=-PieceType.Star)
+        start_T_1 = (0, 23)
+        scene.board.set_piece(*start_T_1, piece=-PieceType.Star)
         scene.board.set_piece(23, 0, piece=-PieceType.Star)
         scene.board.set_piece(23, 23, piece=PieceType.Star)
 
@@ -973,7 +973,7 @@ class SceneDiscoveryMixin:
 
         #
         # diagonal NW-SE arrows
-        gen_abs_pos = GS.gen_steps([(1, -1)], start=start_T1, include_prev=True, bounds=scene.board.get_position_limits())
+        gen_abs_pos = GS.gen_steps([(1, -1)], start=start_T_1, include_prev=True, bounds=scene.board.get_position_limits())
 
         for i, pos in enumerate( gen_abs_pos() ):
             scene.append_arrow( *pos, mark_type=MarkType.Blocked, start_pointer=False, end_pointer=False )

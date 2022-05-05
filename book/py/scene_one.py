@@ -210,18 +210,18 @@ class SceneOneMixin:
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        startT1 = (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + startT1), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W + start_T_1), mark_type=MarkType.Legal )
         scene.append_arrow( *(start_W + start_G), mark_type=MarkType.Legal )
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_W, count=1 )
@@ -241,18 +241,18 @@ class SceneOneMixin:
         start_P = (1, 1)
         scene.board.set_piece(*start_P, piece=PieceType.Pawn)
 
-        startT1 = (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         # scene.append_arrow( *((2, 2) + start_I), mark_type=MarkType.Blocked )
-        scene.append_arrow( *(start_I + startT1), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_T_1), mark_type=MarkType.Action )
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
         i = 0
@@ -274,17 +274,17 @@ class SceneOneMixin:
         start_P = (1, 1)
         scene.board.set_piece(*start_P, piece=PieceType.Pawn)
 
-        startT1 = (1, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (1, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
-        scene.append_arrow( *(start_I + startT1), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_T_1), mark_type=MarkType.Action )
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
         i = 0
@@ -312,17 +312,17 @@ class SceneOneMixin:
         start_R = (3, 3)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
 
-        startT1 = (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
         endT1 = (1, 0)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         gen = GS.gen_steps( [(-1, 0), ], start_R, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
@@ -332,8 +332,8 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *(start_I + startT1), mark_type=MarkType.Action )
-        scene.append_arrow( *(startT1 + endT1), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_T_1), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_T_1 + endT1), mark_type=MarkType.Action )
 
         scene.append_text( "T", *endT1, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
@@ -443,15 +443,15 @@ class SceneOneMixin:
         start_Q = (7, 4)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
 
-        startT1 = (11, 6) # (5, 6)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (11, 6) # (5, 6)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_N + start_W), mark_type=MarkType.Legal )
 
@@ -472,15 +472,15 @@ class SceneOneMixin:
         start_N = (10, 11)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (0, 0)
-        startT2 = (25, 25)
-        startT3 = (5, 6) # (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (5, 6) # (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_N + start_W), mark_type=MarkType.Legal )
 
@@ -489,7 +489,7 @@ class SceneOneMixin:
             mark_type = MarkType.Action if index == 2 else MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
-        gen = GS.gen_steps( [(-2, -1), ], startT4, include_prev=True, count=2 )
+        gen = GS.gen_steps( [(-2, -1), ], start_T_4, include_prev=True, count=2 )
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, mark_type=MarkType.Blocked )
 
@@ -862,15 +862,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (7, 4) # (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_M + end_M), mark_type=MarkType.Action )
 
@@ -897,20 +897,20 @@ class SceneOneMixin:
         end_I = (6, 5)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
-        startT1 = (6, 5) # (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (6, 5) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
         endT1 = (7, 4)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
-        scene.append_arrow( *(startT1 + endT1), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_T_1 + endT1), mark_type=MarkType.Action )
 
         gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
@@ -934,15 +934,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (7, 4) # (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
 
@@ -967,15 +967,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (7, 4) # (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         return scene
 
@@ -997,15 +997,15 @@ class SceneOneMixin:
         start_Ir = (20, 7)
         scene.board.set_piece(*start_Ir, piece=PieceType.Starchild)
 
-        startT1 = (7, 4) # (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
@@ -1017,7 +1017,7 @@ class SceneOneMixin:
             i += 1
             scene.append_text( str( i ), *coords, mark_type=MarkType.Legal )
 
-        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, startT1, count=1 )
+        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start_T_1, count=1 )
         for index, coords in enumerate( gen() ):
             i += 1
             scene.append_text( str( i ), *coords, mark_type=MarkType.Legal )
@@ -1060,15 +1060,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (7, 4) # (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_G + start_W), mark_type=MarkType.Legal )
         scene.append_arrow( *(start_W + start_w), mark_type=MarkType.Legal )
@@ -1105,15 +1105,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (7, 4) # (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
         scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
@@ -1154,15 +1154,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (7, 4) # (0, 0)
-        startT2 = (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25)
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
         scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
@@ -1198,15 +1198,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (7, 4) # (0, 0)
-        startT2 = (13, 22) # (25, 25)
-        startT3 = (25, 0)
-        startT4 = (10, 13) # (0, 25)
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (13, 22) # (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (10, 13) # (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_B = (9, 10)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
@@ -1252,15 +1252,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (4, 3) # (0, 0)
-        startT2 = (13, 22) # (25, 25)
-        startT3 = (25, 0)
-        startT4 = (10, 13) # (0, 25)
+        start_T_1 = (4, 3) # (0, 0)
+        start_T_2 = (13, 22) # (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (10, 13) # (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_B = (9, 10)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
@@ -1306,15 +1306,15 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (4, 3) # (0, 0)
-        startT2 = (12, 21) # (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25) # (10, 13) # (0, 25)
+        start_T_1 = (4, 3) # (0, 0)
+        start_T_2 = (12, 21) # (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25) # (10, 13) # (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_B = (21, 18)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
@@ -1327,7 +1327,7 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
-        gen = GS.gen_steps( [(3, -1), ], startT4, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        gen = GS.gen_steps( [(3, -1), ], start_T_4, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
 
@@ -1351,15 +1351,15 @@ class SceneOneMixin:
         start_N = (3, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        startT1 = (0, 0)
-        startT2 = (12, 21) # (25, 25)
-        startT3 = (25, 0)
-        startT4 = (0, 25) # (10, 13) # (0, 25)
+        start_T_1 = (0, 0)
+        start_T_2 = (12, 21) # (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25) # (10, 13) # (0, 25)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         start_B = (21, 18)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
@@ -1367,12 +1367,12 @@ class SceneOneMixin:
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
         scene.append_arrow( *(start_I + end_I_2), mark_type=MarkType.Action )
 
-        gen = GS.gen_steps( [(3, 2), ], startT1, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        gen = GS.gen_steps( [(3, 2), ], start_T_1, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
             if index != 5:
                 scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
-        gen = GS.gen_steps( [(3, -1), ], startT4, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        gen = GS.gen_steps( [(3, -1), ], start_T_4, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
 

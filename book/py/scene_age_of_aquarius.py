@@ -67,7 +67,7 @@ class SceneAgeOfAquariusMixin:
 
         scene = Scene('scn_aoa_03_delayed_promo_init', bt)
 
-        startB = (12, 5)
+        start_B = (12, 5)
         startA = (7, 10)
         startP1 = (11, 12)
         startP2 = (4, 10)
@@ -77,7 +77,7 @@ class SceneAgeOfAquariusMixin:
         scene.board.set_piece(*startP2, piece=PieceType.Pawn)
         scene.board.set_piece(*startP3, piece=PieceType.Pawn)
         scene.board.set_piece(*startA, piece=PieceType.Pyramid)
-        scene.board.set_piece(*startB, piece=PieceType.Bishop)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
         scene.board.set_piece(4, 4, piece=-PieceType.Unicorn)
 
         scene.append_text("1", *startP1, mark_type=MarkType.Blocked)
@@ -85,7 +85,7 @@ class SceneAgeOfAquariusMixin:
         scene.append_text("3", *startP3, mark_type=MarkType.Blocked)
 
         # direction <-1, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startB, rels=[(-1, 1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_B, rels=[(-1, 1), ], include_prev=True) )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
@@ -228,13 +228,13 @@ class SceneAgeOfAquariusMixin:
 
         scene = Scene('scn_aoa_08_converting_tagged_pawn_init', bt)
 
-        startB = (12, 5)
+        start_B = (12, 5)
         startA = (7, 10)
         startP = (4, 10)
 
         scene.board.set_piece(*startP, piece=PieceType.Pawn)
         scene.board.set_piece(*startA, piece=PieceType.Pyramid)
-        scene.board.set_piece(*startB, piece=PieceType.Bishop)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         start_g = (4, 4)
         start_a = (1, 10)
@@ -243,7 +243,7 @@ class SceneAgeOfAquariusMixin:
         scene.board.set_piece(*start_a, piece=-PieceType.Pyramid)
 
         # direction <-1, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startB, rels=[(-1, 1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_B, rels=[(-1, 1), ], include_prev=True) )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
@@ -265,11 +265,11 @@ class SceneAgeOfAquariusMixin:
 
         scene = Scene('scn_aoa_09_converting_tagged_pawn_end', bt)
 
-        startB = (7, 10)
+        start_B = (7, 10)
         startP = (4, 10)
 
         scene.board.set_piece(*startP, piece=PieceType.Pawn)
-        scene.board.set_piece(*startB, piece=PieceType.Bishop)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         start_g = (4, 4)
         start_a = (1, 10)
@@ -298,9 +298,9 @@ class SceneAgeOfAquariusMixin:
 
         scene = Scene('scn_aoa_10_tagged_pawn_converted', bt)
 
-        startB = (7, 10)
+        start_B = (7, 10)
 
-        scene.board.set_piece(*startB, piece=PieceType.Bishop)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         start_g = (1, 10)
         start_p = (4, 10)

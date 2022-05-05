@@ -34,5 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_01_portal_fields', \
+                    # 'scn_n_01_portal_fields', \
+                    'scn_n_02_teleport_init', \
                 ]

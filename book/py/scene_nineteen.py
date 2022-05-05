@@ -26,15 +26,15 @@ class SceneNineteenMixin:
         scene = Scene('scn_n_01_portal_fields', bt)
         rect = (0.10, 0.75, 0.6, 0.15)
 
-        startT1 = (0, 0)
-        startT2 = (17, 17)
-        startT3 = (17, 0)
-        startT4 = (0, 17)
+        start_T_1 = (0, 0)
+        start_T_2 = (17, 17)
+        start_T_3 = (17, 0)
+        start_T_4 = (0, 17)
 
-        scene.board.set_piece(*startT1, piece=PieceType.Star)
-        scene.board.set_piece(*startT2, piece=PieceType.Star)
-        scene.board.set_piece(*startT3, piece=-PieceType.Star)
-        scene.board.set_piece(*startT4, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
         #
         # King
@@ -49,7 +49,7 @@ class SceneNineteenMixin:
 
         #
         # Star 1
-        gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT1, include_prev=False, count=1)
+        gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_1, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_1() ):
             if scene.board.is_on_board(*pos):
@@ -57,7 +57,7 @@ class SceneNineteenMixin:
 
         #
         # Star 2
-        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT2, include_prev=False, count=1)
+        gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_2, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_2() ):
             if scene.board.is_on_board(*pos):
@@ -65,7 +65,7 @@ class SceneNineteenMixin:
 
         #
         # Star 3
-        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT3, include_prev=False, count=1)
+        gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_3, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_3() ):
             if scene.board.is_on_board(*pos):
@@ -73,7 +73,7 @@ class SceneNineteenMixin:
 
         #
         # Star 4
-        gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=startT4, include_prev=False, count=1)
+        gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_4, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_4() ):
             if scene.board.is_on_board(*pos):
@@ -87,48 +87,45 @@ class SceneNineteenMixin:
     def scn_n_02_teleport_init(self, bt=BoardType.Nineteen):
 
         scene = Scene('scn_n_02_teleport_init', bt)
+        rect = (0.10, 0.75, 0.6, 0.15)
 
-        startB = (3, 14)
-        startW = (6, 14)
-        startG = (8, 10)
-        start_R = (0, 12)
+        start_B = (3, 14)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        # fixed set
-        scene.board.set_piece(0, 0, piece=PieceType.Star)
-        scene.board.set_piece(17, 17, piece=PieceType.Star)
-        scene.board.set_piece(17, 0, piece=-PieceType.Star)
-        scene.board.set_piece(0, 17, piece=-PieceType.Star)
+        start_W = (1, 1)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        scene.board.set_piece(0, 1, piece=-PieceType.Wave)
-        scene.board.set_piece(1, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(2, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(1, 0, piece=PieceType.Rook)
+        start_T_1 = (0, 0)
+        start_T_2 = (17, 17)
+        start_T_3 = (17, 0)
+        start_T_4 = (0, 17)
 
-        scene.board.set_piece(15, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(16, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(17, 1, piece=PieceType.Pawn)
-
-        scene.board.set_piece(17, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(16, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(15, 15, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(3, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(*startB, piece=PieceType.Bishop)
-        scene.board.set_piece(*startW, piece=PieceType.Wave)
-        scene.board.set_piece(*startG, piece=PieceType.Pegasus)
-        scene.board.set_piece(*start_R, piece=-PieceType.Rook)
-        scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
+        scene.board.set_piece( *start_T_1, piece=PieceType.Star )
+        scene.board.set_piece( *start_T_2, piece=PieceType.Star )
+        scene.board.set_piece( *start_T_3, piece=-PieceType.Star )
+        scene.board.set_piece( *start_T_4, piece=-PieceType.Star )
 
         # Bishop, direction <-1, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startB, rels=[(-1, 1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps( start=start_B, rels=[(-1, 1), ], include_prev=True ) )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
 
-        scene.append_text("1", 16, 17, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+        #
+        # Star 1
+        gen_abs_pos_1 = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_1, include_prev=False, count=1 )
+
+        for i, pos in enumerate( gen_abs_pos_1() ):
+            if scene.board.is_on_board( *pos ):
+                scene.append_text( str( i+1 ), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect )
+
+        #
+        # Star 2
+        gen_abs_pos_2 = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_2, include_prev=False, count=1 )
+
+        for i, pos in enumerate( gen_abs_pos_2() ):
+            if scene.board.is_on_board( *pos ):
+                scene.append_text( str( i+1 ), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect )
 
         return scene
 
@@ -136,8 +133,8 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_03_teleport_move_2', bt)
 
-        startW = (6, 14)
-        startG = (8, 10)
+        start_W = (6, 14)
+        start_G = (8, 10)
         start_R = (0, 12)
 
         # fixed set
@@ -164,8 +161,8 @@ class SceneNineteenMixin:
         scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
 
         scene.board.set_piece(16, 17, piece=PieceType.Bishop)
-        scene.board.set_piece(*startW, piece=PieceType.Wave)
-        scene.board.set_piece(*startG, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
         scene.board.set_piece(*start_R, piece=-PieceType.Rook)
         scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
@@ -185,8 +182,8 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_04_teleport_move_3', bt)
 
-        startW = (6, 14)
-        startG = (8, 10)
+        start_W = (6, 14)
+        start_G = (8, 10)
 
         # fixed set
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -212,17 +209,17 @@ class SceneNineteenMixin:
         scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
 
         scene.board.set_piece(16, 17, piece=PieceType.Bishop)
-        scene.board.set_piece(*startW, piece=PieceType.Wave)
-        scene.board.set_piece(*startG, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
         scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
         # Pegasus, direction <-1, 2>
-        coords = GS.gen_next( GS.gen_steps(start=startG, rels=[(-1, 2), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_G, rels=[(-1, 2), ], include_prev=True) )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
 
         # Wave, direction <-2, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_W, rels=[(-2, 1), ], include_prev=True) )
         scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
@@ -233,8 +230,8 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_05_teleport_end', bt)
 
-        startW = (17, 0)
-        startG = (6, 14)
+        start_W = (17, 0)
+        start_G = (6, 14)
 
         # fixed set
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -260,10 +257,10 @@ class SceneNineteenMixin:
         scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
 
         scene.board.set_piece(16, 17, piece=PieceType.Bishop)
-        scene.board.set_piece(*startG, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
         scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
-        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits())
+        gen_coords = GS.gen_steps(start=start_W, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits())
         for index, coords in enumerate( gen_coords() ):
             mark_type = MarkType.Legal
             if index in [0, 2]:
@@ -278,8 +275,8 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_06_teleport_wave_blocked', bt)
 
-        startW = (17, 0)
-        startG = (6, 14)
+        start_W = (17, 0)
+        start_G = (6, 14)
 
         # fixed set
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -303,13 +300,13 @@ class SceneNineteenMixin:
         scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
 
         scene.board.set_piece(16, 17, piece=PieceType.Bishop)
-        scene.board.set_piece(*startG, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
 
-        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=False, bounds=scene.board_view.get_position_limits())
+        gen_coords = GS.gen_steps(start=start_W, rels=[(-2, 1), ], include_prev=False, bounds=scene.board_view.get_position_limits())
         for index, coords in enumerate( gen_coords() ):
             scene.board.set_piece(*coords, piece=-PieceType.Pawn)
 
-        gen_coords = GS.gen_steps(start=startW, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits())
+        gen_coords = GS.gen_steps(start=start_W, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits())
         for index, coords in enumerate( gen_coords() ):
             scene.append_arrow( *coords, mark_type=MarkType.Blocked )
 
@@ -534,7 +531,7 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_14_teleport_bishop', bt)
 
-        startB = (3, 14)
+        start_B = (3, 14)
 
         # fixed set
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -542,10 +539,10 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        scene.board.set_piece(*startB, piece=PieceType.Bishop)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         # Bishop, direction <-1, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startB, rels=[(-1, 1), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_B, rels=[(-1, 1), ], include_prev=True) )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )

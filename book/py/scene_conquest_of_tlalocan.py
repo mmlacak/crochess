@@ -1016,15 +1016,15 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(9, 7, piece=PieceType.Pawn)
         scene.board.set_piece(10, 7, piece=PieceType.Pawn)
 
-        startW = (3, 10)
-        scene.board.set_piece(*startW, piece=PieceType.Wave)
+        start_W = (3, 10)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         startH = (5, 9)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
 
-        scene.append_arrow( *(startH + startW), mark_type=MarkType.Action )
-        scene.append_arrow( *(startW + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
 
         #
         # right arm
@@ -1657,15 +1657,15 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*start, piece=PieceType.Shaman)
         scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperLeft)
 
-        startW = (14, 10)
-        scene.board.set_piece(*startW, piece=PieceType.Wave)
+        start_W = (14, 10)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         startH = (16, 9)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperRight)
 
-        scene.append_arrow( *(startH + startW), mark_type=MarkType.Action )
-        scene.append_arrow( *(startW + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
 
         #
         # right arm
@@ -1679,10 +1679,10 @@ class SceneConquestOfTlalocanMixin:
         #
         # backward displacement
 
-        startB = (15, 17)
-        scene.board.set_piece(*startB, piece=-PieceType.Bishop)
+        start_B = (15, 17)
+        scene.board.set_piece(*start_B, piece=-PieceType.Bishop)
 
-        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=startB, include_prev=False, count=1)
+        gen_abs_pos = GS.gen_multi_steps(GS.DEFAULT_DISPLACEMENT_MULTI_REL_MOVES, start=start_B, include_prev=False, count=1)
 
         i = 1
         for pos in gen_abs_pos():
@@ -1720,8 +1720,8 @@ class SceneConquestOfTlalocanMixin:
         #
         # backward displacement
 
-        startB = (17, 13)
-        scene.board.set_piece(*startB, piece=-PieceType.Bishop)
+        start_B = (17, 13)
+        scene.board.set_piece(*start_B, piece=-PieceType.Bishop)
 
         return scene
 
@@ -1733,15 +1733,15 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*start, piece=PieceType.Shaman)
         scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        startW = (19, 5)
-        scene.board.set_piece(*startW, piece=PieceType.Wave)
+        start_W = (19, 5)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         startH = (21, 4)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        scene.append_arrow( *(startH + startW), mark_type=MarkType.Action )
-        scene.append_arrow( *(startW + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
 
         #
         # right arm
@@ -1776,8 +1776,8 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*start, piece=PieceType.Shaman)
         scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        startW = (20, 7)
-        scene.board.set_piece(*startW, piece=PieceType.Wave)
+        start_W = (20, 7)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         startH = (19, 5)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
@@ -1787,7 +1787,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, startW, rel, count=24)
+        aba = self.append_broken_arrow(scene, start_W, rel, count=24)
 
         for i in range(16):
             mark_type = MarkType.Blocked if i < 3 else MarkType.Legal
@@ -1817,8 +1817,8 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*start, piece=PieceType.Shaman)
         scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        startW = (20, 7)
-        # scene.board.set_piece(*startW, piece=PieceType.Wave)
+        start_W = (20, 7)
+        # scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         startH = (19, 5)
         # scene.board.set_piece(*startH, piece=PieceType.Shaman)
@@ -1828,7 +1828,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, startW, rel, count=24, is_with_field_marker=True)
+        aba = self.append_broken_arrow(scene, start_W, rel, count=24, is_with_field_marker=True)
 
         for i in range(16):
             mark_type = MarkType.Blocked if i < 7 else MarkType.Legal
