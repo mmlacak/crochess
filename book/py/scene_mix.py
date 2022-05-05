@@ -34,8 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_34_activated_piece_check_init', \
-                    'scn_mv_35_activated_piece_check_cascade', \
-                    # 'scn_mv_39_cascade_self_checkmate_init', \
-                    # 'scn_mv_40_cascade_self_checkmate_end', \
+                    'scn_n_01_portal_fields', \
                 ]

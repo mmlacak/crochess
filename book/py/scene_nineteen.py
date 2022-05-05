@@ -18,9 +18,13 @@ from scene import Scene
 
 class SceneNineteenMixin:
 
+    #
+    # Portal-fields
+
     def scn_n_01_portal_fields(self, bt=BoardType.Nineteen):
 
         scene = Scene('scn_n_01_portal_fields', bt)
+        rect = (0.10, 0.75, 0.6, 0.15)
 
         startT1 = (0, 0)
         startT2 = (17, 17)
@@ -37,10 +41,11 @@ class SceneNineteenMixin:
         start_K = (8, 8)
         scene.board.set_piece(*start_K, piece=PieceType.King)
 
+        rect_K = (0.35, 0.5, 0.65, 0.1)
         gen_abs_pos_K = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_K, include_prev=False, count=1) # , bounds=((1, 3), (3, 5)))
 
         for i, pos in enumerate( gen_abs_pos_K() ):
-            scene.append_text(str(i+1), *pos, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+            scene.append_text(str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked, rect=rect_K)
 
         #
         # Star 1
@@ -48,7 +53,7 @@ class SceneNineteenMixin:
 
         for i, pos in enumerate( gen_abs_pos_1() ):
             if scene.board.is_on_board(*pos):
-                scene.append_text(str(i+1), *pos, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+                scene.append_text(str(i+1), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
 
         #
         # Star 2
@@ -56,7 +61,7 @@ class SceneNineteenMixin:
 
         for i, pos in enumerate( gen_abs_pos_2() ):
             if scene.board.is_on_board(*pos):
-                scene.append_text(str(i+1), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Blocked)
+                scene.append_text(str(i+1), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
 
         #
         # Star 3
@@ -64,7 +69,7 @@ class SceneNineteenMixin:
 
         for i, pos in enumerate( gen_abs_pos_3() ):
             if scene.board.is_on_board(*pos):
-                scene.append_text(str(i+1), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+                scene.append_text(str(i+1), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=rect)
 
         #
         # Star 4
@@ -72,12 +77,12 @@ class SceneNineteenMixin:
 
         for i, pos in enumerate( gen_abs_pos_4() ):
             if scene.board.is_on_board(*pos):
-                scene.append_text(str(i+1), *pos, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+                scene.append_text(str(i+1), *pos, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=rect)
 
         return scene
 
     #
-    # teleportation
+    # Teleporting pieces
 
     def scn_n_02_teleport_init(self, bt=BoardType.Nineteen):
 
