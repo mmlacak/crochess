@@ -36,5 +36,7 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_n_01_portal_fields', \
                     # 'scn_n_02_teleport_init', \
-                    'scn_n_03_teleport_move_2', \
+                    # 'scn_n_03_teleport_move_2', \
+                    'scn_n_04_teleport_move_3', \
+                    'scn_n_05_teleport_end', \
                 ]

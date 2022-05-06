@@ -195,24 +195,11 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        scene.board.set_piece(0, 1, piece=-PieceType.Wave)
-        scene.board.set_piece(1, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(2, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(1, 0, piece=PieceType.Rook)
-
-        scene.board.set_piece(15, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(16, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(17, 1, piece=PieceType.Pawn)
-
-        scene.board.set_piece(17, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(16, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(15, 15, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(3, 16, piece=-PieceType.Pawn)
         scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
         scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
 
-        scene.board.set_piece(16, 17, piece=PieceType.Bishop)
+        scene.board.set_piece(15, 1, piece=PieceType.Pawn)
+
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
         scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
@@ -243,24 +230,10 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        scene.board.set_piece(0, 1, piece=-PieceType.Wave)
-        scene.board.set_piece(1, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(2, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(1, 0, piece=PieceType.Rook)
-
         scene.board.set_piece(15, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(16, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(17, 1, piece=PieceType.Pawn)
-
-        scene.board.set_piece(17, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(16, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(15, 15, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(3, 16, piece=-PieceType.Pawn)
         scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
         scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
 
-        scene.board.set_piece(16, 17, piece=PieceType.Bishop)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
         scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
