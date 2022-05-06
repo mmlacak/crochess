@@ -261,31 +261,15 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        scene.board.set_piece(0, 1, piece=-PieceType.Wave)
-        scene.board.set_piece(1, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(2, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(1, 0, piece=PieceType.Rook)
-
-        scene.board.set_piece(16, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(17, 1, piece=PieceType.Pawn)
-
-        scene.board.set_piece(17, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(16, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(15, 15, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(3, 16, piece=-PieceType.Pawn)
         scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(16, 17, piece=PieceType.Bishop)
         scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
 
-        gen_coords = GS.gen_steps(start=start_W, rels=[(-2, 1), ], include_prev=False, bounds=scene.board_view.get_position_limits())
-        for index, coords in enumerate( gen_coords() ):
-            scene.board.set_piece(*coords, piece=-PieceType.Pawn)
-
-        gen_coords = GS.gen_steps(start=start_W, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits())
+        gen_coords = GS.gen_steps( start=start_W, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen_coords() ):
             scene.append_arrow( *coords, mark_type=MarkType.Blocked )
+
+            pos = GS.get_end( coords )
+            scene.board.set_piece( *pos, piece=-PieceType.Pawn )
 
         return scene
 
