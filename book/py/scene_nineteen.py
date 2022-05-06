@@ -132,39 +132,29 @@ class SceneNineteenMixin:
     def scn_n_03_teleport_move_2(self, bt=BoardType.Nineteen):
 
         scene = Scene('scn_n_03_teleport_move_2', bt)
+        rect = (0.10, 0.75, 0.75, 0.15)
 
-        start_W = (6, 14)
-        start_G = (8, 10)
-        start_R = (0, 12)
+        start_T_1 = (0, 0)
+        start_T_2 = (17, 17)
+        start_T_3 = (17, 0)
+        start_T_4 = (0, 17)
 
-        # fixed set
-        scene.board.set_piece(0, 0, piece=PieceType.Star)
-        scene.board.set_piece(17, 17, piece=PieceType.Star)
-        scene.board.set_piece(17, 0, piece=-PieceType.Star)
-        scene.board.set_piece(0, 17, piece=-PieceType.Star)
+        scene.board.set_piece( *start_T_1, piece=PieceType.Star )
+        scene.board.set_piece( *start_T_2, piece=PieceType.Star )
+        scene.board.set_piece( *start_T_3, piece=-PieceType.Star )
+        scene.board.set_piece( *start_T_4, piece=-PieceType.Star )
 
         scene.board.set_piece(0, 1, piece=-PieceType.Wave)
         scene.board.set_piece(1, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(2, 1, piece=PieceType.Pawn)
         scene.board.set_piece(1, 0, piece=PieceType.Rook)
-
-        scene.board.set_piece(15, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(16, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(17, 1, piece=PieceType.Pawn)
 
         scene.board.set_piece(17, 16, piece=-PieceType.Pawn)
         scene.board.set_piece(16, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(15, 15, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(3, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
 
         scene.board.set_piece(16, 17, piece=PieceType.Bishop)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+
+        start_R = (0, 12)
         scene.board.set_piece(*start_R, piece=-PieceType.Rook)
-        scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
         # Rook, direction <0, 1>
         coords = GS.gen_next( GS.gen_steps(start=start_R, rels=[(0, 1), ], include_prev=True) )
@@ -172,9 +162,23 @@ class SceneNineteenMixin:
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        scene.append_arrow( *coords(), mark_type=MarkType.Illegal )
 
-        scene.append_text("1", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+        #
+        # Star 1
+        gen_abs_pos_1 = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_1, include_prev=False, count=1 )
+
+        for i, pos in enumerate( gen_abs_pos_1() ):
+            if scene.board.is_on_board( *pos ):
+                scene.append_text( str( i+1 ), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect )
+
+        #
+        # Star 2
+        gen_abs_pos_2 = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_2, include_prev=False, count=1 )
+
+        for i, pos in enumerate( gen_abs_pos_2() ):
+            if scene.board.is_on_board( *pos ):
+                scene.append_text( str( i+1 ), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect )
 
         return scene
 

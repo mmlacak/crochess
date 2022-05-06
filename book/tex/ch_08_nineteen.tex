@@ -104,6 +104,7 @@ by Bishop in a normal, cascading move.
 \subsubsection*{Teleportation blocked}
 \addcontentsline{toc}{subsubsection}{Teleportation blocked}
 
+\vspace*{-1.0\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_03_teleport_move_2.png}
@@ -111,10 +112,12 @@ by Bishop in a normal, cascading move.
 \label{fig:scn_n_03_teleport_move_2}
 \end{figure}
 
-Dark Rook after teleportation is about to be removed from chessboard, since there
-is no empty portal-fields around both opposite-color Stars. Note that own, dark
-Wave (on field 1) is also blocking emergance of teleported dark Rook, even though
-it could be activated by it in a normal, non-teleporting ply.
+If all eligible portal-fields are not empty, teleported piece is blocked from
+emerging, and is oblationed, i.e. removed from chessboard as if captured by
+opponent.
+
+Here, after teleportion dark Rook will be oblationed, because there is no empty
+(numbered) portal-field around both Stars in opposite color.
 
 \clearpage % ..........................................................
 % Teleporting Wave ----------------------------------------------------
