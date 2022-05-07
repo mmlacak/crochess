@@ -516,11 +516,11 @@ class SceneNineteenMixin:
         return scene
 
     #
-    # ... Sideways Pawns
+    # Sideways Pawns
 
-    def scn_n_15_sideways_pawns_init(self, bt=BoardType.Nineteen):
+    def scn_n_15_sideways_pawn_init(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_15_sideways_pawns_init', bt)
+        scene = Scene('scn_n_15_sideways_pawn_init', bt)
 
         start_P = (5, 7)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
@@ -533,13 +533,30 @@ class SceneNineteenMixin:
 
         return scene
 
+    def scn_n_16_sideways_pawn_activated_wave(self, bt=BoardType.Nineteen):
+
+        scene = Scene('scn_n_16_sideways_pawn_activated_wave', bt)
+
+        start_P = (6, 7)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        gen_coords = GS.gen_steps( start=start_P, rels=[(-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen_coords() ):
+            scene.append_arrow( *coords, mark_type=MarkType.Legal )
+
+        gen_coords_2 = GS.gen_steps( start=start_P, rels=[(1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen_coords_2() ):
+            scene.append_arrow( *coords, mark_type=MarkType.Legal )
+
+        return scene
+
 
     #
     # ... Pawn ranks, rows
 
-    def scn_n_15_pawn_ranks(self, bt=BoardType.Nineteen):
+    def scn_n_99_pawn_ranks(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_15_pawn_ranks', bt)
+        scene = Scene('scn_n_99_pawn_ranks', bt)
 
         scene.append_arrow(0.7, 16.5, 17.3, 16.5, mark_type=MarkType.Blocked, start_pointer=True, end_pointer=True)
         scene.append_arrow(0.7, 15.5, 17.3, 15.5, mark_type=MarkType.Illegal, start_pointer=True, end_pointer=True)
