@@ -321,9 +321,8 @@ initial move.
 Teleporting Bishop, like any other piece, can choose any empty portal-field
 around opposite-color Star as a destination, regardless of a color of that
 emerging field. Teleporting to a field in a different color changes (color of)
-accessible fields for teleported Bishop, for the remainder of a game, or until
-another color-changing teleportation. Here, such color-changing portal-fields
-are enumerated, 1 and 2.
+accessible fields for teleported Bishop, for the remainder of a game. Here,
+such color-changing portal-fields are enumerated, 1 and 2.
 
 % ================================================== Teleporting pieces
 % **************************************************************** Star
@@ -341,11 +340,12 @@ are enumerated, 1 and 2.
 \label{fig:scn_n_15_sideways_pawn_init}
 \end{figure}
 
-. . .
+In this and all subsequent variants Pawn can move sideways, onto a field immediately
+to its left, or to its right. Destination step-field has to be empty, or it can host
+own Wave.
 
-\huge
-TODO
-\normalsize
+Here, light Pawn can make one step onto empty field to the left; or it can move onto
+the right step-field, and activate light Wave, with one momentum.
 
 \clearpage % ..........................................................
 
@@ -357,11 +357,9 @@ TODO
 \label{fig:scn_n_16_sideways_pawn_activated_wave}
 \end{figure}
 
-. . . movement of Wave activated by sideways Pawn
-
-\huge
-TODO
-\normalsize
+Wave activated by Pawn moving sideways can move only horizontally, either to the
+left, or to the right. Unlike Pawn, Wave is not limited to only one step, and so
+can move until edge of chessboard is encountered.
 
 \clearpage % ..........................................................
 % Activating Pyramid --------------------------------------------------
