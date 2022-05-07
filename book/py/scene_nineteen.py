@@ -404,7 +404,7 @@ class SceneNineteenMixin:
         scene = Scene('scn_n_11_teleport_pawns_init', bt)
 
         start_P1 = (0, 16)
-        start_P2 = (1, 16)
+        # start_P2 = (1, 16)
         start_T = (0, 17)
 
         # fixed set
@@ -414,7 +414,7 @@ class SceneNineteenMixin:
         scene.board.set_piece(*start_T, piece=-PieceType.Star)
 
         scene.board.set_piece(*start_P1, piece=PieceType.Pawn)
-        scene.board.set_piece(*start_P2, piece=PieceType.Pawn)
+        # scene.board.set_piece(*start_P2, piece=PieceType.Pawn)
 
         scene.append_arrow( *(start_P1 + start_T), mark_type=MarkType.Action )
 
@@ -422,11 +422,11 @@ class SceneNineteenMixin:
         scene.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
         scene.append_text("3", 17, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
 
-        scene.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
-        scene.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
-        scene.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+        # scene.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+        # scene.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+        # scene.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 
-        scene.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        scene.append_text("a", 0, 17, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 
         return scene
 
@@ -434,7 +434,7 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_12_teleport_pawns_step_1', bt)
 
-        start_P1 = (16, 16)
+        # start_P1 = (16, 16)
         start_P2 = (1, 16)
         start_T = (0, 17)
 
@@ -444,22 +444,22 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(*start_T, piece=-PieceType.Star)
 
-        scene.board.set_piece(*start_P1, piece=PieceType.Pawn)
+        # scene.board.set_piece(*start_P1, piece=PieceType.Pawn)
         scene.board.set_piece(*start_P2, piece=PieceType.Pawn)
 
         scene.append_arrow( *(start_P2 + start_T), mark_type=MarkType.Action )
 
-        scene.append_text("1", 16, 17, corner=Corner.LowerLeft, mark_type=MarkType.Action)
-        # scene.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
-        scene.append_text("3", 17, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
+        # scene.append_text("1", 16, 17, corner=Corner.LowerLeft, mark_type=MarkType.Action)
+        # # scene.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
+        # scene.append_text("3", 17, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
 
         scene.append_text("4", 0, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
         scene.append_text("5", 1, 1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
         scene.append_text("6", 1, 0, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 
-        scene.append_field_marker(*start_P1, mark_type=MarkType.Action)
+        # scene.append_field_marker(*start_P1, mark_type=MarkType.Action)
 
-        scene.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        # scene.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         return scene
 
@@ -467,7 +467,7 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_13_teleport_pawns_end', bt)
 
-        start_P1 = (16, 16)
+        # start_P1 = (16, 16)
         start_P2 = (1, 1)
         start_T = (0, 17)
 
@@ -477,14 +477,20 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(*start_T, piece=-PieceType.Star)
 
-        scene.board.set_piece(*start_P1, piece=PieceType.Pawn)
+        # scene.board.set_piece(*start_P1, piece=PieceType.Pawn)
         scene.board.set_piece(*start_P2, piece=PieceType.Pawn)
 
-        scene.append_arrow( *(start_P2 + (1, 2)), mark_type=MarkType.Legal )
+        # scene.append_arrow( *(start_P2 + (1, 2)), mark_type=MarkType.Legal )
 
-        scene.append_field_marker(*start_P1, mark_type=MarkType.Action)
+        gen_coords = GS.gen_steps( start=start_P2, rels=[(0, 1), ], include_prev=True, count=7 )
+        for index, coords in enumerate( gen_coords() ):
+            mark_type = MarkType.Legal if index == 0 else \
+                        MarkType.Blocked
+            scene.append_arrow( *coords, mark_type=mark_type )
 
-        scene.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
+        # scene.append_field_marker(*start_P1, mark_type=MarkType.Action)
+
+        # scene.append_text("a", 0, 0, corner=Corner.LowerRight, mark_type=MarkType.Blocked)
 
         return scene
 

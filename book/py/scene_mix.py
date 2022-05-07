@@ -34,10 +34,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_n_01_portal_fields', \
-                    # 'scn_n_02_teleport_init', \
-                    # 'scn_n_03_teleport_move_2', \
-                    # 'scn_n_04_teleport_move_3', \
-                    # 'scn_n_05_teleport_end', \
-                    'scn_n_06_teleport_wave_blocked', \
+                    'scn_n_11_teleport_pawns_init', \
+                    'scn_n_12_teleport_pawns_step_1', \
+                    'scn_n_13_teleport_pawns_end', \
                 ]
