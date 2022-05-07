@@ -34,7 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_11_teleport_pawns_init', \
-                    'scn_n_12_teleport_pawns_step_1', \
-                    'scn_n_13_teleport_pawns_end', \
+                    'scn_n_15_sideways_pawns_init', \
                 ]

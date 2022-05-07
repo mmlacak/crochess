@@ -129,6 +129,9 @@ class SceneNineteenMixin:
 
         return scene
 
+    #
+    # Teleportation blocked
+
     def scn_n_03_teleport_move_2(self, bt=BoardType.Nineteen):
 
         scene = Scene('scn_n_03_teleport_move_2', bt)
@@ -181,6 +184,9 @@ class SceneNineteenMixin:
                 scene.append_text( str( i+1 ), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect )
 
         return scene
+
+    #
+    # Teleporting Wave
 
     def scn_n_04_teleport_move_3(self, bt=BoardType.Nineteen):
 
@@ -248,6 +254,9 @@ class SceneNineteenMixin:
 
         return scene
 
+    #
+    # Teleporting Wave blocked
+
     def scn_n_06_teleport_wave_blocked(self, bt=BoardType.Nineteen):
 
         scene = Scene('scn_n_06_teleport_wave_blocked', bt)
@@ -272,6 +281,9 @@ class SceneNineteenMixin:
             scene.board.set_piece( *pos, piece=-PieceType.Pawn )
 
         return scene
+
+    #
+    # Teleporting off-board
 
     def scn_n_07_teleport_wave_init(self, bt=BoardType.Nineteen):
 
@@ -341,6 +353,9 @@ class SceneNineteenMixin:
 
         return scene
 
+    #
+    # Emerging off-board
+
     def scn_n_09_teleport_wave_2_init(self, bt=BoardType.Nineteen):
 
         scene = Scene('scn_n_09_teleport_wave_2_init', bt, x=4, y=1, reverse_off_board_field_colors=True)
@@ -398,6 +413,9 @@ class SceneNineteenMixin:
             scene.append_arrow( *coords, mark_type=mark_type )
 
         return scene
+
+    #
+    # Teleporting Pawn
 
     def scn_n_11_teleport_pawns_init(self, bt=BoardType.Nineteen):
 
@@ -470,11 +488,12 @@ class SceneNineteenMixin:
 
         return scene
 
+    #
+    # Teleporting Bishop
+
     def scn_n_14_teleport_bishop(self, bt=BoardType.Nineteen):
 
         scene = Scene('scn_n_14_teleport_bishop', bt)
-
-        start_B = (3, 14)
 
         # fixed set
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -482,6 +501,7 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(0, 17, piece=-PieceType.Star)
 
+        start_B = (3, 14)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         # Bishop, direction <-1, 1>
@@ -494,6 +514,28 @@ class SceneNineteenMixin:
         scene.append_text("2", 16, 16, corner=Corner.LowerLeft, mark_type=MarkType.Legal)
 
         return scene
+
+    #
+    # ... Sideways Pawns
+
+    def scn_n_15_sideways_pawns_init(self, bt=BoardType.Nineteen):
+
+        scene = Scene('scn_n_15_sideways_pawns_init', bt)
+
+        start_P = (5, 7)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (6, 7)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        scene.append_arrow( *( GS.append_tpl_rel( start_P, -1, 0 ) ) )
+        scene.append_arrow( *( start_P + start_W ), mark_type=MarkType.Action )
+
+        return scene
+
+
+    #
+    # ... Pawn ranks, rows
 
     def scn_n_15_pawn_ranks(self, bt=BoardType.Nineteen):
 
