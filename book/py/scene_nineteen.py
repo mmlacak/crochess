@@ -557,6 +557,16 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_17_sideways_pawn_does_not_activate_pyramid', bt)
 
+        # top, dark pieces
+
+        start_p = (5, 13)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_a = (6, 13)
+        scene.board.set_piece( *start_a, piece=-PieceType.Pyramid )
+
+        scene.append_arrow( *( start_p + start_a ), mark_type=MarkType.Illegal )
+
         # bottom, light pieces
 
         start_P = (5, 3)
