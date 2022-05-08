@@ -696,22 +696,25 @@ location, King is not affected, and game continues.
 
 \clearpage % ..........................................................
 
-\vspace*{-2.1\baselineskip}
+\vspace*{-2.3\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activated_piece_check_cascade.png}
+\vspace*{-1.3\baselineskip}
 \caption{Reactivating Queen}
 \label{fig:scn_mv_35_activated_piece_check_cascade}
 \end{figure}
 
+\vspace*{-0.3\baselineskip}
 Here, light Queen after being positioned on a temporary field does not attack dark
 King, because all of its momentum has been transferred to Wave B, then C and finally
 D. Wave D is now "in-the-air", about to reactivate light Queen with remaining 5
 momentum; grey arrows show path travelled over by piece they point to. After
-reactivation, dark Queen still won't attack dark King, even though it's located on
+reactivation, light Queen still won't attack dark King, even though it's located on
 light Queen's capture-field, and within range. This is so because being checked (or
 checkmated) is a status of a position, after all pieces had settled down, and move
-has been done.
+has been done. This means, cascade would have to finish with activated light Queen
+settling onto e.g. field 2, or 4, for that Queen to check dark King.
 
 % ............................................ Cascade check, checkmate
 % ----------------------------------------------------- Cascading Waves

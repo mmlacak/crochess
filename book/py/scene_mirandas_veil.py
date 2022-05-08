@@ -1678,6 +1678,9 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
+            pos = GS.get_end( arrow )
+            scene.append_text( str( i+1 ), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
         return scene
 
     #
