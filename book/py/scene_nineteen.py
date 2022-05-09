@@ -578,10 +578,7 @@ class SceneNineteenMixin:
         start_W_B = (8, 3)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_W_C = (8, 5)
-        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
-
-        start_A = (11, 5)
+        start_A = (10, 3)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.append_arrow( *( start_P + start_W_A ), mark_type=MarkType.Action )
@@ -592,15 +589,9 @@ class SceneNineteenMixin:
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
-        gen_WB_WC = GS.gen_steps( start=start_W_B, rels=[(0, 1), ], include_prev=True, count=2 )
-        for index, coords in enumerate( gen_WB_WC() ):
+        gen_WB_A = GS.gen_steps( start=start_W_B, rels=[(1, 0), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_WB_A() ):
             mark_type = MarkType.Action if index == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        gen_WC_A = GS.gen_steps( start=start_W_C, rels=[(1, 0), ], include_prev=True, count=3 )
-        for index, coords in enumerate( gen_WC_A() ):
-            mark_type = MarkType.Illegal if index == 2 else \
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
