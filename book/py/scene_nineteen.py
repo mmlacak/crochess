@@ -597,9 +597,9 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_18_sideways_pawns_do_activate_pyramids(self, bt=BoardType.Nineteen):
+    def scn_n_18_sideways_pawns_cascade_pyramids(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_18_sideways_pawns_do_activate_pyramids', bt)
+        scene = Scene('scn_n_18_sideways_pawns_cascade_pyramids', bt)
 
         # top, dark pieces
 

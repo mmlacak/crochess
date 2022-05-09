@@ -37,6 +37,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_35_activated_piece_check_cascade', \
                     # 'scn_n_15_sideways_pawn_init', \
                     # 'scn_n_16_sideways_pawn_activated_wave', \
-                    'scn_n_17_sideways_pawn_does_not_activate_pyramid', \
-                    # 'scn_n_18_sideways_pawns_do_activate_pyramids', \
+                    # 'scn_n_17_sideways_pawn_does_not_activate_pyramid', \
+                    'scn_n_18_sideways_pawns_cascade_pyramids', \
                 ]
