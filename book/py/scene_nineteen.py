@@ -591,7 +591,7 @@ class SceneNineteenMixin:
 
         gen_WB_A = GS.gen_steps( start=start_W_B, rels=[(1, 0), ], include_prev=True, count=2 )
         for index, coords in enumerate( gen_WB_A() ):
-            mark_type = MarkType.Action if index == 1 else \
+            mark_type = MarkType.Illegal if index == 1 else \
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
