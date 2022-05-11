@@ -88,15 +88,17 @@ On fields in opposite color, Centaur can jump much longer, and has the same step
 \caption{Centaur long jump}
 \label{fig:scn_hd_02_centaur_opposite_color}
 \end{wrapfigure}
-Again, just as Knight (and Unicorn), Centaur is not hampered by a piece on any unmarked field.
+Again, just as Knight (and Unicorn), Centaur is not hampered by a piece on any
+unmarked field.
 
-Step-fields are also capture-fields, Centaur would be able to capture opponent's pieces on any
-marked field, regardless of marker color (green, blue).
+Step-fields are also capture-fields, Centaur would be able to capture opponent's
+pieces on any marked field, regardless of marker color (green, blue).
 
-On initial step, Centaur can freely choose any marked field, regardless of marker color (green,
-blue), or step (long, short). On second step, Centaur can choose any step-field in the other color
-(blue if green was chosen initially, green if blue was first choice). On all subsequent steps,
-Centaur has to keep alternating between the two initially chosen steps, for the remainder of a ply.
+On initial step, Centaur can freely choose any marked field, regardless of marker
+color (green, blue), or step (long, short). On second step, Centaur can choose any
+step-field in the other color (blue if green was chosen initially, green if blue
+was first choice). On all subsequent steps, Centaur has to keep alternating between
+the two initially chosen steps, for the remainder of a ply.
 
 \clearpage % ..........................................................
 
@@ -107,9 +109,10 @@ Centaur has to keep alternating between the two initially chosen steps, for the 
 \label{fig:scn_hd_03_centaur_multi_step_init}
 \end{figure}
 
-Here, light Centaur is located on the same color (i.e. light) field, so all available step-fields
-are short jumps, which are the same as those of Knight. For the first step, Centaur can choose any
-of marked step-fields, except the one which is blocked by own piece (light Pawn).
+Here, light Centaur is located on the same color (i.e. light) field, so all available
+step-fields are short jumps, which are the same as those of Knight. For the first step,
+Centaur can choose any of marked step-fields, except the one which is blocked by own
+piece (light Pawn).
 
 \clearpage % ..........................................................
 
@@ -120,10 +123,11 @@ of marked step-fields, except the one which is blocked by own piece (light Pawn)
 \label{fig:scn_hd_04_centaur_multi_step_second}
 \end{figure}
 
-Here, after first step, light Centaur is located on a dark field, so all available step-fields are
-long jumps, which are the same as those of Unicorn. Since upper-left step-field (blue) was chosen
-for a first step, next step has to be one of upper-right, lower-left fields (green). Note, opponent's
-piece (dark Pawn) can be captured, but it blocks light Centaur from moving any further.
+Here, after first step, light Centaur is located on a dark field, so all available
+step-fields are long jumps, which are the same as those of Unicorn. Since upper-left
+step-field (blue) was chosen for a first step, next step has to be one of upper-right,
+lower-left fields (green). Note, opponent's piece (dark Pawn) can be captured, but it
+blocks light Centaur from moving any further.
 
 \clearpage % ..........................................................
 
@@ -134,17 +138,19 @@ piece (dark Pawn) can be captured, but it blocks light Centaur from moving any f
 \label{fig:scn_hd_05_centaur_multi_step}
 \end{figure}
 
-After second step is chosen, complete movement of Centaur consists of alternating between the two initial
-steps. Centaur for the rest of a ply has to follow those two initial steps, e.g. after reaching field 4,
-it cannot move to any other step-field (red). Light Centaur could also capture dark Bishop, but is prevented
-from moving any further (grey). Pieces on all other fields are ignored (Pawns).
+After second step is chosen, complete movement of Centaur consists of alternating
+between the two initial steps. Centaur for the rest of a ply has to follow those two
+initial steps, e.g. after reaching field 4, it cannot move to any other step-field
+(red). Light Centaur could also capture dark Bishop, but is prevented from moving
+any further (grey). Pieces on all other fields are ignored (Pawns).
 
 \clearpage % ..........................................................
 
 \subsubsection*{Out of board steps}
 \addcontentsline{toc}{subsubsection}{Out of board steps}
 
-\vspace*{-0.05\textwidth}
+% \vspace*{-0.05\textwidth}
+\vspace*{-1.3\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_06_centaur_off_board.png}
@@ -152,11 +158,12 @@ from moving any further (grey). Pieces on all other fields are ignored (Pawns).
 \label{fig:scn_hd_06_centaur_off_board}
 \end{figure}
 
-Here, light grey fields are virtual fields extending existing chessboard.
-It's illegal to step outside chessboard, and all subsequent steps are also
-illegal. That means, Centaur cannot reach fields 1 and 2 from starting
-position with selected directions, even though it would end movement on the
-chessboard.
+Here, light grey fields are virtual fields extending existing chessboard. For
+Centaur, it's illegal to step outside of a chessboard, and all subsequent steps
+are also illegal.
+
+Here, Centaur cannot reach fields 1 and 2 from starting position with selected
+directions, even though it would end movement on the chessboard.
 
 \clearpage % ..........................................................
 % ------------------------------------------------------------ Movement
@@ -188,10 +195,11 @@ own piece (light Pawn). Light Pawn could be activated, or stepped over.
 \label{fig:scn_hd_08_wave_activation_by_centaur_second_step}
 \end{figure}
 
-After first step, light Wave is located on a light field, so all available step-fields are
-short jumps, which are the same as those of Knight. Since upper-right step-field (green) was
-chosen for a first step, next step has to be one of upper-left, lower-right fields (blue).
-Light Wave cannot activate opponent's piece (dark Pawn), but it can step over it.
+After first step, light Wave is located on a light field, so all available step-fields
+are short jumps, which are the same as those of Knight. Since upper-right step-field
+(green) was chosen for a first step, next step has to be one of upper-left, lower-right
+fields (blue). Light Wave cannot activate opponent's piece (dark Pawn), but it can step
+over it.
 
 \clearpage % ..........................................................
 
@@ -203,10 +211,11 @@ Light Wave cannot activate opponent's piece (dark Pawn), but it can step over it
 \label{fig:scn_hd_09_wave_activation_by_centaur_complete}
 \end{figure}
 
-After second step is chosen, complete movement of Wave consists of alternating between the two
-initially chosen steps, which Wave for the rest of a ply has to follow, e.g. after reaching field
-4, it cannot move to any other step-field (red). Light Wave could also activate dark Wave, or it
-could continue moving further. Pieces on all other fields are ignored (Pawns).
+After second step is chosen, complete movement of Wave consists of alternating between
+the two initially chosen steps, which Wave for the rest of a ply has to follow, e.g.
+after reaching field 4, it cannot move to any other step-field (red). Light Wave could
+also activate dark Wave, or it could continue moving further. Pieces on all other fields
+are ignored (Pawns).
 
 \clearpage % ..........................................................
 
@@ -262,11 +271,13 @@ longer than just 1 step.
 \label{fig:scn_hd_12_scout_pawns}
 \end{figure}
 
-In this variant an additional set of Pawns are added to \hyperref[fig:14_hemera_s_dawn]{the initial setup},
-called scout Pawns. Scout Pawns do not make full-size Pawns ranks, and so their rows are not Pawns rows.
+In this variant an additional set of Pawns are added to
+\hyperref[fig:14_hemera_s_dawn]{the initial setup},
+called scout Pawns. Scout Pawns do not make full-size Pawns ranks, and so their
+rows are not Pawns rows.
 
-Scout Pawns are positioned relative to Centaurs' initial positions, to block them from capturing opponent's
-pieces from the very first move.
+Scout Pawns are positioned relative to Centaurs' initial positions, to block them
+from capturing opponent's pieces from the very first move.
 
 \clearpage % ..........................................................
 
@@ -281,16 +292,17 @@ pieces from the very first move.
 \label{fig:14_hemera_s_dawn_en_passant}
 \end{figure}
 
-Rush and en passant are very similar to those in \hyperref[fig:12_nineteen_en_passant]{Nineteen variant}.
-All Pawns, including scout Pawns can be rushed up to, and including, the last row on own side of
-chessboard.
+Rush and en passant are very similar to those in
+\hyperref[fig:12_nineteen_en_passant]{Nineteen variant}.
+All Pawns, including scout Pawns can be rushed up to, and including, the last
+row on own side of chessboard.
 
-In this variant, Pawns can be rushed 7 (Pawn A) or 8 (B) fields, depending if they were in first or second
-Pawn row. Scout Pawns can be rushed 5 (Pawn C) or 6 (D) fields, depending how close their starting position
-is to opponent.
+In this variant, Pawns can be rushed 7 (Pawn A) or 8 (B) fields, depending if
+they were in first or second Pawn row. Scout Pawns can be rushed 5 (Pawn C)
+or 6 (D) fields, depending how close their starting position is to opponent.
 
-Converted opponent's Pawns cannot be rushed, even if converted on an initial positions
-of own Pawns.
+Converted opponent's Pawns cannot be rushed, even if converted on an initial
+positions of own Pawns.
 
 % \clearpage % ..........................................................
 
@@ -308,8 +320,9 @@ can be present on chessboard at any given time.
 \section*{Castling}
 \addcontentsline{toc}{section}{Castling}
 
-Castling is the same as in Classical Chess, only difference is that King can move between 2 and 7 fields across.
-All other constraints from Classical Chess still applies.
+Castling is the same as in Classical Chess, only difference is that King can move
+between 2 and 7 fields across. All other constraints from Classical Chess still
+applies.
 
 \noindent
 \begin{figure}[!h]
@@ -327,8 +340,9 @@ In example above, all valid King's castling moves are numbered.
 \label{fig:hemera_s_dawn_castling_right_03}
 \end{figure}
 
-In this example King was castling short to the right. Initial King's position is marked with "K".
-After castling is finished, right Rook ends up at field immediately left to the King.
+In this example King was castling short to the right. Initial King's position is
+marked with "K". After castling is finished, right Rook ends up at field immediately
+left to the King.
 
 Converted opponent's Rooks cannot be castled, even if converted on an initial positions
 of own Rooks.
