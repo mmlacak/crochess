@@ -34,9 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_mv_28_single_step_piece_momentum', \
-                    # 'scn_n_15_sideways_pawn_init', \
-                    # 'scn_n_16_sideways_pawn_activated_wave', \
-                    # 'scn_n_17_sideways_pawn_does_not_activate_pyramid', \
-                    # 'scn_n_18_sideways_pawns_cascade_pyramids', \
+                    # 'scn_tr_08_serpent_neighbors', \
+                    'scn_tr_09_cascade_serpent_neighbors', \
                 ]
