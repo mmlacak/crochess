@@ -705,13 +705,12 @@ class SceneNineteenMixin:
 
         return scene
 
-
     #
-    # ... Pawn ranks, rows
+    # Pawn ranks, rows
 
-    def scn_n_99_pawn_ranks(self, bt=BoardType.Nineteen):
+    def scn_n_19_pawn_ranks(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_99_pawn_ranks', bt)
+        scene = Scene('scn_n_19_pawn_ranks', bt)
 
         scene.append_arrow(0.7, 16.5, 17.3, 16.5, mark_type=MarkType.Blocked, start_pointer=True, end_pointer=True)
         scene.append_arrow(0.7, 15.5, 17.3, 15.5, mark_type=MarkType.Illegal, start_pointer=True, end_pointer=True)
