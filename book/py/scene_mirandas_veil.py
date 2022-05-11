@@ -1008,6 +1008,12 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *pos, mark_type=mark_type )
 
+        # momentum received
+        scene.append_text( "4", *start_W_A, corner=Corner.LowerRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "4", *start_N, corner=Corner.LowerRight, mark_type=MarkType.Action )
+        scene.append_text( "3", *start_W_B, corner=Corner.LowerRight, mark_type=MarkType.Action )
+        scene.append_text( "3", *start_R, corner=Corner.LowerRight, mark_type=MarkType.Action )
+
         return scene
 
     #
