@@ -548,6 +548,10 @@ class SceneNineteenMixin:
         for index, coords in enumerate( gen_coords_2() ):
             scene.append_arrow( *coords, mark_type=MarkType.Legal )
 
+        gen_coords_3 = GS.gen_steps( start=start_P, rels=[(0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen_coords_3() ):
+            scene.append_arrow( *coords, mark_type=MarkType.Legal )
+
         return scene
 
     #

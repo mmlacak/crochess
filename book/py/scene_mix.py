@@ -34,6 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_tr_08_serpent_neighbors', \
-                    'scn_tr_09_cascade_serpent_neighbors', \
+                    'scn_n_16_sideways_pawn_activated_wave', \
                 ]

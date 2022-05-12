@@ -355,13 +355,19 @@ the right step-field, and activate light Wave, with one momentum.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_16_sideways_pawn_activated_wave.png}
-\caption{Wave activated by sideways Pawn}
+\vspace*{-1.4\baselineskip}
+\caption{Wave activated by stepping Pawn}
 \label{fig:scn_n_16_sideways_pawn_activated_wave}
 \end{figure}
 
-Wave, activated by a Pawn moving sideways, can move only horizontally, either to
-the left, or to the right. Unlike Pawn, Wave is not limited to only one step, and
-so can move until edge of chessboard is encountered.
+\vspace*{-0.5\baselineskip}
+Wave, activated by a Pawn moving sideways, can move horizontally (to the left, or
+right), or vertically, towards opponent's figure row. Unlike Pawn, Wave is not
+limited to only one step, and so can move to the end of chessboard.
+
+Wave activated by a piece has the same choices of direction as activating piece.
+So, Wave activated by a Pawn on its step-fields moves the same, regardles if Pawn
+stepped forward, or sideways (i.e. horizontally, or vertically towards opponent).
 
 \clearpage % ..........................................................
 % Activating Pyramid --------------------------------------------------
