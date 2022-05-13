@@ -18,11 +18,13 @@ class PieceType(int):
     Unicorn = 9
     Wave = 10
     Star = 11
-    Centaur = 12
-    Serpent = 13
-    Shaman = 14
-    Monolith = 15
-    Starchild = 16
+    Grenadier = 12
+    Centaur = 13
+    Scout = 14
+    Serpent = 15
+    Shaman = 16
+    Monolith = 17
+    Starchild = 18
 
     def __new__(cls, value):
         if PieceType._is_valid(value):
@@ -45,7 +47,9 @@ class PieceType(int):
                   PieceType.Unicorn, \
                   PieceType.Wave, \
                   PieceType.Star, \
+                  PieceType.Grenadier, \
                   PieceType.Centaur, \
+                  PieceType.Scout, \
                   PieceType.Serpent, \
                   PieceType.Shaman, \
                   PieceType.Monolith, \
@@ -81,7 +85,9 @@ class PieceType(int):
                  PieceType.Unicorn: 'U',
                  PieceType.Wave: 'W',
                  PieceType.Star: 'T',
+                 PieceType.Grenadier: 'E',
                  PieceType.Centaur: 'C',
+                 PieceType.Scout: 'O',
                  PieceType.Serpent: 'S',
                  PieceType.Shaman: 'H',
                  PieceType.Monolith: 'M',
@@ -105,7 +111,9 @@ class PieceType(int):
                  PieceType.Unicorn: 'Unicorn',
                  PieceType.Wave: 'Wave',
                  PieceType.Star: 'Star',
+                 PieceType.Grenadier: 'Grenadier',
                  PieceType.Centaur: 'Centaur',
+                 PieceType.Scout: 'Scout',
                  PieceType.Serpent: 'Serpent',
                  PieceType.Shaman: 'Shaman',
                  PieceType.Monolith: 'Monolith',
