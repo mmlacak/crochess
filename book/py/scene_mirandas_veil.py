@@ -1583,6 +1583,53 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Pinned piece in a cascade
+
+    def scn_mv_35_pinned_piece_cascade_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_35_pinned_piece_cascade_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_g = (9, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_K = (5, 1)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_B = (2, 6)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W = (4, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_Q = (7, 5)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        # B --> W
+        coords_B_W = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_B_W() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> Q
+        coords_W_Q = GS.gen_steps( start=start_W, rels=[(1, -1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_W_Q() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # Q -->
+        coords_Q_ = GS.gen_steps( start=start_Q, rels=[(1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_Q_() ):
+            mark_type = MarkType.Blocked if i > 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+
+    #
     # Cascade check, checkmate
 
     def scn_mv_35_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
