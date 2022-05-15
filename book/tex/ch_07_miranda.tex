@@ -701,19 +701,24 @@ the beginning of reactivating ply.
 \subsubsection*{Pinned piece in a cascade}
 \addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_pinned_piece_cascade_init.png}
+\vspace*{-1.3\baselineskip}
 \caption{Pinned piece in a cascade}
 \label{fig:scn_mv_35_pinned_piece_cascade_init}
 \end{figure}
 
-\huge
-TODO
-\normalsize
+\vspace*{-0.4\baselineskip}
+A
+\href{https://en.wikipedia.org/wiki/Pin_(chess)#Absolute_pin}{piece pinned to its King cannot move}
+in a normal, non-cascading move, since that would leave King checked. King is checked
+(or checkmated) only after cascade has finished; just like after normal, non-cascading
+move. In a cascade, activating piece would take place of originally pinned piece, and
+so King still would not be checked.
 
-A) moving pinned piece in a cascade ---\textgreater ok
+Here, light Queen is pinned to its King.
 
 \clearpage % ..........................................................
 
@@ -725,11 +730,12 @@ A) moving pinned piece in a cascade ---\textgreater ok
 \label{fig:scn_mv_36_pinned_piece_cascade_start}
 \end{figure}
 
-\huge
-TODO
-\normalsize
+Here, light Queen is about to be activated, and moved away, leaving Wave on its field.
+King, after cascade is done, won't be checked since Wave would be new pinned piece.
 
-A) moving pinned piece in a cascade ---\textgreater ok
+So, pinned pieces can be moved in a cascade, because activating piece will take their
+place, and all pieces which can check (or checkmate) King cannot move past (cannot
+"pass-through") any piece on their step- and capture-fields.
 
 % ........................................... Pinned piece in a cascade
 \clearpage % ..........................................................
@@ -759,12 +765,12 @@ B) pinned piece starting a cascade ---\textgreater ok, if some piece settles ont
 \label{fig:scn_mv_91_activated_piece_check_init}
 \end{figure}
 
-King is checked (or checkmated) only after cascade has finished, just like after
-normal, non-cascaded move. During cascade, piece can be reactivated on a temporary
-field, and thus repositioned to a new field. So, a piece can temporary be located
-on a field where it would check (or checkmate) King, if that would be its final
-destination for that cascade. When piece is repositioned from its temporary
-location, King is not affected, and game continues.
+Again, King is checked (or checkmated) only after cascade has finished; just like
+after normal, non-cascaded move. During cascade, piece can be reactivated on a
+temporary field, and thus repositioned to a new field. So, a piece can temporary
+be located on a field where it would check (or checkmate) King, if that would be
+its final destination for that cascade. When piece is repositioned from its
+temporary location, King is not affected, and game continues.
 
 \clearpage % ..........................................................
 
