@@ -148,7 +148,8 @@ class DrawPiece(Draw):
 
         assert isinstance(cpiece, ColorsPiece)
 
-        beret = [(0.5, 0.5), (0.6, 0.4), (0.6, 0.5), (0.3, 0.5), (0.5, 0.4)]
+        # beret = [(0.5, 0.5), (0.6, 0.4), (0.6, 0.5), (0.3, 0.5), (0.5, 0.4)]
+        beret = [(0.5, 0.55), (0.6, 0.45), (0.6, 0.55), (0.3, 0.55), (0.5, 0.45)]
         self.draw_piece_polygon(beret, rect, cpair=cpiece.opposite)
 
     def draw_centaur(self, rect, cpiece=None):

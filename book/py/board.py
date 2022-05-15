@@ -934,14 +934,14 @@ class Board:
         assert isinstance(is_light, bool)
 
         pt = PT.Pawn if is_light else -PT.Pawn
-        gt = PT.Grenadier if is_light else -PT.Grenadier
+        # gt = PT.Grenadier if is_light else -PT.Grenadier
 
         plst = [ pt for i in range(self.get_width()) ]
-        glst = [ gt for i in range(self.get_width()) ]
+        # glst = [ gt for i in range(self.get_width()) ]
 
-        lst = glst if self.type >= BoardType.OddNineteen else plst
+        # lst = glst if self.type >= BoardType.OddNineteen else plst
         row = 1 if is_light else self.get_height() - 2
-        self.set_row(row, lst)
+        self.set_row(row, plst) # lst)
 
         if self.type >= BoardType.OddNineteen:
             row_2 = 2 if is_light else self.get_height() - 3
@@ -956,23 +956,23 @@ class Board:
 
         if self.type >= BoardType.OddHemerasDawn:
             pt = PT.Pawn if is_light else -PT.Pawn
-            st = PT.Scout if is_light else -PT.Scout
+            # st = PT.Scout if is_light else -PT.Scout
             figure_row = 0 if is_light else self.get_height() - 1
             figures = [ PT.Centaur, PT.Shaman ] if is_light else [ -PT.Centaur, -PT.Shaman ]
             row_3 = 3 if is_light else self.get_height() - 4
             row_4 = 4 if is_light else self.get_height() - 5
-
-            half = self.get_width() // 2
+            # half = self.get_width() // 2
 
             for i in range(self.get_width()):
                 p = self.get_piece(i, figure_row)
                 if p in figures:
-                    st_1 = st_2 = st
-                    if self.type >= BoardType.OddConquestOfTlalocan:
-                        st_1 = pt if (i - 2) in [half - 1, half] else st
-                        st_2 = pt if (i + 2) in [half - 1, half] else st
+                    # st_1 = st_2 = st
+                    # if self.type >= BoardType.OddConquestOfTlalocan:
+                    #     st_1 = pt if (i - 2) in [half - 1, half] else st
+                    #     st_2 = pt if (i + 2) in [half - 1, half] else st
 
-                    self.set_pieces( [ (i-2, row_3, st_1), (i+2, row_3, st_2), (i-1, row_4, pt), (i+1, row_4, pt) ] )
+                    # self.set_pieces( [ (i-2, row_3, st_1), (i+2, row_3, st_2), (i-1, row_4, pt), (i+1, row_4, pt) ] )
+                    self.set_pieces( [ (i-2, row_3, pt), (i+2, row_3, pt), (i-1, row_4, pt), (i+1, row_4, pt) ] )
 
     def _setup_all_scout_pawns(self):
         self._setup_scout_pawns(True)
