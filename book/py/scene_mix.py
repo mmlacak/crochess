@@ -35,6 +35,7 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_mv_91_activated_piece_check_init', \
-                    'scn_mv_35_pinned_piece_cascade_init', \
-                    'scn_mv_36_pinned_piece_cascade_start', \
+                    # 'scn_mv_35_pinned_piece_cascaded_init', \
+                    # 'scn_mv_36_pinned_piece_cascaded_start', \
+                    'scn_mv_37_pinned_piece_cascading_init', \
                 ]
