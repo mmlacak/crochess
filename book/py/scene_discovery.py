@@ -700,7 +700,7 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_15_steps_after_teleport_init', bt)
 
-        start_U = (11, 18)
+        start_U = (13, 14)
         scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
 
         start_W = (12, 16)
@@ -713,7 +713,7 @@ class SceneDiscoveryMixin:
         scene.board.set_piece( *start_M_2, piece=PieceType.Monolith )
 
         # U --> W
-        scene.append_arrow( *( start_U + start_W ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_U + start_W ), mark_type=MarkType.Legal )
 
         # W --> M(1) # (2, 3), (2, -1)
         coords_W_M1 = GS.gen_steps( start=start_W, rels=[ (2, 3), (2, -1), ], include_prev=True, count=4 )
