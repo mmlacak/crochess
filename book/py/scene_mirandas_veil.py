@@ -1675,37 +1675,28 @@ class SceneMirandasVeilMixin:
         start_Q = (7, 5)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_W_A = (10, 2)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        start_W = (4, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_W_B = (12, 4)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
-
-        start_N = (10, 6)
-        end_N = (8, 7)
+        start_N = (4, 4)
+        end_N = (6, 3)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        # Q --> W(A)
-        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(1, -1), ], include_prev=True, count=3 )
+        # Q --> W
+        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=3 )
         for i, arrow in enumerate( coords_Q_WA() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(A) --> W(B)
-        coords_WA_WB = GS.gen_steps( start=start_W_A, rels=[(1, 1), ], include_prev=True, count=2 )
+        # W --> N
+        coords_WA_WB = GS.gen_steps( start=start_W, rels=[(0, -1), ], include_prev=True, count=4 )
         for i, arrow in enumerate( coords_WA_WB() ):
-            mark_type = MarkType.Action if i == 1 else \
+            mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(B) --> N
-        coords_WB_N = GS.gen_steps( start=start_W_B, rels=[(-1, 1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( coords_WB_N() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
+        # N --> *
         scene.append_arrow( *( start_N + end_N ), mark_type=MarkType.Legal )
 
         return scene

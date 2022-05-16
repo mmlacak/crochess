@@ -731,7 +731,7 @@ Here, light Queen is pinned to its King.
 Here, light Queen is about to be activated, and moved away, leaving Wave on its field.
 King, after cascade is done, won't be checked since Wave would be new pinned piece.
 
-So, pinned pieces can be moved in a cascade, because activating piece will take their
+So, pinned piece can be moved in a cascade, because activating piece will take its
 place, and all pieces which can check (or checkmate) King cannot move past (cannot
 "pass-through") any piece on their step- and capture-fields.
 
@@ -746,19 +746,19 @@ place, and all pieces which can check (or checkmate) King cannot move past (cann
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_pinned_piece_cascading_init.png}
-% \vspace*{-1.3\baselineskip}
+\vspace*{-1.3\baselineskip}
 \caption{Pinned piece starting a cascade}
 \label{fig:scn_mv_37_pinned_piece_cascading_init}
 \end{figure}
 
-King is checked (or checkmated) only after cascade has finished; just like after normal,
-non-cascading move.
+\vspace*{-0.3\baselineskip}
+King is checked (or checkmated) only after cascade has finished; just like after
+normal, non-cascading move. So, pinned piece can start a cascade as long as some
+other piece settles into a pinned position after cascade is done; it doesn't even
+have to be the same field of originally pinned piece.
 
-\huge
-TODO
-\normalsize
-
-B) pinned piece starting a cascade ---\textgreater ok, if some piece settles onto pinned field when cascade is finished
+Here, pinned light Queen is starting a cascade, after which Knight will be the
+newly pinned piece, on a different field.
 
 % ..................................... Pinned piece starting a cascade
 \clearpage % ..........................................................
