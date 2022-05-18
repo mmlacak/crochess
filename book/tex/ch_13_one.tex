@@ -561,34 +561,28 @@ For horizontal and vertical syzygy, syzygy-steps are the same as steps of Rook; 
 Bishop steps. Starchilds are also eligible to demotion.
 
 \clearpage % ..........................................................
+% Resurrection syzygy .................................................
 
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_27_syzygy_star.png}
-\caption{Star-initiated syzygy}
-\label{fig:scn_o_27_syzygy_star}
-\end{figure}
+\subsubsection*{Resurrection syzygy}
+\addcontentsline{toc}{subsubsection}{Resurrection syzygy}
 
-Star-initiated syzygy brings no additional interactions, i.e. it neither can demote own figure to Pawn,
-nor it can resurrect any captured piece.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_28_syzygy_starchild_init.png}
+\vspace*{-1.4\baselineskip}
 \caption{Resurrection syzygy start}
 \label{fig:scn_o_28_syzygy_starchild_init}
 \end{figure}
 
-Starchild-initiated syzygy is resurrection. One captured piece can optionally be resurrected by
-replacing initiating Starchild, Starchild itself is then oblationed. Only captured pieces can be
-resurrected. Kings, Stars and Monoliths cannot be resurrected. \\
-\hyperref[fig:scn_d_20_syzygy_2_stars_steps]{Similar to demoting-to-Pawn}, only one resurrection
-per syzygy is allowed; to resurrect another piece Starchild in syzygy has to move out of alignment,
-and then back in.
+\vspace*{-0.5\baselineskip}
+Starchild-initiated syzygy is resurrection. One captured piece can optionally be
+resurrected by replacing initiating Starchild, Starchild itself is then oblationed.
+Only captured pieces can be resurrected. Kings, Stars and Monoliths cannot be
+resurrected.
+\hyperref[fig:scn_d_20_syzygy_2_stars_steps]{Similar to demoting-to-Pawn}, only one
+resurrection per syzygy is allowed; to resurrect another piece Starchild in syzygy
+has to move out of alignment, and then back in.
 
 \clearpage % ..........................................................
 
@@ -620,6 +614,7 @@ in syzygy. If neighboring-fields are all occupied, piece emerges on any empty
 portal-field around Stars, Monoliths in syzygy. If portal-fields are occupied, piece
 emerges on any empty syzygy-field. If all are occupied, resurrection is not performed.
 
+% ................................................. Resurrection syzygy
 \clearpage % ..........................................................
 
 \subsubsection*{Opponent's Starchild}
@@ -687,12 +682,29 @@ syzygy-field, or are completely independent.
 \label{fig:scn_o_37_reentering_syzygies}
 \end{figure}
 
-Similar to \hyperref[fig:scn_d_23_syzygy_reentering_same_move]{Monolith reentering
-syzygy}, to get option to resurrect captured piece, Starchild has to move from a normal,
-non-syzygy field into syzygy. Starchild already in syzygy can move into the same (or the
-other) alignment, but cannot resurrect any piece. To be able to resurrect, Starchild has
-to move out of alignment in a first move, and then on a next move it can move into
+Similar to
+\hyperref[fig:scn_d_23_syzygy_reentering_same_move]{Monolith reentering syzygy}, to
+get option to resurrect captured piece, Starchild has to move from a normal, non-syzygy
+field into syzygy. Starchild already in syzygy can move into the same (or the other)
+alignment, but cannot resurrect any piece. To be able to resurrect, Starchild has to
+move out of alignment in a first move, and then on a next move it can move into
 resurrecting syzygy.
+
+\clearpage % ..........................................................
+
+\subsubsection*{Star-initiated syzygy}
+\addcontentsline{toc}{subsubsection}{Star-initiated syzygy}
+
+\vspace*{-1.2\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_27_syzygy_star.png}
+\caption{Star-initiated syzygy}
+\label{fig:scn_o_27_syzygy_star}
+\end{figure}
+
+Pushing Star into a syzygy brings no additional interactions, i.e. it neither can
+demote own figure to Pawn, nor it can resurrect any captured piece.
 
 % *********************************************************** Starchild
 \clearpage % ..........................................................
