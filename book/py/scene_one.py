@@ -522,28 +522,31 @@ class SceneOneMixin:
         start_W = (12, 16)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_T_1 = (20, 20)
-        scene.board.set_piece( *start_T_1, piece=PieceType.Star )
+        start_T_A = (20, 20)
+        scene.board.set_piece( *start_T_A, piece=PieceType.Star )
 
-        start_T_2 = (2, 3)
-        scene.board.set_piece( *start_T_2, piece=PieceType.Star )
+        start_T_B = (2, 3)
+        scene.board.set_piece( *start_T_B, piece=PieceType.Star )
 
         # U --> W
         scene.append_arrow( *( start_U + start_W ), mark_type=MarkType.Legal )
 
-        # W --> M(1) # (2, 3), (2, -1)
+        # W --> T(A) # (2, 3), (2, -1)
         coords_W_M1 = GS.gen_steps( start=start_W, rels=[ (2, 3), (2, -1), ], include_prev=True, count=4 )
         for i, arrow in enumerate( coords_W_M1() ):
             mark_type = MarkType.Action if i % 2 != 0 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W ---> # (2, 3), (2, -1)
-        coords_W_ = GS.gen_steps( start=start_T_2, rels=[ (2, -1), (2, 3), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        # T(B) --W--> # (2, 3), (2, -1)
+        coords_W_ = GS.gen_steps( start=start_T_B, rels=[ (2, -1), (2, 3), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arrow in enumerate( coords_W_() ):
             mark_type = MarkType.Action if i % 2 == 0 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text("A", *start_T_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight)
+        scene.append_text("B", *start_T_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight)
 
         return scene
 
