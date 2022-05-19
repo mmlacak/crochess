@@ -150,11 +150,28 @@ class SceneOneMixin:
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *(start_Q + start_W_A), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W_A + start_I), mark_type=MarkType.Action )
+        # Q --> W(A)
+        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(-1, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_Q_WA() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> I
+        coords_Q_WA = GS.gen_steps( start=start_W_A, rels=[(-1, 0), ], include_prev=True, count=9 )
+        for i, arrow in enumerate( coords_Q_WA() ):
+            mark_type = MarkType.Action if i == 8 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # I --> W(B)
         scene.append_arrow( *(start_I + start_W_B), mark_type=MarkType.Legal )
+
+        # W(B) --> w
         scene.append_arrow( *(start_W_B + start_w), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_w + start_n), mark_type=MarkType.Legal )
+
+        # w --># n
+        scene.append_arrow( *(start_w + start_n), mark_type=MarkType.Illegal )
 
         return scene
 

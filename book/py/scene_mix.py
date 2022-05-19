@@ -34,6 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_d_15_steps_after_teleport_init', \
-                    'scn_d_16_steps_after_teleport_end', \
+                    'scn_o_04_activating_starchild', \
                 ]
