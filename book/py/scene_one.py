@@ -1158,27 +1158,22 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
-        i = 0
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start_I, count=1 )
         for index, coords in enumerate( gen() ):
-            i += 1
-            scene.append_text( str( i ), *coords, mark_type=MarkType.Legal )
+            scene.append_text( "1", *coords, mark_type=MarkType.Legal )
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start_T_1, count=1 )
         for index, coords in enumerate( gen() ):
-            i += 1
-            scene.append_text( str( i ), *coords, mark_type=MarkType.Legal )
+            scene.append_text( "2", *coords, mark_type=MarkType.Legal )
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start_M, count=1 )
         for index, coords in enumerate( gen() ):
-            i += 1
-            scene.append_text( str( i ), *coords, mark_type=MarkType.Legal )
+            scene.append_text( "2", *coords, mark_type=MarkType.Legal )
 
         gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=False, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):
             if scene.board.get_piece( *coords ) == PieceType.none:
-                i += 1
-                scene.append_text( str( i ), *coords, mark_type=MarkType.Legal )
+                scene.append_text( "3", *coords, mark_type=MarkType.Legal )
 
         return scene
 
