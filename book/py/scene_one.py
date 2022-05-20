@@ -441,7 +441,7 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             scene.append_arrow( *coords, mark_type=MarkType.Blocked )
 
-        scene.append_arrow( *(start_W + start_T_1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(start_W + start_T_1), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_T_1 + endT1), mark_type=MarkType.Illegal )
 
         scene.append_text( "T", *endT1, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
