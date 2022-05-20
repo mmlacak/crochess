@@ -139,7 +139,7 @@ activation field.
 \hyperref[fig:10_wave]{Like Wave}, activated Starchild does not spend received
 momentum for moving; if Starchild activates a piece, it transfers all of received
 momentum to it. Wave activated by Starchild on its step-field moves (and acts) as
-one; so, Wave can activate only own Starchilds, own and opponent's Waves on its
+one; so, it can activate only own Starchilds, own and opponent's Waves on its
 step-fields, and cannot activate any other pieces, neither own nor opponent's.
 
 \clearpage % ..........................................................
@@ -195,7 +195,7 @@ can't be activated, so only own Pyramid can be, with 1 momentum.
 \end{wrapfigure}
 Starchild cannot teleport. Starchild trying to capture either step- or neighboring-field
 at which Monolith (or a Star) is located, will emerge on a portal-field surrounding
-that Monolith (or a Star).
+that same Monolith (or a Star).
 
 \vspace*{5.1\baselineskip}
 \noindent
@@ -206,7 +206,7 @@ that Monolith (or a Star).
 \label{fig:scn_o_12_starchild_not_moving_monolith_end}
 \end{wrapfigure}
 In previous example Starchild moved into a Monolith; here, it emerges on an empty
-portal-field of that Monolith.
+portal-field of that same Monolith.
 
 If there were no empty portal-fields, Starchild would be oblationed, i.e. removed
 from chessboard as if captured by opponent.
@@ -230,18 +230,20 @@ neighboring-field at which Star is located. Activated Star receives 1 momentum.
 
 \vspace*{2.1\baselineskip}
 \noindent
-\begin{wrapfigure}[4]{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_09_starchild_moving_star_end.png}
 \caption{Star moving}
 \label{fig:scn_o_09_starchild_moving_star_end}
 \end{wrapfigure}
-Once activated, Star can move to any empty neighboring-field, which all are enumerated
-in example on the left.
+Once activated, Star can move to any empty neighboring-field of activating Starchild,
+which all are enumerated in example on the left. If there is no empty field around
+Star at actual activation, Star is not activated (it remains at the same field), and
+Starchild is oblationed.
 
-\vspace*{2.3\baselineskip}
+\vspace*{0.3\baselineskip}
 \noindent
-\begin{wrapfigure}[9]{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_10_starchild_moving_star_activating.png}
 \caption{Activating Starchild}
@@ -255,8 +257,7 @@ Wave nor Starchild expend momentum for its movement. Nevertheless, activated Sta
 can move for only one field.
 
 Note that Star movement is optional, Starchild could emerge on an empty portal-field
-around Star in question. Just as before, if there are no empty portal-fields, Starchild
-would be oblationed, i.e. removed from chessboard as if captured by opponent.
+around Star in question; if there are none, Starchild would be oblationed.
 
 \clearpage % ..........................................................
 
