@@ -796,7 +796,7 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def append_broken_arrow(self, scene, start, rel, outward_arrows=True, bounds=None, count=None, is_with_field_marker=True, rect=None):
+    def append_broken_arrow(self, scene, start, rel, outward_arrows=True, bounds=None, count=None, is_with_field_marker=False, rect=None):
 
         rels = GS.gen_shaman_rel_legs(rel) # , count=count)
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True, bounds=bounds) )
@@ -1030,7 +1030,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start, rel, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=False )
 
         for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
@@ -1039,7 +1039,7 @@ class SceneConquestOfTlalocanMixin:
         # left arm
 
         # rel = (-2, -1)
-        # aba = self.append_broken_arrow(scene, start, rel, count=24)
+        # aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=False )
 
         # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
@@ -1091,7 +1091,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start, rel, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=False )
 
         for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Blocked)
@@ -1118,7 +1118,7 @@ class SceneConquestOfTlalocanMixin:
         # left arm
 
         # rel = (-2, -1)
-        # aba = self.append_broken_arrow(scene, start, rel, count=24)
+        # aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=False )
 
         # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
@@ -1169,7 +1169,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start, rel, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=False )
 
         for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
@@ -1178,7 +1178,7 @@ class SceneConquestOfTlalocanMixin:
         # left arm
 
         # rel = (-2, -1)
-        # aba = self.append_broken_arrow(scene, start, rel, count=24)
+        # aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=False )
 
         # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
@@ -1235,7 +1235,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start, rel, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=False )
 
         for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Blocked)
@@ -1244,7 +1244,7 @@ class SceneConquestOfTlalocanMixin:
         # left arm
 
         # rel = (-2, -1)
-        # aba = self.append_broken_arrow(scene, start, rel, count=24)
+        # aba = self.append_broken_arrow(, is_with_field_marker=False scene, start, rel, count=24, is_with_field_marker=False )
 
         # for i in range(16):
             # aba(str(i + 1), mark_type=MarkType.Action)
@@ -1254,6 +1254,7 @@ class SceneConquestOfTlalocanMixin:
     def scn_cot_22_dark_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_22_dark_dark_shaman_interaction_start', bt)
+        rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
         scene.board.set_piece(*start, piece=-PieceType.Shaman)
@@ -1297,7 +1298,7 @@ class SceneConquestOfTlalocanMixin:
         # up arm
 
         # rel = (1, 2)
-        # aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        # aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         # for i in range(16):
             # aba(str(10 - i), mark_type=MarkType.Legal)
@@ -1306,7 +1307,7 @@ class SceneConquestOfTlalocanMixin:
         # down arm
 
         rel = (-1, -2)
-        aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
@@ -1324,6 +1325,7 @@ class SceneConquestOfTlalocanMixin:
     def scn_cot_23_dark_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_23_dark_dark_shaman_interaction_end', bt)
+        rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
 
@@ -1361,7 +1363,7 @@ class SceneConquestOfTlalocanMixin:
         # up arm
 
         # rel = (1, 2)
-        # aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        # aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         # for i in range(16):
             # aba(str(10 - i), mark_type=MarkType.Legal)
@@ -1370,7 +1372,7 @@ class SceneConquestOfTlalocanMixin:
         # down arm
 
         rel = (-1, -2)
-        aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
@@ -1380,6 +1382,7 @@ class SceneConquestOfTlalocanMixin:
     def scn_cot_24_dark_dark_shaman_double_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_24_dark_dark_shaman_double_interaction_start', bt)
+        rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
         scene.board.set_piece(*start, piece=-PieceType.Shaman)
@@ -1423,7 +1426,7 @@ class SceneConquestOfTlalocanMixin:
         # up arm
 
         rel = (1, 2)
-        aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         for i in range(10):
             aba(str(10 - i), mark_type=MarkType.Legal)
@@ -1432,7 +1435,7 @@ class SceneConquestOfTlalocanMixin:
         # down arm
 
         rel = (-1, -2)
-        aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
@@ -1450,6 +1453,7 @@ class SceneConquestOfTlalocanMixin:
     def scn_cot_25_dark_dark_shaman_double_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_25_dark_dark_shaman_double_interaction_end', bt)
+        rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
 
@@ -1480,7 +1484,7 @@ class SceneConquestOfTlalocanMixin:
         # up arm
 
         rel = (1, 2)
-        aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         for i in range(10):
             aba(str(10 - i), mark_type=MarkType.Blocked)
@@ -1489,7 +1493,7 @@ class SceneConquestOfTlalocanMixin:
         # down arm
 
         rel = (-1, -2)
-        aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
@@ -1499,6 +1503,7 @@ class SceneConquestOfTlalocanMixin:
     def scn_cot_26_light_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_26_light_dark_shaman_interaction_start', bt)
+        rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
         scene.board.set_piece(*start, piece=-PieceType.Shaman)
@@ -1546,7 +1551,7 @@ class SceneConquestOfTlalocanMixin:
         # up arm
 
         # rel = (1, 2)
-        # aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        # aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         # for i in range(10):
             # aba(str(10 - i), mark_type=MarkType.Legal)
@@ -1555,7 +1560,7 @@ class SceneConquestOfTlalocanMixin:
         # down arm
 
         rel = (-1, -2)
-        aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Legal)
@@ -1615,7 +1620,7 @@ class SceneConquestOfTlalocanMixin:
         # up arm
 
         # rel = (1, 2)
-        # aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        # aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=True )
 
         # for i in range(10):
             # aba(str(10 - i), mark_type=MarkType.Legal)
@@ -1624,7 +1629,7 @@ class SceneConquestOfTlalocanMixin:
         # down arm
 
         rel = (-1, -2)
-        aba = self.append_broken_arrow(scene, start, rel, outward_arrows=False, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=True )
 
         for i in range(12):
             aba(str(12 - i), mark_type=MarkType.Blocked)
@@ -1671,7 +1676,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start, rel, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=True )
 
         for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
@@ -1711,7 +1716,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start, rel, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=False )
 
         for i in range(16):
             mark_type = MarkType.Blocked if i < 2 else MarkType.Legal
@@ -1747,7 +1752,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start, rel, count=24)
+        aba = self.append_broken_arrow( scene, start, rel, count=24, is_with_field_marker=True )
 
         for i in range(16):
             aba(str(i + 1), mark_type=MarkType.Legal)
@@ -1787,7 +1792,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start_W, rel, count=24)
+        aba = self.append_broken_arrow( scene, start_W, rel, count=24, is_with_field_marker=True )
 
         for i in range(16):
             mark_type = MarkType.Blocked if i < 3 else MarkType.Legal

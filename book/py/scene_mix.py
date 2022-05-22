@@ -34,7 +34,8 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_o_11_star_movement_blocked_init', \
-                    # 'scn_o_12_star_movement_blocked_end', \
-                    'scn_o_33_syzygy_starchild_resurrection', \
+                    # 'scn_cot_18_light_light_shaman_interaction_start', \
+                    # 'scn_cot_19_light_light_shaman_interaction_end', \
+                    # 'scn_cot_20_dark_light_shaman_interaction_start', \
+                    'scn_cot_25_dark_dark_shaman_double_interaction_end', \
                 ]
