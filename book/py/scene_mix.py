@@ -34,8 +34,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_cot_18_light_light_shaman_interaction_start', \
-                    # 'scn_cot_19_light_light_shaman_interaction_end', \
-                    # 'scn_cot_20_dark_light_shaman_interaction_start', \
-                    'scn_cot_25_dark_dark_shaman_double_interaction_end', \
+                    'scn_o_21_light_starchild_init_trance_journey', \
+                    'scn_o_22_dark_starchild_init_trance_journey', \
+                    'scn_o_23_shaman_init_trance_journey', \
                 ]

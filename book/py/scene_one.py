@@ -18,6 +18,9 @@ from scene import Scene
 
 class SceneOneMixin:
 
+    #
+    # Movement
+
     def scn_o_01_starchild_movement(self, bt=BoardType.One):
 
         scene = Scene('scn_o_01_starchild_movement', bt)
@@ -33,6 +36,9 @@ class SceneOneMixin:
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Blocked )
 
         return scene
+
+    #
+    # Activating on step-fields
 
     def scn_o_02_starchild_activating_own_piece_init(self, bt=BoardType.One):
 
@@ -122,6 +128,9 @@ class SceneOneMixin:
 
         return scene
 
+    #
+    # Activating Starchild
+
     def scn_o_04_activating_starchild(self, bt=BoardType.One):
 
         scene = Scene('scn_o_04_activating_starchild', bt)
@@ -175,6 +184,9 @@ class SceneOneMixin:
 
         return scene
 
+    #
+    # Neighboring-fields
+
     def scn_o_05_neighboring_fields(self, bt=BoardType.One):
 
         scene = Scene('scn_o_05_neighboring_fields', bt, width=5, height=5)
@@ -187,6 +199,9 @@ class SceneOneMixin:
             scene.append_text( str(index + 1), *coords, mark_type=MarkType.Legal )
 
         return scene
+
+    #
+    # Activating on neighboring-fields
 
     def scn_o_06_starchild_activating_on_neighboring_fields(self, bt=BoardType.One):
 
@@ -213,44 +228,57 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_07_starchild_activating_wave_on_neighboring_fields(self, bt=BoardType.One):
+    #
+    # Starchild cannot teleport
 
-        scene = Scene('scn_o_07_starchild_activating_wave_on_neighboring_fields', bt, width=5, height=5)
+    def scn_o_07_starchild_not_moving_monolith_init(self, bt=BoardType.One):
 
-        start_I = (2, 2)
-        start_W = (1, 1)
-        start_G = (0, 2)
-        start_B = (17, 17)
+        scene = Scene('scn_o_07_starchild_not_moving_monolith_init', bt, width=9, height=9)
 
+        start_I = (5, 4)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
-        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        start_T_1 = (0, 0)
-        start_T_2 = (25, 25)
-        start_T_3 = (25, 0)
-        start_T_4 = (0, 25)
+        start_M = (2, 2)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
-        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
-        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
-        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
-        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
+        scene.board.set_piece(2, 1, piece=PieceType.Knight)
+        scene.board.set_piece(1, 3, piece=PieceType.Bishop)
 
-        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + start_T_1), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W + start_G), mark_type=MarkType.Legal )
-
-        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_W, count=1 )
-        for index, coords in enumerate( gen() ):
-            mark_type = MarkType.Legal # if index in [3, 5] else MarkType.Blocked
-            scene.append_text( str(index + 1), *coords, mark_type=mark_type )
+        scene.append_arrow( *(start_I + start_M), mark_type=MarkType.Action )
 
         return scene
 
-    def scn_o_08_starchild_moving_star_init(self, bt=BoardType.One):
+    def scn_o_08_starchild_not_moving_monolith_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_08_starchild_moving_star_init', bt, width=5, height=5)
+        scene = Scene('scn_o_08_starchild_not_moving_monolith_end', bt, width=9, height=9)
+
+        start_I = (1, 2)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_M = (2, 2)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        scene.board.set_piece(2, 1, piece=PieceType.Knight)
+        scene.board.set_piece(1, 3, piece=PieceType.Bishop)
+
+        scene.append_arrow( *(start_M + start_I), mark_type=MarkType.Action )
+
+        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_M, count=1 )
+        i = 0
+        for index, coords in enumerate( gen() ):
+            if scene.board.is_on_board( *coords ):
+                i += 1
+                mark_type = MarkType.Action if index == 4 else MarkType.Illegal if index in [3, 6] else MarkType.Legal
+                scene.append_text( str(i), *coords, mark_type=mark_type )
+
+        return scene
+
+    #
+    # Moving a Star
+
+    def scn_o_09_starchild_moving_star_init(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_09_starchild_moving_star_init', bt, width=5, height=5)
 
         start_I = (0, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -281,9 +309,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_09_starchild_moving_star_end(self, bt=BoardType.One):
+    def scn_o_10_starchild_moving_star_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_09_starchild_moving_star_end', bt, width=5, height=5)
+        scene = Scene('scn_o_10_starchild_moving_star_end', bt, width=5, height=5)
 
         start_I = (0, 0)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -313,9 +341,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_10_starchild_moving_star_activating(self, bt=BoardType.One):
+    def scn_o_11_starchild_moving_star_activating(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_10_starchild_moving_star_activating', bt, width=5, height=5)
+        scene = Scene('scn_o_11_starchild_moving_star_activating', bt, width=5, height=5)
 
         start_I = (0, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -356,9 +384,12 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_11_star_movement_blocked_init(self, bt=BoardType.One):
+    #
+    # Star movement blocked
 
-        scene = Scene('scn_o_11_star_movement_blocked_init', bt, width=5, height=5)
+    def scn_o_12_star_movement_blocked_init(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_12_star_movement_blocked_init', bt, width=5, height=5)
 
         start_I = (0, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -402,9 +433,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_12_star_movement_blocked_end(self, bt=BoardType.One):
+    def scn_o_13_star_movement_blocked_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_12_star_movement_blocked_end', bt, width=5, height=5)
+        scene = Scene('scn_o_13_star_movement_blocked_end', bt, width=5, height=5)
 
         start_R_A = (0, 3)
         scene.board.set_piece(*start_R_A, piece=PieceType.Rook)
@@ -448,47 +479,46 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_13_starchild_not_moving_monolith_init(self, bt=BoardType.One):
+    #
+    # Activating Wave
 
-        scene = Scene('scn_o_13_starchild_not_moving_monolith_init', bt, width=9, height=9)
+    def scn_o_14_starchild_activating_wave_on_neighboring_fields(self, bt=BoardType.One):
 
-        start_I = (5, 4)
+        scene = Scene('scn_o_14_starchild_activating_wave_on_neighboring_fields', bt, width=5, height=5)
+
+        start_I = (2, 2)
+        start_W = (1, 1)
+        start_G = (0, 2)
+        start_B = (17, 17)
+
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        start_M = (2, 2)
-        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        start_T_1 = (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
 
-        scene.board.set_piece(2, 1, piece=PieceType.Knight)
-        scene.board.set_piece(1, 3, piece=PieceType.Bishop)
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
-        scene.append_arrow( *(start_I + start_M), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + start_T_1), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W + start_G), mark_type=MarkType.Legal )
 
-        return scene
-
-    def scn_o_14_starchild_not_moving_monolith_end(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_14_starchild_not_moving_monolith_end', bt, width=9, height=9)
-
-        start_I = (1, 2)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_M = (2, 2)
-        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
-
-        scene.board.set_piece(2, 1, piece=PieceType.Knight)
-        scene.board.set_piece(1, 3, piece=PieceType.Bishop)
-
-        scene.append_arrow( *(start_M + start_I), mark_type=MarkType.Action )
-
-        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_M, count=1 )
-        i = 0
+        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_W, count=1 )
         for index, coords in enumerate( gen() ):
-            if scene.board.is_on_board( *coords ):
-                i += 1
-                mark_type = MarkType.Action if index == 4 else MarkType.Illegal if index in [3, 6] else MarkType.Legal
-                scene.append_text( str(i), *coords, mark_type=mark_type )
+            mark_type = MarkType.Legal # if index in [3, 5] else MarkType.Blocked
+            scene.append_text( str(index + 1), *coords, mark_type=mark_type )
 
         return scene
+
+    #
+    # Wave cannot teleport
 
     def scn_o_15_starchild_activated_wave_not_teleporting_init(self, bt=BoardType.One):
 
@@ -538,6 +568,9 @@ class SceneOneMixin:
         scene.append_arrow( *(start_T + start_W), mark_type=MarkType.Action )
 
         return scene
+
+    #
+    # Teleporting Wave
 
     def scn_o_17_star_moved_wave_teleportation(self, bt=BoardType.One):
 
@@ -604,6 +637,9 @@ class SceneOneMixin:
 
         return scene
 
+    #
+    # Steps after teleportation
+
     def scn_o_19_steps_after_teleport(self, bt=BoardType.One):
 
         scene = Scene('scn_o_19_steps_after_teleport', bt)
@@ -642,6 +678,9 @@ class SceneOneMixin:
 
         return scene
 
+    #
+    # Conversion immunity
+
     def scn_o_20_starchild_conversion_immunity_init(self, bt=BoardType.One):
 
         scene = Scene('scn_o_20_starchild_conversion_immunity_init', bt)
@@ -660,9 +699,33 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_21_trance_journey_init_starchild(self, bt=BoardType.One):
+    #
+    # Trance-journey
 
-        scene = Scene('scn_o_21_trance_journey_init_starchild', bt, width=9, height=9)
+    def scn_o_21_light_starchild_init_trance_journey(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_21_light_starchild_init_trance_journey', bt, width=9, height=9)
+
+        start_B = (7, 7)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+
+        start_I = (6, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_I_2 = (1, 4)
+        scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
+
+        # light Starchild --> light Starchild
+        scene.append_arrow( *(start_I_2 + start_I), mark_type=MarkType.Action )
+
+        # light Starchild --> dark Bishop
+        scene.append_arrow( *(start_I + start_B), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_22_dark_starchild_init_trance_journey(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_22_dark_starchild_init_trance_journey', bt, width=9, height=9)
 
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
@@ -672,15 +735,6 @@ class SceneOneMixin:
 
         start_i = (7, 5)
         scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        start_W = (4, 3)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (1, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_h = (2, 1)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
 
         # dark Starchild --> light Starchild
         scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
@@ -690,18 +744,15 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_22_trance_journey_init_shaman(self, bt=BoardType.One):
+    def scn_o_23_shaman_init_trance_journey(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_22_trance_journey_init_shaman', bt, width=9, height=9)
+        scene = Scene('scn_o_23_shaman_init_trance_journey', bt, width=9, height=9)
 
-        start_b = (7, 7)
-        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+        start_B = (7, 7)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         start_I = (6, 6)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = (7, 5)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
 
         start_W = (4, 3)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -713,14 +764,19 @@ class SceneOneMixin:
         scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
 
         # dark Shaman --> dark Wave --> light Wave --> light Shaman
-        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_w + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_w + start_W), mark_type=MarkType.Legal )
         scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
 
         # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_I + start_B), mark_type=MarkType.Legal )
 
         return scene
+
+
+    #
+    # TODO :: reindex
+
 
     def scn_o_23_trance_journey_started_by_shaman(self, bt=BoardType.One):
 
@@ -764,6 +820,9 @@ class SceneOneMixin:
             aba(str(i + 1), mark_type=MarkType.Action)
 
         return scene
+
+    #
+    # Push-pull entrancement
 
     def scn_o_24_push_pull_trance_journey_init(self, bt=BoardType.One):
 
@@ -852,6 +911,9 @@ class SceneOneMixin:
             aba(str(12 - i), mark_type=MarkType.Action)
 
         return scene
+
+    #
+    # Failed trance-journey
 
     def scn_o_27_trance_journey_failed(self, bt=BoardType.One):
 
@@ -995,6 +1057,9 @@ class SceneOneMixin:
 
         return scene
 
+    #
+    # Syzygy
+
     def scn_o_29_syzygy_monolith(self, bt=BoardType.One):
 
         scene = Scene('scn_o_29_syzygy_monolith', bt)
@@ -1026,6 +1091,9 @@ class SceneOneMixin:
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
         return scene
+
+    #
+    # Resurrection syzygy
 
     def scn_o_31_syzygy_starchild_init(self, bt=BoardType.One):
 
@@ -1139,6 +1207,9 @@ class SceneOneMixin:
 
         return scene
 
+    #
+    # Reentering syzygy
+
     def scn_o_34_reentering_syzygies(self, bt=BoardType.One):
 
         scene = Scene('scn_o_34_reentering_syzygies', bt)
@@ -1183,6 +1254,9 @@ class SceneOneMixin:
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
 
         return scene
+
+    #
+    # Cascading syzygy
 
     def scn_o_35_syzygy_starchild_cascading(self, bt=BoardType.One):
 
@@ -1233,49 +1307,53 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_37_syzygy_double_starchilds(self, bt=BoardType.One):
+    # def scn_o_37_syzygy_double_starchilds(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_37_syzygy_double_starchilds', bt)
+    #     scene = Scene('scn_o_37_syzygy_double_starchilds', bt)
 
-        start_M = (13, 6)
-        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+    #     start_M = (13, 6)
+    #     scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
-        start_I = (8, 22)
-        end_I = (19, 8)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+    #     start_I = (8, 22)
+    #     end_I = (19, 8)
+    #     scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
-        start_W = end_I
-        end_W = (5, 11)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+    #     start_W = end_I
+    #     end_W = (5, 11)
+    #     scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        start_I2 = end_W
-        end_I2 = (4, 3)
-        scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
+    #     start_I2 = end_W
+    #     end_I2 = (4, 3)
+    #     scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
 
-        scene.board.set_piece(22, 9, piece=-PieceType.Rook)
+    #     scene.board.set_piece(22, 9, piece=-PieceType.Rook)
 
-        start_N = (1, 2)
-        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+    #     start_N = (1, 2)
+    #     scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        start_T_1 = (7, 4) # (0, 0)
-        start_T_2 = (25, 25)
-        start_T_3 = (25, 0)
-        start_T_4 = (0, 25)
+    #     start_T_1 = (7, 4) # (0, 0)
+    #     start_T_2 = (25, 25)
+    #     start_T_3 = (25, 0)
+    #     start_T_4 = (0, 25)
 
-        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
-        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
-        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
-        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
+    #     scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+    #     scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+    #     scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+    #     scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
-        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
 
-        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for index, coords in enumerate( gen() ):
-            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
+    #     gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+    #     for index, coords in enumerate( gen() ):
+    #         scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
-        return scene
+    #     return scene
+
+
+    #
+    # Double syzygy
 
     def scn_o_38_two_syzygies_shared_celestial_piece(self, bt=BoardType.One):
 
@@ -1330,111 +1408,116 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_39_two_syzygies_shared_field(self, bt=BoardType.One):
+    # def scn_o_39_two_syzygies_shared_field(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_39_two_syzygies_shared_field', bt)
+    #     scene = Scene('scn_o_39_two_syzygies_shared_field', bt)
 
-        start_M = (13, 6)
-        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+    #     start_M = (13, 6)
+    #     scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
-        start_I = (20, 16)
-        end_I = (19, 8)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+    #     start_I = (20, 16)
+    #     end_I = (19, 8)
+    #     scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
-        start_W = end_I
-        end_W = (17, 21)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+    #     start_W = end_I
+    #     end_W = (17, 21)
+    #     scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        start_I2 = end_W
-        end_I2 = (11, 16)
-        scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
+    #     start_I2 = end_W
+    #     end_I2 = (11, 16)
+    #     scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
 
-        scene.board.set_piece(22, 9, piece=-PieceType.Rook)
-        scene.board.set_piece(7, 4, piece=-PieceType.Pawn)
+    #     scene.board.set_piece(22, 9, piece=-PieceType.Rook)
+    #     scene.board.set_piece(7, 4, piece=-PieceType.Pawn)
 
-        start_N = (1, 2)
-        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+    #     start_N = (1, 2)
+    #     scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        start_T_1 = (4, 3) # (0, 0)
-        start_T_2 = (13, 22) # (25, 25)
-        start_T_3 = (25, 0)
-        start_T_4 = (10, 13) # (0, 25)
+    #     start_T_1 = (4, 3) # (0, 0)
+    #     start_T_2 = (13, 22) # (25, 25)
+    #     start_T_3 = (25, 0)
+    #     start_T_4 = (10, 13) # (0, 25)
 
-        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
-        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
-        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
-        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
+    #     scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+    #     scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+    #     scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+    #     scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
-        start_B = (9, 10)
-        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+    #     start_B = (9, 10)
+    #     scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        start_syzygy_2 = (6, 1)
+    #     start_syzygy_2 = (6, 1)
 
-        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
 
-        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for index, coords in enumerate( gen() ):
-            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
+    #     gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+    #     for index, coords in enumerate( gen() ):
+    #         scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
-        gen = GS.gen_steps( [(1, 3), ], start_syzygy_2, include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for index, coords in enumerate( gen() ):
-            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
+    #     gen = GS.gen_steps( [(1, 3), ], start_syzygy_2, include_prev=True, bounds=scene.board_view.get_position_limits() )
+    #     for index, coords in enumerate( gen() ):
+    #         scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
 
-        return scene
+    #     return scene
 
-    def scn_o_40_two_syzygies_shared_nothing(self, bt=BoardType.One):
+    # def scn_o_40_two_syzygies_shared_nothing(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_40_two_syzygies_shared_nothing', bt)
+    #     scene = Scene('scn_o_40_two_syzygies_shared_nothing', bt)
 
-        start_M = (13, 6)
-        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+    #     start_M = (13, 6)
+    #     scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
-        start_I = (20, 16)
-        end_I = (19, 8)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+    #     start_I = (20, 16)
+    #     end_I = (19, 8)
+    #     scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
-        start_W = end_I
-        end_W = (11, 15) # (17, 21)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+    #     start_W = end_I
+    #     end_W = (11, 15) # (17, 21)
+    #     scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        start_I2 = end_W
-        end_I2 = (15, 20) # (11, 16)
-        scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
+    #     start_I2 = end_W
+    #     end_I2 = (15, 20) # (11, 16)
+    #     scene.board.set_piece(*start_I2, piece=PieceType.Starchild)
 
-        scene.board.set_piece(22, 9, piece=-PieceType.Rook)
-        scene.board.set_piece(6, 23, piece=-PieceType.Pawn)
+    #     scene.board.set_piece(22, 9, piece=-PieceType.Rook)
+    #     scene.board.set_piece(6, 23, piece=-PieceType.Pawn)
 
-        start_N = (1, 2)
-        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+    #     start_N = (1, 2)
+    #     scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        start_T_1 = (4, 3) # (0, 0)
-        start_T_2 = (12, 21) # (25, 25)
-        start_T_3 = (25, 0)
-        start_T_4 = (0, 25) # (10, 13) # (0, 25)
+    #     start_T_1 = (4, 3) # (0, 0)
+    #     start_T_2 = (12, 21) # (25, 25)
+    #     start_T_3 = (25, 0)
+    #     start_T_4 = (0, 25) # (10, 13) # (0, 25)
 
-        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
-        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
-        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
-        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
+    #     scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+    #     scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+    #     scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+    #     scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
-        start_B = (21, 18)
-        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+    #     start_B = (21, 18)
+    #     scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_W + end_W), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(start_I2 + end_I2), mark_type=MarkType.Action )
 
-        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for index, coords in enumerate( gen() ):
-            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
+    #     gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+    #     for index, coords in enumerate( gen() ):
+    #         scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
-        gen = GS.gen_steps( [(3, -1), ], start_T_4, include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for index, coords in enumerate( gen() ):
-            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
+    #     gen = GS.gen_steps( [(3, -1), ], start_T_4, include_prev=True, bounds=scene.board_view.get_position_limits() )
+    #     for index, coords in enumerate( gen() ):
+    #         scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Illegal )
 
-        return scene
+    #     return scene
+
+
+
+    #
+    # Opponent's Starchild
 
     def scn_o_41_syzygy_opponents_starchild(self, bt=BoardType.One):
 
@@ -1481,6 +1564,9 @@ class SceneOneMixin:
             scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
 
         return scene
+
+    #
+    # Star-initiated syzygy
 
     def scn_o_42_syzygy_star(self, bt=BoardType.One):
 
