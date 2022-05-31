@@ -1116,38 +1116,42 @@ Starchild                   & Starchild                                 \\
 
 Wave generally moves the same way as activating piece in the moment of activation,
 with ability to make multiple steps in one direction even if activating piece can
-make only a single step; e.g. Wave activated by Knight moves like a Pegasus.
-Another example, Wave activated by Shaman on capturing-fields moves over that
-Shaman's capturing-fields, regardless it can't capture anything.
+make only a single step. For instance, Wave activated by Knight moves like a Pegasus.
 
-\hyperref[fig:scn_tr_15_serpent_activating_wave]{Wave activated by Serpent} is
-exception, it moves by alternating between 2 diagonal steps, which, once chosen,
-can't be changed for the remainder of Wave's ply.
+Wave moves over the same kind of fields (step- or capture-fields) as activating
+piece in the moment of activation, and has the same choice of directions over those
+fields regardless of any previous choice. An example, Wave activated by Shaman on a
+capturing-field moves over that Shaman's capturing-fields, even if it can't capture
+any piece.
 
-Wave activated by Unicorn moves similar to Centaur, i.e. it has to keep alternating
-between two initially chosen steps. Unlike Centaur, it's not restricted in chosing
-second step based on a choice of the first one. Wave can choose any two steps Unicorn
-could make from its starting field and first step-field.
+\hyperref[fig:scn_tr_15_serpent_activating_wave]{Wave activated by Serpent} moves
+by alternating between 2 diagonal steps, which, once chosen, can't be changed for
+the remainder of Wave's ply.
+
+Wave activated by Unicorn moves similar to Centaur, it has to keep alternating
+between two initially chosen steps, but it's not restricted in chosing second step
+based on a choice of the first one. Wave can choose any two steps Unicorn could
+make from its starting field and first step-field.
 
 Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activated
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
 nor move a Star. Wave cannot activate Kings, Stars and Monoliths.
 
-Wave activated by Pawn moves toward opponent's figure row, either in a straight line (if
-\hyperref[fig:scn_mv_14_wave_activation_by_step_pawn]{activated on a Pawn's step-field}),
+Wave activated by Pawn moves toward opponent's figure row, either in a straight line
+(if \hyperref[fig:scn_mv_14_wave_activation_by_step_pawn]{activated on a step-field}),
 or diagonally (if
-\hyperref[fig:scn_mv_16_wave_activation_by_capture_pawn]{activated on a Pawn's capture-field});
+\hyperref[fig:scn_mv_16_wave_activation_by_capture_pawn]{activated on a capture-field});
 once direction is chosen, it can't be changed for the remainder of Wave's ply.
 In later variants (Nineteen, and onwards)
 \hyperref[fig:scn_n_15_sideways_pawn_init]{Pawn can move laterally by one step-field};
-Wave activated by a Pawn on its step-field moves either forward (as before, towards
-opponent), or sideways; in both cases, to the end of a chessboard.
+Wave activated on a step-field can now move either forward (as before, towards opponent),
+or sideways; in all cases, to the end of a chessboard.
 
 All other properties of Wave movement remains the same, regardless which piece
-activated it: ability to "pass-through" pieces (except Monoliths) on a chessboard
-as if they're not there, inability to capture any piece, ability to activate any
-own piece (except King), ability to activate opponent's Wave and ability to transfer
-all of received momentum to activated piece.
+activated it, and on which (step- or capture-) field: ability to "pass-through" pieces
+(except Monoliths) on a chessboard as if they're not there, inability to capture any
+piece, ability to activate any own piece (except King), ability to activate opponent's
+Wave and ability to transfer all of received momentum to activated piece.
 
 \clearpage % ..........................................................
 
