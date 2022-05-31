@@ -704,7 +704,7 @@ class SceneOneMixin:
 
     def scn_o_21_light_starchild_init_trance_journey(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_21_light_starchild_init_trance_journey', bt, width=9, height=9)
+        scene = Scene('scn_o_21_light_starchild_init_trance_journey', bt)
 
         start_B = (7, 7)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
@@ -725,7 +725,7 @@ class SceneOneMixin:
 
     def scn_o_22_dark_starchild_init_trance_journey(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_22_dark_starchild_init_trance_journey', bt, width=9, height=9)
+        scene = Scene('scn_o_22_dark_starchild_init_trance_journey', bt)
 
         start_b = (7, 7)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
@@ -746,7 +746,7 @@ class SceneOneMixin:
 
     def scn_o_23_shaman_init_trance_journey(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_23_shaman_init_trance_journey', bt, width=9, height=9)
+        scene = Scene('scn_o_23_shaman_init_trance_journey', bt)
 
         start_B = (7, 7)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
