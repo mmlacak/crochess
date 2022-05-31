@@ -164,7 +164,7 @@ vertically and diagonally. They are the same as step-fields of a King.
 
 % \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[7]{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_06_starchild_activating_on_neighboring_fields.png}
 \caption{Activating piece}
@@ -309,22 +309,25 @@ Wave can also move to any empty neighboring-field, regardless of color.
 \subsubsection*{Wave cannot teleport}
 \addcontentsline{toc}{subsubsection}{Wave cannot teleport}
 
-% \vspace*{-0.9\baselineskip}
+\vspace*{-0.1\baselineskip}
+% \vspace*{-1.1\baselineskip}
 \noindent
 \begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_15_starchild_activated_wave_not_teleporting_init.png}
+\includegraphics[width=0.307692308\textwidth, keepaspectratio=true]{examples/22_o/scn_o_15_starchild_activated_wave_not_teleporting_init.png}
+\vspace*{-0.4\baselineskip}
 \caption{Moving into a Star}
 \label{fig:scn_o_15_starchild_activated_wave_not_teleporting_init}
 \end{wrapfigure}
 Wave activated by Starchild cannot teleport, regardless if Wave was activated on
 Starchild's step- or neighboring-field.
 
-\vspace*{7.1\baselineskip}
+\vspace*{5.7\baselineskip}
 \noindent
 \begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_16_starchild_activated_wave_not_teleporting_end.png}
+\includegraphics[width=0.307692308\textwidth, keepaspectratio=true]{examples/22_o/scn_o_16_starchild_activated_wave_not_teleporting_end.png}
+\vspace*{-0.4\baselineskip}
 \caption{Moving out of a Star}
 \label{fig:scn_o_16_starchild_activated_wave_not_teleporting_end}
 \end{wrapfigure}
@@ -332,6 +335,25 @@ Instead of teleporting, Wave emerges on an empty portal-field around Monolith or
 Star through which it tried to teleport.
 
 If there is no empty portal-field around Monolith (or a Star), Wave is oblationed.
+
+\vspace*{1.1\baselineskip}
+\subsubsection*{Wave cannot move a Star}
+\addcontentsline{toc}{subsubsection}{Wave cannot move a Star}
+
+\vspace*{-0.1\baselineskip}
+% \vspace*{-1.1\baselineskip}
+\noindent
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_17_starchild_activated_wave_not_moving_a_star.png}
+\vspace*{-0.4\baselineskip}
+\caption{Not moving a Star}
+\label{fig:scn_o_17_starchild_activated_wave_not_moving_a_star}
+\end{wrapfigure}
+Wave cannot move a Star, even if activated by Starchild on its neighboring-field.
+Instead, Wave would emerge on any empty portal-field around a Star which it tried
+to activate (here, fields 1 and 2). If there are no empty portal-fields, Wave is
+oblationed.
 
 \clearpage % ..........................................................
 

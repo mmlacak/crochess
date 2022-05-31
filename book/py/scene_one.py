@@ -522,7 +522,7 @@ class SceneOneMixin:
 
     def scn_o_15_starchild_activated_wave_not_teleporting_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_15_starchild_activated_wave_not_teleporting_init', bt, width=9, height=9)
+        scene = Scene('scn_o_15_starchild_activated_wave_not_teleporting_init', bt, width=8, height=8)
 
         start_I = (5, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -551,7 +551,7 @@ class SceneOneMixin:
 
     def scn_o_16_starchild_activated_wave_not_teleporting_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_16_starchild_activated_wave_not_teleporting_end', bt, width=9, height=9)
+        scene = Scene('scn_o_16_starchild_activated_wave_not_teleporting_end', bt, width=8, height=8)
 
         start_I = (3, 6)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -566,6 +566,45 @@ class SceneOneMixin:
         scene.board.set_piece(1, 3, piece=PieceType.Bishop)
 
         scene.append_arrow( *(start_T + start_W), mark_type=MarkType.Action )
+
+        return scene
+
+    #
+    # Wave cannot move a Star
+
+    def scn_o_17_starchild_activated_wave_not_moving_a_star(self, bt=BoardType.One):
+
+        # scene = Scene('scn_o_17_starchild_activated_wave_not_moving_a_star', bt, width=8, height=8)
+        scene = Scene('scn_o_17_starchild_activated_wave_not_moving_a_star', bt, width=5, height=5)
+
+        start_I = (1, 2)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_W = (0, 1)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_T_1 = (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
+
+        scene.board.set_piece(*start_T_1, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_2, piece=PieceType.Star)
+        scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
+        scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
+
+        # scene.append_arrow( *((2, 2) + start_I), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W + start_T_1), mark_type=MarkType.Action )
+
+        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_1, count=1 )
+        i = 0
+        for index, coords in enumerate( gen() ):
+            if scene.board.is_on_board( *coords ):
+                i += 1
+                # mark_type = MarkType.Legal if index == 0 else MarkType.Action if index == 6 else MarkType.Blocked
+                if i < 3:
+                    scene.append_text( str(i), *coords, corner=Corner.UpperRight, mark_type=MarkType.Legal )
 
         return scene
 
