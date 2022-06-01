@@ -1171,27 +1171,28 @@ all of received momentum to activated piece.
 \emph{Piece}                            & \emph{At field}               &                               \\
 \midrule
 \multirow{2}{*}{any}                    & capture, or                   & \multirow{2}{*}{own Pyramid}  \\
-                                        & neighboring                   &                               \\ \cmidrule{1-3}
+                                        & miracle                       &                               \\ \cmidrule{1-3}
 any                                     & any                           & own Wave                      \\ \cmidrule{1-3}
 \multirow{3}{*}{Wave}                   & \multirow{3}{*}{any}          & any own,                      \\
                                         &                               & except King,                  \\
                                         &                               & Pyramid                       \\ \cmidrule{1-3}
 \multirow{2}{*}{Wave\footnotemark[1]}   & capture, or                   & any own,                      \\
-                                        & neighboring                   & except King                   \\ \cmidrule{1-3}
+                                        & miracle                       & except King                   \\ \cmidrule{1-3}
 \multirow{2}{*}{Wave}                   & \multirow{2}{*}{any}          & opponent's                    \\
                                         &                               & Wave                          \\ \cmidrule{1-3}
-\multirow{2}{*}{Starchild}              & \multirow{2}{*}{neighboring}  & any own,                      \\
+Starchild                               & any                           & own Starchild                 \\ \cmidrule{1-3}
+\multirow{2}{*}{Starchild}              & \multirow{2}{*}{miracle}      & any own,                      \\
                                         &                               & except King                   \\ \cmidrule{1-3}
-\multirow{2}{*}{Starchild}              & \multirow{2}{*}{neighboring}  & opponent's                    \\
+\multirow{2}{*}{Starchild}              & \multirow{2}{*}{miracle}      & opponent's                    \\
                                         &                               & Starchild                     \\ \cmidrule{1-3}
-Starchild                               & neighboring                   & any Star                      \\
+Starchild                               & miracle                       & any Star                      \\
 \bottomrule
 \end{tabular}
 \caption{Piece activations}
 \label{tbl:Appendix/Summary/Piece activations}
 \end{table}
 
-\footnotetext[1]{If activated on capture-fields, or Starchild's neighboring-fields.}
+\footnotetext[1]{If activated on capture-fields, or Starchild's miracle-fields.}
 
 Own means in the same color, opponent's in the opposite color.
 
@@ -1199,14 +1200,14 @@ Above are listed all the rules which piece can activate other own pieces, and
 opponent's Wave, Starchild. Activations are made on step- and capture-fields,
 but Starchild can activate only own Wave, Starchild on its step-fields. Starchild
 can also activate most pieces on its
-\hyperref[fig:scn_o_06_starchild_activating_on_neighboring_fields]{neighboring-fields}.
+\hyperref[fig:scn_o_06_starchild_activating_on_miracle_fields]{miracle-fields}.
 
 \huge
 TODO :: FIX ME !!!
 \normalsize
 
 Note, Pyramid can only be activated on capture-fields, or by
-\hyperref[fig:scn_o_06_starchild_activating_on_neighboring_fields]{Starchild on its neighboring-fields}.
+\hyperref[fig:scn_o_06_starchild_activating_on_miracle_fields]{Starchild on its miracle-fields}.
 This excludes
 \hyperref[fig:scn_ma_04_pyramid_activation_by_pawn]{Pawn},
 \hyperref[fig:scn_cot_02_light_shaman_step_ply]{Shaman},

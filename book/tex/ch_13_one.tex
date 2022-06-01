@@ -42,7 +42,7 @@ Starchild can be demoted to Pawn.
 Starchild cannot be converted, but can be activated. If activated, it does not spend
 momentum while moving. Starchild can activate own Wave and Starchild on step-fields.
 Starchild can activate any own piece (except King), opponent's Starchild and any Star
-on its neighboring-fields.
+on its miracle-fields.
 
 % \vspace*{0.15\textheight}
 \noindent
@@ -144,37 +144,37 @@ step-fields, and cannot activate any other pieces, neither own nor opponent's.
 
 \clearpage % ..........................................................
 
-\subsubsection*{Neighboring-fields}
-\addcontentsline{toc}{subsubsection}{Neighboring-fields}
+\subsubsection*{Miracle-fields}
+\addcontentsline{toc}{subsubsection}{Miracle-fields}
 
 % \vspace*{-0.9\baselineskip}
 \noindent
 \begin{wrapfigure}[5]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_05_neighboring_fields.png}
-\caption{Neighboring-fields}
-\label{fig:scn_o_05_neighboring_fields}
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_05_miracle_fields.png}
+\caption{Miracle-fields}
+\label{fig:scn_o_05_miracle_fields}
 \end{wrapfigure}
-Neighboring-fields are all fields immediately surrounding a piece horizontally,
+Miracle-fields are all fields immediately surrounding a piece horizontally,
 vertically and diagonally. They are the same as step-fields of a King.
 
 \vspace*{2.1\baselineskip}
-\subsubsection*{Activating on neighboring-fields}
-\addcontentsline{toc}{subsubsection}{Activating on neighboring-fields}
+\subsubsection*{Activating on miracle-fields}
+\addcontentsline{toc}{subsubsection}{Activating on miracle-fields}
 
 % \vspace*{-0.9\baselineskip}
 \noindent
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_06_starchild_activating_on_neighboring_fields.png}
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_06_starchild_activating_on_miracle_fields.png}
 \caption{Activating piece}
-\label{fig:scn_o_06_starchild_activating_on_neighboring_fields}
+\label{fig:scn_o_06_starchild_activating_on_miracle_fields}
 \end{wrapfigure}
-Fields at which Starchild can activate a piece are neighboring-fields; pieces that
+Fields at which Starchild can activate a piece are miracle-fields; pieces that
 can be activated are all own pieces (except King), and opponent's Starchild.
 
-Note, Starchild cannot move to empty neighboring-fields, if they're not in opposite
-color to starting field; it can only activate a piece on its neighboring-field.
+Note, Starchild cannot move to empty miracle-fields, if they're not in opposite
+color to starting field; it can only activate a piece on its miracle-field.
 
 Here, Starchild's activation fields are enumerated. Opponent's Bishop and own King
 can't be activated, so only own Pyramid can be, with 1 momentum.
@@ -193,9 +193,9 @@ can't be activated, so only own Pyramid can be, with 1 momentum.
 \caption{Moving into a Monolith}
 \label{fig:scn_o_07_starchild_not_moving_monolith_init}
 \end{wrapfigure}
-Starchild cannot teleport. Starchild trying to capture either step- or neighboring-field
-at which Monolith (or a Star) is located, will emerge on a portal-field surrounding
-that same Monolith (or a Star).
+Starchild cannot teleport. Starchild trying to capture either step- or miracle-field
+at which Monolith (or a Star) is located, will emerge on an empty portal-field
+surrounding that same Monolith (or a Star).
 
 \vspace*{5.1\baselineskip}
 \noindent
@@ -226,7 +226,7 @@ from chessboard as if captured by opponent.
 \label{fig:scn_o_09_starchild_moving_star_init}
 \end{wrapfigure}
 Starchild can activate a Star the same way as any other piece, i.e. by capturing
-neighboring-field at which Star is located. Activated Star receives 1 momentum.
+miracle-field at which Star is located. Activated Star receives 1 momentum.
 
 \vspace*{2.1\baselineskip}
 \noindent
@@ -236,7 +236,7 @@ neighboring-field at which Star is located. Activated Star receives 1 momentum.
 \caption{Star moving}
 \label{fig:scn_o_10_starchild_moving_star_end}
 \end{wrapfigure}
-Once activated, Star can move to any empty neighboring-field of activating Starchild,
+Once activated, Star can move to any empty miracle-field of activating Starchild,
 which all are enumerated in example on the left.
 
 \vspace*{2.3\baselineskip}
@@ -318,14 +318,14 @@ chessboard; conversioning Pyramid is still oblationed.
 \noindent
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_15_starchild_activating_wave_on_neighboring_fields.png}
+\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_15_starchild_activating_wave_on_miracle_fields.png}
 \caption{Activating Wave}
-\label{fig:scn_o_15_starchild_activating_wave_on_neighboring_fields}
+\label{fig:scn_o_15_starchild_activating_wave_on_miracle_fields}
 \end{wrapfigure}
-Wave activated by Starchild on its neighboring-fields can activate a piece, with
+Wave activated by Starchild on its miracle-fields can activate a piece, with
 1 momentum; any own piece (except King), and opponent's Waves can be activated.
 
-Wave can also move to any empty neighboring-field, regardless of color.
+Wave can also move to any empty miracle-field, regardless of color.
 
 \subsubsection*{Wave cannot move a Star}
 \addcontentsline{toc}{subsubsection}{Wave cannot move a Star}
@@ -337,7 +337,7 @@ Wave can also move to any empty neighboring-field, regardless of color.
 \caption{Not moving a Star}
 \label{fig:scn_o_16_starchild_activated_wave_not_moving_a_star}
 \end{wrapfigure}
-Wave cannot move a Star, even if activated by Starchild on its neighboring-field.
+Wave cannot move a Star, even if activated by Starchild on its miracle-field.
 Instead, Wave would emerge on any empty portal-field around a Star which it tried
 to activate (here, fields 1 and 2). If there are no empty portal-fields, Wave is
 oblationed.
@@ -357,7 +357,7 @@ oblationed.
 \label{fig:scn_o_17_starchild_activated_wave_not_teleporting_init}
 \end{wrapfigure}
 Wave activated by Starchild cannot teleport, regardless if Wave was activated on
-Starchild's step- or neighboring-field.
+Starchild's step- or miracle-field.
 
 \vspace*{5.7\baselineskip}
 \noindent
@@ -455,7 +455,7 @@ only in reversed order.
 
 Trance-journey can be initiated by Starchild activating another Starchild;
 colors of Starchilds do not need to match. If the same, activation can be
-done on step-fields (here), otherwise only on neighboring-fields (next example).
+done on step-fields (here), otherwise only on miracle-fields (next example).
 Initiating Starchild must activate entrancing Starchild directly, there must
 be no pieces between the two.
 
@@ -470,7 +470,7 @@ be no pieces between the two.
 \end{figure}
 
 Entrancing Starchild can activate any piece in the same color (except Kings, Waves,
-Starchilds, Stars and Monoliths), on its neighboring-fields. Entranced piece can
+Starchilds, Stars and Monoliths), on its miracle-fields. Entranced piece can
 then optionally take on trance-journey, or take an ordinary step with one momentum.
 If entrancing Starchild is light, piece can take trance-journey in one chosen
 direction from
@@ -510,8 +510,8 @@ length of trance-journey does not depend on received momentum.
 
 Entranced piece can end its trance-journey on any empty step-field, of chosen
 direction (color). If all are occupied, then it emerges on any empty entrancing
-Starchild's neighboring-field. If there's none, then it emerges on empty initiating
-Shaman's or Starchild's neighboring-fields. If all are occupied, entranced piece is
+Starchild's miracle-field. If there's none, then it emerges on empty initiating
+Shaman's or Starchild's miracle-fields. If all are occupied, entranced piece is
 oblationed.
 
 \clearpage % ..........................................................
@@ -597,7 +597,7 @@ movement also needs to be blocked.
 \end{figure}
 
 In addition to all step-fields being blocked, for a Starchild-induced trance-journey
-to fail, all neighboring-fields of initiating piece and entrancing Starchild needs
+to fail, all miracle-fields of initiating piece and entrancing Starchild needs
 to be blocked as well.
 
 In contrast to
@@ -674,8 +674,8 @@ had to be captured, before it could be resurrected.
 \end{figure}
 
 Captured Waves and Starchilds can be resurrected, without initiating Starchild
-being oblationed. Chosen piece can emerge on any empty neighboring-field around
-Starchilds in syzygy (here, fields marked 1). If neighboring-fields are all
+being oblationed. Chosen piece can emerge on any empty miracle-field around
+Starchilds in syzygy (here, fields marked 1). If miracle-fields are all
 occupied, piece emerges on any empty portal-field around Stars, Monoliths in
 syzygy (fields 2). If all portal-fields are occupied, piece emerges on any
 empty syzygy-field (3). If all are occupied, resurrection is not performed.

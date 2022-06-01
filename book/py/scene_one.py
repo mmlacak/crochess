@@ -185,11 +185,11 @@ class SceneOneMixin:
         return scene
 
     #
-    # Neighboring-fields
+    # Miracle-fields
 
-    def scn_o_05_neighboring_fields(self, bt=BoardType.One):
+    def scn_o_05_miracle_fields(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_05_neighboring_fields', bt, width=5, height=5)
+        scene = Scene('scn_o_05_miracle_fields', bt, width=5, height=5)
 
         start_I = (2, 2)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -201,11 +201,11 @@ class SceneOneMixin:
         return scene
 
     #
-    # Activating on neighboring-fields
+    # Activating on miracle-fields
 
-    def scn_o_06_starchild_activating_on_neighboring_fields(self, bt=BoardType.One):
+    def scn_o_06_starchild_activating_on_miracle_fields(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_06_starchild_activating_on_neighboring_fields', bt, width=5, height=5)
+        scene = Scene('scn_o_06_starchild_activating_on_miracle_fields', bt, width=5, height=5)
 
         start_I = (2, 2)
         start_b = (2, 3)
@@ -507,9 +507,9 @@ class SceneOneMixin:
     #
     # Activating Wave
 
-    def scn_o_15_starchild_activating_wave_on_neighboring_fields(self, bt=BoardType.One):
+    def scn_o_15_starchild_activating_wave_on_miracle_fields(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_15_starchild_activating_wave_on_neighboring_fields', bt, width=5, height=5)
+        scene = Scene('scn_o_15_starchild_activating_wave_on_miracle_fields', bt, width=5, height=5)
 
         start_I = (2, 2)
         start_W = (1, 1)
@@ -1042,7 +1042,7 @@ class SceneOneMixin:
         scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Action )
 
         #
-        # blocking neighboring-fields
+        # blocking miracle-fields
 
         scene.board.set_piece(23, 1, piece=PieceType.Pawn)
         scene.board.set_piece(23, 2, piece=PieceType.Pawn)
