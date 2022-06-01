@@ -1084,6 +1084,7 @@ variants, since it has only been introduced in Discovery variant.
 \addcontentsline{toc}{subsection}{Movement of Wave}
 \label{sec:Appendix/Movement of Wave}
 
+% \vspace*{-0.3\baselineskip} % rubber-banding area ???
 \begin{table}[!h]
 \centering
 \begin{tabular}{ ll }
@@ -1114,11 +1115,11 @@ Starchild                   & Starchild                                 \\
 \label{tbl:Appendix/Movement of Wave}
 \end{table}
 
+% \vspace*{0.3\baselineskip} % hard-glued to the table ???
 Wave generally moves the same way as activating piece in the moment of activation,
-with ability to make multiple steps in one direction even if activating piece can
-make only a single step.
-
-For instance, Wave activated by Knight moves like a Pegasus.
+with ability to make multiple steps in chosen direction (until end of a chessboard
+is reached), even if activating piece can make only a single step. For instance,
+Wave activated by Knight moves like a Pegasus.
 \hyperref[fig:scn_tr_15_serpent_activating_wave]{Wave activated by Serpent} is an
 exception, it moves by alternating between 2 diagonal steps, which, once chosen,
 can't be changed for the remainder of Wave's ply.
@@ -1136,8 +1137,8 @@ or diagonally (if
 once direction is chosen, it can't be changed for the remainder of Wave's ply.
 In later variants (Nineteen, and onwards)
 \hyperref[fig:scn_n_15_sideways_pawn_init]{Pawn can move laterally by one step-field};
-Wave activated on a step-field can now move either forward (as before, towards opponent),
-or sideways; in all cases, to the end of a chessboard.
+Wave activated on a step-field can now move either straight forward as before, or
+sideways.
 
 Wave activated by Unicorn moves similar to Centaur, it has to keep alternating
 between two initially chosen steps, but it's not restricted in chosing second step
@@ -1149,11 +1150,12 @@ by any piece, but Starchild. Wave activated by Starchild cannot neither teleport
 nor move a Star. Wave cannot activate Kings, Stars and Monoliths.
 
 All other properties of Wave movement remains the same, regardless which piece
-activated it, and on which (step- or capture-) field: ability to "pass-through" pieces
-on a chessboard as if they're not there (except Monoliths), inability to capture any
-piece, ability to activate any own piece (except King, Pyramid can't be activated on
-step-fields), ability to activate opponent's Wave and ability to transfer all of
-received momentum to activated piece.
+activated it, and on which (step- or capture-) field: ability to "pass-through"
+pieces on a chessboard as if they're not there (except Monoliths), inability to
+capture any piece, ability to activate any own piece (except King, Pyramid can't
+be activated on step-fields), ability to activate opponent's Wave, ability to move
+over the edge of a board as long as Wave's ply ends on it, and ability to transfer
+all of received momentum to activated piece.
 
 \clearpage % ..........................................................
 
