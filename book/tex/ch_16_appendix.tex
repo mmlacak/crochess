@@ -1159,40 +1159,41 @@ all of received momentum to activated piece.
 
 \clearpage % ..........................................................
 
-\subsection*{Activations}
-\addcontentsline{toc}{subsection}{Activations}
-\label{sec:Appendix/Summary/Activations}
+\subsection*{Piece activations}
+\addcontentsline{toc}{subsection}{Piece activations}
+\label{sec:Appendix/Summary/Piece activations}
 
 \begin{table}[!h]
 \centering
 \begin{tabular}{ lll }
 \toprule
-\multicolumn{2}{c}{ \textbf{Pieces} }                   & \textbf{Note}             \\ \cmidrule{1-2}
-\emph{Activating}           & \emph{Activated}          &                           \\
+\multicolumn{2}{c}{ \textbf{Activating} }                               & \textbf{Activated}            \\ \cmidrule{1-2}
+\emph{Piece}                            & \emph{At field}               &                               \\
 \midrule
-\multirow{3}{*}{any own}    & \multirow{3}{*}{Pyramid}  & only on capture-fields,   \\
-                            &                           & or Starchild's            \\
-                            &                           & neighboring-fields        \\ \cmidrule{1-3}
-any own                     & Wave                      & including Starchild       \\ \cmidrule{1-3}
-Wave\footnotemark[1]        & any own                   & except King               \\ \cmidrule{1-3}
-\multirow{2}{*}{Wave}       & own Wave,                 & \multirow{2}{*}{---}      \\
-                            & Starchild                 &                           \\ \cmidrule{1-3}
-\multirow{2}{*}{Wave}       & opponent's                & \multirow{2}{*}{---}      \\
-                            & Wave                      &                           \\ \cmidrule{1-3}
-Starchild                   & Starchild                 & ---                       \\ \cmidrule{1-3}
-\multirow{2}{*}{Starchild}  & \multirow{2}{*}{any own}  & except King, only on      \\
-                            &                           & neighboring-fields        \\ \cmidrule{1-3}
-\multirow{2}{*}{Starchild}  & opponent's                & only on                   \\
-                            & Starchild                 & neighboring-fields        \\ \cmidrule{1-3}
-\multirow{2}{*}{Starchild}  & \multirow{2}{*}{any Star} & only on                   \\
-                            &                           & neighboring-fields        \\
+\multirow{2}{*}{any}                    & capture, or                   & \multirow{2}{*}{own Pyramid}  \\
+                                        & neighboring                   &                               \\ \cmidrule{1-3}
+any                                     & any                           & own Wave                      \\ \cmidrule{1-3}
+\multirow{3}{*}{Wave}                   & \multirow{3}{*}{any}          & any own,                      \\
+                                        &                               & except King,                  \\
+                                        &                               & Pyramid                       \\ \cmidrule{1-3}
+\multirow{2}{*}{Wave\footnotemark[1]}   & capture, or                   & any own,                      \\
+                                        & neighboring                   & except King                   \\ \cmidrule{1-3}
+\multirow{2}{*}{Wave}                   & \multirow{2}{*}{any}          & opponent's                    \\
+                                        &                               & Wave                          \\ \cmidrule{1-3}
+\multirow{2}{*}{Starchild}              & \multirow{2}{*}{neighboring}  & any own,                      \\
+                                        &                               & except King                   \\ \cmidrule{1-3}
+\multirow{2}{*}{Starchild}              & \multirow{2}{*}{neighboring}  & opponent's                    \\
+                                        &                               & Starchild                     \\ \cmidrule{1-3}
+Starchild                               & neighboring                   & any Star                      \\
 \bottomrule
 \end{tabular}
-\caption{Activations}
-\label{tbl:Appendix/Summary/Activations}
+\caption{Piece activations}
+\label{tbl:Appendix/Summary/Piece activations}
 \end{table}
 
-\footnotetext[1]{If activated by Starchild on its neighboring-fields, or any other piece.}
+\footnotetext[1]{If activated on capture-fields, or Starchild's neighboring-fields.}
+
+Own means in the same color, opponent's in the opposite color.
 
 Above are listed all the rules which piece can activate other own pieces, and
 opponent's Wave, Starchild. Activations are made on step- and capture-fields,
