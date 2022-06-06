@@ -501,10 +501,6 @@ class SceneOneMixin:
         return scene
 
     #
-    # TODO :: REINDEX
-
-
-    #
     # Activating Wave
 
     def scn_o_15_starchild_activating_wave_on_miracle_fields(self, bt=BoardType.One):
