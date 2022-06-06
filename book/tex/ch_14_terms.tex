@@ -16,23 +16,6 @@ Turn denotes player who hasn't finished his (or her) move, i.e. the one who
 "has the move", the one who "is on the move",
 \hyperref[tbl:Appendix/Introduction/Abbreviations]{see \algfmt{FIDE 1.3}}.
 
-\section*{Move}
-\addcontentsline{toc}{section}{Move}
-\label{sec:Terms/Move}
-Move is completed movement of all pieces, performed sequentialy, by one player,
-in one turn.
-
-\section*{Cycle}
-\addcontentsline{toc}{section}{Cycle}
-\label{sec:Terms/Cycle}
-Cycle consists of light player's move, followed by dark player's move.
-
-\section*{Game score}
-\addcontentsline{toc}{section}{Game score}
-\label{sec:Terms/Game score}
-Game score is a numbered list of cycles, in order in which they were played
-during a game.
-
 \section*{Chip}
 \addcontentsline{toc}{section}{Chip}
 \label{sec:Terms/Chip}
@@ -51,6 +34,23 @@ is any item except chips.
 \addcontentsline{toc}{section}{Figure}
 \label{sec:Terms/Figure}
 Figure is any piece, except Pawn.
+
+\section*{Move}
+\addcontentsline{toc}{section}{Move}
+\label{sec:Terms/Move}
+Move is completed movement of chosen and all affected pieces, performed
+sequentialy, by one player, in one turn.
+
+\section*{Cycle}
+\addcontentsline{toc}{section}{Cycle}
+\label{sec:Terms/Cycle}
+Cycle consists of light player's move, followed by dark player's move.
+
+\section*{Game score}
+\addcontentsline{toc}{section}{Game score}
+\label{sec:Terms/Game score}
+Game score is a numbered list of cycles, in order in which they were played
+during a game.
 
 \section*{Momentum}
 \addcontentsline{toc}{section}{Momentum}
@@ -136,14 +136,15 @@ Wave inherits its (step-, capture-, or miracle-) fields from activating piece;
 activating piece itself can be Wave with inherited fields; inheriting chain
 starts with an activator.
 
-Usually, activator refers to last activator in a cascade, preceding Wave from
+Usually, activator refers to last activator in a cascade preceding Wave, from
 which that Wave ultimately inherited (step-, capture-, or miracle-) fields.
 
 \section*{Step}
 \addcontentsline{toc}{section}{Step}
 \label{sec:Terms/Step}
-Step is a movement of a piece from one step- or capture-field to the next
-(of the same kind).
+Step is a movement of a piece from one step-, or capture-field to the next of
+the same kind; or from a starting field to a destination (step-, capture-, or
+miracle-) field.
 
 \section*{Rush}
 \addcontentsline{toc}{section}{Rush}
