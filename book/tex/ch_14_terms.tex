@@ -30,8 +30,27 @@ Cycle consists of light player's move, followed by dark player's move.
 \section*{Game score}
 \addcontentsline{toc}{section}{Game score}
 \label{sec:Terms/Game score}
-Game score is a numbered list of cycles, in order in which they were played during
-a game.
+Game score is a numbered list of cycles, in order in which they were played
+during a game.
+
+\section*{Chip}
+\addcontentsline{toc}{section}{Chip}
+\label{sec:Terms/Chip}
+Chip is any item on a chessboard not movable by any player, used to denote
+various states of a game. For instance, it could be used to denote King's
+ability to castle, which Pawn is tagged for promotion, or which player's
+turn is ongoing.
+
+\section*{Piece}
+\addcontentsline{toc}{section}{Piece}
+\label{sec:Terms/Piece}
+Piece is any item on a chessboard movable by one, or both players, i.e. piece
+is any item except chips.
+
+\section*{Figure}
+\addcontentsline{toc}{section}{Figure}
+\label{sec:Terms/Figure}
+Figure is any piece, except Pawn.
 
 \section*{Momentum}
 \addcontentsline{toc}{section}{Momentum}
@@ -62,6 +81,12 @@ Activation is act of capturing field at which piece stands, without capturing th
 piece itself. Activating piece transfers all of its momentum to activated piece.
 Activated piece then has to move to some other field, or it's oblationed.
 
+\section*{Passive piece}
+\addcontentsline{toc}{section}{Passive piece}
+\label{sec:Terms/Passive piece}
+Passive piece is any which needs to be activated, before it can move.
+These are Pyramid, Wave, and Star.
+
 \section*{Push-pull activation}
 \addcontentsline{toc}{section}{Push-pull activation}
 \label{sec:Terms/Push-pull activation}
@@ -79,8 +104,40 @@ Capture-fields are all fields where a piece can capture opponent's piece.
 Usually, these are the same as step-fields, except for Pawn and Shaman.
 
 Some pieces cannot capture opponent's pieces, so they have only step-fields
-but no capture-fields; these are Wave, Star, Monolith, and Starchild.
-Wave inherits its step-fields from activating piece.
+but no capture-fields; these are Wave, Star, and Monolith.
+
+\section*{Neighboring-fields}
+\addcontentsline{toc}{section}{Neighboring-fields}
+\label{sec:Terms/Neighboring-fields}
+Neighboring-fields are all fields immediately surrounding a particular field
+horizontally, vertically and diagonally.
+
+\section*{Portal-fields}
+\addcontentsline{toc}{section}{Portal-fields}
+\label{sec:Terms/Portal-fields}
+Portal-fields are neighboring-fields around a Star, or a Monolith. Empty
+portal-fields can be used as a destination after a non-Wave piece teleported.
+
+\section*{Miracle-fields}
+\addcontentsline{toc}{section}{Miracle-fields}
+\label{sec:Terms/Royal-fields}
+Miracle-fields are neighboring-fields around a Starchild, where any own piece
+can be activated (except King), opponent's Starchild, or any Star.
+
+Empty miracle-fields can also be used as a destination, in case of resurrecting
+a Wave, or a Starchild.
+
+\section*{Activator}
+\addcontentsline{toc}{section}{Activator}
+\label{sec:Terms/Activator}
+Activator is any non-Wave piece in a cascade.
+
+Wave inherits its (step-, capture-, or miracle-) fields from activating piece;
+activating piece itself can be Wave with inherited fields; inheriting chain
+starts with an activator.
+
+Usually, activator refers to last activator in a cascade, preceding Wave from
+which that Wave ultimately inherited (step-, capture-, or miracle-) fields.
 
 \section*{Step}
 \addcontentsline{toc}{section}{Step}
@@ -114,27 +171,6 @@ for castling. Later in game, Pawns can be tagged for promotion.
 As a special case, Serpent can be tagged for Pawn-sacrifice; this tag is not
 delayed, so it has to be used in the same move in which it has been obtained.
 
-\section*{Neighboring-fields}
-\addcontentsline{toc}{section}{Neighboring-fields}
-\label{sec:Terms/Neighboring-fields}
-Neighboring-fields are all fields immediately surrounding a particular field
-horizontally, vertically and diagonally.
-
-\section*{Portal-fields}
-\addcontentsline{toc}{section}{Portal-fields}
-\label{sec:Terms/Portal-fields}
-Portal-fields are neighboring-fields around a Star, or a Monolith. Empty
-portal-fields can be used as a destination after a non-Wave piece teleported.
-
-\section*{Miracle-fields}
-\addcontentsline{toc}{section}{Miracle-fields}
-\label{sec:Terms/Royal-fields}
-Miracle-fields are neighboring-fields around a Starchild, where any own piece
-can be activated (except King), opponent's Starchild, or any Star.
-
-Empty miracle-fields can also be used as a destination, in case of resurrecting
-a Wave, or a Starchild.
-
 \section*{Displacement-fields}
 \addcontentsline{toc}{section}{Displacement-fields}
 \label{sec:Terms/Displacement-fields}
@@ -143,30 +179,6 @@ Displacement is not affected by how piece normally moves.
 
 These are used in trance-journey context, i.e. in a cascade involving entranced
 light Shaman.
-
-\section*{Chip}
-\addcontentsline{toc}{section}{Chip}
-\label{sec:Terms/Chip}
-Chip is a device not playable by either player, used to denote various states
-of a game. For instance, it could be used to denote King's ability to castle,
-which Pawn is tagged to be promoted, or which player's turn is ongoing.
-
-\section*{Piece}
-\addcontentsline{toc}{section}{Piece}
-\label{sec:Terms/Piece}
-Piece is an item on chessboard playable by players or a Star, i.e. piece is
-any item except chips.
-
-\section*{Passive piece}
-\addcontentsline{toc}{section}{Passive piece}
-\label{sec:Terms/Passive piece}
-Passive piece is any which needs to be activated, before it can move.
-These are Pyramid, Wave, and Star.
-
-\section*{Figure}
-\addcontentsline{toc}{section}{Figure}
-\label{sec:Terms/Figure}
-Figure is any piece, except Pawn.
 
 \section*{Pawn row}
 \addcontentsline{toc}{section}{Pawn row}

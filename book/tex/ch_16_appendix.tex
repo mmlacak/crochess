@@ -1147,7 +1147,7 @@ make from its starting field and first step-field.
 
 Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activated
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
-nor activate a Star. Kings, Monoliths cannot be activated.
+nor activate a Star.
 
 All other properties of Wave movement remains the same, regardless which piece
 activated it, and on which (step- or capture-) field: ability to "pass-through"
@@ -1194,27 +1194,53 @@ Starchild                               & miracle                       & any St
 
 \footnotetext[1]{If activated on capture-fields, or Starchild's miracle-fields.}
 
-Own means in the same color, opponent's in the opposite color.
+Here, own piece means in the same (dark, or light) color, opponent's piece means
+it's in the opposite color.
 
-Above are listed all the rules which piece can activate other own pieces, and
-opponent's Wave, Starchild. Activations are made on step- and capture-fields,
-but Starchild can activate only own Wave, Starchild on its step-fields. Starchild
-can also activate most pieces on its
-\hyperref[fig:scn_o_06_starchild_activating_on_miracle_fields]{miracle-fields}.
+Wave does not have any of step-, capture-, or miracle-fields on its own; fields are
+inherited from an activating piece, in the moment of activation. Activated Wave has
+to move over inherited (step-, capture-, or miracle-) fields for the remainder of a
+ply.
+
+For instance, Wave activated by Pawn on its step-field has to move over that Pawn's
+step-fields, i.e. from activating field straight forward, towards opponent. Later,
+a sideways step-fields are added to Pawn's repertoire; from now on, Wave activated
+by a Pawn on its step-field can also choose to move laterally, regardless if Wave
+was activated on a forward, or side step-field.
+
+Wave can also activate the same pieces as activating piece could activate, in the
+moment of activating that Wave; with addition of activating opponent's Wave.
+
+For instance, Wave can activate own Pyramid on capture- (or miracle-) fields, that
+actually means Wave was activated on capture- (or miracle-) field of activating
+piece.
+
+This
+is so regardless activating piece started a cascade, or if Wave was activated by
+a Wave activated by such a piece in a cascade.
+
+In a cascade, that activating piece can itself be an activated Wave which
+inherited capture- (or miracle-) fields from further up the chain; all inheritance
+chains starts with a non-Wave piece.
+
+Generally, activations are made on step-, capture-, and
+miracle-fields, most own pieces can be activated there.
+Own Pyramid can be activated
+only on capture-, and miracle-fields. Kings, Monoliths cannot be activated at all.
 
 \huge
 TODO :: FIX ME !!!
 \normalsize
 
-Note, Pyramid can only be activated on capture-fields, or by
-\hyperref[fig:scn_o_06_starchild_activating_on_miracle_fields]{Starchild on its miracle-fields}.
-This excludes
-\hyperref[fig:scn_ma_04_pyramid_activation_by_pawn]{Pawn},
-\hyperref[fig:scn_cot_02_light_shaman_step_ply]{Shaman},
-\hyperref[fig:scn_o_02_starchild_activating_own_piece_init]{Starchild}
-on their step-fields. Note also,
-Wave activated by those pieces on their step-fields % TODO :: hyperref --> \subsection*{Activating Pyramid} ch_07_miranda[455]
-can't activate Pyramid as well.
+% Note, Pyramid can only be activated on capture-fields, or by
+% \hyperref[fig:scn_o_06_starchild_activating_on_miracle_fields]{Starchild on its miracle-fields}.
+% This excludes
+% \hyperref[fig:scn_ma_04_pyramid_activation_by_pawn]{Pawn},
+% \hyperref[fig:scn_cot_02_light_shaman_step_ply]{Shaman},
+% \hyperref[fig:scn_o_02_starchild_activating_own_piece_init]{Starchild}
+% on their step-fields. Note also,
+% Wave activated by those pieces on their step-fields % TODO :: hyperref --> \subsection*{Activating Pyramid} ch_07_miranda[455]
+% can't activate Pyramid as well.
 
 \clearpage % ..........................................................
 
