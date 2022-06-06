@@ -1194,53 +1194,39 @@ Starchild                               & miracle                       & any St
 
 \footnotetext[1]{If activated on capture-fields, or Starchild's miracle-fields.}
 
-Here, own piece means in the same (dark, or light) color, opponent's piece means
-it's in the opposite color.
+Here, activated own piece means it's in the same (dark, or light) color as
+activating piece, activated opponent's piece means it's in the opposite color
+to activating piece.
 
-Wave does not have any of step-, capture-, or miracle-fields on its own; fields are
-inherited from an activating piece, in the moment of activation. Activated Wave has
-to move over inherited (step-, capture-, or miracle-) fields for the remainder of a
-ply.
+Wave does not have any of step-, capture-, or miracle-fields on its own; fields
+are inherited from an activating piece, in the moment of activation. Activating
+piece itself can be a Wave, which inherited fields from a piece preceding it in
+a cascade. Every inheritance chain starts with a non-Wave piece, such a piece is
+called activator.
 
-For instance, Wave activated by Pawn on its step-field has to move over that Pawn's
-step-fields, i.e. from activating field straight forward, towards opponent. Later,
-a sideways step-fields are added to Pawn's repertoire; from now on, Wave activated
-by a Pawn on its step-field can also choose to move laterally, regardless if Wave
-was activated on a forward, or side step-field.
+Wave inherits (step-, capture-, or miracle-) fields from an activator as a whole
+set of fields over which to move. Distinction is important when those sets of
+fields are different from each other, as they are for Pawns, Shamans, and
+Starchilds.
+
+For instance, Wave activated by Pawn on its step-field has to move only over that
+Pawn's step-fields (from activating field straight forward, towards opponent), and
+cannot move over Pawn's capture-fields (diagonally, towards opponent). Later, a
+sideways step-fields are added to Pawn's repertoire; from then on, activated Wave
+can also choose to move laterally, regardless if Wave was activated on a forward,
+or a side step-field.
+
+With inherited fields, Wave does not inherit what interactions it can do on those
+fields. For instance, Wave cannot capture opponent's pieces, even if activated on
+a capture-field.
 
 Wave can also activate the same pieces as activating piece could activate, in the
 moment of activating that Wave; with addition of activating opponent's Wave.
 
-For instance, Wave can activate own Pyramid on capture- (or miracle-) fields, that
-actually means Wave was activated on capture- (or miracle-) field of activating
-piece.
-
-This
-is so regardless activating piece started a cascade, or if Wave was activated by
-a Wave activated by such a piece in a cascade.
-
-In a cascade, that activating piece can itself be an activated Wave which
-inherited capture- (or miracle-) fields from further up the chain; all inheritance
-chains starts with a non-Wave piece.
-
-Generally, activations are made on step-, capture-, and
-miracle-fields, most own pieces can be activated there.
-Own Pyramid can be activated
-only on capture-, and miracle-fields. Kings, Monoliths cannot be activated at all.
-
-\huge
-TODO :: FIX ME !!!
-\normalsize
-
-% Note, Pyramid can only be activated on capture-fields, or by
-% \hyperref[fig:scn_o_06_starchild_activating_on_miracle_fields]{Starchild on its miracle-fields}.
-% This excludes
-% \hyperref[fig:scn_ma_04_pyramid_activation_by_pawn]{Pawn},
-% \hyperref[fig:scn_cot_02_light_shaman_step_ply]{Shaman},
-% \hyperref[fig:scn_o_02_starchild_activating_own_piece_init]{Starchild}
-% on their step-fields. Note also,
-% Wave activated by those pieces on their step-fields % TODO :: hyperref --> \subsection*{Activating Pyramid} ch_07_miranda[455]
-% can't activate Pyramid as well.
+So, when saying that Wave can activate own Pyramid on a capture-fields, it does
+not mean that Wave can now capture opponent's pieces; it just means that Wave is
+moving over its activator's capture-fields; and with capture-fields Wave also got
+an option to activate own Pyramid.
 
 \clearpage % ..........................................................
 
