@@ -8,7 +8,7 @@
 
 #include "cc_version.h"
 #include "cc_str_utils.h"
-#include "cc_tokenizer.h"
+#include "cc_token.h"
 #include "cc_piece.h"
 #include "cc_chessboard.h"
 
@@ -16,7 +16,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.6:438+20220607.002211"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.7:439+20220607.003510"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )

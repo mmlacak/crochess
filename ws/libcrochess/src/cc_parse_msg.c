@@ -6,7 +6,7 @@
 
 #include "cc_defines.h"
 #include "cc_str_utils.h"
-#include "cc_tokenizer.h"
+#include "cc_token.h"
 #include "cc_parse_msg.h"
 
 /**
