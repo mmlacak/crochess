@@ -63,21 +63,22 @@ TestMsg * test_msg__new( TestMsgEnum type,
     return new;
 }
 
-TestMsg * test_msg_append( TestMsg * restrict test_msgs,
-                           TestMsgEnum type,
-                           char const * restrict msg,
-                           char const * restrict file,
-                           size_t line,
-                           char const * restrict func )
+TestMsg * test_msg_append_if( TestMsg * restrict test_msgs,
+                              TestMsgEnum type,
+                              char const * restrict msg,
+                              char const * restrict file,
+                              size_t line,
+                              char const * restrict func )
 {
-    if ( !test_msgs ) return NULL;
-
     TestMsg * new = test_msg__new( type, msg, file, line, func );
     if ( !new ) return NULL;
 
-    TestMsg * tm = test_msgs;
-    while ( tm->next ) tm = tm->next; // rewind
-    tm->next = new; // append
+    if ( test_msgs )
+    {
+        TestMsg * tm = test_msgs;
+        while ( tm->next ) tm = tm->next; // rewind
+        tm->next = new; // append
+    }
 
     return new;
 }
@@ -91,7 +92,7 @@ TestMsg * test_msg_init_or_append( TestMsg ** restrict test_msgs,
 {
     if ( !test_msgs ) return NULL;
 
-    TestMsg * new = test_msg_append( *test_msgs, type, msg, file, line, func );
+    TestMsg * new = test_msg_append_if( *test_msgs, type, msg, file, line, func );
 
     if ( !*test_msgs ) *test_msgs = new;
 

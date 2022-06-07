@@ -42,12 +42,12 @@ TestMsg * test_msg__new( TestMsgEnum type,
                          size_t line,
                          char const * restrict func );
 
-TestMsg * test_msg_append( TestMsg * restrict test_msgs,
-                           TestMsgEnum type,
-                           char const * restrict msg,
-                           char const * restrict file,
-                           size_t line,
-                           char const * restrict func );
+TestMsg * test_msg_append_if( TestMsg * restrict test_msgs,
+                              TestMsgEnum type,
+                              char const * restrict msg,
+                              char const * restrict file,
+                              size_t line,
+                              char const * restrict func );
 
 TestMsg * test_msg_init_or_append( TestMsg ** restrict test_msgs,
                                    TestMsgEnum type,

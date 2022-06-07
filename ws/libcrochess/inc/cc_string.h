@@ -26,7 +26,11 @@ typedef struct CcStrings
     Returns a newly allocated string.
 
     @param str String.
-    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
+    @param max_len__d _Optional_, maximum length to copy.
+
+    @note
+    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
+    if so entirety of a given string is duplicated.
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
@@ -34,32 +38,53 @@ CcStrings * cc_string__new( char const * restrict str,
                             size_t max_len__d );
 
 /**
-    Appends a newly allocated string to a linked list.
+    Returns a newly allocated string, appends it to a linked list, if list exists.
 
-    @param strings__io Linked list of strings, to which a newly allocated string is appended.
+    @param strings__io Linked list of strings.
     @param str String.
-    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
+    @param max_len__d _Optional_, maximum length to copy.
+
+    @note
+    Parameter `strings__io` is a linked list of strings to which a newly allocated
+    string is appended.
+
+    @note
+    Linked list `strings__io` can be `NULL`, in which case appending is not done,
+    but newly allocated string is still returned.
+
+    @note
+    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
+    if so entirety of a given string is duplicated.
 
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
-CcStrings * cc_string_append( CcStrings * restrict strings__io,
-                              char const * restrict str,
-                              size_t max_len__d );
+CcStrings * cc_string_append_if( CcStrings * restrict strings__io,
+                                 char const * restrict str,
+                                 size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list.
 
-    @param strings__io Linked list of strings, to which a newly allocated string is appended, can be `NULL`.
+    @param strings__io Linked list of strings.
     @param str String.
-    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
+    @param max_len__d _Optional_, maximum length to copy.
 
     @note
-    Linked list `*strings__io` can be `NULL`, a string will still be allocated, and returned.
+    Parameter `*strings__io` is a linked list of strings to which a newly allocated
+    string is appended.
+
+    @note
+    Linked list `*strings__io` can be `NULL`, a newly allocated string will
+    still be allocated, and returned.
 
     @note
     If linked list `*strings__io` is `NULL`, it will be initialized,
     with a newly allocated string as its first element.
+
+    @note
+    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
+    if so entirety of a given string is duplicated.
 
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
@@ -71,17 +96,26 @@ CcStrings * cc_string_append_or_init( CcStrings ** restrict strings__io,
 /**
     Allocates a new string, appends it to a linked list.
 
-    @param strings__io Linked list of strings, to which a newly allocated string is appended, can be `NULL`.
-    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
+    @param strings__io Linked list of strings.
+    @param max_len__d _Optional_, maximum length to copy.
     @param fmt Formatting string, as defined for `printf`.
     @param ... Variadic format arguments, as used for `printf`.
 
     @note
-    Linked list `*strings__io` can be `NULL`, a string will still be allocated, and returned.
+    Parameter `*strings__io` is a linked list of strings to which a newly allocated
+    string is appended.
+
+    @note
+    Linked list `*strings__io` can be `NULL`, a string will still be allocated,
+    and returned.
 
     @note
     If linked list `*strings__io` is `NULL`, it will be initialized,
     with a newly allocated string as its first element.
+
+    @note
+    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
+    if so entirety of a given string is duplicated.
 
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
