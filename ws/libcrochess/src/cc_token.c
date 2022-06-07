@@ -10,7 +10,7 @@
 
 /**
     @file cc_token.c
-    @brief Tokenizer constants, and related functions.
+    @brief Token constants, and related functions.
 */
 
 

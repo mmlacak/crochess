@@ -1,8 +1,8 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_TOKENIZER_H__
-#define __CC_TOKENIZER_H__
+#ifndef __CC_TOKEN_H__
+#define __CC_TOKEN_H__
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -10,17 +10,17 @@
 
 /**
     @file cc_token.h
-    @brief Tokenizer constants, and related functions.
+    @brief Token constants, and related functions.
 */
 
 
 /**
-    Tokenizer whitespace constants.
+    Token whitespace constants.
 */
 extern char const CC_TOKEN_SEPARATORS_WHITESPACE[];
 
 /**
-    Tokenizer punctuation constants.
+    Token punctuation constants.
 */
 extern char const CC_TOKEN_SEPARATORS_PUNCTUATION[];
 
@@ -122,4 +122,4 @@ char * cc_trim_str__new( char const * restrict str,
 
 // size_t cc_flush_stdin();
 
-#endif /* __CC_TOKENIZER_H__ */
+#endif /* __CC_TOKEN_H__ */
