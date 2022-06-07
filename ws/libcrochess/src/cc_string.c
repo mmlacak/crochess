@@ -1,0 +1,106 @@
+// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
+
+#include <stddef.h>
+// #include <ctype.h>
+// #include <string.h>
+#include <stdarg.h>
+// #include <stdio.h>
+
+#include "cc_defines.h"
+#include "cc_str_utils.h"
+#include "cc_string.h"
+
+/**
+    @file cc_string.c
+    @brief Strings (linked list) functions.
+*/
+
+
+CcStrings * cc_string__new( char const * restrict str,
+                            size_t max_len__d )
+{
+    CcStrings * str__a = malloc( sizeof( CcStrings ) );
+    if ( !str__a ) return NULL;
+
+    str__a->str = cc_str_duplicate__new( str, false, max_len__d );
+    str__a->next = NULL;
+
+    return str__a;
+}
+
+CcStrings * cc_string_append( CcStrings * restrict strings__io,
+                              char const * restrict str,
+                              size_t max_len__d )
+{
+    if ( !strings__io ) return NULL;
+
+    CcStrings * str__t = cc_string__new( str, max_len__d );
+    if ( !str__t ) return NULL;
+
+// TODO :: FIX ME !!!
+
+    CcStrings * s = strings__io;
+    while ( s->next ) s = s->next; // rewind
+    s->next = str__t; // append // Ownersip transfer --> str__t is now weak pointer.
+
+    return str__t;
+}
+
+CcStrings * cc_string_append_or_init( CcStrings ** restrict strings__io,
+                                      char const * restrict str,
+                                      size_t max_len__d )
+{
+    if ( !strings__io ) return NULL;
+
+// TODO :: FIX ME !!!
+
+    CcStrings * str__t = cc_string_append( *strings__io, str, max_len__d );
+
+    if ( !*strings__io ) *strings__io = str__t; // Ownersip transfer --> str__t is now weak pointer.
+
+    return str__t;
+}
+
+CcStrings * cc_string_append_or_init_format( CcStrings ** restrict strings__io,
+                                             size_t max_len__d,
+                                             char const * restrict fmt, ... )
+{
+
+    va_list args;
+    va_start( args, fmt );
+
+// TODO :: FIX ME !!!
+
+    char * str__a = cc_str_format__new( max_len__d, fmt, args );
+
+    va_end( args );
+
+    if ( !str__a ) return NULL;
+
+    CcStrings * pm__w = cc_string_append_or_init( strings__io, str__a, max_len__d );
+
+    CC_FREE( str__a );
+
+    return pm__w;
+}
+
+bool cc_string_free_all( CcStrings ** restrict strings__f )
+{
+    if ( !strings__f ) return false;
+    if ( !*strings__f ) return true;
+
+    CcStrings * str = *strings__f;
+
+    while ( str )
+    {
+        CC_FREE( str->str );
+
+        CcStrings * tmp = str->next;
+        CC_FREE( str );
+        str = tmp;
+    }
+
+    *strings__f = NULL;
+    return true;
+}
