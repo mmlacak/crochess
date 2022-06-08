@@ -63,38 +63,6 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     return gm__a;
 }
 
-// TODO :: DELETE
-// CcGame * cc_game_duplicate_all__new( CcGame * restrict game )
-// {
-//     if ( !game ) return NULL;
-
-//     CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
-
-//     CcGame * gm__a = cc_game__new( game->status, ve, false );
-//     if ( !gm__a ) return NULL;
-
-//     CcChessboard * cb__t = cc_chessboard_duplicate__new( game->chessboard );
-//     if ( game->chessboard && ( !cb__t ) )
-//     {
-//         cc_game_free_all( &gm__a );
-//         return NULL;
-//     }
-
-//     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
-
-//     // CcMove * mv__t = cc_moves_duplicate_all__new( game->moves );
-//     // if ( game->moves && ( !mv__t ) )
-//     // {
-//     //     cc_game_free_all( &gm__a );
-//     //     return NULL;
-//     // }
-
-//     // gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
-
-//     return gm__a;
-// }
-// TODO :: DELETE
-
 bool cc_game_free_all( CcGame ** restrict game__f )
 {
     if ( !game__f ) return false;

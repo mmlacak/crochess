@@ -43,7 +43,7 @@ char const * const CC_VARIANT_SYMBOLS[] =
 };
 
 
-bool cc_variant_str_is_symbol( char const * restrict str )
+bool cc_variant_is_str_symbol( char const * restrict str )
 {
     if ( !str ) return false;
 

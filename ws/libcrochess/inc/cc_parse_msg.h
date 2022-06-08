@@ -54,15 +54,19 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
     @param parse_msgs__io Linked list of parser messages, to which a newly allocated parser message is appended.
     @param type Type of a parser message.
     @param msg Parser message to copy.
-    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
+    @param max_len__d _Optional_, maximum length to copy.
+
+    @note
+    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
+    if so entirety of a given string is duplicated.
 
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append_if( CcParseMsg * restrict parse_msgs__io,
-                                     CcParseMsgTypeEnum type,
-                                     char const * restrict msg,
-                                     size_t max_len__d );
+CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
+                                  CcParseMsgTypeEnum type,
+                                  char const * restrict msg,
+                                  size_t max_len__d );
 
 /**
     Allocates a new parser message, appends it to a linked list.

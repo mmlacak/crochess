@@ -16,7 +16,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.13:445+20220608.102331"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.14:446+20220608.133753"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -83,7 +83,7 @@ int main( void )
                 code = cc_str_copy__new( first__w, end__w, BUFSIZ );
                 if ( !code ) continue;
 
-                is_code = cc_variant_str_is_symbol( code );
+                is_code = cc_variant_is_str_symbol( code );
 
                 if ( is_code )
                 {

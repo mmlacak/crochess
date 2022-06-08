@@ -38,19 +38,11 @@ CcStrings * cc_strings__new( char const * restrict str,
                              size_t max_len__d );
 
 /**
-    Returns a newly allocated string, appends it to a linked list, if list exists.
+    Appends a newly allocated string to a linked list.
 
     @param strings__io Linked list of strings.
     @param str String to copy.
     @param max_len__d _Optional_, maximum length to copy.
-
-    @note
-    Parameter `strings__io` is a linked list of strings to which a newly allocated
-    string is appended.
-
-    @note
-    Linked list `strings__io` can be `NULL`, in which case appending is not done,
-    but newly allocated string is still returned.
 
     @note
     Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
@@ -59,9 +51,9 @@ CcStrings * cc_strings__new( char const * restrict str,
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_if( CcStrings * restrict strings__io,
-                                  char const * restrict str,
-                                  size_t max_len__d );
+CcStrings * cc_strings_append( CcStrings * restrict strings__io,
+                               char const * restrict str,
+                               size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list.

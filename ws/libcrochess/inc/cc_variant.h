@@ -160,7 +160,7 @@ extern char const * const CC_VARIANT_SYMBOLS[];
     @return `true` if `str` is variant symbol, `false` otherwise.
             Strings are compared case-insensitive.
 */
-bool cc_variant_str_is_symbol( char const * restrict str );
+bool cc_variant_is_str_symbol( char const * restrict str );
 
 /**
     Function returning variant enum, based on a string.

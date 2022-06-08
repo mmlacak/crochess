@@ -108,18 +108,6 @@ CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantEnum ve,
                        bool do_setup );
 
-// TODO :: DELETE
-// /**
-//     Duplicates a given game into a newly allocated one.
-
-//     @param game Game to duplicate.
-
-//     @return
-//     A newly allocated game, is successful, `NULL` otherwise.
-// */
-// CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
-// TODO :: DELETE
-
 /**
     Frees game, and all owned resources (chessboard, moves).
 
