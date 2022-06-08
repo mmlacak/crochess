@@ -53,8 +53,8 @@ size_t cc_ply_separator_len( char const * restrict an_str )
     return 0;
 }
 
-char const * cc_traverse_ply_separator( char const * restrict an_str,
-                                        bool skip_or_stop_at )
+char const * cc_traverse_ply_separators( char const * restrict an_str,
+                                         bool skip_or_stop_at )
 {
     if ( !an_str ) return NULL;
 
@@ -76,4 +76,32 @@ char const * cc_traverse_ply_separator( char const * restrict an_str,
             ++str__w;
 
     return str__w;
+}
+
+
+bool cc_ply_iter( char const * restrict an_str,
+                  char const ** restrict first__io,
+                  char const ** restrict end__io )
+{
+    if ( !an_str ) return false;
+    if ( !first__io ) return false;
+    if ( !end__io ) return false;
+
+    if ( !( *first__io ) && !( *end__io ) )
+        *first__io = an_str;
+    else if ( ( *first__io ) && ( *end__io ) )
+        *first__io = *end__io;
+    else
+        return false;
+
+    *first__io = cc_traverse_ply_separators( *first__io, true ); // skip
+    *end__io = cc_traverse_ply_separators( *first__io, false ); // stop-at
+
+    if ( ( **first__io == '\0' ) || ( *end__io == *first__io ) )
+    {
+        *first__io = *end__io = NULL;
+        return false;
+    }
+
+    return true;
 }

@@ -53,8 +53,45 @@ size_t cc_ply_separator_len( char const * restrict an_str );
 
     @return String pointer if successful, `NULL` otherwise.
 */
-char const * cc_traverse_ply_separator( char const * restrict an_str,
-                                        bool skip_or_stop_at );
+char const * cc_traverse_ply_separators( char const * restrict an_str,
+                                         bool skip_or_stop_at );
+
+
+/**
+    Iterator traversing over string, returning next ply as a pair
+    of pointers.
+
+    @param an_str An algebraic notation string to traverse.
+    @param first__io An _input_ / _output_ parameter.
+    @param end__io An _input_ / _output_ parameter.
+
+    @note
+    Both _input_ / _output_ arguments `first__io` and `end__io` has to be valid
+    pointers.
+    Both inner pointers has to be `NULL` (i.e. `*first__io == NULL`, `*end__io == NULL`)
+    at first call.
+    At subsequent calls, both inner pointers has to be valid pointers.
+    It is error if one inner pointer is valid, and the other `NULL`.
+
+    @note
+    Iterator will continue to return next ply on each subsequent call, until
+    end of a string is reached, or both inner pointers are initialized to `NULL`.
+
+    @note
+    Upon reaching end of a given string, both inner pointers (`*first__io` and
+    `*end__io`) are reset to `NULL`. So, if nothing changes, next calls (or, next
+    loop) will again start from the beginning of an initially given string `an_str`.
+
+    @return `true` if next ply was found, `false` otherwise.
+
+    @return
+    If `true` was returned, _input_ / _output_ argument `first__io` contains
+    pointer to first `char` of a found ply; argument `end__io` contains end
+    of a ply, i.e. first `char` that does not belong to a ply.
+*/
+bool cc_ply_iter( char const * restrict an_str,
+                  char const ** restrict first__io,
+                  char const ** restrict end__io );
 
 
 
