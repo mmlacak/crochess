@@ -41,7 +41,7 @@ CcParseMsg * cc_parse_msg_append_if( CcParseMsg * restrict parse_msgs__io,
     {
         CcParseMsg * pm = parse_msgs__io;
         while ( pm->next ) pm = pm->next; // rewind
-        pm->next = pm__t; // append // Ownersip transfer --> pm__t is now weak pointer.
+        pm->next = pm__t; // append // Ownership transfer --> pm__t is now weak pointer.
     }
 
     return pm__t;
@@ -56,7 +56,7 @@ CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
 
     CcParseMsg * pm__t = cc_parse_msg_append_if( *parse_msgs__io, type, msg, max_len__d );
 
-    if ( !*parse_msgs__io ) *parse_msgs__io = pm__t; // Ownersip transfer --> pm__t is now weak pointer.
+    if ( !*parse_msgs__io ) *parse_msgs__io = pm__t; // Ownership transfer --> pm__t is now weak pointer.
 
     return pm__t;
 }

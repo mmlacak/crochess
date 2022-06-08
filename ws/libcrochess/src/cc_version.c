@@ -11,4 +11,4 @@
 */
 
 
-char const CC_LIB_VERSION[] = "0.0.1.12:444+20220608.101831"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CC_LIB_VERSION[] = "0.0.1.13:445+20220608.102331"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker

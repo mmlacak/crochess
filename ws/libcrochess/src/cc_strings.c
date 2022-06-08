@@ -40,7 +40,7 @@ CcStrings * cc_strings_append_if( CcStrings * restrict strings__io,
     {
         CcStrings * s = strings__io;
         while ( s->next ) s = s->next; // rewind
-        s->next = str__t; // append // Ownersip transfer --> str__t is now weak pointer.
+        s->next = str__t; // append // Ownership transfer --> str__t is now weak pointer.
     }
 
     return str__t;
@@ -54,7 +54,7 @@ CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
 
     CcStrings * str__t = cc_strings_append_if( *strings__io, str, max_len__d );
 
-    if ( !*strings__io ) *strings__io = str__t; // Ownersip transfer --> str__t is now weak pointer.
+    if ( !*strings__io ) *strings__io = str__t; // Ownership transfer --> str__t is now weak pointer.
 
     return str__t;
 }
