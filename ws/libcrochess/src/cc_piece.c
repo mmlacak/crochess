@@ -42,7 +42,7 @@ CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light )
     }
 }
 
-bool cc_piece_is_symbol( char c )
+bool cc_is_piece_symbol( char c )
 {
     switch ( c )
     {

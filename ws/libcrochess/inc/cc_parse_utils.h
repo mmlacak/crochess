@@ -61,7 +61,7 @@ char const * cc_traverse_ply_separators( char const * restrict an_str,
     Iterator traversing over string, returning next ply as a pair
     of pointers.
 
-    @param an_str An algebraic notation string to traverse.
+    @param move_an_str A complete move, algebraic notation string to traverse.
     @param first__io An _input_ / _output_ parameter.
     @param end__io An _input_ / _output_ parameter.
 
@@ -89,9 +89,27 @@ char const * cc_traverse_ply_separators( char const * restrict an_str,
     pointer to first `char` of a found ply; argument `end__io` contains end
     of a ply, i.e. first `char` that does not belong to a ply.
 */
-bool cc_ply_iter( char const * restrict an_str,
+bool cc_ply_iter( char const * restrict move_an_str,
                   char const ** restrict first__io,
                   char const ** restrict end__io );
+
+/**
+    Function getting piece symbol, for a given ply AN string.
+
+    @param ply_an_str A ply, algebraic notation string.
+    @param piece_symbol__o An _output_ parameter, returned piece symbol.
+
+    @note
+    Piece symbol is returned via _output_ parameter, not via return value.
+
+    @note
+    Piece symbol is a single character, as written in AN string; or `P` for a Pawn, if missing.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_get_ply_piece_symbol( char const * restrict ply_an_str,
+                              char * restrict piece_symbol__o );
+
 
 
 

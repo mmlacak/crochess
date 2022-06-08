@@ -1,6 +1,10 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <ctype.h>
+
+#include "cc_piece.h"
+
 #include "cc_parse_utils.h"
 
 /**
@@ -79,16 +83,16 @@ char const * cc_traverse_ply_separators( char const * restrict an_str,
 }
 
 
-bool cc_ply_iter( char const * restrict an_str,
+bool cc_ply_iter( char const * restrict move_an_str,
                   char const ** restrict first__io,
                   char const ** restrict end__io )
 {
-    if ( !an_str ) return false;
+    if ( !move_an_str ) return false;
     if ( !first__io ) return false;
     if ( !end__io ) return false;
 
     if ( !( *first__io ) && !( *end__io ) )
-        *first__io = an_str;
+        *first__io = move_an_str;
     else if ( ( *first__io ) && ( *end__io ) )
         *first__io = *end__io;
     else
@@ -104,4 +108,24 @@ bool cc_ply_iter( char const * restrict an_str,
     }
 
     return true;
+}
+
+bool cc_get_ply_piece_symbol( char const * restrict ply_an_str,
+                              char * restrict piece_symbol__o )
+{
+    if ( !ply_an_str ) return false;
+    if ( !piece_symbol__o ) return false;
+
+    char const * p = ply_an_str;
+
+    p = cc_traverse_ply_separators( p, true );
+    if ( !p ) return false;
+
+    if ( isupper( *p ) ) // <!> Useage of cc_is_piece_symbol() here is bug,
+                         //     all non-piece chars would end as Pawns.
+        *piece_symbol__o = *p;
+    else
+        *piece_symbol__o = 'P';
+
+    return cc_is_piece_symbol( *piece_symbol__o );
 }
