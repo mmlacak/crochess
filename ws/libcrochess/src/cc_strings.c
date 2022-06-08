@@ -9,16 +9,16 @@
 
 #include "cc_defines.h"
 #include "cc_str_utils.h"
-#include "cc_string.h"
+#include "cc_strings.h"
 
 /**
-    @file cc_string.c
+    @file cc_strings.c
     @brief Strings (linked list) functions.
 */
 
 
-CcStrings * cc_string__new( char const * restrict str,
-                            size_t max_len__d )
+CcStrings * cc_strings__new( char const * restrict str,
+                             size_t max_len__d )
 {
     CcStrings * str__a = malloc( sizeof( CcStrings ) );
     if ( !str__a ) return NULL;
@@ -29,11 +29,11 @@ CcStrings * cc_string__new( char const * restrict str,
     return str__a;
 }
 
-CcStrings * cc_string_append_if( CcStrings * restrict strings__io,
-                                 char const * restrict str,
-                                 size_t max_len__d )
+CcStrings * cc_strings_append_if( CcStrings * restrict strings__io,
+                                  char const * restrict str,
+                                  size_t max_len__d )
 {
-    CcStrings * str__t = cc_string__new( str, max_len__d );
+    CcStrings * str__t = cc_strings__new( str, max_len__d );
     if ( !str__t ) return NULL;
 
     if ( strings__io )
@@ -46,20 +46,20 @@ CcStrings * cc_string_append_if( CcStrings * restrict strings__io,
     return str__t;
 }
 
-CcStrings * cc_string_append_or_init( CcStrings ** restrict strings__io,
+CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
                                       char const * restrict str,
                                       size_t max_len__d )
 {
     if ( !strings__io ) return NULL;
 
-    CcStrings * str__t = cc_string_append_if( *strings__io, str, max_len__d );
+    CcStrings * str__t = cc_strings_append_if( *strings__io, str, max_len__d );
 
     if ( !*strings__io ) *strings__io = str__t; // Ownersip transfer --> str__t is now weak pointer.
 
     return str__t;
 }
 
-CcStrings * cc_string_append_or_init_format( CcStrings ** restrict strings__io,
+CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
                                              size_t max_len__d,
                                              char const * restrict fmt, ... )
 {
@@ -73,14 +73,14 @@ CcStrings * cc_string_append_or_init_format( CcStrings ** restrict strings__io,
 
     if ( !str__a ) return NULL;
 
-    CcStrings * pm__w = cc_string_append_or_init( strings__io, str__a, max_len__d );
+    CcStrings * pm__w = cc_strings_append_or_init( strings__io, str__a, max_len__d );
 
     CC_FREE( str__a );
 
     return pm__w;
 }
 
-bool cc_string_free_all( CcStrings ** restrict strings__f )
+bool cc_strings_free_all( CcStrings ** restrict strings__f )
 {
     if ( !strings__f ) return false;
     if ( !*strings__f ) return true;

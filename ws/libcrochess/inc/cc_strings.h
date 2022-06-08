@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 /**
-    @file cc_string.h
+    @file cc_strings.h
     @brief Strings (linked list), and related functions.
 */
 
@@ -34,8 +34,8 @@ typedef struct CcStrings
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_string__new( char const * restrict str,
-                            size_t max_len__d );
+CcStrings * cc_strings__new( char const * restrict str,
+                             size_t max_len__d );
 
 /**
     Returns a newly allocated string, appends it to a linked list, if list exists.
@@ -59,9 +59,9 @@ CcStrings * cc_string__new( char const * restrict str,
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
-CcStrings * cc_string_append_if( CcStrings * restrict strings__io,
-                                 char const * restrict str,
-                                 size_t max_len__d );
+CcStrings * cc_strings_append_if( CcStrings * restrict strings__io,
+                                  char const * restrict str,
+                                  size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list.
@@ -89,9 +89,9 @@ CcStrings * cc_string_append_if( CcStrings * restrict strings__io,
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
-CcStrings * cc_string_append_or_init( CcStrings ** restrict strings__io,
-                                      char const * restrict str,
-                                      size_t max_len__d );
+CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
+                                       char const * restrict str,
+                                       size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list.
@@ -120,9 +120,9 @@ CcStrings * cc_string_append_or_init( CcStrings ** restrict strings__io,
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
-CcStrings * cc_string_append_or_init_format( CcStrings ** restrict strings__io,
-                                             size_t max_len__d,
-                                             char const * restrict fmt, ... );
+CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
+                                              size_t max_len__d,
+                                              char const * restrict fmt, ... );
 
 /**
     Frees all strings, and associated resources, in a linked list.
@@ -132,7 +132,7 @@ CcStrings * cc_string_append_or_init_format( CcStrings ** restrict strings__io,
     @return `true` if successful, `false` otherwise.
 
 */
-bool cc_string_free_all( CcStrings ** restrict strings__f );
+bool cc_strings_free_all( CcStrings ** restrict strings__f );
 
 
 #endif /* __CC_STRING_H__ */

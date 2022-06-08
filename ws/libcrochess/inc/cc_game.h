@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 #include "cc_str_utils.h"
-#include "cc_string.h"
+#include "cc_strings.h"
 #include "cc_chessboard.h"
 
 /**
