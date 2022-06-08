@@ -25,7 +25,7 @@ typedef struct CcStrings
 /**
     Returns a newly allocated string.
 
-    @param str String.
+    @param str String to copy.
     @param max_len__d _Optional_, maximum length to copy.
 
     @note
@@ -41,7 +41,7 @@ CcStrings * cc_strings__new( char const * restrict str,
     Returns a newly allocated string, appends it to a linked list, if list exists.
 
     @param strings__io Linked list of strings.
-    @param str String.
+    @param str String to copy.
     @param max_len__d _Optional_, maximum length to copy.
 
     @note

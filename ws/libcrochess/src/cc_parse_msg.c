@@ -29,21 +29,20 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
     return pm__a;
 }
 
-CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
-                                  CcParseMsgEnum type,
-                                  char const * restrict msg,
-                                  size_t max_len__d )
+CcParseMsg * cc_parse_msg_append_if( CcParseMsg * restrict parse_msgs__io,
+                                     CcParseMsgEnum type,
+                                     char const * restrict msg,
+                                     size_t max_len__d )
 {
-    if ( !parse_msgs__io ) return NULL;
-
-// TODO :: FIX ME !!!
-
     CcParseMsg * pm__t = cc_parse_msg__new( type, msg, max_len__d );
     if ( !pm__t ) return NULL;
 
-    CcParseMsg * pm = parse_msgs__io;
-    while ( pm->next ) pm = pm->next; // rewind
-    pm->next = pm__t; // append // Ownersip transfer --> pm__t is now weak pointer.
+    if ( parse_msgs__io )
+    {
+        CcParseMsg * pm = parse_msgs__io;
+        while ( pm->next ) pm = pm->next; // rewind
+        pm->next = pm__t; // append // Ownersip transfer --> pm__t is now weak pointer.
+    }
 
     return pm__t;
 }
@@ -55,9 +54,7 @@ CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
 {
     if ( !parse_msgs__io ) return NULL;
 
-// TODO :: FIX ME !!!
-
-    CcParseMsg * pm__t = cc_parse_msg_append( *parse_msgs__io, type, msg, max_len__d );
+    CcParseMsg * pm__t = cc_parse_msg_append_if( *parse_msgs__io, type, msg, max_len__d );
 
     if ( !*parse_msgs__io ) *parse_msgs__io = pm__t; // Ownersip transfer --> pm__t is now weak pointer.
 
@@ -69,10 +66,11 @@ CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_ms
                                                  size_t max_len__d,
                                                  char const * restrict fmt, ... )
 {
+    if ( !parse_msgs__io ) return NULL; // To avoid alloc() + free() of msg__a;
+                                        // even though this is never referenced.
+
     va_list args;
     va_start( args, fmt );
-
-// TODO :: FIX ME !!!
 
     char * msg__a = cc_str_format__new( max_len__d, fmt, args );
 

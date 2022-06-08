@@ -47,8 +47,8 @@ CcStrings * cc_strings_append_if( CcStrings * restrict strings__io,
 }
 
 CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
-                                      char const * restrict str,
-                                      size_t max_len__d )
+                                       char const * restrict str,
+                                       size_t max_len__d )
 {
     if ( !strings__io ) return NULL;
 
@@ -60,9 +60,11 @@ CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
 }
 
 CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
-                                             size_t max_len__d,
-                                             char const * restrict fmt, ... )
+                                              size_t max_len__d,
+                                              char const * restrict fmt, ... )
 {
+    if ( !strings__io ) return NULL;    // To avoid alloc() + free() of str__a;
+                                        // even though this is never referenced.
 
     va_list args;
     va_start( args, fmt );
