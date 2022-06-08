@@ -15,7 +15,7 @@
 */
 
 
-CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
+CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
                                 char const * restrict msg,
                                 size_t max_len__d )
 {
@@ -30,7 +30,7 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgEnum type,
 }
 
 CcParseMsg * cc_parse_msg_append_if( CcParseMsg * restrict parse_msgs__io,
-                                     CcParseMsgEnum type,
+                                     CcParseMsgTypeEnum type,
                                      char const * restrict msg,
                                      size_t max_len__d )
 {
@@ -48,7 +48,7 @@ CcParseMsg * cc_parse_msg_append_if( CcParseMsg * restrict parse_msgs__io,
 }
 
 CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
-                                          CcParseMsgEnum type,
+                                          CcParseMsgTypeEnum type,
                                           char const * restrict msg,
                                           size_t max_len__d )
 {
@@ -62,7 +62,7 @@ CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
 }
 
 CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_msgs__io,
-                                                 CcParseMsgEnum type,
+                                                 CcParseMsgTypeEnum type,
                                                  size_t max_len__d,
                                                  char const * restrict fmt, ... )
 {
