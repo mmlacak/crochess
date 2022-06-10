@@ -85,8 +85,7 @@ char const * cc_traverse_ply_separators( char const * restrict an_str,
     {
         if ( *str__w == '[' )
             ++str__w;
-
-        if ( *(str__w - 1) == ']' )
+        else if ( *(str__w - 1) == ']' )
             --str__w;
     }
 

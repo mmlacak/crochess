@@ -22,7 +22,7 @@
 #include "test_parse_an.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.20:452+20220610.132520"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.21:453+20220610.133023"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
