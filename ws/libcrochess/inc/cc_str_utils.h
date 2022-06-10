@@ -219,7 +219,6 @@ char * cc_str_copy__new( char const * restrict first,
                          char const * restrict end__d,
                          size_t max_len__d );
 
-
 /**
     Function returns a newly allocated string containing formatted variadic input,
     capped at given maximum length.
@@ -333,6 +332,19 @@ char * cc_str_append__new( char ** restrict str_1__f,
 char * cc_str_append_format__new( char ** restrict str__f,
                                   size_t max_len__d,
                                   char const * restrict fmt, ... );
+
+/**
+    Function prints (sub-)string.
+
+    @param first A (sub-)string to copy.
+    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is printed.
+    @param max_len__d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is printed.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_str_printf( char const * restrict first,
+                    char const * restrict end__d,
+                    size_t max_len__d );
 
 
 #endif /* __CC_STR_UTILS_H__ */

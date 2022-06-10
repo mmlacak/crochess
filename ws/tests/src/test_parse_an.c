@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+#include "cc_str_utils.h"
 #include "cc_parse_utils.h"
 
 #include "test_parse_an.h"
@@ -23,11 +24,7 @@ bool test_parse_ply_iter( char const * restrict move_an_str )
         if ( end__w > first__w )
         {
             printf( "ply: '" );
-
-            for ( char const * p = first__w; p < end__w; ++p )
-            {
-                printf( "%c", *p );
-            }
+            cc_str_printf( first__w, end__w, CC_MAX_LEN_IGNORE ); // (size_t)( end__w - first__w )
             printf( "'" );
         }
 

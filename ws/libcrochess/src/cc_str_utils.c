@@ -443,3 +443,20 @@ char * cc_str_append_format__new( char ** restrict str__f,
     // No need to free() str__f, str__t; cc_str_append__new() does that.
     return cc_str_append__new( str__f, &str__t, max_len__d );
 }
+
+bool cc_str_printf( char const * restrict first,
+                    char const * restrict end__d,
+                    size_t max_len__d )
+{
+    if ( !first ) return false;
+
+    size_t len = cc_str_len( first, end__d, max_len__d );
+    char const * p = first;
+
+    for ( size_t i = 0; i < len; ++i )
+    {
+        printf( "%c", *p++ );
+    }
+
+    return true;
+}
