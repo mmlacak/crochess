@@ -40,6 +40,7 @@ size_t cc_ply_separator_len( char const * restrict an_str );
 
     @param an_str An algebraic notation string.
     @param skip_or_stop_at A flag, whether to skip ply link characters, or stop at first of them.
+    @param exclude_ply_gatherers A flag, whether to exclude leading `[` and trailing `]` from ply notation.
 
     @note
     String pointer skips over almost all characters, and stops at ply link ones,
@@ -54,7 +55,8 @@ size_t cc_ply_separator_len( char const * restrict an_str );
     @return String pointer if successful, `NULL` otherwise.
 */
 char const * cc_traverse_ply_separators( char const * restrict an_str,
-                                         bool skip_or_stop_at );
+                                         bool skip_or_stop_at,
+                                         bool exclude_ply_gatherers );
 
 
 /**

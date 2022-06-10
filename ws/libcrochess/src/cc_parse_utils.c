@@ -58,26 +58,37 @@ size_t cc_ply_separator_len( char const * restrict an_str )
 }
 
 char const * cc_traverse_ply_separators( char const * restrict an_str,
-                                         bool skip_or_stop_at )
+                                         bool skip_or_stop_at,
+                                         bool exclude_ply_gatherers )
 {
     if ( !an_str ) return NULL;
 
     char const * str__w = an_str;
 
-    if ( skip_or_stop_at )
-        while ( *str__w != '\0' )
-        {
-            size_t len = cc_ply_separator_len( str__w );
+    if ( exclude_ply_gatherers )
+        if ( cc_is_char_ply_gatherer( *str__w ) )
+            ++str__w;
 
-            if ( len > 0 )
-                str__w += len;
-            else
-                break;
-        }
+    if ( skip_or_stop_at )
+    {
+        size_t len = cc_ply_separator_len( str__w );
+
+        if ( len > 0 )
+            str__w += len;
+    }
     else
         while ( ( *str__w != '\0' ) &&
                 ( cc_ply_separator_len( str__w ) == 0 ) )
             ++str__w;
+
+    if ( exclude_ply_gatherers )
+    {
+        if ( *str__w == '[' )
+            ++str__w;
+
+        if ( *(str__w - 1) == ']' )
+            --str__w;
+    }
 
     return str__w;
 }
@@ -98,8 +109,8 @@ bool cc_ply_iter( char const * restrict move_an_str,
     else
         return false;
 
-    *first__io = cc_traverse_ply_separators( *first__io, true ); // skip
-    *end__io = cc_traverse_ply_separators( *first__io, false ); // stop-at
+    *first__io = cc_traverse_ply_separators( *first__io, true, true ); // skip
+    *end__io = cc_traverse_ply_separators( *first__io, false, true ); // stop-at
 
     if ( ( **first__io == '\0' ) || ( *end__io == *first__io ) )
     {
@@ -118,7 +129,7 @@ bool cc_get_ply_piece_symbol( char const * restrict ply_an_str,
 
     char const * p = ply_an_str;
 
-    p = cc_traverse_ply_separators( p, true );
+    p = cc_traverse_ply_separators( p, true, true );
     if ( !p ) return false;
 
     if ( isupper( *p ) ) // <!> Useage of cc_is_piece_symbol() here is bug,
