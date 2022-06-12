@@ -19,10 +19,9 @@
 #include "hlp_msgs.h"
 #include "test_msgs.h"
 #include "tests.h"
-#include "test_parse_an.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.21:453+20220610.133023"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.22:454+20220612.200529"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -109,8 +108,6 @@ int main( void )
         else if ( cc_str_is_equal( first__w, end__w, "p", NULL, BUFSIZ ) ||
                   cc_str_is_equal( first__w, end__w, "parse", NULL, BUFSIZ ) )
         {
-            bool result = test_parse();
-            printf( "\nTest parse utils finished: %i.\n", result );
         }
         else
         {
