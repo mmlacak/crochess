@@ -12,9 +12,31 @@
 
 /**
     @file cc_str_utils.c
-    @brief String utility functions.
+    @brief Strings, char arrays utility functions.
 */
 
+
+bool cc_str_clear( char * restrict str,
+                   size_t max_len__d )
+{
+    if ( !str ) return false;
+
+    char * s = str;
+
+    if ( max_len__d == CC_MAX_LEN_IGNORE )
+    {
+        while ( *s ) *s++ = '\0';
+    }
+    else
+    {
+        size_t c = 0;
+
+        while ( ( *s ) && ( c++ < max_len__d ) )
+            *s++ = '\0';
+    }
+
+    return true;
+}
 
 bool cc_str_count_chars( char const * restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,

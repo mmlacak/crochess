@@ -9,15 +9,24 @@
 
 /**
     @file cc_str_utils.h
-    @brief String utility functions.
+    @brief Strings, char arrays utility functions.
 
-    All strings are assumed to be zero-terminated (``'\0'``) byte strings.
+    All allocated strings are assumed to be zero-terminated (``'\0'``),
+    so max len parameters can be ignored, i.e. `CC_MAX_LEN_IGNORE`.
 
-    All functions which return string, return them zero-terminated.
+    Char arrays are not zero-terminated,
+    so appropriate max len must be used,
+    e.g. `CC_MAX_LEN_STR_8`.
 
-    Length of a string is as returned by `strlen()`, i.e. without terminating character.
+    All functions which return allocated string, return them zero-terminated.
 
-    Size of a string includes terminating character.
+    Length of an allocated string is as returned by `strlen()`,
+    i.e. without zero-terminating character.
+
+    Size of an allocated string includes terminating character.
+
+    Length of a char arrays is the same as its size,
+    and does not include zero-terminating char (``'\0'``).
 */
 
 
@@ -25,6 +34,17 @@
     Value to ignore maximum length constraint on various functions.
 */
 #define CC_MAX_LEN_IGNORE (0)
+
+/**
+    Size of an 8 char array.
+*/
+#define CC_STR_8_SIZE (8)
+
+/**
+    Maximum length of an 8 char array.
+*/
+#define CC_MAX_LEN_STR_8 (8)
+
 
 /**
     Function interface, i.e. function pointer type;
@@ -36,6 +56,26 @@
 */
 typedef int (*cc_ctype_fp_ischar_t)( int ch );
 
+/**
+    A char array type, size 8.
+*/
+typedef char str_8 [ CC_STR_8_SIZE ];
+
+
+/**
+    Function to clear string, or char array, by writing ``'\0'`` into every char.
+
+    @param str A string to overwrite with zeros.
+    @param max_len__d _Optional_, maximum length to overwrite.
+
+    @note
+    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`),
+    if so entirety of a given string is overwritten.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_str_clear( char * restrict str,
+                   size_t max_len__d );
 
 /**
     Function counts characters in a string, based on a given filtering function.
@@ -138,7 +178,7 @@ int cc_str_len_format( char const * restrict fmt, ... );
 
     @note
     End of a string is first `char` that does not belong to a (sub-)string,
-    i.e. one past '\0', if `max_len__d` is `0`.
+    i.e. one past ``'\0'``, if `max_len__d` is `0`.
 
     @return End of a (sub-)string if successful, `NULL` otherwise.
 */

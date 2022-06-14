@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #ifndef __CC_PARSE_H__
@@ -18,28 +18,12 @@
 */
 typedef enum CcStepLinkEnum
 {
-    // CC_SLE_Start, /**< Position from which a piece started moving. */
+    CC_SLE_Start, /**< Position from which a piece started moving. */
     CC_SLE_Reposition, /**< In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
     CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
     CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
     CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
 } CcStepLinkEnum;
-
-/**
-    Step structure, linked list.
-*/
-typedef struct CcStep
-{
-    CcStepLinkEnum link; /**< Type of a link to previous step. */
-    CcPos destination; /**< Destination field of a step. */
-
-    // TODO :: side-effects
-    //
-    // CcSideEffect side_effect; /**< Side-effect structure. */
-
-    struct CcStep * next; /**< Next step in a linked list. */
-} CcStep;
-
 
 /**
     Ply link enumeration.
@@ -72,11 +56,9 @@ typedef struct CcPlyANs
 
     CcPos start; /**< Starting field; parsed, calculated, or copied from destination field of a previous ply. */
 
-    // TODO :: maybe not ?
+    // TODO :: not needed ?
     //
-    // CcStep * steps; /**< Destination field, if only 1 item in a list, otherwise all steps taken. Can be `NULL`, if piece is oblationed. */
-
-    struct CcPlyANs * next; /**< Next ply in a cascade. */
+    // struct CcPlyANs * next; /**< Next ply in a cascade. */
 } CcPlyANs;
 
 
