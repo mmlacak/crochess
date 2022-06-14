@@ -16,14 +16,14 @@
 */
 
 
-bool cc_str_clear( char * restrict str,
+bool cc_str_clear( char * restrict str__io,
                    size_t max_len__d )
 {
-    if ( !str ) return false;
+    if ( !str__io ) return false;
 
-    char * s = str;
+    char * s = str__io;
 
-    if ( max_len__d == CC_MAX_LEN_IGNORE )
+    if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
     {
         while ( *s ) *s++ = '\0';
     }
@@ -40,6 +40,7 @@ bool cc_str_clear( char * restrict str,
 
 bool cc_str_count_chars( char const * restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,
+                         size_t max_len__d,
                          size_t * restrict count__o )
 {
     if ( !str ) return false;
@@ -49,9 +50,19 @@ bool cc_str_count_chars( char const * restrict str,
     char const * s = str;
     *count__o = 0;
 
-    while ( *s != '\0' )
+    if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
     {
-        if ( fp_is_char( *s++ ) ) *count__o += 1;
+        while ( *s != '\0' )
+            if ( fp_is_char( *s++ ) )
+                *count__o += 1;
+    }
+    else
+    {
+        size_t c = 0;
+
+        while ( ( *s ) && ( c++ < max_len__d ) )
+            if ( fp_is_char( *s++ ) )
+                *count__o += 1;
     }
 
     return true;
@@ -59,58 +70,95 @@ bool cc_str_count_chars( char const * restrict str,
 
 char const * cc_str_traverse_chars( char const * restrict str,
                                     cc_ctype_fp_ischar_t fp_is_char,
-                                    bool skip_or_stop_at )
+                                    bool skip_or_stop_at,
+                                    size_t max_len__d )
 {
     if ( !str ) return NULL;
     if ( !fp_is_char ) return NULL;
 
     char const * str__w = str;
 
-    while ( ( *str__w != '\0' ) && ( skip_or_stop_at == fp_is_char( *str__w ) ) ) ++str__w;
+    if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
+    {
+        while ( ( *str__w )
+             && ( skip_or_stop_at == fp_is_char( *str__w ) ) )
+                ++str__w;
+    }
+    else
+    {
+        size_t c = 0;
+
+        while ( ( *str__w )
+             && ( c++ < max_len__d )
+             && ( skip_or_stop_at == fp_is_char( *str__w ) ) )
+                ++str__w;
+    }
 
     return str__w;
 }
 
 
 bool cc_str_to_case( char * restrict str__io,
-                     bool to_upper_or_lower )
+                     bool to_upper_or_lower,
+                     size_t max_len__d )
 {
     if ( !str__io ) return false;
 
     char * s = str__io;
-    while ( *s )
-    {
-        if ( to_upper_or_lower )
-            *s = toupper( *s );
-        else
-            *s = tolower( *s );
 
-        ++s;
+    if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
+    {
+        while ( *s )
+            *s++ = ( to_upper_or_lower ) ? toupper( *s )
+                                         : tolower( *s );
+    }
+    else
+    {
+        size_t c = 0;
+
+        while ( ( *s ) && ( c++ < max_len__d ) )
+            *s++ = ( to_upper_or_lower ) ? toupper( *s )
+                                         : tolower( *s );
     }
 
     return true;
 }
 
 char * cc_str_to_case__new( char const * restrict str,
-                            bool to_upper_or_lower )
+                            bool to_upper_or_lower,
+                            size_t max_len__d )
 {
     if ( !str ) return NULL;
 
     size_t len = strlen( str );
+    if ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED )
+        len = CC_MIN( len, max_len__d );
+
     char * lc__a = malloc( len + 1 );
     if ( !lc__a ) return NULL;
 
     char * s = lc__a;
     char const * pos = str;
-    while ( *pos )
-    {
-        if ( to_upper_or_lower )
-            *s = toupper( *pos );
-        else
-            *s = tolower( *pos );
 
-        ++s;
-        ++pos;
+    if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
+    {
+        while ( *pos )
+        {
+            *s++ = ( to_upper_or_lower ) ? toupper( *pos )
+                                         : tolower( *pos );
+            ++pos;
+        }
+    }
+    else
+    {
+        size_t c = 0;
+
+        while ( ( *pos ) && ( c++ < len ) ) // ( *pos )
+        {
+            *s++ = ( to_upper_or_lower ) ? toupper( *pos )
+                                         : tolower( *pos );
+            ++pos;
+        }
     }
 
     lc__a[ len ] = '\0';
@@ -128,7 +176,7 @@ size_t cc_str_len( char const * restrict first,
     size_t len = 0;
     char const * s = first;
 
-    if ( max_len__d == CC_MAX_LEN_IGNORE )
+    if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
     {
         while ( *s != '\0' ) ++s;
         len = s - first;
@@ -173,7 +221,7 @@ char const * cc_str_end( char const * restrict str,
     size_t index = 0;
 
     while ( *end__w++ != '\0' )
-        if ( ( max_len__d != CC_MAX_LEN_IGNORE ) && ( index++ >= max_len__d ) )
+        if ( ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) && ( index++ >= max_len__d ) )
             return end__w;
 
     return ++end__w;
@@ -197,7 +245,7 @@ bool cc_str_compare( char const * restrict first_1,
 
     while ( ( *str_1 != '\0' )
          && ( *str_2 != '\0' )
-         && ( ( max_len__d == CC_MAX_LEN_IGNORE ) || ( index < max_len__d ) ) )
+         && ( ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) || ( index < max_len__d ) ) )
     {
         if ( last_1 && ( str_1 >= last_1 ) )
             break;
@@ -277,7 +325,7 @@ char * cc_str_format__new( size_t max_len__d,
 
     va_end( tmp );
 
-    size_t len_min = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len__d )
+    size_t len_min = ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
                                                          : (size_t)len;
     char * str__a = (char *)malloc( len_min + 1 );
     if ( !str__a )
@@ -347,7 +395,7 @@ char * cc_str_concatenate__new( char const * restrict str_1__d,
 {
     size_t len_1 = cc_str_len( str_1__d, NULL, max_len__d );
     size_t len_2 = cc_str_len( str_2__d, NULL, max_len__d );
-    size_t len = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( len_1 + len_2, max_len__d )
+    size_t len = ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( len_1 + len_2, max_len__d )
                                                      : len_1 + len_2;
 
     char * str__a = (char *)malloc( len + 1 );
@@ -437,7 +485,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
 
     va_end( tmp );
 
-    size_t len_min = ( max_len__d != CC_MAX_LEN_IGNORE ) ? CC_MIN( (size_t)len, max_len__d )
+    size_t len_min = ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
                                                          : (size_t)len;
     char * str__t = (char *)malloc( len_min + 1 );
     if ( !str__t )

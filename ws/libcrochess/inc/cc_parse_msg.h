@@ -56,10 +56,6 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
     @param msg Parser message to copy.
     @param max_len__d _Optional_, maximum length to copy.
 
-    @note
-    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
-    if so entirety of a given string is duplicated.
-
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */

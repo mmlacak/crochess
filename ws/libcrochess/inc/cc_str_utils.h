@@ -11,11 +11,14 @@
     @file cc_str_utils.h
     @brief Strings, char arrays utility functions.
 
-    All allocated strings are assumed to be zero-terminated (``'\0'``),
-    so max len parameters can be ignored, i.e. `CC_MAX_LEN_IGNORE`.
+    All allocated strings are assumed to be zero-terminated (``'\0'``).
 
-    Char arrays are not zero-terminated,
-    so appropriate max len must be used,
+    For zero-terminated strings argument `CC_MAX_LEN_ZERO_TERMINATED` can be
+    used for max len parameters, if so entirety of a string will be used
+    (copied, cleared, ...).
+
+    Char arrays can be zero-terminated if data is shorter than array, but
+    generally are not; so an appropriate max len argument must be used,
     e.g. `CC_MAX_LEN_STR_8`.
 
     All functions which return allocated string, return them zero-terminated.
@@ -27,13 +30,16 @@
 
     Length of a char arrays is the same as its size,
     and does not include zero-terminating char (``'\0'``).
+
+    Length of data in a char array can be smaller than length of array,
+    if so data is zero-terminated.
 */
 
 
 /**
     Value to ignore maximum length constraint on various functions.
 */
-#define CC_MAX_LEN_IGNORE (0)
+#define CC_MAX_LEN_ZERO_TERMINATED (0)
 
 /**
     Size of an 8 char array.
@@ -65,16 +71,12 @@ typedef char str_8 [ CC_STR_8_SIZE ];
 /**
     Function to clear string, or char array, by writing ``'\0'`` into every char.
 
-    @param str A string to overwrite with zeros.
+    @param str__io A string to overwrite with zeros.
     @param max_len__d _Optional_, maximum length to overwrite.
-
-    @note
-    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`),
-    if so entirety of a given string is overwritten.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_clear( char * restrict str,
+bool cc_str_clear( char * restrict str__io,
                    size_t max_len__d );
 
 /**
@@ -82,12 +84,14 @@ bool cc_str_clear( char * restrict str,
 
     @param str A string.
     @param fp_is_char A function pointer, used to filter characters.
+    @param max_len__d _Optional_, maximum length to count over.
     @param count__o An _output_ parameter, used to hold result.
 
     @return `true` if successful, `false` otherwise.
 */
 bool cc_str_count_chars( char const * restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,
+                         size_t max_len__d,
                          size_t * restrict count__o );
 
 /**
@@ -97,6 +101,7 @@ bool cc_str_count_chars( char const * restrict str,
     @param str A string.
     @param fp_is_char A function pointer, used to filter characters.
     @param skip_or_stop_at A flag, whether to skip (if `true`) or stop at (if `false`) filtered character.
+    @param max_len__d _Optional_, maximum length to traverse.
 
     @return A string pointer within a given string, if successful, `NULL` otherwise.
 
@@ -105,30 +110,35 @@ bool cc_str_count_chars( char const * restrict str,
 */
 char const * cc_str_traverse_chars( char const * restrict str,
                                     cc_ctype_fp_ischar_t fp_is_char,
-                                    bool skip_or_stop_at );
+                                    bool skip_or_stop_at,
+                                    size_t max_len__d );
 
 
 /**
     Function converting a string in-place, to uppercase or lowercase.
 
     @param str__io String to convert.
-    @param to_upper_or_lower Whether to uppercase (`true`), or lowercase (`false`) string.
+    @param to_upper_or_lower Flag, convert to uppercase (`true`), or lowercase (`false`) string.
+    @param max_len__d _Optional_, maximum length to convert.
 
     @return `true` if successful, `false` otherwise.
 */
 bool cc_str_to_case( char * restrict str__io,
-                     bool to_upper_or_lower );
+                     bool to_upper_or_lower,
+                     size_t max_len__d );
 
 /**
     Function returning a newly allocated string, converted to uppercase or lowercase.
 
     @param str String to convert.
-    @param to_upper_or_lower Whether to uppercase (`true`), or lowercase (`false`) string.
+    @param to_upper_or_lower Flag, convert to uppercase (`true`), or lowercase (`false`) string.
+    @param max_len__d _Optional_, maximum length to convert.
 
     @return A newly allocated, converted string if successful, `NULL` otherwise.
 */
 char * cc_str_to_case__new( char const * restrict str,
-                            bool to_upper_or_lower );
+                            bool to_upper_or_lower,
+                            size_t max_len__d );
 
 /**
     Function returning length of a string, optionally capped at maximum length.

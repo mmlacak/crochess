@@ -28,10 +28,6 @@ typedef struct CcStrings
     @param str String to copy.
     @param max_len__d _Optional_, maximum length to copy.
 
-    @note
-    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
-    if so entirety of a given string is duplicated.
-
     @return A newly allocated string if successful, `NULL` otherwise.
 */
 CcStrings * cc_strings__new( char const * restrict str,
@@ -43,10 +39,6 @@ CcStrings * cc_strings__new( char const * restrict str,
     @param strings__io Linked list of strings.
     @param str String to copy.
     @param max_len__d _Optional_, maximum length to copy.
-
-    @note
-    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
-    if so entirety of a given string is duplicated.
 
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
@@ -74,10 +66,6 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
     If linked list `*strings__io` is `NULL`, it will be initialized,
     with a newly allocated string as its first element.
 
-    @note
-    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
-    if so entirety of a given string is duplicated.
-
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
@@ -104,10 +92,6 @@ CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
     @note
     If linked list `*strings__io` is `NULL`, it will be initialized,
     with a newly allocated string as its first element.
-
-    @note
-    Parameter `max_len__d` can be `0` (use defined `CC_MAX_LEN_IGNORE`, in `cc_str_utils.h`),
-    if so entirety of a given string is duplicated.
 
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
