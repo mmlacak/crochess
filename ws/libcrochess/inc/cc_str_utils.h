@@ -389,7 +389,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
     @param first A (sub-)string to copy.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is printed.
     @param max_len__d _Optional_, maximum length of string to print.
-    @param str_fmt A string format to print.
+    @param fmt_str A string format to print.
 
     @note
     Substring supplied via `first` and `end__d` arguments is copied into newly allocated, zero-terminated string.
@@ -398,7 +398,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
     That internal string is passed as the only argument to formatted `printf`.
 
     @warning
-    So, `str_fmt` must have the only one formatting specified as string (i.e. `%%s`), to handle internal string as the only argument to `printf`.
+    So, `fmt_str` must have the only one formatting specified as string (i.e. `%%s`), to handle internal string as the only argument to `printf`.
 
     Note format specifier in this example, the only `%%s` corresponds to internal string.
     @code{.c}
@@ -410,7 +410,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
 bool cc_str_print( char const * restrict first,
                    char const * restrict end__d,
                    size_t max_len__d,
-                   char const * restrict str_fmt );
+                   char const * restrict fmt_str );
 
 
 #endif /* __CC_STR_UTILS_H__ */

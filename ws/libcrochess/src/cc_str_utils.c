@@ -521,15 +521,15 @@ char * cc_str_append_format__new( char ** restrict str__f,
 bool cc_str_print( char const * restrict first,
                    char const * restrict end__d,
                    size_t max_len__d,
-                   char const * restrict str_fmt )
+                   char const * restrict fmt_str )
 {
     if ( !first ) return false;
-    if ( !str_fmt ) return false;
+    if ( !fmt_str ) return false;
 
     char * str__a = cc_str_copy__new( first, end__d, max_len__d );
     if ( !str__a ) return false;
 
-    int result = printf( str_fmt, str__a );
+    int result = printf( fmt_str, str__a );
 
     CC_FREE( str__a );
 
