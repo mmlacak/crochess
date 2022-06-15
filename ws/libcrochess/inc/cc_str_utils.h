@@ -389,24 +389,28 @@ char * cc_str_append_format__new( char ** restrict str__f,
     @param first A (sub-)string to copy.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is printed.
     @param max_len__d _Optional_, maximum length of string to print.
-    @param str_1st_fmt A string format to print.
-    @param ... Variadic input for a string format.
+    @param str_fmt A string format to print.
 
     @note
-    Substring supplied via `first` and `end__d` arguments is copied into allocated, zero-terminated string.
+    Substring supplied via `first` and `end__d` arguments is copied into newly allocated, zero-terminated string.
+
+    @note
+    That internal string is passed as the only argument to formatted `printf`.
 
     @warning
-    That internal string is passed as a first argument to formatted `printf`.
+    So, `str_fmt` must have the only one formatting specified as string (i.e. `%%s`), to handle internal string as the only argument to `printf`.
 
-    @warning
-    So, `str_1st_fmt` must have first format specified as string, to handle internal string as a first argument, in addition to all format specifiers needed for variadic arguments.
+    Note format specifier in this example, the only `%%s` corresponds to internal string.
+    @code{.c}
+    cc_str_printf( first__w, end__w, BUFSIZ, "No help entry: '%s'.\n" );
+    @endcode
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_printf( char const * restrict first,
-                    char const * restrict end__d,
-                    size_t max_len__d,
-                    char const * restrict str_1st_fmt, ... );
+bool cc_str_print( char const * restrict first,
+                   char const * restrict end__d,
+                   size_t max_len__d,
+                   char const * restrict str_fmt );
 
 
 #endif /* __CC_STR_UTILS_H__ */
