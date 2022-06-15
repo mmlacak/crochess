@@ -520,9 +520,9 @@ char * cc_str_append_format__new( char ** restrict str__f,
     return cc_str_append__new( str__f, &str__t, max_len__d );
 }
 
-bool cc_str_printf( char const * restrict first,
-                    char const * restrict end__d,
-                    size_t max_len__d )
+bool cc_str_print( char const * restrict first,
+                   char const * restrict end__d,
+                   size_t max_len__d )
 {
     if ( !first ) return false;
 

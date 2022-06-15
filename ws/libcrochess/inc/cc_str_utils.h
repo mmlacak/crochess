@@ -392,9 +392,9 @@ char * cc_str_append_format__new( char ** restrict str__f,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_printf( char const * restrict first,
-                    char const * restrict end__d,
-                    size_t max_len__d );
+bool cc_str_print( char const * restrict first,
+                   char const * restrict end__d,
+                   size_t max_len__d );
 
 
 #endif /* __CC_STR_UTILS_H__ */

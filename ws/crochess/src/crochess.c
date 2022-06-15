@@ -17,7 +17,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.26:458+20220615.051954"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.27:459+20220615.115542"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -108,28 +108,40 @@ int main( void )
                   cc_str_is_equal( first__w, end__w, "?", NULL, BUFSIZ ) ||
                   cc_str_is_equal( first__w, end__w, "help", NULL, BUFSIZ ) )
         {
-            char * res = NULL;
-
             if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
-                res = cc_str_copy__new( first__w, end__w, BUFSIZ );
-                if ( !res ) continue;
-            }
+                if ( first__w == end__w )
+                    print_help();
+                else if ( cc_str_is_equal( first__w, end__w, "q", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( first__w, end__w, "quit", NULL, BUFSIZ ) )
+                    print_help_quit();
+                else if ( cc_str_is_equal( first__w, end__w, "d", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( first__w, end__w, "display", NULL, BUFSIZ ) )
+                    print_help_display();
+                else if ( cc_str_is_equal( first__w, end__w, "t", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( first__w, end__w, "tags", NULL, BUFSIZ ) )
+                    print_help_tags();
+                else if ( cc_str_is_equal( first__w, end__w, "a", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( first__w, end__w, "about", NULL, BUFSIZ ) )
+                    print_help_about();
+                else if ( cc_str_is_equal( first__w, end__w, "v", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( first__w, end__w, "version", NULL, BUFSIZ ) )
+                    print_help_version();
+                else if ( cc_str_is_equal( first__w, end__w, "n", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( first__w, end__w, "new", NULL, BUFSIZ ) )
+                    print_help_new();
+                else
+                {
+                    char * res = cc_str_copy__new( first__w, end__w, BUFSIZ );
+                    if ( !res ) continue;
 
-            if ( !res ) print_help();
-            else if ( ( !strcmp( "q", res ) ) || ( !strcmp( "quit", res ) ) ) print_help_quit();
-            else if ( ( !strcmp( "d", res ) ) || ( !strcmp( "display", res ) ) ) print_help_display();
-            else if ( ( !strcmp( "t", res ) ) || ( !strcmp( "tags", res ) ) ) print_help_tags();
-            else if ( ( !strcmp( "a", res ) ) || ( !strcmp( "about", res ) ) ) print_help_about();
-            else if ( ( !strcmp( "v", res ) ) || ( !strcmp( "version", res ) ) ) print_help_version();
-            else if ( ( !strcmp( "n", res ) ) || ( !strcmp( "new", res ) ) ) print_help_new();
+                    printf( "No help entry: '%s'.\n", res );
+
+                    CC_FREE( res );
+                }
+            }
             else
-            {
-                printf( "No help entry: '%s'.\n", res );
-                // fflush( stdout );
-            }
-
-            CC_FREE( res );
+                print_help();
         }
         else if ( cc_str_is_equal( first__w, end__w, "x", NULL, BUFSIZ ) )
         {
