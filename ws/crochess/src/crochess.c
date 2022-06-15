@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "cc_defines.h"
 #include "cc_version.h"
 #include "cc_str_utils.h"
 #include "cc_token.h"
@@ -16,7 +17,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.25:457+20220614.104520"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.26:458+20220615.051954"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -83,21 +84,16 @@ int main( void )
                 code = cc_str_copy__new( first__w, end__w, BUFSIZ );
                 if ( !code ) continue;
 
-                is_code = cc_variant_is_str_symbol( code );
+                CcVariantEnum ve = CC_VE_One;
+                is_code = cc_variant_from_symbol( code, &ve );
 
                 if ( is_code )
                 {
-                    CcVariantEnum ve = cc_variant_from_symbol( code );
-
                     free( cb );
                     cb = cc_chessboard__new( ve, true );
                 }
                 else
-                {
                     print_new_code_invalid( code );
-                }
-
-                free( code );
             }
 
             if ( ( !code ) || ( code && is_code ) )
@@ -105,6 +101,8 @@ int main( void )
                 cc_chessboard_setup( cb );
                 cc_chessboard_print( cb, true );
             }
+
+            CC_FREE( code );
         }
         else if ( cc_str_is_equal( first__w, end__w, "h", NULL, BUFSIZ ) ||
                   cc_str_is_equal( first__w, end__w, "?", NULL, BUFSIZ ) ||
@@ -131,7 +129,7 @@ int main( void )
                 // fflush( stdout );
             }
 
-            free( res );
+            CC_FREE( res );
         }
         else if ( cc_str_is_equal( first__w, end__w, "x", NULL, BUFSIZ ) )
         {
@@ -147,7 +145,7 @@ int main( void )
         }
     }
 
-    free( cb );
+    CC_FREE( cb );
 
     printf( "Bye, have a nice day!\n" );
     // fflush( stdout );

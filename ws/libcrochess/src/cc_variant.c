@@ -2,6 +2,7 @@
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdbool.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -45,63 +46,82 @@ char const * const CC_VARIANT_SYMBOLS[] =
 };
 
 
-bool cc_variant_is_str_symbol( char const * restrict str )
+bool cc_variant_from_symbol( char const * restrict str,
+                             CcVariantEnum * ve__o )
 {
     if ( !str ) return false;
+    if ( !ve__o ) return false;
 
-// TODO :: remove malloc() + free()
+    char const * s = str;
+    int ve = -1;
 
-    char * lc__a = cc_str_to_case__new( str, false, CC_MAX_LEN_VARIANT_SYMBOL );
-    if ( !lc__a ) return false;
-
-    int count = sizeof( CC_VARIANT_SYMBOLS ) / sizeof( CC_VARIANT_SYMBOLS[ 0 ] );
-    for ( int i = 0; i < count; ++i )
+    if ( *s == 'a' ||  *s == 'A' )
     {
-        char const * const sym = CC_VARIANT_SYMBOLS[ i ];
+        ++s;
 
-        if ( !strcmp( sym, lc__a ) )
+        if ( *s == 'o' ||  *s == 'O' )
         {
-            CC_FREE( lc__a );
-            return true;
+            ++s;
+
+            if ( *s == 'a' ||  *s == 'A' )
+                ve = CC_VE_AgeOfAquarius;
         }
     }
+    else if ( *s == 'c' ||  *s == 'C' )
+    {
+        ++s;
 
-// TODO :: remove malloc() + free()
+        if ( *s == 'c' ||  *s == 'C' )
+            ve = CC_VE_ClassicalChess;
+        else if ( *s == 't' ||  *s == 'T' )
+            ve = CC_VE_CroatianTies;
+        else if ( *s == 'o' ||  *s == 'O' )
+        {
+            ++s;
 
-    CC_FREE( lc__a );
+            if ( *s == 't' ||  *s == 'T' )
+                ve = CC_VE_ConquestOfTlalocan;
+        }
+    }
+    else if ( *s == 'd' ||  *s == 'D' )
+        ve = CC_VE_Discovery;
+    else if ( *s == 'h' ||  *s == 'H' )
+    {
+        ++s;
+
+        if ( *s == 'd' ||  *s == 'D' )
+            ve = CC_VE_HemerasDawn;
+    }
+    else if ( *s == 'm' ||  *s == 'M' )
+    {
+        ++s;
+
+        if ( *s == 'a' ||  *s == 'A' )
+            ve = CC_VE_MayanAscendancy;
+        else if ( *s == 'v' ||  *s == 'V' )
+            ve = CC_VE_MirandasVeil;
+    }
+    else if ( *s == 'n' ||  *s == 'N' )
+        ve = CC_VE_Nineteen;
+    else if ( *s == 'o' ||  *s == 'O' )
+        ve = CC_VE_One;
+    else if ( *s == 't' ||  *s == 'T' )
+    {
+        ++s;
+
+        if ( *s == 'r' ||  *s == 'R' )
+            ve = CC_VE_TamoanchanRevisited;
+    }
+
+    ++s;
+
+    if ( ve >= 0 && ( iscntrl( *s ) || isspace( *s ) ) )
+    {
+        *ve__o = (CcVariantEnum)ve;
+        return true;
+    }
+
     return false;
-}
-
-CcVariantEnum cc_variant_from_symbol( char const * restrict str )
-{
-    CcVariantEnum ve = CC_VE_One;
-    if ( !str ) return ve;
-
-// TODO :: remove malloc() + free()
-
-    char * lc__a = cc_str_to_case__new( str, false, CC_MAX_LEN_VARIANT_SYMBOL );
-    if ( !lc__a ) return ve;
-
-    if ( !strcmp(lc__a, CC_VARIANT_CLASSICAL_CHESS_SYMBOL) ) ve = CC_VE_ClassicalChess;
-    else if ( !strcmp(lc__a, CC_VARIANT_CROATIAN_TIES_SYMBOL) ) ve = CC_VE_CroatianTies;
-    else if ( !strcmp(lc__a, CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL) ) ve = CC_VE_MayanAscendancy;
-    else if ( !strcmp(lc__a, CC_VARIANT_AGE_OF_AQUARIUS_SYMBOL) ) ve = CC_VE_AgeOfAquarius;
-    else if ( !strcmp(lc__a, CC_VARIANT_MIRANDAS_VEIL_SYMBOL) ) ve = CC_VE_MirandasVeil;
-    else if ( !strcmp(lc__a, CC_VARIANT_NINETEEN_SYMBOL) ) ve = CC_VE_Nineteen;
-    else if ( !strcmp(lc__a, CC_VARIANT_HEMERAS_DAWN_SYMBOL) ) ve = CC_VE_HemerasDawn;
-    else if ( !strcmp(lc__a, CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL) ) ve = CC_VE_TamoanchanRevisited;
-    else if ( !strcmp(lc__a, CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL) ) ve = CC_VE_ConquestOfTlalocan;
-    else if ( !strcmp(lc__a, CC_VARIANT_DISCOVERY_SYMBOL) ) ve = CC_VE_Discovery;
-    //
-    // <.> Not needed, CC_VE_One is default.
-    //
-    // else if ( !strcmp(lc__a, CC_VARIANT_ONE_SYMBOL) ) ve = CC_VE_One;
-    // else ve = CC_VE_One;
-
-// TODO :: remove malloc() + free()
-
-    CC_FREE( lc__a );
-    return ve;
 }
 
 char const * cc_variant_label( CcVariantEnum ve )

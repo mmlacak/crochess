@@ -153,24 +153,19 @@ extern char const * const CC_VARIANT_SYMBOLS[];
 
 
 /**
-    Function returning if string is a valid variant symbol.
+    Function returns variant enum, based on a string.
 
     @param str String.
+    @param ve__o _Output_, variant enum.
 
-    @return `true` if `str` is variant symbol, `false` otherwise.
-            Strings are compared case-insensitive.
+    @note
+    Strings are compared case-insensitive.
+
+    @return `true` if succesful, `false` otherwise.
+
 */
-bool cc_variant_is_str_symbol( char const * restrict str );
-
-/**
-    Function returning variant enum, based on a string.
-
-    @param str String.
-
-    @return `CcVariantEnum` if `str` is valid variant symbol, `CC_VE_One` otherwise.
-            Strings are compared case-insensitive.
-*/
-CcVariantEnum cc_variant_from_symbol( char const * restrict str );
+bool cc_variant_from_symbol( char const * restrict str,
+                             CcVariantEnum * ve__o );
 
 /**
     Function returning variant label.

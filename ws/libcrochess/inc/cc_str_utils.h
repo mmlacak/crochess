@@ -17,7 +17,7 @@
     used for max len parameters, if so entirety of a string will be used
     (copied, cleared, ...).
 
-    Char arrays can be zero-terminated if data is shorter than array, but
+    Char arrays are zero-terminated if data is shorter than array, but
     generally are not; so an appropriate max len argument must be used,
     e.g. `CC_MAX_LEN_STR_8`.
 

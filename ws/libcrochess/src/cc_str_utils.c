@@ -109,16 +109,22 @@ bool cc_str_to_case( char * restrict str__io,
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
     {
         while ( *s )
-            *s++ = ( to_upper_or_lower ) ? toupper( *s )
-                                         : tolower( *s );
+        {
+            *s = ( to_upper_or_lower ) ? toupper( *s )
+                                       : tolower( *s );
+            ++s;
+        }
     }
     else
     {
         size_t c = 0;
 
         while ( ( *s ) && ( c++ < max_len__d ) )
-            *s++ = ( to_upper_or_lower ) ? toupper( *s )
-                                         : tolower( *s );
+        {
+            *s = ( to_upper_or_lower ) ? toupper( *s )
+                                       : tolower( *s );
+            ++s;
+        }
     }
 
     return true;
