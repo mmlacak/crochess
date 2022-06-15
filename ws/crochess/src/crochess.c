@@ -17,7 +17,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.27:459+20220615.115542"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.28:460+20220615.125201"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -131,14 +131,7 @@ int main( void )
                           cc_str_is_equal( first__w, end__w, "new", NULL, BUFSIZ ) )
                     print_help_new();
                 else
-                {
-                    char * res = cc_str_copy__new( first__w, end__w, BUFSIZ );
-                    if ( !res ) continue;
-
-                    printf( "No help entry: '%s'.\n", res );
-
-                    CC_FREE( res );
-                }
+                    cc_str_printf( first__w, end__w, BUFSIZ, "No help entry: '%s'.\n" );
             }
             else
                 print_help();

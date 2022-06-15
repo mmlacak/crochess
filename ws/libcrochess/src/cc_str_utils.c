@@ -315,24 +315,17 @@ char * cc_str_copy__new( char const * restrict first,
 char * cc_str_format__new( size_t max_len__d,
                            char const * restrict fmt, ... )
 {
+    if ( !fmt ) return NULL;
+
     va_list args;
     va_start( args, fmt );
 
-    va_list tmp;
-    va_copy( tmp, args );
+    int len = cc_str_len_format( fmt, args );
 
-    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
-    if ( len < 0 )
-    {
-        va_end( tmp );
-        va_end( args );
-        return NULL;
-    }
+    size_t len_min =
+        ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
+                                                     : (size_t)len;
 
-    va_end( tmp );
-
-    size_t len_min = ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
-                                                         : (size_t)len;
     char * str__a = (char *)malloc( len_min + 1 );
     if ( !str__a )
     {
@@ -520,19 +513,23 @@ char * cc_str_append_format__new( char ** restrict str__f,
     return cc_str_append__new( str__f, &str__t, max_len__d );
 }
 
-bool cc_str_print( char const * restrict first,
-                   char const * restrict end__d,
-                   size_t max_len__d )
+bool cc_str_printf( char const * restrict first,
+                    char const * restrict end__d,
+                    size_t max_len__d,
+                    char const * restrict str_1st_fmt, ... )
 {
     if ( !first ) return false;
+    if ( !str_1st_fmt ) return false;
 
-    size_t len = cc_str_len( first, end__d, max_len__d );
-    char const * p = first;
+    char * str = cc_str_copy__new( first, end__d, max_len__d );
+    if ( !str ) return false;
 
-    for ( size_t i = 0; i < len; ++i )
-    {
-        printf( "%c", *p++ );
-    }
+    va_list args;
+    va_start( args, str_1st_fmt );
+
+    printf( str_1st_fmt, str, args );
+
+    va_end( args );
 
     return true;
 }
