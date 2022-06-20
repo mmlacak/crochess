@@ -190,29 +190,6 @@ size_t cc_str_len( char const * restrict first,
 */
 int cc_str_len_format( char const * restrict fmt, ... );
 
-// TODO :: move into tokenizer, add separators parameter
-
-// /**
-//     Function returns end of a given (sub-)string.
-
-//     @param str A string.
-//     @param max_len__d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is returned.
-
-//     @warning
-//     If optional argument `max_len__d` is `0`, given string (`str`) has
-//     to be zero-terminated.
-
-//     @note
-//     End of a string is first `char` that does not belong to a (sub-)string,
-//     i.e. one past ``'\0'``, if `max_len__d` is `0`.
-
-//     @return End of a (sub-)string if successful, `NULL` otherwise.
-// */
-// char const * cc_str_end( char const * restrict str,
-//                          size_t max_len__d );
-
-// TODO :: move into tokenizer, add separators parameter
-
 /**
     Compares two (sub-)strings, returns index of a first difference.
 

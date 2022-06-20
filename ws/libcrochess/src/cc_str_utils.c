@@ -224,25 +224,6 @@ int cc_str_len_format( char const * restrict fmt, ... )
     return len;
 }
 
-// TODO :: move into tokenizer, add separators parameter
-
-// char const * cc_str_end( char const * restrict str,
-//                          size_t max_len__d )
-// {
-//     if ( !str ) return NULL;
-
-//     char const * end__w = str;
-//     size_t index = 0;
-
-//     while ( *end__w++ != '\0' )
-//         if ( ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) && ( index++ >= max_len__d ) )
-//             return end__w;
-
-//     return ++end__w;
-// }
-
-// TODO :: move into tokenizer, add separators parameter
-
 bool cc_str_compare( char const * restrict first_1,
                      char const * restrict end_1__d,
                      char const * restrict first_2,
