@@ -1,7 +1,7 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#include <stdbool.h>
+// #include <stdbool.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,8 +15,6 @@
     @brief Variants symbols, and related functions.
 */
 
-
-#define CC_MAX_LEN_VARIANT_SYMBOL (3)
 
 char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL = "cc";
 char const * const CC_VARIANT_CROATIAN_TIES_SYMBOL = "ct";
@@ -47,10 +45,15 @@ char const * const CC_VARIANT_SYMBOLS[] =
 
 
 bool cc_variant_from_symbol( char const * restrict str,
+                             size_t max_len__d,
                              CcVariantEnum * ve__o )
 {
     if ( !str ) return false;
     if ( !ve__o ) return false;
+
+    if ( ( max_len__d > CC_MAX_LEN_ZERO_TERMINATED )
+      && ( max_len__d < CC_MAX_LEN_VARIANT_SYMBOL ) )
+        return false;
 
     char const * s = str;
     int ve = -1;
@@ -115,8 +118,12 @@ bool cc_variant_from_symbol( char const * restrict str,
 
     ++s;
 
-    if ( ve >= 0 && ( iscntrl( *s ) || isspace( *s ) ) )
+    if ( ve >= 0 )
     {
+        if ( max_len__d > CC_MAX_LEN_VARIANT_SYMBOL )
+            if ( !iscntrl( *s ) && !isspace( *s ) )
+                return false;
+
         *ve__o = (CcVariantEnum)ve;
         return true;
     }

@@ -42,9 +42,14 @@
 #define CC_MAX_LEN_ZERO_TERMINATED (0)
 
 /**
+    Invalid size, to flag argument to be ignored.
+*/
+#define CC_SIZE_IGNORE (0)
+
+/**
     Size of an 8 char array.
 */
-#define CC_CHAR_8_SIZE (8)
+#define CC_SIZE_CHAR_8 (8)
 
 /**
     Maximum length of an 8 char array.
@@ -65,7 +70,7 @@ typedef int (*cc_ctype_fp_ischar_t)( int ch );
 /**
     A char array type, size 8.
 */
-typedef char char_8 [ CC_CHAR_8_SIZE ];
+typedef char char_8 [ CC_SIZE_CHAR_8 ];
 
 
 /**
@@ -78,6 +83,15 @@ typedef char char_8 [ CC_CHAR_8_SIZE ];
 */
 bool cc_str_clear( char * restrict str__io,
                    size_t max_len__d );
+
+/**
+    Function checks if string is empty, i.e. start with ``'\0'`` char.
+
+    @param str A string to check.
+
+    @return `true` if empty, `false` otherwise.
+*/
+bool cc_str_is_empty( char const * restrict str );
 
 /**
     Function counts characters in a string, based on a given filtering function.
@@ -176,24 +190,28 @@ size_t cc_str_len( char const * restrict first,
 */
 int cc_str_len_format( char const * restrict fmt, ... );
 
-/**
-    Function returns end of a given (sub-)string.
+// TODO :: move into tokenizer, add separators parameter
 
-    @param str A string.
-    @param max_len__d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is returned.
+// /**
+//     Function returns end of a given (sub-)string.
 
-    @warning
-    If optional argument `max_len__d` is `0`, given string (`str`) has
-    to be zero-terminated.
+//     @param str A string.
+//     @param max_len__d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is returned.
 
-    @note
-    End of a string is first `char` that does not belong to a (sub-)string,
-    i.e. one past ``'\0'``, if `max_len__d` is `0`.
+//     @warning
+//     If optional argument `max_len__d` is `0`, given string (`str`) has
+//     to be zero-terminated.
 
-    @return End of a (sub-)string if successful, `NULL` otherwise.
-*/
-char const * cc_str_end( char const * restrict str,
-                         size_t max_len__d );
+//     @note
+//     End of a string is first `char` that does not belong to a (sub-)string,
+//     i.e. one past ``'\0'``, if `max_len__d` is `0`.
+
+//     @return End of a (sub-)string if successful, `NULL` otherwise.
+// */
+// char const * cc_str_end( char const * restrict str,
+//                          size_t max_len__d );
+
+// TODO :: move into tokenizer, add separators parameter
 
 /**
     Compares two (sub-)strings, returns index of a first difference.
@@ -255,6 +273,26 @@ bool cc_str_is_equal( char const * restrict first_1,
                       char const * restrict first_2,
                       char const * restrict end_2__d,
                       size_t max_len__d );
+
+/**
+    Function copies (sub-)string into a char array, or already allocated string.
+
+    @param first A (sub-)string to copy.
+    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is copied.
+    @param max_len__d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
+    @param dest__o Pointer to destination.
+    @param size_dest__d _Optional_, size of a destination, if it's char array, of if it's allocated for less then size of a (sub-)string to copy.
+
+    @note
+    Function will zero-terminate copied string, if there is enough space.
+
+    @return Count of characters copied (not including ``'\0'``), if successful, `0` otherwise.
+*/
+size_t cc_str_copy( char const * restrict first,
+                    char const * restrict end__d,
+                    size_t max_len__d,
+                    char * restrict dest__o,
+                    size_t size_dest__d );
 
 /**
     Function copies (sub-)string into a newly allocated string.

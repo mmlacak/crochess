@@ -38,6 +38,12 @@ bool cc_str_clear( char * restrict str__io,
     return true;
 }
 
+bool cc_str_is_empty( char const * restrict str )
+{
+    if ( !str ) return true;
+    return ( *str == '\0' );
+}
+
 bool cc_str_count_chars( char const * restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,
                          size_t max_len__d,
@@ -218,20 +224,24 @@ int cc_str_len_format( char const * restrict fmt, ... )
     return len;
 }
 
-char const * cc_str_end( char const * restrict str,
-                         size_t max_len__d )
-{
-    if ( !str ) return NULL;
+// TODO :: move into tokenizer, add separators parameter
 
-    char const * end__w = str;
-    size_t index = 0;
+// char const * cc_str_end( char const * restrict str,
+//                          size_t max_len__d )
+// {
+//     if ( !str ) return NULL;
 
-    while ( *end__w++ != '\0' )
-        if ( ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) && ( index++ >= max_len__d ) )
-            return end__w;
+//     char const * end__w = str;
+//     size_t index = 0;
 
-    return ++end__w;
-}
+//     while ( *end__w++ != '\0' )
+//         if ( ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) && ( index++ >= max_len__d ) )
+//             return end__w;
+
+//     return ++end__w;
+// }
+
+// TODO :: move into tokenizer, add separators parameter
 
 bool cc_str_compare( char const * restrict first_1,
                      char const * restrict end_1__d,
@@ -293,6 +303,27 @@ bool cc_str_is_equal( char const * restrict first_1,
         return ( index == 0 );
 
     return false;
+}
+
+size_t cc_str_copy( char const * restrict first,
+                    char const * restrict end__d,
+                    size_t max_len__d,
+                    char * restrict dest__o,
+                    size_t size_dest__d )
+{
+    if ( !first ) return 0;
+    if ( !dest__o ) return 0;
+
+    size_t len = cc_str_len( first, end__d, max_len__d );
+    if ( len < 1 ) return 0;
+
+    if ( !strncpy( dest__o, first, len ) )
+        return 0;
+
+    if ( ( size_dest__d == CC_SIZE_IGNORE ) || ( len < size_dest__d ) )
+        dest__o[ len ] = '\0';
+
+    return len;
 }
 
 char * cc_str_copy__new( char const * restrict first,

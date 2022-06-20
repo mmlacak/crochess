@@ -18,6 +18,7 @@ void print_help_about();
 void print_help_version();
 void print_help_new_code();
 void print_help_new();
-void print_new_code_invalid( char const * restrict str );
+void print_new_code_invalid( char const * restrict str,
+                             size_t max_len__d );
 
 #endif /* __HLP_MSGS_H__ */

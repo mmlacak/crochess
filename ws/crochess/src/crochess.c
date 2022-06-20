@@ -17,7 +17,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.31:463+20220620.181357"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.32:464+20220620.201206"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -77,15 +77,19 @@ int main( void )
                   cc_str_is_equal( first__w, end__w, "new", NULL, BUFSIZ ) )
         {
             bool is_code = false;
-            char * code = NULL;
+            char_8 code;
+
+            if ( !cc_str_clear( code, CC_SIZE_CHAR_8 ) )
+                continue;
 
             if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
             {
-                code = cc_str_copy__new( first__w, end__w, BUFSIZ );
-                if ( !code ) continue;
+                size_t len = cc_str_copy( first__w, end__w, CC_MAX_LEN_VARIANT_SYMBOL + 1, code, CC_SIZE_CHAR_8 );
+                if ( len < 1 )
+                    continue;
 
                 CcVariantEnum ve = CC_VE_One;
-                is_code = cc_variant_from_symbol( code, &ve );
+                is_code = cc_variant_from_symbol( code, CC_MAX_LEN_VARIANT_SYMBOL + 1, &ve );
 
                 if ( is_code )
                 {
@@ -93,16 +97,15 @@ int main( void )
                     cb = cc_chessboard__new( ve, true );
                 }
                 else
-                    print_new_code_invalid( code );
+                    print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 );
             }
 
-            if ( ( !code ) || ( code && is_code ) )
+            bool is_empty = cc_str_is_empty( code );
+            if ( is_empty || ( !is_empty && is_code ) )
             {
                 cc_chessboard_setup( cb );
                 cc_chessboard_print( cb, true );
             }
-
-            CC_FREE( code );
         }
         else if ( cc_str_is_equal( first__w, end__w, "h", NULL, BUFSIZ ) ||
                   cc_str_is_equal( first__w, end__w, "?", NULL, BUFSIZ ) ||

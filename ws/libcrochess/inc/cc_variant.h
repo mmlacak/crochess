@@ -5,6 +5,7 @@
 #define __CC_VARIANT_H__
 
 #include <stdbool.h>
+#include <stddef.h>
 
 /**
     @file cc_variant.h
@@ -92,6 +93,11 @@ typedef enum CcVariantEnum
 
 
 /**
+    Maximum length of a string (char array), used by any variant.
+*/
+#define CC_MAX_LEN_VARIANT_SYMBOL (3)
+
+/**
     Classical Chess symbol, short string.
 */
 extern char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL;
@@ -156,15 +162,20 @@ extern char const * const CC_VARIANT_SYMBOLS[];
     Function returns variant enum, based on a string.
 
     @param str String.
+    @param max_len__d _Optional_, maximum length to scan.
     @param ve__o _Output_, variant enum.
 
     @note
     Strings are compared case-insensitive.
 
+    @note
+    If `max_len__d` is given (i.e. > `0`), then it must also be > `CC_MAX_LEN_VARIANT_SYMBOL`.
+
     @return `true` if succesful, `false` otherwise.
 
 */
 bool cc_variant_from_symbol( char const * restrict str,
+                             size_t max_len__d,
                              CcVariantEnum * ve__o );
 
 /**

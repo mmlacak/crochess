@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+#include "cc_str_utils.h"
+
 #include "hlp_msgs.h"
 
 void print_license_intro()
@@ -151,9 +153,23 @@ void print_help_new()
     print_help_new_code();
 }
 
-void print_new_code_invalid( char const * restrict str )
+void print_new_code_invalid( char const * restrict str,
+                             size_t max_len__d )
 {
-    if ( str ) printf( "Unrecognized code: '%s'.\n", str );
+    if ( str )
+    {
+        printf( "Unrecognized code: '" );
+
+        if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
+            printf( "%s", str );
+        else
+        {
+            for ( size_t i = 0; i < max_len__d; ++i )
+                printf( "%c", *str++ );
+        }
+
+        printf( "'.\n" );
+    }
 
     printf( "\nUse following code for new variant game:\n" );
     print_help_new_code();
