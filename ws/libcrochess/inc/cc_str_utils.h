@@ -19,7 +19,7 @@
 
     Char arrays are zero-terminated if data is shorter than array, but
     generally are not; so an appropriate max len argument must be used,
-    e.g. `CC_MAX_LEN_STR_8`.
+    e.g. `CC_MAX_LEN_CHAR_8`.
 
     All functions which return allocated string, return them zero-terminated.
 
@@ -44,12 +44,12 @@
 /**
     Size of an 8 char array.
 */
-#define CC_STR_8_SIZE (8)
+#define CC_CHAR_8_SIZE (8)
 
 /**
     Maximum length of an 8 char array.
 */
-#define CC_MAX_LEN_STR_8 (8)
+#define CC_MAX_LEN_CHAR_8 (8)
 
 
 /**
@@ -65,7 +65,7 @@ typedef int (*cc_ctype_fp_ischar_t)( int ch );
 /**
     A char array type, size 8.
 */
-typedef char str_8 [ CC_STR_8_SIZE ];
+typedef char char_8 [ CC_CHAR_8_SIZE ];
 
 
 /**
