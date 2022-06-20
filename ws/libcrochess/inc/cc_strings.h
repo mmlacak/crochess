@@ -101,12 +101,20 @@ CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
                                               char const * restrict fmt, ... );
 
 /**
+    Duplicates all strings in a linked list.
+
+    @param strings Linked list of strings.
+
+    @return Pointer to a newly allocated linked list if successful, `NULL` otherwise.
+*/
+CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings );
+
+/**
     Frees all strings, and associated resources, in a linked list.
 
     @param strings__f Linked list of strings.
 
     @return `true` if successful, `false` otherwise.
-
 */
 bool cc_strings_free_all( CcStrings ** restrict strings__f );
 

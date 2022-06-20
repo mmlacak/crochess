@@ -30,8 +30,8 @@ CcStrings * cc_strings__new( char const * restrict str,
 }
 
 CcStrings * cc_strings_append( CcStrings * restrict strings__io,
-                                  char const * restrict str,
-                                  size_t max_len__d )
+                               char const * restrict str,
+                               size_t max_len__d )
 {
     if ( !strings__io ) return NULL;
 
@@ -79,6 +79,29 @@ CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
     CC_FREE( str__a );
 
     return pm__w;
+}
+
+CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings )
+{
+    if ( !strings ) return NULL;
+
+    CcStrings * new__t = cc_strings__new( strings->str, CC_MAX_LEN_ZERO_TERMINATED );
+    if ( !new__t ) return NULL;
+
+    CcStrings * s = strings->next;
+
+    while ( s )
+    {
+        if ( !cc_strings_append( new__t, s->str, CC_MAX_LEN_ZERO_TERMINATED ) )
+        {
+            cc_strings_free_all( &new__t );
+            return NULL;
+        }
+
+        ++s;
+    }
+
+    return new__t;
 }
 
 bool cc_strings_free_all( CcStrings ** restrict strings__f )
