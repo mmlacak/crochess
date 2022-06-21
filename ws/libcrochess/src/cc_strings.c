@@ -85,23 +85,23 @@ CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings )
 {
     if ( !strings ) return NULL;
 
-    CcStrings * new__t = cc_strings__new( strings->str, CC_MAX_LEN_ZERO_TERMINATED );
-    if ( !new__t ) return NULL;
+    CcStrings * new__a = cc_strings__new( strings->str, CC_MAX_LEN_ZERO_TERMINATED );
+    if ( !new__a ) return NULL;
 
     CcStrings * s = strings->next;
 
     while ( s )
     {
-        if ( !cc_strings_append( new__t, s->str, CC_MAX_LEN_ZERO_TERMINATED ) )
+        if ( !cc_strings_append( new__a, s->str, CC_MAX_LEN_ZERO_TERMINATED ) )
         {
-            cc_strings_free_all( &new__t );
+            cc_strings_free_all( &new__a );
             return NULL;
         }
 
         ++s;
     }
 
-    return new__t;
+    return new__a;
 }
 
 bool cc_strings_free_all( CcStrings ** restrict strings__f )
