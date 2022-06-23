@@ -51,11 +51,14 @@ CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
 {
     if ( !strings__io ) return NULL;
 
-    CcStrings * str__t = cc_strings_append( *strings__io, str, max_len__d );
+    CcStrings * str__w = NULL;
 
-    if ( !*strings__io ) *strings__io = str__t; // Ownership transfer --> str__t is now weak pointer.
+    if ( !*strings__io )
+        *strings__io = str__w = cc_strings__new( str, max_len__d );
+    else
+        str__w = cc_strings_append( *strings__io, str, max_len__d );
 
-    return str__t;
+    return str__w;
 }
 
 CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,

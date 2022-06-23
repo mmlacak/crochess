@@ -110,17 +110,3 @@ bool cc_game_free_all( CcGame ** restrict game__f )
 
     return result;
 }
-
-
-// TODO :: add status parameter --> move to rules
-bool cc_do_move( char const * restrict move_an_str,
-                 CcChessboard * restrict cb__io )
-{
-    if ( !move_an_str ) return false;
-    if ( !cb__io ) return false;
-
-    // TODO
-
-    return false;
-}
-// TODO :: add status parameter --> move to rules

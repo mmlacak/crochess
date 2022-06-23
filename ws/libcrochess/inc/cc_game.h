@@ -127,18 +127,4 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
 bool cc_game_free_all( CcGame ** restrict game__f );
 
 
-
-// TODO :: add status parameter --> move to rules
-/**
-    Applies a move (algebraic notation string) to a chessboard.
-
-    @param move_an_str A complete move, algebraic notation string.
-    @param cb__io An _input/output_ parameter, chessboard to be altered.
-
-    @return `true` if successful, `false` otherwise.
-*/
-bool cc_do_move( char const * restrict move_an_str,
-                 CcChessboard * restrict cb__io );
-// TODO :: add status parameter --> move to rules
-
 #endif /* __CC_GAME_H__ */

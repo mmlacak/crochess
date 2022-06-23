@@ -53,11 +53,14 @@ CcParseMsg * cc_parse_msg_append_or_init( CcParseMsg ** restrict parse_msgs__io,
 {
     if ( !parse_msgs__io ) return NULL;
 
-    CcParseMsg * pm__t = cc_parse_msg_append( *parse_msgs__io, type, msg, max_len__d );
+    CcParseMsg * pm__w = NULL;
 
-    if ( !*parse_msgs__io ) *parse_msgs__io = pm__t; // Ownership transfer --> pm__t is now weak pointer.
+    if ( !*parse_msgs__io )
+        *parse_msgs__io = pm__w = cc_parse_msg__new( type, msg, max_len__d );
+    else
+        pm__w = cc_parse_msg_append( *parse_msgs__io, type, msg, max_len__d );
 
-    return pm__t;
+    return pm__w;
 }
 
 CcParseMsg * cc_parse_msg_append_or_init_format( CcParseMsg ** restrict parse_msgs__io,
