@@ -668,11 +668,18 @@ like so:
 \algcyc{71.}{Nb3+(=)}{...}{Light player offers draw.}
 \algcycparend
 
-Accepted draw offer is noted with \alg{(==)} (two equal signs in brackets) as a
-complete move, this ends a game, like so:
+Draw offer can be accepted, as long as draw offer is valid, i.e. not canceled, by writing
+\alg{(==)} (two equal signs in brackets) as a complete move, which ends a game, like so:
 
 \algcycpar
 \algcyc{82.}{...}{(==)}{Dark player accepts draw offer.}
+\algcycparend
+
+Draw offer can be canceled by writing \alg{(-)} (minus sign in brackets), after a complete
+move, like so:
+
+\algcycpar
+\algcyc{79.}{Bc7+(-)}{...}{Light player cancels draw offer.}
 \algcycparend
 
 Forced draw, i.e. draw by rules, is written with \alg{(===)} (three equal signs in
@@ -682,8 +689,10 @@ brackets) as a complete move, this also ends a game, like so:
 \algcyc{82.}{...}{(===)}{Draw forced, by the rules.}
 \algcycparend
 
-In \algfmt{NAN} checks and draw offers are optional; checkmates, self-checkmates,
-resigns, accepted and forced draws are all mandatory, to set game score end.
+In \algfmt{NAN} checks are optional; checkmates, self-checkmates, resigns, accepted
+and forced draws are all mandatory, to set game score end. Draw offers, cancelations
+are mandatory to set limits within which draw offer is valid, and can be accepted by
+the opponent.
 
 Annotations are written at the end of a complete move, draw offer, e.g. \alg{ef8*!},
 \alg{Nb3(=)=}. It is recommended to use \alg{\_} (underscore) to separate \algfmt{AN}
@@ -924,7 +933,8 @@ new information.
 \alg{\#}             & checkmate                      \\
 \alg{\#}             & self-checkmate                 \\
 \alg{\#\#}           & resign                         \\ \cmidrule{1-2}
-\alg{(=)}            & draw offer                     \\
+\alg{(=)}            & draw offered                   \\
+\alg{(-)}            & draw offer withdrawn           \\
 \alg{(==)}           & draw accepted                  \\
 \alg{(===)}          & draw by rules                  \\ \cmidrule{1-2}
 \alg{\_}             & annotations separator          \\
@@ -939,8 +949,14 @@ Check notation is optional in \algfmt{NAN}, just like in \algfmt{CAN}, see
 \algfmt{FIDE C.9}. Checkmate, self-checkmate and resign notations are mandatory,
 to note end of a game score (list of moves by both players).
 
-Draw offer notation is optional in \algfmt{NAN}; accepted draw and draw by
-rules notations are mandatory, since they also note end of a game score.
+All of draw notations are mandatory in \algfmt{NAN}; offering draw and canceling
+offer because they give an opportunity window within which draw offer can be
+accepted by the opponent. Accepted draw and draw by rules notations are mandatory,
+since they also note end of a game score.
+
+Draw offer does not expire, and can be issued multiple times. If a draw offer is
+not valid anymore it has to be canceled; a single \alg{(-)} cancels draw offer,
+regardless how many times it was offered prior to cancelation.
 
 \clearpage % ..........................................................
 
@@ -1628,8 +1644,10 @@ are available for a particular variant see
 
 <status> = ?
          | \alg{+}[\alg{(=)}]
+         | \alg{+}[\alg{(-)}]
          | \alg{#}
          | \alg{(=)}
+         | \alg{(-)}
 
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]
