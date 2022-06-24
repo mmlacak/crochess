@@ -2,9 +2,42 @@
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <ctype.h>
+#include <stdarg.h>
 
 #include "cc_str_utils.h"
 #include "cc_rules.h"
+
+
+static bool cc_check_move_precondition( char const char_an,
+                                        CcGame * restrict game,
+                                        CcParseMsg ** restrict parse_msgs__io,
+                                        size_t max_len__d,
+                                        char const * restrict msg, ... )
+{
+    // if ( !game ) return false;
+
+    // if ( !game->chessboard ) return false;
+    // if ( !game->moves ) return false;
+
+    // if ( !parse_msgs__io ) return false;
+
+    if ( iscntrl( char_an ) || isspace( char_an ) )
+    {
+        game->status = cc_game_status_next( game->status, true, true );
+        return true;
+    }
+    else
+    {
+        va_list args;
+        va_start( args, msg );
+
+        cc_parse_msg_append_or_init_format( parse_msgs__io, CC_PMTE_Error, max_len__d, msg, args );
+
+        va_end( args );
+
+        return false;
+    }
+}
 
 
 bool cc_make_move( char const * restrict move_an_str,
@@ -38,19 +71,44 @@ bool cc_make_move( char const * restrict move_an_str,
     {
         ++m;
 
-        if ( iscntrl( *m ) || isspace( *m ) )
+        if ( *m == '#' )
         {
-            g->status = cc_game_status_next( g->status, true, true );
-            return true;
+            ++m;
+
+            // if ( iscntrl( *m ) || isspace( *m ) )
+            // {
+            //     g->status = cc_game_status_next( g->status, true, true );
+            //     return true;
+            // }
+            // else
+            // {
+            //     cc_parse_msg_append_or_init_format( parse_msgs__io,
+            //                                         CC_PMTE_Error,
+            //                                         CC_MAX_LEN_ZERO_TERMINATED,
+            //                                         "Invalid char(s) after resign." );
+            //     return false;
+            // }
+            return cc_check_move_precondition( *m, g, parse_msgs__io,
+                                               CC_MAX_LEN_ZERO_TERMINATED,
+                                               "Invalid char(s) after resign." );
         }
-        else
-        {
-            cc_parse_msg_append_or_init_format( parse_msgs__io,
-                                                CC_PMTE_Error,
-                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Invalid char(s) after self-checkmate." );
-            return false;
-        }
+
+        // if ( iscntrl( *m ) || isspace( *m ) )
+        // {
+        //     g->status = cc_game_status_next( g->status, true, true );
+        //     return true;
+        // }
+        // else
+        // {
+        //     cc_parse_msg_append_or_init_format( parse_msgs__io,
+        //                                         CC_PMTE_Error,
+        //                                         CC_MAX_LEN_ZERO_TERMINATED,
+        //                                         "Invalid char(s) after self-checkmate." );
+        //     return false;
+        // }
+        return cc_check_move_precondition( *m, g, parse_msgs__io,
+                                           CC_MAX_LEN_ZERO_TERMINATED,
+                                           "Invalid char(s) after self-checkmate." );
     }
 
 

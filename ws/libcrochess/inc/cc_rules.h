@@ -23,4 +23,5 @@ bool cc_make_move( char const * restrict move_an_str,
                    CcParseMsg ** restrict parse_msgs__io );
 
 
+
 #endif /* __CC_RULES_H__ */
