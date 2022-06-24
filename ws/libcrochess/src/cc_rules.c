@@ -11,6 +11,9 @@
 static bool cc_check_move_precondition( char const char_an,
                                         CcGame * restrict game__io,
                                         CcParseMsg ** restrict parse_msgs__io,
+                                        bool is_resign,
+                                        bool is_end,
+                                        bool is_won,
                                         size_t max_len__d,
                                         char const * restrict msg, ... )
 {
@@ -24,7 +27,11 @@ static bool cc_check_move_precondition( char const char_an,
 
     if ( iscntrl( char_an ) || isspace( char_an ) )
     {
-        game__io->status = cc_game_status_next( game__io->status, true, true );
+        if ( is_resign )
+            game__io->status = cc_game_resign( game__io->status );
+        else
+            game__io->status = cc_game_status_next( game__io->status, is_end, is_won );
+
         return true;
     }
     else
@@ -72,12 +79,12 @@ bool cc_make_move( char const * restrict move_an_str,
     {
         if ( *++m == '#' )
         {
-            return cc_check_move_precondition( *++m, g, parse_msgs__io,
+            return cc_check_move_precondition( *++m, g, parse_msgs__io, true, true, false,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Invalid char(s) after resign." );
         }
 
-        return cc_check_move_precondition( *m, g, parse_msgs__io,
+        return cc_check_move_precondition( *m, g, parse_msgs__io, false, true, true,
                                            CC_MAX_LEN_ZERO_TERMINATED,
                                            "Invalid char(s) after self-checkmate." );
     }
@@ -90,7 +97,7 @@ bool cc_make_move( char const * restrict move_an_str,
             {
                 if ( *++m == ')' )
                 {
-                    return cc_check_move_precondition( *++m, g, parse_msgs__io,
+                    return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
                                                        CC_MAX_LEN_ZERO_TERMINATED,
                                                        "Invalid char(s) after accepted draw." );
                 }
@@ -98,7 +105,7 @@ bool cc_make_move( char const * restrict move_an_str,
                 {
                     if ( *++m == ')' )
                     {
-                        return cc_check_move_precondition( *++m, g, parse_msgs__io,
+                        return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
                                                            CC_MAX_LEN_ZERO_TERMINATED,
                                                            "Invalid char(s) after draw by rules." );
                     }
