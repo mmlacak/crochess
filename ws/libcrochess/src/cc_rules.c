@@ -9,21 +9,22 @@
 
 
 static bool cc_check_move_precondition( char const char_an,
-                                        CcGame * restrict game,
+                                        CcGame * restrict game__io,
                                         CcParseMsg ** restrict parse_msgs__io,
                                         size_t max_len__d,
                                         char const * restrict msg, ... )
 {
-    // if ( !game ) return false;
+    // if ( !game__io ) return false;
 
-    // if ( !game->chessboard ) return false;
-    // if ( !game->moves ) return false;
+    // if ( !game__io->chessboard ) return false;
+    // if ( !game__io->moves ) return false;
 
     // if ( !parse_msgs__io ) return false;
+    // if ( !msg ) return false;
 
     if ( iscntrl( char_an ) || isspace( char_an ) )
     {
-        game->status = cc_game_status_next( game->status, true, true );
+        game__io->status = cc_game_status_next( game__io->status, true, true );
         return true;
     }
     else
@@ -69,47 +70,49 @@ bool cc_make_move( char const * restrict move_an_str,
 
     if ( *m == '#' )
     {
-        ++m;
-
-        if ( *m == '#' )
+        if ( *++m == '#' )
         {
-            ++m;
-
-            // if ( iscntrl( *m ) || isspace( *m ) )
-            // {
-            //     g->status = cc_game_status_next( g->status, true, true );
-            //     return true;
-            // }
-            // else
-            // {
-            //     cc_parse_msg_append_or_init_format( parse_msgs__io,
-            //                                         CC_PMTE_Error,
-            //                                         CC_MAX_LEN_ZERO_TERMINATED,
-            //                                         "Invalid char(s) after resign." );
-            //     return false;
-            // }
-            return cc_check_move_precondition( *m, g, parse_msgs__io,
+            return cc_check_move_precondition( *++m, g, parse_msgs__io,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Invalid char(s) after resign." );
         }
 
-        // if ( iscntrl( *m ) || isspace( *m ) )
-        // {
-        //     g->status = cc_game_status_next( g->status, true, true );
-        //     return true;
-        // }
-        // else
-        // {
-        //     cc_parse_msg_append_or_init_format( parse_msgs__io,
-        //                                         CC_PMTE_Error,
-        //                                         CC_MAX_LEN_ZERO_TERMINATED,
-        //                                         "Invalid char(s) after self-checkmate." );
-        //     return false;
-        // }
         return cc_check_move_precondition( *m, g, parse_msgs__io,
                                            CC_MAX_LEN_ZERO_TERMINATED,
                                            "Invalid char(s) after self-checkmate." );
     }
+
+    if ( *m == '(' )
+    {
+        if ( *++m == '=' )
+        {
+            if ( *++m == '=' )
+            {
+                if ( *++m == ')' )
+                {
+                    return cc_check_move_precondition( *++m, g, parse_msgs__io,
+                                                       CC_MAX_LEN_ZERO_TERMINATED,
+                                                       "Invalid char(s) after accepted draw." );
+                }
+                else if ( *m == '=' )
+                {
+                    if ( *++m == ')' )
+                    {
+                        return cc_check_move_precondition( *++m, g, parse_msgs__io,
+                                                           CC_MAX_LEN_ZERO_TERMINATED,
+                                                           "Invalid char(s) after draw by rules." );
+                    }
+                }
+            }
+        }
+
+        cc_parse_msg_append_or_init_format( parse_msgs__io,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Invalid char(s) within draw." );
+        return false;
+    }
+
 
 
     // TODO
