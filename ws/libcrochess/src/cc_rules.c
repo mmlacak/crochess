@@ -66,10 +66,14 @@ bool cc_make_move( char const * restrict move_an_str,
 
     if ( !CC_GAME_STATUS_IS_TURN( g->status ) )
     {
+        char const * msg =
+            ( g->status == CC_GSE_None ) ? "Game is not initialized."
+                                         : "Game is finished.";
+
         cc_parse_msg_append_or_init_format( parse_msgs__io,
                                             CC_PMTE_Error,
                                             CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Game is finished." );
+                                            msg );
         return false;
     }
 
@@ -97,26 +101,31 @@ bool cc_make_move( char const * restrict move_an_str,
             {
                 if ( *++m == ')' )
                 {
+                    // TODO :: check for the latest draw offer, cancelation by opponent
+
                     return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
                                                        CC_MAX_LEN_ZERO_TERMINATED,
                                                        "Invalid char(s) after accepted draw." );
                 }
-                else if ( *m == '=' )
-                {
-                    if ( *++m == ')' )
-                    {
-                        return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
-                                                           CC_MAX_LEN_ZERO_TERMINATED,
-                                                           "Invalid char(s) after draw by rules." );
-                    }
-                }
+                // <i> Draw-by-rules should be issued by arbiter, not players;
+                //     i.e. should be issued by server, not clients.
+                //
+                // else if ( *m == '=' )
+                // {
+                //     if ( *++m == ')' )
+                //     {
+                //         return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
+                //                                            CC_MAX_LEN_ZERO_TERMINATED,
+                //                                            "Invalid char(s) after draw by rules." );
+                //     }
+                // }
             }
         }
 
         cc_parse_msg_append_or_init_format( parse_msgs__io,
                                             CC_PMTE_Error,
                                             CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Invalid char(s) within draw." );
+                                            "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players." );
         return false;
     }
 
