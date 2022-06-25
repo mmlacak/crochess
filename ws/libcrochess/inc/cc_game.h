@@ -6,7 +6,7 @@
 
 #include <stdbool.h>
 
-#include "cc_strings.h"
+#include "cc_moves.h"
 #include "cc_chessboard.h"
 
 /**
@@ -87,7 +87,7 @@ typedef struct CcGame
 {
     CcGameStatusEnum status; /**< Current game status. */
     CcChessboard * chessboard; /**< Current position on a chessboard. */
-    CcStrings * moves; /**< Linked list of moves played so far. */
+    CcMoves * moves; /**< Linked list of moves played so far. */
 } CcGame;
 
 /**

@@ -63,6 +63,29 @@ CcMoves * cc_moves_append_or_init( CcMoves ** restrict moves__io,
     return mv__w;
 }
 
+CcMoves * cc_moves_duplicate_all__new( CcMoves * restrict moves )
+{
+    if ( !moves ) return NULL;
+
+    CcMoves * new__a = cc_moves__new( moves->an, CC_MAX_LEN_ZERO_TERMINATED );
+    if ( !new__a ) return NULL;
+
+    CcMoves * m = moves->next;
+
+    while ( m )
+    {
+        if ( !cc_moves_append( new__a, m->an, CC_MAX_LEN_ZERO_TERMINATED ) )
+        {
+            cc_moves_free_all( &new__a );
+            return NULL;
+        }
+
+        ++m;
+    }
+
+    return new__a;
+}
+
 bool cc_moves_free_all( CcMoves ** restrict moves__f )
 {
     if ( !moves__f ) return false;

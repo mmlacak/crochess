@@ -76,6 +76,15 @@ CcMoves * cc_moves_append_or_init( CcMoves ** restrict moves__io,
                                    size_t max_len__d );
 
 /**
+    Duplicates all moves in a queue.
+
+    @param moves Queue of moves.
+
+    @return Pointer to a newly allocated queue if successful, `NULL` otherwise.
+*/
+CcMoves * cc_moves_duplicate_all__new( CcMoves * restrict moves );
+
+/**
     Frees all moves, and associated resources, in a queue.
 
     @param moves__f Queue of moves.
