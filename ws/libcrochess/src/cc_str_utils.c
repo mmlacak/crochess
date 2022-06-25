@@ -224,53 +224,6 @@ int cc_str_len_format( char const * restrict fmt, ... )
     return len;
 }
 
-// TODO :: DESIGN :: more like starts_with, than compare
-//
-// bool cc_str_compare( char const * restrict first_1,
-//                      char const * restrict end_1__d,
-//                      char const * restrict first_2,
-//                      char const * restrict end_2__d,
-//                      size_t max_len__d,
-//                      long long * restrict index__o )
-// {
-//     if ( !first_1 ) return false;
-//     if ( !first_2 ) return false;
-
-//     char const * str_1 = first_1;
-//     char const * last_1 = ( end_1__d ) ? end_1__d - 1 : NULL;
-//     char const * str_2 = first_2;
-//     char const * last_2 = ( end_2__d ) ? end_2__d - 1 : NULL;
-//     size_t index = 1;
-
-//     while ( ( *str_1 != '\0' )
-//          && ( *str_2 != '\0' )
-//          && ( ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) || ( index < max_len__d ) ) )
-//     {
-//         if ( last_1 && ( str_1 >= last_1 ) )
-//             break;
-
-//         if ( last_2 && ( str_2 >= last_2 ) )
-//             break;
-
-//         if ( *str_1 != *str_2 )
-//             break;
-
-//         ++index;
-//         ++str_1;
-//         ++str_2;
-//     }
-
-//     *index__o =
-//         ( *str_1 == *str_2 ) ? 0
-//                              : ( *str_1 < *str_2 ) ? (long long)(-index)
-//                                                    : (long long)index;
-
-//     return true;
-// }
-//
-// TODO :: DESIGN :: more like starts_with, than compare
-
-
 bool cc_str_is_equal( char const * restrict first_1,
                       char const * restrict end_1__d,
                       char const * restrict first_2,
@@ -288,52 +241,6 @@ bool cc_str_is_equal( char const * restrict first_1,
     int res = strncmp( first_1, first_2, len_1 );
     return ( res == 0 );
 }
-
-// TODO :: DESIGN :: more like ends_with, than compare
-//
-// bool cc_str_compare_reverse( char const * restrict first_1,
-//                              char const * restrict end_1__d,
-//                              char const * restrict first_2,
-//                              char const * restrict end_2__d,
-//                              size_t max_len__d,
-//                              long long * restrict index__o )
-// {
-//     if ( !first_1 ) return false;
-//     if ( !first_2 ) return false;
-
-//     size_t len_1 = cc_str_len( first_1, end_1__d, max_len__d );
-//     size_t len_2 = cc_str_len( first_2, end_2__d, max_len__d );
-
-//     size_t len = CC_MIN( len_1, len_2 );
-//     if ( len == 0 ) return false;
-
-//     size_t index = 0;
-
-//     char * end_1 = first_1 + len_1;
-//     if ( *end_1 == '\0' ) --end_1;
-
-//     char * end_2 = first_2 + len_2;
-//     if ( *end_2 == '\0' ) --end_2;
-
-//     while ( index < len )
-//     {
-//         if ( *end_1 != *end_2 )
-//             break;
-
-//         ++index;
-//         --end_1;
-//         --end_2;
-//     }
-
-//     *index__o =
-//         ( *end_1 == *end_2 ) ? 0
-//                              : ( *end_1 < *end_2 ) ? (long long)(-index)
-//                                                    : (long long)index;
-
-//     return true;
-// }
-//
-// TODO :: DESIGN :: more like ends_with, than compare
 
 
 size_t cc_str_copy( char const * restrict first,

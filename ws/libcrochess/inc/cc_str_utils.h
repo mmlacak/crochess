@@ -190,51 +190,6 @@ size_t cc_str_len( char const * restrict first,
 */
 int cc_str_len_format( char const * restrict fmt, ... );
 
-// TODO :: DESIGN :: more like starts_with, than compare
-//
-// /**
-//     Compares two (sub-)strings, returns index of a first difference.
-
-//     @param first_1 A first character of a first (sub-)string.
-//     @param end_1__d An _optional_ parameter, end of a first (sub-)string, can be `NULL`.
-//     @param first_2 A first character of a second (sub-)string.
-//     @param end_2__d An _optional_ parameter, end of a second (sub-)string, can be `NULL`.
-//     @param max_len__d An _optional_ parameter, maximum length of a strings to check. Can be `0`, if so strings are checked in their entirety.
-//     @param index__o An _output_ parameter, index of a first difference found.
-
-//     @note
-//     End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
-//     If not given, string(s) are tested until terminating character (``'\0'``) is encountered.
-
-//     @note
-//     _Output_ argument contains index of a characters that differ,
-//     zero if given strings are equal.
-
-//     @note
-//     Index will be negative if, in lexographical order, first string preceedes second;
-//     positive if otherwise.
-
-//     @warning
-//     If strings are different, index starts at `1`, not `0`.
-//     To fetch first pair of characters that differ, use:
-//     ~~~{.c}
-//     char c1 = first_1[ llabs(index__o) - 1 ];
-//     char c2 = first_2[ llabs(index__o) - 1 ];
-//     ~~~
-
-//     @return `true` if successful, `false` otherwise.
-//     Index of a first difference found is returned via _output_ parameter `index__o`.
-// */
-// bool cc_str_compare( char const * restrict first_1,
-//                      char const * restrict end_1__d,
-//                      char const * restrict first_2,
-//                      char const * restrict end_2__d,
-//                      size_t max_len__d,
-//                      long long * restrict index__o );
-//
-// TODO :: DESIGN :: more like starts_with, than compare
-
-
 /**
     Function checks if two (sub-)strings are equal, up to a given maximum length.
 
@@ -255,17 +210,6 @@ bool cc_str_is_equal( char const * restrict first_1,
                       char const * restrict first_2,
                       char const * restrict end_2__d,
                       size_t max_len__d );
-
-// TODO :: DESIGN :: more like ends_with, than compare
-//
-// bool cc_str_compare_reverse( char const * restrict first_1,
-//                              char const * restrict end_1__d,
-//                              char const * restrict first_2,
-//                              char const * restrict end_2__d,
-//                              size_t max_len__d,
-//                              long long * restrict index__o );
-//
-// TODO :: DESIGN :: more like ends_with, than compare
 
 
 /**
