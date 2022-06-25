@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "cc_defines.h"
 #include "cc_str_utils.h"
 
 #include "test_msgs.h"
@@ -104,16 +105,16 @@ bool test_msg_free_all( TestMsg ** restrict test_msgs__f )
     if ( !*test_msgs__f ) return true;
 
     TestMsg * tm = *test_msgs__f;
+    TestMsg * tmp = NULL;
 
     while ( tm )
     {
-        // free() doesn't do pointers to const.
-        free( (char *)tm->msg );
-        free( (char *)tm->file );
-        free( (char *)tm->func );
+        CC_FREE( tm->msg );
+        CC_FREE( tm->file );
+        CC_FREE( tm->func );
 
-        TestMsg * tmp = tm->next;
-        free( tm );
+        tmp = tm->next;
+        CC_FREE( tm );
         tm = tmp;
     }
 

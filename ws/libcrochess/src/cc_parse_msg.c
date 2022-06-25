@@ -93,12 +93,13 @@ bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f )
     if ( !*parse_msgs__f ) return true;
 
     CcParseMsg * pm = *parse_msgs__f;
+    CcParseMsg * tmp = NULL;
 
     while ( pm )
     {
         CC_FREE( pm->msg );
 
-        CcParseMsg * tmp = pm->next;
+        tmp = pm->next;
         CC_FREE( pm );
         pm = tmp;
     }

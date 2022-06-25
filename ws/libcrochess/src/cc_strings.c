@@ -113,12 +113,13 @@ bool cc_strings_free_all( CcStrings ** restrict strings__f )
     if ( !*strings__f ) return true;
 
     CcStrings * str = *strings__f;
+    CcStrings * tmp = NULL;
 
     while ( str )
     {
         CC_FREE( str->str );
 
-        CcStrings * tmp = str->next;
+        tmp = str->next;
         CC_FREE( str );
         str = tmp;
     }

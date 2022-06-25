@@ -92,10 +92,11 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f )
     if ( !*pos_link__f ) return true;
 
     CcPosLink * pl = *pos_link__f;
+    CcPosLink * tmp = NULL;
 
     while ( pl )
     {
-        CcPosLink * tmp = pl->next;
+        tmp = pl->next;
         CC_FREE( pl );
         pl = tmp;
     }
