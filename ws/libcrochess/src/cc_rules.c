@@ -5,6 +5,7 @@
 #include <stdarg.h>
 
 #include "cc_str_utils.h"
+#include "cc_rules_misc.h"
 #include "cc_rules.h"
 
 
@@ -92,8 +93,8 @@ bool cc_make_move( char const * restrict move_an_str,
         {
             // "#" self-checkmate
             return cc_check_move_precondition( *m, g, parse_msgs__io, false, true, true,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Invalid char(s) after self-checkmate." );
+                                               CC_MAX_LEN_ZERO_TERMINATED,
+                                               "Invalid char(s) after self-checkmate." );
         }
     }
 
@@ -107,11 +108,20 @@ bool cc_make_move( char const * restrict move_an_str,
                 {
                     // "(==)" draw offer accepted
 
-                    // TODO :: check for the latest draw offer, cancelation by opponent
-
-                    return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
-                                                       CC_MAX_LEN_ZERO_TERMINATED,
-                                                       "Invalid char(s) after accepted draw." );
+                    if ( cc_check_valid_draw_offer_exists( g->moves, g->status ) )
+                    {
+                        return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
+                                                           CC_MAX_LEN_ZERO_TERMINATED,
+                                                           "Invalid char(s) after accepted draw." );
+                    }
+                    else
+                    {
+                        cc_parse_msg_append_or_init_format( parse_msgs__io,
+                                                            CC_PMTE_Error,
+                                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                                            "No valid opponent's draw offer found." );
+                        return false;
+                    }
                 }
                 // <i> Draw-by-rules should be issued by arbiter, not players;
                 //     i.e. should be issued by server, not clients.

@@ -11,7 +11,7 @@
 
 
 bool cc_check_valid_draw_offer_exists( CcMoves * restrict moves,
-                                       CcGameStatusEnum player_to_play );
+                                       CcGameStatusEnum gse );
 
 
 
