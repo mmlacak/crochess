@@ -83,14 +83,18 @@ bool cc_make_move( char const * restrict move_an_str,
     {
         if ( *++m == '#' )
         {
+            // "##" resign
             return cc_check_move_precondition( *++m, g, parse_msgs__io, true, true, false,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Invalid char(s) after resign." );
         }
-
-        return cc_check_move_precondition( *m, g, parse_msgs__io, false, true, true,
-                                           CC_MAX_LEN_ZERO_TERMINATED,
-                                           "Invalid char(s) after self-checkmate." );
+        else
+        {
+            // "#" self-checkmate
+            return cc_check_move_precondition( *m, g, parse_msgs__io, false, true, true,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Invalid char(s) after self-checkmate." );
+        }
     }
 
     if ( *m == '(' )
@@ -101,6 +105,8 @@ bool cc_make_move( char const * restrict move_an_str,
             {
                 if ( *++m == ')' )
                 {
+                    // "(==)" draw offer accepted
+
                     // TODO :: check for the latest draw offer, cancelation by opponent
 
                     return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
@@ -114,6 +120,8 @@ bool cc_make_move( char const * restrict move_an_str,
                 // {
                 //     if ( *++m == ')' )
                 //     {
+                //         // "(===)" draw by rules
+                //
                 //         return cc_check_move_precondition( *++m, g, parse_msgs__io, false, true, false,
                 //                                            CC_MAX_LEN_ZERO_TERMINATED,
                 //                                            "Invalid char(s) after draw by rules." );

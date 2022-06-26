@@ -65,7 +65,7 @@ bool cc_variant_from_symbol( char const * restrict str,
         {
             ++s;
 
-            if ( *s == 'a' ||  *s == 'A' )
+            if ( *s == 'a' ||  *s == 'A' ) // "aoa"
                 ve = CC_VE_AgeOfAquarius;
         }
     }
@@ -73,45 +73,45 @@ bool cc_variant_from_symbol( char const * restrict str,
     {
         ++s;
 
-        if ( *s == 'c' ||  *s == 'C' )
+        if ( *s == 'c' ||  *s == 'C' ) // "cc"
             ve = CC_VE_ClassicalChess;
-        else if ( *s == 't' ||  *s == 'T' )
+        else if ( *s == 't' ||  *s == 'T' ) // "ct"
             ve = CC_VE_CroatianTies;
         else if ( *s == 'o' ||  *s == 'O' )
         {
             ++s;
 
-            if ( *s == 't' ||  *s == 'T' )
+            if ( *s == 't' ||  *s == 'T' ) // "cot"
                 ve = CC_VE_ConquestOfTlalocan;
         }
     }
-    else if ( *s == 'd' ||  *s == 'D' )
+    else if ( *s == 'd' ||  *s == 'D' ) // "d"
         ve = CC_VE_Discovery;
     else if ( *s == 'h' ||  *s == 'H' )
     {
         ++s;
 
-        if ( *s == 'd' ||  *s == 'D' )
+        if ( *s == 'd' ||  *s == 'D' ) // "hd"
             ve = CC_VE_HemerasDawn;
     }
     else if ( *s == 'm' ||  *s == 'M' )
     {
         ++s;
 
-        if ( *s == 'a' ||  *s == 'A' )
+        if ( *s == 'a' ||  *s == 'A' ) // "ma"
             ve = CC_VE_MayanAscendancy;
-        else if ( *s == 'v' ||  *s == 'V' )
+        else if ( *s == 'v' ||  *s == 'V' ) // "mv"
             ve = CC_VE_MirandasVeil;
     }
-    else if ( *s == 'n' ||  *s == 'N' )
+    else if ( *s == 'n' ||  *s == 'N' ) // "n"
         ve = CC_VE_Nineteen;
-    else if ( *s == 'o' ||  *s == 'O' )
+    else if ( *s == 'o' ||  *s == 'O' ) // "o"
         ve = CC_VE_One;
     else if ( *s == 't' ||  *s == 'T' )
     {
         ++s;
 
-        if ( *s == 'r' ||  *s == 'R' )
+        if ( *s == 'r' ||  *s == 'R' ) // "tr"
             ve = CC_VE_TamoanchanRevisited;
     }
 
