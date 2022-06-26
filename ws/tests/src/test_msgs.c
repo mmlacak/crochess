@@ -10,7 +10,7 @@
 #include "test_msgs.h"
 
 
-char * test_msg_enum_label( TestMsgEnum tme )
+char * test_msgs_enum_label( TestMsgEnum tme )
 {
     switch ( tme )
     {
@@ -35,7 +35,7 @@ bool test_print_failure( bool expr,
 
     if ( !result )
     {
-        printf( "%s: %s; in %s(), at %s[%lu].\n", test_msg_enum_label( type ), msg, func, file, line );
+        printf( "%s: %s; in %s(), at %s[%lu].\n", test_msgs_enum_label( type ), msg, func, file, line );
         fflush( stdout );
     }
 
@@ -43,13 +43,13 @@ bool test_print_failure( bool expr,
 }
 
 
-TestMsg * test_msg__new( TestMsgEnum type,
-                         char const * restrict msg,
-                         char const * restrict file,
-                         size_t line,
-                         char const * restrict func )
+TestMsgs * test_msgs__new( TestMsgEnum type,
+                           char const * restrict msg,
+                           char const * restrict file,
+                           size_t line,
+                           char const * restrict func )
 {
-    TestMsg * new = malloc( sizeof( TestMsg ) );
+    TestMsgs * new = malloc( sizeof( TestMsgs ) );
     if ( !new ) return NULL;
 
     new->type = type;
@@ -64,48 +64,48 @@ TestMsg * test_msg__new( TestMsgEnum type,
     return new;
 }
 
-TestMsg * test_msg_append( TestMsg * restrict test_msgs,
-                           TestMsgEnum type,
-                           char const * restrict msg,
-                           char const * restrict file,
-                           size_t line,
-                           char const * restrict func )
+TestMsgs * test_msgs_append( TestMsgs * restrict test_msgs,
+                             TestMsgEnum type,
+                             char const * restrict msg,
+                             char const * restrict file,
+                             size_t line,
+                             char const * restrict func )
 {
     if ( !test_msgs ) return NULL;
 
-    TestMsg * new = test_msg__new( type, msg, file, line, func );
+    TestMsgs * new = test_msgs__new( type, msg, file, line, func );
     if ( !new ) return NULL;
 
-    TestMsg * tm = test_msgs;
+    TestMsgs * tm = test_msgs;
     while ( tm->next ) tm = tm->next; // rewind
     tm->next = new; // append
 
     return new;
 }
 
-TestMsg * test_msg_init_or_append( TestMsg ** restrict test_msgs,
-                                   TestMsgEnum type,
-                                   char const * restrict msg,
-                                   char const * restrict file,
-                                   size_t line,
-                                   char const * restrict func )
+TestMsgs * test_msgs_init_or_append( TestMsgs ** restrict test_msgs,
+                                     TestMsgEnum type,
+                                     char const * restrict msg,
+                                     char const * restrict file,
+                                     size_t line,
+                                     char const * restrict func )
 {
     if ( !test_msgs ) return NULL;
 
-    TestMsg * new = test_msg_append( *test_msgs, type, msg, file, line, func );
+    TestMsgs * new = test_msgs_append( *test_msgs, type, msg, file, line, func );
 
     if ( !*test_msgs ) *test_msgs = new;
 
     return new;
 }
 
-bool test_msg_free_all( TestMsg ** restrict test_msgs__f )
+bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f )
 {
     if ( !test_msgs__f ) return false;
     if ( !*test_msgs__f ) return true;
 
-    TestMsg * tm = *test_msgs__f;
-    TestMsg * tmp = NULL;
+    TestMsgs * tm = *test_msgs__f;
+    TestMsgs * tmp = NULL;
 
     while ( tm )
     {
@@ -122,19 +122,19 @@ bool test_msg_free_all( TestMsg ** restrict test_msgs__f )
     return true;
 }
 
-bool test_msg_print_all( TestMsg * restrict test_msgs,
-                         TestMsgEnum level )
+bool test_msgs_print_all( TestMsgs * restrict test_msgs,
+                          TestMsgEnum level )
 {
     if ( !test_msgs ) return false;
 
-    TestMsg * tm = test_msgs;
+    TestMsgs * tm = test_msgs;
 
     while ( tm )
     {
         if ( tm->type >= level )
         {
             printf( "%s: %s; in %s(), at %s[%lu].\n",
-                    test_msg_enum_label( tm->type ),
+                    test_msgs_enum_label( tm->type ),
                     tm->msg,
                     tm->func,
                     tm->file,

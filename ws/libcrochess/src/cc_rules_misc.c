@@ -12,9 +12,9 @@
 #define CC_DRAW_OFFER_NOT_FOUND (0)
 #define CC_DRAW_OFFER_FOUND (1)
 
-static int cc_ends_with_draw_offer( char const * restrict an_start,
-                                    char const * restrict an_end__d,
-                                    size_t max_len__d )
+static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
+                                           char const * restrict an_end__d,
+                                           size_t max_len__d )
 {
     if ( !an_start ) return CC_DRAW_OFFER_NOT_FOUND;
 
@@ -69,9 +69,9 @@ bool cc_check_valid_draw_offer_exists( CcMoves * restrict moves,
 
     while ( m )
     {
-        draw_offer = cc_ends_with_draw_offer( m->an,
-                                              NULL,
-                                              CC_MAX_LEN_ZERO_TERMINATED );
+        draw_offer = cc_an_str_ends_with_draw_offer( m->an,
+                                                     NULL,
+                                                     CC_MAX_LEN_ZERO_TERMINATED );
 
         if ( draw_offer == CC_DRAW_OFFER_CANCELED )
             return false;

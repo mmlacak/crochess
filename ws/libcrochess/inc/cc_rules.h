@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 #include "cc_game.h"
-#include "cc_parse_msg.h"
+#include "cc_parse_msgs.h"
 
 
 // /**
@@ -20,7 +20,7 @@
 // */
 bool cc_make_move( char const * restrict move_an_str,
                    CcGame ** restrict game__io,
-                   CcParseMsg ** restrict parse_msgs__io );
+                   CcParseMsgs ** restrict parse_msgs__io );
 
 
 

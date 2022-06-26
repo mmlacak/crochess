@@ -11,7 +11,7 @@
 
 static bool cc_check_move_precondition( char const char_an,
                                         CcGame * restrict game__io,
-                                        CcParseMsg ** restrict parse_msgs__io,
+                                        CcParseMsgs ** restrict parse_msgs__io,
                                         bool is_resign,
                                         bool is_end,
                                         bool is_won,
@@ -40,7 +40,7 @@ static bool cc_check_move_precondition( char const char_an,
         va_list args;
         va_start( args, msg );
 
-        cc_parse_msg_append_or_init_format( parse_msgs__io, CC_PMTE_Error, max_len__d, msg, args );
+        cc_parse_msgs_append_or_init_format( parse_msgs__io, CC_PMTE_Error, max_len__d, msg, args );
 
         va_end( args );
 
@@ -51,9 +51,10 @@ static bool cc_check_move_precondition( char const char_an,
 
 bool cc_make_move( char const * restrict move_an_str,
                    CcGame ** restrict game__io,
-                   CcParseMsg ** restrict parse_msgs__io )
+                   CcParseMsgs ** restrict parse_msgs__io )
 {
     if ( !move_an_str ) return false;
+    if ( !parse_msgs__io ) return false;
 
     if ( !game__io ) return false;
     if ( !*game__io ) return false;
@@ -63,15 +64,13 @@ bool cc_make_move( char const * restrict move_an_str,
     if ( !g->chessboard ) return false;
     if ( !g->moves ) return false;
 
-    if ( !parse_msgs__io ) return false;
-
     if ( !CC_GAME_STATUS_IS_TURN( g->status ) )
     {
         char const * msg =
             ( g->status == CC_GSE_None ) ? "Game is not initialized."
                                          : "Game is finished.";
 
-        cc_parse_msg_append_or_init_format( parse_msgs__io,
+        cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                             CC_PMTE_Error,
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             msg );
@@ -116,7 +115,7 @@ bool cc_make_move( char const * restrict move_an_str,
                     }
                     else
                     {
-                        cc_parse_msg_append_or_init_format( parse_msgs__io,
+                        cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                                             CC_PMTE_Error,
                                                             CC_MAX_LEN_ZERO_TERMINATED,
                                                             "No valid opponent's draw offer found." );
@@ -140,7 +139,7 @@ bool cc_make_move( char const * restrict move_an_str,
             }
         }
 
-        cc_parse_msg_append_or_init_format( parse_msgs__io,
+        cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                             CC_PMTE_Error,
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players." );
