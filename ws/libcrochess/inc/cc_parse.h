@@ -4,6 +4,8 @@
 #ifndef __CC_PARSE_H__
 #define __CC_PARSE_H__
 
+#include <stddef.h>
+
 #include "cc_piece.h"
 #include "cc_pos.h"
 
@@ -11,6 +13,13 @@
     @file cc_parse.h
     @brief Functions separating a move (algebraic notation string) into list of enums, sub-strings.
 */
+
+
+// bool cc_parse_utils_char_is_ply_gather( char c )
+// {
+//     return ( ( c == '[' ) || ( c == ']' ) );
+// }
+#define CC_CHAR_IS_PLY_GATHER(char_c) ( ( char_c == '[' ) || ( char_c == ']' ) )
 
 
 /**
@@ -43,23 +52,26 @@ typedef enum CcPlyLinkEnum
 } CcPlyLinkEnum;
 
 
-/**
-    Ply algebraic notation structure.
-*/
-typedef struct CcPlyANs
-{
-    char * link_an_str; /**< A link, algebraic notation for cascading. Can be `NULL`, in which case `CC_PLE_Ply` is assumed. */
-    CcPlyLinkEnum link; /**< Type of a link between this ply and previous (if in a cascade).  */
+// /**
+//     Ply algebraic notation structure.
+// */
+// typedef struct CcPlyANs
+// {
+//     char * link_an_str; /**< A link, algebraic notation for cascading. Can be `NULL`, in which case `CC_PLE_Ply` is assumed. */
+//     CcPlyLinkEnum link; /**< Type of a link between this ply and previous (if in a cascade).  */
 
-    char * ply_an_str; /**< A ply, algebraic notation for a complete movement of a piece. */
-    CcPieceEnum piece; /**< A piece being moved in this ply. */
+//     char * ply_an_str; /**< A ply, algebraic notation for a complete movement of a piece. */
+//     CcPieceEnum piece; /**< A piece being moved in this ply. */
 
-    CcPos start; /**< Starting field; parsed, calculated, or copied from destination field of a previous ply. */
+//     CcPos start; /**< Starting field; parsed, calculated, or copied from destination field of a previous ply. */
 
-    // TODO :: not needed ?
-    //
-    // struct CcPlyANs * next; /**< Next ply in a cascade. */
-} CcPlyANs;
+//     // TODO :: not needed ?
+//     //
+//     // struct CcPlyANs * next; /**< Next ply in a cascade. */
+// } CcPlyANs;
+
+
+size_t cc_starts_with_ply_link_len( char const * restrict an_str );
 
 
 #endif /* __CC_PARSE_H__ */
