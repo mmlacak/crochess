@@ -15,10 +15,6 @@
 */
 
 
-// bool cc_parse_utils_char_is_ply_gather( char c )
-// {
-//     return ( ( c == '[' ) || ( c == ']' ) );
-// }
 #define CC_CHAR_IS_PLY_GATHER(char_c) ( ( char_c == '[' ) || ( char_c == ']' ) )
 
 
@@ -72,6 +68,9 @@ typedef enum CcPlyLinkEnum
 
 
 size_t cc_starts_with_ply_link_len( char const * restrict an_str );
+
+char const * cc_traverse_plies( char const * restrict an_str,
+                                bool skip_or_stop_at );
 
 
 #endif /* __CC_PARSE_H__ */

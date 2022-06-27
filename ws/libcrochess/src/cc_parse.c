@@ -38,3 +38,35 @@ size_t cc_starts_with_ply_link_len( char const * restrict an_str )
 
     return 0;
 }
+
+
+char const * cc_traverse_plies( char const * restrict an_str,
+                                bool skip_or_stop_at )
+{
+    if ( !an_str ) return NULL;
+
+    char const * str__w = an_str;
+
+    if ( skip_or_stop_at )
+    {
+        if ( *str__w != '\0' )
+            str__w += cc_starts_with_ply_link_len( str__w );
+    }
+    else
+        while ( ( *str__w != '\0' ) &&
+                ( cc_starts_with_ply_link_len( str__w ) == 0 ) )
+            ++str__w;
+
+    return str__w;
+}
+
+
+bool cc_ply_iter( char const * restrict first__io,
+                  char const * restrict end__io_d )
+{
+    if ( !first__io ) return false;
+    if ( !end__io_d ) end__io_d = first__io + 1;
+
+
+    return true;
+}
