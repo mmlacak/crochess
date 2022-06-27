@@ -59,26 +59,26 @@ char const * cc_traverse_plies( char const * restrict an_str,
 
 
 bool cc_ply_iter( char const * restrict an_str,
-                  char const ** restrict ply_first__io,
-                  char const ** restrict ply_end__io )
+                  char const ** restrict first__io,
+                  char const ** restrict end__io )
 {
     if ( !an_str ) return false;
-    if ( !ply_first__io ) return false;
-    if ( !ply_end__io ) return false;
+    if ( !first__io ) return false;
+    if ( !end__io ) return false;
 
-    if ( !( *ply_first__io ) && !( *ply_end__io ) )
-        *ply_first__io = an_str;
-    else if ( ( *ply_first__io ) && ( *ply_end__io ) )
-        *ply_first__io = cc_traverse_plies( *ply_end__io, false );
+    if ( !( *first__io ) && !( *end__io ) )
+        *first__io = an_str;
+    else if ( ( *first__io ) && ( *end__io ) )
+        *first__io = cc_traverse_plies( *end__io, false );
     else
         return false;
 
-    *ply_end__io = cc_traverse_plies( *ply_first__io, true );
-    *ply_end__io = cc_traverse_plies( *ply_end__io, false );
+    *end__io = cc_traverse_plies( *first__io, true );
+    *end__io = cc_traverse_plies( *end__io, false );
 
-    if ( ( **ply_first__io == '\0' ) || ( *ply_end__io == *ply_first__io ) )
+    if ( ( **first__io == '\0' ) || ( *end__io == *first__io ) )
     {
-        *ply_first__io = *ply_end__io = NULL;
+        *first__io = *end__io = NULL;
         return false;
     }
 

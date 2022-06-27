@@ -368,7 +368,9 @@ char * cc_str_concatenate__new( char const * restrict str_1__d,
 {
     size_t len_1 = cc_str_len( str_1__d, NULL, max_len__d );
     size_t len_2 = cc_str_len( str_2__d, NULL, max_len__d );
-    size_t len = ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( len_1 + len_2, max_len__d )
+
+    size_t len =
+        ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( len_1 + len_2, max_len__d )
                                                      : len_1 + len_2;
 
     char * str__a = (char *)malloc( len + 1 );
@@ -458,8 +460,10 @@ char * cc_str_append_format__new( char ** restrict str__f,
 
     va_end( tmp );
 
-    size_t len_min = ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
-                                                         : (size_t)len;
+    size_t len_min =
+        ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
+                                                     : (size_t)len;
+
     char * str__t = (char *)malloc( len_min + 1 );
     if ( !str__t )
     {
