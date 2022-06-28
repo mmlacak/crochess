@@ -9,7 +9,7 @@
 */
 
 
-size_t cc_starts_with_ply_link_len( char const * restrict an_str )
+size_t cc_starting_ply_link_len( char const * restrict an_str )
 {
     if ( !an_str ) return 0;
 
@@ -48,10 +48,10 @@ char const * cc_traverse_plies( char const * restrict an_str,
     char const * str__w = an_str;
 
     if ( skip_or_stop_at )
-        str__w += cc_starts_with_ply_link_len( str__w );
+        str__w += cc_starting_ply_link_len( str__w );
     else
         while ( ( *str__w != '\0' ) &&
-                ( cc_starts_with_ply_link_len( str__w ) == 0 ) )
+                ( cc_starting_ply_link_len( str__w ) == 0 ) )
             ++str__w;
 
     return str__w;

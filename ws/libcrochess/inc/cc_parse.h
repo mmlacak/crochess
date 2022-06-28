@@ -67,7 +67,7 @@ typedef enum CcPlyLinkEnum
 // } CcPlyANs;
 
 
-size_t cc_starts_with_ply_link_len( char const * restrict an_str );
+size_t cc_starting_ply_link_len( char const * restrict an_str );
 
 char const * cc_traverse_plies( char const * restrict an_str,
                                 bool skip_or_stop_at );
