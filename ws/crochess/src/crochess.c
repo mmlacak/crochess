@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.57:489+20220628.014623"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.58:490+20220628.022150"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -75,6 +75,11 @@ int main( void )
         {
             cc_chessboard_print( game__a->chessboard, false );
         }
+        else if ( cc_str_is_equal( first__w, end__w, "l", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "list", NULL, BUFSIZ ) )
+        {
+            cc_moves_print( game__a->moves );
+        }
         else if ( cc_str_is_equal( first__w, end__w, "m", NULL, BUFSIZ ) ||
                   cc_str_is_equal( first__w, end__w, "move", NULL, BUFSIZ ) )
         {
@@ -95,7 +100,7 @@ int main( void )
                     CcParseMsgs * p = pms__a;
                     while ( p )
                     {
-                        printf( "%s.\n", p->msg );
+                        printf( "%s\n", p->msg );
                         p = p->next;
                     }
                 }

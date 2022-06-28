@@ -93,5 +93,7 @@ CcMoves * cc_moves_duplicate_all__new( CcMoves * restrict moves );
 */
 bool cc_moves_free_all( CcMoves ** restrict moves__f );
 
+bool cc_moves_print( CcMoves * restrict moves );
+
 
 #endif /* __CC_MOVES_H__ */

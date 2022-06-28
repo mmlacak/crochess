@@ -106,3 +106,37 @@ bool cc_moves_free_all( CcMoves ** restrict moves__f )
     *moves__f = NULL;
     return true;
 }
+
+bool cc_moves_print( CcMoves * restrict moves )
+{
+    if ( !moves ) return false;
+
+    CcMoves * m = moves;
+    CcMoves * l = NULL;
+    CcMoves * d = NULL;
+
+    size_t index = 0;
+
+    while ( m )
+    {
+        if ( index % 2 == 0 )
+        {
+            l = m;
+
+            if ( !m->next )
+            {
+                printf( "%lu %s ...\n", index+1, l->an );
+                break;
+            }
+        }
+        else
+        {
+            d = m;
+            printf( "%lu %s %s\n", index+1, l->an, d->an );
+        }
+
+        m = m->next;
+    }
+
+    return true;
+}

@@ -166,5 +166,13 @@ bool cc_make_move( char const * restrict move_an_str,
 // TODO :: post-plies status
 
 
+
+    if ( !cc_moves_append_or_init( &( g->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
+        return false;
+
+// TODO :: determine ending status
+// TODO :: determine winning status
+    g->status = cc_game_status_next( g->status, false, false );
+
     return true;
 }
