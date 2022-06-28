@@ -12,12 +12,14 @@
 #include "cc_token.h"
 #include "cc_piece.h"
 #include "cc_chessboard.h"
+#include "cc_game.h"
+#include "cc_rules.h"
 
 #include "hlp_msgs.h"
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.56:488+20220628.010525"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.57:489+20220628.014623"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -27,7 +29,7 @@ int main( void )
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
-    CcChessboard * cb = cc_chessboard__new( CC_VE_One, true );
+    CcGame * game__a = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, true );
 
     while ( true )
     {
@@ -66,12 +68,40 @@ int main( void )
         else if ( cc_str_is_equal( first__w, end__w, "d", NULL, BUFSIZ ) ||
                   cc_str_is_equal( first__w, end__w, "display", NULL, BUFSIZ ) )
         {
-            cc_chessboard_print( cb, true );
+            cc_chessboard_print( game__a->chessboard, true );
         }
         else if ( cc_str_is_equal( first__w, end__w, "t", NULL, BUFSIZ ) ||
                   cc_str_is_equal( first__w, end__w, "tags", NULL, BUFSIZ ) )
         {
-            cc_chessboard_print( cb, false );
+            cc_chessboard_print( game__a->chessboard, false );
+        }
+        else if ( cc_str_is_equal( first__w, end__w, "m", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( first__w, end__w, "move", NULL, BUFSIZ ) )
+        {
+            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            {
+                char * an_str = cc_str_copy__new( first__w, end__w, CC_MAX_LEN_ZERO_TERMINATED );
+                if ( !an_str )
+                    continue;
+
+                CcParseMsgs * pms__a = NULL;
+
+                if ( cc_make_move( an_str, &game__a, &pms__a ) )
+                {
+                    cc_chessboard_print( game__a->chessboard, true );
+                }
+                else
+                {
+                    CcParseMsgs * p = pms__a;
+                    while ( p )
+                    {
+                        printf( "%s.\n", p->msg );
+                        p = p->next;
+                    }
+                }
+
+                CC_FREE( pms__a );
+            }
         }
         else if ( cc_str_is_equal( first__w, end__w, "n", NULL, BUFSIZ ) ||
                   cc_str_is_equal( first__w, end__w, "new", NULL, BUFSIZ ) )
@@ -93,8 +123,10 @@ int main( void )
 
                 if ( is_code )
                 {
-                    free( cb );
-                    cb = cc_chessboard__new( ve, true );
+                    if ( !cc_game_free_all( &game__a ) )
+                        continue;
+
+                    game__a = cc_game__new( CC_GSE_Turn_Light, ve, true );
                 }
                 else
                     print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 );
@@ -103,8 +135,8 @@ int main( void )
             bool is_empty = cc_str_is_empty( code );
             if ( is_empty || ( !is_empty && is_code ) )
             {
-                cc_chessboard_setup( cb );
-                cc_chessboard_print( cb, true );
+                cc_chessboard_setup( game__a->chessboard );
+                cc_chessboard_print( game__a->chessboard, true );
             }
         }
         else if ( cc_str_is_equal( first__w, end__w, "h", NULL, BUFSIZ ) ||
@@ -142,9 +174,9 @@ int main( void )
         else if ( cc_str_is_equal( first__w, end__w, "x", NULL, BUFSIZ ) )
         {
             printf( "X: '%d'.\n", cc_is_field_light(5, 2) );
-            cc_chessboard_clear( cb );
-            cc_chessboard_set_piece( cb, 5, 2, CC_PE_LightBishop );
-            cc_chessboard_print( cb, true );
+            cc_chessboard_clear( game__a->chessboard );
+            cc_chessboard_set_piece( game__a->chessboard, 5, 2, CC_PE_LightBishop );
+            cc_chessboard_print( game__a->chessboard, true );
         }
         else
         {
@@ -153,7 +185,7 @@ int main( void )
         }
     }
 
-    CC_FREE( cb );
+    cc_game_free_all( &game__a );
 
     printf( "Bye, have a nice day!\n" );
     // fflush( stdout );

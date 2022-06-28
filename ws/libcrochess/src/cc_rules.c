@@ -5,6 +5,7 @@
 #include <stdarg.h>
 
 #include "cc_str_utils.h"
+#include "cc_parse.h"
 #include "cc_rules_misc.h"
 #include "cc_rules.h"
 
@@ -62,7 +63,7 @@ bool cc_make_move( char const * restrict move_an_str,
     CcGame * g = *game__io;
 
     if ( !g->chessboard ) return false;
-    if ( !g->moves ) return false;
+    // if ( !g->moves ) return false;
 
     if ( !CC_GAME_STATUS_IS_TURN( g->status ) )
     {
@@ -85,20 +86,20 @@ bool cc_make_move( char const * restrict move_an_str,
         {
             // "##" resign
             return cc_check_pre_plies_status( *++m, g, parse_msgs__io, true, true, false,
-                                               CC_MAX_LEN_ZERO_TERMINATED,
-                                               "Invalid char(s) after resign." );
+                                              CC_MAX_LEN_ZERO_TERMINATED,
+                                              "Invalid char(s) after resign." );
         }
         else
         {
             // "#" self-checkmate
 
-            // TODO :: Do check if opponent is really (self-)checkmated.
-            //         Self- is optional, since both players could overlook checkmate,
-            //         this is option to rectify such situation.
+// TODO :: Do check if opponent is really (self-)checkmated.
+//         Self- is optional, since both players could overlook checkmate,
+//         this is option to rectify such situation.
 
             return cc_check_pre_plies_status( *m, g, parse_msgs__io, false, true, true,
-                                               CC_MAX_LEN_ZERO_TERMINATED,
-                                               "Invalid char(s) after self-checkmate." );
+                                              CC_MAX_LEN_ZERO_TERMINATED,
+                                              "Invalid char(s) after self-checkmate." );
         }
     }
 
@@ -115,8 +116,8 @@ bool cc_make_move( char const * restrict move_an_str,
                     if ( cc_check_valid_draw_offer_exists( g->moves, g->status ) )
                     {
                         return cc_check_pre_plies_status( *++m, g, parse_msgs__io, false, true, false,
-                                                           CC_MAX_LEN_ZERO_TERMINATED,
-                                                           "Invalid char(s) after accepted draw." );
+                                                          CC_MAX_LEN_ZERO_TERMINATED,
+                                                          "Invalid char(s) after accepted draw." );
                     }
                     else
                     {
@@ -137,8 +138,8 @@ bool cc_make_move( char const * restrict move_an_str,
                 //         // "(===)" draw by rules
                 //
                 //         return cc_check_pre_plies_status( *++m, g, parse_msgs__io, false, true, false,
-                //                                            CC_MAX_LEN_ZERO_TERMINATED,
-                //                                            "Invalid char(s) after draw by rules." );
+                //                                           CC_MAX_LEN_ZERO_TERMINATED,
+                //                                           "Invalid char(s) after draw by rules." );
                 //     }
                 // }
             }
@@ -151,7 +152,13 @@ bool cc_make_move( char const * restrict move_an_str,
         return false;
     }
 
+    char const * first__w = NULL;
+    char const * end__w = NULL;
 
+    while ( cc_ply_iter( m, &first__w, &end__w ) )
+    {
+        cc_str_print( first__w, end__w, 128, "Ply: '%s'.\n" );
+    }
 
 // TODO :: loop over plies
 
@@ -159,5 +166,5 @@ bool cc_make_move( char const * restrict move_an_str,
 // TODO :: post-plies status
 
 
-    return false;
+    return true;
 }
