@@ -93,6 +93,13 @@ CcMoves * cc_moves_duplicate_all__new( CcMoves * restrict moves );
 */
 bool cc_moves_free_all( CcMoves ** restrict moves__f );
 
+/**
+    Prints all moves in a queue.
+
+    @param moves Queue of moves.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_moves_print( CcMoves * restrict moves );
 
 
