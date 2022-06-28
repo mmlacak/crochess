@@ -115,11 +115,12 @@ bool cc_moves_print( CcMoves * restrict moves )
     CcMoves * l = NULL;
     CcMoves * d = NULL;
 
+    size_t i = 0;
     size_t index = 0;
 
     while ( m )
     {
-        if ( index % 2 == 0 )
+        if ( i++ % 2 == 0 )
         {
             l = m;
 
@@ -132,7 +133,7 @@ bool cc_moves_print( CcMoves * restrict moves )
         else
         {
             d = m;
-            printf( "%lu %s %s\n", index+1, l->an, d->an );
+            printf( "%lu %s %s\n", ++index, l->an, d->an );
         }
 
         m = m->next;
