@@ -34,11 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_o_17_starchild_activated_wave_not_teleporting_init', \
-                    # 'scn_o_18_starchild_activated_wave_not_teleporting_end', \
-                    'scn_o_16_starchild_activated_wave_not_moving_a_star', \
-                    # 'scn_o_22_light_starchild_init_trance_journey', \
-                    # 'scn_o_23_dark_starchild_init_trance_journey', \
-                    # 'scn_o_24_shaman_init_trance_journey', \
-                    # 'scn_o_25_trance_journey_started_by_shaman', \
+                    'scn_n_20_new_castling_init', \
+                    'scn_n_21_new_castling_end', \
                 ]
