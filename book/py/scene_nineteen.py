@@ -732,7 +732,7 @@ class SceneNineteenMixin:
 
     def scn_n_20_new_castling_init(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_20_new_castling_init', bt, height=6.3)
+        scene = Scene('scn_n_20_new_castling_init', bt, height=4.3)
 
         start_K = (9, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -740,7 +740,7 @@ class SceneNineteenMixin:
         start_R = (1, 0)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_r = (9, 5)
+        start_r = (9, 3)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
         start_b = (2, 3)
@@ -756,7 +756,7 @@ class SceneNineteenMixin:
 
     def scn_n_21_new_castling_end(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_21_new_castling_end', bt, height=6.3)
+        scene = Scene('scn_n_21_new_castling_end', bt, height=4.3)
 
         start_K = (4, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -764,7 +764,7 @@ class SceneNineteenMixin:
         start_R = (5, 0)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_r = (9, 5)
+        start_r = (9, 3)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
         start_b = (2, 3)

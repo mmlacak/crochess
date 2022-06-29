@@ -479,38 +479,89 @@ Only one Queen in the same color can be present on chessboard at any given time.
 \section*{Castling}
 \addcontentsline{toc}{section}{Castling}
 
-\huge
-TODO
-\normalsize \\
-- allow checked King to castle \\
-- allow King to move over attacked fields while castling \\
-- example for both \\
-- refer all castling in all subsequent variants to this entry \\
+\vspace*{-1.7\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_20_new_castling_init.png}
+\vspace*{-1.3\baselineskip}
+\caption{New castling start}
+\label{fig:scn_n_20_new_castling_init}
+\end{figure}
 
-Castling is the same as in Classical Chess, only difference is that King can move between 2 and 6 fields across.
-All other constraints from Classical Chess still applies.
+\vspace*{-0.7\baselineskip}
+In this, and all subsequent variants King is allowed to castle over attacked fields
+(here, field B), and even if it's being in check (field R).
 
+\vspace*{-0.7\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_21_new_castling_end.png}
+\vspace*{-1.3\baselineskip}
+\caption{New castling end}
+\label{fig:scn_n_21_new_castling_end}
+\end{figure}
+
+\vspace*{-0.7\baselineskip}
+All other constraints from Classical Chess remains the same; namely, King and Rook
+can only castle on their first move, there must be no pieces between castling King
+and Rook, King cannot end its movement on an attacked field.
+
+\vspace*{-0.7\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/12_n/nineteen_castling.png}
+\vspace*{-1.3\baselineskip}
 \caption{Castling}
 \label{fig:nineteen_castling}
 \end{figure}
 
-In example above, all valid King's castling moves are numbered.
+\vspace*{-0.7\baselineskip}
+Additional difference in this variant is that King can castle between 2 and 6 fields
+across.
 
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/12_n/nineteen_castling_left_05.png}
-\caption{Castling long left}
-\label{fig:nineteen_castling_left_05}
-\end{figure}
+\clearpage % ..........................................................
 
-In this example King was castling long to the left. Initial King's position is marked with "K".
-After castling is finished, left Rook ends up at field immediately right to the King.
+\huge
+TODO
+\normalsize \\
++ allow checked King to castle \\
++ allow King to move over attacked fields while castling \\
++ example for both \\
+- refer all castling in all subsequent variants to this entry \\
 
-Converted opponent's Rooks cannot be castled, even if converted on an initial positions
+% Castling is the same as in Classical Chess, only difference is that King can move between 2 and 6 fields across.
+% All other constraints from Classical Chess still applies.
+
+% \noindent
+% \begin{figure}[!h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/12_n/nineteen_castling.png}
+% \caption{Castling}
+% \label{fig:nineteen_castling}
+% \end{figure}
+
+% In example above, all valid King's castling moves are numbered.
+
+% \noindent
+% \begin{figure}[!h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/12_n/nineteen_castling_left_05.png}
+% \caption{Castling long left}
+% \label{fig:nineteen_castling_left_05}
+% \end{figure}
+
+% In this example King was castling long to the left. Initial King's position is marked with "K".
+% After castling is finished, left Rook ends up at field immediately right to the King.
+
+\huge
+TODO :: examples, in Mayan Ascendacy !!!
+\normalsize \\
+
+- Converted opponent's Pawns cannot be rushed, even if converted on an initial positions
+of own Pawns.
+
+- Converted opponent's Rooks cannot be castled, even if converted on an initial positions
 of own Rooks.
+
+- remove those sentences from all other variants
 
 \clearpage % ..........................................................
 
