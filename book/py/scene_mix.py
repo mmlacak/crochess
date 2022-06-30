@@ -34,6 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_20_new_castling_init', \
-                    'scn_n_21_new_castling_end', \
+                    'scn_ma_11_converting_rook_init', \
+                    'scn_ma_12_converting_rook_end', \
                 ]

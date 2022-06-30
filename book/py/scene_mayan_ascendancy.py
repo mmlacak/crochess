@@ -370,12 +370,78 @@ class SceneMayanAscendancyMixin:
         return scene
 
     #
+    # Converting Rooks
+
+    def scn_ma_11_converting_rook_init(self, bt=BoardType.MayanAscendancy):
+
+        scene = Scene('scn_ma_11_converting_rook_init', bt)
+
+        start_r = (0, 5)
+        end_r = (0, 0)
+        scene.board.set_piece(*end_r, piece=-PieceType.Rook)
+
+        start_K = (6, 0)
+        scene.board.set_piece(*start_K, piece=PieceType.King)
+
+        start_A = (3, 3)
+        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
+
+        start_Q = (7, 3)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        gen_r_ = GS.gen_steps( start=start_r, rels=[(0, -1), ], include_prev=True, count=5 )
+        for index, coords in enumerate( gen_r_() ):
+            scene.append_arrow( *coords, mark_type=MarkType.Blocked )
+
+        gen_Q_A = GS.gen_steps( start=start_Q, rels=[(-1, 0), ], include_prev=True, count=4 )
+        for index, coords in enumerate( gen_Q_A() ):
+            mark_type = MarkType.Action if index == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_A_r = GS.gen_steps( start=start_A, rels=[(-1, -1), ], include_prev=True, count=3 )
+        for index, coords in enumerate( gen_A_r() ):
+            mark_type = MarkType.Action if index == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        return scene
+
+    def scn_ma_12_converting_rook_end(self, bt=BoardType.MayanAscendancy):
+
+        scene = Scene('scn_ma_12_converting_rook_end', bt)
+
+        end_R = (0, 0)
+        scene.board.set_piece(*end_R, piece=PieceType.Rook)
+
+        start_K = (6, 0)
+        scene.board.set_piece(*start_K, piece=PieceType.King)
+
+        start_Q = (3, 3)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        for i in range(4, 1, -1):
+            scene.append_text(str(5 - i), i, 0, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
+
+        return scene
+
+
+# TODO
+
+    #
+    # Converting Pawns
+
+# TODO
+
+
+
+    #
     # Pyramid cascading
 
-    def scn_ma_11_cascading_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_15_cascading_init(self, bt=BoardType.MayanAscendancy):
         # move_pyramid_cascading_init
 
-        scene = Scene('scn_ma_11_cascading_init', bt)
+        scene = Scene('scn_ma_15_cascading_init', bt)
 
         start = (10, 1)
         scene.board.set_piece(*start, piece=PieceType.Queen)
@@ -414,10 +480,10 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_12_cascading_pyramid_1_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_16_cascading_pyramid_1_activated(self, bt=BoardType.MayanAscendancy):
         # move_pyramid_cascading_activated_1
 
-        scene = Scene('scn_ma_12_cascading_pyramid_1_activated', bt)
+        scene = Scene('scn_ma_16_cascading_pyramid_1_activated', bt)
 
         start = (5, 6)
         scene.board.set_piece(*start, piece=PieceType.Queen)
@@ -497,10 +563,10 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_13_cascading_pyramid_2_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_17_cascading_pyramid_2_activated(self, bt=BoardType.MayanAscendancy):
         # move_pyramid_cascading_activated_2
 
-        scene = Scene('scn_ma_13_cascading_pyramid_2_activated', bt)
+        scene = Scene('scn_ma_17_cascading_pyramid_2_activated', bt)
 
         scene.board.set_piece(5, 6, piece=PieceType.Queen)
         scene.board.set_piece(2, 6, piece=PieceType.Bishop)
@@ -555,10 +621,10 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_14_cascading_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_18_cascading_end(self, bt=BoardType.MayanAscendancy):
         # move_pyramid_cascading_end
 
-        scene = Scene('scn_ma_14_cascading_end', bt)
+        scene = Scene('scn_ma_18_cascading_end', bt)
 
         scene.board.set_piece(5, 6, piece=PieceType.Queen)
         scene.board.set_piece(2, 6, piece=PieceType.Bishop)
@@ -583,10 +649,10 @@ class SceneMayanAscendancyMixin:
     #
     # Pyramid against royal powers (King free from actions, effects of passive pieces)
 
-    def scn_ma_15_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_19_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
         # move_pyramid_vs_king
 
-        scene = Scene('scn_ma_15_pyramid_vs_king', bt, width=12, height=3)
+        scene = Scene('scn_ma_19_pyramid_vs_king', bt, width=12, height=3)
 
         scene.board.set_piece(4, 0, -PieceType.King)
         scene.board.set_piece(3, 0, PieceType.Pyramid)
@@ -597,10 +663,10 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_16_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_20_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
         # move_pyramid_vs_bishop
 
-        scene = Scene('scn_ma_16_pyramid_vs_bishop', bt, width=12, height=3)
+        scene = Scene('scn_ma_20_pyramid_vs_bishop', bt, width=12, height=3)
 
         scene.board.set_piece(4, 0, -PieceType.Bishop)
         scene.board.set_piece(3, 0, PieceType.Pyramid)
