@@ -482,10 +482,6 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-# TODO
-
-
-
     #
     # Pyramid cascading
 
