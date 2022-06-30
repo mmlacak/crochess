@@ -420,16 +420,67 @@ class SceneMayanAscendancyMixin:
         start_Q = (3, 3)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
 
+        gen_K_ = GS.gen_steps( start=start_K, rels=[(-1, 0), ], include_prev=True, count=4 )
+        for index, coords in enumerate( gen_K_() ):
+            mark_type = MarkType.Illegal if index > 0 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
         for i in range(4, 1, -1):
             scene.append_text(str(5 - i), i, 0, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
 
         return scene
 
-
-# TODO
-
     #
     # Converting Pawns
+
+    def scn_ma_13_converting_pawn_init(self, bt=BoardType.MayanAscendancy):
+
+        scene = Scene('scn_ma_13_converting_pawn_init', bt)
+
+        start_p = (3, 2)
+        end_p = (3, 1)
+        scene.board.set_piece(*end_p, piece=-PieceType.Pawn)
+
+        start_A = (6, 4)
+        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
+
+        start_Q = (10, 4)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Blocked )
+
+        gen_Q_A = GS.gen_steps( start=start_Q, rels=[(-1, 0), ], include_prev=True, count=4 )
+        for index, coords in enumerate( gen_Q_A() ):
+            mark_type = MarkType.Action if index == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_A_r = GS.gen_steps( start=start_A, rels=[(-1, -1), ], include_prev=True, count=3 )
+        for index, coords in enumerate( gen_A_r() ):
+            mark_type = MarkType.Action if index == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        return scene
+
+    def scn_ma_14_converting_pawn_end(self, bt=BoardType.MayanAscendancy):
+
+        scene = Scene('scn_ma_14_converting_pawn_end', bt)
+
+        start_P = (3, 1)
+        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
+
+        start_Q = (6, 4)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        gen_P_ = GS.gen_steps( start=start_P, rels=[(0, 1), ], include_prev=True, count=4 )
+        for index, coords in enumerate( gen_P_() ):
+            mark_type = MarkType.Illegal if index > 0 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        return scene
 
 # TODO
 
