@@ -157,21 +157,21 @@ char * cc_str_to_case__new( char const * restrict str,
 /**
     Function returning length of a string, optionally capped at maximum length.
 
-    @param first Pointer to a first `char` of a (sub-)string.
+    @param start Pointer to a starting `char` of a (sub-)string.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so length of a whole zero-terminated string is returned.
     @param max_len__d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so length of whole zero-terminated string is returned.
 
     @warning
     If no optional arguments (`end__d`, `max_len__d`) are given, given
-    string (`first`) has to be zero-terminated.
+    string (`start`) has to be zero-terminated.
 
     @note
     End of a string is first `char` that does not belong to a (sub-)string.
-    For a whole string (when `end__d` is `NULL`) it's a `char` past ``'\0'``.
+    For a whole string (when `end__d` is `NULL`) it's a ``'\0'``, zero-terminating `char`.
 
     @return Length of a string if successful, `0` otherwise.
 */
-size_t cc_str_len( char const * restrict first,
+size_t cc_str_len( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d );
 
@@ -193,21 +193,21 @@ int cc_str_len_format( char const * restrict fmt, ... );
 /**
     Function checks if two (sub-)strings are equal, up to a given maximum length.
 
-    @param first_1 A first character of a first (sub-)string.
+    @param start_1 A starting character of a first (sub-)string.
     @param end_1__d An _optional_ parameter, end of a first (sub-)string.
-    @param first_2 A first character of a second (sub-)string.
+    @param start_2 A starting character of a second (sub-)string.
     @param end_2__d An _optional_ parameter, end of a second (sub-)string.
     @param max_len__d An _optional_ parameter, maximum length of a strings to check. Can be `0`, if so strings are checked in their entirety.
 
     @note
-    End of a string is a pointer to a first byte (`char`) that does not belong to a given string.
+    End of a string is a pointer to a first byte (`char`) that does not belong to a given (sub-)string.
     If not given, string(s) are tested until terminating character (``'\0'``) is encountered.
 
     @return `true` if two given (sub-)strings are equal up to a maximum length, `false` otherwise.
 */
-bool cc_str_is_equal( char const * restrict first_1,
+bool cc_str_is_equal( char const * restrict start_1,
                       char const * restrict end_1__d,
-                      char const * restrict first_2,
+                      char const * restrict start_2,
                       char const * restrict end_2__d,
                       size_t max_len__d );
 
@@ -215,7 +215,7 @@ bool cc_str_is_equal( char const * restrict first_1,
 /**
     Function copies (sub-)string into a char array, or already allocated string.
 
-    @param first A (sub-)string to copy.
+    @param start A (sub-)string to copy.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is copied.
     @param max_len__d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
     @param dest__o Pointer to destination.
@@ -226,7 +226,7 @@ bool cc_str_is_equal( char const * restrict first_1,
 
     @return Count of characters copied (not including ``'\0'``), if successful, `0` otherwise.
 */
-size_t cc_str_copy( char const * restrict first,
+size_t cc_str_copy( char const * restrict start,
                     char const * restrict end__d,
                     size_t max_len__d,
                     char * restrict dest__o,
@@ -235,13 +235,13 @@ size_t cc_str_copy( char const * restrict first,
 /**
     Function copies (sub-)string into a newly allocated string.
 
-    @param first A (sub-)string to copy.
+    @param start A (sub-)string to copy.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is copied.
     @param max_len__d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
 
     @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
 */
-char * cc_str_copy__new( char const * restrict first,
+char * cc_str_copy__new( char const * restrict start,
                          char const * restrict end__d,
                          size_t max_len__d );
 

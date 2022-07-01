@@ -59,26 +59,26 @@ char const * cc_traverse_plies( char const * restrict an_str,
 
 
 bool cc_ply_iter( char const * restrict an_str,
-                  char const ** restrict first__io,
+                  char const ** restrict start__io,
                   char const ** restrict end__io )
 {
     if ( !an_str ) return false;
-    if ( !first__io ) return false;
+    if ( !start__io ) return false;
     if ( !end__io ) return false;
 
-    if ( !( *first__io ) && !( *end__io ) )
-        *first__io = an_str;
-    else if ( ( *first__io ) && ( *end__io ) )
-        *first__io = cc_traverse_plies( *end__io, false );
+    if ( !( *start__io ) && !( *end__io ) )
+        *start__io = an_str;
+    else if ( ( *start__io ) && ( *end__io ) )
+        *start__io = cc_traverse_plies( *end__io, false );
     else
         return false;
 
-    *end__io = cc_traverse_plies( *first__io, true );
+    *end__io = cc_traverse_plies( *start__io, true );
     *end__io = cc_traverse_plies( *end__io, false );
 
-    if ( ( **first__io == '\0' ) || ( *end__io == *first__io ) )
+    if ( ( **start__io == '\0' ) || ( *end__io == *start__io ) )
     {
-        *first__io = *end__io = NULL;
+        *start__io = *end__io = NULL;
         return false;
     }
 

@@ -179,34 +179,31 @@ char * cc_str_to_case__new( char const * restrict str,
 }
 
 
-size_t cc_str_len( char const * restrict first,
+size_t cc_str_len( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d )
 {
-    if ( !first ) return 0;
+    if ( !start ) return 0;
 
     size_t len = 0;
-    char const * s = first;
+    char const * s = start;
 
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
     {
         while ( *s != '\0' ) ++s;
-        len = s - first;
+        len = s - start;
     }
     else
         while ( ( *s != '\0' ) && ( ++len < max_len__d ) ) ++s;
 
     if ( end__d )
         // Effectively, checks if end__d belongs to a string,
-        // i.e. first + 1 <= end__d <= first + strlen() + 2 (at most).
+        // i.e. start + 1 <= end__d <= start + strlen() + 1 (at most).
+        // At most +1 because '\0', which might not be present.
         //
-        // At most +2 because +1 for '\0' (which might not be present),
-        // and another +1 because end of string is a first char which
-        // does not belong to that string.
-        //
-        // In case end__d < first, (size_t) cast pushes (end__d - first)
+        // In case end__d < start, (size_t) cast pushes (end__d - start)
         // towards max ints, so MIN() will still return reasonable len.
-        len = CC_MIN( len, (size_t)(end__d - first) );
+        len = CC_MIN( len, (size_t)(end__d - start) );
 
     // Not needed, len was already capped in the while() loop above.
     // return CC_MIN( len, max_len__d );
@@ -224,38 +221,38 @@ int cc_str_len_format( char const * restrict fmt, ... )
     return len;
 }
 
-bool cc_str_is_equal( char const * restrict first_1,
+bool cc_str_is_equal( char const * restrict start_1,
                       char const * restrict end_1__d,
-                      char const * restrict first_2,
+                      char const * restrict start_2,
                       char const * restrict end_2__d,
                       size_t max_len__d )
 {
-    if ( !first_1 ) return false;
-    if ( !first_2 ) return false;
+    if ( !start_1 ) return false;
+    if ( !start_2 ) return false;
 
-    size_t len_1 = cc_str_len( first_1, end_1__d, max_len__d );
-    size_t len_2 = cc_str_len( first_2, end_2__d, max_len__d );
+    size_t len_1 = cc_str_len( start_1, end_1__d, max_len__d );
+    size_t len_2 = cc_str_len( start_2, end_2__d, max_len__d );
     if ( len_1 != len_2 ) return false;
     if ( len_1 == 0 ) return true; // Two empty strings are equal.
 
-    int res = strncmp( first_1, first_2, len_1 );
+    int res = strncmp( start_1, start_2, len_1 );
     return ( res == 0 );
 }
 
 
-size_t cc_str_copy( char const * restrict first,
+size_t cc_str_copy( char const * restrict start,
                     char const * restrict end__d,
                     size_t max_len__d,
                     char * restrict dest__o,
                     size_t size_dest__d )
 {
-    if ( !first ) return 0;
+    if ( !start ) return 0;
     if ( !dest__o ) return 0;
 
-    size_t len = cc_str_len( first, end__d, max_len__d );
+    size_t len = cc_str_len( start, end__d, max_len__d );
     if ( len < 1 ) return 0;
 
-    if ( !strncpy( dest__o, first, len ) )
+    if ( !strncpy( dest__o, start, len ) )
         return 0;
 
     if ( ( size_dest__d == CC_SIZE_IGNORE ) || ( len < size_dest__d ) )
@@ -264,17 +261,17 @@ size_t cc_str_copy( char const * restrict first,
     return len;
 }
 
-char * cc_str_copy__new( char const * restrict first,
+char * cc_str_copy__new( char const * restrict start,
                          char const * restrict end__d,
                          size_t max_len__d )
 {
-    if ( !first ) return NULL;
+    if ( !start ) return NULL;
 
-    size_t len = cc_str_len( first, end__d, max_len__d );
+    size_t len = cc_str_len( start, end__d, max_len__d );
     char * str__a = malloc( len + 1 );
     if ( !str__a ) return NULL;
 
-    if ( !strncpy( str__a, first, len ) )
+    if ( !strncpy( str__a, start, len ) )
         return NULL;
     str__a[ len ] = '\0';
 

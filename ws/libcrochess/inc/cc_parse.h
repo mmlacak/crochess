@@ -73,7 +73,7 @@ char const * cc_traverse_plies( char const * restrict an_str,
                                 bool skip_or_stop_at );
 
 bool cc_ply_iter( char const * restrict an_str,
-                  char const ** restrict first__io,
+                  char const ** restrict start__io,
                   char const ** restrict end__io );
 
 
