@@ -152,12 +152,12 @@ bool cc_make_move( char const * restrict move_an_str,
         return false;
     }
 
-    char const * first__w = NULL;
-    char const * end__w = NULL;
+    char const * first = NULL;
+    char const * end = NULL;
 
-    while ( cc_ply_iter( m, &first__w, &end__w ) )
+    while ( cc_ply_iter( m, &first, &end ) )
     {
-        cc_str_print( first__w, end__w, 128, "Ply: '%s'.\n" );
+        cc_str_print( first, end, 128, "Ply: '%s'.\n" );
     }
 
 // TODO :: loop over plies

@@ -362,13 +362,13 @@ char * cc_str_append_format__new( char ** restrict str__f,
 /**
     Function prints (sub-)string.
 
-    @param first A (sub-)string to copy.
+    @param start A (sub-)string to copy.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is printed.
     @param max_len__d _Optional_, maximum length of string to print.
     @param fmt_str A string format to print.
 
     @note
-    Substring supplied via `first` and `end__d` arguments is copied into newly allocated, zero-terminated string.
+    Substring supplied via `start` and `end__d` arguments is copied into newly allocated, zero-terminated string.
 
     @note
     That internal string is passed as the only argument to formatted `printf`.
@@ -378,12 +378,12 @@ char * cc_str_append_format__new( char ** restrict str__f,
 
     Note format specifier in this example, the only `%%s` corresponds to internal string.
     @code{.c}
-    cc_str_printf( first__w, end__w, BUFSIZ, "No help entry: '%s'.\n" );
+    cc_str_printf( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n" );
     @endcode
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_print( char const * restrict first,
+bool cc_str_print( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d,
                    char const * restrict fmt_str );

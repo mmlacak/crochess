@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.59:491+20220628.030609"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.60:492+20220701.212143"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -45,47 +45,47 @@ int main( void )
             continue;
         }
 
-        char const * first__w = NULL;
-        char const * end__w = NULL;
-        if ( !cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+        char const * token_start = NULL;
+        char const * token_end = NULL;
+        if ( !cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             continue;
 
-        if ( cc_str_is_equal( first__w, end__w, "q", NULL, BUFSIZ ) ||
-             cc_str_is_equal( first__w, end__w, "quit", NULL, BUFSIZ ) )
+        if ( cc_str_is_equal( token_start, token_end, "q", NULL, BUFSIZ ) ||
+             cc_str_is_equal( token_start, token_end, "quit", NULL, BUFSIZ ) )
         {
             break;
         }
-        else if ( cc_str_is_equal( first__w, end__w, "v", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "version", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "v", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) )
         {
             print_version_info( CC_LIB_VERSION, CROCHESS_VERSION );
         }
-        else if ( cc_str_is_equal( first__w, end__w, "a", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "about", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "a", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) )
         {
             print_about_info();
         }
-        else if ( cc_str_is_equal( first__w, end__w, "d", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "display", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "d", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "display", NULL, BUFSIZ ) )
         {
             cc_chessboard_print( game__a->chessboard, true );
         }
-        else if ( cc_str_is_equal( first__w, end__w, "t", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "tags", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "t", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "tags", NULL, BUFSIZ ) )
         {
             cc_chessboard_print( game__a->chessboard, false );
         }
-        else if ( cc_str_is_equal( first__w, end__w, "l", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "list", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) )
         {
             cc_moves_print( game__a->moves );
         }
-        else if ( cc_str_is_equal( first__w, end__w, "m", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "move", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) )
         {
-            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {
-                char * an_str = cc_str_copy__new( first__w, end__w, CC_MAX_LEN_ZERO_TERMINATED );
+                char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
                 if ( !an_str )
                     continue;
 
@@ -108,8 +108,8 @@ int main( void )
                 CC_FREE( pms__a );
             }
         }
-        else if ( cc_str_is_equal( first__w, end__w, "n", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "new", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
         {
             bool is_code = false;
             char_8 code;
@@ -117,9 +117,9 @@ int main( void )
             if ( !cc_str_clear( code, CC_SIZE_CHAR_8 ) )
                 continue;
 
-            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {
-                size_t len = cc_str_copy( first__w, end__w, CC_MAX_LEN_VARIANT_SYMBOL + 1, code, CC_SIZE_CHAR_8 );
+                size_t len = cc_str_copy( token_start, token_end, CC_MAX_LEN_VARIANT_SYMBOL + 1, code, CC_SIZE_CHAR_8 );
                 if ( len < 1 )
                     continue;
 
@@ -144,39 +144,39 @@ int main( void )
                 cc_chessboard_print( game__a->chessboard, true );
             }
         }
-        else if ( cc_str_is_equal( first__w, end__w, "h", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "?", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "help", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "h", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "?", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "help", NULL, BUFSIZ ) )
         {
-            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {
-                if ( first__w == end__w )
+                if ( token_start == token_end )
                     print_help();
-                else if ( cc_str_is_equal( first__w, end__w, "q", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( first__w, end__w, "quit", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "q", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "quit", NULL, BUFSIZ ) )
                     print_help_quit();
-                else if ( cc_str_is_equal( first__w, end__w, "d", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( first__w, end__w, "display", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "d", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "display", NULL, BUFSIZ ) )
                     print_help_display();
-                else if ( cc_str_is_equal( first__w, end__w, "t", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( first__w, end__w, "tags", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "t", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "tags", NULL, BUFSIZ ) )
                     print_help_tags();
-                else if ( cc_str_is_equal( first__w, end__w, "a", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( first__w, end__w, "about", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "a", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) )
                     print_help_about();
-                else if ( cc_str_is_equal( first__w, end__w, "v", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( first__w, end__w, "version", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "v", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) )
                     print_help_version();
-                else if ( cc_str_is_equal( first__w, end__w, "n", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( first__w, end__w, "new", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
                     print_help_new();
                 else
-                    cc_str_print( first__w, end__w, BUFSIZ, "No help entry: '%s'.\n" );
+                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n" );
             }
             else
                 print_help();
         }
-        else if ( cc_str_is_equal( first__w, end__w, "x", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "x", NULL, BUFSIZ ) )
         {
             printf( "X: '%d'.\n", cc_is_field_light(5, 2) );
             cc_chessboard_clear( game__a->chessboard );

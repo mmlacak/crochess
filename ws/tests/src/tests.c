@@ -21,7 +21,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.59:491+20220628.030609"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.60:492+20220701.212143"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -77,36 +77,36 @@ int main( void )
             continue;
         }
 
-        char const * first__w = NULL;
-        char const * end__w = NULL;
-        if ( !cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &first__w, &end__w ) )
+        char const * token_start = NULL;
+        char const * token_end = NULL;
+        if ( !cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             continue;
 
-        if ( cc_str_is_equal( first__w, end__w, "q", NULL, BUFSIZ ) ||
-             cc_str_is_equal( first__w, end__w, "quit", NULL, BUFSIZ ) )
+        if ( cc_str_is_equal( token_start, token_end, "q", NULL, BUFSIZ ) ||
+             cc_str_is_equal( token_start, token_end, "quit", NULL, BUFSIZ ) )
         {
             break;
         }
-        else if ( cc_str_is_equal( first__w, end__w, "v", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "version", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "v", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) )
         {
             print_version_info( CC_LIB_VERSION, CROCHESS_TESTS_VERSION );
         }
-        else if ( cc_str_is_equal( first__w, end__w, "a", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "about", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "a", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) )
         {
             print_about_info();
         }
-        else if ( cc_str_is_equal( first__w, end__w, "b", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "book", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "b", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "book", NULL, BUFSIZ ) )
         {
         }
-        else if ( cc_str_is_equal( first__w, end__w, "t", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "test", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "t", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "test", NULL, BUFSIZ ) )
         {
         }
-        else if ( cc_str_is_equal( first__w, end__w, "p", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( first__w, end__w, "parse", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "parse", NULL, BUFSIZ ) )
         {
         }
         else

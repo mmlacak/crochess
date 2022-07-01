@@ -54,6 +54,25 @@ variables, before it can bail-out:
         return cc_game_move_data_free_all( NULL, &cb__a, NULL, &plies_0__t, &steps_2__t, false );
 @endcode
 
+If a variable is a borrow, nothing needs to be appended to its name. For variables holding
+weak pointers returned from a function, append `__w` to variable name, for instance:
+@code{.c}
+    CcMoves * moves__w = cc_moves_append_or_init( moves__io, restrict an, max_len__d );
+@endcode
+
+Do the same (i.e. append `__w` to its name) for weak pointer variables that will be
+returned from a function, for example:
+@code{.c}
+CcParseMsgs * cc_parse_msgs_append_or_init( ... )
+{
+    CcParseMsgs * pm__w = NULL;
+
+    /* Do something with pm__w. */
+
+    return pm__w;
+}
+@endcode
+
 ### Entities
 
 Every `alloc()`-ated entity has implicit ownership over all links (pointers) to other

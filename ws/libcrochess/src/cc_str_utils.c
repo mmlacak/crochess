@@ -491,15 +491,15 @@ char * cc_str_append_format__new( char ** restrict str__f,
     return cc_str_append__new( str__f, &str__t, max_len__d );
 }
 
-bool cc_str_print( char const * restrict first,
+bool cc_str_print( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d,
                    char const * restrict fmt_str )
 {
-    if ( !first ) return false;
+    if ( !start ) return false;
     if ( !fmt_str ) return false;
 
-    char * str__a = cc_str_copy__new( first, end__d, max_len__d );
+    char * str__a = cc_str_copy__new( start, end__d, max_len__d );
     if ( !str__a ) return false;
 
     int result = printf( fmt_str, str__a );
