@@ -166,13 +166,12 @@ bool cc_make_move( char const * restrict move_an_str,
     printf( " --- --- ---\n" );
     while ( cc_ply_iter( m, &start, &end ) )
     {
-        cc_str_print( start, end, 8192, "Ply: '%s'.\n" );
+        cc_str_print( start, end, 8192, "Ply: '%s'.\n", "" );
 
         ple = cc_starting_ply_link( start );
         c = start + cc_ply_link_len( ple );
 
-        cc_str_print( start, c, 128, "Ply link: '%s'" );
-        printf( " --> %d.\n", ple );
+        cc_str_print( start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
         if ( cc_ply_piece_symbol( c, &piece_symbol ) )
         {

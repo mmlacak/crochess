@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.63:495+20220702.065332"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.64:496+20220702.073959"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -172,7 +172,7 @@ int main( void )
                           cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
                     print_help_new();
                 else
-                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n" );
+                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", "" );
             }
             else
                 print_help();

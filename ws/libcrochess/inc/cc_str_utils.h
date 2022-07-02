@@ -390,25 +390,35 @@ char * cc_str_append_format__new( char ** restrict str__f,
                                   char const * restrict fmt, ... );
 
 /**
-    Function prints (sub-)string.
+    Function prints (sub-)string, followed by formatted variadic input.
 
     @param start A (sub-)string to copy.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is printed.
     @param max_len__d _Optional_, maximum length of string to print.
-    @param fmt_str A string format to print.
+    @param fmt_str A string format to print copied (sub-)string.
+    @param fmt A string format to print variadic input.
+    @param ... Variadic input for a string format.
 
     @note
     Substring supplied via `start` and `end__d` arguments is copied into newly allocated, zero-terminated string.
 
     @note
-    That internal string is passed as the only argument to formatted `printf`.
+    That internal string is passed as the only argument to `printf` using `fmt_str` formatting,
+    which must not contain any other formatting parameters.
 
     @warning
-    So, `fmt_str` must have the only one formatting specified as string (i.e. `%%s`), to handle internal string as the only argument to `printf`.
+    So, `fmt_str` must have the only one formatting specified as string (i.e. `%%s`),
+    to handle internal string as the only argument to `printf`.
 
     Note format specifier in this example, the only `%%s` corresponds to internal string.
     @code{.c}
-    cc_str_printf( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n" );
+    cc_str_printf( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", "" );
+    @endcode
+
+    @note
+    Variadic input is handled by `printf` following the first one, and is formatted by `fmt`, e.g.:
+    @code{.c}
+    cc_str_print( start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
     @endcode
 
     @return `true` if successful, `false` otherwise.
@@ -416,7 +426,8 @@ char * cc_str_append_format__new( char ** restrict str__f,
 bool cc_str_print( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d,
-                   char const * restrict fmt_str );
+                   char const * restrict fmt_str,
+                   char const * restrict fmt, ... );
 
 
 #endif /* __CC_STR_UTILS_H__ */

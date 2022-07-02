@@ -555,7 +555,8 @@ char * cc_str_append_format__new( char ** restrict str__f,
 bool cc_str_print( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d,
-                   char const * restrict fmt_str )
+                   char const * restrict fmt_str,
+                   char const * restrict fmt, ... )
 {
     if ( !start ) return false;
     if ( !fmt_str ) return false;
@@ -566,6 +567,21 @@ bool cc_str_print( char const * restrict start,
     int result = printf( fmt_str, str__a );
 
     CC_FREE( str__a );
+
+    va_list args;
+    va_start( args, fmt );
+
+    char * fmt__a = cc_str_format_va__new( CC_MAX_LEN_ZERO_TERMINATED, fmt, args );
+    if ( !fmt__a )
+    {
+        va_end( args );
+        return false;
+    }
+
+    result = printf( "%s", fmt__a ) && ( result >= 0 );
+
+    CC_FREE( fmt__a );
+    va_end( args );
 
     return ( result >= 0 );
 }
