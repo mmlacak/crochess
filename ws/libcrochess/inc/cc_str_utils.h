@@ -180,21 +180,6 @@ size_t cc_str_len( char const * restrict start,
     Function returns length of a formatted variadic input.
 
     @param fmt A string format to append.
-    @param ... Variadic input for a string format.
-
-    @note
-    Output returned is direct result of a `vsnprintf` found in `<stdio.h>`,
-    see C Standard Library reference for details.
-
-    @return Length of a formatted variadic input if non-negative,
-            error code if negative.
-*/
-int cc_str_len_format( char const * restrict fmt, ... );
-
-/**
-    Function returns length of a formatted variadic input.
-
-    @param fmt A string format to append.
     @param args Variadic list, input for a string format.
 
     @note
@@ -205,6 +190,21 @@ int cc_str_len_format( char const * restrict fmt, ... );
             error code if negative.
 */
 int cc_str_len_format_va( char const * restrict fmt, va_list args );
+
+/**
+    Function returns length of a formatted variadic input.
+
+    @param fmt A string format to append.
+    @param ... Variadic input for a string format.
+
+    @note
+    Output returned is direct result of a `vsnprintf` found in `<stdio.h>`,
+    see C Standard Library reference for details.
+
+    @return Length of a formatted variadic input if non-negative,
+            error code if negative.
+*/
+int cc_str_len_format( char const * restrict fmt, ... );
 
 /**
     Function checks if two (sub-)strings are equal, up to a given maximum length.
@@ -267,19 +267,6 @@ char * cc_str_copy__new( char const * restrict start,
 
     @param max_len__d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so entirety of formatted string is returned.
     @param fmt A string format to append.
-    @param ... Variadic input for a string format.
-
-    @return A newly allocated string if successful, `NULL` otherwise.
-*/
-char * cc_str_format__new( size_t max_len__d,
-                           char const * restrict fmt, ... );
-
-/**
-    Function returns a newly allocated string containing formatted variadic input,
-    capped at given maximum length.
-
-    @param max_len__d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so entirety of formatted string is returned.
-    @param fmt A string format to append.
     @param args Variadic input list for a string format.
 
     @return A newly allocated string if successful, `NULL` otherwise.
@@ -287,6 +274,19 @@ char * cc_str_format__new( size_t max_len__d,
 char * cc_str_format_va__new( size_t max_len__d,
                               char const * restrict fmt,
                               va_list args );
+
+/**
+    Function returns a newly allocated string containing formatted variadic input,
+    capped at given maximum length.
+
+    @param max_len__d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so entirety of formatted string is returned.
+    @param fmt A string format to append.
+    @param ... Variadic input for a string format.
+
+    @return A newly allocated string if successful, `NULL` otherwise.
+*/
+char * cc_str_format__new( size_t max_len__d,
+                           char const * restrict fmt, ... );
 
 /**
     Function duplicating a string, by returning a newly allocated string,
@@ -364,6 +364,11 @@ char * cc_str_extend__new( char ** restrict str_1__f,
 char * cc_str_append__new( char ** restrict str_1__f,
                            char ** restrict str_2__f,
                            size_t max_len__d );
+
+char * cc_str_append_format_va__new( char ** restrict str__f,
+                                     size_t max_len__d,
+                                     char const * restrict fmt,
+                                     va_list args );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string,

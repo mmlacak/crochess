@@ -210,24 +210,30 @@ size_t cc_str_len( char const * restrict start,
     return len;
 }
 
-int cc_str_len_format( char const * restrict fmt, ... )
-{
-    va_list args;
-    va_start( args, fmt );
-
-    int len = vsnprintf( NULL, 0, fmt, args ); // len does not include \0.
-    va_end( args );
-
-    return len;
-}
-
 int cc_str_len_format_va( char const * restrict fmt, va_list args )
 {
     va_list tmp;
     va_copy( tmp, args );
 
-    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include '\0'.
     va_end( tmp );
+
+    return len;
+}
+
+int cc_str_len_format( char const * restrict fmt, ... )
+{
+    va_list args;
+    va_start( args, fmt );
+
+    int len = vsnprintf( NULL, 0, fmt, args ); // len does not include '\0'.
+    //
+    // Keeping implementation here, just to avoid another function call,
+    // although VA call would provide single reference behaviour.
+    //
+    // int len = cc_str_len_format_va( fmt, args ); // len does not include '\0'.
+
+    va_end( args );
 
     return len;
 }
@@ -289,51 +295,6 @@ char * cc_str_copy__new( char const * restrict start,
     return str__a;
 }
 
-char * cc_str_format__new( size_t max_len__d,
-                           char const * restrict fmt, ... )
-{
-    if ( !fmt ) return NULL;
-
-    va_list args;
-    va_start( args, fmt );
-
-    int len = cc_str_len_format_va( fmt, args );
-    if ( len < 0 ) // error ?
-    {
-        va_end( args );
-        return NULL;
-    }
-
-    size_t len_min =
-        ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
-                                                     : (size_t)len;
-
-    char * str__a = (char *)malloc( len_min + 1 );
-    if ( !str__a )
-    {
-        va_end( args );
-        return NULL;
-    }
-
-    int len_2 = vsnprintf( str__a, len_min + 1, fmt, args );
-    if ( len_2 < 0 ) // error ?
-    {
-        CC_FREE( str__a );
-        va_end( args );
-        return NULL;
-    }
-
-    va_end( args );
-
-    if ( len_min != (size_t const)len_2 )
-    {
-        CC_FREE( str__a );
-        return NULL;
-    }
-
-    return str__a;
-}
-
 char * cc_str_format_va__new( size_t max_len__d,
                               char const * restrict fmt,
                               va_list args )
@@ -376,6 +337,21 @@ char * cc_str_format_va__new( size_t max_len__d,
         CC_FREE( str__a );
         return NULL;
     }
+
+    return str__a;
+}
+
+char * cc_str_format__new( size_t max_len__d,
+                           char const * restrict fmt, ... )
+{
+    if ( !fmt ) return NULL;
+
+    va_list args;
+    va_start( args, fmt );
+
+    char * str__a = cc_str_format_va__new( max_len__d, fmt, args );
+
+    va_end( args );
 
     return str__a;
 }
@@ -494,30 +470,18 @@ char * cc_str_append__new( char ** restrict str_1__f,
     return str__a;
 }
 
-char * cc_str_append_format__new( char ** restrict str__f,
-                                  size_t max_len__d,
-                                  char const * restrict fmt, ... )
+char * cc_str_append_format_va__new( char ** restrict str__f,
+                                     size_t max_len__d,
+                                     char const * restrict fmt,
+                                     va_list args )
 {
-    va_list args;
-    va_start( args, fmt );
+    va_list tmp;
+    va_copy( tmp, args );
 
-    // va_list tmp;
-    // va_copy( tmp, args );
-
-    // int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
-    // if ( len < 0 ) // error?
-    // {
-    //     va_end( tmp );
-    //     va_end( args );
-    //     return NULL;
-    // }
-
-    // va_end( tmp );
-
-    int len = cc_str_len_format_va( fmt, args ); // len does not include \0.
+    int len = cc_str_len_format_va( fmt, tmp ); // len does not include '\0'.
     if ( len < 0 ) // error?
     {
-        va_end( args );
+        va_end( tmp );
         return NULL;
     }
 
@@ -528,19 +492,19 @@ char * cc_str_append_format__new( char ** restrict str__f,
     char * str__t = (char *)malloc( len_min + 1 );
     if ( !str__t )
     {
-        va_end( args );
+        va_end( tmp );
         return NULL;
     }
 
-    int len_2 = vsnprintf( str__t, len_min + 1, fmt, args );
+    int len_2 = vsnprintf( str__t, len_min + 1, fmt, tmp );
     if ( len_2 < 0 ) // error?
     {
         CC_FREE( str__t );
-        va_end( args );
+        va_end( tmp );
         return NULL;
     }
 
-    va_end( args );
+    va_end( tmp );
 
     if ( len_min != (size_t const)len_2 )
     {
@@ -550,6 +514,20 @@ char * cc_str_append_format__new( char ** restrict str__f,
 
     // No need to free() str__f, str__t; cc_str_append__new() does that.
     return cc_str_append__new( str__f, &str__t, max_len__d );
+}
+
+char * cc_str_append_format__new( char ** restrict str__f,
+                                  size_t max_len__d,
+                                  char const * restrict fmt, ... )
+{
+    va_list args;
+    va_start( args, fmt );
+
+    char * str__a = cc_str_append_format_va__new( str__f, max_len__d, fmt, args );
+
+    va_end( args );
+
+    return str__a;
 }
 
 bool cc_str_print( char const * restrict start,
