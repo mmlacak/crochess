@@ -4,6 +4,9 @@
 #include <ctype.h>
 #include <stdarg.h>
 
+#include <string.h>
+#include <stdio.h>
+
 #include "cc_str_utils.h"
 #include "cc_parse.h"
 #include "cc_rules_misc.h"
@@ -68,8 +71,8 @@ bool cc_make_move( char const * restrict move_an_str,
     if ( !CC_GAME_STATUS_IS_TURN( g->status ) )
     {
         char const * msg =
-            ( g->status == CC_GSE_None ) ? "Game is not initialized."
-                                         : "Game is finished.";
+            ( g->status == CC_GSE_None ) ? "Game is not initialized.\n"
+                                         : "Game is finished.\n";
 
         cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                              CC_PMTE_Error,
@@ -87,7 +90,7 @@ bool cc_make_move( char const * restrict move_an_str,
             // "##" resign
             return cc_check_pre_plies_status( *++m, g, parse_msgs__io, true, true, false,
                                               CC_MAX_LEN_ZERO_TERMINATED,
-                                              "Invalid char(s) after resign." );
+                                              "Invalid char(s) after resign.\n" );
         }
         else
         {
@@ -99,7 +102,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
             return cc_check_pre_plies_status( *m, g, parse_msgs__io, false, true, true,
                                               CC_MAX_LEN_ZERO_TERMINATED,
-                                              "Invalid char(s) after self-checkmate." );
+                                              "Invalid char(s) after self-checkmate.\n" );
         }
     }
 
@@ -117,14 +120,14 @@ bool cc_make_move( char const * restrict move_an_str,
                     {
                         return cc_check_pre_plies_status( *++m, g, parse_msgs__io, false, true, false,
                                                           CC_MAX_LEN_ZERO_TERMINATED,
-                                                          "Invalid char(s) after accepted draw." );
+                                                          "Invalid char(s) after accepted draw.\n" );
                     }
                     else
                     {
                         cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                                              CC_PMTE_Error,
                                                              CC_MAX_LEN_ZERO_TERMINATED,
-                                                             "No valid opponent's draw offer found." );
+                                                             "No valid opponent's draw offer found.\n" );
                         return false;
                     }
                 }
@@ -139,7 +142,7 @@ bool cc_make_move( char const * restrict move_an_str,
                 //
                 //         return cc_check_pre_plies_status( *++m, g, parse_msgs__io, false, true, false,
                 //                                           CC_MAX_LEN_ZERO_TERMINATED,
-                //                                           "Invalid char(s) after draw by rules." );
+                //                                           "Invalid char(s) after draw by rules.\n" );
                 //     }
                 // }
             }
@@ -148,17 +151,49 @@ bool cc_make_move( char const * restrict move_an_str,
         cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                              CC_PMTE_Error,
                                              CC_MAX_LEN_ZERO_TERMINATED,
-                                             "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players." );
+                                             "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
         return false;
     }
 
     char const * start = NULL;
     char const * end = NULL;
 
+    CcPlyLinkEnum ple = CC_PLE_StartingPly;
+    char piece_symbol = ' ';
+    CcPieceEnum piece = CC_PE_None;
+    char const * c = NULL;
+
+    printf( " --- --- ---\n" );
     while ( cc_ply_iter( m, &start, &end ) )
     {
-        cc_str_print( start, end, 128, "Ply: '%s'.\n" );
+        cc_str_print( start, end, 8192, "Ply: '%s'.\n" );
+
+        ple = cc_starting_ply_link( start );
+        c = start + cc_ply_link_len( ple );
+
+        cc_str_print( start, c, 128, "Ply link: '%s'" );
+        printf( " --> %d.\n", ple );
+
+        if ( cc_ply_piece_symbol( c, &piece_symbol ) )
+        {
+            piece = cc_piece_from_symbol( piece_symbol, CC_GAME_STATUS_IS_LIGHT_TURN( g->status ) );
+
+            printf( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+        }
+        else
+        {
+            cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                                                 CC_PMTE_Error,
+                                                 CC_MAX_LEN_ZERO_TERMINATED,
+                                                 "Invalid piece symbol '%c'.\n",
+                                                 piece_symbol );
+            return false;
+        }
+
+
+        printf( " ... ... ...\n" );
     }
+    printf( " --- --- ---\n" );
 
 // TODO :: loop over plies
 

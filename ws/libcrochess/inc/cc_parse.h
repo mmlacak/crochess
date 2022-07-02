@@ -38,7 +38,8 @@ typedef enum CcStepLinkEnum
 */
 typedef enum CcPlyLinkEnum
 {
-    CC_PLE_Ply, /**< Just one ply, starting or continuing cascade. If cascading, corresponds to `~`. */
+    CC_PLE_StartingPly, /**< Just first ply, standalone or starting a cascade. */
+    CC_PLE_CascadingPly, /**< Just one ply, continuing cascade. Corresponds to `~`. */
     CC_PLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
     CC_PLE_FailedTeleportation, /**< Failed teleportation, corresponds to `||`. */
     CC_PLE_TranceJourney, /**< Trance-journey, corresponds to `@`. */
@@ -67,7 +68,9 @@ typedef enum CcPlyLinkEnum
 // } CcPlyANs;
 
 
-size_t cc_starting_ply_link_len( char const * restrict an_str );
+CcPlyLinkEnum cc_starting_ply_link( char const * restrict an_str );
+
+size_t cc_ply_link_len( CcPlyLinkEnum ple );
 
 char const * cc_traverse_plies( char const * restrict an_str,
                                 bool skip_or_stop_at );
@@ -75,6 +78,9 @@ char const * cc_traverse_plies( char const * restrict an_str,
 bool cc_ply_iter( char const * restrict an_str,
                   char const ** restrict start__io,
                   char const ** restrict end__io );
+
+bool cc_ply_piece_symbol( char const * restrict an_str,
+                          char * restrict piece_symbol__o );
 
 
 #endif /* __CC_PARSE_H__ */
