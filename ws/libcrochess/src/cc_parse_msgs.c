@@ -74,7 +74,7 @@ CcParseMsgs * cc_parse_msgs_append_or_init_format( CcParseMsgs ** restrict parse
     va_list args;
     va_start( args, fmt );
 
-    char * msg__a = cc_str_format__new( max_len__d, fmt, args );
+    char * msg__a = cc_str_format_va__new( max_len__d, fmt, args );
 
     va_end( args );
 

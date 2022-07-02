@@ -71,7 +71,7 @@ CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
     va_list args;
     va_start( args, fmt );
 
-    char * str__a = cc_str_format__new( max_len__d, fmt, args );
+    char * str__a = cc_str_format_va__new( max_len__d, fmt, args );
 
     va_end( args );
 

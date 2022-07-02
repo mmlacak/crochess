@@ -68,7 +68,7 @@ char const * cc_traverse_plies( char const * restrict an_str,
         str__w += cc_ply_link_len( cc_starting_ply_link( str__w ) );
     else
         while ( ( *str__w != '\0' ) &&
-                ( cc_ply_link_len( cc_starting_ply_link( str__w ) ) == 0 ) )
+                ( cc_starting_ply_link( str__w ) ) == CC_PLE_StartingPly )
             ++str__w;
 
     return str__w;

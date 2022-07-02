@@ -221,6 +221,17 @@ int cc_str_len_format( char const * restrict fmt, ... )
     return len;
 }
 
+int cc_str_len_format_va( char const * restrict fmt, va_list args )
+{
+    va_list tmp;
+    va_copy( tmp, args );
+
+    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    va_end( tmp );
+
+    return len;
+}
+
 bool cc_str_is_equal( char const * restrict start_1,
                       char const * restrict end_1__d,
                       char const * restrict start_2,
@@ -286,7 +297,7 @@ char * cc_str_format__new( size_t max_len__d,
     va_list args;
     va_start( args, fmt );
 
-    int len = cc_str_len_format( fmt, args );
+    int len = cc_str_len_format_va( fmt, args );
     if ( len < 0 ) // error ?
     {
         va_end( args );
@@ -313,6 +324,52 @@ char * cc_str_format__new( size_t max_len__d,
     }
 
     va_end( args );
+
+    if ( len_min != (size_t const)len_2 )
+    {
+        CC_FREE( str__a );
+        return NULL;
+    }
+
+    return str__a;
+}
+
+char * cc_str_format_va__new( size_t max_len__d,
+                              char const * restrict fmt,
+                              va_list args )
+{
+    if ( !fmt ) return NULL;
+
+    va_list tmp;
+    va_copy( tmp, args );
+
+    int len = cc_str_len_format_va( fmt, tmp );
+    if ( len < 0 ) // error ?
+    {
+        va_end( tmp );
+        return NULL;
+    }
+
+    size_t len_min =
+        ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
+                                                     : (size_t)len;
+
+    char * str__a = (char *)malloc( len_min + 1 );
+    if ( !str__a )
+    {
+        va_end( tmp );
+        return NULL;
+    }
+
+    int len_2 = vsnprintf( str__a, len_min + 1, fmt, tmp );
+    if ( len_2 < 0 ) // error ?
+    {
+        CC_FREE( str__a );
+        va_end( tmp );
+        return NULL;
+    }
+
+    va_end( tmp );
 
     if ( len_min != (size_t const)len_2 )
     {
@@ -444,18 +501,25 @@ char * cc_str_append_format__new( char ** restrict str__f,
     va_list args;
     va_start( args, fmt );
 
-    va_list tmp;
-    va_copy( tmp, args );
+    // va_list tmp;
+    // va_copy( tmp, args );
 
-    int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    // int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include \0.
+    // if ( len < 0 ) // error?
+    // {
+    //     va_end( tmp );
+    //     va_end( args );
+    //     return NULL;
+    // }
+
+    // va_end( tmp );
+
+    int len = cc_str_len_format_va( fmt, args ); // len does not include \0.
     if ( len < 0 ) // error?
     {
-        va_end( tmp );
         va_end( args );
         return NULL;
     }
-
-    va_end( tmp );
 
     size_t len_min =
         ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )

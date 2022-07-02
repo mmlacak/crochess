@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 /**
     @file cc_str_utils.h
@@ -191,6 +192,21 @@ size_t cc_str_len( char const * restrict start,
 int cc_str_len_format( char const * restrict fmt, ... );
 
 /**
+    Function returns length of a formatted variadic input.
+
+    @param fmt A string format to append.
+    @param args Variadic list, input for a string format.
+
+    @note
+    Output returned is direct result of a `vsnprintf` found in `<stdio.h>`,
+    see C Standard Library reference for details.
+
+    @return Length of a formatted variadic input if non-negative,
+            error code if negative.
+*/
+int cc_str_len_format_va( char const * restrict fmt, va_list args );
+
+/**
     Function checks if two (sub-)strings are equal, up to a given maximum length.
 
     @param start_1 A starting character of a first (sub-)string.
@@ -257,6 +273,20 @@ char * cc_str_copy__new( char const * restrict start,
 */
 char * cc_str_format__new( size_t max_len__d,
                            char const * restrict fmt, ... );
+
+/**
+    Function returns a newly allocated string containing formatted variadic input,
+    capped at given maximum length.
+
+    @param max_len__d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so entirety of formatted string is returned.
+    @param fmt A string format to append.
+    @param args Variadic input list for a string format.
+
+    @return A newly allocated string if successful, `NULL` otherwise.
+*/
+char * cc_str_format_va__new( size_t max_len__d,
+                              char const * restrict fmt,
+                              va_list args );
 
 /**
     Function duplicating a string, by returning a newly allocated string,
