@@ -173,13 +173,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         cc_str_print( start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
-        if ( cc_ply_piece_symbol( c, &piece_symbol ) )
-        {
-            piece = cc_piece_from_symbol( piece_symbol, CC_GAME_STATUS_IS_LIGHT_TURN( g->status ) );
-
-            printf( "Piece: '%c' --> %d.\n", piece_symbol, piece );
-        }
-        else
+        if ( !cc_ply_piece_symbol( c, &piece_symbol ) )
         {
             cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                                  CC_PMTE_Error,
@@ -187,6 +181,25 @@ bool cc_make_move( char const * restrict move_an_str,
                                                  "Invalid piece symbol '%c'.\n",
                                                  piece_symbol );
             return false;
+        }
+
+
+// TODO :: movement
+
+// TODO :: find starting position
+
+
+        {
+// TODO :: find if piece light, based on starting position, if ply is cascading ...
+            bool is_light_piece =
+                ( ple == CC_PLE_StartingPly ) ? CC_GAME_STATUS_IS_LIGHT_TURN( g->status )
+                                              : true; // TODO :: not really true
+
+            piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
+
+            printf( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+
+            ++c;
         }
 
 
