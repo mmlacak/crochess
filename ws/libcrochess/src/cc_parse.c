@@ -120,3 +120,84 @@ bool cc_ply_piece_symbol( char const * restrict an_str,
 
     return cc_is_piece_symbol( *piece_symbol__o );
 }
+
+
+CcStepLinkEnum cc_starting_step_link( char const * restrict an_str )
+{
+    if ( !an_str ) return CC_SLE_Start;
+
+    char const * c = an_str;
+
+    if ( *c == '.' )
+    {
+        if ( *++c == '.' )
+            return CC_SLE_Distant;
+
+        return CC_SLE_Next;
+    }
+
+    if ( *c == '-' )
+        return CC_SLE_Destination;
+
+    if ( *c == ',' )
+        return CC_SLE_Reposition;
+
+    return CC_SLE_Start;
+}
+
+size_t cc_step_link_len( CcStepLinkEnum sle )
+{
+    switch ( sle )
+    {
+        case CC_SLE_Start : return 0; /* Position from which a piece started moving. */
+        case CC_SLE_Reposition : return 1; /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
+        case CC_SLE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
+        case CC_SLE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
+        case CC_SLE_Destination : return 1; /* Step to destination field, separated by - (hyphen). */
+        default : return 0;
+    }
+}
+
+char const * cc_traverse_steps( char const * restrict an_str,
+                                bool skip_or_stop_at )
+{
+    if ( !an_str ) return NULL;
+
+    char const * str__w = an_str;
+
+    if ( skip_or_stop_at )
+        str__w += cc_step_link_len( cc_starting_step_link( str__w ) );
+    else
+        while ( ( *str__w != '\0' ) &&
+                ( cc_starting_step_link( str__w ) ) == CC_SLE_Start )
+            ++str__w;
+
+    return str__w;
+}
+
+bool cc_step_iter( char const * restrict an_str,
+                   char const ** restrict start__io,
+                   char const ** restrict end__io )
+{
+    if ( !an_str ) return false;
+    if ( !start__io ) return false;
+    if ( !end__io ) return false;
+
+    if ( !( *start__io ) && !( *end__io ) )
+        *start__io = an_str;
+    else if ( ( *start__io ) && ( *end__io ) )
+        *start__io = cc_traverse_steps( *end__io, false );
+    else
+        return false;
+
+    *end__io = cc_traverse_steps( *start__io, true );
+    *end__io = cc_traverse_steps( *end__io, false );
+
+    if ( ( **start__io == '\0' ) || ( *end__io == *start__io ) )
+    {
+        *start__io = *end__io = NULL;
+        return false;
+    }
+
+    return true;
+}

@@ -15,20 +15,10 @@
 */
 
 
-#define CC_CHAR_IS_PLY_GATHER(char_c) ( ( char_c == '[' ) || ( char_c == ']' ) )
+#define CC_CHAR_IS_PLY_GATHER(char_c) ( ( (char_c) == '[' ) || ( (char_c) == ']' ) )
 
+#define CC_IS_PIECE_SYMBOL(char_c) ( isupper( (char_c) ) )
 
-/**
-    Step link enumeration.
-*/
-typedef enum CcStepLinkEnum
-{
-    CC_SLE_Start, /**< Position from which a piece started moving. */
-    CC_SLE_Reposition, /**< In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
-    CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
-    CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
-    CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
-} CcStepLinkEnum;
 
 /**
     Ply link enumeration.
@@ -47,6 +37,18 @@ typedef enum CcPlyLinkEnum
     CC_PLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
     CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
 } CcPlyLinkEnum;
+
+/**
+    Step link enumeration.
+*/
+typedef enum CcStepLinkEnum
+{
+    CC_SLE_Start, /**< Position from which a piece started moving. */
+    CC_SLE_Reposition, /**< In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
+    CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
+    CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
+    CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
+} CcStepLinkEnum;
 
 
 // /**
@@ -81,6 +83,19 @@ bool cc_ply_iter( char const * restrict an_str,
 
 bool cc_ply_piece_symbol( char const * restrict an_str,
                           char * restrict piece_symbol__o );
+
+
+CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );
+
+size_t cc_step_link_len( CcStepLinkEnum sle );
+
+char const * cc_traverse_steps( char const * restrict an_str,
+                                bool skip_or_stop_at );
+
+bool cc_step_iter( char const * restrict an_str,
+                   char const ** restrict start__io,
+                   char const ** restrict end__io );
+
 
 
 #endif /* __CC_PARSE_H__ */

@@ -155,23 +155,26 @@ bool cc_make_move( char const * restrict move_an_str,
         return false;
     }
 
-    char const * start = NULL;
-    char const * end = NULL;
+    char const * ply_start = NULL;
+    char const * ply_end = NULL;
 
     CcPlyLinkEnum ple = CC_PLE_StartingPly;
     char piece_symbol = ' ';
     CcPieceEnum piece = CC_PE_None;
     char const * c = NULL;
 
+    char const * step_start = NULL;
+    char const * step_end = NULL;
+
     printf( " --- --- ---\n" );
-    while ( cc_ply_iter( m, &start, &end ) )
+    while ( cc_ply_iter( m, &ply_start, &ply_end ) )
     {
-        cc_str_print( start, end, 8192, "Ply: '%s'.\n", "" );
+        cc_str_print( ply_start, ply_end, 8192, "Ply: '%s'.\n", "" );
 
-        ple = cc_starting_ply_link( start );
-        c = start + cc_ply_link_len( ple );
+        ple = cc_starting_ply_link( ply_start );
+        c = ply_start + cc_ply_link_len( ple );
 
-        cc_str_print( start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
+        cc_str_print( ply_start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
         if ( !cc_ply_piece_symbol( c, &piece_symbol ) )
         {
@@ -181,6 +184,13 @@ bool cc_make_move( char const * restrict move_an_str,
                                                  "Invalid piece symbol '%c'.\n",
                                                  piece_symbol );
             return false;
+        }
+
+        if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c; // Move past piece symbol.
+
+        while ( cc_step_iter( c, &step_start, &step_end ) )
+        {
+            cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
         }
 
 
