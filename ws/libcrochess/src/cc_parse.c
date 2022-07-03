@@ -45,14 +45,14 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple )
 {
     switch ( ple )
     {
-        case CC_PLE_StartingPly : return 0; /**< Just first ply, standalone or starting a cascade. */
-        case CC_PLE_CascadingPly : return 1; /**< Just one ply, continuing cascade. Corresponds to `~`. */
-        case CC_PLE_Teleportation : return 1; /**< Teleportation of piece. Corresponds to `|`. */
-        case CC_PLE_FailedTeleportation : return 2; /**< Failed teleportation, corresponds to `||`. */
-        case CC_PLE_TranceJourney : return 1; /**< Trance-journey, corresponds to `@`. */
-        case CC_PLE_DualTranceJourney : return 2; /**< Double trance-journey, corresponds to `@@`. */
-        case CC_PLE_FailedTranceJourney : return 3; /**< Failed trance-journey, corresponds to `@@@`. */
-        case CC_PLE_PawnSacrifice : return 2; /**< Pawn sacrifice, corresponds to `;;`. */
+        case CC_PLE_StartingPly : return 0; /* Just first ply, standalone or starting a cascade. */
+        case CC_PLE_CascadingPly : return 1; /* Just one ply, continuing cascade. Corresponds to `~`. */
+        case CC_PLE_Teleportation : return 1; /* Teleportation of piece. Corresponds to `|`. */
+        case CC_PLE_FailedTeleportation : return 2; /* Failed teleportation, corresponds to `||`. */
+        case CC_PLE_TranceJourney : return 1; /* Trance-journey, corresponds to `@`. */
+        case CC_PLE_DualTranceJourney : return 2; /* Double trance-journey, corresponds to `@@`. */
+        case CC_PLE_FailedTranceJourney : return 3; /* Failed trance-journey, corresponds to `@@@`. */
+        case CC_PLE_PawnSacrifice : return 2; /* Pawn sacrifice, corresponds to `;;`. */
         default : return 0;
     }
 }
