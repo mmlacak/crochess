@@ -176,6 +176,8 @@ bool cc_make_move( char const * restrict move_an_str,
 
         cc_str_print( ply_start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
+        if ( CC_IS_PLY_GATHER_START( *c ) ) ++c; // Move past '['.
+
         if ( !cc_ply_piece_symbol( c, &piece_symbol ) )
         {
             cc_parse_msgs_append_or_init_format( parse_msgs__io,
@@ -188,7 +190,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c; // Move past piece symbol.
 
-        while ( cc_step_iter( c, &step_start, &step_end ) )
+        while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
         {
             cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
         }
@@ -212,6 +214,9 @@ bool cc_make_move( char const * restrict move_an_str,
 
             ++c;
         }
+
+
+        // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Move past ']'. // TODO (?)
 
 
         printf( " ... ... ...\n" );

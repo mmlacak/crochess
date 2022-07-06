@@ -92,9 +92,11 @@ bool cc_starting_step_link( char const * restrict an_str,
 
 size_t cc_step_link_len( CcStepLinkEnum sle );
 
-char const * cc_next_step_link( char const * restrict an_str );
+char const * cc_next_step_link( char const * restrict an_str,
+                                char const * restrict ply_end );
 
 bool cc_step_iter( char const * restrict an_str,
+                   char const * restrict ply_end,
                    char const ** restrict start__io,
                    char const ** restrict end__io );
 

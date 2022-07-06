@@ -204,10 +204,12 @@ size_t cc_step_link_len( CcStepLinkEnum sle )
     }
 }
 
-char const * cc_next_step_link( char const * restrict an_str )
+char const * cc_next_step_link( char const * restrict an_str,
+                                char const * restrict ply_end )
 {
     if ( !an_str ) return NULL;
     if ( *an_str == '\0' ) return NULL;
+    if ( an_str >= ply_end ) return NULL;
 
     char const * str__w = an_str;
     CcStepLinkEnum sle = CC_SLE_Start;
@@ -217,13 +219,15 @@ char const * cc_next_step_link( char const * restrict an_str )
 
     // Skip over everything before step link.
     while ( cc_starting_step_link( str__w, &sle ) &&
-            ( sle == CC_SLE_Start ) )
+            ( sle == CC_SLE_Start ) &&
+            ( str__w < ply_end ) )
         ++str__w;
 
     return str__w;
 }
 
 bool cc_step_iter( char const * restrict an_str,
+                   char const * restrict ply_end,
                    char const ** restrict start__io,
                    char const ** restrict end__io )
 {
@@ -238,7 +242,7 @@ bool cc_step_iter( char const * restrict an_str,
     else
         return false;
 
-    *end__io = cc_next_step_link( *start__io );
+    *end__io = cc_next_step_link( *start__io, ply_end );
 
     if ( !*end__io )
     {
