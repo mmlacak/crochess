@@ -71,9 +71,9 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 
     CcPosLink * pl = pos_link__io;
     while ( pl->next ) pl = pl->next; // rewind
-    pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
 
-    pl__t->prev = pl; // back-link to previous node
+    pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
+    pl__t->prev = pl;
 
     return pl__t;
 }

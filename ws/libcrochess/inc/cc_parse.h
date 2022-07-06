@@ -16,44 +16,6 @@
 */
 
 
-// #define CC_IS_PLY_GATHER(char_c) ( ( (char_c) == '[' ) || ( (char_c) == ']' ) )
-// #define CC_IS_PLY_GATHER_START(char_c) ( (char_c) == '[' )
-// #define CC_IS_PLY_GATHER_END(char_c) ( (char_c) == ']' )
-
-// #define CC_IS_PIECE_SYMBOL(char_c) ( isupper( (char_c) ) )
-
-
-// /**
-//     Ply link enumeration.
-
-//     This enumerates different ways plies can cascade,
-//     and directly corresponds to cascading plies separators and terminators.
-// */
-// typedef enum CcPlyLinkEnum
-// {
-//     CC_PLE_StartingPly, /**< Just first ply, standalone or starting a cascade. */
-//     CC_PLE_CascadingPly, /**< Just one ply, continuing cascade. Corresponds to `~`. */
-//     CC_PLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
-//     CC_PLE_FailedTeleportation, /**< Failed teleportation, corresponds to `||`. */
-//     CC_PLE_TranceJourney, /**< Trance-journey, corresponds to `@`. */
-//     CC_PLE_DualTranceJourney, /**< Double trance-journey, corresponds to `@@`. */
-//     CC_PLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
-//     CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
-// } CcPlyLinkEnum;
-
-// /**
-//     Step link enumeration.
-// */
-// typedef enum CcStepLinkEnum
-// {
-//     CC_SLE_Start, /**< Position from which a piece started moving. */
-//     CC_SLE_Reposition, /**< In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
-//     CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
-//     CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
-//     CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
-// } CcStepLinkEnum;
-
-
 // /**
 //     Ply algebraic notation structure.
 // */
@@ -100,6 +62,9 @@ bool cc_step_iter( char const * restrict an_str,
                    char const * restrict ply_end,
                    char const ** restrict start__io,
                    char const ** restrict end__io );
+
+bool cc_ply_has_steps( char const * restrict an_str,
+                       char const * restrict ply_end );
 
 
 

@@ -165,11 +165,14 @@ bool cc_make_move( char const * restrict move_an_str,
 
     char const * step_start = NULL;
     char const * step_end = NULL;
+    bool ply_has_steps = false;
 
     printf( " --- --- ---\n" );
     while ( cc_ply_iter( m, &ply_start, &ply_end ) )
     {
-        cc_str_print( ply_start, ply_end, 8192, "Ply: '%s'.\n", "" );
+        ply_has_steps = cc_ply_has_steps( ply_start, ply_end );
+
+        cc_str_print( ply_start, ply_end, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
 
         cc_starting_ply_link( ply_start, &ple ); // TODO :: maybe check error (?)
         c = ply_start + cc_ply_link_len( ple );
