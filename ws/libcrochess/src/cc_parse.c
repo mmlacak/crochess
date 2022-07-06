@@ -11,34 +11,63 @@
 */
 
 
-CcPlyLinkEnum cc_starting_ply_link( char const * restrict an_str )
+bool cc_starting_ply_link( char const * restrict an_str,
+                           CcPlyLinkEnum * restrict ple__o )
 {
-    if ( !an_str ) return CC_PLE_StartingPly;
+    if ( !an_str ) return false;
 
     char const * c = an_str;
 
-    if ( *c == '~' ) return CC_PLE_CascadingPly; // "~" plies
+    if ( *c == '~' )
+    {
+        *ple__o = CC_PLE_CascadingPly; // "~" plies
+        return true;
+    }
 
     if ( *c == '|' )
     {
-        if ( *++c == '|' ) return CC_PLE_FailedTeleportation; // "||" failed teleportation, oblation
-        return CC_PLE_Teleportation; // "|" teleportation
+        if ( *++c == '|' )
+        {
+            *ple__o = CC_PLE_FailedTeleportation; // "||" failed teleportation, oblation
+            return true;
+        }
+
+        *ple__o = CC_PLE_Teleportation; // "|" teleportation
+        return true;
     }
 
     if ( *c == '@' )
     {
         if ( *++c == '@' )
         {
-            if ( *++c == '@' ) return CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
-            return CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
+            if ( *++c == '@' )
+            {
+                *ple__o = CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
+                return true;
+            }
+
+            *ple__o = CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
+            return true;
         }
-        return CC_PLE_TranceJourney; // "@" trance-journey
+
+        *ple__o = CC_PLE_TranceJourney; // "@" trance-journey
+        return true;
     }
 
     if ( *c == ';' )
-        if ( *++c == ';' ) return CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
+        if ( *++c == ';' )
+        {
+            *ple__o = CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
+            return true;
+        }
 
-    return CC_PLE_StartingPly;
+    if ( *c != '\0' )
+    {
+        *ple__o = CC_PLE_StartingPly;
+        return true;
+    }
+
+    return false;
 }
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple )
@@ -57,19 +86,21 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple )
     }
 }
 
-char const * cc_traverse_plies( char const * restrict an_str,
-                                bool skip_or_stop_at )
+char const * cc_next_ply_link( char const * restrict an_str )
 {
     if ( !an_str ) return NULL;
+    if ( *an_str == '\0' ) return NULL;
 
     char const * str__w = an_str;
+    CcPlyLinkEnum ple = CC_PLE_StartingPly;
 
-    if ( skip_or_stop_at )
-        str__w += cc_ply_link_len( cc_starting_ply_link( str__w ) );
-    else
-        while ( ( *str__w != '\0' ) &&
-                ( cc_starting_ply_link( str__w ) ) == CC_PLE_StartingPly )
-            ++str__w;
+    if ( cc_starting_ply_link( str__w, &ple ) )
+        str__w += cc_ply_link_len( ple );
+
+    // Skip over everything before ply link.
+    while ( cc_starting_ply_link( str__w, &ple ) &&
+            ( ple == CC_PLE_StartingPly ) )
+        ++str__w;
 
     return str__w;
 }
@@ -85,14 +116,13 @@ bool cc_ply_iter( char const * restrict an_str,
     if ( !( *start__io ) && !( *end__io ) )
         *start__io = an_str;
     else if ( ( *start__io ) && ( *end__io ) )
-        *start__io = cc_traverse_plies( *end__io, false );
+        *start__io = *end__io;
     else
         return false;
 
-    *end__io = cc_traverse_plies( *start__io, true );
-    *end__io = cc_traverse_plies( *end__io, false );
+    *end__io = cc_next_ply_link( *start__io );
 
-    if ( ( **start__io == '\0' ) || ( *end__io == *start__io ) )
+    if ( **start__io == '\0' ) // ( ( **start__io == '\0' ) || ( *end__io == *start__io ) )
     {
         *start__io = *end__io = NULL;
         return false;
@@ -109,8 +139,7 @@ bool cc_ply_piece_symbol( char const * restrict an_str,
 
     char const * p = an_str;
 
-    p = cc_traverse_plies( p, true );
-    if ( !p ) return false;
+    while ( !isalnum( *p )  ) ++p;
 
     if ( isupper( *p ) ) // <!> Useage of cc_is_piece_symbol() here is bug,
                          //     all other upper chars would end as Pawns.
@@ -159,13 +188,13 @@ size_t cc_step_link_len( CcStepLinkEnum sle )
 }
 
 char const * cc_traverse_steps( char const * restrict an_str,
-                                bool skip_or_stop_at )
+                                bool skip_over_link )
 {
     if ( !an_str ) return NULL;
 
     char const * str__w = an_str;
 
-    if ( skip_or_stop_at )
+    if ( skip_over_link )
         str__w += cc_step_link_len( cc_starting_step_link( str__w ) );
     else
         while ( ( *str__w != '\0' ) &&

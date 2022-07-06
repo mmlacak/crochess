@@ -15,7 +15,9 @@
 */
 
 
-#define CC_CHAR_IS_PLY_GATHER(char_c) ( ( (char_c) == '[' ) || ( (char_c) == ']' ) )
+#define CC_IS_PLY_GATHER(char_c) ( ( (char_c) == '[' ) || ( (char_c) == ']' ) )
+#define CC_IS_PLY_GATHER_START(char_c) ( (char_c) == '[' )
+#define CC_IS_PLY_GATHER_END(char_c) ( (char_c) == ']' )
 
 #define CC_IS_PIECE_SYMBOL(char_c) ( isupper( (char_c) ) )
 
@@ -70,12 +72,12 @@ typedef enum CcStepLinkEnum
 // } CcPlyANs;
 
 
-CcPlyLinkEnum cc_starting_ply_link( char const * restrict an_str );
+bool cc_starting_ply_link( char const * restrict an_str,
+                           CcPlyLinkEnum * restrict ple__o );
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple );
 
-char const * cc_traverse_plies( char const * restrict an_str,
-                                bool skip_or_stop_at );
+char const * cc_next_ply_link( char const * restrict an_str );
 
 bool cc_ply_iter( char const * restrict an_str,
                   char const ** restrict start__io,
@@ -90,7 +92,7 @@ CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );
 size_t cc_step_link_len( CcStepLinkEnum sle );
 
 char const * cc_traverse_steps( char const * restrict an_str,
-                                bool skip_or_stop_at );
+                                bool skip_over_link );
 
 bool cc_step_iter( char const * restrict an_str,
                    char const ** restrict start__io,

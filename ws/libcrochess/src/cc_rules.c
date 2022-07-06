@@ -171,27 +171,27 @@ bool cc_make_move( char const * restrict move_an_str,
     {
         cc_str_print( ply_start, ply_end, 8192, "Ply: '%s'.\n", "" );
 
-        ple = cc_starting_ply_link( ply_start );
+        cc_starting_ply_link( ply_start, &ple ); // TODO :: maybe check error (?)
         c = ply_start + cc_ply_link_len( ple );
 
         cc_str_print( ply_start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
-        if ( !cc_ply_piece_symbol( c, &piece_symbol ) )
-        {
-            cc_parse_msgs_append_or_init_format( parse_msgs__io,
-                                                 CC_PMTE_Error,
-                                                 CC_MAX_LEN_ZERO_TERMINATED,
-                                                 "Invalid piece symbol '%c'.\n",
-                                                 piece_symbol );
-            return false;
-        }
+        // if ( !cc_ply_piece_symbol( c, &piece_symbol ) )
+        // {
+        //     cc_parse_msgs_append_or_init_format( parse_msgs__io,
+        //                                          CC_PMTE_Error,
+        //                                          CC_MAX_LEN_ZERO_TERMINATED,
+        //                                          "Invalid piece symbol '%c'.\n",
+        //                                          piece_symbol );
+        //     return false;
+        // }
 
-        if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c; // Move past piece symbol.
+        // if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c; // Move past piece symbol.
 
-        while ( cc_step_iter( c, &step_start, &step_end ) )
-        {
-            cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
-        }
+        // while ( cc_step_iter( c, &step_start, &step_end ) )
+        // {
+        //     cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
+        // }
 
 
 // TODO :: movement
@@ -199,18 +199,18 @@ bool cc_make_move( char const * restrict move_an_str,
 // TODO :: find starting position
 
 
-        {
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
-            bool is_light_piece =
-                ( ple == CC_PLE_StartingPly ) ? CC_GAME_STATUS_IS_LIGHT_TURN( g->status )
-                                              : true; // TODO :: not really true
+//         {
+// // TODO :: find if piece light, based on starting position, if ply is cascading ...
+//             bool is_light_piece =
+//                 ( ple == CC_PLE_StartingPly ) ? CC_GAME_STATUS_IS_LIGHT_TURN( g->status )
+//                                               : true; // TODO :: not really true
 
-            piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
+//             piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
 
-            printf( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+//             printf( "Piece: '%c' --> %d.\n", piece_symbol, piece );
 
-            ++c;
-        }
+//             ++c;
+//         }
 
 
         printf( " ... ... ...\n" );
