@@ -6,6 +6,8 @@
 
 #include <stdbool.h>
 
+#include "cc_parse_defs.h"
+
 /**
     @file cc_pos.h
     @brief Position, linked list of positions.
@@ -128,7 +130,10 @@ bool cc_pos_is_valid( CcPos pos );
     Structure forming a linked list of positions.
 */
 typedef struct CcPosLink {
+    CcStepLinkEnum step_link;
     CcPos pos; /**< A position. */
+
+    struct CcPosLink * prev; /**< Link to a previous position. */
     struct CcPosLink * next; /**< Link to a next position. */
 } CcPosLink;
 
@@ -139,7 +144,8 @@ typedef struct CcPosLink {
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link__new( CcPos pos );
+CcPosLink * cc_pos_link__new( CcStepLinkEnum step_link,
+                              CcPos pos );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
@@ -150,6 +156,7 @@ CcPosLink * cc_pos_link__new( CcPos pos );
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
+                                CcStepLinkEnum step_link,
                                 CcPos pos );
 
 /**
@@ -169,6 +176,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
+                                        CcStepLinkEnum step_link,
                                         CcPos pos );
 
 /**
