@@ -122,7 +122,7 @@ bool cc_ply_iter( char const * restrict an_str,
 
     *end__io = cc_next_ply_link( *start__io );
 
-    if ( **start__io == '\0' ) // ( ( **start__io == '\0' ) || ( *end__io == *start__io ) )
+    if ( !*end__io )
     {
         *start__io = *end__io = NULL;
         return false;
@@ -151,27 +151,44 @@ bool cc_ply_piece_symbol( char const * restrict an_str,
 }
 
 
-CcStepLinkEnum cc_starting_step_link( char const * restrict an_str )
+bool cc_starting_step_link( char const * restrict an_str,
+                            CcStepLinkEnum * restrict sle__o )
 {
-    if ( !an_str ) return CC_SLE_Start;
+    if ( !an_str ) return false;
 
     char const * c = an_str;
 
     if ( *c == '.' )
     {
         if ( *++c == '.' )
-            return CC_SLE_Distant;
+        {
+            *sle__o = CC_SLE_Distant;
+            return true;
+        }
 
-        return CC_SLE_Next;
+        *sle__o = CC_SLE_Next;
+        return true;
     }
 
     if ( *c == '-' )
-        return CC_SLE_Destination;
+    {
+        *sle__o = CC_SLE_Destination;
+        return true;
+    }
 
     if ( *c == ',' )
-        return CC_SLE_Reposition;
+    {
+        *sle__o = CC_SLE_Reposition;
+        return true;
+    }
 
-    return CC_SLE_Start;
+    if ( *c != '\0' )
+    {
+        *sle__o = CC_SLE_Start;
+        return true;
+    }
+
+    return false;
 }
 
 size_t cc_step_link_len( CcStepLinkEnum sle )
@@ -187,19 +204,21 @@ size_t cc_step_link_len( CcStepLinkEnum sle )
     }
 }
 
-char const * cc_traverse_steps( char const * restrict an_str,
-                                bool skip_over_link )
+char const * cc_next_step_link( char const * restrict an_str )
 {
     if ( !an_str ) return NULL;
+    if ( *an_str == '\0' ) return NULL;
 
     char const * str__w = an_str;
+    CcStepLinkEnum sle = CC_SLE_Start;
 
-    if ( skip_over_link )
-        str__w += cc_step_link_len( cc_starting_step_link( str__w ) );
-    else
-        while ( ( *str__w != '\0' ) &&
-                ( cc_starting_step_link( str__w ) ) == CC_SLE_Start )
-            ++str__w;
+    if ( cc_starting_step_link( str__w, &sle ) )
+        str__w += cc_step_link_len( sle );
+
+    // Skip over everything before step link.
+    while ( cc_starting_step_link( str__w, &sle ) &&
+            ( sle == CC_SLE_Start ) )
+        ++str__w;
 
     return str__w;
 }
@@ -214,15 +233,14 @@ bool cc_step_iter( char const * restrict an_str,
 
     if ( !( *start__io ) && !( *end__io ) )
         *start__io = an_str;
-    else if ( ( *start__io ) && ( *end__io ) )
-        *start__io = cc_traverse_steps( *end__io, false );
+    else if ( *start__io )
+        *start__io = *end__io;
     else
         return false;
 
-    *end__io = cc_traverse_steps( *start__io, true );
-    *end__io = cc_traverse_steps( *end__io, false );
+    *end__io = cc_next_step_link( *start__io );
 
-    if ( ( **start__io == '\0' ) || ( *end__io == *start__io ) )
+    if ( !*end__io )
     {
         *start__io = *end__io = NULL;
         return false;

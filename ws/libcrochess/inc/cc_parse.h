@@ -87,12 +87,12 @@ bool cc_ply_piece_symbol( char const * restrict an_str,
                           char * restrict piece_symbol__o );
 
 
-CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );
+bool cc_starting_step_link( char const * restrict an_str,
+                            CcStepLinkEnum * restrict sle__o );
 
 size_t cc_step_link_len( CcStepLinkEnum sle );
 
-char const * cc_traverse_steps( char const * restrict an_str,
-                                bool skip_over_link );
+char const * cc_next_step_link( char const * restrict an_str );
 
 bool cc_step_iter( char const * restrict an_str,
                    char const ** restrict start__io,
