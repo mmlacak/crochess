@@ -173,6 +173,7 @@ Outtakes:
 * [The Tornados - Telstar](https://www.youtube.com/watch?v=SQdDjy1UtW4)
 * [La bourrée d'Avignon - Philidor (Ens. Le Banquet du Roy)](https://www.youtube.com/watch?v=GrtryY5xZjM)
 * [Andreas Waldetoft - To The Ends of the Galaxy](https://www.youtube.com/watch?v=FuELLd3Ec4U)
+* [Renaissance - Wanderer](https://www.youtube.com/watch?v=AwJugy5Soto)
 
 YouTube playlist featuring all listed songs + outtakes: [Croatian chess soundtrack + outtakes](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPqG2NZhkRy0CO68jH7MDXdg).
 
