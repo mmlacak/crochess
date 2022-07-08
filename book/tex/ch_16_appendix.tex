@@ -201,8 +201,9 @@ another position(s). It contains one of: just file, just rank, rank + file, in t
 of preferance. This is the same as in \algfmt{CAN}, described in: \\
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Disambiguating\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
 \#Disambiguating\_moves}, see also \algfmt{FIDE C.10}.
-Only difference is that disambiguation really affects plies (movement of a single piece),
-and not move as a whole, as multiple pieces might get moved in a single, cascading move.
+Disambiguation is used in a ply, to distinguish starting position of a piece from others
+of the same kind that can end their movement on the same destination field, or can have
+the same path.
 
 For instance, should \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus simple move example}
 had another light Pegasus at \alg{i2} field, move to destination field 3 would be written
