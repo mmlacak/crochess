@@ -6,11 +6,11 @@
 
 #include "limits.h"
 
-
 /**
     @file cc_defines.h
     @brief Constants and macros used throughout project.
 */
+
 
 /**
     Smallest, invalid off-board coordinate.
@@ -20,7 +20,7 @@
 
     Used for e.g. missing coordinates, for which invalid value ascertains no useage.
 */
-// + number, so that value isn't get by accident, e.g. by simply flipping bits, ...
+// + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
 #define CC_INVALID_OFF_BOARD_COORD_MIN (INT_MIN + 3583)
 
 /**
