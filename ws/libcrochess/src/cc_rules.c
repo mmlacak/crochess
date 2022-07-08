@@ -167,7 +167,8 @@ bool cc_make_move( char const * restrict move_an_str,
     char const * step_end = NULL;
     bool ply_has_steps = false;
 
-    printf( " --- --- ---\n" );
+    // printf( "\n" );
+    printf( "\nMove: '%s'.\n\n", move_an_str );
     while ( cc_ply_iter( m, &ply_start, &ply_end ) )
     {
         ply_has_steps = cc_ply_has_steps( ply_start, ply_end );
@@ -222,9 +223,9 @@ bool cc_make_move( char const * restrict move_an_str,
         // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Move past ']'. // TODO (?)
 
 
-        printf( " ... ... ...\n" );
+        printf( "\n" );
     }
-    printf( " --- --- ---\n" );
+    printf( "-----------------------------------------------------------------------\n" );
 
 // TODO :: loop over plies
 

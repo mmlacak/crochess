@@ -19,7 +19,37 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.73:505+20220706.093720"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.74:506+20220708.035408"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+
+
+bool test_move( char const * restrict an_str,
+                CcGame * game__a )
+{
+    if ( !an_str ) return false;
+    if ( !game__a ) return false;
+
+    bool result = false;
+    CcParseMsgs * pms__a = NULL;
+
+    if ( ( result = cc_make_move( an_str, &game__a, &pms__a ) ) )
+    {
+        // TODO :: TEMP :: uncomment (?)
+        // cc_chessboard_print( game__a->chessboard, true );
+    }
+    else
+    {
+        CcParseMsgs * p = pms__a;
+        while ( p )
+        {
+            printf( "%s\n", p->msg );
+            p = p->next;
+        }
+    }
+
+    cc_parse_msgs_free_all( &pms__a );
+
+    return result;
+}
 
 
 int main( void )
@@ -106,7 +136,7 @@ int main( void )
                     }
                 }
 
-                CC_FREE( pms__a );
+                cc_parse_msgs_free_all( &pms__a );
             }
         }
         else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
@@ -179,10 +209,20 @@ int main( void )
         }
         else if ( cc_str_is_equal( token_start, token_end, "x", NULL, BUFSIZ ) )
         {
-            printf( "X: '%d'.\n", cc_is_field_light(5, 2) );
-            cc_chessboard_clear( game__a->chessboard );
-            cc_chessboard_set_piece( game__a->chessboard, 5, 2, CC_PE_LightBishop );
-            cc_chessboard_print( game__a->chessboard, true );
+            test_move( "n5", game__a );
+
+            test_move( "Bn5", game__a );
+            test_move( "Ba5~Ab5", game__a );
+
+            test_move( "[Bn5]", game__a );
+            test_move( "[Ba5]~[Ab5]", game__a );
+
+            test_move( "B5.b9..d11-h14", game__a );
+            test_move( "Ba.b9..d11-h14~A..g15.h16..j18-k19", game__a );
+
+            // test_move( "Ba5~Wc7|Nd9", game__a );
+            // test_move( "Ba5~[Wc7]||Nd9", game__a );
+            // test_move( "[Ba5]~Wc7@@[Nd9]", game__a );
         }
         else
         {
