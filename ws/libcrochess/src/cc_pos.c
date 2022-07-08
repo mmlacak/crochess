@@ -18,19 +18,19 @@ CcPos cc_pos( int i, int j )
     return pos;
 }
 
+CcPos cc_pos_disambiguation_file( int i )
+{
+    return cc_pos( i, CC_INVALID_OFF_BOARD_COORD_MIN );
+}
+
+CcPos cc_pos_disambiguation_rank( int j )
+{
+    return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, j );
+}
+
 CcPos cc_pos_invalid()
 {
     return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN );
-}
-
-CcPos cc_pos_add( CcPos pos, CcPos step )
-{
-    return cc_pos( pos.i + step.i, pos.j + step.j );
-}
-
-CcPos cc_pos_subtract( CcPos pos, CcPos step )
-{
-    return cc_pos( pos.i - step.i, pos.j - step.j );
 }
 
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
@@ -40,8 +40,51 @@ bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
 
 bool cc_pos_is_valid( CcPos pos )
 {
-    return ( ( pos.i != CC_INVALID_OFF_BOARD_COORD_MIN ) &&
-             ( pos.j != CC_INVALID_OFF_BOARD_COORD_MIN ) );
+    return ( CC_IS_POS_VALID( pos.i, pos.j ) );
+}
+
+bool cc_pos_is_disambiguation_file( CcPos pos )
+{
+    return ( CC_IS_COORD_VALID( pos.i ) && ( !CC_IS_COORD_VALID( pos.j ) ) );
+}
+
+bool cc_pos_is_disambiguation_rank( CcPos pos )
+{
+    return ( ( !CC_IS_COORD_VALID( pos.i ) ) && CC_IS_COORD_VALID( pos.j ) );
+}
+
+bool cc_pos_is_disambiguation( CcPos pos )
+{
+    return ( cc_pos_is_disambiguation_file( pos ) ||
+             cc_pos_is_disambiguation_rank( pos ) );
+}
+
+CcPos cc_pos_add( CcPos pos, CcPos step )
+{
+    if ( cc_pos_is_valid( pos ) && cc_pos_is_valid( step ) )
+        return cc_pos( pos.i + step.i, pos.j + step.j );
+    else if ( cc_pos_is_disambiguation_file( pos ) &&
+              cc_pos_is_disambiguation_file( step ) )
+        return cc_pos_disambiguation_file( pos.i + step.i );
+    else if ( cc_pos_is_disambiguation_rank( pos ) &&
+              cc_pos_is_disambiguation_rank( step ) )
+        return cc_pos_disambiguation_rank( pos.j + step.j );
+    else
+        return cc_pos_invalid();
+}
+
+CcPos cc_pos_subtract( CcPos pos, CcPos step )
+{
+    if ( cc_pos_is_valid( pos ) && cc_pos_is_valid( step ) )
+        return cc_pos( pos.i - step.i, pos.j - step.j );
+    else if ( cc_pos_is_disambiguation_file( pos ) &&
+              cc_pos_is_disambiguation_file( step ) )
+        return cc_pos_disambiguation_file( pos.i - step.i );
+    else if ( cc_pos_is_disambiguation_rank( pos ) &&
+              cc_pos_is_disambiguation_rank( step ) )
+        return cc_pos_disambiguation_rank( pos.j - step.j );
+    else
+        return cc_pos_invalid();
 }
 
 

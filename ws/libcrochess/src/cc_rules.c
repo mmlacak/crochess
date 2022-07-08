@@ -194,6 +194,9 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c; // Move past piece symbol.
 
+// TODO :: disambiguation
+
+
         while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
         {
             cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );

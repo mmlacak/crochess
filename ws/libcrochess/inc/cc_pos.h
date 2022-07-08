@@ -73,6 +73,24 @@ typedef struct CcPos {
 CcPos cc_pos( int i, int j );
 
 /**
+    Function returns a file disambiguation.
+
+    @param i File, horizontal coordinate.
+
+    @return Disambiguation with a given coordinate.
+*/
+CcPos cc_pos_disambiguation_file( int i );
+
+/**
+    Function returns a rank disambiguation.
+
+    @param j Rank, vertical coordinate.
+
+    @return Disambiguation with a given coordinate.
+*/
+CcPos cc_pos_disambiguation_rank( int j );
+
+/**
     Function returns invalid position.
 
     @note
@@ -81,28 +99,6 @@ CcPos cc_pos( int i, int j );
     @return An invalid position.
 */
 CcPos cc_pos_invalid();
-
-/**
-    Function adds step to a position.
-
-    @param pos A position to add to.
-    @param step A step to be added.
-
-    @return A position with added step.
-
-*/
-CcPos cc_pos_add( CcPos pos, CcPos step );
-
-/**
-    Function subtracts step from aposition.
-
-    @param pos A position to subtract from.
-    @param step A step to be subtracted.
-
-    @return A position with subtracted step.
-
-*/
-CcPos cc_pos_subtract( CcPos pos, CcPos step );
 
 /**
     Function checks if two positions are the same.
@@ -125,12 +121,92 @@ bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
 */
 bool cc_pos_is_valid( CcPos pos );
 
+/**
+    Function checks if position is a file disambiguation.
+
+    @param pos A position.
+
+    @see cc_pos_disambiguation_file()
+
+    @return `true` if position is a file disambiguation, `false` otherwise.
+*/
+bool cc_pos_is_disambiguation_file( CcPos pos );
+
+/**
+    Function checks if position is a rank disambiguation.
+
+    @param pos A position.
+
+    @see cc_pos_disambiguation_rank()
+
+    @return `true` if position is a rank disambiguation, `false` otherwise.
+*/
+bool cc_pos_is_disambiguation_rank( CcPos pos );
+
+/**
+    Function checks if position is a disambiguation.
+
+    @param pos A position.
+
+    @note
+    Disambiguation is a position with one known coordinate, and the other is unknown (invalid).
+
+    @note
+    Position is a disambiguation if it's either a file, or a rank disambiguation.
+
+    @note
+    Valid position is not a disambiguation.
+
+    @return `true` if position is a disambiguation, `false` otherwise.
+*/
+bool cc_pos_is_disambiguation( CcPos pos );
+
+/**
+    Function adds step to position.
+
+    @param pos A position to add to.
+    @param step A step to be added.
+
+    @note
+    Function adds valid coordinates, if both `pos` and `step` arguments are one of:
+    - valid positions
+    - file disambiguations
+    - rank disambiguations.
+
+    @note
+    If `pos` and `step` have no common valid coordinates, result is invalid position,
+    e.g. if a rank disambiguation is added to a file disambiguation.
+
+    @return A position with added step if successful, invalid position otherwise.
+*/
+CcPos cc_pos_add( CcPos pos, CcPos step );
+
+/**
+    Function subtracts step from position.
+
+    @param pos A position to subtract from.
+    @param step A step to be subtracted.
+
+    @note
+    Function subtracts valid coordinates, if both `pos` and `step` arguments are one of:
+    - valid positions
+    - file disambiguations
+    - rank disambiguations.
+
+    @note
+    If `pos` and `step` have no common valid coordinates, result is invalid position,
+    e.g. if a rank disambiguation is subtracted from a file disambiguation.
+
+    @return A position with subtracted step if successful, invalid position otherwise.
+*/
+CcPos cc_pos_subtract( CcPos pos, CcPos step );
+
 
 /**
     Structure forming a linked list of positions.
 */
 typedef struct CcPosLink {
-    CcStepLinkEnum step_link;
+    CcStepLinkEnum step_link; /**< A step link enum. */
     CcPos pos; /**< A position. */
 
     struct CcPosLink * prev; /**< Link to a previous position. */
@@ -140,6 +216,7 @@ typedef struct CcPosLink {
 /**
     Function allocates a new linked position.
 
+    @param step_link A step link enum.
     @param pos A position.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
@@ -151,6 +228,7 @@ CcPosLink * cc_pos_link__new( CcStepLinkEnum step_link,
     Function appends a newly allocated linked position to a given linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list.
+    @param step_link A step link enum.
     @param pos A position.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
@@ -163,6 +241,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     Allocates a new linked position, appends it to a linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
+    @param step_link A step link enum.
     @param pos A position.
 
     @note
