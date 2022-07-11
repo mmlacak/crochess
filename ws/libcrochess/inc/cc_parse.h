@@ -67,5 +67,10 @@ bool cc_ply_has_steps( char const * restrict an_str,
                        char const * restrict ply_end );
 
 
+char const * cc_starting_disambiguation( char const * restrict an_str,
+                                         char const * restrict ply_end,
+                                         char_8 * restrict disambiguation__o );
+
+
 
 #endif /* __CC_PARSE_H__ */

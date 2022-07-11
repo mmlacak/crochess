@@ -3,6 +3,7 @@
 
 #include <ctype.h>
 
+#include "cc_str_utils.h"
 #include "cc_parse.h"
 
 /**
@@ -259,4 +260,103 @@ bool cc_ply_has_steps( char const * restrict an_str,
     char const * an = cc_next_step_link( an_str, ply_end );
 
     return ( ( an ) && ( an < ply_end ) );
+}
+
+
+char const * cc_starting_disambiguation( char const * restrict an_str,
+                                         char const * restrict ply_end,
+                                         char_8 * restrict disambiguation__o )
+{
+    if ( !an_str ) return NULL;
+    if ( !ply_end ) return NULL;
+
+    char const * step_end = cc_next_step_link( an_str, ply_end );
+    if ( !step_end ) return NULL;
+
+    if ( step_end == an_str ) return step_end;
+
+    char const * start_da = NULL; // disambiguation start
+    char const * end_da = NULL; // disambiguation end, aka true step start
+    char const * c = an_str;
+    char const * s = an_str;
+
+    if ( islower( *c ) )
+    {
+        if ( islower( *++c ) )
+        {
+            s = c;
+
+            if ( isdigit( *++c ) )
+            {
+                if ( isdigit( *++c ) ) ++c;
+            }
+            else
+                return NULL;
+
+            start_da = an_str;
+            end_da = s;
+        }
+        else if ( isdigit( *c ) )
+        {
+            if ( isdigit( *++c ) ) ++c;
+
+            if ( islower( *c ) )
+            {
+                s = c;
+
+                if ( isdigit( *++c ) )
+                {
+                    if ( isdigit( *++c ) ) ++c;
+                }
+                else
+                    return NULL;
+
+                start_da = an_str;
+                end_da = s;
+            }
+
+            return NULL;
+        }
+        else
+            return NULL;
+    }
+    else if ( isdigit( *c ) )
+    {
+        if ( isdigit( *++c ) ) ++c;
+
+        if ( islower( *c ) )
+        {
+            s = c;
+
+            if ( isdigit( *++c ) )
+            {
+                if ( isdigit( *++c ) ) ++c;
+            }
+            else
+                return NULL;
+
+            start_da = an_str;
+            end_da = s;
+        }
+
+        return NULL;
+    }
+    else
+        return NULL;
+
+    if ( !start_da ) return NULL;
+    if ( !end_da ) return NULL;
+
+    if ( c != step_end ) return NULL;
+
+    if ( !cc_str_clear( (char *)disambiguation__o, CC_MAX_LEN_CHAR_8 ) )
+        return NULL;
+
+    size_t len = (size_t)( end_da - start_da );
+    size_t copied = cc_str_copy( start_da, end_da, len, (char *)disambiguation__o, CC_MAX_LEN_DISAMBIGUATION );
+
+    if ( len != copied )
+        return NULL;
+
+    return end_da;
 }
