@@ -20,6 +20,8 @@
 #define CC_MAX_LEN_DISAMBIGUATION (3)
 #define CC_MAX_LEN_DISAMBIGUATION_STEP (6)
 
+#define CC_FILE_COORD_AS_NUM(char_file) ( (char_file) - 'a' )
+#define CC_RANK_COORD_AS_NUM(char_ptr_rank) ( atoi( (char_ptr_rank) ) - 1 )
 
 
 /**

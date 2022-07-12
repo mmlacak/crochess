@@ -213,6 +213,30 @@ bool cc_make_move( char const * restrict move_an_str,
         //     return false;
         // }
 
+        char const * d = disambiguation;
+        bool has_disambiguation = ( *d != '\0' );
+
+        int file_da = 0;
+        int rank_da = 0;
+
+        if ( islower( *d ) )
+        {
+            file_da = CC_FILE_COORD_AS_NUM( *d );
+
+            if ( isdigit( *++d ) )
+            {
+                rank_da = CC_RANK_COORD_AS_NUM( d );
+                printf( "Disambiguation file, rank: %d, %d.\n", file_da, rank_da );
+            }
+            else
+                printf( "Disambiguation file: %d.\n", file_da );
+        }
+        else if ( isdigit( *d ) )
+        {
+            rank_da = CC_RANK_COORD_AS_NUM( d );
+            printf( "Disambiguation rank: %d.\n", rank_da );
+        }
+
         if ( end_da ) c = end_da;
 
         while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )

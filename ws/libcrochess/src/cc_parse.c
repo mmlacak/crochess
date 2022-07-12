@@ -314,6 +314,11 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
                 start_da = an_str;
                 end_da = s;
             }
+            else if ( ( *c != '\0' ) && ( c == step_end ) )
+            {
+                start_da = an_str;
+                end_da = c;
+            }
             else
                 return NULL;
         }
