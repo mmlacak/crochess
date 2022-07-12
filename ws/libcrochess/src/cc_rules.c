@@ -194,24 +194,12 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c; // Move past piece symbol.
 
-// TODO :: disambiguation
-
-        char_8 disambiguation = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' };
+        char_8 disambiguation = CC_CHAR_8_EMPTY; // { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' };
         // cc_str_clear( disambiguation, CC_MAX_LEN_CHAR_8 );
 
         char const * end_da = cc_starting_disambiguation( c, ply_end, &disambiguation );
 
         cc_str_print( disambiguation, ply_end, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da ); // TODO :: maybe check error (?)
-
-        // if ( !end_da )
-        // {
-        //     cc_parse_msgs_append_or_init_format( parse_msgs__io,
-        //                                          CC_PMTE_Error,
-        //                                          CC_MAX_LEN_ZERO_TERMINATED,
-        //                                          "Invalid char(s) at '%s'.\n",
-        //                                          c );
-        //     return false;
-        // }
 
         char const * d = disambiguation;
         bool has_disambiguation = ( *d != '\0' );
@@ -242,6 +230,56 @@ bool cc_make_move( char const * restrict move_an_str,
         while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
         {
             cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
+
+            char_8 step = CC_CHAR_8_EMPTY; // { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' };
+            char const * s = step;
+
+            bool is_step_valid = false;
+            int file = 0;
+            int rank = 0;
+
+            size_t step_len = (size_t)( step_end - step_start );
+            size_t copied = cc_str_copy( step_start, step_end, step_len, step, CC_MAX_LEN_CHAR_8 );
+
+            if ( step_len != copied ) printf( "Check len?\n" );
+
+            // printf( "After: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
+            //         step[ 0 ],
+            //         step[ 1 ],
+            //         step[ 2 ],
+            //         step[ 3 ],
+            //         step[ 4 ],
+            //         step[ 5 ],
+            //         step[ 6 ],
+            //         step[ 7 ] );
+
+// TODO :: step links ...
+
+            if ( islower( *s ) )
+            {
+                file = CC_FILE_COORD_AS_NUM( *s );
+
+                if ( isdigit( *++s ) )
+                {
+                    rank = CC_RANK_COORD_AS_NUM( s );
+
+                    is_step_valid = true;
+
+                    printf( "Step: %d, %d.\n", file, rank );
+                }
+            }
+
+            if ( !is_step_valid )
+            {
+                cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                                                     CC_PMTE_Error,
+                                                     CC_MAX_LEN_ZERO_TERMINATED,
+                                                     "Invalid char(s) in step '%s', in ply '%s'.\n",
+                                                     step_start,
+                                                     ply_start );
+                return false;
+            }
+
         }
 
 

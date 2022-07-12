@@ -73,6 +73,8 @@ typedef int (*cc_ctype_fp_ischar_t)( int ch );
 */
 typedef char char_8 [ CC_SIZE_CHAR_8 ];
 
+#define CC_CHAR_8_EMPTY { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }
+
 
 /**
     Function to clear string, or char array, by writing ``'\0'`` into every char.
