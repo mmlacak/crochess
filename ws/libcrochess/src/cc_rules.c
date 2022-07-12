@@ -168,7 +168,7 @@ bool cc_make_move( char const * restrict move_an_str,
     bool ply_has_steps = false;
 
     // printf( "\n" );
-    printf( "\nMove: '%s'.\n\n", move_an_str );
+    printf( "Move: '%s'.\n\n", move_an_str ); // "\nMove: '%s'.\n\n"
     while ( cc_ply_iter( m, &ply_start, &ply_end ) )
     {
         ply_has_steps = cc_ply_has_steps( ply_start, ply_end );
@@ -196,22 +196,26 @@ bool cc_make_move( char const * restrict move_an_str,
 
 // TODO :: disambiguation
 
-        char_8 disambiguation;
+        char_8 disambiguation = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' };
+        // cc_str_clear( disambiguation, CC_MAX_LEN_CHAR_8 );
+
         char const * end_da = cc_starting_disambiguation( c, ply_end, &disambiguation );
 
-        cc_str_print( disambiguation, ply_end, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'.\n", NULL ); // TODO :: maybe check error (?)
+        cc_str_print( disambiguation, ply_end, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da ); // TODO :: maybe check error (?)
 
-        if ( !end_da )
-        {
-            cc_parse_msgs_append_or_init_format( parse_msgs__io,
-                                                 CC_PMTE_Error,
-                                                 CC_MAX_LEN_ZERO_TERMINATED,
-                                                 "Invalid char(s) at '%s'.\n",
-                                                 c );
-            return false;
-        }
+        // if ( !end_da )
+        // {
+        //     cc_parse_msgs_append_or_init_format( parse_msgs__io,
+        //                                          CC_PMTE_Error,
+        //                                          CC_MAX_LEN_ZERO_TERMINATED,
+        //                                          "Invalid char(s) at '%s'.\n",
+        //                                          c );
+        //     return false;
+        // }
 
-        while ( cc_step_iter( end_da, ply_end, &step_start, &step_end ) )
+        if ( end_da ) c = end_da;
+
+        while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
         {
             cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
         }
@@ -240,7 +244,7 @@ bool cc_make_move( char const * restrict move_an_str,
         // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Move past ']'. // TODO (?)
 
 
-        printf( "\n" );
+        // printf( "\n" );
     }
     printf( "-----------------------------------------------------------------------\n" );
 

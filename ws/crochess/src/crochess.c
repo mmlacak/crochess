@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.75:507+20220708.105221"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.76:508+20220712.002346"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool test_move( char const * restrict an_str,
@@ -212,17 +212,70 @@ int main( void )
             test_move( "n5", game__a );
             test_move( "Bn5", game__a );
 
-            test_move( "Ba5~Ab5", game__a );
-            test_move( "[Bn5]", game__a );
+            test_move( "mn5", game__a );
+            test_move( "Bmn5", game__a );
 
+            test_move( "m..n5", game__a );
+            test_move( "Bm..n5", game__a );
+
+            test_move( "7g11", game__a );
+            test_move( "B7g11", game__a );
+
+            test_move( "e7g11", game__a );
+            test_move( "Be7g11", game__a );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "y", NULL, BUFSIZ ) )
+        {
+            test_move( "a5~Ab5", game__a );
             test_move( "[Ba5]~[Ab5]", game__a );
-            test_move( "B5.b9..d11-h14", game__a );
 
-            test_move( "Ba.b9..d11-h14~A..g15.h16..j18-k19", game__a );
-            // test_move( "Ba5~Wc7|Nd9", game__a );
+            test_move( "B5.b9..d11-h14", game__a );
+            test_move( "[B5.b9..d11-h14]", game__a );
+
+            test_move( "a.b9..d11-h14~A..g15.h16..j18-k19", game__a );
+            test_move( "[Ba.b9..d11-h14]~[A..g15.h16..j18-k19]", game__a );
 
             // test_move( "Ba5~[Wc7]||Nd9", game__a );
             // test_move( "[Ba5]~Wc7@@[Nd9]", game__a );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "z", NULL, BUFSIZ ) )
+        {
+            char_8 foo = { 'a', '1', 'b', '2', 'c', '3', 'd', '4' };
+
+            // cc_str_print( foo, NULL, CC_MAX_LEN_CHAR_8, "Before: '%s'.\n", NULL );
+            printf( "Before: { %c, %c, %c, %c, %c, %c, %c, %c }.\n",
+                    foo[ 0 ],
+                    foo[ 1 ],
+                    foo[ 2 ],
+                    foo[ 3 ],
+                    foo[ 4 ],
+                    foo[ 5 ],
+                    foo[ 6 ],
+                    foo[ 7 ] );
+
+            printf( "Before: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
+                    foo[ 0 ],
+                    foo[ 1 ],
+                    foo[ 2 ],
+                    foo[ 3 ],
+                    foo[ 4 ],
+                    foo[ 5 ],
+                    foo[ 6 ],
+                    foo[ 7 ] );
+
+            cc_str_clear( foo, CC_MAX_LEN_CHAR_8 );
+
+            // cc_str_print( foo, NULL, CC_MAX_LEN_CHAR_8, "After: '%s'.\n", NULL );
+
+            printf( "After: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
+                    foo[ 0 ],
+                    foo[ 1 ],
+                    foo[ 2 ],
+                    foo[ 3 ],
+                    foo[ 4 ],
+                    foo[ 5 ],
+                    foo[ 6 ],
+                    foo[ 7 ] );
         }
         else
         {

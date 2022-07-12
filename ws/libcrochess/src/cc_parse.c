@@ -314,8 +314,8 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
                 start_da = an_str;
                 end_da = s;
             }
-
-            return NULL;
+            else
+                return NULL;
         }
         else
             return NULL;
@@ -338,8 +338,8 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
             start_da = an_str;
             end_da = s;
         }
-
-        return NULL;
+        else
+            return NULL;
     }
     else
         return NULL;
