@@ -317,6 +317,11 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
             else
                 return NULL;
         }
+        else if ( c == step_end )
+        {
+            start_da = an_str;
+            end_da = c;
+        }
         else
             return NULL;
     }
@@ -338,6 +343,11 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
             start_da = an_str;
             end_da = s;
         }
+        else if ( c == step_end )
+        {
+            start_da = an_str;
+            end_da = c;
+        }
         else
             return NULL;
     }
@@ -347,13 +357,14 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
     if ( !start_da ) return NULL;
     if ( !end_da ) return NULL;
 
+    if ( CC_IS_PLY_GATHER_END( *c ) ) ++c;
     if ( c != step_end ) return NULL;
 
-    if ( !cc_str_clear( (char *)disambiguation__o, CC_MAX_LEN_CHAR_8 ) )
+    if ( !cc_str_clear( *disambiguation__o, CC_MAX_LEN_CHAR_8 ) )
         return NULL;
 
     size_t len = (size_t)( end_da - start_da );
-    size_t copied = cc_str_copy( start_da, end_da, len, (char *)disambiguation__o, CC_MAX_LEN_DISAMBIGUATION );
+    size_t copied = cc_str_copy( start_da, end_da, len, *disambiguation__o, CC_MAX_LEN_DISAMBIGUATION );
 
     if ( len != copied )
         return NULL;

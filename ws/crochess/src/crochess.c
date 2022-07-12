@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.76:508+20220712.002346"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.77:509+20220712.012607"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool test_move( char const * restrict an_str,
@@ -207,7 +207,7 @@ int main( void )
             else
                 print_help();
         }
-        else if ( cc_str_is_equal( token_start, token_end, "x", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "x1", NULL, BUFSIZ ) )
         {
             test_move( "n5", game__a );
             test_move( "Bn5", game__a );
@@ -215,14 +215,41 @@ int main( void )
             test_move( "mn5", game__a );
             test_move( "Bmn5", game__a );
 
+            test_move( "[mn5]", game__a );
+            test_move( "[Bmn5]", game__a );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x2", NULL, BUFSIZ ) )
+        {
             test_move( "m..n5", game__a );
             test_move( "Bm..n5", game__a );
 
+            test_move( "m11..n15", game__a );
+            test_move( "Bm11..n15", game__a );
+
+            test_move( "[m..n5]", game__a );
+            test_move( "[Bm..n5]", game__a );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x3", NULL, BUFSIZ ) )
+        {
             test_move( "7g11", game__a );
             test_move( "B7g11", game__a );
 
             test_move( "e7g11", game__a );
             test_move( "Be7g11", game__a );
+
+            test_move( "[7g11]", game__a );
+            test_move( "[B7g11]", game__a );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x4", NULL, BUFSIZ ) )
+        {
+            test_move( "3..n5", game__a );
+            test_move( "B3..n5", game__a );
+
+            test_move( "m11..n15", game__a );
+            test_move( "Bm11..n15", game__a );
+
+            test_move( "[3..n5]", game__a );
+            test_move( "[B3..n5]", game__a );
         }
         else if ( cc_str_is_equal( token_start, token_end, "y", NULL, BUFSIZ ) )
         {
