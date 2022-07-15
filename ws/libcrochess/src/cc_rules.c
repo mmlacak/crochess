@@ -175,7 +175,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         cc_str_print( ply_start, ply_end, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
 
-        cc_starting_ply_link( ply_start, &ple ); // TODO :: maybe check error (?)
+        cc_starting_ply_link( ply_start, &ple );
         c = ply_start + cc_ply_link_len( ple );
 
         cc_str_print( ply_start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
@@ -192,10 +192,9 @@ bool cc_make_move( char const * restrict move_an_str,
             return false;
         }
 
-        if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c; // Move past piece symbol.
+        if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c;
 
-        char_8 disambiguation = CC_CHAR_8_EMPTY; // { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' };
-        // cc_str_clear( disambiguation, CC_MAX_LEN_CHAR_8 );
+        char_8 disambiguation = CC_CHAR_8_EMPTY;
 
         char const * end_da = cc_starting_disambiguation( c, ply_end, &disambiguation );
 
@@ -231,29 +230,26 @@ bool cc_make_move( char const * restrict move_an_str,
         {
             cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
 
-            char_8 step = CC_CHAR_8_EMPTY; // { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' };
+            CcStepLinkEnum sle = CC_SLE_Start;
+
+            cc_starting_step_link( step_start, &sle );
+            c += cc_step_link_len( sle );
+
+            cc_str_print( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
+
+// TODO :: step links ...
+
+            char_8 step = CC_CHAR_8_EMPTY;
             char const * s = step;
 
             bool is_step_valid = false;
             int file = 0;
             int rank = 0;
 
-            size_t step_len = (size_t)( step_end - step_start );
-            size_t copied = cc_str_copy( step_start, step_end, step_len, step, CC_MAX_LEN_CHAR_8 );
+            size_t step_len = (size_t)( step_end - c );
+            size_t copied = cc_str_copy( c, step_end, step_len, step, CC_MAX_LEN_CHAR_8 );
 
             if ( step_len != copied ) printf( "Check len?\n" );
-
-            // printf( "After: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
-            //         step[ 0 ],
-            //         step[ 1 ],
-            //         step[ 2 ],
-            //         step[ 3 ],
-            //         step[ 4 ],
-            //         step[ 5 ],
-            //         step[ 6 ],
-            //         step[ 7 ] );
-
-// TODO :: step links ...
 
             if ( islower( *s ) )
             {
