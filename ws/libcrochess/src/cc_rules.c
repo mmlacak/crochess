@@ -233,21 +233,21 @@ bool cc_make_move( char const * restrict move_an_str,
             CcStepLinkEnum sle = CC_SLE_Start;
 
             cc_starting_step_link( step_start, &sle );
-            c += cc_step_link_len( sle );
+            c = step_start + cc_step_link_len( sle );
 
             cc_str_print( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
 
-// TODO :: step links ...
-
-            char_8 step = CC_CHAR_8_EMPTY;
+            char_16 step = CC_CHAR_16_EMPTY;
             char const * s = step;
 
             bool is_step_valid = false;
             int file = 0;
             int rank = 0;
 
+// TODO :: side-effect ...
+
             size_t step_len = (size_t)( step_end - c );
-            size_t copied = cc_str_copy( c, step_end, step_len, step, CC_MAX_LEN_CHAR_8 );
+            size_t copied = cc_str_copy( c, step_end, step_len, step, CC_MAX_LEN_CHAR_16 );
 
             if ( step_len != copied ) printf( "Check len?\n" );
 
@@ -267,6 +267,8 @@ bool cc_make_move( char const * restrict move_an_str,
 
             if ( !is_step_valid )
             {
+                printf( "Invalid step: '%s', '%s', '%s' .\n", c, step, s );
+
                 cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                                      CC_PMTE_Error,
                                                      CC_MAX_LEN_ZERO_TERMINATED,

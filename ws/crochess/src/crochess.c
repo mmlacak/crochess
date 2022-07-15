@@ -19,7 +19,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.80:512+20220715.101151"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.81:513+20220715.111957"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool test_move( char const * restrict an_str,
@@ -250,6 +250,17 @@ int main( void )
 
             test_move( "[3..n5]", game__a );
             test_move( "[B3..n5]", game__a );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x5", NULL, BUFSIZ ) )
+        {
+            test_move( "3.m4..n5-o7", game__a );
+            test_move( "B3..m4.n5-o7", game__a );
+
+            test_move( "m11.o12..n15-o17", game__a );
+            test_move( "Bm11..o12.n15-o17", game__a );
+
+            test_move( "[3.m4..n5-o7]", game__a );
+            test_move( "[B3..m4.n5-o7]", game__a );
         }
         else if ( cc_str_is_equal( token_start, token_end, "y", NULL, BUFSIZ ) )
         {

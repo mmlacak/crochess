@@ -57,6 +57,16 @@
 */
 #define CC_MAX_LEN_CHAR_8 (8)
 
+/**
+    Size of an 16 char array.
+*/
+#define CC_SIZE_CHAR_16 (16)
+
+/**
+    Maximum length of an 16 char array.
+*/
+#define CC_MAX_LEN_CHAR_16 (16)
+
 
 /**
     Function interface, i.e. function pointer type;
@@ -73,7 +83,20 @@ typedef int (*cc_ctype_fp_ischar_t)( int ch );
 */
 typedef char char_8 [ CC_SIZE_CHAR_8 ];
 
+/**
+    An empty char array, size 8.
+*/
 #define CC_CHAR_8_EMPTY { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }
+
+/**
+    A char array type, size 16.
+*/
+typedef char char_16 [ CC_SIZE_CHAR_16 ];
+
+/**
+    An empty char array, size 16.
+*/
+#define CC_CHAR_16_EMPTY { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }
 
 
 /**
