@@ -151,6 +151,52 @@ bool cc_ply_piece_symbol( char const * restrict an_str,
     return cc_is_piece_symbol( *piece_symbol__o );
 }
 
+bool cc_starting_losing_tag( char const * restrict an_str,
+                             CcLosingTagEnum * restrict lte__o )
+{
+    if ( !an_str ) return false;
+
+    char const * c = an_str;
+
+    if ( *c == '=' )
+    {
+        if ( *++c == '=' )
+        {
+            *lte__o = CC_LTE_Promotion; // "==" losing promotion
+            return true;
+        }
+    }
+    else if ( *c == ':' )
+    {
+        if ( *++c == ':' )
+        {
+            *lte__o = CC_LTE_Rushing; // "::" losing rushing
+            return true;
+        }
+    }
+    else if ( *c == '&' )
+    {
+        if ( *++c == '&' )
+        {
+            *lte__o = CC_LTE_Castling; // "&&" losing castling
+            return true;
+        }
+    }
+
+    return false;
+}
+
+size_t cc_losing_tag_len( CcLosingTagEnum lte )
+{
+    switch ( lte )
+    {
+        case CC_LTE_Promotion : return 2; /* Losing promotion, corresponds to == (dual equal sign). */
+        case CC_LTE_Rushing : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
+        case CC_LTE_Castling : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
+        default : return 0;
+    }
+}
+
 
 bool cc_starting_step_link( char const * restrict an_str,
                             CcStepLinkEnum * restrict sle__o )

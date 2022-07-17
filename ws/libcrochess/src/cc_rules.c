@@ -194,6 +194,14 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c;
 
+        CcLosingTagEnum lte = CC_LTE_Promotion;
+
+        if ( cc_starting_losing_tag( c, &lte ) )
+        {
+            printf( "Losing tag: '%c%c' --> %d.\n", *c, *(c+1), lte );
+            c += cc_losing_tag_len( lte );
+        }
+
         char_8 disambiguation = CC_CHAR_8_EMPTY;
 
         char const * end_da = cc_starting_disambiguation( c, ply_end, &disambiguation );

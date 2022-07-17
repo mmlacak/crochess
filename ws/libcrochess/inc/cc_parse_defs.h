@@ -43,6 +43,18 @@ typedef enum CcPlyLinkEnum
 } CcPlyLinkEnum;
 
 /**
+    Losing tag enumeration.
+
+    This enumerates all delayed opportunities, which can be lost.
+*/
+typedef enum CcLosingTagEnum
+{
+    CC_LTE_Promotion, /**< Losing promotion, corresponds to == (dual equal sign). */
+    CC_LTE_Rushing, /**< Losing ability to rush, corresponds to :: (double-colon). */
+    CC_LTE_Castling, /**< Losing ability to castle, corresponds to && (double-ampersand). */
+} CcLosingTagEnum;
+
+/**
     Step link enumeration.
 */
 typedef enum CcStepLinkEnum

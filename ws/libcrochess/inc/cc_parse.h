@@ -49,6 +49,11 @@ bool cc_ply_iter( char const * restrict an_str,
 bool cc_ply_piece_symbol( char const * restrict an_str,
                           char * restrict piece_symbol__o );
 
+bool cc_starting_losing_tag( char const * restrict an_str,
+                             CcLosingTagEnum * restrict lte__o );
+
+size_t cc_losing_tag_len( CcLosingTagEnum lte );
+
 
 bool cc_starting_step_link( char const * restrict an_str,
                             CcStepLinkEnum * restrict sle__o );

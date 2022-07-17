@@ -17,40 +17,40 @@
 /**
     Macro to allocate new position link, with given coordinates.
 
-    @param i File, horizontal coordinate.
-    @param j Rank, vertical coordinate.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
     @see cc_pos_link__new()
 */
-#define CC_POS_LINK__NEW(i,j) cc_pos_link__new( cc_pos( (i), (j) ) )
+#define CC_POS_LINK__NEW(int_i,int_j) cc_pos_link__new( cc_pos( (int_i), (int_j) ) )
 
 /**
     Macro to append a newly allocated new position link, with given coordinates.
 
-    @param pos_link__io a position linked list, to be appended.
-    @param i File, horizontal coordinate.
-    @param j Rank, vertical coordinate.
+    @param ptr_ptr__pos_link__io a position linked list, to be appended.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
     @see cc_pos_link_append()
 */
-#define CC_POS_LINK_APPEND(pos_link__io,i,j) cc_pos_link_append( (pos_link__io), cc_pos( (i), (j) ) )
+#define CC_POS_LINK_APPEND(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
 /**
     Macro to initialize or append a position linked list, with given coordinates.
 
-    @param pos_link__io a position linked list, to be appended.
-    @param i File, horizontal coordinate.
-    @param j Rank, vertical coordinate.
+    @param ptr_ptr__pos_link__io a position linked list, to be appended.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
     @see cc_pos_link_append_or_init()
 */
-#define CC_POS_LINK_APPEND_OR_INIT(pos_link__io,i,j) cc_pos_link_append_or_init( (pos_link__io), cc_pos( (i), (j) ) )
+#define CC_POS_LINK_APPEND_OR_INIT(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_or_init( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
 
 /**
