@@ -46,6 +46,7 @@ bool cc_ply_iter( char const * restrict an_str,
                   char const ** restrict start__io,
                   char const ** restrict end__io );
 
+
 bool cc_ply_piece_symbol( char const * restrict an_str,
                           char * restrict piece_symbol__o );
 
@@ -53,6 +54,10 @@ bool cc_starting_losing_tag( char const * restrict an_str,
                              CcLosingTagEnum * restrict lte__o );
 
 size_t cc_losing_tag_len( CcLosingTagEnum lte );
+
+char const * cc_starting_disambiguation( char const * restrict an_str,
+                                         char const * restrict ply_end,
+                                         char_8 * restrict disambiguation__o );
 
 
 bool cc_starting_step_link( char const * restrict an_str,
@@ -72,10 +77,14 @@ bool cc_ply_has_steps( char const * restrict an_str,
                        char const * restrict ply_end );
 
 
-char const * cc_starting_disambiguation( char const * restrict an_str,
-                                         char const * restrict ply_end,
-                                         char_8 * restrict disambiguation__o );
+bool cc_starting_side_effect( char const * restrict an_str,
+                              CcSideEffectEnum * restrict see__o );
 
+size_t cc_side_effect_len( CcSideEffectEnum see );
+
+char const * cc_find_side_effect( char const * restrict an_str,
+                                  char const * restrict step_end,
+                                  CcSideEffectEnum * restrict see__o );
 
 
 #endif /* __CC_PARSE_H__ */

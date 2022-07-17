@@ -132,6 +132,7 @@ bool cc_ply_iter( char const * restrict an_str,
     return true;
 }
 
+
 bool cc_ply_piece_symbol( char const * restrict an_str,
                           char * restrict piece_symbol__o )
 {
@@ -195,6 +196,120 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte )
         case CC_LTE_Castling : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
         default : return 0;
     }
+}
+
+char const * cc_starting_disambiguation( char const * restrict an_str,
+                                         char const * restrict ply_end,
+                                         char_8 * restrict disambiguation__o )
+{
+    if ( !an_str ) return NULL;
+    if ( !ply_end ) return NULL;
+
+    char const * step_end = cc_next_step_link( an_str, ply_end );
+    if ( !step_end ) return NULL;
+
+    if ( step_end == an_str ) return step_end;
+
+    char const * start_da = NULL; // disambiguation start
+    char const * end_da = NULL; // disambiguation end, aka true step start
+    char const * c = an_str;
+    char const * s = an_str;
+
+    if ( islower( *c ) )
+    {
+        if ( islower( *++c ) )
+        {
+            s = c;
+
+            if ( isdigit( *++c ) )
+            {
+                if ( isdigit( *++c ) ) ++c;
+            }
+            else
+                return NULL;
+
+            start_da = an_str;
+            end_da = s;
+        }
+        else if ( isdigit( *c ) )
+        {
+            if ( isdigit( *++c ) ) ++c;
+
+            if ( islower( *c ) )
+            {
+                s = c;
+
+                if ( isdigit( *++c ) )
+                {
+                    if ( isdigit( *++c ) ) ++c;
+                }
+                else
+                    return NULL;
+
+                start_da = an_str;
+                end_da = s;
+            }
+            else if ( ( *c != '\0' ) && ( c == step_end ) )
+            {
+                start_da = an_str;
+                end_da = c;
+            }
+            else
+                return NULL;
+        }
+        else if ( c == step_end )
+        {
+            start_da = an_str;
+            end_da = c;
+        }
+        else
+            return NULL;
+    }
+    else if ( isdigit( *c ) )
+    {
+        if ( isdigit( *++c ) ) ++c;
+
+        if ( islower( *c ) )
+        {
+            s = c;
+
+            if ( isdigit( *++c ) )
+            {
+                if ( isdigit( *++c ) ) ++c;
+            }
+            else
+                return NULL;
+
+            start_da = an_str;
+            end_da = s;
+        }
+        else if ( c == step_end )
+        {
+            start_da = an_str;
+            end_da = c;
+        }
+        else
+            return NULL;
+    }
+    else
+        return NULL;
+
+    if ( !start_da ) return NULL;
+    if ( !end_da ) return NULL;
+
+    if ( CC_IS_PLY_GATHER_END( *c ) ) ++c;
+    if ( c != step_end ) return NULL;
+
+    if ( !cc_str_clear( *disambiguation__o, CC_MAX_LEN_CHAR_8 ) )
+        return NULL;
+
+    size_t len = (size_t)( end_da - start_da );
+    size_t copied = cc_str_copy( start_da, end_da, len, *disambiguation__o, CC_MAX_LEN_DISAMBIGUATION );
+
+    if ( len != copied )
+        return NULL;
+
+    return end_da;
 }
 
 
@@ -309,116 +424,114 @@ bool cc_ply_has_steps( char const * restrict an_str,
 }
 
 
-char const * cc_starting_disambiguation( char const * restrict an_str,
-                                         char const * restrict ply_end,
-                                         char_8 * restrict disambiguation__o )
+bool cc_starting_side_effect( char const * restrict an_str,
+                              CcSideEffectEnum * restrict see__o )
+{
+    if ( !an_str ) return false;
+
+    char const * c = an_str;
+
+    if ( *c == '*' )
+    {
+        *see__o = CC_SEE_Capturing;
+        return true;
+    }
+    else if ( *c == '<' )
+    {
+        *see__o = CC_SEE_Displacement;
+        return true;
+    }
+    else if ( *c == ':' )
+    {
+        *see__o = CC_SEE_EnPassant;
+        return true;
+    }
+    else if ( *c == '&' )
+    {
+        *see__o = CC_SEE_Castling;
+        return true;
+    }
+    else if ( *c == '=' )
+    {
+        if ( isupper( *++c ) )
+            *see__o = CC_SEE_Promotion;
+        else
+            *see__o = CC_SEE_TagForPromotion;
+
+        return true;
+    }
+    else if ( *c == '%' )
+    {
+        if ( *++c == '%' )
+        {
+            *see__o = CC_SEE_FailedConversion;
+            return true;
+        }
+
+        *see__o = CC_SEE_Conversion;
+        return true;
+    }
+    else if ( *c == '>' )
+    {
+        *see__o = CC_SEE_DemotingToPawn;
+        return true;
+    }
+    else if ( *c == '$' )
+    {
+        if ( *++c == '$' )
+        {
+            *see__o = CC_SEE_FailedResurrection;
+            return true;
+        }
+
+        *see__o = CC_SEE_Resurrection;
+        return true;
+    }
+    else if ( isupper( *c ) )
+    {
+        *see__o = CC_SEE_PromotionNoSign;
+        return true;
+    }
+
+    return false;
+}
+
+size_t cc_side_effect_len( CcSideEffectEnum see )
+{
+    switch ( see )
+    {
+        case CC_SEE_Capturing : return 1; /* Capturing, corresponds to * (asterisk). */
+        case CC_SEE_Displacement : return 1; /* Trance-journey displacement, correspondes to < (less-than). */
+        case CC_SEE_EnPassant : return 1; /* En passant, corresponds to : (colon). */
+        case CC_SEE_Castling : return 1; /* Castling, corresponds to & (ampersand). */
+        case CC_SEE_Promotion : return 1; /* Promotion, corresponds to = (equal sign), optional. */
+        case CC_SEE_PromotionNoSign : return 0; /* Promotion, without sign. */
+        case CC_SEE_TagForPromotion : return 1; /* Tag for promotion, corresponds to = (equal sign). */
+        case CC_SEE_Conversion : return 1; /* Conversion, corresponds to % (percent sign). */
+        case CC_SEE_FailedConversion : return 2; /* Failed conversion, corresponds to %% (double percent sign). */
+        case CC_SEE_DemotingToPawn : return 1; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
+        case CC_SEE_Resurrection : return 1; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
+        case CC_SEE_FailedResurrection : return 2; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+        default : return 0;
+    }
+}
+
+char const * cc_find_side_effect( char const * restrict an_str,
+                                  char const * restrict step_end,
+                                  CcSideEffectEnum * restrict see__o )
 {
     if ( !an_str ) return NULL;
-    if ( !ply_end ) return NULL;
-
-    char const * step_end = cc_next_step_link( an_str, ply_end );
     if ( !step_end ) return NULL;
 
-    if ( step_end == an_str ) return step_end;
-
-    char const * start_da = NULL; // disambiguation start
-    char const * end_da = NULL; // disambiguation end, aka true step start
     char const * c = an_str;
-    char const * s = an_str;
 
-    if ( islower( *c ) )
+    while ( c < step_end )
     {
-        if ( islower( *++c ) )
-        {
-            s = c;
+        if ( cc_starting_side_effect( c, see__o ) )
+            return c;
 
-            if ( isdigit( *++c ) )
-            {
-                if ( isdigit( *++c ) ) ++c;
-            }
-            else
-                return NULL;
-
-            start_da = an_str;
-            end_da = s;
-        }
-        else if ( isdigit( *c ) )
-        {
-            if ( isdigit( *++c ) ) ++c;
-
-            if ( islower( *c ) )
-            {
-                s = c;
-
-                if ( isdigit( *++c ) )
-                {
-                    if ( isdigit( *++c ) ) ++c;
-                }
-                else
-                    return NULL;
-
-                start_da = an_str;
-                end_da = s;
-            }
-            else if ( ( *c != '\0' ) && ( c == step_end ) )
-            {
-                start_da = an_str;
-                end_da = c;
-            }
-            else
-                return NULL;
-        }
-        else if ( c == step_end )
-        {
-            start_da = an_str;
-            end_da = c;
-        }
-        else
-            return NULL;
+        ++c;
     }
-    else if ( isdigit( *c ) )
-    {
-        if ( isdigit( *++c ) ) ++c;
 
-        if ( islower( *c ) )
-        {
-            s = c;
-
-            if ( isdigit( *++c ) )
-            {
-                if ( isdigit( *++c ) ) ++c;
-            }
-            else
-                return NULL;
-
-            start_da = an_str;
-            end_da = s;
-        }
-        else if ( c == step_end )
-        {
-            start_da = an_str;
-            end_da = c;
-        }
-        else
-            return NULL;
-    }
-    else
-        return NULL;
-
-    if ( !start_da ) return NULL;
-    if ( !end_da ) return NULL;
-
-    if ( CC_IS_PLY_GATHER_END( *c ) ) ++c;
-    if ( c != step_end ) return NULL;
-
-    if ( !cc_str_clear( *disambiguation__o, CC_MAX_LEN_CHAR_8 ) )
-        return NULL;
-
-    size_t len = (size_t)( end_da - start_da );
-    size_t copied = cc_str_copy( start_da, end_da, len, *disambiguation__o, CC_MAX_LEN_DISAMBIGUATION );
-
-    if ( len != copied )
-        return NULL;
-
-    return end_da;
+    return NULL;
 }

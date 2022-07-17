@@ -195,8 +195,9 @@ bool cc_make_move( char const * restrict move_an_str,
         if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c;
 
         CcLosingTagEnum lte = CC_LTE_Promotion;
+        bool has_losing_tag = cc_starting_losing_tag( c, &lte );
 
-        if ( cc_starting_losing_tag( c, &lte ) )
+        if ( has_losing_tag )
         {
             printf( "Losing tag: '%c%c' --> %d.\n", *c, *(c+1), lte );
             c += cc_losing_tag_len( lte );
@@ -245,27 +246,35 @@ bool cc_make_move( char const * restrict move_an_str,
 
             cc_str_print( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
 
-            char_16 step = CC_CHAR_16_EMPTY;
-            char const * s = step;
+            char_8 pos = CC_CHAR_8_EMPTY;
+            char const * p = pos;
 
             bool is_step_valid = false;
             int file = 0;
             int rank = 0;
 
-// TODO :: side-effect ...
+            CcSideEffectEnum see = CC_SEE_PromotionNoSign;
+            char const * se = cc_find_side_effect( c, step_end, &see );
+            char const * pos_end = step_end;
 
-            size_t step_len = (size_t)( step_end - c );
-            size_t copied = cc_str_copy( c, step_end, step_len, step, CC_MAX_LEN_CHAR_16 );
-
-            if ( step_len != copied ) printf( "Check len?\n" );
-
-            if ( islower( *s ) )
+            if ( se )
             {
-                file = CC_FILE_COORD_AS_NUM( *s );
+                cc_str_print( se, step_end, 128, "Side-effect: '%s'", " --> %d.\n", see );
+                pos_end = se;
+            }
 
-                if ( isdigit( *++s ) )
+            size_t pos_len = (size_t)( pos_end - c );
+            size_t copied = cc_str_copy( c, pos_end, pos_len, pos, CC_MAX_LEN_CHAR_8 );
+
+            if ( pos_len != copied ) printf( "Check len?\n" );
+
+            if ( islower( *p ) )
+            {
+                file = CC_FILE_COORD_AS_NUM( *p );
+
+                if ( isdigit( *++p ) )
                 {
-                    rank = CC_RANK_COORD_AS_NUM( s );
+                    rank = CC_RANK_COORD_AS_NUM( p );
 
                     is_step_valid = true;
 
@@ -275,7 +284,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
             if ( !is_step_valid )
             {
-                printf( "Invalid step: '%s', '%s', '%s' .\n", c, step, s );
+                printf( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
 
                 cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                                      CC_PMTE_Error,
