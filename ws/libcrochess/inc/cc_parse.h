@@ -35,8 +35,7 @@
 // } CcPlyANs;
 
 
-bool cc_starting_ply_link( char const * restrict an_str,
-                           CcPlyLinkEnum * restrict ple__o );
+CcPlyLinkEnum cc_starting_ply_link( char const * restrict an_str );
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple );
 
@@ -50,8 +49,7 @@ bool cc_ply_iter( char const * restrict an_str,
 bool cc_ply_piece_symbol( char const * restrict an_str,
                           char * restrict piece_symbol__o );
 
-bool cc_starting_losing_tag( char const * restrict an_str,
-                             CcLosingTagEnum * restrict lte__o );
+CcLosingTagEnum cc_starting_losing_tag( char const * restrict an_str );
 
 size_t cc_losing_tag_len( CcLosingTagEnum lte );
 
@@ -60,8 +58,7 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
                                          char_8 * restrict disambiguation__o );
 
 
-bool cc_starting_step_link( char const * restrict an_str,
-                            CcStepLinkEnum * restrict sle__o );
+CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );
 
 size_t cc_step_link_len( CcStepLinkEnum sle );
 
@@ -77,8 +74,7 @@ bool cc_ply_has_steps( char const * restrict an_str,
                        char const * restrict ply_end );
 
 
-bool cc_starting_side_effect( char const * restrict an_str,
-                              CcSideEffectEnum * restrict see__o );
+CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str );
 
 size_t cc_side_effect_len( CcSideEffectEnum see );
 

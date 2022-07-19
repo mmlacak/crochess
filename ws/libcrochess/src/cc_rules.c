@@ -158,7 +158,7 @@ bool cc_make_move( char const * restrict move_an_str,
     char const * ply_start = NULL;
     char const * ply_end = NULL;
 
-    CcPlyLinkEnum ple = CC_PLE_StartingPly;
+    CcPlyLinkEnum ple = CC_PLE_None;
     char piece_symbol = ' ';
     CcPieceEnum piece = CC_PE_None;
     char const * c = NULL;
@@ -175,7 +175,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         cc_str_print( ply_start, ply_end, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
 
-        cc_starting_ply_link( ply_start, &ple );
+        ple = cc_starting_ply_link( ply_start );
         c = ply_start + cc_ply_link_len( ple );
 
         cc_str_print( ply_start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
@@ -195,9 +195,9 @@ bool cc_make_move( char const * restrict move_an_str,
         if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c;
 
         CcLosingTagEnum lte = CC_LTE_Promotion;
-        bool has_losing_tag = cc_starting_losing_tag( c, &lte );
+        lte = cc_starting_losing_tag( c );
 
-        if ( has_losing_tag )
+        if ( lte != CC_LTE_None )
         {
             printf( "Losing tag: '%c%c' --> %d.\n", *c, *(c+1), lte );
             c += cc_losing_tag_len( lte );
@@ -217,11 +217,11 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( islower( *d ) )
         {
-            file_da = CC_FILE_COORD_AS_NUM( *d );
+            file_da = CC_CONVERT_FILE_CHAR_INTO_NUM( *d );
 
             if ( isdigit( *++d ) )
             {
-                rank_da = CC_RANK_COORD_AS_NUM( d );
+                rank_da = CC_CONVERT_RANK_STR_INTO_NUM( d );
                 printf( "Disambiguation file, rank: %d, %d.\n", file_da, rank_da );
             }
             else
@@ -229,7 +229,7 @@ bool cc_make_move( char const * restrict move_an_str,
         }
         else if ( isdigit( *d ) )
         {
-            rank_da = CC_RANK_COORD_AS_NUM( d );
+            rank_da = CC_CONVERT_RANK_STR_INTO_NUM( d );
             printf( "Disambiguation rank: %d.\n", rank_da );
         }
 
@@ -239,9 +239,7 @@ bool cc_make_move( char const * restrict move_an_str,
         {
             cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
 
-            CcStepLinkEnum sle = CC_SLE_Start;
-
-            cc_starting_step_link( step_start, &sle );
+            CcStepLinkEnum sle = cc_starting_step_link( step_start );
             c = step_start + cc_step_link_len( sle );
 
             cc_str_print( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
@@ -266,15 +264,16 @@ bool cc_make_move( char const * restrict move_an_str,
             size_t pos_len = (size_t)( pos_end - c );
             size_t copied = cc_str_copy( c, pos_end, pos_len, pos, CC_MAX_LEN_CHAR_8 );
 
-            if ( pos_len != copied ) printf( "Check len?\n" );
+            if ( pos_len != copied )
+                printf( "Check len? %zu != %zu\n", pos_len, copied );
 
             if ( islower( *p ) )
             {
-                file = CC_FILE_COORD_AS_NUM( *p );
+                file = CC_CONVERT_FILE_CHAR_INTO_NUM( *p );
 
                 if ( isdigit( *++p ) )
                 {
-                    rank = CC_RANK_COORD_AS_NUM( p );
+                    rank = CC_CONVERT_RANK_STR_INTO_NUM( p );
 
                     is_step_valid = true;
 

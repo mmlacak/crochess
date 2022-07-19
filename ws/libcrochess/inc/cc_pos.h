@@ -37,7 +37,7 @@
 
     @see cc_pos_link_append()
 */
-#define CC_POS_LINK_APPEND(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK_APPEND(pos_link_ptr_ptr__io,int_i,int_j) cc_pos_link_append( (pos_link_ptr_ptr__io), cc_pos( (int_i), (int_j) ) )
 
 /**
     Macro to initialize or append a position linked list, with given coordinates.
@@ -50,7 +50,7 @@
 
     @see cc_pos_link_append_or_init()
 */
-#define CC_POS_LINK_APPEND_OR_INIT(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_or_init( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK_APPEND_OR_INIT(pos_link_ptr_ptr__io,int_i,int_j) cc_pos_link_append_or_init( (pos_link_ptr_ptr__io), cc_pos( (int_i), (int_j) ) )
 
 
 /**

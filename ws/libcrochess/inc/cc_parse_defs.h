@@ -20,8 +20,8 @@
 #define CC_MAX_LEN_DISAMBIGUATION (3)
 #define CC_MAX_LEN_DISAMBIGUATION_STEP (6)
 
-#define CC_FILE_COORD_AS_NUM(char_file) ( (char_file) - 'a' )
-#define CC_RANK_COORD_AS_NUM(char_ptr_rank) ( atoi( (char_ptr_rank) ) - 1 )
+#define CC_CONVERT_FILE_CHAR_INTO_NUM(char_file) ( (char_file) - 'a' )
+#define CC_CONVERT_RANK_STR_INTO_NUM(char_ptr_rank) ( atoi( (char_ptr_rank) ) - 1 )
 
 
 /**
@@ -32,6 +32,7 @@
 */
 typedef enum CcPlyLinkEnum
 {
+    CC_PLE_None, /**< Ply link not found, uninitialized, or error happened. */
     CC_PLE_StartingPly, /**< Just first ply, standalone or starting a cascade. */
     CC_PLE_CascadingPly, /**< Just one ply, continuing cascade. Corresponds to `~`. */
     CC_PLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
@@ -49,6 +50,7 @@ typedef enum CcPlyLinkEnum
 */
 typedef enum CcLosingTagEnum
 {
+    CC_LTE_None, /**< Losing tag not found, uninitialized, or error happened. */
     CC_LTE_Promotion, /**< Losing promotion, corresponds to == (dual equal sign). */
     CC_LTE_Rushing, /**< Losing ability to rush, corresponds to :: (double-colon). */
     CC_LTE_Castling, /**< Losing ability to castle, corresponds to && (double-ampersand). */
@@ -59,6 +61,7 @@ typedef enum CcLosingTagEnum
 */
 typedef enum CcStepLinkEnum
 {
+    CC_SLE_None, /**< Step link not found, uninitialized, or error happened. */
     CC_SLE_Start, /**< Position from which a piece started moving. */
     CC_SLE_Reposition, /**< In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
     CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
@@ -73,6 +76,7 @@ typedef enum CcStepLinkEnum
 */
 typedef enum CcSideEffectEnum
 {
+    CC_SEE_None, /**< Side-effect not found, uninitialized, or error happened. */
     CC_SEE_Capturing, /**< Capturing, corresponds to * (asterisk). */
     CC_SEE_Displacement, /**< Trance-journey displacement, correspondes to < (less-than). */
     CC_SEE_EnPassant, /**< En passant, corresponds to : (colon). */

@@ -12,29 +12,21 @@
 */
 
 
-bool cc_starting_ply_link( char const * restrict an_str,
-                           CcPlyLinkEnum * restrict ple__o )
+CcPlyLinkEnum cc_starting_ply_link( char const * restrict an_str )
 {
-    if ( !an_str ) return false;
+    if ( !an_str ) return CC_PLE_None;
 
     char const * c = an_str;
 
     if ( *c == '~' )
-    {
-        *ple__o = CC_PLE_CascadingPly; // "~" plies
-        return true;
-    }
+        return CC_PLE_CascadingPly; // "~" plies
 
     if ( *c == '|' )
     {
         if ( *++c == '|' )
-        {
-            *ple__o = CC_PLE_FailedTeleportation; // "||" failed teleportation, oblation
-            return true;
-        }
+            return CC_PLE_FailedTeleportation; // "||" failed teleportation, oblation
 
-        *ple__o = CC_PLE_Teleportation; // "|" teleportation
-        return true;
+        return CC_PLE_Teleportation; // "|" teleportation
     }
 
     if ( *c == '@' )
@@ -42,39 +34,29 @@ bool cc_starting_ply_link( char const * restrict an_str,
         if ( *++c == '@' )
         {
             if ( *++c == '@' )
-            {
-                *ple__o = CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
-                return true;
-            }
+                return CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
 
-            *ple__o = CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
-            return true;
+            return CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
         }
 
-        *ple__o = CC_PLE_TranceJourney; // "@" trance-journey
-        return true;
+        return CC_PLE_TranceJourney; // "@" trance-journey
     }
 
     if ( *c == ';' )
         if ( *++c == ';' )
-        {
-            *ple__o = CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
-            return true;
-        }
+            return CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
 
     if ( *c != '\0' )
-    {
-        *ple__o = CC_PLE_StartingPly;
-        return true;
-    }
+        return CC_PLE_StartingPly;
 
-    return false;
+    return CC_PLE_None;
 }
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple )
 {
     switch ( ple )
     {
+        case CC_PLE_None : return 0; /**< Ply link not found, uninitialized, or error happened. */
         case CC_PLE_StartingPly : return 0; /* Just first ply, standalone or starting a cascade. */
         case CC_PLE_CascadingPly : return 1; /* Just one ply, continuing cascade. Corresponds to `~`. */
         case CC_PLE_Teleportation : return 1; /* Teleportation of piece. Corresponds to `|`. */
@@ -83,6 +65,7 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple )
         case CC_PLE_DualTranceJourney : return 2; /* Double trance-journey, corresponds to `@@`. */
         case CC_PLE_FailedTranceJourney : return 3; /* Failed trance-journey, corresponds to `@@@`. */
         case CC_PLE_PawnSacrifice : return 2; /* Pawn sacrifice, corresponds to `;;`. */
+
         default : return 0;
     }
 }
@@ -92,15 +75,12 @@ char const * cc_next_ply_link( char const * restrict an_str )
     if ( !an_str ) return NULL;
     if ( *an_str == '\0' ) return NULL;
 
-    char const * str__w = an_str;
-    CcPlyLinkEnum ple = CC_PLE_StartingPly;
+    // Skip over current ply link.
+    CcPlyLinkEnum ple = cc_starting_ply_link( an_str );
+    char const * str__w = an_str + cc_ply_link_len( ple );
 
-    if ( cc_starting_ply_link( str__w, &ple ) )
-        str__w += cc_ply_link_len( ple );
-
-    // Skip over everything before ply link.
-    while ( cc_starting_ply_link( str__w, &ple ) &&
-            ( ple == CC_PLE_StartingPly ) )
+    // Skip over everything before next ply link.
+    while ( cc_starting_ply_link( str__w ) == CC_PLE_StartingPly )
         ++str__w;
 
     return str__w;
@@ -152,48 +132,40 @@ bool cc_ply_piece_symbol( char const * restrict an_str,
     return cc_is_piece_symbol( *piece_symbol__o );
 }
 
-bool cc_starting_losing_tag( char const * restrict an_str,
-                             CcLosingTagEnum * restrict lte__o )
+CcLosingTagEnum cc_starting_losing_tag( char const * restrict an_str )
 {
-    if ( !an_str ) return false;
+    if ( !an_str ) return CC_LTE_None;
 
     char const * c = an_str;
 
     if ( *c == '=' )
     {
         if ( *++c == '=' )
-        {
-            *lte__o = CC_LTE_Promotion; // "==" losing promotion
-            return true;
-        }
+            return CC_LTE_Promotion; // "==" losing promotion
     }
     else if ( *c == ':' )
     {
         if ( *++c == ':' )
-        {
-            *lte__o = CC_LTE_Rushing; // "::" losing rushing
-            return true;
-        }
+            return CC_LTE_Rushing; // "::" losing rushing
     }
     else if ( *c == '&' )
     {
         if ( *++c == '&' )
-        {
-            *lte__o = CC_LTE_Castling; // "&&" losing castling
-            return true;
-        }
+            return CC_LTE_Castling; // "&&" losing castling
     }
 
-    return false;
+    return CC_LTE_None;
 }
 
 size_t cc_losing_tag_len( CcLosingTagEnum lte )
 {
     switch ( lte )
     {
+        case CC_LTE_None : return 0; /**< Losing tag not found, uninitialized, or error happened. */
         case CC_LTE_Promotion : return 2; /* Losing promotion, corresponds to == (dual equal sign). */
         case CC_LTE_Rushing : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
         case CC_LTE_Castling : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
+
         default : return 0;
     }
 }
@@ -313,55 +285,46 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
 }
 
 
-bool cc_starting_step_link( char const * restrict an_str,
-                            CcStepLinkEnum * restrict sle__o )
+CcStepLinkEnum cc_starting_step_link( char const * restrict an_str )
 {
-    if ( !an_str ) return false;
+    if ( !an_str ) return CC_SLE_None;
 
     char const * c = an_str;
 
     if ( *c == '.' )
     {
         if ( *++c == '.' )
-        {
-            *sle__o = CC_SLE_Distant;
-            return true;
-        }
+            return CC_SLE_Distant;
 
-        *sle__o = CC_SLE_Next;
-        return true;
+        return CC_SLE_Next;
     }
-
-    if ( *c == '-' )
+    else if ( *c == '-' )
     {
-        *sle__o = CC_SLE_Destination;
-        return true;
+        return CC_SLE_Destination;
     }
-
-    if ( *c == ',' )
+    else if ( *c == ',' )
     {
-        *sle__o = CC_SLE_Reposition;
-        return true;
+        return CC_SLE_Reposition;
     }
-
-    if ( *c != '\0' )
+    else if ( *c != '\0' )
     {
-        *sle__o = CC_SLE_Start;
-        return true;
+        return CC_SLE_Start;
     }
 
-    return false;
+    return CC_SLE_None;
 }
 
 size_t cc_step_link_len( CcStepLinkEnum sle )
 {
     switch ( sle )
     {
+        case CC_SLE_None : return 0; /**< Step link not found, uninitialized, or error happened. */
         case CC_SLE_Start : return 0; /* Position from which a piece started moving. */
         case CC_SLE_Reposition : return 1; /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
         case CC_SLE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
         case CC_SLE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
         case CC_SLE_Destination : return 1; /* Step to destination field, separated by - (hyphen). */
+
         default : return 0;
     }
 }
@@ -373,15 +336,11 @@ char const * cc_next_step_link( char const * restrict an_str,
     if ( *an_str == '\0' ) return NULL;
     if ( an_str >= ply_end ) return NULL;
 
-    char const * str__w = an_str;
-    CcStepLinkEnum sle = CC_SLE_Start;
-
-    if ( cc_starting_step_link( str__w, &sle ) )
-        str__w += cc_step_link_len( sle );
+    CcStepLinkEnum sle = cc_starting_step_link( an_str );
+    char const * str__w = an_str + cc_step_link_len( sle );
 
     // Skip over everything before step link.
-    while ( cc_starting_step_link( str__w, &sle ) &&
-            ( sle == CC_SLE_Start ) &&
+    while ( ( cc_starting_step_link( str__w ) == CC_SLE_Start ) &&
             ( str__w < ply_end ) )
         ++str__w;
 
@@ -424,82 +383,66 @@ bool cc_ply_has_steps( char const * restrict an_str,
 }
 
 
-bool cc_starting_side_effect( char const * restrict an_str,
-                              CcSideEffectEnum * restrict see__o )
+CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str )
 {
-    if ( !an_str ) return false;
+    if ( !an_str ) return CC_SEE_None;
 
     char const * c = an_str;
 
     if ( *c == '*' )
     {
-        *see__o = CC_SEE_Capturing;
-        return true;
+        return CC_SEE_Capturing;
     }
     else if ( *c == '<' )
     {
-        *see__o = CC_SEE_Displacement;
-        return true;
+        return CC_SEE_Displacement;
     }
     else if ( *c == ':' )
     {
-        *see__o = CC_SEE_EnPassant;
-        return true;
+        return CC_SEE_EnPassant;
     }
     else if ( *c == '&' )
     {
-        *see__o = CC_SEE_Castling;
-        return true;
+        return CC_SEE_Castling;
     }
     else if ( *c == '=' )
     {
         if ( isupper( *++c ) )
-            *see__o = CC_SEE_Promotion;
+            return CC_SEE_Promotion;
         else
-            *see__o = CC_SEE_TagForPromotion;
-
-        return true;
+            return CC_SEE_TagForPromotion;
     }
     else if ( *c == '%' )
     {
         if ( *++c == '%' )
-        {
-            *see__o = CC_SEE_FailedConversion;
-            return true;
-        }
+            return CC_SEE_FailedConversion;
 
-        *see__o = CC_SEE_Conversion;
-        return true;
+        return CC_SEE_Conversion;
     }
     else if ( *c == '>' )
     {
-        *see__o = CC_SEE_DemotingToPawn;
-        return true;
+        return CC_SEE_DemotingToPawn;
     }
     else if ( *c == '$' )
     {
         if ( *++c == '$' )
-        {
-            *see__o = CC_SEE_FailedResurrection;
-            return true;
-        }
+            return CC_SEE_FailedResurrection;
 
-        *see__o = CC_SEE_Resurrection;
-        return true;
+        return CC_SEE_Resurrection;
     }
     else if ( isupper( *c ) )
     {
-        *see__o = CC_SEE_PromotionNoSign;
-        return true;
+        return CC_SEE_PromotionNoSign;
     }
 
-    return false;
+    return CC_SEE_None;
 }
 
 size_t cc_side_effect_len( CcSideEffectEnum see )
 {
     switch ( see )
     {
+        case CC_SEE_None : return 0; /**< Side-effect not found, uninitialized, or error happened. */
         case CC_SEE_Capturing : return 1; /* Capturing, corresponds to * (asterisk). */
         case CC_SEE_Displacement : return 1; /* Trance-journey displacement, correspondes to < (less-than). */
         case CC_SEE_EnPassant : return 1; /* En passant, corresponds to : (colon). */
@@ -512,6 +455,7 @@ size_t cc_side_effect_len( CcSideEffectEnum see )
         case CC_SEE_DemotingToPawn : return 1; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
         case CC_SEE_Resurrection : return 1; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
         case CC_SEE_FailedResurrection : return 2; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+
         default : return 0;
     }
 }
@@ -524,11 +468,17 @@ char const * cc_find_side_effect( char const * restrict an_str,
     if ( !step_end ) return NULL;
 
     char const * c = an_str;
+    CcSideEffectEnum see = CC_SEE_None;
 
     while ( c < step_end )
     {
-        if ( cc_starting_side_effect( c, see__o ) )
+        see = cc_starting_side_effect( c );
+
+        if ( see != CC_SEE_None )
+        {
+            *see__o = see;
             return c;
+        }
 
         ++c;
     }
