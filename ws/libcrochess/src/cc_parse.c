@@ -270,7 +270,6 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
     if ( !end_da ) return NULL;
 
     if ( CC_IS_PLY_GATHER_END( *c ) ) ++c;
-    if ( c != step_end ) return NULL;
 
     if ( !cc_str_clear( *disambiguation__o, CC_MAX_LEN_CHAR_8 ) )
         return NULL;

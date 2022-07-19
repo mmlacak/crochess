@@ -29,7 +29,7 @@
 /**
     Macro to append a newly allocated new position link, with given coordinates.
 
-    @param ptr_ptr__pos_link__io a position linked list, to be appended.
+    @param pos_link_ptr_ptr__io a position linked list, to be appended.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
@@ -42,7 +42,7 @@
 /**
     Macro to initialize or append a position linked list, with given coordinates.
 
-    @param ptr_ptr__pos_link__io a position linked list, to be appended.
+    @param pos_link_ptr_ptr__io a position linked list, to be appended.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
