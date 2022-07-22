@@ -101,16 +101,6 @@ CcPos cc_pos_disambiguation_rank( int j );
 CcPos cc_pos_invalid();
 
 /**
-    Function checks if two positions are the same.
-
-    @param pos_1 A position.
-    @param pos_2 An other position.
-
-    @return `true` if positions are the same, `false` otherwise.
-*/
-bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
-
-/**
     Function checks if position is valid.
 
     @param pos A position.
@@ -120,6 +110,16 @@ bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
     @return `true` if position is valid, `false` otherwise.
 */
 bool cc_pos_is_valid( CcPos pos );
+
+/**
+    Function checks if two positions are the same.
+
+    @param pos_1 A position.
+    @param pos_2 An other position.
+
+    @return `true` if positions are the same, `false` otherwise.
+*/
+bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
 
 /**
     Function checks if position is a file disambiguation.

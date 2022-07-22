@@ -33,14 +33,23 @@ CcPos cc_pos_invalid()
     return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
-bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
-{
-    return ( ( pos_1.i == pos_2.i ) && ( pos_1.j == pos_2.j ) );
-}
-
 bool cc_pos_is_valid( CcPos pos )
 {
     return ( CC_IS_POS_VALID( pos.i, pos.j ) );
+}
+
+bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
+{
+    if ( cc_pos_is_valid( pos_1 ) && cc_pos_is_valid( pos_2 ) )
+        return ( ( pos_1.i == pos_2.i ) && ( pos_1.j == pos_2.j ) );
+    else if ( cc_pos_is_disambiguation_file( pos_1 ) &&
+              cc_pos_is_disambiguation_file( pos_2 ) )
+        return ( pos_1.i == pos_2.i );
+    else if ( cc_pos_is_disambiguation_rank( pos_1 ) &&
+              cc_pos_is_disambiguation_rank( pos_2 ) )
+        return ( pos_1.j == pos_2.j );
+    else
+        return false;
 }
 
 bool cc_pos_is_disambiguation_file( CcPos pos )
