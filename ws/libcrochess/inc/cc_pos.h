@@ -122,6 +122,20 @@ bool cc_pos_is_valid( CcPos pos );
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
 
 /**
+    Function checks if two positions are the congruent.
+
+    @param pos_1 A position.
+    @param pos_2 An other position.
+
+    @note
+    For positions to be congruent, at least one set of coordinates (files,
+    or ranks) from both positions has has to be valid, and the same.
+
+    @return `true` if positions are congruent, `false` otherwise.
+*/
+bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
+
+/**
     Function checks if position is a file disambiguation.
 
     @param pos A position.

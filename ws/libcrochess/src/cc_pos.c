@@ -52,6 +52,23 @@ bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
         return false;
 }
 
+bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
+{
+    bool is_file = ( CC_IS_COORD_VALID( pos_1.i ) &&
+                     CC_IS_COORD_VALID( pos_2.i ) );
+
+    if ( is_file && ( pos_1.i != pos_2.i ) )
+        return false;
+
+    bool is_rank = ( CC_IS_COORD_VALID( pos_1.j ) &&
+                     CC_IS_COORD_VALID( pos_2.j ) );
+
+    if ( is_rank && ( pos_1.j != pos_2.j ) )
+        return false;
+
+    return is_file || is_rank;
+}
+
 bool cc_pos_is_disambiguation_file( CcPos pos )
 {
     return ( CC_IS_COORD_VALID( pos.i ) && ( !CC_IS_COORD_VALID( pos.j ) ) );
