@@ -53,10 +53,6 @@ CcLosingTagEnum cc_starting_losing_tag( char const * restrict an_str );
 
 size_t cc_losing_tag_len( CcLosingTagEnum lte );
 
-// char const * cc_starting_disambiguation( char const * restrict an_str,
-//                                          char const * restrict ply_end,
-//                                          char_8 * restrict disambiguation__o );
-
 char const * cc_starting_pos( char const * restrict an_str,
                               char const * restrict ply_end,
                               char_8 * restrict pos__o,
