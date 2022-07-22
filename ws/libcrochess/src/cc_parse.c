@@ -170,9 +170,123 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte )
     }
 }
 
-char const * cc_starting_disambiguation( char const * restrict an_str,
-                                         char const * restrict ply_end,
-                                         char_8 * restrict disambiguation__o )
+// char const * cc_starting_disambiguation( char const * restrict an_str,
+//                                          char const * restrict ply_end,
+//                                          char_8 * restrict disambiguation__o )
+// {
+//     if ( !an_str ) return NULL;
+//     if ( !ply_end ) return NULL;
+
+//     char const * step_end = cc_next_step_link( an_str, ply_end );
+//     if ( !step_end ) return NULL;
+
+//     if ( step_end == an_str ) return step_end;
+
+//     char const * start_da = NULL; // disambiguation start
+//     char const * end_da = NULL; // disambiguation end, aka true step start
+//     char const * c = an_str;
+//     char const * s = an_str;
+
+//     if ( islower( *c ) )
+//     {
+//         if ( islower( *++c ) )
+//         {
+//             s = c;
+
+//             if ( isdigit( *++c ) )
+//             {
+//                 if ( isdigit( *++c ) ) ++c;
+//             }
+//             else
+//                 return NULL;
+
+//             start_da = an_str;
+//             end_da = s;
+//         }
+//         else if ( isdigit( *c ) )
+//         {
+//             if ( isdigit( *++c ) ) ++c;
+
+//             if ( islower( *c ) )
+//             {
+//                 s = c;
+
+//                 if ( isdigit( *++c ) )
+//                 {
+//                     if ( isdigit( *++c ) ) ++c;
+//                 }
+//                 else
+//                     return NULL;
+
+//                 start_da = an_str;
+//                 end_da = s;
+//             }
+//             else if ( ( *c != '\0' ) && ( c == step_end ) )
+//             {
+//                 start_da = an_str;
+//                 end_da = c;
+//             }
+//             else
+//                 return NULL;
+//         }
+//         else if ( c == step_end )
+//         {
+//             start_da = an_str;
+//             end_da = c;
+//         }
+//         else
+//             return NULL;
+//     }
+//     else if ( isdigit( *c ) )
+//     {
+//         if ( isdigit( *++c ) ) ++c;
+
+//         if ( islower( *c ) )
+//         {
+//             s = c;
+
+//             if ( isdigit( *++c ) )
+//             {
+//                 if ( isdigit( *++c ) ) ++c;
+//             }
+//             else
+//                 return NULL;
+
+//             start_da = an_str;
+//             end_da = s;
+//         }
+//         else if ( c == step_end )
+//         {
+//             start_da = an_str;
+//             end_da = c;
+//         }
+//         else
+//             return NULL;
+//     }
+//     else
+//         return NULL;
+
+//     if ( !start_da ) return NULL;
+//     if ( !end_da ) return NULL;
+
+//     // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Isn't used after this, so ...
+
+//     if ( !cc_str_clear( *disambiguation__o, CC_MAX_LEN_CHAR_8 ) )
+//         return NULL;
+
+//     size_t len = (size_t)( end_da - start_da );
+//     size_t copied = cc_str_copy( start_da, end_da, len, *disambiguation__o, CC_MAX_LEN_DISAMBIGUATION );
+
+//     if ( len != copied )
+//         return NULL;
+
+//     return end_da;
+// }
+
+char const * cc_starting_pos( char const * restrict an_str,
+                              char const * restrict ply_end,
+                              char_8 * restrict pos__o,
+                              bool is_disambiguation )
 {
     if ( !an_str ) return NULL;
     if ( !ply_end ) return NULL;
@@ -185,43 +299,30 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
     char const * start_da = NULL; // disambiguation start
     char const * end_da = NULL; // disambiguation end, aka true step start
     char const * c = an_str;
-    char const * s = an_str;
+    // char const * s = an_str;
 
     if ( islower( *c ) )
     {
         if ( islower( *++c ) )
         {
-            s = c;
-
-            if ( isdigit( *++c ) )
-            {
-                if ( isdigit( *++c ) ) ++c;
-            }
-            else
-                return NULL;
-
             start_da = an_str;
-            end_da = s;
+            end_da = c;
         }
         else if ( isdigit( *c ) )
         {
             if ( isdigit( *++c ) ) ++c;
 
-            if ( islower( *c ) )
+            if ( !is_disambiguation && !isdigit( *c ) )
             {
-                s = c;
-
-                if ( isdigit( *++c ) )
-                {
-                    if ( isdigit( *++c ) ) ++c;
-                }
-                else
-                    return NULL;
-
                 start_da = an_str;
-                end_da = s;
+                end_da = c;
             }
-            else if ( ( *c != '\0' ) && ( c == step_end ) )
+            else if ( is_disambiguation && islower( *c ) )
+            {
+                start_da = an_str;
+                end_da = c;
+            }
+            else if ( c == step_end )
             {
                 start_da = an_str;
                 end_da = c;
@@ -241,19 +342,15 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
     {
         if ( isdigit( *++c ) ) ++c;
 
-        if ( islower( *c ) )
+        if ( !is_disambiguation && !isdigit( *c ) )
         {
-            s = c;
-
-            if ( isdigit( *++c ) )
-            {
-                if ( isdigit( *++c ) ) ++c;
-            }
-            else
-                return NULL;
-
             start_da = an_str;
-            end_da = s;
+            end_da = c;
+        }
+        else if ( is_disambiguation && islower( *c ) )
+        {
+            start_da = an_str;
+            end_da = c;
         }
         else if ( c == step_end )
         {
@@ -271,11 +368,11 @@ char const * cc_starting_disambiguation( char const * restrict an_str,
 
     // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Isn't used after this, so ...
 
-    if ( !cc_str_clear( *disambiguation__o, CC_MAX_LEN_CHAR_8 ) )
+    if ( !cc_str_clear( *pos__o, CC_MAX_LEN_CHAR_8 ) )
         return NULL;
 
     size_t len = (size_t)( end_da - start_da );
-    size_t copied = cc_str_copy( start_da, end_da, len, *disambiguation__o, CC_MAX_LEN_DISAMBIGUATION );
+    size_t copied = cc_str_copy( start_da, end_da, len, *pos__o, CC_MAX_LEN_STEP );
 
     if ( len != copied )
         return NULL;

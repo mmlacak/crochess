@@ -205,7 +205,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         char_8 disambiguation = CC_CHAR_8_EMPTY;
 
-        char const * end_da = cc_starting_disambiguation( c, ply_end, &disambiguation );
+        char const * end_da = cc_starting_pos( c, ply_end, &disambiguation, true );
 
         cc_str_print( disambiguation, ply_end, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da ); // TODO :: maybe check error (?)
 
