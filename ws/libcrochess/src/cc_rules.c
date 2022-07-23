@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_parse.h"
 #include "cc_rules_misc.h"
@@ -205,33 +206,28 @@ bool cc_make_move( char const * restrict move_an_str,
 
         char_8 disambiguation = CC_CHAR_8_EMPTY;
 
-        char const * end_da = cc_starting_pos( c, ply_end, &disambiguation, true );
+        char const * end_da = cc_starting_pos( c, ply_end, true, &disambiguation );
 
-        cc_str_print( disambiguation, ply_end, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da ); // TODO :: maybe check error (?)
+        cc_str_print( disambiguation, NULL, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da ); // TODO :: maybe check error (?)
 
-        char const * d = disambiguation;
-        bool has_disambiguation = ( *d != '\0' );
+        int file_da = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int rank_da = CC_INVALID_OFF_BOARD_COORD_MIN;
 
-        int file_da = 0;
-        int rank_da = 0;
-
-        if ( islower( *d ) )
+        if ( !cc_convert_starting_pos( disambiguation, &file_da, &rank_da ) &&
+             ( CC_IS_COORD_ON_BOARD( g->chessboard->size, file_da ) ||
+               CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_da ) ) )
         {
-            file_da = CC_CONVERT_FILE_CHAR_INTO_NUM( *d );
+            cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                                                 CC_PMTE_Error,
+                                                 CC_MAX_LEN_ZERO_TERMINATED,
+                                                 "Invalid char(s) in disambiguation '%s', in step '%s', in ply '%s'.\n",
+                                                 disambiguation,
+                                                 step_start,
+                                                 ply_start );
+            return false;
+        }
 
-            if ( isdigit( *++d ) )
-            {
-                rank_da = CC_CONVERT_RANK_STR_INTO_NUM( d );
-                printf( "Disambiguation file, rank: %d, %d.\n", file_da, rank_da );
-            }
-            else
-                printf( "Disambiguation file: %d.\n", file_da );
-        }
-        else if ( isdigit( *d ) )
-        {
-            rank_da = CC_CONVERT_RANK_STR_INTO_NUM( d );
-            printf( "Disambiguation rank: %d.\n", rank_da );
-        }
+        printf( "Disambiguation file, rank: %d, %d.\n", file_da, rank_da );
 
         if ( end_da ) c = end_da;
 
@@ -248,10 +244,10 @@ bool cc_make_move( char const * restrict move_an_str,
             char const * p = pos;
 
             bool is_step_valid = false;
-            int file = 0;
-            int rank = 0;
+            int file = CC_INVALID_OFF_BOARD_COORD_MIN;
+            int rank = CC_INVALID_OFF_BOARD_COORD_MIN;
 
-            CcSideEffectEnum see = CC_SEE_PromotionNoSign;
+            CcSideEffectEnum see = CC_SEE_None;
             char const * se = cc_find_side_effect( c, step_end, &see );
             char const * pos_end = step_end;
 
@@ -267,21 +263,8 @@ bool cc_make_move( char const * restrict move_an_str,
             if ( pos_len != copied )
                 printf( "Check len? %zu != %zu\n", pos_len, copied );
 
-            if ( islower( *p ) )
-            {
-                file = CC_CONVERT_FILE_CHAR_INTO_NUM( *p );
-
-                if ( isdigit( *++p ) )
-                {
-                    rank = CC_CONVERT_RANK_STR_INTO_NUM( p );
-
-                    is_step_valid = true;
-
-                    printf( "Step: %d, %d.\n", file, rank );
-                }
-            }
-
-            if ( !is_step_valid )
+            if ( !cc_convert_starting_pos( pos, &file, &rank ) ||
+                 !CC_IS_POS_ON_BOARD( g->chessboard->size, file, rank ) )
             {
                 printf( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
 
@@ -293,6 +276,8 @@ bool cc_make_move( char const * restrict move_an_str,
                                                      ply_start );
                 return false;
             }
+
+            printf( "Step: %d, %d.\n", file, rank );
 
         }
 

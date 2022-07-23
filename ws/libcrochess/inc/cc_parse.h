@@ -55,8 +55,12 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte );
 
 char const * cc_starting_pos( char const * restrict an_str,
                               char const * restrict ply_end,
-                              char_8 * restrict pos__o,
-                              bool is_disambiguation );
+                              bool is_disambiguation,
+                              char_8 * restrict pos__o );
+
+bool cc_convert_starting_pos( char const * restrict pos,
+                              int * restrict file__o,
+                              int * restrict rank__o );
 
 
 CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );

@@ -3,6 +3,7 @@
 
 #include <ctype.h>
 
+#include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_parse.h"
 
@@ -172,8 +173,8 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte )
 
 char const * cc_starting_pos( char const * restrict an_str,
                               char const * restrict ply_end,
-                              char_8 * restrict pos__o,
-                              bool is_disambiguation )
+                              bool is_disambiguation,
+                              char_8 * restrict pos__o )
 {
     if ( !an_str ) return NULL;
     if ( !ply_end ) return NULL;
@@ -264,6 +265,40 @@ char const * cc_starting_pos( char const * restrict an_str,
         return NULL;
 
     return end_da;
+}
+
+bool cc_convert_starting_pos( char const * restrict pos,
+                              int * restrict file__o,
+                              int * restrict rank__o )
+{
+    if ( !pos ) return false;
+
+    char const * p = pos;
+
+    if ( islower( *p ) )
+    {
+        if ( !file__o ) return false;
+
+        *file__o = CC_CONVERT_FILE_CHAR_INTO_NUM( *p++ );
+    }
+    else
+        *file__o = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+    if ( isdigit( *p ) )
+    {
+        char const * c = p + 1;
+
+        if ( isdigit( *c ) ) ++c;
+        if ( isdigit( *c ) ) return false; // max len of rank is 2
+
+        if ( !rank__o ) return false;
+
+        *rank__o = CC_CONVERT_RANK_STR_INTO_NUM( p );
+    }
+    else
+        *rank__o = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+    return true;
 }
 
 
