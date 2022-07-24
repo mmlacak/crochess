@@ -4,6 +4,8 @@
 #ifndef __CC_PARSE_DEFS_H__
 #define __CC_PARSE_DEFS_H__
 
+#include <stdlib.h> // atoi
+
 /**
     @file cc_parse_defs.h
     @brief Macro, enum definitions.

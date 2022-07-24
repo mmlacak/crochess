@@ -243,7 +243,6 @@ bool cc_make_move( char const * restrict move_an_str,
             char_8 pos = CC_CHAR_8_EMPTY;
             char const * p = pos;
 
-            bool is_step_valid = false;
             int file = CC_INVALID_OFF_BOARD_COORD_MIN;
             int rank = CC_INVALID_OFF_BOARD_COORD_MIN;
 

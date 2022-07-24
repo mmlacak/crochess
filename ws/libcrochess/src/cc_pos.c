@@ -114,41 +114,36 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step )
 }
 
 
-CcPosLink * cc_pos_link__new( CcStepLinkEnum step_link,
-                              CcPos pos )
+CcPosLink * cc_pos_link__new( CcPos pos )
 {
     CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
     if ( !pl__t ) return NULL;
 
-    pl__t->step_link = step_link;
     pl__t->pos = pos;
 
-    pl__t->prev = NULL;
     pl__t->next = NULL;
 
     return pl__t;
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcStepLinkEnum step_link,
                                 CcPos pos )
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__t = cc_pos_link__new( step_link, pos );
+    CcPosLink * pl__t = cc_pos_link__new( pos );
     if ( !pl__t ) return NULL;
 
     CcPosLink * pl = pos_link__io;
+
     while ( pl->next ) pl = pl->next; // rewind
 
     pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
-    pl__t->prev = pl;
 
     return pl__t;
 }
 
 CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
-                                        CcStepLinkEnum step_link,
                                         CcPos pos )
 {
     if ( !pos_link__io ) return NULL;
@@ -156,9 +151,9 @@ CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
     CcPosLink * pl__w = NULL;
 
     if ( !*pos_link__io )
-        *pos_link__io = pl__w = cc_pos_link__new( step_link, pos );
+        *pos_link__io = pl__w = cc_pos_link__new( pos );
     else
-        pl__w = cc_pos_link_append( *pos_link__io, step_link, pos );
+        pl__w = cc_pos_link_append( *pos_link__io, pos );
 
     return pl__w;
 }
