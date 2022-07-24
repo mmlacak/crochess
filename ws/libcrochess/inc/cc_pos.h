@@ -226,7 +226,6 @@ typedef struct CcPosLink {
 /**
     Function allocates a new linked position.
 
-    @param step_link A step link enum.
     @param pos A position.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
@@ -237,7 +236,6 @@ CcPosLink * cc_pos_link__new( CcPos pos );
     Function appends a newly allocated linked position to a given linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list.
-    @param step_link A step link enum.
     @param pos A position.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
@@ -249,7 +247,6 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     Allocates a new linked position, appends it to a linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
-    @param step_link A step link enum.
     @param pos A position.
 
     @note

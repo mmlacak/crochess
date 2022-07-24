@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #ifndef __CC_STEPS_H__
@@ -17,7 +17,7 @@ typedef struct CcSteps {
     CcStepLinkEnum step_link; /**< A step link enum. */
     CcPos pos; /**< A position. */
 
-// TODO :: side-effect
+// TODO :: side-effects
 
     struct CcSteps * prev; /**< Link to a previous position. */
     struct CcSteps * next; /**< Link to a next position. */
