@@ -9,6 +9,11 @@
 #include "cc_pos.h"
 #include "cc_parse_defs.h"
 
+/**
+    @file cc_steps.h
+    @brief Steps queue, functions declarations.
+*/
+
 
 /**
     A queue of steps.

@@ -8,7 +8,7 @@
 
 /**
     @file cc_steps.c
-    @brief Functions for positions, linked list.
+    @brief Functions for steps queue.
 */
 
 
