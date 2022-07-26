@@ -6,6 +6,8 @@
 
 #include <stdbool.h>
 
+#include "cc_defines.h"
+
 /**
     @file cc_pos.h
     @brief Position, linked list of positions.
@@ -61,6 +63,12 @@ typedef struct CcPos {
 } CcPos;
 
 /**
+    Invalid position declaration.
+*/
+extern CcPos const CC_POS_INVALID;
+
+
+/**
     Function returns a position.
 
     @param i File, horizontal coordinate.
@@ -89,21 +97,11 @@ CcPos cc_pos_disambiguation_file( int i );
 CcPos cc_pos_disambiguation_rank( int j );
 
 /**
-    Function returns invalid position.
-
-    @note
-    Invalid position is one way past normal off-board calculation.
-
-    @return An invalid position.
-*/
-CcPos cc_pos_invalid();
-
-/**
     Function checks if position is valid.
 
     @param pos A position.
 
-    @see cc_pos_invalid()
+    @see CC_POS_INVALID
 
     @return `true` if position is valid, `false` otherwise.
 */

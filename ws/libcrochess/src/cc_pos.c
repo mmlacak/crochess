@@ -12,6 +12,9 @@
 */
 
 
+CcPos const CC_POS_INVALID = { .i = CC_INVALID_OFF_BOARD_COORD_MIN, .j = CC_INVALID_OFF_BOARD_COORD_MIN };
+
+
 CcPos cc_pos( int i, int j )
 {
     CcPos pos = { .i = i, .j = j };
@@ -26,11 +29,6 @@ CcPos cc_pos_disambiguation_file( int i )
 CcPos cc_pos_disambiguation_rank( int j )
 {
     return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, j );
-}
-
-CcPos cc_pos_invalid()
-{
-    return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN );
 }
 
 bool cc_pos_is_valid( CcPos pos )
@@ -96,7 +94,7 @@ CcPos cc_pos_add( CcPos pos, CcPos step )
               cc_pos_is_disambiguation_rank( step ) )
         return cc_pos_disambiguation_rank( pos.j + step.j );
     else
-        return cc_pos_invalid();
+        return CC_POS_INVALID;
 }
 
 CcPos cc_pos_subtract( CcPos pos, CcPos step )
@@ -110,7 +108,7 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step )
               cc_pos_is_disambiguation_rank( step ) )
         return cc_pos_disambiguation_rank( pos.j - step.j );
     else
-        return cc_pos_invalid();
+        return CC_POS_INVALID;
 }
 
 
