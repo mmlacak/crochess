@@ -63,12 +63,12 @@ typedef struct CcPos {
 } CcPos;
 
 /**
-    Macro to embed invalid position value.
+    Invalid position value.
 */
 #define CC_POS_INVALID { .i = CC_INVALID_OFF_BOARD_COORD_MIN, .j = CC_INVALID_OFF_BOARD_COORD_MIN }
 
 /**
-    Macro to embed casted invalid position value.
+    Casted invalid position value.
 */
 #define CC_POS_INVALID_CAST ( (CcPos)CC_POS_INVALID )
 

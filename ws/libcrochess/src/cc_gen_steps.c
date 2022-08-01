@@ -20,9 +20,31 @@ CcPos const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ] =
 
 CcPos const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ] =
 {
-    { .i = -1, .j =  -1 },
-    { .i =  0, .j =  -1 },
-    { .i =  1, .j =  -1 },
+    { .i = -1, .j = -1 },
+    { .i =  0, .j = -1 },
+    { .i =  1, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] =
+{
+    { .i = -1, .j =  1 },
+    { .i =  0, .j =  1 },
+    { .i =  1, .j =  1 },
+    { .i = -1, .j =  0 },
+    { .i =  1, .j =  0 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] =
+{
+    { .i = -1, .j = -1 },
+    { .i =  0, .j = -1 },
+    { .i =  1, .j = -1 },
+    { .i = -1, .j =  0 },
+    { .i =  1, .j =  0 },
 
     CC_POS_INVALID,
 };
@@ -99,6 +121,22 @@ CcPos const CC_STEPS_UNICORN[ CC_STEPS_UNICORN_SIZE ] =
     { .i =  2, .j = -3 },
     { .i =  3, .j = -2 },
     { .i =  4, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ] =
+{
+    { .i = -1, .j =  1 },
+    { .i =  1, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] =
+{
+    { .i = -1, .j = -1 },
+    { .i =  1, .j =  1 },
 
     CC_POS_INVALID,
 };

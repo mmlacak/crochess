@@ -33,11 +33,13 @@
  */
 
 #define CC_STEPS_PAWN_LEN (3)
+#define CC_STEPS_SIDEWAYS_PAWN_LEN (5)
 #define CC_STEPS_BISHOP_LEN (4)
 #define CC_STEPS_ROOK_LEN (4)
 #define CC_STEPS_QUEEN_LEN (8)
 #define CC_STEPS_KNIGHT_LEN (8)
 #define CC_STEPS_UNICORN_LEN (16)
+#define CC_STEPS_SERPENT_LEN (2)
 
 /** @} */ // end of step_generator_lengths
 
@@ -52,11 +54,13 @@
  */
 
 #define CC_STEPS_PAWN_SIZE (CC_STEPS_PAWN_LEN + 1)
+#define CC_STEPS_SIDEWAYS_PAWN_SIZE (CC_STEPS_SIDEWAYS_PAWN_LEN + 1)
 #define CC_STEPS_BISHOP_SIZE (CC_STEPS_BISHOP_LEN + 1)
 #define CC_STEPS_ROOK_SIZE (CC_STEPS_ROOK_LEN + 1)
 #define CC_STEPS_QUEEN_SIZE (CC_STEPS_QUEEN_LEN + 1)
 #define CC_STEPS_KNIGHT_SIZE (CC_STEPS_KNIGHT_LEN + 1)
 #define CC_STEPS_UNICORN_SIZE (CC_STEPS_UNICORN_LEN + 1)
+#define CC_STEPS_SERPENT_SIZE (CC_STEPS_SERPENT_LEN + 1)
 
 /** @} */ // end of step_generator_sizes
 
@@ -71,20 +75,24 @@
 
     @note
     Terminating position is a `CcPos` with coordinates past normal off-board
-    calculation. Currently, it's defined as
+    calculation. Currently, it's defined as `CC_POS_INVALID`, which is
     `{ CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN }`.
 
-    @see CcPos, CC_INVALID_OFF_BOARD_COORD_MIN
+    @see CcPos, CC_POS_INVALID, CC_INVALID_OFF_BOARD_COORD_MIN
  *  @{
  */
 
 extern CcPos const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ];
 extern CcPos const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ];
-extern CcPos const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ]; // Also, Serpent.
+extern CcPos const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ];
+extern CcPos const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ];
+extern CcPos const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ];
 extern CcPos const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ]; // Also, Serpent's color-changing move.
 extern CcPos const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ];
 extern CcPos const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ];
 extern CcPos const CC_STEPS_UNICORN[ CC_STEPS_UNICORN_SIZE ];
+extern CcPos const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ];
+extern CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
 
 /** @} */ // end of step_generator_arrays
 
@@ -137,6 +145,12 @@ bool cc_step_is_valid( CcPos step,
 #define CC_DARK_PAWN_STEP_IS_VALID(step) \
     ( cc_step_is_valid( (step), CC_STEPS_DARK_PAWN, CC_STEPS_PAWN_LEN ) )
 
+#define CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID(step) \
+    ( cc_step_is_valid( (step), CC_STEPS_LIGHT_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN ) )
+
+#define CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID(step) \
+    ( cc_step_is_valid( (step), CC_STEPS_DARK_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN ) )
+
 #define CC_BISHOP_STEP_IS_VALID(step) \
     ( cc_step_is_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) )
 
@@ -151,6 +165,12 @@ bool cc_step_is_valid( CcPos step,
 
 #define CC_UNICORN_STEP_IS_VALID(step) \
     ( cc_step_is_valid( (step), CC_STEPS_UNICORN, CC_STEPS_UNICORN_LEN ) )
+
+#define CC_SERPENT_LEFT_STEP_IS_VALID(step) \
+    ( cc_step_is_valid( (step), CC_STEPS_SERPENT_LEFT, CC_STEPS_SERPENT_SIZE ) )
+
+#define CC_SERPENT_RIGHT_STEP_IS_VALID(step) \
+    ( cc_step_is_valid( (step), CC_STEPS_SERPENT_RIGHT, CC_STEPS_SERPENT_SIZE ) )
 
 /** @} */ // end of step_is_valid_base_macros
 
