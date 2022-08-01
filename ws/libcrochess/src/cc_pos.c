@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "cc_defines.h"
+#include "cc_math.h"
 #include "cc_pos.h"
 
 /**
@@ -110,6 +111,20 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step )
         return cc_pos_disambiguation_rank( pos.j - step.j );
     else
         return CC_POS_INVALID;
+}
+
+CcPos cc_pos_step( CcPos pos_1, CcPos pos_2 )
+{
+    int diff_i = pos_2.i - pos_1.i;
+    int diff_j = pos_2.j - pos_1.j;
+
+    int gcd = cc_gcd( diff_i, diff_j );
+    if ( gcd == 0 ) return CC_POS_INVALID;
+
+    diff_i /= gcd;
+    diff_j /= gcd;
+
+    return cc_pos( diff_i, diff_j );
 }
 
 

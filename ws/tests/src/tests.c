@@ -25,12 +25,18 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.95:527+20220801.025138"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.96:528+20220801.033115"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 void test_gcd( int x, int y )
 {
     printf( "%d ~ %d --> %d\n", x, y, cc_gcd( x, y ) );
+}
+
+void test_pos_step( int i1, int j1, int i2, int j2 )
+{
+    CcPos step = cc_pos_step( cc_pos( i1, j1 ), cc_pos( i2, j2 ) );
+    printf( "(%d, %d) ~ (%d, %d) --> (%d, %d)\n", i1, j1, i2, j2, step.i, step.j );
 }
 
 
@@ -184,6 +190,12 @@ int main( void )
             test_gcd( -18, -48 );
             printf( "---------------------\n" );
 
+            test_gcd(  48,  0 );
+            test_gcd( -48,  0 );
+            test_gcd(  48, -0 );
+            test_gcd( -48, -0 );
+            printf( "---------------------\n" );
+
             test_gcd( 48, 180 );
             test_gcd( 180, 48 );
             printf( "---------------------\n" );
@@ -193,6 +205,24 @@ int main( void )
             test_gcd( 9, 6 );
             test_gcd( 19, 6 );
             test_gcd( 24, 11 );
+            printf( "---------------------\n" );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "z1", NULL, BUFSIZ ) )
+        {
+            test_pos_step( 2, 3, 14, 15 );
+            test_pos_step( 14, 15, 2, 3 );
+            printf( "---------------------\n" );
+
+            test_pos_step( 17, 11, 19, 9 );
+            test_pos_step( 19, 9, 17, 11 );
+            printf( "---------------------\n" );
+
+            test_pos_step( 22, 3, 10, 11 );
+            test_pos_step( 10, 11, 22, 3 );
+            printf( "---------------------\n" );
+
+            test_pos_step( 2, 3, 17, 11 );
+            test_pos_step( 17, 11, 2, 3 );
             printf( "---------------------\n" );
         }
         else
