@@ -63,9 +63,14 @@ typedef struct CcPos {
 } CcPos;
 
 /**
-    Invalid position declaration.
+    Macro to embed invalid position value.
 */
-extern CcPos const CC_POS_INVALID;
+#define CC_POS_INVALID { .i = CC_INVALID_OFF_BOARD_COORD_MIN, .j = CC_INVALID_OFF_BOARD_COORD_MIN }
+
+/**
+    Macro to embed casted invalid position value.
+*/
+#define CC_POS_INVALID_CAST ( (CcPos)CC_POS_INVALID )
 
 
 /**
@@ -101,7 +106,7 @@ CcPos cc_pos_disambiguation_rank( int j );
 
     @param pos A position.
 
-    @see CC_POS_INVALID
+    @see CC_POS_INVALID_ARRAY
 
     @return `true` if position is valid, `false` otherwise.
 */
@@ -216,6 +221,10 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step );
 
     @param start Starting from.
     @param destination Destination field.
+
+    @note
+    Returned step might not be legal step for any given piece,
+    it's just a calculated value.
 
     @return A valid step if successful, invalid otherwise.
 */

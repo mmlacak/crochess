@@ -4,6 +4,17 @@
 #include "cc_gen_steps.h"
 
 
+CcPos const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ] =
+{
+    { .i = 1, .j = 1 },
+    { .i = -1, .j = 1 },
+    { .i = -1, .j = -1 },
+    { .i = 1, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
+
 bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
                         CcPieceEnum piece,
                         bool include_opponent,
@@ -40,7 +51,7 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
         pos.j = 0;
     }
 
-    *pos__io = CC_POS_INVALID;
+    *pos__io = CC_POS_INVALID_CAST;
     return false;
 }
 

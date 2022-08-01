@@ -9,6 +9,11 @@
 #include "cc_pos.h"
 
 
+#define CC_STEPS_BISHOP_LEN (4)
+#define CC_STEPS_BISHOP_SIZE (CC_STEPS_BISHOP_LEN + 1)
+extern CcPos const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ];
+
+
 // DOCS
 bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
                         CcPieceEnum piece,
