@@ -19,13 +19,13 @@
     A queue of steps.
 */
 typedef struct CcSteps {
-    CcStepLinkEnum step_link; /**< A step link enum. */
-    CcPos pos; /**< A position. */
+    CcStepLinkEnum step_link; /**< Step link enum. */
+    CcPos pos; /**< Position. */
 
 // TODO :: side-effects
 
-    struct CcSteps * prev; /**< Link to a previous position. */
-    struct CcSteps * next; /**< Link to a next position. */
+    struct CcSteps * prev; /**< Link to previous position. */
+    struct CcSteps * next; /**< Link to next position. */
 } CcSteps;
 
 /**

@@ -12,6 +12,8 @@
 extern char const CROCHESS_TESTS_VERSION[];
 
 
+void test_gcd( int x, int y );
+
 int main(void);
 
 

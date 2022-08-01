@@ -15,5 +15,10 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
                         bool include_opponent,
                         CcPos * restrict pos__io );
 
+CcPosLink * cc_piece_path_iter__new( CcChessboard * restrict cb_before_activation,
+                                     CcPieceEnum piece,
+                                     CcPos start,
+                                     CcPos destination );
+
 
 #endif /* __CC_GEN_STEPS_H__ */

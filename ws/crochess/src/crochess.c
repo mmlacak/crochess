@@ -7,8 +7,10 @@
 #include <string.h>
 
 #include "cc_defines.h"
-#include "cc_version.h"
 #include "cc_str_utils.h"
+#include "cc_math.h"
+
+#include "cc_version.h"
 #include "cc_token.h"
 #include "cc_piece.h"
 #include "cc_chessboard.h"
@@ -19,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.94:526+20220726.022053"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.95:527+20220801.025138"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool test_move( char const * restrict an_str,
@@ -275,45 +277,6 @@ int main( void )
 
             // test_move( "Ba5~[Wc7]||Nd9", game__a );
             // test_move( "[Ba5]~Wc7@@[Nd9]", game__a );
-        }
-        else if ( cc_str_is_equal( token_start, token_end, "z", NULL, BUFSIZ ) )
-        {
-            char_8 foo = { 'a', '1', 'b', '2', 'c', '3', 'd', '4' };
-
-            // cc_str_print( foo, NULL, CC_MAX_LEN_CHAR_8, "Before: '%s'.\n", NULL );
-            printf( "Before: { %c, %c, %c, %c, %c, %c, %c, %c }.\n",
-                    foo[ 0 ],
-                    foo[ 1 ],
-                    foo[ 2 ],
-                    foo[ 3 ],
-                    foo[ 4 ],
-                    foo[ 5 ],
-                    foo[ 6 ],
-                    foo[ 7 ] );
-
-            printf( "Before: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
-                    foo[ 0 ],
-                    foo[ 1 ],
-                    foo[ 2 ],
-                    foo[ 3 ],
-                    foo[ 4 ],
-                    foo[ 5 ],
-                    foo[ 6 ],
-                    foo[ 7 ] );
-
-            cc_str_clear( foo, CC_MAX_LEN_CHAR_8 );
-
-            // cc_str_print( foo, NULL, CC_MAX_LEN_CHAR_8, "After: '%s'.\n", NULL );
-
-            printf( "After: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
-                    foo[ 0 ],
-                    foo[ 1 ],
-                    foo[ 2 ],
-                    foo[ 3 ],
-                    foo[ 4 ],
-                    foo[ 5 ],
-                    foo[ 6 ],
-                    foo[ 7 ] );
         }
         else
         {

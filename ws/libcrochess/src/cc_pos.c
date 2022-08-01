@@ -12,7 +12,8 @@
 */
 
 
-CcPos const CC_POS_INVALID = { .i = CC_INVALID_OFF_BOARD_COORD_MIN, .j = CC_INVALID_OFF_BOARD_COORD_MIN };
+CcPos const CC_POS_INVALID = { .i = CC_INVALID_OFF_BOARD_COORD_MIN,
+                               .j = CC_INVALID_OFF_BOARD_COORD_MIN };
 
 
 CcPos cc_pos( int i, int j )

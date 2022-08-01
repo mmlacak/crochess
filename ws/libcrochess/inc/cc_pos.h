@@ -211,6 +211,8 @@ CcPos cc_pos_add( CcPos pos, CcPos step );
 */
 CcPos cc_pos_subtract( CcPos pos, CcPos step );
 
+CcPos cc_pos_step( CcPos pos_1, CcPos pos_2 );
+
 
 /**
     A linked list of positions.

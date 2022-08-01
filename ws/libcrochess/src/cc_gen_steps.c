@@ -29,14 +29,12 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
         {
             CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, i, j );
 
-// TODO :: teleporting
             if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
                  ( include_opponent && cc_piece_is_opposite( pe, piece ) ) )
             {
                 *pos__io = cc_pos( i, j );
                 return true;
             }
-// TODO :: teleporting
         }
 
         pos.j = 0;
@@ -44,4 +42,21 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
 
     *pos__io = CC_POS_INVALID;
     return false;
+}
+
+CcPosLink * cc_piece_path_iter__new( CcChessboard * restrict cb_before_activation,
+                                     CcPieceEnum piece,
+                                     CcPos start,
+                                     CcPos destination )
+{
+    if ( !cb_before_activation ) return NULL;
+
+    if ( CC_PIECE_IS_NONE( piece ) )
+        return NULL;
+    else if ( CC_PIECE_IS_BISHOP( piece ) )
+    {
+
+    }
+
+    return NULL;
 }

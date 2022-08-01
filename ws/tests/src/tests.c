@@ -1,18 +1,22 @@
 // Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 #include "cc_defines.h"
 #include "cc_str_utils.h"
+#include "cc_math.h"
 
 #include "cc_version.h"
 #include "cc_token.h"
 #include "cc_piece.h"
 #include "cc_chessboard.h"
 #include "cc_pos.h"
+#include "cc_game.h"
+#include "cc_rules.h"
 
 #include "cc_parse_msgs.h"
 
@@ -21,7 +25,13 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.94:526+20220726.022053"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.95:527+20220801.025138"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+
+
+void test_gcd( int x, int y )
+{
+    printf( "%d ~ %d --> %d\n", x, y, cc_gcd( x, y ) );
+}
 
 
 int main( void )
@@ -108,6 +118,82 @@ int main( void )
         else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "parse", NULL, BUFSIZ ) )
         {
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "z", NULL, BUFSIZ ) )
+        {
+            char_8 foo = { 'a', '1', 'b', '2', 'c', '3', 'd', '4' };
+
+            // cc_str_print( foo, NULL, CC_MAX_LEN_CHAR_8, "Before: '%s'.\n", NULL );
+            printf( "Before: { %c, %c, %c, %c, %c, %c, %c, %c }.\n",
+                    foo[ 0 ],
+                    foo[ 1 ],
+                    foo[ 2 ],
+                    foo[ 3 ],
+                    foo[ 4 ],
+                    foo[ 5 ],
+                    foo[ 6 ],
+                    foo[ 7 ] );
+
+            printf( "Before: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
+                    foo[ 0 ],
+                    foo[ 1 ],
+                    foo[ 2 ],
+                    foo[ 3 ],
+                    foo[ 4 ],
+                    foo[ 5 ],
+                    foo[ 6 ],
+                    foo[ 7 ] );
+
+            cc_str_clear( foo, CC_MAX_LEN_CHAR_8 );
+
+            // cc_str_print( foo, NULL, CC_MAX_LEN_CHAR_8, "After: '%s'.\n", NULL );
+
+            printf( "After: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
+                    foo[ 0 ],
+                    foo[ 1 ],
+                    foo[ 2 ],
+                    foo[ 3 ],
+                    foo[ 4 ],
+                    foo[ 5 ],
+                    foo[ 6 ],
+                    foo[ 7 ] );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "z0", NULL, BUFSIZ ) )
+        {
+            test_gcd(  54,  24 );
+            test_gcd( -54,  24 );
+            test_gcd(  54, -24 );
+            test_gcd( -54, -24 );
+            printf( "---------------------\n" );
+
+            test_gcd(  24,  54 );
+            test_gcd( -24,  54 );
+            test_gcd(  24, -54 );
+            test_gcd( -24, -54 );
+            printf( "---------------------\n" );
+
+            test_gcd(  48,  18 );
+            test_gcd( -48,  18 );
+            test_gcd(  48, -18 );
+            test_gcd( -48, -18 );
+            printf( "---------------------\n" );
+
+            test_gcd(  18,  48 );
+            test_gcd( -18,  48 );
+            test_gcd(  18, -48 );
+            test_gcd( -18, -48 );
+            printf( "---------------------\n" );
+
+            test_gcd( 48, 180 );
+            test_gcd( 180, 48 );
+            printf( "---------------------\n" );
+
+            test_gcd( 6, 3 );
+            test_gcd( 9, 2 );
+            test_gcd( 9, 6 );
+            test_gcd( 19, 6 );
+            test_gcd( 24, 11 );
+            printf( "---------------------\n" );
         }
         else
         {
