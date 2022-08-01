@@ -113,10 +113,10 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step )
         return CC_POS_INVALID;
 }
 
-CcPos cc_pos_step( CcPos pos_1, CcPos pos_2 )
+CcPos cc_pos_step( CcPos start, CcPos destination )
 {
-    int diff_i = pos_2.i - pos_1.i;
-    int diff_j = pos_2.j - pos_1.j;
+    int diff_i = destination.i - start.i;
+    int diff_j = destination.j - start.j;
 
     int gcd = cc_gcd( diff_i, diff_j );
     if ( gcd == 0 ) return CC_POS_INVALID;

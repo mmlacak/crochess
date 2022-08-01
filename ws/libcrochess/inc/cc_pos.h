@@ -211,7 +211,15 @@ CcPos cc_pos_add( CcPos pos, CcPos step );
 */
 CcPos cc_pos_subtract( CcPos pos, CcPos step );
 
-CcPos cc_pos_step( CcPos pos_1, CcPos pos_2 );
+/**
+    Function returns step from start to destination field.
+
+    @param start Starting from.
+    @param destination Destination field.
+
+    @return A valid step if successful, invalid otherwise.
+*/
+CcPos cc_pos_step( CcPos start, CcPos destination );
 
 
 /**
