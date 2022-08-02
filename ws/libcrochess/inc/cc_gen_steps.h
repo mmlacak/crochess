@@ -98,20 +98,6 @@ extern CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
 
 /** @} */ // end of step_generator_array
 
-
-// /**
-//     Function is a position generator.
-
-//     @param pos__io _Input/output_ parameter, generated position.
-//     @param step A step.
-//     @param from_or_to Flag, whether next position is in direction of a `step`, or opposite.
-
-//     @return `true` is successful, `false` otherwise.
-// */
-// bool cc_gen_pos( CcPos * restrict pos__io,
-//                  CcPos step,
-//                  bool from_or_to );
-
 /**
     Function checking if step is valid, by searching a
     given array holding all valid steps for a piece.
@@ -197,10 +183,26 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
                         bool include_opponent,
                         CcPos * restrict pos__io );
 
-CcPosLink * cc_piece_path_iter__new( CcChessboard * restrict cb_before_activation,
-                                     CcPieceEnum piece,
-                                     CcPos start,
-                                     CcPos destination );
+
+bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
+                         CcPieceEnum piece,
+                         CcPos start,
+                         CcPos destination );
+
+CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
+                                 CcPieceEnum piece,
+                                 CcPos start,
+                                 CcPos destination );
+
+CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
+                                   CcPieceEnum piece,
+                                   CcPos start,
+                                   CcPos destination );
+
+CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
+                                  CcPieceEnum piece,
+                                  CcPos start,
+                                  CcPos destination );
 
 
 #endif /* __CC_GEN_STEPS_H__ */

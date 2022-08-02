@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.99:531+20220801.225226"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.100:532+20220802.172304"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool test_move( char const * restrict an_str,

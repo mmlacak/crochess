@@ -197,19 +197,91 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
     return false;
 }
 
-CcPosLink * cc_piece_path_iter__new( CcChessboard * restrict cb_before_activation,
-                                     CcPieceEnum piece,
-                                     CcPos start,
-                                     CcPos destination )
+bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
+                         CcPieceEnum piece,
+                         CcPos start,
+                         CcPos destination )
 {
-    if ( !cb_before_activation ) return NULL;
+    if ( !cb_before_activation ) return false;
+
+    if ( !cc_chessboard_is_pos_on_board( cb_before_activation, start.i, start.j ) )
+        return false;
+
+    if ( !cc_chessboard_is_pos_on_board( cb_before_activation,
+                                         destination.i,
+                                         destination.j ) )
+        return false;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+
+    if ( !CC_PIECE_IS_THE_SAME( piece, pe ) )
+        return false;
+
+    return true;
+}
+
+CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
+                                 CcPieceEnum piece,
+                                 CcPos start,
+                                 CcPos destination )
+{
+    if ( !cc_check_path_args( cb_before_activation, piece, start, destination ) )
+        return NULL;
+
+    if ( !CC_PIECE_IS_BISHOP( piece ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !CC_BISHOP_STEP_IS_VALID( step ) )
+        return NULL;
+
+    CcPosLink * path__a = cc_pos_link__new( start );
+
+    for ( CcPos pos = cc_pos_add( start, step );
+            !cc_pos_is_equal( pos, destination );
+            cc_pos_add( pos, step ) )
+    {
+        cc_pos_link_append( path__a, pos );
+    }
+
+    cc_pos_link_append( path__a, destination );
+
+    return path__a;
+}
+
+CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
+                                   CcPieceEnum piece,
+                                   CcPos start,
+                                   CcPos destination )
+{
+    // if ( !cc_check_path_args( cb_before_activation, piece, start, destination ) )
+    //     return NULL;
 
     if ( CC_PIECE_IS_NONE( piece ) )
         return NULL;
     else if ( CC_PIECE_IS_BISHOP( piece ) )
-    {
+        return cc_path_bishop__new( cb_before_activation, piece, start, destination );
 
-    }
+
+
+    return NULL;
+}
+
+CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
+                                  CcPieceEnum piece,
+                                  CcPos start,
+                                  CcPos destination )
+{
+    // if ( !cc_check_path_args( cb_before_activation, piece, start, destination ) )
+    //     return NULL;
+
+    if ( CC_PIECE_IS_NONE( piece ) )
+        return NULL;
+    else if ( CC_PIECE_IS_BISHOP( piece ) )
+        return cc_path_bishop__new( cb_before_activation, piece, start, destination );
+
+
 
     return NULL;
 }
