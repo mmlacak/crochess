@@ -111,6 +111,17 @@
 #define CC_PIECE_IS_QUEEN(pe) ( ( (pe) == CC_PE_LightQueen ) || ( (pe) == CC_PE_DarkQueen ) )
 
 /**
+    Macro expression to evaluate whether piece is a Pegasus.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Pegasus, `false` otherwise.
+*/
+#define CC_PIECE_IS_PEGASUS(pe) ( ( (pe) == CC_PE_LightPegasus ) || ( (pe) == CC_PE_DarkPegasus ) )
+
+/**
     Macro expression to evaluate whether piece is a Pyramid.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
