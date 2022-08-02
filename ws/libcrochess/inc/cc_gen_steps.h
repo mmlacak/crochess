@@ -211,6 +211,11 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
                                CcPos start,
                                CcPos destination );
 
+CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
+                                 CcPieceEnum activator,
+                                 CcPos start,
+                                 CcPos destination );
+
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
                                    CcPieceEnum activator,
                                    CcPos start,

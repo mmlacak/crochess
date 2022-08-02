@@ -56,6 +56,17 @@
 #define CC_PIECE_IS_PAWN(pe) ( ( (pe) == CC_PE_LightPawn ) || ( (pe) == CC_PE_DarkPawn ) )
 
 /**
+    Macro expression to evaluate whether piece is a Knight.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Knight, `false` otherwise.
+*/
+#define CC_PIECE_IS_KNIGHT(pe) ( ( (pe) == CC_PE_LightKnight ) || ( (pe) == CC_PE_DarkKnight ) )
+
+/**
     Macro expression to evaluate whether piece is a Bishop.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
