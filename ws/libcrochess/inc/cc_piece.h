@@ -89,6 +89,17 @@
 #define CC_PIECE_IS_KING(pe) ( ( (pe) == CC_PE_LightKing ) || ( (pe) == CC_PE_DarkKing ) )
 
 /**
+    Macro expression to evaluate whether piece is a Queen.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Queen, `false` otherwise.
+*/
+#define CC_PIECE_IS_QUEEN(pe) ( ( (pe) == CC_PE_LightQueen ) || ( (pe) == CC_PE_DarkQueen ) )
+
+/**
     Macro expression to evaluate whether piece is a Pyramid.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
@@ -153,6 +164,22 @@
     @return `true` if piece is a Starchild, `false` otherwise.
 */
 #define CC_PIECE_IS_STARCHILD(pe) ( ( (pe) == CC_PE_LightStarchild ) || ( (pe) == CC_PE_DarkStarchild ) )
+
+/**
+    Macro expression to evaluate whether piece is activator.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is activator, `false` otherwise.
+*/
+#define CC_PIECE_IS_ACTIVATOR(pe) ( ( (pe) != CC_PE_DimStar )       \
+                                 && ( (pe) != CC_PE_DarkWave )      \
+                                 && ( (pe) != CC_PE_None )          \
+                                 && ( (pe) != CC_PE_LightWave )     \
+                                 && ( (pe) != CC_PE_BrightStar )    \
+                                 && ( (pe) != CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether piece is passive.

@@ -198,7 +198,7 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
 }
 
 bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
-                         CcPieceEnum piece,
+                         CcPieceEnum activator,
                          CcPos start,
                          CcPos destination )
 {
@@ -214,33 +214,20 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
 
-    if ( !CC_PIECE_IS_THE_SAME( piece, pe ) )
+    if ( !CC_PIECE_IS_THE_SAME( activator, pe ) &&
+         !CC_PIECE_IS_WAVE( pe ) )
         return false;
 
     return true;
 }
 
-CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
-                                 CcPieceEnum piece,
-                                 CcPos start,
-                                 CcPos destination )
+CcPosLink * cc_link_positions( CcPos start, CcPos destination, CcPos step )
 {
-    if ( !cc_check_path_args( cb_before_activation, piece, start, destination ) )
-        return NULL;
-
-    if ( !CC_PIECE_IS_BISHOP( piece ) )
-        return NULL;
-
-    CcPos step = cc_pos_step( start, destination );
-
-    if ( !CC_BISHOP_STEP_IS_VALID( step ) )
-        return NULL;
-
     CcPosLink * path__a = cc_pos_link__new( start );
 
     for ( CcPos pos = cc_pos_add( start, step );
-            !cc_pos_is_equal( pos, destination );
-            cc_pos_add( pos, step ) )
+          !cc_pos_is_equal( pos, destination );
+          cc_pos_add( pos, step ) )
     {
         cc_pos_link_append( path__a, pos );
     }
@@ -250,18 +237,88 @@ CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
     return path__a;
 }
 
+CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
+                                 CcPieceEnum activator,
+                                 CcPos start,
+                                 CcPos destination )
+{
+    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
+        return NULL;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+
+    if ( !CC_PIECE_IS_BISHOP( activator ) &&
+         !CC_PIECE_IS_WAVE( pe ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !CC_BISHOP_STEP_IS_VALID( step ) )
+        return NULL;
+
+    return cc_link_positions( start, destination, step );
+}
+
+CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
+                               CcPieceEnum activator,
+                               CcPos start,
+                               CcPos destination )
+{
+    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
+        return NULL;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+
+    if ( !CC_PIECE_IS_ROOK( activator ) &&
+         !CC_PIECE_IS_WAVE( pe ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !CC_ROOK_STEP_IS_VALID( step ) )
+        return NULL;
+
+    return cc_link_positions( start, destination, step );
+}
+
+CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
+                                CcPieceEnum activator,
+                                CcPos start,
+                                CcPos destination )
+{
+    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
+        return NULL;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+
+    if ( !CC_PIECE_IS_QUEEN( activator ) &&
+         !CC_PIECE_IS_WAVE( pe ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !CC_QUEEN_STEP_IS_VALID( step ) )
+        return NULL;
+
+    return cc_link_positions( start, destination, step );
+}
+
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
-                                   CcPieceEnum piece,
+                                   CcPieceEnum activator,
                                    CcPos start,
                                    CcPos destination )
 {
-    // if ( !cc_check_path_args( cb_before_activation, piece, start, destination ) )
+    // if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
     //     return NULL;
 
-    if ( CC_PIECE_IS_NONE( piece ) )
+    if ( CC_PIECE_IS_NONE( activator ) )
         return NULL;
-    else if ( CC_PIECE_IS_BISHOP( piece ) )
-        return cc_path_bishop__new( cb_before_activation, piece, start, destination );
+    else if ( CC_PIECE_IS_BISHOP( activator ) )
+        return cc_path_bishop__new( cb_before_activation, activator, start, destination );
+    else if ( CC_PIECE_IS_ROOK( activator ) )
+        return cc_path_rook__new( cb_before_activation, activator, start, destination );
+    else if ( CC_PIECE_IS_QUEEN( activator ) )
+        return cc_path_queen__new( cb_before_activation, activator, start, destination );
 
 
 
@@ -269,17 +326,21 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
 }
 
 CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
-                                  CcPieceEnum piece,
+                                  CcPieceEnum activator,
                                   CcPos start,
                                   CcPos destination )
 {
-    // if ( !cc_check_path_args( cb_before_activation, piece, start, destination ) )
+    // if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
     //     return NULL;
 
-    if ( CC_PIECE_IS_NONE( piece ) )
+    if ( CC_PIECE_IS_NONE( activator ) )
         return NULL;
-    else if ( CC_PIECE_IS_BISHOP( piece ) )
-        return cc_path_bishop__new( cb_before_activation, piece, start, destination );
+    else if ( CC_PIECE_IS_BISHOP( activator ) )
+        return cc_path_bishop__new( cb_before_activation, activator, start, destination );
+    else if ( CC_PIECE_IS_ROOK( activator ) )
+        return cc_path_rook__new( cb_before_activation, activator, start, destination );
+    else if ( CC_PIECE_IS_QUEEN( activator ) )
+        return cc_path_queen__new( cb_before_activation, activator, start, destination );
 
 
 

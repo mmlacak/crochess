@@ -185,22 +185,34 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
 
 
 bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
-                         CcPieceEnum piece,
+                         CcPieceEnum activator,
                          CcPos start,
                          CcPos destination );
 
+CcPosLink * cc_link_positions( CcPos start, CcPos destination, CcPos step );
+
 CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
-                                 CcPieceEnum piece,
+                                 CcPieceEnum activator,
                                  CcPos start,
                                  CcPos destination );
 
+CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
+                               CcPieceEnum activator,
+                               CcPos start,
+                               CcPos destination );
+
+CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
+                                CcPieceEnum activator,
+                                CcPos start,
+                                CcPos destination );
+
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
-                                   CcPieceEnum piece,
+                                   CcPieceEnum activator,
                                    CcPos start,
                                    CcPos destination );
 
 CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
-                                  CcPieceEnum piece,
+                                  CcPieceEnum activator,
                                   CcPos start,
                                   CcPos destination );
 
