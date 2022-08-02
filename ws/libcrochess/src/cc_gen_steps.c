@@ -303,14 +303,42 @@ CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
     return cc_link_positions( start, destination, step );
 }
 
+CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
+                               CcPieceEnum activator,
+                               CcPos start,
+                               CcPos destination )
+{
+    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
+        return NULL;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+
+    if ( !CC_PIECE_IS_KING( activator ) &&
+         !CC_PIECE_IS_WAVE( pe ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !CC_QUEEN_STEP_IS_VALID( step ) )
+        return NULL;
+
+    CcPos end = cc_pos_add( start, step );
+
+    if ( !cc_pos_is_equal( end, destination ) )
+        return NULL;
+
+    CcPosLink * path__a = cc_pos_link__new( start );
+
+    cc_pos_link_append( path__a, destination );
+
+    return path__a;
+}
+
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
                                    CcPieceEnum activator,
                                    CcPos start,
                                    CcPos destination )
 {
-    // if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
-    //     return NULL;
-
     if ( CC_PIECE_IS_NONE( activator ) )
         return NULL;
     else if ( CC_PIECE_IS_BISHOP( activator ) )
@@ -330,9 +358,6 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
                                   CcPos start,
                                   CcPos destination )
 {
-    // if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
-    //     return NULL;
-
     if ( CC_PIECE_IS_NONE( activator ) )
         return NULL;
     else if ( CC_PIECE_IS_BISHOP( activator ) )

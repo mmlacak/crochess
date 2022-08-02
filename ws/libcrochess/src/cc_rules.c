@@ -168,6 +168,10 @@ bool cc_make_move( char const * restrict move_an_str,
     char const * step_end = NULL;
     bool ply_has_steps = false;
 
+// TODO :: check if castling --> handle as a special case
+
+// TODO :: check if en passant --> handle as a special case
+
     // printf( "\n" );
     printf( "Move: '%s'.\n\n", move_an_str ); // "\nMove: '%s'.\n\n"
     while ( cc_ply_iter( m, &ply_start, &ply_end ) )
