@@ -185,11 +185,17 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
 
 
 bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
-                         CcPieceEnum activator,
                          CcPos start,
                          CcPos destination );
 
 CcPosLink * cc_link_positions( CcPos start, CcPos destination, CcPos step );
+
+bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
+                             CcPieceEnum activator,
+                             CcPos start,
+                             CcPos destination,
+                             CcPieceEnum expected_type );
+
 
 CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,

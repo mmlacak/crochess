@@ -197,8 +197,8 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
     return false;
 }
 
+
 bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
-                         CcPieceEnum activator,
                          CcPos start,
                          CcPos destination )
 {
@@ -210,12 +210,6 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
     if ( !cc_chessboard_is_pos_on_board( cb_before_activation,
                                          destination.i,
                                          destination.j ) )
-        return false;
-
-    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-
-    if ( !CC_PIECE_IS_THE_SAME( activator, pe ) &&
-         !CC_PIECE_IS_WAVE( pe ) )
         return false;
 
     return true;
@@ -237,18 +231,46 @@ CcPosLink * cc_link_positions( CcPos start, CcPos destination, CcPos step )
     return path__a;
 }
 
+bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
+                             CcPieceEnum activator,
+                             CcPos start,
+                             CcPos destination,
+                             CcPieceEnum expected_type )
+{
+    if ( !cc_check_path_args( cb_before_activation, start, destination ) )
+        return false;
+
+    CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+
+    if ( CC_PIECE_IS_NONE( activator ) &&
+         CC_PIECE_IS_ACTIVE( piece ) &&
+         cc_piece_has_same_type( piece, expected_type ) )
+        return true;
+
+    if ( CC_PIECE_IS_ACTIVATOR( activator ) &&
+         CC_PIECE_CAN_BE_ACTIVATED( piece ) &&
+         cc_piece_has_same_type( piece, expected_type ) )
+        return true;
+
+    if ( CC_PIECE_IS_ACTIVATOR( activator ) &&
+         CC_PIECE_IS_WAVE( piece ) )
+        return true;
+
+    return false;
+}
+
+
 CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
                                  CcPos start,
                                  CcPos destination )
 {
-    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
-        return NULL;
-
-    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-
-    if ( !CC_PIECE_IS_BISHOP( activator ) &&
-         !CC_PIECE_IS_WAVE( pe ) )
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightBishop ) )
         return NULL;
 
     CcPos step = cc_pos_step( start, destination );
@@ -264,13 +286,12 @@ CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
                                CcPos start,
                                CcPos destination )
 {
-    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
-        return NULL;
-
-    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-
-    if ( !CC_PIECE_IS_ROOK( activator ) &&
-         !CC_PIECE_IS_WAVE( pe ) )
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightRook ) )
         return NULL;
 
     CcPos step = cc_pos_step( start, destination );
@@ -286,13 +307,12 @@ CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
                                 CcPos start,
                                 CcPos destination )
 {
-    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
-        return NULL;
-
-    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-
-    if ( !CC_PIECE_IS_QUEEN( activator ) &&
-         !CC_PIECE_IS_WAVE( pe ) )
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightQueen ) )
         return NULL;
 
     CcPos step = cc_pos_step( start, destination );
@@ -308,13 +328,12 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
                                CcPos start,
                                CcPos destination )
 {
-    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
-        return NULL;
-
-    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-
-    if ( !CC_PIECE_IS_KING( activator ) &&
-         !CC_PIECE_IS_WAVE( pe ) )
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightKing ) )
         return NULL;
 
     CcPos step = cc_pos_step( start, destination );
@@ -339,7 +358,12 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
                                  CcPos start,
                                  CcPos destination )
 {
-    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightKnight ) )
         return NULL;
 
     CcPos step = cc_pos_step( start, destination );
@@ -349,7 +373,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
 
-    if ( CC_PIECE_IS_KNIGHT( activator ) )
+    if ( CC_PIECE_IS_KNIGHT( pe ) )
     {
         CcPos end = cc_pos_add( start, step );
 
@@ -362,7 +386,8 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
 
         return path__a;
     }
-    else if ( CC_PIECE_IS_WAVE( pe ) )
+    else if ( CC_PIECE_IS_KNIGHT( activator ) &&
+              CC_PIECE_IS_WAVE( pe ) )
         return cc_link_positions( start, destination, step );
 
     return NULL;
@@ -373,13 +398,12 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
                                   CcPos start,
                                   CcPos destination )
 {
-    if ( !cc_check_path_args( cb_before_activation, activator, start, destination ) )
-        return NULL;
-
-    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-
-    if ( !CC_PIECE_IS_PEGASUS( activator ) &&
-         !CC_PIECE_IS_WAVE( pe ) )
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightPegasus ) )
         return NULL;
 
     CcPos step = cc_pos_step( start, destination );

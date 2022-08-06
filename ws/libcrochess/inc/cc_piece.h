@@ -204,6 +204,20 @@
                                  && ( (pe) != CC_PE_Monolith ) )
 
 /**
+    Macro expression to evaluate whether piece can activate other piece.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is activator, `false` otherwise.
+*/
+#define CC_PIECE_CAN_ACTIVATE(pe) ( ( (pe) != CC_PE_DimStar )       \
+                                 && ( (pe) != CC_PE_None )          \
+                                 && ( (pe) != CC_PE_BrightStar )    \
+                                 && ( (pe) != CC_PE_Monolith ) )
+
+/**
     Macro expression to evaluate whether piece is passive.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
