@@ -234,6 +234,11 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
                                   CcPos start,
                                   CcPos destination );
 
+CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
+                               CcPieceEnum activator,
+                               CcPos start,
+                               CcPos destination );
+
 
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
                                    CcPieceEnum activator,
