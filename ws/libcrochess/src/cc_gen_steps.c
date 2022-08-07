@@ -499,6 +499,46 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
     return path__a;
 }
 
+CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation,
+                                    CcPieceEnum activator,
+                                    CcPos start,
+                                    CcPos destination )
+{
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightStarchild ) )
+        return NULL;
+
+    bool is_opposite_color_fields =
+        CC_XOR( CC_IS_POS_LIGHT( start.i, start.j ),
+                CC_IS_POS_LIGHT( destination.i, destination.j ) );
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
+                                              destination.i,
+                                              destination.j );
+
+    bool is_just_step = is_opposite_color_fields &&
+                        ( CC_PIECE_IS_NONE( pe ) || CC_PIECE_IS_WAVE( pe ) );
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !is_just_step )
+        if ( !CC_QUEEN_STEP_IS_VALID( step ) ) return NULL;
+
+    CcPos end = cc_pos_add( start, step );
+
+    if ( !cc_pos_is_equal( end, destination ) ) return NULL;
+
+    CcPosLink * path__a = cc_pos_link__new( start );
+
+    cc_pos_link_append( path__a, destination );
+
+    return path__a;
+}
+
 
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
                                    CcPieceEnum activator,
@@ -523,6 +563,10 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
         return cc_path_unicorn__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_STAR( activator ) )
         return cc_path_star__new( cb_before_activation, activator, start, destination );
+    else if ( CC_PIECE_IS_STARCHILD( activator ) )
+        return cc_path_starchild__new( cb_before_activation, activator, start, destination );
+
+
 
     return NULL;
 }
@@ -550,6 +594,8 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
         return cc_path_unicorn__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_STAR( activator ) )
         return cc_path_star__new( cb_before_activation, activator, start, destination );
+    else if ( CC_PIECE_IS_STARCHILD( activator ) )
+        return cc_path_starchild__new( cb_before_activation, activator, start, destination );
 
 
 

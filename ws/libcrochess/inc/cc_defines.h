@@ -13,6 +13,16 @@
 
 
 /**
+    Macro to evaluate logical XOR.
+
+    @param i A number, preferably integer.
+    @param j A number, preferably integer.
+
+    @return Logical XOR between arguments.
+*/
+#define CC_XOR(i,j) ( ( (!(!(i))) + (!(!(j))) ) == 1 )
+
+/**
     Smallest, invalid off-board coordinate.
 
     No valid trance-journey starting from any chessboard field could get to this coordinate,
