@@ -72,6 +72,26 @@
 #define CC_IS_POS_VALID(i,j) ( ( (i) != CC_INVALID_OFF_BOARD_COORD_MIN ) && ( (j) != CC_INVALID_OFF_BOARD_COORD_MIN ) )
 
 /**
+    Macro to check if a given position is light.
+
+    @param i File, position along horizontal axis, integer.
+    @param j Rank, position along vertical axis, integer.
+
+    @return `1` if light, `0` otherwise.
+*/
+#define CC_IS_POS_LIGHT(i,j) ( ((i) + (j)) % 2 != 0 )
+
+/**
+    Macro to check if a given position is dark.
+
+    @param i File, position along horizontal axis, integer.
+    @param j Rank, position along vertical axis, integer.
+
+    @return `1` if dark, `0` otherwise.
+*/
+#define CC_IS_POS_DARK(i,j) ( ((i) + (j)) % 2 == 0 )
+
+/**
     Macro to check if a given coordinate is on board.
 
     @param board_size A chessboard size, integer.

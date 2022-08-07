@@ -20,12 +20,6 @@
 */
 
 
-bool cc_is_field_light( int i, int j )
-{
-    return ( (i + j) % 2 != 0 );
-}
-
-
 CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup )
 {
     CcChessboard * cb__a = malloc( sizeof( CcChessboard ) );
@@ -358,7 +352,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
 
             if ( ch == ' ' )
             {
-                if ( cc_is_field_light( x, y ) ) ch = '.';
+                if ( CC_IS_POS_LIGHT( x, y ) ) ch = '.';
                 else ch = ',';
             }
 

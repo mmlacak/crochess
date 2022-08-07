@@ -122,6 +122,17 @@
 #define CC_PIECE_IS_PEGASUS(pe) ( ( (pe) == CC_PE_LightPegasus ) || ( (pe) == CC_PE_DarkPegasus ) )
 
 /**
+    Macro expression to evaluate whether piece is a Unicorn.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Unicorn, `false` otherwise.
+*/
+#define CC_PIECE_IS_UNICORN(pe) ( ( (pe) == CC_PE_LightUnicorn ) || ( (pe) == CC_PE_DarkUnicorn ) )
+
+/**
     Macro expression to evaluate whether piece is a Pyramid.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
@@ -546,11 +557,10 @@ CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe );
     @param pe Piece enum, one of `CcPieceEnum` values.
 
     @see CcPieceEnum
-    @param include_stars Flag, whether to include dim Star.
 
     @return `true` if piece is dark, `false` otherwise.
 */
-bool cc_piece_is_dark( CcPieceEnum pe, bool include_stars );
+bool cc_piece_is_dark( CcPieceEnum pe );
 
 /**
     Function returning whether piece is light.
@@ -558,11 +568,10 @@ bool cc_piece_is_dark( CcPieceEnum pe, bool include_stars );
     @param pe Piece enum, one of `CcPieceEnum` values.
 
     @see CcPieceEnum
-    @param include_stars Flag, whether to include bright Star.
 
     @return `true` if piece is light, `false` otherwise.
 */
-bool cc_piece_is_light( CcPieceEnum pe, bool include_stars );
+bool cc_piece_is_light( CcPieceEnum pe );
 
 /**
     Function checks if two given pieces are the same type.
@@ -652,20 +661,26 @@ bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 bool cc_piece_has_different_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
-    Function returning whether piece is a figure.
+    Function returning whether piece is an owned figure.
 
-    By the book, figure is any piece, except Pawn. For practical reasons,
-    additional flags to filter out Monolith and stars are included.
+    By the book, owned figure is any light, or dark piece, except Pawn.
 
     @param pe Piece enum.
-    @param include_monolith Whether to include Monolith.
-    @param include_stars Whether to include stars.
+
+    @return `true` if piece is an owned figure, `false` otherwise.
+*/
+bool cc_piece_is_owned_figure( CcPieceEnum pe );
+
+/**
+    Function returning whether piece is a figure.
+
+    By the book, figure is any piece, except Pawn.
+
+    @param pe Piece enum.
 
     @return `true` if piece is a figure, `false` otherwise.
 */
-bool cc_piece_is_figure( CcPieceEnum pe,
-                         bool include_monolith,
-                         bool include_stars );
+bool cc_piece_is_figure( CcPieceEnum pe );
 
 
 #endif /* __CC_PIECE_H__ */

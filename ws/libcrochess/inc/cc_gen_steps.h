@@ -196,6 +196,8 @@ bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
                              CcPos destination,
                              CcPieceEnum expected_type );
 
+bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos );
+
 
 CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
@@ -226,6 +228,12 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
                                   CcPos start,
                                   CcPos destination );
+
+CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
+                                  CcPieceEnum activator,
+                                  CcPos start,
+                                  CcPos destination );
+
 
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
                                    CcPieceEnum activator,

@@ -28,18 +28,6 @@ typedef struct CcChessboard
 
 
 /**
-    Function returning if given position is light field, or dark.
-    Position itself can be off-board, i.e. on a virtual board, extending exisiting one.
-
-    @param i File, position along horizontal axis.
-    @param j Rank, position along vertical axis.
-
-    @return `true` if position is light, `false` otherwise.
-*/
-bool cc_is_field_light( int i, int j );
-
-
-/**
     Function allocating a new chessboard, initialized for a given variant.
 
     @param ve Variant to play.

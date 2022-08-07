@@ -350,7 +350,11 @@ int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
     size_t size = cc_variant_board_size( ve );
     int start = search_left_first ? 0 : (int)(size - 1);
     int step = search_left_first ? 1 : -1;
-    int rank = cc_piece_is_light( pe, true ) ? (int)(size - 1) : 0;
+
+    int rank =
+        cc_piece_is_light( pe ) ||
+        ( pe == CC_PE_BrightStar ) ? (int)(size - 1)
+                                   : 0;
 
     for ( int j = start; (0 <= j) && (j < (int)size); j += step )
     {

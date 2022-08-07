@@ -225,12 +225,12 @@ char cc_piece_symbol( CcPieceEnum pe )
 
 CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe )
 {
-    if ( cc_piece_is_dark( pe, false ) ) return CC_PE_DarkPawn;
-    if ( cc_piece_is_light( pe, false ) ) return CC_PE_LightPawn;
+    if ( cc_piece_is_dark( pe ) ) return CC_PE_DarkPawn;
+    if ( cc_piece_is_light( pe ) ) return CC_PE_LightPawn;
     return CC_PE_None;
 }
 
-bool cc_piece_is_dark( CcPieceEnum pe, bool include_stars )
+bool cc_piece_is_dark( CcPieceEnum pe )
 {
     switch ( pe )
     {
@@ -250,15 +250,12 @@ bool cc_piece_is_dark( CcPieceEnum pe, bool include_stars )
         case CC_PE_DarkPawn :
             return true;
 
-        case CC_PE_DimStar :
-            return include_stars;
-
         default :
             return false;
     }
 }
 
-bool cc_piece_is_light( CcPieceEnum pe, bool include_stars )
+bool cc_piece_is_light( CcPieceEnum pe )
 {
     switch ( pe )
     {
@@ -278,9 +275,6 @@ bool cc_piece_is_light( CcPieceEnum pe, bool include_stars )
         case CC_PE_LightStarchild :
             return true;
 
-        case CC_PE_BrightStar :
-            return include_stars;
-
         default :
             return false;
     }
@@ -295,10 +289,10 @@ bool cc_piece_has_same_type( CcPieceEnum pe_1, CcPieceEnum pe_2 )
 
 bool cc_piece_has_same_color( CcPieceEnum pe_1, CcPieceEnum pe_2 )
 {
-    if ( cc_piece_is_light( pe_1, false ) && cc_piece_is_light( pe_2, false ) )
+    if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) )
         return true;
 
-    if ( cc_piece_is_dark( pe_1, false ) && cc_piece_is_dark( pe_2, false ) )
+    if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_dark( pe_2 ) )
         return true;
 
     return false;
@@ -323,8 +317,8 @@ bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 )
     if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
     if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
 
-    if ( cc_piece_is_light( pe_1, false ) && cc_piece_is_light( pe_2, false ) ) return true;
-    if ( cc_piece_is_dark( pe_1, false ) && cc_piece_is_dark( pe_2, false ) ) return true;
+    if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
+    if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
 
     return false;
 }
@@ -334,19 +328,24 @@ bool cc_piece_has_different_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 )
     if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
     if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
 
-    if ( cc_piece_is_light( pe_1, false ) && cc_piece_is_dark( pe_2, false ) ) return true;
-    if ( cc_piece_is_dark( pe_1, false ) && cc_piece_is_light( pe_2, false ) ) return true;
+    if ( cc_piece_is_light( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
+    if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
 
     return false;
 }
 
-bool cc_piece_is_figure( CcPieceEnum pe,
-                         bool include_monolith,
-                         bool include_stars )
+bool cc_piece_is_owned_figure( CcPieceEnum pe )
 {
     if ( CC_PIECE_IS_PAWN( pe ) ) return false;
-    if ( cc_piece_is_light( pe, include_stars ) ) return true;
-    if ( cc_piece_is_dark( pe, include_stars ) ) return true;
-    if ( pe == CC_PE_Monolith ) return include_monolith;
+    if ( cc_piece_is_light( pe ) ) return true;
+    if ( cc_piece_is_dark( pe ) ) return true;
     return false;
+}
+
+bool cc_piece_is_figure( CcPieceEnum pe )
+{
+    if ( CC_PIECE_IS_STAR( pe ) ) return true;
+    if ( CC_PIECE_IS_MONOLITH( pe ) ) return true;
+
+    return cc_piece_is_owned_figure( pe );
 }
