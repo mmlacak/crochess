@@ -215,14 +215,38 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
     return true;
 }
 
-CcPosLink * cc_link_positions( CcPos start, CcPos destination, CcPos step )
+CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
+                               CcPos start,
+                               CcPos destination,
+                               CcPos step )
 {
+    CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+    CcPieceEnum pe = CC_PE_None;
+    bool piece_in_the_way = false;
+
     CcPosLink * path__a = cc_pos_link__new( start );
 
     for ( CcPos pos = cc_pos_add( start, step );
           !cc_pos_is_equal( pos, destination );
           cc_pos_add( pos, step ) )
     {
+        pe = cc_chessboard_get_piece( cb_before_activation, pos.i, pos.j );
+
+        if ( CC_PIECE_IS_WAVE( piece ) )
+        {
+            if ( CC_PIECE_IS_MONOLITH( pe ) )
+                piece_in_the_way = true;
+        }
+        else
+            if ( !CC_PIECE_IS_NONE( pe ) )
+                piece_in_the_way = true;
+
+        if ( piece_in_the_way )
+        {
+            cc_pos_link_free_all( &path__a );
+            return NULL;
+        }
+
         cc_pos_link_append( path__a, pos );
     }
 
@@ -292,7 +316,7 @@ CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_BISHOP_STEP_IS_VALID( step ) ) return NULL;
 
-    return cc_link_positions( start, destination, step );
+    return cc_link_positions( cb_before_activation, start, destination, step );
 }
 
 CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
@@ -312,7 +336,7 @@ CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_ROOK_STEP_IS_VALID( step ) ) return NULL;
 
-    return cc_link_positions( start, destination, step );
+    return cc_link_positions( cb_before_activation, start, destination, step );
 }
 
 CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
@@ -332,7 +356,7 @@ CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_QUEEN_STEP_IS_VALID( step ) ) return NULL;
 
-    return cc_link_positions( start, destination, step );
+    return cc_link_positions( cb_before_activation, start, destination, step );
 }
 
 CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
@@ -396,7 +420,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
     }
     else if ( CC_PIECE_IS_KNIGHT( activator ) &&
               CC_PIECE_IS_WAVE( pe ) )
-        return cc_link_positions( start, destination, step );
+        return cc_link_positions( cb_before_activation, start, destination, step );
 
     return NULL;
 }
@@ -418,7 +442,7 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_KNIGHT_STEP_IS_VALID( step ) ) return NULL;
 
-    return cc_link_positions( start, destination, step );
+    return cc_link_positions( cb_before_activation, start, destination, step );
 }
 
 CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
@@ -459,7 +483,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
     else if ( CC_PIECE_IS_UNICORN( activator ) &&
               CC_PIECE_IS_WAVE( pe ) )
 // TODO :: FIX ME :: Wave activated by Unicorn moves like free-choice Centaur !!!
-        return cc_link_positions( start, destination, step );
+        return cc_link_positions( cb_before_activation, start, destination, step );
 // TODO :: FIX ME :: Wave activated by Unicorn moves like free-choice Centaur !!!
 
     return NULL;
@@ -567,6 +591,8 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
         return cc_path_starchild__new( cb_before_activation, activator, start, destination );
 
 
+// TODO :: check destination field
+
 
     return NULL;
 }
@@ -597,6 +623,8 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
     else if ( CC_PIECE_IS_STARCHILD( activator ) )
         return cc_path_starchild__new( cb_before_activation, activator, start, destination );
 
+
+// TODO :: check destination field
 
 
     return NULL;
