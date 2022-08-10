@@ -11,17 +11,29 @@
 
 CcPos const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ] =
 {
-    { .i = -1, .j =  1 },
     { .i =  0, .j =  1 },
-    { .i =  1, .j =  1 },
 
     CC_POS_INVALID,
 };
 
 CcPos const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ] =
 {
-    { .i = -1, .j = -1 },
     { .i =  0, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_CAPTURE_LIGHT_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ] =
+{
+    { .i = -1, .j =  1 },
+    { .i =  1, .j =  1 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_CAPTURE_DARK_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ] =
+{
+    { .i = -1, .j = -1 },
     { .i =  1, .j = -1 },
 
     CC_POS_INVALID,
@@ -29,9 +41,7 @@ CcPos const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ] =
 
 CcPos const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] =
 {
-    { .i = -1, .j =  1 },
     { .i =  0, .j =  1 },
-    { .i =  1, .j =  1 },
     { .i = -1, .j =  0 },
     { .i =  1, .j =  0 },
 
@@ -40,11 +50,26 @@ CcPos const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] =
 
 CcPos const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] =
 {
-    { .i = -1, .j = -1 },
     { .i =  0, .j = -1 },
-    { .i =  1, .j = -1 },
     { .i = -1, .j =  0 },
     { .i =  1, .j =  0 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ] =
+{
+    { .i =  2, .j =  1 },
+    { .i =  1, .j =  2 },
+
+    { .i = -1, .j =  2 },
+    { .i = -2, .j =  1 },
+
+    { .i = -2, .j = -1 },
+    { .i = -1, .j = -2 },
+
+    { .i =  1, .j = -2 },
+    { .i =  2, .j = -1 },
 
     CC_POS_INVALID,
 };
@@ -83,24 +108,7 @@ CcPos const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ] =
     CC_POS_INVALID,
 };
 
-CcPos const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ] =
-{
-    { .i =  2, .j =  1 },
-    { .i =  1, .j =  2 },
-
-    { .i = -1, .j =  2 },
-    { .i = -2, .j =  1 },
-
-    { .i = -2, .j = -1 },
-    { .i = -1, .j = -2 },
-
-    { .i =  1, .j = -2 },
-    { .i =  2, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_UNICORN[ CC_STEPS_UNICORN_SIZE ] =
+CcPos const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ] =
 {
     { .i =  4, .j =  1 },
     { .i =  3, .j =  2 },
@@ -137,6 +145,26 @@ CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] =
 {
     { .i = -1, .j = -1 },
     { .i =  1, .j =  1 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_MONOLITH_LEFT[ CC_STEPS_MONOLITH_SIZE ] =
+{
+    { .i =  2, .j =  1 },
+    { .i = -1, .j =  2 },
+    { .i = -2, .j = -1 },
+    { .i =  1, .j = -2 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ] =
+{
+    { .i =  1, .j =  2 },
+    { .i = -2, .j =  1 },
+    { .i = -1, .j = -2 },
+    { .i =  2, .j = -1 },
 
     CC_POS_INVALID,
 };
@@ -213,6 +241,108 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
         return false;
 
     return true;
+}
+
+bool cc_is_step_capture( CcPieceEnum piece, CcPos step, CcPos step_2 )
+{
+    if ( !CC_PIECE_IS_VALID( piece ) ) return false;
+
+    if ( !cc_pos_is_valid( step ) ) return false;
+    if ( cc_pos_is_static_step( step ) ) return false;
+
+    if ( CC_PIECE_IS_PAWN( piece ) )
+    {
+        if ( cc_piece_is_light( piece ) )
+            return CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step );
+        else
+            return CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step );
+    }
+    else if ( CC_PIECE_IS_SHAMAN( piece ) )
+    {
+        if ( cc_piece_is_light( piece ) )
+            return CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step );
+        else
+            return CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step );
+    }
+    else if ( CC_PIECE_IS_MONOLITH( piece ) )
+        return false;
+    else if ( CC_PIECE_IS_STAR( piece ) )
+        return false;
+
+    return true;
+}
+
+bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
+                      CcPos start,
+                      CcPos destination,
+                      CcPos step,
+                      CcPos step_2 )
+{
+    if ( !cc_check_path_args( cb_before_activation, start, destination ) )
+        return false;
+
+    CcPieceEnum target = cc_chessboard_get_piece( cb_before_activation, destination.i, destination.j );
+
+    // An empty field, always targetable.
+    if ( CC_PIECE_IS_NONE( target ) ) return true;
+
+    // Kings can't be ever captured, activated.
+    if ( CC_PIECE_IS_KING( target ) ) return false;
+
+    CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+    bool is_same_owner = cc_piece_has_same_owner( piece, target );
+
+    // Wave can be activated by any own piece, or opponent's Wave.
+    if ( CC_PIECE_IS_WAVE( target ) )
+    {
+        if ( is_same_owner )
+            return true;
+        else if ( !is_same_owner && CC_PIECE_IS_WAVE( piece ) )
+            return true;
+        else
+            return false;
+    }
+
+
+    // // Own Pyramid can be activated by any own piece, on capture-fields.
+    // if ( ( CC_PIECE_IS_PYRAMID( target ) )
+    //     && is_same_owner )
+    //         return true;
+
+    // // Wave can activate other Wave, or any other own piece.
+    // if ( CC_PIECE_IS_WAVE( piece ) )
+    //     if ( CC_PIECE_IS_WAVE( target ) || is_same_owner )
+    //         return true;
+
+    // // Starchild can activate own Starchild, Wave; on its step-fields.
+    // if ( CC_PIECE_IS_STARCHILD( piece ) )
+    //     if ( ( CC_PIECE_IS_STARCHILD( target ) || CC_PIECE_IS_WAVE( target ) )
+    //         && is_same_owner )
+    //             return true;
+
+    // // Special case, not handled:
+    // // Starchild can activate any own piece (except King), opponent’s
+    // // Starchild and any Star on its neighboring-fields.
+
+    // // Monolith, Star can only move to an empty field.
+    // if ( CC_PIECE_IS_MONOLITH( piece ) || CC_PIECE_IS_STAR( piece ) )
+    //     return ( CC_PIECE_IS_NONE( target ) );
+
+    // // Any piece, own or opponent's, can teleport, except Kings.
+    // if ( !CC_PIECE_IS_KING( piece ) )
+    // {
+    //     if ( CC_PIECE_IS_MONOLITH( target ) ) return true;
+    //     if ( CC_PIECE_IS_STAR( target ) ) return true;
+    // }
+
+    // // Any piece can capture opponent's piece.
+    // if ( cc_piece_has_different_owner( piece, target ) ) return true;
+
+
+
+
+
+    return false;
 }
 
 CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
@@ -317,6 +447,48 @@ bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos )
 }
 
 
+CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
+                                 CcPieceEnum activator,
+                                 CcPos start,
+                                 CcPos destination )
+{
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightKnight ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !CC_KNIGHT_STEP_IS_VALID( step ) ) return NULL;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+
+    if ( CC_PIECE_IS_KNIGHT( pe ) )
+    {
+        CcPos end = cc_pos_add( start, step );
+
+        if ( !cc_pos_is_equal( end, destination ) ) return NULL;
+
+        CcPosLink * path__a = cc_pos_link__new( start );
+
+        cc_pos_link_append( path__a, destination );
+
+        return path__a;
+    }
+    else if ( CC_PIECE_IS_KNIGHT( activator ) &&
+              CC_PIECE_IS_WAVE( pe ) )
+        return cc_link_positions( cb_before_activation,
+                                  start,
+                                  destination,
+                                  step,
+                                  CC_POS_STATIC_STEP_CAST );
+
+    return NULL;
+}
+
 CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
                                  CcPos start,
@@ -404,7 +576,7 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
 
     CcPos step = cc_pos_step( start, destination );
 
-    if ( !CC_QUEEN_STEP_IS_VALID( step ) ) return NULL;
+    if ( !CC_KING_STEP_IS_VALID( step ) ) return NULL;
 
     CcPos end = cc_pos_add( start, step );
 
@@ -415,48 +587,6 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
     cc_pos_link_append( path__a, destination );
 
     return path__a;
-}
-
-CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
-                                 CcPieceEnum activator,
-                                 CcPos start,
-                                 CcPos destination )
-{
-    // <i> Internaly calls cc_check_path_args( ... )
-    if ( !cc_is_activation_valid( cb_before_activation,
-                                  activator,
-                                  start,
-                                  destination,
-                                  CC_PE_LightKnight ) )
-        return NULL;
-
-    CcPos step = cc_pos_step( start, destination );
-
-    if ( !CC_KNIGHT_STEP_IS_VALID( step ) ) return NULL;
-
-    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-
-    if ( CC_PIECE_IS_KNIGHT( pe ) )
-    {
-        CcPos end = cc_pos_add( start, step );
-
-        if ( !cc_pos_is_equal( end, destination ) ) return NULL;
-
-        CcPosLink * path__a = cc_pos_link__new( start );
-
-        cc_pos_link_append( path__a, destination );
-
-        return path__a;
-    }
-    else if ( CC_PIECE_IS_KNIGHT( activator ) &&
-              CC_PIECE_IS_WAVE( pe ) )
-        return cc_link_positions( cb_before_activation,
-                                  start,
-                                  destination,
-                                  step,
-                                  CC_POS_STATIC_STEP_CAST );
-
-    return NULL;
 }
 
 CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
@@ -483,6 +613,8 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
                               CC_POS_STATIC_STEP_CAST );
 }
 
+// TODO :: Pyramid
+
 CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
                                   CcPos start,
@@ -504,7 +636,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
         if ( !CC_KNIGHT_STEP_IS_VALID( step ) ) return NULL;
     }
     else
-        if ( !CC_UNICORN_STEP_IS_VALID( step ) ) return NULL;
+        if ( !CC_UNICORN_LONG_STEP_IS_VALID( step ) ) return NULL;
 
     if ( CC_PIECE_IS_UNICORN( pe ) )
     {
@@ -564,6 +696,14 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
 
     return path__a;
 }
+
+// TODO :: Centaur
+
+// TODO :: Serpent
+
+// TODO :: Shaman
+
+// TODO :: Monolith
 
 CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation,
                                     CcPieceEnum activator,
@@ -632,6 +772,14 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
     else if ( CC_PIECE_IS_STARCHILD( activator ) )
         return cc_path_starchild__new( cb_before_activation, activator, start, destination );
 
+// TODO :: Centaur
+
+// TODO :: Serpent
+
+// TODO :: Shaman
+
+// TODO :: Monolith
+
 
 // TODO :: check destination field
 
@@ -664,6 +812,14 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
         return cc_path_star__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_STARCHILD( activator ) )
         return cc_path_starchild__new( cb_before_activation, activator, start, destination );
+
+// TODO :: Centaur
+
+// TODO :: Serpent
+
+// TODO :: Shaman
+
+// TODO :: Monolith
 
 
 // TODO :: check destination field

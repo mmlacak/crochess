@@ -32,7 +32,9 @@
 
     @return `true` if valid chess piece, `false` otherwise.
 */
-#define CC_PIECE_IS_VALID(pe) ( (pe) != CC_PE_None )
+#define CC_PIECE_IS_VALID(pe) ( ( CC_PE_DimStar <= (pe) ) &&    \
+                                ( (pe) <= CC_PE_Monolith ) &&   \
+                                ( (pe) != CC_PE_None ) )
 
 /**
     Macro expression to evaluate whether given pieces are the same.
@@ -43,6 +45,17 @@
     @return `true` if pieces are the same, `false` otherwise.
 */
 #define CC_PIECE_IS_THE_SAME(pe1,pe2) ( (pe1) == (pe2) )
+
+/**
+    Macro expression to evaluate whether piece is None.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is None, `false` otherwise.
+*/
+#define CC_PIECE_IS_NONE(pe) ( (pe) == CC_PE_None )
 
 /**
     Macro expression to evaluate whether piece is a Pawn.
@@ -89,17 +102,6 @@
 #define CC_PIECE_IS_ROOK(pe) ( ( (pe) == CC_PE_LightRook ) || ( (pe) == CC_PE_DarkRook ) )
 
 /**
-    Macro expression to evaluate whether piece is a King.
-
-    @param pe Piece enum, one of `CcPieceEnum` values.
-
-    @see CcPieceEnum
-
-    @return `true` if piece is a King, `false` otherwise.
-*/
-#define CC_PIECE_IS_KING(pe) ( ( (pe) == CC_PE_LightKing ) || ( (pe) == CC_PE_DarkKing ) )
-
-/**
     Macro expression to evaluate whether piece is a Queen.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
@@ -109,6 +111,17 @@
     @return `true` if piece is a Queen, `false` otherwise.
 */
 #define CC_PIECE_IS_QUEEN(pe) ( ( (pe) == CC_PE_LightQueen ) || ( (pe) == CC_PE_DarkQueen ) )
+
+/**
+    Macro expression to evaluate whether piece is a King.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a King, `false` otherwise.
+*/
+#define CC_PIECE_IS_KING(pe) ( ( (pe) == CC_PE_LightKing ) || ( (pe) == CC_PE_DarkKing ) )
 
 /**
     Macro expression to evaluate whether piece is a Pegasus.
@@ -122,17 +135,6 @@
 #define CC_PIECE_IS_PEGASUS(pe) ( ( (pe) == CC_PE_LightPegasus ) || ( (pe) == CC_PE_DarkPegasus ) )
 
 /**
-    Macro expression to evaluate whether piece is a Unicorn.
-
-    @param pe Piece enum, one of `CcPieceEnum` values.
-
-    @see CcPieceEnum
-
-    @return `true` if piece is a Unicorn, `false` otherwise.
-*/
-#define CC_PIECE_IS_UNICORN(pe) ( ( (pe) == CC_PE_LightUnicorn ) || ( (pe) == CC_PE_DarkUnicorn ) )
-
-/**
     Macro expression to evaluate whether piece is a Pyramid.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
@@ -142,6 +144,17 @@
     @return `true` if piece is a Pyramid, `false` otherwise.
 */
 #define CC_PIECE_IS_PYRAMID(pe) ( ( (pe) == CC_PE_LightPyramid ) || ( (pe) == CC_PE_DarkPyramid ) )
+
+/**
+    Macro expression to evaluate whether piece is a Unicorn.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Unicorn, `false` otherwise.
+*/
+#define CC_PIECE_IS_UNICORN(pe) ( ( (pe) == CC_PE_LightUnicorn ) || ( (pe) == CC_PE_DarkUnicorn ) )
 
 /**
     Macro expression to evaluate whether piece is a Wave.
@@ -155,17 +168,6 @@
 #define CC_PIECE_IS_WAVE(pe) ( ( (pe) == CC_PE_LightWave ) || ( (pe) == CC_PE_DarkWave ) )
 
 /**
-    Macro expression to evaluate whether piece is None.
-
-    @param pe Piece enum, one of `CcPieceEnum` values.
-
-    @see CcPieceEnum
-
-    @return `true` if piece is None, `false` otherwise.
-*/
-#define CC_PIECE_IS_NONE(pe) ( (pe) == CC_PE_None )
-
-/**
     Macro expression to evaluate whether piece is a Star.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
@@ -175,6 +177,39 @@
     @return `true` if piece is a Star, `false` otherwise.
 */
 #define CC_PIECE_IS_STAR(pe) ( ( (pe) == CC_PE_BrightStar ) || ( (pe) == CC_PE_DimStar ) )
+
+/**
+    Macro expression to evaluate whether piece is a Centaur.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Centaur, `false` otherwise.
+*/
+#define CC_PIECE_IS_CENTAUR(pe) ( ( (pe) == CC_PE_LightCentaur ) || ( (pe) == CC_PE_DarkCentaur ) )
+
+/**
+    Macro expression to evaluate whether piece is a Serpent.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Serpent, `false` otherwise.
+*/
+#define CC_PIECE_IS_SERPENT(pe) ( ( (pe) == CC_PE_LightSerpent ) || ( (pe) == CC_PE_DarkSerpent ) )
+
+/**
+    Macro expression to evaluate whether piece is a Shaman.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Shaman, `false` otherwise.
+*/
+#define CC_PIECE_IS_SHAMAN(pe) ( ( (pe) == CC_PE_LightShaman ) || ( (pe) == CC_PE_DarkShaman ) )
 
 /**
     Macro expression to evaluate whether piece is a Monolith.
@@ -197,6 +232,7 @@
     @return `true` if piece is a Starchild, `false` otherwise.
 */
 #define CC_PIECE_IS_STARCHILD(pe) ( ( (pe) == CC_PE_LightStarchild ) || ( (pe) == CC_PE_DarkStarchild ) )
+
 
 /**
     Macro expression to evaluate whether piece is activator.
