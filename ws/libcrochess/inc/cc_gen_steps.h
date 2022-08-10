@@ -191,7 +191,8 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                CcPos start,
                                CcPos destination,
-                               CcPos step );
+                               CcPos step,
+                               CcPos step_2 );
 
 bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
                              CcPieceEnum activator,

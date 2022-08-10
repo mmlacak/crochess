@@ -77,6 +77,11 @@ typedef struct CcPos {
 */
 #define CC_POS_INVALID_CAST ( (CcPos)CC_POS_INVALID )
 
+/**
+    Casted static position value, i.e. no-movement step.
+*/
+#define CC_POS_STATIC_STEP_CAST ( (CcPos)CC_POS_STATIC_STEP )
+
 
 /**
     Function returns a position.

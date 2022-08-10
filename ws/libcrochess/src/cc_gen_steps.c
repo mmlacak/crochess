@@ -218,17 +218,29 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                CcPos start,
                                CcPos destination,
-                               CcPos step )
+                               CcPos step,
+                               CcPos step_2 )
 {
+    if ( !cc_check_path_args( cb_before_activation, start, destination ) )
+        return NULL;
+
+    if ( ( cc_pos_is_static_step( step ) ) || ( !cc_pos_is_valid( step ) ) )
+        return NULL;
+
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
     CcPieceEnum pe = CC_PE_None;
     bool piece_in_the_way = false;
 
+    CcPos s = step;
+    bool is_alternating_steps = ( ( !cc_pos_is_static_step( step_2 ) ) &&   \
+                                  ( cc_pos_is_valid( step_2 ) ) );
+    bool is_even_step = true;
+
     CcPosLink * path__a = cc_pos_link__new( start );
 
-    for ( CcPos pos = cc_pos_add( start, step );
+    for ( CcPos pos = cc_pos_add( start, s );
           !cc_pos_is_equal( pos, destination );
-          cc_pos_add( pos, step ) )
+          cc_pos_add( pos, s ) )
     {
         pe = cc_chessboard_get_piece( cb_before_activation, pos.i, pos.j );
 
@@ -248,6 +260,12 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
         }
 
         cc_pos_link_append( path__a, pos );
+
+        if ( is_alternating_steps )
+        {
+            s = is_even_step ? step_2 : step;
+            is_even_step = !is_even_step;
+        }
     }
 
     cc_pos_link_append( path__a, destination );
@@ -316,7 +334,11 @@ CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_BISHOP_STEP_IS_VALID( step ) ) return NULL;
 
-    return cc_link_positions( cb_before_activation, start, destination, step );
+    return cc_link_positions( cb_before_activation,
+                              start,
+                              destination,
+                              step,
+                              CC_POS_STATIC_STEP_CAST );
 }
 
 CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
@@ -336,7 +358,11 @@ CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_ROOK_STEP_IS_VALID( step ) ) return NULL;
 
-    return cc_link_positions( cb_before_activation, start, destination, step );
+    return cc_link_positions( cb_before_activation,
+                              start,
+                              destination,
+                              step,
+                              CC_POS_STATIC_STEP_CAST );
 }
 
 CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
@@ -356,7 +382,11 @@ CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_QUEEN_STEP_IS_VALID( step ) ) return NULL;
 
-    return cc_link_positions( cb_before_activation, start, destination, step );
+    return cc_link_positions( cb_before_activation,
+                              start,
+                              destination,
+                              step,
+                              CC_POS_STATIC_STEP_CAST );
 }
 
 CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
@@ -420,7 +450,11 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
     }
     else if ( CC_PIECE_IS_KNIGHT( activator ) &&
               CC_PIECE_IS_WAVE( pe ) )
-        return cc_link_positions( cb_before_activation, start, destination, step );
+        return cc_link_positions( cb_before_activation,
+                                  start,
+                                  destination,
+                                  step,
+                                  CC_POS_STATIC_STEP_CAST );
 
     return NULL;
 }
@@ -442,7 +476,11 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_KNIGHT_STEP_IS_VALID( step ) ) return NULL;
 
-    return cc_link_positions( cb_before_activation, start, destination, step );
+    return cc_link_positions( cb_before_activation,
+                              start,
+                              destination,
+                              step,
+                              CC_POS_STATIC_STEP_CAST );
 }
 
 CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
@@ -483,7 +521,11 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
     else if ( CC_PIECE_IS_UNICORN( activator ) &&
               CC_PIECE_IS_WAVE( pe ) )
 // TODO :: FIX ME :: Wave activated by Unicorn moves like free-choice Centaur !!!
-        return cc_link_positions( cb_before_activation, start, destination, step );
+        return cc_link_positions( cb_before_activation,
+                                  start,
+                                  destination,
+                                  step,
+                                  CC_POS_STATIC_STEP_CAST );
 // TODO :: FIX ME :: Wave activated by Unicorn moves like free-choice Centaur !!!
 
     return NULL;
