@@ -34,6 +34,27 @@ bool cc_pos_is_valid( CcPos pos )
     return ( CC_IS_POS_VALID( pos.i, pos.j ) );
 }
 
+bool cc_pos_is_static_step( CcPos pos )
+{
+    return ( ( pos.i == 0 ) && ( pos.j == 0 ) );
+}
+
+bool cc_pos_is_disambiguation_file( CcPos pos )
+{
+    return ( CC_IS_COORD_VALID( pos.i ) && ( !CC_IS_COORD_VALID( pos.j ) ) );
+}
+
+bool cc_pos_is_disambiguation_rank( CcPos pos )
+{
+    return ( ( !CC_IS_COORD_VALID( pos.i ) ) && CC_IS_COORD_VALID( pos.j ) );
+}
+
+bool cc_pos_is_disambiguation( CcPos pos )
+{
+    return ( cc_pos_is_disambiguation_file( pos ) ||
+             cc_pos_is_disambiguation_rank( pos ) );
+}
+
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
 {
     if ( cc_pos_is_valid( pos_1 ) && cc_pos_is_valid( pos_2 ) )
@@ -63,22 +84,6 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
         return false;
 
     return is_file || is_rank;
-}
-
-bool cc_pos_is_disambiguation_file( CcPos pos )
-{
-    return ( CC_IS_COORD_VALID( pos.i ) && ( !CC_IS_COORD_VALID( pos.j ) ) );
-}
-
-bool cc_pos_is_disambiguation_rank( CcPos pos )
-{
-    return ( ( !CC_IS_COORD_VALID( pos.i ) ) && CC_IS_COORD_VALID( pos.j ) );
-}
-
-bool cc_pos_is_disambiguation( CcPos pos )
-{
-    return ( cc_pos_is_disambiguation_file( pos ) ||
-             cc_pos_is_disambiguation_rank( pos ) );
 }
 
 CcPos cc_pos_add( CcPos pos, CcPos step )

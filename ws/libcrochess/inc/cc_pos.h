@@ -15,6 +15,16 @@
 
 
 /**
+    Invalid position value.
+*/
+#define CC_POS_INVALID { .i = CC_INVALID_OFF_BOARD_COORD_MIN, .j = CC_INVALID_OFF_BOARD_COORD_MIN }
+
+/**
+    Static position value, i.e. no-movement step.
+*/
+#define CC_POS_STATIC_STEP { .i = 0, .j = 0 }
+
+/**
     Macro to allocate new position link, with given coordinates.
 
     @param int_i File, horizontal coordinate.
@@ -29,7 +39,7 @@
 /**
     Macro to append a newly allocated new position link, with given coordinates.
 
-    @param pos_link_ptr_ptr__io a position linked list, to be appended.
+    @param ptr_ptr__pos_link__io a position linked list, to be appended.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
@@ -37,12 +47,12 @@
 
     @see cc_pos_link_append()
 */
-#define CC_POS_LINK_APPEND(pos_link_ptr_ptr__io,int_i,int_j) cc_pos_link_append( (pos_link_ptr_ptr__io), cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK_APPEND(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
 /**
     Macro to initialize or append a position linked list, with given coordinates.
 
-    @param pos_link_ptr_ptr__io a position linked list, to be appended.
+    @param ptr_ptr__pos_link__io a position linked list, to be appended.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
@@ -50,7 +60,7 @@
 
     @see cc_pos_link_append_or_init()
 */
-#define CC_POS_LINK_APPEND_OR_INIT(pos_link_ptr_ptr__io,int_i,int_j) cc_pos_link_append_or_init( (pos_link_ptr_ptr__io), cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK_APPEND_OR_INIT(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_or_init( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
 
 /**
@@ -61,11 +71,6 @@ typedef struct CcPos {
     int i; /**< File, horizontal coordinate. */
     int j; /**< Rank, vertical coordinate. */
 } CcPos;
-
-/**
-    Invalid position value.
-*/
-#define CC_POS_INVALID { .i = CC_INVALID_OFF_BOARD_COORD_MIN, .j = CC_INVALID_OFF_BOARD_COORD_MIN }
 
 /**
     Casted invalid position value.
@@ -106,35 +111,22 @@ CcPos cc_pos_disambiguation_rank( int j );
 
     @param pos A position.
 
-    @see CC_POS_INVALID_ARRAY
+    @see CC_POS_INVALID
 
     @return `true` if position is valid, `false` otherwise.
 */
 bool cc_pos_is_valid( CcPos pos );
 
 /**
-    Function checks if two positions are the same.
+    Function checks if position is static step.
 
-    @param pos_1 A position.
-    @param pos_2 An other position.
+    @param pos A position.
 
-    @return `true` if positions are the same, `false` otherwise.
+    @see CC_POS_STATIC_STEP
+
+    @return `true` if position is static step, `false` otherwise.
 */
-bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
-
-/**
-    Function checks if two positions are the congruent.
-
-    @param pos_1 A position.
-    @param pos_2 An other position.
-
-    @note
-    For positions to be congruent, at least one set of coordinates (files,
-    or ranks) from both positions has has to be valid, and the same.
-
-    @return `true` if positions are congruent, `false` otherwise.
-*/
-bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
+bool cc_pos_is_static_step( CcPos pos );
 
 /**
     Function checks if position is a file disambiguation.
@@ -175,6 +167,30 @@ bool cc_pos_is_disambiguation_rank( CcPos pos );
     @return `true` if position is a disambiguation, `false` otherwise.
 */
 bool cc_pos_is_disambiguation( CcPos pos );
+
+/**
+    Function checks if two positions are the same.
+
+    @param pos_1 A position.
+    @param pos_2 An other position.
+
+    @return `true` if positions are the same, `false` otherwise.
+*/
+bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
+
+/**
+    Function checks if two positions are the congruent.
+
+    @param pos_1 A position.
+    @param pos_2 An other position.
+
+    @note
+    For positions to be congruent, at least one set of coordinates (files,
+    or ranks) from both positions has has to be valid, and the same.
+
+    @return `true` if positions are congruent, `false` otherwise.
+*/
+bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
 
 /**
     Function adds step to position.
