@@ -243,7 +243,10 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
     return true;
 }
 
-bool cc_is_step_capture( CcPieceEnum piece, CcPos step, CcPos step_2 )
+bool cc_is_step_capture( CcPieceEnum activator,
+                         CcPieceEnum piece,
+                         CcPos step,
+                         CcPos step_2 )
 {
     if ( !CC_PIECE_IS_VALID( piece ) ) return false;
 
@@ -264,6 +267,8 @@ bool cc_is_step_capture( CcPieceEnum piece, CcPos step, CcPos step_2 )
         else
             return CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step );
     }
+    else if ( CC_PIECE_IS_WAVE( piece ) )
+        return cc_is_step_capture( CC_PE_None, activator, step, step_2 );
     else if ( CC_PIECE_IS_MONOLITH( piece ) )
         return false;
     else if ( CC_PIECE_IS_STAR( piece ) )
@@ -272,7 +277,16 @@ bool cc_is_step_capture( CcPieceEnum piece, CcPos step, CcPos step_2 )
     return true;
 }
 
+bool cc_is_step_miracle( CcPieceEnum piece, CcPos step )
+{
+    if ( CC_PIECE_IS_STARCHILD( piece ) )
+        return CC_STARCHILD_MIRACLE_STEP_IS_VALID( step );
+
+    return false;
+}
+
 bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
+                      CcPieceEnum activator,
                       CcPos start,
                       CcPos destination,
                       CcPos step,
@@ -281,66 +295,82 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
     if ( !cc_check_path_args( cb_before_activation, start, destination ) )
         return false;
 
-    CcPieceEnum target = cc_chessboard_get_piece( cb_before_activation, destination.i, destination.j );
+    CcPieceEnum target = cc_chessboard_get_piece( cb_before_activation,
+                                                  destination.i,
+                                                  destination.j );
 
     // An empty field, always targetable.
     if ( CC_PIECE_IS_NONE( target ) ) return true;
 
-    // Kings can't be ever captured, activated.
+    // Kings can't be ever captured, activated, converted, displaced, ...
     if ( CC_PIECE_IS_KING( target ) ) return false;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
     bool is_same_owner = cc_piece_has_same_owner( piece, target );
 
-    // Wave can be activated by any own piece, or opponent's Wave.
-    if ( CC_PIECE_IS_WAVE( target ) )
+    // Own Pyramid can be activated by any own piece on capture-fields, or
+    // by Starchild on miracle-fields, or by Wave activated on those fields.
+    if ( CC_PIECE_IS_PYRAMID( target ) )
     {
         if ( is_same_owner )
-            return true;
-        else if ( !is_same_owner && CC_PIECE_IS_WAVE( piece ) )
+            return cc_is_step_capture( activator, piece, step, step_2 ) ||
+                   cc_is_step_miracle( piece, step ) ||
+                   ( CC_PIECE_IS_WAVE( piece ) &&
+                     cc_is_step_miracle( activator, step ) );
+        else
+            return false;
+    }
+
+    // Wave can be activated by any own piece, or opponent's Wave.
+    if ( CC_PIECE_IS_WAVE( target ) )
+        return is_same_owner ? true : CC_PIECE_IS_WAVE( piece );
+
+    // Wave can activate other Wave, or any other own piece, except King (already handled).
+    // Pyramid can only be activated on capture- or miracle-fields (also handled).
+    if ( CC_PIECE_IS_WAVE( piece ) )
+    {
+        if ( CC_PIECE_IS_WAVE( target ) || is_same_owner )
             return true;
         else
             return false;
     }
 
+    if ( CC_PIECE_IS_STARCHILD( piece ) )
+    {
+        if ( CC_PIECE_IS_STARCHILD( target ) || CC_PIECE_IS_WAVE( target ) )
+            // Starchild can activate own Starchild, Wave; on its step-fields.
+            return is_same_owner;
+        else if ( cc_is_step_miracle( piece, step ) )
+            // Starchild can activate any own piece (except King), opponent’s
+            // Starchild and any Star on its neighboring-fields.
+            return ( is_same_owner ||
+                     CC_PIECE_IS_STAR( target ) ||
+                     CC_PIECE_IS_STARCHILD( target ) );
+        else
+            return false;
+    }
 
-    // // Own Pyramid can be activated by any own piece, on capture-fields.
-    // if ( ( CC_PIECE_IS_PYRAMID( target ) )
-    //     && is_same_owner )
-    //         return true;
+    // Monolith, Star can only move to an empty field.
+    if ( CC_PIECE_IS_MONOLITH( piece ) || CC_PIECE_IS_STAR( piece ) )
+        return ( CC_PIECE_IS_NONE( target ) );
 
-    // // Wave can activate other Wave, or any other own piece.
-    // if ( CC_PIECE_IS_WAVE( piece ) )
-    //     if ( CC_PIECE_IS_WAVE( target ) || is_same_owner )
-    //         return true;
+    // Any piece, own or opponent's, can teleport, except Kings, Stars, Starchilds, Monoliths.
+    if ( CC_PIECE_IS_MONOLITH( target ) || CC_PIECE_IS_STAR( target ) )
+        return ( !CC_PIECE_IS_KING( piece ) &&
+                 !CC_PIECE_IS_STARCHILD( piece ) &&
+                 !CC_PIECE_IS_MONOLITH( piece ) &&
+                 !CC_PIECE_IS_STAR( piece ) );
 
-    // // Starchild can activate own Starchild, Wave; on its step-fields.
-    // if ( CC_PIECE_IS_STARCHILD( piece ) )
-    //     if ( ( CC_PIECE_IS_STARCHILD( target ) || CC_PIECE_IS_WAVE( target ) )
-    //         && is_same_owner )
-    //             return true;
+    // TODO :: Pyramid can convert any opponent's piece on own side of a chessboard.
 
-    // // Special case, not handled:
-    // // Starchild can activate any own piece (except King), opponent’s
-    // // Starchild and any Star on its neighboring-fields.
+    // TODO :: Pyramid can tag for promotion own Pawn on opponent's side of a chessboard.
 
-    // // Monolith, Star can only move to an empty field.
-    // if ( CC_PIECE_IS_MONOLITH( piece ) || CC_PIECE_IS_STAR( piece ) )
-    //     return ( CC_PIECE_IS_NONE( target ) );
-
-    // // Any piece, own or opponent's, can teleport, except Kings.
-    // if ( !CC_PIECE_IS_KING( piece ) )
-    // {
-    //     if ( CC_PIECE_IS_MONOLITH( target ) ) return true;
-    //     if ( CC_PIECE_IS_STAR( target ) ) return true;
-    // }
-
-    // // Any piece can capture opponent's piece.
-    // if ( cc_piece_has_different_owner( piece, target ) ) return true;
-
-
-
-
+    // Any piece can capture opponent's piece, except Starchild, Wave, Star, Monolith.
+    if ( cc_piece_has_different_owner( piece, target ) )
+        return ( !CC_PIECE_IS_WAVE( piece ) &&
+                 !CC_PIECE_IS_STARCHILD( piece ) &&
+                 !CC_PIECE_IS_MONOLITH( piece ) &&
+                 !CC_PIECE_IS_STAR( piece ) );
 
     return false;
 }

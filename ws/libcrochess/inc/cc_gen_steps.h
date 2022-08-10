@@ -302,9 +302,15 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
                          CcPos start,
                          CcPos destination );
 
-bool cc_is_step_capture( CcPieceEnum piece, CcPos step, CcPos step_2 );
+bool cc_is_step_capture( CcPieceEnum activator,
+                         CcPieceEnum piece,
+                         CcPos step,
+                         CcPos step_2 );
+
+bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
 
 bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
+                      CcPieceEnum activator,
                       CcPos start,
                       CcPos destination,
                       CcPos step,
