@@ -305,7 +305,10 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
     // Kings can't be ever captured, activated, converted, displaced, ...
     if ( CC_PIECE_IS_KING( target ) ) return false;
 
+    bool target_is_owned = CC_PIECE_HAS_OWNER( target );
+
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+    bool piece_is_owned = CC_PIECE_HAS_OWNER( piece );
     bool is_same_owner = cc_piece_has_same_owner( piece, target );
 
     // Own Pyramid can be activated by any own piece on capture-fields, or
@@ -361,16 +364,47 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                  !CC_PIECE_IS_MONOLITH( piece ) &&
                  !CC_PIECE_IS_STAR( piece ) );
 
-    // TODO :: Pyramid can convert any opponent's piece on own side of a chessboard.
+    if ( CC_PIECE_IS_PYRAMID( piece ) )
+    {
+        // Pyramid can tag for promotion own Pawn on opponent's side of a chessboard.
+        if ( CC_PIECE_IS_PAWN( target ) && is_same_owner )
+        {
+            if ( cc_piece_is_light( piece ) )
+                return ( ( cc_chessboard_is_field_on_dark_side( cb_before_activation,
+                                                                start.j ) ) &&
+                         ( cc_chessboard_is_field_on_dark_side( cb_before_activation,
+                                                                destination.j ) ) );
+            else
+                return ( ( cc_chessboard_is_field_on_light_side( cb_before_activation,
+                                                                 start.j ) ) &&
+                         ( cc_chessboard_is_field_on_light_side( cb_before_activation,
+                                                                 destination.j ) ) );
+        }
 
-    // TODO :: Pyramid can tag for promotion own Pawn on opponent's side of a chessboard.
+        // Pyramid can convert any opponent's piece on own side of a chessboard.
+        if ( target_is_owned && !is_same_owner )
+        {
+            if ( cc_piece_is_light( piece ) )
+                return ( ( cc_chessboard_is_field_on_light_side( cb_before_activation,
+                                                                 start.j ) ) &&
+                         ( cc_chessboard_is_field_on_light_side( cb_before_activation,
+                                                                 destination.j ) ) );
+            else
+                return ( ( cc_chessboard_is_field_on_dark_side( cb_before_activation,
+                                                                start.j ) ) &&
+                         ( cc_chessboard_is_field_on_dark_side( cb_before_activation,
+                                                                destination.j ) ) );
+        }
+    }
 
     // Any piece can capture opponent's piece, except Starchild, Wave, Star, Monolith.
-    if ( cc_piece_has_different_owner( piece, target ) )
+    if ( piece_is_owned && target_is_owned && !is_same_owner )
+    {
         return ( !CC_PIECE_IS_WAVE( piece ) &&
                  !CC_PIECE_IS_STARCHILD( piece ) &&
                  !CC_PIECE_IS_MONOLITH( piece ) &&
                  !CC_PIECE_IS_STAR( piece ) );
+    }
 
     return false;
 }
@@ -467,10 +501,10 @@ bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
 
 bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos )
 {
-    if ( cc_piece_is_light( piece ) && CC_IS_POS_LIGHT( pos.i, pos.j ) )
+    if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
         return true;
 
-    if ( cc_piece_is_dark( piece ) && CC_IS_POS_DARK( pos.i, pos.j ) )
+    if ( cc_piece_is_dark( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
         return true;
 
     return false;
@@ -749,8 +783,8 @@ CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation
         return NULL;
 
     bool is_opposite_color_fields =
-        CC_XOR( CC_IS_POS_LIGHT( start.i, start.j ),
-                CC_IS_POS_LIGHT( destination.i, destination.j ) );
+        CC_XOR( CC_IS_FIELD_LIGHT( start.i, start.j ),
+                CC_IS_FIELD_LIGHT( destination.i, destination.j ) );
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
                                               destination.i,

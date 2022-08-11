@@ -151,24 +151,31 @@ bool cc_chessboard_free_all( CcChessboard ** restrict cb__f )
     return true;
 }
 
-bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
-                                      int coord )
+bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb, int coord )
 {
     if ( !cb ) return false;
     return CC_IS_COORD_ON_BOARD( cb->size, coord );
 }
 
-bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
-                                    int i,
-                                    int j )
+bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j )
 {
     if ( !cb ) return false;
     return CC_IS_POS_ON_BOARD( cb->size, i, j );
 }
 
-CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb,
-                                     int i,
-                                     int j )
+bool cc_chessboard_is_field_on_light_side( CcChessboard * restrict cb, int j )
+{
+    if ( !cb ) return false;
+    return CC_IS_FIELD_ON_LIGHT_SIDE( cb->size, j );
+}
+
+bool cc_chessboard_is_field_on_dark_side( CcChessboard * restrict cb, int j )
+{
+    if ( !cb ) return false;
+    return CC_IS_FIELD_ON_DARK_SIDE( cb->size, j );
+}
+
+CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb, int i, int j )
 {
     if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
     {
@@ -352,7 +359,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
 
             if ( ch == ' ' )
             {
-                if ( CC_IS_POS_LIGHT( x, y ) ) ch = '.';
+                if ( CC_IS_FIELD_LIGHT( x, y ) ) ch = '.';
                 else ch = ',';
             }
 

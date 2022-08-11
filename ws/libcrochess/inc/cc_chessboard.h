@@ -117,8 +117,7 @@ bool cc_chessboard_free_all( CcChessboard ** restrict cb__f );
 
     @return `true` if coordinate is on-board, `false` otherwise.
 */
-bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
-                                      int coord );
+bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb, int coord );
 
 /**
     Function returning if given position belongs to a board.
@@ -129,9 +128,27 @@ bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb,
 
     @return `true` if position is on-board, `false` otherwise.
 */
-bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
-                                    int i,
-                                    int j );
+bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j );
+
+/**
+    Function returning if given position is on a light side of board.
+
+    @param cb Chessboard.
+    @param j Rank, position along vertical axis.
+
+    @return `true` if position is on a light side, `false` otherwise.
+*/
+bool cc_chessboard_is_field_on_light_side( CcChessboard * restrict cb, int j );
+
+/**
+    Function returning if given position is on a dark side of board.
+
+    @param cb Chessboard.
+    @param j Rank, position along vertical axis.
+
+    @return `true` if position is on a dark side, `false` otherwise.
+*/
+bool cc_chessboard_is_field_on_dark_side( CcChessboard * restrict cb, int j );
 
 /**
     Function returning piece on a given position.
@@ -142,9 +159,7 @@ bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb,
 
     @return Piece if position is on-board, `CC_PE_None` otherwise.
 */
-CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb,
-                                     int i,
-                                     int j );
+CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb, int i, int j );
 
 /**
     Function returning tag for a given position.
@@ -155,9 +170,7 @@ CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb,
 
     @return Tag if position is on-board, `CC_TE_None` otherwise.
 */
-CcTagEnum cc_chessboard_get_tag( CcChessboard * restrict cb,
-                                 int i,
-                                 int j );
+CcTagEnum cc_chessboard_get_tag( CcChessboard * restrict cb, int i, int j );
 
 /**
     Function setting piece and tag onto given position.

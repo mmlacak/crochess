@@ -89,7 +89,7 @@
 
     @return `1` if light, `0` otherwise.
 */
-#define CC_IS_POS_LIGHT(i,j) ( ((i) + (j)) % 2 != 0 )
+#define CC_IS_FIELD_LIGHT(i,j) ( ((i) + (j)) % 2 != 0 )
 
 /**
     Macro to check if a given position is dark.
@@ -99,7 +99,7 @@
 
     @return `1` if dark, `0` otherwise.
 */
-#define CC_IS_POS_DARK(i,j) ( ((i) + (j)) % 2 == 0 )
+#define CC_IS_FIELD_DARK(i,j) ( ((i) + (j)) % 2 == 0 )
 
 /**
     Macro to check if a given coordinate is on board.
@@ -127,6 +127,32 @@
     @return `1` if on board, `0` otherwise.
 */
 #define CC_IS_POS_ON_BOARD(board_size,i,j) ( ( CC_MIN_BOARD_COORD <= (int)(i) ) && ( (int)(i) < (int)(board_size) ) && ( CC_MIN_BOARD_COORD <= (int)(j) ) && ( (int)(j) < (int)(board_size) ) )
+
+/**
+    Macro to check if a given position is on a light side of a chessboard.
+
+    @param board_size A chessboard size, integer.
+    @param rank Rank, position along vertical axis, integer.
+
+    @warning
+    All arguments are cast to `int`.
+
+    @return `1` if on a light side, `0` otherwise.
+*/
+#define CC_IS_FIELD_ON_LIGHT_SIDE(board_size,rank) ( ( 0 <= (int)(rank) ) && ( (int)(rank) < ( (int)(board_size) / 2 ) ) )
+
+/**
+    Macro to check if a given position is on a dark side of a chessboard.
+
+    @param board_size A chessboard size, integer.
+    @param rank Rank, position along vertical axis, integer.
+
+    @warning
+    All arguments are cast to `int`.
+
+    @return `1` if on a dark side, `0` otherwise.
+*/
+#define CC_IS_FIELD_ON_DARK_SIDE(board_size,rank) ( ( ( (int)(board_size) / 2 ) <= (int)(rank) ) && ( (int)(rank) < (int)(board_size) ) )
 
 
 /**

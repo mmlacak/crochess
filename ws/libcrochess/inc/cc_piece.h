@@ -235,6 +235,20 @@
 
 
 /**
+    Macro expression to evaluate whether piece has owner, i.e. if it's light or dark piece.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece has owner, `false` otherwise.
+*/
+#define CC_PIECE_HAS_OWNER(pe) ( ( (pe) != CC_PE_DimStar )      \
+                              && ( (pe) != CC_PE_None )         \
+                              && ( (pe) != CC_PE_BrightStar )   \
+                              && ( (pe) != CC_PE_Monolith ) )
+
+/**
     Macro expression to evaluate whether piece is activator.
 
     @param pe Piece enum, one of `CcPieceEnum` values.

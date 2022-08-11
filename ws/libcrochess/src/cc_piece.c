@@ -307,15 +307,14 @@ bool cc_piece_has_same_shade( CcPieceEnum pe_1, CcPieceEnum pe_2 )
 
 bool cc_piece_is_opposite( CcPieceEnum pe_1, CcPieceEnum pe_2 )
 {
-    if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
-    if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
+    if ( ( !CC_PIECE_HAS_OWNER( pe_1 ) ) || ( !CC_PIECE_HAS_OWNER( pe_2 ) ) ) return false;
+
     return ( pe_1 == cc_piece_opposite( pe_2 ) );
 }
 
 bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 )
 {
-    if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
-    if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
+    if ( ( !CC_PIECE_HAS_OWNER( pe_1 ) ) || ( !CC_PIECE_HAS_OWNER( pe_2 ) ) ) return false;
 
     if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
     if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
@@ -325,8 +324,7 @@ bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 )
 
 bool cc_piece_has_different_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 )
 {
-    if ( CC_PIECE_IS_NONE( pe_1 ) || CC_PIECE_IS_NONE( pe_2 ) ) return false;
-    if ( CC_PIECE_IS_MONOLITH( pe_1 ) || CC_PIECE_IS_MONOLITH( pe_2 ) ) return false;
+    if ( ( !CC_PIECE_HAS_OWNER( pe_1 ) ) || ( !CC_PIECE_HAS_OWNER( pe_2 ) ) ) return false;
 
     if ( cc_piece_is_light( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
     if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
