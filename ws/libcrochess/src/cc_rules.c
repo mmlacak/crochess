@@ -235,53 +235,83 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( end_da ) c = end_da;
 
-        while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
+        // Destination if ply doesn't has steps, otherwise starting position
+        // (in which case disambiguation must be empty).
+        char_8 pos = CC_CHAR_8_EMPTY;
+
+        char const * end_pos = cc_starting_pos( c, ply_end, false, &pos );
+
+        cc_str_print( pos, NULL, CC_MAX_LEN_CHAR_8, "Pos: '%s'", ", pointer: '%p'.\n", end_pos ); // TODO :: maybe check error (?)
+
+        int file_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int rank_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+        if ( !cc_convert_starting_pos( pos, &file_pos, &rank_pos ) &&
+             ( CC_IS_COORD_ON_BOARD( g->chessboard->size, file_pos ) ||
+               CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_pos ) ) )
         {
-            cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
+            cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                                                 CC_PMTE_Error,
+                                                 CC_MAX_LEN_ZERO_TERMINATED,
+                                                 "Invalid char(s) in pos '%s', in step '%s', in ply '%s'.\n",
+                                                 pos,
+                                                 step_start,
+                                                 ply_start );
+            return false;
+        }
 
-            CcStepLinkEnum sle = cc_starting_step_link( step_start );
-            c = step_start + cc_step_link_len( sle );
+        printf( "Pos file, rank: %d, %d.\n", file_pos, rank_pos );
 
-            cc_str_print( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
-
-            char_8 pos = CC_CHAR_8_EMPTY;
-            char const * p = pos;
-
-            int file = CC_INVALID_OFF_BOARD_COORD_MIN;
-            int rank = CC_INVALID_OFF_BOARD_COORD_MIN;
-
-            CcSideEffectEnum see = CC_SEE_None;
-            char const * se = cc_find_side_effect( c, step_end, &see );
-            char const * pos_end = step_end;
-
-            if ( se )
+        if ( ply_has_steps )
+        {
+            while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
             {
-                cc_str_print( se, step_end, 128, "Side-effect: '%s'", " --> %d.\n", see );
-                pos_end = se;
+                cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
+
+                CcStepLinkEnum sle = cc_starting_step_link( step_start );
+                c = step_start + cc_step_link_len( sle );
+
+                cc_str_print( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
+
+                char_8 pos = CC_CHAR_8_EMPTY;
+                char const * p = pos;
+
+                int file = CC_INVALID_OFF_BOARD_COORD_MIN;
+                int rank = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+                CcSideEffectEnum see = CC_SEE_None;
+                char const * se = cc_find_side_effect( c, step_end, &see );
+                char const * pos_end = step_end;
+
+                if ( se )
+                {
+                    cc_str_print( se, step_end, 128, "Side-effect: '%s'", " --> %d.\n", see );
+                    pos_end = se;
+                }
+
+                size_t pos_len = (size_t)( pos_end - c );
+                size_t copied = cc_str_copy( c, pos_end, pos_len, pos, CC_MAX_LEN_CHAR_8 );
+
+                if ( pos_len != copied )
+                    printf( "Check len? %zu != %zu\n", pos_len, copied );
+
+                if ( !cc_convert_starting_pos( pos, &file, &rank ) ||
+                    !CC_IS_POS_ON_BOARD( g->chessboard->size, file, rank ) )
+                {
+                    printf( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
+
+                    cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                                                        CC_PMTE_Error,
+                                                        CC_MAX_LEN_ZERO_TERMINATED,
+                                                        "Invalid char(s) in step '%s', in ply '%s'.\n",
+                                                        step_start,
+                                                        ply_start );
+                    return false;
+                }
+
+                printf( "Step: %d, %d.\n", file, rank );
+
             }
-
-            size_t pos_len = (size_t)( pos_end - c );
-            size_t copied = cc_str_copy( c, pos_end, pos_len, pos, CC_MAX_LEN_CHAR_8 );
-
-            if ( pos_len != copied )
-                printf( "Check len? %zu != %zu\n", pos_len, copied );
-
-            if ( !cc_convert_starting_pos( pos, &file, &rank ) ||
-                 !CC_IS_POS_ON_BOARD( g->chessboard->size, file, rank ) )
-            {
-                printf( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
-
-                cc_parse_msgs_append_or_init_format( parse_msgs__io,
-                                                     CC_PMTE_Error,
-                                                     CC_MAX_LEN_ZERO_TERMINATED,
-                                                     "Invalid char(s) in step '%s', in ply '%s'.\n",
-                                                     step_start,
-                                                     ply_start );
-                return false;
-            }
-
-            printf( "Step: %d, %d.\n", file, rank );
-
         }
 
 
