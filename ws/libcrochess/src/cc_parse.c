@@ -184,43 +184,66 @@ char const * cc_starting_pos( char const * restrict an_str,
 
     if ( step_end == an_str ) return step_end;
 
-    char const * start_da = NULL; // disambiguation start
-    char const * end_da = NULL; // disambiguation end, aka true step start
+    char const * start = NULL; // Position, or disambiguation start.
+    char const * end = NULL; // Position, or disambiguation end.
     char const * c = an_str;
 
     if ( islower( *c ) )
     {
         if ( islower( *++c ) )
         {
-            start_da = an_str;
-            end_da = c;
+            if ( is_disambiguation )
+            {
+                start = an_str;
+                end = c;
+            }
+            else
+                // Disambiguation may be partial, but position must be complete.
+                return NULL;
         }
         else if ( isdigit( *c ) )
         {
             if ( isdigit( *++c ) ) ++c;
 
-            if ( !is_disambiguation && !isdigit( *c ) )
+            if ( islower( *c ) )
             {
-                start_da = an_str;
-                end_da = c;
+                if ( is_disambiguation )
+                {
+                    start = an_str;
+                    end = c;
+                }
+                else
+                    // It's complete disambiguation, with position following,
+                    // but flag indicates position is expected.
+                    return NULL;
             }
-            else if ( is_disambiguation && islower( *c ) )
+            else if ( ( c == step_end ) ||
+                      ( !islower( *c ) && !isdigit( *c ) ) )
             {
-                start_da = an_str;
-                end_da = c;
-            }
-            else if ( c == step_end )
-            {
-                start_da = an_str;
-                end_da = c;
+                if ( !is_disambiguation )
+                {
+                    start = an_str;
+                    end = c;
+                }
+                else
+                    // It's complete position, but flag indicates disambiguation
+                    // is expected.
+                    return NULL;
             }
             else
                 return NULL;
         }
         else if ( c == step_end )
         {
-            start_da = an_str;
-            end_da = c;
+            if ( is_disambiguation )
+            {
+                start = an_str;
+                end = c;
+            }
+            else
+                // It's partial disambiguation, and no position following,
+                // but flag indicates position is expected.
+                return NULL;
         }
         else
             return NULL;
@@ -229,20 +252,30 @@ char const * cc_starting_pos( char const * restrict an_str,
     {
         if ( isdigit( *++c ) ) ++c;
 
-        if ( !is_disambiguation && !isdigit( *c ) )
+        if ( islower( *c ) )
         {
-            start_da = an_str;
-            end_da = c;
+            if ( is_disambiguation )
+            {
+                start = an_str;
+                end = c;
+            }
+            else
+                // It's partial disambiguation, with position following,
+                // but flag indicates position is expected.
+                return NULL;
         }
-        else if ( is_disambiguation && islower( *c ) )
+        else if ( ( c == step_end ) ||
+                  ( !islower( *c ) && !isdigit( *c ) ) )
         {
-            start_da = an_str;
-            end_da = c;
-        }
-        else if ( c == step_end )
-        {
-            start_da = an_str;
-            end_da = c;
+            if ( is_disambiguation )
+            {
+                start = an_str;
+                end = c;
+            }
+            else
+                // It's partial disambiguation, with position following,
+                // but flag indicates position is expected.
+                return NULL;
         }
         else
             return NULL;
@@ -250,21 +283,21 @@ char const * cc_starting_pos( char const * restrict an_str,
     else
         return NULL;
 
-    if ( !start_da ) return NULL;
-    if ( !end_da ) return NULL;
+    if ( !start ) return NULL;
+    if ( !end ) return NULL;
 
     // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Isn't used after this, so ...
 
     if ( !cc_str_clear( *pos__o, CC_MAX_LEN_CHAR_8 ) )
         return NULL;
 
-    size_t len = (size_t)( end_da - start_da );
-    size_t copied = cc_str_copy( start_da, end_da, len, *pos__o, CC_MAX_LEN_STEP );
+    size_t len = (size_t)( end - start );
+    size_t copied = cc_str_copy( start, end, len, *pos__o, CC_MAX_LEN_STEP );
 
     if ( len != copied )
         return NULL;
 
-    return end_da;
+    return end;
 }
 
 bool cc_convert_starting_pos( char const * restrict pos,

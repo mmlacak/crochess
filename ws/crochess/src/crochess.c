@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.117:549+20220812.084532"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.118:550+20220812.111006"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool test_move( char const * restrict an_str,
@@ -209,7 +209,36 @@ int main( void )
             else
                 print_help();
         }
+        else if ( cc_str_is_equal( token_start, token_end, "x0", NULL, BUFSIZ ) )
+        {
+            test_move( "n5", game__a );
+            test_move( "mn5", game__a );
+
+            test_move( "7n5", game__a );
+            test_move( "m7n5", game__a );
+
+            test_move( "::n5", game__a );
+            test_move( "::mn5", game__a );
+
+            test_move( "::7n5", game__a );
+            test_move( "::m7n5", game__a );
+        }
         else if ( cc_str_is_equal( token_start, token_end, "x1", NULL, BUFSIZ ) )
+        {
+
+            test_move( "n5*", game__a );
+            test_move( "mn5*", game__a );
+
+            test_move( "7n5*", game__a );
+            test_move( "m7n5*", game__a );
+
+            test_move( "::n5*", game__a );
+            test_move( "::mn5*", game__a );
+
+            test_move( "::7n5*", game__a );
+            test_move( "::m7n5*", game__a );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x2", NULL, BUFSIZ ) )
         {
             test_move( "::n5*", game__a );
             test_move( "B&&n5*N", game__a );
@@ -220,7 +249,7 @@ int main( void )
             test_move( "[::mn5*]", game__a );
             test_move( "[B&&mn5*N]", game__a );
         }
-        else if ( cc_str_is_equal( token_start, token_end, "x2", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "x3", NULL, BUFSIZ ) )
         {
             test_move( "::m..n5*", game__a );
             test_move( "B&&m..n5*N", game__a );
@@ -231,7 +260,7 @@ int main( void )
             test_move( "[::m..n5*]", game__a );
             test_move( "[B&&m..n5*N]", game__a );
         }
-        else if ( cc_str_is_equal( token_start, token_end, "x3", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "x4", NULL, BUFSIZ ) )
         {
             test_move( "::7g11*", game__a );
             test_move( "B&&7g11*N", game__a );
@@ -242,7 +271,7 @@ int main( void )
             test_move( "[::7g11*]", game__a );
             test_move( "[B&&7g11*N]", game__a );
         }
-        else if ( cc_str_is_equal( token_start, token_end, "x4", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "x5", NULL, BUFSIZ ) )
         {
             test_move( "::3..n5*", game__a );
             test_move( "B&&3..n5*N", game__a );
@@ -253,7 +282,7 @@ int main( void )
             test_move( "[::3..n5*]", game__a );
             test_move( "[B&&3..n5*N]", game__a );
         }
-        else if ( cc_str_is_equal( token_start, token_end, "x5", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "x6", NULL, BUFSIZ ) )
         {
             test_move( "::3.m4<Rx11..n5*H-o7:", game__a );
             test_move( "B&&3..m4<Rx11.n5*H-o7>a11", game__a );
