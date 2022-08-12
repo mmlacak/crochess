@@ -235,7 +235,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( end_da ) c = end_da;
 
-        // Destination if ply doesn't has steps, otherwise starting position
+        // Destination if ply doesn't have steps, otherwise starting position
         // (in which case disambiguation must be empty).
         char_8 pos = CC_CHAR_8_EMPTY;
 
@@ -264,6 +264,8 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( ply_has_steps )
         {
+            if ( end_pos ) c = end_pos;
+
             while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
             {
                 cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
