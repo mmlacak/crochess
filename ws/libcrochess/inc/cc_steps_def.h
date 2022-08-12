@@ -12,8 +12,8 @@
 
 
 /**
-    @file cc_gen_steps.h
-    @brief Step generators.
+    @file cc_steps_def.h
+    @brief Step checkers.
 */
 
 

@@ -2,11 +2,11 @@
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include "cc_steps_def.h"
-#include "cc_gen_steps.h"
+#include "cc_steps_gen.h"
 
 /**
-    @file cc_gen_steps.c
-    @brief Step generators, arrays.
+    @file cc_steps_gen.c
+    @brief Step generators.
 */
 
 

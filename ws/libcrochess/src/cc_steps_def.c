@@ -5,7 +5,7 @@
 
 /**
     @file cc_steps_def.c
-    @brief Step generators, arrays.
+    @brief Step checkers.
 */
 
 

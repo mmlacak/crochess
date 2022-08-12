@@ -9,7 +9,7 @@
 #include "cc_pos.h"
 
 /**
-    @file cc_gen_steps.h
+    @file cc_steps_gen.h
     @brief Step generators.
 */
 
