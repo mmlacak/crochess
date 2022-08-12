@@ -1,188 +1,13 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include "cc_steps_def.h"
 #include "cc_gen_steps.h"
 
 /**
     @file cc_gen_steps.c
     @brief Step generators, arrays.
 */
-
-
-CcPos const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ] =
-{
-    { .i =  0, .j =  1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ] =
-{
-    { .i =  0, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_CAPTURE_LIGHT_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ] =
-{
-    { .i = -1, .j =  1 },
-    { .i =  1, .j =  1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_CAPTURE_DARK_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ] =
-{
-    { .i = -1, .j = -1 },
-    { .i =  1, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] =
-{
-    { .i =  0, .j =  1 },
-    { .i = -1, .j =  0 },
-    { .i =  1, .j =  0 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] =
-{
-    { .i =  0, .j = -1 },
-    { .i = -1, .j =  0 },
-    { .i =  1, .j =  0 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ] =
-{
-    { .i =  2, .j =  1 },
-    { .i =  1, .j =  2 },
-
-    { .i = -1, .j =  2 },
-    { .i = -2, .j =  1 },
-
-    { .i = -2, .j = -1 },
-    { .i = -1, .j = -2 },
-
-    { .i =  1, .j = -2 },
-    { .i =  2, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ] =
-{
-    { .i =  1, .j =  1 },
-    { .i = -1, .j =  1 },
-    { .i = -1, .j = -1 },
-    { .i =  1, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ] =
-{
-    { .i =  1, .j =  0 },
-    { .i =  0, .j =  1 },
-    { .i = -1, .j =  0 },
-    { .i =  0, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ] =
-{
-    { .i =  1, .j =  0 },
-    { .i =  1, .j =  1 },
-    { .i =  0, .j =  1 },
-    { .i = -1, .j =  1 },
-    { .i = -1, .j =  0 },
-    { .i = -1, .j = -1 },
-    { .i =  0, .j = -1 },
-    { .i =  1, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ] =
-{
-    { .i =  4, .j =  1 },
-    { .i =  3, .j =  2 },
-    { .i =  2, .j =  3 },
-    { .i =  1, .j =  4 },
-
-    { .i = -1, .j =  4 },
-    { .i = -2, .j =  3 },
-    { .i = -3, .j =  2 },
-    { .i = -4, .j =  1 },
-
-    { .i = -4, .j = -1 },
-    { .i = -3, .j = -2 },
-    { .i = -2, .j = -3 },
-    { .i = -1, .j = -4 },
-
-    { .i =  1, .j = -4 },
-    { .i =  2, .j = -3 },
-    { .i =  3, .j = -2 },
-    { .i =  4, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ] =
-{
-    { .i = -1, .j =  1 },
-    { .i =  1, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] =
-{
-    { .i = -1, .j = -1 },
-    { .i =  1, .j =  1 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_MONOLITH_LEFT[ CC_STEPS_MONOLITH_SIZE ] =
-{
-    { .i =  2, .j =  1 },
-    { .i = -1, .j =  2 },
-    { .i = -2, .j = -1 },
-    { .i =  1, .j = -2 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ] =
-{
-    { .i =  1, .j =  2 },
-    { .i = -2, .j =  1 },
-    { .i = -1, .j = -2 },
-    { .i =  2, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
-bool cc_step_is_valid( CcPos step,
-                       CcPos const array[  ],
-                       size_t array_len )
-{
-    for ( int k = 0; (size_t)k < array_len; ++k )
-    {
-        CcPos p = array[ k ];
-
-        if ( cc_pos_is_equal( step, p ) )
-            return true;
-    }
-
-    return false;
-}
 
 
 bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
@@ -272,6 +97,8 @@ bool cc_is_step_capture( CcPieceEnum activator,
     else if ( CC_PIECE_IS_MONOLITH( piece ) )
         return false;
     else if ( CC_PIECE_IS_STAR( piece ) )
+        return false;
+    else if ( CC_PIECE_IS_STARCHILD( piece ) )
         return false;
 
     return true;
