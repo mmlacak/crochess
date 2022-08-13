@@ -98,11 +98,26 @@ typedef char char_16 [ CC_SIZE_CHAR_16 ];
 */
 #define CC_CHAR_16_EMPTY { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }
 
+/**
+    Macro to call `cc_str_print()`, depending on a compile-time constant.
+
+    @param start A (sub-)string to copy.
+    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is printed.
+    @param max_len__d _Optional_, maximum length of string to print.
+    @param fmt_str A string format to print copied (sub-)string.
+    @param fmt A string format to print variadic input.
+    @param ... Variadic input for a string format.
+
+    @note
+    Compile-time constant which controls definition of this macro is `__CC_STR_PRINT_INFO__`.
+
+    @see cc_str_print()
+
+    @return `true` if successful, `false` otherwise.
+*/
 #ifdef __CC_STR_PRINT_INFO__
-#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...)       \
-{                                                                           \
-    cc_str_print( start, end__d, max_len__d, fmt_str, fmt __VA_OPT__(,) __VA_ARGS__ );   \
-}
+#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...)                   \
+    cc_str_print( start, end__d, max_len__d, fmt_str, fmt __VA_OPT__(,) __VA_ARGS__ )
 #else // __CC_STR_PRINT_INFO__
 #define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...)
 #endif // __CC_STR_PRINT_INFO__

@@ -218,21 +218,22 @@
     *(ptr_ptr) = NULL;                  \
 }
 
+/**
+    Macro to `printf()`, depending on a compile-time constant.
+
+    @param fmt Formatting string.
+    @param ... Variadic parameters, as used by `printf()`.
+
+    @note
+    Compile-time constant which controls definition of this macro is `__CC_STR_PRINT_INFO__`.
+
+    @return The same as `printf()`.
+*/
 #ifdef __CC_STR_PRINT_INFO__
-#define CC_PRINTF_IF_INFO(fmt,...)              \
-{                                               \
-    printf( fmt __VA_OPT__(,) __VA_ARGS__ );    \
-}
+#define CC_PRINTF_IF_INFO(fmt,...) printf( fmt __VA_OPT__(,) __VA_ARGS__ )
 #else // __CC_STR_PRINT_INFO__
 #define CC_PRINTF_IF_INFO(fmt,...)
 #endif // __CC_STR_PRINT_INFO__
-
-
-// /**
-//     Macro to cast any pointer-to-pointer into const-pointer-to-pointer-to-type,
-//     i.e. `type **` --> `type ** const`.
-// */
-// #define CC_CAST_T_P_PC(type,ptr_ptr) ( (type ** const)(ptr_ptr) )
 
 
 #endif /* __CC_DEFINES_H__ */
