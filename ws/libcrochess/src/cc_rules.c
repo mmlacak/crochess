@@ -170,20 +170,20 @@ bool cc_make_move( char const * restrict move_an_str,
 
 // TODO :: check if castling --> handle as a special case
 
-// TODO :: check if en passant --> handle as a special case
-
-    // printf( "\n" );
-    printf( "Move: '%s'.\n\n", move_an_str ); // "\nMove: '%s'.\n\n"
+    // CC_PRINTF_IF_INFO( "\n" );
+    CC_PRINTF_IF_INFO( "Move: '%s'.\n\n", move_an_str ); // "\nMove: '%s'.\n\n"
     while ( cc_ply_iter( m, &ply_start, &ply_end ) )
     {
         ply_has_steps = cc_ply_has_steps( ply_start, ply_end );
 
-        cc_str_print( ply_start, ply_end, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
+// TODO :: check if en passant --> handle as a special case
+
+        CC_STR_PRINT_IF_INFO( ply_start, ply_end, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
 
         ple = cc_starting_ply_link( ply_start );
         c = ply_start + cc_ply_link_len( ple );
 
-        cc_str_print( ply_start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
+        CC_STR_PRINT_IF_INFO( ply_start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
         if ( CC_IS_PLY_GATHER_START( *c ) ) ++c; // Move past '['.
 
@@ -204,7 +204,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( lte != CC_LTE_None )
         {
-            printf( "Losing tag: '%c%c' --> %d.\n", *c, *(c+1), lte );
+            CC_PRINTF_IF_INFO( "Losing tag: '%c%c' --> %d.\n", *c, *(c+1), lte );
             c += cc_losing_tag_len( lte );
         }
 
@@ -212,7 +212,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         char const * end_da = cc_starting_pos( c, ply_end, true, &disambiguation );
 
-        cc_str_print( disambiguation, NULL, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da ); // TODO :: maybe check error (?)
+        CC_STR_PRINT_IF_INFO( disambiguation, NULL, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da ); // TODO :: maybe check error (?)
 
         int file_da = CC_INVALID_OFF_BOARD_COORD_MIN;
         int rank_da = CC_INVALID_OFF_BOARD_COORD_MIN;
@@ -231,7 +231,7 @@ bool cc_make_move( char const * restrict move_an_str,
             return false;
         }
 
-        printf( "Disambiguation file, rank: %d, %d.\n", file_da, rank_da );
+        CC_PRINTF_IF_INFO( "Disambiguation file, rank: %d, %d.\n", file_da, rank_da );
 
         if ( end_da ) c = end_da;
 
@@ -241,7 +241,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         char const * end_pos = cc_starting_pos( c, ply_end, false, &pos );
 
-        cc_str_print( pos, NULL, CC_MAX_LEN_CHAR_8, "Pos: '%s'", ", pointer: '%p'.\n", end_pos ); // TODO :: maybe check error (?)
+        CC_STR_PRINT_IF_INFO( pos, NULL, CC_MAX_LEN_CHAR_8, "Pos: '%s'", ", pointer: '%p'.\n", end_pos ); // TODO :: maybe check error (?)
 
         int file_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
         int rank_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
@@ -260,7 +260,7 @@ bool cc_make_move( char const * restrict move_an_str,
             return false;
         }
 
-        printf( "Pos file, rank: %d, %d.\n", file_pos, rank_pos );
+        CC_PRINTF_IF_INFO( "Pos file, rank: %d, %d.\n", file_pos, rank_pos );
 
         if ( ply_has_steps )
         {
@@ -268,12 +268,12 @@ bool cc_make_move( char const * restrict move_an_str,
 
             while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
             {
-                cc_str_print( step_start, step_end, 8192, "Step: '%s'.\n", "" );
+                CC_STR_PRINT_IF_INFO( step_start, step_end, 8192, "Step: '%s'.\n", "" );
 
                 CcStepLinkEnum sle = cc_starting_step_link( step_start );
                 c = step_start + cc_step_link_len( sle );
 
-                cc_str_print( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
+                CC_STR_PRINT_IF_INFO( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
 
                 char_8 pos = CC_CHAR_8_EMPTY;
                 char const * p = pos;
@@ -287,7 +287,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
                 if ( se )
                 {
-                    cc_str_print( se, step_end, 128, "Side-effect: '%s'", " --> %d.\n", see );
+                    CC_STR_PRINT_IF_INFO( se, step_end, 128, "Side-effect: '%s'", " --> %d.\n", see );
                     pos_end = se;
                 }
 
@@ -295,12 +295,12 @@ bool cc_make_move( char const * restrict move_an_str,
                 size_t copied = cc_str_copy( c, pos_end, pos_len, pos, CC_MAX_LEN_CHAR_8 );
 
                 if ( pos_len != copied )
-                    printf( "Check len? %zu != %zu\n", pos_len, copied );
+                    CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
 
                 if ( !cc_convert_starting_pos( pos, &file, &rank ) ||
                     !CC_IS_POS_ON_BOARD( g->chessboard->size, file, rank ) )
                 {
-                    printf( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
+                    CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
 
                     cc_parse_msgs_append_or_init_format( parse_msgs__io,
                                                         CC_PMTE_Error,
@@ -311,7 +311,7 @@ bool cc_make_move( char const * restrict move_an_str,
                     return false;
                 }
 
-                printf( "Step: %d, %d.\n", file, rank );
+                CC_PRINTF_IF_INFO( "Step: %d, %d.\n", file, rank );
 
             }
         }
@@ -331,7 +331,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
             piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
 
-            printf( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+            CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
 
             ++c;
         }
@@ -340,9 +340,9 @@ bool cc_make_move( char const * restrict move_an_str,
         // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Move past ']'. // TODO (?)
 
 
-        // printf( "\n" );
+        // CC_PRINTF_IF_INFO( "\n" );
     }
-    printf( "-----------------------------------------------------------------------\n" );
+    CC_PRINTF_IF_INFO( "-----------------------------------------------------------------------\n" );
 
 // TODO :: loop over plies
 

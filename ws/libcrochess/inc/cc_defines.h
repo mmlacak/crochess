@@ -218,6 +218,15 @@
     *(ptr_ptr) = NULL;                  \
 }
 
+#ifdef __CC_STR_PRINT_INFO__
+#define CC_PRINTF_IF_INFO(fmt,...)              \
+{                                               \
+    printf( fmt __VA_OPT__(,) __VA_ARGS__ );    \
+}
+#else // __CC_STR_PRINT_INFO__
+#define CC_PRINTF_IF_INFO(fmt,...)
+#endif // __CC_STR_PRINT_INFO__
+
 
 // /**
 //     Macro to cast any pointer-to-pointer into const-pointer-to-pointer-to-type,

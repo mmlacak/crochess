@@ -98,6 +98,15 @@ typedef char char_16 [ CC_SIZE_CHAR_16 ];
 */
 #define CC_CHAR_16_EMPTY { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }
 
+#ifdef __CC_STR_PRINT_INFO__
+#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...)       \
+{                                                                           \
+    cc_str_print( start, end__d, max_len__d, fmt_str, fmt __VA_OPT__(,) __VA_ARGS__ );   \
+}
+#else // __CC_STR_PRINT_INFO__
+#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...)
+#endif // __CC_STR_PRINT_INFO__
+
 
 /**
     Function to clear string, or char array, by writing ``'\0'`` into every char.

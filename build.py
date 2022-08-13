@@ -49,6 +49,7 @@ def main():
 
     is_extra_warnings = True if RS.any_item_in( ['-XW', '--extra-warnings'], script_argv) else False
     is_silence =  True if RS.any_item_in( ['-S', '--silence'], script_argv) else False
+    is_consts =  True if RS.any_item_in( ['-C', '--consts'], script_argv) else False
 
     is_gcc = True if RS.any_item_in( ['-gcc', '--gcc'], script_argv) else False
     is_clang = True if RS.any_item_in( ['-clang', '--clang'], script_argv) else False
@@ -107,6 +108,7 @@ def main():
                                                               is_release_or_debug=is_release_or_debug,
                                                               is_extra_warnings=is_extra_warnings,
                                                               is_silence=is_silence,
+                                                              is_consts=is_consts,
                                                               adx_options_list=compile_lib_argv)
 
         if is_debug:

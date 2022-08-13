@@ -546,20 +546,23 @@ bool cc_str_print( char const * restrict start,
 
     CC_FREE( str__a );
 
-    va_list args;
-    va_start( args, fmt );
-
-    char * fmt__a = cc_str_format_va__new( CC_MAX_LEN_ZERO_TERMINATED, fmt, args );
-    if ( !fmt__a )
+    if ( fmt && *fmt )
     {
+        va_list args;
+        va_start( args, fmt );
+
+        char * fmt__a = cc_str_format_va__new( CC_MAX_LEN_ZERO_TERMINATED, fmt, args );
+        if ( !fmt__a )
+        {
+            va_end( args );
+            return false;
+        }
+
+        result = printf( "%s", fmt__a ) && ( result >= 0 );
+
+        CC_FREE( fmt__a );
         va_end( args );
-        return false;
     }
-
-    result = printf( "%s", fmt__a ) && ( result >= 0 );
-
-    CC_FREE( fmt__a );
-    va_end( args );
 
     return ( result >= 0 );
 }
