@@ -219,7 +219,7 @@
 }
 
 /**
-    Macro to `printf()`, depending on a compile-time constant.
+    Macro to call `printf()`, depending on a compile-time constant.
 
     @param fmt Formatting string.
     @param ... Variadic parameters, as used by `printf()`.
