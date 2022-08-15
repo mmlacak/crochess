@@ -158,7 +158,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     return pl__t;
 }
 
-CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
+CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
                                         CcPos pos )
 {
     if ( !pos_link__io ) return NULL;

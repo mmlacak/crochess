@@ -45,9 +45,9 @@ CcSteps * cc_steps_append( CcSteps * restrict steps__io,
     return step__t;
 }
 
-CcSteps * cc_steps_append_or_init( CcSteps ** restrict steps__io,
-                                   CcStepLinkEnum step_link,
-                                   CcPos pos )
+CcSteps * cc_steps_append_if( CcSteps ** restrict steps__io,
+                              CcStepLinkEnum step_link,
+                              CcPos pos )
 {
     if ( !steps__io ) return NULL;
 

@@ -58,9 +58,9 @@
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link_append_or_init()
+    @see cc_pos_link_append_if()
 */
-#define CC_POS_LINK_APPEND_OR_INIT(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_or_init( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
 
 /**
@@ -297,7 +297,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_append_or_init( CcPosLink ** restrict pos_link__io,
+CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
                                         CcPos pos );
 
 /**

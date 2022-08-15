@@ -45,9 +45,9 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
     return str__t;
 }
 
-CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
-                                       char const * restrict str,
-                                       size_t max_len__d )
+CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
+                                  char const * restrict str,
+                                  size_t max_len__d )
 {
     if ( !strings__io ) return NULL;
 
@@ -61,9 +61,9 @@ CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
     return str__w;
 }
 
-CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
-                                              size_t max_len__d,
-                                              char const * restrict fmt, ... )
+CcStrings * cc_strings_append_if_format( CcStrings ** restrict strings__io,
+                                         size_t max_len__d,
+                                         char const * restrict fmt, ... )
 {
     if ( !strings__io ) return NULL;    // To avoid alloc() + free() of str__a;
                                         // even though this is never referenced.
@@ -77,7 +77,7 @@ CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
 
     if ( !str__a ) return NULL;
 
-    CcStrings * pm__w = cc_strings_append_or_init( strings__io, str__a, max_len__d );
+    CcStrings * pm__w = cc_strings_append_if( strings__io, str__a, max_len__d );
 
     CC_FREE( str__a );
 

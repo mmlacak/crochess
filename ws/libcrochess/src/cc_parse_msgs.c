@@ -46,10 +46,10 @@ CcParseMsgs * cc_parse_msgs_append( CcParseMsgs * restrict parse_msgs__io,
     return pm__t;
 }
 
-CcParseMsgs * cc_parse_msgs_append_or_init( CcParseMsgs ** restrict parse_msgs__io,
-                                            CcParseMsgTypeEnum type,
-                                            char const * restrict msg,
-                                            size_t max_len__d )
+CcParseMsgs * cc_parse_msgs_append_if( CcParseMsgs ** restrict parse_msgs__io,
+                                       CcParseMsgTypeEnum type,
+                                       char const * restrict msg,
+                                       size_t max_len__d )
 {
     if ( !parse_msgs__io ) return NULL;
 
@@ -63,10 +63,10 @@ CcParseMsgs * cc_parse_msgs_append_or_init( CcParseMsgs ** restrict parse_msgs__
     return pm__w;
 }
 
-CcParseMsgs * cc_parse_msgs_append_or_init_format( CcParseMsgs ** restrict parse_msgs__io,
-                                                   CcParseMsgTypeEnum type,
-                                                   size_t max_len__d,
-                                                   char const * restrict fmt, ... )
+CcParseMsgs * cc_parse_msgs_append_if_format( CcParseMsgs ** restrict parse_msgs__io,
+                                              CcParseMsgTypeEnum type,
+                                              size_t max_len__d,
+                                              char const * restrict fmt, ... )
 {
     if ( !parse_msgs__io ) return NULL; // To avoid alloc() + free() of msg__a;
                                         // even though this is never referenced.
@@ -80,7 +80,7 @@ CcParseMsgs * cc_parse_msgs_append_or_init_format( CcParseMsgs ** restrict parse
 
     if ( !msg__a ) return NULL;
 
-    CcParseMsgs * pm__w = cc_parse_msgs_append_or_init( parse_msgs__io, type, msg__a, max_len__d );
+    CcParseMsgs * pm__w = cc_parse_msgs_append_if( parse_msgs__io, type, msg__a, max_len__d );
 
     CC_FREE( msg__a );
 

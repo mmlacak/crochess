@@ -31,7 +31,7 @@
 /**
     Macro to append a newly allocated step to existing queue.
 
-    @param ptr__pos_link__io a position linked list, to be appended.
+    @param ptr__pos_link__io a position queue, to be appended.
     @param step_link A step link enum.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
@@ -46,17 +46,17 @@
 /**
     Macro to append a newly allocated step to steps queue, which might not be alocated yet.
 
-    @param ptr_ptr__pos_link__io a position linked list, to be appended.
+    @param ptr_ptr__pos_link__io a position queue, to be appended.
     @param step_link A step link enum.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
     @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
 
-    @see cc_steps_append_or_init()
+    @see cc_steps_append_if()
 */
-#define CC_STEPS_APPEND_OR_INIT(ptr_ptr__steps__io,step_link,int_i,int_j) \
-    cc_steps_append_or_init( (ptr_ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ) )
+#define CC_STEPS_APPEND_IF(ptr_ptr__steps__io,step_link,int_i,int_j) \
+    cc_steps_append_if( (ptr_ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ) )
 
 
 /**
@@ -73,58 +73,57 @@ typedef struct CcSteps {
 } CcSteps;
 
 /**
-    Function allocates a new linked position.
+    Function allocates a new steps queue.
 
     @param step_link A step link enum.
     @param pos A position.
 
-    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
+    @return Pointer to a newly allocated step if successful, `NULL` otherwise.
 */
 CcSteps * cc_steps__new( CcStepLinkEnum step_link,
                          CcPos pos );
 
 /**
-    Function appends a newly allocated linked position to a given linked list.
+    Function appends a newly allocated step to a given queue.
 
-    @param pos_link__io _Input/output_ parameter, linked list.
+    @param steps__io _Input/output_ parameter, queue.
     @param step_link A step link enum.
     @param pos A position.
 
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+    @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
 */
-CcSteps * cc_steps_append( CcSteps * restrict pos_link__io,
+CcSteps * cc_steps_append( CcSteps * restrict steps__io,
                            CcStepLinkEnum step_link,
                            CcPos pos );
 
 /**
-    Allocates a new linked position, appends it to a linked list.
+    Appends newly allocated step to a steps queue, which might not be alocated yet.
 
-    @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
+    @param steps__io _Input/output_ parameter, queue, can be `NULL`.
     @param step_link A step link enum.
     @param pos A position.
 
     @note
-    Linked list `*pos_link__io` can be `NULL`, a linked position will still be
-    allocated, and returned.
+    Queue `*steps__io` can be `NULL`, a step will still be allocated, and returned.
 
     @note
-    If linked list `*pos_link__io` is `NULL`, it will be initialized,
-    with a newly allocated linked position as its first element.
+    If queue `*steps__io` is `NULL`, it will be initialized,
+    with a newly allocated step as its first element.
 
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+    @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
 */
-CcSteps * cc_steps_append_or_init( CcSteps ** restrict pos_link__io,
-                                   CcStepLinkEnum step_link,
-                                   CcPos pos );
+CcSteps * cc_steps_append_if( CcSteps ** restrict steps__io,
+                              CcStepLinkEnum step_link,
+                              CcPos pos );
 
 /**
-    Frees all positions in a linked list.
+    Frees all positions in a queue.
 
     @param pos_link__f Linked list of positions.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_steps_free_all( CcSteps ** restrict pos_link__f );
+bool cc_steps_free_all( CcSteps ** restrict steps__f );
 
 
 #endif /* __CC_STEPS_H__ */

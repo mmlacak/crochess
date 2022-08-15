@@ -46,7 +46,7 @@ static bool cc_check_pre_plies_status( char const char_an,
         va_list args;
         va_start( args, msg );
 
-        cc_parse_msgs_append_or_init_format( parse_msgs__io, CC_PMTE_Error, max_len__d, msg, args );
+        cc_parse_msgs_append_if_format( parse_msgs__io, CC_PMTE_Error, max_len__d, msg, args );
 
         va_end( args );
 
@@ -76,7 +76,7 @@ bool cc_make_move( char const * restrict move_an_str,
             ( g->status == CC_GSE_None ) ? "Game is not initialized.\n"
                                          : "Game is finished.\n";
 
-        cc_parse_msgs_append_or_init_format( parse_msgs__io,
+        cc_parse_msgs_append_if_format( parse_msgs__io,
                                              CC_PMTE_Error,
                                              CC_MAX_LEN_ZERO_TERMINATED,
                                              msg );
@@ -126,7 +126,7 @@ bool cc_make_move( char const * restrict move_an_str,
                     }
                     else
                     {
-                        cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                        cc_parse_msgs_append_if_format( parse_msgs__io,
                                                              CC_PMTE_Error,
                                                              CC_MAX_LEN_ZERO_TERMINATED,
                                                              "No valid opponent's draw offer found.\n" );
@@ -150,7 +150,7 @@ bool cc_make_move( char const * restrict move_an_str,
             }
         }
 
-        cc_parse_msgs_append_or_init_format( parse_msgs__io,
+        cc_parse_msgs_append_if_format( parse_msgs__io,
                                              CC_PMTE_Error,
                                              CC_MAX_LEN_ZERO_TERMINATED,
                                              "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
@@ -190,7 +190,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( !cc_ply_piece_symbol( c, &piece_symbol ) )
         {
-            cc_parse_msgs_append_or_init_format( parse_msgs__io,
+            cc_parse_msgs_append_if_format( parse_msgs__io,
                                                  CC_PMTE_Error,
                                                  CC_MAX_LEN_ZERO_TERMINATED,
                                                  "Invalid piece symbol '%c'.\n",
@@ -222,7 +222,7 @@ bool cc_make_move( char const * restrict move_an_str,
              ( CC_IS_COORD_ON_BOARD( g->chessboard->size, file_da ) ||
                CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_da ) ) )
         {
-            cc_parse_msgs_append_or_init_format( parse_msgs__io,
+            cc_parse_msgs_append_if_format( parse_msgs__io,
                                                  CC_PMTE_Error,
                                                  CC_MAX_LEN_ZERO_TERMINATED,
                                                  "Invalid char(s) in disambiguation '%s', in step '%s', in ply '%s'.\n",
@@ -251,7 +251,7 @@ bool cc_make_move( char const * restrict move_an_str,
              ( CC_IS_COORD_ON_BOARD( g->chessboard->size, file_pos ) ||
                CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_pos ) ) )
         {
-            cc_parse_msgs_append_or_init_format( parse_msgs__io,
+            cc_parse_msgs_append_if_format( parse_msgs__io,
                                                  CC_PMTE_Error,
                                                  CC_MAX_LEN_ZERO_TERMINATED,
                                                  "Invalid char(s) in pos '%s', in step '%s', in ply '%s'.\n",
@@ -269,7 +269,7 @@ bool cc_make_move( char const * restrict move_an_str,
         {
             if ( ( disambiguation[ 0 ] != '\0' ) && ( pos[ 0 ] != '\0' ) )
             {
-                cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                cc_parse_msgs_append_if_format( parse_msgs__io,
                                                      CC_PMTE_Error,
                                                      CC_MAX_LEN_ZERO_TERMINATED,
                                                      "Disambiguation '%s' preceedes starting position '%s', in step '%s', in ply '%s'.\n",
@@ -318,7 +318,7 @@ bool cc_make_move( char const * restrict move_an_str,
                 {
                     CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
 
-                    cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                    cc_parse_msgs_append_if_format( parse_msgs__io,
                                                         CC_PMTE_Error,
                                                         CC_MAX_LEN_ZERO_TERMINATED,
                                                         "Invalid char(s) in step '%s', in ply '%s'.\n",
@@ -367,7 +367,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
 
 
-    if ( !cc_moves_append_or_init( &( g->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
+    if ( !cc_moves_append_if( &( g->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
         return false;
 
 // TODO :: determine ending status

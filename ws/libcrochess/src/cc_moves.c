@@ -47,9 +47,9 @@ CcMoves * cc_moves_append( CcMoves * restrict moves__io,
     return mv__t;
 }
 
-CcMoves * cc_moves_append_or_init( CcMoves ** restrict moves__io,
-                                   char const * restrict an,
-                                   size_t max_len__d )
+CcMoves * cc_moves_append_if( CcMoves ** restrict moves__io,
+                              char const * restrict an,
+                              size_t max_len__d )
 {
     if ( !moves__io ) return NULL;
 

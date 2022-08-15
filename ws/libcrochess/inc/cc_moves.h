@@ -50,7 +50,7 @@ CcMoves * cc_moves_append( CcMoves * restrict moves__io,
                            size_t max_len__d );
 
 /**
-    Allocates a new move, appends it to a queue.
+    Allocates a new move, appends it to a queue, which might not be allocated yet.
 
     @param moves__io Queue of moves.
     @param an Move.
@@ -71,9 +71,9 @@ CcMoves * cc_moves_append( CcMoves * restrict moves__io,
     @return
     Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
 */
-CcMoves * cc_moves_append_or_init( CcMoves ** restrict moves__io,
-                                   char const * restrict an,
-                                   size_t max_len__d );
+CcMoves * cc_moves_append_if( CcMoves ** restrict moves__io,
+                              char const * restrict an,
+                              size_t max_len__d );
 
 /**
     Duplicates all moves in a queue.

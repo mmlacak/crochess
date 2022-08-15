@@ -65,7 +65,7 @@ CcParseMsgs * cc_parse_msgs_append( CcParseMsgs * restrict parse_msgs__io,
                                     size_t max_len__d );
 
 /**
-    Allocates a new parser message, appends it to a linked list.
+    Allocates a new parser message, appends it to a linked list, which might not be allocated yet.
 
     @param parse_msgs__io Linked list of parser messages, to which a newly allocated parser message is appended, can be `NULL`.
     @param type Type of a parser message.
@@ -82,13 +82,13 @@ CcParseMsgs * cc_parse_msgs_append( CcParseMsgs * restrict parse_msgs__io,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsgs * cc_parse_msgs_append_or_init( CcParseMsgs ** restrict parse_msgs__io,
-                                            CcParseMsgTypeEnum type,
-                                            char const * restrict msg,
-                                            size_t max_len__d );
+CcParseMsgs * cc_parse_msgs_append_if( CcParseMsgs ** restrict parse_msgs__io,
+                                       CcParseMsgTypeEnum type,
+                                       char const * restrict msg,
+                                       size_t max_len__d );
 
 /**
-    Allocates a new parser message, appends it to a linked list.
+    Allocates a new parser message, appends it to a linked list, which might not be allocated yet.
 
     @param parse_msgs__io Linked list of parser messages, to which a newly allocated parser message is appended, can be `NULL`.
     @param type Type of a parser message.
@@ -106,10 +106,10 @@ CcParseMsgs * cc_parse_msgs_append_or_init( CcParseMsgs ** restrict parse_msgs__
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsgs * cc_parse_msgs_append_or_init_format( CcParseMsgs ** restrict parse_msgs__io,
-                                                   CcParseMsgTypeEnum type,
-                                                   size_t max_len__d,
-                                                   char const * restrict fmt, ... );
+CcParseMsgs * cc_parse_msgs_append_if_format( CcParseMsgs ** restrict parse_msgs__io,
+                                              CcParseMsgTypeEnum type,
+                                              size_t max_len__d,
+                                              char const * restrict fmt, ... );
 
 /**
     Frees all parser messages, and associated resources, in a linked list.

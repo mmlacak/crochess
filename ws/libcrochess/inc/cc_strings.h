@@ -48,7 +48,7 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
                                size_t max_len__d );
 
 /**
-    Allocates a new string, appends it to a linked list.
+    Allocates a new string, appends it to a linked list, which might not be allocated yet.
 
     @param strings__io Linked list of strings.
     @param str String.
@@ -69,12 +69,12 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
-                                       char const * restrict str,
-                                       size_t max_len__d );
+CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
+                                  char const * restrict str,
+                                  size_t max_len__d );
 
 /**
-    Allocates a new string, appends it to a linked list.
+    Allocates a new string, appends it to a linked list, which might not be allocated yet.
 
     @param strings__io Linked list of strings.
     @param max_len__d _Optional_, maximum length to copy.
@@ -96,9 +96,9 @@ CcStrings * cc_strings_append_or_init( CcStrings ** restrict strings__io,
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_or_init_format( CcStrings ** restrict strings__io,
-                                              size_t max_len__d,
-                                              char const * restrict fmt, ... );
+CcStrings * cc_strings_append_if_format( CcStrings ** restrict strings__io,
+                                         size_t max_len__d,
+                                         char const * restrict fmt, ... );
 
 /**
     Duplicates all strings in a linked list.
