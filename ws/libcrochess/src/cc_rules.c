@@ -9,6 +9,7 @@
 
 #include "cc_defines.h"
 #include "cc_str_utils.h"
+#include "cc_steps.h"
 #include "cc_parse.h"
 #include "cc_rules_misc.h"
 #include "cc_rules.h"
@@ -262,8 +263,23 @@ bool cc_make_move( char const * restrict move_an_str,
 
         CC_PRINTF_IF_INFO( "Pos file, rank: %d, %d.\n", file_pos, rank_pos );
 
+        CcSteps * steps = NULL;
+
         if ( ply_has_steps )
         {
+            if ( ( disambiguation[ 0 ] != '\0' ) && ( pos[ 0 ] != '\0' ) )
+            {
+                cc_parse_msgs_append_or_init_format( parse_msgs__io,
+                                                     CC_PMTE_Error,
+                                                     CC_MAX_LEN_ZERO_TERMINATED,
+                                                     "Disambiguation '%s' preceedes starting position '%s', in step '%s', in ply '%s'.\n",
+                                                     disambiguation,
+                                                     pos,
+                                                     step_start,
+                                                     ply_start );
+                return false;
+            }
+
             if ( end_pos ) c = end_pos;
 
             while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )

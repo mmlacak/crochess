@@ -39,7 +39,7 @@
 /**
     Macro to append a newly allocated new position link, with given coordinates.
 
-    @param ptr_ptr__pos_link__io a position linked list, to be appended.
+    @param ptr__pos_link__io a position linked list, to be appended.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
@@ -47,7 +47,7 @@
 
     @see cc_pos_link_append()
 */
-#define CC_POS_LINK_APPEND(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK_APPEND(ptr__pos_link__io,int_i,int_j) cc_pos_link_append( (ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
 /**
     Macro to initialize or append a position linked list, with given coordinates.

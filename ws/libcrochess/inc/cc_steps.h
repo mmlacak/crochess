@@ -14,6 +14,50 @@
     @brief Steps queue, functions declarations.
 */
 
+/**
+    Macro to allocate new steps queue.
+
+    @param step_link A step link enum.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+
+    @return Pointer to a newly allocated steps queue if successful, `NULL` otherwise.
+
+    @see cc_steps__new()
+*/
+#define CC_STEPS__NEW(step_link,int_i,int_j) \
+    cc_steps__new( (step_link), cc_pos( (int_i), (int_j) ) )
+
+/**
+    Macro to append a newly allocated step to existing queue.
+
+    @param ptr__pos_link__io a position linked list, to be appended.
+    @param step_link A step link enum.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+
+    @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
+
+    @see cc_steps_append()
+*/
+#define CC_STEPS_APPEND(ptr__steps__io,step_link,int_i,int_j) \
+    cc_steps_append( (ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ) )
+
+/**
+    Macro to append a newly allocated step to steps queue, which might not be alocated yet.
+
+    @param ptr_ptr__pos_link__io a position linked list, to be appended.
+    @param step_link A step link enum.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+
+    @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
+
+    @see cc_steps_append_or_init()
+*/
+#define CC_STEPS_APPEND_OR_INIT(ptr_ptr__steps__io,step_link,int_i,int_j) \
+    cc_steps_append_or_init( (ptr_ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ) )
+
 
 /**
     A queue of steps.
