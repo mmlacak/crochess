@@ -77,9 +77,9 @@ bool cc_make_move( char const * restrict move_an_str,
                                          : "Game is finished.\n";
 
         cc_parse_msgs_append_if_format( parse_msgs__io,
-                                             CC_PMTE_Error,
-                                             CC_MAX_LEN_ZERO_TERMINATED,
-                                             msg );
+                                        CC_PMTE_Error,
+                                        CC_MAX_LEN_ZERO_TERMINATED,
+                                        msg );
         return false;
     }
 
@@ -151,9 +151,9 @@ bool cc_make_move( char const * restrict move_an_str,
         }
 
         cc_parse_msgs_append_if_format( parse_msgs__io,
-                                             CC_PMTE_Error,
-                                             CC_MAX_LEN_ZERO_TERMINATED,
-                                             "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
+                                        CC_PMTE_Error,
+                                        CC_MAX_LEN_ZERO_TERMINATED,
+                                        "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
         return false;
     }
 
@@ -191,10 +191,10 @@ bool cc_make_move( char const * restrict move_an_str,
         if ( !cc_ply_piece_symbol( c, &piece_symbol ) )
         {
             cc_parse_msgs_append_if_format( parse_msgs__io,
-                                                 CC_PMTE_Error,
-                                                 CC_MAX_LEN_ZERO_TERMINATED,
-                                                 "Invalid piece symbol '%c'.\n",
-                                                 piece_symbol );
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Invalid piece symbol '%c'.\n",
+                                            piece_symbol );
             return false;
         }
 
@@ -223,12 +223,11 @@ bool cc_make_move( char const * restrict move_an_str,
                CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_da ) ) )
         {
             cc_parse_msgs_append_if_format( parse_msgs__io,
-                                                 CC_PMTE_Error,
-                                                 CC_MAX_LEN_ZERO_TERMINATED,
-                                                 "Invalid char(s) in disambiguation '%s', in step '%s', in ply '%s'.\n",
-                                                 disambiguation,
-                                                 step_start,
-                                                 ply_start );
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Invalid char(s) in disambiguation '%s', in ply '%s'.\n",
+                                            disambiguation,
+                                            ply_start );
             return false;
         }
 
@@ -252,35 +251,56 @@ bool cc_make_move( char const * restrict move_an_str,
                CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_pos ) ) )
         {
             cc_parse_msgs_append_if_format( parse_msgs__io,
-                                                 CC_PMTE_Error,
-                                                 CC_MAX_LEN_ZERO_TERMINATED,
-                                                 "Invalid char(s) in pos '%s', in step '%s', in ply '%s'.\n",
-                                                 pos,
-                                                 step_start,
-                                                 ply_start );
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Invalid char(s) in pos '%s', in ply '%s'.\n",
+                                            pos,
+                                            ply_start );
             return false;
         }
 
         CC_PRINTF_IF_INFO( "Pos file, rank: %d, %d.\n", file_pos, rank_pos );
 
-        CcSteps * steps = NULL;
+        CcSteps * steps__a = NULL;
 
         if ( ply_has_steps )
         {
             if ( ( disambiguation[ 0 ] != '\0' ) && ( pos[ 0 ] != '\0' ) )
             {
                 cc_parse_msgs_append_if_format( parse_msgs__io,
-                                                     CC_PMTE_Error,
-                                                     CC_MAX_LEN_ZERO_TERMINATED,
-                                                     "Disambiguation '%s' preceedes starting position '%s', in step '%s', in ply '%s'.\n",
-                                                     disambiguation,
-                                                     pos,
-                                                     step_start,
-                                                     ply_start );
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Disambiguation '%s' preceedes starting position '%s', in ply '%s'.\n",
+                                                disambiguation,
+                                                pos,
+                                                ply_start );
+                return false;
+            }
+            else if ( disambiguation[ 0 ] != '\0' )
+            {
+                steps__a = CC_STEPS__NEW( CC_SLE_Start, file_da, rank_da );
+            }
+            else if ( pos[ 0 ] != '\0' )
+            {
+                steps__a = CC_STEPS__NEW( CC_SLE_Start, file_pos, rank_pos );
+            }
+            else
+            {
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Neither disambiguation, nor starting position found, in ply '%s'.\n",
+                                                ply_start );
                 return false;
             }
 
+            if ( !steps__a ) return false;
+
             if ( end_pos ) c = end_pos;
+
+            // <!> Reset before use, otherwise iterator will get confused.
+            step_start = NULL;
+            step_end = NULL;
 
             while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
             {
@@ -314,21 +334,63 @@ bool cc_make_move( char const * restrict move_an_str,
                     CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
 
                 if ( !cc_convert_starting_pos( pos, &file, &rank ) ||
-                    !CC_IS_POS_ON_BOARD( g->chessboard->size, file, rank ) )
+                     !CC_IS_POS_ON_BOARD( g->chessboard->size, file, rank ) )
                 {
                     CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
 
+                    char * step__a = cc_str_copy__new( step_start, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
                     cc_parse_msgs_append_if_format( parse_msgs__io,
-                                                        CC_PMTE_Error,
-                                                        CC_MAX_LEN_ZERO_TERMINATED,
-                                                        "Invalid char(s) in step '%s', in ply '%s'.\n",
-                                                        step_start,
-                                                        ply_start );
+                                                    CC_PMTE_Error,
+                                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                                    "Invalid char(s) in step '%s', in ply '%s'.\n",
+                                                    step__a,
+                                                    ply_start );
+
+                    CC_FREE( step__a );
+
                     return false;
                 }
 
                 CC_PRINTF_IF_INFO( "Step: %d, %d.\n", file, rank );
 
+                CcSteps * step__w = CC_STEPS_APPEND( steps__a, sle, file, rank );
+
+                if ( !step__w )
+                {
+                    cc_steps_free_all( &steps__a );
+                    return false;
+                }
+
+            }
+        }
+        else // !ply_has_steps
+        {
+            if ( disambiguation[ 0 ] != '\0' )
+            {
+                steps__a = CC_STEPS__NEW( CC_SLE_Start, file_da, rank_da );
+            }
+
+            if ( pos[ 0 ] != '\0' )
+            {
+                CcSteps * step__w = CC_STEPS_APPEND_IF( &steps__a, CC_SLE_Destination, file_pos, rank_pos );
+
+                if ( !step__w )
+                {
+                    cc_steps_free_all( &steps__a );
+                    return false;
+                }
+            }
+            else
+            {
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Destination not found, in ply '%s'.\n",
+                                                ply_start );
+
+                cc_steps_free_all( &steps__a );
+                return false;
             }
         }
 

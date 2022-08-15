@@ -25,7 +25,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.122:554+20220815.052953"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.123:555+20220815.072653"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 void test_gcd( int x, int y )

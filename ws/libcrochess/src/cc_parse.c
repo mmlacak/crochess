@@ -429,7 +429,14 @@ bool cc_ply_has_steps( char const * restrict an_str,
 {
     char const * an = cc_next_step_link( an_str, ply_end );
 
-    return ( ( an ) && ( an < ply_end ) );
+    // Usually, step links are expected somewhere in the middle of AN string ...
+    if ( ( an ) && ( an < ply_end ) ) return true;
+
+    CcStepLinkEnum sle = cc_starting_step_link( an_str );
+
+    // ... but string might start with step link.
+    // If it's start of a ply AN, this is an error, but that needs handling somwhere else.
+    return ( ( sle != CC_SLE_None ) && ( sle != CC_SLE_Start ) );
 }
 
 
