@@ -10,6 +10,7 @@
 #include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_steps.h"
+#include "cc_steps_gen.h"
 #include "cc_parse.h"
 #include "cc_rules_misc.h"
 #include "cc_rules.h"
@@ -157,12 +158,14 @@ bool cc_make_move( char const * restrict move_an_str,
         return false;
     }
 
+    CcChessboard * cb__a = cc_chessboard_duplicate__new( g->chessboard );
     char const * ply_start = NULL;
     char const * ply_end = NULL;
 
     CcPlyLinkEnum ple = CC_PLE_None;
     char piece_symbol = ' ';
     CcPieceEnum piece = CC_PE_None;
+    CcPieceEnum activator = CC_PE_None;
     char const * c = NULL;
 
     char const * step_start = NULL;
@@ -405,28 +408,57 @@ bool cc_make_move( char const * restrict move_an_str,
             }
         }
 
+// TODO :: find if piece light, based on starting position, if ply is cascading ...
+        bool is_starting_ply = ( ple == CC_PLE_StartingPly );
+
+        bool is_light_piece =
+            is_starting_ply ? CC_GAME_STATUS_IS_LIGHT_TURN( g->status )
+                            : true; // TODO :: not really true
+
+        bool include_opponent = !is_starting_ply;
+// TODO :: find if piece light, based on starting position, if ply is cascading ...
+
+        piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
+
+        CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+
+        // ++c;
+
+        CcPos start = CC_POS_INVALID_CAST;
+        CcPos end = CC_POS_INVALID_CAST;
+        CcPosLink * path__a = NULL;
+
+        CcSteps * s = steps__a;
+
+        while ( s && s->next ) s = s->next; // rewind
+
+        end = s->pos;
+
+        while ( cc_piece_pos_iter( cb__a, piece, include_opponent, &start ) )
+        {
+            if ( is_starting_ply )
+                path__a = cc_longest_path__new( cb__a, activator, start, end );
+            else
+                path__a = cc_shortest_path__new( cb__a, activator, start, end );
+
+
+// TOOD :: check if path__a is congruent with steps__a
+
+
+        }
 
 // TODO :: movement
 
 // TODO :: find starting position
 
 
-        {
-            bool is_light_piece = CC_GAME_STATUS_IS_LIGHT_TURN( g->status );
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
-                // ( ple == CC_PLE_StartingPly ) ? CC_GAME_STATUS_IS_LIGHT_TURN( g->status )
-                //                               : true; // TODO :: not really true
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
-
-            piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
-
-            CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
-
-            ++c;
-        }
-
+        if ( !CC_PIECE_IS_WAVE( piece ) )
+            activator = piece;
 
         // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Move past ']'. // TODO (?)
+
+
+        cc_steps_free_all( &steps__a );
 
         if ( ply_end && *ply_end != '\0' )
             CC_PRINTF_IF_INFO( "\n" );
@@ -439,6 +471,7 @@ bool cc_make_move( char const * restrict move_an_str,
 // TODO :: post-plies status
 
 
+    cc_chessboard_free_all( &cb__a );
 
     if ( !cc_moves_append_if( &( g->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
         return false;
