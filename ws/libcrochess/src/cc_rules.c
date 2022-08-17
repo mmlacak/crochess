@@ -203,6 +203,7 @@ bool cc_make_move( char const * restrict move_an_str,
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             "Invalid piece symbol '%c'.\n",
                                             piece_symbol );
+            cc_chessboard_free_all( &cb__a );
             return false;
         }
 
@@ -240,6 +241,7 @@ bool cc_make_move( char const * restrict move_an_str,
                                             ply__a );
 
             CC_FREE( ply__a );
+            cc_chessboard_free_all( &cb__a );
             return false;
         }
 
@@ -272,6 +274,7 @@ bool cc_make_move( char const * restrict move_an_str,
                                             ply__a );
 
             CC_FREE( ply__a );
+            cc_chessboard_free_all( &cb__a );
             return false;
         }
 
@@ -294,6 +297,8 @@ bool cc_make_move( char const * restrict move_an_str,
                                                 ply__a );
 
                 CC_FREE( ply__a );
+                cc_steps_free_all( &steps__a );
+                cc_chessboard_free_all( &cb__a );
                 return false;
             }
             else if ( disambiguation[ 0 ] != '\0' )
@@ -358,6 +363,8 @@ bool cc_make_move( char const * restrict move_an_str,
 
                     CC_FREE( step__a );
                     CC_FREE( ply__a );
+                    cc_steps_free_all( &steps__a );
+                    cc_chessboard_free_all( &cb__a );
                     return false;
                 }
 
@@ -368,6 +375,7 @@ bool cc_make_move( char const * restrict move_an_str,
                 if ( !step__w )
                 {
                     cc_steps_free_all( &steps__a );
+                    cc_chessboard_free_all( &cb__a );
                     return false;
                 }
 
@@ -389,6 +397,7 @@ bool cc_make_move( char const * restrict move_an_str,
                 if ( !step__w )
                 {
                     cc_steps_free_all( &steps__a );
+                    cc_chessboard_free_all( &cb__a );
                     return false;
                 }
             }
@@ -403,7 +412,9 @@ bool cc_make_move( char const * restrict move_an_str,
                                                 ply__a );
 
                 CC_FREE( ply__a );
+
                 cc_steps_free_all( &steps__a );
+                cc_chessboard_free_all( &cb__a );
                 return false;
             }
         }
@@ -441,9 +452,16 @@ bool cc_make_move( char const * restrict move_an_str,
             else
                 path__a = cc_shortest_path__new( cb__a, activator, start, end );
 
-
 // TOOD :: check if path__a is congruent with steps__a
 
+            if ( cc_steps_are_congruent( steps__a, path__a ) )
+            {
+                CC_PRINTF_IF_INFO( "Found it!\n" );
+
+
+
+                break;
+            }
 
         }
 

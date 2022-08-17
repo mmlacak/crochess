@@ -116,6 +116,9 @@ CcSteps * cc_steps_append_if( CcSteps ** restrict steps__io,
                               CcStepLinkEnum step_link,
                               CcPos pos );
 
+bool cc_steps_are_congruent( CcSteps * restrict steps,
+                             CcPosLink * restrict positions );
+
 /**
     Frees all positions in a queue.
 

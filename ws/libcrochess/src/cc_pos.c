@@ -57,16 +57,7 @@ bool cc_pos_is_disambiguation( CcPos pos )
 
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
 {
-    if ( cc_pos_is_valid( pos_1 ) && cc_pos_is_valid( pos_2 ) )
-        return ( ( pos_1.i == pos_2.i ) && ( pos_1.j == pos_2.j ) );
-    else if ( cc_pos_is_disambiguation_file( pos_1 ) &&
-              cc_pos_is_disambiguation_file( pos_2 ) )
-        return ( pos_1.i == pos_2.i );
-    else if ( cc_pos_is_disambiguation_rank( pos_1 ) &&
-              cc_pos_is_disambiguation_rank( pos_2 ) )
-        return ( pos_1.j == pos_2.j );
-    else
-        return false;
+    return ( ( pos_1.i == pos_2.i ) && ( pos_1.j == pos_2.j ) );
 }
 
 bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
