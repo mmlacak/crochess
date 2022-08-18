@@ -1,17 +1,20 @@
+<span class="github"><a href="https://github.com/sponsors/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/GitHub-Thank_you_for_your_donations!-F5F5F5.svg?logo=github" alt="Thank you for your donations!" /></a></span>
+<span class="discord"><a href="https://discord.gg/PJ2dtRa5AU" title="Join me at Discord!"><img src="https://img.shields.io/badge/Discord-Join_me!-5865F2.svg?logo=discord" alt="Join me at Discord!" /></a></span>
+<span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/blob/master/crochess.pdf" title="Read the book!"><img src="https://img.shields.io/badge/The_book-Read!-EC1C24.svg?logo=adobe-acrobat-reader" alt="Read the book!" /></a></span>
+
 <span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you_for_your_donations!-F96854.svg?logo=patreon" alt="Thank you for your donations!" /></a></span>
-<span class="badge-blogger"><a href="https://croatian-chess.blogspot.com/" title="Croatian chess blog"><img src="https://img.shields.io/badge/Blogger-Croatian_chess_blog-FF5722.svg?logo=blogger" alt="Croatian chess blog" /></a></span>
-<span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/Download-Croatian_chess_book-3333FF.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span>
-<span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/blob/master/crochess.pdf" title="Read the book!"><img src="https://img.shields.io/badge/Read-Croatian_chess_book-EC1C24.svg?logo=adobe-acrobat-reader" alt="Read the book!" /></a></span>
-<!-- span class="badge-adobe-acrobat-reader"><a href="https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/Read-Croatian_chess_book-9999FF.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span -->
+<span class="badge-blogger"><a href="https://croatian-chess.blogspot.com/" title="Read it all on the blog!"><img src="https://img.shields.io/badge/Blogger-Read_it_all!-FF5722.svg?logo=blogger" alt="Read it all on the blog!" /></a></span>
+<span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-EC1C24.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span>
+<!-- span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-3333FF.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span -->
+<!-- span class="badge-adobe-acrobat-reader"><a href="https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/Read-Croatian_Chess_book-9999FF.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span -->
 
-<!--- ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess) -->
-<!--- ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess) -->
-<!--- ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mmlacak/crochess) -->
-<!--- ![GitHub last commit](https://img.shields.io/github/last-commit/mmlacak/crochess) -->
-<!--- ![GitHub](https://img.shields.io/github/license/mmlacak/crochess) -->
+<!-- ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess) -->
+<!-- ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess) -->
+<!-- ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mmlacak/crochess) -->
+<!-- ![GitHub last commit](https://img.shields.io/github/last-commit/mmlacak/crochess) -->
+<!-- ![GitHub](https://img.shields.io/github/license/mmlacak/crochess) -->
 
-
-# Croatian chess - book and console application
+# Croatian Chess - book and console application
 
 Croatian Chess is a collection of various chess variants,
 starting as a simple and natural enhancement to classical
@@ -162,7 +165,7 @@ A collection of songs for your listening pleasure while reading [the book](croch
 * One: [Vangelis - L'enfant](https://www.youtube.com/watch?v=VwLtjnNIS9M)
 * Outro: [Chris Christodoulou - Coalescence | Risk of Rain (2013)](https://www.youtube.com/watch?v=ysPtBjY8o_A)
 
-YouTube playlist featuring all listed songs: [Croatian chess soundtrack](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPpCuR2Om646OVN1e3-xSiGj).
+YouTube playlist featuring all listed songs: [Croatian Chess soundtrack](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPpCuR2Om646OVN1e3-xSiGj).
 
 Outtakes:
 
