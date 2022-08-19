@@ -419,9 +419,9 @@ bool cc_make_move( char const * restrict move_an_str,
             }
         }
 
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
         bool is_starting_ply = ( ple == CC_PLE_StartingPly );
 
+// TODO :: find if piece light, based on starting position, if ply is cascading ...
         bool is_light_piece =
             is_starting_ply ? CC_GAME_STATUS_IS_LIGHT_TURN( g->status )
                             : true; // TODO :: not really true
@@ -464,6 +464,8 @@ bool cc_make_move( char const * restrict move_an_str,
             }
 
         }
+
+
 
 // TODO :: movement
 

@@ -392,9 +392,56 @@ char * cc_str_duplicate__new( char const * restrict str,
     return str__a;
 }
 
-char * cc_str_concatenate__new( char const * restrict str_1__d,
-                                char const * restrict str_2__d,
-                                size_t max_len__d )
+char * cc_str_append_into( char * restrict str__io,
+                           size_t size_dest__d,
+                           char const * restrict str,
+                           size_t max_len__d )
+{
+    if ( !str__io ) return NULL;
+    if ( !str ) return NULL;
+
+    bool if_ignore_size = ( size_dest__d == CC_SIZE_IGNORE );
+    bool if_zero_terminated = ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED );
+
+    size_t count = 0;
+    char * io = str__io;
+
+    while ( *io != '\0' )
+    {
+        if ( if_ignore_size || ( count < size_dest__d ) )
+        {
+            ++io;
+            ++count;
+        }
+        else
+            return NULL; // Early exit, I/O string is already full.
+    }
+
+    count += 1; // +1, to leave room for '\0'
+    size_t appended = 0;
+    char const * s = str;
+
+    while ( *s != '\0' )
+    {
+        if ( ( if_ignore_size || ( count < size_dest__d ) ) &&
+             ( if_zero_terminated || ( appended < max_len__d ) ) )
+        {
+            *io++ = *s++;
+
+            ++appended;
+            ++count;
+        }
+        else
+            break;
+    }
+
+    *io = '\0';
+    return io;
+}
+
+char * cc_str_append__new( char const * restrict str_1__d,
+                           char const * restrict str_2__d,
+                           size_t max_len__d )
 {
     size_t len_1 = cc_str_len( str_1__d, NULL, max_len__d );
     size_t len_2 = cc_str_len( str_2__d, NULL, max_len__d );
@@ -429,31 +476,16 @@ char * cc_str_concatenate__new( char const * restrict str_1__d,
     return str__a;
 }
 
-char * cc_str_extend__new( char ** restrict str_1__f,
-                           char const * restrict str_2__d,
-                           size_t max_len__d )
-{
-    if ( !str_1__f ) return NULL;
-
-    char * str__a = cc_str_concatenate__new( *str_1__f, str_2__d, max_len__d );
-    if ( !str__a ) return NULL;
-
-    if ( str_1__f )
-        CC_FREE_NULL( str_1__f );
-
-    return str__a;
-}
-
-char * cc_str_append__new( char ** restrict str_1__f,
-                           char ** restrict str_2__f,
-                           size_t max_len__d )
+char * cc_str_append_free__new( char ** restrict str_1__f,
+                                char ** restrict str_2__f,
+                                size_t max_len__d )
 {
     if ( ( !str_1__f ) && ( !str_2__f ) ) return NULL;
 
     char * str__a = NULL;
 
     if ( str_1__f && str_2__f )
-        str__a = cc_str_concatenate__new( *str_1__f, *str_2__f, max_len__d );
+        str__a = cc_str_append__new( *str_1__f, *str_2__f, max_len__d );
     else if ( str_1__f )
         str__a = cc_str_duplicate__new( *str_1__f, false, max_len__d );
     else if ( str_2__f )
@@ -512,8 +544,8 @@ char * cc_str_append_format_va__new( char ** restrict str__f,
         return NULL;
     }
 
-    // No need to free() str__f, str__t; cc_str_append__new() does that.
-    return cc_str_append__new( str__f, &str__t, max_len__d );
+    // No need to free() str__f, str__t; cc_str_append_free__new() does that.
+    return cc_str_append_free__new( str__f, &str__t, max_len__d );
 }
 
 char * cc_str_append_format__new( char ** restrict str__f,

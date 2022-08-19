@@ -25,7 +25,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.126:558+20220817.120119"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.127:559+20220819.094709"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 void test_gcd( int x, int y )
@@ -37,6 +37,18 @@ void test_pos_step( int i1, int j1, int i2, int j2 )
 {
     CcPos step = cc_pos_step( cc_pos( i1, j1 ), cc_pos( i2, j2 ) );
     printf( "(%d, %d) ~ (%d, %d) --> (%d, %d)\n", i1, j1, i2, j2, step.i, step.j );
+}
+
+char * test_str_append_into( char const * restrict buffer,
+                             char * restrict str__io,
+                             size_t size_dest__d,
+                             char const * restrict str,
+                             size_t max_len__d )
+{
+    printf( "Before: %s\n", buffer );
+    char * io = cc_str_append_into( str__io, size_dest__d, str, max_len__d );
+    printf( "After: %s\n", buffer );
+    return io;
 }
 
 
@@ -224,6 +236,32 @@ int main( void )
             test_pos_step( 2, 3, 17, 11 );
             test_pos_step( 17, 11, 2, 3 );
             printf( "---------------------\n" );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "z2", NULL, BUFSIZ ) )
+        {
+            char x[ BUFSIZ ];
+
+            char * p = x;
+            *p = '\0';
+
+            printf( "---------------------\n" );
+            p = test_str_append_into( x, p, BUFSIZ, "foo", 11 );
+            printf( "---------------------\n" );
+            p = test_str_append_into( x, p, BUFSIZ, " Hello, World!", 12 );
+            printf( "---------------------\n" );
+            p = test_str_append_into( x, p, BUFSIZ, " bar", CC_MAX_LEN_ZERO_TERMINATED );
+            printf( "---------------------\n" );
+            p = test_str_append_into( x, p, CC_SIZE_IGNORE, " Goodbye, World!", CC_MAX_LEN_ZERO_TERMINATED );
+            printf( "---------------------\n" );
+            p = test_str_append_into( x, p, CC_SIZE_IGNORE, " baz", 11 );
+            printf( "---------------------\n" );
+            p = test_str_append_into( x, p, 99, " zaz", 11 );
+            printf( "---------------------\n" );
+            p = test_str_append_into( x, p, 10, " Hello, again!", 12 );
+            printf( "---------------------\n" );
+            p = test_str_append_into( x, p, 12, " Goodbye, again!", CC_MAX_LEN_ZERO_TERMINATED );
+            printf( "---------------------\n" );
+
         }
         else
         {

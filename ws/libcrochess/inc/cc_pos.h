@@ -7,6 +7,7 @@
 #include <stdbool.h>
 
 #include "cc_defines.h"
+#include "cc_str_utils.h"
 
 /**
     @file cc_pos.h
@@ -39,7 +40,7 @@
 /**
     Macro to append a newly allocated new position link, with given coordinates.
 
-    @param ptr__pos_link__io a position linked list, to be appended.
+    @param ptr__pos_link__io A position linked list, to be appended.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
@@ -52,7 +53,7 @@
 /**
     Macro to initialize or append a position linked list, with given coordinates.
 
-    @param ptr_ptr__pos_link__io a position linked list, to be appended.
+    @param ptr_ptr__pos_link__io A position linked list, to be appended.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
@@ -251,6 +252,10 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step );
 */
 CcPos cc_pos_step( CcPos start, CcPos destination );
 
+// TODO : docs
+bool cc_pos_to_short_string( CcPos pos,
+                             char_8 * restrict pos_str__o );
+
 
 /**
     A linked list of positions.
@@ -298,7 +303,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                        CcPos pos );
+                                   CcPos pos );
 
 /**
     Frees all positions in a linked list.
@@ -308,6 +313,12 @@ CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
     @return `true` if successful, `false` otherwise.
 */
 bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
+
+// TODO : docs
+size_t cc_pos_link_len( CcPosLink * restrict pos_link );
+
+// TODO : docs
+char * cc_pos_link_to_short_string( CcPosLink * restrict pos_link );
 
 
 #endif /* __CC_POS_H__ */

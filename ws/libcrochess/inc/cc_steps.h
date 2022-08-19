@@ -31,7 +31,7 @@
 /**
     Macro to append a newly allocated step to existing queue.
 
-    @param ptr__pos_link__io a position queue, to be appended.
+    @param ptr__steps__io A steps queue, to be appended.
     @param step_link A step link enum.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
@@ -46,7 +46,7 @@
 /**
     Macro to append a newly allocated step to steps queue, which might not be alocated yet.
 
-    @param ptr_ptr__pos_link__io a position queue, to be appended.
+    @param ptr_ptr__steps__io A steps queue, to be appended.
     @param step_link A step link enum.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
@@ -120,9 +120,9 @@ bool cc_steps_are_congruent( CcSteps * restrict steps,
                              CcPosLink * restrict positions );
 
 /**
-    Frees all positions in a queue.
+    Frees all steps in a queue.
 
-    @param pos_link__f Linked list of positions.
+    @param steps__f A steps queue to free.
 
     @return `true` if successful, `false` otherwise.
 */

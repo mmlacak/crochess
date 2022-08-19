@@ -352,39 +352,54 @@ char * cc_str_duplicate__new( char const * restrict str,
                               size_t max_len__d );
 
 /**
-    Function concatenating strings, by returning a newly allocated string,
+    Function appends second string into a first one.
+
+    @param str__io An _input/output_ string into which ato append.
+    @param size_dest__d _Optional_, size of a destination.
+    @param str A string to append.
+    @param max_len__d _Optional_, maximum length to append, if a given string is longer than that.
+
+    @note
+    An _input/output_ `str__io` buffer must always be zero-terminated.
+
+    @note
+    If size is given (i.e. `size_dest__d` is not `0`), zero-terminating char
+    must be within sized buffer, i.e. before `str__io + size_dest__d` is reached.
+
+    @note
+    _Optional_ `size_dest__d` can be `0` (use `CC_SIZE_IGNORE`),
+    if so destination string array/allocation (i.e. `str__io`) is assumed
+    to be large enough to accomodate appending string.
+
+    @note
+    _Optional_ `max_len__d` can be `0` (use `CC_MAX_LEN_ZERO_TERMINATED`),
+    if so string `str` must be zero-terminated, and is appended in its entirety.
+
+    @note
+    _Output_ string `str__io` after appending string is always zero-terminated.
+    Function returns weak pointer to that zero-terminating char.
+
+    @see
+    CC_SIZE_IGNORE, CC_MAX_LEN_ZERO_TERMINATED
+
+    @return A weak pointer if successful, `NULL` otherwise.
+*/
+char * cc_str_append_into( char * restrict str__io,
+                           size_t size_dest__d,
+                           char const * restrict str,
+                           size_t max_len__d );
+
+/**
+    Function appends strings, by returning a newly allocated string,
     capped at a given maximum length.
 
     @param str_1__d An _optional_ string to copy first, can be `NULL`.
     @param str_2__d An _optional_ string to concatenate, can be `NULL`.
     @param max_len__d _Optional_, maximum length to concatenate, if a given strings are longer than that. Can be `0`, if so strings are concatenated in their entirety.
 
-    @return A newly allocated, concatenated string if successful, `NULL` otherwise.
+    @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_concatenate__new( char const * restrict str_1__d,
-                                char const * restrict str_2__d,
-                                size_t max_len__d );
-
-/**
-    Function extending existing string, by returning a newly allocated string,
-    capped at given maximum length.
-
-    @param str_1__f A string, can be unallocated.
-    @param str_2__d An _optional_ string to concatenate, can be `NULL`.
-    @param max_len__d _Optional_, maximum length to concatenate, if a given strings are longer than that. Can be `0`, if so zero-terminated strings are concatenated in their entirety.
-
-    @note
-    If first string is not allocated, only second string is copied into a newly allocated string.
-
-    @note
-    Allocated first string is freed, and its inner pointer is set to `NULL`, if valid result is produced.
-
-    @note
-    If no valid result is produced, allocated first string is not freed.
-
-    @return A newly allocated, extended string if successful, `NULL` otherwise.
-*/
-char * cc_str_extend__new( char ** restrict str_1__f,
+char * cc_str_append__new( char const * restrict str_1__d,
                            char const * restrict str_2__d,
                            size_t max_len__d );
 
@@ -410,9 +425,9 @@ char * cc_str_extend__new( char ** restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append__new( char ** restrict str_1__f,
-                           char ** restrict str_2__f,
-                           size_t max_len__d );
+char * cc_str_append_free__new( char ** restrict str_1__f,
+                                char ** restrict str_2__f,
+                                size_t max_len__d );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string,

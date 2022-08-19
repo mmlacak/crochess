@@ -63,6 +63,19 @@
 
 
 /**
+    Macro to convert numerical file value into char.
+
+    @param byte_file Rank, position along vertical axis, numerical value.
+
+    @warning
+    Value of `byte_file` is expected to be in a range of [0, 25],
+    undefined behavior if it's not.
+
+    @return File character if argument within range, undefined behavior otherwise.
+*/
+#define CC_CONVERT_BYTE_INTO_FILE_CHAR(byte_file) ( 'a' + (byte_file) )
+
+/**
     Macro to check if a given coordinate is valid.
 
     @param coord A coordinate.

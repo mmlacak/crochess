@@ -2,6 +2,8 @@
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 #include "cc_defines.h"
 #include "cc_math.h"
@@ -119,6 +121,25 @@ CcPos cc_pos_step( CcPos start, CcPos destination )
     return cc_pos( diff_i, diff_j );
 }
 
+bool cc_pos_to_short_string( CcPos pos,
+                             char_8 * restrict pos_str__o )
+{
+    if ( !pos_str__o ) return NULL;
+
+    if ( CC_IS_POS_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) )
+        snprintf( *pos_str__o,
+                  CC_MAX_LEN_CHAR_8,
+                  "%c%dhh",
+                  CC_CONVERT_BYTE_INTO_FILE_CHAR( pos.i ),
+                  (signed char)pos.j );
+    else if ( ( -1000 < pos.i ) && ( pos.i < 1000 ) && ( -1000 < pos.j ) && ( pos.j < 1000 ) )
+        snprintf( *pos_str__o, CC_MAX_LEN_CHAR_8, "%dh%dh", pos.i, pos.j );
+    else
+        return false;
+
+    return true;
+}
+
 
 CcPosLink * cc_pos_link__new( CcPos pos )
 {
@@ -150,7 +171,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 }
 
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                        CcPos pos )
+                                   CcPos pos )
 {
     if ( !pos_link__io ) return NULL;
 
@@ -181,4 +202,56 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f )
 
     *pos_link__f = NULL;
     return true;
+}
+
+size_t cc_pos_link_len( CcPosLink * restrict pos_link )
+{
+    if ( !pos_link ) return 0;
+
+    size_t len = 0;
+    CcPosLink * pl = pos_link;
+
+    while ( pl )
+    {
+        ++len;
+        pl = pl->next;
+    }
+
+    return len;
+}
+
+char * cc_pos_link_to_short_string( CcPosLink * restrict pos_link )
+{
+    if ( !pos_link ) return NULL;
+
+    // len is certainly > 0, because pos_link != NULL
+    size_t len = cc_pos_link_len( pos_link ) * CC_MAX_LEN_CHAR_8;
+
+    char * pl_str__a = malloc( len + 1 ); // +1, to have room for '\0'
+    if ( !pl_str__a ) return NULL;
+
+    *pl_str__a = '\0';
+
+    char * pl_str = pl_str__a;
+    char_8 pos_str = CC_CHAR_8_EMPTY;
+    CcPosLink * pl = pos_link;
+
+// TODO
+
+    while ( pl )
+    {
+        if ( pl == pos_link ) // First pos ...
+            pl_str = strncpy( pl_str, pos_str, CC_MAX_LEN_CHAR_8 );
+        else
+        {
+            *pl_str++ = '.';
+            *pl_str = '\0';
+
+            pl_str = strncpy( pl_str, pos_str, CC_MAX_LEN_CHAR_8 );
+        }
+
+        pl = pl->next;
+    }
+
+    return pl_str__a;
 }
