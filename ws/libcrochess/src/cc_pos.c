@@ -124,18 +124,40 @@ CcPos cc_pos_step( CcPos start, CcPos destination )
 bool cc_pos_to_short_string( CcPos pos,
                              char_8 * restrict pos_str__o )
 {
-    if ( !pos_str__o ) return NULL;
+    if ( !pos_str__o ) return false;
 
     if ( CC_IS_POS_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) )
+    {
         snprintf( *pos_str__o,
                   CC_MAX_LEN_CHAR_8,
-                  "%c%dhh",
+                  "%c%hhd",
                   CC_CONVERT_BYTE_INTO_FILE_CHAR( pos.i ),
-                  (signed char)pos.j );
-    else if ( ( -1000 < pos.i ) && ( pos.i < 1000 ) && ( -1000 < pos.j ) && ( pos.j < 1000 ) )
-        snprintf( *pos_str__o, CC_MAX_LEN_CHAR_8, "%dh%dh", pos.i, pos.j );
+                  (signed char)(pos.j + 1) );
+    }
     else
-        return false;
+    {
+        int count = 0; // snprintf() doesn't count '\0'
+
+        if ( ( -100 < pos.i ) && ( pos.i < 1000 ) )
+            count = snprintf( *pos_str__o,
+                              CC_MAX_LEN_CHAR_8,
+                              "%hd,",
+                              (signed short)pos.i );
+        else
+            count = snprintf( *pos_str__o, CC_MAX_LEN_CHAR_8, "*," );
+
+        if ( count < 1 ) return false; // count can't be > 4
+
+        char * p = ( (char *)pos_str__o + count );
+        size_t size = CC_MAX_LEN_CHAR_8 - count;
+
+        if ( ( -100 < pos.j ) && ( pos.j < 1000 ) )
+            count = snprintf( p, size, "%hd", (signed short)pos.j );
+        else
+            count = snprintf( p, size, "*" );
+
+        if ( count < 1 ) return false; // count can't be > 4
+    }
 
     return true;
 }
@@ -220,7 +242,7 @@ size_t cc_pos_link_len( CcPosLink * restrict pos_link )
     return len;
 }
 
-char * cc_pos_link_to_short_string( CcPosLink * restrict pos_link )
+char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
 {
     if ( !pos_link ) return NULL;
 
@@ -236,18 +258,25 @@ char * cc_pos_link_to_short_string( CcPosLink * restrict pos_link )
     char_8 pos_str = CC_CHAR_8_EMPTY;
     CcPosLink * pl = pos_link;
 
-// TODO
-
     while ( pl )
     {
-        if ( pl == pos_link ) // First pos ...
-            pl_str = strncpy( pl_str, pos_str, CC_MAX_LEN_CHAR_8 );
-        else
+        if ( !cc_pos_to_short_string( pl->pos, &pos_str ) )
+        {
+            CC_FREE( pl_str__a );
+            return NULL;
+        }
+
+        if ( pl != pos_link ) // Not 1st pos ...
         {
             *pl_str++ = '.';
             *pl_str = '\0';
+        }
 
-            pl_str = strncpy( pl_str, pos_str, CC_MAX_LEN_CHAR_8 );
+        pl_str = cc_str_append_into( pl_str, len+1, pos_str, CC_MAX_LEN_CHAR_8 );
+        if ( !pl_str )
+        {
+            CC_FREE( pl_str__a );
+            return NULL;
         }
 
         pl = pl->next;

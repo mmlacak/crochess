@@ -318,7 +318,7 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
 size_t cc_pos_link_len( CcPosLink * restrict pos_link );
 
 // TODO : docs
-char * cc_pos_link_to_short_string( CcPosLink * restrict pos_link );
+char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link );
 
 
 #endif /* __CC_POS_H__ */

@@ -435,22 +435,45 @@ bool cc_make_move( char const * restrict move_an_str,
 
         // ++c;
 
-        CcPos start = CC_POS_INVALID_CAST;
+        CcPos start = CC_POS_INVALID_CAST ;
         CcPos end = CC_POS_INVALID_CAST;
         CcPosLink * path__a = NULL;
 
+        // pos is destination if ply doesn't have steps, otherwise starting position
+        // (in which case disambiguation must be empty).
+        CcPos starting = ply_has_steps ? cc_pos( file_pos, rank_pos )
+                                       : cc_pos( file_da, rank_da );
         CcSteps * s = steps__a;
 
         while ( s && s->next ) s = s->next; // rewind
-
         end = s->pos;
 
-        while ( cc_piece_pos_iter( cb__a, piece, include_opponent, &start ) )
+        char_8 temp = CC_CHAR_8_EMPTY;
+
+        if ( cc_pos_to_short_string( starting, &temp ) )
+            CC_PRINTF_IF_INFO( "Found starting: '%s'.\n", temp );
+
+        cc_str_clear( temp, CC_MAX_LEN_CHAR_8 );
+        if ( cc_pos_to_short_string( end, &temp ) )
+            CC_PRINTF_IF_INFO( "Found end: '%s'.\n", temp );
+
+        while ( cc_piece_pos_iter( cb__a, starting, piece, include_opponent, &start ) )
         {
+            char_8 start_str = CC_CHAR_8_EMPTY;
+            if ( cc_pos_to_short_string( start, &start_str ) )
+                CC_PRINTF_IF_INFO( "Try start: '%s'.\n", start_str );
+
             if ( is_starting_ply )
                 path__a = cc_longest_path__new( cb__a, activator, start, end );
             else
                 path__a = cc_shortest_path__new( cb__a, activator, start, end );
+
+            char * path_str__a = cc_pos_link_to_short_string__new( path__a );
+            if ( path_str__a )
+            {
+                CC_PRINTF_IF_INFO( "Path: '%s'.\n", path_str__a );
+                CC_FREE( path_str__a );
+            }
 
 // TOOD :: check if path__a is congruent with steps__a
 

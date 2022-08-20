@@ -11,6 +11,7 @@
 
 
 bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
+                        CcPos starting,
                         CcPieceEnum piece,
                         bool include_opponent,
                         CcPos * restrict pos__io )
@@ -29,6 +30,9 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
     else
         pos = cc_pos( pos.i + 1, 0 );
 
+    bool is_comparable = cc_pos_is_valid( starting ) ||
+                         cc_pos_is_disambiguation( starting );
+
     for ( int i = pos.i; i < size; ++i )
     {
         for ( int j = pos.j; j < size; ++j )
@@ -38,8 +42,14 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
             if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
                  ( include_opponent && cc_piece_is_opposite( pe, piece ) ) )
             {
-                *pos__io = cc_pos( i, j );
-                return true;
+                CcPos current = cc_pos( i, j );
+
+                if ( ( !is_comparable ) ||
+                       cc_pos_is_congruent( starting, current ) )
+                {
+                    *pos__io = current;
+                    return true;
+                }
             }
         }
 
