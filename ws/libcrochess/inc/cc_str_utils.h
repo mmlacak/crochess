@@ -369,7 +369,7 @@ char * cc_str_duplicate__new( char const * restrict str,
     @note
     _Optional_ `size_dest__d` can be `0` (use `CC_SIZE_IGNORE`),
     if so destination string array/allocation (i.e. `str__io`) is assumed
-    to be large enough to accomodate appending string.
+    to be large enough to accomodate complete appending string `str`.
 
     @note
     _Optional_ `max_len__d` can be `0` (use `CC_MAX_LEN_ZERO_TERMINATED`),
@@ -379,10 +379,28 @@ char * cc_str_duplicate__new( char const * restrict str,
     _Output_ string `str__io` after appending string is always zero-terminated.
     Function returns weak pointer to that zero-terminating char.
 
+    Walking pointer over destination buffer can be used in succession, or in a loop.
+    This is so because function seeks terminating char from a given destination
+    (i.e. `str__io`), and returns a weak pointer to a new zero-terminating char in
+    that same destination buffer.
+
+    For instance:
+    @code{.c}
+    buffer__a[ 0 ] = '\0'; // Initialize buffer, if contains garbage from just being allocated.
+
+    char * walking = buffer__a;
+
+    while ( iter( ... ) )
+    {
+        walking = cc_str_append_into( walking, ... );
+        if ( !walking ) break;
+    }
+    @endcode
+
     @see
     CC_SIZE_IGNORE, CC_MAX_LEN_ZERO_TERMINATED
 
-    @return A weak pointer if successful, `NULL` otherwise.
+    @return A weak pointer to zero-terminating char if successful, `NULL` otherwise.
 */
 char * cc_str_append_into( char * restrict str__io,
                            size_t size_dest__d,
