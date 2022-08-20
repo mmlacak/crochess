@@ -179,3 +179,107 @@ bool cc_steps_free_all( CcSteps ** restrict steps__f )
     *steps__f = NULL;
     return true;
 }
+
+size_t cc_steps_len( CcSteps * restrict steps )
+{
+    if ( !steps ) return 0;
+
+    size_t len = 0;
+    CcSteps * s = steps;
+
+    while ( s )
+    {
+        ++len;
+        s = s->next;
+    }
+
+    return len;
+}
+
+char * cc_steps_to_short_string__new( CcSteps * restrict steps )
+{
+    if ( !steps ) return NULL;
+
+    size_t len = cc_steps_len( steps ) *
+                 ( CC_MAX_LEN_CHAR_8 + 2 ); // +2 for separator ".." between steps
+
+    char * steps_str__a = malloc( len + 1 ); // +1, to have room for '\0'
+    if ( !steps_str__a ) return NULL;
+
+    // *steps_str__a = '\0'; // Not needed, done after a switch below.
+
+    char * steps_str = steps_str__a;
+    char_8 pos_str = CC_CHAR_8_EMPTY;
+    CcSteps * s = steps;
+
+    while ( s )
+    {
+        switch ( s->step_link )
+        {
+            case CC_SLE_None :
+            {
+                *steps_str++ = '?';
+                break;
+            }
+
+            case CC_SLE_Start :
+            {
+                *steps_str++ = ' ';
+                break;
+            }
+
+            case CC_SLE_Reposition :
+            {
+                *steps_str++ = ',';
+                break;
+            }
+
+            case CC_SLE_Next :
+            {
+                *steps_str++ = '.';
+                break;
+            }
+
+            case CC_SLE_Distant :
+            {
+                *steps_str++ = '.';
+                *steps_str++ = '.';
+                break;
+            }
+
+            case CC_SLE_Destination :
+            {
+                *steps_str++ = '-';
+                break;
+            }
+
+            default :
+            {
+                *steps_str++ = '!';
+                break;
+            }
+        }
+
+        *steps_str = '\0';
+
+        if ( !cc_pos_to_short_string( s->pos, &pos_str ) )
+        {
+            CC_FREE( steps_str__a );
+            return NULL;
+        }
+
+        steps_str = cc_str_append_into( steps_str,
+                                        len + 1, // len+1 is size, it's ok
+                                        pos_str,
+                                        CC_MAX_LEN_CHAR_8 );
+        if ( !steps_str )
+        {
+            CC_FREE( steps_str__a );
+            return NULL;
+        }
+
+        s = s->next;
+    }
+
+    return steps_str__a;
+}

@@ -116,6 +116,7 @@ CcSteps * cc_steps_append_if( CcSteps ** restrict steps__io,
                               CcStepLinkEnum step_link,
                               CcPos pos );
 
+// TODO :: docs
 bool cc_steps_are_congruent( CcSteps * restrict steps,
                              CcPosLink * restrict positions );
 
@@ -127,6 +128,12 @@ bool cc_steps_are_congruent( CcSteps * restrict steps,
     @return `true` if successful, `false` otherwise.
 */
 bool cc_steps_free_all( CcSteps ** restrict steps__f );
+
+// TODO :: docs
+size_t cc_steps_len( CcSteps * restrict steps );
+
+// TODO :: docs
+char * cc_steps_to_short_string__new( CcSteps * restrict steps );
 
 
 #endif /* __CC_STEPS_H__ */

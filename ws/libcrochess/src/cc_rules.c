@@ -419,6 +419,13 @@ bool cc_make_move( char const * restrict move_an_str,
             }
         }
 
+        char * steps_str__a = cc_steps_to_short_string__new( steps__a );
+        if ( steps_str__a )
+        {
+            CC_PRINTF_IF_INFO( "Steps: '%s'.\n", steps_str__a );
+            CC_FREE( steps_str__a );
+        }
+
         bool is_starting_ply = ( ple == CC_PLE_StartingPly );
 
 // TODO :: find if piece light, based on starting position, if ply is cascading ...
