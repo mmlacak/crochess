@@ -203,7 +203,8 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
     size_t len = cc_steps_len( steps ) *
                  ( CC_MAX_LEN_CHAR_8 + 2 ); // +2 for separator ".." between steps
 
-    char * steps_str__a = malloc( len + 1 ); // +1, to have room for '\0'
+    size_t size = len + 1;
+    char * steps_str__a = malloc( size ); // == len + 1, to have room for '\0'
     if ( !steps_str__a ) return NULL;
 
     // *steps_str__a = '\0'; // Not needed, done after a switch below.
@@ -268,10 +269,7 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
             return NULL;
         }
 
-        steps_str = cc_str_append_into( steps_str,
-                                        len + 1, // len+1 is size, it's ok
-                                        pos_str,
-                                        CC_MAX_LEN_CHAR_8 );
+        steps_str = cc_str_append_into( steps_str, size,  pos_str, CC_MAX_LEN_CHAR_8 );
         if ( !steps_str )
         {
             CC_FREE( steps_str__a );

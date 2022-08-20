@@ -250,7 +250,8 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
     size_t len = cc_pos_link_len( pos_link ) *
                  ( CC_MAX_LEN_CHAR_8 + 1 ); // +1, for separator '.' between positions
 
-    char * pl_str__a = malloc( len + 1 ); // +1, to have room for '\0'
+    size_t size = len + 1;
+    char * pl_str__a = malloc( size ); // == len + 1, to have room for '\0'
     if ( !pl_str__a ) return NULL;
 
     *pl_str__a = '\0';
@@ -273,10 +274,7 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
             return NULL;
         }
 
-        pl_str = cc_str_append_into( pl_str,
-                                     len + 1, // len+1 is size, it's ok
-                                     pos_str,
-                                     CC_MAX_LEN_CHAR_8 );
+        pl_str = cc_str_append_into( pl_str, size, pos_str, CC_MAX_LEN_CHAR_8 );
         if ( !pl_str )
         {
             CC_FREE( pl_str__a );
