@@ -159,17 +159,17 @@ bool cc_make_move( char const * restrict move_an_str,
     }
 
     CcChessboard * cb__a = cc_chessboard_duplicate__new( g->chessboard );
-    char const * ply_start = NULL;
-    char const * ply_end = NULL;
+    char const * ply_start_str = NULL;
+    char const * ply_end_str = NULL;
 
     CcPlyLinkEnum ple = CC_PLE_None;
     char piece_symbol = ' ';
     CcPieceEnum piece = CC_PE_None;
     CcPieceEnum activator = CC_PE_None;
-    char const * c = NULL;
+    char const * c_str = NULL;
 
-    char const * step_start = NULL;
-    char const * step_end = NULL;
+    char const * step_start_str = NULL;
+    char const * step_end_str = NULL;
     bool ply_has_steps = false;
 
 // TODO :: check if castling --> handle as a special case
@@ -178,25 +178,25 @@ bool cc_make_move( char const * restrict move_an_str,
     CC_PRINTF_IF_INFO( "Move: '%s'.\n\n", move_an_str ); // "\nMove: '%s'.\n\n"
 
     // <!> Reset before use, otherwise iterator will get confused.
-    // ply_start = ply_end = NULL; // Currently not needed, variables are
+    // ply_start_str = ply_end_str = NULL; // Currently not needed, variables are
                                    // defined and set just a few lines above.
 
-    while ( cc_ply_iter( m, &ply_start, &ply_end ) )
+    while ( cc_ply_iter( m, &ply_start_str, &ply_end_str ) )
     {
-        ply_has_steps = cc_ply_has_steps( ply_start, ply_end );
+        ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
 
 // TODO :: check if en passant --> handle as a special case
 
-        CC_STR_PRINT_IF_INFO( ply_start, ply_end, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
+        CC_STR_PRINT_IF_INFO( ply_start_str, ply_end_str, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
 
-        ple = cc_starting_ply_link( ply_start );
-        c = ply_start + cc_ply_link_len( ple );
+        ple = cc_starting_ply_link( ply_start_str );
+        c_str = ply_start_str + cc_ply_link_len( ple );
 
-        CC_STR_PRINT_IF_INFO( ply_start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
+        CC_STR_PRINT_IF_INFO( ply_start_str, c_str, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
-        if ( CC_IS_PLY_GATHER_START( *c ) ) ++c; // Move past '['.
+        if ( CC_IS_PLY_GATHER_START( *c_str ) ) ++c_str; // Move past '['.
 
-        if ( !cc_ply_piece_symbol( c, &piece_symbol ) )
+        if ( !cc_ply_piece_symbol( c_str, &piece_symbol ) )
         {
             cc_parse_msgs_append_if_format( parse_msgs__io,
                                             CC_PMTE_Error,
@@ -207,73 +207,72 @@ bool cc_make_move( char const * restrict move_an_str,
             return false;
         }
 
-        if ( CC_IS_PIECE_SYMBOL( *c ) ) ++c;
+        if ( CC_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
 
-        CcLosingTagEnum lte = CC_LTE_Promotion;
-        lte = cc_starting_losing_tag( c );
+        CcLosingTagEnum lte = cc_starting_losing_tag( c_str );
 
         if ( lte != CC_LTE_None )
         {
-            CC_PRINTF_IF_INFO( "Losing tag: '%c%c' --> %d.\n", *c, *(c+1), lte );
-            c += cc_losing_tag_len( lte );
+            CC_PRINTF_IF_INFO( "Losing tag: '%c%c' --> %d.\n", *c_str, *(c_str+1), lte );
+            c_str += cc_losing_tag_len( lte );
         }
 
-        char_8 disambiguation = CC_CHAR_8_EMPTY;
+        char_8 disambiguation_c8 = CC_CHAR_8_EMPTY;
 
-        char const * end_da = cc_starting_pos( c, ply_end, true, &disambiguation );
+        char const * end_da_str = cc_starting_pos( c_str, ply_end_str, true, &disambiguation_c8 );
 
-        CC_STR_PRINT_IF_INFO( disambiguation, NULL, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da ); // TODO :: maybe check error (?)
+        CC_STR_PRINT_IF_INFO( disambiguation_c8, NULL, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da_str ); // TODO :: maybe check error (?)
 
         int file_da = CC_INVALID_OFF_BOARD_COORD_MIN;
         int rank_da = CC_INVALID_OFF_BOARD_COORD_MIN;
 
-        if ( !cc_convert_starting_pos( disambiguation, &file_da, &rank_da ) &&
+        if ( !cc_convert_starting_pos( disambiguation_c8, &file_da, &rank_da ) &&
              ( CC_IS_COORD_ON_BOARD( g->chessboard->size, file_da ) ||
                CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_da ) ) )
         {
-            char * ply__a = cc_str_copy__new( ply_start, ply_end, CC_MAX_LEN_ZERO_TERMINATED );
+            char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
             cc_parse_msgs_append_if_format( parse_msgs__io,
                                             CC_PMTE_Error,
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             "Invalid char(s) in disambiguation '%s', in ply '%s'.\n",
-                                            disambiguation,
-                                            ply__a );
+                                            disambiguation_c8,
+                                            ply_str__a );
 
-            CC_FREE( ply__a );
+            CC_FREE( ply_str__a );
             cc_chessboard_free_all( &cb__a );
             return false;
         }
 
         CC_PRINTF_IF_INFO( "Disambiguation file, rank: %d, %d.\n", file_da, rank_da );
 
-        if ( end_da ) c = end_da;
+        if ( end_da_str ) c_str = end_da_str;
 
         // Destination if ply doesn't have steps, otherwise starting position
-        // (in which case disambiguation must be empty).
-        char_8 pos = CC_CHAR_8_EMPTY;
+        // (in which case disambiguation_c8 must be empty).
+        char_8 position_c8 = CC_CHAR_8_EMPTY;
 
-        char const * end_pos = cc_starting_pos( c, ply_end, false, &pos );
+        char const * end_pos_str = cc_starting_pos( c_str, ply_end_str, false, &position_c8 );
 
-        CC_STR_PRINT_IF_INFO( pos, NULL, CC_MAX_LEN_CHAR_8, "Pos: '%s'", ", pointer: '%p'.\n", end_pos ); // TODO :: maybe check error (?)
+        CC_STR_PRINT_IF_INFO( position_c8, NULL, CC_MAX_LEN_CHAR_8, "Pos: '%s'", ", pointer: '%p'.\n", end_pos_str ); // TODO :: maybe check error (?)
 
         int file_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
         int rank_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
 
-        if ( !cc_convert_starting_pos( pos, &file_pos, &rank_pos ) &&
+        if ( !cc_convert_starting_pos( position_c8, &file_pos, &rank_pos ) &&
              ( CC_IS_COORD_ON_BOARD( g->chessboard->size, file_pos ) ||
                CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_pos ) ) )
         {
-            char * ply__a = cc_str_copy__new( ply_start, ply_end, CC_MAX_LEN_ZERO_TERMINATED );
+            char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
             cc_parse_msgs_append_if_format( parse_msgs__io,
                                             CC_PMTE_Error,
                                             CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Invalid char(s) in pos '%s', in ply '%s'.\n",
-                                            pos,
-                                            ply__a );
+                                            "Invalid char(s) in position '%s', in ply '%s'.\n",
+                                            position_c8,
+                                            ply_str__a );
 
-            CC_FREE( ply__a );
+            CC_FREE( ply_str__a );
             cc_chessboard_free_all( &cb__a );
             return false;
         }
@@ -284,85 +283,85 @@ bool cc_make_move( char const * restrict move_an_str,
 
         if ( ply_has_steps )
         {
-            if ( ( disambiguation[ 0 ] != '\0' ) && ( pos[ 0 ] != '\0' ) )
+            if ( ( disambiguation_c8[ 0 ] != '\0' ) && ( position_c8[ 0 ] != '\0' ) )
             {
-                char * ply__a = cc_str_copy__new( ply_start, ply_end, CC_MAX_LEN_ZERO_TERMINATED );
+                char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msgs_append_if_format( parse_msgs__io,
                                                 CC_PMTE_Error,
                                                 CC_MAX_LEN_ZERO_TERMINATED,
                                                 "Disambiguation '%s' preceedes starting position '%s', in ply '%s'.\n",
-                                                disambiguation,
-                                                pos,
-                                                ply__a );
+                                                disambiguation_c8,
+                                                position_c8,
+                                                ply_str__a );
 
-                CC_FREE( ply__a );
+                CC_FREE( ply_str__a );
                 cc_steps_free_all( &steps__a );
                 cc_chessboard_free_all( &cb__a );
                 return false;
             }
-            else if ( disambiguation[ 0 ] != '\0' )
+            else if ( disambiguation_c8[ 0 ] != '\0' )
             {
                 steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_da, rank_da ) );
             }
-            else if ( pos[ 0 ] != '\0' )
+            else if ( position_c8[ 0 ] != '\0' )
             {
                 steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_pos, rank_pos ) );
             }
 
-            if ( end_pos ) c = end_pos;
+            if ( end_pos_str ) c_str = end_pos_str;
 
             // <!> Reset before use, otherwise iterator will get confused.
-            step_start = step_end = NULL;
+            step_start_str = step_end_str = NULL;
 
-            while ( cc_step_iter( c, ply_end, &step_start, &step_end ) )
+            while ( cc_step_iter( c_str, ply_end_str, &step_start_str, &step_end_str ) )
             {
-                CC_STR_PRINT_IF_INFO( step_start, step_end, 8192, "Step: '%s'.\n", "" );
+                CC_STR_PRINT_IF_INFO( step_start_str, step_end_str, 8192, "Step: '%s'.\n", "" );
 
-                CcStepLinkEnum sle = cc_starting_step_link( step_start );
-                c = step_start + cc_step_link_len( sle );
+                CcStepLinkEnum sle = cc_starting_step_link( step_start_str );
+                c_str = step_start_str + cc_step_link_len( sle );
 
-                CC_STR_PRINT_IF_INFO( step_start, c, 128, "Step link: '%s'", " --> %d.\n", sle );
+                CC_STR_PRINT_IF_INFO( step_start_str, c_str, 128, "Step link: '%s'", " --> %d.\n", sle );
 
-                char_8 pos = CC_CHAR_8_EMPTY;
-                char const * p = pos;
+                char_8 pos_c8 = CC_CHAR_8_EMPTY;
+                char const * p_str = pos_c8;
 
                 int file = CC_INVALID_OFF_BOARD_COORD_MIN;
                 int rank = CC_INVALID_OFF_BOARD_COORD_MIN;
 
                 CcSideEffectEnum see = CC_SEE_None;
-                char const * se = cc_find_side_effect( c, step_end, &see );
-                char const * pos_end = step_end;
+                char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
+                char const * pos_end_str = step_end_str;
 
-                if ( se )
+                if ( side_effect_str )
                 {
-                    CC_STR_PRINT_IF_INFO( se, step_end, 128, "Side-effect: '%s'", " --> %d.\n", see );
-                    pos_end = se;
+                    CC_STR_PRINT_IF_INFO( side_effect_str, step_end_str, 128, "Side-effect: '%s'", " --> %d.\n", see );
+                    pos_end_str = side_effect_str;
                 }
 
-                size_t pos_len = (size_t)( pos_end - c );
-                size_t copied = cc_str_copy( c, pos_end, pos_len, pos, CC_MAX_LEN_CHAR_8 );
+                size_t pos_len = (size_t)( pos_end_str - c_str );
+                size_t copied = cc_str_copy( c_str, pos_end_str, pos_len, pos_c8, CC_MAX_LEN_CHAR_8 );
 
                 if ( pos_len != copied )
                     CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
 
-                if ( !cc_convert_starting_pos( pos, &file, &rank ) ||
+                if ( !cc_convert_starting_pos( pos_c8, &file, &rank ) ||
                      !CC_IS_POS_ON_BOARD( g->chessboard->size, file, rank ) )
                 {
-                    CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c, pos, p );
+                    CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
 
-                    char * ply__a = cc_str_copy__new( ply_start, ply_end, CC_MAX_LEN_ZERO_TERMINATED );
-                    char * step__a = cc_str_copy__new( step_start, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+                    char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+                    char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
                     cc_parse_msgs_append_if_format( parse_msgs__io,
                                                     CC_PMTE_Error,
                                                     CC_MAX_LEN_ZERO_TERMINATED,
                                                     "Invalid char(s) in step '%s', in ply '%s'.\n",
-                                                    step__a,
-                                                    ply__a );
+                                                    step_str__a,
+                                                    ply_str__a );
 
-                    CC_FREE( step__a );
-                    CC_FREE( ply__a );
+                    CC_FREE( step_str__a );
+                    CC_FREE( ply_str__a );
                     cc_steps_free_all( &steps__a );
                     cc_chessboard_free_all( &cb__a );
                     return false;
@@ -383,12 +382,12 @@ bool cc_make_move( char const * restrict move_an_str,
         }
         else // !ply_has_steps
         {
-            if ( disambiguation[ 0 ] != '\0' )
+            if ( disambiguation_c8[ 0 ] != '\0' )
             {
                 steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_da, rank_da ) );
             }
 
-            if ( pos[ 0 ] != '\0' )
+            if ( position_c8[ 0 ] != '\0' )
             {
                 CcSteps * step__w = cc_steps_append_if( &steps__a,
                                                         CC_SLE_Destination,
@@ -403,15 +402,15 @@ bool cc_make_move( char const * restrict move_an_str,
             }
             else
             {
-                char * ply__a = cc_str_copy__new( ply_start, ply_end, CC_MAX_LEN_ZERO_TERMINATED );
+                char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msgs_append_if_format( parse_msgs__io,
                                                 CC_PMTE_Error,
                                                 CC_MAX_LEN_ZERO_TERMINATED,
                                                 "Destination not found, in ply '%s'.\n",
-                                                ply__a );
+                                                ply_str__a );
 
-                CC_FREE( ply__a );
+                CC_FREE( ply_str__a );
 
                 cc_steps_free_all( &steps__a );
                 cc_chessboard_free_all( &cb__a );
@@ -432,28 +431,28 @@ bool cc_make_move( char const * restrict move_an_str,
         bool is_light_piece =
             is_starting_ply ? CC_GAME_STATUS_IS_LIGHT_TURN( g->status )
                             : true; // TODO :: not really true
+// TODO :: find if piece light, based on starting position, if ply is cascading ...
 
         bool include_opponent = !is_starting_ply;
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
 
         piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
 
         CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
 
-        // ++c;
+        // ++c_str;
 
         CcPos start = CC_POS_INVALID_CAST ;
         CcPos end = CC_POS_INVALID_CAST;
         CcPosLink * path__a = NULL;
 
-        // pos is destination if ply doesn't have steps, otherwise starting position
-        // (in which case disambiguation must be empty).
+        // Position (i.e. position_c8) is destination if ply doesn't have steps,
+        // otherwise starting position (in which case disambiguation_c8 must be empty).
         CcPos starting = ply_has_steps ? cc_pos( file_pos, rank_pos )
                                        : cc_pos( file_da, rank_da );
-        CcSteps * s = steps__a;
 
-        while ( s && s->next ) s = s->next; // rewind
-        end = s->pos;
+        CcSteps * steps = steps__a;
+        while ( steps && steps->next ) steps = steps->next; // rewind
+        end = steps->pos;
 
         char_8 temp = CC_CHAR_8_EMPTY;
 
@@ -505,12 +504,12 @@ bool cc_make_move( char const * restrict move_an_str,
         if ( !CC_PIECE_IS_WAVE( piece ) )
             activator = piece;
 
-        // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Move past ']'. // TODO (?)
+        // if ( CC_IS_PLY_GATHER_END( *c_str ) ) ++c_str; // Move past ']'. // TODO (?)
 
 
         cc_steps_free_all( &steps__a );
 
-        if ( ply_end && *ply_end != '\0' )
+        if ( ply_end_str && *ply_end_str != '\0' )
             CC_PRINTF_IF_INFO( "\n" );
     } // while ( cc_ply_iter( ... ) )
     CC_PRINTF_IF_INFO( "-----------------------------------------------------------------------\n" );

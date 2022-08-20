@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.130:562+20220820.162226"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.131:563+20220820.165950"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool test_move( char const * restrict an_str,
@@ -211,101 +211,116 @@ int main( void )
         }
         else if ( cc_str_is_equal( token_start, token_end, "x0", NULL, BUFSIZ ) )
         {
-            test_move( "n5", game__a );
-            test_move( "mn5", game__a );
+            bool result = test_move( "n5", game__a );
+            result = test_move( "mn5", game__a ) && result;
 
-            test_move( "7n5", game__a );
-            test_move( "m7n5", game__a );
+            result = test_move( "7n5", game__a ) && result;
+            result = test_move( "m7n5", game__a ) && result;
 
-            test_move( "::n5", game__a );
-            test_move( "::mn5", game__a );
+            result = test_move( "::n5", game__a ) && result;
+            result = test_move( "::mn5", game__a ) && result;
 
-            test_move( "::7n5", game__a );
-            test_move( "::m7n5", game__a );
+            result = test_move( "::7n5", game__a ) && result;
+            result = test_move( "::m7n5", game__a ) && result;
+
+            printf( "x0: %d.\n", result );
         }
         else if ( cc_str_is_equal( token_start, token_end, "x1", NULL, BUFSIZ ) )
         {
+            bool result = test_move( "n5*", game__a );
+            result = test_move( "mn5*", game__a ) && result;
 
-            test_move( "n5*", game__a );
-            test_move( "mn5*", game__a );
+            result = test_move( "7n5*", game__a ) && result;
+            result = test_move( "m7n5*", game__a ) && result;
 
-            test_move( "7n5*", game__a );
-            test_move( "m7n5*", game__a );
+            result = test_move( "::n5*", game__a ) && result;
+            result = test_move( "::mn5*", game__a ) && result;
 
-            test_move( "::n5*", game__a );
-            test_move( "::mn5*", game__a );
+            result = test_move( "::7n5*", game__a ) && result;
+            result = test_move( "::m7n5*", game__a ) && result;
 
-            test_move( "::7n5*", game__a );
-            test_move( "::m7n5*", game__a );
+            printf( "x1: %d.\n", result );
         }
         else if ( cc_str_is_equal( token_start, token_end, "x2", NULL, BUFSIZ ) )
         {
-            test_move( "::n5*", game__a );
-            test_move( "B&&n5*N", game__a );
+            bool result = test_move( "::n5*", game__a );
+            result = test_move( "B&&n5*N", game__a ) && result;
 
-            test_move( "::mn5*", game__a );
-            test_move( "B&&mn5*N", game__a );
+            result = test_move( "::mn5*", game__a ) && result;
+            result = test_move( "B&&mn5*N", game__a ) && result;
 
-            test_move( "[::mn5*]", game__a );
-            test_move( "[B&&mn5*N]", game__a );
+            result = test_move( "[::mn5*]", game__a ) && result;
+            result = test_move( "[B&&mn5*N]", game__a ) && result;
+
+            printf( "x2: %d.\n", result );
         }
         else if ( cc_str_is_equal( token_start, token_end, "x3", NULL, BUFSIZ ) )
         {
-            test_move( "::m..n5*", game__a );
-            test_move( "B&&m..n5*N", game__a );
+            bool result = test_move( "::m..n5*", game__a );
+            result = test_move( "B&&m..n5*N", game__a ) && result;
 
-            test_move( "::m11..n15*", game__a );
-            test_move( "B&&m11..n15*N", game__a );
+            result = test_move( "::m11..n15*", game__a ) && result;
+            result = test_move( "B&&m11..n15*N", game__a ) && result;
 
-            test_move( "[::m..n5*]", game__a );
-            test_move( "[B&&m..n5*N]", game__a );
+            result = test_move( "[::m..n5*]", game__a ) && result;
+            result = test_move( "[B&&m..n5*N]", game__a ) && result;
+
+            printf( "x3: %d.\n", result );
         }
         else if ( cc_str_is_equal( token_start, token_end, "x4", NULL, BUFSIZ ) )
         {
-            test_move( "::7g11*", game__a );
-            test_move( "B&&7g11*N", game__a );
+            bool result = test_move( "::7g11*", game__a );
+            result = test_move( "B&&7g11*N", game__a ) && result;
 
-            test_move( "::e7g11*", game__a );
-            test_move( "B&&e7g11*N", game__a );
+            result = test_move( "::e7g11*", game__a ) && result;
+            result = test_move( "B&&e7g11*N", game__a ) && result;
 
-            test_move( "[::7g11*]", game__a );
-            test_move( "[B&&7g11*N]", game__a );
+            result = test_move( "[::7g11*]", game__a ) && result;
+            result = test_move( "[B&&7g11*N]", game__a ) && result;
+
+            printf( "x4: %d.\n", result );
         }
         else if ( cc_str_is_equal( token_start, token_end, "x5", NULL, BUFSIZ ) )
         {
-            test_move( "::3..n5*", game__a );
-            test_move( "B&&3..n5*N", game__a );
+            bool result = test_move( "::3..n5*", game__a );
+            result = test_move( "B&&3..n5*N", game__a ) && result;
 
-            test_move( "::m11..n15*", game__a );
-            test_move( "B&&m11..n15*N", game__a );
+            result = test_move( "::m11..n15*", game__a ) && result;
+            result = test_move( "B&&m11..n15*N", game__a ) && result;
 
-            test_move( "[::3..n5*]", game__a );
-            test_move( "[B&&3..n5*N]", game__a );
+            result = test_move( "[::3..n5*]", game__a ) && result;
+            result = test_move( "[B&&3..n5*N]", game__a ) && result;
+
+            printf( "x5: %d.\n", result );
         }
         else if ( cc_str_is_equal( token_start, token_end, "x6", NULL, BUFSIZ ) )
         {
-            test_move( "::3.m4<Rx11..n5*H-o7:", game__a );
-            test_move( "B&&3..m4<Rx11.n5*H-o7>a11", game__a );
+            bool result = test_move( "::3.m4<Rx11..n5*H-o7:", game__a );
+            result = test_move( "B&&3..m4<Rx11.n5*H-o7>a11", game__a ) && result;
 
-            test_move( "::m11.o12<Rx11..n15*H-o17:", game__a );
-            test_move( "B&&m11..o12<Rx11.n15*H-o17>a11", game__a );
+            result = test_move( "::m11.o12<Rx11..n15*H-o17:", game__a ) && result;
+            result = test_move( "B&&m11..o12<Rx11.n15*H-o17>a11", game__a ) && result;
 
-            test_move( "[::3.m4<Rx11..n5*H-o7:]", game__a );
-            test_move( "[B&&3..m4<Rx11.n5*H-o7>a11]", game__a );
+            result = test_move( "[::3.m4<Rx11..n5*H-o7:]", game__a ) && result;
+            result = test_move( "[B&&3..m4<Rx11.n5*H-o7>a11]", game__a ) && result;
+
+            printf( "x6: %d.\n", result );
         }
         else if ( cc_str_is_equal( token_start, token_end, "y", NULL, BUFSIZ ) )
         {
-            test_move( "::a5~Ab5", game__a );
-            test_move( "[B&&a5]~[Ab5]", game__a );
+            bool result = test_move( "::a5~Ab5", game__a );
+            result = test_move( "[B&&a5]~[Ab5]", game__a ) && result;
 
-            test_move( "B&&5.b9<Rx11..d11-h14", game__a );
-            test_move( "[B&&5.b9<Rx11..d11-h14]", game__a );
+            result = test_move( "B&&5.b9<Rx11..d11-h14", game__a ) && result;
+            result = test_move( "[B&&5.b9<Rx11..d11-h14]", game__a ) && result;
 
-            test_move( "==a.b9<Rx11..d11-h14~A..g15*H.h16&h..j18<Rx11-k19%%R", game__a );
-            test_move( "[B==a.b9<Rx11..d11-h14]~[A..g15*H.h16&h..j18<Rx11-k19%%R]", game__a );
+            result = test_move( "==a.b9<Rx11..d11-h14~A..g15*H.h16&h..j18<Rx11-k19%%R", game__a ) && result;
+            result = test_move( "[B==a.b9<Rx11..d11-h14]~[A..g15*H.h16&h..j18<Rx11-k19%%R]", game__a ) && result;
 
-            // test_move( "Ba5~[Wc7]||Nd9", game__a );
-            // test_move( "[Ba5]~Wc7@@[Nd9]", game__a );
+            // result = test_move( "Ba5~[Wc7]||Nd9", game__a ) && result;
+            // result = test_move( "[Ba5]~Wc7@@[Nd9]", game__a ) && result;
+
+            printf( "y: %d.\n", result );
         }
         else
         {
