@@ -381,12 +381,12 @@ char * cc_str_duplicate__new( char const * restrict str,
 
     Walking pointer over destination buffer can be used in succession, or in a loop.
     This is so because function seeks terminating char from a given destination
-    (i.e. `str__io`), and returns a weak pointer to a new zero-terminating char in
-    that same destination buffer.
+    (i.e. `str__io`), and returns a weak pointer to a new zero-terminating char
+    after appending in that same destination buffer.
 
     For instance:
     @code{.c}
-    buffer__a[ 0 ] = '\0'; // Initialize buffer, if contains garbage from just being allocated.
+    buffer__a[ 0 ] = '\0'; // Must always contain zero-terminated string, inintialize to '\0' if it doesn't (e.g. just allocated).
 
     char * walking = buffer__a;
 
