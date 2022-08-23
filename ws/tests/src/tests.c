@@ -16,16 +16,18 @@
 #include "cc_chessboard.h"
 #include "cc_pos.h"
 #include "cc_game.h"
-#include "cc_rules.h"
 
+#include "cc_parse_defs.h"
+#include "cc_parse.h"
 #include "cc_parse_msgs.h"
+#include "cc_rules.h"
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.132:564+20220823.082928"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.133:565+20220823.100357"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 void test_gcd( int x, int y )
@@ -49,6 +51,47 @@ char * test_str_append_into( char const * restrict buffer,
     char * io = cc_str_append_into( str__io, size_dest__d, str, max_len__d );
     printf( "After: %s\n", buffer );
     return io;
+}
+
+bool test_move( char const * restrict an_str,
+                CcGame * restrict game__io )
+{
+    if ( !an_str ) return false;
+
+    bool is_game_allocated = false;
+
+    if ( !game__io )
+    {
+        game__io = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, true );
+        if ( !game__io ) return false;
+
+        is_game_allocated = true;
+    }
+
+    bool result = false;
+    CcParseMsgs * pms__a = NULL;
+
+    if ( ( result = cc_make_move( an_str, (CcGame **)( &game__io ), &pms__a ) ) )
+    {
+        // TODO :: TEMP :: uncomment (?)
+        // cc_chessboard_print( game__io->chessboard, true );
+    }
+    else
+    {
+        CcParseMsgs * p = pms__a;
+        while ( p )
+        {
+            printf( "%s\n", p->msg );
+            p = p->next;
+        }
+    }
+
+    cc_parse_msgs_free_all( &pms__a );
+
+    if ( is_game_allocated )
+        cc_game_free_all( (CcGame **)( &game__io ) );
+
+    return result;
 }
 
 
@@ -91,6 +134,8 @@ int main( void )
     char * ret = NULL;
     char buffer[ BUFSIZ ];
 
+    CcGame * game__a = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, true );
+
     while ( true )
     {
         memset( buffer, 0, BUFSIZ );
@@ -124,6 +169,86 @@ int main( void )
                   cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) )
         {
             print_about_info();
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "d", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "display", NULL, BUFSIZ ) )
+        {
+            cc_chessboard_print( game__a->chessboard, true );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "t", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "tags", NULL, BUFSIZ ) )
+        {
+            cc_chessboard_print( game__a->chessboard, false );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) )
+        {
+            cc_moves_print( game__a->moves );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) )
+        {
+            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
+            {
+                char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
+                if ( !an_str )
+                    continue;
+
+                CcParseMsgs * pms__a = NULL;
+
+                if ( cc_make_move( an_str, &game__a, &pms__a ) )
+                {
+                    // TODO :: TEMP :: uncomment (?)
+                    // cc_chessboard_print( game__a->chessboard, true );
+                }
+                else
+                {
+                    CcParseMsgs * p = pms__a;
+                    while ( p )
+                    {
+                        printf( "%s\n", p->msg );
+                        p = p->next;
+                    }
+                }
+
+                cc_parse_msgs_free_all( &pms__a );
+            }
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
+        {
+            bool is_code = false;
+            char_8 code;
+
+            if ( !cc_str_clear( code, CC_SIZE_CHAR_8 ) )
+                continue;
+
+            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
+            {
+                size_t len = cc_str_copy( token_start, token_end, CC_MAX_LEN_VARIANT_SYMBOL + 1, code, CC_SIZE_CHAR_8 );
+                if ( len < 1 )
+                    continue;
+
+                CcVariantEnum ve = CC_VE_One;
+                is_code = cc_variant_from_symbol( code, CC_MAX_LEN_VARIANT_SYMBOL + 1, &ve );
+
+                if ( is_code )
+                {
+                    if ( !cc_game_free_all( &game__a ) )
+                        continue;
+
+                    game__a = cc_game__new( CC_GSE_Turn_Light, ve, true );
+                }
+                else
+                    print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 );
+            }
+
+            bool is_empty = cc_str_is_empty( code );
+            if ( is_empty || ( !is_empty && is_code ) )
+            {
+                cc_chessboard_setup( game__a->chessboard );
+                cc_chessboard_print( game__a->chessboard, true );
+            }
         }
         else if ( cc_str_is_equal( token_start, token_end, "b", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "book", NULL, BUFSIZ ) )
@@ -263,12 +388,127 @@ int main( void )
             printf( "---------------------\n" );
 
         }
+        else if ( cc_str_is_equal( token_start, token_end, "x0", NULL, BUFSIZ ) )
+        {
+            bool result = test_move( "n5", NULL );
+            result = test_move( "mn5", NULL ) && result;
+
+            result = test_move( "7n5", NULL ) && result;
+            result = test_move( "m7n5", NULL ) && result;
+
+            result = test_move( "::n5", NULL ) && result;
+            result = test_move( "::mn5", NULL ) && result;
+
+            result = test_move( "::7n5", NULL ) && result;
+            result = test_move( "::m7n5", NULL ) && result;
+
+            printf( "x0: %d.\n", result );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x1", NULL, BUFSIZ ) )
+        {
+            bool result = test_move( "n5*", NULL );
+            result = test_move( "mn5*", NULL ) && result;
+
+            result = test_move( "7n5*", NULL ) && result;
+            result = test_move( "m7n5*", NULL ) && result;
+
+            result = test_move( "::n5*", NULL ) && result;
+            result = test_move( "::mn5*", NULL ) && result;
+
+            result = test_move( "::7n5*", NULL ) && result;
+            result = test_move( "::m7n5*", NULL ) && result;
+
+            printf( "x1: %d.\n", result );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x2", NULL, BUFSIZ ) )
+        {
+            bool result = test_move( "::n5*", NULL );
+            result = test_move( "B&&n5*N", NULL ) && result;
+
+            result = test_move( "::mn5*", NULL ) && result;
+            result = test_move( "B&&mn5*N", NULL ) && result;
+
+            result = test_move( "[::mn5*]", NULL ) && result;
+            result = test_move( "[B&&mn5*N]", NULL ) && result;
+
+            printf( "x2: %d.\n", result );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x3", NULL, BUFSIZ ) )
+        {
+            bool result = test_move( "::m..n5*", NULL );
+            result = test_move( "B&&m..n5*N", NULL ) && result;
+
+            result = test_move( "::m11..n15*", NULL ) && result;
+            result = test_move( "B&&m11..n15*N", NULL ) && result;
+
+            result = test_move( "[::m..n5*]", NULL ) && result;
+            result = test_move( "[B&&m..n5*N]", NULL ) && result;
+
+            printf( "x3: %d.\n", result );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x4", NULL, BUFSIZ ) )
+        {
+            bool result = test_move( "::7g11*", NULL );
+            result = test_move( "B&&7g11*N", NULL ) && result;
+
+            result = test_move( "::e7g11*", NULL ) && result;
+            result = test_move( "B&&e7g11*N", NULL ) && result;
+
+            result = test_move( "[::7g11*]", NULL ) && result;
+            result = test_move( "[B&&7g11*N]", NULL ) && result;
+
+            printf( "x4: %d.\n", result );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x5", NULL, BUFSIZ ) )
+        {
+            bool result = test_move( "::3..n5*", NULL );
+            result = test_move( "B&&3..n5*N", NULL ) && result;
+
+            result = test_move( "::m11..n15*", NULL ) && result;
+            result = test_move( "B&&m11..n15*N", NULL ) && result;
+
+            result = test_move( "[::3..n5*]", NULL ) && result;
+            result = test_move( "[B&&3..n5*N]", NULL ) && result;
+
+            printf( "x5: %d.\n", result );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "x6", NULL, BUFSIZ ) )
+        {
+            bool result = test_move( "::3.m4<Rx11..n5*H-o7:", NULL );
+            result = test_move( "B&&3..m4<Rx11.n5*H-o7>a11", NULL ) && result;
+
+            result = test_move( "::m11.o12<Rx11..n15*H-o17:", NULL ) && result;
+            result = test_move( "B&&m11..o12<Rx11.n15*H-o17>a11", NULL ) && result;
+
+            result = test_move( "[::3.m4<Rx11..n5*H-o7:]", NULL ) && result;
+            result = test_move( "[B&&3..m4<Rx11.n5*H-o7>a11]", NULL ) && result;
+
+            printf( "x6: %d.\n", result );
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "y", NULL, BUFSIZ ) )
+        {
+            bool result = test_move( "::a5~Ab5", NULL );
+            result = test_move( "[B&&a5]~[Ab5]", NULL ) && result;
+
+            result = test_move( "B&&5.b9<Rx11..d11-h14", NULL ) && result;
+            result = test_move( "[B&&5.b9<Rx11..d11-h14]", NULL ) && result;
+
+            result = test_move( "==a.b9<Rx11..d11-h14~A..g15*H.h16&h..j18<Rx11-k19%%R", NULL ) && result;
+            result = test_move( "[B==a.b9<Rx11..d11-h14]~[A..g15*H.h16&h..j18<Rx11-k19%%R]", NULL ) && result;
+
+            // result = test_move( "Ba5~[Wc7]||Nd9", NULL ) && result;
+            // result = test_move( "[Ba5]~Wc7@@[Nd9]", NULL ) && result;
+
+            printf( "y: %d.\n", result );
+        }
         else
         {
             printf( "Unknown: '%s'.\n", buffer );
             // fflush( stdout );
         }
     }
+
+    cc_game_free_all( &game__a );
 
     printf( "Bye, have a nice day!\n" );
     // fflush( stdout );

@@ -10,4 +10,8 @@ void print_app_intro( char const * restrict lib_ver, char const * restrict app_v
 void print_licence_text();
 void print_about_info();
 
+void print_help_new_code();
+void print_new_code_invalid( char const * restrict str,
+                             size_t max_len__d );
+
 #endif /* __HLP_MSGS_H__ */

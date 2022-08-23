@@ -21,6 +21,9 @@ char * test_str_append_into( char const * restrict buffer,
                              char const * restrict str,
                              size_t max_len__d );
 
+bool test_move( char const * restrict an_str,
+                CcGame * restrict game__io );
+
 int main(void);
 
 
