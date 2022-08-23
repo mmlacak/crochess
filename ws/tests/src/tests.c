@@ -24,10 +24,11 @@
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
+#include "tests_misc.h"
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.134:566+20220823.105358"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.135:567+20220823.174927"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -52,28 +53,6 @@ int get_integer_from_cli_arg( char const * restrict str,
     return number;
 }
 
-void test_gcd( int x, int y )
-{
-    printf( "%d ~ %d --> %d\n", x, y, cc_gcd( x, y ) );
-}
-
-void test_pos_step( int i1, int j1, int i2, int j2 )
-{
-    CcPos step = cc_pos_step( cc_pos( i1, j1 ), cc_pos( i2, j2 ) );
-    printf( "(%d, %d) ~ (%d, %d) --> (%d, %d)\n", i1, j1, i2, j2, step.i, step.j );
-}
-
-char * test_str_append_into( char const * restrict buffer,
-                             char * restrict str__io,
-                             size_t size_dest__d,
-                             char const * restrict str,
-                             size_t max_len__d )
-{
-    printf( "Before: %s\n", buffer );
-    char * io = cc_str_append_into( str__io, size_dest__d, str, max_len__d );
-    printf( "After: %s\n", buffer );
-    return io;
-}
 
 bool test_move( char const * restrict an_str,
                 CcGame * restrict game__io )
@@ -448,131 +427,11 @@ int main( void )
 
             printf( "Finished: '%d'.\n", result );
         }
-        else if ( cc_str_is_equal( token_start, token_end, "z", NULL, BUFSIZ ) )
+        else if ( cc_str_is_equal( token_start, token_end, "tx", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "test_misc", NULL, BUFSIZ ) )
         {
-            char_8 foo = { 'a', '1', 'b', '2', 'c', '3', 'd', '4' };
-
-            // cc_str_print( foo, NULL, CC_MAX_LEN_CHAR_8, "Before: '%s'.\n", NULL );
-            printf( "Before: { %c, %c, %c, %c, %c, %c, %c, %c }.\n",
-                    foo[ 0 ],
-                    foo[ 1 ],
-                    foo[ 2 ],
-                    foo[ 3 ],
-                    foo[ 4 ],
-                    foo[ 5 ],
-                    foo[ 6 ],
-                    foo[ 7 ] );
-
-            printf( "Before: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
-                    foo[ 0 ],
-                    foo[ 1 ],
-                    foo[ 2 ],
-                    foo[ 3 ],
-                    foo[ 4 ],
-                    foo[ 5 ],
-                    foo[ 6 ],
-                    foo[ 7 ] );
-
-            cc_str_clear( foo, CC_MAX_LEN_CHAR_8 );
-
-            // cc_str_print( foo, NULL, CC_MAX_LEN_CHAR_8, "After: '%s'.\n", NULL );
-
-            printf( "After: { %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x, %.2x }.\n",
-                    foo[ 0 ],
-                    foo[ 1 ],
-                    foo[ 2 ],
-                    foo[ 3 ],
-                    foo[ 4 ],
-                    foo[ 5 ],
-                    foo[ 6 ],
-                    foo[ 7 ] );
-        }
-        else if ( cc_str_is_equal( token_start, token_end, "z0", NULL, BUFSIZ ) )
-        {
-            test_gcd(  54,  24 );
-            test_gcd( -54,  24 );
-            test_gcd(  54, -24 );
-            test_gcd( -54, -24 );
-            printf( "---------------------\n" );
-
-            test_gcd(  24,  54 );
-            test_gcd( -24,  54 );
-            test_gcd(  24, -54 );
-            test_gcd( -24, -54 );
-            printf( "---------------------\n" );
-
-            test_gcd(  48,  18 );
-            test_gcd( -48,  18 );
-            test_gcd(  48, -18 );
-            test_gcd( -48, -18 );
-            printf( "---------------------\n" );
-
-            test_gcd(  18,  48 );
-            test_gcd( -18,  48 );
-            test_gcd(  18, -48 );
-            test_gcd( -18, -48 );
-            printf( "---------------------\n" );
-
-            test_gcd(  48,  0 );
-            test_gcd( -48,  0 );
-            test_gcd(  48, -0 );
-            test_gcd( -48, -0 );
-            printf( "---------------------\n" );
-
-            test_gcd( 48, 180 );
-            test_gcd( 180, 48 );
-            printf( "---------------------\n" );
-
-            test_gcd( 6, 3 );
-            test_gcd( 9, 2 );
-            test_gcd( 9, 6 );
-            test_gcd( 19, 6 );
-            test_gcd( 24, 11 );
-            printf( "---------------------\n" );
-        }
-        else if ( cc_str_is_equal( token_start, token_end, "z1", NULL, BUFSIZ ) )
-        {
-            test_pos_step( 2, 3, 14, 15 );
-            test_pos_step( 14, 15, 2, 3 );
-            printf( "---------------------\n" );
-
-            test_pos_step( 17, 11, 19, 9 );
-            test_pos_step( 19, 9, 17, 11 );
-            printf( "---------------------\n" );
-
-            test_pos_step( 22, 3, 10, 11 );
-            test_pos_step( 10, 11, 22, 3 );
-            printf( "---------------------\n" );
-
-            test_pos_step( 2, 3, 17, 11 );
-            test_pos_step( 17, 11, 2, 3 );
-            printf( "---------------------\n" );
-        }
-        else if ( cc_str_is_equal( token_start, token_end, "z2", NULL, BUFSIZ ) )
-        {
-            char x[ BUFSIZ ];
-
-            char * p = x;
-            *p = '\0';
-
-            printf( "---------------------\n" );
-            p = test_str_append_into( x, p, BUFSIZ, "foo", 11 );
-            printf( "---------------------\n" );
-            p = test_str_append_into( x, p, BUFSIZ, " Hello, World!", 12 );
-            printf( "---------------------\n" );
-            p = test_str_append_into( x, p, BUFSIZ, " bar", CC_MAX_LEN_ZERO_TERMINATED );
-            printf( "---------------------\n" );
-            p = test_str_append_into( x, p, CC_SIZE_IGNORE, " Goodbye, World!", CC_MAX_LEN_ZERO_TERMINATED );
-            printf( "---------------------\n" );
-            p = test_str_append_into( x, p, CC_SIZE_IGNORE, " baz", 11 );
-            printf( "---------------------\n" );
-            p = test_str_append_into( x, p, 99, " zaz", 11 );
-            printf( "---------------------\n" );
-            p = test_str_append_into( x, p, 10, " Hello, again!", 12 );
-            printf( "---------------------\n" );
-            p = test_str_append_into( x, p, 12, " Goodbye, again!", CC_MAX_LEN_ZERO_TERMINATED );
-            printf( "---------------------\n" );
-
+            int test_number = get_integer_from_cli_arg( buffer, 0, &token_start, &token_end );
+            tests_misc( test_number );
         }
         else
         {
