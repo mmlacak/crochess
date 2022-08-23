@@ -8,7 +8,7 @@
 extern char const CROCHESS_VERSION[];
 
 bool test_move( char const * restrict an_str,
-                CcGame * game__a );
+                CcGame * restrict game__io );
 
 
 int main(void);
