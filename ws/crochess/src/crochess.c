@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.133:565+20220823.100357"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.134:566+20220823.105358"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -115,10 +115,7 @@ int main( void )
                   cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
         {
             bool is_code = false;
-            char_8 code;
-
-            if ( !cc_str_clear( code, CC_SIZE_CHAR_8 ) )
-                continue;
+            char_8 code = CC_CHAR_8_EMPTY;
 
             if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {

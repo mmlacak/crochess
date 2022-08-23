@@ -11,6 +11,10 @@
 
 extern char const CROCHESS_TESTS_VERSION[];
 
+int get_integer_from_cli_arg( char const * restrict str,
+                              int default_num,
+                              char const ** restrict first_io,
+                              char const ** restrict end_io );
 
 void test_gcd( int x, int y );
 void test_pos_step( int i1, int j1, int i2, int j2 );
