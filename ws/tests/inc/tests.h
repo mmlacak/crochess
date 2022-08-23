@@ -11,13 +11,12 @@
 
 extern char const CROCHESS_TESTS_VERSION[];
 
+
 int get_integer_from_cli_arg( char const * restrict str,
                               int default_num,
                               char const ** restrict first_io,
                               char const ** restrict end_io );
 
-bool test_move( char const * restrict an_str,
-                CcGame * restrict game__io );
 
 int main(void);
 
