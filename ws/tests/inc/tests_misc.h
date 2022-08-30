@@ -18,6 +18,7 @@ char * test_str_append_into( char const * restrict buffer,
 bool tests_gcds();
 bool tests_pos_steps();
 bool tests_str_append_into();
+bool tests_str_len();
 
 bool tests_misc( int test_number );
 

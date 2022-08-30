@@ -204,6 +204,28 @@ char * cc_str_to_case__new( char const * restrict str,
                             bool to_upper_or_lower,
                             size_t max_len__d );
 
+
+/**
+    Function returning pointer to the end of a string, optionally capped at maximum length and/or delimited by optional (sub-)string end.
+
+    @param start Pointer to a starting `char` of a (sub-)string.
+    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so end of a whole zero-terminated string is returned.
+    @param max_len__d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is returned.
+
+    @warning
+    If no optional arguments (`end__d`, `max_len__d`) are given, given
+    string (`start`) has to be zero-terminated.
+
+    @note
+    End of a string is first `char` that does not belong to a (sub-)string.
+    For a whole string (when `end__d` is `NULL`) it's a ``'\0'``, i.e. zero-terminating `char`.
+
+    @return Pointer to the end of a string if successful, `NULL` otherwise.
+*/
+char const * cc_str_end( char const * restrict start,
+                         char const * restrict end__d,
+                         size_t max_len__d );
+
 /**
     Function returning length of a string, optionally capped at maximum length.
 

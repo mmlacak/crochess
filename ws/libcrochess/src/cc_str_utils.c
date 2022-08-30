@@ -179,35 +179,45 @@ char * cc_str_to_case__new( char const * restrict str,
 }
 
 
-size_t cc_str_len( char const * restrict start,
-                   char const * restrict end__d,
-                   size_t max_len__d )
+char const * cc_str_end( char const * restrict start,
+                         char const * restrict end__d,
+                         size_t max_len__d )
 {
-    if ( !start ) return 0;
+    if ( !start ) return NULL;
 
     size_t len = 0;
     char const * s = start;
 
-    if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
+    if ( !end__d )
     {
-        while ( *s != '\0' ) ++s;
-        len = s - start;
+        if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
+            while ( *s != '\0' ) ++s;
+        else
+            while ( ( *s != '\0' ) && ( len++ < max_len__d ) ) ++s;
     }
+    else // if ( end__d )
+    {
+        char const * e = end__d;
+
+        if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
+            while ( ( *s != '\0' ) && ( s < e ) ) ++s;
+        else
+            while ( ( *s != '\0' ) && ( s < e ) && ( len++ < max_len__d ) ) ++s;
+    }
+
+    return s;
+}
+
+size_t cc_str_len( char const * restrict start,
+                   char const * restrict end__d,
+                   size_t max_len__d )
+{
+    char const * end = cc_str_end( start, end__d, max_len__d );
+
+    if ( end )
+        return (size_t)(end - start);
     else
-        while ( ( *s != '\0' ) && ( ++len < max_len__d ) ) ++s;
-
-    if ( end__d )
-        // Effectively, checks if end__d belongs to a string,
-        // i.e. start + 1 <= end__d <= start + strlen() + 1 (at most).
-        // At most +1 because '\0', which might not be present.
-        //
-        // In case end__d < start, (size_t) cast pushes (end__d - start)
-        // towards max ints, so MIN() will still return reasonable len.
-        len = CC_MIN( len, (size_t)(end__d - start) );
-
-    // Not needed, len was already capped in the while() loop above.
-    // return CC_MIN( len, max_len__d );
-    return len;
+        return 0;
 }
 
 int cc_str_len_format_va( char const * restrict fmt, va_list args )

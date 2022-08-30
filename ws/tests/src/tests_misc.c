@@ -146,6 +146,48 @@ bool tests_str_append_into()
     return (bool)( p );
 }
 
+bool tests_str_len()
+{
+    char const * hello = "Hello, buggy world!";
+    char const * start = hello + 7;
+    char const * end = start + 5;
+    bool result = true;
+
+    printf( "---------------------\n" );
+    result = ( strlen( hello ) == cc_str_len( hello, NULL, CC_MAX_LEN_ZERO_TERMINATED ) ) && result;
+    printf( "Length hello: %lu == %zu --> %d.\n", strlen( hello ), cc_str_len( hello, NULL, CC_MAX_LEN_ZERO_TERMINATED ), result );
+
+    printf( "---------------------\n" );
+    result = ( strlen( start ) == cc_str_len( start, NULL, CC_MAX_LEN_ZERO_TERMINATED ) ) && result;
+    printf( "Length start: %lu == %zu --> %d.\n", strlen( start ), cc_str_len( start, NULL, CC_MAX_LEN_ZERO_TERMINATED ), result );
+
+    printf( "---------------------\n" );
+    result = ( strlen( end ) == cc_str_len( end, NULL, CC_MAX_LEN_ZERO_TERMINATED ) ) && result;
+    printf( "Length end: %lu == %zu --> %d.\n", strlen( end ), cc_str_len( end, NULL, CC_MAX_LEN_ZERO_TERMINATED ), result );
+
+    printf( "---------------------\n" );
+    result = ( cc_str_len( start, NULL, CC_MAX_LEN_ZERO_TERMINATED ) == 12 ) && result;
+    printf( "Len start: %zu --> %d.\n", cc_str_len( start, NULL, CC_MAX_LEN_ZERO_TERMINATED ), result );
+    result = ( cc_str_len( start, end, CC_MAX_LEN_ZERO_TERMINATED ) == 5 ) && result;
+    printf( "Len start, end: %zu --> %d.\n", cc_str_len( start, end, CC_MAX_LEN_ZERO_TERMINATED ), result );
+
+    printf( "---------------------\n" );
+    result = ( cc_str_len( start, NULL, 99 ) == 12 ) && result;
+    printf( "Len start, , 99: %zu --> %d.\n", cc_str_len( start, NULL, 99 ), result );
+    result = ( cc_str_len( start, end, 99 ) == 5 ) && result;
+    printf( "Len start, end, 99: %zu --> %d.\n", cc_str_len( start, end, 99 ), result );
+
+    printf( "---------------------\n" );
+    result = ( cc_str_len( start, NULL, 3 ) == 3 ) && result;
+    printf( "Len start, , 3: %zu --> %d.\n", cc_str_len( start, NULL, 3 ), result );
+    result = ( cc_str_len( start, end, 3 ) == 3 ) && result;
+    printf( "Len start, end, 3: %zu --> %d.\n", cc_str_len( start, end, 3 ), result );
+
+    printf( "---------------------\n" );
+
+    return result;
+}
+
 
 bool tests_misc( int test_number )
 {
@@ -160,6 +202,9 @@ bool tests_misc( int test_number )
 
     if ( ( test_number == 3 ) || do_all_tests )
         result = tests_str_append_into() && result;
+
+    if ( ( test_number == 4 ) || do_all_tests )
+        result = tests_str_len() && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;

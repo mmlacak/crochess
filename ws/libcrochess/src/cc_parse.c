@@ -95,6 +95,14 @@ bool cc_ply_iter( char const * restrict an_str,
     if ( !start__io ) return false;
     if ( !end__io ) return false;
 
+    char const * an_end = cc_str_end( an_str, NULL, CC_MAX_LEN_ZERO_TERMINATED );
+    if ( !an_end ) return false;
+
+    if ( ( *start__io && ( ( *start__io < an_str ) || ( an_end < *start__io ) ) ) ||
+         ( *end__io && ( ( *end__io < an_str ) || ( an_end < *end__io ) ) ) )
+        // <!> Must manually reset pointers, otherwise it might be wrong set passed (botched copy-pasta?).
+        return false;
+
     if ( !( *start__io ) && !( *end__io ) )
         *start__io = an_str;
     else if ( ( *start__io ) && ( *end__io ) )
@@ -384,6 +392,7 @@ char const * cc_next_step_link( char const * restrict an_str,
 {
     if ( !an_str ) return NULL;
     if ( *an_str == '\0' ) return NULL;
+    if ( !ply_end ) return NULL;
     if ( an_str >= ply_end ) return NULL;
 
     CcStepLinkEnum sle = cc_starting_step_link( an_str );
@@ -403,8 +412,14 @@ bool cc_step_iter( char const * restrict an_str,
                    char const ** restrict end__io )
 {
     if ( !an_str ) return false;
+    if ( !ply_end ) return false;
     if ( !start__io ) return false;
     if ( !end__io ) return false;
+
+    if ( ( *start__io && ( ( *start__io < an_str ) || ( ply_end < *start__io ) ) ) ||
+         ( *end__io && ( ( *end__io < an_str ) || ( ply_end < *end__io ) ) ) )
+        // <!> Must manually reset pointers, otherwise it might be wrong set passed (botched copy-pasta?).
+        return false;
 
     if ( !( *start__io ) && !( *end__io ) )
         *start__io = an_str;

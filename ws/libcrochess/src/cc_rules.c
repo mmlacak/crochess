@@ -179,7 +179,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
     // <!> Reset before use, otherwise iterator will get confused.
     // ply_start_str = ply_end_str = NULL; // Currently not needed, variables are
-                                   // defined and set just a few lines above.
+    //                                     // defined and set just a few lines above.
 
     while ( cc_ply_iter( m, &ply_start_str, &ply_end_str ) )
     {
@@ -380,7 +380,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
             }
         }
-        else // !ply_has_steps
+        else // if ( !ply_has_steps )
         {
             if ( disambiguation_c8[ 0 ] != '\0' )
             {
