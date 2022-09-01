@@ -210,7 +210,7 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
     // *steps_str__a = '\0'; // Not needed, done after a switch below.
 
     char * steps_str = steps_str__a;
-    char_8 pos_str = CC_CHAR_8_EMPTY;
+    cc_char_8 pos_str = CC_CHAR_8_EMPTY;
     CcSteps * s = steps;
 
     while ( s )

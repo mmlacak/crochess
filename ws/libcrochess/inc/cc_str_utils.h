@@ -81,7 +81,7 @@ typedef int (*cc_ctype_fp_ischar_t)( int ch );
 /**
     A char array type, size 8.
 */
-typedef char char_8 [ CC_SIZE_CHAR_8 ];
+typedef char cc_char_8 [ CC_SIZE_CHAR_8 ];
 
 /**
     An empty char array, size 8.
@@ -91,7 +91,7 @@ typedef char char_8 [ CC_SIZE_CHAR_8 ];
 /**
     A char array type, size 16.
 */
-typedef char char_16 [ CC_SIZE_CHAR_16 ];
+typedef char cc_char_16 [ CC_SIZE_CHAR_16 ];
 
 /**
     An empty char array, size 16.

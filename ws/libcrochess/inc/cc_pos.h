@@ -254,7 +254,7 @@ CcPos cc_pos_step( CcPos start, CcPos destination );
 
 // TODO : docs
 bool cc_pos_to_short_string( CcPos pos,
-                             char_8 * restrict pos_str__o );
+                             cc_char_8 * restrict pos_str__o );
 
 
 /**

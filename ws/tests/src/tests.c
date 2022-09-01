@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.137:569+20220830.173125"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.138:570+20220901.025145"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -38,7 +38,7 @@ int get_integer_from_cli_arg( char const * restrict str,
                               char const ** restrict end_io )
 {
     int number = default_num;
-    char_16 num = CC_CHAR_16_EMPTY;
+    cc_char_16 num = CC_CHAR_16_EMPTY;
 
     if ( cc_token_iter( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) )
     {
@@ -178,7 +178,7 @@ int main( void )
                   cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
         {
             bool is_code = false;
-            char_8 code = CC_CHAR_8_EMPTY;
+            cc_char_8 code = CC_CHAR_8_EMPTY;
 
             if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {

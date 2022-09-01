@@ -217,7 +217,7 @@ bool cc_make_move( char const * restrict move_an_str,
             c_str += cc_losing_tag_len( lte );
         }
 
-        char_8 disambiguation_c8 = CC_CHAR_8_EMPTY;
+        cc_char_8 disambiguation_c8 = CC_CHAR_8_EMPTY;
 
         char const * end_da_str = cc_starting_pos( c_str, ply_end_str, true, &disambiguation_c8 );
 
@@ -250,7 +250,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         // Destination if ply doesn't have steps, otherwise starting position
         // (in which case disambiguation_c8 must be empty).
-        char_8 position_c8 = CC_CHAR_8_EMPTY;
+        cc_char_8 position_c8 = CC_CHAR_8_EMPTY;
 
         char const * end_pos_str = cc_starting_pos( c_str, ply_end_str, false, &position_c8 );
 
@@ -323,7 +323,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
                 CC_STR_PRINT_IF_INFO( step_start_str, c_str, 128, "Step link: '%s'", " --> %d.\n", sle );
 
-                char_8 pos_c8 = CC_CHAR_8_EMPTY;
+                cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
                 char const * p_str = pos_c8;
 
                 int file = CC_INVALID_OFF_BOARD_COORD_MIN;
@@ -356,7 +356,7 @@ bool cc_make_move( char const * restrict move_an_str,
                     cc_parse_msgs_append_if_format( parse_msgs__io,
                                                     CC_PMTE_Error,
                                                     CC_MAX_LEN_ZERO_TERMINATED,
-                                                    "Invalid char(s) in step '%s', in ply '%s'.\n",
+                                                    "Invalid position in step '%s', in ply '%s'.\n",
                                                     step_str__a,
                                                     ply_str__a );
 
@@ -454,7 +454,7 @@ bool cc_make_move( char const * restrict move_an_str,
         while ( steps && steps->next ) steps = steps->next; // rewind
         end = steps->pos;
 
-        char_8 temp = CC_CHAR_8_EMPTY;
+        cc_char_8 temp = CC_CHAR_8_EMPTY;
 
         if ( cc_pos_to_short_string( starting, &temp ) )
             CC_PRINTF_IF_INFO( "Found starting: '%s'.\n", temp );
@@ -465,7 +465,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
         while ( cc_piece_pos_iter( cb__a, starting, piece, include_opponent, &start ) )
         {
-            char_8 start_str = CC_CHAR_8_EMPTY;
+            cc_char_8 start_str = CC_CHAR_8_EMPTY;
             if ( cc_pos_to_short_string( start, &start_str ) )
                 CC_PRINTF_IF_INFO( "Try start: '%s'.\n", start_str );
 

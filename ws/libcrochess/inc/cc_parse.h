@@ -56,7 +56,7 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte );
 char const * cc_starting_pos( char const * restrict an_str,
                               char const * restrict ply_end,
                               bool is_disambiguation,
-                              char_8 * restrict pos__o );
+                              cc_char_8 * restrict pos__o );
 
 bool cc_convert_starting_pos( char const * restrict pos,
                               int * restrict file__o,

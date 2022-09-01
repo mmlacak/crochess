@@ -122,7 +122,7 @@ CcPos cc_pos_step( CcPos start, CcPos destination )
 }
 
 bool cc_pos_to_short_string( CcPos pos,
-                             char_8 * restrict pos_str__o )
+                             cc_char_8 * restrict pos_str__o )
 {
     if ( !pos_str__o ) return false;
 
@@ -257,7 +257,7 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
     *pl_str__a = '\0';
 
     char * pl_str = pl_str__a;
-    char_8 pos_str = CC_CHAR_8_EMPTY;
+    cc_char_8 pos_str = CC_CHAR_8_EMPTY;
     CcPosLink * pl = pos_link;
 
     while ( pl )
