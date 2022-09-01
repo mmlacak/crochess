@@ -213,11 +213,9 @@ size_t cc_str_len( char const * restrict start,
                    size_t max_len__d )
 {
     char const * end = cc_str_end( start, end__d, max_len__d );
+    if ( !end ) return 0;
 
-    if ( end )
-        return (size_t)(end - start);
-    else
-        return 0;
+    return (size_t)(end - start);
 }
 
 int cc_str_len_format_va( char const * restrict fmt, va_list args )
