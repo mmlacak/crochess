@@ -28,29 +28,26 @@
 
 
 bool test_move( char const * restrict an_str,
-                CcGame * restrict game__io )
+                CcGame * restrict game__iod )
 {
     if ( !an_str ) return false;
 
-    bool is_game_allocated = false;
+    CcGame * game__a = NULL;
 
-// TODO :: fix game__io alloc/dealloc mess
-
-    if ( !game__io )
+    if ( !game__iod )
     {
-        game__io = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, true );
-        if ( !game__io ) return false;
-
-        is_game_allocated = true;
+        game__a = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, true );
+        if ( !game__a ) return false;
     }
 
+    CcGame * game__w = ( game__iod ) ? game__iod : game__a;
     bool result = false;
     CcParseMsgs * pms__a = NULL;
 
-    if ( ( result = cc_make_move( an_str, game__io, &pms__a ) ) )
+    if ( ( result = cc_make_move( an_str, game__w, &pms__a ) ) )
     {
         // TODO :: TEMP :: uncomment (?)
-        // cc_chessboard_print( game__io->chessboard, true );
+        // cc_chessboard_print( game__w->chessboard, true );
     }
     else
     {
@@ -64,14 +61,11 @@ bool test_move( char const * restrict an_str,
 
     cc_parse_msgs_free_all( &pms__a );
 
-    if ( is_game_allocated )
-        cc_game_free_all( (CcGame **)( &game__io ) );
-
-// TODO :: fix game__io alloc/dealloc mess
+    cc_game_free_all( &game__a );
 
     if ( !result )
     {
-        printf( "%s failed.\n", an_str );
+        printf( "Move '%s' failed.\n", an_str );
         printf( "-----------------------------------------------------------------------\n" );
     }
 

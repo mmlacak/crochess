@@ -6,7 +6,7 @@
 
 
 bool test_move( char const * restrict an_str,
-                CcGame * restrict game__io );
+                CcGame * restrict game__iod );
 
 
 bool tests_move( int test_number );
