@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.139:571+20220901.034820"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.140:572+20220902.185430"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -93,7 +93,7 @@ int main( void )
 
                 CcParseMsgs * pms__a = NULL;
 
-                if ( cc_make_move( an_str, &game__a, &pms__a ) )
+                if ( cc_make_move( an_str, game__a, &pms__a ) )
                 {
                     // TODO :: TEMP :: uncomment (?)
                     // cc_chessboard_print( game__a->chessboard, true );

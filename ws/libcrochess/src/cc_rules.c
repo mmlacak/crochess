@@ -57,25 +57,22 @@ static bool cc_check_pre_plies_status( char const char_an,
 
 
 bool cc_make_move( char const * restrict move_an_str,
-                   CcGame ** restrict game__io,
+                   CcGame * restrict game__io,
                    CcParseMsgs ** restrict parse_msgs__io )
 {
     if ( !move_an_str ) return false;
     if ( !parse_msgs__io ) return false;
 
     if ( !game__io ) return false;
-    if ( !*game__io ) return false;
 
-    CcGame * g = *game__io;
+    if ( !game__io->chessboard ) return false;
+    // if ( !game__io->moves ) return false;
 
-    if ( !g->chessboard ) return false;
-    // if ( !g->moves ) return false;
-
-    if ( !CC_GAME_STATUS_IS_TURN( g->status ) )
+    if ( !CC_GAME_STATUS_IS_TURN( game__io->status ) )
     {
         char const * msg =
-            ( g->status == CC_GSE_None ) ? "Game is not initialized.\n"
-                                         : "Game is finished.\n";
+            ( game__io->status == CC_GSE_None ) ? "Game is not initialized.\n"
+                                                : "Game is finished.\n";
 
         cc_parse_msgs_append_if_format( parse_msgs__io,
                                         CC_PMTE_Error,
@@ -91,7 +88,7 @@ bool cc_make_move( char const * restrict move_an_str,
         if ( *++m == '#' )
         {
             // "##" resign
-            return cc_check_pre_plies_status( *++m, g, parse_msgs__io, true, true, false,
+            return cc_check_pre_plies_status( *++m, game__io, parse_msgs__io, true, true, false,
                                               CC_MAX_LEN_ZERO_TERMINATED,
                                               "Invalid char(s) after resign.\n" );
         }
@@ -103,7 +100,7 @@ bool cc_make_move( char const * restrict move_an_str,
 //         Self- is optional, since both players could overlook checkmate,
 //         this is option to rectify such a situation.
 
-            return cc_check_pre_plies_status( *m, g, parse_msgs__io, false, true, true,
+            return cc_check_pre_plies_status( *m, game__io, parse_msgs__io, false, true, true,
                                               CC_MAX_LEN_ZERO_TERMINATED,
                                               "Invalid char(s) after self-checkmate.\n" );
         }
@@ -119,9 +116,9 @@ bool cc_make_move( char const * restrict move_an_str,
                 {
                     // "(==)" draw offer accepted
 
-                    if ( cc_check_valid_draw_offer_exists( g->moves, g->status ) )
+                    if ( cc_check_valid_draw_offer_exists( game__io->moves, game__io->status ) )
                     {
-                        return cc_check_pre_plies_status( *++m, g, parse_msgs__io, false, true, false,
+                        return cc_check_pre_plies_status( *++m, game__io, parse_msgs__io, false, true, false,
                                                           CC_MAX_LEN_ZERO_TERMINATED,
                                                           "Invalid char(s) after accepted draw.\n" );
                     }
@@ -143,7 +140,7 @@ bool cc_make_move( char const * restrict move_an_str,
                 //     {
                 //         // "(===)" draw by rules
                 //
-                //         return cc_check_pre_plies_status( *++m, g, parse_msgs__io, false, true, false,
+                //         return cc_check_pre_plies_status( *++m, game__io, parse_msgs__io, false, true, false,
                 //                                           CC_MAX_LEN_ZERO_TERMINATED,
                 //                                           "Invalid char(s) after draw by rules.\n" );
                 //     }
@@ -158,7 +155,7 @@ bool cc_make_move( char const * restrict move_an_str,
         return false;
     }
 
-    CcChessboard * cb__a = cc_chessboard_duplicate__new( g->chessboard );
+    CcChessboard * cb__a = cc_chessboard_duplicate__new( game__io->chessboard );
     char const * ply_start_str = NULL;
     char const * ply_end_str = NULL;
 
@@ -227,8 +224,8 @@ bool cc_make_move( char const * restrict move_an_str,
         int rank_da = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         if ( !cc_convert_starting_pos( disambiguation_c8, &file_da, &rank_da ) &&
-             ( CC_IS_COORD_ON_BOARD( g->chessboard->size, file_da ) ||
-               CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_da ) ) )
+             ( CC_IS_COORD_ON_BOARD( game__io->chessboard->size, file_da ) ||
+               CC_IS_COORD_ON_BOARD( game__io->chessboard->size, rank_da ) ) )
         {
             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -260,8 +257,8 @@ bool cc_make_move( char const * restrict move_an_str,
         int rank_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
 
         if ( !cc_convert_starting_pos( position_c8, &file_pos, &rank_pos ) &&
-             ( CC_IS_COORD_ON_BOARD( g->chessboard->size, file_pos ) ||
-               CC_IS_COORD_ON_BOARD( g->chessboard->size, rank_pos ) ) )
+             ( CC_IS_COORD_ON_BOARD( game__io->chessboard->size, file_pos ) ||
+               CC_IS_COORD_ON_BOARD( game__io->chessboard->size, rank_pos ) ) )
         {
             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -346,7 +343,7 @@ bool cc_make_move( char const * restrict move_an_str,
                     CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
 
                 if ( !cc_convert_starting_pos( pos_c8, &file, &rank ) ||
-                     !CC_IS_POS_ON_BOARD( g->chessboard->size, file, rank ) )
+                     !CC_IS_POS_ON_BOARD( game__io->chessboard->size, file, rank ) )
                 {
                     CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
 
@@ -429,7 +426,7 @@ bool cc_make_move( char const * restrict move_an_str,
 
 // TODO :: find if piece light, based on starting position, if ply is cascading ...
         bool is_light_piece =
-            is_starting_ply ? CC_GAME_STATUS_IS_LIGHT_TURN( g->status )
+            is_starting_ply ? CC_GAME_STATUS_IS_LIGHT_TURN( game__io->status )
                             : true; // TODO :: not really true
 // TODO :: find if piece light, based on starting position, if ply is cascading ...
 
@@ -522,12 +519,12 @@ bool cc_make_move( char const * restrict move_an_str,
 
     cc_chessboard_free_all( &cb__a );
 
-    if ( !cc_moves_append_if( &( g->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
+    if ( !cc_moves_append_if( &( game__io->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
         return false;
 
 // TODO :: determine ending status
 // TODO :: determine winning status
-    g->status = cc_game_status_next( g->status, false, false );
+    game__io->status = cc_game_status_next( game__io->status, false, false );
 
     return true;
 }

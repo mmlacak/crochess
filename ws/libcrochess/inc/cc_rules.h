@@ -19,7 +19,7 @@
 //     @return `true` if successful, `false` otherwise.
 // */
 bool cc_make_move( char const * restrict move_an_str,
-                   CcGame ** restrict game__io,
+                   CcGame * restrict game__io,
                    CcParseMsgs ** restrict parse_msgs__io );
 
 

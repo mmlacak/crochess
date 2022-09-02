@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.139:571+20220901.034820"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.140:572+20220902.185430"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -156,7 +156,7 @@ int main( void )
 
                 CcParseMsgs * pms__a = NULL;
 
-                if ( cc_make_move( an_str, &game__a, &pms__a ) )
+                if ( cc_make_move( an_str, game__a, &pms__a ) )
                 {
                     // TODO :: TEMP :: uncomment (?)
                     // cc_chessboard_print( game__a->chessboard, true );
