@@ -56,14 +56,13 @@ static bool cc_check_pre_plies_status( char const char_an,
 }
 
 
-bool cc_make_move( char const * restrict move_an_str,
-                   CcGame * restrict game__io,
-                   CcParseMsgs ** restrict parse_msgs__io )
+bool cc_do_make_move( char const * restrict move_an_str,
+                      CcGame * restrict game__io,
+                      CcParseMsgs ** restrict parse_msgs__io )
 {
     if ( !move_an_str ) return false;
-    if ( !parse_msgs__io ) return false;
-
     if ( !game__io ) return false;
+    if ( !parse_msgs__io ) return false;
 
     if ( !game__io->chessboard ) return false;
     // if ( !game__io->moves ) return false;
@@ -81,14 +80,14 @@ bool cc_make_move( char const * restrict move_an_str,
         return false;
     }
 
-    char const * m = move_an_str;
+    char const * m_str = move_an_str;
 
-    if ( *m == '#' )
+    if ( *m_str == '#' )
     {
-        if ( *++m == '#' )
+        if ( *++m_str == '#' )
         {
             // "##" resign
-            return cc_check_pre_plies_status( *++m, game__io, parse_msgs__io, true, true, false,
+            return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, true, true, false,
                                               CC_MAX_LEN_ZERO_TERMINATED,
                                               "Invalid char(s) after resign.\n" );
         }
@@ -100,25 +99,25 @@ bool cc_make_move( char const * restrict move_an_str,
 //         Self- is optional, since both players could overlook checkmate,
 //         this is option to rectify such a situation.
 
-            return cc_check_pre_plies_status( *m, game__io, parse_msgs__io, false, true, true,
+            return cc_check_pre_plies_status( *m_str, game__io, parse_msgs__io, false, true, true,
                                               CC_MAX_LEN_ZERO_TERMINATED,
                                               "Invalid char(s) after self-checkmate.\n" );
         }
     }
 
-    if ( *m == '(' )
+    if ( *m_str == '(' )
     {
-        if ( *++m == '=' )
+        if ( *++m_str == '=' )
         {
-            if ( *++m == '=' )
+            if ( *++m_str == '=' )
             {
-                if ( *++m == ')' )
+                if ( *++m_str == ')' )
                 {
                     // "(==)" draw offer accepted
 
                     if ( cc_check_valid_draw_offer_exists( game__io->moves, game__io->status ) )
                     {
-                        return cc_check_pre_plies_status( *++m, game__io, parse_msgs__io, false, true, false,
+                        return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, false, true, false,
                                                           CC_MAX_LEN_ZERO_TERMINATED,
                                                           "Invalid char(s) after accepted draw.\n" );
                     }
@@ -134,13 +133,13 @@ bool cc_make_move( char const * restrict move_an_str,
                 // <i> Draw-by-rules should be issued by arbiter, not players;
                 //     i.e. should be issued by server, not clients.
                 //
-                // else if ( *m == '=' )
+                // else if ( *m_str == '=' )
                 // {
-                //     if ( *++m == ')' )
+                //     if ( *++m_str == ')' )
                 //     {
                 //         // "(===)" draw by rules
                 //
-                //         return cc_check_pre_plies_status( *++m, game__io, parse_msgs__io, false, true, false,
+                //         return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, false, true, false,
                 //                                           CC_MAX_LEN_ZERO_TERMINATED,
                 //                                           "Invalid char(s) after draw by rules.\n" );
                 //     }
@@ -155,7 +154,40 @@ bool cc_make_move( char const * restrict move_an_str,
         return false;
     }
 
+
+    if ( !cc_do_make_plies( move_an_str, game__io, parse_msgs__io ) ) // move_an_str --> m_str (?)
+        return false;
+
+
+
+// TODO :: post-plies status
+
+
+    if ( !cc_moves_append_if( &( game__io->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
+        return false;
+
+// TODO :: determine ending status
+// TODO :: determine winning status
+    game__io->status = cc_game_status_next( game__io->status, false, false );
+
+    return true;
+}
+
+bool cc_do_make_plies( char const * restrict move_an_str,
+                       CcGame * restrict game__io,
+                       CcParseMsgs ** restrict parse_msgs__io )
+{
+    if ( !move_an_str ) return false;
+    if ( !game__io ) return false;
+    if ( !parse_msgs__io ) return false;
+
+    if ( !game__io->chessboard ) return false;
+    // if ( !game__io->moves ) return false;
+
+
+    char const * m_str = move_an_str;
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game__io->chessboard );
+
     char const * ply_start_str = NULL;
     char const * ply_end_str = NULL;
 
@@ -178,7 +210,7 @@ bool cc_make_move( char const * restrict move_an_str,
     // ply_start_str = ply_end_str = NULL; // Currently not needed, variables are
     //                                     // defined and set just a few lines above.
 
-    while ( cc_ply_iter( m, &ply_start_str, &ply_end_str ) )
+    while ( cc_ply_iter( m_str, &ply_start_str, &ply_end_str ) )
     {
         ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
 
@@ -514,17 +546,8 @@ bool cc_make_move( char const * restrict move_an_str,
 // TODO :: loop over plies
 
 
-// TODO :: post-plies status
-
-
     cc_chessboard_free_all( &cb__a );
 
-    if ( !cc_moves_append_if( &( game__io->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
-        return false;
-
-// TODO :: determine ending status
-// TODO :: determine winning status
-    game__io->status = cc_game_status_next( game__io->status, false, false );
 
     return true;
 }

@@ -44,7 +44,7 @@ bool test_move( char const * restrict an_str,
     bool result = false;
     CcParseMsgs * pms__a = NULL;
 
-    if ( ( result = cc_make_move( an_str, game__w, &pms__a ) ) )
+    if ( ( result = cc_do_make_move( an_str, game__w, &pms__a ) ) )
     {
         // TODO :: TEMP :: uncomment (?)
         // cc_chessboard_print( game__w->chessboard, true );
