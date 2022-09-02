@@ -185,21 +185,12 @@ bool cc_do_make_plies( char const * restrict move_an_str,
     // if ( !game__io->moves ) return false;
 
 
-    char const * m_str = move_an_str;
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game__io->chessboard );
 
     char const * ply_start_str = NULL;
     char const * ply_end_str = NULL;
 
-    CcPlyLinkEnum ple = CC_PLE_None;
-    char piece_symbol = ' ';
-    CcPieceEnum piece = CC_PE_None;
     CcPieceEnum activator = CC_PE_None;
-    char const * c_str = NULL;
-
-    char const * step_start_str = NULL;
-    char const * step_end_str = NULL;
-    bool ply_has_steps = false;
 
 // TODO :: check if castling --> handle as a special case
 
@@ -210,20 +201,22 @@ bool cc_do_make_plies( char const * restrict move_an_str,
     // ply_start_str = ply_end_str = NULL; // Currently not needed, variables are
     //                                     // defined and set just a few lines above.
 
-    while ( cc_ply_iter( m_str, &ply_start_str, &ply_end_str ) )
+    while ( cc_ply_iter( move_an_str, &ply_start_str, &ply_end_str ) )
     {
-        ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
+        bool ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
 
 // TODO :: check if en passant --> handle as a special case
 
         CC_STR_PRINT_IF_INFO( ply_start_str, ply_end_str, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
 
-        ple = cc_starting_ply_link( ply_start_str );
-        c_str = ply_start_str + cc_ply_link_len( ple );
+        CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
+        char const * c_str = ply_start_str + cc_ply_link_len( ple );
 
         CC_STR_PRINT_IF_INFO( ply_start_str, c_str, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
         if ( CC_IS_PLY_GATHER_START( *c_str ) ) ++c_str; // Move past '['.
+
+        char piece_symbol = ' ';
 
         if ( !cc_ply_piece_symbol( c_str, &piece_symbol ) )
         {
@@ -340,8 +333,8 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
             if ( end_pos_str ) c_str = end_pos_str;
 
-            // <!> Reset before use, otherwise iterator will get confused.
-            step_start_str = step_end_str = NULL;
+            char const * step_start_str = NULL;
+            char const * step_end_str = NULL;
 
             while ( cc_step_iter( c_str, ply_end_str, &step_start_str, &step_end_str ) )
             {
@@ -464,7 +457,7 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
         bool include_opponent = !is_starting_ply;
 
-        piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
+        CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
 
         CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
 
@@ -521,7 +514,7 @@ bool cc_do_make_plies( char const * restrict move_an_str,
                 break;
             }
 
-        }
+        } // while ( cc_piece_pos_iter( ... ) )
 
 
 
