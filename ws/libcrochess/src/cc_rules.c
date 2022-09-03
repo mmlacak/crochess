@@ -9,7 +9,6 @@
 
 #include "cc_defines.h"
 #include "cc_str_utils.h"
-#include "cc_steps.h"
 #include "cc_steps_gen.h"
 #include "cc_parse.h"
 #include "cc_rules_misc.h"
@@ -56,119 +55,79 @@ static bool cc_check_pre_plies_status( char const char_an,
 }
 
 
-bool cc_do_make_move( char const * restrict move_an_str,
-                      CcGame * restrict game__io,
-                      CcParseMsgs ** restrict parse_msgs__io )
+bool cc_do_make_steps( char const * restrict ply_start_str,
+                       char const * restrict ply_end_str,
+                       CcChessboard * restrict cb,
+                       CcSteps ** restrict steps__io,
+                       CcParseMsgs ** restrict parse_msgs__io )
 {
-    if ( !move_an_str ) return false;
-    if ( !game__io ) return false;
+    if ( !ply_start_str ) return false;
+    if ( !ply_end_str ) return false;
+    if ( !cb ) return false;
+    if ( !steps__io ) return false;
     if ( !parse_msgs__io ) return false;
 
-    if ( !game__io->chessboard ) return false;
-    // if ( !game__io->moves ) return false;
+    char const * c_str = ply_start_str;
 
-    if ( !CC_GAME_STATUS_IS_TURN( game__io->status ) )
+    char const * step_start_str = NULL;
+    char const * step_end_str = NULL;
+
+    while ( cc_step_iter( c_str, ply_end_str, &step_start_str, &step_end_str ) )
     {
-        char const * msg =
-            ( game__io->status == CC_GSE_None ) ? "Game is not initialized.\n"
-                                                : "Game is finished.\n";
+        CC_STR_PRINT_IF_INFO( step_start_str, step_end_str, 8192, "Step: '%s'.\n", "" );
 
-        cc_parse_msgs_append_if_format( parse_msgs__io,
-                                        CC_PMTE_Error,
-                                        CC_MAX_LEN_ZERO_TERMINATED,
-                                        msg );
-        return false;
-    }
+        CcStepLinkEnum sle = cc_starting_step_link( step_start_str );
+        c_str = step_start_str + cc_step_link_len( sle );
 
-    char const * m_str = move_an_str;
+        CC_STR_PRINT_IF_INFO( step_start_str, c_str, 128, "Step link: '%s'", " --> %d.\n", sle );
 
-    if ( *m_str == '#' )
-    {
-        if ( *++m_str == '#' )
+        cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+        char const * p_str = pos_c8;
+
+        int file = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int rank = CC_INVALID_OFF_BOARD_COORD_MIN;
+
+        CcSideEffectEnum see = CC_SEE_None;
+        char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
+        char const * pos_end_str = step_end_str;
+
+        if ( side_effect_str )
         {
-            // "##" resign
-            return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, true, true, false,
-                                              CC_MAX_LEN_ZERO_TERMINATED,
-                                              "Invalid char(s) after resign.\n" );
-        }
-        else
-        {
-            // "#" self-checkmate
-
-// TODO :: Do check if opponent is really (self-)checkmated.
-//         Self- is optional, since both players could overlook checkmate,
-//         this is option to rectify such a situation.
-
-            return cc_check_pre_plies_status( *m_str, game__io, parse_msgs__io, false, true, true,
-                                              CC_MAX_LEN_ZERO_TERMINATED,
-                                              "Invalid char(s) after self-checkmate.\n" );
-        }
-    }
-
-    if ( *m_str == '(' )
-    {
-        if ( *++m_str == '=' )
-        {
-            if ( *++m_str == '=' )
-            {
-                if ( *++m_str == ')' )
-                {
-                    // "(==)" draw offer accepted
-
-                    if ( cc_check_valid_draw_offer_exists( game__io->moves, game__io->status ) )
-                    {
-                        return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, false, true, false,
-                                                          CC_MAX_LEN_ZERO_TERMINATED,
-                                                          "Invalid char(s) after accepted draw.\n" );
-                    }
-                    else
-                    {
-                        cc_parse_msgs_append_if_format( parse_msgs__io,
-                                                        CC_PMTE_Error,
-                                                        CC_MAX_LEN_ZERO_TERMINATED,
-                                                        "No valid opponent's draw offer found.\n" );
-                        return false;
-                    }
-                }
-                // <i> Draw-by-rules should be issued by arbiter, not players;
-                //     i.e. should be issued by server, not clients.
-                //
-                // else if ( *m_str == '=' )
-                // {
-                //     if ( *++m_str == ')' )
-                //     {
-                //         // "(===)" draw by rules
-                //
-                //         return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, false, true, false,
-                //                                           CC_MAX_LEN_ZERO_TERMINATED,
-                //                                           "Invalid char(s) after draw by rules.\n" );
-                //     }
-                // }
-            }
+            CC_STR_PRINT_IF_INFO( side_effect_str, step_end_str, 128, "Side-effect: '%s'", " --> %d.\n", see );
+            pos_end_str = side_effect_str;
         }
 
-        cc_parse_msgs_append_if_format( parse_msgs__io,
-                                        CC_PMTE_Error,
-                                        CC_MAX_LEN_ZERO_TERMINATED,
-                                        "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
-        return false;
+        size_t pos_len = (size_t)( pos_end_str - c_str );
+        size_t copied = cc_str_copy( c_str, pos_end_str, pos_len, pos_c8, CC_MAX_LEN_CHAR_8 );
+
+        if ( pos_len != copied )
+            CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
+
+        if ( !cc_convert_starting_pos( pos_c8, &file, &rank ) ||
+                !CC_IS_POS_ON_BOARD( cb->size, file, rank ) )
+        {
+            CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
+
+            char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+            char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+
+            cc_parse_msgs_append_if_format( parse_msgs__io,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Invalid position in step '%s', in ply '%s'.\n",
+                                            step_str__a,
+                                            ply_str__a );
+
+            CC_FREE( step_str__a );
+            CC_FREE( ply_str__a );
+            return false;
+        }
+
+        CC_PRINTF_IF_INFO( "Step: %d, %d.\n", file, rank );
+
+        CcSteps * step__w = cc_steps_append_if( steps__io, sle, cc_pos( file, rank ) );
+        if ( !step__w ) return false;
     }
-
-
-    if ( !cc_do_make_plies( move_an_str, game__io, parse_msgs__io ) ) // move_an_str --> m_str (?)
-        return false;
-
-
-
-// TODO :: post-plies status
-
-
-    if ( !cc_moves_append_if( &( game__io->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
-        return false;
-
-// TODO :: determine ending status
-// TODO :: determine winning status
-    game__io->status = cc_game_status_next( game__io->status, false, false );
 
     return true;
 }
@@ -318,6 +277,7 @@ bool cc_do_make_plies( char const * restrict move_an_str,
                                                 ply_str__a );
 
                 CC_FREE( ply_str__a );
+
                 cc_steps_free_all( &steps__a );
                 cc_chessboard_free_all( &cb__a );
                 return false;
@@ -333,73 +293,13 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
             if ( end_pos_str ) c_str = end_pos_str;
 
-            char const * step_start_str = NULL;
-            char const * step_end_str = NULL;
-
-            while ( cc_step_iter( c_str, ply_end_str, &step_start_str, &step_end_str ) )
+            if ( !cc_do_make_steps( c_str, ply_end_str, cb__a, &steps__a, parse_msgs__io ) )
             {
-                CC_STR_PRINT_IF_INFO( step_start_str, step_end_str, 8192, "Step: '%s'.\n", "" );
+                // <i> Parse msgs are added within cc_do_make_steps().
 
-                CcStepLinkEnum sle = cc_starting_step_link( step_start_str );
-                c_str = step_start_str + cc_step_link_len( sle );
-
-                CC_STR_PRINT_IF_INFO( step_start_str, c_str, 128, "Step link: '%s'", " --> %d.\n", sle );
-
-                cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-                char const * p_str = pos_c8;
-
-                int file = CC_INVALID_OFF_BOARD_COORD_MIN;
-                int rank = CC_INVALID_OFF_BOARD_COORD_MIN;
-
-                CcSideEffectEnum see = CC_SEE_None;
-                char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
-                char const * pos_end_str = step_end_str;
-
-                if ( side_effect_str )
-                {
-                    CC_STR_PRINT_IF_INFO( side_effect_str, step_end_str, 128, "Side-effect: '%s'", " --> %d.\n", see );
-                    pos_end_str = side_effect_str;
-                }
-
-                size_t pos_len = (size_t)( pos_end_str - c_str );
-                size_t copied = cc_str_copy( c_str, pos_end_str, pos_len, pos_c8, CC_MAX_LEN_CHAR_8 );
-
-                if ( pos_len != copied )
-                    CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
-
-                if ( !cc_convert_starting_pos( pos_c8, &file, &rank ) ||
-                     !CC_IS_POS_ON_BOARD( game__io->chessboard->size, file, rank ) )
-                {
-                    CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
-
-                    char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
-                    char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
-
-                    cc_parse_msgs_append_if_format( parse_msgs__io,
-                                                    CC_PMTE_Error,
-                                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                                    "Invalid position in step '%s', in ply '%s'.\n",
-                                                    step_str__a,
-                                                    ply_str__a );
-
-                    CC_FREE( step_str__a );
-                    CC_FREE( ply_str__a );
-                    cc_steps_free_all( &steps__a );
-                    cc_chessboard_free_all( &cb__a );
-                    return false;
-                }
-
-                CC_PRINTF_IF_INFO( "Step: %d, %d.\n", file, rank );
-
-                CcSteps * step__w = cc_steps_append_if( &steps__a, sle, cc_pos( file, rank ) );
-
-                if ( !step__w )
-                {
-                    cc_steps_free_all( &steps__a );
-                    cc_chessboard_free_all( &cb__a );
-                    return false;
-                }
-
+                cc_steps_free_all( &steps__a );
+                cc_chessboard_free_all( &cb__a );
+                return false;
             }
         }
         else // if ( !ply_has_steps )
@@ -541,6 +441,123 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
     cc_chessboard_free_all( &cb__a );
 
+
+    return true;
+}
+
+bool cc_do_make_move( char const * restrict move_an_str,
+                      CcGame * restrict game__io,
+                      CcParseMsgs ** restrict parse_msgs__io )
+{
+    if ( !move_an_str ) return false;
+    if ( !game__io ) return false;
+    if ( !parse_msgs__io ) return false;
+
+    if ( !game__io->chessboard ) return false;
+    // if ( !game__io->moves ) return false;
+
+    if ( !CC_GAME_STATUS_IS_TURN( game__io->status ) )
+    {
+        char const * msg =
+            ( game__io->status == CC_GSE_None ) ? "Game is not initialized.\n"
+                                                : "Game is finished.\n";
+
+        cc_parse_msgs_append_if_format( parse_msgs__io,
+                                        CC_PMTE_Error,
+                                        CC_MAX_LEN_ZERO_TERMINATED,
+                                        msg );
+        return false;
+    }
+
+    char const * m_str = move_an_str;
+
+    if ( *m_str == '#' )
+    {
+        if ( *++m_str == '#' )
+        {
+            // "##" resign
+            return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, true, true, false,
+                                              CC_MAX_LEN_ZERO_TERMINATED,
+                                              "Invalid char(s) after resign.\n" );
+        }
+        else
+        {
+            // "#" self-checkmate
+
+// TODO :: Do check if opponent is really (self-)checkmated.
+//         Self- is optional, since both players could overlook checkmate,
+//         this is option to rectify such a situation.
+
+            return cc_check_pre_plies_status( *m_str, game__io, parse_msgs__io, false, true, true,
+                                              CC_MAX_LEN_ZERO_TERMINATED,
+                                              "Invalid char(s) after self-checkmate.\n" );
+        }
+    }
+
+    if ( *m_str == '(' )
+    {
+        if ( *++m_str == '=' )
+        {
+            if ( *++m_str == '=' )
+            {
+                if ( *++m_str == ')' )
+                {
+                    // "(==)" draw offer accepted
+
+                    if ( cc_check_valid_draw_offer_exists( game__io->moves, game__io->status ) )
+                    {
+                        return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, false, true, false,
+                                                          CC_MAX_LEN_ZERO_TERMINATED,
+                                                          "Invalid char(s) after accepted draw.\n" );
+                    }
+                    else
+                    {
+                        cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                        CC_PMTE_Error,
+                                                        CC_MAX_LEN_ZERO_TERMINATED,
+                                                        "No valid opponent's draw offer found.\n" );
+                        return false;
+                    }
+                }
+                // <i> Draw-by-rules should be issued by arbiter, not players;
+                //     i.e. should be issued by server, not clients.
+                //
+                // else if ( *m_str == '=' )
+                // {
+                //     if ( *++m_str == ')' )
+                //     {
+                //         // "(===)" draw by rules
+                //
+                //         return cc_check_pre_plies_status( *++m_str, game__io, parse_msgs__io, false, true, false,
+                //                                           CC_MAX_LEN_ZERO_TERMINATED,
+                //                                           "Invalid char(s) after draw by rules.\n" );
+                //     }
+                // }
+            }
+        }
+
+        cc_parse_msgs_append_if_format( parse_msgs__io,
+                                        CC_PMTE_Error,
+                                        CC_MAX_LEN_ZERO_TERMINATED,
+                                        "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
+        return false;
+    }
+
+
+    if ( !cc_do_make_plies( move_an_str, game__io, parse_msgs__io ) ) // move_an_str --> m_str (?)
+        return false;
+
+
+
+// TODO :: post-plies status
+
+
+    if ( !cc_moves_append_if( &( game__io->moves ), move_an_str, CC_MAX_LEN_ZERO_TERMINATED ) )
+        return false;
+
+// TODO :: determine ending status
+// TODO :: determine winning status
+    game__io->status = cc_game_status_next( game__io->status, false, false );
 
     return true;
 }
