@@ -273,7 +273,7 @@ bool cc_do_make_plies( char const * restrict move_an_str,
         if ( end_pos_str ) c_str = end_pos_str;
 
         //
-        // Steps.
+        // Steps, from notation.
 
         CcSteps * steps__a = NULL;
 
@@ -353,6 +353,8 @@ bool cc_do_make_plies( char const * restrict move_an_str,
             }
         }
 
+        // ++c_str; // Not used afterwards, so ...
+
         char * steps_str__a = cc_steps_to_short_string__new( steps__a );
         if ( steps_str__a )
         {
@@ -360,32 +362,28 @@ bool cc_do_make_plies( char const * restrict move_an_str,
             CC_FREE( steps_str__a );
         }
 
+        //
+        // Piece, from symbol.
+
         bool is_starting_ply = ( ple == CC_PLE_StartingPly );
-
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
-        bool is_light_piece =
-            is_starting_ply ? CC_GAME_STATUS_IS_LIGHT_TURN( game__io->status )
-                            : true; // TODO :: not really true
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
-
         bool include_opponent = !is_starting_ply;
 
-        CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
+        bool is_light_piece_temp = CC_GAME_STATUS_IS_LIGHT_TURN( game__io->status );
+        CcPieceEnum piece_temp = cc_piece_from_symbol( piece_symbol, is_light_piece_temp );
+        CcPieceEnum activator_temp = CC_PIECE_IS_WAVE( piece_temp ) ? activator : piece_temp;
 
-        CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+        CC_PRINTF_IF_INFO( "Piece, from symbol: '%c' --> %d.\n", piece_symbol, piece_temp );
 
-        // ++c_str;
+        //
+        // Starting, ending position, based on notation.
 
-        CcPos start = CC_POS_CAST_INVALID;
+        CcPos starting = CC_POS_CAST_INVALID;
         CcPos end = CC_POS_CAST_INVALID;
-        CcPosLink * path__a = NULL;
-
-        // Position (i.e. position_c8) is destination if ply doesn't have steps,
-        // otherwise starting position (in which case disambiguation_c8 must be empty).
-        CcPos starting = ply_has_steps ? cc_pos( file_pos, rank_pos )
-                                       : cc_pos( file_da, rank_da );
-
         CcSteps * steps = steps__a;
+
+        if ( steps->step_link == CC_SLE_Start )
+            starting = steps->pos;
+
         while ( steps && steps->next ) steps = steps->next; // rewind
         end = steps->pos;
 
@@ -398,36 +396,56 @@ bool cc_do_make_plies( char const * restrict move_an_str,
         if ( cc_pos_to_short_string( end, &temp ) )
             CC_PRINTF_IF_INFO( "Found end: '%s'.\n", temp );
 
-//         while ( cc_piece_pos_iter( cb__a, starting, piece, include_opponent, &start ) )
-//         {
-//             cc_char_8 start_str = CC_CHAR_8_EMPTY;
-//             if ( cc_pos_to_short_string( start, &start_str ) )
-//                 CC_PRINTF_IF_INFO( "Try start: '%s'.\n", start_str );
+        //
+        // Construct full path. Find true start.
 
-//             if ( is_starting_ply )
-//                 path__a = cc_longest_path__new( cb__a, activator, start, end );
-//             else
-//                 path__a = cc_shortest_path__new( cb__a, activator, start, end );
+        CcPos start = CC_POS_CAST_INVALID;
+        CcPosLink * path__a = NULL;
 
-//             char * path_str__a = cc_pos_link_to_short_string__new( path__a );
-//             if ( path_str__a )
-//             {
-//                 CC_PRINTF_IF_INFO( "Path: '%s'.\n", path_str__a );
-//                 CC_FREE( path_str__a );
-//             }
+        while ( cc_piece_pos_iter( cb__a, starting, piece_temp, include_opponent, &start ) )
+        {
+            cc_char_8 start_str = CC_CHAR_8_EMPTY;
+            if ( cc_pos_to_short_string( start, &start_str ) )
+                CC_PRINTF_IF_INFO( "Try start: '%s'.\n", start_str );
 
-// // TOOD :: check if path__a is congruent with steps__a
+            if ( is_starting_ply )
+                path__a = cc_longest_path__new( cb__a, activator_temp, start, end );
+            else
+                path__a = cc_shortest_path__new( cb__a, activator_temp, start, end );
 
-//             if ( cc_steps_are_congruent( steps__a, path__a ) )
-//             {
-//                 CC_PRINTF_IF_INFO( "Found it!\n" );
+            char * path_str__a = cc_pos_link_to_short_string__new( path__a );
+            if ( path_str__a )
+            {
+                CC_PRINTF_IF_INFO( "Path: '%s'.\n", path_str__a );
+                CC_FREE( path_str__a );
+            }
+
+// TOOD :: check if path__a is congruent with steps__a
+
+            if ( cc_steps_are_congruent( steps__a, path__a ) )
+            {
+                CC_PRINTF_IF_INFO( "Found it!\n" );
 
 
 
-//                 break;
-//             }
+                break;
+            }
 
-//         } // while ( cc_piece_pos_iter( ... ) )
+        } // while ( cc_piece_pos_iter( ... ) )
+
+        //
+        // Piece, from starting position.
+
+// TODO :: find if piece light, based on starting position, if ply is cascading ...
+        bool is_light_piece =
+            is_starting_ply ? CC_GAME_STATUS_IS_LIGHT_TURN( game__io->status )
+                            : true; // TODO :: not really true
+// TODO :: find if piece light, based on starting position, if ply is cascading ...
+
+        CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
+
+        CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+
 
 
 

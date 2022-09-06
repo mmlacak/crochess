@@ -81,7 +81,7 @@ typedef struct CcPos {
 /**
     Casted static position value, i.e. no-movement step.
 */
-#define CC_POS_STATIC_STEP_CAST ( (CcPos)CC_POS_STATIC_STEP )
+#define CC_POS_CAST_STATIC_STEP ( (CcPos)CC_POS_STATIC_STEP )
 
 
 /**

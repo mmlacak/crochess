@@ -385,7 +385,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
                                   start,
                                   destination,
                                   step,
-                                  CC_POS_STATIC_STEP_CAST );
+                                  CC_POS_CAST_STATIC_STEP );
 
     return NULL;
 }
@@ -411,7 +411,7 @@ CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_STATIC_STEP_CAST );
+                              CC_POS_CAST_STATIC_STEP );
 }
 
 CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
@@ -435,7 +435,7 @@ CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_STATIC_STEP_CAST );
+                              CC_POS_CAST_STATIC_STEP );
 }
 
 CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
@@ -459,7 +459,7 @@ CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_STATIC_STEP_CAST );
+                              CC_POS_CAST_STATIC_STEP );
 }
 
 CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
@@ -511,7 +511,7 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_STATIC_STEP_CAST );
+                              CC_POS_CAST_STATIC_STEP );
 }
 
 // TODO :: Pyramid
@@ -558,7 +558,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
                                   start,
                                   destination,
                                   step,
-                                  CC_POS_STATIC_STEP_CAST );
+                                  CC_POS_CAST_STATIC_STEP );
 // TODO :: FIX ME :: Wave activated by Unicorn moves like free-choice Centaur !!!
 
     return NULL;
