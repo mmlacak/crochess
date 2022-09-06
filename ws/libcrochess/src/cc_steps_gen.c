@@ -56,7 +56,7 @@ bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
         pos.j = 0;
     }
 
-    *pos__io = CC_POS_INVALID_CAST;
+    *pos__io = CC_POS_CAST_INVALID;
     return false;
 }
 

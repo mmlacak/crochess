@@ -76,7 +76,7 @@ typedef struct CcPos {
 /**
     Casted invalid position value.
 */
-#define CC_POS_INVALID_CAST ( (CcPos)CC_POS_INVALID )
+#define CC_POS_CAST_INVALID ( (CcPos)CC_POS_INVALID )
 
 /**
     Casted static position value, i.e. no-movement step.

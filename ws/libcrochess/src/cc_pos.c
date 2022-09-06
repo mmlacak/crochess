@@ -90,7 +90,7 @@ CcPos cc_pos_add( CcPos pos, CcPos step )
               cc_pos_is_disambiguation_rank( step ) )
         return cc_pos_disambiguation_rank( pos.j + step.j );
     else
-        return CC_POS_INVALID_CAST;
+        return CC_POS_CAST_INVALID;
 }
 
 CcPos cc_pos_subtract( CcPos pos, CcPos step )
@@ -104,7 +104,7 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step )
               cc_pos_is_disambiguation_rank( step ) )
         return cc_pos_disambiguation_rank( pos.j - step.j );
     else
-        return CC_POS_INVALID_CAST;
+        return CC_POS_CAST_INVALID;
 }
 
 CcPos cc_pos_step( CcPos start, CcPos destination )
@@ -113,7 +113,7 @@ CcPos cc_pos_step( CcPos start, CcPos destination )
     int diff_j = destination.j - start.j;
 
     int gcd = cc_gcd( diff_i, diff_j );
-    if ( gcd == 0 ) return CC_POS_INVALID_CAST;
+    if ( gcd == 0 ) return CC_POS_CAST_INVALID;
 
     diff_i /= gcd;
     diff_j /= gcd;

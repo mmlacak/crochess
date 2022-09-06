@@ -11,11 +11,11 @@
 #include "cc_parse_msgs.h"
 
 
-bool cc_do_check_steps( char const * restrict ply_start_str,
-                        char const * restrict ply_end_str,
-                        CcChessboard * restrict cb,
-                        CcSteps ** restrict steps__io,
-                        CcParseMsgs ** restrict parse_msgs__io );
+bool cc_append_steps( char const * restrict ply_start_str,
+                      char const * restrict ply_end_str,
+                      CcChessboard * restrict cb,
+                      CcSteps ** restrict steps__io,
+                      CcParseMsgs ** restrict parse_msgs__io );
 
 bool cc_do_make_plies( char const * restrict move_an_str,
                        CcGame * restrict game__io,

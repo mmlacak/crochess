@@ -269,7 +269,7 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
             return NULL;
         }
 
-        steps_str = cc_str_append_into( steps_str, size,  pos_str, CC_MAX_LEN_CHAR_8 );
+        steps_str = cc_str_append_into( steps_str, size, pos_str, CC_MAX_LEN_CHAR_8 );
         if ( !steps_str )
         {
             CC_FREE( steps_str__a );

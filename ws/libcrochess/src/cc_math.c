@@ -15,6 +15,8 @@
 
 int cc_gcd( int x, int y )
 {
+    // https://en.wikipedia.org/wiki/Euclidean_algorithm
+
     int abs_x = abs( x );
     int abs_y = abs( y );
 

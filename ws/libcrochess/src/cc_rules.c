@@ -55,11 +55,11 @@ static bool cc_check_pre_plies_status( char const char_an,
 }
 
 
-bool cc_do_check_steps( char const * restrict ply_start_str,
-                        char const * restrict ply_end_str,
-                        CcChessboard * restrict cb,
-                        CcSteps ** restrict steps__io,
-                        CcParseMsgs ** restrict parse_msgs__io )
+bool cc_append_steps( char const * restrict ply_start_str,
+                      char const * restrict ply_end_str,
+                      CcChessboard * restrict cb,
+                      CcSteps ** restrict steps__io,
+                      CcParseMsgs ** restrict parse_msgs__io )
 {
     if ( !ply_start_str ) return false;
     if ( !ply_end_str ) return false;
@@ -72,7 +72,7 @@ bool cc_do_check_steps( char const * restrict ply_start_str,
     char const * step_start_str = NULL;
     char const * step_end_str = NULL;
 
-    while ( cc_step_iter( c_str, ply_end_str, &step_start_str, &step_end_str ) )
+    while ( cc_step_iter( ply_start_str, ply_end_str, &step_start_str, &step_end_str ) )
     {
         CC_STR_PRINT_IF_INFO( step_start_str, step_end_str, 8192, "Step: '%s'.\n", "" );
 
@@ -123,7 +123,7 @@ bool cc_do_check_steps( char const * restrict ply_start_str,
             return false;
         }
 
-        CC_PRINTF_IF_INFO( "Step: %d, %d.\n", file, rank );
+        CC_PRINTF_IF_INFO( "Step pos: %d, %d.\n", file, rank );
 
         CcSteps * step__w = cc_steps_append_if( steps__io, sle, cc_pos( file, rank ) );
         if ( !step__w ) return false;
@@ -163,12 +163,18 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
         CC_STR_PRINT_IF_INFO( ply_start_str, ply_end_str, 8192, "Ply: '%s', ", "steps: %d.\n", ply_has_steps );
 
+        //
+        // Ply link.
+
         CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
         char const * c_str = ply_start_str + cc_ply_link_len( ple );
 
         CC_STR_PRINT_IF_INFO( ply_start_str, c_str, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
         if ( CC_IS_PLY_GATHER_START( *c_str ) ) ++c_str; // Move past '['.
+
+        //
+        // Piece symbol.
 
         char piece_symbol = ' ';
 
@@ -185,6 +191,9 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
         if ( CC_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
 
+        //
+        // Losing tag.
+
         CcLosingTagEnum lte = cc_starting_losing_tag( c_str );
 
         if ( lte != CC_LTE_None )
@@ -192,6 +201,9 @@ bool cc_do_make_plies( char const * restrict move_an_str,
             CC_PRINTF_IF_INFO( "Losing tag: '%c%c' --> %d.\n", *c_str, *(c_str+1), lte );
             c_str += cc_losing_tag_len( lte );
         }
+
+        //
+        // Disambiguation.
 
         cc_char_8 disambiguation_c8 = CC_CHAR_8_EMPTY;
 
@@ -224,6 +236,9 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
         if ( end_da_str ) c_str = end_da_str;
 
+        //
+        // Position (destination / starting position).
+
         // Destination if ply doesn't have steps, otherwise starting position
         // (in which case disambiguation_c8 must be empty).
         cc_char_8 position_c8 = CC_CHAR_8_EMPTY;
@@ -254,6 +269,11 @@ bool cc_do_make_plies( char const * restrict move_an_str,
         }
 
         CC_PRINTF_IF_INFO( "Pos file, rank: %d, %d.\n", file_pos, rank_pos );
+
+        if ( end_pos_str ) c_str = end_pos_str;
+
+        //
+        // Steps.
 
         CcSteps * steps__a = NULL;
 
@@ -286,11 +306,9 @@ bool cc_do_make_plies( char const * restrict move_an_str,
                 steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_pos, rank_pos ) );
             }
 
-            if ( end_pos_str ) c_str = end_pos_str;
-
-            if ( !cc_do_check_steps( c_str, ply_end_str, cb__a, &steps__a, parse_msgs__io ) )
+            if ( !cc_append_steps( c_str, ply_end_str, cb__a, &steps__a, parse_msgs__io ) )
             {
-                // <i> Parse msgs are added within cc_do_check_steps().
+                // <i> Parse msgs are added within cc_append_steps().
 
                 cc_steps_free_all( &steps__a );
                 cc_chessboard_free_all( &cb__a );
@@ -358,8 +376,8 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
         // ++c_str;
 
-        CcPos start = CC_POS_INVALID_CAST ;
-        CcPos end = CC_POS_INVALID_CAST;
+        CcPos start = CC_POS_CAST_INVALID;
+        CcPos end = CC_POS_CAST_INVALID;
         CcPosLink * path__a = NULL;
 
         // Position (i.e. position_c8) is destination if ply doesn't have steps,
@@ -380,36 +398,36 @@ bool cc_do_make_plies( char const * restrict move_an_str,
         if ( cc_pos_to_short_string( end, &temp ) )
             CC_PRINTF_IF_INFO( "Found end: '%s'.\n", temp );
 
-        while ( cc_piece_pos_iter( cb__a, starting, piece, include_opponent, &start ) )
-        {
-            cc_char_8 start_str = CC_CHAR_8_EMPTY;
-            if ( cc_pos_to_short_string( start, &start_str ) )
-                CC_PRINTF_IF_INFO( "Try start: '%s'.\n", start_str );
+//         while ( cc_piece_pos_iter( cb__a, starting, piece, include_opponent, &start ) )
+//         {
+//             cc_char_8 start_str = CC_CHAR_8_EMPTY;
+//             if ( cc_pos_to_short_string( start, &start_str ) )
+//                 CC_PRINTF_IF_INFO( "Try start: '%s'.\n", start_str );
 
-            if ( is_starting_ply )
-                path__a = cc_longest_path__new( cb__a, activator, start, end );
-            else
-                path__a = cc_shortest_path__new( cb__a, activator, start, end );
+//             if ( is_starting_ply )
+//                 path__a = cc_longest_path__new( cb__a, activator, start, end );
+//             else
+//                 path__a = cc_shortest_path__new( cb__a, activator, start, end );
 
-            char * path_str__a = cc_pos_link_to_short_string__new( path__a );
-            if ( path_str__a )
-            {
-                CC_PRINTF_IF_INFO( "Path: '%s'.\n", path_str__a );
-                CC_FREE( path_str__a );
-            }
+//             char * path_str__a = cc_pos_link_to_short_string__new( path__a );
+//             if ( path_str__a )
+//             {
+//                 CC_PRINTF_IF_INFO( "Path: '%s'.\n", path_str__a );
+//                 CC_FREE( path_str__a );
+//             }
 
-// TOOD :: check if path__a is congruent with steps__a
+// // TOOD :: check if path__a is congruent with steps__a
 
-            if ( cc_steps_are_congruent( steps__a, path__a ) )
-            {
-                CC_PRINTF_IF_INFO( "Found it!\n" );
+//             if ( cc_steps_are_congruent( steps__a, path__a ) )
+//             {
+//                 CC_PRINTF_IF_INFO( "Found it!\n" );
 
 
 
-                break;
-            }
+//                 break;
+//             }
 
-        } // while ( cc_piece_pos_iter( ... ) )
+//         } // while ( cc_piece_pos_iter( ... ) )
 
 
 
