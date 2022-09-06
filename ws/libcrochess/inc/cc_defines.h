@@ -31,7 +31,7 @@
     Used for e.g. missing coordinates, for which invalid value ascertains no useage.
 */
 // + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
-#define CC_INVALID_OFF_BOARD_COORD_MIN (INT_MIN + 3583)
+#define CC_INVALID_COORD (INT_MIN + 3583)
 
 /**
     Off-board coordinate.
@@ -82,7 +82,7 @@
 
     @return `1` if valid, `0` otherwise.
 */
-#define CC_IS_COORD_VALID(coord) ( (coord) != CC_INVALID_OFF_BOARD_COORD_MIN )
+#define CC_IS_COORD_VALID(coord) ( (coord) != CC_INVALID_COORD )
 
 /**
     Macro to check if a given position is valid.
@@ -92,7 +92,7 @@
 
     @return `1` if valid, `0` otherwise.
 */
-#define CC_IS_POS_VALID(i,j) ( ( (i) != CC_INVALID_OFF_BOARD_COORD_MIN ) && ( (j) != CC_INVALID_OFF_BOARD_COORD_MIN ) )
+#define CC_IS_POS_VALID(i,j) ( ( (i) != CC_INVALID_COORD ) && ( (j) != CC_INVALID_COORD ) )
 
 /**
     Macro to check if a given position is light.
@@ -240,12 +240,14 @@
     @note
     Compile-time constant which controls definition of this macro is `__CC_STR_PRINT_INFO__`.
 
-    @return The same as `printf()`.
+    @return
+    The same as `printf()`, i.e. an `int` value.
+    Number of `char`s printed, an error code if negative.
 */
 #ifdef __CC_STR_PRINT_INFO__
 #define CC_PRINTF_IF_INFO(fmt,...) printf( fmt __VA_OPT__(,) __VA_ARGS__ )
 #else // __CC_STR_PRINT_INFO__
-#define CC_PRINTF_IF_INFO(fmt,...)
+#define CC_PRINTF_IF_INFO(fmt,...) 0
 #endif // __CC_STR_PRINT_INFO__
 
 

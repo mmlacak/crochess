@@ -23,12 +23,12 @@ CcPos cc_pos( int i, int j )
 
 CcPos cc_pos_disambiguation_file( int i )
 {
-    return cc_pos( i, CC_INVALID_OFF_BOARD_COORD_MIN );
+    return cc_pos( i, CC_INVALID_COORD );
 }
 
 CcPos cc_pos_disambiguation_rank( int j )
 {
-    return cc_pos( CC_INVALID_OFF_BOARD_COORD_MIN, j );
+    return cc_pos( CC_INVALID_COORD, j );
 }
 
 bool cc_pos_is_valid( CcPos pos )

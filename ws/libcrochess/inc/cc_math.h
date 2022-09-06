@@ -4,7 +4,20 @@
 #ifndef __CC_MATH_H__
 #define __CC_MATH_H__
 
+/**
+    @file cc_math.h
+    @brief Various math functions.
+*/
 
+
+/**
+    Function returns greatest common divisor between two given integers.
+
+    @param x An integer.
+    @param y Another integer.
+
+    @return Greatest common divisor.
+*/
 int cc_gcd( int x, int y );
 
 

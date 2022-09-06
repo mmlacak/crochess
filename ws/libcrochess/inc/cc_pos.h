@@ -18,7 +18,7 @@
 /**
     Invalid position value.
 */
-#define CC_POS_INVALID { .i = CC_INVALID_OFF_BOARD_COORD_MIN, .j = CC_INVALID_OFF_BOARD_COORD_MIN }
+#define CC_POS_INVALID { .i = CC_INVALID_COORD, .j = CC_INVALID_COORD }
 
 /**
     Static position value, i.e. no-movement step.

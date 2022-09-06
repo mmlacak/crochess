@@ -323,7 +323,7 @@ bool cc_convert_starting_pos( char const * restrict pos,
         *file__o = CC_CONVERT_FILE_CHAR_INTO_NUM( *p++ );
     }
     else
-        *file__o = CC_INVALID_OFF_BOARD_COORD_MIN;
+        *file__o = CC_INVALID_COORD;
 
     if ( isdigit( *p ) )
     {
@@ -337,7 +337,7 @@ bool cc_convert_starting_pos( char const * restrict pos,
         *rank__o = CC_CONVERT_RANK_STR_INTO_NUM( p );
     }
     else
-        *rank__o = CC_INVALID_OFF_BOARD_COORD_MIN;
+        *rank__o = CC_INVALID_COORD;
 
     return true;
 }

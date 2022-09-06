@@ -116,9 +116,9 @@
     @note
     Terminating position is a `CcPos` with coordinates past normal off-board
     calculation. Currently, it's defined as `CC_POS_INVALID`, which is
-    `{ CC_INVALID_OFF_BOARD_COORD_MIN, CC_INVALID_OFF_BOARD_COORD_MIN }`.
+    `{ CC_INVALID_COORD, CC_INVALID_COORD }`.
 
-    @see CcPos, CC_POS_INVALID, CC_INVALID_OFF_BOARD_COORD_MIN
+    @see CcPos, CC_POS_INVALID, CC_INVALID_COORD
  *  @{
  */
 

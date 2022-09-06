@@ -342,10 +342,10 @@ int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
          ( CC_PIECE_IS_PAWN( pe ) ) ||
          ( CC_PIECE_IS_MONOLITH( pe ) ) )
-        return CC_INVALID_OFF_BOARD_COORD_MIN;
+        return CC_INVALID_COORD;
 
     CcPieceEnum const * su = cc_setup_board_get( ve );
-    if ( !su ) return CC_INVALID_OFF_BOARD_COORD_MIN;
+    if ( !su ) return CC_INVALID_COORD;
 
     size_t size = cc_variant_board_size( ve );
     int start = search_left_first ? 0 : (int)(size - 1);
@@ -364,5 +364,5 @@ int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
             return j;
     }
 
-    return CC_INVALID_OFF_BOARD_COORD_MIN;
+    return CC_INVALID_COORD;
 }

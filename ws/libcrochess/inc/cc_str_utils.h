@@ -555,7 +555,7 @@ bool cc_str_print( char const * restrict start,
 #define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...)                   \
     cc_str_print( start, end__d, max_len__d, fmt_str, fmt __VA_OPT__(,) __VA_ARGS__ )
 #else // __CC_STR_PRINT_INFO__
-#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...)
+#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...) true
 #endif // __CC_STR_PRINT_INFO__
 
 

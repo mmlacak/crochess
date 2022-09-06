@@ -99,10 +99,10 @@ bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe );
     @note
     Function returns valid results only for figures in first (or last) row in an
     initial setup of chessboard. Pawns and Monoliths are not covered, they'll
-    always return invalid value (`CC_INVALID_OFF_BOARD_COORD_MIN`).
+    always return invalid value (`CC_INVALID_COORD`).
 
     @return File if figure is found in a first/last row of initial setup,
-            `CC_INVALID_OFF_BOARD_COORD_MIN` otherwise.
+            `CC_INVALID_COORD` otherwise.
 */
 int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
                                                 CcPieceEnum pe,

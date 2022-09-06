@@ -7,6 +7,11 @@
 #include "cc_defines.h"
 #include "cc_math.h"
 
+/**
+    @file cc_math.c
+    @brief Various math functions.
+*/
+
 
 int cc_gcd( int x, int y )
 {

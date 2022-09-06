@@ -55,11 +55,11 @@ static bool cc_check_pre_plies_status( char const char_an,
 }
 
 
-bool cc_do_make_steps( char const * restrict ply_start_str,
-                       char const * restrict ply_end_str,
-                       CcChessboard * restrict cb,
-                       CcSteps ** restrict steps__io,
-                       CcParseMsgs ** restrict parse_msgs__io )
+bool cc_do_check_steps( char const * restrict ply_start_str,
+                        char const * restrict ply_end_str,
+                        CcChessboard * restrict cb,
+                        CcSteps ** restrict steps__io,
+                        CcParseMsgs ** restrict parse_msgs__io )
 {
     if ( !ply_start_str ) return false;
     if ( !ply_end_str ) return false;
@@ -84,8 +84,8 @@ bool cc_do_make_steps( char const * restrict ply_start_str,
         cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
         char const * p_str = pos_c8;
 
-        int file = CC_INVALID_OFF_BOARD_COORD_MIN;
-        int rank = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int file = CC_INVALID_COORD;
+        int rank = CC_INVALID_COORD;
 
         CcSideEffectEnum see = CC_SEE_None;
         char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
@@ -153,12 +153,7 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
 // TODO :: check if castling --> handle as a special case
 
-    // CC_PRINTF_IF_INFO( "\n" );
-    CC_PRINTF_IF_INFO( "Move: '%s'.\n\n", move_an_str ); // "\nMove: '%s'.\n\n"
-
-    // <!> Reset before use, otherwise iterator will get confused.
-    // ply_start_str = ply_end_str = NULL; // Currently not needed, variables are
-    //                                     // defined and set just a few lines above.
+    CC_PRINTF_IF_INFO( "Move: '%s'.\n\n", move_an_str );
 
     while ( cc_ply_iter( move_an_str, &ply_start_str, &ply_end_str ) )
     {
@@ -204,8 +199,8 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
         CC_STR_PRINT_IF_INFO( disambiguation_c8, NULL, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da_str ); // TODO :: maybe check error (?)
 
-        int file_da = CC_INVALID_OFF_BOARD_COORD_MIN;
-        int rank_da = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int file_da = CC_INVALID_COORD;
+        int rank_da = CC_INVALID_COORD;
 
         if ( !cc_convert_starting_pos( disambiguation_c8, &file_da, &rank_da ) &&
              ( CC_IS_COORD_ON_BOARD( game__io->chessboard->size, file_da ) ||
@@ -237,8 +232,8 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
         CC_STR_PRINT_IF_INFO( position_c8, NULL, CC_MAX_LEN_CHAR_8, "Pos: '%s'", ", pointer: '%p'.\n", end_pos_str ); // TODO :: maybe check error (?)
 
-        int file_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
-        int rank_pos = CC_INVALID_OFF_BOARD_COORD_MIN;
+        int file_pos = CC_INVALID_COORD;
+        int rank_pos = CC_INVALID_COORD;
 
         if ( !cc_convert_starting_pos( position_c8, &file_pos, &rank_pos ) &&
              ( CC_IS_COORD_ON_BOARD( game__io->chessboard->size, file_pos ) ||
@@ -293,9 +288,9 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
             if ( end_pos_str ) c_str = end_pos_str;
 
-            if ( !cc_do_make_steps( c_str, ply_end_str, cb__a, &steps__a, parse_msgs__io ) )
+            if ( !cc_do_check_steps( c_str, ply_end_str, cb__a, &steps__a, parse_msgs__io ) )
             {
-                // <i> Parse msgs are added within cc_do_make_steps().
+                // <i> Parse msgs are added within cc_do_check_steps().
 
                 cc_steps_free_all( &steps__a );
                 cc_chessboard_free_all( &cb__a );
