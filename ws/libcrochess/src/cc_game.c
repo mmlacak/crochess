@@ -118,7 +118,8 @@ bool cc_game_free_all( CcGame ** restrict game__f )
     return result;
 }
 
-CcGame * cc_game_setup_from_string( char const * restrict setup )
+CcGame * cc_game_setup_from_string__new( char const * restrict setup,
+                                         CcGame * restrict before_setup__d )
 {
     if ( !setup ) return NULL;
 
@@ -126,13 +127,23 @@ CcGame * cc_game_setup_from_string( char const * restrict setup )
     CcGameStatusEnum gse = CC_GSE_Turn_Light;
 
     char const * s = setup;
-    size_t len = cc_variant_from_symbol( s, &ve );
-    gse = islower( *s ) ? CC_GSE_Turn_Dark : CC_GSE_Turn_Light;
+    CcGame * game__a = NULL;
 
-    CcGame * game__a = cc_game__new( gse, ve, false );
+    if ( before_setup__d )
+    {
+        game__a = cc_game_duplicate_all__new( before_setup__d );
+    }
+    else
+    {
+        size_t len = cc_variant_from_symbol( s, &ve );
+        gse = islower( *s ) ? CC_GSE_Turn_Dark : CC_GSE_Turn_Light;
+
+        game__a = cc_game__new( gse, ve, false );
+
+        s += len + 1; // +1 == next char, after variant symbol string
+    }
+
     if ( !game__a ) return NULL;
-
-    s += len + 1; // +1 == next char, after variant symbol string
 
     char const * start = NULL;
     char const * end = NULL;

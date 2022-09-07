@@ -132,7 +132,8 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
 bool cc_game_free_all( CcGame ** restrict game__f );
 
 // TODO :: docs
-CcGame * cc_game_setup_from_string( char const * restrict setup );
+CcGame * cc_game_setup_from_string__new( char const * restrict setup,
+                                         CcGame * restrict before_setup__d );
 
 
 #endif /* __CC_GAME_H__ */

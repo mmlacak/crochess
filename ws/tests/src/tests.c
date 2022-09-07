@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.149:581+20220907.070340"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.150:582+20220907.120213"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -207,6 +207,32 @@ int main( void )
                 game__a->status = CC_GSE_Turn_Light;
 
                 cc_chessboard_print( game__a->chessboard, true );
+            }
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "u", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "update", NULL, BUFSIZ ) )
+        {
+            CcGame * game__t = cc_game_setup_from_string__new( token_end + 1, game__a );
+
+            if ( !game__t )
+                printf( "Not valid game setup.\n" );
+            else
+            {
+                cc_game_free_all( &game__a );
+                game__a = game__t;
+            }
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "s", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "setup", NULL, BUFSIZ ) )
+        {
+            CcGame * game__t = cc_game_setup_from_string__new( token_end + 1, NULL );
+
+            if ( !game__t )
+                printf( "Not valid game setup.\n" );
+            else
+            {
+                cc_game_free_all( &game__a );
+                game__a = game__t;
             }
         }
         else if ( cc_str_is_equal( token_start, token_end, "tb", NULL, BUFSIZ ) ||

@@ -242,6 +242,26 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
     return false;
 }
 
+bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict cb_2 )
+{
+    if ( !cb ) return false;
+    if ( !cb_2 ) return false;
+
+    if ( cb->type != cb_2->type ) return false;
+    if ( cb->size != cb_2->size ) return false;
+
+    for ( int i = 0; i < (int)cb->size; ++i )
+    {
+        for ( int j = 0; j < (int)cb->size; ++j )
+        {
+            if ( cb->board[ i ][ j ] != cb_2->board[ i ][ j ] ) return false;
+            if ( cb->tags[ i ][ j ] != cb_2->tags[ i ][ j ] ) return false;
+        }
+    }
+
+    return true;
+}
+
 
 static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb )
 {

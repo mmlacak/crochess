@@ -228,6 +228,9 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
 // static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb );
 // static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict cb );
 
+bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict cb_2 );
+
+
 /**
     Formats a newly allocated string to represent piece, tag positions on a given chessboard.
 
