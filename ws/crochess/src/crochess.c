@@ -21,7 +21,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.147:579+20220906.064458"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.148:580+20220907.044012"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int main( void )
@@ -124,7 +124,7 @@ int main( void )
                     continue;
 
                 CcVariantEnum ve = CC_VE_One;
-                is_code = cc_variant_from_symbol( code, CC_MAX_LEN_VARIANT_SYMBOL + 1, &ve );
+                is_code = cc_variant_from_symbol( code, &ve );
 
                 if ( is_code )
                 {

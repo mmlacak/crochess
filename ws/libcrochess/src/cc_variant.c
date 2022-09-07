@@ -43,19 +43,15 @@ char const * const CC_VARIANT_SYMBOLS[] =
 };
 
 
-bool cc_variant_from_symbol( char const * restrict str,
-                             size_t max_len__d,
-                             CcVariantEnum * ve__o )
+size_t cc_variant_from_symbol( char const * restrict str,
+                               CcVariantEnum * ve__o )
 {
     if ( !str ) return false;
     if ( !ve__o ) return false;
 
-    if ( ( max_len__d > CC_MAX_LEN_ZERO_TERMINATED )
-      && ( max_len__d < CC_MAX_LEN_VARIANT_SYMBOL ) )
-        return false;
-
     char const * s = str;
     int ve = -1;
+    size_t len = CC_LEN_VARIANT_SYMBOL_INVALID;
 
     if ( *s == 'a' ||  *s == 'A' )
     {
@@ -66,7 +62,10 @@ bool cc_variant_from_symbol( char const * restrict str,
             ++s;
 
             if ( *s == 'a' ||  *s == 'A' ) // "aoa"
+            {
                 ve = CC_VE_AgeOfAquarius;
+                len = 3;
+            }
         }
     }
     else if ( *s == 'c' ||  *s == 'C' )
@@ -74,60 +73,109 @@ bool cc_variant_from_symbol( char const * restrict str,
         ++s;
 
         if ( *s == 'c' ||  *s == 'C' ) // "cc"
+        {
             ve = CC_VE_ClassicalChess;
+            len = 2;
+        }
         else if ( *s == 't' ||  *s == 'T' ) // "ct"
+        {
             ve = CC_VE_CroatianTies;
+            len = 2;
+        }
         else if ( *s == 'o' ||  *s == 'O' )
         {
             ++s;
 
             if ( *s == 't' ||  *s == 'T' ) // "cot"
+            {
                 ve = CC_VE_ConquestOfTlalocan;
+                len = 3;
+            }
         }
     }
     else if ( *s == 'd' ||  *s == 'D' ) // "d"
+    {
         ve = CC_VE_Discovery;
+        len = 1;
+    }
     else if ( *s == 'h' ||  *s == 'H' )
     {
         ++s;
 
         if ( *s == 'd' ||  *s == 'D' ) // "hd"
+        {
             ve = CC_VE_HemerasDawn;
+            len = 2;
+        }
     }
     else if ( *s == 'm' ||  *s == 'M' )
     {
         ++s;
 
         if ( *s == 'a' ||  *s == 'A' ) // "ma"
+        {
             ve = CC_VE_MayanAscendancy;
+            len = 2;
+        }
         else if ( *s == 'v' ||  *s == 'V' ) // "mv"
+        {
             ve = CC_VE_MirandasVeil;
+            len = 2;
+        }
     }
     else if ( *s == 'n' ||  *s == 'N' ) // "n"
+    {
         ve = CC_VE_Nineteen;
+        len = 1;
+    }
     else if ( *s == 'o' ||  *s == 'O' ) // "o"
+    {
         ve = CC_VE_One;
+        len = 1;
+    }
     else if ( *s == 't' ||  *s == 'T' )
     {
         ++s;
 
         if ( *s == 'r' ||  *s == 'R' ) // "tr"
+        {
             ve = CC_VE_TamoanchanRevisited;
+            len = 2;
+        }
     }
-
-    ++s;
 
     if ( ve >= 0 )
     {
-        if ( max_len__d > CC_MAX_LEN_VARIANT_SYMBOL )
-            if ( !iscntrl( *s ) && !isspace( *s ) )
-                return false;
+        ++s;
+
+        if ( islower( *s ) || isupper( *s ) )
+            return CC_LEN_VARIANT_SYMBOL_INVALID;
 
         *ve__o = (CcVariantEnum)ve;
-        return true;
+        return len;
     }
 
-    return false;
+    return CC_LEN_VARIANT_SYMBOL_INVALID;
+}
+
+char const * cc_variant_symbol( CcVariantEnum ve )
+{
+    switch ( ve )
+    {
+        case CC_VE_ClassicalChess : return CC_VARIANT_CLASSICAL_CHESS_SYMBOL;
+        case CC_VE_CroatianTies : return CC_VARIANT_CROATIAN_TIES_SYMBOL;
+        case CC_VE_MayanAscendancy : return CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL;
+        case CC_VE_AgeOfAquarius : return CC_VARIANT_AGE_OF_AQUARIUS_SYMBOL;
+        case CC_VE_MirandasVeil : return CC_VARIANT_MIRANDAS_VEIL_SYMBOL;
+        case CC_VE_Nineteen : return CC_VARIANT_NINETEEN_SYMBOL;
+        case CC_VE_HemerasDawn : return CC_VARIANT_HEMERAS_DAWN_SYMBOL;
+        case CC_VE_TamoanchanRevisited : return CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL;
+        case CC_VE_ConquestOfTlalocan : return CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL;
+        case CC_VE_Discovery : return CC_VARIANT_DISCOVERY_SYMBOL;
+        case CC_VE_One : return CC_VARIANT_ONE_SYMBOL;
+
+        default : return NULL;
+    }
 }
 
 char const * cc_variant_label( CcVariantEnum ve )

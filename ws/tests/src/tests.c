@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.147:579+20220906.064458"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.148:580+20220907.044012"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -187,7 +187,7 @@ int main( void )
                     continue;
 
                 CcVariantEnum ve = CC_VE_One;
-                is_code = cc_variant_from_symbol( code, CC_MAX_LEN_VARIANT_SYMBOL + 1, &ve );
+                is_code = cc_variant_from_symbol( code, &ve );
 
                 if ( is_code )
                 {

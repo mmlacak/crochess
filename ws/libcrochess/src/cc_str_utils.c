@@ -74,6 +74,43 @@ bool cc_str_count_chars( char const * restrict str,
     return true;
 }
 
+char const * cc_str_contains_char( char c,
+                                   bool case_sensitive,
+                                   char const * restrict start,
+                                   char const * restrict end__d,
+                                   size_t max_len__d )
+{
+    if ( !start ) return NULL;
+
+    char const * s = start;
+    size_t count = 0;
+
+    while ( *s != '\0' )
+    {
+        if ( case_sensitive )
+        {
+            if ( *s == c ) return s;
+        }
+        else
+        {
+            if ( tolower( *s ) == tolower( c ) )
+                return s;
+        }
+
+        if ( end__d && ( s >= end__d ) )
+            return NULL;
+
+        if ( ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) &&
+             ( count >= max_len__d ) )
+            return NULL;
+
+        ++count;
+        ++s;
+    }
+
+    return NULL;
+}
+
 char const * cc_str_traverse_chars( char const * restrict str,
                                     cc_ctype_fp_ischar_t fp_is_char,
                                     bool skip_or_stop_at,

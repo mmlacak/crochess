@@ -134,6 +134,12 @@ bool cc_str_count_chars( char const * restrict str,
                          size_t max_len__d,
                          size_t * restrict count__o );
 
+char const * cc_str_contains_char( char c,
+                                   bool case_sensitive,
+                                   char const * restrict start,
+                                   char const * restrict end__d,
+                                   size_t max_len__d );
+
 /**
     Function returns a string pointer, by traversing a given string,
     and either skiping over filtered characters, or stoping at first of those.

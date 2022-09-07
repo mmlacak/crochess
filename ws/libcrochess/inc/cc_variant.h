@@ -93,9 +93,14 @@ typedef enum CcVariantEnum
 
 
 /**
-    Maximum length of a string (char array), used by any variant.
+    Maximum length of a symbol string (char array), used by any variant.
 */
 #define CC_MAX_LEN_VARIANT_SYMBOL (3)
+
+/**
+    Length of a invalid symbol string (char array).
+*/
+#define CC_LEN_VARIANT_SYMBOL_INVALID (0)
 
 /**
     Classical Chess symbol, short string.
@@ -174,9 +179,10 @@ extern char const * const CC_VARIANT_SYMBOLS[];
     @return `true` if succesful, `false` otherwise.
 
 */
-bool cc_variant_from_symbol( char const * restrict str,
-                             size_t max_len__d,
-                             CcVariantEnum * ve__o );
+size_t cc_variant_from_symbol( char const * restrict str,
+                               CcVariantEnum * ve__o );
+
+char const * cc_variant_symbol( CcVariantEnum ve );
 
 /**
     Function returning variant label.

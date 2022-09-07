@@ -1,9 +1,12 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <ctype.h>
 #include <stdlib.h>
 
 #include "cc_defines.h"
+#include "cc_str_utils.h"
+// #include "cc_variant.h"
 #include "cc_game.h"
 
 /**
@@ -109,4 +112,26 @@ bool cc_game_free_all( CcGame ** restrict game__f )
     CC_FREE_NULL( game__f );
 
     return result;
+}
+
+CcGame * cc_game_setup_from_string( char const * restrict setup )
+{
+    if ( !setup ) return NULL;
+
+    char const * s = setup;
+    size_t len = 0;
+
+    CcVariantEnum ve = CC_VE_One;
+    CcGameStatusEnum gse = CC_GSE_Turn_Light;
+
+    len = cc_variant_from_symbol( s, &ve );
+    gse = isupper( *s ) ? CC_GSE_Turn_Light : CC_GSE_Turn_Dark;
+    s += len;
+
+    CcGame * game__a = cc_game__new( gse, ve, false );
+    if ( !game__a ) return NULL;
+
+
+
+    return game__a;
 }
