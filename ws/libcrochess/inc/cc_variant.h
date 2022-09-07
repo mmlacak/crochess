@@ -167,7 +167,6 @@ extern char const * const CC_VARIANT_SYMBOLS[];
     Function returns variant enum, based on a string.
 
     @param str String.
-    @param max_len__d _Optional_, maximum length to scan.
     @param ve__o _Output_, variant enum.
 
     @note
@@ -182,6 +181,13 @@ extern char const * const CC_VARIANT_SYMBOLS[];
 size_t cc_variant_from_symbol( char const * restrict str,
                                CcVariantEnum * ve__o );
 
+/**
+    Function returning variant symbol.
+
+    @param ve Variant enum.
+
+    @return Variant symbol, i.e. lowercase name abbreviation of a variant.
+*/
 char const * cc_variant_symbol( CcVariantEnum ve );
 
 /**

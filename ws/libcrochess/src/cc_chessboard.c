@@ -210,8 +210,8 @@ bool cc_chessboard_set_piece_tag( CcChessboard * restrict cb__io,
         cb__io->board[ i ][ j ] = pe;
         cb__io->tags[ i ][ j ] = tt;
 
-        return  ( ( cb__io->board[ i ][ j ] == pe )
-               && ( cb__io->tags[ i ][ j ] == tt ) ); // cb__io volatile ?
+        return  ( ( cb__io->board[ i ][ j ] == pe ) &&
+                  ( cb__io->tags[ i ][ j ] == tt ) ); // cb__io volatile ?
     }
 
     return false;

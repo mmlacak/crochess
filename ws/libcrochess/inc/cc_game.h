@@ -16,6 +16,11 @@
 
 
 /**
+    Separators constant, used to toknize string setup.
+*/
+extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];
+
+/**
     Macro to inline check if it's light player's turn.
 
     @param gse A game status enumeration.

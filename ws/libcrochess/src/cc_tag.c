@@ -13,13 +13,28 @@ char cc_tag_as_char( CcTagEnum ct )
 {
     switch ( ct )
     {
-        case CC_TE_None : return ' ';
-        case CC_TE_CanRush : return 'R';
-        case CC_TE_CanCastle : return 'C';
-        case CC_TE_DelayedPromotion : return 'P';
-        case CC_TE_EnPassant : return 'E';
-        case CC_TE_PawnSacrifice : return 'S';
+        case CC_TE_None : return CC_TAG_CHAR_NONE;
+        case CC_TE_CanRush : return CC_TAG_CHAR_CAN_RUSH;
+        case CC_TE_CanCastle : return CC_TAG_CHAR_CAN_CASTLE;
+        case CC_TE_DelayedPromotion : return CC_TAG_CHAR_DELAYED_PROMOTION;
+        case CC_TE_EnPassant : return CC_TAG_CHAR_EN_PASSANT;
+        case CC_TE_PawnSacrifice : return CC_TAG_CHAR_PAWN_SACRIFICE;
 
-        default : return '?';
+        default : return CC_TAG_CHAR_INVALID;
+    }
+}
+
+CcTagEnum cc_tag_from_char( char c )
+{
+    switch ( c )
+    {
+        case CC_TAG_CHAR_NONE : return CC_TE_None;
+        case CC_TAG_CHAR_CAN_RUSH : return CC_TE_CanRush;
+        case CC_TAG_CHAR_CAN_CASTLE : return CC_TE_CanCastle;
+        case CC_TAG_CHAR_DELAYED_PROMOTION : return CC_TE_DelayedPromotion;
+        case CC_TAG_CHAR_EN_PASSANT : return CC_TE_EnPassant;
+        case CC_TAG_CHAR_PAWN_SACRIFICE : return CC_TE_PawnSacrifice;
+
+        default : return CC_TE_None;
     }
 }

@@ -565,6 +565,22 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum pe );
 char cc_piece_as_char( CcPieceEnum pe );
 
 /**
+    Function returning piece enum, based on a piece character.
+
+    @param piece Piece character.
+
+    Whether piece returned is dark/dim, or light/bright is determined by the case of a given `char`.
+
+    For lowercase piece `char` dark/dim piece is returned, otherwise light/bright piece is returned.
+
+    @note
+    Monolith is returned only for uppercase M `char`, i.e. only for ``'M'``.
+
+    @return Piece enum if valid piece char passed, otherwise `CC_PE_None`.
+*/
+CcPieceEnum cc_piece_from_char( char piece );
+
+/**
     Function returning piece label.
 
     @param pe Piece enum, one of `CcPieceEnum` values.

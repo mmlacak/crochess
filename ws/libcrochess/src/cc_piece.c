@@ -161,6 +161,52 @@ char cc_piece_as_char( CcPieceEnum pe )
     }
 }
 
+CcPieceEnum cc_piece_from_char( char piece )
+{
+    switch ( piece )
+    {
+        case 't' : return CC_PE_DimStar;
+
+        case 'i' : return CC_PE_DarkStarchild;
+        case 'h' : return CC_PE_DarkShaman;
+        case 's' : return CC_PE_DarkSerpent;
+        case 'c' : return CC_PE_DarkCentaur;
+        case 'w' : return CC_PE_DarkWave;
+        case 'u' : return CC_PE_DarkUnicorn;
+        case 'a' : return CC_PE_DarkPyramid;
+        case 'g' : return CC_PE_DarkPegasus;
+        case 'k' : return CC_PE_DarkKing;
+        case 'q' : return CC_PE_DarkQueen;
+        case 'r' : return CC_PE_DarkRook;
+        case 'b' : return CC_PE_DarkBishop;
+        case 'n' : return CC_PE_DarkKnight;
+        case 'p' : return CC_PE_DarkPawn;
+
+        case ' ' : return CC_PE_None;
+
+        case 'P' : return CC_PE_LightPawn;
+        case 'N' : return CC_PE_LightKnight;
+        case 'B' : return CC_PE_LightBishop;
+        case 'R' : return CC_PE_LightRook;
+        case 'Q' : return CC_PE_LightQueen;
+        case 'K' : return CC_PE_LightKing;
+        case 'G' : return CC_PE_LightPegasus;
+        case 'A' : return CC_PE_LightPyramid;
+        case 'U' : return CC_PE_LightUnicorn;
+        case 'W' : return CC_PE_LightWave;
+        case 'C' : return CC_PE_LightCentaur;
+        case 'S' : return CC_PE_LightSerpent;
+        case 'H' : return CC_PE_LightShaman;
+        case 'I' : return CC_PE_LightStarchild;
+
+        case 'T' : return CC_PE_BrightStar;
+
+        case 'M' : return CC_PE_Monolith;
+
+        default : return CC_PE_None;
+    }
+}
+
 char const * cc_piece_label( CcPieceEnum pe )
 {
     switch ( pe )

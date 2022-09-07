@@ -76,6 +76,33 @@
 #define CC_CONVERT_BYTE_INTO_FILE_CHAR(byte_file) ( 'a' + (byte_file) )
 
 /**
+    Macro to convert char into numerical file value.
+
+    @param char_file Rank, position along vertical axis, char value.
+
+    @warning
+    Value of `char_file` is expected to be in a range of [``'a'``, ``'z'``],
+    undefined behavior if it's not.
+
+    @return File number if argument within range, undefined behavior otherwise.
+*/
+#define CC_CONVERT_FILE_CHAR_INTO_NUM(char_file) ( (char_file) - 'a' )
+
+/**
+    Macro to convert string into numerical rank value.
+
+    @param char_ptr_rank Rank, position along vertical axis, string pointer value.
+
+    @warning
+    Given string must be zero-terminated.
+
+    @see atoi()
+
+    @return Rank number if successful, undefined behavior otherwise.
+*/
+#define CC_CONVERT_RANK_STR_INTO_NUM(char_ptr_rank) ( atoi( (char_ptr_rank) ) - 1 )
+
+/**
     Macro to check if a given coordinate is valid.
 
     @param coord A coordinate.

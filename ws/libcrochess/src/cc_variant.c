@@ -146,9 +146,7 @@ size_t cc_variant_from_symbol( char const * restrict str,
 
     if ( ve >= 0 )
     {
-        ++s;
-
-        if ( islower( *s ) || isupper( *s ) )
+        if ( isalnum( *++s ) )
             return CC_LEN_VARIANT_SYMBOL_INVALID;
 
         *ve__o = (CcVariantEnum)ve;

@@ -22,9 +22,6 @@
 #define CC_MAX_LEN_DISAMBIGUATION (3)
 #define CC_MAX_LEN_DISAMBIGUATION_STEP (6)
 
-#define CC_CONVERT_FILE_CHAR_INTO_NUM(char_file) ( (char_file) - 'a' )
-#define CC_CONVERT_RANK_STR_INTO_NUM(char_ptr_rank) ( atoi( (char_ptr_rank) ) - 1 )
-
 
 /**
     Ply link enumeration.

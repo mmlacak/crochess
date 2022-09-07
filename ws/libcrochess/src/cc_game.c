@@ -7,12 +7,16 @@
 #include "cc_defines.h"
 #include "cc_str_utils.h"
 // #include "cc_variant.h"
+#include "cc_token.h"
+// #include "cc_parse_defs.h"
 #include "cc_game.h"
 
 /**
     @file cc_game.c
     @brief Functions related to game storage.
 */
+
+char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[] = " ,";
 
 
 CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse,
@@ -118,20 +122,51 @@ CcGame * cc_game_setup_from_string( char const * restrict setup )
 {
     if ( !setup ) return NULL;
 
-    char const * s = setup;
-    size_t len = 0;
-
     CcVariantEnum ve = CC_VE_One;
     CcGameStatusEnum gse = CC_GSE_Turn_Light;
 
-    len = cc_variant_from_symbol( s, &ve );
-    gse = isupper( *s ) ? CC_GSE_Turn_Light : CC_GSE_Turn_Dark;
-    s += len;
+    char const * s = setup;
+    size_t len = cc_variant_from_symbol( s, &ve );
+    gse = islower( *s ) ? CC_GSE_Turn_Dark : CC_GSE_Turn_Light;
 
     CcGame * game__a = cc_game__new( gse, ve, false );
     if ( !game__a ) return NULL;
 
+    s += len + 1; // +1 == next char, after variant symbol string
 
+    char const * start = NULL;
+    char const * end = NULL;
+
+    while ( cc_token_iter( s, CC_GAME_SEPARATORS_SETUP_FROM_STRING, &start, &end ) )
+    {
+        char const * c = start;
+
+        char piece_chr = *c++;
+        CcPieceEnum pe = cc_piece_from_char( piece_chr );
+        if ( CC_PIECE_IS_NONE( pe ) )
+        {
+            cc_game_free_all( &game__a );
+            return NULL;
+        }
+
+        char file_chr = *c++;
+        int file = CC_CONVERT_FILE_CHAR_INTO_NUM( file_chr );
+
+        cc_char_8 rank_c8 = CC_CHAR_8_EMPTY;
+        rank_c8[ 0 ] = *c++;
+        if ( isdigit( *c ) )
+            rank_c8[ 1 ] = *c++;
+        int rank = CC_CONVERT_RANK_STR_INTO_NUM( rank_c8 );
+
+        char tag = *c;
+        CcTagEnum te = cc_tag_from_char( tag );
+
+        if ( !cc_chessboard_set_piece_tag( game__a->chessboard, file, rank, pe, te ) )
+        {
+            cc_game_free_all( &game__a );
+            return NULL;
+        }
+    }
 
     return game__a;
 }

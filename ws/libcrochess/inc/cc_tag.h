@@ -121,6 +121,17 @@
 #define CC_TAG_CAN_BE_LOST(te) ( (te) != CC_TE_PawnSacrifice )
 
 
+#define CC_TAG_CHAR_NONE ' '
+#define CC_TAG_CHAR_INVALID '?'
+
+#define CC_TAG_CHAR_CAN_RUSH 'R'
+#define CC_TAG_CHAR_CAN_CASTLE 'C'
+#define CC_TAG_CHAR_DELAYED_PROMOTION 'P'
+
+#define CC_TAG_CHAR_EN_PASSANT 'E'
+#define CC_TAG_CHAR_PAWN_SACRIFICE 'S'
+
+
 /**
     Enumerates all tags, used in all variants.
 
@@ -148,6 +159,15 @@ typedef enum CcTagEnum
     @return Tag char, uppercase if valid, space otherwise.
 */
 char cc_tag_as_char( CcTagEnum ct );
+
+/**
+    Function returning tag enum, based on tag char.
+
+    @param c A char.
+
+    @return Tag enum if valid `char`, `CC_TE_None` otherwise.
+*/
+CcTagEnum cc_tag_from_char( char c );
 
 
 #endif /* __CC_TAG_H__ */
