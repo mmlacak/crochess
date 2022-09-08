@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.151:583+20220908.230148"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.152:584+20220908.232307"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -208,6 +208,11 @@ int main( void )
 
                 cc_chessboard_print( game__a->chessboard, true );
             }
+        }
+        else if ( cc_str_is_equal( token_start, token_end, "c", NULL, BUFSIZ ) ||
+                  cc_str_is_equal( token_start, token_end, "clear", NULL, BUFSIZ ) )
+        {
+            cc_chessboard_clear( game__a->chessboard );
         }
         else if ( cc_str_is_equal( token_start, token_end, "u", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "update", NULL, BUFSIZ ) )
