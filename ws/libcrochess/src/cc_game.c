@@ -16,7 +16,7 @@
     @brief Functions related to game storage.
 */
 
-char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[] = " ,";
+char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[] = ",";
 
 
 CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse,
@@ -140,7 +140,7 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
 
         game__a = cc_game__new( gse, ve, false );
 
-        s += len + 1; // +1 == next char, after variant symbol string
+        s += len + 1; // +1 == next char, after separator (space) following variant symbol string
     }
 
     if ( !game__a ) return NULL;
@@ -154,11 +154,6 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
 
         char piece_chr = *c++;
         CcPieceEnum pe = cc_piece_from_char( piece_chr );
-        if ( CC_PIECE_IS_NONE( pe ) )
-        {
-            cc_game_free_all( &game__a );
-            return NULL;
-        }
 
         char file_chr = *c++;
         int file = CC_CONVERT_FILE_CHAR_INTO_NUM( file_chr );

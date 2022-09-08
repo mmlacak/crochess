@@ -28,26 +28,39 @@
 
 
 bool test_move( char const * restrict an_str,
-                char const * restrict start_setup__d,
-                char const * restrict end_setup__d,
+                char const * restrict setup__d,
+                char const * restrict check_setup__d,
+                char const * restrict check_end__d,
                 CcGame ** restrict game__iodr )
 {
     if ( !an_str ) return false;
-    if ( !start_setup__d && ( !game__iodr || !*game__iodr ) ) return false;
-    if ( game__iodr && !*game__iodr ) return false;
+    if ( !setup__d && ( !game__iodr || !*game__iodr ) ) return false;
+    // if ( game__iodr && !*game__iodr ) return false;
 
     CcGame * before_setup = game__iodr ? *game__iodr : NULL;
-    CcGame * game__a = cc_game_setup_from_string__new( start_setup__d, before_setup );
+    CcGame * game__a = cc_game_setup_from_string__new( setup__d, before_setup );
     if ( !game__a ) return false;
 
-    bool result = false;
+    bool result = true;
+    unsigned int result_at = 0x0;
     CcParseMsgs * pms__a = NULL;
 
     // TODO :: TEMP :: un/comment (?)
     cc_chessboard_print( game__a->chessboard, true );
     cc_chessboard_print( game__a->chessboard, false );
 
-    if ( ( result = cc_do_make_move( an_str, game__a, &pms__a ) ) )
+    if ( check_setup__d )
+    {
+        CcGame * setup__a = cc_game_setup_from_string__new( check_setup__d, before_setup );
+        if ( !setup__a ) return false;
+
+        result = cc_chessboard_is_equal( game__a->chessboard, setup__a->chessboard ) && result;
+        if ( !result ) result_at |= 0x1;
+
+        cc_game_free_all( &setup__a );
+    }
+
+    if ( ( result = cc_do_make_move( an_str, game__a, &pms__a ) && result ) )
     {
         // TODO :: TEMP :: un/comment (?)
         cc_chessboard_print( game__a->chessboard, true );
@@ -55,6 +68,8 @@ bool test_move( char const * restrict an_str,
     }
     else
     {
+        result_at |= 0x2;
+
         CcParseMsgs * p = pms__a;
         while ( p )
         {
@@ -63,12 +78,15 @@ bool test_move( char const * restrict an_str,
         }
     }
 
-    if ( end_setup__d )
+    if ( check_end__d )
     {
-        CcGame * end__a = cc_game_setup_from_string__new( end_setup__d, before_setup );
+        CcGame * end__a = cc_game_setup_from_string__new( check_end__d, before_setup );
         if ( !end__a ) return false;
 
         result = cc_chessboard_is_equal( game__a->chessboard, end__a->chessboard ) && result;
+        if ( !result ) result_at |= 0x4;
+
+        cc_game_free_all( &end__a );
     }
 
     cc_parse_msgs_free_all( &pms__a );
@@ -85,7 +103,7 @@ bool test_move( char const * restrict an_str,
 
     if ( !result )
     {
-        printf( "Move '%s' failed.\n", an_str );
+        printf( "Move '%s' failed at %x.\n", an_str, result_at );
         printf( "-----------------------------------------------------------------------\n" );
     }
 
@@ -99,160 +117,160 @@ bool tests_move( int test_number )
     bool result = true;
 
     if ( ( test_number == 1 ) || do_all_tests )
-        result = test_move( "n5", "O Pn2R,Bd1,Bw1,bd26,bw26", "O Pn5E,Bd1,Bw1,bd26,bw26", NULL ) && result;
+        result = test_move( "n5", "O Pn2R,Bd1,Bw1,bd26,bw26", NULL, "o Pn5E,Bd1,Bw1,bd26,bw26", NULL ) && result;
 
     if ( ( test_number == 2 ) || do_all_tests )
-        result = test_move( "mn5", NULL, NULL, NULL ) && result;
+        result = test_move( "mn5", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 3 ) || do_all_tests )
-        result = test_move( "7n5", NULL, NULL, NULL ) && result;
+        result = test_move( "7n5", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 4 ) || do_all_tests )
-        result = test_move( "m7n5", NULL, NULL, NULL ) && result;
+        result = test_move( "m7n5", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 5 ) || do_all_tests )
-        result = test_move( "::n5", NULL, NULL, NULL ) && result;
+        result = test_move( "::n5", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 6 ) || do_all_tests )
-        result = test_move( "::mn5", NULL, NULL, NULL ) && result;
+        result = test_move( "::mn5", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 7 ) || do_all_tests )
-        result = test_move( "::7n5", NULL, NULL, NULL ) && result;
+        result = test_move( "::7n5", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 8 ) || do_all_tests )
-        result = test_move( "::m7n5", NULL, NULL, NULL ) && result;
+        result = test_move( "::m7n5", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 9 ) || do_all_tests )
-        result = test_move( "n5*", NULL, NULL, NULL ) && result;
+        result = test_move( "n5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 10 ) || do_all_tests )
-        result = test_move( "mn5*", NULL, NULL, NULL ) && result;
+        result = test_move( "mn5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 11 ) || do_all_tests )
-        result = test_move( "7n5*", NULL, NULL, NULL ) && result;
+        result = test_move( "7n5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 12 ) || do_all_tests )
-        result = test_move( "m7n5*", NULL, NULL, NULL ) && result;
+        result = test_move( "m7n5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 13 ) || do_all_tests )
-        result = test_move( "::n5*", NULL, NULL, NULL ) && result;
+        result = test_move( "::n5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 14 ) || do_all_tests )
-        result = test_move( "::mn5*", NULL, NULL, NULL ) && result;
+        result = test_move( "::mn5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 15 ) || do_all_tests )
-        result = test_move( "::7n5*", NULL, NULL, NULL ) && result;
+        result = test_move( "::7n5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 16 ) || do_all_tests )
-        result = test_move( "::m7n5*", NULL, NULL, NULL ) && result;
+        result = test_move( "::m7n5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 17 ) || do_all_tests )
-        result = test_move( "B&&n5*N", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&n5*N", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 18 ) || do_all_tests )
-        result = test_move( "B&&mn5*N", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&mn5*N", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 19 ) || do_all_tests )
-        result = test_move( "[::mn5*]", NULL, NULL, NULL ) && result;
+        result = test_move( "[::mn5*]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 20 ) || do_all_tests )
-        result = test_move( "[B&&mn5*N]", NULL, NULL, NULL ) && result;
+        result = test_move( "[B&&mn5*N]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 21 ) || do_all_tests )
-        result = test_move( "::m..n5*", NULL, NULL, NULL ) && result;
+        result = test_move( "::m..n5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 22 ) || do_all_tests )
-        result = test_move( "B&&m..n5*N", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&m..n5*N", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 23 ) || do_all_tests )
-        result = test_move( "::m11..n15*", NULL, NULL, NULL ) && result;
+        result = test_move( "::m11..n15*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 24 ) || do_all_tests )
-        result = test_move( "B&&m11..n15*N", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&m11..n15*N", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 25 ) || do_all_tests )
-        result = test_move( "[::m..n5*]", NULL, NULL, NULL ) && result;
+        result = test_move( "[::m..n5*]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 26 ) || do_all_tests )
-        result = test_move( "[B&&m..n5*N]", NULL, NULL, NULL ) && result;
+        result = test_move( "[B&&m..n5*N]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 27 ) || do_all_tests )
-        result = test_move( "::7g11*", NULL, NULL, NULL ) && result;
+        result = test_move( "::7g11*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 28 ) || do_all_tests )
-        result = test_move( "B&&7g11*N", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&7g11*N", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 29 ) || do_all_tests )
-        result = test_move( "::e7g11*", NULL, NULL, NULL ) && result;
+        result = test_move( "::e7g11*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 30 ) || do_all_tests )
-        result = test_move( "B&&e7g11*N", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&e7g11*N", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 31 ) || do_all_tests )
-        result = test_move( "[::7g11*]", NULL, NULL, NULL ) && result;
+        result = test_move( "[::7g11*]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 32 ) || do_all_tests )
-        result = test_move( "[B&&7g11*N]", NULL, NULL, NULL ) && result;
+        result = test_move( "[B&&7g11*N]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 33 ) || do_all_tests )
-        result = test_move( "::3..n5*", NULL, NULL, NULL ) && result;
+        result = test_move( "::3..n5*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 34 ) || do_all_tests )
-        result = test_move( "B&&3..n5*N", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&3..n5*N", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 35 ) || do_all_tests )
-        result = test_move( "::m11..n15*", NULL, NULL, NULL ) && result;
+        result = test_move( "::m11..n15*", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 36 ) || do_all_tests )
-        result = test_move( "B&&m11..n15*N", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&m11..n15*N", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 37 ) || do_all_tests )
-        result = test_move( "[::3..n5*]", NULL, NULL, NULL ) && result;
+        result = test_move( "[::3..n5*]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 38 ) || do_all_tests )
-        result = test_move( "[B&&3..n5*N]", NULL, NULL, NULL ) && result;
+        result = test_move( "[B&&3..n5*N]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 39 ) || do_all_tests )
-        result = test_move( "::3.m4<Rx11..n5*H-o7:", NULL, NULL, NULL ) && result;
+        result = test_move( "::3.m4<Rx11..n5*H-o7:", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 40 ) || do_all_tests )
-        result = test_move( "B&&3..m4<Rx11.n5*H-o7>a11", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&3..m4<Rx11.n5*H-o7>a11", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 41 ) || do_all_tests )
-        result = test_move( "::m11.o12<Rx11..n15*H-o17:", NULL, NULL, NULL ) && result;
+        result = test_move( "::m11.o12<Rx11..n15*H-o17:", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 42 ) || do_all_tests )
-        result = test_move( "B&&m11..o12<Rx11.n15*H-o17>a11", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&m11..o12<Rx11.n15*H-o17>a11", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 43 ) || do_all_tests )
-        result = test_move( "[::3.m4<Rx11..n5*H-o7:]", NULL, NULL, NULL ) && result;
+        result = test_move( "[::3.m4<Rx11..n5*H-o7:]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 44 ) || do_all_tests )
-        result = test_move( "[B&&3..m4<Rx11.n5*H-o7>a11]", NULL, NULL, NULL ) && result;
+        result = test_move( "[B&&3..m4<Rx11.n5*H-o7>a11]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 45 ) || do_all_tests )
-        result = test_move( "::a5~Ab5", NULL, NULL, NULL ) && result;
+        result = test_move( "::a5~Ab5", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 46 ) || do_all_tests )
-        result = test_move( "[B&&a5]~[Ab5]", NULL, NULL, NULL ) && result;
+        result = test_move( "[B&&a5]~[Ab5]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 47 ) || do_all_tests )
-        result = test_move( "B&&5.b9<Rx11..d11-h14", NULL, NULL, NULL ) && result;
+        result = test_move( "B&&5.b9<Rx11..d11-h14", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 48 ) || do_all_tests )
-        result = test_move( "[B&&5.b9<Rx11..d11-h14]", NULL, NULL, NULL ) && result;
+        result = test_move( "[B&&5.b9<Rx11..d11-h14]", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 49 ) || do_all_tests )
-        result = test_move( "==a.b9<Rx11..d11-h14~A..g15*H.h16&h..j18<Rx11-k19%%R", NULL, NULL, NULL ) && result;
+        result = test_move( "==a.b9<Rx11..d11-h14~A..g15*H.h16&h..j18<Rx11-k19%%R", NULL, NULL, NULL, NULL ) && result;
 
     if ( ( test_number == 50 ) || do_all_tests )
-        result = test_move( "[B==a.b9<Rx11..d11-h14]~[A..g15*H.h16&h..j18<Rx11-k19%%R]", NULL, NULL, NULL ) && result;
+        result = test_move( "[B==a.b9<Rx11..d11-h14]~[A..g15*H.h16&h..j18<Rx11-k19%%R]", NULL, NULL, NULL, NULL ) && result;
 
     // if ( ( test_number == 51 ) || do_all_tests )
-    //     result = test_move( "Ba5~[Wc7]||Nd9", NULL, NULL, NULL ) && result;
+    //     result = test_move( "Ba5~[Wc7]||Nd9", NULL, NULL, NULL, NULL ) && result;
 
     // if ( ( test_number == 52 ) || do_all_tests )
-    //     result = test_move( "[Ba5]~Wc7@@[Nd9]", NULL, NULL, NULL ) && result;
+    //     result = test_move( "[Ba5]~Wc7@@[Nd9]", NULL, NULL, NULL, NULL ) && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;
