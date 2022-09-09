@@ -103,7 +103,7 @@ bool test_move( char const * restrict an_str,
 
     if ( !result )
     {
-        printf( "Move '%s' failed at %x.\n", an_str, result_at );
+        printf( "Move '%s' failed, error(s) 0x%x.\n", an_str, result_at );
         printf( "-----------------------------------------------------------------------\n" );
     }
 
@@ -117,7 +117,7 @@ bool tests_move( int test_number )
     bool result = true;
 
     if ( ( test_number == 1 ) || do_all_tests )
-        result = test_move( "n5", "O Pn2R,Pm2R,Bd1,bd26", NULL, "o Pn5E,Pm2R,Bd1,bd26", NULL ) && result;
+        result = test_move( "Bh5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
     if ( ( test_number == 2 ) || do_all_tests )
         result = test_move( "mn5", "O Pm4R,Pn4R,pn5", NULL, "o Pm5,Pn4R", NULL ) && result;

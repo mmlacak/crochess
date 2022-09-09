@@ -326,6 +326,18 @@ bool cc_piece_is_light( CcPieceEnum pe )
     }
 }
 
+bool cc_piece_has_equal_type( char symbol, CcPieceEnum pe )
+{
+    char ps = cc_piece_symbol( pe );
+    return ( symbol == ps );
+}
+
+bool cc_piece_is_equal( char symbol, bool is_light, CcPieceEnum pe )
+{
+    CcPieceEnum piece = cc_piece_from_symbol( symbol, is_light );
+    return ( piece == pe );
+}
+
 bool cc_piece_has_same_type( CcPieceEnum pe_1, CcPieceEnum pe_2 )
 {
     if ( CC_PIECE_IS_THE_SAME( pe_1, pe_2 ) ) return true;

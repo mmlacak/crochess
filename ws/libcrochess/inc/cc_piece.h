@@ -640,6 +640,33 @@ bool cc_piece_is_dark( CcPieceEnum pe );
 bool cc_piece_is_light( CcPieceEnum pe );
 
 /**
+    Function checks if given piece has the same type as a piece symbol.
+
+    @param symbol Piece symbol, uppercase char. It is taken verbatim, i.e. not converted to uppercase char.
+    @param pe A piece.
+
+    @note
+    Type of a piece is what remains after it has been stripped of color (or shade).
+    For instance, light and dark Rook are both Rooks, that is their type.
+
+    @return `true` if the same type, `false` otherwise.
+*/
+bool cc_piece_has_equal_type( char symbol, CcPieceEnum pe );
+
+/**
+    Function checks if given piece is equal to one produce by a piece symbol, and a flag.
+
+    @param symbol Piece symbol, uppercase char. It is taken verbatim, i.e. not converted to uppercase char.
+    @param is_light Whether piece is light/bright (`true`), or dark/dim (`false`).
+    @param pe A piece.
+
+    @see cc_piece_from_symbol()
+
+    @return `true` if piece is the same, `false` otherwise.
+*/
+bool cc_piece_is_equal( char symbol, bool is_light, CcPieceEnum pe );
+
+/**
     Function checks if two given pieces are the same type.
 
     @param pe_1 A piece.

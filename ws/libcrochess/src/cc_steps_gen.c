@@ -246,6 +246,13 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
     return false;
 }
 
+// TODO :: link positions for Monolith
+// TODO :: link positions for Serpent
+
+// TODO :: pawn-sacrifice (?) --> maybe separate function (?)
+// TODO :: trance-journey
+// TODO :: Shaman's capture-ply
+
 CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                CcPos start,
                                CcPos destination,
@@ -271,7 +278,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
 
     for ( CcPos pos = cc_pos_add( start, s );
           !cc_pos_is_equal( pos, destination );
-          cc_pos_add( pos, s ) )
+          pos = cc_pos_add( pos, s ) )
     {
         pe = cc_chessboard_get_piece( cb_before_activation, pos.i, pos.j );
 

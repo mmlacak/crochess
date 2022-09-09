@@ -55,11 +55,11 @@ static bool cc_check_pre_plies_status( char const char_an,
 }
 
 
-bool cc_append_steps( char const * restrict ply_start_str,
-                      char const * restrict ply_end_str,
-                      CcChessboard * restrict cb,
-                      CcSteps ** restrict steps__io,
-                      CcParseMsgs ** restrict parse_msgs__io )
+static bool cc_append_steps( char const * restrict ply_start_str,
+                             char const * restrict ply_end_str,
+                             CcChessboard * restrict cb,
+                             CcSteps ** restrict steps__io,
+                             CcParseMsgs ** restrict parse_msgs__io )
 {
     if ( !ply_start_str ) return false;
     if ( !ply_end_str ) return false;
@@ -132,9 +132,9 @@ bool cc_append_steps( char const * restrict ply_start_str,
     return true;
 }
 
-bool cc_do_make_plies( char const * restrict move_an_str,
-                       CcGame * restrict game__io,
-                       CcParseMsgs ** restrict parse_msgs__io )
+static bool cc_do_make_plies( char const * restrict move_an_str,
+                              CcGame * restrict game__io,
+                              CcParseMsgs ** restrict parse_msgs__io )
 {
     if ( !move_an_str ) return false;
     if ( !game__io ) return false;
@@ -149,6 +149,7 @@ bool cc_do_make_plies( char const * restrict move_an_str,
     char const * ply_start_str = NULL;
     char const * ply_end_str = NULL;
 
+    CcPieceEnum previous_piece = CC_PE_None;
     CcPieceEnum activator = CC_PE_None;
 
 // TODO :: check if castling --> handle as a special case
@@ -401,6 +402,7 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
         CcPos start = CC_POS_CAST_INVALID;
         CcPosLink * path__a = NULL;
+        size_t path_count = 0;
 
         while ( cc_piece_pos_iter( cb__a, starting, piece_temp, include_opponent, &start ) )
         {
@@ -408,43 +410,115 @@ bool cc_do_make_plies( char const * restrict move_an_str,
             if ( cc_pos_to_short_string( start, &start_str ) )
                 CC_PRINTF_IF_INFO( "Try start: '%s'.\n", start_str );
 
-            if ( is_starting_ply )
-                path__a = cc_longest_path__new( cb__a, activator_temp, start, end );
-            else
-                path__a = cc_shortest_path__new( cb__a, activator_temp, start, end );
+            CcPieceEnum pe_start = cc_chessboard_get_piece( cb__a, start.i, start.j );
+            bool is_light_piece = CC_GAME_STATUS_IS_LIGHT_TURN( game__io->status );
 
-            char * path_str__a = cc_pos_link_to_short_string__new( path__a );
+            if ( ( is_starting_ply && ( !cc_piece_is_equal( piece_symbol, is_light_piece, pe_start ) ) ) ||
+                 ( !is_starting_ply && ( !cc_piece_has_equal_type( piece_symbol, pe_start ) ) ) )
+            {
+                char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Piece '%c' not found at '%s', in ply '%s'.\n",
+                                                piece_symbol,
+                                                start_str,
+                                                ply_str__a );
+
+                CC_FREE( ply_str__a );
+
+                cc_steps_free_all( &steps__a );
+                cc_chessboard_free_all( &cb__a );
+                return false;
+            }
+
+            CcPosLink * path__t =
+                is_starting_ply ? cc_longest_path__new( cb__a, activator_temp, start, end )
+                                : cc_shortest_path__new( cb__a, activator_temp, start, end );
+
+            char * path_str__a = cc_pos_link_to_short_string__new( path__t );
             if ( path_str__a )
             {
                 CC_PRINTF_IF_INFO( "Path: '%s'.\n", path_str__a );
                 CC_FREE( path_str__a );
             }
 
-// TOOD :: check if path__a is congruent with steps__a
-
-            if ( cc_steps_are_congruent( steps__a, path__a ) )
+            if ( cc_steps_are_congruent( steps__a, path__t ) )
             {
                 CC_PRINTF_IF_INFO( "Found it!\n" );
 
-
-
-                break;
+                ++path_count;
+                if ( path__t ) path__a = path__t;
             }
 
         } // while ( cc_piece_pos_iter( ... ) )
 
         //
-        // Piece, from starting position.
+        // Check if only one path --> do move.
 
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
-        bool is_light_piece =
-            is_starting_ply ? CC_GAME_STATUS_IS_LIGHT_TURN( game__io->status )
-                            : true; // TODO :: not really true
-// TODO :: find if piece light, based on starting position, if ply is cascading ...
+        CcPieceEnum piece = CC_PE_None;
 
-        CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light_piece );
+        if ( path_count == 1 )
+        {
+            CcPos start = path__a->pos;
 
-        CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+            CcPosLink * pl = path__a;
+            while ( pl->next ) pl = pl->next;
+
+            CcPos end = pl->pos;
+
+            //
+            // Piece, from starting position.
+
+            piece = cc_chessboard_get_piece( cb__a, start.i, start.j );
+
+            CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+
+// TODO :: tags
+// TODO :: teleport
+            if ( cc_chessboard_set_piece_tag( cb__a, start.i, start.j, previous_piece, CC_TE_None ) &&
+                 cc_chessboard_set_piece_tag( cb__a, end.i, end.j, piece, CC_TE_None ) )
+            {
+                CC_PRINTF_IF_INFO( "It's done!\n" );
+            }
+            else
+            {
+                char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Chessboard not updated, with ply '%s'.\n",
+                                                ply_str__a );
+
+                CC_FREE( ply_str__a );
+
+                cc_steps_free_all( &steps__a );
+                cc_chessboard_free_all( &cb__a );
+                return false;
+            }
+
+        }
+        else
+        {
+            char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+            char const * const fmt =
+                ( path_count == 0 ) ? "No path found, in ply '%s'.\n"
+                                    : "More than one path found, in ply '%s'.\n";
+
+            cc_parse_msgs_append_if_format( parse_msgs__io,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            fmt,
+                                            ply_str__a );
+
+            CC_FREE( ply_str__a );
+
+            cc_steps_free_all( &steps__a );
+            cc_chessboard_free_all( &cb__a );
+            return false;
+        }
 
 
 
@@ -453,6 +527,8 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 
 // TODO :: find starting position
 
+
+        previous_piece = piece;
 
         if ( !CC_PIECE_IS_WAVE( piece ) )
             activator = piece;
@@ -470,10 +546,16 @@ bool cc_do_make_plies( char const * restrict move_an_str,
 // TODO :: loop over plies
 
 
-    cc_chessboard_free_all( &cb__a );
-
-
-    return true;
+    if ( cc_chessboard_free_all( &( game__io->chessboard ) ) )
+    {
+        game__io->chessboard = cb__a;
+        return true;
+    }
+    else
+    {
+        cc_chessboard_free_all( &cb__a );
+        return false;
+    }
 }
 
 bool cc_do_make_move( char const * restrict move_an_str,
