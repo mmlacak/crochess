@@ -120,7 +120,16 @@ bool tests_move( int test_number )
         result = test_move( "Bh5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
     if ( ( test_number == 2 ) || do_all_tests )
-        result = test_move( "mn5", "O Pm4R,Pn4R,pn5", NULL, "o Pm5,Pn4R", NULL ) && result;
+        result = !test_move( "Bh5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result;
+
+    if ( ( test_number == 3 ) || do_all_tests )
+        result = test_move( "Bdh5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
+
+    if ( ( test_number == 4 ) || do_all_tests )
+        result = test_move( "Blh5", "O Bd1,Bl1,bd9", NULL, "o Bd1,Bh5,bd9", NULL ) && result;
+
+    // if ( ( test_number == 2 ) || do_all_tests )
+    //     result = test_move( "mn5", "O Pm4R,Pn4R,pn5", NULL, "o Pm5,Pn4R", NULL ) && result;
 
     // if ( ( test_number == 3 ) || do_all_tests )
     //     result = test_move( "7n5", NULL, NULL, NULL, NULL ) && result;
