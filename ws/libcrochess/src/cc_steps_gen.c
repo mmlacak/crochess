@@ -275,9 +275,10 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
     bool is_even_step = true;
 
     CcPosLink * path__a = cc_pos_link__new( start );
+    CcPos last_pos = CC_POS_CAST_INVALID;
 
     for ( CcPos pos = cc_pos_add( start, s );
-          !cc_pos_is_equal( pos, destination );
+          !cc_pos_is_equal( pos, destination ); // TODO :: check if out-of-trance-journey-bounds
           pos = cc_pos_add( pos, s ) )
     {
         pe = cc_chessboard_get_piece( cb_before_activation, pos.i, pos.j );
@@ -299,11 +300,21 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
 
         cc_pos_link_append( path__a, pos );
 
+        last_pos = pos;
+
         if ( is_alternating_steps )
         {
             s = is_even_step ? step_2 : step;
             is_even_step = !is_even_step;
         }
+    }
+
+    CcPos end = cc_pos_add( last_pos, s );
+
+    if ( !cc_pos_is_equal( end, destination ) )
+    {
+        cc_pos_link_free_all( &path__a );
+        return NULL;
     }
 
     cc_pos_link_append( path__a, destination );
