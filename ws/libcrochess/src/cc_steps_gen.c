@@ -299,7 +299,11 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
             return NULL;
         }
 
-        cc_pos_link_append( path__a, pos );
+        if ( !cc_pos_link_append( path__a, pos ) )
+        {
+            cc_pos_link_free_all( &path__a );
+            return NULL;
+        }
 
         last_pos = pos;
 
@@ -321,7 +325,11 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
         return NULL;
     }
 
-    cc_pos_link_append( path__a, destination );
+    if ( !cc_pos_link_append( path__a, destination ) )
+    {
+        cc_pos_link_free_all( &path__a );
+        return NULL;
+    }
 
     return path__a;
 }
