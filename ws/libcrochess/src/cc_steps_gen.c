@@ -309,6 +309,9 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
         }
     }
 
+    if ( is_alternating_steps )
+        s = is_even_step ? step_2 : step;
+
     CcPos end = cc_pos_add( last_pos, s );
 
     if ( !cc_pos_is_equal( end, destination ) )
