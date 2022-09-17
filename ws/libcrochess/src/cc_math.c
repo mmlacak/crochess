@@ -2,7 +2,8 @@
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdlib.h>
-// #include <math.h>
+#include <math.h>
+// #include <tgmath.h>
 
 #include "cc_defines.h"
 #include "cc_math.h"
@@ -33,4 +34,11 @@ int cc_gcd( int x, int y )
     }
 
     return max;
+}
+
+size_t cc_diagonal( size_t size )
+{
+    size_t s = 2 * size * size;
+    long double d = ceill( sqrtl( (long double)s ) );
+    return (size_t)d;
 }

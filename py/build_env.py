@@ -56,10 +56,10 @@ OPTIONS_CLANG_DEBUG_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
 OPTIONS_CLANG_RELEASE_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
 
 
-OPTIONS_GCC_LIBRARY = ['--shared', '-fPIC', '-I../inc', ]
+OPTIONS_GCC_LIBRARY = ['--shared', '-fPIC', '-I../inc', '-lm', ]
 OPTIONS_GCC_EXECUTABLE = ['-L../../bin', '-lcrochess', '-I../../libcrochess/inc', '-I../inc', ]
 
-OPTIONS_CLANG_LIBRARY = ['--shared', '-fPIC', '-I../inc', ]
+OPTIONS_CLANG_LIBRARY = ['--shared', '-fPIC', '-I../inc', '-lm', ]
 OPTIONS_CLANG_EXECUTABLE = ['-L../../bin', '-lcrochess', '-I../../libcrochess/inc', '-I../inc', ]
 
 

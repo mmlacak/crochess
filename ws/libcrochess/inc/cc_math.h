@@ -20,5 +20,14 @@
 */
 int cc_gcd( int x, int y );
 
+/**
+    Function returns length of a diagonal.
+
+    @param size Size of a chessboard, an integer.
+
+    @return Diagonal of a chessboard, rounded up.
+*/
+size_t cc_diagonal( size_t size );
+
 
 #endif /* __CC_MATH_H__ */

@@ -131,6 +131,35 @@ bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb, int coord );
 bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j );
 
 /**
+    Function checks if given coordinate is within safe off-board boundaries.
+
+    @param cb Chessboard.
+    @param coord A coordinate.
+
+    @note
+    Coordiante is safely off-board if there could be a movement (e.g. trance-journey),
+    which would place piece back on-board.
+
+    @return `true` if coordinate is safe off-board, `false` otherwise.
+*/
+bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coord );
+
+/**
+    Function returning if given position is within safe off-board boundaries.
+
+    @param cb Chessboard.
+    @param i File, position along horizontal axis.
+    @param j Rank, position along vertical axis.
+
+    @note
+    Position is safely off-board if there could be a movement (e.g. trance-journey),
+    which would place piece back on-board.
+
+    @return `true` if position is safe off-board, `false` otherwise.
+*/
+bool cc_chessboard_is_pos_safe_off_board( CcChessboard * restrict cb, int i, int j );
+
+/**
     Function returning if given position is on a light side of board.
 
     @param cb Chessboard.

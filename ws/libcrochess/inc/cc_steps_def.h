@@ -245,10 +245,10 @@ bool cc_step_is_valid( CcPos step,
     ( cc_step_is_valid( (step), CC_STEPS_LONG_CENTAUR, CC_STEPS_LONG_CENTAUR_LEN ) )
 
 #define CC_SERPENT_LEFT_STEP_IS_VALID(step) \
-    ( cc_step_is_valid( (step), CC_STEPS_SERPENT_LEFT, CC_STEPS_SERPENT_SIZE ) )
+    ( cc_step_is_valid( (step), CC_STEPS_SERPENT_LEFT, CC_STEPS_SERPENT_LEN ) )
 
 #define CC_SERPENT_RIGHT_STEP_IS_VALID(step) \
-    ( cc_step_is_valid( (step), CC_STEPS_SERPENT_RIGHT, CC_STEPS_SERPENT_SIZE ) )
+    ( cc_step_is_valid( (step), CC_STEPS_SERPENT_RIGHT, CC_STEPS_SERPENT_LEN ) )
 
 
 #define CC_LIGHT_SHAMAN_STEP_IS_VALID(step) \
@@ -265,10 +265,10 @@ bool cc_step_is_valid( CcPos step,
 
 
 #define CC_MONOLITH_LEFT_STEP_IS_VALID(step) \
-    ( cc_step_is_valid( (step), CC_STEPS_MONOLITH_LEFT, CC_STEPS_MONOLITH_SIZE ) )
+    ( cc_step_is_valid( (step), CC_STEPS_MONOLITH_LEFT, CC_STEPS_MONOLITH_LEN ) )
 
 #define CC_MONOLITH_RIGHT_STEP_IS_VALID(step) \
-    ( cc_step_is_valid( (step), CC_STEPS_MONOLITH_RIGHT, CC_STEPS_MONOLITH_SIZE ) )
+    ( cc_step_is_valid( (step), CC_STEPS_MONOLITH_RIGHT, CC_STEPS_MONOLITH_LEN ) )
 
 #define CC_STARCHILD_MIRACLE_STEP_IS_VALID(step) \
     ( cc_step_is_valid( (step), CC_STEPS_MIRACLE_STARCHILD, CC_STEPS_MIRACLE_STARCHILD_LEN ) )

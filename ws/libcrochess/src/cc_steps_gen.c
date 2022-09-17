@@ -278,7 +278,8 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
     CcPos last_pos = CC_POS_CAST_INVALID;
 
     for ( CcPos pos = cc_pos_add( start, s );
-          !cc_pos_is_equal( pos, destination ); // TODO :: check if out-of-trance-journey-bounds
+          !cc_pos_is_equal( pos, destination ) && \
+              cc_chessboard_is_pos_safe_off_board( cb_before_activation, pos.i, pos.j );
           pos = cc_pos_add( pos, s ) )
     {
         pe = cc_chessboard_get_piece( cb_before_activation, pos.i, pos.j );

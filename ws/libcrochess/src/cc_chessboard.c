@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 #include "cc_defines.h"
+#include "cc_math.h"
 #include "cc_piece.h"
 #include "cc_tag.h"
 #include "cc_variant.h"
@@ -161,6 +162,21 @@ bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j )
 {
     if ( !cb ) return false;
     return CC_IS_POS_ON_BOARD( cb->size, i, j );
+}
+
+bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coord )
+{
+    if ( !cb ) return false;
+    size_t diag = cc_diagonal( cb->size );
+    return ( ( (int)(-diag) <= coord ) && ( coord <= (int)( cb->size + diag ) ) );
+}
+
+bool cc_chessboard_is_pos_safe_off_board( CcChessboard * restrict cb, int i, int j )
+{
+    if ( !cb ) return false;
+    size_t diag = cc_diagonal( cb->size );
+    return ( ( (int)(-diag) <= i ) && ( i <= (int)( cb->size + diag ) ) && \
+             ( (int)(-diag) <= j ) && ( j <= (int)( cb->size + diag ) ) );
 }
 
 bool cc_chessboard_is_field_on_light_side( CcChessboard * restrict cb, int j )
