@@ -89,6 +89,20 @@ bool test_move( char const * restrict an_str,
         cc_game_free_all( &end__a );
     }
 
+    if ( game__a->moves )
+    {
+        CcMoves * m = game__a->moves;
+        while ( m->next ) m = m->next;
+
+        result = cc_str_is_equal( an_str, NULL, m->an, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
+        if ( !result ) result_at |= 0x8;
+    }
+    else
+    {
+        result = false;
+        result_at |= 0x10;
+    }
+
     cc_parse_msgs_free_all( &pms__a );
 
     if ( !game__iodr )

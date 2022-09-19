@@ -547,30 +547,22 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
     //
     // Writing last piece in a cascade onto last destination field.
 
-    if ( ( !CC_PIECE_IS_NONE( previous_piece ) ) &&
-         ( cc_chessboard_is_pos_on_board( cb__a, destination_field.i, destination_field.j ) ) )
-    {
 // TODO :: tags
 // TODO :: teleport
-        if ( cc_chessboard_set_piece_tag( cb__a, destination_field.i, destination_field.j, previous_piece, CC_TE_None ) )
-        {
-            CC_PRINTF_IF_INFO( "Last ply is done!\n" );
-        }
-        else
-        {
-            char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+    if ( cc_chessboard_set_piece_tag( cb__a, destination_field.i, destination_field.j, previous_piece, CC_TE_None ) )
+    {
+        CC_PRINTF_IF_INFO( "Last ply is done!\n" );
+    }
+    else
+    {
+        cc_parse_msgs_append_if_format( parse_msgs__io,
+                                        CC_PMTE_Error,
+                                        CC_MAX_LEN_ZERO_TERMINATED,
+                                        "Chessboard not updated, with last destination in '%s'.\n",
+                                        move_an_str );
 
-            cc_parse_msgs_append_if_format( parse_msgs__io,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Chessboard not updated, with ply '%s'.\n",
-                                            ply_str__a );
-
-            CC_FREE( ply_str__a );
-
-            cc_chessboard_free_all( &cb__a );
-            return false;
-        }
+        cc_chessboard_free_all( &cb__a );
+        return false;
     }
     CC_PRINTF_IF_INFO( "-----------------------------------------------------------------------\n" );
 
