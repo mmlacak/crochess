@@ -182,17 +182,13 @@ bool tests_move( int test_number )
         // Both light Bishops are on the same rank.
         result = !test_move( "B1h5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
 
-// TODO :: FIX !!!
     if ( ( test_number == 16 ) || do_all_tests )
         // Both light Bishops are on the same rank.
-        result = !test_move( "B1..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
-// TODO :: FIX !!!
+        result = !test_move( "B1..h5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
 
-// TODO :: FIX !!!
     if ( ( test_number == 17 ) || do_all_tests )
         // Both light Bishops are on the same rank.
-        result = !test_move( "B1-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
-// TODO :: FIX !!!
+        result = !test_move( "B1-h5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
 
     if ( ( test_number == 18 ) || do_all_tests )
         // Intermediate field not part of any legal path.
