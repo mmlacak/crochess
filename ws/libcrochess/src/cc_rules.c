@@ -149,6 +149,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
     char const * ply_start_str = NULL;
     char const * ply_end_str = NULL;
 
+    CcPos cascading_field = CC_POS_CAST_INVALID;
     CcPieceEnum previous_piece = CC_PE_None;
     CcPieceEnum activator = CC_PE_None;
 
@@ -378,39 +379,39 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
         //
         // Starting, ending position, based on notation.
 
-        CcPos starting = CC_POS_CAST_INVALID;
-        CcPos end = CC_POS_CAST_INVALID;
+        CcPos start_an = CC_POS_CAST_INVALID;
+        CcPos end_an = CC_POS_CAST_INVALID;
         CcSteps * steps = steps__a;
 
         if ( steps->step_link == CC_SLE_Start )
-            starting = steps->pos;
+            start_an = steps->pos;
 
         while ( steps && steps->next ) steps = steps->next; // rewind
-        end = steps->pos;
+        end_an = steps->pos;
 
         cc_char_8 temp = CC_CHAR_8_EMPTY;
 
-        if ( cc_pos_to_short_string( starting, &temp ) )
+        if ( cc_pos_to_short_string( start_an, &temp ) )
             CC_PRINTF_IF_INFO( "Found starting: '%s'.\n", temp );
 
         cc_str_clear( temp, CC_MAX_LEN_CHAR_8 );
-        if ( cc_pos_to_short_string( end, &temp ) )
+        if ( cc_pos_to_short_string( end_an, &temp ) )
             CC_PRINTF_IF_INFO( "Found end: '%s'.\n", temp );
 
         //
         // Construct full path. Find true start.
 
-        CcPos start = CC_POS_CAST_INVALID;
+        CcPos start_cb = CC_POS_CAST_INVALID;
         CcPosLink * path__a = NULL;
         size_t path_count = 0;
 
-        while ( cc_piece_pos_iter( cb__a, starting, piece_temp, include_opponent, &start ) )
+        while ( cc_piece_pos_iter( cb__a, start_an, piece_temp, include_opponent, &start_cb ) )
         {
             cc_char_8 start_str = CC_CHAR_8_EMPTY;
-            if ( cc_pos_to_short_string( start, &start_str ) )
+            if ( cc_pos_to_short_string( start_cb, &start_str ) )
                 CC_PRINTF_IF_INFO( "Try start: '%s'.\n", start_str );
 
-            CcPieceEnum pe_start = cc_chessboard_get_piece( cb__a, start.i, start.j );
+            CcPieceEnum pe_start = cc_chessboard_get_piece( cb__a, start_cb.i, start_cb.j );
             bool is_light_piece = CC_GAME_STATUS_IS_LIGHT_TURN( game__io->status );
 
             if ( ( is_starting_ply && ( !cc_piece_is_equal( piece_symbol, is_light_piece, pe_start ) ) ) ||
@@ -434,8 +435,8 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             }
 
             CcPosLink * path__t =
-                is_starting_ply ? cc_longest_path__new( cb__a, activator_temp, start, end )
-                                : cc_shortest_path__new( cb__a, activator_temp, start, end );
+                is_starting_ply ? cc_longest_path__new( cb__a, activator_temp, start_cb, end_an )
+                                : cc_shortest_path__new( cb__a, activator_temp, start_cb, end_an );
 
             char * path_str__a = cc_pos_link_to_short_string__new( path__t );
             if ( path_str__a )
@@ -448,8 +449,8 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             {
                 CC_PRINTF_IF_INFO( "Found it!\n" );
 
+                path__a = path__t;
                 ++path_count;
-                if ( path__t ) path__a = path__t;
             }
 
         } // while ( cc_piece_pos_iter( ... ) )
@@ -461,24 +462,24 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
         if ( path_count == 1 )
         {
-            CcPos start = path__a->pos;
+            CcPos start_pl = path__a->pos;
 
             CcPosLink * pl = path__a;
             while ( pl->next ) pl = pl->next;
 
-            CcPos end = pl->pos;
+            CcPos end_pl = pl->pos;
 
             //
             // Piece, from starting position.
 
-            piece = cc_chessboard_get_piece( cb__a, start.i, start.j );
+            piece = cc_chessboard_get_piece( cb__a, start_pl.i, start_pl.j );
 
             CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
 
 // TODO :: tags
 // TODO :: teleport
-            if ( cc_chessboard_set_piece_tag( cb__a, start.i, start.j, previous_piece, CC_TE_None ) &&
-                 cc_chessboard_set_piece_tag( cb__a, end.i, end.j, piece, CC_TE_None ) )
+            if ( cc_chessboard_set_piece_tag( cb__a, start_pl.i, start_pl.j, previous_piece, CC_TE_None ) &&
+                 cc_chessboard_set_piece_tag( cb__a, end_pl.i, end_pl.j, piece, CC_TE_None ) )
             {
                 CC_PRINTF_IF_INFO( "It's done!\n" );
             }
@@ -528,6 +529,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 // TODO :: find starting position
 
 
+        cascading_field = end_an;
         previous_piece = piece;
 
         if ( !CC_PIECE_IS_WAVE( piece ) )

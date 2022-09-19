@@ -113,7 +113,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 20 < test_number ) )
+    if ( ( test_number < 0 ) || ( 21 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -201,6 +201,21 @@ bool tests_move( int test_number )
     if ( ( test_number == 20 ) || do_all_tests )
         // Light player on the move, but dark Bishop is on a starting field.
         result = !test_move( "Bdh5", "O bd1,Bl1,bd9", NULL, "O bd1,Bl1,bd9", NULL ) && result; // TODO :: wrong error message
+
+    //
+    // simple cascading, disambiguation
+
+    if ( ( test_number == 21 ) || do_all_tests )
+        result = test_move( "Bh5~Wk2~Ro2", "O Bd1,Wh5,Rk2", NULL, "o Bh5,Wk2,Ro2", NULL ) && result;
+
+    //
+    // simple cascading, steps
+
+    //
+    // simple cascading, destination
+
+    //
+    // simple cascading, failures
 
 
     // if ( ( test_number == 2 ) || do_all_tests )
