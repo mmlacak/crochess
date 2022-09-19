@@ -113,7 +113,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 10 < test_number ) )
+    if ( ( test_number < 0 ) || ( 20 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -129,56 +129,82 @@ bool tests_move( int test_number )
         result = test_move( "Bh5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
     if ( ( test_number == 2 ) || do_all_tests )
-        result = !test_move( "Bh5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result; // intentionally fails
-
-    if ( ( test_number == 3 ) || do_all_tests )
         result = test_move( "Bdh5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
 
-    if ( ( test_number == 4 ) || do_all_tests )
+    if ( ( test_number == 3 ) || do_all_tests )
         result = test_move( "Blh5", "O Bd1,Bl1,bd9", NULL, "o Bd1,Bh5,bd9", NULL ) && result;
 
     //
     // simple movement, steps
 
-    if ( ( test_number == 5 ) || do_all_tests )
+    if ( ( test_number == 4 ) || do_all_tests )
         result = test_move( "Bd1.e2.f3.g4.h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
-    if ( ( test_number == 6 ) || do_all_tests )
+    if ( ( test_number == 5 ) || do_all_tests )
         result = test_move( "Bd..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
-// TODO :: FIX !!!
-    if ( ( test_number == 7 ) || do_all_tests )
-        result = !test_move( "B1..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result; // intentionally fails
-// TODO :: FIX !!!
-
-    if ( ( test_number == 8 ) || do_all_tests )
+    if ( ( test_number == 6 ) || do_all_tests )
         result = test_move( "Bd1..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
-    if ( ( test_number == 9 ) || do_all_tests )
+    if ( ( test_number == 7 ) || do_all_tests )
         result = test_move( "Bd1..f3..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
-    if ( ( test_number == 10 ) || do_all_tests )
+    if ( ( test_number == 8 ) || do_all_tests )
         result = test_move( "B..f3..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
     //
-    // simple movement, steps
+    // simple movement, destination
 
-    // if ( ( test_number == 6 ) || do_all_tests )
-    //     result = test_move( "B..h5..n11..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+    if ( ( test_number == 9 ) || do_all_tests )
+        result = test_move( "Bd-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
-    // if ( ( test_number == 7 ) || do_all_tests )
-    //     result = test_move( "B..f3.g4.h5..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+    if ( ( test_number == 10 ) || do_all_tests )
+        result = test_move( "Bd1-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
-    // if ( ( test_number == 8 ) || do_all_tests )
-    //     result = test_move( "Bd1.e2.f3.g4..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+    if ( ( test_number == 11 ) || do_all_tests )
+        result = test_move( "Bd1..f3-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
-    // if ( ( test_number == 9 ) || do_all_tests )
-    //     result = test_move( "Bd1..h5..n11..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+    if ( ( test_number == 12 ) || do_all_tests )
+        result = test_move( "B..f3-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
-    // if ( ( test_number == 10 ) || do_all_tests )
-    //     result = test_move( "Bd1..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+    //
+    // simple movement, failures
 
+    if ( ( test_number == 13 ) || do_all_tests )
+        // Both light Bishops can reach destination field.
+        result = !test_move( "Bh5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result;
 
+    if ( ( test_number == 14 ) || do_all_tests )
+        // Both light Bishops can reach destination field.
+        result = !test_move( "B-h5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result;
+
+    if ( ( test_number == 15 ) || do_all_tests )
+        // Both light Bishops are on the same rank.
+        result = !test_move( "B1h5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
+
+// TODO :: FIX !!!
+    if ( ( test_number == 16 ) || do_all_tests )
+        // Both light Bishops are on the same rank.
+        result = !test_move( "B1..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+// TODO :: FIX !!!
+
+// TODO :: FIX !!!
+    if ( ( test_number == 17 ) || do_all_tests )
+        // Both light Bishops are on the same rank.
+        result = !test_move( "B1-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+// TODO :: FIX !!!
+
+    if ( ( test_number == 18 ) || do_all_tests )
+        // Intermediate field not part of any legal path.
+        result = !test_move( "B..e3..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+
+    if ( ( test_number == 19 ) || do_all_tests )
+        // There is no light Bishop at 'b' file at all.
+        result = !test_move( "Bbh5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result; // TODO :: wrong error message
+
+    if ( ( test_number == 20 ) || do_all_tests )
+        // Light player on the move, but dark Bishop is on a starting field.
+        result = !test_move( "Bdh5", "O bd1,Bl1,bd9", NULL, "O bd1,Bl1,bd9", NULL ) && result; // TODO :: wrong error message
 
 
     // if ( ( test_number == 2 ) || do_all_tests )
