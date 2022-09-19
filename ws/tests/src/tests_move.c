@@ -113,20 +113,73 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
+    if ( ( test_number < 0 ) || ( 10 < test_number ) )
+    {
+        printf( "No such a move test: '%d'.\n", test_number );
+        return false;
+    }
+
     bool do_all_tests = ( test_number == 0 );
     bool result = true;
+
+    //
+    // simple movement, disambiguation
 
     if ( ( test_number == 1 ) || do_all_tests )
         result = test_move( "Bh5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
     if ( ( test_number == 2 ) || do_all_tests )
-        result = !test_move( "Bh5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result;
+        result = !test_move( "Bh5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result; // intentionally fails
 
     if ( ( test_number == 3 ) || do_all_tests )
         result = test_move( "Bdh5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
 
     if ( ( test_number == 4 ) || do_all_tests )
         result = test_move( "Blh5", "O Bd1,Bl1,bd9", NULL, "o Bd1,Bh5,bd9", NULL ) && result;
+
+    //
+    // simple movement, steps
+
+    if ( ( test_number == 5 ) || do_all_tests )
+        result = test_move( "Bd1.e2.f3.g4.h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+
+    if ( ( test_number == 6 ) || do_all_tests )
+        result = test_move( "Bd..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+
+// TODO :: FIX !!!
+    if ( ( test_number == 7 ) || do_all_tests )
+        result = !test_move( "B1..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result; // intentionally fails
+// TODO :: FIX !!!
+
+    if ( ( test_number == 8 ) || do_all_tests )
+        result = test_move( "Bd1..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+
+    if ( ( test_number == 9 ) || do_all_tests )
+        result = test_move( "Bd1..f3..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+
+    if ( ( test_number == 10 ) || do_all_tests )
+        result = test_move( "B..f3..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+
+    //
+    // simple movement, steps
+
+    // if ( ( test_number == 6 ) || do_all_tests )
+    //     result = test_move( "B..h5..n11..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+
+    // if ( ( test_number == 7 ) || do_all_tests )
+    //     result = test_move( "B..f3.g4.h5..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+
+    // if ( ( test_number == 8 ) || do_all_tests )
+    //     result = test_move( "Bd1.e2.f3.g4..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+
+    // if ( ( test_number == 9 ) || do_all_tests )
+    //     result = test_move( "Bd1..h5..n11..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+
+    // if ( ( test_number == 10 ) || do_all_tests )
+    //     result = test_move( "Bd1..u18", "O Bd1", NULL, "o Bu18", NULL ) && result;
+
+
+
 
     // if ( ( test_number == 2 ) || do_all_tests )
     //     result = test_move( "mn5", "O Pm4R,Pn4R,pn5", NULL, "o Pm5,Pn4R", NULL ) && result;

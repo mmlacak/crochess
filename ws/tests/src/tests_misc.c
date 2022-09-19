@@ -191,6 +191,12 @@ bool tests_str_len()
 
 bool tests_misc( int test_number )
 {
+    if ( ( test_number < 0 ) || ( 4 < test_number ) )
+    {
+        printf( "No such a misc test: '%d'.\n", test_number );
+        return false;
+    }
+
     bool do_all_tests = ( test_number == 0 );
     bool result = true;
 
