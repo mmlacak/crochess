@@ -149,9 +149,12 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
     char const * ply_start_str = NULL;
     char const * ply_end_str = NULL;
 
-    CcPos cascading_field = CC_POS_CAST_INVALID;
     CcPieceEnum previous_piece = CC_PE_None;
     CcPieceEnum activator = CC_PE_None;
+
+    CcPieceEnum cascaded_piece = CC_PE_None;
+    CcPos cascading_field = CC_POS_CAST_INVALID;
+    CcPos destination_field = CC_POS_CAST_INVALID;
 
 // TODO :: check if castling --> handle as a special case
 
@@ -462,26 +465,36 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
         if ( path_count == 1 )
         {
-            CcPos start_pl = path__a->pos;
+            CcPos start_path = path__a->pos;
 
             CcPosLink * pl = path__a;
             while ( pl->next ) pl = pl->next;
 
-            CcPos end_pl = pl->pos;
+            CcPos end_path = pl->pos;
 
             //
             // Piece, from starting position.
 
-            piece = cc_chessboard_get_piece( cb__a, start_pl.i, start_pl.j );
+            piece = cc_chessboard_get_piece( cb__a, start_path.i, start_path.j );
 
             CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
 
+            cascaded_piece = cc_chessboard_get_piece( cb__a, end_path.i, end_path.j );
+            cascading_field = end_path;
+            destination_field = end_path;
+
+            CC_PRINTF_IF_INFO( "Cascaded piece: '%c' --> %d, %d.\n", cc_piece_as_char( cascaded_piece ), cascading_field.i, cascading_field.j );
+
+            if ( !CC_PIECE_IS_WAVE( piece ) )
+                activator = piece;
+
 // TODO :: tags
 // TODO :: teleport
-            if ( cc_chessboard_set_piece_tag( cb__a, start_pl.i, start_pl.j, previous_piece, CC_TE_None ) &&
-                 cc_chessboard_set_piece_tag( cb__a, end_pl.i, end_pl.j, piece, CC_TE_None ) )
+            // if ( cc_chessboard_set_piece_tag( cb__a, start_path.i, start_path.j, previous_piece, CC_TE_None ) &&
+            //      cc_chessboard_set_piece_tag( cb__a, end_path.i, end_path.j, piece, CC_TE_None ) )
+            if ( cc_chessboard_set_piece_tag( cb__a, start_path.i, start_path.j, previous_piece, CC_TE_None ) )
             {
-                CC_PRINTF_IF_INFO( "It's done!\n" );
+                CC_PRINTF_IF_INFO( "Previous ply is done!\n" );
             }
             else
             {
@@ -499,7 +512,6 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 cc_chessboard_free_all( &cb__a );
                 return false;
             }
-
         }
         else
         {
@@ -521,32 +533,46 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             return false;
         }
 
-
-
-
-// TODO :: movement
-
-// TODO :: find starting position
-
-
-        cascading_field = end_an;
         previous_piece = piece;
 
         if ( !CC_PIECE_IS_WAVE( piece ) )
             activator = piece;
-
-        // if ( CC_IS_PLY_GATHER_END( *c_str ) ) ++c_str; // Move past ']'. // TODO (?)
-
 
         cc_steps_free_all( &steps__a );
 
         if ( ply_end_str && *ply_end_str != '\0' )
             CC_PRINTF_IF_INFO( "\n" );
     } // while ( cc_ply_iter( ... ) )
+
+    //
+    // Writing last piece in a cascade onto last destination field.
+
+    if ( ( !CC_PIECE_IS_NONE( previous_piece ) ) &&
+         ( cc_chessboard_is_pos_on_board( cb__a, destination_field.i, destination_field.j ) ) )
+    {
+// TODO :: tags
+// TODO :: teleport
+        if ( cc_chessboard_set_piece_tag( cb__a, destination_field.i, destination_field.j, previous_piece, CC_TE_None ) )
+        {
+            CC_PRINTF_IF_INFO( "Last ply is done!\n" );
+        }
+        else
+        {
+            char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+
+            cc_parse_msgs_append_if_format( parse_msgs__io,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Chessboard not updated, with ply '%s'.\n",
+                                            ply_str__a );
+
+            CC_FREE( ply_str__a );
+
+            cc_chessboard_free_all( &cb__a );
+            return false;
+        }
+    }
     CC_PRINTF_IF_INFO( "-----------------------------------------------------------------------\n" );
-
-// TODO :: loop over plies
-
 
     if ( cc_chessboard_free_all( &( game__io->chessboard ) ) )
     {
