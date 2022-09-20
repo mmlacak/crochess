@@ -127,7 +127,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 21 < test_number ) )
+    if ( ( test_number < 0 ) || ( 30 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -217,10 +217,25 @@ bool tests_move( int test_number )
         result = !test_move( "Bdh5", "O bd1,Bl1,bd9", NULL, "O bd1,Bl1,bd9", NULL ) && result; // TODO :: wrong error message
 
     //
-    // simple cascading, disambiguation
+    // simple cascading
 
     if ( ( test_number == 21 ) || do_all_tests )
-        result = test_move( "Bh5~Wk2~Ro2", "O Bd1,Wh5,Rk2", NULL, "o Bh5,Wk2,Ro2", NULL ) && result;
+        result = test_move( "Bh5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+
+    if ( ( test_number == 22 ) || do_all_tests )
+        result = test_move( "Bdh5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+
+    if ( ( test_number == 23 ) || do_all_tests )
+        result = test_move( "Bd1.e2.f3.g4.h5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+
+    if ( ( test_number == 24 ) || do_all_tests )
+        result = test_move( "B..f3..h5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+
+    if ( ( test_number == 25 ) || do_all_tests )
+        result = test_move( "Bd..h5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+
+    if ( ( test_number == 26 ) || do_all_tests )
+        result = test_move( "Bd-h5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
 
     //
     // simple cascading, steps
@@ -230,6 +245,12 @@ bool tests_move( int test_number )
 
     //
     // simple cascading, failures
+
+    if ( ( test_number == 29 ) || do_all_tests )
+        result = !test_move( "Bh5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "O Bd1,Bd9,Wh5,Rk2", NULL ) && result;
+
+    if ( ( test_number == 30 ) || do_all_tests )
+        result = !test_move( "Bdh5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "O Bd1,Bd9,Wh5,Rk2", NULL ) && result;
 
 
     // if ( ( test_number == 2 ) || do_all_tests )
