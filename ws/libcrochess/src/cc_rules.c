@@ -191,6 +191,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             "Invalid piece symbol '%c'.\n",
                                             piece_symbol );
+
             cc_chessboard_free_all( &cb__a );
             return false;
         }
@@ -370,7 +371,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 CC_FREE( steps_str__a );
             }
         }
-        #endif
+        #endif // __CC_STR_PRINT_INFO__
 
         //
         // Piece, from symbol.
@@ -446,12 +447,16 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 is_starting_ply ? cc_longest_path__new( cb__a, activator_temp, start_cb, end_an )
                                 : cc_shortest_path__new( cb__a, activator_temp, start_cb, end_an );
 
-            char * path_str__a = cc_pos_link_to_short_string__new( path__t );
-            if ( path_str__a )
+            #ifdef __CC_STR_PRINT_INFO__
             {
-                CC_PRINTF_IF_INFO( "Path: '%s'.\n", path_str__a );
-                CC_FREE( path_str__a );
+                char * path_str__a = cc_pos_link_to_short_string__new( path__t );
+                if ( path_str__a )
+                {
+                    CC_PRINTF_IF_INFO( "Path: '%s'.\n", path_str__a );
+                    CC_FREE( path_str__a );
+                }
             }
+            #endif // __CC_STR_PRINT_INFO__
 
             if ( cc_steps_are_congruent( steps__a, path__t ) )
             {
@@ -510,7 +515,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 cc_parse_msgs_append_if_format( parse_msgs__io,
                                                 CC_PMTE_Error,
                                                 CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Momentum received by piece '%c' at '%s' is negative (%d), in ply '%s'.\n",
+                                                "Piece '%c' at '%s' exhausted all of received momentum (%d), in ply '%s'.\n",
                                                 piece_symbol,
                                                 start_str,
                                                 momentum,
@@ -524,8 +529,9 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             }
 
 // TODO :: if momentum == 0
-//      --> can't cascade, Pawn-sacrifice, en passant, rush,
-//      --> can capture, teleport, displace, convert, trance-journey, promote, tag for promotion, demote, resurrect, ...
+//      --> can't cascade, except Wave and Starchild
+//      --> can capture, teleport, displace, convert, trance-journey, promote,
+//              tag for promotion, demote, resurrect, Pawn-sacrifice, en passant, rush, ...
 
             cascaded_piece = cc_chessboard_get_piece( cb__a, end_path.i, end_path.j );
             cascading_field = end_path;
