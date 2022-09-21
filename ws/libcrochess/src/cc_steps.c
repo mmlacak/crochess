@@ -225,7 +225,7 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
 
             case CC_SLE_Start :
             {
-                *steps_str++ = ' ';
+                *steps_str++ = '`';
                 break;
             }
 

@@ -127,7 +127,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 35 < test_number ) )
+    if ( ( test_number < 0 ) || ( 36 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -260,16 +260,16 @@ bool tests_move( int test_number )
         result = test_move( "B1h5~Wk2~Ro2", setup_cascading, NULL, end_cascading, NULL ) && result;
 
     if ( ( test_number == 30 ) || do_all_tests )
-        result = test_move( "Bd1.e2.f3.g4.h5~Wh5.i4.j3.k2~Rk2.l2.m2.n2.o2", setup_cascading, NULL, end_cascading, NULL ) && result;
+        result = test_move( "Bd1.e2.f3.g4.h5~[Wh5.i4.j3.k2]~Rk2.l2.m2.n2.o2", setup_cascading, NULL, end_cascading, NULL ) && result;
 
     if ( ( test_number == 31 ) || do_all_tests )
-        result = test_move( "B..f3..h5~W.i4..k2~R..m2..o2", setup_cascading, NULL, end_cascading, NULL ) && result;
+        result = test_move( "B..f3..h5~[W.i4..k2]~R..m2..o2", setup_cascading, NULL, end_cascading, NULL ) && result;
 
     if ( ( test_number == 32 ) || do_all_tests )
-        result = test_move( "B1..h5~Wh..k2~Rk..o2", setup_cascading, NULL, end_cascading, NULL ) && result;
+        result = test_move( "B1..h5~[Wh..k2]~Rk..o2", setup_cascading, NULL, end_cascading, NULL ) && result;
 
     if ( ( test_number == 33 ) || do_all_tests )
-        result = test_move( "B1-h5~Wh-k2~Rk-o2", setup_cascading, NULL, end_cascading, NULL ) && result;
+        result = test_move( "B1-h5~[Wh-k2]~Rk-o2", setup_cascading, NULL, end_cascading, NULL ) && result;
 
     //
     // simple cascading, failures
@@ -281,6 +281,10 @@ bool tests_move( int test_number )
     if ( ( test_number == 35 ) || do_all_tests )
         // Both light Bishops are on the same file.
         result = !test_move( "Bh5~Wk2~Ro2", setup_cascading, NULL, setup_cascading, NULL ) && result;
+
+    if ( ( test_number == 36 ) || do_all_tests )
+        // Rook moved for more than received momentum.
+        result = !test_move( "B1h5~Wk2~Rr2", setup_cascading, NULL, setup_cascading, NULL ) && result;
 
 
     // if ( ( test_number == 2 ) || do_all_tests )

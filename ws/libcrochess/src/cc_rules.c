@@ -148,6 +148,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
     char const * ply_start_str = NULL;
     char const * ply_end_str = NULL;
+    int momentum = 0;
 
     CcPieceEnum previous_piece = CC_PE_None;
     CcPieceEnum activator = CC_PE_None;
@@ -360,12 +361,16 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
         // ++c_str; // Not used afterwards, so ...
 
-        char * steps_str__a = cc_steps_to_short_string__new( steps__a );
-        if ( steps_str__a )
+        #ifdef __CC_STR_PRINT_INFO__
         {
-            CC_PRINTF_IF_INFO( "Steps: '%s'.\n", steps_str__a );
-            CC_FREE( steps_str__a );
+            char * steps_str__a = cc_steps_to_short_string__new( steps__a );
+            if ( steps_str__a )
+            {
+                CC_PRINTF_IF_INFO( "Steps: '%s'.\n", steps_str__a );
+                CC_FREE( steps_str__a );
+            }
         }
+        #endif
 
         //
         // Piece, from symbol.
@@ -468,7 +473,13 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             CcPos start_path = path__a->pos;
 
             CcPosLink * pl = path__a;
-            while ( pl->next ) pl = pl->next;
+            int step_count = 0;
+
+            while ( pl->next )
+            {
+                pl = pl->next;
+                ++step_count;
+            }
 
             CcPos end_path = pl->pos;
 
@@ -477,7 +488,44 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
             piece = cc_chessboard_get_piece( cb__a, start_path.i, start_path.j );
 
-            CC_PRINTF_IF_INFO( "Piece: '%c' --> %d.\n", piece_symbol, piece );
+// TODO :: trance-journey
+            if ( is_starting_ply )
+            {
+                momentum = step_count;
+            }
+            else if ( !CC_PIECE_IS_WEIGHTLESS( piece ) )
+            {
+                momentum -= step_count;
+            }
+
+            CC_PRINTF_IF_INFO( "Piece: '%c' --> %d, with momentum %d.\n", piece_symbol, piece, momentum );
+
+            if ( momentum < 0 )
+            {
+                char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_char_8 start_str = CC_CHAR_8_EMPTY;
+                cc_pos_to_short_string( start_path, &start_str );
+
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Momentum received by piece '%c' at '%s' is negative (%d), in ply '%s'.\n",
+                                                piece_symbol,
+                                                start_str,
+                                                momentum,
+                                                ply_str__a );
+
+                CC_FREE( ply_str__a );
+
+                cc_steps_free_all( &steps__a );
+                cc_chessboard_free_all( &cb__a );
+                return false;
+            }
+
+// TODO :: if momentum == 0
+//      --> can't cascade, Pawn-sacrifice, en passant, rush,
+//      --> can capture, teleport, displace, convert, trance-journey, promote, tag for promotion, demote, resurrect, ...
 
             cascaded_piece = cc_chessboard_get_piece( cb__a, end_path.i, end_path.j );
             cascading_field = end_path;
