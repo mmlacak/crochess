@@ -127,7 +127,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 30 < test_number ) )
+    if ( ( test_number < 0 ) || ( 34 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -223,26 +223,49 @@ bool tests_move( int test_number )
         // Single dot, instead of double.
         result = !test_move( "Bd.h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
 
+    if ( ( test_number == 22 ) || do_all_tests )
+        // Double dot, instead of single. Single dot, instead of double.
+        result = !test_move( "B..e2.h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
+
+    if ( ( test_number == 23 ) || do_all_tests )
+        // Single dot, instead of double. Double dot, instead of single.
+        result = !test_move( "B.g4..h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
+
+    if ( ( test_number == 24 ) || do_all_tests )
+        // Single dot in front of a starting field.
+        result = !test_move( "B.d1..h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
+
+    if ( ( test_number == 25 ) || do_all_tests )
+        // Double dot in front of a starting field.
+        result = !test_move( "B..d1..h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
+
+    if ( ( test_number == 26 ) || do_all_tests )
+        // Ending dash in front of a starting field.
+        result = !test_move( "B-d1..h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
+
     //
     // simple cascading
 
-    if ( ( test_number == 22 ) || do_all_tests )
-        result = test_move( "Bh5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
-
-    if ( ( test_number == 23 ) || do_all_tests )
-        result = test_move( "B1h5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
-
-    if ( ( test_number == 24 ) || do_all_tests )
-        result = test_move( "Bd1.e2.f3.g4.h5~Wh5.i4.j3.k2~Rk2.l2.m2.n2.o2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
-
-    if ( ( test_number == 25 ) || do_all_tests )
-        result = test_move( "B..f3..h5~W.i4..k2~R..m2..o2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
-
-    if ( ( test_number == 26 ) || do_all_tests )
-        result = test_move( "B1..h5~Wh..k2~Rk..o2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
+    char const * const setup_BBWR = "O Bd1,Bd9,Wh5,Rk2";
+    char const * const end_BBWR = "o Bh5,Bd9,Wk2,Ro2";
 
     if ( ( test_number == 27 ) || do_all_tests )
-        result = test_move( "B1-h5~Wh-k2~Rk-o2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
+        result = test_move( "Bh5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+
+    if ( ( test_number == 28 ) || do_all_tests )
+        result = test_move( "B1h5~Wk2~Ro2", setup_BBWR, NULL, end_BBWR, NULL ) && result;
+
+    if ( ( test_number == 29 ) || do_all_tests )
+        result = test_move( "Bd1.e2.f3.g4.h5~Wh5.i4.j3.k2~Rk2.l2.m2.n2.o2", setup_BBWR, NULL, end_BBWR, NULL ) && result;
+
+    if ( ( test_number == 30 ) || do_all_tests )
+        result = test_move( "B..f3..h5~W.i4..k2~R..m2..o2", setup_BBWR, NULL, end_BBWR, NULL ) && result;
+
+    if ( ( test_number == 31 ) || do_all_tests )
+        result = test_move( "B1..h5~Wh..k2~Rk..o2", setup_BBWR, NULL, end_BBWR, NULL ) && result;
+
+    if ( ( test_number == 32 ) || do_all_tests )
+        result = test_move( "B1-h5~Wh-k2~Rk-o2", setup_BBWR, NULL, end_BBWR, NULL ) && result;
 
     //
     // simple cascading, steps
@@ -253,13 +276,13 @@ bool tests_move( int test_number )
     //
     // simple cascading, failures
 
-    if ( ( test_number == 28 ) || do_all_tests )
+    if ( ( test_number == 33 ) || do_all_tests )
         // Both light Bishops are on the same file.
-        result = !test_move( "Bdh5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "O Bd1,Bd9,Wh5,Rk2", NULL ) && result;
+        result = !test_move( "Bdh5~Wk2~Ro2", setup_BBWR, NULL, setup_BBWR, NULL ) && result;
 
-    if ( ( test_number == 29 ) || do_all_tests )
+    if ( ( test_number == 34 ) || do_all_tests )
         // Both light Bishops are on the same file.
-        result = !test_move( "Bh5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "O Bd1,Bd9,Wh5,Rk2", NULL ) && result;
+        result = !test_move( "Bh5~Wk2~Ro2", setup_BBWR, NULL, setup_BBWR, NULL ) && result;
 
 
     // if ( ( test_number == 2 ) || do_all_tests )
