@@ -139,103 +139,110 @@ bool tests_move( int test_number )
     //
     // simple movement, disambiguation
 
+    char const * const setup_BBb = "O Bd1,Bl1,bd9";
+    char const * const end_BBb = "o Bh5,Bl1,bd9";
+
     if ( ( test_number == 1 ) || do_all_tests )
         result = test_move( "Bh5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
 
     if ( ( test_number == 2 ) || do_all_tests )
-        result = test_move( "Bdh5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
+        result = test_move( "Bdh5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     if ( ( test_number == 3 ) || do_all_tests )
-        result = test_move( "Blh5", "O Bd1,Bl1,bd9", NULL, "o Bd1,Bh5,bd9", NULL ) && result;
+        result = test_move( "Blh5", setup_BBb, NULL, "o Bd1,Bh5,bd9", NULL ) && result;
 
     //
     // simple movement, steps
 
     if ( ( test_number == 4 ) || do_all_tests )
-        result = test_move( "Bd1.e2.f3.g4.h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "Bd1.e2.f3.g4.h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     if ( ( test_number == 5 ) || do_all_tests )
-        result = test_move( "Bd..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "Bd..h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     if ( ( test_number == 6 ) || do_all_tests )
-        result = test_move( "Bd1..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "Bd1..h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     if ( ( test_number == 7 ) || do_all_tests )
-        result = test_move( "Bd1..f3..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "Bd1..f3..h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     if ( ( test_number == 8 ) || do_all_tests )
-        result = test_move( "B..f3..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "B..f3..h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     //
     // simple movement, destination
 
     if ( ( test_number == 9 ) || do_all_tests )
-        result = test_move( "Bd-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "Bd-h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     if ( ( test_number == 10 ) || do_all_tests )
-        result = test_move( "Bd1-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "Bd1-h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     if ( ( test_number == 11 ) || do_all_tests )
-        result = test_move( "Bd1..f3-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "Bd1..f3-h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     if ( ( test_number == 12 ) || do_all_tests )
-        result = test_move( "B..f3-h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = test_move( "B..f3-h5", setup_BBb, NULL, end_BBb, NULL ) && result;
 
     //
     // simple movement, failures
 
     if ( ( test_number == 13 ) || do_all_tests )
         // Both light Bishops can reach destination field.
-        result = !test_move( "Bh5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result;
+        result = !test_move( "Bh5", setup_BBb, NULL, setup_BBb, NULL ) && result;
 
     if ( ( test_number == 14 ) || do_all_tests )
         // Both light Bishops can reach destination field.
-        result = !test_move( "B-h5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result;
+        result = !test_move( "B-h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
 
     if ( ( test_number == 15 ) || do_all_tests )
         // Both light Bishops are on the same rank.
-        result = !test_move( "B1h5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
+        result = !test_move( "B1h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
 
     if ( ( test_number == 16 ) || do_all_tests )
         // Both light Bishops are on the same rank.
-        result = !test_move( "B1..h5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
+        result = !test_move( "B1..h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
 
     if ( ( test_number == 17 ) || do_all_tests )
         // Both light Bishops are on the same rank.
-        result = !test_move( "B1-h5", "O Bd1,Bl1,bd9", NULL, "o Bh5,Bl1,bd9", NULL ) && result;
+        result = !test_move( "B1-h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
 
     if ( ( test_number == 18 ) || do_all_tests )
         // Intermediate field not part of any legal path.
-        result = !test_move( "B..e3..h5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", NULL ) && result;
+        result = !test_move( "B..e3..h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
 
     if ( ( test_number == 19 ) || do_all_tests )
         // There is no light Bishop at 'b' file at all.
-        result = !test_move( "Bbh5", "O Bd1,Bl1,bd9", NULL, "O Bd1,Bl1,bd9", NULL ) && result; // TODO :: wrong error message
+        result = !test_move( "Bbh5", setup_BBb, NULL, setup_BBb, NULL ) && result; // TODO :: wrong error message
 
     if ( ( test_number == 20 ) || do_all_tests )
         // Light player on the move, but dark Bishop is on a starting field.
         result = !test_move( "Bdh5", "O bd1,Bl1,bd9", NULL, "O bd1,Bl1,bd9", NULL ) && result; // TODO :: wrong error message
 
+    if ( ( test_number == 21 ) || do_all_tests )
+        // Single dot, instead of double.
+        result = !test_move( "Bd.h5", setup_BBb, NULL, setup_BBb, NULL ) && result;
+
     //
     // simple cascading
 
-    if ( ( test_number == 21 ) || do_all_tests )
+    if ( ( test_number == 22 ) || do_all_tests )
         result = test_move( "Bh5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
 
-    if ( ( test_number == 22 ) || do_all_tests )
-        result = test_move( "Bdh5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
-
     if ( ( test_number == 23 ) || do_all_tests )
-        result = test_move( "Bd1.e2.f3.g4.h5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+        result = test_move( "B1h5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
 
     if ( ( test_number == 24 ) || do_all_tests )
-        result = test_move( "B..f3..h5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+        result = test_move( "Bd1.e2.f3.g4.h5~Wh5.i4.j3.k2~Rk2.l2.m2.n2.o2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
 
     if ( ( test_number == 25 ) || do_all_tests )
-        result = test_move( "Bd..h5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+        result = test_move( "B..f3..h5~W.i4..k2~R..m2..o2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
 
     if ( ( test_number == 26 ) || do_all_tests )
-        result = test_move( "Bd-h5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", NULL ) && result;
+        result = test_move( "B1..h5~Wh..k2~Rk..o2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
+
+    if ( ( test_number == 27 ) || do_all_tests )
+        result = test_move( "B1-h5~Wh-k2~Rk-o2", "O Bd1,Bd9,Wh5,Rk2", NULL, "o Bh5,Bd9,Wk2,Ro2", NULL ) && result;
 
     //
     // simple cascading, steps
@@ -246,11 +253,13 @@ bool tests_move( int test_number )
     //
     // simple cascading, failures
 
-    if ( ( test_number == 29 ) || do_all_tests )
-        result = !test_move( "Bh5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "O Bd1,Bd9,Wh5,Rk2", NULL ) && result;
-
-    if ( ( test_number == 30 ) || do_all_tests )
+    if ( ( test_number == 28 ) || do_all_tests )
+        // Both light Bishops are on the same file.
         result = !test_move( "Bdh5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "O Bd1,Bd9,Wh5,Rk2", NULL ) && result;
+
+    if ( ( test_number == 29 ) || do_all_tests )
+        // Both light Bishops are on the same file.
+        result = !test_move( "Bh5~Wk2~Ro2", "O Bd1,Bd9,Wh5,Rk2", NULL, "O Bd1,Bd9,Wh5,Rk2", NULL ) && result;
 
 
     // if ( ( test_number == 2 ) || do_all_tests )
