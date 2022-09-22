@@ -143,7 +143,6 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
     if ( !game__io->chessboard ) return false;
     // if ( !game__io->moves ) return false;
 
-
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game__io->chessboard );
 
     char const * ply_start_str = NULL;
@@ -201,12 +200,12 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
         //
         // Losing tag.
 
-        CcLosingTagEnum lte = cc_starting_losing_tag( c_str );
+        CcLosingTagEnum lte_an = cc_starting_losing_tag( c_str );
 
-        if ( lte != CC_LTE_None )
+        if ( lte_an != CC_LTE_None )
         {
-            CC_PRINTF_IF_INFO( "Losing tag: '%c%c' --> %d.\n", *c_str, *(c_str+1), lte );
-            c_str += cc_losing_tag_len( lte );
+            CC_PRINTF_IF_INFO( "Losing tag: '%c%c' --> %d.\n", *c_str, *(c_str+1), lte_an );
+            c_str += cc_losing_tag_len( lte_an );
         }
 
         //
@@ -492,16 +491,37 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             // Piece, from starting position.
 
             piece = cc_chessboard_get_piece( cb__a, start_path.i, start_path.j );
+            CcTagEnum te_cb = cc_chessboard_get_tag( cb__a, start_path.i, start_path.j );
+
+            if ( cc_check_losing_tag( lte_an, te_cb ) == CC_LTCRE_TagNotFound )
+            {
+                char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+                char const * lte_str = cc_losing_tag_as_string( lte_an );
+
+                cc_char_8 start_str = CC_CHAR_8_EMPTY;
+                cc_pos_to_short_string( start_path, &start_str );
+
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Piece '%c' at '%s' didn't lose specified tag '%s', in ply '%s'.\n",
+                                                piece_symbol,
+                                                start_str,
+                                                lte_str,
+                                                ply_str__a );
+
+                CC_FREE( ply_str__a );
+
+                cc_steps_free_all( &steps__a );
+                cc_chessboard_free_all( &cb__a );
+                return false;
+            }
 
 // TODO :: trance-journey
             if ( is_starting_ply )
-            {
                 momentum = step_count;
-            }
             else if ( !CC_PIECE_IS_WEIGHTLESS( piece ) )
-            {
                 momentum -= step_count;
-            }
 
             CC_PRINTF_IF_INFO( "Piece: '%c' --> %d, with momentum %d.\n", piece_symbol, piece, momentum );
 
@@ -528,11 +548,6 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 return false;
             }
 
-// TODO :: if momentum == 0
-//      --> can't cascade, except Wave and Starchild
-//      --> can capture, teleport, displace, convert, trance-journey, promote,
-//              tag for promotion, demote, resurrect, Pawn-sacrifice, en passant, rush, ...
-
             cascaded_piece = cc_chessboard_get_piece( cb__a, end_path.i, end_path.j );
             cascading_field = end_path;
             destination_field = end_path;
@@ -544,11 +559,18 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
 // TODO :: tags
 // TODO :: teleport
-            // if ( cc_chessboard_set_piece_tag( cb__a, start_path.i, start_path.j, previous_piece, CC_TE_None ) &&
-            //      cc_chessboard_set_piece_tag( cb__a, end_path.i, end_path.j, piece, CC_TE_None ) )
             if ( cc_chessboard_set_piece_tag( cb__a, start_path.i, start_path.j, previous_piece, CC_TE_None ) )
             {
                 CC_PRINTF_IF_INFO( "Previous ply is done!\n" );
+
+                if ( !CC_PIECE_IS_PAWN( previous_piece ) && !cc_delete_en_passant_tag( cb__a ) )
+                {
+                    CC_PRINTF_IF_INFO( "Error deleting en passant tag.\n" );
+
+                    cc_steps_free_all( &steps__a );
+                    cc_chessboard_free_all( &cb__a );
+                    return false;
+                }
             }
             else
             {
@@ -606,6 +628,14 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
     if ( cc_chessboard_set_piece_tag( cb__a, destination_field.i, destination_field.j, previous_piece, CC_TE_None ) )
     {
         CC_PRINTF_IF_INFO( "Last ply is done!\n" );
+
+        if ( !CC_PIECE_IS_PAWN( previous_piece ) && !cc_delete_en_passant_tag( cb__a ) )
+        {
+            CC_PRINTF_IF_INFO( "Error deleting en passant tag.\n" );
+
+            cc_chessboard_free_all( &cb__a );
+            return false;
+        }
     }
     else
     {

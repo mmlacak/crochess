@@ -91,4 +91,7 @@ typedef enum CcSideEffectEnum
 } CcSideEffectEnum;
 
 
+char const * cc_losing_tag_as_string( CcLosingTagEnum lte );
+
+
 #endif /* __CC_PARSE_DEFS_H__ */

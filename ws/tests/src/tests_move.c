@@ -127,7 +127,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 36 < test_number ) )
+    if ( ( test_number < 0 ) || ( 37 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -285,6 +285,17 @@ bool tests_move( int test_number )
     if ( ( test_number == 36 ) || do_all_tests )
         // Rook moved for more than received momentum.
         result = !test_move( "B1h5~Wk2~Rr2", setup_cascading, NULL, setup_cascading, NULL ) && result;
+
+    //
+    // simple losing tags
+
+    char const * const setup_tags = "O Ra1C,Pa2R,Pb23P,Pc7,Pf11E";
+    // char const * const end_tags = "O Bh5,Bd9,Wk2,Ro2";
+
+    if ( ( test_number == 37 ) || do_all_tests )
+        result = test_move( "R&&l1", setup_tags, NULL, "o Rl1,Pa2R,Pb23P,Pc7,Pf11", NULL ) && result;
+
+
 
 
     // if ( ( test_number == 2 ) || do_all_tests )

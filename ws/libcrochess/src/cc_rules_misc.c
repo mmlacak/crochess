@@ -87,3 +87,57 @@ bool cc_check_valid_draw_offer_exists( CcMoves * restrict moves,
 
     return false;
 }
+
+CcLosingTagCheckResultEnum cc_check_losing_tag( CcLosingTagEnum lte,
+                                                CcTagEnum te )
+{
+    switch ( lte )
+    {
+        case CC_LTE_None : return CC_LTCRE_NoTag;
+
+        case CC_LTE_Promotion :
+            if ( te == CC_TE_DelayedPromotion )
+                return CC_LTCRE_TagLost;
+            else
+                return CC_LTCRE_TagNotFound;
+
+        case CC_LTE_Rushing :
+            if ( te == CC_TE_CanRush )
+                return CC_LTCRE_TagLost;
+            else
+                return CC_LTCRE_TagNotFound;
+
+        case CC_LTE_Castling :
+            if ( te == CC_TE_CanCastle )
+                return CC_LTCRE_TagLost;
+            else
+                return CC_LTCRE_TagNotFound;
+
+        default : return CC_LTCRE_TagNotFound;
+    }
+}
+
+bool cc_delete_en_passant_tag( CcChessboard * restrict cb )
+{
+    if ( !cb ) return false;
+
+    unsigned int count = 0;
+
+    for ( int i = 0; i < (int)cb->size; ++i )
+    {
+        for ( int j = 0; j < (int)cb->size; ++j )
+        {
+            CcTagEnum te = cc_chessboard_get_tag( cb, i, j );
+
+            if ( te == CC_TE_EnPassant )
+            {
+                if ( !cc_chessboard_set_tag( cb, i, j, CC_TE_None ) )
+                    return false;
+
+                ++count;
+            }
+        }
+    }
+
+    return ( count <= 1 );
+}
