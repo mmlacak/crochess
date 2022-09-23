@@ -116,7 +116,24 @@ CcSteps * cc_steps_append_if( CcSteps ** restrict steps__io,
                               CcStepLinkEnum step_link,
                               CcPos pos );
 
-// TODO :: docs
+/**
+    Function checks if positions are the congruent with a given steps.
+
+    @param steps Queue of steps.
+    @param positions Linked list of positions.
+
+    @note
+    Positions are assumed to be complete path over all step- (or capture-) fields.
+
+    @note
+    Each step is then expected to be found within positions, in the same order,
+    and with appropriate distance. For instance, if step is linked as a distant,
+    it shouldn't immediately follow previous step in `positions`.
+
+    @see cc_pos_is_congruent()
+
+    @return `true` if positions are congruent with steps, `false` otherwise.
+*/
 bool cc_steps_are_congruent( CcSteps * restrict steps,
                              CcPosLink * restrict positions );
 
@@ -129,10 +146,31 @@ bool cc_steps_are_congruent( CcSteps * restrict steps,
 */
 bool cc_steps_free_all( CcSteps ** restrict steps__f );
 
-// TODO :: docs
+/**
+    Function returns length of a queue.
+
+    @param steps A queue of steps.
+
+    @return Length of a queue if successful, `0` otherwise.
+*/
 size_t cc_steps_len( CcSteps * restrict steps );
 
-// TODO :: docs
+/**
+    Function returns new string, containing user-readable representation of a steps.
+
+    @param steps A queue of steps.
+
+    @note
+    Each step is preceeded by the same separator as used in AN, e.g. `..` (double dot) is used for a distant step.
+
+    @note
+    Steps with unknown linkage are preceeded by `?`.
+
+    @note
+    Starting step is preceeded by ` (back-tick).
+
+    @return A newly allocated, zero-termianted string if successful, `NULL` otherwise
+*/
 char * cc_steps_to_short_string__new( CcSteps * restrict steps );
 
 

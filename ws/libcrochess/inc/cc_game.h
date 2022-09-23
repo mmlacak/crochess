@@ -131,7 +131,57 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
 */
 bool cc_game_free_all( CcGame ** restrict game__f );
 
-// TODO :: docs
+/**
+    Functions returns a newly allocated `CcGame`, from a given string,
+    and optionally initial `CcGame`, containing starting positions,
+    game status, and moves.
+
+    @param setup A setup string.
+    @param before_setup__d An _optional_, initial game. If give, it is copied before any modification specified by a given string is applied.
+
+    @note
+    Setup string contains list of `<piece><file><rank>[<tag>]` items, `<tag>` is optional.
+
+    @note
+    `<piece>` is usual piece symbol, as used in AN; dark/dim pieces are represented by lower-case letter, e.g. dark Bishop would be `b`, instead of usual `B`.
+
+    @note
+    If a particular field has to be cleared, ``' '`` (space) is used for `<piece>`.
+
+    @note
+    `<file>` is any letter from `a` to `z`, inclusive.
+
+    @note
+    `<rank>` is any number from `1` to `26`, inclusive.
+
+    @note
+    `<tag>` is optional, if given it can be one of `P`, `R`, `E`, `C`; representing delayed promotion, rushing, en passant and castling tags.
+
+    @note
+    If optional, initial game setup is not given, setup string has to be preceeded by variant abbreviation, i.e. use one of:
+    - cc  --> Classical Chess
+    - ct  --> Croatian Ties
+    - ma  --> Mayan Ascendancy
+    - aoa --> Age Of Aquarius
+    - mv  --> Miranda's Veil
+    - n   --> Nineteen
+    - hd  --> Hemera's Dawn
+    - tr  --> Tamoanchan Revisited
+    - cot --> Conquest Of Tlalocan
+    - d   --> Discovery
+    - o   --> One
+
+    @note
+    Use lower-cased variant abbreviation to set dark player on the move; otherwise, it's light player's move.
+
+    @note
+    Variant abbreviation has to be followed by ``' '`` (space).
+
+    @note
+    Some examples: `"O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11E"`, `"o Bh5,Bd9,Wk2,Ro2"`. `"bd1, a11,Bl1,bd9"`; the last one can only be used along with an existing game setup.
+
+    @return A newly allocated game if successful, `NULL` otherwise.
+*/
 CcGame * cc_game_setup_from_string__new( char const * restrict setup,
                                          CcGame * restrict before_setup__d );
 

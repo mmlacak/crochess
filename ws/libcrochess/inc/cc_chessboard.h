@@ -257,7 +257,14 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
 // static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb );
 // static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict cb );
 
-// TODO :: DOCS
+/**
+    Compares two chessboards field-by-field.
+
+    @param cb Chessboard to copy into.
+    @param cb_2 Chessboard to copy from.
+
+    @return `true` if chessboards are equal, `false` otherwise.
+*/
 bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict cb_2 );
 
 

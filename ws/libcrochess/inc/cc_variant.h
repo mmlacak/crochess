@@ -208,7 +208,13 @@ char const * cc_variant_label( CcVariantEnum ve );
 */
 unsigned int cc_variant_board_size( CcVariantEnum ve );
 
-// TODO :: DOCS
+/**
+    Function returns if Pawns can move sideways for a given variant.
+
+    @param ve Variant enum.
+
+    @return `true` if variant has sideways Pawns, `false` otherwise.
+*/
 bool cc_variant_has_sideways_pawns( CcVariantEnum ve );
 
 

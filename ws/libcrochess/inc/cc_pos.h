@@ -192,7 +192,7 @@ bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
 
     @note
     For positions to be congruent, at least one set of coordinates (files,
-    or ranks) from both positions has has to be valid, and the same.
+    or ranks) from both positions has to be valid, and the same.
 
     @return `true` if positions are congruent, `false` otherwise.
 */
@@ -252,10 +252,34 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step );
 */
 CcPos cc_pos_step( CcPos start, CcPos destination );
 
-// TODO :: DOCS
+/**
+    Function returns momentum from start to destination field.
+
+    @param start Starting from.
+    @param destination Destination field.
+
+    @note
+    Step used to count momentum might not be legal step for any given piece,
+    it's just a calculated value.
+
+    @return Momentum, i.e. count of steps from starting to destination field.
+*/
 int cc_pos_momentum( CcPos start, CcPos destination );
 
-// TODO : docs
+/**
+    Function converts position into a user-readable `<file char><rank number>` notation.
+
+    @param pos A position.
+    @param pos_str__o An _output_ parameter, short string array.
+
+    @note
+    Coordinates outside chessboard are converted into short integers, if possible.
+
+    @note
+    If outside of 2 decimal places, coordinate is represented as asterisk.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_pos_to_short_string( CcPos pos,
                              cc_char_8 * restrict pos_str__o );
 
@@ -317,10 +341,24 @@ CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
 */
 bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
 
-// TODO : docs
+/**
+    Function returns length of a linked list.
+
+    @param pos_link A linked list of positions.
+
+    @return Length of a linked list if successful, `0` otherwise.
+*/
 size_t cc_pos_link_len( CcPosLink * restrict pos_link );
 
-// TODO : docs
+/**
+    Function returns string containing user-readable representation of a linked positions.
+
+    @param pos_link A linked list of positions.
+
+    @see cc_pos_to_short_string()
+
+    @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
+*/
 char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link );
 
 
