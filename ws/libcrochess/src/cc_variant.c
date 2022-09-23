@@ -215,3 +215,20 @@ unsigned int cc_variant_board_size( CcVariantEnum ve )
         default : return 0;
     }
 }
+
+bool cc_variant_has_sideways_pawns( CcVariantEnum ve )
+{
+    switch ( ve )
+    {
+        case CC_VE_Nineteen :
+        case CC_VE_HemerasDawn :
+        case CC_VE_TamoanchanRevisited :
+        case CC_VE_ConquestOfTlalocan :
+        case CC_VE_Discovery :
+        case CC_VE_One :
+            return true;
+
+        default :
+            return false;
+    }
+}

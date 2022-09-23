@@ -252,6 +252,9 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step );
 */
 CcPos cc_pos_step( CcPos start, CcPos destination );
 
+// TODO :: DOCS
+int cc_pos_momentum( CcPos start, CcPos destination );
+
 // TODO : docs
 bool cc_pos_to_short_string( CcPos pos,
                              cc_char_8 * restrict pos_str__o );

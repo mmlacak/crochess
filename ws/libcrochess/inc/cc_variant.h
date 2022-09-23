@@ -208,5 +208,8 @@ char const * cc_variant_label( CcVariantEnum ve );
 */
 unsigned int cc_variant_board_size( CcVariantEnum ve );
 
+// TODO :: DOCS
+bool cc_variant_has_sideways_pawns( CcVariantEnum ve );
+
 
 #endif /* __CC_VARIANT_H__ */

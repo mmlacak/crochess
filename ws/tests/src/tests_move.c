@@ -127,7 +127,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 37 < test_number ) )
+    if ( ( test_number < 0 ) || ( 44 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -289,11 +289,32 @@ bool tests_move( int test_number )
     //
     // simple losing tags
 
-    char const * const setup_tags = "O Ra1C,Pa2R,Pb23P,Pc7,Pf11E";
+    char const * const setup_tags = "O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11E";
     // char const * const end_tags = "O Bh5,Bd9,Wk2,Ro2";
 
     if ( ( test_number == 37 ) || do_all_tests )
-        result = test_move( "R&&l1", setup_tags, NULL, "o Rl1,Pa2R,Pb23P,Pc7,Pf11", NULL ) && result;
+        result = test_move( "Rl1", setup_tags, NULL, "o Rl1,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11", NULL ) && result;
+
+    if ( ( test_number == 38 ) || do_all_tests )
+        result = test_move( "R&&l1", setup_tags, NULL, "o Rl1,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11", NULL ) && result;
+
+    if ( ( test_number == 39 ) || do_all_tests )
+        result = test_move( "a9", setup_tags, NULL, "o Ra1C,Pa9,Pb23P,bc24,Pc7,pd8,Pf11", NULL ) && result;
+
+    if ( ( test_number == 40 ) || do_all_tests )
+        result = test_move( "::a9", setup_tags, NULL, "o Ra1C,Pa9,Pb23P,bc24,Pc7,pd8,Pf11", NULL ) && result;
+
+    if ( ( test_number == 41 ) || do_all_tests )
+        result = test_move( "c23", setup_tags, NULL, "o Ra1C,Pa2R,Pc23,bc24,Pc7,pd8,Pf11", NULL ) && result;
+
+    if ( ( test_number == 42 ) || do_all_tests )
+        result = test_move( "==c23", setup_tags, NULL, "o Ra1C,Pa2R,Pc23,bc24,Pc7,pd8,Pf11", NULL ) && result;
+
+    if ( ( test_number == 43 ) || do_all_tests )
+        result = test_move( "c24*", setup_tags, NULL, "o Ra1C,Pa2R,Pc24,Pc7,pd8,Pf11", NULL ) && result;
+
+    if ( ( test_number == 44 ) || do_all_tests )
+        result = test_move( "==c24*B", setup_tags, NULL, "o Ra1C,Pa2R,Pc24,Pc7,pd8,Pf11", NULL ) && result;
 
 
 

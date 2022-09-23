@@ -97,6 +97,9 @@ static bool cc_append_steps( char const * restrict ply_start_str,
             pos_end_str = side_effect_str;
         }
 
+// TODO :: side-effects
+// TODO :: losing tags within side-effects
+
         size_t pos_len = (size_t)( pos_end_str - c_str );
         size_t copied = cc_str_copy( c_str, pos_end_str, pos_len, pos_c8, CC_MAX_LEN_CHAR_8 );
 
@@ -504,7 +507,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 cc_parse_msgs_append_if_format( parse_msgs__io,
                                                 CC_PMTE_Error,
                                                 CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Piece '%c' at '%s' didn't lose specified tag '%s', in ply '%s'.\n",
+                                                "Piece '%c' at '%s' didn't lost specified tag '%s', in ply '%s'.\n",
                                                 piece_symbol,
                                                 start_str,
                                                 lte_str,
@@ -774,6 +777,7 @@ bool cc_do_make_move( char const * restrict move_an_str,
 
 // TODO :: determine ending status
 // TODO :: determine winning status
+// TODO :: determine if forced draw
     game__io->status = cc_game_status_next( game__io->status, false, false );
 
     return true;

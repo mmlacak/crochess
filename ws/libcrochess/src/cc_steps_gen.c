@@ -378,6 +378,135 @@ bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos )
 }
 
 
+CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
+                               CcPieceEnum activator,
+                               CcPos start,
+                               CcPos destination )
+{
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightPawn ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+    CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+    CcTagEnum te = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
+    CcPos pos_1 = cc_pos_add( start, step );
+    int momentum = cc_pos_momentum( start, destination );
+
+    if ( CC_PIECE_IS_PAWN( pe ) )
+    {
+        if ( cc_piece_is_light( pe ) )
+        {
+            if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) )
+            {
+                if ( momentum > 1 )
+                {
+                    if ( CC_TAG_CAN_RUSH( te ) &&
+                         cc_chessboard_is_field_on_light_side( cb_before_activation, destination.j ) )
+                        return cc_link_positions( cb_before_activation,
+                                                  start,
+                                                  destination,
+                                                  step,
+                                                  CC_POS_CAST_STATIC_STEP );
+                    else
+                        return NULL;
+                }
+            }
+            else if ( CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step ) )
+            {
+                // Nothing to be done here, except bail-out.
+            }
+            else if ( cc_variant_has_sideways_pawns( cb_before_activation->type ) &&
+                      CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) )
+            {
+                // Nothing to be done here, except bail-out.
+            }
+            else
+                return NULL;
+        }
+        else if ( cc_piece_is_dark( pe ) )
+        {
+            if ( CC_DARK_PAWN_STEP_IS_VALID( step ) )
+            {
+                if ( momentum > 1 )
+                {
+                    if ( CC_TAG_CAN_RUSH( te ) &&
+                         cc_chessboard_is_field_on_dark_side( cb_before_activation, destination.j ) )
+                        return cc_link_positions( cb_before_activation,
+                                                  start,
+                                                  destination,
+                                                  step,
+                                                  CC_POS_CAST_STATIC_STEP );
+                    else
+                        return NULL;
+                }
+            }
+            else if ( CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) )
+            {
+                // Nothing to be done here, except bail-out.
+            }
+            else if ( cc_variant_has_sideways_pawns( cb_before_activation->type ) &&
+                      CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) )
+            {
+                // Nothing to be done here, except bail-out.
+            }
+            else
+                return NULL;
+        }
+        else
+            return NULL;
+
+        if ( !cc_pos_is_equal( pos_1, destination ) ) return NULL;
+        if ( momentum != 1 ) return NULL;
+
+        CcPosLink * path__a = cc_pos_link__new( start );
+
+        cc_pos_link_append( path__a, destination );
+
+        return path__a;
+    }
+    else if ( CC_PIECE_IS_PAWN( activator ) &&
+              CC_PIECE_IS_WAVE( pe ) )
+    {
+        if ( !cc_piece_has_same_owner( pe, activator ) ) return NULL;
+
+        if ( cc_piece_is_light( activator ) )
+        {
+            if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) ||
+                 CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
+                 ( cc_variant_has_sideways_pawns( cb_before_activation->type ) &&
+                   CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) )
+            {
+                return cc_link_positions( cb_before_activation,
+                                            start,
+                                            destination,
+                                            step,
+                                            CC_POS_CAST_STATIC_STEP );
+            }
+        }
+        else if ( cc_piece_is_dark( activator ) )
+        {
+            if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ||
+                 CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
+                 ( cc_variant_has_sideways_pawns( cb_before_activation->type ) &&
+                   CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) )
+            {
+                return cc_link_positions( cb_before_activation,
+                                            start,
+                                            destination,
+                                            step,
+                                            CC_POS_CAST_STATIC_STEP );
+            }
+        }
+    }
+
+    return NULL;
+}
+
 CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
                                  CcPos start,
@@ -684,6 +813,8 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
 {
     if ( CC_PIECE_IS_NONE( activator ) )
         return NULL;
+    else if ( CC_PIECE_IS_PAWN( activator ) )
+        return cc_path_pawn__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_BISHOP( activator ) )
         return cc_path_bishop__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_ROOK( activator ) )
@@ -725,6 +856,8 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
 {
     if ( CC_PIECE_IS_NONE( activator ) )
         return NULL;
+    else if ( CC_PIECE_IS_PAWN( activator ) )
+        return cc_path_pawn__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_BISHOP( activator ) )
         return cc_path_bishop__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_ROOK( activator ) )
