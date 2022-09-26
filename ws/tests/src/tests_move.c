@@ -127,7 +127,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 42 < test_number ) )
+    if ( ( test_number < 0 ) || ( 44 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -309,6 +309,17 @@ bool tests_move( int test_number )
 
     if ( ( test_number == 42 ) || do_all_tests )
         result = test_move( "==c23", setup_tags, NULL, "o Ra1C,Pa2R,Pc23,bc24,Pc7,pd8,Pf11", NULL ) && result;
+
+    //
+    // simple losing tags, failures
+
+    if ( ( test_number == 43 ) || do_all_tests )
+        // Wrong losing tag.
+        result = !test_move( "R::l1", setup_tags, NULL, setup_tags, NULL ) && result;
+
+    if ( ( test_number == 44 ) || do_all_tests )
+        // Wrong losing tag.
+        result = !test_move( "R==l1", setup_tags, NULL, setup_tags, NULL ) && result;
 
 
 
