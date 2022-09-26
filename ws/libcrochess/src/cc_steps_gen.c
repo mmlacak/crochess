@@ -289,6 +289,15 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
             if ( CC_PIECE_IS_MONOLITH( pe ) )
                 piece_in_the_way = true;
         }
+        else if ( ( ( piece == CC_PE_LightShaman ) &&
+                    CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) ||
+                  ( ( piece == CC_PE_DarkShaman ) &&
+                    CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) )
+        {
+            if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ||
+                 !cc_piece_has_different_owner( piece, pe ) )
+                piece_in_the_way = true;
+        }
         else
             if ( !CC_PIECE_IS_NONE( pe ) )
                 piece_in_the_way = true;
@@ -664,7 +673,7 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
 
     CcPos step = cc_pos_step( start, destination );
 
-    if ( !CC_KNIGHT_STEP_IS_VALID( step ) ) return NULL;
+    if ( !CC_PEGASUS_STEP_IS_VALID( step ) ) return NULL;
 
     return cc_link_positions( cb_before_activation,
                               start,
@@ -673,7 +682,29 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
                               CC_POS_CAST_STATIC_STEP );
 }
 
-// TODO :: Pyramid
+CcPosLink * cc_path_pyramid__new( CcChessboard * restrict cb_before_activation,
+                                  CcPieceEnum activator,
+                                  CcPos start,
+                                  CcPos destination )
+{
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightPyramid ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !CC_PYRAMID_STEP_IS_VALID( step ) ) return NULL;
+
+    return cc_link_positions( cb_before_activation,
+                              start,
+                              destination,
+                              step,
+                              CC_POS_CAST_STATIC_STEP );
+}
 
 CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
@@ -693,7 +724,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
 
     if ( cc_is_the_same_color( pe, start ) )
     {
-        if ( !CC_KNIGHT_STEP_IS_VALID( step ) ) return NULL;
+        if ( !CC_UNICORN_SHORT_STEP_IS_VALID( step ) ) return NULL;
     }
     else
         if ( !CC_UNICORN_LONG_STEP_IS_VALID( step ) ) return NULL;
@@ -744,7 +775,7 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
 
     CcPos step = cc_pos_step( start, destination );
 
-    if ( !CC_QUEEN_STEP_IS_VALID( step ) ) return NULL;
+    if ( !CC_STAR_STEP_IS_VALID( step ) ) return NULL;
 
     CcPos end = cc_pos_add( start, step );
 
@@ -762,6 +793,33 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
 // TODO :: Serpent
 
 // TODO :: Shaman
+CcPosLink * cc_path_shaman__new( CcChessboard * restrict cb_before_activation,
+                                 CcPieceEnum activator,
+                                 CcPos start,
+                                 CcPos destination )
+{
+    // <i> Internaly calls cc_check_path_args( ... )
+    if ( !cc_is_activation_valid( cb_before_activation,
+                                  activator,
+                                  start,
+                                  destination,
+                                  CC_PE_LightShaman ) )
+        return NULL;
+
+    CcPos step = cc_pos_step( start, destination );
+
+    if ( !CC_LIGHT_SHAMAN_STEP_IS_VALID( step ) &&
+         !CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step ) &&
+         !CC_DARK_SHAMAN_STEP_IS_VALID( step ) &&
+         !CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step ) )
+            return NULL;
+
+    return cc_link_positions( cb_before_activation,
+                              start,
+                              destination,
+                              step,
+                              CC_POS_CAST_STATIC_STEP );
+}
 
 // TODO :: Monolith
 
@@ -827,6 +885,8 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
         return cc_path_knight__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_PEGASUS( activator ) )
         return cc_path_pegasus__new( cb_before_activation, activator, start, destination );
+    else if ( CC_PIECE_IS_PYRAMID( activator ) )
+        return cc_path_pyramid__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_UNICORN( activator ) )
         return cc_path_unicorn__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_STAR( activator ) )
@@ -838,7 +898,8 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
 
 // TODO :: Serpent
 
-// TODO :: Shaman
+    else if ( CC_PIECE_IS_SHAMAN( activator ) )
+        return cc_path_shaman__new( cb_before_activation, activator, start, destination );
 
 // TODO :: Monolith
 
@@ -870,6 +931,8 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
         return cc_path_knight__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_PEGASUS( activator ) )
         return cc_path_pegasus__new( cb_before_activation, activator, start, destination );
+    else if ( CC_PIECE_IS_PYRAMID( activator ) )
+        return cc_path_pyramid__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_UNICORN( activator ) )
         return cc_path_unicorn__new( cb_before_activation, activator, start, destination );
     else if ( CC_PIECE_IS_STAR( activator ) )
@@ -881,7 +944,8 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
 
 // TODO :: Serpent
 
-// TODO :: Shaman
+    else if ( CC_PIECE_IS_SHAMAN( activator ) )
+        return cc_path_shaman__new( cb_before_activation, activator, start, destination );
 
 // TODO :: Monolith
 

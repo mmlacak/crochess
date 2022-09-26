@@ -127,7 +127,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 44 < test_number ) )
+    if ( ( test_number < 0 ) || ( 46 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -321,6 +321,23 @@ bool tests_move( int test_number )
         // Wrong losing tag.
         result = !test_move( "R==l1", setup_tags, NULL, setup_tags, NULL ) && result;
 
+    //
+    // simple Shaman
+
+    char const * const setup_shaman = "O Hc11,pg10,pk9,po8,As7,Wk15";
+    char const * const end_shaman = "o Hs7,As9,Wk15";
+
+    if ( ( test_number == 45 ) || do_all_tests )
+// TODO :: FIX :: Pawns on capture-fields are not captured.
+        result = test_move( "Hs7~As9", setup_shaman, NULL, end_shaman, NULL ) && result;
+
+    if ( ( test_number == 46 ) || do_all_tests )
+        result = test_move( "Hk15~Wg23", setup_shaman, NULL, "o Hk15,pg10,pk9,po8,As7,Wg23", NULL ) && result;
+
+    // Not supported yet.
+    //
+    // if ( ( test_number == 48 ) || do_all_tests )
+    //     result = test_move( "H.g10*P.k9*P.o8*P", setup_shaman, NULL, end_shaman, NULL ) && result;
 
 
 
