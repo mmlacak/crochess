@@ -33,6 +33,8 @@ bool cc_is_step_capture( CcPieceEnum activator,
 
 bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
 
+bool cc_is_step_shamans_capture( CcPieceEnum piece, CcPos step );
+
 bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                       CcPieceEnum activator,
                       CcPos start,

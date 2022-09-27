@@ -328,7 +328,6 @@ bool tests_move( int test_number )
     char const * const end_shaman = "o Hs7,As9,Wk15";
 
     if ( ( test_number == 45 ) || do_all_tests )
-// TODO :: FIX :: Pawns on capture-fields are not captured.
         result = test_move( "Hs7~As9", setup_shaman, NULL, end_shaman, NULL ) && result;
 
     if ( ( test_number == 46 ) || do_all_tests )

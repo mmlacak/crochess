@@ -460,6 +460,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             }
             #endif // __CC_STR_PRINT_INFO__
 
+// TODO :: side-effects
             if ( cc_steps_are_congruent( steps__a, path__t ) )
             {
                 CC_PRINTF_IF_INFO( "Found it!\n" );
@@ -477,7 +478,8 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
         if ( path_count == 1 )
         {
-            CcPos start_path = path__a->pos;
+            CcPosLink * start_path = path__a;
+            CcPos start_pos = start_path->pos;
 
             CcPosLink * pl = path__a;
             int step_count = 0;
@@ -488,13 +490,14 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 ++step_count;
             }
 
-            CcPos end_path = pl->pos;
+            CcPosLink * end_path = pl;
+            CcPos end_pos = end_path->pos;
 
             //
             // Piece, from starting position.
 
-            piece = cc_chessboard_get_piece( cb__a, start_path.i, start_path.j );
-            CcTagEnum te_cb = cc_chessboard_get_tag( cb__a, start_path.i, start_path.j );
+            piece = cc_chessboard_get_piece( cb__a, start_pos.i, start_pos.j );
+            CcTagEnum te_cb = cc_chessboard_get_tag( cb__a, start_pos.i, start_pos.j );
 
             if ( cc_check_losing_tag( lte_an, te_cb ) == CC_LTCRE_TagNotFound )
             {
@@ -502,7 +505,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 char const * lte_str = cc_losing_tag_as_string( lte_an );
 
                 cc_char_8 start_str = CC_CHAR_8_EMPTY;
-                cc_pos_to_short_string( start_path, &start_str );
+                cc_pos_to_short_string( start_pos, &start_str );
 
                 cc_parse_msgs_append_if_format( parse_msgs__io,
                                                 CC_PMTE_Error,
@@ -533,12 +536,12 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_char_8 start_str = CC_CHAR_8_EMPTY;
-                cc_pos_to_short_string( start_path, &start_str );
+                cc_pos_to_short_string( start_pos, &start_str );
 
                 cc_parse_msgs_append_if_format( parse_msgs__io,
                                                 CC_PMTE_Error,
                                                 CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Piece '%c' at '%s' exhausted all of received momentum (%d), in ply '%s'.\n",
+                                                "Piece '%c' at '%s' exhausted more (%d) than received momentum, in ply '%s'.\n",
                                                 piece_symbol,
                                                 start_str,
                                                 momentum,
@@ -551,9 +554,9 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 return false;
             }
 
-            cascaded_piece = cc_chessboard_get_piece( cb__a, end_path.i, end_path.j );
-            cascading_field = end_path;
-            destination_field = end_path;
+            cascaded_piece = cc_chessboard_get_piece( cb__a, end_pos.i, end_pos.j );
+            cascading_field = end_pos;
+            destination_field = end_pos;
 
             CC_PRINTF_IF_INFO( "Cascaded piece: '%c' --> %d, %d.\n", cc_piece_as_char( cascaded_piece ), cascading_field.i, cascading_field.j );
 
@@ -562,7 +565,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
 // TODO :: tags
 // TODO :: teleport
-            if ( cc_chessboard_set_piece_tag( cb__a, start_path.i, start_path.j, previous_piece, CC_TE_None ) )
+            if ( cc_chessboard_set_piece_tag( cb__a, start_pos.i, start_pos.j, previous_piece, CC_TE_None ) )
             {
                 CC_PRINTF_IF_INFO( "Previous ply is done!\n" );
 
@@ -591,6 +594,38 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 cc_chessboard_free_all( &cb__a );
                 return false;
             }
+
+// TODO :: step iterator for (step) side-effects (?)
+            if ( CC_PIECE_IS_SHAMAN( piece ) )
+            {
+                CcPos step = cc_pos_step( start_pos, end_pos );
+
+                if ( cc_is_step_shamans_capture( piece, step ) )
+                {
+                    pl = path__a;
+
+                    while ( pl )
+                    {
+                        if ( ( pl != start_path ) && ( pl != end_path ) )
+                        {
+                            CcPos pos = pl->pos;
+
+                            if ( !cc_chessboard_set_piece_tag( cb__a, pos.i, pos.j, CC_PE_None, CC_TE_None ) )
+                            {
+                                cc_steps_free_all( &steps__a );
+                                cc_chessboard_free_all( &cb__a );
+                                return false;
+                            }
+                        }
+
+                        if ( pl->next )
+                            pl = pl->next;
+                        else
+                            break;
+                    }
+                }
+            }
+// TODO :: step iterator for (step) side-effects (?)
         }
         else
         {

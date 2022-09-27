@@ -122,6 +122,14 @@ bool cc_is_step_miracle( CcPieceEnum piece, CcPos step )
     return false;
 }
 
+bool cc_is_step_shamans_capture( CcPieceEnum piece, CcPos step )
+{
+    return ( ( ( piece == CC_PE_LightShaman ) &&
+               CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) ||
+             ( ( piece == CC_PE_DarkShaman ) &&
+               CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) );
+}
+
 bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                       CcPieceEnum activator,
                       CcPos start,
@@ -251,7 +259,6 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
 
 // TODO :: pawn-sacrifice (?) --> maybe separate function (?)
 // TODO :: trance-journey
-// TODO :: Shaman's capture-ply
 
 CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                CcPos start,
@@ -289,10 +296,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
             if ( CC_PIECE_IS_MONOLITH( pe ) )
                 piece_in_the_way = true;
         }
-        else if ( ( ( piece == CC_PE_LightShaman ) &&
-                    CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) ||
-                  ( ( piece == CC_PE_DarkShaman ) &&
-                    CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) )
+        else if ( cc_is_step_shamans_capture( piece, step ) )
         {
             if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ||
                  !cc_piece_has_different_owner( piece, pe ) )
@@ -808,11 +812,11 @@ CcPosLink * cc_path_shaman__new( CcChessboard * restrict cb_before_activation,
 
     CcPos step = cc_pos_step( start, destination );
 
+    // Light and dark Shaman capture-steps are mirrored steps,
+    // so no need to check for capture-steps.
     if ( !CC_LIGHT_SHAMAN_STEP_IS_VALID( step ) &&
-         !CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step ) &&
-         !CC_DARK_SHAMAN_STEP_IS_VALID( step ) &&
-         !CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step ) )
-            return NULL;
+         !CC_DARK_SHAMAN_STEP_IS_VALID( step )  )
+        return NULL;
 
     return cc_link_positions( cb_before_activation,
                               start,
