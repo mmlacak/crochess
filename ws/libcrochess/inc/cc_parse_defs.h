@@ -23,6 +23,11 @@
 #define CC_MAX_LEN_DISAMBIGUATION_STEP (6)
 
 
+#define CC_IS_PLY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )           \
+                                     || ( (ple) == CC_PLE_DualTranceJourney )       \
+                                     || ( (ple) == CC_PLE_FailedTranceJourney ) )
+
+
 /**
     Ply link enumeration.
 

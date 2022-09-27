@@ -175,6 +175,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
         // Ply link.
 
         CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
+        bool is_trance_journey = CC_IS_PLY_TRANCE_JOURNEY( ple );
         char const * c_str = ply_start_str + cc_ply_link_len( ple );
 
         CC_STR_PRINT_IF_INFO( ply_start_str, c_str, 128, "Ply link: '%s'", " --> %d.\n", ple );
@@ -523,15 +524,16 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 return false;
             }
 
-// TODO :: trance-journey
             if ( is_starting_ply )
                 momentum = step_count;
+            else if ( is_trance_journey )
+                /* Nothing to do here, just to escape subtraction. */;
             else if ( !CC_PIECE_IS_WEIGHTLESS( piece ) )
                 momentum -= step_count;
 
             CC_PRINTF_IF_INFO( "Piece: '%c' --> %d, with momentum %d.\n", piece_symbol, piece, momentum );
 
-            if ( momentum < 0 )
+            if ( ( !is_trance_journey ) && ( momentum < 0 ) )
             {
                 char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
