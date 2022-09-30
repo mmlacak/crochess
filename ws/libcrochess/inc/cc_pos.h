@@ -203,6 +203,7 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
 
     @param pos A position to add to.
     @param step A step to be added.
+    @param count Count of steps to be added.
 
     @note
     Function adds valid coordinates, if both `pos` and `step` arguments are one of:
@@ -216,13 +217,14 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
 
     @return A position with added step if successful, invalid position otherwise.
 */
-CcPos cc_pos_add( CcPos pos, CcPos step );
+CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count );
 
 /**
     Function subtracts step from position.
 
     @param pos A position to subtract from.
     @param step A step to be subtracted.
+    @param count Count of steps to be subtracted.
 
     @note
     Function subtracts valid coordinates, if both `pos` and `step` arguments are one of:
@@ -236,7 +238,7 @@ CcPos cc_pos_add( CcPos pos, CcPos step );
 
     @return A position with subtracted step if successful, invalid position otherwise.
 */
-CcPos cc_pos_subtract( CcPos pos, CcPos step );
+CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count );
 
 /**
     Function returns step from start to destination field.

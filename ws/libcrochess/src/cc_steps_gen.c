@@ -284,10 +284,10 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
     CcPosLink * path__a = cc_pos_link__new( start );
     CcPos last_pos = CC_POS_CAST_INVALID;
 
-    for ( CcPos pos = cc_pos_add( start, s );
+    for ( CcPos pos = cc_pos_add( start, s, 1 );
           !cc_pos_is_equal( pos, destination ) && \
               cc_chessboard_is_pos_safe_off_board( cb_before_activation, pos.i, pos.j );
-          pos = cc_pos_add( pos, s ) )
+          pos = cc_pos_add( pos, s, 1 ) )
     {
         pe = cc_chessboard_get_piece( cb_before_activation, pos.i, pos.j );
 
@@ -330,7 +330,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
     if ( is_alternating_steps )
         s = is_even_step ? step_2 : step;
 
-    CcPos end = cc_pos_add( last_pos, s );
+    CcPos end = cc_pos_add( last_pos, s, 1 );
 
     if ( !cc_pos_is_equal( end, destination ) )
     {
@@ -407,7 +407,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
     CcPos step = cc_pos_step( start, destination );
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
     CcTagEnum te = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
-    CcPos pos_1 = cc_pos_add( start, step );
+    CcPos pos_1 = cc_pos_add( start, step, 1 );
     int momentum = cc_pos_momentum( start, destination );
 
     if ( CC_PIECE_IS_PAWN( pe ) )
@@ -541,7 +541,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
 
     if ( CC_PIECE_IS_KNIGHT( pe ) )
     {
-        CcPos end = cc_pos_add( start, step );
+        CcPos end = cc_pos_add( start, step, 1 );
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
@@ -651,7 +651,7 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_KING_STEP_IS_VALID( step ) ) return NULL;
 
-    CcPos end = cc_pos_add( start, step );
+    CcPos end = cc_pos_add( start, step, 1 );
 
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
@@ -735,7 +735,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
 
     if ( CC_PIECE_IS_UNICORN( pe ) )
     {
-        CcPos end = cc_pos_add( start, step );
+        CcPos end = cc_pos_add( start, step, 1 );
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
@@ -781,7 +781,7 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_STAR_STEP_IS_VALID( step ) ) return NULL;
 
-    CcPos end = cc_pos_add( start, step );
+    CcPos end = cc_pos_add( start, step, 1 );
 
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
@@ -856,7 +856,7 @@ CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation
     if ( !is_just_step )
         if ( !CC_QUEEN_STEP_IS_VALID( step ) ) return NULL;
 
-    CcPos end = cc_pos_add( start, step );
+    CcPos end = cc_pos_add( start, step, 1 );
 
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 

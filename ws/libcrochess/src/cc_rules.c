@@ -484,9 +484,16 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 
             CcPosLink * pl = path__a;
             int step_count = 0;
+            CcPos pos_2 = CC_POS_INVALID;
+            CcPos pos_3 = CC_POS_INVALID;
 
             while ( pl->next )
             {
+                if ( step_count == 1 )
+                    pos_2 = pl->pos;
+                else if ( step_count == 2 )
+                    pos_3 = pl->pos;
+
                 pl = pl->next;
                 ++step_count;
             }
@@ -527,7 +534,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             if ( is_starting_ply )
                 momentum = step_count;
             else if ( is_trance_journey )
-                /* Nothing to do here, just to escape subtraction. */;
+                /* Nothing to do here, just to escape subtraction. */ ;
             else if ( !CC_PIECE_IS_WEIGHTLESS( piece ) )
                 momentum -= step_count;
 
@@ -600,7 +607,7 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
 // TODO :: step iterator for (step) side-effects (?)
             if ( CC_PIECE_IS_SHAMAN( piece ) )
             {
-                CcPos step = cc_pos_step( start_pos, end_pos );
+                CcPos step = cc_pos_subtract( pos_2, start_pos, 1 );
 
                 if ( cc_is_step_shamans_capture( piece, step ) )
                 {
