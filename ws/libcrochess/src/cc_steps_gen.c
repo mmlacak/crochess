@@ -408,6 +408,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
     CcTagEnum te = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
     CcPos pos_1 = cc_pos_add( start, step, 1 );
+    bool has_sideways_pawns = cc_variant_has_sideways_pawns( cb_before_activation->type );
     int momentum = cc_pos_momentum( start, destination );
 
     if ( CC_PIECE_IS_PAWN( pe ) )
@@ -433,7 +434,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
             {
                 // Nothing to be done here, except bail-out.
             }
-            else if ( cc_variant_has_sideways_pawns( cb_before_activation->type ) &&
+            else if ( has_sideways_pawns &&
                       CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) )
             {
                 // Nothing to be done here, except bail-out.
@@ -462,7 +463,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
             {
                 // Nothing to be done here, except bail-out.
             }
-            else if ( cc_variant_has_sideways_pawns( cb_before_activation->type ) &&
+            else if ( has_sideways_pawns &&
                       CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) )
             {
                 // Nothing to be done here, except bail-out.
@@ -491,7 +492,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
         {
             if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) ||
                  CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
-                 ( cc_variant_has_sideways_pawns( cb_before_activation->type ) &&
+                 ( has_sideways_pawns &&
                    CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) )
             {
                 return cc_link_positions( cb_before_activation,
@@ -505,7 +506,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
         {
             if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ||
                  CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
-                 ( cc_variant_has_sideways_pawns( cb_before_activation->type ) &&
+                 ( has_sideways_pawns &&
                    CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) )
             {
                 return cc_link_positions( cb_before_activation,

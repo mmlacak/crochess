@@ -6,9 +6,9 @@
 
 #include <stddef.h>
 
-#include "cc_parse_defs.h"
 #include "cc_piece.h"
 #include "cc_pos.h"
+#include "cc_parse_defs.h"
 
 /**
     @file cc_parse.h
@@ -80,8 +80,6 @@ bool cc_ply_has_steps( char const * restrict an_str,
 
 
 CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str );
-
-size_t cc_side_effect_len( CcSideEffectEnum see );
 
 char const * cc_find_side_effect( char const * restrict an_str,
                                   char const * restrict step_end,

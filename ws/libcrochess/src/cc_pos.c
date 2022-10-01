@@ -15,6 +15,9 @@
 */
 
 
+//
+// Positions.
+
 CcPos cc_pos( int i, int j )
 {
     CcPos pos = { .i = i, .j = j };
@@ -172,6 +175,39 @@ bool cc_pos_to_short_string( CcPos pos,
     return true;
 }
 
+//
+// Side-effects.
+
+CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos )
+{
+    CcSideEffect se = { .type = type, .piece = piece, .pos = pos };
+    return se;
+}
+
+size_t cc_side_effect_str_len( CcSideEffectEnum see )
+{
+    switch ( see )
+    {
+        case CC_SEE_None : return 0; /**< Side-effect not found, uninitialized, or error happened. */
+        case CC_SEE_Capturing : return 1; /* Capturing, corresponds to * (asterisk). */
+        case CC_SEE_Displacement : return 1; /* Trance-journey displacement, correspondes to < (less-than). */
+        case CC_SEE_EnPassant : return 1; /* En passant, corresponds to : (colon). */
+        case CC_SEE_Castling : return 1; /* Castling, corresponds to & (ampersand). */
+        case CC_SEE_Promotion : return 1; /* Promotion, corresponds to = (equal sign), optional. */
+        case CC_SEE_PromotionNoSign : return 0; /* Promotion, without sign. */
+        case CC_SEE_TagForPromotion : return 1; /* Tag for promotion, corresponds to = (equal sign). */
+        case CC_SEE_Conversion : return 1; /* Conversion, corresponds to % (percent sign). */
+        case CC_SEE_FailedConversion : return 2; /* Failed conversion, corresponds to %% (double percent sign). */
+        case CC_SEE_DemotingToPawn : return 1; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
+        case CC_SEE_Resurrection : return 1; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
+        case CC_SEE_FailedResurrection : return 2; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+
+        default : return 0;
+    }
+}
+
+//
+// Linked positions.
 
 CcPosLink * cc_pos_link__new( CcPos pos )
 {

@@ -4,7 +4,6 @@
 #ifndef __CC_PARSE_DEFS_H__
 #define __CC_PARSE_DEFS_H__
 
-#include <stdlib.h> // atoi
 
 /**
     @file cc_parse_defs.h
@@ -72,28 +71,6 @@ typedef enum CcStepLinkEnum
     CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
     CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
 } CcStepLinkEnum;
-
-/**
-    Side-effects enumeration.
-
-    This enumerates all side-effects, except losing tags.
-*/
-typedef enum CcSideEffectEnum
-{
-    CC_SEE_None, /**< Side-effect not found, uninitialized, or error happened. */
-    CC_SEE_Capturing, /**< Capturing, corresponds to * (asterisk). */
-    CC_SEE_Displacement, /**< Trance-journey displacement, correspondes to < (less-than). */
-    CC_SEE_EnPassant, /**< En passant, corresponds to : (colon). */
-    CC_SEE_Castling, /**< Castling, corresponds to & (ampersand). */
-    CC_SEE_Promotion, /**< Promotion, corresponds to = (equal sign). */
-    CC_SEE_PromotionNoSign, /**< Promotion, without sign. */
-    CC_SEE_TagForPromotion, /**< Tag for promotion, corresponds to = (equal sign). */
-    CC_SEE_Conversion, /**< Conversion, corresponds to % (percent sign). */
-    CC_SEE_FailedConversion, /**< Failed conversion, corresponds to %% (double percent sign). */
-    CC_SEE_DemotingToPawn, /**< Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
-    CC_SEE_Resurrection, /**< Syzygy, resurrection, corresponds to $ (dollar-sign). */
-    CC_SEE_FailedResurrection, /**< Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
-} CcSideEffectEnum;
 
 
 char const * cc_losing_tag_as_string( CcLosingTagEnum lte );

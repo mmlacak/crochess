@@ -9,6 +9,8 @@
 #include "cc_defines.h"
 #include "cc_str_utils.h"
 
+#include "cc_piece.h"
+
 /**
     @file cc_pos.h
     @brief Position, linked list of positions.
@@ -63,6 +65,8 @@
 */
 #define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
+//
+// Positions.
 
 /**
     Structure holding a position, either absolute or relative,
@@ -285,6 +289,48 @@ int cc_pos_momentum( CcPos start, CcPos destination );
 bool cc_pos_to_short_string( CcPos pos,
                              cc_char_8 * restrict pos_str__o );
 
+//
+// Side-effects.
+
+/**
+    Side-effects enumeration.
+
+    This enumerates all side-effects, except losing tags.
+*/
+typedef enum CcSideEffectEnum
+{
+    CC_SEE_None, /**< Side-effect not found, uninitialized, or error happened. */
+    CC_SEE_Capturing, /**< Capturing, corresponds to * (asterisk). */
+    CC_SEE_Displacement, /**< Trance-journey displacement, correspondes to < (less-than). */
+    CC_SEE_EnPassant, /**< En passant, corresponds to : (colon). */
+    CC_SEE_Castling, /**< Castling, corresponds to & (ampersand). */
+    CC_SEE_Promotion, /**< Promotion, corresponds to = (equal sign). */
+    CC_SEE_PromotionNoSign, /**< Promotion, without sign. */
+    CC_SEE_TagForPromotion, /**< Tag for promotion, corresponds to = (equal sign). */
+    CC_SEE_Conversion, /**< Conversion, corresponds to % (percent sign). */
+    CC_SEE_FailedConversion, /**< Failed conversion, corresponds to %% (double percent sign). */
+    CC_SEE_DemotingToPawn, /**< Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
+    CC_SEE_Resurrection, /**< Syzygy, resurrection, corresponds to $ (dollar-sign). */
+    CC_SEE_FailedResurrection, /**< Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+} CcSideEffectEnum;
+
+/**
+    TODO :: DOCS .
+*/
+typedef struct CcSideEffect {
+    CcSideEffectEnum type; /**< TODO :: DOCS . */
+    CcPieceEnum piece; /**< TODO :: DOCS . */
+    CcPos pos; /**< TODO :: DOCS . */
+} CcSideEffect;
+
+// TODO :: DOCS
+CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos );
+
+// TODO :: DOCS
+size_t cc_side_effect_str_len( CcSideEffectEnum see );
+
+//
+// Linked positions.
 
 /**
     A linked list of positions.
