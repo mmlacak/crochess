@@ -13,13 +13,15 @@
 
 
 CcSteps * cc_steps__new( CcStepLinkEnum step_link,
-                         CcPos pos )
+                         CcPos pos,
+                         CcSideEffect side_effect )
 {
     CcSteps * step__t = malloc( sizeof( CcSteps ) );
     if ( !step__t ) return NULL;
 
     step__t->step_link = step_link;
     step__t->pos = pos;
+    step__t->side_effect = side_effect;
 
     step__t->prev = NULL;
     step__t->next = NULL;
@@ -29,11 +31,12 @@ CcSteps * cc_steps__new( CcStepLinkEnum step_link,
 
 CcSteps * cc_steps_append( CcSteps * restrict steps__io,
                            CcStepLinkEnum step_link,
-                           CcPos pos )
+                           CcPos pos,
+                           CcSideEffect side_effect )
 {
     if ( !steps__io ) return NULL;
 
-    CcSteps * step__t = cc_steps__new( step_link, pos );
+    CcSteps * step__t = cc_steps__new( step_link, pos, side_effect );
     if ( !step__t ) return NULL;
 
     CcSteps * s = steps__io;
@@ -47,16 +50,17 @@ CcSteps * cc_steps_append( CcSteps * restrict steps__io,
 
 CcSteps * cc_steps_append_if( CcSteps ** restrict steps__io,
                               CcStepLinkEnum step_link,
-                              CcPos pos )
+                              CcPos pos,
+                              CcSideEffect side_effect )
 {
     if ( !steps__io ) return NULL;
 
     CcSteps * step__w = NULL;
 
     if ( !*steps__io )
-        *steps__io = step__w = cc_steps__new( step_link, pos );
+        *steps__io = step__w = cc_steps__new( step_link, pos, side_effect );
     else
-        step__w = cc_steps_append( *steps__io, step_link, pos );
+        step__w = cc_steps_append( *steps__io, step_link, pos, side_effect );
 
     return step__w;
 }

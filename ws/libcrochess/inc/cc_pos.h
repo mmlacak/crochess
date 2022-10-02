@@ -13,7 +13,7 @@
 
 /**
     @file cc_pos.h
-    @brief Position, linked list of positions.
+    @brief Position, side-effect, linked list of positions + side-effect.
 */
 
 
@@ -319,7 +319,8 @@ size_t cc_side_effect_str_len( CcSideEffectEnum see );
 
     @see cc_pos_link__new(), CC_SIDE_EFFECT_CAST_INVALID
 */
-#define CC_POS_LINK__NEW(int_i,int_j) cc_pos_link__new( cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+#define CC_POS_LINK__NEW(int_i,int_j) \
+    cc_pos_link__new( cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
 
 /**
     Macro to append a newly allocated new position link, with given coordinates.
@@ -335,7 +336,8 @@ size_t cc_side_effect_str_len( CcSideEffectEnum see );
 
     @see cc_pos_link_append(), CC_SIDE_EFFECT_CAST_INVALID
 */
-#define CC_POS_LINK_APPEND(ptr__pos_link__io,int_i,int_j) cc_pos_link_append( (ptr__pos_link__io), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+#define CC_POS_LINK_APPEND(ptr__pos_link__io,int_i,int_j) \
+    cc_pos_link_append( (ptr__pos_link__io), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
 
 /**
     Macro to initialize or append a position linked list, with given coordinates.
@@ -351,7 +353,8 @@ size_t cc_side_effect_str_len( CcSideEffectEnum see );
 
     @see cc_pos_link_append_if(), CC_SIDE_EFFECT_CAST_INVALID
 */
-#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,int_i,int_j) \
+    cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
 
 /**
     A linked list of positions.
@@ -367,6 +370,7 @@ typedef struct CcPosLink {
     Function allocates a new linked position.
 
     @param pos A position.
+    @param side_effect A side-effect.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
@@ -377,6 +381,7 @@ CcPosLink * cc_pos_link__new( CcPos pos, CcSideEffect side_effect );
 
     @param pos_link__io _Input/output_ parameter, linked list.
     @param pos A position.
+    @param side_effect A side-effect.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
@@ -389,6 +394,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 
     @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
     @param pos A position.
+    @param side_effect A side-effect.
 
     @note
     Linked list `*pos_link__io` can be `NULL`, a linked position will still be

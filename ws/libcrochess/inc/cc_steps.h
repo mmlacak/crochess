@@ -21,12 +21,15 @@
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
+    @note
+    Side-effect in newly allocated ssteps queue is initialized as invalid.
+
     @return Pointer to a newly allocated steps queue if successful, `NULL` otherwise.
 
-    @see cc_steps__new()
+    @see cc_steps__new(), CC_SIDE_EFFECT_CAST_INVALID
 */
 #define CC_STEPS__NEW(step_link,int_i,int_j) \
-    cc_steps__new( (step_link), cc_pos( (int_i), (int_j) ) )
+    cc_steps__new( (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
 
 /**
     Macro to append a newly allocated step to existing queue.
@@ -36,12 +39,15 @@
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
+    @note
+    Side-effect in newly allocated ssteps queue is initialized as invalid.
+
     @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
 
-    @see cc_steps_append()
+    @see cc_steps_append(), CC_SIDE_EFFECT_CAST_INVALID
 */
 #define CC_STEPS_APPEND(ptr__steps__io,step_link,int_i,int_j) \
-    cc_steps_append( (ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ) )
+    cc_steps_append( (ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
 
 /**
     Macro to append a newly allocated step to steps queue, which might not be alocated yet.
@@ -51,12 +57,15 @@
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
+    @note
+    Side-effect in newly allocated ssteps queue is initialized as invalid.
+
     @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
 
-    @see cc_steps_append_if()
+    @see cc_steps_append_if(), CC_SIDE_EFFECT_CAST_INVALID
 */
 #define CC_STEPS_APPEND_IF(ptr_ptr__steps__io,step_link,int_i,int_j) \
-    cc_steps_append_if( (ptr_ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ) )
+    cc_steps_append_if( (ptr_ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
 
 
 /**
@@ -65,8 +74,7 @@
 typedef struct CcSteps {
     CcStepLinkEnum step_link; /**< Step link enum. */
     CcPos pos; /**< Position. */
-
-// TODO :: side-effects
+    CcSideEffect side_effect; /**< Side-effect. */
 
     struct CcSteps * prev; /**< Link to previous position. */
     struct CcSteps * next; /**< Link to next position. */
@@ -77,11 +85,13 @@ typedef struct CcSteps {
 
     @param step_link A step link enum.
     @param pos A position.
+    @param side_effect A side-effect.
 
     @return Pointer to a newly allocated step if successful, `NULL` otherwise.
 */
 CcSteps * cc_steps__new( CcStepLinkEnum step_link,
-                         CcPos pos );
+                         CcPos pos,
+                         CcSideEffect side_effect );
 
 /**
     Function appends a newly allocated step to a given queue.
@@ -89,12 +99,14 @@ CcSteps * cc_steps__new( CcStepLinkEnum step_link,
     @param steps__io _Input/output_ parameter, queue.
     @param step_link A step link enum.
     @param pos A position.
+    @param side_effect A side-effect.
 
     @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
 */
 CcSteps * cc_steps_append( CcSteps * restrict steps__io,
                            CcStepLinkEnum step_link,
-                           CcPos pos );
+                           CcPos pos,
+                           CcSideEffect side_effect );
 
 /**
     Appends newly allocated step to a steps queue, which might not be alocated yet.
@@ -102,6 +114,7 @@ CcSteps * cc_steps_append( CcSteps * restrict steps__io,
     @param steps__io _Input/output_ parameter, queue, can be `NULL`.
     @param step_link A step link enum.
     @param pos A position.
+    @param side_effect A side-effect.
 
     @note
     Queue `*steps__io` can be `NULL`, a step will still be allocated, and returned.
@@ -114,7 +127,8 @@ CcSteps * cc_steps_append( CcSteps * restrict steps__io,
 */
 CcSteps * cc_steps_append_if( CcSteps ** restrict steps__io,
                               CcStepLinkEnum step_link,
-                              CcPos pos );
+                              CcPos pos,
+                              CcSideEffect side_effect );
 
 /**
     Function checks if positions are the congruent with a given steps.

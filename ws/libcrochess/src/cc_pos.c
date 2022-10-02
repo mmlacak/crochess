@@ -11,7 +11,7 @@
 
 /**
     @file cc_pos.c
-    @brief Functions for positions, linked list.
+    @brief Functions for positions, side-effects, linked list.
 */
 
 

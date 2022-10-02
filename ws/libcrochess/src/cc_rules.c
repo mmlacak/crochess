@@ -128,7 +128,7 @@ static bool cc_append_steps( char const * restrict ply_start_str,
 
         CC_PRINTF_IF_INFO( "Step pos: %d, %d.\n", file, rank );
 
-        CcSteps * step__w = cc_steps_append_if( steps__io, sle, cc_pos( file, rank ) );
+        CcSteps * step__w = cc_steps_append_if( steps__io, sle, cc_pos( file, rank ), CC_SIDE_EFFECT_CAST_INVALID );
         if ( !step__w ) return false;
     }
 
@@ -309,11 +309,11 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             }
             else if ( disambiguation_c8[ 0 ] != '\0' )
             {
-                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_da, rank_da ) );
+                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_da, rank_da ), CC_SIDE_EFFECT_CAST_INVALID );
             }
             else if ( position_c8[ 0 ] != '\0' )
             {
-                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_pos, rank_pos ) );
+                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_pos, rank_pos ), CC_SIDE_EFFECT_CAST_INVALID );
             }
 
             if ( !cc_append_steps( c_str, ply_end_str, cb__a, &steps__a, parse_msgs__io ) )
@@ -329,14 +329,15 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
         {
             if ( disambiguation_c8[ 0 ] != '\0' )
             {
-                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_da, rank_da ) );
+                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_da, rank_da ), CC_SIDE_EFFECT_CAST_INVALID );
             }
 
             if ( position_c8[ 0 ] != '\0' )
             {
                 CcSteps * step__w = cc_steps_append_if( &steps__a,
                                                         CC_SLE_Destination,
-                                                        cc_pos( file_pos, rank_pos ) );
+                                                        cc_pos( file_pos, rank_pos ),
+                                                        CC_SIDE_EFFECT_CAST_INVALID );
 
                 if ( !step__w )
                 {
