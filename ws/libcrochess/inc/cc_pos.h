@@ -27,44 +27,6 @@
 */
 #define CC_POS_STATIC_STEP { .i = 0, .j = 0 }
 
-/**
-    Macro to allocate new position link, with given coordinates.
-
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-
-    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
-    @see cc_pos_link__new()
-*/
-#define CC_POS_LINK__NEW(int_i,int_j) cc_pos_link__new( cc_pos( (int_i), (int_j) ) )
-
-/**
-    Macro to append a newly allocated new position link, with given coordinates.
-
-    @param ptr__pos_link__io A position linked list, to be appended.
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
-    @see cc_pos_link_append()
-*/
-#define CC_POS_LINK_APPEND(ptr__pos_link__io,int_i,int_j) cc_pos_link_append( (ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
-
-/**
-    Macro to initialize or append a position linked list, with given coordinates.
-
-    @param ptr_ptr__pos_link__io A position linked list, to be appended.
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
-    @see cc_pos_link_append_if()
-*/
-#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
-
 //
 // Positions.
 
@@ -323,20 +285,80 @@ typedef struct CcSideEffect {
     CcPos pos; /**< TODO :: DOCS . */
 } CcSideEffect;
 
-// TODO :: DOCS
+/**< TODO :: DOCS . */
+#define CC_SIDE_EFFECT_INVALID { .type = CC_SEE_None, .piece = CC_PE_None, .pos = CC_POS_INVALID }
+
+/**< TODO :: DOCS . */
+#define CC_SIDE_EFFECT_CAST_INVALID ( (CcSideEffect){ .type = CC_SEE_None, .piece = CC_PE_None, .pos = CC_POS_CAST_INVALID } )
+
+/** TODO :: DOCS . */
 CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos );
 
-// TODO :: DOCS
+/** TODO :: DOCS . */
+bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 );
+
+/** TODO :: DOCS . */
+bool cc_side_effect_is_valid( CcSideEffect se );
+
+/** TODO :: DOCS . */
 size_t cc_side_effect_str_len( CcSideEffectEnum see );
 
 //
 // Linked positions.
 
 /**
+    Macro to allocate new position link, with given coordinates.
+
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+
+    @note
+    Side-effect in newly allocated position link is initialized as invalid.
+
+    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_pos_link__new(), CC_SIDE_EFFECT_CAST_INVALID
+*/
+#define CC_POS_LINK__NEW(int_i,int_j) cc_pos_link__new( cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+
+/**
+    Macro to append a newly allocated new position link, with given coordinates.
+
+    @param ptr__pos_link__io A position linked list, to be appended.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+
+    @note
+    Side-effect in newly allocated position link is initialized as invalid.
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_pos_link_append(), CC_SIDE_EFFECT_CAST_INVALID
+*/
+#define CC_POS_LINK_APPEND(ptr__pos_link__io,int_i,int_j) cc_pos_link_append( (ptr__pos_link__io), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+
+/**
+    Macro to initialize or append a position linked list, with given coordinates.
+
+    @param ptr_ptr__pos_link__io A position linked list, to be appended.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+
+    @note
+    Side-effect in newly allocated position link is initialized as invalid.
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_pos_link_append_if(), CC_SIDE_EFFECT_CAST_INVALID
+*/
+#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,int_i,int_j) cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+
+/**
     A linked list of positions.
 */
 typedef struct CcPosLink {
     CcPos pos; /**< A position. */
+    CcSideEffect side_effect; /** TODO :: DOCS . */
 
     struct CcPosLink * next; /**< Link to a next position. */
 } CcPosLink;
@@ -348,7 +370,7 @@ typedef struct CcPosLink {
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link__new( CcPos pos );
+CcPosLink * cc_pos_link__new( CcPos pos, CcSideEffect side_effect );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
@@ -359,7 +381,8 @@ CcPosLink * cc_pos_link__new( CcPos pos );
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPos pos );
+                                CcPos pos,
+                                CcSideEffect side_effect );
 
 /**
     Allocates a new linked position, appends it to a linked list.
@@ -378,7 +401,8 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPos pos );
+                                   CcPos pos,
+                                   CcSideEffect side_effect );
 
 /**
     Frees all positions in a linked list.

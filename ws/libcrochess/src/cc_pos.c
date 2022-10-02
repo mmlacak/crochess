@@ -36,7 +36,7 @@ CcPos cc_pos_disambiguation_rank( int j )
 
 bool cc_pos_is_valid( CcPos pos )
 {
-    return ( CC_IS_POS_VALID( pos.i, pos.j ) );
+    return ( CC_IS_COORD_2_VALID( pos.i, pos.j ) );
 }
 
 bool cc_pos_is_static_step( CcPos pos )
@@ -139,7 +139,7 @@ bool cc_pos_to_short_string( CcPos pos,
 {
     if ( !pos_str__o ) return false;
 
-    if ( CC_IS_POS_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) )
+    if ( CC_IS_COORD_2_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) )
     {
         snprintf( *pos_str__o,
                   CC_MAX_LEN_CHAR_8,
@@ -184,6 +184,18 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos
     return se;
 }
 
+bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 )
+{
+    return ( ( se_1.type == se_2.type ) &&
+             ( se_1.piece == se_2.piece ) &&
+             cc_pos_is_equal( se_1.pos, se_2.pos ) );
+}
+
+bool cc_side_effect_is_valid( CcSideEffect se )
+{
+    return ( !cc_side_effect_is_equal( se, CC_SIDE_EFFECT_CAST_INVALID ) );
+}
+
 size_t cc_side_effect_str_len( CcSideEffectEnum see )
 {
     switch ( see )
@@ -209,12 +221,13 @@ size_t cc_side_effect_str_len( CcSideEffectEnum see )
 //
 // Linked positions.
 
-CcPosLink * cc_pos_link__new( CcPos pos )
+CcPosLink * cc_pos_link__new( CcPos pos, CcSideEffect side_effect )
 {
     CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
     if ( !pl__t ) return NULL;
 
     pl__t->pos = pos;
+    pl__t->side_effect = side_effect;
 
     pl__t->next = NULL;
 
@@ -222,11 +235,12 @@ CcPosLink * cc_pos_link__new( CcPos pos )
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPos pos )
+                                CcPos pos,
+                                CcSideEffect side_effect )
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__t = cc_pos_link__new( pos );
+    CcPosLink * pl__t = cc_pos_link__new( pos, side_effect );
     if ( !pl__t ) return NULL;
 
     CcPosLink * pl = pos_link__io;
@@ -239,16 +253,17 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 }
 
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPos pos )
+                                   CcPos pos,
+                                   CcSideEffect side_effect )
 {
     if ( !pos_link__io ) return NULL;
 
     CcPosLink * pl__w = NULL;
 
     if ( !*pos_link__io )
-        *pos_link__io = pl__w = cc_pos_link__new( pos );
+        *pos_link__io = pl__w = cc_pos_link__new( pos, side_effect );
     else
-        pl__w = cc_pos_link_append( *pos_link__io, pos );
+        pl__w = cc_pos_link_append( *pos_link__io, pos, side_effect );
 
     return pl__w;
 }

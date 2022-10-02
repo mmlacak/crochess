@@ -107,7 +107,7 @@ static bool cc_append_steps( char const * restrict ply_start_str,
             CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
 
         if ( !cc_convert_starting_pos( pos_c8, &file, &rank ) ||
-                !CC_IS_POS_ON_BOARD( cb->size, file, rank ) )
+                !CC_IS_COORD_2_ON_BOARD( cb->size, file, rank ) )
         {
             CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
 

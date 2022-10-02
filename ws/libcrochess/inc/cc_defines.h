@@ -119,7 +119,7 @@
 
     @return `1` if valid, `0` otherwise.
 */
-#define CC_IS_POS_VALID(i,j) ( ( (i) != CC_INVALID_COORD ) && ( (j) != CC_INVALID_COORD ) )
+#define CC_IS_COORD_2_VALID(i,j) ( ( (i) != CC_INVALID_COORD ) && ( (j) != CC_INVALID_COORD ) )
 
 /**
     Macro to check if a given position is light.
@@ -166,7 +166,7 @@
 
     @return `1` if on board, `0` otherwise.
 */
-#define CC_IS_POS_ON_BOARD(board_size,i,j) ( ( CC_MIN_BOARD_COORD <= (int)(i) ) && ( (int)(i) < (int)(board_size) ) && ( CC_MIN_BOARD_COORD <= (int)(j) ) && ( (int)(j) < (int)(board_size) ) )
+#define CC_IS_COORD_2_ON_BOARD(board_size,i,j) ( ( CC_MIN_BOARD_COORD <= (int)(i) ) && ( (int)(i) < (int)(board_size) ) && ( CC_MIN_BOARD_COORD <= (int)(j) ) && ( (int)(j) < (int)(board_size) ) )
 
 /**
     Macro to check if a given position is on a light side of a chessboard.

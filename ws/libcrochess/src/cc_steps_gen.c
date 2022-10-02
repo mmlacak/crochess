@@ -281,7 +281,9 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                   ( cc_pos_is_valid( step_2 ) ) );
     bool is_even_step = true;
 
-    CcPosLink * path__a = cc_pos_link__new( start );
+    CcPosLink * path__a = cc_pos_link__new( start, CC_SIDE_EFFECT_CAST_INVALID );
+    if ( !path__a ) return NULL;
+
     CcPos last_pos = CC_POS_CAST_INVALID;
 
     for ( CcPos pos = cc_pos_add( start, s, 1 );
@@ -312,7 +314,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
             return NULL;
         }
 
-        if ( !cc_pos_link_append( path__a, pos ) )
+        if ( !cc_pos_link_append( path__a, pos, CC_SIDE_EFFECT_CAST_INVALID ) )
         {
             cc_pos_link_free_all( &path__a );
             return NULL;
@@ -338,7 +340,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
         return NULL;
     }
 
-    if ( !cc_pos_link_append( path__a, destination ) )
+    if ( !cc_pos_link_append( path__a, destination, CC_SIDE_EFFECT_CAST_INVALID ) )
     {
         cc_pos_link_free_all( &path__a );
         return NULL;
@@ -477,9 +479,14 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
         if ( !cc_pos_is_equal( pos_1, destination ) ) return NULL;
         if ( momentum != 1 ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( start );
+        CcPosLink * path__a = cc_pos_link__new( start, CC_SIDE_EFFECT_CAST_INVALID );
+        if ( !path__a ) return NULL;
 
-        cc_pos_link_append( path__a, destination );
+        if ( !cc_pos_link_append( path__a, destination, CC_SIDE_EFFECT_CAST_INVALID ) )
+        {
+            cc_pos_link_free_all( &path__a );
+            return NULL;
+        }
 
         return path__a;
     }
@@ -546,9 +553,14 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( start );
+        CcPosLink * path__a = cc_pos_link__new( start, CC_SIDE_EFFECT_CAST_INVALID );
+        if ( !path__a ) return NULL;
 
-        cc_pos_link_append( path__a, destination );
+        if ( !cc_pos_link_append( path__a, destination, CC_SIDE_EFFECT_CAST_INVALID ) )
+        {
+            cc_pos_link_free_all( &path__a );
+            return NULL;
+        }
 
         return path__a;
     }
@@ -656,9 +668,14 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
 
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-    CcPosLink * path__a = cc_pos_link__new( start );
+    CcPosLink * path__a = cc_pos_link__new( start, CC_SIDE_EFFECT_CAST_INVALID );
+    if ( !path__a ) return NULL;
 
-    cc_pos_link_append( path__a, destination );
+    if ( !cc_pos_link_append( path__a, destination, CC_SIDE_EFFECT_CAST_INVALID ) )
+    {
+        cc_pos_link_free_all( &path__a );
+        return NULL;
+    }
 
     return path__a;
 }
@@ -740,9 +757,14 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( start );
+        CcPosLink * path__a = cc_pos_link__new( start, CC_SIDE_EFFECT_CAST_INVALID );
+        if ( !path__a ) return NULL;
 
-        cc_pos_link_append( path__a, destination );
+        if ( !cc_pos_link_append( path__a, destination, CC_SIDE_EFFECT_CAST_INVALID ) )
+        {
+            cc_pos_link_free_all( &path__a );
+            return NULL;
+        }
 
         return path__a;
     }
@@ -786,9 +808,14 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
 
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-    CcPosLink * path__a = cc_pos_link__new( start );
+    CcPosLink * path__a = cc_pos_link__new( start, CC_SIDE_EFFECT_CAST_INVALID );
+    if ( !path__a ) return NULL;
 
-    cc_pos_link_append( path__a, destination );
+    if ( !cc_pos_link_append( path__a, destination, CC_SIDE_EFFECT_CAST_INVALID ) )
+    {
+        cc_pos_link_free_all( &path__a );
+        return NULL;
+    }
 
     return path__a;
 }
@@ -861,9 +888,14 @@ CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation
 
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-    CcPosLink * path__a = cc_pos_link__new( start );
+    CcPosLink * path__a = cc_pos_link__new( start, CC_SIDE_EFFECT_CAST_INVALID );
+    if ( !path__a ) return NULL;
 
-    cc_pos_link_append( path__a, destination );
+    if ( !cc_pos_link_append( path__a, destination, CC_SIDE_EFFECT_CAST_INVALID ) )
+    {
+        cc_pos_link_free_all( &path__a );
+        return NULL;
+    }
 
     return path__a;
 }
