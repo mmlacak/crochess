@@ -178,25 +178,7 @@ bool cc_pos_to_short_string( CcPos pos,
 //
 // Side-effects.
 
-CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos )
-{
-    CcSideEffect se = { .type = type, .piece = piece, .pos = pos };
-    return se;
-}
-
-bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 )
-{
-    return ( ( se_1.type == se_2.type ) &&
-             ( se_1.piece == se_2.piece ) &&
-             cc_pos_is_equal( se_1.pos, se_2.pos ) );
-}
-
-bool cc_side_effect_is_valid( CcSideEffect se )
-{
-    return ( !cc_side_effect_is_equal( se, CC_SIDE_EFFECT_CAST_INVALID ) );
-}
-
-size_t cc_side_effect_str_len( CcSideEffectEnum see )
+size_t cc_side_effect_an_len( CcSideEffectEnum see )
 {
     switch ( see )
     {
@@ -216,6 +198,74 @@ size_t cc_side_effect_str_len( CcSideEffectEnum see )
 
         default : return 0;
     }
+}
+
+char const * cc_side_effect_symbol( CcSideEffectEnum see )
+{
+    switch ( see )
+    {
+        case CC_SEE_None : return ""; /**< Side-effect not found, uninitialized, or error happened. */
+        case CC_SEE_Capturing : return "*"; /* Capturing, corresponds to * (asterisk). */
+        case CC_SEE_Displacement : return "<"; /* Trance-journey displacement, correspondes to < (less-than). */
+        case CC_SEE_EnPassant : return ":"; /* En passant, corresponds to : (colon). */
+        case CC_SEE_Castling : return "&"; /* Castling, corresponds to & (ampersand). */
+        case CC_SEE_Promotion : return "="; /* Promotion, corresponds to = (equal sign), optional. */
+        case CC_SEE_PromotionNoSign : return "="; /* Promotion, without sign. */
+        case CC_SEE_TagForPromotion : return "="; /* Tag for promotion, corresponds to = (equal sign). */
+        case CC_SEE_Conversion : return "%"; /* Conversion, corresponds to % (percent sign). */
+        case CC_SEE_FailedConversion : return "%%"; /* Failed conversion, corresponds to %% (double percent sign). */
+        case CC_SEE_DemotingToPawn : return ">"; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
+        case CC_SEE_Resurrection : return "$"; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
+        case CC_SEE_FailedResurrection : return "$$"; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+
+        default : return "?";
+    }
+}
+
+CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos )
+{
+    CcSideEffect se = { .type = type, .piece = piece, .pos = pos };
+    return se;
+}
+
+bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 )
+{
+    return ( ( se_1.type == se_2.type ) &&
+             ( se_1.piece == se_2.piece ) &&
+             cc_pos_is_equal( se_1.pos, se_2.pos ) );
+}
+
+bool cc_side_effect_is_valid( CcSideEffect se )
+{
+    return ( !cc_side_effect_is_equal( se, CC_SIDE_EFFECT_CAST_INVALID ) );
+}
+
+bool cc_side_effect_to_short_str( CcSideEffect se,
+                                  cc_char_16 * restrict se_str__o )
+{
+    if ( !cc_str_clear( *se_str__o, CC_MAX_LEN_CHAR_16 ) )
+        return false;
+
+    if ( se.type == CC_SEE_None )
+        return true;
+
+    char * se_end = (char *)(se_str__o);
+
+    char const * see_str = cc_side_effect_symbol( se.type );
+    se_end += cc_str_copy( see_str, NULL, 2, *se_str__o, CC_MAX_LEN_CHAR_16 );
+
+    char piece = cc_piece_symbol( se.piece );
+    *se_end++ = piece;
+
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+    if ( !cc_pos_to_short_string( se.pos, &pos_c8 ) )
+        return false;
+
+    size_t unused = CC_MAX_LEN_CHAR_16 - ( se_end - (char *)(se_str__o) );
+    // Not used afterwards. /* se_end += */
+    cc_str_copy( pos_c8, NULL, CC_MAX_LEN_CHAR_8, se_end, unused );
+
+    return true;
 }
 
 //
@@ -309,7 +359,10 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
 
     // len is certainly > 0, because pos_link != NULL
     size_t len = cc_pos_link_len( pos_link ) *
-                 ( CC_MAX_LEN_CHAR_8 + 1 ); // +1, for separator '.' between positions
+                 ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 1 );
+                 // CC_MAX_LEN_CHAR_8, for position
+                 // +CC_MAX_LEN_CHAR_16, for side-effect
+                 // +1, for separator '.' between positions
 
     size_t size = len + 1;
     char * pl_str__a = malloc( size ); // == len + 1, to have room for '\0'
@@ -318,10 +371,12 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
     *pl_str__a = '\0';
 
     char * pl_str = pl_str__a;
-    cc_char_8 pos_str = CC_CHAR_8_EMPTY;
+    char * pl_end = pl_str__a;
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+    cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
     CcPosLink * pl = pos_link;
 
-    while ( pl )
+    while ( pl && ( size > 0 ) )
     {
         if ( pl != pos_link ) // Not 1st pos ...
         {
@@ -329,18 +384,37 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_to_short_string( pl->pos, &pos_str ) )
+        if ( !cc_pos_to_short_string( pl->pos, &pos_c8 ) )
         {
             CC_FREE( pl_str__a );
             return NULL;
         }
 
-        pl_str = cc_str_append_into( pl_str, size, pos_str, CC_MAX_LEN_CHAR_8 );
-        if ( !pl_str )
+        pl_end = cc_str_append_into( pl_str, size, pos_c8, CC_MAX_LEN_CHAR_8 );
+        if ( !pl_end )
         {
             CC_FREE( pl_str__a );
             return NULL;
         }
+
+        size -= ( pl_end - pl_str );
+        pl_str = pl_end;
+
+        if ( !cc_side_effect_to_short_str( pl->side_effect, &se_c16 ) )
+        {
+            CC_FREE( pl_str__a );
+            return NULL;
+        }
+
+        pl_end = cc_str_append_into( pl_str, size, se_c16, CC_MAX_LEN_CHAR_16 );
+        if ( !pl_end )
+        {
+            CC_FREE( pl_str__a );
+            return NULL;
+        }
+
+        size -= ( pl_end - pl_str );
+        pl_str = pl_end;
 
         pl = pl->next;
     }

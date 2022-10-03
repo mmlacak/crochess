@@ -276,6 +276,12 @@ typedef enum CcSideEffectEnum
     CC_SEE_FailedResurrection, /**< Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
 } CcSideEffectEnum;
 
+/** TODO :: DOCS . */
+size_t cc_side_effect_an_len( CcSideEffectEnum see );
+
+/** TODO :: DOCS . */
+char const * cc_side_effect_symbol( CcSideEffectEnum see );
+
 /**
     TODO :: DOCS .
 */
@@ -301,7 +307,8 @@ bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 );
 bool cc_side_effect_is_valid( CcSideEffect se );
 
 /** TODO :: DOCS . */
-size_t cc_side_effect_str_len( CcSideEffectEnum see );
+bool cc_side_effect_to_short_str( CcSideEffect se,
+                                  cc_char_16 * restrict see_str__o );
 
 //
 // Linked positions.
