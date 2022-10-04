@@ -204,14 +204,14 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
 {
     if ( !steps ) return NULL;
 
-    size_t len = cc_steps_len( steps ) *
-                 ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 );
-                 // CC_MAX_LEN_CHAR_8, for position
-                 // + CC_MAX_LEN_CHAR_16, for side-effect
-                 // + 2, for step links, e.g. ".." before step
+    // unused len is certainly > 0, because steps != NULL
+    signed int unused = cc_steps_len( steps ) *
+                        ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 );
+                        // CC_MAX_LEN_CHAR_8, for position
+                        // + CC_MAX_LEN_CHAR_16, for side-effect
+                        // + 2, for step links, e.g. ".." before step
 
-    size_t size = len + 1;
-    char * steps_str__a = malloc( size ); // == len + 1, to have room for '\0'
+    char * steps_str__a = malloc( unused + 1 ); // +1, for '\0'
     if ( !steps_str__a ) return NULL;
 
     // *steps_str__a = '\0'; // Not needed, done after a switch below.
@@ -222,7 +222,7 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
     cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
     CcSteps * s = steps;
 
-    while ( s )
+    while ( s && ( unused > 0 ) )
     {
         switch ( s->step_link )
         {
@@ -278,14 +278,14 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
             return NULL;
         }
 
-        steps_end = cc_str_append_into( steps_str, size, pos_c8, CC_MAX_LEN_CHAR_8 );
+        steps_end = cc_str_append_into( steps_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
         if ( !steps_end )
         {
             CC_FREE( steps_str__a );
             return NULL;
         }
 
-        size -= ( steps_end - steps_str );
+        unused -= ( steps_end - steps_str );
         steps_str = steps_end;
 
         if ( !cc_side_effect_to_short_str( s->side_effect, &se_c16 ) )
@@ -294,14 +294,14 @@ char * cc_steps_to_short_string__new( CcSteps * restrict steps )
             return NULL;
         }
 
-        steps_end = cc_str_append_into( steps_str, size, se_c16, CC_MAX_LEN_CHAR_16 );
+        steps_end = cc_str_append_into( steps_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
         if ( !steps_end )
         {
             CC_FREE( steps_str__a );
             return NULL;
         }
 
-        size -= ( steps_end - steps_str );
+        unused -= ( steps_end - steps_str );
         steps_str = steps_end;
 
         s = s->next;

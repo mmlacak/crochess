@@ -357,15 +357,14 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
 {
     if ( !pos_link ) return NULL;
 
-    // len is certainly > 0, because pos_link != NULL
-    size_t len = cc_pos_link_len( pos_link ) *
-                 ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 1 );
-                 // CC_MAX_LEN_CHAR_8, for position
-                 // +CC_MAX_LEN_CHAR_16, for side-effect
-                 // +1, for separator '.' between positions
+    // unused len is certainly > 0, because pos_link != NULL
+    signed int unused = cc_pos_link_len( pos_link ) *
+                        ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 1 );
+                        // CC_MAX_LEN_CHAR_8, for position
+                        // +CC_MAX_LEN_CHAR_16, for side-effect
+                        // +1, for separator '.' between positions
 
-    size_t size = len + 1;
-    char * pl_str__a = malloc( size ); // == len + 1, to have room for '\0'
+    char * pl_str__a = malloc( unused + 1 ); // +1, for '\0'
     if ( !pl_str__a ) return NULL;
 
     *pl_str__a = '\0';
@@ -376,7 +375,7 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
     cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
     CcPosLink * pl = pos_link;
 
-    while ( pl && ( size > 0 ) )
+    while ( pl && ( unused > 0 ) )
     {
         if ( pl != pos_link ) // Not 1st pos ...
         {
@@ -390,14 +389,14 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, size, pos_c8, CC_MAX_LEN_CHAR_8 );
+        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
         if ( !pl_end )
         {
             CC_FREE( pl_str__a );
             return NULL;
         }
 
-        size -= ( pl_end - pl_str );
+        unused -= ( pl_end - pl_str );
         pl_str = pl_end;
 
         if ( !cc_side_effect_to_short_str( pl->side_effect, &se_c16 ) )
@@ -406,14 +405,14 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, size, se_c16, CC_MAX_LEN_CHAR_16 );
+        pl_end = cc_str_append_into( pl_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
         if ( !pl_end )
         {
             CC_FREE( pl_str__a );
             return NULL;
         }
 
-        size -= ( pl_end - pl_str );
+        unused -= ( pl_end - pl_str );
         pl_str = pl_end;
 
         pl = pl->next;
