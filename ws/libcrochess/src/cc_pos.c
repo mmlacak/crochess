@@ -371,7 +371,7 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
     *pl_str__a = '\0';
 
     char * pl_str = pl_str__a;
-    char * pl_end = pl_str__a;
+    char * pl_end = pl_str;
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
     CcPosLink * pl = pos_link;
