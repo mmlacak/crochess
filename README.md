@@ -8,6 +8,8 @@
 <!-- span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-3333FF.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span -->
 <!-- span class="badge-adobe-acrobat-reader"><a href="https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/Read-Croatian_Chess_book-9999FF.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span -->
 
+_(Use only left-click on buttons. You can right-click, then select "Save link as ..." only on "Download" button.)_
+
 <!-- ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess) -->
 <!-- ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess) -->
 <!-- ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mmlacak/crochess) -->
@@ -41,20 +43,18 @@ with meta data containing the same format as the book version.
 
 ## Getting Started
 
-If you just want to read the book, grab [crochess.pdf](crochess.pdf)
-file available in the project root. Alternatively, if you
-want updated version with the latest changes, fixes, you
-can download it from:
-[Croatian Chess Blog](http://croatian-chess.blogspot.com/p/preview.html).
+To read book in a web-browser, left-click on a
+[PDF viewer](https://github.com/mmlacak/crochess/blob/master/crochess.pdf). \
+This will open PDF file in GitHub's own PDF viewer, no installation of additional applications neccessary. \
+_(For PDF viewer to work, make sure you granted all neccessary permissions in any no-script, ad-block your browser have.)_ \
+_(Rarely, "Unable to render code block", or some other error might show up. If so, wait a little, then refresh.)_
 
-This version is compiled with normal sized images, so it
-takes almost 20 MB. Updated versions will be compiled with
-draft image quality, resulting in images and PDF file about
-half the size, at 8+ MB. Other than lower resolution images,
-minor updates, fixes will be the only difference between
-book posted here and updated version available through blog.
+To download PDF file, left-click on a [download PDF](https://github.com/mmlacak/crochess/raw/master/crochess.pdf). \
+This will download PDF file to your computer, and display it in a PDF viewer, if you have one installed on your system. \
+_(To read PDF file, you'll need to install PDF viewer for your OS, one such is [Adobe Reader](https://get.adobe.com/reader/).)_ \
+_(To just download PDF file, without reading it, you can right-click on download link, then select "Save link as ...".)_
 
-If you still want to compile PDF yourself, you'll need these:
+To compile PDF file yourself, you'll need:
 
 ### Prerequisites
 
@@ -63,8 +63,8 @@ To make images used in the book, install these:
 - pycairo (1.18.2)
 - GTK+ cairo (1.16.0)
 
-Versions in brackets are those I'm using. Older versions
-should also work since nothing too fancy was used.
+Versions in brackets are those I was using, newer versions also work. \
+Older versions should work, since nothing too fancy was used from those dependencies.
 
 To compile book itself into PDF, you'll need minimal LaTeX
 installation, with following packages:
@@ -91,7 +91,7 @@ Or, you could just unpack downloaded zip file into a folder.
 
 ### Compiling the book
 
-Open terminal in folder where you've cloned repository, and type:
+Open terminal in folder where you've cloned/unzipped repository, and type:
 
 ```
 ./gfx.sh
