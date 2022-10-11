@@ -8,8 +8,11 @@
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
 
-\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc} % For Charter, LM, and Helvetica.
 % \usepackage[T1]{fontenc}
+
+% \usepackage{lmodern} % Better then default, semi-bold.
+% \usepackage{mlmodern} % Better then default, semi-bold.
 
 \usepackage{alltt}
 
@@ -18,16 +21,18 @@
 % \usepackage[lighttt]{lmodern} % Latin Modern Mono % overrides normal font --> is ok, almost the same geometry as Charter; tt --> still ugly %, uppercase heightened
 % \usepackage{nimbusmono} % Nimbus 15 Mono % overrides Charter defaults; tt --> everything (semi-)bold, under-bold %, :
 % \usepackage{courier} % Courier, provided by URW Nimbus Mono % semi-bold {, }, under-bold _
-% \usepackage{courierten} % Courier 10 Pitch BT % Not good, can't render <, >, |, everything semi-bold
+% \usepackage{courierten} % Courier 10 Pitch BT % Needs T1 (?)
+% \usepackage[scaled]{beramono} % Bera Mono % With T1 butch, squary font
 
 % \usepackage[zerostyle=d]{newtxtt} %% Various versions of zeros available. See documentation for details
 % \usepackage{newtxtt} %% Various versions of zeros available. See documentation for details
 % \renewcommand{\ttdefault}{newtxtt} % New TXTT % Not courier, everything semi-bold, heightened
 
 \renewcommand{\ttdefault}{pcr} % Adobe Courier % semi-bold {, }, under-bold _
-% \renewcommand{\ttdefault}{ucr} % URW Courier % Not good, can't render <, >, |, semi-bold {, }
+% \renewcommand{\ttdefault}{ucr} % URW Courier % Needs T1 (?)
 % \renewcommand\ttdefault{lcmtt} % Computer Modern Teletype L % everything (semi-)bold, heightened, no italics
 % \renewcommand*\ttdefault{lcmtt} % Computer Modern Teletype L % everything (semi-)bold, heightened, no italics
+\usepackage[T1]{fontenc} % Used for Couriers, and other TT fonts.
 
 \usepackage{helvet}
 \renewcommand{\sfdefault}{phv}
@@ -147,7 +152,7 @@
 
     \emph{Source} \\
     \href{https://github.com/mmlacak/crochess}{https://github.com/mmlacak/crochess} \\
-    Version: 20221011.201511 \\ [2.0em] % book-new-commit-version-squished-utc-date-time-place-marker
+    Version: 20221011.230425 \\ [2.0em] % book-new-commit-version-squished-utc-date-time-place-marker
 
     \emph{Legal} \\
     This book is published as Public Domain work. \\
