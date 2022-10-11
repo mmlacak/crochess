@@ -27,7 +27,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under *Source* section. \
 The most recent book version is:
 
-Version: 20220908.223634 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
+Version: 20221011.201511 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
@@ -45,8 +45,8 @@ with meta data containing the same format as the book version.
 
 To read book in a web-browser, left-click on a
 [PDF viewer](https://github.com/mmlacak/crochess/blob/master/crochess.pdf). \
-This will open PDF file in GitHub's own PDF viewer, no installation of additional applications neccessary. \
-_(For PDF viewer to work, make sure you granted all neccessary permissions in any no-script, ad-block extension your browser have. Also, make sure you have enabled cookies, at very least, session-only.)_ \
+This will open PDF file in GitHub's own PDF viewer, no installation of additional applications necessary. \
+_(For PDF viewer to work, make sure you granted all necessary permissions in any no-script, ad-block extension your browser have. Also, make sure you have enabled cookies, at very least, session-only.)_ \
 _(Rarely, "Unable to render code block", or some other error might show up. If so, wait a little, then refresh.)_
 
 To download PDF file, left-click on a [download PDF](https://github.com/mmlacak/crochess/raw/master/crochess.pdf). \

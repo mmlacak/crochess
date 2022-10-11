@@ -1003,50 +1003,90 @@ One                     &                     2         \\
 
 \clearpage % ..........................................................
 
-Initial setups table contains complete row of pieces for light player, at the beginning of a
-match. In this table, lower case letters are used to denote dark pieces. In later variants,
-dark Star is positioned in bottom right corner of a chessboard, which is indicated with \alg{t}.
+Initial setups table contains complete row of figures for light player, at the
+beginning of a match. In this table, lower case letters are used to denote dark
+pieces. In later variants, dark Star is positioned in bottom right corner of a
+chessboard, which is indicated with \alg{t}.
 
-Dark player's setup is mirrored, with all pieces switched to opposite of light player's setup.
-So, for Nineteen variant \alg{TRNBWGUAQKAUGWBNRt} becomes \alg{trnbwguaqkaugwbnrT} for dark player.
+Dark player's setup is mirrored, with all figures switched to opposite of light
+player's setup. So, for Nineteen variant \alg{TRNBWGUAQKAUGWBNRt} becomes
+\alg{trnbwguaqkaugwbnrT} for dark player.
 
-Each variant can have 1 or 2 rows of Pawns for each player, in front of its figures. For light
-player, Pawn rows are rows 2 (and 3, in later variants). For dark player Pawn rows are 2nd to
-last (and 3rd to last, in later variants).
+Each variant can have 1 or 2 rows of Pawns for each player, in front of its
+figures. For light player, Pawn rows are rows 2 (and 3, in later variants).
+For dark player Pawn rows are 2nd to last (and 3rd to last, in later variants).
+
+\clearpage % ..........................................................
 
 \subsubsection*{Scout Pawn}
 \addcontentsline{toc}{subsubsection}{Scout Pawn}
 \label{sec:Appendix/Summary/Initial setups/Scout Pawn}
 
+In addition to 2 rows of Pawns, most of later variants also feature scout Pawns. \newline
+
 \begin{table}[!h]
 \centering
-\begin{tabular}{ lrr }
+\begin{tabular}{ lr }
 \toprule
-\textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Light scout Pawn files} } \\ \cmidrule{2-3}
-                      & \emph{row 4}       & \emph{row 5}                     \\
+\textbf{Variant}                        & \textbf{Light scout Pawn setup}   \\
 \midrule
-Hemera's Dawn         & \alg{cgnr}         & \alg{dfoq}                       \\
-Tamoanchan Revisited  & \alg{gklp}         & \alg{hjmo}                       \\
-Conquest of Tlalocan  & \alg{dhilmpqu}     & \alg{egjlmort}                   \\
-Discovery             & \alg{dhilmpqu}     & \alg{egjlmort}                   \\
-One                   & \alg{eijmnqrv}     & \alg{fhkmnpsu}                   \\
+\multirow{2}{*}{Hemera's Dawn}          & \alg{c4,g4,n4,r4}                 \\
+                                        & \alg{d5,f5,o5,q5}                 \\ \cmidrule{1-2}
+\multirow{2}{*}{Tamoanchan Revisited}   & \alg{g4,k4,l4,p4}                 \\
+                                        & \alg{h5,j5,m5,o5}                 \\ \cmidrule{1-2}
+\multirow{4}{*}{Conquest of Tlalocan}   & \alg{d4,h4,i4,l4}                 \\
+                                        & \alg{m4,p4,q4,u4}                 \\
+                                        & \alg{e5,g5,j5,l5}                 \\
+                                        & \alg{m5,o5,r5,t5}                 \\ \cmidrule{1-2}
+\multirow{4}{*}{Discovery}              & \alg{d4,h4,i4,l4}                 \\
+                                        & \alg{m4,p4,q4,u4}                 \\
+                                        & \alg{e5,g5,j5,l5}                 \\
+                                        & \alg{m5,o5,r5,t5}                 \\ \cmidrule{1-2}
+\multirow{4}{*}{One}                    & \alg{e4,i4,j4,m4}                 \\
+                                        & \alg{n4,q4,r4,v4}                 \\
+                                        & \alg{f5,h5,k5,m5}                 \\
+                                        & \alg{n5,p5,s5,u5}                 \\
 \bottomrule
 \end{tabular}
-\caption{Light scout Pawn files}
-\label{tbl:Appendix/Summary/Initial setups/Light scout Pawn files}
+\caption{Light scout Pawn setups}
+\label{tbl:Appendix/Summary/Initial setups/Light scout Pawn setups}
 \end{table}
 
-In addition to 2 rows of Pawns, most of later variants also have scout Pawns, table above contains
-initial positions of those for light player. For light player, scout Pawns occupy rows 4 and 5 on
-chessboard. For desired variant, one would fill row on indicated files with Pawns.
+Table above contains initial positions of scout Pawns for light player.
 
-For instance, \alg{cgnr} for \emph{row 4} in Hemera's Dawn variant means that light scout Pawns are
-located at \alg{c4}, \alg{g4}, \alg{n4} and \alg{r4}.
+\clearpage % ..........................................................
 
-For dark player, positions are mirrored, \emph{row 4} is the one closest to the dark figure row,
-\emph{row 5} contains outermost scout Pawns. For Hemera's Dawn variant, \emph{row 4} translate to
-\emph{row 17}, and \emph{row 5} becomes \emph{row 16}. So, the same \alg{cgnr} for \emph{row 4}
-now means dark Pawns are located at \alg{c17}, \alg{g17}, \alg{n17} and \alg{r17}.
+\begin{table}[!h]
+\centering
+\begin{tabular}{ lr }
+\toprule
+\textbf{Variant}                        & \textbf{Dark scout Pawn setup}    \\
+\midrule
+\multirow{2}{*}{Hemera's Dawn}          & \alg{c17,g17,n17,r17}             \\
+                                        & \alg{d16,f16,o16,q16}             \\ \cmidrule{1-2}
+\multirow{2}{*}{Tamoanchan Revisited}   & \alg{g19,k19,l19,p19}             \\
+                                        & \alg{h18,j18,m18,o18}             \\ \cmidrule{1-2}
+\multirow{4}{*}{Conquest of Tlalocan}   & \alg{d21,h21,i21,l21}             \\
+                                        & \alg{m21,p21,q21,u21}             \\
+                                        & \alg{e20,g20,j20,l20}             \\
+                                        & \alg{m20,o20,r20,t20}             \\ \cmidrule{1-2}
+\multirow{4}{*}{Discovery}              & \alg{d21,h21,i21,l21}             \\
+                                        & \alg{m21,p21,q21,u21}             \\
+                                        & \alg{e20,g20,j20,l20}             \\
+                                        & \alg{m20,o20,r20,t20}             \\ \cmidrule{1-2}
+\multirow{4}{*}{One}                    & \alg{e23,i23,j23,m23}             \\
+                                        & \alg{n23,q23,r23,v23}             \\
+                                        & \alg{f22,h22,k22,m22}             \\
+                                        & \alg{n22,p22,s22,u22}             \\
+\bottomrule
+\end{tabular}
+\caption{Dark scout Pawn setups}
+\label{tbl:Appendix/Summary/Initial setups/Dark scout Pawn setups}
+\end{table}
+
+Table above contains initial positions of scout Pawns for dark player.
+
+\clearpage % ..........................................................
 
 \subsubsection*{Monolith initial positions}
 \addcontentsline{toc}{subsubsection}{Monolith initial positions}
@@ -1070,7 +1110,7 @@ One                   &     \alg{b8}  &    \alg{y19}          \\
 Table above contains initial positions of both Monoliths, one located on light side of
 chessboard, the other on dark side.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
 \subsection*{Movement limits}
 \addcontentsline{toc}{subsection}{Movement limits}
