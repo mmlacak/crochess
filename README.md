@@ -46,7 +46,7 @@ with meta data containing the same format as the book version.
 To read book in a web-browser, left-click on a
 [PDF viewer](https://github.com/mmlacak/crochess/blob/master/crochess.pdf). \
 This will open PDF file in GitHub's own PDF viewer, no installation of additional applications neccessary. \
-_(For PDF viewer to work, make sure you granted all neccessary permissions in any no-script, ad-block your browser have.)_ \
+_(For PDF viewer to work, make sure you granted all neccessary permissions in any no-script, ad-block extension your browser have. Also, make sure you have enabled cookies, at very least, session-only.)_ \
 _(Rarely, "Unable to render code block", or some other error might show up. If so, wait a little, then refresh.)_
 
 To download PDF file, left-click on a [download PDF](https://github.com/mmlacak/crochess/raw/master/crochess.pdf). \
@@ -54,7 +54,7 @@ This will download PDF file to your computer, and display it in a PDF viewer, if
 _(To read PDF file, you'll need to install PDF viewer for your OS, one such is [Adobe Reader](https://get.adobe.com/reader/).)_ \
 _(To just download PDF file, without reading it, you can right-click on download link, then select "Save link as ...".)_
 
-To compile PDF file yourself, you'll need:
+To compile book yourself, you'll need to generate images, and then compile text and those images into PDF file.
 
 ### Prerequisites
 
@@ -111,23 +111,33 @@ If everything goes well, the new book will be created under `book` folder.
 
 Now that you have PDF book, just copy it over to other PC, tablet, phone, ...
 
-## Contributing
-
-Please contact me via email.
-
 ## Authors
 
 * **Mario Mlačak** - *Initial work* - [mmlacak](https://github.com/mmlacak)
 
-## Blog
+## Contributing
 
-https://croatian-chess.blogspot.com
+[GitHub sponsors](https://github.com/sponsors/mmlacak)
+
+[Patreon](https://patreon.com/mmlacak)
+
+Thank you for your donations!
+
+For non-monetary contributions, please contact me via email first.
+
+## Socials
+
+[Discord](https://discord.gg/PJ2dtRa5AU)
+
+[Croatian Chess Blog](https://croatian-chess.blogspot.com)
 
 ## License
 
 This project is licensed under the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your
-option) any later version, see the [LICENSING](LICENSING), [COPYING](COPYING)
+option) any later version, see the
+[LICENSING](https://github.com/mmlacak/crochess/raw/master/LICENSING),
+[COPYING](https://github.com/mmlacak/crochess/raw/master/COPYING)
 files for details.
 
 The book is published as Public Domain work, see
