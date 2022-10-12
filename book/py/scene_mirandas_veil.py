@@ -245,7 +245,7 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
         # B --> W
-        coords_B_W = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, count=4 )
+        coords_B_W = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arrow in enumerate( coords_B_W() ):
             mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal
