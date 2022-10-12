@@ -127,7 +127,7 @@ bool test_move( char const * restrict an_str,
 
 bool tests_move( int test_number )
 {
-    if ( ( test_number < 0 ) || ( 46 < test_number ) )
+    if ( ( test_number < 0 ) || ( 48 < test_number ) )
     {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
@@ -335,8 +335,11 @@ bool tests_move( int test_number )
 
     // Not supported yet.
     //
-    // if ( ( test_number == 48 ) || do_all_tests )
-    //     result = test_move( "H.g10*P.k9*P.o8*P", setup_shaman, NULL, end_shaman, NULL ) && result;
+    if ( ( test_number == 47 ) || do_all_tests )
+        result = test_move( "H.g10*P.k9*P.o8*P~As9", setup_shaman, NULL, end_shaman, NULL ) && result;
+
+    if ( ( test_number == 48 ) || do_all_tests )
+        result = test_move( "H.g10*.k9*.o8*~As9", setup_shaman, NULL, end_shaman, NULL ) && result;
 
 
 

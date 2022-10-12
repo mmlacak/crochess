@@ -55,15 +55,17 @@ static bool cc_check_pre_plies_status( char const char_an,
 }
 
 
-static bool cc_append_steps( char const * restrict ply_start_str,
+static bool cc_append_steps( CcGame * restrict game,
+                             char const * restrict ply_start_str,
                              char const * restrict ply_end_str,
-                             CcChessboard * restrict cb,
+                             CcChessboard * restrict cb_before_activation,
                              CcSteps ** restrict steps__io,
                              CcParseMsgs ** restrict parse_msgs__io )
 {
+    if ( !game ) return false;
     if ( !ply_start_str ) return false;
     if ( !ply_end_str ) return false;
-    if ( !cb ) return false;
+    if ( !cb_before_activation ) return false;
     if ( !steps__io ) return false;
     if ( !parse_msgs__io ) return false;
 
@@ -107,7 +109,7 @@ static bool cc_append_steps( char const * restrict ply_start_str,
             CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
 
         if ( !cc_convert_starting_pos( pos_c8, &file, &rank ) ||
-                !CC_IS_COORD_2_ON_BOARD( cb->size, file, rank ) )
+             !CC_IS_COORD_2_ON_BOARD( cb_before_activation->size, file, rank ) )
         {
             CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
 
@@ -253,7 +255,10 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
         // (in which case disambiguation_c8 must be empty).
         cc_char_8 position_c8 = CC_CHAR_8_EMPTY;
 
-        char const * end_pos_str = cc_starting_pos( c_str, ply_end_str, false, &position_c8 );
+        char const * end_pos_str = cc_starting_pos( c_str,
+                                                    ply_end_str,
+                                                    false,
+                                                    &position_c8 );
 
         CC_STR_PRINT_IF_INFO( position_c8, NULL, CC_MAX_LEN_CHAR_8, "Pos: '%s'", ", pointer: '%p'.\n", end_pos_str ); // TODO :: maybe check error (?)
 
@@ -264,7 +269,9 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
              ( CC_IS_COORD_ON_BOARD( game__io->chessboard->size, file_pos ) ||
                CC_IS_COORD_ON_BOARD( game__io->chessboard->size, rank_pos ) ) )
         {
-            char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+            char * ply_str__a = cc_str_copy__new( ply_start_str,
+                                                  ply_end_str,
+                                                  CC_MAX_LEN_ZERO_TERMINATED );
 
             cc_parse_msgs_append_if_format( parse_msgs__io,
                                             CC_PMTE_Error,
@@ -286,12 +293,16 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
         // Steps, from notation.
 
         CcSteps * steps__a = NULL;
+        bool has_disambiguation = ( disambiguation_c8[ 0 ] != '\0' );
+        bool has_position = ( position_c8[ 0 ] != '\0' );
 
         if ( ply_has_steps )
         {
-            if ( ( disambiguation_c8[ 0 ] != '\0' ) && ( position_c8[ 0 ] != '\0' ) )
+            if ( has_disambiguation && has_position )
             {
-                char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+                char * ply_str__a = cc_str_copy__new( ply_start_str,
+                                                      ply_end_str,
+                                                      CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msgs_append_if_format( parse_msgs__io,
                                                 CC_PMTE_Error,
@@ -307,16 +318,25 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
                 cc_chessboard_free_all( &cb__a );
                 return false;
             }
-            else if ( disambiguation_c8[ 0 ] != '\0' )
+            else if ( has_disambiguation )
             {
-                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_da, rank_da ), CC_SIDE_EFFECT_CAST_INVALID );
+                steps__a = cc_steps__new( CC_SLE_Start,
+                                          cc_pos( file_da, rank_da ),
+                                          CC_SIDE_EFFECT_CAST_INVALID );
             }
-            else if ( position_c8[ 0 ] != '\0' )
+            else if ( has_position )
             {
-                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_pos, rank_pos ), CC_SIDE_EFFECT_CAST_INVALID );
+                steps__a = cc_steps__new( CC_SLE_Start,
+                                          cc_pos( file_pos, rank_pos ),
+                                          CC_SIDE_EFFECT_CAST_INVALID );
             }
 
-            if ( !cc_append_steps( c_str, ply_end_str, cb__a, &steps__a, parse_msgs__io ) )
+            if ( !cc_append_steps( game__io,
+                                   c_str,
+                                   ply_end_str,
+                                   cb__a,
+                                   &steps__a,
+                                   parse_msgs__io ) )
             {
                 // <i> Parse msgs are added within cc_append_steps().
 
@@ -327,12 +347,14 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
         }
         else // if ( !ply_has_steps )
         {
-            if ( disambiguation_c8[ 0 ] != '\0' )
+            if ( has_disambiguation )
             {
-                steps__a = cc_steps__new( CC_SLE_Start, cc_pos( file_da, rank_da ), CC_SIDE_EFFECT_CAST_INVALID );
+                steps__a = cc_steps__new( CC_SLE_Start,
+                                          cc_pos( file_da, rank_da ),
+                                          CC_SIDE_EFFECT_CAST_INVALID );
             }
 
-            if ( position_c8[ 0 ] != '\0' )
+            if ( has_position )
             {
                 CcSteps * step__w = cc_steps_append_if( &steps__a,
                                                         CC_SLE_Destination,
@@ -348,7 +370,9 @@ static bool cc_do_make_plies( char const * restrict move_an_str,
             }
             else
             {
-                char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+                char * ply_str__a = cc_str_copy__new( ply_start_str,
+                                                      ply_end_str,
+                                                      CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msgs_append_if_format( parse_msgs__io,
                                                 CC_PMTE_Error,
