@@ -391,13 +391,11 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece(13, 9, piece=-PieceType.Pawn)
         scene.board.set_piece(13, 13, piece=PieceType.Bishop)
 
-        coords = GS.gen_next( GS.gen_steps(start=start_P2, rels=[(0, 1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        arrows = GS.gen_steps(start=start_P2, rels=[(0, 1), ], include_prev=True, count=6)
+        for i, arr in enumerate( arrows() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
 
         scene.append_text("2", *start_P2, mark_type=MarkType.Blocked, corner=Corner.UpperRight)
 
