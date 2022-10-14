@@ -742,23 +742,40 @@ capture-field. Any other piece positioned instead of light Wave would be
 and light King wouldn't be in check.
 
 \clearpage % ..........................................................
-% Pinned piece in a cascade ...........................................
+% Cascading pinned piece ...........................................
 
-\subsubsection*{Pinned piece in a cascade}
-\addcontentsline{toc}{subsubsection}{Pinned piece in a cascade}
-\label{sec:Miranda's veil/Wave/Cascading Waves/Pinned piece in a cascade}
+\subsubsection*{Cascading pinned piece}
+\addcontentsline{toc}{subsubsection}{Cascading pinned piece}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Cascading pinned piece}
 
-\huge
-TODO
-\normalsize
+\vspace*{-1.5\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_pinned_piece_cascaded_init.png}
+\vspace*{-1.3\baselineskip}
+\caption{Cascading pinned piece}
+\label{fig:scn_mv_36_pinned_piece_cascaded_init}
+\end{figure}
 
-- in a cascade, pinned piece can be replaced with normal (non-Wave) piece
+\vspace*{-0.5\baselineskip}
+A piece hard-pinned to its King cannot move in a normal, non-cascading move, since
+that would leave King checked. Whether King is checked, or checkmated, is determined
+only after move (a cascade) has finished. So, in a cascade, one could replace
+hard-pinned piece with any other non-Wave piece. During cascade, Wave can be the
+only piece on a pinning path, as long as any other non-Wave piece gets pinned,
+before that cascade has been finished.
+
+% \huge
+% TODO
+% \normalsize
+
+% - in a cascade, pinned piece can be replaced with normal (non-Wave) piece
 
 \clearpage % ..........................................................
 
-\subsubsection*{Pinned piece in a cascade 2}
-\addcontentsline{toc}{subsubsection}{Pinned piece in a cascade 2}
-\label{sec:Miranda's veil/Wave/Cascading Waves/Pinned piece in a cascade 2}
+\subsubsection*{Cascading pinned piece 2}
+\addcontentsline{toc}{subsubsection}{Cascading pinned piece 2}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Cascading pinned piece 2}
 
 \huge
 TODO
@@ -772,30 +789,11 @@ TODO
 
 \clearpage % ..........................................................
 
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_pinned_piece_cascaded_init.png}
-% \vspace*{-1.3\baselineskip}
-\caption{Pinned piece in a cascade}
-\label{fig:scn_mv_35_pinned_piece_cascaded_init}
-\end{figure}
-
-% \vspace*{-0.4\baselineskip}
-A
-\href{https://en.wikipedia.org/wiki/Pin_(chess)#Absolute_pin}{piece pinned to its King cannot move}
-in a normal, non-cascading move, since that would leave King checked. In a cascade, activating piece
-would take place of originally pinned piece, and so King still would not be checked.
-
-Here, light Queen is pinned to its King.
-
-\clearpage % ..........................................................
-
 \vspace*{-2.3\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_pinned_piece_cascaded_start.png}
-\caption{Pinned piece in a cascade}
+\caption{Cascading pinned piece}
 \label{fig:scn_mv_36_pinned_piece_cascaded_start}
 \end{figure}
 
@@ -806,7 +804,7 @@ So, pinned piece can be moved in a cascade, because activating piece will take i
 place, and all pieces which can check (or checkmate) King cannot move past (cannot
 "pass-through") any piece on their step- and capture-fields.
 
-% ........................................... Pinned piece in a cascade
+% ........................................... Cascading pinned piece
 \clearpage % ..........................................................
 % Pinned piece starting a cascade .....................................
 

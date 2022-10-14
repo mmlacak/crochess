@@ -1608,11 +1608,11 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
-    # Pinned piece in a cascade
+    # Cascading pinned piece
 
-    def scn_mv_35_pinned_piece_cascaded_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_36_pinned_piece_cascaded_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_35_pinned_piece_cascaded_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_36_pinned_piece_cascaded_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_g = (9, 9)
@@ -1621,14 +1621,20 @@ class SceneMirandasVeilMixin:
         start_K = (5, 1)
         scene.board.set_piece( *start_K, piece=PieceType.King )
 
-        start_B = (2, 6)
+        start_B = (10, 14)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_W = (4, 8)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+        start_W_1 = (4, 8)
+        scene.board.set_piece( *start_W_1, piece=PieceType.Wave )
 
         start_Q = (7, 5)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_2 = (11, 5)
+        scene.board.set_piece( *start_W_2, piece=PieceType.Wave )
+
+        start_N = (8, 2)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # g --> K
         coords_g_K = GS.gen_steps( start=start_g, rels=[(-1, -2), ], include_prev=True, count=4 )
@@ -1639,6 +1645,10 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
+
+
+
+
 
     def scn_mv_36_pinned_piece_cascaded_start(self, bt=BoardType.MirandasVeil):
 

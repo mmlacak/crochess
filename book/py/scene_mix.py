@@ -37,5 +37,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_01_wave_activation_init', \
                     # 'scn_mv_08_bishop_activating_wave', \
                     # 'scn_mv_14_wave_activation_by_step_pawn', \
-                    'scn_mv_35_wave_is_transparent', \
+                    # 'scn_mv_35_wave_is_transparent', \
+                    'scn_mv_36_pinned_piece_cascaded_init', \
                 ]
