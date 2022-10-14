@@ -1581,6 +1581,33 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Wave is transparent
+
+    def scn_mv_35_wave_is_transparent(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_35_wave_is_transparent', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_g = (9, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_K = (5, 1)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_Q = (7, 5)
+        scene.board.set_piece( *start_Q, piece=PieceType.Wave )
+
+        # g --> K
+        coords_g_K = GS.gen_steps( start=start_g, rels=[(-1, -2), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_g_K() ):
+            mark_type = MarkType.Illegal if i == 3 else \
+                        MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    #
     # Pinned piece in a cascade
 
     def scn_mv_35_pinned_piece_cascaded_init(self, bt=BoardType.MirandasVeil):
