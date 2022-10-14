@@ -1705,6 +1705,42 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    def scn_mv_38_pinned_piece_cascaded_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_38_pinned_piece_cascaded_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_g = (9, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_K = (5, 1)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_B = (4, 8) # (10, 14)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_1 = (7, 5) # (4, 8)
+        scene.board.set_piece( *start_W_1, piece=PieceType.Wave )
+
+        start_Q = (11, 5) # (7, 5)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_2 = (8, 2) # (11, 5)
+        scene.board.set_piece( *start_W_2, piece=PieceType.Wave )
+
+        start_N = (6, 3) # (8, 2)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        # g --> K
+        coords_g_K = GS.gen_steps( start=start_g, rels=[(-1, -2), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_g_K() ):
+            mark_type = MarkType.Legal if i == 0 else \
+                        MarkType.Action if i in [1, 2] else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
 
 
 
