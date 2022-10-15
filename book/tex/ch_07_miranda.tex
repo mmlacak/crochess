@@ -106,16 +106,19 @@ chosen semi-diagonal.
 \addcontentsline{toc}{subsubsection}{Activating pieces}
 \label{sec:Miranda's veil/Wave/Activation/Activating pieces}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_03_pawn_pass_through.png}
+\vspace*{-1.4\baselineskip}
 \caption{Passing opponent's Pawn}
 \label{fig:scn_mv_03_pawn_pass_through}
 \end{figure}
 
+\vspace*{-0.5\baselineskip}
 Wave in its movement is not obstructed by any piece on chessboard, it can
-"pass-through" any piece, as if it's not there.
+"pass-through" any piece, as if it's not there. In short, other pieces are
+all transparent to Wave, and all activations are optional.
 
 Here, Wave cannot activate opponent's Pawn on its step-field, but it's not
 hindered by that Pawn, and can reach fields behind it, which would be out of
@@ -193,14 +196,13 @@ of reach.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
+Just as other pieces are transparent to Wave, so is Wave transparent for all the
+other pieces. Any interaction with a Wave is optional; a piece could activate own
+Wave, it could capture opponent's Wave, or it could move past all Waves in its path,
+and e.g. capture opponent's piece behind a Wave.
 
-\huge
-TODO
-\normalsize
-
-- opponent can ignore Wave, and capture own piece behind it
-
-- move the whole subsubsection just behind Movement
+Here, light Queen could interact with Waves in her path, or capture dark Pegasus;
+in any case, dark Pawn is out of reach.
 
 \clearpage % ..........................................................
 
@@ -214,8 +216,8 @@ TODO
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Wave cannot be pinned, since it's transparent, i.e. any opponent's piece can ignore
-("pass-through") Wave placed on its capture-field, and still check own King.
+Since it's transparent Wave cannot be pinned, i.e. a piece can ignore ("pass-through")
+Wave placed on its capture-field, and still check opponent's King.
 
 Here, dark Pegasus checks light King, even though light Wave is on dark Pegasus'
 capture-field. Any other piece positioned instead of light Wave would be
