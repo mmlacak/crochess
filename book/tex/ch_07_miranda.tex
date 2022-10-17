@@ -783,7 +783,7 @@ the beginning of reactivating ply.
 \vspace*{-0.5\baselineskip}
 A piece hard-pinned to its King cannot move in a normal, non-cascading move, since
 that would leave King checked. Whether King is checked, or checkmated, is determined
-only after move (a cascade) has finished. So, in a cascade, one could replace
+only after a move (a cascade) has been finished. So, in a cascade, one could replace
 hard-pinned piece with any other material piece; Wave can't be used since
 \hyperref[fig:scn_mv_07_wave_is_transparent]{it's transparent}.
 
@@ -801,23 +801,23 @@ Here, light Queen is hard-pinned.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-During cascade, Wave can be the only piece on a pinning path (i.e. on a opponent's
-capture-field), as long as any material piece is pinned, after that cascade has been
-finished.
+During cascade, Wave can be the only piece on a pinning path (i.e. on opponent's
+capture-field), as long as any material piece is pinned after that cascade has been
+finished. Pinned piece doesn't have to be replaced at the same field; blocking any
+capture-field which leads to own King will do.
 
 Here, light Wave A is the only piece on dark Pegasus' capture-path after it activates
-light Queen; this is fine, there will be light Knight blocking dark Pegasus'
-capture-field, after light player's move finishes.
+Queen; this is fine, Knight will be pinned before light player's move has been finished.
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_pinned_piece_cascaded_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_pinned_piece_cascaded_2.png}
 \vspace*{-1.3\baselineskip}
 \caption{Cascading pinned piece}
-\label{fig:scn_mv_39_pinned_piece_cascaded_end}
+\label{fig:scn_mv_40_pinned_piece_cascaded_2}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}

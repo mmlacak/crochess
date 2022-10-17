@@ -40,6 +40,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_07_wave_is_transparent', \
                     # 'scn_mv_08_wave_cant_be_pinned', \
                     # 'scn_mv_37_pinned_piece_cascaded_init', \
-                    'scn_mv_38_pinned_piece_cascaded_1', \
+                    # 'scn_mv_38_pinned_piece_cascaded_1', \
                     # 'scn_mv_39_pinned_piece_cascaded_end', \
+                    'scn_mv_40_pinned_piece_cascaded_2', \
                 ]

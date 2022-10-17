@@ -1674,6 +1674,9 @@ class SceneMirandasVeilMixin:
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
+        scene.append_text("A", *start_W_1, corner=Corner.UpperLeft)
+        scene.append_text("B", *start_W_2, corner=Corner.UpperRight)
+
         return scene
 
     def scn_mv_38_pinned_piece_cascaded_1(self, bt=BoardType.MirandasVeil):
@@ -1771,6 +1774,50 @@ class SceneMirandasVeilMixin:
                         MarkType.Action if i in [1, 2] else \
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text("A", *start_W_1, corner=Corner.UpperLeft)
+        scene.append_text("B", *start_W_2, corner=Corner.UpperRight)
+
+        return scene
+
+    def scn_mv_40_pinned_piece_cascaded_2(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_40_pinned_piece_cascaded_2', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_g = (9, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_K = (5, 1)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_Q = (7, 5)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_2 = (11, 5)
+        scene.board.set_piece( *start_W_2, piece=PieceType.Wave )
+
+        start_N = (8, 2)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        # Q --> W 2
+        coords_Q_W2 = GS.gen_steps( start=start_Q, rels=[(1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_Q_W2() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W 2 --> N
+        coords_W2_N = GS.gen_steps( start=start_W_2, rels=[(-1, -1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_W2_N() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W 2 --> N
+        scene.append_arrow( *( GS.append_tpl_rel( start_N, -2, 1 ) ), mark_type=MarkType.Action )
+
+        scene.append_text("B", *start_W_2, corner=Corner.UpperRight)
 
         return scene
 
