@@ -149,14 +149,16 @@ Pawn, and transfer to it all of 5 received momentum.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_05_rook_activated.png}
-% \vspace*{-1.3\baselineskip}
+\vspace*{-1.3\baselineskip}
 \caption{Rook activated}
 \label{fig:scn_mv_05_rook_activated}
 \end{figure}
 
-Activated piece (if not Wave) moves the same as it would in a normal move, i.e. if
-not activated. The only difference is that activated piece is limited by received
-momentum, i.e. can't move for more fields than momentum it received.
+\vspace*{-0.3\baselineskip}
+Material is any piece, except Wave. Activated material moves the same as it would
+in a normal move, i.e. if not activated. The only difference is that activated
+material is limited by received momentum, i.e. can't move for more fields than
+momentum it received.
 
 Here, activated Rook (now "in the air"), moves as Rooks do, along horizontals or
 verticals. Rook can reach at most 5 fields, because that's the momentum it received.
@@ -172,7 +174,7 @@ verticals. Rook can reach at most 5 fields, because that's the momentum it recei
 \label{fig:scn_mv_06_rook_captures}
 \end{figure}
 
-Activated piece (if not Wave) can also capture opponent's piece, if it's within reach,
+Activated material piece can also capture opponent's piece, if it's within reach,
 and not obstructed by other pieces.
 
 Here, activated Rook can capture dark Knight; it can't capture dark Bishop since
@@ -605,10 +607,9 @@ Here, numbers in lower, left corner are received momentum. Bishop gathered 3 mom
 \end{figure}
 
 Wave can be activated with no momentum, if so it can activate only other Waves, but
-cannot activate ordinary (non-Wave) pieces. Here, one momentum originating from Bishop
-has been already spent by Knight, so Wave B is activated with no momentum, and so it
-cannot activate Pawn. Wave B can pass-by Pawn, and activate dark Wave, also with no
-momentum.
+cannot activate material pieces. Here, one momentum originating from Bishop has been
+already spent by Knight, so Wave B is activated with no momentum, and so it cannot
+activate Pawn. Wave B can pass-by Pawn, and activate dark Wave, also with no momentum.
 
 \clearpage % ..........................................................
 
@@ -775,7 +776,7 @@ the beginning of reactivating ply.
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_pinned_piece_cascaded_init.png}
 \vspace*{-1.3\baselineskip}
-\caption{Cascading pinned piece}
+\caption{Light Queen is hard-pinned}
 \label{fig:scn_mv_37_pinned_piece_cascaded_init}
 \end{figure}
 
@@ -783,9 +784,10 @@ the beginning of reactivating ply.
 A piece hard-pinned to its King cannot move in a normal, non-cascading move, since
 that would leave King checked. Whether King is checked, or checkmated, is determined
 only after move (a cascade) has finished. So, in a cascade, one could replace
-hard-pinned piece with any other non-Wave piece. During cascade, Wave can be the
-only piece on a pinning path, as long as any other (non-Wave) piece is pinned,
-after that cascade has been finished.
+hard-pinned piece with any other material piece; Wave can't be used since
+\hyperref[fig:scn_mv_07_wave_is_transparent]{it's transparent}.
+
+Here, light Queen is hard-pinned.
 
 \clearpage % ..........................................................
 
@@ -799,7 +801,13 @@ after that cascade has been finished.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-. . .
+During cascade, Wave can be the only piece on a pinning path (i.e. on a opponent's
+capture-field), as long as any material piece is pinned, after that cascade has been
+finished.
+
+Here, light Wave A is the only piece on dark Pegasus' capture-path after it activates
+light Queen; this is fine, there will be light Knight blocking dark Pegasus'
+capture-field, after light player's move finishes.
 
 \clearpage % ..........................................................
 
@@ -815,17 +823,31 @@ after that cascade has been finished.
 \vspace*{-0.5\baselineskip}
 . . .
 
-% \huge
-% TODO
-% \normalsize
-
-% - in a cascade, pinned piece can be replaced with normal (non-Wave) piece
-
+% ........................................... Cascading pinned piece
 \clearpage % ..........................................................
+% Pinned piece starting a cascade .....................................
 
-\subsubsection*{Cascading pinned piece 2}
-\addcontentsline{toc}{subsubsection}{Cascading pinned piece 2}
-\label{sec:Miranda's veil/Wave/Cascading Waves/Cascading pinned piece 2}
+\subsubsection*{Pinned piece starting a cascade}
+\addcontentsline{toc}{subsubsection}{Pinned piece starting a cascade}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Pinned piece starting a cascade}
+
+% \vspace*{-1.4\baselineskip}
+% \noindent
+% \begin{figure}[!h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_pinned_piece_cascading_init.png}
+% \vspace*{-1.3\baselineskip}
+% \caption{Pinned piece starting a cascade}
+% \label{fig:scn_mv_37_pinned_piece_cascading_init}
+% \end{figure}
+
+% \vspace*{-0.3\baselineskip}
+% King is checked (or checkmated) only after cascade has finished; just like after
+% normal, non-cascading move. So, pinned piece can start a cascade as long as some
+% other piece settles into a pinned position after cascade is done; it doesn't even
+% have to be the same field of originally pinned piece.
+
+% Here, pinned light Queen is starting a cascade, after which Knight will be the
+% newly pinned piece, on a different field.
 
 \huge
 TODO
@@ -836,49 +858,6 @@ TODO
 - in a cascade, pinned piece can be replaced multiple times, even with Waves, as long as last piece is not Wave
 
 - King is under check, checkmate only after move has finished
-
-\clearpage % ..........................................................
-
-\vspace*{-2.3\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_pinned_piece_cascaded_start.png}
-\caption{Cascading pinned piece}
-\label{fig:scn_mv_36_pinned_piece_cascaded_start}
-\end{figure}
-
-Here, light Queen is about to be activated, and moved away, leaving Wave on its field.
-King, after cascade is done, won't be checked since Wave would be new pinned piece.
-
-So, pinned piece can be moved in a cascade, because activating piece will take its
-place, and all pieces which can check (or checkmate) King cannot move past (cannot
-"pass-through") any piece on their step- and capture-fields.
-
-% ........................................... Cascading pinned piece
-\clearpage % ..........................................................
-% Pinned piece starting a cascade .....................................
-
-\subsubsection*{Pinned piece starting a cascade}
-\addcontentsline{toc}{subsubsection}{Pinned piece starting a cascade}
-\label{sec:Miranda's veil/Wave/Cascading Waves/Pinned piece starting a cascade}
-
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_pinned_piece_cascading_init.png}
-\vspace*{-1.3\baselineskip}
-\caption{Pinned piece starting a cascade}
-\label{fig:scn_mv_37_pinned_piece_cascading_init}
-\end{figure}
-
-\vspace*{-0.3\baselineskip}
-King is checked (or checkmated) only after cascade has finished; just like after
-normal, non-cascading move. So, pinned piece can start a cascade as long as some
-other piece settles into a pinned position after cascade is done; it doesn't even
-have to be the same field of originally pinned piece.
-
-Here, pinned light Queen is starting a cascade, after which Knight will be the
-newly pinned piece, on a different field.
 
 % ..................................... Pinned piece starting a cascade
 \clearpage % ..........................................................
