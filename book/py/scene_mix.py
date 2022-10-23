@@ -42,5 +42,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_37_pinned_piece_cascaded_init', \
                     # 'scn_mv_38_pinned_piece_cascaded_1', \
                     # 'scn_mv_39_pinned_piece_cascaded_end', \
-                    'scn_mv_40_pinned_piece_cascaded_2', \
+                    # 'scn_mv_40_pinned_piece_cascaded_2', \
+                    'scn_n_20_only_one_queen', \
                 ]
