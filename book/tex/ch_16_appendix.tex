@@ -654,6 +654,11 @@ a game, like so:
 \algcyc{92.}{...}{\#}{Light player checkmated self.}
 \algcycparend
 
+Note, self-checkmate is a claim that opponent checkmated self, it has to be validated
+by e.g. arbiters. If it's not valid, self-checkmate is rejected as if player tried to
+perform an invalid move, and game continues with a player putting forward such a claim
+still "on turn".
+
 Resigns are written with \alg{\#\#} (double hashtag) as a complete move, which also
 ends a game, like so:
 
