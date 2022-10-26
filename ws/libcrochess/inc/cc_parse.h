@@ -58,9 +58,12 @@ char const * cc_starting_pos( char const * restrict an_str,
                               bool is_disambiguation,
                               cc_char_8 * restrict pos__o );
 
+bool cc_convert_starting_coords( char const * restrict pos,
+                                 int * restrict file__o,
+                                 int * restrict rank__o );
+
 bool cc_convert_starting_pos( char const * restrict pos,
-                              int * restrict file__o,
-                              int * restrict rank__o );
+                              CcPos * restrict pos__o );
 
 
 CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );

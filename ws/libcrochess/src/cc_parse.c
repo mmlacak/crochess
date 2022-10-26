@@ -308,9 +308,9 @@ char const * cc_starting_pos( char const * restrict an_str,
     return end;
 }
 
-bool cc_convert_starting_pos( char const * restrict pos,
-                              int * restrict file__o,
-                              int * restrict rank__o )
+bool cc_convert_starting_coords( char const * restrict pos,
+                                 int * restrict file__o,
+                                 int * restrict rank__o )
 {
     if ( !pos ) return false;
 
@@ -340,6 +340,12 @@ bool cc_convert_starting_pos( char const * restrict pos,
         *rank__o = CC_INVALID_COORD;
 
     return true;
+}
+
+bool cc_convert_starting_pos( char const * restrict pos,
+                              CcPos * restrict pos__o )
+{
+    return cc_convert_starting_coords( pos, &pos__o->i, &pos__o->j );
 }
 
 

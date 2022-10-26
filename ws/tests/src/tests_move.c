@@ -60,7 +60,7 @@ bool test_move( char const * restrict an_str,
         cc_game_free_all( &setup__a );
     }
 
-    if ( ( result = cc_do_make_move( an_str, game__a, &pms__a ) && result ) )
+    if ( ( result = cc_apply_move( an_str, game__a, &pms__a ) && result ) )
     {
         // TODO :: TEMP :: un/comment (?)
         cc_chessboard_print( game__a->chessboard, true );
