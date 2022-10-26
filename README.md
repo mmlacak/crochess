@@ -151,6 +151,7 @@ for details.
 * Simon P. J.
 * Alessandro M.
 * Tomaso G. A.
+* O. Claude M.
 * and many, many others
 
 Thank you all!
