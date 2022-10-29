@@ -22,6 +22,12 @@
 // //                               CcGame * restrict game__io,
 // //                               CcParseMsgs ** restrict parse_msgs__io )
 
+// static bool cc_make_plies( char const * restrict move_an_str,
+//                            CcGame * restrict game,
+//                            CcChessboard ** restrict cb__o,
+//                            CcGameStatusEnum * restrict gse__o,
+//                            CcParseMsgs ** restrict parse_msgs__io )
+
 
 bool cc_make_move( char const * restrict move_an_str,
                    CcGame * restrict game,

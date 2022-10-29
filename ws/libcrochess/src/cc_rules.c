@@ -177,7 +177,7 @@ static bool cc_check_pre_plies_status( char const char_an,
 //         // Ply link.
 
 //         CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
-//         bool is_trance_journey = CC_IS_PLY_TRANCE_JOURNEY( ple );
+//         bool is_any_trance_journey = CC_IS_PLY_ANY_TRANCE_JOURNEY( ple );
 //         char const * c_str = ply_start_str + cc_ply_link_len( ple );
 
 //         CC_STR_PRINT_IF_INFO( ply_start_str, c_str, 128, "Ply link: '%s'", " --> %d.\n", ple );
@@ -189,7 +189,7 @@ static bool cc_check_pre_plies_status( char const char_an,
 
 //         char piece_symbol = ' ';
 
-//         if ( !cc_ply_piece_symbol( c_str, &piece_symbol ) )
+//         if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
 //         {
 //             cc_parse_msgs_append_if_format( parse_msgs__io,
 //                                             CC_PMTE_Error,
@@ -558,14 +558,14 @@ static bool cc_check_pre_plies_status( char const char_an,
 
 //             if ( is_starting_ply )
 //                 momentum = step_count;
-//             else if ( is_trance_journey )
+//             else if ( is_any_trance_journey )
 //                 /* Nothing to do here, just to escape subtraction. */ ;
 //             else if ( !CC_PIECE_IS_WEIGHTLESS( piece ) )
 //                 momentum -= step_count;
 
 //             CC_PRINTF_IF_INFO( "Piece: '%c' --> %d, with momentum %d.\n", piece_symbol, piece, momentum );
 
-//             if ( ( !is_trance_journey ) && ( momentum < 0 ) )
+//             if ( ( !is_any_trance_journey ) && ( momentum < 0 ) )
 //             {
 //                 char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -735,6 +735,189 @@ static bool cc_check_pre_plies_status( char const char_an,
 // }
 
 
+static bool cc_make_plies( char const * restrict move_an_str,
+                           CcGame * restrict game,
+                           CcChessboard ** restrict cb__o,
+                           CcGameStatusEnum * restrict gse__o,
+                           CcParseMsgs ** restrict parse_msgs__io )
+{
+    if ( !move_an_str ) return false;
+    if ( !game ) return false;
+    if ( !cb__o ) return false;
+    if ( !gse__o ) return false;
+    if ( !parse_msgs__io ) return false;
+
+    if ( !game->chessboard ) return false;
+
+    CcChessboard * cb__a = cc_chessboard_duplicate__new( game->chessboard );
+
+    char const * ply_start_str = NULL;
+    char const * ply_end_str = NULL;
+    // int momentum = 0;
+
+    // CcPieceEnum previous_piece = CC_PE_None;
+    // CcPieceEnum activator = CC_PE_None;
+
+    // CcPieceEnum cascaded_piece = CC_PE_None;
+    // CcPos cascading_field = CC_POS_CAST_INVALID;
+    // CcPos destination_field = CC_POS_CAST_INVALID;
+
+// TODO :: check if castling --> handle as a special case
+
+    while ( cc_ply_iter( move_an_str, &ply_start_str, &ply_end_str ) )
+    {
+        bool ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
+
+        //
+        // Ply link.
+
+        CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
+
+        if ( !CC_IS_PLY_VALID( ple ) )
+        {
+            cc_parse_msgs_append_if_format( parse_msgs__io,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Invalid ply linkage at '%s'.\n",
+                                            ply_start_str );
+
+            cc_chessboard_free_all( &cb__a );
+            return false;
+        }
+
+        char const * c_str = ply_start_str + cc_ply_link_len( ple );
+
+        if ( CC_IS_PLY_TELEPORTATION( ple ) )
+        {
+            // TODO
+        }
+        else if ( CC_IS_PLY_FAILED_TELEPORTATION( ple ) )
+        {
+            // TODO
+        }
+        else if ( CC_IS_PLY_TRANCE_JOURNEY( ple ) )
+        {
+            // TODO
+        }
+        else if ( CC_IS_PLY_DUAL_TRANCE_JOURNEY( ple ) )
+        {
+            // TODO
+        }
+        else if ( CC_IS_PLY_FAILED_TRANCE_JOURNEY( ple ) )
+        {
+            // TODO
+        }
+        else if ( CC_IS_PLY_PAWN_SACRIFICE( ple ) )
+        {
+            // TODO
+        }
+        else
+        {
+            // Starting, or cascading, ply.
+
+            //
+            // Piece symbol.
+
+            char piece_symbol = ' ';
+
+            if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
+            {
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Invalid piece symbol '%c'.\n",
+                                                piece_symbol );
+
+                cc_chessboard_free_all( &cb__a );
+                return false;
+            }
+
+            if ( CC_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
+
+            //
+            // Losing tag.
+
+            CcLosingTagEnum lte_an = cc_starting_losing_tag( c_str );
+
+            if ( lte_an != CC_LTE_None )
+                c_str += cc_losing_tag_len( lte_an );
+
+            //
+            // Disambiguation.
+
+            CcPos disambigution = CC_POS_CAST_INVALID;
+            char * disambigution_end = NULL;
+
+            if ( !cc_fetch_starting_pos( c_str,
+                                         ply_end_str,
+                                         true,
+                                         game->chessboard->size,
+                                         &disambigution,
+                                         disambigution_end ) )
+            {
+                char * ply_str__a = cc_str_copy__new( ply_start_str,
+                                                      ply_end_str,
+                                                      CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Invalid char(s) in disambiguation, in ply '%s'.\n",
+                                                ply_str__a );
+
+                CC_FREE( ply_str__a );
+                cc_chessboard_free_all( &cb__a );
+                return false;
+            }
+
+            if ( disambigution_end ) c_str = disambigution_end;
+
+            //
+            // Position (destination / starting position).
+
+            // Destination if ply doesn't have steps, otherwise starting position
+            // (in which case disambiguation must be invalid).
+            CcPos position = CC_POS_CAST_INVALID;
+            char * position_end = NULL;
+
+            if ( !cc_fetch_starting_pos( c_str,
+                                         ply_end_str,
+                                         false,
+                                         game->chessboard->size,
+                                         &position,
+                                         position_end ) )
+            {
+                char * ply_str__a = cc_str_copy__new( ply_start_str,
+                                                      ply_end_str,
+                                                      CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                "Invalid char(s) in position, in ply '%s'.\n",
+                                                ply_str__a );
+
+                CC_FREE( ply_str__a );
+                cc_chessboard_free_all( &cb__a );
+                return false;
+            }
+
+            if ( position_end ) c_str = position_end;
+
+
+
+        }
+
+
+
+
+    } // while ( cc_ply_iter( ... ) )
+
+
+    return true;
+}
+
+
 bool cc_make_move( char const * restrict move_an_str,
                    CcGame * restrict game,
                    CcChessboard ** restrict cb__o,
@@ -836,10 +1019,8 @@ bool cc_make_move( char const * restrict move_an_str,
         return false;
     }
 
-
-//     if ( !cc_do_make_plies( move_an_str, game__io, parse_msgs__io ) ) // move_an_str --> m_str (?)
-//         return false;
-
+    if ( !cc_make_plies( move_an_str, game, cb__o, gse__o, parse_msgs__io ) )
+        return false;
 
 // // TODO :: post-plies status
 

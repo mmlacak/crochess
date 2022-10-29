@@ -22,9 +22,28 @@
 #define CC_MAX_LEN_DISAMBIGUATION_STEP (6)
 
 
-#define CC_IS_PLY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )           \
-                                     || ( (ple) == CC_PLE_DualTranceJourney )       \
-                                     || ( (ple) == CC_PLE_FailedTranceJourney ) )
+#define CC_IS_PLY_NONE(ple) ( (ple) == CC_PLE_None )
+#define CC_IS_PLY_STARTING(ple) ( (ple) == CC_PLE_StartingPly )
+#define CC_IS_PLY_CASCADING(ple) ( (ple) == CC_PLE_CascadingPly )
+
+#define CC_IS_PLY_TELEPORTATION(ple) ( (ple) == CC_PLE_Teleportation )
+#define CC_IS_PLY_FAILED_TELEPORTATION(ple) ( (ple) == CC_PLE_FailedTeleportation )
+
+#define CC_IS_PLY_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_TranceJourney )
+#define CC_IS_PLY_DUAL_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_DualTranceJourney )
+#define CC_IS_PLY_FAILED_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_FailedTranceJourney )
+
+#define CC_IS_PLY_PAWN_SACRIFICE(ple) ( (ple) == CC_PLE_PawnSacrifice )
+
+
+#define CC_IS_PLY_VALID(ple) ( (ple) != CC_PLE_None )
+
+#define CC_IS_PLY_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLE_Teleportation )           \
+                                        || ( (ple) == CC_PLE_FailedTeleportation )
+
+#define CC_IS_PLY_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )           \
+                                         || ( (ple) == CC_PLE_DualTranceJourney )       \
+                                         || ( (ple) == CC_PLE_FailedTranceJourney ) )
 
 
 /**

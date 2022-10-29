@@ -46,8 +46,8 @@ bool cc_ply_iter( char const * restrict an_str,
                   char const ** restrict end__io );
 
 
-bool cc_ply_piece_symbol( char const * restrict an_str,
-                          char * restrict piece_symbol__o );
+bool cc_find_ply_piece_symbol( char const * restrict an_str,
+                               char * restrict piece_symbol__o );
 
 CcLosingTagEnum cc_starting_losing_tag( char const * restrict an_str );
 
@@ -64,6 +64,13 @@ bool cc_convert_starting_coords( char const * restrict pos,
 
 bool cc_convert_starting_pos( char const * restrict pos,
                               CcPos * restrict pos__o );
+
+bool cc_fetch_starting_pos( char const * restrict an_str,
+                            char const * restrict ply_end,
+                            bool is_disambiguation,
+                            unsigned int board_size,
+                            CcPos * restrict pos__o,
+                            char const * restrict pos_end__o );
 
 
 CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );

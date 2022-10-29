@@ -122,8 +122,8 @@ bool cc_ply_iter( char const * restrict an_str,
 }
 
 
-bool cc_ply_piece_symbol( char const * restrict an_str,
-                          char * restrict piece_symbol__o )
+bool cc_find_ply_piece_symbol( char const * restrict an_str,
+                               char * restrict piece_symbol__o )
 {
     if ( !an_str ) return false;
     if ( !piece_symbol__o ) return false;
@@ -346,6 +346,34 @@ bool cc_convert_starting_pos( char const * restrict pos,
                               CcPos * restrict pos__o )
 {
     return cc_convert_starting_coords( pos, &pos__o->i, &pos__o->j );
+}
+
+bool cc_fetch_starting_pos( char const * restrict an_str,
+                            char const * restrict ply_end,
+                            bool is_disambiguation,
+                            unsigned int board_size,
+                            CcPos * restrict pos__o,
+                            char const * restrict pos_end__o )
+{
+    if ( !an_str ) return false;
+    if ( !ply_end ) return false;
+    if ( !pos__o ) return false;
+    if ( !pos_end__o ) return false;
+
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+
+    char const * pos_end = cc_starting_pos( an_str, ply_end, is_disambiguation, &pos_c8 );
+    if ( !pos_end ) return false;
+
+    CcPos pos = CC_POS_CAST_INVALID;
+
+    if ( !cc_convert_starting_pos( pos_c8, &pos ) ) return false;
+    if ( !CC_IS_COORD_2_ON_BOARD( board_size, pos.i, pos.j ) ) return false;
+
+    *pos__o = pos;
+    pos_end__o = pos_end;
+
+    return true;
 }
 
 
