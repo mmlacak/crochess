@@ -179,10 +179,10 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte )
     }
 }
 
-char const * cc_starting_pos( char const * restrict an_str,
-                              char const * restrict ply_end,
-                              bool is_disambiguation,
-                              cc_char_8 * restrict pos__o )
+char const * cc_starting_pos_str( char const * restrict an_str,
+                                  char const * restrict ply_end,
+                                  bool is_disambiguation,
+                                  cc_char_8 * restrict pos__o )
 {
     if ( !an_str ) return NULL;
     if ( !ply_end ) return NULL;
@@ -351,6 +351,7 @@ bool cc_convert_starting_pos( char const * restrict pos,
 bool cc_fetch_starting_pos( char const * restrict an_str,
                             char const * restrict ply_end,
                             bool is_disambiguation,
+                            bool is_mandatory,
                             unsigned int board_size,
                             CcPos * restrict pos__o,
                             char const * restrict pos_end__o )
@@ -362,13 +363,23 @@ bool cc_fetch_starting_pos( char const * restrict an_str,
 
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
 
-    char const * pos_end = cc_starting_pos( an_str, ply_end, is_disambiguation, &pos_c8 );
-    if ( !pos_end ) return false;
+    char const * pos_end = cc_starting_pos_str( an_str,
+                                                ply_end,
+                                                is_disambiguation,
+                                                &pos_c8 );
+    if ( is_mandatory )
+        if ( !pos_end ) return false;
 
     CcPos pos = CC_POS_CAST_INVALID;
 
     if ( !cc_convert_starting_pos( pos_c8, &pos ) ) return false;
-    if ( !CC_IS_COORD_2_ON_BOARD( board_size, pos.i, pos.j ) ) return false;
+
+    if ( is_disambiguation )
+    {
+        if ( !CC_IS_ANY_COORD_ON_BOARD( board_size, pos.i, pos.j ) ) return false;
+    }
+    else
+        if ( !CC_IS_COORD_2_ON_BOARD( board_size, pos.i, pos.j ) ) return false;
 
     *pos__o = pos;
     pos_end__o = pos_end;

@@ -219,7 +219,7 @@ static bool cc_check_pre_plies_status( char const char_an,
 
 //         cc_char_8 disambiguation_c8 = CC_CHAR_8_EMPTY;
 
-//         char const * end_da_str = cc_starting_pos( c_str, ply_end_str, true, &disambiguation_c8 );
+//         char const * end_da_str = cc_starting_pos_str( c_str, ply_end_str, true, &disambiguation_c8 );
 
 //         CC_STR_PRINT_IF_INFO( disambiguation_c8, NULL, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da_str ); // TODO :: maybe check error (?)
 
@@ -255,7 +255,7 @@ static bool cc_check_pre_plies_status( char const char_an,
 //         // (in which case disambiguation_c8 must be empty).
 //         cc_char_8 position_c8 = CC_CHAR_8_EMPTY;
 
-//         char const * end_pos_str = cc_starting_pos( c_str,
+//         char const * end_pos_str = cc_starting_pos_str( c_str,
 //                                                     ply_end_str,
 //                                                     false,
 //                                                     &position_c8 );
@@ -851,6 +851,7 @@ static bool cc_make_plies( char const * restrict move_an_str,
             if ( !cc_fetch_starting_pos( c_str,
                                          ply_end_str,
                                          true,
+                                         false,
                                          game->chessboard->size,
                                          &disambigution,
                                          disambigution_end ) )
@@ -883,6 +884,7 @@ static bool cc_make_plies( char const * restrict move_an_str,
             if ( !cc_fetch_starting_pos( c_str,
                                          ply_end_str,
                                          false,
+                                         true,
                                          game->chessboard->size,
                                          &position,
                                          position_end ) )

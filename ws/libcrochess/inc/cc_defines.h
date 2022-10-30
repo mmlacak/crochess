@@ -166,7 +166,26 @@
 
     @return `1` if on board, `0` otherwise.
 */
-#define CC_IS_COORD_2_ON_BOARD(board_size,i,j) ( ( CC_MIN_BOARD_COORD <= (int)(i) ) && ( (int)(i) < (int)(board_size) ) && ( CC_MIN_BOARD_COORD <= (int)(j) ) && ( (int)(j) < (int)(board_size) ) )
+#define CC_IS_COORD_2_ON_BOARD(board_size,i,j)              \
+    ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) &&      \
+      ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
+// ( ( CC_MIN_BOARD_COORD <= (int)(i) ) && ( (int)(i) < (int)(board_size) ) && ( CC_MIN_BOARD_COORD <= (int)(j) ) && ( (int)(j) < (int)(board_size) ) )
+
+/**
+    Macro to check if a given disambiguation (i.e. partial position) is on board.
+
+    @param board_size A chessboard size, integer.
+    @param i File, position along horizontal axis, integer.
+    @param j Rank, position along vertical axis, integer.
+
+    @warning
+    All arguments are cast to `int`.
+
+    @return `1` if on board, `0` otherwise.
+*/
+#define CC_IS_ANY_COORD_ON_BOARD(board_size,i,j)            \
+    ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) ||      \
+      ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
 
 /**
     Macro to check if a given position is on a light side of a chessboard.
