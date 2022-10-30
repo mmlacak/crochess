@@ -845,16 +845,16 @@ static bool cc_make_plies( char const * restrict move_an_str,
             //
             // Disambiguation.
 
-            CcPos disambigution = CC_POS_CAST_INVALID;
-            char * disambigution_end = NULL;
+            CcPos disambiguation = CC_POS_CAST_INVALID;
+            char * disambiguation_str_end = NULL;
 
             if ( !cc_fetch_starting_pos( c_str,
                                          ply_end_str,
                                          true,
                                          false,
                                          game->chessboard->size,
-                                         &disambigution,
-                                         disambigution_end ) )
+                                         &disambiguation,
+                                         disambiguation_str_end ) )
             {
                 char * ply_str__a = cc_str_copy__new( ply_start_str,
                                                       ply_end_str,
@@ -871,7 +871,7 @@ static bool cc_make_plies( char const * restrict move_an_str,
                 return false;
             }
 
-            if ( disambigution_end ) c_str = disambigution_end;
+            if ( disambiguation_str_end ) c_str = disambiguation_str_end;
 
             //
             // Position (destination / starting position).
@@ -879,7 +879,7 @@ static bool cc_make_plies( char const * restrict move_an_str,
             // Destination if ply doesn't have steps, otherwise starting position
             // (in which case disambiguation must be invalid).
             CcPos position = CC_POS_CAST_INVALID;
-            char * position_end = NULL;
+            char * position_str_end = NULL;
 
             if ( !cc_fetch_starting_pos( c_str,
                                          ply_end_str,
@@ -887,7 +887,7 @@ static bool cc_make_plies( char const * restrict move_an_str,
                                          true,
                                          game->chessboard->size,
                                          &position,
-                                         position_end ) )
+                                         position_str_end ) )
             {
                 char * ply_str__a = cc_str_copy__new( ply_start_str,
                                                       ply_end_str,
@@ -904,7 +904,43 @@ static bool cc_make_plies( char const * restrict move_an_str,
                 return false;
             }
 
-            if ( position_end ) c_str = position_end;
+            if ( position_str_end ) c_str = position_str_end;
+
+            //
+            // Starting, destination positions.
+
+            CcPos starting = CC_POS_CAST_INVALID;
+            CcPos destination = CC_POS_CAST_INVALID;
+
+            if ( cc_pos_is_disambiguation( disambiguation ) )
+            {
+                if ( ply_has_steps )
+                {
+                    char * ply_str__a = cc_str_copy__new( ply_start_str,
+                                                          ply_end_str,
+                                                          CC_MAX_LEN_ZERO_TERMINATED );
+
+                    cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                    CC_PMTE_Error,
+                                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                                    "Ply has disambiguation and starting position at the same time, in '%s'.\n",
+                                                    ply_str__a );
+
+                    CC_FREE( ply_str__a );
+                    cc_chessboard_free_all( &cb__a );
+                    return false;
+                }
+
+                starting = disambiguation;
+                destination = position;
+            }
+            else
+            {
+                if ( ply_has_steps )
+                    starting = position;
+                else
+                    destination = position;
+            }
 
 
 

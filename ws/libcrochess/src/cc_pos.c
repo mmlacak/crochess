@@ -24,16 +24,6 @@ CcPos cc_pos( int i, int j )
     return pos;
 }
 
-CcPos cc_pos_disambiguation_file( int i )
-{
-    return cc_pos( i, CC_INVALID_COORD );
-}
-
-CcPos cc_pos_disambiguation_rank( int j )
-{
-    return cc_pos( CC_INVALID_COORD, j );
-}
-
 bool cc_pos_is_valid( CcPos pos )
 {
     return ( CC_IS_COORD_2_VALID( pos.i, pos.j ) );
@@ -44,20 +34,9 @@ bool cc_pos_is_static_step( CcPos pos )
     return ( ( pos.i == 0 ) && ( pos.j == 0 ) );
 }
 
-bool cc_pos_is_disambiguation_file( CcPos pos )
-{
-    return ( CC_IS_COORD_VALID( pos.i ) && ( !CC_IS_COORD_VALID( pos.j ) ) );
-}
-
-bool cc_pos_is_disambiguation_rank( CcPos pos )
-{
-    return ( ( !CC_IS_COORD_VALID( pos.i ) ) && CC_IS_COORD_VALID( pos.j ) );
-}
-
 bool cc_pos_is_disambiguation( CcPos pos )
 {
-    return ( cc_pos_is_disambiguation_file( pos ) ||
-             cc_pos_is_disambiguation_rank( pos ) );
+    return ( CC_IS_COORD_VALID( pos.i ) || ( !CC_IS_COORD_VALID( pos.j ) ) );
 }
 
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
@@ -84,30 +63,30 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
 
 CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count )
 {
-    if ( cc_pos_is_valid( pos ) && cc_pos_is_valid( step ) )
-        return cc_pos( pos.i + count * step.i, pos.j + count * step.j );
-    else if ( cc_pos_is_disambiguation_file( pos ) &&
-              cc_pos_is_disambiguation_file( step ) )
-        return cc_pos_disambiguation_file( pos.i + count * step.i );
-    else if ( cc_pos_is_disambiguation_rank( pos ) &&
-              cc_pos_is_disambiguation_rank( step ) )
-        return cc_pos_disambiguation_rank( pos.j + count * step.j );
-    else
-        return CC_POS_CAST_INVALID;
+    int i = CC_INVALID_COORD;
+    int j = CC_INVALID_COORD;
+
+    if ( CC_IS_COORD_VALID( pos.i ) && CC_IS_COORD_VALID( step.i ) )
+        i = pos.i + count * step.i;
+
+    if ( CC_IS_COORD_VALID( pos.j ) && CC_IS_COORD_VALID( step.j ) )
+        j = pos.j + count * step.j;
+
+    return cc_pos( i, j );
 }
 
 CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count )
 {
-    if ( cc_pos_is_valid( pos ) && cc_pos_is_valid( step ) )
-        return cc_pos( pos.i - count * step.i, pos.j - count * step.j );
-    else if ( cc_pos_is_disambiguation_file( pos ) &&
-              cc_pos_is_disambiguation_file( step ) )
-        return cc_pos_disambiguation_file( pos.i - count * step.i );
-    else if ( cc_pos_is_disambiguation_rank( pos ) &&
-              cc_pos_is_disambiguation_rank( step ) )
-        return cc_pos_disambiguation_rank( pos.j - count * step.j );
-    else
-        return CC_POS_CAST_INVALID;
+    int i = CC_INVALID_COORD;
+    int j = CC_INVALID_COORD;
+
+    if ( CC_IS_COORD_VALID( pos.i ) && CC_IS_COORD_VALID( step.i ) )
+        i = pos.i - count * step.i;
+
+    if ( CC_IS_COORD_VALID( pos.j ) && CC_IS_COORD_VALID( step.j ) )
+        j = pos.j - count * step.j;
+
+    return cc_pos( i, j );
 }
 
 CcPos cc_pos_step( CcPos start, CcPos destination )

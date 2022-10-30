@@ -61,24 +61,6 @@ typedef struct CcPos {
 CcPos cc_pos( int i, int j );
 
 /**
-    Function returns a file disambiguation.
-
-    @param i File, horizontal coordinate.
-
-    @return Disambiguation with a given coordinate.
-*/
-CcPos cc_pos_disambiguation_file( int i );
-
-/**
-    Function returns a rank disambiguation.
-
-    @param j Rank, vertical coordinate.
-
-    @return Disambiguation with a given coordinate.
-*/
-CcPos cc_pos_disambiguation_rank( int j );
-
-/**
     Function checks if position is valid.
 
     @param pos A position.
@@ -101,40 +83,13 @@ bool cc_pos_is_valid( CcPos pos );
 bool cc_pos_is_static_step( CcPos pos );
 
 /**
-    Function checks if position is a file disambiguation.
-
-    @param pos A position.
-
-    @see cc_pos_disambiguation_file()
-
-    @return `true` if position is a file disambiguation, `false` otherwise.
-*/
-bool cc_pos_is_disambiguation_file( CcPos pos );
-
-/**
-    Function checks if position is a rank disambiguation.
-
-    @param pos A position.
-
-    @see cc_pos_disambiguation_rank()
-
-    @return `true` if position is a rank disambiguation, `false` otherwise.
-*/
-bool cc_pos_is_disambiguation_rank( CcPos pos );
-
-/**
-    Function checks if position is a disambiguation.
+    Function checks if position is a disambiguation, i.e. a partial position.
 
     @param pos A position.
 
     @note
-    Disambiguation is a position with one known coordinate, and the other is unknown (invalid).
-
-    @note
-    Position is a disambiguation if it's either a file, or a rank disambiguation.
-
-    @note
-    Valid position is not a disambiguation.
+    Disambiguation is a position with at least one known (valid) coordinate,
+    and the other might be unknown (invalid).
 
     @return `true` if position is a disambiguation, `false` otherwise.
 */
