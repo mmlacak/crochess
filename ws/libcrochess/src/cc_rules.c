@@ -55,87 +55,87 @@ static bool cc_check_pre_plies_status( char const char_an,
 }
 
 
-// static bool cc_append_steps( CcGame * restrict game,
-//                              char const * restrict ply_start_str,
-//                              char const * restrict ply_end_str,
-//                              CcChessboard * restrict cb_before_activation,
-//                              CcSteps ** restrict steps__io,
-//                              CcParseMsgs ** restrict parse_msgs__io )
-// {
-//     if ( !game ) return false;
-//     if ( !ply_start_str ) return false;
-//     if ( !ply_end_str ) return false;
-//     if ( !cb_before_activation ) return false;
-//     if ( !steps__io ) return false;
-//     if ( !parse_msgs__io ) return false;
+static bool cc_append_steps( CcGame * restrict game,
+                             char const * restrict ply_start_str,
+                             char const * restrict ply_end_str,
+                             CcChessboard * restrict cb_before_activation,
+                             CcSteps ** restrict steps__io,
+                             CcParseMsgs ** restrict parse_msgs__io )
+{
+    if ( !game ) return false;
+    if ( !ply_start_str ) return false;
+    if ( !ply_end_str ) return false;
+    if ( !cb_before_activation ) return false;
+    if ( !steps__io ) return false;
+    if ( !parse_msgs__io ) return false;
 
-//     char const * c_str = ply_start_str;
+    char const * c_str = ply_start_str;
 
-//     char const * step_start_str = NULL;
-//     char const * step_end_str = NULL;
+    char const * step_start_str = NULL;
+    char const * step_end_str = NULL;
 
-//     while ( cc_step_iter( ply_start_str, ply_end_str, &step_start_str, &step_end_str ) )
-//     {
-//         CC_STR_PRINT_IF_INFO( step_start_str, step_end_str, 8192, "Step: '%s'.\n", "" );
+    while ( cc_step_iter( ply_start_str, ply_end_str, &step_start_str, &step_end_str ) )
+    {
+        CC_STR_PRINT_IF_INFO( step_start_str, step_end_str, 8192, "Step: '%s'.\n", "" );
 
-//         CcStepLinkEnum sle = cc_starting_step_link( step_start_str );
-//         c_str = step_start_str + cc_step_link_len( sle );
+        CcStepLinkEnum sle = cc_starting_step_link( step_start_str );
+        c_str = step_start_str + cc_step_link_len( sle );
 
-//         CC_STR_PRINT_IF_INFO( step_start_str, c_str, 128, "Step link: '%s'", " --> %d.\n", sle );
+        CC_STR_PRINT_IF_INFO( step_start_str, c_str, 128, "Step link: '%s'", " --> %d.\n", sle );
 
-//         cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-//         char const * p_str = pos_c8;
+        cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+        char const * p_str = pos_c8;
 
-//         int file = CC_INVALID_COORD;
-//         int rank = CC_INVALID_COORD;
+        int file = CC_INVALID_COORD;
+        int rank = CC_INVALID_COORD;
 
-//         CcSideEffectEnum see = CC_SEE_None;
-//         char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
-//         char const * pos_end_str = step_end_str;
+        CcSideEffectEnum see = CC_SEE_None;
+        char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
+        char const * pos_end_str = step_end_str;
 
-//         if ( side_effect_str )
-//         {
-//             CC_STR_PRINT_IF_INFO( side_effect_str, step_end_str, 128, "Side-effect: '%s'", " --> %d.\n", see );
-//             pos_end_str = side_effect_str;
-//         }
+        if ( side_effect_str )
+        {
+            CC_STR_PRINT_IF_INFO( side_effect_str, step_end_str, 128, "Side-effect: '%s'", " --> %d.\n", see );
+            pos_end_str = side_effect_str;
+        }
 
-// // TODO :: side-effects
-// // TODO :: losing tags within side-effects
+// TODO :: side-effects
+// TODO :: losing tags within side-effects
 
-//         size_t pos_len = (size_t)( pos_end_str - c_str );
-//         size_t copied = cc_str_copy( c_str, pos_end_str, pos_len, pos_c8, CC_MAX_LEN_CHAR_8 );
+        size_t pos_len = (size_t)( pos_end_str - c_str );
+        size_t copied = cc_str_copy( c_str, pos_end_str, pos_len, pos_c8, CC_MAX_LEN_CHAR_8 );
 
-//         if ( pos_len != copied )
-//             CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
+        if ( pos_len != copied )
+            CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
 
-//         if ( !cc_convert_starting_coords( pos_c8, &file, &rank ) ||
-//              !CC_IS_COORD_2_ON_BOARD( cb_before_activation->size, file, rank ) )
-//         {
-//             CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
+        if ( !cc_convert_starting_coords( pos_c8, &file, &rank ) ||
+             !CC_IS_COORD_2_ON_BOARD( cb_before_activation->size, file, rank ) )
+        {
+            CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
 
-//             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
-//             char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+            char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
+            char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-//             cc_parse_msgs_append_if_format( parse_msgs__io,
-//                                             CC_PMTE_Error,
-//                                             CC_MAX_LEN_ZERO_TERMINATED,
-//                                             "Invalid position in step '%s', in ply '%s'.\n",
-//                                             step_str__a,
-//                                             ply_str__a );
+            cc_parse_msgs_append_if_format( parse_msgs__io,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Invalid position in step '%s', in ply '%s'.\n",
+                                            step_str__a,
+                                            ply_str__a );
 
-//             CC_FREE( step_str__a );
-//             CC_FREE( ply_str__a );
-//             return false;
-//         }
+            CC_FREE( step_str__a );
+            CC_FREE( ply_str__a );
+            return false;
+        }
 
-//         CC_PRINTF_IF_INFO( "Step pos: %d, %d.\n", file, rank );
+        CC_PRINTF_IF_INFO( "Step pos: %d, %d.\n", file, rank );
 
-//         CcSteps * step__w = cc_steps_append_if( steps__io, sle, cc_pos( file, rank ), CC_SIDE_EFFECT_CAST_INVALID );
-//         if ( !step__w ) return false;
-//     }
+        CcSteps * step__w = cc_steps_append_if( steps__io, sle, cc_pos( file, rank ), CC_SIDE_EFFECT_CAST_INVALID );
+        if ( !step__w ) return false;
+    }
 
-//     return true;
-// }
+    return true;
+}
 
 // static bool cc_do_make_plies( char const * restrict move_an_str,
 //                               CcGame * restrict game__io,
@@ -909,7 +909,7 @@ static bool cc_make_plies( char const * restrict move_an_str,
             //
             // Starting, destination positions.
 
-            CcPos starting = CC_POS_CAST_INVALID;
+            CcPos start = CC_POS_CAST_INVALID;
             CcPos destination = CC_POS_CAST_INVALID;
 
             if ( cc_pos_is_disambiguation( disambiguation ) )
@@ -931,16 +931,67 @@ static bool cc_make_plies( char const * restrict move_an_str,
                     return false;
                 }
 
-                starting = disambiguation;
+                start = disambiguation;
                 destination = position;
             }
             else
             {
                 if ( ply_has_steps )
-                    starting = position;
+                    start = position;
                 else
                     destination = position;
             }
+
+            //
+            // Steps, from notation.
+
+            CcSteps * steps__a = cc_steps__new( CC_SLE_Start,
+                                                start,
+                                                CC_SIDE_EFFECT_CAST_INVALID );
+
+            if ( ply_has_steps )
+            {
+                if ( !cc_append_steps( game,
+                                        c_str,
+                                        ply_end_str,
+                                        cb__a,
+                                        &steps__a,
+                                        parse_msgs__io ) )
+                {
+                    // <i> Parse msgs are added within cc_append_steps().
+
+                    cc_steps_free_all( &steps__a );
+                    cc_chessboard_free_all( &cb__a );
+                    return false;
+                }
+            }
+            else // if ( !ply_has_steps )
+            {
+                CcSteps * step__w = cc_steps_append_if( &steps__a,
+                                                        CC_SLE_Destination,
+                                                        destination,
+                                                        CC_SIDE_EFFECT_CAST_INVALID );
+
+                if ( !step__w )
+                {
+                    cc_steps_free_all( &steps__a );
+                    cc_chessboard_free_all( &cb__a );
+                    return false;
+                }
+            }
+
+            // ++c_str; // Not used afterwards, so ...
+
+            // #ifdef __CC_STR_PRINT_INFO__
+            // {
+            //     char * steps_str__a = cc_steps_to_short_string__new( steps__a );
+            //     if ( steps_str__a )
+            //     {
+            //         CC_PRINTF_IF_INFO( "Steps: '%s'.\n", steps_str__a );
+            //         CC_FREE( steps_str__a );
+            //     }
+            // }
+            // #endif // __CC_STR_PRINT_INFO__
 
 
 
