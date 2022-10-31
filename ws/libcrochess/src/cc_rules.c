@@ -76,43 +76,23 @@ static bool cc_append_steps( CcGame * restrict game,
 
     while ( cc_step_iter( ply_start_str, ply_end_str, &step_start_str, &step_end_str ) )
     {
-        CC_STR_PRINT_IF_INFO( step_start_str, step_end_str, 8192, "Step: '%s'.\n", "" );
-
         CcStepLinkEnum sle = cc_starting_step_link( step_start_str );
         c_str = step_start_str + cc_step_link_len( sle );
 
-        CC_STR_PRINT_IF_INFO( step_start_str, c_str, 128, "Step link: '%s'", " --> %d.\n", sle );
+        //
+        // Step position.
 
-        cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-        char const * p_str = pos_c8;
+        CcPos pos = CC_POS_CAST_INVALID;
+        char * pos_str_end = NULL;
 
-        int file = CC_INVALID_COORD;
-        int rank = CC_INVALID_COORD;
-
-        CcSideEffectEnum see = CC_SEE_None;
-        char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
-        char const * pos_end_str = step_end_str;
-
-        if ( side_effect_str )
+        if ( !cc_fetch_starting_pos( c_str,
+                                        ply_end_str,
+                                        true,
+                                        false,
+                                        game->chessboard->size,
+                                        &pos,
+                                        pos_str_end ) )
         {
-            CC_STR_PRINT_IF_INFO( side_effect_str, step_end_str, 128, "Side-effect: '%s'", " --> %d.\n", see );
-            pos_end_str = side_effect_str;
-        }
-
-// TODO :: side-effects
-// TODO :: losing tags within side-effects
-
-        size_t pos_len = (size_t)( pos_end_str - c_str );
-        size_t copied = cc_str_copy( c_str, pos_end_str, pos_len, pos_c8, CC_MAX_LEN_CHAR_8 );
-
-        if ( pos_len != copied )
-            CC_PRINTF_IF_INFO( "Check len? %zu != %zu\n", pos_len, copied );
-
-        if ( !cc_convert_starting_coords( pos_c8, &file, &rank ) ||
-             !CC_IS_COORD_2_ON_BOARD( cb_before_activation->size, file, rank ) )
-        {
-            CC_PRINTF_IF_INFO( "Invalid step: '%s', '%s', '%s' .\n", c_str, pos_c8, p_str );
-
             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
             char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -128,9 +108,20 @@ static bool cc_append_steps( CcGame * restrict game,
             return false;
         }
 
-        CC_PRINTF_IF_INFO( "Step pos: %d, %d.\n", file, rank );
+        if ( pos_str_end ) c_str = pos_str_end;
 
-        CcSteps * step__w = cc_steps_append_if( steps__io, sle, cc_pos( file, rank ), CC_SIDE_EFFECT_CAST_INVALID );
+        //
+        // Side-effect.
+
+        CcSideEffectEnum see = CC_SEE_None;
+        char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
+
+        CcSideEffect se = CC_SIDE_EFFECT_CAST_INVALID;
+
+// TODO :: side-effects
+// TODO :: losing tags within side-effects
+
+        CcSteps * step__w = cc_steps_append_if( steps__io, sle, pos, se );
         if ( !step__w ) return false;
     }
 
@@ -1136,9 +1127,25 @@ bool cc_apply_move( char const * restrict move_an_str,
 
     if ( !game__io->chessboard ) return false;
 
+    CcChessboard * new__t = NULL;
+    CcGameStatusEnum gse = game__io->status;
 
+    if ( cc_make_move( move_an_str, game__io, &new__t, &gse, parse_msgs__io ) )
+    {
+        if ( !cc_moves_append_if( &( game__io->moves ),
+                                  move_an_str,
+                                  CC_MAX_LEN_ZERO_TERMINATED ) )
+            return false;
 
+        CcChessboard * old__a = game__io->chessboard;
+        if ( !cc_chessboard_free_all( &old__a ) )
+            return false;
 
-    // TODO :: FIX ME !!!
-    return false;
+        game__io->chessboard = new__t;
+        game__io->status = gse;
+
+        return true;
+    }
+    else
+        return false;
 }
