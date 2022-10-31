@@ -53,10 +53,14 @@ CcLosingTagEnum cc_starting_losing_tag( char const * restrict an_str );
 
 size_t cc_losing_tag_len( CcLosingTagEnum lte );
 
-char const * cc_starting_pos_str( char const * restrict an_str,
-                                  char const * restrict ply_end,
-                                  bool is_disambiguation,
-                                  cc_char_8 * restrict pos__o );
+//
+// TODO :: DELETE
+// char const * cc_starting_pos_str( char const * restrict an_str,
+//                                   char const * restrict ply_end,
+//                                   bool is_disambiguation,
+//                                   cc_char_8 * restrict pos__o );
+// TODO :: DELETE
+//
 
 bool cc_convert_starting_coords( char const * restrict pos,
                                  int * restrict file__o,
@@ -65,13 +69,21 @@ bool cc_convert_starting_coords( char const * restrict pos,
 bool cc_convert_starting_pos( char const * restrict pos,
                               CcPos * restrict pos__o );
 
-bool cc_fetch_starting_pos( char const * restrict an_str,
-                            char const * restrict ply_end,
-                            bool is_disambiguation,
-                            bool is_mandatory,
-                            unsigned int board_size,
-                            CcPos * restrict pos__o,
-                            char const * restrict pos_end__o );
+//
+// TODO :: DELETE
+// bool cc_fetch_starting_pos( char const * restrict an_str,
+//                             char const * restrict ply_end,
+//                             bool is_disambiguation,
+//                             bool is_mandatory,
+//                             unsigned int board_size,
+//                             CcPos * restrict pos__o,
+//                             char const * restrict pos_end__o );
+// TODO :: DELETE
+//
+
+bool cc_starting_pos( char const * restrict an_str,
+                      CcPos * restrict pos__o,
+                      char const ** restrict pos_end__o );
 
 
 CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );

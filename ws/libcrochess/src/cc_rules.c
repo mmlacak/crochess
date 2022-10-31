@@ -83,15 +83,9 @@ static bool cc_append_steps( CcGame * restrict game,
         // Step position.
 
         CcPos pos = CC_POS_CAST_INVALID;
-        char * pos_str_end = NULL;
+        char const * pos_str_end = NULL;
 
-        if ( !cc_fetch_starting_pos( c_str,
-                                     ply_end_str,
-                                     true,
-                                     false,
-                                     game->chessboard->size,
-                                     &pos,
-                                     pos_str_end ) )
+        if ( !cc_starting_pos( c_str, &pos, &pos_str_end ) )
         {
             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
             char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
@@ -837,15 +831,11 @@ static bool cc_make_plies( char const * restrict move_an_str,
             // Disambiguation.
 
             CcPos disambiguation = CC_POS_CAST_INVALID;
-            char * disambiguation_str_end = NULL;
+            char const * disambiguation_str_end = NULL;
 
-            if ( !cc_fetch_starting_pos( c_str,
-                                         ply_end_str,
-                                         true,
-                                         false,
-                                         game->chessboard->size,
-                                         &disambiguation,
-                                         disambiguation_str_end ) )
+            if ( !cc_starting_pos( c_str,
+                                   &disambiguation,
+                                   &disambiguation_str_end ) )
             {
                 char * ply_str__a = cc_str_copy__new( ply_start_str,
                                                       ply_end_str,
@@ -870,15 +860,9 @@ static bool cc_make_plies( char const * restrict move_an_str,
             // Destination if ply doesn't have steps, otherwise starting position
             // (in which case disambiguation must be invalid).
             CcPos position = CC_POS_CAST_INVALID;
-            char * position_str_end = NULL;
+            char const * position_str_end = NULL;
 
-            if ( !cc_fetch_starting_pos( c_str,
-                                         ply_end_str,
-                                         false,
-                                         true,
-                                         game->chessboard->size,
-                                         &position,
-                                         position_str_end ) )
+            if ( !cc_starting_pos( c_str, &position, &position_str_end ) )
             {
                 char * ply_str__a = cc_str_copy__new( ply_start_str,
                                                       ply_end_str,
