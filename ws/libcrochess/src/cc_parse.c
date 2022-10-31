@@ -228,15 +228,13 @@ bool cc_starting_pos( char const * restrict an_str,
     if ( !pos_end__o ) return false;
     if ( *pos_end__o ) return false;
 
-    char const * start = NULL; // Position, or disambiguation start.
+    char const * start = an_str; // Position, or disambiguation start.
     char const * end = NULL; // Position, or disambiguation end.
     char const * c = an_str;
 
     if ( islower( *c ) )
     {
-        start = c;
-
-        if ( isdigit( *c ) )
+        if ( isdigit( *++c ) ) // {1}
         {
             if ( isdigit( *++c ) ) ++c;
 
@@ -246,12 +244,10 @@ bool cc_starting_pos( char const * restrict an_str,
                 return false; // Max len of rank is 2.
         }
         else
-            end = ++c;
+            end = c; // c was incremented above, see {1}.
     }
     else if ( isdigit( *c ) )
     {
-        start = c;
-
         if ( isdigit( *++c ) ) ++c;
 
         if ( !isdigit( *c ) )
@@ -262,15 +258,14 @@ bool cc_starting_pos( char const * restrict an_str,
     else
         return false;
 
-    if ( !start ) return false;
-    if ( !end ) return false;
+    // if ( !end ) return false; // Should be fine.
 
     // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Isn't used after this, so ...
 
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
 
     size_t len = (size_t)( end - start );
-    size_t copied = cc_str_copy( start, end, len, pos_c8, CC_MAX_LEN_STEP );
+    size_t copied = cc_str_copy( start, end, len, pos_c8, CC_MAX_LEN_STEP_POS );
 
     if ( len != copied ) return false;
 

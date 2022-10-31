@@ -17,7 +17,7 @@
 
 #define CC_IS_PIECE_SYMBOL(char_c) ( isupper( (char_c) ) )
 
-#define CC_MAX_LEN_STEP (3)
+#define CC_MAX_LEN_STEP_POS (3)
 #define CC_MAX_LEN_DISAMBIGUATION (3)
 #define CC_MAX_LEN_DISAMBIGUATION_STEP (6)
 
