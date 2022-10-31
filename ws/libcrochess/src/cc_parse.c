@@ -359,7 +359,7 @@ bool cc_fetch_starting_pos( char const * restrict an_str,
     if ( !an_str ) return false;
     if ( !ply_end ) return false;
     if ( !pos__o ) return false;
-    if ( !pos_end__o ) return false;
+    if ( pos_end__o ) return false;
 
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
 
@@ -367,8 +367,17 @@ bool cc_fetch_starting_pos( char const * restrict an_str,
                                                 ply_end,
                                                 is_disambiguation,
                                                 &pos_c8 );
-    if ( is_mandatory )
-        if ( !pos_end ) return false;
+    if ( !pos_end )
+    {
+        if ( !is_mandatory )
+        {
+            *pos__o = CC_POS_CAST_INVALID;
+            // pos_end__o = NULL; // Checked at start.
+            return true;
+        }
+        else
+            return false;
+    }
 
     CcPos pos = CC_POS_CAST_INVALID;
 

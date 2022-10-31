@@ -86,12 +86,12 @@ static bool cc_append_steps( CcGame * restrict game,
         char * pos_str_end = NULL;
 
         if ( !cc_fetch_starting_pos( c_str,
-                                        ply_end_str,
-                                        true,
-                                        false,
-                                        game->chessboard->size,
-                                        &pos,
-                                        pos_str_end ) )
+                                     ply_end_str,
+                                     true,
+                                     false,
+                                     game->chessboard->size,
+                                     &pos,
+                                     pos_str_end ) )
         {
             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
             char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
@@ -936,18 +936,21 @@ static bool cc_make_plies( char const * restrict move_an_str,
             //
             // Steps, from notation.
 
-            CcSteps * steps__a = cc_steps__new( CC_SLE_Start,
-                                                start,
-                                                CC_SIDE_EFFECT_CAST_INVALID );
+            CcSteps * steps__a = NULL;
+
+            if ( cc_chessboard_is_pos_on_board( game->chessboard, start.i, start.j ) )
+                steps__a = cc_steps__new( CC_SLE_Start,
+                                          start,
+                                          CC_SIDE_EFFECT_CAST_INVALID );
 
             if ( ply_has_steps )
             {
                 if ( !cc_append_steps( game,
-                                        c_str,
-                                        ply_end_str,
-                                        cb__a,
-                                        &steps__a,
-                                        parse_msgs__io ) )
+                                       c_str,
+                                       ply_end_str,
+                                       cb__a,
+                                       &steps__a,
+                                       parse_msgs__io ) )
                 {
                     // <i> Parse msgs are added within cc_append_steps().
 
