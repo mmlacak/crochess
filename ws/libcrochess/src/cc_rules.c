@@ -864,19 +864,29 @@ static bool cc_make_plies( char const * restrict move_an_str,
 
             if ( !cc_starting_pos( c_str, &position, &position_str_end ) )
             {
-                char * ply_str__a = cc_str_copy__new( ply_start_str,
-                                                      ply_end_str,
-                                                      CC_MAX_LEN_ZERO_TERMINATED );
+                if ( CC_IS_COORD_2_ON_BOARD( game->chessboard->size,
+                                             disambiguation.i,
+                                             disambiguation.j ) )
+                {
+                    position = disambiguation;
+                    disambiguation = CC_POS_CAST_INVALID;
+                }
+                else
+                {
+                    char * ply_str__a = cc_str_copy__new( ply_start_str,
+                                                        ply_end_str,
+                                                        CC_MAX_LEN_ZERO_TERMINATED );
 
-                cc_parse_msgs_append_if_format( parse_msgs__io,
-                                                CC_PMTE_Error,
-                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Invalid char(s) in position, in ply '%s'.\n",
-                                                ply_str__a );
+                    cc_parse_msgs_append_if_format( parse_msgs__io,
+                                                    CC_PMTE_Error,
+                                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                                    "Invalid char(s) in position, in ply '%s'.\n",
+                                                    ply_str__a );
 
-                CC_FREE( ply_str__a );
-                cc_chessboard_free_all( &cb__a );
-                return false;
+                    CC_FREE( ply_str__a );
+                    cc_chessboard_free_all( &cb__a );
+                    return false;
+                }
             }
 
             if ( position_str_end ) c_str = position_str_end;
