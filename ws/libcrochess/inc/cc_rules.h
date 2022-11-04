@@ -11,6 +11,15 @@
 #include "cc_parse_msgs.h"
 
 
+// static bool cc_check_pre_plies_status( char const char_an,
+//                                        CcGame * restrict game__io,
+//                                        CcParseMsgs ** restrict parse_msgs__io,
+//                                        bool is_resign,
+//                                        bool is_end,
+//                                        bool is_won,
+//                                        size_t max_len__d,
+//                                        char const * restrict msg, ... )
+
 // static bool cc_append_steps( CcGame * restrict game,
 //                              char const * restrict ply_start_str,
 //                              char const * restrict ply_end_str,
