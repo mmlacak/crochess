@@ -57,19 +57,19 @@ static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
 }
 
 
-bool cc_check_valid_draw_offer_exists( CcMoves * restrict moves,
+bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
                                        CcGameStatusEnum gse )
 {
     if ( !moves ) return false;
     if ( !CC_GAME_STATUS_IS_TURN( gse ) ) return false;
 
     int draw_offer = CC_DRAW_OFFER_NOT_FOUND;
-    CcMoves * m = moves;
+    CcMove * m = moves;
     while ( m->next ) m = m->next; // rewind to last
 
     while ( m )
     {
-        draw_offer = cc_an_str_ends_with_draw_offer( m->an,
+        draw_offer = cc_an_str_ends_with_draw_offer( m->notation,
                                                      NULL,
                                                      CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -88,33 +88,33 @@ bool cc_check_valid_draw_offer_exists( CcMoves * restrict moves,
     return false;
 }
 
-CcLosingTagCheckResultEnum cc_check_losing_tag( CcLosingTagEnum lte,
-                                                CcTagEnum te )
+bool cc_check_tag_is_lost( CcTagEnum tag_lost, CcTagEnum te )
 {
-    switch ( lte )
-    {
-        case CC_LTE_None : return CC_LTCRE_NoTag;
+    // switch ( lte )
+    // {
+    //     case CC_LTE_None : return CC_LTCRE_NoTag;
 
-        case CC_LTE_Promotion :
-            if ( te == CC_TE_DelayedPromotion )
-                return CC_LTCRE_TagLost;
-            else
-                return CC_LTCRE_TagNotFound;
+    //     case CC_LTE_Promotion :
+    //         if ( te == CC_TE_DelayedPromotion )
+    //             return CC_LTCRE_TagLost;
+    //         else
+    //             return CC_LTCRE_TagNotFound;
 
-        case CC_LTE_Rushing :
-            if ( te == CC_TE_CanRush )
-                return CC_LTCRE_TagLost;
-            else
-                return CC_LTCRE_TagNotFound;
+    //     case CC_LTE_Rushing :
+    //         if ( te == CC_TE_CanRush )
+    //             return CC_LTCRE_TagLost;
+    //         else
+    //             return CC_LTCRE_TagNotFound;
 
-        case CC_LTE_Castling :
-            if ( te == CC_TE_CanCastle )
-                return CC_LTCRE_TagLost;
-            else
-                return CC_LTCRE_TagNotFound;
+    //     case CC_LTE_Castling :
+    //         if ( te == CC_TE_CanCastle )
+    //             return CC_LTCRE_TagLost;
+    //         else
+    //             return CC_LTCRE_TagNotFound;
 
-        default : return CC_LTCRE_TagNotFound;
-    }
+    //     default : return CC_LTCRE_TagNotFound;
+    // }
+    return tag_lost == te;
 }
 
 bool cc_delete_en_passant_tag( CcChessboard * restrict cb )

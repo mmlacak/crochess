@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.197:629+20221104.001807"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.198:630+20221109.224102"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -143,7 +143,7 @@ int main( void )
         else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) )
         {
-            cc_moves_print( game__a->moves );
+            cc_move_print_all( game__a->moves );
         }
         else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) )
@@ -156,20 +156,22 @@ int main( void )
 
                 CcParseMsgs * pms__a = NULL;
 
-                if ( cc_apply_move( an_str, game__a, &pms__a ) )
-                {
-                    // TODO :: TEMP :: uncomment (?)
-                    // cc_chessboard_print( game__a->chessboard, true );
-                }
-                else
-                {
-                    CcParseMsgs * p = pms__a;
-                    while ( p )
-                    {
-                        printf( "%s\n", p->msg );
-                        p = p->next;
-                    }
-                }
+// TODO
+                // if ( cc_apply_move( an_str, game__a, &pms__a ) )
+                // {
+                //     // TODO :: TEMP :: uncomment (?)
+                //     // cc_chessboard_print( game__a->chessboard, true );
+                // }
+                // else
+                // {
+                //     CcParseMsgs * p = pms__a;
+                //     while ( p )
+                //     {
+                //         printf( "%s\n", p->msg );
+                //         p = p->next;
+                //     }
+                // }
+// TODO
 
                 cc_parse_msgs_free_all( &pms__a );
             }

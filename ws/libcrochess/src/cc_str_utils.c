@@ -408,7 +408,7 @@ char * cc_str_duplicate__new( char const * restrict str,
     if ( !str ) return NULL;
 
     size_t len = cc_str_len( str, NULL, max_len__d );
-    char * str__a = (char *)malloc( len + 1 );
+    char * str__a = (char *)malloc( len + 1 ); // +1 for '\0'
     if ( !str__a ) return NULL;
 
     if ( len > 0 )

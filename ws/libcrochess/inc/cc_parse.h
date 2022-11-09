@@ -7,8 +7,13 @@
 #include <stddef.h>
 
 #include "cc_piece.h"
+#include "cc_tag.h"
 #include "cc_pos.h"
+
 #include "cc_parse_defs.h"
+#include "cc_side_effect.h"
+#include "cc_step.h"
+#include "cc_ply.h"
 
 /**
     @file cc_parse.h
@@ -49,9 +54,9 @@ bool cc_ply_iter( char const * restrict an_str,
 bool cc_find_ply_piece_symbol( char const * restrict an_str,
                                char * restrict piece_symbol__o );
 
-CcLosingTagEnum cc_starting_losing_tag( char const * restrict an_str );
+CcTagEnum cc_starting_losing_tag( char const * restrict an_str );
 
-size_t cc_losing_tag_len( CcLosingTagEnum lte );
+size_t cc_losing_tag_len( CcTagEnum lte );
 
 bool cc_convert_starting_coords( char const * restrict pos,
                                  int * restrict file__o,

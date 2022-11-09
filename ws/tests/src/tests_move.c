@@ -60,23 +60,25 @@ bool test_move( char const * restrict an_str,
         cc_game_free_all( &setup__a );
     }
 
-    if ( ( result = cc_apply_move( an_str, game__a, &pms__a ) && result ) )
-    {
-        // TODO :: TEMP :: un/comment (?)
-        cc_chessboard_print( game__a->chessboard, true );
-        cc_chessboard_print( game__a->chessboard, false );
-    }
-    else
-    {
-        result_at |= 0x2;
+// TODO
+    // if ( ( result = cc_apply_move( an_str, game__a, &pms__a ) && result ) )
+    // {
+    //     // TODO :: TEMP :: un/comment (?)
+    //     cc_chessboard_print( game__a->chessboard, true );
+    //     cc_chessboard_print( game__a->chessboard, false );
+    // }
+    // else
+    // {
+    //     result_at |= 0x2;
 
-        CcParseMsgs * p = pms__a;
-        while ( p )
-        {
-            printf( "%s\n", p->msg );
-            p = p->next;
-        }
-    }
+    //     CcParseMsgs * p = pms__a;
+    //     while ( p )
+    //     {
+    //         printf( "%s\n", p->msg );
+    //         p = p->next;
+    //     }
+    // }
+// TODO
 
     if ( check_end__d )
     {
@@ -91,10 +93,10 @@ bool test_move( char const * restrict an_str,
 
     if ( game__a->moves )
     {
-        CcMoves * m = game__a->moves;
+        CcMove * m = game__a->moves;
         while ( m->next ) m = m->next;
 
-        result = cc_str_is_equal( an_str, NULL, m->an, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
+        result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
         if ( !result ) result_at |= 0x8;
     }
     else

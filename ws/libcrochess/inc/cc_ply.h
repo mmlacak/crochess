@@ -1,0 +1,229 @@
+// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
+
+#ifndef __CC_PLY_H__
+#define __CC_PLY_H__
+
+#include <stdbool.h>
+
+#include "cc_piece.h"
+#include "cc_step.h"
+
+/**
+    @file cc_ply.h
+    @brief Ply definition. Plies linked list.
+*/
+
+/**
+    Ply link enumeration.
+
+    This enumerates different ways plies can cascade,
+    and directly corresponds to cascading plies separators and terminators.
+*/
+typedef enum CcPlyLinkEnum
+{
+    CC_PLE_None, /**< Ply link not found, uninitialized, or error happened. */
+    CC_PLE_StartingPly, /**< Just first ply, standalone or starting a cascade. */
+    CC_PLE_CascadingPly, /**< Just one ply, continuing cascade. Corresponds to `~`. */
+    CC_PLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
+    CC_PLE_FailedTeleportation, /**< Failed teleportation, corresponds to `||`. */
+    CC_PLE_TranceJourney, /**< Trance-journey, corresponds to `@`. */
+    CC_PLE_DualTranceJourney, /**< Double trance-journey, corresponds to `@@`. */
+    CC_PLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
+    CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
+} CcPlyLinkEnum;
+
+/**
+    Function returns string symbol, as used in algebraic notation, for a given ply link.
+
+    @param ple A ply linkage.
+
+    @note
+    Returned string is pre-defined in library, not allocated one, so it needs no `free()`-ing.
+
+    @return String symbol if link is valid, `NULL` otherwise.
+*/
+char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
+
+
+/**
+    Ply structure, linked list.
+
+    @warning
+    `steps` change meaning, depending on ply `link`.
+    `steps` can have only one item in a linked list, if a single destination field is needed.
+    `steps` can be empty (`NULL`) for certain ply links.
+
+    |                             `link` |                                                                      `steps` |
+    | ---------------------------------: | ---------------------------------------------------------------------------: |
+    |                         CC_PLE_Ply |                                                       steps taken by a piece |
+    |               CC_PLE_Teleportation |                             steps taken if Wave, otherwise destination field |
+    |         CC_PLE_FailedTeleportation | steps are empty (`NULL`) if piece is oblationed, destination field otherwise |
+    |               CC_PLE_TranceJourney |                                                       steps taken by a piece |
+    |           CC_PLE_DualTranceJourney |                                          fields at which pieces are captured |
+    |         CC_PLE_FailedTranceJourney |                                                     steps are empty (`NULL`) |
+    |               CC_PLE_PawnSacrifice |                                                     steps taken by a Serpent |
+*/
+typedef struct CcPly
+{
+    CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
+    CcPieceEnum piece; /**< A piece being moved. */
+    CcStep * steps; /**< Steps taken by the piece. */
+    struct CcPly * next; /**< Next ply in a cascade. */
+} CcPly;
+
+/**
+    Returns newly allocated ply.
+
+    @param link Link to previous ply in a cascade.
+    @param piece A piece.
+    @param steps__n Steps, linked list, can be `NULL`.
+
+    @warning
+    Takes ownership of steps, inner pointer will be set to `NULL`, if valid ply is produced.
+
+    @warning
+    If no valid ply is produced, steps are still valid, and accessible.
+
+    @return
+    A newly allocated ply, is successful, `NULL` otherwise.
+*/
+CcPly * cc_ply__new( CcPlyLinkEnum link,
+                     CcPieceEnum piece,
+                     CcStep ** restrict steps__n );
+
+
+/**
+    Appends a newly allocated ply to a given linked list.
+
+    @param plies__io _Input/ouput_ parameter, plies linked list.
+    @param link Link to previous ply in a cascade.
+    @param piece A piece.
+    @param steps__n Steps, linked list, can be `NULL`.
+
+    @see cc_ply__new()
+
+    @return
+    Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
+*/
+CcPly * cc_ply_append( CcPly * restrict plies__io,
+                       CcPlyLinkEnum link,
+                       CcPieceEnum piece,
+                       CcStep ** restrict steps__n );
+
+/**
+    Allocates a new ply, appends it to a linked list.
+
+    @param plies__io _Input/output_ parameter, linked list of plies, to which a newly allocated ply is appended, can be `NULL`.
+    @param link Link to previous ply in a cascade.
+    @param piece A piece.
+    @param steps__n Steps, linked list, can be `NULL`.
+
+    @note
+    Linked list `*plies__io` can be `NULL`, a ply will still be allocated, and returned.
+
+    @note
+    If linked list `*plies__io` is `NULL`, it will be initialized,
+    with a newly allocated ply as its first element.
+
+    @return
+    Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
+*/
+CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
+                               CcPlyLinkEnum link,
+                               CcPieceEnum piece,
+                               CcStep ** restrict steps__n );
+
+/**
+    Duplicates a given plies into a newly allocated linked list.
+
+    @param plies Linked list to duplicate.
+
+    @return
+    A newly allocated plies, is successful, `NULL` otherwise.
+*/
+CcPly * cc_plies_duplicate_all__new( CcPly * restrict plies );
+
+/**
+    Checks if a given ply is valid.
+
+    @param ply A ply, technically a linked list of plies.
+    @param board_size A chessboard size.
+
+    @note
+    Only single ply is checked, rest of a linked list (accessible
+    via `next` member) is not checked.
+
+    @return `true` if valid, `false` otherwise.
+*/
+bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
+
+/**
+    Checks if all plies in a given linked list are valid.
+
+    @param plies A linked list of plies.
+    @param board_size A chessboard size.
+
+    @return `true` if valid, `false` otherwise.
+*/
+bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size );
+
+/**
+    Frees all plies in a linked list, and all associated entities.
+
+    @param plies__f Linked list of plies.
+
+    @warning
+    In case of an error, function will continue to free accessible resources,
+    failure will still be reported as such.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_plies_free_all( CcPly ** restrict plies__f );
+
+/**
+    Checks whether any step in a ply has side-effects.
+
+    @param ply A ply.
+
+    @return `true` if any step has side-effects, `false` otherwise.
+*/
+bool cc_ply_contains_side_effects( CcPly * restrict ply );
+
+/**
+    Function returns count of steps owned by a given ply.
+
+    @param ply A ply.
+    @param usage A step formatting usage, used to filter out steps less relevant for a given formatting.
+    @param include_starting_pos Flag if starting position (technically, not a step!) should be included in returned count.
+
+    @see CcFormatStepUsageEnum
+
+    @return Count of steps if successful, `0` otherwise.
+*/
+size_t cc_ply_step_count( CcPly * restrict ply,
+                          CcFormatStepUsageEnum usage,
+                          bool include_starting_pos );
+
+/**
+    Function returns last active piece for a ply, within a given linked list.
+
+    Last active piece for a ply is piece in that ply, if it's active.
+
+    @param plies A linked list of plies.
+    @param ply A ply, within given linked list; can be `NULL`.
+
+    @note
+    If `ply` is `NULL`, last active piece in a complete linked list is returned.
+
+    @note
+    If `ply` is given, but does not belong to a given linked list,
+    failure is indicated by returning `CC_PE_None`.
+
+    @return Last active piece if successful, `CC_PE_None` otherwise.
+*/
+CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
+                                      CcPly * restrict ply );
+
+
+#endif /* __CC_PLY_H__ */

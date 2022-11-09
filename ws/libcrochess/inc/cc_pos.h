@@ -206,64 +206,64 @@ int cc_pos_momentum( CcPos start, CcPos destination );
 bool cc_pos_to_short_string( CcPos pos,
                              cc_char_8 * restrict pos_str__o );
 
-//
-// Side-effects.
+// //
+// // Side-effects.
 
-/**
-    Side-effects enumeration.
+// /**
+//     Side-effects enumeration.
 
-    This enumerates all side-effects, except losing tags.
-*/
-typedef enum CcSideEffectEnum
-{
-    CC_SEE_None, /**< Side-effect not found, uninitialized, or error happened. */
-    CC_SEE_Capturing, /**< Capturing, corresponds to * (asterisk). */
-    CC_SEE_Displacement, /**< Trance-journey displacement, correspondes to < (less-than). */
-    CC_SEE_EnPassant, /**< En passant, corresponds to : (colon). */
-    CC_SEE_Castling, /**< Castling, corresponds to & (ampersand). */
-    CC_SEE_Promotion, /**< Promotion, corresponds to = (equal sign). */
-    CC_SEE_PromotionNoSign, /**< Promotion, without sign. */
-    CC_SEE_TagForPromotion, /**< Tag for promotion, corresponds to = (equal sign). */
-    CC_SEE_Conversion, /**< Conversion, corresponds to % (percent sign). */
-    CC_SEE_FailedConversion, /**< Failed conversion, corresponds to %% (double percent sign). */
-    CC_SEE_DemotingToPawn, /**< Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
-    CC_SEE_Resurrection, /**< Syzygy, resurrection, corresponds to $ (dollar-sign). */
-    CC_SEE_FailedResurrection, /**< Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
-} CcSideEffectEnum;
+//     This enumerates all side-effects, except losing tags.
+// */
+// typedef enum CcSideEffectEnum
+// {
+//     CC_SEE_None, /**< Side-effect not found, uninitialized, or error happened. */
+//     CC_SEE_Capture, /**< Capturing, corresponds to * (asterisk). */
+//     CC_SEE_Displacement, /**< Trance-journey displacement, correspondes to < (less-than). */
+//     CC_SEE_EnPassant, /**< En passant, corresponds to : (colon). */
+//     CC_SEE_Castle, /**< Castling, corresponds to & (ampersand). */
+//     CC_SEE_Promotion, /**< Promotion, corresponds to = (equal sign). */
+//     CC_SEE_PromotionNoSign, /**< Promotion, without sign. */
+//     CC_SEE_TagForPromotion, /**< Tag for promotion, corresponds to = (equal sign). */
+//     CC_SEE_Conversion, /**< Conversion, corresponds to % (percent sign). */
+//     CC_SEE_FailedConversion, /**< Failed conversion, corresponds to %% (double percent sign). */
+//     CC_SEE_DemoteToPawn, /**< Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
+//     CC_SEE_Resurrection, /**< Syzygy, resurrection, corresponds to $ (dollar-sign). */
+//     CC_SEE_FailedResurrection, /**< Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+// } CcSideEffectEnum;
 
-/** TODO :: DOCS . */
-size_t cc_side_effect_an_len( CcSideEffectEnum see );
+// /** TODO :: DOCS . */
+// size_t cc_side_effect_an_len( CcSideEffectEnum see );
 
-/** TODO :: DOCS . */
-char const * cc_side_effect_symbol( CcSideEffectEnum see );
+// /** TODO :: DOCS . */
+// char const * cc_side_effect_symbol( CcSideEffectEnum see );
 
-/**
-    TODO :: DOCS .
-*/
-typedef struct CcSideEffect {
-    CcSideEffectEnum type; /**< TODO :: DOCS . */
-    CcPieceEnum piece; /**< TODO :: DOCS . */
-    CcPos pos; /**< TODO :: DOCS . */
-} CcSideEffect;
+// /**
+//     TODO :: DOCS .
+// */
+// typedef struct CcSideEffect {
+//     CcSideEffectEnum type; /**< TODO :: DOCS . */
+//     CcPieceEnum piece; /**< TODO :: DOCS . */
+//     CcPos pos; /**< TODO :: DOCS . */
+// } CcSideEffect;
 
-/**< TODO :: DOCS . */
-#define CC_SIDE_EFFECT_INVALID { .type = CC_SEE_None, .piece = CC_PE_None, .pos = CC_POS_INVALID }
+// /**< TODO :: DOCS . */
+// #define CC_SIDE_EFFECT_INVALID { .type = CC_SEE_None, .piece = CC_PE_None, .pos = CC_POS_INVALID }
 
-/**< TODO :: DOCS . */
-#define CC_SIDE_EFFECT_CAST_INVALID ( (CcSideEffect){ .type = CC_SEE_None, .piece = CC_PE_None, .pos = CC_POS_CAST_INVALID } )
+// /**< TODO :: DOCS . */
+// #define CC_SIDE_EFFECT_CAST_INVALID ( (CcSideEffect){ .type = CC_SEE_None, .piece = CC_PE_None, .pos = CC_POS_CAST_INVALID } )
 
-/** TODO :: DOCS . */
-CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos );
+// /** TODO :: DOCS . */
+// CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos );
 
-/** TODO :: DOCS . */
-bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 );
+// /** TODO :: DOCS . */
+// bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 );
 
-/** TODO :: DOCS . */
-bool cc_side_effect_is_valid( CcSideEffect se );
+// /** TODO :: DOCS . */
+// bool cc_side_effect_is_valid( CcSideEffect se );
 
-/** TODO :: DOCS . */
-bool cc_side_effect_to_short_str( CcSideEffect se,
-                                  cc_char_16 * restrict see_str__o );
+// /** TODO :: DOCS . */
+// bool cc_side_effect_to_short_str( CcSideEffect se,
+//                                   cc_char_16 * restrict see_str__o );
 
 //
 // Linked positions.
@@ -279,10 +279,10 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link__new(), CC_SIDE_EFFECT_CAST_INVALID
+    @see cc_pos_link__new()
 */
 #define CC_POS_LINK__NEW(int_i,int_j) \
-    cc_pos_link__new( cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+    cc_pos_link__new( cc_pos( (int_i), (int_j) ) )
 
 /**
     Macro to append a newly allocated new position link, with given coordinates.
@@ -296,10 +296,10 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link_append(), CC_SIDE_EFFECT_CAST_INVALID
+    @see cc_pos_link_append()
 */
 #define CC_POS_LINK_APPEND(ptr__pos_link__io,int_i,int_j) \
-    cc_pos_link_append( (ptr__pos_link__io), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+    cc_pos_link_append( (ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
 /**
     Macro to initialize or append a position linked list, with given coordinates.
@@ -313,18 +313,16 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link_append_if(), CC_SIDE_EFFECT_CAST_INVALID
+    @see cc_pos_link_append_if()
 */
 #define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,int_i,int_j) \
-    cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+    cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
 
 /**
     A linked list of positions.
 */
 typedef struct CcPosLink {
     CcPos pos; /**< A position. */
-    CcSideEffect side_effect; /** TODO :: DOCS . */
-
     struct CcPosLink * next; /**< Link to a next position. */
 } CcPosLink;
 
@@ -336,7 +334,7 @@ typedef struct CcPosLink {
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link__new( CcPos pos, CcSideEffect side_effect );
+CcPosLink * cc_pos_link__new( CcPos pos );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
@@ -348,8 +346,7 @@ CcPosLink * cc_pos_link__new( CcPos pos, CcSideEffect side_effect );
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPos pos,
-                                CcSideEffect side_effect );
+                                CcPos pos );
 
 /**
     Allocates a new linked position, appends it to a linked list.
@@ -369,8 +366,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPos pos,
-                                   CcSideEffect side_effect );
+                                   CcPos pos );
 
 /**
     Frees all positions in a linked list.

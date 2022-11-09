@@ -141,41 +141,40 @@ bool cc_find_ply_piece_symbol( char const * restrict an_str,
     return cc_is_piece_symbol( *piece_symbol__o );
 }
 
-CcLosingTagEnum cc_starting_losing_tag( char const * restrict an_str )
+CcTagEnum cc_starting_losing_tag( char const * restrict an_str )
 {
-    if ( !an_str ) return CC_LTE_None;
+    if ( !an_str ) return CC_TE_None;
 
     char const * c = an_str;
 
     if ( *c == '=' )
     {
         if ( *++c == '=' )
-            return CC_LTE_Promotion; // "==" losing promotion
+            return CC_TE_DelayedPromotion; // "==" losing promotion
     }
     else if ( *c == ':' )
     {
         if ( *++c == ':' )
-            return CC_LTE_Rushing; // "::" losing rushing
+            return CC_TE_CanRush; // "::" losing rushing
     }
     else if ( *c == '&' )
     {
         if ( *++c == '&' )
-            return CC_LTE_Castling; // "&&" losing castling
+            return CC_TE_CanCastle; // "&&" losing castling
     }
 
-    return CC_LTE_None;
+    return CC_TE_None;
 }
 
-size_t cc_losing_tag_len( CcLosingTagEnum lte )
+size_t cc_losing_tag_len( CcTagEnum lte )
 {
     switch ( lte )
     {
-        case CC_LTE_None : return 0; /**< Losing tag not found, uninitialized, or error happened. */
-        case CC_LTE_Promotion : return 2; /* Losing promotion, corresponds to == (dual equal sign). */
-        case CC_LTE_Rushing : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
-        case CC_LTE_Castling : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
+        case CC_TE_DelayedPromotion : return 2; /* Losing promotion, corresponds to == (dual equal sign). */
+        case CC_TE_CanRush : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
+        case CC_TE_CanCastle : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
 
-        default : return 0;
+        default : return 0; // Others are not losing tags.
     }
 }
 
@@ -400,7 +399,7 @@ CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str )
 
     if ( *c == '*' )
     {
-        return CC_SEE_Capturing;
+        return CC_SEE_Capture;
     }
     else if ( *c == '<' )
     {
@@ -412,7 +411,7 @@ CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str )
     }
     else if ( *c == '&' )
     {
-        return CC_SEE_Castling;
+        return CC_SEE_Castle;
     }
     else if ( *c == '=' )
     {
@@ -430,7 +429,7 @@ CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str )
     }
     else if ( *c == '>' )
     {
-        return CC_SEE_DemotingToPawn;
+        return CC_SEE_DemoteToPawn;
     }
     else if ( *c == '$' )
     {

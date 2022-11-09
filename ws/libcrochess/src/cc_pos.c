@@ -154,109 +154,108 @@ bool cc_pos_to_short_string( CcPos pos,
     return true;
 }
 
-//
-// Side-effects.
+// //
+// // Side-effects.
 
-size_t cc_side_effect_an_len( CcSideEffectEnum see )
-{
-    switch ( see )
-    {
-        case CC_SEE_None : return 0; /**< Side-effect not found, uninitialized, or error happened. */
-        case CC_SEE_Capturing : return 1; /* Capturing, corresponds to * (asterisk). */
-        case CC_SEE_Displacement : return 1; /* Trance-journey displacement, correspondes to < (less-than). */
-        case CC_SEE_EnPassant : return 1; /* En passant, corresponds to : (colon). */
-        case CC_SEE_Castling : return 1; /* Castling, corresponds to & (ampersand). */
-        case CC_SEE_Promotion : return 1; /* Promotion, corresponds to = (equal sign), optional. */
-        case CC_SEE_PromotionNoSign : return 0; /* Promotion, without sign. */
-        case CC_SEE_TagForPromotion : return 1; /* Tag for promotion, corresponds to = (equal sign). */
-        case CC_SEE_Conversion : return 1; /* Conversion, corresponds to % (percent sign). */
-        case CC_SEE_FailedConversion : return 2; /* Failed conversion, corresponds to %% (double percent sign). */
-        case CC_SEE_DemotingToPawn : return 1; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
-        case CC_SEE_Resurrection : return 1; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
-        case CC_SEE_FailedResurrection : return 2; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+// size_t cc_side_effect_an_len( CcSideEffectEnum see )
+// {
+//     switch ( see )
+//     {
+//         case CC_SEE_None : return 0; /**< Side-effect not found, uninitialized, or error happened. */
+//         case CC_SEE_Capture : return 1; /* Capturing, corresponds to * (asterisk). */
+//         case CC_SEE_Displacement : return 1; /* Trance-journey displacement, correspondes to < (less-than). */
+//         case CC_SEE_EnPassant : return 1; /* En passant, corresponds to : (colon). */
+//         case CC_SEE_Castle : return 1; /* Castling, corresponds to & (ampersand). */
+//         case CC_SEE_Promotion : return 1; /* Promotion, corresponds to = (equal sign), optional. */
+//         case CC_SEE_PromotionNoSign : return 0; /* Promotion, without sign. */
+//         case CC_SEE_TagForPromotion : return 1; /* Tag for promotion, corresponds to = (equal sign). */
+//         case CC_SEE_Conversion : return 1; /* Conversion, corresponds to % (percent sign). */
+//         case CC_SEE_FailedConversion : return 2; /* Failed conversion, corresponds to %% (double percent sign). */
+//         case CC_SEE_DemoteToPawn : return 1; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
+//         case CC_SEE_Resurrection : return 1; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
+//         case CC_SEE_FailedResurrection : return 2; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
 
-        default : return 0;
-    }
-}
+//         default : return 0;
+//     }
+// }
 
-char const * cc_side_effect_symbol( CcSideEffectEnum see )
-{
-    switch ( see )
-    {
-        case CC_SEE_None : return ""; /**< Side-effect not found, uninitialized, or error happened. */
-        case CC_SEE_Capturing : return "*"; /* Capturing, corresponds to * (asterisk). */
-        case CC_SEE_Displacement : return "<"; /* Trance-journey displacement, correspondes to < (less-than). */
-        case CC_SEE_EnPassant : return ":"; /* En passant, corresponds to : (colon). */
-        case CC_SEE_Castling : return "&"; /* Castling, corresponds to & (ampersand). */
-        case CC_SEE_Promotion : return "="; /* Promotion, corresponds to = (equal sign), optional. */
-        case CC_SEE_PromotionNoSign : return "="; /* Promotion, without sign. */
-        case CC_SEE_TagForPromotion : return "="; /* Tag for promotion, corresponds to = (equal sign). */
-        case CC_SEE_Conversion : return "%"; /* Conversion, corresponds to % (percent sign). */
-        case CC_SEE_FailedConversion : return "%%"; /* Failed conversion, corresponds to %% (double percent sign). */
-        case CC_SEE_DemotingToPawn : return ">"; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
-        case CC_SEE_Resurrection : return "$"; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
-        case CC_SEE_FailedResurrection : return "$$"; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+// char const * cc_side_effect_symbol( CcSideEffectEnum see )
+// {
+//     switch ( see )
+//     {
+//         case CC_SEE_None : return ""; /**< Side-effect not found, uninitialized, or error happened. */
+//         case CC_SEE_Capture : return "*"; /* Capturing, corresponds to * (asterisk). */
+//         case CC_SEE_Displacement : return "<"; /* Trance-journey displacement, correspondes to < (less-than). */
+//         case CC_SEE_EnPassant : return ":"; /* En passant, corresponds to : (colon). */
+//         case CC_SEE_Castle : return "&"; /* Castling, corresponds to & (ampersand). */
+//         case CC_SEE_Promotion : return "="; /* Promotion, corresponds to = (equal sign), optional. */
+//         case CC_SEE_PromotionNoSign : return "="; /* Promotion, without sign. */
+//         case CC_SEE_TagForPromotion : return "="; /* Tag for promotion, corresponds to = (equal sign). */
+//         case CC_SEE_Conversion : return "%"; /* Conversion, corresponds to % (percent sign). */
+//         case CC_SEE_FailedConversion : return "%%"; /* Failed conversion, corresponds to %% (double percent sign). */
+//         case CC_SEE_DemoteToPawn : return ">"; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
+//         case CC_SEE_Resurrection : return "$"; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
+//         case CC_SEE_FailedResurrection : return "$$"; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
 
-        default : return "?";
-    }
-}
+//         default : return "?";
+//     }
+// }
 
-CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos )
-{
-    CcSideEffect se = { .type = type, .piece = piece, .pos = pos };
-    return se;
-}
+// CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos )
+// {
+//     CcSideEffect se = { .type = type, .piece = piece, .pos = pos };
+//     return se;
+// }
 
-bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 )
-{
-    return ( ( se_1.type == se_2.type ) &&
-             ( se_1.piece == se_2.piece ) &&
-             cc_pos_is_equal( se_1.pos, se_2.pos ) );
-}
+// bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 )
+// {
+//     return ( ( se_1.type == se_2.type ) &&
+//              ( se_1.piece == se_2.piece ) &&
+//              cc_pos_is_equal( se_1.pos, se_2.pos ) );
+// }
 
-bool cc_side_effect_is_valid( CcSideEffect se )
-{
-    return ( !cc_side_effect_is_equal( se, CC_SIDE_EFFECT_CAST_INVALID ) );
-}
+// bool cc_side_effect_is_valid( CcSideEffect se )
+// {
+//     return ( !cc_side_effect_is_equal( se ) );
+// }
 
-bool cc_side_effect_to_short_str( CcSideEffect se,
-                                  cc_char_16 * restrict se_str__o )
-{
-    if ( !cc_str_clear( *se_str__o, CC_MAX_LEN_CHAR_16 ) )
-        return false;
+// bool cc_side_effect_to_short_str( CcSideEffect se,
+//                                   cc_char_16 * restrict se_str__o )
+// {
+//     if ( !cc_str_clear( *se_str__o, CC_MAX_LEN_CHAR_16 ) )
+//         return false;
 
-    if ( se.type == CC_SEE_None )
-        return true;
+//     if ( se.type == CC_SEE_None )
+//         return true;
 
-    char * se_end = (char *)(se_str__o);
+//     char * se_end = (char *)(se_str__o);
 
-    char const * see_str = cc_side_effect_symbol( se.type );
-    se_end += cc_str_copy( see_str, NULL, 2, *se_str__o, CC_MAX_LEN_CHAR_16 );
+//     char const * see_str = cc_side_effect_symbol( se.type );
+//     se_end += cc_str_copy( see_str, NULL, 2, *se_str__o, CC_MAX_LEN_CHAR_16 );
 
-    char piece = cc_piece_symbol( se.piece );
-    *se_end++ = piece;
+//     char piece = cc_piece_symbol( se.piece );
+//     *se_end++ = piece;
 
-    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-    if ( !cc_pos_to_short_string( se.pos, &pos_c8 ) )
-        return false;
+//     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+//     if ( !cc_pos_to_short_string( se.pos, &pos_c8 ) )
+//         return false;
 
-    size_t unused = CC_MAX_LEN_CHAR_16 - ( se_end - (char *)(se_str__o) );
-    // Not used afterwards. /* se_end += */
-    cc_str_copy( pos_c8, NULL, CC_MAX_LEN_CHAR_8, se_end, unused );
+//     size_t unused = CC_MAX_LEN_CHAR_16 - ( se_end - (char *)(se_str__o) );
+//     // Not used afterwards. /* se_end += */
+//     cc_str_copy( pos_c8, NULL, CC_MAX_LEN_CHAR_8, se_end, unused );
 
-    return true;
-}
+//     return true;
+// }
 
 //
 // Linked positions.
 
-CcPosLink * cc_pos_link__new( CcPos pos, CcSideEffect side_effect )
+CcPosLink * cc_pos_link__new( CcPos pos )
 {
     CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
     if ( !pl__t ) return NULL;
 
     pl__t->pos = pos;
-    pl__t->side_effect = side_effect;
 
     pl__t->next = NULL;
 
@@ -264,12 +263,11 @@ CcPosLink * cc_pos_link__new( CcPos pos, CcSideEffect side_effect )
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPos pos,
-                                CcSideEffect side_effect )
+                                CcPos pos )
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__t = cc_pos_link__new( pos, side_effect );
+    CcPosLink * pl__t = cc_pos_link__new( pos );
     if ( !pl__t ) return NULL;
 
     CcPosLink * pl = pos_link__io;
@@ -282,17 +280,16 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 }
 
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPos pos,
-                                   CcSideEffect side_effect )
+                                   CcPos pos )
 {
     if ( !pos_link__io ) return NULL;
 
     CcPosLink * pl__w = NULL;
 
     if ( !*pos_link__io )
-        *pos_link__io = pl__w = cc_pos_link__new( pos, side_effect );
+        *pos_link__io = pl__w = cc_pos_link__new( pos );
     else
-        pl__w = cc_pos_link_append( *pos_link__io, pos, side_effect );
+        pl__w = cc_pos_link_append( *pos_link__io, pos );
 
     return pl__w;
 }
@@ -377,12 +374,6 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
 
         unused -= ( pl_end - pl_str );
         pl_str = pl_end;
-
-        if ( !cc_side_effect_to_short_str( pl->side_effect, &se_c16 ) )
-        {
-            CC_FREE( pl_str__a );
-            return NULL;
-        }
 
         pl_end = cc_str_append_into( pl_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
         if ( !pl_end )

@@ -169,9 +169,9 @@ CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ] =
     CC_POS_INVALID,
 };
 
-bool cc_step_is_valid( CcPos step,
-                       CcPos const array[  ],
-                       size_t array_len )
+bool cc_steps_pos_is_valid( CcPos step,
+                            CcPos const array[  ],
+                            size_t array_len )
 {
     for ( int k = 0; (size_t)k < array_len; ++k )
     {
