@@ -37,6 +37,7 @@ CcStep * cc_step__new( CcStepLinkEnum link,
     step__a->i = i;
     step__a->j = j;
     step__a->side_effect = side_effect;
+
     step__a->next = NULL;
 
     return step__a;
@@ -105,6 +106,22 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io )
 }
 // TODO :: REWRITE :: using cc_step_append_if
 
+size_t cc_step_count( CcStep * restrict steps )
+{
+    if ( !steps ) return 0;
+
+    size_t count = 0;
+    CcStep * s = steps;
+
+    while ( s )
+    {
+        ++count;
+        s = s->next;
+    }
+
+    return count;
+}
+
 bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size )
 {
     if ( !step ) return false;
@@ -149,6 +166,106 @@ bool cc_step_all_are_valid( CcStep * restrict steps, unsigned int board_size )
     return true;
 }
 
+// bool cc_steps_are_congruent( CcSteps * restrict steps,
+//                              CcPosLink * restrict positions )
+// {
+//     if ( !steps ) return false;
+//     if ( !positions ) return false;
+
+//     CcPosLink * p = positions;
+//     CcSteps * prev_s = NULL;
+//     CcSteps * s = steps;
+
+//     while ( s->prev ) s = s->prev; // rewind
+
+//     while ( s )
+//     {
+//         switch ( s->step_link )
+//         {
+//             case CC_SLE_Start :
+//             {
+//                 if ( !s->prev && ( p == positions ) ) // First step, and position?
+//                 {
+//                     if ( !cc_pos_is_congruent( s->pos, p->pos ) )
+//                         return false;
+//                 }
+//                 else
+//                     return false;
+
+//                 break;
+//             }
+
+//             case CC_SLE_Reposition :
+//             case CC_SLE_Next :
+//             {
+//                 if ( p && p->next )
+//                 {
+//                     // If reposition, position before must be the first one.
+//                     if ( ( s->step_link == CC_SLE_Reposition ) &&
+//                          ( p != positions ) )
+//                             return false;
+
+//                     p = p->next;
+
+//                     if ( !cc_pos_is_equal( s->pos, p->pos ) )
+//                         return false;
+//                 }
+//                 else
+//                     return false;
+
+//                 break;
+//             }
+
+//             case CC_SLE_Distant :
+//             {
+//                 if ( p )
+//                     p = p->next;
+//                 else
+//                     return false;
+
+//                 bool found = false;
+
+//                 while ( p )
+//                 {
+//                     if ( cc_pos_is_equal( s->pos, p->pos ) )
+//                     {
+//                         found = true;
+//                         break;
+//                     }
+
+//                     p = p->next;
+//                 }
+
+//                 if ( !found )
+//                     return false;
+
+//                 break;
+//             }
+
+//             case CC_SLE_Destination :
+//             {
+//                 if ( s->next ) return false; // Not the last one?
+
+//                 while ( p && p->next ) p = p->next; // rewind
+
+//                 if ( !cc_pos_is_equal( s->pos, p->pos ) )
+//                     return false;
+
+//                 break;
+//             }
+
+//             case CC_SLE_None :
+//             default :
+//                 return false;
+//         }
+
+//         prev_s = s;
+//         s = s->next;
+//     }
+
+//     return ( prev_s && !prev_s->next && p && !p->next );
+// }
+
 bool cc_step_free_all( CcStep ** restrict steps__f )
 {
     if ( !steps__f ) return false;
@@ -166,6 +283,117 @@ bool cc_step_free_all( CcStep ** restrict steps__f )
     *steps__f = NULL;
     return true;
 }
+
+// char * cc_steps_to_short_string__new( CcSteps * restrict steps )
+// {
+//     if ( !steps ) return NULL;
+
+//     // unused len is certainly > 0, because steps != NULL
+//     signed int unused = cc_steps_len( steps ) *
+//                         ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 );
+//                         // CC_MAX_LEN_CHAR_8, for position
+//                         // + CC_MAX_LEN_CHAR_16, for side-effect
+//                         // + 2, for step links, e.g. ".." before step
+
+//     char * steps_str__a = malloc( unused + 1 ); // +1, for '\0'
+//     if ( !steps_str__a ) return NULL;
+
+//     // *steps_str__a = '\0'; // Not needed, done after a switch below.
+
+//     char * steps_str = steps_str__a;
+//     char * steps_end = steps_str;
+//     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+//     cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
+//     CcSteps * s = steps;
+
+//     while ( s && ( unused > 0 ) )
+//     {
+//         switch ( s->step_link )
+//         {
+//             case CC_SLE_None :
+//             {
+//                 *steps_str++ = '?';
+//                 break;
+//             }
+
+//             case CC_SLE_Start :
+//             {
+//                 *steps_str++ = '`';
+//                 break;
+//             }
+
+//             case CC_SLE_Reposition :
+//             {
+//                 *steps_str++ = ',';
+//                 break;
+//             }
+
+//             case CC_SLE_Next :
+//             {
+//                 *steps_str++ = '.';
+//                 break;
+//             }
+
+//             case CC_SLE_Distant :
+//             {
+//                 *steps_str++ = '.';
+//                 *steps_str++ = '.';
+//                 break;
+//             }
+
+//             case CC_SLE_Destination :
+//             {
+//                 *steps_str++ = '-';
+//                 break;
+//             }
+
+//             default :
+//             {
+//                 *steps_str++ = '!';
+//                 break;
+//             }
+//         }
+
+//         *steps_str = '\0';
+
+//         if ( !cc_pos_to_short_string( s->pos, &pos_c8 ) )
+//         {
+//             CC_FREE( steps_str__a );
+//             return NULL;
+//         }
+
+//         steps_end = cc_str_append_into( steps_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
+//         if ( !steps_end )
+//         {
+//             CC_FREE( steps_str__a );
+//             return NULL;
+//         }
+
+//         unused -= ( steps_end - steps_str );
+//         steps_str = steps_end;
+
+//         if ( !cc_side_effect_to_short_str( s->side_effect, &se_c16 ) )
+//         {
+//             CC_FREE( steps_str__a );
+//             return NULL;
+//         }
+
+//         steps_end = cc_str_append_into( steps_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
+//         if ( !steps_end )
+//         {
+//             CC_FREE( steps_str__a );
+//             return NULL;
+//         }
+
+//         unused -= ( steps_end - steps_str );
+//         steps_str = steps_end;
+
+//         s = s->next;
+//     }
+
+//     return steps_str__a;
+// }
+
 
 //
 // new conveniences
@@ -438,21 +666,4 @@ CcStep * cc_step_failed_resurrection_append_if( CcStep ** restrict steps__io,
 {
     CcSideEffect se = cc_side_effect_failed_resurrection();
     return cc_step_append_if( steps__io, link, i, j, se );
-}
-
-
-size_t cc_step_count( CcStep * restrict steps )
-{
-    if ( !steps ) return 0;
-
-    size_t count = 0;
-    CcStep * s = steps;
-
-    while ( s )
-    {
-        ++count;
-        s = s->next;
-    }
-
-    return count;
 }

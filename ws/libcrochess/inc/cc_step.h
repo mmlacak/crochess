@@ -14,6 +14,60 @@
 */
 
 
+// /**
+//     Macro to allocate new steps queue.
+
+//     @param step_link A step link enum.
+//     @param int_i File, horizontal coordinate.
+//     @param int_j Rank, vertical coordinate.
+
+//     @note
+//     Side-effect in newly allocated ssteps queue is initialized as invalid.
+
+//     @return Pointer to a newly allocated steps queue if successful, `NULL` otherwise.
+
+//     @see cc_steps__new(), CC_SIDE_EFFECT_CAST_INVALID
+// */
+// #define CC_STEPS__NEW(step_link,int_i,int_j) \
+//     cc_steps__new( (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+
+// /**
+//     Macro to append a newly allocated step to existing queue.
+
+//     @param ptr__steps__io A steps queue, to be appended.
+//     @param step_link A step link enum.
+//     @param int_i File, horizontal coordinate.
+//     @param int_j Rank, vertical coordinate.
+
+//     @note
+//     Side-effect in newly allocated ssteps queue is initialized as invalid.
+
+//     @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
+
+//     @see cc_steps_append(), CC_SIDE_EFFECT_CAST_INVALID
+// */
+// #define CC_STEPS_APPEND(ptr__steps__io,step_link,int_i,int_j) \
+//     cc_steps_append( (ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+
+// /**
+//     Macro to append a newly allocated step to steps queue, which might not be alocated yet.
+
+//     @param ptr_ptr__steps__io A steps queue, to be appended.
+//     @param step_link A step link enum.
+//     @param int_i File, horizontal coordinate.
+//     @param int_j Rank, vertical coordinate.
+
+//     @note
+//     Side-effect in newly allocated ssteps queue is initialized as invalid.
+
+//     @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
+
+//     @see cc_steps_append_if(), CC_SIDE_EFFECT_CAST_INVALID
+// */
+// #define CC_STEPS_APPEND_IF(ptr_ptr__steps__io,step_link,int_i,int_j) \
+//     cc_steps_append_if( (ptr_ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
+
+
 /**
     Step link enumeration.
 */
@@ -46,8 +100,12 @@ char const * cc_step_link_symbol( CcStepLinkEnum sle );
 typedef struct CcStep
 {
     CcStepLinkEnum link; /**< Type of a link to previous step. */
+
+// TODO :: change to CcPos (?)
     int i; /**< File of a step. */
     int j; /**< Rank of a step. */
+// TODO :: change to CcPos (?)
+
     CcSideEffect side_effect; /**< Side-effect structure. */
 
     struct CcStep * next; /**< Next step in a linked list. */
@@ -115,6 +173,26 @@ CcStep * cc_step_append_if( CcStep ** restrict steps__io,
 CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
 
 /**
+    Function returning count of steps, based on usage.
+
+    @param steps Steps, a linked list.
+    @param usage Step formatting usage.
+
+    @note
+    Each usage item also implicitly includes all previous usages.
+
+    @note
+    For instance, having `CC_FSUE_Clarification` usage means that
+    all nodes with `CC_FSUE_User` will also be present in the output.
+
+    @see
+    CcFormatStepUsageEnum for order of usages.
+
+    @return Count of steps if successful, `0` otherwise.
+*/
+size_t cc_step_count( CcStep * restrict steps );
+
+/**
     Checks if a given step is valid.
 
     @param step A step, technically a linked list of steps.
@@ -137,6 +215,27 @@ bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size );
 */
 bool cc_step_all_are_valid( CcStep * restrict steps, unsigned int board_size );
 
+// /**
+//     Function checks if positions are the congruent with a given steps.
+
+//     @param steps Queue of steps.
+//     @param positions Linked list of positions.
+
+//     @note
+//     Positions are assumed to be complete path over all step- (or capture-) fields.
+
+//     @note
+//     Each step is then expected to be found within positions, in the same order,
+//     and with appropriate distance. For instance, if step is linked as a distant,
+//     it shouldn't immediately follow previous step in `positions`.
+
+//     @see cc_pos_is_congruent()
+
+//     @return `true` if positions are congruent with steps, `false` otherwise.
+// */
+// bool cc_steps_are_congruent( CcSteps * restrict steps,
+//                              CcPosLink * restrict positions );
+
 /**
     Frees all steps in a linked list.
 
@@ -145,6 +244,24 @@ bool cc_step_all_are_valid( CcStep * restrict steps, unsigned int board_size );
     @return `true` if successful, `false` otherwise.
 */
 bool cc_step_free_all( CcStep ** restrict steps__f );
+
+// /**
+//     Function returns new string, containing user-readable representation of a steps.
+
+//     @param steps A queue of steps.
+
+//     @note
+//     Each step is preceeded by the same separator as used in AN, e.g. `..` (double dot) is used for a distant step.
+
+//     @note
+//     Steps with unknown linkage are preceeded by `?`.
+
+//     @note
+//     Starting step is preceeded by ` (back-tick).
+
+//     @return A newly allocated, zero-termianted string if successful, `NULL` otherwise
+// */
+// char * cc_steps_to_short_string__new( CcSteps * restrict steps );
 
 
 /** @defgroup step_convenience The step conveniences
@@ -318,27 +435,6 @@ CcStep * cc_step_failed_resurrection_append_if( CcStep ** restrict steps__io,
 /** @} */ // end of step_convenience_append_or_init
 
 /** @} */ // end of step_convenience
-
-
-/**
-    Function returning count of steps, based on usage.
-
-    @param steps Steps, a linked list.
-    @param usage Step formatting usage.
-
-    @note
-    Each usage item also implicitly includes all previous usages.
-
-    @note
-    For instance, having `CC_FSUE_Clarification` usage means that
-    all nodes with `CC_FSUE_User` will also be present in the output.
-
-    @see
-    CcFormatStepUsageEnum for order of usages.
-
-    @return Count of steps if successful, `0` otherwise.
-*/
-size_t cc_step_count( CcStep * restrict steps );
 
 
 #endif /* __CC_STEP_H__ */
