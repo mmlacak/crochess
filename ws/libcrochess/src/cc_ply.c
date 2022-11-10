@@ -71,10 +71,10 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     return ply__t;
 }
 
-CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
-                               CcPlyLinkEnum link,
-                               CcPieceEnum piece,
-                               CcStep ** restrict steps__n )
+CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
+                          CcPlyLinkEnum link,
+                          CcPieceEnum piece,
+                          CcStep ** restrict steps__n )
 {
     if ( !plies__io ) return NULL;
 
@@ -88,7 +88,7 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
     return ply__w;
 }
 
-CcPly * cc_plies_duplicate_all__new( CcPly * restrict plies )
+CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies )
 {
     if ( !plies ) return NULL;
 
@@ -97,18 +97,18 @@ CcPly * cc_plies_duplicate_all__new( CcPly * restrict plies )
 
     do
     {
-        CcStep * steps__t = cc_steps_duplicate_all__new( from->steps );
+        CcStep * steps__t = cc_step_duplicate_all__new( from->steps );
         if ( !steps__t )
         {
-            cc_plies_free_all( &ply__a );
+            cc_ply_free_all( &ply__a );
             return NULL;
         }
 
-        CcPly * ply__w = cc_ply_append_or_init( &ply__a, from->link, from->piece, &steps__t );
+        CcPly * ply__w = cc_ply_append_if( &ply__a, from->link, from->piece, &steps__t );
         if ( !ply__w )
         {
-            cc_steps_free_all( &steps__t ); // Failed append --> ownership not transferred ...
-            cc_plies_free_all( &ply__a );
+            cc_step_free_all( &steps__t ); // Failed append --> ownership not transferred ...
+            cc_ply_free_all( &ply__a );
             return NULL;
         }
 
@@ -147,7 +147,7 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
         if ( ( ply->steps ) &&
              ( ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) ||
                ( !CC_PIECE_IS_WAVE( ply->piece ) ) ) )
-            // If Wave was activated by Starchild is checked in cc_plies_are_valid().
+            // If Wave was activated by Starchild is checked in cc_ply_all_are_valid().
             return false;
 
         if ( ply->next ) return false;
@@ -173,12 +173,12 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
     else
         return false;
 
-    if ( !cc_steps_are_valid( ply->steps, board_size ) ) return false;
+    if ( !cc_step_all_are_valid( ply->steps, board_size ) ) return false;
 
     return true;
 }
 
-bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size )
+bool cc_ply_all_are_valid( CcPly * restrict plies, unsigned int board_size )
 {
     if ( !plies ) return false;
 
@@ -226,7 +226,7 @@ bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size )
     return true;
 }
 
-bool cc_plies_free_all( CcPly ** restrict plies__f )
+bool cc_ply_free_all( CcPly ** restrict plies__f )
 {
     if ( !plies__f ) return false;
     if ( !*plies__f ) return true;
@@ -237,7 +237,7 @@ bool cc_plies_free_all( CcPly ** restrict plies__f )
     while ( ply )
     {
         CcStep ** steps = &( ply->steps );
-        result = cc_steps_free_all( steps ) && result;
+        result = cc_step_free_all( steps ) && result;
 
         CcPly * tmp = ply->next;
         CC_FREE( ply );
@@ -265,7 +265,6 @@ bool cc_ply_contains_side_effects( CcPly * restrict ply )
 }
 
 size_t cc_ply_step_count( CcPly * restrict ply,
-                          CcFormatStepUsageEnum usage,
                           bool include_starting_pos )
 {
     if ( !ply ) return 0;
@@ -278,15 +277,12 @@ size_t cc_ply_step_count( CcPly * restrict ply,
 
     while ( s->next )
     {
-        if ( s->usage <= usage )
+        if ( s->link == CC_SLE_Start )
         {
-            if ( s->link == CC_SLE_Start )
-            {
-                if ( include_starting_pos ) ++count;
-            }
-            else
-                ++count;
+            if ( include_starting_pos ) ++count;
         }
+        else
+            ++count;
 
         s = s->next;
     }

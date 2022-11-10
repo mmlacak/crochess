@@ -69,6 +69,7 @@ typedef struct CcPly
     CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
     CcPieceEnum piece; /**< A piece being moved. */
     CcStep * steps; /**< Steps taken by the piece. */
+
     struct CcPly * next; /**< Next ply in a cascade. */
 } CcPly;
 
@@ -129,10 +130,10 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     @return
     Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
-                               CcPlyLinkEnum link,
-                               CcPieceEnum piece,
-                               CcStep ** restrict steps__n );
+CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
+                          CcPlyLinkEnum link,
+                          CcPieceEnum piece,
+                          CcStep ** restrict steps__n );
 
 /**
     Duplicates a given plies into a newly allocated linked list.
@@ -142,7 +143,7 @@ CcPly * cc_ply_append_or_init( CcPly ** restrict plies__io,
     @return
     A newly allocated plies, is successful, `NULL` otherwise.
 */
-CcPly * cc_plies_duplicate_all__new( CcPly * restrict plies );
+CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
 
 /**
     Checks if a given ply is valid.
@@ -166,7 +167,7 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
 
     @return `true` if valid, `false` otherwise.
 */
-bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size );
+bool cc_ply_all_are_valid( CcPly * restrict plies, unsigned int board_size );
 
 /**
     Frees all plies in a linked list, and all associated entities.
@@ -179,7 +180,7 @@ bool cc_plies_are_valid( CcPly * restrict plies, unsigned int board_size );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_plies_free_all( CcPly ** restrict plies__f );
+bool cc_ply_free_all( CcPly ** restrict plies__f );
 
 /**
     Checks whether any step in a ply has side-effects.
@@ -202,7 +203,6 @@ bool cc_ply_contains_side_effects( CcPly * restrict ply );
     @return Count of steps if successful, `0` otherwise.
 */
 size_t cc_ply_step_count( CcPly * restrict ply,
-                          CcFormatStepUsageEnum usage,
                           bool include_starting_pos );
 
 /**

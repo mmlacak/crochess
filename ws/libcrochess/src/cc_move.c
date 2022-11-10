@@ -95,7 +95,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves )
 
     do
     {
-        CcPly * plies__t = cc_plies_duplicate_all__new( from->plies );
+        CcPly * plies__t = cc_ply_duplicate_all__new( from->plies );
         if ( !plies__t )
         {
             cc_move_free_all( &mv__a );
@@ -109,7 +109,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves )
                                             from->status );
         if ( !mv__w )
         {
-            cc_plies_free_all( &plies__t ); // Failed append --> no ownership transfer ...
+            cc_ply_free_all( &plies__t ); // Failed append --> no ownership transfer ...
             cc_move_free_all( &mv__a );
             return NULL;
         }
@@ -136,7 +136,7 @@ bool cc_move_free_all( CcMove ** restrict moves__f )
         CC_FREE( mv->notation );
 
         CcPly ** plies = &( mv->plies );
-        result = cc_plies_free_all( plies ) && result;
+        result = cc_ply_free_all( plies ) && result;
 
         CcMove * tmp = mv->next;
         CC_FREE( mv );

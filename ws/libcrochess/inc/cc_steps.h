@@ -158,7 +158,7 @@
 
 //     @return `true` if successful, `false` otherwise.
 // */
-// bool cc_steps_free_all( CcSteps ** restrict steps__f );
+// bool cc_step_free_all( CcSteps ** restrict steps__f );
 
 // /**
 //     Function returns length of a queue.

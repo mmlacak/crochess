@@ -113,7 +113,7 @@
 
 //             CC_FREE( ply_str__a );
 
-// //             cc_steps_free_all( &steps );
+// //             cc_step_free_all( &steps );
 // //             cc_chessboard_free_all( &cb_before_activation );
 //             return false;
 //         }
@@ -392,7 +392,7 @@
 
 // //                 CC_FREE( ply_str__a );
 
-// //                 cc_steps_free_all( &steps__a );
+// //                 cc_step_free_all( &steps__a );
 // //                 cc_chessboard_free_all( &cb__a );
 // //                 return false;
 // //             }
@@ -418,7 +418,7 @@
 // //             {
 // //                 // <i> Parse msgs are added within cc_append_steps().
 
-// //                 cc_steps_free_all( &steps__a );
+// //                 cc_step_free_all( &steps__a );
 // //                 cc_chessboard_free_all( &cb__a );
 // //                 return false;
 // //             }
@@ -441,7 +441,7 @@
 
 // //                 if ( !step__w )
 // //                 {
-// //                     cc_steps_free_all( &steps__a );
+// //                     cc_step_free_all( &steps__a );
 // //                     cc_chessboard_free_all( &cb__a );
 // //                     return false;
 // //                 }
@@ -460,7 +460,7 @@
 
 // //                 CC_FREE( ply_str__a );
 
-// //                 cc_steps_free_all( &steps__a );
+// //                 cc_step_free_all( &steps__a );
 // //                 cc_chessboard_free_all( &cb__a );
 // //                 return false;
 // //             }
@@ -544,7 +544,7 @@
 
 // //                 CC_FREE( ply_str__a );
 
-// //                 cc_steps_free_all( &steps__a );
+// //                 cc_step_free_all( &steps__a );
 // //                 cc_chessboard_free_all( &cb__a );
 // //                 return false;
 // //             }
@@ -629,7 +629,7 @@
 
 // //                 CC_FREE( ply_str__a );
 
-// //                 cc_steps_free_all( &steps__a );
+// //                 cc_step_free_all( &steps__a );
 // //                 cc_chessboard_free_all( &cb__a );
 // //                 return false;
 // //             }
@@ -661,7 +661,7 @@
 
 // //                 CC_FREE( ply_str__a );
 
-// //                 cc_steps_free_all( &steps__a );
+// //                 cc_step_free_all( &steps__a );
 // //                 cc_chessboard_free_all( &cb__a );
 // //                 return false;
 // //             }
@@ -685,7 +685,7 @@
 // //                 {
 // //                     CC_PRINTF_IF_INFO( "Error deleting en passant tag.\n" );
 
-// //                     cc_steps_free_all( &steps__a );
+// //                     cc_step_free_all( &steps__a );
 // //                     cc_chessboard_free_all( &cb__a );
 // //                     return false;
 // //                 }
@@ -702,7 +702,7 @@
 
 // //                 CC_FREE( ply_str__a );
 
-// //                 cc_steps_free_all( &steps__a );
+// //                 cc_step_free_all( &steps__a );
 // //                 cc_chessboard_free_all( &cb__a );
 // //                 return false;
 // //             }
@@ -724,7 +724,7 @@
 
 // //                             if ( !cc_chessboard_set_piece_tag( cb__a, pos.i, pos.j, CC_PE_None, CC_TE_None ) )
 // //                             {
-// //                                 cc_steps_free_all( &steps__a );
+// //                                 cc_step_free_all( &steps__a );
 // //                                 cc_chessboard_free_all( &cb__a );
 // //                                 return false;
 // //                             }
@@ -754,7 +754,7 @@
 
 // //             CC_FREE( ply_str__a );
 
-// //             cc_steps_free_all( &steps__a );
+// //             cc_step_free_all( &steps__a );
 // //             cc_chessboard_free_all( &cb__a );
 // //             return false;
 // //         }
@@ -764,7 +764,7 @@
 // //         if ( !CC_PIECE_IS_WAVE( piece_cb ) )
 // //             activator = piece_cb;
 
-// //         cc_steps_free_all( &steps__a );
+// //         cc_step_free_all( &steps__a );
 
 // //         if ( ply_end_str && *ply_end_str != '\0' )
 // //             CC_PRINTF_IF_INFO( "\n" );
@@ -1042,7 +1042,7 @@
 //                 {
 //                     // <i> Parse msgs are added within cc_append_steps().
 
-//                     cc_steps_free_all( &steps__a );
+//                     cc_step_free_all( &steps__a );
 //                     cc_chessboard_free_all( &cb__a );
 //                     return false;
 //                 }
@@ -1056,7 +1056,7 @@
 
 //                 if ( !step__w )
 //                 {
-//                     cc_steps_free_all( &steps__a );
+//                     cc_step_free_all( &steps__a );
 //                     cc_chessboard_free_all( &cb__a );
 //                     return false;
 //                 }
@@ -1119,7 +1119,7 @@
 
 //                     CC_FREE( ply_str__a );
 
-//                     cc_steps_free_all( &steps__a );
+//                     cc_step_free_all( &steps__a );
 //                     cc_chessboard_free_all( &cb__a );
 //                     return false;
 //                 }
@@ -1204,7 +1204,7 @@
 
 //                     CC_FREE( ply_str__a );
 
-//                     cc_steps_free_all( &steps__a );
+//                     cc_step_free_all( &steps__a );
 //                     cc_chessboard_free_all( &cb__a );
 //                     return false;
 //                 }
@@ -1234,7 +1234,7 @@
 
 //                     CC_FREE( ply_str__a );
 
-//                     cc_steps_free_all( &steps__a );
+//                     cc_step_free_all( &steps__a );
 //                     cc_chessboard_free_all( &cb__a );
 //                     return false;
 //                 }
@@ -1252,7 +1252,7 @@
 //                 {
 //                     if ( !CC_PIECE_IS_PAWN( previous_piece ) && !cc_delete_en_passant_tag( cb__a ) )
 //                     {
-//                         cc_steps_free_all( &steps__a );
+//                         cc_step_free_all( &steps__a );
 //                         cc_chessboard_free_all( &cb__a );
 //                         return false;
 //                     }
@@ -1269,7 +1269,7 @@
 
 //                     CC_FREE( ply_str__a );
 
-//                     cc_steps_free_all( &steps__a );
+//                     cc_step_free_all( &steps__a );
 //                     cc_chessboard_free_all( &cb__a );
 //                     return false;
 //                 }
@@ -1291,7 +1291,7 @@
 
 //                                 if ( !cc_chessboard_set_piece_tag( cb__a, pos.i, pos.j, CC_PE_None, CC_TE_None ) )
 //                                 {
-//                                     cc_steps_free_all( &steps__a );
+//                                     cc_step_free_all( &steps__a );
 //                                     cc_chessboard_free_all( &cb__a );
 //                                     return false;
 //                                 }
@@ -1321,7 +1321,7 @@
 
 //                 CC_FREE( ply_str__a );
 
-//                 cc_steps_free_all( &steps__a );
+//                 cc_step_free_all( &steps__a );
 //                 cc_chessboard_free_all( &cb__a );
 //                 return false;
 //             }
@@ -1334,7 +1334,7 @@
 // //         if ( !CC_PIECE_IS_WAVE( piece_cb ) )
 // //             activator = piece_cb;
 
-// //         cc_steps_free_all( &steps__a );
+// //         cc_step_free_all( &steps__a );
 
 // //         if ( ply_end_str && *ply_end_str != '\0' )
 // //             CC_PRINTF_IF_INFO( "\n" );

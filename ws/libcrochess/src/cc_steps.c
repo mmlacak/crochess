@@ -165,7 +165,7 @@
 //     return ( prev_s && !prev_s->next && p && !p->next );
 // }
 
-// bool cc_steps_free_all( CcSteps ** restrict steps__f )
+// bool cc_step_free_all( CcSteps ** restrict steps__f )
 // {
 //     if ( !steps__f ) return false;
 //     if ( !*steps__f ) return true;
