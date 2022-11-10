@@ -307,9 +307,13 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
     char piece = cc_piece_symbol( pe );
     *se_end++ = piece;
 
+// TODO :: fill-in, as above ( <-- use CcPos, instead of bare coords (?) )
+//
     // cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     // if ( !cc_pos_to_short_string( se.pos, &pos_c8 ) )
     //     return false;
+//
+// TODO :: fill-in, as above ( <-- use CcPos, instead of bare coords (?) )
 
     size_t unused = CC_MAX_LEN_CHAR_16 - ( se_end - (char *)(se_str__o) );
     // Not used afterwards. /* se_end += */

@@ -28,7 +28,7 @@
 #define CC_POS_STATIC_STEP { .i = 0, .j = 0 }
 
 //
-// Positions.
+// Position.
 
 /**
     Structure holding a position, either absolute or relative,
@@ -206,64 +206,27 @@ int cc_pos_momentum( CcPos start, CcPos destination );
 bool cc_pos_to_short_string( CcPos pos,
                              cc_char_8 * restrict pos_str__o );
 
-// //
-// // Side-effects.
 
-// /**
-//     Side-effects enumeration.
+//
+// Position + piece.
 
-//     This enumerates all side-effects, except losing tags.
-// */
-// typedef enum CcSideEffectEnum
-// {
-//     CC_SEE_None, /**< Side-effect not found, uninitialized, or error happened. */
-//     CC_SEE_Capture, /**< Capturing, corresponds to * (asterisk). */
-//     CC_SEE_Displacement, /**< Trance-journey displacement, correspondes to < (less-than). */
-//     CC_SEE_EnPassant, /**< En passant, corresponds to : (colon). */
-//     CC_SEE_Castle, /**< Castling, corresponds to & (ampersand). */
-//     CC_SEE_Promotion, /**< Promotion, corresponds to = (equal sign). */
-//     CC_SEE_PromotionNoSign, /**< Promotion, without sign. */
-//     CC_SEE_TagForPromotion, /**< Tag for promotion, corresponds to = (equal sign). */
-//     CC_SEE_Conversion, /**< Conversion, corresponds to % (percent sign). */
-//     CC_SEE_FailedConversion, /**< Failed conversion, corresponds to %% (double percent sign). */
-//     CC_SEE_DemoteToPawn, /**< Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
-//     CC_SEE_Resurrection, /**< Syzygy, resurrection, corresponds to $ (dollar-sign). */
-//     CC_SEE_FailedResurrection, /**< Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
-// } CcSideEffectEnum;
+typedef struct CcPosPiece {
+    CcPos pos; /**< A position. */
+    CcPieceEnum piece; /**< Piece, e.g. the one found at position. */
+} CcPosPiece;
 
-// /** TODO :: DOCS . */
-// size_t cc_side_effect_an_len( CcSideEffectEnum see );
+CcPosPiece cc_pos_piece( CcPos pos, CcPieceEnum piece );
 
-// /** TODO :: DOCS . */
-// char const * cc_side_effect_symbol( CcSideEffectEnum see );
+bool cc_pos_piece_is_valid( CcPosPiece pp );
 
-// /**
-//     TODO :: DOCS .
-// */
-// typedef struct CcSideEffect {
-//     CcSideEffectEnum type; /**< TODO :: DOCS . */
-//     CcPieceEnum piece; /**< TODO :: DOCS . */
-//     CcPos pos; /**< TODO :: DOCS . */
-// } CcSideEffect;
+bool cc_pos_piece_is_equal( CcPosPiece pp_1, CcPosPiece pp_2 );
 
-// /**< TODO :: DOCS . */
-// #define CC_SIDE_EFFECT_INVALID { .type = CC_SEE_None, .piece = CC_PE_None, .pos = CC_POS_INVALID }
+bool cc_pos_piece_is_congruent( CcPosPiece pp_1, CcPosPiece pp_2 );
 
-// /**< TODO :: DOCS . */
-// #define CC_SIDE_EFFECT_CAST_INVALID ( (CcSideEffect){ .type = CC_SEE_None, .piece = CC_PE_None, .pos = CC_POS_CAST_INVALID } )
+bool cc_pos_piece_to_short_string( CcPosPiece pp,
+                                   cc_char_16 * restrict pp_str__o );
 
-// /** TODO :: DOCS . */
-// CcSideEffect cc_side_effect( CcSideEffectEnum type, CcPieceEnum piece, CcPos pos );
 
-// /** TODO :: DOCS . */
-// bool cc_side_effect_is_equal( CcSideEffect se_1, CcSideEffect se_2 );
-
-// /** TODO :: DOCS . */
-// bool cc_side_effect_is_valid( CcSideEffect se );
-
-// /** TODO :: DOCS . */
-// bool cc_side_effect_to_short_str( CcSideEffect se,
-//                                   cc_char_16 * restrict see_str__o );
 
 //
 // Linked positions.
