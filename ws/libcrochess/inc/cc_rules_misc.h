@@ -13,18 +13,10 @@
 #include "cc_parse_defs.h"
 
 
-// typedef enum CcLosingTagCheckResultEnum
-// {
-//     CC_LTCRE_TagNotFound = -1,
-//     CC_LTCRE_NoTag = 0,
-//     CC_LTCRE_TagLost = 1,
-// } CcLosingTagCheckResultEnum;
-
-
 bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
                                        CcGameStatusEnum gse );
 
-bool cc_check_tag_is_lost( CcTagEnum tag_lost, CcTagEnum te );
+bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag );
 
 bool cc_delete_en_passant_tag( CcChessboard * restrict cb );
 

@@ -88,33 +88,18 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
     return false;
 }
 
-bool cc_check_tag_is_lost( CcTagEnum tag_lost, CcTagEnum te )
+bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag )
 {
-    // switch ( lte )
-    // {
-    //     case CC_LTE_None : return CC_LTCRE_NoTag;
+    switch ( lost )
+    {
+        case CC_TE_DelayedPromotion :
+        case CC_TE_CanRush :
+        case CC_TE_CanCastle :
+            return ( lost == tag );
 
-    //     case CC_LTE_Promotion :
-    //         if ( te == CC_TE_DelayedPromotion )
-    //             return CC_LTCRE_TagLost;
-    //         else
-    //             return CC_LTCRE_TagNotFound;
-
-    //     case CC_LTE_Rushing :
-    //         if ( te == CC_TE_CanRush )
-    //             return CC_LTCRE_TagLost;
-    //         else
-    //             return CC_LTCRE_TagNotFound;
-
-    //     case CC_LTE_Castling :
-    //         if ( te == CC_TE_CanCastle )
-    //             return CC_LTCRE_TagLost;
-    //         else
-    //             return CC_LTCRE_TagNotFound;
-
-    //     default : return CC_LTCRE_TagNotFound;
-    // }
-    return tag_lost == te;
+        default :
+            return false;
+    }
 }
 
 bool cc_delete_en_passant_tag( CcChessboard * restrict cb )
