@@ -178,6 +178,8 @@ bool cc_move_print_all( CcMove * restrict moves )
     size_t i = 0;
     size_t index = 0;
 
+    while ( m->prev ) m = m->prev; // rewind
+
     while ( m )
     {
         if ( i++ % 2 == 0 )
