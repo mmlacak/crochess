@@ -63,7 +63,7 @@ CcParseMsgs * cc_parse_msgs_append_if( CcParseMsgs ** restrict parse_msgs__io,
     return pm__w;
 }
 
-CcParseMsgs * cc_parse_msgs_append_if_format( CcParseMsgs ** restrict parse_msgs__io,
+CcParseMsgs * cc_parse_msgs_append_format_if( CcParseMsgs ** restrict parse_msgs__io,
                                               CcParseMsgTypeEnum type,
                                               size_t max_len__d,
                                               char const * restrict fmt, ... )
