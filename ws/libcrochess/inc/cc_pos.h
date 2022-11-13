@@ -220,6 +220,10 @@ bool cc_pos_to_short_string( CcPos pos,
 */
 #define CC_POS_PIECE_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None }
 
+/**
+    Structure holding a position, usually absolute, i.e. a location.
+    Piece is the one found at location.
+*/
 typedef struct CcPosPiece {
     CcPos pos; /**< A position. */
     CcPieceEnum piece; /**< Piece, e.g. the one found at position. */
@@ -235,18 +239,85 @@ typedef struct CcPosPiece {
 */
 #define CC_POS_PIECE_CAST_STATIC_STEP ( (CcPosPiece)CC_POS_PIECE_STATIC_STEP )
 
+/**
+    Convenience macro which returns position + piece struct.
+
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+    @param piece A piece.
+
+    @return Position + piece value.
+
+    @see cc_pos_piece(), cc_pos()
+*/
 #define CC_POS_PIECE(int_i,int_j,piece) \
     ( cc_pos_piece( cc_pos( (int_i), (int_j) ), (piece) ) )
 
 
+/**
+    Function returns position + piece value.
+
+    @param pos A position.
+    @param piece A piece.
+
+    @return Position + piece value.
+*/
 CcPosPiece cc_pos_piece( CcPos pos, CcPieceEnum piece );
 
+/**
+    Function checks if position + piece is valid.
+
+    @param pp A position + piece.
+
+    @see CC_POS_INVALID
+
+    @return `true` if position + piece is valid, `false` otherwise.
+*/
 bool cc_pos_piece_is_valid( CcPosPiece pp );
 
+/**
+    Function checks if two position + piece values are the same.
+
+    @param pp_1 A position + piece.
+    @param pp_2 An other position + piece.
+
+    @return `true` if position + piece values are the same, `false` otherwise.
+*/
 bool cc_pos_piece_is_equal( CcPosPiece pp_1, CcPosPiece pp_2 );
 
+/**
+    Function checks if two position + piece values are the congruent.
+
+    @param pp_1 A position + piece.
+    @param pp_2 An other position + piece.
+
+    @note
+    For positions to be congruent, at least one set of coordinates (files,
+    or ranks) from both positions has to be valid, and the same.
+
+    @note
+    For pieces to be congruent, they have to be valid, and the same type,
+    e.g two Rooks.
+
+    @return `true` if positions are congruent, `false` otherwise.
+*/
 bool cc_pos_piece_is_congruent( CcPosPiece pp_1, CcPosPiece pp_2 );
 
+/**
+    Function converts position + piece value into a user-readable
+    `<file char><rank number><piece>` notation.
+
+    @param pp A position + piece.
+    @param pp_str__o An _output_ parameter, short string array.
+
+    @note
+    Coordinates outside chessboard are converted into short integers, if possible.
+
+    @note
+    If outside of 2 decimal places, coordinate is represented as asterisk.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_pos_piece_to_short_string( CcPosPiece pp,
                                    cc_char_16 * restrict pp_str__o );
 
@@ -255,13 +326,10 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
 // Linked positions.
 
 /**
-    Macro to allocate new position link, with given coordinates.
+    Convenience macro to allocate new position + piece value to position link.
 
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-
-    @note
-    Side-effect in newly allocated position link is initialized as invalid.
+    @param pos A position.
+    @param piece A piece.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
@@ -271,14 +339,11 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
     ( cc_pos_link__new( cc_pos_piece( (pos), (piece) ) ) )
 
 /**
-    Macro to append a newly allocated new position link, with given coordinates.
+    Macro to append a newly allocated position + piece value to position link.
 
     @param ptr__pos_link__io A position linked list, to be appended.
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-
-    @note
-    Side-effect in newly allocated position link is initialized as invalid.
+    @param pos A position.
+    @param piece A piece.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
@@ -288,14 +353,11 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
     ( cc_pos_link_append( (ptr__pos_link__io), cc_pos_piece( (pos), (piece) ) ) )
 
 /**
-    Macro to initialize or append a position linked list, with given coordinates.
+    Macro to initialize or append a position linked list, with position + piece value.
 
     @param ptr_ptr__pos_link__io A position linked list, to be appended.
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-
-    @note
-    Side-effect in newly allocated position link is initialized as invalid.
+    @param pos A position.
+    @param piece A piece.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
@@ -315,8 +377,7 @@ typedef struct CcPosLink {
 /**
     Function allocates a new linked position.
 
-    @param pos A position.
-    @param side_effect A side-effect.
+    @param ppos A position + piece value.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
@@ -326,8 +387,7 @@ CcPosLink * cc_pos_link__new( CcPosPiece ppos );
     Function appends a newly allocated linked position to a given linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list.
-    @param pos A position.
-    @param side_effect A side-effect.
+    @param ppos A position + piece value.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
@@ -338,8 +398,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     Allocates a new linked position, appends it to a linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
-    @param pos A position.
-    @param side_effect A side-effect.
+    @param ppos A position + piece value.
 
     @note
     Linked list `*pos_link__io` can be `NULL`, a linked position will still be

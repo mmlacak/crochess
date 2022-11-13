@@ -195,7 +195,6 @@ bool cc_ply_contains_side_effects( CcPly * restrict ply );
     Function returns count of steps owned by a given ply.
 
     @param ply A ply.
-    @param usage A step formatting usage, used to filter out steps less relevant for a given formatting.
     @param include_starting_pos Flag if starting position (technically, not a step!) should be included in returned count.
 
     @see CcFormatStepUsageEnum

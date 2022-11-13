@@ -52,12 +52,9 @@ typedef struct CcMove
     Returns newly allocated move.
 
     @param notation Original notation, as received from a user.
-    @param prestatus Prestatus.
+    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param plies__n Plies linked list, can be `NULL`.
     @param status Move status.
-
-    @note
-    If `prestatus` argument is game ending, `plies__n` has to be `NULL`, and `status` has to be `CC_MSE_None`.
 
     @warning
     Takes ownership of plies, inner pointer will be set to `NULL`, if valid move is produced.
@@ -66,7 +63,7 @@ typedef struct CcMove
     If no valid `plies__n` is given, move is still returned, with `plies` member set to `NULL`.
 
     @warning
-    If no valid move is produced, plies are still valid, and accessible.
+    If no valid move is produced, `plies__n` are still valid, and accessible.
 
     @return
     A newly allocated move, is successful, `NULL` otherwise.
@@ -81,7 +78,7 @@ CcMove * cc_move__new( char const * restrict notation,
 
     @param moves__io _Input/output_ parameter, linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
-    @param prestatus Prestatus.
+    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param plies__n Plies, should be valid pointer.
     @param status Move status.
 
@@ -101,7 +98,7 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
 
     @param moves__io _Input/output_ parameter, linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
-    @param prestatus Prestatus.
+    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param plies__n Plies, should be valid pointer.
     @param status Move status.
 

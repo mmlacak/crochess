@@ -176,17 +176,6 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
     Function returning count of steps, based on usage.
 
     @param steps Steps, a linked list.
-    @param usage Step formatting usage.
-
-    @note
-    Each usage item also implicitly includes all previous usages.
-
-    @note
-    For instance, having `CC_FSUE_Clarification` usage means that
-    all nodes with `CC_FSUE_User` will also be present in the output.
-
-    @see
-    CcFormatStepUsageEnum for order of usages.
 
     @return Count of steps if successful, `0` otherwise.
 */

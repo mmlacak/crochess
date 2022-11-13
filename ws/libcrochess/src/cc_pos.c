@@ -184,7 +184,12 @@ bool cc_pos_piece_is_equal( CcPosPiece pp_1, CcPosPiece pp_2 )
 bool cc_pos_piece_is_congruent( CcPosPiece pp_1, CcPosPiece pp_2 )
 {
     if ( !cc_pos_is_congruent( pp_1.pos, pp_2.pos ) ) return false;
+
+    if ( CC_PIECE_IS_NONE( pp_1.piece ) ||
+         CC_PIECE_IS_NONE( pp_2.piece ) ) return false;
+
     if ( !cc_piece_has_same_type( pp_1.piece, pp_2.piece ) ) return false;
+
     return true;
 }
 
@@ -310,7 +315,6 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
     char * pl_str = pl_str__a;
     char * pl_end = pl_str;
     cc_char_16 pos_c16 = CC_CHAR_16_EMPTY;
-    // cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
     CcPosLink * pl = pos_link;
 
     while ( pl && ( unused > 0 ) )
@@ -336,16 +340,6 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
 
         unused -= ( pl_end - pl_str );
         pl_str = pl_end;
-
-        // pl_end = cc_str_append_into( pl_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
-        // if ( !pl_end )
-        // {
-        //     CC_FREE( pl_str__a );
-        //     return NULL;
-        // }
-
-        // unused -= ( pl_end - pl_str );
-        // pl_str = pl_end;
 
         pl = pl->next;
     }
