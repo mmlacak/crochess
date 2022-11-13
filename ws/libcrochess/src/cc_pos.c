@@ -121,8 +121,6 @@ bool cc_pos_to_short_string( CcPos pos,
     #define LOWER_BOUNT (-100)
     #define UPPER_BOUND (1000)
 
-    if ( !cc_str_clear( *pos_str__o, CC_MAX_LEN_CHAR_8 ) ) return false;
-
     if ( CC_IS_COORD_2_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) )
     {
         snprintf( *pos_str__o,
@@ -153,7 +151,7 @@ bool cc_pos_to_short_string( CcPos pos,
         else
             count = snprintf( p, size, "*" );
 
-        if ( count < 1 ) return false; // count can't be > 4 + 3
+        if ( count < 1 ) return false; // count can't be > 4
     }
 
     return true;
@@ -186,7 +184,7 @@ bool cc_pos_piece_is_equal( CcPosPiece pp_1, CcPosPiece pp_2 )
 bool cc_pos_piece_is_congruent( CcPosPiece pp_1, CcPosPiece pp_2 )
 {
     if ( !cc_pos_is_congruent( pp_1.pos, pp_2.pos ) ) return false;
-    if ( !CC_PIECE_IS_THE_SAME( pp_1.piece, pp_2.piece ) ) return false; // TODO :: something (?)
+    if ( !cc_piece_has_same_type( pp_1.piece, pp_2.piece ) ) return false;
     return true;
 }
 
@@ -195,12 +193,9 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
 {
     if ( !pp_str__o ) return false;
 
-    if ( !cc_str_clear( *pp_str__o, CC_MAX_LEN_CHAR_16 ) ) return false;
-
     if ( !cc_pos_to_short_string( pp.pos, (cc_char_8 *)pp_str__o ) ) return false;
 
     char * p = (char *)pp_str__o;
-    // char * p = &( ( *pp_str__o )[ 0 ] );
 
     unsigned int count = 0;
     while ( *p++ != '\0' ) ++count; // fast-fwd
@@ -209,21 +204,21 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
 
     *p++ = cc_piece_symbol( pp.piece );
 
-    // *p = '\0'; // Should be already set.
+    *p = '\0';
 
-    return (*p == '\0');
+    return true;
 }
 
 
 //
 // Linked positions.
 
-CcPosLink * cc_pos_link__new( CcPos pos )
+CcPosLink * cc_pos_link__new( CcPosPiece ppos )
 {
     CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
     if ( !pl__t ) return NULL;
 
-    pl__t->pos = pos;
+    pl__t->ppos = ppos;
 
     pl__t->next = NULL;
 
@@ -231,11 +226,11 @@ CcPosLink * cc_pos_link__new( CcPos pos )
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPos pos )
+                                CcPosPiece ppos )
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__t = cc_pos_link__new( pos );
+    CcPosLink * pl__t = cc_pos_link__new( ppos );
     if ( !pl__t ) return NULL;
 
     CcPosLink * pl = pos_link__io;
@@ -248,16 +243,16 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 }
 
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPos pos )
+                                   CcPosPiece ppos )
 {
     if ( !pos_link__io ) return NULL;
 
     CcPosLink * pl__w = NULL;
 
     if ( !*pos_link__io )
-        *pos_link__io = pl__w = cc_pos_link__new( pos );
+        *pos_link__io = pl__w = cc_pos_link__new( ppos );
     else
-        pl__w = cc_pos_link_append( *pos_link__io, pos );
+        pl__w = cc_pos_link_append( *pos_link__io, ppos );
 
     return pl__w;
 }
@@ -303,9 +298,8 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
 
     // unused len is certainly > 0, because pos_link != NULL
     signed int unused = cc_pos_link_len( pos_link ) *
-                        ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 1 );
-                        // CC_MAX_LEN_CHAR_8, for position
-                        // +CC_MAX_LEN_CHAR_16, for side-effect
+                        ( CC_MAX_LEN_CHAR_8 + 1 );
+                        // CC_MAX_LEN_CHAR_16, for position + piece
                         // +1, for separator '.' between positions
 
     char * pl_str__a = malloc( unused + 1 ); // +1, for '\0'
@@ -315,8 +309,8 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
 
     char * pl_str = pl_str__a;
     char * pl_end = pl_str;
-    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-    cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
+    cc_char_16 pos_c16 = CC_CHAR_16_EMPTY;
+    // cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
     CcPosLink * pl = pos_link;
 
     while ( pl && ( unused > 0 ) )
@@ -327,13 +321,13 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_to_short_string( pl->pos, &pos_c8 ) )
+        if ( !cc_pos_piece_to_short_string( pl->ppos, &pos_c16 ) )
         {
             CC_FREE( pl_str__a );
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
+        pl_end = cc_str_append_into( pl_str, unused, pos_c16, CC_MAX_LEN_CHAR_16 );
         if ( !pl_end )
         {
             CC_FREE( pl_str__a );
@@ -343,15 +337,15 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
         unused -= ( pl_end - pl_str );
         pl_str = pl_end;
 
-        pl_end = cc_str_append_into( pl_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
-        if ( !pl_end )
-        {
-            CC_FREE( pl_str__a );
-            return NULL;
-        }
+        // pl_end = cc_str_append_into( pl_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
+        // if ( !pl_end )
+        // {
+        //     CC_FREE( pl_str__a );
+        //     return NULL;
+        // }
 
-        unused -= ( pl_end - pl_str );
-        pl_str = pl_end;
+        // unused -= ( pl_end - pl_str );
+        // pl_str = pl_end;
 
         pl = pl->next;
     }

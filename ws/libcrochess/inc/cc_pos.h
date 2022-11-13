@@ -17,6 +17,9 @@
 */
 
 
+//
+// Position.
+
 /**
     Invalid position value.
 */
@@ -26,9 +29,6 @@
     Static position value, i.e. no-movement step.
 */
 #define CC_POS_STATIC_STEP { .i = 0, .j = 0 }
-
-//
-// Position.
 
 /**
     Structure holding a position, either absolute or relative,
@@ -210,10 +210,34 @@ bool cc_pos_to_short_string( CcPos pos,
 //
 // Position + piece.
 
+/**
+    Invalid position + piece value.
+*/
+#define CC_POS_PIECE_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None }
+
+/**
+    Static position + piece value, i.e. no-movement step.
+*/
+#define CC_POS_PIECE_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None }
+
 typedef struct CcPosPiece {
     CcPos pos; /**< A position. */
     CcPieceEnum piece; /**< Piece, e.g. the one found at position. */
 } CcPosPiece;
+
+/**
+    Casted invalid position + piece value.
+*/
+#define CC_POS_PIECE_CAST_INVALID ( (CcPosPiece)CC_POS_PIECE_INVALID )
+
+/**
+    Casted static position + piece value, i.e. no-movement step.
+*/
+#define CC_POS_PIECE_CAST_STATIC_STEP ( (CcPosPiece)CC_POS_PIECE_STATIC_STEP )
+
+#define CC_POS_PIECE(int_i,int_j,piece) \
+    ( cc_pos_piece( cc_pos( (int_i), (int_j) ), (piece) ) )
+
 
 CcPosPiece cc_pos_piece( CcPos pos, CcPieceEnum piece );
 
@@ -225,7 +249,6 @@ bool cc_pos_piece_is_congruent( CcPosPiece pp_1, CcPosPiece pp_2 );
 
 bool cc_pos_piece_to_short_string( CcPosPiece pp,
                                    cc_char_16 * restrict pp_str__o );
-
 
 
 //
@@ -244,8 +267,8 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
 
     @see cc_pos_link__new()
 */
-#define CC_POS_LINK__NEW(int_i,int_j) \
-    cc_pos_link__new( cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK__NEW(pos,piece) \
+    ( cc_pos_link__new( cc_pos_piece( (pos), (piece) ) ) )
 
 /**
     Macro to append a newly allocated new position link, with given coordinates.
@@ -261,8 +284,8 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
 
     @see cc_pos_link_append()
 */
-#define CC_POS_LINK_APPEND(ptr__pos_link__io,int_i,int_j) \
-    cc_pos_link_append( (ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK_APPEND(ptr__pos_link__io,pos,piece) \
+    ( cc_pos_link_append( (ptr__pos_link__io), cc_pos_piece( (pos), (piece) ) ) )
 
 /**
     Macro to initialize or append a position linked list, with given coordinates.
@@ -278,14 +301,14 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
 
     @see cc_pos_link_append_if()
 */
-#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,int_i,int_j) \
-    cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos( (int_i), (int_j) ) )
+#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,pos,piece) \
+    ( cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos_piece( (pos), (piece) ) ) )
 
 /**
     A linked list of positions.
 */
 typedef struct CcPosLink {
-    CcPos pos; /**< A position. */
+    CcPosPiece ppos; /**< A position + piece. */
     struct CcPosLink * next; /**< Link to a next position. */
 } CcPosLink;
 
@@ -297,7 +320,7 @@ typedef struct CcPosLink {
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link__new( CcPos pos );
+CcPosLink * cc_pos_link__new( CcPosPiece ppos );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
@@ -309,7 +332,7 @@ CcPosLink * cc_pos_link__new( CcPos pos );
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPos pos );
+                                CcPosPiece ppos );
 
 /**
     Allocates a new linked position, appends it to a linked list.
@@ -329,7 +352,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPos pos );
+                                   CcPosPiece ppos );
 
 /**
     Frees all positions in a linked list.
