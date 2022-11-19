@@ -500,7 +500,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
                                   size_t max_len__d,
                                   char const * restrict fmt, ... );
 
-// TODO :: (?) move /return newly allocated string (?)
+// TODO :: (?) move / return newly allocated string (?)
 //
 /**
     Function prints (sub-)string, followed by formatted variadic input.
@@ -535,7 +535,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
     cc_str_print( start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
     @endcode
 
-    <br />
+    <div></div><!-- Enforces the two notes are rendered separately. -->
     @note
     Compile-time constant which controls definition of this function is `__CC_STR_PRINT_INFO__`.
 
@@ -573,7 +573,7 @@ bool cc_str_print( char const * restrict start,
 #define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt__d,...) true
 #endif // __CC_STR_PRINT_INFO__
 //
-// TODO :: (?) move /return newly allocated string (?)
+// TODO :: (?) move / return newly allocated string (?)
 
 
 #endif /* __CC_STR_UTILS_H__ */
