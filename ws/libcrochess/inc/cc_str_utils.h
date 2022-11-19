@@ -507,9 +507,10 @@ char * cc_str_append_format__new( char ** restrict str__f,
 
     @param start A (sub-)string to copy.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is printed.
-    @param max_len__d _Optional_, maximum length of string to print.
+    @param max_len__d _Optional_, can be `0`; maximum length of string to print.
     @param fmt_str A string format to print copied (sub-)string.
-    @param fmt A string format to print variadic input.
+    @param fmt_len__d _Optional_, can be `0`; maximum length of formatted string to print.
+    @param fmt__d _Optional_, can be `NULL`; string format to print variadic input.
     @param ... Variadic input for a string format.
 
     @note
@@ -529,7 +530,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
     @endcode
 
     @note
-    Variadic input is handled by `printf` following the first one, and is formatted by `fmt`, e.g.:
+    Variadic input is handled by `printf` following the first one, and is formatted by `fmt__d`, e.g.:
     @code{.c}
     cc_str_print( start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
     @endcode
@@ -540,7 +541,8 @@ bool cc_str_print( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d,
                    char const * restrict fmt_str,
-                   char const * restrict fmt, ... );
+                   size_t fmt_len__d,
+                   char const * restrict fmt__d, ... );
 //
 // TODO :: return newly allocated string
 
@@ -549,9 +551,10 @@ bool cc_str_print( char const * restrict start,
 
     @param start A (sub-)string to copy.
     @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is printed.
-    @param max_len__d _Optional_, maximum length of string to print.
+    @param max_len__d _Optional_, can be `0`; maximum length of string to print.
     @param fmt_str A string format to print copied (sub-)string.
-    @param fmt A string format to print variadic input.
+    @param fmt_len__d _Optional_, can be `0`; maximum length of formatted string to print.
+    @param fmt__d _Optional_, can be `NULL`; string format to print variadic input.
     @param ... Variadic input for a string format.
 
     @note
@@ -562,10 +565,10 @@ bool cc_str_print( char const * restrict start,
     @return `true` if successful, `false` otherwise.
 */
 #ifdef __CC_STR_PRINT_INFO__
-#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...)                   \
-    cc_str_print( start, end__d, max_len__d, fmt_str, fmt __VA_OPT__(,) __VA_ARGS__ )
+#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt_len__d,fmt__d,...)                   \
+    cc_str_print( start, end__d, max_len__d, fmt_str, fmt_len__d, fmt__d __VA_OPT__(,) __VA_ARGS__ )
 #else // __CC_STR_PRINT_INFO__
-#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt,...) true
+#define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt__d,...) true
 #endif // __CC_STR_PRINT_INFO__
 
 

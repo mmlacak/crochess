@@ -613,7 +613,8 @@ bool cc_str_print( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d,
                    char const * restrict fmt_str,
-                   char const * restrict fmt, ... )
+                   size_t fmt_len__d,
+                   char const * restrict fmt__d, ... )
 {
     if ( !start ) return false;
     if ( !fmt_str ) return false;
@@ -622,30 +623,30 @@ bool cc_str_print( char const * restrict start,
     if ( !str__a ) return false;
 
     int result = printf( fmt_str, str__a );
-    bool has_fmt = ( fmt && ( *fmt != '\0' ) );
-    int result_2 = has_fmt ? -1 : 1; // Set as error, if it needs to be done.
 
     CC_FREE( str__a );
 
-    if ( has_fmt )
+    if ( result < 0 ) return false;
+
+    bool has_fmt = ( fmt__d && ( *fmt__d != '\0' ) );
+    if ( !has_fmt ) return true;
+
+    va_list args;
+    va_start( args, fmt__d );
+
+    char * fmt__a = cc_str_format_va__new( fmt_len__d, fmt__d, args );
+    if ( !fmt__a )
     {
-        va_list args;
-        va_start( args, fmt );
-
-        char * fmt__a = cc_str_format_va__new( CC_MAX_LEN_ZERO_TERMINATED, fmt, args );
-        if ( !fmt__a )
-        {
-            va_end( args );
-            return false;
-        }
-
-        result_2 = printf( "%s", fmt__a );
-
-        CC_FREE( fmt__a );
         va_end( args );
+        return false;
     }
 
-    return ( ( result >= 0 ) && ( result_2 >= 0 ) );
+    result = printf( "%s", fmt__a );
+
+    CC_FREE( fmt__a );
+    va_end( args );
+
+    return ( result >= 0 );
 }
 //
 // TODO :: return newly allocated string
