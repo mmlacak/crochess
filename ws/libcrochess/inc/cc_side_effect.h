@@ -139,6 +139,8 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size );
 
 CcPieceEnum cc_side_effect_piece( CcSideEffect se );
 
+CcPos cc_side_effect_destination( CcSideEffect se );
+
 /** @defgroup side_effect_convenience The side-effect conveniences
  *  The side-effect convenience functions are meant to be used instead of `cc_side_effect()`.
 

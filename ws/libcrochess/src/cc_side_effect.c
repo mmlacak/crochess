@@ -181,6 +181,28 @@ CcPieceEnum cc_side_effect_piece( CcSideEffect se )
     }
 }
 
+CcPos cc_side_effect_destination( CcSideEffect se )
+{
+    switch ( se.type )
+    {
+        case CC_SEE_None : return CC_POS_CAST_INVALID;
+        case CC_SEE_Capture : return CC_POS_CAST_INVALID;
+        case CC_SEE_Displacement : return cc_pos( se.displacement.dest_i, se.displacement.dest_j );
+        case CC_SEE_EnPassant : return cc_pos( se.en_passant.dest_i, se.en_passant.dest_j );
+        case CC_SEE_Castle : return cc_pos( se.castle.dest_i, se.castle.dest_j );
+        case CC_SEE_Promotion : return CC_POS_CAST_INVALID;
+        case CC_SEE_PromotionNoSign : return CC_POS_CAST_INVALID;
+        case CC_SEE_TagForPromotion : return CC_POS_CAST_INVALID;
+        case CC_SEE_Conversion : return CC_POS_CAST_INVALID;
+        case CC_SEE_FailedConversion : return CC_POS_CAST_INVALID;
+        case CC_SEE_DemoteToPawn : return cc_pos( se.demote.dest_i, se.demote.dest_j );
+        case CC_SEE_Resurrection : return cc_pos( se.resurrect.dest_i, se.resurrect.dest_j );
+        case CC_SEE_FailedResurrection : return CC_POS_CAST_INVALID;
+
+        default : return CC_POS_CAST_INVALID;
+    }
+}
+
 //
 // conveniances
 
@@ -307,17 +329,13 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
     char piece = cc_piece_symbol( pe );
     *se_end++ = piece;
 
-// TODO :: fill-in, as above ( <-- use CcPos, instead of bare coords (?) )
-//
-    // cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-    // if ( !cc_pos_to_short_string( se.pos, &pos_c8 ) )
-    //     return false;
-//
-// TODO :: fill-in, as above ( <-- use CcPos, instead of bare coords (?) )
+    CcPos destination = cc_side_effect_destination( se );
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+    if ( !cc_pos_to_short_string( destination, &pos_c8 ) )
+        return false;
 
     size_t unused = CC_MAX_LEN_CHAR_16 - ( se_end - (char *)(se_str__o) );
-    // Not used afterwards. /* se_end += */
-    // cc_str_copy( pos_c8, NULL, CC_MAX_LEN_CHAR_8, se_end, unused );
+    /* se_end += */ cc_str_copy( pos_c8, NULL, CC_MAX_LEN_CHAR_8, se_end, unused );
 
     return true;
 }
