@@ -259,7 +259,7 @@ bool cc_starting_pos( char const * restrict an_str,
 
     // if ( !end ) return false; // Should be fine.
 
-    // if ( CC_IS_PLY_GATHER_END( *c ) ) ++c; // Isn't used after this, so ...
+    // if ( CC_CHAR_IS_PLY_GATHER_END( *c ) ) ++c; // Isn't used after this, so ...
 
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
 

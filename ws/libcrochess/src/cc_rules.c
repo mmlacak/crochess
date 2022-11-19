@@ -255,12 +255,12 @@
 // //         // Ply link.
 
 // //         CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
-// //         bool is_any_trance_journey = CC_IS_PLY_ANY_TRANCE_JOURNEY( ple );
+// //         bool is_any_trance_journey = CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY( ple );
 // //         char const * c_str = ply_start_str + cc_ply_link_len( ple );
 
 // //         CC_STR_PRINT_IF_INFO( ply_start_str, c_str, 128, "Ply link: '%s'", " --> %d.\n", ple );
 
-// //         if ( CC_IS_PLY_GATHER_START( *c_str ) ) ++c_str; // Move past '['.
+// //         if ( CC_CHAR_IS_PLY_GATHER_START( *c_str ) ) ++c_str; // Move past '['.
 
 // //         //
 // //         // Piece symbol.
@@ -279,7 +279,7 @@
 // //             return false;
 // //         }
 
-// //         if ( CC_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
+// //         if ( CC_CHAR_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
 
 // //         //
 // //         // Losing tag.
@@ -850,9 +850,9 @@
 //         // Ply link.
 
 //         CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
-//         bool is_any_trance_journey = CC_IS_PLY_ANY_TRANCE_JOURNEY( ple );
+//         bool is_any_trance_journey = CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY( ple );
 
-//         if ( !CC_IS_PLY_VALID( ple ) )
+//         if ( !CC_PLY_LINK_IS_VALID( ple ) )
 //         {
 //             cc_parse_msgs_append_format_if( parse_msgs__io,
 //                                             CC_PMTE_Error,
@@ -866,27 +866,27 @@
 
 //         char const * c_str = ply_start_str + cc_ply_link_len( ple );
 
-//         if ( CC_IS_PLY_TELEPORTATION( ple ) )
+//         if ( CC_PLY_LINK_IS_TELEPORTATION( ple ) )
 //         {
 //             // TODO
 //         }
-//         else if ( CC_IS_PLY_FAILED_TELEPORTATION( ple ) )
+//         else if ( CC_PLY_LINK_IS_FAILED_TELEPORTATION( ple ) )
 //         {
 //             // TODO
 //         }
-//         else if ( CC_IS_PLY_TRANCE_JOURNEY( ple ) )
+//         else if ( CC_PLY_LINK_IS_TRANCE_JOURNEY( ple ) )
 //         {
 //             // TODO
 //         }
-//         else if ( CC_IS_PLY_DUAL_TRANCE_JOURNEY( ple ) )
+//         else if ( CC_PLY_LINK_IS_DUAL_TRANCE_JOURNEY( ple ) )
 //         {
 //             // TODO
 //         }
-//         else if ( CC_IS_PLY_FAILED_TRANCE_JOURNEY( ple ) )
+//         else if ( CC_PLY_LINK_IS_FAILED_TRANCE_JOURNEY( ple ) )
 //         {
 //             // TODO
 //         }
-//         else if ( CC_IS_PLY_PAWN_SACRIFICE( ple ) )
+//         else if ( CC_PLY_LINK_IS_PAWN_SACRIFICE( ple ) )
 //         {
 //             // TODO
 //         }
@@ -911,7 +911,7 @@
 //                 return false;
 //             }
 
-//             if ( CC_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
+//             if ( CC_CHAR_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
 
 //             //
 //             // Losing tag.

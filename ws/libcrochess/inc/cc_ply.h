@@ -33,6 +33,31 @@ typedef enum CcPlyLinkEnum
     CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
 } CcPlyLinkEnum;
 
+
+#define CC_PLY_LINK_IS_NONE(ple) ( (ple) == CC_PLE_None )
+#define CC_PLY_LINK_IS_STARTING(ple) ( (ple) == CC_PLE_StartingPly )
+#define CC_PLY_LINK_IS_CASCADING(ple) ( (ple) == CC_PLE_CascadingPly )
+
+#define CC_PLY_LINK_IS_TELEPORTATION(ple) ( (ple) == CC_PLE_Teleportation )
+#define CC_PLY_LINK_IS_FAILED_TELEPORTATION(ple) ( (ple) == CC_PLE_FailedTeleportation )
+
+#define CC_PLY_LINK_IS_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_TranceJourney )
+#define CC_PLY_LINK_IS_DUAL_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_DualTranceJourney )
+#define CC_PLY_LINK_IS_FAILED_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_FailedTranceJourney )
+
+#define CC_PLY_LINK_IS_PAWN_SACRIFICE(ple) ( (ple) == CC_PLE_PawnSacrifice )
+
+
+#define CC_PLY_LINK_IS_VALID(ple) ( (ple) != CC_PLE_None )
+
+#define CC_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLE_Teleportation )           \
+                                        || ( (ple) == CC_PLE_FailedTeleportation )
+
+#define CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )           \
+                                         || ( (ple) == CC_PLE_DualTranceJourney )       \
+                                         || ( (ple) == CC_PLE_FailedTranceJourney ) )
+
+
 /**
     Function returns string symbol, as used in algebraic notation, for a given ply link.
 
