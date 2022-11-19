@@ -13,7 +13,7 @@
 
 /**
     @file cc_pos.h
-    @brief Position, side-effect, linked list of positions + side-effect.
+    @brief Position, position + piece, linked list of position + piece.
 */
 
 

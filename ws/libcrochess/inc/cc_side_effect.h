@@ -28,8 +28,7 @@ typedef enum CcSideEffectEnum
     CC_SEE_Displacement, /**< Corresponds to `<`. */
     CC_SEE_EnPassant, /**< Corresponds to `:`. */
     CC_SEE_Castle, /**< Corresponds to `&`. */
-    CC_SEE_Promotion, /**< Corresponds to `=`. */
-    CC_SEE_PromotionNoSign, /**< Corresponds to ``. */
+    CC_SEE_Promotion, /**< Corresponds to `=`, ``. */
     CC_SEE_TagForPromotion, /**< Corresponds to `=`. */
     CC_SEE_Conversion, /**< Corresponds to `%`. */
     CC_SEE_FailedConversion, /**< Corresponds to `%%`. */

@@ -440,7 +440,7 @@ CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str )
     }
     else if ( isupper( *c ) )
     {
-        return CC_SEE_PromotionNoSign;
+        return CC_SEE_Promotion; // Promotion without `=`.
     }
 
     return CC_SEE_None;

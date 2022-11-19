@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "cc_step.h"
+#include "cc_side_effect.h"
 
 /**
     @file cc_side_effect.c
@@ -22,7 +22,6 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see )
         case CC_SEE_EnPassant : return ":"; /* En passant, corresponds to : (colon). */
         case CC_SEE_Castle : return "&"; /* Castling, corresponds to & (ampersand). */
         case CC_SEE_Promotion : return "="; /* Promotion, corresponds to = (equal sign), optional. */
-        case CC_SEE_PromotionNoSign : return "="; /* Promotion, without sign. */
         case CC_SEE_TagForPromotion : return "="; /* Tag for promotion, corresponds to = (equal sign). */
         case CC_SEE_Conversion : return "%"; /* Conversion, corresponds to % (percent sign). */
         case CC_SEE_FailedConversion : return "%%"; /* Failed conversion, corresponds to %% (double percent sign). */
@@ -169,7 +168,6 @@ CcPieceEnum cc_side_effect_piece( CcSideEffect se )
         case CC_SEE_EnPassant : return se.en_passant.pawn;
         case CC_SEE_Castle : return se.castle.rook;
         case CC_SEE_Promotion : return se.promote.piece;
-        case CC_SEE_PromotionNoSign : return se.promote.piece;
         case CC_SEE_TagForPromotion : return CC_PE_None;
         case CC_SEE_Conversion : return se.convert.piece;
         case CC_SEE_FailedConversion : return CC_PE_None;
@@ -191,7 +189,6 @@ CcPos cc_side_effect_destination( CcSideEffect se )
         case CC_SEE_EnPassant : return cc_pos( se.en_passant.dest_i, se.en_passant.dest_j );
         case CC_SEE_Castle : return cc_pos( se.castle.dest_i, se.castle.dest_j );
         case CC_SEE_Promotion : return CC_POS_CAST_INVALID;
-        case CC_SEE_PromotionNoSign : return CC_POS_CAST_INVALID;
         case CC_SEE_TagForPromotion : return CC_POS_CAST_INVALID;
         case CC_SEE_Conversion : return CC_POS_CAST_INVALID;
         case CC_SEE_FailedConversion : return CC_POS_CAST_INVALID;
