@@ -6,6 +6,7 @@
 
 #include <stddef.h>
 
+#include "cc_pos.h"
 #include "cc_side_effect.h"
 
 /**
@@ -100,12 +101,7 @@ char const * cc_step_link_symbol( CcStepLinkEnum sle );
 typedef struct CcStep
 {
     CcStepLinkEnum link; /**< Type of a link to previous step. */
-
-// TODO :: change to CcPos (?)
-    int i; /**< File of a step. */
-    int j; /**< Rank of a step. */
-// TODO :: change to CcPos (?)
-
+    CcPos field; /**< Field of a step. */
     CcSideEffect side_effect; /**< Side-effect structure. */
 
     struct CcStep * next; /**< Next step in a linked list. */
@@ -115,38 +111,35 @@ typedef struct CcStep
     Returns a newly allocated step.
 
     @param link Type of a link to previous step.
-    @param i File.
-    @param j Rank.
+    @param field Field.
     @param side_effect Side-effect structure.
 
     @return
     A newly allocated step, is successful, `NULL` otherwise.
 */
 CcStep * cc_step__new( CcStepLinkEnum link,
-                       int i, int j, CcSideEffect side_effect );
+                       CcPos field, CcSideEffect side_effect );
 
 /**
     Appends a newly allocated step to a given linked list.
 
     @param steps__io Linked list to which a new step is appended.
     @param link Type of a link to previous step.
-    @param i File.
-    @param j Rank.
+    @param field Field.
     @param side_effect Side-effect structure.
 
     @return
     Weak pointer to a newly allocated step, is successful, `NULL` otherwise.
 */
 CcStep * cc_step_append( CcStep * restrict steps__io,
-                         CcStepLinkEnum link, int i, int j, CcSideEffect side_effect );
+                         CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
 
 /**
     Allocates a new step, appends it to a linked list.
 
     @param steps__io Linked list of steps, to which a newly allocated step is appended, can be `NULL`.
     @param link Type of a link to previous step.
-    @param i File.
-    @param j Rank.
+    @param field Field.
     @param side_effect Side-effect structure.
 
     @note
@@ -160,7 +153,7 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
     Weak pointer to a newly allocated step, is successful, `NULL` otherwise.
 */
 CcStep * cc_step_append_if( CcStep ** restrict steps__io,
-                            CcStepLinkEnum link, int i, int j, CcSideEffect side_effect );
+                            CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
 
 /**
     Duplicates a given steps into a newly allocated linked list.
@@ -274,37 +267,37 @@ bool cc_step_free_all( CcStep ** restrict steps__f );
  *  @{
  */
 
-CcStep * cc_step_none__new( CcStepLinkEnum link, int i, int j );
+CcStep * cc_step_none__new( CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_capture__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_capture__new( CcStepLinkEnum link, CcPos field,
                                CcPieceEnum piece, CcTagEnum lost_tag );
 
-CcStep * cc_step_displacement__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_displacement__new( CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination );
 
-CcStep * cc_step_en_passant__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_en_passant__new( CcStepLinkEnum link, CcPos field,
                                   CcPieceEnum pawn, CcPos distant );
 
-CcStep * cc_step_castle__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_castle__new( CcStepLinkEnum link, CcPos field,
                               CcPieceEnum rook, CcPos start, CcPos destination );
 
-CcStep * cc_step_promote__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_promote__new( CcStepLinkEnum link, CcPos field,
                                CcPieceEnum piece );
 
-CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, int i, int j );
+CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_convert__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_convert__new( CcStepLinkEnum link, CcPos field,
                                CcPieceEnum piece, CcTagEnum lost_tag );
 
-CcStep * cc_step_failed_conversion__new( CcStepLinkEnum link, int i, int j );
+CcStep * cc_step_failed_conversion__new( CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_demote__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_demote__new( CcStepLinkEnum link, CcPos field,
                               CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant );
 
-CcStep * cc_step_resurrect__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_resurrect__new( CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcPos destination );
 
-CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, int i, int j );
+CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, CcPos field );
 
 /** @} */ // end of step_convenience_new
 
@@ -320,48 +313,48 @@ CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, int i, int j );
  */
 
 CcStep * cc_step_none_append( CcStep * restrict steps__io,
-                              CcStepLinkEnum link, int i, int j );
+                              CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_capture_append( CcStep * restrict steps__io,
-                                 CcStepLinkEnum link, int i, int j,
+                                 CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcTagEnum lost_tag );
 
 CcStep * cc_step_displacement_append( CcStep * restrict steps__io,
-                                      CcStepLinkEnum link, int i, int j,
+                                      CcStepLinkEnum link, CcPos field,
                                       CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination );
 
 CcStep * cc_step_en_passant_append( CcStep * restrict steps__io,
-                                    CcStepLinkEnum link, int i, int j,
+                                    CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum pawn, CcPos distant );
 
 CcStep * cc_step_castle_append( CcStep * restrict steps__io,
-                                CcStepLinkEnum link, int i, int j,
+                                CcStepLinkEnum link, CcPos field,
                                 CcPieceEnum rook, CcPos start, CcPos destination );
 
 CcStep * cc_step_promote_append( CcStep * restrict steps__io,
-                                 CcStepLinkEnum link, int i, int j,
+                                 CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece );
 
 CcStep * cc_step_tag_for_promotion_append( CcStep * restrict steps__io,
-                                           CcStepLinkEnum link, int i, int j );
+                                           CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_convert_append( CcStep * restrict steps__io,
-                                 CcStepLinkEnum link, int i, int j,
+                                 CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcTagEnum lost_tag );
 
 CcStep * cc_step_failed_conversion_append( CcStep * restrict steps__io,
-                                           CcStepLinkEnum link, int i, int j );
+                                           CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_demote_append( CcStep * restrict steps__io,
-                                CcStepLinkEnum link, int i, int j,
+                                CcStepLinkEnum link, CcPos field,
                                 CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant );
 
 CcStep * cc_step_resurrect_append( CcStep * restrict steps__io,
-                                   CcStepLinkEnum link, int i, int j,
+                                   CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum piece, CcPos destination );
 
 CcStep * cc_step_failed_resurrection_append( CcStep * restrict steps__io,
-                                             CcStepLinkEnum link, int i, int j );
+                                             CcStepLinkEnum link, CcPos field );
 
 /** @} */ // end of step_convenience_append
 
@@ -378,48 +371,48 @@ CcStep * cc_step_failed_resurrection_append( CcStep * restrict steps__io,
  */
 
 CcStep * cc_step_none_append_if( CcStep ** restrict steps__io,
-                                 CcStepLinkEnum link, int i, int j );
+                                 CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_capture_append_if( CcStep ** restrict steps__io,
-                                    CcStepLinkEnum link, int i, int j,
+                                    CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcTagEnum lost_tag );
 
 CcStep * cc_step_displacement_append_if( CcStep ** restrict steps__io,
-                                         CcStepLinkEnum link, int i, int j,
+                                         CcStepLinkEnum link, CcPos field,
                                          CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination );
 
 CcStep * cc_step_en_passant_append_if( CcStep ** restrict steps__io,
-                                       CcStepLinkEnum link, int i, int j,
+                                       CcStepLinkEnum link, CcPos field,
                                        CcPieceEnum pawn, CcPos distant );
 
 CcStep * cc_step_castle_append_if( CcStep ** restrict steps__io,
-                                   CcStepLinkEnum link, int i, int j,
+                                   CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum rook, CcPos start, CcPos destination );
 
 CcStep * cc_step_promote_append_if( CcStep ** restrict steps__io,
-                                    CcStepLinkEnum link, int i, int j,
+                                    CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece );
 
 CcStep * cc_step_tag_for_promotion_append_if( CcStep ** restrict steps__io,
-                                              CcStepLinkEnum link, int i, int j );
+                                              CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_convert_append_if( CcStep ** restrict steps__io,
-                                    CcStepLinkEnum link, int i, int j,
+                                    CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcTagEnum lost_tag );
 
 CcStep * cc_step_failed_conversion_append_if( CcStep ** restrict steps__io,
-                                              CcStepLinkEnum link, int i, int j );
+                                              CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_demote_append_if( CcStep ** restrict steps__io,
-                                   CcStepLinkEnum link, int i, int j,
+                                   CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant );
 
 CcStep * cc_step_resurrect_append_if( CcStep ** restrict steps__io,
-                                      CcStepLinkEnum link, int i, int j,
+                                      CcStepLinkEnum link, CcPos field,
                                       CcPieceEnum piece, CcPos destination );
 
 CcStep * cc_step_failed_resurrection_append_if( CcStep ** restrict steps__io,
-                                                CcStepLinkEnum link, int i, int j );
+                                                CcStepLinkEnum link, CcPos field );
 
 /** @} */ // end of step_convenience_append_or_init
 

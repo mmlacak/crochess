@@ -28,14 +28,13 @@ char const * cc_step_link_symbol( CcStepLinkEnum sle )
 }
 
 CcStep * cc_step__new( CcStepLinkEnum link,
-                       int i, int j, CcSideEffect side_effect )
+                       CcPos field, CcSideEffect side_effect )
 {
     CcStep * step__a = malloc( sizeof( CcStep ) );
     if ( !step__a ) return NULL;
 
     step__a->link = link;
-    step__a->i = i;
-    step__a->j = j;
+    step__a->field = field;
     step__a->side_effect = side_effect;
 
     step__a->next = NULL;
@@ -44,11 +43,11 @@ CcStep * cc_step__new( CcStepLinkEnum link,
 }
 
 CcStep * cc_step_append( CcStep * restrict steps__io,
-                         CcStepLinkEnum link, int i, int j, CcSideEffect side_effect )
+                         CcStepLinkEnum link, CcPos field, CcSideEffect side_effect )
 {
     if ( !steps__io ) return NULL;
 
-    CcStep * step__t = cc_step__new( link, i, j, side_effect );
+    CcStep * step__t = cc_step__new( link, field, side_effect );
     if ( !step__t ) return NULL;
 
     CcStep * s = steps__io;
@@ -59,16 +58,16 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
 }
 
 CcStep * cc_step_append_if( CcStep ** restrict steps__io,
-                            CcStepLinkEnum link, int i, int j, CcSideEffect side_effect )
+                            CcStepLinkEnum link, CcPos field, CcSideEffect side_effect )
 {
     if ( !steps__io ) return NULL;
 
     CcStep * step__w = NULL;
 
     if ( !*steps__io )
-        *steps__io = step__w = cc_step__new( link, i, j, side_effect );
+        *steps__io = step__w = cc_step__new( link, field, side_effect );
     else
-        step__w = cc_step_append( *steps__io, link, i, j, side_effect );
+        step__w = cc_step_append( *steps__io, link, field, side_effect );
 
     return step__w;
 }
@@ -79,8 +78,7 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io )
     if ( !steps__io ) return NULL;
 
     CcStep * steps__a = cc_step__new( steps__io->link,
-                                      steps__io->i,
-                                      steps__io->j,
+                                      steps__io->field,
                                       steps__io->side_effect );
     if ( !steps__a ) return NULL;
 
@@ -90,8 +88,7 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io )
     {
         CcStep * step__w = cc_step_append( steps__a,
                                            from->link,
-                                           from->i,
-                                           from->j,
+                                           from->field,
                                            from->side_effect );
         if ( !step__w )
         {
@@ -126,7 +123,7 @@ bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size )
 {
     if ( !step ) return false;
 
-    if ( !CC_IS_COORD_2_ON_BOARD( board_size, step->i, step->j ) ) return false;
+    if ( !CC_IS_COORD_2_ON_BOARD( board_size, step->field.i, step->field.j ) ) return false;
 
     if ( !cc_side_effect_is_valid( step->side_effect, board_size ) ) return false;
 
@@ -398,272 +395,272 @@ bool cc_step_free_all( CcStep ** restrict steps__f )
 //
 // new conveniences
 
-CcStep * cc_step_none__new( CcStepLinkEnum link, int i, int j )
+CcStep * cc_step_none__new( CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_none();
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_capture__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_capture__new( CcStepLinkEnum link, CcPos field,
                                CcPieceEnum piece, CcTagEnum lost_tag )
 {
     CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_displacement__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_displacement__new( CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, destination );
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_en_passant__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_en_passant__new( CcStepLinkEnum link, CcPos field,
                                   CcPieceEnum pawn, CcPos distant )
 {
     CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_castle__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_castle__new( CcStepLinkEnum link, CcPos field,
                               CcPieceEnum rook, CcPos start, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_castle( rook, start, destination );
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_promote__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_promote__new( CcStepLinkEnum link, CcPos field,
                                CcPieceEnum piece )
 {
     CcSideEffect se = cc_side_effect_promote( piece );
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, int i, int j )
+CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_tag_for_promotion();
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_convert__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_convert__new( CcStepLinkEnum link, CcPos field,
                                CcPieceEnum piece, CcTagEnum lost_tag )
 {
     CcSideEffect se = cc_side_effect_convert( piece, lost_tag );
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_failed_conversion__new( CcStepLinkEnum link, int i, int j )
+CcStep * cc_step_failed_conversion__new( CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_failed_conversion();
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_demote__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_demote__new( CcStepLinkEnum link, CcPos field,
                               CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant )
 {
     CcSideEffect se = cc_side_effect_demote( piece, lost_tag, distant );
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_resurrect__new( CcStepLinkEnum link, int i, int j,
+CcStep * cc_step_resurrect__new( CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_resurrect( piece, destination );
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, int i, int j )
+CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_failed_resurrection();
-    return cc_step__new( link, i, j, se );
+    return cc_step__new( link, field, se );
 }
 
 //
 // append conveniences
 
 CcStep * cc_step_none_append( CcStep * restrict steps__io,
-                              CcStepLinkEnum link, int i, int j )
+                              CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_none();
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_capture_append( CcStep * restrict steps__io,
-                                 CcStepLinkEnum link, int i, int j,
+                                 CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcTagEnum lost_tag )
 {
     CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_displacement_append( CcStep * restrict steps__io,
-                                      CcStepLinkEnum link, int i, int j,
+                                      CcStepLinkEnum link, CcPos field,
                                       CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, destination );
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_en_passant_append( CcStep * restrict steps__io,
-                                    CcStepLinkEnum link, int i, int j,
+                                    CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum pawn, CcPos distant )
 {
     CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_castle_append( CcStep * restrict steps__io,
-                                CcStepLinkEnum link, int i, int j,
+                                CcStepLinkEnum link, CcPos field,
                                 CcPieceEnum rook, CcPos start, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_castle( rook, start, destination );
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_promote_append( CcStep * restrict steps__io,
-                                 CcStepLinkEnum link, int i, int j,
+                                 CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece )
 {
     CcSideEffect se = cc_side_effect_promote( piece );
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_tag_for_promotion_append( CcStep * restrict steps__io,
-                                           CcStepLinkEnum link, int i, int j )
+                                           CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_tag_for_promotion();
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_convert_append( CcStep * restrict steps__io,
-                                 CcStepLinkEnum link, int i, int j,
+                                 CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcTagEnum lost_tag )
 {
     CcSideEffect se = cc_side_effect_convert( piece, lost_tag );
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_failed_conversion_append( CcStep * restrict steps__io,
-                                           CcStepLinkEnum link, int i, int j )
+                                           CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_failed_conversion();
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_demote_append( CcStep * restrict steps__io,
-                                CcStepLinkEnum link, int i, int j,
+                                CcStepLinkEnum link, CcPos field,
                                 CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant )
 {
     CcSideEffect se = cc_side_effect_demote( piece, lost_tag, distant );
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_resurrect_append( CcStep * restrict steps__io,
-                                   CcStepLinkEnum link, int i, int j,
+                                   CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum piece, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_resurrect( piece, destination );
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_failed_resurrection_append( CcStep * restrict steps__io,
-                                             CcStepLinkEnum link, int i, int j )
+                                             CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_failed_resurrection();
-    return cc_step_append( steps__io, link, i, j, se );
+    return cc_step_append( steps__io, link, field, se );
 }
 
 //
 // append or init conveniences
 
 CcStep * cc_step_none_append_if( CcStep ** restrict steps__io,
-                                 CcStepLinkEnum link, int i, int j )
+                                 CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_none();
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_capture_append_if( CcStep ** restrict steps__io,
-                                    CcStepLinkEnum link, int i, int j,
+                                    CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcTagEnum lost_tag )
 {
     CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_displacement_append_if( CcStep ** restrict steps__io,
-                                         CcStepLinkEnum link, int i, int j,
+                                         CcStepLinkEnum link, CcPos field,
                                          CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, destination );
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_en_passant_append_if( CcStep ** restrict steps__io,
-                                       CcStepLinkEnum link, int i, int j,
+                                       CcStepLinkEnum link, CcPos field,
                                        CcPieceEnum pawn, CcPos distant )
 {
     CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_castle_append_if( CcStep ** restrict steps__io,
-                                   CcStepLinkEnum link, int i, int j,
+                                   CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum rook, CcPos start, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_castle( rook, start, destination );
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_promote_append_if( CcStep ** restrict steps__io,
-                                    CcStepLinkEnum link, int i, int j,
+                                    CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece )
 {
     CcSideEffect se = cc_side_effect_promote( piece );
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_tag_for_promotion_append_if( CcStep ** restrict steps__io,
-                                              CcStepLinkEnum link, int i, int j )
+                                              CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_tag_for_promotion();
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_convert_append_if( CcStep ** restrict steps__io,
-                                    CcStepLinkEnum link, int i, int j,
+                                    CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcTagEnum lost_tag )
 {
     CcSideEffect se = cc_side_effect_convert( piece, lost_tag );
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_failed_conversion_append_if( CcStep ** restrict steps__io,
-                                              CcStepLinkEnum link, int i, int j )
+                                              CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_failed_conversion();
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_demote_append_if( CcStep ** restrict steps__io,
-                                   CcStepLinkEnum link, int i, int j,
+                                   CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant )
 {
     CcSideEffect se = cc_side_effect_demote( piece, lost_tag, distant );
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_resurrect_append_if( CcStep ** restrict steps__io,
-                                      CcStepLinkEnum link, int i, int j,
+                                      CcStepLinkEnum link, CcPos field,
                                       CcPieceEnum piece, CcPos destination )
 {
     CcSideEffect se = cc_side_effect_resurrect( piece, destination );
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_failed_resurrection_append_if( CcStep ** restrict steps__io,
-                                                CcStepLinkEnum link, int i, int j )
+                                                CcStepLinkEnum link, CcPos field )
 {
     CcSideEffect se = cc_side_effect_failed_resurrection();
-    return cc_step_append_if( steps__io, link, i, j, se );
+    return cc_step_append_if( steps__io, link, field, se );
 }
