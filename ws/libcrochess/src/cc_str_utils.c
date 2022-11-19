@@ -607,7 +607,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
     return str__a;
 }
 
-// TODO :: return newly allocated string
+// TODO :: (?) move /return newly allocated string (?)
 //
 bool cc_str_print( char const * restrict start,
                    char const * restrict end__d,
@@ -616,6 +616,9 @@ bool cc_str_print( char const * restrict start,
                    size_t fmt_len__d,
                    char const * restrict fmt__d, ... )
 {
+
+#ifdef __CC_STR_PRINT_INFO__
+
     if ( !start ) return false;
     if ( !fmt_str ) return false;
 
@@ -647,6 +650,13 @@ bool cc_str_print( char const * restrict start,
     va_end( args );
 
     return ( result >= 0 );
+
+#else // __CC_STR_PRINT_INFO__
+
+    return true;
+
+#endif // __CC_STR_PRINT_INFO__
+
 }
 //
-// TODO :: return newly allocated string
+// TODO :: (?) move /return newly allocated string (?)

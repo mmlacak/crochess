@@ -500,7 +500,7 @@ char * cc_str_append_format__new( char ** restrict str__f,
                                   size_t max_len__d,
                                   char const * restrict fmt, ... );
 
-// TODO :: return newly allocated string
+// TODO :: (?) move /return newly allocated string (?)
 //
 /**
     Function prints (sub-)string, followed by formatted variadic input.
@@ -524,9 +524,9 @@ char * cc_str_append_format__new( char ** restrict str__f,
     So, `fmt_str` must have the only one formatting specified as string (i.e. `%%s`),
     to handle internal string as the only argument to `printf`.
 
-    Note format specifier in this example, the only `%%s` corresponds to internal string.
+    Note, format specifier in this example, the only `%%s` corresponds to internal string.
     @code{.c}
-    cc_str_printf( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", "" );
+    cc_str_printf( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL );
     @endcode
 
     @note
@@ -534,6 +534,10 @@ char * cc_str_append_format__new( char ** restrict str__f,
     @code{.c}
     cc_str_print( start, c, 128, "Ply link: '%s'", " --> %d.\n", ple );
     @endcode
+
+    <br />
+    @note
+    Compile-time constant which controls definition of this function is `__CC_STR_PRINT_INFO__`.
 
     @return `true` if successful, `false` otherwise.
 */
@@ -543,8 +547,6 @@ bool cc_str_print( char const * restrict start,
                    char const * restrict fmt_str,
                    size_t fmt_len__d,
                    char const * restrict fmt__d, ... );
-//
-// TODO :: return newly allocated string
 
 /**
     Macro to call `cc_str_print()`, depending on a compile-time constant.
@@ -570,6 +572,8 @@ bool cc_str_print( char const * restrict start,
 #else // __CC_STR_PRINT_INFO__
 #define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt__d,...) true
 #endif // __CC_STR_PRINT_INFO__
+//
+// TODO :: (?) move /return newly allocated string (?)
 
 
 #endif /* __CC_STR_UTILS_H__ */
