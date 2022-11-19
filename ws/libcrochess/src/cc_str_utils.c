@@ -622,10 +622,12 @@ bool cc_str_print( char const * restrict start,
     if ( !str__a ) return false;
 
     int result = printf( fmt_str, str__a );
+    bool has_fmt = ( fmt && ( *fmt != '\0' ) );
+    int result_2 = has_fmt ? -1 : 1; // Set as error, if it needs to be done.
 
     CC_FREE( str__a );
 
-    if ( fmt && *fmt )
+    if ( has_fmt )
     {
         va_list args;
         va_start( args, fmt );
@@ -637,13 +639,13 @@ bool cc_str_print( char const * restrict start,
             return false;
         }
 
-        result = printf( "%s", fmt__a ) && ( result >= 0 );
+        result_2 = printf( "%s", fmt__a );
 
         CC_FREE( fmt__a );
         va_end( args );
     }
 
-    return ( result >= 0 );
+    return ( ( result >= 0 ) && ( result_2 >= 0 ) );
 }
 //
 // TODO :: return newly allocated string

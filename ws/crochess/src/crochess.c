@@ -22,10 +22,10 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.208:640+20221119.025356"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.209:641+20221119.033752"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
-bool cc_print_all_moves( CcMove * restrict moves )
+bool print_all_moves( CcMove * restrict moves )
 {
     if ( !moves ) return false;
 
@@ -119,7 +119,7 @@ int main( void )
         else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) )
         {
-            cc_print_all_moves( game__a->moves );
+            print_all_moves( game__a->moves );
         }
         else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) )
