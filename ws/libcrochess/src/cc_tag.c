@@ -38,3 +38,15 @@ CcTagEnum cc_tag_from_char( char c )
         default : return CC_TE_None;
     }
 }
+
+char const * cc_losing_tag_as_string( CcTagEnum te )
+{
+    switch ( te )
+    {
+        case CC_TE_DelayedPromotion : return "==";
+        case CC_TE_CanRush : return "::";
+        case CC_TE_CanCastle : return "&&";
+
+        default : return "";
+    }
+}

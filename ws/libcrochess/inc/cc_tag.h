@@ -169,5 +169,15 @@ char cc_tag_as_char( CcTagEnum ct );
 */
 CcTagEnum cc_tag_from_char( char c );
 
+/**
+    Function returning string, based on lost tag.
+
+    @param te Lost tag.
+
+    @return Valid string pointer.
+            String can be empty, if tag cannot be lost.
+*/
+char const * cc_losing_tag_as_string( CcTagEnum te );
+
 
 #endif /* __CC_TAG_H__ */

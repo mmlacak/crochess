@@ -46,25 +46,4 @@
                                          || ( (ple) == CC_PLE_FailedTranceJourney ) )
 
 
-// TODO :: move + adapt
-//
-// /**
-//     Losing tag enumeration.
-//
-//     This enumerates all delayed opportunities, which can be lost.
-// */
-// typedef enum CcLosingTagEnum
-// {
-//     CC_LTE_None, /**< Losing tag not found, uninitialized, or error happened. */
-//     CC_LTE_Promotion, /**< Losing promotion, corresponds to == (dual equal sign). */
-//     CC_LTE_Rushing, /**< Losing ability to rush, corresponds to :: (double-colon). */
-//     CC_LTE_Castling, /**< Losing ability to castle, corresponds to && (double-ampersand). */
-// } CcLosingTagEnum;
-//
-//
-// char const * cc_losing_tag_as_string( CcLosingTagEnum lte );
-//
-// TODO :: move + adapt
-
-
 #endif /* __CC_PARSE_DEFS_H__ */

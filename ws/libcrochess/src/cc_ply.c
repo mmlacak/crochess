@@ -291,21 +291,21 @@ size_t cc_ply_step_count( CcPly * restrict ply,
 }
 
 CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
-                                      CcPly * restrict ply )
+                                      CcPly * restrict ply__d )
 {
     if ( !plies ) return CC_PE_None;
 
-    if ( plies == ply ) // First ply in a linked list.
+    if ( plies == ply__d ) // First ply in a linked list.
         return CC_PIECE_IS_ACTIVE( plies->piece ) ? plies->piece
                                                   : CC_PE_None;
 
     // <!> Shadows issue if ply is not contained in plies.
     //
-    // if ( ply && CC_PIECE_IS_ACTIVE( ply->piece ) )
-    //     return ply->piece;
+    // if ( ply__d && CC_PIECE_IS_ACTIVE( ply__d->piece ) )
+    //     return ply__d->piece;
 
     CcPieceEnum last_active_piece = CC_PE_None;
-    bool ply_encountered = ( !ply );
+    bool ply_encountered = ( !ply__d );
     CcPly * p = plies;
 
     while ( p )
@@ -313,7 +313,7 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
         if ( CC_PIECE_IS_ACTIVE( p->piece ) )
             last_active_piece = p->piece;
 
-        if ( p == ply )
+        if ( p == ply__d )
         {
             ply_encountered = true;
             break;

@@ -210,7 +210,7 @@ size_t cc_ply_step_count( CcPly * restrict ply,
     Last active piece for a ply is piece in that ply, if it's active.
 
     @param plies A linked list of plies.
-    @param ply A ply, within given linked list; can be `NULL`.
+    @param ply__d _Optional_, can be `NULL`; a ply within given linked list.
 
     @note
     If `ply` is `NULL`, last active piece in a complete linked list is returned.
@@ -222,7 +222,7 @@ size_t cc_ply_step_count( CcPly * restrict ply,
     @return Last active piece if successful, `CC_PE_None` otherwise.
 */
 CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
-                                      CcPly * restrict ply );
+                                      CcPly * restrict ply__d );
 
 
 #endif /* __CC_PLY_H__ */
