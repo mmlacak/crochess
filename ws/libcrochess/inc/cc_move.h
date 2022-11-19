@@ -153,6 +153,5 @@ bool cc_move_free_all( CcMove ** restrict moves__f );
 */
 size_t cc_move_plies_count( CcMove * restrict move );
 
-bool cc_move_print_all( CcMove * restrict moves );
 
 #endif /* __CC_MOVE_H__ */

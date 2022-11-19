@@ -422,6 +422,8 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
     return show__a;
 }
 
+// TODO :: move out
+//
 bool cc_chessboard_print( CcChessboard * restrict cb,
                           bool is_board_or_tag )
 {
@@ -435,3 +437,5 @@ bool cc_chessboard_print( CcChessboard * restrict cb,
 
     return true;
 }
+//
+// TODO :: move out

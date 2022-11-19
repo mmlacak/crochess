@@ -500,6 +500,8 @@ char * cc_str_append_format__new( char ** restrict str__f,
                                   size_t max_len__d,
                                   char const * restrict fmt, ... );
 
+// TODO :: return newly allocated string
+//
 /**
     Function prints (sub-)string, followed by formatted variadic input.
 
@@ -539,6 +541,8 @@ bool cc_str_print( char const * restrict start,
                    size_t max_len__d,
                    char const * restrict fmt_str,
                    char const * restrict fmt, ... );
+//
+// TODO :: return newly allocated string
 
 /**
     Macro to call `cc_str_print()`, depending on a compile-time constant.

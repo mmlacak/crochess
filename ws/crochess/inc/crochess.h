@@ -8,6 +8,9 @@
 extern char const CROCHESS_VERSION[];
 
 
+bool cc_move_print_all( CcMove * restrict moves );
+
+
 int main(void);
 
 

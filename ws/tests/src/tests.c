@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.207:639+20221119.022407"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.208:640+20221119.025356"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -52,6 +52,43 @@ int get_integer_from_cli_arg( char const * restrict str,
     }
 
     return number;
+}
+
+bool cc_print_all_moves( CcMove * restrict moves )
+{
+    if ( !moves ) return false;
+
+    CcMove * m = moves;
+    CcMove * l = NULL;
+    CcMove * d = NULL;
+
+    size_t i = 0;
+    size_t index = 0;
+
+    while ( m->prev ) m = m->prev; // rewind
+
+    while ( m )
+    {
+        if ( i++ % 2 == 0 )
+        {
+            l = m;
+
+            if ( !m->next )
+            {
+                printf( "%lu %s ...\n", index+1, l->notation );
+                break;
+            }
+        }
+        else
+        {
+            d = m;
+            printf( "%lu %s %s\n", ++index, l->notation, d->notation );
+        }
+
+        m = m->next;
+    }
+
+    return true;
 }
 
 
@@ -143,7 +180,7 @@ int main( void )
         else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) )
         {
-            cc_move_print_all( game__a->moves );
+            cc_print_all_moves( game__a->moves );
         }
         else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) )

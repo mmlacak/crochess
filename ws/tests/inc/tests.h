@@ -17,6 +17,8 @@ int get_integer_from_cli_arg( char const * restrict str,
                               char const ** restrict first_io,
                               char const ** restrict end_io );
 
+bool cc_move_print_all( CcMove * restrict moves );
+
 
 int main(void);
 

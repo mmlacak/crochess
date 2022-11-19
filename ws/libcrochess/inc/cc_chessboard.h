@@ -279,6 +279,8 @@ bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict
 char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
                                      bool is_board_or_tag );
 
+// TODO :: move out
+//
 /**
     Prints string representing piece, tag positions on a given chessboard.
 
@@ -289,6 +291,8 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
 */
 bool cc_chessboard_print( CcChessboard * restrict cb,
                           bool is_board_or_tag );
+//
+// TODO :: move out
 
 
 #endif /* __CC_CHESS_BOARD_H__ */

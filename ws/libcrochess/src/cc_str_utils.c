@@ -607,6 +607,8 @@ char * cc_str_append_format__new( char ** restrict str__f,
     return str__a;
 }
 
+// TODO :: return newly allocated string
+//
 bool cc_str_print( char const * restrict start,
                    char const * restrict end__d,
                    size_t max_len__d,
@@ -643,3 +645,5 @@ bool cc_str_print( char const * restrict start,
 
     return ( result >= 0 );
 }
+//
+// TODO :: return newly allocated string
