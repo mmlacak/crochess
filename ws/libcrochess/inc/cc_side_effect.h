@@ -67,20 +67,16 @@ typedef struct CcSideEffect
 
         struct  { CcPieceEnum piece; /**< Piece which has been displaced. */
                   CcTagEnum lost_tag; /**< Flag, whether displaced piece has lost its tag. */
-                  int dest_i; /**< File, displacement destination. */
-                  int dest_j; /**< Rank, displacement destination. */
+                  CcPos destination; /**< Displacement destination. */
                 } displacement; /**< Displacement, used during light Shaman's trance-journey. */
 
         struct  { CcPieceEnum pawn; /**< Pawn which has been captured. */
-                  int dest_i; /**< File of captured Pawn. */
-                  int dest_j; /**< Rank of captured Pawn. */
+                  CcPos distant; /**< Position at which Pawn has been captured. */
                 } en_passant; /**< En passant. */
 
         struct  { CcPieceEnum rook; /**< Rook which castled. */
-                  int start_i; /**< File, starting position of a Rook. */
-                  int start_j; /**< Rank, starting position of a Rook. */
-                  int dest_i; /**< File, destination of a Rook. */
-                  int dest_j; /**< Rank, destination of a Rook. */
+                  CcPos start; /**< Starting position of a Rook. */
+                  CcPos destination; /**< Castling Rook destination. */
                 } castle; /**< Castling. */
 
         struct  { CcPieceEnum piece; /**< Piece to which Pawn has been promoted. */
@@ -92,13 +88,11 @@ typedef struct CcSideEffect
 
         struct  { CcPieceEnum piece; /**< Piece which has been demoted to Pawn. */
                   CcTagEnum lost_tag; /**< Flag, whether demoted piece has lost its tag. */
-                  int dest_i; /**< File, at which demoting happened. */
-                  int dest_j; /**< Rank, at which demoting happened. */
+                  CcPos distant; /**< Position at which piece has been demoted. */
                 } demote; /**< Demoting. */
 
-        struct  { CcPieceEnum piece; /**< Piece whic has been resurrected. */
-                  int dest_i; /**< File, at which resurrection happened. */
-                  int dest_j; /**< Rank, at which resurrection happened. */
+        struct  { CcPieceEnum piece; /**< Piece which has been resurrected. */
+                  CcPos destination; /**< Position at which Wave, Starchild has been resurrected. */
                 } resurrect; /**< Resurrection. */
     }; /**< Union of all substructures used by different step side-effects. */
 } CcSideEffect;
@@ -109,10 +103,8 @@ typedef struct CcSideEffect
     @param type Side-effect enum.
     @param piece A piece.
     @param lost_tag Flag, if Pawn has lost its delayed promotion tag.
-    @param start_i File, starting position.
-    @param start_j Rank, starting position.
-    @param dest_i File, destination position.
-    @param dest_j Rank, destination position.
+    @param start Starting position.
+    @param destination Destination position.
 
     @note
     Side-effect structure is returned as a value on the stack,
@@ -123,8 +115,8 @@ typedef struct CcSideEffect
 CcSideEffect cc_side_effect( CcSideEffectEnum type,
                              CcPieceEnum piece,
                              CcTagEnum lost_tag,
-                             int start_i, int start_j,
-                             int dest_i, int dest_j );
+                             CcPos start,
+                             CcPos destination );
 
 /**
     Function checks if a given side-effect is valid.
@@ -136,8 +128,22 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
 */
 bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size );
 
+/**
+    Function returns piece affected by a side-effect.
+
+    @param se Side-effect.
+
+    @return A piece.
+*/
 CcPieceEnum cc_side_effect_piece( CcSideEffect se );
 
+/**
+    Function returns position affected by a side-effect.
+
+    @param se Side-effect.
+
+    @return A position.
+*/
 CcPos cc_side_effect_destination( CcSideEffect se );
 
 /** @defgroup side_effect_convenience The side-effect conveniences
@@ -152,15 +158,15 @@ CcPos cc_side_effect_destination( CcSideEffect se );
 
 CcSideEffect cc_side_effect_none();
 CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcTagEnum lost_tag );
-CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j );
-CcSideEffect cc_side_effect_en_passant( CcPieceEnum piece, int dest_i, int dest_j );
-CcSideEffect cc_side_effect_castle( CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j );
+CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination );
+CcSideEffect cc_side_effect_en_passant( CcPieceEnum pawn, CcPos distant );
+CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination );
 CcSideEffect cc_side_effect_promote( CcPieceEnum piece );
 CcSideEffect cc_side_effect_tag_for_promotion();
 CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcTagEnum lost_tag );
 CcSideEffect cc_side_effect_failed_conversion();
-CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j );
-CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, int dest_i, int dest_j );
+CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant );
+CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, CcPos destination );
 CcSideEffect cc_side_effect_failed_resurrection();
 
 /** @} */ // end of ply_convenience_new

@@ -37,8 +37,8 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see )
 CcSideEffect cc_side_effect( CcSideEffectEnum type,
                              CcPieceEnum piece,
                              CcTagEnum lost_tag,
-                             int start_i, int start_j,
-                             int dest_i, int dest_j )
+                             CcPos start,
+                             CcPos destination )
 {
     CcSideEffect sse = { .type = type, };
 
@@ -52,22 +52,18 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     {
         sse.displacement.piece = piece;
         sse.displacement.lost_tag = lost_tag;
-        sse.displacement.dest_i = dest_i;
-        sse.displacement.dest_j = dest_j;
+        sse.displacement.destination = destination;
     }
     else if ( sse.type == CC_SEE_EnPassant )
     {
         sse.en_passant.pawn = piece;
-        sse.en_passant.dest_i = dest_i;
-        sse.en_passant.dest_j = dest_j;
+        sse.en_passant.distant = destination;
     }
     else if ( sse.type == CC_SEE_Castle )
     {
         sse.castle.rook = piece;
-        sse.castle.start_i = start_i;
-        sse.castle.start_j = start_j;
-        sse.castle.dest_i = dest_i;
-        sse.castle.dest_j = dest_j;
+        sse.castle.start = start;
+        sse.castle.destination = destination;
     }
     else if ( sse.type == CC_SEE_Promotion )
     {
@@ -83,14 +79,12 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     else if ( sse.type == CC_SEE_DemoteToPawn )
     {
         sse.demote.piece = piece;
-        sse.demote.dest_i = dest_i;
-        sse.demote.dest_j = dest_j;
+        sse.demote.distant = destination;
     }
     else if ( sse.type == CC_SEE_Resurrection )
     {
         sse.resurrect.piece = piece;
-        sse.resurrect.dest_i = dest_i;
-        sse.resurrect.dest_j = dest_j;
+        sse.resurrect.destination = destination;
     }
     // Nothing more to do if type == CC_SEE_FailedResurrection.
 
@@ -114,24 +108,24 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
         case CC_SEE_Displacement :
             return CC_PIECE_CAN_BE_DISPLACED( see.displacement.piece ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
-                                           see.displacement.dest_i,
-                                           see.displacement.dest_j ) &&
+                                           see.displacement.destination.i,
+                                           see.displacement.destination.j ) &&
                    CC_TAG_CAN_BE_LOST( see.displacement.lost_tag );
 
         case CC_SEE_EnPassant :
             return CC_PIECE_IS_PAWN( see.en_passant.pawn ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
-                                           see.en_passant.dest_i,
-                                           see.en_passant.dest_j );
+                                           see.en_passant.distant.i,
+                                           see.en_passant.distant.j );
 
         case CC_SEE_Castle :
             return CC_PIECE_IS_ROOK( see.castle.rook ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
-                                           see.castle.start_i,
-                                           see.castle.start_j ) &&
+                                           see.castle.start.i,
+                                           see.castle.start.j ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
-                                           see.castle.dest_i,
-                                           see.castle.dest_j );
+                                           see.castle.destination.i,
+                                           see.castle.destination.j );
 
         case CC_SEE_Promotion :
             return CC_PAWN_CAN_BE_PROMOTED_TO( see.promote.piece );
@@ -144,14 +138,14 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
             return CC_PIECE_CAN_BE_DEMOTED( see.demote.piece ) &&
                    CC_TAG_CAN_BE_LOST( see.demote.lost_tag ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
-                                           see.demote.dest_i,
-                                           see.demote.dest_j );
+                                           see.demote.distant.i,
+                                           see.demote.distant.j );
 
         case CC_SEE_Resurrection :
             return CC_PIECE_CAN_BE_RESURRECTED( see.resurrect.piece ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
-                                           see.resurrect.dest_i,
-                                           see.resurrect.dest_j );
+                                           see.resurrect.destination.i,
+                                           see.resurrect.destination.j );
 
         default :
             return false;
@@ -185,15 +179,15 @@ CcPos cc_side_effect_destination( CcSideEffect se )
     {
         case CC_SEE_None : return CC_POS_CAST_INVALID;
         case CC_SEE_Capture : return CC_POS_CAST_INVALID;
-        case CC_SEE_Displacement : return cc_pos( se.displacement.dest_i, se.displacement.dest_j );
-        case CC_SEE_EnPassant : return cc_pos( se.en_passant.dest_i, se.en_passant.dest_j );
-        case CC_SEE_Castle : return cc_pos( se.castle.dest_i, se.castle.dest_j );
+        case CC_SEE_Displacement : return se.displacement.destination;
+        case CC_SEE_EnPassant : return se.en_passant.distant;
+        case CC_SEE_Castle : return se.castle.destination;
         case CC_SEE_Promotion : return CC_POS_CAST_INVALID;
         case CC_SEE_TagForPromotion : return CC_POS_CAST_INVALID;
         case CC_SEE_Conversion : return CC_POS_CAST_INVALID;
         case CC_SEE_FailedConversion : return CC_POS_CAST_INVALID;
-        case CC_SEE_DemoteToPawn : return cc_pos( se.demote.dest_i, se.demote.dest_j );
-        case CC_SEE_Resurrection : return cc_pos( se.resurrect.dest_i, se.resurrect.dest_j );
+        case CC_SEE_DemoteToPawn : return se.demote.distant;
+        case CC_SEE_Resurrection : return se.resurrect.destination;
         case CC_SEE_FailedResurrection : return CC_POS_CAST_INVALID;
 
         default : return CC_POS_CAST_INVALID;
@@ -206,105 +200,83 @@ CcPos cc_side_effect_destination( CcSideEffect se )
 CcSideEffect cc_side_effect_none()
 {
     return cc_side_effect( CC_SEE_None, CC_PE_None, CC_TE_None,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD );
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID );
 }
 
 CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcTagEnum lost_tag )
 {
     return cc_side_effect( CC_SEE_Capture, piece, lost_tag,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD );
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID );
 }
 
-CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j )
+CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination )
 {
     return cc_side_effect( CC_SEE_Displacement, piece, lost_tag,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           dest_i,
-                           dest_j );
+                           CC_POS_CAST_INVALID,
+                           destination );
 }
 
-CcSideEffect cc_side_effect_en_passant( CcPieceEnum piece, int dest_i, int dest_j )
+CcSideEffect cc_side_effect_en_passant( CcPieceEnum pawn, CcPos distant )
 {
-    return cc_side_effect( CC_SEE_EnPassant, piece, CC_TE_None,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           dest_i,
-                           dest_j );
+    return cc_side_effect( CC_SEE_EnPassant, pawn, CC_TE_None,
+                           CC_POS_CAST_INVALID,
+                           distant );
 }
 
-CcSideEffect cc_side_effect_castle( CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j )
+CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination )
 {
-    return cc_side_effect( CC_SEE_Castle, rook, CC_TE_None, start_i, start_j, dest_i, dest_j );
+    return cc_side_effect( CC_SEE_Castle, rook, CC_TE_None, start, destination );
 }
 
 CcSideEffect cc_side_effect_promote( CcPieceEnum piece )
 {
     return cc_side_effect( CC_SEE_Promotion, piece, CC_TE_None,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD );
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID );
 }
 
 CcSideEffect cc_side_effect_tag_for_promotion()
 {
     return cc_side_effect( CC_SEE_TagForPromotion, CC_PE_None, CC_TE_None,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD );
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID );
 }
 
 CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcTagEnum lost_tag )
 {
     return cc_side_effect( CC_SEE_Conversion, piece, lost_tag,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD );
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID );
 }
 
 CcSideEffect cc_side_effect_failed_conversion()
 {
     return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, CC_TE_None,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD );
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID );
 }
 
-CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j )
+CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant )
 {
     return cc_side_effect( CC_SEE_DemoteToPawn, piece, lost_tag,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           dest_i,
-                           dest_j );
+                           CC_POS_CAST_INVALID,
+                           distant );
 }
 
-CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, int dest_i, int dest_j )
+CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, CcPos destination )
 {
     return cc_side_effect( CC_SEE_Resurrection, piece, CC_TE_None,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           dest_i,
-                           dest_j );
+                           CC_POS_CAST_INVALID,
+                           destination );
 }
 
 CcSideEffect cc_side_effect_failed_resurrection()
 {
     return cc_side_effect( CC_SEE_FailedResurrection, CC_PE_None, CC_TE_None,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD,
-                           CC_INVALID_COORD );
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID );
 }
 
 

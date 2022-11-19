@@ -412,23 +412,23 @@ CcStep * cc_step_capture__new( CcStepLinkEnum link, int i, int j,
 }
 
 CcStep * cc_step_displacement__new( CcStepLinkEnum link, int i, int j,
-                                    CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j )
+                                    CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, destination );
     return cc_step__new( link, i, j, se );
 }
 
 CcStep * cc_step_en_passant__new( CcStepLinkEnum link, int i, int j,
-                                  CcPieceEnum piece, int dest_i, int dest_j )
+                                  CcPieceEnum pawn, CcPos distant )
 {
-    CcSideEffect se = cc_side_effect_en_passant( piece, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
     return cc_step__new( link, i, j, se );
 }
 
 CcStep * cc_step_castle__new( CcStepLinkEnum link, int i, int j,
-                              CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j )
+                              CcPieceEnum rook, CcPos start, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_castle( rook, start, destination );
     return cc_step__new( link, i, j, se );
 }
 
@@ -459,16 +459,16 @@ CcStep * cc_step_failed_conversion__new( CcStepLinkEnum link, int i, int j )
 }
 
 CcStep * cc_step_demote__new( CcStepLinkEnum link, int i, int j,
-                              CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j )
+                              CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant )
 {
-    CcSideEffect se = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_demote( piece, lost_tag, distant );
     return cc_step__new( link, i, j, se );
 }
 
 CcStep * cc_step_resurrect__new( CcStepLinkEnum link, int i, int j,
-                                 CcPieceEnum piece, int dest_i, int dest_j )
+                                 CcPieceEnum piece, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_resurrect( piece, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_resurrect( piece, destination );
     return cc_step__new( link, i, j, se );
 }
 
@@ -498,25 +498,25 @@ CcStep * cc_step_capture_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_displacement_append( CcStep * restrict steps__io,
                                       CcStepLinkEnum link, int i, int j,
-                                      CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j )
+                                      CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, destination );
     return cc_step_append( steps__io, link, i, j, se );
 }
 
 CcStep * cc_step_en_passant_append( CcStep * restrict steps__io,
                                     CcStepLinkEnum link, int i, int j,
-                                    CcPieceEnum piece, int dest_i, int dest_j )
+                                    CcPieceEnum pawn, CcPos distant )
 {
-    CcSideEffect se = cc_side_effect_en_passant( piece, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
     return cc_step_append( steps__io, link, i, j, se );
 }
 
 CcStep * cc_step_castle_append( CcStep * restrict steps__io,
                                 CcStepLinkEnum link, int i, int j,
-                                CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j )
+                                CcPieceEnum rook, CcPos start, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_castle( rook, start, destination );
     return cc_step_append( steps__io, link, i, j, se );
 }
 
@@ -552,17 +552,17 @@ CcStep * cc_step_failed_conversion_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_demote_append( CcStep * restrict steps__io,
                                 CcStepLinkEnum link, int i, int j,
-                                CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j )
+                                CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant )
 {
-    CcSideEffect se = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_demote( piece, lost_tag, distant );
     return cc_step_append( steps__io, link, i, j, se );
 }
 
 CcStep * cc_step_resurrect_append( CcStep * restrict steps__io,
                                    CcStepLinkEnum link, int i, int j,
-                                   CcPieceEnum piece, int dest_i, int dest_j )
+                                   CcPieceEnum piece, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_resurrect( piece, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_resurrect( piece, destination );
     return cc_step_append( steps__io, link, i, j, se );
 }
 
@@ -593,25 +593,25 @@ CcStep * cc_step_capture_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_displacement_append_if( CcStep ** restrict steps__io,
                                          CcStepLinkEnum link, int i, int j,
-                                         CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j )
+                                         CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, destination );
     return cc_step_append_if( steps__io, link, i, j, se );
 }
 
 CcStep * cc_step_en_passant_append_if( CcStep ** restrict steps__io,
                                        CcStepLinkEnum link, int i, int j,
-                                       CcPieceEnum piece, int dest_i, int dest_j )
+                                       CcPieceEnum pawn, CcPos distant )
 {
-    CcSideEffect se = cc_side_effect_en_passant( piece, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
     return cc_step_append_if( steps__io, link, i, j, se );
 }
 
 CcStep * cc_step_castle_append_if( CcStep ** restrict steps__io,
                                    CcStepLinkEnum link, int i, int j,
-                                   CcPieceEnum rook, int start_i, int start_j, int dest_i, int dest_j )
+                                   CcPieceEnum rook, CcPos start, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_castle( rook, start_i, start_j, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_castle( rook, start, destination );
     return cc_step_append_if( steps__io, link, i, j, se );
 }
 
@@ -647,17 +647,17 @@ CcStep * cc_step_failed_conversion_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_demote_append_if( CcStep ** restrict steps__io,
                                    CcStepLinkEnum link, int i, int j,
-                                   CcPieceEnum piece, CcTagEnum lost_tag, int dest_i, int dest_j )
+                                   CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant )
 {
-    CcSideEffect se = cc_side_effect_demote( piece, lost_tag, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_demote( piece, lost_tag, distant );
     return cc_step_append_if( steps__io, link, i, j, se );
 }
 
 CcStep * cc_step_resurrect_append_if( CcStep ** restrict steps__io,
                                       CcStepLinkEnum link, int i, int j,
-                                      CcPieceEnum piece, int dest_i, int dest_j )
+                                      CcPieceEnum piece, CcPos destination )
 {
-    CcSideEffect se = cc_side_effect_resurrect( piece, dest_i, dest_j );
+    CcSideEffect se = cc_side_effect_resurrect( piece, destination );
     return cc_step_append_if( steps__io, link, i, j, se );
 }
 
