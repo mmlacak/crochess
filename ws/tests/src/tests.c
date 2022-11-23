@@ -18,7 +18,7 @@
 #include "cc_game.h"
 
 #include "cc_parse_defs.h"
-#include "cc_parse.h"
+#include "cc_parse_utils.h"
 #include "cc_parse_msg.h"
 #include "cc_rules.h"
 
@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.217:649+20221123.112057"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.218:650+20221123.114058"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,

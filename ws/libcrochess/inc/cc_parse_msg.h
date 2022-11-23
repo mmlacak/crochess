@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 /**
-    @file cc_parse_msgs.h
+    @file cc_parse_msg.h
     @brief Parse messages linked list.
 */
 
@@ -45,8 +45,8 @@ typedef struct CcParseMsg
     @return A newly allocated parser message if successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
-                                  char const * restrict msg,
-                                  size_t max_len__d );
+                                char const * restrict msg,
+                                size_t max_len__d );
 
 /**
     Appends a newly allocated parser message to a linked list.
@@ -60,9 +60,9 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
-                                    CcParseMsgTypeEnum type,
-                                    char const * restrict msg,
-                                    size_t max_len__d );
+                                  CcParseMsgTypeEnum type,
+                                  char const * restrict msg,
+                                  size_t max_len__d );
 
 /**
     Allocates a new parser message, appends it to a linked list, which might not be allocated yet.
@@ -83,9 +83,9 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__io,
-                                       CcParseMsgTypeEnum type,
-                                       char const * restrict msg,
-                                       size_t max_len__d );
+                                     CcParseMsgTypeEnum type,
+                                     char const * restrict msg,
+                                     size_t max_len__d );
 
 /**
     Allocates a new parser message, appends it to a linked list, which might not be allocated yet.
@@ -107,9 +107,9 @@ CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__io,
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_append_format_if( CcParseMsg ** restrict parse_msgs__io,
-                                              CcParseMsgTypeEnum type,
-                                              size_t max_len__d,
-                                              char const * restrict fmt, ... );
+                                            CcParseMsgTypeEnum type,
+                                            size_t max_len__d,
+                                            char const * restrict fmt, ... );
 
 /**
     Frees all parser messages, and associated resources, in a linked list.

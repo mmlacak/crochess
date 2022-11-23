@@ -1,8 +1,8 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_PARSE_H__
-#define __CC_PARSE_H__
+#ifndef __CC_PARSE_UTILS_H__
+#define __CC_PARSE_UTILS_H__
 
 #include <stddef.h>
 
@@ -16,28 +16,9 @@
 #include "cc_ply.h"
 
 /**
-    @file cc_parse.h
+    @file cc_parse_utils.h
     @brief Functions separating a move (algebraic notation string) into list of enums, sub-strings.
 */
-
-
-// /**
-//     Ply algebraic notation structure.
-// */
-// typedef struct CcPlyANs
-// {
-//     char * link_an_str; /**< A link, algebraic notation for cascading. Can be `NULL`, in which case `CC_PLE_Ply` is assumed. */
-//     CcPlyLinkEnum link; /**< Type of a link between this ply and previous (if in a cascade).  */
-
-//     char * ply_an_str; /**< A ply, algebraic notation for a complete movement of a piece. */
-//     CcPieceEnum piece; /**< A piece being moved in this ply. */
-
-//     CcPos start; /**< Starting field; parsed, calculated, or copied from destination field of a previous ply. */
-
-//     // TODO :: not needed ?
-//     //
-//     // struct CcPlyANs * next; /**< Next ply in a cascade. */
-// } CcPlyANs;
 
 
 CcPlyLinkEnum cc_starting_ply_link( char const * restrict an_str );
@@ -93,4 +74,4 @@ char const * cc_find_side_effect( char const * restrict an_str,
                                   CcSideEffectEnum * restrict see__o );
 
 
-#endif /* __CC_PARSE_H__ */
+#endif /* __CC_PARSE_UTILS_H__ */

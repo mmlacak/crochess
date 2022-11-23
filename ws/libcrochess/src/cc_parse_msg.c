@@ -10,14 +10,14 @@
 #include "cc_parse_msg.h"
 
 /**
-    @file cc_parse_msgs.c
+    @file cc_parse_msg.c
     @brief Parse messages related functions.
 */
 
 
 CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
-                                  char const * restrict msg,
-                                  size_t max_len__d )
+                                char const * restrict msg,
+                                size_t max_len__d )
 {
     CcParseMsg * pm__a = malloc( sizeof( CcParseMsg ) );
     if ( !pm__a ) return NULL;
@@ -30,9 +30,9 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
 }
 
 CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
-                                    CcParseMsgTypeEnum type,
-                                    char const * restrict msg,
-                                    size_t max_len__d )
+                                  CcParseMsgTypeEnum type,
+                                  char const * restrict msg,
+                                  size_t max_len__d )
 {
     if ( !parse_msgs__io ) return NULL;
 
@@ -47,9 +47,9 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
 }
 
 CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__io,
-                                       CcParseMsgTypeEnum type,
-                                       char const * restrict msg,
-                                       size_t max_len__d )
+                                     CcParseMsgTypeEnum type,
+                                     char const * restrict msg,
+                                     size_t max_len__d )
 {
     if ( !parse_msgs__io ) return NULL;
 
@@ -64,9 +64,9 @@ CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__io,
 }
 
 CcParseMsg * cc_parse_msg_append_format_if( CcParseMsg ** restrict parse_msgs__io,
-                                              CcParseMsgTypeEnum type,
-                                              size_t max_len__d,
-                                              char const * restrict fmt, ... )
+                                            CcParseMsgTypeEnum type,
+                                            size_t max_len__d,
+                                            char const * restrict fmt, ... )
 {
     if ( !parse_msgs__io ) return NULL; // To avoid alloc() + free() of msg__a;
                                         // even though this is never referenced.

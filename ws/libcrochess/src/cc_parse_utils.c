@@ -1,14 +1,14 @@
-// Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <ctype.h>
 
 #include "cc_defines.h"
 #include "cc_str_utils.h"
-#include "cc_parse.h"
+#include "cc_parse_utils.h"
 
 /**
-    @file cc_parse.c
+    @file cc_parse_utils.c
     @brief Functions separating a move (algebraic notation string) into list of enums, sub-strings.
 */
 
