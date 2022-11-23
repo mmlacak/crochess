@@ -1,11 +1,11 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#include "cc_steps_def.h"
+#include "cc_path_defs.h"
 
 /**
-    @file cc_steps_def.c
-    @brief Step checkers.
+    @file cc_path_defs.c
+    @brief Path checkers.
 */
 
 
@@ -169,9 +169,9 @@ CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ] =
     CC_POS_INVALID,
 };
 
-bool cc_steps_pos_is_valid( CcPos step,
-                            CcPos const array[  ],
-                            size_t array_len )
+bool cc_is_step_valid( CcPos step,
+                       CcPos const array[  ],
+                       size_t array_len )
 {
     for ( int k = 0; (size_t)k < array_len; ++k )
     {

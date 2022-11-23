@@ -1,16 +1,16 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_GEN_STEPS_H__
-#define __CC_GEN_STEPS_H__
+#ifndef __CC_PATH_GENS_H__
+#define __CC_PATH_GENS_H__
 
 #include "cc_piece.h"
 #include "cc_chessboard.h"
 #include "cc_pos.h"
 
 /**
-    @file cc_steps_gen.h
-    @brief Step generators.
+    @file cc_path_gens.h
+    @brief Path generators, utils.
 */
 
 
@@ -119,4 +119,4 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
                                   CcPos destination );
 
 
-#endif /* __CC_GEN_STEPS_H__ */
+#endif /* __CC_PATH_GENS_H__ */

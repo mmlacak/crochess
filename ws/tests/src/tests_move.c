@@ -43,7 +43,7 @@ bool test_move( char const * restrict an_str,
 
     bool result = true;
     unsigned int result_at = 0x0;
-    CcParseMsg * pms__a = NULL;
+    CcParseMsg * pm__a = NULL;
 
     // TODO :: TEMP :: un/comment (?)
     cc_chessboard_print( game__a->chessboard, true );
@@ -61,7 +61,7 @@ bool test_move( char const * restrict an_str,
     }
 
 // TODO
-    // if ( ( result = cc_apply_move( an_str, game__a, &pms__a ) && result ) )
+    // if ( ( result = cc_apply_move( an_str, game__a, &pm__a ) && result ) )
     // {
     //     // TODO :: TEMP :: un/comment (?)
     //     cc_chessboard_print( game__a->chessboard, true );
@@ -71,7 +71,7 @@ bool test_move( char const * restrict an_str,
     // {
     //     result_at |= 0x2;
 
-    //     CcParseMsg * p = pms__a;
+    //     CcParseMsg * p = pm__a;
     //     while ( p )
     //     {
     //         printf( "%s\n", p->msg );
@@ -105,7 +105,7 @@ bool test_move( char const * restrict an_str,
         result_at |= 0x10;
     }
 
-    cc_parse_msg_free_all( &pms__a );
+    cc_parse_msg_free_all( &pm__a );
 
     if ( !game__iodr )
         cc_game_free_all( &game__a );

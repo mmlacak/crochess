@@ -1,12 +1,12 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#include "cc_steps_def.h"
-#include "cc_steps_gen.h"
+#include "cc_path_defs.h"
+#include "cc_path_gens.h"
 
 /**
-    @file cc_steps_gen.c
-    @brief Step generators.
+    @file cc_path_gens.c
+    @brief Path generators, utils.
 */
 
 

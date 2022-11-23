@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.218:650+20221123.114058"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.219:651+20221123.122517"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -191,17 +191,17 @@ int main( void )
                 if ( !an_str )
                     continue;
 
-                CcParseMsg * pms__a = NULL;
+                CcParseMsg * pm__a = NULL;
 
 // TODO
-                // if ( cc_apply_move( an_str, game__a, &pms__a ) )
+                // if ( cc_apply_move( an_str, game__a, &pm__a ) )
                 // {
                 //     // TODO :: TEMP :: uncomment (?)
                 //     // cc_chessboard_print( game__a->chessboard, true );
                 // }
                 // else
                 // {
-                //     CcParseMsg * p = pms__a;
+                //     CcParseMsg * p = pm__a;
                 //     while ( p )
                 //     {
                 //         printf( "%s\n", p->msg );
@@ -210,7 +210,7 @@ int main( void )
                 // }
 // TODO
 
-                cc_parse_msg_free_all( &pms__a );
+                cc_parse_msg_free_all( &pm__a );
             }
         }
         else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
