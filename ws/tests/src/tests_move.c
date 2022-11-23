@@ -19,7 +19,7 @@
 
 #include "cc_parse_defs.h"
 #include "cc_parse.h"
-#include "cc_parse_msgs.h"
+#include "cc_parse_msg.h"
 #include "cc_rules.h"
 
 #include "hlp_msgs.h"
@@ -43,7 +43,7 @@ bool test_move( char const * restrict an_str,
 
     bool result = true;
     unsigned int result_at = 0x0;
-    CcParseMsgs * pms__a = NULL;
+    CcParseMsg * pms__a = NULL;
 
     // TODO :: TEMP :: un/comment (?)
     cc_chessboard_print( game__a->chessboard, true );
@@ -71,7 +71,7 @@ bool test_move( char const * restrict an_str,
     // {
     //     result_at |= 0x2;
 
-    //     CcParseMsgs * p = pms__a;
+    //     CcParseMsg * p = pms__a;
     //     while ( p )
     //     {
     //         printf( "%s\n", p->msg );
@@ -105,7 +105,7 @@ bool test_move( char const * restrict an_str,
         result_at |= 0x10;
     }
 
-    cc_parse_msgs_free_all( &pms__a );
+    cc_parse_msg_free_all( &pms__a );
 
     if ( !game__iodr )
         cc_game_free_all( &game__a );

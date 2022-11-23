@@ -1,8 +1,8 @@
 // Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_PARSER_H__
-#define __CC_PARSER_H__
+#ifndef __CC_PARSE_MSG_H__
+#define __CC_PARSE_MSG_H__
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -28,12 +28,12 @@ typedef enum CcParseMsgTypeEnum
 /**
     Parser message structure, linked list.
 */
-typedef struct CcParseMsgs
+typedef struct CcParseMsg
 {
     CcParseMsgTypeEnum type; /**< Type of a parser message. */
     char * msg; /**< Parser message. */
-    struct CcParseMsgs * next; /**< Next parser message, in a linked list. */
-} CcParseMsgs;
+    struct CcParseMsg * next; /**< Next parser message, in a linked list. */
+} CcParseMsg;
 
 /**
     Returns a newly allocated parser message.
@@ -44,7 +44,7 @@ typedef struct CcParseMsgs
 
     @return A newly allocated parser message if successful, `NULL` otherwise.
 */
-CcParseMsgs * cc_parse_msgs__new( CcParseMsgTypeEnum type,
+CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
                                   char const * restrict msg,
                                   size_t max_len__d );
 
@@ -59,7 +59,7 @@ CcParseMsgs * cc_parse_msgs__new( CcParseMsgTypeEnum type,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsgs * cc_parse_msgs_append( CcParseMsgs * restrict parse_msgs__io,
+CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
                                     CcParseMsgTypeEnum type,
                                     char const * restrict msg,
                                     size_t max_len__d );
@@ -82,7 +82,7 @@ CcParseMsgs * cc_parse_msgs_append( CcParseMsgs * restrict parse_msgs__io,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsgs * cc_parse_msgs_append_if( CcParseMsgs ** restrict parse_msgs__io,
+CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__io,
                                        CcParseMsgTypeEnum type,
                                        char const * restrict msg,
                                        size_t max_len__d );
@@ -106,7 +106,7 @@ CcParseMsgs * cc_parse_msgs_append_if( CcParseMsgs ** restrict parse_msgs__io,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsgs * cc_parse_msgs_append_format_if( CcParseMsgs ** restrict parse_msgs__io,
+CcParseMsg * cc_parse_msg_append_format_if( CcParseMsg ** restrict parse_msgs__io,
                                               CcParseMsgTypeEnum type,
                                               size_t max_len__d,
                                               char const * restrict fmt, ... );
@@ -119,7 +119,7 @@ CcParseMsgs * cc_parse_msgs_append_format_if( CcParseMsgs ** restrict parse_msgs
     @return `true` if successful, `false` otherwise.
 
 */
-bool cc_parse_msgs_free_all( CcParseMsgs ** restrict parse_msgs__f );
+bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f );
 
 /**
     Function returning last parse message from a given linked list.
@@ -128,7 +128,7 @@ bool cc_parse_msgs_free_all( CcParseMsgs ** restrict parse_msgs__f );
 
     @return Last parse message in a given linked list, if successful; `NULL` otherwise.
 */
-CcParseMsgs * cc_parse_msgs_get_last( CcParseMsgs * restrict parse_msgs );
+CcParseMsg * cc_parse_msg_get_last( CcParseMsg * restrict parse_msgs );
 
 
-#endif /* __CC_PARSER_H__ */
+#endif /* __CC_PARSE_MSG_H__ */

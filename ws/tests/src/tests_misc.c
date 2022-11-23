@@ -19,7 +19,7 @@
 
 #include "cc_parse_defs.h"
 #include "cc_parse.h"
-#include "cc_parse_msgs.h"
+#include "cc_parse_msg.h"
 #include "cc_rules.h"
 
 #include "hlp_msgs.h"

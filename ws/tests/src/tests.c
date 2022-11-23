@@ -19,7 +19,7 @@
 
 #include "cc_parse_defs.h"
 #include "cc_parse.h"
-#include "cc_parse_msgs.h"
+#include "cc_parse_msg.h"
 #include "cc_rules.h"
 
 #include "hlp_msgs.h"
@@ -29,7 +29,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.216:648+20221119.123433"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.217:649+20221123.112057"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -191,7 +191,7 @@ int main( void )
                 if ( !an_str )
                     continue;
 
-                CcParseMsgs * pms__a = NULL;
+                CcParseMsg * pms__a = NULL;
 
 // TODO
                 // if ( cc_apply_move( an_str, game__a, &pms__a ) )
@@ -201,7 +201,7 @@ int main( void )
                 // }
                 // else
                 // {
-                //     CcParseMsgs * p = pms__a;
+                //     CcParseMsg * p = pms__a;
                 //     while ( p )
                 //     {
                 //         printf( "%s\n", p->msg );
@@ -210,7 +210,7 @@ int main( void )
                 // }
 // TODO
 
-                cc_parse_msgs_free_all( &pms__a );
+                cc_parse_msg_free_all( &pms__a );
             }
         }
         else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||

@@ -7,7 +7,7 @@
 #include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_token.h"
-#include "cc_parse_msgs.h"
+#include "cc_parse_msg.h"
 
 /**
     @file cc_parse_msgs.c
@@ -15,11 +15,11 @@
 */
 
 
-CcParseMsgs * cc_parse_msgs__new( CcParseMsgTypeEnum type,
+CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
                                   char const * restrict msg,
                                   size_t max_len__d )
 {
-    CcParseMsgs * pm__a = malloc( sizeof( CcParseMsgs ) );
+    CcParseMsg * pm__a = malloc( sizeof( CcParseMsg ) );
     if ( !pm__a ) return NULL;
 
     pm__a->type = type;
@@ -29,41 +29,41 @@ CcParseMsgs * cc_parse_msgs__new( CcParseMsgTypeEnum type,
     return pm__a;
 }
 
-CcParseMsgs * cc_parse_msgs_append( CcParseMsgs * restrict parse_msgs__io,
+CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__io,
                                     CcParseMsgTypeEnum type,
                                     char const * restrict msg,
                                     size_t max_len__d )
 {
     if ( !parse_msgs__io ) return NULL;
 
-    CcParseMsgs * pm__t = cc_parse_msgs__new( type, msg, max_len__d );
+    CcParseMsg * pm__t = cc_parse_msg__new( type, msg, max_len__d );
     if ( !pm__t ) return NULL;
 
-    CcParseMsgs * pm = parse_msgs__io;
+    CcParseMsg * pm = parse_msgs__io;
     while ( pm->next ) pm = pm->next; // rewind
     pm->next = pm__t; // append // Ownership transfer --> pm__t is now weak pointer.
 
     return pm__t;
 }
 
-CcParseMsgs * cc_parse_msgs_append_if( CcParseMsgs ** restrict parse_msgs__io,
+CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__io,
                                        CcParseMsgTypeEnum type,
                                        char const * restrict msg,
                                        size_t max_len__d )
 {
     if ( !parse_msgs__io ) return NULL;
 
-    CcParseMsgs * pm__w = NULL;
+    CcParseMsg * pm__w = NULL;
 
     if ( !*parse_msgs__io )
-        *parse_msgs__io = pm__w = cc_parse_msgs__new( type, msg, max_len__d );
+        *parse_msgs__io = pm__w = cc_parse_msg__new( type, msg, max_len__d );
     else
-        pm__w = cc_parse_msgs_append( *parse_msgs__io, type, msg, max_len__d );
+        pm__w = cc_parse_msg_append( *parse_msgs__io, type, msg, max_len__d );
 
     return pm__w;
 }
 
-CcParseMsgs * cc_parse_msgs_append_format_if( CcParseMsgs ** restrict parse_msgs__io,
+CcParseMsg * cc_parse_msg_append_format_if( CcParseMsg ** restrict parse_msgs__io,
                                               CcParseMsgTypeEnum type,
                                               size_t max_len__d,
                                               char const * restrict fmt, ... )
@@ -80,20 +80,20 @@ CcParseMsgs * cc_parse_msgs_append_format_if( CcParseMsgs ** restrict parse_msgs
 
     if ( !msg__a ) return NULL;
 
-    CcParseMsgs * pm__w = cc_parse_msgs_append_if( parse_msgs__io, type, msg__a, max_len__d );
+    CcParseMsg * pm__w = cc_parse_msg_append_if( parse_msgs__io, type, msg__a, max_len__d );
 
     CC_FREE( msg__a );
 
     return pm__w;
 }
 
-bool cc_parse_msgs_free_all( CcParseMsgs ** restrict parse_msgs__f )
+bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f )
 {
     if ( !parse_msgs__f ) return false;
     if ( !*parse_msgs__f ) return true;
 
-    CcParseMsgs * pm = *parse_msgs__f;
-    CcParseMsgs * tmp = NULL;
+    CcParseMsg * pm = *parse_msgs__f;
+    CcParseMsg * tmp = NULL;
 
     while ( pm )
     {
@@ -109,11 +109,11 @@ bool cc_parse_msgs_free_all( CcParseMsgs ** restrict parse_msgs__f )
 }
 
 
-CcParseMsgs * cc_parse_msgs_get_last( CcParseMsgs * restrict parse_msgs )
+CcParseMsg * cc_parse_msg_get_last( CcParseMsg * restrict parse_msgs )
 {
     if ( !parse_msgs ) return NULL;
 
-    CcParseMsgs * pm__w = (CcParseMsgs *)parse_msgs;
+    CcParseMsg * pm__w = (CcParseMsg *)parse_msgs;
 
     while ( pm__w->next )
         pm__w = pm__w->next;

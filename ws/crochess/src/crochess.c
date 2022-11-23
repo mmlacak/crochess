@@ -16,13 +16,13 @@
 #include "cc_chessboard.h"
 #include "cc_game.h"
 #include "cc_rules.h"
-#include "cc_parse_msgs.h"
+#include "cc_parse_msg.h"
 
 #include "hlp_msgs.h"
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.216:648+20221119.123433"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.217:649+20221123.112057"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool print_all_moves( CcMove * restrict moves )
@@ -130,7 +130,7 @@ int main( void )
                 if ( !an_str )
                     continue;
 
-                CcParseMsgs * pms__a = NULL;
+                CcParseMsg * pms__a = NULL;
 
 // TODO
                 // if ( cc_apply_move( an_str, game__a, &pms__a ) )
@@ -140,7 +140,7 @@ int main( void )
                 // }
                 // else
                 // {
-                //     CcParseMsgs * p = pms__a;
+                //     CcParseMsg * p = pms__a;
                 //     while ( p )
                 //     {
                 //         printf( "%s\n", p->msg );
@@ -149,7 +149,7 @@ int main( void )
                 // }
 // TODO
 
-                cc_parse_msgs_free_all( &pms__a );
+                cc_parse_msg_free_all( &pms__a );
             }
         }
         else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
