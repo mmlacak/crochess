@@ -147,7 +147,7 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
         if ( ( ply->steps ) &&
              ( ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) ||
                ( !CC_PIECE_IS_WAVE( ply->piece ) ) ) )
-            // If Wave was activated by Starchild is checked in cc_ply_all_are_valid().
+            // If Wave was activated by Starchild is checked in cc_ply_are_all_valid().
             return false;
 
         if ( ply->next ) return false;
@@ -173,12 +173,12 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
     else
         return false;
 
-    if ( !cc_step_all_are_valid( ply->steps, board_size ) ) return false;
+    if ( !cc_step_are_all_valid( ply->steps, board_size ) ) return false;
 
     return true;
 }
 
-bool cc_ply_all_are_valid( CcPly * restrict plies, unsigned int board_size )
+bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size )
 {
     if ( !plies ) return false;
 

@@ -192,7 +192,7 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
 
     @return `true` if valid, `false` otherwise.
 */
-bool cc_ply_all_are_valid( CcPly * restrict plies, unsigned int board_size );
+bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size );
 
 /**
     Frees all plies in a linked list, and all associated entities.

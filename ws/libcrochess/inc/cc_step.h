@@ -195,7 +195,7 @@ bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size );
 
     @return `true` if valid, `false` otherwise.
 */
-bool cc_step_all_are_valid( CcStep * restrict steps, unsigned int board_size );
+bool cc_step_are_all_valid( CcStep * restrict steps, unsigned int board_size );
 
 // /**
 //     Function checks if positions are the congruent with a given steps.
