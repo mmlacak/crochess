@@ -12,29 +12,25 @@
 
 
 static bool cc_check_pre_plies_status( char const char_an,
-                                       CcGame * restrict game__io,
+                                       CcGame * restrict game,
+                                       CcMove * move__io,
                                        CcParseMsg ** restrict parse_msgs__io,
-                                       bool is_resign,
-                                       bool is_end,
-                                       bool is_won,
+                                       CcMoveStatusEnum mse,
                                        size_t max_len__d,
                                        char const * restrict msg, ... )
 {
-    // if ( !game__io ) return false;
+    // if ( !game ) return false;
 
-    // if ( !game__io->chessboard ) return false;
-    // if ( !game__io->moves ) return false;
+    // if ( !game->chessboard ) return false;
+    // if ( !game->moves ) return false;
 
+    // if ( !move__io ) return false;
     // if ( !parse_msgs__io ) return false;
     // if ( !msg ) return false;
 
     if ( iscntrl( char_an ) || isspace( char_an ) )
     {
-        if ( is_resign )
-            game__io->status = cc_game_resign( game__io->status );
-        else
-            game__io->status = cc_game_status_next( game__io->status, is_end, is_won );
-
+        move__io->status = mse;
         return true;
     }
     else
@@ -78,13 +74,19 @@ bool cc_parse_move( char const * restrict move_an,
     }
 
     char const * m_an = move_an;
+    CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_MSE_None );
+    if ( !move__t ) return false;
 
     if ( *m_an == '#' )
     {
         if ( *++m_an == '#' )
         {
             // "##" resign
-            return cc_check_pre_plies_status( *++m_an, game, parse_msgs__io, true, true, false,
+            return cc_check_pre_plies_status( *++m_an,
+                                              game,
+                                              move__t,
+                                              parse_msgs__io,
+                                              CC_MSE_Resign,
                                               CC_MAX_LEN_ZERO_TERMINATED,
                                               "Invalid char(s) after resign.\n" );
         }
@@ -96,7 +98,11 @@ bool cc_parse_move( char const * restrict move_an,
 //         Self- is optional, since both players could overlook checkmate,
 //         this is option to rectify such a situation.
 
-            return cc_check_pre_plies_status( *m_an, game, parse_msgs__io, false, true, true,
+            return cc_check_pre_plies_status( *m_an,
+                                              game,
+                                              move__t,
+                                              parse_msgs__io,
+                                              CC_MSE_SelfCheckmate,
                                               CC_MAX_LEN_ZERO_TERMINATED,
                                               "Invalid char(s) after self-checkmate.\n" );
         }
@@ -114,7 +120,11 @@ bool cc_parse_move( char const * restrict move_an,
 
                     if ( cc_check_valid_draw_offer_exists( game->moves, game->status ) )
                     {
-                        return cc_check_pre_plies_status( *++m_an, game, parse_msgs__io, false, true, false,
+                        return cc_check_pre_plies_status( *++m_an,
+                                                          game,
+                                                          move__t,
+                                                          parse_msgs__io,
+                                                          CC_MSE_DrawAccepted,
                                                           CC_MAX_LEN_ZERO_TERMINATED,
                                                           "Invalid char(s) after accepted draw.\n" );
                     }
@@ -136,7 +146,11 @@ bool cc_parse_move( char const * restrict move_an,
                 //     {
                 //         // "(===)" draw by rules
                 //
-                //         return cc_check_pre_plies_status( *++m_an, game, parse_msgs__io, false, true, false,
+                //         return cc_check_pre_plies_status( *++m_an,
+                //                                           game,
+                //                                           move__t,
+                //                                           parse_msgs__io,
+                //                                           CC_MSE_DrawByRules,
                 //                                           CC_MAX_LEN_ZERO_TERMINATED,
                 //                                           "Invalid char(s) after draw by rules.\n" );
                 //     }
@@ -150,8 +164,6 @@ bool cc_parse_move( char const * restrict move_an,
                                        "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
         return false;
     }
-
-
 
 
 

@@ -4,9 +4,7 @@
 #ifndef __CC_PARSE_MOVE_H__
 #define __CC_PARSE_MOVE_H__
 
-// #include "cc_chessboard.h"
-
-// // #include "cc_step.h"
+// #include "cc_step.h"
 // #include "cc_ply.h"
 #include "cc_move.h"
 #include "cc_game.h"
@@ -15,11 +13,10 @@
 
 
 // static bool cc_check_pre_plies_status( char const char_an,
-//                                        CcGame * restrict game__io,
+//                                        CcGame * restrict game,
+//                                        CcMove * move__io,
 //                                        CcParseMsg ** restrict parse_msgs__io,
-//                                        bool is_resign,
-//                                        bool is_end,
-//                                        bool is_won,
+//                                        CcMoveStatusEnum mse,
 //                                        size_t max_len__d,
 //                                        char const * restrict msg, ... )
 
