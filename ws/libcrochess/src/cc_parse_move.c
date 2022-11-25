@@ -8,12 +8,13 @@
 // #include <stdio.h>
 
 #include "cc_rules_misc.h"
+#include "cc_parse_ply.h"
 #include "cc_parse_move.h"
 
 
 static bool cc_check_pre_plies_status( char const char_an,
                                        CcGame * restrict game,
-                                       CcMove * move__io,
+                                       CcMove * restrict move__io,
                                        CcParseMsg ** restrict parse_msgs__io,
                                        CcMoveStatusEnum mse,
                                        size_t max_len__d,
@@ -164,6 +165,16 @@ bool cc_parse_move( char const * restrict move_an,
                                        "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
         return false;
     }
+
+    CcPly * plies__t = NULL;
+    char * ply_an = move__t->notation + ( m_an - move_an ); // Offset move notation by what was parsed so far.
+
+    if ( !cc_parse_plies( ply_an, game, &plies__t, parse_msgs__io ) )
+        return false;
+
+    move__t->plies = plies__t;
+    plies__t = NULL; // Ownership transferred.
+
 
 
 

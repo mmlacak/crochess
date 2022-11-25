@@ -14,7 +14,7 @@
 
 // static bool cc_check_pre_plies_status( char const char_an,
 //                                        CcGame * restrict game,
-//                                        CcMove * move__io,
+//                                        CcMove * restrict move__io,
 //                                        CcParseMsg ** restrict parse_msgs__io,
 //                                        CcMoveStatusEnum mse,
 //                                        size_t max_len__d,
