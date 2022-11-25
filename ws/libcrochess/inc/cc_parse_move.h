@@ -12,13 +12,13 @@
 #include "cc_parse_msg.h"
 
 
-// static bool cc_check_pre_plies_status( char const char_an,
-//                                        CcGame * restrict game,
-//                                        CcMove * restrict move__io,
-//                                        CcParseMsg ** restrict parse_msgs__io,
-//                                        CcMoveStatusEnum mse,
-//                                        size_t max_len__d,
-//                                        char const * restrict msg, ... )
+// static bool cc_check_standalone_status( char const char_an,
+//                                         CcMove ** restrict move__n,
+//                                         CcMove ** restrict move__o,
+//                                         CcParseMsg ** restrict parse_msgs__io,
+//                                         CcMoveStatusEnum mse,
+//                                         size_t max_len__d,
+//                                         char const * restrict msg, ... )
 
 
 // DOCS

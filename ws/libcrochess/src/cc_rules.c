@@ -15,7 +15,7 @@
 // #include "cc_rules.h"
 
 
-// static bool cc_check_pre_plies_status( char const char_an,
+// static bool cc_check_standalone_status( char const char_an,
 //                                        CcGame * restrict game__io,
 //                                        CcParseMsg ** restrict parse_msgs__io,
 //                                        bool is_resign,
@@ -1434,7 +1434,7 @@
 //         if ( *++m_str == '#' )
 //         {
 //             // "##" resign
-//             return cc_check_pre_plies_status( *++m_str, game, parse_msgs__io, true, true, false,
+//             return cc_check_standalone_status( *++m_str, game, parse_msgs__io, true, true, false,
 //                                               CC_MAX_LEN_ZERO_TERMINATED,
 //                                               "Invalid char(s) after resign.\n" );
 //         }
@@ -1446,7 +1446,7 @@
 // //         Self- is optional, since both players could overlook checkmate,
 // //         this is option to rectify such a situation.
 
-//             return cc_check_pre_plies_status( *m_str, game, parse_msgs__io, false, true, true,
+//             return cc_check_standalone_status( *m_str, game, parse_msgs__io, false, true, true,
 //                                               CC_MAX_LEN_ZERO_TERMINATED,
 //                                               "Invalid char(s) after self-checkmate.\n" );
 //         }
@@ -1464,7 +1464,7 @@
 
 //                     if ( cc_check_valid_draw_offer_exists( game->moves, game->status ) )
 //                     {
-//                         return cc_check_pre_plies_status( *++m_str, game, parse_msgs__io, false, true, false,
+//                         return cc_check_standalone_status( *++m_str, game, parse_msgs__io, false, true, false,
 //                                                           CC_MAX_LEN_ZERO_TERMINATED,
 //                                                           "Invalid char(s) after accepted draw.\n" );
 //                     }
@@ -1486,7 +1486,7 @@
 //                 //     {
 //                 //         // "(===)" draw by rules
 //                 //
-//                 //         return cc_check_pre_plies_status( *++m_str, game, parse_msgs__io, false, true, false,
+//                 //         return cc_check_standalone_status( *++m_str, game, parse_msgs__io, false, true, false,
 //                 //                                           CC_MAX_LEN_ZERO_TERMINATED,
 //                 //                                           "Invalid char(s) after draw by rules.\n" );
 //                 //     }

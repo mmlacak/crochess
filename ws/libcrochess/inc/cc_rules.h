@@ -11,7 +11,7 @@
 // #include "cc_parse_msg.h"
 
 
-// // static bool cc_check_pre_plies_status( char const char_an,
+// // static bool cc_check_standalone_status( char const char_an,
 // //                                        CcGame * restrict game__io,
 // //                                        CcParseMsg ** restrict parse_msgs__io,
 // //                                        bool is_resign,
