@@ -11,9 +11,16 @@
 #include "cc_parse_msg.h"
 
 
-bool cc_parse_plies( char const * restrict move_an,
-                     CcGame * restrict game,
-                     CcPly ** restrict plies__o,
+// static bool cc_parse_ply( char const * restrict ply_start_an,
+//                           char const * restrict ply_end_an,
+//                           CcGame * restrict game,
+//                           CcChessboard ** restrict cb__io,
+//                           CcPly ** restrict plies__io,
+//                           CcParseMsg ** restrict parse_msgs__io )
+
+
+bool cc_parse_plies( CcGame * restrict game,
+                     CcMove ** restrict move__io,
                      CcParseMsg ** restrict parse_msgs__io );
 
 

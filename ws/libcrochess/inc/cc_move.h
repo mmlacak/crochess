@@ -41,6 +41,7 @@ typedef struct CcMove
 {
     char * notation; /**< Original notation, before parsing. Usually, from user input. */
     CcPly * plies; /**< Plies. */
+    // CcChessboard * cb; // TODO :: if adding, pieces and tags enums **should** be based on char, not int
     CcMoveStatusEnum status; /**< Status. */
 
     struct CcMove * prev; /**< Previous move, in a queue. */

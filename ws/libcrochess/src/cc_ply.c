@@ -154,6 +154,45 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies )
     return ply__a;
 }
 
+CcPly * cc_ply_extend( CcPly ** restrict plies__io,
+                       CcPly ** restrict plies__n )
+{
+    if ( !plies__io ) return NULL;
+    if ( !*plies__io ) return NULL;
+
+    if ( !plies__n ) return NULL;
+    if ( !*plies__n ) return NULL;
+
+    CcPly * last = *plies__io;
+    while ( last->next ) last = last->next;
+
+    // Ownership transfer.
+    last->next = *plies__n;
+    *plies__n = NULL;
+
+    return last->next;
+}
+
+CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
+                          CcPly ** restrict plies__n )
+{
+    if ( !plies__iod ) return NULL;
+    if ( !plies__n ) return NULL;
+
+    if ( !*plies__n ) return *plies__iod;
+
+    if ( !*plies__iod )
+    {
+        // Ownership transfer.
+        *plies__iod = *plies__n;
+        *plies__n = NULL;
+
+        return *plies__iod;
+    }
+
+    return cc_ply_extend( plies__iod, plies__n );
+}
+
 // TODO :: reconsider
 //
 bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )

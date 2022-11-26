@@ -200,6 +200,14 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
 */
 CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
 
+// TODO :: DOCS
+CcPly * cc_ply_extend( CcPly ** restrict plies__io,
+                       CcPly ** restrict plies__n );
+
+// TODO :: DOCS
+CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
+                          CcPly ** restrict plies__n );
+
 // TODO :: reconsider
 //
 /**
