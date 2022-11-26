@@ -1690,8 +1690,9 @@ are available for a particular variant see
 | [<cascade-start>\alg{~}]<move-star>
 
 <status> = ?
-         | \alg{+}[\alg{(=)}]
-         | \alg{+}[\alg{(-)}]
+         | [\alg{+}]
+         | [\alg{+}]\alg{(=)}
+         | [\alg{+}]\alg{(-)}
          | \alg{#}
          | \alg{(=)}
          | \alg{(-)}
@@ -1716,10 +1717,10 @@ are available for a particular variant see
 
 \begin{alltt}
 <move> =
-  <move-new>[<status>]
-| <move-monolith>[<status>]
-| <king-castling-move>[<status>]
-| <pawn-promoting-move>[<status>]
+  <move-new><status>
+| <move-monolith><status>
+| <king-castling-move><status>
+| <pawn-promoting-move><status>
 | <compatibility-capture>
 | <compatibility-castling>
 | \alg{#}
