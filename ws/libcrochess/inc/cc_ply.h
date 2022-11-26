@@ -130,7 +130,6 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
                      CcPieceEnum piece,
                      CcStep ** restrict steps__n );
 
-
 /**
     Appends a newly allocated ply to a given linked list.
 
@@ -194,6 +193,8 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
 */
 CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
 
+// TODO :: reconsider
+//
 /**
     Checks if a given ply is valid.
 
@@ -207,7 +208,9 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
     @return `true` if valid, `false` otherwise.
 */
 bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
-
+//
+// TODO :: reconsider
+//
 /**
     Checks if all plies in a given linked list are valid.
 
@@ -217,6 +220,8 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
     @return `true` if valid, `false` otherwise.
 */
 bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size );
+//
+// TODO :: reconsider
 
 /**
     Frees all plies in a linked list, and all associated entities.

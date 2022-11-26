@@ -20,6 +20,7 @@
 #include "cc_parse_defs.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_msg.h"
+#include "cc_parse_move.h"
 #include "cc_rules.h"
 
 #include "hlp_msgs.h"
@@ -29,7 +30,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.224:656+20221126.020543"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.225:657+20221126.025515"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -188,27 +189,33 @@ int main( void )
             if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {
                 char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
-                if ( !an_str )
-                    continue;
+                if ( !an_str ) continue;
 
                 CcParseMsg * pm__a = NULL;
+                CcMove * move__a = NULL;
 
-// TODO
-                // if ( cc_apply_move( an_str, game__a, &pm__a ) )
-                // {
-                //     // TODO :: TEMP :: uncomment (?)
-                //     // cc_chessboard_print( game__a->chessboard, true );
-                // }
-                // else
-                // {
-                //     CcParseMsg * p = pm__a;
-                //     while ( p )
-                //     {
-                //         printf( "%s\n", p->msg );
-                //         p = p->next;
-                //     }
-                // }
-// TODO
+// TODO :: parse --> do apply
+//
+                if ( cc_parse_move( an_str, game__a, &move__a, &pm__a ) )
+                {
+                    printf( "Move: '%s'.\n", move__a->notation );
+
+                    // TODO :: TEMP :: uncomment (?)
+                    // cc_chessboard_print( game__a->chessboard, true );
+
+                    CC_FREE( move__a );
+                }
+                else
+                {
+                    CcParseMsg * p = pm__a;
+                    while ( p )
+                    {
+                        printf( "%s\n", p->msg );
+                        p = p->next;
+                    }
+                }
+//
+// TODO :: parse --> do apply
 
                 cc_parse_msg_free_all( &pm__a );
             }

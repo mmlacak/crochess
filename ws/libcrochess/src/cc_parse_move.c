@@ -176,8 +176,9 @@ bool cc_parse_move( char const * restrict move_an,
     if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__io ) )
         return false;
 
+    // Ownership transfer.
     move__t->plies = plies__t;
-    plies__t = NULL; // Ownership transferred.
+    plies__t = NULL;
 
 
 
@@ -185,6 +186,10 @@ bool cc_parse_move( char const * restrict move_an,
 // TODO :: post-plies status
 
 
+
+    // Ownership transfer.
+    *move__o = move__t;
+    move__t = NULL;
 
     return true;
 }

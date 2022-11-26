@@ -147,6 +147,8 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies )
     return ply__a;
 }
 
+// TODO :: reconsider
+//
 bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
 {
     if ( !ply ) return false;
@@ -205,7 +207,9 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
 
     return true;
 }
-
+//
+// TODO :: reconsider
+//
 bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size )
 {
     if ( !plies ) return false;
@@ -253,6 +257,8 @@ bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size )
 
     return true;
 }
+//
+// TODO :: reconsider
 
 bool cc_ply_free_all( CcPly ** restrict plies__f )
 {
