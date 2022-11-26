@@ -134,6 +134,7 @@ bool cc_str_count_chars( char const * restrict str,
                          size_t max_len__d,
                          size_t * restrict count__o );
 
+// TODO :: DOCS
 char const * cc_str_contains_char( char c,
                                    bool case_sensitive,
                                    char const * restrict start,

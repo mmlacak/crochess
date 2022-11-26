@@ -51,11 +51,11 @@ typedef enum CcPlyLinkEnum
 #define CC_PLY_LINK_IS_VALID(ple) ( (ple) != CC_PLE_None )
 
 #define CC_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLE_Teleportation )           \
-                                        || ( (ple) == CC_PLE_FailedTeleportation )
+                                             || ( (ple) == CC_PLE_FailedTeleportation )
 
-#define CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )           \
-                                         || ( (ple) == CC_PLE_DualTranceJourney )       \
-                                         || ( (ple) == CC_PLE_FailedTranceJourney ) )
+#define CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )          \
+                                              || ( (ple) == CC_PLE_DualTranceJourney )      \
+                                              || ( (ple) == CC_PLE_FailedTranceJourney ) )
 
 
 /**
@@ -91,6 +91,8 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
 */
 typedef struct CcPly
 {
+    char * notation; /**< Copy of move notation, originating this ply. */
+
     CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
     CcPieceEnum piece; /**< A piece being moved. */
     CcStep * steps; /**< Steps taken by the piece. */
@@ -101,6 +103,9 @@ typedef struct CcPly
 /**
     Returns newly allocated ply.
 
+    @param start_an__d _Optional_, start of a ply notation substring. Can be `NULL` if so `notation` member is initialized to `NULL`.
+    @param end_an__d _Optional_, end of a ply notation substring. Can be `NULL`, if so whole zero-terminated string is copied.
+    @param max_len__d _Optional_ parameter, maximum length of a string to copy. Can be `0`, if so whole zero-terminated string is copied.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
     @param steps__n Steps, linked list, can be `NULL`.
@@ -114,7 +119,10 @@ typedef struct CcPly
     @return
     A newly allocated ply, is successful, `NULL` otherwise.
 */
-CcPly * cc_ply__new( CcPlyLinkEnum link,
+CcPly * cc_ply__new( char const * restrict start_an__d,
+                     char const * restrict end_an__d,
+                     size_t max_len__d,
+                     CcPlyLinkEnum link,
                      CcPieceEnum piece,
                      CcStep ** restrict steps__n );
 
@@ -123,6 +131,9 @@ CcPly * cc_ply__new( CcPlyLinkEnum link,
     Appends a newly allocated ply to a given linked list.
 
     @param plies__io _Input/ouput_ parameter, plies linked list.
+    @param start_an__d _Optional_, start of a ply notation substring. Can be `NULL` if so `notation` member is initialized to `NULL`.
+    @param end_an__d _Optional_, end of a ply notation substring. Can be `NULL`, if so whole zero-terminated string is copied.
+    @param max_len__d _Optional_ parameter, maximum length of a string to copy. Can be `0`, if so whole zero-terminated string is copied.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
     @param steps__n Steps, linked list, can be `NULL`.
@@ -133,6 +144,9 @@ CcPly * cc_ply__new( CcPlyLinkEnum link,
     Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
 */
 CcPly * cc_ply_append( CcPly * restrict plies__io,
+                       char const * restrict start_an__d,
+                       char const * restrict end_an__d,
+                       size_t max_len__d,
                        CcPlyLinkEnum link,
                        CcPieceEnum piece,
                        CcStep ** restrict steps__n );
@@ -141,6 +155,9 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     Allocates a new ply, appends it to a linked list.
 
     @param plies__io _Input/output_ parameter, linked list of plies, to which a newly allocated ply is appended, can be `NULL`.
+    @param start_an__d _Optional_, start of a ply notation substring. Can be `NULL`, if so `notation` member is initialized to `NULL`.
+    @param end_an__d _Optional_, end of a ply notation substring. Can be `NULL` if so whole zero-terminated string is copied.
+    @param max_len__d _Optional_ parameter, maximum length of a string to copy. Can be `0`, if so whole zero-terminated string is copied.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
     @param steps__n Steps, linked list, can be `NULL`.
@@ -156,6 +173,9 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
 */
 CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
+                          char const * restrict start_an__d,
+                          char const * restrict end_an__d,
+                          size_t max_len__d,
                           CcPlyLinkEnum link,
                           CcPieceEnum piece,
                           CcStep ** restrict steps__n );

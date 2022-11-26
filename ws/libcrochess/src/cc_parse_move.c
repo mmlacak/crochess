@@ -172,9 +172,8 @@ bool cc_parse_move( char const * restrict move_an,
     }
 
     CcPly * plies__t = NULL;
-    char * ply_an = move__t->notation + ( m_an - move_an ); // Offset move notation by what was parsed so far.
 
-    if ( !cc_parse_plies( ply_an, game, &plies__t, parse_msgs__io ) )
+    if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__io ) )
         return false;
 
     move__t->plies = plies__t;
