@@ -36,6 +36,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
                      size_t max_len__d,
                      CcPlyLinkEnum link,
                      CcPieceEnum piece,
+                     CcTagEnum lost_tag,
                      CcStep ** restrict steps__n )
 {
     CcPly * ply__a = malloc( sizeof( CcPly ) );
@@ -45,6 +46,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
 
     ply__a->link = link;
     ply__a->piece = piece;
+    ply__a->lost_tag = lost_tag;
 
     if ( steps__n )
     {
@@ -65,11 +67,12 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
                        size_t max_len__d,
                        CcPlyLinkEnum link,
                        CcPieceEnum piece,
+                       CcTagEnum lost_tag,
                        CcStep ** restrict steps__n )
 {
     if ( !plies__io ) return NULL;
 
-    CcPly * ply__t = cc_ply__new( start_an__d, end_an__d, max_len__d, link, piece, steps__n );
+    CcPly * ply__t = cc_ply__new( start_an__d, end_an__d, max_len__d, link, piece, lost_tag, steps__n );
     if ( !ply__t ) return NULL;
 
     CcPly * p = plies__io;
@@ -85,6 +88,7 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                           size_t max_len__d,
                           CcPlyLinkEnum link,
                           CcPieceEnum piece,
+                          CcTagEnum lost_tag,
                           CcStep ** restrict steps__n )
 {
     if ( !plies__io ) return NULL;
@@ -97,6 +101,7 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                                            max_len__d,
                                            link,
                                            piece,
+                                           lost_tag,
                                            steps__n );
     else
         ply__w = cc_ply_append( *plies__io,
@@ -105,6 +110,7 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                                 max_len__d,
                                 link,
                                 piece,
+                                lost_tag,
                                 steps__n );
 
     return ply__w;
@@ -132,6 +138,7 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies )
                                            CC_MAX_LEN_ZERO_TERMINATED,
                                            from->link,
                                            from->piece,
+                                           from->lost_tag,
                                            &steps__t );
         if ( !ply__w )
         {

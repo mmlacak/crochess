@@ -95,6 +95,7 @@ typedef struct CcPly
 
     CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
     CcPieceEnum piece; /**< A piece being moved. */
+    CcTagEnum lost_tag; /**< Flag, whether moving piece has lost its tag. */
     CcStep * steps; /**< Steps taken by the piece. */
 
     struct CcPly * next; /**< Next ply in a cascade. */
@@ -108,6 +109,7 @@ typedef struct CcPly
     @param max_len__d _Optional_ parameter, maximum length of a string to copy. Can be `0`, if so whole zero-terminated string is copied.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
+    @param lost_tag Flag, if moving piece has lost its tag.
     @param steps__n Steps, linked list, can be `NULL`.
 
     @warning
@@ -128,6 +130,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
                      size_t max_len__d,
                      CcPlyLinkEnum link,
                      CcPieceEnum piece,
+                     CcTagEnum lost_tag,
                      CcStep ** restrict steps__n );
 
 /**
@@ -139,6 +142,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
     @param max_len__d _Optional_ parameter, maximum length of a string to copy. Can be `0`, if so whole zero-terminated string is copied.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
+    @param lost_tag Flag, if moving piece has lost its tag.
     @param steps__n Steps, linked list, can be `NULL`.
 
     @see cc_ply__new()
@@ -152,6 +156,7 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
                        size_t max_len__d,
                        CcPlyLinkEnum link,
                        CcPieceEnum piece,
+                       CcTagEnum lost_tag,
                        CcStep ** restrict steps__n );
 
 /**
@@ -163,6 +168,7 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     @param max_len__d _Optional_ parameter, maximum length of a string to copy. Can be `0`, if so whole zero-terminated string is copied.
     @param link Link to previous ply in a cascade.
     @param piece A piece.
+    @param lost_tag Flag, if moving piece has lost its tag.
     @param steps__n Steps, linked list, can be `NULL`.
 
     @note
@@ -181,6 +187,7 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                           size_t max_len__d,
                           CcPlyLinkEnum link,
                           CcPieceEnum piece,
+                          CcTagEnum lost_tag,
                           CcStep ** restrict steps__n );
 
 /**
