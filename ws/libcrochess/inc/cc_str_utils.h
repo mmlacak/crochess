@@ -134,7 +134,25 @@ bool cc_str_count_chars( char const * restrict str,
                          size_t max_len__d,
                          size_t * restrict count__o );
 
-// TODO :: DOCS
+/**
+    Function returns a pointer to character found in a (sub-)string.
+
+    @param c Character to be found.
+    @param case_sensitive Flag, whether search is case-sensitive, or not.
+    @param start Pointer to a start of a (sub-)string.
+    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so end of a whole zero-terminated string is searched.
+    @param max_len__d _Optional_ parameter, maximum length of a string to check. Can be `0`, if so end of whole zero-terminated string is searched.
+
+    @warning
+    If no optional arguments (`end__d`, `max_len__d`) are given, given
+    string (`start`) has to be zero-terminated.
+
+    @note
+    End of a string is first `char` that does not belong to a (sub-)string.
+    For a whole string (when `end__d` is `NULL`) it's a ``'\0'``, i.e. zero-terminating `char`.
+
+    @return Pointer to a character if successful, `NULL` otherwise.
+*/
 char const * cc_str_contains_char( char c,
                                    bool case_sensitive,
                                    char const * restrict start,

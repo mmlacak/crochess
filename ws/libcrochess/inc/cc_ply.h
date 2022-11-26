@@ -111,6 +111,10 @@ typedef struct CcPly
     @param steps__n Steps, linked list, can be `NULL`.
 
     @warning
+    If no optional arguments (`end_an__d`, `max_len__d`) are given, given
+    string (`start_an__d`) has to be zero-terminated, or `NULL`.
+
+    @warning
     Takes ownership of steps, inner pointer will be set to `NULL`, if valid ply is produced.
 
     @warning
