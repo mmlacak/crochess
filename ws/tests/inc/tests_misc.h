@@ -15,10 +15,10 @@ char * test_str_append_into( char const * restrict buffer,
                              size_t max_len__d );
 
 
-bool tests_gcds();
-bool tests_pos_steps();
-bool tests_str_append_into();
-bool tests_str_len();
+bool tests_gcds( void );
+bool tests_pos_steps( void );
+bool tests_str_append_into( void );
+bool tests_str_len( void );
 
 bool tests_misc( int test_number );
 

@@ -51,7 +51,7 @@ char * test_str_append_into( char const * restrict buffer,
 }
 
 
-bool tests_gcds()
+bool tests_gcds( void )
 {
     test_gcd(  54,  24 );
     test_gcd( -54,  24 );
@@ -97,7 +97,7 @@ bool tests_gcds()
     return true;
 }
 
-bool tests_pos_steps()
+bool tests_pos_steps( void )
 {
     test_pos_step( 2, 3, 14, 15 );
     test_pos_step( 14, 15, 2, 3 );
@@ -118,7 +118,7 @@ bool tests_pos_steps()
     return true;
 }
 
-bool tests_str_append_into()
+bool tests_str_append_into( void )
 {
     char x[ BUFSIZ ];
 
@@ -146,7 +146,7 @@ bool tests_str_append_into()
     return (bool)( p );
 }
 
-bool tests_str_len()
+bool tests_str_len( void )
 {
     char const * hello = "Hello, buggy world!";
     char const * start = hello + 7;

@@ -9,15 +9,17 @@
 #include "cc_tag.h"
 
 #include "cc_parse_utils.h"
+#include "cc_parse_step.h"
 #include "cc_parse_ply.h"
 
 
 static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
+                          CcPos * restrict last_destination__io,
                           CcChessboard ** restrict cb__io,
                           CcPly ** restrict plies__io,
-                          CcParseMsg ** restrict parse_msgs__io )
+                          CcParseMsg ** restrict parse_msgs__iod )
 {
     //
     // Ply link.
@@ -34,7 +36,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
     {
-        cc_parse_msg_append_format_if( parse_msgs__io,
+        cc_parse_msg_append_format_if( parse_msgs__iod,
                                        CC_PMTE_Error,
                                        CC_MAX_LEN_ZERO_TERMINATED,
                                        "Invalid piece symbol '%c'.\n",
@@ -50,6 +52,9 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     CcTagEnum lte = cc_starting_losing_tag( c_str );
 
     c_str += cc_losing_tag_len( lte );
+
+    //
+    // Steps.
 
 
 
@@ -73,7 +78,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
 bool cc_parse_plies( CcGame * restrict game,
                      CcMove ** restrict move__io,
-                     CcParseMsg ** restrict parse_msgs__io )
+                     CcParseMsg ** restrict parse_msgs__iod )
 {
     if ( !game ) return false;
 
@@ -83,17 +88,21 @@ bool cc_parse_plies( CcGame * restrict game,
     if ( !( *move__io )->notation ) return false;
     if ( ( *move__io )->plies ) return false;
 
-    if ( !parse_msgs__io ) return false;
+    if ( !parse_msgs__iod ) return false;
 
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game->chessboard );
     CcPly * plies__t = NULL;
 
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
+    CcPos last_destination = CC_POS_CAST_INVALID;
 
     while ( cc_ply_iter( ( *move__io )->notation, &ply_start_an, &ply_end_an ) )
     {
-        if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &cb__a, &plies__t, parse_msgs__io ) )
+        if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &last_destination,
+                            &cb__a,
+                            &plies__t,
+                            parse_msgs__iod ) )
         {
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );

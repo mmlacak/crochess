@@ -4,20 +4,20 @@
 #ifndef __HLP_MSGS_H__
 #define __HLP_MSGS_H__
 
-void print_license_intro();
+void print_license_intro( void );
 void print_version_info( char const * restrict lib_ver, char const * restrict app_ver );
 void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver );
-void print_licence_text();
-void print_about_info();
+void print_licence_text( void );
+void print_about_info( void );
 
-void print_help();
-void print_help_quit();
-void print_help_display();
-void print_help_tags();
-void print_help_about();
-void print_help_version();
-void print_help_new_code();
-void print_help_new();
+void print_help( void );
+void print_help_quit( void );
+void print_help_display( void );
+void print_help_tags( void );
+void print_help_about( void );
+void print_help_version( void );
+void print_help_new_code( void );
+void print_help_new( void );
 void print_new_code_invalid( char const * restrict str,
                              size_t max_len__d );
 

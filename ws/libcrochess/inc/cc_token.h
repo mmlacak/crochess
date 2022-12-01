@@ -120,6 +120,6 @@ bool cc_token_iter( char const * restrict str,
 char * cc_trim_str__new( char const * restrict str,
                          char const * restrict chars );
 
-// size_t cc_flush_stdin();
+// size_t cc_flush_stdin( void );
 
 #endif /* __CC_TOKEN_H__ */

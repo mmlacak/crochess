@@ -8,7 +8,7 @@
 
 #include "hlp_msgs.h"
 
-void print_license_intro()
+void print_license_intro( void )
 {
     printf( "Croatian chess - chess variants tests application\n"
             "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n" );
@@ -37,7 +37,7 @@ void print_app_intro( char const * restrict lib_ver, char const * restrict app_v
     // fflush( stdout );
 }
 
-void print_licence_text()
+void print_licence_text( void )
 {
     printf( "\n"
             "This program is free software: you can redistribute it and/or modify\n"
@@ -55,13 +55,13 @@ void print_licence_text()
     // fflush( stdout );
 }
 
-void print_about_info()
+void print_about_info( void )
 {
     print_license_intro();
     print_licence_text();
 }
 
-void print_help_new_code()
+void print_help_new_code( void )
 {
     printf( "cc  -> Classical Chess\n"
             "ct  -> Croatian Ties\n"

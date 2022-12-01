@@ -15,7 +15,7 @@
 // static bool cc_check_standalone_status( char const char_an,
 //                                         CcMove ** restrict move__n,
 //                                         CcMove ** restrict move__o,
-//                                         CcParseMsg ** restrict parse_msgs__io,
+//                                         CcParseMsg ** restrict parse_msgs__iod,
 //                                         CcMoveStatusEnum mse,
 //                                         size_t max_len__d,
 //                                         char const * restrict msg, ... )
@@ -25,7 +25,7 @@
 bool cc_parse_move( char const * restrict move_an,
                     CcGame * restrict game,
                     CcMove ** restrict move__o,
-                    CcParseMsg ** restrict parse_msgs__io );
+                    CcParseMsg ** restrict parse_msgs__iod );
 
 
 #endif /* __CC_PARSE_MOVE_H__ */

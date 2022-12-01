@@ -197,7 +197,7 @@ CcPos cc_side_effect_destination( CcSideEffect se )
 //
 // conveniances
 
-CcSideEffect cc_side_effect_none()
+CcSideEffect cc_side_effect_none( void )
 {
     return cc_side_effect( CC_SEE_None, CC_PE_None, CC_TE_None,
                            CC_POS_CAST_INVALID,
@@ -237,7 +237,7 @@ CcSideEffect cc_side_effect_promote( CcPieceEnum piece )
                            CC_POS_CAST_INVALID );
 }
 
-CcSideEffect cc_side_effect_tag_for_promotion()
+CcSideEffect cc_side_effect_tag_for_promotion( void )
 {
     return cc_side_effect( CC_SEE_TagForPromotion, CC_PE_None, CC_TE_None,
                            CC_POS_CAST_INVALID,
@@ -251,7 +251,7 @@ CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcTagEnum lost_tag )
                            CC_POS_CAST_INVALID );
 }
 
-CcSideEffect cc_side_effect_failed_conversion()
+CcSideEffect cc_side_effect_failed_conversion( void )
 {
     return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, CC_TE_None,
                            CC_POS_CAST_INVALID,
@@ -272,7 +272,7 @@ CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, CcPos destination )
                            destination );
 }
 
-CcSideEffect cc_side_effect_failed_resurrection()
+CcSideEffect cc_side_effect_failed_resurrection( void )
 {
     return cc_side_effect( CC_SEE_FailedResurrection, CC_PE_None, CC_TE_None,
                            CC_POS_CAST_INVALID,

@@ -156,18 +156,18 @@ CcPos cc_side_effect_destination( CcSideEffect se );
  *  @{
  */
 
-CcSideEffect cc_side_effect_none();
+CcSideEffect cc_side_effect_none( void );
 CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcTagEnum lost_tag );
 CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination );
 CcSideEffect cc_side_effect_en_passant( CcPieceEnum pawn, CcPos distant );
 CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination );
 CcSideEffect cc_side_effect_promote( CcPieceEnum piece );
-CcSideEffect cc_side_effect_tag_for_promotion();
+CcSideEffect cc_side_effect_tag_for_promotion( void );
 CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcTagEnum lost_tag );
-CcSideEffect cc_side_effect_failed_conversion();
+CcSideEffect cc_side_effect_failed_conversion( void );
 CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant );
 CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, CcPos destination );
-CcSideEffect cc_side_effect_failed_resurrection();
+CcSideEffect cc_side_effect_failed_resurrection( void );
 
 /** @} */ // end of ply_convenience_new
 
