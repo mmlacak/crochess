@@ -13,6 +13,10 @@ static bool cc_parse_step( char const * restrict step_start_an,
                            CcChessboard ** restrict cb__io,
                            CcParseMsg ** restrict parse_msgs__iod )
 {
+
+
+
+    return true;
 }
 
 
@@ -37,6 +41,8 @@ bool cc_parse_steps( char const * restrict ply_start_an,
     while ( cc_step_iter( ply_start_an, ply_end_an, &step_start_an, &step_end_an ) )
     {
         CcStep * step__t = NULL;
+
+// cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
 
         if ( !cc_parse_step( step_start_an, step_end_an, game, last_destination__iod,
                              &step__t,
