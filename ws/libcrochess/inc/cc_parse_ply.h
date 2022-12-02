@@ -14,15 +14,16 @@
 // static bool cc_parse_ply( char const * restrict ply_start_an,
 //                           char const * restrict ply_end_an,
 //                           CcGame * restrict game,
-//                           CcPos * restrict last_destination__io,
-//                           CcPly ** restrict plies__io,
+//                           CcPos * restrict last_destination__iod,
+//                           CcPly ** restrict ply__o,
 //                           CcChessboard ** restrict cb__io,
-//                           CcParseMsg ** restrict parse_msgs__iod )
+//                           CcParseMsg ** restrict parse_msgs__io )
 
 
-bool cc_parse_plies( CcGame * restrict game,
-                     CcMove ** restrict move__io,
-                     CcParseMsg ** restrict parse_msgs__iod );
+bool cc_parse_plies( char const * restrict move_an,
+                     CcGame * restrict game,
+                     CcPly ** restrict plies__o,
+                     CcParseMsg ** restrict parse_msgs__io );
 
 
 #endif /* __CC_PARSE_PLY_H__ */

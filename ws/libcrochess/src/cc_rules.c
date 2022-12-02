@@ -17,7 +17,7 @@
 
 // static bool cc_check_standalone_status( char const char_an,
 //                                        CcGame * restrict game__io,
-//                                        CcParseMsg ** restrict parse_msgs__iod,
+//                                        CcParseMsg ** restrict parse_msgs__io,
 //                                        bool is_resign,
 //                                        bool is_end,
 //                                        bool is_won,
@@ -29,7 +29,7 @@
 //     // if ( !game__io->chessboard ) return false;
 //     // if ( !game__io->moves ) return false;
 
-//     // if ( !parse_msgs__iod ) return false;
+//     // if ( !parse_msgs__io ) return false;
 //     // if ( !msg ) return false;
 
 //     if ( iscntrl( char_an ) || isspace( char_an ) )
@@ -46,7 +46,7 @@
 //         va_list args;
 //         va_start( args, msg );
 
-//         cc_parse_msg_append_format_if( parse_msgs__iod, CC_PMTE_Error, max_len__d, msg, args );
+//         cc_parse_msg_append_format_if( parse_msgs__io, CC_PMTE_Error, max_len__d, msg, args );
 
 //         va_end( args );
 
@@ -66,7 +66,7 @@
 //                                     bool is_light_piece,
 //                                     bool include_opponent,
 //                                     CcSteps * restrict steps,
-//                                     CcParseMsg ** restrict parse_msgs__iod,
+//                                     CcParseMsg ** restrict parse_msgs__io,
 //                                     CcPos * restrict start__o,
 //                                     CcPosLink ** restrict path__o,
 //                                     size_t * restrict path_count__o )
@@ -74,7 +74,7 @@
 //     if ( !cb_before_activation ) return false;
 //     if ( !ply_start_str ) return false;
 //     if ( !ply_end_str ) return false;
-//     if ( !parse_msgs__iod ) return false;
+//     if ( !parse_msgs__io ) return false;
 //     if ( !start__o ) return false;
 //     if ( !path__o ) return false;
 //     if ( *path__o ) return false;
@@ -103,7 +103,7 @@
 //                                                     ply_end_str,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED );
 
-//             cc_parse_msg_append_format_if( parse_msgs__iod,
+//             cc_parse_msg_append_format_if( parse_msgs__io,
 //                                             CC_PMTE_Error,
 //                                             CC_MAX_LEN_ZERO_TERMINATED,
 //                                             "Piece '%c' not found at '%s', in ply '%s'.\n",
@@ -153,14 +153,14 @@
 //                              char const * restrict ply_end_str,
 //                              CcChessboard * restrict cb_before_activation,
 //                              CcSteps ** restrict steps__io,
-//                              CcParseMsg ** restrict parse_msgs__iod )
+//                              CcParseMsg ** restrict parse_msgs__io )
 // {
 //     if ( !game ) return false;
 //     if ( !ply_start_str ) return false;
 //     if ( !ply_end_str ) return false;
 //     if ( !cb_before_activation ) return false;
 //     if ( !steps__io ) return false;
-//     if ( !parse_msgs__iod ) return false;
+//     if ( !parse_msgs__io ) return false;
 
 //     char const * c_str = ply_start_str;
 
@@ -183,7 +183,7 @@
 //             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 //             char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-//             cc_parse_msg_append_format_if( parse_msgs__iod,
+//             cc_parse_msg_append_format_if( parse_msgs__io,
 //                                             CC_PMTE_Error,
 //                                             CC_MAX_LEN_ZERO_TERMINATED,
 //                                             "Invalid position in step '%s', in ply '%s'.\n",
@@ -217,11 +217,11 @@
 
 // // static bool cc_do_make_plies( char const * restrict move_an_str,
 // //                               CcGame * restrict game__io,
-// //                               CcParseMsg ** restrict parse_msgs__iod )
+// //                               CcParseMsg ** restrict parse_msgs__io )
 // // {
 // //     if ( !move_an_str ) return false;
 // //     if ( !game__io ) return false;
-// //     if ( !parse_msgs__iod ) return false;
+// //     if ( !parse_msgs__io ) return false;
 
 // //     if ( !game__io->chessboard ) return false;
 // //     // if ( !game__io->moves ) return false;
@@ -269,7 +269,7 @@
 
 // //         if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
 // //         {
-// //             cc_parse_msg_append_format_if( parse_msgs__iod,
+// //             cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                             CC_PMTE_Error,
 // //                                             CC_MAX_LEN_ZERO_TERMINATED,
 // //                                             "Invalid piece symbol '%c'.\n",
@@ -310,7 +310,7 @@
 // //         {
 // //             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-// //             cc_parse_msg_append_format_if( parse_msgs__iod,
+// //             cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                             CC_PMTE_Error,
 // //                                             CC_MAX_LEN_ZERO_TERMINATED,
 // //                                             "Invalid char(s) in disambiguation '%s', in ply '%s'.\n",
@@ -351,7 +351,7 @@
 // //                                                   ply_end_str,
 // //                                                   CC_MAX_LEN_ZERO_TERMINATED );
 
-// //             cc_parse_msg_append_format_if( parse_msgs__iod,
+// //             cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                             CC_PMTE_Error,
 // //                                             CC_MAX_LEN_ZERO_TERMINATED,
 // //                                             "Invalid char(s) in position '%s', in ply '%s'.\n",
@@ -382,7 +382,7 @@
 // //                                                       ply_end_str,
 // //                                                       CC_MAX_LEN_ZERO_TERMINATED );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Disambiguation '%s' preceedes starting position '%s', in ply '%s'.\n",
@@ -414,7 +414,7 @@
 // //                                    ply_end_str,
 // //                                    cb__a,
 // //                                    &steps__a,
-// //                                    parse_msgs__iod ) )
+// //                                    parse_msgs__io ) )
 // //             {
 // //                 // <i> Parse msgs are added within cc_append_steps().
 
@@ -452,7 +452,7 @@
 // //                                                       ply_end_str,
 // //                                                       CC_MAX_LEN_ZERO_TERMINATED );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Destination not found, in ply '%s'.\n",
@@ -534,7 +534,7 @@
 // //             {
 // //                 char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Piece '%c' not found at '%s', in ply '%s'.\n",
@@ -618,7 +618,7 @@
 // //                 cc_char_8 start_str = CC_CHAR_8_EMPTY;
 // //                 cc_pos_to_short_string( start_pos, &start_str );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Piece '%c' at '%s' didn't lost specified tag '%s', in ply '%s'.\n",
@@ -650,7 +650,7 @@
 // //                 cc_char_8 start_str = CC_CHAR_8_EMPTY;
 // //                 cc_pos_to_short_string( start_pos, &start_str );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Piece '%c' at '%s' exhausted more (%d) than received momentum, in ply '%s'.\n",
@@ -694,7 +694,7 @@
 // //             {
 // //                 char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Chessboard not updated, with ply '%s'.\n",
@@ -746,7 +746,7 @@
 // //                 ( path_count == 0 ) ? "No path found, in ply '%s'.\n"
 // //                                     : "More than one path found, in ply '%s'.\n";
 
-// //             cc_parse_msg_append_format_if( parse_msgs__iod,
+// //             cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                             CC_PMTE_Error,
 // //                                             CC_MAX_LEN_ZERO_TERMINATED,
 // //                                             fmt,
@@ -789,7 +789,7 @@
 // //     }
 // //     else
 // //     {
-// //         cc_parse_msg_append_format_if( parse_msgs__iod,
+// //         cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                         CC_PMTE_Error,
 // //                                         CC_MAX_LEN_ZERO_TERMINATED,
 // //                                         "Chessboard not updated, with last destination in '%s'.\n",
@@ -817,13 +817,13 @@
 //                            CcGame * restrict game,
 //                            CcChessboard ** restrict cb__o,
 //                            CcGameStatusEnum * restrict gse__o,
-//                            CcParseMsg ** restrict parse_msgs__iod )
+//                            CcParseMsg ** restrict parse_msgs__io )
 // {
 //     if ( !move_an_str ) return false;
 //     if ( !game ) return false;
 //     if ( !cb__o ) return false;
 //     if ( !gse__o ) return false;
-//     if ( !parse_msgs__iod ) return false;
+//     if ( !parse_msgs__io ) return false;
 
 //     if ( !game->chessboard ) return false;
 
@@ -854,7 +854,7 @@
 
 //         if ( !CC_PLY_LINK_IS_VALID( ple ) )
 //         {
-//             cc_parse_msg_append_format_if( parse_msgs__iod,
+//             cc_parse_msg_append_format_if( parse_msgs__io,
 //                                             CC_PMTE_Error,
 //                                             CC_MAX_LEN_ZERO_TERMINATED,
 //                                             "Invalid ply linkage at '%s'.\n",
@@ -901,7 +901,7 @@
 
 //             if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
 //             {
-//                 cc_parse_msg_append_format_if( parse_msgs__iod,
+//                 cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                 CC_PMTE_Error,
 //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 //                                                 "Invalid piece symbol '%c'.\n",
@@ -935,7 +935,7 @@
 //                                                       ply_end_str,
 //                                                       CC_MAX_LEN_ZERO_TERMINATED );
 
-//                 cc_parse_msg_append_format_if( parse_msgs__iod,
+//                 cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                 CC_PMTE_Error,
 //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 //                                                 "Invalid char(s) in disambiguation, in ply '%s'.\n",
@@ -971,7 +971,7 @@
 //                                                         ply_end_str,
 //                                                         CC_MAX_LEN_ZERO_TERMINATED );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Invalid char(s) in position, in ply '%s'.\n",
@@ -999,7 +999,7 @@
 //                                                           ply_end_str,
 //                                                           CC_MAX_LEN_ZERO_TERMINATED );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Ply has disambiguation and starting position at the same time, in '%s'.\n",
@@ -1038,7 +1038,7 @@
 //                                        ply_end_str,
 //                                        cb__a,
 //                                        &steps__a,
-//                                        parse_msgs__iod ) )
+//                                        parse_msgs__io ) )
 //                 {
 //                     // <i> Parse msgs are added within cc_append_steps().
 
@@ -1109,7 +1109,7 @@
 //                                                           ply_end_str,
 //                                                           CC_MAX_LEN_ZERO_TERMINATED );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Piece '%c' not found at '%s', in ply '%s'.\n",
@@ -1193,7 +1193,7 @@
 //                     cc_char_8 start_str = CC_CHAR_8_EMPTY;
 //                     cc_pos_to_short_string( start_pos, &start_str );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Piece '%c' at '%s' didn't lost specified tag '%s', in ply '%s'.\n",
@@ -1223,7 +1223,7 @@
 //                     cc_char_8 start_str = CC_CHAR_8_EMPTY;
 //                     cc_pos_to_short_string( start_pos, &start_str );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Piece '%c' at '%s' exhausted more (%d) than received momentum, in ply '%s'.\n",
@@ -1261,7 +1261,7 @@
 //                 {
 //                     char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Chessboard not updated, with ply '%s'.\n",
@@ -1313,7 +1313,7 @@
 //                     ( path_count == 0 ) ? "No path found, in ply '%s'.\n"
 //                                         : "More than one path found, in ply '%s'.\n";
 
-//                 cc_parse_msg_append_format_if( parse_msgs__iod,
+//                 cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                 CC_PMTE_Error,
 //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 //                                                 fmt,
@@ -1359,7 +1359,7 @@
 // //     }
 // //     else
 // //     {
-// //         cc_parse_msg_append_format_if( parse_msgs__iod,
+// //         cc_parse_msg_append_format_if( parse_msgs__io,
 // //                                         CC_PMTE_Error,
 // //                                         CC_MAX_LEN_ZERO_TERMINATED,
 // //                                         "Chessboard not updated, with last destination in '%s'.\n",
@@ -1404,13 +1404,13 @@
 //                    CcGame * restrict game,
 //                    CcChessboard ** restrict cb__o,
 //                    CcGameStatusEnum * restrict gse__o,
-//                    CcParseMsg ** restrict parse_msgs__iod )
+//                    CcParseMsg ** restrict parse_msgs__io )
 // {
 //     if ( !move_an_str ) return false;
 //     if ( !game ) return false;
 //     if ( !cb__o ) return false;
 //     if ( !gse__o ) return false;
-//     if ( !parse_msgs__iod ) return false;
+//     if ( !parse_msgs__io ) return false;
 
 //     if ( !game->chessboard ) return false;
 
@@ -1420,7 +1420,7 @@
 //             ( game->status == CC_GSE_None ) ? "Game is not initialized.\n"
 //                                             : "Game is finished.\n";
 
-//         cc_parse_msg_append_format_if( parse_msgs__iod,
+//         cc_parse_msg_append_format_if( parse_msgs__io,
 //                                         CC_PMTE_Error,
 //                                         CC_MAX_LEN_ZERO_TERMINATED,
 //                                         msg );
@@ -1434,7 +1434,7 @@
 //         if ( *++m_str == '#' )
 //         {
 //             // "##" resign
-//             return cc_check_standalone_status( *++m_str, game, parse_msgs__iod, true, true, false,
+//             return cc_check_standalone_status( *++m_str, game, parse_msgs__io, true, true, false,
 //                                               CC_MAX_LEN_ZERO_TERMINATED,
 //                                               "Invalid char(s) after resign.\n" );
 //         }
@@ -1446,7 +1446,7 @@
 // //         Self- is optional, since both players could overlook checkmate,
 // //         this is option to rectify such a situation.
 
-//             return cc_check_standalone_status( *m_str, game, parse_msgs__iod, false, true, true,
+//             return cc_check_standalone_status( *m_str, game, parse_msgs__io, false, true, true,
 //                                               CC_MAX_LEN_ZERO_TERMINATED,
 //                                               "Invalid char(s) after self-checkmate.\n" );
 //         }
@@ -1464,13 +1464,13 @@
 
 //                     if ( cc_check_valid_draw_offer_exists( game->moves, game->status ) )
 //                     {
-//                         return cc_check_standalone_status( *++m_str, game, parse_msgs__iod, false, true, false,
+//                         return cc_check_standalone_status( *++m_str, game, parse_msgs__io, false, true, false,
 //                                                           CC_MAX_LEN_ZERO_TERMINATED,
 //                                                           "Invalid char(s) after accepted draw.\n" );
 //                     }
 //                     else
 //                     {
-//                         cc_parse_msg_append_format_if( parse_msgs__iod,
+//                         cc_parse_msg_append_format_if( parse_msgs__io,
 //                                                         CC_PMTE_Error,
 //                                                         CC_MAX_LEN_ZERO_TERMINATED,
 //                                                         "No valid opponent's draw offer found.\n" );
@@ -1486,7 +1486,7 @@
 //                 //     {
 //                 //         // "(===)" draw by rules
 //                 //
-//                 //         return cc_check_standalone_status( *++m_str, game, parse_msgs__iod, false, true, false,
+//                 //         return cc_check_standalone_status( *++m_str, game, parse_msgs__io, false, true, false,
 //                 //                                           CC_MAX_LEN_ZERO_TERMINATED,
 //                 //                                           "Invalid char(s) after draw by rules.\n" );
 //                 //     }
@@ -1494,14 +1494,14 @@
 //             }
 //         }
 
-//         cc_parse_msg_append_format_if( parse_msgs__iod,
+//         cc_parse_msg_append_format_if( parse_msgs__io,
 //                                         CC_PMTE_Error,
 //                                         CC_MAX_LEN_ZERO_TERMINATED,
 //                                         "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
 //         return false;
 //     }
 
-//     if ( !cc_make_plies( move_an_str, game, cb__o, gse__o, parse_msgs__iod ) )
+//     if ( !cc_make_plies( move_an_str, game, cb__o, gse__o, parse_msgs__io ) )
 //         return false;
 
 // // // TODO :: post-plies status
@@ -1521,18 +1521,18 @@
 
 // bool cc_apply_move( char const * restrict move_an_str,
 //                     CcGame * restrict game__io,
-//                     CcParseMsg ** restrict parse_msgs__iod )
+//                     CcParseMsg ** restrict parse_msgs__io )
 // {
 //     if ( !move_an_str ) return false;
 //     if ( !game__io ) return false;
-//     if ( !parse_msgs__iod ) return false;
+//     if ( !parse_msgs__io ) return false;
 
 //     if ( !game__io->chessboard ) return false;
 
 //     CcChessboard * new__t = NULL;
 //     CcGameStatusEnum gse = game__io->status;
 
-//     if ( cc_make_move( move_an_str, game__io, &new__t, &gse, parse_msgs__iod ) )
+//     if ( cc_make_move( move_an_str, game__io, &new__t, &gse, parse_msgs__io ) )
 //     {
 //         if ( !cc_moves_append_if( &( game__io->moves ),
 //                                   move_an_str,

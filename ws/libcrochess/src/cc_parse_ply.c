@@ -16,10 +16,10 @@
 static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
-                          CcPos * restrict last_destination__io,
-                          CcPly ** restrict plies__io,
+                          CcPos * restrict last_destination__iod,
+                          CcPly ** restrict ply__o,
                           CcChessboard ** restrict cb__io,
-                          CcParseMsg ** restrict parse_msgs__iod )
+                          CcParseMsg ** restrict parse_msgs__io )
 {
     //
     // Ply link.
@@ -36,7 +36,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
     {
-        cc_parse_msg_append_format_if( parse_msgs__iod,
+        cc_parse_msg_append_format_if( parse_msgs__io,
                                        CC_PMTE_Error,
                                        CC_MAX_LEN_ZERO_TERMINATED,
                                        "Invalid piece symbol '%c'.\n",
@@ -56,6 +56,16 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     //
     // Steps.
 
+    CcStep * steps__t = NULL;
+
+    if ( !cc_parse_steps( ply_start_an, ply_end_an, game, last_destination__iod,
+                          &steps__t,
+                          cb__io,
+                          parse_msgs__io ) )
+    {
+        cc_step_free_all( &steps__t );
+        return false;
+    }
 
 
 // TODO :: update last_destination__iod
@@ -66,33 +76,29 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     //
     // Append a ply.
 
-    // if ( !cc_ply_append_if( plies__io,
+    // if ( !cc_ply_append_if( plies__o,
     //                         ply_start_an,
     //                         ply_end_an,
     //                         CC_MAX_LEN_ZERO_TERMINATED,
     //                         ple,
     //                         /* piece */,
     //                         lte,
-    //                         /* steps */ ) )
+    //                         &steps__t ) )
     //     return false;
 
     return true;
 }
 
 
-bool cc_parse_plies( CcGame * restrict game,
-                     CcMove ** restrict move__io,
-                     CcParseMsg ** restrict parse_msgs__iod )
+bool cc_parse_plies( char const * restrict move_an,
+                     CcGame * restrict game,
+                     CcPly ** restrict plies__o,
+                     CcParseMsg ** restrict parse_msgs__io )
 {
+    if ( !move_an ) return false;
     if ( !game ) return false;
-
-    if ( !move__io ) return false;
-    if ( !*move__io ) return false;
-
-    if ( !( *move__io )->notation ) return false;
-    if ( ( *move__io )->plies ) return false;
-
-    if ( !parse_msgs__iod ) return false;
+    if ( !plies__o || *plies__o ) return false;
+    if ( !parse_msgs__io ) return false;
 
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game->chessboard );
     CcPly * plies__t = NULL;
@@ -101,24 +107,33 @@ bool cc_parse_plies( CcGame * restrict game,
     char const * ply_end_an = NULL;
     CcPos last_destination = CC_POS_CAST_INVALID;
 
-    while ( cc_ply_iter( ( *move__io )->notation, &ply_start_an, &ply_end_an ) )
+    while ( cc_ply_iter( move_an, &ply_start_an, &ply_end_an ) )
     {
+        CcPly * ply__t = NULL;
+
         if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &last_destination,
-                            &plies__t,
+                            &ply__t,
                             &cb__a,
-                            parse_msgs__iod ) )
+                            parse_msgs__io ) )
         {
+            cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
             return false;
         }
 
-
+        if ( !cc_ply_extend_if( &plies__t, &ply__t ) )
+        {
+            cc_ply_free_all( &ply__t );
+            cc_ply_free_all( &plies__t );
+            cc_chessboard_free_all( &cb__a );
+            return false;
+        }
     }
 
 
 
-    ( *move__io )->plies = plies__t; // Ownership transfer.
+    *plies__o = plies__t; // Ownership transfer.
     // plies__t = NULL; // Not needed.
 
     cc_chessboard_free_all( &cb__a );

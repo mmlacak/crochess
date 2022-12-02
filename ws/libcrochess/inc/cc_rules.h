@@ -13,7 +13,7 @@
 
 // // static bool cc_check_standalone_status( char const char_an,
 // //                                        CcGame * restrict game__io,
-// //                                        CcParseMsg ** restrict parse_msgs__iod,
+// //                                        CcParseMsg ** restrict parse_msgs__io,
 // //                                        bool is_resign,
 // //                                        bool is_end,
 // //                                        bool is_won,
@@ -25,28 +25,28 @@
 // //                              char const * restrict ply_end_str,
 // //                              CcChessboard * restrict cb_before_activation,
 // //                              CcSteps ** restrict steps__io,
-// //                              CcParseMsg ** restrict parse_msgs__iod )
+// //                              CcParseMsg ** restrict parse_msgs__io )
 
 // // // static bool cc_do_make_plies( char const * restrict move_an_str,
 // // //                               CcGame * restrict game__io,
-// // //                               CcParseMsg ** restrict parse_msgs__iod )
+// // //                               CcParseMsg ** restrict parse_msgs__io )
 // //
 // // static bool cc_make_plies( char const * restrict move_an_str,
 // //                            CcGame * restrict game,
 // //                            CcChessboard ** restrict cb__o,
 // //                            CcGameStatusEnum * restrict gse__o,
-// //                            CcParseMsg ** restrict parse_msgs__iod )
+// //                            CcParseMsg ** restrict parse_msgs__io )
 
 
 // bool cc_make_move( char const * restrict move_an_str,
 //                    CcGame * restrict game,
 //                    CcChessboard ** restrict cb__o,
 //                    CcGameStatusEnum * restrict gse__o,
-//                    CcParseMsg ** restrict parse_msgs__iod );
+//                    CcParseMsg ** restrict parse_msgs__io );
 
 // bool cc_apply_move( char const * restrict move_an_str,
 //                     CcGame * restrict game__io,
-//                     CcParseMsg ** restrict parse_msgs__iod );
+//                     CcParseMsg ** restrict parse_msgs__io );
 
 
 #endif /* __CC_RULES_H__ */
