@@ -16,7 +16,7 @@
 //                            CcPos * restrict last_destination__iod,
 //                            CcStep ** restrict step__o,
 //                            CcChessboard ** restrict cb__io,
-//                            CcParseMsg ** restrict parse_msgs__io )
+//                            CcParseMsg ** restrict parse_msgs__iod )
 
 
 bool cc_parse_steps( char const * restrict ply_start_an,
@@ -25,7 +25,7 @@ bool cc_parse_steps( char const * restrict ply_start_an,
                      CcPos * restrict last_destination__iod,
                      CcStep ** restrict steps__o,
                      CcChessboard ** restrict cb__io,
-                     CcParseMsg ** restrict parse_msgs__io );
+                     CcParseMsg ** restrict parse_msgs__iod );
 
 
 #endif /* __CC_PARSE_STEP_H__ */

@@ -19,7 +19,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                           CcPos * restrict last_destination__iod,
                           CcPly ** restrict ply__o,
                           CcChessboard ** restrict cb__io,
-                          CcParseMsg ** restrict parse_msgs__io )
+                          CcParseMsg ** restrict parse_msgs__iod )
 {
     //
     // Ply link.
@@ -36,7 +36,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
     {
-        cc_parse_msg_append_format_if( parse_msgs__io,
+        cc_parse_msg_append_format_if( parse_msgs__iod,
                                        CC_PMTE_Error,
                                        CC_MAX_LEN_ZERO_TERMINATED,
                                        "Invalid piece symbol '%c'.\n",
@@ -61,7 +61,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     if ( !cc_parse_steps( ply_start_an, ply_end_an, game, last_destination__iod,
                           &steps__t,
                           cb__io,
-                          parse_msgs__io ) )
+                          parse_msgs__iod ) )
     {
         cc_step_free_all( &steps__t );
         return false;
@@ -93,12 +93,12 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 bool cc_parse_plies( char const * restrict move_an,
                      CcGame * restrict game,
                      CcPly ** restrict plies__o,
-                     CcParseMsg ** restrict parse_msgs__io )
+                     CcParseMsg ** restrict parse_msgs__iod )
 {
     if ( !move_an ) return false;
     if ( !game ) return false;
     if ( !plies__o || *plies__o ) return false;
-    if ( !parse_msgs__io ) return false;
+    if ( !parse_msgs__iod ) return false;
 
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game->chessboard );
     CcPly * plies__t = NULL;
@@ -114,7 +114,7 @@ bool cc_parse_plies( char const * restrict move_an,
         if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &last_destination,
                             &ply__t,
                             &cb__a,
-                            parse_msgs__io ) )
+                            parse_msgs__iod ) )
         {
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );

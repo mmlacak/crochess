@@ -132,12 +132,6 @@ until it runs out of them, or is initialized again.
 _Static_ parameters are indicated by appending `__s` to parameter name, e.g.
 `char const * const restrict str__s`.
 
-### Output parameters
-
-Output parameters (mutable borrows) are indicated by their type (`const` pointer to
-type), and appending either `__o`, or `__io` to their name, depending if they are
-pure output parameter, or input+output one, e.g. `char * const restrict str__io`.
-
 ### Optional parameters
 
 Discretional parameters are indicated by appending `__d` to their name, e.g.
@@ -160,6 +154,17 @@ memory.
 
 All indicators for the outmost pointers that are mandatory can be omitted. For instance,
 `CcParseMsg ** parse_msgs__d` is treated the same as `CcParseMsg ** parse_msgs__dD`.
+
+### Output parameters
+
+Output parameters (mutable borrows) are indicated by appending either `__o`, or `__io`
+to their name, depending if they are pure output parameter, or input+output one, e.g.
+`char const * restrict str__io`.
+
+Pure output parameter, i.e. one named with `__o`, is also implicitly optional, so
+`char const * restrict str__o` is treated the same as `char const * restrict str__od`.
+Input/ouput parameter is implicitly mandatory, and has to have `__d` appended to its
+name if its optional, like so `char const * restrict str__iod`.
 
 ### Ownership transfer parameters
 

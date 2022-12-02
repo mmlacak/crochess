@@ -15,7 +15,7 @@
 static bool cc_check_standalone_status( char const char_an,
                                         CcMove ** restrict temp__n,
                                         CcMove ** restrict move__o,
-                                        CcParseMsg ** restrict parse_msgs__io,
+                                        CcParseMsg ** restrict parse_msgs__iod,
                                         CcMoveStatusEnum mse,
                                         size_t max_len__d,
                                         char const * restrict msg, ... )
@@ -35,7 +35,7 @@ static bool cc_check_standalone_status( char const char_an,
         va_list args;
         va_start( args, msg );
 
-        cc_parse_msg_append_format_if( parse_msgs__io, CC_PMTE_Error, max_len__d, msg, args );
+        cc_parse_msg_append_format_if( parse_msgs__iod, CC_PMTE_Error, max_len__d, msg, args );
 
         va_end( args );
 
@@ -47,12 +47,12 @@ static bool cc_check_standalone_status( char const char_an,
 bool cc_parse_move( char const * restrict move_an,
                     CcGame * restrict game,
                     CcMove ** restrict move__o,
-                    CcParseMsg ** restrict parse_msgs__io )
+                    CcParseMsg ** restrict parse_msgs__iod )
 {
     if ( !move_an ) return false;
     if ( !game ) return false;
     if ( !move__o || *move__o ) return false;
-    if ( !parse_msgs__io ) return false;
+    if ( !parse_msgs__iod ) return false;
 
     if ( !game->chessboard ) return false;
 
@@ -62,7 +62,7 @@ bool cc_parse_move( char const * restrict move_an,
             ( game->status == CC_GSE_None ) ? "Game is not initialized.\n"
                                             : "Game is finished.\n";
 
-        cc_parse_msg_append_format_if( parse_msgs__io,
+        cc_parse_msg_append_format_if( parse_msgs__iod,
                                        CC_PMTE_Error,
                                        CC_MAX_LEN_ZERO_TERMINATED,
                                        msg );
@@ -81,7 +81,7 @@ bool cc_parse_move( char const * restrict move_an,
             return cc_check_standalone_status( *++m_an,
                                                &move__t,
                                                move__o,
-                                               parse_msgs__io,
+                                               parse_msgs__iod,
                                                CC_MSE_Resign,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Invalid char(s) after resign.\n" );
@@ -97,7 +97,7 @@ bool cc_parse_move( char const * restrict move_an,
             return cc_check_standalone_status( *m_an,
                                                &move__t,
                                                move__o,
-                                               parse_msgs__io,
+                                               parse_msgs__iod,
                                                CC_MSE_SelfCheckmate,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Invalid char(s) after self-checkmate.\n" );
@@ -119,14 +119,14 @@ bool cc_parse_move( char const * restrict move_an,
                         return cc_check_standalone_status( *++m_an,
                                                            &move__t,
                                                            move__o,
-                                                           parse_msgs__io,
+                                                           parse_msgs__iod,
                                                            CC_MSE_DrawAccepted,
                                                            CC_MAX_LEN_ZERO_TERMINATED,
                                                            "Invalid char(s) after accepted draw.\n" );
                     }
                     else
                     {
-                        cc_parse_msg_append_format_if( parse_msgs__io,
+                        cc_parse_msg_append_format_if( parse_msgs__iod,
                                                        CC_PMTE_Error,
                                                        CC_MAX_LEN_ZERO_TERMINATED,
                                                        "No valid opponent's draw offer found.\n" );
@@ -145,7 +145,7 @@ bool cc_parse_move( char const * restrict move_an,
                 //         return cc_check_standalone_status( *++m_an,
                 //                                            &move__t,
                 //                                            move__o,
-                //                                            parse_msgs__io,
+                //                                            parse_msgs__iod,
                 //                                            CC_MSE_DrawByRules,
                 //                                            CC_MAX_LEN_ZERO_TERMINATED,
                 //                                            "Invalid char(s) after draw by rules.\n" );
@@ -154,7 +154,7 @@ bool cc_parse_move( char const * restrict move_an,
             }
         }
 
-        cc_parse_msg_append_format_if( parse_msgs__io,
+        cc_parse_msg_append_format_if( parse_msgs__iod,
                                        CC_PMTE_Error,
                                        CC_MAX_LEN_ZERO_TERMINATED,
                                        "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
@@ -163,7 +163,7 @@ bool cc_parse_move( char const * restrict move_an,
 
     CcPly * plies__t = NULL;
 
-    if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__io ) )
+    if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__iod ) )
     {
         cc_ply_free_all( &plies__t );
         cc_move_free_all( &move__t );
