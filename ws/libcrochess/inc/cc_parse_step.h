@@ -4,19 +4,27 @@
 #ifndef __CC_PARSE_STEP_H__
 #define __CC_PARSE_STEP_H__
 
-// #include "cc_step.h"
 #include "cc_step.h"
 #include "cc_game.h"
 
 #include "cc_parse_msg.h"
 
 
+// static bool cc_parse_step( char const * restrict step_start_an,
+//                            char const * restrict step_end_an,
+//                            CcGame * restrict game,
+//                            CcPos * restrict last_destination__iod,
+//                            CcStep ** restrict step__iod,
+//                            CcChessboard ** restrict cb__io,
+//                            CcParseMsg ** restrict parse_msgs__iod )
+
+
 bool cc_parse_steps( char const * restrict ply_start_an,
                      char const * restrict ply_end_an,
                      CcGame * restrict game,
                      CcPos * restrict last_destination__iod,
+                     CcStep ** restrict steps__iod,
                      CcChessboard ** restrict cb__io,
-                     CcStep ** restrict steps__io,
                      CcParseMsg ** restrict parse_msgs__iod );
 
 

@@ -103,6 +103,45 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io )
 }
 // TODO :: REWRITE :: using cc_step_append_if
 
+CcStep * cc_step_extend( CcStep ** restrict steps__io,
+                         CcStep ** restrict steps__n )
+{
+    if ( !steps__io ) return NULL;
+    if ( !*steps__io ) return NULL;
+
+    if ( !steps__n ) return NULL;
+    if ( !*steps__n ) return NULL;
+
+    CcStep * last = *steps__io;
+    while ( last->next ) last = last->next;
+
+    // Ownership transfer.
+    last->next = *steps__n;
+    *steps__n = NULL;
+
+    return last->next;
+}
+
+CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
+                            CcStep ** restrict steps__n )
+{
+    if ( !steps__iod ) return NULL;
+    if ( !steps__n ) return NULL;
+
+    if ( !*steps__n ) return *steps__iod;
+
+    if ( !*steps__iod )
+    {
+        // Ownership transfer.
+        *steps__iod = *steps__n;
+        *steps__n = NULL;
+
+        return *steps__iod;
+    }
+
+    return cc_step_extend( steps__iod, steps__n );
+}
+
 size_t cc_step_count( CcStep * restrict steps )
 {
     if ( !steps ) return 0;

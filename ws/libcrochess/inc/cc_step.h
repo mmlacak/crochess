@@ -165,6 +165,14 @@ CcStep * cc_step_append_if( CcStep ** restrict steps__io,
 */
 CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
 
+// TODO :: DOCS
+CcStep * cc_step_extend( CcStep ** restrict steps__io,
+                         CcStep ** restrict steps__n );
+
+// TODO :: DOCS
+CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
+                            CcStep ** restrict steps__n );
+
 /**
     Function returning count of steps, based on usage.
 

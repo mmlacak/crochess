@@ -17,8 +17,8 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
                           CcPos * restrict last_destination__io,
-                          CcChessboard ** restrict cb__io,
                           CcPly ** restrict plies__io,
+                          CcChessboard ** restrict cb__io,
                           CcParseMsg ** restrict parse_msgs__iod )
 {
     //
@@ -57,6 +57,10 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     // Steps.
 
 
+
+// TODO :: update last_destination__iod
+
+// TODO :: update cb__io
 
 
     //
@@ -100,8 +104,8 @@ bool cc_parse_plies( CcGame * restrict game,
     while ( cc_ply_iter( ( *move__io )->notation, &ply_start_an, &ply_end_an ) )
     {
         if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &last_destination,
-                            &cb__a,
                             &plies__t,
+                            &cb__a,
                             parse_msgs__iod ) )
         {
             cc_ply_free_all( &plies__t );
