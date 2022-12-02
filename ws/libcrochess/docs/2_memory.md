@@ -143,10 +143,23 @@ pure output parameter, or input+output one, e.g. `char * const restrict str__io`
 Discretional parameters are indicated by appending `__d` to their name, e.g.
 `int const disamb_i__d`. For pointers, `NULL` is used if optional parameter is not
 given. For other types check which value(s) are used to convey absence of a valid
-value.
+value. In a given example, disambiguation coordinate is optional, with
+`CC_INVALID_COORD` used as an absence value.
 
-In a given example, disambiguation coordinate is optional, with
-`CC_INVALID_OFF_BOARD_COORD_MIN` used as an absence value.
+Multi-pointer parameters can be optional not just on data (more precisely, inner-most
+pointer), but also on any other pointer level. For each optional pointer an additional
+`d` is appended to existing `__d` indicator. If pointer is not optional, an `D` is
+appended, to keep track of indirection. Each `d` or `D` corresponds to one pointer,
+starting from inner-most pointer outwards, i.e. in reverse order to pointers declaration.
+
+For instance, `CcParseMsg ** parse_msgs__dd` means both data (inner pointer), and
+outer pointer are optional. Another example, `CcParseMsg ** parse_msgs__Dd` means
+outer pointer is optional, but inner pointer (data) is mandatory, i.e. if outer pointer
+is provided, inner pointer must be valid (non-`NULL`), and must point to valid chunk of
+memory.
+
+All indicators for the outmost pointers that are mandatory can be omitted. For instance,
+`CcParseMsg ** parse_msgs__d` is treated the same as `CcParseMsg ** parse_msgs__dD`.
 
 ### Ownership transfer parameters
 
@@ -217,16 +230,19 @@ separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
 
 ### Ownership transfer parameters
 
-| Indicator |          `arg` |                  `*arg` |         `**arg` |
-| --------: | -------------: | ----------------------: | --------------: |
-|           |        `!NULL` |                   input |            read |
-|     `__s` |        `!NULL` |           input, `NULL` |  read, _static_ |
-|     `__o` |        `!NULL` |                  output |           write |
-|    `__io` |        `!NULL` |          input + output |    read + write |
-|     `__d` |        `!NULL` |     input, discretional |            read |
-|     `__n` |        `!NULL` |         `*args = NULL;` | ownership taken |
-|     `__f` |        `!NULL` | `free(); *args = NULL;` |           freed |
-|     `__r` |        `!NULL` |    `*args = realloc();` |     reallocated |
-|     `__a` |        `!NULL` |        (input +) output | ownership given |
+| Indicator |              `arg` |                  `*arg` |         `**arg` |
+| --------: | -----------------: | ----------------------: | --------------: |
+|           |            `!NULL` |                   input |            read |
+|     `__s` |            `!NULL` |           input, `NULL` |  read, _static_ |
+|     `__o` |            `!NULL` |                  output |           write |
+|    `__io` |            `!NULL` |          input + output |    read + write |
+|     `__d` |                [1] |     input, discretional |            read |
+|     `__D` |                [1] |        input, mandatory |            read |
+|     `__n` |            `!NULL` |         `*args = NULL;` | ownership taken |
+|     `__f` |            `!NULL` | `free(); *args = NULL;` |           freed |
+|     `__r` |            `!NULL` |    `*args = realloc();` |     reallocated |
+|     `__a` |            `!NULL` |        (input +) output | ownership given |
+
+[1] Depends on a level of indirection, i.e. to which pointer `d`, `D` indicator corresponds.
 
 [<<< prev](1_organization.md "<<< prev") ||
