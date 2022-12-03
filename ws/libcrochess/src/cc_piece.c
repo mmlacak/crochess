@@ -326,7 +326,7 @@ bool cc_piece_is_light( CcPieceEnum pe )
     }
 }
 
-bool cc_piece_has_equal_type( char symbol, CcPieceEnum pe )
+bool cc_piece_has_congruent_type( char symbol, CcPieceEnum pe )
 {
     char ps = cc_piece_symbol( pe );
     return ( symbol == ps );

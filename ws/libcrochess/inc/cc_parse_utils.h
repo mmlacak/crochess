@@ -32,8 +32,8 @@ bool cc_ply_iter( char const * restrict an_str,
                   char const ** restrict end__io );
 
 
-bool cc_find_ply_piece_symbol( char const * restrict an_str,
-                               char * restrict piece_symbol__o );
+bool cc_find_piece_symbol( char const * restrict an_str,
+                           char * restrict piece_symbol__o );
 
 CcTagEnum cc_starting_losing_tag( char const * restrict an_str );
 
@@ -67,11 +67,24 @@ bool cc_ply_has_steps( char const * restrict an_str,
                        char const * restrict ply_end );
 
 
-CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str );
+CcSideEffectEnum cc_starting_side_effect_type( char const * restrict an_str,
+                                               bool * restrict has_promotion_sign__o );
 
-char const * cc_find_side_effect( char const * restrict an_str,
-                                  char const * restrict step_end,
-                                  CcSideEffectEnum * restrict see__o );
+size_t cc_side_effect_type_len( CcSideEffectEnum see,
+                                bool has_promotion_sign );
+
+// TODO :: DELETE
+//
+// char const * cc_find_side_effect_type( char const * restrict an_str,
+//                                        char const * restrict step_end,
+//                                        CcSideEffectEnum * restrict see__o );
+//
+// TODO :: DELETE
+
+bool cc_starting_side_effect( char const * restrict an_str,
+                              char const * restrict step_end,
+                              CcPieceEnum step_piece,
+                              CcSideEffect * restrict side_effect__o );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

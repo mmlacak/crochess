@@ -122,8 +122,8 @@ bool cc_ply_iter( char const * restrict an_str,
 }
 
 
-bool cc_find_ply_piece_symbol( char const * restrict an_str,
-                               char * restrict piece_symbol__o )
+bool cc_find_piece_symbol( char const * restrict an_str,
+                           char * restrict piece_symbol__o )
 {
     if ( !an_str ) return false;
     if ( !piece_symbol__o ) return false;
@@ -391,9 +391,11 @@ bool cc_ply_has_steps( char const * restrict an_str,
 }
 
 
-CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str )
+CcSideEffectEnum cc_starting_side_effect_type( char const * restrict an_str,
+                                               bool * restrict has_promotion_sign__o )
 {
     if ( !an_str ) return CC_SEE_None;
+    if ( !has_promotion_sign__o ) return CC_SEE_None;
 
     char const * c = an_str;
 
@@ -416,7 +418,10 @@ CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str )
     else if ( *c == '=' )
     {
         if ( isupper( *++c ) )
+        {
+            *has_promotion_sign__o = true;
             return CC_SEE_Promotion;
+        }
         else
             return CC_SEE_TagForPromotion;
     }
@@ -440,34 +445,127 @@ CcSideEffectEnum cc_starting_side_effect( char const * restrict an_str )
     }
     else if ( isupper( *c ) )
     {
+        *has_promotion_sign__o = false;
         return CC_SEE_Promotion; // Promotion without `=`.
     }
 
     return CC_SEE_None;
 }
 
-char const * cc_find_side_effect( char const * restrict an_str,
-                                  char const * restrict step_end,
-                                  CcSideEffectEnum * restrict see__o )
+size_t cc_side_effect_type_len( CcSideEffectEnum see,
+                                bool has_promotion_sign )
 {
-    if ( !an_str ) return NULL;
-    if ( !step_end ) return NULL;
-
-    char const * c = an_str;
-    CcSideEffectEnum see = CC_SEE_None;
-
-    while ( c < step_end )
+    switch ( see )
     {
-        see = cc_starting_side_effect( c );
+        // case CC_SEE_None :
+        case CC_SEE_Capture : return 1;
+        case CC_SEE_Displacement : return 1;
+        case CC_SEE_EnPassant : return 1;
+        case CC_SEE_Castle : return 1;
+        case CC_SEE_Promotion : return has_promotion_sign ? 1 : 0;
+        case CC_SEE_TagForPromotion : return 1;
+        case CC_SEE_Conversion : return 1;
+        case CC_SEE_FailedConversion : return 2;
+        case CC_SEE_DemoteToPawn : return 1;
+        case CC_SEE_Resurrection : return 1;
+        case CC_SEE_FailedResurrection : return 2;
 
-        if ( see != CC_SEE_None )
+        default : return 0;
+    }
+}
+
+// TODO :: DELETE
+//
+// char const * cc_find_side_effect_type( char const * restrict an_str,
+//                                        char const * restrict step_end,
+//                                        CcSideEffectEnum * restrict see__o )
+// {
+//     if ( !an_str ) return NULL;
+//     if ( !step_end ) return NULL;
+
+//     char const * c = an_str;
+//     CcSideEffectEnum see = CC_SEE_None;
+//     bool has_promotion_sign = true;
+
+//     while ( c < step_end )
+//     {
+//         see = cc_starting_side_effect_type( c, has_promotion_sign );
+
+//         if ( see != CC_SEE_None )
+//         {
+//             *see__o = see;
+//             return c;
+//         }
+
+//         ++c;
+//     }
+
+//     return NULL;
+// }
+//
+// TODO :: DELETE
+
+bool cc_starting_side_effect( char const * restrict an_str,
+                              char const * restrict step_end,
+                              CcPieceEnum step_piece,
+                              CcSideEffect * restrict side_effect__o )
+{
+    if ( !an_str ) return false;
+    if ( !step_end ) return false;
+    if ( !side_effect__o ) return false;
+
+    bool has_promotion_sign = true;
+
+    CcSideEffectEnum see =
+        cc_starting_side_effect_type( an_str, &has_promotion_sign );
+
+    char const * se_an =
+        an_str + cc_side_effect_type_len( see, has_promotion_sign );
+
+    switch ( see )
+    {
+        case CC_SEE_None :
         {
-            *see__o = see;
-            return c;
+            *side_effect__o = cc_side_effect_none();
+            return true;
         }
 
-        ++c;
-    }
+        case CC_SEE_Capture :
+        {
+            char piece_symbol = ' ';
 
-    return NULL;
+            if ( !cc_find_piece_symbol( se_an, &piece_symbol ) )
+                return false;
+
+            if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
+                return false;
+
+            CcTagEnum lte = cc_starting_losing_tag( ++se_an );
+
+            *side_effect__o = cc_side_effect_capture( step_piece, lte );
+            return true;
+        }
+
+        case CC_SEE_Displacement :
+
+        case CC_SEE_EnPassant :
+
+        case CC_SEE_Castle :
+
+        case CC_SEE_Promotion :
+
+        case CC_SEE_TagForPromotion :
+
+        case CC_SEE_Conversion :
+
+        case CC_SEE_FailedConversion :
+
+        case CC_SEE_DemoteToPawn :
+
+        case CC_SEE_Resurrection :
+
+        case CC_SEE_FailedResurrection :
+
+        default : return false;
+    }
 }

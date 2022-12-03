@@ -94,7 +94,7 @@
 //         if ( ( is_starting_ply
 //                 && ( !cc_piece_is_equal( piece_symbol, is_light_piece, pe_start ) ) )
 //             || ( !is_starting_ply
-//                 && ( !cc_piece_has_equal_type( piece_symbol, pe_start ) ) ) )
+//                 && ( !cc_piece_has_congruent_type( piece_symbol, pe_start ) ) ) )
 //         {
 //             cc_char_8 start_str = CC_CHAR_8_EMPTY;
 //             cc_pos_to_short_string( *start__o, &start_str );
@@ -201,7 +201,7 @@
 //         // Side-effect.
 
 //         CcSideEffectEnum see = CC_SEE_None;
-//         char const * side_effect_str = cc_find_side_effect( c_str, step_end_str, &see );
+//         char const * side_effect_str = cc_find_side_effect_type( c_str, step_end_str, &see );
 
 //         CcSideEffect se = CC_SIDE_EFFECT_CAST_INVALID;
 
@@ -267,7 +267,7 @@
 
 // //         char piece_symbol = ' ';
 
-// //         if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
+// //         if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
 // //         {
 // //             cc_parse_msg_append_format_if( parse_msgs__iod,
 // //                                             CC_PMTE_Error,
@@ -530,7 +530,7 @@
 // //             bool is_light_piece = CC_GAME_STATUS_IS_LIGHT_TURN( game__io->status );
 
 // //             if ( ( is_starting_ply && ( !cc_piece_is_equal( piece_symbol, is_light_piece, pe_start ) ) ) ||
-// //                  ( !is_starting_ply && ( !cc_piece_has_equal_type( piece_symbol, pe_start ) ) ) )
+// //                  ( !is_starting_ply && ( !cc_piece_has_congruent_type( piece_symbol, pe_start ) ) ) )
 // //             {
 // //                 char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -899,7 +899,7 @@
 
 //             char piece_symbol = ' ';
 
-//             if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
+//             if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
 //             {
 //                 cc_parse_msg_append_format_if( parse_msgs__iod,
 //                                                 CC_PMTE_Error,
@@ -1100,7 +1100,7 @@
 //                 if ( ( is_starting_ply
 //                         && ( !cc_piece_is_equal( piece_symbol, is_light_piece_temp, pe_start ) ) )
 //                   || ( !is_starting_ply
-//                         && ( !cc_piece_has_equal_type( piece_symbol, pe_start ) ) ) )
+//                         && ( !cc_piece_has_congruent_type( piece_symbol, pe_start ) ) ) )
 //                 {
 //                     cc_char_8 start_str = CC_CHAR_8_EMPTY;
 //                     cc_pos_to_short_string( start_cb, &start_str );

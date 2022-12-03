@@ -1,6 +1,8 @@
 // Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include "cc_side_effect.h"
+
 #include "cc_parse_utils.h"
 #include "cc_parse_step.h"
 
@@ -35,7 +37,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
         cc_parse_msg_append_format_if( parse_msgs__iod,
                                        CC_PMTE_Error,
                                        CC_MAX_LEN_ZERO_TERMINATED,
-                                       "Invalid char(s) in step '%s'.\n",
+                                       "Error parsing step '%s'.\n",
                                        step_an__a );
 
         CC_FREE( step_an__a );
@@ -43,8 +45,23 @@ static bool cc_parse_step( char const * restrict step_start_an,
         return false;
     }
 
-// TODO :: side-effect
+    CcPieceEnum step_piece = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
     CcSideEffect se = cc_side_effect_none();
+
+    if ( !cc_starting_side_effect( pos_end_an, step_end_an, step_piece, &se ) )
+    {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+
+        cc_parse_msg_append_format_if( parse_msgs__iod,
+                                       CC_PMTE_Error,
+                                       CC_MAX_LEN_ZERO_TERMINATED,
+                                       "Error parsing side-effect, in step '%s'.\n",
+                                       step_an__a );
+
+        CC_FREE( step_an__a );
+
+        return false;
+    }
 
     CcStep * step__t = cc_step__new( sle, pos, se );
     if ( !step__t ) return false;
@@ -56,16 +73,16 @@ static bool cc_parse_step( char const * restrict step_start_an,
 }
 
 
-bool cc_parse_steps( char const * restrict ply_start_an,
-                     char const * restrict ply_end_an,
+bool cc_parse_steps( char const * restrict steps_start_an,
+                     char const * restrict steps_end_an,
                      CcGame * restrict game,
                      CcPos * restrict last_destination__iod,
                      CcStep ** restrict steps__o,
                      CcChessboard ** restrict cb__io,
                      CcParseMsg ** restrict parse_msgs__iod )
 {
-    if ( !ply_start_an ) return false;
-    if ( !ply_end_an ) return false;
+    if ( !steps_start_an ) return false;
+    if ( !steps_end_an ) return false;
     if ( !game ) return false;
     if ( !steps__o || *steps__o ) return false;
     if ( !cb__io || !*cb__io ) return false;
@@ -74,7 +91,7 @@ bool cc_parse_steps( char const * restrict ply_start_an,
     char const * step_start_an = NULL;
     char const * step_end_an = NULL;
 
-    while ( cc_step_iter( ply_start_an, ply_end_an, &step_start_an, &step_end_an ) )
+    while ( cc_step_iter( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) )
     {
         CcStep * step__t = NULL;
 

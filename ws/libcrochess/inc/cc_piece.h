@@ -651,7 +651,7 @@ bool cc_piece_is_light( CcPieceEnum pe );
 
     @return `true` if the same type, `false` otherwise.
 */
-bool cc_piece_has_equal_type( char symbol, CcPieceEnum pe );
+bool cc_piece_has_congruent_type( char symbol, CcPieceEnum pe );
 
 /**
     Function checks if given piece is equal to one produce by a piece symbol, and a flag.

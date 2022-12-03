@@ -34,7 +34,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     char piece_symbol = ' ';
 
-    if ( !cc_find_ply_piece_symbol( c_str, &piece_symbol ) )
+    if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
     {
         cc_parse_msg_append_format_if( parse_msgs__iod,
                                        CC_PMTE_Error,
@@ -58,7 +58,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     CcStep * steps__t = NULL;
 
-    if ( !cc_parse_steps( ply_start_an, ply_end_an, game, last_destination__iod,
+    if ( !cc_parse_steps( c_str, ply_end_an, game, last_destination__iod,
                           &steps__t,
                           cb__io,
                           parse_msgs__iod ) )
