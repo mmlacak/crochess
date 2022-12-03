@@ -534,13 +534,15 @@ bool cc_starting_side_effect( char const * restrict an_str,
         {
             char piece_symbol = ' ';
 
-            if ( !cc_find_piece_symbol( se_an, &piece_symbol ) )
-                return false;
+            if ( cc_find_piece_symbol( se_an, &piece_symbol ) )
+            {
+                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
+                    return false;
 
-            if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
-                return false;
+                ++se_an;
+            }
 
-            CcTagEnum lte = cc_starting_losing_tag( ++se_an );
+            CcTagEnum lte = cc_starting_losing_tag( se_an );
 
             *side_effect__o = cc_side_effect_capture( step_piece, lte );
             return true;
