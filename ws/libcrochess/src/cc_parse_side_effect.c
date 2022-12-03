@@ -124,6 +124,24 @@ bool cc_parse_side_effect( char const * restrict an_str,
         }
 
         case CC_SEE_TagForPromotion :
+        {
+            if ( !CC_PIECE_IS_PAWN( step_piece ) )
+            {
+                char * step_an__a = cc_str_copy__new( an_str, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msg_append_format_if( parse_msgs__iod,
+                                               CC_PMTE_Error,
+                                               CC_MAX_LEN_ZERO_TERMINATED,
+                                               "Only Pawn can be promoted, in step '%s'.\n",
+                                               step_an__a );
+
+                CC_FREE( step_an__a );
+                return false;
+            }
+
+            *side_effect__o = cc_side_effect_tag_for_promotion();
+            return true;
+        }
 
         case CC_SEE_Conversion :
 
