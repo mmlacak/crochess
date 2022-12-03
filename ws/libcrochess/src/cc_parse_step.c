@@ -40,7 +40,6 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                        CC_MAX_LEN_ZERO_TERMINATED,
                                        "Error parsing step '%s'.\n",
                                        step_an__a );
-
         CC_FREE( step_an__a );
         return false;
     }
@@ -56,7 +55,6 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                        CC_MAX_LEN_ZERO_TERMINATED,
                                        "Error parsing side-effect, in step '%s'.\n",
                                        step_an__a );
-
         CC_FREE( step_an__a );
         return false;
     }

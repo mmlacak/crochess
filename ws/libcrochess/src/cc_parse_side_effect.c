@@ -40,6 +40,19 @@ bool cc_parse_side_effect( char const * restrict an_str,
 
         case CC_SEE_Capture :
         {
+            if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) )
+            {
+                char * step_an__a = cc_str_copy__new( an_str, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msg_append_format_if( parse_msgs__iod,
+                                               CC_PMTE_Error,
+                                               CC_MAX_LEN_ZERO_TERMINATED,
+                                               "Piece cannot be captured, in step '%s'.\n",
+                                               step_an__a );
+                CC_FREE( step_an__a );
+                return false;
+            }
+
             char piece_symbol = ' ';
 
             if ( cc_find_piece_symbol( se_an, &piece_symbol ) )
@@ -53,7 +66,6 @@ bool cc_parse_side_effect( char const * restrict an_str,
                                                 CC_MAX_LEN_ZERO_TERMINATED,
                                                 "Unrecognized piece symbol '%c' in a capturing side-effect, in step '%s'.\n",
                                                 step_an__a );
-
                     CC_FREE( step_an__a );
                     return false;
                 }
@@ -84,7 +96,6 @@ bool cc_parse_side_effect( char const * restrict an_str,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Only Pawn can be promoted, in step '%s'.\n",
                                                step_an__a );
-
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -100,7 +111,6 @@ bool cc_parse_side_effect( char const * restrict an_str,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Unrecognized piece symbol '%c' in a promoting side-effect, in step '%s'.\n",
                                                step_an__a );
-
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -114,7 +124,6 @@ bool cc_parse_side_effect( char const * restrict an_str,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Piece symbol '%c' does not correspond to expected Pawn being promoted, in step '%s'.\n",
                                                step_an__a );
-
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -134,7 +143,6 @@ bool cc_parse_side_effect( char const * restrict an_str,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Only Pawn can be promoted, in step '%s'.\n",
                                                step_an__a );
-
                 CC_FREE( step_an__a );
                 return false;
             }
