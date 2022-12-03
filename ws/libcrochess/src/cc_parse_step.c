@@ -4,6 +4,7 @@
 #include "cc_side_effect.h"
 
 #include "cc_parse_utils.h"
+#include "cc_parse_side_effect.h"
 #include "cc_parse_step.h"
 
 
@@ -41,14 +42,12 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                        step_an__a );
 
         CC_FREE( step_an__a );
-
         return false;
     }
 
-    CcPieceEnum step_piece = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
     CcSideEffect se = cc_side_effect_none();
 
-    if ( !cc_starting_side_effect( pos_end_an, step_end_an, step_piece, &se ) )
+    if ( !cc_parse_side_effect( pos_end_an, step_end_an, game, *cb__io, pos, &se, parse_msgs__iod ) )
     {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -59,7 +58,6 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                        step_an__a );
 
         CC_FREE( step_an__a );
-
         return false;
     }
 

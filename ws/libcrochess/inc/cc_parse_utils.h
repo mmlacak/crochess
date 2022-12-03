@@ -81,10 +81,5 @@ size_t cc_side_effect_type_len( CcSideEffectEnum see,
 //
 // TODO :: DELETE
 
-bool cc_starting_side_effect( char const * restrict an_str,
-                              char const * restrict step_end,
-                              CcPieceEnum step_piece,
-                              CcSideEffect * restrict side_effect__o );
-
 
 #endif /* __CC_PARSE_UTILS_H__ */
