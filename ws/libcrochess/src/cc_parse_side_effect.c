@@ -315,6 +315,25 @@ bool cc_parse_side_effect( char const * restrict an_str,
         }
 
         case CC_SEE_FailedConversion :
+        {
+            if ( !CC_PIECE_IS_STARCHILD( step_piece ) )
+            {
+                char * step_an__a = cc_str_copy__new( step_start, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+                char sp = cc_piece_symbol( step_piece );
+
+                cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Only Starchild can't be converted, in step '%s'.\n",
+                                            sp,
+                                            step_an__a );
+                CC_FREE( step_an__a );
+                return false;
+            }
+
+            *side_effect__o = cc_side_effect_failed_conversion();
+            return true;
+        }
 
         case CC_SEE_DemoteToPawn :
 
