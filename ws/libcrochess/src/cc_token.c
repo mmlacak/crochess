@@ -60,7 +60,7 @@ char const * cc_stop_at_chars( char const * restrict pos,
 }
 
 
-bool cc_token_iter( char const * restrict str,
+bool cc_iter_token( char const * restrict str,
                     char const * restrict seps,
                     char const ** restrict start__io,
                     char const ** restrict end__io )

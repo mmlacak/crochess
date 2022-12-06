@@ -15,7 +15,7 @@
 
 
 // DOCS
-bool cc_piece_pos_iter( CcChessboard * restrict cb_before_activation,
+bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
                         CcPos starting,
                         CcPieceEnum piece,
                         bool include_opponent,

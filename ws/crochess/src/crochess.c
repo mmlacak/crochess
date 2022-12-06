@@ -22,7 +22,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.244:676+20221206.052340"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.245:677+20221206.054419"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool print_all_moves( CcMove * restrict moves )
@@ -88,7 +88,7 @@ int main( void )
 
         char const * token_start = NULL;
         char const * token_end = NULL;
-        if ( !cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
+        if ( !cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             continue;
 
         if ( cc_str_is_equal( token_start, token_end, "q", NULL, BUFSIZ ) ||
@@ -124,7 +124,7 @@ int main( void )
         else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) )
         {
-            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
+            if ( cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {
                 char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
                 if ( !an_str )
@@ -158,7 +158,7 @@ int main( void )
             bool is_code = false;
             cc_char_8 code = CC_CHAR_8_EMPTY;
 
-            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
+            if ( cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {
                 size_t len = cc_str_copy( token_start, token_end, CC_MAX_LEN_VARIANT_SYMBOL + 1, code, CC_SIZE_CHAR_8 );
                 if ( len < 1 )
@@ -191,7 +191,7 @@ int main( void )
                   cc_str_is_equal( token_start, token_end, "?", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "help", NULL, BUFSIZ ) )
         {
-            if ( cc_token_iter( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
+            if ( cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {
                 if ( token_start == token_end )
                     print_help();

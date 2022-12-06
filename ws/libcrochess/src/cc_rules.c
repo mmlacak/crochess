@@ -87,7 +87,7 @@
 
 //     *path_count__o = 0;
 
-//     while ( cc_piece_pos_iter( cb_before_activation, starting, piece, include_opponent, start__o ) )
+//     while ( cc_iter_piece_pos( cb_before_activation, starting, piece, include_opponent, start__o ) )
 //     {
 //         CcPieceEnum pe_start = cc_chessboard_get_piece( cb_before_activation, start__o->i, start__o->j );
 
@@ -141,7 +141,7 @@
 //             ++path_count__o;
 //         }
 
-//     } // while ( cc_piece_pos_iter( ... ) )
+//     } // while ( cc_iter_piece_pos( ... ) )
 
 //     return true;
 // }
@@ -520,7 +520,7 @@
 // //         CcPosLink * path__a = NULL;
 // //         size_t path_count = 0;
 
-// //         while ( cc_piece_pos_iter( cb__a, start_an, piece_temp, include_opponent, &start_cb ) )
+// //         while ( cc_iter_piece_pos( cb__a, start_an, piece_temp, include_opponent, &start_cb ) )
 // //         {
 // //             cc_char_8 start_str = CC_CHAR_8_EMPTY;
 // //             if ( cc_pos_to_short_string( start_cb, &start_str ) )
@@ -573,7 +573,7 @@
 // //                 ++path_count;
 // //             }
 
-// //         } // while ( cc_piece_pos_iter( ... ) )
+// //         } // while ( cc_iter_piece_pos( ... ) )
 
 // //         //
 // //         // Check if only one path --> do move.
@@ -1092,7 +1092,7 @@
 //             CcPosLink * path__a = NULL;
 //             size_t path_count = 0;
 
-//             while ( cc_piece_pos_iter( cb__a, starting_pos, piece_temp, include_opponent, &start_cb ) )
+//             while ( cc_iter_piece_pos( cb__a, starting_pos, piece_temp, include_opponent, &start_cb ) )
 //             {
 //                 CcPieceEnum pe_start = cc_chessboard_get_piece( cb__a, start_cb.i, start_cb.j );
 //                 // bool is_light_piece = CC_GAME_STATUS_IS_LIGHT_TURN( game->status ); // TODO :: d'heck (?)
@@ -1148,7 +1148,7 @@
 //                     ++path_count;
 //                 }
 
-//             } // while ( cc_piece_pos_iter( ... ) )
+//             } // while ( cc_iter_piece_pos( ... ) )
 
 //             //
 //             // Check if only one path --> do move.

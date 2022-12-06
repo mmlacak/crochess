@@ -148,7 +148,7 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
     char const * start = NULL;
     char const * end = NULL;
 
-    while ( cc_token_iter( s, CC_GAME_SEPARATORS_SETUP_FROM_STRING, &start, &end ) )
+    while ( cc_iter_token( s, CC_GAME_SEPARATORS_SETUP_FROM_STRING, &start, &end ) )
     {
         char const * c = start;
 

@@ -77,7 +77,7 @@ bool cc_parse_side_effect( char const * restrict an_str,
         {
             char piece_symbol = ' ';
 
-            if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) )
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) )
             {
                 if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
                 {
@@ -274,7 +274,7 @@ bool cc_parse_side_effect( char const * restrict an_str,
         {
             char piece_symbol = ' ';
 
-            if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) )
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) )
             {
                 if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
                 {
