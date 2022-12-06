@@ -5,6 +5,30 @@
 #include "cc_parse_side_effect.h"
 
 
+// static bool cc_parse_side_effect_error_msg( char const * restrict an_str,
+//                                             char const * restrict step_end,
+//                                             CcParseMsg ** restrict parse_msgs__iod,
+//                                             char const * restrict fmt, ... )
+// {
+//     char * step_an__a = cc_str_copy__new( an_str, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
+//     va_list args;
+//     va_start( args, fmt );
+
+//     cc_parse_msg_append_format_va_if( parse_msgs__iod,
+//                                       CC_PMTE_Error,
+//                                       CC_MAX_LEN_ZERO_TERMINATED,
+//                                       fmt,
+//                                       args );
+
+//     va_end( args );
+
+//     CC_FREE( step_an__a );
+
+//     return false;
+// }
+
+
 bool cc_parse_side_effect( char const * restrict an_str,
                            char const * restrict step_end,
                            CcGame * restrict game,
@@ -62,10 +86,10 @@ bool cc_parse_side_effect( char const * restrict an_str,
                     char * step_an__a = cc_str_copy__new( an_str, step_end, CC_MAX_LEN_ZERO_TERMINATED );
 
                     cc_parse_msg_append_format_if( parse_msgs__iod,
-                                                CC_PMTE_Error,
-                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Unrecognized piece symbol '%c' in a capturing side-effect, in step '%s'.\n",
-                                                step_an__a );
+                                                   CC_PMTE_Error,
+                                                   CC_MAX_LEN_ZERO_TERMINATED,
+                                                   "Unrecognized piece symbol '%c' in a capturing side-effect, in step '%s'.\n",
+                                                   step_an__a );
                     CC_FREE( step_an__a );
                     return false;
                 }
@@ -80,6 +104,62 @@ bool cc_parse_side_effect( char const * restrict an_str,
         }
 
         case CC_SEE_Displacement :
+        {
+            if ( !CC_PIECE_CAN_BE_DISPLACED( step_piece ) )
+            {
+                char * step_an__a = cc_str_copy__new( an_str, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msg_append_format_if( parse_msgs__iod,
+                                               CC_PMTE_Error,
+                                               CC_MAX_LEN_ZERO_TERMINATED,
+                                               "Piece cannot be displaced, in step '%s'.\n",
+                                               step_an__a );
+                CC_FREE( step_an__a );
+                return false;
+            }
+
+            char piece_symbol = ' ';
+
+            if ( cc_find_piece_symbol( se_an, &piece_symbol ) )
+            {
+                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
+                {
+                    char * step_an__a = cc_str_copy__new( an_str, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
+                    cc_parse_msg_append_format_if( parse_msgs__iod,
+                                                   CC_PMTE_Error,
+                                                   CC_MAX_LEN_ZERO_TERMINATED,
+                                                   "Unrecognized piece symbol '%c' in a displacing side-effect, in step '%s'.\n",
+                                                   step_an__a );
+                    CC_FREE( step_an__a );
+                    return false;
+                }
+
+                ++se_an;
+            }
+
+            CcTagEnum lte = cc_starting_losing_tag( se_an );
+            char const * pos_an = se_an + cc_losing_tag_len( lte );
+
+            CcPos pos = CC_POS_CAST_INVALID;
+            char const * pos_end_an = NULL;
+
+            if ( !cc_starting_pos( pos_an, &pos, &pos_end_an ) )
+            {
+                char * step_an__a = cc_str_copy__new( an_str, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msg_append_format_if( parse_msgs__iod,
+                                               CC_PMTE_Error,
+                                               CC_MAX_LEN_ZERO_TERMINATED,
+                                               "Error parsing side-effect position within step '%s'.\n",
+                                               step_an__a );
+                CC_FREE( step_an__a );
+                return false;
+            }
+
+            *side_effect__o = cc_side_effect_displacement( step_piece, lte, pos );
+            return true;
+        }
 
         case CC_SEE_EnPassant :
 
