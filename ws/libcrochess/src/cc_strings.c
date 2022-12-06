@@ -61,9 +61,9 @@ CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
     return str__w;
 }
 
-CcStrings * cc_strings_append_format_if( CcStrings ** restrict strings__io,
-                                         size_t max_len__d,
-                                         char const * restrict fmt, ... )
+CcStrings * cc_strings_append_fmt_if( CcStrings ** restrict strings__io,
+                                      size_t max_len__d,
+                                      char const * restrict fmt, ... )
 {
     if ( !strings__io ) return NULL;    // To avoid alloc() + free() of str__a;
                                         // even though this is never referenced.
@@ -71,7 +71,7 @@ CcStrings * cc_strings_append_format_if( CcStrings ** restrict strings__io,
     va_list args;
     va_start( args, fmt );
 
-    char * str__a = cc_str_format_va__new( max_len__d, fmt, args );
+    char * str__a = cc_str_fmt_va__new( max_len__d, fmt, args );
 
     va_end( args );
 

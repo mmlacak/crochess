@@ -255,7 +255,7 @@ size_t cc_str_len( char const * restrict start,
     return (size_t)(end - start);
 }
 
-int cc_str_len_format_va( char const * restrict fmt, va_list args )
+int cc_str_len_fmt_va( char const * restrict fmt, va_list args )
 {
     va_list tmp;
     va_copy( tmp, args );
@@ -276,7 +276,7 @@ int cc_str_len_format( char const * restrict fmt, ... )
     // Keeping implementation here, just to avoid another function call,
     // although VA call would provide single reference behaviour.
     //
-    // int len = cc_str_len_format_va( fmt, args ); // len does not include '\0'.
+    // int len = cc_str_len_fmt_va( fmt, args ); // len does not include '\0'.
 
     va_end( args );
 
@@ -340,16 +340,16 @@ char * cc_str_copy__new( char const * restrict start,
     return str__a;
 }
 
-char * cc_str_format_va__new( size_t max_len__d,
-                              char const * restrict fmt,
-                              va_list args )
+char * cc_str_fmt_va__new( size_t max_len__d,
+                           char const * restrict fmt,
+                           va_list args )
 {
     if ( !fmt ) return NULL;
 
     va_list tmp;
     va_copy( tmp, args );
 
-    int len = cc_str_len_format_va( fmt, tmp );
+    int len = cc_str_len_fmt_va( fmt, tmp );
     if ( len < 0 ) // error ?
     {
         va_end( tmp );
@@ -386,15 +386,15 @@ char * cc_str_format_va__new( size_t max_len__d,
     return str__a;
 }
 
-char * cc_str_format__new( size_t max_len__d,
-                           char const * restrict fmt, ... )
+char * cc_str_fmt__new( size_t max_len__d,
+                        char const * restrict fmt, ... )
 {
     if ( !fmt ) return NULL;
 
     va_list args;
     va_start( args, fmt );
 
-    char * str__a = cc_str_format_va__new( max_len__d, fmt, args );
+    char * str__a = cc_str_fmt_va__new( max_len__d, fmt, args );
 
     va_end( args );
 
@@ -547,15 +547,15 @@ char * cc_str_append_free__new( char ** restrict str_1__f,
     return str__a;
 }
 
-char * cc_str_append_format_va__new( char ** restrict str__f,
-                                     size_t max_len__d,
-                                     char const * restrict fmt,
-                                     va_list args )
+char * cc_str_append_fmt_va__new( char ** restrict str__f,
+                                  size_t max_len__d,
+                                  char const * restrict fmt,
+                                  va_list args )
 {
     va_list tmp;
     va_copy( tmp, args );
 
-    int len = cc_str_len_format_va( fmt, tmp ); // len does not include '\0'.
+    int len = cc_str_len_fmt_va( fmt, tmp ); // len does not include '\0'.
     if ( len < 0 ) // error?
     {
         va_end( tmp );
@@ -593,14 +593,14 @@ char * cc_str_append_format_va__new( char ** restrict str__f,
     return cc_str_append_free__new( str__f, &str__t, max_len__d );
 }
 
-char * cc_str_append_format__new( char ** restrict str__f,
-                                  size_t max_len__d,
-                                  char const * restrict fmt, ... )
+char * cc_str_append_fmt__new( char ** restrict str__f,
+                               size_t max_len__d,
+                               char const * restrict fmt, ... )
 {
     va_list args;
     va_start( args, fmt );
 
-    char * str__a = cc_str_append_format_va__new( str__f, max_len__d, fmt, args );
+    char * str__a = cc_str_append_fmt_va__new( str__f, max_len__d, fmt, args );
 
     va_end( args );
 
@@ -637,7 +637,7 @@ bool cc_str_print( char const * restrict start,
     va_list args;
     va_start( args, fmt__d );
 
-    char * fmt__a = cc_str_format_va__new( fmt_len__d, fmt__d, args );
+    char * fmt__a = cc_str_fmt_va__new( fmt_len__d, fmt__d, args );
     if ( !fmt__a )
     {
         va_end( args );

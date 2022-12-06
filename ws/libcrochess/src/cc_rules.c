@@ -46,7 +46,7 @@
 //         va_list args;
 //         va_start( args, msg );
 
-//         cc_parse_msg_append_format_if( parse_msgs__iod, CC_PMTE_Error, max_len__d, msg, args );
+//         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, max_len__d, msg, args );
 
 //         va_end( args );
 
@@ -103,7 +103,7 @@
 //                                                     ply_end_str,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED );
 
-//             cc_parse_msg_append_format_if( parse_msgs__iod,
+//             cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                             CC_PMTE_Error,
 //                                             CC_MAX_LEN_ZERO_TERMINATED,
 //                                             "Piece '%c' not found at '%s', in ply '%s'.\n",
@@ -183,7 +183,7 @@
 //             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 //             char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-//             cc_parse_msg_append_format_if( parse_msgs__iod,
+//             cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                             CC_PMTE_Error,
 //                                             CC_MAX_LEN_ZERO_TERMINATED,
 //                                             "Invalid position in step '%s', in ply '%s'.\n",
@@ -269,7 +269,7 @@
 
 // //         if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
 // //         {
-// //             cc_parse_msg_append_format_if( parse_msgs__iod,
+// //             cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                             CC_PMTE_Error,
 // //                                             CC_MAX_LEN_ZERO_TERMINATED,
 // //                                             "Invalid piece symbol '%c'.\n",
@@ -310,7 +310,7 @@
 // //         {
 // //             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-// //             cc_parse_msg_append_format_if( parse_msgs__iod,
+// //             cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                             CC_PMTE_Error,
 // //                                             CC_MAX_LEN_ZERO_TERMINATED,
 // //                                             "Invalid char(s) in disambiguation '%s', in ply '%s'.\n",
@@ -351,7 +351,7 @@
 // //                                                   ply_end_str,
 // //                                                   CC_MAX_LEN_ZERO_TERMINATED );
 
-// //             cc_parse_msg_append_format_if( parse_msgs__iod,
+// //             cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                             CC_PMTE_Error,
 // //                                             CC_MAX_LEN_ZERO_TERMINATED,
 // //                                             "Invalid char(s) in position '%s', in ply '%s'.\n",
@@ -382,7 +382,7 @@
 // //                                                       ply_end_str,
 // //                                                       CC_MAX_LEN_ZERO_TERMINATED );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Disambiguation '%s' preceedes starting position '%s', in ply '%s'.\n",
@@ -452,7 +452,7 @@
 // //                                                       ply_end_str,
 // //                                                       CC_MAX_LEN_ZERO_TERMINATED );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Destination not found, in ply '%s'.\n",
@@ -534,7 +534,7 @@
 // //             {
 // //                 char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Piece '%c' not found at '%s', in ply '%s'.\n",
@@ -618,7 +618,7 @@
 // //                 cc_char_8 start_str = CC_CHAR_8_EMPTY;
 // //                 cc_pos_to_short_string( start_pos, &start_str );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Piece '%c' at '%s' didn't lost specified tag '%s', in ply '%s'.\n",
@@ -650,7 +650,7 @@
 // //                 cc_char_8 start_str = CC_CHAR_8_EMPTY;
 // //                 cc_pos_to_short_string( start_pos, &start_str );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Piece '%c' at '%s' exhausted more (%d) than received momentum, in ply '%s'.\n",
@@ -694,7 +694,7 @@
 // //             {
 // //                 char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-// //                 cc_parse_msg_append_format_if( parse_msgs__iod,
+// //                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                                 CC_PMTE_Error,
 // //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 // //                                                 "Chessboard not updated, with ply '%s'.\n",
@@ -746,7 +746,7 @@
 // //                 ( path_count == 0 ) ? "No path found, in ply '%s'.\n"
 // //                                     : "More than one path found, in ply '%s'.\n";
 
-// //             cc_parse_msg_append_format_if( parse_msgs__iod,
+// //             cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                             CC_PMTE_Error,
 // //                                             CC_MAX_LEN_ZERO_TERMINATED,
 // //                                             fmt,
@@ -789,7 +789,7 @@
 // //     }
 // //     else
 // //     {
-// //         cc_parse_msg_append_format_if( parse_msgs__iod,
+// //         cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                         CC_PMTE_Error,
 // //                                         CC_MAX_LEN_ZERO_TERMINATED,
 // //                                         "Chessboard not updated, with last destination in '%s'.\n",
@@ -854,7 +854,7 @@
 
 //         if ( !CC_PLY_LINK_IS_VALID( ple ) )
 //         {
-//             cc_parse_msg_append_format_if( parse_msgs__iod,
+//             cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                             CC_PMTE_Error,
 //                                             CC_MAX_LEN_ZERO_TERMINATED,
 //                                             "Invalid ply linkage at '%s'.\n",
@@ -901,7 +901,7 @@
 
 //             if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
 //             {
-//                 cc_parse_msg_append_format_if( parse_msgs__iod,
+//                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                 CC_PMTE_Error,
 //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 //                                                 "Invalid piece symbol '%c'.\n",
@@ -935,7 +935,7 @@
 //                                                       ply_end_str,
 //                                                       CC_MAX_LEN_ZERO_TERMINATED );
 
-//                 cc_parse_msg_append_format_if( parse_msgs__iod,
+//                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                 CC_PMTE_Error,
 //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 //                                                 "Invalid char(s) in disambiguation, in ply '%s'.\n",
@@ -971,7 +971,7 @@
 //                                                         ply_end_str,
 //                                                         CC_MAX_LEN_ZERO_TERMINATED );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Invalid char(s) in position, in ply '%s'.\n",
@@ -999,7 +999,7 @@
 //                                                           ply_end_str,
 //                                                           CC_MAX_LEN_ZERO_TERMINATED );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Ply has disambiguation and starting position at the same time, in '%s'.\n",
@@ -1109,7 +1109,7 @@
 //                                                           ply_end_str,
 //                                                           CC_MAX_LEN_ZERO_TERMINATED );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Piece '%c' not found at '%s', in ply '%s'.\n",
@@ -1193,7 +1193,7 @@
 //                     cc_char_8 start_str = CC_CHAR_8_EMPTY;
 //                     cc_pos_to_short_string( start_pos, &start_str );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Piece '%c' at '%s' didn't lost specified tag '%s', in ply '%s'.\n",
@@ -1223,7 +1223,7 @@
 //                     cc_char_8 start_str = CC_CHAR_8_EMPTY;
 //                     cc_pos_to_short_string( start_pos, &start_str );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Piece '%c' at '%s' exhausted more (%d) than received momentum, in ply '%s'.\n",
@@ -1261,7 +1261,7 @@
 //                 {
 //                     char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 
-//                     cc_parse_msg_append_format_if( parse_msgs__iod,
+//                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                     CC_PMTE_Error,
 //                                                     CC_MAX_LEN_ZERO_TERMINATED,
 //                                                     "Chessboard not updated, with ply '%s'.\n",
@@ -1313,7 +1313,7 @@
 //                     ( path_count == 0 ) ? "No path found, in ply '%s'.\n"
 //                                         : "More than one path found, in ply '%s'.\n";
 
-//                 cc_parse_msg_append_format_if( parse_msgs__iod,
+//                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                 CC_PMTE_Error,
 //                                                 CC_MAX_LEN_ZERO_TERMINATED,
 //                                                 fmt,
@@ -1359,7 +1359,7 @@
 // //     }
 // //     else
 // //     {
-// //         cc_parse_msg_append_format_if( parse_msgs__iod,
+// //         cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                         CC_PMTE_Error,
 // //                                         CC_MAX_LEN_ZERO_TERMINATED,
 // //                                         "Chessboard not updated, with last destination in '%s'.\n",
@@ -1420,7 +1420,7 @@
 //             ( game->status == CC_GSE_None ) ? "Game is not initialized.\n"
 //                                             : "Game is finished.\n";
 
-//         cc_parse_msg_append_format_if( parse_msgs__iod,
+//         cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                         CC_PMTE_Error,
 //                                         CC_MAX_LEN_ZERO_TERMINATED,
 //                                         msg );
@@ -1470,7 +1470,7 @@
 //                     }
 //                     else
 //                     {
-//                         cc_parse_msg_append_format_if( parse_msgs__iod,
+//                         cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                         CC_PMTE_Error,
 //                                                         CC_MAX_LEN_ZERO_TERMINATED,
 //                                                         "No valid opponent's draw offer found.\n" );
@@ -1494,7 +1494,7 @@
 //             }
 //         }
 
-//         cc_parse_msg_append_format_if( parse_msgs__iod,
+//         cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                         CC_PMTE_Error,
 //                                         CC_MAX_LEN_ZERO_TERMINATED,
 //                                         "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );

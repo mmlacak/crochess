@@ -63,18 +63,18 @@ CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__iod,
     return pm__w;
 }
 
-CcParseMsg * cc_parse_msg_append_format_va_if( CcParseMsg ** restrict parse_msgs__iod,
-                                               CcParseMsgTypeEnum type,
-                                               size_t max_len__d,
-                                               char const * restrict fmt,
-                                               va_list args )
+CcParseMsg * cc_parse_msg_append_fmt_va_if( CcParseMsg ** restrict parse_msgs__iod,
+                                            CcParseMsgTypeEnum type,
+                                            size_t max_len__d,
+                                            char const * restrict fmt,
+                                            va_list args )
 {
     if ( !parse_msgs__iod ) return NULL; // To avoid alloc() + free() of msg__a needlessly.
 
     va_list tmp;
     va_copy( tmp, args );
 
-    char * msg__a = cc_str_format_va__new( max_len__d, fmt, tmp );
+    char * msg__a = cc_str_fmt_va__new( max_len__d, fmt, tmp );
     va_end( tmp );
 
     if ( !msg__a ) return NULL;
@@ -86,32 +86,17 @@ CcParseMsg * cc_parse_msg_append_format_va_if( CcParseMsg ** restrict parse_msgs
     return pm__w;
 }
 
-CcParseMsg * cc_parse_msg_append_format_if( CcParseMsg ** restrict parse_msgs__iod,
-                                            CcParseMsgTypeEnum type,
-                                            size_t max_len__d,
-                                            char const * restrict fmt, ... )
+CcParseMsg * cc_parse_msg_append_fmt_if( CcParseMsg ** restrict parse_msgs__iod,
+                                         CcParseMsgTypeEnum type,
+                                         size_t max_len__d,
+                                         char const * restrict fmt, ... )
 {
     if ( !parse_msgs__iod ) return NULL; // To avoid constructing va_list needlessly.
-
-    // va_list args;
-    // va_start( args, fmt );
-
-    // char * msg__a = cc_str_format_va__new( max_len__d, fmt, args );
-
-    // va_end( args );
-
-    // if ( !msg__a ) return NULL;
-
-    // CcParseMsg * pm__w = cc_parse_msg_append_if( parse_msgs__iod, type, msg__a, max_len__d );
-
-    // CC_FREE( msg__a );
-
-    // return pm__w;
 
     va_list args;
     va_start( args, fmt );
 
-    CcParseMsg * pm__w = cc_parse_msg_append_format_va_if( parse_msgs__iod, type, max_len__d, fmt, args );
+    CcParseMsg * pm__w = cc_parse_msg_append_fmt_va_if( parse_msgs__iod, type, max_len__d, fmt, args );
 
     va_end( args );
 

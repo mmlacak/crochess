@@ -106,11 +106,11 @@ CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__iod,
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append_format_va_if( CcParseMsg ** restrict parse_msgs__iod,
-                                               CcParseMsgTypeEnum type,
-                                               size_t max_len__d,
-                                               char const * restrict fmt,
-                                               va_list args );
+CcParseMsg * cc_parse_msg_append_fmt_va_if( CcParseMsg ** restrict parse_msgs__iod,
+                                            CcParseMsgTypeEnum type,
+                                            size_t max_len__d,
+                                            char const * restrict fmt,
+                                            va_list args );
 
 /**
     Allocates a new parser message, appends it to a linked list, which might not be allocated yet.
@@ -131,10 +131,10 @@ CcParseMsg * cc_parse_msg_append_format_va_if( CcParseMsg ** restrict parse_msgs
     @return
     Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append_format_if( CcParseMsg ** restrict parse_msgs__iod,
-                                            CcParseMsgTypeEnum type,
-                                            size_t max_len__d,
-                                            char const * restrict fmt, ... );
+CcParseMsg * cc_parse_msg_append_fmt_if( CcParseMsg ** restrict parse_msgs__iod,
+                                         CcParseMsgTypeEnum type,
+                                         size_t max_len__d,
+                                         char const * restrict fmt, ... );
 
 /**
     Frees all parser messages, and associated resources, in a linked list.

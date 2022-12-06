@@ -35,7 +35,7 @@ static bool cc_check_standalone_status( char const char_an,
         va_list args;
         va_start( args, msg );
 
-        cc_parse_msg_append_format_if( parse_msgs__iod, CC_PMTE_Error, max_len__d, msg, args );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, max_len__d, msg, args );
 
         va_end( args );
 
@@ -62,10 +62,10 @@ bool cc_parse_move( char const * restrict move_an,
             ( game->status == CC_GSE_None ) ? "Game is not initialized.\n"
                                             : "Game is finished.\n";
 
-        cc_parse_msg_append_format_if( parse_msgs__iod,
-                                       CC_PMTE_Error,
-                                       CC_MAX_LEN_ZERO_TERMINATED,
-                                       msg );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                    CC_PMTE_Error,
+                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                    msg );
         return false;
     }
 
@@ -126,10 +126,10 @@ bool cc_parse_move( char const * restrict move_an,
                     }
                     else
                     {
-                        cc_parse_msg_append_format_if( parse_msgs__iod,
-                                                       CC_PMTE_Error,
-                                                       CC_MAX_LEN_ZERO_TERMINATED,
-                                                       "No valid opponent's draw offer found.\n" );
+                        cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                                    CC_PMTE_Error,
+                                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                                    "No valid opponent's draw offer found.\n" );
                         return false;
                     }
                 }
@@ -154,10 +154,10 @@ bool cc_parse_move( char const * restrict move_an,
             }
         }
 
-        cc_parse_msg_append_format_if( parse_msgs__iod,
-                                       CC_PMTE_Error,
-                                       CC_MAX_LEN_ZERO_TERMINATED,
-                                       "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                    CC_PMTE_Error,
+                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                    "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
         return false;
     }
 

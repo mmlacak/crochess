@@ -36,11 +36,11 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
     {
-        cc_parse_msg_append_format_if( parse_msgs__iod,
-                                       CC_PMTE_Error,
-                                       CC_MAX_LEN_ZERO_TERMINATED,
-                                       "Invalid piece symbol '%c'.\n",
-                                       piece_symbol );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                    CC_PMTE_Error,
+                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                    "Invalid piece symbol '%c'.\n",
+                                    piece_symbol );
         return false;
     }
 

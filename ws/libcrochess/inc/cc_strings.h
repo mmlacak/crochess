@@ -96,9 +96,9 @@ CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
     @return
     Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_format_if( CcStrings ** restrict strings__io,
-                                         size_t max_len__d,
-                                         char const * restrict fmt, ... );
+CcStrings * cc_strings_append_fmt_if( CcStrings ** restrict strings__io,
+                                      size_t max_len__d,
+                                      char const * restrict fmt, ... );
 
 /**
     Duplicates all strings in a linked list.

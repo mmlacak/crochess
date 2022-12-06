@@ -261,7 +261,7 @@ size_t cc_str_len( char const * restrict start,
     @return Length of a formatted variadic input if non-negative,
             error code if negative.
 */
-int cc_str_len_format_va( char const * restrict fmt, va_list args );
+int cc_str_len_fmt_va( char const * restrict fmt, va_list args );
 
 /**
     Function returns length of a formatted variadic input.
@@ -343,9 +343,9 @@ char * cc_str_copy__new( char const * restrict start,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_str_format_va__new( size_t max_len__d,
-                              char const * restrict fmt,
-                              va_list args );
+char * cc_str_fmt_va__new( size_t max_len__d,
+                           char const * restrict fmt,
+                           va_list args );
 
 /**
     Function returns a newly allocated string containing formatted variadic input,
@@ -357,8 +357,8 @@ char * cc_str_format_va__new( size_t max_len__d,
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-char * cc_str_format__new( size_t max_len__d,
-                           char const * restrict fmt, ... );
+char * cc_str_fmt__new( size_t max_len__d,
+                        char const * restrict fmt, ... );
 
 /**
     Function duplicating a string, by returning a newly allocated string,
@@ -490,10 +490,10 @@ char * cc_str_append_free__new( char ** restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format_va__new( char ** restrict str__f,
-                                     size_t max_len__d,
-                                     char const * restrict fmt,
-                                     va_list args );
+char * cc_str_append_fmt_va__new( char ** restrict str__f,
+                                  size_t max_len__d,
+                                  char const * restrict fmt,
+                                  va_list args );
 
 /**
     Function appending string and formatted variadic input, by returning a newly allocated string,
@@ -515,9 +515,9 @@ char * cc_str_append_format_va__new( char ** restrict str__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_format__new( char ** restrict str__f,
-                                  size_t max_len__d,
-                                  char const * restrict fmt, ... );
+char * cc_str_append_fmt__new( char ** restrict str__f,
+                               size_t max_len__d,
+                               char const * restrict fmt, ... );
 
 // TODO :: (?) move / return newly allocated string (?)
 //
