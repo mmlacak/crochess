@@ -13,7 +13,7 @@
 */
 
 
-CcPlyLinkEnum cc_starting_ply_link( char const * restrict an_str )
+CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str )
 {
     if ( !an_str ) return CC_PLE_None;
 
@@ -77,17 +77,17 @@ char const * cc_next_ply_link( char const * restrict an_str )
     if ( *an_str == '\0' ) return NULL;
 
     // Skip over current ply link.
-    CcPlyLinkEnum ple = cc_starting_ply_link( an_str );
+    CcPlyLinkEnum ple = cc_parse_ply_link( an_str );
     char const * str__w = an_str + cc_ply_link_len( ple );
 
     // Skip over everything before next ply link.
-    while ( cc_starting_ply_link( str__w ) == CC_PLE_StartingPly )
+    while ( cc_parse_ply_link( str__w ) == CC_PLE_StartingPly )
         ++str__w;
 
     return str__w;
 }
 
-bool cc_ply_iter( char const * restrict an_str,
+bool cc_iter_ply( char const * restrict an_str,
                   char const ** restrict start__io,
                   char const ** restrict end__io )
 {
@@ -141,7 +141,7 @@ bool cc_find_piece_symbol( char const * restrict an_str,
     return cc_is_piece_symbol( *piece_symbol__o );
 }
 
-CcTagEnum cc_starting_losing_tag( char const * restrict an_str )
+CcTagEnum cc_parse_losing_tag( char const * restrict an_str )
 {
     if ( !an_str ) return CC_TE_None;
 
@@ -178,9 +178,9 @@ size_t cc_losing_tag_len( CcTagEnum lte )
     }
 }
 
-bool cc_convert_starting_coords( char const * restrict pos,
-                                 int * restrict file__o,
-                                 int * restrict rank__o )
+bool cc_convert_coords( char const * restrict pos,
+                        int * restrict file__o,
+                        int * restrict rank__o )
 {
     if ( !pos ) return false;
 
@@ -212,15 +212,15 @@ bool cc_convert_starting_coords( char const * restrict pos,
     return true;
 }
 
-bool cc_convert_starting_pos( char const * restrict pos,
-                              CcPos * restrict pos__o )
+bool cc_convert_pos( char const * restrict pos,
+                     CcPos * restrict pos__o )
 {
-    return cc_convert_starting_coords( pos, &pos__o->i, &pos__o->j );
+    return cc_convert_coords( pos, &pos__o->i, &pos__o->j );
 }
 
-bool cc_starting_pos( char const * restrict an_str,
-                      CcPos * restrict pos__o,
-                      char const ** restrict pos_end__o )
+bool cc_parse_pos( char const * restrict an_str,
+                   CcPos * restrict pos__o,
+                   char const ** restrict pos_end__o )
 {
     if ( !an_str ) return false;
     if ( !pos__o ) return false;
@@ -257,7 +257,7 @@ bool cc_starting_pos( char const * restrict an_str,
     else
         return false;
 
-    // if ( !end ) return false; // Should be fine.
+    if ( !end ) return false;
 
     // if ( CC_CHAR_IS_PLY_GATHER_END( *c ) ) ++c; // Isn't used after this, so ...
 
@@ -270,7 +270,7 @@ bool cc_starting_pos( char const * restrict an_str,
 
     CcPos pos = CC_POS_CAST_INVALID;
 
-    if ( !cc_convert_starting_pos( pos_c8, &pos ) ) return false;
+    if ( !cc_convert_pos( pos_c8, &pos ) ) return false;
 
     *pos__o = pos;
     *pos_end__o = end;
@@ -279,7 +279,7 @@ bool cc_starting_pos( char const * restrict an_str,
 }
 
 
-CcStepLinkEnum cc_starting_step_link( char const * restrict an_str )
+CcStepLinkEnum cc_parse_step_link( char const * restrict an_str )
 {
     if ( !an_str ) return CC_SLE_None;
 
@@ -331,18 +331,18 @@ char const * cc_next_step_link( char const * restrict an_str,
     if ( !ply_end ) return NULL;
     if ( an_str >= ply_end ) return NULL;
 
-    CcStepLinkEnum sle = cc_starting_step_link( an_str );
+    CcStepLinkEnum sle = cc_parse_step_link( an_str );
     char const * str__w = an_str + cc_step_link_len( sle );
 
     // Skip over everything before step link.
-    while ( ( cc_starting_step_link( str__w ) == CC_SLE_Start ) &&
+    while ( ( cc_parse_step_link( str__w ) == CC_SLE_Start ) &&
             ( str__w < ply_end ) )
         ++str__w;
 
     return str__w;
 }
 
-bool cc_step_iter( char const * restrict an_str,
+bool cc_iter_step( char const * restrict an_str,
                    char const * restrict ply_end,
                    char const ** restrict start__io,
                    char const ** restrict end__io )
@@ -383,7 +383,7 @@ bool cc_ply_has_steps( char const * restrict an_str,
     // Usually, step links are expected somewhere in the middle of AN string ...
     if ( ( an ) && ( an < ply_end ) ) return true;
 
-    CcStepLinkEnum sle = cc_starting_step_link( an_str );
+    CcStepLinkEnum sle = cc_parse_step_link( an_str );
 
     // ... but string might start with step link.
     // If it's start of a ply AN, this is an error, but that needs handling somwhere else.
@@ -391,8 +391,8 @@ bool cc_ply_has_steps( char const * restrict an_str,
 }
 
 
-CcSideEffectEnum cc_starting_side_effect_type( char const * restrict an_str,
-                                               bool * restrict has_promotion_sign__o )
+CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
+                                            bool * restrict has_promotion_sign__o )
 {
     if ( !an_str ) return CC_SEE_None;
     if ( !has_promotion_sign__o ) return CC_SEE_None;
@@ -489,7 +489,7 @@ size_t cc_side_effect_type_len( CcSideEffectEnum see,
 
 //     while ( c < step_end )
 //     {
-//         see = cc_starting_side_effect_type( c, has_promotion_sign );
+//         see = cc_parse_side_effect_type( c, has_promotion_sign );
 
 //         if ( see != CC_SEE_None )
 //         {

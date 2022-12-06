@@ -30,7 +30,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.242:674+20221206.015459"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.243:675+20221206.024121"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,

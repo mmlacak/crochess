@@ -21,13 +21,13 @@
 */
 
 
-CcPlyLinkEnum cc_starting_ply_link( char const * restrict an_str );
+CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str );
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple );
 
 char const * cc_next_ply_link( char const * restrict an_str );
 
-bool cc_ply_iter( char const * restrict an_str,
+bool cc_iter_ply( char const * restrict an_str,
                   char const ** restrict start__io,
                   char const ** restrict end__io );
 
@@ -35,30 +35,30 @@ bool cc_ply_iter( char const * restrict an_str,
 bool cc_find_piece_symbol( char const * restrict an_str,
                            char * restrict piece_symbol__o );
 
-CcTagEnum cc_starting_losing_tag( char const * restrict an_str );
+CcTagEnum cc_parse_losing_tag( char const * restrict an_str );
 
 size_t cc_losing_tag_len( CcTagEnum lte );
 
-bool cc_convert_starting_coords( char const * restrict pos,
-                                 int * restrict file__o,
-                                 int * restrict rank__o );
+bool cc_convert_coords( char const * restrict pos,
+                        int * restrict file__o,
+                        int * restrict rank__o );
 
-bool cc_convert_starting_pos( char const * restrict pos,
-                              CcPos * restrict pos__o );
+bool cc_convert_pos( char const * restrict pos,
+                     CcPos * restrict pos__o );
 
-bool cc_starting_pos( char const * restrict an_str,
-                      CcPos * restrict pos__o,
-                      char const ** restrict pos_end__o );
+bool cc_parse_pos( char const * restrict an_str,
+                   CcPos * restrict pos__o,
+                   char const ** restrict pos_end__o );
 
 
-CcStepLinkEnum cc_starting_step_link( char const * restrict an_str );
+CcStepLinkEnum cc_parse_step_link( char const * restrict an_str );
 
 size_t cc_step_link_len( CcStepLinkEnum sle );
 
 char const * cc_next_step_link( char const * restrict an_str,
                                 char const * restrict ply_end );
 
-bool cc_step_iter( char const * restrict an_str,
+bool cc_iter_step( char const * restrict an_str,
                    char const * restrict ply_end,
                    char const ** restrict start__io,
                    char const ** restrict end__io );
@@ -67,8 +67,8 @@ bool cc_ply_has_steps( char const * restrict an_str,
                        char const * restrict ply_end );
 
 
-CcSideEffectEnum cc_starting_side_effect_type( char const * restrict an_str,
-                                               bool * restrict has_promotion_sign__o );
+CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
+                                            bool * restrict has_promotion_sign__o );
 
 size_t cc_side_effect_type_len( CcSideEffectEnum see,
                                 bool has_promotion_sign );

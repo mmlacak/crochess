@@ -24,14 +24,14 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !cb__io || !*cb__io ) return false;
     if ( !parse_msgs__iod ) return false;
 
-    CcStepLinkEnum sle = cc_starting_step_link( step_start_an );
+    CcStepLinkEnum sle = cc_parse_step_link( step_start_an );
 
     char const * s_an = step_start_an + cc_step_link_len( sle );
 
     CcPos pos = CC_POS_CAST_INVALID;
     char const * pos_end_an = NULL;
 
-    if ( !cc_starting_pos( s_an, &pos, &pos_end_an ) )
+    if ( !cc_parse_pos( s_an, &pos, &pos_end_an ) )
     {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -87,7 +87,7 @@ bool cc_parse_steps( char const * restrict steps_start_an,
     char const * step_start_an = NULL;
     char const * step_end_an = NULL;
 
-    while ( cc_step_iter( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) )
+    while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) )
     {
         CcStep * step__t = NULL;
 

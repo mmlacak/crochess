@@ -24,7 +24,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     //
     // Ply link.
 
-    CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_an );
+    CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
     char const * c_str = ply_start_an + cc_ply_link_len( ple );
 
     if ( CC_CHAR_IS_PLY_GATHER_START( *c_str ) ) ++c_str; // Move past '['.
@@ -49,7 +49,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     //
     // Losing tag.
 
-    CcTagEnum lte = cc_starting_losing_tag( c_str );
+    CcTagEnum lte = cc_parse_losing_tag( c_str );
 
     c_str += cc_losing_tag_len( lte );
 
@@ -107,7 +107,7 @@ bool cc_parse_plies( char const * restrict move_an,
     char const * ply_end_an = NULL;
     CcPos last_destination = CC_POS_CAST_INVALID;
 
-    while ( cc_ply_iter( move_an, &ply_start_an, &ply_end_an ) )
+    while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) )
     {
         CcPly * ply__t = NULL;
 

@@ -167,9 +167,9 @@
 //     char const * step_start_str = NULL;
 //     char const * step_end_str = NULL;
 
-//     while ( cc_step_iter( ply_start_str, ply_end_str, &step_start_str, &step_end_str ) )
+//     while ( cc_iter_step( ply_start_str, ply_end_str, &step_start_str, &step_end_str ) )
 //     {
-//         CcStepLinkEnum sle = cc_starting_step_link( step_start_str );
+//         CcStepLinkEnum sle = cc_parse_step_link( step_start_str );
 //         c_str = step_start_str + cc_step_link_len( sle );
 
 //         //
@@ -178,7 +178,7 @@
 //         CcPos pos = CC_POS_CAST_INVALID;
 //         char const * pos_str_end = NULL;
 
-//         if ( !cc_starting_pos( c_str, &pos, &pos_str_end ) )
+//         if ( !cc_parse_pos( c_str, &pos, &pos_str_end ) )
 //         {
 //             char * ply_str__a = cc_str_copy__new( ply_start_str, ply_end_str, CC_MAX_LEN_ZERO_TERMINATED );
 //             char * step_str__a = cc_str_copy__new( step_start_str, step_end_str, CC_MAX_LEN_ZERO_TERMINATED );
@@ -243,7 +243,7 @@
 
 // //     CC_PRINTF_IF_INFO( "Move: '%s'.\n\n", move_an_str );
 
-// //     while ( cc_ply_iter( move_an_str, &ply_start_str, &ply_end_str ) )
+// //     while ( cc_iter_ply( move_an_str, &ply_start_str, &ply_end_str ) )
 // //     {
 // //         bool ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
 
@@ -254,7 +254,7 @@
 // //         //
 // //         // Ply link.
 
-// //         CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
+// //         CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_str );
 // //         bool is_any_trance_journey = CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY( ple );
 // //         char const * c_str = ply_start_str + cc_ply_link_len( ple );
 
@@ -284,7 +284,7 @@
 // //         //
 // //         // Losing tag.
 
-// //         CcLosingTagEnum lte_an = cc_starting_losing_tag( c_str );
+// //         CcLosingTagEnum lte_an = cc_parse_losing_tag( c_str );
 
 // //         if ( lte_an != CC_LTE_None )
 // //         {
@@ -297,14 +297,14 @@
 
 // //         cc_char_8 disambiguation_c8 = CC_CHAR_8_EMPTY;
 
-// //         char const * end_da_str = cc_starting_pos_str( c_str, ply_end_str, true, &disambiguation_c8 );
+// //         char const * end_da_str = cc_parse_starting_pos_str( c_str, ply_end_str, true, &disambiguation_c8 );
 
 // //         CC_STR_PRINT_IF_INFO( disambiguation_c8, NULL, CC_MAX_LEN_CHAR_8, "Disambiguation: '%s'", ", pointer: '%p'.\n", end_da_str ); // TODO :: maybe check error (?)
 
 // //         int file_da = CC_INVALID_COORD;
 // //         int rank_da = CC_INVALID_COORD;
 
-// //         if ( !cc_convert_starting_coords( disambiguation_c8, &file_da, &rank_da ) &&
+// //         if ( !cc_convert_coords( disambiguation_c8, &file_da, &rank_da ) &&
 // //              ( CC_IS_COORD_ON_BOARD( game__io->chessboard->size, file_da ) ||
 // //                CC_IS_COORD_ON_BOARD( game__io->chessboard->size, rank_da ) ) )
 // //         {
@@ -333,7 +333,7 @@
 // //         // (in which case disambiguation_c8 must be empty).
 // //         cc_char_8 position_c8 = CC_CHAR_8_EMPTY;
 
-// //         char const * end_pos_str = cc_starting_pos_str( c_str,
+// //         char const * end_pos_str = cc_parse_starting_pos_str( c_str,
 // //                                                     ply_end_str,
 // //                                                     false,
 // //                                                     &position_c8 );
@@ -343,7 +343,7 @@
 // //         int file_pos = CC_INVALID_COORD;
 // //         int rank_pos = CC_INVALID_COORD;
 
-// //         if ( !cc_convert_starting_coords( position_c8, &file_pos, &rank_pos ) &&
+// //         if ( !cc_convert_coords( position_c8, &file_pos, &rank_pos ) &&
 // //              ( CC_IS_COORD_ON_BOARD( game__io->chessboard->size, file_pos ) ||
 // //                CC_IS_COORD_ON_BOARD( game__io->chessboard->size, rank_pos ) ) )
 // //         {
@@ -768,7 +768,7 @@
 
 // //         if ( ply_end_str && *ply_end_str != '\0' )
 // //             CC_PRINTF_IF_INFO( "\n" );
-// //     } // while ( cc_ply_iter( ... ) )
+// //     } // while ( cc_iter_ply( ... ) )
 
 // //     //
 // //     // Writing last piece in a cascade onto last destination field.
@@ -842,14 +842,14 @@
 
 // // TODO :: check if castling --> handle as a special case
 
-//     while ( cc_ply_iter( move_an_str, &ply_start_str, &ply_end_str ) )
+//     while ( cc_iter_ply( move_an_str, &ply_start_str, &ply_end_str ) )
 //     {
 //         bool ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
 
 //         //
 //         // Ply link.
 
-//         CcPlyLinkEnum ple = cc_starting_ply_link( ply_start_str );
+//         CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_str );
 //         bool is_any_trance_journey = CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY( ple );
 
 //         if ( !CC_PLY_LINK_IS_VALID( ple ) )
@@ -916,7 +916,7 @@
 //             //
 //             // Losing tag.
 
-//             CcLosingTagEnum lte_an = cc_starting_losing_tag( c_str );
+//             CcLosingTagEnum lte_an = cc_parse_losing_tag( c_str );
 
 //             if ( lte_an != CC_LTE_None )
 //                 c_str += cc_losing_tag_len( lte_an );
@@ -927,7 +927,7 @@
 //             CcPos disambiguation = CC_POS_CAST_INVALID;
 //             char const * disambiguation_str_end = NULL;
 
-//             if ( !cc_starting_pos( c_str,
+//             if ( !cc_parse_pos( c_str,
 //                                    &disambiguation,
 //                                    &disambiguation_str_end ) )
 //             {
@@ -956,7 +956,7 @@
 //             CcPos position = CC_POS_CAST_INVALID;
 //             char const * position_str_end = NULL;
 
-//             if ( !cc_starting_pos( c_str, &position, &position_str_end ) )
+//             if ( !cc_parse_pos( c_str, &position, &position_str_end ) )
 //             {
 //                 if ( CC_IS_COORD_2_ON_BOARD( game->chessboard->size,
 //                                              disambiguation.i,
@@ -1338,7 +1338,7 @@
 
 // //         if ( ply_end_str && *ply_end_str != '\0' )
 // //             CC_PRINTF_IF_INFO( "\n" );
-// //     } // while ( cc_ply_iter( ... ) )
+// //     } // while ( cc_iter_ply( ... ) )
 
 // //     //
 // //     // Writing last piece in a cascade onto last destination field.
@@ -1393,7 +1393,7 @@
 
 
 
-//     } // while ( cc_ply_iter( ... ) )
+//     } // while ( cc_iter_ply( ... ) )
 
 
 //     return true;
