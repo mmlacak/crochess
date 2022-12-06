@@ -32,8 +32,10 @@ bool cc_iter_ply( char const * restrict an_str,
                   char const ** restrict end__io );
 
 
-bool cc_find_piece_symbol( char const * restrict an_str,
-                           char * restrict piece_symbol__o );
+bool cc_fetch_piece_symbol( char const * restrict an_str,
+                            char * restrict piece_symbol__o,
+                            bool default_to_pawn,
+                            bool return_validity );
 
 CcTagEnum cc_parse_losing_tag( char const * restrict an_str );
 

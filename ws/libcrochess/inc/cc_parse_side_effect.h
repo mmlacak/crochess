@@ -13,6 +13,7 @@
 
 
 bool cc_parse_side_effect( char const * restrict an_str,
+                           char const * restrict step_start,
                            char const * restrict step_end,
                            CcGame * restrict game,
                            CcChessboard * restrict cb,

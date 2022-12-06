@@ -46,7 +46,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
 
     CcSideEffect se = cc_side_effect_none();
 
-    if ( !cc_parse_side_effect( pos_end_an, step_end_an, game, *cb__io, pos, &se, parse_msgs__iod ) )
+    if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, *cb__io, pos, &se, parse_msgs__iod ) )
     {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 

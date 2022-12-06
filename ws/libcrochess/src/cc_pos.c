@@ -36,7 +36,7 @@ bool cc_pos_is_static_step( CcPos pos )
 
 bool cc_pos_is_disambiguation( CcPos pos )
 {
-    return ( CC_IS_COORD_VALID( pos.i ) || ( !CC_IS_COORD_VALID( pos.j ) ) );
+    return ( CC_IS_COORD_VALID( pos.i ) || CC_IS_COORD_VALID( pos.j ) );
 }
 
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )

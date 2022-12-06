@@ -267,7 +267,7 @@
 
 // //         char piece_symbol = ' ';
 
-// //         if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
+// //         if ( !cc_fetch_piece_symbol( c_str, &piece_symbol, true, true ) )
 // //         {
 // //             cc_parse_msg_append_fmt_if( parse_msgs__iod,
 // //                                             CC_PMTE_Error,
@@ -899,7 +899,7 @@
 
 //             char piece_symbol = ' ';
 
-//             if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
+//             if ( !cc_fetch_piece_symbol( c_str, &piece_symbol, true, true ) )
 //             {
 //                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                 CC_PMTE_Error,

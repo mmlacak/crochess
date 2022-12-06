@@ -42,7 +42,7 @@ CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light )
     }
 }
 
-bool cc_is_piece_symbol( char c )
+bool cc_piece_symbol_is_valid( char c )
 {
     switch ( c )
     {
@@ -260,7 +260,7 @@ char const * cc_piece_label( CcPieceEnum pe )
 
         case CC_PE_Monolith : return "Monolith";
 
-        default : return NULL;
+        default : return "(default)";
     }
 }
 

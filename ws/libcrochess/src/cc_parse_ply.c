@@ -34,7 +34,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     char piece_symbol = ' ';
 
-    if ( !cc_find_piece_symbol( c_str, &piece_symbol ) )
+    if ( !cc_fetch_piece_symbol( c_str, &piece_symbol, true, true ) )
     {
         cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                     CC_PMTE_Error,

@@ -122,23 +122,25 @@ bool cc_iter_ply( char const * restrict an_str,
 }
 
 
-bool cc_find_piece_symbol( char const * restrict an_str,
-                           char * restrict piece_symbol__o )
+bool cc_fetch_piece_symbol( char const * restrict an_str,
+                            char * restrict piece_symbol__o,
+                            bool default_to_pawn,
+                            bool return_validity )
 {
     if ( !an_str ) return false;
     if ( !piece_symbol__o ) return false;
 
     char const * p = an_str;
 
-    while ( !isalnum( *p )  ) ++p;
-
-    if ( isupper( *p ) ) // <!> Useage of cc_is_piece_symbol() here is bug,
+    if ( isupper( *p ) ) // <!> Useage of cc_piece_symbol_is_valid() here is bug,
                          //     all other upper chars would end as Pawns.
         *piece_symbol__o = *p;
     else
-        *piece_symbol__o = 'P';
+        *piece_symbol__o = default_to_pawn ? 'P'
+                                           : ' ';
 
-    return cc_is_piece_symbol( *piece_symbol__o );
+    return return_validity ? cc_piece_symbol_is_valid( *piece_symbol__o )
+                           : true;
 }
 
 CcTagEnum cc_parse_losing_tag( char const * restrict an_str )
