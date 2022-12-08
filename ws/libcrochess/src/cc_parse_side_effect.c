@@ -389,6 +389,8 @@ bool cc_parse_side_effect( char const * restrict an_str,
                 return false;
             }
 
+// TODO :: destination field for resurrected Wave, Starchild
+
             *side_effect__o = cc_side_effect_promote( step_piece );
             return true;
         }

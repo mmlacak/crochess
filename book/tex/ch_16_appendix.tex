@@ -427,22 +427,28 @@ is only one ply.
 
 Resurrection is written by appending \alg{\$} (dollar sign) after the move, followed by
 piece which was resurrected. If Wave or Starchild has been resurrected on an empty field,
-position is appended after piece. If there was no suitable empty field at which Wave or
-Starchild could be resurrected, resurrection is not performed, which could be written by
-appending \alg{\$\$} (double dollar) after the ply. Since there are no actual side-effects
-to failed resurrection, \alg{\$\$} is optional.
+position is appended after piece. If resurrecting opponent's piece, \alg{\$\$} (double
+dollar) sign is appended after the move, followed by a piece to resurrect.
 
-In case \hyperref[fig:scn_o_32_syzygy_starchild_init]{resurrection example} ended by
-\hyperref[fig:scn_o_33_syzygy_starchild_end]{resurrecting Queen}, this would be written
-as \alg{It9\$Q}, and in \algfmt{XAN} it would be \alg{Ii23-t9\$Q}.
+If there was no suitable empty field at which Wave or Starchild could be resurrected,
+resurrection is not performed, which could be written by appending \alg{\$\$\$} (triple
+dollar) after the ply. Since there are no actual side-effects to failed resurrection,
+\alg{\$\$\$} is optional.
+
+If \hyperref[fig:scn_o_32_syzygy_starchild_init]{resurrection by light player} ended by
+\hyperref[fig:scn_o_33_syzygy_starchild_end]{resurrecting own, light Queen}, it would be
+written as \alg{It9\$Q}, and in \algfmt{XAN} it would be \alg{Ii23-t9\$Q}.
+
+If, in the same example light player resurrected opponent's, dark Queen instead, it would
+be written as \alg{It9\$\$Q}, and in \algfmt{XAN} it would be \alg{Ii23-t9\$\$Q}.
 
 If previous example ended by
 \hyperref[fig:scn_o_34_syzygy_starchild_resurrection]{resurrecting Starchild}, it would
 be written as \alg{It9\$Iu8}. In \algfmt{XAN}, it would be \alg{Ii23-t9\$Iu8}.
 
-If all fields suitable for resurrection are occupied, it is written as \alg{It9\$\$}, in
-\algfmt{XAN} it would be \alg{Ii23-t9\$\$}. Writing it as \alg{It9}, or \alg{Ii23-t9} is
-fine, it just doesn't note failed intention.
+If all fields suitable for resurrection are occupied, it is written as \alg{It9\$\$\$},
+in \algfmt{XAN} it would be \alg{Ii23-t9\$\$\$}. Writing it as \alg{It9}, or \alg{Ii23-t9}
+is fine, it just doesn't note failed intention.
 
 \subsection*{Teleportation}
 \addcontentsline{toc}{subsection}{Teleportation}
@@ -730,22 +736,24 @@ Now that all symbols have been introduced, they're gathered here according to th
 \centering
 \begin{tabular}{ rlc }
 \toprule
-\textbf{Symbol}      & \textbf{Side-effect}           & \textbf{Mandatory?}   \\
+\textbf{Symbol}             & \textbf{Side-effect}          & \textbf{Mandatory?}   \\
 \midrule
-\alg{*}              & capturing                      & -                     \\
-\alg{<}              & trance-journey displacement    & +                     \\ \cmidrule{1-3}
-\alg{==}             & lost promotion tag             & -                     \\
-\alg{::}             & lost rushing tag               & -                     \\
-\alg{\&\&}           & lost castling tag              & -                     \\ \cmidrule{1-3}
-\alg{:}              & en passant                     & -                     \\
-\alg{\&}             & castling                       & -                     \\
-\alg{=}              & promotion                      & +                     \\
-\alg{=}              & tag for promotion              & -                     \\
-\alg{\%}             & conversion                     & +                     \\
-\alg{\%\%}           & failed conversion, oblation    & +                     \\
-\alg{>}              & syzygy, demoting to Pawn       & +                     \\
-\alg{\$}             & syzygy, resurrection           & +                     \\
-\alg{\$\$}           & failed resurrection            & -                     \\
+\alg{*}                     & capturing                     & -                     \\
+\alg{<}                     & trance-journey displacement   & +                     \\ \cmidrule{1-3}
+\alg{==}                    & lost promotion tag            & -                     \\
+\alg{::}                    & lost rushing tag              & -                     \\
+\alg{\&\&}                  & lost castling tag             & -                     \\ \cmidrule{1-3}
+\alg{:}                     & en passant                    & -                     \\
+\alg{\&}                    & castling                      & -                     \\
+\alg{=}                     & promotion                     & +                     \\
+\alg{=}                     & tag for promotion             & -                     \\
+\alg{\%}                    & conversion                    & +                     \\
+\alg{\%\%}                  & failed conversion, oblation   & +                     \\
+\alg{>}                     & syzygy, demoting to Pawn      & +                     \\
+\alg{\$}                    & syzygy, resurrection          & +                     \\ \cmidrule{1-3}
+\multirow{2}{*}{\alg{\$\$}} & syzygy, resurrecting          & \multirow{2}{*}{+}    \\
+                            & opponent's piece              &                       \\ \cmidrule{1-3}
+\alg{\$\$\$}                & failed resurrection           & -                     \\
 \bottomrule
 \end{tabular}
 \caption{Side-effects}
@@ -814,8 +822,10 @@ slightly more verbose version:
                             & oblation              &                      &                       &                       \\ \cmidrule{1-5}
 \multirow{2}{*}{\alg{>}}    & syzygy,               & \multirow{2}{*}{+}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
                             & demoting to Pawn      &                      &                       &                       \\ \cmidrule{1-5}
-\alg{\$}                    & syzygy, resurrection  & -                    & -                     & -                     \\
-\alg{\$\$}                  & failed resurrection   & -                    & -                     & -                     \\
+\alg{\$}                    & syzygy, resurrection  & -                    & -                     & -                     \\ \cmidrule{1-5}
+\multirow{2}{*}{\alg{\$\$}} & syzygy, resurrecting  & \multirow{2}{*}{-}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
+                            & opponent's piece      &                      &                       &                       \\ \cmidrule{1-5}
+\alg{\$\$\$}                & failed resurrection   & -                    & -                     & -                     \\
 \bottomrule
 \end{tabular}
 \caption{Accompanying losing tags}
@@ -1476,10 +1486,10 @@ are available for a particular variant see
     [<disambiguation>]
 
 <resurrecting-side-effect> =
-  \alg{$}<disposable-piece>
-| \alg{$W}<field>
-| \alg{$I}<field>
-| \alg{$$}
+  \alg{$}[\alg{$}]<disposable-piece>
+| \alg{$}[\alg{$}]\alg{W}<field>
+| \alg{$}[\alg{$}]\alg{I}<field>
+| \alg{$$$}
 
 <castling-side-effect> = \alg{&}[<file>]
 
