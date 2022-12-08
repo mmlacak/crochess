@@ -338,8 +338,66 @@ bool cc_parse_side_effect( char const * restrict an_str,
         case CC_SEE_DemoteToPawn :
 
         case CC_SEE_Resurrection :
+        {
+            if ( !CC_PIECE_IS_STARCHILD( step_piece ) )
+            {
+                char * step_an__a = cc_str_copy__new( step_start, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Only Starchild can resurrect, in step '%s'.\n",
+                                            step_an__a );
+                CC_FREE( step_an__a );
+                return false;
+            }
+
+            char piece_symbol = ' ';
+
+            if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, false ) )
+                return false;
+
+            if ( !cc_piece_symbol_is_valid( piece_symbol ) )
+            {
+                char * step_an__a = cc_str_copy__new( step_start, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+
+                cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Character '%c' is not valid piece symbol, in step '%s'.\n",
+                                            piece_symbol,
+                                            step_an__a );
+                CC_FREE( step_an__a );
+                return false;
+            }
+
+            bool is_light = cc_piece_is_light( step_piece );
+            CcPieceEnum resurrected = cc_piece_from_symbol( piece_symbol, is_light );
+
+            if ( !CC_PIECE_CAN_BE_RESURRECTED( resurrected ) )
+            {
+                char * step_an__a = cc_str_copy__new( step_start, step_end, CC_MAX_LEN_ZERO_TERMINATED );
+                char pt = cc_piece_symbol( resurrected );
+
+                cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "Piece '%c' cannot be resurrected, in step '%s'.\n",
+                                            pt,
+                                            step_an__a );
+                CC_FREE( step_an__a );
+                return false;
+            }
+
+            *side_effect__o = cc_side_effect_promote( step_piece );
+            return true;
+        }
 
         case CC_SEE_FailedResurrection :
+        {
+            *side_effect__o = cc_side_effect_failed_resurrection();
+            return true;
+        }
 
         default : return false;
     }
