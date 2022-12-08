@@ -61,6 +61,15 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         case CC_SEE_None :
         {
 
+// TODO :: default interactions
+//
+//      -- if King is moving horizontally, for 2+ fields, it's castling
+//      -- if Pawn is moving diagonally, onto empty field, it's en passant
+//      -- if Pyramid is moving onto own Pawn, on a field on opponent's side
+//         of a chessboard, it's tagging for promotion
+//      -- Starchild moving onto empty field, in a syzygy, it's failed resurrection --> ignore (?)
+//      -- otherwise, it's capture
+
             if ( CC_PIECE_IS_NONE( step_piece ) )
             {
                 *side_effect__o = cc_side_effect_none();
@@ -68,9 +77,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             }
             else
             {
-// TODO :: default interaction, if it is unspecified, is capture !!!
-
-                return true;
+                return false; // TODO
             }
         }
 
