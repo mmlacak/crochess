@@ -441,7 +441,12 @@ CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
     else if ( *c == '$' )
     {
         if ( *++c == '$' )
-            return CC_SEE_FailedResurrection;
+        {
+            if ( *++c == '$' )
+                return CC_SEE_FailedResurrection;
+
+            return CC_SEE_ResurrectingOpponent;
+        }
 
         return CC_SEE_Resurrection;
     }
@@ -470,7 +475,8 @@ size_t cc_side_effect_type_len( CcSideEffectEnum see,
         case CC_SEE_FailedConversion : return 2;
         case CC_SEE_DemoteToPawn : return 1;
         case CC_SEE_Resurrection : return 1;
-        case CC_SEE_FailedResurrection : return 2;
+        case CC_SEE_ResurrectingOpponent : return 2;
+        case CC_SEE_FailedResurrection : return 3;
 
         default : return 0;
     }

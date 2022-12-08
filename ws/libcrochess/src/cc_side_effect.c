@@ -27,7 +27,8 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see )
         case CC_SEE_FailedConversion : return "%%"; /* Failed conversion, corresponds to %% (double percent sign). */
         case CC_SEE_DemoteToPawn : return ">"; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
         case CC_SEE_Resurrection : return "$"; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
-        case CC_SEE_FailedResurrection : return "$$"; /* Syzygy, failed resurrection, corresponds to $$ (dual dollar-sign). */
+        case CC_SEE_ResurrectingOpponent : return "$$"; /* Syzygy, resurrecting opponent's piece, corresponds to $$ (dual dollar-sign). */
+        case CC_SEE_FailedResurrection : return "$$$"; /* Syzygy, failed resurrection, corresponds to $$$ (triple dollar-sign). */
 
         default : return "?";
     }
@@ -81,7 +82,8 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
         sse.demote.piece = piece;
         sse.demote.distant = destination;
     }
-    else if ( sse.type == CC_SEE_Resurrection )
+    else if ( sse.type == CC_SEE_Resurrection ||
+              sse.type == CC_SEE_ResurrectingOpponent )
     {
         sse.resurrect.piece = piece;
         sse.resurrect.destination = destination;
@@ -142,6 +144,7 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
                                            see.demote.distant.j );
 
         case CC_SEE_Resurrection :
+        case CC_SEE_ResurrectingOpponent :
             return CC_PIECE_CAN_BE_RESURRECTED( see.resurrect.piece ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
                                            see.resurrect.destination.i,
@@ -166,7 +169,11 @@ CcPieceEnum cc_side_effect_piece( CcSideEffect se )
         case CC_SEE_Conversion : return se.convert.piece;
         case CC_SEE_FailedConversion : return CC_PE_None;
         case CC_SEE_DemoteToPawn : return se.demote.piece;
-        case CC_SEE_Resurrection : return se.resurrect.piece;
+
+        case CC_SEE_Resurrection :
+        case CC_SEE_ResurrectingOpponent :
+            return se.resurrect.piece;
+
         case CC_SEE_FailedResurrection : return CC_PE_None;
 
         default : return CC_PE_None;
@@ -187,7 +194,11 @@ CcPos cc_side_effect_destination( CcSideEffect se )
         case CC_SEE_Conversion : return CC_POS_CAST_INVALID;
         case CC_SEE_FailedConversion : return CC_POS_CAST_INVALID;
         case CC_SEE_DemoteToPawn : return se.demote.distant;
-        case CC_SEE_Resurrection : return se.resurrect.destination;
+
+        case CC_SEE_Resurrection :
+        case CC_SEE_ResurrectingOpponent :
+            return se.resurrect.destination;
+
         case CC_SEE_FailedResurrection : return CC_POS_CAST_INVALID;
 
         default : return CC_POS_CAST_INVALID;

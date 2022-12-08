@@ -34,7 +34,8 @@ typedef enum CcSideEffectEnum
     CC_SEE_FailedConversion, /**< Corresponds to `%%`. */
     CC_SEE_DemoteToPawn, /**< Corresponds to `>`. */
     CC_SEE_Resurrection, /**< Corresponds to `$`. */
-    CC_SEE_FailedResurrection, /**< Corresponds to `$$`. */
+    CC_SEE_ResurrectingOpponent, /**< Corresponds to `$$`. */
+    CC_SEE_FailedResurrection, /**< Corresponds to `$$$`. */
 } CcSideEffectEnum;
 
 /**

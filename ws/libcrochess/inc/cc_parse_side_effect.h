@@ -11,10 +11,9 @@
 #include "cc_parse_msg.h"
 
 
-
-bool cc_parse_side_effect( char const * restrict an_str,
-                           char const * restrict step_start,
-                           char const * restrict step_end,
+bool cc_parse_side_effect( char const * restrict side_effect_an,
+                           char const * restrict step_start_an,
+                           char const * restrict step_end_an,
                            CcGame * restrict game,
                            CcChessboard * restrict cb,
                            CcPos step_pos,
