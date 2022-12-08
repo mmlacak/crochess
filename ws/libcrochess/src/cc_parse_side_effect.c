@@ -193,11 +193,15 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         }
 
         case CC_SEE_EnPassant :
+// TODO :: en passant
 
         case CC_SEE_Castle :
+// TODO :: castling
 
         case CC_SEE_Promotion :
         {
+// TODO :: stationary promotion
+
             if ( !CC_PIECE_IS_PAWN( step_piece ) )
             {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
@@ -337,6 +341,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         }
 
         case CC_SEE_DemoteToPawn :
+// TODO :: demote to Pawn
 
         case CC_SEE_Resurrection :
         case CC_SEE_ResurrectingOpponent :

@@ -251,6 +251,12 @@ is also supported, e.g. \alg{e8=Q}.
 If \hyperref[fig:scn_aoa_05_delayed_promo_pawn_2_moved]{promotion is being delayed}, usage
 of \alg{=} is mandatory, as there is no immediate piece to promote to, e.g. \alg{l14=}.
 
+If Pawn has been promoted, after being tagged for promotion, it is promoted on the same
+field at which it has been tagged. Notation in such a case is similar to normal promotion,
+only field written is the one already occupied by Pawn being promoted. For instance, Pawn
+tagged for promotion in previous example would have its actual promotion written as e.g.
+\alg{l14Q}, or as \alg{l14=Q}.
+
 \subsection*{Ply}
 \addcontentsline{toc}{subsection}{Ply}
 \label{sec:Appendix/Notation/Ply}
@@ -1125,7 +1131,7 @@ One                   &     \alg{b8}  &    \alg{y19}          \\
 Table above contains initial positions of both Monoliths, one located on light side of
 chessboard, the other on dark side.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
 \subsection*{Movement limits}
 \addcontentsline{toc}{subsection}{Movement limits}
