@@ -209,6 +209,8 @@ For instance, should \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus simple mov
 had another light Pegasus at \alg{i2} field, move to destination field 3 would be written
 as \alg{Gcf8}.
 
+\vfill
+
 \subsection*{Capturing}
 \addcontentsline{toc}{subsection}{Capturing}
 \label{sec:Appendix/Notation/Capturing}
@@ -239,6 +241,23 @@ castling Rook ended can be written after \alg{\&}, the same examples would now b
 Only for Classical Chess \algcty{0-0} and \algcty{O-O} for King's side, \algcty{0-0-0} and
 \algcty{O-O-O} for Queen's side are accepted as castling notation.
 
+\vfill
+
+\subsection*{Ply}
+\addcontentsline{toc}{subsection}{Ply}
+\label{sec:Appendix/Notation/Ply}
+
+\hyperref[sec:Terms/Ply]{Ply} is a movement of a single piece in a cascading move. Two plies
+are separated by \~{} (tilde). In the example starting with
+\hyperref[fig:scn_ma_15_cascading_init]{Queen activating a Pyramid}, which then activates
+another Pyramid; example is comprised of series of 4 images, each corresponding to one ply,
+while last image depicts ending state. This can be written as \alg{Qf7\~{}Ai7\~{}Ai9}.
+
+In \algfmt{XAN}, the same would be written as \\
+\alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used
+to gather each ply, like so: \\
+\alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
+
 \subsection*{Pawn promotion}
 \addcontentsline{toc}{subsection}{Pawn promotion}
 \label{sec:Appendix/Notation/Pawn promotion}
@@ -257,26 +276,15 @@ only field written is the one already occupied by Pawn being promoted. For insta
 tagged for promotion in previous example would have its actual promotion written as e.g.
 \alg{l14Q}, or as \alg{l14=Q}.
 
+Similarly, \hyperref[fig:scn_ma_05_promo_init]{Pawn promoted by own Pyramid} just writes
+chosen piece to promote to, after writing movement of a Pyramid, like so \alg{Gd8\~{}Ah8Q},
+or in \algfmt{XAN} as \alg{[Gl4-d8]\~{}[Ad8-h8=Q]}.
+
 Pawn capturing opponent's piece can also be promoted, if capture happend on opponent's
 figure row. For instance, if in first, Classic Chess example light Pawn captured dark
-Rook before promotion, it would be written as \alg{e8*RQ}, or better \alg{e8*R=Q} to
-avoid possible confusion. In \algfmt{CAN}, promotion after capture would be written as
-\algcty{xe8Q}, or as \algcty{xe8=Q}.
-
-\subsection*{Ply}
-\addcontentsline{toc}{subsection}{Ply}
-\label{sec:Appendix/Notation/Ply}
-
-\hyperref[sec:Terms/Ply]{Ply} is a movement of a single piece in a cascading move. Two plies
-are separated by \~{} (tilde). In the example starting with
-\hyperref[fig:scn_ma_15_cascading_init]{Queen activating a Pyramid}, which then activates
-another Pyramid; example is comprised of series of 4 images, each corresponding to one ply,
-while last image depicts ending state. This can be written as \alg{Qf7\~{}Ai7\~{}Ai9}.
-
-In \algfmt{XAN}, the same would be written as \\
-\alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used
-to gather each ply, like so: \\
-\alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
+Rook before promotion, it would be written as \alg{e8*RQ}, or better yet \alg{e8*R=Q}
+to avoid possible confusion. In \algfmt{CAN}, promotion after capture would be written
+as \algcty{xe8Q}, or as \algcty{xe8=Q}.
 
 \subsection*{En passant}
 \addcontentsline{toc}{subsection}{En passant}
@@ -294,6 +302,8 @@ located at \alg{g4}, en passant would be written as \alg{ih3:}, or \alg{ih3:5}.
 
 In \algfmt{CAN}, both en passant and its disambiguation form are written as
 \algcty{ixh3 e.p.}, where \algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
+
+\vfill
 
 \subsection*{Conversion}
 \addcontentsline{toc}{subsection}{Conversion}
@@ -462,7 +472,7 @@ If all fields suitable for resurrection are occupied, it is written as \alg{It9\
 in \algfmt{XAN} it would be \alg{Ii23-t9\$\$\$}. Writing it as \alg{It9}, or \alg{Ii23-t9}
 is fine, it just doesn't note failed intention.
 
-\vfill % Otherwise whole section is positioned at the bottom of a page (!?).
+% \vfill % Otherwise whole section is positioned at the bottom of a page (!?).
 
 \subsection*{Teleportation}
 \addcontentsline{toc}{subsection}{Teleportation}
