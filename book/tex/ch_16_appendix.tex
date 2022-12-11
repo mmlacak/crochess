@@ -257,6 +257,12 @@ only field written is the one already occupied by Pawn being promoted. For insta
 tagged for promotion in previous example would have its actual promotion written as e.g.
 \alg{l14Q}, or as \alg{l14=Q}.
 
+Pawn capturing opponent's piece can also be promoted, if capture happend on opponent's
+figure row. For instance, if in first, Classic Chess example light Pawn captured dark
+Rook before promotion, it would be written as \alg{e8*RQ}, or better \alg{e8*R=Q} to
+avoid possible confusion. In \algfmt{CAN}, promotion after capture would be written as
+\algcty{xe8Q}, or as \algcty{xe8=Q}.
+
 \subsection*{Ply}
 \addcontentsline{toc}{subsection}{Ply}
 \label{sec:Appendix/Notation/Ply}
@@ -455,6 +461,8 @@ be written as \alg{It9\$Iu8}. In \algfmt{XAN}, it would be \alg{Ii23-t9\$Iu8}.
 If all fields suitable for resurrection are occupied, it is written as \alg{It9\$\$\$},
 in \algfmt{XAN} it would be \alg{Ii23-t9\$\$\$}. Writing it as \alg{It9}, or \alg{Ii23-t9}
 is fine, it just doesn't note failed intention.
+
+\vfill % Otherwise whole section is positioned at the bottom of a page (!?).
 
 \subsection*{Teleportation}
 \addcontentsline{toc}{subsection}{Teleportation}
@@ -1568,6 +1576,9 @@ are available for a particular variant see
     [<capturing-side-effect>]
 | <pawn-losing-promotion-tag><stepping>
     [<en-passant-side-effect>]
+| <pawn-losing-promotion-tag><stepping>
+    [<capturing-side-effect>]
+    [<promoting-side-effect>]
 | <shaman-capturing-terminal-ply>
 
 <terminating-ply> =
@@ -1579,15 +1590,15 @@ are available for a particular variant see
 
 <cascading-ply> = <starting-ply>
                 | <passive-piece><stepping>
-
-<cascading-plies> =
-  \{\alg{~W}<stepping>\}\alg{~}<cascading-ply>
-| (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<cascading-plies> =
+  \{\alg{~W}<stepping>\}\alg{~}<cascading-ply>
+| (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
+
 <cascade-start> =
   <starting-ply>(<cascading-plies>)
 
@@ -1717,6 +1728,8 @@ are available for a particular variant see
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]
     <field><status>
+| <pawn>[<disambiguation>][\algcty{x}]<field>
+    [<promoting-side-effect>]<status>
 | <file>[\algcty{x}]<field><status>[\algcty{\_e.p.}]
 
 <compatibility-castling> =
