@@ -1578,7 +1578,7 @@ are available for a particular variant see
     [<en-passant-side-effect>]
 | <pawn-losing-promotion-tag><stepping>
     [<capturing-side-effect>]
-    [<promoting-side-effect>]
+    <promoting-side-effect>
 | <shaman-capturing-terminal-ply>
 
 <terminating-ply> =
@@ -1727,9 +1727,9 @@ are available for a particular variant see
 
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]
-    <field><status>
+    <field>[<status>]
 | <pawn>[<disambiguation>][\algcty{x}]<field>
-    [<promoting-side-effect>]<status>
+    <promoting-side-effect>[<status>]
 | <file>[\algcty{x}]<field><status>[\algcty{\_e.p.}]
 
 <compatibility-castling> =
