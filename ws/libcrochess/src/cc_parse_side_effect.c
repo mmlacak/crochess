@@ -69,6 +69,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 //         of a chessboard, it's tagging for promotion
 //      -- Starchild moving onto empty field, in a syzygy, it's failed resurrection --> ignore (?)
 //      -- otherwise, it's capture
+//      -- if it's a capture made by Pawn, check if it's also a promotion
 
             if ( CC_PIECE_IS_NONE( step_piece ) )
             {
@@ -83,6 +84,12 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
         case CC_SEE_Capture :
         {
+// TODO
+//
+//      -- static promotion
+//      -- moving promotion
+//      -- if it's a capture made by Pawn, check if it's also a promotion
+
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) )
