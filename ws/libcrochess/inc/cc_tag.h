@@ -170,6 +170,20 @@ char cc_tag_as_char( CcTagEnum ct );
 CcTagEnum cc_tag_from_char( char c );
 
 /**
+    Enumerates only tags that can be lost, used in all variants.
+
+    When converting to (and from) ordinary tag enum, `CC_LTE_None` is used for all values not enumerated here.
+*/
+typedef enum CcLosingTagEnum
+{
+    CC_LTE_None, /**< No tag applies. */
+
+    CC_LTE_CanRush, /**< Pawn can rush, persistant tag. */
+    CC_LTE_CanCastle, /**< Rooks, Kings can castle, persistant tag. */
+    CC_LTE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */
+} CcLosingTagEnum;
+
+/**
     Function returning string, based on lost tag.
 
     @param te Lost tag.
@@ -177,7 +191,27 @@ CcTagEnum cc_tag_from_char( char c );
     @return Valid string pointer.
             String can be empty, if tag cannot be lost.
 */
-char const * cc_losing_tag_as_string( CcTagEnum te );
+char const * cc_losing_tag_as_string( CcLosingTagEnum lte );
+
+/**
+    Converts ordinary tag into lost tag.
+
+    @param te Ordinary tag.
+
+    Ordinary tag values without equivalent losing tag value are converted into `CC_LTE_None` instead.
+
+    @return Losing tag.
+*/
+CcLosingTagEnum cc_tag_to_losing( CcTagEnum te );
+
+/**
+    Converts losing tag into ordinary tag.
+
+    @param te Losing tag.
+
+    @return Ordinary tag.
+*/
+CcTagEnum cc_tag_from_losing( CcLosingTagEnum lte );
 
 
 #endif /* __CC_TAG_H__ */

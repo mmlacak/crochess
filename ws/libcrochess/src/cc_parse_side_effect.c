@@ -215,6 +215,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         case CC_SEE_Promotion :
         {
 // TODO :: stationary promotion
+//
+// TODO :: promotion of moving Pawn can also be a capture
 
             if ( !CC_PIECE_IS_PAWN( step_piece ) )
             {

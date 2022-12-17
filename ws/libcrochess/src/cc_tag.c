@@ -39,14 +39,39 @@ CcTagEnum cc_tag_from_char( char c )
     }
 }
 
-char const * cc_losing_tag_as_string( CcTagEnum te )
+
+char const * cc_losing_tag_as_string( CcLosingTagEnum te )
 {
     switch ( te )
     {
-        case CC_TE_DelayedPromotion : return "==";
-        case CC_TE_CanRush : return "::";
-        case CC_TE_CanCastle : return "&&";
+        case CC_LTE_DelayedPromotion : return "==";
+        case CC_LTE_CanRush : return "::";
+        case CC_LTE_CanCastle : return "&&";
 
         default : return "";
+    }
+}
+
+CcLosingTagEnum cc_tag_to_losing( CcTagEnum te )
+{
+    switch ( te )
+    {
+        case CC_TE_DelayedPromotion : return CC_LTE_DelayedPromotion;
+        case CC_TE_CanRush : return CC_LTE_CanRush;
+        case CC_TE_CanCastle : return CC_LTE_CanCastle;
+
+        default : return CC_LTE_None;
+    }
+}
+
+CcTagEnum cc_tag_from_losing( CcLosingTagEnum lte )
+{
+    switch ( lte )
+    {
+        case CC_LTE_DelayedPromotion : return CC_TE_DelayedPromotion;
+        case CC_LTE_CanRush : return CC_TE_CanRush;
+        case CC_LTE_CanCastle : return CC_TE_CanCastle;
+
+        default : return CC_TE_None;
     }
 }

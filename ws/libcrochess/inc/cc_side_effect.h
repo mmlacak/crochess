@@ -64,6 +64,7 @@ typedef struct CcSideEffect
     {
         struct  { CcPieceEnum piece; /**< Piece which has been captured. */
                   CcTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */
+                  CcPieceEnum promoted_to; /**< Piece to which Pawn capturing a piece has been promoted. */
                 } capture; /**< Capture. */
 
         struct  { CcPieceEnum piece; /**< Piece which has been displaced. */
