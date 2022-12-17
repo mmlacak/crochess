@@ -278,7 +278,7 @@ bool cc_step_free_all( CcStep ** restrict steps__f );
 CcStep * cc_step_none__new( CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_capture__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece, CcLosingTagEnum lost_tag );
+                               CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
 CcStep * cc_step_displacement__new( CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
@@ -325,7 +325,7 @@ CcStep * cc_step_none_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_capture_append( CcStep * restrict steps__io,
                                  CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece, CcLosingTagEnum lost_tag );
+                                 CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
 CcStep * cc_step_displacement_append( CcStep * restrict steps__io,
                                       CcStepLinkEnum link, CcPos field,
@@ -383,7 +383,7 @@ CcStep * cc_step_none_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_capture_append_if( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece, CcLosingTagEnum lost_tag );
+                                    CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
 CcStep * cc_step_displacement_append_if( CcStep ** restrict steps__io,
                                          CcStepLinkEnum link, CcPos field,

@@ -118,7 +118,8 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
                              CcPieceEnum piece,
                              CcLosingTagEnum lost_tag,
                              CcPos start,
-                             CcPos destination );
+                             CcPos destination,
+                             CcPieceEnum promoted_to );
 
 /**
     Function checks if a given side-effect is valid.
@@ -159,7 +160,7 @@ CcPos cc_side_effect_destination( CcSideEffect se );
  */
 
 CcSideEffect cc_side_effect_none( void );
-CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag );
+CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
 CcSideEffect cc_side_effect_en_passant( CcPieceEnum pawn, CcPos distant );
 CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination );

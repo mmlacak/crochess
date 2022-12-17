@@ -128,7 +128,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
 
-            *side_effect__o = cc_side_effect_capture( step_piece, lte );
+// TODO :: Pawn capturing a piece gets promoted ?
+            CcPieceEnum promoted_to = CC_PE_None;
+// TODO :: Pawn capturing a piece gets promoted ?
+
+            *side_effect__o = cc_side_effect_capture( step_piece, lte, promoted_to );
             return true;
         }
 
