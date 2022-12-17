@@ -49,7 +49,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     //
     // Losing tag.
 
-    CcTagEnum lte = cc_parse_losing_tag( c_str );
+    CcLosingTagEnum lte = cc_parse_losing_tag( c_str );
 
     c_str += cc_losing_tag_len( lte );
 

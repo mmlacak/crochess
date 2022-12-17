@@ -37,7 +37,7 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see )
 
 CcSideEffect cc_side_effect( CcSideEffectEnum type,
                              CcPieceEnum piece,
-                             CcTagEnum lost_tag,
+                             CcLosingTagEnum lost_tag,
                              CcPos start,
                              CcPos destination )
 {
@@ -104,15 +104,15 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
             return true;
 
         case CC_SEE_Capture :
-            return CC_PIECE_CAN_BE_CAPTURED( see.capture.piece ) &&
-                   CC_TAG_CAN_BE_LOST( see.capture.lost_tag );
+            return CC_PIECE_CAN_BE_CAPTURED( see.capture.piece );
+                   // && CC_TAG_CAN_BE_LOST( see.capture.lost_tag ); // Not needed anymore.
 
         case CC_SEE_Displacement :
             return CC_PIECE_CAN_BE_DISPLACED( see.displacement.piece ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
                                            see.displacement.destination.i,
-                                           see.displacement.destination.j ) &&
-                   CC_TAG_CAN_BE_LOST( see.displacement.lost_tag );
+                                           see.displacement.destination.j );
+                   // && CC_TAG_CAN_BE_LOST( see.displacement.lost_tag ); // Not needed anymore.
 
         case CC_SEE_EnPassant :
             return CC_PIECE_IS_PAWN( see.en_passant.pawn ) &&
@@ -133,15 +133,15 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
             return CC_PAWN_CAN_BE_PROMOTED_TO( see.promote.piece );
 
         case CC_SEE_Conversion :
-            return CC_PIECE_CAN_BE_CONVERTED( see.convert.piece ) &&
-                   CC_TAG_CAN_BE_LOST( see.convert.lost_tag );
+            return CC_PIECE_CAN_BE_CONVERTED( see.convert.piece );
+                   // && CC_TAG_CAN_BE_LOST( see.convert.lost_tag ); // Not needed anymore.
 
         case CC_SEE_DemoteToPawn :
             return CC_PIECE_CAN_BE_DEMOTED( see.demote.piece ) &&
-                   CC_TAG_CAN_BE_LOST( see.demote.lost_tag ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
                                            see.demote.distant.i,
                                            see.demote.distant.j );
+                   // && CC_TAG_CAN_BE_LOST( see.demote.lost_tag ) && // Not needed anymore.
 
         case CC_SEE_Resurrection :
         case CC_SEE_ResurrectingOpponent :
@@ -210,19 +210,19 @@ CcPos cc_side_effect_destination( CcSideEffect se )
 
 CcSideEffect cc_side_effect_none( void )
 {
-    return cc_side_effect( CC_SEE_None, CC_PE_None, CC_TE_None,
+    return cc_side_effect( CC_SEE_None, CC_PE_None, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID );
 }
 
-CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcTagEnum lost_tag )
+CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag )
 {
     return cc_side_effect( CC_SEE_Capture, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID );
 }
 
-CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination )
+CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination )
 {
     return cc_side_effect( CC_SEE_Displacement, piece, lost_tag,
                            CC_POS_CAST_INVALID,
@@ -231,31 +231,31 @@ CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcTagEnum lost_tag,
 
 CcSideEffect cc_side_effect_en_passant( CcPieceEnum pawn, CcPos distant )
 {
-    return cc_side_effect( CC_SEE_EnPassant, pawn, CC_TE_None,
+    return cc_side_effect( CC_SEE_EnPassant, pawn, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            distant );
 }
 
 CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination )
 {
-    return cc_side_effect( CC_SEE_Castle, rook, CC_TE_None, start, destination );
+    return cc_side_effect( CC_SEE_Castle, rook, CC_LTE_None, start, destination );
 }
 
 CcSideEffect cc_side_effect_promote( CcPieceEnum piece )
 {
-    return cc_side_effect( CC_SEE_Promotion, piece, CC_TE_None,
+    return cc_side_effect( CC_SEE_Promotion, piece, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID );
 }
 
 CcSideEffect cc_side_effect_tag_for_promotion( void )
 {
-    return cc_side_effect( CC_SEE_TagForPromotion, CC_PE_None, CC_TE_None,
+    return cc_side_effect( CC_SEE_TagForPromotion, CC_PE_None, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID );
 }
 
-CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcTagEnum lost_tag )
+CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcLosingTagEnum lost_tag )
 {
     return cc_side_effect( CC_SEE_Conversion, piece, lost_tag,
                            CC_POS_CAST_INVALID,
@@ -264,12 +264,12 @@ CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcTagEnum lost_tag )
 
 CcSideEffect cc_side_effect_failed_conversion( void )
 {
-    return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, CC_TE_None,
+    return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID );
 }
 
-CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant )
+CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant )
 {
     return cc_side_effect( CC_SEE_DemoteToPawn, piece, lost_tag,
                            CC_POS_CAST_INVALID,
@@ -278,14 +278,14 @@ CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcTagEnum lost_tag, CcPos
 
 CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, CcPos destination )
 {
-    return cc_side_effect( CC_SEE_Resurrection, piece, CC_TE_None,
+    return cc_side_effect( CC_SEE_Resurrection, piece, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            destination );
 }
 
 CcSideEffect cc_side_effect_failed_resurrection( void )
 {
-    return cc_side_effect( CC_SEE_FailedResurrection, CC_PE_None, CC_TE_None,
+    return cc_side_effect( CC_SEE_FailedResurrection, CC_PE_None, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID );
 }

@@ -14,111 +14,114 @@
     Persistant tags are valid until used or lost, e.g. until piece
     is moved, activated, converted, captured, displaced, teleported,
     demoted (if figure), promoted (if Pawn).
+
+    Values enumerated in losing tag are the same as in ordinary tag.
+    So, conversion between tags changes just type, not value.
 */
 
 /**
     Macro expression to evaluate whether given tag is valid (i.e. not None).
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if valid tag, `false` otherwise.
 */
-#define CC_TAG_EXISTS(te) ( (te) != CC_TE_None )
+#define CC_TAG_EXISTS(te) ( (te) != (int)CC_TE_None )
 
 /**
     Macro expression to evaluate whether given tag is denoting "can rush" ability.
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if "can rush" tag, `false` otherwise.
 */
-#define CC_TAG_CAN_RUSH(te) ( (te) == CC_TE_CanRush )
+#define CC_TAG_CAN_RUSH(te) ( (te) == (int)CC_TE_CanRush )
 
 /**
     Macro expression to evaluate whether given tag is denoting "can castle" ability.
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if "can castle" tag, `false` otherwise.
 */
-#define CC_TAG_CAN_CASTLE(te) ( (te) == CC_TE_CanCastle )
+#define CC_TAG_CAN_CASTLE(te) ( (te) == (int)CC_TE_CanCastle )
 
 /**
     Macro expression to evaluate whether given tag is denoting "can be promoted" option.
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if "can be promoted" tag, `false` otherwise.
 */
-#define CC_TAG_CAN_PROMOTE(te) ( (te) == CC_TE_DelayedPromotion )
+#define CC_TAG_CAN_PROMOTE(te) ( (te) == (int)CC_TE_DelayedPromotion )
 
 /**
     Macro expression to evaluate whether given tag is denoting "can be captured by en passant" option.
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if "can be captured by en passant" tag, `false` otherwise.
 */
-#define CC_TAG_CAN_EN_PASSANT(te) ( (te) == CC_TE_EnPassant )
+#define CC_TAG_CAN_EN_PASSANT(te) ( (te) == (int)CC_TE_EnPassant )
 
 /**
     Macro expression to evaluate whether given tag is denoting "can capture after Pawn sacrifice" ability.
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if "can capture after Pawn sacrifice" tag, `false` otherwise.
 */
-#define CC_TAG_CAN_PAWN_SACRIFICE(te) ( (te) == CC_TE_PawnSacrifice )
+#define CC_TAG_CAN_PAWN_SACRIFICE(te) ( (te) == (int)CC_TE_PawnSacrifice )
 
 /**
     Macro expression to evaluate whether given tag can last for several moves.
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if lasting tag, `false` otherwise.
 */
-#define CC_TAG_IS_LASTING(te) ( ( (te) == CC_TE_CanRush )               \
-                             || ( (te) == CC_TE_CanCastle )             \
-                             || ( (te) == CC_TE_DelayedPromotion ) )
+#define CC_TAG_IS_LASTING(te) ( ( (te) == (int)CC_TE_CanRush )               \
+                             || ( (te) == (int)CC_TE_CanCastle )             \
+                             || ( (te) == (int)CC_TE_DelayedPromotion ) )
 
 /**
     Macro expression to evaluate whether given tag is temporarily,
     i.e. lasts at most a single move.
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if temporarily tag, `false` otherwise.
 */
-#define CC_TAG_IS_TEMPORARILY(te) ( ( (te) == CC_TE_EnPassant )         \
-                                 || ( (te) == CC_TE_PawnSacrifice ) )
+#define CC_TAG_IS_TEMPORARILY(te) ( ( (te) == (int)CC_TE_EnPassant )         \
+                                 || ( (te) == (int)CC_TE_PawnSacrifice ) )
 
 /**
     Macro expression to check if given tag is none, or can be lost,
     i.e. lasts at least a single move.
 
-    @param te Tag enum, i.e. one of `CcTagEnum` values.
+    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
 
-    @see CcTagEnum
+    @see CcTagEnum, CcLosingTagEnum
 
     @return `true` if tag can be lost, or is `CC_TE_None`; `false` otherwise.
 */
-#define CC_TAG_CAN_BE_LOST(te) ( (te) != CC_TE_PawnSacrifice )
+#define CC_TAG_CAN_BE_LOST(te) CC_TAG_IS_LASTING((te))
 
 
 #define CC_TAG_CHAR_NONE ' '
@@ -172,21 +175,25 @@ CcTagEnum cc_tag_from_char( char c );
 /**
     Enumerates only tags that can be lost, used in all variants.
 
-    When converting to (and from) ordinary tag enum, `CC_LTE_None` is used for all values not enumerated here.
+    Values enumerated in losing tag are the same as in ordinary tag.
+    So, conversion between tags changes just type, not value.
+
+    When converting from ordinary tag enum, `CC_LTE_None` is used for
+    all values not enumerated here.
 */
 typedef enum CcLosingTagEnum
 {
-    CC_LTE_None, /**< No tag applies. */
+    CC_LTE_None = (int)CC_TE_None, /**< No tag applies. */
 
-    CC_LTE_CanRush, /**< Pawn can rush, persistant tag. */
-    CC_LTE_CanCastle, /**< Rooks, Kings can castle, persistant tag. */
-    CC_LTE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */
+    CC_LTE_CanRush = (int)CC_TE_CanRush, /**< Pawn can rush, persistant tag. */
+    CC_LTE_CanCastle = (int)CC_TE_CanCastle, /**< Rooks, Kings can castle, persistant tag. */
+    CC_LTE_DelayedPromotion = (int)CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */
 } CcLosingTagEnum;
 
 /**
     Function returning string, based on lost tag.
 
-    @param te Lost tag.
+    @param lte Lost tag.
 
     @return Valid string pointer.
             String can be empty, if tag cannot be lost.
@@ -207,7 +214,7 @@ CcLosingTagEnum cc_tag_to_losing( CcTagEnum te );
 /**
     Converts losing tag into ordinary tag.
 
-    @param te Losing tag.
+    @param lte Losing tag.
 
     @return Ordinary tag.
 */

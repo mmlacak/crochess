@@ -37,9 +37,9 @@ bool cc_fetch_piece_symbol( char const * restrict an_str,
                             bool default_to_pawn,
                             bool return_validity );
 
-CcTagEnum cc_parse_losing_tag( char const * restrict an_str );
+CcLosingTagEnum cc_parse_losing_tag( char const * restrict an_str );
 
-size_t cc_losing_tag_len( CcTagEnum lte );
+size_t cc_losing_tag_len( CcLosingTagEnum lte );
 
 bool cc_convert_coords( char const * restrict pos,
                         int * restrict file__o,

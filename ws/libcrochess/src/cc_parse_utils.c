@@ -143,38 +143,38 @@ bool cc_fetch_piece_symbol( char const * restrict an_str,
                            : true;
 }
 
-CcTagEnum cc_parse_losing_tag( char const * restrict an_str )
+CcLosingTagEnum cc_parse_losing_tag( char const * restrict an_str )
 {
-    if ( !an_str ) return CC_TE_None;
+    if ( !an_str ) return CC_LTE_None;
 
     char const * c = an_str;
 
     if ( *c == '=' )
     {
         if ( *++c == '=' )
-            return CC_TE_DelayedPromotion; // "==" losing promotion
+            return CC_LTE_DelayedPromotion; // "==" losing promotion
     }
     else if ( *c == ':' )
     {
         if ( *++c == ':' )
-            return CC_TE_CanRush; // "::" losing rushing
+            return CC_LTE_CanRush; // "::" losing rushing
     }
     else if ( *c == '&' )
     {
         if ( *++c == '&' )
-            return CC_TE_CanCastle; // "&&" losing castling
+            return CC_LTE_CanCastle; // "&&" losing castling
     }
 
-    return CC_TE_None;
+    return CC_LTE_None;
 }
 
-size_t cc_losing_tag_len( CcTagEnum lte )
+size_t cc_losing_tag_len( CcLosingTagEnum lte )
 {
     switch ( lte )
     {
-        case CC_TE_DelayedPromotion : return 2; /* Losing promotion, corresponds to == (dual equal sign). */
-        case CC_TE_CanRush : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
-        case CC_TE_CanCastle : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
+        case CC_LTE_DelayedPromotion : return 2; /* Losing promotion, corresponds to == (dual equal sign). */
+        case CC_LTE_CanRush : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
+        case CC_LTE_CanCastle : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
 
         default : return 0; // Others are not losing tags.
     }

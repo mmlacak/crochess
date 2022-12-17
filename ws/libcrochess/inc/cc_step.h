@@ -278,10 +278,10 @@ bool cc_step_free_all( CcStep ** restrict steps__f );
 CcStep * cc_step_none__new( CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_capture__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece, CcTagEnum lost_tag );
+                               CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_displacement__new( CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination );
+                                    CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
 
 CcStep * cc_step_en_passant__new( CcStepLinkEnum link, CcPos field,
                                   CcPieceEnum pawn, CcPos distant );
@@ -295,12 +295,12 @@ CcStep * cc_step_promote__new( CcStepLinkEnum link, CcPos field,
 CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_convert__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece, CcTagEnum lost_tag );
+                               CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_failed_conversion__new( CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_demote__new( CcStepLinkEnum link, CcPos field,
-                              CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant );
+                              CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant );
 
 CcStep * cc_step_resurrect__new( CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcPos destination );
@@ -325,11 +325,11 @@ CcStep * cc_step_none_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_capture_append( CcStep * restrict steps__io,
                                  CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece, CcTagEnum lost_tag );
+                                 CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_displacement_append( CcStep * restrict steps__io,
                                       CcStepLinkEnum link, CcPos field,
-                                      CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination );
+                                      CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
 
 CcStep * cc_step_en_passant_append( CcStep * restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
@@ -348,14 +348,14 @@ CcStep * cc_step_tag_for_promotion_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_convert_append( CcStep * restrict steps__io,
                                  CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece, CcTagEnum lost_tag );
+                                 CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_failed_conversion_append( CcStep * restrict steps__io,
                                            CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_demote_append( CcStep * restrict steps__io,
                                 CcStepLinkEnum link, CcPos field,
-                                CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant );
+                                CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant );
 
 CcStep * cc_step_resurrect_append( CcStep * restrict steps__io,
                                    CcStepLinkEnum link, CcPos field,
@@ -383,11 +383,11 @@ CcStep * cc_step_none_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_capture_append_if( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece, CcTagEnum lost_tag );
+                                    CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_displacement_append_if( CcStep ** restrict steps__io,
                                          CcStepLinkEnum link, CcPos field,
-                                         CcPieceEnum piece, CcTagEnum lost_tag, CcPos destination );
+                                         CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
 
 CcStep * cc_step_en_passant_append_if( CcStep ** restrict steps__io,
                                        CcStepLinkEnum link, CcPos field,
@@ -406,14 +406,14 @@ CcStep * cc_step_tag_for_promotion_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_convert_append_if( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece, CcTagEnum lost_tag );
+                                    CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_failed_conversion_append_if( CcStep ** restrict steps__io,
                                               CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_demote_append_if( CcStep ** restrict steps__io,
                                    CcStepLinkEnum link, CcPos field,
-                                   CcPieceEnum piece, CcTagEnum lost_tag, CcPos distant );
+                                   CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant );
 
 CcStep * cc_step_resurrect_append_if( CcStep ** restrict steps__io,
                                       CcStepLinkEnum link, CcPos field,
