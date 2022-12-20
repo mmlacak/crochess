@@ -33,6 +33,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
                            char const * restrict step_end_an,
                            CcGame * restrict game,
+                           CcPos last_destination,
                            CcChessboard * restrict cb,
                            CcPos step_pos,
                            CcSideEffect * restrict side_effect__o,
@@ -46,6 +47,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
     if ( !side_effect__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
+    CcPieceEnum step_piece = cc_chessboard_get_piece( cb, step_pos.i, step_pos.j );
+
     bool has_promotion_sign = true;
 
     CcSideEffectEnum see =
@@ -53,8 +56,6 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
     char const * se_an =
         side_effect_an + cc_side_effect_type_len( see, has_promotion_sign );
-
-    CcPieceEnum step_piece = cc_chessboard_get_piece( cb, step_pos.i, step_pos.j );
 
     switch ( see )
     {
@@ -86,7 +87,6 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         {
 // TODO
 //
-//      -- static promotion
 //      -- moving promotion
 //      -- if it's a capture made by Pawn, check if it's also a promotion
 
@@ -218,9 +218,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
         case CC_SEE_Promotion :
         {
-// TODO :: stationary promotion
-//
-// TODO :: promotion of moving Pawn can also be a capture
+// TODO -- static promotion
+//      -- moving promotion
 
             if ( !CC_PIECE_IS_PAWN( step_piece ) )
             {

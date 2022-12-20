@@ -58,7 +58,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     CcStep * steps__t = NULL;
 
-    if ( !cc_parse_steps( c_str, ply_end_an, game, last_destination__iod,
+    if ( !cc_parse_steps( c_str, ply_end_an, game, *last_destination__iod,
                           &steps__t,
                           cb__io,
                           parse_msgs__iod ) )

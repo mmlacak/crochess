@@ -11,7 +11,7 @@
 static bool cc_parse_step( char const * restrict step_start_an,
                            char const * restrict step_end_an,
                            CcGame * restrict game,
-                           CcPos * restrict last_destination__iod,
+                           CcPos last_destination,
                            CcStep ** restrict step__o,
                            CcChessboard ** restrict cb__io,
                            CcParseMsg ** restrict parse_msgs__iod )
@@ -19,7 +19,6 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !step_start_an ) return false;
     if ( !step_end_an ) return false;
     if ( !game ) return false;
-    if ( !last_destination__iod ) return false;
     if ( !step__o || *step__o ) return false;
     if ( !cb__io || !*cb__io ) return false;
     if ( !parse_msgs__iod ) return false;
@@ -46,7 +45,12 @@ static bool cc_parse_step( char const * restrict step_start_an,
 
     CcSideEffect se = cc_side_effect_none();
 
-    if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, *cb__io, pos, &se, parse_msgs__iod ) )
+    if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game,
+                                last_destination,
+                                *cb__io,
+                                pos,
+                                &se,
+                                parse_msgs__iod ) )
     {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -72,7 +76,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
 bool cc_parse_steps( char const * restrict steps_start_an,
                      char const * restrict steps_end_an,
                      CcGame * restrict game,
-                     CcPos * restrict last_destination__iod,
+                     CcPos last_destination,
                      CcStep ** restrict steps__o,
                      CcChessboard ** restrict cb__io,
                      CcParseMsg ** restrict parse_msgs__iod )
@@ -93,7 +97,7 @@ bool cc_parse_steps( char const * restrict steps_start_an,
 
 cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
 
-        if ( !cc_parse_step( step_start_an, step_end_an, game, last_destination__iod,
+        if ( !cc_parse_step( step_start_an, step_end_an, game, last_destination,
                              &step__t,
                              cb__io,
                              parse_msgs__iod ) )

@@ -13,7 +13,7 @@
 // static bool cc_parse_step( char const * restrict step_start_an,
 //                            char const * restrict step_end_an,
 //                            CcGame * restrict game,
-//                            CcPos * restrict last_destination__iod,
+//                            CcPos last_destination,
 //                            CcStep ** restrict step__o,
 //                            CcChessboard ** restrict cb__io,
 //                            CcParseMsg ** restrict parse_msgs__iod )
@@ -22,7 +22,7 @@
 bool cc_parse_steps( char const * restrict steps_start_an,
                      char const * restrict ply_end_an,
                      CcGame * restrict game,
-                     CcPos * restrict last_destination__iod,
+                     CcPos last_destination,
                      CcStep ** restrict steps__o,
                      CcChessboard ** restrict cb__io,
                      CcParseMsg ** restrict parse_msgs__iod );
