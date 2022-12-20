@@ -10,6 +10,7 @@
 #include "cc_str_utils.h"
 
 #include "cc_piece.h"
+#include "cc_tag.h"
 
 /**
     @file cc_pos.h
@@ -211,33 +212,34 @@ bool cc_pos_to_short_string( CcPos pos,
 // Position + piece.
 
 /**
-    Invalid position + piece value.
+    Invalid position + piece + tag value.
 */
-#define CC_POS_PIECE_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None }
+#define CC_POS_PIECE_TAG_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None }
 
 /**
-    Static position + piece value, i.e. no-movement step.
+    Static position + piece + tag value, i.e. no-movement step.
 */
-#define CC_POS_PIECE_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None }
+#define CC_POS_PIECE_TAG_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None, .tag = CC_TE_None }
 
 /**
     Structure holding a position, usually absolute, i.e. a location.
     Piece is the one found at location.
 */
-typedef struct CcPosPiece {
+typedef struct CcPosPieceTag {
     CcPos pos; /**< A position. */
     CcPieceEnum piece; /**< Piece, e.g. the one found at position. */
-} CcPosPiece;
+    CcTagEnum tag; /**< Tag, e.g. the one found at position. */
+} CcPosPieceTag;
 
 /**
-    Casted invalid position + piece value.
+    Casted invalid position + piece + tag value.
 */
-#define CC_POS_PIECE_CAST_INVALID ( (CcPosPiece)CC_POS_PIECE_INVALID )
+#define CC_POS_PIECE_TAG_CAST_INVALID ( (CcPosPieceTag)CC_POS_PIECE_TAG_INVALID )
 
 /**
-    Casted static position + piece value, i.e. no-movement step.
+    Casted static position + piece + tag value, i.e. no-movement step.
 */
-#define CC_POS_PIECE_CAST_STATIC_STEP ( (CcPosPiece)CC_POS_PIECE_STATIC_STEP )
+#define CC_POS_PIECE_TAG_CAST_STATIC_STEP ( (CcPosPieceTag)CC_POS_PIECE_TAG_STATIC_STEP )
 
 /**
     Convenience macro which returns position + piece struct.
@@ -245,51 +247,53 @@ typedef struct CcPosPiece {
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
     @param piece A piece.
+    @param tag A tag.
 
-    @return Position + piece value.
+    @return Position + piece + tag value.
 
-    @see cc_pos_piece(), cc_pos()
+    @see cc_pos_piece_tag(), cc_pos()
 */
-#define CC_POS_PIECE(int_i,int_j,piece) \
-    ( cc_pos_piece( cc_pos( (int_i), (int_j) ), (piece) ) )
+#define CC_POS_PIECE(int_i,int_j,piece,tag) \
+    ( cc_pos_piece_tag( cc_pos( (int_i), (int_j) ), (piece), (tag) ) )
 
 
 /**
-    Function returns position + piece value.
+    Function returns position + piece + tag value.
 
     @param pos A position.
     @param piece A piece.
+    @param tag A  tag.
 
-    @return Position + piece value.
+    @return Position + piece + tag value.
 */
-CcPosPiece cc_pos_piece( CcPos pos, CcPieceEnum piece );
+CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag );
 
 /**
     Function checks if position + piece is valid.
 
-    @param pp A position + piece.
+    @param ppt A position + piece.
 
     @see CC_POS_INVALID
 
     @return `true` if position + piece is valid, `false` otherwise.
 */
-bool cc_pos_piece_is_valid( CcPosPiece pp );
+bool cc_pos_piece_tag_is_valid( CcPosPieceTag ppt );
 
 /**
     Function checks if two position + piece values are the same.
 
-    @param pp_1 A position + piece.
-    @param pp_2 An other position + piece.
+    @param ppt_1 A position + piece.
+    @param ppt_2 An other position + piece.
 
     @return `true` if position + piece values are the same, `false` otherwise.
 */
-bool cc_pos_piece_is_equal( CcPosPiece pp_1, CcPosPiece pp_2 );
+bool cc_pos_piece_tag_is_equal( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 );
 
 /**
     Function checks if two position + piece values are the congruent.
 
-    @param pp_1 A position + piece.
-    @param pp_2 An other position + piece.
+    @param ppt_1 A position + piece.
+    @param ppt_2 An other position + piece.
 
     @note
     For positions to be congruent, at least one set of coordinates (files,
@@ -301,14 +305,14 @@ bool cc_pos_piece_is_equal( CcPosPiece pp_1, CcPosPiece pp_2 );
 
     @return `true` if positions are congruent, `false` otherwise.
 */
-bool cc_pos_piece_is_congruent( CcPosPiece pp_1, CcPosPiece pp_2 );
+bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 );
 
 /**
     Function converts position + piece value into a user-readable
     `<file char><rank number><piece>` notation.
 
-    @param pp A position + piece.
-    @param pp_str__o An _output_ parameter, short string array.
+    @param ppt A position + piece.
+    @param ppt_str__o An _output_ parameter, short string array.
 
     @note
     Coordinates outside chessboard are converted into short integers, if possible.
@@ -318,87 +322,90 @@ bool cc_pos_piece_is_congruent( CcPosPiece pp_1, CcPosPiece pp_2 );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_pos_piece_to_short_string( CcPosPiece pp,
-                                   cc_char_16 * restrict pp_str__o );
+bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
+                                       cc_char_16 * restrict ppt_str__o );
 
 
 //
 // Linked positions.
 
 /**
-    Convenience macro to allocate new position + piece value to position link.
+    Convenience macro to allocate new position + piece + tag value to position link.
 
     @param pos A position.
     @param piece A piece.
+    @param tag A tag.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
     @see cc_pos_link__new()
 */
-#define CC_POS_LINK__NEW(pos,piece) \
-    ( cc_pos_link__new( cc_pos_piece( (pos), (piece) ) ) )
+#define CC_POS_LINK__NEW(pos,piece,tag) \
+    ( cc_pos_link__new( cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
 
 /**
-    Macro to append a newly allocated position + piece value to position link.
+    Macro to append a newly allocated position + piece + tag value to position link.
 
     @param ptr__pos_link__io A position linked list, to be appended.
     @param pos A position.
     @param piece A piece.
+    @param tag A tag.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
     @see cc_pos_link_append()
 */
-#define CC_POS_LINK_APPEND(ptr__pos_link__io,pos,piece) \
-    ( cc_pos_link_append( (ptr__pos_link__io), cc_pos_piece( (pos), (piece) ) ) )
+#define CC_POS_LINK_APPEND(ptr__pos_link__io,pos,piece,tag) \
+    ( cc_pos_link_append( (ptr__pos_link__io), cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
 
 /**
-    Macro to initialize or append a position linked list, with position + piece value.
+    Macro to initialize or append a position linked list, with position + piece + tag value.
 
     @param ptr_ptr__pos_link__io A position linked list, to be appended.
     @param pos A position.
     @param piece A piece.
+    @param tag A tag.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
     @see cc_pos_link_append_if()
 */
-#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,pos,piece) \
-    ( cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos_piece( (pos), (piece) ) ) )
+#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,pos,piece,tag) \
+    ( cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
 
 /**
-    A linked list of positions.
+    A linked list of positions, with pieces and tags on them.
 */
 typedef struct CcPosLink {
-    CcPosPiece ppos; /**< A position + piece. */
+    CcPosPieceTag ppt; /**< A position + piece + tag. */
     struct CcPosLink * next; /**< Link to a next position. */
 } CcPosLink;
 
 /**
     Function allocates a new linked position.
 
-    @param ppos A position + piece value.
+    @param ppt A position + piece + tag value.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link__new( CcPosPiece ppos );
+CcPosLink * cc_pos_link__new( CcPosPieceTag ppt );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list.
-    @param ppos A position + piece value.
+    @param ppt A position + piece + tag value.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPosPiece ppos );
+                                CcPosPieceTag ppt );
 
 /**
     Allocates a new linked position, appends it to a linked list.
 
     @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
-    @param ppos A position + piece value.
+    @param ppt A position + piece + tag value.
 
     @note
     Linked list `*pos_link__io` can be `NULL`, a linked position will still be
@@ -411,7 +418,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPosPiece ppos );
+                                   CcPosPieceTag ppt );
 
 /**
     Frees all positions in a linked list.

@@ -22,7 +22,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.255:687+20221220.032927"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.256:688+20221220.062514"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool print_all_moves( CcMove * restrict moves )

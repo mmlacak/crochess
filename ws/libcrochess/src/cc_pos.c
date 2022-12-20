@@ -161,53 +161,53 @@ bool cc_pos_to_short_string( CcPos pos,
 //
 // Position + piece.
 
-CcPosPiece cc_pos_piece( CcPos pos, CcPieceEnum piece )
+CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag )
 {
-    CcPosPiece pp = { .pos = pos, .piece = piece };
-    return pp;
+    CcPosPieceTag ppt = { .pos = pos, .piece = piece, .tag = tag };
+    return ppt;
 }
 
-bool cc_pos_piece_is_valid( CcPosPiece pp )
+bool cc_pos_piece_tag_is_valid( CcPosPieceTag ppt )
 {
-    if ( !cc_pos_is_valid( pp.pos ) ) return false;
-    if ( !CC_PIECE_IS_VALID( pp.piece ) ) return false;
+    if ( !cc_pos_is_valid( ppt.pos ) ) return false;
+    if ( !CC_PIECE_IS_VALID( ppt.piece ) ) return false;
     return true;
 }
 
-bool cc_pos_piece_is_equal( CcPosPiece pp_1, CcPosPiece pp_2 )
+bool cc_pos_piece_tag_is_equal( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 )
 {
-    if ( !cc_pos_is_equal( pp_1.pos, pp_2.pos ) ) return false;
-    if ( !CC_PIECE_IS_THE_SAME( pp_1.piece, pp_2.piece ) ) return false;
+    if ( !cc_pos_is_equal( ppt_1.pos, ppt_2.pos ) ) return false;
+    if ( !CC_PIECE_IS_THE_SAME( ppt_1.piece, ppt_2.piece ) ) return false;
     return true;
 }
 
-bool cc_pos_piece_is_congruent( CcPosPiece pp_1, CcPosPiece pp_2 )
+bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 )
 {
-    if ( !cc_pos_is_congruent( pp_1.pos, pp_2.pos ) ) return false;
+    if ( !cc_pos_is_congruent( ppt_1.pos, ppt_2.pos ) ) return false;
 
-    if ( CC_PIECE_IS_NONE( pp_1.piece ) ||
-         CC_PIECE_IS_NONE( pp_2.piece ) ) return false;
+    if ( CC_PIECE_IS_NONE( ppt_1.piece ) ||
+         CC_PIECE_IS_NONE( ppt_2.piece ) ) return false;
 
-    if ( !cc_piece_has_same_type( pp_1.piece, pp_2.piece ) ) return false;
+    if ( !cc_piece_has_same_type( ppt_1.piece, ppt_2.piece ) ) return false;
 
     return true;
 }
 
-bool cc_pos_piece_to_short_string( CcPosPiece pp,
-                                   cc_char_16 * restrict pp_str__o )
+bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
+                                       cc_char_16 * restrict ppt_str__o )
 {
-    if ( !pp_str__o ) return false;
+    if ( !ppt_str__o ) return false;
 
-    if ( !cc_pos_to_short_string( pp.pos, (cc_char_8 *)pp_str__o ) ) return false;
+    if ( !cc_pos_to_short_string( ppt.pos, (cc_char_8 *)ppt_str__o ) ) return false;
 
-    char * p = (char *)pp_str__o;
+    char * p = (char *)ppt_str__o;
 
     unsigned int count = 0;
     while ( *p++ != '\0' ) ++count; // fast-fwd
 
     if ( count >= CC_MAX_LEN_CHAR_8 ) return false;
 
-    *p++ = cc_piece_symbol( pp.piece );
+    *p++ = cc_piece_symbol( ppt.piece );
 
     *p = '\0';
 
@@ -218,12 +218,12 @@ bool cc_pos_piece_to_short_string( CcPosPiece pp,
 //
 // Linked positions.
 
-CcPosLink * cc_pos_link__new( CcPosPiece ppos )
+CcPosLink * cc_pos_link__new( CcPosPieceTag ppt )
 {
     CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
     if ( !pl__t ) return NULL;
 
-    pl__t->ppos = ppos;
+    pl__t->ppt = ppt;
 
     pl__t->next = NULL;
 
@@ -231,11 +231,11 @@ CcPosLink * cc_pos_link__new( CcPosPiece ppos )
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPosPiece ppos )
+                                CcPosPieceTag ppt )
 {
     if ( !pos_link__io ) return NULL;
 
-    CcPosLink * pl__t = cc_pos_link__new( ppos );
+    CcPosLink * pl__t = cc_pos_link__new( ppt );
     if ( !pl__t ) return NULL;
 
     CcPosLink * pl = pos_link__io;
@@ -248,16 +248,16 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 }
 
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPosPiece ppos )
+                                   CcPosPieceTag ppt )
 {
     if ( !pos_link__io ) return NULL;
 
     CcPosLink * pl__w = NULL;
 
     if ( !*pos_link__io )
-        *pos_link__io = pl__w = cc_pos_link__new( ppos );
+        *pos_link__io = pl__w = cc_pos_link__new( ppt );
     else
-        pl__w = cc_pos_link_append( *pos_link__io, ppos );
+        pl__w = cc_pos_link_append( *pos_link__io, ppt );
 
     return pl__w;
 }
@@ -325,7 +325,7 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_piece_to_short_string( pl->ppos, &pos_c16 ) )
+        if ( !cc_pos_piece_tag_to_short_string( pl->ppt, &pos_c16 ) )
         {
             CC_FREE( pl_str__a );
             return NULL;

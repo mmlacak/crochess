@@ -14,7 +14,7 @@
 // static bool cc_parse_ply( char const * restrict ply_start_an,
 //                           char const * restrict ply_end_an,
 //                           CcGame * restrict game,
-//                           CcPos * restrict last_destination__iod,
+//                           CcPosPieceTag * restrict last_destination__iod,
 //                           CcPly ** restrict ply__o,
 //                           CcChessboard ** restrict cb__io,
 //                           CcParseMsg ** restrict parse_msgs__iod )

@@ -16,7 +16,7 @@
 static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
-                          CcPos * restrict last_destination__iod,
+                          CcPosPieceTag * restrict last_destination__iod,
                           CcPly ** restrict ply__o,
                           CcChessboard ** restrict cb__io,
                           CcParseMsg ** restrict parse_msgs__iod )
@@ -105,7 +105,7 @@ bool cc_parse_plies( char const * restrict move_an,
 
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
-    CcPos last_destination = CC_POS_CAST_INVALID;
+    CcPosPieceTag last_destination = CC_POS_PIECE_TAG_CAST_INVALID;
 
     while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) )
     {

@@ -273,6 +273,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
         return NULL;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+    CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
     bool piece_in_the_way = false;
 
     CcPos s = step;
@@ -280,7 +281,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                   ( cc_pos_is_valid( step_2 ) ) );
     bool is_even_step = true;
 
-    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece( start, piece ) );
+    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
     if ( !path__a ) return NULL;
 
     CcPos last_pos = CC_POS_CAST_INVALID;
@@ -291,6 +292,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
           pos = cc_pos_add( pos, s, 1 ) )
     {
         CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, pos.i, pos.j );
+        CcTagEnum te = cc_chessboard_get_tag( cb_before_activation, pos.i, pos.j );
 
         if ( CC_PIECE_IS_WAVE( piece ) )
         {
@@ -313,7 +315,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
             return NULL;
         }
 
-        if ( !CC_POS_LINK_APPEND( path__a, pos, pe ) )
+        if ( !CC_POS_LINK_APPEND( path__a, pos, pe, te ) )
         {
             cc_pos_link_free_all( &path__a );
             return NULL;
@@ -343,7 +345,11 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                               destination.i,
                                               destination.j );
 
-    if ( !CC_POS_LINK_APPEND( path__a, destination, pe ) )
+    CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
+                                          destination.i,
+                                          destination.j );
+
+    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
     {
         cc_pos_link_free_all( &path__a );
         return NULL;
@@ -411,7 +417,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
 
     CcPos step = cc_pos_step( start, destination );
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-    CcTagEnum te = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
+    CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
     CcPos pos_1 = cc_pos_add( start, step, 1 );
     bool has_sideways_pawns = cc_variant_has_sideways_pawns( cb_before_activation->type );
     int momentum = cc_pos_momentum( start, destination );
@@ -424,7 +430,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
             {
                 if ( momentum > 1 )
                 {
-                    if ( CC_TAG_CAN_RUSH( te ) &&
+                    if ( CC_TAG_CAN_RUSH( tag ) &&
                          cc_chessboard_is_field_on_light_side( cb_before_activation, destination.j ) )
                         return cc_link_positions( cb_before_activation,
                                                   start,
@@ -453,7 +459,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
             {
                 if ( momentum > 1 )
                 {
-                    if ( CC_TAG_CAN_RUSH( te ) &&
+                    if ( CC_TAG_CAN_RUSH( tag ) &&
                          cc_chessboard_is_field_on_dark_side( cb_before_activation, destination.j ) )
                         return cc_link_positions( cb_before_activation,
                                                   start,
@@ -482,14 +488,18 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
         if ( !cc_pos_is_equal( pos_1, destination ) ) return NULL;
         if ( momentum != 1 ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece( start, piece ) );
+        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
         if ( !path__a ) return NULL;
 
         CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
                                                   destination.i,
                                                   destination.j );
 
-        if ( !CC_POS_LINK_APPEND( path__a, destination, pe ) )
+        CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
+                                              destination.i,
+                                              destination.j );
+
+        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
         {
             cc_pos_link_free_all( &path__a );
             return NULL;
@@ -553,6 +563,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
     if ( !CC_KNIGHT_STEP_IS_VALID( step ) ) return NULL;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+    CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
 
     if ( CC_PIECE_IS_KNIGHT( piece ) )
     {
@@ -560,14 +571,18 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece( start, piece ) );
+        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
         if ( !path__a ) return NULL;
 
         CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
                                                   destination.i,
                                                   destination.j );
 
-        if ( !CC_POS_LINK_APPEND( path__a, destination, pe ) )
+        CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
+                                              destination.i,
+                                              destination.j );
+
+        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
         {
             cc_pos_link_free_all( &path__a );
             return NULL;
@@ -680,14 +695,19 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece( start, piece ) );
+    CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
+    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
     if ( !path__a ) return NULL;
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
                                               destination.i,
                                               destination.j );
 
-    if ( !CC_POS_LINK_APPEND( path__a, destination, pe ) )
+    CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
+                                          destination.i,
+                                          destination.j );
+
+    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
     {
         cc_pos_link_free_all( &path__a );
         return NULL;
@@ -758,6 +778,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
         return NULL;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
+    CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
     CcPos step = cc_pos_step( start, destination );
 
     if ( cc_is_the_same_color( piece, start ) )
@@ -773,14 +794,18 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece( start, piece ) );
+        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
         if ( !path__a ) return NULL;
 
         CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
                                                   destination.i,
                                                   destination.j );
 
-        if ( !CC_POS_LINK_APPEND( path__a, destination, pe ) )
+        CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
+                                              destination.i,
+                                              destination.j );
+
+        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
         {
             cc_pos_link_free_all( &path__a );
             return NULL;
@@ -829,10 +854,15 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece( start, piece ) );
+    CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
+    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
     if ( !path__a ) return NULL;
 
-    if ( !CC_POS_LINK_APPEND( path__a, destination, pe ) )
+    CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
+                                          destination.i,
+                                          destination.j );
+
+    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
     {
         cc_pos_link_free_all( &path__a );
         return NULL;
@@ -910,10 +940,15 @@ CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
-    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece( start, piece ) );
+    CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
+    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
     if ( !path__a ) return NULL;
 
-    if ( !CC_POS_LINK_APPEND( path__a, destination, pe ) )
+    CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
+                                          destination.i,
+                                          destination.j );
+
+    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
     {
         cc_pos_link_free_all( &path__a );
         return NULL;
