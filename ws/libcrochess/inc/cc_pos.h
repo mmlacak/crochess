@@ -223,7 +223,7 @@ bool cc_pos_to_short_string( CcPos pos,
 
 /**
     Structure holding a position, usually absolute, i.e. a location.
-    Piece is the one found at location.
+    Piece and tag are the ones (usually) found at location.
 */
 typedef struct CcPosPieceTag {
     CcPos pos; /**< A position. */

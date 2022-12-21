@@ -243,9 +243,9 @@
 
     @return `true` if piece has owner, `false` otherwise.
 */
-#define CC_PIECE_HAS_OWNER(pe) ( ( (pe) != CC_PE_DimStar )      \
-                              && ( (pe) != CC_PE_None )         \
-                              && ( (pe) != CC_PE_BrightStar )   \
+#define CC_PIECE_HAS_OWNER(pe) ( ( (pe) != CC_PE_DimStar )              \
+                              && ( (pe) != CC_PE_None )                 \
+                              && ( (pe) != CC_PE_BrightStar )           \
                               && ( (pe) != CC_PE_Monolith ) )
 
 /**
@@ -257,11 +257,11 @@
 
     @return `true` if piece is activator, `false` otherwise.
 */
-#define CC_PIECE_IS_ACTIVATOR(pe) ( ( (pe) != CC_PE_DimStar )       \
-                                 && ( (pe) != CC_PE_DarkWave )      \
-                                 && ( (pe) != CC_PE_None )          \
-                                 && ( (pe) != CC_PE_LightWave )     \
-                                 && ( (pe) != CC_PE_BrightStar )    \
+#define CC_PIECE_IS_ACTIVATOR(pe) ( ( (pe) != CC_PE_DimStar )           \
+                                 && ( (pe) != CC_PE_DarkWave )          \
+                                 && ( (pe) != CC_PE_None )              \
+                                 && ( (pe) != CC_PE_LightWave )         \
+                                 && ( (pe) != CC_PE_BrightStar )        \
                                  && ( (pe) != CC_PE_Monolith ) )
 
 /**
@@ -273,10 +273,28 @@
 
     @return `true` if piece is activator, `false` otherwise.
 */
-#define CC_PIECE_CAN_ACTIVATE(pe) ( ( (pe) != CC_PE_DimStar )       \
-                                 && ( (pe) != CC_PE_None )          \
-                                 && ( (pe) != CC_PE_BrightStar )    \
+#define CC_PIECE_CAN_ACTIVATE(pe) ( ( (pe) != CC_PE_DimStar )           \
+                                 && ( (pe) != CC_PE_None )              \
+                                 && ( (pe) != CC_PE_BrightStar )        \
                                  && ( (pe) != CC_PE_Monolith ) )
+
+/**
+    Macro expression to evaluate whether piece can capture other piece.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece can capture, `false` otherwise.
+*/
+#define CC_PIECE_CAN_CAPTURE(pe) ( ( (pe) != CC_PE_DarkStarchild )      \
+                                && ( (pe) != CC_PE_DimStar )            \
+                                && ( (pe) != CC_PE_DarkWave )           \
+                                && ( (pe) != CC_PE_None )               \
+                                && ( (pe) != CC_PE_LightWave )          \
+                                && ( (pe) != CC_PE_BrightStar )         \
+                                && ( (pe) != CC_PE_LightStarchild )     \
+                                && ( (pe) != CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether piece is passive.
@@ -287,11 +305,11 @@
 
     @return `true` if piece is passive, `false` otherwise.
 */
-#define CC_PIECE_IS_PASIVE(pe) ( ( (pe) == CC_PE_DimStar )      \
-                              || ( (pe) == CC_PE_DarkWave )     \
-                              || ( (pe) == CC_PE_DarkPyramid )  \
-                              || ( (pe) == CC_PE_LightPyramid ) \
-                              || ( (pe) == CC_PE_LightWave )    \
+#define CC_PIECE_IS_PASIVE(pe) ( ( (pe) == CC_PE_DimStar )              \
+                              || ( (pe) == CC_PE_DarkWave )             \
+                              || ( (pe) == CC_PE_DarkPyramid )          \
+                              || ( (pe) == CC_PE_LightPyramid )         \
+                              || ( (pe) == CC_PE_LightWave )            \
                               || ( (pe) == CC_PE_BrightStar ) )
 
 /**
@@ -303,12 +321,12 @@
 
     @return `true` if piece is active, `false` otherwise.
 */
-#define CC_PIECE_IS_ACTIVE(pe) ( ( (pe) != CC_PE_DimStar )      \
-                              && ( (pe) != CC_PE_DarkWave )     \
-                              && ( (pe) != CC_PE_DarkPyramid )  \
-                              && ( (pe) != CC_PE_None )         \
-                              && ( (pe) != CC_PE_LightPyramid ) \
-                              && ( (pe) != CC_PE_LightWave )    \
+#define CC_PIECE_IS_ACTIVE(pe) ( ( (pe) != CC_PE_DimStar )              \
+                              && ( (pe) != CC_PE_DarkWave )             \
+                              && ( (pe) != CC_PE_DarkPyramid )          \
+                              && ( (pe) != CC_PE_None )                 \
+                              && ( (pe) != CC_PE_LightPyramid )         \
+                              && ( (pe) != CC_PE_LightWave )            \
                               && ( (pe) != CC_PE_BrightStar ) )
 
 /**
@@ -320,9 +338,9 @@
 
     @return `true` if piece is weightless, `false` otherwise.
 */
-#define CC_PIECE_IS_WEIGHTLESS(pe) ( ( (pe) == CC_PE_LightStarchild ) \
-                                  || ( (pe) == CC_PE_DarkStarchild )  \
-                                  || ( (pe) == CC_PE_LightWave )      \
+#define CC_PIECE_IS_WEIGHTLESS(pe) ( ( (pe) == CC_PE_LightStarchild )   \
+                                  || ( (pe) == CC_PE_DarkStarchild )    \
+                                  || ( (pe) == CC_PE_LightWave )        \
                                   || ( (pe) == CC_PE_DarkWave ) )
 
 /**
@@ -334,9 +352,9 @@
 
     @return `true` if piece can be activated, `false` otherwise.
 */
-#define CC_PIECE_CAN_BE_ACTIVATED(pe) ( ( (pe) != CC_PE_DarkKing )     \
-                                     && ( (pe) != CC_PE_None )         \
-                                     && ( (pe) != CC_PE_LightKing )    \
+#define CC_PIECE_CAN_BE_ACTIVATED(pe) ( ( (pe) != CC_PE_DarkKing )      \
+                                     && ( (pe) != CC_PE_None )          \
+                                     && ( (pe) != CC_PE_LightKing )     \
                                      && ( (pe) != CC_PE_Monolith ) )
 
 /**
@@ -348,11 +366,11 @@
 
     @return `true` if piece is disposable, `false` otherwise.
 */
-#define CC_PIECE_CAN_BE_CAPTURED(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                    && ( (pe) != CC_PE_DarkKing )     \
-                                    && ( (pe) != CC_PE_None )         \
-                                    && ( (pe) != CC_PE_LightKing )    \
-                                    && ( (pe) != CC_PE_BrightStar )   \
+#define CC_PIECE_CAN_BE_CAPTURED(pe) ( ( (pe) != CC_PE_DimStar )        \
+                                    && ( (pe) != CC_PE_DarkKing )       \
+                                    && ( (pe) != CC_PE_None )           \
+                                    && ( (pe) != CC_PE_LightKing )      \
+                                    && ( (pe) != CC_PE_BrightStar )     \
                                     && ( (pe) != CC_PE_Monolith ) )
 
 /**
@@ -382,11 +400,11 @@
 
     @return `true` if piece is displaceable, `false` otherwise.
 */
-#define CC_PIECE_CAN_BE_DISPLACED(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                     && ( (pe) != CC_PE_DarkKing )     \
-                                     && ( (pe) != CC_PE_None )         \
-                                     && ( (pe) != CC_PE_LightKing )    \
-                                     && ( (pe) != CC_PE_BrightStar )   \
+#define CC_PIECE_CAN_BE_DISPLACED(pe) ( ( (pe) != CC_PE_DimStar )       \
+                                     && ( (pe) != CC_PE_DarkKing )      \
+                                     && ( (pe) != CC_PE_None )          \
+                                     && ( (pe) != CC_PE_LightKing )     \
+                                     && ( (pe) != CC_PE_BrightStar )    \
                                      && ( (pe) != CC_PE_Monolith ) )
 
 /**
@@ -398,11 +416,11 @@
 
     @return `true` if piece is convertable, `false` otherwise.
 */
-#define CC_PIECE_CAN_BE_CONVERTED(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                     && ( (pe) != CC_PE_DarkKing )     \
-                                     && ( (pe) != CC_PE_None )         \
-                                     && ( (pe) != CC_PE_LightKing )    \
-                                     && ( (pe) != CC_PE_BrightStar )   \
+#define CC_PIECE_CAN_BE_CONVERTED(pe) ( ( (pe) != CC_PE_DimStar )       \
+                                     && ( (pe) != CC_PE_DarkKing )      \
+                                     && ( (pe) != CC_PE_None )          \
+                                     && ( (pe) != CC_PE_LightKing )     \
+                                     && ( (pe) != CC_PE_BrightStar )    \
                                      && ( (pe) != CC_PE_Monolith ) )
 
 /**
@@ -414,11 +432,11 @@
 
     @return `true` if piece is demoteable, `false` otherwise.
 */
-#define CC_PIECE_CAN_BE_DEMOTED(pe) ( ( (pe) != CC_PE_DimStar )      \
-                                   && ( (pe) != CC_PE_DarkKing )     \
-                                   && ( (pe) != CC_PE_None )         \
-                                   && ( (pe) != CC_PE_LightKing )    \
-                                   && ( (pe) != CC_PE_BrightStar )   \
+#define CC_PIECE_CAN_BE_DEMOTED(pe) ( ( (pe) != CC_PE_DimStar )         \
+                                   && ( (pe) != CC_PE_DarkKing )        \
+                                   && ( (pe) != CC_PE_None )            \
+                                   && ( (pe) != CC_PE_LightKing )       \
+                                   && ( (pe) != CC_PE_BrightStar )      \
                                    && ( (pe) != CC_PE_Monolith ) )
 
 /**

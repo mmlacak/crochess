@@ -88,17 +88,71 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
     return false;
 }
 
-bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag )
+int cc_promoting_rank( CcChessboard * restrict cb, bool is_light )
 {
-    switch ( lost )
-    {
-        case CC_TE_DelayedPromotion :
-        case CC_TE_CanRush :
-        case CC_TE_CanCastle :
-            return ( lost == tag );
+    if ( !is_light ) return 0;
+    if ( !cb ) return CC_INVALID_COORD;
 
-        default :
-            return false;
+    return cb->size - 1;
+}
+
+// TODO :: DELETE
+//
+// bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag )
+// {
+//     switch ( lost )
+//     {
+//         case CC_TE_DelayedPromotion :
+//         case CC_TE_CanRush :
+//         case CC_TE_CanCastle :
+//             return ( lost == tag );
+
+//         default :
+//             return false;
+//     }
+// }
+//
+// TODO :: DELETE
+
+bool cc_check_promote_or_tag( CcChessboard * restrict cb,
+                              CcPieceEnum piece,
+                              CcPos start,
+                              CcPos destination )
+{
+    if ( !cb ) return false;
+    if ( !CC_PIECE_IS_PAWN( piece ) ) return false;
+    if ( !CC_IS_COORD_2_ON_BOARD( cb->size, start.i, start.j ) ) return false;
+    if ( !CC_IS_COORD_2_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
+
+    if ( !cc_pos_is_equal( start, destination ) )
+    {
+        if ( cc_piece_has_same_color( piece, pe ) )
+        {
+            if ( !CC_PIECE_CAN_ACTIVATE( piece ) ||
+                 !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
+        }
+        else
+            if ( !CC_PIECE_CAN_CAPTURE( piece ) ||
+                 !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return false;
+
+        // Capture / activation + promotion.
+
+        bool is_light = cc_piece_is_light( piece );
+        int rank = cc_promoting_rank( cb, is_light );
+        if ( !CC_IS_COORD_VALID( rank ) ) return false;
+
+        return ( rank == destination.j );
+    }
+    else
+    {
+        if ( !CC_PIECE_IS_THE_SAME( pe, piece ) ) return false;
+
+        // Static promotion.
+
+        CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
+        return ( CC_TAG_CAN_PROMOTE( te ) );
     }
 }
 

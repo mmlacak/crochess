@@ -11,7 +11,7 @@
 static bool cc_parse_step( char const * restrict step_start_an,
                            char const * restrict step_end_an,
                            CcGame * restrict game,
-                           CcPosPieceTag last_destination,
+                           CcPosPieceTag last_ply_destination,
                            CcStep ** restrict step__o,
                            CcChessboard ** restrict cb__io,
                            CcParseMsg ** restrict parse_msgs__iod )
@@ -46,7 +46,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
     CcSideEffect se = cc_side_effect_none();
 
     if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game,
-                                last_destination,
+                                last_ply_destination,
                                 *cb__io,
                                 pos,
                                 &se,
@@ -76,7 +76,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
 bool cc_parse_steps( char const * restrict steps_start_an,
                      char const * restrict steps_end_an,
                      CcGame * restrict game,
-                     CcPosPieceTag last_destination,
+                     CcPosPieceTag last_ply_destination,
                      CcStep ** restrict steps__o,
                      CcChessboard ** restrict cb__io,
                      CcParseMsg ** restrict parse_msgs__iod )
@@ -97,7 +97,7 @@ bool cc_parse_steps( char const * restrict steps_start_an,
 
 cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
 
-        if ( !cc_parse_step( step_start_an, step_end_an, game, last_destination,
+        if ( !cc_parse_step( step_start_an, step_end_an, game, last_ply_destination,
                              &step__t,
                              cb__io,
                              parse_msgs__iod ) )

@@ -33,7 +33,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
                            char const * restrict step_end_an,
                            CcGame * restrict game,
-                           CcPosPieceTag last_destination,
+                           CcPosPieceTag last_ply_destination,
                            CcChessboard * restrict cb,
                            CcPos step_pos,
                            CcSideEffect * restrict side_effect__o,
@@ -131,6 +131,10 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 // TODO :: Pawn capturing a piece gets promoted ?
             CcPieceEnum promoted_to = CC_PE_None;
 // TODO :: Pawn capturing a piece gets promoted ?
+
+            if ( CC_PIECE_IS_PAWN( last_ply_destination.piece ) )
+            {
+            }
 
             *side_effect__o = cc_side_effect_capture( step_piece, lte, promoted_to );
             return true;
