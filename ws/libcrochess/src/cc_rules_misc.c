@@ -4,6 +4,7 @@
 #include "cc_str_utils.h"
 
 #include "cc_rules_misc.h"
+#include "cc_rules_path.h"
 
 
 #define CC_DRAW_OFFER_LEN (3)
@@ -128,14 +129,24 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
 
     if ( !cc_pos_is_equal( start, destination ) )
     {
-        if ( cc_piece_has_same_color( piece, pe ) )
+        // TODO :: check step, capture and sideways-step
+
+        if ( !CC_PIECE_IS_NONE( pe ) )
         {
-            if ( !CC_PIECE_CAN_ACTIVATE( piece ) ||
-                 !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
+            if ( cc_piece_has_same_color( piece, pe ) )
+            {
+                if ( !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
+
+                // TODO :: if Wave ==> destination == sideways- || step- || capture-field
+                //         else    ==> destination == capture-field
+            }
+            else
+            {
+                if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return false;
+
+                // TODO :: check ==> destination == capture-field
+            }
         }
-        else
-            if ( !CC_PIECE_CAN_CAPTURE( piece ) ||
-                 !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return false;
 
         // Capture / activation + promotion.
 
@@ -143,7 +154,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         int rank = cc_promoting_rank( cb, is_light );
         if ( !CC_IS_COORD_VALID( rank ) ) return false;
 
-        return ( rank == destination.j );
+        if ( rank == destination.j ) return true;
     }
     else
     {
@@ -152,8 +163,10 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         // Static promotion.
 
         CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
-        return ( CC_TAG_CAN_PROMOTE( te ) );
+        if ( CC_TAG_CAN_PROMOTE( te ) ) return true;
     }
+
+    return false;
 }
 
 bool cc_delete_en_passant_tag( CcChessboard * restrict cb )
