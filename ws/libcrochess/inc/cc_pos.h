@@ -163,6 +163,26 @@ CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count );
 CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count );
 
 /**
+    Function returns difference between two given positions.
+
+    @param pos_1 A position.
+    @param pos_2 An other position.
+
+    @note
+    Function subtracts valid coordinates, if both positions are one of:
+    - valid positions
+    - file disambiguations
+    - rank disambiguations.
+
+    @note
+    If given positions have no common valid coordinates, result is invalid position,
+    e.g. if a rank disambiguation is subtracted from a file disambiguation.
+
+    @return A position difference if successful, invalid position otherwise.
+*/
+CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 );
+
+/**
     Function returns step from start to destination field.
 
     @param start Starting from.

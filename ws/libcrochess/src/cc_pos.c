@@ -89,6 +89,20 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count )
     return cc_pos( i, j );
 }
 
+CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 )
+{
+    int i = CC_INVALID_COORD;
+    int j = CC_INVALID_COORD;
+
+    if ( CC_IS_COORD_VALID( pos_1.i ) && CC_IS_COORD_VALID( pos_2.i ) )
+        i = pos_1.i - pos_2.i;
+
+    if ( CC_IS_COORD_VALID( pos_1.j ) && CC_IS_COORD_VALID( pos_2.j ) )
+        j = pos_1.j - pos_2.j;
+
+    return cc_pos( i, j );
+}
+
 CcPos cc_pos_step( CcPos start, CcPos destination )
 {
     int diff_i = destination.i - start.i;

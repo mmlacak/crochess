@@ -6,7 +6,8 @@
 
 #include <stddef.h>
 
-// #include "cc_piece.h"
+#include "cc_variant.h"
+#include "cc_piece.h"
 // #include "cc_chessboard.h"
 #include "cc_pos.h"
 
@@ -304,6 +305,11 @@ bool cc_is_step_valid( CcPos step,
 /** @} */ // end of step_is_valid_derived_macros
 
 /** @} */ // end of step_is_valid_macros
+
+
+bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
+
+bool cc_is_pawn_capture_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
 
 
 #endif /* __CC_PATH_DEFS_H__ */

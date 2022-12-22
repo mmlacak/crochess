@@ -22,12 +22,9 @@ bool cc_is_pawn_capture_valid( CcChessboard * restrict cb,
     if ( cc_piece_has_same_color( piece, pe ) ) return false;
     if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return false;
 
-    CcPos step = cc_pos_step( start, destination );
+    CcPos step = cc_pos_difference( destination, start );
 
-    if ( cc_piece_is_light( piece ) )
-        return CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step );
-    else
-        return CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step );
+    return cc_is_pawn_capture_step( cb->type, piece, step );
 }
 
 bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
@@ -48,20 +45,7 @@ bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
         if ( !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
     }
 
-    CcPos step = cc_pos_step( start, destination );
+    CcPos step = cc_pos_difference( destination, start );
 
-    if ( cc_piece_is_light( piece ) )
-    {
-        if ( cc_variant_has_sideways_pawns( cb->type ) )
-            return CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step );
-        else
-            return CC_LIGHT_PAWN_STEP_IS_VALID( step );
-    }
-    else
-    {
-        if ( cc_variant_has_sideways_pawns( cb->type ) )
-            return CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step );
-        else
-            return CC_DARK_PAWN_STEP_IS_VALID( step );
-    }
+    return cc_is_pawn_step( cb->type, piece, step );
 }

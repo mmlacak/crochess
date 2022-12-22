@@ -3,6 +3,8 @@
 
 #include "cc_str_utils.h"
 
+#include "cc_path_defs.h"
+
 #include "cc_rules_misc.h"
 #include "cc_rules_path.h"
 
@@ -129,24 +131,20 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
 
     if ( !cc_pos_is_equal( start, destination ) )
     {
-        // TODO :: check step, capture and sideways-step
+        CcPos step = cc_pos_difference( destination, start );
 
-        if ( !CC_PIECE_IS_NONE( pe ) )
+        if ( cc_is_pawn_step( cb->type, piece, step ) )
         {
-            if ( cc_piece_has_same_color( piece, pe ) )
-            {
-                if ( !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
-
-                // TODO :: if Wave ==> destination == sideways- || step- || capture-field
-                //         else    ==> destination == capture-field
-            }
-            else
-            {
-                if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return false;
-
-                // TODO :: check ==> destination == capture-field
-            }
+            if ( !cc_is_pawn_step_valid( cb, piece, start, destination ) )
+                return false;
         }
+        else if ( cc_is_pawn_capture_step( cb->type, piece, step ) )
+        {
+            if ( !cc_is_pawn_capture_valid( cb, piece, start, destination ) )
+                return false;
+        }
+        else
+            return false;
 
         // Capture / activation + promotion.
 
