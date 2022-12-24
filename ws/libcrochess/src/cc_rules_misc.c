@@ -118,12 +118,12 @@ int cc_promoting_rank( CcChessboard * restrict cb, bool is_light )
 // TODO :: DELETE
 
 bool cc_check_promote_or_tag( CcChessboard * restrict cb,
-                              CcPieceEnum piece,
+                              CcPieceEnum pawn,
                               CcPos start,
                               CcPos destination )
 {
     if ( !cb ) return false;
-    if ( !CC_PIECE_IS_PAWN( piece ) ) return false;
+    if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
     if ( !CC_IS_COORD_2_ON_BOARD( cb->size, start.i, start.j ) ) return false;
     if ( !CC_IS_COORD_2_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
@@ -133,22 +133,29 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
     {
         CcPos step = cc_pos_difference( destination, start );
 
-        if ( cc_is_pawn_step( cb->type, piece, step ) )
+        if ( cc_is_pawn_step( cb->type, pawn, step ) )
         {
-            if ( !cc_is_pawn_step_valid( cb, piece, start, destination ) )
+            if ( !cc_is_pawn_step_valid( cb, pawn, start, destination ) )
                 return false;
         }
-        else if ( cc_is_pawn_capture_step( cb->type, piece, step ) )
+        else if ( cc_is_pawn_capture_step( cb->type, pawn, step ) )
         {
-            if ( !cc_is_pawn_capture_valid( cb, piece, start, destination ) )
+            if ( !cc_is_pawn_capture_valid( cb, pawn, start, destination ) )
                 return false;
         }
         else
             return false;
 
-        // Capture / activation + promotion.
+        // Movement (+ capture / activation) + promotion.
 
-        bool is_light = cc_piece_is_light( piece );
+        if ( cc_piece_has_same_color( pawn, pe ) )
+        {
+            if ( !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
+        }
+        else
+            if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return false;
+
+        bool is_light = cc_piece_is_light( pawn );
         int rank = cc_promoting_rank( cb, is_light );
         if ( !CC_IS_COORD_VALID( rank ) ) return false;
 
@@ -156,7 +163,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
     }
     else
     {
-        if ( !CC_PIECE_IS_THE_SAME( pe, piece ) ) return false;
+        if ( !CC_PIECE_IS_THE_SAME( pe, pawn ) ) return false;
 
         // Static promotion.
 

@@ -27,7 +27,7 @@ int cc_promoting_rank( CcChessboard * restrict cb, bool is_light );
 // bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag );
 
 bool cc_check_promote_or_tag( CcChessboard * restrict cb,
-                              CcPieceEnum piece,
+                              CcPieceEnum pawn,
                               CcPos start,
                               CcPos destination );
 
