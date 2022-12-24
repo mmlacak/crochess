@@ -49,7 +49,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
     CcPieceEnum step_piece = cc_chessboard_get_piece( cb, step_pos.i, step_pos.j );
 
-    bool has_promotion_sign = true;
+    bool has_promotion_sign = false;
 
     CcSideEffectEnum see =
         cc_parse_side_effect_type( side_effect_an, &has_promotion_sign );
@@ -134,6 +134,58 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             if ( CC_PIECE_IS_PAWN( last_ply_destination.piece ) )
             {
+                bool has_promo_sign = false;
+
+                CcSideEffectEnum promo =
+                    cc_parse_side_effect_type( se_an, &has_promo_sign );
+
+                if ( promo == CC_SEE_Promotion )
+                {
+                    char const * promo_an =
+                        side_effect_an + cc_side_effect_type_len( promo, has_promo_sign );
+
+                    char promote_to_symbol = ' ';
+
+                    if ( !cc_fetch_piece_symbol( promo_an, &promote_to_symbol, true, false ) )
+                        return false;
+
+                    if ( !cc_piece_symbol_is_valid( promote_to_symbol ) )
+                    {
+                        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+
+                        cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                                    CC_PMTE_Error,
+                                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                                    "Character '%c' is not valid piece symbol, in step '%s'.\n",
+                                                    promote_to_symbol,
+                                                    step_an__a );
+                        CC_FREE( step_an__a );
+                        return false;
+                    }
+
+                    bool is_light = cc_piece_is_light( step_piece );
+                    CcPieceEnum promote_to = cc_piece_from_symbol( promote_to_symbol, is_light );
+
+                    if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) )
+                    {
+                        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+
+                        cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                                    CC_PMTE_Error,
+                                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                                    "Pawn cannot be promoted to '%c', in step '%s'.\n",
+                                                    promote_to_symbol,
+                                                    step_an__a );
+                        CC_FREE( step_an__a );
+                        return false;
+                    }
+
+                    promoted_to = promote_to;
+                }
+                else if ( promo == CC_SEE_TagForPromotion )
+                {
+// TODO :: add flag
+                }
             }
 
             *side_effect__o = cc_side_effect_capture( step_piece, lte, promoted_to );
@@ -263,13 +315,12 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) )
             {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char pt = cc_piece_symbol( promote_to );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                             CC_PMTE_Error,
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             "Pawn cannot be promoted to '%c', in step '%s'.\n",
-                                            pt,
+                                            piece_symbol,
                                             step_an__a );
                 CC_FREE( step_an__a );
                 return false;
