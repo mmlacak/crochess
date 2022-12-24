@@ -187,17 +187,17 @@ bool cc_is_step_valid( CcPos step,
 
 bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step )
 {
-    if ( cc_piece_is_light( piece ) )
+    if ( cc_variant_has_sideways_pawns( type ) )
     {
-        if ( cc_variant_has_sideways_pawns( type ) )
+        if ( cc_piece_is_light( piece ) )
             return CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step );
         else
-            return CC_LIGHT_PAWN_STEP_IS_VALID( step );
+            return CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step );
     }
     else
     {
-        if ( cc_variant_has_sideways_pawns( type ) )
-            return CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step );
+        if ( cc_piece_is_light( piece ) )
+            return CC_LIGHT_PAWN_STEP_IS_VALID( step );
         else
             return CC_DARK_PAWN_STEP_IS_VALID( step );
     }
