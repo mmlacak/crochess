@@ -127,8 +127,6 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
     if ( !CC_IS_COORD_2_ON_BOARD( cb->size, start.i, start.j ) ) return false;
     if ( !CC_IS_COORD_2_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
-    CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
-
     if ( !cc_pos_is_equal( start, destination ) )
     {
         CcPos step = cc_pos_difference( destination, start );
@@ -148,13 +146,6 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
 
         // Movement (+ capture / activation) + promotion.
 
-        if ( cc_piece_has_same_color( pawn, pe ) )
-        {
-            if ( !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
-        }
-        else
-            if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return false;
-
         bool is_light = cc_piece_is_light( pawn );
         int rank = cc_promoting_rank( cb, is_light );
         if ( !CC_IS_COORD_VALID( rank ) ) return false;
@@ -163,6 +154,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
     }
     else
     {
+        CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
         if ( !CC_PIECE_IS_THE_SAME( pe, pawn ) ) return false;
 
         // Static promotion.
