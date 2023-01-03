@@ -344,6 +344,103 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    #
+    # Wave divergence
+
+    def scn_mv_11_wave_divergence_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_11_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (3, 11)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W = (6, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (11, 13)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_G = (14, 10)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_P = (11, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (7, 13)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> W
+        coords_Q_W = GS.gen_steps( start=start_Q, rels=[(1, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_W() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> w
+        coords_W_w = GS.gen_steps( start=start_W, rels=[(1, 1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_W_w() ):
+            mark_type = MarkType.Illegal if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_mv_12_wave_divergence_1(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_12_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (3, 11)
+        end_Q = (6, 8)
+        scene.board.set_piece( *end_Q, piece=PieceType.Queen )
+
+        start_W = (14, 10)
+        # scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (11, 13)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_G = (14, 10)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_P = (11, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (7, 13)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # <-- W --> @ w
+
+        for rel in GS.DEFAULT_KING_REL_MOVES:
+            coords_w__W = GS.gen_steps( start=start_w, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_w__W() ):
+                if rel == (-1, -1):
+                    mark_type = MarkType.Action if i == 4 else \
+                                MarkType.Legal
+                elif rel == (1, -1):
+                    mark_type = MarkType.Action if i == 2 else \
+                                MarkType.Legal
+                elif rel == (0, -1):
+                    mark_type = MarkType.Action if i == 7 else \
+                                MarkType.Legal
+                elif rel == (-1, 0):
+                    mark_type = MarkType.Illegal if i == 3 else \
+                                MarkType.Legal
+                else:
+                    mark_type = MarkType.Legal
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+
 
     #
     # Piece blocked
