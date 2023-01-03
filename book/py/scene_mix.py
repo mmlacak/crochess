@@ -34,10 +34,10 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_mv_09_own_wave_is_divergent_init', \
-                    # 'scn_mv_10_own_wave_is_divergent_1', \
-                    'scn_mv_11_no_single_step_divergence', \
-                    'scn_mv_12_diverging_rush', \
-                    # 'scn_mv_13_wave_divergence_init', \
-                    # 'scn_mv_14_wave_divergence_1', \
+                    # 'scn_mv_50_own_wave_is_divergent_init', \
+                    # 'scn_mv_51_own_wave_is_divergent_1', \
+                    'scn_mv_52_no_single_step_divergence', \
+                    'scn_mv_53_diverging_rush', \
+                    # 'scn_mv_54_wave_divergence_init', \
+                    # 'scn_mv_55_wave_divergence_1', \
                 ]
