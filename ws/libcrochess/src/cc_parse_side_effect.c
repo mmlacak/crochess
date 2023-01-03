@@ -128,21 +128,19 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
 
-// TODO :: Pawn capturing a piece gets promoted ?
+            char const * promo_an = se_an + cc_losing_tag_len( lte );
             CcPieceEnum promoted_to = CC_PE_None;
-// TODO :: Pawn capturing a piece gets promoted ?
 
             if ( CC_PIECE_IS_PAWN( last_ply_destination.piece ) )
             {
                 bool has_promo_sign = false;
 
                 CcSideEffectEnum promo =
-                    cc_parse_side_effect_type( se_an, &has_promo_sign );
+                    cc_parse_side_effect_type( promo_an, &has_promo_sign );
 
                 if ( promo == CC_SEE_Promotion )
                 {
-                    char const * promo_an =
-                        side_effect_an + cc_side_effect_type_len( promo, has_promo_sign );
+                    promo_an += cc_side_effect_type_len( promo, has_promo_sign );
 
                     char promote_to_symbol = ' ';
 
