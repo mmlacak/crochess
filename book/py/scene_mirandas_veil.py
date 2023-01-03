@@ -323,17 +323,11 @@ class SceneMirandasVeilMixin:
 
         # <-- Q --> @ W
 
-        # rels = GS.remove( GS.DEFAULT_KING_REL_MOVES, [ (1, -1), ] ) # TODO :: DELETE
-
         for rel in GS.DEFAULT_KING_REL_MOVES:
             coords_W__Q = GS.gen_steps( start=start_W, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
             for i, arrow in enumerate( coords_W__Q() ):
-                if rel == (-1, -1):
-                    mark_type = MarkType.Action if i == 2 else \
-                                MarkType.Legal if i < 5 else \
-                                MarkType.Blocked
-                elif rel == (1, 1):
+                if rel in [ (-1, -1), (1, 1), ]:
                     mark_type = MarkType.Action if i == 2 else \
                                 MarkType.Legal if i < 5 else \
                                 MarkType.Blocked
