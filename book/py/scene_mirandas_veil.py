@@ -267,6 +267,91 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Own Wave is divergent
+
+    def scn_mv_09_own_wave_is_divergent_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_09_own_wave_is_divergent_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (14, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_w = (12, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_W = (9, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_g = (12, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_p = (6, 3)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> w --> W
+        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_w_W() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_mv_10_own_wave_is_divergent_1(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_10_own_wave_is_divergent_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (14, 1)
+        # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_w = (12, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_W = (9, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_g = (12, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_p = (6, 3)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # <-- Q --> @ W
+
+        # rels = GS.remove( GS.DEFAULT_KING_REL_MOVES, [ (1, -1), ] ) # TODO :: DELETE
+
+        for rel in GS.DEFAULT_KING_REL_MOVES:
+            coords_W__Q = GS.gen_steps( start=start_W, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_W__Q() ):
+                if rel == (-1, -1):
+                    mark_type = MarkType.Action if i == 2 else \
+                                MarkType.Legal if i < 5 else \
+                                MarkType.Blocked
+                elif rel == (1, 1):
+                    mark_type = MarkType.Action if i == 2 else \
+                                MarkType.Legal if i < 5 else \
+                                MarkType.Blocked
+                elif rel == (1, -1):
+                    mark_type = MarkType.Illegal if i == 4 else \
+                                MarkType.Legal if i < 5 else \
+                                MarkType.Blocked
+                else:
+                    mark_type = MarkType.Legal if i < 5 else \
+                                MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        return scene
+
+
+    #
     # Piece blocked
 
     def scn_mv_09_wave_no_activating_blocked_piece(self, bt=BoardType.MirandasVeil):

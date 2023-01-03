@@ -34,14 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_mv_01_wave_activation_init', \
-                    # 'scn_mv_10_bishop_activating_wave', \
-                    # 'scn_mv_16_wave_activation_by_step_pawn', \
-                    # 'scn_mv_07_wave_is_transparent', \
-                    # 'scn_mv_08_wave_cant_be_pinned', \
-                    # 'scn_mv_37_pinned_piece_cascaded_init', \
-                    # 'scn_mv_38_pinned_piece_cascaded_1', \
-                    # 'scn_mv_39_pinned_piece_cascaded_end', \
-                    # 'scn_mv_40_pinned_piece_cascaded_2', \
-                    'scn_n_20_only_one_queen', \
+                    'scn_mv_09_own_wave_is_divergent_init', \
+                    'scn_mv_10_own_wave_is_divergent_1', \
                 ]
