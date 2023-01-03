@@ -294,6 +294,7 @@ class SceneMirandasVeilMixin:
 
         for i, arrow in enumerate( coords_Q_w_W() ):
             mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Illegal if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -345,11 +346,56 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # No single-step divergence
+
+    def scn_mv_11_no_single_step_divergence(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_11_no_single_step_divergence', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_N = (11, 5)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_W = (9, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # N --> W
+        scene.append_arrow( *( start_N + start_W ), mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
+    # Diverging rush
+
+    def scn_mv_12_diverging_rush(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_12_diverging_rush', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_P = (9, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (9, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # P --> W
+        coords_P_W = GS.gen_steps( start=start_P, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_P_W() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+
+    #
     # Wave divergence
 
-    def scn_mv_11_wave_divergence_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_13_wave_divergence_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_11_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_13_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -390,9 +436,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_12_wave_divergence_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_14_wave_divergence_1(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_12_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_14_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
