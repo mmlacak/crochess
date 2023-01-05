@@ -2076,7 +2076,7 @@ class SceneMirandasVeilMixin:
 
         # initial cascade
 
-        start_Q_A = (3, 11)
+        start_Q_A = (3, 12)
         scene.board.set_piece( *start_Q_A, piece=PieceType.Queen )
 
         start_W_A = (3, 1)
@@ -2092,9 +2092,9 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
         # Q(A) --> W(A)
-        start_QA_WA = GS.gen_steps( start=start_Q_A, rels=[ (0, -1), ], include_prev=True, count=10 )
+        start_QA_WA = GS.gen_steps( start=start_Q_A, rels=[ (0, -1), ], include_prev=True, count=11 )
         for i, arrow in enumerate( start_QA_WA() ):
-            mark_type = MarkType.Action if i == 9 else \
+            mark_type = MarkType.Action if i == 10 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -2149,10 +2149,77 @@ class SceneMirandasVeilMixin:
         scene = Scene('scn_mv_46_static_piece_is_legal_end', bt) # , height=9.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
+        # pinned Bishop
+
+        start_g = (9, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        prev_B = (7, 5)
+        start_B = (9, 3)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_K = (5, 1)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        # initial cascade
+
+        prev_Q_A = (3, 11)
+        start_Q_A = (3, 1)
+        scene.board.set_piece( *start_Q_A, piece=PieceType.Queen )
+
+        prev_W_A = (3, 1)
+        start_W_A = (7, 5)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        prev_W_B = (9, 3)
+        start_W_B = (11, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        prev_Q_B = (12, 5)
+        start_Q_B = (9, 7)
+        scene.board.set_piece( *start_Q_B, piece=PieceType.Queen )
+
+        prev_W_C = (9, 7)
+        # scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # W(C) @ Q(B) --> B
+        start_WC_QB_B = GS.gen_steps( start=start_Q_B, rels=[ (0, -1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_WC_QB_B() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # B --> W(A)
+        start_B_WA = GS.gen_steps( start=start_B, rels=[ (-1, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_B_WA() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> |
+        start_WA_ = GS.gen_steps( start=start_W_A, rels=[ (-1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_WA_() ):
+            # mark_type = MarkType.Action if i == 1 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        # pinning
+
+        # # g --> B --> K
+        # start_g_B_K = GS.gen_steps( start=start_g, rels=[ (-1, -2), ], include_prev=True, count=4 )
+        # for i, arrow in enumerate( start_g_B_K() ):
+        #     mark_type = MarkType.Illegal if i == 3 else \
+        #                 MarkType.Blocked
+        #     scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_Q_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        # scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+
         return scene
-
-
-
 
     #
     # Cascading opponent
