@@ -36,10 +36,10 @@ class SceneMix(SceneMixin, \
         return  [
                     'scn_mv_37_static_move_is_illegal_init', \
                     'scn_mv_38_static_move_is_illegal_end', \
-                    # 'scn_mv_50_own_wave_is_divergent_init', \
-                    # 'scn_mv_51_own_wave_is_divergent_1', \
-                    # 'scn_mv_52_no_single_step_divergence', \
-                    # 'scn_mv_53_diverging_rush', \
-                    # 'scn_mv_54_wave_divergence_init', \
-                    # 'scn_mv_55_wave_divergence_1', \
+                    # 'scn_mv_52_own_wave_is_divergent_init', \
+                    # 'scn_mv_53_own_wave_is_divergent_1', \
+                    # 'scn_mv_54_no_single_step_divergence', \
+                    # 'scn_mv_55_diverging_rush', \
+                    # 'scn_mv_56_wave_divergence_init', \
+                    # 'scn_mv_57_wave_divergence_1', \
                 ]

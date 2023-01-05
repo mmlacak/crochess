@@ -1712,9 +1712,9 @@ class SceneMirandasVeilMixin:
     #
     # Cascading pinned piece
 
-    def scn_mv_37_pinned_piece_cascaded_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_39_pinned_piece_cascaded_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_37_pinned_piece_cascaded_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_39_pinned_piece_cascaded_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_g = (9, 9)
@@ -1751,9 +1751,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_38_pinned_piece_cascaded_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_40_pinned_piece_cascaded_1(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_38_pinned_piece_cascaded_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_40_pinned_piece_cascaded_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_g = (9, 9)
@@ -1813,9 +1813,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_39_pinned_piece_cascaded_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_41_pinned_piece_cascaded_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_39_pinned_piece_cascaded_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_41_pinned_piece_cascaded_end', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_g = (9, 9)
@@ -1852,9 +1852,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_40_pinned_piece_cascaded_2(self, bt=BoardType.MirandasVeil):
+    def scn_mv_42_pinned_piece_cascaded_2(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_40_pinned_piece_cascaded_2', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_42_pinned_piece_cascaded_2', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_g = (9, 9)
@@ -1896,9 +1896,9 @@ class SceneMirandasVeilMixin:
     #
     # Cascade check, checkmate
 
-    def scn_mv_41_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_43_activated_piece_check_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_41_activated_piece_check_init', bt, height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_43_activated_piece_check_init', bt, height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_B = (1, 4)
@@ -1967,9 +1967,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_42_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
+    def scn_mv_44_activated_piece_check_cascade(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_42_activated_piece_check_cascade', bt, height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_44_activated_piece_check_cascade', bt, height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_B_prev = (1, 4)
@@ -2058,9 +2058,9 @@ class SceneMirandasVeilMixin:
     #
     # Cascading opponent
 
-    def scn_mv_43_wave_cascading_opponent(self, bt=BoardType.MirandasVeil):
+    def scn_mv_45_wave_cascading_opponent(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_43_wave_cascading_opponent', bt)
+        scene = Scene('scn_mv_45_wave_cascading_opponent', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -2139,9 +2139,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_44_cascaded_opponent_capturing(self, bt=BoardType.MirandasVeil):
+    def scn_mv_46_cascaded_opponent_capturing(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_44_cascaded_opponent_capturing', bt)
+        scene = Scene('scn_mv_46_cascaded_opponent_capturing', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -2194,9 +2194,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_45_cascaded_opponent_promoting(self, bt=BoardType.MirandasVeil):
+    def scn_mv_47_cascaded_opponent_promoting(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_45_cascaded_opponent_promoting', bt)
+        scene = Scene('scn_mv_47_cascaded_opponent_promoting', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -2241,9 +2241,9 @@ class SceneMirandasVeilMixin:
     #
     # Cascade self-checkmate
 
-    def scn_mv_46_cascade_self_checkmate_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_48_cascade_self_checkmate_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_46_cascade_self_checkmate_init', bt)
+        scene = Scene('scn_mv_48_cascade_self_checkmate_init', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -2289,9 +2289,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_47_cascade_self_checkmate_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_49_cascade_self_checkmate_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_47_cascade_self_checkmate_end', bt)
+        scene = Scene('scn_mv_49_cascade_self_checkmate_end', bt)
 
         end_B = (4, 1)
         scene.board.set_piece( *end_B, piece=PieceType.Bishop )
@@ -2347,9 +2347,9 @@ class SceneMirandasVeilMixin:
     #
     # Wave blocked
 
-    def scn_mv_48_wave_blocked_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_50_wave_blocked_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_48_wave_blocked_init', bt)
+        scene = Scene('scn_mv_50_wave_blocked_init', bt)
 
         start_r = (9, 9)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
@@ -2424,9 +2424,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_49_wave_blocked_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_51_wave_blocked_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_49_wave_blocked_end', bt)
+        scene = Scene('scn_mv_51_wave_blocked_end', bt)
 
         scene.board.set_piece(9, 4, piece=-PieceType.Rook)
         scene.board.set_piece(11, 4, piece=-PieceType.Wave)
@@ -2474,9 +2474,9 @@ class SceneMirandasVeilMixin:
     #
     # Divergence
 
-    def scn_mv_50_own_wave_is_divergent_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_52_own_wave_is_divergent_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_50_own_wave_is_divergent_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_52_own_wave_is_divergent_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (14, 1)
@@ -2507,9 +2507,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_51_own_wave_is_divergent_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_53_own_wave_is_divergent_1(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_51_own_wave_is_divergent_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_53_own_wave_is_divergent_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (14, 1)
@@ -2553,9 +2553,9 @@ class SceneMirandasVeilMixin:
     #
     # No single-step divergence
 
-    def scn_mv_52_no_single_step_divergence(self, bt=BoardType.MirandasVeil):
+    def scn_mv_54_no_single_step_divergence(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_52_no_single_step_divergence', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_54_no_single_step_divergence', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_N = (11, 5)
@@ -2572,9 +2572,9 @@ class SceneMirandasVeilMixin:
     #
     # Diverging rush
 
-    def scn_mv_53_diverging_rush(self, bt=BoardType.MirandasVeil):
+    def scn_mv_55_diverging_rush(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_53_diverging_rush', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_55_diverging_rush', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_P = (9, 1)
@@ -2598,9 +2598,9 @@ class SceneMirandasVeilMixin:
     #
     # Wave divergence
 
-    def scn_mv_54_wave_divergence_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_56_wave_divergence_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_54_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_56_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -2641,9 +2641,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_55_wave_divergence_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_57_wave_divergence_1(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_55_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_57_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
