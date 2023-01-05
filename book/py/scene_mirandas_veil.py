@@ -1642,16 +1642,16 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_37_static_move_is_illegal_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_37_static_move_is_illegal_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_37_static_move_is_illegal_init', bt, height=9.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
-        start_Q = (7, 3)
+        start_Q = (7, 2)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_W_A = (3, 3)
+        start_W_A = (3, 2)
         scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        start_W_B = (3, 7)
+        start_W_B = (3, 6)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
         # Q --> W(A)
@@ -1676,17 +1676,17 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_38_static_move_is_illegal_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_38_static_move_is_illegal_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_38_static_move_is_illegal_end', bt, height=9.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
-        start_Q = (7, 3)
-        end_Q = (3, 3)
+        start_Q = (7, 2)
+        end_Q = (3, 2)
         scene.board.set_piece( *end_Q, piece=PieceType.Queen )
 
-        start_W_A = (3, 7) # (3, 3)
+        start_W_A = (3, 6) # (3, 2)
         scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        start_W_B = (3, 7)
+        start_W_B = (3, 6)
         # scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
         # W(B) --> Q

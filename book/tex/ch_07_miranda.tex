@@ -780,13 +780,25 @@ the beginning of reactivating ply.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_static_move_is_illegal_init.png}
-% \vspace*{-1.3\baselineskip}
+\vspace*{-1.3\baselineskip}
 \caption{Static move start}
 \label{fig:scn_mv_37_static_move_is_illegal_init}
 \end{figure}
 
-% \vspace*{-0.3\baselineskip}
-. . .
+\vspace*{-0.4\baselineskip}
+Since pieces can be reactivated in a cascade, and after activation they can choose
+direction of movement independently from any previous choice, it would be possible
+to perform a move so that the same pieces occupy the same fields before and after
+such a move.
+
+For instance, a piece could activate Wave, which could activate another Wave, which
+could then reactivate initiating piece, which could just make it back to starting
+position. Net result would be that Waves involved have just swapped places, all other
+pieces would be on their originating field. Since one piece is indistinguishable from
+the other of the same kind, for all intents and purposes that would be the same, as if
+no move has been performed.
+
+Here, light Queen is about to activate Wave A, which can then activate Wave B.
 
 \clearpage % ..........................................................
 
@@ -799,10 +811,30 @@ the beginning of reactivating ply.
 \label{fig:scn_mv_38_static_move_is_illegal_end}
 \end{figure}
 
-\vspace*{-0.3\baselineskip}
-. . .
+\vspace*{-0.4\baselineskip}
+Here, Wave B (now "in-the-air") is about to reactivate light Queen, which would be
+able to return to its starting position; because Waves do not use momentum, and
+distance travelled by light Queen would be the same while accumulating momentum,
+and later expending it.
+
+However, this is illegal. Position after such a move would be virtually the same
+as before the move. It is forbidden for any piece starting a cascade (or moving
+on it's own) to end move in the same position it had before the move. This
+restriction does not apply to any other piece activated in a cascade.
 
 % .............................................. Static move is illegal
+\clearpage % ..........................................................
+% Static piece is legal ...............................................
+
+\subsubsection*{Static piece is legal}
+\addcontentsline{toc}{subsubsection}{Static piece is legal}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Static piece is legal}
+
+\huge
+TODO
+\normalsize
+
+% ............................................... Static piece is legal
 \clearpage % ..........................................................
 % Cascading pinned piece ..............................................
 
