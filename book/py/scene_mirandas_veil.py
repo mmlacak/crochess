@@ -2056,6 +2056,105 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Static piece is legal
+
+    def scn_mv_45_static_piece_is_legal_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_45_static_piece_is_legal_init', bt) # , height=9.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        # pinned Bishop
+
+        start_g = (9, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_B = (7, 5)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_K = (5, 1)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        # initial cascade
+
+        start_Q_A = (3, 11)
+        scene.board.set_piece( *start_Q_A, piece=PieceType.Queen )
+
+        start_W_A = (3, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (9, 3)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_Q_B = (11, 5)
+        scene.board.set_piece( *start_Q_B, piece=PieceType.Queen )
+
+        start_W_C = (9, 7)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # Q(A) --> W(A)
+        start_QA_WA = GS.gen_steps( start=start_Q_A, rels=[ (0, -1), ], include_prev=True, count=10 )
+        for i, arrow in enumerate( start_QA_WA() ):
+            mark_type = MarkType.Action if i == 9 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> B
+        start_WA_B = GS.gen_steps( start=start_W_A, rels=[ (1, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_WA_B() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # B --> W(B)
+        start_B_WB = GS.gen_steps( start=start_B, rels=[ (1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_B_WB() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(B) --> Q(B)
+        start_WB_QB = GS.gen_steps( start=start_W_B, rels=[ (1, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_WB_QB() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # Q(B) --> W(C)
+        start_QB_WC = GS.gen_steps( start=start_Q_B, rels=[ (-1, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_QB_WC() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # pinning
+
+        # # g --> B --> K
+        # start_g_B_K = GS.gen_steps( start=start_g, rels=[ (-1, -2), ], include_prev=True, count=4 )
+        # for i, arrow in enumerate( start_g_B_K() ):
+        #     mark_type = MarkType.Illegal if i == 3 else \
+        #                 MarkType.Blocked
+        #     scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_Q_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_mv_46_static_piece_is_legal_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_46_static_piece_is_legal_end', bt) # , height=9.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        return scene
+
+
+
+
+    #
     # Cascading opponent
 
     def scn_mv_45_wave_cascading_opponent(self, bt=BoardType.MirandasVeil):
