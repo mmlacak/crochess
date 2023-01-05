@@ -1638,6 +1638,78 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Static move is illegal
+
+    def scn_mv_37_static_move_is_illegal_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_37_static_move_is_illegal_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (7, 3)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_A = (3, 3)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (3, 7)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        # Q --> W(A)
+        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[ (-1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_Q_WA() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_steps( start=start_W_A, rels=[ (0, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_WA_WB() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_mv_38_static_move_is_illegal_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_38_static_move_is_illegal_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (7, 3)
+        end_Q = (3, 3)
+        scene.board.set_piece( *end_Q, piece=PieceType.Queen )
+
+        start_W_A = (3, 7) # (3, 3)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (3, 7)
+        # scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        # W(B) --> Q
+        coords_WB_Q = GS.gen_steps( start=start_W_B, rels=[ (0, -1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_WB_Q() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # Q -->
+        coords_Q_ = GS.gen_steps( start=end_Q, rels=[ (1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_Q_() ):
+            mark_type = MarkType.Illegal if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        # scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
     # Cascading pinned piece
 
     def scn_mv_37_pinned_piece_cascaded_init(self, bt=BoardType.MirandasVeil):
