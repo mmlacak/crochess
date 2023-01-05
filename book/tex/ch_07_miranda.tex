@@ -770,6 +770,113 @@ the beginning of reactivating ply.
 
 % ................................................. Reactivating pieces
 \clearpage % ..........................................................
+% Cascading pinned piece ..............................................
+
+\subsubsection*{Cascading pinned piece}
+\addcontentsline{toc}{subsubsection}{Cascading pinned piece}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Cascading pinned piece}
+
+\vspace*{-1.5\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_pinned_piece_cascaded_init.png}
+\vspace*{-1.3\baselineskip}
+\caption{Light Queen is hard-pinned}
+\label{fig:scn_mv_37_pinned_piece_cascaded_init}
+\end{figure}
+
+\vspace*{-0.5\baselineskip}
+A piece hard-pinned to its King cannot move in a normal, non-cascading move, since
+that would leave King checked. Whether King is checked, or checkmated, is determined
+only after a move (a cascade) has been finished. So, in a cascade, one could replace
+hard-pinned piece with any other material piece; Wave can't be used since
+\hyperref[fig:scn_mv_07_wave_is_transparent]{it's transparent}.
+
+Here, light Queen is hard-pinned.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_38_pinned_piece_cascaded_1.png}
+\vspace*{-1.3\baselineskip}
+\caption{Cascading pinned piece}
+\label{fig:scn_mv_38_pinned_piece_cascaded_1}
+\end{figure}
+
+\vspace*{-0.5\baselineskip}
+During cascade, Wave can be the only piece on a pinning path (i.e. on opponent's
+capture-field), as long as any material piece is pinned after that cascade has been
+finished. Pinned piece doesn't have to be replaced at the same field; blocking any
+capture-field which leads to own King will do.
+
+Here, light Wave A is the only piece on dark Pegasus' capture-path after it activates
+Queen; this is fine, Knight will be pinned after light player's move has been finished.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.3\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_pinned_piece_cascaded_2.png}
+% \vspace*{-1.3\baselineskip}
+\caption{Pinned piece starts a cascade}
+\label{fig:scn_mv_40_pinned_piece_cascaded_2}
+\end{figure}
+
+% \vspace*{-0.5\baselineskip}
+It's posible for pinned piece to start a cascade, leaving opponent's capture-path
+empty. Similarly to previous example, this is also fine, as long as some other
+material piece is pinned after that same cascade has been finished.
+
+% .............................................. Cascading pinned piece
+\clearpage % ..........................................................
+% Cascade check, checkmate ............................................
+
+\subsubsection*{Cascade check, checkmate}
+\addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Cascade check, checkmate}
+
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_41_activated_piece_check_init.png}
+\caption{Activating Queen}
+\label{fig:scn_mv_41_activated_piece_check_init}
+\end{figure}
+
+Again, King is checked (or checkmated) only after cascade has finished; just like
+after normal, non-cascaded move. During cascade, piece can be reactivated on a
+temporary field, and thus repositioned to a new field. So, a piece can temporary
+be located on a field where it would check (or checkmate) King, if that would be
+its final destination for that cascade. When piece is repositioned from its
+temporary location, King is not affected, and game continues.
+
+\clearpage % ..........................................................
+
+\vspace*{-2.3\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_42_activated_piece_check_cascade.png}
+\vspace*{-1.3\baselineskip}
+\caption{Reactivating Queen}
+\label{fig:scn_mv_42_activated_piece_check_cascade}
+\end{figure}
+
+\vspace*{-0.3\baselineskip}
+Here, light Queen after being positioned on a temporary field does not attack dark
+King, because all of its momentum has been transferred to Wave B, then C and finally
+D. Wave D is now "in-the-air", about to reactivate light Queen with remaining 5
+momentum; grey arrows show path travelled over by piece they point to. After
+reactivation, light Queen still won't attack dark King, even though it's located on
+light Queen's capture-field, and within range. This is so because being checked (or
+checkmated) is a status of a position, after all pieces had settled down, and move
+has been done. This means, cascade would have to finish with activated light Queen
+settling onto e.g. field 2, or 4, for that Queen to check dark King.
+
+% ............................................ Cascade check, checkmate
+\clearpage % ..........................................................
 % Static move is illegal ..............................................
 
 \subsubsection*{Static move is illegal}
@@ -779,10 +886,10 @@ the beginning of reactivating ply.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_static_move_is_illegal_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_43_static_move_is_illegal_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Static move start}
-\label{fig:scn_mv_37_static_move_is_illegal_init}
+\label{fig:scn_mv_43_static_move_is_illegal_init}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -794,9 +901,9 @@ such a move.
 For instance, a piece could activate Wave, which could activate another Wave, which
 could then reactivate initiating piece, which could just make it back to starting
 position. Net result would be that Waves involved have just swapped places, all other
-pieces would be on their originating field. Since one piece is indistinguishable from
-the other of the same kind, for all intents and purposes that would be the same, as if
-no move has been performed.
+pieces would be on their original fields. Since one piece is indistinguishable from
+the other of the same kind, for all intents and purposes that would be the same, as
+if no move has been performed.
 
 Here, light Queen is about to activate Wave A, which can then activate Wave B.
 
@@ -805,10 +912,10 @@ Here, light Queen is about to activate Wave A, which can then activate Wave B.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_38_static_move_is_illegal_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_44_static_move_is_illegal_end.png}
 \vspace*{-1.3\baselineskip}
 \caption{Static move is illegal}
-\label{fig:scn_mv_38_static_move_is_illegal_end}
+\label{fig:scn_mv_44_static_move_is_illegal_end}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -835,113 +942,6 @@ TODO
 \normalsize
 
 % ............................................... Static piece is legal
-\clearpage % ..........................................................
-% Cascading pinned piece ..............................................
-
-\subsubsection*{Cascading pinned piece}
-\addcontentsline{toc}{subsubsection}{Cascading pinned piece}
-\label{sec:Miranda's veil/Wave/Cascading Waves/Cascading pinned piece}
-
-\vspace*{-1.5\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_pinned_piece_cascaded_init.png}
-\vspace*{-1.3\baselineskip}
-\caption{Light Queen is hard-pinned}
-\label{fig:scn_mv_39_pinned_piece_cascaded_init}
-\end{figure}
-
-\vspace*{-0.5\baselineskip}
-A piece hard-pinned to its King cannot move in a normal, non-cascading move, since
-that would leave King checked. Whether King is checked, or checkmated, is determined
-only after a move (a cascade) has been finished. So, in a cascade, one could replace
-hard-pinned piece with any other material piece; Wave can't be used since
-\hyperref[fig:scn_mv_07_wave_is_transparent]{it's transparent}.
-
-Here, light Queen is hard-pinned.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_pinned_piece_cascaded_1.png}
-\vspace*{-1.3\baselineskip}
-\caption{Cascading pinned piece}
-\label{fig:scn_mv_40_pinned_piece_cascaded_1}
-\end{figure}
-
-\vspace*{-0.5\baselineskip}
-During cascade, Wave can be the only piece on a pinning path (i.e. on opponent's
-capture-field), as long as any material piece is pinned after that cascade has been
-finished. Pinned piece doesn't have to be replaced at the same field; blocking any
-capture-field which leads to own King will do.
-
-Here, light Wave A is the only piece on dark Pegasus' capture-path after it activates
-Queen; this is fine, Knight will be pinned after light player's move has been finished.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.3\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_42_pinned_piece_cascaded_2.png}
-% \vspace*{-1.3\baselineskip}
-\caption{Pinned piece starts a cascade}
-\label{fig:scn_mv_42_pinned_piece_cascaded_2}
-\end{figure}
-
-% \vspace*{-0.5\baselineskip}
-It's posible for pinned piece to start a cascade, leaving opponent's capture-path
-empty. Similarly to previous example, this is also fine, as long as some other
-material piece is pinned after that same cascade has been finished.
-
-% .............................................. Cascading pinned piece
-\clearpage % ..........................................................
-% Cascade check, checkmate ............................................
-
-\subsubsection*{Cascade check, checkmate}
-\addcontentsline{toc}{subsubsection}{Cascade check, checkmate}
-\label{sec:Miranda's veil/Wave/Cascading Waves/Cascade check, checkmate}
-
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_43_activated_piece_check_init.png}
-\caption{Activating Queen}
-\label{fig:scn_mv_43_activated_piece_check_init}
-\end{figure}
-
-Again, King is checked (or checkmated) only after cascade has finished; just like
-after normal, non-cascaded move. During cascade, piece can be reactivated on a
-temporary field, and thus repositioned to a new field. So, a piece can temporary
-be located on a field where it would check (or checkmate) King, if that would be
-its final destination for that cascade. When piece is repositioned from its
-temporary location, King is not affected, and game continues.
-
-\clearpage % ..........................................................
-
-\vspace*{-2.3\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_44_activated_piece_check_cascade.png}
-\vspace*{-1.3\baselineskip}
-\caption{Reactivating Queen}
-\label{fig:scn_mv_44_activated_piece_check_cascade}
-\end{figure}
-
-\vspace*{-0.3\baselineskip}
-Here, light Queen after being positioned on a temporary field does not attack dark
-King, because all of its momentum has been transferred to Wave B, then C and finally
-D. Wave D is now "in-the-air", about to reactivate light Queen with remaining 5
-momentum; grey arrows show path travelled over by piece they point to. After
-reactivation, light Queen still won't attack dark King, even though it's located on
-light Queen's capture-field, and within range. This is so because being checked (or
-checkmated) is a status of a position, after all pieces had settled down, and move
-has been done. This means, cascade would have to finish with activated light Queen
-settling onto e.g. field 2, or 4, for that Queen to check dark King.
-
-% ............................................ Cascade check, checkmate
 % ----------------------------------------------------- Cascading Waves
 \clearpage % ..........................................................
 % Cascading opponent --------------------------------------------------
@@ -1021,7 +1021,7 @@ promoted to light piece, it's being promoted to dark piece, e.g. dark Queen.
 Opponent's piece, activated in own cascade, can be positioned on a field where
 it would check own King if cascade has finished; this is fine as long as that piece
 is reactivated and
-\hyperref[fig:scn_mv_43_activated_piece_check_init]{moved away from its temporary position}.
+\hyperref[fig:scn_mv_41_activated_piece_check_init]{moved away from its temporary position}.
 Opponent's piece left in a position from where it does check own King after own cascade
 is finished leads to immediate self-induced checkmate, since now it's opponent's turn,
 and own King can't be removed from check.
