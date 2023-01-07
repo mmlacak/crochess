@@ -2715,30 +2715,11 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
-    # No single-step divergence
-
-    def scn_mv_56_no_single_step_divergence(self, bt=BoardType.MirandasVeil):
-
-        scene = Scene('scn_mv_56_no_single_step_divergence', bt) # , height=13.3) # , y=0.7, height=12.5)
-        rect = (0.05, 0.8, 0.65, 0.1)
-
-        start_N = (11, 5)
-        scene.board.set_piece( *start_N, piece=PieceType.Knight )
-
-        start_W = (9, 6)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        # N --> W
-        scene.append_arrow( *( start_N + start_W ), mark_type=MarkType.Illegal )
-
-        return scene
-
-    #
     # Diverging rush
 
-    def scn_mv_57_diverging_rush(self, bt=BoardType.MirandasVeil):
+    def scn_mv_56_diverging_rush(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_57_diverging_rush', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_56_diverging_rush', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         # ignoring
@@ -2796,6 +2777,25 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         scene.append_text( "C", *start_P_C, mark_type=MarkType.Action, corner=Corner.UpperRight )
+
+        return scene
+
+    #
+    # No single-step divergence
+
+    def scn_mv_57_diverging_activated_piece(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_57_diverging_activated_piece', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_N = (11, 5)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_W = (9, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # N --> W
+        scene.append_arrow( *( start_N + start_W ), mark_type=MarkType.Illegal )
 
         return scene
 
