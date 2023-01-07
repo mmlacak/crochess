@@ -1193,7 +1193,7 @@ So, in this example, starting field Q is illegal destination for light Queen.
 \vspace*{-0.4\baselineskip}
 Pieces which can move for only a single step in a ply, cannot neither diverge nor
 ignore Wave, but only activate it, because Wave already occupies a destination field,
-and cannot grant another step. Those pieces are Kings, Knights, Unicorns and Pawns
+and does not grant another step. Those pieces are Kings, Knights, Unicorns and Pawns
 (if they're not rushing).
 
 \clearpage % ..........................................................
@@ -1212,7 +1212,11 @@ and cannot grant another step. Those pieces are Kings, Knights, Unicorns and Paw
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-. . .
+Image above have three examples presented in parallel; left, center, and right. Pawn,
+when rushing, can activate own Wave, ignore it (in this example, Pawn A), or diverge
+from it (here, Pawns B, C). Diverging Pawns are limited by momentum, so divergent Wave
+closer to starting field will limit Pawn's reach (Pawn B), while Wave farther apart
+will extend it (Pawn C), compared to full extent of a rush (Pawn A).
 
 \clearpage % ..........................................................
 % Diverging Wave ......................................................
