@@ -2199,8 +2199,6 @@ class SceneMirandasVeilMixin:
         # W(A) --> |
         start_WA_ = GS.gen_steps( start=start_W_A, rels=[ (-1, 0), ], include_prev=True, count=4 )
         for i, arrow in enumerate( start_WA_() ):
-            # mark_type = MarkType.Action if i == 1 else \
-            #             MarkType.Legal
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
         # pinning
@@ -2218,7 +2216,6 @@ class SceneMirandasVeilMixin:
 
         scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
         scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
-        # scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
 
         return scene
 
