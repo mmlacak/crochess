@@ -921,8 +921,8 @@ Here, light Queen is about to activate Wave A, which can then activate Wave B.
 \vspace*{-0.4\baselineskip}
 Here, Wave B (now "in-the-air") is about to reactivate light Queen, which would be
 able to return to its starting position; because Waves do not use momentum, and
-distance travelled by light Queen would be the same while accumulating momentum,
-and later expending it.
+distance travelled by light Queen would be the same as it was while accumulating
+momentum.
 
 However, this is illegal. Position after such a move would be virtually the same
 as before the move. It is forbidden for any piece starting a cascade (or moving
@@ -973,21 +973,38 @@ about to activate Bishop which can then return to its original pinned position,
 and then force Wave A out of the pin.
 
 This move is legal, since static piece (in this case, light Bishop) did not started
-a cascade, and the one which did (here, light Queen A) has been moved out of its
-starting position (field Q).
+a cascade, and the one which did (here, light Queen A) will remain out of its
+starting position (field Q), when this move ends.
 
+% ............................................... Static piece is legal
 \clearpage % ..........................................................
+% Delayed promotion is legal ..........................................
 
 \subsubsection*{Delayed promotion is legal}
 \addcontentsline{toc}{subsubsection}{Delayed promotion is legal}
 \label{sec:Miranda's veil/Wave/Cascading Waves/Delayed promotion is legal}
 
-\TODO
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_47_delayed_promotion_is_legal_init.png}
+\vspace*{-1.3\baselineskip}
+\caption{Delayed promotion start}
+\label{fig:scn_mv_47_delayed_promotion_is_legal_init}
+\end{figure}
+
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_48_delayed_promotion_is_legal_end.png}
+\vspace*{-1.3\baselineskip}
+\caption{Delayed promotion is legal}
+\label{fig:scn_mv_48_delayed_promotion_is_legal_end}
+\end{figure}
 
 \vspace*{-0.4\baselineskip}
 . . .
 
-% ............................................... Static piece is legal
+% .......................................... Delayed promotion is legal
 % ----------------------------------------------------- Cascading Waves
 \clearpage % ..........................................................
 % Cascading opponent --------------------------------------------------
@@ -999,10 +1016,10 @@ starting position (field Q).
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_47_wave_cascading_opponent.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_49_wave_cascading_opponent.png}
 % \vspace*{-1.3\baselineskip}
 \caption{Cascading opponent}
-\label{fig:scn_mv_47_wave_cascading_opponent}
+\label{fig:scn_mv_49_wave_cascading_opponent}
 \end{figure}
 
 % \vspace*{-0.3\baselineskip}
@@ -1019,9 +1036,9 @@ cascade, thus determines which pieces are own and which are opponent's.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_48_cascaded_opponent_capturing.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_50_cascaded_opponent_capturing.png}
 \caption{Cascaded opponent capturing piece}
-\label{fig:scn_mv_48_cascaded_opponent_capturing}
+\label{fig:scn_mv_50_cascaded_opponent_capturing}
 \end{figure}
 
 Opponent's pieces, activated in own cascade, keep all of their behavior as if in a
@@ -1036,9 +1053,9 @@ activating light Wave, it's just capturing it.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_49_cascaded_opponent_promoting.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_51_cascaded_opponent_promoting.png}
 \caption{Cascaded opponent promoting Pawn}
-\label{fig:scn_mv_49_cascaded_opponent_promoting}
+\label{fig:scn_mv_51_cascaded_opponent_promoting}
 \end{figure}
 
 Opponent's Pawn in own cascade can be promoted only to other opponent's pieces,
@@ -1057,10 +1074,10 @@ promoted to light piece, it's being promoted to dark piece, e.g. dark Queen.
 \vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_50_cascade_self_checkmate_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_52_cascade_self_checkmate_init.png}
 \vspace*{-1.4\baselineskip}
 \caption{Cascading opponent's Rook}
-\label{fig:scn_mv_50_cascade_self_checkmate_init}
+\label{fig:scn_mv_52_cascade_self_checkmate_init}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -1077,9 +1094,9 @@ and own King can't be removed from check.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_51_cascade_self_checkmate_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_53_cascade_self_checkmate_end.png}
 \caption{Cascaded self-checkmate}
-\label{fig:scn_mv_51_cascade_self_checkmate_end}
+\label{fig:scn_mv_53_cascade_self_checkmate_end}
 \end{figure}
 
 Here, light player's cascade has finished; notice, first piece in a cascade is light
@@ -1098,9 +1115,9 @@ light King can't be moved out of a check, this is immediate self-checkmate.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_52_wave_blocked_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_54_wave_blocked_init.png}
 \caption{Activating Wave}
-\label{fig:scn_mv_52_wave_blocked_init}
+\label{fig:scn_mv_54_wave_blocked_init}
 \end{figure}
 
 Wave cannot activate opponent's pieces, except for Waves. Activated Wave which movement
@@ -1114,9 +1131,9 @@ Here, dark Wave B is about to be activated with one momentum.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_53_wave_blocked_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_55_wave_blocked_end.png}
 \caption{Activated Wave blocked}
-\label{fig:scn_mv_53_wave_blocked_end}
+\label{fig:scn_mv_55_wave_blocked_end}
 \end{figure}
 
 Here, dark Wave B is activated without committing its movement yet (it's "in-the-air").
@@ -1138,10 +1155,10 @@ Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_54_own_wave_is_divergent_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_56_own_wave_is_divergent_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Own Wave is divergent}
-\label{fig:scn_mv_54_own_wave_is_divergent_init}
+\label{fig:scn_mv_56_own_wave_is_divergent_init}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
@@ -1157,10 +1174,10 @@ dark Wave.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_55_own_wave_is_divergent_1.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_57_own_wave_is_divergent_1.png}
 \vspace*{-1.3\baselineskip}
 \caption{Diverging Queen}
-\label{fig:scn_mv_55_own_wave_is_divergent_1}
+\label{fig:scn_mv_57_own_wave_is_divergent_1}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -1182,10 +1199,10 @@ So, in this example, starting field Q is illegal destination for light Queen.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_56_diverging_rush.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_58_diverging_rush.png}
 \vspace*{-1.3\baselineskip}
 \caption{Diverging rush}
-\label{fig:scn_mv_56_diverging_rush}
+\label{fig:scn_mv_58_diverging_rush}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -1205,10 +1222,10 @@ will extend it (Pawn C), compared to full extent of a rush (Pawn A).
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_57_diverging_activated_piece.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_59_diverging_activated_piece.png}
 \vspace*{-1.3\baselineskip}
 \caption{Diverging activated piece}
-\label{fig:scn_mv_57_diverging_activated_piece}
+\label{fig:scn_mv_59_diverging_activated_piece}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -1238,10 +1255,10 @@ cannot diverge, only activate that Wave.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_58_wave_divergence_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_60_wave_divergence_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Diverging Wave}
-\label{fig:scn_mv_58_wave_divergence_init}
+\label{fig:scn_mv_60_wave_divergence_init}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -1252,10 +1269,10 @@ cannot diverge, only activate that Wave.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_59_wave_divergence_1.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_61_wave_divergence_1.png}
 \vspace*{-1.3\baselineskip}
 \caption{Wave diverted}
-\label{fig:scn_mv_59_wave_divergence_1}
+\label{fig:scn_mv_61_wave_divergence_1}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}

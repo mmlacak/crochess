@@ -38,10 +38,12 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_44_static_move_is_illegal_end', \
                     # 'scn_mv_45_static_piece_is_legal_init', \
                     # 'scn_mv_46_static_piece_is_legal_end', \
-                    # 'scn_mv_54_own_wave_is_divergent_init', \
-                    # 'scn_mv_55_own_wave_is_divergent_1', \
-                    # 'scn_mv_57_diverging_activated_piece', \
-                    'scn_mv_56_diverging_rush', \
-                    # 'scn_mv_58_wave_divergence_init', \
-                    # 'scn_mv_59_wave_divergence_1', \
+                    'scn_mv_47_delayed_promotion_is_legal_init', \
+                    'scn_mv_48_delayed_promotion_is_legal_end', \
+                    # 'scn_mv_56_own_wave_is_divergent_init', \
+                    # 'scn_mv_57_own_wave_is_divergent_1', \
+                    # 'scn_mv_59_diverging_activated_piece', \
+                    # 'scn_mv_58_diverging_rush', \
+                    # 'scn_mv_60_wave_divergence_init', \
+                    # 'scn_mv_61_wave_divergence_1', \
                 ]
