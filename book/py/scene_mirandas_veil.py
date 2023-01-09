@@ -2845,6 +2845,24 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
+        # R --> WB
+        coords_R_WB = GS.gen_steps( start=start_R, rels=[(1, 0), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_R_WB() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --> WC
+        coords_R_WC = GS.gen_steps( start=start_R, rels=[(0, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_R_WC() ):
+            mark_type = MarkType.Illegal if i == 4 else \
+                        MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
         scene.append_text( "C", *start_W_C, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
@@ -2873,39 +2891,14 @@ class SceneMirandasVeilMixin:
         start_W_C = (9, 6)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
-        # R --> WB # right
-        coords_R_WB = GS.gen_steps( start=prev_R, rels=[(1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        # | <-- R --> |
+        for rel in GS.DEFAULT_ROOK_REL_MOVES:
+            coords_R_ = GS.gen_steps( start=start_W_B, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_R_WB() ):
-            mark_type = MarkType.Action if i == 2 else \
-                        MarkType.Legal if i < 4 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # R --> WC # down
-        coords_R_WC = GS.gen_steps( start=prev_R, rels=[(0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_R_WC() ):
-            mark_type = MarkType.Illegal if i == 4 else \
-                        MarkType.Legal if i < 4 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # R --> | # left
-        coords_R_WB = GS.gen_steps( start=prev_R, rels=[(-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_R_WB() ):
-            mark_type = MarkType.Legal if i < 4 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # R --> | # up
-        coords_R_WB = GS.gen_steps( start=prev_R, rels=[(0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_R_WB() ):
-            mark_type = MarkType.Legal if i < 4 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
+            for i, arrow in enumerate( coords_R_() ):
+                mark_type = MarkType.Legal if i < 2 else \
+                            MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
 
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRight )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
