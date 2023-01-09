@@ -2807,21 +2807,111 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
-    # No single-step divergence
+    # Diverging activated piece
 
-    def scn_mv_59_diverging_activated_piece(self, bt=BoardType.MirandasVeil):
+    def scn_mv_59_diverging_activated_piece_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_59_diverging_activated_piece', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_59_diverging_activated_piece_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
-        start_N = (11, 5)
-        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+        start_Q = (1, 13)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_W = (9, 6)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+        start_W_A = (6, 8)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        # N --> W
-        scene.append_arrow( *( start_N + start_W ), mark_type=MarkType.Illegal )
+        start_R = (9, 11)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W_B = (12, 11)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_W_C = (9, 6)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # Q --> W(A)
+        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(1, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_WA() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> R
+        coords_WA_R = GS.gen_steps( start=start_W_A, rels=[(1, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_WA_R() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "C", *start_W_C, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_mv_60_diverging_activated_piece_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_60_diverging_activated_piece_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        prev_Q = (1, 13)
+        start_Q = (6, 8)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        prev_W_A = (6, 8)
+        start_W_A = (9, 11)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        prev_R = (9, 11)
+        # scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W_B = (12, 11)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_W_C = (9, 6)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # R --> WB # right
+        coords_R_WB = GS.gen_steps( start=prev_R, rels=[(1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_R_WB() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --> WC # down
+        coords_R_WC = GS.gen_steps( start=prev_R, rels=[(0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_R_WC() ):
+            mark_type = MarkType.Illegal if i == 4 else \
+                        MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --> | # left
+        coords_R_WB = GS.gen_steps( start=prev_R, rels=[(-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_R_WB() ):
+            mark_type = MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --> | # up
+        coords_R_WB = GS.gen_steps( start=prev_R, rels=[(0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_R_WB() ):
+            mark_type = MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "C", *start_W_C, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        scene.append_text( "Q", *prev_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
@@ -2829,9 +2919,9 @@ class SceneMirandasVeilMixin:
     #
     # Wave divergence
 
-    def scn_mv_60_wave_divergence_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_61_wave_divergence_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_60_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_61_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -2872,9 +2962,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_61_wave_divergence_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_62_wave_divergence_1(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_61_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_62_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
