@@ -2741,11 +2741,61 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
-    # Diverging rush
+    # Diverging Pawn
 
-    def scn_mv_58_diverging_rush(self, bt=BoardType.MirandasVeil):
+    def scn_mv_58_diverging_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_58_diverging_rush', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_58_diverging_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        # step -->
+
+        start_P_A = (4, 3)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+
+        start_W_A = (4, 4)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_n = (5, 5)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        scene.append_arrow( *( start_P_A + start_W_A ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( start_W_A + start_n ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *( GS.append_tpl_rel( start_W_A, 0, 1 ) ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( GS.append_tpl_rel( start_W_A, -1, 1 ) ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_P_A, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+
+        # capture -->
+
+        start_P_B = (10, 5)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
+
+        start_W_B = (9, 6)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_g = (10, 7)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        scene.append_arrow( *( start_P_B + start_W_B ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( start_W_B + start_g ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *( GS.append_tpl_rel( start_W_B, 0, 1 ) ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( GS.append_tpl_rel( start_W_B, -1, 1 ) ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "B", *start_P_B, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+
+        return scene
+
+    #
+    # Diverging rushing Pawn
+
+    def scn_mv_59_diverging_rushing_pawn(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_59_diverging_rushing_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         # ignoring
@@ -2809,9 +2859,9 @@ class SceneMirandasVeilMixin:
     #
     # Diverging activated piece
 
-    def scn_mv_59_diverging_activated_piece_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_60_diverging_activated_piece_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_59_diverging_activated_piece_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_60_diverging_activated_piece_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (1, 13)
@@ -2869,9 +2919,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_60_diverging_activated_piece_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_61_diverging_activated_piece_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_60_diverging_activated_piece_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_61_diverging_activated_piece_end', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         prev_Q = (1, 13)
@@ -2912,9 +2962,9 @@ class SceneMirandasVeilMixin:
     #
     # Wave divergence
 
-    def scn_mv_61_wave_divergence_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_62_wave_divergence_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_61_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_62_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -2955,9 +3005,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_62_wave_divergence_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_63_wave_divergence_1(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_62_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_63_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
