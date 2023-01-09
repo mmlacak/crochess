@@ -1235,7 +1235,8 @@ will extend it (Pawn C), compared to full extent of a rush (Pawn A).
 Activated piece can also diverge, but it's already limited by received momentum while
 going towards divergent Wave, as it's limited after diverging.
 
-. . .
+Activated, non-Wave piece which has no momentum when reached own Wave cannot diverge
+from it (nor ignore it), only activate that Wave.
 
 \clearpage % ..........................................................
 
@@ -1249,10 +1250,11 @@ going towards divergent Wave, as it's limited after diverging.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-As a result, activated, non-Wave piece which has no momentum when reached own Wave,
-cannot diverge, only activate that Wave.
+In previous example, activated Rook cannot diverge from Wave C, only activate it,
+since all received momentum would be spent moving towards Wave C.
 
-. . .
+The same Rook (now "in the air") can diverge from Wave B, with 2 remaining momentum,
+i.e. difference between received momentum and amount spent moving towards Wave B.
 
 % ........................................... Diverging activated piece
 \clearpage % ..........................................................
