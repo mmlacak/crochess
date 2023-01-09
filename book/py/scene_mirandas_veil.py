@@ -2210,7 +2210,7 @@ class SceneMirandasVeilMixin:
         #                 MarkType.Blocked
         #     scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *prev_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "Q", *prev_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
         scene.append_text( "A", *start_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
         scene.append_text( "B", *start_Q_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
 

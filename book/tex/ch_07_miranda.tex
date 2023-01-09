@@ -282,7 +282,7 @@ past any piece as if it's not there.
 \label{fig:scn_mv_11_wave_activated_by_bishop}
 \end{figure}
 
-Here, Wave activated by Bishop (now "in the air") moves like one, i.e. along one chosen
+Here, Wave (now "in the air") activated by Bishop moves like one, i.e. along one chosen
 diagonal. Activated light Wave cannot activate dark Knight, but can activate own Pawn.
 Wave is not obstructed by neither Pawn nor Knight, and can move past them. Wave is not
 limited by 4 received momentum, and can reach edge of chessboard.
@@ -317,7 +317,7 @@ Here, Knight is about to activate Wave, and transfer to it one momentum.
 \label{fig:scn_mv_13_wave_activated_by_knight}
 \end{figure}
 
-Here, Wave activated by light Knight (now "in the air") can choose one semi-diagonal
+Here, Wave (now "in the air") activated by light Knight can choose one semi-diagonal
 (corresponding to steps Knight can make), and then move over multiple step-fields, up
 to the edge of chessboard. So, Wave activated by Knight moves like a Pegasus.
 
@@ -351,7 +351,7 @@ or vertical lines (corresponding to steps King can make).
 \label{fig:scn_mv_15_wave_activated_by_king}
 \end{figure}
 
-Then, Wave activated by King (now "in the air") can move over multiple step-fields,
+Then, Wave (now "in the air") activated by King can move over multiple step-fields,
 up to the edge of chessboard. Direction taken by activated Wave cannot be changed
 for duration of a ply. So, Wave activated by King moves like a Queen.
 
@@ -568,15 +568,19 @@ since it was activated by one.
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_27_wave_cascading_steps.png}
+\vspace*{-1.4\baselineskip}
 \caption{Active piece cascaded}
 \label{fig:scn_mv_27_wave_cascading_steps}
 \end{figure}
 
+\vspace*{-0.4\baselineskip}
 When piece activated in a cascade is not a Wave, it has its own rules of movement, and
-Waves activated afterwards inherit them from that activating piece.
+Waves activated afterwards inherit them from that activating piece; such a piece is
+called activator.
 
-Here, all Waves activated after Knight moves like multi-step Knight (i.e. Pegasus),
-since Waves are not restricted to only one step, even if activating piece is.
+Here, Waves activated after Knight moves like multi-step Knight (i.e. Pegasus), since
+Waves are not restricted to only one step, even if activator is. For Waves A, and B
+activator is Bishop, while for Waves C, and D activator is Knight.
 
 \clearpage % ..........................................................
 
