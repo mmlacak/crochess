@@ -34,13 +34,21 @@ are enumerated from '1' to '16'. A new piece is introduced, Wave.
 \caption{Wave}
 \label{fig:10_wave}
 \end{wrapfigure}
-Wave is passive piece, it has to be activated before it can move. Activation
-is done in the same way as with Pyramid. Own piece has to capture field at
-which Wave is located before Wave can move.
+Wave is passive piece, it has to be activated before it can move. Activation is done
+with own piece capturing field at which Wave is located, before Wave can move.
 
-Wave can be activated even if activating piece has no momentum. Wave does not use
-received momentum for moving, and isn't limited by it. Wave can move even if it
-has no momentum. Wave can move past (pass "through") any piece, as if it isn't there.
+Wave does not use received momentum for moving, and so Wave can be activated even
+with no momentum. Wave can activate any own piece, except King, if it has momentum.
+Wave can also activate other Wave, own or opponent's, even if it has no momentum.
+Wave transfers all of received momentum to a piece it activates.
+
+Wave is divergent; piece (which could activate Wave) can continue its movement in
+a different direction, limited by momentum it had when Wave was encountered.
+
+Wave is transparent; all other pieces can move past (pass "through") Wave, as if it
+isn't present on a chessboard. Other pieces are transparent to Wave; Wave can move
+past (pass-through) any piece, as if it isn't there. Transparency of Wave makes
+activation of Wave, and divergence from Wave optional.
 
 % After activation Wave moves like activating piece, over piece's step- or capture-
 % fields, depending where it was activated. Wave can make multiple steps, in the
@@ -50,14 +58,10 @@ has no momentum. Wave can move past (pass "through") any piece, as if it isn't t
 % chessboard, and only has to end its ply on a board. For details see
 % \hyperref[sec:Appendix/Movement of Wave]{Movement of Wave}.
 
-\TODO
+% \TODO
 
-Wave cannot capture any piece. Thus, Wave cannot neither check nor checkmate
-opponent's King.
-
-Wave can activate any own piece, except King, if it has momentum. Wave can
-also activate other Wave, own or opponent's, even if it has no momentum. In
-all cases, Wave transfers all received momentum to activated piece.
+Wave cannot capture any piece; and so cannot neither check nor checkmate opponent's
+King.
 
 In algebraic notation symbol for Wave is 'W'.
 
