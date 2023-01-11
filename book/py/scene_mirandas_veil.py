@@ -2997,7 +2997,7 @@ class SceneMirandasVeilMixin:
         coords_W_w = GS.gen_steps( start=start_W, rels=[(1, 1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
 
         for i, arrow in enumerate( coords_W_w() ):
-            mark_type = MarkType.Illegal if i == 4 else \
+            mark_type = MarkType.Action if i == 4 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -3051,6 +3051,6 @@ class SceneMirandasVeilMixin:
                     mark_type = MarkType.Legal
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
         return scene
