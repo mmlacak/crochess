@@ -36,29 +36,20 @@ are enumerated from '1' to '16'. A new piece is introduced, Wave.
 \end{wrapfigure}
 Wave is passive piece, it has to be activated before it can move. Activation is done
 with own piece capturing field at which Wave is located, before Wave can move.
+Movement of Wave mimics that of activating piece, and is not limited to single step.
 
 Wave does not use received momentum for moving, and so Wave can be activated even
 with no momentum. Wave can activate any own piece, except King, if it has momentum.
 Wave can also activate other Wave, own or opponent's, even if it has no momentum.
 Wave transfers all of received momentum to a piece it activates.
 
-Wave is divergent; piece (which could activate Wave) can continue its movement in
+Wave is divergent; own piece (or opponent's Wave) can continue its movement in
 a different direction, limited by momentum it had when Wave was encountered.
 
 Wave is transparent; all other pieces can move past (pass "through") Wave, as if it
 isn't present on a chessboard. Other pieces are transparent to Wave; Wave can move
 past (pass-through) any piece, as if it isn't there. Transparency of Wave makes
 activation of Wave, and divergence from Wave optional.
-
-% After activation Wave moves like activating piece, over piece's step- or capture-
-% fields, depending where it was activated. Wave can make multiple steps, in the
-% same way activating piece does, even if activating piece can make only one. Note,
-% Wave can choose direction only on its first step (2, if activated by Unicorn),
-% which cannot be changed for duration of a ply. Wave can step outside of a
-% chessboard, and only has to end its ply on a board. For details see
-% \hyperref[sec:Appendix/Movement of Wave]{Movement of Wave}.
-
-% \TODO
 
 Wave cannot capture any piece; and so cannot neither check nor checkmate opponent's
 King.
