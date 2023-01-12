@@ -710,11 +710,77 @@ class SceneNineteenMixin:
         return scene
 
     #
+    # Diverging rushing Pawn
+
+    def scn_n_19_diverging_pawn_init(self, bt=BoardType.Nineteen):
+
+        scene = Scene('scn_n_19_diverging_pawn_init', bt)
+
+        # sideways Pawn
+
+        start_P_A = (3, 5)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+
+        start_W_A = (2, 5)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_n_A = (1, 6)
+        scene.board.set_piece( *start_n_A, piece=-PieceType.Knight )
+
+        scene.append_arrow( *( start_P_A + start_W_A ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_P_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+        # capture Pawn
+
+        start_P_B = (8, 4)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
+
+        start_W_B = (7, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_n_B = (8, 6)
+        scene.board.set_piece( *start_n_B, piece=-PieceType.Knight )
+
+        scene.append_arrow( *( start_P_B + start_W_B ), mark_type=MarkType.Action )
+
+        scene.append_text( "B", *start_P_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+        # rushing Pawn
+
+        start_P_C = (14, 1)
+        scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
+
+        start_W_C = (14, 5)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_n_C = (13, 6)
+        scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
+
+        # P(C) --> W
+        coords_PC_W = GS.gen_steps( start=start_P_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_PC_W() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "C", *start_P_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_n_20_diverging_pawn_end(self, bt=BoardType.Nineteen):
+
+        scene = Scene('scn_n_20_diverging_pawn_end', bt)
+
+        return scene
+
+    #
     # Pawn ranks, rows
 
-    def scn_n_19_pawn_ranks(self, bt=BoardType.Nineteen):
+    def scn_n_21_pawn_ranks(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_19_pawn_ranks', bt)
+        scene = Scene('scn_n_21_pawn_ranks', bt)
 
         scene.append_arrow(0.7, 16.5, 17.3, 16.5, mark_type=MarkType.Blocked, start_pointer=True, end_pointer=True)
         scene.append_arrow(0.7, 15.5, 17.3, 15.5, mark_type=MarkType.Illegal, start_pointer=True, end_pointer=True)
@@ -730,9 +796,9 @@ class SceneNineteenMixin:
     #
     # Promotion, only one Queen
 
-    def scn_n_20_only_one_queen(self, bt=BoardType.Nineteen):
+    def scn_n_22_only_one_queen(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_20_only_one_queen', bt)
+        scene = Scene('scn_n_22_only_one_queen', bt)
 
         start_Q = (12, 15)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -763,9 +829,9 @@ class SceneNineteenMixin:
     #
     # Castling
 
-    def scn_n_21_new_castling_init(self, bt=BoardType.Nineteen):
+    def scn_n_23_new_castling_init(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_21_new_castling_init', bt, height=4.3)
+        scene = Scene('scn_n_23_new_castling_init', bt, height=4.3)
 
         start_K = (9, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -787,9 +853,9 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_22_new_castling_end(self, bt=BoardType.Nineteen):
+    def scn_n_24_new_castling_end(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_22_new_castling_end', bt, height=4.3)
+        scene = Scene('scn_n_24_new_castling_end', bt, height=4.3)
 
         start_K = (4, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
