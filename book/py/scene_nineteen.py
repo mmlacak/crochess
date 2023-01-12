@@ -733,13 +733,13 @@ class SceneNineteenMixin:
 
         # capture Pawn
 
-        start_P_B = (8, 4)
+        start_P_B = (7, 4)
         scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
 
-        start_W_B = (7, 5)
+        start_W_B = (6, 5)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_n_B = (8, 6)
+        start_n_B = (7, 6)
         scene.board.set_piece( *start_n_B, piece=-PieceType.Knight )
 
         scene.append_arrow( *( start_P_B + start_W_B ), mark_type=MarkType.Action )
@@ -748,13 +748,13 @@ class SceneNineteenMixin:
 
         # rushing Pawn
 
-        start_P_C = (14, 1)
+        start_P_C = (11, 1)
         scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
 
-        start_W_C = (14, 5)
+        start_W_C = (11, 5)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
-        start_n_C = (13, 6)
+        start_n_C = (10, 6)
         scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
 
         # P(C) --> W
@@ -766,6 +766,21 @@ class SceneNineteenMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         scene.append_text( "C", *start_P_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+        # forward Pawn
+
+        start_P_D = (15, 4)
+        scene.board.set_piece( *start_P_D, piece=PieceType.Pawn )
+
+        start_W_D = (15, 5)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        start_n_D = (16, 6)
+        scene.board.set_piece( *start_n_D, piece=-PieceType.Knight )
+
+        scene.append_arrow( *( start_P_D + start_W_D ), mark_type=MarkType.Action )
+
+        scene.append_text( "D", *start_P_D, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
         return scene
 
@@ -795,10 +810,10 @@ class SceneNineteenMixin:
 
         # capture Pawn
 
-        start_W_B = (7, 5)
+        start_W_B = (6, 5)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_n_B = (8, 6)
+        start_n_B = (7, 6)
         scene.board.set_piece( *start_n_B, piece=-PieceType.Knight )
 
         scene.append_arrow( *GS.append_tpl_rel( start_W_B, -1, 0 ), mark_type=MarkType.Legal )
@@ -815,10 +830,10 @@ class SceneNineteenMixin:
 
         # rushing Pawn
 
-        start_W_C = (14, 5)
+        start_W_C = (11, 5)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
-        start_n_C = (13, 6)
+        start_n_C = (10, 6)
         scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
 
         scene.append_arrow( *GS.append_tpl_rel( start_W_C, -1, 0 ), mark_type=MarkType.Legal )
@@ -836,6 +851,29 @@ class SceneNineteenMixin:
         scene.append_arrow( *GS.append_tpl_rel( start_W_C, 1, 0 ), mark_type=MarkType.Legal )
 
         scene.append_text( "C", *start_W_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
+        # forward Pawn
+
+        # start_P_D = (15, 4)
+        # scene.board.set_piece( *start_P_D, piece=PieceType.Pawn )
+
+        start_W_D = (15, 5)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        start_n_D = (16, 6)
+        scene.board.set_piece( *start_n_D, piece=-PieceType.Knight )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_D, -1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_D, -1, 1 ), mark_type=MarkType.Illegal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_D, 0, 1 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_D, 1, 1 ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_D, 1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_text( "D", *start_W_D, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         return scene
 
