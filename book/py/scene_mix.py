@@ -35,5 +35,6 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     'scn_tr_08_static_move_is_illegal', \
-                    'scn_tr_09_static_loop_is_legal', \
+                    'scn_tr_09_static_piece_is_legal', \
+                    'scn_tr_10_static_loop_is_legal', \
                 ]
