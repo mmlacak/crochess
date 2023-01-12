@@ -34,6 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_19_diverging_pawn_init', \
+                    # 'scn_n_19_diverging_pawn_init', \
                     'scn_n_20_diverging_pawn_end', \
                 ]

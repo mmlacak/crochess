@@ -773,6 +773,70 @@ class SceneNineteenMixin:
 
         scene = Scene('scn_n_20_diverging_pawn_end', bt)
 
+        # sideways Pawn
+
+        start_W_A = (2, 5)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_n_A = (1, 6)
+        scene.board.set_piece( *start_n_A, piece=-PieceType.Knight )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_A, -1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_A, -1, 1 ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_A, 0, 1 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_A, 1, 1 ), mark_type=MarkType.Illegal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_A, 1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
+        # capture Pawn
+
+        start_W_B = (7, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_n_B = (8, 6)
+        scene.board.set_piece( *start_n_B, piece=-PieceType.Knight )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_B, -1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_B, -1, 1 ), mark_type=MarkType.Illegal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_B, 0, 1 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_B, 1, 1 ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_B, 1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
+        # rushing Pawn
+
+        start_W_C = (14, 5)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_n_C = (13, 6)
+        scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_C, -1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_C, -1, 1 ), mark_type=MarkType.Action )
+
+        # P(C) @ W(C) -->
+        coords_PC_W = GS.gen_steps( start=start_W_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_PC_W() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_C, 1, 1 ), mark_type=MarkType.Illegal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_W_C, 1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
         return scene
 
     #
