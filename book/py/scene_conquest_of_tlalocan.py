@@ -766,6 +766,48 @@ class SceneConquestOfTlalocanMixin:
         start_W = (10, 12)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
+        # dark Pawns @ W ---> (3, 2)
+        coords_p_ = GS.gen_steps( start=start_W, rels=[(3, 2), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
+
+        for i, coord in enumerate( coords_p_() ):
+            scene.board.set_piece( *coord, piece=-PieceType.Pawn )
+            scene.append_text( str( i+1 ), *coord, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
+        start_n = (7, 14)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_A = (4, 16)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_W_B = (11, 8)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_W_C = (8, 4)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # | <-- H @ W --> |
+        for diverge, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
+            coords_H_ = GS.gen_steps( start=start_W, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_H_() ):
+                if diverge == 1:
+                    mark_type = MarkType.Action if i == 0 else \
+                                MarkType.Legal if i < 3 else \
+                                MarkType.Blocked
+                elif diverge == 6:
+                    mark_type = MarkType.Action if i == 0 else \
+                                MarkType.Legal if i < 2 else \
+                                MarkType.Blocked
+                elif diverge == 12:
+                    mark_type = MarkType.Action if i == 0 else \
+                                MarkType.Blocked
+                else:
+                    mark_type = MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
         return scene
 
     #
