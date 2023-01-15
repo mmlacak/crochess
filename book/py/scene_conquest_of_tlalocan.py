@@ -733,11 +733,38 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene('scn_cot_10_diverging_shaman_steps', bt)
 
+        start_W = (10, 12)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A = (6, 14)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_W_B = (11, 10)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        # | <-- H @ W --> |
+        for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+            coords_H_ = GS.gen_steps( start=start_W, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_H_() ):
+                if diverge == 3:
+                    mark_type = MarkType.Action if i == 0 else \
+                                MarkType.Illegal if i == 1 else \
+                                MarkType.Blocked
+                else:
+                    mark_type = MarkType.Action if i == 0 else \
+                                MarkType.Legal if i < 3 else \
+                                MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
         return scene
 
     def scn_cot_11_diverging_shaman_captures(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_11_diverging_shaman_captures', bt)
+
+        start_W = (10, 12)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         return scene
 
