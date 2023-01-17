@@ -757,6 +757,9 @@ class SceneConquestOfTlalocanMixin:
                                 MarkType.Blocked
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
+        scene.append_text( "A", *start_A, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
         return scene
 
     def scn_cot_11_diverging_shaman_captures(self, bt=BoardType.ConquestOfTlalocan):

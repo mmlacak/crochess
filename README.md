@@ -27,7 +27,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under *Source* section. \
 The most recent book version is:
 
-Version: 20230117.012527 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
+Version: 20230117.020009 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
