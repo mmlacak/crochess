@@ -34,7 +34,10 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
+                    'scn_mv_57_own_wave_is_divergent_1', \
                     # 'scn_cot_09_diverging_shaman_init', \
-                    'scn_cot_10_diverging_shaman_steps', \
+                    # 'scn_cot_10_diverging_shaman_steps', \
                     # 'scn_cot_11_diverging_shaman_captures', \
+                    'scn_o_43_starchild_divergence_init', \
+                    'scn_o_44_starchild_divergence_end', \
                 ]

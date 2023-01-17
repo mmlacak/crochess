@@ -2725,7 +2725,7 @@ class SceneMirandasVeilMixin:
             for i, arrow in enumerate( coords_W__Q() ):
                 if rel in [ (-1, -1), (1, 1), ]:
                     mark_type = MarkType.Action if i == 2 else \
-                                MarkType.Legal if i < 5 else \
+                                MarkType.Legal if i < 2 else \
                                 MarkType.Blocked
                 elif rel == (1, -1):
                     mark_type = MarkType.Illegal if i == 4 else \
