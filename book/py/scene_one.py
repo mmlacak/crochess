@@ -1548,7 +1548,7 @@ class SceneOneMixin:
         # <-- Q --> @ W
 
         for rel in GS.DEFAULT_KING_REL_MOVES:
-            coords_W__Q = GS.gen_steps( start=start_I, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+            coords_W__Q = GS.gen_steps( start=start_I, rels=[ rel, ], include_prev=True, bounds=scene.board.get_position_limits() ) # scene.board_view # deliberately
 
             for i, arrow in enumerate( coords_W__Q() ):
                 if rel in [ (-1, -1), (1, 1), ]:
