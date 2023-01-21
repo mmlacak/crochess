@@ -37,5 +37,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_mv_57_own_wave_is_divergent_1', \
                     # 'scn_o_43_starchild_divergence_init', \
                     # 'scn_o_44_starchild_divergence_end', \
-                    'scn_o_45_starchild_is_not_transparent', \
+                    # 'scn_o_45_starchild_is_not_transparent', \
+                    'scn_o_46_starchild_cannot_diverge', \
                 ]

@@ -1603,3 +1603,33 @@ class SceneOneMixin:
         scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
+
+    def scn_o_46_starchild_cannot_diverge(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_46_starchild_cannot_diverge', bt, height=9.3)
+
+        # step-field
+
+        start_I_A = (10, 5)
+        scene.board.set_piece( *start_I_A, piece=PieceType.Starchild )
+
+        start_W_1 = (3, 7)
+        scene.board.set_piece( *start_W_1, piece=PieceType.Wave )
+
+        scene.append_arrow( *( start_I_A + start_W_1 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_I_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        # miracle-field
+
+        start_I_B = (18, 4)
+        scene.board.set_piece( *start_I_B, piece=PieceType.Starchild )
+
+        start_W_2 = (17, 3)
+        scene.board.set_piece( *start_W_2, piece=PieceType.Wave )
+
+        scene.append_arrow( *( start_I_B + start_W_2 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "B", *start_I_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
