@@ -1571,3 +1571,35 @@ class SceneOneMixin:
         scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
         return scene
+
+    def scn_o_45_starchild_is_not_transparent(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_45_starchild_is_not_transparent', bt, height=9.3)
+
+        start_Q = (14, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_i = (12, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
+
+        start_I = (10, 5)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_g = (12, 7)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_p = (7, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> w --> W
+        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_w_W() ):
+            mark_type = MarkType.Illegal if i == 1 else \
+                        MarkType.Legal if i < 1 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
