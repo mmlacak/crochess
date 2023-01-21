@@ -1488,14 +1488,20 @@ are available for a particular variant see
                  | <rank>
                  | <field>
 
-<step> = \alg{.}[\alg{.}]<field>
+<movement-step> = \alg{.}[\alg{.}]<field>
+
+<transparency-step> = \alg{`}[\alg{`}]<field>
+
+<step> = <movement-step>
+       | <transparency-step>
 
 <stepping> =
   [<disambiguation>]<field>
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
 
-<pawn-losing-promotion-tag> = <pawn> | \alg{P==}
+<pawn-losing-promotion-tag> = \alg{P==}
+                            | <pawn>
 
 <pawn-losing-tag> = \alg{P::}
 | <pawn-losing-promotion-tag>
@@ -1505,20 +1511,19 @@ are available for a particular variant see
 <disposable-figure-losing-tag> =
   <disposable-figure>
 | <rook-losing-tag>
-
-<disposable-piece-losing-tag> =
-  <disposable-figure-losing-tag>
-| <pawn-losing-tag>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<disposable-piece-losing-tag> =
+  <disposable-figure-losing-tag>
+| <pawn-losing-tag>
+
 <capturing-side-effect> =
   \alg{*}[<disposable-piece-losing-tag>]
 
-<en-passant-side-effect> =
-  \alg{:}[<rank>]
+<en-passant-side-effect> = \alg{:}[<rank>]
 
 <demoting-side-effect> =
   \alg{>}[<disposable-figure-losing-tag>]
@@ -1543,14 +1548,14 @@ are available for a particular variant see
 <converting-side-effect> =
   \alg{%}[<disposable-piece-losing-tag>]
 | \alg{%%}
-
-<capturing-step> =
-  <step>[<capturing-side-effect>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<capturing-step> =
+  <step>[<capturing-side-effect>]
+
 <shaman-capturing-cascading-ply> =
   \alg{H}[<disambiguation>](<capturing-step>)
     <step>
@@ -1707,7 +1712,8 @@ are available for a particular variant see
 
 <pawn-sacrifice-captures> =
   \alg{S}[<disambiguation>]
-    \{\alg{.}[\alg{.}]<field>[\alg{*}[<pawn-losing-tag>]]\}
+    \{<step>
+     | <movement-step>[\alg{*}[<pawn-losing-tag>]]\}
     [<pawn-sacrifice-end>]
 | \alg{S}<stepping>[<pawn-sacrifice-end>]
 
