@@ -833,28 +833,21 @@ demote own figure to Pawn, nor it can resurrect any captured piece.
 When a piece encounters own Starchild, it can change direction of movement, and
 is limited by momentum it had before diversion. Starchild can divert pieces,
 \hyperref[fig:scn_mv_56_own_wave_is_divergent_init]{just like Wave can do it}.
+As before, first piece in a move cannot return to its starting position.
 
-Unlike Wave, Starchild is not transparent. For instance, if dark Wave is replaced
-by dark Starchild in an example above, it would block light Queen from diverging
-from own, light Starchild.
+% \vspace*{-1.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_44_starchild_divergence_end.png}
+\vspace*{-1.3\baselineskip}
+\caption{Diverging Queen}
+\label{fig:scn_o_44_starchild_divergence_end}
+\end{figure}
 
-% % \TODO
-
-% % \clearpage % ..........................................................
-
-% % \vspace*{-2.1\baselineskip}
-% \noindent
-% \begin{figure}[!h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_44_starchild_divergence_end.png}
-% \vspace*{-1.3\baselineskip}
-% \caption{Diverging Queen}
-% \label{fig:scn_o_44_starchild_divergence_end}
-% \end{figure}
-
-% \vspace*{-0.4\baselineskip}
-% . . .
-
-% \TODO
+\vspace*{-0.4\baselineskip}
+Here, light Queen (now "in the air") has reached own Starchild, and can choose any
+shown direction as a new one. Light Queen is limited by 4 momentum, and cannot return
+to its starting position, i.e. field Q.
 
 % \clearpage % ..........................................................
 
@@ -871,6 +864,10 @@ from own, light Starchild.
 % \label{sec:One/Starchild/Movement/Starchild is not transparent}
 
 % \TODO
+
+% Unlike Wave, Starchild is not transparent. For instance, if dark Wave is replaced
+% by dark Starchild in an example above, it would block light Queen from diverging
+% from own, light Starchild.
 
 \clearpage % ..........................................................
 
