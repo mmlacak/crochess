@@ -945,6 +945,8 @@ any non-disposable piece.
 \midrule
 \alg{.}              & single steps                               \\
 \alg{..}             & multiple steps                             \\
+\alg{`}              & single step, transparency                  \\
+\alg{``}             & multiple steps, transparency               \\
 \alg{-}              & starting and destination field             \\ \cmidrule{1-2}
 \alg{\~{}}           & plies                                      \\
 \alg{|}              & teleportation                              \\
@@ -961,9 +963,10 @@ any non-disposable piece.
 \label{tbl:Appendix/Summary/Path separators}
 \end{table}
 
-First 3 symbols (\alg{.}, \alg{..}, and \alg{-}) separates steps within a single ply.
-Other symbols (\alg{\~{}}, \alg{|}, \alg{@}, and \alg{;;}) are separators between plies;
-or ply and, by extension, move terminators (\alg{||}, \alg{@@}, and \alg{@@@}).
+First 5 symbols (\alg{.}, \alg{..}, \alg{`}, \alg{``}, and \alg{-}) separates steps
+within a single ply. Other symbols (\alg{\~{}}, \alg{|}, \alg{@}, and \alg{;;}) are
+separators between plies; or ply and, by extension, move terminators (\alg{||},
+\alg{@@}, and \alg{@@@}).
 
 Items separator (\alg{,}) is used where multiple items needs to be listed for a single
 step (or a ply), e.g. pieces captured in a dark Shaman's dual trance-journey.
