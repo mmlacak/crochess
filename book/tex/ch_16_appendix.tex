@@ -808,6 +808,7 @@ Now that all symbols have been introduced, they're gathered here according to th
 \alg{\%}                    & conversion                    & +                     \\
 \alg{\%\%}                  & failed conversion, oblation   & +                     \\
 \alg{\^{}}                  & transparency                  & -                     \\
+\alg{/}                     & divergence                    & -                     \\
 \alg{>}                     & syzygy, demoting to Pawn      & +                     \\
 \alg{\$}                    & syzygy, resurrection          & +                     \\
 \cmidrule{1-3} % .....................................................................
@@ -821,29 +822,33 @@ Now that all symbols have been introduced, they're gathered here according to th
 \label{tbl:Appendix/Summary/Side-effects}
 \end{table}
 
-Every side-effect is result of a single step. Most side-effects can occur only on a last step of
-a ply, these are called ply side-effects. Capturing, displacement and losing (promotion, rushing,
-or castling) tags are both step and ply side-effects, others are purely ply side-effects.
+Every side-effect is result of a single step. Most side-effects can occur only on
+a last step of a ply, these are called ply side-effects. Capturing, displacement
+and losing (promotion, rushing, or castling) tags are both step and ply side-effects,
+others are purely ply side-effects.
 
-In Classical Chess capturing opponent's piece is the most prevalent side-effect, since there aren't
-all that many, and those can be done once per Pawn (en passant, promotion), or once per whole game
-(castling). So, in \algfmt{CAN} capturing is optional, see \algfmt{FIDE C.9}; this is so in
-\algfmt{NAN} as well.
+In Classical Chess capturing opponent's piece is the most prevalent side-effect,
+since there aren't all that many, and those can be done once per Pawn (en passant,
+promotion), or once per whole game (castling). So, in \algfmt{CAN} capturing is
+optional, see \algfmt{FIDE C.9}; this is so in \algfmt{NAN} as well.
 
-Most mandatory side-effects are marked as such, because otherwise \algfmt{AN} would lack information
-to describe what happened. Trance-journey displacement has to have a destination field where a piece
-has been displaced. Promotion needs a promoted-to piece written, otherwise it's assumed that a Pawn
-has been tagged for promotion. Demoting to Pawn syzygy has to have, at very least, a disambiguation
-(or piece, if unique) written to be able to find which piece has been demoted, and on which field.
-Resurrection syzygy must have a piece which has been resurrected, if initiating Starchild was not
-oblationed then destination field as well.
+Most mandatory side-effects are marked as such, because otherwise \algfmt{AN}
+would lack information to describe what happened. Trance-journey displacement
+has to have a destination field where a piece has been displaced. Promotion
+needs a promoted-to piece written, otherwise it's assumed that a Pawn has been
+tagged for promotion. Demoting to Pawn syzygy has to have, at very least, a
+disambiguation (or piece, if unique) written to be able to find which piece
+has been demoted, and on which field. Resurrection syzygy must have a piece
+which has been resurrected, if initiating Starchild was not oblationed then
+destination field as well.
 
-Other mandatory side-effects are designated as such, because otherwise it could be assumed that
-targeted piece has been captured. Conversion, and failed conversion are such side-effects.
+Other mandatory side-effects are designated as such, because otherwise it could
+be assumed that targeted piece has been captured. Conversion, and failed conversion
+are such side-effects.
 
-It is recommended to also write optional side-effects and their data, for not much more effort
-reader is presented with much easier to understand notation. Compare minimalistic notation with
-slightly more verbose version:
+It is recommended to also write optional side-effects and their data, for not much
+more effort reader is presented with much easier to understand notation. Compare
+minimalistic notation with slightly more verbose version:
 
 \noindent
 \alg{Re2\~{}Wc2\~{}b3} vs. \\
@@ -889,6 +894,7 @@ slightly more verbose version:
                             & oblation              &                      &                       &                       \\
 \cmidrule{1-5} % ............................................................................................................
 \alg{\^{}}                  & transparency          & -                    & -                     & -                     \\
+\alg{/}                     & divergence            & -                    & -                     & -                     \\
 \cmidrule{1-5} % ............................................................................................................
 \multirow{2}{*}{\alg{>}}    & syzygy,               & \multirow{2}{*}{+}   & \multirow{2}{*}{-}    & \multirow{2}{*}{-}    \\
                             & demoting to Pawn      &                      &                       &                       \\
@@ -1565,15 +1571,16 @@ are available for a particular variant see
 
 <transparency-side-effect> = \alg{\^{}}[\alg{W}]
 
-<monolith-stepping> =
+<stepping-no-side-effects> =
   [<disambiguation>]<field>
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
 
 <stepping> =
-  <monolith-stepping>
+  <stepping-no-side-effects>
 | [<disambiguation>]
-  (<step>[<transparency-side-effect>])\{<step>\}
+  (<step>[<transparency-side-effect>])
+  \{<step>\}
 
 <wave-transparency-side-effect> =
   \alg{\^{}}[<wave-transparent-piece>]
@@ -1806,7 +1813,7 @@ are available for a particular variant see
 
 <move-star> =
   \alg{I}<stepping>[<resurrecting-side-effect>]
-    \alg{~}\alg{T}<stepping>
+    \alg{~}\alg{T}<stepping-no-side-effects>
 
 <move-cascading> =
   <cascading>
@@ -1859,8 +1866,9 @@ are available for a particular variant see
 | \algcty{0-0}
 
 <move-monolith> =
-  \alg{M}<monolith-stepping>
-| \alg{M}<monolith-stepping><demoting-side-effect>
+  \alg{M}<stepping-no-side-effects>
+| \alg{M}<stepping-no-side-effects>
+  <demoting-side-effect>
 \end{alltt}
 
 \clearpage % ..........................................................
