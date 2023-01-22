@@ -1552,11 +1552,15 @@ are available for a particular variant see
 
 <transparency-side-effect> = \alg{\^{}}[\alg{W}]
 
-<stepping> =
+<monolith-stepping> =
   [<disambiguation>]<field>
+| [<disambiguation>]\{<step>\}
+| <field>\alg{-}<field>
+
+<stepping> =
+  <monolith-stepping>
 | [<disambiguation>]
   (<step>[<transparency-side-effect>])\{<step>\}
-| <field>\alg{-}<field>
 
 <wave-transparency-side-effect> =
   \alg{\^{}}[<wave-transparent-piece>]
@@ -1842,8 +1846,8 @@ are available for a particular variant see
 | \algcty{0-0}
 
 <move-monolith> =
-  \alg{M}<stepping>
-| \alg{M}<stepping><demoting-side-effect>
+  \alg{M}<monolith-stepping>
+| \alg{M}<monolith-stepping><demoting-side-effect>
 \end{alltt}
 
 \clearpage % ..........................................................
