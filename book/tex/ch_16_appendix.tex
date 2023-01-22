@@ -1527,6 +1527,9 @@ are available for a particular variant see
 <disposable-piece> = <pawn>
                    | <disposable-figure>
 
+<wave-transparent-piece> =
+  <disposable-piece> | \alg{K} | \alg{T}
+
 <figure> = <disposable-figure> | \alg{K} | \alg{T} | \alg{M}
 
 <piece> = <pawn> | <figure>
@@ -1545,18 +1548,29 @@ are available for a particular variant see
                  | <rank>
                  | <field>
 
-<movement-step> = \alg{.}[\alg{.}]<field>
+<step> = \alg{.}[\alg{.}]<field>
 
-<transparency-step> = \alg{`}[\alg{`}]<field>
-
-<step> = <movement-step>
-       | <transparency-step>
+<transparency-side-effect> = \alg{\^{}}[\alg{W}]
 
 <stepping> =
   [<disambiguation>]<field>
-| [<disambiguation>]\{<step>\}
+| [<disambiguation>]
+  (<step>[<transparency-side-effect>])\{<step>\}
 | <field>\alg{-}<field>
 
+<wave-transparency-side-effect> =
+  \alg{\^{}}[<wave-transparent-piece>]
+
+<wave-stepping> =
+  <stepping>
+| [<disambiguation>]
+  (<step>[<wave-transparency-side-effect>])
+  \{<step>\}
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
 <pawn-losing-promotion-tag> = \alg{P==}
                             | <pawn>
 
@@ -1568,11 +1582,7 @@ are available for a particular variant see
 <disposable-figure-losing-tag> =
   <disposable-figure>
 | <rook-losing-tag>
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
 | <pawn-losing-tag>
@@ -1587,7 +1597,11 @@ are available for a particular variant see
     <disambiguation>
 | \alg{>}<disposable-figure-losing-tag>
     [<disambiguation>]
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <resurrecting-side-effect> =
   \alg{$}[\alg{$}]<disposable-piece>
 | \alg{$}[\alg{$}]\alg{W}<field>
@@ -1605,11 +1619,7 @@ are available for a particular variant see
 <converting-side-effect> =
   \alg{%}[<disposable-piece-losing-tag>]
 | \alg{%%}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <capturing-step> =
   <step>[<capturing-side-effect>]
 
@@ -1619,7 +1629,11 @@ are available for a particular variant see
 
 <shaman-capturing-terminal-ply> =
   \alg{H}[<disambiguation>]\{<capturing-step>\}
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <starchild-resurrecting-ply> =
   \alg{I}<stepping><resurrecting-side-effect>
 
@@ -1685,8 +1699,8 @@ are available for a particular variant see
 
 \begin{alltt}
 <cascading-plies> =
-  \{\alg{~W}<stepping>\}\alg{~}<cascading-ply>
-| (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
+  \{\alg{~W}<wave-stepping>\}\alg{~}<cascading-ply>
+| (\alg{~W}<wave-stepping>)\{\alg{~A}<stepping>\}
 
 <cascade-start> =
   <starting-ply>(<cascading-plies>)
@@ -1702,8 +1716,8 @@ are available for a particular variant see
 | [\{<cascading-plies>\}\alg{~}]<terminating-ply>
 
 <wave-cascading-plies> =
-  (\alg{~W}<stepping>)\alg{~}<cascading-ply>
-| (\alg{~W}<stepping>)\{\alg{~A}<stepping>\}
+  (\alg{~W}<wave-stepping>)\alg{~}<cascading-ply>
+| (\alg{~W}<wave-stepping>)\{\alg{~A}<stepping>\}
 
 <wave-cascading-start> =
   <wave-cascading-plies>(<cascading-plies>)
@@ -1715,7 +1729,7 @@ are available for a particular variant see
 
 <teleportation> =
   \alg{|}<field>
-| \{\alg{|W}<stepping>\}[<move-wave-cascading>]
+| \{\alg{|W}<wave-stepping>\}[<move-wave-cascading>]
 | \alg{||}[<disposable-piece>]<field>
 | \alg{||}
 \end{alltt}
@@ -1724,10 +1738,10 @@ are available for a particular variant see
 
 \begin{alltt}
 <shaman-trance-journey-cascade> =
-  \alg{H}<stepping>\{\alg{~W}<stepping>\}
+  \alg{H}<stepping>\{\alg{~W}<wave-stepping>\}
 
 <starchild-trance-journey-cascade> =
-  \alg{H}<stepping>\{\alg{~W}<stepping>\}\alg{~I}<stepping>
+  \alg{H}<stepping>\{\alg{~W}<wave-stepping>\}\alg{~I}<stepping>
 | \alg{I}<stepping>\{\alg{~I}<stepping>\}
 
 <trance-journey-start> =
@@ -1769,8 +1783,7 @@ are available for a particular variant see
 
 <pawn-sacrifice-captures> =
   \alg{S}[<disambiguation>]
-    \{<step>
-     | <movement-step>[\alg{*}[<pawn-losing-tag>]]\}
+    \{<step>[\alg{*}[<pawn-losing-tag>]]\}
     [<pawn-sacrifice-end>]
 | \alg{S}<stepping>[<pawn-sacrifice-end>]
 
