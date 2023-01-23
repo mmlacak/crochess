@@ -1546,7 +1546,7 @@ are available for a particular variant see
 <disposable-piece> = <pawn>
                    | <disposable-figure>
 
-<wave-transparent-piece> =
+<piece-transparent-to-wave> =
   <disposable-piece> | \alg{K} | \alg{T}
 
 <figure> = <disposable-figure> | \alg{K} | \alg{T} | \alg{M}
@@ -1569,32 +1569,36 @@ are available for a particular variant see
 
 <step> = \alg{.}[\alg{.}]<field>
 
-<transparency-side-effect> = \alg{\^{}}[\alg{W}]
-
 <stepping-no-side-effects> =
   [<disambiguation>]<field>
 | [<disambiguation>]\{<step>\}
 | <field>\alg{-}<field>
 
+<transparency-side-effect> = \alg{\^{}}[\alg{W}]
+
+<divergence-side-effect> = \alg{/}[\alg{W}|\alg{I}]
+
 <stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  (<step>[<transparency-side-effect>])
+  (<step>[<transparency-side-effect> |
+          <divergence-side-effect>])
   \{<step>\}
 
 <wave-transparency-side-effect> =
-  \alg{\^{}}[<wave-transparent-piece>]
-
-<wave-stepping> =
-  <stepping>
-| [<disambiguation>]
-  (<step>[<wave-transparency-side-effect>])
-  \{<step>\}
+  \alg{\^{}}[<piece-transparent-to-wave>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<wave-stepping> =
+  <stepping>
+| [<disambiguation>]
+  (<step>[<wave-transparency-side-effect> |
+          <divergence-side-effect>])
+  \{<step>\}
+
 <pawn-losing-promotion-tag> = \alg{P==}
                             | <pawn>
 
@@ -1867,8 +1871,7 @@ are available for a particular variant see
 
 <move-monolith> =
   \alg{M}<stepping-no-side-effects>
-| \alg{M}<stepping-no-side-effects>
-  <demoting-side-effect>
+  [<demoting-side-effect>]
 \end{alltt}
 
 \clearpage % ..........................................................
