@@ -158,8 +158,9 @@ in a normal move, i.e. if not activated. The only difference is that activated
 material is limited by received momentum, i.e. can't move for more fields than
 momentum it received.
 
-Here, activated Rook (now "in the air"), moves as Rooks do, along horizontals or
-verticals. Rook can reach at most 5 fields, because that's the momentum it received.
+Here, activated Rook (now "in the air") can choose one of horizontals or verticals
+as its new direction. Rook can reach at most 5 fields, because that's the momentum
+it received.
 
 \clearpage % ..........................................................
 
@@ -204,7 +205,7 @@ and e.g. capture opponent's piece behind a Wave.
 
 \noindent
 Here, light Queen could interact with any Wave in her path, or capture dark Pegasus;
-in any case, dark Pawn is out of reach.
+dark Pawn is shielded by own Pegasus.
 
 \clearpage % ..........................................................
 
@@ -1216,8 +1217,8 @@ regardless if own Wave is encountered on step-, or capture-field. Similar to
 Pawn can also choose to step, or to capture opponent's piece, if it's positioned
 on a capture-field accessible after divergence. \newline
 \indent
-Here, both Pawns can step forward, or capture piece after divergence, regardless
-if own Wave is being encountered on a step-, or capture-field.
+Here, both Pawns can step forward, or capture a piece after divergence, regardless
+if own Wave is encountered on a step-, or capture-field.
 
 \clearpage % ..........................................................
 
@@ -1261,7 +1262,7 @@ will extend it (Pawn C), compared to full extent of a rush (Pawn A).
 Activated piece can also diverge, but it's already limited by received momentum while
 going towards divergent Wave, as it's limited after diverging.
 
-Activated, non-Wave piece which has no momentum when reached own Wave cannot diverge
+Activated, material piece which has no momentum when reached own Wave cannot diverge
 from it (nor ignore it), only activate that Wave.
 
 \clearpage % ..........................................................
@@ -1276,7 +1277,7 @@ from it (nor ignore it), only activate that Wave.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-In previous example, activated Rook cannot diverge from Wave C, only activate it,
+In previous example, activated Rook couldn't diverge from Wave C, only activate it,
 since all received momentum would be spent moving towards Wave C.
 
 The same Rook (now "in the air") can diverge from Wave B, with 2 remaining momentum,
@@ -1302,8 +1303,8 @@ i.e. difference between received momentum and amount spent moving towards Wave B
 \vspace*{-0.4\baselineskip}
 Wave can diverge not only from own Wave, but also from opponent's. After divergence,
 Wave can choose any direction its
-\hyperref[fig:scn_mv_27_wave_cascading_steps]{activator} can, i.e. last non-Wave piece
-preceeding it in a cascade.
+\hyperref[fig:scn_mv_27_wave_cascading_steps]{activator} can; that is, last material
+(i.e. non-Wave) piece preceeding it in a cascade.
 
 Again, \hyperref[fig:scn_mv_56_own_wave_is_divergent_init]{divergence is optional},
 opponent's Wave could be activated, or ignored (i.e. passed-through as if not present
