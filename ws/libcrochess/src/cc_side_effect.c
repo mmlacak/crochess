@@ -25,6 +25,8 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see )
         case CC_SEE_TagForPromotion : return "="; /* Tag for promotion, corresponds to = (equal sign). */
         case CC_SEE_Conversion : return "%"; /* Conversion, corresponds to % (percent sign). */
         case CC_SEE_FailedConversion : return "%%"; /* Failed conversion, corresponds to %% (double percent sign). */
+        case CC_SEE_Transparency : return "^"; /* Transparency, corresponds to ^ (caret), optional. */
+        case CC_SEE_Divergence : return "/"; /* Divergence, corresponds to / (slash), optional. */
         case CC_SEE_DemoteToPawn : return ">"; /* Syzygy, demoting to Pawn, corresponds to > (greater-than sign). */
         case CC_SEE_Resurrection : return "$"; /* Syzygy, resurrection, corresponds to $ (dollar-sign). */
         case CC_SEE_ResurrectingOpponent : return "$$"; /* Syzygy, resurrecting opponent's piece, corresponds to $$ (dual dollar-sign). */
@@ -79,6 +81,14 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
         sse.convert.lost_tag = lost_tag;
     }
     // Nothing more to do if type == CC_SEE_FailedConversion.
+    else if ( sse.type == CC_SEE_Transparency )
+    {
+        sse.transparency.piece = piece;
+    }
+    else if ( sse.type == CC_SEE_Divergence )
+    {
+        sse.diversion.piece = piece;
+    }
     else if ( sse.type == CC_SEE_DemoteToPawn )
     {
         sse.demote.piece = piece;
@@ -135,6 +145,13 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
         case CC_SEE_Conversion :
             return CC_PIECE_CAN_BE_CONVERTED( see.convert.piece );
 
+        case CC_SEE_Transparency :
+// TODO :: depends on ply piece (the one currently moving)
+            return false; // CC_PAWN_CAN_BE_PROMOTED_TO( see.promote.piece );
+
+        case CC_SEE_Divergence :
+            return CC_PIECE_CAN_BE_DIVERGED_FROM( see.diversion.piece );
+
         case CC_SEE_DemoteToPawn :
             return CC_PIECE_CAN_BE_DEMOTED( see.demote.piece ) &&
                    CC_IS_COORD_2_ON_BOARD( board_size,
@@ -166,6 +183,8 @@ CcPieceEnum cc_side_effect_piece( CcSideEffect se )
         case CC_SEE_TagForPromotion : return CC_PE_None;
         case CC_SEE_Conversion : return se.convert.piece;
         case CC_SEE_FailedConversion : return CC_PE_None;
+        case CC_SEE_Transparency : return se.transparency.piece;
+        case CC_SEE_Divergence : return se.diversion.piece;
         case CC_SEE_DemoteToPawn : return se.demote.piece;
 
         case CC_SEE_Resurrection :
@@ -191,6 +210,8 @@ CcPos cc_side_effect_destination( CcSideEffect se )
         case CC_SEE_TagForPromotion : return CC_POS_CAST_INVALID;
         case CC_SEE_Conversion : return CC_POS_CAST_INVALID;
         case CC_SEE_FailedConversion : return CC_POS_CAST_INVALID;
+        case CC_SEE_Transparency : return CC_POS_CAST_INVALID;
+        case CC_SEE_Divergence : return CC_POS_CAST_INVALID;
         case CC_SEE_DemoteToPawn : return se.demote.distant;
 
         case CC_SEE_Resurrection :
@@ -270,6 +291,22 @@ CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcLosingTagEnum lost_tag
 CcSideEffect cc_side_effect_failed_conversion( void )
 {
     return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, CC_LTE_None,
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID,
+                           CC_PE_None );
+}
+
+CcSideEffect cc_side_effect_transparency( CcPieceEnum piece )
+{
+    return cc_side_effect( CC_SEE_Transparency, piece, CC_LTE_None,
+                           CC_POS_CAST_INVALID,
+                           CC_POS_CAST_INVALID,
+                           CC_PE_None );
+}
+
+CcSideEffect cc_side_effect_diversion( CcPieceEnum piece )
+{
+    return cc_side_effect( CC_SEE_Divergence, piece, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
                            CC_PE_None );

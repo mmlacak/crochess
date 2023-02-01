@@ -32,6 +32,8 @@ typedef enum CcSideEffectEnum
     CC_SEE_TagForPromotion, /**< Corresponds to `=`. */
     CC_SEE_Conversion, /**< Corresponds to `%`. */
     CC_SEE_FailedConversion, /**< Corresponds to `%%`. */
+    CC_SEE_Transparency, /**< Corresponds to `^`. */
+    CC_SEE_Divergence, /**< Corresponds to `/`. */
     CC_SEE_DemoteToPawn, /**< Corresponds to `>`. */
     CC_SEE_Resurrection, /**< Corresponds to `$`. */
     CC_SEE_ResurrectingOpponent, /**< Corresponds to `$$`. */
@@ -99,6 +101,16 @@ typedef struct CcSideEffect
             CcPieceEnum piece; /**< Piece which has been converted. */
             CcLosingTagEnum lost_tag; /**< Flag, if converted piece has lost its tag. */
         } convert; /**< Conversion. */
+
+        struct
+        {
+            CcPieceEnum piece; /**< Piece which has been "passed-over". */
+        } transparency; /**< Transparency. */
+
+        struct
+        {
+            CcPieceEnum piece; /**< Piece from which currently moving piece has been diverged. */
+        } diversion; /**< Divergence. */
 
         struct
         {
@@ -185,6 +197,8 @@ CcSideEffect cc_side_effect_promote( CcPieceEnum piece );
 CcSideEffect cc_side_effect_tag_for_promotion( void );
 CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcLosingTagEnum lost_tag );
 CcSideEffect cc_side_effect_failed_conversion( void );
+CcSideEffect cc_side_effect_transparency( CcPieceEnum piece );
+CcSideEffect cc_side_effect_diversion( CcPieceEnum piece );
 CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant );
 CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, CcPos destination );
 CcSideEffect cc_side_effect_failed_resurrection( void );

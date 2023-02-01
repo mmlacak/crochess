@@ -462,7 +462,7 @@
 
     @see CcPieceEnum
 
-    @return `true` if piece is teleport_in, `false` otherwise.
+    @return `true` if piece is teleporter, `false` otherwise.
 */
 #define CC_PIECE_IS_TELEPORTER(pe) ( ( (pe) == CC_PE_DimStar )      \
                                   || ( (pe) == CC_PE_BrightStar )   \
@@ -484,6 +484,42 @@
                                       && ( (pe) != CC_PE_BrightStar )   \
                                       && ( (pe) != CC_PE_Monolith ) )
 
+/**
+    Macro expression to evaluate whether piece is transparent to Wave.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is semi-transparent, `false` otherwise.
+*/
+#define CC_PIECE_IS_SEMI_TRANSPARENT(pe) ( (pe) != CC_PE_Monolith )
+
+/**
+    Macro expression to evaluate whether piece is transparent to Wave.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is transparent, `false` otherwise.
+*/
+#define CC_PIECE_IS_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkWave )   \
+                                    || ( (pe) == CC_PE_LightWave ) )
+
+/**
+    Macro expression to evaluate whether piece is can be diverged from.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is divergent, `false` otherwise.
+*/
+#define CC_PIECE_CAN_BE_DIVERGED_FROM(pe) ( ( (pe) != CC_PE_DarkStarchild )     \
+                                         && ( (pe) != CC_PE_DarkWave )          \
+                                         && ( (pe) != CC_PE_LightWave )         \
+                                         && ( (pe) != CC_PE_LightStarchild ) )
 
 /**
     Enumerates all pieces, used in all variants.
