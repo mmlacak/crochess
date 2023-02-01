@@ -51,7 +51,16 @@ typedef enum CcSideEffectEnum
 */
 #define CC_SIDE_EFFECT_ENUM_IS_CASTLING(see) ( (see) == CC_SEE_Castle )
 
-/** TODO :: DOCS . */
+/**
+    Function returns string symbol, as used in algebraic notation, for a given side-effect.
+
+    @param see A side-effect enum.
+
+    @note
+    Returned string is pre-defined in library, not allocated one, so it needs no `free()`-ing.
+
+    @return String symbol if side-effect enum is valid, `"?"` otherwise.
+*/
 char const * cc_side_effect_symbol( CcSideEffectEnum see );
 
 

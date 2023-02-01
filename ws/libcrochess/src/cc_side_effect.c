@@ -16,7 +16,7 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see )
 {
     switch ( see )
     {
-        case CC_SEE_None : return ""; /**< Side-effect not found, uninitialized, or error happened. */
+        case CC_SEE_None : return ""; /* Side-effect not found, uninitialized, or error happened. */
         case CC_SEE_Capture : return "*"; /* Capturing, corresponds to * (asterisk). */
         case CC_SEE_Displacement : return "<"; /* Trance-journey displacement, correspondes to < (less-than). */
         case CC_SEE_EnPassant : return ":"; /* En passant, corresponds to : (colon). */
