@@ -164,10 +164,11 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
 
     @param see A side-effect.
     @param board_size A chessboard size.
+    @param piece_ply A piece in current ply, i.e. the one currently being moved.
 
     @return `true` if valid, `false` otherwise.
 */
-bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size );
+bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size, CcPieceEnum piece_ply );
 
 /**
     Function returns piece affected by a side-effect.

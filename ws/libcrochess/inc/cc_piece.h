@@ -485,6 +485,17 @@
                                       && ( (pe) != CC_PE_Monolith ) )
 
 /**
+    Macro expression to evaluate whether piece is opaque.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is opaque, `false` otherwise.
+*/
+#define CC_PIECE_IS_OPAQUE(pe) ( (pe) == CC_PE_Monolith )
+
+/**
     Macro expression to evaluate whether piece is transparent to Wave.
 
     @param pe Piece enum, one of `CcPieceEnum` values.

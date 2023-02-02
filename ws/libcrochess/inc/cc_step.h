@@ -187,23 +187,25 @@ size_t cc_step_count( CcStep * restrict steps );
 
     @param step A step, technically a linked list of steps.
     @param board_size A chessboard size.
+    @param piece_ply A piece in current ply, i.e. the one currently being moved.
 
     @note
     Only single step is checked; neither an entire linked list, nor `link` member are checked.
 
     @return `true` if valid, `false` otherwise.
 */
-bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size );
+bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size, CcPieceEnum piece_ply );
 
 /**
     Checks if all steps in a given linked list are valid.
 
     @param steps A linked list of steps.
     @param board_size A chessboard size.
+    @param piece_ply A piece in current ply, i.e. the one currently being moved.
 
     @return `true` if valid, `false` otherwise.
 */
-bool cc_step_are_all_valid( CcStep * restrict steps, unsigned int board_size );
+bool cc_step_are_all_valid( CcStep * restrict steps, unsigned int board_size, CcPieceEnum piece_ply );
 
 // /**
 //     Function checks if positions are the congruent with a given steps.

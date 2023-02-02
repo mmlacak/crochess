@@ -105,7 +105,7 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     return sse;
 }
 
-bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
+bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size, CcPieceEnum piece_ply )
 {
     switch ( see.type )
     {
@@ -146,8 +146,14 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size )
             return CC_PIECE_CAN_BE_CONVERTED( see.convert.piece );
 
         case CC_SEE_Transparency :
-// TODO :: depends on ply piece (the one currently moving)
-            return false; // CC_PAWN_CAN_BE_PROMOTED_TO( see.promote.piece );
+            if ( CC_PIECE_IS_TRANSPARENT( see.promote.piece )
+                 && CC_PIECE_IS_SEMI_TRANSPARENT( piece_ply ) )
+                return true;
+            else if ( CC_PIECE_IS_SEMI_TRANSPARENT( see.promote.piece )
+                      && CC_PIECE_IS_TRANSPARENT( piece_ply ) )
+                return true;
+            else
+                return false;
 
         case CC_SEE_Divergence :
             return CC_PIECE_CAN_BE_DIVERGED_FROM( see.diversion.piece );

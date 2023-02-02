@@ -249,7 +249,7 @@ bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
     else
         return false;
 
-    if ( !cc_step_are_all_valid( ply->steps, board_size ) ) return false;
+    if ( !cc_step_are_all_valid( ply->steps, board_size, ply->piece ) ) return false;
 
     return true;
 }
