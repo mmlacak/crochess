@@ -141,6 +141,67 @@ class SceneDiscoveryMixin:
         return scene
 
     #
+    # Monolith is opaque
+
+    def scn_d_06_monolith_is_opaque(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_06_monolith_is_opaque', bt)
+
+        start_M1 = (9, 6)
+        start_M2 = (16, 20)
+
+        scene.board.set_piece(*start_M1, piece=PieceType.Monolith)
+        scene.board.set_piece(*start_M2, piece=PieceType.Monolith)
+
+        scene.board.set_piece(5, 8, piece=PieceType.Queen)
+        scene.board.set_piece(14, 22, piece=-PieceType.Pawn)
+
+        #
+        # Pegasus
+        start_G = (17, 7)
+        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+
+        gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
+
+        for i, pos in enumerate( gen_abs_pos_G() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Wave
+        start_W = (15, 3)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        gen_abs_pos_W = GS.gen_steps([(-2, 1), ], start=start_W, include_prev=True, count=7)
+
+        for i, pos in enumerate( gen_abs_pos_W() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Blocked if i > 2 else \
+                        MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        #
+        # Bishop
+        start_B = (19, 17)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+
+        gen_abs_pos_B = GS.gen_steps([(-1, 1), ], start=start_B, include_prev=True, count=6)
+
+        for i, pos in enumerate( gen_abs_pos_B() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Blocked if i > 2 else \
+                        MarkType.Legal
+            scene.append_arrow(*pos, mark_type=mark_type)
+
+        scene.append_text("A", *start_M1, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+        scene.append_text("B", *start_M2, corner=Corner.UpperRight, mark_type=MarkType.Legal)
+
+        return scene
+
+
+
+    #
     # Off-board Monolith
 
     def scn_d_06_monolith_off_board(self, bt=BoardType.Discovery):
