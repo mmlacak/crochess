@@ -199,14 +199,12 @@ class SceneDiscoveryMixin:
 
         return scene
 
-
-
     #
     # Off-board Monolith
 
-    def scn_d_06_monolith_off_board(self, bt=BoardType.Discovery):
+    def scn_d_07_monolith_off_board(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_06_monolith_off_board', bt, x=4.0, y=-1.0)
+        scene = Scene('scn_d_07_monolith_off_board', bt, x=4.0, y=-1.0)
 
         start_M = (22, 6) # rel == (2, 1) --> left step
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -228,9 +226,9 @@ class SceneDiscoveryMixin:
     #
     # Teleporting
 
-    def scn_d_07_teleport_via_monolith(self, bt=BoardType.Discovery):
+    def scn_d_08_teleport_via_monolith(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_07_teleport_via_monolith', bt)
+        scene = Scene('scn_d_08_teleport_via_monolith', bt)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -318,9 +316,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_08_teleport_via_star(self, bt=BoardType.Discovery):
+    def scn_d_09_teleport_via_star(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_08_teleport_via_star', bt)
+        scene = Scene('scn_d_09_teleport_via_star', bt)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -391,9 +389,9 @@ class SceneDiscoveryMixin:
     #
     # Teleporting Wave
 
-    def scn_d_09_teleport_wave_via_star(self, bt=BoardType.Discovery):
+    def scn_d_10_teleport_wave_via_star(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_09_teleport_wave_via_star', bt)
+        scene = Scene('scn_d_10_teleport_wave_via_star', bt)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -445,9 +443,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_10_teleport_wave_via_monolith(self, bt=BoardType.Discovery):
+    def scn_d_11_teleport_wave_via_monolith(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_10_teleport_wave_via_monolith', bt)
+        scene = Scene('scn_d_11_teleport_wave_via_monolith', bt)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -503,9 +501,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_11_teleported_wave_blocked(self, bt=BoardType.Discovery):
+    def scn_d_12_teleported_wave_blocked(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_11_teleported_wave_blocked', bt)
+        scene = Scene('scn_d_12_teleported_wave_blocked', bt)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -567,9 +565,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_12_wave_teleported_off_board(self, bt=BoardType.Discovery):
+    def scn_d_13_wave_teleported_off_board(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_12_wave_teleported_off_board', bt, x=-4.0, y=1.0)
+        scene = Scene('scn_d_13_wave_teleported_off_board', bt, x=-4.0, y=1.0)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -621,9 +619,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_13_wave_teleport_on_and_off_board(self, bt=BoardType.Discovery):
+    def scn_d_14_wave_teleport_on_and_off_board(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_13_wave_teleport_on_and_off_board', bt, x=-4.0, y=1.0)
+        scene = Scene('scn_d_14_wave_teleport_on_and_off_board', bt, x=-4.0, y=1.0)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -687,9 +685,9 @@ class SceneDiscoveryMixin:
     #
     # Teleportation cascade
 
-    def scn_d_14_teleporting_wave_cascade(self, bt=BoardType.Discovery):
+    def scn_d_15_teleporting_wave_cascade(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_14_teleporting_wave_cascade', bt)
+        scene = Scene('scn_d_15_teleporting_wave_cascade', bt)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -757,9 +755,9 @@ class SceneDiscoveryMixin:
     #
     # Steps after Teleportation
 
-    def scn_d_15_steps_after_teleport_init(self, bt=BoardType.Discovery):
+    def scn_d_16_steps_after_teleport_init(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_15_steps_after_teleport_init', bt)
+        scene = Scene('scn_d_16_steps_after_teleport_init', bt)
 
         start_U = (13, 14)
         scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
@@ -785,9 +783,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_16_steps_after_teleport_end(self, bt=BoardType.Discovery):
+    def scn_d_17_steps_after_teleport_end(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_16_steps_after_teleport_end', bt)
+        scene = Scene('scn_d_17_steps_after_teleport_end', bt)
 
         start_U = (12, 16)
         scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
@@ -810,9 +808,9 @@ class SceneDiscoveryMixin:
     #
     # Trance-journey interaction
 
-    def scn_d_17_monolith_shaman_interaction(self, bt=BoardType.Discovery):
+    def scn_d_18_monolith_shaman_interaction(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_17_monolith_shaman_interaction', bt, x=-4, y=0)
+        scene = Scene('scn_d_18_monolith_shaman_interaction', bt, x=-4, y=0)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -864,9 +862,9 @@ class SceneDiscoveryMixin:
     #
     # Syzygy
 
-    def scn_d_18_syzygy_explain(self, bt=BoardType.Discovery):
+    def scn_d_19_syzygy_explain(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_18_syzygy_explain', bt)
+        scene = Scene('scn_d_19_syzygy_explain', bt)
 
         start_T_1 = (0, 0)
         start_T_2 = (23, 23)
@@ -903,9 +901,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_19_syzygy_2_stars_init(self, bt=BoardType.Discovery):
+    def scn_d_20_syzygy_2_stars_init(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_19_syzygy_2_stars_init', bt)
+        scene = Scene('scn_d_20_syzygy_2_stars_init', bt)
 
         scene.board.set_piece(0, 0, piece=PieceType.Star)
         scene.board.set_piece(0, 23, piece=-PieceType.Star)
@@ -932,9 +930,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_20_syzygy_2_stars_steps(self, bt=BoardType.Discovery):
+    def scn_d_21_syzygy_2_stars_steps(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_20_syzygy_2_stars_steps', bt)
+        scene = Scene('scn_d_21_syzygy_2_stars_steps', bt)
 
         start_T = (23, 0)
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -986,9 +984,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_21_syzygy_2_monoliths_init(self, bt=BoardType.Discovery):
+    def scn_d_22_syzygy_2_monoliths_init(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_21_syzygy_2_monoliths_init', bt)
+        scene = Scene('scn_d_22_syzygy_2_monoliths_init', bt)
 
         scene.board.set_piece(0, 0, piece=PieceType.Star)
         scene.board.set_piece(0, 23, piece=-PieceType.Star)
@@ -1009,9 +1007,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_22_syzygy_2_monoliths_steps(self, bt=BoardType.Discovery):
+    def scn_d_23_syzygy_2_monoliths_steps(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_22_syzygy_2_monoliths_steps', bt)
+        scene = Scene('scn_d_23_syzygy_2_monoliths_steps', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -1059,9 +1057,9 @@ class SceneDiscoveryMixin:
     #
     # Reentering syzygy
 
-    def scn_d_23_syzygy_reentering_same_move(self, bt=BoardType.Discovery):
+    def scn_d_24_syzygy_reentering_same_move(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_23_syzygy_reentering_same_move', bt)
+        scene = Scene('scn_d_24_syzygy_reentering_same_move', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -1087,9 +1085,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_24_syzygy_reentering_independent(self, bt=BoardType.Discovery):
+    def scn_d_25_syzygy_reentering_independent(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_24_syzygy_reentering_independent', bt)
+        scene = Scene('scn_d_25_syzygy_reentering_independent', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -1126,9 +1124,9 @@ class SceneDiscoveryMixin:
     #
     # In opponent's figure row
 
-    def scn_d_25_syzygy_in_opponents_figure_row(self, bt=BoardType.Discovery):
+    def scn_d_26_syzygy_in_opponents_figure_row(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_25_syzygy_in_opponents_figure_row', bt)
+        scene = Scene('scn_d_26_syzygy_in_opponents_figure_row', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
