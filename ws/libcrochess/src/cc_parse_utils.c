@@ -434,6 +434,14 @@ CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
 
         return CC_SEE_Conversion;
     }
+    else if ( *c == '^' )
+    {
+        return CC_SEE_Transparency;
+    }
+    else if ( *c == '/' )
+    {
+        return CC_SEE_Divergence;
+    }
     else if ( *c == '>' )
     {
         return CC_SEE_DemoteToPawn;
@@ -473,6 +481,8 @@ size_t cc_side_effect_type_len( CcSideEffectEnum see,
         case CC_SEE_TagForPromotion : return 1;
         case CC_SEE_Conversion : return 1;
         case CC_SEE_FailedConversion : return 2;
+        case CC_SEE_Transparency : return 1;
+        case CC_SEE_Divergence : return 1;
         case CC_SEE_DemoteToPawn : return 1;
         case CC_SEE_Resurrection : return 1;
         case CC_SEE_ResurrectingOpponent : return 2;
