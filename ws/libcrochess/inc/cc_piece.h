@@ -527,10 +527,10 @@
 
     @return `true` if piece is divergent, `false` otherwise.
 */
-#define CC_PIECE_CAN_BE_DIVERGED_FROM(pe) ( ( (pe) != CC_PE_DarkStarchild )     \
-                                         && ( (pe) != CC_PE_DarkWave )          \
-                                         && ( (pe) != CC_PE_LightWave )         \
-                                         && ( (pe) != CC_PE_LightStarchild ) )
+#define CC_PIECE_CAN_BE_DIVERGED_FROM(pe) ( ( (pe) == CC_PE_DarkStarchild )     \
+                                         || ( (pe) == CC_PE_DarkWave )          \
+                                         || ( (pe) == CC_PE_LightWave )         \
+                                         || ( (pe) == CC_PE_LightStarchild ) )
 
 /**
     Enumerates all pieces, used in all variants.

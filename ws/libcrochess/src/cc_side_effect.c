@@ -146,11 +146,11 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size, CcPiece
             return CC_PIECE_CAN_BE_CONVERTED( see.convert.piece );
 
         case CC_SEE_Transparency :
-            if ( CC_PIECE_IS_TRANSPARENT( see.promote.piece )
-                 && CC_PIECE_IS_SEMI_TRANSPARENT( piece_ply ) )
+            if ( CC_PIECE_IS_TRANSPARENT( see.promote.piece ) &&
+                 CC_PIECE_IS_SEMI_TRANSPARENT( piece_ply ) )
                 return true;
-            else if ( CC_PIECE_IS_SEMI_TRANSPARENT( see.promote.piece )
-                      && CC_PIECE_IS_TRANSPARENT( piece_ply ) )
+            else if ( CC_PIECE_IS_SEMI_TRANSPARENT( see.promote.piece ) &&
+                      CC_PIECE_IS_TRANSPARENT( piece_ply ) )
                 return true;
             else
                 return false;
