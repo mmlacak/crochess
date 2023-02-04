@@ -266,9 +266,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
         case CC_SEE_EnPassant :
 // TODO :: en passant
+            return false;
 
         case CC_SEE_Castle :
 // TODO :: castling
+            return false;
 
         case CC_SEE_Promotion :
         {
@@ -413,7 +415,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return true;
         }
 
-        case CC_SEE_Transparency : // intentional fall-through
+        case CC_SEE_Transparency : // Intentional fall-through ...
         case CC_SEE_Divergence :
         {
             char piece_symbol = ' ';
@@ -442,12 +444,14 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             else if ( see == CC_SEE_Divergence )
                 *side_effect__o = cc_side_effect_diversion( step_piece );
             else
-                return false;
+                return false; // In case some other, unexpected side-effect gets here.
+
             return true;
         }
 
         case CC_SEE_DemoteToPawn :
 // TODO :: demote to Pawn
+            return false;
 
         case CC_SEE_Resurrection :
         case CC_SEE_ResurrectingOpponent :
