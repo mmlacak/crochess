@@ -129,7 +129,6 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
 
             char const * promo_an = se_an + cc_losing_tag_len( lte );
-            CcPieceEnum promoted_to = CC_PE_None;
 
             if ( CC_PIECE_IS_PAWN( last_ply_destination.piece ) )
             {
@@ -178,7 +177,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                         return false;
                     }
 
-                    promoted_to = promote_to;
+                    *side_effect__o = cc_side_effect_promote( step_piece, lte, promote_to );
+                    return true;
                 }
                 else if ( promo == CC_SEE_TagForPromotion )
                 {
@@ -186,7 +186,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 }
             }
 
-            *side_effect__o = cc_side_effect_capture( step_piece, lte, promoted_to );
+            *side_effect__o = cc_side_effect_capture( step_piece, lte );
             return true;
         }
 
@@ -327,12 +327,14 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 return false;
             }
 
-            *side_effect__o = cc_side_effect_promote( step_piece );
+            *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_None, step_piece );
             return true;
         }
 
         case CC_SEE_TagForPromotion :
         {
+// TODO -- silent capture before promotion
+
             if ( !CC_PIECE_IS_PAWN( step_piece ) )
             {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
@@ -346,7 +348,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 return false;
             }
 
-            *side_effect__o = cc_side_effect_tag_for_promotion();
+            *side_effect__o = cc_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_None );
             return true;
         }
 
@@ -453,7 +455,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 // TODO :: demote to Pawn
             return false;
 
-        case CC_SEE_Resurrection :
+        case CC_SEE_Resurrection : // Intentional fall-through ...
         case CC_SEE_ResurrectingOpponent :
         {
             if ( !CC_PIECE_IS_NONE( step_piece ) )

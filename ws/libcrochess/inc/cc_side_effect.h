@@ -77,7 +77,6 @@ typedef struct CcSideEffect
         {
             CcPieceEnum piece; /**< Piece which has been captured. */
             CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */
-            CcPieceEnum promoted_to; /**< Piece to which Pawn capturing a piece has been promoted. */
         } capture; /**< Capture. */
 
         struct
@@ -102,8 +101,16 @@ typedef struct CcSideEffect
 
         struct
         {
-            CcPieceEnum piece; /**< Piece to which Pawn has been promoted. */
+            CcPieceEnum captured; /**< Piece which has been captured. */
+            CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */
+            CcPieceEnum promoted_to; /**< Piece to which Pawn has been promoted. */
         } promote; /**< Promotion. */
+
+        struct
+        {
+            CcPieceEnum captured; /**< Piece which has been captured. */
+            CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */
+        } tag_for_promotion; /**< Tag for promotion. */
 
         struct
         {
@@ -199,12 +206,12 @@ CcPos cc_side_effect_destination( CcSideEffect se );
  */
 
 CcSideEffect cc_side_effect_none( void );
-CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
+CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag );
 CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
 CcSideEffect cc_side_effect_en_passant( CcPieceEnum pawn, CcPos distant );
 CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination );
-CcSideEffect cc_side_effect_promote( CcPieceEnum piece );
-CcSideEffect cc_side_effect_tag_for_promotion( void );
+CcSideEffect cc_side_effect_promote( CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
+CcSideEffect cc_side_effect_tag_for_promotion( CcPieceEnum captured, CcLosingTagEnum lost_tag );
 CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcLosingTagEnum lost_tag );
 CcSideEffect cc_side_effect_failed_conversion( void );
 CcSideEffect cc_side_effect_transparency( CcPieceEnum piece );

@@ -441,9 +441,9 @@ CcStep * cc_step_none__new( CcStepLinkEnum link, CcPos field )
 }
 
 CcStep * cc_step_capture__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+                               CcPieceEnum piece, CcLosingTagEnum lost_tag )
 {
-    CcSideEffect se = cc_side_effect_capture( piece, lost_tag, promoted_to );
+    CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
     return cc_step__new( link, field, se );
 }
 
@@ -469,15 +469,16 @@ CcStep * cc_step_castle__new( CcStepLinkEnum link, CcPos field,
 }
 
 CcStep * cc_step_promote__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece )
+                               CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
 {
-    CcSideEffect se = cc_side_effect_promote( piece );
+    CcSideEffect se = cc_side_effect_promote( captured, lost_tag, promoted_to );
     return cc_step__new( link, field, se );
 }
 
-CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, CcPos field )
+CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, CcPos field,
+                                         CcPieceEnum captured, CcLosingTagEnum lost_tag )
 {
-    CcSideEffect se = cc_side_effect_tag_for_promotion();
+    CcSideEffect se = cc_side_effect_tag_for_promotion( captured, lost_tag );
     return cc_step__new( link, field, se );
 }
 
@@ -526,9 +527,9 @@ CcStep * cc_step_none_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_capture_append( CcStep * restrict steps__io,
                                  CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+                                 CcPieceEnum piece, CcLosingTagEnum lost_tag )
 {
-    CcSideEffect se = cc_side_effect_capture( piece, lost_tag, promoted_to );
+    CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
     return cc_step_append( steps__io, link, field, se );
 }
 
@@ -558,16 +559,17 @@ CcStep * cc_step_castle_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_promote_append( CcStep * restrict steps__io,
                                  CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece )
+                                 CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
 {
-    CcSideEffect se = cc_side_effect_promote( piece );
+    CcSideEffect se = cc_side_effect_promote( captured, lost_tag, promoted_to );
     return cc_step_append( steps__io, link, field, se );
 }
 
 CcStep * cc_step_tag_for_promotion_append( CcStep * restrict steps__io,
-                                           CcStepLinkEnum link, CcPos field )
+                                           CcStepLinkEnum link, CcPos field,
+                                           CcPieceEnum captured, CcLosingTagEnum lost_tag )
 {
-    CcSideEffect se = cc_side_effect_tag_for_promotion();
+    CcSideEffect se = cc_side_effect_tag_for_promotion( captured, lost_tag );
     return cc_step_append( steps__io, link, field, se );
 }
 
@@ -621,9 +623,9 @@ CcStep * cc_step_none_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_capture_append_if( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+                                    CcPieceEnum piece, CcLosingTagEnum lost_tag )
 {
-    CcSideEffect se = cc_side_effect_capture( piece, lost_tag, promoted_to );
+    CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
     return cc_step_append_if( steps__io, link, field, se );
 }
 
@@ -653,16 +655,17 @@ CcStep * cc_step_castle_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_promote_append_if( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece )
+                                    CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
 {
-    CcSideEffect se = cc_side_effect_promote( piece );
+    CcSideEffect se = cc_side_effect_promote( captured, lost_tag, promoted_to );
     return cc_step_append_if( steps__io, link, field, se );
 }
 
 CcStep * cc_step_tag_for_promotion_append_if( CcStep ** restrict steps__io,
-                                              CcStepLinkEnum link, CcPos field )
+                                              CcStepLinkEnum link, CcPos field,
+                                              CcPieceEnum captured, CcLosingTagEnum lost_tag )
 {
-    CcSideEffect se = cc_side_effect_tag_for_promotion();
+    CcSideEffect se = cc_side_effect_tag_for_promotion( captured, lost_tag );
     return cc_step_append_if( steps__io, link, field, se );
 }
 

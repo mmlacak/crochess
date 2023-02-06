@@ -51,7 +51,6 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     {
         sse.capture.piece = piece;
         sse.capture.lost_tag = lost_tag;
-        sse.capture.promoted_to = promoted_to;
     }
     else if ( sse.type == CC_SEE_Displacement )
     {
@@ -72,9 +71,15 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     }
     else if ( sse.type == CC_SEE_Promotion )
     {
-        sse.promote.piece = piece;
+        sse.promote.captured = piece;
+        sse.promote.lost_tag = lost_tag;
+        sse.promote.promoted_to = promoted_to;
     }
-    // Nothing more to do if type == CC_SEE_TagForPromotion.
+    else if ( sse.type == CC_SEE_TagForPromotion )
+    {
+        sse.tag_for_promotion.captured = piece;
+        sse.tag_for_promotion.lost_tag = lost_tag;
+    }
     else if ( sse.type == CC_SEE_Conversion )
     {
         sse.convert.piece = piece;
@@ -110,7 +115,6 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size, CcPiece
     switch ( see.type )
     {
         case CC_SEE_None :
-        case CC_SEE_TagForPromotion :
         case CC_SEE_FailedConversion :
         case CC_SEE_FailedResurrection :
             return true;
@@ -140,16 +144,22 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size, CcPiece
                                            see.castle.destination.j );
 
         case CC_SEE_Promotion :
-            return CC_PAWN_CAN_BE_PROMOTED_TO( see.promote.piece );
+            return  ( CC_PIECE_IS_NONE( see.promote.captured ) ||
+                      CC_PIECE_CAN_BE_CAPTURED( see.promote.captured ) ) &&
+                    CC_PAWN_CAN_BE_PROMOTED_TO( see.promote.promoted_to );
+
+        case CC_SEE_TagForPromotion :
+            return  ( CC_PIECE_IS_NONE( see.promote.captured ) ||
+                      CC_PIECE_CAN_BE_CAPTURED( see.promote.captured ) );
 
         case CC_SEE_Conversion :
             return CC_PIECE_CAN_BE_CONVERTED( see.convert.piece );
 
         case CC_SEE_Transparency :
-            if ( CC_PIECE_IS_TRANSPARENT( see.promote.piece ) &&
+            if ( CC_PIECE_IS_TRANSPARENT( see.transparency.piece ) &&
                  CC_PIECE_IS_SEMI_TRANSPARENT( piece_ply ) )
                 return true;
-            else if ( CC_PIECE_IS_SEMI_TRANSPARENT( see.promote.piece ) &&
+            else if ( CC_PIECE_IS_SEMI_TRANSPARENT( see.transparency.piece ) &&
                       CC_PIECE_IS_TRANSPARENT( piece_ply ) )
                 return true;
             else
@@ -185,7 +195,7 @@ CcPieceEnum cc_side_effect_piece( CcSideEffect se )
         case CC_SEE_Displacement : return se.displacement.piece;
         case CC_SEE_EnPassant : return se.en_passant.pawn;
         case CC_SEE_Castle : return se.castle.rook;
-        case CC_SEE_Promotion : return se.promote.piece;
+        case CC_SEE_Promotion : return se.promote.promoted_to;
         case CC_SEE_TagForPromotion : return CC_PE_None;
         case CC_SEE_Conversion : return se.convert.piece;
         case CC_SEE_FailedConversion : return CC_PE_None;
@@ -241,12 +251,12 @@ CcSideEffect cc_side_effect_none( void )
                            CC_PE_None );
 }
 
-CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag )
 {
     return cc_side_effect( CC_SEE_Capture, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           promoted_to );
+                           CC_PE_None );
 }
 
 CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination )
@@ -270,17 +280,17 @@ CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destina
     return cc_side_effect( CC_SEE_Castle, rook, CC_LTE_None, start, destination, CC_PE_None );
 }
 
-CcSideEffect cc_side_effect_promote( CcPieceEnum piece )
+CcSideEffect cc_side_effect_promote( CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
 {
-    return cc_side_effect( CC_SEE_Promotion, piece, CC_LTE_None,
+    return cc_side_effect( CC_SEE_Promotion, captured, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           promoted_to );
 }
 
-CcSideEffect cc_side_effect_tag_for_promotion( void )
+CcSideEffect cc_side_effect_tag_for_promotion( CcPieceEnum captured, CcLosingTagEnum lost_tag )
 {
-    return cc_side_effect( CC_SEE_TagForPromotion, CC_PE_None, CC_LTE_None,
+    return cc_side_effect( CC_SEE_TagForPromotion, captured, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
                            CC_PE_None );

@@ -280,7 +280,7 @@ bool cc_step_free_all( CcStep ** restrict steps__f );
 CcStep * cc_step_none__new( CcStepLinkEnum link, CcPos field );
 
 CcStep * cc_step_capture__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
+                               CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_displacement__new( CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
@@ -292,9 +292,10 @@ CcStep * cc_step_castle__new( CcStepLinkEnum link, CcPos field,
                               CcPieceEnum rook, CcPos start, CcPos destination );
 
 CcStep * cc_step_promote__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece );
+                               CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
-CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, CcPos field );
+CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, CcPos field,
+                                         CcPieceEnum captured, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_convert__new( CcStepLinkEnum link, CcPos field,
                                CcPieceEnum piece, CcLosingTagEnum lost_tag );
@@ -327,7 +328,7 @@ CcStep * cc_step_none_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_capture_append( CcStep * restrict steps__io,
                                  CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
+                                 CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_displacement_append( CcStep * restrict steps__io,
                                       CcStepLinkEnum link, CcPos field,
@@ -343,10 +344,11 @@ CcStep * cc_step_castle_append( CcStep * restrict steps__io,
 
 CcStep * cc_step_promote_append( CcStep * restrict steps__io,
                                  CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece );
+                                 CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
 CcStep * cc_step_tag_for_promotion_append( CcStep * restrict steps__io,
-                                           CcStepLinkEnum link, CcPos field );
+                                           CcStepLinkEnum link, CcPos field,
+                                           CcPieceEnum captured, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_convert_append( CcStep * restrict steps__io,
                                  CcStepLinkEnum link, CcPos field,
@@ -385,7 +387,7 @@ CcStep * cc_step_none_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_capture_append_if( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
+                                    CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_displacement_append_if( CcStep ** restrict steps__io,
                                          CcStepLinkEnum link, CcPos field,
@@ -401,10 +403,11 @@ CcStep * cc_step_castle_append_if( CcStep ** restrict steps__io,
 
 CcStep * cc_step_promote_append_if( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece );
+                                    CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
 CcStep * cc_step_tag_for_promotion_append_if( CcStep ** restrict steps__io,
-                                              CcStepLinkEnum link, CcPos field );
+                                              CcStepLinkEnum link, CcPos field,
+                                              CcPieceEnum captured, CcLosingTagEnum lost_tag );
 
 CcStep * cc_step_convert_append_if( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
