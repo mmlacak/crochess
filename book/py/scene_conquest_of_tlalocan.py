@@ -2165,9 +2165,9 @@ class SceneConquestOfTlalocanMixin:
 
     def test_cot_16_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('test_cot_16_stop_sign_pattern_full', bt, x=-50, y=-50, width=124, height=124)
+        scene = Scene('test_cot_16_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
 
-        start = (6, 11) # (11, 11)
+        start = (11, 11) # (11, 11)
 
 
         rel = (2, 1)
@@ -2183,11 +2183,11 @@ class SceneConquestOfTlalocanMixin:
             scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # up
             scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # left-up
 
-            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
-            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # left-down
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # left
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # left-down
 
-            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
-            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # right-down
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # down
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # right-down
 
 
         rel = (-2, -1)
@@ -2197,18 +2197,17 @@ class SceneConquestOfTlalocanMixin:
         coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
 
         for i in range(11):
-            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
-            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # right-up
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # right
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # right-up
 
-            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # up
-            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # left-up
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # up
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # left-up
 
             scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
             scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # left-down
 
             scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
             scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # right-down
-
 
         return scene
 
@@ -2220,8 +2219,12 @@ def test_big_pattern():
     from def_render import RenderingSizeEnum
 
     scene = SceneMix()
-    ss = SaveScene(RenderingSizeEnum.Final)
-    ss.render_example(scene, scene.test_cot_16_stop_sign_pattern_full, path_prefix='temp/') # , enforce_cot_in_bw=True)
+    ss = SaveScene( RenderingSizeEnum.Draft )
+    ss.render_example( scene,
+                       scene.test_cot_16_stop_sign_pattern_full,
+                       board_types=[ BoardType.ConquestOfTlalocan, ],
+                       path_prefix='temp/')
+                       # , enforce_cot_in_bw=True)
 
 
 if __name__ == '__main__':

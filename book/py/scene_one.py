@@ -1633,3 +1633,76 @@ class SceneOneMixin:
         scene.append_text( "B", *start_I_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
+
+
+
+
+    #
+    # test methods
+
+    def test_o_47_stop_sign_pattern_full(self, bt=BoardType.One):
+
+        scene = Scene('test_o_47_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
+
+        start = (12, 12) # (11, 11)
+
+
+        rel = (2, 1)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rel_legs(rel)
+        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
+
+        for i in range(11):
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # right
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # right-up
+
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # up
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # left-up
+
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal, end_pointer=False ) # left
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Legal ) # left-down
+
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action, end_pointer=False ) # down
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Action ) # right-down
+
+
+        rel = (-2, -1)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rel_legs(rel)
+        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
+
+        for i in range(11):
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # right
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # right-up
+
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # up
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # left-up
+
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Blocked ) # left-down
+
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
+            scene.append_arrow( *GS.add_to_all( coords(), 0.5 ), mark_type=MarkType.Illegal ) # right-down
+
+        return scene
+
+
+
+def test_big_pattern():
+    from scene_mix import SceneMix
+    from save_scene import SaveScene
+    from def_render import RenderingSizeEnum
+
+    scene = SceneMix()
+    ss = SaveScene( RenderingSizeEnum.Draft )
+    ss.render_example( scene,
+                       scene.test_o_47_stop_sign_pattern_full,
+                       board_types=[ BoardType.One, ],
+                       path_prefix='temp/')
+                       # , enforce_cot_in_bw=True)
+
+
+if __name__ == '__main__':
+    test_big_pattern()
