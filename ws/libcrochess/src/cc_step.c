@@ -320,115 +320,115 @@ bool cc_step_free_all( CcStep ** restrict steps__f )
     return true;
 }
 
-// char * cc_steps_to_short_string__new( CcSteps * restrict steps )
-// {
-//     if ( !steps ) return NULL;
+char * cc_step_all_to_short_string__new( CcStep * restrict steps )
+{
+    if ( !steps ) return NULL;
 
-//     // unused len is certainly > 0, because steps != NULL
-//     signed int unused = cc_steps_len( steps ) *
-//                         ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 );
-//                         // CC_MAX_LEN_CHAR_8, for position
-//                         // + CC_MAX_LEN_CHAR_16, for side-effect
-//                         // + 2, for step links, e.g. ".." before step
+    // unused len is certainly > 0, because steps != NULL
+    signed int unused = cc_step_count( steps ) *
+                        ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 );
+                        // CC_MAX_LEN_CHAR_8, for position
+                        // + CC_MAX_LEN_CHAR_16, for side-effect
+                        // + 2, for step links, e.g. ".." before step
 
-//     char * steps_str__a = malloc( unused + 1 ); // +1, for '\0'
-//     if ( !steps_str__a ) return NULL;
+    char * steps_str__a = malloc( unused + 1 ); // +1, for '\0'
+    if ( !steps_str__a ) return NULL;
 
-//     // *steps_str__a = '\0'; // Not needed, done after a switch below.
+    // *steps_str__a = '\0'; // Not needed, done after a switch below.
 
-//     char * steps_str = steps_str__a;
-//     char * steps_end = steps_str;
-//     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-//     cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
-//     CcSteps * s = steps;
+    char * steps_str = steps_str__a;
+    char * steps_end = steps_str;
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+    cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
+    CcStep * s = steps;
 
-//     while ( s && ( unused > 0 ) )
-//     {
-//         switch ( s->step_link )
-//         {
-//             case CC_SLE_None :
-//             {
-//                 *steps_str++ = '?';
-//                 break;
-//             }
+    while ( s && ( unused > 0 ) )
+    {
+        switch ( s->link )
+        {
+            case CC_SLE_None :
+            {
+                *steps_str++ = '?';
+                break;
+            }
 
-//             case CC_SLE_Start :
-//             {
-//                 *steps_str++ = '`';
-//                 break;
-//             }
+            case CC_SLE_Start :
+            {
+                *steps_str++ = '`';
+                break;
+            }
 
-//             case CC_SLE_Reposition :
-//             {
-//                 *steps_str++ = ',';
-//                 break;
-//             }
+            case CC_SLE_Reposition :
+            {
+                *steps_str++ = ',';
+                break;
+            }
 
-//             case CC_SLE_Next :
-//             {
-//                 *steps_str++ = '.';
-//                 break;
-//             }
+            case CC_SLE_Next :
+            {
+                *steps_str++ = '.';
+                break;
+            }
 
-//             case CC_SLE_Distant :
-//             {
-//                 *steps_str++ = '.';
-//                 *steps_str++ = '.';
-//                 break;
-//             }
+            case CC_SLE_Distant :
+            {
+                *steps_str++ = '.';
+                *steps_str++ = '.';
+                break;
+            }
 
-//             case CC_SLE_Destination :
-//             {
-//                 *steps_str++ = '-';
-//                 break;
-//             }
+            case CC_SLE_Destination :
+            {
+                *steps_str++ = '-';
+                break;
+            }
 
-//             default :
-//             {
-//                 *steps_str++ = '!';
-//                 break;
-//             }
-//         }
+            default :
+            {
+                *steps_str++ = '!';
+                break;
+            }
+        }
 
-//         *steps_str = '\0';
+        *steps_str = '\0';
 
-//         if ( !cc_pos_to_short_string( s->pos, &pos_c8 ) )
-//         {
-//             CC_FREE( steps_str__a );
-//             return NULL;
-//         }
+        if ( !cc_pos_to_short_string( s->field, &pos_c8 ) )
+        {
+            CC_FREE( steps_str__a );
+            return NULL;
+        }
 
-//         steps_end = cc_str_append_into( steps_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
-//         if ( !steps_end )
-//         {
-//             CC_FREE( steps_str__a );
-//             return NULL;
-//         }
+        steps_end = cc_str_append_into( steps_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
+        if ( !steps_end )
+        {
+            CC_FREE( steps_str__a );
+            return NULL;
+        }
 
-//         unused -= ( steps_end - steps_str );
-//         steps_str = steps_end;
+        unused -= ( steps_end - steps_str );
+        steps_str = steps_end;
 
-//         if ( !cc_side_effect_to_short_str( s->side_effect, &se_c16 ) )
-//         {
-//             CC_FREE( steps_str__a );
-//             return NULL;
-//         }
+        if ( !cc_side_effect_to_short_str( s->side_effect, &se_c16 ) )
+        {
+            CC_FREE( steps_str__a );
+            return NULL;
+        }
 
-//         steps_end = cc_str_append_into( steps_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
-//         if ( !steps_end )
-//         {
-//             CC_FREE( steps_str__a );
-//             return NULL;
-//         }
+        steps_end = cc_str_append_into( steps_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
+        if ( !steps_end )
+        {
+            CC_FREE( steps_str__a );
+            return NULL;
+        }
 
-//         unused -= ( steps_end - steps_str );
-//         steps_str = steps_end;
+        unused -= ( steps_end - steps_str );
+        steps_str = steps_end;
 
-//         s = s->next;
-//     }
+        s = s->next;
+    }
 
-//     return steps_str__a;
-// }
+    return steps_str__a;
+}
 
 
 //

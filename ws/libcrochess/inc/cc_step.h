@@ -237,23 +237,23 @@ bool cc_step_are_all_valid( CcStep * restrict steps, unsigned int board_size, Cc
 */
 bool cc_step_free_all( CcStep ** restrict steps__f );
 
-// /**
-//     Function returns new string, containing user-readable representation of a steps.
+/**
+    Function returns new string, containing user-readable representation of a steps.
 
-//     @param steps A queue of steps.
+    @param steps A queue of steps.
 
-//     @note
-//     Each step is preceeded by the same separator as used in AN, e.g. `..` (double dot) is used for a distant step.
+    @note
+    Each step is preceeded by the same separator as used in AN, e.g. `..` (double dot) is used for a distant step.
 
-//     @note
-//     Steps with unknown linkage are preceeded by `?`.
+    @note
+    Steps with unknown linkage are preceeded by `?`.
 
-//     @note
-//     Starting step is preceeded by ` (back-tick).
+    @note
+    Starting step is preceeded by ` (back-tick).
 
-//     @return A newly allocated, zero-termianted string if successful, `NULL` otherwise
-// */
-// char * cc_steps_to_short_string__new( CcSteps * restrict steps );
+    @return A newly allocated, zero-termianted string if successful, `NULL` otherwise
+*/
+char * cc_step_all_to_short_string__new( CcStep * restrict steps );
 
 
 /** @defgroup step_convenience The step conveniences
