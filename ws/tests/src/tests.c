@@ -30,7 +30,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.273:705+20230208.004230"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.274:706+20230208.015055"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -228,7 +228,7 @@ int main( void )
 
             if ( cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             {
-                size_t len = cc_str_copy( token_start, token_end, CC_MAX_LEN_VARIANT_SYMBOL + 1, code, CC_SIZE_CHAR_8 );
+                size_t len = cc_str_copy( token_start, token_end, CC_MAX_LEN_VARIANT_SYMBOL + 1, code, NULL, CC_SIZE_CHAR_8 );
                 if ( len < 1 )
                     continue;
 

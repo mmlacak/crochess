@@ -362,7 +362,8 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
     if ( se.type == CC_SEE_None )
         return true;
 
-    char * se_end = (char *)(se_str__o);
+    char const * se_end = (char *)(se_str__o) + CC_MAX_LEN_CHAR_16;
+    char * se_p = (char *)(se_str__o);
 
     CcPieceEnum captured = CC_PE_None;
     CcLosingTagEnum lte = CC_LTE_None;
@@ -380,34 +381,35 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
     if ( !CC_PIECE_IS_NONE( captured ) )
     {
-        *se_end++ = '*';
+        *se_p++ = '*';
 
         char captured_char = cc_piece_symbol( captured );
-        *se_end++ = captured_char;
+        *se_p++ = captured_char;
     }
 
     if ( lte != CC_LTE_None )
     {
         char const * lte_str = cc_losing_tag_as_string( lte );
         size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
-        se_end += cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, CC_MAX_LEN_CHAR_16 );
+        se_p += cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
     }
 
     char const * see_str = cc_side_effect_symbol( se.type );
     size_t see_str_len = cc_str_len( see_str, NULL, CC_MAX_LEN_SIDE_EFFECT_SYMBOL );
-    se_end += cc_str_copy( see_str, NULL, see_str_len, *se_str__o, CC_MAX_LEN_CHAR_16 );
+    se_p += cc_str_copy( see_str, NULL, see_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
 
     CcPieceEnum pe = cc_side_effect_piece( se );
     char piece = cc_piece_symbol( pe );
-    *se_end++ = piece;
+    *se_p++ = piece;
 
     CcPos destination = cc_side_effect_destination( se );
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     if ( !cc_pos_to_short_string( destination, &pos_c8 ) )
         return false;
 
-    size_t unused = CC_MAX_LEN_CHAR_16 - ( se_end - (char *)(se_str__o) );
-    /* se_end += */ cc_str_copy( pos_c8, NULL, CC_MAX_LEN_CHAR_8, se_end, unused );
+    size_t pos_len = cc_str_len( pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
+    /* se_p += */ cc_str_copy( pos_c8, NULL, pos_len, se_p, se_end, CC_MAX_LEN_CHAR_16 );
+    /* unused -= pos_len; */
 
     return true;
 }

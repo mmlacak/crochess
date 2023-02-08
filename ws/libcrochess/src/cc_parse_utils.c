@@ -266,7 +266,7 @@ bool cc_parse_pos( char const * restrict an_str,
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
 
     size_t len = (size_t)( end - start );
-    size_t copied = cc_str_copy( start, end, len, pos_c8, CC_MAX_LEN_STEP_POS );
+    size_t copied = cc_str_copy( start, end, len, pos_c8, NULL, CC_MAX_LEN_STEP_POS );
 
     if ( len != copied ) return false;
 

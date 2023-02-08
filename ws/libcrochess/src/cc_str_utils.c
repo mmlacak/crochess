@@ -306,6 +306,7 @@ size_t cc_str_copy( char const * restrict start,
                     char const * restrict end__d,
                     size_t max_len__d,
                     char * restrict dest__o,
+                    char const * restrict dest_end__d,
                     size_t size_dest__d )
 {
     if ( !start ) return 0;
@@ -313,6 +314,12 @@ size_t cc_str_copy( char const * restrict start,
 
     size_t len = cc_str_len( start, end__d, max_len__d );
     if ( len < 1 ) return 0;
+
+    if ( ( size_dest__d != CC_SIZE_IGNORE ) && ( size_dest__d < len ) )
+        return 0;
+
+    if ( dest_end__d && ( dest_end__d < dest__o + len ) )
+        return 0;
 
     if ( !strncpy( dest__o, start, len ) )
         return 0;

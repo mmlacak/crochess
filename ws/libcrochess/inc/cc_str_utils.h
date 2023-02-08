@@ -526,10 +526,11 @@ bool cc_str_is_equal( char const * restrict start_1,
     Function copies (sub-)string into a char array, or already allocated string.
 
     @param start A (sub-)string to copy.
-    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL` if so entirety of a whole zero-terminated string is copied.
+    @param end__d _Optional_, pointer to an end of a (sub-)string. Can be `NULL`, if so entirety of a whole zero-terminated string is copied.
     @param max_len__d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
     @param dest__o Pointer to destination.
-    @param size_dest__d _Optional_, size of a destination, if it's char array, of if it's allocated for less then size of a (sub-)string to copy.
+    @param dest_end__d _Optional_, pointer to an end of destination; can be `NULL`.
+    @param size_dest__d _Optional_, size of a destination, if it's char array, or if it's allocated for less then size of a (sub-)string to copy.
 
     @note
     Function will zero-terminate copied string, if there is enough space.
@@ -540,6 +541,7 @@ size_t cc_str_copy( char const * restrict start,
                     char const * restrict end__d,
                     size_t max_len__d,
                     char * restrict dest__o,
+                    char const * restrict dest_end__d,
                     size_t size_dest__d );
 
 /**
