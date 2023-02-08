@@ -261,19 +261,6 @@ bool cc_ply_free_all( CcPly ** restrict plies__f );
 bool cc_ply_contains_side_effects( CcPly * restrict ply );
 
 /**
-    Function returns count of steps owned by a given ply.
-
-    @param ply A ply.
-    @param include_starting_pos Flag if starting position (technically, not a step!) should be included in returned count.
-
-    @see CcFormatStepUsageEnum
-
-    @return Count of steps if successful, `0` otherwise.
-*/
-size_t cc_ply_step_count( CcPly * restrict ply,
-                          bool include_starting_pos );
-
-/**
     Function returns last active piece for a ply, within a given linked list.
 
     Last active piece for a ply is piece in that ply, if it's active.

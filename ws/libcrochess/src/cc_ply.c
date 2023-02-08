@@ -346,32 +346,6 @@ bool cc_ply_contains_side_effects( CcPly * restrict ply )
     return false;
 }
 
-size_t cc_ply_step_count( CcPly * restrict ply,
-                          bool include_starting_pos )
-{
-    if ( !ply ) return 0;
-
-    CcStep * steps = ply->steps;
-    if ( !steps ) return 0;
-
-    size_t count = 1;
-    CcStep * s = steps;
-
-    while ( s->next )
-    {
-        if ( s->link == CC_SLE_Start )
-        {
-            if ( include_starting_pos ) ++count;
-        }
-        else
-            ++count;
-
-        s = s->next;
-    }
-
-    return count;
-}
-
 CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
                                       CcPly * restrict ply__d )
 {
