@@ -364,6 +364,7 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
     char const * se_end = (char *)(se_str__o) + CC_MAX_LEN_CHAR_16;
     char * se_p = (char *)(se_str__o);
+    size_t copied = 0;
 
     CcPieceEnum captured = CC_PE_None;
     CcLosingTagEnum lte = CC_LTE_None;
@@ -391,12 +392,16 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
     {
         char const * lte_str = cc_losing_tag_as_string( lte );
         size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
-        se_p += cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
+        copied = cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
+        if ( copied != lte_str_len ) return false;
+        se_p += copied;
     }
 
     char const * see_str = cc_side_effect_symbol( se.type );
     size_t see_str_len = cc_str_len( see_str, NULL, CC_MAX_LEN_SIDE_EFFECT_SYMBOL );
-    se_p += cc_str_copy( see_str, NULL, see_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
+    copied = cc_str_copy( see_str, NULL, see_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
+    if ( copied != see_str_len ) return false;
+    se_p += copied;
 
     CcPieceEnum pe = cc_side_effect_piece( se );
     char piece = cc_piece_symbol( pe );
@@ -408,8 +413,9 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
         return false;
 
     size_t pos_len = cc_str_len( pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
-    /* se_p += */ cc_str_copy( pos_c8, NULL, pos_len, se_p, se_end, CC_MAX_LEN_CHAR_16 );
-    /* unused -= pos_len; */
+    copied = cc_str_copy( pos_c8, NULL, pos_len, se_p, se_end, CC_MAX_LEN_CHAR_16 );
+    if ( copied != pos_len ) return false;
+    /* se_p += copied; */
 
     return true;
 }
