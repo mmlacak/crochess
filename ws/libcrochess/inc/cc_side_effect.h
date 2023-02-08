@@ -52,6 +52,11 @@ typedef enum CcSideEffectEnum
 #define CC_SIDE_EFFECT_ENUM_IS_CASTLING(see) ( (see) == CC_SEE_Castle )
 
 /**
+    Maximum length of a side-effect symbol.
+*/
+#define CC_MAX_LEN_SIDE_EFFECT_SYMBOL (3)
+
+/**
     Function returns string symbol, as used in algebraic notation, for a given side-effect.
 
     @param see A side-effect enum.

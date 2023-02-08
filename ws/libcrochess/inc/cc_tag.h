@@ -191,6 +191,11 @@ typedef enum CcLosingTagEnum
 } CcLosingTagEnum;
 
 /**
+    Maximum length of a losing-tag symbol.
+*/
+#define CC_MAX_LEN_LOSING_TAG (2)
+
+/**
     Function returning string, based on lost tag.
 
     @param lte Lost tag.

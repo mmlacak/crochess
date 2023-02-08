@@ -21,7 +21,7 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see )
         case CC_SEE_Displacement : return "<"; /* Trance-journey displacement, correspondes to < (less-than). */
         case CC_SEE_EnPassant : return ":"; /* En passant, corresponds to : (colon). */
         case CC_SEE_Castle : return "&"; /* Castling, corresponds to & (ampersand). */
-        case CC_SEE_Promotion : return "="; /* Promotion, corresponds to = (equal sign), optional. */
+        case CC_SEE_Promotion : return "="; /* Promotion, corresponds to = (equal sign), sign is optional. */
         case CC_SEE_TagForPromotion : return "="; /* Tag for promotion, corresponds to = (equal sign). */
         case CC_SEE_Conversion : return "%"; /* Conversion, corresponds to % (percent sign). */
         case CC_SEE_FailedConversion : return "%%"; /* Failed conversion, corresponds to %% (double percent sign). */
@@ -282,7 +282,7 @@ CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destina
 
 CcSideEffect cc_side_effect_promote( CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
 {
-    return cc_side_effect( CC_SEE_Promotion, captured, CC_LTE_None,
+    return cc_side_effect( CC_SEE_Promotion, captured, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
                            promoted_to );
@@ -364,8 +364,38 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
     char * se_end = (char *)(se_str__o);
 
+    CcPieceEnum captured = CC_PE_None;
+    CcLosingTagEnum lte = CC_LTE_None;
+
+    if ( se.type == CC_SEE_Promotion )
+    {
+        captured = se.promote.captured;
+        lte = se.promote.lost_tag;
+    }
+    else if ( se.type == CC_SEE_TagForPromotion )
+    {
+        captured = se.tag_for_promotion.captured;
+        lte = se.tag_for_promotion.lost_tag;
+    }
+
+    if ( !CC_PIECE_IS_NONE( captured ) )
+    {
+        *se_end++ = '*';
+
+        char captured_char = cc_piece_symbol( captured );
+        *se_end++ = captured_char;
+    }
+
+    if ( lte != CC_LTE_None )
+    {
+        char const * lte_str = cc_losing_tag_as_string( lte );
+        size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
+        se_end += cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, CC_MAX_LEN_CHAR_16 );
+    }
+
     char const * see_str = cc_side_effect_symbol( se.type );
-    se_end += cc_str_copy( see_str, NULL, 2, *se_str__o, CC_MAX_LEN_CHAR_16 );
+    size_t see_str_len = cc_str_len( see_str, NULL, CC_MAX_LEN_SIDE_EFFECT_SYMBOL );
+    se_end += cc_str_copy( see_str, NULL, see_str_len, *se_str__o, CC_MAX_LEN_CHAR_16 );
 
     CcPieceEnum pe = cc_side_effect_piece( se );
     char piece = cc_piece_symbol( pe );
@@ -375,8 +405,6 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     if ( !cc_pos_to_short_string( destination, &pos_c8 ) )
         return false;
-
-// TODO :: if Pawn is capturing, check if it also is getting promoted
 
     size_t unused = CC_MAX_LEN_CHAR_16 - ( se_end - (char *)(se_str__o) );
     /* se_end += */ cc_str_copy( pos_c8, NULL, CC_MAX_LEN_CHAR_8, se_end, unused );
