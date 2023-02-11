@@ -2937,9 +2937,9 @@ class SceneMirandasVeilMixin:
     #
     # Diverging activated piece
 
-    def scn_mv_60_diverging_activated_piece_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_62_diverging_activated_piece_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_60_diverging_activated_piece_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_62_diverging_activated_piece_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (1, 13)
@@ -2997,9 +2997,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_61_diverging_activated_piece_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_63_diverging_activated_piece_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_61_diverging_activated_piece_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_63_diverging_activated_piece_end', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         prev_Q = (1, 13)
@@ -3040,9 +3040,9 @@ class SceneMirandasVeilMixin:
     #
     # Wave divergence
 
-    def scn_mv_62_wave_divergence_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_64_wave_divergence_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_62_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_64_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -3083,9 +3083,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_63_wave_divergence_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_65_wave_divergence_1(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_63_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_65_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
