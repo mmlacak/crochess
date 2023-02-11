@@ -2857,6 +2857,84 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Diverging Unicorn
+
+    def scn_mv_60_diverging_unicorn_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_60_diverging_unicorn_init', bt)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_U = (8, 5)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W_A = (7, 7)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (5, 4)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_N = (4, 9)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_A = (11, 6)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_p = (9, 10)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_b = (10, 9)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        # U --> W(A)
+        scene.append_arrow( *( start_U + start_W_A ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_mv_61_diverging_unicorn_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_61_diverging_unicorn_end', bt)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        # start_U = (8, 5)
+        # scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W_A = (7, 7)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (5, 4)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_N = (4, 9)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_A = (11, 6)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_p = (9, 10)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_b = (10, 9)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        # <-- U @ W(A) -->
+        for diverge, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
+            coords_P_W = GS.gen_steps( start=start_W_A, rels=[ rel, ], include_prev=True, count=1 ) # bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_P_W() ):
+                mark_type = MarkType.Action if diverge in [ 1, 2, 10, ] else \
+                            MarkType.Blocked if diverge in [ 6, 15, ] else \
+                            MarkType.Legal
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker )
+
+        return scene
+
+    #
     # Diverging activated piece
 
     def scn_mv_60_diverging_activated_piece_init(self, bt=BoardType.MirandasVeil):
