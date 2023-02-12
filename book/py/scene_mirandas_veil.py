@@ -2898,7 +2898,7 @@ class SceneMirandasVeilMixin:
         scene = Scene('scn_mv_61_diverging_unicorn_end', bt)
         rect = (0.05, 0.8, 0.65, 0.1)
 
-        # start_U = (8, 5)
+        prev_U = (8, 5)
         # scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
 
         start_W_A = (7, 7)
@@ -2931,6 +2931,7 @@ class SceneMirandasVeilMixin:
 
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRight )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "U", *prev_U, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 
