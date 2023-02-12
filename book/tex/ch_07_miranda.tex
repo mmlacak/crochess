@@ -1249,11 +1249,11 @@ will extend it (Pawn C), compared to full extent of a rush (Pawn A).
 \addcontentsline{toc}{subsubsection}{Diverging Unicorn}
 \label{sec:Miranda's veil/Wave/Divergence/Diverging Unicorn}
 
-\vspace*{-1.5\baselineskip}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_60_diverging_unicorn_init.png}
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.3\baselineskip}
 \caption{Diverging Unicorn start}
 \label{fig:scn_mv_60_diverging_unicorn_init}
 \end{figure}
@@ -1261,11 +1261,11 @@ will extend it (Pawn C), compared to full extent of a rush (Pawn A).
 \vspace*{-0.5\baselineskip}
 Like any other single-step piece (King, Pawn), Unicorn can diverge from own Wave,
 and make one step more; direction can be chosen independently of previous choice.
-Available directions % from which one can be chosen
-\hyperref[fig:scn_aoa_01_unicorn_same_color]{depend on colors of both Unicorn and its field};
+Available directions
+\hyperref[fig:scn_aoa_01_unicorn_same_color]{depend on colors of Unicorn and its field};
 if both are in the same color, Unicorn can do short jump; if colors are different, Unicorn
-can do long jump. So, long jump after divergence would be followed by short one, and vice versa,
-short jump after divergence would be followed by long one.
+can do long jump. Just like Knight, after each jump, Unicorn changes color of its field.
+So, long jump after divergence would be followed by short one,
 
 \clearpage % ..........................................................
 
@@ -1279,12 +1279,14 @@ short jump after divergence would be followed by long one.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-Here, light Unicorn (now "in the air") after short jump from its starting, same-color
-field U, diverged from Wave A located on a dark field, and is about to choose one of long jumps available.
-After divergence Unicorn doesn't have momentum, so it cannot activate own Pyramid,
-only Wave; it can also capture one of opponent's pieces.
+\noindent
+and vice versa.
 
-\TODO
+In previous example, light Unicorn made a short jump from its starting, same-color
+field U. Here, it's "in the air" after diverging from Wave A on a dark field; color
+of field is opposite to Unicorn's, so Unicorn will do long jump.
+After divergence Unicorn doesn't have momentum, so it cannot activate own Pyramid,
+only Wave; or, it can capture one of opponent's pieces.
 
 % ................................................... Diverging Unicorn
 \clearpage % ..........................................................
