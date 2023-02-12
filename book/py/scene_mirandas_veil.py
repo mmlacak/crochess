@@ -3133,3 +3133,44 @@ class SceneMirandasVeilMixin:
         scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
         return scene
+
+    def scn_mv_66_wave_cannot_diverge_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_66_wave_cannot_diverge_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_U = (2, 3)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W = (4, 2)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (9, 10)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # U --> W
+        scene.append_arrow( *( start_U + start_W ), mark_type=MarkType.Action )
+
+        # W -->
+        rel_1 = (3, 2)
+        rel_2 = (-2, 1)
+        coords_W_ = GS.gen_steps( start=start_W, rels=[ rel_1, rel_2, ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=5 )
+
+        for i, arrow in enumerate( coords_W_() ):
+            # mark_type = MarkType.Action if i == 4 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        # W @ w | -->
+        for divergence, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ): # DEFAULT_UNICORN_REL_LONG_MOVES
+            if rel == rel_2:
+                continue
+
+            coords_W_w = GS.gen_steps( start=start_w, rels=[ rel, ], include_prev=True, count=1 )
+
+            for i, arrow in enumerate( coords_W_w() ):
+                # mark_type = MarkType.Action if i == 4 else \
+                #             MarkType.Legal
+                scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+
+        return scene
