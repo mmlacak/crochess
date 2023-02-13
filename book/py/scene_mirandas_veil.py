@@ -3058,6 +3058,9 @@ class SceneMirandasVeilMixin:
         start_W_B = (10, 5)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
+        start_A = (12, 4)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
         # G --> W(A)
         coords_G_WA = GS.gen_steps( start=start_G, rels=[(-1, -2), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
 
@@ -3102,19 +3105,22 @@ class SceneMirandasVeilMixin:
         start_W_B = (10, 5)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
+        start_A = (12, 4)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
         # --> U
         # scene.append_arrow( *( prev_U + start_U ), mark_type=MarkType.Blocked )
 
         # <-- U -->
-        for rel in GS.DEFAULT_KNIGHT_REL_MOVES:
+        for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
             coords_U_ = GS.gen_steps( start=start_U, rels=[ rel,  ], include_prev=True, count=1 ) # bounds=scene.board_view.get_position_limits() )
 
             for i, arrow in enumerate( coords_U_() ):
-                # mark_type = MarkType.Legal if i < 2 else \
-                #             MarkType.Blocked
-                scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+                mark_type = MarkType.Action if diverge == 7 else \
+                            MarkType.Legal
+                scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # U --> | -->
+        # U -->| -->
         start_1 = (8, 4)
         end_1 = (6, 7)
 
