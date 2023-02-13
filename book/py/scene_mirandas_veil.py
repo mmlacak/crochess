@@ -3138,9 +3138,9 @@ class SceneMirandasVeilMixin:
     #
     # Diverging Wave
 
-    def scn_mv_64_wave_divergence_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_66_wave_divergence_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_64_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_66_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -3181,9 +3181,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_65_wave_divergence_1(self, bt=BoardType.MirandasVeil):
+    def scn_mv_67_wave_divergence_1(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_65_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_67_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -3235,9 +3235,9 @@ class SceneMirandasVeilMixin:
     #
     # Wave cannot diverge
 
-    def scn_mv_66_wave_cannot_diverge_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_68_wave_cannot_diverge_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_66_wave_cannot_diverge_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_68_wave_cannot_diverge_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_U = (2, 3)
