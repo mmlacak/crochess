@@ -3039,7 +3039,52 @@ class SceneMirandasVeilMixin:
 
 
     #
-    # Wave divergence
+    # Diverging activated Unicorn
+
+    def scn_mv_64_activated_unicorn_divergence_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_64_activated_unicorn_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_G = (6, 13)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_W_A = (2, 5)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_U = (8, 2)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W_B = (10, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        # G --> W(A)
+        coords_G_WA = GS.gen_steps( start=start_G, rels=[(-1, -2), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_G_WA() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> U
+        coords_WA_U = GS.gen_steps( start=start_W_A, rels=[(2, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_WA_U() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # U --> W(B)
+        scene.append_arrow( *( start_U + start_W_B ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeft )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+
+        return scene
+
+
+    #
+    # Diverging Wave
 
     def scn_mv_64_wave_divergence_init(self, bt=BoardType.MirandasVeil):
 
@@ -3133,6 +3178,10 @@ class SceneMirandasVeilMixin:
         scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
         return scene
+
+
+    #
+    # Wave cannot diverge
 
     def scn_mv_66_wave_cannot_diverge_init(self, bt=BoardType.MirandasVeil):
 
