@@ -3157,20 +3157,16 @@ class SceneMirandasVeilMixin:
         coords_W_ = GS.gen_steps( start=start_W, rels=[ rel_1, rel_2, ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=5 )
 
         for i, arrow in enumerate( coords_W_() ):
-            # mark_type = MarkType.Action if i == 4 else \
-            #             MarkType.Legal
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
         # W @ w | -->
-        for divergence, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ): # DEFAULT_UNICORN_REL_LONG_MOVES
+        for divergence, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
             if rel == rel_2:
                 continue
 
             coords_W_w = GS.gen_steps( start=start_w, rels=[ rel, ], include_prev=True, count=1 )
 
             for i, arrow in enumerate( coords_W_w() ):
-                # mark_type = MarkType.Action if i == 4 else \
-                #             MarkType.Legal
                 scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
         return scene
