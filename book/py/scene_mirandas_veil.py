@@ -3082,6 +3082,52 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    def scn_mv_65_activated_unicorn_divergence_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_65_activated_unicorn_divergence_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        # prev_G = (6, 13)
+        start_G = (2, 5)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        # prev_W_A = (2, 5)
+        start_W_A = (8, 2)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        # prev_U = (8, 2)
+        start_U = (10, 5)
+        # scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W_B = (10, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        # --> U
+        # scene.append_arrow( *( prev_U + start_U ), mark_type=MarkType.Blocked )
+
+        # <-- U -->
+        for rel in GS.DEFAULT_KNIGHT_REL_MOVES:
+            coords_U_ = GS.gen_steps( start=start_U, rels=[ rel,  ], include_prev=True, count=1 ) # bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_U_() ):
+                # mark_type = MarkType.Legal if i < 2 else \
+                #             MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        # U --> | -->
+        start_1 = (8, 4)
+        end_1 = (6, 7)
+
+        scene.append_arrow( *( start_1 + end_1 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeft )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+
+        scene.append_text( "1", *start_1, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "2", *end_1, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        return scene
+
 
     #
     # Diverging Wave
