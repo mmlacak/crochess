@@ -18,6 +18,9 @@ from scene import Scene
 
 class SceneHemerasDawnMixin:
 
+    #
+    # Movement
+
     def scn_hd_01_centaur_same_color(self, bt=BoardType.HemerasDawn):
 
         scene = Scene('scn_hd_01_centaur_same_color', bt, y=1, width=7, height=7)
@@ -157,6 +160,8 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    #
+    # Out of board steps
 
     def scn_hd_06_centaur_off_board(self, bt=BoardType.HemerasDawn):
 
@@ -195,6 +200,8 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    #
+    # Activating Wave
 
     def scn_hd_07_wave_activation_by_centaur_first_step(self, bt=BoardType.HemerasDawn):
 
@@ -319,6 +326,8 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    #
+    # Out of board steps
 
     def scn_hd_10_wave_activated_by_centaur_off_board(self, bt=BoardType.HemerasDawn):
 
@@ -364,6 +373,8 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    #
+    # Teleporting Wave
 
     def scn_hd_11_wave_teleport(self, bt=BoardType.HemerasDawn):
 
@@ -407,10 +418,54 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    #
+    # Centaur cannot diverge
 
-    def scn_hd_12_scout_pawns(self, bt=BoardType.HemerasDawn):
+    def scn_hd_12_centaur_cannot_diverge(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_12_scout_pawns', bt)
+        scene = Scene('scn_hd_12_centaur_cannot_diverge', bt)
+
+        start_C = (6, 3)
+        scene.board.set_piece( *start_C, piece=PieceType.Centaur )
+
+        start_W = (13, 13)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        #
+        # Wave activation
+        coords_C_W = GS.gen_steps( start=start_C, rels=[ (3, 2), (-1, 2), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=6 )
+
+        for i, arrow in enumerate( coords_C_W() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        #
+        # Illegal divergence
+        for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+            coords_C__W_ = GS.gen_steps( start=start_W, rels=[ rel, ], include_prev=True, count=1 )
+
+            for i, arrow in enumerate( coords_C__W_() ):
+                if diverge != 2:
+                    scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
+    # Wave cannot diverge
+
+    def scn_hd_13_wave_cannot_diverge(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene('scn_hd_13_wave_cannot_diverge', bt)
+
+        return scene
+
+    #
+    # Scout Pawns
+
+    def scn_hd_14_scout_pawns(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene('scn_hd_14_scout_pawns', bt)
 
         scene.board.set_piece(4, 0, piece=PieceType.Centaur)
 
