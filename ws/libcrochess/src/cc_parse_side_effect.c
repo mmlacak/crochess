@@ -79,7 +79,20 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             }
             else
             {
-                return false; // TODO
+// TODO
+                // return false; // TODO
+                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+                char sp = cc_piece_symbol( step_piece );
+
+                cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            " >>>TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n",
+                                            sp,
+                                            step_an__a );
+                CC_FREE( step_an__a );
+                return false;
+// TODO
             }
         }
 

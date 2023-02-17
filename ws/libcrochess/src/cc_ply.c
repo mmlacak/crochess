@@ -36,7 +36,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
                      size_t max_len__d,
                      CcPlyLinkEnum link,
                      CcPieceEnum piece,
-                     CcTagEnum lost_tag,
+                     CcLosingTagEnum lost_tag,
                      CcStep ** restrict steps__n )
 {
     CcPly * ply__a = malloc( sizeof( CcPly ) );
@@ -67,7 +67,7 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
                        size_t max_len__d,
                        CcPlyLinkEnum link,
                        CcPieceEnum piece,
-                       CcTagEnum lost_tag,
+                       CcLosingTagEnum lost_tag,
                        CcStep ** restrict steps__n )
 {
     if ( !plies__io ) return NULL;
@@ -88,7 +88,7 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                           size_t max_len__d,
                           CcPlyLinkEnum link,
                           CcPieceEnum piece,
-                          CcTagEnum lost_tag,
+                          CcLosingTagEnum lost_tag,
                           CcStep ** restrict steps__n )
 {
     if ( !plies__io ) return NULL;
@@ -379,4 +379,113 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
     }
 
     return ply_encountered ? last_active_piece : CC_PE_None;
+}
+
+char * cc_ply_all_to_short_string__new( CcPly * restrict plies )
+{
+    if ( !plies ) return NULL;
+
+    //
+    // Count plies, steps.
+
+    CcPly * p_count = plies;
+    size_t count_plies = 0;
+    size_t count_steps = 0;
+
+    while ( p_count )
+    {
+        ++count_plies;
+        count_steps += cc_step_count( p_count->steps );
+
+        p_count = p_count->next;
+    }
+
+    //
+    // Calc max string size, allocate.
+
+    size_t step_size = CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2;
+                       // CC_MAX_LEN_CHAR_8, for position
+                       // + CC_MAX_LEN_CHAR_16, for side-effect
+                       // + 2, for step links, e.g. ".." before step
+
+    size_t unused_size = ( count_plies * CC_MAX_LEN_PLY_LINK_SYMBOL )
+                       + ( count_steps * step_size )
+                       + 1; // +1, for '\0'
+
+    char * plies_str__a = malloc( unused_size );
+    if ( !plies_str__a ) return NULL;
+
+    // **Must** be zero-terminated!
+    if ( !cc_str_clear( plies_str__a, unused_size ) ) // Using size (instead of length) here is ok!
+    {
+        CC_FREE( plies_str__a );
+        return NULL;
+    }
+
+    //
+    // Collect ply string, append to result.
+
+    CcPly * p = plies;
+    char * s = plies_str__a;
+
+    while ( p )
+    {
+        // Append ply link symbol.
+
+        char const * pl = cc_ply_link_symbol( p->link );
+        char * end_ple = cc_str_append_into( s, unused_size, pl, CC_MAX_LEN_PLY_LINK_SYMBOL );
+
+        if ( !end_ple )
+        {
+            CC_FREE( plies_str__a );
+            return NULL;
+        }
+
+        unused_size -= ( end_ple - s );
+        s = end_ple;
+
+        // Append piece symbol, lost tag.
+
+        char piece_symbol = cc_piece_symbol( p->piece );
+        *s++ = piece_symbol;
+
+        char const * lte_str = cc_losing_tag_as_string( p->lost_tag );
+        char * end_lte = cc_str_append_into( s, unused_size, lte_str, CC_MAX_LEN_LOSING_TAG );
+
+        if ( !lte_str )
+        {
+            CC_FREE( plies_str__a );
+            return NULL;
+        }
+
+        unused_size -= ( end_lte - s );
+        s = end_lte;
+
+        // Append steps.
+
+        char * steps_str__a = cc_step_all_to_short_string__new( p->steps );
+
+        if ( !steps_str__a )
+        {
+            CC_FREE( plies_str__a );
+            return NULL;
+        }
+
+        char * end_steps = cc_str_append_into( s, unused_size, steps_str__a, CC_MAX_LEN_ZERO_TERMINATED );
+
+        if ( !end_steps )
+        {
+            CC_FREE( steps_str__a );
+            CC_FREE( plies_str__a );
+            return NULL;
+        }
+
+        unused_size -= ( end_steps - s );
+        s = end_steps;
+
+        CC_FREE( steps_str__a );
+        p = p->next;
+    }
+
+    return plies_str__a;
 }

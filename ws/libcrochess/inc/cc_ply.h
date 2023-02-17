@@ -70,6 +70,8 @@ typedef enum CcPlyLinkEnum
 */
 char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
 
+#define CC_MAX_LEN_PLY_LINK_SYMBOL (3)
+
 
 /**
     Ply structure, linked list.
@@ -95,7 +97,7 @@ typedef struct CcPly
 
     CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
     CcPieceEnum piece; /**< A piece being moved. */
-    CcTagEnum lost_tag; /**< Flag, whether moving piece has lost its tag. */
+    CcLosingTagEnum lost_tag; /**< Flag, whether moving piece has lost its tag. */
     CcStep * steps; /**< Steps taken by the piece. */
 
     struct CcPly * next; /**< Next ply in a cascade. */
@@ -130,7 +132,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
                      size_t max_len__d,
                      CcPlyLinkEnum link,
                      CcPieceEnum piece,
-                     CcTagEnum lost_tag,
+                     CcLosingTagEnum lost_tag,
                      CcStep ** restrict steps__n );
 
 /**
@@ -156,7 +158,7 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
                        size_t max_len__d,
                        CcPlyLinkEnum link,
                        CcPieceEnum piece,
-                       CcTagEnum lost_tag,
+                       CcLosingTagEnum lost_tag,
                        CcStep ** restrict steps__n );
 
 /**
@@ -187,7 +189,7 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                           size_t max_len__d,
                           CcPlyLinkEnum link,
                           CcPieceEnum piece,
-                          CcTagEnum lost_tag,
+                          CcLosingTagEnum lost_tag,
                           CcStep ** restrict steps__n );
 
 /**
@@ -279,6 +281,15 @@ bool cc_ply_contains_side_effects( CcPly * restrict ply );
 */
 CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
                                       CcPly * restrict ply__d );
+
+/**
+    Function returns new string, containing user-readable representation of a plies.
+
+    @param plies A queue of plies.
+
+    @return A newly allocated, zero-termianted string if successful, `NULL` otherwise
+*/
+char * cc_ply_all_to_short_string__new( CcPly * restrict plies );
 
 
 #endif /* __CC_PLY_H__ */

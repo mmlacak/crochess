@@ -133,6 +133,20 @@ bool cc_parse_plies( char const * restrict move_an,
 
 
 
+// TODO :: DEBUG :: DELETE
+//
+    {
+        char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
+
+        cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
+
+        CC_FREE( plies_str__a );
+    }
+//
+// TODO :: DEBUG :: DELETE
+
+
+
     *plies__o = plies__t; // Ownership transfer.
     // plies__t = NULL; // Not needed.
 
