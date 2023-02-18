@@ -48,6 +48,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
     if ( !side_effect__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
+    if ( sle == CC_SLE_None ) return false;
+
     CcPieceEnum step_piece = cc_chessboard_get_piece( cb, step_pos.i, step_pos.j );
 
     bool has_promotion_sign = false;
@@ -92,7 +94,6 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 else
                 {
 // TODO
-                    // return false; // TODO
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                     char sp = cc_piece_symbol( step_piece );
 
