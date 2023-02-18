@@ -119,14 +119,29 @@ bool cc_parse_plies( char const * restrict move_an,
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
+printf( "!cc_parse_ply( ... )\n" ); // TODO :: DEBUG :: DELETE
             return false;
         }
+
+// TODO :: DEBUG :: DELETE
+//
+    // {
+    //     char * plies_str__a = cc_ply_all_to_short_string__new( ply__t );
+
+    //     // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
+    //     printf( "Ply: '%s'.\n", plies_str__a );
+
+    //     CC_FREE( plies_str__a );
+    // }
+//
+// TODO :: DEBUG :: DELETE
 
         if ( !cc_ply_extend_if( &plies__t, &ply__t ) )
         {
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
+printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
             return false;
         }
     }
@@ -135,13 +150,13 @@ bool cc_parse_plies( char const * restrict move_an,
 
 // TODO :: DEBUG :: DELETE
 //
-    {
-        char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
+    // {
+    //     char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
 
-        cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
+    //     cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
 
-        CC_FREE( plies_str__a );
-    }
+    //     CC_FREE( plies_str__a );
+    // }
 //
 // TODO :: DEBUG :: DELETE
 

@@ -326,15 +326,20 @@ char * cc_step_all_to_short_string__new( CcStep * restrict steps )
 
     // unused len is certainly > 0, because steps != NULL
     signed int unused = cc_step_count( steps ) *
-                        ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 );
+                        ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 ) + 1; // +1, for '\0'
                         // CC_MAX_LEN_CHAR_8, for position
                         // + CC_MAX_LEN_CHAR_16, for side-effect
                         // + 2, for step links, e.g. ".." before step
 
-    char * steps_str__a = malloc( unused + 1 ); // +1, for '\0'
+    char * steps_str__a = malloc( unused );
     if ( !steps_str__a ) return NULL;
 
-    // *steps_str__a = '\0'; // Not needed, done after a switch below.
+    // Must be zero-terminated.
+    if ( !cc_str_clear( steps_str__a, unused ) )
+    {
+        CC_FREE( steps_str__a );
+        return NULL;
+    }
 
     char * steps_str = steps_str__a;
     char * steps_end = steps_str;
@@ -342,55 +347,22 @@ char * cc_step_all_to_short_string__new( CcStep * restrict steps )
     cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
     CcStep * s = steps;
 
-    while ( s && ( unused > 0 ) )
+    while ( s && ( unused > 1 ) ) // 1, reserved for '\0'
     {
-        switch ( s->link )
+        char const * sle_str = cc_step_link_symbol( s->link );
+
+        if ( sle_str )
         {
-            case CC_SLE_None :
+            char * sle_end = cc_str_append_into( steps_str, unused, sle_str, CC_MAX_LEN_STEP_LINK_SYMBOL );
+            if ( !sle_end )
             {
-                *steps_str++ = '?';
-                break;
+                CC_FREE( steps_str__a );
+                return NULL;
             }
 
-            case CC_SLE_Start :
-            {
-                *steps_str++ = '`';
-                break;
-            }
-
-            case CC_SLE_Reposition :
-            {
-                *steps_str++ = ',';
-                break;
-            }
-
-            case CC_SLE_Next :
-            {
-                *steps_str++ = '.';
-                break;
-            }
-
-            case CC_SLE_Distant :
-            {
-                *steps_str++ = '.';
-                *steps_str++ = '.';
-                break;
-            }
-
-            case CC_SLE_Destination :
-            {
-                *steps_str++ = '-';
-                break;
-            }
-
-            default :
-            {
-                *steps_str++ = '!';
-                break;
-            }
+            unused -= ( sle_end - steps_str );
+            steps_str = sle_end;
         }
-
-        *steps_str = '\0';
 
         if ( !cc_pos_to_short_string( s->field, &pos_c8 ) )
         {

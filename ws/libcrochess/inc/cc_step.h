@@ -94,6 +94,8 @@ typedef enum CcStepLinkEnum
 */
 char const * cc_step_link_symbol( CcStepLinkEnum sle );
 
+#define CC_MAX_LEN_STEP_LINK_SYMBOL (2)
+
 
 /**
     Step structure, linked list.
