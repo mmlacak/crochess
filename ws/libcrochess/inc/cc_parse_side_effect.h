@@ -17,6 +17,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                            CcGame * restrict game,
                            CcPosPieceTag last_ply_destination,
                            CcChessboard * restrict cb,
+                           CcStepLinkEnum sle,
                            CcPos step_pos,
                            CcSideEffect * restrict side_effect__o,
                            CcParseMsg ** restrict parse_msgs__iod );

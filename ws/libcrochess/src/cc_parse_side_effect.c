@@ -35,6 +35,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                            CcGame * restrict game,
                            CcPosPieceTag last_ply_destination,
                            CcChessboard * restrict cb,
+                           CcStepLinkEnum sle,
                            CcPos step_pos,
                            CcSideEffect * restrict side_effect__o,
                            CcParseMsg ** restrict parse_msgs__iod )
@@ -79,20 +80,32 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             }
             else
             {
-// TODO
-                // return false; // TODO
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char sp = cc_piece_symbol( step_piece );
+                if ( sle == CC_SLE_Start )
+                {
+                    // Starting position.
 
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            " >>>TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n",
-                                            sp,
-                                            step_an__a );
-                CC_FREE( step_an__a );
-                return false;
+                    // TODO :: check if starting piece has the same type as in notation,
+                    //          and belongs to a player
+
+                    return true;
+                }
+                else
+                {
 // TODO
+                    // return false; // TODO
+                    char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+                    char sp = cc_piece_symbol( step_piece );
+
+                    cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                                CC_PMTE_Error,
+                                                CC_MAX_LEN_ZERO_TERMINATED,
+                                                " >>>TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n",
+                                                sp,
+                                                step_an__a );
+                    CC_FREE( step_an__a );
+                    return false;
+// TODO
+                }
             }
         }
 

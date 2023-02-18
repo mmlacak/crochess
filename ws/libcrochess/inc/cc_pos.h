@@ -229,7 +229,7 @@ bool cc_pos_to_short_string( CcPos pos,
 
 
 //
-// Position + piece.
+// Position + piece + tag.
 
 /**
     Invalid position + piece + tag value.
