@@ -230,7 +230,7 @@ CcStep * cc_step_find_destination( CcStep * restrict steps )
             }
 
             prev = s;
-            s = s->next; // TODO :: possible cycle
+            s = s->next;
         }
         else
         {

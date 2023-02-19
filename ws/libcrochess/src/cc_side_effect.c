@@ -119,6 +119,8 @@ bool cc_side_effect_is_valid( CcSideEffect see, unsigned int board_size, CcPiece
         case CC_SEE_FailedResurrection :
             return true;
 
+// TODO :: check lost tags, i.e. if piece can loose tag as written in data
+
         case CC_SEE_Capture :
             return CC_PIECE_CAN_BE_CAPTURED( see.capture.piece );
 

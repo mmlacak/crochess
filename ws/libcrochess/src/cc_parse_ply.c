@@ -16,11 +16,13 @@
 static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
-                          CcPosPieceTag * restrict last_destination__iod,
+                          CcPosPieceTag * restrict last_destination__io,
                           CcPly ** restrict ply__o,
                           CcChessboard ** restrict cb__io,
                           CcParseMsg ** restrict parse_msgs__iod )
 {
+    if ( !last_destination__io ) return false;
+
     //
     // Ply link.
 
@@ -58,7 +60,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     CcStep * steps__t = NULL;
 
-    if ( !cc_parse_steps( c_str, ply_end_an, game, *last_destination__iod,
+    if ( !cc_parse_steps( c_str, ply_end_an, game, *last_destination__io,
                           &steps__t,
                           cb__io,
                           parse_msgs__iod ) )
@@ -80,9 +82,9 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     CcPos pos = destination->field;
 
-    last_destination__iod->piece = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
-    last_destination__iod->pos = pos;
-    last_destination__iod->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
+    last_destination__io->piece = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
+    last_destination__io->pos = pos;
+    last_destination__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
 
 
 // TODO :: update cb__io
