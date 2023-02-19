@@ -212,6 +212,7 @@ CcStep * cc_step_find_destination( CcStep * restrict steps )
 {
     if ( !steps ) return NULL;
 
+    CcStep * prev = NULL;
     CcStep * s = steps;
 
     while ( s )
@@ -222,6 +223,13 @@ CcStep * cc_step_find_destination( CcStep * restrict steps )
         {
             if ( s->link == CC_SLE_Destination ) return NULL; // An intermediate destination?
 
+            if ( s->link == CC_SLE_Reposition )
+            {
+                // Reposition is legal only on 1st, or 2nd step.
+                if ( ( s != steps ) && ( prev != steps ) ) return NULL;
+            }
+
+            prev = s;
             s = s->next; // TODO :: possible cycle
         }
         else
