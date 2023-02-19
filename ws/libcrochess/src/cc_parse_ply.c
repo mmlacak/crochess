@@ -27,6 +27,20 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     // Ply link.
 
     CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
+    if ( ple == CC_PLE_None )
+    {
+        char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+
+        cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                    CC_PMTE_Error,
+                                    CC_MAX_LEN_ZERO_TERMINATED,
+                                    "Invalid ply link in ply '%s'.\n",
+                                    ply_str__a );
+
+        CC_FREE( ply_str__a );
+        return false;
+    }
+
     char const * c_str = ply_start_an + cc_ply_link_len( ple );
 
     if ( CC_CHAR_IS_PLY_GATHER_START( *c_str ) ) ++c_str; // Move past '['.
