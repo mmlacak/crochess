@@ -193,118 +193,118 @@ CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
     return cc_ply_extend( plies__iod, plies__n );
 }
 
-// TODO :: reconsider
-//
-bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
-{
-    if ( !ply ) return false;
+// // TODO :: reconsider
+// //
+// bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size )
+// {
+//     if ( !ply ) return false;
 
-    if ( ply->piece == CC_PE_None ) return false;
+//     if ( ply->piece == CC_PE_None ) return false;
 
-    if ( ply->link == CC_PLE_StartingPly )
-    {
-        if ( !ply->steps ) return false;
-    }
-    else if ( ply->link == CC_PLE_CascadingPly )
-    {
-        if ( !ply->steps ) return false;
-    }
-    else if ( ply->link == CC_PLE_Teleportation )
-    {
-        if ( !ply->steps ) return false;
+//     if ( ply->link == CC_PLE_StartingPly )
+//     {
+//         if ( !ply->steps ) return false;
+//     }
+//     else if ( ply->link == CC_PLE_CascadingPly )
+//     {
+//         if ( !ply->steps ) return false;
+//     }
+//     else if ( ply->link == CC_PLE_Teleportation )
+//     {
+//         if ( !ply->steps ) return false;
 
-        if ( ( ply->next ) && ( !CC_PIECE_IS_WAVE( ply->piece ) ) )
-            return false;
-        else if ( ( !ply->next ) && ( CC_PIECE_IS_WAVE( ply->piece ) ) )
-            return false;
-    }
-    else if ( ply->link == CC_PLE_FailedTeleportation )
-    {
-        if ( ( ply->steps ) &&
-             ( ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) ||
-               ( !CC_PIECE_IS_WAVE( ply->piece ) ) ) )
-            // If Wave was activated by Starchild is checked in cc_ply_are_all_valid().
-            return false;
+//         if ( ( ply->next ) && ( !CC_PIECE_IS_WAVE( ply->piece ) ) )
+//             return false;
+//         else if ( ( !ply->next ) && ( CC_PIECE_IS_WAVE( ply->piece ) ) )
+//             return false;
+//     }
+//     else if ( ply->link == CC_PLE_FailedTeleportation )
+//     {
+//         if ( ( ply->steps ) &&
+//              ( ( !CC_PIECE_IS_STARCHILD( ply->piece ) ) ||
+//                ( !CC_PIECE_IS_WAVE( ply->piece ) ) ) )
+//             // If Wave was activated by Starchild is checked in cc_ply_are_all_valid().
+//             return false;
 
-        if ( ply->next ) return false;
-    }
-    else if ( ply->link == CC_PLE_TranceJourney )
-    {
-        if ( !ply->steps ) return false;
-        if ( ply->next ) return false;
-    }
-    else if ( ply->link == CC_PLE_DualTranceJourney )
-    {
-        if ( ply->next ) return false;
-    }
-    else if ( ply->link == CC_PLE_FailedTranceJourney )
-    {
-        if ( ply->steps ) return false;
-        if ( ply->next ) return false;
-    }
-    if ( ply->link == CC_PLE_PawnSacrifice )
-    {
-        if ( !ply->steps ) return false;
-    }
-    else
-        return false;
+//         if ( ply->next ) return false;
+//     }
+//     else if ( ply->link == CC_PLE_TranceJourney )
+//     {
+//         if ( !ply->steps ) return false;
+//         if ( ply->next ) return false;
+//     }
+//     else if ( ply->link == CC_PLE_DualTranceJourney )
+//     {
+//         if ( ply->next ) return false;
+//     }
+//     else if ( ply->link == CC_PLE_FailedTranceJourney )
+//     {
+//         if ( ply->steps ) return false;
+//         if ( ply->next ) return false;
+//     }
+//     if ( ply->link == CC_PLE_PawnSacrifice )
+//     {
+//         if ( !ply->steps ) return false;
+//     }
+//     else
+//         return false;
 
-    if ( !cc_step_are_all_valid( ply->steps, board_size, ply->piece ) ) return false;
+//     if ( !cc_step_are_all_valid( ply->steps, board_size, ply->piece ) ) return false;
 
-    return true;
-}
-//
-// TODO :: reconsider
-//
-bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size )
-{
-    if ( !plies ) return false;
+//     return true;
+// }
+// //
+// // TODO :: reconsider
+// //
+// bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size )
+// {
+//     if ( !plies ) return false;
 
-    // Start of a plies.
-    if ( !CC_PIECE_IS_ACTIVE( plies->piece ) ) return false;
-    if ( plies->link != CC_PLE_StartingPly ) return false;
+//     // Start of a plies.
+//     if ( !CC_PIECE_IS_ACTIVE( plies->piece ) ) return false;
+//     if ( plies->link != CC_PLE_StartingPly ) return false;
 
-    CcPieceEnum prev_piece = CC_PE_None;
-    CcPieceEnum last_active_piece = CC_PE_None;
-    CcPly * p = plies;
+//     CcPieceEnum prev_piece = CC_PE_None;
+//     CcPieceEnum last_active_piece = CC_PE_None;
+//     CcPly * p = plies;
 
-    while ( p )
-    {
-        if ( CC_PIECE_IS_ACTIVE( p->piece ) )
-            last_active_piece = p->piece;
+//     while ( p )
+//     {
+//         if ( CC_PIECE_IS_ACTIVE( p->piece ) )
+//             last_active_piece = p->piece;
 
-// TODO :: add last active piece checks for activated pieces in cascades
+// // TODO :: add last active piece checks for activated pieces in cascades
 
-        if ( ( !CC_PIECE_CAN_BE_ACTIVATED( p->piece ) ) ) // Kings, Monolith cannot be activated, ...
-            if ( p != plies ) return false; // ... so, can't be in the middle of a cascade.
+//         if ( ( !CC_PIECE_CAN_BE_ACTIVATED( p->piece ) ) ) // Kings, Monolith cannot be activated, ...
+//             if ( p != plies ) return false; // ... so, can't be in the middle of a cascade.
 
-        // if ( CC_PIECE_IS_PYRAMID( p->piece ) )
-        // {
-        //     // <*> If last active piece was Pawn, Starchild or Shaman, it can't activate
-        //     //     Pyramid on its step-fields, neither directly, nor via Wave(s). Also,
-        //     //     Serpent can't activate Pyramid on its color-changing ply.
-        //     //
-        //     //     Legality check, needs positions --> deferred to rules.
-        // }
+//         // if ( CC_PIECE_IS_PYRAMID( p->piece ) )
+//         // {
+//         //     // <*> If last active piece was Pawn, Starchild or Shaman, it can't activate
+//         //     //     Pyramid on its step-fields, neither directly, nor via Wave(s). Also,
+//         //     //     Serpent can't activate Pyramid on its color-changing ply.
+//         //     //
+//         //     //     Legality check, needs positions --> deferred to rules.
+//         // }
 
-        if ( !cc_ply_is_valid( p, board_size ) )
-            return false;
+//         if ( !cc_ply_is_valid( p, board_size ) )
+//             return false;
 
-        if ( p->link == CC_PLE_FailedTeleportation )
-        {
-            if ( ( p->steps ) && ( CC_PIECE_IS_WAVE( p->piece ) ) )
-                if ( !CC_PIECE_IS_STARCHILD( last_active_piece ) )
-                    return false;
-        }
+//         if ( p->link == CC_PLE_FailedTeleportation )
+//         {
+//             if ( ( p->steps ) && ( CC_PIECE_IS_WAVE( p->piece ) ) )
+//                 if ( !CC_PIECE_IS_STARCHILD( last_active_piece ) )
+//                     return false;
+//         }
 
-        prev_piece = p->piece;
-        p = p->next;
-    }
+//         prev_piece = p->piece;
+//         p = p->next;
+//     }
 
-    return true;
-}
-//
-// TODO :: reconsider
+//     return true;
+// }
+// //
+// // TODO :: reconsider
 
 bool cc_ply_free_all( CcPly ** restrict plies__f )
 {

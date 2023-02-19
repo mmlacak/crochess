@@ -73,7 +73,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 //         of a chessboard, it's tagging for promotion
 //      -- Starchild moving onto empty field, in a syzygy, it's failed resurrection --> ignore (?)
 //      -- otherwise, it's capture
-//      -- if it's a capture made by Pawn, check if it's also a promotion
+//      -- if it's a capture made by Pawn, check if it's also a tag for promotion;
+//         it can't be promotion, promote-to piece is mandatory, but missing
 
             if ( CC_PIECE_IS_NONE( step_piece ) )
             {
@@ -86,10 +87,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 {
                     // Starting position.
 
-                    // TODO :: check if starting piece has the same type as in notation,
-                    //          and belongs to a player
-
-                    return true;
+                    *side_effect__o = cc_side_effect_none();
+                    return true; // Checks on starting piece are to be done when parsing ply.
                 }
                 else
                 {

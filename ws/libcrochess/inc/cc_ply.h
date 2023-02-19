@@ -210,35 +210,35 @@ CcPly * cc_ply_extend( CcPly ** restrict plies__io,
 CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
                           CcPly ** restrict plies__n );
 
-// TODO :: reconsider
-//
-/**
-    Checks if a given ply is valid.
+// // TODO :: reconsider
+// //
+// /**
+//     Checks if a given ply is valid.
 
-    @param ply A ply, technically a linked list of plies.
-    @param board_size A chessboard size.
+//     @param ply A ply, technically a linked list of plies.
+//     @param board_size A chessboard size.
 
-    @note
-    Only single ply is checked, rest of a linked list (accessible
-    via `next` member) is not checked.
+//     @note
+//     Only single ply is checked, rest of a linked list (accessible
+//     via `next` member) is not checked.
 
-    @return `true` if valid, `false` otherwise.
-*/
-bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
-//
-// TODO :: reconsider
-//
-/**
-    Checks if all plies in a given linked list are valid.
+//     @return `true` if valid, `false` otherwise.
+// */
+// bool cc_ply_is_valid( CcPly * restrict ply, unsigned int board_size );
+// //
+// // TODO :: reconsider
+// //
+// /**
+//     Checks if all plies in a given linked list are valid.
 
-    @param plies A linked list of plies.
-    @param board_size A chessboard size.
+//     @param plies A linked list of plies.
+//     @param board_size A chessboard size.
 
-    @return `true` if valid, `false` otherwise.
-*/
-bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size );
-//
-// TODO :: reconsider
+//     @return `true` if valid, `false` otherwise.
+// */
+// bool cc_ply_are_all_valid( CcPly * restrict plies, unsigned int board_size );
+// //
+// // TODO :: reconsider
 
 /**
     Frees all plies in a linked list, and all associated entities.

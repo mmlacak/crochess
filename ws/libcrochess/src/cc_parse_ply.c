@@ -67,8 +67,23 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
         return false;
     }
 
+    //
+    // Updating last destination, before change.
 
-// TODO :: update last_destination__iod
+    CcStep * destination = cc_step_find_destination( steps__t );
+
+    if ( !destination )
+    {
+        cc_step_free_all( &steps__t );
+        return false;
+    }
+
+    CcPos pos = destination->field;
+
+    last_destination__iod->piece = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
+    last_destination__iod->pos = pos;
+    last_destination__iod->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
+
 
 // TODO :: update cb__io
 
