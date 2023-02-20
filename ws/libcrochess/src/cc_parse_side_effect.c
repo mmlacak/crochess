@@ -87,14 +87,35 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 {
                     // Starting position.
 
+// TODO :: too early for this :: UNCOMMENT when last_ply_destination.piece is valid
+//
+//                     if ( step_piece != last_ply_destination.piece )
+//                     {
+//                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+//                         char sp = cc_piece_as_char( step_piece );
+//                         char lpdp = cc_piece_as_char( last_ply_destination.piece );
+
+//                         cc_parse_msg_append_fmt_if( parse_msgs__iod,
+//                                                     CC_PMTE_Error,
+//                                                     CC_MAX_LEN_ZERO_TERMINATED,
+//                                                     "Piece '%c' found at step-field, in step '%s'; expected '%c'.\n",
+//                                                     sp,
+//                                                     step_an__a,
+//                                                     lpdp );
+//                         CC_FREE( step_an__a );
+//                         return false;
+//                     }
+//
+// TODO :: too early for this :: UNCOMMENT when last_ply_destination.piece is valid
+
                     *side_effect__o = cc_side_effect_none();
-                    return true; // Checks on starting piece are to be done when parsing ply.
+                    return true;
                 }
                 else
                 {
 // TODO
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                    char sp = cc_piece_symbol( step_piece );
+                    char sp = cc_piece_as_char( step_piece );
 
                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                                 CC_PMTE_Error,
@@ -140,7 +161,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) )
             {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char sp = cc_piece_symbol( step_piece );
+                char sp = cc_piece_as_char( step_piece );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                             CC_PMTE_Error,
@@ -242,7 +263,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_CAN_BE_DISPLACED( step_piece ) )
             {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char sp = cc_piece_symbol( step_piece );
+                char sp = cc_piece_as_char( step_piece );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                             CC_PMTE_Error,
@@ -427,7 +448,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_IS_STARCHILD( step_piece ) )
             {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char sp = cc_piece_symbol( step_piece );
+                char sp = cc_piece_as_char( step_piece );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                             CC_PMTE_Error,
@@ -530,7 +551,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_CAN_BE_RESURRECTED( resurrecting ) )
             {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char pt = cc_piece_symbol( resurrecting );
+                char pt = cc_piece_as_char( resurrecting );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                             CC_PMTE_Error,
