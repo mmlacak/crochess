@@ -47,7 +47,7 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str )
         if ( *++c == ';' )
             return CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
 
-    if ( *c != '\0' )
+    if ( isalnum( *c ) )
         return CC_PLE_StartingPly;
 
     return CC_PLE_None;
