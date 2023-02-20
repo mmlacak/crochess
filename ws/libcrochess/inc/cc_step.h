@@ -113,11 +113,39 @@ CcStep * cc_step_append_if( CcStep ** restrict steps__io,
 */
 CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
 
-// TODO :: DOCS
+/**
+    Extends existing linked list with a newly allocated step(s).
+
+    @param steps__io Linked list to extend.
+    @param steps__n Linked list with which to extend existing steps.
+
+    @note
+    Extending linked list `steps__n` has its ownership transferred to extended linked list `steps__io`;
+    as a result, inner pointer of `steps__n` is `NULL`-ed.
+
+    @return
+    Weak pointer to extending portion of a linked list is successful, `NULL` otherwise.
+*/
 CcStep * cc_step_extend( CcStep ** restrict steps__io,
                          CcStep ** restrict steps__n );
 
-// TODO :: DOCS
+/**
+    Extends existing linked list with a newly allocated step(s), or initialize it, if it isn't.
+
+    @param steps__iod Linked list to extend, inner pointer can be `NULL`.
+    @param steps__n Linked list with which to extend existing steps.
+
+    @note
+    If linked list to extend (`steps__iod`) hasn't been allocated yet, this will initialize it
+    with content of an extending linked list, i.e. `steps__n`.
+
+    @note
+    Extending linked list `steps__n` has its ownership transferred to extended linked list `steps__iod`;
+    as a result, inner pointer of `steps__n` is `NULL`-ed.
+
+    @return
+    Weak pointer to extending portion of a linked list is successful, `NULL` otherwise.
+*/
 CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
                             CcStep ** restrict steps__n );
 
