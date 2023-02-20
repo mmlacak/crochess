@@ -1,6 +1,8 @@
 // Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <stdio.h> // printf :: TODO :: DEBUG :: DELETE
+
 #include "cc_side_effect.h"
 
 #include "cc_parse_utils.h"
@@ -103,12 +105,14 @@ cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO
                              cb__io,
                              parse_msgs__iod ) )
         {
+printf( "!cc_parse_step\n" );  // TODO :: DEBUG :: DELETE
             cc_step_free_all( &step__t );
             return false;
         }
 
         if ( !cc_step_extend_if( steps__o, &step__t ) )
         {
+printf( "!cc_step_extend_if\n" );  // TODO :: DEBUG :: DELETE
             cc_step_free_all( &step__t );
             return false;
         }

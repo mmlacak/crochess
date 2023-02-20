@@ -158,6 +158,8 @@ CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
 */
 size_t cc_step_count( CcStep * restrict steps );
 
+// TODO :: cc_step_find_start
+
 // TODO :: DOCS
 CcStep * cc_step_find_destination( CcStep * restrict steps );
 

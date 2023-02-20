@@ -158,12 +158,15 @@ size_t cc_step_count( CcStep * restrict steps )
     return count;
 }
 
+// TODO :: cc_step_find_start
+
 CcStep * cc_step_find_destination( CcStep * restrict steps )
 {
     if ( !steps ) return NULL;
 
     CcStep * prev = NULL;
     CcStep * s = steps;
+    bool prev_step = false;
 
     while ( s )
     {
@@ -179,15 +182,23 @@ CcStep * cc_step_find_destination( CcStep * restrict steps )
                 if ( ( s != steps ) && ( prev != steps ) ) return NULL;
             }
 
+            if ( s->link == CC_SLE_Start )
+            {
+                // Start is legal only on 1st step.
+                if ( s != steps ) return NULL;
+            }
+
+            prev_step = true;
+
             prev = s;
             s = s->next;
         }
         else
         {
-            if ( s->link != CC_SLE_Start )
-                return s;
-            else
+            if ( prev_step && ( s->link == CC_SLE_Start ) )
                 return NULL;
+            else
+                return s;
         }
     }
 
