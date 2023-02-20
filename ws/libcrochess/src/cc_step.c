@@ -158,56 +158,6 @@ size_t cc_step_count( CcStep * restrict steps )
     return count;
 }
 
-// // TODO :: reconsider
-// //
-// bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size, CcPieceEnum piece_ply )
-// {
-//     if ( !step ) return false;
-
-//     if ( !CC_IS_COORD_2_ON_BOARD( board_size, step->field.i, step->field.j ) ) return false;
-
-//     if ( !cc_side_effect_is_valid( step->side_effect, board_size, piece_ply ) ) return false;
-
-//     return true;
-// }
-// //
-// // TODO :: reconsider
-// //
-// bool cc_step_are_all_valid( CcStep * restrict steps, unsigned int board_size, CcPieceEnum piece_ply )
-// {
-//     if ( !steps ) return false;
-
-//     if ( !cc_step_is_valid( steps, board_size, piece_ply ) ) return false;
-//     if ( !steps->next ) return ( steps->link != CC_SLE_Destination ); // The only step must be destination.
-
-//     bool is_starting = ( steps->link == CC_SLE_Start );
-//     bool is_repositioning = ( steps->link == CC_SLE_Reposition );
-
-//     CcStep * s = steps->next;
-//     while ( s )
-//     {
-//         if ( s->link == CC_SLE_Start ) return false; // Only first step can be starting.
-//         if ( ( s->link == CC_SLE_Destination ) && ( s->next ) ) return false; // Destination step must not be in the middle.
-//         if ( ( !s->next ) && ( s->link != CC_SLE_Destination ) ) return false; // The last step must be destination.
-
-//         if ( s->link == CC_SLE_Reposition ) // Repositioning can be only on first step or second step, if following starting step.
-//         {
-//             if ( is_repositioning ) return false; // Already repositioning, but it can be only one.
-
-//             if ( s != steps->next ) return false; // If not on second step, repositioning is misplaced.
-//             if ( !is_starting ) return false; // Repositioning is on second step, but not following starting step.
-//         }
-
-//         if ( !cc_step_is_valid( s, board_size, piece_ply ) ) return false;
-
-//         s = s->next;
-//     }
-
-//     return true;
-// }
-// //
-// // TODO :: reconsider
-
 CcStep * cc_step_find_destination( CcStep * restrict steps )
 {
     if ( !steps ) return NULL;

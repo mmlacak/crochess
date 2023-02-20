@@ -15,60 +15,6 @@
 */
 
 
-// /**
-//     Macro to allocate new steps queue.
-
-//     @param step_link A step link enum.
-//     @param int_i File, horizontal coordinate.
-//     @param int_j Rank, vertical coordinate.
-
-//     @note
-//     Side-effect in newly allocated ssteps queue is initialized as invalid.
-
-//     @return Pointer to a newly allocated steps queue if successful, `NULL` otherwise.
-
-//     @see cc_steps__new(), CC_SIDE_EFFECT_CAST_INVALID
-// */
-// #define CC_STEPS__NEW(step_link,int_i,int_j) \
-//     cc_steps__new( (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
-
-// /**
-//     Macro to append a newly allocated step to existing queue.
-
-//     @param ptr__steps__io A steps queue, to be appended.
-//     @param step_link A step link enum.
-//     @param int_i File, horizontal coordinate.
-//     @param int_j Rank, vertical coordinate.
-
-//     @note
-//     Side-effect in newly allocated ssteps queue is initialized as invalid.
-
-//     @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
-
-//     @see cc_steps_append(), CC_SIDE_EFFECT_CAST_INVALID
-// */
-// #define CC_STEPS_APPEND(ptr__steps__io,step_link,int_i,int_j) \
-//     cc_steps_append( (ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
-
-// /**
-//     Macro to append a newly allocated step to steps queue, which might not be alocated yet.
-
-//     @param ptr_ptr__steps__io A steps queue, to be appended.
-//     @param step_link A step link enum.
-//     @param int_i File, horizontal coordinate.
-//     @param int_j Rank, vertical coordinate.
-
-//     @note
-//     Side-effect in newly allocated ssteps queue is initialized as invalid.
-
-//     @return A weak pointer to a newly allocated step if successful, `NULL` otherwise.
-
-//     @see cc_steps_append_if(), CC_SIDE_EFFECT_CAST_INVALID
-// */
-// #define CC_STEPS_APPEND_IF(ptr_ptr__steps__io,step_link,int_i,int_j) \
-//     cc_steps_append_if( (ptr_ptr__steps__io), (step_link), cc_pos( (int_i), (int_j) ), CC_SIDE_EFFECT_CAST_INVALID )
-
-
 /**
     Step link enumeration.
 */
@@ -183,37 +129,6 @@ CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
     @return Count of steps if successful, `0` otherwise.
 */
 size_t cc_step_count( CcStep * restrict steps );
-
-// // TODO :: reconsider
-// //
-// /**
-//     Checks if a given step is valid.
-
-//     @param step A step, technically a linked list of steps.
-//     @param board_size A chessboard size.
-//     @param piece_ply A piece in current ply, i.e. the one currently being moved.
-
-//     @note
-//     Only single step is checked; neither an entire linked list, nor `link` member are checked.
-
-//     @return `true` if valid, `false` otherwise.
-// */
-// bool cc_step_is_valid( CcStep * restrict step, unsigned int board_size, CcPieceEnum piece_ply );
-// //
-// // TODO :: reconsider
-// //
-// /**
-//     Checks if all steps in a given linked list are valid.
-
-//     @param steps A linked list of steps.
-//     @param board_size A chessboard size.
-//     @param piece_ply A piece in current ply, i.e. the one currently being moved.
-
-//     @return `true` if valid, `false` otherwise.
-// */
-// bool cc_step_are_all_valid( CcStep * restrict steps, unsigned int board_size, CcPieceEnum piece_ply );
-// //
-// // TODO :: reconsider
 
 // TODO :: DOCS
 CcStep * cc_step_find_destination( CcStep * restrict steps );

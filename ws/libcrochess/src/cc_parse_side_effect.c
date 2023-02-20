@@ -85,11 +85,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             {
                 if ( sle == CC_SLE_Start )
                 {
-                    // Starting position.
+                    // Starting position, piece is the one found in destination of last ply, or the one starting a move.
 
 // TODO :: too early for this :: UNCOMMENT when last_ply_destination.piece is valid
 //
-//                     if ( step_piece != last_ply_destination.piece )
+//                     if ( step_piece != last_ply_destination.piece ) // TODO :: piece starting a move
 //                     {
 //                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 //                         char sp = cc_piece_as_char( step_piece );
