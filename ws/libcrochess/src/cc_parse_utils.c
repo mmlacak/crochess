@@ -302,7 +302,7 @@ CcStepLinkEnum cc_parse_step_link( char const * restrict an_str )
     {
         return CC_SLE_Reposition;
     }
-    else if ( islower( *c ) || isdigit( *c ) )
+    else if ( isgraph( *c ) )
     {
         return CC_SLE_Start;
     }
