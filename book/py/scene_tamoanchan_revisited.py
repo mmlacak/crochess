@@ -318,7 +318,41 @@ class SceneTamoanchanRevisitedMixin:
         return scene
 
     #
-    # ... Color-changing move
+    # Displacements while moving
+
+    def scn_tr_11_displacement_init(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_11_displacement_init', bt, width=8, height=8)
+
+        start_S = (1, 3)
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+
+        start_q = (4, 4)
+        scene.board.set_piece(*start_q, piece=-PieceType.Queen)
+
+        start_w = (4, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        gen_S_ = GS.gen_steps( start=start_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=3 )
+        for index, coords in enumerate( gen_S_() ):
+            mark_type = MarkType.Action if index == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        # scene.append_arrow( *GS.append_tpl_rel( start_q, 1, 0 ), mark_type=MarkType.Blocked )
+        # scene.append_arrow( *GS.append_tpl_rel( start_q, 0, 1 ), mark_type=MarkType.Illegal )
+        # scene.append_arrow( *GS.append_tpl_rel( start_q, -1, 0 ), mark_type=MarkType.Blocked )
+        # scene.append_arrow( *GS.append_tpl_rel( start_q, 0, -1 ), mark_type=MarkType.Blocked )
+
+        # scene.append_field_marker( *GS.add_tpl( start_q, 1, 0 ), mark_type=MarkType.Blocked )
+        # scene.append_field_marker( *GS.add_tpl( start_q, 0, 1 ), mark_type=MarkType.Illegal )
+        # scene.append_field_marker( *GS.add_tpl( start_q, -1, 0 ), mark_type=MarkType.Blocked )
+        # scene.append_field_marker( *GS.add_tpl( start_q, 0, -1 ), mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
+    # Color-changing move
 
     def scn_tr_11_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
 

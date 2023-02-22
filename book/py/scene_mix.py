@@ -34,6 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_hd_12_centaur_cannot_diverge', \
-                    'scn_hd_13_wave_cannot_diverge', \
+                    'scn_tr_11_displacement_init', \
                 ]
