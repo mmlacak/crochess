@@ -562,8 +562,8 @@ usual \alg{\~{}} (tilde), followed by capturing steps. All Pawn-capturing steps 
 Serpent must be written, captured pieces are not needed, as they can only be opponent's
 Pawns.
 
-This \hyperref[fig:scn_tr_16_pawn_sacrifice_init]{Pawn-sacrifice} followed by
-\hyperref[fig:scn_tr_17_pawn_sacrifice_end]{capturing opponent's Pawns} is written as \\
+This \hyperref[fig:scn_tr_19_pawn_sacrifice_init]{Pawn-sacrifice} followed by
+\hyperref[fig:scn_tr_20_pawn_sacrifice_end]{capturing opponent's Pawns} is written as \\
 \alg{Sm15\~{}Am11;;S..m17*..m19*.l20*.m21*.n20*.o21*}. In \algfmt{XAN}, with plies
 gathering, it would be \\
 \alg{[Sr14-m15]\~{}[Am15-m11];;}\\
@@ -596,7 +596,7 @@ step-fields.
 For a Wave activated by Serpent, noting destination field might be enough, if destination
 field is on a different file and a different rank than starting field. If destination field
 is on the same rank or on the same file as starting field, then first step needs to be noted
-as well. In this \hyperref[fig:scn_tr_21_serpent_activated_wave_ply]{Wave activated by Serpent}
+as well. In this \hyperref[fig:scn_tr_24_serpent_activated_wave_ply]{Wave activated by Serpent}
 example, if destination field is \alg{j4}, then there is only one path leading to it, and
 it's \alg{Se5\~{}We5.f4.g5.h4.i5.j4}, so it can be noted just as \alg{Se5\~{}Wj4}.
 
@@ -607,7 +607,7 @@ then \alg{Se5\~{}Wi5} might be interpreted as either \alg{Se5\~{}We5.f4.g5.h4.i5
 If Wave activated by Serpent is blocked from reaching destination field using only on-board
 step-fields, then only one path exists, and only destination field is needed. For instance,
 if in this
-\hyperref[fig:scn_tr_22_wave_out_of_board]{Wave off-board example} dark Knight were located at
+\hyperref[fig:scn_tr_25_wave_out_of_board]{Wave off-board example} dark Knight were located at
 \alg{u9}, and destination field is \alg{v10} it would block Wave's ply \alg{Sv6\~{}W.u7.v8.u9.v10},
 and only path available to Wave would be off-board, i.e. \alg{Sv6\~{}W..v8..v10}.
 
@@ -1301,7 +1301,7 @@ Wave generally moves the same way as activating piece in the moment of activatio
 with ability to make multiple steps in chosen direction (until end of a chessboard
 is reached), even if activating piece can make only a single step. For instance,
 Wave activated by Knight moves like a Pegasus.
-\hyperref[fig:scn_tr_18_serpent_activating_wave]{Wave activated by Serpent} is an
+\hyperref[fig:scn_tr_21_serpent_activating_wave]{Wave activated by Serpent} is an
 exception, it moves by alternating between 2 diagonal steps, which, once chosen,
 can't be changed for the remainder of Wave's ply.
 
