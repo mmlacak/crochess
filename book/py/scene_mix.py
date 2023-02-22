@@ -36,4 +36,5 @@ class SceneMix(SceneMixin, \
         return  [
                     'scn_tr_11_displacement_init', \
                     'scn_tr_12_displacement_step', \
+                    'scn_tr_13_displacement_end', \
                 ]

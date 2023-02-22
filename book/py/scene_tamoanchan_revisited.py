@@ -385,6 +385,42 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
+    def scn_tr_13_displacement_end(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_13_displacement_end', bt, width=8, height=8)
+
+        prev_q = (4, 4)
+        start_q = (4, 3)
+        scene.board.set_piece(*start_q, piece=-PieceType.Queen)
+
+        start_w = (4, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        prev_S = (1, 3)
+        start_S = prev_q
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+
+        gen_S_ = GS.gen_steps( start=prev_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=6 )
+        for index, coords in enumerate( gen_S_() ):
+            mark_type = MarkType.Blocked if index <= 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        # scene.append_arrow( *GS.append_tpl_rel( start_q, 1, 0 ), mark_type=MarkType.Legal )
+        # scene.append_arrow( *GS.append_tpl_rel( start_q, 0, 1 ), mark_type=MarkType.Illegal )
+        # scene.append_arrow( *GS.append_tpl_rel( start_q, -1, 0 ), mark_type=MarkType.Legal )
+        # scene.append_arrow( *GS.append_tpl_rel( start_q, 0, -1 ), mark_type=MarkType.Legal )
+
+        scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+        # scene.append_text( "Q", *prev_q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        # scene.append_field_marker( *GS.add_tpl( start_q, 1, 0 ), mark_type=MarkType.Legal )
+        # scene.append_field_marker( *GS.add_tpl( start_q, 0, 1 ), mark_type=MarkType.Illegal )
+        # scene.append_field_marker( *GS.add_tpl( start_q, -1, 0 ), mark_type=MarkType.Legal )
+        # scene.append_field_marker( *GS.add_tpl( start_q, 0, -1 ), mark_type=MarkType.Legal )
+
+        return scene
+
     #
     # Color-changing move
 
