@@ -33,7 +33,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
                            char const * restrict step_end_an,
                            CcGame * restrict game,
-                           CcPosPieceTag last_ply_destination,
+                           CcPosPieceTag before_ply_start,
                            CcChessboard * restrict cb,
                            CcStepLinkEnum sle,
                            CcPos step_pos,
@@ -87,13 +87,13 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 {
                     // Starting position, piece is the one found in destination of last ply, or the one starting a move.
 
-// TODO :: too early for this :: UNCOMMENT when last_ply_destination.piece is valid
+// TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
 //
-//                     if ( step_piece != last_ply_destination.piece ) // TODO :: piece starting a move
+//                     if ( step_piece != before_ply_start.piece ) // TODO :: piece starting a move
 //                     {
 //                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 //                         char sp = cc_piece_as_char( step_piece );
-//                         char lpdp = cc_piece_as_char( last_ply_destination.piece );
+//                         char lpdp = cc_piece_as_char( before_ply_start.piece );
 
 //                         cc_parse_msg_append_fmt_if( parse_msgs__iod,
 //                                                     CC_PMTE_Error,
@@ -106,7 +106,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 //                         return false;
 //                     }
 //
-// TODO :: too early for this :: UNCOMMENT when last_ply_destination.piece is valid
+// TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
 
                     *side_effect__o = cc_side_effect_none();
                     return true;
@@ -183,7 +183,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             char const * promo_an = se_an + cc_losing_tag_len( lte );
 
-            if ( CC_PIECE_IS_PAWN( last_ply_destination.piece ) )
+            if ( CC_PIECE_IS_PAWN( before_ply_start.piece ) )
             {
                 bool has_promo_sign = false;
 

@@ -19,19 +19,19 @@
 static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
-                          CcPosPieceTag * restrict last_destination__io,
-                          bool is_first,
+                          CcPosPieceTag * restrict before_ply_start__io,
+                          bool is_first_ply,
                           CcPly ** restrict ply__o,
                           CcChessboard ** restrict cb__io,
                           CcParseMsg ** restrict parse_msgs__iod )
 {
-    if ( !last_destination__io ) return false;
+    if ( !before_ply_start__io ) return false;
 
     //
     // Ply link.
 
     CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
-    if ( ( ple == CC_PLE_None ) || ( is_first && ( ple != CC_PLE_StartingPly ) ) )
+    if ( ( ple == CC_PLE_None ) || ( is_first_ply && ( ple != CC_PLE_StartingPly ) ) )
     {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -64,14 +64,14 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
         return false;
     }
 
-    *last_destination__io = CC_POS_PIECE_TAG_CAST_INVALID;
+    *before_ply_start__io = CC_POS_PIECE_TAG_CAST_INVALID;
 
-    if ( is_first )
+    if ( is_first_ply )
     {
         bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
         CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light );
 
-        last_destination__io->piece = piece;
+        before_ply_start__io->piece = piece;
 
         // Position, and tag are generaly not known at this time.
         if ( CC_PIECE_IS_KING( piece ) )
@@ -90,8 +90,8 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                 return false;
             }
 
-            last_destination__io->pos = pos;
-            last_destination__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
+            before_ply_start__io->pos = pos;
+            before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
         }
     }
 
@@ -109,7 +109,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     CcStep * steps__t = NULL;
 
-    if ( !cc_parse_steps( c_str, ply_end_an, game, *last_destination__io,
+    if ( !cc_parse_steps( c_str, ply_end_an, game, *before_ply_start__io,
                           &steps__t,
                           cb__io,
                           parse_msgs__iod ) )
@@ -131,9 +131,9 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     CcPos pos = destination->field;
 
-    last_destination__io->piece = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
-    last_destination__io->pos = pos;
-    last_destination__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
+    before_ply_start__io->piece = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
+    before_ply_start__io->pos = pos;
+    before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
 
 
 // TODO :: update cb__io
@@ -173,15 +173,15 @@ bool cc_parse_plies( char const * restrict move_an,
 
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
-    CcPosPieceTag last_destination = CC_POS_PIECE_TAG_CAST_INVALID;
-    bool is_first = true;
+    CcPosPieceTag before_ply_start = CC_POS_PIECE_TAG_CAST_INVALID;
+    bool is_first_ply = true;
 
     while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) )
     {
         CcPly * ply__t = NULL;
 
-        if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &last_destination,
-                            is_first,
+        if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &before_ply_start,
+                            is_first_ply,
                             &ply__t,
                             &cb__a,
                             parse_msgs__iod ) )
@@ -215,7 +215,7 @@ printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
             return false;
         }
 
-        is_first = false;
+        is_first_ply = false;
     }
 
 
