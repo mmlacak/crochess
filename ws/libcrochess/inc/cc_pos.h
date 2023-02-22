@@ -32,6 +32,11 @@
 #define CC_POS_STATIC_STEP { .i = 0, .j = 0 }
 
 /**
+    Origin field, i.e. coordinate system start.
+*/
+#define CC_POS_ORIGIN_FIELD { .i = 0, .j = 0 }
+
+/**
     Structure holding a position, either absolute or relative,
     i.e. either a location or a step.
 */
@@ -49,6 +54,11 @@ typedef struct CcPos {
     Casted static position value, i.e. no-movement step.
 */
 #define CC_POS_CAST_STATIC_STEP ( (CcPos)CC_POS_STATIC_STEP )
+
+/**
+    Casted origin field, i.e. coordinate system start.
+*/
+#define CC_POS_CAST_ORIGIN_FIELD ( (CcPos)CC_POS_ORIGIN_FIELD )
 
 
 /**

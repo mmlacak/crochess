@@ -74,7 +74,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 //      -- Starchild moving onto empty field, in a syzygy, it's failed resurrection --> ignore (?)
 //      -- otherwise, it's capture
 //      -- if it's a capture made by Pawn, check if it's also a tag for promotion;
-//         it can't be promotion, promote-to piece is mandatory, but missing
+//         it can't be promotion, if promote-to piece is missing
 
             if ( CC_PIECE_IS_NONE( step_piece ) )
             {

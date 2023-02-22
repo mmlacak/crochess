@@ -377,8 +377,8 @@ bool cc_iter_step( char const * restrict an_str,
     return true;
 }
 
-bool cc_ply_has_steps( char const * restrict an_str,
-                       char const * restrict ply_end )
+bool cc_ply_an_contains_steps( char const * restrict an_str,
+                               char const * restrict ply_end )
 {
     char const * an = cc_next_step_link( an_str, ply_end );
 

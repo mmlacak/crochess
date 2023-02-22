@@ -245,7 +245,7 @@
 
 // //     while ( cc_iter_ply( move_an_str, &ply_start_str, &ply_end_str ) )
 // //     {
-// //         bool ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
+// //         bool ply_has_steps = cc_ply_an_contains_steps( ply_start_str, ply_end_str );
 
 // // // TODO :: check if en passant --> handle as a special case
 
@@ -844,7 +844,7 @@
 
 //     while ( cc_iter_ply( move_an_str, &ply_start_str, &ply_end_str ) )
 //     {
-//         bool ply_has_steps = cc_ply_has_steps( ply_start_str, ply_end_str );
+//         bool ply_has_steps = cc_ply_an_contains_steps( ply_start_str, ply_end_str );
 
 //         //
 //         // Ply link.

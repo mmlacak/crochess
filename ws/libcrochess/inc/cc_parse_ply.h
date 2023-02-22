@@ -15,6 +15,7 @@
 //                           char const * restrict ply_end_an,
 //                           CcGame * restrict game,
 //                           CcPosPieceTag * restrict last_destination__io,
+//                           bool is_first,
 //                           CcPly ** restrict ply__o,
 //                           CcChessboard ** restrict cb__io,
 //                           CcParseMsg ** restrict parse_msgs__iod )

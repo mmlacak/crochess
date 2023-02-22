@@ -65,8 +65,8 @@ bool cc_iter_step( char const * restrict an_str,
                    char const ** restrict start__io,
                    char const ** restrict end__io );
 
-bool cc_ply_has_steps( char const * restrict an_str,
-                       char const * restrict ply_end );
+bool cc_ply_an_contains_steps( char const * restrict an_str,
+                               char const * restrict ply_end );
 
 
 CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,

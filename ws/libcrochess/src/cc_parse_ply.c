@@ -8,6 +8,9 @@
 
 #include "cc_tag.h"
 
+#include "cc_path_defs.h"
+#include "cc_path_gens.h"
+
 #include "cc_parse_utils.h"
 #include "cc_parse_step.h"
 #include "cc_parse_ply.h"
@@ -17,6 +20,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
                           CcPosPieceTag * restrict last_destination__io,
+                          bool is_first,
                           CcPly ** restrict ply__o,
                           CcChessboard ** restrict cb__io,
                           CcParseMsg ** restrict parse_msgs__iod )
@@ -27,7 +31,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     // Ply link.
 
     CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
-    if ( ple == CC_PLE_None )
+    if ( ( ple == CC_PLE_None ) || ( is_first && ( ple != CC_PLE_StartingPly ) ) )
     {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
@@ -58,6 +62,37 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                                     "Invalid piece symbol '%c'.\n",
                                     piece_symbol );
         return false;
+    }
+
+    *last_destination__io = CC_POS_PIECE_TAG_CAST_INVALID;
+
+    if ( is_first )
+    {
+        bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
+        CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light );
+
+        last_destination__io->piece = piece;
+
+        // Position, and tag are generaly not known at this time.
+        if ( CC_PIECE_IS_KING( piece ) )
+        {
+            CcPos pos = CC_POS_CAST_INVALID;
+
+            if ( !cc_iter_piece_pos( *cb__io, CC_POS_CAST_ORIGIN_FIELD, piece, false, &pos ) )
+            {
+                char * color = is_light ? "Light" : "Dark";
+
+                cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                                            CC_PMTE_Error,
+                                            CC_MAX_LEN_ZERO_TERMINATED,
+                                            "%s King not found.\n",
+                                            color );
+                return false;
+            }
+
+            last_destination__io->pos = pos;
+            last_destination__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
+        }
     }
 
     if ( CC_CHAR_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
@@ -131,18 +166,22 @@ bool cc_parse_plies( char const * restrict move_an,
     if ( !plies__o || *plies__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
+    if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
+
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game->chessboard );
     CcPly * plies__t = NULL;
 
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
     CcPosPieceTag last_destination = CC_POS_PIECE_TAG_CAST_INVALID;
+    bool is_first = true;
 
     while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) )
     {
         CcPly * ply__t = NULL;
 
         if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &last_destination,
+                            is_first,
                             &ply__t,
                             &cb__a,
                             parse_msgs__iod ) )
@@ -175,6 +214,8 @@ printf( "!cc_parse_ply( ... )\n" ); // TODO :: DEBUG :: DELETE
 printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
             return false;
         }
+
+        is_first = false;
     }
 
 
