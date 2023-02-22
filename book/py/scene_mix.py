@@ -35,4 +35,5 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     'scn_tr_11_displacement_init', \
+                    'scn_tr_12_displacement_step', \
                 ]
