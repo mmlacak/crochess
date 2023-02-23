@@ -34,7 +34,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_tr_11_displacement_init', \
-                    'scn_tr_12_displacement_step', \
-                    'scn_tr_13_displacement_end', \
+                    'scn_tr_13_displacement_init', \
+                    'scn_tr_14_displacement_step', \
+                    'scn_tr_15_displacement_end', \
                 ]

@@ -318,91 +318,11 @@ class SceneTamoanchanRevisitedMixin:
         return scene
 
     #
-    # Displacements while moving
-
-    def scn_tr_11_displacement_init(self, bt=BoardType.TamoanchanRevisited):
-
-        scene = Scene('scn_tr_11_displacement_init', bt, width=8, height=8)
-
-        start_S = (1, 3)
-        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
-
-        start_q = (4, 4)
-        scene.board.set_piece(*start_q, piece=-PieceType.Queen)
-
-        start_w = (4, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        gen_S_ = GS.gen_steps( start=start_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=3 )
-        for index, coords in enumerate( gen_S_() ):
-            mark_type = MarkType.Action if index == 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        return scene
-
-    def scn_tr_12_displacement_step(self, bt=BoardType.TamoanchanRevisited):
-
-        scene = Scene('scn_tr_12_displacement_step', bt, width=8, height=8)
-
-        prev_q = (4, 4)
-        start_q = (4, 4)
-        # scene.board.set_piece(*start_q, piece=-PieceType.Queen)
-
-        start_w = (4, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        prev_S = (1, 3)
-        start_S = prev_q
-        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
-
-        scene.append_arrow( *GS.append_tpl_rel( start_q, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_tpl_rel( start_q, 0, 1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_tpl_rel( start_q, -1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_tpl_rel( start_q, 0, -1 ), mark_type=MarkType.Legal )
-
-        scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-        scene.append_text( "Q", *prev_q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        scene.append_field_marker( *GS.add_tpl( start_q, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_tpl( start_q, 0, 1 ), mark_type=MarkType.Illegal )
-        scene.append_field_marker( *GS.add_tpl( start_q, -1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_tpl( start_q, 0, -1 ), mark_type=MarkType.Legal )
-
-        return scene
-
-    def scn_tr_13_displacement_end(self, bt=BoardType.TamoanchanRevisited):
-
-        scene = Scene('scn_tr_13_displacement_end', bt, width=8, height=8)
-
-        prev_q = (4, 4)
-        start_q = (4, 3)
-        scene.board.set_piece(*start_q, piece=-PieceType.Queen)
-
-        start_w = (4, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        prev_S = (1, 3)
-        start_S = prev_q
-        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
-
-        gen_S_ = GS.gen_steps( start=prev_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=6 )
-        for index, coords in enumerate( gen_S_() ):
-            mark_type = MarkType.Blocked if index <= 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
-        # scene.append_text( "Q", *prev_q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        return scene
-
-    #
     # Color-changing move
 
-    def scn_tr_14_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_11_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_14_serpent_neighbors', bt, width=8, height=8)
+        scene = Scene('scn_tr_11_serpent_neighbors', bt, width=8, height=8)
 
         start = (2, 2)
         scene.board.set_piece(*start, piece=PieceType.Serpent)
@@ -420,9 +340,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_15_cascade_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_12_cascade_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_15_cascade_serpent_neighbors', bt, width=8, height=8)
+        scene = Scene('scn_tr_12_cascade_serpent_neighbors', bt, width=8, height=8)
 
         start_B = (6, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -455,6 +375,86 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_field_marker(2, 3)
         scene.append_field_marker(1, 2, mark_type=MarkType.Illegal)
         scene.append_field_marker(2, 1)
+
+        return scene
+
+    #
+    # Displacements while moving
+
+    def scn_tr_13_displacement_init(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_13_displacement_init', bt, width=8, height=8)
+
+        start_S = (1, 3)
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+
+        start_n = (4, 4)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        start_w = (4, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        gen_S_ = GS.gen_steps( start=start_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=3 )
+        for index, coords in enumerate( gen_S_() ):
+            mark_type = MarkType.Action if index == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        return scene
+
+    def scn_tr_14_displacement_step(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_14_displacement_step', bt, width=8, height=8)
+
+        prev_n = (4, 4)
+        start_n = (4, 4)
+        # scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        start_w = (4, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        prev_S = (1, 3)
+        start_S = prev_n
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+
+        scene.append_arrow( *GS.append_tpl_rel( start_n, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_n, 0, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_tpl_rel( start_n, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_n, 0, -1 ), mark_type=MarkType.Legal )
+
+        scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+        scene.append_text( "N", *prev_n, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+
+        scene.append_field_marker( *GS.add_tpl( start_n, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_tpl( start_n, 0, 1 ), mark_type=MarkType.Illegal )
+        scene.append_field_marker( *GS.add_tpl( start_n, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_tpl( start_n, 0, -1 ), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_tr_15_displacement_end(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_15_displacement_end', bt, width=8, height=8)
+
+        prev_n = (4, 4)
+        start_n = (4, 3)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        start_w = (4, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        prev_S = (1, 3)
+        start_S = prev_n
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+
+        gen_S_ = GS.gen_steps( start=prev_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=6 )
+        for index, coords in enumerate( gen_S_() ):
+            mark_type = MarkType.Blocked if index <= 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+        scene.append_text( "N", *prev_n, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
 
         return scene
 
