@@ -272,21 +272,21 @@ if Serpent was activated.
 \addcontentsline{toc}{subsubsection}{Displacements while moving}
 \label{sec:Tamoanchan Revisited/Serpent/Movement/Displacements while moving}
 
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.2\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_13_displacement_init.png}
 \vspace*{-0.5\baselineskip}
 \caption{Before displacement}
 \label{fig:scn_tr_13_displacement_init}
 \end{wrapfigure}
-Serpent can displace a piece it encounters, and continue its movement. Displacement
-does not use momentum, and can be performed even if Serpent has none. Any piece, own
-or opponent's, can be displaced except Kings, and Stars. \newline
+Serpent can displace a piece it encounters and, in the same ply, continue its movement.
+Displacement does not use momentum, and can be performed even if Serpent has none. Any
+piece, own or opponent's, can be displaced except Kings, and Stars. \newline
 Displacement fields are the same as color-changing fields, and also has to be empty;
 
-\vspace*{0.2\baselineskip}
+\vspace*{-0.8\baselineskip}
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
@@ -301,18 +301,20 @@ how displaced piece moves otherwise. \newline
 Here, dark Knight (now "in the air") can be displaced onto any of 3 empty neighboring
 fields; up-field is illegal for displacement, since it's not empty.
 
-\vspace*{1.2\baselineskip}
+\vspace*{-0.8\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_15_displacement_end.png}
 \vspace*{-0.5\baselineskip}
 \caption{Displacement end}
 \label{fig:scn_tr_15_displacement_end}
 \end{wrapfigure}
-. . .
-if no empty displacement field, Serpent must capture, or activate, or stop before
-
+There is no limit to number of displacements Serpent can do in a ply. If there is no
+empty displacement field, Serpent must either capture, or activate, or stop before
+encountered piece. \newline
+Here, dark Knight has been displaced onto down-field; arrows show complete Serpent's
+path in a single ply, grey before displacement, green after it.
 
 \clearpage % ..........................................................
 
