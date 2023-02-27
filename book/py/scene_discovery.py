@@ -141,6 +141,152 @@ class SceneDiscoveryMixin:
         return scene
 
     #
+    # Monolith is noble
+
+    def scn_d_06_monolith_is_noble(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_06_monolith_is_noble', bt)
+
+        #
+        # upper-left corner
+
+        start_M_A = (2, 21)
+        scene.board.set_piece(*start_M_A, piece=PieceType.Monolith)
+
+        start_k = (3, 20)
+        scene.board.set_piece(*start_k, piece=-PieceType.King)
+
+        scene.append_arrow( *(start_k + start_M_A), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_M_A, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+
+        #
+        # upper-right corner
+
+        start_M_B = (19, 21)
+        scene.board.set_piece(*start_M_B, piece=PieceType.Monolith)
+
+        start_a = (17, 21)
+        scene.board.set_piece(*start_a, piece=-PieceType.Pyramid)
+
+        start_b = (22, 16)
+        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+
+        coords_B_A = GS.gen_steps([(-1, 1), ], start=start_b, include_prev=True, count=5)
+        for i, arrow in enumerate( coords_B_A() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow(*arrow, mark_type=mark_type)
+
+        coords_A_MB = GS.gen_steps([(1, 0), ], start=start_a, include_prev=True, count=2)
+        for i, arrow in enumerate( coords_A_MB() ):
+            mark_type = MarkType.Illegal if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow(*arrow, mark_type=mark_type)
+
+        scene.append_text( "B", *start_M_B, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+
+        #
+        # lower-left corner
+
+        start_M_C = (3, 1)
+        scene.board.set_piece(*start_M_C, piece=PieceType.Monolith)
+
+        start_W = (5, 3)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_Q = (2, 6)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        coords_Q_W = GS.gen_steps([(1, -1), ], start=start_Q, include_prev=True, count=3)
+        for i, arrow in enumerate( coords_Q_W() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow(*arrow, mark_type=mark_type)
+
+        coords_W_MC = GS.gen_steps([(-1, -1), ], start=start_W, include_prev=True, count=2)
+        for i, arrow in enumerate( coords_W_MC() ):
+            mark_type = MarkType.Illegal if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow(*arrow, mark_type=mark_type)
+
+        scene.append_text( "C", *start_M_C, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+
+        #
+        # lower-right corner
+
+        start_M_D = (19, 5)
+        scene.board.set_piece(*start_M_D, piece=PieceType.Monolith)
+
+        start_S = (16, 4)
+        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+
+        gen_S_ = GS.gen_steps( start=start_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=6 )
+        for index, coords in enumerate( gen_S_() ):
+            mark_type = MarkType.Legal if index < 2 else \
+                        MarkType.Illegal if index == 2 else \
+                        MarkType.Blocked
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_text( "D", *start_M_D, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+
+        return scene
+
+    #
+    # Trance-journey interaction
+
+    def scn_d_18_monolith_shaman_interaction(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_18_monolith_shaman_interaction', bt, x=-4, y=0)
+
+        start = (4, 12)
+        scene.board.set_piece(*start, piece=PieceType.Shaman)
+        scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
+
+        startT = (0, 0)
+        scene.board.set_piece(*startT, piece=PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+
+        startK = (2, 6)
+        scene.board.set_piece(*startK, piece=PieceType.King)
+        scene.board.set_piece(4, 17, piece=PieceType.Monolith)
+        scene.board.set_piece(18, 9, piece=-PieceType.Knight)
+
+        start_W = (3, 10)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        startH = (5, 9)
+        scene.board.set_piece(*startH, piece=PieceType.Shaman)
+        scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
+
+        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(scene, start, rel, count=24)
+
+        for i in range(16):
+            mark_type = MarkType.Illegal if i in [1, 3, 7] else MarkType.Legal
+            # aba(str(i + 1), mark_type=mark_type)
+            aba(None, mark_type=mark_type)
+
+        #
+        # left arm
+
+        # rel = (-2, -1)
+        # aba = self.append_broken_arrow(scene, start, rel, count=24)
+
+        # for i in range(16):
+            # aba(str(i + 1), mark_type=MarkType.Action)
+
+        return scene
+
+    #
     # Monolith is opaque
 
     def scn_d_06_monolith_is_opaque(self, bt=BoardType.Discovery):
@@ -802,60 +948,6 @@ class SceneDiscoveryMixin:
             mark_type = MarkType.Action if i % 2 == 0 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
-
-        return scene
-
-    #
-    # Trance-journey interaction
-
-    def scn_d_18_monolith_shaman_interaction(self, bt=BoardType.Discovery):
-
-        scene = Scene('scn_d_18_monolith_shaman_interaction', bt, x=-4, y=0)
-
-        start = (4, 12)
-        scene.board.set_piece(*start, piece=PieceType.Shaman)
-        scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
-
-        startT = (0, 0)
-        scene.board.set_piece(*startT, piece=PieceType.Star)
-        scene.board.set_piece(0, 23, piece=-PieceType.Star)
-        scene.board.set_piece(23, 0, piece=-PieceType.Star)
-        scene.board.set_piece(23, 23, piece=PieceType.Star)
-
-        startK = (2, 6)
-        scene.board.set_piece(*startK, piece=PieceType.King)
-        scene.board.set_piece(4, 17, piece=PieceType.Monolith)
-        scene.board.set_piece(18, 9, piece=-PieceType.Knight)
-
-        start_W = (3, 10)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        startH = (5, 9)
-        scene.board.set_piece(*startH, piece=PieceType.Shaman)
-        scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
-
-        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
-
-        #
-        # right arm
-
-        rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start, rel, count=24)
-
-        for i in range(16):
-            mark_type = MarkType.Illegal if i in [1, 3, 7] else MarkType.Legal
-            # aba(str(i + 1), mark_type=mark_type)
-            aba(None, mark_type=mark_type)
-
-        #
-        # left arm
-
-        # rel = (-2, -1)
-        # aba = self.append_broken_arrow(scene, start, rel, count=24)
-
-        # for i in range(16):
-            # aba(str(i + 1), mark_type=MarkType.Action)
 
         return scene
 
