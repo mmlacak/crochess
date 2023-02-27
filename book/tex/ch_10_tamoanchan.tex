@@ -40,9 +40,8 @@ diagonal.
 All step-fields are also capture-fields, Serpent would be able to activate
 not just Wave, but also Pyramid on any of them.
 
-Serpent can move no longer than for one third of board size, rounded up to
-first whole number. In this variant that means Serpent can move for up to
-8 fields, inclusively.
+Serpent has movement limit, which is calculated from a board size of a variant
+being played. In this variant Serpent can move for up to 14 fields, inclusively.
 
 As an alternative move, Serpent can move one field vertically or horizontally
 if it's unoccupied, to change color of accessible fields. Serpent can also
@@ -99,7 +98,7 @@ Next step has to be onto either field on diagonal A.
 
 \vspace*{0.125\textheight}
 \noindent
-\begin{wrapfigure}[7]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth} % 7
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_03_serpent_2.png}
 \caption{Step 2}
@@ -112,6 +111,7 @@ regardless of choice made for the first step.
 
 \clearpage % ..........................................................
 
+% \vspace*{0.1\baselineskip}
 \noindent
 \begin{wrapfigure}[6]{l}{0.4\textwidth}
 \centering
@@ -123,7 +123,7 @@ Last step was on B diagonal, next step has to alternate again, onto A diagonal.
 
 Field numbers counts steps to them, and also gathered momentum.
 
-\vspace*{0.10\textheight}
+\vspace*{3.1\baselineskip}
 \noindent
 \begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
@@ -131,11 +131,9 @@ Field numbers counts steps to them, and also gathered momentum.
 \caption{End step}
 \label{fig:scn_tr_05_serpent_end}
 \end{wrapfigure}
-Finished move with completely exhausted movement limit.
+Finished move with 8 steps performed.
 
-\TODO
-
-Extend Serpent's reach
+In this variant, Serpent is limited to 14 steps.
 
 \clearpage % ..........................................................
 
