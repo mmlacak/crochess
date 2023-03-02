@@ -51,20 +51,27 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    # def scn_d_03_monolith_step_1(self, bt=BoardType.Discovery):
+    def scn_d_03_monolith_6_steps(self, bt=BoardType.Discovery):
 
-    #     scene = Scene('scn_d_03_monolith_step_1', bt, width=7, height=7)
+        scene = Scene('scn_d_03_monolith_6_steps', bt, width=10, height=10)
 
-    #     start_M = (3, 3)
-    #     scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        start_M = (0, 0)
+        scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
-    #     end = (4, 5)
-    #     scene.append_text("R", *end, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+        MONOLITH_6_STEP_MOVES = [   ( 6,  1 ),  \
+                                    ( 5,  2 ),  \
+                                    ( 4,  3 ),  \
+                                    ( 3,  4 ),  \
+                                    ( 2,  5 ),  \
+                                    ( 1,  6 ),  ]
 
-    #     step = start_M + end
-    #     scene.append_arrow( *step, mark_type=MarkType.Action )
+        # M --> x x x x x x
+        for divergence, rel in enumerate( MONOLITH_6_STEP_MOVES ):
+            coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
+            for i, pos in enumerate( coords_M_() ):
+                scene.append_field_marker( *pos, mark_type=MarkType.Illegal )
 
-    #     return scene
+        return scene
 
     # def scn_d_04_monolith_step_2(self, bt=BoardType.Discovery):
 
