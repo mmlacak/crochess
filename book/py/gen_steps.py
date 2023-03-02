@@ -597,6 +597,34 @@ def gen_shaman_corners(rel, count=None, is_with_field_marker=True):
 
     return gen_items(corners, count=count)
 
+#
+# monolith generators
+
+def gen_monolith_default_moves(step_number):
+
+    steps = []
+
+    count = 2 * step_number
+    x = count
+    y = 1
+
+    for i in range( count ):
+        field_1 = ( x, y )
+        steps.append( field_1 )
+
+        field_2 = ( -x, y )
+        steps.append( field_2 )
+
+        field_3 = ( -x, -y )
+        steps.append( field_3 )
+
+        field_4 = ( x, -y )
+        steps.append( field_4 )
+
+        x -= 1
+        y += 1
+
+    return steps
 
 #
 # tests
@@ -744,28 +772,37 @@ def test_8(as_next=True):
 
     test_print(g, length=ln, as_next=as_next)
 
+def test_monolith_gen():
+    print()
+    for i in range( 4 ):
+        lst = gen_monolith_default_moves( i+1 )
+        print( lst )
+    print()
+
 
 if __name__ == '__main__':
-    test_1(as_next=True)
-    test_1(as_next=False)
+    # test_1(as_next=True)
+    # test_1(as_next=False)
 
-    test_2(as_next=True)
-    test_2(as_next=False)
+    # test_2(as_next=True)
+    # test_2(as_next=False)
 
-    test_3(as_next=True)
-    test_3(as_next=False)
+    # test_3(as_next=True)
+    # test_3(as_next=False)
 
-    test_4(as_next=True)
-    test_4(as_next=False)
+    # test_4(as_next=True)
+    # test_4(as_next=False)
 
-    test_5(as_next=True)
-    test_5(as_next=False)
+    # test_5(as_next=True)
+    # test_5(as_next=False)
 
-    test_6(as_next=True)
-    test_6(as_next=False)
+    # test_6(as_next=True)
+    # test_6(as_next=False)
 
-    test_7(as_next=True)
-    test_7(as_next=False)
+    # test_7(as_next=True)
+    # test_7(as_next=False)
 
-    test_8(as_next=True)
-    test_8(as_next=False)
+    # test_8(as_next=True)
+    # test_8(as_next=False)
+
+    test_monolith_gen()
