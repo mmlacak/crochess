@@ -23,9 +23,9 @@ class SceneDiscoveryMixin:
 
     def scn_d_01_knight_steps(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_01_knight_steps', bt, width=10, height=10)
+        scene = Scene('scn_d_01_knight_steps', bt) # , width=10, height=10)
 
-        start_M = (0, 0)
+        start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
         # M --> x x
@@ -38,9 +38,9 @@ class SceneDiscoveryMixin:
 
     def scn_d_02_unicorn_steps(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_02_unicorn_steps', bt, width=10, height=10)
+        scene = Scene('scn_d_02_unicorn_steps', bt) # , width=10, height=10)
 
-        start_M = (0, 0)
+        start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
         # M --> x x x x
@@ -53,9 +53,9 @@ class SceneDiscoveryMixin:
 
     def scn_d_03_monolith_6_steps(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_03_monolith_6_steps', bt, width=10, height=10)
+        scene = Scene('scn_d_03_monolith_6_steps', bt) # , width=10, height=10)
 
-        start_M = (0, 0)
+        start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
         MONOLITH_6_STEP_MOVES = [   ( 6,  1 ),  \
@@ -73,35 +73,29 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    # def scn_d_04_monolith_step_2(self, bt=BoardType.Discovery):
+    def scn_d_04_monolith_8_steps(self, bt=BoardType.Discovery):
 
-    #     scene = Scene('scn_d_04_monolith_step_2', bt)
+        scene = Scene('scn_d_04_monolith_8_steps', bt) # , width=10, height=10)
 
-    #     start = (3, 3)
-    #     start_M = (4, 5) # rel == (1, 2) --> right step
-    #     scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        start_M = (11, 11)
+        scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
-    #     start_W = (3, 7)
-    #     scene.board.set_piece(*start_W, piece=PieceType.Wave)
-    #     scene.board.set_piece(5, 8, piece=PieceType.Bishop)
-    #     scene.board.set_piece(6, 7, piece=PieceType.Pawn)
-    #     scene.board.set_piece(7, 7, piece=PieceType.Pawn)
+        MONOLITH_8_STEP_MOVES = [   ( 8,  1 ),  \
+                                    ( 7,  2 ),  \
+                                    ( 6,  3 ),  \
+                                    ( 5,  4 ),  \
+                                    ( 4,  5 ),  \
+                                    ( 3,  6 ),  \
+                                    ( 2,  7 ),  \
+                                    ( 1,  8 ),  ]
 
-    #     scene.append_text("S", *start, corner=Corner.UpperLeft, mark_type=MarkType.Action)
-    #     scene.append_arrow( *(start + start_M), mark_type=MarkType.Action )
+        # M --> x x x x x x x x
+        for divergence, rel in enumerate( MONOLITH_8_STEP_MOVES ):
+            coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
+            for i, pos in enumerate( coords_M_() ):
+                scene.append_field_marker( *pos, mark_type=MarkType.Blocked )
 
-    #     #
-    #     # left steps
-
-    #     coords = GS.gen_multi_steps(GS.DEFAULT_MONOLITH_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=True, count=1)
-
-    #     for index, pos in enumerate( coords() ):
-    #         mark_type = MarkType.Blocked if index == 1 else MarkType.Legal
-    #         scene.append_field_marker(*pos[ 2 : ], mark_type=mark_type)
-    #         # scene.append_text("L", *pos, corner=Corner.UpperLeftFieldMarker, mark_type=mark_type)
-    #         scene.append_arrow( *pos, mark_type=mark_type )
-
-    #     return scene
+        return scene
 
     # def scn_d_05_monolith_step_3(self, bt=BoardType.Discovery):
 
