@@ -28,13 +28,6 @@ class SceneDiscoveryMixin:
         start_M = (0, 0)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
-        # scene.append_arrow( 3, 3, 3+0.5, 4+0.5, mark_type=MarkType.Blocked, start_pointer=False, end_pointer=False ) # up
-        # scene.append_arrow( *GS.add_to_all( (3, 4, 2, 5), 0.5 ), mark_type=MarkType.Legal, start_pointer=False, end_pointer=True ) # up left
-        # scene.append_arrow( *GS.add_to_all( (3, 4, 4, 5), 0.5 ), mark_type=MarkType.Action, start_pointer=False, end_pointer=True ) # up right
-
-        # scene.append_text("L", 2, 5, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
-        # scene.append_text("R", 4, 5, corner=Corner.UpperRight, mark_type=MarkType.Action)
-
         # M --> x x
         for divergence, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
@@ -43,32 +36,20 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    # def scn_d_02_monolith_steps(self, bt=BoardType.Discovery):
+    def scn_d_02_unicorn_steps(self, bt=BoardType.Discovery):
 
-    #     scene = Scene('scn_d_02_monolith_steps', bt, width=7, height=7)
+        scene = Scene('scn_d_02_unicorn_steps', bt, width=10, height=10)
 
-    #     start_M = (3, 3)
-    #     scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        start_M = (0, 0)
+        scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
-    #     #
-    #     # left steps
+        # M --> x x x x
+        for divergence, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
+            coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
+            for i, pos in enumerate( coords_M_() ):
+                scene.append_field_marker( *pos, mark_type=MarkType.Action )
 
-    #     coords = GS.gen_multi_steps(GS.DEFAULT_MONOLITH_MULTI_REL_LEFT_MOVES, start=start_M, include_prev=False, count=1)
-
-    #     for index, pos in enumerate( coords() ):
-    #         scene.append_field_marker(*pos, mark_type=MarkType.Legal)
-    #         scene.append_text("L", *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal)
-
-    #     #
-    #     # right steps
-
-    #     coords = GS.gen_multi_steps(GS.DEFAULT_MONOLITH_MULTI_REL_RIGHT_MOVES, start=start_M, include_prev=False, count=1)
-
-    #     for index, pos in enumerate( coords() ):
-    #         scene.append_field_marker(*pos, mark_type=MarkType.Action)
-    #         scene.append_text("R", *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action)
-
-    #     return scene
+        return scene
 
     # def scn_d_03_monolith_step_1(self, bt=BoardType.Discovery):
 
