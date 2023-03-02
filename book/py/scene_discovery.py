@@ -21,9 +21,9 @@ class SceneDiscoveryMixin:
     #
     # Movement
 
-    def scn_d_01_knight_steps(self, bt=BoardType.Discovery):
+    def scn_d_01_monolith_first_step(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_01_knight_steps', bt) # , width=10, height=10)
+        scene = Scene('scn_d_01_monolith_first_step', bt) # , width=10, height=10)
 
         start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
@@ -36,9 +36,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_02_unicorn_steps(self, bt=BoardType.Discovery):
+    def scn_d_02_monolith_second_step(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_02_unicorn_steps', bt) # , width=10, height=10)
+        scene = Scene('scn_d_02_monolith_second_step', bt) # , width=10, height=10)
 
         start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
@@ -51,9 +51,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_03_monolith_6_steps(self, bt=BoardType.Discovery):
+    def scn_d_03_monolith_third_step(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_03_monolith_6_steps', bt) # , width=10, height=10)
+        scene = Scene('scn_d_03_monolith_third_step', bt) # , width=10, height=10)
 
         start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
@@ -73,9 +73,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_04_monolith_8_steps(self, bt=BoardType.Discovery):
+    def scn_d_04_monolith_fourth_step(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_04_monolith_8_steps', bt) # , width=10, height=10)
+        scene = Scene('scn_d_04_monolith_fourth_step', bt) # , width=10, height=10)
 
         start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )

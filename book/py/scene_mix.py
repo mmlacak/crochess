@@ -34,8 +34,8 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_d_01_knight_steps', \
-                    'scn_d_02_unicorn_steps', \
-                    'scn_d_03_monolith_6_steps', \
-                    'scn_d_04_monolith_8_steps', \
+                    'scn_d_01_monolith_first_step', \
+                    'scn_d_02_monolith_second_step', \
+                    'scn_d_03_monolith_third_step', \
+                    'scn_d_04_monolith_fourth_step', \
                 ]
