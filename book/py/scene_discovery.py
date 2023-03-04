@@ -28,13 +28,14 @@ class SceneDiscoveryMixin:
         start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
-        rels = GS.gen_monolith_default_moves( 1 )
+        rels = GS.gen_monolith_default_steps( 1 )
 
         # M --> x x
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
                 scene.append_field_marker( *pos, mark_type=MarkType.Legal )
+                # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -45,13 +46,14 @@ class SceneDiscoveryMixin:
         start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
-        rels = GS.gen_monolith_default_moves( 2 )
+        rels = GS.gen_monolith_default_steps( 2 )
 
         # M --> x x x x
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
                 scene.append_field_marker( *pos, mark_type=MarkType.Action )
+                # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -62,13 +64,14 @@ class SceneDiscoveryMixin:
         start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
-        rels = GS.gen_monolith_default_moves( 3 )
+        rels = GS.gen_monolith_default_steps( 3 )
 
         # M --> x x x x x x
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
                 scene.append_field_marker( *pos, mark_type=MarkType.Illegal )
+                # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -79,13 +82,14 @@ class SceneDiscoveryMixin:
         start_M = (11, 11)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
-        rels = GS.gen_monolith_default_moves( 4 )
+        rels = GS.gen_monolith_default_steps( 4 )
 
         # M --> x x x x x x x x
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
                 scene.append_field_marker( *pos, mark_type=MarkType.Blocked )
+                # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         return scene
 

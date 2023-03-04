@@ -600,11 +600,15 @@ def gen_shaman_corners(rel, count=None, is_with_field_marker=True):
 #
 # monolith generators
 
-def gen_monolith_default_moves(step_number):
+def gen_monolith_default_steps(step_number):
 
     steps = []
 
     count = 2 * step_number
+
+    #
+    # 1st quadrant
+
     x = count
     y = 1
 
@@ -612,16 +616,46 @@ def gen_monolith_default_moves(step_number):
         field_1 = ( x, y )
         steps.append( field_1 )
 
-        field_2 = ( -x, y )
+        x -= 1
+        y += 1
+
+    #
+    # 2nd quadrant
+
+    x = -1
+    y = count
+
+    for i in range( count ):
+        field_2 = ( x, y )
         steps.append( field_2 )
 
-        field_3 = ( -x, -y )
+        x -= 1
+        y -= 1
+
+    #
+    # 3rd quadrant
+
+    x = -count
+    y = -1
+
+    for i in range( count ):
+        field_3 = ( x, y )
         steps.append( field_3 )
 
-        field_4 = ( x, -y )
+        x += 1
+        y -= 1
+
+    #
+    # 4th quadrant
+
+    x = 1
+    y = -count
+
+    for i in range( count ):
+        field_4 = ( x, y )
         steps.append( field_4 )
 
-        x -= 1
+        x += 1
         y += 1
 
     return steps
@@ -775,7 +809,7 @@ def test_8(as_next=True):
 def test_monolith_gen():
     print()
     for i in range( 4 ):
-        lst = gen_monolith_default_moves( i+1 )
+        lst = gen_monolith_default_steps( i+1 )
         print( lst )
     print()
 
