@@ -26,7 +26,31 @@ class SceneDiscoveryMixin:
         scene = Scene('scn_d_01_monolith_first_step', bt) # , width=10, height=10)
 
         start_M = (4, 4)
-        scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        start_W = (6, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_P_1 = (7, 2)
+        scene.board.set_piece( *start_P_1, piece=PieceType.Pawn )
+
+        start_P_2 = (11, 8)
+        scene.board.set_piece( *start_P_2, piece=PieceType.Pawn )
+
+        start_P_3 = (10, 7)
+        scene.board.set_piece( *start_P_3, piece=PieceType.Pawn )
+
+        start_P_4 = (12, 7)
+        scene.board.set_piece( *start_P_4, piece=PieceType.Pawn )
+
+        start_w = (3, 6)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_p_1 = (2, 7)
+        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
+
+        start_p_2 = (4, 6)
+        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
         rels = GS.gen_monolith_default_steps( 1 )
 
@@ -34,7 +58,9 @@ class SceneDiscoveryMixin:
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
-                scene.append_field_marker( *pos, mark_type=MarkType.Legal )
+                mark_type = MarkType.Illegal if divergence in [2, 7] else \
+                            MarkType.Legal
+                scene.append_field_marker( *pos, mark_type=mark_type )
                 # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         return scene
@@ -45,7 +71,31 @@ class SceneDiscoveryMixin:
 
         prev_M = (4, 4)
         start_M = (6, 5)
-        scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        start_W = (6, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_P_1 = (7, 2)
+        scene.board.set_piece( *start_P_1, piece=PieceType.Pawn )
+
+        start_P_2 = (11, 8)
+        scene.board.set_piece( *start_P_2, piece=PieceType.Pawn )
+
+        start_P_3 = (10, 7)
+        scene.board.set_piece( *start_P_3, piece=PieceType.Pawn )
+
+        start_P_4 = (12, 7)
+        scene.board.set_piece( *start_P_4, piece=PieceType.Pawn )
+
+        start_w = (3, 6)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_p_1 = (2, 7)
+        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
+
+        start_p_2 = (4, 6)
+        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
         rels = GS.gen_monolith_default_steps( 2 )
 
@@ -69,7 +119,31 @@ class SceneDiscoveryMixin:
         prev_M = (4, 4)
         prev_2_M = (6, 5)
         start_M = (7, 9)
-        scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        start_W = (6, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_P_1 = (7, 2)
+        scene.board.set_piece( *start_P_1, piece=PieceType.Pawn )
+
+        start_P_2 = (11, 8)
+        scene.board.set_piece( *start_P_2, piece=PieceType.Pawn )
+
+        start_P_3 = (10, 7)
+        scene.board.set_piece( *start_P_3, piece=PieceType.Pawn )
+
+        start_P_4 = (12, 7)
+        scene.board.set_piece( *start_P_4, piece=PieceType.Pawn )
+
+        start_w = (3, 6)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_p_1 = (2, 7)
+        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
+
+        start_p_2 = (4, 6)
+        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
         rels = GS.gen_monolith_default_steps( 3 )
 
@@ -77,7 +151,9 @@ class SceneDiscoveryMixin:
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
-                scene.append_field_marker( *pos, mark_type=MarkType.Legal )
+                mark_type = MarkType.Illegal if divergence in [13, 14, 17, 22] else \
+                            MarkType.Legal
+                scene.append_field_marker( *pos, mark_type=mark_type )
                 # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         scene.append_arrow( *(prev_M + prev_2_M), mark_type=MarkType.Blocked )
@@ -95,7 +171,31 @@ class SceneDiscoveryMixin:
         prev_2_M = (6, 5)
         prev_3_M = (7, 9)
         start_M = (13, 10)
-        scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        start_W = (6, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_P_1 = (7, 2)
+        scene.board.set_piece( *start_P_1, piece=PieceType.Pawn )
+
+        start_P_2 = (11, 8)
+        scene.board.set_piece( *start_P_2, piece=PieceType.Pawn )
+
+        start_P_3 = (10, 7)
+        scene.board.set_piece( *start_P_3, piece=PieceType.Pawn )
+
+        start_P_4 = (12, 7)
+        scene.board.set_piece( *start_P_4, piece=PieceType.Pawn )
+
+        start_w = (3, 6)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_p_1 = (2, 7)
+        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
+
+        start_p_2 = (4, 6)
+        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
         rels = GS.gen_monolith_default_steps( 4 )
 
