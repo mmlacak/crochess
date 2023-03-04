@@ -25,7 +25,7 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_01_monolith_first_step', bt) # , width=10, height=10)
 
-        start_M = (11, 11)
+        start_M = (4, 4)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
         rels = GS.gen_monolith_default_steps( 1 )
@@ -43,7 +43,8 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_02_monolith_second_step', bt) # , width=10, height=10)
 
-        start_M = (11, 11)
+        prev_M = (4, 4)
+        start_M = (6, 5)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
         rels = GS.gen_monolith_default_steps( 2 )
@@ -52,8 +53,12 @@ class SceneDiscoveryMixin:
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
-                scene.append_field_marker( *pos, mark_type=MarkType.Action )
+                scene.append_field_marker( *pos, mark_type=MarkType.Legal )
                 # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *(prev_M + start_M), mark_type=MarkType.Blocked )
+
+        scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
 
@@ -61,7 +66,9 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_03_monolith_third_step', bt) # , width=10, height=10)
 
-        start_M = (11, 11)
+        prev_M = (4, 4)
+        prev_2_M = (6, 5)
+        start_M = (7, 9)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
         rels = GS.gen_monolith_default_steps( 3 )
@@ -70,8 +77,13 @@ class SceneDiscoveryMixin:
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
-                scene.append_field_marker( *pos, mark_type=MarkType.Illegal )
+                scene.append_field_marker( *pos, mark_type=MarkType.Legal )
                 # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *(prev_M + prev_2_M), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(prev_2_M + start_M), mark_type=MarkType.Blocked )
+
+        scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
 
@@ -79,7 +91,10 @@ class SceneDiscoveryMixin:
 
         scene = Scene('scn_d_04_monolith_fourth_step', bt) # , width=10, height=10)
 
-        start_M = (11, 11)
+        prev_M = (4, 4)
+        prev_2_M = (6, 5)
+        prev_3_M = (7, 9)
+        start_M = (13, 10)
         scene.board.set_piece( *start_M, piece=-PieceType.Monolith )
 
         rels = GS.gen_monolith_default_steps( 4 )
@@ -88,8 +103,14 @@ class SceneDiscoveryMixin:
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
-                scene.append_field_marker( *pos, mark_type=MarkType.Blocked )
+                scene.append_field_marker( *pos, mark_type=MarkType.Legal )
                 # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *(prev_M + prev_2_M), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(prev_2_M + prev_3_M), mark_type=MarkType.Blocked )
+        scene.append_arrow( *(prev_3_M + start_M), mark_type=MarkType.Blocked )
+
+        scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
 
