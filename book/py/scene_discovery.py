@@ -52,9 +52,8 @@ class SceneDiscoveryMixin:
         start_p_2 = (4, 6)
         scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
-        rels = GS.gen_monolith_default_steps( 1 )
-
         # M --> x x
+        rels = GS.gen_monolith_default_steps( 1 )
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
@@ -97,9 +96,8 @@ class SceneDiscoveryMixin:
         start_p_2 = (4, 6)
         scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
-        rels = GS.gen_monolith_default_steps( 2 )
-
         # M --> x x x x
+        rels = GS.gen_monolith_default_steps( 2 )
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
@@ -107,6 +105,13 @@ class SceneDiscoveryMixin:
                 # scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         scene.append_arrow( *(prev_M + start_M), mark_type=MarkType.Blocked )
+
+        # # M --> x x
+        # rels = GS.gen_monolith_default_steps( 1 )
+        # for divergence, rel in enumerate( rels ):
+        #     coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
+        #     for i, pos in enumerate( coords_M_() ):
+        #         scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
@@ -145,9 +150,8 @@ class SceneDiscoveryMixin:
         start_p_2 = (4, 6)
         scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
-        rels = GS.gen_monolith_default_steps( 3 )
-
         # M --> x x x x x x
+        rels = GS.gen_monolith_default_steps( 3 )
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
@@ -158,6 +162,13 @@ class SceneDiscoveryMixin:
 
         scene.append_arrow( *(prev_M + prev_2_M), mark_type=MarkType.Blocked )
         scene.append_arrow( *(prev_2_M + start_M), mark_type=MarkType.Blocked )
+
+        # # M --> x x x x
+        # rels = GS.gen_monolith_default_steps( 2 )
+        # for divergence, rel in enumerate( rels ):
+        #     coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
+        #     for i, pos in enumerate( coords_M_() ):
+        #         scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
@@ -197,9 +208,8 @@ class SceneDiscoveryMixin:
         start_p_2 = (4, 6)
         scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
-        rels = GS.gen_monolith_default_steps( 4 )
-
         # M --> x x x x x x x x
+        rels = GS.gen_monolith_default_steps( 4 )
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
@@ -209,6 +219,13 @@ class SceneDiscoveryMixin:
         scene.append_arrow( *(prev_M + prev_2_M), mark_type=MarkType.Blocked )
         scene.append_arrow( *(prev_2_M + prev_3_M), mark_type=MarkType.Blocked )
         scene.append_arrow( *(prev_3_M + start_M), mark_type=MarkType.Blocked )
+
+        # # M --> x x x x x x
+        # rels = GS.gen_monolith_default_steps( 3 )
+        # for divergence, rel in enumerate( rels ):
+        #     coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
+        #     for i, pos in enumerate( coords_M_() ):
+        #         scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
