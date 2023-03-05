@@ -53,9 +53,12 @@ Wave teleported from a Star can only emerge from the other Star in the same
 color.
 
 Monolith cannot interact with (capture, activate, ...) any piece on its own;
-all step-fields in its ply must be empty. Monolith moves similar to Knight,
-but can perform 3 steps in a single ply, by alternating between left and right
-steps.
+all step-fields in its ply must be empty.
+% Monolith moves similar to Knight,
+% but can perform 3 steps in a single ply, by alternating between left and right
+% steps.
+
+\TODO
 
 Alternative move for Monolith is syzygy.
 
@@ -90,14 +93,24 @@ Star colors in this variant are presented on the left.
 \addcontentsline{toc}{subsection}{Movement}
 \label{sec:Discovery/Monolith/Movement}
 
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_01_monolith_first_step.png}
+\vspace*{-1.5\baselineskip}
 \caption{Monolith's first step}
 \label{fig:scn_d_01_monolith_first_step}
 \end{figure}
 
-. . .
+\vspace*{-0.5\baselineskip}
+Monolith does not belong to any player, and can be moved by either. Step-fields
+of Monolith's first step are identical to Knight's. Monolith cannot interact with
+pieces at all; so, a step-field must be empty for a Monolith to step onto it.
+Monolith is not restrained by any piece outside of its step-fields. \newline
+\indent
+Here, Monolith on its first step is blocked by two Waves, so cannot access already
+occupied step-fields. This is so, regardless if light or dark player is moving a
+Monolith.
 
 \clearpage % ..........................................................
 
