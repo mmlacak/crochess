@@ -21,6 +21,32 @@ class SceneDiscoveryMixin:
     #
     # Movement
 
+    def scn_d_01_monolith_patterns(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_01_monolith_patterns', bt) # , width=10, height=10)
+
+        start_M = (11, 11)
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+        steps = 4
+
+        # M --> x x
+        for step in range( steps + 1 ):
+            rels = GS.gen_monolith_default_steps( step )
+            for divergence, rel in enumerate( rels ):
+                coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
+                for i, pos in enumerate( coords_M_() ):
+                    offset = step % steps
+                    mark_type = MarkType.Action if offset == 1 else \
+                                MarkType.Blocked if offset == 2 else \
+                                MarkType.Illegal if offset == 3 else \
+                                MarkType.Legal
+                    scene.append_field_marker( *pos, mark_type=mark_type )
+
+                    if divergence == 0:
+                        scene.append_text( str( step ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=mark_type )
+
+        return scene
+
     def scn_d_01_monolith_first_step(self, bt=BoardType.Discovery):
 
         scene = Scene('scn_d_01_monolith_first_step', bt) # , width=10, height=10)
