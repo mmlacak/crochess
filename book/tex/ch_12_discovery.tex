@@ -176,19 +176,23 @@ should it be moved by dark player only first two steps would be allowed.
 
 \clearpage % ..........................................................
 
-% \noindent
-% \begin{figure}[!h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_05_monolith_step_3.png}
-% \caption{Monolith step 3}
-% \label{fig:scn_d_05_monolith_step_3}
-% \end{figure}
+\subsubsection*{Off-board Monolith}
+\addcontentsline{toc}{subsubsection}{Off-board Monolith}
+\label{sec:Discovery/Monolith/Movement/Off-board Monolith}
 
-% Previous step was a left one, so next step needs to be one of 4 marked right
-% steps. This is also last step in a Monolith's ply, since it's third. Monolith
-% is not obstructed by Pawns on a non-step fields; nor by Bishop on a left
-% step-field.
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_05_monolith_off_board.png}
+\vspace*{-1.3\baselineskip}
+\caption{Monolith off-board}
+\label{fig:scn_d_05_monolith_off_board}
+\end{figure}
 
-\TODO
+\vspace*{-0.4\baselineskip}
+Here, light grey fields are virtual fields extending existing chessboard.
+Monolith, similarly to \hyperref[fig:scn_hd_06_centaur_off_board]{Centaur},
+cannot leave chessboard, and all subsequent steps are also illegal.
 
 \clearpage % ..........................................................
 
@@ -208,9 +212,9 @@ should it be moved by dark player only first two steps would be allowed.
 \vspace*{-0.4\baselineskip}
 Image above have four examples in parallel; each in its own corner.
 
-Monolith cannot be captured, converted, activated, or displaced by Serpent,
-or Shaman. Pieces can only teleport from a Monolith; except Kings, Stars,
-and Monoliths which cannot teleport.
+Monolith cannot be captured, converted, activated, or displaced. Pieces can only
+teleport from a Monolith; except for Kings, Stars, and Monoliths which cannot
+teleport.
 
 \clearpage % ..........................................................
 
@@ -257,27 +261,6 @@ Monolith is opaque; no piece can "pass-through" Monolith, neither material piece
 nor Waves. Here, light Bishop cannot capture dark Pawn, because Monolith B is in
 the way. Similarly, light Wave cannot activate Queen, since Monolith A is between
 the two.
-
-\clearpage % ..........................................................
-
-\subsubsection*{Off-board Monolith}
-\addcontentsline{toc}{subsubsection}{Off-board Monolith}
-\label{sec:Discovery/Monolith/Movement/Off-board Monolith}
-
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_09_monolith_off_board.png}
-\vspace*{-1.3\baselineskip}
-\caption{Monolith off-board}
-\label{fig:scn_d_09_monolith_off_board}
-\end{figure}
-
-\vspace*{-0.4\baselineskip}
-Here, light grey fields are virtual fields extending existing chessboard.
-Monolith, just \hyperref[fig:scn_hd_10_wave_activated_by_centaur_off_board]{like Wave},
-can leave chessboard and all subsequent steps are also legal, as long as its ply ends
-on a chessboard, and all of its on-board step-fields are empty.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
