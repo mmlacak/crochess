@@ -388,10 +388,10 @@ class SceneTamoanchanRevisitedMixin:
         start_S = (1, 3)
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
 
-        start_n = (4, 4)
-        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+        start_p = (4, 4)
+        scene.board.set_piece(*start_p, piece=-PieceType.Pawn)
 
-        start_w = (4, 5)
+        start_w = (4, 3)
         scene.board.set_piece(*start_w, piece=-PieceType.Wave)
 
         gen_S_ = GS.gen_steps( start=start_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=3 )
@@ -406,29 +406,29 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_14_displacement_step', bt, width=8, height=8)
 
-        prev_n = (4, 4)
-        start_n = (4, 4)
-        # scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+        prev_p = (4, 4)
+        start_p = (4, 4)
+        # scene.board.set_piece(*start_p, piece=-PieceType.Pawn)
 
-        start_w = (4, 5)
+        start_w = (4, 3)
         scene.board.set_piece(*start_w, piece=-PieceType.Wave)
 
         prev_S = (1, 3)
-        start_S = prev_n
+        start_S = prev_p
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
 
-        scene.append_arrow( *GS.append_tpl_rel( start_n, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_tpl_rel( start_n, 0, 1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_tpl_rel( start_n, -1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_tpl_rel( start_n, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_p, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_p, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_p, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_p, 0, -1 ), mark_type=MarkType.Illegal )
 
         scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
-        scene.append_text( "N", *prev_n, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+        scene.append_text( "P", *prev_p, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
 
-        scene.append_field_marker( *GS.add_tpl( start_n, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_tpl( start_n, 0, 1 ), mark_type=MarkType.Illegal )
-        scene.append_field_marker( *GS.add_tpl( start_n, -1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_tpl( start_n, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_tpl( start_p, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_tpl( start_p, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_tpl( start_p, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_tpl( start_p, 0, -1 ), mark_type=MarkType.Illegal )
 
         return scene
 
@@ -436,15 +436,15 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_15_displacement_end', bt, width=8, height=8)
 
-        prev_n = (4, 4)
-        start_n = (4, 3)
-        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+        prev_p = (4, 4)
+        start_p = (4, 5)
+        scene.board.set_piece(*start_p, piece=-PieceType.Pawn)
 
-        start_w = (4, 5)
+        start_w = (4, 3)
         scene.board.set_piece(*start_w, piece=-PieceType.Wave)
 
         prev_S = (1, 3)
-        start_S = prev_n
+        start_S = prev_p
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
 
         gen_S_ = GS.gen_steps( start=prev_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=6 )
@@ -454,7 +454,7 @@ class SceneTamoanchanRevisitedMixin:
             scene.append_arrow( *coords, mark_type=mark_type )
 
         scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
-        scene.append_text( "N", *prev_n, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+        scene.append_text( "P", *prev_p, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
 
         return scene
 

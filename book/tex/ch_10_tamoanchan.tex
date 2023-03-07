@@ -44,11 +44,9 @@ Serpent has movement limit, which is calculated from a board size of a variant
 being played. In this variant Serpent can move for up to 14 fields, inclusively.
 
 As an alternative move, Serpent can move one field vertically or horizontally
-if it's unoccupied, to change color of accessible fields. Serpent can also
-teleport using this color-changing move; teleporting or not, this move finishes
-cascade, if Serpent was activated.
-
-\TODO :: displacements of Pawns within a ply
+if it's unoccupied, to change color of accessible fields, and even teleport
+while using color-changing move. Serpent can also diplace any Pawn in its way,
+both own or opponent's.
 
 % \vspace*{0.05\textheight}
 \noindent
@@ -286,11 +284,11 @@ if Serpent was activated.
 \label{fig:scn_tr_13_displacement_init}
 \end{wrapfigure}
 Serpent can displace a piece it encounters and, in the same ply, continue its movement.
-Displacement does not use momentum, and can be performed even if Serpent has none. Any
-piece, own or opponent's, can be displaced except Kings, and Stars. \newline
+Displacement does not use momentum, and can be performed even if Serpent has none. Pawns,
+own or opponent's, can be displaced; all other pieces cannot be displaced. \newline
+\indent
 Displacement fields are the same as color-changing fields, and also has to be empty;
-
-\TODO :: displacements of Pawns within a ply
+i.e. a Pawn
 
 \vspace*{-0.8\baselineskip}
 \noindent
@@ -301,11 +299,12 @@ Displacement fields are the same as color-changing fields, and also has to be em
 \caption{Displacement step}
 \label{fig:scn_tr_14_displacement_step}
 \end{wrapfigure}
-i.e. a piece can be displaced for one field to the left, right, up, or bottom from
+can be displaced for one field to the left, right, up, or bottom from
 its encountered position, if that displacing field is empty. This is so, regardless
-how displaced piece moves otherwise. \newline
-Here, dark Knight (now "in the air") can be displaced onto any of 3 empty neighboring
-fields; up-field is illegal for displacement, since it's not empty.
+how displaced Pawn moves otherwise. \newline
+\indent
+Here, dark Pawn (now "in the air") can be displaced onto any of 3 empty neighboring
+fields; down-field is illegal for displacement, since it's not empty.
 
 \vspace*{-0.8\baselineskip}
 \noindent
@@ -316,10 +315,12 @@ fields; up-field is illegal for displacement, since it's not empty.
 \caption{Displacement end}
 \label{fig:scn_tr_15_displacement_end}
 \end{wrapfigure}
+\indent
 There is no limit to number of displacements Serpent can do in a ply. If there is no
 empty displacement field, Serpent must either capture, or activate, or stop before
 encountered piece. \newline
-Here, dark Knight has been displaced onto down-field; arrows show complete Serpent's
+\indent
+Here, dark Pawn has been displaced onto up-field; arrows show complete Serpent's
 path in a single ply, grey before displacement, green after it.
 
 \clearpage % ..........................................................
