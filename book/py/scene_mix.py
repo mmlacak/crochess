@@ -38,6 +38,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_tr_14_displacement_step', \
                     # 'scn_tr_15_displacement_end', \
                     'scn_d_01_monolith_patterns', \
-                    # 'scn_d_04_monolith_fourth_step', \
-                    # 'scn_d_05_monolith_off_board', \
+                    # 'scn_d_05_monolith_fourth_step', \
+                    # 'scn_d_06_monolith_off_board', \
                 ]

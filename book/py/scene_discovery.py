@@ -47,9 +47,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_01_monolith_first_step(self, bt=BoardType.Discovery):
+    def scn_d_02_monolith_first_step(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_01_monolith_first_step', bt) # , width=10, height=10)
+        scene = Scene('scn_d_02_monolith_first_step', bt) # , width=10, height=10)
 
         start_M = (4, 4)
         scene.board.set_piece( *start_M, piece=PieceType.Monolith )
@@ -90,9 +90,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_02_monolith_second_step(self, bt=BoardType.Discovery):
+    def scn_d_03_monolith_second_step(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_02_monolith_second_step', bt) # , width=10, height=10)
+        scene = Scene('scn_d_03_monolith_second_step', bt) # , width=10, height=10)
 
         prev_M = (4, 4)
         start_M = (6, 5)
@@ -143,9 +143,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_03_monolith_third_step(self, bt=BoardType.Discovery):
+    def scn_d_04_monolith_third_step(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_03_monolith_third_step', bt) # , width=10, height=10)
+        scene = Scene('scn_d_04_monolith_third_step', bt) # , width=10, height=10)
 
         prev_M = (4, 4)
         prev_2_M = (6, 5)
@@ -200,9 +200,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_04_monolith_fourth_step(self, bt=BoardType.Discovery):
+    def scn_d_05_monolith_fourth_step(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_04_monolith_fourth_step', bt) # , width=10, height=10)
+        scene = Scene('scn_d_05_monolith_fourth_step', bt) # , width=10, height=10)
 
         prev_M = (4, 4)
         prev_2_M = (6, 5)
@@ -260,9 +260,9 @@ class SceneDiscoveryMixin:
     #
     # Off-board Monolith
 
-    def scn_d_05_monolith_off_board(self, bt=BoardType.Discovery):
+    def scn_d_06_monolith_off_board(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_05_monolith_off_board', bt, x=4.0, y=-1.0)
+        scene = Scene('scn_d_06_monolith_off_board', bt, x=4.0, y=-1.0)
 
         start_M = (22, 6) # rel == (2, 1) --> left step
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -284,9 +284,9 @@ class SceneDiscoveryMixin:
     #
     # Monolith is noble
 
-    def scn_d_06_monolith_is_noble(self, bt=BoardType.Discovery):
+    def scn_d_07_monolith_is_noble(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_06_monolith_is_noble', bt)
+        scene = Scene('scn_d_07_monolith_is_noble', bt)
 
         #
         # upper-left corner
@@ -376,9 +376,9 @@ class SceneDiscoveryMixin:
     #
     # Trance-journey interaction
 
-    def scn_d_07_monolith_shaman_interaction(self, bt=BoardType.Discovery):
+    def scn_d_08_monolith_shaman_interaction(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_07_monolith_shaman_interaction', bt, x=-4, y=0)
+        scene = Scene('scn_d_08_monolith_shaman_interaction', bt, x=-4, y=0)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -430,9 +430,9 @@ class SceneDiscoveryMixin:
     #
     # Monolith is opaque
 
-    def scn_d_08_monolith_is_opaque(self, bt=BoardType.Discovery):
+    def scn_d_09_monolith_is_opaque(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_08_monolith_is_opaque', bt)
+        scene = Scene('scn_d_09_monolith_is_opaque', bt)
 
         start_M1 = (9, 6)
         start_M2 = (16, 20)
