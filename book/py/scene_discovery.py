@@ -132,14 +132,14 @@ class SceneDiscoveryMixin:
 
         scene.append_arrow( *(prev_M + start_M), mark_type=MarkType.Blocked )
 
-        # # M --> x x
-        # rels = GS.gen_monolith_default_steps( 1 )
-        # for divergence, rel in enumerate( rels ):
-        #     coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
-        #     for i, pos in enumerate( coords_M_() ):
-        #         scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        # M --> x x
+        rels = GS.gen_monolith_default_steps( 1 )
+        for divergence, rel in enumerate( rels ):
+            coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
+            for i, pos in enumerate( coords_M_() ):
+                scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
-        scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "M", *prev_M, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         return scene
 
@@ -194,9 +194,9 @@ class SceneDiscoveryMixin:
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
-                scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+                scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
-        scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "M", *prev_M, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         return scene
 
@@ -251,9 +251,9 @@ class SceneDiscoveryMixin:
         for divergence, rel in enumerate( rels ):
             coords_M_ = GS.gen_steps( start=start_M, rels=[ rel, ], include_prev=False, count=1 )
             for i, pos in enumerate( coords_M_() ):
-                scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+                scene.append_text( str( divergence + 1 ), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
-        scene.append_text( "M", *prev_M, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "M", *prev_M, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         return scene
 
