@@ -18,6 +18,9 @@ from scene import Scene
 
 class SceneConquestOfTlalocanMixin:
 
+    #
+    # Movement
+
     def scn_cot_01_shaman_movement(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_01_shaman_movement', bt)
@@ -505,7 +508,7 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
-    # Wave activation
+    # Activating Wave
 
     def scn_cot_06_wave_activated(self, bt=BoardType.ConquestOfTlalocan):
 
@@ -582,7 +585,7 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
-    # teleporting Shaman
+    # Teleporting Shaman
 
     def scn_cot_07_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
 
@@ -640,6 +643,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    #
+    # Teleporting Pawn
+
     def scn_cot_08_teleport_pawn_init(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_08_teleport_pawn_init', bt)
@@ -673,11 +679,621 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
+    # Divergence
+
+    def scn_cot_09_own_wave_is_divergent_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_09_own_wave_is_divergent_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (14, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_w = (12, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_W = (9, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_g = (12, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_p = (6, 3)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> w --> W
+        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_w_W() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Illegal if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_cot_10_own_wave_is_divergent_1(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_10_own_wave_is_divergent_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (14, 1)
+        # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_w = (12, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_W = (9, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_g = (12, 9)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_p = (6, 3)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # <-- Q --> @ W
+
+        for rel in GS.DEFAULT_KING_REL_MOVES:
+            coords_W__Q = GS.gen_steps( start=start_W, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_W__Q() ):
+                if rel in [ (-1, -1), (1, 1), ]:
+                    mark_type = MarkType.Action if i == 2 else \
+                                MarkType.Legal if i < 2 else \
+                                MarkType.Blocked
+                elif rel == (1, -1):
+                    mark_type = MarkType.Illegal if i == 4 else \
+                                MarkType.Legal if i < 5 else \
+                                MarkType.Blocked
+                else:
+                    mark_type = MarkType.Legal if i < 5 else \
+                                MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        return scene
+
+    #
+    # Diverging Pawn
+
+    def scn_cot_11_diverging_pawn(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_11_diverging_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        # step -->
+
+        start_P_A = (4, 3)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+
+        start_W_A = (4, 4)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_n = (5, 5)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        scene.append_arrow( *( start_P_A + start_W_A ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( start_W_A + start_n ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *( GS.append_tpl_rel( start_W_A, 0, 1 ) ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( GS.append_tpl_rel( start_W_A, -1, 1 ) ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_P_A, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+
+        # capture -->
+
+        start_P_B = (10, 5)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
+
+        start_W_B = (9, 6)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_g = (10, 7)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        scene.append_arrow( *( start_P_B + start_W_B ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( start_W_B + start_g ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *( GS.append_tpl_rel( start_W_B, 0, 1 ) ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( GS.append_tpl_rel( start_W_B, -1, 1 ) ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "B", *start_P_B, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+
+        return scene
+
+    #
+    # Diverging rushing Pawn
+
+    def scn_cot_12_diverging_rushing_pawn(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_12_diverging_rushing_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        # ignoring
+
+        start_P_A = (4, 1)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+
+        start_W_A = (4, 3)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        # P --> W
+        coords_P_W = GS.gen_steps( start=start_P_A, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_P_W() ):
+            mark_type = MarkType.Blocked if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_P_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        # diverging short
+
+        start_P_B = (8, 1)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
+
+        start_W_B = (8, 3)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        # P --> W
+        coords_P_W = GS.gen_steps( start=start_P_B, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_P_W() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "B", *start_P_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+
+        # diverging long
+
+        start_P_C = (12, 1)
+        scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
+
+        start_W_C = (12, 5)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # P --> W
+        coords_P_W = GS.gen_steps( start=start_P_C, rels=[(0, 1), ], include_prev=True, count=14 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_P_W() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal if i < 8 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "C", *start_P_C, mark_type=MarkType.Action, corner=Corner.UpperRight )
+
+        return scene
+
+    #
+    # Diverging Unicorn
+
+    def scn_cot_13_diverging_unicorn_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_13_diverging_unicorn_init', bt)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_U = (8, 5)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W_A = (7, 7)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (5, 4)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_N = (4, 9)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_A = (11, 6)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_p = (9, 10)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_b = (10, 9)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        # U --> W(A)
+        scene.append_arrow( *( start_U + start_W_A ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_cot_14_diverging_unicorn_end(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_14_diverging_unicorn_end', bt)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        prev_U = (8, 5)
+        # scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W_A = (7, 7)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (5, 4)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_N = (4, 9)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_A = (11, 6)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_p = (9, 10)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_b = (10, 9)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        # <-- U @ W(A) -->
+        for diverge, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
+            coords_P_W = GS.gen_steps( start=start_W_A, rels=[ rel, ], include_prev=True, count=1 ) # bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_P_W() ):
+                mark_type = MarkType.Action if diverge in [ 1, 2, 10, ] else \
+                            MarkType.Blocked if diverge in [ 6, 15, ] else \
+                            MarkType.Legal
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "U", *prev_U, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+
+        return scene
+
+    #
+    # Diverging activated piece
+
+    def scn_cot_15_diverging_activated_piece_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_15_diverging_activated_piece_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (1, 13)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_A = (6, 8)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_R = (9, 11)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W_B = (12, 11)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_W_C = (9, 6)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # Q --> W(A)
+        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(1, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_WA() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> R
+        coords_WA_R = GS.gen_steps( start=start_W_A, rels=[(1, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_WA_R() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --> WB
+        coords_R_WB = GS.gen_steps( start=start_R, rels=[(1, 0), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_R_WB() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --> WC
+        coords_R_WC = GS.gen_steps( start=start_R, rels=[(0, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_R_WC() ):
+            mark_type = MarkType.Illegal if i == 4 else \
+                        MarkType.Legal if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "C", *start_W_C, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_cot_16_diverging_activated_piece_end(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_16_diverging_activated_piece_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        prev_Q = (1, 13)
+        start_Q = (6, 8)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        prev_W_A = (6, 8)
+        start_W_A = (9, 11)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        prev_R = (9, 11)
+        # scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W_B = (12, 11)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_W_C = (9, 6)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # | <-- R --> |
+        for rel in GS.DEFAULT_ROOK_REL_MOVES:
+            coords_R_ = GS.gen_steps( start=start_W_B, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_R_() ):
+                mark_type = MarkType.Legal if i < 2 else \
+                            MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "C", *start_W_C, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        scene.append_text( "Q", *prev_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+
+    #
+    # Diverging activated Unicorn
+
+    def scn_cot_17_activated_unicorn_divergence_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_17_activated_unicorn_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_G = (6, 13)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_W_A = (2, 5)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_U = (8, 2)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W_B = (10, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_A = (12, 4)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        # G --> W(A)
+        coords_G_WA = GS.gen_steps( start=start_G, rels=[(-1, -2), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_G_WA() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> U
+        coords_WA_U = GS.gen_steps( start=start_W_A, rels=[(2, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_WA_U() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # U --> W(B)
+        scene.append_arrow( *( start_U + start_W_B ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeft )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_cot_18_activated_unicorn_divergence_end(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_18_activated_unicorn_divergence_end', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        # prev_G = (6, 13)
+        start_G = (2, 5)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        # prev_W_A = (2, 5)
+        start_W_A = (8, 2)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        # prev_U = (8, 2)
+        start_U = (10, 5)
+        # scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W_B = (10, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_A = (12, 4)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        # --> U
+        # scene.append_arrow( *( prev_U + start_U ), mark_type=MarkType.Blocked )
+
+        # <-- U -->
+        for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+            coords_U_ = GS.gen_steps( start=start_U, rels=[ rel,  ], include_prev=True, count=1 ) # bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_U_() ):
+                mark_type = MarkType.Action if diverge == 7 else \
+                            MarkType.Legal
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # U -->| -->
+        start_1 = (8, 4)
+        end_1 = (6, 7)
+
+        scene.append_arrow( *( start_1 + end_1 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeft )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+
+        scene.append_text( "1", *start_1, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "2", *end_1, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        return scene
+
+
+    #
+    # Diverging Wave
+
+    def scn_cot_19_wave_divergence_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_19_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (3, 11)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W = (6, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (11, 13)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_G = (14, 10)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_P = (11, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (7, 13)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> W
+        coords_Q_W = GS.gen_steps( start=start_Q, rels=[(1, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_W() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> w
+        coords_W_w = GS.gen_steps( start=start_W, rels=[(1, 1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_W_w() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_cot_20_wave_divergence_1(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_20_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_Q = (3, 11)
+        end_Q = (6, 8)
+        scene.board.set_piece( *end_Q, piece=PieceType.Queen )
+
+        start_W = (14, 10)
+        # scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (11, 13)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_G = (14, 10)
+        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+
+        start_P = (11, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (7, 13)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # <-- W --> @ w
+
+        for rel in GS.DEFAULT_KING_REL_MOVES:
+            coords_w__W = GS.gen_steps( start=start_w, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+            for i, arrow in enumerate( coords_w__W() ):
+                if rel == (-1, -1):
+                    mark_type = MarkType.Action if i == 4 else \
+                                MarkType.Legal
+                elif rel == (1, -1):
+                    mark_type = MarkType.Action if i == 2 else \
+                                MarkType.Legal
+                elif rel == (0, -1):
+                    mark_type = MarkType.Action if i == 7 else \
+                                MarkType.Legal
+                elif rel == (-1, 0):
+                    mark_type = MarkType.Illegal if i == 3 else \
+                                MarkType.Legal
+                else:
+                    mark_type = MarkType.Legal
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        return scene
+
+    #
+    # Wave cannot diverge
+
+    def scn_cot_21_wave_cannot_diverge_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_21_wave_cannot_diverge_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_U = (2, 3)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        start_W = (4, 2)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (9, 10)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # U --> W
+        scene.append_arrow( *( start_U + start_W ), mark_type=MarkType.Action )
+
+        # W -->
+        rel_1 = (3, 2)
+        rel_2 = (-2, 1)
+        coords_W_ = GS.gen_steps( start=start_W, rels=[ rel_1, rel_2, ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=5 )
+
+        for i, arrow in enumerate( coords_W_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        # W @ w | -->
+        for divergence, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+            if rel == rel_2:
+                continue
+
+            coords_W_w = GS.gen_steps( start=start_w, rels=[ rel, ], include_prev=True, count=1 )
+
+            for i, arrow in enumerate( coords_W_w() ):
+                scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
     #  Diverging Shaman
 
-    def scn_cot_09_diverging_shaman_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_22_diverging_shaman_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_09_diverging_shaman_init', bt)
+        scene = Scene('scn_cot_22_diverging_shaman_init', bt)
 
         start_H_A = (4, 9)
         scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
@@ -729,9 +1345,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_10_diverging_shaman_steps(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_23_diverging_shaman_steps(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_10_diverging_shaman_steps', bt)
+        scene = Scene('scn_cot_23_diverging_shaman_steps', bt)
 
         start_W = (10, 12)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
@@ -762,9 +1378,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_11_diverging_shaman_captures(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_24_diverging_shaman_captures(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_11_diverging_shaman_captures', bt)
+        scene = Scene('scn_cot_24_diverging_shaman_captures', bt)
 
         start_W = (10, 12)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
@@ -814,11 +1430,11 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
-    # trance-journey
+    # Trance-journey
 
-    def scn_cot_12_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_25_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_12_trance_journey_init', bt, width=9, height=12)
+        scene = Scene('scn_cot_25_trance_journey_init', bt, width=9, height=12)
 
         start_H1 = (4, 9)
         scene.board.set_piece(*start_H1, piece=PieceType.Shaman)
@@ -861,9 +1477,12 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_13_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
+    #
+    # Movement
 
-        scene = Scene('scn_cot_13_knight_directions', bt, width=9, height=12)
+    def scn_cot_26_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_26_knight_directions', bt, width=9, height=12)
 
         scene.append_text("S", 6, 6, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
 
@@ -910,9 +1529,9 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
 
-    def scn_cot_14_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_27_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_14_stop_sign_pattern', bt, width=9, height=12)
+        scene = Scene('scn_cot_27_stop_sign_pattern', bt, width=9, height=12)
 
         start = (6, 6)
         scene.append_text("S", *start, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
@@ -973,9 +1592,9 @@ class SceneConquestOfTlalocanMixin:
 
         return _append_broken_arrow
 
-    def scn_cot_15_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_28_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_15_stop_sign_pattern_unwind', bt, width=9, height=12)
+        scene = Scene('scn_cot_28_stop_sign_pattern_unwind', bt, width=9, height=12)
 
         start = (6, 6)
         rel = (2, 1)
@@ -991,9 +1610,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_16_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_29_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_16_stop_sign_pattern_full', bt)
+        scene = Scene('scn_cot_29_stop_sign_pattern_full', bt)
 
         start = (5, 11)
         # scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1027,9 +1646,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_17_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_30_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_17_light_shaman_trance_journey', bt)
+        scene = Scene('scn_cot_30_light_shaman_trance_journey', bt)
 
         start = (5, 11)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1054,9 +1673,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_18_light_shaman_trance_journey_offset(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_31_light_shaman_trance_journey_offset(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_18_light_shaman_trance_journey_offset', bt, x=-7, y=-1)
+        scene = Scene('scn_cot_31_light_shaman_trance_journey_offset', bt, x=-7, y=-1)
 
         start = (5, 11)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1083,9 +1702,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_19_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_32_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_19_dark_shaman_trance_journey', bt)
+        scene = Scene('scn_cot_32_dark_shaman_trance_journey', bt)
 
         start = (5, 11)
         scene.board.set_piece(*start, piece=-PieceType.Shaman)
@@ -1110,9 +1729,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_20_displacement_fields(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_33_displacement_fields(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_20_displacement_fields', bt)
+        scene = Scene('scn_cot_33_displacement_fields', bt)
 
         start = (12, 11)
         scene.board.set_piece(*start, piece=PieceType.Rook)
@@ -1131,9 +1750,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_21_light_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_34_light_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_21_light_light_shaman_interaction_start', bt)
+        scene = Scene('scn_cot_34_light_light_shaman_interaction_start', bt)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1195,9 +1814,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_22_light_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_35_light_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_22_light_light_shaman_interaction_end', bt)
+        scene = Scene('scn_cot_35_light_light_shaman_interaction_end', bt)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -1266,9 +1885,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_23_dark_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_36_dark_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_23_dark_light_shaman_interaction_start', bt)
+        scene = Scene('scn_cot_36_dark_light_shaman_interaction_start', bt)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1334,9 +1953,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_24_dark_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_37_dark_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_24_dark_light_shaman_interaction_end', bt)
+        scene = Scene('scn_cot_37_dark_light_shaman_interaction_end', bt)
 
         start = (4, 12)
 
@@ -1392,9 +2011,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_25_dark_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_38_dark_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_25_dark_dark_shaman_interaction_start', bt)
+        scene = Scene('scn_cot_38_dark_dark_shaman_interaction_start', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -1463,9 +2082,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_26_dark_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_39_dark_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_26_dark_dark_shaman_interaction_end', bt)
+        scene = Scene('scn_cot_39_dark_dark_shaman_interaction_end', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -1520,9 +2139,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_27_dark_dark_shaman_double_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_40_dark_dark_shaman_double_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_27_dark_dark_shaman_double_interaction_start', bt)
+        scene = Scene('scn_cot_40_dark_dark_shaman_double_interaction_start', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -1591,9 +2210,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_28_dark_dark_shaman_double_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_41_dark_dark_shaman_double_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_28_dark_dark_shaman_double_interaction_end', bt)
+        scene = Scene('scn_cot_41_dark_dark_shaman_double_interaction_end', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -1641,9 +2260,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_29_light_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_42_light_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_29_light_dark_shaman_interaction_start', bt)
+        scene = Scene('scn_cot_42_light_dark_shaman_interaction_start', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -1716,9 +2335,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_30_light_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_43_light_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_30_light_dark_shaman_interaction_end', bt)
+        scene = Scene('scn_cot_43_light_dark_shaman_interaction_end', bt)
 
         start = (4, 11)
 
@@ -1795,9 +2414,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_31_backward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_44_backward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_31_backward_displacement_start', bt)
+        scene = Scene('scn_cot_44_backward_displacement_start', bt)
 
         start = (15, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1838,9 +2457,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_32_backward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_45_backward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_32_backward_displacement_end', bt)
+        scene = Scene('scn_cot_45_backward_displacement_end', bt)
 
         startH2 = (15, 17)
         scene.board.set_piece(*startH2, piece=PieceType.Shaman)
@@ -1871,9 +2490,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_33_forward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_46_forward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_33_forward_displacement_start', bt)
+        scene = Scene('scn_cot_46_forward_displacement_start', bt)
 
         start = (20, 7)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1914,9 +2533,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_34_forward_displacement_step_2(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_47_forward_displacement_step_2(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_34_forward_displacement_step_2', bt)
+        scene = Scene('scn_cot_47_forward_displacement_step_2', bt)
 
         start = (14, 9)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1955,9 +2574,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_35_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_48_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_35_forward_displacement_end', bt, x=-5, y=1)
+        scene = Scene('scn_cot_48_forward_displacement_end', bt, x=-5, y=1)
 
         start = (8, 11)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1998,9 +2617,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_36_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_49_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_36_push_pull_entrancement_start', bt, width=5, height=8)
+        scene = Scene('scn_cot_49_push_pull_entrancement_start', bt, width=5, height=8)
 
         startW1 = (3, 5)
         scene.board.set_piece(*startW1, piece=PieceType.Wave)
@@ -2022,9 +2641,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_37_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_50_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_37_push_pull_entrancement_2', bt, width=5, height=8)
+        scene = Scene('scn_cot_50_push_pull_entrancement_2', bt, width=5, height=8)
 
         startW1 = (1, 6)
         scene.board.set_piece(*startW1, piece=PieceType.Wave)
@@ -2038,9 +2657,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_38_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_51_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_38_push_pull_entrancement_end', bt)
+        scene = Scene('scn_cot_51_push_pull_entrancement_end', bt)
 
         startW1 = (1, 6)
         scene.board.set_piece(*startW1, piece=PieceType.Wave)
@@ -2082,9 +2701,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_39_scout_pawns(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_52_scout_pawns(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_39_scout_pawns', bt)
+        scene = Scene('scn_cot_52_scout_pawns', bt)
 
         scene.board.set_piece(5, 0, piece=PieceType.Centaur)
         scene.board.set_piece(18, 0, piece=PieceType.Centaur)
@@ -2111,9 +2730,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Trance-journey cannot be blocked.
 
-    # def scn_cot_40_trance_journey_failed(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_53_trance_journey_failed(self, bt=BoardType.ConquestOfTlalocan):
 
-    #     scene = Scene('scn_cot_40_trance_journey_failed', bt)
+    #     scene = Scene('scn_cot_53_trance_journey_failed', bt)
 
     #     start_b = (23, 0)
     #     adder = GS.adder(start_b)
@@ -2163,9 +2782,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # test methods
 
-    def test_cot_16_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
+    def test_cot_54_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('test_cot_16_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
+        scene = Scene('test_cot_54_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
 
         start = (11, 11) # (11, 11)
 
@@ -2221,7 +2840,7 @@ def test_big_pattern():
     scene = SceneMix()
     ss = SaveScene( RenderingSizeEnum.Draft )
     ss.render_example( scene,
-                       scene.test_cot_16_stop_sign_pattern_full,
+                       scene.test_cot_54_stop_sign_pattern_full,
                        board_types=[ BoardType.ConquestOfTlalocan, ],
                        path_prefix='temp/')
                        # , enforce_cot_in_bw=True)
