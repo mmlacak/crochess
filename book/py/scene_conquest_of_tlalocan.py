@@ -764,56 +764,6 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    # #
-    # # # Diverging Pawn
-
-    # def scn_cot_11_diverging_pawn(self, bt=BoardType.ConquestOfTlalocan):
-
-    #     scene = Scene('scn_cot_11_diverging_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
-    #     rect = (0.05, 0.8, 0.65, 0.1)
-
-    #     # step -->
-
-    #     start_P_A = (4, 3)
-    #     scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
-
-    #     start_W_A = (4, 4)
-    #     scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
-
-    #     start_n = (5, 5)
-    #     scene.board.set_piece( *start_n, piece=-PieceType.Knight )
-
-    #     scene.append_arrow( *( start_P_A + start_W_A ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( start_W_A + start_n ), mark_type=MarkType.Action )
-
-    #     scene.append_arrow( *( GS.append_tpl_rel( start_W_A, 0, 1 ) ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( GS.append_tpl_rel( start_W_A, -1, 1 ) ), mark_type=MarkType.Illegal )
-
-    #     scene.append_text( "A", *start_P_A, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
-    #     scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-
-    #     # capture -->
-
-    #     start_P_B = (10, 5)
-    #     scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
-
-    #     start_W_B = (9, 6)
-    #     scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
-
-    #     start_g = (10, 7)
-    #     scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
-
-    #     scene.append_arrow( *( start_P_B + start_W_B ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( start_W_B + start_g ), mark_type=MarkType.Action )
-
-    #     scene.append_arrow( *( GS.append_tpl_rel( start_W_B, 0, 1 ) ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( GS.append_tpl_rel( start_W_B, -1, 1 ) ), mark_type=MarkType.Illegal )
-
-    #     scene.append_text( "B", *start_P_B, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
-    #     scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-
-    #     return scene
-
     #
     # Diverging Pawn
 
@@ -990,20 +940,21 @@ class SceneConquestOfTlalocanMixin:
         scene = Scene('scn_cot_14_diverging_rushing_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
-        # ignoring
+        # stop before
 
         start_P_A = (4, 1)
         scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
 
-        start_W_A = (4, 3)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        start_H_A = (4, 3)
+        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
 
-        # P --> W
-        coords_P_W = GS.gen_steps( start=start_P_A, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
+        # P(A) --> W
+        coords_PA_W = GS.gen_steps( start=start_P_A, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_P_W() ):
-            mark_type = MarkType.Blocked if i == 1 else \
-                        MarkType.Legal
+        for i, arrow in enumerate( coords_PA_W() ):
+            mark_type = MarkType.Illegal if i == 1 else \
+                        MarkType.Legal if i < 1 else \
+                        MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         scene.append_text( "A", *start_P_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
@@ -1013,13 +964,13 @@ class SceneConquestOfTlalocanMixin:
         start_P_B = (8, 1)
         scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
 
-        start_W_B = (8, 3)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_H_B = (8, 3)
+        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
 
-        # P --> W
-        coords_P_W = GS.gen_steps( start=start_P_B, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
+        # P(B) --> W
+        coords_PB_W = GS.gen_steps( start=start_P_B, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_P_W() ):
+        for i, arrow in enumerate( coords_PB_W() ):
             mark_type = MarkType.Action if i == 1 else \
                         MarkType.Legal if i < 4 else \
                         MarkType.Blocked
@@ -1032,19 +983,32 @@ class SceneConquestOfTlalocanMixin:
         start_P_C = (12, 1)
         scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
 
-        start_W_C = (12, 5)
-        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+        start_H_C = (12, 5)
+        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
 
-        # P --> W
-        coords_P_W = GS.gen_steps( start=start_P_C, rels=[(0, 1), ], include_prev=True, count=14 ) # bounds=scene.board_view.get_position_limits() )
+        # P(C) --> W
+        coords_PC_W = GS.gen_steps( start=start_P_C, rels=[(0, 1), ], include_prev=True, count=14 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_P_W() ):
+        for i, arrow in enumerate( coords_PC_W() ):
             mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal if i < 8 else \
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         scene.append_text( "C", *start_P_C, mark_type=MarkType.Action, corner=Corner.UpperRight )
+
+        # just rushing
+
+        start_P_D = (16, 1)
+        scene.board.set_piece( *start_P_D, piece=PieceType.Pawn )
+
+        # P(D) -->
+        coords_PD_ = GS.gen_steps( start=start_P_D, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_PD_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_text( "D", *start_P_D, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 

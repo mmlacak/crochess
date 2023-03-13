@@ -36,6 +36,7 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_cot_09_own_shaman_is_divergent_init', \
                     # 'scn_cot_10_own_shaman_is_divergent_end', \
-                    'scn_cot_12_diverging_pawn_init', \
-                    'scn_cot_13_diverging_pawn_end', \
+                    # 'scn_cot_12_diverging_pawn_init', \
+                    # 'scn_cot_13_diverging_pawn_end', \
+                    'scn_cot_14_diverging_rushing_pawn', \
                 ]

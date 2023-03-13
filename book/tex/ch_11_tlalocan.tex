@@ -257,31 +257,6 @@ The only piece in a move, just like a piece starting a cascade,
 \hyperref[fig:scn_mv_43_static_move_is_illegal_init]{cannot end its move on a starting field}.
 So, in this example, starting field Q is illegal destination for light Queen.
 
-% \clearpage % ..........................................................
-
-% \subsubsection*{Diverging Pawn}
-% \addcontentsline{toc}{subsubsection}{Diverging Pawn}
-% \label{sec:Conquest of Tlalocan/Shaman/Divergence/Diverging Pawn/1} % line 290
-
-% \vspace*{-1.4\baselineskip}
-% \noindent
-% \begin{figure}[!h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_11_diverging_pawn.png}
-% \vspace*{-1.5\baselineskip}
-% \caption{Diverging Pawn}
-% \label{fig:scn_cot_11_diverging_pawn}
-% \end{figure}
-
-% \vspace*{-0.5\baselineskip}
-% Image above have two examples in parallel; left, and right. Pawns can diverge
-% regardless if own Wave is encountered on step-, or capture-field. Similar to
-% \hyperref[fig:scn_mv_31_activating_rush_pawn_init]{activated Pawn}, diverging
-% Pawn can also choose to step, or to capture opponent's piece, if it's positioned
-% on a capture-field accessible after divergence. \newline
-% \indent
-% Here, both Pawns can step forward, or capture a piece after divergence, regardless
-% if own Wave is encountered on a step-, or capture-field.
-
 \clearpage % ..........................................................
 % Diverging Pawn ......................................................
 
@@ -342,12 +317,16 @@ so, only rushing Pawn (here, C) can step forward for more than one field.
 \label{fig:scn_cot_14_diverging_rushing_pawn}
 \end{figure}
 
-\vspace*{-0.4\baselineskip}
-Image above have three examples presented in parallel; left, center, and right. Pawn,
-when rushing, can activate own Wave, ignore it (in this example, Pawn A), or diverge
-from it (here, Pawns B, C). Diverging Pawns are limited by momentum, so divergent Wave
-closer to starting field will limit Pawn's reach (Pawn B), while Wave farther apart
-will extend it (Pawn C), compared to full extent of a rush (Pawn A).
+\vspace*{-0.5\baselineskip}
+% Image above have four examples presented in parallel; left, center, and right. \newline
+Image above have four examples presented in parallel; each with labeled Pawn starting
+a cascade. \newline
+\indent
+Rushing Pawn can diverge from own Shaman (here, Pawns B, C), or it has to stop before
+own Shaman is encountered (Pawn A). Diverging Pawns are limited by momentum, so
+divergent Shaman closer to starting field will limit Pawn's reach (Pawn B), while
+Shaman farther apart will extend it (Pawn C), compared to full extent of ordinary
+rush (Pawn D).
 
 \clearpage % ..........................................................
 % Diverging Unicorn ...................................................
@@ -366,7 +345,7 @@ will extend it (Pawn C), compared to full extent of a rush (Pawn A).
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Like any other single-step piece (King, Pawn), Unicorn can diverge from own Wave,
+Like any other single-step piece (King, Pawn), Unicorn can diverge from own Shaman,
 and make one step more; direction can be chosen independently of previous choice.
 Available directions
 \hyperref[fig:scn_aoa_01_unicorn_same_color]{depend on colors of Unicorn and its field};
@@ -390,10 +369,10 @@ So, long jump after divergence would be followed by short one,
 and vice versa.
 
 In previous example, light Unicorn made a short jump from its starting, same-color
-field U. Here, it's "in the air" after diverging from Wave A on a dark field; color
+field U. Here, it's "in the air" after diverging from Shaman A on a dark field; color
 of field is opposite to Unicorn's, so Unicorn will do long jump.
 After divergence Unicorn doesn't have momentum, so it cannot activate own Pyramid,
-only Wave; or, it can capture one of opponent's pieces.
+only Shaman; or, it can capture one of opponent's pieces.
 
 % ................................................... Diverging Unicorn
 \clearpage % ..........................................................
@@ -414,10 +393,10 @@ only Wave; or, it can capture one of opponent's pieces.
 
 \vspace*{-0.4\baselineskip}
 Activated piece can also diverge, but it's already limited by received momentum while
-going towards divergent Wave, as it's limited after diverging.
+going towards divergent Shaman, as it's limited after diverging.
 
-Activated, material piece which has no momentum when reached own Wave cannot diverge
-from it (nor ignore it), only activate that Wave.
+Activated, material piece which has no momentum when reached own Shaman cannot diverge
+from it (nor ignore it), only activate that Shaman.
 
 \clearpage % ..........................................................
 
@@ -431,11 +410,11 @@ from it (nor ignore it), only activate that Wave.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-In previous example, activated Rook couldn't diverge from Wave C, only activate it,
-since all received momentum would be spent moving towards Wave C.
+In previous example, activated Rook couldn't diverge from Shaman C, only activate it,
+since all received momentum would be spent moving towards Shaman C.
 
-The same Rook (now "in the air") can diverge from Wave B, with 2 remaining momentum,
-i.e. difference between received momentum and amount spent moving towards Wave B.
+The same Rook (now "in the air") can diverge from Shaman B, with 2 remaining momentum,
+i.e. difference between received momentum and amount spent moving towards Shaman B.
 
 % ........................................... Diverging activated piece
 \clearpage % ..........................................................
@@ -461,7 +440,7 @@ If diverging, single-step piece can make
 \hyperref[fig:scn_cot_15_diverging_unicorn_init]{only one additional step}; this also
 applies to a diverging single-step piece activated with more than 1 momentum.
 
-Here, light Unicorn is about to be activated with 4 momentum, it can then reach light Wave
+Here, light Unicorn is about to be activated with 4 momentum, it can then reach light Shaman
 B, and diverge from there.
 
 \clearpage % ..........................................................
@@ -501,13 +480,13 @@ Here, light Unicorn can also activate own Pyramid with 2 remaining momentum.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-Wave can diverge not only from own Wave, but also from opponent's. After divergence,
+Wave can diverge not only from own Shaman, but also from opponent's. After divergence,
 Wave can choose any direction its
 \hyperref[fig:scn_mv_27_wave_cascading_steps]{activator} can; that is, last material
 (i.e. non-Wave) piece preceeding it in a cascade.
 
 Again, \hyperref[fig:scn_cot_09_own_shaman_is_divergent_init]{divergence is optional},
-opponent's Wave could be activated, or ignored (i.e. passed-through as if not present
+opponent's Shaman could be activated, or ignored (i.e. passed-through as if not present
 on a chessboard).
 
 \clearpage % ..........................................................
@@ -548,9 +527,9 @@ pieces with received 3 momentum. If light Queen is reactivated, just
 \vspace*{-0.4\baselineskip}
 Wave cannot diverge, if
 \hyperref[fig:scn_mv_22_wave_activation_by_unicorn_first_step]{activated by Unicorn},
-neither from own, nor from opponent's Wave.
+neither from own, nor from opponent's Shaman.
 
-Here, light Wave activated by light Unicorn, upon reaching another Wave cannot change
+Here, light Wave activated by light Unicorn, upon reaching another Shaman cannot change
 its next step; light Wave has to follow its two initially chosen steps for the remainder
 of a ply.
 
@@ -569,7 +548,7 @@ of a ply.
 \label{fig:scn_cot_24_centaur_cannot_diverge}
 \end{figure}
 
-Centaurs cannot diverge, and has to either activate Wave, or "pass-through" Wave,
+Centaurs cannot diverge, and has to either activate Shaman, or "pass-through" Shaman,
 and continue its movement in two initially chosen directions; this also applies
 to activated Centaurs.
 
@@ -587,8 +566,8 @@ to activated Centaurs.
 \label{fig:scn_cot_25_wave_cannot_diverge}
 \end{figure}
 
-Wave activated by Centaur cannot diverge, and has to either activate Wave,
-or "pass-through" Wave, and continue its movement as before encounter.
+Wave activated by Centaur cannot diverge, and has to either activate Shaman,
+or "pass-through" Shaman, and continue its movement as before encounter.
 
 \clearpage % ..........................................................
 % Serpent cannot diverge ..............................................
@@ -619,11 +598,11 @@ or "pass-through" Wave, and continue its movement as before encounter.
 \vspace*{-0.4\baselineskip}
 Image above contains four examples; each started by a marked Shaman.
 
-Shaman can diverge from own Wave, regardless if it has been moved over ordinary
+Shaman can diverge from own Shaman, regardless if it has been moved over ordinary
 (Shamans A, B), or capture-steps (C, D); over single (B, D), or multiple steps (A, C).
 \hyperref[fig:scn_cot_17_diverging_activated_piece_init]{Like before}, activated
 Shaman has to have momenum to be able to diverge; otherwise it could only activate
-Wave.
+Shaman.
 
 \clearpage % ..........................................................
 
@@ -637,12 +616,12 @@ Wave.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-Regardless how any of Shamans got to own Wave, it can diverge (if it has momentum),
+Regardless how any of Shamans got to own Shaman, it can diverge (if it has momentum),
 and choose any of ordinary steps (pictured here), or capture-steps (on following page)
 as its next movement direction. Regardless of chosen direction, diverging Shaman is
-\hyperref[fig:scn_cot_10_own_shaman_is_divergent_end]{limited by momenum it had when own Wave was encountered}. \newline
+\hyperref[fig:scn_cot_10_own_shaman_is_divergent_end]{limited by momenum it had when own Shaman was encountered}. \newline
 \indent
-On its step-fields, any Shaman can e.g. activate own other Wave (field B), but none
+On its step-fields, any Shaman can e.g. activate own other Shaman (field B), but none
 can activate own Pyramid (field A), even if it has momentum.
 
 \clearpage % ..........................................................
