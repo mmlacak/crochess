@@ -764,55 +764,55 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    #
-    # # Diverging Pawn
+    # #
+    # # # Diverging Pawn
 
-    def scn_cot_11_diverging_pawn(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_11_diverging_pawn(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_11_diverging_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
-        rect = (0.05, 0.8, 0.65, 0.1)
+    #     scene = Scene('scn_cot_11_diverging_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
+    #     rect = (0.05, 0.8, 0.65, 0.1)
 
-        # step -->
+    #     # step -->
 
-        start_P_A = (4, 3)
-        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+    #     start_P_A = (4, 3)
+    #     scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
 
-        start_W_A = (4, 4)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+    #     start_W_A = (4, 4)
+    #     scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        start_n = (5, 5)
-        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+    #     start_n = (5, 5)
+    #     scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        scene.append_arrow( *( start_P_A + start_W_A ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( start_W_A + start_n ), mark_type=MarkType.Action )
+    #     scene.append_arrow( *( start_P_A + start_W_A ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *( start_W_A + start_n ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *( GS.append_tpl_rel( start_W_A, 0, 1 ) ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( GS.append_tpl_rel( start_W_A, -1, 1 ) ), mark_type=MarkType.Illegal )
+    #     scene.append_arrow( *( GS.append_tpl_rel( start_W_A, 0, 1 ) ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *( GS.append_tpl_rel( start_W_A, -1, 1 ) ), mark_type=MarkType.Illegal )
 
-        scene.append_text( "A", *start_P_A, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+    #     scene.append_text( "A", *start_P_A, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+    #     scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
-        # capture -->
+    #     # capture -->
 
-        start_P_B = (10, 5)
-        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
+    #     start_P_B = (10, 5)
+    #     scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
 
-        start_W_B = (9, 6)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+    #     start_W_B = (9, 6)
+    #     scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_g = (10, 7)
-        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+    #     start_g = (10, 7)
+    #     scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
 
-        scene.append_arrow( *( start_P_B + start_W_B ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( start_W_B + start_g ), mark_type=MarkType.Action )
+    #     scene.append_arrow( *( start_P_B + start_W_B ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *( start_W_B + start_g ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *( GS.append_tpl_rel( start_W_B, 0, 1 ) ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( GS.append_tpl_rel( start_W_B, -1, 1 ) ), mark_type=MarkType.Illegal )
+    #     scene.append_arrow( *( GS.append_tpl_rel( start_W_B, 0, 1 ) ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *( GS.append_tpl_rel( start_W_B, -1, 1 ) ), mark_type=MarkType.Illegal )
 
-        scene.append_text( "B", *start_P_B, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+    #     scene.append_text( "B", *start_P_B, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+    #     scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
-        return scene
+    #     return scene
 
     #
     # Diverging Pawn
@@ -826,13 +826,13 @@ class SceneConquestOfTlalocanMixin:
         start_P_A = (3, 5)
         scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
 
-        start_W_A = (2, 5)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        start_H_A = (2, 5)
+        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
 
         start_n_A = (1, 6)
         scene.board.set_piece( *start_n_A, piece=-PieceType.Knight )
 
-        scene.append_arrow( *( start_P_A + start_W_A ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_P_A + start_H_A ), mark_type=MarkType.Action )
 
         scene.append_text( "A", *start_P_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
@@ -841,13 +841,13 @@ class SceneConquestOfTlalocanMixin:
         start_P_B = (7, 4)
         scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
 
-        start_W_B = (6, 5)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_H_B = (6, 5)
+        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
 
         start_n_B = (7, 6)
         scene.board.set_piece( *start_n_B, piece=-PieceType.Knight )
 
-        scene.append_arrow( *( start_P_B + start_W_B ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_P_B + start_H_B ), mark_type=MarkType.Action )
 
         scene.append_text( "B", *start_P_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
@@ -856,8 +856,8 @@ class SceneConquestOfTlalocanMixin:
         start_P_C = (11, 1)
         scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
 
-        start_W_C = (11, 5)
-        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+        start_H_C = (11, 5)
+        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
 
         start_n_C = (10, 6)
         scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
@@ -877,13 +877,13 @@ class SceneConquestOfTlalocanMixin:
         start_P_D = (15, 4)
         scene.board.set_piece( *start_P_D, piece=PieceType.Pawn )
 
-        start_W_D = (15, 5)
-        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+        start_H_D = (15, 5)
+        scene.board.set_piece( *start_H_D, piece=PieceType.Shaman )
 
         start_n_D = (16, 6)
         scene.board.set_piece( *start_n_D, piece=-PieceType.Knight )
 
-        scene.append_arrow( *( start_P_D + start_W_D ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_P_D + start_H_D ), mark_type=MarkType.Action )
 
         scene.append_text( "D", *start_P_D, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
@@ -895,90 +895,90 @@ class SceneConquestOfTlalocanMixin:
 
         # sideways Pawn
 
-        start_W_A = (2, 5)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        start_H_A = (2, 5)
+        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
 
         start_n_A = (1, 6)
         scene.board.set_piece( *start_n_A, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_A, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_A, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_A, -1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_A, -1, 1 ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_A, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_A, 0, 1 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_A, 1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_A, 1, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_A, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_A, 1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_text( "A", *start_W_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "A", *start_H_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         # capture Pawn
 
-        start_W_B = (6, 5)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_H_B = (6, 5)
+        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
 
         start_n_B = (7, 6)
         scene.board.set_piece( *start_n_B, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_B, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_B, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_B, -1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_B, -1, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_B, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_B, 0, 1 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_B, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_B, 1, 1 ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_B, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_B, 1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_text( "B", *start_W_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_H_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         # rushing Pawn
 
-        start_W_C = (11, 5)
-        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+        start_H_C = (11, 5)
+        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
 
         start_n_C = (10, 6)
         scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_C, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_C, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_C, -1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_C, -1, 1 ), mark_type=MarkType.Action )
 
         # P(C) @ W(C) -->
-        coords_PC_W = GS.gen_steps( start=start_W_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+        coords_PC_W = GS.gen_steps( start=start_H_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
 
         for i, arrow in enumerate( coords_PC_W() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_C, 1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_C, 1, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_C, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_C, 1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_text( "C", *start_W_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "C", *start_H_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         # forward Pawn
 
         # start_P_D = (15, 4)
         # scene.board.set_piece( *start_P_D, piece=PieceType.Pawn )
 
-        start_W_D = (15, 5)
-        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+        start_H_D = (15, 5)
+        scene.board.set_piece( *start_H_D, piece=PieceType.Shaman )
 
         start_n_D = (16, 6)
         scene.board.set_piece( *start_n_D, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_D, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_D, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_D, -1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_D, -1, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_D, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_D, 0, 1 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_D, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_D, 1, 1 ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_W_D, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_tpl_rel( start_H_D, 1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_text( "D", *start_W_D, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "D", *start_H_D, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         return scene
 
