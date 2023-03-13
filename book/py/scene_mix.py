@@ -34,11 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_tr_13_displacement_init', \
-                    # 'scn_tr_14_displacement_step', \
-                    # 'scn_tr_15_displacement_end', \
-                    # 'scn_d_01_monolith_patterns', \
-                    'scn_d_03_monolith_second_step', \
-                    'scn_d_04_monolith_third_step', \
-                    'scn_d_05_monolith_fourth_step', \
+                    'scn_cot_09_own_shaman_is_divergent_init', \
+                    'scn_cot_10_own_shaman_is_divergent_end', \
                 ]
