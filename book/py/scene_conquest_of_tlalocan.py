@@ -993,7 +993,7 @@ class SceneConquestOfTlalocanMixin:
         # scene.append_arrow( *GS.append_tpl_rel( start_H_E, 0, 1 ), mark_type=MarkType.Legal )
 
         # P(E) @ H(E) -->
-        coords_PE_H = GS.gen_steps( start=start_H_E, rels=[(0, 1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+        coords_PE_H = GS.gen_steps( start=start_H_E, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
 
         for i, arrow in enumerate( coords_PE_H() ):
             mark_type = MarkType.Legal if i == 0 else \
