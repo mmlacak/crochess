@@ -837,6 +837,43 @@ class SceneConquestOfTlalocanMixin:
 
         scene.append_text( "D", *start_P_D, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
+        # activated Pawn
+
+        start_Q_E = (22, 11)
+        scene.board.set_piece( *start_Q_E, piece=PieceType.Queen )
+
+        start_W_E = (22, 6)
+        scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
+
+        start_P_E = (20, 4)
+        scene.board.set_piece( *start_P_E, piece=PieceType.Pawn )
+
+        start_H_E = (19, 5)
+        scene.board.set_piece( *start_H_E, piece=PieceType.Shaman )
+
+        start_n_E = (20, 6)
+        scene.board.set_piece( *start_n_E, piece=-PieceType.Knight )
+
+        # Q --> W
+        coords_Q_W = GS.gen_steps( start=start_Q_E, rels=[(0, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_W() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> P
+        coords_W_P = GS.gen_steps( start=start_W_E, rels=[(-1, -1), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_W_P() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_arrow( *( start_P_E + start_H_E ), mark_type=MarkType.Action )
+
+        scene.append_text( "E", *start_P_E, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
         return scene
 
     def scn_cot_13_diverging_pawn_end(self, bt=BoardType.ConquestOfTlalocan):
@@ -895,10 +932,10 @@ class SceneConquestOfTlalocanMixin:
 
         scene.append_arrow( *GS.append_tpl_rel( start_H_C, -1, 1 ), mark_type=MarkType.Action )
 
-        # P(C) @ W(C) -->
-        coords_PC_W = GS.gen_steps( start=start_H_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+        # P(C) @ H(C) -->
+        coords_PC_H = GS.gen_steps( start=start_H_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_PC_W() ):
+        for i, arrow in enumerate( coords_PC_H() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
         scene.append_arrow( *GS.append_tpl_rel( start_H_C, 1, 1 ), mark_type=MarkType.Illegal )
@@ -929,6 +966,45 @@ class SceneConquestOfTlalocanMixin:
         scene.append_arrow( *GS.append_tpl_rel( start_H_D, 1, 0 ), mark_type=MarkType.Legal )
 
         scene.append_text( "D", *start_H_D, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
+        # activated Pawn
+
+        prev_Q_E = (22, 11)
+        start_Q_E = (22, 6)
+        scene.board.set_piece( *start_Q_E, piece=PieceType.Queen )
+
+        # prev_W_E = (22, 6)
+        start_W_E = (20, 4)
+        scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
+
+        # prev_P_E = (20, 4)
+        # scene.board.set_piece( *start_P_E, piece=PieceType.Pawn )
+
+        start_H_E = (19, 5)
+        scene.board.set_piece( *start_H_E, piece=PieceType.Shaman )
+
+        start_n_E = (20, 6)
+        scene.board.set_piece( *start_n_E, piece=-PieceType.Knight )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_H_E, -1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_H_E, -1, 1 ), mark_type=MarkType.Illegal )
+
+        # scene.append_arrow( *GS.append_tpl_rel( start_H_E, 0, 1 ), mark_type=MarkType.Legal )
+
+        # P(E) @ H(E) -->
+        coords_PE_H = GS.gen_steps( start=start_H_E, rels=[(0, 1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_PE_H() ):
+            mark_type = MarkType.Legal if i == 0 else \
+                        MarkType.Illegal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_H_E, 1, 1 ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.append_tpl_rel( start_H_E, 1, 0 ), mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *start_H_E, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         return scene
 
