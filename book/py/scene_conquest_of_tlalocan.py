@@ -1173,55 +1173,54 @@ class SceneConquestOfTlalocanMixin:
         start_Q = (1, 13)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_W_A = (6, 8)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        start_W = (6, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         start_R = (9, 11)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_W_B = (12, 11)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_H_A = (12, 11)
+        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
 
-        start_W_C = (9, 6)
-        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+        start_H_B = (9, 6)
+        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
 
-        # Q --> W(A)
-        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(1, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+        # Q --> W
+        coords_Q_W = GS.gen_steps( start=start_Q, rels=[(1, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_Q_WA() ):
+        for i, arrow in enumerate( coords_Q_W() ):
             mark_type = MarkType.Action if i == 4 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(A) --> R
-        coords_WA_R = GS.gen_steps( start=start_W_A, rels=[(1, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+        # W --> R
+        coords_W_R = GS.gen_steps( start=start_W, rels=[(1, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_WA_R() ):
+        for i, arrow in enumerate( coords_W_R() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # R --> WB
-        coords_R_WB = GS.gen_steps( start=start_R, rels=[(1, 0), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+        # R --> H(A)
+        coords_R_HA = GS.gen_steps( start=start_R, rels=[(1, 0), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_R_WB() ):
+        for i, arrow in enumerate( coords_R_HA() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal if i < 4 else \
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # R --> WC
-        coords_R_WC = GS.gen_steps( start=start_R, rels=[(0, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
+        # R --> H(B)
+        coords_R_HB = GS.gen_steps( start=start_R, rels=[(0, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_R_WC() ):
+        for i, arrow in enumerate( coords_R_HB() ):
             mark_type = MarkType.Illegal if i == 4 else \
                         MarkType.Legal if i < 4 else \
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
-        scene.append_text( "C", *start_W_C, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+        scene.append_text( "A", *start_H_A, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_H_B, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
         return scene
 
@@ -1234,36 +1233,34 @@ class SceneConquestOfTlalocanMixin:
         start_Q = (6, 8)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        prev_W_A = (6, 8)
-        start_W_A = (9, 11)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        prev_W = (6, 8)
+        start_W = (9, 11)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         prev_R = (9, 11)
         # scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_W_B = (12, 11)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_H_A = (12, 11)
+        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
 
-        start_W_C = (9, 6)
-        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+        start_H_B = (9, 6)
+        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
 
         # | <-- R --> |
         for rel in GS.DEFAULT_ROOK_REL_MOVES:
-            coords_R_ = GS.gen_steps( start=start_W_B, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+            coords_R_ = GS.gen_steps( start=start_H_A, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
             for i, arrow in enumerate( coords_R_() ):
                 mark_type = MarkType.Legal if i < 2 else \
                             MarkType.Blocked
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRight )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
-        scene.append_text( "C", *start_W_C, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+        scene.append_text( "A", *start_H_A, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_H_B, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
         scene.append_text( "Q", *prev_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
-
 
     #
     # Diverging activated Unicorn
