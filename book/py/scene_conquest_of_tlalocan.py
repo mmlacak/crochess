@@ -1099,11 +1099,11 @@ class SceneConquestOfTlalocanMixin:
         start_U = (8, 5)
         scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
 
-        start_W_A = (7, 7)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        start_H = (7, 7)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_W_B = (5, 4)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_W = (5, 4)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         start_N = (4, 9)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
@@ -1117,11 +1117,8 @@ class SceneConquestOfTlalocanMixin:
         start_b = (10, 9)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        # U --> W(A)
-        scene.append_arrow( *( start_U + start_W_A ), mark_type=MarkType.Action )
-
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Action, corner=Corner.UpperRight )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+        # U --> H
+        scene.append_arrow( *( start_U + start_H ), mark_type=MarkType.Action )
 
         return scene
 
@@ -1133,11 +1130,11 @@ class SceneConquestOfTlalocanMixin:
         prev_U = (8, 5)
         # scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
 
-        start_W_A = (7, 7)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        start_H = (7, 7)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_W_B = (5, 4)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_W = (5, 4)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         start_N = (4, 9)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
@@ -1153,7 +1150,7 @@ class SceneConquestOfTlalocanMixin:
 
         # <-- U @ W(A) -->
         for diverge, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
-            coords_P_W = GS.gen_steps( start=start_W_A, rels=[ rel, ], include_prev=True, count=1 ) # bounds=scene.board_view.get_position_limits() )
+            coords_P_W = GS.gen_steps( start=start_H, rels=[ rel, ], include_prev=True, count=1 ) # bounds=scene.board_view.get_position_limits() )
 
             for i, arrow in enumerate( coords_P_W() ):
                 mark_type = MarkType.Action if diverge in [ 1, 2, 10, ] else \
@@ -1161,8 +1158,6 @@ class SceneConquestOfTlalocanMixin:
                             MarkType.Legal
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRight )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "U", *prev_U, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
 
         return scene
