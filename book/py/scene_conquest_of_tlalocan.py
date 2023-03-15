@@ -1273,39 +1273,36 @@ class SceneConquestOfTlalocanMixin:
         start_G = (6, 13)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
 
-        start_W_A = (2, 5)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        start_W = (2, 5)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         start_U = (8, 2)
         scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
 
-        start_W_B = (10, 5)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_H = (10, 5)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         start_A = (12, 4)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        # G --> W(A)
-        coords_G_WA = GS.gen_steps( start=start_G, rels=[(-1, -2), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+        # G --> W
+        coords_G_W = GS.gen_steps( start=start_G, rels=[(-1, -2), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_G_WA() ):
+        for i, arrow in enumerate( coords_G_W() ):
             mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(A) --> U
-        coords_WA_U = GS.gen_steps( start=start_W_A, rels=[(2, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+        # W --> U
+        coords_W_U = GS.gen_steps( start=start_W, rels=[(2, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_WA_U() ):
+        for i, arrow in enumerate( coords_W_U() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # U --> W(B)
-        scene.append_arrow( *( start_U + start_W_B ), mark_type=MarkType.Action )
-
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeft )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        # U --> H
+        scene.append_arrow( *( start_U + start_H ), mark_type=MarkType.Action )
 
         return scene
 
@@ -1318,16 +1315,16 @@ class SceneConquestOfTlalocanMixin:
         start_G = (2, 5)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
 
-        # prev_W_A = (2, 5)
-        start_W_A = (8, 2)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+        # prev_W = (2, 5)
+        start_W = (8, 2)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         # prev_U = (8, 2)
         start_U = (10, 5)
         # scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
 
-        start_W_B = (10, 5)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_H = (10, 5)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         start_A = (12, 4)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
@@ -1349,9 +1346,6 @@ class SceneConquestOfTlalocanMixin:
         end_1 = (6, 7)
 
         scene.append_arrow( *( start_1 + end_1 ), mark_type=MarkType.Illegal )
-
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperLeft )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
 
         scene.append_text( "1", *start_1, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "2", *end_1, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
