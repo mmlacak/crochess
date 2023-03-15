@@ -1362,26 +1362,18 @@ class SceneConquestOfTlalocanMixin:
         start_C = (6, 3)
         scene.board.set_piece( *start_C, piece=PieceType.Centaur )
 
-        start_W = (13, 13)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+        start_H = (13, 13)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         #
-        # Wave activation
-        coords_C_W = GS.gen_steps( start=start_C, rels=[ (3, 2), (-1, 2), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=6 )
+        # Centaur's ply
+        coords_C_H = GS.gen_steps( start=start_C, rels=[ (3, 2), (-1, 2), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=6 )
 
-        for i, arrow in enumerate( coords_C_W() ):
-            mark_type = MarkType.Action if i == 4 else \
+        for i, arrow in enumerate( coords_C_H() ):
+            mark_type = MarkType.Illegal if i == 4 else \
+                        MarkType.Blocked if i > 4 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
-
-        #
-        # Illegal divergence
-        for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
-            coords_C__W_ = GS.gen_steps( start=start_W, rels=[ rel, ], include_prev=True, count=1 )
-
-            for i, arrow in enumerate( coords_C__W_() ):
-                if diverge != 2:
-                    scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
         return scene
 
