@@ -36,13 +36,13 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_cot_09_own_shaman_is_divergent_init', \
                     # 'scn_cot_10_own_shaman_is_divergent_end', \
-                    # 'scn_cot_12_diverging_pawn_init', \
-                    # 'scn_cot_13_diverging_pawn_end', \
-                    # 'scn_cot_14_diverging_rushing_pawn', \
-                    # 'scn_cot_15_diverging_unicorn_init', \
-                    # 'scn_cot_16_diverging_unicorn_end', \
-                    # 'scn_cot_17_diverging_activated_piece_init', \
-                    # 'scn_cot_18_diverging_activated_piece_end', \
+                    # 'scn_cot_13_diverging_pawn_init', \
+                    # 'scn_cot_14_diverging_pawn_end', \
+                    # 'scn_cot_15_diverging_rushing_pawn', \
+                    # 'scn_cot_16_diverging_unicorn_init', \
+                    # 'scn_cot_17_diverging_unicorn_end', \
+                    # 'scn_cot_11_diverging_activated_piece_init', \
+                    # 'scn_cot_12_diverging_activated_piece_end', \
                     'scn_cot_19_activated_unicorn_divergence_init', \
                     'scn_cot_20_activated_unicorn_divergence_end', \
                 ]
