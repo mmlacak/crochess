@@ -1378,6 +1378,32 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
+    # Serpent cannot diverge
+
+    def scn_cot_22_serpent_cannot_diverge(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_22_serpent_cannot_diverge', bt)
+
+        start_S = (3, 7)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+        start_H = (5, 3)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        adr = GS.adder( start_S, include_prev=True )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Illegal )
+        # scene.append_arrow( *adr(1, -1, do_advance=False), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
     #  Diverging Shaman
 
     def scn_cot_22_diverging_shaman_init(self, bt=BoardType.ConquestOfTlalocan):
