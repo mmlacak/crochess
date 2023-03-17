@@ -1780,8 +1780,11 @@ class SceneConquestOfTlalocanMixin:
         start_H_B = (16, 11)
         scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
 
-        start_c = (12, 15)
+        start_c = (20, 15)
         scene.board.set_piece( *start_c, piece=-PieceType.Centaur )
+
+        start_s = (7, 20)
+        scene.board.set_piece( *start_s, piece=-PieceType.Serpent )
 
         # Q --> H(A)
         coords_Q_HA = GS.gen_steps( start=start_Q, rels=[ (1, -1), ], include_prev=True, count=13 )
@@ -1798,11 +1801,21 @@ class SceneConquestOfTlalocanMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # Q @ H(B) --> c
-        coords_Q_HB_c = GS.gen_steps( start=start_H_B, rels=[ (-1, 1), ], include_prev=True, count=4 )
+        coords_Q_HB_c = GS.gen_steps( start=start_H_B, rels=[ (1, 1), ], include_prev=True, count=4 )
         for i, arrow in enumerate( coords_Q_HB_c() ):
             mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # Q @ H(B) --> s
+        coords_Q_HB_s = GS.gen_steps( start=start_H_B, rels=[ (-1, 1), ], include_prev=True, count=9 )
+        for i, arrow in enumerate( coords_Q_HB_s() ):
+            mark_type = MarkType.Blocked if i > 5 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_H_A, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_H_B, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker )
 
         return scene
 
