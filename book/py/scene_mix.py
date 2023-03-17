@@ -46,5 +46,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_19_activated_unicorn_divergence_init', \
                     # 'scn_cot_20_activated_unicorn_divergence_end', \
                     # 'scn_cot_21_centaur_cannot_diverge', \
-                    'scn_cot_22_serpent_cannot_diverge', \
+                    # 'scn_cot_22_serpent_cannot_diverge', \
+                    'scn_cot_28_wave_cannot_diverge_if_activated_by_unicorn', \
+                    'scn_cot_29_wave_cannot_diverge_if_activated_by_centaur', \
                 ]
