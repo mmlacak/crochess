@@ -1767,6 +1767,45 @@ class SceneConquestOfTlalocanMixin:
     #
     # Multiple divergences
 
+    def scn_cot_31_multiple_divergences(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_31_multiple_divergences', bt)
+
+        start_Q = (3, 17)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_H_A = (16, 4)
+        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
+
+        start_H_B = (16, 11)
+        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
+
+        start_c = (12, 15)
+        scene.board.set_piece( *start_c, piece=-PieceType.Centaur )
+
+        # Q --> H(A)
+        coords_Q_HA = GS.gen_steps( start=start_Q, rels=[ (1, -1), ], include_prev=True, count=13 )
+        for i, arrow in enumerate( coords_Q_HA() ):
+            mark_type = MarkType.Action if i == 12 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # Q @ H(A) --> H(B)
+        coords_Q_HA_HB = GS.gen_steps( start=start_H_A, rels=[ (0, 1), ], include_prev=True, count=7 )
+        for i, arrow in enumerate( coords_Q_HA_HB() ):
+            mark_type = MarkType.Action if i == 6 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # Q @ H(B) --> c
+        coords_Q_HB_c = GS.gen_steps( start=start_H_B, rels=[ (-1, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_Q_HB_c() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
     #
     # Diverging opponent's pieces
 
