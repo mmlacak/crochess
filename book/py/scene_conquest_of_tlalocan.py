@@ -1641,7 +1641,7 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
-    # Wave cannot diverge
+    # Wave cannot diverge, if activated by Unicorn
 
     def scn_cot_28_wave_cannot_diverge_if_activated_by_unicorn(self, bt=BoardType.ConquestOfTlalocan):
 
@@ -1681,7 +1681,7 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
-    # Wave cannot diverge
+    # Wave cannot diverge, if activated by Centaur
 
     def scn_cot_29_wave_cannot_diverge_if_activated_by_centaur(self, bt=BoardType.ConquestOfTlalocan):
 
@@ -1719,6 +1719,52 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
+    # Wave cannot diverge, if activated by Serpent
+
+    def scn_cot_30_wave_cannot_diverge_if_activated_by_serpent(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_30_wave_cannot_diverge_if_activated_by_serpent', bt)
+
+        start_S = (3, 5)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+        start_W = (5, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_H = (11, 3)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        #
+        # Wave activation
+        adr = GS.adder( start_S, include_prev=True )
+        scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Action )
+        # scene.append_arrow( *adr(1, -1, do_advance=False), mark_type=MarkType.Illegal )
+
+        #
+        # Wave, movement
+        coords_W_ = GS.gen_steps( start=start_W, rels=[ (1, -1), (1, 1), ], include_prev=True, count=12 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_W_() ):
+            # mark_type = MarkType.Illegal if i == 5 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        #
+        # Illegal divergence
+        adr_H = GS.adder( start_H, include_prev=True )
+
+# TODO :: currently illegal --> legal with unrestricted Serpent
+        scene.append_arrow( *adr_H(-1, 1, do_advance=False), mark_type=MarkType.Illegal )
+# TODO :: currently illegal --> legal with unrestricted Serpent
+
+        scene.append_arrow( *adr_H(1, 1, do_advance=False), mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
     # Multiple divergences
 
     #
@@ -1727,9 +1773,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Trance-journey
 
-    def scn_cot_30_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_31_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_30_trance_journey_init', bt, width=9, height=12)
+        scene = Scene('scn_cot_31_trance_journey_init', bt, width=9, height=12)
 
         start_H1 = (4, 9)
         scene.board.set_piece(*start_H1, piece=PieceType.Shaman)
@@ -1775,9 +1821,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Movement
 
-    def scn_cot_31_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_32_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_31_knight_directions', bt, width=9, height=12)
+        scene = Scene('scn_cot_32_knight_directions', bt, width=9, height=12)
 
         scene.append_text("S", 6, 6, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
 
@@ -1823,10 +1869,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_33_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
 
-    def scn_cot_32_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
-
-        scene = Scene('scn_cot_32_stop_sign_pattern', bt, width=9, height=12)
+        scene = Scene('scn_cot_33_stop_sign_pattern', bt, width=9, height=12)
 
         start = (6, 6)
         scene.append_text("S", *start, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
@@ -1887,9 +1932,9 @@ class SceneConquestOfTlalocanMixin:
 
         return _append_broken_arrow
 
-    def scn_cot_33_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_34_stop_sign_pattern_unwind(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_33_stop_sign_pattern_unwind', bt, width=9, height=12)
+        scene = Scene('scn_cot_34_stop_sign_pattern_unwind', bt, width=9, height=12)
 
         start = (6, 6)
         rel = (2, 1)
@@ -1905,9 +1950,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_34_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_35_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_34_stop_sign_pattern_full', bt)
+        scene = Scene('scn_cot_35_stop_sign_pattern_full', bt)
 
         start = (5, 11)
         # scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1941,9 +1986,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_35_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_36_light_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_35_light_shaman_trance_journey', bt)
+        scene = Scene('scn_cot_36_light_shaman_trance_journey', bt)
 
         start = (5, 11)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1968,9 +2013,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_36_light_shaman_trance_journey_offset(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_37_light_shaman_trance_journey_offset(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_36_light_shaman_trance_journey_offset', bt, x=-7, y=-1)
+        scene = Scene('scn_cot_37_light_shaman_trance_journey_offset', bt, x=-7, y=-1)
 
         start = (5, 11)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -1997,9 +2042,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_37_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_38_dark_shaman_trance_journey(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_37_dark_shaman_trance_journey', bt)
+        scene = Scene('scn_cot_38_dark_shaman_trance_journey', bt)
 
         start = (5, 11)
         scene.board.set_piece(*start, piece=-PieceType.Shaman)
@@ -2024,9 +2069,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_38_displacement_fields(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_39_displacement_fields(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_38_displacement_fields', bt)
+        scene = Scene('scn_cot_39_displacement_fields', bt)
 
         start = (12, 11)
         scene.board.set_piece(*start, piece=PieceType.Rook)
@@ -2045,9 +2090,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_39_light_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_40_light_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_39_light_light_shaman_interaction_start', bt)
+        scene = Scene('scn_cot_40_light_light_shaman_interaction_start', bt)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -2109,9 +2154,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_40_light_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_41_light_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_40_light_light_shaman_interaction_end', bt)
+        scene = Scene('scn_cot_41_light_light_shaman_interaction_end', bt)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -2180,9 +2225,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_41_dark_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_42_dark_light_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_41_dark_light_shaman_interaction_start', bt)
+        scene = Scene('scn_cot_42_dark_light_shaman_interaction_start', bt)
 
         start = (4, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -2248,9 +2293,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_42_dark_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_43_dark_light_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_42_dark_light_shaman_interaction_end', bt)
+        scene = Scene('scn_cot_43_dark_light_shaman_interaction_end', bt)
 
         start = (4, 12)
 
@@ -2306,9 +2351,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_43_dark_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_44_dark_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_43_dark_dark_shaman_interaction_start', bt)
+        scene = Scene('scn_cot_44_dark_dark_shaman_interaction_start', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -2377,9 +2422,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_44_dark_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_45_dark_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_44_dark_dark_shaman_interaction_end', bt)
+        scene = Scene('scn_cot_45_dark_dark_shaman_interaction_end', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -2434,9 +2479,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_45_dark_dark_shaman_double_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_46_dark_dark_shaman_double_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_45_dark_dark_shaman_double_interaction_start', bt)
+        scene = Scene('scn_cot_46_dark_dark_shaman_double_interaction_start', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -2505,9 +2550,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_46_dark_dark_shaman_double_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_47_dark_dark_shaman_double_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_46_dark_dark_shaman_double_interaction_end', bt)
+        scene = Scene('scn_cot_47_dark_dark_shaman_double_interaction_end', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -2555,9 +2600,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_47_light_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_48_light_dark_shaman_interaction_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_47_light_dark_shaman_interaction_start', bt)
+        scene = Scene('scn_cot_48_light_dark_shaman_interaction_start', bt)
         rect = ( 0.02, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start = (4, 11)
@@ -2630,9 +2675,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_48_light_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_49_light_dark_shaman_interaction_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_48_light_dark_shaman_interaction_end', bt)
+        scene = Scene('scn_cot_49_light_dark_shaman_interaction_end', bt)
 
         start = (4, 11)
 
@@ -2709,9 +2754,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_49_backward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_50_backward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_49_backward_displacement_start', bt)
+        scene = Scene('scn_cot_50_backward_displacement_start', bt)
 
         start = (15, 12)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -2752,9 +2797,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_50_backward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_51_backward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_50_backward_displacement_end', bt)
+        scene = Scene('scn_cot_51_backward_displacement_end', bt)
 
         startH2 = (15, 17)
         scene.board.set_piece(*startH2, piece=PieceType.Shaman)
@@ -2785,9 +2830,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_51_forward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_52_forward_displacement_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_51_forward_displacement_start', bt)
+        scene = Scene('scn_cot_52_forward_displacement_start', bt)
 
         start = (20, 7)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -2828,9 +2873,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_52_forward_displacement_step_2(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_53_forward_displacement_step_2(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_52_forward_displacement_step_2', bt)
+        scene = Scene('scn_cot_53_forward_displacement_step_2', bt)
 
         start = (14, 9)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -2869,9 +2914,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_53_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_54_forward_displacement_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_53_forward_displacement_end', bt, x=-5, y=1)
+        scene = Scene('scn_cot_54_forward_displacement_end', bt, x=-5, y=1)
 
         start = (8, 11)
         scene.board.set_piece(*start, piece=PieceType.Shaman)
@@ -2912,9 +2957,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_54_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_55_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_54_push_pull_entrancement_start', bt, width=5, height=8)
+        scene = Scene('scn_cot_55_push_pull_entrancement_start', bt, width=5, height=8)
 
         startW1 = (3, 5)
         scene.board.set_piece(*startW1, piece=PieceType.Wave)
@@ -2936,9 +2981,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_55_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_56_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_55_push_pull_entrancement_2', bt, width=5, height=8)
+        scene = Scene('scn_cot_56_push_pull_entrancement_2', bt, width=5, height=8)
 
         startW1 = (1, 6)
         scene.board.set_piece(*startW1, piece=PieceType.Wave)
@@ -2952,9 +2997,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_56_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_57_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_56_push_pull_entrancement_end', bt)
+        scene = Scene('scn_cot_57_push_pull_entrancement_end', bt)
 
         startW1 = (1, 6)
         scene.board.set_piece(*startW1, piece=PieceType.Wave)
@@ -2996,9 +3041,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_57_scout_pawns(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_58_scout_pawns(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_57_scout_pawns', bt)
+        scene = Scene('scn_cot_58_scout_pawns', bt)
 
         scene.board.set_piece(5, 0, piece=PieceType.Centaur)
         scene.board.set_piece(18, 0, piece=PieceType.Centaur)
@@ -3025,9 +3070,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Trance-journey cannot be blocked.
 
-    # def scn_cot_58_trance_journey_failed(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_59_trance_journey_failed(self, bt=BoardType.ConquestOfTlalocan):
 
-    #     scene = Scene('scn_cot_58_trance_journey_failed', bt)
+    #     scene = Scene('scn_cot_59_trance_journey_failed', bt)
 
     #     start_b = (23, 0)
     #     adder = GS.adder(start_b)
@@ -3077,9 +3122,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # test methods
 
-    def test_cot_59_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
+    def test_cot_60_stop_sign_pattern_full(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('test_cot_59_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
+        scene = Scene('test_cot_60_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
 
         start = (11, 11) # (11, 11)
 
@@ -3135,7 +3180,7 @@ def test_big_pattern():
     scene = SceneMix()
     ss = SaveScene( RenderingSizeEnum.Draft )
     ss.render_example( scene,
-                       scene.test_cot_59_stop_sign_pattern_full,
+                       scene.test_cot_60_stop_sign_pattern_full,
                        board_types=[ BoardType.ConquestOfTlalocan, ],
                        path_prefix='temp/')
                        # , enforce_cot_in_bw=True)
