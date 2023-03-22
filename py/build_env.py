@@ -56,11 +56,15 @@ OPTIONS_CLANG_DEBUG_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
 OPTIONS_CLANG_RELEASE_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
 
 
-OPTIONS_GCC_LIBRARY = ['--shared', '-fPIC', '-I../inc', '-lm', ]
-OPTIONS_GCC_EXECUTABLE = ['-L../../bin', '-lcrochess', '-I../../libcrochess/inc', '-I../inc', ]
+OPTIONS_GCC_LIBRARY = ['--shared', '-fPIC', '-I../inc', ]
+OPTIONS_GCC_LIBRARY_DEPENDENCIES = [ '-lm', ]
+OPTIONS_GCC_EXECUTABLE = ['-I../../libcrochess/inc', '-I../inc', ]
+OPTIONS_GCC_EXECUTABLE_DEPENDENCIES = ['-L../../bin', '-lcrochess', ]
 
-OPTIONS_CLANG_LIBRARY = ['--shared', '-fPIC', '-I../inc', '-lm', ]
-OPTIONS_CLANG_EXECUTABLE = ['-L../../bin', '-lcrochess', '-I../../libcrochess/inc', '-I../inc', ]
+OPTIONS_CLANG_LIBRARY = ['--shared', '-fPIC', '-I../inc', ]
+OPTIONS_CLANG_LIBRARY_DEPENDENCIES = [ '-lm', ]
+OPTIONS_CLANG_EXECUTABLE = ['-I../../libcrochess/inc', '-I../inc', ]
+OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES = ['-L../../bin', '-lcrochess', ]
 
 
 SOURCE_WS_FOLDER = 'ws'
@@ -86,22 +90,30 @@ def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_d
 
     if compiler == COMPILER_GCC:
         options = OPTIONS_GCC_RELEASE[ : ] if is_release_or_debug else OPTIONS_GCC_DEBUG[ : ]
+
         if is_extra_warnings:
             options += OPTIONS_GCC_EXTRA_WARNINGS
+
         if is_silence:
             options += OPTIONS_GCC_SILENCE
+
         if is_consts:
             options += OPTIONS_GCC_RELEASE_CONSTS if is_release_or_debug else OPTIONS_GCC_DEBUG_CONSTS
+
     elif compiler == COMPILER_CLANG:
         options = OPTIONS_CLANG_RELEASE[ : ] if is_release_or_debug else OPTIONS_CLANG_DEBUG[ : ]
+
         if is_extra_warnings:
             options += OPTIONS_CLANG_EXTRA_WARNINGS
+
         if is_silence:
             options += OPTIONS_CLANG_SILENCE
+
         if is_consts:
             options += OPTIONS_CLANG_RELEASE_CONSTS if is_release_or_debug else OPTIONS_CLANG_DEBUG_CONSTS
+
     else:
-        raise RuntimeError("Unknown compiler '%s'." % compiler) # return []
+        raise RuntimeError("Unknown compiler '%s'." % compiler)
 
     return options
 
@@ -111,7 +123,15 @@ def get_compiler_build_options(compiler=DEFAULT_COMPILER, is_executable_or_libra
     elif compiler == COMPILER_CLANG:
         return OPTIONS_CLANG_EXECUTABLE if is_executable_or_library else OPTIONS_CLANG_LIBRARY
     else:
-        raise RuntimeError("Unknown compiler '%s'." % compiler) # return []
+        raise RuntimeError("Unknown compiler '%s'." % compiler)
+
+def get_compiler_build_dependencies(compiler=DEFAULT_COMPILER, is_executable_or_library=False):
+    if compiler == COMPILER_GCC:
+        return OPTIONS_GCC_EXECUTABLE_DEPENDENCIES if is_executable_or_library else OPTIONS_GCC_LIBRARY_DEPENDENCIES
+    elif compiler == COMPILER_CLANG:
+        return OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES if is_executable_or_library else OPTIONS_CLANG_LIBRARY_DEPENDENCIES
+    else:
+        raise RuntimeError("Unknown compiler '%s'." % compiler)
 
 
 def get_output_compiler_options(root_path, file_name, cwd_cmd, compiler=DEFAULT_COMPILER):
@@ -190,6 +210,8 @@ def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
     src_dir = P.get_rel_path_or_abs(get_app_src_dir(root_path), cwd_app) # get_app_src_dir(root_path)
     cmd_lst += get_source_path_list(cwd_app, src_dir)
 
+    cmd_lst += get_compiler_build_dependencies(compiler=compiler, is_executable_or_library=True)
+
     cmd_lst += get_output_compiler_options(root_path, EXECUTABLE_FILE_NAME, cwd_app, compiler=compiler)
 
     return cwd_app, cmd_lst
@@ -208,6 +230,8 @@ def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
     src_dir = P.get_rel_path_or_abs(get_lib_src_dir(root_path), cwd_lib) # get_lib_src_dir(root_path)
     cmd_lst += get_source_path_list(cwd_lib, src_dir)
 
+    cmd_lst += get_compiler_build_dependencies(compiler=compiler, is_executable_or_library=False)
+
     cmd_lst += get_output_compiler_options(root_path, LIBRARY_FILE_NAME, cwd_lib, compiler=compiler)
 
     return cwd_lib, cmd_lst
@@ -225,6 +249,8 @@ def get_compile_tests_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_de
     cwd_tests = get_tests_src_dir(root_path)
     src_dir = P.get_rel_path_or_abs(get_tests_src_dir(root_path), cwd_tests) # get_app_src_dir(root_path)
     cmd_lst += get_source_path_list(cwd_tests, src_dir)
+
+    cmd_lst += get_compiler_build_dependencies(compiler=compiler, is_executable_or_library=True)
 
     cmd_lst += get_output_compiler_options(root_path, TESTS_FILE_NAME, cwd_tests, compiler=compiler)
 
