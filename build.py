@@ -91,7 +91,7 @@ def main():
 
         if is_debug:
             print( "Compiling docs in: %s." % str( cwd_docs ) )
-            print( "Compiling docs with: %s." % str( cmd_docs ) )
+            print( "Compiling docs with: %s." % " ".join( cmd_docs ) )
 
         if not is_dry_run:
             print( "." * 72 )
@@ -113,7 +113,7 @@ def main():
 
         if is_debug:
             print( "Compiling in: %s." % str( cwd_lib ) )
-            print( "Compiling with: %s." % str( compile_lib_cmd_lst ) )
+            print( "Compiling with: %s." % " ".join( compile_lib_cmd_lst ) )
 
         if not is_dry_run:
             print( "." * 72 )
@@ -133,7 +133,7 @@ def main():
 
         if is_debug:
             print( "Compiling in: %s." % str( cwd_app ) )
-            print( "Compiling with: %s." % str( compile_app_cmd_lst ) )
+            print( "Compiling with: %s." % " ".join( compile_app_cmd_lst ) )
 
         if not is_dry_run:
             print( "." * 72 )
@@ -152,7 +152,7 @@ def main():
 
         if is_debug:
             print( "Compiling in: %s." % str( cwd_tests ) )
-            print( "Compiling with: %s." % str( compile_tests_cmd_lst ) )
+            print( "Compiling with: %s." % " ".join( compile_tests_cmd_lst ) )
 
         if not is_dry_run:
             print( "." * 72 )
@@ -167,7 +167,7 @@ def main():
 
         if is_debug:
             print( "" )
-            print( "Running: %s." % str( ls_cmd_lst ) )
+            print( "Running: %s." % " ".join( ls_cmd_lst ) )
 
         if not is_dry_run:
             # print( "" )
@@ -182,7 +182,7 @@ def main():
 
         if is_debug:
             print( "" )
-            print( "Running: %s." % str( run_cmd_lst ) )
+            print( "Running: %s." % " ".join( run_cmd_lst ) )
 
         if not is_dry_run:
             try:
