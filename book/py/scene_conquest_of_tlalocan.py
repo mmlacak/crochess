@@ -1422,8 +1422,8 @@ class SceneConquestOfTlalocanMixin:
         start_H_D = (7, 14)
         scene.board.set_piece( *start_H_D, piece=PieceType.Shaman )
 
-        start_W = (10, 12)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+        start_H_1 = (10, 12)
+        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
 
         start_p = (14, 13)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
@@ -1440,7 +1440,7 @@ class SceneConquestOfTlalocanMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # H(B) --> W
-        scene.append_arrow( *(start_H_B + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_H_B + start_H_1), mark_type=MarkType.Action )
 
         # H(C) --> W
         coords_HC_W = GS.gen_steps( start=start_H_C, rels=[(-4, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
@@ -1451,7 +1451,7 @@ class SceneConquestOfTlalocanMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # H(D) --> W
-        scene.append_arrow( *(start_H_D + start_W), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_H_D + start_H_1), mark_type=MarkType.Action )
 
         scene.append_text( "A", *start_H_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
         scene.append_text( "B", *start_H_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
@@ -1464,8 +1464,8 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene('scn_cot_24_diverging_shaman_steps', bt)
 
-        start_W = (10, 12)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+        start_H_1 = (10, 12)
+        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
 
         start_A = (6, 14)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
@@ -1475,7 +1475,7 @@ class SceneConquestOfTlalocanMixin:
 
         # | <-- H @ W --> |
         for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
-            coords_H_ = GS.gen_steps( start=start_W, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+            coords_H_ = GS.gen_steps( start=start_H_1, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
             for i, arrow in enumerate( coords_H_() ):
                 if diverge == 3:
@@ -1497,11 +1497,11 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene('scn_cot_25_diverging_shaman_captures', bt)
 
-        start_W = (10, 12)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+        start_H_1 = (10, 12)
+        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
 
         # dark Pawns @ W ---> (3, 2)
-        coords_p_ = GS.gen_steps( start=start_W, rels=[(3, 2), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
+        coords_p_ = GS.gen_steps( start=start_H_1, rels=[(3, 2), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
 
         for i, coord in enumerate( coords_p_() ):
             scene.board.set_piece( *coord, piece=-PieceType.Pawn )
@@ -1521,7 +1521,7 @@ class SceneConquestOfTlalocanMixin:
 
         # | <-- H @ W --> |
         for diverge, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
-            coords_H_ = GS.gen_steps( start=start_W, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+            coords_H_ = GS.gen_steps( start=start_H_1, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
             for i, arrow in enumerate( coords_H_() ):
                 if diverge == 1:

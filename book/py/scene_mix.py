@@ -47,8 +47,11 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_20_activated_unicorn_divergence_end', \
                     # 'scn_cot_21_centaur_cannot_diverge', \
                     # 'scn_cot_22_serpent_cannot_diverge', \
-                    'scn_cot_26_wave_divergence_init', \
-                    'scn_cot_27_wave_divergence_1', \
+                    'scn_cot_23_diverging_shaman_init', \
+                    'scn_cot_24_diverging_shaman_steps', \
+                    'scn_cot_25_diverging_shaman_captures', \
+                    # 'scn_cot_26_wave_divergence_init', \
+                    # 'scn_cot_27_wave_divergence_1', \
                     # 'scn_cot_28_wave_cannot_diverge_if_activated_by_unicorn', \
                     # 'scn_cot_29_wave_cannot_diverge_if_activated_by_centaur', \
                     # 'scn_cot_30_wave_cannot_diverge_if_activated_by_serpent', \
