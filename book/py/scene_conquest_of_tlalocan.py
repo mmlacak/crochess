@@ -1558,8 +1558,8 @@ class SceneConquestOfTlalocanMixin:
         start_W = (6, 8)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_w = (11, 13)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+        start_H = (11, 13)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         start_G = (14, 10)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
@@ -1602,8 +1602,8 @@ class SceneConquestOfTlalocanMixin:
         start_W = (14, 10)
         # scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_w = (11, 13)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+        start_H = (11, 13)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         start_G = (14, 10)
         scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
@@ -1614,12 +1614,12 @@ class SceneConquestOfTlalocanMixin:
         start_p = (7, 13)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        # <-- W --> @ w
+        # <-- W --> @ H
 
         for rel in GS.DEFAULT_KING_REL_MOVES:
-            coords_w__W = GS.gen_steps( start=start_w, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+            coords_H__W = GS.gen_steps( start=start_H, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
-            for i, arrow in enumerate( coords_w__W() ):
+            for i, arrow in enumerate( coords_H__W() ):
                 if rel == (-1, -1):
                     mark_type = MarkType.Action if i == 4 else \
                                 MarkType.Legal
