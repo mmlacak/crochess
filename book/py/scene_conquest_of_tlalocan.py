@@ -1822,6 +1822,65 @@ class SceneConquestOfTlalocanMixin:
     #
     # Diverging opponent's pieces
 
+    def scn_cot_32_diverging_opponents_pieces(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_32_diverging_opponents_pieces', bt)
+
+        start_Q = (3, 17)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W = (15, 5)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (18, 8)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_g = (14, 12)
+        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+
+        start_H = (11, 18)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_h = (18, 14)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        # Q --> W
+        coords_Q_W = GS.gen_steps( start=start_Q, rels=[ (1, -1), ], include_prev=True, count=12 )
+        for i, arrow in enumerate( coords_Q_W() ):
+            mark_type = MarkType.Action if i == 11 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> w
+        coords_W_w = GS.gen_steps( start=start_W, rels=[ (1, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_W_w() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # w --> g
+        coords_w_g = GS.gen_steps( start=start_w, rels=[ (-1, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_w_g() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # g --> H
+        coords_g_H = GS.gen_steps( start=start_g, rels=[ (-1, 2), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_g_H() ):
+            mark_type = MarkType.Illegal if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # g --> h
+        coords_g_h = GS.gen_steps( start=start_g, rels=[ (2, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_g_h() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
     #
     # Trance-journey
 
