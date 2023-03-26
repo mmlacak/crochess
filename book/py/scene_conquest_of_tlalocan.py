@@ -1431,26 +1431,26 @@ class SceneConquestOfTlalocanMixin:
         start_n = (18, 14)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        # H(A) --> W
-        coords_HA_W = GS.gen_steps( start=start_H_A, rels=[(2, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+        # H(A) --> H(1)
+        coords_HA_H1 = GS.gen_steps( start=start_H_A, rels=[(2, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_HA_W() ):
+        for i, arrow in enumerate( coords_HA_H1() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # H(B) --> W
+        # H(B) --> H(1)
         scene.append_arrow( *(start_H_B + start_H_1), mark_type=MarkType.Action )
 
-        # H(C) --> W
-        coords_HC_W = GS.gen_steps( start=start_H_C, rels=[(-4, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+        # H(C) --> H(1)
+        coords_HC_H1 = GS.gen_steps( start=start_H_C, rels=[(-4, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_HC_W() ):
+        for i, arrow in enumerate( coords_HC_H1() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # H(D) --> W
+        # H(D) --> H(1)
         scene.append_arrow( *(start_H_D + start_H_1), mark_type=MarkType.Action )
 
         scene.append_text( "A", *start_H_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
@@ -1500,7 +1500,7 @@ class SceneConquestOfTlalocanMixin:
         start_H_1 = (10, 12)
         scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
 
-        # dark Pawns @ W ---> (3, 2)
+        # dark Pawns @ H(1) ---> (3, 2)
         coords_p_ = GS.gen_steps( start=start_H_1, rels=[(3, 2), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
 
         for i, coord in enumerate( coords_p_() ):
@@ -1541,6 +1541,66 @@ class SceneConquestOfTlalocanMixin:
 
         scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
         scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+        return scene
+
+    #
+    # ... from opponent's Shaman
+
+    def scn_cot_26_diverging_shaman_from_opponents(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_26_diverging_shaman_from_opponents', bt)
+
+        start_H = (3, 2)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_h = (7, 10)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        # dark Pawns @ h ---> (3, 2)
+        coords_p_ = GS.gen_steps( start=start_h, rels=[(3, 2), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
+
+        index = 1
+        for i, coord in enumerate( coords_p_() ):
+
+            if i == 2:
+                continue # empty field
+
+            scene.board.set_piece( *coord, piece=-PieceType.Pawn )
+            scene.append_text( str( index ), *coord, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+            index += 1
+
+        start_W = (11, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A = (15, 6)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        # H --> h
+        coords_H_h = GS.gen_steps( start=start_H, rels=[(1, 2), ], include_prev=True, count=4 )
+
+        for i, arrow in enumerate( coords_H_h() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # H @ h ---> p p p p
+        coords_H_h_ = GS.gen_steps( start=start_h, rels=[(3, 2), ], include_prev=True, count=5 )
+
+        for i, arrow in enumerate( coords_H_h_() ):
+            mark_type = MarkType.Action if i < 2 else \
+                        MarkType.Illegal if i == 2 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # H @ h ---> _ W _ A
+        coords_H_h_2_ = GS.gen_steps( start=start_h, rels=[(2, -1), ], include_prev=True, count=4 )
+
+        for i, arrow in enumerate( coords_H_h_2_() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Illegal if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 
