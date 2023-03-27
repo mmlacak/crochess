@@ -1551,7 +1551,7 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene('scn_cot_26_diverging_shaman_from_opponents', bt)
 
-        start_H = (3, 2)
+        start_H = (2, 0)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         start_h = (7, 10)
@@ -1577,10 +1577,10 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         # H --> h
-        coords_H_h = GS.gen_steps( start=start_H, rels=[(1, 2), ], include_prev=True, count=4 )
+        coords_H_h = GS.gen_steps( start=start_H, rels=[(1, 2), ], include_prev=True, count=5 )
 
         for i, arrow in enumerate( coords_H_h() ):
-            mark_type = MarkType.Action if i == 3 else \
+            mark_type = MarkType.Action if i == 4 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -1594,12 +1594,13 @@ class SceneConquestOfTlalocanMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # H @ h ---> _ W _ A
-        coords_H_h_2_ = GS.gen_steps( start=start_h, rels=[(2, -1), ], include_prev=True, count=4 )
+        coords_H_h_2_ = GS.gen_steps( start=start_h, rels=[(2, -1), ], include_prev=True, count=5 )
 
         for i, arrow in enumerate( coords_H_h_2_() ):
             mark_type = MarkType.Action if i == 1 else \
                         MarkType.Illegal if i == 3 else \
-                        MarkType.Legal
+                        MarkType.Legal if i < 3 else \
+                        MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
