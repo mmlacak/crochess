@@ -51,11 +51,11 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_24_diverging_shaman_steps', \
                     # 'scn_cot_25_diverging_shaman_captures', \
                     'scn_cot_26_diverging_shaman_from_opponents', \
-                    # 'scn_cot_26_wave_divergence_init', \
-                    # 'scn_cot_27_wave_divergence_1', \
-                    # 'scn_cot_28_wave_cannot_diverge_if_activated_by_unicorn', \
-                    # 'scn_cot_29_wave_cannot_diverge_if_activated_by_centaur', \
-                    # 'scn_cot_30_wave_cannot_diverge_if_activated_by_serpent', \
-                    # 'scn_cot_31_multiple_divergences', \
-                    # 'scn_cot_32_diverging_opponents_pieces', \
+                    # 'scn_cot_27_wave_divergence_init', \
+                    # 'scn_cot_28_wave_divergence_1', \
+                    # 'scn_cot_29_wave_cannot_diverge_if_activated_by_unicorn', \
+                    # 'scn_cot_30_wave_cannot_diverge_if_activated_by_centaur', \
+                    # 'scn_cot_31_wave_cannot_diverge_if_activated_by_serpent', \
+                    # 'scn_cot_32_multiple_divergences', \
+                    # 'scn_cot_33_diverging_opponents_pieces', \
                 ]
