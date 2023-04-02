@@ -146,64 +146,86 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Revisiting fields, loops
 
-    def scn_tr_06_serpent_loop_1(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_06_serpent_loop_init(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_06_serpent_loop_1', bt, width=8, height=8)
+        scene = Scene('scn_tr_06_serpent_loop_init', bt, width=8, height=8)
+
+        scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
 
         start = (2, 2)
-        scene.append_text('S', *start, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+        scene.board.set_piece( *start, piece=PieceType.Serpent )
 
-        scene.append_text('1', 3, 3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+        adr = GS.adder( start, include_prev=True )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Action )
 
-        scene.append_text('2', 2, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
+        scene.append_text( "S", *start, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
-        scene.board.set_piece(2, 6, piece=PieceType.Pyramid)
-        scene.board.set_piece(3, 5, piece=PieceType.Serpent)
-
-        scene.append_text('3', 3, 5, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Action )
-
-        scene.append_text('4', 2, 6, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
-
-        scene.append_arrow( 3, 5, 4, 4 )
+        adr_2 = GS.adder( start, include_prev=False )
+        scene.append_text( "1", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "3", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 
-    def scn_tr_07_serpent_loop_end(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_07_serpent_loop_illegal(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_07_serpent_loop_end', bt, width=8, height=8)
+        scene = Scene('scn_tr_07_serpent_loop_illegal', bt, width=8, height=8)
+
+        scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
 
         start = (2, 2)
-        scene.append_text('S', *start, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_arrow( 2, 2, 3, 3, mark_type=MarkType.Blocked )
+        scene.board.set_piece( *start, piece=PieceType.Serpent )
 
-        scene.append_text('1', 3, 3, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        # scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Blocked )
+        adr = GS.adder( start, include_prev=True )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Illegal )
 
-        scene.append_text('2', 2, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        # scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Blocked )
+        scene.append_text( "S", *start, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
-        scene.append_text('3', 3, 5, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_arrow( 3, 5, 4, 4, mark_type=MarkType.Blocked )
+        adr_2 = GS.adder( start, include_prev=False )
+        scene.append_text( "1", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "3", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "4", *adr_2(1, -1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
-        scene.append_text('4', 4, 4, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-        scene.append_arrow( 4, 4, 3, 3, mark_type=MarkType.Action )
+        return scene
 
-        scene.append_text('5', 3, 3, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
-        scene.append_arrow( 3, 3, 2, 4, mark_type=MarkType.Action )
+    def scn_tr_08_serpent_loop_unwinded(self, bt=BoardType.TamoanchanRevisited):
 
-        scene.append_text('6', 2, 4, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
-        scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Action )
+        scene = Scene('scn_tr_08_serpent_loop_unwinded', bt, width=8, height=8)
 
-        scene.append_text('7', 3, 5, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
-        scene.append_arrow( 3, 5, 2, 6, mark_type=MarkType.Blocked )
+        scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
 
-        scene.append_text('8', 2, 6, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+        start = (2, 2)
+        scene.board.set_piece( *start, piece=PieceType.Serpent )
 
-        scene.board.set_piece(2, 6, piece=PieceType.Serpent)
+        adr = GS.adder( start, include_prev=True )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Action )
+
+        scene.append_text( "S", *start, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+
+        adr_2 = GS.adder( start, include_prev=False )
+        scene.append_text( "1", *adr_2(1, -1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "3", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "4", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "5", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "6", *adr_2(-1, -1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "7", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "8", *adr_2(1, 1), mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 

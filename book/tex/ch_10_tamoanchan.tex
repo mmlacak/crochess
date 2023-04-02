@@ -141,38 +141,44 @@ In this variant, Serpent is limited to 14 steps.
 \addcontentsline{toc}{subsubsection}{Revisiting fields, loops}
 \label{sec:Tamoanchan Revisited/Serpent/Movement/Revisiting fields, loops}
 
+\vspace*{-1.4\baselineskip}
 \noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_06_serpent_loop_1.png}
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_06_serpent_loop_init.png}
+\vspace*{-0.5\baselineskip}
 \caption{Activating Pyramid}
-\label{fig:scn_tr_06_serpent_loop_1}
+\label{fig:scn_tr_06_serpent_loop_init}
 \end{wrapfigure}
-Starting with the same scene, only with added Pyramid, Serpent can
-activate said Pyramid with momentum of 4.
+. . .
 
-There is nothing preventing Serpent to revisit already traversed fields,
-and build up more momentum.
-
-\vspace*{0.07\textheight}
+\vspace*{9.7\baselineskip}
 \noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_07_serpent_loop_end.png}
-\caption{Building momentum}
-\label{fig:scn_tr_07_serpent_loop_end}
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_07_serpent_loop_illegal.png}
+\vspace*{-0.5\baselineskip}
+\caption{Loop is illegal}
+\label{fig:scn_tr_07_serpent_loop_illegal}
 \end{wrapfigure}
-All revisited fields counts towards momentum each time they are traveled
-over.
+. . .
 
-Here, fields are enumerated in visiting order, revisited fields are marked
-blue. So, Serpent can now activate Pyramid with momentum of 8.
+\vspace*{9.7\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_serpent_loop_unwinded.png}
+\vspace*{-0.5\baselineskip}
+\caption{Without loop}
+\label{fig:scn_tr_08_serpent_loop_unwinded}
+\end{wrapfigure}
+. . .
 
-\vspace*{3.1\baselineskip}
+% \vspace*{3.1\baselineskip}
 
-\TODO
+% \TODO
 
-verboten
+% verboten
 
 \clearpage % ..........................................................
 
@@ -235,9 +241,13 @@ reactivate Wave, and force it to move over to field W.
 \label{fig:scn_tr_10_static_loop_is_legal}
 \end{wrapfigure}
 Static loop is a movement of a Serpent over its starting position, to e.g.
-\hyperref[fig:scn_tr_06_serpent_loop_1]{build momentum}. Static loop is a legal move,
+\hyperref[fig:scn_tr_06_serpent_loop_init]{build momentum}. Static loop is a legal move,
 even if Serpent was the only piece in a move, or was starting a cascade, as long as
 its final destination is different from its starting position.
+
+\TODO
+
+remove :: not relevant any more
 
 \clearpage % ..........................................................
 
