@@ -111,11 +111,12 @@ regardless of choice made for the first step.
 
 \clearpage % ..........................................................
 
-% \vspace*{0.1\baselineskip}
+\vspace*{-1.2\baselineskip}
 \noindent
 \begin{wrapfigure}[6]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_04_serpent_3.png}
+\vspace*{-0.5\baselineskip}
 \caption{Step 3}
 \label{fig:scn_tr_04_serpent_3}
 \end{wrapfigure}
@@ -123,11 +124,12 @@ Last step was on B diagonal, next step has to alternate again, onto A diagonal.
 
 Field numbers counts steps to them, and also gathered momentum.
 
-\vspace*{3.1\baselineskip}
+\vspace*{2.7\baselineskip}
 \noindent
 \begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_05_serpent_end.png}
+\vspace*{-0.5\baselineskip}
 \caption{End step}
 \label{fig:scn_tr_05_serpent_end}
 \end{wrapfigure}
@@ -135,52 +137,25 @@ Finished move with 8 steps performed.
 
 In this variant, Serpent is limited to 14 steps.
 
+\vspace*{4.7\baselineskip}
+\noindent
+\begin{wrapfigure}[3]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_06_serpent_loop_illegal.png}
+\vspace*{-0.5\baselineskip}
+\caption{Loops are illegal}
+\label{fig:scn_tr_06_serpent_loop_illegal}
+\end{wrapfigure}
+In a single ply Serpent can visit each field in its path only once.
+
+\noindent
+So, loops are illegal.
+
 \clearpage % ..........................................................
 
-\subsubsection*{Revisiting fields, loops}
-\addcontentsline{toc}{subsubsection}{Revisiting fields, loops}
-\label{sec:Tamoanchan Revisited/Serpent/Movement/Revisiting fields, loops}
+\TODO
 
-\vspace*{-1.4\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_06_serpent_loop_init.png}
-\vspace*{-0.5\baselineskip}
-\caption{Activating Pyramid}
-\label{fig:scn_tr_06_serpent_loop_init}
-\end{wrapfigure}
-. . .
-
-\vspace*{9.7\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_07_serpent_loop_illegal.png}
-\vspace*{-0.5\baselineskip}
-\caption{Loop is illegal}
-\label{fig:scn_tr_07_serpent_loop_illegal}
-\end{wrapfigure}
-. . .
-
-\vspace*{9.7\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_serpent_loop_unwinded.png}
-\vspace*{-0.5\baselineskip}
-\caption{Without loop}
-\label{fig:scn_tr_08_serpent_loop_unwinded}
-\end{wrapfigure}
-. . .
-
-% \vspace*{3.1\baselineskip}
-
-% \TODO
-
-% verboten
-
-\clearpage % ..........................................................
+all are illegal within a single ply
 
 \subsubsection*{Static move is illegal}
 \addcontentsline{toc}{subsubsection}{Static move is illegal}
@@ -190,10 +165,10 @@ In this variant, Serpent is limited to 14 steps.
 \noindent
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_static_move_is_illegal.png}
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_07_static_move_is_illegal.png}
 \vspace*{-0.5\baselineskip}
 \caption{Static move}
-\label{fig:scn_tr_08_static_move_is_illegal}
+\label{fig:scn_tr_07_static_move_is_illegal}
 \end{wrapfigure}
 Static move is one in which a piece ends in the same position as it was at the
 beginning of that same move. Similar to
@@ -212,10 +187,10 @@ movement on its starting position.
 \noindent
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_09_static_piece_is_legal.png}
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_static_piece_is_legal.png}
 \vspace*{-0.5\baselineskip}
 \caption{Static piece}
-\label{fig:scn_tr_09_static_piece_is_legal}
+\label{fig:scn_tr_08_static_piece_is_legal}
 \end{wrapfigure}
 Also similar to
 \hyperref[fig:scn_mv_45_static_piece_is_legal_init]{previous example}, for a piece
@@ -235,19 +210,52 @@ reactivate Wave, and force it to move over to field W.
 \noindent
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_static_loop_is_legal.png}
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_9_static_loop_is_legal.png}
 \vspace*{-0.5\baselineskip}
 \caption{Static loop}
-\label{fig:scn_tr_10_static_loop_is_legal}
+\label{fig:scn_tr_9_static_loop_is_legal}
 \end{wrapfigure}
 Static loop is a movement of a Serpent over its starting position, to e.g.
-\hyperref[fig:scn_tr_06_serpent_loop_init]{build momentum}. Static loop is a legal move,
+% \hyperref[fig:scn_tr_10_serpent_loop_init]{build momentum}. Static loop is a legal move,
+build momentum. Static loop is a legal move,
 even if Serpent was the only piece in a move, or was starting a cascade, as long as
 its final destination is different from its starting position.
 
+\clearpage % ..........................................................
+
+\subsubsection*{Revisiting fields, loops}
+\addcontentsline{toc}{subsubsection}{Revisiting fields, loops}
+\label{sec:Tamoanchan Revisited/Serpent/Movement/Revisiting fields, loops}
+
+\vspace*{-1.4\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_serpent_loop_init.png}
+\vspace*{-0.5\baselineskip}
+\caption{Activating Pyramid}
+\label{fig:scn_tr_10_serpent_loop_init}
+\end{wrapfigure}
+. . .
+
+\vspace*{9.7\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_11_serpent_loop_unwinded.png}
+\vspace*{-0.5\baselineskip}
+\caption{Without loop}
+\label{fig:scn_tr_11_serpent_loop_unwinded}
+\end{wrapfigure}
+. . .
+
+\vspace*{9.7\baselineskip}
+
 \TODO
 
-remove :: not relevant any more
+reactivated Serpent --> different ply --> can return to its starting field
+
+scn\_tr\_10\_serpent\_loop\_init --> find all, change link
 
 \clearpage % ..........................................................
 
