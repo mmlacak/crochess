@@ -135,12 +135,6 @@ Finished move with 8 steps performed.
 
 In this variant, Serpent is limited to 14 steps.
 
-\vspace*{7.1\baselineskip}
-
-\TODO
-
-unrestricted movement
-
 \clearpage % ..........................................................
 
 \subsubsection*{Revisiting fields, loops}
@@ -295,7 +289,7 @@ if Serpent was activated.
 \caption{Before displacement}
 \label{fig:scn_tr_13_displacement_init}
 \end{wrapfigure}
-Serpent can displace a piece it encounters and, in the same ply, continue its movement.
+Serpent can displace a Pawn it encounters and, in the same ply, continue its movement.
 Displacement does not use momentum, and can be performed even if Serpent has none. Pawns,
 own or opponent's, can be displaced; all other pieces cannot be displaced. \newline
 \indent
@@ -330,10 +324,17 @@ fields; down-field is illegal for displacement, since it's not empty.
 \indent
 There is no limit to number of displacements Serpent can do in a ply. If there is no
 empty displacement field, Serpent must either capture, or activate, or stop before
-encountered piece. \newline
+encountered Pawn. \newline
 \indent
 Here, dark Pawn has been displaced onto up-field; arrows show complete Serpent's
 path in a single ply, grey before displacement, green after it.
+
+\clearpage % ..........................................................
+
+\TODO
+
+displacements --> 1-by-1, in order of appearence --> 1st to field blocks later
+
 
 \clearpage % ..........................................................
 

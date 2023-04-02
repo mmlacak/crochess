@@ -1816,11 +1816,7 @@ class SceneConquestOfTlalocanMixin:
         #
         # Illegal divergence
         adr_H = GS.adder( start_H, include_prev=True )
-
-# TODO :: currently illegal --> legal with unrestricted Serpent
         scene.append_arrow( *adr_H(-1, 1, do_advance=False), mark_type=MarkType.Illegal )
-# TODO :: currently illegal --> legal with unrestricted Serpent
-
         scene.append_arrow( *adr_H(1, 1, do_advance=False), mark_type=MarkType.Illegal )
 
         return scene
