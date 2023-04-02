@@ -195,11 +195,11 @@ class SceneTamoanchanRevisitedMixin:
         return scene
 
     #
-    # Static piece is legal
+    # Static piece is illegal
 
-    def scn_tr_08_static_piece_is_legal(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_08_static_piece_is_illegal(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_08_static_piece_is_legal', bt, width=8, height=8)
+        scene = Scene('scn_tr_08_static_piece_is_illegal', bt, width=8, height=8)
 
         start_Q = (5, 6)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
@@ -234,25 +234,25 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_arrow( *( start_S + pos_1 ), mark_type=MarkType.Legal )
         scene.append_arrow( *( pos_1 + pos_2 ), mark_type=MarkType.Legal )
         scene.append_arrow( *( pos_2 + pos_3 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( pos_3 + start_S ), mark_type=MarkType.Action )
+        scene.append_arrow( *( pos_3 + start_S ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *( start_S + end_W ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_S + end_W ), mark_type=MarkType.Illegal )
 
         scene.append_text( "1", *pos_1, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
         scene.append_text( "2", *pos_2, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
         scene.append_text( "3", *pos_3, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
 
-        scene.append_text( "S", *start_S, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
-        scene.append_text( "W", *end_W, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
+        scene.append_text( "S", *start_S, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
+        scene.append_text( "W", *end_W, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
 
         return scene
 
     #
-    # Static loop is legal
+    # Static loop is illegal
 
-    def scn_tr_9_static_loop_is_legal(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_09_static_loop_is_illegal(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_9_static_loop_is_legal', bt, width=8, height=8)
+        scene = Scene('scn_tr_09_static_loop_is_illegal', bt, width=8, height=8)
 
         start_S = (3, 3)
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
@@ -266,12 +266,12 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_arrow( *( pos_1 + pos_2 ), mark_type=MarkType.Legal )
         scene.append_arrow( *( pos_2 + pos_3 ), mark_type=MarkType.Legal )
         scene.append_arrow( *( pos_3 + start_S ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *( start_S + pos_5 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( start_S + pos_5 ), mark_type=MarkType.Illegal )
 
         scene.append_text( "1", *pos_1, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
         scene.append_text( "2", *pos_2, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
         scene.append_text( "3", *pos_3, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-        scene.append_text( "5", *pos_5, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
+        scene.append_text( "5", *pos_5, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
 
         scene.append_text( "S", *start_S, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
 

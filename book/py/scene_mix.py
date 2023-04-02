@@ -34,7 +34,9 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_tr_06_serpent_loop_illegal', \
-                    'scn_tr_10_serpent_loop_init', \
-                    'scn_tr_11_serpent_loop_unwinded', \
+                    # 'scn_tr_06_serpent_loop_illegal', \
+                    'scn_tr_08_static_piece_is_illegal', \
+                    'scn_tr_09_static_loop_is_illegal', \
+                    # 'scn_tr_10_serpent_loop_init', \
+                    # 'scn_tr_11_serpent_loop_unwinded', \
                 ]
