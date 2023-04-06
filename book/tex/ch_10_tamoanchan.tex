@@ -139,7 +139,7 @@ In this variant, Serpent is limited to 14 steps.
 
 \vspace*{4.7\baselineskip}
 \noindent
-\begin{wrapfigure}[3]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_06_serpent_loop_illegal.png}
 \vspace*{-0.5\baselineskip}
@@ -147,9 +147,11 @@ In this variant, Serpent is limited to 14 steps.
 \label{fig:scn_tr_06_serpent_loop_illegal}
 \end{wrapfigure}
 In a single ply Serpent can visit each field in its path only once.
+So, loops within a single ply are illegal.
 
-\noindent
-So, loops are illegal.
+Fields visited in a previous ply (or, in a previous move) are accessible
+without any limitations. So, loops within a single move are legal, if they
+are closed in a ply other than first Serpent's ply.
 
 \clearpage % ..........................................................
 
@@ -181,45 +183,42 @@ movement on its starting position.
 
 \vspace*{-1.2\baselineskip}
 \noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_static_piece_is_illegal.png}
 \vspace*{-0.5\baselineskip}
 \caption{Static piece}
 \label{fig:scn_tr_08_static_piece_is_illegal}
 \end{wrapfigure}
-Also similar to
-\hyperref[fig:scn_mv_45_static_piece_is_legal_init]{previous example}, for a piece
-activated in a cascade it's legal to end its movement on its starting field.
+Unlike
+\hyperref[fig:scn_mv_45_static_piece_is_legal_init]{previous example}, Serpent
+activated in a cascade cannot, in the same ply, end its movement on its starting
+field.
 
-Here, Serpent activated in a cascade can return to its originating field S,
-reactivate Wave, and force it to move over to field W.
-
-\TODO
-
-fix text
+Here, Serpent activated in a cascade cannot return to its originating field S,
+and so it cannot reactivate Wave, and force it to move over to field W.
 
 % \clearpage % ..........................................................
 
-\vspace*{-0.6\baselineskip}
-\subsubsection*{Static loop is illegal}
-\addcontentsline{toc}{subsubsection}{Static loop is illegal}
-\label{sec:Tamoanchan Revisited/Serpent/Movement/Static loop is illegal}
+% \vspace*{-0.6\baselineskip}
+% \subsubsection*{Static loop is illegal}
+% \addcontentsline{toc}{subsubsection}{Static loop is illegal}
+% \label{sec:Tamoanchan Revisited/Serpent/Movement/Static loop is illegal}
 
-\vspace*{-1.2\baselineskip}
-\noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_09_static_loop_is_illegal.png}
-\vspace*{-0.5\baselineskip}
-\caption{Static loop}
-\label{fig:scn_tr_09_static_loop_is_illegal}
-\end{wrapfigure}
-Static loop is a movement of a Serpent over its starting position, to e.g.
-% \hyperref[fig:scn_tr_10_serpent_loop_init]{build momentum}. Static loop is a legal move,
-build momentum. Static loop is a legal move,
-even if Serpent was the only piece in a move, or was starting a cascade, as long as
-its final destination is different from its starting position.
+% \vspace*{-1.2\baselineskip}
+% \noindent
+% \begin{wrapfigure}[8]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_09_static_loop_is_illegal.png}
+% \vspace*{-0.5\baselineskip}
+% \caption{Static loop}
+% \label{fig:scn_tr_09_static_loop_is_illegal}
+% \end{wrapfigure}
+% Static loop is a movement of a Serpent over its starting position, to e.g.
+% % \hyperref[fig:scn_tr_10_serpent_loop_init]{build momentum}. Static loop is a legal move,
+% build momentum. Static loop is a legal move,
+% even if Serpent was the only piece in a move, or was starting a cascade, as long as
+% its final destination is different from its starting position.
 
 \clearpage % ..........................................................
 
@@ -227,7 +226,7 @@ its final destination is different from its starting position.
 \addcontentsline{toc}{subsubsection}{Revisiting fields, loops}
 \label{sec:Tamoanchan Revisited/Serpent/Movement/Revisiting fields, loops}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.2\baselineskip}
 \noindent
 \begin{wrapfigure}[1]{l}{0.4\textwidth}
 \centering
