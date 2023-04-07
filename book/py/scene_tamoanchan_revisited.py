@@ -248,11 +248,11 @@ class SceneTamoanchanRevisitedMixin:
         return scene
 
     #
-    # Static loop is illegal
+    # Revisiting fields, loops
 
-    def scn_tr_09_static_loop_is_illegal(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_09_serpent_loop_init(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_09_static_loop_is_illegal', bt, width=8, height=8)
+        scene = Scene('scn_tr_09_serpent_loop_init', bt)
 
         start_S = (3, 3)
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
@@ -277,12 +277,24 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
+    def scn_tr_10_serpent_loop_step(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_10_serpent_loop_step', bt)
+
+        return scene
+
+    def scn_tr_11_serpent_loop_end(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_11_serpent_loop_end', bt)
+
+        return scene
+
     #
-    # Revisiting fields, loops
+    # Different paths, momentum
 
-    def scn_tr_10_serpent_loop_init(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_10_serpent_path_short(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_10_serpent_loop_init', bt, width=8, height=8)
+        scene = Scene('scn_tr_10_serpent_path_short', bt, width=8, height=8)
 
         scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
 
@@ -304,9 +316,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_11_serpent_loop_unwinded(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_11_serpent_path_long(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_11_serpent_loop_unwinded', bt, width=8, height=8)
+        scene = Scene('scn_tr_11_serpent_path_long', bt, width=8, height=8)
 
         scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
 
@@ -334,6 +346,47 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_text( "6", *adr_2(-1, -1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
         scene.append_text( "7", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
         scene.append_text( "8", *adr_2(1, 1), mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+
+        return scene
+
+    def scn_tr_12_serpent_path_longest(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_12_serpent_path_longest', bt, width=8, height=8)
+
+        scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
+
+        start = (2, 2)
+        scene.board.set_piece( *start, piece=PieceType.Serpent )
+
+        adr = GS.adder( start, include_prev=True )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Action )
+
+        scene.append_text( "S", *start, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+
+        adr_2 = GS.adder( start, include_prev=False )
+        scene.append_text( "1", *adr_2(1, -1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "3", *adr_2(1, -1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "4", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "5", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "6", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "7", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "8", *adr_2(-1, -1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "9", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "10", *adr_2(-1, -1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "11", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "12", *adr_2(1, 1), mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 

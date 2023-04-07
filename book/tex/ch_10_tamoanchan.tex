@@ -159,12 +159,12 @@ are closed in a ply other than that Serpent's first ply.
 \addcontentsline{toc}{subsubsection}{Static move is illegal}
 \label{sec:Tamoanchan Revisited/Serpent/Movement/Static move is illegal}
 
-\vspace*{-1.2\baselineskip}
+% \vspace*{-1.2\baselineskip}
 \noindent
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_07_static_move_is_illegal.png}
-\vspace*{-0.5\baselineskip}
+% \vspace*{-0.5\baselineskip}
 \caption{Static move}
 \label{fig:scn_tr_07_static_move_is_illegal}
 \end{wrapfigure}
@@ -176,17 +176,18 @@ movement on its starting position.
 
 % \clearpage % ..........................................................
 
-\vspace*{0.4\baselineskip}
+% \vspace*{0.4\baselineskip}
+\vspace*{1.4\baselineskip}
 \subsubsection*{Static piece is illegal}
 \addcontentsline{toc}{subsubsection}{Static piece is illegal}
 \label{sec:Tamoanchan Revisited/Serpent/Movement/Static piece is illegal}
 
-\vspace*{-1.2\baselineskip}
+% \vspace*{-1.2\baselineskip}
 \noindent
 \begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_static_piece_is_illegal.png}
-\vspace*{-0.5\baselineskip}
+% \vspace*{-0.5\baselineskip}
 \caption{Static piece}
 \label{fig:scn_tr_08_static_piece_is_illegal}
 \end{wrapfigure}
@@ -196,11 +197,11 @@ activated in a cascade cannot, in the same ply, end its movement on its starting
 field.
 
 Here, Serpent activated in a cascade cannot return to its originating field S,
-and so it cannot reactivate Wave, and force it to move over to field W.
+and so it cannot reactivate Wave, and force it to move over to e.g. field W.
 
 % \clearpage % ..........................................................
 
-% \vspace*{-0.6\baselineskip}
+% \vspace*{-1.7\baselineskip}
 % \subsubsection*{Static loop is illegal}
 % \addcontentsline{toc}{subsubsection}{Static loop is illegal}
 % \label{sec:Tamoanchan Revisited/Serpent/Movement/Static loop is illegal}
@@ -209,13 +210,13 @@ and so it cannot reactivate Wave, and force it to move over to field W.
 % \noindent
 % \begin{wrapfigure}[8]{l}{0.4\textwidth}
 % \centering
-% \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_09_static_loop_is_illegal.png}
+% \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_09_serpent_loop_init.png}
 % \vspace*{-0.5\baselineskip}
 % \caption{Static loop}
-% \label{fig:scn_tr_09_static_loop_is_illegal}
+% \label{fig:scn_tr_09_serpent_loop_init}
 % \end{wrapfigure}
 % Static loop is a movement of a Serpent over its starting position, to e.g.
-% % \hyperref[fig:scn_tr_10_serpent_loop_init]{build momentum}. Static loop is a legal move,
+% % \hyperref[fig:scn_tr_10_serpent_loop_step]{build momentum}. Static loop is a legal move,
 % build momentum. Static loop is a legal move,
 % even if Serpent was the only piece in a move, or was starting a cascade, as long as
 % its final destination is different from its starting position.
@@ -228,33 +229,90 @@ and so it cannot reactivate Wave, and force it to move over to field W.
 
 \vspace*{-1.2\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_serpent_loop_init.png}
-\vspace*{-0.5\baselineskip}
-\caption{Activating Pyramid}
-\label{fig:scn_tr_10_serpent_loop_init}
-\end{wrapfigure}
-. . .
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_09_serpent_loop_init.png}
+\caption{Serpent out-of-board steps}
+\label{fig:scn_tr_09_serpent_loop_init}
+\end{figure}
 
-\vspace*{9.7\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_11_serpent_loop_unwinded.png}
-\vspace*{-0.5\baselineskip}
-\caption{Without loop}
-\label{fig:scn_tr_11_serpent_loop_unwinded}
-\end{wrapfigure}
 . . .
-
-\vspace*{9.7\baselineskip}
 
 \TODO
 
 reactivated Serpent --> different ply --> can return to its starting field
 
-scn\_tr\_10\_serpent\_loop\_init --> find all, change link
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_serpent_loop_step.png}
+\caption{Serpent out-of-board steps}
+\label{fig:scn_tr_10_serpent_loop_step}
+\end{figure}
+
+. . .
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_11_serpent_loop_end.png}
+\caption{Serpent out-of-board steps}
+\label{fig:scn_tr_11_serpent_loop_end}
+\end{figure}
+
+. . .
+
+\clearpage % ..........................................................
+
+\subsubsection*{Different paths, momentum}
+\addcontentsline{toc}{subsubsection}{Different paths, momentum}
+\label{sec:Tamoanchan Revisited/Serpent/Movement/Different paths, momentum}
+
+\vspace*{-1.2\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_serpent_path_short.png}
+\vspace*{-0.5\baselineskip}
+\caption{Activating Pyramid}
+\label{fig:scn_tr_10_serpent_path_short}
+\end{wrapfigure}
+. . .
+
+% \clearpage % ..........................................................
+
+\vspace*{9.3\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_11_serpent_path_long.png}
+\vspace*{-0.5\baselineskip}
+\caption{Without loop}
+\label{fig:scn_tr_11_serpent_path_long}
+\end{wrapfigure}
+. . .
+
+% \clearpage % ..........................................................
+
+\vspace*{9.3\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_12_serpent_path_longest.png}
+\vspace*{-0.5\baselineskip}
+\caption{Without loop}
+\label{fig:scn_tr_12_serpent_path_longest}
+\end{wrapfigure}
+. . .
+
+% \vspace*{9.7\baselineskip}
+
+\TODO
+
+% scn\_tr\_09\_serpent\_loop\_init --> check appendix if ok
 
 \clearpage % ..........................................................
 
