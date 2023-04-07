@@ -313,6 +313,7 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_text( "1", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
         scene.append_text( "2", *adr_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
         scene.append_text( "3", *adr_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "4", *adr_2(-1, 1), mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 

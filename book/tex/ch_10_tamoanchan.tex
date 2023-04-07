@@ -273,46 +273,50 @@ reactivated Serpent --> different ply --> can return to its starting field
 
 \vspace*{-1.2\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_serpent_path_short.png}
 \vspace*{-0.5\baselineskip}
-\caption{Activating Pyramid}
+\caption{The shortest path}
 \label{fig:scn_tr_10_serpent_path_short}
 \end{wrapfigure}
-. . .
+While loops are illegal within single ply, it's still possible to find
+different paths to the same destination, some of those with different
+lengths, resulting in different accumulated momentum.
+
+Example on the left shows the shortest path possible to activate Pyramid,
+with 4 momentum.
 
 % \clearpage % ..........................................................
 
-\vspace*{9.3\baselineskip}
+\vspace*{0.3\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_11_serpent_path_long.png}
 \vspace*{-0.5\baselineskip}
-\caption{Without loop}
+\caption{Long path}
 \label{fig:scn_tr_11_serpent_path_long}
 \end{wrapfigure}
-. . .
+Example on the left in the same situation now shows longer path available,
+activating Pyramid with 8 momentum.
 
 % \clearpage % ..........................................................
 
-\vspace*{9.3\baselineskip}
+\vspace*{5.3\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_12_serpent_path_longest.png}
 \vspace*{-0.5\baselineskip}
-\caption{Without loop}
+\caption{Longer path}
 \label{fig:scn_tr_12_serpent_path_longest}
 \end{wrapfigure}
-. . .
+One of the longest paths available in the same situation is shown on the left,
+with 12 momentum accumulated.
 
-% \vspace*{9.7\baselineskip}
-
-\TODO
-
-% scn\_tr\_09\_serpent\_loop\_init --> check appendix if ok
+Again, Serpent in this variant is limited to maximum of 14 steps performed in a
+single ply.
 
 \clearpage % ..........................................................
 
