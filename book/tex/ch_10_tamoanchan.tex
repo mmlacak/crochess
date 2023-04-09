@@ -151,7 +151,7 @@ So, loops within a single ply are illegal.
 
 Fields visited in a previous ply (or, in a previous move) are accessible
 without any limitations. So, loops within a single move are legal, if they
-are closed in a ply other than that Serpent's first ply.
+are closed in a ply other than starting ply of that loop.
 
 \clearpage % ..........................................................
 
@@ -209,15 +209,16 @@ and so it cannot reactivate Wave, and force it to move over to e.g. field W.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_09_serpent_loop_init.png}
-\caption{Serpent out-of-board steps}
+\caption{Serpent's first ply}
 \label{fig:scn_tr_09_serpent_loop_init}
 \end{figure}
 
-. . .
+While Serpent cannot revisit fields, and make loops in a single ply, Serpent can
+do it in a new ply; either in a new move, or in the same move, if it has been
+reactivated.
 
-\TODO
-
-reactivated Serpent --> different ply --> can return to its starting field
+Here, Queen is about to activate Serpent via Wave A, which will then continue
+cascade to Wave B, Bishop, and Wave C; Serpent's steps are also enumerated.
 
 \clearpage % ..........................................................
 
@@ -225,7 +226,7 @@ reactivated Serpent --> different ply --> can return to its starting field
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_10_serpent_loop_step.png}
-\caption{Serpent out-of-board steps}
+\caption{Reactivating Serpent}
 \label{fig:scn_tr_10_serpent_loop_step}
 \end{figure}
 
@@ -237,11 +238,15 @@ reactivated Serpent --> different ply --> can return to its starting field
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_11_serpent_loop_end.png}
-\caption{Serpent out-of-board steps}
+\caption{Serpent's second ply}
 \label{fig:scn_tr_11_serpent_loop_end}
 \end{figure}
 
 . . .
+
+\TODO
+
+reactivated Serpent --> different ply --> can return to its starting field
 
 \clearpage % ..........................................................
 
