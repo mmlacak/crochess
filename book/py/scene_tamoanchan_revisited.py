@@ -254,26 +254,68 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_09_serpent_loop_init', bt)
 
-        start_S = (3, 3)
-        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+        start_Q = (1, 20)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        pos_1 = (2, 4)
-        pos_2 = (3, 5)
-        pos_3 = (4, 4)
-        pos_5 = (4, 2)
+        start_W_A = (1, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        scene.append_arrow( *( start_S + pos_1 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( pos_1 + pos_2 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( pos_2 + pos_3 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( pos_3 + start_S ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *( start_S + pos_5 ), mark_type=MarkType.Illegal )
+        start_S = (7, 7)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        scene.append_text( "1", *pos_1, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-        scene.append_text( "2", *pos_2, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-        scene.append_text( "3", *pos_3, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-        scene.append_text( "5", *pos_5, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
+        start_W_B = (7, 11)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        scene.append_text( "S", *start_S, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
+        start_B = (8, 16)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_C = (10, 14)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_A = (13, 9)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        gen_Q_WA = GS.gen_steps( start=start_Q, rels=[(0, -1), ], include_prev=True, count=19 )
+        for index, coords in enumerate( gen_Q_WA() ):
+            mark_type = MarkType.Action if index == 18 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_WA_S = GS.gen_steps( start=start_W_A, rels=[(1, 1), ], include_prev=True, count=6 )
+        for index, coords in enumerate( gen_WA_S() ):
+            mark_type = MarkType.Action if index == 5 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        adr_S = GS.adder( start_S, include_prev=True )
+        scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(-1, 1), mark_type=MarkType.Action )
+
+        adr_WB = GS.adder( start_W_B, include_prev=True )
+        scene.append_arrow( *adr_WB(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_WB(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_WB(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_WB(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_WB(1, 1), mark_type=MarkType.Action )
+
+        gen_B_WC = GS.gen_steps( start=start_B, rels=[(1, -1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_B_WC() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_text( "S", *start_S, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "C", *start_W_C, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+
+        adr_S_2 = GS.adder( start_S, include_prev=False )
+        scene.append_text( "1", *adr_S_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *adr_S_2(-1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "3", *adr_S_2(1, 1), mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "4", *adr_S_2(-1, 1), mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 
@@ -292,9 +334,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Different paths, momentum
 
-    def scn_tr_10_serpent_path_short(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_12_serpent_path_short(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_10_serpent_path_short', bt, width=8, height=8)
+        scene = Scene('scn_tr_12_serpent_path_short', bt, width=8, height=8)
 
         scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
 
@@ -317,9 +359,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_11_serpent_path_long(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_13_serpent_path_long(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_11_serpent_path_long', bt, width=8, height=8)
+        scene = Scene('scn_tr_13_serpent_path_long', bt, width=8, height=8)
 
         scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
 
@@ -350,9 +392,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_12_serpent_path_longest(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_14_serpent_path_longer(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_12_serpent_path_longest', bt, width=8, height=8)
+        scene = Scene('scn_tr_14_serpent_path_longer', bt, width=8, height=8)
 
         scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
 
@@ -394,9 +436,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Color-changing move
 
-    def scn_tr_11_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_15_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_11_serpent_neighbors', bt, width=8, height=8)
+        scene = Scene('scn_tr_15_serpent_neighbors', bt, width=8, height=8)
 
         start = (2, 2)
         scene.board.set_piece(*start, piece=PieceType.Serpent)
@@ -414,9 +456,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_12_cascade_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_16_cascade_serpent_neighbors(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_12_cascade_serpent_neighbors', bt, width=8, height=8)
+        scene = Scene('scn_tr_16_cascade_serpent_neighbors', bt, width=8, height=8)
 
         start_B = (6, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -455,9 +497,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Displacements while moving
 
-    def scn_tr_13_displacement_init(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_17_displacement_init(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_13_displacement_init', bt, width=8, height=8)
+        scene = Scene('scn_tr_17_displacement_init', bt, width=8, height=8)
 
         start_S = (1, 3)
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
@@ -476,9 +518,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_14_displacement_step(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_18_displacement_step(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_14_displacement_step', bt, width=8, height=8)
+        scene = Scene('scn_tr_18_displacement_step', bt, width=8, height=8)
 
         prev_p = (4, 4)
         start_p = (4, 4)
@@ -506,9 +548,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_15_displacement_end(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_19_displacement_end(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_15_displacement_end', bt, width=8, height=8)
+        scene = Scene('scn_tr_19_displacement_end', bt, width=8, height=8)
 
         prev_p = (4, 4)
         start_p = (4, 5)
@@ -535,9 +577,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Out-of-board steps
 
-    def scn_tr_16_serpent_out_of_board(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_20_serpent_out_of_board(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_16_serpent_out_of_board', bt, x=4, y=1)
+        scene = Scene('scn_tr_20_serpent_out_of_board', bt, x=4, y=1)
 
         start = (19, 4)
         scene.board.set_piece(*start, piece=PieceType.Serpent)
@@ -566,9 +608,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Teleporting Serpent
 
-    def scn_tr_17_teleport_serpent_1(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_21_teleport_serpent_1(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_17_teleport_serpent_1', bt)
+        scene = Scene('scn_tr_21_teleport_serpent_1', bt)
 
         start_S = (4, 19)
         start_T = (0, 21)
@@ -598,9 +640,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_18_teleport_serpent_2(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_22_teleport_serpent_2(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_18_teleport_serpent_2', bt)
+        scene = Scene('scn_tr_22_teleport_serpent_2', bt)
 
         start_S = (0, 20)
         start_T = (0, 21)
@@ -630,9 +672,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # ... Pawn-sacrifice move
 
-    def scn_tr_19_pawn_sacrifice_init(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_23_pawn_sacrifice_init(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_19_pawn_sacrifice_init', bt)
+        scene = Scene('scn_tr_23_pawn_sacrifice_init', bt)
 
         start_S = (17, 13)
         start_A = (12, 14)
@@ -666,9 +708,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_20_pawn_sacrifice_end(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_24_pawn_sacrifice_end(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_20_pawn_sacrifice_end', bt)
+        scene = Scene('scn_tr_24_pawn_sacrifice_end', bt)
 
         start_S = (12, 14)
         start_A = (12, 10)
@@ -707,9 +749,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Activating Wave
 
-    def scn_tr_21_serpent_activating_wave(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_25_serpent_activating_wave(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_21_serpent_activating_wave', bt, width=8, height=8)
+        scene = Scene('scn_tr_25_serpent_activating_wave', bt, width=8, height=8)
 
         scene.board.set_piece(1, 1, piece=PieceType.Serpent)
         scene.board.set_piece(4, 4, piece=PieceType.Wave)
@@ -722,9 +764,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_22_serpent_activated_wave(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_26_serpent_activated_wave(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_22_serpent_activated_wave', bt, width=8, height=8)
+        scene = Scene('scn_tr_26_serpent_activated_wave', bt, width=8, height=8)
 
         start = (4, 4)
         scene.board.set_piece(*start, piece=PieceType.Serpent)
@@ -749,9 +791,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_23_serpent_activated_wave_step_1(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_27_serpent_activated_wave_step_1(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_23_serpent_activated_wave_step_1', bt, width=8, height=8)
+        scene = Scene('scn_tr_27_serpent_activated_wave_step_1', bt, width=8, height=8)
 
         start_S = (4, 4)
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
@@ -781,9 +823,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_24_serpent_activated_wave_ply(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_28_serpent_activated_wave_ply(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_24_serpent_activated_wave_ply', bt)
+        scene = Scene('scn_tr_28_serpent_activated_wave_ply', bt)
 
         start = (4, 4)
         scene.board.set_piece(*start, piece=PieceType.Serpent)
@@ -816,9 +858,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Out-of-board steps
 
-    def scn_tr_25_wave_out_of_board(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_29_wave_out_of_board(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_25_wave_out_of_board', bt, x=4, y=1)
+        scene = Scene('scn_tr_29_wave_out_of_board', bt, x=4, y=1)
 
         scene.board.set_piece(18, 5, piece=PieceType.Serpent)
 
@@ -859,9 +901,9 @@ class SceneTamoanchanRevisitedMixin:
     #
     # Teleporting Wave
 
-    def scn_tr_26_off_board_teleport_wave(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_30_off_board_teleport_wave(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_26_off_board_teleport_wave', bt, x=4, y=1)
+        scene = Scene('scn_tr_30_off_board_teleport_wave', bt, x=4, y=1)
 
         scene.board.set_piece(21, 21, piece=PieceType.Star)
         scene.board.set_piece(18, 6, piece=PieceType.Serpent)
@@ -897,9 +939,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_27_teleported_wave_on_board(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_31_teleported_wave_on_board(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_27_teleported_wave_on_board', bt, x=-4, y=-1)
+        scene = Scene('scn_tr_31_teleported_wave_on_board', bt, x=-4, y=-1)
 
         scene.board.set_piece(0, 0, piece=PieceType.Star)
 
@@ -935,9 +977,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_28_on_board_teleport_wave(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_32_on_board_teleport_wave(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_28_on_board_teleport_wave', bt, x=4, y=1)
+        scene = Scene('scn_tr_32_on_board_teleport_wave', bt, x=4, y=1)
 
         scene.board.set_piece(21, 21, piece=PieceType.Star)
         scene.board.set_piece(17, 7, piece=PieceType.Serpent)
@@ -968,9 +1010,9 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    def scn_tr_29_teleported_wave_off_board(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_33_teleported_wave_off_board(self, bt=BoardType.TamoanchanRevisited):
 
-        scene = Scene('scn_tr_29_teleported_wave_off_board', bt, x=-4, y=-1)
+        scene = Scene('scn_tr_33_teleported_wave_off_board', bt, x=-4, y=-1)
 
         scene.board.set_piece(0, 0, piece=PieceType.Star)
 
