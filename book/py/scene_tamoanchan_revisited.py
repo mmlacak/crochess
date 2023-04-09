@@ -387,10 +387,10 @@ class SceneTamoanchanRevisitedMixin:
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
-        scene.append_text( "Q", *prev_Q, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "Q", *prev_Q, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "S", *prev_S, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
         # scene.append_text( "C", *start_W_C, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
 
         adr_S_2 = GS.adder( prev_S, include_prev=False )
@@ -404,6 +404,56 @@ class SceneTamoanchanRevisitedMixin:
     def scn_tr_11_serpent_loop_end(self, bt=BoardType.TamoanchanRevisited):
 
         scene = Scene('scn_tr_11_serpent_loop_end', bt)
+
+        prev_Q = (1, 20)
+        prev_W_A = (1, 1)
+        prev_S = (7, 7)
+        prev_W_B = (7, 11)
+        prev_B = (7, 15)
+        prev_W_C = (9, 13)
+
+        start_Q = prev_W_A # (1, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_A = prev_S # (7, 7)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_S = prev_W_B # (7, 11)
+        # scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+        start_W_B = prev_B # (7, 15)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_B = prev_W_C # (9, 13)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_C = start_S # (7, 11)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_A = (13, 9)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        adr_S = GS.adder( start_S, include_prev=True )
+        scene.append_arrow( *adr_S(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(-1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(1, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Action )
+
+        scene.append_text( "Q", *prev_Q, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "S", *prev_S, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "C", *start_W_C, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
+
+        adr_S_2 = GS.adder( prev_S, include_prev=False )
+        scene.append_text( "1", *adr_S_2(1, 1), mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *adr_S_2(-1, 1), mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "3", *adr_S_2(1, 1), mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "4", *adr_S_2(-1, 1), mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 

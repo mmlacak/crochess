@@ -36,5 +36,5 @@ class SceneMix(SceneMixin, \
         return  [
                     'scn_tr_09_serpent_loop_init', \
                     'scn_tr_10_serpent_loop_step', \
-                    # 'scn_tr_11_serpent_loop_end', \
+                    'scn_tr_11_serpent_loop_end', \
                 ]
