@@ -27,11 +27,10 @@ position. Similarly, King's side is right half of chessboard.
 \addcontentsline{toc}{section}{Movement limits}
 \label{sec:Definitions/Movement limits}
 
-Maximum number of steps either Serpent or Monolith can make is determined by the size
-of a chessboard.
+Maximum number of steps Serpent can make is determined by the size of a chessboard.
 
 \begin{equation}
-sml = \lfloor \frac{n^2}{1 + \sqrt{2}} \rfloor
+sml = \lfloor \bigg( \sqrt{ \frac{n^2}{1 + \sqrt{2}} } \bigg) \rfloor
 \end{equation}
 
 where:
