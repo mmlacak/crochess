@@ -266,10 +266,10 @@ class SceneTamoanchanRevisitedMixin:
         start_W_B = (7, 11)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_B = (8, 16)
+        start_B = (7, 15)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_W_C = (10, 14)
+        start_W_C = (9, 13)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
         start_A = (13, 9)
@@ -294,7 +294,6 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_arrow( *adr_S(-1, 1), mark_type=MarkType.Action )
 
         adr_WB = GS.adder( start_W_B, include_prev=True )
-        scene.append_arrow( *adr_WB(1, 1), mark_type=MarkType.Legal )
         scene.append_arrow( *adr_WB(-1, 1), mark_type=MarkType.Legal )
         scene.append_arrow( *adr_WB(1, 1), mark_type=MarkType.Legal )
         scene.append_arrow( *adr_WB(-1, 1), mark_type=MarkType.Legal )
@@ -306,6 +305,7 @@ class SceneTamoanchanRevisitedMixin:
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
         scene.append_text( "S", *start_S, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
@@ -322,6 +322,82 @@ class SceneTamoanchanRevisitedMixin:
     def scn_tr_10_serpent_loop_step(self, bt=BoardType.TamoanchanRevisited):
 
         scene = Scene('scn_tr_10_serpent_loop_step', bt)
+
+        prev_Q = (1, 20)
+        prev_W_A = (1, 1)
+        prev_S = (7, 7)
+        prev_W_B = (7, 11)
+        prev_B = (7, 15)
+        prev_W_C = (9, 13)
+
+        start_Q = prev_W_A # (1, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_A = prev_S # (7, 7)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_S = prev_W_B # (7, 11)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+        start_W_B = prev_B # (7, 15)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_B = prev_W_C # (9, 13)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        # start_W_C = (9, 13)
+        # scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_A = (13, 9)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        gen_Q_WA = GS.gen_steps( end=start_Q, rels=[(0, -1), ], include_prev=True, count=19 )
+        for index, coords in enumerate( gen_Q_WA() ):
+            # mark_type = MarkType.Action if index == 18 else \
+            #             MarkType.Blocked
+            scene.append_arrow( *coords, mark_type=MarkType.Blocked )
+
+        gen_WA_S = GS.gen_steps( end=start_W_A, rels=[(1, 1), ], include_prev=True, count=6 )
+        for index, coords in enumerate( gen_WA_S() ):
+            # mark_type = MarkType.Action if index == 5 else \
+            #             MarkType.Legal
+            scene.append_arrow( *coords, mark_type=MarkType.Blocked )
+
+        adr_S = GS.adder( prev_S, include_prev=True )
+        scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adr_S(-1, 1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adr_S(-1, 1), mark_type=MarkType.Blocked )
+
+        adr_WB = GS.adder( prev_W_B, include_prev=True )
+        scene.append_arrow( *adr_WB(-1, 1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adr_WB(1, 1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adr_WB(-1, 1), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adr_WB(1, 1), mark_type=MarkType.Blocked )
+
+        gen_B_WC = GS.gen_steps( end=start_B, rels=[(1, -1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_B_WC() ):
+            # mark_type = MarkType.Action if index == 1 else \
+            #             MarkType.Legal
+            scene.append_arrow( *coords, mark_type=MarkType.Blocked )
+
+        gen_WC_S = GS.gen_steps( start=prev_W_C, rels=[(-1, -1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_WC_S() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_text( "Q", *prev_Q, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        # scene.append_text( "C", *start_W_C, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+
+        adr_S_2 = GS.adder( prev_S, include_prev=False )
+        scene.append_text( "1", *adr_S_2(1, 1), mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *adr_S_2(-1, 1), mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "3", *adr_S_2(1, 1), mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "4", *adr_S_2(-1, 1), mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 

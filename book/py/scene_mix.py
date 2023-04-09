@@ -35,6 +35,6 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     'scn_tr_09_serpent_loop_init', \
-                    # 'scn_tr_10_serpent_loop_step', \
+                    'scn_tr_10_serpent_loop_step', \
                     # 'scn_tr_11_serpent_loop_end', \
                 ]
