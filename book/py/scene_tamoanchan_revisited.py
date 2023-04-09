@@ -614,13 +614,48 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Blocked )
         scene.append_arrow( *adr_S(1, -1), mark_type=MarkType.Blocked )
         scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Blocked )
-        scene.append_arrow( *adr_S(-1, 1), mark_type=MarkType.Blocked )
 
         return scene
 
     def scn_tr_16_serpent_step_limit_momentum(self, bt=BoardType.TamoanchanRevisited):
 
         scene = Scene('scn_tr_16_serpent_step_limit_momentum', bt)
+
+        start_Q = (1, 20)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_A = (1, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_S = (3, 3)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+        start_A = (12, 4)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        gen_Q_WA = GS.gen_steps( start=start_Q, rels=[(0, -1), ], include_prev=True, count=19 )
+        for index, coords in enumerate( gen_Q_WA() ):
+            mark_type = MarkType.Action if index == 18 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_WA_S = GS.gen_steps( start=start_W_A, rels=[(1, 1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_WA_S() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_S_A = GS.gen_steps( start=start_S, rels=[(1, 1), (1, -1), ], include_prev=True, count=9 )
+        for index, coords in enumerate( gen_S_A() ):
+            mark_type = MarkType.Action if index == 8 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_A_ = GS.gen_steps( start=start_A, rels=[(0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, coords in enumerate( gen_A_() ):
+            mark_type = MarkType.Legal if index < 10 else \
+                        MarkType.Blocked
+            scene.append_arrow( *coords, mark_type=mark_type )
 
         return scene
 
