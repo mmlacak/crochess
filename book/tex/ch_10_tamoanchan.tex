@@ -317,13 +317,16 @@ single ply.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_15_serpent_step_limit.png}
-\caption{Serpent's first ply}
+\caption{Serpent's step limit}
 \label{fig:scn_tr_15_serpent_step_limit}
 \end{figure}
 
-. . .
+In this variant, Serpent can make at most 14 steps in one ply. This is so,
+even if Serpent was activated with more than 14 momentum, like in example
+above.
 
-\TODO
+In a cascade, Serpent can be activated multiple times; so, in a single move,
+Serpent can still move for more than its step limit.
 
 \clearpage % ..........................................................
 
@@ -331,15 +334,15 @@ single ply.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_16_serpent_step_limit_momentum.png}
-\caption{Serpent's second ply}
+\caption{Surplus momentum used}
 \label{fig:scn_tr_16_serpent_step_limit_momentum}
 \end{figure}
 
-. . .
+Serpent with more than its step limit can activate a piece, and transfer to
+it all of surplus momentum.
 
-Serpent activated with too much momentum > 14
---> cannot make >14 steps
---> still can transfer all unused momentum to activated piece
+Here, Serpent used all of its 14 steps allowance, so Pyramid is activated with
+excess 5 momentum; which were unusable, but still carried by Serpent.
 
 \clearpage % ..........................................................
 
