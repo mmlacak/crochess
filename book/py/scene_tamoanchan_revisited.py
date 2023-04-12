@@ -728,19 +728,25 @@ class SceneTamoanchanRevisitedMixin:
         scene = Scene('scn_tr_19_displacement_init', bt, width=8, height=8)
 
         start_S = (1, 3)
-        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        start_p = (4, 4)
-        scene.board.set_piece(*start_p, piece=-PieceType.Pawn)
+        start_p_a = (4, 4)
+        scene.board.set_piece( *start_p_a, piece=-PieceType.Pawn )
 
-        start_w = (4, 3)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+        start_w = (4, 5)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_p_b = (5, 3)
+        scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
 
         gen_S_ = GS.gen_steps( start=start_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=3 )
         for index, coords in enumerate( gen_S_() ):
             mark_type = MarkType.Action if index == 2 else \
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_text( "A", *start_p_a, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_p_b, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
 
         return scene
 
