@@ -825,25 +825,31 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_22_displacement_end', bt, width=8, height=8)
 
-        prev_p = (4, 4)
-        start_p = (4, 5)
-        scene.board.set_piece(*start_p, piece=-PieceType.Pawn)
-
-        start_w = (4, 3)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
+        prev_p_a = (4, 4)
+        prev_p_b = (5, 3)
         prev_S = (1, 3)
-        start_S = prev_p
-        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
 
-        gen_S_ = GS.gen_steps( start=prev_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=6 )
+        start_p_a = (5, 4)
+        scene.board.set_piece( *start_p_a, piece=-PieceType.Pawn )
+
+        start_w = (3, 4)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_S = (7, 3)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+        start_p_b = (5, 2)
+        scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
+
+        gen_S_ = GS.gen_steps( end=start_S, rels=[ (1, -1), (1, 1), ], include_prev=True, count=6 )
         for index, coords in enumerate( gen_S_() ):
-            mark_type = MarkType.Blocked if index <= 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
+            scene.append_arrow( *coords, mark_type=MarkType.Blocked )
 
-        scene.append_text( "S", *prev_S, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
-        scene.append_text( "P", *prev_p, mark_type=MarkType.Blocked, corner=Corner.UpperLeft )
+        scene.append_text( "1", *prev_p_a, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *prev_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+
+        scene.append_text( "A", *start_p_a, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "B", *start_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 
