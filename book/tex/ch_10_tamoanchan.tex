@@ -394,7 +394,7 @@ if Serpent was activated.
 \caption{Before displacement}
 \label{fig:scn_tr_19_displacement_init}
 \end{wrapfigure}
-Serpent can displace a Pawn it encounters and, in the same ply, continue its movement.
+Serpent can displace Pawns it encounters and, in the same ply, continue its movement.
 Displacement does not use momentum, and can be performed even if Serpent has none. Pawns,
 own or opponent's, can be displaced; all other pieces cannot be displaced. \newline
 \indent
@@ -414,14 +414,14 @@ can be displaced for one field to the left, right, up, or bottom from
 its encountered position, if that displacing field is empty. This is so, regardless
 how displaced Pawn moves otherwise. \newline
 \indent
-Here, dark Pawn (now "in the air") can be displaced onto any of 3 empty neighboring
-fields; down-field is illegal for displacement, since it's not empty.
+Here, dark Pawn A (now "in the air") can be displaced onto any of 3 empty neighboring
+fields; left field is illegal for displacement, since it's not empty.
 
 \clearpage % ..........................................................
 
 % \vspace*{-0.8\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[14]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_21_displacement_step_2.png}
 % \vspace*{-0.5\baselineskip}
@@ -429,9 +429,13 @@ fields; down-field is illegal for displacement, since it's not empty.
 \label{fig:scn_tr_21_displacement_step_2}
 \end{wrapfigure}
 \indent
-. . .
-
-\vspace*{9.7\baselineskip}
+Multiple Pawns are displaced in order in which they are encountered, each immediately
+after Serpent captured field at which that Pawn was positioned. Pawns can share
+displacing fields; if so, first Pawn displaced prevents others from being displaced
+onto the same field. \newline
+\indent
+Here, dark Pawn A has been displaced onto field shared with Pawn B (now "in the air"),
+which cannot be dsplaced onto up-field, as it's not empty any more.
 
 % \vspace*{-0.8\baselineskip}
 \noindent
@@ -444,16 +448,11 @@ fields; down-field is illegal for displacement, since it's not empty.
 \end{wrapfigure}
 \indent
 There is no limit to number of displacements Serpent can do in a ply. If there is no
-empty displacement field, Serpent must either capture, or activate, or stop before
-encountered Pawn. \newline
+empty displacement field, Serpent must capture encountered Pawn (thus ending its ply),
+or find another path. \newline
 \indent
-Here, dark Pawn has been displaced onto up-field; arrows show complete Serpent's
-path in a single ply, grey before displacement, green after it.
-
-\TODO
-
-displacements --> 1-by-1, in order of appearence --> 1st to field blocks later
-
+Here, dark Pawns A and B has been displaced in a single ply from their initial positions
+1 and 2, respectively; arrows show complete Serpent's path in a single ply.
 
 \clearpage % ..........................................................
 
