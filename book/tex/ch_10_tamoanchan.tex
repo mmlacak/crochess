@@ -387,62 +387,63 @@ if Serpent was activated.
 
 % \vspace*{-1.2\baselineskip}
 \noindent
-\begin{wrapfigure}[11]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_19_displacement_init.png}
-% \vspace*{-0.5\baselineskip}
+\vspace*{-0.5\baselineskip}
 \caption{Before displacement}
 \label{fig:scn_tr_19_displacement_init}
 \end{wrapfigure}
 Serpent can displace Pawns it encounters and, in the same ply, continue its movement.
-Displacement does not use momentum, and can be performed even if Serpent has none. Pawns,
-own or opponent's, can be displaced; all other pieces cannot be displaced. \newline
+Only Pawns, own or opponent's, can be displaced; all other pieces cannot be displaced. \newline
 \indent
-Displacement fields are the same as color-changing fields, and also has to be empty;
-i.e. a Pawn
+Displacement fields are the same as color-changing fields, and also has to be empty.
 
-% \vspace*{-0.8\baselineskip}
+\vspace*{1.3\baselineskip}
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_20_displacement_step_1.png}
-% \vspace*{-0.5\baselineskip}
+\vspace*{-0.5\baselineskip}
 \caption{Displacement step}
 \label{fig:scn_tr_20_displacement_step_1}
 \end{wrapfigure}
-can be displaced for one field to the left, right, up, or bottom from
-its encountered position, if that displacing field is empty. This is so, regardless
-how displaced Pawn moves otherwise. \newline
+A Pawn can be displaced for one field to the left, right, up, or bottom from
+its position, if that displacing field is empty. This is so, regardless how displaced
+Pawn moves otherwise. \newline
 \indent
 Here, dark Pawn A (now "in the air") can be displaced onto any of 3 empty neighboring
 fields; left field is illegal for displacement, since it's not empty.
 
-\clearpage % ..........................................................
-
-% \vspace*{-0.8\baselineskip}
-\noindent
-\begin{wrapfigure}[14]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_21_displacement_step_2.png}
-% \vspace*{-0.5\baselineskip}
-\caption{Displacement end}
-\label{fig:scn_tr_21_displacement_step_2}
-\end{wrapfigure}
-\indent
+\vspace*{-0.8\baselineskip}
+\mbox{} \newline % Forcing new paragraph ...
 Multiple Pawns are displaced in order in which they are encountered, each immediately
 after Serpent captured field at which that Pawn was positioned. Pawns can share
 displacing fields; if so, first Pawn displaced prevents others from being displaced
-onto the same field. \newline
-\indent
+onto the same field.
+
+\clearpage % ..........................................................
+
+% \vspace*{-2.1\baselineskip}
+\noindent
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_21_displacement_step_2.png}
+\vspace*{-0.5\baselineskip}
+\caption{Displacement end}
+\label{fig:scn_tr_21_displacement_step_2}
+\end{wrapfigure}
 Here, dark Pawn A has been displaced onto field shared with Pawn B (now "in the air"),
 which cannot be dsplaced onto up-field, as it's not empty any more.
+
+\vspace*{5.1\baselineskip}
 
 % \vspace*{-0.8\baselineskip}
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_22_displacement_end.png}
-% \vspace*{-0.5\baselineskip}
+\vspace*{-0.5\baselineskip}
 \caption{Displacement end}
 \label{fig:scn_tr_22_displacement_end}
 \end{wrapfigure}
@@ -453,6 +454,17 @@ or find another path. \newline
 \indent
 Here, dark Pawns A and B has been displaced in a single ply from their initial positions
 1 and 2, respectively; arrows show complete Serpent's path in a single ply.
+
+% \vspace*{-0.8\baselineskip}
+\noindent
+\begin{wrapfigure}[3]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_23_displacement_activated.png}
+\vspace*{-0.5\baselineskip}
+\caption{Displacement end}
+\label{fig:scn_tr_23_displacement_activated}
+\end{wrapfigure}
+Displacement does not use momentum, and can be performed even if Serpent has none.
 
 \clearpage % ..........................................................
 

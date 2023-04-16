@@ -853,6 +853,51 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
+    def scn_tr_23_displacement_activated(self, bt=BoardType.TamoanchanRevisited):
+
+        scene = Scene('scn_tr_23_displacement_activated', bt, width=8, height=8)
+
+        start_R = (5, 1)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W = (1, 1)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_S = (1, 3)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+        start_p_a = (4, 4)
+        scene.board.set_piece( *start_p_a, piece=-PieceType.Pawn )
+
+        start_w = (3, 4)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_p_b = (5, 3)
+        scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
+
+        gen_R_W = GS.gen_steps( start=start_R, rels=[ (-1, 0), ], include_prev=True, count=4 )
+        for index, coords in enumerate( gen_R_W() ):
+            mark_type = MarkType.Action if index == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_W_S = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_W_S() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_S_ = GS.gen_steps( start=start_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=4 )
+        for index, coords in enumerate( gen_S_() ):
+            mark_type = MarkType.Action if index == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_text( "A", *start_p_a, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "B", *start_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+
+        return scene
+
     #
     # Out-of-board steps
 
