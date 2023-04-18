@@ -1989,6 +1989,35 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_37_entrancement_activated(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene( 'scn_cot_37_entrancement_activated', bt, width=9, height=9 )
+
+        start_h = (1, 3)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_N = (2, 7)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_W = (4, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_H = (2, 2)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        scene.append_arrow( *( start_N + start_W ), mark_type=MarkType.Legal )
+
+        # W --> H
+        coords_W_H = GS.gen_steps( start=start_W, rels=[ (-1, -2), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_W_H() ):
+            # mark_type = MarkType.Action if i == 1 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_arrow( *( start_H + start_h ), mark_type=MarkType.Action )
+
+        return scene
+
     def scn_cot_34_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene( 'scn_cot_34_trance_journey_init', bt, width=5, height=5 )
