@@ -383,23 +383,23 @@ class SceneMayanAscendancyMixin:
         start_K = (6, 0)
         scene.board.set_piece(*start_K, piece=PieceType.King)
 
-        start_A = (3, 3)
+        start_A = (3, 0)
         scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
 
-        start_Q = (7, 3)
+        start_Q = (7, 4)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
 
         gen_r_ = GS.gen_steps( start=start_r, rels=[(0, -1), ], include_prev=True, count=5 )
         for index, coords in enumerate( gen_r_() ):
             scene.append_arrow( *coords, mark_type=MarkType.Blocked )
 
-        gen_Q_A = GS.gen_steps( start=start_Q, rels=[(-1, 0), ], include_prev=True, count=4 )
+        gen_Q_A = GS.gen_steps( start=start_Q, rels=[(-1, -1), ], include_prev=True, count=4 )
         for index, coords in enumerate( gen_Q_A() ):
             mark_type = MarkType.Action if index == 3 else \
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
-        gen_A_r = GS.gen_steps( start=start_A, rels=[(-1, -1), ], include_prev=True, count=3 )
+        gen_A_r = GS.gen_steps( start=start_A, rels=[(-1, 0), ], include_prev=True, count=3 )
         for index, coords in enumerate( gen_A_r() ):
             mark_type = MarkType.Action if index == 2 else \
                         MarkType.Legal
@@ -417,8 +417,15 @@ class SceneMayanAscendancyMixin:
         start_K = (6, 0)
         scene.board.set_piece(*start_K, piece=PieceType.King)
 
+        prev_Q = (3, 0)
         start_Q = (3, 3)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        gen_Q_ = GS.gen_steps( start=prev_Q, rels=[(0, 1), ], include_prev=True, count=3 )
+        for index, coords in enumerate( gen_Q_() ):
+            # mark_type = MarkType.Illegal if index > 0 else \
+            #             MarkType.Blocked
+            scene.append_arrow( *coords, mark_type=MarkType.Blocked )
 
         gen_K_ = GS.gen_steps( start=start_K, rels=[(-1, 0), ], include_prev=True, count=4 )
         for index, coords in enumerate( gen_K_() ):

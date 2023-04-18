@@ -37,5 +37,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_34_trance_fields', \
                     # 'scn_cot_35_entrancement_init', \
                     # 'scn_cot_36_entrancement_step', \
-                    'scn_cot_37_entrancement_activated', \
+                    # 'scn_cot_37_entrancement_activated', \
+                    'scn_ma_11_converting_rook_init', \
+                    'scn_ma_12_converting_rook_end', \
                 ]
