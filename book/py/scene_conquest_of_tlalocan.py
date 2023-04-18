@@ -1941,6 +1941,20 @@ class SceneConquestOfTlalocanMixin:
     #
     # Trance-journey
 
+    def scn_cot_34_trance_fields(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_34_trance_fields', bt, width=5, height=5)
+
+        start_H = (2, 2)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        rect_H = (0.35, 0.5, 0.65, 0.1)
+        coords_H_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_H, include_prev=False, count=1 )
+        for i, pos in enumerate( coords_H_() ):
+            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked, rect=rect_H )
+
+        return scene
+
     def scn_cot_34_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_34_trance_journey_init', bt, width=9, height=12)
