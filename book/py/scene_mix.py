@@ -34,5 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_cot_34_trance_fields', \
+                    # 'scn_cot_34_trance_fields', \
+                    'scn_cot_35_entrancement_init', \
                 ]

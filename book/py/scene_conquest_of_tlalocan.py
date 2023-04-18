@@ -1943,7 +1943,7 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_34_trance_fields(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_34_trance_fields', bt, width=5, height=5)
+        scene = Scene( 'scn_cot_34_trance_fields', bt, width=5, height=5 )
 
         start_H = (2, 2)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
@@ -1955,11 +1955,31 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_35_entrancement_init(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene( 'scn_cot_35_entrancement_init', bt, width=9, height=9 )
+
+        start_h = (1, 3)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_H = (6, 4)
+        end_H = (2, 2)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        # H -->
+        coords_H_ = GS.gen_steps( start=start_H, rels=[ (-2, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_H_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_arrow( *( end_H + start_h ), mark_type=MarkType.Illegal )
+
+        return scene
+
     def scn_cot_34_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_34_trance_journey_init', bt, width=9, height=12)
+        scene = Scene( 'scn_cot_34_trance_journey_init', bt, width=5, height=5 )
 
-        start_H1 = (4, 9)
+        start_H1 = (2, 2)
         scene.board.set_piece(*start_H1, piece=PieceType.Shaman)
         scene.append_text("1", *start_H1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
 
