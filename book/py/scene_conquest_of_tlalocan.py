@@ -1975,6 +1975,20 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_36_entrancement_step(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene( 'scn_cot_36_entrancement_step', bt, width=9, height=9 )
+
+        start_h = (1, 3)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_H = (2, 2)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        scene.append_arrow( *( start_H + start_h ), mark_type=MarkType.Action )
+
+        return scene
+
     def scn_cot_34_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene( 'scn_cot_34_trance_journey_init', bt, width=5, height=5 )
