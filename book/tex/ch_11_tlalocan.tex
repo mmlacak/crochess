@@ -803,7 +803,7 @@ Colors of Shamans do not need to match.
 Trance-fields are all fields immediately neighboring Shaman horizontally,
 vertically, and diagonally. They are the same fields as step-fields of a King.
 
-\vspace*{2.1\baselineskip}
+\vspace*{2.3\baselineskip}
 
 \subsection*{Entrancement}
 \addcontentsline{toc}{subsection}{Entrancement}
@@ -811,29 +811,48 @@ vertically, and diagonally. They are the same fields as step-fields of a King.
 
 \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_41_entrancement_init.png}
 \vspace*{-0.4\baselineskip}
 \caption{Entrancement preparation}
 \label{fig:scn_cot_41_entrancement_init}
 \end{wrapfigure}
-. . .
+In a single ply, Shaman can travel over only one of step-, capture- or trance-fields;
+choice can be made only on the very first step, and cannot be changed for the duration
+of the ply. \newline
+\indent
+Here, light Shaman can be moved onto field T, so that its trance-field is occupied by
+dark Shaman. It's illegal to change course during the ply, so light Shaman cannot
+entrance dark Shaman outright.
 
-... started by stationary Shaman activating another Shaman ...
+% Here, after moving onto field T, light Shaman cannot entrance dark Shaman outright.
+
+% ... started by stationary Shaman activating another Shaman ...
+
+% In a single ply, Shaman can travel over only one of step-, capture- or trance-fields;
+% choice can be made only on the very first step, and cannot be changed for the duration
+% of the ply. As a result, only stationary Shaman can entrance (or start capturing
+% opponent's pieces). \newline
+% \indent
+% Here, light Shaman can be moved onto field T, so that its trance-field is occupied by
+% dark Shaman. It's illegal to change course during the ply, so light Shaman cannot
+% entrance dark Shaman outright.
 
 \clearpage % ..........................................................
 
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_42_entrancement_step.png}
 \caption{Entrancement step}
 \label{fig:scn_cot_42_entrancement_step}
 \end{wrapfigure}
-. . .
+Similarly to capturing, entrancement is a two-ply operation. In the first ply Shaman
+has to be positioned so that its trance-field is occupied by other Shaman. In the
+second ply, Shaman can actually entrance the other one.
 
-\vspace*{10.1\baselineskip}
+\vspace*{6.1\baselineskip}
 
 \noindent
 \begin{wrapfigure}[1]{l}{0.4\textwidth}

@@ -1973,6 +1973,8 @@ class SceneConquestOfTlalocanMixin:
 
         scene.append_arrow( *( end_H + start_h ), mark_type=MarkType.Illegal )
 
+        scene.append_text( "T", *end_H, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Illegal )
+
         return scene
 
     def scn_cot_42_entrancement_step(self, bt=BoardType.ConquestOfTlalocan):
@@ -2020,7 +2022,7 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_44_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_44_trance_journey_init', bt, width=5, height=5 )
+        scene = Scene( 'scn_cot_44_trance_journey_init', bt, width=9, height=12 )
 
         start_H1 = (2, 2)
         scene.board.set_piece(*start_H1, piece=PieceType.Shaman)
