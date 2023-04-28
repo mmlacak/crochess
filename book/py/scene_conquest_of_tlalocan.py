@@ -2024,48 +2024,74 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_44_trance_journey_init(self, bt=BoardType.ConquestOfTlalocan):
+    #
+    # Entrancement cascade
 
-        scene = Scene( 'scn_cot_44_trance_journey_init', bt, width=9, height=12 )
+    def scn_cot_44_entrancement_repositioning(self, bt=BoardType.ConquestOfTlalocan):
 
-        start_H1 = (2, 2)
-        scene.board.set_piece(*start_H1, piece=PieceType.Shaman)
-        scene.append_text("1", *start_H1, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+        scene = Scene( 'scn_cot_44_entrancement_repositioning', bt, width=9, height=12)
 
-        start_W2 = (2, 5)
-        scene.board.set_piece(*start_W2, piece=PieceType.Wave)
+        start_B = (2, 10)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_H2 = (6, 3)
-        scene.board.set_piece(*start_H2, piece=PieceType.Shaman)
-        scene.append_text("2", *start_H2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+        start_W_1 = (7, 5)
+        scene.board.set_piece( *start_W_1, piece=PieceType.Wave )
 
-        start_W3 = (4, 7)
-        scene.board.set_piece(*start_W3, piece=PieceType.Wave)
+        start_H = (6, 4)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_w1 = (6, 6)
-        scene.board.set_piece(*start_w1, piece=-PieceType.Wave)
+        start_W_2 = (2, 2)
+        scene.board.set_piece( *start_W_2, piece=PieceType.Wave )
 
-        start_h1 = (7, 8)
-        scene.board.set_piece(*start_h1, piece=-PieceType.Shaman)
-        scene.append_text("3", *start_h1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+        start_R = (4, 6)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_H1, rels=[(-1, -2), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        start_W_3 = (2, 6)
+        scene.board.set_piece( *start_W_3, piece=PieceType.Wave )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_W2, rels=[(2, -1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        start_h = (1, 3)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_H2, rels=[(-1, 2), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        # B --> W(1)
+        coords_B_W1 = GS.gen_steps( start=start_B, rels=[ (1, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_B_W1() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_W3, rels=[(2, -1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        # W(1) --> H
+        scene.append_arrow( *( start_W_1 + start_H ), mark_type=MarkType.Action )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_w1, rels=[(1, 2), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        # H --> W(2)
+        coords_H_W2 = GS.gen_steps( start=start_H, rels=[ (-2, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_H_W2() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(2) --> R
+        coords_W2_R = GS.gen_steps( start=start_W_2, rels=[ (1, 2), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_W2_R() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # R --> W(3)
+        coords_R_W3 = GS.gen_steps( start=start_R, rels=[ (-1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_R_W3() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "1", *start_W_1, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "2", *start_W_2, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "3", *start_W_3, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_cot_45_entrancement_cascade(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene( 'scn_cot_45_entrancement_cascade', bt, width=9, height=12)
 
         return scene
 
