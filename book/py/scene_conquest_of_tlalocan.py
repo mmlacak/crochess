@@ -2093,6 +2093,72 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene( 'scn_cot_45_entrancement_cascade', bt, width=9, height=12)
 
+        prev_B = (2, 10)
+        prev_W_1 = (7, 5)
+        prev_H = (6, 4)
+        prev_W_2 = (2, 2)
+        prev_R = (4, 6)
+        prev_W_3 = (2, 6)
+        prev_h = (1, 3)
+
+        start_B = prev_W_1
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_1 = prev_H
+        scene.board.set_piece( *start_W_1, piece=PieceType.Wave )
+
+        start_H = prev_W_2
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_W_2 = prev_R
+        scene.board.set_piece( *start_W_2, piece=PieceType.Wave )
+
+        start_R = prev_W_3
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W_3 = prev_W_3
+        # scene.board.set_piece( *start_W_3, piece=PieceType.Wave )
+
+        start_h = prev_h
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        # B --> W(1)
+        coords_B_W1 = GS.gen_steps( end=start_B, rels=[ (1, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_B_W1() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(1) --> H
+        scene.append_arrow( *( prev_W_1 + prev_H ), mark_type=MarkType.Blocked )
+
+        # H --> W(2)
+        coords_H_W2 = GS.gen_steps( end=start_H, rels=[ (-2, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_H_W2() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(2) --> R
+        coords_W2_R = GS.gen_steps( end=start_W_2, rels=[ (1, 2), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_W2_R() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # R --> W(3)
+        coords_R_W3 = GS.gen_steps( end=start_R, rels=[ (-1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_R_W3() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        scene.append_text( "1", *start_W_1, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "2", *start_W_2, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+        # scene.append_text( "3", *start_W_3, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+
+        # W(3) --> H
+        coords_W3_H = GS.gen_steps( start=start_W_3, rels=[ (0, -1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_W3_H() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # H --> h
+        scene.append_arrow( *( start_H + start_h ), mark_type=MarkType.Action )
+
         return scene
 
     #

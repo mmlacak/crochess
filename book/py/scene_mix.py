@@ -38,6 +38,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_41_entrancement_init', \
                     # 'scn_cot_42_entrancement_step', \
                     # 'scn_cot_43_entrancement_activated', \
-                    'scn_cot_44_entrancement_repositioning', \
-                    # 'scn_cot_45_entrancement_cascade', \
+                    # 'scn_cot_44_entrancement_repositioning', \
+                    'scn_cot_45_entrancement_cascade', \
                 ]
