@@ -1989,6 +1989,8 @@ class SceneConquestOfTlalocanMixin:
 
         scene.append_arrow( *( start_H + start_h ), mark_type=MarkType.Action )
 
+        scene.append_text( "T", *start_H, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+
         return scene
 
     def scn_cot_43_entrancement_activated(self, bt=BoardType.ConquestOfTlalocan):
@@ -2017,6 +2019,8 @@ class SceneConquestOfTlalocanMixin:
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
         scene.append_arrow( *( start_H + start_h ), mark_type=MarkType.Action )
+
+        scene.append_text( "T", *start_H, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
 
         return scene
 
