@@ -2164,9 +2164,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Movement
 
-    def scn_cot_45_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_46_knight_directions(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_45_knight_directions', bt, width=9, height=12)
+        scene = Scene('scn_cot_46_knight_directions', bt, width=9, height=12)
 
         scene.append_text("S", 6, 6, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
 
@@ -2212,9 +2212,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_46_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_47_stop_sign_pattern(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_46_stop_sign_pattern', bt, width=9, height=12)
+        scene = Scene('scn_cot_47_stop_sign_pattern', bt, width=9, height=12)
 
         start = (6, 6)
         scene.append_text("S", *start, corner=Corner.LowerLeft, mark_type=MarkType.Illegal)
