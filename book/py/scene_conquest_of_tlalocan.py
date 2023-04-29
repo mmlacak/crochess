@@ -3234,73 +3234,77 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_71_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
+    # TODO :: DELETE
+    #
+    # def scn_cot_71_push_pull_entrancement_start(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_71_push_pull_entrancement_start', bt, width=5, height=8)
+    #     scene = Scene('scn_cot_71_push_pull_entrancement_start', bt, width=5, height=8)
 
-        startW1 = (3, 5)
-        scene.board.set_piece(*startW1, piece=PieceType.Wave)
-        scene.append_text("1", *startW1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+    #     startW1 = (3, 5)
+    #     scene.board.set_piece(*startW1, piece=PieceType.Wave)
+    #     scene.append_text("1", *startW1, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        startW2 = (1, 6)
-        scene.board.set_piece(*startW2, piece=PieceType.Wave)
-        scene.append_text("2", *startW2, corner=Corner.UpperRight, mark_type=MarkType.Action)
+    #     startW2 = (1, 6)
+    #     scene.board.set_piece(*startW2, piece=PieceType.Wave)
+    #     scene.append_text("2", *startW2, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        startH = (1, 1)
-        scene.board.set_piece(*startH, piece=PieceType.Shaman)
-        scene.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+    #     startH = (1, 1)
+    #     scene.board.set_piece(*startH, piece=PieceType.Shaman)
+    #     scene.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action)
 
-        scene.append_arrow( *(startW1 + startW2), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *(startW1 + startW2), mark_type=MarkType.Legal )
 
-        coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=startH, include_prev=True) )
-        for i in range(2):
-            scene.append_arrow( *coords(), mark_type=MarkType.Legal )
+    #     coords = GS.gen_next( GS.gen_steps([(1, 2), ], start=startH, include_prev=True) )
+    #     for i in range(2):
+    #         scene.append_arrow( *coords(), mark_type=MarkType.Legal )
 
-        return scene
+    #     return scene
 
-    def scn_cot_73_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_73_push_pull_entrancement_2(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_73_push_pull_entrancement_2', bt, width=5, height=8)
+    #     scene = Scene('scn_cot_73_push_pull_entrancement_2', bt, width=5, height=8)
 
-        startW1 = (1, 6)
-        scene.board.set_piece(*startW1, piece=PieceType.Wave)
-        scene.append_text("1", *startW1, corner=Corner.UpperRight, mark_type=MarkType.Action)
+    #     startW1 = (1, 6)
+    #     scene.board.set_piece(*startW1, piece=PieceType.Wave)
+    #     scene.append_text("1", *startW1, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        startH = (3, 5)
-        scene.board.set_piece(*startH, piece=PieceType.Shaman)
-        scene.append_text("H", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action)
+    #     startH = (3, 5)
+    #     scene.board.set_piece(*startH, piece=PieceType.Shaman)
+    #     scene.append_text("H", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        scene.append_arrow( *(startW1 + startH), mark_type=MarkType.Action )
+    #     scene.append_arrow( *(startW1 + startH), mark_type=MarkType.Action )
 
-        return scene
+    #     return scene
 
-    def scn_cot_74_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_74_push_pull_entrancement_end(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_74_push_pull_entrancement_end', bt)
+    #     scene = Scene('scn_cot_74_push_pull_entrancement_end', bt)
 
-        startW1 = (1, 6)
-        scene.board.set_piece(*startW1, piece=PieceType.Wave)
-        scene.append_text("1", *startW1, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+    #     startW1 = (1, 6)
+    #     scene.board.set_piece(*startW1, piece=PieceType.Wave)
+    #     scene.append_text("1", *startW1, corner=Corner.UpperLeft, mark_type=MarkType.Action)
 
-        startW2 = (3, 5)
-        scene.board.set_piece(*startW2, piece=PieceType.Wave)
-        scene.append_text("2", *startW2, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+    #     startW2 = (3, 5)
+    #     scene.board.set_piece(*startW2, piece=PieceType.Wave)
+    #     scene.append_text("2", *startW2, corner=Corner.UpperLeft, mark_type=MarkType.Action)
 
-        startH = (5, 16)
-        scene.board.set_piece(*startH, piece=PieceType.Shaman)
-        scene.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action)
+    #     startH = (5, 16)
+    #     scene.board.set_piece(*startH, piece=PieceType.Shaman)
+    #     scene.append_text("H", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action)
 
-        #
-        # right arm
+    #     #
+    #     # right arm
 
-        rel = (2, 1)
-        aba = self.append_broken_arrow(scene, startW2, rel, count=24)
+    #     rel = (2, 1)
+    #     aba = self.append_broken_arrow(scene, startW2, rel, count=24)
 
-        for i in range(16):
-            mark_type = MarkType.Blocked if i < 6 else MarkType.Legal
-            aba(str(i + 1), mark_type=mark_type)
+    #     for i in range(16):
+    #         mark_type = MarkType.Blocked if i < 6 else MarkType.Legal
+    #         aba(str(i + 1), mark_type=mark_type)
 
-        return scene
+    #     return scene
+    #
+    # TODO :: DELETE
 
     def place_scout_pawns_around_pieces(self, scene, piece_type):
 
