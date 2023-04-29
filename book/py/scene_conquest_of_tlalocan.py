@@ -2917,7 +2917,7 @@ class SceneConquestOfTlalocanMixin:
 
         start = (4, 11)
         scene.board.set_piece(*start, piece=-PieceType.Shaman)
-        scene.append_text("T", *start, corner=Corner.LowerRight, mark_type=MarkType.Action)
+        scene.append_text("T", *start, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
         startT = (0, 23)
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -2943,19 +2943,11 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(7, 17, piece=PieceType.Pawn)
         scene.board.set_piece(8, 17, piece=PieceType.Pawn)
 
-        startW2 = (2, 12)
-        scene.board.set_piece(*startW2, piece=-PieceType.Wave)
-
-        startW1 = (3, 14)
-        scene.board.set_piece(*startW1, piece=PieceType.Wave)
-
-        startH = (5, 15)
+        startH = (3, 12)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action)
 
-        scene.append_arrow( *(startH + startW1), mark_type=MarkType.Action )
-        scene.append_arrow( *(startW1 + startW2), mark_type=MarkType.Action )
-        scene.append_arrow( *(startW2 + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(startH + start), mark_type=MarkType.Action )
 
         #
         # up arm
@@ -2973,15 +2965,11 @@ class SceneConquestOfTlalocanMixin:
         aba = self.append_broken_arrow( scene, start, rel, outward_arrows=False, count=24, is_with_field_marker=False, rect=rect )
 
         for i in range(12):
-            aba(str(12 - i), mark_type=MarkType.Legal)
+            mark_type = MarkType.Illegal if i in [ 5, 7 ] else \
+                        MarkType.Legal
 
-        scene.replace_arrow( *(startP + (8.5, 23.5)), mark_type=MarkType.Illegal, end_pointer=False )
-        scene.replace_arrow( *((8.5, 23.5) + startT), mark_type=MarkType.Illegal )
-
-        scene.replace_arrow( *((-0.5, 3.5) + startK), mark_type=MarkType.Illegal )
-
-        scene.replace_text("6", *startT, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
-        scene.replace_text("8", *startK, corner=Corner.LowerRight, mark_type=MarkType.Illegal)
+            # TODO :: fix text color
+            aba(str(12 - i), mark_type=mark_type)
 
         return scene
 
@@ -3016,15 +3004,9 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(7, 17, piece=PieceType.Pawn)
         scene.board.set_piece(8, 17, piece=PieceType.Pawn)
 
-        startW2 = start
-        scene.board.set_piece(*startW2, piece=-PieceType.Wave)
-
-        startW1 = (2, 12)
-        scene.board.set_piece(*startW1, piece=PieceType.Wave)
-
-        startH = (3, 14)
+        startH = start
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
-        scene.append_text("S", *startH, corner=Corner.UpperRight, mark_type=MarkType.Action)
+        scene.append_text("S", *startH, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action)
 
         #
         # up arm
