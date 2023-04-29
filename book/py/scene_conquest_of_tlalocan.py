@@ -3054,15 +3054,11 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*start, piece=PieceType.Shaman)
         scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperLeft)
 
-        start_W = (14, 10)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        startH = (16, 9)
+        startH = (14, 11)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
-        scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperRight)
+        scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperLeft)
 
-        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(startH + start), mark_type=MarkType.Action )
 
         #
         # right arm
@@ -3098,9 +3094,8 @@ class SceneConquestOfTlalocanMixin:
         scene.append_text("T", *startH2, corner=Corner.UpperLeft, mark_type=MarkType.Action)
 
         start = (15, 12)
-        scene.board.set_piece(*start, piece=PieceType.Wave)
 
-        startH = (14, 10)
+        startH = start
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, corner=Corner.UpperLeft, mark_type=MarkType.Action)
 
