@@ -3125,15 +3125,11 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*start, piece=PieceType.Shaman)
         scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        start_W = (19, 5)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        startH = (21, 4)
+        startH = (19, 8)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(startH + start), mark_type=MarkType.Action )
 
         #
         # right arm
@@ -3168,10 +3164,7 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*start, piece=PieceType.Shaman)
         scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        start_W = (20, 7)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        startH = (19, 5)
+        startH = (20, 7)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
@@ -3179,7 +3172,7 @@ class SceneConquestOfTlalocanMixin:
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow( scene, start_W, rel, count=24, is_with_field_marker=True )
+        aba = self.append_broken_arrow( scene, startH, rel, count=24, is_with_field_marker=True )
 
         for i in range(16):
             mark_type = MarkType.Blocked if i < 3 else MarkType.Legal
@@ -3209,18 +3202,15 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*start, piece=PieceType.Shaman)
         scene.append_text("T", *start, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
-        start_W = (20, 7)
-        # scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        startH = (19, 5)
-        # scene.board.set_piece(*startH, piece=PieceType.Shaman)
-        # scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
+        startH = (20, 7)
+        scene.board.set_piece(*startH, piece=PieceType.Shaman)
+        scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperRightFieldMarker)
 
         #
         # right arm
 
         rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start_W, rel, count=24, is_with_field_marker=True)
+        aba = self.append_broken_arrow(scene, startH, rel, count=24, is_with_field_marker=True)
 
         for i in range(16):
             mark_type = MarkType.Blocked if i < 7 else MarkType.Legal

@@ -50,6 +50,9 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_63_dark_dark_shaman_double_interaction_end', \
                     # 'scn_cot_64_light_dark_shaman_interaction_start', \
                     # 'scn_cot_65_light_dark_shaman_interaction_end', \
-                    'scn_cot_66_backward_displacement_start', \
-                    'scn_cot_67_backward_displacement_end', \
+                    # 'scn_cot_66_backward_displacement_start', \
+                    # 'scn_cot_67_backward_displacement_end', \
+                    'scn_cot_68_forward_displacement_start', \
+                    'scn_cot_69_forward_displacement_step_2', \
+                    'scn_cot_70_forward_displacement_end', \
                 ]
