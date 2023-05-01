@@ -194,9 +194,10 @@ class SceneOneMixin:
         start_I = (2, 2)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
-        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
-        for index, coords in enumerate( gen() ):
-            scene.append_text( str(index + 1), *coords, mark_type=MarkType.Legal )
+        rect_I = (0.35, 0.5, 0.65, 0.1)
+        coords_I_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, include_prev=False, count=1 )
+        for i, pos in enumerate( coords_I_() ):
+            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_I )
 
         return scene
 
@@ -736,11 +737,6 @@ class SceneOneMixin:
         scene.append_text("B", *start_T_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight)
 
         return scene
-
-
-
-
-
 
     #
     # Trance-journey
