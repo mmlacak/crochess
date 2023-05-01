@@ -34,25 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_cot_40_trance_fields', \
-                    # 'scn_cot_41_entrancement_init', \
-                    # 'scn_cot_42_entrancement_step', \
-                    # 'scn_cot_43_entrancement_activated', \
-                    # 'scn_cot_44_entrancement_repositioning', \
-                    # 'scn_cot_45_entrancement_cascade', \
-                    # 'scn_cot_56_light_light_shaman_interaction_start', \
-                    # 'scn_cot_57_light_light_shaman_interaction_end', \
-                    # 'scn_cot_58_dark_light_shaman_interaction_start', \
-                    # 'scn_cot_59_dark_light_shaman_interaction_end', \
-                    # 'scn_cot_60_dark_dark_shaman_interaction_start', \
-                    # 'scn_cot_61_dark_dark_shaman_interaction_end', \
-                    # 'scn_cot_62_dark_dark_shaman_double_interaction_start', \
-                    # 'scn_cot_63_dark_dark_shaman_double_interaction_end', \
-                    # 'scn_cot_64_light_dark_shaman_interaction_start', \
-                    # 'scn_cot_65_light_dark_shaman_interaction_end', \
-                    # 'scn_cot_66_backward_displacement_start', \
-                    # 'scn_cot_67_backward_displacement_end', \
-                    'scn_cot_68_forward_displacement_start', \
-                    'scn_cot_69_forward_displacement_step_2', \
-                    'scn_cot_70_forward_displacement_end', \
+                    'scn_d_08_monolith_shaman_interaction', \
                 ]

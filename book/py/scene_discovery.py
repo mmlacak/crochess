@@ -395,15 +395,16 @@ class SceneDiscoveryMixin:
         scene.board.set_piece(4, 17, piece=PieceType.Monolith)
         scene.board.set_piece(18, 9, piece=-PieceType.Knight)
 
-        start_W = (3, 10)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        # start_W = (3, 10)
+        # scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        startH = (5, 9)
+        startH = (3, 11) # (5, 9)
         scene.board.set_piece(*startH, piece=PieceType.Shaman)
         scene.append_text("S", *startH, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker)
 
-        scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
+        # scene.append_arrow( *(startH + start_W), mark_type=MarkType.Action )
+        # scene.append_arrow( *(start_W + start), mark_type=MarkType.Action )
+        scene.append_arrow( *(startH + start), mark_type=MarkType.Action )
 
         #
         # right arm
