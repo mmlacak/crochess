@@ -411,38 +411,37 @@ Trance-journey is noted with \alg{@} (at sign), instead of normal ply separator 
 if without any interactions with pieces on entranced Shaman's step-fields, would be written
 as \alg{Hd12@Hg24}. In \algfmt{XAN}, it would be \alg{[Hd12-e13]@[He13-g24]}.
 
-Displacements are written the same way Serpent displacing Pawns is written, i.e. by writing
-\alg{<} (less-than) immediately after step in which a piece is reached, followed by field
-of displacement. Optionally, displaced piece can be written before displacement-field. The
-same \hyperref[fig:scn_cot_57_light_light_shaman_interaction_end]{trance-journey example},
+Displacements are noted by writing \alg{<} (less-than) immediately after step in which a
+piece was reached, followed by field of displacement. Optionally, displaced piece can be
+written before displacement-field. The same
+\hyperref[fig:scn_cot_57_light_light_shaman_interaction_end]{trance-journey example},
 now with all interactions taken into account, would be written as
 \alg{He13@H..e18<i14..m12<j17..g24}.
 In \algfmt{XAN}, with gathered plies and displaced pieces it would be \newline
 \alg{[Hd12-e13]@[He13..e18<Ni14..m12<Pj17..g24]}.
 
-\TODO :: fix
-
 Captures are noted by writing \alg{*} (asterisk) immediately after step in which a piece
 is reached, optionally followed by a captured piece. This
 \hyperref[fig:scn_cot_59_dark_light_shaman_interaction_end]{trance-journey example with captures}
 would be written as \newline
-\alg{Hf12\~{}Wd9\~{}We13@H..e18*..m12*..g24}. In \algfmt{XAN}, with gathered plies and
+\alg{He13@H..e18*..m12*..g24}. In \algfmt{XAN}, with gathered plies and
 captured pieces it would be \newline
-\alg{[Hi10-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@} \newline
-\alg{[He13..e18*N..m12*P..g24]}.
-% \alg{[Hi10-f12]\~{}[Wf12-d9]\~{}[Wd9-e13]@[He13..e18*N..m12*P..g24]}.
+\alg{[Hf12-e13]@[He13..e18*N..m12*P..g24]}.
 
-One peculiarity of dark Shaman's trance-journey is that it starts from the far end of a
-pattern inward, towards initial position of entranced Shaman. Still, dark Shaman's
-trance-journey is noted similar to light's one. For instance,
-\hyperref[fig:scn_cot_60_dark_dark_shaman_interaction_start]{this dark Shaman's trance-journey}
+\TODO :: fix
+
+One peculiarity of dark Shaman's trance-journey is that it starts from the far end
+of a pattern inward, towards its initial position. Still, dark Shaman's trance-journey
+is noted similar to light's one. For instance, this
+\hyperref[fig:scn_cot_60_dark_dark_shaman_interaction_start]{dark Shaman's trance-journey}
 would be written as \alg{Hb14\~{}We12@H..q16*..k14*..c18}.
-There is no step between Shaman's initial position and trance-journey starting field,
-\alg{,} (comma) is used to separate them, like so \alg{Hb14\~{}We12@He12,w18..q16*..k14*..c18}.
+There is no step between Shaman's initial position and distant starting field of
+trance-journey, \alg{,} (comma) is used to separate them, like so
+\alg{Hb14\~{}We12@He12,w18..q16*..k14*..c18}.
 If initial position is omitted, separator (i.e. comma) is still written, like so
-\alg{Hb14\~{}We12@H,w18..q16*..k14*..c18}. Now, in \algfmt{XAN} with gathered plies and noted
-captured pieces it would look like so\\
-\alg{[He16-b14]\~{}[Wb14-e12]@}\\
+\alg{Hb14\~{}We12@H,w18..q16*..k14*..c18}. Now, in \algfmt{XAN} with gathered plies
+and noted captured pieces it would look like so \newline
+\alg{[He16-b14]\~{}[Wb14-e12]@} \newline
 \alg{[He12,w18..q16*P..k14*N..c18]}.
 % \alg{[He16-b14]\~{}[Wb14-e12]@[He12,w18..q16*P..k14*N..c18]}.
 
@@ -453,9 +452,9 @@ captured pieces in a list is not important. This example of
 \hyperref[fig:scn_cot_62_dark_dark_shaman_double_interaction_start]{dark Shaman's dual trance-journey}
 is written just as \alg{Hb14\~{}We12@@} or, with captured pieces, as
 \alg{Hb14\~{}We12@@P,B,R,R,N,B,N}. In \algfmt{XAN}, with gathered plies and capturing
-locations noted, it would be written as \\
-\alg{[He16-b14]\~{}[Wb14-e12]@@}\\
-\alg{Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.\\
+locations noted, it would be written as \newline
+\alg{[He16-b14]\~{}[Wb14-e12]@@} \newline
+\alg{Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}. \newline
 % \alg{[H-b14]\~{}[W-e12]@@Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
 Note, sacrificed entranced dark Shaman is \emph{not} to be written in a list of captured
 pieces.
