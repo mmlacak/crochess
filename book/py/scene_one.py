@@ -862,25 +862,13 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_29_trance_journey_failed', bt)
 
-        start_H = (20, 1)
-        adder = GS.adder(start_H)
+        start_H = (24, 1)
         scene.board.set_piece(*start_H, piece=PieceType.Shaman)
 
-        start_W = adder(3, 2)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        # start_H_2 = (25, 0)
-        start_H_2 = adder(2, -3)
+        start_H_2 = (25, 0)
         scene.board.set_piece(*start_H_2, piece=PieceType.Shaman)
 
-        scene.append_arrow( *(start_H + start_W), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_W + start_H_2), mark_type=MarkType.Action )
-
-        #
-        # blocking step-fields
-
-        scene.board.set_piece(23, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(24, 2, piece=PieceType.Pawn)
+        scene.append_arrow( *(start_H + start_H_2), mark_type=MarkType.Action )
 
         #
         # blocking step-fields in a trance-journey
@@ -903,7 +891,7 @@ class SceneOneMixin:
         aba = self.append_broken_arrow(scene, start_H_2, rel, count=32, is_with_field_marker=True)
 
         for i in range(32):
-            aba(str(i + 1), mark_type=MarkType.Blocked) # Legal)
+            aba(str(i + 1), mark_type=MarkType.Blocked)
 
         #
         # left arm
@@ -912,7 +900,7 @@ class SceneOneMixin:
         aba = self.append_broken_arrow(scene, start_H_2, rel, count=32, is_with_field_marker=True)
 
         for i in range(32):
-            aba(str(i + 1), mark_type=MarkType.Blocked) # Action)
+            aba(str(i + 1), mark_type=MarkType.Blocked)
 
         return scene
 
