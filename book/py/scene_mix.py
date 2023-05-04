@@ -34,6 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_d_25_syzygy_reentering_same_move', \
+                    'scn_d_26_syzygy_reentering_independent', \
                     # 'scn_d_08_monolith_shaman_interaction', \
                 ]

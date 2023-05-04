@@ -1325,9 +1325,9 @@ class SceneDiscoveryMixin:
             scene.append_arrow( *pos, mark_type=MarkType.Blocked, start_pointer=False, end_pointer=False )
 
         adder = GS.adder( start_M, include_prev=True )
-        scene.append_arrow( *adder(-1, 2), mark_type=MarkType.Action )
-        scene.append_arrow( *adder(-1, -2), mark_type=MarkType.Action )
-        scene.append_arrow( *adder(-2, -1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder(-2, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder(-1, 4), mark_type=MarkType.Action )
+        scene.append_arrow( *adder(-5, -2), mark_type=MarkType.Action )
 
         return scene
 
