@@ -668,19 +668,18 @@ Pawn on the left is being activated, and can capture dark Knight. This would be 
 \addcontentsline{toc}{subsection}{Default pathing}
 \label{sec:Appendix/Notation/Default pathing}
 
-\TODO :: fix according to Serpent's example
-
 In Classical Chess, all pieces have exactly one path from starting field to destination,
 so to specify unique path only destination is needed when writing movement of a piece.
 This is no longer so for newly added pieces. For instance, Serpent can have multiple paths
-leading to the same destination, those can overlap, and even have different lengths.
+leading to the same destination, even though those cannot overlap, they can still have
+different lengths.
 
 In \hyperref[fig:scn_tr_05_serpent_end]{this Serpent's movement example}, assuming that
 starting position is \alg{c3}, and destination \alg{g3}, depicted complete path is
 \alg{Sc3.d4.c5.d6.e5.f6.g5.f4.g3}. Even with as few steps as possible, to have unique path
 it would still need to be written as \alg{S..d6..f6..g3}.
 
-However, one of the shortest paths (here, e.g. \\
+However, one of the shortest paths (here, e.g. \newline
 \alg{Sc3.d4.e3.f4.g3}) would result in exactly the same outcome, namely Serpent moved from
 \alg{c3} onto \alg{g3}, with no additional interactions taking place. Even with additional
 side-effects, most of the time it does not matter if a piece made long or short path to e.g.
@@ -689,7 +688,7 @@ capture opponent's piece.
 The only time when length of a path is important is in a cascade, when momentum is build-up
 by first piece, and spent by others. For instance, in a
 \hyperref[fig:scn_tr_12_serpent_path_short]{Serpent activating Pyramid example}, depending on
-a path taken by Serpent, Pyramid might get 4 or 8 momentum when activated.
+a path taken by Serpent, Pyramid might get 4, 8 or 12 momentum when activated.
 
 Even so, exact path taken by a piece is not important, only amount of a momentum gathered,
 and spent. To correctly support movement of pieces in a cascade, momentum built by first
@@ -701,9 +700,11 @@ path available.
 First example here can then be written as \alg{Sg3}, this would be taken as if
 \alg{Sc3.d4.e3.f4.g3} is written, i.e. light Serpent would be taking the shortest path
 available. Next example would be written as \alg{Sc7\~{}Ad7}, if Pyramid moved 1 field
-to the right; movement is assumed to be \alg{[Sc3.d4.c5.d6.e5.d4.c5.d6.c7]\~{}[Ac7-d7]},
-that is, light Serpent would take the longest path available, since it's the first piece
-in a cascade.
+to the right; movement is assumed to be \newline
+% \alg{[Sc3.d2.e3.f2.g3.f4.g5.f6.e5.d6.c5.b6.c7]\~{}[Ac7-d7]},
+\alg{[Sc3.d2.e3.f2.g3.f4.g5.f6.e5.d6.c5.b6.c7]} \newline
+\alg{\~{}[Ac7-d7]}, that is, light Serpent would take the longest path available,
+since it's the first piece in a cascade.
 
 \subsection*{Move symbols, annotations}
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
