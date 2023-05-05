@@ -739,128 +739,11 @@ class SceneOneMixin:
         return scene
 
     #
-    # Trance-journey
-
-    def scn_o_22_light_starchild_init_trance_journey(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_22_light_starchild_init_trance_journey', bt)
-
-        start_B = (7, 7)
-        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
-
-        start_I = (6, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_I_2 = (1, 4)
-        scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
-
-        # light Starchild --> light Starchild
-        scene.append_arrow( *(start_I_2 + start_I), mark_type=MarkType.Action )
-
-        # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_B), mark_type=MarkType.Legal )
-
-        return scene
-
-    def scn_o_23_dark_starchild_init_trance_journey(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_23_dark_starchild_init_trance_journey', bt)
-
-        start_b = (7, 7)
-        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
-
-        start_I = (6, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_i = (7, 5)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        # dark Starchild --> light Starchild
-        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
-
-        # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
-
-        return scene
-
-    def scn_o_24_shaman_init_trance_journey(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_24_shaman_init_trance_journey', bt)
-
-        start_B = (7, 7)
-        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
-
-        start_I = (6, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_W = (4, 3)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (1, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_h = (2, 1)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
-
-        # dark Shaman --> dark Wave --> light Wave --> light Shaman
-        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_w + start_W), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
-
-        # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_B), mark_type=MarkType.Legal )
-
-        return scene
-
-    def scn_o_25_trance_journey_started_by_shaman(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_25_trance_journey_started_by_shaman', bt)
-
-        start_b = (7, 7)
-        end_b = (9, 18)
-        scene.board.set_piece(*end_b, piece=-PieceType.Bishop)
-
-        start_I = (7, 7)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        # start_i = (7, 5)
-        # scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
-
-        start_W = (6, 6)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-        start_w = (4, 3)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_h = (1, 5)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
-
-        #
-        # right arm
-
-        rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start_b, rel, count=24, is_with_field_marker=True)
-
-        for i in range(16):
-            aba(str(i + 1), mark_type=MarkType.Legal)
-
-        #
-        # left arm
-
-        rel = (-2, -1)
-        aba = self.append_broken_arrow(scene, start_b, rel, count=24, is_with_field_marker=True)
-
-        for i in range(16):
-            aba(str(i + 1), mark_type=MarkType.Action)
-
-        return scene
-
-    #
     # Failed trance-journey
 
-    def scn_o_29_trance_journey_failed(self, bt=BoardType.One):
+    def scn_o_22_trance_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_29_trance_journey_failed', bt)
+        scene = Scene('scn_o_22_trance_journey_failed', bt)
 
         start_H = (24, 1)
         scene.board.set_piece(*start_H, piece=PieceType.Shaman)
@@ -903,6 +786,126 @@ class SceneOneMixin:
             aba(str(i + 1), mark_type=MarkType.Blocked)
 
         return scene
+
+    #
+    # Trance-journey
+
+    def scn_o_23_light_starchild_init_trance_journey(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_23_light_starchild_init_trance_journey', bt)
+
+        start_B = (7, 7)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+
+        start_I = (6, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_I_2 = (1, 4)
+        scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
+
+        # light Starchild --> light Starchild
+        scene.append_arrow( *(start_I_2 + start_I), mark_type=MarkType.Action )
+
+        # light Starchild --> dark Bishop
+        scene.append_arrow( *(start_I + start_B), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_24_dark_starchild_init_trance_journey(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_24_dark_starchild_init_trance_journey', bt)
+
+        start_b = (7, 7)
+        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+
+        start_I = (6, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_i = (7, 5)
+        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        # dark Starchild --> light Starchild
+        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
+
+        # light Starchild --> dark Bishop
+        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_25_shaman_init_trance_journey(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_25_shaman_init_trance_journey', bt)
+
+        start_B = (7, 7)
+        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+
+        start_I = (6, 6)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_W = (4, 3)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (1, 5)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_h = (2, 1)
+        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+
+        # dark Shaman --> dark Wave --> light Wave --> light Shaman
+        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_w + start_W), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
+
+        # light Starchild --> dark Bishop
+        scene.append_arrow( *(start_I + start_B), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_26_trance_journey_started_by_shaman(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_26_trance_journey_started_by_shaman', bt)
+
+        start_b = (7, 7)
+        end_b = (9, 18)
+        scene.board.set_piece(*end_b, piece=-PieceType.Bishop)
+
+        start_I = (7, 7)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        # start_i = (7, 5)
+        # scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+
+        start_W = (6, 6)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_w = (4, 3)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_h = (1, 5)
+        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+
+        #
+        # right arm
+
+        rel = (2, 1)
+        aba = self.append_broken_arrow(scene, start_b, rel, count=24, is_with_field_marker=True)
+
+        for i in range(16):
+            aba(str(i + 1), mark_type=MarkType.Legal)
+
+        #
+        # left arm
+
+        rel = (-2, -1)
+        aba = self.append_broken_arrow(scene, start_b, rel, count=24, is_with_field_marker=True)
+
+        for i in range(16):
+            aba(str(i + 1), mark_type=MarkType.Action)
+
+        return scene
+
+    #
+    # Failed sense-journey
 
     def scn_o_30_trance_journey_failed_2(self, bt=BoardType.One):
 
