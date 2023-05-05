@@ -790,6 +790,20 @@ class SceneOneMixin:
     #
     # Sense-journey
 
+    def scn_o_23_uplifting_fields(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_23_uplifting_fields', bt, width=5, height=5 )
+
+        start_I = (2, 2)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        rect_I = (0.35, 0.5, 0.65, 0.1)
+        coords_I_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, include_prev=False, count=1 )
+        for i, pos in enumerate( coords_I_() ):
+            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_I )
+
+        return scene
+
     def scn_o_23_light_starchild_init_trance_journey(self, bt=BoardType.One):
 
         scene = Scene('scn_o_23_light_starchild_init_trance_journey', bt)
