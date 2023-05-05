@@ -788,7 +788,7 @@ class SceneOneMixin:
         return scene
 
     #
-    # Trance-journey
+    # Sense-journey
 
     def scn_o_23_light_starchild_init_trance_journey(self, bt=BoardType.One):
 
