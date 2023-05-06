@@ -857,7 +857,7 @@ class SceneOneMixin:
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_N = (7, 2)
+        start_N = (5, 2)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         start_W = (6, 4)
@@ -908,46 +908,61 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_28_dark_sense_journey(self, bt=BoardType.One):
+    def scn_o_28_dark_piece_sense_journey(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_28_dark_sense_journey', bt )
+        scene = Scene( 'scn_o_28_dark_piece_sense_journey', bt )
 
         start_b = (2, 4)
-        end_b = (9, 18)
-        scene.board.set_piece(*end_b, piece=-PieceType.Bishop)
+        end_b = (14, 8)
+        scene.board.set_piece( *end_b, piece=-PieceType.Bishop )
 
-        start_I = (7, 7)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        prev_N = (5, 2)
+        start_N = (6, 4)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        # start_i = (7, 5)
-        # scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+        prev_W = (6, 4)
+        start_W = (2, 2)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_W = (6, 6)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        prev_H = (2, 2)
+        start_H = (1, 3)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_w = (4, 3)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+        prev_i = (1, 3)
+        start_i = (2, 4)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
-        start_h = (1, 5)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+        # N --> W
+        scene.append_arrow( *(prev_N + prev_W), mark_type=MarkType.Blocked )
+
+        # W --> H
+        coords_W_H = GS.gen_steps( start=prev_W, rels=[ (-2, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_W_H() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # H --> i
+        scene.append_arrow( *(prev_H + prev_i), mark_type=MarkType.Blocked )
+
+        # i --> b
+        scene.append_arrow( *(prev_i + start_b), mark_type=MarkType.Blocked )
 
         #
-        # right arm
+        # up arm
 
-        rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start_b, rel, count=24, is_with_field_marker=True)
+        rel = (1, 2)
+        aba = self.append_broken_arrow(scene, start_b, rel, outward_arrows=False, count=24, is_with_field_marker=True)
 
-        for i in range(16):
-            aba(str(i + 1), mark_type=MarkType.Legal)
+        for i in range(14):
+            aba(str(14 - i), mark_type=MarkType.Legal)
 
         #
-        # left arm
+        # down arm
 
-        rel = (-2, -1)
-        aba = self.append_broken_arrow(scene, start_b, rel, count=24, is_with_field_marker=True)
+        rel = (-1, -2)
+        aba = self.append_broken_arrow(scene, start_b, rel, outward_arrows=False, count=24, is_with_field_marker=True)
 
-        for i in range(16):
-            aba(str(i + 1), mark_type=MarkType.Action)
+        for i in range(12):
+            aba(str(12 - i), mark_type=MarkType.Action)
 
         return scene
 

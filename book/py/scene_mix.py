@@ -38,6 +38,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_24_uplifting_init', \
                     # 'scn_o_25_uplifting_step', \
                     # 'scn_o_26_uplifting_activated', \
-                    'scn_o_27_shaman_initiated_uplifting', \
-                    # 'scn_o_28_dark_sense_journey', \
+                    # 'scn_o_27_shaman_initiated_uplifting', \
+                    'scn_o_28_dark_piece_sense_journey', \
                 ]
