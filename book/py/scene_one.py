@@ -818,11 +818,11 @@ class SceneOneMixin:
         start_i = (1, 3)
         scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
-        # light Starchild --> dark Starchild
+        # I --> i
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Legal )
         scene.append_arrow( *(end_I + start_i), mark_type=MarkType.Illegal )
 
-        # dark Starchild --> dark Bishop
+        # i --> b
         # scene.append_arrow( *(start_i + start_b), mark_type=MarkType.Illegal )
 
         scene.append_text( "I", *end_I, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
@@ -842,40 +842,48 @@ class SceneOneMixin:
         start_i = (1, 3)
         scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
-        # dark Starchild --> light Starchild
+        # I --> i
         scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Action )
 
-        # light Starchild --> dark Bishop
+        # i --> b
         scene.append_arrow( *(start_i + start_b), mark_type=MarkType.Legal )
 
         return scene
 
-    def scn_o_25_shaman_init_trance_journey(self, bt=BoardType.One):
+    def scn_o_26_uplifting_activated(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_25_shaman_init_trance_journey', bt)
+        scene = Scene( 'scn_o_26_uplifting_activated', bt, width=9, height=6 )
 
-        start_B = (7, 7)
-        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+        start_b = (2, 4)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_I = (6, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        start_N = (7, 2)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        start_W = (4, 3)
-        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+        start_W = (6, 4)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_w = (1, 5)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+        start_I = (2, 2)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_h = (2, 1)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+        start_i = (1, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
-        # dark Shaman --> dark Wave --> light Wave --> light Shaman
-        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_w + start_W), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
+        # N --> W
+        scene.append_arrow( *(start_N + start_W), mark_type=MarkType.Legal )
 
-        # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_B), mark_type=MarkType.Legal )
+        # W --> I
+        coords_W_I = GS.gen_steps( start=start_W, rels=[ (-2, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_W_I() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # I --> i
+        scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Legal )
+
+        # i --> b
+        scene.append_arrow( *(start_i + start_b), mark_type=MarkType.Legal )
 
         return scene
 

@@ -36,5 +36,6 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_o_23_uplifting_fields', \
                     # 'scn_o_24_uplifting_init', \
-                    'scn_o_25_uplifting_step', \
+                    # 'scn_o_25_uplifting_step', \
+                    'scn_o_26_uplifting_activated', \
                 ]
