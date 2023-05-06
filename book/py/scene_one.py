@@ -790,7 +790,7 @@ class SceneOneMixin:
     #
     # Sense-journey
 
-    def scn_o_23_uplifting_fields(self, bt=BoardType.One):
+    def scn_o_23_uplifting_fields( self, bt=BoardType.One ):
 
         scene = Scene( 'scn_o_23_uplifting_fields', bt, width=5, height=5 )
 
@@ -804,24 +804,28 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_23_light_starchild_init_trance_journey(self, bt=BoardType.One):
+    def scn_o_24_uplifting_init( self, bt=BoardType.One ):
 
-        scene = Scene('scn_o_23_light_starchild_init_trance_journey', bt)
+        scene = Scene( 'scn_o_24_uplifting_init', bt, width=9, height=6 )
 
-        start_B = (7, 7)
-        scene.board.set_piece(*start_B, piece=PieceType.Bishop)
+        start_b = (2, 4)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_I = (6, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        start_I = (6, 3)
+        end_I = (2, 2)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_I_2 = (1, 4)
-        scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
+        start_i = (1, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
-        # light Starchild --> light Starchild
-        scene.append_arrow( *(start_I_2 + start_I), mark_type=MarkType.Action )
+        # light Starchild --> dark Starchild
+        scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Legal )
+        scene.append_arrow( *(end_I + start_i), mark_type=MarkType.Illegal )
 
-        # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_B), mark_type=MarkType.Legal )
+        # dark Starchild --> dark Bishop
+        # scene.append_arrow( *(start_i + start_b), mark_type=MarkType.Illegal )
+
+        scene.append_text( "I", *end_I, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
 
         return scene
 
