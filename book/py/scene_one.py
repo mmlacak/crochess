@@ -887,11 +887,32 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_26_trance_journey_started_by_shaman(self, bt=BoardType.One):
+    def scn_o_27_shaman_initiated_uplifting(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_26_trance_journey_started_by_shaman', bt)
+        scene = Scene( 'scn_o_27_shaman_initiated_uplifting', bt, width=9, height=6 )
 
-        start_b = (7, 7)
+        start_b = (2, 4)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        start_H = (2, 2)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_i = (1, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
+
+        # I --> i
+        scene.append_arrow( *(start_H + start_i), mark_type=MarkType.Action )
+
+        # i --> b
+        scene.append_arrow( *(start_i + start_b), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_o_28_dark_sense_journey(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_28_dark_sense_journey', bt )
+
+        start_b = (2, 4)
         end_b = (9, 18)
         scene.board.set_piece(*end_b, piece=-PieceType.Bishop)
 
