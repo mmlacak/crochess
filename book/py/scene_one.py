@@ -829,24 +829,24 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_24_dark_starchild_init_trance_journey(self, bt=BoardType.One):
+    def scn_o_25_uplifting_step( self, bt=BoardType.One ):
 
-        scene = Scene('scn_o_24_dark_starchild_init_trance_journey', bt)
+        scene = Scene( 'scn_o_25_uplifting_step', bt, width=9, height=6 )
 
-        start_b = (7, 7)
-        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+        start_b = (2, 4)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_I = (6, 6)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        start_I = (2, 2)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_i = (7, 5)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+        start_i = (1, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
         # dark Starchild --> light Starchild
-        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Action )
 
         # light Starchild --> dark Bishop
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_i + start_b), mark_type=MarkType.Legal )
 
         return scene
 

@@ -35,5 +35,6 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_o_23_uplifting_fields', \
-                    'scn_o_24_uplifting_init', \
+                    # 'scn_o_24_uplifting_init', \
+                    'scn_o_25_uplifting_step', \
                 ]
