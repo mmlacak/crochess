@@ -43,7 +43,7 @@ class BoardType(int):
             raise ValueError("No such a board type, received '%s'." % (str(value), ))
 
     @staticmethod
-    def iter(include_none=False, include_even=True, include_odd=False, do_construct=True):
+    def iter(include_none=False, include_even=True, do_construct=True):
         l_even =  [ BoardType.Classical, \
                     BoardType.CroatianTies, \
                     BoardType.MayanAscendancy, \
@@ -56,23 +56,7 @@ class BoardType(int):
                     BoardType.Discovery, \
                     BoardType.One ]
 
-        # l_odd =   [ BoardType.OddClassical, \
-        #             BoardType.OddCroatianTies, \
-        #             BoardType.OddMayanAscendancy, \
-        #             BoardType.OddAgeOfAquarius, \
-        #             BoardType.OddMirandasVeil, \
-        #             BoardType.OddNineteen, \
-        #             BoardType.OddHemerasDawn, \
-        #             BoardType.OddTamoanchanRevisited, \
-        #             BoardType.OddConquestOfTlalocan, \
-        #             BoardType.OddDiscovery, \
-        #             BoardType.OddOne ]
-        l_odd = [ ]
-
         lst = [ ]
-
-        if include_odd:
-            lst.extend(l_odd)
 
         if include_even:
             lst.extend(l_even)
@@ -85,33 +69,7 @@ class BoardType(int):
 
     @staticmethod
     def _is_valid(board_type):
-        return board_type in BoardType.iter(include_none=True, include_even=True, include_odd=True, do_construct=False)
-
-
-    # def is_even(self):
-    #     return (self % 2) == 0
-
-    # def is_odd(self):
-    #     return (self % 2) != 0
-
-    # def get_even(self):
-    #     if self == BoardType.none:
-    #         return self
-    #     return self if self.is_even() else BoardType(self + 1)
-
-    # def get_odd(self):
-    #     if self == BoardType.none:
-    #         return self
-    #     return BoardType(self - 1) if self.is_even() else self
-
-    # def get_pair(self):
-    #     if self == BoardType.none:
-    #         return [ self ]
-    #     return [ self.get_odd(), self.get_even() ]
-
-    # def is_variants(self, bt):
-    #     bt = BoardType(bt)
-    #     return self in bt.get_pair()
+        return board_type in BoardType.iter(include_none=True, include_even=True, do_construct=False)
 
     def is_variant(self, bt):
         return self == BoardType(bt)
@@ -119,52 +77,30 @@ class BoardType(int):
 
     def get_name(self):
         return { BoardType.none: 'none',
-                #  BoardType.OddClassical: 'Odd Classical',
                  BoardType.Classical: 'Classical',
-                #  BoardType.OddCroatianTies: 'Odd Croatian Ties',
                  BoardType.CroatianTies: 'Croatian Ties',
-                #  BoardType.OddMayanAscendancy: 'Odd Mayan Ascendancy',
                  BoardType.MayanAscendancy: 'Mayan Ascendancy',
-                #  BoardType.OddAgeOfAquarius: 'Odd Age Of Aquarius',
                  BoardType.AgeOfAquarius: 'Age Of Aquarius',
-                #  BoardType.OddMirandasVeil: 'Odd Miranda\'s Veil',
                  BoardType.MirandasVeil: 'Miranda\'s Veil',
-                #  BoardType.OddNineteen: 'Odd Nineteen',
                  BoardType.Nineteen: 'Nineteen',
-                #  BoardType.OddHemerasDawn: 'Odd Hemera\'s Dawn',
                  BoardType.HemerasDawn: 'Hemera\'s Dawn',
-                #  BoardType.OddTamoanchanRevisited: 'Odd Tamoanchan Revisited',
                  BoardType.TamoanchanRevisited: 'Tamoanchan Revisited',
-                #  BoardType.OddConquestOfTlalocan: 'Odd Conquest Of Tlalocan',
                  BoardType.ConquestOfTlalocan: 'Conquest Of Tlalocan',
-                #  BoardType.OddDiscovery: 'Odd Discovery',
                  BoardType.Discovery: 'Discovery',
-                #  BoardType.OddOne: 'Odd One',
                  BoardType.One: 'One' }[self]
 
     def get_symbol(self):
         return { BoardType.none: '',
-                #  BoardType.OddClassical: 'OC',
                  BoardType.Classical: 'C',
-                #  BoardType.OddCroatianTies: 'OCT',
                  BoardType.CroatianTies: 'CT',
-                #  BoardType.OddMayanAscendancy: 'OMA',
                  BoardType.MayanAscendancy: 'MA',
-                #  BoardType.OddAgeOfAquarius: 'OAOA',
                  BoardType.AgeOfAquarius: 'AOA',
-                #  BoardType.OddMirandasVeil: 'OMV',
                  BoardType.MirandasVeil: 'MV',
-                #  BoardType.OddNineteen: 'ON',
                  BoardType.Nineteen: 'N',
-                #  BoardType.OddHemerasDawn: 'OHD',
                  BoardType.HemerasDawn: 'HD',
-                #  BoardType.OddTamoanchanRevisited: 'OTR',
                  BoardType.TamoanchanRevisited: 'TR',
-                #  BoardType.OddConquestOfTlalocan: 'OCOT',
                  BoardType.ConquestOfTlalocan: 'COT',
-                #  BoardType.OddDiscovery: 'OD',
                  BoardType.Discovery: 'D',
-                #  BoardType.OddOne: 'OO',
                  BoardType.One: 'O' }[self]
 
     def get_label(self):
@@ -173,27 +109,16 @@ class BoardType(int):
     @staticmethod
     def get(label, case_insensitive=True):
         dct  = { # '':     BoardType.none,
-                #  'OC':   BoardType.OddClassical,
                  'C':    BoardType.Classical,
-                #  'OCT':  BoardType.OddCroatianTies,
                  'CT':   BoardType.CroatianTies,
-                #  'OMA':  BoardType.OddMayanAscendancy,
                  'MA':   BoardType.MayanAscendancy,
-                #  'OAOA': BoardType.OddAgeOfAquarius,
                  'AOA':  BoardType.AgeOfAquarius,
-                #  'OMV':  BoardType.OddMirandasVeil,
                  'MV':   BoardType.MirandasVeil,
-                #  'ON':   BoardType.OddNineteen,
                  'N':    BoardType.Nineteen,
-                #  'OHD':  BoardType.OddHemerasDawn,
                  'HD':   BoardType.HemerasDawn,
-                #  'OTR':  BoardType.OddTamoanchanRevisited,
                  'TR':   BoardType.TamoanchanRevisited,
-                #  'OCOT': BoardType.OddConquestOfTlalocan,
                  'COT':  BoardType.ConquestOfTlalocan,
-                #  'OD':   BoardType.OddDiscovery,
                  'D':    BoardType.Discovery,
-                #  'OO':   BoardType.OddOne,
                  'O':    BoardType.One }
 
         lbl = label.upper() if case_insensitive else label
@@ -204,65 +129,39 @@ class BoardType(int):
             return BoardType( BoardType.none )
 
     @staticmethod
-    def get_even_list(do_construct=True):
-        return list( BoardType.iter(include_none=False, include_even=True, include_odd=False, do_construct=do_construct) )
-
-    @staticmethod
-    def get_odd_list(do_construct=True):
-        return list( BoardType.iter(include_none=False, include_even=False, include_odd=True, do_construct=do_construct) )
+    def get_list(do_construct=True):
+        return list( BoardType.iter(include_none=False, include_even=True, do_construct=do_construct) )
 
     @staticmethod
     def get_all_list(do_construct=True, include_none=False):
-        return list( BoardType.iter(include_none=include_none, include_even=True, include_odd=True, do_construct=do_construct) )
+        return list( BoardType.iter(include_none=include_none, include_even=True, do_construct=do_construct) )
 
     def get_size(self):
         return { BoardType.none: 0,
-                #  BoardType.OddClassical: 7,
                  BoardType.Classical: 8,
-                #  BoardType.OddCroatianTies: 9,
                  BoardType.CroatianTies: 10,
-                #  BoardType.OddMayanAscendancy: 11,
                  BoardType.MayanAscendancy: 12,
-                #  BoardType.OddAgeOfAquarius: 13,
                  BoardType.AgeOfAquarius: 14,
-                #  BoardType.OddMirandasVeil: 15,
                  BoardType.MirandasVeil: 16,
-                #  BoardType.OddNineteen: 17,
                  BoardType.Nineteen: 18,
-                #  BoardType.OddHemerasDawn: 19,
                  BoardType.HemerasDawn: 20,
-                #  BoardType.OddTamoanchanRevisited: 21,
                  BoardType.TamoanchanRevisited: 22,
-                #  BoardType.OddConquestOfTlalocan: 23,
                  BoardType.ConquestOfTlalocan: 24,
-                #  BoardType.OddDiscovery: 23,
                  BoardType.Discovery: 24,
-                #  BoardType.OddOne: 25,
                  BoardType.One: 26 }[self]
 
     def get_newly_introduced_piece(self):
         pt = { BoardType.none: None,
-            #    BoardType.OddClassical: None,
                BoardType.Classical: None,
-            #    BoardType.OddCroatianTies: PT.Pegasus,
                BoardType.CroatianTies: PT.Pegasus,
-            #    BoardType.OddMayanAscendancy: PT.Pyramid,
                BoardType.MayanAscendancy: PT.Pyramid,
-            #    BoardType.OddAgeOfAquarius: PT.Unicorn,
                BoardType.AgeOfAquarius: PT.Unicorn,
-            #    BoardType.OddMirandasVeil: PT.Wave,
                BoardType.MirandasVeil: PT.Wave,
-            #    BoardType.OddNineteen: PT.Star,
                BoardType.Nineteen: PT.Star,
-            #    BoardType.OddHemerasDawn: PT.Centaur,
                BoardType.HemerasDawn: PT.Centaur,
-            #    BoardType.OddTamoanchanRevisited: PT.Serpent,
                BoardType.TamoanchanRevisited: PT.Serpent,
-            #    BoardType.OddConquestOfTlalocan: PT.Shaman,
                BoardType.ConquestOfTlalocan: PT.Shaman,
-            #    BoardType.OddDiscovery: PT.Monolith,
                BoardType.Discovery: PT.Monolith,
-            #    BoardType.OddOne: PT.Starchild,
                BoardType.One: PT.Starchild }[ self ]
         return PT(pt) if pt is not None else None
 
@@ -275,16 +174,6 @@ class BoardType(int):
                  PT.Rook: None,
                  PT.Queen: None,
                  PT.King: None,
-                #  PT.Pegasus: [ BoardType.OddCroatianTies, BoardType.CroatianTies ],
-                #  PT.Pyramid: [ BoardType.OddMayanAscendancy, BoardType.MayanAscendancy ],
-                #  PT.Unicorn: [ BoardType.OddAgeOfAquarius, BoardType.AgeOfAquarius ],
-                #  PT.Wave: [ BoardType.OddMirandasVeil, BoardType.MirandasVeil ],
-                #  PT.Star: [ BoardType.OddNineteen, BoardType.Nineteen ],
-                #  PT.Centaur: [ BoardType.OddHemerasDawn, BoardType.HemerasDawn ],
-                #  PT.Serpent: [ BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited ],
-                #  PT.Shaman: [ BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan ],
-                #  PT.Monolith: [ BoardType.OddDiscovery, BoardType.Discovery ],
-                #  PT.Starchild: [ BoardType.OddOne, BoardType.One ] }[ pt.get_enumerated() ]
                  PT.Pegasus: [ BoardType.CroatianTies ],
                  PT.Pyramid: [ BoardType.MayanAscendancy ],
                  PT.Unicorn: [ BoardType.AgeOfAquarius ],
@@ -298,7 +187,7 @@ class BoardType(int):
 
     def get_all_that_contain(self, piece_type):
         start = self.get_newly_introducing_board_types(piece_type)
-        start = start[0] if start is not None else BoardType.OddClassical
+        start = start[0] if start is not None else BoardType.Classical
         return [ BoardType(bt) for bt in range(start, BoardType.One+1) ]
 
     def does_contain(self, piece_type):
@@ -854,27 +743,16 @@ class Board:
 
     def setup(self):
         f = { BoardType.none: self._setup_none,
-            #   BoardType.OddClassical: self._setup_classic,
               BoardType.Classical: self._setup_classic,
-            #   BoardType.OddCroatianTies: self._setup_croatian_ties,
               BoardType.CroatianTies: self._setup_croatian_ties,
-            #   BoardType.OddMayanAscendancy: self._setup_mayan_ascendancy,
               BoardType.MayanAscendancy: self._setup_mayan_ascendancy,
-            #   BoardType.OddAgeOfAquarius: self._setup_age_of_aquarius,
               BoardType.AgeOfAquarius: self._setup_age_of_aquarius,
-            #   BoardType.OddMirandasVeil: self._setup_mirandas_veil,
               BoardType.MirandasVeil: self._setup_mirandas_veil,
-            #   BoardType.OddNineteen: self._setup_nineteen,
               BoardType.Nineteen: self._setup_nineteen,
-            #   BoardType.OddHemerasDawn: self._setup_hemeras_dawn,
               BoardType.HemerasDawn: self._setup_hemeras_dawn,
-            #   BoardType.OddTamoanchanRevisited: self._setup_tamoanchan_revisited,
               BoardType.TamoanchanRevisited: self._setup_tamoanchan_revisited,
-            #   BoardType.OddConquestOfTlalocan: self._setup_conquest_of_tlalocan,
               BoardType.ConquestOfTlalocan: self._setup_conquest_of_tlalocan,
-            #   BoardType.OddDiscovery: self._setup_discovery,
               BoardType.Discovery: self._setup_discovery,
-            #   BoardType.OddOne: self._setup_one,
               BoardType.One: self._setup_one }[ self.type ]
 
         f()
@@ -927,7 +805,7 @@ def test_2():
 def test_3():
     print()
 
-    for bt in BoardType.iter(include_none=True, include_even=True, include_odd=True):
+    for bt in BoardType.iter(include_none=True, include_even=True):
         print( bt.get_name() )
 
     print()
@@ -935,7 +813,7 @@ def test_3():
 def test_4():
     print()
 
-    for bt in BoardType.iter(include_none=True, include_even=True, include_odd=True):
+    for bt in BoardType.iter(include_none=True, include_even=True):
         b = Board(bt)
         b.setup()
 

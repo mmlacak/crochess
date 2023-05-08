@@ -240,7 +240,6 @@ class Colors(dict):
                                                         '#FF0000', '#000000', '#FF0000', '#000000', \
                                                         '#0000FF', '#000000', '#0000FF', '#000000', \
                                                         '#333333', '#000000', '#333333', '#000000') ) )
-        # self[ BoardType.OddClassical ] = self[ BoardType.Classical ]
 
         self[ BoardType.CroatianTies ] = CI( piece=CS(    ('#AFAFAF', '#000000', '#5F0000', '#FFFFFF') ), \
                                              star=CS(     ('#AFAFAF', '#000000', '#5F0000', '#FFFFFF') ), \
@@ -257,7 +256,6 @@ class Colors(dict):
                                                            '#AF0000', '#000000', '#7F0000', '#000000', \
                                                            '#0000FF', '#000000', '#0000FF', '#000000', \
                                                            '#444444', '#000000', '#444444', '#000000') ) )
-        # self[ BoardType.OddCroatianTies ] = self[ BoardType.CroatianTies ]
 
         self[ BoardType.MayanAscendancy ] = CI( piece=CS(    ('#8F8F00', '#000000', '#002F5F', '#FFFFFF') ), \
                                                 star=CS(     ('#8F8F00', '#000000', '#002F5F', '#FFFFFF') ), \
@@ -274,7 +272,6 @@ class Colors(dict):
                                                               '#FF0000', '#000000', '#FF0000', '#000000', \
                                                               '#0000FF', '#000000', '#0000FF', '#000000', \
                                                               '#333333', '#000000', '#333333', '#000000') ) )
-        # self[ BoardType.OddMayanAscendancy ] = self[ BoardType.MayanAscendancy ]
 
         self[ BoardType.AgeOfAquarius ] = CI( piece=CS(    ('#AFAF7F', '#000000', '#1F5F1F', '#FFFFFF') ), \
                                               star=CS(     ('#AFAF7F', '#000000', '#1F5F1F', '#FFFFFF') ), \
@@ -291,7 +288,6 @@ class Colors(dict):
                                                             '#FF0000', '#000000', '#FF0000', '#000000', \
                                                             '#0000FF', '#000000', '#0000FF', '#000000', \
                                                             '#444444', '#000000', '#444444', '#000000') ) )
-        # self[ BoardType.OddAgeOfAquarius ] = self[ BoardType.AgeOfAquarius ]
 
         self[ BoardType.MirandasVeil ] = CI( piece=CS(    ('#FF7FFF', '#000000', '#300050', '#FFFFFF') ), \
                                              star=CS(     ('#FF7FFF', '#000000', '#300050', '#FFFFFF') ), \
@@ -310,7 +306,6 @@ class Colors(dict):
                                                            '#3030FF', '#000000', '#9090FF', '#000000', \
                                                            '#909090', '#000000', '#C0C0C0', '#000000') ) )
 #                                                            '#606060', '#000000', '#C0C0C0', '#000000') ) )
-        # self[ BoardType.OddMirandasVeil ] = self[ BoardType.MirandasVeil ]
 
         self[ BoardType.Nineteen ] = CI( piece=CS(    ('#A0975F', '#000000', '#424242', '#FFFFFF') ), # #a0955d \
                                          star=CS(     ('#A0975F', '#000000', '#424242', '#FFFFFF') ), \
@@ -327,7 +322,6 @@ class Colors(dict):
                                                        '#FF0000', '#000000', '#FF0000', '#000000', \
                                                        '#0000FF', '#000000', '#0000FF', '#000000', \
                                                        '#333333', '#000000', '#333333', '#000000') ) )
-        # self[ BoardType.OddNineteen ] = self[ BoardType.Nineteen ]
 
         self[ BoardType.HemerasDawn ] = CI( piece=CS(    ('#FF0000', '#000000', '#FFFF00', '#000000') ), \
                                             star=CS(     ('#2020FF', '#000000', '#FFFFFF', '#000000') ), \
@@ -344,7 +338,6 @@ class Colors(dict):
                                                           '#FF0000', '#000000', '#FF0000', '#000000', \
                                                           '#0000FF', '#000000', '#0000FF', '#000000', \
                                                           '#FFFFFF', '#000000', '#FFFFFF', '#000000') ) ) # BFBFBF
-        # self[ BoardType.OddHemerasDawn ] = self[ BoardType.HemerasDawn ]
 
         self[ BoardType.TamoanchanRevisited ] = CI( piece=CS(    ('#BBBBBB', '#000000', '#666666', '#FFFFFF') ), \
                                                     star=CS(     ('#FFFF00', '#000000', '#FF2020', '#000000') ), \
@@ -361,7 +354,6 @@ class Colors(dict):
                                                                   '#FF0000', '#000000', '#FF0000', '#000000', \
                                                                   '#0000FF', '#000000', '#0000FF', '#000000', \
                                                                   '#333333', '#000000', '#333333', '#000000') ) )
-        # self[ BoardType.OddTamoanchanRevisited ] = self[ BoardType.TamoanchanRevisited ]
 
         self[ BoardType.ConquestOfTlalocan ] = CI( piece=CS(    ('#7F0000', '#FFFFFF', '#10F030', '#000000') ), \
                                                    star=CS(     ('#FF2020', '#FFFFFF', '#2020FF', '#FFFFFF') ), \
@@ -378,7 +370,6 @@ class Colors(dict):
                                                                  '#990000', '#000000', '#990000', '#000000', \
                                                                  '#0000FF', '#000000', '#0000FF', '#000000', \
                                                                  '#333333', '#000000', '#333333', '#000000') ) )
-        # self[ BoardType.OddConquestOfTlalocan ] = self[ BoardType.ConquestOfTlalocan ]
 
         self[ BoardType.Discovery ] = CI( piece=CS(    ('#6F6F6F', '#000000', '#003737', '#FFFFFF') ), \
                                           star=CS(     ('#FF7F00', '#000000', '#7000AF', '#FFFFFF') ), \
@@ -395,7 +386,6 @@ class Colors(dict):
                                                         '#FF0000', '#000000', '#FF0000', '#000000', \
                                                         '#0000FF', '#000000', '#0000FF', '#000000', \
                                                         '#666666', '#000000', '#666666', '#000000') ) )
-        # self[ BoardType.OddDiscovery ] = self[ BoardType.Discovery ]
 
         # Previously, light piece: CC10EE; dark piece: FF30FF.
         self[ BoardType.One ] = CI( piece=CS(    ('#DD20EE', '#FFFFFF', '#FF47FF', '#FFFFFF') ), \
@@ -413,7 +403,6 @@ class Colors(dict):
                                                   '#FF0000', '#000000', '#FF0000', '#000000', \
                                                   '#0000FF', '#000000', '#0000FF', '#000000', \
                                                   '#333333', '#000000', '#333333', '#000000') ) )
-        # self[ BoardType.OddOne ] = self[ BoardType.One ]
 
         # CP = ColorsPair.from_tuple # (<interior>, <outline>)
         # CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)

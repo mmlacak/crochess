@@ -18,7 +18,7 @@ from board import BoardType
 
 def get_board_type_choices():
     # bts = BoardType.get_all_list(include_none=False)
-    bts = BoardType.get_even_list()
+    bts = BoardType.get_list()
     lbls = [ bt.get_label() for bt in bts ]
     # lbls.extend( ['all', 'even', 'odd'] )
     lbls.extend( ['all', ] )
@@ -32,17 +32,14 @@ def get_board_types(labels):
 
     if 'all' in labels:
         # bts.extend( BoardType.get_all_list(include_none=False) )
-        bts.extend( BoardType.get_even_list() )
+        bts.extend( BoardType.get_list() )
 
-    if 'even' in labels:
-        bts.extend( BoardType.get_even_list() )
-
-    # if 'odd' in labels:
-    #     bts.extend( BoardType.get_odd_list() )
+    # if 'even' in labels:
+    #     bts.extend( BoardType.get_list() )
 
     if not labels:
         # bts.extend( BoardType.get_all_list(include_none=False) )
-        bts.extend( BoardType.get_even_list() )
+        bts.extend( BoardType.get_list() )
     else:
         btx = [ BoardType.get(lbl) for lbl in labels if lbl not in ['all', 'even', 'odd'] ]
         bts.extend( btx )

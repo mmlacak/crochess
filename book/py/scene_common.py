@@ -87,22 +87,16 @@ class SceneCommon:
 
     def intro_en_passant(self, bt):
         bt = BoardType(bt)
-        # width = None if bt >= BoardType.OddHemerasDawn else \
-        #         7 if bt >= BoardType.OddNineteen else \
-        #         3
         width = None if bt > BoardType.Nineteen else \
                 7 if bt > BoardType.MirandasVeil else \
                 3
         rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
-        # height = None if bt >= BoardType.OddHemerasDawn else \
-        #          size
         height = None if bt > BoardType.MirandasVeil else \
                  size
         scene = Scene('intro_en_passant', bt, width=width, height=height)
 
-        # if bt >= BoardType.OddNineteen:
         if bt > BoardType.MirandasVeil:
             scene.board.set_piece(1, 0, PieceType(PieceType.Rook))
             scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
@@ -127,7 +121,6 @@ class SceneCommon:
                 scene.append_arrow(loc, i, 5, i-1)
                 scene.append_text(str(i-2), 5, i, corner=Corner.UpperLeft, rect=rect)
 
-            # if bt >= BoardType.OddHemerasDawn:
             if bt > BoardType.Nineteen:
                 scene.board.set_piece(15, 0, PieceType(PieceType.Centaur))
                 scene.board.set_piece(14, 4, PieceType(PieceType.Pawn))

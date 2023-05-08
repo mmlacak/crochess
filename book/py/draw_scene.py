@@ -45,11 +45,11 @@ class DrawScene(DrawMark):
 TEST_BOARD_SIZE_PIX = 1200
 TEST_FIELD_SIZE_PIX = 200 # 100 # 400
 
-def test_scene(func_name, board_desc=None, name='', include_odd=False, *args, **kwargs):
+def test_scene(func_name, board_desc=None, name='', *args, **kwargs):
     sc = SceneCommon()
     func = getattr(sc, func_name)
 
-    for bt in BoardType.iter(include_none=False, include_even=True, include_odd=include_odd):
+    for bt in BoardType.iter(include_none=False, include_even=True):
         scene = func(bt, *args, **kwargs)
 
         if func_name == 'intro_board':
