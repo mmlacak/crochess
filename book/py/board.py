@@ -174,16 +174,16 @@ class BoardType(int):
                  PT.Rook: None,
                  PT.Queen: None,
                  PT.King: None,
-                 PT.Pegasus: [ BoardType.CroatianTies ],
-                 PT.Pyramid: [ BoardType.MayanAscendancy ],
-                 PT.Unicorn: [ BoardType.AgeOfAquarius ],
-                 PT.Wave: [ BoardType.MirandasVeil ],
-                 PT.Star: [ BoardType.Nineteen ],
-                 PT.Centaur: [ BoardType.HemerasDawn ],
-                 PT.Serpent: [ BoardType.TamoanchanRevisited ],
-                 PT.Shaman: [ BoardType.ConquestOfTlalocan ],
-                 PT.Monolith: [ BoardType.Discovery ],
-                 PT.Starchild: [ BoardType.One ] }[ pt.get_enumerated() ]
+                 PT.Pegasus: [ BoardType.CroatianTies, ],
+                 PT.Pyramid: [ BoardType.MayanAscendancy, ],
+                 PT.Unicorn: [ BoardType.AgeOfAquarius, ],
+                 PT.Wave: [ BoardType.MirandasVeil, ],
+                 PT.Star: [ BoardType.Nineteen, ],
+                 PT.Centaur: [ BoardType.HemerasDawn, ],
+                 PT.Serpent: [ BoardType.TamoanchanRevisited, ],
+                 PT.Shaman: [ BoardType.ConquestOfTlalocan, ],
+                 PT.Monolith: [ BoardType.Discovery, ],
+                 PT.Starchild: [ BoardType.One, ] }[ pt.get_enumerated() ]
 
     def get_all_that_contain(self, piece_type):
         start = self.get_newly_introducing_board_types(piece_type)

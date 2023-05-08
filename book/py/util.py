@@ -43,6 +43,28 @@ def just_count(itr, default=UNDEFINED, default_few=UNDEFINED, default_many=UNDEF
         return tuple(lst)
 
 
+def iterate( values, is_str_single_value=True ):
+    if isinstance( values, str ):
+        if is_str_single_value:
+            yield values
+            return
+
+    try:
+        itr = iter( values )
+        for i in itr:
+            yield i
+    except TypeError: # If not iterable, e.g. TypeError: 'type' object is not iterable.
+        yield values
+
+def gen_next( gen, default=None ):
+    g = gen()
+
+    def _gen_next():
+        return next( g, default ) # g.next() just raises StopIteration
+
+    return _gen_next
+
+
 def xor(a, b, default=None):
     if a and not b:
         return a
@@ -126,7 +148,41 @@ def test_2():
 
     print()
 
+def test_3():
+
+    def print_iterate( values, is_str_single_value=True, msg=None ):
+        print()
+
+        if msg is not None:
+            print( "%s:" % msg )
+
+        for v in iterate( values, is_str_single_value=is_str_single_value ):
+            print( v )
+
+        print( " ..." * 11 )
+
+    def gen():
+        yield 1
+        yield "a"
+        yield 3
+        yield 'c'
+
+    print_iterate( [ "a", 1, 'b', 3 ], msg="""[ "a", 1, 'b', 3 ]""" )
+    print_iterate( int, msg="int" )
+    print_iterate( [  ], msg="[  ]" )
+    print_iterate( 11, msg="11" )
+    print_iterate( ( "a", 1, 'b', 3 ), msg="""( "a", 1, 'b', 3 )""" )
+    print_iterate( tuple(), msg="tuple()" )
+    print_iterate( "abcdef", msg="""abcdef""" )
+    print_iterate( "abcdef", is_str_single_value=False, msg="""abcdef; is_str_single_value=False""" )
+    print_iterate( gen, msg="gen" ) # <function test_3.<locals>.gen at 0x7f98e58ee9e0>
+    print_iterate( gen_next( gen ), msg="gen_next( gen )" ) # <function gen_next.<locals>._gen_next at 0x7f40f5ad2b00>
+    print_iterate( gen_next( gen )(), msg="gen_next( gen )()" ) # 1
+    print_iterate( gen(), msg="gen()" )
+    # print_iterate(  ) # TypeError: test_3.<locals>.print_iterate() missing 1 required positional argument: 'obj'
+
 
 if __name__ == '__main__':
     # test_1()
-    test_2()
+    # test_2()
+    test_3()

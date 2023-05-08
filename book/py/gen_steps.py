@@ -5,7 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-from util import xor
+from util import gen_next, iterate, xor
 
 from corner import Corner
 
@@ -378,14 +378,6 @@ def linear_all(coords, factor, offset):
     c = [ factor * x + offset for x in coords ]
     return t(c)
 
-
-def gen_next(gen, default=None):
-    g = gen()
-
-    def _gen_next():
-        return next(g, default) # g.next() just raises StopIteration
-
-    return _gen_next
 
 def check_valid(bounds=None, func=None):
     # bounds :: ((i_min, j_min), (i_max, j_max)) # ((0, 0), (25, 25))
