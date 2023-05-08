@@ -781,8 +781,9 @@ def test_7(as_next=True):
 
     f = gen_shaman_rels(rel)
 
+    g = gen_steps(f, start=start, include_prev=False, bounds=bounds)
     # g = gen_steps(f, start=start, bounds=bounds)
-    g = gen_steps(f, start=start, include_prev=True, bounds=bounds)
+    # g = gen_steps(f, start=start, include_prev=True, bounds=bounds)
     # g = gen_steps(f, end=start, include_prev=True, bounds=bounds)
 
     test_print(g, length=ln, as_next=as_next)
@@ -833,10 +834,10 @@ if __name__ == '__main__':
     # test_6(as_next=True)
     # test_6(as_next=False)
 
-    # test_7(as_next=True)
-    # test_7(as_next=False)
+    test_7(as_next=True)
+    test_7(as_next=False)
 
     # test_8(as_next=True)
     # test_8(as_next=False)
 
-    test_monolith_gen()
+    # test_monolith_gen()

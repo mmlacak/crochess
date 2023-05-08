@@ -811,11 +811,11 @@ class SceneOneMixin:
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_I = (6, 3)
+        start_I = (6, 1)
         end_I = (2, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_i = (1, 3)
+        start_i = (3, 3)
         scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
         # I --> i
@@ -839,7 +839,7 @@ class SceneOneMixin:
         start_I = (2, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_i = (1, 3)
+        start_i = (3, 3)
         scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
         # I --> i
@@ -857,27 +857,23 @@ class SceneOneMixin:
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_N = (5, 2)
+        start_N = (5, 3)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        start_W = (6, 4)
+        start_W = (4, 1)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         start_I = (2, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_i = (1, 3)
+        start_i = (3, 3)
         scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
         # N --> W
         scene.append_arrow( *(start_N + start_W), mark_type=MarkType.Legal )
 
         # W --> I
-        coords_W_I = GS.gen_steps( start=start_W, rels=[ (-2, -1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( coords_W_I() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+        scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
 
         # I --> i
         scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Legal )
@@ -897,7 +893,7 @@ class SceneOneMixin:
         start_H = (2, 2)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_i = (1, 3)
+        start_i = (3, 3)
         scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
         # I --> i
@@ -913,32 +909,33 @@ class SceneOneMixin:
         scene = Scene( 'scn_o_28_dark_piece_sense_journey', bt )
 
         start_b = (2, 4)
-        end_b = (14, 8)
+        end_b = (13, 6)
         scene.board.set_piece( *end_b, piece=-PieceType.Bishop )
 
-        prev_N = (5, 2)
-        start_N = (6, 4)
+        prev_N = (5, 3)
+        start_N = (4, 1)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        prev_W = (6, 4)
+        prev_W = (4, 1)
         start_W = (2, 2)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         prev_H = (2, 2)
-        start_H = (1, 3)
+        start_H = (3, 3)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        prev_i = (1, 3)
+        prev_i = (3, 3)
         start_i = (2, 4)
         scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
+
+        start_R = (19, 8)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
         # N --> W
         scene.append_arrow( *(prev_N + prev_W), mark_type=MarkType.Blocked )
 
         # W --> H
-        coords_W_H = GS.gen_steps( start=prev_W, rels=[ (-2, -1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( coords_W_H() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+        scene.append_arrow( *(prev_W + prev_H), mark_type=MarkType.Blocked )
 
         # H --> i
         scene.append_arrow( *(prev_H + prev_i), mark_type=MarkType.Blocked )
@@ -969,87 +966,56 @@ class SceneOneMixin:
     #
     # Failed sense-journey
 
-    def scn_o_30_trance_journey_failed_2(self, bt=BoardType.One):
+    def scn_o_29_sense_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_30_trance_journey_failed_2', bt)
+        scene = Scene('scn_o_29_sense_journey_failed', bt)
 
-        start_h = (20, 1)
-        adder = GS.adder(start_h)
-        scene.board.set_piece(*start_h, piece=-PieceType.Shaman)
+        start_b = (2, 4)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        # start_w = (22, 4)
-        start_w = adder(2, 3)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+        start_I = (2, 2)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_i = adder(3, -2)
-        scene.board.set_piece(*start_i, piece=-PieceType.Starchild)
+        start_i = (3, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
-        start_I = adder(-1, -1)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        # I --> i
+        scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Action )
 
-        start_b = adder(1, -1)
-        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
+        # i --> b
+        scene.append_arrow( *(start_i + start_b), mark_type=MarkType.Action )
 
-        scene.append_arrow( *(start_h + start_w), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_w + start_i), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_i + start_I), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Action )
+        bounds = ((-37, -37), (63, 63)) # Leave as-is, because diagonals. # ((0, 0), (25, 25))
+        rel_up = (1, 2)
+        rel_down = (-1, -2)
 
         #
-        # blocking miracle-fields
-
-        scene.board.set_piece(23, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(23, 2, piece=PieceType.Pawn)
-        scene.board.set_piece(24, 2, piece=PieceType.Pawn)
-        scene.board.set_piece(24, 3, piece=PieceType.Pawn)
-        scene.board.set_piece(25, 3, piece=PieceType.Pawn)
-
-        scene.board.set_piece(23, 0, piece=PieceType.Rook)
-        scene.board.set_piece(24, 0, piece=PieceType.Knight)
-        scene.board.set_piece(25, 1, piece=PieceType.Pyramid)
+        # up step-fields
+        gen_rels_H = GS.gen_shaman_rels( rel_up )
+        gen_steps_H = GS.gen_steps( gen_rels_H, start=start_b, include_prev=False, bounds=bounds )
+        for i, pos in enumerate( gen_steps_H() ):
+            if scene.board.is_on_board( *pos ):
+                scene.board.set_piece( *pos, piece=PieceType.Pawn )
 
         #
-        # blocking step-fields
-
-        # scene.board.set_piece(25, 5, piece=PieceType.Star)
-        # scene.board.set_piece(1, 8, piece=PieceType.Star)
-        # scene.board.set_piece(5, 5, piece=-PieceType.Star)
-        # scene.board.set_piece(7, 6, piece=-PieceType.Star)
-
-        # scene.board.set_piece(11, 3, piece=PieceType.King)
-        # scene.board.set_piece(13, 4, piece=-PieceType.King)
-
-        # scene.board.set_piece(17, 1, piece=PieceType.Monolith)
-        # scene.board.set_piece(19, 2, piece=-PieceType.Monolith)
-
-        scene.board.set_piece(25, 5, piece=PieceType.Pawn)
-        scene.board.set_piece(1, 8, piece=PieceType.Pawn)
-        scene.board.set_piece(5, 5, piece=-PieceType.Pawn)
-        scene.board.set_piece(7, 6, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(11, 3, piece=PieceType.Pawn)
-        scene.board.set_piece(13, 4, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(17, 1, piece=PieceType.Pawn)
-        scene.board.set_piece(19, 2, piece=-PieceType.Pawn)
+        # down step-fields
+        gen_rels_H_2 = GS.gen_shaman_rels( rel_down )
+        gen_steps_H_2 = GS.gen_steps( gen_rels_H_2, start=start_b, include_prev=False, bounds=bounds )
+        for i, pos_2 in enumerate( gen_steps_H_2() ):
+            if scene.board.is_on_board( *pos_2 ):
+                scene.board.set_piece( *pos_2, piece=-PieceType.Pawn )
 
         #
-        # right arm
-
-        rel = (2, 1)
-        aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
-
-        for i in range(32):
-            aba(str(i + 1), mark_type=MarkType.Blocked) # Legal)
+        # up arm
+        aba = self.append_broken_arrow(scene, start_b, rel_up, outward_arrows=False, count=24, is_with_field_marker=True)
+        for i in range(14):
+            aba(str(14 - i), mark_type=MarkType.Blocked)
 
         #
-        # left arm
-
-        rel = (-2, -1)
-        aba = self.append_broken_arrow(scene, start_b, rel, count=32, is_with_field_marker=True)
-
-        for i in range(32):
-            aba(str(i + 1), mark_type=MarkType.Blocked) # Action)
+        # down arm
+        aba = self.append_broken_arrow(scene, start_b, rel_down, outward_arrows=False, count=24, is_with_field_marker=True)
+        for i in range(12):
+            aba(str(12 - i), mark_type=MarkType.Blocked)
 
         return scene
 
