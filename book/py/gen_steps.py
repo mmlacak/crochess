@@ -5,7 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-from util import gen_next, iterate, xor
+from utils import gen_next, iterate, xor
 
 from corner import Corner
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2018 - 2020 Mario Mlačak, mmlacak@gmail.com
+# Copyright (c) 2018 - 2020, 2023 Mario Mlačak, mmlacak@gmail.com
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
@@ -44,17 +44,18 @@ def just_count(itr, default=UNDEFINED, default_few=UNDEFINED, default_many=UNDEF
 
 
 def iterate( values, is_str_single_value=True ):
-    if isinstance( values, str ):
+    if values is None:
+        return
+    elif isinstance( values, str ):
         if is_str_single_value:
             yield values
-            return
-
-    try:
-        itr = iter( values )
-        for i in itr:
-            yield i
-    except TypeError: # If not iterable, e.g. TypeError: 'type' object is not iterable.
-        yield values
+    else:
+        try:
+            itr = iter( values )
+            for i in itr:
+                yield i
+        except TypeError: # If not iterable, e.g. TypeError: 'type' object is not iterable.
+            yield values
 
 def gen_next( gen, default=None ):
     g = gen()
@@ -171,6 +172,7 @@ def test_3():
     print_iterate( int, msg="int" )
     print_iterate( [  ], msg="[  ]" )
     print_iterate( 11, msg="11" )
+    print_iterate( None, msg="None" )
     print_iterate( ( "a", 1, 'b', 3 ), msg="""( "a", 1, 'b', 3 )""" )
     print_iterate( tuple(), msg="tuple()" )
     print_iterate( "abcdef", msg="""abcdef""" )

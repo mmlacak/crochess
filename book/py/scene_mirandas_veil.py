@@ -6,7 +6,7 @@
 
 
 import enum
-from util import in_range
+from utils import in_range
 import gen_steps as GS
 
 from piece import PieceType

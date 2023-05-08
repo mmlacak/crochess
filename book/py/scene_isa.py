@@ -5,7 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-from util import in_range
+from utils import in_range
 from piece import PieceType
 from board import BoardType, Board
 from mark import MarkType

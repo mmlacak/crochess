@@ -5,7 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-from util import in_range
+from utils import in_range
 import gen_steps as GS
 
 from piece import PieceType

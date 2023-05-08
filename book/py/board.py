@@ -6,7 +6,7 @@
 
 import math
 
-from util import just_count
+from utils import just_count, iterate
 from pixel_math import assert_floor, assert_floor_2
 from piece import PieceType as PT
 
@@ -150,20 +150,21 @@ class BoardType(int):
                  BoardType.Discovery: 24,
                  BoardType.One: 26 }[self]
 
-    def get_newly_introduced_piece(self):
-        pt = { BoardType.none: None,
-               BoardType.Classical: None,
-               BoardType.CroatianTies: PT.Pegasus,
-               BoardType.MayanAscendancy: PT.Pyramid,
-               BoardType.AgeOfAquarius: PT.Unicorn,
-               BoardType.MirandasVeil: PT.Wave,
-               BoardType.Nineteen: PT.Star,
-               BoardType.HemerasDawn: PT.Centaur,
-               BoardType.TamoanchanRevisited: PT.Serpent,
-               BoardType.ConquestOfTlalocan: PT.Shaman,
-               BoardType.Discovery: PT.Monolith,
-               BoardType.One: PT.Starchild }[ self ]
-        return PT(pt) if pt is not None else None
+    def get_newly_introduced_pieces(self):
+        pts = { BoardType.none: None,
+                BoardType.Classical: None,
+                BoardType.CroatianTies: [ PT.Pegasus, ],
+                BoardType.MayanAscendancy: [ PT.Pyramid, ],
+                BoardType.AgeOfAquarius: [ PT.Unicorn, ],
+                BoardType.MirandasVeil: [ PT.Wave, ],
+                BoardType.Nineteen: [ PT.Star, ],
+                BoardType.HemerasDawn: [ PT.Centaur, PT.Scout, PT.Grenadier ],
+                BoardType.TamoanchanRevisited: [ PT.Serpent, ],
+                BoardType.ConquestOfTlalocan: [ PT.Shaman, ],
+                BoardType.Discovery: [ PT.Monolith, ],
+                BoardType.One: [ PT.Starchild, ], }[ self ]
+        return  [ PT(pt) for pt in iterate( pts ) ] if pts is not None else \
+                None
 
     def get_newly_introducing_board_types(self, piece_type):
         pt = PT(piece_type)
@@ -180,6 +181,8 @@ class BoardType(int):
                  PT.Wave: [ BoardType.MirandasVeil, ],
                  PT.Star: [ BoardType.Nineteen, ],
                  PT.Centaur: [ BoardType.HemerasDawn, ],
+                 PT.Scout: [ BoardType.HemerasDawn, ],
+                 PT.Grenadier: [ BoardType.HemerasDawn, ],
                  PT.Serpent: [ BoardType.TamoanchanRevisited, ],
                  PT.Shaman: [ BoardType.ConquestOfTlalocan, ],
                  PT.Monolith: [ BoardType.Discovery, ],
@@ -192,7 +195,12 @@ class BoardType(int):
 
     def does_contain(self, piece_type):
         start = PT.Pawn
-        end = self.get_newly_introduced_piece() or PT.King
+        end = PT.King
+
+        pts = self.get_newly_introduced_pieces()
+        for pt in iterate( pts ):
+            end = pt if pt > end else end
+
         return piece_type in range(start, end+1)
 
     def get_position_limits(self):

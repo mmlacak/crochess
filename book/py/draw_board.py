@@ -8,7 +8,7 @@ import math
 
 from consts import DEFAULT_LINE_WIDTH
 
-from util import xor
+from utils import xor
 from pixel_math import Rectangle, assert_floor, assert_floor_2
 from board_view import Margin, BoardView
 from board import BoardType, Board

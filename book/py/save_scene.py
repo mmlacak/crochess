@@ -8,6 +8,7 @@
 from consts import  DEFAULT_LINE_WIDTH, \
                     DEFAULT_IMAGE_FOLDER_REL_PATH, \
                     DEFAULT_FILE_EXT
+from utils import iterate
 
 from pixel_math import assert_floor_2
 from colors import Colors
@@ -121,9 +122,9 @@ class SaveScene:
         sc = SceneCommon()
 
         for bt in BoardType.iter():
-            pt = piece_type or bt.get_newly_introduced_piece()
+            pts = piece_type or bt.get_newly_introduced_pieces()
 
-            if pt is not None:
+            for pt in iterate( pts ):
                 pf = 'pieces'
                 if is_rendering_one_piece:
                     piece_name = PieceType(piece_type).get_name()

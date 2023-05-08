@@ -5,7 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-from util import in_range
+from utils import in_range, iterate
 from piece import PieceType
 from board import BoardType, Board
 from mark import MarkType
@@ -19,9 +19,9 @@ class SceneCommon:
         bt = BoardType(bt)
         scene = Scene('intro_piece', bt, width=2, height=2)
 
-        pt = piece_type or bt.get_newly_introduced_piece()
+        pts = piece_type or bt.get_newly_introduced_pieces()
 
-        if pt is not None:
+        for pt in iterate( pts ):
             scene.board.set_pieces( [ ( 0, 0, PieceType(pt) ),
                                       ( 1, 0, PieceType(pt) ),
                                       ( 0, 1, PieceType(-pt) ),

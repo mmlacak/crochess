@@ -9,7 +9,7 @@ from consts import  DEFAULT_FONT_SIZE, \
                     DEFAULT_FONT_SPACER, \
                     DEFAULT_FIELD_MARKER_SIZE
 
-from util import xor
+from utils import xor
 import pixel_math as pm
 from coords import Pos, RectPos
 from corner import Corner

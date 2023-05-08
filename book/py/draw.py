@@ -13,7 +13,7 @@ from consts import DEFAULT_LINE_WIDTH, \
     DEFAULT_FONT_SIZE, \
     DEFAULT_TEXT_OUTLINE_WIDTH
 
-from util import convert_to_rgb
+from utils import convert_to_rgb
 
 
 class Draw:
