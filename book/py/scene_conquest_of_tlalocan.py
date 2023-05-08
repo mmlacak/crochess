@@ -2968,7 +2968,7 @@ class SceneConquestOfTlalocanMixin:
             mark_type = MarkType.Illegal if i in [ 5, 7 ] else \
                         MarkType.Legal
 
-            # TODO :: fix text color
+            # \TODO :: fix text color
             aba(str(12 - i), mark_type=mark_type)
 
         return scene

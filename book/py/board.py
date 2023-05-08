@@ -13,27 +13,27 @@ from piece import PieceType as PT
 
 class BoardType(int):
     none = 0
-    OddClassical = 1
+    # OddClassical = 1
     Classical = 2
-    OddCroatianTies = 3
+    # OddCroatianTies = 3
     CroatianTies = 4
-    OddMayanAscendancy = 5
+    # OddMayanAscendancy = 5
     MayanAscendancy = 6
-    OddAgeOfAquarius = 7
+    # OddAgeOfAquarius = 7
     AgeOfAquarius = 8
-    OddMirandasVeil = 9
+    # OddMirandasVeil = 9
     MirandasVeil = 10
-    OddNineteen = 11
+    # OddNineteen = 11
     Nineteen = 12
-    OddHemerasDawn = 13
+    # OddHemerasDawn = 13
     HemerasDawn = 14
-    OddTamoanchanRevisited = 15
+    # OddTamoanchanRevisited = 15
     TamoanchanRevisited = 16
-    OddConquestOfTlalocan = 17
+    # OddConquestOfTlalocan = 17
     ConquestOfTlalocan = 18
-    OddDiscovery = 19
+    # OddDiscovery = 19
     Discovery = 20
-    OddOne = 21
+    # OddOne = 21
     One = 22
 
     def __new__(cls, value):
@@ -56,19 +56,20 @@ class BoardType(int):
                     BoardType.Discovery, \
                     BoardType.One ]
 
-        l_odd =   [ BoardType.OddClassical, \
-                    BoardType.OddCroatianTies, \
-                    BoardType.OddMayanAscendancy, \
-                    BoardType.OddAgeOfAquarius, \
-                    BoardType.OddMirandasVeil, \
-                    BoardType.OddNineteen, \
-                    BoardType.OddHemerasDawn, \
-                    BoardType.OddTamoanchanRevisited, \
-                    BoardType.OddConquestOfTlalocan, \
-                    BoardType.OddDiscovery, \
-                    BoardType.OddOne ]
+        # l_odd =   [ BoardType.OddClassical, \
+        #             BoardType.OddCroatianTies, \
+        #             BoardType.OddMayanAscendancy, \
+        #             BoardType.OddAgeOfAquarius, \
+        #             BoardType.OddMirandasVeil, \
+        #             BoardType.OddNineteen, \
+        #             BoardType.OddHemerasDawn, \
+        #             BoardType.OddTamoanchanRevisited, \
+        #             BoardType.OddConquestOfTlalocan, \
+        #             BoardType.OddDiscovery, \
+        #             BoardType.OddOne ]
+        l_odd = [ ]
 
-        lst = []
+        lst = [ ]
 
         if include_odd:
             lst.extend(l_odd)
@@ -87,80 +88,83 @@ class BoardType(int):
         return board_type in BoardType.iter(include_none=True, include_even=True, include_odd=True, do_construct=False)
 
 
-    def is_even(self):
-        return (self % 2) == 0
+    # def is_even(self):
+    #     return (self % 2) == 0
 
-    def is_odd(self):
-        return (self % 2) != 0
+    # def is_odd(self):
+    #     return (self % 2) != 0
 
-    def get_even(self):
-        if self == BoardType.none:
-            return self
-        return self if self.is_even() else BoardType(self + 1)
+    # def get_even(self):
+    #     if self == BoardType.none:
+    #         return self
+    #     return self if self.is_even() else BoardType(self + 1)
 
-    def get_odd(self):
-        if self == BoardType.none:
-            return self
-        return BoardType(self - 1) if self.is_even() else self
+    # def get_odd(self):
+    #     if self == BoardType.none:
+    #         return self
+    #     return BoardType(self - 1) if self.is_even() else self
 
-    def get_pair(self):
-        if self == BoardType.none:
-            return [ self ]
-        return [ self.get_odd(), self.get_even() ]
+    # def get_pair(self):
+    #     if self == BoardType.none:
+    #         return [ self ]
+    #     return [ self.get_odd(), self.get_even() ]
 
-    def is_variants(self, bt):
-        bt = BoardType(bt)
-        return self in bt.get_pair()
+    # def is_variants(self, bt):
+    #     bt = BoardType(bt)
+    #     return self in bt.get_pair()
+
+    def is_variant(self, bt):
+        return self == BoardType(bt)
 
 
     def get_name(self):
         return { BoardType.none: 'none',
-                 BoardType.OddClassical: 'Odd Classical',
+                #  BoardType.OddClassical: 'Odd Classical',
                  BoardType.Classical: 'Classical',
-                 BoardType.OddCroatianTies: 'Odd Croatian Ties',
+                #  BoardType.OddCroatianTies: 'Odd Croatian Ties',
                  BoardType.CroatianTies: 'Croatian Ties',
-                 BoardType.OddMayanAscendancy: 'Odd Mayan Ascendancy',
+                #  BoardType.OddMayanAscendancy: 'Odd Mayan Ascendancy',
                  BoardType.MayanAscendancy: 'Mayan Ascendancy',
-                 BoardType.OddAgeOfAquarius: 'Odd Age Of Aquarius',
+                #  BoardType.OddAgeOfAquarius: 'Odd Age Of Aquarius',
                  BoardType.AgeOfAquarius: 'Age Of Aquarius',
-                 BoardType.OddMirandasVeil: 'Odd Miranda\'s Veil',
+                #  BoardType.OddMirandasVeil: 'Odd Miranda\'s Veil',
                  BoardType.MirandasVeil: 'Miranda\'s Veil',
-                 BoardType.OddNineteen: 'Odd Nineteen',
+                #  BoardType.OddNineteen: 'Odd Nineteen',
                  BoardType.Nineteen: 'Nineteen',
-                 BoardType.OddHemerasDawn: 'Odd Hemera\'s Dawn',
+                #  BoardType.OddHemerasDawn: 'Odd Hemera\'s Dawn',
                  BoardType.HemerasDawn: 'Hemera\'s Dawn',
-                 BoardType.OddTamoanchanRevisited: 'Odd Tamoanchan Revisited',
+                #  BoardType.OddTamoanchanRevisited: 'Odd Tamoanchan Revisited',
                  BoardType.TamoanchanRevisited: 'Tamoanchan Revisited',
-                 BoardType.OddConquestOfTlalocan: 'Odd Conquest Of Tlalocan',
+                #  BoardType.OddConquestOfTlalocan: 'Odd Conquest Of Tlalocan',
                  BoardType.ConquestOfTlalocan: 'Conquest Of Tlalocan',
-                 BoardType.OddDiscovery: 'Odd Discovery',
+                #  BoardType.OddDiscovery: 'Odd Discovery',
                  BoardType.Discovery: 'Discovery',
-                 BoardType.OddOne: 'Odd One',
+                #  BoardType.OddOne: 'Odd One',
                  BoardType.One: 'One' }[self]
 
     def get_symbol(self):
         return { BoardType.none: '',
-                 BoardType.OddClassical: 'OC',
+                #  BoardType.OddClassical: 'OC',
                  BoardType.Classical: 'C',
-                 BoardType.OddCroatianTies: 'OCT',
+                #  BoardType.OddCroatianTies: 'OCT',
                  BoardType.CroatianTies: 'CT',
-                 BoardType.OddMayanAscendancy: 'OMA',
+                #  BoardType.OddMayanAscendancy: 'OMA',
                  BoardType.MayanAscendancy: 'MA',
-                 BoardType.OddAgeOfAquarius: 'OAOA',
+                #  BoardType.OddAgeOfAquarius: 'OAOA',
                  BoardType.AgeOfAquarius: 'AOA',
-                 BoardType.OddMirandasVeil: 'OMV',
+                #  BoardType.OddMirandasVeil: 'OMV',
                  BoardType.MirandasVeil: 'MV',
-                 BoardType.OddNineteen: 'ON',
+                #  BoardType.OddNineteen: 'ON',
                  BoardType.Nineteen: 'N',
-                 BoardType.OddHemerasDawn: 'OHD',
+                #  BoardType.OddHemerasDawn: 'OHD',
                  BoardType.HemerasDawn: 'HD',
-                 BoardType.OddTamoanchanRevisited: 'OTR',
+                #  BoardType.OddTamoanchanRevisited: 'OTR',
                  BoardType.TamoanchanRevisited: 'TR',
-                 BoardType.OddConquestOfTlalocan: 'OCOT',
+                #  BoardType.OddConquestOfTlalocan: 'OCOT',
                  BoardType.ConquestOfTlalocan: 'COT',
-                 BoardType.OddDiscovery: 'OD',
+                #  BoardType.OddDiscovery: 'OD',
                  BoardType.Discovery: 'D',
-                 BoardType.OddOne: 'OO',
+                #  BoardType.OddOne: 'OO',
                  BoardType.One: 'O' }[self]
 
     def get_label(self):
@@ -169,27 +173,27 @@ class BoardType(int):
     @staticmethod
     def get(label, case_insensitive=True):
         dct  = { # '':     BoardType.none,
-                 'OC':   BoardType.OddClassical,
+                #  'OC':   BoardType.OddClassical,
                  'C':    BoardType.Classical,
-                 'OCT':  BoardType.OddCroatianTies,
+                #  'OCT':  BoardType.OddCroatianTies,
                  'CT':   BoardType.CroatianTies,
-                 'OMA':  BoardType.OddMayanAscendancy,
+                #  'OMA':  BoardType.OddMayanAscendancy,
                  'MA':   BoardType.MayanAscendancy,
-                 'OAOA': BoardType.OddAgeOfAquarius,
+                #  'OAOA': BoardType.OddAgeOfAquarius,
                  'AOA':  BoardType.AgeOfAquarius,
-                 'OMV':  BoardType.OddMirandasVeil,
+                #  'OMV':  BoardType.OddMirandasVeil,
                  'MV':   BoardType.MirandasVeil,
-                 'ON':   BoardType.OddNineteen,
+                #  'ON':   BoardType.OddNineteen,
                  'N':    BoardType.Nineteen,
-                 'OHD':  BoardType.OddHemerasDawn,
+                #  'OHD':  BoardType.OddHemerasDawn,
                  'HD':   BoardType.HemerasDawn,
-                 'OTR':  BoardType.OddTamoanchanRevisited,
+                #  'OTR':  BoardType.OddTamoanchanRevisited,
                  'TR':   BoardType.TamoanchanRevisited,
-                 'OCOT': BoardType.OddConquestOfTlalocan,
+                #  'OCOT': BoardType.OddConquestOfTlalocan,
                  'COT':  BoardType.ConquestOfTlalocan,
-                 'OD':   BoardType.OddDiscovery,
+                #  'OD':   BoardType.OddDiscovery,
                  'D':    BoardType.Discovery,
-                 'OO':   BoardType.OddOne,
+                #  'OO':   BoardType.OddOne,
                  'O':    BoardType.One }
 
         lbl = label.upper() if case_insensitive else label
@@ -213,52 +217,52 @@ class BoardType(int):
 
     def get_size(self):
         return { BoardType.none: 0,
-                 BoardType.OddClassical: 7,
+                #  BoardType.OddClassical: 7,
                  BoardType.Classical: 8,
-                 BoardType.OddCroatianTies: 9,
+                #  BoardType.OddCroatianTies: 9,
                  BoardType.CroatianTies: 10,
-                 BoardType.OddMayanAscendancy: 11,
+                #  BoardType.OddMayanAscendancy: 11,
                  BoardType.MayanAscendancy: 12,
-                 BoardType.OddAgeOfAquarius: 13,
+                #  BoardType.OddAgeOfAquarius: 13,
                  BoardType.AgeOfAquarius: 14,
-                 BoardType.OddMirandasVeil: 15,
+                #  BoardType.OddMirandasVeil: 15,
                  BoardType.MirandasVeil: 16,
-                 BoardType.OddNineteen: 17,
+                #  BoardType.OddNineteen: 17,
                  BoardType.Nineteen: 18,
-                 BoardType.OddHemerasDawn: 19,
+                #  BoardType.OddHemerasDawn: 19,
                  BoardType.HemerasDawn: 20,
-                 BoardType.OddTamoanchanRevisited: 21,
+                #  BoardType.OddTamoanchanRevisited: 21,
                  BoardType.TamoanchanRevisited: 22,
-                 BoardType.OddConquestOfTlalocan: 23,
+                #  BoardType.OddConquestOfTlalocan: 23,
                  BoardType.ConquestOfTlalocan: 24,
-                 BoardType.OddDiscovery: 23,
+                #  BoardType.OddDiscovery: 23,
                  BoardType.Discovery: 24,
-                 BoardType.OddOne: 25,
+                #  BoardType.OddOne: 25,
                  BoardType.One: 26 }[self]
 
     def get_newly_introduced_piece(self):
         pt = { BoardType.none: None,
-               BoardType.OddClassical: None,
+            #    BoardType.OddClassical: None,
                BoardType.Classical: None,
-               BoardType.OddCroatianTies: PT.Pegasus,
+            #    BoardType.OddCroatianTies: PT.Pegasus,
                BoardType.CroatianTies: PT.Pegasus,
-               BoardType.OddMayanAscendancy: PT.Pyramid,
+            #    BoardType.OddMayanAscendancy: PT.Pyramid,
                BoardType.MayanAscendancy: PT.Pyramid,
-               BoardType.OddAgeOfAquarius: PT.Unicorn,
+            #    BoardType.OddAgeOfAquarius: PT.Unicorn,
                BoardType.AgeOfAquarius: PT.Unicorn,
-               BoardType.OddMirandasVeil: PT.Wave,
+            #    BoardType.OddMirandasVeil: PT.Wave,
                BoardType.MirandasVeil: PT.Wave,
-               BoardType.OddNineteen: PT.Star,
+            #    BoardType.OddNineteen: PT.Star,
                BoardType.Nineteen: PT.Star,
-               BoardType.OddHemerasDawn: PT.Centaur,
+            #    BoardType.OddHemerasDawn: PT.Centaur,
                BoardType.HemerasDawn: PT.Centaur,
-               BoardType.OddTamoanchanRevisited: PT.Serpent,
+            #    BoardType.OddTamoanchanRevisited: PT.Serpent,
                BoardType.TamoanchanRevisited: PT.Serpent,
-               BoardType.OddConquestOfTlalocan: PT.Shaman,
+            #    BoardType.OddConquestOfTlalocan: PT.Shaman,
                BoardType.ConquestOfTlalocan: PT.Shaman,
-               BoardType.OddDiscovery: PT.Monolith,
+            #    BoardType.OddDiscovery: PT.Monolith,
                BoardType.Discovery: PT.Monolith,
-               BoardType.OddOne: PT.Starchild,
+            #    BoardType.OddOne: PT.Starchild,
                BoardType.One: PT.Starchild }[ self ]
         return PT(pt) if pt is not None else None
 
@@ -271,16 +275,26 @@ class BoardType(int):
                  PT.Rook: None,
                  PT.Queen: None,
                  PT.King: None,
-                 PT.Pegasus: [ BoardType.OddCroatianTies, BoardType.CroatianTies ],
-                 PT.Pyramid: [ BoardType.OddMayanAscendancy, BoardType.MayanAscendancy ],
-                 PT.Unicorn: [ BoardType.OddAgeOfAquarius, BoardType.AgeOfAquarius ],
-                 PT.Wave: [ BoardType.OddMirandasVeil, BoardType.MirandasVeil ],
-                 PT.Star: [ BoardType.OddNineteen, BoardType.Nineteen ],
-                 PT.Centaur: [ BoardType.OddHemerasDawn, BoardType.HemerasDawn ],
-                 PT.Serpent: [ BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited ],
-                 PT.Shaman: [ BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan ],
-                 PT.Monolith: [ BoardType.OddDiscovery, BoardType.Discovery ],
-                 PT.Starchild: [ BoardType.OddOne, BoardType.One ] }[ pt.get_enumerated() ]
+                #  PT.Pegasus: [ BoardType.OddCroatianTies, BoardType.CroatianTies ],
+                #  PT.Pyramid: [ BoardType.OddMayanAscendancy, BoardType.MayanAscendancy ],
+                #  PT.Unicorn: [ BoardType.OddAgeOfAquarius, BoardType.AgeOfAquarius ],
+                #  PT.Wave: [ BoardType.OddMirandasVeil, BoardType.MirandasVeil ],
+                #  PT.Star: [ BoardType.OddNineteen, BoardType.Nineteen ],
+                #  PT.Centaur: [ BoardType.OddHemerasDawn, BoardType.HemerasDawn ],
+                #  PT.Serpent: [ BoardType.OddTamoanchanRevisited, BoardType.TamoanchanRevisited ],
+                #  PT.Shaman: [ BoardType.OddConquestOfTlalocan, BoardType.ConquestOfTlalocan ],
+                #  PT.Monolith: [ BoardType.OddDiscovery, BoardType.Discovery ],
+                #  PT.Starchild: [ BoardType.OddOne, BoardType.One ] }[ pt.get_enumerated() ]
+                 PT.Pegasus: [ BoardType.CroatianTies ],
+                 PT.Pyramid: [ BoardType.MayanAscendancy ],
+                 PT.Unicorn: [ BoardType.AgeOfAquarius ],
+                 PT.Wave: [ BoardType.MirandasVeil ],
+                 PT.Star: [ BoardType.Nineteen ],
+                 PT.Centaur: [ BoardType.HemerasDawn ],
+                 PT.Serpent: [ BoardType.TamoanchanRevisited ],
+                 PT.Shaman: [ BoardType.ConquestOfTlalocan ],
+                 PT.Monolith: [ BoardType.Discovery ],
+                 PT.Starchild: [ BoardType.One ] }[ pt.get_enumerated() ]
 
     def get_all_that_contain(self, piece_type):
         start = self.get_newly_introducing_board_types(piece_type)
@@ -405,494 +419,267 @@ class Board:
     # Defining initial position
 
     @staticmethod
-    def _get_none_row(is_even=True):
+    def _get_none_row():
         return []
 
     @staticmethod
-    def _get_classic_row(is_even=True):
-        if is_even:
-            lst =   [ \
-                        PT.Rook, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                    ]
-        else:
-            lst =   [ \
-                        PT.Rook, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                    ]
+    def _get_classic_row():
+        lst =   [ \
+                    PT.Rook, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Rook, \
+                ]
         return lst
 
     @staticmethod
-    def _get_croatian_ties_row(is_even=True):
-        if is_even:
-            lst =   [ \
-                        PT.Rook, \
-                        PT.Pegasus, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Pegasus, \
-                        PT.Rook, \
-                    ]
-        else:
-            lst =   [ \
-                        PT.Rook, \
-                        PT.Pegasus, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Pegasus, \
-                        PT.Rook, \
-                    ]
+    def _get_croatian_ties_row():
+        lst =   [ \
+                    PT.Rook, \
+                    PT.Pegasus, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Pegasus, \
+                    PT.Rook, \
+                ]
         return lst
 
     @staticmethod
-    def _get_mayan_ascendancy_row(is_even=True):
-        if is_even:
-            lst =   [ \
-                        PT.Rook, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Rook, \
-                    ]
-        else:
-            lst =   [ \
-                        PT.Rook, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Rook, \
-                    ]
+    def _get_mayan_ascendancy_row():
+        lst =   [ \
+                    PT.Rook, \
+                    PT.Pegasus, \
+                    PT.Pyramid, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Pyramid, \
+                    PT.Pegasus, \
+                    PT.Rook, \
+                ]
         return lst
 
     @staticmethod
-    def _get_age_of_aquarius_row(is_even=True):
-        if is_even:
-            lst =   [ \
-                        PT.Rook, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.Unicorn, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Unicorn, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Rook, \
-                    ]
-        else:
-            lst =   [ \
-                        PT.Rook, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.Unicorn, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Unicorn, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Rook, \
-                    ]
+    def _get_age_of_aquarius_row():
+        lst =   [ \
+                    PT.Rook, \
+                    PT.Pegasus, \
+                    PT.Pyramid, \
+                    PT.Unicorn, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Unicorn, \
+                    PT.Pyramid, \
+                    PT.Pegasus, \
+                    PT.Rook, \
+                ]
         return lst
 
     @staticmethod
-    def _get_mirandas_veil_row(is_even=True):
-        if is_even:
-            lst =   [
-                        PT.Rook, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.Unicorn, \
-                        PT.Wave, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Wave, \
-                        PT.Unicorn, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Rook
-                    ]
-        else:
-            lst =   [
-                        PT.Rook, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.Unicorn, \
-                        PT.Wave, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.King, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Wave, \
-                        PT.Unicorn, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Rook
-                    ]
+    def _get_mirandas_veil_row():
+        lst =   [
+                    PT.Rook, \
+                    PT.Pegasus, \
+                    PT.Pyramid, \
+                    PT.Unicorn, \
+                    PT.Wave, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Wave, \
+                    PT.Unicorn, \
+                    PT.Pyramid, \
+                    PT.Pegasus, \
+                    PT.Rook
+                ]
         return lst
 
     @staticmethod
-    def _get_nineteen_row(is_even=True):
-        if is_even:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Wave, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.Pyramid, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Pyramid, \
-                        PT.Unicorn, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
-        else:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Wave, \
-                        PT.Unicorn, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.King, \
-                        PT.Pyramid, \
-                        PT.Unicorn, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
+    def _get_nineteen_row():
+        lst =   [
+                    PT.Star, \
+                    PT.Rook, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Wave, \
+                    PT.Pegasus, \
+                    PT.Unicorn, \
+                    PT.Pyramid, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Pyramid, \
+                    PT.Unicorn, \
+                    PT.Pegasus, \
+                    PT.Wave, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Rook, \
+                    -PT.Star
+                ]
         return lst
 
     @staticmethod
-    def _get_hemeras_dawn_row(is_even=True):
-        if is_even:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Centaur, \
-                        PT.Wave, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.Pyramid, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Pyramid, \
-                        PT.Unicorn, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Centaur, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
-        else:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Wave, \
-                        PT.Centaur, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.King, \
-                        PT.Pyramid, \
-                        PT.Unicorn, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Centaur, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
+    def _get_hemeras_dawn_row():
+        lst =   [
+                    PT.Star, \
+                    PT.Rook, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Centaur, \
+                    PT.Wave, \
+                    PT.Pegasus, \
+                    PT.Unicorn, \
+                    PT.Pyramid, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Pyramid, \
+                    PT.Unicorn, \
+                    PT.Pegasus, \
+                    PT.Wave, \
+                    PT.Centaur, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Rook, \
+                    -PT.Star
+                ]
         return lst
 
     @staticmethod
-    def _get_tamoanchan_revisited_row(is_even=True):
-        if is_even:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Serpent, \
-                        PT.Wave, \
-                        PT.Unicorn, \
-                        PT.Pegasus, \
-                        PT.Centaur, \
-                        PT.Pyramid, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Pyramid, \
-                        PT.Centaur, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.Wave, \
-                        PT.Serpent, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
-        else:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Wave, \
-                        PT.Serpent, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.Pyramid, \
-                        PT.Centaur, \
-                        PT.King, \
-                        PT.Pyramid, \
-                        PT.Centaur, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.Wave, \
-                        PT.Serpent, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
+    def _get_tamoanchan_revisited_row():
+        lst =   [
+                    PT.Star, \
+                    PT.Rook, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Serpent, \
+                    PT.Wave, \
+                    PT.Unicorn, \
+                    PT.Pegasus, \
+                    PT.Centaur, \
+                    PT.Pyramid, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Pyramid, \
+                    PT.Centaur, \
+                    PT.Pegasus, \
+                    PT.Unicorn, \
+                    PT.Wave, \
+                    PT.Serpent, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Rook, \
+                    -PT.Star
+                ]
         return lst
 
     @staticmethod
-    def _get_conquest_of_tlalocan_row(is_even=True):
-        if is_even:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Serpent, \
-                        PT.Centaur, \
-                        PT.Unicorn, \
-                        PT.Wave, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.Shaman, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Unicorn, \
-                        PT.Centaur, \
-                        PT.Serpent, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
-        else:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Centaur, \
-                        PT.Unicorn, \
-                        PT.Serpent, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.King, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Serpent, \
-                        PT.Wave, \
-                        PT.Centaur, \
-                        PT.Unicorn, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
+    def _get_conquest_of_tlalocan_row():
+        lst =   [
+                    PT.Star, \
+                    PT.Rook, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Serpent, \
+                    PT.Centaur, \
+                    PT.Unicorn, \
+                    PT.Wave, \
+                    PT.Pegasus, \
+                    PT.Pyramid, \
+                    PT.Shaman, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Shaman, \
+                    PT.Pyramid, \
+                    PT.Pegasus, \
+                    PT.Wave, \
+                    PT.Unicorn, \
+                    PT.Centaur, \
+                    PT.Serpent, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Rook, \
+                    -PT.Star
+                ]
         return lst
 
     @staticmethod
-    def _get_discovery_row(is_even=True):
-        if is_even:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Serpent, \
-                        PT.Centaur, \
-                        PT.Unicorn, \
-                        PT.Wave, \
-                        PT.Pegasus, \
-                        PT.Pyramid, \
-                        PT.Shaman, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Unicorn, \
-                        PT.Centaur, \
-                        PT.Serpent, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
-        else:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Centaur, \
-                        PT.Unicorn, \
-                        PT.Serpent, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.King, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.Pegasus, \
-                        PT.Serpent, \
-                        PT.Wave, \
-                        PT.Centaur, \
-                        PT.Unicorn, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
+    def _get_discovery_row():
+        lst =   [
+                    PT.Star, \
+                    PT.Rook, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Serpent, \
+                    PT.Centaur, \
+                    PT.Unicorn, \
+                    PT.Wave, \
+                    PT.Pegasus, \
+                    PT.Pyramid, \
+                    PT.Shaman, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Shaman, \
+                    PT.Pyramid, \
+                    PT.Pegasus, \
+                    PT.Wave, \
+                    PT.Unicorn, \
+                    PT.Centaur, \
+                    PT.Serpent, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Rook, \
+                    -PT.Star
+                ]
         return lst
 
     @staticmethod
-    def _get_one_row(is_even=True):
-        if is_even:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Knight, \
-                        PT.Bishop, \
-                        PT.Serpent, \
-                        PT.Starchild, \
-                        PT.Centaur, \
-                        PT.Unicorn, \
-                        PT.Pegasus, \
-                        PT.Wave, \
-                        PT.Pyramid, \
-                        PT.Shaman, \
-                        PT.Queen, \
-                        PT.King, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.Wave, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.Centaur, \
-                        PT.Starchild, \
-                        PT.Serpent, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
-        else:
-            lst =   [
-                        PT.Star, \
-                        PT.Rook, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Starchild, \
-                        PT.Centaur, \
-                        PT.Wave, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.Serpent, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.King, \
-                        PT.Shaman, \
-                        PT.Pyramid, \
-                        PT.Wave, \
-                        PT.Pegasus, \
-                        PT.Unicorn, \
-                        PT.Centaur, \
-                        PT.Starchild, \
-                        PT.Serpent, \
-                        PT.Bishop, \
-                        PT.Knight, \
-                        PT.Rook, \
-                        -PT.Star
-                    ]
+    def _get_one_row():
+        lst =   [
+                    PT.Star, \
+                    PT.Rook, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Serpent, \
+                    PT.Starchild, \
+                    PT.Centaur, \
+                    PT.Unicorn, \
+                    PT.Pegasus, \
+                    PT.Wave, \
+                    PT.Pyramid, \
+                    PT.Shaman, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Shaman, \
+                    PT.Pyramid, \
+                    PT.Wave, \
+                    PT.Pegasus, \
+                    PT.Unicorn, \
+                    PT.Centaur, \
+                    PT.Starchild, \
+                    PT.Serpent, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Rook, \
+                    -PT.Star
+                ]
         return lst
 
     @staticmethod
@@ -900,30 +687,30 @@ class Board:
         bt = BoardType(board_type)
 
         f = { BoardType.none: Board._get_none_row,
-              BoardType.OddClassical: Board._get_classic_row,
+            #   BoardType.OddClassical: Board._get_classic_row,
               BoardType.Classical: Board._get_classic_row,
-              BoardType.OddCroatianTies: Board._get_croatian_ties_row,
+            #   BoardType.OddCroatianTies: Board._get_croatian_ties_row,
               BoardType.CroatianTies: Board._get_croatian_ties_row,
-              BoardType.OddMayanAscendancy: Board._get_mayan_ascendancy_row,
+            #   BoardType.OddMayanAscendancy: Board._get_mayan_ascendancy_row,
               BoardType.MayanAscendancy: Board._get_mayan_ascendancy_row,
-              BoardType.OddAgeOfAquarius: Board._get_age_of_aquarius_row,
+            #   BoardType.OddAgeOfAquarius: Board._get_age_of_aquarius_row,
               BoardType.AgeOfAquarius: Board._get_age_of_aquarius_row,
-              BoardType.OddMirandasVeil: Board._get_mirandas_veil_row,
+            #   BoardType.OddMirandasVeil: Board._get_mirandas_veil_row,
               BoardType.MirandasVeil: Board._get_mirandas_veil_row,
-              BoardType.OddNineteen: Board._get_nineteen_row,
+            #   BoardType.OddNineteen: Board._get_nineteen_row,
               BoardType.Nineteen: Board._get_nineteen_row,
-              BoardType.OddHemerasDawn: Board._get_hemeras_dawn_row,
+            #   BoardType.OddHemerasDawn: Board._get_hemeras_dawn_row,
               BoardType.HemerasDawn: Board._get_hemeras_dawn_row,
-              BoardType.OddTamoanchanRevisited: Board._get_tamoanchan_revisited_row,
+            #   BoardType.OddTamoanchanRevisited: Board._get_tamoanchan_revisited_row,
               BoardType.TamoanchanRevisited: Board._get_tamoanchan_revisited_row,
-              BoardType.OddConquestOfTlalocan: Board._get_conquest_of_tlalocan_row,
+            #   BoardType.OddConquestOfTlalocan: Board._get_conquest_of_tlalocan_row,
               BoardType.ConquestOfTlalocan: Board._get_conquest_of_tlalocan_row,
-              BoardType.OddDiscovery: Board._get_discovery_row,
+            #   BoardType.OddDiscovery: Board._get_discovery_row,
               BoardType.Discovery: Board._get_discovery_row,
-              BoardType.OddOne: Board._get_one_row,
+            #   BoardType.OddOne: Board._get_one_row,
               BoardType.One: Board._get_one_row }[ bt ]
 
-        light_pieces = f(is_even=bt.is_even())
+        light_pieces = f()
 
         return light_pieces
 
@@ -943,7 +730,8 @@ class Board:
         row = 1 if is_light else self.get_height() - 2
         self.set_row(row, plst) # lst)
 
-        if self.type >= BoardType.OddNineteen:
+        # if self.type >= BoardType.OddNineteen:
+        if self.type > BoardType.MirandasVeil:
             row_2 = 2 if is_light else self.get_height() - 3
             self.set_row(row_2, plst)
 
@@ -954,7 +742,8 @@ class Board:
     def _setup_scout_pawns(self, is_light):
         assert isinstance(is_light, bool)
 
-        if self.type >= BoardType.OddHemerasDawn:
+        # if self.type >= BoardType.OddHemerasDawn:
+        if self.type > BoardType.Nineteen:
             pt = PT.Pawn if is_light else -PT.Pawn
             # st = PT.Scout if is_light else -PT.Scout
             figure_row = 0 if is_light else self.get_height() - 1
@@ -994,39 +783,39 @@ class Board:
         pass
 
     def _setup_classic(self):
-        light = Board._get_classic_row(is_even=self.type.is_even())
+        light = Board._get_classic_row()
         self._setup_board(light)
 
     def _setup_croatian_ties(self):
-        light = Board._get_croatian_ties_row(is_even=self.type.is_even())
+        light = Board._get_croatian_ties_row()
         self._setup_board(light)
 
     def _setup_mayan_ascendancy(self):
-        light = Board._get_mayan_ascendancy_row(is_even=self.type.is_even())
+        light = Board._get_mayan_ascendancy_row()
         self._setup_board(light)
 
     def _setup_age_of_aquarius(self):
-        light = Board._get_age_of_aquarius_row(is_even=self.type.is_even())
+        light = Board._get_age_of_aquarius_row()
         self._setup_board(light)
 
     def _setup_mirandas_veil(self):
-        light = Board._get_mirandas_veil_row(is_even=self.type.is_even())
+        light = Board._get_mirandas_veil_row()
         self._setup_board(light)
 
     def _setup_nineteen(self):
-        light = Board._get_nineteen_row(is_even=self.type.is_even())
+        light = Board._get_nineteen_row()
         self._setup_board(light)
 
     def _setup_hemeras_dawn(self):
-        light = Board._get_hemeras_dawn_row(is_even=self.type.is_even())
+        light = Board._get_hemeras_dawn_row()
         self._setup_board(light)
 
     def _setup_tamoanchan_revisited(self):
-        light = Board._get_tamoanchan_revisited_row(is_even=self.type.is_even())
+        light = Board._get_tamoanchan_revisited_row()
         self._setup_board(light)
 
     def _setup_conquest_of_tlalocan(self):
-        light = Board._get_conquest_of_tlalocan_row(is_even=self.type.is_even())
+        light = Board._get_conquest_of_tlalocan_row()
         self._setup_board(light)
 
 
@@ -1050,14 +839,14 @@ class Board:
         self.set_piece(i, j, pt)
 
     def _setup_discovery(self):
-        light = Board._get_discovery_row(is_even=self.type.is_even())
+        light = Board._get_discovery_row()
         self._setup_board(light)
 
         self._setup_monolith(PT.Monolith)
         self._setup_monolith(-PT.Monolith)
 
     def _setup_one(self):
-        light = Board._get_one_row(is_even=self.type.is_even())
+        light = Board._get_one_row()
         self._setup_board(light)
 
         self._setup_monolith(PT.Monolith)
@@ -1065,27 +854,27 @@ class Board:
 
     def setup(self):
         f = { BoardType.none: self._setup_none,
-              BoardType.OddClassical: self._setup_classic,
+            #   BoardType.OddClassical: self._setup_classic,
               BoardType.Classical: self._setup_classic,
-              BoardType.OddCroatianTies: self._setup_croatian_ties,
+            #   BoardType.OddCroatianTies: self._setup_croatian_ties,
               BoardType.CroatianTies: self._setup_croatian_ties,
-              BoardType.OddMayanAscendancy: self._setup_mayan_ascendancy,
+            #   BoardType.OddMayanAscendancy: self._setup_mayan_ascendancy,
               BoardType.MayanAscendancy: self._setup_mayan_ascendancy,
-              BoardType.OddAgeOfAquarius: self._setup_age_of_aquarius,
+            #   BoardType.OddAgeOfAquarius: self._setup_age_of_aquarius,
               BoardType.AgeOfAquarius: self._setup_age_of_aquarius,
-              BoardType.OddMirandasVeil: self._setup_mirandas_veil,
+            #   BoardType.OddMirandasVeil: self._setup_mirandas_veil,
               BoardType.MirandasVeil: self._setup_mirandas_veil,
-              BoardType.OddNineteen: self._setup_nineteen,
+            #   BoardType.OddNineteen: self._setup_nineteen,
               BoardType.Nineteen: self._setup_nineteen,
-              BoardType.OddHemerasDawn: self._setup_hemeras_dawn,
+            #   BoardType.OddHemerasDawn: self._setup_hemeras_dawn,
               BoardType.HemerasDawn: self._setup_hemeras_dawn,
-              BoardType.OddTamoanchanRevisited: self._setup_tamoanchan_revisited,
+            #   BoardType.OddTamoanchanRevisited: self._setup_tamoanchan_revisited,
               BoardType.TamoanchanRevisited: self._setup_tamoanchan_revisited,
-              BoardType.OddConquestOfTlalocan: self._setup_conquest_of_tlalocan,
+            #   BoardType.OddConquestOfTlalocan: self._setup_conquest_of_tlalocan,
               BoardType.ConquestOfTlalocan: self._setup_conquest_of_tlalocan,
-              BoardType.OddDiscovery: self._setup_discovery,
+            #   BoardType.OddDiscovery: self._setup_discovery,
               BoardType.Discovery: self._setup_discovery,
-              BoardType.OddOne: self._setup_one,
+            #   BoardType.OddOne: self._setup_one,
               BoardType.One: self._setup_one }[ self.type ]
 
         f()

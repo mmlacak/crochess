@@ -18,9 +18,9 @@ class PieceType(int):
     Unicorn = 9
     Wave = 10
     Star = 11
-    Grenadier = 12
-    Centaur = 13
-    Scout = 14
+    Centaur = 12
+    Scout = 13
+    Grenadier = 14
     Serpent = 15
     Shaman = 16
     Monolith = 17
@@ -47,9 +47,9 @@ class PieceType(int):
                   PieceType.Unicorn, \
                   PieceType.Wave, \
                   PieceType.Star, \
-                  PieceType.Grenadier, \
                   PieceType.Centaur, \
                   PieceType.Scout, \
+                  PieceType.Grenadier, \
                   PieceType.Serpent, \
                   PieceType.Shaman, \
                   PieceType.Monolith, \
@@ -85,9 +85,9 @@ class PieceType(int):
                  PieceType.Unicorn: 'U',
                  PieceType.Wave: 'W',
                  PieceType.Star: 'T',
-                 PieceType.Grenadier: 'E',
                  PieceType.Centaur: 'C',
                  PieceType.Scout: 'O',
+                 PieceType.Grenadier: 'E',
                  PieceType.Serpent: 'S',
                  PieceType.Shaman: 'H',
                  PieceType.Monolith: 'M',
@@ -111,9 +111,9 @@ class PieceType(int):
                  PieceType.Unicorn: 'Unicorn',
                  PieceType.Wave: 'Wave',
                  PieceType.Star: 'Star',
-                 PieceType.Grenadier: 'Grenadier',
                  PieceType.Centaur: 'Centaur',
                  PieceType.Scout: 'Scout',
+                 PieceType.Grenadier: 'Grenadier',
                  PieceType.Serpent: 'Serpent',
                  PieceType.Shaman: 'Shaman',
                  PieceType.Monolith: 'Monolith',

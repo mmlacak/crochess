@@ -281,7 +281,7 @@ class SaveScene:
             print( file_path )
 
             if self.rendering_size.needs_rendering():
-                enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
+                enforce_bw = enforce_cot_in_bw and scene.board.type.is_variant( BoardType.ConquestOfTlalocan )
                 self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
     def render_examples(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
@@ -326,7 +326,7 @@ class SaveScene:
             print( file_path )
 
             if self.rendering_size.needs_rendering():
-                enforce_bw = enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
+                enforce_bw = enforce_cot_in_bw and scene.board.type.is_variant( BoardType.ConquestOfTlalocan )
                 self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
     def render_ISAs(self, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
@@ -372,7 +372,7 @@ class SaveScene:
         print( file_path )
 
         if self.rendering_size.needs_rendering():
-            enforce_bw = True # enforce_cot_in_bw and scene.board.type.is_variants(BoardType.ConquestOfTlalocan)
+            enforce_bw = True # enforce_cot_in_bw and scene.board.type.is_variant( BoardType.ConquestOfTlalocan )
             self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
     def render_tests(self, do_all_tests=True, path_prefix=None, enforce_cot_in_bw=True):

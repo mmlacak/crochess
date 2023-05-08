@@ -143,15 +143,6 @@ class DrawPiece(Draw):
                 (0.2, 0.5), (0.43, 0.43)]
         self.draw_piece_polygon(star, rect, scale=scale, cpair=cpiece.own)
 
-    def draw_grenadier(self, rect, cpiece=None):
-        self.draw_pawn(rect, cpiece=cpiece)
-
-        assert isinstance(cpiece, ColorsPiece)
-
-        # beret = [(0.5, 0.5), (0.6, 0.4), (0.6, 0.5), (0.3, 0.5), (0.5, 0.4)]
-        beret = [(0.5, 0.55), (0.6, 0.45), (0.6, 0.55), (0.3, 0.55), (0.5, 0.45)]
-        self.draw_piece_polygon(beret, rect, cpair=cpiece.opposite)
-
     def draw_centaur(self, rect, cpiece=None):
         assert isinstance(cpiece, ColorsPiece)
 
@@ -169,6 +160,15 @@ class DrawPiece(Draw):
         self.draw_piece_polygon(binoculars, rect, cpair=cpiece.opposite)
 
         self.draw_pawn(rect, cpiece=cpiece)
+
+    def draw_grenadier(self, rect, cpiece=None):
+        self.draw_pawn(rect, cpiece=cpiece)
+
+        assert isinstance(cpiece, ColorsPiece)
+
+        # beret = [(0.5, 0.5), (0.6, 0.4), (0.6, 0.5), (0.3, 0.5), (0.5, 0.4)]
+        beret = [(0.5, 0.55), (0.6, 0.45), (0.6, 0.55), (0.3, 0.55), (0.5, 0.45)]
+        self.draw_piece_polygon(beret, rect, cpair=cpiece.opposite)
 
     def draw_serpent(self, rect, cpiece=None):
         assert isinstance(cpiece, ColorsPiece)
@@ -233,9 +233,9 @@ class DrawPiece(Draw):
                   PieceType.Unicorn: self.draw_unicorn,
                   PieceType.Wave: self.draw_wave,
                   PieceType.Star: self.draw_star,
-                  PieceType.Grenadier: self.draw_grenadier,
                   PieceType.Centaur: self.draw_centaur,
                   PieceType.Scout: self.draw_scout,
+                  PieceType.Grenadier: self.draw_grenadier,
                   PieceType.Serpent: self.draw_serpent,
                   PieceType.Shaman: self.draw_shaman,
                   PieceType.Monolith: self.draw_monolith,
