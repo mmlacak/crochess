@@ -406,7 +406,7 @@ or in \algfmt{XAN} as \newline
 \label{sec:Appendix/Notation/Trance-journey}
 
 Trance-journey is noted with \alg{@} (at sign), instead of normal ply separator \alg{\~{}}
-(tilde), before \hyperref[fig:scn_cot_41_entrancement_init]{entranced piece} takes off. This
+(tilde), before \hyperref[fig:scn_cot_42_entrancement_step]{entranced piece} takes off. This
 \hyperref[fig:scn_cot_56_light_light_shaman_interaction_start]{trance-journey example},
 if without any interactions with pieces on entranced Shaman's step-fields, would be written
 as \alg{Hd12@Hg24}. In \algfmt{XAN}, it would be \alg{[Hd12-e13]@[He13-g24]}.
@@ -459,8 +459,37 @@ Failed trance-journey is noted with \alg{@@@} (triple at-sign) after entrancing 
 Optionally, oblationed piece can be written after \alg{@@@}. In this
 \hyperref[fig:scn_o_22_trance_journey_failed]{failed trance-journey example} all
 step-fields are blocked, so entranced light Shaman is oblationed, which is written as
-\alg{Hz1@@@}, and in \algfmt{XAN}, with plies gathering and oblationed piece, as
+\alg{Hz1@@@}, and in \algfmt{XAN}, with plies gathered and oblationed piece, as
 \alg{[Hy2-z1]@@@H}.
+
+\subsection*{Sense-journey}
+\addcontentsline{toc}{subsection}{Sense-journey}
+\label{sec:Appendix/Notation/Sense-journey}
+
+Sense-journey is noted with \alg{"} (quotation mark), instead of normal ply separator
+\alg{\~{}} (tilde), before \hyperref[fig:scn_o_25_uplifting_step]{uplifted piece} takes
+off. This \hyperref[fig:scn_o_28_dark_piece_sense_journey]{sense-journey example} would
+be written as \alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"Bn7}. In \algfmt{XAN}, it would be
+\alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"[Bc5-n7]}.
+
+One peculiarity of sense-journey taken by uplifted dark piece is that it starts from
+the far end of a pattern inward, towards its initial position. There is no step between
+initial position of uplifted dark piece and distant starting field of sense-journey,
+\alg{,} (comma) is used to separate them, like so
+\alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"Bc5,z11..n7}.
+If initial position is omitted, separator (i.e. comma) is still written, like so
+\alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"B,z11..n7}. Now, in \algfmt{XAN} with gathered plies
+and noted initial, and starting positions it would look like so \newline
+\alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"} \newline
+\alg{[Bc5,z11-n7]}.
+% \alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"[Bc5,z11-n7]}.
+
+Failed sense-journey is noted with \alg{'} (single apostrophe) after uplifting a
+piece. Optionally, oblationed piece can be written after \alg{'}. In this
+\hyperref[fig:scn_o_29_sense_journey_failed]{failed sense-journey example} all
+step-fields are blocked, so uplifted dark Bishop is oblationed, which is written as
+\alg{Id4\~{}Ic5'}, and in \algfmt{XAN}, with plies gathered and oblationed piece,
+as \alg{[Ic3-d4]\~{}[Id4-c5]'B}.
 
 \subsection*{Syzygy, demoting to Pawn}
 \addcontentsline{toc}{subsection}{Syzygy, demoting to Pawn}
@@ -1000,11 +1029,13 @@ any non-disposable piece.
 \cmidrule{1-2} % ...................................................
 \alg{\~{}}           & plies                                      \\
 \alg{|}              & teleportation                              \\
-\alg{||}             & failed teleportation, oblation             \\
+\alg{||}             & failed teleportation (oblation)            \\
 \alg{@}              & trance-journey                             \\
 \alg{@@}             & dual trance-journey, oblation              \\
 \alg{@@@}            & failed trance-journey, oblation            \\
 \alg{;;}             & Pawn-sacrifice                             \\
+\alg{"}              & sense-journey                              \\
+\alg{'}              & failed sense-journey, oblation             \\
 \cmidrule{1-2} % ...................................................
 \alg{,}              & items in a list                            \\
 \alg{[}, \alg{]}     & ply gathering                              \\
@@ -1015,8 +1046,9 @@ any non-disposable piece.
 \end{table}
 
 First 3 symbols (\alg{.}, \alg{..}, and \alg{-}) separates steps within a single ply.
-Other symbols (\alg{\~{}}, \alg{|}, \alg{@}, and \alg{;;}) are separators between plies;
-or ply and, by extension, move terminators (\alg{||}, \alg{@@}, and \alg{@@@}).
+Other symbols (\alg{\~{}}, \alg{|}, \alg{@}, \alg{;;}, and \alg{"}) are separators
+between plies; or ply and, by extension, move terminators (\alg{||}, \alg{@@}, \alg{@@@},
+and \alg{'}).
 
 Items separator (\alg{,}) is used where multiple items needs to be listed for a single
 step (or a ply), e.g. pieces captured in a dark Shaman's dual trance-journey.
@@ -1238,7 +1270,7 @@ One                   &     \alg{b8}  &    \alg{y19}          \\
 Table above contains initial positions of both Monoliths, one located on light side of
 chessboard, the other on dark side.
 
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
 
 \subsection*{Movement limits}
 \addcontentsline{toc}{subsection}{Movement limits}
@@ -1525,6 +1557,8 @@ are available for a particular variant see
 \hyperref[tbl:Appendix/Introduction/Variants]{Variants},
 \hyperref[tbl:Appendix/Introduction/Chessboards]{Chessboards} and
 \hyperref[tbl:Appendix/Introduction/Pieces]{Pieces} tables.
+
+\TODO :: transparency, divergence, sense-journey
 
 \clearpage % ..........................................................
 
