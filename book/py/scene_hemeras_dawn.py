@@ -419,11 +419,28 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
+    # Scout-fields
+
+    def scn_hd_14_scout_fields(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_14_scout_fields', bt, width=5, height=5 )
+
+        start_O = (2, 2)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        rect_H = (0.35, 0.5, 0.65, 0.1)
+        coords_H_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_O, include_prev=False, count=1 )
+        for i, pos in enumerate( coords_H_() ):
+            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_H )
+
+        return scene
+
+    #
     # Scout Pawns
 
-    def scn_hd_14_scout_pawns(self, bt=BoardType.HemerasDawn):
+    def scn_hd_15_scout_initial_positions(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_14_scout_pawns', bt)
+        scene = Scene('scn_hd_15_scout_initial_positions', bt)
 
         scene.board.set_piece(4, 0, piece=PieceType.Centaur)
 
