@@ -156,8 +156,15 @@ class DrawPiece(Draw):
     def draw_scout(self, rect, cpiece=None):
         assert isinstance(cpiece, ColorsPiece)
 
-        binoculars = [(0.7, 0.6), (0.6, 0.7), (0.4, 0.5), (0.3, 0.6), (0.4, 0.7), (0.6, 0.5)]
-        self.draw_piece_polygon(binoculars, rect, cpair=cpiece.opposite)
+        # binoculars = [(0.7, 0.6), (0.6, 0.7), (0.4, 0.5), (0.3, 0.6), (0.4, 0.7), (0.6, 0.5)]
+        # self.draw_piece_polygon(binoculars, rect, cpair=cpiece.opposite)
+
+        # mono_left = [(0.4, 0.5), (0.3, 0.6), (0.4, 0.7), (0.5, 0.6)]
+        mono_left = [(0.37, 0.5), (0.27, 0.6), (0.37, 0.7), (0.47, 0.6)]
+        self.draw_piece_polygon(mono_left, rect, cpair=cpiece.opposite)
+
+        mono_right = [(0.63, 0.5), (0.53, 0.6), (0.63, 0.7), (0.73, 0.6)]
+        self.draw_piece_polygon(mono_right, rect, cpair=cpiece.opposite)
 
         self.draw_pawn(rect, cpiece=cpiece)
 
