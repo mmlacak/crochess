@@ -515,7 +515,6 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-
     #
     # Scout Pawns
 
