@@ -193,7 +193,7 @@ class SceneNineteenMixin:
         scene = Scene('scn_n_04_teleport_move_3', bt)
 
         start_W = (6, 14)
-        start_G = (8, 10)
+        start_E = (8, 10)
 
         # fixed set
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -207,11 +207,11 @@ class SceneNineteenMixin:
         scene.board.set_piece(15, 1, piece=PieceType.Pawn)
 
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
         scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
         # Pegasus, direction <-1, 2>
-        coords = GS.gen_next( GS.gen_steps(start=start_G, rels=[(-1, 2), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_E, rels=[(-1, 2), ], include_prev=True) )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
 
@@ -228,7 +228,7 @@ class SceneNineteenMixin:
         scene = Scene('scn_n_05_teleport_end', bt)
 
         start_W = (17, 0)
-        start_G = (6, 14)
+        start_E = (6, 14)
 
         # fixed set
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -240,7 +240,7 @@ class SceneNineteenMixin:
         scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
         scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
 
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
         scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
 
         gen_coords = GS.gen_steps(start=start_W, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits())
@@ -262,7 +262,7 @@ class SceneNineteenMixin:
         scene = Scene('scn_n_06_teleport_wave_blocked', bt)
 
         start_W = (17, 0)
-        start_G = (6, 14)
+        start_E = (6, 14)
 
         # fixed set
         scene.board.set_piece(0, 0, piece=PieceType.Star)
@@ -271,7 +271,7 @@ class SceneNineteenMixin:
         scene.board.set_piece(0, 17, piece=-PieceType.Star)
 
         scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
 
         gen_coords = GS.gen_steps( start=start_W, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen_coords() ):

@@ -428,10 +428,10 @@ class SceneHemerasDawnMixin:
         start_O = (2, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        rect_H = (0.35, 0.5, 0.65, 0.1)
-        coords_H_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_O, include_prev=False, count=1 )
-        for i, pos in enumerate( coords_H_() ):
-            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_H )
+        rect_O = (0.35, 0.5, 0.65, 0.1)
+        coords_O_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_O, include_prev=False, count=1 )
+        for i, pos in enumerate( coords_O_() ):
+            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_O )
 
         return scene
 
@@ -560,12 +560,12 @@ class SceneHemerasDawnMixin:
 
         scene = Scene( 'scn_hd_17_grenadier_fields', bt, width=5, height=5 )
 
-        start_E = (2, 2)
-        scene.board.set_piece( *start_E, piece=PieceType.Grenadier )
+        start_G = (2, 2)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        rect_H = (0.35, 0.5, 0.65, 0.1)
-        coords_H_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_E, include_prev=False, count=1 )
-        for i, pos in enumerate( coords_H_() ):
-            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_H )
+        rect_G = (0.35, 0.5, 0.65, 0.1)
+        coords_G_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_G, include_prev=False, count=1 )
+        for i, pos in enumerate( coords_G_() ):
+            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_G )
 
         return scene

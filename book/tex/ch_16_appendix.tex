@@ -161,12 +161,16 @@ Rook           & R               &                                  \\
 Queen          & Q               &                                  \\
 King           & K               &                                  \\
 \cmidrule{1-3} % .....................................................
-Pegasus        & G               & Croatian Ties                    \\
+Pegasus        & E               & Croatian Ties                    \\
 Pyramid        & A               & Mayan Ascendancy                 \\
 Unicorn        & U               & Age of Aquarius                  \\
 Wave           & W               & Miranda's Veil                   \\
 Star           & T               & Nineteen                         \\
-Centaur        & C               & Hemera's Dawn                    \\
+\cmidrule{1-3} % .....................................................
+Centaur        & C               & \multirow{3}{*}{Hemera's Dawn}   \\
+Scout          & O               &                                  \\
+Grenadier      & G               &                                  \\
+\cmidrule{1-3} % .....................................................
 Serpent        & S               & Tamoanchan Revisited             \\
 Shaman         & H               & Conquest of Tlalocan             \\
 Monolith       & M               & Discovery                        \\
@@ -192,8 +196,8 @@ case) + destination field, which consists of rank (always written in lower case)
 (a number).
 
 In this example of \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus moving to destination
-field 3}, movement of the piece would be written as \alg{Gf8}. The same movement in
-\algfmt{XAN}, would be written as \alg{Gc2-f8}.
+field 3}, movement of the piece would be written as \alg{Ef8}. The same movement in
+\algfmt{XAN}, would be written as \alg{Ec2-f8}.
 
 When moving Pawn, symbol is omitted, so only destination field is written. In this example
 of \hyperref[fig:04_croatian_ties_en_passant]{Pawn rushing to field 2}, movement can be
@@ -214,7 +218,7 @@ portion of a path.
 
 For instance, should \hyperref[fig:scn_ct_03_define_step_ply]{Pegasus simple move example}
 had another light Pegasus at \alg{i2} field, move to destination field 3 would be written
-as \alg{Gcf8}.
+as \alg{Ecf8}.
 
 \vfill
 
@@ -225,9 +229,9 @@ as \alg{Gcf8}.
 Capturing move is denoted with \alg{*} (asterisk) at the end, usually followed by the captured
 piece. Only for Classical Chess capturing is denoted with \algcty{x}, before destination field.
 Here, \hyperref[fig:scn_ct_04_pegasus_movement]{Pegasus could capture opponent's Pawn}, which
-would be written as \alg{Gg4*P}, or just \alg{Gg4*}, if captured piece is not needed.
+would be written as \alg{Eg4*P}, or just \alg{Eg4*}, if captured piece is not needed.
 
-In \algfmt{CAN}, the same move would be written as \algcty{Gxg4}. Note, FIDE handbook requires
+In \algfmt{CAN}, the same move would be written as \algcty{Exg4}. Note, FIDE handbook requires
 captures made by Pawn to contain starting file, \algcty{x}, and then destination field; see
 \algfmt{FIDE~C.9.3}.
 If \hyperref[fig:scn_mv_18_wave_activation_by_capture_pawn]{Wave activated by Pawn example} had
@@ -284,8 +288,8 @@ tagged for promotion in previous example would have its actual promotion written
 \alg{l14Q}, or as \alg{l14=Q}.
 
 Similarly, \hyperref[fig:scn_ma_05_promo_init]{Pawn promoted by own Pyramid} just writes
-chosen piece to promote to, after writing movement of a Pyramid, like so \alg{Gd8\~{}Ah8Q},
-or in \algfmt{XAN} as \alg{[Gl4-d8]\~{}[Ad8-h8=Q]}.
+chosen piece to promote to, after writing movement of a Pyramid, like so \alg{Ed8\~{}Ah8Q},
+or in \algfmt{XAN} as \alg{[El4-d8]\~{}[Ad8-h8=Q]}.
 
 Pawn capturing opponent's piece can also be promoted, if capture happend on opponent's
 figure row. For instance, if in first, Classic Chess example light Pawn captured dark
@@ -375,7 +379,7 @@ optionally followed by a piece which has been "passed-over".
 For instance, in \hyperref[fig:scn_mv_07_wave_is_transparent]{this example} light Queen
 could capture dark Pegasus, which would be written as \newline
 \alg{Q..m4\^{}..j7\^{}..g10*}, or in \algfmt{XAN} as \newline
-\alg{Qo2..m4\^{}W..j7\^{}W..g10*G}.
+\alg{Qo2..m4\^{}W..j7\^{}W..g10*E}.
 
 \subsection*{Divergence}
 \addcontentsline{toc}{subsection}{Divergence}
@@ -386,7 +390,7 @@ by divergent piece.
 
 For instance, in \hyperref[fig:scn_cot_09_own_shaman_is_divergent_init]{this example}
 light Queen could capture dark Pegasus, after diverging from light Shaman.
-This could be written as \alg{Q..j7/..m10*}, or in \algfmt{XAN} as \alg{Qo2..j7/H..m10*G}.
+This could be written as \alg{Q..j7/..m10*}, or in \algfmt{XAN} as \alg{Qo2..j7/H..m10*E}.
 
 \subsection*{Displacement}
 \addcontentsline{toc}{subsection}{Displacement}
@@ -563,18 +567,18 @@ as \alg{Ra18||}, or in \algfmt{XAN} it would be \alg{Ra13-a18||}.
 In this \hyperref[fig:scn_n_04_teleport_move_3]{Wave teleporting example}, followed by
 \hyperref[fig:scn_n_05_teleport_end]{Wave teleported example}, if activated Pyramid would
 move 2 fields upward, complete move would be written as \newline
-\alg{Gg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would be \\
-\alg{[Gi11-g15]\~{}[Wg15-a18]|[Wr1-l4]\~{}[Al4-l6]}.
+\alg{Eg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would be \\
+\alg{[Ei11-g15]\~{}[Wg15-a18]|[Wr1-l4]\~{}[Al4-l6]}.
 
 If previous example ended with
 \hyperref[fig:scn_n_06_teleport_wave_blocked]{teleported Wave blocked} example, it would be
-written as \alg{Gg15\~{}Wa18||}, and in \algfmt{XAN} it would be
-\alg{[Gi11-g15]\~{}[Wg15-a18]||}.
+written as \alg{Eg15\~{}Wa18||}, and in \algfmt{XAN} it would be
+\alg{[Ei11-g15]\~{}[Wg15-a18]||}.
 
 This \hyperref[fig:scn_d_17_teleporting_wave_cascade]{cascading teleportation example} would
-be written by sequencing teleportations like so \alg{Gh2\~{}Wb4|Wa24|Wr4\~{}Bt6}, if activated
+be written by sequencing teleportations like so \alg{Eh2\~{}Wb4|Wa24|Wr4\~{}Bt6}, if activated
 Bishop would take upper-right diagonal. In \algfmt{XAN}, with plies gathering, it would be \\
-\alg{[Gj6-h2]\~{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\~{}}\\
+\alg{[Ej6-h2]\~{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\~{}}\\
 \alg{[Br4-t6]}.
 
 Starchild and Wave activated by it cannot teleport, which is written as failed teleportation,
@@ -1118,34 +1122,34 @@ Classical chess         &                     1         \\
                    \multicolumn{3}{r}{ \alg{RNBQKBNR} } \\
 \cmidrule{1-3} % .........................................
 Croatian Ties           &                     1         \\
-                 \multicolumn{3}{r}{ \alg{RGNBQKBNGR} } \\
+                 \multicolumn{3}{r}{ \alg{RENBQKBNER} } \\
 \cmidrule{1-3} % .........................................
 Mayan Ascendancy        &                     1         \\
-               \multicolumn{3}{r}{ \alg{RGANBQKBNAGR} } \\
+               \multicolumn{3}{r}{ \alg{REANBQKBNAER} } \\
 \cmidrule{1-3} % .........................................
 Age of Aquarius         &                     1         \\
-             \multicolumn{3}{r}{ \alg{RGAUNBQKBNUAGR} } \\
+             \multicolumn{3}{r}{ \alg{REAUNBQKBNUAER} } \\
 \cmidrule{1-3} % .........................................
 Miranda's Veil          &                     1         \\
-           \multicolumn{3}{r}{ \alg{RGAUWNBQKBNWUAGR} } \\
+           \multicolumn{3}{r}{ \alg{REAUWNBQKBNWUAER} } \\
 \cmidrule{1-3} % .........................................
 Nineteen                &                     2         \\
-         \multicolumn{3}{r}{ \alg{TRNBWGUAQKAUGWBNRt} } \\
+         \multicolumn{3}{r}{ \alg{TRNBWEUAQKAUEWBNRt} } \\
 \cmidrule{1-3} % .........................................
 Hemera's Dawn           &                     2         \\
-       \multicolumn{3}{r}{ \alg{TRNBCWGUAQKAUGWCBNRt} } \\
+       \multicolumn{3}{r}{ \alg{TRNBCWEUAQKAUEWCBNRt} } \\
 \cmidrule{1-3} % .........................................
 Tamoanchan Revisited    &                     2         \\
-     \multicolumn{3}{r}{ \alg{TRNBSWUGCAQKACGUWSBNRt} } \\
+     \multicolumn{3}{r}{ \alg{TRNBSWUECAQKACEUWSBNRt} } \\
 \cmidrule{1-3} % .........................................
 Conquest of Tlalocan    &                     2         \\
-   \multicolumn{3}{r}{ \alg{TRNBSCUWGAHQKHAGWUCSBNRt} } \\
+   \multicolumn{3}{r}{ \alg{TRNBSCUWEAHQKHAEWUCSBNRt} } \\
 \cmidrule{1-3} % .........................................
 Discovery               &                     2         \\
-   \multicolumn{3}{r}{ \alg{TRNBSCUWGAHQKHAGWUCSBNRt} } \\
+   \multicolumn{3}{r}{ \alg{TRNBSCUWEAHQKHAEWUCSBNRt} } \\
 \cmidrule{1-3} % .........................................
 One                     &                     2         \\
- \multicolumn{3}{r}{ \alg{TRNBSICUGWAHQKHAWGUCISBNRt} } \\
+ \multicolumn{3}{r}{ \alg{TRNBSICUEWAHQKHAWEUCISBNRt} } \\
 \bottomrule % ============================================
 \end{tabular}
 \caption{Initial setups of light figures}
@@ -1160,7 +1164,7 @@ pieces. In later variants, dark Star is positioned in bottom right corner of a
 chessboard, which is indicated with \alg{t}.
 
 Dark player's setup is mirrored, with all figures switched to opposite of light
-player's setup. So, for Nineteen variant \alg{TRNBWGUAQKAUGWBNRt} becomes
+player's setup. So, for Nineteen variant \alg{TRNBWEUAQKAUEWBNRt} becomes
 \alg{trnbwguaqkaugwbnrT} for dark player.
 
 Each variant can have 1 or 2 rows of Pawns for each player, in front of its
@@ -1560,6 +1564,10 @@ are available for a particular variant see
 
 \TODO :: transparency, divergence, sense-journey
 
+% \TODO :: Pegasus == G --> E
+
+\TODO :: Scout == O, Grenadier == G
+
 \clearpage % ..........................................................
 
 \begin{alltt}
@@ -1571,7 +1579,7 @@ are available for a particular variant see
 <passive-figure> = \alg{A} | \alg{W}
 
 <capturing-active-piece> =
-  <classic-piece> | \alg{G} | \alg{U} | \alg{C} | \alg{S} | \alg{H}
+  <classic-piece> | \alg{E} | \alg{U} | \alg{C} | \alg{S} | \alg{H}
 
 <active-piece> =
   <capturing-active-piece> | \alg{I}
@@ -1581,7 +1589,7 @@ are available for a particular variant see
 
 <promote-to-figure> =
   <passive-figure>
-| \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{G} | \alg{U} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
+| \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{E} | \alg{U} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
 
 <disposable-figure> = <promote-to-figure>
 

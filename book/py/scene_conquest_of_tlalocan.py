@@ -695,8 +695,8 @@ class SceneConquestOfTlalocanMixin:
         start_H = (9, 6)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_g = (12, 9)
-        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+        start_e = (12, 9)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
         start_p = (6, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
@@ -735,8 +735,8 @@ class SceneConquestOfTlalocanMixin:
         start_H = (9, 6)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_g = (12, 9)
-        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+        start_e = (12, 9)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
         start_p = (6, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
@@ -1270,8 +1270,8 @@ class SceneConquestOfTlalocanMixin:
         scene = Scene('scn_cot_19_activated_unicorn_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
-        start_G = (6, 13)
-        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+        start_E = (6, 13)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
 
         start_W = (2, 5)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
@@ -1285,10 +1285,10 @@ class SceneConquestOfTlalocanMixin:
         start_A = (12, 4)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        # G --> W
-        coords_G_W = GS.gen_steps( start=start_G, rels=[(-1, -2), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+        # E --> W
+        coords_E_W = GS.gen_steps( start=start_E, rels=[(-1, -2), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_G_W() ):
+        for i, arrow in enumerate( coords_E_W() ):
             mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
@@ -1311,9 +1311,9 @@ class SceneConquestOfTlalocanMixin:
         scene = Scene('scn_cot_20_activated_unicorn_divergence_end', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
-        # prev_G = (6, 13)
-        start_G = (2, 5)
-        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+        # prev_E = (6, 13)
+        start_E = (2, 5)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
 
         # prev_W = (2, 5)
         start_W = (8, 2)
@@ -1622,8 +1622,8 @@ class SceneConquestOfTlalocanMixin:
         start_H = (11, 13)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_G = (14, 10)
-        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+        start_E = (14, 10)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
 
         start_P = (11, 5)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
@@ -1666,8 +1666,8 @@ class SceneConquestOfTlalocanMixin:
         start_H = (11, 13)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_G = (14, 10)
-        scene.board.set_piece( *start_G, piece=PieceType.Pegasus )
+        start_E = (14, 10)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
 
         start_P = (11, 5)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
@@ -1892,8 +1892,8 @@ class SceneConquestOfTlalocanMixin:
         start_w = (18, 8)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
-        start_g = (14, 12)
-        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+        start_e = (14, 12)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
         start_H = (11, 18)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
@@ -1923,14 +1923,14 @@ class SceneConquestOfTlalocanMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # g --> H
-        coords_g_H = GS.gen_steps( start=start_g, rels=[ (-1, 2), ], include_prev=True, count=3 )
+        coords_g_H = GS.gen_steps( start=start_e, rels=[ (-1, 2), ], include_prev=True, count=3 )
         for i, arrow in enumerate( coords_g_H() ):
             mark_type = MarkType.Illegal if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # g --> h
-        coords_g_h = GS.gen_steps( start=start_g, rels=[ (2, 1), ], include_prev=True, count=2 )
+        coords_g_h = GS.gen_steps( start=start_e, rels=[ (2, 1), ], include_prev=True, count=2 )
         for i, arrow in enumerate( coords_g_h() ):
             mark_type = MarkType.Action if i == 1 else \
                         MarkType.Legal

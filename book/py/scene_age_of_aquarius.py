@@ -236,10 +236,10 @@ class SceneAgeOfAquariusMixin:
         scene.board.set_piece(*startA, piece=PieceType.Pyramid)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        start_g = (4, 4)
+        start_e = (4, 4)
         start_a = (1, 10)
 
-        scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
+        scene.board.set_piece(*start_e, piece=-PieceType.Pegasus)
         scene.board.set_piece(*start_a, piece=-PieceType.Pyramid)
 
         # direction <-1, 1>
@@ -271,14 +271,14 @@ class SceneAgeOfAquariusMixin:
         scene.board.set_piece(*startP, piece=PieceType.Pawn)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        start_g = (4, 4)
+        start_e = (4, 4)
         start_a = (1, 10)
 
-        scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
+        scene.board.set_piece(*start_e, piece=-PieceType.Pegasus)
         scene.board.set_piece(*start_a, piece=-PieceType.Pyramid)
 
         # direction <-1, 2>
-        coords = GS.gen_next( GS.gen_steps(start=start_g, rels=[(-1, 2), ], include_prev=True) )
+        coords = GS.gen_next( GS.gen_steps(start=start_e, rels=[(-1, 2), ], include_prev=True) )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
@@ -302,10 +302,10 @@ class SceneAgeOfAquariusMixin:
 
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
-        start_g = (1, 10)
+        start_e = (1, 10)
         start_p = (4, 10)
 
         scene.board.set_piece(*start_p, piece=-PieceType.Pawn)
-        scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
+        scene.board.set_piece(*start_e, piece=-PieceType.Pegasus)
 
         return scene

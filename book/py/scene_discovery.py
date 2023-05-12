@@ -446,12 +446,12 @@ class SceneDiscoveryMixin:
 
         #
         # Pegasus
-        start_G = (17, 7)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        start_E = (17, 7)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
 
-        gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
+        gen_abs_pos_E = GS.gen_steps([(-1, -2), ], start=start_E, include_prev=True, count=2)
 
-        for i, pos in enumerate( gen_abs_pos_G() ):
+        for i, pos in enumerate( gen_abs_pos_E() ):
             mark_type = MarkType.Action if i == 1 else \
                         MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
@@ -685,12 +685,12 @@ class SceneDiscoveryMixin:
 
         #
         # Pegasus
-        start_G = (4, 16)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        start_E = (4, 16)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
 
-        gen_abs_pos_G = GS.gen_steps([(1, 2), ], start=start_G, include_prev=True, count=2)
+        gen_abs_pos_E = GS.gen_steps([(1, 2), ], start=start_E, include_prev=True, count=2)
 
-        for i, pos in enumerate( gen_abs_pos_G() ):
+        for i, pos in enumerate( gen_abs_pos_E() ):
             mark_type = MarkType.Action if i == 1 else MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
 
@@ -732,12 +732,12 @@ class SceneDiscoveryMixin:
 
         #
         # Pegasus
-        start_G = (17, 7)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        start_E = (17, 7)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
 
-        gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
+        gen_abs_pos_E = GS.gen_steps([(-1, -2), ], start=start_E, include_prev=True, count=2)
 
-        for i, pos in enumerate( gen_abs_pos_G() ):
+        for i, pos in enumerate( gen_abs_pos_E() ):
             mark_type = MarkType.Action if i == 1 else MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
 
@@ -797,12 +797,12 @@ class SceneDiscoveryMixin:
 
         #
         # Pegasus
-        start_G = (17, 7)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        start_E = (17, 7)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
 
-        gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
+        gen_abs_pos_E = GS.gen_steps([(-1, -2), ], start=start_E, include_prev=True, count=2)
 
-        for i, pos in enumerate( gen_abs_pos_G() ):
+        for i, pos in enumerate( gen_abs_pos_E() ):
             mark_type = MarkType.Action if i == 1 else MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
 
@@ -862,12 +862,12 @@ class SceneDiscoveryMixin:
 
         #
         # Pegasus
-        start_G = (9, 7)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        start_E = (9, 7)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
 
-        gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
+        gen_abs_pos_E = GS.gen_steps([(-1, -2), ], start=start_E, include_prev=True, count=2)
 
-        for i, pos in enumerate( gen_abs_pos_G() ):
+        for i, pos in enumerate( gen_abs_pos_E() ):
             mark_type = MarkType.Action if i == 1 else MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
 
@@ -984,12 +984,12 @@ class SceneDiscoveryMixin:
 
         #
         # Pegasus
-        start_G = (9, 5)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        start_E = (9, 5)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
 
-        gen_abs_pos_G = GS.gen_steps([(-1, -2), ], start=start_G, include_prev=True, count=2)
+        gen_abs_pos_E = GS.gen_steps([(-1, -2), ], start=start_E, include_prev=True, count=2)
 
-        for i, pos in enumerate( gen_abs_pos_G() ):
+        for i, pos in enumerate( gen_abs_pos_E() ):
             mark_type = MarkType.Action if i == 1 else MarkType.Legal
             scene.append_arrow(*pos, mark_type=mark_type)
 

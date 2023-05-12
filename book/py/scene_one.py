@@ -59,8 +59,8 @@ class SceneOneMixin:
         start_n = (6, 13)
         scene.board.set_piece(*start_n, piece=-PieceType.Knight)
 
-        start_g = (9, 9)
-        scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
+        start_e = (9, 9)
+        scene.board.set_piece(*start_e, piece=-PieceType.Pegasus)
 
         start_I_2 = (22, 2)
         scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
@@ -79,7 +79,7 @@ class SceneOneMixin:
 
         scene.append_arrow( *(start_I + start_w), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_I + start_n), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_I + start_g), mark_type=MarkType.Illegal )
+        scene.append_arrow( *(start_I + start_e), mark_type=MarkType.Illegal )
 
         return scene
 
@@ -103,8 +103,8 @@ class SceneOneMixin:
         start_n = (6, 13)
         scene.board.set_piece(*start_n, piece=-PieceType.Knight)
 
-        start_g = (9, 9)
-        scene.board.set_piece(*start_g, piece=-PieceType.Pegasus)
+        start_e = (9, 9)
+        scene.board.set_piece(*start_e, piece=-PieceType.Pegasus)
 
         start_I_2 = (22, 2)
         scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
@@ -124,7 +124,7 @@ class SceneOneMixin:
         scene.append_arrow( *(start_W_A + start_A), mark_type=MarkType.Illegal )
 
         scene.append_arrow( *(start_W_A + start_n), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_W_A + start_g), mark_type=MarkType.Illegal )
+        scene.append_arrow( *(start_W_A + start_e), mark_type=MarkType.Illegal )
 
         return scene
 
@@ -210,15 +210,15 @@ class SceneOneMixin:
 
         start_I = (2, 2)
         start_b = (2, 3)
-        start_G = (3, 1)
+        start_E = (3, 1)
         start_K = (1, 1)
 
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
         scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
-        scene.board.set_piece(*start_G, piece=PieceType.Pyramid)
+        scene.board.set_piece(*start_E, piece=PieceType.Pyramid)
         scene.board.set_piece(*start_K, piece=PieceType.King)
 
-        scene.append_arrow( *(start_I + start_G), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_I + start_E), mark_type=MarkType.Action )
         scene.append_arrow( *(start_I + start_K), mark_type=MarkType.Illegal )
         scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Illegal )
 
@@ -510,12 +510,12 @@ class SceneOneMixin:
 
         start_I = (2, 2)
         start_W = (1, 1)
-        start_G = (0, 2)
+        start_E = (0, 2)
         start_B = (17, 17)
 
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
 
         start_T_1 = (0, 0)
@@ -530,7 +530,7 @@ class SceneOneMixin:
 
         scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Action )
         scene.append_arrow( *(start_W + start_T_1), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_W + start_G), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_W + start_E), mark_type=MarkType.Legal )
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_W, count=1 )
         for index, coords in enumerate( gen() ):
@@ -1335,8 +1335,8 @@ class SceneOneMixin:
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
 
-        start_G = (6, 17)
-        scene.board.set_piece(*start_G, piece=PieceType.Pegasus)
+        start_E = (6, 17)
+        scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
 
         start_W = (5, 19)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -1363,7 +1363,7 @@ class SceneOneMixin:
         scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
         scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
-        scene.append_arrow( *(start_G + start_W), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_E + start_W), mark_type=MarkType.Legal )
         scene.append_arrow( *(start_W + start_w), mark_type=MarkType.Legal )
         scene.append_arrow( *(start_w + start_I), mark_type=MarkType.Legal )
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Action )
@@ -1431,8 +1431,8 @@ class SceneOneMixin:
         start_I = (10, 5)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_g = (12, 7)
-        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+        start_e = (12, 7)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
         start_p = (7, 2)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
@@ -1463,8 +1463,8 @@ class SceneOneMixin:
         start_I = (10, 5)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_g = (12, 7)
-        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+        start_e = (12, 7)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
         start_p = (7, 2)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
@@ -1509,8 +1509,8 @@ class SceneOneMixin:
         start_I = (10, 5)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_g = (12, 7)
-        scene.board.set_piece( *start_g, piece=-PieceType.Pegasus )
+        start_e = (12, 7)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
         start_p = (7, 2)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
