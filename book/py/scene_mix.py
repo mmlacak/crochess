@@ -35,6 +35,7 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_hd_14_scout_fields', \
-                    'scn_hd_15_scout_movement', \
-                    # 'scn_hd_16_scout_initial_positions', \
+                    # 'scn_hd_15_scout_movement', \
+                    'scn_hd_16_scout_initial_positions', \
+                    'scn_hd_17_grenadier_fields', \
                 ]

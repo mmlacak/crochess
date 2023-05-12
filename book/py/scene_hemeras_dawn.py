@@ -515,6 +515,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+
     #
     # Scout Pawns
 
@@ -524,30 +525,47 @@ class SceneHemerasDawnMixin:
 
         scene.board.set_piece(4, 0, piece=PieceType.Centaur)
 
-        scene.board.set_piece(2, 3, piece=PieceType.Pawn)
-        scene.board.set_piece(3, 4, piece=PieceType.Pawn)
-        scene.board.set_piece(5, 4, piece=PieceType.Pawn)
-        scene.board.set_piece(6, 3, piece=PieceType.Pawn)
+        scene.board.set_piece(2, 3, piece=PieceType.Scout)
+        scene.board.set_piece(3, 4, piece=PieceType.Scout)
+        scene.board.set_piece(5, 4, piece=PieceType.Scout)
+        scene.board.set_piece(6, 3, piece=PieceType.Scout)
 
         scene.board.set_piece(15, 0, piece=PieceType.Centaur)
 
-        scene.board.set_piece(13, 3, piece=PieceType.Pawn)
-        scene.board.set_piece(14, 4, piece=PieceType.Pawn)
-        scene.board.set_piece(16, 4, piece=PieceType.Pawn)
-        scene.board.set_piece(17, 3, piece=PieceType.Pawn)
+        scene.board.set_piece(13, 3, piece=PieceType.Scout)
+        scene.board.set_piece(14, 4, piece=PieceType.Scout)
+        scene.board.set_piece(16, 4, piece=PieceType.Scout)
+        scene.board.set_piece(17, 3, piece=PieceType.Scout)
 
         scene.board.set_piece(4, 19, piece=-PieceType.Centaur)
 
-        scene.board.set_piece(2, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(3, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(5, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(6, 16, piece=-PieceType.Pawn)
+        scene.board.set_piece(2, 16, piece=-PieceType.Scout)
+        scene.board.set_piece(3, 15, piece=-PieceType.Scout)
+        scene.board.set_piece(5, 15, piece=-PieceType.Scout)
+        scene.board.set_piece(6, 16, piece=-PieceType.Scout)
 
         scene.board.set_piece(15, 19, piece=-PieceType.Centaur)
 
-        scene.board.set_piece(13, 16, piece=-PieceType.Pawn)
-        scene.board.set_piece(14, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(16, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(17, 16, piece=-PieceType.Pawn)
+        scene.board.set_piece(13, 16, piece=-PieceType.Scout)
+        scene.board.set_piece(14, 15, piece=-PieceType.Scout)
+        scene.board.set_piece(16, 15, piece=-PieceType.Scout)
+        scene.board.set_piece(17, 16, piece=-PieceType.Scout)
+
+        return scene
+
+    #
+    # Grenadier-fields
+
+    def scn_hd_17_grenadier_fields(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_17_grenadier_fields', bt, width=5, height=5 )
+
+        start_E = (2, 2)
+        scene.board.set_piece( *start_E, piece=PieceType.Grenadier )
+
+        rect_H = (0.35, 0.5, 0.65, 0.1)
+        coords_H_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_E, include_prev=False, count=1 )
+        for i, pos in enumerate( coords_H_() ):
+            scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_H )
 
         return scene
