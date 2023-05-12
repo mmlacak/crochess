@@ -169,9 +169,12 @@ class DrawPiece(Draw):
         self.draw_pawn(rect, cpiece=cpiece)
 
     def draw_grenadier(self, rect, cpiece=None):
-        self.draw_pawn(rect, cpiece=cpiece)
-
         assert isinstance(cpiece, ColorsPiece)
+
+        armor = [(0.4, 0.6), (0.6, 0.6), (0.6, 0.8), (0.4, 0.8)]
+        self.draw_piece_polygon(armor, rect, cpair=cpiece.opposite)
+
+        self.draw_pawn(rect, cpiece=cpiece)
 
         # beret = [(0.5, 0.5), (0.6, 0.4), (0.6, 0.5), (0.3, 0.5), (0.5, 0.4)]
         beret = [(0.5, 0.55), (0.6, 0.45), (0.6, 0.55), (0.3, 0.55), (0.5, 0.45)]
