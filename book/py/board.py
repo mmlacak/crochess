@@ -636,13 +636,13 @@ class Board:
         self._setup_pawn_rows(True)
         self._setup_pawn_rows(False)
 
-    def _setup_scout_pawns(self, is_light):
+    def _setup_scouts(self, is_light):
         assert isinstance(is_light, bool)
 
         # if self.type >= BoardType.OddHemerasDawn:
         if self.type > BoardType.Nineteen:
-            pt = PT.Pawn if is_light else -PT.Pawn
-            # st = PT.Scout if is_light else -PT.Scout
+            # pt = PT.Pawn if is_light else -PT.Pawn
+            st = PT.Scout if is_light else -PT.Scout
             figure_row = 0 if is_light else self.get_height() - 1
             figures = [ PT.Centaur, PT.Shaman ] if is_light else [ -PT.Centaur, -PT.Shaman ]
             row_3 = 3 if is_light else self.get_height() - 4
@@ -652,17 +652,34 @@ class Board:
             for i in range(self.get_width()):
                 p = self.get_piece(i, figure_row)
                 if p in figures:
-                    # st_1 = st_2 = st
-                    # if self.type >= BoardType.OddConquestOfTlalocan:
-                    #     st_1 = pt if (i - 2) in [half - 1, half] else st
-                    #     st_2 = pt if (i + 2) in [half - 1, half] else st
+                    # self.set_pieces( [ (i-2, row_3, pt), (i+2, row_3, pt), (i-1, row_4, pt), (i+1, row_4, pt) ] )
+                    self.set_pieces( [ (i-2, row_3, st), (i+2, row_3, st), (i-1, row_4, st), (i+1, row_4, st) ] )
 
-                    # self.set_pieces( [ (i-2, row_3, st_1), (i+2, row_3, st_2), (i-1, row_4, pt), (i+1, row_4, pt) ] )
-                    self.set_pieces( [ (i-2, row_3, pt), (i+2, row_3, pt), (i-1, row_4, pt), (i+1, row_4, pt) ] )
+    def _setup_grenadiers(self, is_light):
+        assert isinstance(is_light, bool)
 
-    def _setup_all_scout_pawns(self):
-        self._setup_scout_pawns(True)
-        self._setup_scout_pawns(False)
+        # if self.type >= BoardType.OddHemerasDawn:
+        if self.type > BoardType.Nineteen:
+            pt = PT.Grenadier if is_light else -PT.Grenadier
+            figure_row = 0 if is_light else self.get_height() - 1
+            figures = [ PT.Centaur, PT.Shaman ] if is_light else [ -PT.Centaur, -PT.Shaman ]
+            row_2 = 2 if is_light else self.get_height() - 3
+            row_1 = 1 if is_light else self.get_height() - 2
+            # half = self.get_width() // 2
+
+            for i in range(self.get_width()):
+                p = self.get_piece(i, figure_row)
+                if p in figures:
+                    # self.set_pieces( [ (i-2, row_3, pt), (i+2, row_3, pt), (i-1, row_4, pt), (i+1, row_4, pt) ] )
+                    self.set_pieces( [ (i-2, row_2, pt), (i+2, row_2, pt), (i-1, row_1, pt), (i+1, row_1, pt) ] )
+
+    def _setup_all_scouts(self):
+        self._setup_scouts(True)
+        self._setup_scouts(False)
+
+    def _setup_all_grenadiers(self):
+        self._setup_grenadiers(True)
+        self._setup_grenadiers(False)
 
     def _setup_board(self, light_pieces):
         self.clear()
@@ -673,8 +690,9 @@ class Board:
         dark = get_opposites(light_pieces)
         self.set_row(self.get_height() - 1, dark)
 
-        # This *must* be last item!
-        self._setup_all_scout_pawns()
+        # Keep order! # --> Scouts --> Grenadiers
+        self._setup_all_scouts() # This *must* be 2nd to last item!
+        self._setup_all_grenadiers() # This *must* be last item!
 
     def _setup_none(self):
         pass
