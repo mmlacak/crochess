@@ -93,7 +93,7 @@ class SceneCommon:
         rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
-        height = None if bt > BoardType.MirandasVeil else \
+        height = None if bt > BoardType.Nineteen else \
                  size
         scene = Scene('intro_en_passant', bt, width=width, height=height)
 

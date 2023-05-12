@@ -503,14 +503,14 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *GS.append_tpl_rel( start_o_1, 1, 1 ), mark_type=MarkType.Illegal )
 
         #
-        # % \TODO
+        # % \TODO :: decide on Scout movement
         #
         for a in [0, 19]:
             for b in range( 20 ):
                 scene.append_text( "TODO", a, b, mark_type=MarkType.Action )
                 scene.append_text( "TODO", b, a, mark_type=MarkType.Action )
         #
-        # % \TODO
+        # % \TODO :: decide on Scout movement
         #
 
         return scene
