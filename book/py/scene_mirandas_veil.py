@@ -1734,7 +1734,7 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # W 2 --> N
-        scene.append_arrow( *( GS.append_tpl_rel( start_N, -2, 1 ) ), mark_type=MarkType.Action )
+        scene.append_arrow( *( GS.append_pos_rel( start_N, -2, 1 ) ), mark_type=MarkType.Action )
 
         scene.append_text("A", *start_W_1, corner=Corner.UpperLeft)
         scene.append_text("B", *start_W_2, corner=Corner.UpperRight)
@@ -1815,7 +1815,7 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # W 2 --> N
-        scene.append_arrow( *( GS.append_tpl_rel( start_N, -2, 1 ) ), mark_type=MarkType.Action )
+        scene.append_arrow( *( GS.append_pos_rel( start_N, -2, 1 ) ), mark_type=MarkType.Action )
 
         scene.append_text("B", *start_W_2, corner=Corner.UpperRight)
 

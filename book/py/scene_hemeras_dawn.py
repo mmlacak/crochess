@@ -478,8 +478,8 @@ class SceneHemerasDawnMixin:
             # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *pos, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_O_1, -1, -1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_tpl_rel( start_O_1, 1, -1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_O_1, -1, -1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_O_1, 1, -1 ), mark_type=MarkType.Illegal )
 
         #
         # <-- <- o -> -->
@@ -499,8 +499,8 @@ class SceneHemerasDawnMixin:
             # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *pos, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_o_1, -1, 1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_tpl_rel( start_o_1, 1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_o_1, -1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_o_1, 1, 1 ), mark_type=MarkType.Illegal )
 
         #
         # % \TODO :: decide on Scout movement
@@ -555,7 +555,7 @@ class SceneHemerasDawnMixin:
     #
     # Grenadier-fields
 
-    def scn_hd_17_grenadier_fields(self, bt=BoardType.HemerasDawn):
+    def scn_hd_17_grenadier_fields( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_17_grenadier_fields', bt, width=5, height=5 )
 
@@ -566,5 +566,161 @@ class SceneHemerasDawnMixin:
         coords_G_ = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_G, include_prev=False, count=1 )
         for i, pos in enumerate( coords_G_() ):
             scene.append_text( str(i+1), *pos, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal, rect=rect_G )
+
+        return scene
+
+    def scn_hd_18_grenadier_movement( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_18_grenadier_movement', bt )
+
+        start_G_A = (6, 4)
+        scene.board.set_piece( *start_G_A, piece=PieceType.Grenadier )
+
+        start_G_B = (14, 8)
+        scene.board.set_piece( *start_G_B, piece=PieceType.Grenadier )
+
+        start_n = (15, 9)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_G_C = (4, 14)
+        scene.board.set_piece( *start_G_C, piece=PieceType.Grenadier )
+
+        start_r = (5, 15)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_G_D = (14, 14)
+        scene.board.set_piece( *start_G_D, piece=PieceType.Grenadier )
+
+        start_p = (15, 14)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        #
+        # <-- <- G(A) -> -->
+
+        gen_GAr_ = GS.gen_steps( start=start_G_A, rels=[ (1, 0), ], include_prev=True, count=3 )
+        for i, pos in enumerate( gen_GAr_() ):
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GAu_ = GS.gen_steps( start=start_G_A, rels=[ (0, 1), ], include_prev=True, count=2 )
+        for i, pos in enumerate( gen_GAu_() ):
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GAl_ = GS.gen_steps( start=start_G_A, rels=[ (-1, 0), ], include_prev=True, count=3 )
+        for i, pos in enumerate( gen_GAl_() ):
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GAd_ = GS.gen_steps( start=start_G_A, rels=[ (0, -1), ], include_prev=True, count=2 )
+        for i, pos in enumerate( gen_GAd_() ):
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_pos_rel( start_G_A, 1, 1 ) , mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_G_A, -1, 1 ) , mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_G_A, -1, -1 ) , mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_G_A, 1, -1 ) , mark_type=MarkType.Illegal )
+
+        #
+        # <-- <- G(B) -> -->
+
+        gen_GBr_ = GS.gen_steps( start=start_G_B, rels=[ (1, 0), ], include_prev=True, count=5 )
+        for i, pos in enumerate( gen_GBr_() ):
+            # if i == 0:
+            #     scene.append_arrow( *GS.add_end_rel( pos, 1, 1 ), mark_type=MarkType.Illegal )
+            #     scene.append_arrow( *GS.add_end_rel( pos, 1, -1 ), mark_type=MarkType.Illegal )
+
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GBu_ = GS.gen_steps( start=start_G_B, rels=[ (0, 1), ], include_prev=True, count=1 )
+        for i, pos in enumerate( gen_GBu_() ):
+            # if i == 0:
+            #     scene.append_arrow( *GS.add_end_rel( pos, 1, 1 ), mark_type=MarkType.Illegal )
+            #     scene.append_arrow( *GS.add_end_rel( pos, -1, 1 ), mark_type=MarkType.Illegal )
+
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GBl_ = GS.gen_steps( start=start_G_B, rels=[ (-1, 0), ], include_prev=True, count=5 )
+        for i, pos in enumerate( gen_GBl_() ):
+            # if i == 0:
+            #     scene.append_arrow( *GS.add_end_rel( pos, -1, 1 ), mark_type=MarkType.Illegal )
+            #     scene.append_arrow( *GS.add_end_rel( pos, -1, -1 ), mark_type=MarkType.Illegal )
+
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GBd_ = GS.gen_steps( start=start_G_B, rels=[ (0, -1), ], include_prev=True, count=1 )
+        for i, pos in enumerate( gen_GBd_() ):
+            # if i == 0:
+            #     scene.append_arrow( *GS.add_end_rel( pos, -1, -1 ), mark_type=MarkType.Illegal )
+            #     scene.append_arrow( *GS.add_end_rel( pos, 1, -1 ), mark_type=MarkType.Illegal )
+
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        # scene.append_arrow( *GS.append_pos_rel( start_G_B, 1, 1 ) , mark_type=MarkType.Illegal )
+        # scene.append_arrow( *GS.append_pos_rel( start_G_B, -1, 1 ) , mark_type=MarkType.Illegal )
+        # scene.append_arrow( *GS.append_pos_rel( start_G_B, -1, -1 ) , mark_type=MarkType.Illegal )
+        # scene.append_arrow( *GS.append_pos_rel( start_G_B, 1, -1 ) , mark_type=MarkType.Illegal )
+
+        #
+        # <-- <- G(C) -> -->
+
+        gen_GCr_ = GS.gen_steps( start=start_G_C, rels=[ (1, 0), ], include_prev=True, count=1 )
+        for i, pos in enumerate( gen_GCr_() ):
+            if i == 0:
+                scene.append_arrow( *GS.add_end_rel( pos, 1, 1 ), mark_type=MarkType.Illegal )
+                scene.append_arrow( *GS.add_end_rel( pos, 1, -1 ), mark_type=MarkType.Illegal )
+
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GCu_ = GS.gen_steps( start=start_G_C, rels=[ (0, 1), ], include_prev=True, count=1 )
+        for i, pos in enumerate( gen_GCu_() ):
+            if i == 0:
+                scene.append_arrow( *GS.add_end_rel( pos, 1, 1 ), mark_type=MarkType.Illegal )
+                scene.append_arrow( *GS.add_end_rel( pos, -1, 1 ), mark_type=MarkType.Illegal )
+
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GCl_ = GS.gen_steps( start=start_G_C, rels=[ (-1, 0), ], include_prev=True, count=1 )
+        for i, pos in enumerate( gen_GCl_() ):
+            if i == 0:
+                scene.append_arrow( *GS.add_end_rel( pos, -1, 1 ), mark_type=MarkType.Illegal )
+                scene.append_arrow( *GS.add_end_rel( pos, -1, -1 ), mark_type=MarkType.Illegal )
+
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_GCd_ = GS.gen_steps( start=start_G_C, rels=[ (0, -1), ], include_prev=True, count=1 )
+        for i, pos in enumerate( gen_GCd_() ):
+            if i == 0:
+                scene.append_arrow( *GS.add_end_rel( pos, -1, -1 ), mark_type=MarkType.Illegal )
+                scene.append_arrow( *GS.add_end_rel( pos, 1, -1 ), mark_type=MarkType.Illegal )
+
+            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_pos_rel( start_G_C, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_G_C, -1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_G_C, -1, -1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_G_C, 1, -1 ), mark_type=MarkType.Illegal )
+
+        #
+        # <-- <- G(D) -> -->
+
+        coords = GS.append_pos_rel( start_G_D, 1, 0 )
+        scene.append_arrow( *coords, mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.add_end_rel( coords, 1, 1 ) , mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.add_end_rel( coords, 1, -1 ) , mark_type=MarkType.Blocked )
+
+        scene.append_text( "A", *start_G_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_G_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_G_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "D", *start_G_D, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         return scene

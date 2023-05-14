@@ -75,7 +75,7 @@ class SceneIsa(SceneMixin):
         for index, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
             current = start
             while scene.board.is_on_board(*current):
-                next_ = GS.add(rel, current)
+                next_ = GS.add_step(rel, current)
 
                 check = self.check_field(scene, pt, *next_)
                 if check is True:
@@ -84,7 +84,7 @@ class SceneIsa(SceneMixin):
                 elif check is False:
                     # opponent's piece encountered
                     for _i, r in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
-                        c = GS.add(r, current)
+                        c = GS.add_step(r, current)
                         if self.check_if_opponents_king(scene, pt, *c):
                             scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                             scene.append_field_marker(*c, mark_type=MarkType.Illegal)
@@ -97,7 +97,7 @@ class SceneIsa(SceneMixin):
                         scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
 
                     for _i, r in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
-                        c = GS.add(r, next_)
+                        c = GS.add_step(r, next_)
                         if self.check_if_opponents_king(scene, pt, *c):
                             scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                         else:
@@ -125,7 +125,7 @@ class SceneIsa(SceneMixin):
         for index, rel in enumerate( rel_moves ):
             previous = current = start
             while scene.board.is_on_board(*current):
-                next_ = GS.add(rel, current)
+                next_ = GS.add_step(rel, current)
 
                 check = self.check_field(scene, pt, *next_)
                 if check is True:
@@ -134,7 +134,7 @@ class SceneIsa(SceneMixin):
                 elif check is False:
                     # opponent's piece encountered
                     for _i, r in enumerate( rel_capture ):
-                        c = GS.add(r, previous)
+                        c = GS.add_step(r, previous)
                         if self.check_if_opponents_king(scene, pt, *c):
                             scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                             scene.append_field_marker(*c, mark_type=MarkType.Illegal)
@@ -144,7 +144,7 @@ class SceneIsa(SceneMixin):
                     for _i, r in enumerate( rel_capture ):
                         c = current
                         while scene.board.is_on_board(*c):
-                            n = GS.add(r, c)
+                            n = GS.add_step(r, c)
                             if self.check_field(scene, pt, *n) is False:
                                 if self.check_if_opponents_king(scene, pt, *n):
                                     scene.append_arrow( *(c + n), mark_type=MarkType.Illegal )
@@ -163,7 +163,7 @@ class SceneIsa(SceneMixin):
                     elif (pt.is_dark() and current[1] < 5) or (pt.is_light() and current[1] > scene.board.get_height() - 5):
                         # close to opponent's initial positions
                         for _i, r in enumerate( rel_capture ):
-                            n = GS.add(r, previous)
+                            n = GS.add_step(r, previous)
                             if scene.board.is_on_board(*n):
                                 if self.check_if_opponents_king(scene, pt, *n):
                                     scene.append_text(str(_i+1), *n, mark_type=MarkType.Illegal)
@@ -173,7 +173,7 @@ class SceneIsa(SceneMixin):
                         for _i, r in enumerate( rel_capture ):
                             c = current
                             while scene.board.is_on_board(*c):
-                                n = GS.add(r, c)
+                                n = GS.add_step(r, c)
                                 if self.check_field(scene, pt, *n) is False:
                                     if self.check_if_opponents_king(scene, pt, *n):
                                         scene.append_arrow( *(c + n), mark_type=MarkType.Illegal )
@@ -221,7 +221,7 @@ class SceneIsa(SceneMixin):
 
                 rel_previous = None
                 for rel in gen_func():
-                    next_ = GS.add(rel, current)
+                    next_ = GS.add_step(rel, current)
                     rel_current = GS.DEFAULT_UNICORN_REL_LONG_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_KNIGHT_REL_MOVES
                     rel_capture = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
 
@@ -235,7 +235,7 @@ class SceneIsa(SceneMixin):
                         elif check is False:
                             # opponent's piece encountered
                             for _i, r in enumerate( rel_current ):
-                                c = GS.add(r, current)
+                                c = GS.add_step(r, current)
                                 if self.check_if_opponents_king(scene, pt, *c):
                                     new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                                     new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
@@ -248,7 +248,7 @@ class SceneIsa(SceneMixin):
                                 new_scene.append_arrow( *(current + next_), mark_type=MarkType.Action )
 
                             for _i, r in enumerate( rel_capture ):
-                                c = GS.add(r, next_)
+                                c = GS.add_step(r, next_)
                                 if self.check_if_opponents_king(scene, pt, *c):
                                     new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                                 else:
@@ -265,9 +265,9 @@ class SceneIsa(SceneMixin):
                         if (pt.is_dark() and current[1] < diff) or (pt.is_light() and current[1] > scene.board.get_height() - diff):
                             # close to opponent's initial positions
                             if rel_previous is not None:
-                                prev = GS.sub(current, rel_previous)
+                                prev = GS.sub_step(current, rel_previous)
                                 for _i, r in enumerate( rel_capture ):
-                                    c = GS.add(r, prev)
+                                    c = GS.add_step(r, prev)
                                     if self.check_if_opponents_king(scene, pt, *c):
                                         new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                                         new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
@@ -275,7 +275,7 @@ class SceneIsa(SceneMixin):
                                         new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
 
                             for _i, r in enumerate( rel_current ):
-                                c = GS.add(r, current)
+                                c = GS.add_step(r, current)
                                 if self.check_if_opponents_king(scene, pt, *c):
                                     new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                                 else:
@@ -314,7 +314,7 @@ class SceneIsa(SceneMixin):
 
                     rel_previous = None
                     for rel in gen_func():
-                        next_ = GS.add(rel, current)
+                        next_ = GS.add_step(rel, current)
                         rel_current = GS.DEFAULT_UNICORN_REL_LONG_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_KNIGHT_REL_MOVES
                         rel_capture = GS.DEFAULT_KNIGHT_REL_MOVES if self.check_centaur_rel_move(rel) else GS.DEFAULT_UNICORN_REL_LONG_MOVES
 
@@ -328,14 +328,14 @@ class SceneIsa(SceneMixin):
                             elif check is False:
                                 # opponent's piece encountered
                                 for _i, r in enumerate( rel_current ):
-                                    c = GS.add(r, current)
+                                    c = GS.add_step(r, current)
                                     if self.check_if_opponents_king(new_scene, pt, *c):
                                         new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                                     elif self.check_field(new_scene, pt, *c) is False:
                                         new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
 
                                 for _i, r in enumerate( rel_capture ):
-                                    c = GS.add(r, next_)
+                                    c = GS.add_step(r, next_)
                                     if self.check_if_opponents_king(new_scene, pt, *c):
                                         new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                                     elif self.check_field(new_scene, pt, *c) is False:
@@ -351,16 +351,16 @@ class SceneIsa(SceneMixin):
                             if (pt.is_dark() and current[1] < diff) or (pt.is_light() and current[1] > new_scene.board.get_height() - diff):
                                 # close to opponent's initial positions
                                 if rel_previous is not None:
-                                    prev = GS.sub(current, rel_previous)
+                                    prev = GS.sub_step(current, rel_previous)
                                     for _i, r in enumerate( rel_capture ):
-                                        c = GS.add(r, prev)
+                                        c = GS.add_step(r, prev)
                                         if self.check_if_opponents_king(new_scene, pt, *c):
                                             new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Illegal)
                                         elif self.check_field(new_scene, pt, *c) is False:
                                             new_scene.append_text(str(_i+1), *c, mark_type=MarkType.Legal)
 
                                 for _i, r in enumerate( rel_current ):
-                                    c = GS.add(r, current)
+                                    c = GS.add_step(r, current)
                                     if self.check_if_opponents_king(new_scene, pt, *c):
                                         new_scene.append_field_marker(*c, mark_type=MarkType.Illegal)
                                     elif self.check_field(new_scene, pt, *c) is False:

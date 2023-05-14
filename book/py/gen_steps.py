@@ -291,60 +291,70 @@ DEFAULT_DISPLACEMENT_REL_MOVES =  [ (  3,   1),  \
 DEFAULT_DISPLACEMENT_MULTI_REL_MOVES = convert_single_step_into_multi_rels(DEFAULT_DISPLACEMENT_REL_MOVES)
 
 
-def separate_poss(coords):
-    x0, y0, x1, y1 = coords
+def separate_poss(arrow):
+    x0, y0, x1, y1 = arrow
     return (x0, y0), (x1, y1)
 
 def combine_poss(start, end):
-    x0, y0 = start
-    x1, y1 = end
-    return (x0, y0, x1, y1)
+    # x0, y0 = start
+    # x1, y1 = end
+    # return (x0, y0, x1, y1)
+    return start + end
 
 
-def add_tpl(pos, rel_x, rel_y):
+def add_rel(pos, rel_x, rel_y):
     if pos is None or rel_x is None or rel_y is None:
         return None
     return ( pos[0] + rel_x, pos[1] + rel_y )
 
-def sub_tpl(pos, rel_x, rel_y):
+def sub_rel(pos, rel_x, rel_y):
     if pos is None or rel_x is None or rel_y is None:
         return None
     return ( pos[0] - rel_x, pos[1] - rel_y )
 
-def append_tpl(pos, x, y):
+def append_pos(pos, x, y):
     if pos is None or x is None or y is None:
         return None
     return ( pos[0], pos[1], x, y )
 
-def append_tpl_rel(pos, rel_x, rel_y):
+def append_pos_rel(pos, rel_x, rel_y):
     if pos is None or rel_x is None or rel_y is None:
         return None
     return ( pos[0], pos[1], pos[0] + rel_x, pos[1] + rel_y )
 
-def add(step, rel):
-    if step is None or rel is None:
+def add_step(pos, step):
+    if pos is None or step is None:
         return None
-    return ( step[0] + rel[0], step[1] + rel[1] )
+    return ( pos[0] + step[0], pos[1] + step[1] )
 
-def sub(step, rel):
-    if step is None or rel is None:
+def sub_step(pos, step):
+    if pos is None or step is None:
         return None
-    return ( step[0] - rel[0], step[1] - rel[1] )
+    return ( pos[0] - step[0], pos[1] - step[1] )
 
-def get_start(tpl_4):
-    return (tpl_4[0], tpl_4[1])
+def get_start(arrow):
+    return (arrow[0], arrow[1])
 
-def get_end(tpl_4):
-    return (tpl_4[2], tpl_4[3])
+def get_end(arrow):
+    return (arrow[2], arrow[3])
 
-def adder(step, include_prev=False):
-    _current = step
-    _next = step
+def add_end_rel(arrow, rel_x, rel_y):
+    x0, y0, x1, y1 = arrow
+    return (x1, y1, x1 + rel_x, y1 + rel_y)
+
+def sub_end_rel(arrow, rel_x, rel_y):
+    x0, y0, x1, y1 = arrow
+    return (x1, y1, x1 - rel_x, y1 - rel_y)
+
+
+def adder(pos, include_prev=False):
+    _current = pos
+    _next = pos
 
     def _adder(rel_i, rel_j, do_advance=True):
         nonlocal _current, _next
         _current = _next
-        _n = add(_current, (rel_i, rel_j))
+        _n = add_step(_current, (rel_i, rel_j))
         if do_advance:
             _next = _n
 
@@ -461,7 +471,7 @@ def gen_steps(rels, start=None, end=None, include_prev=False, include_first=Fals
         for _rel in _rels():
             if _reverse:
                 _rel = negate(_rel)
-            _prev = _next = add(_current, _rel)
+            _prev = _next = add_step(_current, _rel)
 
             if not _valid(_next):
                 break
@@ -557,7 +567,7 @@ def gen_shaman_rels(rel, count=None):
         while count is None or i < count:
             rel_1 = g()
             rel_2 = g()
-            rel_new = add(rel_1, rel_2)
+            rel_new = add_step(rel_1, rel_2)
 
             if rel_new is None:
                 break

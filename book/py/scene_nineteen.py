@@ -528,7 +528,7 @@ class SceneNineteenMixin:
         start_W = (6, 7)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        scene.append_arrow( *( GS.append_tpl_rel( start_P, -1, 0 ) ) )
+        scene.append_arrow( *( GS.append_pos_rel( start_P, -1, 0 ) ) )
         scene.append_arrow( *( start_P + start_W ), mark_type=MarkType.Action )
 
         return scene

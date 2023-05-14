@@ -528,9 +528,9 @@ class SceneMayanAscendancyMixin:
         scene.append_text("5", *coords(), corner=Corner.UpperRight, mark_type=MarkType.Action )
 
         # pyramids
-        scene.append_text("1", *GS.add(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
-        scene.append_text("2", *GS.add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
-        scene.append_text("3", *GS.add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        scene.append_text("1", *GS.add_step(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        scene.append_text("2", *GS.add_step(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        scene.append_text("3", *GS.add_step(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -612,8 +612,8 @@ class SceneMayanAscendancyMixin:
         scene.append_text("5", *coords(), mark_type=MarkType.Blocked )
 
         # pyramids
-        scene.append_text("2", *GS.add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
-        scene.append_text("3", *GS.add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        scene.append_text("2", *GS.add_step(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
+        scene.append_text("3", *GS.add_step(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -670,8 +670,8 @@ class SceneMayanAscendancyMixin:
         scene.append_text("2", *coords())
 
         # pyramids
-        scene.append_text("1", *GS.add(start, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
-        scene.append_text("3", *GS.add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        scene.append_text("1", *GS.add_step(start, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        scene.append_text("3", *GS.add_step(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
 
         return scene
 
@@ -694,9 +694,9 @@ class SceneMayanAscendancyMixin:
 
         offset = (0.45, 0.15)
 
-        scene.append_text("1", *GS.add(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
-        scene.append_text("2", *GS.add(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
-        scene.append_text("3", *GS.add(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        scene.append_text("1", *GS.add_step(pyramid_1, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        scene.append_text("2", *GS.add_step(pyramid_2, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
+        scene.append_text("3", *GS.add_step(pyramid_3, offset), corner=Corner.Position, mark_type=MarkType.Blocked)
 
         return scene
 

@@ -1092,10 +1092,10 @@ class SceneDiscoveryMixin:
         start_M2 = (2, 5)
         scene.board.set_piece(*start_M2, piece=PieceType.Monolith)
 
-        scene.append_arrow( *GS.append_tpl_rel(start_M1, 1, -2), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel(start_M1, 1, -2), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel(start_M2, -2, 1), mark_type=MarkType.Action )
-        scene.append_arrow( *GS.append_tpl_rel(start_M2, 1, -2), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel(start_M2, -2, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel(start_M2, 1, -2), mark_type=MarkType.Action )
 
         gen = GS.gen_steps( [(1, 0), ], start_T_1, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, coords in enumerate( gen() ):

@@ -285,11 +285,11 @@ class SceneConquestOfTlalocanMixin:
         scene.append_arrow( *coords() )
         scene.append_arrow( *coords() )
 
-        scene.board.set_piece(*GS.add(start, (13, 13)), piece=-PieceType.Knight)
+        scene.board.set_piece(*GS.add_step(start, (13, 13)), piece=-PieceType.Knight)
 
         # (3, 2) change direction -------------------------------------------------------------------------------------------------
 
-        gen_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=GS.add(start, (9, 6)), include_prev=True, count=1)
+        gen_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=GS.add_step(start, (9, 6)), include_prev=True, count=1)
 
         for pos in gen_pos():
             scene.append_arrow( *pos, mark_type=MarkType.Illegal )
@@ -297,7 +297,7 @@ class SceneConquestOfTlalocanMixin:
         # (3, 2) change direction -------------------------------------------------------------------------------------------------
 
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-3, -2), (3, 2)] ) )
-        gen_pos = GS.gen_multi_steps(multi_rels, start=GS.add(start, (15, 10)), include_prev=True, count=1)
+        gen_pos = GS.gen_multi_steps(multi_rels, start=GS.add_step(start, (15, 10)), include_prev=True, count=1)
 
         for pos in gen_pos():
             scene.append_arrow( *pos, mark_type=MarkType.Illegal )
@@ -318,8 +318,8 @@ class SceneConquestOfTlalocanMixin:
 
         # empty -------------------------------------------------------------------------------------------------------------------
 
-        scene.board.set_piece(*GS.add(start, (8, -2)), piece=-PieceType.Pawn)
-        scene.board.set_piece(*GS.add(start, (12, -3)), piece=-PieceType.Pawn)
+        scene.board.set_piece(*GS.add_step(start, (8, -2)), piece=-PieceType.Pawn)
+        scene.board.set_piece(*GS.add_step(start, (12, -3)), piece=-PieceType.Pawn)
 
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-1, -4), (1, -4), (3, 2), (4, 1), (2, 3), ] ) )
         gen_pos = GS.gen_multi_steps(multi_rels, start=start, include_prev=True, bounds=scene.board_view.get_position_limits())
@@ -383,9 +383,9 @@ class SceneConquestOfTlalocanMixin:
 
         # (3, 2) change direction -------------------------------------------------------------------------------------------------
 
-        scene.board.set_piece(*GS.add(start, (8, 8)), piece=PieceType.Knight)
+        scene.board.set_piece(*GS.add_step(start, (8, 8)), piece=PieceType.Knight)
 
-        gen_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=GS.add(start, (9, 6)), include_prev=True, count=1)
+        gen_pos = GS.gen_multi_steps(GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=GS.add_step(start, (9, 6)), include_prev=True, count=1)
 
         for pos in gen_pos():
             scene.append_arrow( *pos, mark_type=MarkType.Illegal )
@@ -393,7 +393,7 @@ class SceneConquestOfTlalocanMixin:
         # (3, 2) change direction -------------------------------------------------------------------------------------------------
 
         multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(-3, -2), (3, 2)] ) )
-        gen_pos = GS.gen_multi_steps(multi_rels, start=GS.add(start, (15, 10)), include_prev=True, count=1)
+        gen_pos = GS.gen_multi_steps(multi_rels, start=GS.add_step(start, (15, 10)), include_prev=True, count=1)
 
         for pos in gen_pos():
             scene.append_arrow( *pos, mark_type=MarkType.Illegal )
@@ -430,7 +430,7 @@ class SceneConquestOfTlalocanMixin:
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
         scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        scene.board.set_piece(*GS.add(start, (5, 5)), piece=PieceType.Knight)
+        scene.board.set_piece(*GS.add_step(start, (5, 5)), piece=PieceType.Knight)
 
         # (-2, 1) ------------------------------------------------------------------------------------------------------------------
 
@@ -567,7 +567,7 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
         scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
 
-        scene.board.set_piece(*GS.add(start, (13, 13)), piece=-PieceType.Knight)
+        scene.board.set_piece(*GS.add_step(start, (13, 13)), piece=-PieceType.Knight)
 
         # (2, 3) ------------------------------------------------------------------------------------------------------------------
 
@@ -579,8 +579,8 @@ class SceneConquestOfTlalocanMixin:
 
         # empty -------------------------------------------------------------------------------------------------------------------
 
-        scene.board.set_piece(*GS.add(start, (8, -2)), piece=-PieceType.Pawn)
-        scene.board.set_piece(*GS.add(start, (12, -3)), piece=-PieceType.Pawn)
+        scene.board.set_piece(*GS.add_step(start, (8, -2)), piece=-PieceType.Pawn)
+        scene.board.set_piece(*GS.add_step(start, (12, -3)), piece=-PieceType.Pawn)
 
         return scene
 
@@ -988,15 +988,15 @@ class SceneConquestOfTlalocanMixin:
         start_n_A = (1, 6)
         scene.board.set_piece( *start_n_A, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_A, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_A, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_A, -1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_H_A, -1, 1 ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_A, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_A, 0, 1 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_A, 1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_A, 1, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_A, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_A, 1, 0 ), mark_type=MarkType.Legal )
 
         scene.append_text( "A", *start_H_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
@@ -1008,15 +1008,15 @@ class SceneConquestOfTlalocanMixin:
         start_n_B = (7, 6)
         scene.board.set_piece( *start_n_B, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_B, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_B, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_B, -1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_B, -1, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_B, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_B, 0, 1 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_B, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_H_B, 1, 1 ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_B, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_B, 1, 0 ), mark_type=MarkType.Legal )
 
         scene.append_text( "B", *start_H_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
@@ -1028,9 +1028,9 @@ class SceneConquestOfTlalocanMixin:
         start_n_C = (10, 6)
         scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_C, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_C, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_C, -1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_H_C, -1, 1 ), mark_type=MarkType.Action )
 
         # P(C) @ H(C) -->
         coords_PC_H = GS.gen_steps( start=start_H_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
@@ -1038,9 +1038,9 @@ class SceneConquestOfTlalocanMixin:
         for i, arrow in enumerate( coords_PC_H() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_C, 1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_C, 1, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_C, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_C, 1, 0 ), mark_type=MarkType.Legal )
 
         scene.append_text( "C", *start_H_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
@@ -1055,15 +1055,15 @@ class SceneConquestOfTlalocanMixin:
         start_n_D = (16, 6)
         scene.board.set_piece( *start_n_D, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_D, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_D, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_D, -1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_D, -1, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_D, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_D, 0, 1 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_D, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_H_D, 1, 1 ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_D, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_D, 1, 0 ), mark_type=MarkType.Legal )
 
         scene.append_text( "D", *start_H_D, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
@@ -1086,11 +1086,11 @@ class SceneConquestOfTlalocanMixin:
         start_n_E = (20, 6)
         scene.board.set_piece( *start_n_E, piece=-PieceType.Knight )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_E, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_E, -1, 0 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_E, -1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_E, -1, 1 ), mark_type=MarkType.Illegal )
 
-        # scene.append_arrow( *GS.append_tpl_rel( start_H_E, 0, 1 ), mark_type=MarkType.Legal )
+        # scene.append_arrow( *GS.append_pos_rel( start_H_E, 0, 1 ), mark_type=MarkType.Legal )
 
         # P(E) @ H(E) -->
         coords_PE_H = GS.gen_steps( start=start_H_E, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
@@ -1100,9 +1100,9 @@ class SceneConquestOfTlalocanMixin:
                         MarkType.Illegal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_E, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_H_E, 1, 1 ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel( start_H_E, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( start_H_E, 1, 0 ), mark_type=MarkType.Legal )
 
         scene.append_text( "E", *start_H_E, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 

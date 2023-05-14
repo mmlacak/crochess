@@ -769,18 +769,18 @@ class SceneTamoanchanRevisitedMixin:
         start_p_b = (5, 3)
         scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
 
-        scene.append_arrow( *GS.append_tpl_rel( prev_p_a, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_tpl_rel( prev_p_a, 0, 1 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_tpl_rel( prev_p_a, -1, 0 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_tpl_rel( prev_p_a, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p_a, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p_a, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p_a, -1, 0 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p_a, 0, -1 ), mark_type=MarkType.Legal )
 
         # scene.append_text( "A", *prev_p_a, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
         scene.append_text( "B", *start_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
-        scene.append_field_marker( *GS.add_tpl( prev_p_a, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_tpl( prev_p_a, 0, 1 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_tpl( prev_p_a, -1, 0 ), mark_type=MarkType.Illegal )
-        scene.append_field_marker( *GS.add_tpl( prev_p_a, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p_a, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p_a, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p_a, -1, 0 ), mark_type=MarkType.Illegal )
+        scene.append_field_marker( *GS.add_rel( prev_p_a, 0, -1 ), mark_type=MarkType.Legal )
 
         return scene
 
@@ -806,18 +806,18 @@ class SceneTamoanchanRevisitedMixin:
 
         scene.append_arrow( *( prev_p_a + start_S ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *GS.append_tpl_rel( prev_p_b, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_tpl_rel( prev_p_b, 0, 1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_tpl_rel( prev_p_b, -1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_tpl_rel( prev_p_b, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p_b, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p_b, 0, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p_b, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p_b, 0, -1 ), mark_type=MarkType.Legal )
 
         scene.append_text( "A", *start_p_a, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
         # scene.append_text( "B", *prev_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
-        scene.append_field_marker( *GS.add_tpl( prev_p_b, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_tpl( prev_p_b, 0, 1 ), mark_type=MarkType.Illegal )
-        scene.append_field_marker( *GS.add_tpl( prev_p_b, -1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_tpl( prev_p_b, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p_b, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p_b, 0, 1 ), mark_type=MarkType.Illegal )
+        scene.append_field_marker( *GS.add_rel( prev_p_b, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p_b, 0, -1 ), mark_type=MarkType.Legal )
 
         return scene
 
