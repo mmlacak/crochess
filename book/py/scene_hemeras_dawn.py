@@ -602,6 +602,34 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    def scn_hd_19_grenadier_extended_steps( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_19_grenadier_extended_steps', bt, width=11, height=5 )
+
+        start_G = (5, 2)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        start_n = (6, 3)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=5 )
+        for i, pos in enumerate( gen_Gr_() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_Gu_ = GS.gen_steps( start=start_G, rels=[ (0, 1), ], include_prev=True, count=1 )
+        for i, pos in enumerate( gen_Gu_() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_Gl_ = GS.gen_steps( start=start_G, rels=[ (-1, 0), ], include_prev=True, count=5 )
+        for i, pos in enumerate( gen_Gl_() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        gen_Gd_ = GS.gen_steps( start=start_G, rels=[ (0, -1), ], include_prev=True, count=1 )
+        for i, pos in enumerate( gen_Gd_() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal )
+
+        return scene
+
     def scn_hd_99_grenadier_movement( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_99_grenadier_movement', bt )
