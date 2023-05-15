@@ -748,6 +748,26 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    def scn_hd_23_grenadier_blocked_capture( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_23_grenadier_blocked_capture', bt, width=5, height=5 )
+
+        start_G = (1, 2)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        start_p = (2, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_u = (3, 3)
+        scene.board.set_piece( *start_u, piece=-PieceType.Unicorn )
+
+        coords = GS.append_pos_rel( start_G, 1, 0 )
+        scene.append_arrow( *coords, mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.add_end_rel( coords, 1, 1 ) , mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.add_end_rel( coords, 1, -1 ) , mark_type=MarkType.Blocked )
+
+        return scene
+
     #
     # \TODO :: DELETE
 
