@@ -748,9 +748,6 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    #
-    # \TODO :: DELETE
-
     def scn_hd_23_grenadier_capture_fields( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_23_grenadier_capture_fields', bt, width=5, height=5 )
@@ -764,6 +761,9 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *GS.append_pos_rel( start_G, 1, -1 ) , mark_type=MarkType.Illegal )
 
         return scene
+
+    #
+    # \TODO :: DELETE
 
     def scn_hd_24_grenadier_extended_capture_fields( self, bt=BoardType.HemerasDawn ):
 
