@@ -684,9 +684,44 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_21_grenadier_capture_fields( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_21_grenadier_blocked_steps( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_21_grenadier_capture_fields', bt, width=5, height=5 )
+        scene = Scene( 'scn_hd_21_grenadier_blocked_steps', bt, width=7, height=5 )
+
+        start_G = (1, 2)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        start_b = (0, 2)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        start_r = (0, 3)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_p = (0, 1)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_u = (4, 2)
+        scene.board.set_piece( *start_u, piece=-PieceType.Unicorn )
+
+        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=4 )
+        for i, arr in enumerate( gen_Gr_() ):
+            mt_arr = MarkType.Blocked if i >= 2 else \
+                     MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_arr )
+
+            mt_cpt = MarkType.Blocked if i >= 2 else \
+                     MarkType.Illegal
+            scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=mt_cpt )
+            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=mt_cpt )
+
+        return scene
+
+    #
+    # \TODO :: DELETE
+
+    def scn_hd_22_grenadier_capture_fields( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_22_grenadier_capture_fields', bt, width=5, height=5 )
 
         start_G = (2, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -698,9 +733,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_22_grenadier_extended_capture_fields( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_23_grenadier_extended_capture_fields( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_22_grenadier_extended_capture_fields', bt, width=5, height=5 )
+        scene = Scene( 'scn_hd_23_grenadier_extended_capture_fields', bt, width=5, height=5 )
 
         start_G = (2, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -746,9 +781,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_23_grenadier_extended_captures( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_24_grenadier_extended_captures( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_23_grenadier_extended_captures', bt, width=5, height=5 )
+        scene = Scene( 'scn_hd_24_grenadier_extended_captures', bt, width=5, height=5 )
 
         start_G = (2, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -802,9 +837,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_24_grenadier_blocked_capture( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_25_grenadier_blocked_capture( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_24_grenadier_blocked_capture', bt, width=5, height=5 )
+        scene = Scene( 'scn_hd_25_grenadier_blocked_capture', bt, width=5, height=5 )
 
         start_G = (1, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -822,10 +857,10 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_25_grenadier_complete_extended_pattern( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_26_grenadier_complete_extended_pattern( self, bt=BoardType.HemerasDawn ):
 
-        # scene = Scene( 'scn_hd_25_grenadier_complete_extended_pattern', bt, width=11, height=5 )
-        scene = Scene( 'scn_hd_25_grenadier_complete_extended_pattern', bt, y=1, height=5 )
+        # scene = Scene( 'scn_hd_26_grenadier_complete_extended_pattern', bt, width=11, height=5 )
+        scene = Scene( 'scn_hd_26_grenadier_complete_extended_pattern', bt, y=1, height=5 )
 
         start_G = (9, 3)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
