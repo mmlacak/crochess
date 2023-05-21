@@ -649,12 +649,17 @@ class SceneHemerasDawnMixin:
         start_p = (8, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
+        start_q = (12, 3)
+        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
+
         gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=4 )
         for i, arr in enumerate( gen_Gr_() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
+            mt_q = MarkType.Action if i == 1 else \
+                   MarkType.Illegal
             scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
-            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=MarkType.Illegal )
+            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=mt_q )
 
         gen_Gu_ = GS.gen_steps( start=start_G, rels=[ (0, 1), ], include_prev=True, count=1 )
         for i, arr in enumerate( gen_Gu_() ):
