@@ -574,7 +574,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_18_grenadier_movement( self, bt=BoardType.HemerasDawn ):
 
-        # scene = Scene( 'scn_hd_18_grenadier_movement', bt, width=7, height=5 )
+        # scene = Scene( 'scn_hd_18_grenadier_movement', bt, width=7, height=7 )
         scene = Scene( 'scn_hd_18_grenadier_movement', bt, height=7 )
 
         start_G = (9, 3)
@@ -605,9 +605,9 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_19_forking_steps( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_19_forking_steps', bt, width=5, height=5 )
+        scene = Scene( 'scn_hd_19_forking_steps', bt, width=7, height=7 )
 
-        start_G = (2, 2)
+        start_G = (3, 3)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
         adder_right = GS.adder( start_G, include_prev=True )
@@ -634,19 +634,19 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_20_grenadier_forking_steps( self, bt=BoardType.HemerasDawn ):
 
-        # scene = Scene( 'scn_hd_20_grenadier_forking_steps', bt, width=11, height=5 )
-        scene = Scene( 'scn_hd_20_grenadier_forking_steps', bt, y=1, height=5 )
+        # scene = Scene( 'scn_hd_20_grenadier_forking_steps', bt, width=11, height=7 )
+        scene = Scene( 'scn_hd_20_grenadier_forking_steps', bt, y=1, height=7 )
 
-        start_G = (9, 3)
+        start_G = (9, 4)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        start_n = (10, 4)
+        start_n = (10, 5)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_r = (8, 4)
+        start_r = (8, 5)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_p = (8, 2)
+        start_p = (8, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=4 )
@@ -686,7 +686,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_21_grenadier_blocked_steps( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_21_grenadier_blocked_steps', bt, width=7, height=5 )
+        scene = Scene( 'scn_hd_21_grenadier_blocked_steps', bt, width=8, height=5 )
 
         start_G = (1, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -718,7 +718,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_22_grenadier_not_blocked_steps( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_22_grenadier_not_blocked_steps', bt, width=7, height=5 )
+        scene = Scene( 'scn_hd_22_grenadier_not_blocked_steps', bt, width=8, height=5 )
 
         start_G = (1, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -764,22 +764,22 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_24_grenadier_complete_extended_pattern( self, bt=BoardType.HemerasDawn ):
 
-        # scene = Scene( 'scn_hd_24_grenadier_complete_extended_pattern', bt, width=11, height=5 )
-        scene = Scene( 'scn_hd_24_grenadier_complete_extended_pattern', bt, y=1, height=5 )
+        # scene = Scene( 'scn_hd_24_grenadier_complete_extended_pattern', bt, width=11, height=7 )
+        scene = Scene( 'scn_hd_24_grenadier_complete_extended_pattern', bt, y=1, height=7 )
 
-        start_G = (9, 3)
+        start_G = (9, 4)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        start_n = (10, 4)
+        start_n = (10, 5)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_r = (8, 4)
+        start_r = (8, 5)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_p = (8, 2)
+        start_p = (8, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_q = (12, 2)
+        start_q = (12, 3)
         scene.board.set_piece( *start_q, piece=-PieceType.Queen )
 
         gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=4 )
