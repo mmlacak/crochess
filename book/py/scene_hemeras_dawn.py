@@ -760,6 +760,9 @@ class SceneHemerasDawnMixin:
         start_G = (2, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
+        start_n = (1, 2)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
         scene.append_arrow( *GS.append_pos_rel( start_G, 1, 1 ) , mark_type=MarkType.Illegal )
         scene.append_arrow( *GS.append_pos_rel( start_G, -1, 1 ) , mark_type=MarkType.Illegal )
         scene.append_arrow( *GS.append_pos_rel( start_G, -1, -1 ) , mark_type=MarkType.Illegal )

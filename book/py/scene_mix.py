@@ -40,10 +40,10 @@ class SceneMix(SceneMixin, \
                     # 'scn_hd_17_grenadier_fields', \
                     # 'scn_hd_18_grenadier_movement', \
                     # 'scn_hd_19_forking_steps', \
-                    'scn_hd_20_grenadier_forking_steps', \
+                    # 'scn_hd_20_grenadier_forking_steps', \
                     # 'scn_hd_21_grenadier_blocked_steps', \
                     # 'scn_hd_22_grenadier_not_blocked_steps', \
-                    # 'scn_hd_23_grenadier_capture_fields', \
+                    'scn_hd_23_grenadier_capture_fields', \
                     # 'scn_hd_24_grenadier_complete_extended_pattern', \
                     # \
                     # 'scn_hd_25_grenadier_extended_capture_fields', \
