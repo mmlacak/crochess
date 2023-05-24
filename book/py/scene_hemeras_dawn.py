@@ -781,20 +781,28 @@ class SceneHemerasDawnMixin:
         start_n = (10, 5)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
+        start_w = (10, 4)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
         start_r = (8, 5)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_p = (8, 3)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+        start_p_1 = (8, 3)
+        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
 
-        start_q = (12, 3)
+        start_p_2 = (10, 2)
+        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
+
+        start_q = (13, 3)
         scene.board.set_piece( *start_q, piece=-PieceType.Queen )
 
-        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=4 )
+        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( gen_Gr_() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+            mt_w = MarkType.Blocked if i == 0 else \
+                   MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_w )
 
-            mt_q = MarkType.Action if i == 1 else \
+            mt_q = MarkType.Action if i == 2 else \
                    MarkType.Illegal
             scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
             scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=mt_q )
@@ -806,7 +814,7 @@ class SceneHemerasDawnMixin:
             scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
             scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=MarkType.Illegal )
 
-        gen_Gl_ = GS.gen_steps( start=start_G, rels=[ (-1, 0), ], include_prev=True, count=4 )
+        gen_Gl_ = GS.gen_steps( start=start_G, rels=[ (-1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( gen_Gl_() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
@@ -818,7 +826,7 @@ class SceneHemerasDawnMixin:
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
             scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=MarkType.Illegal )
-            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=MarkType.Illegal )
+            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=MarkType.Action )
 
         scene.append_arrow( *GS.append_pos_rel( start_G, 1, 1 ), mark_type=MarkType.Action )
         scene.append_arrow( *GS.append_pos_rel( start_G, -1, 1 ), mark_type=MarkType.Action )
