@@ -34,5 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_hd_24_grenadier_complete_extended_pattern', \
+                    # 'scn_hd_24_grenadier_complete_extended_pattern', \
+                    'scn_hd_25_grenadier_activated', \
                 ]

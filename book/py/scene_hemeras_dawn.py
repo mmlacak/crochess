@@ -834,3 +834,50 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *GS.append_pos_rel( start_G, 1, -1 ), mark_type=MarkType.Illegal )
 
         return scene
+
+    def scn_hd_25_grenadier_activated( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_25_grenadier_activated', bt, width=7, height=5 )
+
+        start_N = (6, 1)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_W = (4, 0)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_G = (3, 2)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        scene.append_arrow( *( start_N + start_W ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_W + start_G ), mark_type=MarkType.Action )
+
+        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=3 )
+        for i, arr in enumerate( gen_Gr_() ):
+            mt_r = MarkType.Legal if i < 1 else \
+                   MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mt_r )
+
+        gen_Gu_ = GS.gen_steps( start=start_G, rels=[ (0, 1), ], include_prev=True, count=2 )
+        for i, arr in enumerate( gen_Gu_() ):
+            mt_u = MarkType.Legal if i < 1 else \
+                   MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mt_u )
+
+        gen_Gl_ = GS.gen_steps( start=start_G, rels=[ (-1, 0), ], include_prev=True, count=3 )
+        for i, arr in enumerate( gen_Gl_() ):
+            mt_l = MarkType.Legal if i < 1 else \
+                   MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mt_l )
+
+        gen_Gd_ = GS.gen_steps( start=start_G, rels=[ (0, -1), ], include_prev=True, count=2 )
+        for i, arr in enumerate( gen_Gd_() ):
+            mt_d = MarkType.Legal if i < 1 else \
+                   MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mt_d )
+
+        scene.append_arrow( *GS.append_pos_rel( start_G, 1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_G, -1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_G, -1, -1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_G, 1, -1 ), mark_type=MarkType.Illegal )
+
+        return scene
