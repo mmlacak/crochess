@@ -881,3 +881,129 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *GS.append_pos_rel( start_G, 1, -1 ), mark_type=MarkType.Illegal )
 
         return scene
+
+    def scn_hd_26_grenadier_close_quarters_activation( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_26_grenadier_close_quarters_activation', bt, y=1, height=7 )
+
+        start_E = (0, 7)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
+
+        start_W = (3, 1)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_G = (9, 4)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        start_n = (10, 5)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_w = (10, 4)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_r = (8, 5)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_p_1 = (8, 3)
+        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
+
+        start_p_2 = (10, 2)
+        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
+
+        start_q = (13, 3)
+        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
+
+        # E --> W
+        gen_E_W = GS.gen_steps( start=start_E, rels=[ (1, -2), ], include_prev=True, count=3 )
+        for i, arr in enumerate( gen_E_W() ):
+            mt_e = MarkType.Action if i == 2 else \
+                   MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_e )
+
+        # W --> G
+        gen_W_G = GS.gen_steps( start=start_W, rels=[ (2, 1), ], include_prev=True, count=3 )
+        for i, arr in enumerate( gen_W_G() ):
+            mt_w = MarkType.Action if i == 2 else \
+                   MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_w )
+
+        return scene
+
+    def scn_hd_27_grenadier_close_quarters_activated( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_27_grenadier_close_quarters_activated', bt, y=1, height=7 )
+
+        prev_E = (0, 7)
+        prev_W = (3, 1)
+        prev_G = (9, 4)
+
+        start_E = prev_W # (0, 7)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
+
+        start_W = prev_G # (3, 1)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_G = prev_G # (9, 4)
+        # scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        start_n = (10, 5)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_w = (10, 4)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_r = (8, 5)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_p_1 = (8, 3)
+        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
+
+        start_p_2 = (10, 2)
+        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
+
+        start_q = (13, 3)
+        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
+
+        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_Gr_() ):
+            mt_r = MarkType.Blocked if i == 0 else \
+                   MarkType.Legal if i < 3 else \
+                   MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mt_r )
+
+            mt_r_c = MarkType.Legal if i < 2 else \
+                     MarkType.Blocked
+            scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=mt_r_c )
+            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=mt_r_c )
+
+        gen_Gu_ = GS.gen_steps( start=start_G, rels=[ (0, 1), ], include_prev=True, count=1 )
+        for i, arr in enumerate( gen_Gu_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+            scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
+            scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=MarkType.Illegal )
+
+        gen_Gl_ = GS.gen_steps( start=start_G, rels=[ (-1, 0), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_Gl_() ):
+            mt_l = MarkType.Legal if i < 3 else \
+                   MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mt_l )
+
+            mt_l_c = MarkType.Legal if i < 2 else \
+                     MarkType.Blocked
+            scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=mt_l_c )
+            scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=mt_l_c )
+
+        gen_Gd_ = GS.gen_steps( start=start_G, rels=[ (0, -1), ], include_prev=True, count=1 )
+        for i, arr in enumerate( gen_Gd_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+            scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=MarkType.Illegal )
+            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.append_pos_rel( start_G, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_G, -1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_G, -1, -1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_G, 1, -1 ), mark_type=MarkType.Illegal )
+
+        return scene
