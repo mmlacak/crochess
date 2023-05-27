@@ -884,12 +884,12 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_26_grenadier_close_quarters_activation( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_26_grenadier_close_quarters_activation', bt, y=1, height=7 )
+        scene = Scene( 'scn_hd_26_grenadier_close_quarters_activation', bt, y=2, height=5 )
 
-        start_E = (0, 7)
+        start_E = (1, 2)
         scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
 
-        start_W = (3, 1)
+        start_W = (7, 5)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         start_G = (9, 4)
@@ -914,27 +914,23 @@ class SceneHemerasDawnMixin:
         scene.board.set_piece( *start_q, piece=-PieceType.Queen )
 
         # E --> W
-        gen_E_W = GS.gen_steps( start=start_E, rels=[ (1, -2), ], include_prev=True, count=3 )
+        gen_E_W = GS.gen_steps( start=start_E, rels=[ (2, 1), ], include_prev=True, count=3 )
         for i, arr in enumerate( gen_E_W() ):
             mt_e = MarkType.Action if i == 2 else \
                    MarkType.Legal
             scene.append_arrow( *arr, mark_type=mt_e )
 
         # W --> G
-        gen_W_G = GS.gen_steps( start=start_W, rels=[ (2, 1), ], include_prev=True, count=3 )
-        for i, arr in enumerate( gen_W_G() ):
-            mt_w = MarkType.Action if i == 2 else \
-                   MarkType.Legal
-            scene.append_arrow( *arr, mark_type=mt_w )
+        scene.append_arrow( *( start_W + start_G ), mark_type=MarkType.Action )
 
         return scene
 
     def scn_hd_27_grenadier_close_quarters_activated( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_27_grenadier_close_quarters_activated', bt, y=1, height=7 )
+        scene = Scene( 'scn_hd_27_grenadier_close_quarters_activated', bt, y=2, height=5 )
 
-        prev_E = (0, 7)
-        prev_W = (3, 1)
+        prev_E = (1, 2)
+        prev_W = (7, 5)
         prev_G = (9, 4)
 
         start_E = prev_W # (0, 7)
