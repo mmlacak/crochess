@@ -37,5 +37,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_hd_24_grenadier_complete_extended_pattern', \
                     # 'scn_hd_25_grenadier_activated', \
                     # 'scn_hd_26_grenadier_close_quarters_activation', \
-                    'scn_hd_27_grenadier_close_quarters_activated', \
+                    # 'scn_hd_27_grenadier_close_quarters_activated', \
+                    'scn_hd_28_grenadier_activating_wave_step_field', \
+                    'scn_hd_29_grenadier_activated_wave_step_field', \
                 ]
