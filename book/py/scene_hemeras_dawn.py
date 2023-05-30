@@ -967,7 +967,7 @@ class SceneHemerasDawnMixin:
                    MarkType.Blocked
             scene.append_arrow( *arr, mark_type=mt_r )
 
-            mt_r_c = MarkType.Legal if i < 2 else \
+            mt_r_c = MarkType.Illegal if i < 2 else \
                      MarkType.Blocked
             scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=mt_r_c )
             scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=mt_r_c )
@@ -985,10 +985,13 @@ class SceneHemerasDawnMixin:
                    MarkType.Blocked
             scene.append_arrow( *arr, mark_type=mt_l )
 
-            mt_l_c = MarkType.Legal if i < 2 else \
-                     MarkType.Blocked
-            scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=mt_l_c )
-            scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=mt_l_c )
+            mt_lu_c = MarkType.Blocked if i == 0 else \
+                      MarkType.Illegal if i < 2 else \
+                      MarkType.Blocked
+            mt_ld_c = MarkType.Illegal if i < 2 else \
+                      MarkType.Blocked
+            scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=mt_lu_c )
+            scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=mt_ld_c )
 
         gen_Gd_ = GS.gen_steps( start=start_G, rels=[ (0, -1), ], include_prev=True, count=1 )
         for i, arr in enumerate( gen_Gd_() ):
