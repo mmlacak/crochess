@@ -1153,11 +1153,26 @@ class SceneHemerasDawnMixin:
 
         scene = Scene( 'scn_hd_32_grenadier_en_passant', bt, width=8, height=10.3 )
 
+        #
+        # A
+
         start_P_A = (1, 1)
         scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
 
         start_g_A = (2, 5)
         scene.board.set_piece( *start_g_A, piece=-PieceType.Grenadier )
+
+        # P(A) -->
+        gen_PA_ = GS.gen_steps( start=start_P_A, rels=[ (0, 1), ], include_prev=True, count=8 )
+        for i, arr in enumerate( gen_PA_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # G(A) -->
+        scene.append_arrow( *GS.append_pos_rel( start_g_A, -1, -1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_g_A, -1, 1 ), mark_type=MarkType.Action )
+
+        #
+        # B
 
         start_P_B = (4, 1)
         scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
@@ -1168,40 +1183,64 @@ class SceneHemerasDawnMixin:
         start_B = (6, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        # P(A) -->
-        gen_PA_ = GS.gen_steps( start=start_P_A, rels=[ (0, 1), ], include_prev=True, count=8 )
-        for i, arr in enumerate( gen_PA_() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
-
-        # P(B) -->
-        gen_PB_ = GS.gen_steps( start=start_P_B, rels=[ (0, 1), ], include_prev=True, count=8 )
-        for i, arr in enumerate( gen_PB_() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
-
-        # G(A) -->
-        scene.append_arrow( *GS.append_pos_rel( start_g_A, -1, -1 ), mark_type=MarkType.Action )
-        scene.append_arrow( *GS.append_pos_rel( start_g_A, -1, 1 ), mark_type=MarkType.Action )
-
         # G(B) -->
         adder = GS.adder( start_g_B, include_prev=True )
         scene.append_arrow( *adder( -1, 0, do_advance=True ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Action )
         scene.append_arrow( *adder( -1, 1, do_advance=False ), mark_type=MarkType.Action )
 
+        # P(B) -->
+        gen_PB_ = GS.gen_steps( start=start_P_B, rels=[ (0, 1), ], include_prev=True, count=8 )
+        for i, arr in enumerate( gen_PB_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
         scene.append_text( "A", *start_g_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
         scene.append_text( "B", *start_g_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
 
         return scene
 
-        # start_P_C = (9, 1)
-        # scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
+    def scn_hd_33_grenadier_en_passant_self_extended( self, bt=BoardType.HemerasDawn ):
 
-        # start_g_C = (10, 8)
-        # scene.board.set_piece( *start_g_C, piece=-PieceType.Grenadier )
+        scene = Scene( 'scn_hd_33_grenadier_en_passant_self_extended', bt, width=8, height=10.3 )
 
-        # # P(C) -->
-        # gen_PC_ = GS.gen_steps( start=start_P_C, rels=[ (0, 1), ], include_prev=True, count=8 )
-        # for i, arr in enumerate( gen_PC_() ):
-        #     scene.append_arrow( *arr, mark_type=MarkType.Legal )
+        #
+        # 1
 
-        # scene.append_text( "C", *start_P_C, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        start_P_1 = (1, 1)
+        scene.board.set_piece( *start_P_1, piece=PieceType.Pawn )
+
+        start_g_1 = (2, 8)
+        scene.board.set_piece( *start_g_1, piece=-PieceType.Grenadier )
+
+        # P -->
+        gen_P_ = GS.gen_steps( start=start_P_1, rels=[ (0, 1), ], include_prev=True, count=8 )
+        for i, arr in enumerate( gen_P_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        scene.append_text( "1", *start_P_1, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "1", *start_g_1, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        #
+        # 2
+
+        prev_P_2 = (4, 1)
+        start_P_2 = (4, 9)
+        scene.board.set_piece( *start_P_2, piece=PieceType.Pawn )
+
+        start_g_2 = (5, 8)
+        scene.board.set_piece( *start_g_2, piece=-PieceType.Grenadier )
+
+        # --> P
+        gen__P_ = GS.gen_steps( start=prev_P_2, rels=[ (0, 1), ], include_prev=True, count=8 )
+        for i, arr in enumerate( gen__P_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Blocked )
+
+        # G -->
+        adder = GS.adder( start_g_2, include_prev=True )
+        scene.append_arrow( *adder( 0, -1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Action )
+
+        scene.append_text( "2", *start_P_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "2", *start_g_2, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+        return scene
