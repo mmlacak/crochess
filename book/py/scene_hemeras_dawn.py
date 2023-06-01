@@ -1223,11 +1223,11 @@ class SceneHemerasDawnMixin:
         #
         # 2
 
-        prev_P_2 = (4, 1)
-        start_P_2 = (4, 9)
+        prev_P_2 = (5, 1)
+        start_P_2 = (5, 9)
         scene.board.set_piece( *start_P_2, piece=PieceType.Pawn )
 
-        start_g_2 = (5, 8)
+        start_g_2 = (6, 8)
         scene.board.set_piece( *start_g_2, piece=-PieceType.Grenadier )
 
         # --> P
@@ -1239,6 +1239,9 @@ class SceneHemerasDawnMixin:
         adder = GS.adder( start_g_2, include_prev=True )
         scene.append_arrow( *adder( 0, -1, do_advance=True ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Action )
+
+        # scene.append_arrow( *GS.append_pos_rel( start_g_2, -1, -1 ), mark_type=MarkType.Action )
+        # scene.append_arrow( *GS.append_pos_rel( start_g_2, -1, 1 ), mark_type=MarkType.Action )
 
         scene.append_text( "2", *start_P_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
         scene.append_text( "2", *start_g_2, corner=Corner.UpperRight, mark_type=MarkType.Action )
