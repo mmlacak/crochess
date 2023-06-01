@@ -1224,14 +1224,14 @@ class SceneHemerasDawnMixin:
         # 2
 
         prev_P_2 = (5, 1)
-        start_P_2 = (5, 9)
+        start_P_2 = (5, 7) # (5, 9)
         scene.board.set_piece( *start_P_2, piece=PieceType.Pawn )
 
         start_g_2 = (6, 8)
         scene.board.set_piece( *start_g_2, piece=-PieceType.Grenadier )
 
         # --> P
-        gen__P_ = GS.gen_steps( start=prev_P_2, rels=[ (0, 1), ], include_prev=True, count=8 )
+        gen__P_ = GS.gen_steps( start=prev_P_2, rels=[ (0, 1), ], include_prev=True, count=6 ) # count=8 )
         for i, arr in enumerate( gen__P_() ):
             scene.append_arrow( *arr, mark_type=MarkType.Blocked )
 
