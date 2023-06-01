@@ -1265,10 +1265,10 @@ class SceneHemerasDawnMixin:
         scene.board.set_piece( 5, 1, piece=PieceType.Grenadier )
         scene.board.set_piece( 6, 2, piece=PieceType.Grenadier )
 
-        scene.append_text( "O", 2, 3, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "O", 3, 4, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "O", 5, 4, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "O", 6, 3, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "O", 2, 3, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "O", 3, 4, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "O", 5, 4, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "O", 6, 3, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         scene.board.set_piece( 15, 0, piece=PieceType.Centaur )
 
@@ -1277,10 +1277,10 @@ class SceneHemerasDawnMixin:
         scene.board.set_piece( 16, 1, piece=PieceType.Grenadier )
         scene.board.set_piece( 17, 2, piece=PieceType.Grenadier )
 
-        scene.append_text( "O", 13, 3, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "O", 14, 4, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "O", 16, 4, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "O", 17, 3, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "O", 13, 3, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "O", 14, 4, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "O", 16, 4, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "O", 17, 3, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         #
         # Dark
@@ -1292,10 +1292,10 @@ class SceneHemerasDawnMixin:
         scene.board.set_piece( 5, 18, piece=-PieceType.Grenadier )
         scene.board.set_piece( 6, 17, piece=-PieceType.Grenadier )
 
-        scene.append_text( "o", 2, 16, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "o", 3, 15, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "o", 5, 15, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "o", 6, 16, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "o", 2, 16, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "o", 3, 15, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "o", 5, 15, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "o", 6, 16, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         scene.board.set_piece( 15, 19, piece=-PieceType.Centaur )
 
@@ -1304,9 +1304,9 @@ class SceneHemerasDawnMixin:
         scene.board.set_piece( 16, 18, piece=-PieceType.Grenadier )
         scene.board.set_piece( 17, 17, piece=-PieceType.Grenadier )
 
-        scene.append_text( "o", 13, 16, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "o", 14, 15, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "o", 16, 15, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "o", 17, 16, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "o", 13, 16, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "o", 14, 15, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "o", 16, 15, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "o", 17, 16, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
