@@ -33,6 +33,10 @@ Maximum number of steps Serpent can make is determined by the size of a chessboa
 sml = \lfloor \bigg( \sqrt{ \frac{n^2}{1 + \sqrt{2}} } \bigg) \rfloor
 \end{equation}
 
+\begin{equation}
+oml = \lfloor \bigg( \sqrt{ \frac{n^2}{7 + \sqrt{n}} } \bigg) \rfloor
+\end{equation}
+
 where:
 
 $n$ is size of chessboard for a given variant
@@ -41,7 +45,9 @@ $\lfloor\ \rfloor$ is floor function, giving the largest integer smaller than or
 
 $sml$ - Serpent's movement limit, i.e. maximum number of steps Serpent can make
 
-\TODO :: (?) add Scout, Grenadier (?) maybe (?)
+$oml$ - Scout's movement limit, i.e. maximum number of steps Scout can make
+
+\TODO :: (?) add Grenadier (?) maybe (?)
 
 \clearpage % ..........................................................
 
