@@ -159,20 +159,12 @@ class DrawPiece(Draw):
         # binoculars = [(0.7, 0.6), (0.6, 0.7), (0.4, 0.5), (0.3, 0.6), (0.4, 0.7), (0.6, 0.5)]
         # self.draw_piece_polygon(binoculars, rect, cpair=cpiece.opposite)
 
-        # mono_left = [(0.4, 0.5), (0.3, 0.6), (0.4, 0.7), (0.5, 0.6)]
-        # mono_left = [(0.37, 0.5), (0.27, 0.6), (0.37, 0.7), (0.47, 0.6)]
-        # mono_left = [(0.37, 0.53), (0.3, 0.6), (0.37, 0.67), (0.44, 0.6)]
-        # mono_left = [(0.4, 0.6), (0.35, 0.6), (0.35, 0.55), (0.4, 0.55)]
         mono_left = [(0.4, 0.6), (0.3, 0.6), (0.3, 0.5), (0.4, 0.5)]
         self.draw_piece_polygon(mono_left, rect, cpair=cpiece.opposite)
 
-        # mono_right = [(0.63, 0.5), (0.53, 0.6), (0.63, 0.7), (0.73, 0.6)]
-        # mono_right = [(0.63, 0.53), (0.56, 0.6), (0.63, 0.67), (0.7, 0.6)]
-        # mono_right = [(0.6, 0.6), (0.65, 0.6), (0.65, 0.55), (0.6, 0.55)]
         mono_right = [(0.6, 0.6), (0.7, 0.6), (0.7, 0.5), (0.6, 0.5)]
         self.draw_piece_polygon(mono_right, rect, cpair=cpiece.opposite)
 
-        # pawn = [(0.5, 0.5), (0.6, 0.6), (0.3, 0.9), (0.7, 0.9), (0.4, 0.6)]
         self.draw_pawn(rect, cpiece=cpiece)
 
     def draw_grenadier(self, rect, cpiece=None):
