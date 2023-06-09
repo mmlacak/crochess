@@ -34,15 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_hd_24_grenadier_complete_extended_pattern', \
-                    # 'scn_hd_25_grenadier_activated', \
-                    # 'scn_hd_26_grenadier_close_quarters_activation', \
-                    # 'scn_hd_27_grenadier_close_quarters_activated', \
-                    # 'scn_hd_28_grenadier_activating_wave_step_field', \
-                    # 'scn_hd_29_grenadier_activated_wave_step_field', \
-                    # 'scn_hd_30_grenadier_activating_wave_capture_field', \
-                    # 'scn_hd_31_grenadier_activated_wave_capture_field', \
-                    # 'scn_hd_32_grenadier_en_passant', \
-                    # 'scn_hd_33_grenadier_en_passant_self_extended', \
-                    'scn_hd_34_grenadier_initial_positions', \
+                    'scn_hd_15_scout_movement', \
                 ]

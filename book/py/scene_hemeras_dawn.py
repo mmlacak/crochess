@@ -440,40 +440,28 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_15_scout_movement(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_15_scout_movement', bt )
+        scene = Scene( 'scn_hd_15_scout_movement', bt, height=9 )
 
-        start_O_1 = (7, 7)
+        start_O_1 = (6, 2)
         scene.board.set_piece( *start_O_1, piece=PieceType.Scout )
 
-        # start_p_1 = (6, 3)
-        # scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
-
-        # start_p_2 = (8, 3)
-        # scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
-
-        start_o_1 = (13, 13)
+        start_o_1 = (13, 6)
         scene.board.set_piece( *start_o_1, piece=-PieceType.Scout )
-
-        # start_P_1 = (12, 17)
-        # scene.board.set_piece( *start_P_1, piece=PieceType.Pawn )
-
-        # start_P_2 = (14, 17)
-        # scene.board.set_piece( *start_P_2, piece=PieceType.Pawn )
 
         #
         # <-- <- O -> -->
 
-        arr = GS.gen_steps( start=start_O_1, rels=[ (0, 1), ], include_prev=True, count=3 )
+        arr = GS.gen_steps( start=start_O_1, rels=[ (0, 1), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
             # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        arr = GS.gen_steps( start=start_O_1, rels=[ (-1, 0), ], include_prev=True, count=2 )
+        arr = GS.gen_steps( start=start_O_1, rels=[ (-1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
             # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        arr = GS.gen_steps( start=start_O_1, rels=[ (1, 0), ], include_prev=True, count=2 )
+        arr = GS.gen_steps( start=start_O_1, rels=[ (1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
             # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
@@ -484,34 +472,23 @@ class SceneHemerasDawnMixin:
         #
         # <-- <- o -> -->
 
-        arr = GS.gen_steps( start=start_o_1, rels=[ (0, -1), ], include_prev=True, count=3 )
+        arr = GS.gen_steps( start=start_o_1, rels=[ (0, -1), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
             # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        arr = GS.gen_steps( start=start_o_1, rels=[ (-1, 0), ], include_prev=True, count=2 )
+        arr = GS.gen_steps( start=start_o_1, rels=[ (-1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
             # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        arr = GS.gen_steps( start=start_o_1, rels=[ (1, 0), ], include_prev=True, count=2 )
+        arr = GS.gen_steps( start=start_o_1, rels=[ (1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
             # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         scene.append_arrow( *GS.append_pos_rel( start_o_1, -1, 1 ), mark_type=MarkType.Illegal )
         scene.append_arrow( *GS.append_pos_rel( start_o_1, 1, 1 ), mark_type=MarkType.Illegal )
-
-        #
-        # % \TODO :: decide on Scout movement
-        #
-        for a in [0, 19]:
-            for b in range( 20 ):
-                scene.append_text( "TODO", a, b, mark_type=MarkType.Action )
-                scene.append_text( "TODO", b, a, mark_type=MarkType.Action )
-        #
-        # % \TODO :: decide on Scout movement
-        #
 
         return scene
 
