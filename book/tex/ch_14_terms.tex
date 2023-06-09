@@ -130,7 +130,8 @@ Step-fields are all fields where a piece can end its movement.
 \addcontentsline{toc}{section}{Capture-fields}
 \label{sec:Terms/Capture-fields}
 Capture-fields are all fields where a piece can capture opponent's piece.
-Usually, these are the same as step-fields, except for Pawn and Shaman.
+Usually, these are the same as step-fields, except for Pawn, Scout, Grenadier,
+and Shaman.
 
 Some pieces cannot capture opponent's pieces, so they have only step-fields
 but no capture-fields; these are Wave, Star, Monolith, and Starchild.
@@ -179,8 +180,31 @@ miracle-) field.
 \section*{Rush}
 \addcontentsline{toc}{section}{Rush}
 \label{sec:Terms/Rush}
-Rush is Pawn's longer initial movement, i.e. from its starting position, for at
-least 2 fields forward. Rushing Pawn presents opponent with en passant opportunity.
+Rush is initial movement of a private longer then its usual, i.e. from its starting
+position, for at least 2 fields forward. Rushing private presents opponent with en
+passant opportunity.
+
+\section*{Displacement-fields}
+\addcontentsline{toc}{section}{Displacement-fields}
+\label{sec:Terms/Displacement-fields}
+Displacement-fields are all fields where a piece can be displaced.
+
+Displacement-fields are different from step-, and capture-fields, and form a fixed
+pattern regardless which piece is being displaced.
+
+\section*{Displacement}
+\addcontentsline{toc}{section}{Displacement}
+\label{sec:Terms/Displacement}
+Displacement is act of moving a piece onto an empty displacement-field.
+
+Displacement can be initiated when a piece encounters another on its step-,
+or capture-fields. No momentum is transferred to, or used by displaced piece.
+Displacement can be performed even if initiating piece does not have any
+momentum. After displacement, initiating piece can continue its movement
+as if no action has been taken.
+
+For instance, Serpent can displace Pawns it encounters; Shaman can displace
+all pieces, except Kings, Stars, Monoliths during its trance-journey.
 
 \section*{Tag}
 \addcontentsline{toc}{section}{Tag}
@@ -196,45 +220,36 @@ again.
 Tag, and opportunity it represents, is definitely lost when tagged piece is moved,
 captured, converted, activated or displaced.
 
-Initially, all Pawns are tagged for rushing, and all Rooks and Kings are tagged
+Initially, all privates are tagged for rushing, and all Rooks and Kings are tagged
 for castling. Later in game, Pawns can be tagged for promotion.
 
 As a special case, Serpent can be tagged for Pawn-sacrifice; this tag is not
 delayed, so it has to be used in the same move in which it has been obtained.
 
-\section*{Displacement-fields}
-\addcontentsline{toc}{section}{Displacement-fields}
-\label{sec:Terms/Displacement-fields}
-Displacement-fields are all fields where a piece can be moved to directly.
-Displacement is not affected by how piece normally moves.
+% \section*{Pawn row}
+% \addcontentsline{toc}{section}{Pawn row}
+% \label{sec:Terms/Pawn row}
+% Pawn row is any row which contains Pawns in its full length on initial setup
+% of chessboard.
 
-These are used in trance-journey context, i.e. in a cascade involving entranced
-light Shaman.
+% In early variants (up to Nineteen), for light player that is second row, for
+% dark player second to last row. In Nineteen and later variants an additional
+% rank of Pawns was added, and so Pawns rows are second and third for light
+% player, second to last and third to last for dark player.
 
-\section*{Pawn row}
-\addcontentsline{toc}{section}{Pawn row}
-\label{sec:Terms/Pawn row}
-Pawn row is any row which contains Pawns in its full length on initial setup
-of chessboard.
+% Note that scout Pawns do not fill up row completely, and so these Pawns are
+% not located at Pawns rows.
 
-In early variants (up to Nineteen), for light player that is second row, for
-dark player second to last row. In Nineteen and later variants an additional
-rank of Pawns was added, and so Pawns rows are second and third for light
-player, second to last and third to last for dark player.
+% \section*{Figure row}
+% \addcontentsline{toc}{section}{Figure row}
+% \label{sec:Terms/Figure row}
+% Figure row is row that contains figures on initial setup of chessboard.
+% For light player that is first row, for dark player it is last row.
 
-Note that scout Pawns do not fill up row completely, and so these Pawns are
-not located at Pawns rows.
-
-\section*{Figure row}
-\addcontentsline{toc}{section}{Figure row}
-\label{sec:Terms/Figure row}
-Figure row is row that contains figures on initial setup of chessboard.
-For light player that is first row, for dark player it is last row.
-
-\section*{Piece row}
-\addcontentsline{toc}{section}{Piece row}
-\label{sec:Terms/Piece row}
-Piece row is either Pawn row or figure row.
+% \section*{Piece row}
+% \addcontentsline{toc}{section}{Piece row}
+% \label{sec:Terms/Piece row}
+% Piece row is either Pawn row or figure row.
 
 \clearpage % ..........................................................
 % ------------------------------------------------------- Terms chapter
