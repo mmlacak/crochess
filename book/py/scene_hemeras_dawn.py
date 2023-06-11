@@ -453,17 +453,14 @@ class SceneHemerasDawnMixin:
 
         arr = GS.gen_steps( start=start_O_1, rels=[ (0, 1), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
-            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         arr = GS.gen_steps( start=start_O_1, rels=[ (-1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
-            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         arr = GS.gen_steps( start=start_O_1, rels=[ (1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
-            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         scene.append_arrow( *GS.append_pos_rel( start_O_1, -1, -1 ), mark_type=MarkType.Illegal )
@@ -474,17 +471,14 @@ class SceneHemerasDawnMixin:
 
         arr = GS.gen_steps( start=start_o_1, rels=[ (0, -1), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
-            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         arr = GS.gen_steps( start=start_o_1, rels=[ (-1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
-            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         arr = GS.gen_steps( start=start_o_1, rels=[ (1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( arr() ):
-            # mark_type = MarkType.Legal if i % 2 == 0 else MarkType.Action
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         scene.append_arrow( *GS.append_pos_rel( start_o_1, -1, 1 ), mark_type=MarkType.Illegal )
