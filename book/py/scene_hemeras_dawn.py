@@ -498,23 +498,23 @@ class SceneHemerasDawnMixin:
 
         adder_r = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_r( 1,  1, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_r( 1,  1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
         adder_u = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder_u(  0, 1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u(  1, 1, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_u( -1, 1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_u(  1, 1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
 
         adder_l = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder_l( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_l( -1,  1, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_l( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_l( -1,  1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_l( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
         adder_d = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder_d(  0, -1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_d(  1, -1, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_d( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_d(  1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
         return scene
 
@@ -527,23 +527,23 @@ class SceneHemerasDawnMixin:
 
         adder_ru = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder_ru( 1, 1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_ru( 1, 0, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_ru( 0, 1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_ru( 1, 0, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_ru( 0, 1, do_advance=False ), mark_type=MarkType.Legal )
 
         adder_lu = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder_lu( -1, 1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_lu( -1, 0, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_lu(  0, 1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_lu( -1, 0, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_lu(  0, 1, do_advance=False ), mark_type=MarkType.Legal )
 
         adder_ld = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder_ld( -1, -1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_ld( -1,  0, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_ld(  0, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_ld( -1,  0, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_ld(  0, -1, do_advance=False ), mark_type=MarkType.Legal )
 
         adder_rd = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder_rd(  1, -1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_rd(  1,  0, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_rd(  0, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_rd(  1,  0, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_rd(  0, -1, do_advance=False ), mark_type=MarkType.Legal )
 
         return scene
 
