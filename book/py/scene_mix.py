@@ -35,6 +35,7 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_hd_15_scout_movement', \
-                    'scn_hd_16_scout_forking_steps_major', \
-                    'scn_hd_17_scout_forking_steps_minor', \
+                    # 'scn_hd_16_scout_forking_steps_major', \
+                    # 'scn_hd_17_scout_forking_steps_minor', \
+                    'scn_hd_18_scout_forking_steps_all', \
                 ]
