@@ -37,5 +37,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_hd_15_scout_movement', \
                     # 'scn_hd_16_scout_forking_steps_major', \
                     # 'scn_hd_17_scout_forking_steps_minor', \
-                    'scn_hd_18_scout_forking_steps_all', \
+                    # 'scn_hd_18_scout_forking_steps_all', \
+                    'scn_hd_19_scout_close_quarters_init', \
                 ]

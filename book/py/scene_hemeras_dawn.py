@@ -607,6 +607,31 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
+    # Close quarters
+
+    def scn_hd_19_scout_close_quarters_init(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_19_scout_close_quarters_init', bt, width=7, height=7 )
+
+        start_O = (3, 3)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_k = (4, 3)
+        scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+
+        adder = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder( 1, 1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 0, 1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( -1, 0, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder( 0, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Action )
+
+        return scene
+
+    #
     # Scouts initial positions
 
     def scn_hd_39_scout_initial_positions(self, bt=BoardType.HemerasDawn):
