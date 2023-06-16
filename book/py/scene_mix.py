@@ -37,4 +37,5 @@ class SceneMix(SceneMixin, \
                     'scn_hd_19_scout_close_quarters_init', \
                     'scn_hd_20_scout_close_quarters_step', \
                     'scn_hd_21_scout_close_quarters_step_2', \
+                    'scn_hd_22_scout_close_quarters_end', \
                 ]
