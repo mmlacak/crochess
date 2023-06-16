@@ -613,11 +613,17 @@ class SceneHemerasDawnMixin:
 
         scene = Scene( 'scn_hd_19_scout_close_quarters_init', bt, width=7, height=7 )
 
-        start_O = (3, 3)
+        start_O = (2, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (4, 3)
+        start_k = (1, 2)
         scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+
+        start_p = (2, 1)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_b = (3, 3)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
         adder = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Blocked )
@@ -627,7 +633,31 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder( -1, 0, do_advance=False ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Action )
         scene.append_arrow( *adder( 0, -1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_hd_20_scout_close_quarters_step(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_20_scout_close_quarters_step', bt, width=7, height=7 )
+
+        prev_O = (2, 3)
+        start_O = (3, 2)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_k = (1, 2)
+        scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+
+        start_p = (2, 1)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
+
+        adder = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 0, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
 
         return scene
 
