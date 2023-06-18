@@ -445,8 +445,20 @@ class SceneHemerasDawnMixin:
         start_O_1 = (6, 2)
         scene.board.set_piece( *start_O_1, piece=PieceType.Scout )
 
+        start_p = (5, 1)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_n = (7, 1)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
         start_o_1 = (13, 6)
         scene.board.set_piece( *start_o_1, piece=-PieceType.Scout )
+
+        start_B = (12, 7)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_R = (14, 7)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
         #
         # <-- <- O -> -->
@@ -463,8 +475,8 @@ class SceneHemerasDawnMixin:
         for i, arr in enumerate( arr() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_pos_rel( start_O_1, -1, -1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_pos_rel( start_O_1, 1, -1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_O_1, -1, -1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_O_1, 1, -1 ), mark_type=MarkType.Action )
 
         #
         # <-- <- o -> -->
@@ -481,8 +493,8 @@ class SceneHemerasDawnMixin:
         for i, arr in enumerate( arr() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_pos_rel( start_o_1, -1, 1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_pos_rel( start_o_1, 1, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_o_1, -1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_o_1, 1, 1 ), mark_type=MarkType.Action )
 
         return scene
 
@@ -611,24 +623,24 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_19_scout_close_quarters_init(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_19_scout_close_quarters_init', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_19_scout_close_quarters_init', bt, width=8, height=6 )
 
-        start_O = (1, 3)
+        start_O = (2, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (0, 2)
+        start_k = (1, 2)
         scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-        start_p = (1, 1)
+        start_p = (2, 1)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_b = (2, 3)
+        start_b = (3, 3)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_r = (3, 1)
+        start_r = (4, 1)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_A = (5, 2)
+        start_A = (6, 2)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         adder = GS.adder( start_O, include_prev=True )
@@ -645,25 +657,25 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_20_scout_close_quarters_step(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_20_scout_close_quarters_step', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_20_scout_close_quarters_step', bt, x=1, width=7, height=5 )
 
-        prev_O = (1, 3)
-        start_O = (2, 2)
+        prev_O = (2, 3)
+        start_O = (3, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (0, 2)
+        start_k = (1, 2)
         scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-        start_p = (1, 1)
+        start_p = (2, 1)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_b = (2, 3)
+        start_b = (3, 3)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_r = (3, 1)
+        start_r = (4, 1)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_A = (5, 2)
+        start_A = (6, 2)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
@@ -678,26 +690,26 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_21_scout_close_quarters_step_2(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_21_scout_close_quarters_step_2', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_21_scout_close_quarters_step_2', bt, x=1, width=7, height=5 )
 
-        prev_2_O = (1, 3)
-        prev_O = (2, 2)
-        start_O = (3, 2)
+        prev_2_O = (2, 3)
+        prev_O = (3, 2)
+        start_O = (4, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (0, 2)
+        start_k = (1, 2)
         scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-        start_p = (1, 1)
+        start_p = (2, 1)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_b = (2, 3)
+        start_b = (3, 3)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_r = (3, 1)
+        start_r = (4, 1)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_A = (5, 2)
+        start_A = (6, 2)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.append_arrow( *( prev_2_O + prev_O ), mark_type=MarkType.Blocked )
@@ -712,27 +724,27 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_22_scout_close_quarters_step_3(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_22_scout_close_quarters_step_3', bt, width=8, height=7 )
+        scene = Scene( 'scn_hd_22_scout_close_quarters_step_3', bt, x=1, width=8, height=7 )
 
-        prev_3_O = (1, 3)
-        prev_2_O = (2, 2)
-        prev_O = (3, 2)
-        start_O = (4, 3)
+        prev_3_O = (2, 3)
+        prev_2_O = (3, 2)
+        prev_O = (4, 2)
+        start_O = (5, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (0, 2)
+        start_k = (1, 2)
         scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-        start_p = (1, 1)
+        start_p = (2, 1)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_b = (2, 3)
+        start_b = (3, 3)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_r = (3, 1)
+        start_r = (4, 1)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_A = (5, 2)
+        start_A = (6, 2)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.append_arrow( *( prev_3_O + prev_2_O ), mark_type=MarkType.Blocked )
@@ -763,28 +775,28 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_23_scout_close_quarters_end(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_23_scout_close_quarters_end', bt, width=8, height=7 )
+        scene = Scene( 'scn_hd_23_scout_close_quarters_end', bt, x=1, width=7, height=6 )
 
-        prev_4_O = (1, 3)
-        prev_3_O = (2, 2)
-        prev_2_O = (3, 2)
-        prev_O = (4, 3)
-        start_O = (3, 3)
+        prev_4_O = (2, 3)
+        prev_3_O = (3, 2)
+        prev_2_O = (4, 2)
+        prev_O = (5, 3)
+        start_O = (4, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (0, 2)
+        start_k = (1, 2)
         scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-        start_p = (1, 1)
+        start_p = (2, 1)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_b = (2, 3)
+        start_b = (3, 3)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_r = (3, 1)
+        start_r = (4, 1)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_A = (5, 2)
+        start_A = (6, 2)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.append_arrow( *( prev_4_O + prev_3_O ), mark_type=MarkType.Blocked )
