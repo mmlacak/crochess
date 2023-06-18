@@ -710,9 +710,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_22_scout_close_quarters_end(self, bt=BoardType.HemerasDawn):
+    def scn_hd_22_scout_close_quarters_step_3(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_22_scout_close_quarters_end', bt, width=8, height=7 )
+        scene = Scene( 'scn_hd_22_scout_close_quarters_step_3', bt, width=8, height=7 )
 
         prev_3_O = (1, 3)
         prev_2_O = (2, 2)
@@ -758,6 +758,44 @@ class SceneHemerasDawnMixin:
 
         # scene.append_arrow( *GS.append_pos_rel( start_O, -1, -1 ), mark_type=MarkType.Illegal )
         scene.append_arrow( *GS.append_pos_rel( start_O, 1, -1 ), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_hd_23_scout_close_quarters_end(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_23_scout_close_quarters_end', bt, width=8, height=7 )
+
+        prev_4_O = (1, 3)
+        prev_3_O = (2, 2)
+        prev_2_O = (3, 2)
+        prev_O = (4, 3)
+        start_O = (3, 3)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_k = (0, 2)
+        scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+
+        start_p = (1, 1)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_b = (2, 3)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        start_r = (3, 1)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_A = (5, 2)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        scene.append_arrow( *( prev_4_O + prev_3_O ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *( prev_3_O + prev_2_O ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *( prev_2_O + prev_O ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
+
+        adder = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( -1, 0, do_advance=False ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
         return scene
 
