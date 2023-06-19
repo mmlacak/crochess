@@ -38,9 +38,9 @@ class SceneMix(SceneMixin, \
                     # 'scn_hd_16_scout_capturing', \
                     # 'scn_hd_17_scout_rerouting', \
                     'scn_hd_18_scout_rerouting_first_step', \
-                    # 'scn_hd_19_scout_close_quarters_init', \
-                    # 'scn_hd_20_scout_close_quarters_step', \
-                    # 'scn_hd_21_scout_close_quarters_step_2', \
-                    # 'scn_hd_22_scout_close_quarters_step_3', \
-                    # 'scn_hd_23_scout_close_quarters_end', \
+                    # 'scn_hd_22_scout_close_quarters_init', \
+                    # 'scn_hd_23_scout_close_quarters_step', \
+                    # 'scn_hd_24_scout_close_quarters_step_2', \
+                    # 'scn_hd_25_scout_close_quarters_step_3', \
+                    # 'scn_hd_26_scout_close_quarters_end', \
                 ]

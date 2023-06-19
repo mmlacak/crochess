@@ -585,20 +585,19 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder_ul(  0,  1, do_advance=True ), mark_type=MarkType.Legal )
         # scene.append_arrow( *adder_ul(  0,  1, do_advance=True ), mark_type=MarkType.Legal )
 
-
         scene.append_arrow( *GS.append_pos_rel( start_O, 1, 0 ), mark_type=MarkType.Blocked )
         scene.append_arrow( *GS.append_pos_rel( start_O, 0, 1 ), mark_type=MarkType.Blocked )
 
-        scene.append_arrow( *GS.append_pos_rel( start_O, -1, -1 ), mark_type=MarkType.Illegal )
+        # scene.append_arrow( *GS.append_pos_rel( start_O, -1, -1 ), mark_type=MarkType.Illegal )
 
         return scene
 
     #
     # Movement/Forking steps
 
-    def scn_hd_16_scout_forking_steps_major(self, bt=BoardType.HemerasDawn):
+    def scn_hd_19_scout_forking_steps_major(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_16_scout_forking_steps_major', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_19_scout_forking_steps_major', bt, width=7, height=7 )
 
         start_O = (3, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -625,9 +624,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_17_scout_forking_steps_minor(self, bt=BoardType.HemerasDawn):
+    def scn_hd_20_scout_forking_steps_minor(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_17_scout_forking_steps_minor', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_20_scout_forking_steps_minor', bt, width=7, height=7 )
 
         start_O = (3, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -654,9 +653,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_18_scout_forking_steps_all(self, bt=BoardType.HemerasDawn):
+    def scn_hd_21_scout_forking_steps_all(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_18_scout_forking_steps_all', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_21_scout_forking_steps_all', bt, width=7, height=7 )
 
         start_O = (3, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -716,9 +715,9 @@ class SceneHemerasDawnMixin:
     #
     # Close quarters
 
-    def scn_hd_19_scout_close_quarters_init(self, bt=BoardType.HemerasDawn):
+    def scn_hd_22_scout_close_quarters_init(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_19_scout_close_quarters_init', bt, width=8, height=6 )
+        scene = Scene( 'scn_hd_22_scout_close_quarters_init', bt, width=8, height=6 )
 
         start_O = (2, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -750,9 +749,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_20_scout_close_quarters_step(self, bt=BoardType.HemerasDawn):
+    def scn_hd_23_scout_close_quarters_step(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_20_scout_close_quarters_step', bt, x=1, width=7, height=5 )
+        scene = Scene( 'scn_hd_23_scout_close_quarters_step', bt, x=1, width=7, height=5 )
 
         prev_O = (2, 3)
         start_O = (3, 2)
@@ -783,9 +782,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_21_scout_close_quarters_step_2(self, bt=BoardType.HemerasDawn):
+    def scn_hd_24_scout_close_quarters_step_2(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_21_scout_close_quarters_step_2', bt, x=1, width=7, height=5 )
+        scene = Scene( 'scn_hd_24_scout_close_quarters_step_2', bt, x=1, width=7, height=5 )
 
         prev_2_O = (2, 3)
         prev_O = (3, 2)
@@ -817,9 +816,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_22_scout_close_quarters_step_3(self, bt=BoardType.HemerasDawn):
+    def scn_hd_25_scout_close_quarters_step_3(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_22_scout_close_quarters_step_3', bt, x=1, width=8, height=7 )
+        scene = Scene( 'scn_hd_25_scout_close_quarters_step_3', bt, x=1, width=8, height=7 )
 
         prev_3_O = (2, 3)
         prev_2_O = (3, 2)
@@ -868,9 +867,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_23_scout_close_quarters_end(self, bt=BoardType.HemerasDawn):
+    def scn_hd_26_scout_close_quarters_end(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_23_scout_close_quarters_end', bt, x=1, width=7, height=6 )
+        scene = Scene( 'scn_hd_26_scout_close_quarters_end', bt, x=1, width=7, height=6 )
 
         prev_4_O = (2, 3)
         prev_3_O = (3, 2)
