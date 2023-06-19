@@ -290,39 +290,10 @@ by en passant. Also like Pawn, Scout can capture opponent's rushing privates (Pa
 Scouts, Grenadiers) by en passant. Unlike Pawn, Scout cannot be promoted. Pawns can be
 promoted to Scouts.
 
-% \vspace*{0.7\baselineskip}
-% \subsection*{Scout-fields}
-% \addcontentsline{toc}{subsection}{Scout-fields}
-% \label{sec:Hemera's Dawn/Scout/Scout-fields}
-
-% \vspace*{-0.7\baselineskip}
-% \noindent
-% \begin{wrapfigure}[5]{l}{0.4\textwidth}
-% \centering
-% \includegraphics[width=0.25\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_14_scout_fields.png}
-% \vspace*{-0.3\baselineskip}
-% \caption{Scout-fields}
-% \label{fig:scn_hd_14_scout_fields}
-% \end{wrapfigure}
-% Scout-fields are all fields immediately neighboring Scout horizontally,
-% vertically, and diagonally. They are the same fields as step-fields of a King.
-
-% \clearpage % ..........................................................
-
-% \vspace*{1.1\baselineskip}
 \vspace*{0.7\baselineskip}
 \subsection*{Movement}
 \addcontentsline{toc}{subsection}{Movement}
 \label{sec:Hemera's Dawn/Scout/Movement}
-
-% \vspace*{-0.7\baselineskip}
-% Scout moves differently, depending if there is opponent's piece present on its
-% scout-fields, or not. \newline
-% \indent
-% Just like Pawn, Scout have capture- and step-fields separated, and so it can move
-% onto capture-field only if there is opponent's piece to be captured.
-
-% \clearpage % ..........................................................
 
 \vspace*{-1.3\baselineskip}
 \noindent
@@ -345,16 +316,20 @@ Scout can also capture opponent's pieces with its diagonal steps; unlike Pawn's,
 those are backwards steps, i.e. towards own initial positions: down diagonals for
 light Scout, up diagonals for dark Scout.
 
-\TODO :: make example for capture after movement
-
+\vspace*{-0.3\baselineskip}
+\noindent
+\begin{wrapfigure}[7]{l}{0.41\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_16_scout_capturing.png}
+\vspace*{-0.3\baselineskip}
+\caption{Scout capturing}
+\label{fig:scn_hd_16_scout_capturing}
+\end{wrapfigure}
 Like Pawn, Scout can capture only on its first step in a ply, and cannot capture
-after a few steps has been made; for instnce, Scout cannot capture after it's made
-3 steps to the right.
+after it started moving. Here, light Scout can capture dark Knight since it's
+first step, but cannot capture dark Bishop after it made 3 steps to the right.
 
-% \clearpage % ..........................................................
-
-% \vspace*{-2.7\baselineskip}
-\vspace*{-1.1\baselineskip}
+\vspace*{-0.7\baselineskip}
 \subsubsection*{Forking steps}
 \addcontentsline{toc}{subsubsection}{Forking steps}
 \label{sec:Hemera's Dawn/Scout/Movement/Forking steps}
@@ -376,92 +351,7 @@ Steps (arrows) are referred to by relative position of its end point. \newline
 Forked steps are extension of a first step; so, e.g. after left step only left-up,
 and left-down steps are available, but not right-up, right-down.
 
-% \clearpage % ..........................................................
-
-% \vspace*{0.3\baselineskip}
-% \noindent
-% \begin{wrapfigure}[11]{l}{0.4\textwidth}
-% \centering
-% \includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_17_scout_forking_steps_minor.png}
-% \vspace*{-0.3\baselineskip}
-% \caption{Forking diagonal steps}
-% \label{fig:scn_hd_17_scout_forking_steps_minor}
-% \end{wrapfigure}
-% Diagonal steps can also be forked; steps available are  up, down, left or right,
-% depending on which diagonal was first step. \newline
-% \indent
-% Forked steps available after diagonal step are also extension of a first step;
-% so, e.g. after left-up step only up, and left steps are available, but not steps
-% right, or down.
-
 \clearpage % ..........................................................
-
-% \subsubsection*{Close quarters}
-% \addcontentsline{toc}{subsubsection}{Close quarters}
-% \label{sec:Hemera's Dawn/Scout/Movement/Close quarters}
-
-% \vspace*{-0.7\baselineskip}
-% \noindent
-% \begin{wrapfigure}[9]{l}{0.41\textwidth}
-% \centering
-% \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_19_scout_close_quarters_init.png}
-% \vspace*{-0.5\baselineskip}
-% \caption{Close quarters start}
-% \label{fig:scn_hd_19_scout_close_quarters_init}
-% \end{wrapfigure}
-% For a first step, Scout can choose any scout-field, if opponent's piece is present
-% on its scout-field. Steps can be blocked by e.g. opponent's piece (here, Bishop).
-% Scout can also capture on \hyperref[fig:scn_hd_15_scout_movement]{backward diagonals};
-% here, light Scout can capture dark Knight by left-down step, thus ending its ply.
-
-% \vspace*{1.1\baselineskip}
-% \noindent
-% \begin{wrapfigure}[1]{l}{0.4\textwidth}
-% \centering
-% \includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_20_scout_close_quarters_step.png}
-% \vspace*{-0.5\baselineskip}
-% \caption{Close quarters step}
-% \label{fig:scn_hd_20_scout_close_quarters_step}
-% \end{wrapfigure}
-% . . .
-
-% \vspace*{9.1\baselineskip}
-% \noindent
-% \begin{wrapfigure}[1]{l}{0.4\textwidth}
-% \centering
-% \includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_21_scout_close_quarters_step_2.png}
-% \vspace*{-0.5\baselineskip}
-% \caption{Close quarters step 2}
-% \label{fig:scn_hd_21_scout_close_quarters_step_2}
-% \end{wrapfigure}
-% . . .
-
-% \clearpage % ..........................................................
-
-% \vspace*{-1.9\baselineskip}
-% \noindent
-% \begin{wrapfigure}[1]{l}{0.41\textwidth}
-% \centering
-% \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_22_scout_close_quarters_step_3.png}
-% \vspace*{-0.5\baselineskip}
-% \caption{Close quarters step 3}
-% \label{fig:scn_hd_22_scout_close_quarters_step_3}
-% \end{wrapfigure}
-% . . .
-
-% \vspace*{9.1\baselineskip}
-% \noindent
-% \begin{wrapfigure}[1]{l}{0.4\textwidth}
-% \centering
-% \includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_23_scout_close_quarters_end.png}
-% \vspace*{-0.5\baselineskip}
-% \caption{Close quarters end}
-% \label{fig:scn_hd_23_scout_close_quarters_end}
-% \end{wrapfigure}
-% . . .
-
-% \vspace*{9.3\baselineskip}
-% \TODO :: Close quarters
 
 \TODO :: explain arrow naming, relative steps, see \hyperref[fig:scn_cot_47_stop_sign_pattern]{this} :: needed by Grenadier, maybe not here
 % Steps (arrows) are referred to by relative position of its end point.

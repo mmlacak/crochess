@@ -322,6 +322,11 @@ def append_pos_rel(pos, rel_x, rel_y):
         return None
     return ( pos[0], pos[1], pos[0] + rel_x, pos[1] + rel_y )
 
+def prepend_pos_rel(rel_x, rel_y, pos):
+    if pos is None or rel_x is None or rel_y is None:
+        return None
+    return ( pos[0] - rel_x, pos[1] - rel_y, pos[0], pos[1] )
+
 def add_step(pos, step):
     if pos is None or step is None:
         return None

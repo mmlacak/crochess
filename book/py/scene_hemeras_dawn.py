@@ -498,6 +498,29 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    def scn_hd_16_scout_capturing(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_16_scout_capturing', bt, width=8, height=4 )
+
+        start_O = (1, 2)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_n = (2, 1)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_b = (5, 1)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        arr = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=5 )
+        for i, arr in enumerate( arr() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_pos_rel( start_O, 1, -1 ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.prepend_pos_rel( 1, -1, start_b ), mark_type=MarkType.Illegal )
+
+        return scene
+
     #
     # Movement/Forking steps
 
