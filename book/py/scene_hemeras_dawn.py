@@ -524,9 +524,9 @@ class SceneHemerasDawnMixin:
     #
     # Movement/Rerouting Scout
 
-    def scn_hd_17_scout_rerouting_scout(self, bt=BoardType.HemerasDawn):
+    def scn_hd_17_scout_rerouting(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_17_scout_rerouting_scout', bt, width=8, height=5 )
+        scene = Scene( 'scn_hd_17_scout_rerouting', bt, width=8, height=5 )
 
         start_O = (1, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -545,11 +545,51 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
         scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
 
-        # arr = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=2 )
-        # for i, arr in enumerate( arr() ):
-        #     mark_type = MarkType.Legal if i < 1 else \
-        #                 MarkType.Blocked
-        #     scene.append_arrow( *arr, mark_type=mark_type )
+        return scene
+
+    def scn_hd_18_scout_rerouting_first_step(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_18_scout_rerouting_first_step', bt, width=7, height=7 )
+
+        start_O = (2, 2)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_n = (2, 3)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_b = (3, 2)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        x_roads = (3, 3) # field from which 2 routes forks
+        scene.append_arrow( *( start_O + x_roads ), mark_type=MarkType.Legal )
+
+        adder_r = GS.adder( x_roads, include_prev=True )
+        scene.append_arrow( *adder_r( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
+        # scene.append_arrow( *adder_r( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
+
+        adder_u = GS.adder( x_roads, include_prev=True )
+        scene.append_arrow( *adder_u( 0, 1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( 0, 1, do_advance=True ), mark_type=MarkType.Legal )
+        # scene.append_arrow( *adder_u( 0, 1, do_advance=True ), mark_type=MarkType.Legal )
+
+        adder_rd = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder_rd( 1, -1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_rd( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_rd( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        # scene.append_arrow( *adder_rd( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+
+        adder_ul = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder_ul( -1,  1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_ul(  0,  1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_ul(  0,  1, do_advance=True ), mark_type=MarkType.Legal )
+        # scene.append_arrow( *adder_ul(  0,  1, do_advance=True ), mark_type=MarkType.Legal )
+
+
+        scene.append_arrow( *GS.append_pos_rel( start_O, 1, 0 ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.append_pos_rel( start_O, 0, 1 ), mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *GS.append_pos_rel( start_O, -1, -1 ), mark_type=MarkType.Illegal )
 
         return scene
 
