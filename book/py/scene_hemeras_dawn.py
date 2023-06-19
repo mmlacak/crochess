@@ -522,6 +522,38 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
+    # Movement/Rerouting Scout
+
+    def scn_hd_17_scout_rerouting_scout(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_17_scout_rerouting_scout', bt, width=8, height=5 )
+
+        start_O = (1, 2)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_b = (3, 2)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        adder_r = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=MarkType.Legal ) # down fork
+
+        scene.append_arrow( *adder_r( 1,  1, do_advance=True ), mark_type=MarkType.Legal ) # up fork
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # continuation
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
+
+        # arr = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=2 )
+        # for i, arr in enumerate( arr() ):
+        #     mark_type = MarkType.Legal if i < 1 else \
+        #                 MarkType.Blocked
+        #     scene.append_arrow( *arr, mark_type=mark_type )
+
+        return scene
+
+    #
     # Movement/Forking steps
 
     def scn_hd_16_scout_forking_steps_major(self, bt=BoardType.HemerasDawn):
