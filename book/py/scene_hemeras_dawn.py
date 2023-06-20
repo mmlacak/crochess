@@ -522,82 +522,11 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
-    # Movement/Rerouting Scout
-
-    def scn_hd_17_scout_rerouting(self, bt=BoardType.HemerasDawn):
-
-        scene = Scene( 'scn_hd_17_scout_rerouting', bt, width=8, height=5 )
-
-        start_O = (1, 2)
-        scene.board.set_piece( *start_O, piece=PieceType.Scout )
-
-        start_b = (3, 2)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
-
-        adder_r = GS.adder( start_O, include_prev=True )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
-
-        scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=MarkType.Legal ) # down fork
-
-        scene.append_arrow( *adder_r( 1,  1, do_advance=True ), mark_type=MarkType.Legal ) # up fork
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # continuation
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
-
-        return scene
-
-    def scn_hd_18_scout_rerouting_first_step(self, bt=BoardType.HemerasDawn):
-
-        scene = Scene( 'scn_hd_18_scout_rerouting_first_step', bt, width=7, height=7 )
-
-        start_O = (2, 2)
-        scene.board.set_piece( *start_O, piece=PieceType.Scout )
-
-        start_n = (2, 3)
-        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
-
-        start_b = (3, 2)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
-
-        x_roads = (3, 3) # field from which 2 routes forks
-        scene.append_arrow( *( start_O + x_roads ), mark_type=MarkType.Legal )
-
-        adder_r = GS.adder( x_roads, include_prev=True )
-        scene.append_arrow( *adder_r( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_r( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder_r( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
-
-        adder_u = GS.adder( x_roads, include_prev=True )
-        scene.append_arrow( *adder_u( 0, 1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 0, 1, do_advance=True ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder_u( 0, 1, do_advance=True ), mark_type=MarkType.Legal )
-
-        adder_rd = GS.adder( start_O, include_prev=True )
-        scene.append_arrow( *adder_rd( 1, -1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_rd( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_rd( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder_rd( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-
-        adder_ul = GS.adder( start_O, include_prev=True )
-        scene.append_arrow( *adder_ul( -1,  1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_ul(  0,  1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_ul(  0,  1, do_advance=True ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder_ul(  0,  1, do_advance=True ), mark_type=MarkType.Legal )
-
-        scene.append_arrow( *GS.append_pos_rel( start_O, 1, 0 ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *GS.append_pos_rel( start_O, 0, 1 ), mark_type=MarkType.Blocked )
-
-        # scene.append_arrow( *GS.append_pos_rel( start_O, -1, -1 ), mark_type=MarkType.Illegal )
-
-        return scene
-
-    #
     # Movement/Forking steps
 
-    def scn_hd_19_scout_forking_steps_major(self, bt=BoardType.HemerasDawn):
+    def scn_hd_17_scout_forking_steps_major(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_19_scout_forking_steps_major', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_17_scout_forking_steps_major', bt, width=7, height=7 )
 
         start_O = (3, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -624,9 +553,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_20_scout_forking_steps_minor(self, bt=BoardType.HemerasDawn):
+    def scn_hd_18_scout_forking_steps_minor(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_20_scout_forking_steps_minor', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_18_scout_forking_steps_minor', bt, width=7, height=7 )
 
         start_O = (3, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -653,9 +582,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_21_scout_forking_steps_all(self, bt=BoardType.HemerasDawn):
+    def scn_hd_19_scout_forking_steps_all(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_21_scout_forking_steps_all', bt, width=7, height=7 )
+        scene = Scene( 'scn_hd_19_scout_forking_steps_all', bt, width=7, height=7 )
 
         start_O = (3, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -713,197 +642,248 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
-    # Close quarters
+    # Movement/Rerouting Scout
 
-    def scn_hd_22_scout_close_quarters_init(self, bt=BoardType.HemerasDawn):
+    def scn_hd_20_scout_rerouting(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_22_scout_close_quarters_init', bt, width=8, height=6 )
+        scene = Scene( 'scn_hd_20_scout_rerouting', bt, width=8, height=5 )
 
-        start_O = (2, 3)
+        start_O = (1, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (1, 2)
-        scene.board.set_piece( *start_k, piece=-PieceType.Knight )
-
-        start_p = (2, 1)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        start_b = (3, 3)
+        start_b = (4, 2)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_r = (4, 1)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+        adder_r = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
 
-        start_A = (6, 2)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+        scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=MarkType.Legal ) # down fork
+
+        scene.append_arrow( *adder_r( 1,  1, do_advance=True ), mark_type=MarkType.Legal ) # up fork
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # continuation
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
+
+        return scene
+
+    def scn_hd_21_scout_rerouting_first_step(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_21_scout_rerouting_first_step', bt, width=8, height=5 )
+
+        start_O = (1, 2)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_b = (2, 2)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
         adder = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *adder( 1, 1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 0, 1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( -1, 0, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Action )
-        scene.append_arrow( *adder( 0, -1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal ) # down fork
+
+        scene.append_arrow( *adder( 1, 1, do_advance=True ), mark_type=MarkType.Legal ) # up fork
+        scene.append_arrow( *adder( 1, 0, do_advance=True ), mark_type=MarkType.Legal ) # continuation
+        scene.append_arrow( *adder( 1, 0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
+        scene.append_arrow( *adder( 1, 0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
+        scene.append_arrow( *adder( 1, 0, do_advance=True ), mark_type=MarkType.Legal ) # -||-
+
+        scene.append_arrow( *GS.append_pos_rel( start_O, 1, 0 ), mark_type=MarkType.Blocked )
 
         return scene
 
-    def scn_hd_23_scout_close_quarters_step(self, bt=BoardType.HemerasDawn):
+    # #
+    # # Close quarters
 
-        scene = Scene( 'scn_hd_23_scout_close_quarters_step', bt, x=1, width=7, height=5 )
+    # def scn_hd_22_scout_close_quarters_init(self, bt=BoardType.HemerasDawn):
 
-        prev_O = (2, 3)
-        start_O = (3, 2)
-        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+    #     scene = Scene( 'scn_hd_22_scout_close_quarters_init', bt, width=8, height=6 )
 
-        start_k = (1, 2)
-        scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+    #     start_O = (2, 3)
+    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_p = (2, 1)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+    #     start_k = (1, 2)
+    #     scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-        start_b = (3, 3)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+    #     start_p = (2, 1)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_r = (4, 1)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+    #     start_b = (3, 3)
+    #     scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_A = (6, 2)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+    #     start_r = (4, 1)
+    #     scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
+    #     start_A = (6, 2)
+    #     scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        adder = GS.adder( start_O, include_prev=True )
-        scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Action )
-        scene.append_arrow( *adder( 0, -1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+    #     adder = GS.adder( start_O, include_prev=True )
+    #     scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *adder( 1, 1, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( 0, 1, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( -1, 0, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Action )
+    #     scene.append_arrow( *adder( 0, -1, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
-        return scene
+    #     return scene
 
-    def scn_hd_24_scout_close_quarters_step_2(self, bt=BoardType.HemerasDawn):
+    # def scn_hd_23_scout_close_quarters_step(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_24_scout_close_quarters_step_2', bt, x=1, width=7, height=5 )
+    #     scene = Scene( 'scn_hd_23_scout_close_quarters_step', bt, x=1, width=7, height=5 )
 
-        prev_2_O = (2, 3)
-        prev_O = (3, 2)
-        start_O = (4, 2)
-        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+    #     prev_O = (2, 3)
+    #     start_O = (3, 2)
+    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (1, 2)
-        scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+    #     start_k = (1, 2)
+    #     scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-        start_p = (2, 1)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+    #     start_p = (2, 1)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_b = (3, 3)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+    #     start_b = (3, 3)
+    #     scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_r = (4, 1)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+    #     start_r = (4, 1)
+    #     scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_A = (6, 2)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+    #     start_A = (6, 2)
+    #     scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        scene.append_arrow( *( prev_2_O + prev_O ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
 
-        adder = GS.adder( start_O, include_prev=True )
-        scene.append_arrow( *adder( 1, 1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+    #     adder = GS.adder( start_O, include_prev=True )
+    #     scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Action )
+    #     scene.append_arrow( *adder( 0, -1, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
 
-        return scene
+    #     return scene
 
-    def scn_hd_25_scout_close_quarters_step_3(self, bt=BoardType.HemerasDawn):
+    # def scn_hd_24_scout_close_quarters_step_2(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_25_scout_close_quarters_step_3', bt, x=1, width=8, height=7 )
+    #     scene = Scene( 'scn_hd_24_scout_close_quarters_step_2', bt, x=1, width=7, height=5 )
 
-        prev_3_O = (2, 3)
-        prev_2_O = (3, 2)
-        prev_O = (4, 2)
-        start_O = (5, 3)
-        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+    #     prev_2_O = (2, 3)
+    #     prev_O = (3, 2)
+    #     start_O = (4, 2)
+    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_k = (1, 2)
-        scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+    #     start_k = (1, 2)
+    #     scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-        start_p = (2, 1)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+    #     start_p = (2, 1)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_b = (3, 3)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+    #     start_b = (3, 3)
+    #     scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_r = (4, 1)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+    #     start_r = (4, 1)
+    #     scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_A = (6, 2)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+    #     start_A = (6, 2)
+    #     scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        scene.append_arrow( *( prev_3_O + prev_2_O ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *( prev_2_O + prev_O ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *( prev_2_O + prev_O ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
 
-        #
-        # <-- <- O -> -->
+    #     adder = GS.adder( start_O, include_prev=True )
+    #     scene.append_arrow( *adder( 1, 1, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( 1, 0, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
-        arr = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=2 )
-        for i, arr in enumerate( arr() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+    #     return scene
 
-        arr = GS.gen_steps( start=start_O, rels=[ (-1, 0), ], include_prev=True, count=2 )
-        for i, arr in enumerate( arr() ):
-            mark_type = MarkType.Legal if i < 1 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arr, mark_type=mark_type )
+    # def scn_hd_25_scout_close_quarters_step_3(self, bt=BoardType.HemerasDawn):
 
-        arr = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=2 )
-        for i, arr in enumerate( arr() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+    #     scene = Scene( 'scn_hd_25_scout_close_quarters_step_3', bt, x=1, width=8, height=7 )
 
-        # scene.append_arrow( *GS.append_pos_rel( start_O, -1, -1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_pos_rel( start_O, 1, -1 ), mark_type=MarkType.Action )
+    #     prev_3_O = (2, 3)
+    #     prev_2_O = (3, 2)
+    #     prev_O = (4, 2)
+    #     start_O = (5, 3)
+    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        return scene
+    #     start_k = (1, 2)
+    #     scene.board.set_piece( *start_k, piece=-PieceType.Knight )
 
-    def scn_hd_26_scout_close_quarters_end(self, bt=BoardType.HemerasDawn):
+    #     start_p = (2, 1)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        scene = Scene( 'scn_hd_26_scout_close_quarters_end', bt, x=1, width=7, height=6 )
+    #     start_b = (3, 3)
+    #     scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        prev_4_O = (2, 3)
-        prev_3_O = (3, 2)
-        prev_2_O = (4, 2)
-        prev_O = (5, 3)
-        start_O = (4, 3)
-        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+    #     start_r = (4, 1)
+    #     scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_k = (1, 2)
-        scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+    #     start_A = (6, 2)
+    #     scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        start_p = (2, 1)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+    #     scene.append_arrow( *( prev_3_O + prev_2_O ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *( prev_2_O + prev_O ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
 
-        start_b = (3, 3)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+    #     #
+    #     # <-- <- O -> -->
 
-        start_r = (4, 1)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+    #     arr = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=2 )
+    #     for i, arr in enumerate( arr() ):
+    #         scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        start_A = (6, 2)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+    #     arr = GS.gen_steps( start=start_O, rels=[ (-1, 0), ], include_prev=True, count=2 )
+    #     for i, arr in enumerate( arr() ):
+    #         mark_type = MarkType.Legal if i < 1 else \
+    #                     MarkType.Blocked
+    #         scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_arrow( *( prev_4_O + prev_3_O ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *( prev_3_O + prev_2_O ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *( prev_2_O + prev_O ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
+    #     arr = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=2 )
+    #     for i, arr in enumerate( arr() ):
+    #         scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        adder = GS.adder( start_O, include_prev=True )
-        scene.append_arrow( *adder( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( -1, 0, do_advance=False ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
+    #     # scene.append_arrow( *GS.append_pos_rel( start_O, -1, -1 ), mark_type=MarkType.Illegal )
+    #     scene.append_arrow( *GS.append_pos_rel( start_O, 1, -1 ), mark_type=MarkType.Action )
 
-        return scene
+    #     return scene
+
+    # def scn_hd_26_scout_close_quarters_end(self, bt=BoardType.HemerasDawn):
+
+    #     scene = Scene( 'scn_hd_26_scout_close_quarters_end', bt, x=1, width=7, height=6 )
+
+    #     prev_4_O = (2, 3)
+    #     prev_3_O = (3, 2)
+    #     prev_2_O = (4, 2)
+    #     prev_O = (5, 3)
+    #     start_O = (4, 3)
+    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+    #     start_k = (1, 2)
+    #     scene.board.set_piece( *start_k, piece=-PieceType.Knight )
+
+    #     start_p = (2, 1)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+    #     start_b = (3, 3)
+    #     scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+    #     start_r = (4, 1)
+    #     scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+    #     start_A = (6, 2)
+    #     scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+    #     scene.append_arrow( *( prev_4_O + prev_3_O ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *( prev_3_O + prev_2_O ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *( prev_2_O + prev_O ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *( prev_O + start_O ), mark_type=MarkType.Blocked )
+
+    #     adder = GS.adder( start_O, include_prev=True )
+    #     scene.append_arrow( *adder( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
+    #     scene.append_arrow( *adder( -1, 0, do_advance=False ), mark_type=MarkType.Blocked )
+    #     scene.append_arrow( *adder( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
+
+    #     return scene
 
     #
     # Scouts initial positions
