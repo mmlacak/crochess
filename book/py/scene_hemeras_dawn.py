@@ -669,9 +669,9 @@ class SceneHemerasDawnMixin:
 
         # up fork
         adder_u = GS.adder( x_roads, include_prev=True )
-        scene.append_arrow( *adder_u( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( 1,  1, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Action )
 
         return scene
 
@@ -697,11 +697,11 @@ class SceneHemerasDawnMixin:
 
         # up fork
         adder_u = GS.adder( start_O, include_prev=True )
-        scene.append_arrow( *adder_u( 1, 1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1, 0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( 1, 1, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_u( 1, 0, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_u( 1, 0, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_u( 1, 0, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_u( 1, 0, do_advance=True ), mark_type=MarkType.Action )
 
         scene.append_arrow( *GS.append_pos_rel( start_O, 1, 0 ), mark_type=MarkType.Blocked )
 
@@ -728,17 +728,17 @@ class SceneHemerasDawnMixin:
 
         scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
         scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Action )
 
         scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
         scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Action )
 
         scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
         scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Action )
 
         return scene
 
