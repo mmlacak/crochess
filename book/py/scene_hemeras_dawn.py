@@ -707,6 +707,41 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    def scn_hd_22_scout_rerouting_pawn_wall(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_22_scout_rerouting_pawn_wall', bt, width=8, height=6 )
+
+        start_O = (1, 1)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_p_1 = (3, 1)
+        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
+
+        start_p_2 = (4, 2)
+        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
+
+        start_p_3 = (5, 3)
+        scene.board.set_piece( *start_p_3, piece=-PieceType.Pawn )
+
+        adder = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+
+        return scene
+
     #
     # Scouts initial positions
 
