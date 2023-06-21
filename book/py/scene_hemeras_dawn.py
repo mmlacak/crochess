@@ -743,6 +743,62 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
+    # Activating Scout
+
+    def scn_hd_23_activating_scout(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_23_activating_scout', bt, height=11 ) # width=8
+
+        start_Q = (18, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W_A = (1, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_O = (4, 4)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_A = (5, 3)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_W_B = (4, 7)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_W_C = (11, 4)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # Q --> W(A)
+        gen_Q_WA = GS.gen_steps( start=start_Q, rels=[ (-1, 0), ], include_prev=True, count=17 )
+        for i, arr in enumerate( gen_Q_WA() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W(A) --> O
+        gen_WA_O = GS.gen_steps( start=start_W_A, rels=[ (1, 1), ], include_prev=True, count=3 )
+        for i, arr in enumerate( gen_WA_O() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # O --> W(B)
+        gen_O_WB = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_O_WB() ):
+            mt_O_WB = MarkType.Action if i == 2 else \
+                      MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_O_WB )
+
+        # O --> W(C)
+        gen_O_WC = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_O_WC() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # O --> A
+        scene.append_arrow( *( start_O + start_A ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
     # Scouts initial positions
 
     def scn_hd_39_scout_initial_positions(self, bt=BoardType.HemerasDawn):

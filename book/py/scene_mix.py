@@ -36,7 +36,8 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_hd_15_scout_movement', \
                     # 'scn_hd_16_scout_capturing', \
-                    'scn_hd_20_scout_rerouting', \
-                    'scn_hd_21_scout_rerouting_first_step', \
-                    'scn_hd_22_scout_rerouting_pawn_wall', \
+                    # 'scn_hd_20_scout_rerouting', \
+                    # 'scn_hd_21_scout_rerouting_first_step', \
+                    # 'scn_hd_22_scout_rerouting_pawn_wall', \
+                    'scn_hd_23_activating_scout', \
                 ]
