@@ -546,11 +546,6 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder_L( -1,  1, do_advance=False ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder_L( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
-        # adder_D = GS.adder( start_O, include_prev=True )
-        # scene.append_arrow( *adder_D(  0, -1, do_advance=True ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder_D(  1, -1, do_advance=False ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder_D( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
-
         start_o = (3, 7)
         scene.board.set_piece( *start_o, piece=-PieceType.Scout )
 
@@ -558,11 +553,6 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder_r( 1,  1, do_advance=False ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
-
-        # adder_u = GS.adder( start_o, include_prev=True )
-        # scene.append_arrow( *adder_u(  0, 1, do_advance=True ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder_u(  1, 1, do_advance=False ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder_u( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
 
         adder_l = GS.adder( start_o, include_prev=True )
         scene.append_arrow( *adder_l( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
@@ -575,123 +565,6 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder_d( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
         return scene
-
-    # def scn_hd_17_scout_forking_steps_major(self, bt=BoardType.HemerasDawn):
-
-    #     scene = Scene( 'scn_hd_17_scout_forking_steps_major', bt, width=7, height=7 )
-
-    #     start_O = (3, 3)
-    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
-
-    #     adder_r = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_r( 1,  1, do_advance=False ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
-
-    #     adder_u = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_u(  0, 1, do_advance=True ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_u(  1, 1, do_advance=False ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_u( -1, 1, do_advance=False ), mark_type=MarkType.Legal )
-
-    #     adder_l = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_l( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_l( -1,  1, do_advance=False ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_l( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
-
-    #     adder_d = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_d(  0, -1, do_advance=True ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_d(  1, -1, do_advance=False ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_d( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
-
-    #     return scene
-
-    # def scn_hd_18_scout_forking_steps_minor(self, bt=BoardType.HemerasDawn):
-
-    #     scene = Scene( 'scn_hd_18_scout_forking_steps_minor', bt, width=7, height=7 )
-
-    #     start_O = (3, 3)
-    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
-
-    #     adder_ru = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_ru( 1, 1, do_advance=True ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_ru( 1, 0, do_advance=False ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_ru( 0, 1, do_advance=False ), mark_type=MarkType.Legal )
-
-    #     adder_lu = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_lu( -1, 1, do_advance=True ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_lu( -1, 0, do_advance=False ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_lu(  0, 1, do_advance=False ), mark_type=MarkType.Legal )
-
-    #     adder_ld = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_ld( -1, -1, do_advance=True ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_ld( -1,  0, do_advance=False ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_ld(  0, -1, do_advance=False ), mark_type=MarkType.Legal )
-
-    #     adder_rd = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_rd(  1, -1, do_advance=True ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_rd(  1,  0, do_advance=False ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_rd(  0, -1, do_advance=False ), mark_type=MarkType.Legal )
-
-    #     return scene
-
-    # def scn_hd_19_scout_forking_steps_all(self, bt=BoardType.HemerasDawn):
-
-    #     scene = Scene( 'scn_hd_19_scout_forking_steps_all', bt, width=7, height=7 )
-
-    #     start_O = (3, 3)
-    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
-
-    #     #
-    #     # major directions forked
-    #     mt_major = MarkType.Legal
-    #     mt_major_forked = MarkType.Illegal
-
-    #     adder_r = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=mt_major )
-    #     scene.append_arrow( *adder_r( 1,  1, do_advance=False ), mark_type=mt_major_forked )
-    #     scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=mt_major_forked )
-
-    #     adder_u = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_u(  0, 1, do_advance=True ), mark_type=mt_major )
-    #     scene.append_arrow( *adder_u(  1, 1, do_advance=False ), mark_type=mt_major_forked )
-    #     scene.append_arrow( *adder_u( -1, 1, do_advance=False ), mark_type=mt_major_forked )
-
-    #     adder_l = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_l( -1,  0, do_advance=True ), mark_type=mt_major )
-    #     scene.append_arrow( *adder_l( -1,  1, do_advance=False ), mark_type=mt_major_forked )
-    #     scene.append_arrow( *adder_l( -1, -1, do_advance=False ), mark_type=mt_major_forked )
-
-    #     adder_d = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_d(  0, -1, do_advance=True ), mark_type=mt_major )
-    #     scene.append_arrow( *adder_d(  1, -1, do_advance=False ), mark_type=mt_major_forked )
-    #     scene.append_arrow( *adder_d( -1, -1, do_advance=False ), mark_type=mt_major_forked )
-
-    #     #
-    #     # diagonals forked
-    #     mt_diagonal = MarkType.Action
-    #     mt_diagonal_forked = MarkType.Blocked
-
-    #     adder_ru = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_ru( 1, 1, do_advance=True ), mark_type=mt_diagonal )
-    #     scene.append_arrow( *adder_ru( 1, 0, do_advance=False ), mark_type=mt_diagonal_forked )
-    #     scene.append_arrow( *adder_ru( 0, 1, do_advance=False ), mark_type=mt_diagonal_forked )
-
-    #     adder_lu = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_lu( -1, 1, do_advance=True ), mark_type=mt_diagonal )
-    #     scene.append_arrow( *adder_lu( -1, 0, do_advance=False ), mark_type=mt_diagonal_forked )
-    #     scene.append_arrow( *adder_lu(  0, 1, do_advance=False ), mark_type=mt_diagonal_forked )
-
-    #     adder_ld = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_ld( -1, -1, do_advance=True ), mark_type=mt_diagonal )
-    #     scene.append_arrow( *adder_ld( -1,  0, do_advance=False ), mark_type=mt_diagonal_forked )
-    #     scene.append_arrow( *adder_ld(  0, -1, do_advance=False ), mark_type=mt_diagonal_forked )
-
-    #     adder_rd = GS.adder( start_O, include_prev=True )
-    #     scene.append_arrow( *adder_rd(  1, -1, do_advance=True ), mark_type=mt_diagonal )
-    #     scene.append_arrow( *adder_rd(  1,  0, do_advance=False ), mark_type=mt_diagonal_forked )
-    #     scene.append_arrow( *adder_rd(  0, -1, do_advance=False ), mark_type=mt_diagonal_forked )
-
-    #     return scene
 
     #
     # Movement/Rerouting Scout
