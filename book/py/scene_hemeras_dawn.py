@@ -526,9 +526,9 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_17_scout_forking_steps(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene( 'scn_hd_17_scout_forking_steps', bt, width=7, height=10 )
+        scene = Scene( 'scn_hd_17_scout_forking_steps', bt, width=7, height=7 )
 
-        start_O = (3, 2)
+        start_O = (3, 3)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
         adder_R = GS.adder( start_O, include_prev=True )
@@ -546,23 +546,10 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder_L( -1,  1, do_advance=False ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder_L( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
-        start_o = (3, 7)
-        scene.board.set_piece( *start_o, piece=-PieceType.Scout )
-
-        adder_r = GS.adder( start_o, include_prev=True )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_r( 1,  1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_r( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
-
-        adder_l = GS.adder( start_o, include_prev=True )
-        scene.append_arrow( *adder_l( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_l( -1,  1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_l( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
-
-        adder_d = GS.adder( start_o, include_prev=True )
-        scene.append_arrow( *adder_d(  0, -1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_d(  1, -1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_d( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        adder_D = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder_D(  0, -1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_D(  1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_D( -1, -1, do_advance=False ), mark_type=MarkType.Legal )
 
         return scene
 
