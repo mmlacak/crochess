@@ -782,6 +782,53 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
+    # Activating Pyramid
+
+    def scn_hd_26_stepping_scout_does_not_activate_pyramid(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene('scn_hd_26_stepping_scout_does_not_activate_pyramid', bt)
+
+        # top, dark pieces
+
+        start_o = (5, 13)
+        scene.board.set_piece( *start_o, piece=-PieceType.Scout )
+
+        start_a = (6, 13)
+        scene.board.set_piece( *start_a, piece=-PieceType.Pyramid )
+
+        scene.append_arrow( *( start_o + start_a ), mark_type=MarkType.Illegal )
+
+        # bottom, light pieces
+
+        start_O = (5, 3)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_W_A = (6, 3)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (8, 3)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_A = (10, 3)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        scene.append_arrow( *( start_O + start_W_A ), mark_type=MarkType.Action )
+
+        gen_WA_WB = GS.gen_steps( start=start_W_A, rels=[(1, 0), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_WA_WB() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_WB_A = GS.gen_steps( start=start_W_B, rels=[(1, 0), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_WB_A() ):
+            mark_type = MarkType.Illegal if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        return scene
+
+    #
     # Scouts initial positions
 
     def scn_hd_39_scout_initial_positions(self, bt=BoardType.HemerasDawn):
