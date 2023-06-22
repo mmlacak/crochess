@@ -828,6 +828,113 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    def scn_hd_27_stepping_scouts_cascade_pyramids(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene('scn_hd_27_stepping_scouts_cascade_pyramids', bt)
+
+        # top, dark pieces
+
+        start_r = (16, 15)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_w_A = (5, 15)
+        scene.board.set_piece( *start_w_A, piece=-PieceType.Wave )
+
+        start_o = (5, 13)
+        scene.board.set_piece( *start_o, piece=-PieceType.Scout )
+
+        start_w_B = (6, 13)
+        scene.board.set_piece( *start_w_B, piece=-PieceType.Wave )
+
+        start_b = (11, 13)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        start_w_C = (13, 11)
+        scene.board.set_piece( *start_w_C, piece=-PieceType.Wave )
+
+        start_a = (15, 13)
+        scene.board.set_piece( *start_a, piece=-PieceType.Pyramid )
+
+        gen_r_wA = GS.gen_steps( start=start_r, rels=[(-1, 0), ], include_prev=True, count=11 )
+        for index, coords in enumerate( gen_r_wA() ):
+            mark_type = MarkType.Action if index == 10 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_wA_p = GS.gen_steps( start=start_w_A, rels=[(0, -1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_wA_p() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_arrow( *( start_o + start_w_B ), mark_type=MarkType.Action )
+
+        gen_wB_b = GS.gen_steps( start=start_w_B, rels=[(1, 0), ], include_prev=True, count=5 )
+        for index, coords in enumerate( gen_wB_b() ):
+            mark_type = MarkType.Action if index == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_b_wC = GS.gen_steps( start=start_b, rels=[(1, -1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_b_wC() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_wC_a = GS.gen_steps( start=start_w_C, rels=[(1, 1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_wC_a() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        # bottom, light pieces
+
+        start_R = (16, 5)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W_A = (5, 5)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_O = (5, 3)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_W_B = (6, 3)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_B = (11, 3)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_A = (13, 1)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        gen_R_WA = GS.gen_steps( start=start_R, rels=[(-1, 0), ], include_prev=True, count=11 )
+        for index, coords in enumerate( gen_R_WA() ):
+            mark_type = MarkType.Action if index == 10 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_WA_P = GS.gen_steps( start=start_W_A, rels=[(0, -1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_WA_P() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        scene.append_arrow( *( start_O + start_W_B ), mark_type=MarkType.Action )
+
+        gen_WB_B = GS.gen_steps( start=start_W_B, rels=[(1, 0), ], include_prev=True, count=5 )
+        for index, coords in enumerate( gen_WB_B() ):
+            mark_type = MarkType.Action if index == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen_B_A = GS.gen_steps( start=start_B, rels=[(1, -1), ], include_prev=True, count=2 )
+        for index, coords in enumerate( gen_B_A() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        return scene
+
     #
     # Scouts initial positions
 

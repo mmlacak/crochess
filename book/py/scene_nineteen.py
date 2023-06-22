@@ -622,7 +622,6 @@ class SceneNineteenMixin:
         start_b = (11, 13)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-
         start_w_C = (13, 11)
         scene.board.set_piece( *start_w_C, piece=-PieceType.Wave )
 

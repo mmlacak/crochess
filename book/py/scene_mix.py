@@ -43,5 +43,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_hd_23_activating_scout', \
                     # 'scn_hd_24_scout_activating_wave_step_fields', \
                     # 'scn_hd_25_scout_activating_wave_capture_fields', \
-                    'scn_hd_26_stepping_scout_does_not_activate_pyramid', \
+                    # 'scn_hd_26_stepping_scout_does_not_activate_pyramid', \
+                    'scn_hd_27_stepping_scouts_cascade_pyramids', \
                 ]
