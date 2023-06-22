@@ -747,6 +747,30 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    def scn_hd_25_scout_activating_wave_capture_fields(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene('scn_hd_25_scout_activating_wave_capture_fields', bt)
+
+        start_W = (9, 9)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_O = (8, 10)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        scene.append_arrow( *( start_O + start_W ), mark_type=MarkType.Action )
+
+        # W -->
+        gen_W_1 = GS.gen_steps( start=start_W, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_W_1() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W -->
+        gen_W_2 = GS.gen_steps( start=start_W, rels=[ (1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_W_2() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        return scene
+
     #
     # Scouts initial positions
 
