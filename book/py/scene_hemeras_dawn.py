@@ -723,6 +723,9 @@ class SceneHemerasDawnMixin:
         start_O = (9, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
+        start_A = (15, 5)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
         # O --> W(B)
         gen_O_W = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=3 )
         for i, arr in enumerate( gen_O_W() ):
@@ -738,7 +741,9 @@ class SceneHemerasDawnMixin:
         # W -->
         gen_W_2 = GS.gen_steps( start=start_W, rels=[ (1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arr in enumerate( gen_W_2() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+            mt_2 = MarkType.Illegal if i == 5 else \
+                   MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_2 )
 
         # W -->
         gen_W_3 = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
@@ -757,12 +762,17 @@ class SceneHemerasDawnMixin:
         start_O = (8, 10)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
+        start_A = (5, 5)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
         scene.append_arrow( *( start_O + start_W ), mark_type=MarkType.Action )
 
         # W -->
         gen_W_1 = GS.gen_steps( start=start_W, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arr in enumerate( gen_W_1() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+            mt_1 = MarkType.Action if i == 3 else \
+                   MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_1 )
 
         # W -->
         gen_W_2 = GS.gen_steps( start=start_W, rels=[ (1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
