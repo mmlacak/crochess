@@ -711,6 +711,43 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
+    # Activating Wave
+
+    def scn_hd_24_scout_activating_wave_step_fields(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene('scn_hd_24_scout_activating_wave_step_fields', bt)
+
+        start_W = (9, 5)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_O = (9, 2)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        # O --> W(B)
+        gen_O_W = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=3 )
+        for i, arr in enumerate( gen_O_W() ):
+            mt_O_W = MarkType.Action if i == 2 else \
+                     MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_O_W )
+
+        # W -->
+        gen_W_1 = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_W_1() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W -->
+        gen_W_2 = GS.gen_steps( start=start_W, rels=[ (1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_W_2() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W -->
+        gen_W_3 = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_W_3() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        return scene
+
+    #
     # Scouts initial positions
 
     def scn_hd_39_scout_initial_positions(self, bt=BoardType.HemerasDawn):
