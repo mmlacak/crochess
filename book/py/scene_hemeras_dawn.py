@@ -781,6 +781,30 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    def scn_hd_26_scout_en_passant(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene('scn_hd_26_scout_en_passant', bt, width=5, height=10.7)
+
+        start_P = (2, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_o = (3, 4)
+        scene.board.set_piece( *start_o, piece=-PieceType.Scout )
+
+        start_p = (1, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # P -->
+        gen_P = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=8 )
+        for i, arr in enumerate( gen_P() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        scene.append_arrow( *GS.append_pos_rel( start_o, -1, 1 ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.append_pos_rel( start_p, 1, -1 ), mark_type=MarkType.Action )
+
+        return scene
+
     #
     # Scouts initial positions
 
