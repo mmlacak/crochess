@@ -46,6 +46,18 @@ sml = \lfloor \bigg( \sqrt{ \frac{n^2}{1 + \sqrt{2}} } \bigg) \rfloor
 oml = \lfloor \bigg( \sqrt{ \frac{n^2}{7 + \sqrt{n}} } \bigg) \rfloor
 \end{equation}
 
+\begin{equation}
+ghml = oml - 2
+\end{equation}
+
+\begin{equation}
+gvml = \lfloor \bigg( \sqrt{ \frac{n^2}{1 + \sqrt{n}} } \bigg) \rfloor - 2
+\end{equation}
+
+\begin{equation}
+ghcqml = 1 + copgf
+\end{equation}
+
 where:
 
 $n$ is size of chessboard for a given variant
@@ -57,7 +69,13 @@ $sml$ - Serpent's movement limit, i.e. maximum number of steps Serpent can make
 
 $oml$ - Scout's movement limit, i.e. maximum number of steps Scout can make
 
-\TODO :: (?) add Grenadier (?) maybe (?)
+$ghml$ - Grenadier's horizontal movement limit, when not surrounded by opponent's pieces
+
+$gvml$ - Grenadier's vertical movement limit, when not surrounded by opponent's pieces
+
+$copgf$ - count of opponent's pieces on grenadier-fields
+
+$ghcqml$ - Grenadier's horizontal movement limit in close quarters, i.e. when surrounded by opponent's pieces
 
 \clearpage % ..........................................................
 
