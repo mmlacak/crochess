@@ -1,16 +1,18 @@
-<!-- span class="github"><a href="https://github.com/sponsors/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/GitHub-Thank_you_for_your_donations!-F5F5F5.svg?logo=github" alt="Thank you for your donations!" /></a></span -->
 <span class="github"><a href="https://github.com/sponsors/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/GitHub-Thank_you!-F5F5F5.svg?logo=github" alt="Thank you for your donations!" /></a></span>
 <span class="discord"><a href="https://discord.gg/PJ2dtRa5AU" title="Join me at Discord!"><img src="https://img.shields.io/badge/Discord-Join_me!-5865F2.svg?logo=discord" alt="Join me at Discord!" /></a></span>
-<span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/blob/master/crochess.pdf" title="Read the book!"><img src="https://img.shields.io/badge/The_book-Read!-EC1C24.svg?logo=adobe-acrobat-reader" alt="Read the book!" /></a></span>
-
-<!-- span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you_for_your_donations!-F96854.svg?logo=patreon" alt="Thank you for your donations!" /></a></span -->
 <span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you!-F96854.svg?logo=patreon" alt="Thank you for your donations!" /></a></span>
 <span class="badge-blogger"><a href="https://croatian-chess.blogspot.com/" title="Read it all on the blog!"><img src="https://img.shields.io/badge/Blogger-Read_it_all!-FF5722.svg?logo=blogger" alt="Read it all on the blog!" /></a></span>
 <span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-EC1C24.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span>
-<!-- span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-3333FF.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span -->
-<!-- span class="badge-adobe-acrobat-reader"><a href="https://raw.githubusercontent.com/mmlacak/crochess/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/Read-Croatian_Chess_book-9999FF.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span -->
 
-_(Use only left-click on buttons. You can right-click, then select "Save link as ..." only on "Download" button.)_
+<!-- span class="github"><a href="https://github.com/sponsors/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/GitHub-Thank_you!-F5F5F5.svg?logo=github" alt="Thank you for your donations!" /></a></span -->
+<!-- span class="discord"><a href="https://discord.gg/PJ2dtRa5AU" title="Join me at Discord!"><img src="https://img.shields.io/badge/Discord-Join_me!-5865F2.svg?logo=discord" alt="Join me at Discord!" /></a></span -->
+<!-- span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/blob/master/crochess.pdf" title="Read the book!"><img src="https://img.shields.io/badge/The_book-Read!-EC1C24.svg?logo=adobe-acrobat-reader" alt="Read the book!" /></a></span -->
+
+<!-- span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you!-F96854.svg?logo=patreon" alt="Thank you for your donations!" /></a></span -->
+<!-- span class="badge-blogger"><a href="https://croatian-chess.blogspot.com/" title="Read it all on the blog!"><img src="https://img.shields.io/badge/Blogger-Read_it_all!-FF5722.svg?logo=blogger" alt="Read it all on the blog!" /></a></span -->
+<!-- span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-EC1C24.svg?logo=adobe-acrobat-reader" alt="Download the book!" /></a></span -->
+
+_(To read book in your web-browser, click [GitHub's PDF viewer](https://github.com/mmlacak/crochess/blob/master/crochess.pdf).)_
 
 <!-- ![Lines of code](https://img.shields.io/tokei/lines/github/mmlacak/crochess) -->
 <!-- ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mmlacak/crochess) -->
@@ -45,16 +47,9 @@ with meta data containing the same format as the book version.
 
 ## Getting Started
 
-To read book in a web-browser, left-click on a
-[PDF viewer](https://github.com/mmlacak/crochess/blob/master/crochess.pdf). \
-This will open PDF file in GitHub's own PDF viewer, no installation of additional applications necessary. \
-_(For PDF viewer to work, make sure you granted all necessary permissions in any no-script, ad-block extension your browser have. Also, make sure you have enabled cookies, at very least, session-only.)_ \
-_(Rarely, "Unable to render code block", or some other error might show up. If so, wait a little, then refresh.)_
+To download PDF file, click [download PDF file](https://github.com/mmlacak/crochess/raw/master/crochess.pdf).
 
-To download PDF file, left-click on a [download PDF](https://github.com/mmlacak/crochess/raw/master/crochess.pdf). \
-This will download PDF file to your computer, and display it in a PDF viewer, if you have one installed on your system. \
-_(To read PDF file, you'll need to install PDF viewer for your OS, one such is [Adobe Reader](https://get.adobe.com/reader/).)_ \
-_(To just download PDF file, without reading it, you can right-click on download link, then select "Save link as ...".)_
+To read book in your web-browser, click [GitHub's PDF viewer](https://github.com/mmlacak/crochess/blob/master/crochess.pdf).
 
 To compile book yourself, you'll need to generate images, and then compile text and those images into PDF file.
 
