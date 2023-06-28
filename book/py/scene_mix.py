@@ -34,15 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_hd_15_scout_movement', \
-                    # 'scn_hd_16_scout_capturing', \
-                    # 'scn_hd_17_scout_forking_steps', \
-                    # 'scn_hd_20_scout_rerouting', \
-                    # 'scn_hd_21_scout_rerouting_first_step', \
-                    # 'scn_hd_22_scout_rerouting_pawn_wall', \
-                    # 'scn_hd_23_activating_scout', \
-                    # 'scn_hd_24_scout_activating_wave_step_fields', \
-                    # 'scn_hd_25_scout_activating_wave_capture_fields', \
-                    # 'scn_hd_26_scout_en_passant', \
-                    'scn_hd_41_grenadier_movement', \
+                    # 'scn_hd_41_grenadier_movement', \
+                    'scn_hd_42_grenadier_movement_transition', \
                 ]

@@ -602,13 +602,28 @@ can move onto capture-field only if there is opponent's piece to be captured.
 \end{wrapfigure}
 When there is no opponent's piece on its grenadier-field, Grenadier can take up
 to 3 fields to the left, or right, and at most 2 fields up, or down; these are
-step-fields, so e.g. Pyramid cannot be activated on them (green arrows). \newline
+step-fields, so e.g. Pyramid cannot be activated on them (green arrows). Movement
+limits depends on size of a chessboard. \newline
 \indent
-Presence of opponent's pieces is relevant only at the start of Grenadier's ply.
-Movement limits depends on size of a chessboard. Grenadier can capture only at
-closest neighboring fields at all 4 diagonals (red arrows).
+Grenadier can capture only at closest neighboring fields at all 4 diagonals (red
+arrows).
 
 \vspace*{-0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[6]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_42_grenadier_movement_transition.png}
+\vspace*{-0.5\baselineskip}
+\caption{Transition}
+\label{fig:scn_hd_42_grenadier_movement_transition}
+\end{wrapfigure}
+Presence of opponent's pieces on grenadier-fields is relevant only at the start of
+Grenadier's ply. \newline
+\indent
+So, Grenadier which started a ply without opponent's piece on its grenadier-fields
+won't gain (or lose) any additional steps, if it passes by opponent's piece.
+
+\vspace*{-1.3\baselineskip}
 \subsubsection*{Forking steps}
 \addcontentsline{toc}{subsubsection}{Forking steps}
 \label{sec:Hemera's Dawn/Grenadier/Movement/Forking steps}
