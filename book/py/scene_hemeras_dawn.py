@@ -865,7 +865,7 @@ class SceneHemerasDawnMixin:
     def scn_hd_41_grenadier_movement( self, bt=BoardType.HemerasDawn ):
 
         # scene = Scene( 'scn_hd_41_grenadier_movement', bt, width=7, height=7 )
-        scene = Scene( 'scn_hd_41_grenadier_movement', bt, height=7 )
+        scene = Scene( 'scn_hd_41_grenadier_movement', bt, x=5.6, y=0.6, width=7.8, height=5.8 )
 
         start_G = (9, 3)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
