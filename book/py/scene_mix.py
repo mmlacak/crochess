@@ -35,5 +35,6 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_hd_41_grenadier_movement', \
-                    'scn_hd_42_grenadier_movement_transition', \
+                    # 'scn_hd_42_grenadier_movement_transition', \
+                    'scn_hd_44_grenadier_vertical_steps', \
                 ]

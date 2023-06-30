@@ -940,6 +940,35 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    #
+    # Close quarters
+
+    def scn_hd_44_grenadier_vertical_steps( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_44_grenadier_vertical_steps', bt, width=5, height=7 )
+
+        start_G = (2, 3)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        start_n = (1, 3)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        adder_up = GS.adder( start_G, include_prev=True )
+        scene.append_arrow( *adder_up( 1, 1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_up( -1, 1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_up( 0, 1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_up( 1, 1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_up( -1, 1, do_advance=False ), mark_type=MarkType.Illegal )
+
+        adder_down = GS.adder( start_G, include_prev=True )
+        scene.append_arrow( *adder_down( 1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_down( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_down( 0, -1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_down( 1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_down( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+
+        return scene
+
     def scn_hd_44_grenadier_forking_steps( self, bt=BoardType.HemerasDawn ):
 
         # scene = Scene( 'scn_hd_44_grenadier_forking_steps', bt, width=11, height=7 )
