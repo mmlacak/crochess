@@ -433,6 +433,8 @@ Activated Scout uses received momentum for movement, and transfers all of
 remaining momentum to the piece it activates. Here, light Scout can activate
 Wave B, and transfer to it remaining 14 momentum.
 
+\TODO :: limited by both steps count (5), and momentum received
+
 \clearpage % ..........................................................
 
 \subsection*{Activating Wave, Pyramid}
@@ -768,14 +770,14 @@ is blocked, but not fields behind it.
 \centering
 \includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_50_grenadier_activated.png}
 \vspace*{-0.5\baselineskip}
-\caption{Grenadier activated}
+\caption{Activated}
 \label{fig:scn_hd_50_grenadier_activated}
 \end{wrapfigure}
 Activated Grenadier is limited by received momentum, up to maximum allowed by movement
 pattern; both in close quarters, and out. Both normal and capture-steps are counted
 towards movement limit.
 
-\vspace*{0.4\baselineskip}
+\vspace*{-0.7\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_51_grenadier_close_quarters_activation.png}
@@ -795,11 +797,12 @@ towards movement limit.
 
 \vspace*{-0.5\baselineskip}
 Here, Grenadier activated in close quarters (now "in the air") cannot capture dark
-Queen, since it's limited by received 3 momentum.
-
-Any surplus momentum is lost, unless Grenadier activates a piece. Just like any other
-piece, Grenadier can activate own Wave on either step- or capture-fields, while own
-Pyramid can be activated only on capture-fields.
+Queen, since it's limited by received 3 momentum. \newline
+\indent
+Any surplus momentum is lost, unless Grenadier activates a piece. Just like any
+other piece, Grenadier can activate own Wave on either step- or capture-fields,
+while own Pyramid can be activated only on capture-fields. As before, all of
+remaining momentum is transferred to activated piece.
 
 \clearpage % ..........................................................
 
