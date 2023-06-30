@@ -969,24 +969,23 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_44_grenadier_forking_steps( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_45_grenadier_horizontal_steps( self, bt=BoardType.HemerasDawn ):
 
-        # scene = Scene( 'scn_hd_44_grenadier_forking_steps', bt, width=11, height=7 )
-        scene = Scene( 'scn_hd_44_grenadier_forking_steps', bt, y=1, height=7 )
+        scene = Scene( 'scn_hd_45_grenadier_horizontal_steps', bt, height=5 )
 
-        start_G = (9, 4)
+        start_G = (9, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        start_n = (10, 5)
+        start_n = (10, 3)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_r = (8, 5)
+        start_r = (8, 3)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
-        start_p = (8, 3)
+        start_p = (8, 1)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_q = (12, 3)
+        start_q = (12, 1)
         scene.board.set_piece( *start_q, piece=-PieceType.Queen )
 
         gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=4 )
@@ -998,12 +997,12 @@ class SceneHemerasDawnMixin:
             scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
             scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=mt_q )
 
-        gen_Gu_ = GS.gen_steps( start=start_G, rels=[ (0, 1), ], include_prev=True, count=1 )
-        for i, arr in enumerate( gen_Gu_() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+        # gen_Gu_ = GS.gen_steps( start=start_G, rels=[ (0, 1), ], include_prev=True, count=1 )
+        # for i, arr in enumerate( gen_Gu_() ):
+        #     scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-            scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
-            scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=MarkType.Illegal )
+        #     scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
+        #     scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=MarkType.Illegal )
 
         gen_Gl_ = GS.gen_steps( start=start_G, rels=[ (-1, 0), ], include_prev=True, count=4 )
         for i, arr in enumerate( gen_Gl_() ):
@@ -1012,12 +1011,12 @@ class SceneHemerasDawnMixin:
             scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=MarkType.Illegal )
             scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=MarkType.Illegal )
 
-        gen_Gd_ = GS.gen_steps( start=start_G, rels=[ (0, -1), ], include_prev=True, count=1 )
-        for i, arr in enumerate( gen_Gd_() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+        # gen_Gd_ = GS.gen_steps( start=start_G, rels=[ (0, -1), ], include_prev=True, count=1 )
+        # for i, arr in enumerate( gen_Gd_() ):
+        #     scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-            scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=MarkType.Illegal )
-            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=MarkType.Illegal )
+        #     scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=MarkType.Illegal )
+        #     scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=MarkType.Illegal )
 
         # scene.append_arrow( *GS.append_pos_rel( start_G, 1, 1 ), mark_type=MarkType.Action )
         # scene.append_arrow( *GS.append_pos_rel( start_G, -1, 1 ), mark_type=MarkType.Action )
