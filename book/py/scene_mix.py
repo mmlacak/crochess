@@ -37,5 +37,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_hd_41_grenadier_movement', \
                     # 'scn_hd_42_grenadier_movement_transition', \
                     # 'scn_hd_44_grenadier_vertical_steps', \
-                    'scn_hd_45_grenadier_horizontal_steps', \
+                    # 'scn_hd_45_grenadier_horizontal_steps', \
+                    'scn_hd_46_grenadier_close_quarters_transition', \
                 ]
