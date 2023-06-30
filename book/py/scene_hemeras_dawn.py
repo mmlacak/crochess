@@ -950,12 +950,15 @@ class SceneHemerasDawnMixin:
         start_G = (2, 3)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        start_n = (1, 3)
+        start_n = (1, 4)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_b = (3, 1)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
         adder_up = GS.adder( start_G, include_prev=True )
         scene.append_arrow( *adder_up( 1, 1, do_advance=False ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adder_up( -1, 1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_up( -1, 1, do_advance=False ), mark_type=MarkType.Action )
         scene.append_arrow( *adder_up( 0, 1, do_advance=True ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder_up( 1, 1, do_advance=False ), mark_type=MarkType.Illegal )
         scene.append_arrow( *adder_up( -1, 1, do_advance=False ), mark_type=MarkType.Illegal )
@@ -964,7 +967,7 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder_down( 1, -1, do_advance=False ), mark_type=MarkType.Illegal )
         scene.append_arrow( *adder_down( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
         scene.append_arrow( *adder_down( 0, -1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_down( 1, -1, do_advance=False ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_down( 1, -1, do_advance=False ), mark_type=MarkType.Action )
         scene.append_arrow( *adder_down( -1, -1, do_advance=False ), mark_type=MarkType.Illegal )
 
         return scene
