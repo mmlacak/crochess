@@ -664,23 +664,23 @@ class SceneHemerasDawnMixin:
         start_Q = (18, 1)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_W_A = (1, 1)
+        start_W_A = (7, 1)
         scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        start_O = (4, 4)
+        start_O = (10, 4)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_A = (5, 3)
+        start_A = (11, 3)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        start_W_B = (4, 7)
+        start_W_B = (6, 4)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_W_C = (11, 4)
+        start_W_C = (17, 4)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
         # Q --> W(A)
-        gen_Q_WA = GS.gen_steps( start=start_Q, rels=[ (-1, 0), ], include_prev=True, count=17 )
+        gen_Q_WA = GS.gen_steps( start=start_Q, rels=[ (-1, 0), ], include_prev=True, count=11 )
         for i, arr in enumerate( gen_Q_WA() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
@@ -690,15 +690,20 @@ class SceneHemerasDawnMixin:
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         # O --> W(B)
-        gen_O_WB = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=5 )
+        gen_O_WB = GS.gen_steps( start=start_O, rels=[ (-1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( gen_O_WB() ):
-            mt_O_WB = MarkType.Action if i == 2 else \
+            mt_O_WB = MarkType.Action if i == 3 else \
                       MarkType.Legal
             scene.append_arrow( *arr, mark_type=mt_O_WB )
 
         # O --> W(C)
         gen_O_WC = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=5 )
         for i, arr in enumerate( gen_O_WC() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # O -->
+        gen_O_ = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_O_() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         # O --> A
