@@ -1041,7 +1041,8 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_47_grenadier_blocked_steps( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_47_grenadier_blocked_steps', bt, width=8, height=5 )
+        # scene = Scene( 'scn_hd_47_grenadier_blocked_steps', bt, width=8, height=5 )
+        scene = Scene( 'scn_hd_47_grenadier_blocked_steps', bt, y=0.6, width=8, height=3.8 )
 
         start_G = (1, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -1073,7 +1074,8 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_48_grenadier_not_blocked_steps( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_48_grenadier_not_blocked_steps', bt, width=8, height=5 )
+        # scene = Scene( 'scn_hd_48_grenadier_not_blocked_steps', bt, width=8, height=5 )
+        scene = Scene( 'scn_hd_48_grenadier_not_blocked_steps', bt, y=0.6, width=8, height=3.8 )
 
         start_G = (1, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -1105,8 +1107,8 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_49_grenadier_close_quarters_pattern( self, bt=BoardType.HemerasDawn ):
 
-        # scene = Scene( 'scn_hd_49_grenadier_close_quarters_pattern', bt, width=11, height=7 )
-        scene = Scene( 'scn_hd_49_grenadier_close_quarters_pattern', bt, y=1, height=7 )
+        # scene = Scene( 'scn_hd_49_grenadier_close_quarters_pattern', bt, y=1, height=7 )
+        scene = Scene( 'scn_hd_49_grenadier_close_quarters_pattern', bt, y=1.6, height=5.8 )
 
         start_G = (9, 4)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -1123,8 +1125,8 @@ class SceneHemerasDawnMixin:
         start_p_1 = (8, 3)
         scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
 
-        start_p_2 = (10, 2)
-        scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
+        start_b = (10, 2)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
         start_q = (13, 3)
         scene.board.set_piece( *start_q, piece=-PieceType.Queen )
