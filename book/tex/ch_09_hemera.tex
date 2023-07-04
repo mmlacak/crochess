@@ -563,7 +563,7 @@ cannot be promoted. Pawns can be promoted to Grenadiers.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.25\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_40_grenadier_fields.png}
 \vspace*{-0.5\baselineskip}
@@ -573,8 +573,11 @@ cannot be promoted. Pawns can be promoted to Grenadiers.
 Grenadier-fields are all fields immediately neighboring Grenadier horizontally,
 vertically, and diagonally. They are the same fields as step-fields of a King. \newline
 \indent
-When starting a ply Grenadier can move to, and capture at different fields if
-there is opponent's piece present on its grenadier-fields.
+Grenadier is in close quarters if there is at least one opponent's piece present
+on its grenadier-fields. \newline
+\indent
+When starting a ply Grenadier can move to, and capture at different fields
+depending if it's in close quarters, or not.
 
 % \vspace*{2.3\baselineskip}
 \vspace*{-1.7\baselineskip}
@@ -666,8 +669,8 @@ capture-steps are shown.
 \end{wrapfigure}
 When there is opponent's piece on its grenadier-fields, Grenadier can take one step
 up, or down; after which it can take associated forking capture-step, if there is
-opponent's piece to capture (here, dark Bishop). Grenadier can also take any diagonal
-capture-step, before taking any other step (here, capturing dark Knight).
+opponent's piece to capture (here, dark Bishop). Before taking any other step,
+Grenadier can take diagonal capture-step; here, capturing dark Knight.
 
 \vspace*{-0.7\baselineskip}
 \noindent
