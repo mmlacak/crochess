@@ -1349,12 +1349,12 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_53_grenadier_activating_wave_step_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_53_grenadier_activating_wave_step_field', bt, x=8, y=9, width=5, height=3 )
+        scene = Scene( 'scn_hd_53_grenadier_activating_wave_step_field', bt, x=8, y=1, width=5, height=3 )
 
-        start_G = (9, 10)
+        start_G = (9, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        start_W = (11, 10)
+        start_W = (11, 2)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         # G --> W
@@ -1368,21 +1368,21 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_54_grenadier_activated_wave_step_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_54_grenadier_activated_wave_step_field', bt )
+        scene = Scene( 'scn_hd_54_grenadier_activated_wave_step_field', bt, height=7.7 )
 
-        prev_G = (9, 10)
-        prev_W = (11, 10)
+        prev_G = (9, 2)
+        prev_W = (11, 2)
 
-        start_G = prev_W # (9, 10)
+        start_G = prev_W # (9, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        start_W = prev_W # (11, 10)
+        start_W = prev_W # (11, 2)
         # scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_B = (14, 10)
+        start_B = (14, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_A = (11, 17)
+        start_A = (3, 2)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         # W --> (1, 0) -->
@@ -1393,16 +1393,16 @@ class SceneHemerasDawnMixin:
             scene.append_arrow( *arr, mark_type=mt_wr )
 
         # W --> (0, 1) -->
-        gen_W_u_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        gen_W_u_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board.get_position_limits() ) # , bounds=scene.board_view.get_position_limits()
         for i, arr in enumerate( gen_W_u_() ):
-            mt_wu = MarkType.Blocked if i == 6 else \
-                    MarkType.Legal
+            mt_wu = MarkType.Legal
             scene.append_arrow( *arr, mark_type=mt_wu )
 
         # W --> (-1, 0) -->
         gen_W_l_ = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arr in enumerate( gen_W_l_() ):
-            mt_wl = MarkType.Legal
+            mt_wl = MarkType.Blocked if i == 7 else \
+                    MarkType.Legal
             scene.append_arrow( *arr, mark_type=mt_wl )
 
         # W --> (0, -1) -->

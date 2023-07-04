@@ -31,7 +31,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under *Source* section. \
 The most recent book version is:
 
-Version: 20230702.082015 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
+Version: 20230704.091347 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
@@ -155,7 +155,7 @@ Thank you all!
 
 ## Playlist
 
-A collection of songs for your listening pleasure while reading [the book](crochess.pdf):
+A collection of songs for your listening pleasure while reading [the book](https://github.com/mmlacak/crochess/raw/master/crochess.pdf):
 
 * Main theme: [Christopher Tin - Sogno di Volare ("The Dream of Flight")](https://www.youtube.com/watch?v=WQYN2P3E06s)
 * Introduction: [Renaissance - Wanderer](https://www.youtube.com/watch?v=AwJugy5Soto)
