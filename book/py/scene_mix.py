@@ -34,6 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_tr_27_pawn_sacrifice_init', \
-                    'scn_tr_28_pawn_sacrifice_end', \
+                    'scn_hd_21_scout_rerouting_first_step', \
+                    'scn_hd_22_scout_rerouting_pawn_wall', \
                 ]

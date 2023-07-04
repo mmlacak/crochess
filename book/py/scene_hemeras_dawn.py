@@ -594,8 +594,8 @@ class SceneHemerasDawnMixin:
         start_O = (1, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_b = (2, 2)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+        start_B = (2, 2)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         scene.append_arrow( *GS.append_pos_rel( start_O, 1, 0 ), mark_type=MarkType.Blocked )
 
@@ -626,8 +626,8 @@ class SceneHemerasDawnMixin:
         start_O = (1, 1)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_p_1 = (3, 1)
-        scene.board.set_piece( *start_p_1, piece=-PieceType.Pawn )
+        start_P_1 = (3, 1)
+        scene.board.set_piece( *start_P_1, piece=PieceType.Pawn )
 
         start_p_2 = (4, 2)
         scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )

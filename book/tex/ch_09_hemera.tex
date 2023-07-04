@@ -363,8 +363,6 @@ forking step after left, down, or right steps.
 \addcontentsline{toc}{subsubsection}{Rerouting Scout}
 \label{sec:Hemera's Dawn/Scout/Movement/Rerouting Scout}
 
-\TODO :: blocked by own pieces, Star
-
 \vspace*{-0.7\baselineskip}
 \noindent
 \begin{wrapfigure}[9]{l}{0.41\textwidth}
@@ -381,7 +379,7 @@ it was moving before rerouting.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[8]{l}{0.41\textwidth}
+\begin{wrapfigure}[9]{l}{0.41\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_21_scout_rerouting_first_step.png}
 \vspace*{-0.3\baselineskip}
@@ -392,11 +390,12 @@ it was moving before rerouting.
 In rerouting examples here blue arrows are used just to distinguish one valid path over
 the other, when choice (forking step) is being made. \newline
 \indent
-First step can also be blocked, direction to follow after rerouting is the blocked one.
+First step can also be blocked (including by own piece), direction to follow after
+rerouting is the blocked one.
 
-\vspace*{0.3\baselineskip}
+\vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.41\textwidth}
+\begin{wrapfigure}[11]{l}{0.41\textwidth} % 10 = enough
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_22_scout_rerouting_pawn_wall.png}
 \vspace*{-0.3\baselineskip}
@@ -407,8 +406,9 @@ First step can also be blocked, direction to follow after rerouting is the block
 If initially chosen direction is blocked after rerouting, Scout can be rerouted
 again. Each choice of forking step is independent from any previous choice. \newline
 \indent
-Here, each time Scout is blocked by a Pawn, it can choose between equally valid
-right-down, or right-up forking steps, regardless of any previous choices.
+Here, each time Scout is blocked by any Pawn (own, or opponent's), it can choose
+between equally valid right-down, or right-up forking steps, regardless of any
+previous choices.
 
 \clearpage % ..........................................................
 
