@@ -7,8 +7,8 @@
 \addcontentsline{toc}{chapter}{Appendix}
 \label{ch:Appendix}
 
-Appendix contains description of algebraic notation, extended from the base described here: \\
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}. \\
+Appendix contains description of algebraic notation, extended from the base described here: \newline
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}. \newline
 This description mostly covers short notation, and is written in monospace font, e.g. \alg{Nc3}.
 
 Parts of classic notation clashes with new developments, and so had to be covered with
@@ -55,7 +55,7 @@ this might also be interpreted as disambiguation.
 \label{tbl:Appendix/Introduction/Abbreviations}
 \end{table}
 
-For official reference FIDE handbook is used, current date of publication is 2018-01-01: \\
+For official reference FIDE handbook is used, current date of publication is 2018-01-01: \newline
 \href{https://handbook.fide.com/chapter/E012018}{https://handbook.fide.com/chapter/E012018}.
 
 Point in FIDE handbook refers to a code under which definition can be found on above website,
@@ -213,8 +213,8 @@ written as \alg{h5}. Long notation would be \alg{h2-h5}.
 
 Disambiguation is position notation, shortened to minimum neccessary to distinguish from
 another position(s). It contains one of: just file, just rank, rank + file, in that order
-of preferance. This is the same as in \algfmt{CAN}, described in: \\
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Disambiguating\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+of preferance. This is the same as in \algfmt{CAN}, described in: \newline
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Disambiguating\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\newline
 \#Disambiguating\_moves}, see also \algfmt{FIDE C.10}.
 Disambiguation is used in a ply, to distinguish starting position of a piece from others
 of the same kind that can end their movement on the same destination field, or can share
@@ -268,17 +268,17 @@ are separated by \~{} (tilde). In the example starting with
 another Pyramid; example is comprised of series of 4 images, each corresponding to one ply,
 while last image depicts ending state. This can be written as \alg{Qf7\~{}Ai7\~{}Ai9}.
 
-In \algfmt{XAN}, the same would be written as \\
+In \algfmt{XAN}, the same would be written as \newline
 \alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used
-to gather each ply, like so: \\
+to gather each ply, like so: \newline
 \alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
 
 \subsection*{Pawn promotion}
 \addcontentsline{toc}{subsection}{Pawn promotion}
 \label{sec:Appendix/Notation/Pawn promotion}
 
-Pawn promotion is also written the same way as in \algfmt{CAN}, as described in detail: \\
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Pawn\_promotion}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+Pawn promotion is also written the same way as in \algfmt{CAN}, as described in detail: \newline
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Pawn\_promotion}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\newline
 \#Pawn\_promotion}, with Pawn's destination field + piece to which it was promoted to,
 like so: \alg{e8Q}. Inserting \alg{=} (equal sign) between field and promoted-to piece
 is also supported, e.g. \alg{e8=Q}.
@@ -571,7 +571,7 @@ as \alg{Ra18||}, or in \algfmt{XAN} it would be \alg{Ra13-a18||}.
 In this \hyperref[fig:scn_n_04_teleport_move_3]{Wave teleporting example}, followed by
 \hyperref[fig:scn_n_05_teleport_end]{Wave teleported example}, if activated Pyramid would
 move 2 fields upward, complete move would be written as \newline
-\alg{Eg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would be \\
+\alg{Eg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would be \newline
 \alg{[Ei11-g15]\~{}[Wg15-a18]|[Wr1-l4]\~{}[Al4-l6]}.
 
 If previous example ended with
@@ -581,8 +581,8 @@ written as \alg{Eg15\~{}Wa18||}, and in \algfmt{XAN} it would be
 
 This \hyperref[fig:scn_d_17_teleporting_wave_cascade]{cascading teleportation example} would
 be written by sequencing teleportations like so \alg{Eh2\~{}Wb4|Wa24|Wr4\~{}Bt6}, if activated
-Bishop would take upper-right diagonal. In \algfmt{XAN}, with plies gathering, it would be \\
-\alg{[Ej6-h2]\~{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\~{}}\\
+Bishop would take upper-right diagonal. In \algfmt{XAN}, with plies gathering, it would be \newline
+\alg{[Ej6-h2]\~{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\~{}} \newline
 \alg{[Br4-t6]}.
 
 Starchild and Wave activated by it cannot teleport, which is written as failed teleportation,
@@ -605,19 +605,18 @@ usual \alg{\~{}} (tilde), followed by capturing steps. All Pawn-capturing steps 
 Serpent must be written, captured pieces are not needed, as they can only be opponent's
 Pawns.
 
-\TODO :: dark Scouts, Grenadiers on their initial positions, fix pathing
-
 This \hyperref[fig:scn_tr_27_pawn_sacrifice_init]{Pawn-sacrifice} followed by
-\hyperref[fig:scn_tr_28_pawn_sacrifice_end]{capturing opponent's Pawns} is written as \\
-\alg{Sm15\~{}Am11;;S..m17*..m19*.l20*.m21*.n20*.o21*}. In \algfmt{XAN}, with plies
-gathering, it would be \\
-\alg{[Sr14-m15]\~{}[Am15-m11];;}\\
-\alg{[Sm15..m17*..m19*.l20*.m21*.n20*.o21*]}.
+\hyperref[fig:scn_tr_28_pawn_sacrifice_end]{capturing of opponent's Pawns} is written as
+\alg{Sn15\~{}An11;;} \newline
+\alg{S..n17*..n19*.m20*.n21*.o20*.p21*.q20*}. \newline
+In \algfmt{XAN}, with plies gathering, it would be \newline
+\alg{[Ss14-n15]\~{}[An15-n11];;} \newline
+\alg{[Sn15..n17*..n19*.m20*.n21*.o20*.p21*.q20*]}.
 
 If there aren't enough Pawns captured to isolate only one path an additional, non-capturing
-steps needs to be written as well. In previous example, if Serpent stopped at \alg{m17}, at
+steps needs to be written as well. In previous example, if Serpent stopped at \alg{n17}, at
 least 2 differrent paths are possible. Previous example started with
-\alg{Sm15\~{}Am11;;S.l16.m17*} path, other possible path is \alg{Sm15\~{}Am11;;S.n16.m17*}.
+\alg{Sn15\~{}An11;;S.m16.n17*} path, other possible path is \alg{Sn15\~{}An11;;S.o16.n17*}.
 Again, for longer paths care must be taken to write step(s) which really differentiate paths,
 otherwise written path might inadvertently also denote others.
 
@@ -625,9 +624,9 @@ Care must also be taken to properly use step separator \alg{.} (dot), and multip
 separator \alg{..} (two dots). Step separator \alg{.} is for separating 2 steps, where one
 step immediately follows the other. Multi-step separator \alg{..} is for separating 2 steps
 which have at least one unwritten step in-between. For instance, first, short path in
-previous paragraph (i.e. \alg{Sm15\~{}Am11;;S.l16.m17*}) might also be confused with
-\alg{Sm15\~{}Am11;;S..l16..m17*}, which is a shorthand for
-\alg{Sm15\~{}Am11;;S.l14.k15.l16.k17.l18.m17*}, a very different path.
+previous paragraph (i.e. \alg{Sn15\~{}An11;;S.m16.n17*}) might also be confused with
+\alg{Sn15\~{}An11;;S..m16..n17*}, which is a shorthand for
+\alg{Sn15\~{}An11;;S.m14.l15.m16.l17.m18.n17*}, a very different path.
 
 \subsection*{Off-board traversal}
 \addcontentsline{toc}{subsection}{Off-board traversal}
@@ -750,9 +749,9 @@ since it's the first piece in a cascade.
 \label{sec:Appendix/Notation/Move symbols, annotations}
 
 Placeholder for a move is \alg{...} (three dots), usually used to resume game score
-after commentary, see \\
+after commentary, see \newline
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}
-{https://en.wikipedia.org/wiki/\\
+{https://en.wikipedia.org/wiki/\newline
 Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}.
 
 Checks are noted with \alg{+} (plus sign), checkmates are noted with \alg{\#} (hashtag),
@@ -817,9 +816,9 @@ and annotations, like so \alg{ef8*\_!}, \alg{Nb3(=)\_=}. Usage of underscore is
 mandatory when annotation can be confused for a regular chess \algfmt{AN}.
 
 For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have equal
-chances of winning, see\\
+chances of winning, see \newline
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)#Annotation\_symbols}
-{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\\
+{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess) \newline
 \#Annotation\_symbols}. In such a case, regular chess \algfmt{AN} is assumed, i.e. it
 is Pawn tagged for promotion. If annotation is meant instead, it has to be written as
 \alg{e8\_=}.
@@ -899,18 +898,18 @@ more effort reader is presented with much easier to understand notation. Compare
 minimalistic notation with slightly more verbose version:
 
 \noindent
-\alg{Re2\~{}Wc2\~{}b3} vs. \\
-\alg{Re2\~{}Wc2\~{}b3*} vs. \\
+\alg{Re2\~{}Wc2\~{}b3} vs. \newline
+\alg{Re2\~{}Wc2\~{}b3*} vs. \newline
 \alg{Re2\~{}Wc2\~{}P::b3*N},
 
 \noindent
-\alg{Hb14\~{}We12@H..q16..k14..c18} vs. \\
-\alg{Hb14\~{}We12@H..q16*..k14*..c18} vs. \\
+\alg{Hb14\~{}We12@H..q16..k14..c18} vs. \newline
+\alg{Hb14\~{}We12@H..q16*..k14*..c18} vs. \newline
 \alg{Hb14\~{}We12@H,w18..q16*P..k14*N..c18},
 
 \noindent
-\alg{Hb14\~{}We12@@} vs. \\
-\alg{Hb14\~{}We12@@P,B,R,R,N,B,N} vs. \\
+\alg{Hb14\~{}We12@@} vs. \newline
+\alg{Hb14\~{}We12@@P,B,R,R,N,B,N} vs. \newline
 \alg{Hb14\~{}We12@@Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
 
 \clearpage % ..........................................................
