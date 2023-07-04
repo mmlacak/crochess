@@ -1000,9 +1000,9 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_27_pawn_sacrifice_init', bt)
 
-        start_S = (17, 13)
-        start_A = (12, 14)
-        start_P = (12, 10)
+        start_S = (18, 13)
+        start_A = (13, 14)
+        start_P = (13, 10)
 
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
         scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
@@ -1013,11 +1013,22 @@ class SceneTamoanchanRevisitedMixin:
         scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
         scene.board.set_piece(*adder(1, 1), piece=-PieceType.Bishop)
         scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
+        scene.board.set_piece(*adder(-2, 0), piece=-PieceType.Scout)
+
+        scene.board.set_piece(15, 18, piece=-PieceType.Grenadier)
 
         for i in range(8, 22):
             if i > 8:
-                scene.board.set_piece(i, 20, piece=-PieceType.Pawn)
-            if i not in [10, 12]:
+                if i in [9, 12, 14]:
+                    scene.board.set_piece(i, 20, piece=-PieceType.Grenadier)
+                else:
+                    scene.board.set_piece(i, 20, piece=-PieceType.Pawn)
+
+            if i in [10, 11]:
+                scene.board.set_piece(i, 19, piece=-PieceType.Grenadier)
+            elif i in [15]:
+                pass # empty field
+            else:
                 scene.board.set_piece(i, 19, piece=-PieceType.Pawn)
 
         coords = GS.gen_steps(start=start_S, rels=[(-1, 1), (-1, -1), ], include_prev=True, count=5)
@@ -1036,8 +1047,8 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_28_pawn_sacrifice_end', bt)
 
-        start_S = (12, 14)
-        start_A = (12, 10)
+        start_S = (13, 14)
+        start_A = (13, 10)
 
         scene.board.set_piece(*start_S, piece=PieceType.Serpent)
         scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
@@ -1049,11 +1060,22 @@ class SceneTamoanchanRevisitedMixin:
         scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
         scene.board.set_piece(*adder(1, 1), piece=-PieceType.Bishop)
         scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
+        scene.board.set_piece(*adder(-2, 0), piece=-PieceType.Scout)
+
+        scene.board.set_piece(15, 18, piece=-PieceType.Grenadier)
 
         for i in range(8, 22):
             if i > 8:
-                scene.board.set_piece(i, 20, piece=-PieceType.Pawn)
-            if i not in [10, 12]:
+                if i in [9, 12, 14]:
+                    scene.board.set_piece(i, 20, piece=-PieceType.Grenadier)
+                else:
+                    scene.board.set_piece(i, 20, piece=-PieceType.Pawn)
+
+            if i in [10, 11]:
+                scene.board.set_piece(i, 19, piece=-PieceType.Grenadier)
+            elif i in [15]:
+                pass # empty field
+            else:
                 scene.board.set_piece(i, 19, piece=-PieceType.Pawn)
 
         adder_2 = GS.adder(start_S, include_prev=True)
@@ -1061,12 +1083,21 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
         scene.append_arrow( *adder_2(-1, 1), mark_type=MarkType.Legal )
         scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
-        scene.append_arrow( *adder_2(1, -1, do_advance=False), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_2(1, -1, do_advance=False), mark_type=MarkType.Illegal ) # Bishop
 
         scene.append_arrow( *adder_2(-1, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_2(-1, -1, do_advance=False), mark_type=MarkType.Illegal ) # Scout
         scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
         scene.append_arrow( *adder_2(1, -1), mark_type=MarkType.Action )
         scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_2(1, -1), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_2(-1, -1, do_advance=False), mark_type=MarkType.Illegal ) # Grenadier
+
+        # scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
+        # scene.append_arrow( *adder_2(1, -1), mark_type=MarkType.Action )
+        # scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
+        # scene.append_arrow( *adder_2(1, -1), mark_type=MarkType.Action )
+        # scene.append_arrow( *adder_2(1, 1), mark_type=MarkType.Action )
 
         return scene
 
