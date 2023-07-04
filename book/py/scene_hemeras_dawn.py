@@ -1417,7 +1417,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_55_grenadier_activating_wave_capture_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_55_grenadier_activating_wave_capture_field', bt, x=7, y=4, width=7, height=4 )
+        scene = Scene( 'scn_hd_55_grenadier_activating_wave_capture_field', bt, x=6, y=4, width=7, height=4 )
 
         start_G = (8, 5)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )

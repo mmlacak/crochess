@@ -842,8 +842,8 @@ Grenadier cannot activate Pyramid on its step-fields, neither directly nor indir
 \caption{Activating}
 \label{fig:scn_hd_55_grenadier_activating_wave_capture_field}
 \end{wrapfigure}
-Wave activated by Grenadier on its capture-fields moves like a Bishop, diagonally until
-edge of a board; regardless if opponent's piece was present on grenadier-fields, or not.
+Wave activated by Grenadier on its capture-fields moves diagonally, like a Bishop;
+regardless if activating Grenadier was in close quarters, or not.
 
 \vspace*{0.1\baselineskip}
 \noindent
@@ -855,10 +855,14 @@ edge of a board; regardless if opponent's piece was present on grenadier-fields,
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Wave activated by Grenadier on its capture-fields (here, "in the air") can activate own
-Pyramid.
+Direction, once chosen, cannot be changed for duration of a ply. Activated Wave
+is not limited by received momentum, and so can move until end of a chessboard
+is reached. Wave activated on a capture-field can activate own Pyramid.
 
-\TODO :: activating Pyramid
+Grenadier can activate Pyramid on its capture-fields. Cascade in which Pyramid
+is activated can contain Grenadier moving over its step-fields, as long as last
+material (non-Wave) piece is the one which can activate Pyramid; this is
+\hyperref[fig:scn_n_18_sideways_pawns_cascade_pyramids]{the same as in cascade with a Pawn}.
 
 \clearpage % ..........................................................
 
