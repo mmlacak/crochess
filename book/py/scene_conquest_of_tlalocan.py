@@ -3234,25 +3234,32 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def place_scout_pawns_around_pieces(self, scene, piece_type):
+    def place_troopers_around_pieces(self, scene, piece_type):
 
         pt = PieceType(piece_type)
         b = scene.board
-        row, dy, ddy, p = (0, 3, 1, PieceType.Pawn) if pt.is_light() else (b.get_height() - 1, -3, -1, -PieceType.Pawn)
+        row, dy, ddy, p, o, g = (0, 3, 1, PieceType.Pawn, PieceType.Scout, PieceType.Grenadier) if pt.is_light() else \
+                                (b.get_height() - 1, -3, -1, -PieceType.Pawn, -PieceType.Scout, -PieceType.Grenadier)
 
         for i in range( b.get_width() ):
             if b.get_piece(i, row) == pt:
                 adder = GS.adder((i, row), include_prev=False)
-                b.set_piece_safe(*adder(-2, dy), piece=p)
-                b.set_piece_safe(*adder(1, ddy), piece=p)
-                b.set_piece_safe(*adder(2, 0), piece=p)
-                b.set_piece_safe(*adder(1, -ddy), piece=p)
+                b.set_piece_safe(*adder(-1, ddy), piece=g)
+                b.set_piece_safe(*adder(-1, ddy), piece=g)
+
+                b.set_piece_safe(*adder(0, ddy), piece=o)
+                b.set_piece_safe(*adder(1, ddy), piece=o)
+                b.set_piece_safe(*adder(2, 0), piece=o)
+                b.set_piece_safe(*adder(1, -ddy), piece=o)
+
+                b.set_piece_safe(*adder(0, -ddy), piece=g)
+                b.set_piece_safe(*adder(-1, -ddy), piece=g)
 
         return scene
 
-    def scn_cot_80_scout_pawns(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_80_troopers_initial_positions(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_80_scout_pawns', bt)
+        scene = Scene('scn_cot_80_troopers_initial_positions', bt)
 
         scene.board.set_piece(5, 0, piece=PieceType.Centaur)
         scene.board.set_piece(18, 0, piece=PieceType.Centaur)
@@ -3260,8 +3267,8 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(5, 23, piece=-PieceType.Centaur)
         scene.board.set_piece(18, 23, piece=-PieceType.Centaur)
 
-        self.place_scout_pawns_around_pieces(scene, PieceType.Centaur)
-        self.place_scout_pawns_around_pieces(scene, -PieceType.Centaur)
+        self.place_troopers_around_pieces(scene, PieceType.Centaur)
+        self.place_troopers_around_pieces(scene, -PieceType.Centaur)
 
 
         scene.board.set_piece(10, 0, piece=PieceType.Shaman)
@@ -3270,8 +3277,8 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(10, 23, piece=-PieceType.Shaman)
         scene.board.set_piece(13, 23, piece=-PieceType.Shaman)
 
-        self.place_scout_pawns_around_pieces(scene, PieceType.Shaman)
-        self.place_scout_pawns_around_pieces(scene, -PieceType.Shaman)
+        self.place_troopers_around_pieces(scene, PieceType.Shaman)
+        self.place_troopers_around_pieces(scene, -PieceType.Shaman)
 
         return scene
 
