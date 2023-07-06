@@ -34,5 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_d_28_monolith_blocking_scout', \
+                    'scn_d_10_monolith_rerouting_scout', \
                 ]

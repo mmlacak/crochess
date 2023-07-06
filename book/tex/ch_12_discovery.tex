@@ -264,18 +264,47 @@ passing all non-interacting pieces.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_09_monolith_is_opaque.png}
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Monolith is opaque}
 \label{fig:scn_d_09_monolith_is_opaque}
 \end{figure}
 
-\vspace*{-0.4\baselineskip}
-Image above have two examples in parallel; at the top, and to the bottom.
+\vspace*{-0.5\baselineskip}
+Image above have two examples in parallel; at the top, and to the bottom. \newline
+\indent
+Monolith is opaque, and blocks all pieces traveling over step- and capture-fields.
+No piece can "pass-through" Monolith, neither material pieces, nor Waves. Here,
+light Bishop cannot capture dark Pawn, because Monolith B is in the way. Similarly,
+light Wave cannot activate Queen, since Monolith A is on a step-field between the
+two.
 
-Monolith is opaque; no piece can "pass-through" Monolith, neither material pieces,
-nor Waves. Here, light Bishop cannot capture dark Pawn, because Monolith B is in
-the way. Similarly, light Wave cannot activate Queen, since Monolith A is on a
-step-field between the two.
+\clearpage % ..........................................................
+
+\subsubsection*{Rerouting Scout}
+\addcontentsline{toc}{subsubsection}{Rerouting Scout}
+\label{sec:Discovery/Monolith/Movement/Rerouting Scout}
+
+\vspace*{-0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/20_d/scn_d_10_monolith_rerouting_scout.png}
+\caption{Rerouting Scout}
+\label{fig:scn_d_10_monolith_rerouting_scout}
+\end{wrapfigure}
+Just like any other piece, Scout is blocked by Monolith on its step-fields, and
+cannot access fields behind Monolith. \newline
+\indent
+The same as with
+\hyperref[fig:scn_hd_20_scout_rerouting]{other pieces blocking it}, Scout can be
+rerouted around Monolith using appropriate
+\hyperref[fig:scn_hd_17_scout_forking_steps]{forking step}, after which it continues
+in initially chosen direction. \newline
+\indent
+Steps (arrows) are referred to by relative position of its end field (point).
+Here, after taking a few right steps, Scout is blocked by Monolith, and can be
+rerouted using either right-up, or right-down forking step, after which Scout
+can continue making initially chosen (right) steps.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
@@ -288,10 +317,10 @@ step-field between the two.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_10_teleport_via_monolith.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_11_teleport_via_monolith.png}
 \vspace*{-1.3\baselineskip}
 \caption{Teleporting piece via Monolith}
-\label{fig:scn_d_10_teleport_via_monolith}
+\label{fig:scn_d_11_teleport_via_monolith}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -304,10 +333,10 @@ Here, all empty portal-fields where Bishop can be teleported to are enumerated.
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_11_teleport_via_star.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_12_teleport_via_star.png}
 \vspace*{-1.3\baselineskip}
 \caption{Teleporting piece via Star}
-\label{fig:scn_d_11_teleport_via_star}
+\label{fig:scn_d_12_teleport_via_star}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -325,10 +354,10 @@ Here, all empty portal-fields where Bishop can be teleported to are enumerated.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_12_teleport_wave_via_star.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_13_teleport_wave_via_star.png}
 \vspace*{-1.3\baselineskip}
 \caption{Teleporting Wave via Star}
-\label{fig:scn_d_12_teleport_wave_via_star}
+\label{fig:scn_d_13_teleport_wave_via_star}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -343,10 +372,10 @@ Here, light Wave could activate own Bishop after teleporting with 2 momentum.
 \vspace*{-2.3\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_13_teleport_wave_via_monolith.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_14_teleport_wave_via_monolith.png}
 \vspace*{-1.3\baselineskip}
 \caption{Teleporting Wave via Monolith}
-\label{fig:scn_d_13_teleport_wave_via_monolith}
+\label{fig:scn_d_14_teleport_wave_via_monolith}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -363,10 +392,10 @@ mandatory for Wave when it reaches Monolith.
 \vspace*{-2.3\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_14_teleported_wave_blocked.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_15_teleported_wave_blocked.png}
 \vspace*{-1.3\baselineskip}
 \caption{Teleported Wave blocked}
-\label{fig:scn_d_14_teleported_wave_blocked}
+\label{fig:scn_d_15_teleported_wave_blocked}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -383,10 +412,10 @@ Wave has to teleport when it reaches Monolith.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_15_wave_teleported_off_board.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_16_wave_teleported_off_board.png}
 \vspace*{-1.3\baselineskip}
 \caption{Wave teleported off-board}
-\label{fig:scn_d_15_wave_teleported_off_board}
+\label{fig:scn_d_16_wave_teleported_off_board}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -397,10 +426,10 @@ Teleported Wave with all of its step-fields located off-board is also oblationed
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_16_wave_teleport_on_and_off_board.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_17_wave_teleport_on_and_off_board.png}
 \vspace*{-1.3\baselineskip}
 \caption{Teleporting Wave on- and off-board}
-\label{fig:scn_d_16_wave_teleport_on_and_off_board}
+\label{fig:scn_d_17_wave_teleport_on_and_off_board}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -420,10 +449,10 @@ also activate own Bishop after teleportation with 3 momentum, or have a teleport
 \vspace*{-0.9\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_17_teleporting_wave_cascade.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_18_teleporting_wave_cascade.png}
 \vspace*{-1.3\baselineskip}
 \caption{Cascading teleportations}
-\label{fig:scn_d_17_teleporting_wave_cascade}
+\label{fig:scn_d_18_teleporting_wave_cascade}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -443,10 +472,10 @@ places. Here, light Wave can activate own Bishop only after second teleportation
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_18_steps_after_teleport_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_19_steps_after_teleport_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Steps before teleportation}
-\label{fig:scn_d_18_steps_after_teleport_init}
+\label{fig:scn_d_19_steps_after_teleport_init}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -464,10 +493,10 @@ of emerging Star (or Monolith).
 \vspace*{-2.3\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_19_steps_after_teleport_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_20_steps_after_teleport_end.png}
 \vspace*{-1.3\baselineskip}
 \caption{Steps after teleportation}
-\label{fig:scn_d_19_steps_after_teleport_end}
+\label{fig:scn_d_20_steps_after_teleport_end}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -491,9 +520,9 @@ otherwise is the same, only order of steps is reversed.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_20_syzygy_explain.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_21_syzygy_explain.png}
 \caption{Syzygy with Stars}
-\label{fig:scn_d_20_syzygy_explain}
+\label{fig:scn_d_21_syzygy_explain}
 \end{figure}
 
 Syzygy is alignment in one straight line of at least 3 celestial bodies, Stars and
@@ -507,9 +536,9 @@ step-fields; for diagonal syzygy, syzygy-fields are the same as Bishop step-fiel
 % \vspace*{-1.2\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_21_syzygy_2_stars_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_22_syzygy_2_stars_init.png}
 \caption{2-Stars syzygy start}
-\label{fig:scn_d_21_syzygy_2_stars_init}
+\label{fig:scn_d_22_syzygy_2_stars_init}
 \end{figure}
 
 Immediately after Monolith has stepped into syzygy, one own figure can then be (but
@@ -523,9 +552,9 @@ stepped into a syzygy.
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_22_syzygy_2_stars_steps.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_23_syzygy_2_stars_steps.png}
 \caption{2-Stars syzygy steps}
-\label{fig:scn_d_22_syzygy_2_stars_steps}
+\label{fig:scn_d_23_syzygy_2_stars_steps}
 \end{figure}
 
 If Monolith was moved into syzygy by light player, light Wave or Bishop could be
@@ -545,9 +574,9 @@ another (or the other Monolith has to step-in).
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_23_syzygy_2_monoliths_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_24_syzygy_2_monoliths_init.png}
 \caption{2-Monoliths syzygy init}
-\label{fig:scn_d_23_syzygy_2_monoliths_init}
+\label{fig:scn_d_24_syzygy_2_monoliths_init}
 \end{figure}
 
 For a Star and 2 Monoliths to be in syzygy there has to be a step which, when applied
@@ -560,9 +589,9 @@ which are connected by syzygy-steps are called syzygy-fields.
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_24_syzygy_2_monoliths_steps.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_25_syzygy_2_monoliths_steps.png}
 \caption{2-Monoliths syzygy steps}
-\label{fig:scn_d_24_syzygy_2_monoliths_steps}
+\label{fig:scn_d_25_syzygy_2_monoliths_steps}
 \end{figure}
 
 All own figures (except King) on a syzygy-fields are then eligible to be demoted
@@ -582,9 +611,9 @@ so is eligible to demotion, if Monolith was moved by light player.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_25_syzygy_reentering_same_move.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_26_syzygy_reentering_same_move.png}
 \caption{Reentering syzygy in the same move}
-\label{fig:scn_d_25_syzygy_reentering_same_move}
+\label{fig:scn_d_26_syzygy_reentering_same_move}
 \end{figure}
 
 To be granted option to demote own figure, Monolith must move from an ordinary,
@@ -597,9 +626,9 @@ figure.
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_26_syzygy_reentering_independent.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_27_syzygy_reentering_independent.png}
 \caption{Reentering independent syzygy}
-\label{fig:scn_d_26_syzygy_reentering_independent}
+\label{fig:scn_d_27_syzygy_reentering_independent}
 \end{figure}
 
 The same applies even if Monolith moves into an alignment from completely independent
@@ -620,9 +649,9 @@ reenter the same syzygy, or enter the other syzygy.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_27_syzygy_in_opponents_figure_row.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/20_d/scn_d_28_syzygy_in_opponents_figure_row.png}
 \caption{Syzygy ends with Pawn tagged for promotion}
-\label{fig:scn_d_27_syzygy_in_opponents_figure_row}
+\label{fig:scn_d_28_syzygy_in_opponents_figure_row}
 \end{figure}
 
 Pawns which were demoted after syzygy in
@@ -632,27 +661,6 @@ or promoted straight away, in the same move, similar to
 \hyperref[fig:scn_n_11_teleport_pawns_init]{previous variant, Nineteen}.
 
 % -------------------------------------------------------------- Syzygy
-\clearpage % ..........................................................
-% Blocked Scout -------------------------------------------------------
-
-\subsection*{Blocked Scout}
-\addcontentsline{toc}{subsection}{Blocked Scout}
-\label{sec:Discovery/Monolith/Movement/Blocked Scout}
-
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/20_d/scn_d_28_monolith_blocking_scout.png}
-\caption{Blocked Scout}
-\label{fig:scn_d_28_monolith_blocking_scout}
-\end{wrapfigure}
-. . .
-
-\vspace*{9.7\baselineskip}
-\TODO :: Monolith blocked Scout
-
-% ------------------------------------------------------- Blocked Scout
 % ************************************************************ Monolith
 \clearpage % ..........................................................
 
