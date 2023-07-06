@@ -1359,3 +1359,39 @@ class SceneDiscoveryMixin:
         scene.append_field_marker( *start_P, mark_type=MarkType.Action )
 
         return scene
+
+    #
+    #  Blocked Scout
+
+    def scn_d_28_monolith_blocking_scout(self, bt=BoardType.Discovery):
+
+        scene = Scene('scn_d_28_monolith_blocking_scout', bt, width=9, height=5)
+
+        start_O = (1, 2)
+        scene.board.set_piece(*start_O, piece=PieceType.Scout)
+
+        start_M = (4, 2)
+        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+
+        adder_r = GS.adder( start_O, include_prev=True )
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( 1,  0, do_advance=False ), mark_type=MarkType.Action )
+
+        x_roads = GS.add_rel( start_M, -1, 0 )
+
+        # down fork
+        adder_d = GS.adder( x_roads, include_prev=True )
+        scene.append_arrow( *adder_d( 1, -1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+
+        # up fork
+        adder_u = GS.adder( x_roads, include_prev=True )
+        scene.append_arrow( *adder_u( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+
+        return scene
