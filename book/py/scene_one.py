@@ -487,38 +487,38 @@ class SceneOneMixin:
 
         scene = Scene('scn_o_14_star_rerouting_scout', bt, width=10, height=5)
 
-        start_O = (1, 2)
+        start_O = (8, 2)
         scene.board.set_piece(*start_O, piece=PieceType.Scout)
 
-        start_T = (4, 2)
+        start_T = (5, 2)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
 
         adder_r = GS.adder( start_O, include_prev=True )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Action )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *adder_r( 1,  0, do_advance=True ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder_r( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_r( -1,  0, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder_r( -1,  0, do_advance=True ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder_r( -1,  0, do_advance=True ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder_r( -1,  0, do_advance=True ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder_r( -1,  0, do_advance=True ), mark_type=MarkType.Blocked )
 
-        x_roads = GS.add_rel( start_T, -1, 0 )
+        x_roads = GS.add_rel( start_T, 1, 0 )
 
         # down fork
         adder_d = GS.adder( x_roads, include_prev=True )
-        scene.append_arrow( *adder_d( 1, -1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_d( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_d( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_d( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_d( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( -1, -1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_d( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
 
         # up fork
         adder_u = GS.adder( x_roads, include_prev=True )
-        scene.append_arrow( *adder_u( 1,  1, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_u( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( -1,  1, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_u( -1,  0, do_advance=True ), mark_type=MarkType.Legal )
 
         return scene
 
