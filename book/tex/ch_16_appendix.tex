@@ -1665,11 +1665,13 @@ are available for a particular variant see
 \hyperref[tbl:Appendix/Introduction/Chessboards]{Chessboards} and
 \hyperref[tbl:Appendix/Introduction/Pieces]{Pieces} tables.
 
-\TODO :: transparency, divergence, sense-journey
+\TODO :: sense-journey
 
-% \TODO :: Pegasus == G --> E
+\TODO :: check trance-journey
 
-\TODO :: Scout == O, Grenadier == G
+\TODO :: check transparency
+
+\TODO :: check divergence
 
 \clearpage % ..........................................................
 
@@ -1682,7 +1684,7 @@ are available for a particular variant see
 <passive-figure> = \alg{A} | \alg{W}
 
 <capturing-active-piece> =
-  <classic-piece> | \alg{E} | \alg{U} | \alg{C} | \alg{S} | \alg{H}
+  <classic-piece> | \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H}
 
 <active-piece> =
   <capturing-active-piece> | \alg{I}
@@ -1691,8 +1693,8 @@ are available for a particular variant see
   <capturing-active-piece> | \alg{A}
 
 <promote-to-figure> =
-  <passive-figure>
-| \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{E} | \alg{U} | \alg{C} | \alg{S} | \alg{H} | \alg{I}
+  <passive-figure>  | \alg{N} | \alg{B} | \alg{R} | \alg{Q}
+| \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H} | \alg{I}
 
 <disposable-figure> = <promote-to-figure>
 
@@ -1710,15 +1712,17 @@ are available for a particular variant see
 \clearpage % ..........................................................
 
 \begin{alltt}
-<file> = \alg{a} .. \alg{z}
+<file> = \alg{a} | \alg{b} | \alg{c} | \alg{d} | \alg{e} | \alg{f} | \alg{g} | \alg{h}
+| \alg{i} | \alg{j} | \alg{k} | \alg{l} | \alg{m} | \alg{n} | \alg{o} | \alg{p} | \alg{q}
+| \alg{r} | \alg{s} | \alg{t} | \alg{u} | \alg{v} | \alg{w} | \alg{x} | \alg{y} | \alg{z}
 
-<rank> = \alg{1} .. \alg{26}
+<rank> = \alg{1} | \alg{2} | \alg{3} | \alg{4} | \alg{5} | \alg{6} | \alg{7} | \alg{8} | \alg{9}
+| \alg{10} | \alg{11} | \alg{12} | \alg{13} | \alg{14} | \alg{15} | \alg{16} | \alg{17} | \alg{18}
+| \alg{19} | \alg{20} | \alg{21} | \alg{22} | \alg{23} | \alg{24} | \alg{25} | \alg{26}
 
 <field> = <file><rank>
 
-<disambiguation> = <file>
-                 | <rank>
-                 | <field>
+<disambiguation> = <file> | <rank> | <field>
 
 <step> = \alg{.}[\alg{.}]<field>
 
