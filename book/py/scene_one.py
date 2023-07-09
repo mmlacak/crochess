@@ -525,9 +525,9 @@ class SceneOneMixin:
     #
     # Conversion immunity
 
-    def scn_o_14_starchild_conversion_immunity_init(self, bt=BoardType.One):
+    def scn_o_15_starchild_conversion_immunity_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_14_starchild_conversion_immunity_init', bt)
+        scene = Scene('scn_o_15_starchild_conversion_immunity_init', bt)
 
         start_I = (7, 22)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -546,9 +546,9 @@ class SceneOneMixin:
     #
     # Activating Wave
 
-    def scn_o_15_starchild_activating_wave_on_miracle_fields(self, bt=BoardType.One):
+    def scn_o_16_starchild_activating_wave_on_miracle_fields(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_15_starchild_activating_wave_on_miracle_fields', bt, width=5, height=5)
+        scene = Scene('scn_o_16_starchild_activating_wave_on_miracle_fields', bt, width=5, height=5)
 
         start_I = (2, 2)
         start_W = (1, 1)
@@ -584,9 +584,9 @@ class SceneOneMixin:
     #
     # Wave cannot move a Star
 
-    def scn_o_16_starchild_activated_wave_not_moving_a_star(self, bt=BoardType.One):
+    def scn_o_17_starchild_activated_wave_not_moving_a_star(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_16_starchild_activated_wave_not_moving_a_star', bt, width=5, height=5)
+        scene = Scene('scn_o_17_starchild_activated_wave_not_moving_a_star', bt, width=5, height=5)
 
         start_I = (1, 2)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -622,9 +622,9 @@ class SceneOneMixin:
     #
     # Wave cannot teleport
 
-    def scn_o_17_starchild_activated_wave_not_teleporting_init(self, bt=BoardType.One):
+    def scn_o_18_starchild_activated_wave_not_teleporting_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_17_starchild_activated_wave_not_teleporting_init', bt, width=8, height=8)
+        scene = Scene('scn_o_18_starchild_activated_wave_not_teleporting_init', bt, width=8, height=8)
 
         start_I = (5, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -651,9 +651,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_18_starchild_activated_wave_not_teleporting_end(self, bt=BoardType.One):
+    def scn_o_19_starchild_activated_wave_not_teleporting_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_18_starchild_activated_wave_not_teleporting_end', bt, width=8, height=8)
+        scene = Scene('scn_o_19_starchild_activated_wave_not_teleporting_end', bt, width=8, height=8)
 
         start_I = (3, 6)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -674,9 +674,9 @@ class SceneOneMixin:
     #
     # Teleporting Wave
 
-    def scn_o_19_star_moved_wave_teleportation(self, bt=BoardType.One):
+    def scn_o_20_star_moved_wave_teleportation(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_19_star_moved_wave_teleportation', bt)
+        scene = Scene('scn_o_20_star_moved_wave_teleportation', bt)
 
         start_W = (17, 9) # (11, 9)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -706,9 +706,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_20_star_moved_wave_off_board(self, bt=BoardType.One):
+    def scn_o_21_star_moved_wave_off_board(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_20_star_moved_wave_off_board', bt, x=-4)
+        scene = Scene('scn_o_21_star_moved_wave_off_board', bt, x=-4)
 
         start_W = (11, 9)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -742,9 +742,9 @@ class SceneOneMixin:
     #
     # Steps after teleportation
 
-    def scn_o_21_steps_after_teleport(self, bt=BoardType.One):
+    def scn_o_22_steps_after_teleport(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_21_steps_after_teleport', bt)
+        scene = Scene('scn_o_22_steps_after_teleport', bt)
 
         start_U = (13, 14)
         scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
@@ -783,9 +783,9 @@ class SceneOneMixin:
     #
     # Failed trance-journey
 
-    def scn_o_22_trance_journey_failed(self, bt=BoardType.One):
+    def scn_o_23_trance_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_22_trance_journey_failed', bt)
+        scene = Scene('scn_o_23_trance_journey_failed', bt)
 
         start_H = (24, 1)
         scene.board.set_piece(*start_H, piece=PieceType.Shaman)
@@ -832,9 +832,9 @@ class SceneOneMixin:
     #
     # Sense-journey
 
-    def scn_o_23_uplifting_fields( self, bt=BoardType.One ):
+    def scn_o_24_uplifting_fields( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_23_uplifting_fields', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_24_uplifting_fields', bt, width=5, height=5 )
 
         start_I = (2, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -846,9 +846,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_24_uplifting_init( self, bt=BoardType.One ):
+    def scn_o_25_uplifting_init( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_24_uplifting_init', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_25_uplifting_init', bt, width=9, height=6 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -871,9 +871,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_25_uplifting_step( self, bt=BoardType.One ):
+    def scn_o_26_uplifting_step( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_25_uplifting_step', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_26_uplifting_step', bt, width=9, height=6 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -892,9 +892,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_26_uplifting_activated(self, bt=BoardType.One):
+    def scn_o_27_uplifting_activated(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_26_uplifting_activated', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_27_uplifting_activated', bt, width=9, height=6 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -925,9 +925,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_27_shaman_initiated_uplifting(self, bt=BoardType.One):
+    def scn_o_28_shaman_initiated_uplifting(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_27_shaman_initiated_uplifting', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_28_shaman_initiated_uplifting', bt, width=9, height=6 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -946,9 +946,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_28_dark_piece_sense_journey(self, bt=BoardType.One):
+    def scn_o_29_dark_piece_sense_journey(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_28_dark_piece_sense_journey', bt )
+        scene = Scene( 'scn_o_29_dark_piece_sense_journey', bt )
 
         start_b = (2, 4)
         end_b = (13, 6)
@@ -1008,9 +1008,9 @@ class SceneOneMixin:
     #
     # Failed sense-journey
 
-    def scn_o_29_sense_journey_failed(self, bt=BoardType.One):
+    def scn_o_30_sense_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_29_sense_journey_failed', bt)
+        scene = Scene('scn_o_30_sense_journey_failed', bt)
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
