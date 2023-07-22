@@ -1415,9 +1415,8 @@ not defined for Hemera's Dawn variant.
 \toprule % ===============================================================
 \textbf{Activated by}       & \textbf{Moves like}                       \\
 \midrule % ---------------------------------------------------------------
-\multirow{2}{*}{Pawn}       & Pawn, single direction,                   \\
-                            & multiple steps                            \\
-\cmidrule{1-2} % .........................................................
+Pawn                        & Pawn, multiple steps                      \\
+% \cmidrule{1-2} % .........................................................
 Knight                      & Pegasus                                   \\
 Bishop                      & Bishop                                    \\
 Rook                        & Rook                                      \\
@@ -1426,10 +1425,15 @@ King                        & Queen                                     \\
 \cmidrule{1-2} % .........................................................
 Pegasus                     & Pegasus                                   \\
 Pyramid                     & Rook                                      \\
-Unicorn                     & Centaur, unrestricted step choices        \\
+\cmidrule{1-2} % .........................................................
+\multirow{2}{*}{Unicorn}    & Centaur, unrestricted 2                   \\
+                            & initial step choices                      \\
+\cmidrule{1-2} % .........................................................
 Wave                        & activating Wave                           \\
 Star                        & ---                                       \\
 Centaur                     & Centaur                                   \\
+Scout                       & Scout, multiple steps                     \\
+Grenadier                   & Grenadier, multiple steps                 \\
 \cmidrule{1-2} % .........................................................
 \multirow{2}{*}{Serpent}    & Serpent, 2 alternating directions,        \\
                             & multiple steps                            \\
@@ -1466,13 +1470,13 @@ once direction is chosen, it can't be changed for the remainder of Pawn's ply.
 In later variants (Nineteen, and onwards)
 \hyperref[fig:scn_n_15_sideways_pawn_init]{Pawn can move laterally by one step-field};
 Wave activated on a step-field can now move either straight forward as before, or
-sideways.
-
+sideways. \newline
+\indent
 Wave activated by Unicorn moves similar to Centaur, it has to keep alternating
 between two initially chosen steps, but it's not restricted in chosing second step
 based on a choice of the first one. Wave can choose any two steps Unicorn could
-make from its starting field and first step-field.
-
+make from its starting field and first step-field. \newline
+\indent
 Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activated
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
 nor activate a Star.
