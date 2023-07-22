@@ -1597,7 +1597,8 @@ an option to activate own Pyramid.
 \algfmt{( )}                & optional item(s), zero or more times       \\
 \algfmt{\{ \}}              & optional item(s), one or more times        \\
 \algfmt{/ \textbackslash}   & grouping item(s), enveloped in scope       \\
-\algfmt{\#number}           & numbered reference                         \\
+% \algfmt{\#number}           & numbered reference                         \\
+\algfmti{\$}                & line comment                               \\
 \algfmt{?}                  & empty value                                \\
 \alg{\_}                    & space                                      \\
 \alg{value}                 & verbatim \algfmt{AN} value                 \\
@@ -1623,7 +1624,7 @@ Value separator \algfmt{|} is used to present choice between 2 values, e.g.
 
 Grouping options contain items to be repeated, \algfmt{[ ]} for items to appear
 or not, \algfmt{( )} to repeat items 0 or more times, \algfmt{\{ \}} to repeat
-items at least once, and \algfmt{/ \textbackslash} to envelop choices into a scope.
+items at least once, and \algfmt{/ \textbackslash} to envelop items into a scope.
 
 Formatting and spacing is added to improve legibility, normally \algfmt{AN} is
 written without any gaps. When space is needed, it is written as \alg{\_}
@@ -1682,6 +1683,25 @@ value is guaranteed to appear. Global choice (not contained in any group) has 3 
 values: \alg{d}, \alg{e}\algfmt{/}\alg{f}\algfmt{|}\alg{g}\algfmt{\textbackslash}\alg{h}
 or \alg{i}. This gives \alg{d}, \alg{efh}, \alg{egh}, and \alg{i} as possible values
 for \algfmt{<abc>}.
+
+Line comments are writen using \algfmti{\$}, everything from \algfmti{\$} up to the
+end-of-line is disregarded. For instance, this example
+\begin{alltt}
+\algfmti{\$ Entity <abc> ...}
+<abc> = \algfmti{\$ ... is either d or \alg{e}.}
+  \alg{d} \algfmti{\$ Value can be commented with no}
+    \algfmti{\$ additional formatting, as in d.}
+| \alg{e} \algfmti{\$ Value in comment with added weight}
+    \algfmti{\$ (as in \alg{e}) shouldn't be confused for}
+    \algfmti{\$ compatibility value; it's just for}
+    \algfmti{\$ additional visual emphasis.}
+\end{alltt}
+is by definition the same as the next one:
+\begin{alltt}
+<abc> = \alg{d} | \alg{e}
+\end{alltt}
+
+% \clearpage % ..........................................................
 
 Grammar is written without context, to determine which pieces, files and ranks
 are available for a particular variant see
