@@ -1411,37 +1411,40 @@ not defined for Hemera's Dawn variant.
 % \vspace*{-0.3\baselineskip} % rubber-banding area ???
 \begin{table}[!h]
 \centering
-\begin{tabular}{ ll }
-\toprule % ===============================================================
-\textbf{Activated by}       & \textbf{Moves like}                       \\
-\midrule % ---------------------------------------------------------------
-Pawn                        & Pawn, multiple steps                      \\
-% \cmidrule{1-2} % .........................................................
-Knight                      & Pegasus                                   \\
-Bishop                      & Bishop                                    \\
-Rook                        & Rook                                      \\
-Queen                       & Queen                                     \\
-King                        & Queen                                     \\
-\cmidrule{1-2} % .........................................................
-Pegasus                     & Pegasus                                   \\
-Pyramid                     & Rook                                      \\
-\cmidrule{1-2} % .........................................................
-\multirow{2}{*}{Unicorn}    & Centaur, unrestricted 2                   \\
-                            & initial step choices                      \\
-\cmidrule{1-2} % .........................................................
-Wave                        & activating Wave                           \\
-Star                        & ---                                       \\
-Centaur                     & Centaur                                   \\
-Scout                       & Scout, multiple steps                     \\
-Grenadier                   & Grenadier, multiple steps                 \\
-\cmidrule{1-2} % .........................................................
-\multirow{2}{*}{Serpent}    & Serpent, 2 alternating directions,        \\
-                            & multiple steps                            \\
-\cmidrule{1-2} % .........................................................
-Shaman                      & Shaman                                    \\
-Monolith                    & ---                                       \\
-Starchild                   & Starchild                                 \\
-\bottomrule % ============================================================
+\begin{tabular}{ lll }
+\toprule % =======================================================================
+\multicolumn{2}{c}{ \textbf{Activated by} }     & \textbf{Moves like}           \\
+\cmidrule{1-2} % ................................
+\emph{piece}                &   \emph{at field} &                               \\
+\midrule % -----------------------------------------------------------------------
+Pawn                        &                   & Pawn, unlimited steps         \\
+Knight                      &                   & Pegasus                       \\
+Bishop                      &                   & Bishop                        \\
+Rook                        &                   & Rook                          \\
+Queen                       &                   & Queen                         \\
+King                        &                   & Queen                         \\
+\cmidrule{1-3} % .................................................................
+Pegasus                     &                   & Pegasus                       \\
+Pyramid                     &                   & Rook                          \\
+\cmidrule{1-3} % .................................................................
+\multirow{2}{*}{Unicorn}    &                   & Centaur, unrestricted 2       \\
+                            &                   & initial step choices          \\
+\cmidrule{1-3} % .................................................................
+Wave                        &                   & activating Wave               \\
+Star                        &                   & ---                           \\
+Centaur                     &                   & Centaur                       \\
+Scout                       &                   & Scout, unlimited steps        \\
+\cmidrule{1-3} % .................................................................
+\multirow{2}{*}{Grenadier}  & step-             & Rook                          \\
+                            & capture-          & Bishop                        \\
+\cmidrule{1-3} % .................................................................
+\multirow{2}{*}{Serpent}    &                   & Serpent, 2 alternating        \\
+                            &                   & directions, unlimited steps   \\
+\cmidrule{1-3} % .................................................................
+Shaman                      &                   & Shaman                        \\
+Monolith                    &                   & ---                           \\
+Starchild                   &                   & Starchild                     \\
+\bottomrule % ====================================================================
 \end{tabular}
 \caption{Movement of Wave}
 \label{tbl:Appendix/Movement of Wave}
@@ -1470,13 +1473,13 @@ once direction is chosen, it can't be changed for the remainder of Pawn's ply.
 In later variants (Nineteen, and onwards)
 \hyperref[fig:scn_n_15_sideways_pawn_init]{Pawn can move laterally by one step-field};
 Wave activated on a step-field can now move either straight forward as before, or
-sideways. \newline
-\indent
+sideways.
+
 Wave activated by Unicorn moves similar to Centaur, it has to keep alternating
 between two initially chosen steps, but it's not restricted in chosing second step
 based on a choice of the first one. Wave can choose any two steps Unicorn could
-make from its starting field and first step-field. \newline
-\indent
+make from its starting field and first step-field.
+
 Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activated
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
 nor activate a Star.
