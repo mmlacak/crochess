@@ -1685,16 +1685,16 @@ or \alg{i}. This gives \alg{d}, \alg{efh}, \alg{egh}, and \alg{i} as possible va
 for \algfmt{<abc>}.
 
 Line comments are writen using \algfmti{\$}, everything from \algfmti{\$} up to the
-end-of-line is disregarded. For instance, this example
+end of line is disregarded. For instance, this example
 \begin{alltt}
 \algfmti{\$ Entity <abc> ...}
-<abc> = \algfmti{\$ ... is either d or \alg{e}.}
+<abc> = \algfmti{\$ ... is either value d or \alg{e}.}
   \alg{d} \algfmti{\$ Value can be commented with no}
     \algfmti{\$ additional formatting, as in d.}
 | \alg{e} \algfmti{\$ Value in comment with added weight}
     \algfmti{\$ (as in \alg{e}) shouldn't be confused for}
-    \algfmti{\$ compatibility value; it's just for}
-    \algfmti{\$ additional visual emphasis.}
+    \algfmti{\$ compatibility value; it's used just}
+    \algfmti{\$ for additional visual emphasis.}
 \end{alltt}
 is by definition the same as the next one:
 \begin{alltt}
