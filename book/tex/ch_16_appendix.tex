@@ -1596,7 +1596,7 @@ an option to activate own Pyramid.
 \algfmt{[ ]}                & optional item(s), zero or one time         \\
 \algfmt{( )}                & optional item(s), zero or more times       \\
 \algfmt{\{ \}}              & optional item(s), one or more times        \\
-\algfmt{/ \textbackslash}   & grouping item(s), exactly one time         \\
+\algfmt{/ \textbackslash}   & grouping item(s), enveloped in scope       \\
 \algfmt{\#number}           & numbered reference                         \\
 \algfmt{?}                  & empty value                                \\
 \alg{\_}                    & space                                      \\
@@ -1760,7 +1760,7 @@ are available for a particular variant see
 | [<disambiguation>]
   (<step>[<transparency-side-effect>
           | <divergence-side-effect>])
-  <step>
+  / <step> | \alg{-}<field> \textbackslash
 
 <wave-transparency-side-effect> =
   \alg{\^{}}[<piece-transparent-to-wave>]
@@ -1774,7 +1774,7 @@ are available for a particular variant see
 | [<disambiguation>]
   (<step>[<wave-transparency-side-effect>
           | <divergence-side-effect>])
-  <step>
+  / <step> | \alg{-}<field> \textbackslash
 
 <pawn-losing-promotion-tag> = \alg{P==}
                             | <pawn>
@@ -1843,7 +1843,7 @@ are available for a particular variant see
   \alg{I}<stepping><resurrecting-side-effect>
 
 <king-castling-move> =
-  \alg{K}<stepping>[<castling-side-effect>]
+  \alg{K}<stepping-no-side-effects>[<castling-side-effect>]
 
 <pawn-promoting-ply> =
   <pawn><stepping><promoting-side-effect>
