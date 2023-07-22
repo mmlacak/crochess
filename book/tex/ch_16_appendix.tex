@@ -1588,21 +1588,21 @@ an option to activate own Pyramid.
 \begin{table}[!h]
 \centering
 \begin{tabular}{ ll }
-\toprule % =========================================================
-\textbf{Entity}      & \textbf{Meaning}                           \\
-\midrule % ---------------------------------------------------------
-\algfmt{< >}         & named entity, to be substituted            \\
-\algfmt{|}           & choice between 2 values, can be chained    \\
-\algfmt{[ ]}         & optional item(s), zero or one time         \\
-\algfmt{( )}         & optional item(s), zero or more times       \\
-\algfmt{\{ \}}       & optional item(s), one or more times        \\
-\algfmt{..}          & choice from range of values                \\
-\algfmt{\#number}    & numbered reference                         \\
-\algfmt{?}           & empty value                                \\
-\alg{\_}             & space                                      \\
-\alg{value}          & verbatim \algfmt{AN} value                 \\
-\algcty{value}       & compatibility value, for \algfmt{CAN}      \\
-\bottomrule % ======================================================
+\toprule % ================================================================
+\textbf{Entity}             & \textbf{Meaning}                           \\
+\midrule % ----------------------------------------------------------------
+\algfmt{< >}                & named entity, to be substituted            \\
+\algfmt{|}                  & choice between 2 values, can be chained    \\
+\algfmt{[ ]}                & optional item(s), zero or one time         \\
+\algfmt{( )}                & optional item(s), zero or more times       \\
+\algfmt{\{ \}}              & optional item(s), one or more times        \\
+\algfmt{/ \textbackslash}   & grouping item(s), exactly one time         \\
+\algfmt{\#number}           & numbered reference                         \\
+\algfmt{?}                  & empty value                                \\
+\alg{\_}                    & space                                      \\
+\alg{value}                 & verbatim \algfmt{AN} value                 \\
+\algcty{value}              & compatibility value, for \algfmt{CAN}      \\
+\bottomrule % =============================================================
 \end{tabular}
 \caption{Grammar}
 \label{tbl:Appendix/Grammar}
@@ -1619,13 +1619,11 @@ status.
 
 Value separator \algfmt{|} is used to present choice between 2 values, e.g.
 \algfmt{?} \algfmt{|} \alg{P}. Choices can be chained, as in
-\algfmt{?} \algfmt{|} \alg{+} \algfmt{|} \alg{\#}. If there are too many
-sequential values to list, range of choices \algfmt{..} is used instead, e.g.
-\alg{a} \algfmt{..} \alg{z}.
+\algfmt{?} \algfmt{|} \alg{+} \algfmt{|} \alg{\#}.
 
 Grouping options contain items to be repeated, \algfmt{[ ]} for items to appear
-or not, \algfmt{( )} to repeat items 0 or more times, and \algfmt{\{ \}} to repeat
-items at least once.
+or not, \algfmt{( )} to repeat items 0 or more times, \algfmt{\{ \}} to repeat
+items at least once, and \algfmt{/ \textbackslash} to envelop choices into a scope.
 
 Formatting and spacing is added to improve legibility, normally \algfmt{AN} is
 written without any gaps. When space is needed, it is written as \alg{\_}
@@ -1672,6 +1670,18 @@ either \alg{f} or \alg{g}. Global choice (not contained in any group) has 3 poss
 values: \alg{d}, \alg{e}\algfmt{[}\alg{f}\algfmt{|}\alg{g}\algfmt{]}\alg{h} or \alg{i}.
 This gives \alg{d}, \alg{efh}, \alg{egh}, \alg{eh} and \alg{i} as possible values for
 \algfmt{<abc>}.
+
+Choices can be limited in scope by enclosing them in \algfmt{/ \textbackslash},
+for instance
+\begin{alltt}
+<abc> = \alg{d} | \alg{e} / \alg{f} | \alg{g} \textbackslash \alg{h} | \alg{i}
+\end{alltt}
+has two choices. Choice inside group \algfmt{/ \textbackslash} has 2 possible values,
+either \alg{f} or \alg{g}; unlike previous example this group is not optional, so one
+value is guaranteed to appear. Global choice (not contained in any group) has 3 possible
+values: \alg{d}, \alg{e}\algfmt{/}\alg{f}\algfmt{|}\alg{g}\algfmt{\textbackslash}\alg{h}
+or \alg{i}. This gives \alg{d}, \alg{efh}, \alg{egh}, and \alg{i} as possible values
+for \algfmt{<abc>}.
 
 Grammar is written without context, to determine which pieces, files and ranks
 are available for a particular variant see
@@ -1738,7 +1748,7 @@ are available for a particular variant see
 
 <stepping-no-side-effects> =
   [<disambiguation>]<field>
-| [<disambiguation>]\{<step>\}
+| [<disambiguation>]\{<step>\}[\alg{-}<field>]
 | <field>\alg{-}<field>
 
 <transparency-side-effect> = \alg{\^{}}[\alg{W}]
