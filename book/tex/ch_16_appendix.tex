@@ -1808,13 +1808,18 @@ teleporting piece (Star) is introduced.
 
 <transparency-side-effect> = \alg{\^{}}[\alg{W}]
 
+<stepping-transparency-side-effect> =
+  <stepping-no-side-effects>
+| [<disambiguation>]
+  [\{<step>[<transparency-side-effect>]\}]
+  (<step> | \alg{-}<field>)
+
 <divergence-side-effect> = \alg{/}[\alg{H}|\alg{I}]
 
 <stepping> =
-  <stepping-no-side-effects>
+  <stepping-transparency-side-effect>
 | [<disambiguation>]
-  [\{<step>[<transparency-side-effect>
-           | <divergence-side-effect>]\}]
+  [\{<step>[<divergence-side-effect>]\}]
   (<step> | \alg{-}<field>)
 \end{alltt}
 
@@ -1852,16 +1857,22 @@ teleporting piece (Star) is introduced.
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
 | <private-losing-tag>
+
+<capturing-side-effect> =
+  \alg{*}[<disposable-piece-losing-tag>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<capturing-side-effect> =
-  \alg{*}[<disposable-piece-losing-tag>]
-
 <en-passant-side-effect> =
-    \alg{:}[[<private>](<rank> | <field>)]
+  \alg{:}[[<private>](<rank> | <field>)]
+
+<pawn-displacement-side-effect> =
+  \alg{<}[<pawn-losing-tag>]<field>
+
+<displacement-side-effect> =
+  \alg{<}[<disposable-piece-losing-tag>]<field>
 
 <demoting-side-effect> =
   \alg{>}[<disposable-figure-losing-tag>]
