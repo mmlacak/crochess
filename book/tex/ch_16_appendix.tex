@@ -1782,6 +1782,10 @@ teleporting piece (Star) is introduced.
   <disposable-piece> | \alg{K} | \alg{T}
 \end{alltt}
 
+% <figure> = <disposable-figure> | \alg{K} | \alg{T} | \alg{M}
+
+% <piece> = <pawn> | <figure>
+
 \clearpage % ..........................................................
 
 \begin{alltt}
@@ -1822,102 +1826,19 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
-\end{alltt}
-
-\TODO :: check trance-journey
-
-\TODO :: sense-journey
-
-% \clearpage % ..........................................................
-
-% \begin{alltt}
-% <pawn> = ? | \alg{P}
-
-% <classic-piece> =
-%   <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
-
-% <passive-figure> = \alg{A} | \alg{W}
-
-% <capturing-active-piece> =
-%   <classic-piece> | \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H}
-
-% <active-piece> =
-%   <capturing-active-piece> | \alg{I}
-
-% <capturing-piece> =
-%   <capturing-active-piece> | \alg{A}
-
-% <promote-to-figure> =
-%   <passive-figure>  | \alg{N} | \alg{B} | \alg{R} | \alg{Q}
-% | \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H} | \alg{I}
-
-% <disposable-figure> = <promote-to-figure>
-
-% <disposable-piece> = <pawn>
-%                    | <disposable-figure>
-
-% <piece-transparent-to-wave> =
-%   <disposable-piece> | \alg{K} | \alg{T}
-
-% <figure> = <disposable-figure> | \alg{K} | \alg{T} | \alg{M}
-
-% <piece> = <pawn> | <figure>
-% \end{alltt}
-
-% \clearpage % ..........................................................
-
-% \begin{alltt}
-% <file> = \alg{a} | \alg{b} | \alg{c} | \alg{d} | \alg{e} | \alg{f} | \alg{g} | \alg{h}
-% | \alg{i} | \alg{j} | \alg{k} | \alg{l} | \alg{m} | \alg{n} | \alg{o} | \alg{p} | \alg{q}
-% | \alg{r} | \alg{s} | \alg{t} | \alg{u} | \alg{v} | \alg{w} | \alg{x} | \alg{y} | \alg{z}
-
-% <rank> = \alg{1} | \alg{2} | \alg{3} | \alg{4} | \alg{5} | \alg{6} | \alg{7} | \alg{8} | \alg{9}
-% | \alg{10} | \alg{11} | \alg{12} | \alg{13} | \alg{14} | \alg{15} | \alg{16} | \alg{17} | \alg{18}
-% | \alg{19} | \alg{20} | \alg{21} | \alg{22} | \alg{23} | \alg{24} | \alg{25} | \alg{26}
-
-% <field> = <file><rank>
-
-% <disambiguation> = <file> | <rank> | <field>
-
-% <step> = \alg{.}[\alg{.}]<field>
-
-% <stepping-no-side-effects> =
-%   [<disambiguation>]<field>
-% | [<disambiguation>]\{<step>\}[\alg{-}<field>]
-% | <field>\alg{-}<field>
-
-% <transparency-side-effect> = \alg{\^{}}[\alg{W}]
-
-% <divergence-side-effect> = \alg{/}[\alg{H}|\alg{I}]
-
-% <stepping> =
-%   <stepping-no-side-effects>
-% | [<disambiguation>]
-%   (<step>[<transparency-side-effect>
-%           | <divergence-side-effect>])
-%   (( <step> | \alg{-}<field> ))
-
-% <wave-transparency-side-effect> =
-%   \alg{\^{}}[<piece-transparent-to-wave>]
-% \end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
 <wave-stepping> =
-  <stepping>
+  <stepping-no-side-effects>
 | [<disambiguation>]
-  (<step>[<wave-transparency-side-effect>
-          | <divergence-side-effect>])
-  (( <step> | \alg{-}<field> ))
+  [\{<step>[<wave-transparency-side-effect>
+           | <divergence-side-effect>]\}]
+  (<step> | \alg{-}<field>)
 
 <pawn-losing-promotion-tag> = \alg{P==} | <pawn>
 
 <pawn-losing-tag> = \alg{P::}
 | <pawn-losing-promotion-tag>
 
-<private-losing-tag> = \alg{O}[\alg{::}]
-| \alg{G}[\alg{::}]
+<private-losing-tag> = \alg{O}[\alg{::}] | \alg{G}[\alg{::}]
 | <pawn-losing-tag>
 
 <rook-losing-tag> = \alg{R}[\alg{\&\&}]
@@ -1937,6 +1858,15 @@ teleporting piece (Star) is introduced.
 
 <en-passant-side-effect> = \alg{:}[<rank>]
 \end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+\end{alltt}
+
+\TODO :: check trance-journey
+
+\TODO :: sense-journey
 
 \clearpage % ..........................................................
 
