@@ -1742,8 +1742,8 @@ are available for a particular variant see
 Side-effects, and some path separators are introduced by pieces, and so could
 be missing, if variant prior to One is being played. For instance, first
 divergent piece (Shaman) is introduced in Conquest of Tlalocan variant, so any
-variant before that will not be using divergence side-effect. Similarly, all
-teleportation path separators are not used before Nineteen variant, when first
+variant before that will not be using divergence side-effect. Similarly, none
+of teleportation path separators are used before Nineteen variant, when first
 teleporting piece (Star) is introduced.
 
 \clearpage % ..........................................................
@@ -1757,6 +1757,8 @@ teleporting piece (Star) is introduced.
   \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H}
 
 <passive-figure> = \alg{A} | \alg{W}
+
+<private> = <pawn> | \alg{O} | \alg{G}
 
 <capturing-active-piece> =
   <pawn>
@@ -1818,14 +1820,14 @@ teleporting piece (Star) is introduced.
   [\{<step>[<transparency-side-effect>
            | <divergence-side-effect>]\}]
   (<step> | \alg{-}<field>)
-
-<wave-transparency-side-effect> =
-  \alg{\^{}}[<piece-transparent-to-wave>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<wave-transparency-side-effect> =
+  \alg{\^{}}[<piece-transparent-to-wave>]
+
 <wave-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
@@ -1838,7 +1840,9 @@ teleporting piece (Star) is introduced.
 <pawn-losing-tag> = \alg{P::}
 | <pawn-losing-promotion-tag>
 
-<private-losing-tag> = \alg{O}[\alg{::}] | \alg{G}[\alg{::}]
+<private-losing-tag> =
+  \alg{O}[\alg{::}]
+| \alg{G}[\alg{::}]
 | <pawn-losing-tag>
 
 <rook-losing-tag> = \alg{R}[\alg{\&\&}]
@@ -1852,11 +1856,48 @@ teleporting piece (Star) is introduced.
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
 | <private-losing-tag>
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <capturing-side-effect> =
   \alg{*}[<disposable-piece-losing-tag>]
 
-<en-passant-side-effect> = \alg{:}[<rank>]
+<en-passant-side-effect> =
+    \alg{:}[[<private>](<rank> | <field>)]
+
+<demoting-side-effect> =
+  \alg{>}[<disposable-figure-losing-tag>]
+    <disambiguation>
+| \alg{>}<disposable-figure-losing-tag>
+    [<disambiguation>]
+
+<resurrecting-side-effect> =
+  \alg{$}[\alg{$}]<disposable-piece>
+| \alg{$}[\alg{$}]\alg{W}<field>
+| \alg{$}[\alg{$}]\alg{I}<field>
+| \alg{$$$}
+
+<castling-side-effect> =
+  \alg{&}[[\alg{R}](<file> | <field>)]
+
+<promoting-side-effect> =
+  [\alg{=}]<promote-to-figure>
+
+<delayed-promotion-side-effect> = \alg{=}
+
+<converting-side-effect> =
+  \alg{%}[<disposable-piece-losing-tag>]
+| \alg{%%}
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+<capturing-step> =
+  <step>[<capturing-side-effect>]
+
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1871,44 +1912,13 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
-<demoting-side-effect> =
-  \alg{>}[<disposable-figure-losing-tag>]
-    <disambiguation>
-| \alg{>}<disposable-figure-losing-tag>
-    [<disambiguation>]
-
-<resurrecting-side-effect> =
-  \alg{$}[\alg{$}]<disposable-piece>
-| \alg{$}[\alg{$}]\alg{W}<field>
-| \alg{$}[\alg{$}]\alg{I}<field>
-| \alg{$$$}
-
-<castling-side-effect> = \alg{&}[<file>]
-
-<promoting-side-effect> =
-  [\alg{=}]<promote-to-figure>
-
-<tagging-delayed-promotion-side-effect> =
-  \alg{=}
-
-<converting-side-effect> =
-  \alg{%}[<disposable-piece-losing-tag>]
-| \alg{%%}
-
-<capturing-step> =
-  <step>[<capturing-side-effect>]
-
-<shaman-capturing-cascading-ply> =
-  \alg{H}[<disambiguation>](<capturing-step>)
+<shaman-cascading-ply> =
+  \alg{H}[<disambiguation>][\{<capturing-step>\}]
     <step>
 
-<shaman-capturing-terminal-ply> =
+<shaman-terminating-ply> =
   \alg{H}[<disambiguation>]\{<capturing-step>\}
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <starchild-resurrecting-ply> =
   \alg{I}<stepping><resurrecting-side-effect>
 
@@ -1925,7 +1935,7 @@ teleporting piece (Star) is introduced.
 <pyramid-promotion-ply> =
   \alg{A}<stepping><promoting-side-effect>
 | \alg{A}<stepping>
-    [<tagging-delayed-promotion-side-effect>]
+    [<delayed-promotion-side-effect>]
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effect>
@@ -1942,12 +1952,12 @@ teleporting piece (Star) is introduced.
 | <private-losing-tag><stepping>
 | <rook-losing-tag><stepping>
 | <king-losing-tag><stepping>
-| <shaman-capturing-cascading-ply>
+| <shaman-cascading-ply>
 | <starchild-resurrecting-ply>
 | <pawn-promoting-ply>
 | <starchild-cascading-plies>
 
-<terminal-ply> =
+<terminating-ply> =
   <capturing-active-piece><stepping>
     [<capturing-side-effect>]
 | <rook-losing-tag><stepping>
@@ -1959,14 +1969,14 @@ teleporting piece (Star) is introduced.
 | <pawn-losing-promotion-tag><stepping>
     [<capturing-side-effect>]
     <promoting-side-effect>
-| <shaman-capturing-terminal-ply>
+| <shaman-terminating-ply>
 
-<terminating-ply> =
+<terminal-ply> =
   <capturing-piece><stepping>
     [<capturing-side-effect>]
-| (\alg{A}<stepping>\alg{~})<pyramid-promotion-ply>
-| (\alg{A}<stepping>\alg{~})<pyramid-converting-ply>
-| <terminal-ply>
+| [\{\alg{A}<stepping>\alg{~}\}]<pyramid-promotion-ply>
+| [\{\alg{A}<stepping>\alg{~}\}]<pyramid-converting-ply>
+| <terminating-ply>
 
 <cascading-ply> = <starting-ply>
                 | <passive-piece><stepping>
@@ -1977,32 +1987,32 @@ teleporting piece (Star) is introduced.
 \begin{alltt}
 <cascading-plies> =
   \{\alg{~W}<wave-stepping>\}\alg{~}<cascading-ply>
-| (\alg{~W}<wave-stepping>)\{\alg{~A}<stepping>\}
+| [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
 
 <cascade-start> =
-  <starting-ply>(<cascading-plies>)
+  <starting-ply>[\{<cascading-plies>\}]
 
 <cascade> =
-  <terminal-ply>
-| <cascade-start>[\alg{~}<terminating-ply>]
+  <terminating-ply>
+| <cascade-start>[\alg{~}<terminal-ply>]
 
 <cascading-start> = \{<cascading-plies>\}
 
 <cascading> =
-  \{<cascading-plies>\}[\alg{~}<terminating-ply>]
-| [\{<cascading-plies>\}\alg{~}]<terminating-ply>
+  \{<cascading-plies>\}[\alg{~}<terminal-ply>]
+| [\{<cascading-plies>\}\alg{~}]<terminal-ply>
 
 <wave-cascading-plies> =
-  (\alg{~W}<wave-stepping>)\alg{~}<cascading-ply>
-| (\alg{~W}<wave-stepping>)\{\alg{~A}<stepping>\}
+  [\{\alg{~W}<wave-stepping>\}]\alg{~}<cascading-ply>
+| [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
 
 <wave-cascading-start> =
-  <wave-cascading-plies>(<cascading-plies>)
+  <wave-cascading-plies>[\{<cascading-plies>\}]
 | \{<cascading-plies>\}
 
 <wave-cascade> =
   \alg{~}<cascade>
-| <wave-cascading-start>[\alg{~}<terminating-ply>]
+| <wave-cascading-start>[\alg{~}<terminal-ply>]
 
 <teleportation> =
   \alg{|}<field>
@@ -2041,7 +2051,7 @@ teleporting piece (Star) is introduced.
     [<disambiguation>]<field>
 | <shaman-trance-journey-cascade>
     \alg{@@}[<disposable-piece-losing-tag>[<field>]
-    (,<disposable-piece-losing-tag>[<field>])]
+    [\{,<disposable-piece-losing-tag>[<field>]\}]]
 | <shaman-trance-journey-cascade>
     \alg{@@@H}
 | <starchild-trance-journey-cascade>
