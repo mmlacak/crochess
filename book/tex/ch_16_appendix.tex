@@ -1720,6 +1720,17 @@ is by definition the same as the next one:
 <abc> = \alg{d} | \alg{e}
 \end{alltt}
 
+Rule definitions can be chained, so
+\begin{alltt}
+<abc> = <def> = \alg{g} [ \alg{h} ] \alg{i}
+\end{alltt}
+gives both entities \algfmt{<abc>} and \algfmt{<def>} the same definition,
+i.e. it's just a shorthand for
+\begin{alltt}
+<def> = \alg{g} [ \alg{h} ] \alg{i}
+<abc> = <def>
+\end{alltt}
+
 % \clearpage % ..........................................................
 
 Grammar is written without context, to determine which pieces, files and ranks
@@ -1739,36 +1750,29 @@ teleporting piece (Star) is introduced.
 
 \begin{alltt}
 <pawn> = ? | \alg{P}
-\end{alltt}
 
-\TODO :: check trance-journey
+<classic-figure> = \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
 
-\TODO :: sense-journey
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-<pawn> = ? | \alg{P}
-
-<classic-piece> =
-  <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
+<new-active-figure> =
+  \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H}
 
 <passive-figure> = \alg{A} | \alg{W}
 
-<capturing-active-piece> =
-  <classic-piece> | \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H}
+<capturing-active-piece> = <pawn>
+                         | <classic-figure>
+                         | <new-active-figure>
 
-<active-piece> =
-  <capturing-active-piece> | \alg{I}
+<active-piece> = <capturing-active-piece>
+               | \alg{I}
 
-<capturing-piece> =
-  <capturing-active-piece> | \alg{A}
+<capturing-piece> = <capturing-active-piece>
+                  | \alg{A}
 
-<promote-to-figure> =
-  <passive-figure>  | \alg{N} | \alg{B} | \alg{R} | \alg{Q}
-| \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H} | \alg{I}
-
-<disposable-figure> = <promote-to-figure>
+<disposable-figure> =
+<promote-to-figure> = <classic-figure>
+                    | <new-active-figure>
+                    | <passive-figure>
+                    | \alg{I}
 
 <disposable-piece> = <pawn>
                    | <disposable-figure>
@@ -1776,10 +1780,49 @@ teleporting piece (Star) is introduced.
 <piece-transparent-to-wave> =
   <disposable-piece> | \alg{K} | \alg{T}
 
-<figure> = <disposable-figure> | \alg{K} | \alg{T} | \alg{M}
-
-<piece> = <pawn> | <figure>
 \end{alltt}
+
+\clearpage % ..........................................................
+
+\TODO :: check trance-journey
+
+\TODO :: sense-journey
+
+% \clearpage % ..........................................................
+
+% \begin{alltt}
+% <pawn> = ? | \alg{P}
+
+% <classic-piece> =
+%   <pawn> | \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
+
+% <passive-figure> = \alg{A} | \alg{W}
+
+% <capturing-active-piece> =
+%   <classic-piece> | \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H}
+
+% <active-piece> =
+%   <capturing-active-piece> | \alg{I}
+
+% <capturing-piece> =
+%   <capturing-active-piece> | \alg{A}
+
+% <promote-to-figure> =
+%   <passive-figure>  | \alg{N} | \alg{B} | \alg{R} | \alg{Q}
+% | \alg{E} | \alg{U} | \alg{C} | \alg{O} | \alg{G} | \alg{S} | \alg{H} | \alg{I}
+
+% <disposable-figure> = <promote-to-figure>
+
+% <disposable-piece> = <pawn>
+%                    | <disposable-figure>
+
+% <piece-transparent-to-wave> =
+%   <disposable-piece> | \alg{K} | \alg{T}
+
+% <figure> = <disposable-figure> | \alg{K} | \alg{T} | \alg{M}
+
+% <piece> = <pawn> | <figure>
+% \end{alltt}
 
 \clearpage % ..........................................................
 
