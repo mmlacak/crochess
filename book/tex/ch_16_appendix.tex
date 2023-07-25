@@ -842,7 +842,7 @@ Now that all symbols have been introduced, they're gathered here according to th
 \textbf{Symbol}             & \textbf{Side-effect}          & \textbf{Mandatory?}   \\
 \midrule % ---------------------------------------------------------------------------
 \alg{*}                     & capturing                     & -                     \\
-\alg{<}                     & trance-journey displacement   & +                     \\
+\alg{<}                     & displacement                  & +                     \\
 \cmidrule{1-3} % .....................................................................
 \alg{==}                    & lost promotion tag            & -                     \\
 \alg{::}                    & lost rushing tag              & -                     \\
@@ -880,14 +880,13 @@ promotion), or once per whole game (castling). So, in \algfmt{CAN} capturing is
 optional, see \algfmt{FIDE C.9}; this is so in \algfmt{NAN} as well.
 
 Most mandatory side-effects are marked as such, because otherwise \algfmt{AN}
-would lack information to describe what happened. Trance-journey displacement
-has to have a destination field where a piece has been displaced. Promotion
-needs a promoted-to piece written, otherwise it's assumed that a Pawn has been
-tagged for promotion. Demoting to Pawn syzygy has to have, at very least, a
-disambiguation (or piece, if unique) written to be able to find which piece
-has been demoted, and on which field. Resurrection syzygy must have a piece
-which has been resurrected, if initiating Starchild was not oblationed then
-destination field as well.
+would lack information to describe what happened. Displacement has to have a
+destination field where a piece has been displaced. Promotion needs a promoted-to
+piece written, otherwise it's assumed that a Pawn has been tagged for promotion.
+Demoting to Pawn syzygy has to have, at very least, a disambiguation (or piece,
+if unique) written to be able to find which piece has been demoted, and on which
+field. Resurrection syzygy must have a piece which has been resurrected, if
+initiating Starchild was not oblationed then destination field as well.
 
 Other mandatory side-effects are designated as such, because otherwise it could
 be assumed that targeted piece has been captured. Conversion, and failed conversion
@@ -927,10 +926,11 @@ minimalistic notation with slightly more verbose version:
                             &                       & \emph{castling}      & \emph{promoting}      & \emph{rushing}        \\
 \midrule % ------------------------------------------------------------------------------------------------------------------
 \alg{*}                     & capture               & +                    & +                     & +                     \\
-\cmidrule{1-5} % ............................................................................................................
-\multirow{2}{*}{\alg{<}}    & trance-journey        & \multirow{2}{*}{+}   & \multirow{2}{*}{+}    & \multirow{2}{*}{+}    \\
-                            & displacement          &                      &                       &                       \\
-\cmidrule{1-5} % ............................................................................................................
+% \cmidrule{1-5} % ............................................................................................................
+% \multirow{2}{*}{\alg{<}}    & trance-journey        & \multirow{2}{*}{+}   & \multirow{2}{*}{+}    & \multirow{2}{*}{+}    \\
+%                             & displacement          &                      &                       &                       \\
+\alg{<}                     & displacement          & +                    & +                     & +                     \\
+% \cmidrule{1-5} % ............................................................................................................
 \alg{:}                     & en passant            & -                    & -                     & -                     \\
 \alg{\&}                    & castle                & *                    & -                     & -                     \\
 \alg{=}                     & promotion             & -                    & *                     & -                     \\
