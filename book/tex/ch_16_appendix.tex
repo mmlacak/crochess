@@ -1588,22 +1588,22 @@ an option to activate own Pyramid.
 \begin{table}[!h]
 \centering
 \begin{tabular}{ ll }
-\toprule % ================================================================
-\textbf{Entity}             & \textbf{Meaning}                           \\
-\midrule % ----------------------------------------------------------------
-\algfmt{< >}                & named entity, to be substituted            \\
-\algfmt{|}                  & choice between 2 values, can be chained    \\
-\algfmt{[ ]}                & optional item(s), zero or one time         \\
-\algfmt{( )}                & optional item(s), zero or more times       \\
-\algfmt{\{ \}}              & optional item(s), one or more times        \\
-\algfmt{/ \textbackslash}   & grouping item(s), enveloped in scope       \\
-% \algfmt{\#number}           & numbered reference                         \\
-\algfmti{\$}                & line comment                               \\
-\algfmt{?}                  & empty value                                \\
-\alg{\_}                    & space                                      \\
-\alg{value}                 & verbatim \algfmt{AN} value                 \\
-\algcty{value}              & compatibility value, for \algfmt{CAN}      \\
-\bottomrule % =============================================================
+\toprule % ===============================================================
+\textbf{Entity}             & \textbf{Meaning}                          \\
+\midrule % ---------------------------------------------------------------
+\algfmt{< >}                & named entity, to be substituted           \\
+\algfmt{|}                  & choice between 2 values, can be chained   \\
+\algfmt{[ ]}                & optional item(s)                          \\
+\algfmt{( )}                & grouping item(s), scope                   \\
+\algfmt{\{ \}}              & repeating item(s), one or more times      \\
+% \algfmt{/ )}   & grouping item(s), enveloped in scope      \\
+% \algfmt{\#number}           & numbered reference                        \\
+\algfmti{\$}                & line comment                              \\
+\algfmt{?}                  & empty value                               \\
+\alg{\_}                    & space                                     \\
+\alg{value}                 & verbatim \algfmt{AN} value                \\
+\algcty{value}              & compatibility value, for \algfmt{CAN}     \\
+\bottomrule % ============================================================
 \end{tabular}
 \caption{Grammar}
 \label{tbl:Appendix/Grammar}
@@ -1622,9 +1622,11 @@ Value separator \algfmt{|} is used to present choice between 2 values, e.g.
 \algfmt{?} \algfmt{|} \alg{P}. Choices can be chained, as in
 \algfmt{?} \algfmt{|} \alg{+} \algfmt{|} \alg{\#}.
 
-Grouping options contain items to be repeated, \algfmt{[ ]} for items to appear
-or not, \algfmt{( )} to repeat items 0 or more times, \algfmt{\{ \}} to repeat
-items at least once, and \algfmt{/ \textbackslash} to envelop items into a scope.
+Optional items are enclosed in \algfmt{[ ]} for items to appear or not. Items are
+grouped by enclosing them in \algfmt{( )}, which envelops them into a scope.
+Repeating items are enclosed in \algfmt{\{ \}}, to be repeated at least once.
+
+\clearpage % ..........................................................
 
 Formatting and spacing is added to improve legibility, normally \algfmt{AN} is
 written without any gaps. When space is needed, it is written as \alg{\_}
@@ -1672,17 +1674,34 @@ values: \alg{d}, \alg{e}\algfmt{[}\alg{f}\algfmt{|}\alg{g}\algfmt{]}\alg{h} or \
 This gives \alg{d}, \alg{efh}, \alg{egh}, \alg{eh} and \alg{i} as possible values for
 \algfmt{<abc>}.
 
-Choices can be limited in scope by enclosing them in \algfmt{/ \textbackslash},
+Choices can be limited in scope by enclosing them in \algfmt{( )},
 for instance
 \begin{alltt}
-<abc> = \alg{d} | \alg{e} / \alg{f} | \alg{g} \textbackslash \alg{h} | \alg{i}
+<abc> = \alg{d} | \alg{e} ( \alg{f} | \alg{g} ) \alg{h} | \alg{i}
 \end{alltt}
-has two choices. Choice inside group \algfmt{/ \textbackslash} has 2 possible values,
+has two choices. Choice inside group \algfmt{( )} has 2 possible values,
 either \alg{f} or \alg{g}; unlike previous example this group is not optional, so one
 value is guaranteed to appear. Global choice (not contained in any group) has 3 possible
-values: \alg{d}, \alg{e}\algfmt{/}\alg{f}\algfmt{|}\alg{g}\algfmt{\textbackslash}\alg{h}
+values: \alg{d}, \alg{e}\algfmt{(}\alg{f}\algfmt{|}\alg{g}\algfmt{)}\alg{h}
 or \alg{i}. This gives \alg{d}, \alg{efh}, \alg{egh}, and \alg{i} as possible values
 for \algfmt{<abc>}.
+
+Items enclosed in \algfmt{\{ \}} brackets are to be repeated at least once. For instance,
+\begin{alltt}
+<abc> = \alg{d} \{ \alg{e} \} \alg{f}
+\end{alltt}
+gives \alg{def}, \alg{deef}, \alg{deeef}, \alg{deeeef}, ... for \algfmt{<abc>}. \newline
+\indent
+Note, this is different than definition in
+\href{https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form#Table_of_symbols}{Extended Backus–Naur form},
+which states that items are optionally repeated, i.e. zero or more times. \newline
+\indent
+To have the same definition here, repeating group can be enclosed into option group,
+like so
+\begin{alltt}
+<abc> = \alg{d} [ \{ \alg{e} \} ] \alg{f}
+\end{alltt}
+which gives \alg{df}, \alg{def}, \alg{deef}, \alg{deeef}, ... for \algfmt{<abc>}.
 
 Line comments are writen using \algfmti{\$}, everything from \algfmti{\$} up to the
 end of line is disregarded. For instance, this example
@@ -1715,6 +1734,12 @@ divergent piece (Shaman) is introduced in Conquest of Tlalocan variant, so any
 variant before that will not be using divergence side-effect. Similarly, all
 teleportation path separators are not used before Nineteen variant, when first
 teleporting piece (Star) is introduced.
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+<pawn> = ? | \alg{P}
+\end{alltt}
 
 \TODO :: check trance-journey
 
@@ -1787,7 +1812,7 @@ teleporting piece (Star) is introduced.
 | [<disambiguation>]
   (<step>[<transparency-side-effect>
           | <divergence-side-effect>])
-  / <step> | \alg{-}<field> \textbackslash
+  (( <step> | \alg{-}<field> ))
 
 <wave-transparency-side-effect> =
   \alg{\^{}}[<piece-transparent-to-wave>]
@@ -1801,7 +1826,7 @@ teleporting piece (Star) is introduced.
 | [<disambiguation>]
   (<step>[<wave-transparency-side-effect>
           | <divergence-side-effect>])
-  / <step> | \alg{-}<field> \textbackslash
+  (( <step> | \alg{-}<field> ))
 
 <pawn-losing-promotion-tag> = \alg{P==} | <pawn>
 
