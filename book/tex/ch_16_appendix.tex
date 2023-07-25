@@ -1803,13 +1803,18 @@ teleporting piece (Star) is introduced.
           | <divergence-side-effect>])
   / <step> | \alg{-}<field> \textbackslash
 
-<pawn-losing-promotion-tag> = \alg{P==}
-                            | <pawn>
+<pawn-losing-promotion-tag> = \alg{P==} | <pawn>
 
 <pawn-losing-tag> = \alg{P::}
 | <pawn-losing-promotion-tag>
 
+<private-losing-tag> = \alg{O}[\alg{::}]
+| \alg{G}[\alg{::}]
+| <pawn-losing-tag>
+
 <rook-losing-tag> = \alg{R}[\alg{\&\&}]
+
+<king-losing-tag> = \alg{K}[\alg{\&\&}]
 
 <disposable-figure-losing-tag> =
   <disposable-figure>
@@ -1817,23 +1822,23 @@ teleporting piece (Star) is introduced.
 
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
-| <pawn-losing-tag>
+| <private-losing-tag>
 
 <capturing-side-effect> =
   \alg{*}[<disposable-piece-losing-tag>]
 
 <en-passant-side-effect> = \alg{:}[<rank>]
-
-<demoting-side-effect> =
-  \alg{>}[<disposable-figure-losing-tag>]
-    <disambiguation>
-| \alg{>}<disposable-figure-losing-tag>
-    [<disambiguation>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<demoting-side-effect> =
+  \alg{>}[<disposable-figure-losing-tag>]
+    <disambiguation>
+| \alg{>}<disposable-figure-losing-tag>
+    [<disambiguation>]
+
 <resurrecting-side-effect> =
   \alg{$}[\alg{$}]<disposable-piece>
 | \alg{$}[\alg{$}]\alg{W}<field>
@@ -1870,7 +1875,8 @@ teleporting piece (Star) is introduced.
   \alg{I}<stepping><resurrecting-side-effect>
 
 <king-castling-move> =
-  \alg{K}<stepping-no-side-effects>[<castling-side-effect>]
+  \alg{K}<stepping-no-side-effects>
+  [<castling-side-effect>]
 
 <pawn-promoting-ply> =
   <pawn><stepping><promoting-side-effect>
@@ -1895,8 +1901,9 @@ teleporting piece (Star) is introduced.
 \begin{alltt}
 <starting-ply> =
   <active-piece><stepping>
-| <pawn-losing-tag><stepping>
+| <private-losing-tag><stepping>
 | <rook-losing-tag><stepping>
+| <king-losing-tag><stepping>
 | <shaman-capturing-cascading-ply>
 | <starchild-resurrecting-ply>
 | <pawn-promoting-ply>
@@ -1907,9 +1914,9 @@ teleporting piece (Star) is introduced.
     [<capturing-side-effect>]
 | <rook-losing-tag><stepping>
     [<capturing-side-effect>]
-| <pawn-losing-tag><stepping>
+| <private-losing-tag><stepping>
     [<capturing-side-effect>]
-| <pawn-losing-promotion-tag><stepping>
+| <private-losing-tag><stepping>
     [<en-passant-side-effect>]
 | <pawn-losing-promotion-tag><stepping>
     [<capturing-side-effect>]
