@@ -1807,14 +1807,14 @@ teleporting piece (Star) is introduced.
 <stepping-transparency-side-effect> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  [\{<step>[<transparency-side-effect>]\}]
+  \{<step>[<transparency-side-effect>]\}
   (<step> | \alg{-}<field>)
 
 <stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  [\{<step>[<transparency-side-effect>
-           | <divergence-side-effect>]\}]
+  \{<step>[<transparency-side-effect>
+          | <divergence-side-effect>]\}
   (<step> | \alg{-}<field>)
 \end{alltt}
 
@@ -1827,8 +1827,8 @@ teleporting piece (Star) is introduced.
 <wave-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  [\{<step>[<wave-transparency-side-effect>
-           | <divergence-side-effect>]\}]
+  \{<step>[<wave-transparency-side-effect>
+          | <divergence-side-effect>]\}
   (<step> | \alg{-}<field>)
 
 <pawn-losing-promotion-tag> = \alg{P==} | <pawn>
@@ -1850,6 +1850,9 @@ teleporting piece (Star) is introduced.
 
 <pawn-displacement-side-effect> =
   \alg{<}[<pawn-losing-tag>]<field>
+
+<displacement-side-effect> =
+  \alg{<}[<disposable-piece-losing-tag>]<field>
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1858,20 +1861,23 @@ teleporting piece (Star) is introduced.
 <serpent-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  [\{<step>
-    [<transparency-side-effect>
-     | <divergence-side-effect>
-     | <pawn-displacement-side-effect>]\}]
+  \{<step>
+   [<transparency-side-effect>
+    | <divergence-side-effect>
+    | <pawn-displacement-side-effect>]\}
   (<step> | \alg{-}<field>)
 
 <capturing-side-effect> =
   \alg{*}[<disposable-piece-losing-tag>]
 
+<capturing-step> =
+  <step>[<capturing-side-effect>]
+
 <en-passant-side-effect> =
   \alg{:}[[<private>](<rank> | <field>)]
 
-<displacement-side-effect> =
-  \alg{<}[<disposable-piece-losing-tag>]<field>
+<castling-side-effect> =
+  \alg{&}[[\alg{R}](<file> | <field>)]
 
 <demoting-side-effect> =
   \alg{>}[<disposable-figure-losing-tag>]
@@ -1889,35 +1895,26 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
-<castling-side-effect> =
-  \alg{&}[[\alg{R}](<file> | <field>)]
-
 <promoting-side-effect> =
   [\alg{=}]<promote-to-figure>
 
+<pawn-promoting-ply> =
+  <pawn><stepping><promoting-side-effect>
+
 <delayed-promotion-side-effect> = \alg{=}
+
+<pyramid-promotion-ply> =
+  \alg{A}<stepping><promoting-side-effect>
+| \alg{A}<stepping>
+    [<delayed-promotion-side-effect>]
+
+<pyramid-converting-ply> =
+  \alg{A}<stepping><converting-side-effect>
 
 <converting-side-effect> =
   \alg{%}[<disposable-piece-losing-tag>]
 | \alg{%%}
 
-<capturing-step> =
-  <step>[<capturing-side-effect>]
-
-\end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-\end{alltt}
-
-\TODO :: check trance-journey
-
-\TODO :: sense-journey
-
-\clearpage % ..........................................................
-
-\begin{alltt}
 <shaman-cascading-ply> =
   \alg{H}[<disambiguation>][\{<capturing-step>\}]
     <step>
@@ -1928,27 +1925,23 @@ teleporting piece (Star) is introduced.
 <starchild-resurrecting-ply> =
   \alg{I}<stepping><resurrecting-side-effect>
 
-<king-castling-move> =
-  \alg{K}<stepping-no-side-effects>
-  [<castling-side-effect>]
-
-<pawn-promoting-ply> =
-  <pawn><stepping><promoting-side-effect>
-
-<pawn-promoting-move> =
-  <pawn><field><promoting-side-effect>
-
-<pyramid-promotion-ply> =
-  \alg{A}<stepping><promoting-side-effect>
-| \alg{A}<stepping>
-    [<delayed-promotion-side-effect>]
-
-<pyramid-converting-ply> =
-  \alg{A}<stepping><converting-side-effect>
-
 <starchild-cascading-plies> =
   \alg{I}<stepping>\{\alg{~I}<stepping>\}
 \end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+\end{alltt}
+
+\TODO :: check trance-journey
+
+\TODO :: sense-journey
 
 \clearpage % ..........................................................
 
@@ -2142,11 +2135,18 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
+<move-king-castling> =
+  \alg{K}<stepping-no-side-effects>
+  [<castling-side-effect>]
+
+<move-pawn-promotion> =
+  <pawn><field><promoting-side-effect>
+
 <move> =
   <move-new><status>
 | <move-monolith><status>
-| <king-castling-move><status>
-| <pawn-promoting-move><status>
+| <move-king-castling><status>
+| <move-pawn-promotion><status>
 | <compatibility-capture>
 | <compatibility-castling>
 | \alg{#}
