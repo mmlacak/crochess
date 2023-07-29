@@ -1745,7 +1745,7 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
-<pawn> = ? | \alg{P}
+<pawn> = [\alg{P}]
 <classic-figure> = \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
 <trooper> = \alg{O} | \alg{G}
 <private> = <pawn> | <trooper>
@@ -1834,12 +1834,12 @@ teleporting piece (Star) is introduced.
           | <divergence-side-effect>]\}
   (<step> | \alg{-}<field>)
 
-<pawn-losing-promotion-tag> = [\alg{P}]\alg{==} | <pawn>
+<pawn-losing-promotion-tag> = [\alg{P}][\alg{==}]
 <trooper-losing-tag> = <trooper>[\alg{::}]
 <rook-losing-tag> = \alg{R}[\alg{\&\&}]
 <king-losing-tag> = \alg{K}[\alg{\&\&}]
 
-<pawn-losing-tag> = [\alg{P}]\alg{::}
+<pawn-losing-tag> = [\alg{P}][\alg{::}]
 | <pawn-losing-promotion-tag>
 
 <disposable-figure-losing-tag> =
@@ -1901,17 +1901,18 @@ teleporting piece (Star) is introduced.
 <promoting-side-effect> =
   [\alg{=}]<promote-to-figure>
 
-<delayed-promotion-side-effect> = \alg{=}
+<delayed-promotion-side-effect> = [\alg{=}]
 
 <pawn-promoting-ply> =
   <pawn-losing-promotion-tag><stepping>
+  [<capturing-side-effect>]
   (<promoting-side-effect>
    | <delayed-promotion-side-effect>)
 
-<pyramid-promotion-ply> =
-  \alg{A}<stepping><promoting-side-effect>
-| \alg{A}<stepping>
-    [<delayed-promotion-side-effect>]
+<pyramid-promoting-ply> =
+  \alg{A}<stepping>
+  (<promoting-side-effect>
+   | <delayed-promotion-side-effect>)
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effect>
@@ -1979,7 +1980,7 @@ teleporting piece (Star) is introduced.
 <terminal-ply> =
   <capturing-piece><stepping>
     [<capturing-side-effect>]
-| [\{\alg{A}<stepping>\alg{~}\}]<pyramid-promotion-ply>
+| [\{\alg{A}<stepping>\alg{~}\}]<pyramid-promoting-ply>
 | [\{\alg{A}<stepping>\alg{~}\}]<pyramid-converting-ply>
 | <terminating-ply>
 
