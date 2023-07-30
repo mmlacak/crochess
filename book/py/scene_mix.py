@@ -34,5 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_o_14_star_rerouting_scout', \
+                    'scn_hd_05_centaur_multi_step', \
                 ]

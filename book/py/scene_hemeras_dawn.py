@@ -113,8 +113,7 @@ class SceneHemerasDawnMixin:
 
         scene = Scene('scn_hd_05_centaur_multi_step', bt)
 
-        start = (6, 5)
-        # start = (5, 7)
+        start = (3, 2) # (6, 5) # (5, 7)
         scene.board.set_piece(*start, piece=PieceType.Centaur)
         scene.board.set_piece(7, 7, piece=PieceType.Pawn)
         scene.board.set_piece(7, 8, piece=PieceType.Pawn)
@@ -130,13 +129,19 @@ class SceneHemerasDawnMixin:
 
         arr = GS.gen_steps(start=start, rels=rels, include_prev=True, bounds=scene.board_view.get_position_limits())
         for i, arr in enumerate( arr() ):
-            mark_type = MarkType.Blocked if i > 6 else MarkType.Action if i % 2 == 0 else MarkType.Legal
+            mark_type = MarkType.Blocked if i > 8 else \
+                        MarkType.Action if i % 2 == 0 else \
+                        MarkType.Legal
             scene.append_arrow( *arr, mark_type=mark_type )
 
         txt = GS.gen_steps(start=start, rels=rels, include_prev=False, bounds=scene.board_view.get_position_limits())
-        for i, arr in enumerate( txt() ):
-            mark_type = MarkType.Blocked if i > 6 else MarkType.Action if i % 2 == 0 else MarkType.Legal
-            scene.append_text( str(i+1), *arr, mark_type=mark_type )
+        for i, pos in enumerate( txt() ):
+            mark_type = MarkType.Blocked if i > 8 else \
+                        MarkType.Action if i % 2 == 0 else \
+                        MarkType.Legal
+            corner = Corner.UpperLeft if i % 2 == 0 else \
+                     Corner.UpperRight
+            scene.append_text( str(i+1), *pos, corner=corner, mark_type=mark_type )
 
         #
         # forbidden directions change
@@ -150,13 +155,13 @@ class SceneHemerasDawnMixin:
         for i, arr in enumerate( arr() ):
             scene.append_arrow( *arr, mark_type=MarkType.Illegal )
 
-        txt = GS.gen_multi_steps(multi_rels, start=start_X, include_prev=False, count=1)
-        for i, arr in enumerate( txt() ):
-            corner = Corner.LowerRight if i > 4 else \
-                     Corner.LowerLeft if i > 2 else \
-                     Corner.UpperLeft if i > 1 else \
-                     Corner.UpperRight
-            scene.append_text( str(i+1), *arr, corner=corner, mark_type=MarkType.Illegal )
+        # txt = GS.gen_multi_steps(multi_rels, start=start_X, include_prev=False, count=1)
+        # for i, pos in enumerate( txt() ):
+        #     corner = Corner.LowerRight if i > 4 else \
+        #              Corner.LowerLeft if i > 2 else \
+        #              Corner.UpperLeft if i > 1 else \
+        #              Corner.UpperRight
+        #     scene.append_text( str(i+1), *pos, corner=corner, mark_type=MarkType.Illegal )
 
         return scene
 
