@@ -1820,17 +1820,17 @@ teleporting piece (Star) is introduced.
 | <pawn><losing-pawn-tag>
 
 <capturing-side-effect> =
-  \alg{*}[<disposable-piece-losing-tag>]
+  [\alg{*}[<disposable-piece-losing-tag>]]
 
 <en-passant-side-effect> =
-  \alg{:}[[<private>](<rank> | <field>)]
+  [\alg{:}[[<private>](<rank> | <field>)]]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
 <castling-side-effect> =
-  \alg{&}[[\alg{R}](<file> | <field>)]
+  [\alg{&}[[\alg{R}](<file> | <field>)]]
 
 <promoting-side-effect> =
   [\alg{=}]<promote-to-figure>
@@ -1847,11 +1847,11 @@ teleporting piece (Star) is introduced.
 <displacement-side-effect> =
   \alg{<}[<disposable-piece-losing-tag>]<field>
 
-<transparency-side-effect> = \alg{\^{}}[\alg{W}]
-<divergence-side-effect> = \alg{/}[\alg{H}|\alg{I}]
+<transparency-side-effect> = [\alg{\^{}}[\alg{W}]]
+<divergence-side-effect> = [\alg{/}[\alg{H}|\alg{I}]]
 
 <wave-transparency-side-effect> =
-  \alg{\^{}}[<piece-transparent-to-wave>]
+  [\alg{\^{}}[<piece-transparent-to-wave>]]
 
 <demoting-side-effect> =
   \alg{>}[<disposable-figure-losing-tag>]
@@ -1862,7 +1862,7 @@ teleporting piece (Star) is introduced.
 <resurrecting-side-effect> =
   \alg{$}[\alg{$}]<disposable-piece>
 | \alg{$}[\alg{$}](\alg{W}|\alg{I})<field>
-| \alg{$$$}
+| [\alg{$$$}]
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1890,17 +1890,17 @@ teleporting piece (Star) is introduced.
 <serpent-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  \{<step>[<transparency-side-effect>
-          | <divergence-side-effect>
-          | <pawn-displacement-side-effect>]\}
+  \{<step>[<pawn-displacement-side-effect>
+          | <transparency-side-effect>
+          | <divergence-side-effect>]\}
   (<step> | \alg{-}<field>)
 
 <shaman-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  \{<step>[<capturing-side-effect>
+  \{<step>[<transparency-side-effect>
           | <divergence-side-effect>
-          | <pawn-displacement-side-effect>]\}
+          | <capturing-side-effect>]\}
   (<step> | \alg{-}<field>)
 \end{alltt}
 
