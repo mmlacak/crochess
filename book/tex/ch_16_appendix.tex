@@ -715,6 +715,23 @@ light Pawn on the left is being activated, and can capture dark Knight. This wou
 be written as \alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
 \alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
 
+\subsection*{Combining side-effects}
+\addcontentsline{toc}{subsection}{Combining side-effects}
+\label{sec:Appendix/Notation/Combining side-effects}
+
+It's possible to have two side-effects accompanying the same step, those are noted
+in the order of appearance; so, e.g. capture is writen before promotion. \newline
+\indent
+As an example, light Pawn on a second to last rank could capture dark Rook, and then
+promote after the same step. In One variant, this could be writen as \alg{e26*R=Q}
+or, in \algfmt{XAN} it would be \alg{Pd25-e26*R=Q}.
+
+Care should be taken when omitting optional parts of notation. For instance,
+notation for capturing is optional, but it's also possible to omit just captured
+piece. Notation for immediate promotion is mandatory, but symbol is not. This gives
+us possibility to write previous move as \alg{e26*Q}, which would be interpreted
+very differently.
+
 \subsection*{Default pathing}
 \addcontentsline{toc}{subsection}{Default pathing}
 \label{sec:Appendix/Notation/Default pathing}
