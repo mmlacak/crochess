@@ -674,42 +674,46 @@ two paths.
 Losing tag is a side-effect of a tagged piece being moved, captured, etc. As such,
 losing tag can also
 \hyperref[tbl:Appendix/Summary/Accompanying-losing-tags]{accompany some other side-effects}.
-So, losing tag is denoted after piece symbol and its staring position (regardless, if it's
-disambiguation or a field), but before any steps, or destination field, depending on what
-is available. Writing lost tag is completely optional, it's meant to remind readers what
-happened and when.
+So, losing tag is denoted immediately after piece symbol, but before its starting
+position (regardless, if it's disambiguation or a field), before any steps, or
+destination field, depending on what is available. Writing lost tag is completely
+optional, it's meant to remind readers what happened and when.
 
 Losing ability to castle is denoted with \alg{\&\&} (double ampersand).
-\hyperref[sec:Appendix/Notation/Castling]{Using previous castling examples}, if Rooks
-moved to their destination fields without castling, it would be written as \alg{R\&\&e1},
-and \alg{R\&\&q1}, and in \algfmt{XAN} it would be \alg{Ra1\&\&-e1}, and \alg{Ry1\&\&-q1}.
-Using just disambiguation, it could be writen as e.g. \alg{Ra\&\&..e1}, and \alg{Ry\&\&..q1}. \newline
+\hyperref[sec:Appendix/Notation/Castling]{Using previous castling examples}, if
+Rooks moved to their destination fields without castling, it would be written as
+\alg{R\&\&e1}, and \alg{R\&\&q1}, and in \algfmt{XAN} it would be \alg{R\&\&a1-e1},
+and \alg{R\&\&y1-q1}. Using just disambiguation, it could be writen as e.g.
+\alg{R\&\&a..e1}, and \alg{R\&\&y..q1}. \newline
 \indent
 If, in the first example, there were opponent's Bishop on light Rook's neighboring-field
 capturing it, it would be written as \alg{Ba1*R\&\&}, or as \alg{Bb2-a1*R\&\&} in
 \algfmt{XAN}.
 
-If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion} moves
-before actual promotion, it losses its tag, which is denoted with \alg{==} (double equal
-sign), like so \alg{==e12}. In \algfmt{XAN} the same move would be noted as \alg{Pe11==-e12}.
+If \hyperref[fig:scn_aoa_04_delayed_promo_pawn_2_tagged]{Pawn tagged for promotion}
+moves before actual promotion, it losses its tag, which is denoted with \alg{==}
+(double equal sign), like so \alg{==e12}. In \algfmt{XAN} the same move would be
+noted as \alg{P==e11-e12}.
 
-If the same example contained e.g. dark Bishop at \alg{f12}, Pawn tagged for promotion could
-capture it, which would be written as \alg{==f12*B}, and in \algfmt{XAN} as \alg{Pe11==-f12*B}.
-When just disambiguation is needed, it could writen as \alg{e==f12*B}, or e.g. as \alg{Pe==.f12*B}.
+If the same example contained e.g. dark Bishop at \alg{f12}, Pawn tagged for promotion
+could capture it, which would be written as \alg{==f12*B}, and in \algfmt{XAN} as
+\alg{P==e11-f12*B}. When just disambiguation is needed, it could be writen as
+\alg{==ef12*B}, or e.g. as \alg{P==e.f12*B}.
 
-If, in the same situation, light Pawn instead of moving was captured by dark Unicorn on a
-field where it was tagged for promotion, it would be written as \alg{Ue11*P==}, and in
-\algfmt{XAN} it would be \alg{Ud7-e11*P==}.
+If, in the same situation, light Pawn instead of moving was captured by dark Unicorn
+on a field where it was tagged for promotion, it would be written as \alg{Ue11*P==},
+and in \algfmt{XAN} it would be \alg{Ud7-e11*P==}.
 
-Losing ability to rush is denoted with \alg{::} (double colon). For instance, in this
-\hyperref[fig:scn_n_03_teleport_move_2]{teleporting example}, after dark Rook's failed
-teleportation, light Bishop could capture dark Pawn on its initial position, which would
-be denoted as \alg{Br17*P::}, and in \algfmt{XAN} it would be \alg{Bq18-r17*P::}.
+Losing ability to rush is denoted with \alg{::} (double colon). For instance, in
+this \hyperref[fig:scn_n_03_teleport_move_2]{teleporting example}, after dark Rook's
+failed teleportation, light Bishop could capture dark Pawn on its initial position,
+which would be denoted as \alg{Br17*P::}, and in \algfmt{XAN} it would be
+\alg{Bq18-r17*P::}.
 
-In this \hyperref[fig:scn_mv_31_activating_rush_pawn_init]{activating Pawns example}, light
-Pawn on the left is being activated, and can capture dark Knight. This would be written as
-\alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
-\alg{[Re6-e2]\~{}[We2-c2]\~{}[Pc2::-b3*N]}.
+In this \hyperref[fig:scn_mv_31_activating_rush_pawn_init]{activating Pawns example},
+light Pawn on the left is being activated, and can capture dark Knight. This would
+be written as \alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
+\alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
 
 \subsection*{Default pathing}
 \addcontentsline{toc}{subsection}{Default pathing}
