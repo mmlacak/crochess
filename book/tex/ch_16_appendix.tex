@@ -1890,14 +1890,18 @@ teleporting piece (Star) is introduced.
 <serpent-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  \{<step>
-   [<transparency-side-effect>
-    | <divergence-side-effect>
-    | <pawn-displacement-side-effect>]\}
+  \{<step>[<transparency-side-effect>
+          | <divergence-side-effect>
+          | <pawn-displacement-side-effect>]\}
   (<step> | \alg{-}<field>)
 
-<capturing-step> =
-  <step>[<capturing-side-effect>]
+<shaman-stepping> =
+  <stepping-no-side-effects>
+| [<disambiguation>]
+  \{<step>[<capturing-side-effect>
+          | <divergence-side-effect>
+          | <pawn-displacement-side-effect>]\}
+  (<step> | \alg{-}<field>)
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -1917,12 +1921,6 @@ teleporting piece (Star) is introduced.
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effect>
 
-<shaman-terminating-ply> =
-  \alg{H}[<disambiguation>]\{<capturing-step>\}
-
-<shaman-capturing-ply> =
-  <shaman-terminating-ply><step>
-
 <starchild-resurrecting-ply> =
   \alg{I}<stepping-no-side-effects>
     <resurrecting-side-effect>
@@ -1938,7 +1936,7 @@ teleporting piece (Star) is introduced.
   <active-piece><stepping>
 *** | <disposable-piece-losing-tag><stepping>
 *** | \alg{K}<losing-castling-tag><stepping>
-| <shaman-capturing-ply>
+| \alg{H}<shaman-stepping>
 | <starchild-resurrecting-ply>
 | <pawn-promotion-ply>
 
@@ -1971,7 +1969,8 @@ teleporting piece (Star) is introduced.
     [<capturing-side-effect>]
     (<promoting-side-effect>
      | <delayed-promotion-side-effect>)
-| <shaman-terminating-ply>
+| \alg{H}<shaman-stepping>
+    [<capturing-side-effect>]
 
 <terminal-ply> =
   <capturing-piece><stepping>
