@@ -1382,24 +1382,41 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_22_serpent_cannot_diverge(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_22_serpent_cannot_diverge', bt)
+        scene = Scene( 'scn_cot_22_serpent_cannot_diverge', bt, height=5.3 )
 
-        start_S = (3, 7)
+        start_S = (4, 1)
         scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        start_H = (5, 3)
+        start_H = (7, 2)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         adr = GS.adder( start_S, include_prev=True )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(-1, 1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
         scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
         scene.append_arrow( *adr(1, 1), mark_type=MarkType.Legal )
         scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
-        scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Legal )
-        scene.append_arrow( *adr(1, -1), mark_type=MarkType.Legal )
         scene.append_arrow( *adr(-1, -1), mark_type=MarkType.Illegal )
-        # scene.append_arrow( *adr(1, -1, do_advance=False), mark_type=MarkType.Illegal )
         scene.append_arrow( *adr(1, -1), mark_type=MarkType.Blocked )
         scene.append_arrow( *adr(1, 1), mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
+    # King cannot diverge
+
+    def scn_cot_23_king_cannot_diverge(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene( 'scn_cot_23_king_cannot_diverge', bt, height=4, width=9 )
+
+        start_K = (4, 1)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_H = (5, 2)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        scene.append_arrow( *( start_K + start_H ), mark_type=MarkType.Illegal )
 
         return scene
 

@@ -34,5 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_hd_05_centaur_multi_step', \
+                    'scn_cot_22_serpent_cannot_diverge', \
+                    'scn_cot_23_king_cannot_diverge', \
                 ]
