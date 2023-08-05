@@ -1951,18 +1951,18 @@ teleporting piece (Star) is introduced.
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effect>
 
-<starchild-resurrecting-ply> =
-  \alg{I}<stepping-no-side-effects>
-    <resurrecting-side-effect>
-
 <starting-ply> =
   <active-piece><stepping>
 | <disposable-piece-losing-tag><stepping>
 | \alg{K}<losing-castling-tag><stepping>
 | \alg{H}<shaman-stepping>
-| <starchild-resurrecting-ply>
 | <pawn-promotion-ply>
+
+<cascading-plies> =
+  \{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}
 \end{alltt}
+
+% | [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
 
 % <starchild-cascading-plies> =
 %   \alg{I}<stepping>\{\alg{~I}<stepping>\} % sense-journey
@@ -1970,6 +1970,11 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
+<starchild-resurrecting-ply> =
+  \alg{I}<stepping-no-side-effects>
+    <resurrecting-side-effect>
+
+| <starchild-resurrecting-ply>
 
 <cascading-ply> = <starting-ply>
                 | <passive-piece><stepping>
@@ -2011,11 +2016,11 @@ teleporting piece (Star) is introduced.
 
 \clearpage % ..........................................................
 
-\begin{alltt}
-<cascading-plies> =
-  \{\alg{~W}<wave-stepping>\}\alg{~}<cascading-ply>
-| [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
+% <cascading-plies> =
+%   \{\alg{~W}<wave-stepping>\}\alg{~}<cascading-ply>
+% | [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
 
+\begin{alltt}
 <cascade-start> =
   <starting-ply>[\{<cascading-plies>\}]
 

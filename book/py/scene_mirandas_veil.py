@@ -1490,6 +1490,55 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Activated by Pyramid
+
+    def scn_mv_35_activated_by_pyramid(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_35_activated_by_pyramid', bt)
+
+        start_B = (14, 14)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_A_1 = (2, 2)
+        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+
+        start_W = (7, 2)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A_2 = (7, 5)
+        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+
+        #
+        # B --> A(1)
+        gen_1 = GS.gen_steps( [(-1, -1), ], start_B, include_prev=True, count=12 )
+        for index, coords in enumerate( gen_1() ):
+            mark_type = MarkType.Action if index >= 11 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        #
+        # A(1) --> W
+        gen_2 = GS.gen_steps( [(1, 0), ], start_A_1, include_prev=True, count=5 )
+        for index, coords in enumerate( gen_2() ):
+            mark_type = MarkType.Action if index >= 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        #
+        # W -- > A(2)
+        gen_3 = GS.gen_steps( [(0, 1), ], start_W, include_prev=True, count=3 )
+        for index, coords in enumerate( gen_3() ):
+            mark_type = MarkType.Action if index >= 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+
+        scene.append_text( "1", *start_A_1, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "2", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+        return scene
+
+    #
     # Reactivating pieces
 
     def scn_mv_35_reactivating_piece_init(self, bt=BoardType.MirandasVeil):
