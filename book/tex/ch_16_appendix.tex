@@ -1960,12 +1960,11 @@ teleporting piece (Star) is introduced.
 
 <cascading-plies> =
   \{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}
+
+<step-fields-cascading-plies> =
+  \{(\alg{I}<stepping-no-side-effects>
+    | \alg{~W}<wave-stepping>)\}
 \end{alltt}
-
-% | [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
-
-% <starchild-cascading-plies> =
-%   \alg{I}<stepping>\{\alg{~I}<stepping>\} % sense-journey
 
 \clearpage % ..........................................................
 
@@ -1980,7 +1979,7 @@ teleporting piece (Star) is introduced.
                 | <passive-piece><stepping>
 \end{alltt}
 
-% | <starchild-cascading-plies> % sense-journey
+% | <step-fields-cascading-plies> % sense-journey
 
 \clearpage % ..........................................................
 
@@ -2060,8 +2059,10 @@ teleporting piece (Star) is introduced.
   \alg{H}<stepping>\{\alg{~W}<wave-stepping>\}
 
 <starchild-trance-journey-cascade> =
-  \alg{H}<stepping>\{\alg{~W}<wave-stepping>\}\alg{~I}<stepping>
-| \alg{I}<stepping>\{\alg{~I}<stepping>\}
+  \alg{H}<stepping>
+    \alg{~I}<stepping-no-side-effects>
+| \alg{I}<stepping-no-side-effects>
+    \{\alg{~I}<stepping-no-side-effects>\}
 
 <trance-journey-start> =
   [<disambiguation>][\alg{,}<field>]
@@ -2087,6 +2088,11 @@ teleporting piece (Star) is introduced.
     \alg{@@@}[<disposable-piece-losing-tag>]
 \end{alltt}
 
+% <step-fields-cascading-plies> =
+%   \alg{I}<stepping-no-side-effects>
+%   \{\alg{~I}<stepping-no-side-effects>\}
+% --> sense-journey
+
 \clearpage % ..........................................................
 
 \begin{alltt}
@@ -2104,7 +2110,8 @@ teleporting piece (Star) is introduced.
 | \alg{S}<stepping>[<pawn-sacrifice-end>]
 
 <move-star> =
-  \alg{I}<stepping>[<resurrecting-side-effect>]
+  \alg{I}<stepping-no-side-effects>
+    [<resurrecting-side-effect>]
     \alg{~}\alg{T}<stepping-no-side-effects>
 
 <move-cascading> =
