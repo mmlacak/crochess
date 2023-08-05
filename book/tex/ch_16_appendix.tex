@@ -719,18 +719,22 @@ be written as \alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
 \addcontentsline{toc}{subsection}{Combining side-effects}
 \label{sec:Appendix/Notation/Combining side-effects}
 
-It's possible to have two side-effects accompanying the same step, those are noted
-in the order of appearance; so, e.g. capture is writen before promotion. \newline
+It's possible to have two side-effects accompanying the same step, those can be
+writen in any order, but are usually noted in the order of appearance; so, e.g.
+capture would be writen before promotion, that is action before status. \newline
 \indent
-As an example, light Pawn on a second to last rank could capture dark Rook, and then
-promote after the same step. In One variant, this could be writen as \alg{e26*R=Q}
-or, in \algfmt{XAN} it would be \alg{Pd25-e26*R=Q}.
+As an example, light Pawn on a second to last rank could capture dark Rook, and
+then promote after the same step. In One variant, if light Pawn and dark Rook
+occupy \alg{d} and \alg{e} files, respectively, this could be writen as
+\alg{e26*R=Q} or, in \algfmt{XAN} it would be \alg{Pd25-e26*R=Q}. Equally valid
+notation would be in reverse order, i.e. \alg{e26=Q*R}, and in \algfmt{XAN} it
+would be \alg{Pd25-e26=Q*R}.
 
 Care should be taken when omitting optional parts of notation. For instance,
 notation for capturing is optional, but it's also possible to omit just captured
-piece. Notation for immediate promotion is mandatory, but symbol is not. This gives
-us possibility to write previous move as \alg{e26*Q}, which would be interpreted
-very differently.
+piece. Notation for immediate promotion is mandatory, but symbol is not. This
+gives us possibility to write previous move as \alg{e26*Q}, which would be
+interpreted very differently.
 
 \subsection*{Default pathing}
 \addcontentsline{toc}{subsection}{Default pathing}
@@ -1930,6 +1934,11 @@ teleporting piece (Star) is introduced.
 \begin{alltt}
 <pawn-promotion-ply> =
   <pawn><losing-promotion-tag><stepping>
+  (<promoting-side-effect>
+   | <delayed-promotion-side-effect>)
+
+<capturing-pawn-promotion-ply> =
+  <pawn><losing-promotion-tag><stepping>
   [<capturing-side-effect>]
   (<promoting-side-effect>
    | <delayed-promotion-side-effect>)
@@ -1945,6 +1954,14 @@ teleporting piece (Star) is introduced.
 <starchild-resurrecting-ply> =
   \alg{I}<stepping-no-side-effects>
     <resurrecting-side-effect>
+
+<starting-ply> =
+  <active-piece><stepping>
+| <disposable-piece-losing-tag><stepping>
+| \alg{K}<losing-castling-tag><stepping>
+| \alg{H}<shaman-stepping>
+| <starchild-resurrecting-ply>
+| <pawn-promotion-ply>
 \end{alltt}
 
 % <starchild-cascading-plies> =
@@ -1953,13 +1970,6 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
-<starting-ply> =
-  <active-piece><stepping>
-*** | <disposable-piece-losing-tag><stepping>
-*** | \alg{K}<losing-castling-tag><stepping>
-| \alg{H}<shaman-stepping>
-| <starchild-resurrecting-ply>
-| <pawn-promotion-ply>
 
 <cascading-ply> = <starting-ply>
                 | <passive-piece><stepping>
@@ -1986,12 +1996,9 @@ teleporting piece (Star) is introduced.
     [<capturing-side-effect>]
 | <private-losing-tag><stepping>
     [<en-passant-side-effect>]
-| <losing-promotion-tag><stepping>
-    [<capturing-side-effect>]
-    (<promoting-side-effect>
-     | <delayed-promotion-side-effect>)
 | \alg{H}<shaman-stepping>
     [<capturing-side-effect>]
+| <capturing-pawn-promotion-ply>
 
 <terminal-ply> =
   <capturing-piece><stepping>
