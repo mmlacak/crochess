@@ -1837,21 +1837,21 @@ teleporting piece (Star) is introduced.
   <losing-rushing-tag>
 | <losing-promotion-tag>
 
-<active-figure-losing-tag> =
-  <active-figure>
+<capturing-active-figure-losing-tag> =
+  <capturing-active-figure>
 | \alg{R}<losing-castling-tag>
 | <trooper><losing-rushing-tag>
 
 <disposable-figure-losing-tag> =
   <disposable-figure>
-| <active-figure-losing-tag>
+| <capturing-active-figure-losing-tag>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<active-piece-losing-tag> =
-  <active-figure-losing-tag>
+<capturing-active-piece-losing-tag> =
+  <capturing-active-figure-losing-tag>
 | <pawn><losing-pawn-tag>
 
 <disposable-piece-losing-tag> =
@@ -1972,39 +1972,45 @@ teleporting piece (Star) is introduced.
 
 \begin{alltt}
 <starting-ply> =
-  <active-piece-losing-tag><stepping>
+  <capturing-active-piece-losing-tag>
+    <stepping>
+| \alg{S}<serpent-stepping>
 | \alg{H}<shaman-stepping>
 | <pawn-promotion-ply>
 | \alg{I}<stepping-no-side-effects>
-  [<resurrecting-side-effect>]
+    [<resurrecting-side-effect>]
 
 <terminal-ply> =
-  <capturing-active-piece><stepping>
-    [<capturing-side-effect>]
+  <capturing-active-piece-losing-tag>
+    <stepping>[<capturing-side-effect>]
 | <private-losing-tag><stepping>
     [<en-passant-side-effect>]
+| \alg{S}<serpent-stepping>
+    [<capturing-side-effect>]
 | \alg{H}<shaman-stepping>
     [<capturing-side-effect>]
 | <capturing-pawn-promotion-ply>
 
 <terminating-ply> =
   <terminal-ply>
-| <disposable-piece-losing-tag><stepping>
-    [<capturing-side-effect>]
 | <capturing-piece><stepping>
     [<capturing-side-effect>]
-| [\{\alg{A}<stepping>\alg{~}\}]<pyramid-promoting-ply>
-| [\{\alg{A}<stepping>\alg{~}\}]<pyramid-converting-ply>
-
-<cascading-plies> =
-  \{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}
+| <disposable-piece-losing-tag><stepping>
+| <pyramid-promoting-ply>
+| <pyramid-converting-ply>
 
 <cascaded-ply> = <starting-ply>
                | <passive-piece><stepping>
 
-<cascade-start> =
-  <starting-ply>[<cascading-plies>]
+<cascading-plies> =
+  \{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}
 \end{alltt}
+
+% | [\{\alg{A}<stepping>\alg{~}\}]<pyramid-promoting-ply>
+% | [\{\alg{A}<stepping>\alg{~}\}]<pyramid-converting-ply>
+
+% | <capturing-piece><stepping>
+%     [<capturing-side-effect>]
 
 % <step-fields-cascading-plies> =
 %   \{(\alg{I}<stepping-no-side-effects>
@@ -2019,11 +2025,14 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
+<cascade-start> =
+  <starting-ply>[<cascading-plies>]
+
 <cascade> =
   <terminal-ply>
 | <cascade-start>[\alg{~}<terminating-ply>]
 | \alg{K}<losing-castling-tag><stepping>
-  [\alg{~}<terminating-ply>]
+    [\alg{~}<terminating-ply>]
 \end{alltt}
 
 \clearpage % ..........................................................
