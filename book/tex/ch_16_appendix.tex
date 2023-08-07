@@ -1626,10 +1626,9 @@ an option to activate own Pyramid.
 \algfmt{[ ]}                & optional item(s)                          \\
 \algfmt{( )}                & grouping item(s), scope                   \\
 \algfmt{\{ \}}              & repeating item(s), one or more times      \\
-% \algfmt{/ )}   & grouping item(s), enveloped in scope      \\
 % \algfmt{\#number}           & numbered reference                        \\
 \algfmti{\$}                & line comment                              \\
-\algfmt{?}                  & empty value                               \\
+% \algfmt{?}                  & empty value                               \\
 \alg{\_}                    & space                                     \\
 \alg{value}                 & verbatim \algfmt{AN} value                \\
 \algcty{value}              & compatibility value, for \algfmt{CAN}     \\
@@ -1643,14 +1642,13 @@ Here, notational grammar is described in more formal, concise way. Annotations
 are not covered, as they are short-hand for non-standardized commentary.
 
 Verbatim values (e.g. \alg{x}) are as they appear in \algfmt{AN}, compatibility
-values (e.g. \algcty{x}) are used exclusively for \algfmt{CAN}. Empty value
-\algfmt{?} is used to denote Pawn (when its piece symbol is omitted from notation),
-when there is no special side-effect to a ply, and when there is no special move
-status.
+values (e.g. \algcty{x}) are used exclusively for \algfmt{CAN}. Empty value is
+represented just with an empty group, i.e. \algfmt{()}; it's used to denote when
+there is no special move status, like check, or checkmate.
 
 Value separator \algfmt{|} is used to present choice between 2 values, e.g.
-\algfmt{?} \algfmt{|} \alg{P}. Choices can be chained, as in
-\algfmt{?} \algfmt{|} \alg{+} \algfmt{|} \alg{\#}.
+\alg{a} \algfmt{|} \alg{b}. Choices can be chained, as in
+\alg{a} \algfmt{|} \alg{b} \algfmt{|} \alg{c}.
 
 Optional items are enclosed in \algfmt{[ ]} for items to appear or not. Items are
 grouped by enclosing them in \algfmt{( )}, which envelops them into a scope.
@@ -1788,16 +1786,20 @@ teleporting piece (Star) is introduced.
 <new-active-figure> = \alg{E} | \alg{U} | \alg{C} | \alg{S} | \alg{H}
                     | <trooper>
 
+<capturing-active-figure> =
+  <classic-figure> | <new-active-figure>
+
 <capturing-active-piece> =
-  <pawn>
-| <classic-figure>
-| <new-active-figure>
+  <pawn> | <capturing-active-figure>
 
-<active-piece> = <capturing-active-piece>
-               | \alg{I}
+<active-figure> =
+  \alg{I} | <capturing-active-figure>
 
-<capturing-piece> = <capturing-active-piece>
-                  | \alg{A}
+<active-piece> =
+  <pawn> | <active-figure>
+
+<capturing-piece> =
+  \alg{A} | <capturing-active-piece>
 
 <disposable-figure> =
 <promote-to-figure> = <classic-figure>
@@ -1805,16 +1807,16 @@ teleporting piece (Star) is introduced.
                     | <passive-figure>
                     | \alg{I}
 
-<disposable-piece> = <pawn>
-                   | <disposable-figure>
-
-<piece-transparent-to-wave> =
-  <disposable-piece> | \alg{K} | \alg{T}
+<disposable-piece> =
+  <pawn> | <disposable-figure>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<piece-transparent-to-wave> =
+  <disposable-piece> | \alg{K} | \alg{T}
+
 <file> = \alg{a} | \alg{b} | \alg{c} | \alg{d} | \alg{e} | \alg{f} | \alg{g} | \alg{h}
 | \alg{i} | \alg{j} | \alg{k} | \alg{l} | \alg{m} | \alg{n} | \alg{o} | \alg{p} | \alg{q}
 | \alg{r} | \alg{s} | \alg{t} | \alg{u} | \alg{v} | \alg{w} | \alg{x} | \alg{y} | \alg{z}
@@ -1835,10 +1837,22 @@ teleporting piece (Star) is introduced.
   <losing-rushing-tag>
 | <losing-promotion-tag>
 
-<disposable-figure-losing-tag> =
-  <disposable-figure>
+<active-figure-losing-tag> =
+  <active-figure>
 | \alg{R}<losing-castling-tag>
 | <trooper><losing-rushing-tag>
+
+<disposable-figure-losing-tag> =
+  <disposable-figure>
+| <active-figure-losing-tag>
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+<active-piece-losing-tag> =
+  <active-figure-losing-tag>
+| <pawn><losing-pawn-tag>
 
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
@@ -1849,11 +1863,7 @@ teleporting piece (Star) is introduced.
 
 <en-passant-side-effect> =
   [\alg{:}[[<private>](<rank> | <field>)]]
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <castling-side-effect> =
   [\alg{&}[[\alg{R}](<file> | <field>)]]
 
@@ -1874,7 +1884,11 @@ teleporting piece (Star) is introduced.
 
 <transparency-side-effect> = [\alg{\^{}}[\alg{W}]]
 <divergence-side-effect> = [\alg{/}[\alg{H}|\alg{I}]]
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <wave-transparency-side-effect> =
   [\alg{\^{}}[<piece-transparent-to-wave>]]
 
@@ -1888,11 +1902,7 @@ teleporting piece (Star) is introduced.
   \alg{$}[\alg{$}]<disposable-piece>
 | \alg{$}[\alg{$}](\alg{W}|\alg{I})<field>
 | [\alg{$$$}]
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <stepping-no-side-effects> =
   [<disambiguation>]<field>
 | [<disambiguation>]\{<step>\}[\alg{-}<field>]
@@ -1911,7 +1921,11 @@ teleporting piece (Star) is introduced.
   \{<step>[<wave-transparency-side-effect>
           | <divergence-side-effect>]\}
   (<step> | \alg{-}<field>)
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <serpent-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
@@ -1927,11 +1941,7 @@ teleporting piece (Star) is introduced.
           | <divergence-side-effect>
           | <capturing-side-effect>]\}
   (<step> | \alg{-}<field>)
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <pawn-promotion-ply> =
   <pawn><losing-promotion-tag><stepping>
   (<promoting-side-effect>
@@ -1950,53 +1960,26 @@ teleporting piece (Star) is introduced.
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effect>
+\end{alltt}
 
+% <starchild-resurrecting-ply> =
+%   \alg{I}<stepping-no-side-effects>
+%     <resurrecting-side-effect>
+
+% | <starchild-resurrecting-ply>
+
+\clearpage % ..........................................................
+
+\begin{alltt}
 <starting-ply> =
-  <active-piece><stepping>
-| <disposable-piece-losing-tag><stepping>
-| \alg{K}<losing-castling-tag><stepping>
+  <active-piece-losing-tag><stepping>
 | \alg{H}<shaman-stepping>
 | <pawn-promotion-ply>
+| \alg{I}<stepping-no-side-effects>
+  [<resurrecting-side-effect>]
 
-<cascading-plies> =
-  \{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}
-
-<step-fields-cascading-plies> =
-  \{(\alg{I}<stepping-no-side-effects>
-    | \alg{~W}<wave-stepping>)\}
-\end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-<starchild-resurrecting-ply> =
-  \alg{I}<stepping-no-side-effects>
-    <resurrecting-side-effect>
-
-| <starchild-resurrecting-ply>
-
-<cascading-ply> = <starting-ply>
-                | <passive-piece><stepping>
-\end{alltt}
-
-% | <step-fields-cascading-plies> % sense-journey
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-\end{alltt}
-
-\TODO :: check trance-journey
-
-\TODO :: sense-journey
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-<terminating-ply> =
+<terminal-ply> =
   <capturing-active-piece><stepping>
-    [<capturing-side-effect>]
-| <disposable-piece-losing-tag><stepping>
     [<capturing-side-effect>]
 | <private-losing-tag><stepping>
     [<en-passant-side-effect>]
@@ -2004,37 +1987,61 @@ teleporting piece (Star) is introduced.
     [<capturing-side-effect>]
 | <capturing-pawn-promotion-ply>
 
-<terminal-ply> =
-  <capturing-piece><stepping>
+<terminating-ply> =
+  <terminal-ply>
+| <disposable-piece-losing-tag><stepping>
+    [<capturing-side-effect>]
+| <capturing-piece><stepping>
     [<capturing-side-effect>]
 | [\{\alg{A}<stepping>\alg{~}\}]<pyramid-promoting-ply>
 | [\{\alg{A}<stepping>\alg{~}\}]<pyramid-converting-ply>
-| <terminating-ply>
 
+<cascading-plies> =
+  \{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}
+
+<cascaded-ply> = <starting-ply>
+               | <passive-piece><stepping>
+
+<cascade-start> =
+  <starting-ply>[<cascading-plies>]
+\end{alltt}
+
+% <step-fields-cascading-plies> =
+%   \{(\alg{I}<stepping-no-side-effects>
+%     | \alg{~W}<wave-stepping>)\}
+
+% | <step-fields-cascading-plies> % sense-journey
+
+% <cascading-plies> =
+%   \{\alg{~W}<wave-stepping>\}\alg{~}<cascaded-ply>
+% | [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+<cascade> =
+  <terminal-ply>
+| <cascade-start>[\alg{~}<terminating-ply>]
+| \alg{K}<losing-castling-tag><stepping>
+  [\alg{~}<terminating-ply>]
 \end{alltt}
 
 \clearpage % ..........................................................
 
-% <cascading-plies> =
-%   \{\alg{~W}<wave-stepping>\}\alg{~}<cascading-ply>
-% | [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
+\TODO :: *** check ***
+
+% \begin{alltt}
+% \end{alltt}
 
 \begin{alltt}
-<cascade-start> =
-  <starting-ply>[\{<cascading-plies>\}]
-
-<cascade> =
-  <terminating-ply>
-| <cascade-start>[\alg{~}<terminal-ply>]
-
 <cascading-start> = \{<cascading-plies>\}
 
 <cascading> =
-  \{<cascading-plies>\}[\alg{~}<terminal-ply>]
-| [\{<cascading-plies>\}\alg{~}]<terminal-ply>
+  \{<cascading-plies>\}[\alg{~}<terminating-ply>]
+| [\{<cascading-plies>\}\alg{~}]<terminating-ply>
 
 <wave-cascading-plies> =
-  [\{\alg{~W}<wave-stepping>\}]\alg{~}<cascading-ply>
+  [\{\alg{~W}<wave-stepping>\}]\alg{~}<cascaded-ply>
 | [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
 
 <wave-cascading-start> =
@@ -2043,7 +2050,7 @@ teleporting piece (Star) is introduced.
 
 <wave-cascade> =
   \alg{~}<cascade>
-| <wave-cascading-start>[\alg{~}<terminal-ply>]
+| <wave-cascading-start>[\alg{~}<terminating-ply>]
 
 <teleportation> =
   \alg{|}<field>
@@ -2092,6 +2099,10 @@ teleporting piece (Star) is introduced.
 %   \alg{I}<stepping-no-side-effects>
 %   \{\alg{~I}<stepping-no-side-effects>\}
 % --> sense-journey
+
+\TODO :: check trance-journey
+
+\TODO :: sense-journey
 
 \clearpage % ..........................................................
 
@@ -2142,7 +2153,7 @@ teleporting piece (Star) is introduced.
     [<pawn-sacrifice-captures>]
 | [<cascade-start>\alg{~}]<move-star>
 
-<status> = ?
+<status> = ()
          | [\alg{+}]
          | [\alg{+}]\alg{(=)}
          | [\alg{+}]\alg{(-)}
