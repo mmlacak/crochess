@@ -129,62 +129,6 @@ class SceneOneMixin:
         return scene
 
     #
-    # Activating Starchild
-
-    def scn_o_04_activating_starchild(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_04_activating_starchild', bt)
-
-        start_Q = (22, 8)
-        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
-
-        start_W_A = (17, 3)
-        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
-
-        start_I = (8, 3)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-
-        start_W_B = (23, 21)
-        scene.board.set_piece(*start_W_B, piece=PieceType.Wave)
-
-        start_w = (2, 17)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_n = (7, 9)
-        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
-
-        start_P = (21, 2)
-        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
-
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal )
-
-        # Q --> W(A)
-        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(-1, -1), ], include_prev=True, count=5 )
-        for i, arrow in enumerate( coords_Q_WA() ):
-            mark_type = MarkType.Action if i == 4 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # W(A) --> I
-        coords_Q_WA = GS.gen_steps( start=start_W_A, rels=[(-1, 0), ], include_prev=True, count=9 )
-        for i, arrow in enumerate( coords_Q_WA() ):
-            mark_type = MarkType.Action if i == 8 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # I --> W(B)
-        scene.append_arrow( *(start_I + start_W_B), mark_type=MarkType.Legal )
-
-        # W(B) --> w
-        scene.append_arrow( *(start_W_B + start_w), mark_type=MarkType.Legal )
-
-        # w --># n
-        scene.append_arrow( *(start_w + start_n), mark_type=MarkType.Illegal )
-
-        return scene
-
-    #
     # Miracle-fields
 
     def scn_o_05_miracle_fields(self, bt=BoardType.One):
@@ -544,11 +488,210 @@ class SceneOneMixin:
         return scene
 
     #
+    # Divergence
+
+    def scn_o_16_starchild_divergence_init(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_16_starchild_divergence_init', bt, height=9.3)
+
+        start_Q = (14, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_w = (12, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_I = (10, 5)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_e = (12, 7)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+
+        start_p = (7, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> w --> W
+        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_w_W() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Illegal if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_o_17_starchild_divergence_end(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_17_starchild_divergence_end', bt, height=10.3)
+
+        start_Q = (14, 1)
+        # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_w = (12, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_I = (10, 5)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_e = (12, 7)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+
+        start_p = (7, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # <-- Q --> @ W
+
+        for rel in GS.DEFAULT_KING_REL_MOVES:
+            coords_W__Q = GS.gen_steps( start=start_I, rels=[ rel, ], include_prev=True, bounds=scene.board.get_position_limits() ) # scene.board_view # deliberately
+
+            for i, arrow in enumerate( coords_W__Q() ):
+                if rel == (-1, -1):
+                    mark_type = MarkType.Action if i == 2 else \
+                                MarkType.Legal if i < 2 else \
+                                MarkType.Blocked
+                elif rel == (1, 1):
+                    mark_type = MarkType.Action if i == 1 else \
+                                MarkType.Legal if i < 1 else \
+                                MarkType.Blocked
+                elif rel == (1, -1):
+                    mark_type = MarkType.Illegal if i == 3 else \
+                                MarkType.Legal if i < 3 else \
+                                MarkType.Blocked
+                else:
+                    mark_type = MarkType.Legal if i < 4 else \
+                                MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_o_18_starchild_is_not_transparent(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_18_starchild_is_not_transparent', bt, height=9.3)
+
+        start_Q = (14, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_i = (12, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
+
+        start_I = (10, 5)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_e = (12, 7)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+
+        start_p = (7, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> w --> W
+        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_w_W() ):
+            mark_type = MarkType.Illegal if i == 1 else \
+                        MarkType.Legal if i < 1 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_o_19_starchild_cannot_diverge(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_19_starchild_cannot_diverge', bt, height=9.3)
+
+        # step-field
+
+        start_I_A = (10, 5)
+        scene.board.set_piece( *start_I_A, piece=PieceType.Starchild )
+
+        start_H_1 = (3, 7)
+        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
+
+        scene.append_arrow( *( start_I_A + start_H_1 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_I_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        # miracle-field
+
+        start_I_B = (18, 4)
+        scene.board.set_piece( *start_I_B, piece=PieceType.Starchild )
+
+        start_H_2 = (17, 3)
+        scene.board.set_piece( *start_H_2, piece=PieceType.Shaman )
+
+        scene.append_arrow( *( start_I_B + start_H_2 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "B", *start_I_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    #
+    # Activating Starchild
+
+    def scn_o_20_activating_starchild(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_20_activating_starchild', bt)
+
+        start_Q = (22, 8)
+        scene.board.set_piece(*start_Q, piece=PieceType.Queen)
+
+        start_W_A = (17, 3)
+        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
+
+        start_I = (8, 3)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        start_W_B = (23, 21)
+        scene.board.set_piece(*start_W_B, piece=PieceType.Wave)
+
+        start_w = (2, 17)
+        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
+
+        start_n = (7, 9)
+        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
+
+        start_P = (21, 2)
+        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
+
+        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal )
+
+        # Q --> W(A)
+        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(-1, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_Q_WA() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> I
+        coords_Q_WA = GS.gen_steps( start=start_W_A, rels=[(-1, 0), ], include_prev=True, count=9 )
+        for i, arrow in enumerate( coords_Q_WA() ):
+            mark_type = MarkType.Action if i == 8 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # I --> W(B)
+        scene.append_arrow( *(start_I + start_W_B), mark_type=MarkType.Legal )
+
+        # W(B) --> w
+        scene.append_arrow( *(start_W_B + start_w), mark_type=MarkType.Legal )
+
+        # w --># n
+        scene.append_arrow( *(start_w + start_n), mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
     # Activating Wave
 
-    def scn_o_16_starchild_activating_wave_on_miracle_fields(self, bt=BoardType.One):
+    def scn_o_30_starchild_activating_wave_on_miracle_fields(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_16_starchild_activating_wave_on_miracle_fields', bt, width=5, height=5)
+        scene = Scene('scn_o_30_starchild_activating_wave_on_miracle_fields', bt, width=5, height=5)
 
         start_I = (2, 2)
         start_W = (1, 1)
@@ -584,9 +727,9 @@ class SceneOneMixin:
     #
     # Wave cannot move a Star
 
-    def scn_o_17_starchild_activated_wave_not_moving_a_star(self, bt=BoardType.One):
+    def scn_o_31_starchild_activated_wave_not_moving_a_star(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_17_starchild_activated_wave_not_moving_a_star', bt, width=5, height=5)
+        scene = Scene('scn_o_31_starchild_activated_wave_not_moving_a_star', bt, width=5, height=5)
 
         start_I = (1, 2)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -622,9 +765,9 @@ class SceneOneMixin:
     #
     # Wave cannot teleport
 
-    def scn_o_18_starchild_activated_wave_not_teleporting_init(self, bt=BoardType.One):
+    def scn_o_32_starchild_activated_wave_not_teleporting_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_18_starchild_activated_wave_not_teleporting_init', bt, width=8, height=8)
+        scene = Scene('scn_o_32_starchild_activated_wave_not_teleporting_init', bt, width=8, height=8)
 
         start_I = (5, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -651,9 +794,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_19_starchild_activated_wave_not_teleporting_end(self, bt=BoardType.One):
+    def scn_o_33_starchild_activated_wave_not_teleporting_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_19_starchild_activated_wave_not_teleporting_end', bt, width=8, height=8)
+        scene = Scene('scn_o_33_starchild_activated_wave_not_teleporting_end', bt, width=8, height=8)
 
         start_I = (3, 6)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -674,9 +817,9 @@ class SceneOneMixin:
     #
     # Teleporting Wave
 
-    def scn_o_20_star_moved_wave_teleportation(self, bt=BoardType.One):
+    def scn_o_34_star_moved_wave_teleportation(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_20_star_moved_wave_teleportation', bt)
+        scene = Scene('scn_o_34_star_moved_wave_teleportation', bt)
 
         start_W = (17, 9) # (11, 9)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -706,9 +849,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_21_star_moved_wave_off_board(self, bt=BoardType.One):
+    def scn_o_35_star_moved_wave_off_board(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_21_star_moved_wave_off_board', bt, x=-4)
+        scene = Scene('scn_o_35_star_moved_wave_off_board', bt, x=-4)
 
         start_W = (11, 9)
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
@@ -742,9 +885,9 @@ class SceneOneMixin:
     #
     # Steps after teleportation
 
-    def scn_o_22_steps_after_teleport(self, bt=BoardType.One):
+    def scn_o_36_steps_after_teleport(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_22_steps_after_teleport', bt)
+        scene = Scene('scn_o_36_steps_after_teleport', bt)
 
         start_U = (13, 14)
         scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
@@ -783,9 +926,9 @@ class SceneOneMixin:
     #
     # Failed trance-journey
 
-    def scn_o_23_trance_journey_failed(self, bt=BoardType.One):
+    def scn_o_37_trance_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_23_trance_journey_failed', bt)
+        scene = Scene('scn_o_37_trance_journey_failed', bt)
 
         start_H = (24, 1)
         scene.board.set_piece(*start_H, piece=PieceType.Shaman)
@@ -832,9 +975,9 @@ class SceneOneMixin:
     #
     # Sense-journey
 
-    def scn_o_24_uplifting_fields( self, bt=BoardType.One ):
+    def scn_o_40_uplifting_fields( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_24_uplifting_fields', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_40_uplifting_fields', bt, width=5, height=5 )
 
         start_I = (2, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -846,9 +989,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_25_uplifting_init( self, bt=BoardType.One ):
+    def scn_o_41_uplifting_init( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_25_uplifting_init', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_41_uplifting_init', bt, width=9, height=6 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -871,9 +1014,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_26_uplifting_step( self, bt=BoardType.One ):
+    def scn_o_42_uplifting_step( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_26_uplifting_step', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_42_uplifting_step', bt, width=9, height=6 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -892,9 +1035,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_27_uplifting_activated(self, bt=BoardType.One):
+    def scn_o_43_uplifting_activated(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_27_uplifting_activated', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_43_uplifting_activated', bt, width=9, height=6 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -925,9 +1068,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_28_shaman_initiated_uplifting(self, bt=BoardType.One):
+    def scn_o_44_shaman_initiated_uplifting(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_28_shaman_initiated_uplifting', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_44_shaman_initiated_uplifting', bt, width=9, height=6 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -946,9 +1089,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_29_dark_piece_sense_journey(self, bt=BoardType.One):
+    def scn_o_45_dark_piece_sense_journey(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_29_dark_piece_sense_journey', bt )
+        scene = Scene( 'scn_o_45_dark_piece_sense_journey', bt )
 
         start_b = (2, 4)
         end_b = (13, 6)
@@ -1008,9 +1151,9 @@ class SceneOneMixin:
     #
     # Failed sense-journey
 
-    def scn_o_30_sense_journey_failed(self, bt=BoardType.One):
+    def scn_o_46_sense_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_30_sense_journey_failed', bt)
+        scene = Scene('scn_o_46_sense_journey_failed', bt)
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -1064,9 +1207,9 @@ class SceneOneMixin:
     #
     # Syzygy
 
-    def scn_o_31_syzygy_monolith(self, bt=BoardType.One):
+    def scn_o_50_syzygy_monolith(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_31_syzygy_monolith', bt)
+        scene = Scene('scn_o_50_syzygy_monolith', bt)
 
         start_M = (12, 8)
         end_M = (13, 6)
@@ -1099,9 +1242,9 @@ class SceneOneMixin:
     #
     # Resurrection syzygy
 
-    def scn_o_32_syzygy_starchild_init(self, bt=BoardType.One):
+    def scn_o_51_syzygy_starchild_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_32_syzygy_starchild_init', bt)
+        scene = Scene('scn_o_51_syzygy_starchild_init', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1133,9 +1276,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_33_syzygy_starchild_end(self, bt=BoardType.One):
+    def scn_o_52_syzygy_starchild_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_33_syzygy_starchild_end', bt)
+        scene = Scene('scn_o_52_syzygy_starchild_end', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1160,9 +1303,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_34_syzygy_starchild_resurrection(self, bt=BoardType.One):
+    def scn_o_53_syzygy_starchild_resurrection(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_34_syzygy_starchild_resurrection', bt)
+        scene = Scene('scn_o_53_syzygy_starchild_resurrection', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1214,9 +1357,9 @@ class SceneOneMixin:
     #
     # Reentering syzygy
 
-    def scn_o_35_reentering_syzygies(self, bt=BoardType.One):
+    def scn_o_54_reentering_syzygies(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_35_reentering_syzygies', bt)
+        scene = Scene('scn_o_54_reentering_syzygies', bt)
 
         start_M = (9, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1262,9 +1405,9 @@ class SceneOneMixin:
     #
     # Cascading syzygy
 
-    def scn_o_36_syzygy_starchild_cascading(self, bt=BoardType.One):
+    def scn_o_55_syzygy_starchild_cascading(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_36_syzygy_starchild_cascading', bt)
+        scene = Scene('scn_o_55_syzygy_starchild_cascading', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1314,9 +1457,9 @@ class SceneOneMixin:
     #
     # Double syzygy
 
-    def scn_o_38_two_syzygies_shared_celestial_piece(self, bt=BoardType.One):
+    def scn_o_56_two_syzygies_shared_celestial_piece(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_38_two_syzygies_shared_celestial_piece', bt)
+        scene = Scene('scn_o_56_two_syzygies_shared_celestial_piece', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1370,9 +1513,9 @@ class SceneOneMixin:
     #
     # Opponent's Starchild
 
-    def scn_o_41_syzygy_opponents_starchild(self, bt=BoardType.One):
+    def scn_o_57_syzygy_opponents_starchild(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_41_syzygy_opponents_starchild', bt)
+        scene = Scene('scn_o_57_syzygy_opponents_starchild', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1419,9 +1562,9 @@ class SceneOneMixin:
     #
     # Star-initiated syzygy
 
-    def scn_o_42_syzygy_star(self, bt=BoardType.One):
+    def scn_o_58_syzygy_star(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_42_syzygy_star', bt)
+        scene = Scene('scn_o_58_syzygy_star', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1457,158 +1600,14 @@ class SceneOneMixin:
 
         return scene
 
-    #
-    # Divergence
-
-    def scn_o_43_starchild_divergence_init(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_43_starchild_divergence_init', bt, height=9.3)
-
-        start_Q = (14, 1)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
-
-        start_w = (12, 3)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
-
-        start_I = (10, 5)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
-
-        start_e = (12, 7)
-        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
-
-        start_p = (7, 2)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        # Q --> w --> W
-        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_Q_w_W() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Illegal if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        return scene
-
-    def scn_o_44_starchild_divergence_end(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_44_starchild_divergence_end', bt, height=10.3)
-
-        start_Q = (14, 1)
-        # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
-
-        start_w = (12, 3)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
-
-        start_I = (10, 5)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
-
-        start_e = (12, 7)
-        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
-
-        start_p = (7, 2)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        # <-- Q --> @ W
-
-        for rel in GS.DEFAULT_KING_REL_MOVES:
-            coords_W__Q = GS.gen_steps( start=start_I, rels=[ rel, ], include_prev=True, bounds=scene.board.get_position_limits() ) # scene.board_view # deliberately
-
-            for i, arrow in enumerate( coords_W__Q() ):
-                if rel == (-1, -1):
-                    mark_type = MarkType.Action if i == 2 else \
-                                MarkType.Legal if i < 2 else \
-                                MarkType.Blocked
-                elif rel == (1, 1):
-                    mark_type = MarkType.Action if i == 1 else \
-                                MarkType.Legal if i < 1 else \
-                                MarkType.Blocked
-                elif rel == (1, -1):
-                    mark_type = MarkType.Illegal if i == 3 else \
-                                MarkType.Legal if i < 3 else \
-                                MarkType.Blocked
-                else:
-                    mark_type = MarkType.Legal if i < 4 else \
-                                MarkType.Blocked
-                scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
-
-        return scene
-
-    def scn_o_45_starchild_is_not_transparent(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_45_starchild_is_not_transparent', bt, height=9.3)
-
-        start_Q = (14, 1)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
-
-        start_i = (12, 3)
-        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
-
-        start_I = (10, 5)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
-
-        start_e = (12, 7)
-        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
-
-        start_p = (7, 2)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        # Q --> w --> W
-        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_Q_w_W() ):
-            mark_type = MarkType.Illegal if i == 1 else \
-                        MarkType.Legal if i < 1 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        return scene
-
-    def scn_o_46_starchild_cannot_diverge(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_46_starchild_cannot_diverge', bt, height=9.3)
-
-        # step-field
-
-        start_I_A = (10, 5)
-        scene.board.set_piece( *start_I_A, piece=PieceType.Starchild )
-
-        start_H_1 = (3, 7)
-        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
-
-        scene.append_arrow( *( start_I_A + start_H_1 ), mark_type=MarkType.Illegal )
-
-        scene.append_text( "A", *start_I_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        # miracle-field
-
-        start_I_B = (18, 4)
-        scene.board.set_piece( *start_I_B, piece=PieceType.Starchild )
-
-        start_H_2 = (17, 3)
-        scene.board.set_piece( *start_H_2, piece=PieceType.Shaman )
-
-        scene.append_arrow( *( start_I_B + start_H_2 ), mark_type=MarkType.Illegal )
-
-        scene.append_text( "B", *start_I_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        return scene
-
-
 
 
     #
     # test methods
 
-    def test_o_47_stop_sign_pattern_full(self, bt=BoardType.One):
+    def test_o_99_stop_sign_pattern_full(self, bt=BoardType.One):
 
-        scene = Scene('test_o_47_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
+        scene = Scene('test_o_99_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
 
         start = (12, 12) # (11, 11)
 
@@ -1664,7 +1663,7 @@ def test_big_pattern():
     scene = SceneMix()
     ss = SaveScene( RenderingSizeEnum.Draft )
     ss.render_example( scene,
-                       scene.test_o_47_stop_sign_pattern_full,
+                       scene.test_o_99_stop_sign_pattern_full,
                        board_types=[ BoardType.One, ],
                        path_prefix='temp/')
                        # , enforce_cot_in_bw=True)
