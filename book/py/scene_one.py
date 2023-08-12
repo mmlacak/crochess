@@ -635,54 +635,40 @@ class SceneOneMixin:
 
     def scn_o_20_activating_starchild(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_20_activating_starchild', bt)
+        scene = Scene( 'scn_o_20_activating_starchild', bt, width=9, height=8 )
 
-        start_Q = (22, 8)
+        start_Q = (2, 6)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
 
-        start_W_A = (17, 3)
-        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
+        start_W = (7, 1)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        start_I = (8, 3)
+        start_I = (4, 1)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
-        start_W_B = (23, 21)
-        scene.board.set_piece(*start_W_B, piece=PieceType.Wave)
+        start_R = (1, 4)
+        scene.board.set_piece(*start_R, piece=PieceType.Rook)
 
-        start_w = (2, 17)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_n = (7, 9)
-        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
-
-        start_P = (21, 2)
-        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
-
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal )
-
-        # Q --> W(A)
-        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[(-1, -1), ], include_prev=True, count=5 )
-        for i, arrow in enumerate( coords_Q_WA() ):
+        # Q --> W
+        coords_Q_W = GS.gen_steps( start=start_Q, rels=[(1, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_Q_W() ):
             mark_type = MarkType.Action if i == 4 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(A) --> I
-        coords_Q_WA = GS.gen_steps( start=start_W_A, rels=[(-1, 0), ], include_prev=True, count=9 )
-        for i, arrow in enumerate( coords_Q_WA() ):
-            mark_type = MarkType.Action if i == 8 else \
+        # W --> I
+        coords_W__I = GS.gen_steps( start=start_W, rels=[(-1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_W__I() ):
+            mark_type = MarkType.Illegal if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # I --> W(B)
-        scene.append_arrow( *(start_I + start_W_B), mark_type=MarkType.Legal )
-
-        # W(B) --> w
-        scene.append_arrow( *(start_W_B + start_w), mark_type=MarkType.Legal )
-
-        # w --># n
-        scene.append_arrow( *(start_w + start_n), mark_type=MarkType.Illegal )
+        # W --> I --> R
+        coords_W__I__R = GS.gen_steps( start=start_I, rels=[(-1, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_W__I__R() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 
