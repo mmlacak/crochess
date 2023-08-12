@@ -27,7 +27,7 @@ purple. A new piece is introduced, Starchild.
 \addcontentsline{toc}{section}{Starchild}
 \label{sec:One/Starchild}
 
-\vspace*{-0.6\baselineskip}
+\vspace*{-0.8\baselineskip}
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
@@ -39,11 +39,11 @@ Starchild cannot capture any piece, cannot check or checkmate opponent's King.
 Starchild is celestial piece, it can participate in demoting-to-Pawn syzygy.
 Starchild can be demoted to Pawn.
 
-Starchild cannot be converted. Starchild cannot be activated (except for
-sense-journey), instead it grants one additional momentum to piece that tried
-to activate it. Starchild can activate own Wave and Starchild on step-fields.
-Starchild can activate any own piece (except King), opponent's Starchild and
-any Star on its miracle-fields.
+Starchild cannot be converted. Starchild cannot be activated, except for
+sense-journey. Starchild can diverge pieces similar to Shaman, but it grants
+one additional momentum to any diverging piece. Starchild can activate own
+Wave and Starchild on step-fields. Starchild can activate any own piece
+(except King), opponent's Starchild and any Star on its miracle-fields.
 
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
@@ -58,8 +58,8 @@ opposite color in one step, without interacting with any piece on chessboard.
 Starchild can resurrect any captured piece, except Kings, Stars, Monoliths. Waves
 and Starchilds can be resurrected without resurrecting Starchild being oblationed.
 Starchild can take any own piece, except Kings, Waves, Stars, Starchilds and
-Monoliths, for a sense-journey.
-
+Monoliths, for a sense-journey. \newline
+\indent
 Star colors in this variant are opposite colors of normal pieces.
 
 \clearpage % ..........................................................
@@ -333,12 +333,11 @@ chessboard; conversioning Pyramid is still oblationed.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-When a piece encounters own Starchild, it can change direction of movement, and
-is limited by momentum it had before diversion. Starchild can divert pieces,
-\hyperref[fig:scn_cot_09_own_shaman_is_divergent_init]{just like Shaman can do it}.
-As before, first piece in a move cannot return to its starting position.
+\hyperref[fig:scn_cot_09_own_shaman_is_divergent_init]{Similar to Shaman},
+Starchild is divergent, and also grants one additional momentum to any diverging
+piece. As before, first piece in a move cannot return to its starting position.
 
-% \vspace*{-1.1\baselineskip}
+\vspace*{-0.7\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_17_starchild_divergence_end.png}
@@ -349,8 +348,9 @@ As before, first piece in a move cannot return to its starting position.
 
 \vspace*{-0.4\baselineskip}
 Here, light Queen (now "in the air") has reached own Starchild, and can choose any
-shown direction as a new one. Light Queen is limited by 4 momentum, and cannot return
-to its starting position, i.e. field Q.
+shown direction as a new one. Light Queen is limited by 5 momentum, one more than it
+accumulated by stepping torwards Starchild. Light Queen cannot return to its starting
+position, i.e. field Q.
 
 \clearpage % ..........................................................
 
@@ -399,29 +399,21 @@ Starchild cannot diverge, neither from step- (here, left example) nor miracle-fi
 \addcontentsline{toc}{subsubsection}{Activating Starchild}
 \label{sec:One/Starchild/Divergence/Activating Starchild}
 
-% \vspace*{-1.3\baselineskip}
-% \noindent
-% \begin{figure}[!h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_20_activating_starchild.png}
-% \caption{Activating Starchild}
-% \label{fig:scn_o_20_activating_starchild}
-% \end{figure}
-
-% \hyperref[fig:10_wave]{Like Wave}, activated Starchild does not spend received
-% momentum for moving; if Starchild activates a piece, it transfers all of received
-% momentum to it. Wave activated by Starchild on its step-field moves (and acts) as
-% one; so, it can activate only own Starchilds, own and opponent's Waves on its
-% step-fields, and cannot activate any other pieces, neither own nor opponent's.
-
-% \vspace*{-0.9\baselineskip}
+\vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.346153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_20_activating_starchild.png}
 \caption{Activating Starchild}
 \label{fig:scn_o_20_activating_starchild}
 \end{wrapfigure}
-. . .
+Starchild cannot be activated; instead, to-be-activating piece is granted one
+additional momentum, and has to diverge to a different destination. \newline
+\indent
+Here, light Queen activates light Wave with 5 momentum. Light Wave, upon reaching
+light Starchild, is granted one additional momentum, and has to diverge from it.
+After divergence, light Wave can activate light Rook, with 6 momentum, i.e. one
+more than it received from activating Queen.
 
 % ---------------------------------------------------------- Divergence
 \clearpage % ..........................................................

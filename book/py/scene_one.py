@@ -524,7 +524,7 @@ class SceneOneMixin:
 
     def scn_o_17_starchild_divergence_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_17_starchild_divergence_end', bt, height=10.3)
+        scene = Scene('scn_o_17_starchild_divergence_end', bt, height=11.3)
 
         start_Q = (14, 1)
         # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -557,10 +557,10 @@ class SceneOneMixin:
                                 MarkType.Blocked
                 elif rel == (1, -1):
                     mark_type = MarkType.Illegal if i == 3 else \
-                                MarkType.Legal if i < 3 else \
+                                MarkType.Legal if i < 5 else \
                                 MarkType.Blocked
                 else:
-                    mark_type = MarkType.Legal if i < 4 else \
+                    mark_type = MarkType.Legal if i < 5 else \
                                 MarkType.Blocked
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
