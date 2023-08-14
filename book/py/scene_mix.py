@@ -37,6 +37,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_o_17_starchild_divergence_end', \
                     # 'scn_o_18_starchild_cannot_be_activated', \
                     # 'scn_o_19_activating_piece_no_momentum', \
-                    'scn_o_20_diverging_piece_no_momentum', \
-                    # 'scn_o_21_activating_piece_to_diverge', \
+                    # 'scn_o_20_diverging_piece_no_momentum', \
+                    'scn_o_21_activating_piece_surplus_momentum', \
+                    'scn_o_22_diverging_piece_surplus_momentum', \
                 ]

@@ -665,14 +665,14 @@ class SceneOneMixin:
         start_W = prev_N
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
 
-        # start_N = (3, 1)
+        start_N = prev_I
         # scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
         start_I = prev_I
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
         # |<-- K -->|
-        coords_N_ = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_I, include_prev=True, count=1 )
+        coords_N_ = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_N, include_prev=True, count=1 )
         for index, arrow in enumerate( coords_N_() ):
             mark_type = MarkType.Action if index == 7 else \
                         MarkType.Legal
@@ -684,9 +684,9 @@ class SceneOneMixin:
     #
     # Diverging with surplus momentum
 
-    def scn_o_21_activating_piece_to_diverge(self, bt=BoardType.One):
+    def scn_o_21_activating_piece_surplus_momentum(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_21_activating_piece_to_diverge', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_21_activating_piece_surplus_momentum', bt, width=9, height=8 )
 
         start_R = (7, 6)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
@@ -697,7 +697,7 @@ class SceneOneMixin:
         start_N = (3, 1)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        start_I = (1, 2)
+        start_I = (2, 3)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
         # R --> W
@@ -715,6 +715,37 @@ class SceneOneMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         scene.append_arrow( *( start_N + start_I ), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_o_22_diverging_piece_surplus_momentum(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_22_diverging_piece_surplus_momentum', bt, width=9, height=8 )
+
+        prev_R = (7, 6)
+        prev_W = (7, 1)
+        prev_N = (3, 1)
+        prev_I = (2, 3)
+
+        start_R = prev_W
+        scene.board.set_piece(*start_R, piece=PieceType.Rook)
+
+        start_W = prev_N
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_N = prev_I
+        # scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        start_I = prev_I
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        # |<-- K -->|
+        coords_N_ = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_N, include_prev=True, count=1 )
+        for index, arrow in enumerate( coords_N_() ):
+            mark_type = MarkType.Action if index == 6 else \
+                        MarkType.Legal
+            if scene.board.is_on_board( *GS.get_end( arrow ) ):
+                scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 
