@@ -613,9 +613,9 @@ class SceneOneMixin:
     #
     # Diverging with no momentum
 
-    def scn_o_19_diverging_with_no_momentum(self, bt=BoardType.One):
+    def scn_o_19_diverging_activated_piece_no_momentum(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_19_diverging_with_no_momentum', bt, width=9, height=4 )
+        scene = Scene( 'scn_o_19_diverging_activated_piece_no_momentum', bt, width=9, height=4 )
 
         start_R = (7, 2)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
@@ -630,6 +630,40 @@ class SceneOneMixin:
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
 
         scene.append_arrow( *( start_R + start_W ), mark_type=MarkType.Action )
+
+        # W --> N
+        coords_W_N = GS.gen_steps( start=start_W, rels=[(-1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_W_N() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_arrow( *( start_N + start_I ), mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_o_20_activating_piece_to_diverge(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_20_activating_piece_to_diverge', bt, width=9, height=8 )
+
+        start_R = (7, 6)
+        scene.board.set_piece(*start_R, piece=PieceType.Rook)
+
+        start_W = (7, 1)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_N = (3, 1)
+        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        start_I = (1, 2)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        # R --> W
+        coords_R_W = GS.gen_steps( start=start_R, rels=[(0, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_R_W() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         # W --> N
         coords_W_N = GS.gen_steps( start=start_W, rels=[(-1, 0), ], include_prev=True, count=4 )
