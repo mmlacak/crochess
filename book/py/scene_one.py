@@ -568,74 +568,12 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_18_starchild_is_not_transparent(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_18_starchild_is_not_transparent', bt, height=9.3)
-
-        start_Q = (14, 1)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
-
-        start_i = (12, 3)
-        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
-
-        start_I = (10, 5)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
-
-        start_e = (12, 7)
-        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
-
-        start_p = (7, 2)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        # Q --> w --> W
-        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_Q_w_W() ):
-            mark_type = MarkType.Illegal if i == 1 else \
-                        MarkType.Legal if i < 1 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        return scene
-
-    def scn_o_19_starchild_cannot_diverge(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_19_starchild_cannot_diverge', bt, height=9.3)
-
-        # step-field
-
-        start_I_A = (10, 5)
-        scene.board.set_piece( *start_I_A, piece=PieceType.Starchild )
-
-        start_H_1 = (3, 7)
-        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
-
-        scene.append_arrow( *( start_I_A + start_H_1 ), mark_type=MarkType.Illegal )
-
-        scene.append_text( "A", *start_I_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        # miracle-field
-
-        start_I_B = (18, 4)
-        scene.board.set_piece( *start_I_B, piece=PieceType.Starchild )
-
-        start_H_2 = (17, 3)
-        scene.board.set_piece( *start_H_2, piece=PieceType.Shaman )
-
-        scene.append_arrow( *( start_I_B + start_H_2 ), mark_type=MarkType.Illegal )
-
-        scene.append_text( "B", *start_I_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        return scene
-
     #
     # Activating Starchild
 
-    def scn_o_20_activating_starchild(self, bt=BoardType.One):
+    def scn_o_18_activating_starchild(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_20_activating_starchild', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_18_activating_starchild', bt, width=9, height=8 )
 
         start_Q = (2, 6)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
@@ -669,6 +607,74 @@ class SceneOneMixin:
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    #
+    # Starchild is not transparent
+
+    def scn_o_18_starchild_is_not_transparent(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_18_starchild_is_not_transparent', bt, height=9.3)
+
+        start_Q = (14, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_i = (12, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
+
+        start_I = (10, 5)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_e = (12, 7)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+
+        start_p = (7, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> w --> W
+        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_w_W() ):
+            mark_type = MarkType.Illegal if i == 1 else \
+                        MarkType.Legal if i < 1 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    #
+    # Starchild cannot diverge
+
+    def scn_o_19_starchild_cannot_diverge(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_19_starchild_cannot_diverge', bt, height=9.3)
+
+        # step-field
+
+        start_I_A = (10, 5)
+        scene.board.set_piece( *start_I_A, piece=PieceType.Starchild )
+
+        start_H_1 = (3, 7)
+        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
+
+        scene.append_arrow( *( start_I_A + start_H_1 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_I_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        # miracle-field
+
+        start_I_B = (18, 4)
+        scene.board.set_piece( *start_I_B, piece=PieceType.Starchild )
+
+        start_H_2 = (17, 3)
+        scene.board.set_piece( *start_H_2, piece=PieceType.Shaman )
+
+        scene.append_arrow( *( start_I_B + start_H_2 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "B", *start_I_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
