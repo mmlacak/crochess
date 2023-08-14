@@ -569,11 +569,11 @@ class SceneOneMixin:
         return scene
 
     #
-    # Activating Starchild
+    # Starchild cannot be activated
 
-    def scn_o_18_activating_starchild(self, bt=BoardType.One):
+    def scn_o_18_starchild_cannot_be_activated(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_18_activating_starchild', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_18_starchild_cannot_be_activated', bt, width=9, height=8 )
 
         start_Q = (2, 6)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
@@ -607,6 +607,38 @@ class SceneOneMixin:
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    #
+    # Diverging with no momentum
+
+    def scn_o_19_diverging_with_no_momentum(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_19_diverging_with_no_momentum', bt, width=9, height=4 )
+
+        start_R = (7, 2)
+        scene.board.set_piece(*start_R, piece=PieceType.Rook)
+
+        start_W = (7, 1)
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        start_N = (3, 1)
+        scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        start_I = (1, 2)
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        scene.append_arrow( *( start_R + start_W ), mark_type=MarkType.Action )
+
+        # W --> N
+        coords_W_N = GS.gen_steps( start=start_W, rels=[(-1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_W_N() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_arrow( *( start_N + start_I ), mark_type=MarkType.Action )
 
         return scene
 

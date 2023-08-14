@@ -35,5 +35,6 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_o_17_starchild_divergence_end', \
-                    'scn_o_18_activating_starchild', \
+                    # 'scn_o_18_starchild_cannot_be_activated', \
+                    'scn_o_19_diverging_with_no_momentum', \
                 ]
