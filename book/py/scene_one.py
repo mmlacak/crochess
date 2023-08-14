@@ -168,7 +168,9 @@ class SceneOneMixin:
 
         gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
         for index, coords in enumerate( gen() ):
-            mark_type = MarkType.Action if index == 7 else MarkType.Illegal if index in [2, 5] else MarkType.Blocked
+            mark_type = MarkType.Action if index == 7 else \
+                        MarkType.Illegal if index in [2, 5] else \
+                        MarkType.Blocked
             scene.append_text( str(index + 1), *coords, mark_type=mark_type )
 
         return scene
@@ -213,7 +215,9 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             if scene.board.is_on_board( *coords ):
                 i += 1
-                mark_type = MarkType.Action if index == 4 else MarkType.Illegal if index in [3, 6] else MarkType.Legal
+                mark_type = MarkType.Action if index == 4 else \
+                            MarkType.Illegal if index in [3, 6] else \
+                            MarkType.Legal
                 scene.append_text( str(i), *coords, mark_type=mark_type )
 
         return scene
@@ -249,7 +253,9 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             if scene.board.is_on_board( *coords ):
                 i += 1
-                mark_type = MarkType.Legal if index == 0 else MarkType.Action if index == 6 else MarkType.Blocked
+                mark_type = MarkType.Legal if index == 0 else \
+                            MarkType.Action if index == 6 else \
+                            MarkType.Blocked
                 scene.append_text( str(i), *coords, mark_type=mark_type )
 
         return scene
@@ -281,7 +287,9 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             if scene.board.is_on_board( *coords ):
                 i += 1
-                mark_type = MarkType.Action if index == 0 else MarkType.Illegal if index == 1 else MarkType.Legal
+                mark_type = MarkType.Action if index == 0 else \
+                            MarkType.Illegal if index == 1 else \
+                            MarkType.Legal
                 scene.append_text( str(i), *coords, mark_type=mark_type )
 
         return scene
@@ -613,9 +621,9 @@ class SceneOneMixin:
     #
     # Diverging with no momentum
 
-    def scn_o_19_diverging_activated_piece_no_momentum(self, bt=BoardType.One):
+    def scn_o_19_activating_piece_no_momentum(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_19_diverging_activated_piece_no_momentum', bt, width=9, height=4 )
+        scene = Scene( 'scn_o_19_activating_piece_no_momentum', bt, width=9, height=4 )
 
         start_R = (7, 2)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
@@ -642,9 +650,43 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_20_activating_piece_to_diverge(self, bt=BoardType.One):
+    def scn_o_20_diverging_piece_no_momentum(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_20_activating_piece_to_diverge', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_20_diverging_piece_no_momentum', bt, width=9, height=8 )
+
+        prev_R = (7, 2)
+        prev_W = (7, 1)
+        prev_N = (3, 1)
+        prev_I = (1, 2)
+
+        start_R = prev_W
+        scene.board.set_piece(*start_R, piece=PieceType.Rook)
+
+        start_W = prev_N
+        scene.board.set_piece(*start_W, piece=PieceType.Wave)
+
+        # start_N = (3, 1)
+        # scene.board.set_piece(*start_N, piece=PieceType.Knight)
+
+        start_I = prev_I
+        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+
+        # |<-- K -->|
+        coords_N_ = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start_I, include_prev=True, count=1 )
+        for index, arrow in enumerate( coords_N_() ):
+            mark_type = MarkType.Action if index == 7 else \
+                        MarkType.Legal
+            if scene.board.is_on_board( *GS.get_end( arrow ) ):
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    #
+    # Diverging with surplus momentum
+
+    def scn_o_21_activating_piece_to_diverge(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_21_activating_piece_to_diverge', bt, width=9, height=8 )
 
         start_R = (7, 6)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
@@ -679,9 +721,9 @@ class SceneOneMixin:
     #
     # Starchild is not transparent
 
-    def scn_o_18_starchild_is_not_transparent(self, bt=BoardType.One):
+    def scn_o_23_starchild_is_not_transparent(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_18_starchild_is_not_transparent', bt, height=9.3)
+        scene = Scene('scn_o_23_starchild_is_not_transparent', bt, height=9.3)
 
         start_Q = (14, 1)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -714,9 +756,9 @@ class SceneOneMixin:
     #
     # Starchild cannot diverge
 
-    def scn_o_19_starchild_cannot_diverge(self, bt=BoardType.One):
+    def scn_o_24_starchild_cannot_diverge(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_19_starchild_cannot_diverge', bt, height=9.3)
+        scene = Scene('scn_o_24_starchild_cannot_diverge', bt, height=9.3)
 
         # step-field
 
@@ -847,7 +889,8 @@ class SceneOneMixin:
         for index, coords in enumerate( gen() ):
             if scene.board.is_on_board( *coords ):
                 i += 1
-                mark_type = MarkType.Illegal if index in [3, 6] else MarkType.Legal
+                mark_type = MarkType.Illegal if index in [3, 6] else \
+                            MarkType.Legal
                 scene.append_text( str(i), *coords, mark_type=mark_type )
 
         return scene
