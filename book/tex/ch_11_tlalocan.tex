@@ -226,9 +226,10 @@ promote, and does not gain opportunity to rush on an initial move, the same as i
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Piece, when encounters own Shaman, can optionally continue its movement in direction
-different to the one taken before the encounter. Direction change is divergence. After
-divergence, piece is limited by momentum it had when own Shaman was encountered. \newline
+Piece, when encounters own Shaman, can continue its movement, and changes direction
+to any available, as if starting a new ply from a position of encountered Shaman.
+Direction change is divergence, after which piece is limited by momentum it had when
+own Shaman was encountered. \newline
 \indent
 Here, light Queen can diverge only from own, light Shaman; but not from opponent's,
 dark Shaman.
@@ -250,7 +251,7 @@ direction of movement independently of previous choice. Note that light Queen ca
 move for only 5 fields, since diverging piece is limited by momentum it had when
 own Shaman was reached.
 
-The only piece in a move, just like a piece starting a cascade,
+The only piece in a move, just like piece starting a cascade,
 \hyperref[fig:scn_mv_44_static_move_is_illegal_init]{cannot end its move on a starting field}.
 So, in this example, starting field Q is illegal destination for light Queen.
 
