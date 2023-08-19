@@ -1787,33 +1787,38 @@ teleporting piece (Star) is introduced.
                     | <trooper>
 
 <capturing-active-figure> =
-  <classic-figure> | <new-active-figure>
+  <new-active-figure> | <classic-figure>
 
 <capturing-active-piece> =
-  <pawn> | <capturing-active-figure>
+  <capturing-active-figure> | <pawn>
 
 <active-figure> =
-  \alg{I} | <capturing-active-figure>
+  <capturing-active-figure> | \alg{I}
 
 <active-piece> =
-  <pawn> | <active-figure>
+  <active-figure> | <pawn>
 
 <capturing-piece> =
-  \alg{A} | <capturing-active-piece>
+  <capturing-active-piece> | \alg{A}
+
+<activateable-figure> = \alg{N} | \alg{B} | \alg{R} | \alg{Q}
+                      | <new-active-figure>
+                      | <passive-figure>
+
+<activateable-piece> =
+  <activateable-figure> | <pawn>
 
 <disposable-figure> =
-<promote-to-figure> = <classic-figure>
-                    | <new-active-figure>
-                    | <passive-figure>
-                    | \alg{I}
-
-<disposable-piece> =
-  <pawn> | <disposable-figure>
+<promote-to-figure> =
+  <activateable-figure> | \alg{I}
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<disposable-piece> =
+  <disposable-figure> | <pawn>
+
 <piece-transparent-to-wave> =
   <disposable-piece> | \alg{K} | \alg{T}
 
@@ -1842,21 +1847,29 @@ teleporting piece (Star) is introduced.
 | \alg{R}<losing-castling-tag>
 | <trooper><losing-rushing-tag>
 
-<disposable-figure-losing-tag> =
-  <disposable-figure>
-| <capturing-active-figure-losing-tag>
+<capturing-active-piece-losing-tag> =
+  <capturing-active-figure-losing-tag>
+| <pawn><losing-pawn-tag>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<capturing-active-piece-losing-tag> =
-  <capturing-active-figure-losing-tag>
-| <pawn><losing-pawn-tag>
-
 <capturing-piece-losing-tag> =
   <capturing-active-piece-losing-tag>
 | <capturing-piece>
+
+<activateable-figure-losing-tag> =
+  <activateable-figure>
+| <capturing-active-figure-losing-tag>
+
+<activateable-piece-losing-tag> =
+  <activateable-figure-losing-tag>
+| <pawn><losing-pawn-tag>
+
+<disposable-figure-losing-tag> =
+  <disposable-figure>
+| <capturing-active-figure-losing-tag>
 
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
@@ -1875,18 +1888,18 @@ teleporting piece (Star) is introduced.
   [\alg{=}]<promote-to-figure>
 
 <delayed-promotion-side-effect> = [\alg{=}]
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <converting-side-effect> =
   \alg{%}[<disposable-piece-losing-tag>]
 | \alg{%%}
 
 <pawn-displacement-side-effect> =
   \alg{<}<pawn><losing-pawn-tag><field>
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <displacement-side-effect> =
   \alg{<}[<disposable-piece-losing-tag>]<field>
 
@@ -1911,18 +1924,18 @@ teleporting piece (Star) is introduced.
   [<disambiguation>]<field>
 | [<disambiguation>]\{<step>\}[\alg{-}<field>]
 | [<field>\alg{-}]<field>
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
   \{<step>[<transparency-side-effect>
           | <divergence-side-effect>]\}
   (<step> | \alg{-}<field>)
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <wave-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
@@ -1950,17 +1963,17 @@ teleporting piece (Star) is introduced.
   <pawn><losing-promotion-tag><stepping>
   (<promoting-side-effect>
    | <delayed-promotion-side-effect>)
-
-<capturing-pawn-promotion-ply> =
-  <pawn><losing-promotion-tag><stepping>
-  [<capturing-side-effect>]
-  (<promoting-side-effect>
-   | <delayed-promotion-side-effect>)
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<capturing-pawn-promotion-ply> =
+  <pawn><losing-promotion-tag><stepping>
+  [<capturing-side-effect>]
+  (<promoting-side-effect>
+   | <delayed-promotion-side-effect>)
+
 <pyramid-promoting-ply> =
   \alg{A}<stepping>
   (<promoting-side-effect>
@@ -1997,7 +2010,7 @@ teleporting piece (Star) is introduced.
   <terminal-ply>
 | <capturing-piece-losing-tag><stepping>
     [<capturing-side-effect>]
-| <disposable-piece-losing-tag><stepping>
+| <activateable-piece-losing-tag><stepping>
 | <pyramid-promoting-ply>
 | <pyramid-converting-ply>
 
@@ -2006,7 +2019,7 @@ teleporting piece (Star) is introduced.
   \{\alg{~W}<wave-stepping>\}
 
 <cascaded-ply> =
-  <disposable-piece-losing-tag><stepping>
+  <activateable-piece-losing-tag><stepping>
 | \alg{S}<serpent-stepping>
 | \alg{H}<shaman-stepping>
 | <pawn-promotion-ply>
