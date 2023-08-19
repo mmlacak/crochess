@@ -1443,9 +1443,9 @@ not defined for Hemera's Dawn variant.
 \centering
 \begin{tabular}{ lll }
 \toprule % =======================================================================
-\multicolumn{2}{c}{ \textbf{Activated by} }     & \textbf{Moves like}           \\
+\multicolumn{2}{c}{ \textbf{Activated} }        & \textbf{Moves like}           \\
 \cmidrule{1-2} % ................................
-\emph{piece}                &   \emph{at field} &                               \\
+\emph{by piece}             &   \emph{at field} &                               \\
 \midrule % -----------------------------------------------------------------------
 Pawn                        &                   & Pawn, unlimited steps         \\
 Knight                      &                   & Pegasus                       \\
@@ -1854,6 +1854,10 @@ teleporting piece (Star) is introduced.
   <capturing-active-figure-losing-tag>
 | <pawn><losing-pawn-tag>
 
+<capturing-piece-losing-tag> =
+  <capturing-active-piece-losing-tag>
+| <capturing-piece>
+
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
 | <pawn><losing-pawn-tag>
@@ -1878,17 +1882,17 @@ teleporting piece (Star) is introduced.
 
 <pawn-displacement-side-effect> =
   \alg{<}<pawn><losing-pawn-tag><field>
-
-<displacement-side-effect> =
-  \alg{<}[<disposable-piece-losing-tag>]<field>
-
-<transparency-side-effect> = [\alg{\^{}}[\alg{W}]]
-<divergence-side-effect> = [\alg{/}[\alg{H}|\alg{I}]]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<displacement-side-effect> =
+  \alg{<}[<disposable-piece-losing-tag>]<field>
+
+<transparency-side-effect> = [\alg{\^{}}[\alg{W}]]
+<divergence-side-effect> = [\alg{/}[\alg{H}|\alg{I}]]
+
 <wave-transparency-side-effect> =
   [\alg{\^{}}[<piece-transparent-to-wave>]]
 
@@ -1914,18 +1918,18 @@ teleporting piece (Star) is introduced.
   \{<step>[<transparency-side-effect>
           | <divergence-side-effect>]\}
   (<step> | \alg{-}<field>)
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <wave-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
   \{<step>[<wave-transparency-side-effect>
           | <divergence-side-effect>]\}
   (<step> | \alg{-}<field>)
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <serpent-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
@@ -1952,7 +1956,11 @@ teleporting piece (Star) is introduced.
   [<capturing-side-effect>]
   (<promoting-side-effect>
    | <delayed-promotion-side-effect>)
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <pyramid-promoting-ply> =
   \alg{A}<stepping>
   (<promoting-side-effect>
@@ -1960,11 +1968,7 @@ teleporting piece (Star) is introduced.
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effect>
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <starting-ply> =
   <capturing-active-piece-losing-tag>
     <stepping>
@@ -1975,7 +1979,7 @@ teleporting piece (Star) is introduced.
     [<resurrecting-side-effect>]
 
 <terminal-ply> =
-  <capturing-active-piece-losing-tag>
+  <capturing-piece-losing-tag>
     <stepping>[<capturing-side-effect>]
 | <private-losing-tag><stepping>
     [<en-passant-side-effect>]
@@ -1984,25 +1988,30 @@ teleporting piece (Star) is introduced.
 | \alg{H}<shaman-stepping>
     [<capturing-side-effect>]
 | <capturing-pawn-promotion-ply>
-
-<terminating-ply> =
-  <terminal-ply>
-| <capturing-piece><stepping>
-    [<capturing-side-effect>]
-| <disposable-piece-losing-tag><stepping>
-| <pyramid-promoting-ply>
-| <pyramid-converting-ply>
-
-<cascaded-ply> = <starting-ply>
-               | <passive-piece><stepping>
-
-<cascading-plies> =
-  \{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<terminating-ply> =
+  <terminal-ply>
+| <capturing-piece-losing-tag><stepping>
+    [<capturing-side-effect>]
+| <disposable-piece-losing-tag><stepping>
+| <pyramid-promoting-ply>
+| <pyramid-converting-ply>
+
+<cascading-plies> =
+  [\{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}]
+  \{\alg{~W}<wave-stepping>\}
+
+<cascaded-ply> =
+  <disposable-piece-losing-tag><stepping>
+| \alg{S}<serpent-stepping>
+| \alg{H}<shaman-stepping>
+| <pawn-promotion-ply>
+| <passive-piece><stepping>
+
 <cascade-start> =
   <starting-ply>[<cascading-plies>]
 
