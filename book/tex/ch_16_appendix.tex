@@ -2057,12 +2057,59 @@ teleporting piece (Star) is introduced.
 | <pawn-promotion-ply>
 | <passive-piece><stepping>
 
+<trance-journey-init> =
+  \alg{H}<stepping-no-side-effects>\alg{@H}
+
+<trance-journey-start> =
+  [<disambiguation>][\alg{,}<field>]
+
+<trance-journey> =
+  <trance-journey-init><trance-journey-start>
+  \{<step>
+    [(\alg{<}[<disposable-piece-losing-tag>]<field>
+      | \alg{*}[<disposable-piece-losing-tag>)]\}
+| <trance-journey-init>
+    [<disambiguation>]<field>
+| <trance-journey-init>
+    \alg{@@}[<disposable-piece-losing-tag>[<field>]
+       [\{,<disposable-piece-losing-tag>
+         [<field>]\}]]
+| <trance-journey-init>\alg{@@@H}
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
 <cascade> =
   <stand-alone-ply>
 | <starting-ply>
   [\{<cascading-plies>\alg{~}<cascaded-ply>\}]
   [<cascading-plies>[\alg{~}<terminating-ply>]]
+| [<starting-ply>
+   [\{<cascading-plies>\alg{~}<cascaded-ply>\}]
+   <cascading-plies>\alg{~}]<trance-journey>
 \end{alltt}
+
+% <cascade-start> =
+%   <starting-ply>[<cascading-plies>]
+
+% <cascading-start> = \{<cascading-plies>\}
+
+% <cascading> =
+%   \{<cascading-plies>\}[\alg{~}<terminating-ply>]
+% | [\{<cascading-plies>\}\alg{~}]<terminating-ply>
+
+% <wave-cascading-plies> =
+%   [\{\alg{~W}<wave-stepping>\}]\alg{~}<cascaded-ply>
+% | [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
+
+% <wave-cascading-start> =
+%   <wave-cascading-plies>[\{<cascading-plies>\}]
+% | \{<cascading-plies>\}
+
+% <wave-cascade> =
+%   \alg{~}<cascade>
+% | <wave-cascading-start>[\alg{~}<terminating-ply>]
 
 \clearpage % ..........................................................
 
@@ -2072,59 +2119,28 @@ teleporting piece (Star) is introduced.
 % \end{alltt}
 
 \begin{alltt}
-<cascade-start> =
-  <starting-ply>[<cascading-plies>]
-
-<cascading-start> = \{<cascading-plies>\}
-
-<cascading> =
-  \{<cascading-plies>\}[\alg{~}<terminating-ply>]
-| [\{<cascading-plies>\}\alg{~}]<terminating-ply>
-
-<wave-cascading-plies> =
-  [\{\alg{~W}<wave-stepping>\}]\alg{~}<cascaded-ply>
-| [\{\alg{~W}<wave-stepping>\}]\{\alg{~A}<stepping>\}
-
-<wave-cascading-start> =
-  <wave-cascading-plies>[\{<cascading-plies>\}]
-| \{<cascading-plies>\}
-
-<wave-cascade> =
-  \alg{~}<cascade>
-| <wave-cascading-start>[\alg{~}<terminating-ply>]
-\end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-<shaman-trance-journey-cascade> =
-  \alg{H}<stepping>\{\alg{~W}<wave-stepping>\}
-
 <starchild-trance-journey-cascade> =
   \alg{H}<stepping>
     \alg{~I}<stepping-no-side-effects>
 | \alg{I}<stepping-no-side-effects>
     \{\alg{~I}<stepping-no-side-effects>\}
 
-<trance-journey-start> =
-  [<disambiguation>][\alg{,}<field>]
-
 <trance-journey> =
-  <shaman-trance-journey-cascade>
+  <trance-journey-init>
     \alg{@H}<trance-journey-start>\{<step>
     [\alg{<}[<disposable-piece-losing-tag>]<field>]\}
-| <shaman-trance-journey-cascade>
+| <trance-journey-init>
     \alg{@H}<trance-journey-start>
     \{<step>[\alg{*}[<disposable-piece-losing-tag>]]\}
-| <shaman-trance-journey-cascade>
+| <trance-journey-init>
     \alg{@H}[<disambiguation>]<field>
 | <starchild-trance-journey-cascade>
     \alg{@}<disposable-piece-losing-tag>
     [<disambiguation>]<field>
-| <shaman-trance-journey-cascade>
+| <trance-journey-init>
     \alg{@@}[<disposable-piece-losing-tag>[<field>]
     [\{,<disposable-piece-losing-tag>[<field>]\}]]
-| <shaman-trance-journey-cascade>
+| <trance-journey-init>
     \alg{@@@H}
 | <starchild-trance-journey-cascade>
     \alg{@@@}[<disposable-piece-losing-tag>]
