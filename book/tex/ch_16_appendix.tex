@@ -2058,36 +2058,48 @@ teleporting piece (Star) is introduced.
 | <passive-piece><stepping>
 
 <trance-journey-init> =
-  \alg{H}<stepping-no-side-effects>\alg{@H}
+  \alg{H}<stepping-no-side-effects>
 
-<trance-journey-start> =
+<journey-start> =
   [<disambiguation>][\alg{,}<field>]
 
 <trance-journey> =
-  <trance-journey-init><trance-journey-start>
+  <trance-journey-init>\alg{@H}<journey-start>
   \{<step>
     [(\alg{<}[<disposable-piece-losing-tag>]<field>
       | \alg{*}[<disposable-piece-losing-tag>)]\}
-| <trance-journey-init>
+| <trance-journey-init>\alg{@H}
     [<disambiguation>]<field>
-| <trance-journey-init>
-    \alg{@@}[<disposable-piece-losing-tag>[<field>]
-       [\{,<disposable-piece-losing-tag>
-         [<field>]\}]]
-| <trance-journey-init>\alg{@@@H}
+| <trance-journey-init>\alg{@@}
+  [<disposable-piece-losing-tag>[<field>]
+    [\{,<disposable-piece-losing-tag>
+      [<field>]\}]]
+| <trance-journey-init>\alg{@@@}[\alg{H}]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<sense-journey-init> =
+  (\alg{I}|\alg{H})<stepping-no-side-effects>\alg{~I}
+
+<sense-journey> =
+  <sense-journey-init>\alg{"}
+  <activateable-piece-losing-tag>
+  <journey-start>
+  <stepping-no-side-effects>
+| <sense-journey-init>\alg{'}
+  [<activateable-piece-losing-tag>]
+
 <cascade> =
   <stand-alone-ply>
 | <starting-ply>
   [\{<cascading-plies>\alg{~}<cascaded-ply>\}]
   [<cascading-plies>[\alg{~}<terminating-ply>]]
-| [<starting-ply>
-   [\{<cascading-plies>\alg{~}<cascaded-ply>\}]
-   <cascading-plies>\alg{~}]<trance-journey>
+| [ <starting-ply>
+    [\{<cascading-plies>\alg{~}<cascaded-ply>\}]
+    <cascading-plies>\alg{~} ]
+  (<trance-journey> | <sense-journey>)
 \end{alltt}
 
 % <cascade-start> =
@@ -2127,10 +2139,10 @@ teleporting piece (Star) is introduced.
 
 <trance-journey> =
   <trance-journey-init>
-    \alg{@H}<trance-journey-start>\{<step>
+    \alg{@H}<journey-start>\{<step>
     [\alg{<}[<disposable-piece-losing-tag>]<field>]\}
 | <trance-journey-init>
-    \alg{@H}<trance-journey-start>
+    \alg{@H}<journey-start>
     \{<step>[\alg{*}[<disposable-piece-losing-tag>]]\}
 | <trance-journey-init>
     \alg{@H}[<disambiguation>]<field>
