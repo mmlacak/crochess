@@ -1998,6 +1998,11 @@ teleporting piece (Star) is introduced.
 
 <pyramid-converting-ply> =
   \alg{A}<stepping><converting-side-effect>
+
+<teleportation-ply> =
+  \alg{|}[<disposable-piece>]<field>
+| \alg{||}[<disposable-piece>]<field>
+| \alg{|||}[<disposable-piece>]
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -2013,32 +2018,37 @@ teleporting piece (Star) is introduced.
     [<resurrecting-side-effect>]
 
 <stand-alone-ply> =
-  <capturing-piece-losing-tag>
-    <stepping>[<capturing-side-effect>]
+  <capturing-piece-losing-tag><stepping>
+  [(<capturing-side-effect>
+    | <teleportation-ply>)]
 | <private-losing-tag><stepping>
-    [<en-passant-side-effect>]
+  [(<en-passant-side-effect>
+    | <teleportation-ply>)]
 | \alg{S}<serpent-stepping>
-    [<capturing-side-effect>]
+  [(<capturing-side-effect>
+    | <teleportation-ply>)]
 | \alg{H}<shaman-stepping>
-    [<capturing-side-effect>]
+  [(<capturing-side-effect>
+    | <teleportation-ply>)]
 | <capturing-pawn-promotion-ply>
 
 <terminating-ply> =
   <stand-alone-ply>
 | <activateable-piece-losing-tag><stepping>
+  [<teleportation-ply>]
 | <pyramid-promoting-ply>
 | <pyramid-converting-ply>
-
-<cascading-plies> =
-  [\{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}]
-  \{\alg{~W}<wave-stepping>\}
-  [ [\{((\alg{~}|\alg{|})\alg{W}<wave-stepping> | \alg{~A}<stepping>)\}]
-    \{(\alg{~}|\alg{|})\alg{W}<wave-stepping>\} ]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<cascading-plies> =
+  [\{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}]
+  \{\alg{~W}<wave-stepping>\}
+  [ [\{((\alg{~}|\alg{|})\alg{W}<wave-stepping> | \alg{~A}<stepping>)\}]
+    \{(\alg{~}|\alg{|})\alg{W}<wave-stepping>\} ]
+
 <cascaded-ply> =
   <activateable-piece-losing-tag><stepping>
 | \alg{S}<serpent-stepping>
@@ -2079,12 +2089,6 @@ teleporting piece (Star) is introduced.
 <wave-cascade> =
   \alg{~}<cascade>
 | <wave-cascading-start>[\alg{~}<terminating-ply>]
-
-<teleportation> =
-  \alg{|}<field>
-| \{\alg{|W}<wave-stepping>\}[<move-wave-cascading>]
-| \alg{||}[<disposable-piece>]<field>
-| \alg{||}
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -2155,7 +2159,7 @@ teleporting piece (Star) is introduced.
 
 <move-cascading> =
   <cascading>
-| [<cascading-start>]<teleportation>
+| [<cascading-start>]<teleportation-ply>
 | [<cascading-start>]<trance-journey>
 | [<cascading-start>]<pawn-sacrifice>
     [<pawn-sacrifice-captures>]
@@ -2163,7 +2167,7 @@ teleporting piece (Star) is introduced.
 
 <move-wave-cascading> =
   <wave-cascade>
-| [<wave-cascading-start>]<teleportation>
+| [<wave-cascading-start>]<teleportation-ply>
 | [<wave-cascading-start>]<trance-journey>
 | [<wave-cascading-start>]<pawn-sacrifice>
     [<pawn-sacrifice-captures>]
@@ -2175,7 +2179,7 @@ teleporting piece (Star) is introduced.
 \begin{alltt}
 <move-new> =
   <cascade>
-| [<cascade-start>\alg{~}]<teleportation>
+| [<cascade-start>\alg{~}]<teleportation-ply>
 | [<cascade-start>\alg{~}]<trance-journey>
 | [<cascade-start>\alg{~}]<pawn-sacrifice>
     [<pawn-sacrifice-captures>]
