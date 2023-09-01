@@ -2046,7 +2046,8 @@ teleporting piece (Star) is introduced.
 <cascading-plies> =
   [\{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}]
   \{\alg{~W}<wave-stepping>\}
-  [ [\{((\alg{~}|\alg{|})\alg{W}<wave-stepping> | \alg{~A}<stepping>)\}]
+  [ [\{((\alg{~}|\alg{|})\alg{W}<wave-stepping>
+       | \alg{~A}<stepping>)\}]
     \{(\alg{~}|\alg{|})\alg{W}<wave-stepping>\} ]
 
 <cascaded-ply> =
@@ -2055,6 +2056,12 @@ teleporting piece (Star) is introduced.
 | \alg{H}<shaman-stepping>
 | <pawn-promotion-ply>
 | <passive-piece><stepping>
+
+<cascade> =
+  <stand-alone-ply>
+| <starting-ply>
+  [\{<cascading-plies>\alg{~}<cascaded-ply>\}]
+  [<cascading-plies>[\alg{~}<terminating-ply>]]
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -2067,10 +2074,6 @@ teleporting piece (Star) is introduced.
 \begin{alltt}
 <cascade-start> =
   <starting-ply>[<cascading-plies>]
-
-<cascade> =
-  <stand-alone-ply>
-| <cascade-start>[\alg{~}<terminating-ply>]
 
 <cascading-start> = \{<cascading-plies>\}
 
