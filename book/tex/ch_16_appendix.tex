@@ -2008,6 +2008,20 @@ teleporting piece (Star) is introduced.
 \clearpage % ..........................................................
 
 \begin{alltt}
+<pawn-sacrifice-init> =
+  \alg{S}<serpent-stepping>
+  \alg{~A}<stepping-no-side-effects>
+    [\alg{*}[<losing-pawn-tag>]]\alg{;;}
+
+<pawn-sacrifice-steps> =
+  \alg{S}[<disambiguation>]
+    \{<step>[\alg{*}[<losing-pawn-tag>]]\}
+    [<pawn-sacrifice-end>]
+| \alg{S}<stepping>[<pawn-sacrifice-end>]
+
+<pawn-sacrifice-ply> =
+  <pawn-sacrifice-init><pawn-sacrifice-steps>
+
 <starting-ply> =
   <active-piece-losing-tag><stepping>
 | \alg{S}<serpent-stepping>
@@ -2016,7 +2030,19 @@ teleporting piece (Star) is introduced.
 | \alg{K}<losing-castling-tag><stepping>
 | \alg{I}<stepping-no-side-effects>
     [<resurrecting-side-effect>]
+| <pawn-sacrifice-ply>
 
+<cascading-plies> =
+  [\{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}]
+  \{\alg{~W}<wave-stepping>\}
+  [ [\{((\alg{~}|\alg{|})\alg{W}<wave-stepping>
+       | \alg{~A}<stepping>)\}]
+    \{(\alg{~}|\alg{|})\alg{W}<wave-stepping>\} ]
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
 <stand-alone-ply> =
   <capturing-piece-losing-tag><stepping>
   [(<capturing-side-effect>
@@ -2031,6 +2057,7 @@ teleporting piece (Star) is introduced.
   [(<capturing-side-effect>
     | <teleportation-ply>)]
 | <capturing-pawn-promotion-ply>
+| <pawn-sacrifice-ply>[<teleportation-ply>]
 
 <terminating-ply> =
   <stand-alone-ply>
@@ -2038,17 +2065,6 @@ teleporting piece (Star) is introduced.
   [<teleportation-ply>]
 | <pyramid-promoting-ply>
 | <pyramid-converting-ply>
-\end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-<cascading-plies> =
-  [\{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}]
-  \{\alg{~W}<wave-stepping>\}
-  [ [\{((\alg{~}|\alg{|})\alg{W}<wave-stepping>
-       | \alg{~A}<stepping>)\}]
-    \{(\alg{~}|\alg{|})\alg{W}<wave-stepping>\} ]
 
 <cascaded-ply> =
   <activateable-piece-losing-tag><stepping>
@@ -2056,7 +2072,12 @@ teleporting piece (Star) is introduced.
 | \alg{H}<shaman-stepping>
 | <pawn-promotion-ply>
 | <passive-piece><stepping>
+| <pawn-sacrifice-ply>
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <trance-journey-init> =
   \alg{H}<stepping-no-side-effects>
 
@@ -2075,11 +2096,7 @@ teleporting piece (Star) is introduced.
     [\{,<disposable-piece-losing-tag>
       [<field>]\}]]
 | <trance-journey-init>\alg{@@@}[\alg{H}]
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <sense-journey-init> =
   (\alg{I}|\alg{H})<stepping-no-side-effects>
   \alg{~I}<stepping-no-side-effects>
@@ -2091,7 +2108,11 @@ teleporting piece (Star) is introduced.
   <stepping-no-side-effects>
 | <sense-journey-init>\alg{'}
   [<activateable-piece-losing-tag>]
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <star-movement-ply> =
   \alg{I}<stepping-no-side-effects>
     [<resurrecting-side-effect>]
@@ -2104,51 +2125,22 @@ teleporting piece (Star) is introduced.
 <king-castling-ply> =
   \alg{K}<stepping-no-side-effects>
   [<castling-side-effect>]
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <cascade> =
   <stand-alone-ply>
 | <starting-ply>
   [\{<cascading-plies>\alg{~}<cascaded-ply>\}]
   [<cascading-plies>
-  [\alg{~}(<terminating-ply> | <star-movement-ply>)]]
-| [ <starting-ply>
+    [\alg{~}(<terminating-ply>
+      | <star-movement-ply>)]]
+| [<starting-ply>
     [\{<cascading-plies>\alg{~}<cascaded-ply>\}]
-    <cascading-plies>\alg{~} ]
+    <cascading-plies>\alg{~}]
   (<trance-journey> | <sense-journey>)
 | <star-movement-ply>
 | <monolith-ply>
 | <king-castling-ply>
 \end{alltt}
-
-\clearpage % ..........................................................
-
-\TODO :: *** check ***
-
-% \begin{alltt}
-% \end{alltt}
-
-\begin{alltt}
-<pawn-sacrifice-init> =
-  \alg{S}<serpent-stepping>
-  \alg{~A}<stepping-no-side-effects>
-    [\alg{*}[<losing-pawn-tag>]]\alg{;;}
-
-<pawn-sacrifice-steps> =
-  \alg{S}[<disambiguation>]
-    \{<step>[\alg{*}[<losing-pawn-tag>]]\}
-    [<pawn-sacrifice-end>]
-| \alg{S}<stepping>[<pawn-sacrifice-end>]
-
-<pawn-sacrifice-ply> =
-  <pawn-sacrifice-init><pawn-sacrifice-steps>
-\end{alltt}
-
-% <pawn-sacrifice-end> = \alg{|}<field>
-%                      | <move-cascading>
 
 \clearpage % ..........................................................
 
@@ -2161,9 +2153,6 @@ teleporting piece (Star) is introduced.
          | \algcty{++}
          | \alg{(=)}
          | \alg{(-)}
-
-<move-new> =
-  <cascade>[<status>]
 
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]
@@ -2179,7 +2168,7 @@ teleporting piece (Star) is introduced.
 | \algcty{0-0}
 
 <move> =
-  <move-new><status>
+  <cascade><status>
 | <compatibility-capture>
 | <compatibility-castling>
 | \alg{#}
@@ -2190,10 +2179,12 @@ teleporting piece (Star) is introduced.
 
 % \clearpage % ..........................................................
 
+% \TODO :: *** check ***
+
 % \begin{alltt}
 % \end{alltt}
 
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
 
 Notational grammar isn't exact, some things are difficult to formalize, some are
 too cumbersome. For instance, any ply in trance-journey, teleportation and
