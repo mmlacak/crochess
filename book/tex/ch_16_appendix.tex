@@ -1764,7 +1764,25 @@ i.e. it's just a shorthand for
 <abc> = <def>
 \end{alltt}
 
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
+
+Empty value is represented with an empty group \algfmt{()}, like so
+\begin{alltt}
+<abc> = () | \alg{d}
+\end{alltt}
+
+While this is effectively the same as optional value, e.g.
+\begin{alltt}
+<abc> = [ \alg{d} ]
+\end{alltt}
+
+or usage of optional entity, e.g.
+\begin{alltt}
+<abc> = \alg{d}
+<def> = \alg{g} [ <abc> ]
+\end{alltt}
+the first definition is used when neither value, nor entity is optional,
+based on external context.
 
 Grammar is written without context, to determine which pieces, files and ranks
 are available for a particular variant see
@@ -2016,8 +2034,7 @@ teleporting piece (Star) is introduced.
 <pawn-sacrifice-steps> =
   \alg{S}[<disambiguation>]
     \{<step>[\alg{*}[<losing-pawn-tag>]]\}
-    [<pawn-sacrifice-end>]
-| \alg{S}<stepping>[<pawn-sacrifice-end>]
+| \alg{S}<stepping-no-side-effects>
 
 <pawn-sacrifice-ply> =
   <pawn-sacrifice-init><pawn-sacrifice-steps>
