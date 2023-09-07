@@ -138,10 +138,10 @@ CcTagEnum const CC_SETUP_TAGS_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ]
     { n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n },
     { n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n },
     { n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n },
-    { n, n, n, P, n, P, n, n, n, n, n, n, n, n, P, n, P, n, n, n },
-    { n, n, P, n, n, n, P, n, n, n, n, n, n, P, n, n, n, P, n, n },
-    { P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P },
-    { P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P },
+    { n, n, n, R, n, R, n, n, n, n, n, n, n, n, R, n, R, n, n, n },
+    { n, n, R, n, n, n, R, n, n, n, n, n, n, R, n, n, n, R, n, n },
+    { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
+    { R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R },
     { n, C, n, n, n, n, n, n, n, n, C, n, n, n, n, n, n, n, C, n },
 };
 
