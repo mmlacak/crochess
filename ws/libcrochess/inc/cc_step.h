@@ -85,22 +85,22 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
 /**
     Allocates a new step, appends it to a linked list.
 
-    @param steps__io Linked list of steps, to which a newly allocated step is appended, can be `NULL`.
+    @param steps__iod Linked list of steps, to which a newly allocated step is appended, can be `NULL`.
     @param link Type of a link to previous step.
     @param field Field.
     @param side_effect Side-effect structure.
 
     @note
-    Linked list `*steps__io` can be `NULL`, a step will still be allocated, and returned.
+    Linked list `*steps__iod` can be `NULL`, a step will still be allocated, and returned.
 
     @note
-    If linked list `*steps__io` is `NULL`, it will be initialized,
+    If linked list `*steps__iod` is `NULL`, it will be initialized,
     with a newly allocated step as its first element.
 
     @return
     Weak pointer to a newly allocated step, is successful, `NULL` otherwise.
 */
-CcStep * cc_step_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_append_if( CcStep ** restrict steps__iod,
                             CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
 
 /**

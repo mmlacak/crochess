@@ -57,17 +57,17 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
     return step__t;
 }
 
-CcStep * cc_step_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_append_if( CcStep ** restrict steps__iod,
                             CcStepLinkEnum link, CcPos field, CcSideEffect side_effect )
 {
-    if ( !steps__io ) return NULL;
+    if ( !steps__iod ) return NULL;
 
     CcStep * step__w = NULL;
 
-    if ( !*steps__io )
-        *steps__io = step__w = cc_step__new( link, field, side_effect );
+    if ( !*steps__iod )
+        *steps__iod = step__w = cc_step__new( link, field, side_effect );
     else
-        step__w = cc_step_append( *steps__io, link, field, side_effect );
+        step__w = cc_step_append( *steps__iod, link, field, side_effect );
 
     return step__w;
 }
