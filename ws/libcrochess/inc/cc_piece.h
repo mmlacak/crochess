@@ -190,6 +190,28 @@
 #define CC_PIECE_IS_CENTAUR(pe) ( ( (pe) == CC_PE_LightCentaur ) || ( (pe) == CC_PE_DarkCentaur ) )
 
 /**
+    Macro expression to evaluate whether piece is a Scout.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Scout, `false` otherwise.
+*/
+#define CC_PIECE_IS_SCOUT(pe) ( ( (pe) == CC_PE_LightScout ) || ( (pe) == CC_PE_DarkScout ) )
+
+/**
+    Macro expression to evaluate whether piece is a Grenadier.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is a Grenadier, `false` otherwise.
+*/
+#define CC_PIECE_IS_GRENADIER(pe) ( ( (pe) == CC_PE_LightGrenadier ) || ( (pe) == CC_PE_DarkGrenadier ) )
+
+/**
     Macro expression to evaluate whether piece is a Serpent.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
@@ -528,8 +550,8 @@
     @return `true` if piece is divergent, `false` otherwise.
 */
 #define CC_PIECE_CAN_BE_DIVERGED_FROM(pe) ( ( (pe) == CC_PE_DarkStarchild )     \
-                                         || ( (pe) == CC_PE_DarkWave )          \
-                                         || ( (pe) == CC_PE_LightWave )         \
+                                         || ( (pe) == CC_PE_DarkShaman )        \
+                                         || ( (pe) == CC_PE_LightShaman )       \
                                          || ( (pe) == CC_PE_LightStarchild ) )
 
 /**
@@ -539,11 +561,13 @@
 */
 typedef enum CcPieceEnum
 {
-    CC_PE_DimStar = -15,
+    CC_PE_DimStar = -17,
 
     CC_PE_DarkStarchild,
     CC_PE_DarkShaman,
     CC_PE_DarkSerpent,
+    CC_PE_DarkGrenadier,
+    CC_PE_DarkScout,
     CC_PE_DarkCentaur,
     CC_PE_DarkWave,
     CC_PE_DarkUnicorn,
@@ -569,11 +593,13 @@ typedef enum CcPieceEnum
     CC_PE_LightUnicorn,
     CC_PE_LightWave,
     CC_PE_LightCentaur,
+    CC_PE_LightScout,
+    CC_PE_LightGrenadier,
     CC_PE_LightSerpent,
     CC_PE_LightShaman,
     CC_PE_LightStarchild,
 
-    CC_PE_BrightStar = 15,
+    CC_PE_BrightStar = 17,
 
     CC_PE_Monolith,
 } CcPieceEnum;

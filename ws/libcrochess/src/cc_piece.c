@@ -25,11 +25,13 @@ CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light )
         case 'R' : return ( is_light ) ? CC_PE_LightRook : CC_PE_DarkRook;
         case 'Q' : return ( is_light ) ? CC_PE_LightQueen : CC_PE_DarkQueen;
         case 'K' : return ( is_light ) ? CC_PE_LightKing : CC_PE_DarkKing;
-        case 'G' : return ( is_light ) ? CC_PE_LightPegasus : CC_PE_DarkPegasus;
+        case 'E' : return ( is_light ) ? CC_PE_LightPegasus : CC_PE_DarkPegasus;
         case 'A' : return ( is_light ) ? CC_PE_LightPyramid : CC_PE_DarkPyramid;
         case 'U' : return ( is_light ) ? CC_PE_LightUnicorn : CC_PE_DarkUnicorn;
         case 'W' : return ( is_light ) ? CC_PE_LightWave : CC_PE_DarkWave;
         case 'C' : return ( is_light ) ? CC_PE_LightCentaur : CC_PE_DarkCentaur;
+        case 'O' : return ( is_light ) ? CC_PE_LightScout : CC_PE_DarkScout;
+        case 'G' : return ( is_light ) ? CC_PE_LightGrenadier : CC_PE_DarkGrenadier;
         case 'S' : return ( is_light ) ? CC_PE_LightSerpent : CC_PE_DarkSerpent;
         case 'H' : return ( is_light ) ? CC_PE_LightShaman : CC_PE_DarkShaman;
         case 'I' : return ( is_light ) ? CC_PE_LightStarchild : CC_PE_DarkStarchild;
@@ -52,11 +54,13 @@ bool cc_piece_symbol_is_valid( char c )
         case 'R' :
         case 'Q' :
         case 'K' :
-        case 'G' :
+        case 'E' :
         case 'A' :
         case 'U' :
         case 'W' :
         case 'C' :
+        case 'O' :
+        case 'G' :
         case 'S' :
         case 'H' :
         case 'I' :
@@ -78,6 +82,8 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum pe )
         case CC_PE_DarkStarchild : return CC_PE_LightStarchild;
         case CC_PE_DarkShaman : return CC_PE_LightShaman;
         case CC_PE_DarkSerpent : return CC_PE_LightSerpent;
+        case CC_PE_DarkGrenadier : return CC_PE_LightGrenadier;
+        case CC_PE_DarkScout : return CC_PE_LightScout;
         case CC_PE_DarkCentaur : return CC_PE_LightCentaur;
         case CC_PE_DarkWave : return CC_PE_LightWave;
         case CC_PE_DarkUnicorn : return CC_PE_LightUnicorn;
@@ -103,6 +109,8 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum pe )
         case CC_PE_LightUnicorn : return CC_PE_DarkUnicorn;
         case CC_PE_LightWave : return CC_PE_DarkWave;
         case CC_PE_LightCentaur : return CC_PE_DarkCentaur;
+        case CC_PE_LightScout : return CC_PE_DarkScout;
+        case CC_PE_LightGrenadier : return CC_PE_DarkGrenadier;
         case CC_PE_LightSerpent : return CC_PE_DarkSerpent;
         case CC_PE_LightShaman : return CC_PE_DarkShaman;
         case CC_PE_LightStarchild : return CC_PE_DarkStarchild;
@@ -124,11 +132,13 @@ char cc_piece_as_char( CcPieceEnum pe )
         case CC_PE_DarkStarchild : return 'i';
         case CC_PE_DarkShaman : return 'h';
         case CC_PE_DarkSerpent : return 's';
+        case CC_PE_DarkGrenadier : return 'g';
+        case CC_PE_DarkScout : return 'o';
         case CC_PE_DarkCentaur : return 'c';
         case CC_PE_DarkWave : return 'w';
         case CC_PE_DarkUnicorn : return 'u';
         case CC_PE_DarkPyramid : return 'a';
-        case CC_PE_DarkPegasus : return 'g';
+        case CC_PE_DarkPegasus : return 'e';
         case CC_PE_DarkKing : return 'k';
         case CC_PE_DarkQueen : return 'q';
         case CC_PE_DarkRook : return 'r';
@@ -144,11 +154,13 @@ char cc_piece_as_char( CcPieceEnum pe )
         case CC_PE_LightRook : return 'R';
         case CC_PE_LightQueen : return 'Q';
         case CC_PE_LightKing : return 'K';
-        case CC_PE_LightPegasus : return 'G';
+        case CC_PE_LightPegasus : return 'E';
         case CC_PE_LightPyramid : return 'A';
         case CC_PE_LightUnicorn : return 'U';
         case CC_PE_LightWave : return 'W';
         case CC_PE_LightCentaur : return 'C';
+        case CC_PE_LightScout : return 'O';
+        case CC_PE_LightGrenadier : return 'G';
         case CC_PE_LightSerpent : return 'S';
         case CC_PE_LightShaman : return 'H';
         case CC_PE_LightStarchild : return 'I';
@@ -170,11 +182,13 @@ CcPieceEnum cc_piece_from_char( char piece )
         case 'i' : return CC_PE_DarkStarchild;
         case 'h' : return CC_PE_DarkShaman;
         case 's' : return CC_PE_DarkSerpent;
+        case 'g' : return CC_PE_DarkGrenadier;
+        case 'o' : return CC_PE_DarkScout;
         case 'c' : return CC_PE_DarkCentaur;
         case 'w' : return CC_PE_DarkWave;
         case 'u' : return CC_PE_DarkUnicorn;
         case 'a' : return CC_PE_DarkPyramid;
-        case 'g' : return CC_PE_DarkPegasus;
+        case 'e' : return CC_PE_DarkPegasus;
         case 'k' : return CC_PE_DarkKing;
         case 'q' : return CC_PE_DarkQueen;
         case 'r' : return CC_PE_DarkRook;
@@ -190,11 +204,13 @@ CcPieceEnum cc_piece_from_char( char piece )
         case 'R' : return CC_PE_LightRook;
         case 'Q' : return CC_PE_LightQueen;
         case 'K' : return CC_PE_LightKing;
-        case 'G' : return CC_PE_LightPegasus;
+        case 'E' : return CC_PE_LightPegasus;
         case 'A' : return CC_PE_LightPyramid;
         case 'U' : return CC_PE_LightUnicorn;
         case 'W' : return CC_PE_LightWave;
         case 'C' : return CC_PE_LightCentaur;
+        case 'O' : return CC_PE_LightScout;
+        case 'G' : return CC_PE_LightGrenadier;
         case 'S' : return CC_PE_LightSerpent;
         case 'H' : return CC_PE_LightShaman;
         case 'I' : return CC_PE_LightStarchild;
@@ -222,6 +238,12 @@ char const * cc_piece_label( CcPieceEnum pe )
 
         case CC_PE_DarkSerpent :
         case CC_PE_LightSerpent : return "Serpent";
+
+        case CC_PE_DarkGrenadier :
+        case CC_PE_LightGrenadier : return "Grenadier";
+
+        case CC_PE_DarkScout :
+        case CC_PE_LightScout : return "Scout";
 
         case CC_PE_DarkCentaur :
         case CC_PE_LightCentaur : return "Centaur";
@@ -283,6 +305,8 @@ bool cc_piece_is_dark( CcPieceEnum pe )
         case CC_PE_DarkStarchild :
         case CC_PE_DarkShaman :
         case CC_PE_DarkSerpent :
+        case CC_PE_DarkGrenadier :
+        case CC_PE_DarkScout :
         case CC_PE_DarkCentaur :
         case CC_PE_DarkWave :
         case CC_PE_DarkUnicorn :
@@ -316,6 +340,8 @@ bool cc_piece_is_light( CcPieceEnum pe )
         case CC_PE_LightUnicorn :
         case CC_PE_LightWave :
         case CC_PE_LightCentaur :
+        case CC_PE_LightScout :
+        case CC_PE_LightGrenadier :
         case CC_PE_LightSerpent :
         case CC_PE_LightShaman :
         case CC_PE_LightStarchild :
