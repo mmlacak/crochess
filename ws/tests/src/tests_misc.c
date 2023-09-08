@@ -28,13 +28,11 @@
 
 
 void test_gcd( int x, int y ) {
-    printf( "%d ~ %d --> %d\n", x, y, cc_gcd( x, y ) );
-}
+    printf( "%d ~ %d --> %d\n", x, y, cc_gcd( x, y ) ); }
 
 void test_pos_step( int i1, int j1, int i2, int j2 ) {
     CcPos step = cc_pos_step( cc_pos( i1, j1 ), cc_pos( i2, j2 ) );
-    printf( "(%d, %d) ~ (%d, %d) --> (%d, %d)\n", i1, j1, i2, j2, step.i, step.j );
-}
+    printf( "(%d, %d) ~ (%d, %d) --> (%d, %d)\n", i1, j1, i2, j2, step.i, step.j ); }
 
 char * test_str_append_into( char const * restrict buffer,
                              char * restrict str__io,
@@ -44,8 +42,7 @@ char * test_str_append_into( char const * restrict buffer,
     printf( "Before: %s\n", buffer );
     char * io = cc_str_append_into( str__io, size_dest__d, str, max_len__d );
     printf( "After: %s\n", buffer );
-    return io;
-}
+    return io; }
 
 
 bool tests_gcds( void ) {
@@ -90,8 +87,7 @@ bool tests_gcds( void ) {
     test_gcd( 24, 11 );
     printf( "---------------------\n" );
 
-    return true;
-}
+    return true; }
 
 bool tests_pos_steps( void ) {
     test_pos_step( 2, 3, 14, 15 );
@@ -110,8 +106,7 @@ bool tests_pos_steps( void ) {
     test_pos_step( 17, 11, 2, 3 );
     printf( "---------------------\n" );
 
-    return true;
-}
+    return true; }
 
 bool tests_str_append_into( void ) {
     char x[ BUFSIZ ];
@@ -137,8 +132,7 @@ bool tests_str_append_into( void ) {
     p = test_str_append_into( x, p, 12, " Goodbye, again!", CC_MAX_LEN_ZERO_TERMINATED );
     printf( "---------------------\n" );
 
-    return (bool)( p );
-}
+    return (bool)( p ); }
 
 bool tests_str_len( void ) {
     char const * hello = "Hello, buggy world!";
@@ -178,15 +172,13 @@ bool tests_str_len( void ) {
 
     printf( "---------------------\n" );
 
-    return result;
-}
+    return result; }
 
 
 bool tests_misc( int test_number ) {
     if ( ( test_number < 0 ) || ( 4 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
-        return false;
-    }
+        return false; }
 
     bool do_all_tests = ( test_number == 0 );
     bool result = true;
@@ -204,5 +196,4 @@ bool tests_misc( int test_number ) {
         result = tests_str_len() && result;
 
     printf( "Finished: '%d'.\n", result );
-    return result;
-}
+    return result; }

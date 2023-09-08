@@ -88,8 +88,7 @@ typedef enum CcVariantEnum
     CC_VE_TamoanchanRevisited,
     CC_VE_ConquestOfTlalocan,
     CC_VE_Discovery,
-    CC_VE_One,
-} CcVariantEnum;
+    CC_VE_One, } CcVariantEnum;
 
 
 /**

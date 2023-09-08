@@ -58,8 +58,7 @@ typedef enum CcGameStatusEnum
     CC_GSE_Turn_Dark, /**< Dark player is on turn. */
     CC_GSE_Win_Light, /**< Light player has won. */
     CC_GSE_Win_Dark, /**< Dark player has won. */
-    CC_GSE_Draw, /**< Game was drawn. */
-} CcGameStatusEnum;
+    CC_GSE_Draw, /**< Game was drawn. */ } CcGameStatusEnum;
 
 /**
     Function returns next game status, based on current one, and additional flags
@@ -92,8 +91,7 @@ typedef struct CcGame
 {
     CcGameStatusEnum status; /**< Current game status. */
     CcChessboard * chessboard; /**< Current position on a chessboard. */
-    CcMove * moves; /**< Queue of moves played so far. */
-} CcGame;
+    CcMove * moves; /**< Queue of moves played so far. */ } CcGame;
 
 /**
     Returns a newly allocated game.

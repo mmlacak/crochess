@@ -13,8 +13,7 @@ typedef enum TestMsgEnum
     TME_Info,
     TME_Warning,
     TME_Error,
-    TME_Fatal,
-} TestMsgEnum;
+    TME_Fatal, } TestMsgEnum;
 
 char * test_msgs_enum_label( TestMsgEnum tme );
 
@@ -33,8 +32,7 @@ typedef struct TestMsgs
     char * file;
     size_t line;
     char * func;
-    struct TestMsgs * next;
-} TestMsgs;
+    struct TestMsgs * next; } TestMsgs;
 
 TestMsgs * test_msgs__new( TestMsgEnum type,
                            char const * restrict msg,

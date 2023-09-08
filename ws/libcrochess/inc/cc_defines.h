@@ -271,11 +271,9 @@
 
     @return Nothing.
 */
-#define CC_FREE_NULL(ptr_ptr)           \
-{                                       \
+#define CC_FREE_NULL(ptr_ptr) {         \
     free( (void *)( *(ptr_ptr) ) );     \
-    *(ptr_ptr) = NULL;                  \
-}
+    *(ptr_ptr) = NULL; }
 
 /**
     Macro to call `printf()`, depending on a compile-time constant.

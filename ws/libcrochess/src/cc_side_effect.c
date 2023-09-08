@@ -30,9 +30,7 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see ) {
         case CC_SEE_ResurrectingOpponent : return "$$"; /* Syzygy, resurrecting opponent's piece, corresponds to $$ (dual dollar-sign). */
         case CC_SEE_FailedResurrection : return "$$$"; /* Syzygy, failed resurrection, corresponds to $$$ (triple dollar-sign). */
 
-        default : return "?";
-    }
-}
+        default : return "?"; } }
 
 
 CcSideEffect cc_side_effect( CcSideEffectEnum type,
@@ -78,13 +76,11 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     else if ( sse.type == CC_SEE_Resurrection ||
               sse.type == CC_SEE_ResurrectingOpponent ) {
         sse.resurrect.piece = piece;
-        sse.resurrect.destination = destination;
-    }
+        sse.resurrect.destination = destination; }
     // Nothing more to do if type == CC_SEE_FailedConversion.
     // Nothing more to do if type == CC_SEE_FailedResurrection.
 
-    return sse;
-}
+    return sse; }
 
 CcPieceEnum cc_side_effect_piece( CcSideEffect se ) {
     switch ( se.type ) {
@@ -107,9 +103,7 @@ CcPieceEnum cc_side_effect_piece( CcSideEffect se ) {
 
         case CC_SEE_FailedResurrection : return CC_PE_None;
 
-        default : return CC_PE_None;
-    }
-}
+        default : return CC_PE_None; } }
 
 CcPos cc_side_effect_destination( CcSideEffect se ) {
     switch ( se.type ) {
@@ -132,9 +126,7 @@ CcPos cc_side_effect_destination( CcSideEffect se ) {
 
         case CC_SEE_FailedResurrection : return CC_POS_CAST_INVALID;
 
-        default : return CC_POS_CAST_INVALID;
-    }
-}
+        default : return CC_POS_CAST_INVALID; } }
 
 //
 // conveniances
@@ -143,96 +135,82 @@ CcSideEffect cc_side_effect_none( void ) {
     return cc_side_effect( CC_SEE_None, CC_PE_None, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag ) {
     return cc_side_effect( CC_SEE_Capture, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_displacement( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination ) {
     return cc_side_effect( CC_SEE_Displacement, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            destination,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_en_passant( CcPieceEnum pawn, CcPos distant ) {
     return cc_side_effect( CC_SEE_EnPassant, pawn, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            distant,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination ) {
-    return cc_side_effect( CC_SEE_Castle, rook, CC_LTE_None, start, destination, CC_PE_None );
-}
+    return cc_side_effect( CC_SEE_Castle, rook, CC_LTE_None, start, destination, CC_PE_None ); }
 
 CcSideEffect cc_side_effect_promote( CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to ) {
     return cc_side_effect( CC_SEE_Promotion, captured, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           promoted_to );
-}
+                           promoted_to ); }
 
 CcSideEffect cc_side_effect_tag_for_promotion( CcPieceEnum captured, CcLosingTagEnum lost_tag ) {
     return cc_side_effect( CC_SEE_TagForPromotion, captured, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_convert( CcPieceEnum piece, CcLosingTagEnum lost_tag ) {
     return cc_side_effect( CC_SEE_Conversion, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_failed_conversion( void ) {
     return cc_side_effect( CC_SEE_FailedConversion, CC_PE_None, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_transparency( CcPieceEnum piece ) {
     return cc_side_effect( CC_SEE_Transparency, piece, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_diversion( CcPieceEnum piece ) {
     return cc_side_effect( CC_SEE_Divergence, piece, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_demote( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant ) {
     return cc_side_effect( CC_SEE_DemoteToPawn, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            distant,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_resurrect( CcPieceEnum piece, CcPos destination ) {
     return cc_side_effect( CC_SEE_Resurrection, piece, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            destination,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 CcSideEffect cc_side_effect_failed_resurrection( void ) {
     return cc_side_effect( CC_SEE_FailedResurrection, CC_PE_None, CC_LTE_None,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
-}
+                           CC_PE_None ); }
 
 
 bool cc_side_effect_to_short_str( CcSideEffect se,
@@ -255,23 +233,20 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
         lte = se.promote.lost_tag; }
     else if ( se.type == CC_SEE_TagForPromotion ) {
         captured = se.tag_for_promotion.captured;
-        lte = se.tag_for_promotion.lost_tag;
-    }
+        lte = se.tag_for_promotion.lost_tag; }
 
     if ( !CC_PIECE_IS_NONE( captured ) ) {
         *se_p++ = '*';
 
         char captured_char = cc_piece_symbol( captured );
-        *se_p++ = captured_char;
-    }
+        *se_p++ = captured_char; }
 
     if ( lte != CC_LTE_None ) {
         char const * lte_str = cc_losing_tag_as_string( lte );
         size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
         copied = cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
         if ( copied != lte_str_len ) return false;
-        se_p += copied;
-    }
+        se_p += copied; }
 
     char const * see_str = cc_side_effect_symbol( se.type );
     size_t see_str_len = cc_str_len( see_str, NULL, CC_MAX_LEN_SIDE_EFFECT_SYMBOL );
@@ -293,5 +268,4 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
     if ( copied != pos_len ) return false;
     /* se_p += copied; */
 
-    return true;
-}
+    return true; }

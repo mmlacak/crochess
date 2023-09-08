@@ -43,18 +43,14 @@ bool print_all_moves( CcMove * restrict moves ) {
 
             if ( !m->next ) {
                 printf( "%lu %s ...\n", index+1, l->notation );
-                break;
-            } }
+                break; } }
         else {
             d = m;
-            printf( "%lu %s %s\n", ++index, l->notation, d->notation );
-        }
+            printf( "%lu %s %s\n", ++index, l->notation, d->notation ); }
 
-        m = m->next;
-    }
+        m = m->next; }
 
-    return true;
-}
+    return true; }
 
 
 int main( void ) {
@@ -74,8 +70,7 @@ int main( void ) {
         ret = fgets( buffer, BUFSIZ, stdin );
         if ( !ret ) {
             printf( "Input error.\n" );
-            continue;
-        }
+            continue; }
 
         char const * token_start = NULL;
         char const * token_end = NULL;
@@ -126,8 +121,7 @@ int main( void ) {
                 // }
 // TODO
 
-                cc_parse_msg_free_all( &pm__a );
-            } }
+                cc_parse_msg_free_all( &pm__a ); } }
         else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
             bool is_code = false;
@@ -147,16 +141,14 @@ int main( void ) {
 
                     game__a = cc_game__new( CC_GSE_Turn_Light, ve, true ); }
                 else
-                    print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 );
-            }
+                    print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 ); }
 
             bool is_empty = cc_str_is_empty( code );
             if ( is_empty || ( !is_empty && is_code ) ) {
                 cc_chessboard_setup( game__a->chessboard );
                 game__a->status = CC_GSE_Turn_Light;
 
-                cc_chessboard_print( game__a->chessboard, true );
-            } }
+                cc_chessboard_print( game__a->chessboard, true ); } }
         else if ( cc_str_is_equal( token_start, token_end, "h", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "?", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "help", NULL, BUFSIZ ) ) {
@@ -182,20 +174,16 @@ int main( void ) {
                           cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
                     print_help_new();
                 else
-                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL );
-            }
+                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL ); }
             else
                 print_help(); }
         else {
             printf( "Unknown: '%s'.\n", buffer );
-            // fflush( stdout );
-        }
-    }
+            /* fflush( stdout ); */ } }
 
     cc_game_free_all( &game__a );
 
     printf( "Bye, have a nice day!\n" );
     // fflush( stdout );
 
-    return 0;
-}
+    return 0; }

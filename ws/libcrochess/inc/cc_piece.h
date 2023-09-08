@@ -601,8 +601,7 @@ typedef enum CcPieceEnum
 
     CC_PE_BrightStar = 17,
 
-    CC_PE_Monolith,
-} CcPieceEnum;
+    CC_PE_Monolith, } CcPieceEnum;
 
 
 /**

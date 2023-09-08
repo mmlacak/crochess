@@ -40,8 +40,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                                     ply_str__a );
 
         CC_FREE( ply_str__a );
-        return false;
-    }
+        return false; }
 
     char const * c_str = ply_start_an + cc_ply_link_len( ple );
 
@@ -58,8 +57,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                                     CC_MAX_LEN_ZERO_TERMINATED,
                                     "Invalid piece symbol '%c'.\n",
                                     piece_symbol );
-        return false;
-    }
+        return false; }
 
     *before_ply_start__io = CC_POS_PIECE_TAG_CAST_INVALID;
 
@@ -81,13 +79,10 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             "%s King not found.\n",
                                             color );
-                return false;
-            }
+                return false; }
 
             before_ply_start__io->pos = pos;
-            before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
-        }
-    }
+            before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j ); } }
 
     if ( CC_CHAR_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
 
@@ -108,8 +103,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                           cb__io,
                           parse_msgs__iod ) ) {
         cc_step_free_all( &steps__t );
-        return false;
-    }
+        return false; }
 
     //
     // Updating last destination, before change.
@@ -118,8 +112,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     if ( !destination ) {
         cc_step_free_all( &steps__t );
-        return false;
-    }
+        return false; }
 
     CcPos pos = destination->field;
 
@@ -144,8 +137,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     //                         &steps__t ) )
     //     return false;
 
-    return true;
-}
+    return true; }
 
 
 bool cc_parse_plies( char const * restrict move_an,
@@ -179,8 +171,7 @@ bool cc_parse_plies( char const * restrict move_an,
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
 printf( "!cc_parse_ply( ... )\n" ); // TODO :: DEBUG :: DELETE
-            return false;
-        }
+            return false; }
 
 // TODO :: DEBUG :: DELETE
 //
@@ -200,11 +191,9 @@ printf( "!cc_parse_ply( ... )\n" ); // TODO :: DEBUG :: DELETE
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
 printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
-            return false;
-        }
+            return false; }
 
-        is_first_ply = false;
-    }
+        is_first_ply = false; }
 
 
 
@@ -226,5 +215,4 @@ printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
     // plies__t = NULL; // Not needed.
 
     cc_chessboard_free_all( &cb__a );
-    return true;
-}
+    return true; }

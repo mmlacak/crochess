@@ -150,8 +150,7 @@ typedef enum CcTagEnum
 
     CC_TE_EnPassant, /**< En passant tag, semi-persistant. Gained in a move, used or lost in the very next one. */
 
-    CC_TE_PawnSacrifice, /**< Pawn sacrifice tag, non-persistant. Gained in a move, used or lost in the very same move. */
-} CcTagEnum;
+    CC_TE_PawnSacrifice, /**< Pawn sacrifice tag, non-persistant. Gained in a move, used or lost in the very same move. */ } CcTagEnum;
 
 
 /**
@@ -187,8 +186,7 @@ typedef enum CcLosingTagEnum
 
     CC_LTE_CanRush = (int)CC_TE_CanRush, /**< Pawn can rush, persistant tag. */
     CC_LTE_CanCastle = (int)CC_TE_CanCastle, /**< Rooks, Kings can castle, persistant tag. */
-    CC_LTE_DelayedPromotion = (int)CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */
-} CcLosingTagEnum;
+    CC_LTE_DelayedPromotion = (int)CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */ } CcLosingTagEnum;
 
 /**
     Maximum length of a losing-tag symbol.

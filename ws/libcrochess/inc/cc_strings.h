@@ -19,8 +19,7 @@
 typedef struct CcStrings
 {
     char * str; /**< A string. */
-    struct CcStrings * next; /**< Next string, in a linked list. */
-} CcStrings;
+    struct CcStrings * next; /**< Next string, in a linked list. */ } CcStrings;
 
 /**
     Returns a newly allocated string.

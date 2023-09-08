@@ -39,18 +39,13 @@ static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
         if ( *--c == '=' ) {
             if ( *--c == '(' ) {
                 // "(=)" draw offered
-                return CC_DRAW_OFFER_FOUND;
-            } }
+                return CC_DRAW_OFFER_FOUND; } }
         else if ( *c == '-' ) {
             if ( *--c == '(' ) {
                 // "(-)" draw offer canceled
-                return CC_DRAW_OFFER_CANCELED;
-            }
-        }
-    }
+                return CC_DRAW_OFFER_CANCELED; } } }
 
-    return CC_DRAW_OFFER_NOT_FOUND;
-}
+    return CC_DRAW_OFFER_NOT_FOUND; }
 
 
 bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
@@ -76,18 +71,15 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
         if ( m )
             m = m->prev;
         else
-            break;
-    }
+            break; }
 
-    return false;
-}
+    return false; }
 
 int cc_promoting_rank( CcChessboard * restrict cb, bool is_light ) {
     if ( !is_light ) return 0;
     if ( !cb ) return CC_INVALID_COORD;
 
-    return cb->size - 1;
-}
+    return cb->size - 1; }
 
 // TODO :: DELETE
 //
@@ -99,9 +91,7 @@ int cc_promoting_rank( CcChessboard * restrict cb, bool is_light ) {
 //             return ( lost == tag );
 
 //         default :
-//             return false;
-//     }
-// }
+//             return false; } }
 //
 // TODO :: DELETE
 
@@ -140,11 +130,9 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         // Static promotion.
 
         CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
-        if ( CC_TAG_CAN_PROMOTE( te ) ) return true;
-    }
+        if ( CC_TAG_CAN_PROMOTE( te ) ) return true; }
 
-    return false;
-}
+    return false; }
 
 bool cc_delete_en_passant_tag( CcChessboard * restrict cb ) {
     if ( !cb ) return false;
@@ -159,10 +147,6 @@ bool cc_delete_en_passant_tag( CcChessboard * restrict cb ) {
                 if ( !cc_chessboard_set_tag( cb, i, j, CC_TE_None ) )
                     return false;
 
-                ++count;
-            }
-        }
-    }
+                ++count; } } }
 
-    return ( count <= 1 );
-}
+    return ( count <= 1 ); }

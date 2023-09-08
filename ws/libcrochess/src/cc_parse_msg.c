@@ -25,8 +25,7 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
     pm__a->msg = cc_str_duplicate__new( msg, false, max_len__d );
     pm__a->next = NULL;
 
-    return pm__a;
-}
+    return pm__a; }
 
 CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__iod,
                                   CcParseMsgTypeEnum type,
@@ -41,8 +40,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__iod,
     while ( pm->next ) pm = pm->next; // rewind
     pm->next = pm__t; // append // Ownership transfer --> pm__t is now weak pointer.
 
-    return pm__t;
-}
+    return pm__t; }
 
 CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__iod,
                                      CcParseMsgTypeEnum type,
@@ -57,8 +55,7 @@ CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__iod,
     else
         pm__w = cc_parse_msg_append( *parse_msgs__iod, type, msg, max_len__d );
 
-    return pm__w;
-}
+    return pm__w; }
 
 CcParseMsg * cc_parse_msg_append_fmt_va_if( CcParseMsg ** restrict parse_msgs__iod,
                                             CcParseMsgTypeEnum type,
@@ -79,8 +76,7 @@ CcParseMsg * cc_parse_msg_append_fmt_va_if( CcParseMsg ** restrict parse_msgs__i
 
     CC_FREE( msg__a );
 
-    return pm__w;
-}
+    return pm__w; }
 
 CcParseMsg * cc_parse_msg_append_fmt_if( CcParseMsg ** restrict parse_msgs__iod,
                                          CcParseMsgTypeEnum type,
@@ -95,8 +91,7 @@ CcParseMsg * cc_parse_msg_append_fmt_if( CcParseMsg ** restrict parse_msgs__iod,
 
     va_end( args );
 
-    return pm__w;
-}
+    return pm__w; }
 
 bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f ) {
     if ( !parse_msgs__f ) return false;
@@ -110,12 +105,10 @@ bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f ) {
 
         tmp = pm->next;
         CC_FREE( pm );
-        pm = tmp;
-    }
+        pm = tmp; }
 
     *parse_msgs__f = NULL;
-    return true;
-}
+    return true; }
 
 
 CcParseMsg * cc_parse_msg_get_last( CcParseMsg * restrict parse_msgs ) {
@@ -126,5 +119,4 @@ CcParseMsg * cc_parse_msg_get_last( CcParseMsg * restrict parse_msgs ) {
     while ( pm__w->next )
         pm__w = pm__w->next;
 
-    return pm__w;
-}
+    return pm__w; }

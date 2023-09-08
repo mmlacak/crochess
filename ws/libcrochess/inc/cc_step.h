@@ -25,8 +25,7 @@ typedef enum CcStepLinkEnum
     CC_SLE_Reposition, /**< In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
     CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
     CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
-    CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
-} CcStepLinkEnum;
+    CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */ } CcStepLinkEnum;
 
 /**
     Function returns string symbol, as used in algebraic notation, for a given step link.
@@ -52,8 +51,7 @@ typedef struct CcStep
     CcPos field; /**< Field of a step. */
     CcSideEffect side_effect; /**< Side-effect structure. */
 
-    struct CcStep * next; /**< Next step in a linked list. */
-} CcStep;
+    struct CcStep * next; /**< Next step in a linked list. */ } CcStep;
 
 /**
     Returns a newly allocated step.

@@ -11,14 +11,12 @@
 void print_license_intro( void ) {
     printf( "Croatian chess - chess variants tests application\n"
             "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n" );
-    // fflush( stdout );
-}
+    /* fflush( stdout ); */ }
 
 void print_version_info( char const * restrict lib_ver, char const * restrict app_ver ) {
     printf( "Library: %s\n", lib_ver );
     printf( "Application: %s\n", app_ver );
-    // fflush( stdout );
-}
+    /* fflush( stdout ); */ }
 
 void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver ) {
     print_license_intro();
@@ -31,8 +29,7 @@ void print_app_intro( char const * restrict lib_ver, char const * restrict app_v
 
     printf( "\n" );
 
-    // fflush( stdout );
-}
+    /* fflush( stdout ); */ }
 
 void print_licence_text( void ) {
     printf( "\n"
@@ -48,13 +45,11 @@ void print_licence_text( void ) {
             "\n"
             "You should have received a copy of the GNU General Public License\n"
             "along with this program.  If not, see <https://www.gnu.org/licenses/>.\n" );
-    // fflush( stdout );
-}
+    /* fflush( stdout ); */ }
 
 void print_about_info( void ) {
     print_license_intro();
-    print_licence_text();
-}
+    print_licence_text(); }
 
 void print_help_new_code( void ) {
     printf( "cc  -> Classical Chess\n"
@@ -67,8 +62,7 @@ void print_help_new_code( void ) {
             "tr  -> Tamoanchan Revisited\n"
             "cot -> Conquest Of Tlalocan\n"
             "d   -> Discovery\n"
-            "o   -> One\n" );
-}
+            "o   -> One\n" ); }
 
 void print_new_code_invalid( char const * restrict str,
                              size_t max_len__d ) {
@@ -77,16 +71,12 @@ void print_new_code_invalid( char const * restrict str,
 
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
             printf( "%s", str );
-        else
-        {
+        else {
             for ( size_t i = 0; i < max_len__d; ++i )
-                printf( "%c", *str++ );
-        }
+                printf( "%c", *str++ ); }
 
-        printf( "'.\n" );
-    }
+        printf( "'.\n" ); }
 
     printf( "\nUse following code for new variant game:\n" );
     print_help_new_code();
-    printf( "\ne.g. use `new aoa` to play \"Age Of Aquarius\" variant.\n" );
-}
+    printf( "\ne.g. use `new aoa` to play \"Age Of Aquarius\" variant.\n" ); }

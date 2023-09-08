@@ -639,8 +639,7 @@ char * cc_str_duplicate__new( char const * restrict str,
 
     while ( iter( ... ) ) {
         walking = cc_str_append_into( walking, ... );
-        if ( !walking ) break;
-    }
+        if ( !walking ) break; }
     @endcode
 
     @see

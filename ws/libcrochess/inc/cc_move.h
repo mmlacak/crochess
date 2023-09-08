@@ -30,8 +30,7 @@ typedef enum CcMoveStatusEnum
 
     CC_MSE_Resign, /**< Player resigned, game ended. */
     CC_MSE_DrawAccepted, /**< Player accepted draw offer, game ended. */
-    CC_MSE_DrawByRules, /**< Game was drawn by rules, game ended. */
-} CcMoveStatusEnum;
+    CC_MSE_DrawByRules, /**< Game was drawn by rules, game ended. */ } CcMoveStatusEnum;
 
 
 /**
@@ -45,8 +44,7 @@ typedef struct CcMove
     CcMoveStatusEnum status; /**< Status. */
 
     struct CcMove * prev; /**< Previous move, in a queue. */
-    struct CcMove * next; /**< Next move. */
-} CcMove;
+    struct CcMove * next; /**< Next move. */ } CcMove;
 
 
 /**

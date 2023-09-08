@@ -33,8 +33,7 @@ typedef enum CcPlyLinkEnum
     CC_PLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
     CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
     CC_PLE_SenseJourney, /**< Sense-journey, corresponds to `"`. */
-    CC_PLE_FailedSenseJourney, /**< Failed sense-journey, corresponds to `'`. */
-} CcPlyLinkEnum;
+    CC_PLE_FailedSenseJourney, /**< Failed sense-journey, corresponds to `'`. */ } CcPlyLinkEnum;
 
 
 #define CC_PLY_LINK_IS_NONE(ple) ( (ple) == CC_PLE_None )
@@ -114,8 +113,7 @@ typedef struct CcPly
     CcLosingTagEnum lost_tag; /**< Flag, whether moving piece has lost its tag. */
     CcStep * steps; /**< Steps taken by the piece. */
 
-    struct CcPly * next; /**< Next ply in a cascade. */
-} CcPly;
+    struct CcPly * next; /**< Next ply in a cascade. */ } CcPly;
 
 /**
     Returns newly allocated ply.

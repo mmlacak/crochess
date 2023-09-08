@@ -23,8 +23,7 @@ bool cc_is_pawn_capture_valid( CcChessboard * restrict cb,
 
     CcPos step = cc_pos_difference( destination, start );
 
-    return cc_is_pawn_capture_step( cb->type, pawn, step );
-}
+    return cc_is_pawn_capture_step( cb->type, pawn, step ); }
 
 bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
                             CcPieceEnum pawn,
@@ -39,8 +38,7 @@ bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
 
     if ( !CC_PIECE_IS_NONE( pe ) ) {
         if ( !cc_piece_has_same_color( pawn, pe ) ) return false;
-        if ( !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
-    }
+        if ( !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false; }
 
     CcPos step = CC_POS_CAST_INVALID;
 
@@ -52,10 +50,8 @@ bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
         if ( cc_piece_is_light( pawn ) ) {
             if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) ) return true; }
         else
-            if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ) return true;
-    }
+            if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ) return true; }
 
     step = cc_pos_difference( destination, start );
 
-    return cc_is_pawn_step( cb->type, pawn, step );
-}
+    return cc_is_pawn_step( cb->type, pawn, step ); }

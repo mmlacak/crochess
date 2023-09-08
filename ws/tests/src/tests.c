@@ -47,11 +47,9 @@ int get_integer_from_cli_arg( char const * restrict str,
         if ( len > CC_MAX_LEN_CHAR_16 - 1 ) return default_num;
 
         memcpy( num, *first_io, len );
-        number = atoi( num );
-    }
+        number = atoi( num ); }
 
-    return number;
-}
+    return number; }
 
 bool print_all_moves( CcMove * restrict moves ) {
     if ( !moves ) return false;
@@ -71,18 +69,14 @@ bool print_all_moves( CcMove * restrict moves ) {
 
             if ( !m->next ) {
                 printf( "%lu %s ...\n", index+1, l->notation );
-                break;
-            } }
+                break; } }
         else {
             d = m;
-            printf( "%lu %s %s\n", ++index, l->notation, d->notation );
-        }
+            printf( "%lu %s %s\n", ++index, l->notation, d->notation ); }
 
-        m = m->next;
-    }
+        m = m->next; }
 
-    return true;
-}
+    return true; }
 
 
 int main( void ) {
@@ -134,8 +128,7 @@ int main( void ) {
         ret = fgets( buffer, BUFSIZ, stdin );
         if ( !ret ) {
             printf( "Input error.\n" );
-            continue;
-        }
+            continue; }
 
         char const * token_start = NULL;
         char const * token_end = NULL;
@@ -182,14 +175,11 @@ int main( void ) {
                     CcParseMsg * p = pm__a;
                     while ( p ) {
                         printf( "%s\n", p->msg );
-                        p = p->next;
-                    }
-                }
+                        p = p->next; } }
 //
 // TODO :: parse --> do apply
 
-                cc_parse_msg_free_all( &pm__a );
-            } }
+                cc_parse_msg_free_all( &pm__a ); } }
         else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
             bool is_code = false;
@@ -208,16 +198,14 @@ int main( void ) {
 
                     game__a = cc_game__new( CC_GSE_Turn_Light, ve, true ); }
                 else
-                    print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 );
-            }
+                    print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 ); }
 
             bool is_empty = cc_str_is_empty( code );
             if ( is_empty || ( !is_empty && is_code ) ) {
                 cc_chessboard_setup( game__a->chessboard );
                 game__a->status = CC_GSE_Turn_Light;
 
-                cc_chessboard_print( game__a->chessboard, true );
-            } }
+                cc_chessboard_print( game__a->chessboard, true ); } }
         else if ( cc_str_is_equal( token_start, token_end, "c", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "clear", NULL, BUFSIZ ) ) {
             cc_chessboard_clear( game__a->chessboard ); }
@@ -229,8 +217,7 @@ int main( void ) {
                 printf( "Not valid game setup.\n" );
             else {
                 cc_game_free_all( &game__a );
-                game__a = game__t;
-            } }
+                game__a = game__t; } }
         else if ( cc_str_is_equal( token_start, token_end, "s", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "setup", NULL, BUFSIZ ) ) {
             CcGame * game__t = cc_game_setup_from_string__new( token_end + 1, NULL );
@@ -239,8 +226,7 @@ int main( void ) {
                 printf( "Not valid game setup.\n" );
             else {
                 cc_game_free_all( &game__a );
-                game__a = game__t;
-            } }
+                game__a = game__t; } }
         else if ( cc_str_is_equal( token_start, token_end, "tb", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_book", NULL, BUFSIZ ) ) { }
         else if ( cc_str_is_equal( token_start, token_end, "tp", NULL, BUFSIZ ) ||
@@ -255,14 +241,11 @@ int main( void ) {
             tests_misc( test_number ); }
         else {
             printf( "Unknown: '%s'.\n", buffer );
-            // fflush( stdout );
-        }
-    }
+            /* fflush( stdout ); */ } }
 
     cc_game_free_all( &game__a );
 
     printf( "Bye, have a nice day!\n" );
     // fflush( stdout );
 
-    return 0;
-}
+    return 0; }

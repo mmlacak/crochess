@@ -43,17 +43,12 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
                 if ( ( !is_comparable ) ||
                        cc_pos_is_congruent( starting, current ) ) {
                     *pos__io = current;
-                    return true;
-                }
-            }
-        }
+                    return true; } } }
 
-        pos.j = 0;
-    }
+        pos.j = 0; }
 
     *pos__io = CC_POS_CAST_INVALID;
-    return false;
-}
+    return false; }
 
 
 bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
@@ -69,8 +64,7 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
                                          destination.j ) )
         return false;
 
-    return true;
-}
+    return true; }
 
 bool cc_is_step_capture( CcPieceEnum activator,
                          CcPieceEnum piece,
@@ -100,22 +94,19 @@ bool cc_is_step_capture( CcPieceEnum activator,
     else if ( CC_PIECE_IS_STARCHILD( piece ) )
         return false;
 
-    return true;
-}
+    return true; }
 
 bool cc_is_step_miracle( CcPieceEnum piece, CcPos step ) {
     if ( CC_PIECE_IS_STARCHILD( piece ) )
         return CC_STARCHILD_MIRACLE_STEP_IS_VALID( step );
 
-    return false;
-}
+    return false; }
 
 bool cc_is_step_shamans_capture( CcPieceEnum piece, CcPos step ) {
     return ( ( ( piece == CC_PE_LightShaman ) &&
                CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) ||
              ( ( piece == CC_PE_DarkShaman ) &&
-               CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) );
-}
+               CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) ); }
 
 bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                       CcPieceEnum activator,
@@ -151,8 +142,7 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                    ( CC_PIECE_IS_WAVE( piece ) &&
                      cc_is_step_miracle( activator, step ) );
         else
-            return false;
-    }
+            return false; }
 
     // Wave can be activated by any own piece, or opponent's Wave.
     if ( CC_PIECE_IS_WAVE( target ) )
@@ -164,8 +154,7 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
         if ( CC_PIECE_IS_WAVE( target ) || is_same_owner )
             return true;
         else
-            return false;
-    }
+            return false; }
 
     if ( CC_PIECE_IS_STARCHILD( piece ) ) {
         if ( CC_PIECE_IS_STARCHILD( target ) || CC_PIECE_IS_WAVE( target ) )
@@ -178,8 +167,7 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                      CC_PIECE_IS_STAR( target ) ||
                      CC_PIECE_IS_STARCHILD( target ) );
         else
-            return false;
-    }
+            return false; }
 
     // Monolith, Star can only move to an empty field.
     if ( CC_PIECE_IS_MONOLITH( piece ) || CC_PIECE_IS_STAR( piece ) )
@@ -204,8 +192,7 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                 return ( ( cc_chessboard_is_field_on_light_side( cb_before_activation,
                                                                  start.j ) ) &&
                          ( cc_chessboard_is_field_on_light_side( cb_before_activation,
-                                                                 destination.j ) ) );
-        }
+                                                                 destination.j ) ) ); }
 
         // Pyramid can convert any opponent's piece on own side of a chessboard.
         if ( target_is_owned && !is_same_owner ) {
@@ -218,20 +205,16 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                 return ( ( cc_chessboard_is_field_on_dark_side( cb_before_activation,
                                                                 start.j ) ) &&
                          ( cc_chessboard_is_field_on_dark_side( cb_before_activation,
-                                                                destination.j ) ) );
-        }
-    }
+                                                                destination.j ) ) ); } }
 
     // Any piece can capture opponent's piece, except Starchild, Wave, Star, Monolith.
     if ( piece_is_owned && target_is_owned && !is_same_owner ) {
         return ( !CC_PIECE_IS_WAVE( piece ) &&
                  !CC_PIECE_IS_STARCHILD( piece ) &&
                  !CC_PIECE_IS_MONOLITH( piece ) &&
-                 !CC_PIECE_IS_STAR( piece ) );
-    }
+                 !CC_PIECE_IS_STAR( piece ) ); }
 
-    return false;
-}
+    return false; }
 
 // TODO :: link positions for Monolith
 // TODO :: link positions for Serpent
@@ -284,21 +267,17 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
 
         if ( piece_in_the_way ) {
             cc_pos_link_free_all( &path__a );
-            return NULL;
-        }
+            return NULL; }
 
         if ( !CC_POS_LINK_APPEND( path__a, pos, pe, te ) ) {
             cc_pos_link_free_all( &path__a );
-            return NULL;
-        }
+            return NULL; }
 
         last_pos = pos;
 
         if ( is_alternating_steps ) {
             s = is_even_step ? step_2 : step;
-            is_even_step = !is_even_step;
-        }
-    }
+            is_even_step = !is_even_step; } }
 
     if ( is_alternating_steps )
         s = is_even_step ? step_2 : step;
@@ -307,8 +286,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
 
     if ( !cc_pos_is_equal( end, destination ) ) {
         cc_pos_link_free_all( &path__a );
-        return NULL;
-    }
+        return NULL; }
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
                                               destination.i,
@@ -320,11 +298,9 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
         cc_pos_link_free_all( &path__a );
-        return NULL;
-    }
+        return NULL; }
 
-    return path__a;
-}
+    return path__a; }
 
 bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
                              CcPieceEnum activator,
@@ -354,8 +330,7 @@ bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
          CC_PIECE_IS_WAVE( piece ) )
         return true;
 
-    return false;
-}
+    return false; }
 
 bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos ) {
     if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
@@ -364,8 +339,7 @@ bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos ) {
     if ( cc_piece_is_dark( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
         return true;
 
-    return false;
-}
+    return false; }
 
 
 CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
@@ -399,16 +373,12 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                                                   step,
                                                   CC_POS_CAST_STATIC_STEP );
                     else
-                        return NULL;
-                }
-            }
+                        return NULL; } }
             else if ( CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step ) ) {
-                // Nothing to be done here, except bail-out.
-            }
+                /* Nothing to be done here, except bail-out. */ }
             else if ( has_sideways_pawns &&
                       CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) {
-                // Nothing to be done here, except bail-out.
-            }
+                /* Nothing to be done here, except bail-out. */ }
             else
                 return NULL; }
         else if ( cc_piece_is_dark( piece ) ) {
@@ -422,16 +392,12 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                                                   step,
                                                   CC_POS_CAST_STATIC_STEP );
                     else
-                        return NULL;
-                }
-            }
+                        return NULL; } }
             else if ( CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) ) {
-                // Nothing to be done here, except bail-out.
-            }
+                /* Nothing to be done here, except bail-out. */ }
             else if ( has_sideways_pawns &&
                       CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) {
-                // Nothing to be done here, except bail-out.
-            }
+                /* Nothing to be done here, except bail-out. */ }
             else
                 return NULL; }
         else
@@ -453,8 +419,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
 
         if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
             cc_pos_link_free_all( &path__a );
-            return NULL;
-        }
+            return NULL; }
 
         return path__a; }
     else if ( CC_PIECE_IS_PAWN( activator ) &&
@@ -470,8 +435,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                                           start,
                                           destination,
                                           step,
-                                          CC_POS_CAST_STATIC_STEP );
-            } }
+                                          CC_POS_CAST_STATIC_STEP ); } }
         else if ( cc_piece_is_dark( activator ) ) {
             if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ||
                     CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
@@ -481,13 +445,9 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                                           start,
                                           destination,
                                           step,
-                                          CC_POS_CAST_STATIC_STEP );
-            }
-        }
-    }
+                                          CC_POS_CAST_STATIC_STEP ); } } }
 
-    return NULL;
-}
+    return NULL; }
 
 CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
@@ -526,8 +486,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
 
         if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
             cc_pos_link_free_all( &path__a );
-            return NULL;
-        }
+            return NULL; }
 
         return path__a; }
     else if ( CC_PIECE_IS_KNIGHT( activator ) &&
@@ -538,8 +497,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
                                   step,
                                   CC_POS_CAST_STATIC_STEP );
 
-    return NULL;
-}
+    return NULL; }
 
 CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
@@ -561,8 +519,7 @@ CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_CAST_STATIC_STEP );
-}
+                              CC_POS_CAST_STATIC_STEP ); }
 
 CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
                                CcPieceEnum activator,
@@ -584,8 +541,7 @@ CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_CAST_STATIC_STEP );
-}
+                              CC_POS_CAST_STATIC_STEP ); }
 
 CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
                                 CcPieceEnum activator,
@@ -607,8 +563,7 @@ CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_CAST_STATIC_STEP );
-}
+                              CC_POS_CAST_STATIC_STEP ); }
 
 CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
                                CcPieceEnum activator,
@@ -645,11 +600,9 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
         cc_pos_link_free_all( &path__a );
-        return NULL;
-    }
+        return NULL; }
 
-    return path__a;
-}
+    return path__a; }
 
 CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
@@ -671,8 +624,7 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_CAST_STATIC_STEP );
-}
+                              CC_POS_CAST_STATIC_STEP ); }
 
 CcPosLink * cc_path_pyramid__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
@@ -694,8 +646,7 @@ CcPosLink * cc_path_pyramid__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_CAST_STATIC_STEP );
-}
+                              CC_POS_CAST_STATIC_STEP ); }
 
 CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
@@ -736,8 +687,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
 
         if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
             cc_pos_link_free_all( &path__a );
-            return NULL;
-        }
+            return NULL; }
 
         return path__a; }
     else if ( CC_PIECE_IS_UNICORN( activator ) &&
@@ -750,8 +700,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
                                   CC_POS_CAST_STATIC_STEP );
 // TODO :: FIX ME :: Wave activated by Unicorn moves like free-choice Centaur !!!
 
-    return NULL;
-}
+    return NULL; }
 
 CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
                                CcPieceEnum activator,
@@ -787,11 +736,9 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
 
     if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
         cc_pos_link_free_all( &path__a );
-        return NULL;
-    }
+        return NULL; }
 
-    return path__a;
-}
+    return path__a; }
 
 // TODO :: Centaur
 
@@ -822,8 +769,7 @@ CcPosLink * cc_path_shaman__new( CcChessboard * restrict cb_before_activation,
                               start,
                               destination,
                               step,
-                              CC_POS_CAST_STATIC_STEP );
-}
+                              CC_POS_CAST_STATIC_STEP ); }
 
 // TODO :: Monolith
 
@@ -870,11 +816,9 @@ CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation
 
     if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
         cc_pos_link_free_all( &path__a );
-        return NULL;
-    }
+        return NULL; }
 
-    return path__a;
-}
+    return path__a; }
 
 
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
@@ -919,8 +863,7 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
 // TODO :: check destination field
 
 
-    return NULL;
-}
+    return NULL; }
 
 CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
@@ -964,5 +907,4 @@ CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
 // TODO :: check destination field
 
 
-    return NULL;
-}
+    return NULL; }

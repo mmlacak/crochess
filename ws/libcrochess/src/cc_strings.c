@@ -25,8 +25,7 @@ CcStrings * cc_strings__new( char const * restrict str,
     str__a->str = cc_str_duplicate__new( str, false, max_len__d );
     str__a->next = NULL;
 
-    return str__a;
-}
+    return str__a; }
 
 CcStrings * cc_strings_append( CcStrings * restrict strings__io,
                                char const * restrict str,
@@ -40,8 +39,7 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
     while ( s->next ) s = s->next; // rewind
     s->next = str__t; // append // Ownership transfer --> str__t is now weak pointer.
 
-    return str__t;
-}
+    return str__t; }
 
 CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
                                   char const * restrict str,
@@ -55,8 +53,7 @@ CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
     else
         str__w = cc_strings_append( *strings__io, str, max_len__d );
 
-    return str__w;
-}
+    return str__w; }
 
 CcStrings * cc_strings_append_fmt_if( CcStrings ** restrict strings__io,
                                       size_t max_len__d,
@@ -77,8 +74,7 @@ CcStrings * cc_strings_append_fmt_if( CcStrings ** restrict strings__io,
 
     CC_FREE( str__a );
 
-    return pm__w;
-}
+    return pm__w; }
 
 CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings ) {
     if ( !strings ) return NULL;
@@ -91,14 +87,11 @@ CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings ) {
     while ( s ) {
         if ( !cc_strings_append( new__a, s->str, CC_MAX_LEN_ZERO_TERMINATED ) ) {
             cc_strings_free_all( &new__a );
-            return NULL;
-        }
+            return NULL; }
 
-        ++s;
-    }
+        ++s; }
 
-    return new__a;
-}
+    return new__a; }
 
 bool cc_strings_free_all( CcStrings ** restrict strings__f ) {
     if ( !strings__f ) return false;
@@ -112,9 +105,7 @@ bool cc_strings_free_all( CcStrings ** restrict strings__f ) {
 
         tmp = str->next;
         CC_FREE( str );
-        str = tmp;
-    }
+        str = tmp; }
 
     *strings__f = NULL;
-    return true;
-}
+    return true; }

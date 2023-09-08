@@ -24,8 +24,7 @@ bool cc_char_in( char c, char const * restrict seps ) {
     for ( char const * x = (char *)seps; *x != '\0'; ++x )
         if ( c == *x ) return true;
 
-    return false;
-}
+    return false; }
 
 char const * cc_traverse_chars( char const * restrict pos,
                                 char const * restrict seps,
@@ -38,21 +37,17 @@ char const * cc_traverse_chars( char const * restrict pos,
 
     while ( skip_or_stop_at == cc_char_in( *pos__w, seps ) ) {
         if ( *pos__w == '\0' ) return pos__w;
-        ++pos__w;
-    }
+        ++pos__w; }
 
-    return pos__w;
-}
+    return pos__w; }
 
 char const * cc_skip_chars( char const * restrict pos,
                             char const * restrict seps ) {
-    return cc_traverse_chars( pos, seps, true );
-}
+    return cc_traverse_chars( pos, seps, true ); }
 
 char const * cc_stop_at_chars( char const * restrict pos,
                                char const * restrict seps ) {
-    return cc_traverse_chars( pos, seps, false );
-}
+    return cc_traverse_chars( pos, seps, false ); }
 
 
 bool cc_iter_token( char const * restrict str,
@@ -76,11 +71,9 @@ bool cc_iter_token( char const * restrict str,
 
     if ( ( **start__io == '\0' ) || ( *end__io == *start__io ) ) {
         *start__io = *end__io = NULL;
-        return false;
-    }
+        return false; }
 
-    return true;
-}
+    return true; }
 
 char * cc_trim_str__new( char const * restrict str,
                          char const * restrict chars ) {
@@ -102,8 +95,7 @@ char * cc_trim_str__new( char const * restrict str,
     strncpy( pos__a, start, len );
     pos__a[ len ] = '\0';
 
-    return pos__a;
-}
+    return pos__a; }
 
 // size_t cc_flush_stdin() {
 //     // All <stdio.h> getters block, can't flush.
